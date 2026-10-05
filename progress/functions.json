@@ -71250,11 +71250,15 @@
       "symbol": "func_151BFBFC"
     },
     {
+      "blocked": {
+        "reason": "Handwritten renderer performs twelve cvt.w.s conversions at 150A6B98-150A6BC4 under inherited FCSR rounding; ordinary C casts truncate and no verified in-scope rounding primitive is available. Starter also corrupts sd offsets 0/0x10/0x20/0x30 into repeated offset zero, shifts 32-bit values by 32/48, and mishandles the 150A6CFC delay-slot s2 reset. Valid C needs verified rounding-state/ABI evidence before implementation; no candidate manufactured.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 1856,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150A6860",
           "vram": "0x150A6860"
         }
@@ -71339,6 +71343,12 @@
       "symbol": "func_150C7E00"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 7973,
+        "reason": "CURRENT 7973, improved from 8844 by removing synthetic spill copies. Typed actor 0x32C and camera 0x9A0 layouts, corrected halfword button tables, canonical one-pointer helpers and u32 RNG. Frame reduced 0x98 to 0x90 versus target 0x48; 316 differing rows remain, mostly registers and expression scheduling. Next hypothesis: consolidate remaining one-use pointer/scalar temporary lifetimes. Two finishes, one revision.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -87666,6 +87676,12 @@
       "symbol": "func_15171BF4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 9177,
+        "reason": "CURRENT 9177; initial typed candidate compiles. Remaining 290 rows: 0x108 versus 0x90 frame, temporary homes, global loads, FP registers, final vector copies and scheduling. Raw final copies use integer loads/stores, suggesting vector aggregate assignment as the next hypothesis; starter temporaries also need lifetime consolidation. One finish, zero revisions.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -91060,6 +91076,12 @@
       "symbol": "func_15100600"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 12471,
+        "reason": "CURRENT 12471; initial typed candidate compiles, frame 0x160 matches. Remaining loop-invariant hoisting, saved-register allocation, four vector stack homes and scheduling differ across 228 rows. No bounded local revision supported; next hypothesis is loop/control expression shape to avoid hoisted constants. One finish, zero revisions.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
