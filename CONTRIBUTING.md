@@ -7,6 +7,12 @@ command details.
 
 ## Setup
 
+Run `./conker host-setup` once with Python 3.12 or newer. This installs the
+pinned host helper and full-suite test dependencies into ignored
+`build/host-python`; `./conker` selects it automatically. `host-check`,
+`doctor`, matching readiness and batch verification reject missing or stale
+dependencies before Docker/build work. Setup never changes global Python.
+
 1. For local work, install Docker and run `./conker doctor`.
 2. Supply your own reviewed US ROM at `roms/baserom.us.z64`, then run
    `./conker setup --us roms/baserom.us.z64`. Setup checks `config/roms.json`.
@@ -86,6 +92,8 @@ or deferring. For continued groups, follow [sibling selection and reuse](docs/de
   source/layout before retrying; never rerun an unchanged failed batch. Keep focused
   matching, data/rodata proof and boundary confidence separate. External data mappings
   require checksum-validated ROM evidence and cannot hide an incorrect boundary.
+  See [reviewed initialized data](docs/main-private-data.md) for the manifest
+  contract and the separate shared-integration scope requirement.
 
 Finish each requested group with one clean gate; success is `BATCH_COMPLETE`:
 

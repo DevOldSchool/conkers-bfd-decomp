@@ -7,6 +7,8 @@ from pathlib import Path
 import subprocess
 import sys
 
+import host_environment
+
 ROOT = Path(__file__).resolve().parent.parent
 
 
@@ -21,7 +23,7 @@ def git_output(root: Path, *arguments: str) -> str:
 
 
 def check(root: Path = ROOT) -> list[str]:
-    errors = []
+    errors = list(host_environment.check(root))
     reference = root / "reference/us/asm"
     # game-integrated-prepare also materializes reviewed main/debugger units.
     # Its game reference is generated on demand; this separate input is not.

@@ -4,7 +4,8 @@ The normal symbolic differ remains authoritative for all other candidates.
 The existing path supports undefined address-bearing bootstrap labels. A separate
 debugger SI path also proves literal MMIO operands, retaining natural same-object
 call resolution. The debugger also permits one explicitly reviewed empty-return
-companion within its unchanged registered span. Neither path accepts local data relocations or rewrites originals.
+companion within its unchanged registered span. Reviewed main initialized data uses explicit ROM-backed placement manifests.
+Other paths reject local data relocations; no path rewrites originals.
 """
 from __future__ import annotations
 
@@ -119,9 +120,18 @@ def address_alias_present(candidate: Object32, reference: Object32, symbol: str,
 
 
 def definitions(obj: Object32, *, text_addresses: dict[str, int] | None = None,
-                text_section: int | None = None, text_base: int = 0) -> dict[str, int] | None:
+                text_section: int | None = None, text_base: int = 0,
+                private_sections: frozenset[int] = frozenset()) -> dict[str, int] | None:
     result = {}
-    for kind, (name, value, _, section) in obj.relocations.values():
+    for kind, (name, value, extent, section) in obj.relocations.values():
+        if section in private_sections:
+            # Preserve natural linker resolution of actual reviewed storage.
+            # Do not assign an address to an individual variable or section symbol.
+            if (kind not in (2, 5, 6) or not 0 < section < len(obj.sections)
+                    or value < 0 or value >= obj.sections[section][5]
+                    or extent < 0 or value + extent > obj.sections[section][5]):
+                return None
+            continue
         match = ADDRESS.fullmatch(name)
         if kind not in (2, 4, 5, 6) or match is None:
             return None
@@ -264,13 +274,20 @@ def comparison_object(payload: bytes, symbol: str) -> bytes:
 
 def linked_span(path: Path, obj: Object32, symbol: str, start: int, size: int,
                 symbols: dict[str, int], output: Path, *, reference: bool,
-                padding: bool = False, empty_companion: bool = False) -> bytes:
+                padding: bool = False, empty_companion: bool = False,
+                section_placements: dict[str, tuple[int, int]] | None = None) -> bytes:
     origin, _ = function(obj, symbol, size, reference=reference, padding=padding,
                          empty_companion=empty_companion)
     if start < origin:
         raise ValueError("alias proof has an invalid text address")
     script = output.with_suffix(".ld")
-    script.write_text(f"SECTIONS {{ .text 0x{start - origin:X} : SUBALIGN(4) {{ *(.text) }} }}\n"
+    private_data = "".join(f" {name} 0x{address:X} : SUBALIGN({alignment}) {{ *({name}) }}"
+                            for name, (address, alignment) in sorted((section_placements or {}).items()))
+    # Comparison-only ABI metadata is not ROM storage. Its automatic orphan
+    # placement can overlap explicitly mapped small data. No GP-relative
+    # relocations are admitted by the private-data proof.
+    metadata = " /DISCARD/ : { *(.reginfo .MIPS.abiflags) }" if section_placements else ""
+    script.write_text(f"SECTIONS {{ .text 0x{start - origin:X} : SUBALIGN(4) {{ *(.text) }}{private_data}{metadata} }}\n"
                       + "".join(f"{name} = 0x{value:X};\n" for name, value in sorted(symbols.items())))
     subprocess.run(["mips-linux-gnu-ld", "-T", str(script), "-o", str(output.with_suffix(".elf")),
                     str(path)], check=True, capture_output=True, text=True)
@@ -555,6 +572,11 @@ def prepare_main(root: Path, source: str, candidate: Path, reference: Path, asse
     # to agree. The full tail must already exist in the real mixed object.
     if any(start < address < start + size for address in addresses.values()):
         raise ValueError("main comparison span overlaps the next function")
+    import main_private_data
+
+    if main_private_data.mapping(root, source) is not None:
+        return main_private_data.prepare(root, source, candidate, reference, assembly,
+                                         symbol, start, size, addresses)
     current_symbols = definitions(current, text_addresses=addresses,
                                   text_section=section, text_base=start - origin)
     raw_symbols = definitions(raw)
