@@ -950,7 +950,7 @@ void func_8000A03C(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_8000A03C */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_8000A03C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A348 CURRENT (475) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A348 CURRENT (65) */
 void func_8000A348(void) {
     AudioBufferState *record;
     AudioBufferState *next;
@@ -978,12 +978,14 @@ void func_8000A348(void) {
                 if (anchor != 0) {
                     {
                         AudioBufferState *linkNode = record;
-                        AudioBufferState *linkAfter = anchor;
+                        AudioBufferState *linkAfter;
 
-                        linkNode->next = linkAfter->next;
-                        linkNode->prev = linkAfter;
-                        if (linkAfter->next != 0) {
-                            linkAfter->next->prev = linkNode;
+                        linkNode->next = anchor->next;
+                        linkNode->prev = anchor;
+                        linkAfter = anchor;
+                        anchor = linkAfter->next;
+                        if (anchor != 0) {
+                            anchor->prev = linkNode;
                         }
                         linkAfter->next = linkNode;
                     }
