@@ -14487,8 +14487,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1690,
-        "reason": "Integration exposed a 0x30-byte mixed-object expansion; the two pointer-loop forms both remained CURRENT (1690), so preserve the best candidate and restore GLOBAL_ASM before continuing.",
+        "current_score": 30,
+        "reason": "Live2455 (stale1690) improved30 by explicit backedge and defined unsigned cursor/endpoint. All76B registers/opcodes/control/layout shape recovered; only initial endpoint/cursor ADDIU order reversed. Same30 scheduling family as15012780/15008DD0/1509CB68; do not repeat structured-loop expansion or initialization cycling. One new revision; ledger deferred-exact-20261005.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -49999,7 +49999,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 890,
-        "reason": "Recovered the 0x20-byte frame, global-count cleanup loop, +0x104 entries, +0x114 tail entry, and free ABI; two bounded source forms plateau at CURRENT (890) with only global-load/register and branch-delay scheduling differences.",
+        "reason": "Best890 preserved. Cursor-first initialization fixes S0/S1 but reverses initial LW/MOVE and regresses910; shared slot scalar across cleanup calls neutral910. Raw count already reloads only after call, so no cached-count retry. Remaining coalesced A0 vs raw V0-to-A0 copies/branch-likely schedule and count V0/V1; no fresh supported lifetime hypothesis. Two new revisions plus restoration, ledger deferred-exact-20261005.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -53654,7 +53654,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 40,
-        "reason": "Best CURRENT (40); eight F0/F12 ownership differences remain after three manual comparisons",
+        "reason": "Full696B CURRENT40 unchanged after two new actual constant-lifetime hypotheses: reuse existing RNG scalar neutral40; direct literal stores without named one neutral40. Eight F0/F12 ownership rows remain. Original valid40 restored; prior3comparisons plus2new and restoration retained in deferred-exact-20261005. Detailed prior snapshots unavailable, no declaration-order or register-pressure repeats.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -75973,8 +75973,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 9135,
-        "reason": "CURRENT (9135): functional copy/init candidate compiles, but IDO recognizes the fixed-range byte loop as a bulk-copy remainder/unroll and diverges across most of the span; volatile and word-pointer variants did not suppress the transform",
+        "current_score": 730,
+        "reason": "Manual9135 to730: explicit backedge/byte-aligned cursors remove repeated copy-loop expansion; grouped prefix reads/common unsigned destination address remove separate high-half loads. Remaining prefix address materialization, load/store order and32GPR rows. Whole23byte loop3095 invalid scalar-pointer extent; aggregate5535 uses unaligned word accesses; typed3byte prefix730 neutral. Five new hypotheses plus restoration, no new supported address/lifetime hypothesis; detailed ledger deferred-exact-20261005.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -87422,8 +87422,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2400,
-        "reason": "contiguous-23-byte-global-copy-contract-recovered-but-compiler-rewrites-four-byte-loop-into-alignment-copy-sequence",
+        "current_score": 650,
+        "reason": "Manual2400 to650: explicit backedge/unsigned scalar-symbol addresses remove repeated loop expansion and pointer-extent defect; grouped prefix snapshots remove separate high-half loads. Residual common prefix address LUI/ADDIU, read/store order and GPR ownership. Carry exhausted sibling151E50C8 whole-loop/aggregate/typed-prefix approaches; no new supported local hypothesis. Two new revisions, ledger deferred-exact-20261005.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -87441,8 +87441,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 8290,
-        "reason": "Manual candidate CURRENT (8290): signed bounds semantics represented but compiler folds/peels indexed clamp loop into fixed global accesses; pointer-boundary revision compiled identically and address-derived index regressed. Preserved best candidate.",
+        "current_score": 1645,
+        "reason": "Manual8290 to2080 to1750 to1645: explicit backedge/unsigned addresses remove peeling and scalar-pointer extent issue; real prefix fallback reuse and shared prefix-value/index lifetime correct V0 and scratch colors. Remaining prefix address CSE adds materialization, global-base hoisting, loop min/dst/current register roles and operand scheduling. Prior pointer-boundary/address-derived-index and sibling aggregate/wholecopy failures carried; no new supported local hypothesis. Three new revisions; ledger deferred-exact-20261005.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
