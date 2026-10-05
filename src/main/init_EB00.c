@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_8000ECCC
  * - func_8000EE70
- * - func_8000F568
  * - func_8000F6B8
  * - func_8000FA64
  * - func_8000FDF4
@@ -463,13 +462,12 @@ s32 func_8000F4D8(u16 arg0) {
 }
 extern u8 *D_80041F5C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000F568 CURRENT (245) */
 s32 func_8000F568(s32 base, s32 count) {
     s32 mask;
     u32 initial;
     s32 choice;
     u8 *entry;
-    u32 current;
+    u8 current;
     s32 available;
     u8 updated;
 
@@ -485,18 +483,18 @@ s32 func_8000F568(s32 base, s32 count) {
         entry = D_80041F5C + base;
         current = *entry;
         if (count < 8) {
-            available = current;
             if (!(current & 0x80) ||
                 (mask = (1 << count) - 1, !((s32)current & mask))) {
                 mask = (1 << count) - 1;
-                available = 0xFF;
+                current = 0xFF;
             }
-            if (!(available & (1 << initial))) {
+            if (!(current & (1 << initial))) {
                 do {
                     choice = (choice + 1) % count;
-                } while (!(available & (1 << choice)));
+                } while (!(current & (1 << choice)));
             }
-            updated = available ^ (1 << choice);
+            available = current;
+            updated = current ^ (1 << choice);
             *entry = updated;
             if (!(updated & mask)) {
                 D_80041F5C[base] = available ^ mask;
@@ -507,8 +505,6 @@ s32 func_8000F568(s32 base, s32 count) {
     }
     return (u32)base + (u32)choice;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000F568 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000F568.s")
 
 typedef struct {
     s32 x0;

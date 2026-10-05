@@ -94704,17 +94704,16 @@
       "symbol": "func_8000F4D8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 245,
-        "reason": "Improved full336 CURRENT495 to245 after eight manual revisions. Fullword current byte snapshot and signed bounded availability arithmetic recover nearly all registers and two operand orders. Remaining missing raw LI a0,255 and three commuted bitwise operands prevent exact fullspan. Explicit carried reset315, bytecurrent730, byteavailable370, bothbytes880, commutedsource245 neutral, directbyte load595 rejected; no artificial reset or padding. Best245 restored and independently rechecked. No ABI or shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 336,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000F568",
           "vram": "0x8000F568"
         }
@@ -94854,7 +94853,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 40,
-        "reason": "Preserve CURRENT 40 independently restored c33a68a3. Full148-byte span opcodes/control/frame/operands exact; six count-register rows V1 vs raw V0. Batch22 two new manual hypotheses both regressed: explicit mismatch-continue3387 changed frame/induction; equality-proven input reuse710 added saved S3 and argument-home differences. Inherited indexed/guardeddo, handle/count snapshots, promotedinput/comparison families remain exhausted. No new source improvement, ABI/shared/ASM edits or permutation.",
+        "reason": "Preserve CURRENT 40 independently restored d161b011. Full148-byte span opcodes/control/frame/operands exact; six count-register rows V1 vs raw V0. Batch32 newly matched F568 motivated delayed branch-local u16 handle snapshot, but it regressed to445 with LHUv0/ANDIa0 and a lost likely branch. Prior explicit continue3387, equality-proven input reuse710, indexed/guarded-do, handle/count snapshots, promoted-input/comparison forms remain exhausted. One new revision, no source improvement, ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
