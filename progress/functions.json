@@ -94798,8 +94798,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1491,
-        "reason": "Preserve full436-byte CURRENT1491 improved4811: directknownarray fields and removed ten redundant field snapshots recover frame28 and bulkload/store scheduling. Seven new hypotheses: indexed2679; no snapshots1491; late finalpointer1491; earlyrecord/postpitchpointer1491; actual indexobjectread5764; indexobject+stablepointer4264; ordinary y parameter2828. Restored minimal1491 independently8948accd. Residual indexS1 save vs raw a2 callerhome20, count home20vs24 and related guard/epilogue scheduling. Retain prior raw-proven narrowowncontracts/yview; inherited typed/object/snapshot families noted. No final ABI, shared or ASM changes, no permutation.",
+        "current_score": 1483,
+        "reason": "Preserve full436 CURRENT1483 independently restored2d5d6761, improved1491 by scoping actual height temporary to its branch; count spill/reload now raw24, frame28 exact. Batch23 three new revisions: scopedheight1483, unsigned fullword index neutral1483, positive capacity/sharedfailure CFG3570 rejected. Residual indexS1 save vs raw A2 callerhome20, S0 savehome14vs18, heightguard/epilogue differences. Inherited directknownarray/no field snapshots retained; prior pointer/indexobject/yview families exhausted. No ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95876,7 +95876,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 80,
-        "reason": "Preserve full504 CURRENT80 independently rechecked 077cc776, improved baseline417 through eleven new manual revisions. Directknownarray access removes five redundant addresslocals, address-first declaration recovers exactframe40 and allhomes2C/34/3C; reuse consumed u32 polling scalar as actual oldbuffer value recovers raw MOVE beforefree. Fifteen register-only rows remain: sequenceV0 versusV1, oldbufferS0 versusV0, buffer/length bases S1/S0 versusS0/S1. Separate s32 snapshot263, shared address1547, separate u32/pointer snapshots255 regress; inherited all-pointer snapshot/scoped-phase forms exhausted. No equivalent address/snapshot/type/lifetime retry absent independent evidence. Own/helper ABI and shared dependencies unchanged.",
+        "reason": "Preserve full504 CURRENT80 independently restored c6e17a97; all opcodes/control/frame40/homes exact,15 register rows remain sequenceV0 vsV1, oldbufferS0 vsV0 and buffer/length S1/S0 vsS0/S1. Batch23 two new revisions: function-scope separate u32 oldbuffer255 matches inherited blockscope failure; real old/newbuffer reuse255 neutral. Both lose free-argument MOVE and shift homes. Inherited directarray/countreuse best retained; snapshot/address/type/lifetime families exhausted without fresh proof. No ABI/shared/ASM edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

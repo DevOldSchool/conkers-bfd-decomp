@@ -613,11 +613,10 @@ extern SoundArrayRecord D_80041FE0[];
 void func_80011624(SoundArrayRecord *, s32 *, s32, s32);
 s32 func_85083E0C(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FA64 CURRENT (1491) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FA64 CURRENT (1483) */
 u16 func_8000FA64(u16 sound, s16 x, s16 y, s16 z, s32 volume,
                   u16 farDistance, s16 nearDistance, void *callback,
                   s32 owner, s32 key, s32 flags, s32 cents) {
-    s16 height;
     s32 count;
     s32 index;
 
@@ -633,6 +632,8 @@ u16 func_8000FA64(u16 sound, s16 x, s16 y, s16 z, s32 volume,
         D_80041FE0[index].flags = (flags & 0x108) | 2;
     }
     if (flags & 0x40) {
+        s16 height;
+
         height = (s16)func_85083E0C((u8)x);
         y = height;
         if (height == -1) {
