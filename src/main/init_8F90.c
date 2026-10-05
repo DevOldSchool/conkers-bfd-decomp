@@ -354,13 +354,14 @@ extern s32 D_8002AE4C;
 extern MessageQueue D_8003B200;
 extern volatile u32 D_A4500004;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800095A0 CURRENT (1467) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800095A0 CURRENT (1400) */
 s32 func_800095A0(AudioTaskRecord *record, AudioTaskRecord *previous) {
     u32 physical;
     Acmd *commandEnd;
     s32 commandCount;
     s32 remaining;
     u32 bufferEnd;
+    u32 bufferBytes;
 
     physical = func_800233C0(record->buffer);
     func_800099BC();
@@ -378,7 +379,8 @@ s32 func_800095A0(AudioTaskRecord *record, AudioTaskRecord *previous) {
             D_80040F84--;
         }
     }
-    bufferEnd = physical + record->samples * 4;
+    bufferBytes = (u32)record->samples << 2;
+    bufferEnd = physical + bufferBytes;
     if ((bufferEnd & 0x1FFF) == 0) {
         physical += 0x10;
         record->adjustedBuffer = record->buffer + 0x10;
