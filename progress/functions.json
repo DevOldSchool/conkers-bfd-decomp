@@ -93833,7 +93833,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Manual ten-form pass improved 3573 to CURRENT10 using evidenced u8 helper/channel contracts and first-arm return. Sole residual beql v0,t2 instead of raw t2,v0 at 0x12c. Commutation, unsigned domain, named snapshot, equal-state return and byte extraction did not fix it. Best restored and rechecked; ledger manual-init-20261005.",
+        "reason": "Full480 US CURRENT10 retained after five additional manual revisions. XOR truth-test15 fixes BEQL operand order but final ORI/SW uses T4 instead of raw T3; named XOR70 restores T3 but shifts global state V0 to V1; named state plus XOR90; unsigned difference15 identical to XOR; split packed output3089 forces S1 and home changes. Original10 independently restored e863cff4. Prior ten-form ABI/comparison pass remains exhausted. Alternate XOR body and complete ledger saved manual-init-20261005. No shared/ABI/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
