@@ -92552,7 +92552,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "CURRENT20: all 160-byte instructions/registers/control/stack exact; four scored rows are numeric A4500000/A4500004 hardware constants versus raw symbolic relocations. Volatile symbolic declarations add ADDIU; nonvolatile declarations change access scheduling/registers. Preserve original volatile access sequence.",
+        "reason": "Full160 US CURRENT20 retained: instruction/control/register/stack sequence exact, scored numeric hardware addresses versus raw symbolic relocations. New volatile one-word array declarations410 preserve access order but add the same two ADDIU instructions as prior volatile scalar declarations; removed. Nonvolatile symbols225 reorder accesses; preserve numeric volatile source. Original20 independently restored23fe7da0. Private static-byte integration ownership remains unproved. No shared/tooling/ABI/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93338,8 +93338,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1682,
-        "reason": "Best full-span US CURRENT 1682 retained. Input parameter homes and AudioTaskRecord lifetimes already match raw assembly relative to the frame. The third total form reversed the guard addition operands and compiled identically at 1682; exact baseline restored and independently rechecked at 1682 (17be9528e9e444bab67e51ba4b2f2c9b). Operand-order and MMIO families exhausted; no supported new storage, ABI, frame or SDK hypothesis.",
+        "current_score": 1467,
+        "reason": "Full556 US improved1682 to1467 by actual bufferEnd local, recovering26 temporary-register rows and raw V0 end address. Five manual revisions: bufferEnd1467; signed boot-span arithmetic neutral1467; separate original/adjusted physical1640 fixes frame40 but adds duplicate A3/A2 and spill28; delayed adjusted snapshot2485 sinks raw spills and changes branches; boot-size from assigned task.boot neutral1467. Best simplest bufferEnd version independently restored ab21b5c2. Remaining frame38/raw40, MMIO extra ADDIU, commuted boundary ADDU, microcode pointer commoning and scheduling. Prior input-home/MMIO/guard-operand families exhausted. No shared/ABI/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
