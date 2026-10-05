@@ -728,7 +728,7 @@ s32 func_8000FE88(SoundArrayRecord *records, s32 index, s32 *count) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_8000FE88 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000FE88.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FEF0 CURRENT (1969) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FEF0 CURRENT (1699) */
 s32 func_8000FEF0(u16 arg0, void *owner, s32 key) {
     SoundArrayRecord *record;
     s32 index;

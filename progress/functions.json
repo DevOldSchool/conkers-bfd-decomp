@@ -94890,8 +94890,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1969,
-        "reason": "Preserve CURRENT1969 typed counted scan, independently restoredf5e9c48a. Four additional manual hypotheses: directindexed2209, promoted input1969, count snapshot2824 causedunrolling, actual key register hint1969. Hintremoved; own u16/pointer/s32 signature unchanged from baseline. Inherited word-homed handle contract2255to1969, failuregoto1984 and typedloop forms exhausted. Residual rawframe8/S0keysave absent, count/handle/recordroles and commonreturn. Raw two callers load u16 handles. Matchedcaller10AA8 queued for recheck. No shared/ASM changes or permutation.",
+        "current_score": 1699,
+        "reason": "Checkpoint45 refreshed original full160 CURRENT1699 (historical1969 affected by following-code/full-span context, not body improvement); restored independently27028eec. Two new revisions regress: saved key plus reused formal cursor1714, paired saved owner plus formal handle1839. CursorA2 recovered in first variant but raw saved S0 key/frame8 absent and count/index/handle roles differ. Prior indexed loop2209, promoted handle neutral, explicit count2824/unrolled and register-key hint neutral exhausted. No ABI/shared/ASM/padding changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
