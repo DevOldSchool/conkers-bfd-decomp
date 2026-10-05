@@ -15,6 +15,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import call_signatures
 import declaration_facts
+import m2c_context
 import project_state
 import rzip_archive
 import rom_span
@@ -633,7 +634,7 @@ def flattened_source_context(source: Path) -> str | None:
     )
 
 
-def prepare_m2c_context(source: Path | None) -> Path | None:
+def prepare_m2c_context(source: Path | None, profile: str = "us") -> Path | None:
     """Generate source-local context under ignored build output for caching."""
 
     if source is None or not source.is_file():
@@ -643,10 +644,37 @@ def prepare_m2c_context(source: Path | None) -> Path | None:
     except ValueError:
         return None
     context = flattened_source_context(source)
+    method = "flattened"
+    reason = None
+    if context is None:
+        method = "ido-preprocessed"
+        try:
+            if os.environ.get("CONKER_HOST_M2C") == "1":
+                result = subprocess.run(
+                    [str(ROOT / "conker"), "m2c-context", "--profile", profile,
+                     str(source.relative_to(ROOT))],
+                    cwd=ROOT, capture_output=True, text=True, check=False,
+                )
+                if result.returncode:
+                    raise ValueError(result.stderr.strip() or "preprocessor command failed")
+                context = m2c_context.clean_context(result.stdout)
+            elif m2c_context.compile_c.IDO_CC.is_file():
+                context = m2c_context.preprocess_source(profile, source)
+            else:
+                raise ValueError("source directives require the pinned IDO preprocessor; use ./conker m2c")
+        except (OSError, ValueError) as error:
+            method = "unavailable"
+            reason = str(error)
+            print(f"m2c context omitted for {source.relative_to(ROOT)}: {reason}", file=sys.stderr)
+    output = ROOT / "build" / "m2c" / "context" / profile / relative
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.with_suffix(".json").write_text(json.dumps({
+        "source": str(source.relative_to(ROOT)), "profile": profile,
+        "method": method, "reason": reason,
+        "sha256": hashlib.sha256(context.encode()).hexdigest() if context is not None else None,
+    }, indent=2) + "\n", encoding="utf-8")
     if context is None:
         return None
-    output = ROOT / "build" / "m2c" / "context" / relative
-    output.parent.mkdir(parents=True, exist_ok=True)
     content = context.encode("utf-8")
     if not output.is_file() or output.read_bytes() != content:
         output.write_bytes(content)
@@ -654,7 +682,8 @@ def prepare_m2c_context(source: Path | None) -> Path | None:
 
 
 def mips_to_c_command(
-    extracted_source: Path, symbol: str, context_source: Path | None = None
+    extracted_source: Path, symbol: str, context_source: Path | None = None,
+    *, profile: str = "us",
 ) -> list[str]:
     """Build the pinned mips_to_c invocation, including curated types."""
 
@@ -667,7 +696,7 @@ def mips_to_c_command(
         "--function",
         symbol,
     ]
-    context = prepare_m2c_context(context_source)
+    context = prepare_m2c_context(context_source, profile)
     if context is not None:
         command.extend(["--context", str(context.relative_to(ROOT))])
     command.append(str(extracted_source.relative_to(ROOT)))
@@ -715,6 +744,34 @@ def run_m2c_command(command: list[str], recovery: call_signatures.Recovery,
     return result, False
 
 
+def generator_evidence(command: list[str]) -> dict:
+    """Identify the actual generator, including uncommitted Python changes."""
+    evidence = {"requested_command": command}
+    if len(command) < 2 or command[0] != "python3":
+        return evidence
+    tool = Path(command[1]).resolve()
+    if not tool.is_file():
+        return evidence
+    directory = tool.parent
+    files = [tool]
+    for package in ("m2c", "m2c_pycparser"):
+        files.extend(sorted((directory / package).rglob("*.py")))
+    digest = hashlib.sha256()
+    for path in files:
+        digest.update(str(path.relative_to(directory)).encode() + b"\0")
+        digest.update(path.read_bytes() + b"\0")
+    evidence.update({"path": str(tool), "python_sources_sha256": digest.hexdigest()})
+    if (directory / ".git").exists():
+        try:
+            evidence["git_revision"] = subprocess.check_output(
+                ["git", "-C", str(directory), "rev-parse", "HEAD"],
+                text=True, stderr=subprocess.DEVNULL,
+            ).strip()
+        except (OSError, subprocess.CalledProcessError):
+            pass
+    return evidence
+
+
 def generate_with_call_context(command: list[str], assembly: str, symbol: str,
                                source: Path | None, profile: str) -> tuple[str, int]:
     source_text = source.read_text(encoding="utf-8") if source else ""
@@ -742,8 +799,11 @@ def generate_with_call_context(command: list[str], assembly: str, symbol: str,
         starter = notes + "\n" + "\n".join(recovery.declarations) + "\n\n" + starter
     evidence_path = ROOT / "build/m2c/calls" / f"{symbol}.json"
     evidence_path.parent.mkdir(parents=True, exist_ok=True)
+    context_path = ROOT / command[command.index("--context") + 1] if "--context" in command else None
+    context_digest = hashlib.sha256(context_path.read_bytes()).hexdigest() if context_path and context_path.is_file() else None
     evidence_path.write_text(json.dumps({"symbol": symbol, "profile": profile,
         "declarations": recovery.declarations, "evidence": recovery.evidence,
+        "generator": generator_evidence(command), "source_context_sha256": context_digest,
         "source_context_fallback": context_fallback,
         "callee_fingerprint": call_signatures.dependency_digest(ROOT, assembly, profile=profile)}, indent=2) + "\n")
     return starter, result.returncode
@@ -797,7 +857,7 @@ def main() -> int:
         print(f"error: {error}", file=sys.stderr)
         return 1
 
-    command = mips_to_c_command(extracted_source, symbol, context_source)
+    command = mips_to_c_command(extracted_source, symbol, context_source, profile=args.profile)
     assembly = extracted_source.read_text(encoding="utf-8")
     try:
         assembly = prepare_game_jump_tables(assembly, args.profile)
