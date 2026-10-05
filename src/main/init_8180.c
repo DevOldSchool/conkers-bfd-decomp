@@ -12,6 +12,18 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define sequence_player_get_state func_8000853C
+#define sequence_player_set_notify_queue func_80008570
+#define sequence_channel_off func_800085F8
+#define sequence_channel_on func_8000862C
+#define sequence_channel_fade func_80008660
+#define sequence_channel_set_surround func_800086FC
+#define sequence_channel_set_pan func_80008744
+#define sequence_channels_fade func_80008790
+#define sequence_channel_set_fade_volume func_80008824
+#define sequence_channels_set_fade_volume func_8000886C
+
 typedef struct SequencePlayer SequencePlayer;
 typedef struct {
     u8 *address;
@@ -206,12 +218,12 @@ void func_800084D8(u8 arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_800084D8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_800084D8.s")
 
-s32 func_8000853C(u8 arg0) {
+s32 sequence_player_get_state(u8 arg0) {
     return func_80017A80(D_8003C900[arg0]);
 }
 void func_80017AF0(SequencePlayer *player, void *value);
 
-void func_80008570(u8 arg0, void *arg1) {
+void sequence_player_set_notify_queue(u8 arg0, void *arg1) {
     s32 index;
 
     index = arg0;
@@ -226,7 +238,7 @@ void func_800085B8(u8 arg0, s32 channel, u8 value) {
 }
 void func_80017BB8(SequencePlayer *, s32);
 
-void func_800085F8(u8 arg0, s32 channel) {
+void sequence_channel_off(u8 arg0, s32 channel) {
     s32 index;
 
     index = arg0;
@@ -234,12 +246,12 @@ void func_800085F8(u8 arg0, s32 channel) {
 }
 void func_80017C00(SequencePlayer *, s32);
 
-void func_8000862C(u8 arg0, s32 channel) {
+void sequence_channel_on(u8 arg0, s32 channel) {
     func_80017C00(D_8003C900[arg0], channel);
 }
 void func_80017C68(SequencePlayer *, s32, u8, u8);
 
-void func_80008660(u8 arg0, u8 channel, u8 volume, s32 duration) {
+void sequence_channel_fade(u8 arg0, u8 channel, u8 volume, s32 duration) {
     if (duration > 0) {
         duration = (duration * 10) / 60;
         if (duration == 0) {
@@ -254,43 +266,43 @@ void func_80008660(u8 arg0, u8 channel, u8 volume, s32 duration) {
 }
 void func_80017CE0(SequencePlayer *, s32, u8);
 
-void func_800086FC(u8 arg0, u8 channel, u8 value) {
+void sequence_channel_set_surround(u8 arg0, u8 channel, u8 value) {
     func_80017CE0(D_8003C900[arg0], channel, value);
 }
 void func_80017D80(SequencePlayer *, u8, u8);
 
-void func_80008744(u8 arg0, u8 channel, u8 value) {
+void sequence_channel_set_pan(u8 arg0, u8 channel, u8 value) {
     func_80017D80(D_8003C900[arg0], channel, value);
 }
-void func_80008660(u8, u8, u8, s32);
+void sequence_channel_fade(u8, u8, u8, s32);
 
-void func_80008790(u8 arg0, s32 channels, u8 arg2, s32 duration) {
+void sequence_channels_fade(u8 arg0, s32 channels, u8 arg2, s32 duration) {
     s32 channel;
 
     for (channel = 0; channel != 0x10; channel++) {
         if ((1 << channel) & channels) {
-            func_80008660(arg0, channel, arg2, duration);
+            sequence_channel_fade(arg0, channel, arg2, duration);
         }
     }
 }
 void func_80017D30(SequencePlayer *, s32, u8);
 
-void func_80008824(u8 arg0, u8 channel, u8 value) {
+void sequence_channel_set_fade_volume(u8 arg0, u8 channel, u8 value) {
     func_80017D30(D_8003C900[arg0], channel, value);
 }
-void func_80008824(u8, u8, u8);
+void sequence_channel_set_fade_volume(u8, u8, u8);
 
-void func_8000886C(u8 arg0, s32 channels, u8 arg2) {
+void sequence_channels_set_fade_volume(u8 arg0, s32 channels, u8 arg2) {
     s32 channel;
 
     for (channel = 0; channel != 0x10; channel++) {
         if ((1 << channel) & channels) {
-            func_80008824(arg0, channel, arg2);
+            sequence_channel_set_fade_volume(arg0, channel, arg2);
         }
     }
 }
-void func_800085F8(u8, s32);
-void func_8000862C(u8, s32);
+void sequence_channel_off(u8, s32);
+void sequence_channel_on(u8, s32);
 
 void func_800088F0(u8 arg0, s32 channels, s32 enabled) {
     s32 player;
@@ -300,9 +312,9 @@ void func_800088F0(u8 arg0, s32 channels, s32 enabled) {
     for (channel = 0; channel != 0x10; channel++) {
         if ((1 << channel) & channels) {
             if (enabled != 0) {
-                func_8000862C(arg0, channel);
+                sequence_channel_on(arg0, channel);
             } else {
-                func_800085F8(player, channel);
+                sequence_channel_off(player, channel);
             }
         }
     }
