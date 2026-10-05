@@ -66193,6 +66193,12 @@
       "symbol": "func_150F34A0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 17895,
+        "reason": "Useful compilable first-pass candidate; latest CURRENT (17895), frame 0xC8 versus 0x80 and 554 differing rows (351 register, 92 operand, 39 opcode/control, 72 missing/extra; 33 stack rows). Raw callee audits fixed spurious 1505959C a2 and 15073FA0 arguments; typed actor/input views and float table preserve observed access widths. Broad scheduling and lifetime mismatch gives no narrow likely-success revision. Next hypothesis: remove synthetic spill copies and simplify one-use temporary lifetimes before actor-index expression tuning. One finish, zero manual revisions; no shared dependency changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -91063,11 +91069,15 @@
       "symbol": "func_150F6400"
     },
     {
+      "blocked": {
+        "reason": "Required matched declaration func_1513D4B8 returns void, but raw caller at 151008D8/151008E0 saves/tests v0 as allocation result and repeats at 15100A08/15100A18. Wrapper raw 1513D4B8 forwards func_1513D2F0 v0 unchanged. Fork starter emits M2C_ERROR for these consumed returns. A valid caller needs correction/audit of the shared canonical return contract, outside allowed target-only edits; do not shadow it with an incompatible declaration. No live C candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 2704,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_15100600",
           "vram": "0x15100600"
         }
