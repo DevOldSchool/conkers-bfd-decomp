@@ -94817,17 +94817,16 @@
       "symbol": "func_8000FA64"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 610,
-        "reason": "Preserve typed stop scan CURRENT (610), improved1281 through independently proved u16sound/u16arg4 inputs630 and real promoted sound-ID/equality operand order610. Full frame, entry normalization and all field comparison/temp roles agree. Pool-address/MOVE placement and SDK count-reload alias scheduling remain; inherited counter-snapshot/address-order families exhausted. Two current forms, no eligible distinct final revision. No direct C/raw callers, source-local owncontract only; no shared dependency or permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 288,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000FC18",
           "vram": "0x8000FC18"
         }
@@ -94836,17 +94835,16 @@
       "symbol": "func_8000FC18"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 280,
-        "reason": "Typed tuple stop loop scores280 from count-reload placement around callback and record writes. Explicit count snapshot refreshed after callbacks introduces an extra saved base register and worsens to863. Retain simpler first form; independent array-extent/type evidence is needed before changing alias assumptions.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 188,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000FD38",
           "vram": "0x8000FD38"
         }
@@ -94857,8 +94855,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 775,
-        "reason": "Word-homed low-half handle contract and field-left comparison improve956to775. Loop-count register v1 versus v0, initial pointer/handle setup scheduling and post-call count reload placement remain. Explicit count snapshot regresses1207 by saving addresss3; three new forms exhausted. No current C/include callers or prototypes; raw direct call scan none. No fabricated state or shared changes.",
+        "current_score": 40,
+        "reason": "Preserve manual direct-indexed scan CURRENT (40), improved775. Full148-byte span opcodes/frame/control/operands exact; six register-only rows use count v1 vs rawv0. Seven new hypotheses: indexedfor40, s32handle snapshot500, guardeddo40, directindexed count snapshot877 savedS3, u16handle snapshot280 setup regression, promoted input40 and promoted input-left comparison40 from newlyexactFC18. Restored minimal40 independently7fd241b1. Inherited word-homed u16 contract/field-left comparison retained; pointer-count snapshot1207 exhausted. No shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94896,7 +94894,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1969,
-        "reason": "Raw-supported word-homed u16 handle contract and counted loop improve fresh2255to1969. Candidate remains frameless with no saved s0; raw count/handle/record/key register roles and common epilogue unresolved. Shared failure goto1984 regresses1974; typedloop1969 best after three new forms. All current C/include references local; two raw calls load u16 ownerhandles. Matched caller10AA8 requires recheck for retained local prototype.",
+        "reason": "Preserve CURRENT1969 typed counted scan, independently restoredf5e9c48a. Four additional manual hypotheses: directindexed2209, promoted input1969, count snapshot2824 causedunrolling, actual key register hint1969. Hintremoved; own u16/pointer/s32 signature unchanged from baseline. Inherited word-homed handle contract2255to1969, failuregoto1984 and typedloop forms exhausted. Residual rawframe8/S0keysave absent, count/handle/recordroles and commonreturn. Raw two callers load u16 handles. Matchedcaller10AA8 queued for recheck. No shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
