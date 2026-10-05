@@ -15498,7 +15498,7 @@
         "us": {
           "end": "0x10A870",
           "start": "0x109410",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1368C0.c"
@@ -16812,7 +16812,7 @@
         "us": {
           "end": "0xF0260",
           "start": "0xEFB80",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_11D030.c"

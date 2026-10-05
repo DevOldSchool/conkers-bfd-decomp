@@ -26,7 +26,6 @@
  * - func_151AB1C4
  * - func_151AB2C4
  * - func_151AB3A4
- * - func_151AB854
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -940,21 +939,20 @@ typedef struct Game1D6E80Event {
 
 void func_15190770(Game1D6E80Event *, s32, u8, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AB854 CURRENT (532) */
 void func_151AB854(u8 *arg0) {
-    Game1D6E80Event event;
     u8 *object;
-    u8 type;
+    Game1D6E80Event event;
+    s32 type;
 
     object = *(u8 **)(arg0 + 0x18);
     type = object[4];
     if ((type == 0) || (type == 1) || (type == 2) || (type == 3) ||
         (type == 4) || (type == 0x96)) {
         event.object = object;
+        event.value4 = object[0x3B];
         event.value6 = 0x12C;
         event.value8 = 0;
         event.value9 = 0;
-        event.value4 = object[0x3B];
         if (object[4] == 0x96) {
             event.valueA = 3;
         } else {
@@ -966,7 +964,5 @@ void func_151AB854(u8 *arg0) {
         func_15190770(&event, 0, arg0[0xC], arg0[1]);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AB854 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AB854.s")
 void func_151AB920(s32 arg0, s32 arg1) {
 }
