@@ -95314,7 +95314,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 3775,
-        "reason": "Improved inherited4058 to CURRENT3775 after nine manual revisions plus baseline/restoration. Fullword signed operation and explicit signed index shift in destination address recover retained integer s2/index+1, s3 destination and s4 flag, preserving raw callback count lifecycle and frame40. Unsigned index neutral4058; integer multiply address4475 and direct global count4594 regress; signed endpoint shift and real handle-index local neutral3775; direct tail bound3960 and consistent integer traversal3800 regress. Remaining global count address and traversal base caching, handle multiply expanded to shifts, register scheduling and full-span body-length gap. No equivalent pointer/index/storage shaping without independent new evidence. No shared ABI/dependency/assembly changes.",
+        "reason": "Full364 US CURRENT3775 retained; original independently restored dc558518. Three new manual hypotheses all neutral3775: explicit unsigned sizeof-entry stride, traversal-only lexical scope before final count publication, and consumed operation local reused for actual handleindex. Earlier nine-revision pass improved4058 using fullword operation and signed destination shift; unsigned index, integer multiply/base domains, direct count/tail, endpoint shift and separate handleindex were exhausted. Residual count-address/traversal-base caching, expanded handle multiply, scheduling and span gap remain. No shared/ABI/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
