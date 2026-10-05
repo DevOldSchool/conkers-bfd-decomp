@@ -56,7 +56,13 @@
 #define cubic_lagrange_weight_zero func_15142AC0
 #define cubic_lagrange_weight_one func_15142B04
 #define cubic_lagrange_weight_two func_15142B44
+#define scalar_clamp_s32_in_place func_15143DA8
 #define vec3f_length func_15143E64
+#define scalar_wrap_s32_inclusive func_151444DC
+#define scalar_wrap_f32_preserve_endpoints func_15144528
+#define angle_wrap_degrees_f32_preserve_endpoints func_15144BC8
+#define scalar_wrap_s16_period255 func_15144C2C
+#define angle_distance_radians_f32 func_15144C8C
 #define vec3f_cross func_151450B4
 #define vec3f_normalize_checked func_15145128
 
@@ -1233,7 +1239,7 @@ void func_15143D18(s32 *arg0, s32 *arg1, s32 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15143D18 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15143D18.s")
-s32 func_15143DA8(s32 *arg0, s32 arg1, s32 arg2) {
+s32 scalar_clamp_s32_in_place(s32 *arg0, s32 arg1, s32 arg2) {
     s32 temp_a3;
     s32 temp_v0;
 
@@ -1538,7 +1544,7 @@ void func_151442FC(s16 *arg0, s16 *arg1, s16 *arg2, s16 *arg3, u8 arg4, u8 arg5,
         return;
     }
 }
-s32 func_151444DC(s32 arg0, s32 arg1, s32 arg2) {
+s32 scalar_wrap_s32_inclusive(s32 arg0, s32 arg1, s32 arg2) {
     if (arg1 < arg0) {
         s32 delta = (arg1 - arg2) + 1;
         do {
@@ -1553,7 +1559,7 @@ s32 func_151444DC(s32 arg0, s32 arg1, s32 arg2) {
     }
     return arg0;
 }
-f32 func_15144528(f32 arg0, f32 arg1, f32 arg2) {
+f32 scalar_wrap_f32_preserve_endpoints(f32 arg0, f32 arg1, f32 arg2) {
     if (arg1 < arg0) {
         do {
             arg0 -= arg1 - arg2;
@@ -1670,7 +1676,7 @@ f32 func_15144B68(f32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15144B68 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15144B68.s")
-f32 func_15144BC8(f32 arg0) {
+f32 angle_wrap_degrees_f32_preserve_endpoints(f32 arg0) {
     f32 var_fv1;
 
     var_fv1 = arg0;
@@ -1686,7 +1692,7 @@ f32 func_15144BC8(f32 arg0) {
     }
     return var_fv1;
 }
-s16 func_15144C2C(s16 arg0) {
+s16 scalar_wrap_s16_period255(s16 arg0) {
     s16 var_v1;
 
     var_v1 = arg0;
@@ -1708,7 +1714,7 @@ f32 func_15144B68(f32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 
-f32 func_15144C8C(f32 arg0, f32 arg1) {
+f32 angle_distance_radians_f32(f32 arg0, f32 arg1) {
     f32 var_fv1;
 
     arg0 = func_15144B68(arg0);
