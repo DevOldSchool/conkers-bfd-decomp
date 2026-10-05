@@ -9412,11 +9412,15 @@
       "symbol": "func_151CD224"
     },
     {
+      "blocked": {
+        "reason": "Raw sp40/sp3C nearest-point values are written only when sqrt(distanceSquared)-radius is below checksum-verified D_80099438=1e9, but V1 records any eligible positive zone and final stores require only V0/V1. Non-0x3A actors lack the local coordinate clamp; both raw callers pass ordinary byte zone IDs and neither audited call context nor preceding 1505D6F0 proves finite world-coordinate bounds or initialization on every final-store path. Requires actor/table-domain or runtime evidence before a defined C recovery; no invented scratch initialization or game-source edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 768,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_15055E50",
           "vram": "0x15055E50"
         }
@@ -29021,6 +29025,12 @@
       "symbol": "func_1513EDE4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2650,
+        "reason": "Best CURRENT (2650), three comparisons; complete matrix and four transformed vertices, native guard and argument-half reload recovered. Frame E8 versus D8, homes +10 and optimized intermediate cursor stores remain; no shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -49557,6 +49567,12 @@
       "symbol": "func_1519F48C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 135,
+        "reason": "Best CURRENT (135), three comparisons; word index recovered and native loop/control flow preserved. Frame80 versus78, probe54 versus58, swapped FP20/22 roles, one hoisted load and final ADDU order remain; no shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -62912,6 +62928,12 @@
       "symbol": "func_151827D0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 7594,
+        "reason": "Best CURRENT (7594) retained after two comparisons. Full 0xE8 frame and save set recovered, signed table halfwords and complete matrix/output scratch correct; interpolation store/reload removal, matrix/output homes +0x20, bank register retention and FP scheduling remain. No further supported local revision or shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -77280,6 +77302,12 @@
       "symbol": "func_150D8590"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1772,
+        "reason": "Best CURRENT (1772), three comparisons: native F0 frame and all buffer homes recovered; initial FP load scheduling, RNG homes +4 and packet store scheduling remain. Complete buffers and unused alignment gaps audited; no shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

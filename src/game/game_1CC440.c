@@ -335,6 +335,83 @@ void func_1519F48C(Game1CC440State *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1519F48C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F48C.s")
+typedef struct Game1CC440TrailPoint {
+    f32 x, z, y, fieldC;
+    s16 size, delay, alpha;
+    u8 pad16[2];
+    s16 life;
+    u8 pad1A[2];
+    f32 velocityX, velocityZ;
+} Game1CC440TrailPoint;
+
+s32 func_15045800(Game1CC440Vector *, u16, f32, void *);
+extern f32 D_800A8CF0, D_800BE9A4;
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519F4F0 CURRENT (135) */
+s32 func_1519F4F0(u8 *arg0) {
+    Game1CC440TrailPoint *base;
+    Game1CC440TrailPoint *point;
+    Game1CC440Config *config;
+    s32 index, expired, delay;
+    register f32 offset, bound;
+    f32 probe[3];
+
+    config = *(Game1CC440Config **)(arg0 + 0x98);
+    base = *(Game1CC440TrailPoint **)(arg0 + 0x94);
+    if (*(s8 *)(arg0 + 0x2C) < 2 && (config->type & 1)) return 0;
+    index = *(s8 *)(arg0 + 0x2E);
+    if (index != *(s8 *)(arg0 + 0x2D)) {
+        offset = 30.0f;
+        bound = D_800A8CF0;
+        do {
+            index--;
+            expired = 0;
+            if (index < 0) index = arg0[0x25] - 1;
+            point = base + index;
+            point->life = (u32)point->life - (u32)D_800BE9E4;
+            if (point->life < 0) expired = 1;
+            delay = point->delay;
+            point->alpha = 255;
+            if (delay > 0) point->delay = (u32)delay - (u32)D_800BE9E4;
+            else point->size = (u32)point->size - (u32)config->field34 * (u32)D_800BE9E4;
+            point->fieldC += config->field3C * D_800BE9A4;
+            point->x += point->velocityX * D_800BE9A4;
+            point->z += point->velocityZ * D_800BE9A4;
+            probe[0] = point->x;
+            probe[1] = point->y + offset;
+            probe[2] = point->z;
+            if (bound < fabsf(probe[0]) || bound < fabsf(probe[2])) expired = 1;
+            else if (func_15045800((Game1CC440Vector *)probe, 0, point->y - offset, arg0 + 0x60) != 0) {
+                point->y = *(f32 *)(arg0 + 0x60);
+            } else expired = 1;
+            if (point->size < 0) expired = 1;
+            if (expired != 0) {
+                if (index != *(s8 *)(arg0 + 0x2D)) {
+                    do {
+                        *(s8 *)(arg0 + 0x2D) += 1;
+                        if (arg0[0x25] == *(s8 *)(arg0 + 0x2D)) *(s8 *)(arg0 + 0x2D) = 0;
+                        *(s8 *)(arg0 + 0x2C) -= 1;
+                    } while (index != *(s8 *)(arg0 + 0x2D));
+                }
+                base[*(s8 *)(arg0 + 0x2D)].size = 0;
+            }
+        } while (index != *(s8 *)(arg0 + 0x2D));
+    }
+    config->field46 = (u32)config->field46 + (u32)config->field48 * (u32)D_800BE9E4;
+    if (*(s8 *)(arg0 + 0x2C) > 0) {
+        point = (Game1CC440TrailPoint *)((u8 *)base + *(s8 *)(arg0 + 0x2D) * 0x24);
+        *(f32 *)(arg0 + 0x54) = point->x;
+        *(f32 *)(arg0 + 0x58) = point->y;
+        *(f32 *)(arg0 + 0x5C) = point->z;
+    } else {
+        *(f32 *)(arg0 + 0x54) = 0.0f;
+        *(f32 *)(arg0 + 0x58) = 0.0f;
+        *(f32 *)(arg0 + 0x5C) = 0.0f;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1519F4F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F4F0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F7F0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519FE6C.s")

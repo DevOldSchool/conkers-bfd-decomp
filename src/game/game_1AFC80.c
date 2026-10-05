@@ -144,7 +144,65 @@ void func_151827D0(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151827D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AFC80/func_151827D0.s")
+void func_150A8050(void *, f32, f32, f32);
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+f32 func_15182F58(s32, s32);
+extern u8 D_8008D060[];
+extern u8 D_8008D062[];
+extern u8 D_800BE9C0;
+extern s32 D_800DBEF4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15182C5C CURRENT (7594) */
+void func_15182C5C(u8 *object) {
+    f32 matrix[16];
+    struct { f32 z, y, x; } output;
+    struct { f32 left, right; } weighted;
+    f32 position, fraction;
+    s32 index, offset, count, sample, next;
+    u8 *bank;
+    u8 *destination;
+    u8 *cursor;
+    u8 *vertex;
+    Game362B0Sample **samples;
+    Game362B0Sample *table;
+
+    index = *(s32 *)(object + 0x3C);
+    bank = D_800DDE54 + index;
+    destination = *(u8 **)(object + D_800BE9C0 * 4 + 0x20);
+    func_150A8050(matrix, 0.0f,
+                 (f32)-*(s16 *)(D_8008D060 + *bank * 0x18), 0.0f);
+    count = 0;
+    offset = 0;
+    if (*(u16 *)((u32)D_800DBEF4 +
+        *(s16 *)(D_8008D062 + *bank * 0x18) * 0xA0 + 0x16) > 0) {
+        cursor = destination;
+        samples = D_800DDE60 + index;
+        do {
+            position = func_15182F58(*(s16 *)(*(u8 **)(object + 0x28) + offset + 4), index);
+            sample = (s32)position;
+            next = sample + 1;
+            if (next >= 40) next = 39;
+            table = *samples;
+            fraction = position - (f32)sample;
+            weighted.left = table[sample].component2 * (1.0f - fraction);
+            weighted.right = table[next].component2 * fraction;
+            vertex = *(u8 **)(object + 0x28) + offset;
+            func_150A7960(matrix, (f32)*(s16 *)vertex,
+                         (f32)(*(s16 *)(vertex + 2) + ((s32)(weighted.right + weighted.left) >> 4)),
+                         (f32)*(s16 *)(vertex + 4), &output.x, &output.y, &output.z);
+            count++;
+            offset += 0x10;
+            cursor += 0x10;
+            *(s16 *)(cursor - 0x10) = (s32)((f32)*(s16 *)(object + 0x10) + output.x);
+            *(s16 *)(cursor - 0xE) = (s32)((f32)*(s16 *)(object + 0x12) + output.y);
+            *(s16 *)(cursor - 0xC) = (s32)((f32)*(s16 *)(object + 0x14) + output.z);
+        } while (count < *(u16 *)((u32)D_800DBEF4 +
+                 *(s16 *)(D_8008D062 + *bank * 0x18) * 0xA0 + 0x16));
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15182C5C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AFC80/func_15182C5C.s")
+
 f32 func_15182F58(s32 arg0, s32 arg1) {
     f32 var_fv1;
 

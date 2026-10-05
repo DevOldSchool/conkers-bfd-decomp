@@ -920,6 +920,73 @@ void func_1513EDB4(void *arg0, s16 arg1) {
 void func_1513EDE4(void *arg0, s16 arg1) {
     func_1513EAD8(arg0, 1, arg1);
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513EE14 CURRENT (2650) */
+void *func_1513EE14(void *arg0, s32 arg1) {
+    u8 *vertices;
+    void *result;
+    f32 matrix[4][4];
+    f32 corners[4][2];
+    f32 points[4][3];
+    u8 fresh;
+    Game169510ScaledOwner *owner = arg0;
+
+    func_151D5D60((u8 *)arg0 + 0x100, *(s16 *)((u8 *)&arg1 + 2), 0x40, (void **)&vertices, &fresh);
+    result = vertices;
+    if (vertices != 0) {
+        if (fresh != 0) {
+            register u8 *base = (u8 *)arg0 + *(s16 *)((u8 *)&arg1 + 2) * 4;
+            register u8 *templateData = (u8 *)arg0 + 0xC0;
+            func_10022EC0(*(u8 **)(base + 0x100), templateData, 0x40);
+            func_10022EC0(*(u8 **)(base + 0x100) + 0x40, templateData, 0x40);
+        }
+    } else {
+        return 0;
+    }
+    {
+        func_150A8050(matrix, owner->rx, owner->ry, owner->rz);
+        matrix[3][0] = owner->x;
+        matrix[3][1] = owner->y;
+        matrix[3][2] = owner->z;
+        corners[0][0] = owner->width;
+        corners[0][1] = owner->height;
+        corners[1][0] = -owner->width;
+        corners[1][1] = owner->height;
+        corners[2][0] = -owner->width;
+        corners[2][1] = -owner->height;
+        corners[3][0] = owner->width;
+        corners[3][1] = -owner->height;
+        func_150A7960(matrix, corners[0][0], corners[0][1], 0.0f, &points[0][0], &points[0][1], &points[0][2]);
+        func_150A7960(matrix, corners[1][0], corners[1][1], 0.0f, &points[1][0], &points[1][1], &points[1][2]);
+        func_150A7960(matrix, corners[2][0], corners[2][1], 0.0f, &points[2][0], &points[2][1], &points[2][2]);
+        func_150A7960(matrix, corners[3][0], corners[3][1], 0.0f, &points[3][0], &points[3][1], &points[3][2]);
+        *(s16 *)(vertices + 0) = (s32)points[0][0];
+        *(s16 *)(vertices + 2) = (s32)points[0][1];
+        *(s16 *)(vertices + 4) = (s32)points[0][2];
+        *(s16 *)(vertices + 6) = 0;
+        {
+            register u8 *second = vertices + 0x10;
+            register u8 *third = second + 0x10;
+            register u8 *fourth = third + 0x10;
+            vertices = second;
+            *(s16 *)(second + 0) = (s32)points[1][0];
+            *(s16 *)(second + 2) = (s32)points[1][1];
+            *(s16 *)(second + 6) = 0;
+            *(s16 *)(second + 4) = (s32)points[1][2];
+            vertices = third;
+            *(s16 *)(third + 0) = (s32)points[2][0];
+            *(s16 *)(third + 2) = (s32)points[2][1];
+            *(s16 *)(third + 6) = 0;
+            *(s16 *)(third + 4) = (s32)points[2][2];
+            vertices = fourth;
+            *(s16 *)(fourth + 0) = (s32)points[3][0];
+            *(s16 *)(fourth + 2) = (s32)points[3][1];
+            *(s16 *)(fourth + 6) = 0;
+            *(s16 *)(fourth + 4) = (s32)points[3][2];
+        }
+        return result;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513EE14 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513EE14.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513F114.s")
 s32 func_15140410(s32, s32, s32, s16);
