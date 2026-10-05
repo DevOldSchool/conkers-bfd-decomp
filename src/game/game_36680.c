@@ -975,8 +975,8 @@ u32 func_1500B714(s32 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1500B714 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500B714.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500B8F4 CURRENT (4535) */
-void func_1500B8F4(s16 count, s32 alpha, s32 resource, s32 type, u32 first_record, s16 **points) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500B8F4 CURRENT (4848) */
+void func_1500B8F4(s32 count, s32 alpha, s32 resource, s32 type, u32 volatile first_record, s16 **points) {
     f32 (*weights)[2];
     f32 x;
     f32 y;
@@ -986,13 +986,14 @@ void func_1500B8F4(s16 count, s32 alpha, s32 resource, s32 type, u32 first_recor
     s16 x0;
     s16 y0;
     s16 z0;
-    s32 index;
+    u32 index;
     u32 result;
     u32 record;
     s16 *point0;
     s16 *point2;
     s16 *point1;
 
+    count = (s16)count;
     index = 0;
     if (count != 0) {
         weights = D_80095C64;
@@ -1017,7 +1018,7 @@ void func_1500B8F4(s16 count, s32 alpha, s32 resource, s32 type, u32 first_recor
             index++;
             weights++;
             record = result;
-        } while (index != count);
+        } while ((s32)index != count);
         first_record = result;
     }
     D_800DDBD0[resource] = 0x57;

@@ -15808,8 +15808,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4535,
-        "reason": "Manual barycentric interpolation candidate score 4535; parameter home slots, saved registers, and coordinate evaluation scheduling remain different.",
+        "current_score": 4848,
+        "reason": "Manual two-revision ceiling: preserve valid wrapping index and explicit word-to-s16 count normalization with actual volatile record home; CURRENT 4848, frame50 and zero stack rows. Final raw record store recovered; count prologue, saved-register allocation and interpolation scheduling remain. Invalid signed-loop baseline excluded; no supported untried hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -16306,8 +16306,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4781,
-        "reason": "Manual candidate CURRENT (4781): packet frame 0x78 and all but one stack row align, but early coordinate/global scheduling and 22 register, 25 operand, 14 control differences remain; early-input prefetch shifted packet by 0x10 and was reverted.",
+        "current_score": 3102,
+        "reason": "Actual scaled intermediates separated from descriptor improve4781 to3375; descriptor-before-scalars order improves3102, frame78/raw78 with two stack rows. Raw consumer uses descriptor offsets0..44, no negative scalar prefix. Early coordinate/global scheduling, FP rows and long full-span body remain; prior prefetch regression not repeated, two fresh revisions exhausted. No ABI/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -48038,8 +48038,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 750,
-        "reason": "Best candidate CURRENT (750) with exact frame, stack and operands; only second func_151DAB58 byte-argument mask/call scheduling differs; explicit byte local regressed to 1241 and was reverted",
+        "current_score": 774,
+        "reason": "Valid natural locals without dummy pad44/pad54; CURRENT774 versus valid R1 920, old750 invalid. Canonical local DAB58 sixth u8 parameter repaired; only this target calls it in this source, no shared header changes. Frame88/raw88, RNG homes+4 and second-call mask/scheduling remain; two fresh revisions exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -60935,7 +60935,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 781,
-        "reason": "CURRENT (781): frame/stack align and loop-tail ordering improved, but FP callee-saved allocation swaps f20/f22 and downstream coordinates, with 18 register rows and 4 missing/extra call-scheduling rows; explicit FP-zero address caused frame 0xA0 regression and was reverted",
+        "reason": "Valid CURRENT781 baseline retained; canonical matched D90/E68 fourth slot is s32, no ABI changes. Real zero-word union regressed2701/frame80, prior FP-zero address regressedframeA0. No supported zero-transport hypothesis remains; F20/F22 allocation, zero MFC1 A3 and loop-tail scheduling residual.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -90063,8 +90063,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2234,
-        "reason": "CURRENT (2234): typed packet/vector candidate has frame 0x98 versus raw 0x88, shifting target/source/packet stack regions +0x10 with 24 stack rows and later call scheduling differences; full-width ABI/preload probe regressed to 2807 and was reverted",
+        "current_score": 911,
+        "reason": "Actual volatile incoming-byte home improves CURRENT2234 to911 and frame98 to90; all call registers restore, remaining frame90/raw88, shifted stack homes and D_A2438 early-load scheduling. Natural packet/vector aggregate neutral. Same byte parameter width; top-level qualifier changes no callable ABI; indexed matched callers none, raw sole caller passes FF. Two fresh revisions exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
