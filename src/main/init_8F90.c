@@ -612,10 +612,12 @@ void func_80009B90(void *arg0) {
 void func_850AD770(void);
 extern s32 D_8003C8E0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009BE4 CURRENT (810) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009BE4 CURRENT (790) */
 void func_80009BE4(void *arg0) {
     AudioBufferState *record = arg0;
     AudioBufferState *anchor;
+    extern AudioBufferState *D_800406A4;
+    extern AudioBufferState *D_800406B0;
 
     if ((u32)arg0 & 1) {
         D_8003C8E0 = 0x0F000004;
@@ -624,7 +626,7 @@ void func_80009BE4(void *arg0) {
     }
     *record->ownerSlot = record->savedValue;
     if (record == D_800406A0.active) {
-        D_800406A0.active = record->next;
+        D_800406A4 = record->next;
     }
     if (record->next != 0) {
         record->next->prev = record->prev;
@@ -647,7 +649,7 @@ void func_80009BE4(void *arg0) {
         }
         return;
     }
-    D_800406A0.freeAnchor = record;
+    D_800406B0 = record;
     record->next = 0;
     record->prev = 0;
 }
@@ -660,15 +662,16 @@ void func_80023D20(void *, s32);
 extern u32 D_8002AE50;
 extern TransferIoMessage D_80041330[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009CBC CURRENT (1394) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009CBC CURRENT (630) */
 void *func_80009CBC(void *arg0, s32 mode) {
-    AudioBufferState *reuse;
     AudioBufferState *record;
-    AudioBufferState *anchor;
-    u32 value;
+    AudioBufferState *reuse;
     s32 size;
     s32 alignedSize;
+    AudioBufferState *anchor;
+    u32 value;
     s32 *ownerSlot;
+    extern AudioBufferState *D_800406A4;
 
     reuse = 0;
     value = *(u32 *)arg0;
@@ -695,22 +698,30 @@ void *func_80009CBC(void *arg0, s32 mode) {
                 reuse->buffer = 0;
                 reuse->ownerSlot = 0;
                 if (reuse == D_800406A0.active) {
-                    D_800406A0.active = reuse->next;
+                    D_800406A4 = reuse->next;
                 }
-                if (reuse->next != 0) {
-                    reuse->next->prev = reuse->prev;
-                }
-                if (reuse->prev != 0) {
-                    reuse->prev->next = reuse->next;
+                {
+                    AudioBufferState *element = reuse;
+
+                    if (element->next != 0) {
+                        element->next->prev = element->prev;
+                    }
+                    if (element->prev != 0) {
+                        element->prev->next = element->next;
+                    }
                 }
             }
         } else {
             D_800406A0.base = record->next;
-            if (record->next != 0) {
-                record->next->prev = record->prev;
-            }
-            if (record->prev != 0) {
-                record->prev->next = record->next;
+            {
+                AudioBufferState *element = record;
+
+                if (element->next != 0) {
+                    element->next->prev = element->prev;
+                }
+                if (element->prev != 0) {
+                    element->prev->next = element->next;
+                }
             }
         }
         if (record != 0) {

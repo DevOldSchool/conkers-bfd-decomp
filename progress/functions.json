@@ -93467,8 +93467,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 810,
-        "reason": "Preserve typed cleanup CURRENT810. Inherited owner-slot snapshot900 remains rejected. Three new revisions: manager pointer reads with direct writes1210, consistent manager pointer1210, SDK-supported two-pointer list-link view810 neutral. Manager-base hoist, pointer load order, symbolic field aliases and copied-anchor MOVE remain. No overlapping globals, volatile, artificial pressure, ABI or shared changes. Original810 restored and independently rechecked.",
+        "current_score": 790,
+        "reason": "Best full-span CURRENT790 verified8f96b73a after3 batch21 revisions across two selections, improved810 by concrete function-local extern references to existing raw/linker D_800406A4 and D_800406B0 stores. No new storage or symbol definitions. Scoped unlink and original early fields neutral; inherited owner snapshot900, manager1210 and SDK prefix810 exhausted. Residual owner-pointer load order, manager-base hoist/allocation and missing anchor copy over216bytes; frame18 exact. No shared ABI/header/assembly changes; candidate only.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93486,8 +93486,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1394,
-        "reason": "Actual ConkerBankFetch pointer-return ABI and allocator/cache/DMA contracts. Typed candidate2937 improves1877 with separate tagged return, then1394 with real owner-slot snapshot. Remaining frame50 versus58, manager symbol alias/copy and insertion allocation are unsupported; three attempts exhausted.",
+        "current_score": 630,
+        "reason": "Best full-span CURRENT630 independently restoreda832db7d after6 batch21 revisions, improved1394. Scoped actual unlink elements recover frame58 and branch-delay NOP; reordered existing locals recover every raw home; function-local extern for existing raw/linker D_800406A4 recovers named-symbol head store without adding storage or definitions. Residual: missing insertion anchor copy,6 register rows, early A1 FF, late size ADDIU and state SB scheduling,4 bytes short over832span. Original early fields and embedded SDK link view neutral; reused size advance1160 rejected. No shared ABI/header/assembly/tool changes; candidate only.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
