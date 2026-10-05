@@ -5,10 +5,6 @@
  * Boundary evidence: docs/evidence/main_audio_driver_sequence_boundaries.md
  *
  * TODO: Implement these source-unit functions:
- * - func_8000B1B0
- * - func_8000B1FC
- * - func_8000B294
- * - func_8000B2F4
  * - func_8000B548
  * - func_8000B8B8
  * - func_8000BCBC
@@ -66,80 +62,66 @@ typedef struct SequenceRecordState {
 extern SequenceRecordState *D_800417B0[];
 extern SequenceRecordState *D_800417BC[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000B1B0 CURRENT (290) */
 s32 *func_8000B1B0(s32 arg0) {
-    SequenceRecordState **cursor;
-    SequenceRecordState *record;
+    s32 index;
 
-    cursor = D_800417B0;
+    index = 0;
     for (;;) {
-        record = *cursor;
-        cursor++;
-        if (record != 0 && arg0 == record->id) {
-            return (s32 *)record;
+        if (D_800417B0[index] != 0 && arg0 == D_800417B0[index]->id) {
+            return (s32 *)D_800417B0[index];
         }
-        if (cursor == D_800417BC) {
+        index++;
+        if (D_800417BC == &D_800417B0[index]) {
             return 0;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000B1B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000B1B0.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000B1FC CURRENT (1555) */
 void *func_8000B1FC(s32 arg0) {
-    SequenceRecordState **cursor;
-    SequenceRecordState *record;
+    s32 index;
     SequenceRecordState *child;
 
-    cursor = D_800417B0;
+    index = 0;
     do {
-        record = *cursor;
-        cursor++;
-        if (record != 0 && arg0 == record->id) {
-            return record;
+        if (D_800417B0[index] != 0 && arg0 == D_800417B0[index]->id) {
+            return D_800417B0[index];
         }
-    } while ((u32)cursor < (u32)D_800417BC);
-    cursor = D_800417B0;
+        index++;
+    } while (index < 3);
+    index = 0;
     for (;;) {
-        record = *cursor;
-        cursor++;
-        if (record != 0) {
-            child = record->state;
+        if (D_800417B0[index] != 0) {
+            child = D_800417B0[index]->state;
             if (child != 0 && arg0 == child->id) {
                 return child;
             }
         }
-        if (cursor == D_800417BC) {
+        index++;
+        if (D_800417BC == &D_800417B0[index]) {
             return 0;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000B1FC */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000B1FC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000B294 CURRENT (140) */
 void func_8000B294(SequenceRecordState *arg0) {
-    SequenceRecordState **cursor;
+    s32 index;
     SequenceRecordState *child;
 
-    cursor = D_800417B0;
+    index = 0;
     for (;;) {
-        if (*cursor != 0) {
-            if (arg0 == (*cursor)->owner) {
-                (*cursor)->owner = *cursor;
+        if (D_800417B0[index] != 0) {
+            if (arg0 == D_800417B0[index]->owner) {
+                D_800417B0[index]->owner = D_800417B0[index];
             }
-            child = (*cursor)->state;
+            child = D_800417B0[index]->state;
             if (child != 0 && arg0 == child->owner) {
                 child->owner = child;
             }
         }
-        cursor++;
-        if (cursor == D_800417BC) {
+        index++;
+        if (D_800417BC == &D_800417B0[index]) {
             return;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000B294 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000B294.s")
 typedef s32 (*SequenceCallback)(s32, s32, f32, f32, f32);
 
 typedef struct {
@@ -158,41 +140,34 @@ extern SequenceRecordState D_800419A8[];
 extern u8 D_80041E58[];
 void func_800226F0(void *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000B2F4 CURRENT (114) */
 SequenceRecordState *func_8000B2F4(s32 arg0) {
-    SequenceRecordState *record;
+    s32 index;
 
-    record = D_800419A8;
+    index = 0;
     for (;;) {
-        if (record->id == -1) {
-            func_800226F0(record, 0x64);
-            record->index = -1;
+        if (D_800419A8[index].id == -1) {
+            func_800226F0(&D_800419A8[index], 0x64);
+            D_800419A8[index].index = -1;
             if (arg0 < 0x96) {
-                record->target = D_8002B074[arg0].volume;
+                D_800419A8[index].target = D_8002B074[arg0].volume;
             } else {
-                record->target = 0x6590;
+                D_800419A8[index].target = 0x6590;
             }
-            record->target5A = 0x8000;
-            record->current58 = 0x8000;
-            record->target54 = 0x8000;
-            record->current52 = 0x8000;
-            record->current4C = 0x8000;
-            record->value = 0x8000;
-            record->id = arg0;
-            record->field8 = D_8002B9D4;
-            record->fieldC = D_8002B9F4;
-            record->owner = record;
-            record->current = record->target;
-            return record;
+            D_800419A8[index].current = D_800419A8[index].target;
+            D_800419A8[index].value = D_800419A8[index].current4C = D_800419A8[index].current52 =
+                D_800419A8[index].target54 = D_800419A8[index].current58 = D_800419A8[index].target5A = 0x8000;
+            D_800419A8[index].id = arg0;
+            D_800419A8[index].field8 = D_8002B9D4;
+            D_800419A8[index].fieldC = D_8002B9F4;
+            D_800419A8[index].owner = &D_800419A8[index];
+            return &D_800419A8[index];
         }
-        record++;
-        if ((u8 *)record == D_80041E58) {
+        index++;
+        if ((SequenceRecordState *)D_80041E58 == &D_800419A8[index]) {
             return 0;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000B2F4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000B2F4.s")
 SequenceRecordState *func_8000B2F4(s32);
 void func_8000B294(SequenceRecordState *);
 

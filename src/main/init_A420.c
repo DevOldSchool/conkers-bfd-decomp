@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_8000A420
  * - func_8000A750
- * - func_8000B060
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -24,7 +23,7 @@ extern f32 D_8002C210;
 extern f32 D_8002C214;
 extern f64 D_8002C218;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A420 CURRENT (1115) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A420 CURRENT (230) */
 s32 func_8000A420(s32 x, s32 unusedY, s32 z, f32 rotation,
                   s32 distanceX, s32 distanceY, s32 distanceZ,
                   s32 flaggedLimit, s32 otherLimit, s32 *panOut,
@@ -43,7 +42,7 @@ s32 func_8000A420(s32 x, s32 unusedY, s32 z, f32 rotation,
     } else {
         distance = func_850AD9A0(distanceX, distanceY, distanceZ);
     }
-    gain = 0x7FFF - ((s32)((u32)(otherLimit - distance) << 15) / (otherLimit - flaggedLimit));
+    gain = 0x7FFF - ((s32)(((u32)otherLimit - (u32)distance) << 15) / (otherLimit - flaggedLimit));
     if (gain >= 0x191) {
         if (panOut != 0) {
             if (func_850AD960(x, z, 0, 0) >= 0x1F) {
@@ -60,8 +59,8 @@ s32 func_8000A420(s32 x, s32 unusedY, s32 z, f32 rotation,
                         value = 0x80 - (s16)rounded;
                     }
                 }
-                rounded = (s32)((f32)value + rotation * D_8002C210);
-                value = (s8)rounded;
+                value += rotation * D_8002C210;
+                value = (s8)value;
                 if (value >= 0x60 || value < -0x60) {
                     value = 0;
                 } else if (value >= 0x20) {
@@ -77,7 +76,7 @@ s32 func_8000A420(s32 x, s32 unusedY, s32 z, f32 rotation,
                 *panOut = 0x40;
             }
         }
-        if (0x7FFF - ((s32)((u32)(otherLimit - distance) << 15) / (otherLimit - flaggedLimit)) < 0) {
+        if (0x7FFF - ((s32)(((u32)otherLimit - (u32)distance) << 15) / (otherLimit - flaggedLimit)) < 0) {
             gain = 0;
         }
         if (gain >= 0x8000) {
@@ -226,11 +225,10 @@ s32 func_8000A750(s32 index, s32 panX, s32 panY, s32 panZ, f32 rotation,
 #endif /* CONKER_DEFERRED_CANDIDATE func_8000A750 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_A420/func_8000A750.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000B060 CURRENT (319) */
 s32 func_8000B060(f32 x, f32 y, s32 offset) {
+    s16 value;
     s16 mode;
     f32 ratio;
-    s16 value;
     s32 rounded;
 
     ratio = sqrtf(x * x + y * y);
@@ -247,7 +245,8 @@ s32 func_8000B060(f32 x, f32 y, s32 offset) {
             value = 0x80 - (s16)rounded;
         }
     }
-    value = (s8)(value + offset);
+    value += offset;
+    value = (s8)value;
     if (value >= 0x60 || value < -0x60) {
         value = 0;
     } else if (value >= 0x20) {
@@ -256,9 +255,7 @@ s32 func_8000B060(f32 x, f32 y, s32 offset) {
         value = -0x5F - value;
     } else {
         mode = 0;
-        value = value * 2;
+        value += value;
     }
     return (value + 0x40) | mode;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000B060 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_A420/func_8000B060.s")

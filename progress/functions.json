@@ -93562,17 +93562,16 @@
       "symbol": "func_8000A348"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 290,
-        "reason": "Preserve original typed pointer-table lookup CURRENT290. New manual endpoint snapshot290, consumed-formal input-ID snapshot450, declaration-order450, shared-return890 tested in manual-init-20261005 under expanded user budget. Formal reuse recovers a0 record/v1 cursor but reverses ID/end v0/a1 and reorders setup; none improves original. Prior sentinel exit/base-cast retained; no shared/ABI changes or permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000B1B0",
           "vram": "0x8000B1B0"
         }
@@ -93581,17 +93580,16 @@
       "symbol": "func_8000B1B0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1555,
-        "reason": "Preserve two-pass sequence lookup at CURRENT (1555), improved from1950 by explicit second-pass exit. Correct four-byte typed stride and direct-record priority retained. Separate lexical scopes are code-neutral; compiler still shares bounds across passes. No further equivalent trials or forced storage.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 152,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000B1FC",
           "vram": "0x8000B1FC"
         }
@@ -93600,17 +93598,16 @@
       "symbol": "func_8000B1FC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 140,
-        "reason": "Retain prior140. Nested positive child guard is neutral140; genuine loop-carried primary-record snapshot with raw alias reload regresses1160 via copied initial anchor and extra backbranch. Cursor/loaded-record v0/v1 allocation and two low-address initializer rows remain. No repeated primary snapshot, guard or artificial storage.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000B294",
           "vram": "0x8000B294"
         }
@@ -93619,17 +93616,16 @@
       "symbol": "func_8000B294"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 114,
-        "reason": "CURRENT 114; frame 0x20 vs 0x28, pointer spill 0x1C vs 0x18, bound initialization and target/address temps; two non-improving evidence-backed revisions exhausted plateau limit.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 224,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000B2F4",
           "vram": "0x8000B2F4"
         }
@@ -96656,8 +96652,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1115,
-        "reason": "Best full-span US CURRENT1115 restored and independently rechecked cbcc1be281d8498ca49415fe3998f54e. One distinct actual range-value lifetime form after inherited1917/1136/1115 worsens to1131: distance/range register roles remain reversed and range spill moves to18 rather than raw1C. Own inputs are raw fullword values; narrowing unsupported. No retained source/ABI change; local-order, range snapshot and frame/storage families exhausted.",
+        "current_score": 230,
+        "reason": "Improved full816 US CURRENT1115 to230 in manual-init-20261005. Four manual forms: staged angle cast1115, compound float rotation plus signed8 update230, explicit register range246, unsigned numerator subtraction230. All angle/pan instruction and temporary differences fixed by compound update; only distance t1 versus raw t2 and shared denominator t2 versus raw t1 plus associated eight spill rows remain. Kept defined unsigned numerator expression at230. Prior ordinary range snapshot, local-order and frame/storage trials remain exhausted; no shared or ABI changes and no permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -96692,17 +96688,16 @@
       "symbol": "func_8000A750"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 319,
-        "reason": "Float helper contract corrected from existing matched definition. Full rounded angle plus narrowed output improves 1069 to 319. Mapped mode home with separate pan state fixes storage but worsens allocation to 340. Preserve both forms; retain best 319 without further search.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 336,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000B060",
           "vram": "0x8000B060"
         }

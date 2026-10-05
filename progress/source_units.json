@@ -20267,7 +20267,7 @@
         "us": {
           "end": "0xB1B0",
           "start": "0xA420",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_A420.c"
