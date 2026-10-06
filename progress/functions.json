@@ -96643,7 +96643,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 31655,
-        "reason": "Full 2320-byte current-span baseline32097 improved to31655 with direct squared-distance expressions and promoted s32 count, restoring raw D0 frame. Five new manual revisions: early cursor40414, direct expression32012, promoted count31655, direct indexed loop34128, guarded do loop31655. Prior23980 historical score is not comparable to current full-span check. Still compiler unroll2 versus raw4, neighbor-distance promotion/spills, segment addressing and FP output allocation. Best independently restored; no manual unroll, ABI/shared/ASM changes.",
+        "reason": "Checkpoint82 full2320 preferred CURRENT31655 independently restored8d30fa4c. Three new manual hypotheses: explicit tableOffset31405 fixes index reloads but grows frameD8; consumed index as offset31566 restores frameD0 but adds repeated home stores; register left/right hints31655 yield identical full diff. Retain original candidate despite lower aggregate scores in inferior revisions. Raw unroll4 versus C2 and left/right promotion remain unresolved; offset and register-hint families exhausted. No ABI/shared/ASM changes or manual unroll.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
