@@ -93282,7 +93282,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1811,
-        "reason": "Checkpoint81 full1084 CURRENT1811 independently restored941016e0, improved1846 after5manualrevisions. Local typed command2/task3 view at rawE388 recovers task loads/stores+8 and BNE operand order; fixed3 iterations touch provenE390/E394/E398 slots. Rawendpoint integer3739/bytepointer2261 create duplicate induction and are rejected. Actual sequential cursor-pair union2250 recovers frame270 but forces cache S0/S1 instead V0/V1; separate DMA/cache scopes1861 retain frame278 and add MOVE/earlySW. Both rejected. Best retains checkpoint80 sample continuity/allocation-result reuse. Residual frame278/effects64 vs270/58, driver and node-address lifetimes, task endpoint alias and25registerrows. No ABI/shared/ASM changes or data ownership claim.",
+        "reason": "Checkpoint105 full1084 CURRENT1811 independently restored12a8802b. Two new manual hypotheses: opaque driverobject/address declaration1811 neutral (aaaa5977); direct namedhead initialization before cursor assignment1826 worsens cache scheduling (16acfa8c). Original best source restored. Remaining frame278/raw270, effects64/raw58, rematerialized driverbase/merged list anchors, task endpoint alias and temp registers. These families and previous cursorunion/scopes/snapshots exhausted; no repeated variants without new evidence. No shared dependency, ABI, ASM, tooling or compiler changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
