@@ -8,7 +8,6 @@
  * - func_150EFB80
  * - func_150EFEC8
  * - func_150F00EC
- * - func_150F0198
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -170,10 +169,17 @@ typedef struct Game11D030Locals {
     s32 saved;
 } Game11D030Locals;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F0198 CURRENT (120) */
 s32 func_150F0198(u8 arg0, u8 arg1, u8 arg2, u8 arg3, s32 arg4, u8 arg5, s32 arg6) {
-    Game11D030Locals locals;
-    register s32 value;
+    s32 value;
+    struct {
+        s32 payload;
+        s32 position[3];
+        u8 descriptor_0;
+        s8 descriptor_1;
+        s16 descriptor_2;
+        s8 descriptor_4;
+        u8 pad15[3];
+    } locals;
 
     locals.payload = arg4;
     locals.descriptor_0 = 2;
@@ -186,11 +192,7 @@ s32 func_150F0198(u8 arg0, u8 arg1, u8 arg2, u8 arg3, s32 arg4, u8 arg5, s32 arg
     value = func_151602C0(&locals.descriptor_0, &locals.position[0], arg0, arg1, arg2,
                           arg3, 0xFF, 0, 4, arg5, arg6);
     if (value != 0) {
-        locals.saved = value;
         func_10022EC0((u8 *) value + 0x18, &locals.payload, 4);
-        value = locals.saved;
     }
     return value;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F0198 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D030/func_150F0198.s")

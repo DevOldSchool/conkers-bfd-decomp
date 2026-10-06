@@ -77,9 +77,9 @@ GameC8950Node *func_1509B704(s16);                  /* extern */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509B570 CURRENT (10) */
 void *func_1509B570(s32 arg0) {
-    s32 temp_v0;
+    u32 temp_v0;
 
-    temp_v0 = (s32) func_1509B704((s16)arg0);
+    temp_v0 = (u32) func_1509B704((s16)arg0);
     if (temp_v0 != 0) {
         return (void *)(temp_v0 + *(u16 *)(temp_v0 + 0xA));
     }

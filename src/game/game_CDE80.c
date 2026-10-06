@@ -17,7 +17,6 @@
  * - func_150A29C8
  * - func_150A2AEC
  * - func_150A2CA4
- * - func_150A2D84
  * - func_150A2E4C
  * - func_150A2EE4
  * - func_150A2FA4
@@ -549,28 +548,24 @@ typedef struct GameCDE80ActorSnapshot {
 
 extern s32 D_800DBFF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A2D84 CURRENT (618) */
 s32 func_150A2D84(s32 arg0, s32 arg1) {
-    GameCDE80ActorSnapshot actor;
-    u32 index;
     u8 *source;
+    GameCDE80Actor actor;
 
-    index = arg1 & 0xFFF;
     source = (u8 *) (D_800DBFF0 + (arg0 * 0x9A0));
-    if ((u32) D_800D3094 < index) {
+    arg1 &= 0xFFF;
+    if ((u32) D_800D3094 < (u32)arg1) {
         return 1;
     }
     actor.x = *(f32 *) (source + 0x2F8);
     actor.y = *(f32 *) (source + 0x2FC);
     actor.z = *(f32 *) (source + 0x300);
-    actor.field_180 = actor.y;
-    actor.field_2C = *(f32 *) (source + 0x304);
-    actor.field_30 = *(f32 *) (source + 0x308);
-    actor.field_34 = *(f32 *) (source + 0x30C);
-    return func_150A1DA0(&actor, D_800D3098 + (index * 0x34), 0);
+    actor.field180 = actor.y;
+    actor.field2C = *(f32 *) (source + 0x304);
+    actor.field30 = *(f32 *) (source + 0x308);
+    actor.field34 = *(f32 *) (source + 0x30C);
+    return func_150A1DA0(&actor, ((u32)arg1 * 0x34) + D_800D3098, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150A2D84 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A2D84.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150A2E4C CURRENT (710) */
 s32 func_150A2E4C(s32 arg0, f32 arg1, f32 arg2, volatile f32 arg3) {
     f32 result;

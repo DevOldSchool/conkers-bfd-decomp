@@ -110,22 +110,24 @@ void func_1510B32C(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     *(f32 *)((u8 *)temp_v0 + 8) = arg2;
     D_800D9AF0 = 1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B3B0 CURRENT (280) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B3B0 CURRENT (270) */
 void func_1510B3B0(void) {
     f32 *var_s0;
     f32 temp_fv0;
     f32 temp_fv1;
+    f32 inactive;
     s32 var_s1;
 
     var_s1 = 0;
     if (D_80082FA0 >= 0) {
         var_s0 = D_800D9AC0;
+        inactive = -1.0f;
         do {
             temp_fv0 = var_s0[0];
-            if (-1.0f != temp_fv0) {
+            if (inactive != temp_fv0) {
                 temp_fv1 = temp_fv0;
                 func_1510B128(var_s1, var_s0[1], var_s0[2], temp_fv1, 0.0f);
-                var_s0[0] = -1.0f;
+                var_s0[0] = inactive;
             }
             var_s1 += 1;
             var_s0 += 3;
@@ -139,37 +141,34 @@ void func_1510B5F8(s32, void *, f32, f32, f32, f32, f32);
 extern f32 D_800D9AF8[];
 extern s8 D_800D9B18;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B458 CURRENT (1022) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B458 CURRENT (60) */
 void func_1510B458(s32 arg0, f32 arg1, f32 arg2) {
-    f32 var_fa0;
-    f32 var_fa1;
     s32 temp_v1;
     u8 *temp_v0;
 
-    var_fa0 = arg1;
-    var_fa1 = arg2;
-    if (var_fa0 == 0.0f) {
-        var_fa0 = D_800D9B20;
+    if (arg1 == 0.0f) {
+        arg1 = D_800D9B20;
     }
-    if (var_fa1 == 0.0f) {
-        var_fa1 = D_800D9B1C;
+    if (arg2 == 0.0f) {
+        arg2 = D_800D9B1C;
     }
-    arg1 = var_fa0;
-    arg2 = var_fa1;
     temp_v1 = arg0 * 0x180;
     temp_v0 = (u8 *)D_800BE628 + temp_v1;
-    func_1510B5F8(arg0, temp_v0 + 0xB8, *(f32 *)(temp_v0 + 0x78),
+    func_1510B5F8(arg0, (void *)((u32)temp_v1 + (u32)D_800BE628 + 0xB8), *(f32 *)(temp_v0 + 0x78),
         *(f32 *)(temp_v0 + 0x74), arg1, arg2, *(f32 *)(temp_v0 + 0x84));
-    D_800D9AF8[arg0 * 2] = arg1;
-    D_800D9AF8[(arg0 * 2) + 1] = arg2;
+    temp_v0 = (u8 *)D_800D9AF8 + arg0 * 8;
+    *(f32 *)(temp_v0 + 0) = arg1;
+    *(f32 *)(temp_v0 + 4) = arg2;
     D_800D9B18 = 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510B458 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_138520/func_1510B458.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B51C CURRENT (520) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B51C CURRENT (65) */
 void func_1510B51C(void) {
     f32 *entry;
     f32 value;
+    f32 second;
+    f32 inactive;
     s32 offset;
     s32 index;
     u8 *record;
@@ -177,16 +176,18 @@ void func_1510B51C(void) {
     entry = D_800D9AF8;
     index = 0;
     if (D_80082FA0 >= 0) {
+        inactive = -1.0f;
         do {
             value = entry[0];
-            if (-1.0f != value) {
+            if (inactive != value) {
+                second = entry[1];
                 offset = index * 0x180;
                 record = (u8 *)D_800BE628 + offset;
-                func_1510B5F8(index, (u8 *)D_800BE628 + offset + 0xB8,
+                func_1510B5F8(index, (void *)((u32)offset + (u32)D_800BE628 + 0xB8),
                               *(f32 *)(record + 0x78),
                               *(f32 *)(record + 0x74),
-                              value, entry[1], *(f32 *)(record + 0x84));
-                entry[0] = -1.0f;
+                              value, second, *(f32 *)(record + 0x84));
+                entry[0] = inactive;
             }
             index++;
             entry += 2;

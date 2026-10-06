@@ -698,7 +698,7 @@ void func_151C4644(Game1EF500TimedOwner *arg0) {
     Game1EF500TimedEmitter *emitter;
 
     emitter = &arg0->emitter;
-    arg0->emitter.timer -= D_800BE9E4;
+    arg0->emitter.timer -= (u32)D_800BE9E4;
     if (arg0->emitter.timer < 0) {
         values[0] = emitter->field1C;
         values[1] = emitter->field20;
@@ -723,7 +723,7 @@ void func_151C4644(Game1EF500TimedOwner *arg0) {
         if (object != 0) {
             func_10022EC0(object + 0x28, values, 0x44);
         }
-        emitter->timer = (func_150ADA20() % (u32)(emitter->delayRange + 1)) + emitter->minimumDelay;
+        emitter->timer = (func_150ADA20() % ((u32)emitter->delayRange + 1)) + emitter->minimumDelay;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151C4644 */

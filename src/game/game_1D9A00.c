@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_pointer_table_runs.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151AC550
  * - func_151AC61C
  * - func_151AC810
  *
@@ -15,18 +14,22 @@
 u8 func_151D8E20(void);
 void func_151DBCBC(s32, f32, u8, s32, f32 *, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AC550 CURRENT (308) */
 s32 func_151AC550(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
                   s32 arg5) {
     void *object;
+    struct Record {
+        f32 first;
+        u8 pad4[4];
+        f32 third;
+        u8 padC[8];
+    } *records;
     f32 values[3];
-    u8 *records;
 
     object = *(void **)(arg0 + 0x98);
-    records = *(u8 **)(arg0 + 0x94);
+    records = *(struct Record **)(arg0 + 0x94);
+    values[0] = records[*(s8 *)(arg0 + 0x2D)].first;
     values[1] = arg4;
-    values[0] = *(f32 *)(records + (*(s8 *)(arg0 + 0x2D) * 0x14));
-    values[2] = *(f32 *)(records + (*(s8 *)(arg0 + 0x2D) * 0x14) + 8);
+    values[2] = records[*(s8 *)(arg0 + 0x2D)].third;
     func_151DBCBC(func_151D8E20() & 0xFF,
                   *(f32 *)object * 7.0f,
                   *(u8 *)((u8 *)object + 0x1B), arg5, values,
@@ -34,8 +37,6 @@ s32 func_151AC550(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
     *(s8 *)((u8 *)object + 0x20) = 4;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AC550 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D9A00/func_151AC550.s")
 typedef struct Game1D9A00EmitterConfig {
     u8 pad0[4];
     s16 angle;

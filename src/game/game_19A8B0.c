@@ -958,14 +958,14 @@ void func_15170500(s16 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, u8 arg5, s3
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_15170500.s")
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151707E0 CURRENT (40) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151707E0 CURRENT (113) */
 s32 func_151707E0(Game19A8B0Motion *arg0) {
-    s32 unused;
+    s32 func_151EF610(void);
     s32 value;
     s32 x;
     s32 z;
-    s8 high;
-    u8 low;
+    s32 high;
+    s32 low;
 
     value = arg0->alpha;
     if (arg0->active != 0) {
@@ -973,14 +973,14 @@ s32 func_151707E0(Game19A8B0Motion *arg0) {
             arg0->active = (func_150ADA20() % 25U) + 0xC8;
         }
         if (value != 0xFE) {
-            value += D_800BE9E4 << 6;
+            value += (u32)D_800BE9E4 << 6;
             if (value >= 0xFF) {
                 value = 0xFE;
             }
             arg0->alpha = value;
         }
     } else if (value != 0) {
-        value -= D_800BE9E4 * 0x10;
+        value -= (u32)D_800BE9E4 * 0x10;
         if (value < 0) {
             value = 0;
         }
@@ -996,12 +996,12 @@ s32 func_151707E0(Game19A8B0Motion *arg0) {
     } else {
         high = arg0->velocityXHigh;
         low = arg0->velocityXLow;
-        x = (high << 8) + low;
+        x = (s32)((u32)(s32)high << 8) + low;
         z = high;
         z *= 256;
         z += low;
-        if (x * x + z * z >= 0x7D1) {
-            func_1516F8EC(arg0, (func_151EF610(high, low) % 32) + 0xDC);
+        if ((s32)((u32)(x * x) + (u32)(z * z)) >= 0x7D1) {
+            func_1516F8EC(arg0, (func_151EF610() % 32) + 0xDC);
             func_1516F91C(arg0, (func_151EF610() % 32) + 0xDC);
         }
     }

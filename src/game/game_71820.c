@@ -548,17 +548,17 @@ s32 func_15044ED0(Game71820XZ *arg0, f32 arg1, volatile Game71820Hit *arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15044ED0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044ED0.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150450CC CURRENT (100) */
-s32 func_150450CC(Game71820XZ *arg0, f32 arg1, volatile Game71820Hit *arg2) {
+s32 func_150450CC(Game71820XZ *arg0, f32 arg1, Game71820Hit *arg2) {
     s32 count;
     s32 best;
     s32 scan_index;
     f32 height;
 
     if (arg0->y < arg1) {
-        arg2->flags &= ~2;
+        ((volatile Game71820Hit *)arg2)->flags &= ~2;
         return 0;
     }
-    arg2->height = D_80098D44;
+    ((volatile Game71820Hit *)arg2)->height = D_80098D44;
     best = -1;
     func_1510F800(0);
     D_800DBE68 = arg0->x;
@@ -572,9 +572,9 @@ s32 func_150450CC(Game71820XZ *arg0, f32 arg1, volatile Game71820Hit *arg2) {
 
         do {
             height = (f32)scan->height * 0.00390625f;
-            if ((height <= arg0->y) && (arg2->height < height)) {
+            if ((height <= arg0->y) && (((volatile Game71820Hit *)arg2)->height < height)) {
                 best = scan_index;
-                arg2->height = height;
+                ((volatile Game71820Hit *)arg2)->height = height;
             }
             scan_index++;
             scan++;
@@ -607,23 +607,23 @@ s32 func_150450CC(Game71820XZ *arg0, f32 arg1, volatile Game71820Hit *arg2) {
         objects = D_800DBE5C;
         if (objects != 0) {
             difference = (u8 *)candidate->sources - D_800DBE3C;
-            arg2->object = (s32)objects[difference / 12];
-            flags = arg2->flags;
+            ((volatile Game71820Hit *)arg2)->object = (s32)objects[difference / 12];
+            flags = ((volatile Game71820Hit *)arg2)->flags;
         } else {
-            arg2->object = 0;
-            flags = arg2->flags;
+            ((volatile Game71820Hit *)arg2)->object = 0;
+            flags = ((volatile Game71820Hit *)arg2)->flags;
         }
-        arg2->active = 1;
+        ((volatile Game71820Hit *)arg2)->active = 1;
         updated_flags = flags | 7;
-        arg2->flags = updated_flags;
-        arg2->field20 = 0;
-        if (arg1 <= arg2->height) {
-            arg2->flags = updated_flags | 2;
+        ((volatile Game71820Hit *)arg2)->flags = updated_flags;
+        ((volatile Game71820Hit *)arg2)->field20 = 0;
+        if (arg1 <= ((volatile Game71820Hit *)arg2)->height) {
+            ((volatile Game71820Hit *)arg2)->flags = updated_flags | 2;
             return 1;
         }
         return 0;
     }
-    arg2->flags &= ~2;
+    ((volatile Game71820Hit *)arg2)->flags &= ~2;
     return 0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150450CC */

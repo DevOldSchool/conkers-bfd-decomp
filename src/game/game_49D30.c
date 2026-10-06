@@ -244,25 +244,25 @@ second_loop:
 #endif /* CONKER_DEFERRED_CANDIDATE func_1501CE54 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501CE54.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501CFF8 CURRENT (2000) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501CFF8 CURRENT (410) */
 s32 func_1501CFF8(s32 arg0) {
     s32 var_v0;
     s32 var_v1;
     u16 *var_a2;
-    u16 temp_t7;
-    u8 temp_a1;
+    s32 temp_a1;
 
-    temp_a1 = D_800C363A[arg0];
-    var_v1 = 0;
     var_v0 = 0;
+    var_v1 = 0;
+    temp_a1 = D_800C363A[arg0];
     if ((s32)temp_a1 > 0) {
         var_a2 = D_800C35D8[arg0];
-        do {
-            temp_t7 = *var_a2;
-            var_v0 += 1;
-            var_a2 += 1;
-            var_v1 += temp_t7;
-        } while (var_v0 < (s32)temp_a1);
+sum_entry:
+        var_v1 += *var_a2;
+        var_v0 += 1;
+        var_a2 += 1;
+        if (var_v0 < (s32)temp_a1) {
+            goto sum_entry;
+        }
     }
     return var_v1;
 }

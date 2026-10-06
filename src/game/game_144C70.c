@@ -474,7 +474,7 @@ f32 func_150489B0(u8);
 f32 func_15048A40(u8);
 extern f32 D_800A315C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151196D4 CURRENT (13134) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151196D4 CURRENT (970) */
 void func_151196D4(Game144C70VertexState *arg0) {
     Game144C70Vertex *vertex;
     Game144C70Vertex *base;
@@ -482,17 +482,18 @@ void func_151196D4(Game144C70VertexState *arg0) {
     s32 group;
     s32 index;
     s32 count;
+    s32 more;
     s32 sumX, sumZ;
-    s32 angle, inverse;
-    s32 x, z;
+    s32 angle;
+    u8 inverse;
+    s32 z;
     f32 scale, cosine, sine;
     f32 originalX, originalZ;
-    u16 kind;
 
-    kind = arg0->kind;
+    sumX = arg0->kind;
     vertex = arg0->vertices;
     threshold = 100;
-    if (kind == 0x21 || kind == 0x22) {
+    if (sumX == 0x21 || sumX == 0x22) {
         threshold = 400;
     }
     count = arg0->count;
@@ -503,8 +504,9 @@ void func_151196D4(Game144C70VertexState *arg0) {
         do {
             if (vertex->group == 0) {
                 z = vertex->z;
-                x = vertex->x;
-                if (threshold < (s32)((u32)(z * z) + (u32)(x * x))) {
+                sumX = vertex->x;
+                sumX = (s32)((u32)(z * z) + (u32)(sumX * sumX));
+                if (threshold < sumX) {
                     group++;
                     vertex->group = group;
                     func_151194D4(arg0, vertex, threshold, group);
@@ -525,21 +527,24 @@ void func_151196D4(Game144C70VertexState *arg0) {
             index = 0;
             vertex = base;
             if (count > 0) {
-                do {
-                    index++;
-                    if (group == vertex->group) {
-                        sumX += vertex->x;
-                        sumZ += vertex->z;
-                    }
-                    vertex++;
-                } while (index < count);
+sum_vertices:
+                index++;
+                more = index < count;
+                if (group == vertex->group) {
+                    sumX += vertex->x;
+                    sumZ += vertex->z;
+                }
+                vertex++;
+                if (more) {
+                    goto sum_vertices;
+                }
             }
             if (sumX != 0 || sumZ != 0) {
                 vertex = base;
                 angle = (s32)(func_150484A0((f32)sumX, (f32)sumZ) * scale) & 0xFF;
                 index = 0;
                 if (group < angle) {
-                    inverse = -angle & 0xFF;
+                    inverse = -angle;
                     cosine = func_15048A40(inverse & 0xFF);
                     sine = func_150489B0(inverse & 0xFF);
                     count = arg0->count;
@@ -548,7 +553,8 @@ void func_151196D4(Game144C70VertexState *arg0) {
                             index++;
                             if (group == vertex->group) {
                                 originalZ = (f32)vertex->z;
-                                originalX = (f32)vertex->x;
+                                sumX = vertex->x;
+                                originalX = (f32)sumX;
                                 vertex->group = (((group - 1) & 3) << 8) | angle;
                                 vertex->x = (s32)(originalZ * cosine + originalX * sine);
                                 vertex->z = (s32)(originalZ * sine - originalX * cosine);

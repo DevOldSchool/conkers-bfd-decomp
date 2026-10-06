@@ -8,7 +8,6 @@
  * - func_150D54C8
  * - func_150D596C
  * - func_150D5A6C
- * - func_150D6388
  * - func_150D6434
  * - func_150D65F0
  *
@@ -82,22 +81,17 @@ u32 func_150ADA20(void);
 void func_151541B8(s32, f32, s32, f32, f32, u8, s32);
 f32 func_150ADA68();
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D6388 CURRENT (1864) */
 void func_150D6388(s32 arg0, u8 arg1, s32 arg2) {
-    f32 sp28;
-    f32 var_ft5;
-    s32 temp_t7;
+    struct {
+        f32 value;
+        u32 random;
+    } locals;
 
-    sp28 = func_150ADA68();
-    temp_t7 = (func_150ADA20() % 56U) + 0xC8;
-    var_ft5 = (f32)temp_t7;
-    if (temp_t7 < 0) {
-        var_ft5 += 4294967296.0f;
-    }
-    func_151541B8(arg0, (sp28 * 4.0f) + 15.0f, 0x3FAFF1E9, var_ft5, 0.0f, (u8)(s32)arg1, arg2);
+    locals.value = func_150ADA68();
+    locals.random = func_150ADA20();
+    func_151541B8(arg0, (locals.value * 4.0f) + 15.0f, 0x3FAFF1E9,
+                 (f32)((locals.random % 56U) + 0xC8), 0.0f, arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D6388 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1028F0/func_150D6388.s")
 void func_15154884(s32, f32, f32, f32, s32, s32);
 extern f32 D_800A0AB0;
 extern f32 D_800A0AB4;
@@ -161,16 +155,17 @@ void func_151A5D58(f32, s32, s32, s32, s32, s32, s32, s32, s32);
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150D65F0 CURRENT (90) */
 void func_150D65F0(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
     struct {
-        u8 pad[8];
+        u32 final_random;
         f32 value;
         u32 random_value;
     } locals;
 
     locals.value = func_150ADA68();
     locals.random_value = func_150ADA20();
+    locals.final_random = func_150ADA20();
     func_151A5D58((locals.value * 100.0f) + 150.0f,
                   ((locals.random_value % 71U) + 0x82) & 0xFF,
-                  arg0, arg1, (func_150ADA20() % 31U) + 0x32,
+                  arg0, arg1, (locals.final_random % 31U) + 0x32,
                   0, 1, (s32)arg2, arg3);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150D65F0 */

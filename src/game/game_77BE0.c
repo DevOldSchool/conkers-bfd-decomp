@@ -137,11 +137,12 @@ void func_1504AF10(Game77BE0AttachmentActor *arg0, s32 arg1, s32 arg2) {
 extern s8 D_80099140[];
 extern f32 D_800991D4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504BA38 CURRENT (1435) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504BA38 CURRENT (150) */
 void func_1504BA38(void *arg0) {
-    s8 temp_a1;
-    s8 temp_v0;
+    s32 temp_a1;
+    s32 temp_v0;
     s8 *entry;
+    f32 scale;
 
     if (*(f32 *)((u8 *)arg0 + 0x28) > 10.0f) {
         *(s16 *)((u8 *)arg0 + 0xCE) = 0;
@@ -157,7 +158,8 @@ void func_1504BA38(void *arg0) {
         *(s16 *)((u8 *)arg0 + 0xCE) = entry[0];
         return;
     }
-    *(s16 *)((u8 *)arg0 + 0xCE) = (s16)(s32)((f32)temp_v0 * D_800991D4 *
+    scale = (f32)temp_v0 * D_800991D4;
+    *(s16 *)((u8 *)arg0 + 0xCE) = (s16)(s32)(scale *
         ((f32)entry[0] - *(f32 *)((u8 *)arg0 + 0x3C)));
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1504BA38 */

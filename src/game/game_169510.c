@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1513C060
  * - func_1513C350
- * - func_1513C4EC
  * - func_1513C92C
  * - func_1513CAD4
  * - func_1513CBF0
@@ -202,21 +201,20 @@ void *func_1513C350(s32 arg0, s32 arg1, u8 arg2, u8 arg3,
 void *func_1513C350(s32, s32, u8, u8, s32, s32, s32, void *, s32, s32, s32);
 void *func_1513E13C(void *, f32, f32, f32, f32, f32, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513C4EC CURRENT (920) */
-void *func_1513C4EC(s32 arg0, s32 arg1, u8 arg2, u8 arg3, f32 arg4,
+void *func_1513C4EC(s32 arg0, s32 arg1, register u8 arg2, register u8 arg3, f32 arg4,
     f32 arg5, f32 arg6, f32 arg7, f32 arg8, u8 arg9, u8 arg10, s32 arg11,
     s32 arg12, s32 arg13, u8 arg14, s32 arg15) {
+    void *temp_v0;
     struct {
         f32 first;
         f32 second;
         f32 third;
     } packet;
-    void *temp_v0;
 
     packet.first = arg4;
     packet.second = arg5;
     packet.third = arg6;
-    temp_v0 = func_1513C350(arg0, arg1, arg2 & 0xFF, arg3 & 0xFF,
+    temp_v0 = func_1513C350(arg0, arg1, arg2, arg3,
         (s32)arg10, arg11, arg12, &packet, arg13, (s32)arg14, arg15);
     if (temp_v0 == 0) {
         return 0;
@@ -224,8 +222,6 @@ void *func_1513C4EC(s32 arg0, s32 arg1, u8 arg2, u8 arg3, f32 arg4,
     func_1513E13C(temp_v0, arg4, arg5, arg6, arg7, arg8, arg9);
     return temp_v0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513C4EC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513C4EC.s")
 
 void *func_1513C5B0(s32 arg0, s32 arg1, u8 arg2, u8 arg3, f32 arg4,
     f32 arg5, f32 arg6, f32 arg7, f32 arg8, u8 arg9, u8 arg10,

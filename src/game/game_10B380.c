@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_code_selected_callback_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150DDED0
  * - func_150DDFAC
  * - func_150DE12C
  *
@@ -15,10 +14,9 @@
 void *func_151491F4(s32, s32, s32, s32, s32, s32, s32, s32);
 void func_1516972C(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DDED0 CURRENT (230) */
 void func_150DDED0(void *arg0) {
     void *object;
-    u8 tag;
+    s32 tag;
 
     object = func_151491F4(0x64, 2, -1, 1, 0, 1, 0xFF, 0);
     if (object == 0) {
@@ -43,8 +41,6 @@ void func_150DDED0(void *arg0) {
         break;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150DDED0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10B380/func_150DDED0.s")
 extern void func_150DBD70(u8, void *);
 
 void func_150DDF88(void *arg0) {

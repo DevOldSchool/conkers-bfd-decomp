@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_radial_queue_render_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15169988
  * - func_15169A48
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -36,7 +35,6 @@ void func_1516972C(u8 *);
 extern void (*D_8008CA20[])(void);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15169988 CURRENT (45) */
 void func_15169988(void *arg0) {
     s32 temp_v1;
     s32 var_v0;
@@ -47,7 +45,8 @@ void func_15169988(void *arg0) {
     if (temp_v0 != 0) {
         D_8008CA20[(s32)temp_v0]();
     }
-    var_v0 = *(s16 *)((u8 *)arg0 + 0x26) + (*(s16 *)((u8 *)arg0 + 0x28) * D_800BE9E4);
+    var_v0 = *(s16 *)((u8 *)arg0 + 0x26);
+    var_v0 += *(s16 *)((u8 *)arg0 + 0x28) * (u32)D_800BE9E4;
     temp_t1 = *(u8 *)((u8 *)arg0 + 0x41) << 8;
     if (var_v0 >= temp_t1) {
         var_v0 -= temp_t1;
@@ -65,8 +64,6 @@ void func_15169988(void *arg0) {
         *(s16 *)((u8 *)arg0 + 0x24) = temp_v1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15169988 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_196DB0/func_15169988.s")
 typedef struct Game196DB0RenderEffect {
     u8 pad0[0x10];
     void *image;
