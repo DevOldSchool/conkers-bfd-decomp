@@ -92825,8 +92825,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2001,
-        "reason": "Checkpoint49 full1032 CURRENT2001 independently restored24c9ae02. Actual typed free-tail address local2193 adds frame80 without recovering RA caching; signed remainder with preserved unsigned arithmetic/comparisons neutral2001. Both new hypotheses exhausted. Best retains frame78 vs70, table homes+4, size/alignment and split registers, missing reverse next reload and uncached BC address. Prior table-index, pointer/integer, snapshot/type and table-scope families exhausted. No ABI/shared/ASM changes or permutation.",
+        "current_score": 1401,
+        "reason": "Checkpoint83 full1032 improved CURRENT2001 to1401, independently restored290b279c. Four manual revisions: direct prev-before-next2206, next-before-prev1816, snapshot after taggedSize1401, consumed arg2 blocksize1572 rejected. Retain direct next-link assignment before prev plus snapshot after complete header init: recovers missing raw reload and reverse-split scheduling, removes all opcode/control differences and17 register differences. Remaining frame78 versus70/table homes+4, uncached free-tail base and register allocation. Prior lifetime/type/address families remain exhausted. No shared dependencies, ABI, ASM or compiler changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

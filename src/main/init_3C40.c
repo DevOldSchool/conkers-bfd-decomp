@@ -51,7 +51,7 @@ extern s32 D_8003C8E0;
 void func_850AD770(void);
 void func_8000440C(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80003C6C CURRENT (2001) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80003C6C CURRENT (1401) */
 s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     AllocatorBlock *allocated;
     u8 *end;
@@ -178,12 +178,11 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
             following->prev = allocated;
         }
     } else if (remainder >= 0x14) {
-        oldNext = block->header.next;
+        allocated->next = block->header.next;
         allocated->prev = &block->header;
-        allocated->next = oldNext;
-        oldNext = allocated->next;
         allocated->taggedSize = ((u32)arg1 << 24) |
                                ((u32)end - (u32)allocated - 0xC);
+        oldNext = allocated->next;
         if (oldNext != 0) {
             oldNext->prev = allocated;
         }
