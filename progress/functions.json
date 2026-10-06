@@ -93851,7 +93851,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 48,
-        "reason": "Checkpoint97 unchanged full696 CURRENT48 independently rechecked 0a07ebf2 after packing review. No adjacent narrow-local opportunity: all word locals plus one byte, prior channel/oldHigh swaps already neutral. No new revision; preserve best48 and prior rejected width/scope/extraction hypotheses. No shared/ABI/ASM changes.",
+        "reason": "Checkpoint104 full696 CURRENT48 independently restored81e69070. Actual packed input union/bitfields using existing four-byte temporary3941 b2f72e5b adds input stack store and byte loads, wrong frame48/raw58. Direct initialfade inputmask zero-check neutral48 2249a5c4, same extraction order and snapshot homes. Two nonimprovements; original scalar candidate retained. Prior width, channel, scope, declarations and shared-extraction forms exhausted. No ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
