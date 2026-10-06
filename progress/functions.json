@@ -95162,7 +95162,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 26,
-        "reason": "Checkpoint58 full656 CURRENT26 independently restored6ba25c1f. Two new narrow masked-sound snapshot forms rejected: s16 snapshot1809 inserts sign extension before guard, u16 snapshot591 adds normalization and changes25registerrows. Best keeps exact instructions/registers/frame50/result4E, two spills sound30/state34 versusraw34/38. Prior next generation promotion/scope/removal/formal reuse, register hint, result reuse and fullword mask families exhausted. No shared/ABI/ASM changes or artificial pressure.",
+        "reason": "Checkpoint78 full656 CURRENT26 independently restoreda3b5ef68. Two new manual revisions: sequential generation/pitch union2128 corrects sound/state homes but forces extra SH/LHU and SWC1/LWC1 through44, changes18 registers; independent scalar pitch on current baseline neutral26. Original retains exact frame50/result4E and all instructions/registers/schedule, two compiler spills sound30/state34 versus raw34/38. Prior next removal/width/scope/registerhint, consumedformal50, result-generation reuse1575 and masked-sound16bit forms exhausted. No new distinct supported followup; no shared/ABI/ASM changes, padding, artificial pressure or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
