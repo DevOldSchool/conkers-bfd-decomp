@@ -93832,7 +93832,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Checkpoint91 full480 CURRENT10 independently restored f55f3788. Two new CFG/predicate hypotheses: equal-state empty arm with shared finalreturn neutral10 ea482649; named relational stateChanged75 72025d9a moves globalstate V0 to V1 and retains reversed BEQL. Prior XOR15/subtraction15 fix branch but consume temp, named arithmetic70/formal70/global75/narrow40/earlyreturn660 exhausted. Sole residual BEQL v0,t2 vs raw t2,v0. Simpler source retained; no ABI/shared/ASM changes or permutation.",
+        "reason": "Checkpoint102 full480 CURRENT10 independently restored d2c95f7a. Anonymous logical negation of equality neutral10 da515d7b: CFE emits same reversed BEQL V0,T2 versus raw T2,V0 with no extra arithmetic temporary. Prior XOR/subtraction15, named predicates/global snapshots70/75 and narrow snapshots40 exhausted. Original inequality retained; no ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94888,7 +94888,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 500,
-        "reason": "Checkpoint63 full160 CURRENT500 independently restored726e6c1a. Narrow u16 handle retains frame8/S0/key/cursor and loop registers. New real count scalar1640 triggers four-way unrolling; count-object pointer2260 adds ADDIU and changes loop/register roles. Prior latehandle500 and u32equality1429 exhausted. Residual handleV0/countA1 versus rawA1/V0 and preloop scheduling remain; no further count-family retries without independent evidence. No ABI/shared/ASM/artificial pressure changes.",
+        "reason": "Checkpoint102 full160 CURRENT500 independently restored65caac1e. Indexed for with retained u16handle610 0eed9785 preserves frame/S0 but adds preloop scheduling differences; lexical handle declaration inside positive-count block neutral500 d4f48ada, same countA1/handleV0 instead rawV0/A1. Two nonimprovements; original cursor/u16handle retained. Older word snapshots, unsigned comparison, count snapshot/pointer and argument reuse exhausted. No shared/ABI/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
