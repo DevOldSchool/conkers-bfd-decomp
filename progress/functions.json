@@ -4,7 +4,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 30,
-        "reason": "Checkpoint76 full36 CURRENT30 independently restored496fa793. One new manual hypothesis: actual fixed4064-byte count as u16 neutral30, identical five cursor register rows V1/rawA1. Prior u32count30, previous-store address825, endpoint/OR/stride forms exhausted. Original pointer/count source retained; no new distinct supported followup. No zero-bias/dummy locals, artificial pressure/padding, shared/ABI/ASM changes or permutation.",
+        "reason": "Full36 CURRENT30 independently restored48794abf. Actual5.3 trace showed count/cursor/endpoint ranges; new explicit base/end-before-cursor form250 retains extra MOVE, baseA0/endV0/cursorV1 and fails rawA1. Reject after one revision. Prior width/store snapshot/endpoint/OR/stride families exhausted; preserve original, no artificial pressure/padding/ABI/shared/ASM changes or repeated search.",
         "recorded_revision": "working-tree"
       },
       "regions": {
@@ -92636,7 +92636,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 90,
-        "reason": "Checkpoint67 full652 CURRENT90 independently restored4c6c224a. Unsigned ROM address local neutral90 with byte-identical full diff; direct framebuffer pointer670 keeps allocation constant in S0 instead of array base. Both new forms exhausted. Prior pointer arithmetic, signed count/snapshots, allocation/address reuse, ROMsource scope and constant/block-boundary forms exhausted. Best has one early framebuffer store and five ROM address/count register rows. Historical legacy empty shaping conditions remain rejected; no padding, artificial pressure, ABI/shared/ASM changes.",
+        "reason": "Full652 CURRENT90 restored7ec4361b. New signed immediate allocator byte count plus unsigned saved DMA/loop snapshot832 grows frame58 and precolors countA0, loses required MOVE; no gain. Prior source type/lifetime/framebuffer forms exhausted, invalid legacy empty conditions remain rejected. Residual early framebuffer store plus five ROM-range register rows; not pure-register permutation eligible.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -92763,7 +92763,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 6183,
-        "reason": "Preserve original coherent extern SpTask layout and actual bcopy input forwarding with seven physical-address fields. Historical score5623 was not reproduced: fresh full272 extern recovery CURRENT6183 f2444d8fd60d44098c75baf846d0bd84; SDK-backed private file-static declaration also CURRENT6183 a24a829983e945338bdcd31763242b40, so storage form is code-neutral under current full-span scoring, not an established regression from a fresh5623 baseline. Both retain s0 common base, frame20 versus raw18 and next-member rows in target span. Original extern declaration/body restored; only candidate score annotation changes. Pinned sptask.c static tmp_task plus complete named-reference audit support correspondence, not BSS placement/object boundary; no private data integrated. One distinct storage-root form tested, recovery is not another body attempt. No match/unit or ABI/shared/SDK/header/ASM/compiler/matching-tool changes. No equivalent static/object-base/volatile/overlapping globals/padding retries without independent evidence and justified budget.",
+        "reason": "Full272 external SpTask candidate independently restored CURRENT6183 6c922502. New SDK-backed static helper linkage (not task storage) a3232748 BLOCKED_TOOLING: main comparison requires one candidate function symbol. Both definition and same-unit prototype restored to external linkage; no retained C/ABI/shared/compiler/tool changes. Static storage itself was previously neutral6183; overlapping globals, volatile and padding remain unsupported. No further linkage retry without new symbol-proof support.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -92872,7 +92872,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Checkpoint46 corrected source-local D_80038080 declaration to existing project u8 (done/init3930 and game consumers); same byte ABI, only this function references it in allowed unit. Unsigned declaration and explicit terminal return both neutral60 (088dde85,7e15034c); redundant return removed, minimal body independently rechecked2f0ba782. Full16 remains LUI/SB/JR/NOP versus raw LUI/JR/SB/NOP, no operand/register differences. No further supported scheduling hypothesis; no sharedheader/compiler/ASM/padding changes.",
+        "reason": "Full16 CURRENT60: sole byte store remains before JR instead of in delay slot. New actual-store void return expression rejected by pinned CFE (4df313af), which disallows a void expression in void return; restored simple assignment and rechecked. Prior signed/unsigned declaration and separate explicit return forms neutral. No flag/ABI/volatile/ASM workaround or further supported C revision. No source/shared changes retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -92927,7 +92927,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 760,
-        "reason": "CURRENT760 full260 US independently restored576d9ac8. Actual byteCount/pixelcount snapshots retain productV0/cursorV1/countT0/boundA3/colorV0. Residual count SRA/MOVE delay scheduling, second-base/index registers and packed-channel scheduling. Batch29 direct second framebuffer global indexing3100 regresses loop/unroll; secondpointer lexicalscope neutral760. Inherited ten typedcolor/signedviews/guardedloop/countscope/integerbase/explicitcursor forms exhausted. No manual unroll, padding, ABI, shared dependencies or ASM changes.",
+        "reason": "Full260 CURRENT760 independently restored0434c37b. New index-before-product initialization1165 allocates indexV0/productV1/pixelsA3 and fixes no scheduling; rejected. Prior13 inputs plus initialization-order hypothesis exhausted; no manual unrolling or artificial pressure. No shared/ABI/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93164,8 +93164,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1465,
-        "reason": "CURRENT1465 full468 US independently restored e13c9b91, exact frame40/datahome38 and polling registers. Remaining size/source S0/S1 allocation, count CSE, copy-loop ordering and KSEG relocation spelling. Batch27 existing linker-proven D_A0000000 extern OR2370 adds address materialization; separate actual mappedSource2019 loses source saved register. Both rejected; inherited six signedness/remaining-local revisions remain exhausted. No shared dependencies, ABI, volatile-access or ASM changes.",
+        "current_score": 1154,
+        "reason": "Full468 CURRENT1154 independently restored7af29700 improves1465. Moving aligned count=size-2 into else removes dominating CSE, recovers unaligned ADDIU and retains early aligned-count hoist. Four revisions: read/update order1465 neutral; branch-local count1154; split rounding1154 neutral; separate loop cursors1492 grows frame. Remaining saved-size allocation, KSEG reloc operands, loop registers, epilogue. No ABI/shared/ASM or MMIO changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93293,7 +93293,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 600,
-        "reason": "Fresh independent full-span CURRENT (600): body instructions agree, but next func_800057E0 occupies the final three raw NOP rows. Historical focused zero did not establish full registered span. Original internal 57E0 boundary gap requires independent source/layout evidence; no padding or boundary change to force matching.",
+        "reason": "Fresh full320 CURRENT600 b2b483b9: every executable instruction exact through return delay slot; final12 bytes are required NOP padding but current combined source emits next function57E0 there. Reviewed working boundary explicitly spans57E0; no independent original object split proof. Do not change function body or add padding to force match; blocked on boundary/layout evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93550,7 +93550,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 395,
-        "reason": "Checkpoint128 full368 CURRENT395 independently restoreda5bf7c00. Two new manual revisions: explicit mutable neighbor and saved-next copy1390 adds manager LUI/backedge scheduling; shared real neighbor and saved insertion-anchor phases618 restores loop CFG but shrinks frame50/raw58 and retains extraLUI. Both rejected; original47 register-only rows and exact opcodes/control/frame/homes preserved. No ABI/shared/ASM changes or permutation.",
+        "reason": "Fresh full368 CURRENT395 e1a12f96: exact instruction stream/frame58/stack,47 register rows. Authorized budget32 declaration/lifetime search exhausted all16 generated variants with best395 and no source application; search-report build/us/permute/func_800099BC/search-report.json. Existing explicit neighbor/saved-next and shared neighbor/anchor graph hypotheses already rejected. Do not repeat finite exhausted search with increased budget. No retained source/ABI/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93623,7 +93623,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 95,
-        "reason": "Checkpoint69 full216 CURRENT95 independently restored4be99a1e. Separate child pointer275 removes the required saved-anchor MOVE; SDK-shaped insertion prefix with scoped owner and consumed anchor is neutral95. Both new hypotheses exhausted. Best preserves all operations/order/control/frame/span;14 register rows remain managerV1/rawA1, anchorV0/rawV1, savedanchorV1/rawV0 and childV0/rawA1. Prior anchor scopes/declaration ordering, manager and unlink variants exhausted. No ABI/shared/ASM changes, artificial pressure or padding.",
+        "reason": "Full216 CURRENT95 independently restored7d734c01. Actual5.3 trace supports real owner/savedanchorV0 phases, but new shared void-pointer revision550 allocates bothV1, loses manager load hoist while fixing managerA1; rejected after one manual hypothesis. Preserve original exact instruction/control/frame stream with14register rows. Prior declaration permutation exhausted8 variants and scoped owner/anchor/child/prefix families remain exhausted. No shared/ABI/ASM or artificial-storage change.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93698,7 +93698,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 65,
-        "reason": "Checkpoint65 full216 CURRENT65 independently restored5c8a2461. SDK-shaped two-pointer insertion view with recovered anchor transition neutral65; single preserve-and-advance expression also neutral65. Prior owner scope65, manager pointer1395, typed first-field65 and late-copy scope720 exhausted. Exact operations/control/order/span retained, only childA0 versus rawA2 and managerA2 versus rawA3 across12rows. No shared/ABI/ASM/artificial pressure changes.",
+        "reason": "Full216 CURRENT65 independently restoredae108491. New conditional child assignment65 has identical post-copyprop IR and 8-range allocation to baseline, confirmed by isolated IDO5.3 diagnostics with canonical code/data/relocation equivalence. Thus branch-expression syntax family exhausted, as are prior 16 declaration/lifetime permutation variants. Preserve original; no source/shared/ABI/ASM gain or repeated search.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93948,17 +93948,16 @@
       "symbol": "func_8000BC28"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT10 after three manual forms: six exact ROM float literals, shared u8 volume and byte-conversion before offsets recover all169 instructions/registers/frame/control. Remaining scored rows are raw %hi(D_80000004) versus immediate0x8000 at128 and %lo(D_80000004) versus4 at150; generated raw symbol conflates unsigned conversion highbit and later offset. Main numeric-relocation verification needed; no assembly/tooling edited. Literal pool bytes independently recovered; full-span CURRENT0 still required.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 676,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000BCBC",
           "vram": "0x8000BCBC"
         }
@@ -93988,7 +93987,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Checkpoint130 full480 CURRENT10 independently restored2582b9d5. One newly exact EE70 sibling transfer: actual u16 maskedState plus commuted global comparison40 dabff4b0 reproduces earlier byte-snapshot six register shifts and reversed BEQL; rejected. EE70 halfword/source-order mechanism does not transfer to cached fullword global state. Original sole reversed BEQL preserved; no ABI/shared/ASM changes or permutation.",
+        "reason": "Full 480-byte US span CURRENT10 restored702a7758; only BEQL operands reversed. New post-mask signed-byte cast860 adds extension/control differences; unsigned-byte cast40 advances temporary lineage and reproduces earlier six-register residual. Both rejected; prior condition/snapshot/XOR families remain exhausted. No shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94007,7 +94006,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 48,
-        "reason": "Checkpoint125 full696 CURRENT48 independently restorede3a36e54. New exact C7E8 output-first copy mechanism tested on high field126 249532c5, then both high and low126 fde7b143. Both recover high-before-low ANDI but reverse shifts/store order and move snapshot early; all7 spill rows unchanged. Two nonimprovements, original48 retained. Output-first packedfield family exhausted; no shared/ABI/ASM changes or permutation.",
+        "reason": "Full696 CURRENT48 independently restored b5a35112. New mask-before-shift extraction733 bb968abe adds wide-mask LUI/AND and arithmetic shift, disrupts initial scheduling and registered padding; all7 stack differences persist. Rejected after one new hypothesis, no retained C-body change. Prior type/scope/copy-order families remain exhausted. Approved BCBC pool mapping and exact match unchanged.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94189,7 +94188,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1608,
-        "reason": "Checkpoint120 full1100 CURRENT1608 independently restoredc3d09845. Two new hypotheses rejected: scoped loopmask2277 restores initial mask copy but shifts queue/flags/slot homes down4 and adds backedge scheduling/NOP differences; signed32 remaining with explicit logical shift1608 produces identical full normalized diff. Retain checkpoint119 pointer-lifetime/timestamp gains. Remaining missing loopcopy, slot6C/raw70, levels50/raw58 and case/decay allocation. Alternate1798 retains fullbodylength. No shareddependency/ABI/ASM changes or permutation.",
+        "reason": "Full1100 CURRENT1608 independently restored d099e7e4. New narrow remaining mask trials2754/2613 recover some case registers but add moves, wrong backedge and missing loop copy. Reject both; prior scoped snapshots and signedword shift also exhausted. Preserve existing candidate; no new justified width retry.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94877,7 +94876,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 230,
-        "reason": "Checkpoint122 full420 best CURRENT230 independently restored c1e02245. Two new manual hypotheses: switch actual count neutral230 966d8881; genuine origin snapshot with redundant distance binding removed720 01ab61c3. Latter recovers frame80 and exact homes from archived879 but retains origin V1/rawT8 and11 register rows of earlier snapshot720. Both exhausted; preferred common-load230 retained. No shared/ABI/ASM changes or permutation.",
+        "reason": "Full420 CURRENT230 independently restored bad90720. New one-element selected-pointer array4532 42c11a2c changes promotion and loop/control/register scheduling; no useful join-load improvement. One new hypothesis rejected, original scalar restored. Prior origin snapshots/call duplication/loop scopes/switch and source-line forms exhausted; no padding or volatile followup justified. No source/ABI/shared changes retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95042,7 +95041,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 500,
-        "reason": "Checkpoint114 full160 CURRENT500 independently restored11b012d5. Two new manual hypotheses rejected: narrow-handle comparison commute505 reverses branch operands; initial-guard-only count snapshot740 avoids old unrolling but changes cursor/index registers and retains countA1/handleV0. Original500 preserved. Prior scalar bounds/pointer/indexed/lexical scopes/argument reuse exhausted; countLUI and handleMOVE scheduling remain. No ABI/shared/ASM changes or permutation.",
+        "reason": "Full160 CURRENT500 independently restored de91fc85. New actual entry-count/index phase reuse produced instruction-identical500; no added local or backedge bound snapshot. Prior separate guard-count740, narrow-handle scopes, comparison and indexed forms exhausted. Preserve simpler candidate; no equivalent definition-order retries justified.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95170,8 +95169,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1984,
-        "reason": "Checkpoint63 full240 CURRENT1984 independently restored264c37a1, improved2124 by actual u16 localVolume in first call arm. Still omits savedS1 and uses incoming volume home48/lowhalf4A, with call setup/order and temporary mismatches. FullVolume signed copy plus narrowlocal neutral1984; narrowing before innerbranch neutral1984. Prior word snapshots/register formal/explicitelse2124 exhausted. Second call retains all32volume bits and every own/helper ABI unchanged. No shared/ASM/artificial pressure changes.",
+        "current_score": 1802,
+        "reason": "Full240 CURRENT1802 independently restored1daee2b4. New actual5.3 trace shows u16 localVolume consumesV0/flagsV1; fullword masked local2114 recovered flagsV0 but adds volume LW/ANDI/MOVE and breaks extent, rejected. Preserve improved real two-phase local1802 from1984. Parameter reuse1858 adds unwanted flags homeSW; previous1930 alternative has exact first-arm chain but wrong extent. S1 volume allocation/call scheduling remain. No further equivalent width/copy/register trials justified; no ABI/shared/ASM/artificial-storage changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95461,7 +95460,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 3775,
-        "reason": "Checkpoint42 per-iteration destination scope and branch-local handle-entry scope both neutral3775 (a4a36ff0,fbe2bfd2); newly exact11BB8 lifetime pattern does not transfer. Best3775 independently restored ef938685. Prior checkpoint37 entry-stride snapshot, whole-traversal scope and consumed-operation reuse all neutral; earlier signed operation/index/direct-array/address families exhausted. Full364 residual raw repeated count/base rematerialization and MULTU by12 versus candidate cached addresses and shift/add. No ABI/shared/ASM/padding changes.",
+        "reason": "Full364 CURRENT3775 independently restored8a47dc17. New signed byte-offset handle-table multiply3775 produces identical full instruction mismatch to baseline; typed-array, unsigned stride, and signed offset all canonicalize. Prior scalar/scope/count/address forms exhausted; preserve simplest candidate. No further supported arithmetic-domain retry, artificial pressure, ABI/shared/ASM/flag changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -96021,7 +96020,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 80,
-        "reason": "Checkpoint68 full504 CURRENT80 independently restored69ff40a0. Full-width unsigned sequenceIndex100 leaves all15register differences and shifts five stack homes. Shared scratch union with unsigned polling/signed buffer phases neutral80. Both new hypotheses exhausted. Best operations/control/frame/homes exact; sequenceV0 versus rawV1, oldBufferS0 versus rawV0 and buffer/length S1/S0 swap remain. Prior separate buffer scopes/types, old/new reuse, poll scope and signed wholeword exhausted. No artificial pressure, padding, ABI/shared/ASM changes or permutation.",
+        "reason": "Full 504-byte US CURRENT (80), 15 register-only rows. Existing DMA address reused for old buffer worsened to 1547 and frame 0x48; independently restored 80. No new justified lifetime hypothesis; prior bounded permutation exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -96292,7 +96291,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 945,
-        "reason": "Checkpoint94 full76 CURRENT945 independently restored a78633fd. Three new manual hypotheses: integer cursor955 preserves dead MOVE and reverses BNE; signedhalfword guarded decrement1915 adds signextension; word guarded decrement950 restores ADDIU-1 but worsens temp lineage. All rejected, best written-pointer945 retained. Prior postincrement predicate1275, mask local945, remainder postdecrement1150, explicit exit1140 and old/new count1350 exhausted. Residual mask/global ordering, extra written MOVE, shift/register sequence. No dummy storage, ABI/shared/ASM changes or permutation.",
+        "reason": "Full76 CURRENT945 restored independently (74efe269). New cursor-minus-one inclusive comparison2510 triggers loop unrolling; reject after one revision. Earlier pointer snapshot, integer cursor, explicit exit, mask lifetime and decrement forms exhausted. No further distinct supported hypothesis; preserve best candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -96776,7 +96775,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 230,
-        "reason": "Checkpoint65 full816 CURRENT230 independently restored949683c3. Phase-scoped denominator561 changes division scheduling and spills range18; consumed limit parameter3581 shrinks frame30 versus raw38 and changes53registerrows. Both new hypotheses exhausted. Best preserves every opcode/control/order/span; only distanceT1 versus rawT2, rangeT2 versus rawT1 and associated1C/30 homes remain. Prior range/local-order/storage/unsigned-distance families exhausted. Full32 raw subtraction rejects narrow range. No padding, artificial pressure, ABI/shared/ASM changes or permutation.",
+        "reason": "Full816 CURRENT230 independently restored8fb47d21. Two new allocation-trace-led hypotheses rejected: return actual output assignment936 raises distance priority and changes tail; reuse existing gain for helper results then single distance snapshot2310 changes70 register rows/control. Prior denominator classes/scopes/parameter reuse exhausted. Preserve original; no source/shared/ABI/ASM changes or repeat of these value-flow families.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -96794,8 +96793,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 25805,
-        "reason": "Checkpoint132: one new manual common-tail/independent-neighbor hypothesis CURRENT29419 f3139e8b worsened frame to D8 and full-span diff. Preferred full2320 CURRENT25805 independently restored919b65e4. User requested stop and draft PR. Natural unroll remains2 versus raw4;194missingextra,24control,44operand,213register,7stack rows. No manual unroll, artificial state, shared/ABI/ASM changes or permutation.",
+        "current_score": 2335,
+        "reason": "User-requested stop checkpoint: retained full2320 CURRENT2335 restored5aba69c7. Narrow pointX2335 neutral (identical full diff); inline offset2371 and separate segment pointer3023 rejected. Frame D8/rawD0 and allocation residuals remain; preserve best candidate behind original ASM.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

@@ -19,6 +19,25 @@
           "sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
         }
       ]
+    },
+    {
+      "sources": [
+        "src/main/init_B1B0.c",
+        "src/done/main/init_B1B0.c"
+      ],
+      "evidence_reference": "docs/evidence/main_b1b0_literal_pool.md",
+      "sections": [
+        {
+          "input": ".rodata",
+          "output": ".main_private_b1b0_rodata",
+          "vram": "0x8002C220",
+          "rom_offset": "0x2C220",
+          "size": 32,
+          "alignment": 16,
+          "flags": 2,
+          "sha256": "76a3a9dd9215a4e3ee3e9603efa0b6fa98e48f718d47170c931ae857b27e2092"
+        }
+      ]
     }
   ]
 }

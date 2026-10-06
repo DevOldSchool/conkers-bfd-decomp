@@ -165,7 +165,7 @@ extern volatile u8 D_8003A573;
 extern volatile u8 D_8003A575;
 void func_80022A60(TransferThread *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000480C CURRENT (1465) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000480C CURRENT (1154) */
 void func_8000480C(u32 source, void *destination, u32 size) {
     u32 count;
     TransferWord data;
@@ -178,7 +178,6 @@ void func_8000480C(u32 source, void *destination, u32 size) {
     size = (size + 1) & ~1U;
     while (D_8003A573 != 0) {
     }
-    count = size - 2;
     while ((status = *(volatile u32 *)0xA4600010) & 3) {
     }
     source |= D_80000308;
@@ -205,6 +204,7 @@ void func_8000480C(u32 source, void *destination, u32 size) {
             *(u16 *)((u8 *)((void **)&destination)[0] + offset + 2) = data.half[0];
         }
     } else {
+        count = size - 2;
         offset = 0;
         if (count != 0) {
             readAddress = source;

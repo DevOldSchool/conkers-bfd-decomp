@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/main_audio_driver_sequence_boundaries.md
  *
  * TODO: Implement these source-unit functions:
- * - func_8000BCBC
  * - func_8000C350
  * - func_8000C530
  * - func_8000C934
@@ -406,7 +405,6 @@ s32 func_850A29C8(s32, s32);
 void func_80008790(u8, s32, u8, s32);
 void func_8000886C(u8, s32, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000BCBC CURRENT (10) */
 s32 func_8000BCBC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 distance;
     u8 volume;
@@ -448,8 +446,6 @@ s32 func_8000BCBC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000BCBC */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000BCBC.s")
 extern u8 D_800C35EA;
 extern s32 D_800BE9E4;
 void func_800086FC(u8, u8, u8);

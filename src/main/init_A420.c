@@ -108,7 +108,7 @@ void func_85049148(f32 *, f32, f32 *);
 s32 func_8000A420(s32, s32, s32, f32, s32, s32, s32, s32, s32,
                   s32 *, s32 *, s32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A750 CURRENT (25805) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A750 CURRENT (2335) */
 s32 func_8000A750(s32 index, s32 panX, s32 panY, s32 panZ, f32 rotation,
                   s32 distanceX, s32 distanceY, s32 distanceZ,
                   s32 nearLimit, s32 farLimit, s32 *panOut,
@@ -136,7 +136,6 @@ s32 func_8000A750(s32 index, s32 panX, s32 panY, s32 panZ, f32 rotation,
     SpatialPoint *point;
     s32 tableOffset;
     SpatialPoint **slot;
-    SpatialPoint *base;
     s32 segment;
 
     outside = 0;
@@ -149,8 +148,7 @@ s32 func_8000A750(s32 index, s32 panX, s32 panY, s32 panZ, f32 rotation,
     }
     tableOffset = index * sizeof(SpatialPoint *);
     slot = (SpatialPoint **)((u8 *)D_800D2104 + tableOffset);
-    base = *slot;
-    point = base;
+    point = *slot;
     for (i = 0; i < count; i++, point++) {
         dx = distanceX - point->x;
         dy = distanceY - point->y;
@@ -159,17 +157,14 @@ s32 func_8000A750(s32 index, s32 panX, s32 panY, s32 panZ, f32 rotation,
         if (currentDistance < bestDistance) {
             closest = i;
             leftDistance = previousDistance;
-            bestDistance = dx * dx + dy * dy + dz * dz;
-            previousDistance = currentDistance;
-            continue;
-        }
-        if (i == closest + 1) {
-            rightDistance = dx * dx + dy * dy + dz * dz;
+            bestDistance = currentDistance;
+        } else if (i == closest + 1) {
+            rightDistance = currentDistance;
         }
         previousDistance = currentDistance;
     }
     segment = closest * 8;
-    point = (SpatialPoint *)((u8 *)base + segment);
+    point = (SpatialPoint *)((u8 *)*slot + segment);
     pointX = point->x;
     selectedX = pointX;
     selectedY = point->y;
