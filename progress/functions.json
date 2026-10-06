@@ -94961,7 +94961,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 2065,
-        "reason": "Checkpoint86: three new manual revisions flags reuse2094/result reuse2408/same-type callback object read2094 rejected; flags reuse fixes frame50 and all stack homes but worsens control/register differences, retained alternative3a633722. Callback object read instruction-identical. Original2065 independently restored63e7f5da; remaining frame58 vs50, callback V0 early reload, early-return and merged final store. No ABI/shared/ASM changes.",
+        "reason": "Checkpoint123 full496 CURRENT2065 independently restored32933658. Two new manual hypotheses: existing mixer snapshot hoisted to function scope2330 62128a24 retains frame58 and loses duplicated SH; positive owner-state guard2065 8a66a301 instruction-identical baseline. Both exhausted; original source retained. Raw frame50, early V0zero, callback A0 and late spill reload unresolved. Existing void contract retained; no shared/ABI/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
