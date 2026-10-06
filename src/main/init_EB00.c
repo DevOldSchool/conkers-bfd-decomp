@@ -13,7 +13,6 @@
  * - func_80010154
  * - func_80010344
  * - func_80010630
- * - func_80010BE8
  * - func_80010F30
  * - func_80010FFC
  * - func_80011310
@@ -1053,12 +1052,11 @@ struct sndstate *func_80017438(void *, s16, u16, u8, f32, u8, u8,
 extern u16 D_800425E4;
 extern struct sndstate *D_800425E8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010BE8 CURRENT (26) */
 u16 func_80010BE8(u16 arg0, s32 sound, u16 volume, u8 pan,
                   s16 cents, u8 arg5, u8 bus) {
     u16 result;
-    u32 index;
     u16 next;
+    u32 index;
 
     index = arg0 & 0xF;
     if ((arg0 == D_800425E0[index].id) && (arg0 != 0)) {
@@ -1116,8 +1114,6 @@ search_next_slot:
 return_result:
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80010BE8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80010BE8.s")
 u16 func_80010BE8(u16, s32, u16, u8, s16, u8, u8);
 
 u16 func_80010E78(s32 arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4,
@@ -1348,17 +1344,18 @@ extern u8 D_800BE615;
 typedef s32 (*SoundRecordCallback)(void *, s32 *, u32 *, s32 *, s32 *,
                                     s32 *, u16 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011624 CURRENT (331) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011624 CURRENT (323) */
 void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
     SoundArrayRecord *record;
     u32 flags;
     s32 pan;
-    u16 handle;
+    s32 bus;
     u32 volume;
     s32 active;
     s32 distance;
     s32 cents;
     u16 sound;
+    u16 handle;
     s32 mix;
     union {
         f32 value;
@@ -1372,7 +1369,6 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
     f32 ratio;
     f32 unclampedRatio;
     f32 pitchDelta;
-    s32 bus;
 
     index = start;
     if ((index < *count) && (index < end)) {

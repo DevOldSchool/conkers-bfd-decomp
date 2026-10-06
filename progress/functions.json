@@ -93851,7 +93851,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 48,
-        "reason": "Checkpoint74 full696 CURRENT48 independently restored84072972. Two new oldHigh halfword representations: s16 gives1134 with extra SLL/SRA, u16 gives684 reproducing prior u8 failure; both remove raw MOVE and disrupt register/spill allocation. Exact ECCC narrow-value mechanism does not transfer here. Best48 retained: swapped initial ANDIs, channel2C/raw30, fade20/raw1C, oldHigh1C/raw20. Prior width/scope/chain/unsigned equality/shared extraction families exhausted. No extra reads/storage/padding, shared/ABI/ASM changes or permutation.",
+        "reason": "Checkpoint97 unchanged full696 CURRENT48 independently rechecked 0a07ebf2 after packing review. No adjacent narrow-local opportunity: all word locals plus one byte, prior channel/oldHigh swaps already neutral. No new revision; preserve best48 and prior rejected width/scope/extraction hypotheses. No shared/ABI/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95159,17 +95159,16 @@
       "symbol": "func_80010AA8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 26,
-        "reason": "Checkpoint78 full656 CURRENT26 independently restoreda3b5ef68. Two new manual revisions: sequential generation/pitch union2128 corrects sound/state homes but forces extra SH/LHU and SWC1/LWC1 through44, changes18 registers; independent scalar pitch on current baseline neutral26. Original retains exact frame50/result4E and all instructions/registers/schedule, two compiler spills sound30/state34 versus raw34/38. Prior next removal/width/scope/registerhint, consumedformal50, result-generation reuse1575 and masked-sound16bit forms exhausted. No new distinct supported followup; no shared/ABI/ASM changes, padding, artificial pressure or permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 656,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80010BE8",
           "vram": "0x80010BE8"
         }
@@ -95363,8 +95362,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 331,
-        "reason": "Checkpoint79 full1428 CURRENT331 independently restored196f2bd0; improved fresh486 by capturing pitch event bits in consumed velocity before float comparison. Exact payload LW/JAL-delay order recovered, frameC8/output homes/FP retained. Four revisions: separate scopedpayload2318 growsframeD0; velocityreuse331; offsetdestinationreuse neutral331; complete successwriteback619 swaps count/index registers and duplicates flags. Remaining initialoffset3 register rows, quotient A2/rawV0 five rows, handle spill74/raw7C, merged finalSH/short body. Historical481 baseline now486 only from next exact11BB8 prologue entering full span. No ABI/shared/ASM changes or artificial storage.",
+        "current_score": 323,
+        "reason": "Checkpoint97 full1428 CURRENT331->323 packing-only independently restored25f1ff7a. Pair real sound/handle halfwords and move existing bus into former handle reservation; frameC8/all output homes intact, promotedhandle spill74->78 (raw7C). Factored unsigned stride1053 rejected with135register rows. Residual initialoffsetV0/rawFP, quotientA2/rawV0, spill78/raw7C and merged finalSH/body4short. No ABI/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
