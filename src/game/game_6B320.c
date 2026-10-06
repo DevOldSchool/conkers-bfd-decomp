@@ -13,7 +13,6 @@
  * - func_1503EA54
  * - func_1503EB78
  * - func_1503ECA0
- * - func_1503EF4C
  * - func_1503EFC4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -578,9 +577,10 @@ void func_1503EEC0(s32 arg0) {
         func_15060F28(D_800CC2D0 + (arg0 * 0x32C), 1);
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503EF4C CURRENT (20) */
 s32 func_1503EF4C(s32 arg0, s32 arg1, s32 arg2) {
     Game6B320MaskPair *base;
+    u32 tmp1;
+    u32 *tmp2;
     Game6B320MaskPair *pair;
     u32 first;
     u32 second;
@@ -588,16 +588,12 @@ s32 func_1503EF4C(s32 arg0, s32 arg1, s32 arg2) {
     base = D_8008446C[arg0];
     pair = (Game6B320MaskPair *)((u8 *)base + (arg1 * sizeof(*pair)));
     first = pair->first;
-    if (((first == 0) ||
-         (D_800C6664[arg2].bits & first)) &&
-        ((second = pair->second, (second == 0)) ||
-         (D_800C6668[arg2].bits & second))) {
+    tmp2 = &D_800C6668[arg2].bits;
+    if ((first == 0 || D_800C6664[arg2].bits & (tmp1 = first)) && (((second, (*pair).second == 0)) || *tmp2 & (*pair).second)) {
         return 1;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503EF4C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503EF4C.s")
 extern u8 D_80098914[];
 extern u32 func_150ADA20(void);
 
