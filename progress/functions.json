@@ -92990,7 +92990,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Checkpoint99 full296 CURRENT60 independently restored36d7b9f2. Two loop forms rejected: entryfor260 keeps all registers/frame but moves BEQZ afterqueue arithmetic, ADDUdelay; guardedentryfor532 retains duplicate sizeguard and shifts13savedregister rows. Original guard/do retained, sole queueADDU interleaved between limit LUI/ORI. No new sourcegain, shared/ABI/ASM changes.",
+        "reason": "Checkpoint110 full296 preferred CURRENT60 independently restoreddbe24e81ec4d4c538ba23aa1f1befc6a. Two new manual hypotheses neutral: zero-size earlyreturn60 a24851c9 retains sole queueADDU between limit LUI/ORI; separate signedindex declared register20 1285d2bd reproduces archived separateindex20 exactly, frame88/raw80 and response6C/raw64/request70/raw68. Preferred unsigned sharedscalar has exact frame/allhomes/registers. Earlier loops/scopes/union/byte-address/limit/clamp forms exhausted. No sourcegain, ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
