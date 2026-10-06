@@ -680,7 +680,7 @@ void func_80023D20(void *, s32);
 extern u32 D_8002AE50;
 extern TransferIoMessage D_80041330[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009CBC CURRENT (450) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009CBC CURRENT (330) */
 void *func_80009CBC(void *arg0, s32 mode) {
     AudioBufferState *record;
     AudioBufferState *reuse;
@@ -766,8 +766,8 @@ void *func_80009CBC(void *arg0, s32 mode) {
             record->savedValue = value;
             record->count = 0;
             record->field16 = mode;
-            record->state = 0;
             record->ownerSlot = arg0;
+            record->state = 0;
             if (D_8002AE50 < 0x28U) {
                 alignedSize = (size + 0xF) & ~0xF;
                 record->buffer = (void *)func_80003C40(alignedSize, 0xFF, 2, 0);

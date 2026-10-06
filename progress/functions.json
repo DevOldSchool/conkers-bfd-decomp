@@ -93485,8 +93485,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 450,
-        "reason": "Checkpoint71 full832 CURRENT450 independently restored5f76b923. Scoped actual ownerSlot515 regresses first-phase A1 load/spill and leaves insertion registers. Early rounded size in existing alignedSize2002 shrinks frame58 to40, adds premature spill, loses alignment MOVE and creates33 stack rows. Both rejected; original best450 retained with exact frame58/all homes/first phase. Remaining10 insertion register rows plus earlyFF, sizeADDIU/stateSB/zeroA3 scheduling. Prior consumed-size advance, prefix and insertion forms exhausted. No artificial pressure/padding, ABI/shared/ASM changes or permutation.",
+        "current_score": 330,
+        "reason": "Checkpoint85 full832 CURRENT330 a65e9c71 improved450. Two manual revisions: consumed mode allocation-tag450 identical, state-byte store after ownerSlot330 retained. Actual metadata-store order recovers raw ADDIU A0,T1,15 and stateSB placement with exact frame58/all homes/first phase preserved. Residual early LI A1,FF and MOVE A3,zero plus10 insertion-register rows; no new supported tag-binding/size advance repeat. Prior owner scopes/early size/prefix forms remain exhausted. No ABI/shared/ASM changes or extra state.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
