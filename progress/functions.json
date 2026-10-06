@@ -93394,7 +93394,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 395,
-        "reason": "Checkpoint56 full368 CURRENT395 improves430: delayed saved-anchor snapshot plus actual anchor advance recovers missing MOVE and exact full instruction span/order/control. All47 remaining rows are registers. Whole list-phase pointer scope and direct cursor while loop both neutral395; restored 01521fbb body independently. Prior static prefix/field-lvalue/store-forwarding attempts430 remain exhausted. No shared/ABI/ASM changes or padding.",
+        "reason": "Checkpoint128 full368 CURRENT395 independently restoreda5bf7c00. Two new manual revisions: explicit mutable neighbor and saved-next copy1390 adds manager LUI/backedge scheduling; shared real neighbor and saved insertion-anchor phases618 restores loop CFG but shrinks frame50/raw58 and retains extraLUI. Both rejected; original47 register-only rows and exact opcodes/control/frame/homes preserved. No ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
