@@ -94089,8 +94089,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 5230,
-        "reason": "Preserve typed transition controller at fresh full-span US CURRENT 5230 (c6029299767f4b93b237d93d54abb2f1). Actual normalized s32 parameter word homes and reloads already agree relative to the frame; the proposed object views have no supported assembly change and were rejected before editing, zero new forms. Inherited control-flow and restoration paths retained; frame/spill offsets, global constant reuse and register scheduling remain. Do not repeat parameter views, duplicate return conditions or frame shaping without independent new evidence.",
+        "current_score": 1068,
+        "reason": "Checkpoint88 full1200 improved5230to1068 after six revisions4050/3640/1118/1068/1068/1068. Retained ordered chained resets, scoped real pointers, raw nested outgoing guards and earlier current/target copy; all registers/frame30/homes exact. Outgoing fallback else and initial recovery goto forms instruction-identical, rejected. Best independently restored0dd3a476. Residual two branch joins: initial second recovery BEQ vs raw BNE plus exit, outgoing-null likely/duplicate LW; body1188 vs1200. No ABI/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

@@ -1241,13 +1241,10 @@ void func_8000D758(f32 arg0, f32 arg1, f32 arg2) {
 }
 void *func_8000B1FC(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000D96C CURRENT (5230) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000D96C CURRENT (1068) */
 void func_8000D96C(s32 arg0, s32 arg1, s32 arg2) {
     SequenceRecordState *outgoing;
     SequenceRecordState *incoming;
-    SequenceRecordState *record;
-    SequenceRecordState *child;
-    SequenceVolumeEntry *entry;
     s32 sync;
 
     outgoing = 0;
@@ -1256,6 +1253,9 @@ void func_8000D96C(s32 arg0, s32 arg1, s32 arg2) {
     arg0 &= 0xFFF;
     arg1 &= 0xFFF;
     if (arg0 != 0 && func_8000B1FC(arg0) != 0) {
+        SequenceRecordState *record;
+        SequenceRecordState *child;
+
         record = (SequenceRecordState *)func_8000B1B0(arg0);
         if (record == 0) {
             return;
@@ -1289,66 +1289,70 @@ void func_8000D96C(s32 arg0, s32 arg1, s32 arg2) {
         outgoing = (SequenceRecordState *)func_8000B1B0(arg1);
     }
     if (outgoing != 0) {
-        if (outgoing->state != 0) {
-            return;
-        }
-        if (arg2 != 4 && arg2 != 6) {
-            goto simple_transition;
-        }
-        if (arg0 != 0) {
-            incoming = func_8000B2F4(arg0);
-        }
-        if (incoming != 0 || arg0 == 0) {
+        if (outgoing != 0 && outgoing->state != 0) {
             if (arg0 != 0) {
-                entry = &D_8002B074[arg0];
-                if ((entry->flags & 0x20) && (D_8002B074[arg1].flags & 0x20)) {
-                    sync = 1;
-                }
-                incoming->ownerSync = sync;
-                if (entry->flags & 8) {
-                    incoming->target54 = 0x8000;
-                    incoming->current52 = 0;
-                    incoming->duration56 = 0x3C;
-                } else if (sync != 0) {
-                    incoming->target54 = 0x8000;
-                    incoming->current52 = 0;
-                    incoming->duration56 = 0x100;
-                }
-                incoming->owner = outgoing;
-                incoming->startMask = 2;
-                func_8000B3D4(incoming, 0);
-            }
-            if (arg2 == 6) {
-                if (arg0 != 0) {
-                    outgoing->fadeMask = 2;
-                }
-                outgoing->ownerSync = 0;
-                outgoing->owner = outgoing;
-                outgoing->target54 = 0;
-                if (D_8002B074[arg1].flags & 8) {
-                    outgoing->duration56 = 0x28;
-                    return;
-                }
-                outgoing->duration56 = 0xA0;
                 return;
             }
-            incoming = func_8000B2F4(0);
-            if (incoming != 0) {
-                if (arg0 != 0) {
-                    outgoing->fadeMask = 2;
-                }
-                outgoing->ownerSync = 0;
-                outgoing->owner = outgoing;
-                outgoing->target54 = 0;
-                if (sync != 0) {
-                    outgoing->duration56 = 0x80;
-                } else {
-                    outgoing->duration56 = 0x200;
-                }
-                incoming->startMask = 0x80;
-                incoming->owner = outgoing;
-                func_8000B3D4(incoming, outgoing);
+        } else if (arg2 == 4 || arg2 == 6) {
+            if (arg0 != 0) {
+                incoming = func_8000B2F4(arg0);
             }
+            if (incoming != 0 || arg0 == 0) {
+                if (arg0 != 0) {
+                    SequenceVolumeEntry *entry;
+
+                    entry = &D_8002B074[arg0];
+                    if ((entry->flags & 0x20) && (D_8002B074[arg1].flags & 0x20)) {
+                        sync = 1;
+                    }
+                    incoming->ownerSync = sync;
+                    if (entry->flags & 8) {
+                        incoming->target54 = 0x8000;
+                        incoming->current52 = 0;
+                        incoming->duration56 = 0x3C;
+                    } else if (sync != 0) {
+                        incoming->target54 = 0x8000;
+                        incoming->current52 = 0;
+                        incoming->duration56 = 0x100;
+                    }
+                    incoming->owner = outgoing;
+                    incoming->startMask = 2;
+                    func_8000B3D4(incoming, 0);
+                }
+                if (arg2 == 6) {
+                    if (arg0 != 0) {
+                        outgoing->fadeMask = 2;
+                    }
+                    outgoing->ownerSync = 0;
+                    outgoing->owner = outgoing;
+                    outgoing->target54 = 0;
+                    if (D_8002B074[arg1].flags & 8) {
+                        outgoing->duration56 = 0x28;
+                        return;
+                    }
+                    outgoing->duration56 = 0xA0;
+                    return;
+                }
+                incoming = func_8000B2F4(0);
+                if (incoming != 0) {
+                    if (arg0 != 0) {
+                        outgoing->fadeMask = 2;
+                    }
+                    outgoing->ownerSync = 0;
+                    outgoing->owner = outgoing;
+                    outgoing->target54 = 0;
+                    if (sync != 0) {
+                        outgoing->duration56 = 0x80;
+                    } else {
+                        outgoing->duration56 = 0x200;
+                    }
+                    incoming->startMask = 0x80;
+                    incoming->owner = outgoing;
+                    func_8000B3D4(incoming, outgoing);
+                }
+            }
+        } else {
+            goto simple_transition;
         }
         return;
     }
@@ -1363,16 +1367,13 @@ void func_8000D96C(s32 arg0, s32 arg1, s32 arg2) {
                 } else {
                     outgoing->target = 0x6590;
                 }
-                outgoing->target5A = 0x8000;
-                outgoing->current58 = 0x8000;
-                outgoing->target54 = 0x8000;
-                outgoing->current52 = 0x8000;
-                outgoing->current4C = 0x8000;
-                outgoing->value = 0x8000;
+                outgoing->current = outgoing->target;
+                outgoing->value = outgoing->current4C = outgoing->current52 =
+                    outgoing->target54 = outgoing->current58 =
+                    outgoing->target5A = 0x8000;
                 outgoing->field8 = D_8002B9D4;
                 outgoing->fieldC = D_8002B9F4;
                 outgoing->owner = outgoing;
-                outgoing->current = outgoing->target;
             } else {
                 outgoing->startMask = 0x80;
             }
