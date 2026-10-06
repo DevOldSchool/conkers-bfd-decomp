@@ -92844,8 +92844,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 862,
-        "reason": "Preserved CURRENT 862 after five manual revisions, improved from 1010. A distinct actual free-search next pointer at function scope recovers physical/list pointer registers, global-head schedule and search backedge; exact frame 0x30 and all homes. Remaining missing incoming MOVE a2,a0, merged flag a2 vs a3, interrupt mask retained a3 rather than spill 0x1c, terminal temporary rows; full 476-byte span four bytes short. Incoming-word snapshot and unsigned mask/flag neutral, inherited declaration/type/register-hint families exhausted. No artificial pressure, padding, shared ABI or assembly changes. Independent restoration 959100b6 verified 862.",
+        "current_score": 668,
+        "reason": "Checkpoint84 full476 CURRENT668 after three manual revisions: typed header predecessor862 identical, consumed arg0 interrupt mask675, consumed arg0 merge flag668 retained5a5cb1ad. Reusing consumed address as real merge flag recovers exact entry MOVE A2,A0 and original body length, with same frame30. Tradeoff: original pointer home1C versus18 and flaghome30 versus20; mask still A3 instead raw spill1C, flagA2 versusA3, four tail temporary rows. No missing/extra instructions. Previous862 snapshot remains available for exact-home alternative. No ABI/shared/ASM changes or dummy pressure.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
