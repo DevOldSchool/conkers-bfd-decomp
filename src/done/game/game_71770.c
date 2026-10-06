@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_71770.c
- * Boundary evidence: docs/evidence/game_remaining_single_function_units_up_to_256_bytes.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_single_function_units_up_to_256_bytes.md
  */
 
 void func_150442C0(f32 arg0[4][4], f32 arg1, f32 arg2, f32 arg3) {

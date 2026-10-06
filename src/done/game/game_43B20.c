@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_43B20.c
- * Boundary evidence: docs/evidence/game_compact_multi_function_units.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_compact_multi_function_units.md
  */
 
 extern s8 D_800D18C0;

@@ -14,7 +14,7 @@
 
 /* Conker US game-overlay matrix utilities, 0x1EFD00:0x1EFF70.
  * Retains the SDK algorithms with the Rare header's division-based FIX32TOF.
- * Complete-object evidence: docs/evidence/game_sdk_mtxutil_variant.md.
+ * Complete-object evidence: docs/evidence/libraries/game_sdk_mtxutil_variant.md.
  */
 
 void guMtxF2L(float mf[4][4], Mtx *m)

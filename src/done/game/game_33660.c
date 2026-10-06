@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_33660.c
- * Boundary evidence: docs/evidence/game_next_compact_units.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_next_compact_units.md
  */
 
 typedef struct Game33660Table {

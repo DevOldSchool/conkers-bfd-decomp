@@ -1,4 +1,4 @@
-/* Reviewed main queue-thread switch table; see docs/evidence/main_init_2e50_integration_proposal.json.
+/* Reviewed main queue-thread switch table; see docs/evidence/data-layout/main_init_2e50_integration_proposal.json.
  * Keep relocated bytes for verification while original raw data supplies ROM bytes.
  */
 SECTIONS

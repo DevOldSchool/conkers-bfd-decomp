@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/main/init_2DB0.c
- * Boundary evidence: docs/evidence/main_system_wrapper_boundaries.md
+ * Boundary evidence: docs/evidence/boundaries/main/main_system_wrapper_boundaries.md
  */
 
 s32 func_80023390(void);

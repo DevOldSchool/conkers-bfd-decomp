@@ -2,8 +2,8 @@
 
 /*
  * Reviewed source unit: src/main/init_34E0.c
- * Boundary evidence: docs/evidence/main_system_wrapper_boundaries.md
- * Storage evidence: docs/evidence/main_init_vi_layout.md
+ * Boundary evidence: docs/evidence/boundaries/main/main_system_wrapper_boundaries.md
+ * Storage evidence: docs/evidence/data-layout/main_init_vi_layout.md
  */
 
 typedef struct ThreadState ThreadState;

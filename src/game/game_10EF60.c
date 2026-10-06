@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_10EF60.c
- * Boundary evidence: docs/evidence/game_raw_path_owner_lifecycles.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_path_owner_lifecycles.md
  *
  * TODO: Implement these source-unit functions:
  * - func_150E1AB0

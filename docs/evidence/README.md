@@ -1,133 +1,83 @@
 # Research evidence
 
 These records preserve scoped claims, inputs, rejected hypotheses and validation
-results. Dates, counts, branches and tool versions describe each recorded pass;
-read later corrections before treating an old result as current. This is a
-curated starting point, not a catalogue of every function or format.
+results. Dates, counts, branches and tool versions describe the recorded pass.
+Read later corrections before treating an old result as current.
 
-For operating instructions, start at the [documentation index](../README.md).
+Use the [documentation index](../README.md) for operating instructions.
 [Function inventory](../../progress/functions.json) owns match state;
-[source-unit inventory](../../progress/source_units.json) owns reviewed boundaries
-and integration. [Generated progress](../progress.md) reports those inventories.
-The [asset roadmap](../asset-roadmap.md) owns the dated asset-status summary;
-local coverage, batch and validation reports reflect their supplied inputs.
-Evidence alone does not mark work complete, and a historical report is not a
-fresh verification of the current checkout.
+[source-unit inventory](../../progress/source_units.json) owns boundaries and
+integration. [Generated progress](../progress.md) reports those inventories.
+Evidence alone does not mark work complete.
 
-## Function matching and source boundaries
+## Browse by topic
 
-- [Main boundary frontier](main_boundary_residual_frontier.md) identifies reviewed
-  ownership, unresolved spans and the evidence needed to reopen them.
-- [Game mapping completion](game_mapping_residual_frontier.md) records source and
-  section ownership, separately from conversion to matching C.
-- [Main beta comparison](main_boundary_beta_comparison.md) and
-  [ECTS layout](ects_game_layout.md) explain bounded cross-version evidence;
-  [beta research rules](../beta-evidence.md) keep correlations separate from US proof.
-- [Blocked-function recovery](blocked_function_recovery.md) records declaration
-  corrections; [switch recovery](blocked_switch_jump_tables.md) and
-  [manual-batch jump tables](manual_batch_jump_tables.md) preserve layout/data proofs.
-- [Conversion audit](matching_conversion_audit.md) separates measured matching
-  outcomes from candidate attempts, rechecks and unmeasured efficiency claims.
-- [Effect record extents](effect_record_extents.md) preserves consumer-proven
-  copy sizes, enclosing layouts and caller copy order.
+Each topic index lists every record and its supporting data. Filenames retain
+their existing identity so symbols, old notes and Git history remain searchable.
 
-For a particular source unit, follow its evidence comment or inventory reference
-first. The many `game_raw_*`, `game_*` and `main_*` records retain the original
-range-specific reasoning; no umbrella summary replaces those boundary proofs.
+| Topic | Start here |
+| --- | --- |
+| [Source boundaries](boundaries/README.md) | [Game mapping](boundaries/game/mapping/game_mapping_residual_frontier.md), [main frontier](boundaries/main/main_boundary_residual_frontier.md), named effects |
+| [Libraries](libraries/README.md) | [2.0G reclassification](libraries/libultra_2_0G_rare_reclassification.md), SDK objects and Rare reconstruction |
+| [Function matching](matching/README.md) | [Conversion audit](matching/matching_conversion_audit.md), ABI/storage contracts and candidate investigations |
+| [Data and section layout](data-layout/README.md) | Jump tables, literal pools, private data and integration proposals |
+| [Models and scenes](assets/models/README.md) | [Reference corrections](assets/models/us_model_reference_corrections.md), geometry, pose, placement and validation |
+| [Materials and render state](assets/materials/README.md) | [Material frontier](assets/materials/us_model_material_frontier.md), texture formats and consumer state |
+| [Semantic naming](assets/naming/README.md) | [Confidence contract](assets/naming/model_name_confidence_review.md), character, prop and resource descriptions |
+| [Audio](assets/audio/README.md) | Audio formats, soundtrack fidelity and album correspondence |
+| [Interface and fonts](assets/interface/README.md) | Glyph/HUD resources and reference coverage |
+| [Debugger](debugger/README.md) | Retail overlay, debug metadata and storage/section evidence |
+| [Cross-version research](beta/README.md) | ECTS layout and pointers to regional comparisons |
 
-## Libraries and original assembly
-
-- [2.0G reclassification](libultra_2_0G_rare_reclassification.md) distinguishes stock
-  SDK objects from the earlier Rare mappings using complete-section evidence.
-- [Residual library audit](libultra_us_residual_boundary_audit.md) records bounded
-  template scans and links to subsequent reconstruction work.
-- [Continued Rare reconstruction](libultrare_us_continued_reconstruction.md) is an
-  entry point for the audio/library object proofs and their remaining limits.
-- [Workspace bounds](libultrare_us_workspace_bounds.md) separates used runtime
-  storage from unproven original BSS ownership.
-- [Original-assembly verification](main_original_assembly_verification.md) and
-  [RSP boundaries](libultra_us_vi_rsp_boundaries.md) preserve toolchain and image
-  proof; verified assembly does not earn C matching credit.
-
-Use [the library guide](../library-track.md) for integration commands and current
-boundary context; historical object counts are not interchangeable with progress.
-
-## Models, materials and runtime state
-
-- [Asset inventory survey](us_asset_inventory.md) preserves storage, model-format,
-  animation, collision and captured-corpus discovery evidence.
-- [Reference corrections](us_model_reference_corrections.md) explains texture-ID,
-  composition and runtime-replay corrections that supersede earlier assumptions.
-- [Batch validation](us_model_batch_validation.md), [coverage](us_model_coverage.md)
-  and [evidence audits](us_model_evidence_audits.md) define what each check proves.
-- [ROM character defaults](us_rom_character_defaults.md),
-  [draw tables](us_character_draw_tables.md) and
-  [vertex-load matrices](us_character_vertex_load_matrices.md) establish character
-  selection, material and transform contracts.
-- [Scene consumers](us_model_scene_consumers.md) and
-  [static assemblies](us_static_scene_assemblies.md) connect source records to
-  placement and selection evidence; [review selections](us_model_review_selections.md)
-  record inspection choices without asserting native appearance.
-- [Material frontier](us_model_material_frontier.md),
-  [constructor tables](us_model_constructor_tables.md) and
-  [character alpha frontier](us_character_alpha_frontier.md) identify missing
-  consumer/state proof and already-bounded searches.
-- [Submitted poses](us_submitted_model_poses.md) joins geometry, pose and materials
-  to one captured graphics task. [Event activation](us_model_event_activation.md)
-  records bounded static creation/script requests without proving execution.
-  [Runtime tracing](../runtime-tracing.md) supplies the capture workflow.
-
-A decoded image, successful import, active actor or bounded negative trace proves
-only its stated scope. See [model appearance extraction](../model-appearance.md)
-for supported presets and the separation between ROM facts and captured state.
-
-## Semantic naming
-
-Start with [confidence, authentication and reproduction](model_name_confidence_review.md).
-A ROM/model hash authenticates a source; it does not confirm a name, qualifier,
-actor identity, runtime state or visibility. The notes below preserve unique
-observations and contracts without the historical expansion/test journals.
-
-- [Bank-01 descriptions](character_semantic_naming.md),
-  [bank-03/04 props](prop_model_semantics.md) and
-  [bank-09 attachment/UI props](attachment_prop_semantics.md)
-- [Representation selection and model bytes](actor_representation_selection_semantics.md),
-  [resource loading/relocation](actor_representation_asset_semantics.md) and
-  [animation sharing](actor_animation_model_group_semantics.md)
-- [Model display-list submission](actor_model_display_list_semantics.md),
-  [expressions](character_expression_semantics.md) and
-  [Lady Cog eye parts](lady_cog_eye_part_semantics.md)
-- [Shared effects/resources/timers](model_resource_role_names.md),
-  [placed-object helpers](placed_object_helper_semantics.md),
-  [HUD layout](hud_layout_semantics.md) and
-  [text-entry keys](text_entry_model_role_names.md)
-- [Model case constants](model_case_constant_semantics.md), including the retained
-  [fragment evidence metadata](fragment_model_case_constant_semantics.json)
-
-## Other assets and debugger research
-
-- [Non-MP3 audio](us_non_mp3_audio_assets.md) and [MP3 cues](us_mp3_cue_assets.md)
-  preserve loader, encoding and preview contracts without inventing names or speech semantics.
-- [Font atlas](us_font_atlas.md), [HUD/menu assets](us_hud_menu_assets.md) and
-  [interface reference review](us_interface_reference_review.md) separate exact
-  resources from visual labels and reference coverage.
-- [Retail debugger overlay](us_debugger_overlay.md) and
-  [debug metadata](us_retail_debug_metadata.md) distinguish verified image/string
-  evidence from provisional source ownership and unresolved runtime storage.
+The [asset roadmap](../asset-roadmap.md) owns the dated asset-status summary.
+Local coverage, batch and validation reports reflect their supplied inputs.
+Historical reports are not fresh verification of the checkout.
 
 ## Find a specific claim
 
-Search from the repository root by exact symbol, source filename, ROM address,
-model identity or format term; follow the cited inputs and later corrections:
+For a source unit, follow its evidence comment or inventory reference first.
+Search recursively by symbol, source filename, ROM address, model identity or
+format term:
 
 ```sh
 rg -n 'func_1504BC38' docs/evidence
 rg -n 'game_200930|09:0110:00' docs/evidence
+rg --files docs/evidence | rg 'game_raw_resource|texture'
 ```
 
-Keep evidence filenames and paths referenced by source or metadata stable.
-Document technical claims, their reproducible evidence and limitations. Keep
-per-task progress, retry logs and candidate snapshots in local
-[attempt ledgers](../decompilation-workflow.md#durable-manual-attempt-ledger),
-not continuation documents. Add scoped corrections to the relevant topic and keep
-reusable command procedures in the owning guide.
+The original range-specific proofs remain authoritative for their individual
+claims; topic indexes do not replace them. A filename containing `raw`,
+`candidate` or `final` describes its research context, not current project state.
+
+## Maintaining the collection
+
+- File a new claim in the narrowest existing topic and link it from that topic's
+  README. Keep companion JSON and patches beside the record they support.
+- Extend an existing record for the same claim. Prefer a stable subject name over
+  new `continued`, `final` or session-date documents. Preserve rejected hypotheses
+  and explain which later evidence supersedes an earlier conclusion.
+- Keep reproducible inputs, results and limitations in evidence. Put reusable
+  commands in the owning guide and task progress/retry logs in local
+  [attempt ledgers](../decompilation-workflow.md#durable-manual-attempt-ledger).
+- Treat source comments, manifests and canonical inventories as incoming
+  references. Move referenced evidence through the relocation command below;
+  do not hand-edit inventory state or leave placeholder copies at old paths.
+
+### Moving referenced evidence
+
+Prepare a JSON object mapping old repository-relative paths to new paths within
+`docs/evidence/`. Preview the affected-file count, then apply the reviewed map:
+
+```sh
+./conker relocate-evidence --map /tmp/evidence-moves.json
+./conker relocate-evidence --map /tmp/evidence-moves.json --apply
+./conker progress check
+git -c core.whitespace=cr-at-eol diff --check
+```
+
+The command moves tracked UTF-8 evidence, rebases relative Markdown links and
+updates exact repository paths in tracked source, configuration and inventories.
+It rejects collisions and unsafe paths, and restores the original files on a
+handled failure. It changes references only, not match states, scores or
+integration decisions. Review the diff and local links afterward; Git history,
+external bookmarks and ignored local reports are outside the migration.

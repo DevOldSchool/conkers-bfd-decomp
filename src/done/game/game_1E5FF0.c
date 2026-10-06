@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_1E5FF0.c
- * Boundary evidence: docs/evidence/game_raw_preserved_helper_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_preserved_helper_groups.md
  */
 
 f32 func_15047D60(f32);                             /* extern */

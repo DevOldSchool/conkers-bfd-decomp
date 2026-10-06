@@ -101,7 +101,7 @@ The run stops at two graphics-submission hooks or 256 recorded events, with the
 command's wall-clock bound as a further limit. It captures small object records
 rather than decoding whole graphics tasks. Use a state/action that reaches the
 target constructor: absence from an idle saved state is only bounded negative
-evidence. See the [material frontier](evidence/us_model_material_frontier.md)
+evidence. See the [material frontier](evidence/assets/materials/us_model_material_frontier.md)
 for the seven bank-09 selectors still needing such a trigger.
 
 ### General draw-state capture
@@ -219,7 +219,7 @@ hashes, triangle counts, task buffer identity and matrices at the same physical
 addresses. Task material observations must belong to that range's ancestor
 paths, separating instances that call a shared list. Submitted split-16.16
 matrices replace earlier float matrices only with this proof; both remain
-recorded. The [submission and attachment evidence](evidence/us_model_reference_corrections.md)
+recorded. The [submission and attachment evidence](evidence/assets/models/us_model_reference_corrections.md)
 retains the dummy-renderer stall, software-renderer follow-up, corrected task
 counts, hidden ear triangles, screenshots and regeneration paths.
 
@@ -234,7 +234,7 @@ parts to a matching ordinary body submission. It retains the original body
 data, requires every selected native part and captured matrix, and records
 missing or conflicting evidence. Parent attachment observation does not
 establish a numeric scene identity. The same [attachment
-evidence](evidence/us_model_reference_corrections.md) records the cigar/helmet
+evidence](evidence/assets/models/us_model_reference_corrections.md) records the cigar/helmet
 identities, parser coverage, texture proof and joined review.
 
 Capture with `config/model-trace-attachment-draws.json` through the same
@@ -328,7 +328,7 @@ and preserving sibling-part order. A consistent loaded-model base, derived from
 exact ROM primary/secondary list pointers and selected runtime addresses, can
 resolve duplicate-looking parts. This is stronger than selecting a whole bank
 record: a character may compose clusters from another entry. The [character
-trace inventory](evidence/us_asset_inventory.md#indexed-bank-04-model-geometry)
+trace inventory](evidence/assets/models/us_asset_inventory.md#indexed-bank-04-model-geometry)
 records the 26-state corpus, 71 calls, 128 selections and resolved entry-0130
 aliases.
 
@@ -369,7 +369,7 @@ only to independently proven static textures, never another runtime appearance.
 Unobserved entries remain open. These outputs prove material provenance and
 provide previews; core glTF does not reproduce every N64 normal, combiner,
 mipmap, two-texture or raster operation. The [composition
-inventory](evidence/us_asset_inventory.md#indexed-bank-04-model-geometry)
+inventory](evidence/assets/models/us_asset_inventory.md#indexed-bank-04-model-geometry)
 retains cluster, face, pose, captured-image and event-local material totals.
 
 ### Material identity and replay limits
@@ -404,7 +404,7 @@ observation resolves its static segment-8 offset through the draw's captured
 base and verifies the captured list hash. A resolved list whose state was later
 replaced proves a call, not the final material state; missing segment bases
 remain unresolved. The [material
-inventory](evidence/us_asset_inventory.md#indexed-bank-04-model-geometry)
+inventory](evidence/assets/models/us_asset_inventory.md#indexed-bank-04-model-geometry)
 retains the positive and bounded-negative state corpus, texture capture totals,
 OtherMode corrections, and effective versus superseded list assignments.
 
@@ -434,7 +434,7 @@ hashes, and their images are copied into material extras. Detail-mode CI4
 chains. Blender displays the base level because standard glTF cannot prescribe
 N64 per-draw LOD interpolation. Non-LOD second textures are also exported,
 while exact multiplication remains in extras. The [material
-inventory](evidence/us_asset_inventory.md#indexed-bank-04-model-geometry)
+inventory](evidence/assets/models/us_asset_inventory.md#indexed-bank-04-model-geometry)
 retains mip, detail-tile, second-texture and conversion-state corpus results.
 
 ### Validate and render previews
@@ -456,7 +456,7 @@ assembled scene, neutral composition, and posed composition; checks for finite
 vertex coordinates; counts meshes and polygons; and records imported Actions.
 The texture-enabled aggregate previews retain the same geometry boundary.
 Recorded Blender corpus validation is in the [asset
-inventory](evidence/us_asset_inventory.md#initial-bank-09-direct-model-subset).
+inventory](evidence/assets/models/us_asset_inventory.md#initial-bank-09-direct-model-subset).
 
 Render one generated glTF without manually framing it in Blender with:
 

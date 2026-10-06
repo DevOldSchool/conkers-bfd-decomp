@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_E0F60.c
- * Boundary evidence: docs/evidence/game_raw_selected_particle_resource_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_selected_particle_resource_groups.md
  */
 
 typedef struct GameE0F60Entity {

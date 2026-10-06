@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_215960.c
- * Boundary evidence: docs/evidence/game_raw_connected_controller_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_connected_controller_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_151E86E4
@@ -821,7 +821,7 @@ void func_100043B4(void *, s32);
 void func_1503F7B8(s32);
 
 /* Descriptive role: ui_release_model_resources.
- * Evidence: docs/evidence/model_resource_role_names.md.
+ * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
  */
 void func_151EDB58(void *uiModel) {
     s32 displayListIndex;
@@ -880,7 +880,7 @@ extern s8 D_800E0C84;
  * Loads bank-09 entries 453..482 into thirty 12-byte resource records and
  * initializes text-entry state and model commands. Per-model load results
  * are dereferenced without a local failure check.
- * Evidence: docs/evidence/text_entry_model_role_names.md.
+ * Evidence: docs/evidence/assets/naming/text_entry_model_role_names.md.
  */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151EDF4C CURRENT (611) */
 void func_151EDF4C(void) {
@@ -946,7 +946,7 @@ void func_151EDF4C(void) {
 /* Descriptive role: ui_text_entry_update_and_draw.
  * Updates selection/text, evaluates submitted text against loaded tables,
  * and submits all thirty key display lists with selected-key state.
- * Evidence: docs/evidence/text_entry_model_role_names.md.
+ * Evidence: docs/evidence/assets/naming/text_entry_model_role_names.md.
  */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EE184.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EEBE8.s")

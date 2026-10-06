@@ -1,4 +1,4 @@
-/* Reviewed external debugger table; see docs/evidence/debugger_printf_rodata.md.
+/* Reviewed external debugger table; see docs/evidence/debugger/debugger_printf_rodata.md.
  * Consume this input before the generated full-ROM script. INFO retains linked
  * bytes for verification; the unchanged raw debugger data supplies runtime bytes.
  */

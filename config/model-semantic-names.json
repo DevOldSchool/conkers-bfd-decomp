@@ -13,9 +13,9 @@
       "model_sha256": "904f48cd49d5929df81f881ef68a865c6ffa64d7c22c828cef5ca72bb9a92e3f",
       "source_bytes": 24184,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -85,9 +85,9 @@
       "model_sha256": "505e636d49fa8a426e466eebb42c41165bcf4bfa6ccdff4d9275a0fca5103937",
       "source_bytes": 21608,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -158,9 +158,9 @@
       "model_sha256": "619df50957651d33c25629446ad7dc1d834d9a58757eb560451f77ae15886e08",
       "source_bytes": 14264,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -231,9 +231,9 @@
       "model_sha256": "e4049c34b4a2dd7e2a584bf14a8a7981bf3118ddfef5c94a28529fd95e556f60",
       "source_bytes": 12200,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -304,9 +304,9 @@
       "model_sha256": "065b27fac659612de561cf62ea98e816f81fc8ed61166b4edcaba1d14f778eae",
       "source_bytes": 9592,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -377,10 +377,10 @@
       "model_sha256": "8d26604ee4ec6ccf1ba15956d180d61a4855db5a2d9aa1f84812dddcaecd7d03",
       "source_bytes": 7544,
       "evidence": [
-        "docs/evidence/us_gallery_character_names.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_naming.md"
+        "docs/evidence/assets/naming/us_gallery_character_names.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/character_semantic_naming.md"
       ],
       "consumers": [
         {
@@ -449,9 +449,9 @@
       "model_sha256": "e73e3c4715a977830c510238445b5713858b3acee56099dfbb6960d97dba6c2e",
       "source_bytes": 7048,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -522,9 +522,9 @@
       "model_sha256": "93be068f124a6f883e9ecaef8315b81abf2fd5ebd2967b3494725a58e0212b9c",
       "source_bytes": 14568,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -595,10 +595,10 @@
       "model_sha256": "640180f31c90beb47b916daaaaa0187cdfdbbfbdd70ee83cbfadaca8c0d860ff",
       "source_bytes": 8968,
       "evidence": [
-        "docs/evidence/us_gallery_character_names.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_naming.md"
+        "docs/evidence/assets/naming/us_gallery_character_names.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/character_semantic_naming.md"
       ],
       "consumers": [
         {
@@ -667,10 +667,10 @@
       "model_sha256": "38cd4b2959c985658c23c0c493e1996d0ff6ea315a6ef55ae13365dfc951e828",
       "source_bytes": 5608,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/us_gallery_character_names.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/us_gallery_character_names.md"
       ],
       "consumers": [
         {
@@ -740,9 +740,9 @@
       "model_sha256": "a37536e20f70eaec2afef9735d09979e6a07c173671a6dcea63e5d192fde119c",
       "source_bytes": 3944,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -814,10 +814,10 @@
       "model_sha256": "6d8a4bea6c305a7a1c87c05d2ffef48280f3f1f6cc23c36a9061df6884a71075",
       "source_bytes": 4280,
       "evidence": [
-        "docs/evidence/us_gallery_character_names.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_naming.md"
+        "docs/evidence/assets/naming/us_gallery_character_names.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/character_semantic_naming.md"
       ],
       "consumers": [
         {
@@ -886,11 +886,11 @@
       "model_sha256": "d2fb14628eecacbfe40c28ff6db0c3302e6dd496b186f905d3067c73bf8a2e6a",
       "source_bytes": 8152,
       "evidence": [
-        "docs/evidence/us_gallery_character_names.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/lady_cog_eye_part_semantics.md"
+        "docs/evidence/assets/naming/us_gallery_character_names.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/naming/lady_cog_eye_part_semantics.md"
       ],
       "consumers": [
         {
@@ -966,9 +966,9 @@
       "model_sha256": "27de24e3adb7a41a2e39eaafa03999669153a7a554d5f2c9ed419fc88bbd579e",
       "source_bytes": 7960,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -1039,9 +1039,9 @@
       "model_sha256": "f59aace3fb3aa7bdcbf2b0e166bee65a521d404d197a4c72f78651b87eb77d1f",
       "source_bytes": 13144,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -1111,9 +1111,9 @@
       "model_sha256": "9ffb0d663f5c07ea3c8fff1bc89971e4dec5cea5cd08da9a029eaa5a01e3e506",
       "source_bytes": 13080,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -1183,9 +1183,9 @@
       "model_sha256": "aca9f6556aa95796450314470273fa1a10e300db6bc3a4c690a77e388c594d19",
       "source_bytes": 3640,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -1257,9 +1257,9 @@
       "model_sha256": "2b3622e5a0aaf1a5ce71b8245ba55973ac3264c446b85f7d260c7df294cd1a97",
       "source_bytes": 9352,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -1331,9 +1331,9 @@
       "model_sha256": "fa0e5bfddc41fccda0170eba8c462800719beb64aba70fbe9d5e441cda1125f2",
       "source_bytes": 6792,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -1404,10 +1404,10 @@
       "model_sha256": "81a96f78ea9e889813f5272154fbf55323ff41111bdcd732a8669bb97108d2d6",
       "source_bytes": 4952,
       "evidence": [
-        "docs/evidence/us_gallery_character_names.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_naming.md"
+        "docs/evidence/assets/naming/us_gallery_character_names.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/character_semantic_naming.md"
       ],
       "consumers": [
         {
@@ -1476,10 +1476,10 @@
       "model_sha256": "5aa4842ba6cc7ee3c6a31c179e23f591f7857b038516c26106f320ea8994283b",
       "source_bytes": 13512,
       "evidence": [
-        "docs/evidence/us_gallery_character_names.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_naming.md"
+        "docs/evidence/assets/naming/us_gallery_character_names.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/character_semantic_naming.md"
       ],
       "consumers": [
         {
@@ -1548,9 +1548,9 @@
       "model_sha256": "2b5d95807415b655edb1f96ca3b960077ecb8a273971447a6601a9b583aef3f2",
       "source_bytes": 3304,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -1621,9 +1621,9 @@
       "model_sha256": "ac65db4967f2b6ad750eb60666d5854851490397dc2aee04f79d211ae4c57e8a",
       "source_bytes": 11816,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -1694,9 +1694,9 @@
       "model_sha256": "a79eb431bf9cacc39b6d40a4e0ac654f66b136c9efb162541a06386400e93166",
       "source_bytes": 9736,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -1767,9 +1767,9 @@
       "model_sha256": "fcc4b8c6a0febe0b6367302a91e43d4043556a8bd91829c320686aad6d47ca05",
       "source_bytes": 9784,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -1840,9 +1840,9 @@
       "model_sha256": "a362110fe771780930b0c5fbaafb8aca3f19695a15d9cfc763005c07eb39c52f",
       "source_bytes": 18040,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -1913,9 +1913,9 @@
       "model_sha256": "60e62be5755f58d2c2942273a0ca82b7cae5a44ea9522d08a4a89fce021eeb81",
       "source_bytes": 5976,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -1986,9 +1986,9 @@
       "model_sha256": "45c2350c1248a4ed62a1abf47ab5f9d4659bcf20909fe6fce699a05929aea655",
       "source_bytes": 4776,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -2059,9 +2059,9 @@
       "model_sha256": "277163cca152e0403b45ff10b216bae47c09717bd6cabc3a32aa122bad78aca2",
       "source_bytes": 9656,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -2132,10 +2132,10 @@
       "model_sha256": "9ecc1d5c12aa39af4ff3a833bbebdab1da3f5f54f8372b6d3537fd7a66d801b3",
       "source_bytes": 11896,
       "evidence": [
-        "docs/evidence/us_gallery_character_names.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_naming.md"
+        "docs/evidence/assets/naming/us_gallery_character_names.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/character_semantic_naming.md"
       ],
       "consumers": [
         {
@@ -2204,9 +2204,9 @@
       "model_sha256": "0933293725bb83a7b235e204bdca6ebaf51439d03dc3a12ebc8c9b436d46f78b",
       "source_bytes": 13272,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -2277,9 +2277,9 @@
       "model_sha256": "bb0f96be042e17c07ac281acb67673ac48379910f17ce0e0d97e8aaff10f6441",
       "source_bytes": 8344,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -2350,9 +2350,9 @@
       "model_sha256": "701abe99c8a36786ea7d440f0d75d2ec7fe7c49d603bb773dd953d47daf60dd9",
       "source_bytes": 8664,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -2424,9 +2424,9 @@
       "model_sha256": "8f37d00e468c10adc83415d3b5c2561e1f3c3e2808a040124cb2e9bc19c5bbb2",
       "source_bytes": 17976,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -2496,9 +2496,9 @@
       "model_sha256": "892eea2d01a49bb1a706950005a92ea63ca322a943770511704e78147de949d9",
       "source_bytes": 5560,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -2570,9 +2570,9 @@
       "model_sha256": "d56e847e89d95a4bea15bcead00d3500b5b432ee7b30a33c0d48ec15de3778d0",
       "source_bytes": 18072,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -2643,9 +2643,9 @@
       "model_sha256": "59484308c3556278054318bff4799a89056ffe1d1fbc72c75668e511ec0bd8b8",
       "source_bytes": 11816,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -2716,10 +2716,10 @@
       "model_sha256": "c450956db882daf1b89bca9b499d9f2172d53628090bba533bb1fa70dd0cbd28",
       "source_bytes": 8328,
       "evidence": [
-        "docs/evidence/us_gallery_character_names.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_naming.md"
+        "docs/evidence/assets/naming/us_gallery_character_names.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/character_semantic_naming.md"
       ],
       "consumers": [
         {
@@ -2788,9 +2788,9 @@
       "model_sha256": "7f391789ab7a262d005d2a4d5e899bfa828d5f6df7d16a3d628ce1d391f5f90b",
       "source_bytes": 15960,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -2862,11 +2862,11 @@
       "model_sha256": "253a8f2ee41be65d74c7c08545ab72c9d21971f6d843b6e385663a6278395b02",
       "source_bytes": 8152,
       "evidence": [
-        "docs/evidence/us_gallery_character_names.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/lady_cog_eye_part_semantics.md"
+        "docs/evidence/assets/naming/us_gallery_character_names.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/naming/lady_cog_eye_part_semantics.md"
       ],
       "consumers": [
         {
@@ -2942,9 +2942,9 @@
       "model_sha256": "7f5c09991bc5b6dd58c34d20e7681c8882d6a022556dfa86bf73d4bd74bf55d1",
       "source_bytes": 12568,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -3015,10 +3015,10 @@
       "model_sha256": "09f6c4551ca0d12b46109a45f01703fb21ba7f10d15764aa807a4c9701936e81",
       "source_bytes": 42488,
       "evidence": [
-        "docs/evidence/us_haybot_appearance.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_naming.md"
+        "docs/evidence/assets/materials/us_haybot_appearance.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/character_semantic_naming.md"
       ],
       "consumers": [
         {
@@ -3111,11 +3111,11 @@
       "model_sha256": "99f1a77aa90421a3aa5870fea40820a68d1b59d31616ce8fc061f8cf34ade5d8",
       "source_bytes": 8168,
       "evidence": [
-        "docs/evidence/us_gallery_character_names.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/lady_cog_eye_part_semantics.md"
+        "docs/evidence/assets/naming/us_gallery_character_names.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/naming/lady_cog_eye_part_semantics.md"
       ],
       "consumers": [
         {
@@ -3191,9 +3191,9 @@
       "model_sha256": "3f1757a6ca825b14fab8b45203d35ddaa290edb8c1daeace807e0d25d2133981",
       "source_bytes": 6424,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -3263,9 +3263,9 @@
       "model_sha256": "2821887d2d2f92f8ca690709bc0406ba730626f14b8df534c7b6e77ec2c8ce81",
       "source_bytes": 11192,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -3335,9 +3335,9 @@
       "model_sha256": "649a9e055e93f8e10d225bed8f01a8f80343cf645e5cc26828d62fde9b4a5706",
       "source_bytes": 8776,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -3408,9 +3408,9 @@
       "model_sha256": "c389875830fe43f09c4bbc8b18f44b013d4ff9a066358e9dbb7646cfc02e4c35",
       "source_bytes": 19560,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -3480,9 +3480,9 @@
       "model_sha256": "c1e861e462c6fe5697b7678d806e1d791f4acfebded5ab7d0c5a3d3a471218fc",
       "source_bytes": 36744,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -3552,9 +3552,9 @@
       "model_sha256": "21cb81a9500f255dfa3e2ffb90a870fe6b899e960a0143c756f68ae5124ca2d6",
       "source_bytes": 15672,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -3624,11 +3624,11 @@
       "model_sha256": "0295b0baee36cf3c89f348a337e1c76d7da4489b8ec8cd7e309cda9d0b04b8df",
       "source_bytes": 11080,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/us_model_reference_corrections.md",
-        "docs/evidence/us_tediz_submitted_rig_validation.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/models/us_model_reference_corrections.md",
+        "docs/evidence/assets/models/us_tediz_submitted_rig_validation.md"
       ],
       "consumers": [
         {
@@ -3698,9 +3698,9 @@
       "model_sha256": "c392cb247000d6ac5018b43ae27de56819aa084d24e5a5244eb3e4a1b0a1017f",
       "source_bytes": 19032,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -3770,9 +3770,9 @@
       "model_sha256": "773c2dd57258806a973fe4e05726ac238fb5fc6c0ed69c9524a6da69c5b31b0e",
       "source_bytes": 18872,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -3843,9 +3843,9 @@
       "model_sha256": "2a9e1a90c76461a9c4a3cf7d5178e27f0e18740d92effb1dc49cffb9372d9237",
       "source_bytes": 12936,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -3915,9 +3915,9 @@
       "model_sha256": "88d1813f0e85a042eefeb577939da92b4caf9af6598611ebd6cb5cdebe342828",
       "source_bytes": 7640,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -3988,9 +3988,9 @@
       "model_sha256": "e725221e3cbebea70d5d7b94db5a4e7823105175970cfc8960e2374bf2d5bfc1",
       "source_bytes": 3272,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -4061,9 +4061,9 @@
       "model_sha256": "0fe460f445533a96c67b0321a7a5c4db735c54042dc407c140479a2528eb6649",
       "source_bytes": 17320,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -4134,10 +4134,10 @@
       "model_sha256": "f90a53354de0af1c26bb84a4928cd3dbb62ce43580c59c792fdb38c2aa5022b2",
       "source_bytes": 8056,
       "evidence": [
-        "docs/evidence/us_gallery_character_names.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_naming.md"
+        "docs/evidence/assets/naming/us_gallery_character_names.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/character_semantic_naming.md"
       ],
       "consumers": [
         {
@@ -4206,9 +4206,9 @@
       "model_sha256": "ab90a591aff775af6a4fe31c1e4319ae4892d1d7bd951ffb68d06f5d4322d5df",
       "source_bytes": 8616,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -4279,9 +4279,9 @@
       "model_sha256": "1b318244144a81df01340ed622f8d04ab145a80172413561ef10e79731df4fc4",
       "source_bytes": 6632,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -4352,9 +4352,9 @@
       "model_sha256": "a71ee26dcc0b3b234994c1cb8a7a56fe5037e635df846a533cc61b1ef628de47",
       "source_bytes": 24728,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -4424,9 +4424,9 @@
       "model_sha256": "8d0692a4f0663ce18da927a6b92eac7798e74c7c6b75a7d09b4738e2347c3777",
       "source_bytes": 24376,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -4496,9 +4496,9 @@
       "model_sha256": "5149e7b9aa1f54bbbb208bad2bc89566f64f4fdcfdef5ceb641b8db25474c4ee",
       "source_bytes": 6152,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -4569,9 +4569,9 @@
       "model_sha256": "c93eac95475e43d85dd7d4cdf8abfc271b2751a082752fa25086fae10c170772",
       "source_bytes": 5512,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -4642,9 +4642,9 @@
       "model_sha256": "ccaa47d2f65248bafdeef2681806bd2468065f430d0d06b528edeae8d89d7dfb",
       "source_bytes": 32824,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -4714,9 +4714,9 @@
       "model_sha256": "768c17aa31c78320911a8c09d5db9453481887f145d929bf6d5d464749c6d64f",
       "source_bytes": 6616,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -4786,9 +4786,9 @@
       "model_sha256": "497999a684188660c5408a0d80cec69e7904f3126e6a931cf970f1aeccbf7270",
       "source_bytes": 13016,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -4859,9 +4859,9 @@
       "model_sha256": "ba46038d985c068968035ea2e1a901d84fbf761faca0e2943928bab0bc2a7d4e",
       "source_bytes": 4664,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -4932,9 +4932,9 @@
       "model_sha256": "efe2a55e78ea0f9a625dcff554718dcd5b602cde2fb32fb5371a47fbfb3f446d",
       "source_bytes": 50840,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -5006,10 +5006,10 @@
       "model_sha256": "51b229b874047281cb4eedd03940d86361fd7c97bb7b330a9f8a45dc3a92bf06",
       "source_bytes": 3160,
       "evidence": [
-        "docs/evidence/us_gallery_character_names.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_naming.md"
+        "docs/evidence/assets/naming/us_gallery_character_names.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/character_semantic_naming.md"
       ],
       "consumers": [
         {
@@ -5078,9 +5078,9 @@
       "model_sha256": "b1ddbe9ccb208e684b3facaddbbff24149b1ef4f8904ff797ccabd29cd86dea8",
       "source_bytes": 4456,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -5151,9 +5151,9 @@
       "model_sha256": "6a16b1d1e515af687b2ed15826faf7979ecf7de7465d8ff212942d3366426e03",
       "source_bytes": 7480,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -5224,9 +5224,9 @@
       "model_sha256": "fd0208f62835aff6a1f0ffb3724e87429465e4c5f8bbc5113813da91a8327849",
       "source_bytes": 32968,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -5298,9 +5298,9 @@
       "model_sha256": "310711c01b6b00c6642c8813c9cdf2c8741729fbe366434594970d4d1799fd07",
       "source_bytes": 13384,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -5370,9 +5370,9 @@
       "model_sha256": "5139ce89617085773642b4b78d8e65af89d5f3bf4059bb2519de45c68922855b",
       "source_bytes": 13224,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -5443,9 +5443,9 @@
       "model_sha256": "d29ccd75c27f6cc19331b00e58cd65c3574fa974e5ae4aace0b69c79fbb5d0dc",
       "source_bytes": 5496,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -5515,9 +5515,9 @@
       "model_sha256": "2c26b333fb19721cb3619dfef8d758909cacb9604800457ba477c7a0757c5298",
       "source_bytes": 15144,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -5588,9 +5588,9 @@
       "model_sha256": "62dc3157360ee626fcba1fe246056b6193faf0b280a67a0738e007cff8400abe",
       "source_bytes": 6376,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -5661,9 +5661,9 @@
       "model_sha256": "9fbb0d52d603de131041e09f17b4abba6fc26503a02f816de5fef2c0842d4109",
       "source_bytes": 12952,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -5734,9 +5734,9 @@
       "model_sha256": "94ab2a3112a2d438bda1a607b74f8d70d592bcd21fa817823630a0604c7801d7",
       "source_bytes": 12440,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -5806,9 +5806,9 @@
       "model_sha256": "ce49022d7a93d18b66f0a9090c5ab8d470eaabd1d28b32de069747abfdc536aa",
       "source_bytes": 6840,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -5878,9 +5878,9 @@
       "model_sha256": "8c6fd008e2058232837a9b5158446d1191fb8f60727c39c818fe02afff7c4836",
       "source_bytes": 11816,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -5950,9 +5950,9 @@
       "model_sha256": "4cf4114bdd237b6510d5a34275590112537899a3fab3fd81dfb38195a7ab05db",
       "source_bytes": 19688,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -6023,9 +6023,9 @@
       "model_sha256": "82ef6f6853b02d5161ce49516daed713df3a165f0e7e7cc656997b09cc1c06be",
       "source_bytes": 2744,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -6095,9 +6095,9 @@
       "model_sha256": "16790fc5385075a4510569d78e842a1f68c1b1d81ccb436c513d42c9853e21b0",
       "source_bytes": 28856,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -6168,9 +6168,9 @@
       "model_sha256": "8286360d16924cee18588934bc0a3aac3d6a480e7c4a945b1e1a8f6a69022ecf",
       "source_bytes": 25800,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -6242,9 +6242,9 @@
       "model_sha256": "634f54d0e8a794fcec93bd3c0cf7dc7c9799ffe5706b7a52d079cb2aacc0adc7",
       "source_bytes": 6808,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -6315,9 +6315,9 @@
       "model_sha256": "15d4a7b63b36cdcbcd98f205ad641862e085af4ab5989615d94b6c3d192a25d5",
       "source_bytes": 18472,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -6387,9 +6387,9 @@
       "model_sha256": "213af78e2785ced050d5369838c8a57748fa20b11c1bd05360d9827388aa0db0",
       "source_bytes": 17080,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -6463,9 +6463,9 @@
       "model_sha256": "7c13d0045a2847d661066b4633729e1dfd0e8c46c4dd06853d8ccf1f035791d1",
       "source_bytes": 11400,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -6539,9 +6539,9 @@
       "model_sha256": "b0b9703362830fee8152937f8de4a2f7c279bceb7848be1c5509628beba6fa10",
       "source_bytes": 8280,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -6612,9 +6612,9 @@
       "model_sha256": "bba4bcc906e4fe7047d7119809fd8cb1e87b81130486c949f69a1792f4f68396",
       "source_bytes": 8520,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -6685,9 +6685,9 @@
       "model_sha256": "0fd7e0e319ad08d7f0610898484677ace27a75158af50470aa647abb390792a6",
       "source_bytes": 13992,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -6758,9 +6758,9 @@
       "model_sha256": "637e63f0393e659296b3aecee9dc16fa1c52a7c25c7106cc21a80768bf39f647",
       "source_bytes": 15512,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -6831,9 +6831,9 @@
       "model_sha256": "31279085fef01c074510ad8c93836cb16cccdb8842641b476d19e5251740ebe1",
       "source_bytes": 19304,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -6907,9 +6907,9 @@
       "model_sha256": "dd47e1a2211916c05eb560c6a8e24275b0736babb2ceb9921fd8e2d361c8f96e",
       "source_bytes": 21160,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -6979,10 +6979,10 @@
       "model_sha256": "26ef2eb68549c53fd483a0de5694ffa93b844b8d2105cceba9549737719f5558",
       "source_bytes": 17352,
       "evidence": [
-        "docs/evidence/us_gallery_character_names.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_naming.md"
+        "docs/evidence/assets/naming/us_gallery_character_names.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/character_semantic_naming.md"
       ],
       "consumers": [
         {
@@ -7051,9 +7051,9 @@
       "model_sha256": "3d0035fd7b9d32c79abb3f34725ab861b84e2a21dd7f66dd587a74ba6217406a",
       "source_bytes": 7864,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -7123,9 +7123,9 @@
       "model_sha256": "c0d73cedcce0650951becf1744074175eb40604cd35e48cb9369d9dc54c41ba3",
       "source_bytes": 792,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -7196,10 +7196,10 @@
       "model_sha256": "b58572d8146b7919778aa8bebb5b0dde434b6f03ce0501645763eb66e406b628",
       "source_bytes": 7528,
       "evidence": [
-        "docs/evidence/us_gallery_character_names.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_naming.md"
+        "docs/evidence/assets/naming/us_gallery_character_names.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/character_semantic_naming.md"
       ],
       "consumers": [
         {
@@ -7268,10 +7268,10 @@
       "model_sha256": "8ff14a073c7aeda451890f6afdc674b774af47fc25b760f879b850d20ef1d3fa",
       "source_bytes": 7032,
       "evidence": [
-        "docs/evidence/us_gallery_character_names.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_naming.md"
+        "docs/evidence/assets/naming/us_gallery_character_names.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/character_semantic_naming.md"
       ],
       "consumers": [
         {
@@ -7340,10 +7340,10 @@
       "model_sha256": "afd7809390f4361a5861bc4e4f14ec9b79434ff617b12a1663adc83e5f350622",
       "source_bytes": 9944,
       "evidence": [
-        "docs/evidence/us_gallery_character_names.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_naming.md"
+        "docs/evidence/assets/naming/us_gallery_character_names.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md",
+        "docs/evidence/assets/naming/character_semantic_naming.md"
       ],
       "consumers": [
         {
@@ -7412,9 +7412,9 @@
       "model_sha256": "dc0893109cb87a60ef133c0061d44b9ae7b2d99e40fa2b1d39342745fa943cec",
       "source_bytes": 12344,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -7486,9 +7486,9 @@
       "model_sha256": "036092f785b9ad3c559cd444eff882c31c6efd50422a123028cd2ca28fe1511a",
       "source_bytes": 11560,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -7560,9 +7560,9 @@
       "model_sha256": "2a32494c1209d040e5af4d7278c9bbe06c2c251360e8af7550890394718e68b2",
       "source_bytes": 10296,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -7632,9 +7632,9 @@
       "model_sha256": "bd0ef3d9e3e303b5350d5653abe1141c10db2792bfd34630fc92a390fc723991",
       "source_bytes": 11400,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -7705,9 +7705,9 @@
       "model_sha256": "27425e14e84e20d86c91985bab69d2685e7c0cad43f694971be478f9c1e79c88",
       "source_bytes": 13944,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -7777,9 +7777,9 @@
       "model_sha256": "7fc6ca30e42d6de5734e830f9d910ae69d21beefd7bf8f4f1580652e79e2bb56",
       "source_bytes": 13976,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -7850,9 +7850,9 @@
       "model_sha256": "df08a31da768d0486533b2d4e08dfa7429293e426f73f3010e9c39c825ccf6f2",
       "source_bytes": 12120,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -7924,9 +7924,9 @@
       "model_sha256": "52984cbf4621ed0728491c3fe91f6cc1d2f99609882dd0d74c5959361ba16588",
       "source_bytes": 12392,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -7997,9 +7997,9 @@
       "model_sha256": "cffda9734ba2f0aad500acf180d037dc9170d7711d243644e71da7106289686e",
       "source_bytes": 13544,
       "evidence": [
-        "docs/evidence/character_semantic_naming.md",
-        "docs/evidence/us_rom_character_defaults.md",
-        "docs/evidence/us_character_draw_tables.md"
+        "docs/evidence/assets/naming/character_semantic_naming.md",
+        "docs/evidence/assets/materials/us_rom_character_defaults.md",
+        "docs/evidence/assets/materials/us_character_draw_tables.md"
       ],
       "consumers": [
         {
@@ -8070,9 +8070,9 @@
       "model_sha256": "aff07ec03101dcfa3f7c4f041319ee1a69f3d6ccde34eaee581ef0ed77faa061",
       "source_bytes": 648,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8114,9 +8114,9 @@
       "model_sha256": "8cb44594b869bb0e996ad2bd7a6bc8fc9dcb7928a5e5e1d6e1375f7386f823f5",
       "source_bytes": 2632,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_object_material_consensus.md",
-        "docs/evidence/us_model_scene_consumers.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md"
       ],
       "consumers": [
         {
@@ -8156,9 +8156,9 @@
       "model_sha256": "8462737dc2eb1faffd2451aad2b4a2e61c2c35db9353310588706cbba55d4983",
       "source_bytes": 520,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8202,9 +8202,9 @@
       "model_sha256": "a8b51454678faf18175570ca0defa56945d016bd104d0d5d387cdc55596545c5",
       "source_bytes": 1480,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8248,9 +8248,9 @@
       "model_sha256": "24518e6301ea9aa69af491fecd5463ac784a948c512854b23655ec63dd5784b7",
       "source_bytes": 1832,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8292,9 +8292,9 @@
       "model_sha256": "a16e96c3efad6a961361c3df2b54cf0ba5f7971108dceea4af87f781c9d13e13",
       "source_bytes": 4344,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8338,9 +8338,9 @@
       "model_sha256": "2bd2e3f779228302cefa243bcbddc2334e7511904249687f7767790f3e2f231e",
       "source_bytes": 4168,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8384,9 +8384,9 @@
       "model_sha256": "db012f9a011b34f820009f4f29df6ceb0a0459761ee2253079ce5ae24d3d3277",
       "source_bytes": 568,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8430,9 +8430,9 @@
       "model_sha256": "31a2870a878872374c0c3933ca46eed9b9dc60b6fc76bbe33e825ddc4ebf3981",
       "source_bytes": 2584,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8476,9 +8476,9 @@
       "model_sha256": "2c92125aee5f6b5bee5fbf400a5d353862ab5f9ba09d432b44df5932bc74a679",
       "source_bytes": 2936,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8522,9 +8522,9 @@
       "model_sha256": "ec9da85f23fe31ff94b05a9657e2ce8b259f76e76c32a0075dcb7765db694d95",
       "source_bytes": 4072,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8566,9 +8566,9 @@
       "model_sha256": "972ad8bed1eb9aac9510b6274233b003944f18b383114ac01ce91778eeaa0e29",
       "source_bytes": 1496,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8612,9 +8612,9 @@
       "model_sha256": "6db642506d9fb93f1d53524480f8f5520921bb45e670faadd94f42948a65158e",
       "source_bytes": 600,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8658,9 +8658,9 @@
       "model_sha256": "200f218ead036ecc71571d9d9c54a0ae0e67b90b6e7788eaf0fde89e81f7cbd8",
       "source_bytes": 3128,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8704,9 +8704,9 @@
       "model_sha256": "a6da841649d3a4f94a53d637b056a123aa715fe088102997956a3e6e0be24eeb",
       "source_bytes": 1016,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8748,9 +8748,9 @@
       "model_sha256": "90088ac826b14ca948fcacdf95f1451e0d84fbb1251c1b7c421f5b1ed10c0a85",
       "source_bytes": 1336,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8794,9 +8794,9 @@
       "model_sha256": "08742779a8c8a20b6f63eac8794eca47de20abe7d506c9d0fa91f034be1b699f",
       "source_bytes": 1544,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8840,9 +8840,9 @@
       "model_sha256": "f5e955141e14c7c741dd39af705ac3d760e313a065d6dcb2d95d5d65523c86d3",
       "source_bytes": 1128,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8887,9 +8887,9 @@
       "model_sha256": "8c18661958f27592aac31627938a24dc271c432a44392b48cc3a9fcf8af07559",
       "source_bytes": 3304,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -8933,9 +8933,9 @@
       "model_sha256": "fdd7766f39ed7a08b848e55265e67fde9ff3a39daabb969ff8322964b7aa36f1",
       "source_bytes": 2488,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_object_material_consensus.md",
-        "docs/evidence/us_model_scene_consumers.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md"
       ],
       "consumers": [
         {
@@ -8975,9 +8975,9 @@
       "model_sha256": "096a7b44aae27581e202ac7be01089b08e23b28a1b91d84f881cbdfcc3a956c1",
       "source_bytes": 3672,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_object_material_consensus.md",
-        "docs/evidence/us_model_scene_consumers.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md"
       ],
       "consumers": [
         {
@@ -9017,9 +9017,9 @@
       "model_sha256": "b7c7aade90f975bba762f9b19f85f386ba9226e4d0853f7b54aa125cd199ab40",
       "source_bytes": 2920,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_object_material_consensus.md",
-        "docs/evidence/us_model_scene_consumers.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md"
       ],
       "consumers": [
         {
@@ -9059,9 +9059,9 @@
       "model_sha256": "00ccfa4f17d9f8fa6ae507ef5d993028a75aaf5e6afeed2a3d63d0ab96cd256c",
       "source_bytes": 504,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -9105,9 +9105,9 @@
       "model_sha256": "e27a8e69d0443e8b772588f9a2b94ff9e4cb8d920192180c26bebf7941a0e94f",
       "source_bytes": 488,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -9152,9 +9152,9 @@
       "model_sha256": "381727e4a2de19e0e7f81da6a5fe98505d46ad5a11a8b6cf573790aadba3663f",
       "source_bytes": 520,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -9199,9 +9199,9 @@
       "model_sha256": "fe26897bdc8849f3029e75224e015aaa3db8cf09d1817958c613c1eeb918741f",
       "source_bytes": 696,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -9243,9 +9243,9 @@
       "model_sha256": "3407baaa5bed90551cfb96c82203baf9bc00ee7cd36dbbf5bc28a532c8587083",
       "source_bytes": 1864,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -9290,9 +9290,9 @@
       "model_sha256": "d419fd2c37d3eb3aade26a4b1acb5dea98e257fc8a4e90aa87fb9e543cc0647a",
       "source_bytes": 632,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -9334,9 +9334,9 @@
       "model_sha256": "1dc689c6d77f44996d7bbb1cf8f572bf8d773750fd30eec298005e01bd52955f",
       "source_bytes": 1336,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -9381,9 +9381,9 @@
       "model_sha256": "6a505a3132c38607089e27ae3efc907263205206b72a892b964c6bbe2e40ca19",
       "source_bytes": 1768,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -9426,9 +9426,9 @@
       "model_sha256": "993f8d3629c112de90fe216af5397af372be5fc78fb204b565ba39378a3beb72",
       "source_bytes": 744,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -9471,9 +9471,9 @@
       "model_sha256": "90948b2ee9ec4995a82d069b005a793a132344dec376143f880e4ced1c4fad0f",
       "source_bytes": 824,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -9517,9 +9517,9 @@
       "model_sha256": "e017e76cb8b50c7fd7786433c0a4972a5ecc63a0cf336d3dc8f0ef59fa9b41a4",
       "source_bytes": 776,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -9563,9 +9563,9 @@
       "model_sha256": "7ba98b31742718046d63e4146342978d3328e3fb764c19ea7b7d99b5990e5323",
       "source_bytes": 3816,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -9607,9 +9607,9 @@
       "model_sha256": "7d669c2c2f2ba67833ea315d1b97c4ddb51e068b5e17776953c4712e29947200",
       "source_bytes": 824,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -9652,9 +9652,9 @@
       "model_sha256": "e8da1451b79fc304d45f6cb940578f051cfc0caba877c068d9d44a32aefbb976",
       "source_bytes": 2264,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_object_material_consensus.md",
-        "docs/evidence/us_model_scene_consumers.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md"
       ],
       "consumers": [
         {
@@ -9694,9 +9694,9 @@
       "model_sha256": "474d901909ddfdf52806b5e25ea25c0a2150921370723c3e133cd0ab5101a497",
       "source_bytes": 2488,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -9738,9 +9738,9 @@
       "model_sha256": "0e30ba2ba4311e2481a9c5adccd3d52db127ad6939d12f0fe5c7511ad307dc45",
       "source_bytes": 424,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -9784,9 +9784,9 @@
       "model_sha256": "3bcaf577d35f39ae4884892a56b17ca786cc34529e920cfc4c33c450e0c621d3",
       "source_bytes": 760,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -9829,9 +9829,9 @@
       "model_sha256": "4528ac6dac13994f2bc17f0e4e4a3af84ae17ee656fe7a3bea266592125dfc19",
       "source_bytes": 552,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -9873,9 +9873,9 @@
       "model_sha256": "62d56ea6ae55c54fe7a969b64dfd72f5fcde6745bd915baa5842ef69f52efb84",
       "source_bytes": 872,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_object_material_consensus.md",
-        "docs/evidence/us_model_scene_consumers.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md"
       ],
       "consumers": [
         {
@@ -9915,9 +9915,9 @@
       "model_sha256": "9eec9129c407338f9a38b2ca82286a9b69f3f941614b330f676ad71e0929dfe8",
       "source_bytes": 4600,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_object_material_consensus.md",
-        "docs/evidence/us_model_scene_consumers.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md"
       ],
       "consumers": [
         {
@@ -9957,9 +9957,9 @@
       "model_sha256": "74070949ecb6e6f9f6d2880b4bb6822ff1d55e1466aceb709a35b49ae24516e9",
       "source_bytes": 3480,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10001,9 +10001,9 @@
       "model_sha256": "a3ecb482278927507e9d32cdc164cd66684ad4e3a654a2c695249c00c5b6f8c0",
       "source_bytes": 1304,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10049,9 +10049,9 @@
       "model_sha256": "d7a6572ca9db2c4879325b41e27371a623635f49d860633e6aab2b9e38e7d362",
       "source_bytes": 2232,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10095,9 +10095,9 @@
       "model_sha256": "818938c7ade06f444d2a3f2b3710eefdfb547962b998c53bcaa50dbe0897924d",
       "source_bytes": 792,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_object_material_consensus.md",
-        "docs/evidence/us_model_scene_consumers.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md"
       ],
       "consumers": [
         {
@@ -10137,9 +10137,9 @@
       "model_sha256": "75a41170ca87635f649f9aea4406fb431a123d5bb9ca9f08ab17b97b8f09aba7",
       "source_bytes": 2024,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10181,9 +10181,9 @@
       "model_sha256": "43e2df303719ec4ea28c235412de2b8faf764b1ed05e228c0ff5b22b5a6bd58a",
       "source_bytes": 1160,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10225,9 +10225,9 @@
       "model_sha256": "13f9c3163141fd4df80c7b6fec578f9f2809edda4a2d33de6a56b17dcce5f7e7",
       "source_bytes": 792,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_object_material_consensus.md",
-        "docs/evidence/us_model_scene_consumers.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md"
       ],
       "consumers": [
         {
@@ -10267,9 +10267,9 @@
       "model_sha256": "a0a4d7291415f1c6847b5e1bf4bed86c7e1bf73c9bc9ffa33c59c130b72b9bfa",
       "source_bytes": 3800,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10313,9 +10313,9 @@
       "model_sha256": "10c1620b6c9ffe2a8b82e33ab5319889c274e696f24760abab297d2264128001",
       "source_bytes": 2120,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10359,9 +10359,9 @@
       "model_sha256": "164a8fa130761a76534fc148b07264b516c3e0c6e4fd22a30dceb89ba33ee1a7",
       "source_bytes": 1720,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10403,9 +10403,9 @@
       "model_sha256": "4c03680dc777df4669dd8d0c2377b5a22814a1654d76c403eddf6a29a4aa3410",
       "source_bytes": 4792,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_object_material_consensus.md",
-        "docs/evidence/us_model_scene_consumers.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md"
       ],
       "consumers": [
         {
@@ -10445,9 +10445,9 @@
       "model_sha256": "70d975f0560c4b52cee5869179dbf54d3aa87596b6f0e54375a581faf04aa77f",
       "source_bytes": 1432,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10489,9 +10489,9 @@
       "model_sha256": "000fa0e5a6a5a1b72a883c22608b059c862416284d7ec23008cb7402cdb36ae6",
       "source_bytes": 680,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_object_material_consensus.md",
-        "docs/evidence/us_model_scene_consumers.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md"
       ],
       "consumers": [
         {
@@ -10531,9 +10531,9 @@
       "model_sha256": "6540531a3180b30eb25a0c0ded398fc0205bb23af7d6f21b7aacd8a23570bbaf",
       "source_bytes": 1640,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10575,9 +10575,9 @@
       "model_sha256": "6a505a3132c38607089e27ae3efc907263205206b72a892b964c6bbe2e40ca19",
       "source_bytes": 1768,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10620,9 +10620,9 @@
       "model_sha256": "993f8d3629c112de90fe216af5397af372be5fc78fb204b565ba39378a3beb72",
       "source_bytes": 744,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10665,9 +10665,9 @@
       "model_sha256": "a417cc20867afdc81c40894612c77c3a8ccf8e6c079affb059acacfc6deaad41",
       "source_bytes": 920,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10709,9 +10709,9 @@
       "model_sha256": "d52f179aecb46f0766af0b6fefe160db00fb854098304a6dabe9b06b285234ff",
       "source_bytes": 1576,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10755,9 +10755,9 @@
       "model_sha256": "1c34be0da46f6d8c2340ae4a82e00621742a2489d501ae26977a30e2ca575b84",
       "source_bytes": 3608,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10799,9 +10799,9 @@
       "model_sha256": "a192f55cba5aca76c8ecb430d553578d2877073520308bcde03b7a1dfc1388e6",
       "source_bytes": 3816,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10843,9 +10843,9 @@
       "model_sha256": "2761814cba5b147ecf8b94fdc389ce3bf0010d56e51dd3728ad883f7654834ba",
       "source_bytes": 1800,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10889,9 +10889,9 @@
       "model_sha256": "b900d46459fc372683e8e7f22c9607d9e6e4188c476956e5eba0d9f31d2f7e9f",
       "source_bytes": 792,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -10933,9 +10933,9 @@
       "model_sha256": "79e0312ad74920e2315503fb81193e4cab2fea3c02bba32c59e4188337dbe1ca",
       "source_bytes": 792,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_object_material_consensus.md",
-        "docs/evidence/us_model_scene_consumers.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md"
       ],
       "consumers": [
         {
@@ -10975,9 +10975,9 @@
       "model_sha256": "9ffd25e52193f7d97430cc401b50d2f6a38469ea042d283aac38a898874db827",
       "source_bytes": 328,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11022,9 +11022,9 @@
       "model_sha256": "959f16a2810761b21f8a8f3c518bed6e0003274bac4840a8ff547a4510ade0df",
       "source_bytes": 1304,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11068,9 +11068,9 @@
       "model_sha256": "a68755ba5479f1d989c48742567f5f69e56556373b6bc0512c5cc0862f33f280",
       "source_bytes": 1224,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11125,9 +11125,9 @@
       "model_sha256": "928abfca3701a726365bbb8b7dc4cf7cac5643e426a6c4f27771ae97998e3765",
       "source_bytes": 408,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11182,9 +11182,9 @@
       "model_sha256": "73adf909681d5de4330748fa194244ebfbff65d54fd85351af50a2e85aabbfa0",
       "source_bytes": 7224,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11239,9 +11239,9 @@
       "model_sha256": "3c7fcd0d105bf52cb2254aa0d7e6cd8663d7ce99f851c39e6475c240d67cb311",
       "source_bytes": 3992,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11296,9 +11296,9 @@
       "model_sha256": "100c827e19a8fe519248d8ca87a68470e25d887a38c6bf2ceb73ee5476462361",
       "source_bytes": 2024,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11353,9 +11353,9 @@
       "model_sha256": "4638d16db8cfb3844b3bbdd972d07b2da23bf5c6f9f5fbbd10df89873f5bf611",
       "source_bytes": 3800,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11410,9 +11410,9 @@
       "model_sha256": "99ad37be8589e674e4d88f4980e9414c3bd1e6a312ac2c3ca2fc28d30d7bae1a",
       "source_bytes": 2456,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11467,9 +11467,9 @@
       "model_sha256": "85bff8534acfedc36ad3e65483f8cff59922ffed833f31d5817d08c52dcb450c",
       "source_bytes": 1416,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11525,9 +11525,9 @@
       "model_sha256": "b7cc7cb0e42807385d5183aae1135ad3ce026683fd8a2d97755c2384e60883a3",
       "source_bytes": 4072,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11582,9 +11582,9 @@
       "model_sha256": "e1868122c22d358370a62bc7c864dba32d1dcf99ab690b5caee829c6f1d92612",
       "source_bytes": 4952,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11639,9 +11639,9 @@
       "model_sha256": "bb7fdd676becc65e0353df96b2b66bd2df351a95e7f93276d005cd276d16849a",
       "source_bytes": 3560,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11696,9 +11696,9 @@
       "model_sha256": "bcc57b81742090d5ec31fc2cb0d0b980a2e0104ec0990728fda1770bf6a97b7f",
       "source_bytes": 10776,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11753,9 +11753,9 @@
       "model_sha256": "1e79c82de7ed07cc29f29d3222f17c1a4a1cfb465e7294ec716e59960ac8cb76",
       "source_bytes": 2728,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11811,9 +11811,9 @@
       "model_sha256": "2fcbea3f1de0eeb2b97842c0f8a009ed2e3cad224aa1758ceeea14fabab7bbb0",
       "source_bytes": 3560,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11868,9 +11868,9 @@
       "model_sha256": "1e7d6565f990bcc48c68c1e47573a3a98eaa53245d5812c2c70c54ac5d5483d6",
       "source_bytes": 3000,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11926,9 +11926,9 @@
       "model_sha256": "3b01abb4b18cdfdb665362121e57c9ceb0dffe3ae65bbf89c3239096ca1fa26e",
       "source_bytes": 4072,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -11984,9 +11984,9 @@
       "model_sha256": "ea1160f43991fa7fcaf7f3fc2527083363a707aeab0c4088849cebf2392725a5",
       "source_bytes": 3432,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -12041,9 +12041,9 @@
       "model_sha256": "07231c1ba8f177e0b51008936a81d2c0f65a8b6be2aec0d53344ec5730144e7a",
       "source_bytes": 7368,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -12099,9 +12099,9 @@
       "model_sha256": "41aa66db65f2be1ff28510d1ed03e901a175ce65178d6df016f8c34111c23141",
       "source_bytes": 1672,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -12157,9 +12157,9 @@
       "model_sha256": "9da3d15f3fed58f4ea36b69b465faaaa8f37aadd32e45284e42809ea579fbdac",
       "source_bytes": 2744,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_scene_consumers.md",
-        "docs/evidence/us_object_material_consensus.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_scene_consumers.md",
+        "docs/evidence/assets/materials/us_object_material_consensus.md"
       ],
       "consumers": [
         {
@@ -12215,7 +12215,7 @@
       "model_sha256": "e94e2c8fc3f15ec30965efe6d965be4e11b0f80dd76258b70ab294109fe410f6",
       "source_bytes": 2920,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -12281,7 +12281,7 @@
       "model_sha256": "b3d718cd4be9e628ff20df87f20fc600d181596db808afacb8d564380c39781b",
       "source_bytes": 2088,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -12348,7 +12348,7 @@
       "model_sha256": "be64a2ae4563d571f7ffde2c11b2c8736a8af4af31048c3772df93fc55835248",
       "source_bytes": 2744,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -12414,7 +12414,7 @@
       "model_sha256": "cfb282ce0478fb36fa086d13dc65b850d528c639f8f7734ac555c7e2f3c2ae14",
       "source_bytes": 1768,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -12478,7 +12478,7 @@
       "model_sha256": "dfbbf6e4b63b1341e5862e87bd6a93d5206d502285e81a5184a30477845fdfa3",
       "source_bytes": 2152,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -12544,9 +12544,9 @@
       "model_sha256": "a080b44823b83bae5639e1d89b1b8da26ccc535a835394f430562ae56c040efc",
       "source_bytes": 552,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_review_selections.md",
-        "docs/evidence/us_model_reference_corrections.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_review_selections.md",
+        "docs/evidence/assets/models/us_model_reference_corrections.md"
       ],
       "consumers": [
         {
@@ -12600,7 +12600,7 @@
       "model_sha256": "e6f8737eb28a535b4f1c322e781524dba63c79ce5699deffed3a922656e3d669",
       "source_bytes": 808,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -12664,7 +12664,7 @@
       "model_sha256": "84752b79c10cfb33c0b4147ca660f4342aa8b42e0f6d21dc5c64d13485cc7589",
       "source_bytes": 3880,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -12730,7 +12730,7 @@
       "model_sha256": "779cd1294e3baf3f9b13b20daee27655ae5de756d04ce6f35ff49956938b20d8",
       "source_bytes": 2360,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -12794,7 +12794,7 @@
       "model_sha256": "91c2caf1375eecedc4c5cbd5bf299978dea7c628331a7542c590b56761697b3b",
       "source_bytes": 3688,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -12858,7 +12858,7 @@
       "model_sha256": "190f812e33c16ef2d6be955a45298fb7dcffcad945e8bc39aa3b78aa076db872",
       "source_bytes": 1320,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -12923,7 +12923,7 @@
       "model_sha256": "f17e9e8b74d6f694a983a75a36b38d60afcf74bdf4a2890ce6032a306b649963",
       "source_bytes": 2568,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -12987,7 +12987,7 @@
       "model_sha256": "52d6c9e261bf8358bc4ba86507d56e78caa264a9e01fb31ec96294352506f7cb",
       "source_bytes": 5256,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -13053,7 +13053,7 @@
       "model_sha256": "f01253716ff9661c80711d30ecdcd1540adacdf24033c74527860a1e419aa2e3",
       "source_bytes": 3032,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -13117,7 +13117,7 @@
       "model_sha256": "43d5fca1002047836b55c2ff0bb7cd0167d265e5c2a1a4e3aed412706596f6df",
       "source_bytes": 2936,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -13181,7 +13181,7 @@
       "model_sha256": "1cfeba54faec160658da60614c70ade3b6ab93167fc15318a6c3c23916d0b62d",
       "source_bytes": 1768,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -13245,7 +13245,7 @@
       "model_sha256": "093d33a13f4d277f6521617571beafdc580f6da0738bce458b84e0049717180e",
       "source_bytes": 936,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -13309,7 +13309,7 @@
       "model_sha256": "a0e8596da4cdb1315170702987e8c83aefe94296c0733f89656fff1e0d3d313b",
       "source_bytes": 968,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -13373,7 +13373,7 @@
       "model_sha256": "9abb3303fffd8277197a6f882ab7c97a5370812e959c9775ff188bd9ffe21847",
       "source_bytes": 1848,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -13439,7 +13439,7 @@
       "model_sha256": "304681e0d64d6413bfe29efb86b2a616e4fd0eb4ded1086643e1cf11d19bf71c",
       "source_bytes": 1912,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -13503,7 +13503,7 @@
       "model_sha256": "c0594b64994d81fc9be6ac33eb97e3096b42ae0f1ebea91356c2ffbc05a0218d",
       "source_bytes": 1576,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -13567,7 +13567,7 @@
       "model_sha256": "36cdbae3d1ef636062f47294cbb18dadd36c669fcb7dd27555e9524c626a5074",
       "source_bytes": 1704,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -13633,7 +13633,7 @@
       "model_sha256": "3cf9a5cc70eeef9f28dab0ee6cdc0bc15c3ff5dd6365e930aa6749125b19302f",
       "source_bytes": 1384,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -13697,7 +13697,7 @@
       "model_sha256": "1eb0d4cbd78b10ef73bd2cead65cab6cf93c293c11b69cc0b33b493079832643",
       "source_bytes": 1336,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -13764,7 +13764,7 @@
       "model_sha256": "74e6437e6a63239b10a979286f21f34c8e57d7fbfffb41c17e3aca7fe2358505",
       "source_bytes": 1384,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -13828,7 +13828,7 @@
       "model_sha256": "c6f8a124d00ddf7adda2a8c9ab5ae2cf966fd90917a29050628e7bc2652757e3",
       "source_bytes": 1480,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -13892,7 +13892,7 @@
       "model_sha256": "0d7634bf00d658024da79735fb278d4135b8f7a3008e41eac69d67caf6c5aee1",
       "source_bytes": 952,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -13956,7 +13956,7 @@
       "model_sha256": "cd9840857a3485053ba887cea273574cff251e0d4578155d6d553e4e954cbcdf",
       "source_bytes": 1112,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -14022,7 +14022,7 @@
       "model_sha256": "90d6d64a7843a8a63e30b449b0e122c6652734710bfcf790024e97b7b9124da8",
       "source_bytes": 1272,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -14087,7 +14087,7 @@
       "model_sha256": "abb09eb858308c65146d19a5816a6a143113b93a479f764436a5d45f25275a50",
       "source_bytes": 1272,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -14152,7 +14152,7 @@
       "model_sha256": "3efdd8dcf9ae916bb74c6b502f572913c0033d9859601c35ff95cf891677fd01",
       "source_bytes": 1480,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -14216,7 +14216,7 @@
       "model_sha256": "f9d08b2937988aa67d66ffaec63819f0b3e288fd33d462a699cee128e822edf0",
       "source_bytes": 3352,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -14281,9 +14281,9 @@
       "model_sha256": "6e9e414e702b8cc63ceb100e06ed76c051c812cc27b6d6c222e39e5567c2ea5b",
       "source_bytes": 2072,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_model_review_selections.md",
-        "docs/evidence/us_model_reference_corrections.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/models/us_model_review_selections.md",
+        "docs/evidence/assets/models/us_model_reference_corrections.md"
       ],
       "consumers": [
         {
@@ -14344,7 +14344,7 @@
       "model_sha256": "757a7b02b596245a6a12c312ec53699b0f9c7a807b0fcc74cb53b50d0c501861",
       "source_bytes": 3736,
       "evidence": [
-        "docs/evidence/attachment_prop_semantics.md"
+        "docs/evidence/assets/naming/attachment_prop_semantics.md"
       ],
       "consumers": [
         {
@@ -14409,8 +14409,8 @@
       "model_sha256": "56e39222546b14ee29a91f118dfa6ba20644010bd6b2872f8f9a09b9905b13d3",
       "source_bytes": 2728,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_ui_constructor_materials.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_ui_constructor_materials.md"
       ],
       "consumers": [
         {
@@ -14471,8 +14471,8 @@
       "model_sha256": "c88b7dc1379313e31c2da6e232ae64491d63ce45993175f8003489d214887bbd",
       "source_bytes": 3256,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_ui_constructor_materials.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_ui_constructor_materials.md"
       ],
       "consumers": [
         {
@@ -14540,8 +14540,8 @@
       "model_sha256": "d7f6622a97fa5fdb6152711688d42f5c1cd5fb6c7d0e1033f8d067b1f839ca73",
       "source_bytes": 3320,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_special_attachment_materials.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_special_attachment_materials.md"
       ],
       "consumers": [
         {
@@ -14623,8 +14623,8 @@
       "model_sha256": "d6824736a89130f76ad128c4b957b02b6e9e879f63265b058a65d09f10e85fc0",
       "source_bytes": 5768,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_special_attachment_materials.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_special_attachment_materials.md"
       ],
       "consumers": [
         {
@@ -14671,8 +14671,8 @@
       "model_sha256": "efd0fb9de977d69539b88b9539c0d642642a378aa372527d19e5d108207bfbd2",
       "source_bytes": 1928,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_direct_segment_texture_bindings.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_direct_segment_texture_bindings.md"
       ],
       "consumers": [
         {
@@ -14740,8 +14740,8 @@
       "model_sha256": "4d9e9147a54343277a5a3635d18c59a40a26e05d8ca841e78ad6f6857dae16d9",
       "source_bytes": 872,
       "evidence": [
-        "docs/evidence/prop_model_semantics.md",
-        "docs/evidence/us_bank09_object_materials.md"
+        "docs/evidence/assets/naming/prop_model_semantics.md",
+        "docs/evidence/assets/materials/us_bank09_object_materials.md"
       ],
       "consumers": [
         {
@@ -14788,7 +14788,7 @@
       "model_sha256": "f94db7a7d00b026452642f29b4fdbb74f712c232e80fa6378e246800b9693328",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -14824,7 +14824,7 @@
       "model_sha256": "595954cadc2dd87816d0d5c00c38bc48546ae24255e3c6879171f34d6661bf6f",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -14860,7 +14860,7 @@
       "model_sha256": "0c5114bd0b4f2d51b25f05aff0ca64cd46b8360e756baa2cce38e518024bb6d4",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -14896,7 +14896,7 @@
       "model_sha256": "abfbb5fc73f949c3206e93ad8b05ef16c8d6bd2371a9fac3794422c75687ce13",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -14932,7 +14932,7 @@
       "model_sha256": "ebe5555ee2bf2d31eaca5ca4b7caa7c5f5d0196ab2a41329aefcae239b6dc04d",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -14968,7 +14968,7 @@
       "model_sha256": "5b0e14df82177d924c4cdd8e715ac1c69140cc56d8be0910c88bd400e01cbbde",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15004,7 +15004,7 @@
       "model_sha256": "7be6a15ddb39f54fb03250140851fd4007c87446638bbb4503d75f7646370b55",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15040,7 +15040,7 @@
       "model_sha256": "6467f03a8188bdd0f7cb2bd9a0343482e0f84d7a05a78380fe9a657fae0810bf",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15076,7 +15076,7 @@
       "model_sha256": "ea2c86b711a1a9aa0b67d5f09bd5898edcc77774249bd1a75db484f85b3e6e3a",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15112,7 +15112,7 @@
       "model_sha256": "20bfbc64c40030c45aa4bf5cc6cc2f07290c0fce048f8347dd3575033389a573",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15148,7 +15148,7 @@
       "model_sha256": "9c67ea1f9fec8b90b46b5fe609cf849b5d02be3b38a89478ccbbd6348bc6a444",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15184,7 +15184,7 @@
       "model_sha256": "df2aaaba6600bcbb7bef6f041c245b476c7699f7e9a3b1869b8a2ae0e50296c7",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15220,7 +15220,7 @@
       "model_sha256": "89eef1c41cd78839bafed95e1f19c62653aa587bc83863b751984899b55e7b60",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15256,7 +15256,7 @@
       "model_sha256": "7666ab8f47a9430ba736f56005f399e792b2ee18b5515c924cc849030440afb3",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15292,7 +15292,7 @@
       "model_sha256": "860536ecb93bc548754d055adc317201b9e928dbac51d50e088a114c68fa4883",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15328,7 +15328,7 @@
       "model_sha256": "1a84f3e8e3ba56e075734e88448cfc6326b9bdfea2584d5d268b9b7d375f2e2a",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15364,7 +15364,7 @@
       "model_sha256": "66648b4bd096ecb69c6e7cefe0135778b18d04789926e89319eb500ef923ba5d",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15400,7 +15400,7 @@
       "model_sha256": "65fbf141560392320ea20996353acf3cb49e8eef4797ca4dff1669b9d608f4b7",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15436,7 +15436,7 @@
       "model_sha256": "802293932a1028b99e491f1a264b827a348330baee70681ba410ae6dd248ca9f",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15472,7 +15472,7 @@
       "model_sha256": "b9ec533a0d3c807e8a2da2e8d00313bfc15cb47da41c12d50971b2ef2a496258",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15508,7 +15508,7 @@
       "model_sha256": "09d406b9418a034fed78cbb034ff4d56549de6f203a052fb4f6829aace0de7f3",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15544,7 +15544,7 @@
       "model_sha256": "56dce205aa6c7b41ed610234bde329391195ba7e4b83370f7980624cac79caff",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15580,7 +15580,7 @@
       "model_sha256": "fba1bcbb84dda51d4b0c1e449c74635d288e486aeae8e78027784be25fdb75f5",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15616,7 +15616,7 @@
       "model_sha256": "8d6d12b090542d5b3bd3d2694434c3c533045e3ca730a2c144f281d85fb2eb42",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15652,7 +15652,7 @@
       "model_sha256": "9530cf2fafce778e887ce4d1cd9d6e1f976f1e701677b5e2390c058d2d885839",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15689,7 +15689,7 @@
       "model_sha256": "c428949c25c8097260f263ce33e687063dd058d8793c5ad64d61515a226928aa",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15726,7 +15726,7 @@
       "model_sha256": "7a7967573b34d38998bb1ee01c20ecccc09eb6ca8ac1e66f8e5bb7bb408b0cda",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15763,7 +15763,7 @@
       "model_sha256": "5d7a2b949c96700647119c91de659c942a8be0374b6a9d4631ca83dbab4935b1",
       "source_bytes": 440,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15800,7 +15800,7 @@
       "model_sha256": "b1e8946403fae2063c69c98013c6b7d7cd9614422ff7af46d3fa1716d26e4467",
       "source_bytes": 456,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {
@@ -15837,7 +15837,7 @@
       "model_sha256": "b7633728f0fc1ab193382b4f9affadaae3688ef6c270a17ae14538ea88270fd6",
       "source_bytes": 488,
       "evidence": [
-        "docs/evidence/text_entry_model_role_names.md"
+        "docs/evidence/assets/naming/text_entry_model_role_names.md"
       ],
       "consumers": [
         {

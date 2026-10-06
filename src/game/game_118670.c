@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_118670.c
- * Boundary evidence: docs/evidence/game_raw_pointer_singletons_continued.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_singletons_continued.md
  *
  * TODO: Implement these source-unit functions:
  * - func_150EB1C0

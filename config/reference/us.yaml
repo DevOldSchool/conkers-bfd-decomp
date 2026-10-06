@@ -238,7 +238,7 @@ segments:
   - type: bin
     start: 0x2D4B0
     follows_vram: main
-  # Loader-proven image; see docs/evidence/us_debugger_overlay.md.
+  # Loader-proven image; see docs/evidence/debugger/us_debugger_overlay.md.
   # These broad raw ranges do not identify original source objects.
   - name: debugger
     type: code

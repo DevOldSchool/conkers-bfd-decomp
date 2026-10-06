@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_1286F0.c
- * Boundary evidence: docs/evidence/game_raw_direct_helper_pairs.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_helper_pairs.md
  */
 
 void func_150FB240(u8 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {

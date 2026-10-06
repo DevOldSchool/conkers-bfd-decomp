@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_3F670.c
- * Boundary evidence: docs/evidence/game_medium_single_function_units.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_medium_single_function_units.md
  */
 
 typedef struct Game3F670Packet {

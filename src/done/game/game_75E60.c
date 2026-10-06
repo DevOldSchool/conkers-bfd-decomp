@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_75E60.c
- * Boundary evidence: docs/evidence/game_final_compact_units.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_final_compact_units.md
  */
 
 f32 func_150489B0(u8 arg0);

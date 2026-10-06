@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_1A1E50.c
- * Boundary evidence: docs/evidence/game_raw_structural_families_continued.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
  */
 
 extern s32 D_800BE9E4;

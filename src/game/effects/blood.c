@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/effects/blood.c
- * Boundary evidence: docs/evidence/effects_blood.md
+ * Boundary evidence: docs/evidence/boundaries/effects/effects_blood.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15134070

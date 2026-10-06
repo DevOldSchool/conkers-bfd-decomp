@@ -180,6 +180,6 @@ inventing padding:
 
 It tries at most eight shapes and stops at the first non-improving compiled shape;
 `--exhaustive` does not override this stop. Strategy and outcome are fingerprinted.
-The [initial pilot](evidence/targeted_candidate_pilot.md) did not establish an
+The [initial pilot](evidence/matching/targeted_candidate_pilot.md) did not establish an
 accepted match or batch success. Keep this option off for broad scans until further
 integration validation. Instruction zero never replaces layout or clean-batch proof.

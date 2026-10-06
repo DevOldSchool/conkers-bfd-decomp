@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/main/init_8180.c
- * Boundary evidence: docs/evidence/main_sequence_api_mp3_adapter_boundaries.md
+ * Boundary evidence: docs/evidence/boundaries/main/main_sequence_api_mp3_adapter_boundaries.md
  *
  * TODO: Implement these source-unit functions:
  * - func_80008180

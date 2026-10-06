@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/effects/colourframebuffer.c
- * Boundary evidence: docs/evidence/effects_colourframebuffer.md
+ * Boundary evidence: docs/evidence/boundaries/effects/effects_colourframebuffer.md
  *
  * TODO: Implement these source-unit functions:
  * - func_1515FDA0

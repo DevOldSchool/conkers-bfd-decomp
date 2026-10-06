@@ -16189,7 +16189,7 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "reason": "Full344-byte focused CURRENT0 retained; canonical clean batch FIX_INTEGRATION: GAME2072944 versusROM2072880 (+64 rodata), four differing table-address bytes. Proposed ROM-verified 800961D0 mapping remains unapproved. Restore canonical ASM for clean checkpoint; preserve exact C and docs/evidence/game_3ba70_jump_table.patch for later resume after approval.",
+        "reason": "Full344-byte focused CURRENT0 retained; canonical clean batch FIX_INTEGRATION: GAME2072944 versusROM2072880 (+64 rodata), four differing table-address bytes. Proposed ROM-verified 800961D0 mapping remains unapproved. Restore canonical ASM for clean checkpoint; preserve exact C and docs/evidence/data-layout/game_3ba70_jump_table.patch for later resume after approval.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -91895,7 +91895,7 @@
     },
     {
       "blocked": {
-        "reason": "m2c cannot find branch target func_150A515C. Reviewed raw reference A50C0.s shows alternate entries func_150A5174/func_150A5198/func_150A52F4, incoming live v0/t7/gp/FPU state and shared 0x40-byte epilogue without a prologue in this registered span. docs/evidence/game_raw_handwritten_entry_families.md confirms handwritten alternate-entry family; requires family-level ABI/boundary recovery before ordinary source-local C matching.",
+        "reason": "m2c cannot find branch target func_150A515C. Reviewed raw reference A50C0.s shows alternate entries func_150A5174/func_150A5198/func_150A52F4, incoming live v0/t7/gp/FPU state and shared 0x40-byte epilogue without a prologue in this registered span. docs/evidence/boundaries/game/families/game_raw_handwritten_entry_families.md confirms handwritten alternate-entry family; requires family-level ABI/boundary recovery before ordinary source-local C matching.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -92109,7 +92109,7 @@
       "original_asm": {
         "reason": "Reviewed handwritten routine with interior entry labels, trapping arithmetic, and stack restoration after incrementing sp; retain the original custom register convention.",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/blocked_function_recovery.md"
+        "reference": "docs/evidence/matching/blocked_function_recovery.md"
       },
       "overlay": "game",
       "regions": {
@@ -92402,7 +92402,7 @@
       "original_asm": {
         "reason": "Reviewed custom floating-register inputs f23-f31, return address held in t9, and embedded debug string through the full registered span; preserve original code and data bytes.",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/blocked_function_recovery.md"
+        "reference": "docs/evidence/matching/blocked_function_recovery.md"
       },
       "overlay": "game",
       "regions": {
@@ -96258,7 +96258,7 @@
       "original_asm": {
         "reason": "CP0 TLB setup with preserved hazard-delay instructions",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_tlb_alias_boundary.md"
+        "reference": "docs/evidence/boundaries/main/main_tlb_alias_boundary.md"
       },
       "overlay": "main",
       "regions": {
@@ -96282,7 +96282,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96306,7 +96306,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96349,7 +96349,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96373,7 +96373,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96416,7 +96416,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96440,7 +96440,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96464,7 +96464,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96488,7 +96488,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96512,7 +96512,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96536,7 +96536,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96560,7 +96560,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96584,7 +96584,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96608,7 +96608,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96632,7 +96632,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96656,7 +96656,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96718,7 +96718,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96742,7 +96742,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96766,7 +96766,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96790,7 +96790,7 @@
       "original_asm": {
         "reason": "Reviewed diagnostic custom-register ABI and retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {

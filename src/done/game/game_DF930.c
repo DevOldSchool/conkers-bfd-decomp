@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_DF930.c
- * Boundary evidence: docs/evidence/game_raw_complete_callback_clusters.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_complete_callback_clusters.md
  */
 
 s32 func_150B2480(s32 arg0, s32 arg1) {

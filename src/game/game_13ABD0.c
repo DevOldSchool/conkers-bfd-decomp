@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_13ABD0.c
- * Boundary evidence: docs/evidence/game_raw_directly_called_families.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_directly_called_families.md
  *
  * TODO: Implement these source-unit functions:
  * - func_1510D720
@@ -84,7 +84,7 @@ extern u8 D_800D9ED8[];
 
 /* Semantic role: placed_object_reset_texture_binding_count.
  * Clear only the binding count; stored records and texture payloads remain.
- * See docs/evidence/placed_object_helper_semantics.md.
+ * See docs/evidence/assets/naming/placed_object_helper_semantics.md.
  */
 void func_1510D864(void) {
     D_800D9ED0 = 0;

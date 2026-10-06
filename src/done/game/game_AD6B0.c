@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_AD6B0.c
- * Boundary evidence: docs/evidence/game_raw_parser_actor_state_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_parser_actor_state_groups.md
  */
 
 extern s32 D_800D1928;

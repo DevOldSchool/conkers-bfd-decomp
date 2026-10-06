@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_1FFF60.c
- * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_151D2DCC

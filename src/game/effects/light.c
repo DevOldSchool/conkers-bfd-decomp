@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/effects/light.c
- * Boundary evidence: docs/evidence/effects_light.md
+ * Boundary evidence: docs/evidence/boundaries/effects/effects_light.md
  *
  * TODO: Implement these source-unit functions:
  * - func_151603FC

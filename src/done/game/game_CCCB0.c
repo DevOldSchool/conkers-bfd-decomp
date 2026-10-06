@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_CCCB0.c
- * Boundary evidence: docs/evidence/game_raw_descriptor_callback_families.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_descriptor_callback_families.md
  */
 
 s32 func_1509F800(s32 arg0, s32 arg1, s32 arg2) {

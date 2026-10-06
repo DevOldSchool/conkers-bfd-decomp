@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_1BDC20.c
- * Boundary evidence: docs/evidence/game_raw_owner_particle_lifecycle.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_owner_particle_lifecycle.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15190898

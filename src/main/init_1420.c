@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/main/init_1420.c
- * Boundary evidence: docs/evidence/main_bootstrap_source_units.md
+ * Boundary evidence: docs/evidence/boundaries/main/main_bootstrap_source_units.md
  *
  * TODO: Implement these source-unit functions:
  * - func_bootstrap_clear_region

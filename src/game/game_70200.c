@@ -2,8 +2,8 @@
 
 /*
  * Reviewed source unit: src/game/game_70200.c
- * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
- * HUD layout naming evidence: docs/evidence/hud_layout_semantics.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
+ * HUD layout naming evidence: docs/evidence/assets/naming/hud_layout_semantics.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15043384

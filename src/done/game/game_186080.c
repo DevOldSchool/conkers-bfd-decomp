@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_186080.c
- * Boundary evidence: docs/evidence/game_raw_isolated_selectors_and_calls.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_isolated_selectors_and_calls.md
  */
 
 typedef struct {

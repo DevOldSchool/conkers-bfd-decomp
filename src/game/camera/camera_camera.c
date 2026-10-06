@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/camera/camera_camera.c
- * Boundary evidence: docs/evidence/game_beta_camera_rope_bee.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_beta_camera_rope_bee.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15122C5C

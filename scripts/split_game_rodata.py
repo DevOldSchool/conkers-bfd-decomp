@@ -12,7 +12,7 @@ from pathlib import Path
 import struct
 
 # (object extent, [(offset, payload size, HI16 site, LO16 site), ...])
-# ROM provenance and dispatch bounds: docs/evidence/automation_jump_tables.md.
+# ROM provenance and dispatch bounds: docs/evidence/data-layout/automation_jump_tables.md.
 LAYOUTS = {
     'game_16EE20': (0x2B0, [(0, 0xB4, 0x2B8, 0x2C0), (0xB4, 0x164, 0x2D8, 0x2E0),
                               (0x218, 0x40, 0x3B4, 0x3BC), (0x258, 0x14, 0x284C, 0x2854),

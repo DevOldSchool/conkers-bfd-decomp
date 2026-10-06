@@ -59,6 +59,8 @@ dkms.conf
 .private-rom-assets/
 asm/
 assets/
+# Asset research is documentation, not extracted ROM output.
+!/docs/evidence/assets/
 build/
 expected/
 /reference/
