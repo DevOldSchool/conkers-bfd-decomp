@@ -108,25 +108,11 @@ void func_85049148(f32 *, f32, f32 *);
 s32 func_8000A420(s32, s32, s32, f32, s32, s32, s32, s32, s32,
                   s32 *, s32 *, s32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A750 CURRENT (28265) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A750 CURRENT (25805) */
 s32 func_8000A750(s32 index, s32 panX, s32 panY, s32 panZ, f32 rotation,
                   s32 distanceX, s32 distanceY, s32 distanceZ,
                   s32 nearLimit, s32 farLimit, s32 *panOut,
                   s32 *attenuationOut, s32 *distanceOut) {
-    s32 leftDistance;
-    s32 rightDistance;
-    s32 outside;
-    s16 selectedX;
-    s16 selectedY;
-    s16 selectedZ;
-    f32 direction[3];
-    f32 relative[3];
-    f32 length;
-    f32 lengthSquared;
-    f32 dot;
-    SpatialPoint **slot;
-    SpatialPoint *base;
-    SpatialPoint *point;
     s32 closest;
     s32 bestDistance;
     s32 previousDistance;
@@ -134,9 +120,24 @@ s32 func_8000A750(s32 index, s32 panX, s32 panY, s32 panZ, f32 rotation,
     s32 dx;
     s32 dy;
     s32 dz;
-    s32 segment;
+    s32 pointX;
+    s32 leftDistance;
+    s32 rightDistance;
     s32 i;
+    s32 outside;
     s32 count;
+    s16 selectedX;
+    s16 selectedY;
+    s16 selectedZ;
+    f32 direction[3];
+    f32 relative[3];
+    f32 lengthSquared;
+    f32 dot;
+    SpatialPoint *point;
+    s32 tableOffset;
+    SpatialPoint **slot;
+    SpatialPoint *base;
+    s32 segment;
 
     outside = 0;
     count = D_800D2108[index];
@@ -146,7 +147,8 @@ s32 func_8000A750(s32 index, s32 panX, s32 panY, s32 panZ, f32 rotation,
     if (count == 0) {
         return 0;
     }
-    slot = &D_800D2104[index];
+    tableOffset = index * sizeof(SpatialPoint *);
+    slot = (SpatialPoint **)((u8 *)D_800D2104 + tableOffset);
     base = *slot;
     point = base;
     for (i = 0; i < count; i++, point++) {
@@ -166,28 +168,30 @@ s32 func_8000A750(s32 index, s32 panX, s32 panY, s32 panZ, f32 rotation,
         }
         previousDistance = currentDistance;
     }
-    segment = closest;
-    point = base + closest;
-    selectedX = point->x;
+    segment = closest * 8;
+    point = (SpatialPoint *)((u8 *)base + segment);
+    pointX = point->x;
+    selectedX = pointX;
     selectedY = point->y;
     selectedZ = point->z;
     if (count >= 2 && bestDistance >= 0x6D61) {
         if (closest >= count - 1 || leftDistance < rightDistance) {
-            segment--;
+            segment -= 8;
             point--;
+            pointX = point->x;
         }
-        direction[0] = (f32)(point[1].x - point->x);
-        direction[1] = (f32)((*slot)[segment + 1].y - (*slot)[segment].y);
-        direction[2] = (f32)((*slot)[segment + 1].z - (*slot)[segment].z);
-        relative[0] = (f32)(distanceX - (*slot)[segment].x);
-        relative[1] = (f32)(distanceY - (*slot)[segment].y);
-        relative[2] = (f32)(distanceZ - (*slot)[segment].z);
+        direction[0] = (f32)(point[1].x - pointX);
+        direction[1] = (f32)(((SpatialPoint *)((u8 *)*slot + segment))[1].y - ((SpatialPoint *)((u8 *)*slot + segment))->y);
+        direction[2] = (f32)(((SpatialPoint *)((u8 *)*slot + segment))[1].z - ((SpatialPoint *)((u8 *)*slot + segment))->z);
+        relative[0] = (f32)(distanceX - ((SpatialPoint *)((u8 *)*slot + segment))->x);
+        relative[1] = (f32)(distanceY - ((SpatialPoint *)((u8 *)*slot + segment))->y);
+        relative[2] = (f32)(distanceZ - ((SpatialPoint *)((u8 *)*slot + segment))->z);
         dot = func_850AD900(direction, relative);
         if (dot < 0.0f) {
             outside = 1;
         } else {
-            length = func_850AD930(direction);
-            lengthSquared = length * length;
+            lengthSquared = func_850AD930(direction);
+            lengthSquared *= lengthSquared;
             if (lengthSquared < dot) {
                 outside = 1;
             }
@@ -195,26 +199,26 @@ s32 func_8000A750(s32 index, s32 panX, s32 panY, s32 panZ, f32 rotation,
         if (outside != 0) {
             func_850AD900(direction, relative);
             if (leftDistance < rightDistance) {
-                segment++;
+                segment += 8;
             } else {
-                segment--;
+                segment -= 8;
             }
-            slot = &D_800D2104[index];
-            direction[0] = (f32)((*slot)[segment + 1].x - (*slot)[segment].x);
-            direction[1] = (f32)((*slot)[segment + 1].y - (*slot)[segment].y);
-            direction[2] = (f32)((*slot)[segment + 1].z - (*slot)[segment].z);
-            relative[0] = (f32)(distanceX - (*slot)[segment].x);
-            relative[1] = (f32)(distanceY - (*slot)[segment].y);
-            relative[2] = (f32)(distanceZ - (*slot)[segment].z);
+            slot = (SpatialPoint **)((u8 *)D_800D2104 + tableOffset);
+            direction[0] = (f32)(((SpatialPoint *)((u8 *)*slot + segment))[1].x - ((SpatialPoint *)((u8 *)*slot + segment))->x);
+            direction[1] = (f32)(((SpatialPoint *)((u8 *)*slot + segment))[1].y - ((SpatialPoint *)((u8 *)*slot + segment))->y);
+            direction[2] = (f32)(((SpatialPoint *)((u8 *)*slot + segment))[1].z - ((SpatialPoint *)((u8 *)*slot + segment))->z);
+            relative[0] = (f32)(distanceX - ((SpatialPoint *)((u8 *)*slot + segment))->x);
+            relative[1] = (f32)(distanceY - ((SpatialPoint *)((u8 *)*slot + segment))->y);
+            relative[2] = (f32)(distanceZ - ((SpatialPoint *)((u8 *)*slot + segment))->z);
             dot = func_850AD900(direction, relative);
-            length = func_850AD930(direction);
-            lengthSquared = length * length;
+            lengthSquared = func_850AD930(direction);
+            lengthSquared *= lengthSquared;
         }
         if (lengthSquared != 0.0f) {
             if (dot < lengthSquared) {
                 func_85049148(direction, dot / lengthSquared, direction);
             }
-            point = D_800D2104[index] + segment;
+            point = (SpatialPoint *)((u8 *)*(SpatialPoint **)((u8 *)D_800D2104 + tableOffset) + segment);
             selectedX = (s16)(s32)((f32)point->x + direction[0]);
             selectedY = (s16)(s32)((f32)point->y + direction[1]);
             selectedZ = (s16)(s32)((f32)point->z + direction[2]);

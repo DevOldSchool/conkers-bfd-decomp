@@ -96640,8 +96640,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 28265,
-        "reason": "Checkpoint117 full2320 CURRENT28265 independently restored cf9a193c, improved preferred31655. Explicit continue after closer-point update plus real currentDistance snapshot lowers full mismatch and retains exact D0 frame; missing/extra234to196, stack49to29. Still unroll2 vsraw4, saved neighbor registers and segment/output homes unresolved. Four manual trials: continue28198 frameC8 rejected, snapshot28265 retained, named neighbor struct and initial-value copy28265 instruction-neutral rejected. No manual unrolling, ABI/shared/ASM changes.",
+        "current_score": 25805,
+        "reason": "Checkpoint118 full2320 CURRENT25805 independently restored60042762. Six manual revisions27078/27046/26673/26673/26453/25805 improve prior28265: actual-local layout recovers neighbor/vector/selected/float/segment homes, table byteoffset eliminates indexhome, segment byteoffset removes redundant index lifetime, pointX snapshot restores conditional load. ExactD0frame; naturalunroll2/raw4, missingS4/S5, tableoffset58/raw6C and register/control/FP differences remain. No manualunroll, dummy padding/storage, ABI/shared/ASM changes or permutation. Candidate preserved for continued manual work.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
