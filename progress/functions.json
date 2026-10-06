@@ -96140,7 +96140,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 945,
-        "reason": "Checkpoint60 full76 CURRENT945 independently restored5b5ac93e. Two new revisions rejected: explicit inclusive exit1140 emits BEQ plus backedgeB, separate old/new remainder1350 adds moves. Prior postincrement1275, masklocal945 and condition-postdecrement1150 exhausted. Best written-pointer snapshot retains raw inclusive BNE/incrementdelay but extraMOVE, mask/global order and shift/register differences remain. No dummy pressure/padding/shared/ABI/ASM changes.",
+        "reason": "Checkpoint94 full76 CURRENT945 independently restored a78633fd. Three new manual hypotheses: integer cursor955 preserves dead MOVE and reverses BNE; signedhalfword guarded decrement1915 adds signextension; word guarded decrement950 restores ADDIU-1 but worsens temp lineage. All rejected, best written-pointer945 retained. Prior postincrement predicate1275, mask local945, remainder postdecrement1150, explicit exit1140 and old/new count1350 exhausted. Residual mask/global ordering, extra written MOVE, shift/register sequence. No dummy storage, ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
