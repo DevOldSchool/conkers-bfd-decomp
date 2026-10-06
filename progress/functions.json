@@ -93888,7 +93888,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 24,
-        "reason": "Checkpoint121 full228 CURRENT24 independently restoredc1e7bec4. One new manual single-scalar/no-final-snapshot form825: correct40frame/shared3Chome, but twelve register rows, four control rows and two missing/extra; escaped scalar reload behavior loses raw pre-call spill. Prior directarray837 and scalar+snapshot264 already failed; simple object/scope/lifetime forms exhausted. Best24 has only final SW/LW30 vs raw3C. No artificial alias/overlay/redundant stores/padding, ABI/shared/ASM changes or permutation.",
+        "reason": "Checkpoint126 full228 CURRENT24 independently restored9f291500. Newly exact C7E8 output-first mechanism tested with early input snapshot retained and adjusted result written directly to output74 be309d92. Unlike prior directarray94, early A1 read stays correct, but adjustment moves toT3 and shifts7 register rows; final spill remains30/raw3C. No supported further copy variant without redundant dead assignments. Original24 retained; no shared/ABI/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
