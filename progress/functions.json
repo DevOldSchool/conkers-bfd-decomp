@@ -93028,7 +93028,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1817,
-        "reason": "Checkpoint49 full976 CURRENT1817 independently restored443b5807. Traversal-only client pointer scope and standard register storage for real non-address-taken audioBusy both neutral1817. Both new hypotheses exhausted. Retain SDK signed event type and genuine audio snapshot; raw frame68 vs70, FP caches AC50 vsAC6C, four tail NOPs remain. Prior audio scope/order, explicit graphics address and ignored-event cases exhausted. No ABI/shared/ASM changes or permutation.",
+        "reason": "Checkpoint108 full976 CURRENT1817 independently restored39fdac90. Two new manual lifetime hypotheses: reuse u64delay for consumed audioBusy2140 recovered frame68 but added highword/store/branch; typed phase union2525 kept frame/homes exact but forced flagSW58/plainBNE and41register differences. Both rejected, original1817 restored. Remaining frame70/raw68, FP cachesAC6C/rawAC50, trailing4NOP andtable integration. Prior scope/register/order/explicitgraphicsaddress/ignoredcases exhausted. No ABI/shared/ASM/tooling changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
