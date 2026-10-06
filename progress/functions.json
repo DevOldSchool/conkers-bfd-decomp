@@ -93832,7 +93832,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Checkpoint116 full480 CURRENT10 independently restored bd9251de. Two new manual trials on saved branch-correct XOR15: post-callback packedState snapshot85 moves global V0toV1 and retains outputT4; unsigned final OR15 instruction-identical to XOR15. Original direct inequality10 retained, sole BEQL operand order reversed. Prior condition/predicate/global-snapshot/byte-local families and these output-lifetime/type forms exhausted. No ABI/shared/ASM changes or permutation.",
+        "reason": "Checkpoint130 full480 CURRENT10 independently restored2582b9d5. One newly exact EE70 sibling transfer: actual u16 maskedState plus commuted global comparison40 dabff4b0 reproduces earlier byte-snapshot six register shifts and reversed BEQL; rejected. EE70 halfword/source-order mechanism does not transfer to cached fullword global state. Original sole reversed BEQL preserved; no ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94556,17 +94556,16 @@
       "symbol": "func_8000EDA0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 40,
-        "reason": "Checkpoint127 full208 CURRENT40 independently restored3c536afd. Four manual revisions: consumed arg1 key120 neutral; XOR-zero equality40 e5c635b3 improves120 by recovering branch operand orientation and all downstream register IDs; inline key XOR570 and early word/late mask XOR290 rejected for altered control/scheduling. Retained masked key plus XOR equality has exactly six key/owner comparison register rows, all opcodes/control/frame/stack offsets match. No ABI/shared/ASM changes or permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 208,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000EE70",
           "vram": "0x8000EE70"
         }

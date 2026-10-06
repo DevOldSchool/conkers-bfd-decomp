@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/main_sound_record_family_boundary.md
  *
  * TODO: Implement these source-unit functions:
- * - func_8000EE70
  * - func_8000F6B8
  * - func_8000FA64
  * - func_8000FE88
@@ -227,15 +226,14 @@ typedef struct {
 
 s32 func_8000F44C(u16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000EE70 CURRENT (40) */
 s32 func_8000EE70(SoundArrayRecord *record, s32 arg1, s32 *active,
                  s32 arg3, s32 arg4, s32 *output, s32 arg6) {
     SoundOwnerState *owner = record->owner;
 
     if ((owner != 0) && (*active != 0)) {
-        s32 key = record->key & 0xFF;
+        u16 key = record->key & 0xFF;
 
-        if ((owner->field0 != 0) && ((owner->field3B ^ key) == 0)) {
+        if ((owner->field0 != 0) && (key == owner->field3B)) {
             *output = ((owner->field184 >> 3) & 0x30) * 2;
             record->positionX = (s16)(s32)owner->field14;
             record->positionY = (s16)(s32)owner->field18;
@@ -248,8 +246,6 @@ s32 func_8000EE70(SoundArrayRecord *record, s32 arg1, s32 *active,
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000EE70 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000EE70.s")
 void func_800111C8(u16);
 
 s32 func_8000EF40(SoundArrayRecord *record, s32 arg1, s32 *active,
