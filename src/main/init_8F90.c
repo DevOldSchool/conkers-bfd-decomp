@@ -168,8 +168,12 @@ extern u8 D_80040AE0[];
 extern MessageQueue D_80041298;
 extern MessageQueue D_800416F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80008F90 CURRENT (1846) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80008F90 CURRENT (1811) */
 void func_80008F90(AudioDriverConfig *config, s32 priority, AudioDeviceConfig *device) {
+    typedef struct {
+        Acmd *commands[2];
+        AudioTaskRecord *tasks[3];
+    } AudioWorkSlots;
     u32 rounded;
     AudioEffectParameters effects;
     AudioDmaNode *dma;
@@ -251,11 +255,11 @@ void func_80008F90(AudioDriverConfig *config, s32 priority, AudioDeviceConfig *d
         i++;
     } while (&D_8003E388[i] < (Acmd **)D_8003E390);
     D_80040F94 = device->maxCommands;
-    for (i = 0; &D_8003E390[i] != &D_8003E390[3]; i++) {
-        D_8003E390[i] = func_80012844(0, 0, config->heap, 1, 0x90);
-        D_8003E390[i]->completion.type = 2;
-        D_8003E390[i]->completion.record = D_8003E390[i];
-        D_8003E390[i]->buffer = func_80012844(0, 0, config->heap, 1, D_80040F90 * 4);
+    for (i = 0; i < 3; i++) {
+        ((AudioWorkSlots *)D_8003E388)->tasks[i] = func_80012844(0, 0, config->heap, 1, 0x90);
+        ((AudioWorkSlots *)D_8003E388)->tasks[i]->completion.type = 2;
+        ((AudioWorkSlots *)D_8003E388)->tasks[i]->completion.record = ((AudioWorkSlots *)D_8003E388)->tasks[i];
+        ((AudioWorkSlots *)D_8003E388)->tasks[i]->buffer = func_80012844(0, 0, config->heap, 1, D_80040F90 * 4);
     }
     func_80023790(&D_8003E608, D_8003E620, 8);
     func_80023790(&D_8003E5D0, D_8003E5E8, 8);

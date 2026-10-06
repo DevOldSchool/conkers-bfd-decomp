@@ -93281,8 +93281,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1846,
-        "reason": "Checkpoint80 full1084 CURRENT1846 independently restored6be363e8, improved2611 after3newmanualrevisions. Reuse completed rounded scalar for allocator address recovers exact call/nextincrement/SLTU/currentincrement/branch/store order2491; preserve final rounded sample value through both derived count outputs recovers35registerrows and divisorV0/roundedV1/effectsA3, score1846. Scoped driver snapshot2092 still rematerializes address and grows frame280, rejected. Residual frame278/effects64 vs raw270/58, driver/first-node address lifetimes, cache initialization rematerialization, taskbase/endpoint and branch operand order. Prior phase scopes/divisor/directindexed/sharedcount/postincrement/new-result-local families remain exhausted. No shared/ABI/ASM changes or permutations.",
+        "current_score": 1811,
+        "reason": "Checkpoint81 full1084 CURRENT1811 independently restored941016e0, improved1846 after5manualrevisions. Local typed command2/task3 view at rawE388 recovers task loads/stores+8 and BNE operand order; fixed3 iterations touch provenE390/E394/E398 slots. Rawendpoint integer3739/bytepointer2261 create duplicate induction and are rejected. Actual sequential cursor-pair union2250 recovers frame270 but forces cache S0/S1 instead V0/V1; separate DMA/cache scopes1861 retain frame278 and add MOVE/earlySW. Both rejected. Best retains checkpoint80 sample continuity/allocation-result reuse. Residual frame278/effects64 vs270/58, driver and node-address lifetimes, task endpoint alias and25registerrows. No ABI/shared/ASM changes or data ownership claim.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
