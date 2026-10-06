@@ -96640,8 +96640,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 31655,
-        "reason": "Checkpoint95 full2320 CURRENT31655 independently restored c1fe6e53. Two new manual revisions rejected: neighbor distance array39740 regresses frameB8 and removes required recomputed multiplies; unsigned induction31840 only changes BLEZ to BEQZ and two branch operand orders. Both remain unroll2 vs raw4. Prior earlycursor/indexedloop/guardeddo, byteoffset/formaloffset and registerhint trials exhausted. Best directdistance/promotedcount31655 retained, frameD0 exact. Remaining neighbor promotion, natural unroll4, stack homes and geometry segment lifetimes. No artificial padding, manual unroll, ABI/shared/ASM changes or permutation.",
+        "current_score": 28265,
+        "reason": "Checkpoint117 full2320 CURRENT28265 independently restored cf9a193c, improved preferred31655. Explicit continue after closer-point update plus real currentDistance snapshot lowers full mismatch and retains exact D0 frame; missing/extra234to196, stack49to29. Still unroll2 vsraw4, saved neighbor registers and segment/output homes unresolved. Four manual trials: continue28198 frameC8 rejected, snapshot28265 retained, named neighbor struct and initial-value copy28265 instruction-neutral rejected. No manual unrolling, ABI/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
