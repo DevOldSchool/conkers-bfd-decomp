@@ -94034,7 +94034,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1817,
-        "reason": "Checkpoint107 full1100 CURRENT1817 independently restored0664228a, improved4794 after10manual revisions. Direct mode/index/timestamp expressions and direct level/queue/flag/slot indexing remove redundant namedbindings; actual record snapshot retained. Existinglocal ordering recovers exactframe98/message94/step8C/masks80. Automatic levelbase now preserved T0/stack acrosspausecalls, bitA2/stepfieldA3 recovered. Directrecord4706 extra reload, forwardgoto6482 wrongbodyorder/frame90, scoped decayvalue4143 unroll4/frameA0 rejected. Remaining slot6C/raw70 andlevel54/raw58 homes, savedregister/temp roles, initial mask copy anddefaultmode branch scheduling. No ABI/shared/ASM/tool changes.",
+        "reason": "Checkpoint115 full1100 CURRENT1817 independently restored d6afbc85. Three new manual hypotheses: load initial remaining2042 adds MOVE; scoped actual stepField pointer1922 recovers default branch-delay SW, timebaseS4, maskT1/flagsT2 and full length but regresses stack homes; direct byteoffset step lvalues1817 instruction-identical baseline. Simpler1817 retained, alternate fe788355 preserved in history for its concrete scheduling evidence. No ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
