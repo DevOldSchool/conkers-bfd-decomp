@@ -93832,7 +93832,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Checkpoint80 full480 CURRENT10 independently restored9d67df72. Existing-unused-arg2 XOR condition result70 reproduces named-local changed70: global state V1 instead raw V0 across11rows. Anonymous XOR15 fixes branch order but advances final T3 toT4; formal binding does not avoid eliminated-result allocation. Original inequality retained, sole BEQL operand reversal remains. Prior type/commutation/mask/snapshot forms exhausted. No shared/ABI/ASM changes or permutations.",
+        "reason": "Checkpoint87: explicit global-state snapshot shared by comparison and switch75 rejected; global changes V0 toV1 and branch remains reversed. Best10 independently restored59a05e4e, full480 only BEQL operand reversal. Prior XOR/subtraction15, namedchanged70, state+changed90, formalchanged70, maskedstate/unsigned/byte/scope variants remain exhausted. No ABI/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94145,7 +94145,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 605,
-        "reason": "Checkpoint66 full236 CURRENT605 independently restored000c80b0. Sequential clamps1125 retain extra upper check and change six control rows; separate difference/quotient1146 adds MOVE and changes ten register rows. Both new hypotheses exhausted. Prior structured else, early returns, outer exit, ternary and shared-store labels exhausted. Best retains exact registers/frame but upper-clamp branch duplication and epilogue scheduling remain. No ABI/shared/ASM or artificial storage changes.",
+        "reason": "Checkpoint87: early null return neutral605 instruction-identical; u16 upper-bound boolean825 adds ANDI/registers, rejected. Best605 independently restored5d8da35a full236. Raw likely SH and duplicated RA exit remain unmatched. Earlier sequential clamps1125, separate difference1146, structured/outer exits670 and conditional store1286 exhausted. No ABI/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
