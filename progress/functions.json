@@ -94053,7 +94053,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 726,
-        "reason": "Checkpoint92 full1120 CURRENT726 independently restored d66924bd. Two new revisions named signed volumeOverride snapshot and u32 offset object both instructionidentical726; rejected. Prior cp90 gain3869to726 retained with offset2C/channel30, record reloads, byte views, raw field symbols, guarded owner and chained SH stores. Frame38/raw40,status34/raw3C,baseT9/rawT8,constantT5/rawV0 and temp lineage remain. Typedindex/signedindex schedules and named reset values exhausted. No ABI/shared/ASM changes or permutation.",
+        "reason": "Checkpoint111 full1120 CURRENT726 independently restoreda2062f455b1c43ba88daf4397b39bb7a. Two new manual hypotheses rejected: direct fullword arg0 plus explicit byte3 channel726 904f6277 instructionidentical; s32 resetValue971 2122af17 selects V0 but rematerializes LI after volume guard, loses likely SH and adds control differences. Best chained literal stores retained. Remaining frame38/raw40, status34/raw3C, initial baseT9/rawT8 and resetT5/rawV0 plus temporary lineage. Prior typedindex/signedindex, offset types, volume snapshots and u16 reset snapshots exhausted. No sourcegain, ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
