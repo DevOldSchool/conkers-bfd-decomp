@@ -94868,7 +94868,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 8,
-        "reason": "Checkpoint103 full104 CURRENT8 independently restored41b92d4b. Primary IDO guide declaration/frame hypothesis tested: old-style same word/pointer definition on explicitoffset alternate remains10 a7c3a319, exact body/home1C but frame28/raw20 unchanged. Retain preferred consumedindex8, frame20 and only recordSW/LW18/raw1C. Prior offset, narrowhandle, recordformal, flags/result and scopes exhausted. No retained ABI/shared/ASM changes or permutation.",
+        "reason": "Checkpoint129 full104 CURRENT8 independently restored39338d80. Three new manual storage hypotheses: single-pointer array385 recovers raw1C home and20 frame but forces early store/extra reloads; single-member struct8 scalar-promotes to original18/raw1C spill; natural actual handle-plus-record struct10 scalar-promotes with1C but frame28, same as separate locals. All rejected; original exact instructions/registers/frame except two spill operands preserved. No artificial padding, extra values, ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
