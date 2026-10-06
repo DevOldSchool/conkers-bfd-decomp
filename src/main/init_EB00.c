@@ -1347,7 +1347,7 @@ extern u8 D_800BE615;
 typedef s32 (*SoundRecordCallback)(void *, s32 *, u32 *, s32 *, s32 *,
                                     s32 *, u16 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011624 CURRENT (481) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011624 CURRENT (331) */
 void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
     SoundArrayRecord *record;
     u32 flags;
@@ -1491,8 +1491,9 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
                             pitchDelta = pitch.value - record->pitch;
                             pitch.value = record->pitch + pitchDelta * D_8002C404;
                         }
+                        velocity = pitch.bits;
                         if (pitch.value != record->pitch) {
-                            func_8000F85C(handle, 0x11, pitch.bits);
+                            func_8000F85C(handle, 0x11, velocity);
                         }
                     }
                     record->field28 = distance;

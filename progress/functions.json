@@ -95363,8 +95363,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 481,
-        "reason": "Preserve full1428 CURRENT481 independently restoredb2d3c0ec. Batch24 three new revisions: u32handle1584 eliminated required narrow-promotion MOVE/spill and resultANDI; explicitoffset shift/subtract/shift1211 changed131 register rows; actual promotedhandle snapshot in consumedbus neutral481 with same74vs7C spill. Inherited14 manual revisions retained: exact frameC8/outputhomes/FP registers, residual three entry offset registers, handle spill74vs7C, latepitch payloadLW and merged successSH/fullspan4short. No source improvement or ABI/shared/ASM changes; these new hypotheses and inherited families exhausted without fresh proof.",
+        "current_score": 331,
+        "reason": "Checkpoint79 full1428 CURRENT331 independently restored196f2bd0; improved fresh486 by capturing pitch event bits in consumed velocity before float comparison. Exact payload LW/JAL-delay order recovered, frameC8/output homes/FP retained. Four revisions: separate scopedpayload2318 growsframeD0; velocityreuse331; offsetdestinationreuse neutral331; complete successwriteback619 swaps count/index registers and duplicates flags. Remaining initialoffset3 register rows, quotient A2/rawV0 five rows, handle spill74/raw7C, merged finalSH/short body. Historical481 baseline now486 only from next exact11BB8 prologue entering full span. No ABI/shared/ASM changes or artificial storage.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
