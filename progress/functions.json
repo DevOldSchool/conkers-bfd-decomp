@@ -4,7 +4,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 30,
-        "reason": "Checkpoint47 full36 CURRENT30 independently restored5875443b. Genuine previous-word address snapshot per iteration825 adds MOVE and branch-likely; unsigned bytecount neutral30. Both new hypotheses exhausted. Original pointer/count loop retains only five register rows: cursorV1 versus rawA1, all opcodes/control/span exact. Prior endpoint/OR/stride forms exhausted; removed legacy zero-bias locals remain invalid without source-state evidence. No artificial pressure, padding, ABI/shared/ASM changes or permutation.",
+        "reason": "Checkpoint76 full36 CURRENT30 independently restored496fa793. One new manual hypothesis: actual fixed4064-byte count as u16 neutral30, identical five cursor register rows V1/rawA1. Prior u32count30, previous-store address825, endpoint/OR/stride forms exhausted. Original pointer/count source retained; no new distinct supported followup. No zero-bias/dummy locals, artificial pressure/padding, shared/ABI/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "regions": {
@@ -94980,7 +94980,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 745,
-        "reason": "Checkpoint50 full532 CURRENT745 with own soundu16 and matching local declaration c3e875c3, unchanged residual from baseline4e1227b7. Raw both sound uses exclusivelyLHU5A, raw10558 normalizedu16 and exact10720 sibling support contract. Source/alias audit finds only valid lowhalfword sounds; matched alias callers15060A30/1506BAD8/1506BC24 pending batch rechecks. No shared/game/helper declarations edited. Retain genuine callback/mixer best; remaining earlycallbackSW and mergedfinalSH families exhausted. Owning width retained for independently checked caller contract.",
+        "reason": "Checkpoint76 full532 CURRENT745 independently restored0844ccca. Two new manual revisions: actual u16 flags/result2261 shrinks frame50 and adds narrowing; one-element callback pointer array855 retains earlySW44 and merged finalSH while adding21 register rows. Best scalar pointer object read retains exact frame58/homes44/50 and all registers. Prior branch-local store805, scoped callback1135, wordcallback1810, unsignedflags745 and callassignment745 exhausted. No distinct supported followup; no ABI/shared/ASM changes or fake storage/permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
