@@ -96643,7 +96643,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 31655,
-        "reason": "Checkpoint82 full2320 preferred CURRENT31655 independently restored8d30fa4c. Three new manual hypotheses: explicit tableOffset31405 fixes index reloads but grows frameD8; consumed index as offset31566 restores frameD0 but adds repeated home stores; register left/right hints31655 yield identical full diff. Retain original candidate despite lower aggregate scores in inferior revisions. Raw unroll4 versus C2 and left/right promotion remain unresolved; offset and register-hint families exhausted. No ABI/shared/ASM changes or manual unroll.",
+        "reason": "Checkpoint95 full2320 CURRENT31655 independently restored c1fe6e53. Two new manual revisions rejected: neighbor distance array39740 regresses frameB8 and removes required recomputed multiplies; unsigned induction31840 only changes BLEZ to BEQZ and two branch operand orders. Both remain unroll2 vs raw4. Prior earlycursor/indexedloop/guardeddo, byteoffset/formaloffset and registerhint trials exhausted. Best directdistance/promotedcount31655 retained, frameD0 exact. Remaining neighbor promotion, natural unroll4, stack homes and geometry segment lifetimes. No artificial padding, manual unroll, ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
