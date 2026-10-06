@@ -927,7 +927,7 @@ void func_8507E7E4(void *, s32, s32, s32, s32);
 void func_800084D8(u8);
 void func_80008F58(u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000CEAC CURRENT (5499) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000CEAC CURRENT (4794) */
 void func_8000CEAC(s32 arg0) {
     void *message;
     s32 step;
@@ -938,7 +938,7 @@ void func_8000CEAC(s32 arg0) {
     SequenceRecordState *record;
     u8 *flags;
     s32 *levels;
-    u16 mask;
+    u32 mask;
     u32 remaining;
     s32 bit;
     s32 mode;
@@ -968,11 +968,12 @@ void func_8000CEAC(s32 arg0) {
                     D_80041880[arg0] = (s32)message;
                 }
                 mask = masks[bit];
-                remaining = mask & 0xFFFF;
                 if (mask != 0) {
+                    remaining = mask & 0xFFFF;
                     bit = 0;
                     *flags |= remaining & 0x7F;
                     while (bit < 16 && remaining != 0) {
+                        mask = remaining;
                         if (remaining & 1) {
                             mode = modes[bit];
                             switch (mode) {
@@ -1006,7 +1007,7 @@ void func_8000CEAC(s32 arg0) {
                             }
                         }
                         bit++;
-                        remaining = (remaining >> 1) & 0xFFFF;
+                        remaining = (mask >> 1) & 0xFFFF;
                     }
                 }
                 D_800419A0 = arg0;
@@ -1019,11 +1020,11 @@ void func_8000CEAC(s32 arg0) {
         if (record->current == 0) {
             *flags |= 0x80;
             if (record->pauseMode == 0) {
-                func_80008F58(arg0 & 0xFF);
+                func_80008F58(arg0);
                 (*slot)->pauseMode = 1;
             }
         } else if (record->pauseMode == 1) {
-            func_800084D8(arg0 & 0xFF);
+            func_800084D8(arg0);
             (*slot)->pauseMode = 0;
         }
         for (bit = 0; bit != 16; bit++) {

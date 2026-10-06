@@ -94033,8 +94033,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 5499,
-        "reason": "Checkpoint89 seven manual revisions from fresh full1100 baseline9550. Preferred5499 independently restored b8dd3aad86354cd79b0eb6d26c7d2621: raw dispatch order via switch, separate loaded mask/remainder with entry-tested loop, consumed index reuse. Nestednegative6409, scopes5558, signedmask5884, cursor7241 rejected. FrameB8/raw98, messageB4/raw94, saved-register roles/mask conversion/call argument lowering remain. No ABI/shared/ASM changes.",
+        "current_score": 4794,
+        "reason": "Checkpoint92 full1100 CURRENT4794 independently restored c507a06a. Seven manual revisions5229/5229/5219/5024/4794/5258/8225; retained implicit u8 call conversion, word loadedmask, guarded remainder initialization and consumed-mask loop snapshot. Separate activeMask5258 and persistent globaladdress8225 rejected after two nonimprovements. FrameB8/raw98, messageB4/raw94, maskA8/raw80, saved-register order and final levels pointer spill remain. Prior switch/scopedlocals/signedmask/advancingcursor attempts exhausted. No ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94053,7 +94053,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 726,
-        "reason": "Checkpoint90 full1120 CURRENT726 independently restored a06cbd50; improved3869 after12manual revisions. Recovered offset2C, record snapshots, byte channel accesses, owner guard, raw field symbols, postcall CD40 slot stores and ordered halfword chain. Exact opcode/control/length; remaining frame38/raw40,status34/raw3C,baseT9/rawT8,resetconstantT5/rawV0 and temp lineage. Signed byteoffset neutral, typedindex1891/signedindex1820 mis-schedule, namedhalfword/chain neutral. Best retained; no shared/ABI/ASM changes or permutation.",
+        "reason": "Checkpoint92 full1120 CURRENT726 independently restored d66924bd. Two new revisions named signed volumeOverride snapshot and u32 offset object both instructionidentical726; rejected. Prior cp90 gain3869to726 retained with offset2C/channel30, record reloads, byte views, raw field symbols, guarded owner and chained SH stores. Frame38/raw40,status34/raw3C,baseT9/rawT8,constantT5/rawV0 and temp lineage remain. Typedindex/signedindex schedules and named reset values exhausted. No ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
