@@ -15,7 +15,6 @@
  * - func_150C29F0
  * - func_150C2C00
  * - func_150C2FCC
- * - func_150C308C
  * - func_150C3160
  * - func_150C3230
  * - func_150C3574
@@ -575,14 +574,13 @@ extern s32 D_80082FA4;
 extern f32 D_800A0310;
 extern f32 D_800A0314;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C308C CURRENT (20) */
 s32 func_150C308C(void *arg0) {
     u8 flag;
+    f32 tmp1;
     u8 sp1F;
     f32 x;
     f32 z;
     f32 magnitude;
-    f32 threshold;
     u8 *vector;
 
     flag = 0;
@@ -590,10 +588,11 @@ s32 func_150C308C(void *arg0) {
         sp1F = 0;
         vector = (u8 *)func_15144B34(D_80082FA4);
         x = *(f32 *)vector;
-        z = *(f32 *)(vector + 8);
-        threshold = D_800A0310;
-        magnitude = (x * x) + (z * z);
-        if (magnitude < threshold) {
+        tmp1 = *(f32 *)(vector + 8);
+        z = (magnitude = tmp1);
+        tmp1 = x;
+        magnitude = tmp1 * tmp1 + magnitude * z;
+        if (magnitude < D_800A0310) {
             flag = 1;
         } else {
             flag = sp1F;
@@ -611,8 +610,6 @@ s32 func_150C308C(void *arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C308C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C308C.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150C3160 CURRENT (675) */
 void *func_150C3160(u8 *arg0, u8 *arg1) {
     f32 var_fv0;

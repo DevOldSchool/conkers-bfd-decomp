@@ -14,7 +14,6 @@
  * - func_151C3B0C
  * - func_151C436C
  * - func_151C43E0
- * - func_151C4644
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -690,11 +689,9 @@ extern f32 D_800AAA80;
 extern f32 D_800AAA84;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C4644 CURRENT (10) */
 void func_151C4644(Game1EF500TimedOwner *arg0) {
     u8 *object;
     f32 values[17];
-    f32 random;
     Game1EF500TimedEmitter *emitter;
 
     emitter = &arg0->emitter;
@@ -709,8 +706,7 @@ void func_151C4644(Game1EF500TimedOwner *arg0) {
         values[6] = emitter->field28;
         values[7] = emitter->field28;
         values[8] = 0.0f;
-        random = func_150ADA68();
-        values[9] = random * emitter->jitter + emitter->base;
+        values[9] = func_150ADA68() * emitter->jitter + emitter->base;
         values[10] = 0.0f;
         values[11] = emitter->position[0];
         values[12] = emitter->position[1];
@@ -726,5 +722,3 @@ void func_151C4644(Game1EF500TimedOwner *arg0) {
         emitter->timer = (func_150ADA20() % ((u32)emitter->delayRange + 1)) + emitter->minimumDelay;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C4644 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C4644.s")

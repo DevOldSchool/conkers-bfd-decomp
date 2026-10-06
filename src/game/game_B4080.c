@@ -14,14 +14,12 @@
  * - func_150881CC
  * - func_15088270
  * - func_150882B0
- * - func_150882E4
  * - func_150883B0
  * - func_1508855C
  * - func_150885EC
  * - func_1508868C
  * - func_150888A8
  * - func_15088A08
- * - func_15088D58
  * - func_15088F30
  * - func_1508907C
  * - func_150891E8
@@ -559,7 +557,6 @@ s8 func_150882B0(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_150882B0.s")
 extern s8 D_800D2398;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150882E4 CURRENT (20) */
 s32 func_150882E4(s32 arg0, s32 arg1) {
     s32 var_a0;
     s32 var_a2;
@@ -577,7 +574,7 @@ s32 func_150882E4(s32 arg0, s32 arg1) {
         var_a2 = D_800872A0;
         do {
         if ((group == *(s8 *)((u8 *)var_a2 + 0x29)) && (var_a3 != arg0)) {
-            var_a0 = (*(s16 *)((u8 *)temp_v1 + 0x24) * 0x10) + (s32)(*(f32 *)((u8 *)temp_v1 + 8) * 16.0f);
+            var_a0 = (s32)(*(f32 *)((u8 *)temp_v1 + 8) * 16.0f) + *(s16 *)((u8 *)temp_v1 + 0x24) * 0x10;
             var_a0 = (var_a0 - *(s16 *)((u8 *)var_a2 + 0x24) * 0x10) - (s32)(*(f32 *)((u8 *)var_a2 + 8) * 16.0f);
             if (var_a0 < 0) {
                 var_a0 = -var_a0;
@@ -590,8 +587,6 @@ s32 func_150882E4(s32 arg0, s32 arg1) {
     }
     return 0x10;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150882E4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_150882E4.s")
 typedef struct GameB4080SearchEntry {
     f32 value0;
     f32 value4;
@@ -910,7 +905,6 @@ f32 func_150498A4(f32 *, s32, f32, f32 *);
 f32 func_15144BC8(f32);
 extern f32 D_8009DA04;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15088D58 CURRENT (20) */
 void func_15088D58(GameB4080SearchActor *arg0) {
     GameB4080SearchEntry *entry;
     f32 angle;
@@ -926,6 +920,8 @@ void func_15088D58(GameB4080SearchActor *arg0) {
     s32 again;
     u8 *target;
     u8 *cursor;
+    int tmp1;
+    tmp1 = 0xFF;
 
     index = func_1508855C((s32)arg0);
     if (index >= 0) {
@@ -940,7 +936,7 @@ void func_15088D58(GameB4080SearchActor *arg0) {
             do {
                 link = cursor[9];
                 i++;
-                if (link != 0xFF) {
+                if (tmp1 != link) {
                     target = D_800D2350 + link * 0x10;
                     if (target[0xE] == 4) {
                         again = target[0xF];
@@ -959,14 +955,12 @@ void func_15088D58(GameB4080SearchActor *arg0) {
         arg0->field1C = func_150498A4(zs, 0, entry->phase8, &z_derivative);
         angle = func_15144BC8((f32)(func_1505A630(entry->direction10, entry->directionC, 0) + 0x8000) * 0.005493164f);
         arg0->angle40 = angle;
-        rotation = (s32)(angle * D_8009DA04) - 0x4000;
+        rotation = (s32)(short)(angle * D_8009DA04) - 0x4000;
         arg0->rotation7A = rotation;
         arg0->rotation78 = rotation;
         arg0->rotation76 = rotation;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15088D58 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15088D58.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15088F30 CURRENT (1423) */
 void func_15088F30(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
     f32 x_delta;
