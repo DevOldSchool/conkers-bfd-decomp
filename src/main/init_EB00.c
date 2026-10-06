@@ -227,7 +227,7 @@ typedef struct {
 
 s32 func_8000F44C(u16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000EE70 CURRENT (120) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000EE70 CURRENT (40) */
 s32 func_8000EE70(SoundArrayRecord *record, s32 arg1, s32 *active,
                  s32 arg3, s32 arg4, s32 *output, s32 arg6) {
     SoundOwnerState *owner = record->owner;
@@ -235,7 +235,7 @@ s32 func_8000EE70(SoundArrayRecord *record, s32 arg1, s32 *active,
     if ((owner != 0) && (*active != 0)) {
         s32 key = record->key & 0xFF;
 
-        if ((owner->field0 != 0) && (owner->field3B == key)) {
+        if ((owner->field0 != 0) && ((owner->field3B ^ key) == 0)) {
             *output = ((owner->field184 >> 3) & 0x30) * 2;
             record->positionX = (s16)(s32)owner->field14;
             record->positionY = (s16)(s32)owner->field18;

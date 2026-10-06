@@ -94558,8 +94558,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "Checkpoint72 full208 CURRENT120 independently restored96cc5031. Two new manual revisions: key scope ending before fallback call neutral120, unsigned fullword masked key neutral120. Exact operations/control/frame;18 register-only rows persist, key loadV0 vs rawT7 and downstream temporary shift. Prior direct350/narrowbyte700/unmasked key370/shared result1522 exhausted. No extra reads, artificial pressure, ABI/shared/ASM changes or permutation.",
+        "current_score": 40,
+        "reason": "Checkpoint127 full208 CURRENT40 independently restored3c536afd. Four manual revisions: consumed arg1 key120 neutral; XOR-zero equality40 e5c635b3 improves120 by recovering branch operand orientation and all downstream register IDs; inline key XOR570 and early word/late mask XOR290 rejected for altered control/scheduling. Retained masked key plus XOR equality has exactly six key/owner comparison register rows, all opcodes/control/frame/stack offsets match. No ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
