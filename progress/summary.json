@@ -100,12 +100,12 @@
     },
     "total_bytes": 2251456
   },
-  "complete_source_units": 170,
+  "complete_source_units": 171,
   "future_regions": [
     "eu"
   ],
   "known_functions": 5491,
-  "mixed_source_units": 552,
+  "mixed_source_units": 551,
   "overlays": {
     "debugger": {
       "known_functions": 38,

@@ -91761,7 +91761,7 @@
           "vram": "0x151B3040"
         }
       },
-      "source": "src/game/game_1E04F0.c",
+      "source": "src/done/game/game_1E04F0.c",
       "symbol": "func_151B3040"
     },
     {

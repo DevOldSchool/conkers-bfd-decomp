@@ -19166,15 +19166,15 @@
       "functions": [
         "func_151B3040"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x1B30B0",
           "start": "0x1B3040",
-          "state": "candidate"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1E04F0.c"
+      "source": "src/done/game/game_1E04F0.c"
     },
     {
       "boundary_evidence": {

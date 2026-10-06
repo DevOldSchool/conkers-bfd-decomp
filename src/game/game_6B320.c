@@ -583,13 +583,12 @@ s32 func_1503EF4C(s32 arg0, s32 arg1, s32 arg2) {
     u32 *tmp2;
     Game6B320MaskPair *pair;
     u32 first;
-    u32 second;
 
     base = D_8008446C[arg0];
     pair = (Game6B320MaskPair *)((u8 *)base + (arg1 * sizeof(*pair)));
     first = pair->first;
     tmp2 = &D_800C6668[arg2].bits;
-    if ((first == 0 || D_800C6664[arg2].bits & (tmp1 = first)) && (((second, (*pair).second == 0)) || *tmp2 & (*pair).second)) {
+    if ((first == 0 || D_800C6664[arg2].bits & (tmp1 = first)) && (((*pair).second == 0) || *tmp2 & (*pair).second)) {
         return 1;
     }
     return 0;

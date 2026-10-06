@@ -693,7 +693,7 @@ segments:
       - [0x1B2060, c, game/game_1DF510]
       - [0x1B2950, c, game/game_1DFE00]
       - [0x1B2FD0, c, done/game/game_1E0480]
-      - [0x1B3040, c, game/game_1E04F0]
+      - [0x1B3040, c, done/game/game_1E04F0]
       - [0x1B30B0, c, game/effects/holtenrope]
       - [0x1B4CD0, c, done/game/game_1E2180]
       - [0x1B4FE0, c, done/game/game_1E2490]
