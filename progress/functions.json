@@ -94869,7 +94869,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 18,
-        "reason": "Checkpoint57 original full104 CURRENT18 independently restored424165a4. New actual result local720 and signed handle snapshot625 both growframe28; signedhandle recovers1C spill but addsANDI, loses incomingMOVE/branchlikely. Two new revisions rejected. Remaining commutedADDU plus pointer spill18/raw1C; prior narrowhandle20, blockscope83 and consumedformal53 exhausted. No padding, extra homes/reads, artificial pressure or shared/ABI/ASM changes.",
+        "reason": "Checkpoint73 full104 CURRENT18 independently restored18fb7497. Two new actual postcallback flags snapshots: function-scope45 recovers pointer1C but grows frame28 and uses flagsA0; short-scope490 retains those regressions and changes tail scheduling. Both rejected. Best18 differs only commuted ADDU and pointer home18/raw1C. Prior explicit result720, signedhandle625, narrowhandle20, blockscope83 and consumedformal53 exhausted. No padding, extra reads/homes, artificial pressure, shared/ABI/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
