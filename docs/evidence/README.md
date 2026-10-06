@@ -72,6 +72,7 @@ Prepare a JSON object mapping old repository-relative paths to new paths within
 ./conker relocate-evidence --map /tmp/evidence-moves.json
 ./conker relocate-evidence --map /tmp/evidence-moves.json --apply
 ./conker progress check
+build/host-python/bin/python3 -m unittest discover -s tests
 git -c core.whitespace=cr-at-eol diff --check
 ```
 
@@ -81,3 +82,10 @@ It rejects collisions and unsafe paths, and restores the original files on a
 handled failure. It changes references only, not match states, scores or
 integration decisions. Review the diff and local links afterward; Git history,
 external bookmarks and ignored local reports are outside the migration.
+
+Path changes can also invalidate pinned metadata. If the model-name registry
+changes, verify that only evidence paths moved, then refresh its byte pin, the
+confidence sidecar's record bindings and the sidecar byte pin as required by the
+[naming evidence contract](assets/naming/model_name_confidence_review.md).
+The relocation command does not refresh those pins automatically. Run the full
+Python suite above (after `./conker host-setup`) before publishing the migration.
