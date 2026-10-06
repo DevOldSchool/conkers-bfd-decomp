@@ -93319,7 +93319,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 450,
-        "reason": "Checkpoint44 per-dispatch message-type scope and s32 snapshot of unchanged signed-halfword load both neutral450 (b204aeca,b4dde6d6). Best450 independently restored05e7d379. Full416 frame68/homes exact; first flag and constant4 swap S3/S4, shutdown reuses message address instead of rematerializing it and emits dead previous/cadence resets, eight bytes long. Prior processing-phase previous/cadence scope, unsigned first, explicit drain backedge and live done drain exhausted; retained u32done fixes raw LI1. New dispatch-type scope/word forms exhausted too. No ABI/shared/ASM/padding changes.",
+        "reason": "Checkpoint131 full416 CURRENT450 independently restored8035bee2. Two new manual hypotheses: actual 0/1 first flag u16 neutral450, full normalized diff unchanged; separate processing/drain output lifetimes785 grows frame70 and places outputs4C/48 versus raw5C, preserves unwanted shutdown zeros. Raw23440 verified output address is not retained; both forms semantically valid but rejected for matching. Original frame68/homes and best450 preserved. No ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
