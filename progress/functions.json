@@ -93889,7 +93889,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 24,
-        "reason": "Checkpoint53 full228 CURRENT24 restored after single-field four-byte output aggregate regressed264, same as scalar form. Array1 plus early value snapshot retains only final value SW/LW30 vs raw3C; all other fullspan instructions exact. Prior lexical scope33, scalar early snapshot264, unsigned269, direct buffer837 families exhausted; no fabricated overlap, padding, redundant writes or ABI changes.",
+        "reason": "Checkpoint75 full228 CURRENT24 independently restored5f8a9721. Output-buffer-only scope89 displaces output to30, maximum3C and finalvalue34; isolated unsigned snapshot34 retains finalspill30/raw3C and reverses XOR operands. Both rejected. Best24 exact instructions/registers/frame, only final SW/LW home30 versus3C. Prior jointscope33, scalar264, scalar-early264, single-field264, directbuffer837 and whole unsigned269 exhausted. No forced overlay/padding, added reads, shared/ABI/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
