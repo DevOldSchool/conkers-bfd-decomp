@@ -355,7 +355,7 @@ segments:
       - [0xCFD20, c, game/game_FD1D0]
       - [0xD0650, c, done/game/game_FDB00]
       - [0xD0730, c, done/game/game_FDBE0]
-      - [0xD08C0, c, game/game_FDD70]
+      - [0xD08C0, c, done/game/game_FDD70]
       - [0xD0E90, c, game/game_FE340]
       - [0xD13A0, c, done/game/game_FE850]
       - [0xD1530, c, game/game_FE9E0]

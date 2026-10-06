@@ -14558,6 +14558,12 @@
       "symbol": "func_150082CC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 870,
+        "reason": "CURRENT 870 after 1377,1953,870; three finishes, two manual revisions. Frame and stack homes now match. Remaining switch setup, FP register assignment and epilogue scheduling. Next hypothesis: separate per-branch radius temporaries and switch flag lifetime. Manual budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -16254,6 +16260,12 @@
       "symbol": "func_1500EAA0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5702,
+        "reason": "CURRENT 5702; initial typed candidate compiles. Remaining frame 0x1E0 vs 0x1D0, FP constant lifetime/order and aggregate homes. Next hypothesis: reverse constant declaration order and retain explicit aggregate cursors. Broad first-pass coverage; no speculative revisions.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -65153,11 +65165,15 @@
       "symbol": "func_1511F990"
     },
     {
+      "blocked": {
+        "reason": "Raw US entry consumes s32 index in a0 (1501B328 and 0x9A0 indexing), but already-matched sibling func_1501B640(void) calls func_1501B320() without an argument. Typed target definition exposes missing caller argument; meaningful caller ABI recovery requires edits outside allowed target. No C candidate tested; canonical ASM preserved.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 800,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_1501B320",
           "vram": "0x1501B320"
         }
@@ -66167,6 +66183,12 @@
       "symbol": "func_150F34A0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 17895,
+        "reason": "Useful compilable first-pass candidate; latest CURRENT (17895), frame 0xC8 versus 0x80 and 554 differing rows (351 register, 92 operand, 39 opcode/control, 72 missing/extra; 33 stack rows). Raw callee audits fixed spurious 1505959C a2 and 15073FA0 arguments; typed actor/input views and float table preserve observed access widths. Broad scheduling and lifetime mismatch gives no narrow likely-success revision. Next hypothesis: remove synthetic spill copies and simplify one-use temporary lifetimes before actor-index expression tuning. One finish, zero manual revisions; no shared dependency changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -70072,6 +70094,12 @@
       "symbol": "func_150F64B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 438,
+        "reason": "Best valid candidate CURRENT 438; initial 458, saved-pointer alias revision worsened to 668, final generation-load/RNG-order revision 438. Same 0xC8 frame; remaining pointer and aggregate stack homes, six register differences, four reordered load rows. Next hypothesis: group light/vector locals by their actual lifetimes, preserving six-byte descriptor and three-coordinate outputs. Two manual revisions exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71215,11 +71243,15 @@
       "symbol": "func_151BFBFC"
     },
     {
+      "blocked": {
+        "reason": "Handwritten renderer performs twelve cvt.w.s conversions at 150A6B98-150A6BC4 under inherited FCSR rounding; ordinary C casts truncate and no verified in-scope rounding primitive is available. Starter also corrupts sd offsets 0/0x10/0x20/0x30 into repeated offset zero, shifts 32-bit values by 32/48, and mishandles the 150A6CFC delay-slot s2 reset. Valid C needs verified rounding-state/ABI evidence before implementation; no candidate manufactured.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 1856,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150A6860",
           "vram": "0x150A6860"
         }
@@ -71228,6 +71260,12 @@
       "symbol": "func_150A6860"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1456,
+        "reason": "Useful typed effect candidate; CURRENT 1456 after initial 1771 and one byte-angle lifetime revision. Raw callees prove fifth parameter float and descriptor copy size 0x30. Remaining frame 0xD0 vs 0xC8, descriptor/vector stack homes, state-byte mask and store scheduling. Next hypothesis: scope scalar temporaries before aggregate locals; no fabricated stack padding. Stopping targeted revisions for broad first-pass coverage.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71241,6 +71279,12 @@
       "symbol": "func_150B6110"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 290,
+        "reason": "Useful complete script/camera implementation; CURRENT 290 after 845 -> 590 -> 290, initial plus two revisions exhausted. Frame 0x30 and control flow match; 27 register rows and four reordered rows remain around global script ID and final settings/float loads. Next hypothesis: explicit global ID lifetime without invented ABI or volatile fields.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71254,6 +71298,12 @@
       "symbol": "func_150B67E0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1520,
+        "reason": "Valid typed first-pass candidate CURRENT 1520 after two finish attempts (initial 1842). Redundant-temporary elimination reduced frame 0x80 to 0x68; raw frame 0x60. Remaining differences: stack homes, conditional global-base hoisting, register allocation, and explicit MIPS shift-count mask. One-pointer func_15052590 ABI follows matched definition. No permutations. Next hypothesis: scope heading/state/index temporaries to disjoint phases; do not invent dummy arguments or remove shift mask without invariant evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71267,6 +71317,12 @@
       "symbol": "func_150BDB70"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 640,
+        "reason": "CURRENT 640 after 975,640,640. Correct 0x38 frame and stack homes; remaining six sentinel register rows and final branch-tail scheduling/size. Two targeted revisions exhausted. Next hypothesis: a named query-result lifetime instead of sentinel constant, or nested final conditional shape.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71280,6 +71336,12 @@
       "symbol": "func_150C7E00"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 7973,
+        "reason": "CURRENT 7973, improved from 8844 by removing synthetic spill copies. Typed actor 0x32C and camera 0x9A0 layouts, corrected halfword button tables, canonical one-pointer helpers and u32 RNG. Frame reduced 0x98 to 0x90 versus target 0x48; 316 differing rows remain, mostly registers and expression scheduling. Next hypothesis: consolidate remaining one-use pointer/scalar temporary lifetimes. Two finishes, one revision.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71296,13 +71358,18 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1488,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D08C0",
           "vram": "0x150D08C0"
         }
       },
-      "source": "src/game/game_FDD70.c",
+      "source": "src/done/game/game_FDD70.c",
       "symbol": "func_150D08C0"
     },
     {
@@ -71325,6 +71392,12 @@
       "symbol": "func_150D1530"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4678,
+        "reason": "Typed rendering candidate CURRENT 4678; initial 4755. Two finish attempts, one manual revision. Separate packet snapshots reduce score slightly but frame 0x108 differs from raw 0x100; stack layout, cursor increments, store scheduling and register allocation remain. Full matrix buffers, texture descriptor and vertex extents retained. No padding or dummy locals. Next hypothesis: original macro block scopes and descriptor lifetime, with each packet snapshot tied to actual cursor state.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71357,6 +71430,12 @@
       "symbol": "func_150E0D90"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5142,
+        "reason": "CURRENT (5142), improved from 10412 by matching raw positive-count guard and do/while traversal. Typed padded object/actor structures, signed position outputs and unsigned alpha conversion compile. Remaining frame 0x70 vs 0x58, floating constant lifetime, register allocation and scheduling. Next: share the phase/distance FP lifetime evidenced by raw f20. One targeted revision; no shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71370,6 +71449,12 @@
       "symbol": "func_15119FC0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3460,
+        "reason": "Useful compiled initial candidate, CURRENT 3460. Complete 0x58-byte packet copy proven by raw callee; existing collision callee proves f32 height. Remaining frame 0x118 vs 0x108, packet placement 0xC0 vs 0xA4, float register assignment, store scheduling, explicit shift-count mask. No clear high-value single revision; next hypothesis scope pre-packet mask locals and order floating temporaries without dropping required packet bytes or defined shifts.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -87393,6 +87478,12 @@
       "symbol": "func_15104620"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5352,
+        "reason": "CURRENT (5352), initial valid candidate. Corrected m2c word-height and offset pointer stride, reconstructed vertex arrays and nearest-height loop. Producer caps count at 39; selected[40] covers that domain rather than guessing original smaller local bound. Remaining frame 0x118 vs 0xE0 plus register allocation/loop scheduling. Next: prove original selected-array extent and pointer loop lifetimes. No shared dependencies changed.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -87569,6 +87660,12 @@
       "symbol": "func_15171BF4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 9177,
+        "reason": "CURRENT 9177; initial typed candidate compiles. Remaining 290 rows: 0x108 versus 0x90 frame, temporary homes, global loads, FP registers, final vector copies and scheduling. Raw final copies use integer loads/stores, suggesting vector aggregate assignment as the next hypothesis; starter temporaries also need lifetime consolidation. One finish, zero revisions.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90691,11 +90788,15 @@
       "symbol": "func_150AD960"
     },
     {
+      "blocked": {
+        "reason": "Raw path-dependent uninitialized stack flag: branches at 1512E1FC and 1512E21C skip all stores to sp+0x44, but 1512E3BC loads it and 1512E3C0 branches on it when actor flags+0x2C lack 0x100. No proven caller/state invariant rules out this path. Starter reproduces uninitialized sp44; zero initialization would invent behavior. Needs bounded runtime/caller invariant evidence before a valid C candidate; no source edits or compile attempts.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 880,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_1512E140",
           "vram": "0x1512E140"
         }
@@ -90723,6 +90824,12 @@
       "symbol": "func_150AD8B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6026,
+        "reason": "CURRENT (6026), initial valid candidate. Typed 20-byte settings table, camera/target fields, intrinsic fabsf and both raw angle-folding formulas. Preserves temporary setting reset and raw early-return behavior. Remaining frame 0x48 vs 0x50, scalar homes, FP lifetimes and loop scheduling. Next: retain separate raw angle temporaries and deferred scaleA spill. No shared dependencies changed.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90736,6 +90843,12 @@
       "symbol": "func_151287E0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2996,
+        "reason": "Valid first-pass effect candidate CURRENT 2996, one finish attempt. Full 0x24 hit result is proven by raw func_1504715C writes through offset 0x20. Remaining frame 0xA0 vs 0x98, stack homes and cached low-byte arguments. Accepted func_151D5404 has six parameters while raw caller writes eight slots: candidate follows canonical six-argument contract; exact ABI reconciliation requires separately reviewed callee-family scope. Existing caller prototype retains s32 arg3/arg5; do not narrow solely for matching.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90803,6 +90916,12 @@
       "symbol": "func_151ABE00"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6057,
+        "reason": "Useful typed foot-effect candidate CURRENT 6057 after fixing NULL compile error. Corrected starter loop to test old count before decrement, as raw C161C/C1620 requires. Raw callers 1506F0C4 and 1506F0F0 pass selector 0/1. Frame 0x158 vs 0x138, extra saved registers, hoisted constant pointer, aggregate/scalar homes and redundant byte conversions remain. Next hypothesis: simplify typed byte uses and align local lifetimes; no further first-pass revision.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90816,6 +90935,12 @@
       "symbol": "func_150C1260"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5061,
+        "reason": "Complete compilable particle/ring candidate CURRENT 5061 (initial 5517). Byte angle/channel revision improves frame 0x160 to 0x158, raw 0x148. Remaining constant-address hoisting, saved registers, packet homes and FP scheduling require broader lifetime work; stop first-pass here. Next hypothesis: packet/scalar lifetimes that avoid two hoisted constant address registers.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90829,6 +90954,12 @@
       "symbol": "func_1518B6B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6232,
+        "reason": "Useful compiled initial candidate CURRENT 6232. Full collision result and all position triples provided. Canonical func_151D5404 has six arguments versus raw eight outgoing slots; do not fabricate extra arguments. Other differences: frame 0xB0 vs 0x98, delayed low-byte flag caching, stack homes, register and store scheduling. Next hypothesis: byte-sized local flag lifetime; callee-family ABI reconciliation requires separately authorized scope.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90916,11 +91047,15 @@
       "symbol": "func_150F6400"
     },
     {
+      "blocked": {
+        "reason": "Required matched declaration func_1513D4B8 returns void, but raw caller at 151008D8/151008E0 saves/tests v0 as allocation result and repeats at 15100A08/15100A18. Wrapper raw 1513D4B8 forwards func_1513D2F0 v0 unchanged. Fork starter emits M2C_ERROR for these consumed returns. A valid caller needs correction/audit of the shared canonical return contract, outside allowed target-only edits; do not shadow it with an incompatible declaration. No live C candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 2704,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_15100600",
           "vram": "0x15100600"
         }
@@ -90929,6 +91064,12 @@
       "symbol": "func_15100600"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 12471,
+        "reason": "CURRENT 12471; initial typed candidate compiles, frame 0x160 matches. Remaining loop-invariant hoisting, saved-register allocation, four vector stack homes and scheduling differ across 228 rows. No bounded local revision supported; next hypothesis is loop/control expression shape to avoid hoisted constants. One finish, zero revisions.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90942,6 +91083,12 @@
       "symbol": "func_151AECA0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6720,
+        "reason": "CURRENT (6720), initial candidate. Raw E1AB0 proves 28 args: leading integer, ten floats, narrow integer/pointer fields, six floats; removed m2c phantom f12/f14 args. Preserved signed RNG and loaded camera after final cosine. Frame 0xD0 matches; remaining GPR/FP lifetime, modulo setup, scheduling and local stack differences. Next: reuse raw angle-to-position FP lifetimes and timer/strength GPR temporaries. No shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90955,6 +91102,12 @@
       "symbol": "func_150E5AE0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4726,
+        "reason": "CURRENT (4726), initial candidate. Fixed m2c byte-sized pointer/count table reads and arg1 stride. Cached RGB is assigned before any store: previous starts -1, group is 1..5 before assignment and cache reuse. Remaining frame 0x58 vs 0x60, saved-register allocation, unsigned conversion scheduling and scalar homes. Next: preserve distinct palette-count/vertex-count and RGB local lifetimes from raw. No shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90968,6 +91121,12 @@
       "symbol": "func_1501B660"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4353,
+        "reason": "CURRENT (4353), initial compiled candidate. Complete 0x70 packet, typed 12-byte vectors and corrected m2c z pointer. Raw 15130280 copies 0x70; uninitialized packet+5C and +66..6F are optional fields gated off by flags 0x80CE07 (consumer 130B58/130ABC/130C4C). Frame 0x130 vs 0x120, count/remaining register allocation, stack homes and scheduling remain. Next: remove surplus pointer/size homes and align count lifetime. No shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90981,6 +91140,12 @@
       "symbol": "func_1518CD20"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 8,
+        "reason": "CURRENT (8), scores 776 -> 365 -> 8 across initial plus two targeted lifetime revisions. Frame, control flow and all registers now match; only active flag save/reload uses sp+0x40 instead of sp+0x3C. Next hypothesis: exchange active and mode declaration order. Budget exhausted; preserved valid typed camera implementation. No shared dependencies changed.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90994,11 +91159,15 @@
       "symbol": "func_15121C80"
     },
     {
+      "blocked": {
+        "reason": "Final emitter packet starts at sp54 but no instruction initializes spD8 (offset 0x84). Raw callee 15151A38 reads offset84 at 151ADC and stores it into forwarded packet+18; 15147A80 copies that 0x1C-byte packet into allocated state. Thus it is not proven padding or overwritten. Zero initialization would invent behavior; valid first-pass C blocked pending a proven initialization/liveness contract. Raw source unchanged.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 1040,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_151D22B0",
           "vram": "0x151D22B0"
         }
@@ -91007,11 +91176,15 @@
       "symbol": "func_151D22B0"
     },
     {
+      "blocked": {
+        "reason": "Handwritten rendering path needs FCSR-dependent cvt.w.s at FB798/FB7CC/FB7F0/FB80C; ordinary C casts truncate and no proven rounding-mode/helper contract is available in scope. m2c starter additionally truncates 64-bit command values to s32, loses output increments FB824/FB8A4 and uses 32-bit shifts by 32. A valid C implementation requires resolving rounding semantics before candidate testing; canonical raw ASM preserved.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 1024,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150FB4C0",
           "vram": "0x150FB4C0"
         }
@@ -91020,6 +91193,12 @@
       "symbol": "func_150FB4C0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4624,
+        "reason": "Useful typed emitter candidate CURRENT 4624 on both initial and retained-flag revision. All aggregate stack offsets and 0x140 frame match; low-byte flag caching/save set, FP scheduling and integer register assignment differ. Register keyword had no emitted effect; stop plateau. Next hypothesis: evidence-backed byte parameter contract or explicit byte local, retaining existing external ABI and complete descriptors.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

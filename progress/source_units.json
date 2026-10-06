@@ -12842,15 +12842,15 @@
       "functions": [
         "func_150D08C0"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xD0E90",
           "start": "0xD08C0",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_FDD70.c"
+      "source": "src/done/game/game_FDD70.c"
     },
     {
       "boundary_evidence": {
