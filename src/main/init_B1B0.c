@@ -927,18 +927,19 @@ void func_8507E7E4(void *, s32, s32, s32, s32);
 void func_800084D8(u8);
 void func_80008F58(u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000CEAC CURRENT (1817) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000CEAC CURRENT (1608) */
 void func_8000CEAC(s32 arg0) {
     void *message;
     s32 *modes;
     s32 step;
     SequenceRecordState *record;
-    u32 mask;
+    SequenceRecordState **slot;
     u16 *masks;
     u32 remaining;
     s32 bit;
 
-    record = D_800417B0[arg0];
+    slot = &D_800417B0[arg0];
+    record = *slot;
     if (record != 0) {
         modes = record->field8;
         masks = record->fieldC;
@@ -948,32 +949,33 @@ void func_8000CEAC(s32 arg0) {
             bit = (s32)message & 7;
             if ((s32)message & 0x10) {
                 if ((u32)bit < 2) {
-                    message = (void *)((s32)message >> 5);
                     step = 0x514;
+                    message = (void *)((s32)message >> 5);
                     if (D_80041890[arg0] != 0) {
                         D_800418A0[arg0] = (s32)message - D_80041890[arg0];
                     }
                     D_80041890[arg0] = (s32)message;
                     D_80041880[arg0] = (s32)message;
                 }
-                mask = masks[bit];
-                if (mask != 0) {
-                    remaining = mask & 0xFFFF;
+                if (masks[bit] != 0) {
+                    remaining = masks[bit] & 0xFFFF;
                     bit = 0;
                     D_800418AC[arg0] |= remaining & 0x7F;
                     while (bit < 16 && remaining != 0) {
-                        mask = remaining;
                         if (remaining & 1) {
+                            /* The record snapshot is dead until the queue is drained. */
+                            record = (SequenceRecordState *)&D_800417C0[arg0][bit];
+
                             switch (modes[bit]) {
                             default:
                                 D_80041970[arg0][bit] |= 1;
                                 D_800418B0[arg0][bit] = step * D_800BE9E4;
-                                D_800417C0[arg0][bit] = step;
+                                *(s32 *)record = step;
                                 break;
                             case 0:
                                 D_80041970[arg0][bit] ^= 1;
                                 D_800418B0[arg0][bit] = 0x8000;
-                                D_800417C0[arg0][bit] = step;
+                                *(s32 *)record = step;
                                 break;
                             case 1:
                                 step >>= 1;
@@ -981,19 +983,19 @@ void func_8000CEAC(s32 arg0) {
                                 if (D_80041970[arg0][bit] == 0) {
                                     D_800418B0[arg0][bit] = step * D_800BE9E4 + 0x8000;
                                 }
-                                D_800417C0[arg0][bit] = step;
+                                *(s32 *)record = step;
                                 break;
                             case 2:
                                 D_80041970[arg0][bit & 7] ^= 1;
                                 D_80041970[arg0][bit | 8] = D_80041970[arg0][bit & 7] ^ 1;
                                 D_800418B0[arg0][bit & 7] = 0x8000;
                                 D_800418B0[arg0][bit | 8] = 0x8000;
-                                D_800417C0[arg0][bit] = 0;
+                                *(s32 *)record = 0;
                                 break;
                             }
                         }
                         bit++;
-                        remaining = (mask >> 1) & 0xFFFF;
+                        remaining = (remaining >> 1) & 0xFFFF;
                     }
                 }
                 D_800419A0 = arg0;
@@ -1001,16 +1003,16 @@ void func_8000CEAC(s32 arg0) {
                 func_8507E7E4(D_800CC2D0, 0x44, 1, 0x12, 5);
             }
         }
-        record = D_800417B0[arg0];
+        record = *slot;
         if (record->current == 0) {
             D_800418AC[arg0] |= 0x80;
             if (record->pauseMode == 0) {
                 func_80008F58(arg0);
-                D_800417B0[arg0]->pauseMode = 1;
+                (*slot)->pauseMode = 1;
             }
         } else if (record->pauseMode == 1) {
             func_800084D8(arg0);
-            D_800417B0[arg0]->pauseMode = 0;
+            (*slot)->pauseMode = 0;
         }
         for (bit = 0; bit != 16; bit++) {
             if (D_800418B0[arg0][bit] != 0) {

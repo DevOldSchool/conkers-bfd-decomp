@@ -94033,8 +94033,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1817,
-        "reason": "Checkpoint115 full1100 CURRENT1817 independently restored d6afbc85. Three new manual hypotheses: load initial remaining2042 adds MOVE; scoped actual stepField pointer1922 recovers default branch-delay SW, timebaseS4, maskT1/flagsT2 and full length but regresses stack homes; direct byteoffset step lvalues1817 instruction-identical baseline. Simpler1817 retained, alternate fe788355 preserved in history for its concrete scheduling evidence. No ABI/shared/ASM changes or permutation.",
+        "current_score": 1608,
+        "reason": "Checkpoint119 full1100 CURRENT1608 independently restoreddc1d2de4, improved1817. Six manual revisions1877/1877/1813/1798/1668/1608: step-pointer binding with real record lifetime reuse recovers defaultstore delay/all savedregs; direct maskguard, redundant loopcopy removal plus slot binding and timestamp ordering improve full diff. Exact98frame/message94/step8C/masks80/queue64/flags68. Remaining missing loopcopy makes body4bytesshorter, slot6C/raw70, levels50/raw58 and case/decay register differences. Alternate1798 cf050c08 preserves original mask sequence/fullbodylength. No shareddependency/ABI/ASM or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -96641,7 +96641,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 25805,
-        "reason": "Checkpoint118 full2320 CURRENT25805 independently restored60042762. Six manual revisions27078/27046/26673/26673/26453/25805 improve prior28265: actual-local layout recovers neighbor/vector/selected/float/segment homes, table byteoffset eliminates indexhome, segment byteoffset removes redundant index lifetime, pointX snapshot restores conditional load. ExactD0frame; naturalunroll2/raw4, missingS4/S5, tableoffset58/raw6C and register/control/FP differences remain. No manualunroll, dummy padding/storage, ABI/shared/ASM changes or permutation. Candidate preserved for continued manual work.",
+        "reason": "Checkpoint119 full2320 CURRENT25805 independently restored25044f79. Rejected two new loop hypotheses: oldDistance snapshot before current assignment30232/frameD8; unsigned current sum27009/frameD8. Neither recovers naturalunroll4 or correct neighbor promotion. Retain checkpoint118 layout/byteoffset/pointX gains. Remaining unroll2/raw4, savedregs, tableoffset58/raw6C and FP/control differences. No ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
