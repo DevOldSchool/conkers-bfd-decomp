@@ -94723,7 +94723,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 230,
-        "reason": "Checkpoint101 full420 CURRENT230 independently restored db1b56ac. Old-style s16 near/far parameter objects with promoted caller contract neutral230 e6fd0795; actual branch origin snapshot in unused arg0 recovers duplicate load but720 d1eb880e has V1 precolor,11 register rows and changed scheduling. Two nonimprovements; original ABI/body retained. Prior branch snapshots and local lifetimes exhausted. m2c starter rejects matched10F30 K&R context; raw context and independent compiler/fullspan checks remain available. No shared tools/headers/ASM changes.",
+        "reason": "Checkpoint103 full420 CURRENT230 independently restored49035e4e. Two primary-guide scheduling hypotheses: comma-sequenced fallback XYZ b1cace97 and identical-token same-source-line fallback/call join8d766584 both neutral230. Original formatting/body retained. Raw duplicated x0 load and selected reload ordering unresolved; prior origin snapshots add register/frame errors. No ABI/shared/compiler flag/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94869,7 +94869,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 8,
-        "reason": "Checkpoint99 full104 CURRENT8 independently restoredf51a8920. Byte-address local neutral8, identical instructions and home18/raw1C. Narrow-handle alternate plus consumed records formal53 shrinks frame18/raw20 and precolors pointerA3/rawV1, reproducing prior formal failure despite recovered bytebase. Two new revisions rejected; original8 retained. No ABI/shared/ASM changes.",
+        "reason": "Checkpoint103 full104 CURRENT8 independently restored41b92d4b. Primary IDO guide declaration/frame hypothesis tested: old-style same word/pointer definition on explicitoffset alternate remains10 a7c3a319, exact body/home1C but frame28/raw20 unchanged. Retain preferred consumedindex8, frame20 and only recordSW/LW18/raw1C. Prior offset, narrowhandle, recordformal, flags/result and scopes exhausted. No retained ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
