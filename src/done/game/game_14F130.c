@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_14F130.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_call_singletons.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15121C80
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game14F130Vector { s32 x, y, z; } Game14F130Vector;
@@ -75,13 +70,12 @@ extern f32 D_800A3440, D_800A3444, D_800A3448;
 extern f32 D_800A344C, D_800A3450, D_800A3454;
 extern u8 D_800BE616, D_800BEA0C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15121C80 CURRENT (8) */
 void func_15121C80(Game14F130Camera *arg0, f32 arg1) {
     f32 angle;
     f32 speed;
     f32 limit;
-    s32 active;
     s32 mode;
+    s32 active;
     Game14F130Vector position;
 
     active = (arg0->flags5F0 & 0x10) != 0;
@@ -149,5 +143,3 @@ void func_15121C80(Game14F130Camera *arg0, f32 arg1) {
     func_15123A54(arg0);
     func_1512E140(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15121C80 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_14F130/func_15121C80.s")

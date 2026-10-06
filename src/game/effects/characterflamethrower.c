@@ -16,7 +16,6 @@
  * - func_15196B4C
  * - func_15197148
  * - func_15197AB4
- * - func_15197BBC
  * - func_15197C10
  * - func_15198110
  * - func_15198570
@@ -635,26 +634,23 @@ s32 func_15197AB4(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15197AB4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15197AB4.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15197BBC CURRENT (10) */
 s32 func_15197BBC(void *arg0) {
     f32 temp_fa0;
     f32 temp_fv0;
+    s16 *tmp1;
     f32 temp_fv1;
-    s16 temp_v0;
 
     temp_fv0 = *(f32 *)((u8 *)arg0 + 0x30);
     temp_fv1 = *(f32 *)((u8 *)arg0 + 0x164);
     temp_fa0 = *(f32 *)((u8 *)arg0 + 0x2C);
-    temp_v0 = *(s16 *)((u8 *)arg0 + 0x1C);
     *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fv0 - (temp_fv0 * temp_fv1));
     *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (temp_fa0 - (temp_fa0 * temp_fv1));
-    if (temp_v0 < *(s16 *)((u8 *)arg0 + 0x168)) {
-        *(s8 *)((u8 *)arg0 + 0x5C) = (s8) (temp_v0 * *(s16 *)((u8 *)arg0 + 0x16A));
+    if (*(s16 *)((u8 *)arg0 + 0x1C) < *(s16 *)((u8 *)arg0 + 0x168)) {
+        tmp1 = (s16 *)((u8 *)arg0 + 0x16A);
+        *(s8 *)((u8 *)arg0 + 0x5C) = (s8) (*tmp1 * *(s16 *)((u8 *)arg0 + 0x1C));
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15197BBC */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15197BBC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15197C10.s")
 typedef union CharacterFlamethrowerEvent {
     struct {
