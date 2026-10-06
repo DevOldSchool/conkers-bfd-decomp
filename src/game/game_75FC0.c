@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15048C30
  * - func_15048FC8
- * - func_150490A8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -222,7 +221,6 @@ f32 func_15048FC8(f32 *arg0) {
 
 f32 func_15048864(f32, f32);                        /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150490A8 CURRENT (35) */
 s32 func_150490A8(void *arg0) {
     f32 temp_fa0;
     f32 temp_fa1;
@@ -236,7 +234,8 @@ s32 func_150490A8(void *arg0) {
     if (temp_fa0 == 0.0f) {
         return 0;
     }
-    temp_ft3 = (s32) func_15048864(temp_fa1 / temp_fa0, temp_fa1);
+    temp_fa0 = temp_fa1 / temp_fa0;
+    temp_ft3 = (s32) func_15048864(temp_fa0, temp_fa1);
     var_v1 = temp_ft3;
     if (*(f32 *)((u8 *)arg0 + 8) > 0.0f) {
         if (temp_ft3 < 0x40) {
@@ -247,8 +246,6 @@ s32 func_150490A8(void *arg0) {
     }
     return var_v1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150490A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_75FC0/func_150490A8.s")
 void vec3f_scale(void *arg0, f32 arg1, void *arg2) {
     *(f32 *)((u8 *)arg2 + 0) = (f32) (*(f32 *)((u8 *)arg0 + 0) * arg1);
     *(f32 *)((u8 *)arg2 + 4) = (f32) (*(f32 *)((u8 *)arg0 + 4) * arg1);

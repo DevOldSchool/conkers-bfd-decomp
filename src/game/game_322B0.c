@@ -25,34 +25,38 @@ extern s8 D_800C666F;
 extern Game322B0Record D_800C6670;
 extern Game322B0Record D_800C67F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15004E00 CURRENT (1740) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15004E00 CURRENT (90) */
 void func_15004E00(void) {
-    Game322B0Record *record;
+    u32 cursor;
+    u32 end;
 
     D_800C6660 = 0;
     D_800C6664 = 0;
     D_800C6668 = 0;
-    record = &D_800C6670;
     D_800C666F = 0;
-    do {
-        record += 4;
-        record[-3].field0 = 0;
-        record[-3].field4 = 0;
-        record[-3].field8 = 0;
-        record[-3].fieldF = 0;
-        record[-2].field0 = 0;
-        record[-2].field4 = 0;
-        record[-2].field8 = 0;
-        record[-2].fieldF = 0;
-        record[-1].field0 = 0;
-        record[-1].field4 = 0;
-        record[-1].field8 = 0;
-        record[-1].fieldF = 0;
-        record[-4].field0 = 0;
-        record[-4].field4 = 0;
-        record[-4].field8 = 0;
-        record[-4].fieldF = 0;
-    } while (record != &D_800C67F0);
+    end = (u32)&D_800C67F0;
+    cursor = (u32)&D_800C6670;
+clear_records:
+    cursor += 0x40;
+    *(s32 *)(cursor - 0x30) = 0;
+    *(s32 *)(cursor - 0x2c) = 0;
+    *(s32 *)(cursor - 0x28) = 0;
+    *(s8 *)(cursor - 0x21) = 0;
+    *(s32 *)(cursor - 0x20) = 0;
+    *(s32 *)(cursor - 0x1c) = 0;
+    *(s32 *)(cursor - 0x18) = 0;
+    *(s8 *)(cursor - 0x11) = 0;
+    *(s32 *)(cursor - 0x10) = 0;
+    *(s32 *)(cursor - 0xc) = 0;
+    *(s32 *)(cursor - 0x8) = 0;
+    *(s8 *)(cursor - 0x1) = 0;
+    *(s32 *)(cursor - 0x40) = 0;
+    *(s32 *)(cursor - 0x3c) = 0;
+    *(s32 *)(cursor - 0x38) = 0;
+    *(s8 *)(cursor - 0x31) = 0;
+    if (cursor != end) {
+        goto clear_records;
+    }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15004E00 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_322B0/func_15004E00.s")

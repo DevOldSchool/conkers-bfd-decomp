@@ -24,23 +24,28 @@ extern s8 D_800C68A1;
 void func_150403C8(s32, s32, s32);
 void func_1500390C(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15040350 CURRENT (3110) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15040350 CURRENT (795) */
 void func_15040350(s32 arg0, s32 arg1) {
     s32 *entry;
+    s32 saved_arg0;
 
+    saved_arg0 = arg0;
     D_800848B0[0] = 0;
     D_800C68A0 = 0;
     D_800C68A1 = 0;
+    arg0 = (s32)&D_800C68A0;
     entry = D_800C6860;
-    do {
-        entry += 4;
-        entry[-3] = -1;
-        entry[-2] = -1;
-        entry[-1] = -1;
-        entry[-4] = -1;
-    } while ((s8 *)entry != &D_800C68A0);
+fill_entry:
+    entry += 4;
+    entry[-3] = -1;
+    entry[-2] = -1;
+    entry[-1] = -1;
+    entry[-4] = -1;
+    if ((u32)entry != (u32)arg0) {
+        goto fill_entry;
+    }
     D_800C6860[0] = 0;
-    func_150403C8(arg0, arg1, 0);
+    func_150403C8(saved_arg0, arg1, 0);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15040350 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_15040350.s")

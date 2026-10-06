@@ -44,11 +44,11 @@ extern s32 D_800BE660;
 extern s32 D_800BE664;
 extern s16 D_800BE668;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15015FBC CURRENT (15495) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15015FBC CURRENT (3190) */
 void func_15015FBC(s32 arg0, s32 arg1) {
-    s32 *left;
-    s32 *right;
-    s16 *output;
+    u32 left;
+    s32 height;
+    s16 (*output)[40];
     s32 quarterA;
     s32 quarterB;
     s32 halfA;
@@ -56,81 +56,86 @@ void func_15015FBC(s32 arg0, s32 arg1) {
     s16 tripleA;
     s16 tripleB;
 
+    height = arg1;
     D_800BE638 = arg0;
-    left = &D_800BE63C;
-    right = &D_800BE654;
-    D_800BE650 = arg1;
-    do {
-        left[0] = arg0;
-        right[0] = arg1;
-        if ((u32)right < (u32)&D_800BE660) {
-            if ((u32)right >= (u32)&D_800BE658) {
-                left[0] = arg0 >> 1;
+    left = (u32)&D_800BE63C;
+    arg1 = (s32)&D_800BE654;
+    D_800BE650 = height;
+loop:
+    {
+        *(s32 *)(left + 0) = arg0;
+        *(s32 *)((u32)arg1 + 0) = height;
+        if ((u32)arg1 < (u32)&D_800BE660) {
+            if ((u32)arg1 >= (u32)&D_800BE658) {
+                *(s32 *)(left + 0) = arg0 >> 1;
             }
-            if ((u32)right >= (u32)&D_800BE654) {
-                right[0] >>= 1;
-            }
-        }
-        left[1] = arg0;
-        right[1] = arg1;
-        if ((u32)right < (u32)&D_800BE65C) {
-            if ((u32)right >= (u32)&D_800BE654) {
-                left[1] = arg0 >> 1;
-            }
-            if ((u32)right >= (u32)&D_800BE650) {
-                right[1] >>= 1;
+            if ((u32)arg1 >= (u32)&D_800BE654) {
+                *(s32 *)((u32)arg1 + 0) >>= 1;
             }
         }
-        right += 2;
-        left += 2;
-    } while (right != &D_800BE664);
-    output = &D_800BE668;
-    quarterB = arg1 >> 2;
+        *(s32 *)(left + 4) = arg0;
+        *(s32 *)((u32)arg1 + 4) = height;
+        if ((u32)arg1 < (u32)&D_800BE65C) {
+            if ((u32)arg1 >= (u32)&D_800BE654) {
+                *(s32 *)(left + 4) = arg0 >> 1;
+            }
+            if ((u32)arg1 >= (u32)&D_800BE650) {
+                *(s32 *)((u32)arg1 + 4) >>= 1;
+            }
+        }
+        arg1 = (u32)arg1 + 8;
+        left += 8;
+    }
+    if ((u32)arg1 != (u32)&D_800BE664) {
+        goto loop;
+    }
+    output = (s16 (*)[40])&D_800BE668;
+    quarterB = height >> 2;
     tripleB = (u32)quarterB * 3U;
     quarterA = arg0 >> 2;
     halfA = arg0 >> 1;
-    halfB = arg1 >> 1;
-    output[0] = halfA;
-    output[1] = halfB;
-    output[2] = halfA;
-    output[3] = halfB;
-    output[4] = halfA;
-    output[5] = halfB;
-    output[6] = halfA;
-    output[7] = halfB;
+    halfB = height >> 1;
+    (*output)[0] = halfA;
+    (*output)[1] = halfB;
+    (*output)[2] = halfA;
+    (*output)[3] = halfB;
+    (*output)[4] = halfA;
+    (*output)[5] = halfB;
+    (*output)[6] = halfA;
+    (*output)[7] = halfB;
     tripleA = (u32)quarterA * 3U;
-    output[8] = halfA;
-    output[9] = halfB;
-    output[10] = halfA;
-    output[11] = quarterB;
-    output[12] = halfA;
-    output[13] = tripleB;
-    output[14] = halfA;
-    output[15] = halfB;
-    output[16] = 0;
-    output[17] = 0;
-    output[18] = 0;
-    output[19] = 0;
-    output[20] = quarterA;
-    output[21] = quarterB;
-    output[22] = tripleA;
-    output[23] = quarterB;
-    output[24] = halfA;
-    output[25] = tripleB;
-    output[26] = halfA;
-    output[27] = halfB;
-    output[28] = 0;
-    output[29] = 0;
-    output[30] = quarterA;
-    output[31] = quarterB;
-    output[32] = tripleA;
-    output[33] = quarterB;
-    output[34] = quarterA;
-    output[35] = tripleB;
-    output[36] = tripleA;
-    output[37] = tripleB;
-    output[38] = halfA;
-    output[39] = halfB;
+    (*output)[8] = halfA;
+    (*output)[9] = halfB;
+    (*output)[10] = halfA;
+    (*output)[11] = quarterB;
+    (*output)[12] = halfA;
+    (*output)[13] = tripleB;
+    (*output)[14] = halfA;
+    (*output)[15] = halfB;
+    (*output)[16] = 0;
+    (*output)[17] = 0;
+    (*output)[18] = 0;
+    (*output)[19] = 0;
+    (*output)[20] = quarterA;
+    (*output)[21] = quarterB;
+    (*output)[22] = tripleA;
+    (*output)[23] = quarterB;
+    (*output)[24] = halfA;
+    (*output)[25] = tripleB;
+    (*output)[26] = halfA;
+    (*output)[27] = halfB;
+    (*output)[28] = 0;
+    (*output)[29] = 0;
+    (*output)[30] = quarterA;
+    (*output)[31] = quarterB;
+    (*output)[32] = tripleA;
+    (*output)[33] = quarterB;
+    (*output)[34] = quarterA;
+    (*output)[35] = tripleB;
+    (*output)[36] = tripleA;
+    (*output)[37] = tripleB;
+    (*output)[38] = halfA;
+    (*output)[39] = halfB;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15015FBC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_433F0/func_15015FBC.s")

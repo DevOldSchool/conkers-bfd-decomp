@@ -85,41 +85,52 @@ extern void *D_800BE9C8;
 extern void *D_800BE9D8;
 extern void *D_800BE9E0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501A39C CURRENT (6192) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501A39C CURRENT (2755) */
 void func_1501A39C(void) {
-    void **var_t3;
-    s32 var_t2;
-    void **var_v1;
+    u32 var_t3;
+    u32 var_t2;
+    u32 var_v1;
+    u8 *cursor;
     void *temp_v0;
     void *temp_v0_2;
     void *temp_v0_3;
     void *temp_v0_4;
     void *temp_v0_5;
 
-    var_t3 = &D_800BE9D8;
-    var_v1 = &D_800BE9C8;
+    var_t3 = (u32)&D_800BE9D8;
+    var_v1 = (u32)&D_800BE9C8;
     var_t2 = 0;
-    do {
-        temp_v0 = *var_v1;
+loop:
+    {
+        cursor = *(u8 **)var_v1;
+        temp_v0 = cursor;
+        cursor += 8;
         *(u32 *)((u8 *)temp_v0 + 0) = 0xDB060000;
         *(u32 *)((u8 *)temp_v0 + 4) = 0;
-        temp_v0_2 = (u8 *)temp_v0 + 8;
+        temp_v0_2 = cursor;
+        cursor += 8;
         *(u32 *)((u8 *)temp_v0_2 + 0) = 0xDB060000;
         *(u32 *)((u8 *)temp_v0_2 + 4) = 0;
-        temp_v0_3 = (u8 *)temp_v0_2 + 8;
+        temp_v0_3 = cursor;
+        cursor += 8;
         *(u32 *)((u8 *)temp_v0_3 + 0) = 0xDE000000;
         *(u32 *)((u8 *)temp_v0_3 + 4) = (u32)&D_8002C930;
-        temp_v0_4 = (u8 *)temp_v0_3 + 8;
+        temp_v0_4 = cursor;
+        cursor += 8;
         *(u32 *)((u8 *)temp_v0_4 + 0) = 0xFE000000;
-        temp_v0_5 = (u8 *)temp_v0_4 + 8;
+        temp_v0_5 = cursor;
+        cursor += 8;
         *(u32 *)((u8 *)temp_v0_4 + 4) = D_800BE9C4;
         *(u32 *)((u8 *)temp_v0_5 + 0) = 0xDC080008;
-        var_v1++;
+        var_v1 += 4;
         *(u32 *)((u8 *)temp_v0_5 + 4) = D_800BE628 + var_t2 + 0x40;
-        var_t3++;
+        var_t3 += 4;
         var_t2 += 0x10;
-        var_t3[-1] = (u8 *)temp_v0_5 + 8;
-    } while (var_t3 != &D_800BE9E0);
+        *(void **)(var_t3 - 4) = cursor;
+    }
+    if (var_t3 != (u32)&D_800BE9E0) {
+        goto loop;
+    }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1501A39C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_476D0/func_1501A39C.s")

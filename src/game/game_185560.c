@@ -28,15 +28,13 @@ s32 func_1515D480(s32);
 void *func_15167A68(s32, s32, s32, s32, u8, u8);
 extern s32 D_80082FA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151580B0 CURRENT (1168) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151580B0 CURRENT (20) */
 void *func_151580B0(void *arg0, s32 arg1, s32 arg2, u8 arg3,
                     s32 arg4, u8 arg5, s32 arg6) {
     s32 var_a0;
     s32 var_s1;
-    s32 var_s1_2;
     void *temp_v0;
-    volatile s32 *var_s0;
-    void *var_s0_2;
+    u8 *var_s0;
 
     if (arg3) {
         var_a0 = 0x55;
@@ -51,23 +49,25 @@ void *func_151580B0(void *arg0, s32 arg1, s32 arg2, u8 arg3,
     *(s32 *)((u8 *)temp_v0 + 0xD8) = arg1;
     *(s32 *)((u8 *)temp_v0 + 0xF4) = arg2;
     *(s8 *)((u8 *)temp_v0 + 0xDC) = 0;
+    var_s0 = temp_v0;
     var_s1 = 0;
-    var_s0 = (volatile s32 *)((u8 *)temp_v0 + 0xDC);
-    do {
-        var_s1++;
-        var_s0++;
-        *var_s0 = 0;
-    } while (var_s1 < 4);
+clear_slot:
+    var_s1++;
+    var_s0 += 4;
+    *(s32 *)(var_s0 + 0xDC) = 0;
+    if (var_s1 < 4) {
+        goto clear_slot;
+    }
     *(void **)((u8 *)temp_v0 + 0xF0) = 0;
     if (arg1 != 0) {
-        var_s1_2 = 0;
-        var_s0_2 = temp_v0;
+        var_s1 = 0;
+        var_s0 = temp_v0;
         if (D_80082FA0 >= 0) {
             do {
-                *(s32 *)((u8 *)var_s0_2 + 0xE0) = func_1515D480(arg1);
-                var_s1_2++;
-                var_s0_2 = (u8 *)var_s0_2 + 4;
-            } while (D_80082FA0 >= var_s1_2);
+                *(s32 *)((u8 *)var_s0 + 0xE0) = func_1515D480(arg1);
+                var_s1++;
+                var_s0 = (u8 *)var_s0 + 4;
+            } while (D_80082FA0 >= var_s1);
         }
         *(void **)((u8 *)temp_v0 + 0xF0) = func_1515D440();
     }

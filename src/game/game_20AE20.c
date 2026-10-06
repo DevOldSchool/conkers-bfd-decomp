@@ -21,32 +21,41 @@ extern s8 D_800E0BE1;
 extern s8 D_800E0BE2;
 extern s8 D_800E0BE3;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DD970 CURRENT (2400) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DD970 CURRENT (650) */
 void func_151DD970(void) {
-    s8 *src;
-    s8 *dst;
+    u32 src;
+    u32 end;
+    u32 dst;
     s8 byte_1;
     s8 byte_2;
     s8 byte_3;
     s8 byte_0;
 
-    src = &D_8008FE57;
-    dst = &D_800E0BE3;
-    D_800E0BE2 = D_8008FE56;
-    D_800E0BE1 = D_8008FE55;
-    D_800E0BE0 = D_8008FE54;
-    do {
-        byte_1 = src[1];
-        byte_2 = src[2];
-        byte_3 = src[3];
-        byte_0 = src[0];
+    src = (u32)&D_8008FE57;
+    dst = (u32)&D_800E0BE3;
+    byte_0 = D_8008FE54;
+    byte_1 = D_8008FE55;
+    byte_2 = D_8008FE56;
+    D_800E0BE2 = byte_2;
+    *(s8 *)((u32)&D_800E0BE2 - 1) = byte_1;
+    *(s8 *)((u32)&D_800E0BE2 - 2) = byte_0;
+    end = (u32)&D_8008FE6B;
+copy_bytes:
+    {
+        byte_1 = *(s8 *)(src + 1);
+        byte_2 = *(s8 *)(src + 2);
+        byte_3 = *(s8 *)(src + 3);
+        byte_0 = *(s8 *)(src + 0);
         src += 4;
         dst += 4;
-        dst[-3] = byte_1;
-        dst[-2] = byte_2;
-        dst[-1] = byte_3;
-        dst[-4] = byte_0;
-    } while (src != &D_8008FE6B);
+        *(s8 *)(dst - 3) = byte_1;
+        *(s8 *)(dst - 2) = byte_2;
+        *(s8 *)(dst - 1) = byte_3;
+        *(s8 *)(dst - 4) = byte_0;
+    }
+    if (src != end) {
+        goto copy_bytes;
+    }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151DD970 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20AE20/func_151DD970.s")
@@ -58,53 +67,60 @@ extern s8 D_8008FE84;
 extern s8 D_8008FE85;
 extern s8 D_8008FE86;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DD9E4 CURRENT (8290) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DD9E4 CURRENT (1645) */
 void func_151DD9E4(void) {
-    s8 *min;
-    s8 *dst;
-    s8 *max;
-    s8 *defaults;
+    u32 min;
+    u32 dst;
+    u32 max;
+    u32 defaults;
     s32 index;
     s8 current;
 
-    current = D_800E0BE0;
-    if (current < D_8008FE6C || D_8008FE84 < current) {
-        D_800E0BE0 = D_8008FE54;
+    index = D_800E0BE0;
+    if (index < D_8008FE6C || D_8008FE84 < index) {
+        index = D_8008FE54;
+        D_800E0BE0 = index;
     }
-    current = D_800E0BE1;
-    if (current < D_8008FE6D || D_8008FE85 < current) {
-        D_800E0BE1 = D_8008FE55;
+    index = D_800E0BE1;
+    if (index < D_8008FE6D || D_8008FE85 < index) {
+        index = D_8008FE55;
+        D_800E0BE1 = index;
     }
-    current = D_800E0BE2;
-    if (current < D_8008FE6E || D_8008FE86 < current) {
-        D_800E0BE2 = D_8008FE56;
+    index = D_800E0BE2;
+    if (index < D_8008FE6E || D_8008FE86 < index) {
+        index = D_8008FE56;
+        D_800E0BE2 = index;
     }
-    min = &D_8008FE6F;
-    dst = &D_800E0BE3;
-    max = &D_8008FE84;
-    defaults = &D_8008FE54;
+    min = (u32)&D_8008FE6F;
+    dst = (u32)&D_800E0BE3;
+    max = (u32)&D_8008FE84;
+    defaults = (u32)&D_8008FE54;
     index = 3;
-    do {
-        current = dst[0];
-        if (current < min[0] || max[index] < current) {
-            dst[0] = defaults[index];
+clamp_bytes:
+    {
+        current = *(s8 *)(dst + 0);
+        if (current < *(s8 *)(min + 0) || *(s8 *)(max + index) < current) {
+            *(s8 *)(dst + 0) = *(s8 *)(defaults + index);
         }
-        current = dst[1];
-        if (current < min[1] || max[index + 1] < current) {
-            dst[1] = defaults[index + 1];
+        current = *(s8 *)(dst + 1);
+        if (current < *(s8 *)(min + 1) || *(s8 *)(max + index + 1) < current) {
+            *(s8 *)(dst + 1) = *(s8 *)(defaults + index + 1);
         }
-        current = dst[2];
-        if (current < min[2] || max[index + 2] < current) {
-            dst[2] = defaults[index + 2];
+        current = *(s8 *)(dst + 2);
+        if (current < *(s8 *)(min + 2) || *(s8 *)(max + index + 2) < current) {
+            *(s8 *)(dst + 2) = *(s8 *)(defaults + index + 2);
         }
-        current = dst[3];
-        if (current < min[3] || max[index + 3] < current) {
-            dst[3] = defaults[index + 3];
+        current = *(s8 *)(dst + 3);
+        if (current < *(s8 *)(min + 3) || *(s8 *)(max + index + 3) < current) {
+            *(s8 *)(dst + 3) = *(s8 *)(defaults + index + 3);
         }
         index += 4;
         min += 4;
         dst += 4;
-    } while (index != 0x17);
+    }
+    if (index != 0x17) {
+        goto clamp_bytes;
+    }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151DD9E4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20AE20/func_151DD9E4.s")

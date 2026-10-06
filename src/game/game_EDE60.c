@@ -113,7 +113,7 @@ void *func_150C0AC0(u8 *arg0, u8 arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C0AC0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EDE60/func_150C0AC0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EDE60/func_150C0C38.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C1198 CURRENT (440) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C1198 CURRENT (265) */
 void func_150C1198(u8 *arg0) {
     GameEDE60ResourceEntry *entry;
     GameEDE60ResourceList *list;
@@ -122,9 +122,9 @@ void func_150C1198(u8 *arg0) {
     s32 found;
 
     list = *(GameEDE60ResourceList **) (arg0 + 0xA8);
-    index = list->first_index;
     found = 0;
     previous = -1;
+    index = list->first_index;
     if (index != -1) {
         do {
             entry = &list->entries[index];

@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150F9BB0
  * - func_150FA1B8
- * - func_150FA468
  * - func_150FA520
  * - func_150FAAEC
  * - func_150FAE18
@@ -177,29 +176,25 @@ void func_150FA1B8(Game127060Effect *effect) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FA1B8.s")
 void func_1515D4D4(s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FA468 CURRENT (2894) */
-void func_150FA468(void *arg0, s32 arg1, s32 arg2) {
-    switch ((u8)arg2) {
-    case 0x4C:
+void func_150FA468(void *arg0, s32 arg1, u8 arg2) {
+    if (arg2 == 0x4C) {
         *(s8 *)((u8 *)arg0 + 0x11) = -1;
         func_1515D4D4(0, 0, 0, 0xFF);
-        break;
-    case 0x4D:
+        return;
+    }
+    if (arg2 == 0x4D) {
         *(s8 *)((u8 *)arg0 + 0x11) = 0x1E;
-        break;
-    case 0x4E:
+        return;
+    }
+    if (arg2 == 0x4E) {
         *(s8 *)((u8 *)arg0 + 0x11) = -1;
-        break;
-    case 0x4F:
+        return;
+    }
+    if (arg2 == 0x4F) {
         *(s8 *)((u8 *)arg0 + 0x11) = -1;
         func_1515D4D4(0xFF, 0xFF, 0xFF, 0xFF);
-        break;
-    default:
-        break;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FA468 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FA468.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FA520.s")
 void *func_10022EC0(void *, const void *, u32);
 s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);

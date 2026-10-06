@@ -37,17 +37,17 @@ extern f32 D_800A8F5C;
 extern f32 D_800A8F60;
 extern f32 D_800A8F64;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A90C0 CURRENT (302) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A90C0 CURRENT (220) */
 void func_151A90C0(s32 arg0, s32 arg1) {
     Game1D6570Descriptor descriptor;
-    s8 payload;
     f32 parity;
+    s8 payload[1];
     s32 result;
 
-    descriptor.field_4 = arg0;
     descriptor.field_0 = 2;
+    descriptor.field_4 = arg0;
     parity = (f32)(arg1 & 1);
-    if (parity != 0.0f) {
+    if (0.0f != parity) {
         descriptor.field_8 = D_800A8F58;
     } else {
         descriptor.field_8 = D_800A8F5C;
@@ -65,10 +65,10 @@ void func_151A90C0(s32 arg0, s32 arg1) {
     descriptor.field_24 = 1;
     descriptor.field_25 = -1;
     descriptor.field_26 = 0;
-    payload = arg1;
+    payload[0] = arg1;
     result = func_151A8B20(&descriptor, -1, 1, 0xFF, 0);
     if (result != 0) {
-        func_10022EC0((u8 *)result + 0x80, &payload, 1);
+        func_10022EC0((u8 *)result + 0x80, payload, 1);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A90C0 */
