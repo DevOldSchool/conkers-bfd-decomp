@@ -93889,7 +93889,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 24,
-        "reason": "Checkpoint96 full228 CURRENT24 independently restored c55b1c38. Two new revisions rejected: snapshot value array34 retains finalhome30 and reversesXOR; separate scoped adjustment temporary139 growsframe48 and loses earlyA1. Best signed scalar snapshot with outputarray retained; all instructions/registers/frame exact except final SW/LW30 versus raw3C. Prior scalar/field output, output-only/joint scopes and unsignedvalue exhausted. No forced overlay, padding, redundant writes, ABI/shared/ASM changes or permutation.",
+        "reason": "Checkpoint121 full228 CURRENT24 independently restoredc1e7bec4. One new manual single-scalar/no-final-snapshot form825: correct40frame/shared3Chome, but twelve register rows, four control rows and two missing/extra; escaped scalar reload behavior loses raw pre-call spill. Prior directarray837 and scalar+snapshot264 already failed; simple object/scope/lifetime forms exhausted. Best24 has only final SW/LW30 vs raw3C. No artificial alias/overlay/redundant stores/padding, ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
