@@ -94521,17 +94521,16 @@
       "symbol": "func_8000EC24"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 55,
-        "reason": "Checkpoint58 full212 CURRENT55 independently restoredfb311be8. Two new expression forms rejected: low-field XOR cancellation435 keepsANDI/XOR insteadLUI/AND; logical high-half extraction plus s16 decode250 keepsSRL insteadrawSRA. Best still ten register-only rows with exact operations/control/span. Prior scopes/masks/casts/packed snapshots/timer-condition/directoutput families exhausted. No added storage, padding, artificial pressure, shared/ABI/ASM changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 212,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000ECCC",
           "vram": "0x8000ECCC"
         }
@@ -94561,7 +94560,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 120,
-        "reason": "Retain best120. Fullword unmasked key snapshot plus late anonymous mask regresses370; genuine shared return result regresses1522 and frame20vs18. Prior direct350 and narrowedbyte700 forms exhausted. Eager fullword masked key retains correct control/opcodes; remaining temporary roles need independent evidence, no repeated key/result shaping or ABI edits.",
+        "reason": "Checkpoint72 full208 CURRENT120 independently restored96cc5031. Two new manual revisions: key scope ending before fallback call neutral120, unsigned fullword masked key neutral120. Exact operations/control/frame;18 register-only rows persist, key loadV0 vs rawT7 and downstream temporary shift. Prior direct350/narrowbyte700/unmasked key370/shared result1522 exhausted. No extra reads, artificial pressure, ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

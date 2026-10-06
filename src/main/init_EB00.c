@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/main_sound_record_family_boundary.md
  *
  * TODO: Implement these source-unit functions:
- * - func_8000ECCC
  * - func_8000EE70
  * - func_8000F6B8
  * - func_8000FA64
@@ -157,7 +156,6 @@ typedef struct {
 s32 func_80010894(SoundOwnerState *);
 s32 func_80010344(u16, void *, u32, s16, u16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000ECCC CURRENT (55) */
 s32 func_8000ECCC(SoundQueuedState *state, s32 arg1, s32 arg2,
                  s32 arg3, s32 arg4, s32 arg5, u16 *output) {
     u16 value;
@@ -173,7 +171,8 @@ s32 func_8000ECCC(SoundQueuedState *state, s32 arg1, s32 arg2,
     }
     remaining = (s16)(remaining - D_800BE9E4);
     if (remaining <= 0) {
-        state->field0 = *output = state->packed >> 16;
+        value = state->packed >> 16;
+        state->field0 = *output = value;
         if (func_80010894(state->owner) == 0) {
             func_80010344(*output, state->owner, state->valueC,
                           state->fieldA, state->field8);
@@ -183,8 +182,7 @@ s32 func_8000ECCC(SoundQueuedState *state, s32 arg1, s32 arg2,
     state->packed = (state->packed & 0xFFFF0000) | remaining;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000ECCC */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000ECCC.s")
+
 void func_80010630(u16, SoundOwnerState *, s32, s16, u16);
 
 s32 func_8000EDA0(SoundQueuedState *state, s32 arg1, s32 arg2,
