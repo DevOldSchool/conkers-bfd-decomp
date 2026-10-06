@@ -94034,7 +94034,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1608,
-        "reason": "Checkpoint119 full1100 CURRENT1608 independently restoreddc1d2de4, improved1817. Six manual revisions1877/1877/1813/1798/1668/1608: step-pointer binding with real record lifetime reuse recovers defaultstore delay/all savedregs; direct maskguard, redundant loopcopy removal plus slot binding and timestamp ordering improve full diff. Exact98frame/message94/step8C/masks80/queue64/flags68. Remaining missing loopcopy makes body4bytesshorter, slot6C/raw70, levels50/raw58 and case/decay register differences. Alternate1798 cf050c08 preserves original mask sequence/fullbodylength. No shareddependency/ABI/ASM or permutation.",
+        "reason": "Checkpoint120 full1100 CURRENT1608 independently restoredc3d09845. Two new hypotheses rejected: scoped loopmask2277 restores initial mask copy but shifts queue/flags/slot homes down4 and adds backedge scheduling/NOP differences; signed32 remaining with explicit logical shift1608 produces identical full normalized diff. Retain checkpoint119 pointer-lifetime/timestamp gains. Remaining missing loopcopy, slot6C/raw70, levels50/raw58 and case/decay allocation. Alternate1798 retains fullbodylength. No shareddependency/ABI/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
