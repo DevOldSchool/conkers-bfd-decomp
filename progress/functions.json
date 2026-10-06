@@ -94868,8 +94868,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Checkpoint91 full104 CURRENT10 independently restored c30006f8, improved18. Actual u32 byteoffset fixes ADDU operands and record spill1C; every instruction/register/home exact except frame28/raw20. Three manual revisions: functionscope offset10 4b5c402f, shortscope10 52fb7e55, register storage10 ba07c422 all instructionidentical. Simplest offset retained; original18 exactframe alternative saved. Prior result720/handle625/flags45 and scoped490 did not resolve frame. No dummy padding, ABI/shared/ASM changes or permutation.",
+        "current_score": 8,
+        "reason": "Checkpoint93 full104 CURRENT8 independently restored f543b4d6. Consumed index formal reused for real byteoffset recovers frame20 and base-first ADDU, leaving only record SW/LW18 vs raw1C. Real u16 handle snapshot10 recovers1C but growsframe28; rejected. Two new revisions8/10. Prior offset scopes/registerclass, handle/result/flags snapshots and pointer-formal reuse exhausted. Best8 preserved; alternate10 has exact spill and oversized frame. No dummy storage, ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

@@ -705,14 +705,13 @@ void func_8000FDF4(u16 arg0) {
         }
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FE88 CURRENT (10) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FE88 CURRENT (8) */
 s32 func_8000FE88(SoundArrayRecord *records, s32 index, s32 *count) {
-    u32 offset;
     SoundArrayRecord *record;
 
     if (index < *count) {
-        offset = index * sizeof(*record);
-        record = (SoundArrayRecord *)((u8 *)records + offset);
+        index = (u32)index * sizeof(*record);
+        record = (SoundArrayRecord *)((u8 *)records + (u32)index);
         if (record->handle != 0) {
             func_800111C8(record->handle);
         }
