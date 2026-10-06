@@ -3,7 +3,7 @@
 
 /*
  * Reviewed source unit: src/main/init_8F90.c
- * Boundary evidence: docs/evidence/main_audio_driver_sequence_boundaries.md
+ * Boundary evidence: docs/evidence/boundaries/main/main_audio_driver_sequence_boundaries.md
  *
  * TODO: Implement these source-unit functions:
  * - func_80008F90

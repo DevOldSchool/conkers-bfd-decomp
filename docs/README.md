@@ -28,12 +28,6 @@ matches the work you intend to do.
 - [Objdiff comparison](objdiff.md) documents the optional comparison pilot and its limits.
 - [Runtime tracing](runtime-tracing.md) covers the pinned Mupen64Plus debugger
   used when static code or display-list evidence cannot identify a consumer.
-- [Naming confidence and evidence](evidence/model_name_confidence_review.md)
-  separates exact ROM source identity from unconfirmed semantic labels.
-  [Character descriptions](evidence/character_semantic_naming.md),
-  [placed props](evidence/prop_model_semantics.md) and
-  [attachment/UI props](evidence/attachment_prop_semantics.md) retain the
-  domain-specific observations and conditional consumer contracts.
 - [Library track](library-track.md) records Nintendo 64 library boundary work,
   archive integration, and the associated commands.
 - [Decompilation progress](progress.md) is generated from the canonical
@@ -43,9 +37,14 @@ matches the work you intend to do.
 ## Assets and research
 
 - [Research evidence index](evidence/README.md) groups boundary, matching, library,
-  asset and runtime proof records.
+  asset and runtime proof records into topic folders with complete indexes.
+- [Asset evidence](evidence/assets/README.md) routes model, material, naming,
+  audio and interface research. [Naming confidence](evidence/assets/naming/model_name_confidence_review.md)
+  separates exact ROM source identity from unconfirmed semantic labels.
 - [Local soundtrack listening and naming](soundtrack-preview.md) renders game-sample
   music previews with stable IDs, qualified album comparison leads and naming drafts.
+  The [album correspondence review](evidence/assets/audio/us_album_correspondences.md)
+  retains all 45 supplied entries, qualified candidates and unresolved reasons.
 - [RZIP and asset extraction](rzip-assets.md) documents the ROM asset layout,
   extraction commands, proven audio, texture, interface, and model formats, and
   their evidence boundaries.
@@ -57,7 +56,7 @@ matches the work you intend to do.
   reversible editing commands and what can or cannot yet be inserted safely.
 - [Asset extraction roadmap](asset-roadmap.md) tracks completed format work and
   the unresolved research frontier.
-- [Retail debugger overlay](evidence/us_debugger_overlay.md) records the
+- [Retail debugger overlay](evidence/debugger/us_debugger_overlay.md) records the
   loader-proven US image, provisional C bases, and unresolved runtime storage.
 - [Beta evidence](beta-evidence.md) explains how debug and ECTS material may be
   used without treating it as US match or source-boundary proof.
@@ -68,8 +67,11 @@ Keep contributor rules in `CONTRIBUTING.md`, agent-specific operating instructio
 in `AGENTS.md`, and command behavior in the relevant workflow/reference guide.
 Link to those owners instead of copying whole procedures. Keep claim-specific
 proofs in `docs/evidence/` and per-task progress/retry logs in local attempt ledgers.
-Active guides should explain how to use a capability and link to its proof. The asset roadmap owns the dated asset-status summary.
-Preserve evidence paths referenced by source or metadata when editing guides.
+Active guides should explain how to use a capability and link to its proof.
+The asset roadmap owns the dated asset-status summary. Keep general guides here;
+put claim-specific records and companion data in the relevant evidence topic.
+Follow the [evidence filing and relocation rules](evidence/README.md#maintaining-the-collection)
+when adding or moving research.
 
 ## Sources of truth
 
@@ -85,5 +87,3 @@ Preserve evidence paths referenced by source or metadata when editing guides.
 
 Use the supported `./conker` commands for inventory and generated-document
 changes instead of editing generated files or canonical JSON by hand.
-
-- [Retail US album correspondence review](evidence/us_album_correspondences.md): all 45 supplied album entries, qualified candidates and unresolved reasons.

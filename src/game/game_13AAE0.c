@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_13AAE0.c
- * Boundary evidence: docs/evidence/game_raw_internal_call_callback_clusters.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_internal_call_callback_clusters.md
  *
  * TODO: Implement these source-unit functions:
  * - func_1510D694
@@ -22,7 +22,7 @@ void func_10004074(s32);
 void func_1510D694(s32);
 
 /* Drop flat-resource references and free the list, not necessarily its assets.
- * Evidence: docs/evidence/model_resource_role_names.md.
+ * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
  */
 void flat_asset_release_reference_list(Game13AAE0ValueList *arg0) {
     s16 *current;

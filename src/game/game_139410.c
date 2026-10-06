@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_139410.c
- * Boundary evidence: docs/evidence/game_raw_view_command_cores.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_view_command_cores.md
  *
  * TODO: Implement these source-unit functions:
  * - func_1510BF60

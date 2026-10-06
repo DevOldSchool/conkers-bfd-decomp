@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_188F90.c
- * Boundary evidence: docs/evidence/game_reconciled_pointer_singleton_15bae0.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_reconciled_pointer_singleton_15bae0.md
  */
 
 void func_1516972C(u8 *);

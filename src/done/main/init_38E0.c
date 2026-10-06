@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/main/init_38E0.c
- * Boundary evidence: docs/evidence/main_boundary_beta_comparison.md
+ * Boundary evidence: docs/evidence/boundaries/main/main_boundary_beta_comparison.md
  */
 
 extern volatile u16 *D_80038070;

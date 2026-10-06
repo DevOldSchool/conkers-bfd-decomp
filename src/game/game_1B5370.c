@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_1B5370.c
- * Boundary evidence: docs/evidence/game_raw_display_transition_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_display_transition_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15187EC0

@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_F2730.c
- * Boundary evidence: docs/evidence/game_raw_direct_helper_pairs.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_helper_pairs.md
  */
 
 extern u8 D_800C35E8;

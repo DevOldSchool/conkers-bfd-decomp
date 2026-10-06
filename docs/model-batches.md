@@ -58,7 +58,7 @@ follows the native relative pointers and representative-character groups, and
 records unresolved event lists explicitly. Use it to find an attachment's
 parent and animation before investigating inherited textures. These references
 do not establish gameplay reachability or grant export eligibility. See
-[attachment animation events](evidence/us_attachment_animation_events.md).
+[attachment animation events](evidence/assets/models/us_attachment_animation_events.md).
 
 Successful Python suite evidence is reused when the interpreter and repository
 source, test, configuration and documentation inputs match. Failed or
@@ -119,7 +119,7 @@ does not overwrite them. The current configuration selects phase0 and updates
 Haybot's existing card with one Blend. Original source exports and review
 counts remain unchanged. Main validation counts continue to cover the original
 source corpus; this selected material proof is additional. See the [Haybot
-evidence](evidence/us_haybot_selected_phase_inspection.md).
+evidence](evidence/assets/materials/us_haybot_selected_phase_inspection.md).
 
 ### Selected type-6 material
 
@@ -181,8 +181,8 @@ so component provenance stays current. Scene inclusion leaves standalone
 decisions deferred and proves neither native appearance nor
 simultaneous visibility. Reviewed scene membership and historical
 representation counts remain in the [scene
-evidence](evidence/us_static_scene_assemblies.md) and [review
-selections](evidence/us_model_review_selections.md).
+evidence](evidence/assets/models/us_static_scene_assemblies.md) and [review
+selections](evidence/assets/models/us_model_review_selections.md).
 
 Inspection records may declare `gallery_replaced_by` with another configured
 export name. Replaced records retain validation and source-publication evidence
@@ -226,7 +226,7 @@ inflate the main validation report's indexed/assembly counts.
 Assembly representation takes precedence over presentation equivalence. Compute
 totals from final manifest subsets; a component moving between these sets must
 not be counted twice. The [scene
-evidence](evidence/us_static_scene_assemblies.md) retains the scene-64 example
+evidence](evidence/assets/models/us_static_scene_assemblies.md) retains the scene-64 example
 and its historical queue totals.
 
 A fingerprint-bound review decision can also name `presentation_equivalent_to`.
@@ -247,14 +247,14 @@ limitations:
   `4f80ae55eeb322a170837319257ed0ab9da58c97`; the 49 restored ROM-only texture-linked
   faces integrate existing evidence. Captured-material precedence and geometry,
   UV and joint buffers are unchanged. Initial UI state is explicit; native
-  opacity and animation remain unresolved. See [UI proof](evidence/us_ui_constructor_materials.md).
+  opacity and animation remain unresolved. See [UI proof](evidence/assets/materials/us_ui_constructor_materials.md).
 - Scene 49 already uses opaque materials. Scene 55's
-  [Blender inspection](evidence/us_scene55_dual_texture_inspection.md) preserves
+  [Blender inspection](evidence/assets/materials/us_scene55_dual_texture_inspection.md) preserves
   its raw GLB and uses a bounded second-TMEM-plane decoder with independent
   texture sampling; a flattened PNG is not equivalent. Scene 53 still needs
   per-view primitive/environment colors. ROM-initial zero scroll is separate
   from a live or first gameplay frame. Preserve the
-  [scene limits](evidence/us_static_scene_assemblies.md#curated-combiner-limits-scenes-49-53-and-55);
+  [scene limits](evidence/assets/models/us_static_scene_assemblies.md#curated-combiner-limits-scenes-49-53-and-55);
   repeating the same source scan does not resolve them.
 
 Gallery publication shares assembly-set verification within each read phase and
@@ -286,4 +286,4 @@ targets share scene 60; source record indices are distinguished from combined
 indices and live actor slots. Use repeatable `--entry` values for other decimal
 bank-01 identities. The result is evidence, not a selected render preset or
 acceptance decision. See the [alpha
-frontier](evidence/us_character_alpha_frontier.md).
+frontier](evidence/assets/materials/us_character_alpha_frontier.md).

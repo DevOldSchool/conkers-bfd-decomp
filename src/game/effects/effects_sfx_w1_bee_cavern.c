@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/effects/effects_sfx_w1_bee_cavern.c
- * Boundary evidence: docs/evidence/game_beta_camera_rope_bee.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_beta_camera_rope_bee.md
  *
  * TODO: Implement these source-unit functions:
  * - func_150BDF0C

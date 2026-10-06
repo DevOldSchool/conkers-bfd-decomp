@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_AD9B0.c
- * Boundary evidence: docs/evidence/game_raw_periodic_actor_resource_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_periodic_actor_resource_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15080784
@@ -13,7 +13,7 @@
  */
 
 /* Semantic names retain numeric linkage.
- * Evidence: docs/evidence/naming/actor_resource_controller_helper_semantics.md
+ * Evidence: docs/evidence/matching/naming/actor_resource_controller_helper_semantics.md
  */
 #define actor_resource_request func_15080500
 #define actor_resource_set_persistent_request func_15080620

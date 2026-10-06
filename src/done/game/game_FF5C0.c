@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_FF5C0.c
- * Boundary evidence: docs/evidence/game_raw_periodic_actor_resource_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_periodic_actor_resource_groups.md
  */
 
 /* Keep address symbols for linking and registered match evidence. */

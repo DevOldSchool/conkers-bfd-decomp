@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_AEB40.c
- * Boundary evidence: docs/evidence/game_raw_core_state_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_core_state_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15081690
@@ -397,7 +397,7 @@ s8 func_15084D00(void *);
  * defaults, and updates the animation-model byte. A nonzero bank-0F route count
  * gates caching the resolved bank-02 ROM/archive address at +0x58; zero leaves
  * that cache unchanged.
- * See docs/evidence/actor_representation_selection_semantics.md.
+ * See docs/evidence/assets/naming/actor_representation_selection_semantics.md.
  */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150837D4 CURRENT (568) */
 void func_150837D4(s32 arg0, s32 arg1, s32 arg2) {
@@ -462,7 +462,7 @@ extern u8 *D_800D1C90[];
 void func_15036C70(void *);
 
 /* Semantic role: actor_apply_character_defaults (shared, not character-specific).
- * See docs/evidence/character_semantic_naming.md; keep the linked symbol stable.
+ * See docs/evidence/assets/naming/character_semantic_naming.md; keep the linked symbol stable.
  */
 void actor_apply_character_defaults(void *actor, s32 modelIndex, void *spawnRecord) {
     u16 spawnOverride;
@@ -902,7 +902,7 @@ extern u8 *D_800D1C90[];
 /* Semantic role: actor_load_representation_resources.
  * Load bank-11 defaults and bank-0F routes for the spawn model's representation
  * list. arg1 is unused here; arg2 is forwarded without assigning it a role.
- * See docs/evidence/actor_representation_asset_semantics.md.
+ * See docs/evidence/assets/naming/actor_representation_asset_semantics.md.
  */
 void actor_load_representation_resources(u8 *spawnRecord, s32 arg1, s32 arg2) {
     s32 modelCount;
@@ -940,7 +940,7 @@ void actor_load_representation_resources(u8 *spawnRecord, s32 arg1, s32 arg2) {
 /* Semantic role: actor_get_override_or_base_representation_model.
  * Override selector zero uses the first model, not the applied ordinal at +1C8.
  * Nonzero selectors are one-based; no sentinel or bounds normalization occurs.
- * See docs/evidence/actor_representation_selection_semantics.md.
+ * See docs/evidence/assets/naming/actor_representation_selection_semantics.md.
  */
 u8 actor_get_override_or_base_representation_model(void *actor) {
     u8 representationOverrideSelector;
@@ -955,7 +955,7 @@ u8 actor_get_override_or_base_representation_model(void *actor) {
  * A nonzero override selects its one-based entry; otherwise use the last
  * automatic entry, or entry zero when the automatic count is zero.
  * Optionally output that ordinal; no sentinel or bounds normalization occurs.
- * See docs/evidence/actor_representation_selection_semantics.md.
+ * See docs/evidence/assets/naming/actor_representation_selection_semantics.md.
  */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150849CC CURRENT (235) */
 u8 func_150849CC(void *arg0, s32 *arg1) {

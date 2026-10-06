@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_3C740.c
- * Boundary evidence: docs/evidence/game_raw_scene_setup_emission_controller.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_scene_setup_emission_controller.md
  *
  * TODO: Implement these source-unit functions:
  * - func_1500F290

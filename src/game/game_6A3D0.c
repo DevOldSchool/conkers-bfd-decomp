@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_6A3D0.c
- * Boundary evidence: docs/evidence/game_raw_resource_helper_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_resource_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_1503CF20
@@ -28,7 +28,7 @@
 
 /* Semantic role: model_load_bank01_resources.
  * Install model-indexed geometry/draw/texture tables; this is a shared loader.
- * See docs/evidence/actor_representation_asset_semantics.md.
+ * See docs/evidence/assets/naming/actor_representation_asset_semantics.md.
  */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503CF20.s")
 void asset_relocate_untagged_offset(s32 *, s32);
@@ -65,7 +65,7 @@ void func_1503D368(s8 *arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D368.s")
 /* Semantic role: asset_relocate_untagged_offset (shared with display lists).
  * Only nonzero values with (value & 0x0F000000) == 0 receive the base address.
- * See docs/evidence/actor_representation_asset_semantics.md.
+ * See docs/evidence/assets/naming/actor_representation_asset_semantics.md.
  */
 void asset_relocate_untagged_offset(s32 *offsetSlot, s32 baseAddress) {
     s32 offset;
@@ -92,7 +92,7 @@ extern s16 D_800C5A90[];
 /* Semantic role: animation_routes_relocate_event_offsets.
  * Eight-byte routes end at descriptor 999; optional event offsets at +4 are
  * relative to the route-record base. Store the route count by model index.
- * See docs/evidence/actor_representation_asset_semantics.md.
+ * See docs/evidence/assets/naming/actor_representation_asset_semantics.md.
  */
 void animation_routes_relocate_event_offsets(u8 *routeRecord, s32 modelIndex) {
     u16 *routeBase;
@@ -276,7 +276,7 @@ extern s32 D_800D1C90[];
 
 /* Semantic role: model_load_bank11_defaults.
  * The first relocated descriptor pointer becomes D_800D1C90[modelIndex].
- * See docs/evidence/actor_representation_asset_semantics.md.
+ * See docs/evidence/assets/naming/actor_representation_asset_semantics.md.
  */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D774 CURRENT (317) */
 s32 func_1503D774(s32 arg0, void *arg1) {
@@ -473,7 +473,7 @@ extern u16 D_800C5628[];
 
 /* Semantic role: model_load_descriptor_flat_textures.
  * Twelve-byte descriptors supply flat IDs at +4 and receive loaded bases at +0.
- * See docs/evidence/actor_representation_asset_semantics.md.
+ * See docs/evidence/assets/naming/actor_representation_asset_semantics.md.
  */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1503DC3C CURRENT (573) */
 s32 func_1503DC3C(s32 arg0) {

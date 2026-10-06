@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_35D20.c
- * Boundary evidence: docs/evidence/game_compact_multi_function_units.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_compact_multi_function_units.md
  */
 
 extern s32 D_800DCE50[2][104];

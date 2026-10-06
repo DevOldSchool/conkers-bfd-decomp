@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_A28B0.c
- * Boundary evidence: docs/evidence/game_dispatcher_callback_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_dispatcher_callback_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15075400
@@ -1613,7 +1613,7 @@ void func_1507911C(void) {
 /* Semantic role: actor_script_set_representation_override.
  * Script operand D_800D1890 is stored at actor +1C9, or 0xFF if it exceeds
  * total count +2C9. Zero is stored unchanged; this handler does not apply it.
- * See docs/evidence/actor_representation_selection_semantics.md.
+ * See docs/evidence/assets/naming/actor_representation_selection_semantics.md.
  */
 void actor_script_set_representation_override(void) {
     if ((s32) *(u8 *)((u8 *)D_800D154C + 0x2C9) < (s32) D_800D1890) {

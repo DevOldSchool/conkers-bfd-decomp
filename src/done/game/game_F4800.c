@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_F4800.c
- * Boundary evidence: docs/evidence/game_raw_pointer_singletons_final.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_singletons_final.md
  */
 
 typedef struct GameF4800State {

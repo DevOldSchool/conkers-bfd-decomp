@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_1D92B0.c
- * Boundary evidence: docs/evidence/game_raw_directly_called_families.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_directly_called_families.md
  */
 
 extern void func_1516944C(s32 arg0, s8 *arg1, u8 arg2, void *arg3);

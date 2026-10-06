@@ -1,4 +1,4 @@
-/* Original US SDK relocation targets; see docs/evidence/game_sdk_tail_text_bounds.md.
+/* Original US SDK relocation targets; see docs/evidence/libraries/game_sdk_tail_text_bounds.md.
  * Some overlay copies retain calls into the main executable, including calls
  * to functions defined in their own archive member. Explicit assignments
  * preserve those bindings without changing SDK source or object instructions.
@@ -33,7 +33,7 @@ __osPfsSelectBank = 0x100285FC;
 corrupted_init = 0x10028D34;
 corrupted = 0x10028EE8;
 
-/* Additional complete SDK objects: docs/evidence/game_sdk_additional_objects.md. */
+/* Additional complete SDK objects: docs/evidence/libraries/game_sdk_additional_objects.md. */
 __osPiGetAccess = 0x10023720;
 osPiRawReadIo = 0x100267A0;
 __osPiRelAccess = 0x10023764;
@@ -59,7 +59,7 @@ __osEepStatus = 0x151DD710;
 __conker_game_eepPifRam = 0x800E0A30;
 __conker_eeprom_wait = 0x151DCFD8;
 
-/* Controller objects: docs/evidence/game_sdk_controller_objects.md. */
+/* Controller objects: docs/evidence/libraries/game_sdk_controller_objects.md. */
 osGetTime = 0x10024F40;
 osClockRate = 0x8002BD10;
 __ll_mul = 0x10026968;

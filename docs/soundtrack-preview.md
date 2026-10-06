@@ -90,7 +90,7 @@ on program selection, applies held-note volume/pan/bend/pressure, defers sustain
 note release and interrupts envelopes from their current gain. Ordinary note-off
 uses the bank release time; only sustain release has the native 16 ms minimum.
 Pitch increments use the native ratio ceiling and 1/32768 quantization.
-See [the renderer audit](evidence/us_soundtrack_renderer_fidelity.md) for source
+See [the renderer audit](evidence/assets/audio/us_soundtrack_renderer_fidelity.md) for source
 anchors, comparisons and remaining limits.
 
 The default keeps the original one-pass arrangement. `--loop-repeats 1` follows
@@ -122,7 +122,7 @@ coverage, not proof that every entry is music or used during gameplay.
 
 The existing [label map](../config/audio-sequences.json) retains 112 contributor
 identifications, four tentative labels and 33 unknown entries. The
-[listening evidence](evidence/us_music_track_names.md) explains their provenance;
+[listening evidence](evidence/assets/audio/us_music_track_names.md) explains their provenance;
 automated gameplay-recording references are supporting leads, not proof of use.
 No existing confidence is promoted. The gamerip listing’s exact titles and capitalization are canonical vocabulary
 for supported candidates; older album titles remain source-specific aliases; contributor names remain searchable aliases.
@@ -137,7 +137,7 @@ checked on 2026-10-04. Listing order is never mapped to ROM order. Title/context
 leads are marked separately from strong audio-correlation candidates.
 
 All 45 entries now have an explicit review, with a complete table in
-[Retail US album correspondence review](evidence/us_album_correspondences.md).
+[Retail US album correspondence review](evidence/assets/audio/us_album_correspondences.md).
 The soundtrack has 18 tentative entries and no unresolved entries; the unreleased
 listing has 25 tentative entries and two unresolved entries (`electric wires` and
 `zombie attack`). No full recording identity has been independently confirmed by
@@ -235,7 +235,7 @@ The local targeted checkpoint is `build/assets/soundtracks/us-native-review/inde
 select sequence 0066, then use the expanded in-game comparison section. It has
 the complete existing collection plus two bounded Sloprano game mixes and an
 observed-clock six-second resource 0239 cue audition. These do not verify the
-entire boss arrangement. See the [fidelity evidence](evidence/us_soundtrack_renderer_fidelity.md#targeted-sloprano-saved-state-checkpoint)
+entire boss arrangement. See the [fidelity evidence](evidence/assets/audio/us_soundtrack_renderer_fidelity.md#targeted-sloprano-saved-state-checkpoint)
 for measured onset, clock and gain qualifications. No server is needed to open
 the HTML; browser `file://` media and draft-storage policy can vary.
 
@@ -255,7 +255,7 @@ It adds eight short game mixes and one separately labelled measured MP3 clock/le
 experiment, preserving the prior previews and confidence metadata. Save hit 8
 was paused and resumed with one ordinary Start press. There is no exact hit-6
 save. New captures have cheats disabled; earlier health-enabled recordings keep
-their explicit labels. See the [phase evidence](evidence/us_soundtrack_renderer_fidelity.md#later-saved-state-excerpts-and-measured-stream-experiment)
+their explicit labels. See the [phase evidence](evidence/assets/audio/us_soundtrack_renderer_fidelity.md#later-saved-state-excerpts-and-measured-stream-experiment)
 for cue coverage, measured onset/clock qualifications and remaining limitations.
 
 To reproduce just the separate experiment from matching existing local assets:
@@ -315,5 +315,5 @@ reported inter-verse material remains unresolved. Bounded searches cover all 453
 MP3 prefixes, complete eligible MP3s and longer samples across the soundtrack,
 and finer opening templates. Negative matches do not establish absence from the
 game or an album-only variant; native pitch, effects and masking remain possible.
-See [incidental coverage evidence](evidence/us_sloprano_incidental_coverage.md).
+See [incidental coverage evidence](evidence/assets/audio/us_sloprano_incidental_coverage.md).
 Reference audio is never used in the mix. No title confidence is promoted.

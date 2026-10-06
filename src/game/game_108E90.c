@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_108E90.c
- * Boundary evidence: docs/evidence/game_raw_narrow_effect_record_cores.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_narrow_effect_record_cores.md
  *
  * TODO: Implement these source-unit functions:
  * - func_150DB9E0

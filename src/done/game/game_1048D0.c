@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_1048D0.c
- * Boundary evidence: docs/evidence/game_raw_callback_table_runs.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_callback_table_runs.md
  */
 
 void func_150D7420(void *arg0, u8 *arg1, u8 arg2) {

@@ -2,8 +2,8 @@
 
 /*
  * Reviewed source unit: src/game/game_75E60.c
- * Boundary evidence: docs/evidence/game_final_compact_units.md
- * Semantic evidence: docs/evidence/naming/trig_angle_helper_semantics.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_final_compact_units.md
+ * Semantic evidence: docs/evidence/matching/naming/trig_angle_helper_semantics.md
  */
 
 /* Keep address symbols for linking and registered match evidence. */

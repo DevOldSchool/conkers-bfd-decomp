@@ -1,5 +1,5 @@
 // US game callbacks recovered from retail function-pointer tables.
-// Evidence: docs/evidence/game_return_callback_symbols.md
+// Evidence: docs/evidence/boundaries/game/mapping/game_return_callback_symbols.md
 // These names describe addresses only; all bodies remain ROM-derived ASM.
 
 func_150407A0 = 0x150407A0; // type:func size:0x8
@@ -21,7 +21,7 @@ func_1507735C = 0x1507735C; // type:func size:0x8
 
 // Registered empty bodies whose original ASM navigation splits disappear when
 // their source units become C ranges. Preserve these boundaries on clean splits.
-// Evidence: docs/evidence/game_raw_reconciled_empty_stub_splits.md
+// Evidence: docs/evidence/boundaries/game/families/game_raw_reconciled_empty_stub_splits.md
 func_15086C68 = 0x15086C68; // type:func size:0x8
 func_15094E98 = 0x15094E98; // type:func size:0x8
 func_1515BE48 = 0x1515BE48; // type:func size:0x8

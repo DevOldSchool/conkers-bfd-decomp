@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_6E770.c
- * Boundary evidence: docs/evidence/game_raw_call_connected_segments_continued.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_call_connected_segments_continued.md
  *
  * TODO: Implement these source-unit functions:
  * - func_150412C0

@@ -2,8 +2,8 @@
 
 /*
  * Reviewed source unit: src/game/game_71240.c
- * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
- * Semantic evidence: docs/evidence/naming/matrix_helper_semantics.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
+ * Semantic evidence: docs/evidence/matching/naming/matrix_helper_semantics.md
  */
 
 /* Keep address symbols for linking and registered match evidence. */

@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_1AC2F0.c
- * Boundary evidence: docs/evidence/game_raw_callback_state_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_1517EF00
@@ -24,7 +24,7 @@
  */
 
 /* Semantic names retain the original numeric linker symbols.
- * Evidence: docs/evidence/naming/viewport_fade_helper_semantics.md
+ * Evidence: docs/evidence/matching/naming/viewport_fade_helper_semantics.md
  */
 #define viewport_fade_request func_1517EE40
 #define viewport_fade_is_opaque func_1517EFAC

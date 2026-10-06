@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_305D0.c
- * Boundary evidence: docs/evidence/game_early_callback_state_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15003120
@@ -394,7 +394,7 @@ extern s32 D_800B0E5C;
 extern s32 D_800B0E60[];
 
 /* Descriptive role: flat_asset_find_cached_index.
- * Evidence: docs/evidence/model_resource_role_names.md.
+ * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
  */
 s32 flat_asset_find_cached_index(s32 cachedAddress) {
     s32 *cachedAddresses;

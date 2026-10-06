@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_3E460.c
- * Boundary evidence: docs/evidence/game_medium_single_function_units.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_medium_single_function_units.md
  */
 
 void *func_10003C40(s32, s32, s32, s32);

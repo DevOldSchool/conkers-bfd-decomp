@@ -3,7 +3,7 @@
 /*
  * Provisional debugger C collection: debugger UI, rendering, and controller I/O.
  * US virtual range: 0x16000000..0x16001AD0 (exclusive end).
- * Evidence: docs/evidence/us_debugger_overlay.md
+ * Evidence: docs/evidence/debugger/us_debugger_overlay.md
  *
  * Original source-object ownership remains unreviewed; this collection is
  * not registered as a source unit. All 28 registered spans have individual

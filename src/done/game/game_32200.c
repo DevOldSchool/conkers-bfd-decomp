@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_32200.c
- * Boundary evidence: docs/evidence/game_remaining_single_function_units_up_to_256_bytes.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_single_function_units_up_to_256_bytes.md
  */
 
 void *func_10003C40(s32, s32, s32, s32);

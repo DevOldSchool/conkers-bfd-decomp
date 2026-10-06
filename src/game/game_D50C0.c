@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_D50C0.c
- * Boundary evidence: docs/evidence/game_raw_handwritten_entry_families.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_handwritten_entry_families.md
  *
  * TODO: Implement these source-unit functions:
  * - func_150A7C10

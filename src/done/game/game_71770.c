@@ -2,8 +2,8 @@
 
 /*
  * Reviewed source unit: src/game/game_71770.c
- * Boundary evidence: docs/evidence/game_remaining_single_function_units_up_to_256_bytes.md
- * Semantic evidence: docs/evidence/naming/vector_transform_helper_semantics.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_single_function_units_up_to_256_bytes.md
+ * Semantic evidence: docs/evidence/matching/naming/vector_transform_helper_semantics.md
  */
 
 /* Keep address symbols for linking and registered match evidence. */

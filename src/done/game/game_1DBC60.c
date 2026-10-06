@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_1DBC60.c
- * Boundary evidence: docs/evidence/game_raw_direct_call_singletons.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_call_singletons.md
  */
 
 u32 func_1513418C(void *, s32, u8, s32);

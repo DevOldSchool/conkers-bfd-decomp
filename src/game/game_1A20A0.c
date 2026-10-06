@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_1A20A0.c
- * Boundary evidence: docs/evidence/game_raw_model_debris_family.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_model_debris_family.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15174BF0

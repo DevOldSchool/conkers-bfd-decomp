@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_100810.c
- * Boundary evidence: docs/evidence/game_raw_owner_audio_effect.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_owner_audio_effect.md
  *
  * TODO: Implement these source-unit functions:
  * - func_150D3360

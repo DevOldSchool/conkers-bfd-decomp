@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/main/init_30A0.c
- * Boundary evidence: docs/evidence/main_system_wrapper_boundaries.md
+ * Boundary evidence: docs/evidence/boundaries/main/main_system_wrapper_boundaries.md
  */
 
 /* Keep address symbols for linking and registered match evidence. */

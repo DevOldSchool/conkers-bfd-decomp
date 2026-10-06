@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/effects/effects_sight.c
- * Boundary evidence: docs/evidence/game_beta_sight.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_beta_sight.md
  *
  * TODO: Implement these source-unit functions:
  * - func_151C71A0

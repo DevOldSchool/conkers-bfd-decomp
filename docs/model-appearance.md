@@ -88,7 +88,7 @@ Capture-scoped contracts retain reviewed evidence identities; ordinary export
 needs the shipped contract and authenticated ROM/catalogs, not raw capture
 files. Independent capture re-auditing requires the corresponding evidence
 inputs and is a separate operation. See [audit tools and input
-requirements](evidence/us_model_evidence_audits.md).
+requirements](evidence/assets/models/us_model_evidence_audits.md).
 
 ### Scene60 and Library155
 
@@ -112,7 +112,7 @@ The captured preset retains 1,625 vertices/UVs, 45 joints and 15 stored clips /
 291 frames. All 1,226 source faces are retained, including collinear face 345.
 Only run 16 receives the captured selector 15 texture. Initial
 descriptor0/default bindings remain unchanged. See [the capture and ROM
-proof](evidence/us_haybot_appearance.md).
+proof](evidence/assets/materials/us_haybot_appearance.md).
 
 The ROM variant preset emits three static choices. Its updater/descriptor and
 pixel checks support selectors 15/16/17, but do not establish when a phase ran,
@@ -157,27 +157,27 @@ The ordinary bank09 export uses fail-closed ROM-consumer contexts when no
 capture material takes precedence. Source geometry remains separately available
 for validation and accounting.
 
-- [Script object213](evidence/us_script_object_materials.md): selector13 and its
+- [Script object213](evidence/assets/materials/us_script_object_materials.md): selector13 and its
   initial callback-disabled object state bind four faces
-- [Particle203](evidence/us_particle203_material.md): the initial type16 renderer
+- [Particle203](evidence/assets/materials/us_particle203_material.md): the initial type16 renderer
   supplies lookup/combiner state for 20 faces and 4,096 texels; dynamic draw alpha
   remains unknown
-- [UI162/164](evidence/us_ui_constructor_materials.md): copied display-list state
+- [UI162/164](evidence/assets/materials/us_ui_constructor_materials.md): copied display-list state
   and first-draw texture binding resolve 20/29 faces; later blink state is separate
-- [Special attachments165/185](evidence/us_special_attachment_materials.md):
+- [Special attachments165/185](evidence/assets/materials/us_special_attachment_materials.md):
   explicit initial/correlated phase bindings resolve 29/16 faces across six runs;
   model185's remaining external-texture faces are outside those bindings
 
 ## Metadata diagnostics and coverage
 
 [Expression constructor
-reports](evidence/us_expression_attachment_constructors.md) decode six ordered
+reports](evidence/assets/models/us_expression_attachment_constructors.md) decode six ordered
 requests across five action programs for attachment models 132,15,16,18. The
 canonical fields are action fields; expression u16+6 is not an attachment
 lifetime and is ignored by these kind 1/2 constructors. Requests do not prove
 allocation, placement or playback.
 
-[Event diagnostics](evidence/us_model_event_activation.md) inspect bounded
+[Event diagnostics](evidence/assets/models/us_model_event_activation.md) inspect bounded
 source-consumer routes:
 
 ```sh
@@ -197,7 +197,7 @@ script-start requests, four linked to initial model 162 tracks. Neither report
 proves event admission, actor creation, visibility, a gameplay route or
 appearance.
 
-[Coverage](evidence/us_model_coverage.md) recomputes guarded ROM material
+[Coverage](evidence/assets/models/us_model_coverage.md) recomputes guarded ROM material
 fallbacks and uses full-source face/run identities. Optional ROM character
 inspection presets are a separate, off-by-default dimension. Static missing-PNG
 counts, combiner-aware batch blockers, exported faces, runtime observations and

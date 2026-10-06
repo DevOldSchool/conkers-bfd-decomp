@@ -265,7 +265,7 @@ segments:
       - [0xA8050, c, game/game_D5500]
       - [0xA81A0, c, game/game_D5650]
       # Text-resident constants and format strings; the callable tail is split.
-      # Evidence: docs/evidence/game_reconciled_text_data_tail_aa470.md
+      # Evidence: docs/evidence/boundaries/game/mapping/game_reconciled_text_data_tail_aa470.md
       - {start: 0xA9C40, type: data, name: game/data/D_150A9C40, linker_section_order: .text}
       - [0xAA470, c, game/game_D7920]
       - [0xAA4D0, c, game/game_D7980]
@@ -530,7 +530,7 @@ segments:
       - [0x11FC20, c, done/game/game_14D0D0]
       - [0x11FC60, c, game/game_14D110]
       - [0x1219D0, c, game/game_14EE80]
-      - [0x121C80, c, game/game_14F130]
+      - [0x121C80, c, done/game/game_14F130]
       - [0x1220D0, c, game/game_14F580]
       - [0x122440, c, game/game_14F8F0]
       - [0x122AE0, c, game/camera/camera_camera]
@@ -693,7 +693,7 @@ segments:
       - [0x1B2060, c, game/game_1DF510]
       - [0x1B2950, c, game/game_1DFE00]
       - [0x1B2FD0, c, done/game/game_1E0480]
-      - [0x1B3040, c, game/game_1E04F0]
+      - [0x1B3040, c, done/game/game_1E04F0]
       - [0x1B30B0, c, game/effects/holtenrope]
       - [0x1B4CD0, c, done/game/game_1E2180]
       - [0x1B4FE0, c, done/game/game_1E2490]
@@ -747,7 +747,7 @@ segments:
       - [0x1DCDE0, c, game/game_20A290]
       - [0x1DCEF0, c, game/game_20A3A0]
       # Exact Rare EEPROM overrides; complete reconstruction evidence is in
-      # docs/evidence/game_libultrare_eeprom_variant_boundaries.md.
+      # docs/evidence/libraries/game_libultrare_eeprom_variant_boundaries.md.
       - [0x1DD140, lib, libultrare, conteepread, .text]
       - [0x1DD3A0, lib, libultrare, conteeplongread, .text]
       - [0x1DD460, lib, libultrare, conteepprobe, .text]
@@ -758,7 +758,7 @@ segments:
       - [0x1DE8F0, c, game/game_20BDA0]
       - [0x1E24F0, c, game/game_20F9A0]
       - [0x1E84B0, c, game/game_215960]
-      # Reviewed SDK archive extents: docs/evidence/game_sdk_additional_objects.md.
+      # Reviewed SDK archive extents: docs/evidence/libraries/game_sdk_additional_objects.md.
       - [0x1EF040, lib, libultra_2_0G, piread, .text]
       - [0x1EF080, lib, libultra_2_0G, sqrtf, .text]
       - [0x1EF090, lib, libultra_2_0G, controller, .text]
@@ -786,7 +786,7 @@ segments:
       - [0x1F3DE0, lib, libultrare, decoder, .text]
       - [0x1F7F60, lib, libultrare, main, .text]
       # Verified complete Rare MP3 bit/Huffman utility object.
-      # Evidence: docs/evidence/libultrare_us_mp3_util_boundaries.md
+      # Evidence: docs/evidence/libraries/libultrare_us_mp3_util_boundaries.md
       - [0x1F8870, lib, libultrare, util, .text]
       - [0x1F8CF0, lib, libultrare, lib_46650, .text]
       - [0x1F9BF0, lib, libultrare, lib_47550, .text]

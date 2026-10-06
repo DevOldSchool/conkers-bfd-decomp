@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_76E50.c
- * Boundary evidence: docs/evidence/game_raw_direct_call_singletons.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_call_singletons.md
  *
  * TODO: Implement these source-unit functions:
  * - func_150499A0

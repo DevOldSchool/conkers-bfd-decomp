@@ -17,9 +17,9 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY_PATH = ROOT / "config/model-semantic-names.json"
-REGISTRY_SHA256 = "0800fb16d69e25626036dd53e89c2747e9732be9d00c8cb68ff54c7930be48b2"
+REGISTRY_SHA256 = "785854978bcab515c90d304caa2f22ef36a512e8d3ae233e4f483c35597fce06"
 CONFIDENCE_PATH = ROOT / "config/model-name-confidence.json"
-CONFIDENCE_SHA256 = "a42fc54ec182f697236e0a524778c58f5a59f595cd88e2ead05f1dbc2f723bb2"
+CONFIDENCE_SHA256 = "d5b8317ea18e52aa0f31c9eaf8236fa058be14953aa1e900c163a5f735517fc3"
 SUPPORTED_BANKS = (0x01, 0x03, 0x04, 0x09)
 NAME_KIND = "reviewed-descriptive-model-label"
 CONFIDENCE_STATUSES = {

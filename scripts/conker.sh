@@ -52,6 +52,8 @@ Getting started
                                  Integrate or finalize eligible reviewed units with one build per image.
   normalize-source-headers       Move reviewed source-unit comments below includes.
   normalize-done-sources         Move completed sources into src/done/<overlay>/.
+  relocate-evidence --map <json> [--apply]
+                                 Preview or apply evidence moves and update tracked references.
   next [--one [--details]]       List functions ready to claim; optionally show one with local context.
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
     [--function ID]              With --ready or --one, select one known eligible item; no fallback.
@@ -557,6 +559,9 @@ command="${1:-help}"
 shift || true
 
 case "$command" in
+    relocate-evidence)
+        python3 "$repo_root/scripts/evidence_paths.py" "$@"
+        ;;
     host-setup|host-check)
         [[ $# -eq 0 ]] || die "usage: ./conker $command"
         python3 "$repo_root/scripts/host_environment.py" "${command#host-}"

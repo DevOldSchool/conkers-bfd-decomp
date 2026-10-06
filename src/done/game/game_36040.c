@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_36040.c
- * Boundary evidence: docs/evidence/game_small_multi_function_units.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_small_multi_function_units.md
  */
 
 void func_15008BB0(void);
