@@ -168,7 +168,7 @@ extern u8 D_80040AE0[];
 extern MessageQueue D_80041298;
 extern MessageQueue D_800416F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80008F90 CURRENT (2611) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80008F90 CURRENT (1846) */
 void func_80008F90(AudioDriverConfig *config, s32 priority, AudioDeviceConfig *device) {
     u32 rounded;
     AudioEffectParameters effects;
@@ -197,8 +197,9 @@ void func_80008F90(AudioDriverConfig *config, s32 priority, AudioDeviceConfig *d
     }
     rate = 184;
     D_80040F8C = ((rounded / rate) * rate) + rate;
-    D_80040F88 = D_80040F8C - 184;
-    D_80040F90 = D_80040F8C + 0x54;
+    rounded = D_80040F8C;
+    D_80040F88 = rounded - 184;
+    D_80040F90 = rounded + 0x54;
     D_80040F84 = 0;
     effects = D_8002AE54;
     config->params[0] = effects.values[0];
@@ -216,9 +217,10 @@ void func_80008F90(AudioDriverConfig *config, s32 priority, AudioDeviceConfig *d
             dma->next->prev = dmaNext;
         }
         dma->next = dmaNext;
-        dma++;
+        rounded = (u32)func_80012844(0, 0, config->heap, 1, 0x800);
         dmaNext++;
-        dma[-1].buffer = func_80012844(0, 0, config->heap, 1, 0x800);
+        dma++;
+        dma[-1].buffer = (u8 *)rounded;
     } while ((u32)dmaNext < (u32)D_80040AC8);
     dma->buffer = func_80012844(0, 0, config->heap, 1, 0x800);
     func_800226F0(D_80040AC8, 0x4B0);
