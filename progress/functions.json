@@ -95362,8 +95362,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 323,
-        "reason": "Checkpoint97 full1428 CURRENT331->323 packing-only independently restored25f1ff7a. Pair real sound/handle halfwords and move existing bus into former handle reservation; frameC8/all output homes intact, promotedhandle spill74->78 (raw7C). Factored unsigned stride1053 rejected with135register rows. Residual initialoffsetV0/rawFP, quotientA2/rawV0, spill78/raw7C and merged finalSH/body4short. No ABI/shared/ASM changes.",
+        "current_score": 298,
+        "reason": "Checkpoint98 full1428 CURRENT323->298 independently restored91a76d22. Existing bus/quotient temporary shares mutually exclusive real integer phases; separate existing eventValue fixes all5 quotientV0 rows, frameC8/outputhomes/FP unchanged. Four revisions: panOut/bus union756 shrinksframeC0; separate scopedpayload1928 recoversquotient but promotes pan-addressFP; integerreuse298 retained; emittedelse writeback1838 swaps handle/pan and wrongjoins. Residual first3offsetregistersV0/rawFP, handle78/raw7C, merged successSH/body4short. No ABI/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

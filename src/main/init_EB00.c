@@ -1344,12 +1344,12 @@ extern u8 D_800BE615;
 typedef s32 (*SoundRecordCallback)(void *, s32 *, u32 *, s32 *, s32 *,
                                     s32 *, u16 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011624 CURRENT (323) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011624 CURRENT (298) */
 void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
     SoundArrayRecord *record;
     u32 flags;
     s32 pan;
-    s32 bus;
+    s32 temporary;
     u32 volume;
     s32 active;
     s32 distance;
@@ -1365,7 +1365,7 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
     s32 offset;
     s32 *panOut;
     s32 fxmix;
-    s32 velocity;
+    s32 eventValue;
     f32 ratio;
     f32 unclampedRatio;
     f32 pitchDelta;
@@ -1448,15 +1448,15 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
                     if (handle == 0) {
                         if (flags & 0xC00) {
                             if ((flags & 0xC00) == 0x400) {
-                                bus = 0;
+                                temporary = 0;
                             } else {
-                                bus = 1;
+                                temporary = 1;
                             }
                         } else {
-                            bus = D_80041FD9;
+                            temporary = D_80041FD9;
                         }
                         handle = func_80010BE8(0, sound, (u16)volume,
-                                             (u8)pan, cents, fxmix, bus);
+                                             (u8)pan, cents, fxmix, temporary);
                         if (handle != 0) {
                             flags |= 1;
                             record->field0 = sound;
@@ -1472,11 +1472,11 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
                             func_8000F85C(handle, 0x100, fxmix);
                         }
                         if (flags & 4) {
-                            velocity = ((u16)record->field28 - distance) * D_800BE9E4 / 3;
-                            if (velocity >= 0x16F) {
+                            temporary = ((u16)record->field28 - distance) * D_800BE9E4 / 3;
+                            if (temporary >= 0x16F) {
                                 ratio = 2.0f;
                             } else {
-                                unclampedRatio = D_8002C400 / (f32)(0x16F - velocity);
+                                unclampedRatio = D_8002C400 / (f32)(0x16F - temporary);
                                 ratio = unclampedRatio;
                                 if (unclampedRatio > 2.0f) {
                                     ratio = 2.0f;
@@ -1488,9 +1488,9 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
                             pitchDelta = pitch.value - record->pitch;
                             pitch.value = record->pitch + pitchDelta * D_8002C404;
                         }
-                        velocity = pitch.bits;
+                        eventValue = pitch.bits;
                         if (pitch.value != record->pitch) {
-                            func_8000F85C(handle, 0x11, velocity);
+                            func_8000F85C(handle, 0x11, eventValue);
                         }
                     }
                     record->field28 = distance;
