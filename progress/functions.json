@@ -93338,7 +93338,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1400,
-        "reason": "Checkpoint59 full556 CURRENT1400 attemptc3a719ae improves1467. Actual bufferBytes intermediate recovers exactframe40 and all12 stack rows without extra earlier physical spill; unsigned bytecount shift recovers boundaryADDU operand order. Three revisions: signedbytes1405, declarationorder neutral1405, unsignedbytes1400. Remaining samples/bytes/end registerroles V0/T4/T5 versusT4/T5/V0, MMIO extraADDIU, taskboot-end commoning and scheduling. Prior physicalsplit/latecopy/boot-arithmetic/MMIO/inputhome families exhausted. No shared/ABI/ASM changes, added access or artificial pressure.",
+        "reason": "Checkpoint77 full556 preferred CURRENT1400 independently restoredbef8b62c. Three new manual revisions: actual byte-pointer boot span1400 neutral; bytecount-only scope1395 adds an unwanted MOVE and only improves aggregate alignment; joint bytecount/end scope1400 restores original sequence. Prefer original1400 with exact frame40/all stack homes and unsigned boundary ADDU order. Remaining MMIO extra ADDIU, sample/end register roles, and boot-end CSE. Prior physical split/latecopy, signed boot arithmetic, field forwarding and declaration-order families exhausted. No supported distinct followup; no shared/ABI/ASM changes or artificial storage/permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
