@@ -94033,8 +94033,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4794,
-        "reason": "Checkpoint92 full1100 CURRENT4794 independently restored c507a06a. Seven manual revisions5229/5229/5219/5024/4794/5258/8225; retained implicit u8 call conversion, word loadedmask, guarded remainder initialization and consumed-mask loop snapshot. Separate activeMask5258 and persistent globaladdress8225 rejected after two nonimprovements. FrameB8/raw98, messageB4/raw94, maskA8/raw80, saved-register order and final levels pointer spill remain. Prior switch/scopedlocals/signedmask/advancingcursor attempts exhausted. No ABI/shared/ASM changes or permutation.",
+        "current_score": 1817,
+        "reason": "Checkpoint107 full1100 CURRENT1817 independently restored0664228a, improved4794 after10manual revisions. Direct mode/index/timestamp expressions and direct level/queue/flag/slot indexing remove redundant namedbindings; actual record snapshot retained. Existinglocal ordering recovers exactframe98/message94/step8C/masks80. Automatic levelbase now preserved T0/stack acrosspausecalls, bitA2/stepfieldA3 recovered. Directrecord4706 extra reload, forwardgoto6482 wrongbodyorder/frame90, scoped decayvalue4143 unroll4/frameA0 rejected. Remaining slot6C/raw70 andlevel54/raw58 homes, savedregister/temp roles, initial mask copy anddefaultmode branch scheduling. No ABI/shared/ASM/tool changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
