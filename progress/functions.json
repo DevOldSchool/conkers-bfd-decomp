@@ -94052,8 +94052,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3869,
-        "reason": "Preserve typed sequence activation/update at CURRENT3869; fresh baseline6132 (historical5820). Three new supported forms3869/4761/4414 exhausted. Restored and independently rechecked3869 after full rollback of seven source-local narrow helper declaration experiments: CDA0 regressed785, E654250, source unit+8. Status-before-slot ordering and actual fullword arg0/byte channel reads retained; fullword slot index and three float callback inputs unchanged. Remaining frame30vs40, scaled index snapshot, pointer reloads/lifetimes and field/address scheduling unresolved. No further equivalent object, mask, declaration, frame or snapshot shaping without independent new evidence; no dummy storage/padding, unsupported narrowing, shared dependencies or permutation.",
+        "current_score": 726,
+        "reason": "Checkpoint90 full1120 CURRENT726 independently restored a06cbd50; improved3869 after12manual revisions. Recovered offset2C, record snapshots, byte channel accesses, owner guard, raw field symbols, postcall CD40 slot stores and ordered halfword chain. Exact opcode/control/length; remaining frame38/raw40,status34/raw3C,baseT9/rawT8,resetconstantT5/rawV0 and temp lineage. Signed byteoffset neutral, typedindex1891/signedindex1820 mis-schedule, namedhalfword/chain neutral. Best retained; no shared/ABI/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

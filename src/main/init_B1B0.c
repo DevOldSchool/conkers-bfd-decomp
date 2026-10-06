@@ -1045,10 +1045,21 @@ void func_80008660(s32, s32, s32, s32);
 void func_80008C04(s32, s32, s32);
 s32 func_80008CE8(s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000D2F8 CURRENT (3869) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000D2F8 CURRENT (726) */
 void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+    typedef struct {
+        SequenceCallback callback;
+        u8 pad4[12];
+    } CallbackEntry;
+    typedef struct {
+        u8 markerCount;
+        u8 pad1[15];
+    } MarkerEntry;
+    extern CallbackEntry D_8002B07C[];
+    extern MarkerEntry D_8002B080[];
     s32 status;
     s32 channel;
+    s32 offset;
     SequenceRecordState **slot;
     SequenceRecordState *record;
     SequenceRecordState *child;
@@ -1057,20 +1068,21 @@ void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     s32 i;
 
     channel = (u8)((u32 *)&arg0)[0];
-    status = func_8000853C((u8)((u32 *)&channel)[0]);
-    slot = &D_800417B0[(s32)((u32 *)&arg0)[0]];
+    status = func_8000853C(channel);
+    offset = (s32)((u32 *)&arg0)[0] * sizeof(*slot);
+    slot = (SequenceRecordState **)((u8 *)D_800417B0 + offset);
     record = *slot;
     if (record != 0) {
         if (record->field24 != 0 &&
             func_8000CDA0(((u8 *)record)[0x23], record->owner)) {
-            func_80008C6C((u8)((u32 *)&channel)[0], ((*slot)->field24 - 1) & 0xFF);
+            func_80008C6C(((u8 *)&channel)[3], ((*slot)->field24 - 1) & 0xFF);
             record = *slot;
             if (record->volumeOverride != 0) {
                 record->current = record->volumeOverride;
                 (*slot)->target = record->volumeOverride;
+                record = *slot;
             }
-            (*slot)->current4C = 0x7FFF;
-            (*slot)->value = 0x7FFF;
+            (*slot)->value = record->current4C = 0x7FFF;
             func_8000CC54((s32)((u32 *)&arg0)[0]);
             (*slot)->field24 = 0;
             (*slot)->field20 = 0;
@@ -1088,7 +1100,7 @@ void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
                     func_8000B294(*slot);
                     child = (*slot)->state;
                     if (child->id > 0) {
-                        if (func_80008CE8((u8)((u32 *)&channel)[0], child->id) == -1) {
+                        if (func_80008CE8(((u8 *)&channel)[3], child->id) == -1) {
                             (*slot)->state->owner = 0;
                             (*slot)->state->startMask = 0;
                             func_8000B3D4((*slot)->state, 0);
@@ -1098,26 +1110,29 @@ void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
                             *slot = (*slot)->state;
                             (*slot)->index = (s32)((u32 *)&arg0)[0];
                             (*slot)->startMask = 0;
-                            D_800418A0[(s32)((u32 *)&arg0)[0]] = 0;
-                            D_80041890[(s32)((u32 *)&arg0)[0]] = 0;
-                            D_80041880[(s32)((u32 *)&arg0)[0]] = 0;
-                            if (D_8002B074[(*slot)->id].markerCount != 0) {
-                                func_80008C04((u8)((u32 *)&channel)[0], D_8002B074[(*slot)->id].markerCount, 0x64);
+                            *(s32 *)((u8 *)D_800418A0 + offset) = 0;
+                            *(s32 *)((u8 *)D_80041890 + offset) = 0;
+                            *(s32 *)((u8 *)D_80041880 + offset) = 0;
+                            record = *slot;
+                            if (D_8002B080[record->id].markerCount != 0) {
+                                func_80008C04(((u8 *)&channel)[3], D_8002B080[record->id].markerCount, 0x64);
+                                record = *slot;
                             }
-                            if ((*slot)->field24 != 0) {
-                                func_80008C6C((u8)((u32 *)&channel)[0], ((*slot)->field24 - 1) & 0xFF);
+                            if (record->field24 != 0) {
+                                func_80008C6C(((u8 *)&channel)[3], (record->field24 - 1) & 0xFF);
                                 (*slot)->field24 = 0;
+                                record = *slot;
                             }
-                            (*slot)->current = 0;
+                            record->current = 0;
                             func_8000CC54((s32)((u32 *)&arg0)[0]);
-                            func_800084D8((u8)((u32 *)&channel)[0]);
+                            func_800084D8(((u8 *)&channel)[3]);
                             if ((*slot)->flags38 != 0) {
-                                func_800088F0((u8)((u32 *)&channel)[0], (*slot)->flags38, 0);
+                                func_800088F0(((u8 *)&channel)[3], (*slot)->flags38, 0);
                             }
                             i = 0;
                             do {
                                 if ((*slot)->pad3C[i] != 0) {
-                                    func_80008660((u8)((u32 *)&channel)[0], i & 0xFF, (*slot)->pad3C[i], 1);
+                                    func_80008660(((u8 *)&channel)[3], i & 0xFF, (*slot)->pad3C[i], 1);
                                     (*slot)->pad3C[i] = 0;
                                 }
                                 i++;
@@ -1133,7 +1148,7 @@ void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
                 }
             } else if (func_8000CDA0(((u8 *)child)[0x1B], child->owner)) {
                 (*slot)->pauseMode = 0;
-                func_80008F24((u8)((u32 *)&channel)[0]);
+                func_80008F24(((u8 *)&channel)[3]);
             }
             record = *slot;
         } else if (record->id == 0) {
@@ -1145,26 +1160,25 @@ void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
         }
         if (record != 0) {
             if (record->id > 0) {
-                callback = D_8002B074[record->id].callback;
+                callback = D_8002B07C[record->id].callback;
                 if (callback != 0) {
-                    (*slot)->callbackState = callback(record->callbackState, (u8)((u32 *)&channel)[0], arg1, arg2, arg3);
+                    (*slot)->callbackState = callback(record->callbackState, ((u8 *)&channel)[3], arg1, arg2, arg3);
                     record = *slot;
                 }
             }
             if (func_8000CDA0(((u8 *)record)[0x1F], record->owner)) {
                 record = *slot;
-                record->current4C = func_8000CD40(record->current4C, record->value, (u16)record->duration);
+                (*slot)->current4C = func_8000CD40(record->current4C, record->value, (u16)record->duration);
                 record = *slot;
-                record->current52 = func_8000CD40(record->current52, record->target54, (u16)record->duration56);
+                (*slot)->current52 = func_8000CD40(record->current52, record->target54, (u16)record->duration56);
                 record = *slot;
-                record->current58 = func_8000CD40(record->current58, record->target5A, (u16)record->duration5C);
+                (*slot)->current58 = func_8000CD40(record->current58, record->target5A, (u16)record->duration5C);
                 (*slot)->fadeMask = 0;
             }
             func_8000CC54((s32)((u32 *)&arg0)[0]);
             record = *slot;
-            owner = record->owner;
             if (record->ownerSync != 0 &&
-                (owner == 0 || owner == record || owner->id <= 0 ||
+                ((owner = record->owner) == 0 || owner == record || owner->id <= 0 ||
                  record->id <= 0 || owner->index < 0)) {
                 record->ownerSync = 0;
                 record = *slot;
