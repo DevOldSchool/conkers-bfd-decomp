@@ -3,7 +3,7 @@
 /*
  * Reviewed source unit: src/game/game_1AB530.c
  * Boundary evidence: docs/evidence/game_raw_indexed_controller_view_worklist.md
- * Semantic evidence: docs/evidence/display_list_helper_semantics.md
+ * Semantic evidence: docs/evidence/naming/display_list_helper_semantics.md
  *
  * TODO: Implement these source-unit functions:
  * - func_1517E28C

@@ -13,7 +13,7 @@
  */
 
 /* Semantic names retain numeric linkage.
- * Evidence: docs/evidence/actor_resource_controller_helper_semantics.md
+ * Evidence: docs/evidence/naming/actor_resource_controller_helper_semantics.md
  */
 #define actor_resource_request func_15080500
 #define actor_resource_set_persistent_request func_15080620

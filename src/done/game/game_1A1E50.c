@@ -3,7 +3,7 @@
 /*
  * Reviewed source unit: src/game/game_1A1E50.c
  * Boundary evidence: docs/evidence/game_raw_structural_families_continued.md
- * Semantic evidence: docs/evidence/display_list_helper_semantics.md
+ * Semantic evidence: docs/evidence/naming/display_list_helper_semantics.md
  */
 
 /* Keep address symbols for linking and registered match evidence. */

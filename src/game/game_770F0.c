@@ -3,7 +3,7 @@
 /*
  * Reviewed source unit: src/game/game_770F0.c
  * Boundary evidence: docs/evidence/game_raw_preserved_helper_groups.md
- * Semantic evidence: docs/evidence/vector_transform_helper_semantics.md
+ * Semantic evidence: docs/evidence/naming/vector_transform_helper_semantics.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15049CB8

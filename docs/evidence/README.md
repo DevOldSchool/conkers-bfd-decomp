@@ -83,6 +83,10 @@ for supported presets and the separation between ROM facts and captured state.
 
 ## Semantic naming
 
+For completed C helpers, use the grouped [function naming evidence](naming/README.md)
+index and its shared scope/verification policy. The model and asset records below
+remain separate because their identities and confidence contracts differ.
+
 Start with [confidence, authentication and reproduction](model_name_confidence_review.md).
 A ROM/model hash authenticates a source; it does not confirm a name, qualifier,
 actor identity, runtime state or visibility. The notes below preserve unique

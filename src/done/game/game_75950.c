@@ -3,7 +3,7 @@
 /*
  * Reviewed source unit: src/game/game_75950.c
  * Boundary evidence: docs/evidence/game_medium_single_function_units.md
- * Semantic evidence: docs/evidence/trig_angle_helper_semantics.md
+ * Semantic evidence: docs/evidence/naming/trig_angle_helper_semantics.md
  */
 
 /* Keep address symbols for linking and registered match evidence. */

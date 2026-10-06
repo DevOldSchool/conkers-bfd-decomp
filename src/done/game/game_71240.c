@@ -3,7 +3,7 @@
 /*
  * Reviewed source unit: src/game/game_71240.c
  * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
- * Semantic evidence: docs/evidence/matrix_helper_semantics.md
+ * Semantic evidence: docs/evidence/naming/matrix_helper_semantics.md
  */
 
 /* Keep address symbols for linking and registered match evidence. */

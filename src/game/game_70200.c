@@ -4,7 +4,7 @@
  * Reviewed source unit: src/game/game_70200.c
  * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
  * HUD layout naming evidence: docs/evidence/hud_layout_semantics.md
- * Ring helper evidence: docs/evidence/record_ring_helper_semantics.md
+ * Ring helper evidence: docs/evidence/naming/record_ring_helper_semantics.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15043384

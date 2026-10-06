@@ -3,7 +3,7 @@
 /*
  * Reviewed source unit: src/game/game_75FC0.c
  * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
- * Semantic evidence: docs/evidence/vector_transform_helper_semantics.md
+ * Semantic evidence: docs/evidence/naming/vector_transform_helper_semantics.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15048C30

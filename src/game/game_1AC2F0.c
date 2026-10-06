@@ -24,7 +24,7 @@
  */
 
 /* Semantic names retain the original numeric linker symbols.
- * Evidence: docs/evidence/viewport_fade_helper_semantics.md
+ * Evidence: docs/evidence/naming/viewport_fade_helper_semantics.md
  */
 #define viewport_fade_request func_1517EE40
 #define viewport_fade_is_opaque func_1517EFAC
