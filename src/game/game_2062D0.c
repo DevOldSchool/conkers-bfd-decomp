@@ -19,7 +19,6 @@
  * - func_151DA368
  * - func_151DA6F8
  * - func_151DA938
- * - func_151DAA88
  * - func_151DADA0
  * - func_151DAE28
  * - func_151DB5D0
@@ -584,29 +583,25 @@ typedef struct {
     u8 padC[8];
 } Game2062D0Position;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DA938 CURRENT (2172) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DA938 CURRENT (1578) */
 s32 func_151DA938(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
                    s32 arg5) {
-    struct {
-        f32 x;
-        f32 y;
-        f32 z;
-    } position;
+    f32 position[3];
     Game2062D0Position *base;
     u8 *effect;
 
     base = *(Game2062D0Position **)(arg0 + 0x94);
     effect = *(u8 **)(arg0 + 0x98);
-    position.y = arg4 + 2.0f;
-    position.x = base[*(s8 *)(arg0 + 0x2D)].x;
-    position.z = base[*(s8 *)(arg0 + 0x2D)].z;
+    position[0] = base[*(s8 *)(arg0 + 0x2D)].x;
+    position[1] = arg4 + 2.0f;
+    position[2] = base[*(s8 *)(arg0 + 0x2D)].z;
     if (func_150ADA20() & 1) {
-        func_151D9B8C(effect[0x50], *(f32 *)effect * 3.0f * *(f32 *)(effect + 0x48),
-                       effect[0x1B], arg5, &position.x, 0x64, 0, 1, 0,
+        func_151D9B8C(effect[0x50], *(f32 *)(effect + 0x48) * (*(f32 *)effect * 3.0f),
+                       effect[0x1B], arg5, position, 0x64, 0, 1, 0,
                        arg0[0xC], arg0[1]);
     } else {
-        func_151DAB58(effect[0x50], *(f32 *)effect * D_800AB49C * *(f32 *)(effect + 0x48),
-                       effect[0x1B], &position.x, 1, arg0[0xC], arg0[1]);
+        func_151DAB58(effect[0x50], *(f32 *)(effect + 0x48) * (*(f32 *)effect * D_800AB49C),
+                       effect[0x1B], position, 1, arg0[0xC], arg0[1]);
     }
     *(s8 *)(effect + 0x20) = 4;
     return 1;
@@ -615,7 +610,6 @@ s32 func_151DA938(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DA938.s")
 void func_151D9FC0(u8, f32, u8, s32, f32 *, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DAA88 CURRENT (653) */
 s32 func_151DAA88(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
                   s32 arg5) {
     typedef struct {
@@ -624,25 +618,21 @@ s32 func_151DAA88(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
         f32 field_8;
         u8 pad_C[8];
     } Entry;
-    u8 *saved_state;
-    f32 position[3];
-    Entry *table;
     u8 *state;
+    Entry *table;
+    f32 position[3];
 
     table = *(Entry **)((u8 *)arg0 + 0x94);
     state = *(u8 **)((u8 *)arg0 + 0x98);
-    position[1] = arg4;
     position[0] = table[*(s8 *)((u8 *)arg0 + 0x2D)].field_0;
+    position[1] = arg4;
     position[2] = table[*(s8 *)((u8 *)arg0 + 0x2D)].field_8;
-    saved_state = state;
-    func_151D9FC0(state[0x50], (*(f32 *)state * 11.0f) *
-                    *(f32 *)(state + 0x4C), state[0x1B], arg5, position,
+    func_151D9FC0(state[0x50], *(f32 *)(state + 0x4C) *
+                    (*(f32 *)state * 11.0f), state[0x1B], arg5, position,
                     *(u8 *)((u8 *)arg0 + 0xC), *(u8 *)((u8 *)arg0 + 1));
-    saved_state[0x20] = 4;
+    state[0x20] = 4;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DAA88 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DAA88.s")
 typedef struct Game1DAB58Packet {
     u8 kind, mode;
     s16 flags;

@@ -263,7 +263,7 @@ void func_wrapper(s32 arg0) {
                 context = m2c_helper.prepare_m2c_context(source)
 
             self.assertEqual(
-                temporary_root / "build" / "m2c" / "context" / "game" / "test.c",
+                temporary_root / "build" / "m2c" / "context" / "us" / "game" / "test.c",
                 context,
             )
             assert context is not None
@@ -293,7 +293,7 @@ void func_wrapper(s32 arg0) {
                 )
 
             self.assertIn("--context", command)
-            self.assertIn("build/m2c/context/game/test.c", command)
+            self.assertIn("build/m2c/context/us/game/test.c", command)
             self.assertEqual("build/m2c/game/func_test.s", command[-1])
 
     def test_mips_to_c_command_skips_unsupported_source_directives(self) -> None:

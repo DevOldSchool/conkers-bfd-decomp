@@ -63,18 +63,24 @@ extern s32 D_800DDD64;
 extern s32 D_800DF7C8;
 extern s32 D_800DF7D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150081E4 CURRENT (1690) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150081E4 CURRENT (30) */
 void func_150081E4(void) {
-    u8 *var_v1;
+    u32 var_v1;
+    u32 end;
 
     D_800D3668 = 0;
     D_800CBE00 = 0;
     D_800DDD64 = 0;
-    var_v1 = (u8 *)&D_800DF7C8;
-    do {
+    end = (u32)&D_800DF7D0;
+    var_v1 = (u32)&D_800DF7C8;
+clear_words:
+    {
         var_v1 += 4;
         *(s32 *)(var_v1 - 4) = 0;
-    } while (var_v1 != (u8 *)&D_800DF7D0);
+    }
+    if (var_v1 != end) {
+        goto clear_words;
+    }
     D_800D245C = 0;
     D_800D2548 = 0;
 }

@@ -37,7 +37,6 @@
  * - func_15163FEC
  * - func_151640C0
  * - func_15164134
- * - func_1516429C
  * - func_151643A8
  * - func_151645C4
  *
@@ -1724,19 +1723,14 @@ void *func_15164208(s32 arg0, u8 arg1, u8 arg2, s32 arg3) {
 }
 extern f32 D_800A6B10;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516429C CURRENT (6405) */
 s32 func_1516429C(void *arg0) {
     f32 value;
-    s32 integer_value;
 
+    *(s8 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 0x2F) = (s8)(u32)*(f32 *)((u8 *)arg0 + 0x18);
     value = *(f32 *)((u8 *)arg0 + 0x18);
-    integer_value = (s32)value;
-    *(s8 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 0x2F) = (s8)integer_value;
     *(f32 *)((u8 *)arg0 + 0x18) = value - (value * D_800A6B10);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1516429C */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516429C.s")
 void func_1516434C(void *arg0, void *arg1, u8 arg2) {
     void *temp_v0;
 

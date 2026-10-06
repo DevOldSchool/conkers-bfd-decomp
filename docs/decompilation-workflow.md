@@ -88,8 +88,32 @@ and parser caches remain under ignored `build/m2c/context/` output. Keep private
 or partial structures in their owning C file; promote them to a real header only
 when recovered cross-source use requires one. This improves starter field names
 and type propagation without creating a second maintained copy of declarations.
-Sources with unsupported conditional preprocessing safely fall back to an
-untyped starter. Context-informed output is still not match evidence.
+When the lightweight context extraction cannot handle includes, macros or
+conditionals, the wrapper uses the pinned IDO preprocessor with the profile's
+actual compiler flags. This follows active conditional branches and included
+headers; it does not import disabled candidate bodies. Unknown pragmas that
+could affect layout fail closed. A failed recovery reports its reason and
+keeps the untyped starter. Inspect this path with
+`./conker m2c-context --profile us src/game/<source>.c`.
+Context-informed output is still not match evidence.
+
+Context artifacts live under `build/m2c/context/<profile>/`, with a JSON sidecar
+recording the extraction method, content hash and any failure. Compiler-backed
+context is regenerated on each invocation so header and macro changes cannot
+silently reuse old declarations; unchanged content retains the m2c parser cache.
+
+To explicitly use a local fork for host generation:
+
+```sh
+CONKER_MIPS_TO_C=/absolute/path/to/m2c-conker/m2c.py ./conker next --ready
+```
+
+The wrapper validates that path and uses its package directory for Python
+imports. Invalid overrides fail rather than falling back to another generator.
+Without an override it retains the pinned cached tool. The call-evidence JSON
+records the selected generator path, requested options, Python-source hash,
+Git revision when available, and source-context hash. The content hash captures
+uncommitted generator changes as well as committed versions.
 
 Call context prefers active declarations in the allowed source, then reviewed
 SDK aliases. When those are absent, a unique active definition in the registered

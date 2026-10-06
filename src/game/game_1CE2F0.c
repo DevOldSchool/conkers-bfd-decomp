@@ -325,24 +325,31 @@ extern u8 D_800BE616;
 extern s32 (*D_8008F8E0[])(u8 *, s32, s32, s32);
 s32 func_1513170C(u8 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A2960 CURRENT (719) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A2960 CURRENT (492) */
 void func_151A2960(u8 *arg0, s32 arg1) {
-    s16 current;
-    s8 callback_index;
+    struct State {
+        s16 threshold;
+        s16 multiplier;
+        s16 current;
+        s8 callback_index;
+    } *state;
+    s32 current;
+    s32 callback_index;
 
+    state = (struct State *)(arg0 + 0xB0);
     if (*(s16 *)(arg0 + 0x1A) < *(s16 *)(arg0 + 0xB0)) {
         *(s8 *)(arg0 + 0x2C) = (s8)(*(s16 *)(arg0 + 0xB2) *
                                     *(s16 *)(arg0 + 0x1A));
     }
     if (D_800BE616 == 0) {
-        current = *(s16 *)(arg0 + 0xB4);
+        current = state->current;
         if (current != -1) {
-            callback_index = *(s8 *)(arg0 + 0xB6);
+            callback_index = state->callback_index;
             if ((callback_index != -1) &&
                 (current >= *(s16 *)(arg0 + 0x1A))) {
-                D_8008F8E0[(u8)callback_index](arg0, current,
+                D_8008F8E0[callback_index](arg0, current,
                                                *(s16 *)(arg0 + 0x1A), -1);
-                *(s16 *)(arg0 + 0xB4) = -1;
+                state->current = -1;
             }
         }
     }

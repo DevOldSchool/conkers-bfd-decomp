@@ -77,31 +77,35 @@ extern s8 D_800D9939;
 extern Game3D9A0Bytes4 D_800D993A;
 extern s8 D_800D9946;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15010600 CURRENT (1945) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15010600 CURRENT (330) */
 void func_15010600(void) {
     Game3D9A0Bytes4 *var_a0;
     Game3D9A0Bytes4 *var_v1;
+    u32 end;
 
     D_800D9921 = 0;
     D_800D9920 = 0;
     D_800D9928 = 0;
     D_800D9938 = 0;
     D_800D9929 = 0;
+    end = (u32)&D_800D9946;
     var_a0 = &D_800D993A;
     var_v1 = &D_800D992A;
     D_800D9939 = 0;
-    do {
-        var_a0++;
-        var_v1->byte1 = 0;
-        var_a0[-1].byte1 = 0;
-        var_v1->byte2 = 0;
-        var_a0[-1].byte2 = 0;
-        var_v1->byte3 = 0;
-        var_a0[-1].byte3 = 0;
-        var_v1++;
-        var_v1[-1].byte0 = 0;
-        var_a0[-1].byte0 = 0;
-    } while ((s8 *)var_a0 != &D_800D9946);
+clear_record:
+    var_a0++;
+    var_v1->byte1 = 0;
+    var_a0[-1].byte1 = 0;
+    var_v1->byte2 = 0;
+    var_a0[-1].byte2 = 0;
+    var_v1->byte3 = 0;
+    var_a0[-1].byte3 = 0;
+    var_v1++;
+    var_v1[-1].byte0 = 0;
+    var_a0[-1].byte0 = 0;
+    if ((u32)var_a0 != end) {
+        goto clear_record;
+    }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15010600 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_3D9A0/func_15010600.s")

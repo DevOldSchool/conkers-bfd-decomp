@@ -575,7 +575,7 @@ f32 func_1515F008(s32 arg0, s32 arg1) {
 
     temp_v1 = (s16 *)arg0 + arg1;
     value = *temp_v1;
-    value = *(u16 *)((u8 *)temp_v1 + 0x20) | (value << 0x10);
+    value = *(u16 *)((u8 *)temp_v1 + 0x20) | (value * 0x10000);
     return (f32)value * 0.000015258789f;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515F008 */

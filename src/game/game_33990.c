@@ -28,25 +28,17 @@ extern s32 D_800C3A68[];
 extern s32 D_800C3C88[];
 extern s8 D_800D2E45;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150064E0 CURRENT (4915) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150064E0 CURRENT (30) */
 void func_150064E0(void) {
-    s32 *var_v0;
+    s32 index;
+    u64 (*table)[69];
 
     func_15017790();
-    D_800C3A60 = 0;
-    D_800C3A64 = 0;
-    var_v0 = D_800C3A68;
+    table = (u64 (*)[69])&D_800C3A60;
+    index = 0;
     do {
-        var_v0 += 8;
-        var_v0[-1] = 0;
-        var_v0[-2] = 0;
-        var_v0[-3] = 0;
-        var_v0[-4] = 0;
-        var_v0[-5] = 0;
-        var_v0[-6] = 0;
-        var_v0[-7] = 0;
-        var_v0[-8] = 0;
-    } while (var_v0 != D_800C3C88);
+        (*table)[index++] = 0;
+    } while (index < 69);
     D_800BE3DF = 0x18;
     D_800BE3E8 = 0;
     D_800D2E45 = 1;
@@ -62,19 +54,25 @@ extern u16 D_800BE358;
 extern u8 D_800BE3D8[];
 extern u8 D_800BE900[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500707C CURRENT (1833) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500707C CURRENT (993) */
 void func_1500707C(s32 arg0) {
     s32 i;
     s32 index;
     s32 next_index;
     s32 unused;
     u8 *flags;
+    u8 *entry;
+    u32 buffer;
 
-    i = 0;
-    do {
-        ((u8 *)&D_800BE358)[i] = 0xFF;
-        i++;
-    } while (i < 8);
+    buffer = (u32)&D_800BE358;
+    index = 0;
+clear_loop:
+    entry = (u8 *)(buffer + index);
+    index++;
+    *entry = 0xFF;
+    if (index < 8) {
+        goto clear_loop;
+    }
     func_10024F10();
     flags = D_800BE3D8;
     index = 0;
@@ -83,8 +81,8 @@ void func_1500707C(s32 arg0) {
             i = (index * 0x10) + 4;
             if (arg0 == *(s8 *)flags) {
                 next_index = i + 1;
-                unused = func_151DD4E0(D_800BE900, i & 0xFF, &D_800BE358);
-                func_151DD4E0(D_800BE900, next_index & 0xFF, &D_800BE358);
+                unused = func_151DD4E0(D_800BE900, i & 0xFF, (u8 *)buffer);
+                func_151DD4E0(D_800BE900, next_index & 0xFF, (u8 *)buffer);
             }
             index++;
             flags++;
@@ -237,38 +235,37 @@ copy_loop:
 #endif /* CONKER_DEFERRED_CANDIDATE func_15007440 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_33990/func_15007440.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15007558 CURRENT (1859) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15007558 CURRENT (1589) */
 void func_15007558(void) {
     volatile s32 result;
-    s8 *src;
-    u8 *dst;
-    void *data;
+    u32 dst;
     s32 checksum;
     s32 next;
     s32 shift;
     s8 value;
 
-    src = &D_800E0BE0;
-    dst = &D_800BE358;
+    checksum = (s32)&D_800E0BE0;
+    dst = (u32)&D_800BE358;
     do {
-        value = *src;
-        src++;
+        value = *(s8 *)checksum;
+        checksum++;
         dst++;
-        dst[1] = value;
-    } while ((u32)src < (u32)&D_800E0BFC);
+        *(u8 *)(dst + 1) = value;
+    } while ((u32)checksum < (u32)&D_800E0BFC);
 
     checksum = 0xCC;
-    data = &D_800BE35A;
+    dst = (u32)&D_800BE35A;
     shift = 2;
 loop:
-        next = (checksum +
-                (((u8 *)data)[0] << (shift & 3)) +
-                (((u8 *)data)[1] << ((shift + 1) & 3)) +
-                (((u8 *)data)[2] << ((shift + 2) & 3)) +
-                (((u8 *)data)[3] << ((shift + 3) & 3))) & 0xFFFF;
+        checksum = (checksum +
+                (((u8 *)dst)[0] << (shift & 3)) +
+                (((u8 *)dst)[1] << ((shift + 1) & 3)) +
+                (((u8 *)dst)[2] << ((shift + 2) & 3)) +
+                (((u8 *)dst)[3] << ((shift + 3) & 3)));
+        next = checksum & 0xFFFF;
         shift += 4;
         checksum = next;
-        data = (u8 *)data + 4;
+        dst += 4;
     if (shift != 0x1E) {
         goto loop;
     }
@@ -335,9 +332,11 @@ extern u8 D_800D2E60[];
 extern u8 D_800D2E69[];
 extern u8 *D_800D2E4C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15007778 CURRENT (4795) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15007778 CURRENT (1090) */
 void func_15007778(void) {
-    u8 *dst;
+    u32 dst;
+    u32 end;
+    u8 *entry;
     s8 *flags;
     s32 i;
 
@@ -350,14 +349,22 @@ void func_15007778(void) {
     D_800BE3DC = -1;
     D_800BE3DE = 0;
     D_80082BC0 = 1;
-    for (i = 0; i < 0x1B; i++) {
-        D_800D2E4C[i] = 0;
+    i = 0;
+clear_data:
+    entry = D_800D2E4C + i;
+    i++;
+    *entry = 0;
+    if (i < 0x1B) {
+        goto clear_data;
     }
-    dst = D_800D2E60;
-    do {
-        ++dst;
-        dst[-1] = 0;
-    } while (dst < D_800D2E69);
+    end = (u32)D_800D2E69;
+    dst = (u32)D_800D2E60;
+clear_flags:
+    dst++;
+    *(u8 *)(dst - 1) = 0;
+    if (dst < end) {
+        goto clear_flags;
+    }
     flags = (s8 *)D_800BE3D8;
     flags[0] = -1;
     flags[1] = -1;

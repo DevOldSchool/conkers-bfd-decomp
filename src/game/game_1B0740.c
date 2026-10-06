@@ -28,7 +28,7 @@ void func_15183ACC(s32); /* extern */
 void *func_1502B6BC(s32, s32, s32, s32, s32, s32);
 extern u8 D_800DDF69[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151838B0 CURRENT (525) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151838B0 CURRENT (58) */
 void func_151838B0(s32 arg0) {
     u8 *temp_v1;
     void *temp_v0;
@@ -42,9 +42,9 @@ void func_151838B0(s32 arg0) {
         if (temp_v0 != 0) {
             *(void **)(temp_v1 + 0x14) = temp_v0;
             *(s32 *)(temp_v1 + 0x18) = *(s32 *)temp_v0;
+            *(s32 *)(temp_v1 + 0x1C) = *(s32 *)((u8 *)temp_v0 + 8);
             *(s32 *)(temp_v1 + 0x24) = 0;
             *(s32 *)(temp_v1 + 0x20) = *(s32 *)(temp_v1 + 0xC);
-            *(s32 *)(temp_v1 + 0x1C) = *(s32 *)((u8 *)temp_v0 + 8);
             D_800DDF69[arg0] = 1;
         }
     }

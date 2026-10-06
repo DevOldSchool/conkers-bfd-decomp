@@ -357,15 +357,15 @@ void func_15063B64(Game90840Actor *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15063B64 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063B64.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15063C60 CURRENT (12810) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15063C60 CURRENT (40) */
 Game90840Actor *func_15063C60(Game90840Actor *arg0, s32 arg1) {
-    Game90840Actor *actor;
+    s32 index;
 
-    for (actor = D_800CC2D0; actor != &D_800CC2D0[25]; actor++) {
-        if ((*(s32 *)actor != 0) &&
-            (arg1 == actor->pad0[4]) &&
-            (((arg0 - D_800CC2D0) + 1) == actor->pad20[0x45])) {
-            return actor;
+    for (index = 0; index < 25; index++) {
+        if ((*(s32 *)&D_800CC2D0[index] != 0) &&
+            (arg1 == D_800CC2D0[index].pad0[4]) &&
+            (((arg0 - D_800CC2D0) + 1) == D_800CC2D0[index].pad20[0x45])) {
+            return &D_800CC2D0[index];
         }
     }
     return 0;

@@ -27,7 +27,6 @@
  * - func_151CAD28
  * - func_151CB110
  * - func_151CB5FC
- * - func_151CB970
  * - func_151CBBE0
  * - func_151CBC60
  * - func_151CC1D4
@@ -709,7 +708,6 @@ extern f32 D_800AAEB4;
 extern f32 D_800BE9A4;
 f32 func_151CC1D4(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CB970 CURRENT (70) */
 s32 func_151CB970(u8 *arg0) {
     f32 temp_fa0;
     f32 temp_fv0;
@@ -740,11 +738,9 @@ s32 func_151CB970(u8 *arg0) {
         *(s8 *)((u8 *)arg0 + 0x2E) = temp_t2;
     }
     temp_fv0 = *(f32 *)((u8 *)temp_v1 + 0x14);
-    *(f32 *)((u8 *)temp_v1 + 0x14) = (f32) (temp_fv0 + ((255.0f - temp_fv0) * D_800AAEB4));
+    *(f32 *)((u8 *)temp_v1 + 0x14) += (255.0f - temp_fv0) * D_800AAEB4;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CB970 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB970.s")
 typedef struct SightEffect20 {
     u8 pad0[0x20];
     SightActor *owner;

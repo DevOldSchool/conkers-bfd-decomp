@@ -1314,7 +1314,7 @@ void func_1502F490(Game58F80Actor *, f32 *, f32 *, f32 *, s32);
 extern u8 D_800CC2D0;
 extern u8 D_800D121C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502F3C8 CURRENT (979) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502F3C8 CURRENT (969) */
 void func_1502F3C8(void) {
     Game58F80Actor *actor;
     f32 limit;
@@ -1327,9 +1327,9 @@ void func_1502F3C8(void) {
             other_index = actor->field_274;
             if (other_index != 0) {
                 actor->field_18 = actor->field_180;
-                func_1502F490((Game58F80Actor *) ((u8 *) &D_800CC2D0 + (other_index * 0x32C) - 0x32C), &actor->field_14, &actor->field_18, &actor->field_1C, actor->field_19E);
-                current = actor->field_18;
+                func_1502F490((Game58F80Actor *) ((u32) &D_800CC2D0 + (other_index * 0x32CU) - 0x32CU), &actor->field_14, &actor->field_18, &actor->field_1C, actor->field_19E);
                 limit = actor->field_180;
+                current = actor->field_18;
                 if (current < limit) {
                     actor->field_18 = limit;
                 } else {

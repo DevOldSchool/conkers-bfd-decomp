@@ -342,19 +342,24 @@ s32 func_1503D804(s32 arg0) {
 extern s32 D_800C4488;
 extern s16 D_800C5918;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D984 CURRENT (2195) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D984 CURRENT (330) */
 void func_1503D984(s32 arg0) {
-    s16 count;
+    u32 count;
     s32 stream;
-    u32 **list;
-    u32 *record;
+    u32 *start;
+    u32 list;
+    u32 record;
     s8 tag;
 
     count = 0;
-    list = (u32 **)((u8 *)&D_800C4488 + (arg0 * 4));
-    for (stream = 0; stream < 4; stream++, list++) {
-        record = *list;
-        tag = (s8)(record[0] >> 24);
+    list = *(u32 *)((u32)&D_800C4488 + (u32)arg0 * 4U);
+    stream = 0;
+next_stream:
+    {
+        start = *(u32 **)list;
+        stream += 4;
+        tag = (s8)(start[0] >> 24);
+        record = (u32)start;
         while (tag != -0x21) {
             if (tag == 5) {
                 count += 1;
@@ -363,11 +368,15 @@ void func_1503D984(s32 arg0) {
             } else if ((tag >> 4) == 1) {
                 count += 4;
             }
-            record += 2;
-            tag = (s8)(record[0] >> 24);
+            record += 8;
+            tag = (s8)(*(u32 *)record >> 24);
         }
     }
-    *(s16 *)((u8 *)&D_800C5918 + (arg0 * 2)) = count;
+    list += 4;
+    if (stream != 4) {
+        goto next_stream;
+    }
+    *(s16 *)((u32)&D_800C5918 + (u32)arg0 * 2U) = count;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1503D984 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D984.s")

@@ -9,7 +9,6 @@
  * - func_15130A9C
  * - func_15131828
  * - func_151319C4
- * - func_15131B7C
  * - func_15131C84
  * - func_15131D4C
  * - func_15131EE4
@@ -383,17 +382,14 @@ extern f32 D_800A384C;
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15131B7C CURRENT (295) */
 s32 func_15131B7C(void *arg0, s32 arg1, void *arg2, void *arg3) {
     f32 temp_fv0;
-    f32 old_58 = *(f32 *)((u8 *)arg0 + 0x58);
-    f32 old_5c = *(f32 *)((u8 *)arg0 + 0x5C);
 
     *(f32 *)((u8 *)arg0 + 0x44) = (f32) ((*(f32 *)((u8 *)arg0 + 0x3C) * D_800A3848) + *(f32 *)((u8 *)arg2 + 4));
-    *(f32 *)((u8 *)arg0 + 0x58) = (f32) (old_58 * *(f32 *)((u8 *)arg3 + 4));
-    *(f32 *)((u8 *)arg0 + 0x5C) = (f32) (old_5c * -*(f32 *)((u8 *)arg3 + 4));
+    *(f32 *)((u8 *)arg0 + 0x58) *= *(f32 *)((u8 *)arg3 + 4);
+    *(f32 *)((u8 *)arg0 + 0x5C) *= -*(f32 *)((u8 *)arg3 + 4);
     temp_fv0 = fabsf(*(f32 *)((u8 *)arg0 + 0x5C));
-    *(f32 *)((u8 *)arg0 + 0x60) = (f32) (*(f32 *)((u8 *)arg0 + 0x60) * *(f32 *)((u8 *)arg3 + 4));
+    *(f32 *)((u8 *)arg0 + 0x60) *= *(f32 *)((u8 *)arg3 + 4);
     if (temp_fv0 < D_800A384C) {
         *(f32 *)((u8 *)arg0 + 0x58) = 0.0f;
         *(f32 *)((u8 *)arg0 + 0x5C) = 0.0f;
@@ -404,8 +400,6 @@ s32 func_15131B7C(void *arg0, s32 arg1, void *arg2, void *arg3) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15131B7C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15131B7C.s")
 typedef void (*Game15D730Callback)(void *, s32, u8);
 
 extern Game15D730Callback D_80089878[];

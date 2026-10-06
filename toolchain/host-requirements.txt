@@ -1,0 +1,8 @@
+# Host helpers and the complete mandatory batch test suite. Python >= 3.12.
+PyYAML==6.0.3
+numpy==2.5.3
+scipy==1.18.1
+soundfile==0.14.0
+cffi==2.1.1
+pycparser==3.0
+typing-extensions==4.16.0

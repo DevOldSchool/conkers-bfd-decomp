@@ -23,19 +23,23 @@ extern u8 D_800DC46A[];
 extern u8 D_800DC63A[];
 extern s32 D_800DC63C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500C2A0 CURRENT (2695) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500C2A0 CURRENT (90) */
 void func_1500C2A0(void) {
     u8 *var_v1;
+    u32 end;
 
-    var_v1 = D_800DC46A;
     D_800DC468 = 0;
-    do {
-        var_v1 += 8;
-        *(s16 *)(var_v1 - 6) = 0;
-        *(s16 *)(var_v1 - 4) = 0;
-        *(s16 *)(var_v1 - 2) = 0;
-        *(s16 *)(var_v1 - 8) = 0;
-    } while (var_v1 != D_800DC63A);
+    end = (u32)D_800DC63A;
+    var_v1 = D_800DC46A;
+clear_entry:
+    var_v1 += 8;
+    *(s16 *)(var_v1 - 6) = 0;
+    *(s16 *)(var_v1 - 4) = 0;
+    *(s16 *)(var_v1 - 2) = 0;
+    *(s16 *)(var_v1 - 8) = 0;
+    if ((u32)var_v1 != end) {
+        goto clear_entry;
+    }
     D_800DC460 = 0;
     D_800DC464 = 0;
     D_800DC63C = 0;

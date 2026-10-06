@@ -15,15 +15,14 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C02A0/func_15192DF0.s")
 void func_1516972C(u8 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15193234 CURRENT (1817) */
-void func_15193234(void *arg0, void *arg1, s32 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15193234 CURRENT (275) */
+void func_15193234(void *arg0, void *arg1, u8 arg2) {
     s32 temp_a0;
     s32 temp_v1;
     u8 *temp_v0;
 
-    arg2 &= 0xFF;
+    temp_v0 = (u8 *)arg0 + 0x28;
     if (arg2 == 0x2D) {
-        temp_v0 = (u8 *)arg0 + 0x28;
         temp_a0 = *(s32 *)temp_v0;
         temp_v1 = *(s32 *)arg1;
         if (temp_v1 == temp_a0) {
@@ -35,10 +34,12 @@ void func_15193234(void *arg0, void *arg1, s32 arg2) {
             *(s32 *)temp_v0 = temp_v1;
             *(u8 *)(temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 8);
         }
-    } else if ((arg2 == 0) &&
-               ((*(s32 *)arg1 == *(s32 *)((u8 *)arg0 + 0x28)) ||
-                (*(u8 *)((u8 *)arg0 + 0x2C) == *(u8 *)((u8 *)arg1 + 4)))) {
-        func_1516972C((u8 *)arg0);
+    } else if (arg2 == 0) {
+        temp_v1 = *(s32 *)arg1;
+        if ((temp_v1 == *(s32 *)temp_v0) ||
+            (temp_v0[4] == *(u8 *)((u8 *)arg1 + 4))) {
+            func_1516972C((u8 *)arg0);
+        }
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15193234 */

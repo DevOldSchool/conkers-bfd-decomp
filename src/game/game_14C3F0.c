@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1511EF40
- * - func_1511F31C
  * - func_1511F4D0
  * - func_1511F788
  *
@@ -19,16 +18,17 @@ void func_1511490C(void *, s32);
 s32 func_151149AC(u8);
 extern s32 D_800BE9F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511F31C CURRENT (784) */
 void func_1511F31C(u8 *arg0) {
     u8 transform[0x48];
     f32 x;
     f32 y;
     f32 z;
     s32 object;
+    u16 type;
 
+    type = *(u16 *)(arg0 + 0x3E);
     if ((*(u16 *)(arg0 + 0x54) == 0x8005) && (D_800BE9F0 == 0x35)) {
-        object = func_151149AC(*(u16 *)(arg0 + 0x3E) & 0xFF);
+        object = func_151149AC(type);
         if (object != 0) {
             func_1511490C(transform, object);
             func_150A7960(transform, -3.0f, 223.0f, 549.0f, &x, &y, &z);
@@ -38,8 +38,6 @@ void func_1511F31C(u8 *arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1511F31C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_14C3F0/func_1511F31C.s")
 extern s32 D_800BE9E4;
 
 void func_1511F3E8(void *arg0) {
