@@ -92826,7 +92826,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1401,
-        "reason": "Checkpoint83 full1032 improved CURRENT2001 to1401, independently restored290b279c. Four manual revisions: direct prev-before-next2206, next-before-prev1816, snapshot after taggedSize1401, consumed arg2 blocksize1572 rejected. Retain direct next-link assignment before prev plus snapshot after complete header init: recovers missing raw reload and reverse-split scheduling, removes all opcode/control differences and17 register differences. Remaining frame78 versus70/table homes+4, uncached free-tail base and register allocation. Prior lifetime/type/address families remain exhausted. No shared dependencies, ABI, ASM or compiler changes.",
+        "reason": "Checkpoint109 full1032 best CURRENT1401 independently restored625699182cc94a6484d9b1647d3451da. Two new manual hypotheses rejected: remove recomputable end pointer1437 (38cde298, frame78 unchanged/tablehomes another4 higher); consumed arg2 reused for actual oldNext snapshots5669 (f5fb9c23, A2 precolor and remainder spills/control regressions). Best post-size link reload retained. Remaining frame78/raw70, tablehomes+4, free-tail address rematerialization and75 register rows. Prior aligned-address removal, table scopes, explicit tail address, signed remainder, blockSize argument reuse and pointer/type families exhausted. No ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
