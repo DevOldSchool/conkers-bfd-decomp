@@ -93523,7 +93523,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 685,
-        "reason": "Checkpoint55 full780 CURRENT685 restored after two new forms. Late saved-anchor snapshots plus consumed-anchor traversal recover both missing copies but worsen register allocation (725 d7be0c9d); busy-first/cleanup-else adds branch mismatch (935 363435d6). Original best retains exact frame78/allhomes; foundMOVE vsLI, two missing anchor copies/registerroles and extra cleanupB/MOVE remain. Prior13forms and new transition/branch-layout forms exhausted; no ABI/shared/ASM changes.",
+        "reason": "Checkpoint113 full780 best CURRENT685 independently restored5b8f5d4973754008adb5499da0bae3da. Two new hypotheses rejected: cursor assignment in do condition1590 07b2f1bb loses busy likelybranch/backedge preload; byte found flag685 cf794d1f replaces MOVE with ANDI A1,S2,FF instead of raw LI. Best signedflag/twoadvance candidate retained, exact frame78/allhomes. Remaining found constant, two missing anchor copies/register roles and extra cleanupB/MOVE. Prior loops/anchor/global/snapshot families exhausted. No sourcegain, ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
