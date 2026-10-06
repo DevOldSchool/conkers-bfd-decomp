@@ -92990,7 +92990,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Checkpoint89 one new byte-offset queue address hypothesis neutral CURRENT60, full296 only ADDU scheduling between constant LUI/ORI. Simpler indexed candidate independently restored c72bbc3204eb49038bf823919b885142. Prior index/scope/union/limit/clamp forms exhausted; no new distinct supported followup. No ABI/shared/ASM changes.",
+        "reason": "Checkpoint99 full296 CURRENT60 independently restored36d7b9f2. Two loop forms rejected: entryfor260 keeps all registers/frame but moves BEQZ afterqueue arithmetic, ADDUdelay; guardedentryfor532 retains duplicate sizeguard and shifts13savedregister rows. Original guard/do retained, sole queueADDU interleaved between limit LUI/ORI. No new sourcegain, shared/ABI/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94869,7 +94869,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 8,
-        "reason": "Checkpoint93 full104 CURRENT8 independently restored f543b4d6. Consumed index formal reused for real byteoffset recovers frame20 and base-first ADDU, leaving only record SW/LW18 vs raw1C. Real u16 handle snapshot10 recovers1C but growsframe28; rejected. Two new revisions8/10. Prior offset scopes/registerclass, handle/result/flags snapshots and pointer-formal reuse exhausted. Best8 preserved; alternate10 has exact spill and oversized frame. No dummy storage, ABI/shared/ASM changes or permutation.",
+        "reason": "Checkpoint99 full104 CURRENT8 independently restoredf51a8920. Byte-address local neutral8, identical instructions and home18/raw1C. Narrow-handle alternate plus consumed records formal53 shrinks frame18/raw20 and precolors pointerA3/rawV1, reproducing prior formal failure despite recovered bytebase. Two new revisions rejected; original8 retained. No ABI/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
