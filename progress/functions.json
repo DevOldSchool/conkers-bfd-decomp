@@ -93867,17 +93867,16 @@
       "symbol": "func_8000C530"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 50,
-        "reason": "Checkpoint106 full332 CURRENT50 independently restored9debd34d. Two new manual hypotheses: reuse consumed stack float arg4 for distance50 (48f16aa8), explicit register hint on real clampedoutput50 (e35f9f3c); both identical nine FP register differences. Prior single-result conditional clamp1580 inspected and not repeated. Original simplest candidate retained. DistanceF2/valueF12 remain reversed against rawF12/F2; arithmetic, control, frame exact. Formal reuse, scopes, declaration order, chains, comparisons and sqrt staging exhausted. No shared dependency, ABI, ASM, tooling or flags changed.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 332,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000C7E8",
           "vram": "0x8000C7E8"
         }

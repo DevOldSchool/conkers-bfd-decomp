@@ -8,7 +8,6 @@
  * - func_8000BCBC
  * - func_8000C350
  * - func_8000C530
- * - func_8000C7E8
  * - func_8000C934
  * - func_8000CEAC
  * - func_8000D2F8
@@ -692,7 +691,6 @@ f32 sqrtf(f32);
 s32 *func_8000B1B0(s32);
 void func_8000D96C(s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000C7E8 CURRENT (50) */
 s32 func_8000C7E8(s32 arg0, s32 arg1, f32 arg2, s32 arg3, f32 arg4) {
     f32 distance;
     f32 value;
@@ -715,8 +713,8 @@ s32 func_8000C7E8(s32 arg0, s32 arg1, f32 arg2, s32 arg3, f32 arg4) {
         arg0 = D_8002B070;
     }
     arg2 -= -4000.0f;
-    distance = 24000.0f - sqrtf(arg2 * arg2 + arg4 * arg4) * 10.0f;
-    value = distance;
+    value = 24000.0f - sqrtf(arg2 * arg2 + arg4 * arg4) * 10.0f;
+    distance = value;
     if (distance < 100.0f) {
         value = 100.0f;
     } else if (24000.0f < distance) {
@@ -725,8 +723,6 @@ s32 func_8000C7E8(s32 arg0, s32 arg1, f32 arg2, s32 arg3, f32 arg4) {
     func_8000E40C(0x3E, (s32)value);
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000C7E8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000C7E8.s")
 extern s32 D_800BE9F0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_8000C934 CURRENT (24) */
