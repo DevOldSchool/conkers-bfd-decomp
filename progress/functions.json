@@ -92990,7 +92990,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Full296 US CURRENT60: exact frame80/response64/request68 and all registers; sole residual queue ADDU between limit LUI/ORI rather than after ORI. Two new tests: named real limit before queue neutral60, in-place chunk clamp961 changes frame/registers; best60 independently restored469a53cb. Prior six-form index/chunk shared storage, signed view, separate scopes, union and ternary trials remain exhausted. Original20 frame-mismatch alternative retained in task ledger. No shared/ABI/ASM changes or permutation.",
+        "reason": "Checkpoint89 one new byte-offset queue address hypothesis neutral CURRENT60, full296 only ADDU scheduling between constant LUI/ORI. Simpler indexed candidate independently restored c72bbc3204eb49038bf823919b885142. Prior index/scope/union/limit/clamp forms exhausted; no new distinct supported followup. No ABI/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94033,8 +94033,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 9425,
-        "reason": "Preserve typed queue/event updater at CURRENT (9425). SDK-proved message queue ABI, 16-channel arrays, word mode table and halfword event masks replace all placeholders. Preserve raw uninitialized step and in-place halving. Remaining frame, alias lifetimes and branch scheduling are broad; no unsupported initialization, volatile memory or permutation.",
+        "current_score": 5499,
+        "reason": "Checkpoint89 seven manual revisions from fresh full1100 baseline9550. Preferred5499 independently restored b8dd3aad86354cd79b0eb6d26c7d2621: raw dispatch order via switch, separate loaded mask/remainder with entry-tested loop, consumed index reuse. Nestednegative6409, scopes5558, signedmask5884, cursor7241 rejected. FrameB8/raw98, messageB4/raw94, saved-register roles/mask conversion/call argument lowering remain. No ABI/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94090,7 +94090,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1068,
-        "reason": "Checkpoint88 full1200 improved5230to1068 after six revisions4050/3640/1118/1068/1068/1068. Retained ordered chained resets, scoped real pointers, raw nested outgoing guards and earlier current/target copy; all registers/frame30/homes exact. Outgoing fallback else and initial recovery goto forms instruction-identical, rejected. Best independently restored0dd3a476. Residual two branch joins: initial second recovery BEQ vs raw BNE plus exit, outgoing-null likely/duplicate LW; body1188 vs1200. No ABI/shared/ASM changes.",
+        "reason": "Checkpoint89 two new CFG hypotheses positive nested record guard and empty existing-state arm both neutral1068; full normalized instructions identical. Simpler1068 independently restored001354a1a2e640b1a8051786c9f3e2ac. Full1200 zero register/stack differences, second recovery branch join and outgoing-null likely/duplicated load remain. No shared/ABI/ASM changes; exhausted CFG families recorded.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

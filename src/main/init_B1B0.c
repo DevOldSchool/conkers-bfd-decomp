@@ -927,7 +927,7 @@ void func_8507E7E4(void *, s32, s32, s32, s32);
 void func_800084D8(u8);
 void func_80008F58(u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000CEAC CURRENT (9425) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000CEAC CURRENT (5499) */
 void func_8000CEAC(s32 arg0) {
     void *message;
     s32 step;
@@ -938,8 +938,8 @@ void func_8000CEAC(s32 arg0) {
     SequenceRecordState *record;
     u8 *flags;
     s32 *levels;
-    u32 event;
     u16 mask;
+    u32 remaining;
     s32 bit;
     s32 mode;
     s32 previous;
@@ -955,9 +955,9 @@ void func_8000CEAC(s32 arg0) {
         queue = (MessageQueue *)(D_80041E58 + arg0 * 0x18);
         *flags = 0;
         while (func_80023440(queue, &message, 0) == 0) {
-            event = (s32)message & 7;
+            bit = (s32)message & 7;
             if ((s32)message & 0x10) {
-                if (event < 2) {
+                if ((u32)bit < 2) {
                     previous = D_80041890[arg0];
                     message = (void *)((s32)message >> 5);
                     step = 0x514;
@@ -967,25 +967,34 @@ void func_8000CEAC(s32 arg0) {
                     D_80041890[arg0] = (s32)message;
                     D_80041880[arg0] = (s32)message;
                 }
-                mask = masks[event];
+                mask = masks[bit];
+                remaining = mask & 0xFFFF;
                 if (mask != 0) {
                     bit = 0;
-                    *flags |= mask & 0x7F;
-                    do {
-                        if (mask & 1) {
+                    *flags |= remaining & 0x7F;
+                    while (bit < 16 && remaining != 0) {
+                        if (remaining & 1) {
                             mode = modes[bit];
-                            if (mode == 0) {
+                            switch (mode) {
+                            default:
+                                D_80041970[arg0][bit] |= 1;
+                                D_800418B0[arg0][bit] = step * D_800BE9E4;
+                                D_800417C0[arg0][bit] = step;
+                                break;
+                            case 0:
                                 D_80041970[arg0][bit] ^= 1;
                                 D_800418B0[arg0][bit] = 0x8000;
                                 D_800417C0[arg0][bit] = step;
-                            } else if (mode == 1) {
+                                break;
+                            case 1:
                                 step >>= 1;
                                 D_80041970[arg0][bit] ^= 1;
                                 if (D_80041970[arg0][bit] == 0) {
                                     D_800418B0[arg0][bit] = step * D_800BE9E4 + 0x8000;
                                 }
                                 D_800417C0[arg0][bit] = step;
-                            } else if (mode == 2) {
+                                break;
+                            case 2:
                                 lower = bit & 7;
                                 upper = bit | 8;
                                 D_80041970[arg0][lower] ^= 1;
@@ -993,15 +1002,12 @@ void func_8000CEAC(s32 arg0) {
                                 D_800418B0[arg0][lower] = 0x8000;
                                 D_800418B0[arg0][upper] = 0x8000;
                                 D_800417C0[arg0][bit] = 0;
-                            } else {
-                                D_80041970[arg0][bit] |= 1;
-                                D_800418B0[arg0][bit] = step * D_800BE9E4;
-                                D_800417C0[arg0][bit] = step;
+                                break;
                             }
                         }
                         bit++;
-                        mask >>= 1;
-                    } while (bit < 16 && mask != 0);
+                        remaining = (remaining >> 1) & 0xFFFF;
+                    }
                 }
                 D_800419A0 = arg0;
             } else if (D_80041F04 & 1) {
