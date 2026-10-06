@@ -94145,7 +94145,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 605,
-        "reason": "Checkpoint87: early null return neutral605 instruction-identical; u16 upper-bound boolean825 adds ANDI/registers, rejected. Best605 independently restored5d8da35a full236. Raw likely SH and duplicated RA exit remain unmatched. Earlier sequential clamps1125, separate difference1146, structured/outer exits670 and conditional store1286 exhausted. No ABI/shared/ASM changes.",
+        "reason": "Checkpoint112 full236 best CURRENT605 independently restored13ebfeda3cc04d5eadf7e5a3190cc879. Two new hypotheses: corresponding u16 duration lvalue605 ed3d3c49 instructionidentical; void-valued store return expression3c2e6b9 rejected by IDO, annotated invalid before restoration. Original signed field/goto candidate retained. Remaining upper-bound likely SH and duplicated RA exit; prior guard/else/return/goto/ternary/sequentialclamp/separatequotient and narrowboolean variants exhausted. No sourcegain, ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
