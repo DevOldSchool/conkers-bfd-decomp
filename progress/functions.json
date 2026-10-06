@@ -94961,7 +94961,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 2065,
-        "reason": "Checkpoint40 two additional manual forms: branch-exclusive mixer/pointer union2656; union pointer-object reload2989 (frame50 but callback44, extra mixer spill and36register rows). Best2065 restored independently b49e371c. Prior batch16 wordresult3038, pointerobject3202, wordcallback2789, firstargcapture neutral, branchmixsnapshot2065, disjointscope neutral, sharedscratch2084 remain exhausted. Retain actual mixer snapshot, s32result and u32callback. Residual frame58vs50, raw early V0zero absent under existing void contract, callback V0vsA0/earlyreload and control scheduling. Regional source declarations remain void with ignored results; no new ABI evidence. No shared/ASM/padding changes.",
+        "reason": "Checkpoint86: three new manual revisions flags reuse2094/result reuse2408/same-type callback object read2094 rejected; flags reuse fixes frame50 and all stack homes but worsens control/register differences, retained alternative3a633722. Callback object read instruction-identical. Original2065 independently restored63e7f5da; remaining frame58 vs50, callback V0 early reload, early-return and merged final store. No ABI/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
