@@ -96639,7 +96639,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 25805,
-        "reason": "Checkpoint119 full2320 CURRENT25805 independently restored25044f79. Rejected two new loop hypotheses: oldDistance snapshot before current assignment30232/frameD8; unsigned current sum27009/frameD8. Neither recovers naturalunroll4 or correct neighbor promotion. Retain checkpoint118 layout/byteoffset/pointX gains. Remaining unroll2/raw4, savedregs, tableoffset58/raw6C and FP/control differences. No ABI/shared/ASM changes or permutation.",
+        "reason": "Checkpoint132: one new manual common-tail/independent-neighbor hypothesis CURRENT29419 f3139e8b worsened frame to D8 and full-span diff. Preferred full2320 CURRENT25805 independently restored919b65e4. User requested stop and draft PR. Natural unroll remains2 versus raw4;194missingextra,24control,44operand,213register,7stack rows. No manual unroll, artificial state, shared/ABI/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
