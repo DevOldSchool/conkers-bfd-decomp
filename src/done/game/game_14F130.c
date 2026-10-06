@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_14F130.c
- * Boundary evidence: docs/evidence/game_raw_direct_call_singletons.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_call_singletons.md
  */
 
 typedef struct Game14F130Vector { s32 x, y, z; } Game14F130Vector;

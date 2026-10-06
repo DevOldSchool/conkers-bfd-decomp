@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_1A0100.c
- * Boundary evidence: docs/evidence/game_raw_slot_view_controller_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_slot_view_controller_groups.md
  */
 
 extern s8 D_800DD2B0[];

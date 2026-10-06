@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_129EB0.c
- * Boundary evidence: docs/evidence/game_remaining_units_up_to_64_bytes.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_units_up_to_64_bytes.md
  */
 
 typedef struct Game129EB0State {

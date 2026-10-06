@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_135D00.c
- * Boundary evidence: docs/evidence/game_raw_sorted_record_object_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_sorted_record_object_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15108850

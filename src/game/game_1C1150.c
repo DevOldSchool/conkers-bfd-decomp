@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_1C1150.c
- * Boundary evidence: docs/evidence/game_raw_dispatch_position_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dispatch_position_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15193CA0

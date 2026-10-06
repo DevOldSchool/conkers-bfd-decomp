@@ -6,7 +6,7 @@
         "src/main/init_2DB0.c",
         "src/done/main/init_2DB0.c"
       ],
-      "evidence_reference": "docs/evidence/main_ai_private_data.md",
+      "evidence_reference": "docs/evidence/data-layout/main_ai_private_data.md",
       "sections": [
         {
           "input": ".data",

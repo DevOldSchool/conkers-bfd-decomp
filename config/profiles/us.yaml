@@ -137,7 +137,7 @@ segments:
       - [0x22040, lib, libultrare, n_resample2, .text]
       - [0x22460, lib, libultrare, n_resample, .text]
       # Zero-filled tail outside the adjacent exact library objects; no C credit.
-      # Evidence: docs/evidence/main_text_zero_tail_226b0.md
+      # Evidence: docs/evidence/data-layout/main_text_zero_tail_226b0.md
       - {start: 0x226B0, type: data, name: main/data/padding_226B0, linker_section_order: .text}
       # Reviewed stock and Rare-modified libultra object boundaries. Link archive members
       # where GNU ld accepts the object and all referenced sections are mapped;
@@ -290,7 +290,7 @@ segments:
   - type: bin
     start: 0x2D4B0
     follows_vram: main
-  # Loader-proven image; see docs/evidence/us_debugger_overlay.md.
+  # Loader-proven image; see docs/evidence/debugger/us_debugger_overlay.md.
   # These provisional ranges do not identify original source objects.
   - name: debugger
     type: code

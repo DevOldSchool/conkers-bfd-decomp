@@ -2,7 +2,7 @@
 
 /*
  * Raw function collection (boundary withdrawn): src/game/game_1CFE10.c
- * Boundary evidence: docs/evidence/game_raw_code_selected_callback_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_code_selected_callback_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_151A2960

@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_1228D0.c
- * Boundary evidence: docs/evidence/game_raw_directly_called_families.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_directly_called_families.md
  */
 
 typedef struct Game1228D0Spawn {

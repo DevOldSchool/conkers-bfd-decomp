@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/effects/characterflamethrower.c
- * Boundary evidence: docs/evidence/effects_characterflamethrower.md
+ * Boundary evidence: docs/evidence/boundaries/effects/effects_characterflamethrower.md
  *
  * TODO: Implement these source-unit functions:
  * - func_151957B0

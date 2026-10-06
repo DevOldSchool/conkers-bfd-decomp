@@ -15,7 +15,7 @@
 
 /* Conker US game rotation copy, 0x48190:0x48360.
  * Its matrix helpers belong to the game engine, distinct from the SDK tail.
- * Evidence: docs/evidence/game_sdk_rotation_variant.md.
+ * Evidence: docs/evidence/libraries/game_sdk_rotation_variant.md.
  */
 extern float __conker_game_sinf(float);
 extern float __conker_game_cosf(float);

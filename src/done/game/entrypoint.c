@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/entrypoint.c
- * Boundary evidence: docs/evidence/game_medium_single_function_units.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_medium_single_function_units.md
  */
 
 void func_10023790(void *, void *, s32);

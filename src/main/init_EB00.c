@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/main/init_EB00.c
- * Boundary evidence: docs/evidence/main_sound_record_family_boundary.md
+ * Boundary evidence: docs/evidence/boundaries/main/main_sound_record_family_boundary.md
  *
  * TODO: Implement these source-unit functions:
  * - func_8000EC24

@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/main/init_3930.c
- * Boundary evidence: docs/evidence/main_system_wrapper_boundaries.md
+ * Boundary evidence: docs/evidence/boundaries/main/main_system_wrapper_boundaries.md
  */
 
 extern u8 D_80038080;

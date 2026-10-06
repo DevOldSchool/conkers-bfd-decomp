@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_139FC0.c
- * Boundary evidence: docs/evidence/game_raw_call_connected_segments_continued.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_call_connected_segments_continued.md
  *
  * TODO: Implement these source-unit functions:
  * - func_1510CB10
@@ -352,7 +352,7 @@ extern u8 D_1A37E0;
 extern u8 D_80091D20;
 
 /* Descriptive role: flat_asset_rom_address.
- * Evidence: docs/evidence/model_resource_role_names.md.
+ * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
  */
 u8 *func_1510D374(s32 resourceIndex) {
     u8 *romAddress;
@@ -445,7 +445,7 @@ void func_1510D404(void) {
 extern s8 D_800BC448[];
 
 /* Descriptive role: flat_asset_update_nonzero_state.
- * Evidence: docs/evidence/model_resource_role_names.md.
+ * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
  */
 void func_1510D608(s32 resourceIndex, s32 stateBits) {
     s8 *resourceState;

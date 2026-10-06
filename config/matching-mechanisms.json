@@ -10,7 +10,7 @@
       "clues": "Extra argument homes, integer casts of packet addresses, float-word conversions, or values merely live across a call; inspect consumption by callee/callback targets.",
       "success": "150B3C0C reached full-span zero after pointer submission declarations removed an integer-expression spill; its sibling packet was independently checked.",
       "counterexample": "151572D0 and 1514D64C improved after supported contract repairs but remained candidates. Live A1/A2 do not by themselves prove callback parameters.",
-      "evidence": ["docs/evidence/particle_callback_storage_matching.md", "docs/evidence/descriptor_pointer_contract.md"]
+      "evidence": ["docs/evidence/matching/particle_callback_storage_matching.md", "docs/evidence/matching/descriptor_pointer_contract.md"]
     },
     {
       "name": "real-state",
@@ -21,7 +21,7 @@
       "clues": "Extra frame space without matching runtime spill traffic; redundant owner/address locals. Preserve loop-carried cursors, loads across calls, and genuine coordinate snapshots.",
       "success": "1501E540 and 1501E400 matched with direct owner access while preserving real cursor state; 15149FD0/15149D18 removed redundant buffer-address homes.",
       "counterexample": "Deleting cursor state first worsened 1501E540 despite fixing its frame; address removal rematerialized work in 1518F7C4. 15107924 requires its coordinate snapshot across a mutating helper.",
-      "evidence": ["docs/evidence/matching_conversion_audit.md", "docs/evidence/quad_vertex_storage_matching.md", "src/game/game_133190.c"]
+      "evidence": ["docs/evidence/matching/matching_conversion_audit.md", "docs/evidence/matching/quad_vertex_storage_matching.md", "src/game/game_133190.c"]
     },
     {
       "name": "scope-lifetime",
@@ -32,7 +32,7 @@
       "clues": "Matching operations but different call-delay scheduling or argument-home order; check whether a nested result scope or redundant value lifetime explains those exact rows.",
       "success": "Camera 1512523C and 15125330 matched after lifting result declarations; 1512623C matched after moving an existing assignment into a call argument expression.",
       "counterexample": "Camera 15123070 scope restriction worsened 265 to 730. Narrower callback scopes worsened 151572D0; a quad suffix-scope experiment also failed.",
-      "evidence": ["src/game/camera/camera_camera.c", "docs/evidence/particle_callback_storage_matching.md", "docs/evidence/quad_vertex_storage_matching.md"]
+      "evidence": ["src/game/camera/camera_camera.c", "docs/evidence/matching/particle_callback_storage_matching.md", "docs/evidence/matching/quad_vertex_storage_matching.md"]
     }
   ]
 }

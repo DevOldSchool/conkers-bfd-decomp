@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_179F30.c
- * Boundary evidence: docs/evidence/game_raw_callback_state_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_1514CA80
@@ -16,7 +16,7 @@
  */
 
 /* Reviewed attachment action selectors, distinct from bank-09 model IDs.
- * See docs/evidence/model_resource_role_names.md.
+ * See docs/evidence/assets/naming/model_resource_role_names.md.
  */
 enum {
     ACTION_SELECTOR_35 = 35,
@@ -553,7 +553,7 @@ void func_1514DCAC(void *arg0);
 void *func_15083568(void *, s32, s32, s32);
 
 /* Descriptive role: actor_request_attachment_actions_35_and_68.
- * Evidence: docs/evidence/model_resource_role_names.md.
+ * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
  */
 void func_1514DCAC(void *parentActor) {
     *(s32 *)((u8 *)parentActor + 0x9C) = 0x6000;

@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/main/init_A420.c
- * Boundary evidence: docs/evidence/main_spatial_audio_boundaries.md
+ * Boundary evidence: docs/evidence/boundaries/main/main_spatial_audio_boundaries.md
  *
  * TODO: Implement these source-unit functions:
  * - func_8000A420

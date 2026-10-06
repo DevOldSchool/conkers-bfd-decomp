@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_1DC720.c
- * Boundary evidence: docs/evidence/game_raw_buffer_stream_families.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_buffer_stream_families.md
  */
 
 typedef struct Game1DC720EffectPacket {

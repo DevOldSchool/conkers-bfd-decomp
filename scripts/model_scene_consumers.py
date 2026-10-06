@@ -97,7 +97,7 @@ def extract_scene_consumers(profile: str, rom: Path | None, output: Path) -> dic
         "normalized_sha1": digest,
         "evidence": {
             "kind": "reviewed-static-us-consumer-chain",
-            "reference": "docs/evidence/us_model_scene_consumers.md",
+            "reference": "docs/evidence/assets/models/us_model_scene_consumers.md",
             "code_sha256": {name: hashlib.sha256(game.code[start:end]).hexdigest()
                             for name, (start, end) in spans.items()},
             "loader": "func_150031EC", "bank_path": [4, "scene-index"],

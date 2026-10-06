@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_FE850.c
- * Boundary evidence: docs/evidence/game_raw_complete_callback_clusters.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_complete_callback_clusters.md
  */
 
 typedef struct GameFE850State {

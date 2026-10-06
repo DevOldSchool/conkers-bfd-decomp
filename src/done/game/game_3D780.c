@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_3D780.c
- * Boundary evidence: docs/evidence/game_next_compact_units.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_next_compact_units.md
  */
 
 void func_15195AA8(s32, s32, s32, s32, s32, s32, s32, s32);

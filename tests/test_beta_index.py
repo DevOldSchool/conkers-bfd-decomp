@@ -91,7 +91,7 @@ class BetaIndexTests(unittest.TestCase):
 
     def test_ects_layout_matches_reviewed_loader_addresses(self) -> None:
         # Owned ROM loader at 0x1214:0x124C and page loader at 0x467C:0x4684.
-        # See docs/evidence/ects_game_layout.md for the instruction evidence.
+        # See docs/evidence/beta/ects_game_layout.md for the instruction evidence.
         layout = load_layout("ects")
         self.assertEqual(0x21A30, layout["game_start"])
         self.assertEqual(

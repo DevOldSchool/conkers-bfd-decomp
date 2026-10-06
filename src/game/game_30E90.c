@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_30E90.c
- * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_150039E0
@@ -74,7 +74,7 @@ extern s32 D_800DBEFC;
 
 /* Semantic role: placed_object_reset_vertex_cache_slots.
  * Clear per-object cache-pointer/countdown slots without freeing payloads.
- * See docs/evidence/placed_object_helper_semantics.md.
+ * See docs/evidence/assets/naming/placed_object_helper_semantics.md.
  */
 void func_15004A4C(void) {
     s32 objectIndex;
@@ -155,7 +155,7 @@ extern u8 D_800DBF00;
 /* Semantic role: placed_object_choose_id.
  * Exhaustion returns 255 in ascending mode or the starting ID in descending
  * mode; uniqueness is not guaranteed. arg0 is reused as start/fallback.
- * See docs/evidence/placed_object_helper_semantics.md.
+ * See docs/evidence/assets/naming/placed_object_helper_semantics.md.
  */
 s32 func_15004BF0(s32 arg0) {
     typedef struct { u8 before[0x72]; u8 objectId; u8 after[0x2D]; } Entry;

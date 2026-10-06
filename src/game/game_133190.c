@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_133190.c
- * Boundary evidence: docs/evidence/game_raw_callback_state_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15105CE0
