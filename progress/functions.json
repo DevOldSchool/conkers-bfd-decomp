@@ -93851,7 +93851,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 48,
-        "reason": "Checkpoint62 full696 CURRENT48 independently restoredb2050ffd. Actual packed oldHigh u8 snapshot684 removes required MOVE, changes72registerrows; oldLow u8 snapshot1093 adds extractionMOVE andchanges72rows. New4514 byte-local mechanism doesnottransfer to these fields. Prior word signedness873, unsignedequality473, sharedupper268 and scope families exhausted. Best remaining7stackrefs: channel2C/30, fade20/1C, oldHigh1C/20; two initial ANDIs swapped. No ABI/shared/ASM/artificial pressure changes.",
+        "reason": "Checkpoint74 full696 CURRENT48 independently restored84072972. Two new oldHigh halfword representations: s16 gives1134 with extra SLL/SRA, u16 gives684 reproducing prior u8 failure; both remove raw MOVE and disrupt register/spill allocation. Exact ECCC narrow-value mechanism does not transfer here. Best48 retained: swapped initial ANDIs, channel2C/raw30, fade20/raw1C, oldHigh1C/raw20. Prior width/scope/chain/unsigned equality/shared extraction families exhausted. No extra reads/storage/padding, shared/ABI/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
