@@ -93851,7 +93851,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 48,
-        "reason": "Checkpoint104 full696 CURRENT48 independently restored81e69070. Actual packed input union/bitfields using existing four-byte temporary3941 b2f72e5b adds input stack store and byte loads, wrong frame48/raw58. Direct initialfade inputmask zero-check neutral48 2249a5c4, same extraction order and snapshot homes. Two nonimprovements; original scalar candidate retained. Prior width, channel, scope, declarations and shared-extraction forms exhausted. No ABI/shared/ASM changes or permutation.",
+        "reason": "Checkpoint125 full696 CURRENT48 independently restorede3a36e54. New exact C7E8 output-first copy mechanism tested on high field126 249532c5, then both high and low126 fde7b143. Both recover high-before-low ANDI but reverse shifts/store order and move snapshot early; all7 spill rows unchanged. Two nonimprovements, original48 retained. Output-first packedfield family exhausted; no shared/ABI/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
