@@ -13,7 +13,6 @@
  * - func_15106F98
  * - func_151070F8
  * - func_151072BC
- * - func_15107604
  * - func_15107700
  * - func_15107AE0
  * - func_15107B78
@@ -374,16 +373,14 @@ s32 func_15106F98(Game133190Triple *arg0, Game133190Triple *arg1,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15106F98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151070F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151072BC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15107604 CURRENT (20) */
 Game133190Holder *func_15107604(Game133190Object *arg0) {
-    Game133190Holder *holder = arg0->holder;
-    Game133190Subobject *subobject = &holder->target->subobject;
+    Game133190Holder *holder;
+    Game133190Subobject *subobject = &arg0->holder->target->subobject;
 
+    holder = arg0->holder;
     subobject->field_8 = 0;
     return holder;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15107604 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15107604.s")
 void func_1516972C(void *arg0);
 
 void func_1510761C(void *arg0) {

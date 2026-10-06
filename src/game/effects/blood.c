@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15134070
  * - func_151342BC
- * - func_151347CC
  * - func_15134908
  * - func_151349D0
  * - func_15134DAC
@@ -298,10 +297,8 @@ typedef struct {
 
 void func_1516972C(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151347CC CURRENT (10) */
 void func_151347CC(Blood347CCState *arg0, Blood347CCEvent *arg1, u8 arg2) {
     s32 temp_v0;
-    s32 temp_v1;
 
     temp_v0 = arg2;
     if ((arg2 == 0) || (arg2 == 3)) {
@@ -321,21 +318,18 @@ void func_151347CC(Blood347CCState *arg0, Blood347CCEvent *arg1, u8 arg2) {
         }
     } else if (temp_v0 == 0x2D) {
         temp_v0 = arg1->field00;
-        temp_v1 = arg0->field1C;
-        if (temp_v0 == temp_v1) {
+        if (temp_v0 == arg0->field1C) {
             arg0->field1C = arg1->field04.word;
             arg0->field18 = arg1->field09;
             return;
         }
-        if (temp_v1 != arg1->field04.word) {
+        if (arg0->field1C != arg1->field04.word) {
             return;
         }
         arg0->field1C = temp_v0;
         arg0->field18 = *((u8 *)arg1 + 8);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151347CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151347CC.s")
 void func_151348F0(f32 arg0, f32 arg1, s32 arg2, s32 arg3) {
 
 }

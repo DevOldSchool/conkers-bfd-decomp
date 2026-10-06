@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151D2DCC
  * - func_151D2E14
- * - func_151D2E5C
  * - func_151D2F90
  * - func_151D3130
  * - func_151D324C
@@ -173,7 +172,6 @@ void func_151D2E14(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D2E14 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2E14.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D2E5C CURRENT (10) */
 void func_151D2E5C(void *arg0, void *arg1, u8 arg2) {
     s32 temp_v0;
     s32 temp_v1;
@@ -190,20 +188,17 @@ void func_151D2E5C(void *arg0, void *arg1, u8 arg2) {
         }
     } else if (arg2 == 0x2D) {
         temp_v0 = *(s32 *)arg1;
-        temp_v1 = *(s32 *)((u8 *)arg0 + 0x10);
-        if (temp_v0 == temp_v1) {
+        if (temp_v0 == *(s32 *)((u8 *)arg0 + 0x10)) {
             *(s32 *)((u8 *)arg0 + 0x10) = *(s32 *)((u8 *)arg1 + 4);
             *(u8 *)((u8 *)arg0 + 0x14) = *(u8 *)((u8 *)arg1 + 9);
             return;
         }
-        if (temp_v1 == *(s32 *)((u8 *)arg1 + 4)) {
+        if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)((u8 *)arg0 + 0x10)) {
             *(s32 *)((u8 *)arg0 + 0x10) = temp_v0;
             *(u8 *)((u8 *)arg0 + 0x14) = *(u8 *)((u8 *)arg1 + 8);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D2E5C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2E5C.s")
 void *func_151D2F00(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
     void *temp_v0;
     volatile void *sp24;

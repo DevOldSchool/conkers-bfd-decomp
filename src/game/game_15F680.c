@@ -16,7 +16,6 @@
  * - func_151336A8
  * - func_151337C0
  * - func_15133894
- * - func_15133A50
  * - func_15133EEC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -618,20 +617,16 @@ s32 func_151339D4(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
     *(f32 *)((u8 *)arg0 + 0x58) = (f32) (*(f32 *)((u8 *)arg0 + 0x58) * temp_fv0);
     return 1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15133A50 CURRENT (20) */
 s32 func_15133A50(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
-    arg4 = *(f32 *)((u8 *)arg0 + 0x10) + arg4;
+    *(f32 *)((u8 *)arg0 + 0x3C) = *(f32 *)((u8 *)arg0 + 0x10) + arg4;
     *(f32 *)((u8 *)arg0 + 0x44) = 0.0f;
     *(f32 *)((u8 *)arg0 + 0x48) = 0.0f;
     *(f32 *)((u8 *)arg0 + 0x4C) = 0.0f;
     *(f32 *)((u8 *)arg0 + 0x50) = 0.0f;
     *(f32 *)((u8 *)arg0 + 0x54) = 0.0f;
-    *(f32 *)((u8 *)arg0 + 0x3C) = arg4;
     *(f32 *)((u8 *)arg0 + 0x58) = 0.0f;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15133A50 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133A50.s")
 void func_150A7790(void *, s32);
 extern u8 D_800C3E90;
 

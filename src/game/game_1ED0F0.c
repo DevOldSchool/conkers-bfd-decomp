@@ -12,7 +12,6 @@
  * - func_151C0698
  * - func_151C1180
  * - func_151C1570
- * - func_151C1814
  * - func_151C196C
  * - func_151C1D5C
  *
@@ -491,27 +490,22 @@ void func_151C1798(Game1ED0F0Object *arg0, f32 *arg1) {
     func_15143134(&D_800AA958[index].x, arg1,
                   (D_800AA954[index] << 6) + arg0->transform);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C1814 CURRENT (10) */
 void func_151C1814(u8 *arg0, u8 *arg1, u8 arg2) {
-    s32 temp_a2;
     s32 temp_v1;
     u8 *temp_v0;
 
     temp_v0 = (void *)(arg0 + 0x170);
     if (arg2 == 0x2D) {
         temp_v1 = *(s32 *)((u8 *)arg1 + 0);
-        temp_a2 = *(s32 *)((u8 *)temp_v0 + 0x6C);
-        if (temp_v1 == temp_a2) {
+        if (temp_v1 == *(s32 *)((u8 *)temp_v0 + 0x6C)) {
             *(s32 *)((u8 *)temp_v0 + 0x6C) = (s32) *(s32 *)((u8 *)arg1 + 4);
             return;
         }
-        if (temp_a2 == *(s32 *)((u8 *)arg1 + 4)) {
+        if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)((u8 *)temp_v0 + 0x6C)) {
             *(s32 *)((u8 *)temp_v0 + 0x6C) = temp_v1;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C1814 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C1814.s")
 void func_151C1860(void *arg0, u8 arg1, s32 arg2) {
     Game1ED0F0Particle particle;
     Game1ED0F0Position position;
