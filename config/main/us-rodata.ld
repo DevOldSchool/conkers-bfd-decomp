@@ -1,6 +1,9 @@
-/* Reviewed main tables; see docs/evidence/main_init_2e50_integration_proposal.json
- * and docs/evidence/main_init_11fa0_integration.json.
- * Keep relocated bytes for verification while original raw data supplies ROM bytes.
+/* Queue table evidence: docs/evidence/main_init_2e50_integration_proposal.json.
+ * The selector pool at ROM 0x2C410 contains five runtime-aliased switch pointers,
+ * nine float literals and eight padding bytes (64 bytes total). Keep both pools
+ * as non-allocated INFO so original raw data supplies ROM bytes without shifting
+ * BSS. verify_main_rodata.py checks every linked byte, including padding, against
+ * the checksum-validated US ROM.
  */
 SECTIONS
 {

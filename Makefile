@@ -294,7 +294,10 @@ build/us/src/done/main/init_2E50.o: src/done/main/init_2E50.c scripts/compile_c.
 	python3 scripts/compile_c.py --profile us --output $@.unprepared $<
 	python3 scripts/prepare_main_library_object.py $@.unprepared $@ --delta=-0x70000000 --expected-relocations 7
 
-# This source owns five runtime-aliased switch targets followed by float literals.
+# The selector table has five code pointers using the 0x10000000 runtime alias.
+# Rebase their link addresses by -0x70000000; leave float literals unchanged.
+# Always compile afresh: focused checks overwrite this object, and rebasing twice
+# would corrupt the table. The linker retains its pool for ROM verification.
 .PHONY: main-selector-object-refresh
 main-selector-object-refresh:
 
