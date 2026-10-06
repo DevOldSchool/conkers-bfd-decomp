@@ -94888,7 +94888,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 500,
-        "reason": "Checkpoint102 full160 CURRENT500 independently restored65caac1e. Indexed for with retained u16handle610 0eed9785 preserves frame/S0 but adds preloop scheduling differences; lexical handle declaration inside positive-count block neutral500 d4f48ada, same countA1/handleV0 instead rawV0/A1. Two nonimprovements; original cursor/u16handle retained. Older word snapshots, unsigned comparison, count snapshot/pointer and argument reuse exhausted. No shared/ABI/ASM changes or permutation.",
+        "reason": "Checkpoint114 full160 CURRENT500 independently restored11b012d5. Two new manual hypotheses rejected: narrow-handle comparison commute505 reverses branch operands; initial-guard-only count snapshot740 avoids old unrolling but changes cursor/index registers and retains countA1/handleV0. Original500 preserved. Prior scalar bounds/pointer/indexed/lexical scopes/argument reuse exhausted; countLUI and handleMOVE scheduling remain. No ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
