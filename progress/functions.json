@@ -94723,7 +94723,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 230,
-        "reason": "Checkpoint66 full420 CURRENT230 independently restored80541ed8. Per-iteration record pointer392 expands frame88 and shifts22stackrows; iteration-local delta scope302 shifts bestXYZ homes70/6C/68 instead of68/64/60. Neither fixes selected reload and missing duplicated x0 load. Prior branch x0 reuse720, separate origin879, branch calls4361 and inherited indexed/control forms exhausted. Best body four bytes short; no full-span match credit. No ABI/shared/ASM changes, artificial pressure or padding.",
+        "reason": "Checkpoint101 full420 CURRENT230 independently restored db1b56ac. Old-style s16 near/far parameter objects with promoted caller contract neutral230 e6fd0795; actual branch origin snapshot in unused arg0 recovers duplicate load but720 d1eb880e has V1 precolor,11 register rows and changed scheduling. Two nonimprovements; original ABI/body retained. Prior branch snapshots and local lifetimes exhausted. m2c starter rejects matched10F30 K&R context; raw context and independent compiler/fullspan checks remain available. No shared tools/headers/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
