@@ -95195,17 +95195,16 @@
       "symbol": "func_80010E78"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 60,
-        "reason": "Checkpoint52 full88 CURRENT60 f8b2c1ad improves248 by owning u8 pan contract. EC24/EFB4 independently CURRENT0. Only remaining mismatch LHUa2 at2E occurs in call setup instead of prologue. Joint narrow volume was focused0 but invalid due EC24835 and layout+28; preserve word volume. Consumed-formal normalization500; direct halfword lvalue neutral60. No shared changes or permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80010F30",
           "vram": "0x80010F30"
         }

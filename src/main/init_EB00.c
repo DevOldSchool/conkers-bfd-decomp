@@ -13,7 +13,6 @@
  * - func_80010154
  * - func_80010344
  * - func_80010630
- * - func_80010F30
  * - func_80010FFC
  * - func_80011310
  * - func_80011624
@@ -92,7 +91,7 @@ typedef struct {
     s32 value;
 } SoundDelayedState;
 
-s32 func_80010F30(s32, s32, u8, s16, s32);
+s32 func_80010F30(s32, s32, s32, s32, s32);
 
 s32 func_8000EC24(SoundDelayedState *state, s32 arg1, s32 *active,
                  u8 *arg3, s16 *arg4, s32 *arg5, u16 *arg6) {
@@ -1131,13 +1130,16 @@ u16 func_80010E78(s32 arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4,
     }
     return 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010F30 CURRENT (60) */
-s32 func_80010F30(s32 arg0, s32 arg1, u8 arg2, s16 arg3, s32 arg4) {
-    return func_80010BE8(0, arg0, ((u16 *)&arg1)[1], arg2,
+s32 func_80010F30(arg0, arg1, arg2, arg3, arg4)
+s32 arg0;
+u16 arg1;
+u8 arg2;
+s16 arg3;
+s32 arg4;
+{
+    return func_80010BE8(0, arg0, arg1, arg2,
                         arg3, ((u8 *)&arg4)[3], D_80041FD9);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80010F30 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80010F30.s")
 u16 func_80010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 
 s32 func_80010F88(s32 arg0, u16 arg1, s16 arg2, u8 arg3, s32 arg4,
