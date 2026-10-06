@@ -94723,7 +94723,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 230,
-        "reason": "Checkpoint103 full420 CURRENT230 independently restored49035e4e. Two primary-guide scheduling hypotheses: comma-sequenced fallback XYZ b1cace97 and identical-token same-source-line fallback/call join8d766584 both neutral230. Original formatting/body retained. Raw duplicated x0 load and selected reload ordering unresolved; prior origin snapshots add register/frame errors. No ABI/shared/compiler flag/ASM changes or permutation.",
+        "reason": "Checkpoint122 full420 best CURRENT230 independently restored c1e02245. Two new manual hypotheses: switch actual count neutral230 966d8881; genuine origin snapshot with redundant distance binding removed720 01ab61c3. Latter recovers frame80 and exact homes from archived879 but retains origin V1/rawT8 and11 register rows of earlier snapshot720. Both exhausted; preferred common-load230 retained. No shared/ABI/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
