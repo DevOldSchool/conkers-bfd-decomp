@@ -93832,7 +93832,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Checkpoint87: explicit global-state snapshot shared by comparison and switch75 rejected; global changes V0 toV1 and branch remains reversed. Best10 independently restored59a05e4e, full480 only BEQL operand reversal. Prior XOR/subtraction15, namedchanged70, state+changed90, formalchanged70, maskedstate/unsigned/byte/scope variants remain exhausted. No ABI/shared/ASM changes.",
+        "reason": "Checkpoint91 full480 CURRENT10 independently restored f55f3788. Two new CFG/predicate hypotheses: equal-state empty arm with shared finalreturn neutral10 ea482649; named relational stateChanged75 72025d9a moves globalstate V0 to V1 and retains reversed BEQL. Prior XOR15/subtraction15 fix branch but consume temp, named arithmetic70/formal70/global75/narrow40/earlyreturn660 exhausted. Sole residual BEQL v0,t2 vs raw t2,v0. Simpler source retained; no ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94868,8 +94868,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 18,
-        "reason": "Checkpoint73 full104 CURRENT18 independently restored18fb7497. Two new actual postcallback flags snapshots: function-scope45 recovers pointer1C but grows frame28 and uses flagsA0; short-scope490 retains those regressions and changes tail scheduling. Both rejected. Best18 differs only commuted ADDU and pointer home18/raw1C. Prior explicit result720, signedhandle625, narrowhandle20, blockscope83 and consumedformal53 exhausted. No padding, extra reads/homes, artificial pressure, shared/ABI/ASM changes or permutation.",
+        "current_score": 10,
+        "reason": "Checkpoint91 full104 CURRENT10 independently restored c30006f8, improved18. Actual u32 byteoffset fixes ADDU operands and record spill1C; every instruction/register/home exact except frame28/raw20. Three manual revisions: functionscope offset10 4b5c402f, shortscope10 52fb7e55, register storage10 ba07c422 all instructionidentical. Simplest offset retained; original18 exactframe alternative saved. Prior result720/handle625/flags45 and scoped490 did not resolve frame. No dummy padding, ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
