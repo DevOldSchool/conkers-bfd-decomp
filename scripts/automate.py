@@ -52,6 +52,7 @@ FINGERPRINT_INPUTS = (
     "scripts/candidate_tables.py",
     "scripts/declaration_facts.py",
     "scripts/m2c.py",
+    "scripts/m2c_context.py",
     "scripts/rzip_archive.py",
     "config/rzip_layouts.json",
     "scripts/call_signatures.py",
@@ -59,7 +60,7 @@ FINGERPRINT_INPUTS = (
 ) + call_signatures.SDK_ALIAS_INPUTS
 STAGE_INPUTS = {
     "inventory": ("scripts/automation_common.py", "scripts/project_state.py"),
-    "m2c": ("scripts/m2c.py", "toolchain/tools.lock.json"),
+    "m2c": ("scripts/m2c.py", "scripts/m2c_context.py", "toolchain/tools.lock.json"),
     "declarations": ("scripts/declaration_facts.py",),
     "prepare": ("scripts/candidate_rewrites.py", "scripts/candidate_syntax.py"),
     "compile": (
@@ -93,7 +94,7 @@ STAGE_VERSIONS["diff"] = 3
 # A changed starter can fix any later raw-stage failure, including declaration
 # blockers saved before compilation. Keep the upstream recovery inputs in each
 # relevant stage instead of requiring users to restart a saved scan.
-CALL_CONTEXT_INPUTS = ("scripts/m2c.py", "scripts/call_signatures.py", "scripts/declaration_facts.py",
+CALL_CONTEXT_INPUTS = ("scripts/m2c.py", "scripts/m2c_context.py", "scripts/call_signatures.py", "scripts/declaration_facts.py",
                        "scripts/rzip_archive.py", "config/rzip_layouts.json") + call_signatures.SDK_ALIAS_INPUTS
 for _stage in STAGE_INPUTS:
     if _stage != "inventory":

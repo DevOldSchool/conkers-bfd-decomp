@@ -266,6 +266,114 @@ func_151F0000 = other_sdk_function;
         self.assertEqual([SDK_DECLARATION], record['declarations'])
         self.assertIn(calls.SDK_ALIAS_MAP, record['evidence'][0])
 
+    def header_context(self, declaration='void func_target(void *, s32, s32);'):
+        context = m2c.m2c_context.clean_context(
+            '# 1 "src/game/example.c"\n'
+            '# 1 "include/types.h"\ntypedef signed int s32;\n'
+            '# 1 "include/example_functions.h"\n' + declaration + '\n'
+            '# 3 "src/game/example.c"\n'
+            '#pragma GLOBAL_ASM("asm/nonmatchings/example/func_wrapper.s")\n')
+        path = self.root / 'build/context.c'
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(context)
+        return path, ['m2c', '--context', 'build/context.c', 'input.s']
+
+    def test_initial_header_prototype_is_reused_by_starter_and_prepare(self):
+        declaration = 'void func_target(void *, s32, s32);'
+        (self.root / 'include/example_functions.h').write_text(declaration + '\n')
+        source = ('#include "types.h"\n#include "example_functions.h"\n'
+                  '#pragma GLOBAL_ASM("asm/nonmatchings/example/func_wrapper.s")\n')
+        self.source.write_text(source)
+        _, command = self.header_context(declaration)
+
+        def decompile(command, **kwargs):
+            context = (self.root / command[command.index('--context') + 1]).read_text()
+            # Recovery remains in the decompiler input even when public output reuses a header.
+            self.assertTrue(context.endswith(declaration + '\n'))
+            return SimpleNamespace(returncode=0, stdout=REPAIRED)
+
+        with patch.object(m2c, 'ROOT', self.root), patch.object(m2c.subprocess, 'run', side_effect=decompile):
+            output, status = m2c.generate_with_call_context(
+                command, WRAPPER, 'func_wrapper', self.source, 'us')
+        self.assertEqual(0, status)
+        self.assertNotIn(declaration, output)
+        self.assertIn(REPAIRED, output)
+        prepared = automate.candidate_rewrites.prepare_starter(
+            output, 'func_wrapper', source, root=self.root)
+        self.assertEqual((), prepared.declarations)
+        self.assertEqual(source, self.source.read_text())
+        record = json.loads((self.root / 'build/m2c/calls/func_wrapper.json').read_text())
+        self.assertEqual([declaration], record['declarations'])
+        self.assertEqual([], record['emitted_declarations'])
+        self.assertFalse(record['source_context_fallback'])
+
+    def test_failed_generator_does_not_record_unemitted_declarations(self):
+        declaration = 'void func_target(void *, s32, s32);'
+        (self.root / 'include/example_functions.h').write_text(declaration + '\n')
+        with patch.object(m2c, 'ROOT', self.root), patch.object(
+            m2c.subprocess, 'run', return_value=SimpleNamespace(returncode=1, stdout='failed\n')
+        ):
+            output, status = m2c.generate_with_call_context(
+                ['m2c', 'input.s'], WRAPPER, 'func_wrapper', self.source, 'us')
+        self.assertEqual((output, status), ('failed\n', 1))
+        record = json.loads((self.root / 'build/m2c/calls/func_wrapper.json').read_text())
+        self.assertEqual([declaration], record['declarations'])
+        self.assertEqual([], record['emitted_declarations'])
+
+    def test_header_reuse_keeps_missing_disagreeing_and_abi_only_declarations(self):
+        declaration = 'void func_target(void *, s32, s32);'
+        missing = 's32 func_missing(void);'
+        path, command = self.header_context(declaration)
+        context = path.read_text()
+        with patch.object(m2c, 'ROOT', self.root):
+            recovery = calls.Recovery((declaration, missing))
+            self.assertEqual((missing,), m2c.starter_declarations(command, recovery))
+            for extra in ('void func_target(s32);', 'void func_target(Private *);'):
+                with self.subTest(extra=extra):
+                    path.write_text(context + extra + '\n')
+                    self.assertEqual(recovery.declarations, m2c.starter_declarations(command, recovery))
+            path.write_text(context)
+            for item in ('void func_target(s32);', declaration + ' /* CONKER_ABI_DISCARDED_RETURN */'):
+                with self.subTest(item=item):
+                    recovery = calls.Recovery((item,))
+                    self.assertEqual((item,), m2c.starter_declarations(command, recovery))
+
+    def test_header_reuse_requires_provenance_and_preserves_fallback(self):
+        declaration = 'void func_target(void *, s32, s32);'
+        recovery = calls.Recovery((declaration,))
+        path, command = self.header_context(declaration)
+        with patch.object(m2c, 'ROOT', self.root):
+            self.assertEqual((declaration,), m2c.starter_declarations(
+                command, recovery, context_fallback=True))
+            for context in (
+                declaration + '\n',  # Raw context cannot prove where the declaration came from.
+                '# 1 "src/example.c"\n' + declaration + '\n',
+                '# 1 "src/example.c"\n#pragma GLOBAL_ASM("asm/target.s")\n'
+                '# 1 "include/late.h"\n' + declaration + '\n',
+            ):
+                with self.subTest(context=context):
+                    path.write_text(m2c.m2c_context.clean_context(context))
+                    self.assertEqual((declaration,), m2c.starter_declarations(command, recovery))
+            path.unlink()
+            self.assertEqual((declaration,), m2c.starter_declarations(command, recovery))
+            self.assertEqual((declaration,), m2c.starter_declarations(['m2c', 'input.s'], recovery))
+
+    def test_header_context_tool_changes_invalidate_saved_starters_and_later_stages(self):
+        tool = self.root / 'scripts/m2c_context.py'
+        tool.parent.mkdir()
+        tool.write_text('# original header provenance rules\n')
+        with patch.object(automate, 'ROOT', self.root):
+            args = automate.parse_args(['--all'])
+            before = automate.stage_fingerprint_seeds(args)
+            fingerprint = automate.automation_fingerprint()
+            tool.write_text('# revised header provenance rules\n')
+            after = automate.stage_fingerprint_seeds(args)
+            self.assertNotEqual(fingerprint, automate.automation_fingerprint())
+        self.assertEqual(before['inventory'], after['inventory'])
+        for stage in ('m2c', 'declarations', 'prepare', 'compile', 'diff', 'permute', 'finish'):
+            with self.subTest(stage=stage):
+                self.assertNotEqual(before[stage], after[stage])
+
     def test_sdk_inputs_invalidate_saved_raw_and_deferred_stage_results(self):
         mapping, header = self.write_sdk()
         with patch.object(automate, 'ROOT', self.root):

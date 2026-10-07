@@ -769,6 +769,37 @@ def generator_evidence(command: list[str]) -> dict:
     return evidence
 
 
+def starter_declarations(command: list[str], recovery: call_signatures.Recovery,
+                         *, context_fallback: bool = False) -> tuple[str, ...]:
+    """Omit only exact prototypes proven visible in the initial header context.
+
+    Whole-file context also contains later source declarations. Header provenance
+    comes from IDO line markers, before the first source declaration/ASM pragma.
+    Keep recovery intact for the decompiler and evidence; filter public output only.
+    """
+    if context_fallback or "--context" not in command:
+        return recovery.declarations
+    try:
+        context = (ROOT / command[command.index("--context") + 1]).read_text(encoding="utf-8")
+    except (IndexError, OSError):
+        return recovery.declarations
+    supplied = call_signatures.source_signatures(
+        "\n".join(m2c_context.header_declarations(context)))
+    if not supplied:
+        return recovery.declarations
+    visible = call_signatures.source_signatures(context, set(supplied))
+    emitted = []
+    for declaration in recovery.declarations:
+        parsed = call_signatures.source_signatures(declaration)
+        if len(parsed) == 1:
+            name, signatures = next(iter(parsed.items()))
+            if (len(signatures) == 1 and None not in signatures
+                    and supplied.get(name) == signatures == visible.get(name)):
+                continue
+        emitted.append(declaration)
+    return tuple(emitted)
+
+
 def generate_with_call_context(command: list[str], assembly: str, symbol: str,
                                source: Path | None, profile: str) -> tuple[str, int]:
     source_text = source.read_text(encoding="utf-8") if source else ""
@@ -789,17 +820,20 @@ def generate_with_call_context(command: list[str], assembly: str, symbol: str,
     starter = result.stdout
     if context_fallback:
         starter = "/* m2c: source context errors; using the starter without source context. */\n" + starter
+    emitted = ()
     if result.returncode == 0 and recovery.declarations:
-        # m2c suppresses declarations supplied through --context. Keep them in
-        # its public output so automate/next can insert them with the candidate.
+        # Retain missing declarations for next/prepare_starter, while reusing
+        # prototypes already supplied by an initial included header.
+        emitted = starter_declarations(command, recovery, context_fallback=context_fallback)
         notes = "\n".join(f"/* Call context: {note} */" for note in recovery.evidence)
-        starter = notes + "\n" + "\n".join(recovery.declarations) + "\n\n" + starter
+        starter = notes + "\n" + "\n".join(emitted) + "\n\n" + starter
     evidence_path = ROOT / "build/m2c/calls" / f"{symbol}.json"
     evidence_path.parent.mkdir(parents=True, exist_ok=True)
     context_path = ROOT / command[command.index("--context") + 1] if "--context" in command else None
     context_digest = hashlib.sha256(context_path.read_bytes()).hexdigest() if context_path and context_path.is_file() else None
     evidence_path.write_text(json.dumps({"symbol": symbol, "profile": profile,
         "declarations": recovery.declarations, "evidence": recovery.evidence,
+        "emitted_declarations": emitted,
         "generator": generator_evidence(command), "source_context_sha256": context_digest,
         "source_context_fallback": context_fallback,
         "callee_fingerprint": call_signatures.dependency_digest(ROOT, assembly, profile=profile)}, indent=2) + "\n")

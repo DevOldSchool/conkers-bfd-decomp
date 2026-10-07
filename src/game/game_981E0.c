@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_981E0.c
@@ -2031,7 +2032,6 @@ void func_1506FEF8(s32 arg0) {
 void func_1506FF24(s32 arg0) {
     func_151AB920((s32) D_800D154C, 1);
 }
-void func_151AB930(u8 *arg0);
 
 void func_1506FF50(s32 arg0) {
     func_151AB930(D_800D154C);
@@ -2081,7 +2081,6 @@ void func_15070114(s32 arg0) {
 }
 extern s32 D_800BE9F0;
 void func_151C0698(u8 *, s32, s32 *, s32, s32, s32);
-void func_151C1FB8(u8 *);
 void func_15070144(s32 arg0) {
     struct { s32 flags; u8 *owner; s32 zero8; s32 zeroC; } packet;
     s32 var_v0;
@@ -2445,7 +2444,6 @@ extern void func_151D0058(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 void func_15071628(s32 arg0) {
     func_151D0058(D_800D154C, (arg0 - 0x55) & 0xFF, 0xFF, 1);
 }
-void func_151D0024(u8 *arg0);
 
 void func_15071668(s32 arg0) {
     func_151D0024(D_800D154C);

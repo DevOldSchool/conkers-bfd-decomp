@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/effects/blood.c
@@ -737,7 +738,6 @@ typedef struct Blood364Hit {
 } Blood364Hit;
 
 void func_1504715C(void *, void *);
-void func_15143874(s16, f32, f32 *, f32 *);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
 s32 func_15046C80(f32 *, u16, f32, void *);
 u32 func_150ADA20(void);

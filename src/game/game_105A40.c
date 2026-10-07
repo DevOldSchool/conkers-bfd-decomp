@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_105A40.c
@@ -10,14 +11,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct Game105A40Header {
-    s16 field_0;
-    s16 field_2;
-} Game105A40Header;
-
-Game105A40Header *func_150D8590(Game105A40Header *arg0, s32 arg1) {
-    arg0->field_0 = 0x42;
-    arg0->field_2 = 0;
+GameCommand *func_150D8590(GameCommand *arg0, s32 arg1) {
+    arg0->opcode = 0x42;
+    arg0->value = 0;
     return arg0 + 1;
 }
 typedef struct Game71820XZ {
