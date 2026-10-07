@@ -5,32 +5,15 @@
  * Boundary evidence: docs/evidence/boundaries/main/main_sound_record_family_boundary.md
  *
  * TODO: Implement these source-unit functions:
- * - func_8000EC24
- * - func_8000ECCC
- * - func_8000EE70
- * - func_8000F4D8
- * - func_8000F568
  * - func_8000F6B8
- * - func_8000F85C
  * - func_8000FA64
- * - func_8000FC18
- * - func_8000FD38
- * - func_8000FDF4
  * - func_8000FEF0
- * - func_8000FF90
- * - func_800100E0
  * - func_80010154
  * - func_80010344
- * - func_80010558
  * - func_80010630
- * - func_80010720
- * - func_80010BE8
- * - func_80010F30
  * - func_80010FFC
  * - func_80011310
- * - func_800114D0
  * - func_80011624
- * - func_80011BB8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -106,17 +89,15 @@ typedef struct {
     s32 value;
 } SoundDelayedState;
 
-s32 func_80010F30(s32, s32, s32, s16, s32);
+s32 func_80010F30(s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000EC24 CURRENT (888) */
 s32 func_8000EC24(SoundDelayedState *state, s32 arg1, s32 *active,
                  u8 *arg3, s16 *arg4, s32 *arg5, u16 *arg6) {
-    u16 value = *arg6;
     s16 remaining = state->timer.halves.low;
     s32 handle;
 
-    if (value != 0) {
-        state->value = value;
+    if (*arg6 != 0) {
+        state->value = *arg6;
         state->field0 = 0;
         *arg6 = 0;
     }
@@ -132,8 +113,6 @@ s32 func_8000EC24(SoundDelayedState *state, s32 arg1, s32 *active,
     state->timer.word = remaining;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000EC24 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000EC24.s")
 typedef struct {
     u32 field0;
     u8 field4;
@@ -171,9 +150,8 @@ typedef struct {
 } SoundQueuedState;
 
 s32 func_80010894(SoundOwnerState *);
-s32 func_80010344(s32, void *, u32, s16, u16);
+s32 func_80010344(u16, void *, u32, s16, u16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000ECCC CURRENT (55) */
 s32 func_8000ECCC(SoundQueuedState *state, s32 arg1, s32 arg2,
                  s32 arg3, s32 arg4, s32 arg5, u16 *output) {
     u16 value;
@@ -189,7 +167,8 @@ s32 func_8000ECCC(SoundQueuedState *state, s32 arg1, s32 arg2,
     }
     remaining = (s16)(remaining - D_800BE9E4);
     if (remaining <= 0) {
-        state->field0 = *output = state->packed >> 16;
+        value = state->packed >> 16;
+        state->field0 = *output = value;
         if (func_80010894(state->owner) == 0) {
             func_80010344(*output, state->owner, state->valueC,
                           state->fieldA, state->field8);
@@ -199,8 +178,7 @@ s32 func_8000ECCC(SoundQueuedState *state, s32 arg1, s32 arg2,
     state->packed = (state->packed & 0xFFFF0000) | remaining;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000ECCC */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000ECCC.s")
+
 void func_80010630(u16, SoundOwnerState *, s32, s16, u16);
 
 s32 func_8000EDA0(SoundQueuedState *state, s32 arg1, s32 arg2,
@@ -247,15 +225,14 @@ typedef struct {
 
 s32 func_8000F44C(u16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000EE70 CURRENT (120) */
 s32 func_8000EE70(SoundArrayRecord *record, s32 arg1, s32 *active,
                  s32 arg3, s32 arg4, s32 *output, s32 arg6) {
     SoundOwnerState *owner = record->owner;
 
     if ((owner != 0) && (*active != 0)) {
-        s32 key = record->key & 0xFF;
+        u16 key = record->key & 0xFF;
 
-        if ((owner->field0 != 0) && (owner->field3B == key)) {
+        if ((owner->field0 != 0) && (key == owner->field3B)) {
             *output = ((owner->field184 >> 3) & 0x30) * 2;
             record->positionX = (s16)(s32)owner->field14;
             record->positionY = (s16)(s32)owner->field18;
@@ -268,8 +245,6 @@ s32 func_8000EE70(SoundArrayRecord *record, s32 arg1, s32 *active,
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000EE70 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000EE70.s")
 void func_800111C8(u16);
 
 s32 func_8000EF40(SoundArrayRecord *record, s32 arg1, s32 *active,
@@ -455,36 +430,32 @@ s32 func_8000F44C(u16 arg0) {
 }
 extern u8 D_800426A0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000F4D8 CURRENT (30) */
 s32 func_8000F4D8(u16 arg0) {
-    SoundHandleEntry *entry;
+    s32 index;
 
     arg0 &= 0x7FFF;
-    entry = D_800425E0;
+    index = 0;
     do {
-        if (entry->state != 0) {
-            if ((entry->value & 0x7FFF) == arg0) {
-                if (func_800173C4(&entry->state) != 0) {
+        if (D_800425E0[index].state != 0) {
+            if ((D_800425E0[index].value & 0x7FFF) == arg0) {
+                if (func_800173C4(&D_800425E0[index].state) != 0) {
                     return 1;
                 }
             }
         }
-        entry++;
-    } while (entry != (SoundHandleEntry *)D_800426A0);
+        index++;
+    } while ((SoundHandleEntry *)D_800426A0 != &D_800425E0[index]);
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000F4D8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000F4D8.s")
 extern u8 *D_80041F5C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000F568 CURRENT (495) */
 s32 func_8000F568(s32 base, s32 count) {
     s32 mask;
     u32 initial;
     s32 choice;
     u8 *entry;
     u8 current;
-    u32 available;
+    s32 available;
     u8 updated;
 
     initial = func_850ADA20() % (u32)count;
@@ -499,18 +470,18 @@ s32 func_8000F568(s32 base, s32 count) {
         entry = D_80041F5C + base;
         current = *entry;
         if (count < 8) {
-            available = current;
             if (!(current & 0x80) ||
-                (mask = (1 << count) - 1, !(current & mask))) {
+                (mask = (1 << count) - 1, !((s32)current & mask))) {
                 mask = (1 << count) - 1;
-                available = 0xFF;
+                current = 0xFF;
             }
-            if (!(available & (1U << initial))) {
+            if (!(current & (1 << initial))) {
                 do {
                     choice = (choice + 1) % count;
-                } while (!(available & (1U << choice)));
+                } while (!(current & (1 << choice)));
             }
-            updated = available ^ (1U << choice);
+            available = current;
+            updated = current ^ (1 << choice);
             *entry = updated;
             if (!(updated & mask)) {
                 D_80041F5C[base] = available ^ mask;
@@ -521,8 +492,6 @@ s32 func_8000F568(s32 base, s32 count) {
     }
     return (u32)base + (u32)choice;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000F568 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000F568.s")
 
 typedef struct {
     s32 x0;
@@ -540,51 +509,44 @@ s32 func_8000A420(s32, s32, s32, f32, s32, s32, s32, s32, s32,
                  s32 *, s32 *, s32 *);
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000F6B8 CURRENT (929) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000F6B8 CURRENT (230) */
 s32 func_8000F6B8(s32 arg0, s16 arg1, s16 arg2, s16 arg3,
                    s32 *output, s32 nearDistance, s32 farDistance) {
     s32 result;
     SoundSpatialRecord *selected;
-    SoundSpatialRecord *record;
+    s32 index;
+    s32 dx;
+    s32 dy;
     s32 bestX;
     s32 bestY;
     s32 bestZ;
-    s32 dx;
-    s32 dy;
     s32 dz;
-    s32 x = arg1;
-    s32 y = arg2;
-    s32 z = arg3;
     u32 distance;
     u32 closest;
 
     if (D_80082FA0 != 0) {
         closest = 0xFFFFFFFF;
-        if (D_80082FA0 >= 0) {
-            record = D_80041F68;
-            do {
-            dx = x - record->xC;
-            dy = y - record->y10;
-            dz = z - record->z14;
+        for (index = 0; index <= D_80082FA0; index++) {
+            dx = arg1 - D_80041F68[index].xC;
+            dy = arg2 - D_80041F68[index].y10;
+            dz = arg3 - D_80041F68[index].z14;
             distance = dx * dx + dy * dy + dz * dz;
             if (distance < closest) {
                 closest = distance;
-                selected = record;
+                selected = &D_80041F68[index];
                 bestX = dx;
                 bestY = dy;
                 bestZ = dz;
             }
-                record++;
-            } while (record <= &D_80041F68[D_80082FA0]);
         }
     } else {
         selected = D_80041F68;
-        bestX = x - selected->xC;
-        bestY = y - selected->y10;
-        bestZ = z - selected->z14;
+        bestX = arg1 - selected->xC;
+        bestY = arg2 - selected->y10;
+        bestZ = arg3 - selected->z14;
     }
     func_8000A420(bestX, bestY, bestZ, selected->field18,
-                 x - selected->x0, y - selected->y4, z - selected->z8,
+                 arg1 - selected->x0, arg2 - selected->y4, arg3 - selected->z8,
                  (s16)farDistance, (s16)nearDistance, output, &result, 0);
     return result;
 }
@@ -594,26 +556,18 @@ s32 func_8000F3D0(u16);
 f32 func_80019AB0(s32);
 void func_80017714(struct sndstate *, s16, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000F85C CURRENT (529) */
 void func_8000F85C(u16 arg0, s16 arg1, s32 arg2) {
-    union {
-        f32 number;
-        s32 word;
-    } pitch;
-    s32 handle = arg0;
-
-    if ((handle >= 0x10) && (func_8000F3D0(arg0) != 0)) {
+    if ((arg0 >= 0x10) && (func_8000F3D0(arg0) != 0)) {
         if (arg1 == 0x10) {
-            pitch.number = func_80019AB0(arg2);
-            arg2 = pitch.word;
+            f32 pitch;
+            pitch = func_80019AB0(arg2);
+            arg2 = *(s32 *)&pitch;
         } else if (arg1 == 0x11) {
             arg1 = 0x10;
         }
-        func_80017714(D_800425E0[handle & 0xF].state, arg1, arg2);
+        func_80017714(D_800425E0[arg0 & 0xF].state, arg1, arg2);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000F85C */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000F85C.s")
 
 s32 func_8000F6B8(s32, s16, s16, s16, s32 *, s32, s32);
 void func_8000F85C(u16, s16, s32);
@@ -642,24 +596,12 @@ extern SoundArrayRecord D_80041FE0[];
 void func_80011624(SoundArrayRecord *, s32 *, s32, s32);
 s32 func_85083E0C(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FA64 CURRENT (4811) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FA64 CURRENT (1483) */
 u16 func_8000FA64(u16 sound, s16 x, s16 y, s16 z, s32 volume,
                   u16 farDistance, s16 nearDistance, void *callback,
                   s32 owner, s32 key, s32 flags, s32 cents) {
-    s16 height;
-    u16 recordSound;
-    s16 recordX;
-    s16 recordY;
-    s16 recordZ;
-    u16 recordFar;
-    s16 recordNear;
-    s32 recordVolume;
-    void *recordCallback;
-    s32 recordOwner;
-    s32 recordKey;
     s32 count;
     s32 index;
-    SoundArrayRecord *record;
 
     index = D_80042760;
     if (D_80042760 < 0x20) {
@@ -668,51 +610,41 @@ u16 func_8000FA64(u16 sound, s16 x, s16 y, s16 z, s32 volume,
         return 0;
     }
     if (callback != 0) {
-        record = &D_80041FE0[index];
-        record->flags = flags | 0x12;
+        D_80041FE0[index].flags = flags | 0x12;
     } else {
-        record = &D_80041FE0[index];
-        record->flags = (flags & 0x108) | 2;
+        D_80041FE0[index].flags = (flags & 0x108) | 2;
     }
     if (flags & 0x40) {
+        s16 height;
+
         height = (s16)func_85083E0C((u8)x);
         y = height;
         if (height == -1) {
             return 0;
         }
     }
-    recordSound = sound;
-    recordX = x;
-    recordY = ((s16 *)&y)[0];
-    recordZ = z;
-    recordFar = farDistance;
-    recordNear = nearDistance;
-    recordVolume = volume;
-    recordCallback = callback;
-    recordOwner = owner;
-    recordKey = key;
-    record->handle = 0;
-    record->field23 = 0;
-    record->field22 = 0;
-    record->field0 = recordSound;
-    record->positionX = recordX;
-    record->positionY = recordY;
-    record->positionZ = recordZ;
-    record->field8 = recordFar;
-    record->fieldA = recordNear;
-    record->valueC = recordVolume;
-    record->callback = recordCallback;
-    record->owner = (void *)recordOwner;
-    record->key = recordKey;
-    record->pitch = func_80019AB0(cents);
-    record->field26 = 0;
-    record->field28 = 0;
-    record->cents = cents;
+    D_80041FE0[index].handle = 0;
+    D_80041FE0[index].field23 = 0;
+    D_80041FE0[index].field22 = 0;
+    D_80041FE0[index].field0 = sound;
+    D_80041FE0[index].positionX = x;
+    D_80041FE0[index].positionY = ((s16 *)&y)[0];
+    D_80041FE0[index].positionZ = z;
+    D_80041FE0[index].field8 = farDistance;
+    D_80041FE0[index].fieldA = nearDistance;
+    D_80041FE0[index].valueC = volume;
+    D_80041FE0[index].callback = callback;
+    D_80041FE0[index].owner = (void *)owner;
+    D_80041FE0[index].key = key;
+    D_80041FE0[index].pitch = func_80019AB0(cents);
+    D_80041FE0[index].field26 = 0;
+    D_80041FE0[index].field28 = 0;
+    D_80041FE0[index].cents = cents;
     count = D_80042760;
     func_80011624(D_80041FE0, &D_80042760, index, index + 1);
     if (count == D_80042760) {
-        record->flags |= 0x1000;
-        return record->handle;
+        D_80041FE0[index].flags |= 0x1000;
+        return D_80041FE0[index].handle;
     }
     return 0;
 }
@@ -720,104 +652,78 @@ u16 func_8000FA64(u16 sound, s16 x, s16 y, s16 z, s32 volume,
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000FA64.s")
 extern SoundArrayRecord D_80041FE0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FC18 CURRENT (610) */
 void func_8000FC18(u16 sound, s16 x, s16 y, s16 z, u16 arg4) {
-    SoundArrayRecord *record;
-    s32 index = 0;
+    s32 index;
     s32 soundId;
 
     soundId = sound;
-    if (D_80042760 > 0) {
-        record = D_80041FE0;
-        do {
-            if ((soundId == record->field0) && (x == record->positionX) &&
-                (y == record->positionY) && (z == record->positionZ) &&
-                ((record->field8 & 0x7FFF) == arg4)) {
-                if (record->handle != 0) {
-                    func_800111C8(record->handle);
-                }
-                record->flags |= 0x80;
+    for (index = 0; index < D_80042760; index++) {
+        if ((soundId == D_80041FE0[index].field0) &&
+            (x == D_80041FE0[index].positionX) &&
+            (y == D_80041FE0[index].positionY) &&
+            (z == D_80041FE0[index].positionZ) &&
+            ((D_80041FE0[index].field8 & 0x7FFF) == arg4)) {
+            if (D_80041FE0[index].handle != 0) {
+                func_800111C8(D_80041FE0[index].handle);
             }
-            index++;
-            record++;
-        } while (index < D_80042760);
+            D_80041FE0[index].flags |= 0x80;
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000FC18 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000FC18.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FD38 CURRENT (280) */
 void func_8000FD38(void *callback, void *owner, s32 key) {
-    SoundArrayRecord *record = D_80041FE0;
     s32 index;
 
-    for (index = 0; index < D_80042760; index++, record++) {
-        if ((callback == record->callback) &&
-            (owner == record->owner) && (key == record->key)) {
-            if (record->handle != 0) {
-                func_800111C8(record->handle);
+    for (index = 0; index < D_80042760; index++) {
+        if ((callback == D_80041FE0[index].callback) &&
+            (owner == D_80041FE0[index].owner) && (key == D_80041FE0[index].key)) {
+            if (D_80041FE0[index].handle != 0) {
+                func_800111C8(D_80041FE0[index].handle);
             }
-            record->flags |= 0x80;
+            D_80041FE0[index].flags |= 0x80;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000FD38 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000FD38.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FDF4 CURRENT (775) */
 void func_8000FDF4(u16 arg0) {
-    SoundArrayRecord *record;
     s32 index;
-    index = 0;
-    if (D_80042760 > 0) {
-        record = D_80041FE0;
-        do {
-            if (record->handle == arg0) {
-                if (record->handle != 0) {
-                    func_800111C8(record->handle);
-                }
-                record->flags |= 0x80;
+    s32 handleId = arg0;
+
+    for (index = 0; index < D_80042760; index++) {
+        if ((u32)D_80041FE0[index].handle == (u32)handleId) {
+            if (D_80041FE0[index].handle != 0) {
+                func_800111C8(D_80041FE0[index].handle);
             }
-            index++;
-            record++;
-        } while (index < D_80042760);
+            D_80041FE0[index].flags |= 0x80;
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000FDF4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000FDF4.s")
-s32 func_8000FE88(SoundArrayRecord *arg0, s32 arg1, s32 *arg2) {
-    SoundArrayRecord *v1;
-    u16 new_var2;
-    u32 new_var3;
-    s32 new_var;
-
-    new_var = arg1;
-    v1 = arg0;
-    if (new_var < (*arg2)) {
-        v1 += new_var;
-        new_var3 = v1->handle;
-        new_var2 = new_var3;
-        if (new_var2 != 0) {
-            func_800111C8(new_var3);
+s32 func_8000FE88(SoundArrayRecord *records, s32 index, s32 *count) {
+    if (index < *count) {
+        index = (u32)index * sizeof(SoundArrayRecord);
+        if (((SoundArrayRecord *)((u8 *)records + (u32)index))->handle != 0) {
+            func_800111C8(((SoundArrayRecord *)((u8 *)records + (u32)index))->handle);
         }
-        v1->flags |= 0x80;
+        ((SoundArrayRecord *)((u8 *)records + (u32)index))->flags |= 0x80;
         return 0;
     }
     return 1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FEF0 CURRENT (1969) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FEF0 CURRENT (500) */
 s32 func_8000FEF0(u16 arg0, void *owner, s32 key) {
     SoundArrayRecord *record;
     s32 index;
+    u16 handle;
 
     if (arg0 == 0) {
         return -1;
     }
+    handle = arg0;
     index = 0;
     if (D_80042760 > 0) {
         record = D_80041FE0;
         do {
-            if ((record->handle == arg0) && (owner == record->owner) &&
+            if ((record->handle == handle) && (owner == record->owner) &&
                 (key == record->key) && !(record->flags & 0x80)) {
                 return index;
             }
@@ -829,29 +735,19 @@ s32 func_8000FEF0(u16 arg0, void *owner, s32 key) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_8000FEF0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000FEF0.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FF90 CURRENT (290) */
 s32 func_8000FF90(u8 *callback, void *owner, s32 key) {
-    SoundArrayRecord *record = D_80041FE0;
-    s32 index = 0;
+    s32 index;
 
-    if (D_80042760 > 0) {
-    next_record:
-        if ((callback == record->callback) &&
-            ((owner == record->owner) || (owner == (void *)-1)) &&
-            ((key == record->key) || (key == -1)) &&
-            !(record->flags & 0x80)) {
+    for (index = 0; index < D_80042760; index++) {
+        if ((callback == D_80041FE0[index].callback) &&
+            ((owner == D_80041FE0[index].owner) || (owner == (void *)-1)) &&
+            ((key == D_80041FE0[index].key) || (key == -1)) &&
+            !(D_80041FE0[index].flags & 0x80)) {
             return index;
-        }
-        index++;
-        record++;
-        if (index < D_80042760) {
-            goto next_record;
         }
     }
     return -1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000FF90 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000FF90.s")
 void func_8001001C(void *callback, void *owner, s32 key, s32 value, s32 cents) {
     SoundArrayRecord *record = D_80041FE0;
     s32 index;
@@ -864,44 +760,41 @@ void func_8001001C(void *callback, void *owner, s32 key, s32 value, s32 cents) {
         }
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800100E0 CURRENT (210) */
 void func_800100E0(void *callback, void *owner, s32 key,
                   void *newCallback, void *newOwner, s32 newKey) {
-    SoundArrayRecord *record = D_80041FE0;
-    s32 count = D_80042760;
-    if (count > 0) {
-        do {
-            if ((callback == record->callback) &&
-                (owner == record->owner) && (key == record->key)) {
-                record->callback = newCallback;
-                record->owner = newOwner;
-                record->key = newKey;
-            }
-            record++;
-        } while (record < D_80041FE0 + count);
+    s32 index;
+
+    for (index = 0; index < D_80042760; index++) {
+        if ((callback == D_80041FE0[index].callback) &&
+            (owner == D_80041FE0[index].owner) &&
+            (key == D_80041FE0[index].key)) {
+            D_80041FE0[index].callback = newCallback;
+            D_80041FE0[index].owner = newOwner;
+            D_80041FE0[index].key = newKey;
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_800100E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_800100E0.s")
 u16 func_8000FA64(u16, s16, s16, s16, s32, u16, s16,
                   void *, s32, s32, s32, s32);
 void func_8000FD38(void *, void *, s32);
 u16 func_80010BE8(u16, s32, u16, u8, s16, u8, u8);
 extern u8 D_1000EE70[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010154 CURRENT (3570) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010154 CURRENT (2065) */
 void func_80010154(u16 sound, SoundOwnerState *owner, s32 volume,
                    s16 arg3, u16 farDistance) {
-    u16 result = 0;
+    s32 result = 0;
     s32 flags = 0;
-    void *callback;
+    u32 callback;
 
     if ((owner->field0 == 0) || (owner->field0 == 5)) {
         return;
     }
     if (owner->field318 != 0) {
+        u32 mixFlags = owner->field184;
+
         result = func_80010BE8(owner->handle8E, sound, (u16)volume,
-                              0x40, 0, ((owner->field184 >> 3) & 0x30) * 2,
+                              0x40, 0, ((mixFlags >> 3) & 0x30) * 2,
                               D_80041FD9);
     } else {
         if (owner->field4 == 0x16) {
@@ -916,14 +809,14 @@ void func_80010154(u16 sound, SoundOwnerState *owner, s32 volume,
                    ((owner->field4 == 0x8A) || (owner->field4 == 0x23))) {
             flags = 0x100;
         }
-        callback = D_1000EE70;
-        func_8000FD38(callback, owner, owner->field3B | 0x10000);
+        callback = (u32)D_1000EE70;
+        func_8000FD38((void *)callback, owner, owner->field3B | 0x10000);
         if (owner->field0 != 0) {
             result = func_8000FA64(sound, (s16)(s32)owner->field14,
                                   (s16)(s32)owner->field18,
                                   (s16)(s32)owner->field1C, volume,
                                   farDistance, arg3,
-                                  callback, (s32)owner,
+                                  (void *)callback, (s32)owner,
                                   owner->field3B | 0x10000, flags, 0);
         }
     }
@@ -931,8 +824,8 @@ void func_80010154(u16 sound, SoundOwnerState *owner, s32 volume,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_80010154 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80010154.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010344 CURRENT (1103) */
-s32 func_80010344(s32 sound, void *arg1, u32 volume,
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010344 CURRENT (745) */
+s32 func_80010344(u16 sound, void *arg1, u32 volume,
                   s16 nearDistance, u16 farDistance) {
     SoundOwnerState *owner = arg1;
     s32 flags = 0;
@@ -948,8 +841,8 @@ s32 func_80010344(s32 sound, void *arg1, u32 volume,
         flags = 0x100;
     }
     if (owner->field318 != 0) {
-        mix = ((owner->field184 >> 3) & 0x30) * 2;
         enabled = D_80041FD9;
+        mix = ((owner->field184 >> 3) & 0x30) * 2;
         if ((owner->field31C != 0) && (owner->field31C[0x94] == 1)) {
             enabled = 1;
             volume = 0x7FFF;
@@ -973,7 +866,7 @@ s32 func_80010344(s32 sound, void *arg1, u32 volume,
                               (s16)(s32)owner->field18,
                               (s16)(s32)owner->field1C, volume,
                               ((u16 *)&farDistance)[0], nearDistance,
-                              callback, (s32)owner,
+                              *(void **)&callback, (s32)owner,
                               owner->field3B | 0x20000, flags, 0);
     }
     owner->handle8C = flags;
@@ -985,34 +878,36 @@ u16 func_8000FA64(u16, s16, s16, s16, s32, u16, s16,
                   void *, s32, s32, s32, s32);
 extern u8 D_1000ECCC[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010558 CURRENT (1530) */
 void func_80010558(u16 sound, SoundOwnerState *owner, s32 volume,
-                  s32 arg3, s32 arg4, s32 delay) {
+                  s16 arg3, u16 arg4, s32 delay) {
     if (delay <= 0) {
-        func_80010344(sound, owner, volume, (s16)arg3, ((u16 *)&arg4)[1]);
+        func_80010344(sound, owner, volume, arg3, arg4);
         return;
     }
     func_8000FA64(sound, (s16)(s32)owner->field14,
                   (s16)(s32)owner->field18, (s16)(s32)owner->field1C,
-                  volume, ((u16 *)&arg4)[1], ((s16 *)&arg3)[1], D_1000ECCC,
+                  volume, arg4, arg3, D_1000ECCC,
                   delay, (s32)owner, 0, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80010558 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80010558.s")
 extern u8 D_1000EE70[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010630 CURRENT (2124) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010630 CURRENT (1802) */
 void func_80010630(u16 sound, SoundOwnerState *owner, s32 volume,
                   s16 arg3, u16 arg4) {
+    u16 localVolume;
+    u32 currentValue = volume;
+
     if (owner->field0 != 0) {
         if (owner->field318 != 0) {
-            func_80010F30(sound, volume & 0xFFFF, 0x40, 0,
-                          ((owner->field184 >> 3) & 0x30) * 2);
+            localVolume = currentValue;
+            currentValue = owner->field184;
+            func_80010F30(sound, localVolume, 0x40, 0,
+                          ((currentValue >> 3) & 0x30) * 2);
             return;
         }
         func_8000FA64(sound, (s16)(s32)owner->field14,
                       (s16)(s32)owner->field18, (s16)(s32)owner->field1C,
-                      volume, arg4, arg3, D_1000EE70,
+                      (s32)currentValue, arg4, arg3, D_1000EE70,
                       (s32)owner, owner->field3B, 0, 0);
     }
 }
@@ -1020,22 +915,17 @@ void func_80010630(u16 sound, SoundOwnerState *owner, s32 volume,
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80010630.s")
 extern u8 D_1000EDA0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010720 CURRENT (1530) */
-void func_80010720(s32 arg0, SoundOwnerState *owner, s32 volume,
-                  s32 arg3, s32 arg4, s32 delay) {
-    u16 sound = arg0;
+void func_80010720(u16 arg0, SoundOwnerState *owner, s32 volume,
+                  s16 arg3, u16 arg4, s32 delay) {
     if (delay <= 0) {
-        func_80010630(sound, owner, volume, (s16)arg3, (u16)arg4);
+        func_80010630(arg0, owner, volume, arg3, arg4);
         return;
     }
-    func_8000FA64(sound, (s16)(s32)owner->field14,
+    func_8000FA64(arg0, (s16)(s32)owner->field14,
                   (s16)(s32)owner->field18, (s16)(s32)owner->field1C,
-                  volume, (u16)arg4, (s16)arg3, D_1000EDA0,
+                  volume, arg4, arg3, D_1000EDA0,
                   delay, (s32)owner, 0, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80010720 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80010720.s")
-
 void func_8000FD38(void *, void *, s32);
 
 s32 func_8000F3D0(u16);
@@ -1152,35 +1042,30 @@ struct sndstate *func_80017438(void *, s16, u16, u8, f32, u8, u8,
 extern u16 D_800425E4;
 extern struct sndstate *D_800425E8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010BE8 CURRENT (1034) */
 u16 func_80010BE8(u16 arg0, s32 sound, u16 volume, u8 pan,
                   s16 cents, u8 arg5, u8 bus) {
-    SoundHandleEntry *entry;
-    struct sndstate **state;
-    u32 index;
-    s32 handle = arg0;
-    s32 soundId;
     u16 result;
     u16 next;
-    u8 mix;
+    u32 index;
 
-    index = handle & 0xF;
-    entry = &D_800425E0[index];
-    if ((handle == entry->id) && (handle != 0)) {
-        if ((entry->state != 0) && (func_800173C4(&entry->state) != 0)) {
-            func_80017594(entry->state);
-            entry->state = 0;
+    index = arg0 & 0xF;
+    if ((arg0 == D_800425E0[index].id) && (arg0 != 0)) {
+        if ((D_800425E0[index].state != 0) &&
+            (func_800173C4(&D_800425E0[index].state) != 0)) {
+            func_80017594(D_800425E0[index].state);
+            D_800425E0[index].state = 0;
         }
-    } else if ((((entry->state != 0) &&
-                 (func_800173C4(&entry->state) != 0)) || (entry->value & 0x8000)) &&
-               (((index = 0, D_800425E8 != 0) &&
+    } else if ((((D_800425E0[index].state != 0) &&
+                 (func_800173C4(&D_800425E0[index].state) != 0)) ||
+                (D_800425E0[index].value & 0x8000)) &&
+               (((index = 0, D_800425E0[0].state != 0) &&
                  (func_800173C4(&D_800425E8) != 0)) || (D_800425E4 & 0x8000))) {
 search_next_slot:
         index++;
         if (index < 0x10) {
-            entry = &D_800425E0[index];
-            if (((entry->state != 0) &&
-                 (func_800173C4(&entry->state) != 0)) || (entry->value & 0x8000)) {
+            if (((D_800425E0[index].state != 0) &&
+                 (func_800173C4(&D_800425E0[index].state) != 0)) ||
+                (D_800425E0[index].value & 0x8000)) {
                 goto search_next_slot;
             }
         }
@@ -1195,36 +1080,30 @@ search_next_slot:
     if (sound == 0) {
         return 0;
     }
-    soundId = sound & 0x7FFF;
-    if (soundId >= 0x6E3) {
+    if ((sound & 0x7FFF) >= 0x6E3) {
         return 0;
     }
-    entry = &D_800425E0[index];
-    result = entry->field2;
-    state = &entry->state;
+    result = D_800425E0[index].field2;
     next = result + 0x10;
-    entry->id = result;
+    D_800425E0[index].id = result;
     if (next < 0x10) {
         next += 0x10;
     }
-    entry->field2 = next;
-    entry->value = sound;
-    if (entry->state != 0) {
-        ((u8 *)entry->state)[0x54] = 5;
+    D_800425E0[index].field2 = next;
+    D_800425E0[index].value = sound;
+    if (D_800425E0[index].state != 0) {
+        ((u8 *)D_800425E0[index].state)[0x54] = 5;
     }
-    mix = arg5;
-    if ((mix & 0x7F) + (u8)D_80041FD8 < 0x80) {
-        mix += (u8)D_80041FD8;
+    if ((arg5 & 0x7F) + (u8)D_80041FD8 < 0x80) {
+        arg5 = (u8)(arg5 + (u8)D_80041FD8);
     } else {
-        mix |= 0x7F;
+        arg5 = (u8)(arg5 | 0x7F);
     }
-    func_80017438(D_8003E368, soundId, volume, pan,
-                 func_80019AB0(cents), mix, bus, state);
+    func_80017438(D_8003E368, (sound & 0x7FFF), volume, pan,
+                 func_80019AB0(cents), arg5, bus, &D_800425E0[index].state);
 return_result:
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80010BE8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80010BE8.s")
 u16 func_80010BE8(u16, s32, u16, u8, s16, u8, u8);
 
 u16 func_80010E78(s32 arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4,
@@ -1242,13 +1121,16 @@ u16 func_80010E78(s32 arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4,
     }
     return 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010F30 CURRENT (248) */
-s32 func_80010F30(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s32 arg4) {
-    return func_80010BE8(0, arg0, (u16)((u32 *)&arg1)[0], ((u8 *)&arg2)[3],
+s32 func_80010F30(arg0, arg1, arg2, arg3, arg4)
+s32 arg0;
+u16 arg1;
+u8 arg2;
+s16 arg3;
+s32 arg4;
+{
+    return func_80010BE8(0, arg0, arg1, arg2,
                         arg3, ((u8 *)&arg4)[3], D_80041FD9);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80010F30 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80010F30.s")
 u16 func_80010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 
 s32 func_80010F88(s32 arg0, u16 arg1, s16 arg2, u8 arg3, s32 arg4,
@@ -1263,7 +1145,7 @@ typedef struct {
 
 extern SoundOwnerScale *D_800D1C90[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010FFC CURRENT (1595) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010FFC CURRENT (935) */
 s32 func_80010FFC(u16 arg0, s32 arg1, u16 arg2, s16 arg3,
                   u8 arg4, SoundOwnerState *owner) {
     s32 handle = arg0;
@@ -1277,7 +1159,7 @@ s32 func_80010FFC(u16 arg0, s32 arg1, u16 arg2, s16 arg3,
         result = func_80010BE8(handle, arg1, arg2, 0x40,
                               arg3, arg4, D_80041FD9);
     } else {
-        arg2 = (u16)((arg2 * 3) >> 2);
+        arg2 = (u16)((arg2 + arg2 + arg2) >> 2);
         if (owner->field4 != 0xFF) {
             scale = (f32)(u32)D_800D1C90[owner->field4]->fieldE * owner->field14C;
         } else {
@@ -1344,7 +1226,7 @@ s32 func_800112BC(s32 arg0, s32 arg1) {
     }
     return 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011310 CURRENT (4058) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011310 CURRENT (3775) */
 void func_80011310(void) {
     SoundHandleEntry *entry;
     SoundQueueEntry *cursor;
@@ -1355,7 +1237,7 @@ void func_80011310(void) {
     s32 flag;
     s32 remaining;
     struct sndstate *state;
-    u8 operation;
+    s32 operation;
 
     count = D_80041F50;
     flag = 0;
@@ -1365,7 +1247,7 @@ void func_80011310(void) {
         cursor = D_80041F10;
         do {
             operation = (u8)cursor->operation;
-            destination = &D_80041F10[index];
+            destination = (SoundQueueEntry *)((index << 2) + (s32)D_80041F10);
             if (operation > 0) {
                 end = &D_80041F10[count];
                 cursor->operation = operation - 1;
@@ -1412,39 +1294,31 @@ s32 func_8001147C(u16 arg0) {
     return -1;
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800114D0 CURRENT (1210) */
 s32 func_800114D0(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
                   s32 arg4, s32 arg5, s32 *arg6, s32 *arg7, s32 *arg8) {
     SoundSpatialRecord *best;
-    SoundSpatialRecord *record;
     s32 dx;
     s32 dy;
     s32 dz;
     u32 distance;
-    s32 output;
     s32 result;
+    s32 output;
     u32 index;
     u32 bestDistance;
-    u32 limit;
 
-    limit = D_80082FA0;
     best = D_80041F68;
-    if (limit != 0) {
+    if (D_80082FA0 != 0) {
         bestDistance = 0xFFFFFFFF;
-        record = D_80041F68;
-        index = 0;
-        do {
-            dx = arg0 - record->xC;
-            dy = arg1 - record->y10;
-            dz = arg2 - record->z14;
-            index++;
+        for (index = 0; index <= (u32)D_80082FA0; index++) {
+            dx = arg0 - D_80041F68[index].xC;
+            dy = arg1 - D_80041F68[index].y10;
+            dz = arg2 - D_80041F68[index].z14;
             distance = dx * dx + dy * dy + dz * dz;
             if (distance < bestDistance) {
                 bestDistance = distance;
-                best = record;
+                best = &D_80041F68[index];
             }
-            record++;
-        } while (limit >= index);
+        }
     }
     result = func_8000A420(arg0 - best->xC, arg1 - best->y10, arg2 - best->z14,
                  best->field18, arg0 - best->x0, arg1 - best->y4,
@@ -1452,8 +1326,6 @@ s32 func_800114D0(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
     *arg7 = (u32)(output * arg3) >> 15;
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_800114D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_800114D0.s")
 s32 func_800114D0(s32, s32, s32, s32, s32, s32, s32 *, s32 *, s32 *);
 s32 func_8000A750(s32, s32, s32, s32, f32, s32, s32, s32, s32, s32,
                   s32 *, s32 *, s32 *);
@@ -1465,31 +1337,31 @@ extern u8 D_800BE615;
 typedef s32 (*SoundRecordCallback)(void *, s32 *, u32 *, s32 *, s32 *,
                                     s32 *, u16 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011624 CURRENT (1422) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011624 CURRENT (298) */
 void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
     SoundArrayRecord *record;
+    u32 flags;
     s32 pan;
+    s32 temporary;
     u32 volume;
     s32 active;
     s32 distance;
     s32 cents;
     u16 sound;
+    u16 handle;
     s32 mix;
     union {
         f32 value;
         s32 bits;
     } pitch;
-    u32 flags;
-    u16 handle;
     s32 index;
     s32 offset;
     s32 *panOut;
     s32 fxmix;
-    s32 velocity;
+    s32 eventValue;
     f32 ratio;
     f32 unclampedRatio;
-    s32 bus;
-    s32 result;
+    f32 pitchDelta;
 
     index = start;
     if ((index < *count) && (index < end)) {
@@ -1497,17 +1369,17 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
         record = (SoundArrayRecord *)((u8 *)records + offset);
         do {
         flags = record->flags;
-        if (flags & 0x80) {
+        if (record->flags & 0x80) {
             goto next_record;
         }
-        if (flags & 0x1000) {
-            record->flags = flags & ~0x1000;
+        if (record->flags & 0x1000) {
+            record->flags &= ~0x1000;
             goto next_record;
         }
         handle = record->handle;
         if ((flags & 1) && (handle != 0) && (func_8000F3D0(handle) == 0)) {
-            flags &= ~1;
             handle = 0;
+            flags &= ~1;
             if (!(flags & 8)) {
                 flags |= 0x80;
                 record->field0 = 0;
@@ -1546,7 +1418,7 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
             sound = record->field0;
             if ((flags & 0x10) && (record->callback != 0)) {
                 record->flags = flags;
-                if (((SoundRecordCallback)record->callback)((u8 *)records + offset,
+                if (((SoundRecordCallback)record->callback)((void *)(offset + (u32)records),
                         &active, &volume, &pan, &cents, &mix, &sound) != 0) {
                     func_8000FE88(records, index, count);
                     goto next_record;
@@ -1569,17 +1441,16 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
                     if (handle == 0) {
                         if (flags & 0xC00) {
                             if ((flags & 0xC00) == 0x400) {
-                                bus = 0;
+                                temporary = 0;
                             } else {
-                                bus = 1;
+                                temporary = 1;
                             }
                         } else {
-                            bus = D_80041FD9;
+                            temporary = D_80041FD9;
                         }
-                        result = func_80010BE8(0, sound, (u16)volume,
-                                             (u8)pan, cents, fxmix, bus);
-                        handle = result;
-                        if (result != 0) {
+                        handle = func_80010BE8(0, sound, (u16)volume,
+                                             (u8)pan, cents, fxmix, temporary);
+                        if (handle != 0) {
                             flags |= 1;
                             record->field0 = sound;
                         }
@@ -1594,11 +1465,11 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
                             func_8000F85C(handle, 0x100, fxmix);
                         }
                         if (flags & 4) {
-                            velocity = ((u16)record->field28 - distance) * D_800BE9E4 / 3;
-                            if (velocity >= 0x16F) {
+                            temporary = ((u16)record->field28 - distance) * D_800BE9E4 / 3;
+                            if (temporary >= 0x16F) {
                                 ratio = 2.0f;
                             } else {
-                                unclampedRatio = D_8002C400 / (f32)(0x16F - velocity);
+                                unclampedRatio = D_8002C400 / (f32)(0x16F - temporary);
                                 ratio = unclampedRatio;
                                 if (unclampedRatio > 2.0f) {
                                     ratio = 2.0f;
@@ -1607,11 +1478,12 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
                                 }
                             }
                             pitch.value *= ratio;
-                            pitch.value = record->pitch +
-                                (pitch.value - record->pitch) * D_8002C404;
+                            pitchDelta = pitch.value - record->pitch;
+                            pitch.value = record->pitch + pitchDelta * D_8002C404;
                         }
+                        eventValue = pitch.bits;
                         if (pitch.value != record->pitch) {
-                            func_8000F85C(handle, 0x11, pitch.bits);
+                            func_8000F85C(handle, 0x11, eventValue);
                         }
                     }
                     record->field28 = distance;
@@ -1662,65 +1534,40 @@ typedef struct {
 extern SoundListenerState *D_800DBFF0;
 void func_80011310(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011BB8 CURRENT (2185) */
 void func_80011BB8(void) {
-    SoundSpatialRecord *spatial;
-    SoundSpatialRecord *spatialEnd;
-    SoundListenerState *listener;
-    SoundListenerState *current;
-    SoundArrayRecord *source;
-    SoundArrayRecord *destination;
-    SoundArrayRecord *end;
-    s32 limit;
-    s32 count;
+    s32 index;
     s32 kept;
     s32 delta;
 
     if ((D_80041F60 == 0) && (D_80041F61 == 0)) {
-        spatial = D_80041F68;
-        limit = D_80082FA0;
-        if (limit >= 0) {
-            spatialEnd = &D_80041F68[limit];
-            listener = D_800DBFF0;
-            do {
-                current = listener;
-                if ((limit != 0) || (current->flags & 0x80000)) {
-                    spatial->x0 = (s32)current->field2F8;
-                    spatial->y4 = (s32)current->field2FC;
-                    spatial->z8 = (s32)current->field300;
-                } else {
-                    spatial->x0 = (s32)current->field2A4;
-                    spatial->y4 = (s32)current->field2A8;
-                    spatial->z8 = (s32)current->field2AC;
-                }
-                spatial->xC = (s32)current->field2F8;
-                spatial->y10 = (s32)current->field2FC;
-                spatial->z14 = (s32)current->field300;
-                spatial->field18 = current->field380;
-                spatial++;
-                listener++;
-            } while (spatial <= spatialEnd);
+        for (index = 0; index <= D_80082FA0; index++) {
+            SoundListenerState *current = &D_800DBFF0[index];
+
+            if ((D_80082FA0 != 0) || (current->flags & 0x80000)) {
+                D_80041F68[index].x0 = (s32)current->field2F8;
+                D_80041F68[index].y4 = (s32)current->field2FC;
+                D_80041F68[index].z8 = (s32)current->field300;
+            } else {
+                D_80041F68[index].x0 = (s32)current->field2A4;
+                D_80041F68[index].y4 = (s32)current->field2A8;
+                D_80041F68[index].z8 = (s32)current->field2AC;
+            }
+            D_80041F68[index].xC = (s32)current->field2F8;
+            D_80041F68[index].y10 = (s32)current->field2FC;
+            D_80041F68[index].z14 = (s32)current->field300;
+            D_80041F68[index].field18 = current->field380;
         }
         func_80011310();
         func_80011624(D_80041FE0, &D_80042760, 0, D_80042760);
-        count = D_80042760;
-        source = D_80041FE0;
-        kept = 0;
-        if (count > 0) {
-            destination = D_80041FE0;
-            end = &D_80041FE0[count];
-            do {
-                *destination = *source;
-                source++;
-                if (!(destination->flags & 0x80)) {
-                    kept++;
-                    destination++;
-                }
-            } while (source < end);
+        for (index = 0, kept = 0; index < D_80042760; index++) {
+            D_80041FE0[kept] = D_80041FE0[index];
+            if (!(D_80041FE0[kept].flags & 0x80)) {
+                kept++;
+            }
         }
         D_80042760 = kept;
     }
-    if ((D_80041FDC != D_80041F54) || (D_80041F61 != D_80041F60)) {
+    if ((D_80041F54 != D_80041FDC) || (D_80041F60 != D_80041F61)) {
         if (D_80041F61 == 1) {
             func_80017780(0, 0);
             func_80017780(1, 0);
@@ -1737,8 +1584,6 @@ void func_80011BB8(void) {
         D_80041F60 = D_80041F61;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80011BB8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80011BB8.s")
 void func_80011E88(s32 arg0) {
 }
 

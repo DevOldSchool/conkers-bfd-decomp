@@ -3,10 +3,10 @@
     "us"
   ],
   "code_bytes": {
-    "fully_matched_source_unit_bytes": 192560,
-    "fully_matched_source_unit_percentage": 8.552688,
+    "fully_matched_source_unit_bytes": 194544,
+    "fully_matched_source_unit_percentage": 8.640808,
     "library_text_bytes": 147232,
-    "matched_bytes": 502568,
+    "matched_bytes": 517492,
     "overlays": {
       "debugger": {
         "fully_matched_source_unit_bytes": 0,
@@ -30,8 +30,8 @@
         "fully_matched_source_unit_bytes": 90720,
         "fully_matched_source_unit_percentage": 4.37652,
         "library_text_bytes": 48720,
-        "matched_bytes": 371676,
-        "percentage": 17.930416,
+        "matched_bytes": 372632,
+        "percentage": 17.976535,
         "regions": {
           "eu": {
             "fully_matched_source_unit_bytes": 0,
@@ -45,19 +45,19 @@
             "fully_matched_source_unit_bytes": 90720,
             "fully_matched_source_unit_percentage": 4.37652,
             "library_text_bytes": 48720,
-            "matched_bytes": 371676,
-            "percentage": 17.930416,
+            "matched_bytes": 372632,
+            "percentage": 17.976535,
             "total_bytes": 2072880
           }
         },
         "total_bytes": 2072880
       },
       "main": {
-        "fully_matched_source_unit_bytes": 101840,
-        "fully_matched_source_unit_percentage": 61.904299,
+        "fully_matched_source_unit_bytes": 103824,
+        "fully_matched_source_unit_percentage": 63.11029,
         "library_text_bytes": 98512,
-        "matched_bytes": 116988,
-        "percentage": 71.112138,
+        "matched_bytes": 130956,
+        "percentage": 79.602704,
         "regions": {
           "eu": {
             "fully_matched_source_unit_bytes": 0,
@@ -68,18 +68,18 @@
             "total_bytes": 165328
           },
           "us": {
-            "fully_matched_source_unit_bytes": 101840,
-            "fully_matched_source_unit_percentage": 61.904299,
+            "fully_matched_source_unit_bytes": 103824,
+            "fully_matched_source_unit_percentage": 63.11029,
             "library_text_bytes": 98512,
-            "matched_bytes": 116988,
-            "percentage": 71.112138,
+            "matched_bytes": 130956,
+            "percentage": 79.602704,
             "total_bytes": 164512
           }
         },
         "total_bytes": 164512
       }
     },
-    "percentage": 22.321911,
+    "percentage": 22.984771,
     "regions": {
       "eu": {
         "fully_matched_source_unit_bytes": 0,
@@ -90,17 +90,17 @@
         "total_bytes": 2240240
       },
       "us": {
-        "fully_matched_source_unit_bytes": 192560,
-        "fully_matched_source_unit_percentage": 8.552688,
+        "fully_matched_source_unit_bytes": 194544,
+        "fully_matched_source_unit_percentage": 8.640808,
         "library_text_bytes": 147232,
-        "matched_bytes": 502568,
-        "percentage": 22.321911,
+        "matched_bytes": 517492,
+        "percentage": 22.984771,
         "total_bytes": 2251456
       }
     },
     "total_bytes": 2251456
   },
-  "complete_source_units": 171,
+  "complete_source_units": 174,
   "future_regions": [
     "eu"
   ],
@@ -113,11 +113,11 @@
     },
     "game": {
       "known_functions": 5224,
-      "target_matched": 2754
+      "target_matched": 2759
     },
     "main": {
       "known_functions": 229,
-      "target_matched": 128
+      "target_matched": 170
     }
   },
   "regions": {
@@ -125,15 +125,15 @@
       "blocked": 48,
       "candidate": 0,
       "in_progress": 0,
-      "matched": 2920,
+      "matched": 2967,
       "original_asm": 22,
-      "raw_asm": 2501
+      "raw_asm": 2454
     }
   },
   "schema_version": 1,
   "source_units": 742,
-  "target_matched": 2920,
+  "target_matched": 2967,
   "target_original_asm": 22,
-  "target_remaining": 2571,
+  "target_remaining": 2524,
   "unassigned_functions": 38
 }

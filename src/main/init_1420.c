@@ -3,6 +3,11 @@
 /*
  * Reviewed source unit: src/main/init_1420.c
  * Boundary evidence: docs/evidence/boundaries/main/main_bootstrap_source_units.md
+ *
+ * TODO: Implement these source-unit functions:
+ * - func_bootstrap_clear_region
+ *
+ * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 #if PROFILE_US
@@ -28,21 +33,20 @@ extern u8 D_80031AE0;
 extern s32 D_8003BE70;
 extern s32 D_8003BE74;
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_bootstrap_clear_region CURRENT (30) */
 void clear_bootstrap_region(void) {
-    s32 a = 0;
-    s32 b = 0;
-    s32 cnt = 4064;
-    s32 occ;
-    s32 occ2;
-    s32 *tmp = (s32 *)&D_80043B40;
-    if (1) {
-        occ = 0;
-        occ2 = 0;
-        do {
-            *tmp++ = 0;
-        } while ((u32)tmp < ((u32)&D_80043B40 + cnt + a + b + occ + occ2));
-    }
+    s32 *ptr;
+    s32 count;
+
+    count = 4064;
+    ptr = bootstrap_region;
+    do {
+        *ptr++ = 0;
+    } while ((u32)ptr <
+             (u32)bootstrap_region + count);
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_bootstrap_clear_region */
+#pragma GLOBAL_ASM("asm/nonmatchings/main/init_1420/func_bootstrap_clear_region.s")
 
 void func_80001444(void) {
     s32 saved_mask;

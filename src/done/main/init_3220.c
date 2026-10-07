@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/main/init_3220.c
  * Boundary evidence: docs/evidence/boundaries/main/main_system_wrapper_boundaries.md
- *
- * TODO: Implement these source-unit functions:
- * - func_80003220
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef union {
@@ -36,34 +31,40 @@ extern SpTask D_80036B60;
 void func_80023A10(const void *, void *, s32);
 u32 func_800233C0(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80003220 CURRENT (6183) */
 SpTask *func_80003220(SpTask *arg0) {
+    /* Linked pointer-field aliases within D_80036B60. */
+    extern u64 *D_80036B70;
+    extern u64 *D_80036B78;
+    extern u64 *D_80036B80;
+    extern u64 *D_80036B88;
+    extern u64 *D_80036B8C;
+    extern u64 *D_80036B90;
+    extern u64 *D_80036B98;
+
     func_80023A10(arg0, &D_80036B60, sizeof(SpTask));
-    if (D_80036B60.t.ucode != 0) {
-        D_80036B60.t.ucode = (u64 *)func_800233C0(D_80036B60.t.ucode);
+    if (D_80036B70 != 0) {
+        D_80036B70 = (u64 *)func_800233C0(D_80036B70);
     }
-    if (D_80036B60.t.ucodeData != 0) {
-        D_80036B60.t.ucodeData = (u64 *)func_800233C0(D_80036B60.t.ucodeData);
+    if (D_80036B78 != 0) {
+        D_80036B78 = (u64 *)func_800233C0(D_80036B78);
     }
-    if (D_80036B60.t.dramStack != 0) {
-        D_80036B60.t.dramStack = (u64 *)func_800233C0(D_80036B60.t.dramStack);
+    if (D_80036B80 != 0) {
+        D_80036B80 = (u64 *)func_800233C0(D_80036B80);
     }
-    if (D_80036B60.t.outputBuffer != 0) {
-        D_80036B60.t.outputBuffer = (u64 *)func_800233C0(D_80036B60.t.outputBuffer);
+    if (D_80036B88 != 0) {
+        D_80036B88 = (u64 *)func_800233C0(D_80036B88);
     }
-    if (D_80036B60.t.outputBufferSize != 0) {
-        D_80036B60.t.outputBufferSize = (u64 *)func_800233C0(D_80036B60.t.outputBufferSize);
+    if (D_80036B8C != 0) {
+        D_80036B8C = (u64 *)func_800233C0(D_80036B8C);
     }
-    if (D_80036B60.t.data != 0) {
-        D_80036B60.t.data = (u64 *)func_800233C0(D_80036B60.t.data);
+    if (D_80036B90 != 0) {
+        D_80036B90 = (u64 *)func_800233C0(D_80036B90);
     }
-    if (D_80036B60.t.yieldData != 0) {
-        D_80036B60.t.yieldData = (u64 *)func_800233C0(D_80036B60.t.yieldData);
+    if (D_80036B98 != 0) {
+        D_80036B98 = (u64 *)func_800233C0(D_80036B98);
     }
     return &D_80036B60;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80003220 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_3220/func_80003220.s")
 SpTask *func_80003220(SpTask *);
 void func_80023D20(void *, s32);
 void func_80023DA0(u32);
