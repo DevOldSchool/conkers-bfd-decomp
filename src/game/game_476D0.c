@@ -12,7 +12,6 @@
  * - func_1501A6CC
  * - func_1501A764
  * - func_1501A8C0
- * - func_1501AE94
  * - func_1501B0A0
  * - func_1501B22C
  *
@@ -261,7 +260,6 @@ extern s32 D_800BE620;
 extern s32 D_800BE624;
 extern s32 D_800BE628;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501AE94 CURRENT (40) */
 s32 func_1501AE94(s32 arg0) {
     void *temp_v0;
     f32 upper_a;
@@ -269,7 +267,7 @@ s32 func_1501AE94(s32 arg0) {
 
     upper_a = (f32) D_800BE620 - 2.0f;
     upper_b = (f32) D_800BE624;
-    temp_v0 = (void *)((arg0 * 0x180) + (s32)D_800BE628);
+    temp_v0 = (void *)((s32)D_800BE628 + (arg0 * 0x180));
     if ((*(f32 *)((u8 *)temp_v0 + 0x2C) < 2.0f) || (upper_a < *(f32 *)((u8 *)temp_v0 + 0x30))) {
         return 0;
     }
@@ -278,8 +276,6 @@ s32 func_1501AE94(s32 arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501AE94 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_476D0/func_1501AE94.s")
 void func_1501AF44(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
     f32 temp_fv0;
     f32 temp_fv0_2;
