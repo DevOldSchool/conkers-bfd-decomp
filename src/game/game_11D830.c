@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150F03F8
- * - func_150F07E4
  * - func_150F088C
  * - func_150F0BEC
  * - func_150F0E48
@@ -69,7 +68,6 @@ Game11D830AltInner *func_150F03E8(Game11D830AltObject *arg0) {
 /* Call context: func_1516972C: unique active declaration in the allowed source */
 void func_1516972C(u8 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F07E4 CURRENT (10) */
 void func_150F07E4(void *arg0, void *arg1, u8 arg2) {
     s32 temp_a0;
     s32 temp_v1;
@@ -83,20 +81,17 @@ void func_150F07E4(void *arg0, void *arg1, u8 arg2) {
         }
     } else if (arg2 == 0x2D) {
         temp_a0 = *(s32 *)((u8 *)arg1 + 0);
-        temp_v1 = *(s32 *)((u8 *)temp_v0 + 0);
-        if (temp_a0 == temp_v1) {
+        if (temp_a0 == *(s32 *)((u8 *)temp_v0 + 0)) {
             *(s32 *)((u8 *)temp_v0 + 0) = *(s32 *)((u8 *)arg1 + 4);
             *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 9);
             return;
         }
-        if (*(s32 *)((u8 *)arg1 + 4) == temp_v1) {
+        if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)((u8 *)temp_v0 + 0)) {
             *(s32 *)((u8 *)temp_v0 + 0) = temp_a0;
             *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 8);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F07E4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F07E4.s")
 /* Call context: func_1516972C: unique active declaration in the allowed source */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F088C CURRENT (230) */

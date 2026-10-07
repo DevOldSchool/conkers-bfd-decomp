@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_11F5A0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_singletons_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150F20F0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_10010F30(s32, s32, s32, s32, s32);
@@ -18,7 +13,6 @@ extern s32 D_800BE9E4;
 extern u8 D_800CC2D0[];
 extern u8 D_800D98F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F20F0 CURRENT (26) */
 void func_150F20F0(s32 arg0) {
     f32 temp_fv0;
     f32 temp_fv1;
@@ -42,7 +36,7 @@ void func_150F20F0(s32 arg0) {
         return;
     }
     if (D_800A191C < temp_fv1) {
-        func_100114D0(0, (s32)*(f32 *)(temp_v0 + 0x18), 0, 0x7FFF,
+        func_100114D0(0, (s32)*(f32 *)(arg0 * 0x32C + D_800CC2D0 + 0x18), 0, 0x7FFF,
                        0x4E20, 0x4A38, &sp4C, &sp48, &sp44);
         sp4C += 0x80;
         D_800D98F0 = (func_150ADA20() & 0x7F) + 0x80;
@@ -50,5 +44,3 @@ void func_150F20F0(s32 arg0) {
                        0x5DC0, *((u8 *)&sp4C + 3), 0, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F20F0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11F5A0/func_150F20F0.s")
