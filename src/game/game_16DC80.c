@@ -7,9 +7,7 @@
  * TODO: Implement these source-unit functions:
  * - func_151408A4
  * - func_151412BC
- * - func_1514143C
  * - func_15141478
- * - func_151415D4
  * - func_151416E8
  * - func_151417C4
  * - func_1514182C
@@ -151,23 +149,36 @@ void func_151412BC(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151412BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151412BC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514143C CURRENT (260) */
-void func_1514143C(Game16DC80Object *arg0) {
-    Game16DC80Inner *temp_v0;
-    void *temp_v1;
+void func_1514143C(void *arg0) {
+    typedef struct {
+        f32 unk0;
+        f32 unk4;
+        f32 unk8;
+    } Vec;
+    typedef struct {
+        u8 pad[0x44];
+        Vec *unk44;
+    } Mid;
+    typedef struct {
+        u8 pad0[0x34];
+        f32 unk34;
+        f32 unk38;
+        f32 unk3C;
+        u8 pad40[0xD0];
+        Mid unk110;
+    } Local;
+    Local *a = arg0;
+    Mid *m;
 
-    if (*(s32 *)((u8 *)arg0 + 0x154) != 0) {
-        temp_v0 = &arg0->inner;
-        temp_v1 = temp_v0->field_44;
-        *(f32 *)((u8 *)temp_v1 + 0) = *(f32 *)((u8 *)arg0 + 0x34);
-        temp_v1 = temp_v0->field_44;
-        *(f32 *)((u8 *)temp_v1 + 4) = *(f32 *)((u8 *)arg0 + 0x38);
-        temp_v1 = temp_v0->field_44;
-        *(f32 *)((u8 *)temp_v1 + 8) = *(f32 *)((u8 *)arg0 + 0x3C);
+    if (a->unk110.unk44 != 0) {
+    def_:
+        m = &a->unk110;
+    use:
+        m->unk44->unk0 = a->unk34;
+        m->unk44->unk4 = a->unk38;
+        m->unk44->unk8 = a->unk3C;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514143C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_1514143C.s")
 s32 func_150ADA20();                                /* extern */
 f32 func_150ADA68();                                /* extern */
 extern f32 D_800BE9A4;
@@ -232,41 +243,40 @@ s32 func_15141564(u8 *arg0) {
     temp_v1->value = func_15144B68(temp_v1->value);
     return 1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151415D4 CURRENT (720) */
-s32 func_151415D4(u8 *arg0) {
-    f32 temp_fa0;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    u8 *var_v0;
-
-    var_v0 = arg0 + 0x170;
-    if (*(f32 *)((u8 *)arg0 + 0x17C) < *(f32 *)((u8 *)arg0 + 0x180)) {
-        var_v0 = (void *)(arg0 + 0x170);
-        *(f32 *)(arg0 + 0x158) = *(f32 *)(var_v0 + 4);
+s32 func_151415D4(void *arg0) {
+    typedef struct {
+        f32 unk0, unk4, unk8, unkC, unk10, unk14, unk18, unk1C, unk20;
+    } Mid;
+    typedef struct {
+        u8 pad[0x158];
+        f32 unk158;
+        u8 pad15C[0x14];
+        Mid unk170;
+    } Local;
+    Local *a = arg0;
+    Mid *m = &a->unk170;
+    f32 d;
+    if (m->unkC < m->unk10) {
+        if (1) {}
+        a->unk158 = m->unk4;
+    } else if (m->unkC < m->unk14) {
+        f32 s;
+        s = (m->unkC - m->unk10) * m->unk20;
+        a->unk158 = m->unk4 + (m->unk8 * s);
+    } else if (m->unkC < m->unk18) {
+        a->unk158 = m->unk0;
     } else {
-        temp_fv1 = *(f32 *)((u8 *)var_v0 + 0xC);
-        if (temp_fv1 < *(f32 *)((u8 *)var_v0 + 0x14)) {
-            *(f32 *)(arg0 + 0x158) = *(f32 *)(var_v0 + 4) + *(f32 *)(var_v0 + 8) * ((temp_fv1 - *(f32 *)(var_v0 + 0x10)) * *(f32 *)(var_v0 + 0x20));
-        } else {
-            temp_fa0 = *(f32 *)((u8 *)var_v0 + 0x18);
-            if (temp_fv1 < temp_fa0) {
-                *(f32 *)((u8 *)arg0 + 0x158) = (f32) *(f32 *)((u8 *)arg0 + 0x170);
-            } else {
-                *(f32 *)(arg0 + 0x158) = *(f32 *)(var_v0 + 4) + *(f32 *)(var_v0 + 8) * (1.0f - ((temp_fv1 - temp_fa0) * *(f32 *)(var_v0 + 0x20)));
-            }
-        }
+        d = 1.0f - ((m->unkC - m->unk18) * m->unk20);
+        a->unk158 = m->unk4 + (m->unk8 * d);
+
     }
-    temp_fv0 = *(f32 *)((u8 *)var_v0 + 0x1C);
-    *(f32 *)((u8 *)var_v0 + 0xC) = (f32) (*(f32 *)((u8 *)var_v0 + 0xC) + D_800BE9A4);
-    if (temp_fv0 < *(f32 *)((u8 *)var_v0 + 0xC)) {
-        do {
-            *(f32 *)((u8 *)var_v0 + 0xC) = (f32) (*(f32 *)((u8 *)var_v0 + 0xC) - temp_fv0);
-        } while (temp_fv0 < *(f32 *)((u8 *)var_v0 + 0xC));
+    m->unkC = m->unkC + D_800BE9A4;
+
+    while (m->unk1C < m->unkC) {
+        m->unkC = m->unkC - m->unk1C;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151415D4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151415D4.s")
 typedef void (*Game16DC80Callback)(u8 *, u8 *, u8);
 extern Game16DC80Callback D_8008A02C;
 void func_1516972C(u8 *);
