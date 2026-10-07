@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_196DB0.c
- * Boundary evidence: docs/evidence/game_raw_radial_queue_render_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_radial_queue_render_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15169A48

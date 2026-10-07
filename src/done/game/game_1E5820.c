@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_1E5820.c
- * Boundary evidence: docs/evidence/game_raw_internal_call_callback_clusters.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_internal_call_callback_clusters.md
  */
 
 void func_1516972C(void *arg0);

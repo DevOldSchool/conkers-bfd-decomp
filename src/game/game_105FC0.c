@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_105FC0.c
- * Boundary evidence: docs/evidence/game_raw_particle_emitter_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_particle_emitter_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_150D8B3C

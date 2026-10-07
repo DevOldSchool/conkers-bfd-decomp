@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/main/init_11FA0.c
- * Boundary evidence: docs/evidence/main_allocator_transfer_controller_boundaries.md
+ * Boundary evidence: docs/evidence/boundaries/main/main_allocator_transfer_controller_boundaries.md
  */
 
 extern s32 D_80042770;

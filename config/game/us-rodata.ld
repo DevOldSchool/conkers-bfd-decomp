@@ -1,26 +1,26 @@
-/* Reviewed external game data; see docs/evidence/game_61950_jump_table.md.
+/* Reviewed external game data; see docs/evidence/data-layout/game_61950_jump_table.md.
  * INFO retains linked bytes for verification without appending them to the
  * code-only payload. The original game-data archive supplies these bytes.
  * Read before the generated code linker script so this input is consumed here.
  */
 SECTIONS
 {
-    /* Entrypoint dispatch: docs/evidence/entrypoint_jump_table.md. */
+    /* Entrypoint dispatch: docs/evidence/data-layout/entrypoint_jump_table.md. */
     .game_rodata_entrypoint 0x80095A30 (INFO) : SUBALIGN(4)
     {
         *entrypoint.o(.rodata)
     }
-    /* Constructor literals: docs/evidence/game_981e0_constructor_literal_pool.md. */
+    /* Constructor literals: docs/evidence/data-layout/game_981e0_constructor_literal_pool.md. */
     .game_rodata_981e0 0x80099DAC (INFO) : SUBALIGN(4)
     {
         *game_981E0.o(.rodata)
     }
-    /* ROM-verified constant: docs/evidence/game_11d830_float_constant.md. */
+    /* ROM-verified constant: docs/evidence/data-layout/game_11d830_float_constant.md. */
     .game_rodata_11d830 0x800A1854 (INFO) : SUBALIGN(4)
     {
         *game_11D830.o(.rodata)
     }
-    /* Reviewed tables: docs/evidence/game_1bc650_jump_tables.md. */
+    /* Reviewed tables: docs/evidence/data-layout/game_1bc650_jump_tables.md. */
     .game_rodata_1bc650 0x800A7B7C (INFO) : SUBALIGN(4)
     {
         *game_1BC650.o(.rodata)
@@ -29,7 +29,7 @@ SECTIONS
     {
         *game_61950.o(.rodata)
     }
-    /* Glyph switch and constants: docs/evidence/game_6ea90_glyph_rodata.md. */
+    /* Glyph switch and constants: docs/evidence/data-layout/game_6ea90_glyph_rodata.md. */
     .game_rodata_6ea90 0x80098AB0 (INFO) : SUBALIGN(4)
     {
         *game_6EA90.o(.rodata)
@@ -57,7 +57,7 @@ SECTIONS
     {
         *game_70200.o(.rodata)
     }
-    /* Reviewed automation tables: docs/evidence/automation_jump_tables.md. */
+    /* Reviewed automation tables: docs/evidence/data-layout/automation_jump_tables.md. */
     .game_rodata_433f0 0x800966C0 (INFO) : SUBALIGN(4) { *game_433F0.o(.rodata) }
     .game_rodata_58f80 0x80096DF8 (INFO) : SUBALIGN(4) { *game_58F80.o(.rodata) }
     .game_rodata_aeb40 0x8009CC40 (INFO) : SUBALIGN(4) { *game_AEB40.o(.rodata) }
@@ -70,26 +70,26 @@ SECTIONS
     .game_rodata_1c1150_0 0x800A8258 (INFO) : SUBALIGN(4) { *game_1C1150.o(.rodata.1c1150_0) }
     .game_rodata_1c1150_14 0x800A826C (INFO) : SUBALIGN(4) { *game_1C1150.o(.rodata.1c1150_14) }
     .game_rodata_1c1150_28 0x800A82BC (INFO) : SUBALIGN(4) { *game_1C1150.o(.rodata.1c1150_28) }
-    /* Reviewed manual switch tables: docs/evidence/manual_batch_jump_tables.md. */
+    /* Reviewed manual switch tables: docs/evidence/data-layout/manual_batch_jump_tables.md. */
     .game_rodata_49be0 0x800969A0 (INFO) : SUBALIGN(4) { *game_49BE0.o(.rodata) }
     .game_rodata_cd860 0x8009F550 (INFO) : SUBALIGN(4) { *game_CD860.o(.rodata) }
     .game_rodata_179f30 0x800A5E20 (INFO) : SUBALIGN(4) { *game_179F30.o(.rodata) }
-    /* Recovered blocked switches: docs/evidence/blocked_switch_jump_tables.md. */
+    /* Recovered blocked switches: docs/evidence/data-layout/blocked_switch_jump_tables.md. */
     .game_rodata_5d2c0 0x80096F40 (INFO) : SUBALIGN(4) { *game_5D2C0.o(.rodata) }
     .game_rodata_1bf090 0x800A811C (INFO) : SUBALIGN(4) { *game_1BF090.o(.rodata) }
-    /* Six switch targets: docs/evidence/game_a9d90_jump_table.md. */
+    /* Six switch targets: docs/evidence/data-layout/game_a9d90_jump_table.md. */
     .game_rodata_a9d90 0x8009B884 (INFO) : SUBALIGN(4) { *game_A9D90.o(.rodata) }
-    /* Six switch targets: docs/evidence/game_11f780_jump_table.md. */
+    /* Six switch targets: docs/evidence/data-layout/game_11f780_jump_table.md. */
     .game_rodata_11f780 0x800A192C (INFO) : SUBALIGN(4) { *game_11F780.o(.rodata) }
-    /* Two adjacent switches: docs/evidence/game_15d730_jump_tables.md. */
+    /* Two adjacent switches: docs/evidence/data-layout/game_15d730_jump_tables.md. */
     .game_rodata_15d730 0x800A3800 (INFO) : SUBALIGN(4) { *game_15D730.o(.rodata) }
-    /* Actor command dispatcher: docs/evidence/game_61490_jump_table.md. */
+    /* Actor command dispatcher: docs/evidence/data-layout/game_61490_jump_table.md. */
     .game_rodata_61490 0x80097C80 (INFO) : SUBALIGN(4) { *game_61490.o(.rodata) }
-    /* Pending actor actions: docs/evidence/game_90840_jump_table.md. */
+    /* Pending actor actions: docs/evidence/data-layout/game_90840_jump_table.md. */
     .game_rodata_90840 0x800996D8 (INFO) : SUBALIGN(4) { *game_90840.o(.rodata) }
-    /* Sound-event switch: docs/evidence/game_1483e0_jump_table.md. */
+    /* Sound-event switch: docs/evidence/data-layout/game_1483e0_jump_table.md. */
     .game_rodata_1483e0 0x800A3218 (INFO) : SUBALIGN(4) { *game_1483E0.o(.rodata) }
-    /* Six ROM-proven targets: docs/evidence/game_c98f0_jump_table.md. */
+    /* Six ROM-proven targets: docs/evidence/data-layout/game_c98f0_jump_table.md. */
     .game_rodata_c98f0 0x8009E458 (INFO) : SUBALIGN(4) { *game_C98F0.o(.rodata) }
 }
 __game_rodata_16ee20_0_base = ADDR(.game_rodata_16ee20_0);

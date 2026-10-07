@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_209B50.c
- * Boundary evidence: docs/evidence/game_raw_loader_transfer_emission_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_loader_transfer_emission_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_151DC6A0

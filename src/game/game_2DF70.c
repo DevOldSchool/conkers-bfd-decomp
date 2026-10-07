@@ -2,12 +2,11 @@
 
 /*
  * Reviewed source unit: src/game/game_2DF70.c
- * Boundary evidence: docs/evidence/game_2DF70.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_2DF70.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15000AD0
  * - func_15001460
- * - func_15001970
  * - func_15001A08
  * - func_15001BC8
  * - func_15001CEC
@@ -45,10 +44,10 @@ extern s32 D_800B0DC8;
 extern s32 D_80091C04[];
 s32 func_10003C40(s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15001970 CURRENT (10) */
 void func_15001970(void) {
     s32 temp_v0;
     s32 sp18;
+    s32 tmp1;
 
     D_800B0DE4 = 0;
     D_800DBE63 = 0;
@@ -59,11 +58,10 @@ void func_15001970(void) {
     D_800DBE24 = 0;
     temp_v0 = func_10003C40(sp18, 1, 0, 0);
     D_800B0DC0[0] = temp_v0;
-    D_800B0DC8 = sp18 + D_800B0DC0[0];
-    D_800B0DC4 = D_800B0DC0[0];
+    tmp1 = D_800B0DC0[0];
+    D_800B0DC8 = sp18 + tmp1;
+    D_800B0DC4 = temp_v0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15001970 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15001970.s")
 extern s32 D_80000308;
 extern s32 D_800B0DCC;
 extern s32 D_800B0DD0;

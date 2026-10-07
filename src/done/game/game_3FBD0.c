@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_3FBD0.c
- * Boundary evidence: docs/evidence/game_small_units_3D6F0_3FC30.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_small_units_3D6F0_3FC30.md
  */
 
 extern s32 D_800BE9F0;

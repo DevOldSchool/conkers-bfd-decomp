@@ -267,7 +267,7 @@ toolchain/ROM privately, then rerun setup and baseline checks.
 
 ## Diagnose persistent storage and address near-misses
 
-The [matching conversion audit](evidence/matching_conversion_audit.md) records
+The [matching conversion audit](evidence/matching/matching_conversion_audit.md) records
 storage/address cases worth consulting before retrying a stable frame or
 temporary mismatch:
 

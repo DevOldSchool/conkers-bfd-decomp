@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/main/init_8120.c
- * Boundary evidence: docs/evidence/main_tlb_alias_boundary.md
+ * Boundary evidence: docs/evidence/boundaries/main/main_tlb_alias_boundary.md
  *
  * TODO: Implement these source-unit functions:
  * - func_80008120

@@ -2,11 +2,10 @@
 
 /*
  * Reviewed source unit: src/game/game_DC6B0.c
- * Boundary evidence: docs/evidence/game_raw_dense_pointer_families_continued.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
  * - func_150AF200
- * - func_150AF2E0
  * - func_150AF328
  * - func_150AF6E4
  * - func_150AF7C4
@@ -58,15 +57,12 @@ void func_150AF200(s32 arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF200.s")
 extern void func_151CF898(void *arg0, f32 arg1, f32 arg2);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AF2E0 CURRENT (10) */
 void func_150AF2E0(void *arg0, void *arg1) {
     s32 temp_v0;
 
     temp_v0 = *(s16 *)((u8 *)arg1 + 2);
-    func_151CF898(arg0, (f32)(temp_v0 + *(s16 *)((u8 *)arg1 + 8)), (f32)temp_v0);
+    func_151CF898(arg0, (f32)(*(s16 *)((u8 *)arg1 + 8) + *(s16 *)((u8 *)arg1 + 2)), (f32)temp_v0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150AF2E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF2E0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF328.s")
 /* Call context: func_15131828: unique active project prototype */
 /* Call context: func_15131958: unique active project prototype */

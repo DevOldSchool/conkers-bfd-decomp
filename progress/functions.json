@@ -96,16 +96,15 @@
       "symbol": "func_15001460"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Best full-span CURRENT (10): sole raw addu t8,a0,v0 versus candidate addu t8,v0,a0 at +0x78. Swapping the source addends remained CURRENT (10); using the call-result temp instead worsened to CURRENT (480) with extra load and address-register changes. Restored best; expression-order approaches exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15001970",
           "vram": "0x15001970"
         }
@@ -618,16 +617,15 @@
       "symbol": "func_1513477C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT (10): sole mismatch is commuted bnel operands t9,v1 versus v1,t9 at final event-word comparison; source comparator swaps/positive form neutral, explicit local worsened to 55, 32-budget permutation no exact.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_151347CC",
           "vram": "0x151347CC"
         }
@@ -3422,16 +3420,15 @@
       "symbol": "func_15197AB4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Manual score 10 retained; product reuse fixes multiply operand order but changes the result register, and unsigned multiplication restores the original operand mismatch.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15197BBC",
           "vram": "0x15197BBC"
         }
@@ -12559,17 +12556,16 @@
       "symbol": "func_1514470C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Best full-span CURRENT (10): sole final add.s operand order differs. Reversing the outer source addition worsened to CURRENT (40) by reordering four input loads; prior third-product operand swap and explicit sum/third locals also regressed. Restored original best; no remaining supported expression-order hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 52,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15144A74",
           "vram": "0x15144A74"
         }
@@ -16189,7 +16185,7 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "reason": "Full344-byte focused CURRENT0 retained; canonical clean batch FIX_INTEGRATION: GAME2072944 versusROM2072880 (+64 rodata), four differing table-address bytes. Proposed ROM-verified 800961D0 mapping remains unapproved. Restore canonical ASM for clean checkpoint; preserve exact C and docs/evidence/game_3ba70_jump_table.patch for later resume after approval.",
+        "reason": "Full344-byte focused CURRENT0 retained; canonical clean batch FIX_INTEGRATION: GAME2072944 versusROM2072880 (+64 rodata), four differing table-address bytes. Proposed ROM-verified 800961D0 mapping remains unapproved. Restore canonical ASM for clean checkpoint; preserve exact C and docs/evidence/data-layout/game_3ba70_jump_table.patch for later resume after approval.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -19396,17 +19392,16 @@
       "symbol": "func_1506BCA0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Manual pointer reload and structured stores760->10; remaining single C.EQ.S operand order. Explicit zero-first, scalar truth1030, named zero10 exhausted. Best candidate ledger deferred-manual-20260928.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 288,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1506BCC8",
           "vram": "0x1506BCC8"
         }
@@ -21414,17 +21409,16 @@
       "symbol": "func_1506FCFC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Valid best CURRENT20, improved366 via integer Y zero literals. Remaining two setup LUI order. Late owner assignment plus independent global read220 adds V0/MOVE; earlier unsequenced exact form rejected. Further owner-lifetime hypotheses exhausted; ledger deferred-manual-20260928.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 192,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1506FD30",
           "vram": "0x1506FD30"
         }
@@ -32699,17 +32693,16 @@
       "symbol": "func_151D2E14"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Manual360 to10 after3 revisions: four field snapshots before comparison, word byte locals, canonical one-arg cleanup call. Only final BNEL operand order v1,t9 vs t9,v1. Source reversal and unsigned comparison neutral; best restored. Ledger deferred-manual-20260927.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 164,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D2E5C",
           "vram": "0x151D2E5C"
         }
@@ -33457,17 +33450,16 @@
       "symbol": "func_151D9B8C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 8,
-        "reason": "CURRENT (8): only float spill/reload at sp+0x58 versus raw +0x54. Separate pointer-spill, one-element float array, and register pointer probes were neutral or worsened; restored best scalar source.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 272,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D9EB0",
           "vram": "0x151D9EB0"
         }
@@ -34417,17 +34409,16 @@
       "symbol": "func_151072BC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Manual20260927: in-place subobject pointer remains20 (a1 vs raw v1); removing cached holder gives410 with folded offset and repeated load. Original20 restored; two new hypotheses exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 24,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15107604",
           "vram": "0x15107604"
         }
@@ -37562,17 +37553,16 @@
       "symbol": "func_151C1798"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT (10) full-span US: u8 third formal fixes incoming home/andi/move; all rows align except second equality branch raw bne t8,a2 versus candidate bne a2,t8. Reversing C equality operands compiled identically; same branch-order approach exhausted in prior short candidates. Best byte-formal source preserved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C1814",
           "vram": "0x151C1814"
         }
@@ -43301,17 +43291,16 @@
       "symbol": "func_1518A324"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Full-span CURRENT (10): sole +0x40 bne operands are raw t9,a2 versus candidate a2,t9. Researcher early-unequal-return shape compiled identically; comparator swaps, named second word, and narrower scope were previously exhausted. Preserve best candidate pending a new register-lifetime hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1518A360",
           "vram": "0x1518A360"
         }
@@ -46214,17 +46203,16 @@
       "symbol": "func_1503EEC0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "CURRENT (20): full raw span exact except commuted AND operands at 0x34/0x58. Named source-local mask values tested together and individually: scores 290/250/95 from register allocation or address scheduling, while direct comparator reversals were previously neutral. Restored best two-row candidate.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 120,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1503EF4C",
           "vram": "0x1503EF4C"
         }
@@ -51767,17 +51755,16 @@
       "symbol": "func_151339D4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Improved45 to20 by reusing actual incoming arg4 for sum: pooled zero F0 exact, remaining arg/result F12 vs raw F6/F8 (3 rows). One-field actual sum record regressed45. Prior zero/local/load/schedule probes exhausted. Best20 preserved; deferred-manual-20260930.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 68,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15133A50",
           "vram": "0x15133A50"
         }
@@ -57394,17 +57381,16 @@
       "symbol": "func_150E33CC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 8,
-        "reason": "Best candidate CURRENT (8): full instruction stream matches except saved result pointer spills at sp+0x40 instead of reference sp+0x44; two targeted local-layout revisions regressed.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 256,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150E3414",
           "vram": "0x150E3414"
         }
@@ -63939,17 +63925,16 @@
       "symbol": "func_1518AADC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Manual ordered volatile-byte formal snapshot improves265->10, only selector load/store a0vsrawt9 remains. Ordinary snapshot265; volatile view220 addsaddress; ordinaryeffect330 changesstores; wide selectorneutral10. Bestbyte10preserved; localprototype qualifier synchronized, unchanged byte ABI.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 112,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1518AB60",
           "vram": "0x1518AB60"
         }
@@ -83898,17 +83883,16 @@
       "symbol": "func_150AF200"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Coherent three-input void-pointer/f32/f32 collision-height contract repaired and measured CURRENT10 over full72-byte registered span. Signed-halfword-to-float computations unchanged; phantom fourth argument removed. Only reversed addu operands remain. Prior operand-order search stays closed; one initial validity repair and no extra target revisions. Identical unsized0x32C actor owner view synchronized without changing AF200 body. Historical invalid10 preserved separately.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 72,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150AF2E0",
           "vram": "0x150AF2E0"
         }
@@ -88143,17 +88127,16 @@
       "symbol": "func_15018500"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT (10): sole full-span mismatch is reversed bne operands at 0x40 (raw t9,a2; candidate a2,t9); explicit early-exit form compiled identically; byte formal with direct comparison is best",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C4AB0",
           "vram": "0x151C4AB0"
         }
@@ -88207,17 +88190,16 @@
       "symbol": "func_151B9214"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT (10): sole full-span mismatch is reversed bne operands at 0x38 (raw t8,a2; candidate a2,t8); swapping source equality operands compiled identically; byte formal with direct comparison is best",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151906E0",
           "vram": "0x151906E0"
         }
@@ -91140,22 +91122,21 @@
       "symbol": "func_1518CD20"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 8,
-        "reason": "CURRENT (8), scores 776 -> 365 -> 8 across initial plus two targeted lifetime revisions. Frame, control flow and all registers now match; only active flag save/reload uses sp+0x40 instead of sp+0x3C. Next hypothesis: exchange active and mode declaration order. Budget exhausted; preserved valid typed camera implementation. No shared dependencies changed.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1104,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15121C80",
           "vram": "0x15121C80"
         }
       },
-      "source": "src/game/game_14F130.c",
+      "source": "src/done/game/game_14F130.c",
       "symbol": "func_15121C80"
     },
     {
@@ -91766,22 +91747,21 @@
       "symbol": "func_15015910"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 8,
-        "reason": "CURRENT (8): actual u8 callee parameter recovers full registered112B instruction stream including tail NOPs. Only pointer SW/LW spill offset24 instead20 remains. Ordinary assignment and register local neutral; three revisions, simplest best8 preserved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 112,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151B3040",
           "vram": "0x151B3040"
         }
       },
-      "source": "src/game/game_1E04F0.c",
+      "source": "src/done/game/game_1E04F0.c",
       "symbol": "func_151B3040"
     },
     {
@@ -91895,7 +91875,7 @@
     },
     {
       "blocked": {
-        "reason": "m2c cannot find branch target func_150A515C. Reviewed raw reference A50C0.s shows alternate entries func_150A5174/func_150A5198/func_150A52F4, incoming live v0/t7/gp/FPU state and shared 0x40-byte epilogue without a prologue in this registered span. docs/evidence/game_raw_handwritten_entry_families.md confirms handwritten alternate-entry family; requires family-level ABI/boundary recovery before ordinary source-local C matching.",
+        "reason": "m2c cannot find branch target func_150A515C. Reviewed raw reference A50C0.s shows alternate entries func_150A5174/func_150A5198/func_150A52F4, incoming live v0/t7/gp/FPU state and shared 0x40-byte epilogue without a prologue in this registered span. docs/evidence/boundaries/game/families/game_raw_handwritten_entry_families.md confirms handwritten alternate-entry family; requires family-level ABI/boundary recovery before ordinary source-local C matching.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -92109,7 +92089,7 @@
       "original_asm": {
         "reason": "Reviewed handwritten routine with interior entry labels, trapping arithmetic, and stack restoration after incrementing sp; retain the original custom register convention.",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/blocked_function_recovery.md"
+        "reference": "docs/evidence/matching/blocked_function_recovery.md"
       },
       "overlay": "game",
       "regions": {
@@ -92402,7 +92382,7 @@
       "original_asm": {
         "reason": "Reviewed custom floating-register inputs f23-f31, return address held in t9, and embedded debug string through the full registered span; preserve original code and data bytes.",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/blocked_function_recovery.md"
+        "reference": "docs/evidence/matching/blocked_function_recovery.md"
       },
       "overlay": "game",
       "regions": {
@@ -96214,7 +96194,7 @@
       "original_asm": {
         "reason": "CP0 TLB setup with preserved hazard-delay instructions",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_tlb_alias_boundary.md"
+        "reference": "docs/evidence/boundaries/main/main_tlb_alias_boundary.md"
       },
       "overlay": "main",
       "regions": {
@@ -96238,7 +96218,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96262,7 +96242,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96305,7 +96285,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96329,7 +96309,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96372,7 +96352,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96396,7 +96376,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96420,7 +96400,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96444,7 +96424,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96468,7 +96448,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96492,7 +96472,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96516,7 +96496,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96540,7 +96520,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96564,7 +96544,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96588,7 +96568,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96612,7 +96592,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96674,7 +96654,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96698,7 +96678,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96722,7 +96702,7 @@
       "original_asm": {
         "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
@@ -96746,7 +96726,7 @@
       "original_asm": {
         "reason": "Reviewed diagnostic custom-register ABI and retained interior entries",
         "recorded_revision": "working-tree",
-        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {

@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_BC510.c
- * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_1508F060
@@ -342,7 +342,7 @@ void func_15093878(void);
 extern u8 D_800D2458;
 
 /* Descriptive role: timer_display_set_enabled.
- * Evidence: docs/evidence/model_resource_role_names.md.
+ * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
  */
 void func_15093818(s32 enabled) {
     if ((enabled != 0) && (D_800D2458 == 0)) {
@@ -360,7 +360,7 @@ extern s32 D_800D2448;
 extern void *D_800D244C;
 
 /* Descriptive role: timer_display_init.
- * Evidence: docs/evidence/model_resource_role_names.md.
+ * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
  */
 void func_15093878(void) {
     D_800D2448 = func_1518C900(0xBA);

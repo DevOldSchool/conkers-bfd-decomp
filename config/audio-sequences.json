@@ -4,7 +4,7 @@
   "profile": "us",
   "identity": "Compact-sequence index within indexed bank 0x17, entry 3",
   "notice": "Labels are descriptive identifications made by ear from local previews. They are not recovered source names and do not prove runtime use. The sequence index remains the ROM identity.",
-  "evidence": "docs/evidence/us_music_track_names.md",
+  "evidence": "docs/evidence/assets/audio/us_music_track_names.md",
   "categories": [
     "Chapter 1: Hung Over",
     "Chapter 2: Windy",

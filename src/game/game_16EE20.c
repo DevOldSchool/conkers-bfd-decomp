@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_16EE20.c
- * Boundary evidence: docs/evidence/game_state_callback_helper_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_state_callback_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_151419D0
@@ -26,7 +26,6 @@
  * - func_1514401C
  * - func_1514462C
  * - func_1514470C
- * - func_15144A74
  * - func_15144B68
  * - func_15144CEC
  * - func_15144E80
@@ -1608,12 +1607,9 @@ f32 func_1514462C(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514462C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_1514462C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_1514470C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15144A74 CURRENT (10) */
 f32 func_15144A74(void *arg0, void *arg1) {
-    return (*(f32 *)((u8 *)arg0 + 0) * *(f32 *)((u8 *)arg1 + 0)) + (*(f32 *)((u8 *)arg0 + 4) * *(f32 *)((u8 *)arg1 + 4)) + (*(f32 *)((u8 *)arg1 + 8) * *(f32 *)((u8 *)arg0 + 8));
+    return *(f32 *)((u8 *)arg0 + 8) * *(f32 *)((u8 *)arg1 + 8) + (*(f32 *)((u8 *)arg0 + 4) * *(f32 *)((u8 *)arg1 + 4) + *(f32 *)((u8 *)arg1 + 0) * *(f32 *)((u8 *)arg0 + 0));
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15144A74 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15144A74.s")
 extern s32 D_800DBFF0;
 
 f32 func_15144AA8(s32 arg0) {

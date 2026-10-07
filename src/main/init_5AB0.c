@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/main/init_5AB0.c
- * Boundary evidence: docs/evidence/main_handwritten_family_boundaries.md
+ * Boundary evidence: docs/evidence/boundaries/main/main_handwritten_family_boundaries.md
  *
  * TODO: Implement these source-unit functions:
  * - func_80005AB0

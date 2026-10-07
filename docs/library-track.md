@@ -21,11 +21,11 @@ implementation. See generated [implementation progress](progress.md) for matches
   zero tail brings classification to 99.2194%; it earns no function credit.
   Main source units remain canonically raw because mixed main C/ASM integration
   is not supported. Verified original assembly is excluded from C matches.
-  See the [main boundary review](evidence/main_boundary_residual_frontier.md).
+  See the [main boundary review](evidence/boundaries/main/main_boundary_residual_frontier.md).
 - **Game:** all bytes have source or section ownership, including 38 library
   text placements and 2,096 bytes of text-resident data. There are no raw
   `asm`/`hasm` subsegments, although reviewed units still contain assembly.
-  See the [mapping completion record](evidence/game_mapping_residual_frontier.md).
+  See the [mapping completion record](evidence/boundaries/game/mapping/game_mapping_residual_frontier.md).
 
 Percentages above use each row's audited byte total. The 80-byte main entry at
 `0x1000:0x1050` and all RSP payloads are outside this table. Generated progress
@@ -42,19 +42,19 @@ boundary classification or silently change their calculation.
 | `0x39B0:0x39C0` | 16 | Ambiguous no-op return; no proven SDK identity |
 | `0x50A0:0x5570` | 1,232 | Five retained raw spans versus six index proposals, including the unselected `0x5298` entry |
 
-The owned [beta comparison](evidence/main_boundary_beta_comparison.md) resolves
+The owned [beta comparison](evidence/boundaries/main/main_boundary_beta_comparison.md) resolves
 the complete 64-byte hardware-init/probe family at `0x38E0:0x3920`.
 The three remaining ranges need new positive ownership or entry evidence.
 Repeating the completed bounded static scans, guessing object names or shortening spans for
 matching credit would not resolve them. Required evidence and entry conflicts
-are recorded in the [residual review](evidence/main_boundary_residual_frontier.md#remaining-exact-ranges).
+are recorded in the [residual review](evidence/boundaries/main/main_boundary_residual_frontier.md#remaining-exact-ranges).
 
 ## Library integration
 
 - **Stock SDK:** the pinned [`lib/ultralib`](../lib/ultralib) submodule from
   DevOldSchool/ultralib supplies the mapped 2.0G objects through
   `libultra_2_0G` and the three required debug-audio objects through
-  `libultra_2_0G_d`. See the [G reclassification evidence](evidence/libultra_2_0G_rare_reclassification.md).
+  `libultra_2_0G_d`. See the [G reclassification evidence](evidence/libraries/libultra_2_0G_rare_reclassification.md).
 - **Rare/Conker:** [`lib/libultrare`](../lib/libultrare) holds the bounded Rare
   snapshot and reviewed audio, formatting, EEPROM, math and MP3 variants.
   Complete object checksums are verified before staging. Main and game maps
@@ -62,8 +62,8 @@ are recorded in the [residual review](evidence/main_boundary_residual_frontier.m
   placement once; these bytes are already included in the table above.
 - **RSP:** four separately verified payloads contain 6,656 code bytes and 2,896
   initialized-data bytes, outside CPU matching. See the
-  [RSP boundaries](evidence/libultra_us_vi_rsp_boundaries.md) and
-  [reproduced toolchain and ROM proof](evidence/main_original_assembly_verification.md).
+  [RSP boundaries](evidence/libraries/libultra_us_vi_rsp_boundaries.md) and
+  [reproduced toolchain and ROM proof](evidence/boundaries/main/main_original_assembly_verification.md).
 
 Canonical mappings live in [`config/profiles/us.yaml`](../config/profiles/us.yaml)
 and [`config/game/us.yaml`](../config/game/us.yaml), with game non-text bindings
@@ -73,8 +73,8 @@ ROM and game-overlay builds; object resemblance alone is not acceptance.
 
 The former `powf` candidate is superseded by the matched power helper in
 [`game_778B0.c`](../src/done/game/game_778B0.c). Original external workspace
-ownership remains under research. See the [library residual audit](evidence/libultra_us_residual_boundary_audit.md)
-and [workspace review](evidence/libultrare_us_workspace_bounds.md).
+ownership remains under research. See the [library residual audit](evidence/libraries/libultra_us_residual_boundary_audit.md)
+and [workspace review](evidence/libraries/libultrare_us_workspace_bounds.md).
 
 ## Contributor commands
 

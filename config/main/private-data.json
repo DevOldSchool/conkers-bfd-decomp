@@ -6,7 +6,7 @@
         "src/main/init_2DB0.c",
         "src/done/main/init_2DB0.c"
       ],
-      "evidence_reference": "docs/evidence/main_ai_private_data.md",
+      "evidence_reference": "docs/evidence/data-layout/main_ai_private_data.md",
       "sections": [
         {
           "input": ".data",
@@ -25,7 +25,7 @@
         "src/main/init_B1B0.c",
         "src/done/main/init_B1B0.c"
       ],
-      "evidence_reference": "docs/evidence/main_b1b0_literal_pool.md",
+      "evidence_reference": "docs/evidence/data-layout/main_b1b0_literal_pool.md",
       "sections": [
         {
           "input": ".rodata",

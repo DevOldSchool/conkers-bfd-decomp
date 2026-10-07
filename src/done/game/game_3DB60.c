@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_3DB60.c
- * Boundary evidence: docs/evidence/game_small_units_3D6F0_3FC30.md
+ * Boundary evidence: docs/evidence/boundaries/game/mapping/game_small_units_3D6F0_3FC30.md
  */
 
 extern void (*D_800E0930)(void);

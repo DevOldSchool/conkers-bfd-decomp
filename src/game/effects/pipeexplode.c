@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/effects/pipeexplode.c
- * Boundary evidence: docs/evidence/effects_pipeexplode.md
+ * Boundary evidence: docs/evidence/boundaries/effects/effects_pipeexplode.md
  *
  * TODO: Implement these source-unit functions:
  * - func_150B2740

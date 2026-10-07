@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_20B050.c
- * Boundary evidence: docs/evidence/game_raw_code_selected_callback_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_code_selected_callback_groups.md
  */
 
 void func_1501C730(s32, s32, s32, s32, s32);

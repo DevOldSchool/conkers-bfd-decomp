@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_13F9D0.c
- * Boundary evidence: docs/evidence/game_raw_complete_code_selected_segments.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_complete_code_selected_segments.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15112520
@@ -467,7 +467,7 @@ extern u32 *D_800DBF94;
 
 /* Semantic role: placed_object_test_actor_mask.
  * Require flag 0x80; -1 accepts that flag without consulting the actor mask.
- * See docs/evidence/placed_object_helper_semantics.md.
+ * See docs/evidence/assets/naming/placed_object_helper_semantics.md.
  */
 s32 func_15114050(Game13F9D0Entry *placedObject, s32 actorIndexOrAny) {
     if (placedObject->flags & 0x80) {
@@ -483,7 +483,7 @@ s32 func_15114050(Game13F9D0Entry *placedObject, s32 actorIndexOrAny) {
 }
 /* Semantic role: placed_object_first_actor_mask_index.
  * Require flag 0x80 and scan bits 0..31; zero also represents no set bit.
- * See docs/evidence/placed_object_helper_semantics.md.
+ * See docs/evidence/assets/naming/placed_object_helper_semantics.md.
  */
 s32 func_151140C4(u8 *placedObject) {
     s32 actorIndex;
@@ -612,7 +612,7 @@ void func_150A8050(void *, f32, f32, f32);
 
 /* Semantic role: placed_object_build_orientation.
  * Compose placement-derived X/Y/Z rotations, expressed in degrees.
- * See docs/evidence/placed_object_helper_semantics.md.
+ * See docs/evidence/assets/naming/placed_object_helper_semantics.md.
  */
 void func_151148A8(Game13F9D0Transform *orientation, Game13F9D0TransformArgs *rotation) {
     Game13F9D0Transform xzRotation;
@@ -625,7 +625,7 @@ void func_150A7CB0(Game13F9D0Matrix *, s32, s32, s32);
 
 /* Semantic role: placed_object_build_transform.
  * Add the vertical offset to Y; pass scale bit patterns through unchanged.
- * See docs/evidence/placed_object_helper_semantics.md.
+ * See docs/evidence/assets/naming/placed_object_helper_semantics.md.
  */
 void func_1511490C(Game13F9D0Transform *transform,
                    Game13F9D0MotionArgs *placedObject) {
@@ -640,7 +640,7 @@ void func_1511490C(Game13F9D0Transform *transform,
 }
 /* Semantic role: placed_object_find_by_id.
  * Return the first matching object address; zero ID or no match returns zero.
- * See docs/evidence/placed_object_helper_semantics.md.
+ * See docs/evidence/assets/naming/placed_object_helper_semantics.md.
  */
 s32 func_151149AC(u8 objectId) {
     s32 requestedObjectId;

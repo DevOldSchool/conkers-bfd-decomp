@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_AB760.c
- * Boundary evidence: docs/evidence/game_raw_resource_helper_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_resource_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_1507E2B0
@@ -65,7 +65,7 @@ void func_1507E2B0(struct GameAB760State *arg0) {
 /* Descriptive role: actor_update_lady_cog_eye_parts.
  * Models 15/70/76 select paired eye parts from actor +0x6C/+0x6D; set bits
  * in actor +0x94 hide parts. Channel order does not establish left/right.
- * Evidence: docs/evidence/lady_cog_eye_part_semantics.md.
+ * Evidence: docs/evidence/assets/naming/lady_cog_eye_part_semantics.md.
  * Naming only: the excluded candidate remains unmatched.
  */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E3C0 CURRENT (757) */
@@ -128,7 +128,7 @@ u8 *func_1507E9F8(void *, s32 *);
 extern void *D_800D1C90[];
 
 /* Descriptive role: actor_set_expression.
- * Evidence: docs/evidence/character_expression_semantics.md.
+ * Evidence: docs/evidence/assets/naming/character_expression_semantics.md.
  */
 void func_1507E500(u8 *actor, s32 expressionIndex, s32 morphDurationOverride) {
     u8 *previousExpression;
@@ -152,7 +152,7 @@ void func_1507E500(u8 *actor, s32 expressionIndex, s32 morphDurationOverride) {
     }
 }
 /* Semantic role: actor_apply_current_expression, including its action and selectors.
- * See docs/evidence/character_expression_semantics.md; keep the linked symbol stable.
+ * See docs/evidence/assets/naming/character_expression_semantics.md; keep the linked symbol stable.
  */
 void func_1507E5C8(u8 *actor, s32 morphDurationOverride) {
     u8 *expressionRecord;
@@ -189,7 +189,7 @@ void func_1507E5C8(u8 *actor, s32 morphDurationOverride) {
 s32 func_150849A0();                                /* extern */
 
 /* Descriptive role: actor_can_update_blink.
- * Evidence: docs/evidence/character_expression_semantics.md.
+ * Evidence: docs/evidence/assets/naming/character_expression_semantics.md.
  */
 s32 func_1507E6B8(void *actor) {
     s32 representationModelIndex;
@@ -218,7 +218,7 @@ block_9:
 
 /* Source-local actor byte view; channel order is numeric, not left/right.
  * The expression timer retains its 0xFFFE/0xFFFF sentinel meanings.
- * Evidence: docs/evidence/character_expression_semantics.md.
+ * Evidence: docs/evidence/assets/naming/character_expression_semantics.md.
  */
 typedef struct GameAB760State {
     u8 pad0[0x6A];
@@ -298,7 +298,7 @@ typedef struct GameAB760ValueRecord {
 } GameAB760ValueRecord;
 
 /* Descriptive role: actor_get_expression_record.
- * Evidence: docs/evidence/character_expression_semantics.md.
+ * Evidence: docs/evidence/assets/naming/character_expression_semantics.md.
  */
 u8 *func_1507E908(void *actor, s32 expressionIndex) {
     s32 expressionAddress;
@@ -314,7 +314,7 @@ u8 *func_1507E908(void *actor, s32 expressionIndex) {
     return 0;
 }
 /* Descriptive role: actor_get_expression_count.
- * Evidence: docs/evidence/character_expression_semantics.md.
+ * Evidence: docs/evidence/assets/naming/character_expression_semantics.md.
  */
 s32 func_1507E968(void *actor) {
     GameAB760ValueRecord *descriptor;
@@ -341,7 +341,7 @@ void func_1507E9E8(s32 arg0, s32 arg1) {
 extern u8 D_8009D910[];
 
 /* Descriptive role: actor_get_expression_action_table.
- * Evidence: docs/evidence/character_expression_semantics.md.
+ * Evidence: docs/evidence/assets/naming/character_expression_semantics.md.
  */
 u8 *func_1507E9F8(void *actor, s32 *countOut) {
     if (func_150849A0(actor) == 0) {
@@ -360,7 +360,7 @@ void func_15083568(void *, s32, f32, s32);
 extern f32 D_8009B8A0;
 
 /* Descriptive role: actor_dispatch_expression_action.
- * Evidence: docs/evidence/character_expression_semantics.md.
+ * Evidence: docs/evidence/assets/naming/character_expression_semantics.md.
  */
 void func_1507EA44(void *actor, s32 actionSelector, s32 actionParameterRaw) {
     u8 *actionIds;
@@ -375,7 +375,7 @@ void func_1507EA44(void *actor, s32 actionSelector, s32 actionParameterRaw) {
 void func_1507E7E4(GameAB760State *, u8, u8, s32, s32);
 
 /* Descriptive role: actor_restore_default_expression.
- * Evidence: docs/evidence/character_expression_semantics.md.
+ * Evidence: docs/evidence/assets/naming/character_expression_semantics.md.
  */
 void func_1507EABC(GameAB760State *actor) {
     func_1507E7E4(actor, actor->field_70, 3, 0xFFFF, 0xA);
@@ -393,7 +393,7 @@ void func_1507EABC(GameAB760State *actor) {
 void func_1507EB4C(GameAB760State *arg0, s32 arg1);
 
 /* Descriptive role: actor_set_default_expression_zero.
- * Evidence: docs/evidence/character_expression_semantics.md.
+ * Evidence: docs/evidence/assets/naming/character_expression_semantics.md.
  */
 void func_1507EB2C(GameAB760State *actor) {
     func_1507EB4C(actor, 0);

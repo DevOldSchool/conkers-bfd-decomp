@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_EDE60.c
- * Boundary evidence: docs/evidence/game_raw_owner_chain_resource_emitters.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_owner_chain_resource_emitters.md
  *
  * TODO: Implement these source-unit functions:
  * - func_150C0AC0

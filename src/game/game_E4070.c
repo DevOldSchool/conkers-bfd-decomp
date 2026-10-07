@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_E4070.c
- * Boundary evidence: docs/evidence/game_raw_connected_controller_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_connected_controller_groups.md
  *
  * TODO: Implement these source-unit functions:
  * - func_150B6BC0

@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_EC420.c
- * Boundary evidence: docs/evidence/game_raw_dense_pointer_families_continued.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
  * - func_150BF21C

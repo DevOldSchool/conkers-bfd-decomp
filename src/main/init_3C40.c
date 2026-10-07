@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/main/init_3C40.c
- * Boundary evidence: docs/evidence/main_allocator_transfer_controller_boundaries.md
+ * Boundary evidence: docs/evidence/boundaries/main/main_allocator_transfer_controller_boundaries.md
  *
  * TODO: Implement these source-unit functions:
  * - func_80003C6C

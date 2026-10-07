@@ -54,11 +54,11 @@ generation, focused comparison, registration, integration and interactive watch
 mode; [acceptance and integration](../CONTRIBUTING.md#acceptance-and-integration)
 defines the required evidence.
 
-Do not copy C sources, names, comments, symbols or generated files from another
-decompilation repository. Reviewed raw-assembly boundary maps are the sole
-exception: confirm each imported offset against the owned regional ROM, and
-never treat those maps as match evidence. External tools must be pinned and used
-under their own licenses. See [LEGAL.md](../LEGAL.md).
+Follow [LEGAL.md](../LEGAL.md) for clean-room requirements and the conditions for
+reusing independently authored work from other decompilation projects, including
+rights, provenance, compatible licensing and required notices. Confirm imported
+boundary-map offsets against the owned regional ROM; maps alone are not match
+evidence. External tools must be pinned and used under their own licenses.
 
 ## Regional targets
 

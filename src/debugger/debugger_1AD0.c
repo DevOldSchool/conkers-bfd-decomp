@@ -4,7 +4,7 @@
 /*
  * Provisional debugger C collection: memory, string, and formatting helpers.
  * US virtual range: 0x16001AD0..0x16003650 (exclusive end).
- * Evidence: docs/evidence/us_debugger_overlay.md
+ * Evidence: docs/evidence/debugger/us_debugger_overlay.md
  *
  * Original source-object ownership remains unreviewed; this collection is
  * not registered as a source unit. Individual full-span C matches are tracked

@@ -1,5 +1,5 @@
 /* SDK-owned VI storage backed by the existing main BSS allocation.
- * See docs/evidence/main_init_vi_layout.md. INFO prevents duplicate allocation.
+ * See docs/evidence/data-layout/main_init_vi_layout.md. INFO prevents duplicate allocation.
  */
 SECTIONS
 {

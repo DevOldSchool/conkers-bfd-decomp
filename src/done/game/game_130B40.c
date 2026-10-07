@@ -2,7 +2,7 @@
 
 /*
  * Reviewed source unit: src/game/game_130B40.c
- * Boundary evidence: docs/evidence/game_raw_extended_code_selected_groups.md
+ * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_extended_code_selected_groups.md
  */
 
 void func_15103690(s32 arg0) {
