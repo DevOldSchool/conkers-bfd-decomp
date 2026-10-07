@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_compact_multi_function_units.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150485E0
  * - func_15048664
  * - func_150486B8
  *
@@ -16,8 +15,7 @@ extern u16 D_80085EC0[];
 extern u16 D_80085F3C[];
 extern u16 D_80085FBC[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150485E0 CURRENT (30) */
- s32 func_150485E0(s32 arg0) {
+s32 func_150485E0(s32 arg0) {
     s32 var_a1;
     s32 var_v1;
     u16 *var_a2;
@@ -38,7 +36,8 @@ extern u16 D_80085FBC[];
             var_a2 = D_80085F3C;
             arg0 -= 0x7800;
         } else {
-            var_a1 = 9;
+            temp_a3 = 9;
+            var_a1 = temp_a3;
             var_a2 = D_80085EC0;
         }
     }
@@ -47,8 +46,6 @@ extern u16 D_80085FBC[];
     temp_t1 = temp_t0[1];
     return temp_a3 - (((s32)(temp_a3 - temp_t1) * (arg0 & var_v1)) >> var_a1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150485E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_75A90/func_150485E0.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15048664 CURRENT (510) */
 s32 func_15048664(s32 arg0) {
     s32 temp_v0;
