@@ -171,30 +171,72 @@ def collapse_braces(words: list[str]) -> list[str]:
     return out
 
 
-def top_level_statements(tokens: list[tuple[str, int]]) -> Iterator[tuple[str, list[str], int]]:
-    """Yield ('decl' | 'fndef', words, line); brace groups become Body tokens."""
+def knr_header_end(words: list[str]) -> int | None:
+    """Index just past `name(a, b, ...)` when words continue with a K&R parameter
+    declaration (`f(a, b) s32 a`); None for ordinary declarations."""
+    for p in range(1, len(words)):
+        if words[p] != "(" or not is_ident(words[p - 1]):
+            continue
+        q = matching_close(words, p + 1, "(", ")")
+        names = words[p + 1:q - 1]
+        identifiers = names[0::2]
+        if (not identifiers or any(sep != "," for sep in names[1::2])
+                or any(not is_ident(n) or n in BASE_TYPEDEFS for n in identifiers)):
+            return None
+        if q < len(words) and (IDENT_RE.match(words[q]) or words[q] in KEYWORDS):
+            return q
+        return None
+    return None
+
+
+def matching_brace(tokens: list[tuple[str, int]], i: int) -> int:
+    depth = 0
+    while i < len(tokens):
+        depth += {"{": 1, "}": -1}.get(tokens[i][0], 0)
+        if depth == 0:
+            return i
+        i += 1
+    return i
+
+
+def top_level_statements(tokens: list[tuple[str, int]]) -> Iterator[tuple[str, list[str], int, list[list[str]]]]:
+    """Yield ('decl' | 'fndef', words, line, knr_parameter_declarations).
+    Brace groups become Body tokens; K&R parameter declarations stay with their definition."""
     stmt: list[tuple[str, int]] = []
     i, n = 0, len(tokens)
     while i < n:
         token, line = tokens[i]
         if token == "{":
-            depth, j = 0, i
-            while j < n:
-                depth += {"{": 1, "}": -1}.get(tokens[j][0], 0)
-                if depth == 0:
-                    break
-                j += 1
+            j = matching_brace(tokens, i)
             words = [word for word, _ in stmt]
             if words and words[-1] == ")" and "=" not in words:
-                yield "fndef", words, stmt[0][1]
+                yield "fndef", words, stmt[0][1], []
                 stmt = []
             else:
                 stmt.append((Body(collapse_braces([word for word, _ in tokens[i + 1:j]])), line))
             i = j + 1
             continue
         if token == ";":
+            words = [word for word, _ in stmt]
+            header_end = knr_header_end(words)
+            if header_end is not None:
+                params = [words[header_end:]]
+                chunk: list[str] = []
+                j = i + 1
+                while j < n and tokens[j][0] not in ("{", "}"):
+                    if tokens[j][0] == ";":
+                        params.append(chunk)
+                        chunk = []
+                    else:
+                        chunk.append(tokens[j][0])
+                    j += 1
+                if j < n and tokens[j][0] == "{" and not chunk:
+                    yield "fndef", words[:header_end], stmt[0][1], params
+                    stmt = []
+                    i = matching_brace(tokens, j) + 1
+                    continue
             if stmt:
-                yield "decl", [word for word, _ in stmt], stmt[0][1]
+                yield "decl", words, stmt[0][1], []
             stmt = []
         else:
             stmt.append((token, line))
@@ -757,14 +799,51 @@ def render_wrapped(t: Type, resolve: bool) -> str:
 
 
 # ---------------------------------------------------------------- scanning
+def default_promotion(t: Type) -> Type:
+    """Type a caller passes for an unprototyped (K&R) parameter of type t."""
+    resolved = strip(t)
+    if resolved[0] == "i" and resolved[1] < 4:
+        return ("i", 4, True)
+    if resolved[0] == "f" and resolved[1] == 4:
+        return ("f", 8, None)
+    if resolved[0] == "arr":
+        return ("ptr", resolved[1], frozenset())
+    if resolved[0] == "fn":
+        return ("ptr", resolved, frozenset())
+    return t
+
+
+def knr_function_type(header: list[str], t: Type, declarations: list[list[str]], ctx: Context) -> Type:
+    """Rebuild a K&R definition's parameters from its declaration list.
+
+    K&R definitions provide no prototype, so callers apply default argument
+    promotions; the promoted types are the calling contract compared with
+    prototypes elsewhere. Undeclared parameters default to int.
+    """
+    open_paren = next(p for p in range(1, len(header)) if header[p] == "(" and is_ident(header[p - 1]))
+    names = header[open_paren + 1:len(header) - 1][0::2]
+    declared: dict[str, Type] = {}
+    for words in declarations:
+        base, _, quals, i = parse_specifiers(words, 0, ctx)
+        for part in split_commas(words[i:]):
+            name, wrap, _ = parse_declarator(part, 0, ctx)
+            if name:
+                declared[name] = default_promotion(with_quals(wrap(base), quals))
+    params = tuple(declared.get(name, ("i", 4, True)) for name in names)
+    return ("fn", t[1], params, False) if t[0] == "fn" else t
+
+
 def scan_pass(tokens: list[tuple[str, int]], ctx: Context) -> list[dict]:
     decls: list[dict] = []
-    for kind, words, line in top_level_statements(tokens):
+    for kind, words, line, knr_params in top_level_statements(tokens):
         base, storage, quals, i = parse_specifiers(words, 0, ctx)
         if kind == "fndef":
             name, wrap, _ = parse_declarator(words, i, ctx)
             if name and "static" not in storage:
-                decls.append({"name": name, "type": wrap(base), "line": line, "definition": True})
+                t = wrap(base)
+                if knr_params:
+                    t = knr_function_type(words, t, knr_params, ctx)
+                decls.append({"name": name, "type": t, "line": line, "definition": True})
             continue
         for part in split_commas(words[i:]):
             initialized = "=" in part

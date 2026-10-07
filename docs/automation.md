@@ -97,7 +97,9 @@ The declaration conflict report lists externally visible symbols that compiled C
 declares differently in different files. It skips `#if 0` deferred candidates,
 macro bodies and `static` symbols, and writes
 `build/reports/declaration-conflicts.{md,json}`. Typedefs are resolved before
-comparison, so one name with different definitions still conflicts. Each symbol
+comparison, so one name with different definitions still conflicts. K&R
+definitions keep their parameter declarations and are compared by their
+default-promoted calling contract (`u8`/`s16` become `s32`, `f32` becomes `f64`). Each symbol
 gets the weakest severity that reconciles its variants: qualifier, aggregate name,
 aggregate unverified, pointee, signedness, byte placeholder or incompatible.
 Differently named structs count as the same shape only when their computed MIPS

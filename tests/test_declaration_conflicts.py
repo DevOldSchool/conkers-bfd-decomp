@@ -97,6 +97,61 @@ s32 func_B(u8 *arg0) {
         self.assertEqual(['s32'], [conflicts.render(d['type']) for d in conflicts.scan_source(text)])
 
 
+class KnrDefinitionTests(unittest.TestCase):
+    KNR = '''void func_A();
+void func_A(arg0, arg1, arg2)
+s32 arg0;
+s32 arg1;
+u8 arg2;
+{
+    s32 local;
+}
+s32 func_B(arg0, arg1, arg2, arg3, arg4)
+s32 arg0;
+u16 arg1;
+u8 arg2;
+s16 arg3;
+s32 arg4;
+{
+    return 0;
+}
+'''
+
+    def test_parameter_declarations_stay_inside_the_definition(self):
+        decls = conflicts.scan_source(self.KNR)
+        self.assertEqual([('func_A', False, 1), ('func_A', True, 2), ('func_B', True, 9)],
+                         [(d['name'], d['definition'], d['line']) for d in decls])
+
+    def test_definition_uses_default_argument_promotions(self):
+        rendered = {d['name']: conflicts.render(d['type']) for d in conflicts.scan_source(self.KNR) if d['definition']}
+        self.assertEqual({'func_A': 'void (s32, s32, s32)', 'func_B': 's32 (s32, s32, s32, s32, s32)'}, rendered)
+
+    def test_parameters_are_not_reported_as_external_symbols(self):
+        report = conflicts.analyze({
+            'a.c': self.KNR,
+            'b.c': 's32 func_B(s32, s32, s32, s32, s32);\nextern u16 arg1;',
+        })
+        found = {c['name']: c['severity'] for c in report['conflicts']}
+        self.assertEqual({'func_A': 'qualifier'}, found)  # unprototyped declaration vs definition only
+
+    def test_promoted_contract_is_compared_with_prototypes(self):
+        found = conflict({
+            'def.c': 'void func_C(arg0, arg1)\nu8 arg0;\nf32 arg1;\n{\n}\n',
+            'caller.c': 'void func_C(u8, f32);',
+        }, 'func_C')
+        self.assertEqual('def.c:1', found['definition'])
+        self.assertEqual('void (s32, f64)', found['definition_type'])
+        self.assertIn('argument location differs', found['reasons'])
+
+    def test_undeclared_and_multi_declared_parameters(self):
+        decls = conflicts.scan_source('s32 func_D(a, b, c)\nf64 a, c;\n{\n    return 0;\n}\n')
+        self.assertEqual('s32 (f64, s32, f64)', conflicts.render(decls[0]['type']))
+
+    def test_ordinary_prototypes_are_not_mistaken_for_knr(self):
+        text = 'void func_E(Foo);\nextern s32 D_1;\ns32 func_F(void) {\n    return 0;\n}\n'
+        self.assertEqual(['func_E', 'D_1', 'func_F'], names(text))
+
+
 class TypedefResolutionTests(unittest.TestCase):
     def test_same_typedef_name_with_different_definitions_conflicts(self):
         found = conflict({
