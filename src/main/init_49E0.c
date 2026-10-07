@@ -69,20 +69,20 @@ extern u8 D_8003B23A;
 extern u8 D_8003B240[];
 extern u8 D_800BE900[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800049E0 CURRENT (2624) */
-void func_800049E0(void *unused) {
-    SchedulerClient *client;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800049E0 CURRENT (790) */
+void func_800049E0(void *arg0) {
     void *message;
+    SchedulerClient *client;
     u64 delay;
 
     D_8003A581 = 0;
     D_8003A582 = 0;
     D_8003A584 = 1;
     D_8003A583 = 0;
-    *(u16 *)D_8003B240 = 1;
+    *(s16 *)D_8003B240 = 1;
     message = 0;
     D_8003A5C8 = 4;
-    for (;;) {
+    while (1) {
         func_80023440(&D_8003B218, &message, 1);
         switch ((s32)message) {
         case 0:
@@ -99,7 +99,8 @@ void func_800049E0(void *unused) {
             if (D_8003B23A != 0) {
                 D_8003B23A--;
             }
-            if ((D_8003A581 == 0) && (D_8002AC6C == 0)) {
+            arg0 = (void *)(u32)D_8003A581;
+            if ((arg0 == 0) && (D_8002AC6C == 0)) {
                 if (func_80023440(&D_8003B200, (void **)&D_8002AC54, 0) == 0) {
                     delay = 200000;
                     if ((D_8003A582 != 0) || ((func_80024A30() & 0x80000000U) == 0)) {

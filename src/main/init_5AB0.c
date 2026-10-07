@@ -20,21 +20,20 @@ extern s32 D_8003BE70;
 extern s16 D_8003BE78;
 extern u8 *D_8003BE7C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80005BE0 CURRENT (1140) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80005BE0 CURRENT (945) */
 void func_80005BE0(void) {
     u8 *cursor;
     u8 *end;
+    u8 *written;
     s32 remainder;
 
     cursor = (u8 *)D_8003BE70;
     end = D_8003BE7C;
-    for (;;) {
+    do {
+        written = cursor;
         *cursor = 0xFF;
-        if (cursor == end) {
-            break;
-        }
         cursor++;
-    }
+    } while (written != end);
     remainder = D_8003BE78 & 7;
     if (remainder != 0) {
         *end = (2 << (remainder - 1)) - 1;

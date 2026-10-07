@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the integrated main queue-thread table against the validated US ROM."""
+"""Verify reviewed external main tables and constants against the validated US ROM."""
 
 from __future__ import annotations
 
@@ -14,9 +14,19 @@ SECTION_NAME = ".main_rodata_init_2e50"
 SECTION_VRAM = 0x8002C080
 SECTION_SIZE = 0x20
 ROM_START = 0x2C080
+# name: (link address, complete section size, ROM offset)
+REVIEWED_SECTIONS = {
+    SECTION_NAME: (SECTION_VRAM, SECTION_SIZE, ROM_START),
+    ".main_rodata_init_11fa0": (0x8002C410, 0x40, 0x2C410),
+}
 
 
-def external_payload(elf: bytes) -> bytes:
+def external_payloads(elf: bytes, required: tuple[str, ...]) -> dict[str, bytes]:
+    if not required or len(set(required)) != len(required):
+        raise ValueError("expected a nonempty, unique list of reviewed main sections")
+    if any(name not in REVIEWED_SECTIONS for name in required):
+        raise ValueError("unreviewed required main section")
+
     def checked_slice(offset: int, size: int, description: str) -> bytes:
         if offset < 0 or size < 0 or offset + size > len(elf):
             raise ValueError(f"truncated {description}")
@@ -36,7 +46,7 @@ def external_payload(elf: bytes) -> bytes:
     if strings[1] != 3:
         raise ValueError("invalid ELF section-name string table")
     names = checked_slice(strings[4], strings[5], "ELF section names")
-    payload = None
+    payloads = {}
     for section in sections:
         name_start = section[0]
         name_end = names.find(b"\0", name_start)
@@ -48,47 +58,59 @@ def external_payload(elf: bytes) -> bytes:
             raise ValueError("invalid ELF section name") from error
         if not name.startswith(".main_rodata"):
             continue
-        if name != SECTION_NAME:
+        if name not in required:
             raise ValueError(f"unreviewed external main section: {name}")
-        if payload is not None:
+        if name in payloads:
             raise ValueError("duplicate external main table")
         if section[1] != 1 or section[2] != 0:
             raise ValueError(f"{name}: expected non-allocated read-only INFO PROGBITS")
-        if (section[3], section[5]) != (SECTION_VRAM, SECTION_SIZE):
+        address, size, _ = REVIEWED_SECTIONS[name]
+        if (section[3], section[5]) != (address, size):
             raise ValueError(f"{name}: address or size differs from reviewed mapping")
-        payload = checked_slice(section[4], section[5], "main table payload")
-    if payload is None:
-        raise ValueError("linked image has no reviewed external main table")
-    return payload
+        payloads[name] = checked_slice(section[4], section[5], "main table payload")
+    missing = set(required) - payloads.keys()
+    if missing:
+        raise ValueError("linked image has no reviewed external main table: " + ", ".join(sorted(missing)))
+    return payloads
 
 
-def verify_bytes(linked: bytes, rom: bytes) -> None:
-    if len(linked) != SECTION_SIZE:
+def external_payload(elf: bytes) -> bytes:
+    return external_payloads(elf, (SECTION_NAME,))[SECTION_NAME]
+
+
+def verify_bytes(linked: bytes, rom: bytes, section_name: str = SECTION_NAME) -> None:
+    if section_name not in REVIEWED_SECTIONS:
+        raise ValueError("unreviewed main section")
+    _, size, rom_start = REVIEWED_SECTIONS[section_name]
+    if len(linked) != size:
         raise ValueError("main table dump has incorrect size")
-    if ROM_START + SECTION_SIZE > len(rom):
+    if rom_start + size > len(rom):
         raise ValueError("main table is outside the US ROM")
-    if linked != rom[ROM_START:ROM_START + SECTION_SIZE]:
-        raise ValueError(f"main table differs from ROM at 0x{ROM_START:X}")
+    if linked != rom[rom_start:rom_start + size]:
+        raise ValueError(f"main table differs from ROM at 0x{rom_start:X}")
 
 
-def verify(elf: Path, root: Path = ROOT) -> None:
+def verify(elf: Path, root: Path = ROOT, required: tuple[str, ...] = (SECTION_NAME,)) -> None:
     import rzip_archive
 
-    linked = external_payload(elf.read_bytes())
+    payloads = external_payloads(elf.read_bytes(), required)
     metadata = json.loads((root / "config/roms.json").read_text())["profiles"]["us"]
     rom, _ = rzip_archive.normalize_rom((root / "roms/baserom.us.z64").read_bytes())
     if hashlib.sha1(rom).hexdigest() != metadata["sha1"] or len(rom) != metadata["size_bytes"]:
         raise ValueError("main table verification requires a checksum-validated US ROM")
-    verify_bytes(linked, rom)
-    print(f"{SECTION_NAME}: {SECTION_SIZE} linked bytes at 0x{SECTION_VRAM:X} match US ROM data")
+    for name, linked in payloads.items():
+        verify_bytes(linked, rom, name)
+        address, size, _ = REVIEWED_SECTIONS[name]
+        print(f"{name}: {size} linked bytes at 0x{address:X} match US ROM data")
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("elf", type=Path)
+    parser.add_argument("--require", action="append", choices=tuple(REVIEWED_SECTIONS))
     args = parser.parse_args()
     try:
-        verify(args.elf)
+        verify(args.elf, required=tuple(args.require or [SECTION_NAME]))
     except (ValueError, OSError, KeyError, struct.error) as error:
         parser.exit(1, f"error: {error}\n")
     return 0

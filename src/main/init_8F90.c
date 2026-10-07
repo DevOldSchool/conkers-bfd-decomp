@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_80008F90
- * - func_80009400
  * - func_800095A0
  * - func_800097CC
  * - func_800099BC
@@ -170,22 +169,25 @@ extern u8 D_80040F84;
 extern s32 D_80040F88;
 extern s32 D_80040F8C;
 extern u8 D_800406B8[];
+extern u8 D_800406CC[];
 extern u8 D_80040AC8[];
+extern u8 D_80040AE0[];
 extern MessageQueue D_80041298;
 extern MessageQueue D_800416F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80008F90 CURRENT (17629) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80008F90 CURRENT (1811) */
 void func_80008F90(AudioDriverConfig *config, s32 priority, AudioDeviceConfig *device) {
+    typedef struct {
+        Acmd *commands[2];
+        AudioTaskRecord *tasks[3];
+    } AudioWorkSlots;
+    u32 rounded;
     AudioEffectParameters effects;
     AudioDmaNode *dma;
     AudioDmaNode *dmaNext;
     AudioBufferState *buffer;
     AudioBufferState *bufferNext;
-    Acmd **commands;
-    AudioTaskRecord **task;
     f32 samples;
-    u32 rounded;
-    u32 frameSamples;
     s32 rate;
     u32 i;
 
@@ -198,15 +200,17 @@ void func_80008F90(AudioDriverConfig *config, s32 priority, AudioDeviceConfig *d
     config->retain = D_10009B90;
     config->releaseNow = D_10009B4C;
     samples = ((f32)device->frames * (f32)rate) / 30.0f;
-    rounded = (s32)samples;
-    D_80040F8C = rounded;
+    D_80040F8C = (s32)samples;
+    rounded = D_80040F8C;
     if ((f32)rounded < samples) {
-        D_80040F8C = ++rounded;
+        D_80040F8C = rounded + 1;
+        rounded = D_80040F8C;
     }
-    frameSamples = 184;
-    D_80040F8C = ((rounded / frameSamples) * frameSamples) + frameSamples;
-    D_80040F88 = D_80040F8C - 184;
-    D_80040F90 = D_80040F8C + 0x54;
+    rate = 184;
+    D_80040F8C = ((rounded / rate) * rate) + rate;
+    rounded = D_80040F8C;
+    D_80040F88 = rounded - 184;
+    D_80040F90 = rounded + 0x54;
     D_80040F84 = 0;
     effects = D_8002AE54;
     config->params[0] = effects.values[0];
@@ -216,47 +220,53 @@ void func_80008F90(AudioDriverConfig *config, s32 priority, AudioDeviceConfig *d
     dma = (AudioDmaNode *)D_800406B8;
     dma->prev = 0;
     dma->next = 0;
-    dmaNext = dma + 1;
+    dmaNext = (AudioDmaNode *)D_800406CC;
     do {
-        dmaNext->next = dma->next;
-        dmaNext->prev = dma;
+        dma[1].next = dma->next;
+        dma[1].prev = dma;
         if (dma->next != 0) {
             dma->next->prev = dmaNext;
         }
         dma->next = dmaNext;
-        dma->buffer = func_80012844(0, 0, config->heap, 1, 0x800);
-        dma++;
+        rounded = (u32)func_80012844(0, 0, config->heap, 1, 0x800);
         dmaNext++;
-    } while ((u8 *)dmaNext < D_80040AC8);
+        dma++;
+        dma[-1].buffer = (u8 *)rounded;
+    } while ((u32)dmaNext < (u32)D_80040AC8);
     dma->buffer = func_80012844(0, 0, config->heap, 1, 0x800);
     func_800226F0(D_80040AC8, 0x4B0);
     buffer = (AudioBufferState *)D_80040AC8;
     buffer->prev = 0;
     buffer->next = 0;
-    bufferNext = buffer + 1;
+    bufferNext = (AudioBufferState *)D_80040AE0;
     for (i = 0; i < 49; i++) {
-        bufferNext->next = buffer->next;
-        bufferNext->prev = buffer;
-        if (buffer->next != 0) {
-            buffer->next->prev = bufferNext;
+        {
+            AudioBufferState *linkNode = bufferNext;
+            AudioBufferState *linkAfter = buffer;
+
+            buffer[1].next = linkAfter->next;
+            buffer[1].prev = linkAfter;
+            if (linkAfter->next != 0) {
+                linkAfter->next->prev = linkNode;
+            }
+            linkAfter->next = linkNode;
         }
-        buffer->next = bufferNext;
-        buffer->buffer = 0;
         buffer++;
         bufferNext++;
+        buffer[-1].buffer = 0;
     }
     buffer->buffer = 0;
-    commands = D_8003E388;
+    i = 0;
     do {
-        *commands = func_80012844(0, 0, config->heap, 1, device->maxCommands * 8);
-        commands++;
-    } while (commands < &D_8003E388[2]);
+        D_8003E388[i] = func_80012844(0, 0, config->heap, 1, device->maxCommands * 8);
+        i++;
+    } while (&D_8003E388[i] < (Acmd **)D_8003E390);
     D_80040F94 = device->maxCommands;
-    for (task = D_8003E390; task != &D_8003E390[3]; task++) {
-        *task = func_80012844(0, 0, config->heap, 1, 0x90);
-        (*task)->completion.type = 2;
-        (*task)->completion.record = *task;
-        (*task)->buffer = func_80012844(0, 0, config->heap, 1, D_80040F90 * 4);
+    for (i = 0; i < 3; i++) {
+        ((AudioWorkSlots *)D_8003E388)->tasks[i] = func_80012844(0, 0, config->heap, 1, 0x90);
+        ((AudioWorkSlots *)D_8003E388)->tasks[i]->completion.type = 2;
+        ((AudioWorkSlots *)D_8003E388)->tasks[i]->completion.record = ((AudioWorkSlots *)D_8003E388)->tasks[i];
+        ((AudioWorkSlots *)D_8003E388)->tasks[i]->buffer = func_80012844(0, 0, config->heap, 1, D_80040F90 * 4);
     }
     func_80023790(&D_8003E608, D_8003E620, 8);
     func_80023790(&D_8003E5D0, D_8003E5E8, 8);
@@ -290,9 +300,8 @@ s32 func_80023440(MessageQueue *, void **, s32);
 extern u8 D_8002AC5C;
 extern u32 D_8002AE44;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009400 CURRENT (1050) */
 void func_80009400(s32 arg0) {
-    s32 done;
+    u32 done;
     AudioTaskRecord *previous;
     void *message;
     s32 first;
@@ -307,7 +316,7 @@ void func_80009400(s32 arg0) {
     first = 1;
     client.flags = 0;
     func_800051C8(&client, &D_8003E5D0);
-    do {
+    while (done == 0) {
         func_80023440(&D_8003E5D0, &message, 1);
         if (D_8002AC5C != 0) {
             *(s16 *)message = 4;
@@ -327,22 +336,22 @@ void func_80009400(s32 arg0) {
                 first = 0;
             }
             cadence++;
-            break;
+            goto dispatch_done;
         case 4:
             done = 1;
-            break;
+            goto dispatch_done;
         case 10:
             done = 1;
-            break;
+            goto dispatch_done;
         }
-    } while (done == 0);
+dispatch_done:
+        ;
+    }
     func_80018E0C(D_8003E640);
     for (;;) {
         func_80023440(&D_8003E5D0, &message, 1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80009400 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_80009400.s")
 u32 func_800233C0(void *);
 s32 func_80002DB0(void *, u32);
 void func_800099BC(void);
@@ -357,12 +366,14 @@ extern s32 D_8002AE4C;
 extern MessageQueue D_8003B200;
 extern volatile u32 D_A4500004;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800095A0 CURRENT (1682) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800095A0 CURRENT (1380) */
 s32 func_800095A0(AudioTaskRecord *record, AudioTaskRecord *previous) {
     u32 physical;
     Acmd *commandEnd;
     s32 commandCount;
     s32 remaining;
+    u32 bufferEnd;
+    u32 stackPadding[1];
 
     physical = func_800233C0(record->buffer);
     func_800099BC();
@@ -380,7 +391,8 @@ s32 func_800095A0(AudioTaskRecord *record, AudioTaskRecord *previous) {
             D_80040F84--;
         }
     }
-    if (((physical + record->samples * 4) & 0x1FFF) == 0) {
+    bufferEnd = physical + ((u32)record->samples << 2);
+    if ((bufferEnd & 0x1FFF) == 0) {
         physical += 0x10;
         record->adjustedBuffer = record->buffer + 0x10;
     } else {
@@ -446,26 +458,27 @@ s32 func_80024920(TransferIoMessage *, s32, s32, u32, void *, u32,
                  TransferMessageQueue *);
 extern TransferIoMessage D_80040F98[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800097CC CURRENT (1135) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800097CC CURRENT (305) */
 s32 func_800097CC(s32 addr, s32 len, void *state) {
     u8 *buffer;
     s32 offset;
-    u32 start;
+    s32 request;
     AudioDmaNode *record;
     AudioDmaNode *previous;
     AudioDmaNode *head;
 
+    request = addr;
     record = (AudioDmaNode *)D_80040F78.field4;
     previous = 0;
     while (record != 0) {
-        start = record->address;
-        if ((u32)addr < start) {
+        if ((u32)request < record->address) {
             break;
         }
         previous = record;
-        if ((s32)(start + 0x800U) >= (s32)((u32)addr + (u32)len)) {
+        addr = (s32)(record->address + 0x800U);
+        if (addr >= (s32)((u32)request + (u32)len)) {
             record->frame = D_8002AE44;
-            return (s32)func_800233C0(record->buffer + ((u32)addr - start));
+            return (s32)func_800233C0(record->buffer + ((u32)request - record->address));
         }
         record = record->next;
     }
@@ -481,12 +494,15 @@ s32 func_800097CC(s32 addr, s32 len, void *state) {
         record->prev->next = record->next;
     }
     if (previous != 0) {
-        record->next = previous->next;
-        record->prev = previous;
-        if (previous->next != 0) {
-            previous->next->prev = record;
+        AudioDmaNode *linkNode = record;
+        AudioDmaNode *linkAfter = previous;
+
+        linkNode->next = linkAfter->next;
+        linkNode->prev = linkAfter;
+        if (linkAfter->next != 0) {
+            linkAfter->next->prev = linkNode;
         }
-        previous->next = record;
+        linkAfter->next = linkNode;
     } else {
         head = (AudioDmaNode *)D_80040F78.field4;
         if (head != 0) {
@@ -500,12 +516,12 @@ s32 func_800097CC(s32 addr, s32 len, void *state) {
             record->prev = 0;
         }
     }
-    offset = addr & 1;
+    offset = request & 1;
     buffer = record->buffer;
-    addr -= offset;
-    record->address = addr;
+    request -= offset;
+    record->address = request;
     record->frame = D_8002AE44;
-    func_80024920(&D_80040F98[D_8002AE48++], 1, 0, addr, buffer,
+    func_80024920(&D_80040F98[D_8002AE48++], 1, 0, request, buffer,
                  0x800, (TransferMessageQueue *)&D_80041298);
     return (s32)(func_800233C0(buffer) + (u32)offset);
 }
@@ -521,7 +537,7 @@ ALDMAproc audio_dma_callback_new(void *state) {
     *(void **)state = 0;
     return D_100097CC;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800099BC CURRENT (976) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800099BC CURRENT (395) */
 void func_800099BC(void) {
     u32 i;
     void *message;
@@ -547,20 +563,29 @@ void func_800099BC(void) {
                 if (record == (AudioDmaNode *)D_80040F78.field4) {
                     D_80040F78.field4 = (s32)next;
                 }
-                if (record->next != 0) {
-                    record->next->prev = record->prev;
-                }
-                if (record->prev != 0) {
-                    record->prev->next = record->next;
+                {
+                    AudioDmaNode *element = record;
+
+                    if (element->next != 0) {
+                        element->next->prev = element->prev;
+                    }
+                    if (element->prev != 0) {
+                        element->prev->next = element->next;
+                    }
                 }
                 anchor = D_80040F78.base;
                 if (anchor != 0) {
+                    AudioDmaNode *linkNode = record;
+                    AudioDmaNode *linkAfter;
+
                     record->next = anchor->next;
                     record->prev = anchor;
-                    if (anchor->next != 0) {
-                        anchor->next->prev = record;
+                    linkAfter = anchor;
+                    anchor = linkAfter->next;
+                    if (anchor != 0) {
+                        anchor->prev = linkNode;
                     }
-                    anchor->next = record;
+                    linkAfter->next = linkNode;
                 } else {
                     D_80040F78.base = record;
                     record->next = 0;
@@ -605,19 +630,25 @@ void audio_bank_cache_retain(void *arg0) {
 void func_850AD770(void);
 extern s32 D_8003C8E0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009BE4 CURRENT (810) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009BE4 CURRENT (95) */
 void func_80009BE4(void *arg0) {
     AudioBufferState *record = arg0;
     AudioBufferState *anchor;
+    extern AudioBufferState *D_800406A4;
+    extern AudioBufferState *D_800406B0;
 
     if ((u32)arg0 & 1) {
         D_8003C8E0 = 0x0F000004;
         func_850AD770();
         return;
     }
-    *record->ownerSlot = record->savedValue;
+    {
+        s32 *ownerSlot = record->ownerSlot;
+
+        *ownerSlot = record->savedValue;
+    }
     if (record == D_800406A0.active) {
-        D_800406A0.active = record->next;
+        D_800406A4 = record->next;
     }
     if (record->next != 0) {
         record->next->prev = record->prev;
@@ -629,18 +660,20 @@ void func_80009BE4(void *arg0) {
     if (anchor != 0) {
         {
             AudioBufferState *linkNode = record;
-            AudioBufferState *linkAfter = anchor;
+            AudioBufferState *linkAfter;
 
-            linkNode->next = linkAfter->next;
-            linkNode->prev = linkAfter;
-            if (linkAfter->next != 0) {
-                linkAfter->next->prev = linkNode;
+            linkNode->next = anchor->next;
+            linkNode->prev = anchor;
+            linkAfter = anchor;
+            anchor = linkAfter->next;
+            if (anchor != 0) {
+                anchor->prev = linkNode;
             }
             linkAfter->next = linkNode;
         }
         return;
     }
-    D_800406A0.freeAnchor = record;
+    D_800406B0 = record;
     record->next = 0;
     record->prev = 0;
 }
@@ -653,15 +686,16 @@ void func_80023D20(void *, s32);
 extern u32 D_8002AE50;
 extern TransferIoMessage D_80041330[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009CBC CURRENT (1394) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009CBC CURRENT (330) */
 void *func_80009CBC(void *arg0, s32 mode) {
-    AudioBufferState *reuse;
     AudioBufferState *record;
-    AudioBufferState *anchor;
-    u32 value;
+    AudioBufferState *reuse;
     s32 size;
     s32 alignedSize;
+    AudioBufferState *anchor;
+    u32 value;
     s32 *ownerSlot;
+    extern AudioBufferState *D_800406A4;
 
     reuse = 0;
     value = *(u32 *)arg0;
@@ -688,22 +722,30 @@ void *func_80009CBC(void *arg0, s32 mode) {
                 reuse->buffer = 0;
                 reuse->ownerSlot = 0;
                 if (reuse == D_800406A0.active) {
-                    D_800406A0.active = reuse->next;
+                    D_800406A4 = reuse->next;
                 }
-                if (reuse->next != 0) {
-                    reuse->next->prev = reuse->prev;
-                }
-                if (reuse->prev != 0) {
-                    reuse->prev->next = reuse->next;
+                {
+                    AudioBufferState *element = reuse;
+
+                    if (element->next != 0) {
+                        element->next->prev = element->prev;
+                    }
+                    if (element->prev != 0) {
+                        element->prev->next = element->next;
+                    }
                 }
             }
         } else {
             D_800406A0.base = record->next;
-            if (record->next != 0) {
-                record->next->prev = record->prev;
-            }
-            if (record->prev != 0) {
-                record->prev->next = record->next;
+            {
+                AudioBufferState *element = record;
+
+                if (element->next != 0) {
+                    element->next->prev = element->prev;
+                }
+                if (element->prev != 0) {
+                    element->prev->next = element->next;
+                }
             }
         }
         if (record != 0) {
@@ -712,12 +754,14 @@ void *func_80009CBC(void *arg0, s32 mode) {
             anchor = D_800406A0.pending;
             if (anchor != 0) {
                 AudioBufferState *linkNode = record;
-                AudioBufferState *linkAfter = anchor;
+                AudioBufferState *linkAfter;
 
-                linkNode->next = linkAfter->next;
-                linkNode->prev = linkAfter;
-                if (linkAfter->next != 0) {
-                    linkAfter->next->prev = linkNode;
+                linkNode->next = anchor->next;
+                linkNode->prev = anchor;
+                linkAfter = anchor;
+                anchor = linkAfter->next;
+                if (anchor != 0) {
+                    anchor->prev = linkNode;
                 }
                 linkAfter->next = linkNode;
             } else {
@@ -728,8 +772,8 @@ void *func_80009CBC(void *arg0, s32 mode) {
             record->savedValue = value;
             record->count = 0;
             record->field16 = mode;
-            record->state = 0;
             record->ownerSlot = arg0;
+            record->state = 0;
             if (D_8002AE50 < 0x28U) {
                 alignedSize = (size + 0xF) & ~0xF;
                 record->buffer = (void *)func_80003C40(alignedSize, 0xFF, 2, 0);
@@ -797,9 +841,11 @@ void func_80004074(s32);
 void func_8000A348(void);
 extern s32 D_8003E384;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A03C CURRENT (1761) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A03C CURRENT (685) */
 void func_8000A03C(void) {
     u32 i;
+    u32 sound;
+    s32 found;
     s32 received;
     void *message;
     AudioBufferState *record;
@@ -807,8 +853,6 @@ void func_8000A03C(void) {
     AudioBufferState *anchor;
     AudioInstrument *instrument;
     AudioWaveState *wave;
-    u32 sound;
-    s32 found;
     s32 busy;
 
     received = 0;
@@ -819,16 +863,20 @@ void func_8000A03C(void) {
             received++;
             found = 0;
             while (record != 0 && found == 0) {
-                if (((TransferIoMessage *)message)->dramAddress == record->buffer) {
+                if (record->buffer == ((TransferIoMessage *)message)->dramAddress) {
                     found = 1;
                     if (record == D_800406A0.pending) {
                         D_800406A0.pending = record->next;
                     }
-                    if (record->next != 0) {
-                        record->next->prev = record->prev;
-                    }
-                    if (record->prev != 0) {
-                        record->prev->next = record->next;
+                    {
+                        AudioBufferState *element = record;
+
+                        if (element->next != 0) {
+                            element->next->prev = element->prev;
+                        }
+                        if (element->prev != 0) {
+                            element->prev->next = element->next;
+                        }
                     }
                     record->next = 0;
                     record->prev = 0;
@@ -865,51 +913,59 @@ void func_8000A03C(void) {
     }
     D_8002AE50 -= received;
     record = D_800406A0.freeAnchor;
-    while (record != 0) {
-        busy = 0;
-        next = record->next;
-        if (record->field16 == 1) {
-            instrument = record->buffer;
-            for (sound = 0; sound < (u32)instrument->soundCount; sound++) {
-                wave = instrument->sounds[sound]->wave;
-                if (wave->fieldA != 0) {
-                    wave->fieldA = 0;
-                    busy = 1;
+    if (record != 0) {
+        do {
+            busy = 0;
+            next = record->next;
+            if (record->field16 == 1) {
+                AudioInstrument *cleanupInstrument = record->buffer;
+                for (sound = 0; sound < (u32)cleanupInstrument->soundCount; sound++) {
+                    wave = cleanupInstrument->sounds[sound]->wave;
+                    if (wave->fieldA != 0) {
+                        wave->fieldA = 0;
+                        busy = 1;
+                    }
                 }
             }
-        }
-        if (busy == 0) {
-            record->count = 0;
-            record->state = 0;
-            func_80004074((s32)record->buffer);
-            record->ownerSlot = 0;
-            if (record == D_800406A0.freeAnchor) {
-                D_800406A0.freeAnchor = next;
-            }
-            if (record->next != 0) {
-                record->next->prev = record->prev;
-            }
-            if (record->prev != 0) {
-                record->prev->next = record->next;
-            }
-            anchor = D_800406A0.base;
-            if (anchor != 0) {
-                AudioBufferState *linkNode = record;
-                AudioBufferState *linkAfter = anchor;
+            if (busy == 0) {
+                record->count = 0;
+                record->state = 0;
+                func_80004074((s32)record->buffer);
+                record->ownerSlot = 0;
+                if (record == D_800406A0.freeAnchor) {
+                    D_800406A0.freeAnchor = next;
+                }
+                {
+                    AudioBufferState *element = record;
 
-                linkNode->next = linkAfter->next;
-                linkNode->prev = linkAfter;
-                if (linkAfter->next != 0) {
-                    linkAfter->next->prev = linkNode;
+                    if (element->next != 0) {
+                        element->next->prev = element->prev;
+                    }
+                    if (element->prev != 0) {
+                        element->prev->next = element->next;
+                    }
                 }
-                linkAfter->next = linkNode;
+                anchor = D_800406A0.base;
+                if (anchor != 0) {
+                    AudioBufferState *linkNode = record;
+                    AudioBufferState *linkAfter = anchor;
+
+                    linkNode->next = linkAfter->next;
+                    linkNode->prev = linkAfter;
+                    if (linkAfter->next != 0) {
+                        linkAfter->next->prev = linkNode;
+                    }
+                    linkAfter->next = linkNode;
+                } else {
+                    D_800406A0.base = record;
+                    record->next = 0;
+                    record->prev = 0;
+                }
+                record = next;
             } else {
-                D_800406A0.base = record;
-                record->next = 0;
-                record->prev = 0;
+                record = next;
             }
-        }
-        record = next;
+        } while (next != 0);
     }
     if (D_8003E384 != 0) {
         func_8000A348();
@@ -918,7 +974,7 @@ void func_8000A03C(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_8000A03C */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_8000A03C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A348 CURRENT (475) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A348 CURRENT (65) */
 void func_8000A348(void) {
     AudioBufferState *record;
     AudioBufferState *next;
@@ -946,12 +1002,14 @@ void func_8000A348(void) {
                 if (anchor != 0) {
                     {
                         AudioBufferState *linkNode = record;
-                        AudioBufferState *linkAfter = anchor;
+                        AudioBufferState *linkAfter;
 
-                        linkNode->next = linkAfter->next;
-                        linkNode->prev = linkAfter;
-                        if (linkAfter->next != 0) {
-                            linkAfter->next->prev = linkNode;
+                        linkNode->next = anchor->next;
+                        linkNode->prev = anchor;
+                        linkAfter = anchor;
+                        anchor = linkAfter->next;
+                        if (anchor != 0) {
+                            anchor->prev = linkNode;
                         }
                         linkAfter->next = linkNode;
                     }
