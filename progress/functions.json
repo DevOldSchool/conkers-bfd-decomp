@@ -6162,17 +6162,16 @@
       "symbol": "func_15011D60"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "CURRENT (30) full-span US: 5 register-only rows remain, pointer/sample registers a3 and t0 swapped at table loads and two subtracts. Explicit second sample local improved 80->50; widening first sample improved 50->30; swapping declaration order compiled identically. No opcode, operand, layout or stack mismatch.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 132,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150485E0",
           "vram": "0x150485E0"
         }
@@ -17070,17 +17069,16 @@
       "symbol": "func_1501A8C0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 40,
-        "reason": "US CURRENT (40): after precomputing both float global bounds, all full-span operations and control flow match except initial D_800BE628 base uses t9 instead of raw t8 and scaled index uses t8 instead of raw t9 across five register-only rows; reversing source add operands compiles identically, named base/offset regresses to 80; manual-only pilot forbids permutation",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 176,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501AE94",
           "vram": "0x1501AE94"
         }
@@ -58639,17 +58637,16 @@
       "symbol": "func_150E2F90"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "US CURRENT (10): independent full 96-byte span including trailing alignment nops matches except one register-only branch operand order at offset 0x40; raw bne t9,v1, candidate bne v1,t9. u8 formal/direct comparison fixed parameter home and normalizing move. Reversing source equality operands compiled identically. No new evidence-backed form; manual-only pilot forbids permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150E2FC0",
           "vram": "0x150E2FC0"
         }
@@ -66452,17 +66449,16 @@
       "symbol": "func_150D758C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Manual byte formal and shared subrecord base improve full-span US to CURRENT (10); sole residual at offset 0x40 is raw bne t9,a2 versus candidate bne a2,t9. Reversing the source comparison is neutral; no further concrete manual hypothesis, and permutation is disallowed in this pilot.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510A870",
           "vram": "0x1510A870"
         }
@@ -87352,17 +87348,16 @@
       "symbol": "func_15121490"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 60,
-        "reason": "Manual best valid CURRENT (60), 2 revisions exhausted: promoted s32 local removes unsupported v1 copy/branch differences; only adjacent LW field84 and float MTC1 ordering remains. Used local constant revision neutral; simpler candidate retained. No permutation/shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 460,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151216F8",
           "vram": "0x151216F8"
         }
