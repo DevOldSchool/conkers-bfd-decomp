@@ -736,6 +736,12 @@
       "symbol": "func_15134CEC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 20,
+        "reason": "Improved754 to20: load lifetime before flag store. Four register rows remain (lh a0 vs t9; constant t9 vs t1). Negated s32 local regressed30. Fixed conflicting local return declaration. Two hypotheses exhausted; best retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -7845,6 +7851,12 @@
       "symbol": "func_15125924"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 90,
+        "reason": "Manual raw camera candidate265\u2192155\u219290. Named byte mode fixes GPRs; reversed outer FP source operands fixes all FP rows. Full468B/control/registers exact except14 frame/spill rows: raw48 vs30. No padding; best90 camera-raw-manual-20260930.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -11821,6 +11833,12 @@
       "symbol": "func_15142444"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 316,
+        "reason": "Manual4x4matrix restores all instructions/registers/order,6410->316. Pure frame70vs68 and matrix30vs28 plus corresponding argument offsets8. Grouped used scale factors/matrix record3186 regresses. Best316 preserved; no padding or further useful hypothesis.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -12160,6 +12178,12 @@
       "symbol": "func_151432BC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 260,
+        "reason": "CURRENT260 original restored. Volatile output formal with one snapshot260 neutral; ordered volatile radius/output reads290 regresses FP registers. Raw output LW remains later between products; two non-improving probes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -13246,6 +13270,12 @@
       "symbol": "func_15167AD8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 45,
+        "reason": "CURRENT (45): eight register-only rows allocate fade/negated fade to a1/a3 instead of raw v1/a1; byte type added sign extension, register qualifier neutral, 32-budget permutation no exact match",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -13745,6 +13775,12 @@
       "symbol": "func_1516968C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 120,
+        "reason": "Manual20260927 live780 improved120: cached global count and direct indexed slot remove alias reloads and all register mismatches. Remaining two entry scheduling rows swap table-base addiu and index-zero move across branch. Explicit base local neutral; retained simpler best after3 revisions.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -19700,6 +19736,12 @@
       "symbol": "func_1506D584"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 265,
+        "reason": "Manual510->265 after4 revisions: anonymous fieldreads, explicit >=2 if/else fixes raw join branch, volatile globalword view retains ADDIU. Remaining globaladdress t8 vs v1 and separate store LUI, FP compare/OR operand order. Prior FP reversal exhausted. Ledger deferred-manual-20260927.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -19931,6 +19973,12 @@
       "symbol": "func_1506DBD4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 215,
+        "reason": "Full148B CURRENT215 preserved after new actual conditional threshold snapshot230: semantic compare orientation corrected but F0/F2 allocation regressed; tail branch still missing. Original restored and finished. Prior four revisions including reverse equality and per-arm calls remain exhausted. Remaining raw CEQ F10,F0 versus reversed, missing branch at74 and resulting registered-span spillover; no new justified local hypothesis. See deferred-exact-20261005 ledger.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -23619,6 +23667,12 @@
       "symbol": "func_15073A50"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 160,
+        "reason": "CURRENT (160): instruction count and control flow are exact; the D_800D1580 and D_800D154C base addresses remain assigned to v0/v1 in the opposite order after two bounded lifetime revisions",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -23933,6 +23987,12 @@
       "symbol": "func_15074664"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 235,
+        "reason": "CURRENT (235): all control flow and effects align; the only remaining mismatch is the D_800D1580 versus field_1CA load order, which swaps v0/v1 and the subtraction operands, and an assignment-expression revision produced identical codegen.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -23946,6 +24006,12 @@
       "symbol": "func_150746F0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 310,
+        "reason": "CURRENT (310): byte-base cast fixed extra x4 stride, but compiler folds index-1 into negative store offsets instead of raw delay-slot addiu v1,v0,-1 and positive offsets, with remaining base/register scheduling; named index regressed to 535",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -24105,6 +24171,12 @@
       "symbol": "func_15074A6C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 80,
+        "reason": "Explicit interpolation delta improved CURRENT (95) to (80); 12 register-only differences remain. Two source variants and one 32-variant permutation search; see build/abi-pass/.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -25275,6 +25347,12 @@
       "symbol": "func_15076760"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 120,
+        "reason": "CURRENT120 unchanged by grouping existing transform and position in their natural adjacent stack order. Original preserved; raw final position store precedes call with stack address in delay slot, compiler reverses scheduling. No useful new hypothesis.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -26938,6 +27016,12 @@
       "symbol": "func_15079F50"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 50,
+        "reason": "Best valid full80B CURRENT50 unchanged. Explicit typed address-of-global pointer cursor canonicalized to original code; eight register rows remain (global address v1 vs a0, low-byte base and OR operands). Restored simpler original candidate. Stop plateau without permutation or artificial pressure.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -27132,6 +27216,12 @@
       "symbol": "func_1507A3E8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 440,
+        "reason": "CURRENT (440): raw loads globals in 1890/1891/1892/1893 order, builds packed word, then applies ori 1 and nor zero; original candidate loads 1891 before 1890 and computes nor with final low byte; explicit packed-then-OR and four named byte loads regressed to 580 and 585",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -27145,6 +27235,12 @@
       "symbol": "func_1507A428"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 540,
+        "reason": "Manual mask local improves 865 to 540; remaining address/load register allocation in the packed byte reads.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -94844,6 +94940,12 @@
       "symbol": "func_8000FA64"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 610,
+        "reason": "Preserve typed stop scan CURRENT (610), improved1281 through independently proved u16sound/u16arg4 inputs630 and real promoted sound-ID/equality operand order610. Full frame, entry normalization and all field comparison/temp roles agree. Pool-address/MOVE placement and SDK count-reload alias scheduling remain; inherited counter-snapshot/address-order families exhausted. Two current forms, no eligible distinct final revision. No direct C/raw callers, source-local owncontract only; no shared dependency or permutation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -94876,6 +94978,12 @@
       "symbol": "func_8000FD38"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 775,
+        "reason": "Word-homed low-half handle contract and field-left comparison improve956to775. Loop-count register v1 versus v0, initial pointer/handle setup scheduling and post-call count reload placement remain. Explicit count snapshot regresses1207 by saving addresss3; three new forms exhausted. No current C/include callers or prototypes; raw direct call scan none. No fabricated state or shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -96689,6 +96797,12 @@
       "symbol": "func_8000A750"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 319,
+        "reason": "Float helper contract corrected from existing matched definition. Full rounded angle plus narrowed output improves 1069 to 319. Mapped mode home with separate pan state fixes storage but worsens allocation to 340. Preserve both forms; retain best 319 without further search.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
