@@ -12,6 +12,7 @@ Start with the [conversion audit](matching_conversion_audit.md) for the distinct
 - [Camera source-unit completion work](camera_camera_completion.md)
 - [Repeated descriptor pointer contract (US)](descriptor_pointer_contract.md)
 - [Consumer-proven effect record extents](effect_record_extents.md)
+- [Completed caller and payload contracts (US)](done_call_and_payload_contracts.md)
 - [Emitter-state callback matching (US)](game_1897a0_callback_matching.md)
 - [Controller allocation word and pointer contract (US)](game_controller_allocation_contract.md)
 - [Deferred GAME contract and descriptor continuation (US)](game_deferred_contract_continuation.md)

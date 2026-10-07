@@ -33,7 +33,7 @@ typedef struct Game334C0Child {
 
 s32 func_15123934(Game334C0State *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 void func_151239CC(Game334C0State *arg0, s32 arg1);
-void func_15124B18();
+void func_15124B18(void *);
 
 void func_15006010(Game334C0State *arg0) {
     if (arg0->child3D0->unk102 != 0) {
@@ -69,5 +69,5 @@ void func_15006010(Game334C0State *arg0) {
 void func_15006140(Game334C0State *arg0) {
     arg0->unk1E0 = 5;
     arg0->unk1B4 = 2;
-    func_15124B18();
+    func_15124B18(arg0);
 }
