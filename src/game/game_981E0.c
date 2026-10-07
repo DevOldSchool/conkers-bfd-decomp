@@ -3910,6 +3910,7 @@ extern f32 D_8009A108;
 extern f32 D_8009A10C;
 extern f32 D_8009A110;
 f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
 void func_15074F48(void *arg0, void *arg1, s32 arg2) {
     f32 temp_fa0;
     f32 temp_fa1;

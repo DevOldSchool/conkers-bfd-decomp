@@ -237,6 +237,7 @@ typedef struct {
 extern GameA28B0ValueGrid **D_800D2104;
 
 f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
 void func_15075884(void) {
     f32 x;
     f32 z;
