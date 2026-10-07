@@ -1791,11 +1791,9 @@ void func_15079988(void) {
 }
 void func_150799B4(void) {
     s32 var_a0;
-    s32 sp1C;
 
     var_a0 = (D_800D1890 << 8) + D_800D1891;
     if (D_800D1892 != 0) {
-        sp1C = var_a0;
         var_a0 += func_150ADA20(var_a0) % (u8) D_800D1892;
     }
     func_15060A30(var_a0, D_800D154C);

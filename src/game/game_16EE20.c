@@ -815,7 +815,6 @@ extern s32 D_800DD214;
 
 s32 func_15142E24(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, u8 arg7, s32 arg8, u8 *arg9, s32 arg10) {
     s32 temp_v0;
-    s32 sp3C;
     s32 temp_v0_2;
 
     temp_v0 = func_1514306C(arg1, arg6, arg2 >> 0x10, arg7);
@@ -826,7 +825,6 @@ s32 func_15142E24(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s3
         if ((D_800BE9F0 == 0x18) || (D_800BE9F0 == 0x13) || (D_800BE9F0 == 6) || (D_800BE9F0 == 0x3B) || (D_800BE9F0 == 2) || (D_800BE616 != 0)) {
             arg10 = 3;
         }
-        sp3C = temp_v0;
         temp_v0_2 = func_15094FE8(arg0, arg1, arg2 >> 8, arg8, 0, 0, 0, arg3, arg4, arg5, arg10);
         D_800DD1B0 = temp_v0;
         D_800DD208 = arg3;
