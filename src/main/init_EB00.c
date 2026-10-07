@@ -16,7 +16,6 @@
  * - func_8000FC18
  * - func_8000FD38
  * - func_8000FDF4
- * - func_8000FE88
  * - func_8000FEF0
  * - func_8000FF90
  * - func_800100E0
@@ -786,22 +785,26 @@ void func_8000FDF4(u16 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_8000FDF4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000FDF4.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FE88 CURRENT (18) */
-s32 func_8000FE88(SoundArrayRecord *records, s32 index, s32 *count) {
-    SoundArrayRecord *record;
+s32 func_8000FE88(SoundArrayRecord *arg0, s32 arg1, s32 *arg2) {
+    SoundArrayRecord *v1;
+    u16 new_var2;
+    u32 new_var3;
+    s32 new_var;
 
-    if (index < *count) {
-        record = &records[index];
-        if (record->handle != 0) {
-            func_800111C8(record->handle);
+    new_var = arg1;
+    v1 = arg0;
+    if (new_var < (*arg2)) {
+        v1 += new_var;
+        new_var3 = v1->handle;
+        new_var2 = new_var3;
+        if (new_var2 != 0) {
+            func_800111C8(new_var3);
         }
-        record->flags |= 0x80;
+        v1->flags |= 0x80;
         return 0;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000FE88 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000FE88.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FEF0 CURRENT (1969) */
 s32 func_8000FEF0(u16 arg0, void *owner, s32 key) {
     SoundArrayRecord *record;

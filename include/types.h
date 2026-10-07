@@ -821,4 +821,76 @@ typedef struct {
     s32 unk30;
 } struct225;
 
+typedef struct {
+    s32 unk0;
+} struct36;
+typedef struct {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+    s32 unk14;
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk24;
+    s32 unk28;
+    s32 unk2C;
+    s32 unk30;
+    s32 unk34;
+    s32 unk38;
+    s32 unk3C;
+    s32 unk40;
+} struct37;
+
+
+typedef s32 OSIntMask;
+
+typedef struct {
+    f32 unk0;
+    f32 unk4;
+    f32 unk8;
+    char pad[0x174];
+} Cam180;
+
+typedef struct struct54 {
+    struct struct54 *unk0; /* used */
+    struct struct54 *unk4;
+    u32 unk8; /* used */
+    s32 unkC; /* used */
+    s32 unk10;
+    s8 unk14; /* used */
+    u8 unk15; /* used */
+    u8 unk16; /* used */
+} struct54;
+typedef struct {
+    s32 unk0;
+    s32 unk4;
+    f32 unk8;
+    u8  unkC[0x8];
+    f32 unk14;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    f32 unk24;
+    f32 unk28;
+    u8  pad2C[0x30];
+    f32 unk5C;
+} struct168;
+typedef struct {
+    s16 unk0;
+    s16 pad2;
+    s16 unk4;
+    u8  unk6[0x2E];
+} struct178;
+typedef struct {
+    u8  pad0[0x48];
+    u8  unk48;  // used
+    u8  pad49;
+    u8  pad4A;
+    u8  pad4B;
+    s32 unk4C; // used
+} struct132;
+
 #endif

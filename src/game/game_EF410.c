@@ -15,7 +15,6 @@
  * - func_150C2C00
  * - func_150C2FCC
  * - func_150C308C
- * - func_150C3160
  * - func_150C3230
  * - func_150C3574
  * - func_150C3994
@@ -23,6 +22,15 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
+
+typedef struct {
+    s32 w0;
+    s32 w1;
+} Gwords;
+typedef union {
+    Gwords words;
+    s64 force_structure_alignment;
+} Gfx;
 
 typedef struct GameC2290Packet {
     f32 floats[9];
@@ -614,37 +622,39 @@ s32 func_150C308C(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C308C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C308C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C3160 CURRENT (675) */
-void *func_150C3160(u8 *arg0, u8 *arg1) {
-    f32 var_fv0;
-    s32 temp_ft3;
-    s32 temp_v0;
-    s32 var_a0;
-    u32 *packet;
+Gfx *func_150C3160(Gfx *gdl, s8 *arg1)
+{
+  s32 new_var2;
+  f32 t;
+  s32 v1;
+  s32 new_var;
+  s32 a0;
+  s32 d;
+  d = *((s32 *) (arg1 + 0x2E8));
+  if (d != 0)
+  {
+    t = ((f32) (*((s32 *) (arg1 + 0x2E4)))) / ((f32) d);
+  }
+  else
+  {
+    t = 1.0f;
+  }
+  t = 1.0f - t;
+  new_var = (s32) ((500.0f * t) + 2.0f);
+  a0 = 2 - (*((s32 *) (arg1 + 0x2EC)));
+  v1 = new_var;
+  *((s32 *) (arg1 + 0x2EC)) = v1 / 3;
+  while (a0 < 0)
+  {
+    a0 += 0x40;
+  }
 
-    temp_v0 = *(s32 *)((u8 *)arg1 + 0x2E8);
-    if (temp_v0 != 0) {
-        var_fv0 = (f32) *(s32 *)((u8 *)arg1 + 0x2E4) / (f32) temp_v0;
-    } else {
-        var_fv0 = 1.0f;
-    }
-    var_fv0 = 1.0f - var_fv0;
-    temp_ft3 = (s32) ((500.0f * var_fv0) + 2.0f);
-    var_a0 = 2 - *(s32 *)((u8 *)arg1 + 0x2EC);
-    *(s32 *)((u8 *)arg1 + 0x2EC) = (s32) (temp_ft3 / 3);
-    if (var_a0 < 0) {
-        do {
-            var_a0 += 0x40;
-        } while (var_a0 < 0);
-    }
-    packet = (u32 *)arg0;
-    arg0 += 8;
-    packet[0] = (s32) (((temp_ft3 & 0xFFF) << 0xC) | 0xF2000000 | (var_a0 & 0xFFF));
-    packet[1] = 0x041FE03E;
-    return arg0;
+ { Gfx *_g = (Gfx *) (gdl++); _g->words.w0 = ((0xF2 << 24) | ((v1 & 0xFFF) << 12)) | (a0 & 0xFFF);
+    new_var2 = 0x1FE;
+    _g->words.w1 = ((4 << 24) | (new_var2 << 12)) | 0x3E;
+  }
+  return gdl;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C3160 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3160.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3230.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3574.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3994.s")

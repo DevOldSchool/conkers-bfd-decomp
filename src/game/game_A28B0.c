@@ -307,6 +307,7 @@ void func_15075A50(void) {
     }
 }
 f32 fabsf(f32);
+#pragma intrinsic(fabsf)
 void func_15075AAC(void) {
     f32 absolute_x;
     f32 x;

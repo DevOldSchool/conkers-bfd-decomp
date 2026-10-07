@@ -11,7 +11,6 @@
  * - func_151349D0
  * - func_15134DAC
  * - func_15134E48
- * - func_151353A8
  * - func_15135480
  * - func_151356D4
  * - func_15135BF8
@@ -385,8 +384,6 @@ extern void (*D_80089AFC[])(f32, f32, f32, f32, f32, f32, void *);
 extern s32 D_800BE9E4;
 f32 func_150ADA68(void);
 f32 sqrtf(f32);
-#pragma intrinsic(sqrtf)
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151349D0 CURRENT (2481) */
 void func_151349D0(BloodTrail *trail) {
     f32 radius;
@@ -485,7 +482,6 @@ s32 func_15134CEC(void *arg0) {
 /* Call context: func_10022EC0: unique active declaration in the allowed source */
 /* Call context: func_15167A68: unique active declaration in the allowed source */
 void * func_15167A68(s32, s32, s32, s32, s32, s32);
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15134DAC CURRENT (20) */
 void *func_15134DAC(u8 *arg0, s32 arg1) {
     u8 *temp_v0;
@@ -540,26 +536,23 @@ void func_1513532C(struct102 *arg0) {
 }
 extern void (*D_80089B88[])(BloodState *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151353A8 CURRENT (468) */
-void func_151353A8(BloodState *arg0) {
-    s32 index;
-    u16 handle;
+void func_151353A8(struct102 *arg0) {
+    void (**tbl)(struct102 *) = D_80089B88;
+    s32 idx = *(u8 *)((s32)arg0 + 0x50);
+    u16 tmp;
 
-    index = arg0->field50;
-    if (index < 0) {
-        index = 0;
+    if (idx < 0) {
+        idx = 0;
+    } else if (idx >= 6) {
+        idx = 0;
     }
-    if (index >= 6) {
-        index = 0;
+    tmp = *(u16 *)((s32)arg0 + 0x44);
+    if (tmp != 0) {
+        func_100111C8(tmp);
+        *(u16 *)((s32)arg0 + 0x44) = 0;
     }
-    handle = arg0->field44;
-    if (handle != 0) {
-arg0->field44 = 0;
-    }
-    D_80089B88[index](arg0);
+    tbl[idx](arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151353A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151353A8.s")
 void func_15145EA4(s32 *, s32 *, s32, s32);
 
 void func_15135424(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
@@ -1443,8 +1436,6 @@ typedef struct Blood39578Particle {
     s32 flags;
 } Blood39578Particle;
 
-f32 fabsf(f32);
-#pragma intrinsic(fabsf)
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A486C;
 extern f32 D_800A4870;

@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_80003C6C
  * - func_80004074
- * - func_800043B4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -366,18 +365,14 @@ void func_80004308(void) {
 }
 s32 func_80024880(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800043B4 CURRENT (260) */
-void func_800043B4(void *arg0, s32 arg1) {
-    s32 mask;
-    AllocatorBlock *block;
+void func_800043B4(s32 *arg0, u32 arg1) {
+    OSIntMask mask;
+    struct54 *block = (struct54 *)((u8 *)arg0 - 0xC);
 
     mask = func_80024880(1);
-    block = (AllocatorBlock *)arg0 - 1;
-    block->taggedSize = (block->taggedSize & 0xFFFFFF) | ((u32)arg1 << 24);
+    block->unk8 = (block->unk8 & 0xFFFFFF) | (arg1 << 24);
     func_80024880(mask);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_800043B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_3C40/func_800043B4.s")
 void func_8000440C(void) {
     s32 maximum;
     AllocatorFreeBlock *largest;
