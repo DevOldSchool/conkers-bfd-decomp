@@ -37,9 +37,9 @@ extern f32 D_800BE9A4;
 
 s32 func_150F2480(u8 *arg0) {
     u8 *temp_s0;
-    u8 *tmp1;
 
-    temp_s0 = (void *)(*(s32 *)((u8 *)arg0 + 0x50) + (tmp1 = arg0));
+    temp_s0 = arg0;
+    temp_s0 += *(s32 *)((u8 *)arg0 + 0x50);
     temp_s0 += 0xF8;
     *(f32 *)((u8 *)temp_s0 + 0x24) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x10) * func_15047D60(*(f32 *)((u8 *)temp_s0 + 0)));
     *(f32 *)((u8 *)temp_s0 + 0x28) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x14) * func_15047D60(*(f32 *)((u8 *)temp_s0 + 4)));

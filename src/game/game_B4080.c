@@ -579,7 +579,7 @@ s32 func_150882E4(s32 arg0, s32 arg1) {
             if (var_a0 < 0) {
                 var_a0 = -var_a0;
             }
-            return (var_a0 << 8) | var_a3;
+            return ((u32)var_a0 << 8) | var_a3;
         }
         var_a3++;
         var_a2 += 0x84;
@@ -955,7 +955,7 @@ void func_15088D58(GameB4080SearchActor *arg0) {
         arg0->field1C = func_150498A4(zs, 0, entry->phase8, &z_derivative);
         angle = func_15144BC8((f32)(func_1505A630(entry->direction10, entry->directionC, 0) + 0x8000) * 0.005493164f);
         arg0->angle40 = angle;
-        rotation = (s32)(short)(angle * D_8009DA04) - 0x4000;
+        rotation = (s32)(short)(s32)(angle * D_8009DA04) - 0x4000;
         arg0->rotation7A = rotation;
         arg0->rotation78 = rotation;
         arg0->rotation76 = rotation;

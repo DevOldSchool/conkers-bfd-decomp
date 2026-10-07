@@ -11,6 +11,7 @@
  * - func_150AF7C4
  * - func_150AFBF4
  * - func_150AFDB0
+ * - func_150AFE64
  * - func_150B0094
  * - func_150B0348
  * - func_150B060C
@@ -174,6 +175,7 @@ void func_150E1AB0(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, s32, s
 void func_150E2DB4(s32, u8, s16, s32, f32, f32, f32, f32, f32, f32, s16, s16, u16, u8);
 extern void *D_800D154C;
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AFE64 CURRENT (16) */
 void func_150AFE64(s32 arg0) {
     f32 near_x;
     f32 near_y;
@@ -196,7 +198,6 @@ void func_150AFE64(s32 arg0) {
         near_x = 0.0f;
         near_y = 0.0f;
         near_z = -20.0f;
-        matrices = &far_y;
         func_150A7960(matrix, 0.0f, 0.0f, -20.0f, &near_x, &near_y, &near_z);
         far_x = 0.0f;
         far_y = 0.0f;
@@ -212,6 +213,8 @@ void func_150AFE64(s32 arg0) {
                      0.0f, 0.0f, -150.0f, 3, 255, 4, 0);
     }
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_150AFE64 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AFE64.s")
 void func_15179008(s32);
 void func_150AF200(s32, s32);
 extern s32 D_800BE9F0;

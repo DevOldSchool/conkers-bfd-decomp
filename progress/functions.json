@@ -8032,16 +8032,17 @@
       "symbol": "func_151279A0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 100,
+        "reason": "Camera pass: default-pointer initialization before branch425 coalesces V0 intoV1/removes raw join; ternary100 reproduces original differences. Original100 restored/reverified after two nonimproving revisions. Default pointer move/byte selector allocation remain; no new hypothesis.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 308,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_15127EB8",
           "vram": "0x15127EB8"
         }
@@ -58241,16 +58242,17 @@
       "symbol": "func_1509CCB4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 35,
+        "reason": "CURRENT (35): pointer and comparison-constant lifetimes are swapped between s3/s4 in five register-only rows; 32 permutes plus declaration and initialization reordering produced identical code",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 232,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_1509CCF4",
           "vram": "0x1509CCF4"
         }
@@ -84004,16 +84006,17 @@
       "symbol": "func_150AFDB0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 16,
+        "reason": "Valid CURRENT16 improves26 by explicit actual matrix word-address operand order. Actual volatile home assigned at first call regressed376/frameB0, discarded; prior workspace1155 and matrix reuse860 not repeated. Best frameA8, all GPR/opcode/control exact; only SW/LW matrix home80 versusraw88 remain. Two fresh revisions exhausted; no dummy padding, ABI or shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 472,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_150AFE64",
           "vram": "0x150AFE64"
         }

@@ -24,6 +24,7 @@
  * - func_15127520
  * - func_151277B0
  * - func_151279A0
+ * - func_15127EB8
  * - func_15128030
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -2408,10 +2409,11 @@ void func_1510B32C(s32, f32, f32, f32);
 void func_151C9ED4(void *);
 extern s32 D_800BE628;
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15127EB8 CURRENT (100) */
 void func_15127EB8(void *arg0) {
     u8 temp_a0;
-    u8 *obj;
-    u8 *obj2;
+    u8 *temp_v1;
+    u8 *var_v0;
     u8 *camera;
 
     camera = arg0;
@@ -2426,23 +2428,19 @@ void func_15127EB8(void *arg0) {
     *(f32 *)((u8 *)D_800BE628 + (camera[0x23D] * 0x180) + 0x84) = 1.0f;
     func_150627D4(*(void **)(camera + 0x3D0));
     D_800DBFF4[camera[0x23D]] = 2;
-    obj = *(u8 **)(camera + 0x3D0);
-    temp_a0 = obj[0x65];
+    temp_v1 = *(u8 **)(camera + 0x3D0);
+    temp_a0 = temp_v1[0x65];
     if (temp_a0 != 0) {
-        obj2 = D_800CC2D0 + (temp_a0 * 0x32C) - 0x32C;
+        var_v0 = D_800CC2D0 + (temp_a0 * 0x32C) - 0x32C;
     } else {
-        obj2 = obj;
+        var_v0 = temp_v1;
     }
-    obj2[0x2FC] &= ~(1 << camera[0x23D]);
-    obj2[0x74] &= ~(1 << camera[0x23D]);
+    var_v0[0x2FC] &= ~(1 << camera[0x23D]);
+    var_v0[0x74] &= ~(1 << camera[0x23D]);
     camera[0x23C] = 1;
-    temp_a0 = obj[0x65];
-    if (temp_a0 != 0) {
-        obj2 = D_800CC2D0 + (temp_a0 * 0x32C) - 0x32C;
-    } else {
-        obj2 = obj;
-    }
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_15127EB8 */
+#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15127EB8.s")
 extern void func_1512A390(void);
 
 void func_15127FEC(void *arg0, void *arg1, void *arg2) {

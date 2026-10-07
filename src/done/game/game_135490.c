@@ -20,7 +20,7 @@ void func_15107FE0(void *arg0) {
         if (func_15123934(arg0, 8, 0, *(s32 *)(state + 0x134), 3) != 0) {
             *(s16 *)(state + 0x73C) = 0;
             *(s32 *)(state + 0x84) |= 0x1300000;
-            *(volatile s32 *)(state + 0x84) = *(s32 *)(state + 0x84) & ~4;
+            *(s32 *)(state + 0x84) = *(s32 *)(state + 0x84) & ~4;
             func_15123070(arg0);
         }
         *(f32 *)(state + 0x348) = 150.0f;

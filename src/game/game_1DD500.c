@@ -409,7 +409,6 @@ void func_151B19A4(void *arg0, void *arg1, u8 arg2) {
     } else {
         temp_v0 = (u8 *)arg0 + 0x28;
         if (arg2 == 0x2D) {
-            temp_v1 = *(s32 *)arg1;
             if (*(s32 *)arg1 == *(s32 *)temp_v0) {
                 *(s32 *)temp_v0 = *(s32 *)((u8 *)arg1 + 4);
                 *(u8 *)(temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 9);
