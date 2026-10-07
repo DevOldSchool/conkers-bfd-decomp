@@ -62,6 +62,9 @@ Getting started
   matching-context <id>          Retrieve bounded contract/storage matching hypotheses.
   matching-callers <callee>...   List possible matched direct callers needing review.
   blockers [--limit N] [--json]  Rank saved declaration and placeholder blockers (read-only).
+  declaration-conflicts [--out DIR] [--limit N] [--json]
+                                 Report symbols declared differently across compiled C files
+                                 (read-only; writes build/reports/declaration-conflicts.*).
   automate [--limit N | --all | --function ID] [--max-attempts N] [--rewrite-budget N]
            [--exhaustive] [--stack-shapes] (opt-in storage-shape pilot)
            [--defer-best] [--skip-final-build] [--report PATH] [--restart] [--verbose] [--model-tokens N]
@@ -649,6 +652,9 @@ case "$command" in
         ;;
     blockers)
         python3 scripts/matching_blockers.py "$@"
+        ;;
+    declaration-conflicts)
+        python3 scripts/declaration_conflicts.py "$@"
         ;;
     automate)
         python3 scripts/automate.py "$@"
