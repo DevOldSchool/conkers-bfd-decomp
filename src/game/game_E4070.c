@@ -9,7 +9,6 @@
  * - func_150B6C90
  * - func_150B6D34
  * - func_150B6E3C
- * - func_150B71A8
  * - func_150B7220
  * - func_150B73F0
  * - func_150B76BC
@@ -266,16 +265,13 @@ void func_150B709C(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (((s32) (var_v0 * -0x54) / 30) + 0xE6);
     *(f32 *)((u8 *)arg0 + 0x30) = (f32) (((s32) (var_v0 * -0x32) / 30) + 0xAA);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B71A8 CURRENT (10) */
 void func_150B71A8(void *arg0) {
-    s32 temp_v0;
     s32 temp_v0_2;
     s32 limit;
 
     limit = 0x1000;
-    temp_v0 = *(s16 *)((u8 *)arg0 + 0x38);
-    if (limit != temp_v0) {
-        *(s16 *)((u8 *)arg0 + 0x38) = (s16) (temp_v0 + ((u32)D_800BE9E4 << 8));
+    if (limit != *(s16 *)((u8 *)arg0 + 0x38)) {
+        *(s16 *)((u8 *)arg0 + 0x38) = (s16) (*(s16 *)((u8 *)arg0 + 0x38) + ((u32)D_800BE9E4 << 8));
         if (*(s16 *)((u8 *)arg0 + 0x38) >= 0x1001) {
             *(s16 *)((u8 *)arg0 + 0x38) = limit;
         }
@@ -289,8 +285,6 @@ void func_150B71A8(void *arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B71A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B71A8.s")
 typedef struct {
     void *resource;
     void *resource2;
