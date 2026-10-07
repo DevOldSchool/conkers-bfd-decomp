@@ -8,8 +8,6 @@
  * - func_1518EB10
  * - func_1518EF54
  * - func_1518F058
- * - func_1518F108
- * - func_1518F15C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -76,38 +74,28 @@ s32 func_1518F058(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1518F058 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BBFC0/func_1518F058.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F108 CURRENT (10) */
 s32 func_1518F108(void *arg0) {
     f32 temp_fa0;
     f32 temp_fv0;
     f32 temp_fv1;
-    s16 temp_v0;
 
     temp_fv0 = *(f32 *)((u8 *)arg0 + 0x30);
     temp_fv1 = *(f32 *)((u8 *)arg0 + 0x154);
     temp_fa0 = *(f32 *)((u8 *)arg0 + 0x2C);
-    temp_v0 = *(s16 *)((u8 *)arg0 + 0x1C);
     *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fv0 - (temp_fv0 * temp_fv1));
     *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (temp_fa0 - (temp_fa0 * temp_fv1));
-    if (temp_v0 < *(s16 *)((u8 *)arg0 + 0x158)) {
-        *(s8 *)((u8 *)arg0 + 0x5C) = (s8) (temp_v0 * *(s16 *)((u8 *)arg0 + 0x15A));
+    if (*(s16 *)((u8 *)arg0 + 0x1C) < *(s16 *)((u8 *)arg0 + 0x158)) {
+        *(s8 *)((u8 *)arg0 + 0x5C) = (s8) (*(s16 *)((u8 *)arg0 + 0x15A) * *(s16 *)((u8 *)arg0 + 0x1C));
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518F108 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BBFC0/func_1518F108.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F15C CURRENT (20) */
 s32 func_1518F15C(void *arg0) {
     f32 temp_fv0;
-    s16 temp_v0;
 
     temp_fv0 = *(f32 *)((u8 *)arg0 + 0x30);
-    temp_v0 = *(s16 *)((u8 *)arg0 + 0x1C);
-    *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fv0 - (temp_fv0 * *(f32 *)((u8 *)arg0 + 0x154)));
-    if (temp_v0 < *(s16 *)((u8 *)arg0 + 0x158)) {
-        *(s8 *)((u8 *)arg0 + 0x5C) = (s8) (temp_v0 * *(s16 *)((u8 *)arg0 + 0x15A));
+    *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fv0 - *(f32 *)((u8 *)arg0 + 0x154) * *(f32 *)((u8 *)arg0 + 0x30));
+    if (*(s16 *)(0x1C + (u8 *)arg0) < *(s16 *)((u8 *)arg0 + (short) 0x158)) {
+        *(s8 *)(0x5C + (u8 *)arg0) = (s8) (*(s16 *)((u8 *)arg0 + 0x15A) * *(s16 *)(0x1C + (u8 *)arg0));
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518F15C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BBFC0/func_1518F15C.s")

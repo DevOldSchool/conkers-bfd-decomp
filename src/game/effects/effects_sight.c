@@ -30,7 +30,6 @@
  * - func_151CBBE0
  * - func_151CBC60
  * - func_151CC1D4
- * - func_151CC2BC
  * - func_151CC524
  * - func_151CC840
  * - func_151CCD1C
@@ -893,13 +892,12 @@ typedef struct SightFlashPayload {
     f32 timer;
 } SightFlashPayload;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CC2BC CURRENT (10) */
 void func_151CC2BC(void *arg0, void **arg1, u8 arg2) {
     SightFlashPayload *state;
 
     state = (SightFlashPayload *)((u8 *)arg0 + 0x70);
     if (arg2 == 0x46) {
-        if (*(s32 *)arg1 == state->owner_word) {
+        if (*(s32 *)arg1 == (*state).owner_word) {
             state->flags |= 2;
             state->timer = 35.0f;
             ((u8 *)arg0)[0x2B] = (u8)(u32)state->red;
@@ -909,8 +907,6 @@ void func_151CC2BC(void *arg0, void **arg1, u8 arg2) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CC2BC */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC2BC.s")
 typedef struct SightTwinPayload {
     u8 *owner;
     f32 value_04;
