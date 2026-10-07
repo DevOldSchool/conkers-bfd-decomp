@@ -5,8 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/main/main_sequence_api_mp3_adapter_boundaries.md
  *
  * TODO: Implement these source-unit functions:
- * - func_80008180
- * - func_800084D8
  * - func_80008CE8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -99,29 +97,25 @@ extern u8 D_80044B20[];
 s32 func_80003C40(s32, s32, s32, s32);
 void func_80004074(s32);
 extern SequencePlayer *D_8003C900[];
+extern u8 D_8003C90C[];
 extern u16 D_8003C910[];
 extern u16 D_8003CA3C[];
 extern s32 D_8003CA48[];
 extern SequenceFile *D_8003CD40;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80008180 CURRENT (1235) */
 void func_80008180(void) {
     AudioSoundConfig soundConfig;
+    s32 bankSize;
+    u32 bankAddress;
     AudioDriverConfig driverConfig;
+    s32 sequenceSize;
     SequencePlayerConfig playerConfig;
     AudioDeviceConfig deviceConfig;
-    u8 *waveBase;
     AudioBankFile *bankFile;
     SequenceFile *header;
-    s32 bankSize;
-    s32 sequenceSize;
-    u32 bankAddress;
     u32 sequenceAddress;
+    u8 *waveBase;
     s32 i;
-    SequencePlayer **player;
-    SequencePlayer **end;
-    u16 *current;
-    s32 *buffer;
 
     func_80012820(&D_8003E370, D_80044B20, 0x3E000);
     driverConfig.maxVoices = 0x2C;
@@ -165,18 +159,15 @@ void func_80008180(void) {
     playerConfig.maxChannels = 0x10;
     playerConfig.heap = &D_8003E370;
     func_800131FC(&playerConfig, 0x58);
-    end = &D_8003C900[3];
-    current = D_8003CA3C;
-    buffer = D_8003CA48;
-    for (player = D_8003C900; player != end; player++) {
-        *current = 0xFFFF;
-        *buffer = 0;
-        *player = func_80012844(0, 0, &D_8003E370, 1, 0x90);
-        func_80013320(*player, &playerConfig);
-        func_80015550(*player, bankFile->banks[0]);
-        current++;
-        buffer++;
-    }
+    i = 0;
+    do {
+        D_8003CA3C[i] = 0xFFFF;
+        D_8003CA48[i] = 0;
+        D_8003C900[i] = func_80012844(0, 0, &D_8003E370, 1, 0x90);
+        func_80013320(D_8003C900[i], &playerConfig);
+        func_80015550(D_8003C900[i], bankFile->banks[0]);
+        i++;
+    } while ((SequencePlayer **)D_8003C90C != &D_8003C900[i]);
     soundConfig.maxEvents = 0x40;
     soundConfig.maxStates = 0x40;
     soundConfig.maxSounds = 0x14;
@@ -188,23 +179,16 @@ void func_80008180(void) {
     func_80017944(0, 2);
     func_80017944(1, 2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80008180 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_80008180.s")
 
 s32 func_80017A80(SequencePlayer *player);
 void func_80017AA0(SequencePlayer *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800084D8 CURRENT (12) */
 void func_800084D8(u8 arg0) {
-    SequencePlayer **player;
-
-    player = &D_8003C900[arg0];
-    if (func_80017A80(*player) == 0 || func_80017A80(*player) == 3) {
-        func_80017AA0(*player);
+    if (func_80017A80(D_8003C900[arg0]) == 0 ||
+        func_80017A80(D_8003C900[arg0]) == 3) {
+        func_80017AA0(D_8003C900[arg0]);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_800084D8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_800084D8.s")
 
 s32 func_8000853C(u8 arg0) {
     return func_80017A80(D_8003C900[arg0]);
@@ -397,48 +381,40 @@ void func_80017F80(SequenceData *, u8 *);
 void func_80018C60(SequencePlayer *);
 void func_80018CB0(SequencePlayer *, SequenceData *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80008CE8 CURRENT (417) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80008CE8 CURRENT (80) */
 s32 func_80008CE8(u8 arg0, s32 sequence) {
-    SequencePlayer **player;
-    u32 count;
-    u16 *current;
-    s32 *buffer;
-    u16 *length;
     s32 address;
-    SequenceData *data;
+    u32 count;
 
-    player = &D_8003C900[arg0];
     count = 0;
-    func_80018C60(*player);
-    while (func_80017A80(*player) != 0 && count != 2000000) {
+    func_80018C60(D_8003C900[arg0]);
+    while (func_80017A80(D_8003C900[arg0]) != 0 && count != 2000000) {
         count++;
     }
     if (count >= 2000000U) {
-        func_80018C60(*player);
-        while (func_80017A80(*player) != 0 && count < 4000000U) {
+        func_80018C60(D_8003C900[arg0]);
+        while (func_80017A80(D_8003C900[arg0]) != 0 && count < 4000000U) {
             count++;
         }
     }
-    current = &D_8003CA3C[arg0];
-    if (sequence != *current) {
-        buffer = &D_8003CA48[arg0];
-        if (*buffer != 0) {
-            func_80004074(*buffer);
-            *buffer = 0;
+    if (sequence != D_8003CA3C[arg0]) {
+        count = D_8003CA48[arg0];
+        if (count != 0) {
+            func_80004074((s32)count);
+            D_8003CA48[arg0] = 0;
         }
-        length = &D_8003C910[sequence];
         address = (s32)D_8003CD40->entries[sequence].address;
-        *buffer = func_80003C40(*length, 0xFF, 2, 2);
-        if (*buffer == 0) {
+        D_8003CA48[arg0] = func_80003C40(D_8003C910[sequence], 0xFF, 2, 2);
+        if (D_8003CA48[arg0] == 0) {
             return -1;
         }
-        func_80004514(address, (void *)*buffer, (*length + 0xF) & ~0xF, 1);
-        *current = sequence;
+        func_80004514(address, (void *)D_8003CA48[arg0],
+                      (D_8003C910[sequence] + 0xF) & ~0xF, 1);
+        D_8003CA3C[arg0] = sequence;
     }
-    data = &D_8003CA58[arg0];
-    func_80017F80(data, (u8 *)D_8003CA48[arg0]);
-    func_80018CB0(*player, data);
-    func_80017B30(*player);
+    func_80017F80(&D_8003CA58[arg0], (u8 *)D_8003CA48[arg0]);
+    func_80018CB0(D_8003C900[arg0], &D_8003CA58[arg0]);
+    func_80017B30(D_8003C900[arg0]);
     return 0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_80008CE8 */
