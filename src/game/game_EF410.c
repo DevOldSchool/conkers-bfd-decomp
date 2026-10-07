@@ -8,7 +8,6 @@
  * - func_150C1F60
  * - func_150C2290
  * - func_150C2424
- * - func_150C251C
  * - func_150C2558
  * - func_150C2700
  * - func_150C2898
@@ -255,28 +254,30 @@ void func_150C2424(volatile u8 arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C2424 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2424.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C251C CURRENT (255) */
 s32 func_150C251C(void *arg0) {
-    s16 temp_v1;
-    s32 temp_t6;
-    s32 var_v1;
-    void *temp_v0;
+    typedef struct {
+        u8 pad0[0x1C];
+        s16 unk1C;
+        u8 pad1E[0x7A];
+        void *unk98;
+    } Local;
+    typedef struct {
+        u8 pad[0x1B];
+        u8 unk1B;
+    } Inner;
+    Local *a = arg0;
+    Inner *p = a->unk98;
+    s32 v = a->unk1C * 8;
 
-    temp_v1 = *(s16 *)((u8 *)arg0 + 0x1C);
-    temp_v0 = *(void **)((u8 *)arg0 + 0x98);
-    temp_t6 = temp_v1 * 8;
-    var_v1 = temp_t6;
-    if (temp_t6 >= 0x100) {
-        var_v1 = 0xFF;
+    if (v >= 0x100) {
+        v = 0xFF;
     }
-    *(s8 *)((u8 *)temp_v0 + 0x1B) = var_v1;
-    if ((var_v1 & 0xFF) < 0) {
+    p->unk1B = v;
+    if ((u8)v < 0) {
         return 0;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C251C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C251C.s")
 extern f32 D_800A0270;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150C2558 CURRENT (3119) */

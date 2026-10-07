@@ -31,7 +31,6 @@
  * - func_15070898
  * - func_15070C40
  * - func_15070F60
- * - func_150717E0
  * - func_15071B18
  * - func_15071D78
  * - func_15071FDC
@@ -773,7 +772,6 @@ void func_1506D584(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1506D584 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506D584.s")
 extern f32 D_80099D4C;
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1506D6B4 CURRENT (265) */
 void func_1506D6B4(void) {
     f32 temp_fv0;
@@ -2503,23 +2501,20 @@ typedef struct {
 void func_15131D4C(Game981E0MenuInput *, s32);
 void func_151494E0(Game981E0MenuInput *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150717E0 CURRENT (400) */
 void func_150717E0(s32 arg0) {
-    Game981E0MenuInput sp20;
-    Game981E0MenuInput *sp18;
-    void *temp_v0;
-
-    temp_v0 = func_15083E90(0x12U);
+    struct {
+        struct127 *ptr;
+        u8 id;
+        u8 pad[3];
+    } sp20;
+    void *temp_v0 = func_15083E90(0x12);
     if (temp_v0 != 0) {
-        sp20.field_0 = temp_v0;
-        sp18 = &sp20;
-        sp20.field_4 = ((u8 *)temp_v0)[0x3B];
-        func_15131D4C(sp18, 0x43);
-        func_151494E0(sp18, 0x43);
+        sp20.ptr = temp_v0;
+        sp20.id = ((struct127 *)temp_v0)->unique_id;
+        func_15131D4C((s32)&sp20, 0x43);
+        func_151494E0((s32)&sp20, 0x43);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150717E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_150717E0.s")
 void func_150F9BB0(u8 *arg0, s32 arg1, s32 arg2);
 
 void func_15071830(s32 arg0) {
@@ -3915,8 +3910,6 @@ extern f32 D_8009A108;
 extern f32 D_8009A10C;
 extern f32 D_8009A110;
 f32 sqrtf(f32);
-#pragma intrinsic(sqrtf)
-
 void func_15074F48(void *arg0, void *arg1, s32 arg2) {
     f32 temp_fa0;
     f32 temp_fa1;
