@@ -8,7 +8,6 @@
  * - func_1509CA98
  * - func_1509CB68
  * - func_1509CBD4
- * - func_1509CCF4
  * - func_1509CDDC
  * - func_1509CE64
  * - func_1509CF28
@@ -166,28 +165,28 @@ void func_1509CCB4(s32 arg0) {
 extern s32 D_80087440;
 extern u8 D_800D2E70;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509CCF4 CURRENT (35) */
 s32 func_1509CCF4(s32 arg0) {
     s32 var_s1;
     u16 *var_s0;
     u8 *var_s4;
     s32 var_s3;
     u16 var_v1;
+    s32 tmp1;
     u8 *temp_a1;
     u8 *temp_v0;
 
     var_s0 = *(u16 **)((u8 *)&D_80087440 + (arg0 * 0x14));
     var_s1 = 0;
     var_v1 = *var_s0;
-    var_s4 = &D_800D2E70;
+    temp_a1 = &D_800D2E70;
+    var_s4 = temp_a1;
     var_s3 = 3;
     if (var_v1 != 0xFFFF) {
         do {
             temp_v0 = ((s32)var_v1 >> 3) + (u8 *)D_800D2E4C;
             *temp_v0 |= 1 << (var_v1 & 7);
-            temp_a1 = var_s4 + *var_s0;
-            if (*temp_a1 != var_s3) {
-                *temp_a1 = 3;
+            if (*(var_s4 + *var_s0) != (tmp1 = var_s3)) {
+                *(var_s4 + *var_s0) = 3;
                 func_1509CCB4(*var_s0);
                 var_s1 += 1;
             }
@@ -197,8 +196,6 @@ s32 func_1509CCF4(s32 arg0) {
     }
     return var_s1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509CCF4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CCF4.s")
 s32 func_1509CCF4();
 extern u8 D_800D2E70;
 

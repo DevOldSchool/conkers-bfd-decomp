@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151739B0
- * - func_15173C90
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -114,14 +113,13 @@ void func_15173C60(s32 arg0, s32 arg1) {
 s32 func_151149AC(u8);
 extern s32 D_800DBEF4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15173C90 CURRENT (60) */
 void func_15173C90(s32 arg0, s32 arg1, s32 arg2) {
     s32 temp_v0;
+    s32 temp_a0;
 
     temp_v0 = func_151149AC(arg2);
     if (temp_v0 != 0) {
-        func_151739B0(*(u16 *)((u8 *)temp_v0 + 0x54) & 0xFFFF7FFF, 1, arg0, arg1, (s32) (temp_v0 - D_800DBEF4) / 160);
+        temp_a0 = *(u16 *)((u8 *)temp_v0 + 0x54) & 0xFFFF7FFF;
+        func_151739B0(temp_a0, 1, arg0, arg1, (s32) (temp_v0 - D_800DBEF4) / 160);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15173C90 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A0E60/func_15173C90.s")
