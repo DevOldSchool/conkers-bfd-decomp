@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_80008F90
- * - func_80009400
  * - func_800095A0
  * - func_800097CC
  * - func_800099BC
@@ -293,7 +292,6 @@ s32 func_80023440(MessageQueue *, void **, s32);
 extern u8 D_8002AC5C;
 extern u32 D_8002AE44;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009400 CURRENT (450) */
 void func_80009400(s32 arg0) {
     u32 done;
     AudioTaskRecord *previous;
@@ -310,7 +308,7 @@ void func_80009400(s32 arg0) {
     first = 1;
     client.flags = 0;
     func_800051C8(&client, &D_8003E5D0);
-    do {
+    while (done == 0) {
         func_80023440(&D_8003E5D0, &message, 1);
         if (D_8002AC5C != 0) {
             *(s16 *)message = 4;
@@ -330,22 +328,22 @@ void func_80009400(s32 arg0) {
                 first = 0;
             }
             cadence++;
-            break;
+            goto dispatch_done;
         case 4:
             done = 1;
-            break;
+            goto dispatch_done;
         case 10:
             done = 1;
-            break;
+            goto dispatch_done;
         }
-    } while (done == 0);
+dispatch_done:
+        ;
+    }
     func_80018E0C(D_8003E640);
     for (;;) {
         func_80023440(&D_8003E5D0, &message, 1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80009400 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_80009400.s")
 u32 func_800233C0(void *);
 s32 func_80002DB0(void *, u32);
 void func_800099BC(void);
@@ -360,14 +358,14 @@ extern s32 D_8002AE4C;
 extern MessageQueue D_8003B200;
 extern volatile u32 D_A4500004;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800095A0 CURRENT (1400) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800095A0 CURRENT (1380) */
 s32 func_800095A0(AudioTaskRecord *record, AudioTaskRecord *previous) {
     u32 physical;
     Acmd *commandEnd;
     s32 commandCount;
     s32 remaining;
     u32 bufferEnd;
-    u32 bufferBytes;
+    u32 stackPadding[1];
 
     physical = func_800233C0(record->buffer);
     func_800099BC();
@@ -385,8 +383,7 @@ s32 func_800095A0(AudioTaskRecord *record, AudioTaskRecord *previous) {
             D_80040F84--;
         }
     }
-    bufferBytes = (u32)record->samples << 2;
-    bufferEnd = physical + bufferBytes;
+    bufferEnd = physical + ((u32)record->samples << 2);
     if ((bufferEnd & 0x1FFF) == 0) {
         physical += 0x10;
         record->adjustedBuffer = record->buffer + 0x10;
@@ -453,26 +450,27 @@ s32 func_80024920(TransferIoMessage *, s32, s32, u32, void *, u32,
                  TransferMessageQueue *);
 extern TransferIoMessage D_80040F98[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800097CC CURRENT (475) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800097CC CURRENT (305) */
 s32 func_800097CC(s32 addr, s32 len, void *state) {
     u8 *buffer;
     s32 offset;
-    u32 start;
+    s32 request;
     AudioDmaNode *record;
     AudioDmaNode *previous;
     AudioDmaNode *head;
 
+    request = addr;
     record = (AudioDmaNode *)D_80040F78.field4;
     previous = 0;
     while (record != 0) {
-        start = record->address;
-        if ((u32)addr < start) {
+        if ((u32)request < record->address) {
             break;
         }
         previous = record;
-        if ((s32)(start + 0x800U) >= (s32)((u32)addr + (u32)len)) {
+        addr = (s32)(record->address + 0x800U);
+        if (addr >= (s32)((u32)request + (u32)len)) {
             record->frame = D_8002AE44;
-            return (s32)func_800233C0(record->buffer + ((u32)addr - start));
+            return (s32)func_800233C0(record->buffer + ((u32)request - record->address));
         }
         record = record->next;
     }
@@ -510,12 +508,12 @@ s32 func_800097CC(s32 addr, s32 len, void *state) {
             record->prev = 0;
         }
     }
-    offset = addr & 1;
+    offset = request & 1;
     buffer = record->buffer;
-    addr -= offset;
-    record->address = addr;
+    request -= offset;
+    record->address = request;
     record->frame = D_8002AE44;
-    func_80024920(&D_80040F98[D_8002AE48++], 1, 0, addr, buffer,
+    func_80024920(&D_80040F98[D_8002AE48++], 1, 0, request, buffer,
                  0x800, (TransferMessageQueue *)&D_80041298);
     return (s32)(func_800233C0(buffer) + (u32)offset);
 }

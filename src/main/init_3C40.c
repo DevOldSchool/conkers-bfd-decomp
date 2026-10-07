@@ -51,17 +51,20 @@ extern s32 D_8003C8E0;
 void func_850AD770(void);
 void func_8000440C(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80003C6C CURRENT (1401) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80003C6C CURRENT (1375) */
 s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     AllocatorBlock *allocated;
     u8 *end;
     s32 aligned;
     u32 remainder;
-    u32 blockSize;
+    /* The size is consumed before the free-list link is loaded. */
+    union {
+        u32 size;
+        AllocatorFreeBlock *next;
+    } blockPhase;
     AllocatorBlock *previous;
     AllocatorBlock *following;
     AllocatorBlock *oldNext;
-    AllocatorFreeBlock *nextFree;
     AllocatorFreeBlock *prevFree;
     s32 offset;
     s32 mask;
@@ -104,9 +107,9 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
             }
             return 0;
         }
-        blockSize = block->header.taggedSize;
+        blockPhase.size = block->header.taggedSize;
         aligned = (s32)((u8 *)block + offset + 0xC) & mask;
-        end = (u8 *)block + blockSize + 0xC;
+        end = (u8 *)block + blockPhase.size + 0xC;
         if ((u32)end >= aligned + (u32)arg0) {
             break;
         }
@@ -119,16 +122,16 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     if (arg3 == 0) {
         allocated = (AllocatorBlock *)((u32)aligned - 0xC);
         following = (AllocatorBlock *)((u32)allocated + (u32)arg0 + 0xC);
-        remainder = (u32)block + blockSize -
+        remainder = (u32)block + blockPhase.size -
                     ((u32)allocated + (u32)arg0);
     } else {
-        allocated = (AllocatorBlock *)((((u32)block + blockSize -
+        allocated = (AllocatorBlock *)((((u32)block + blockPhase.size -
                                         (u32)arg0 + 0xC) & mask) - 0xC);
         following = block->header.next;
         remainder = (u32)allocated - (u32)block;
     }
     previous = block->header.prev;
-    nextFree = block->nextFree;
+    blockPhase.next = block->nextFree;
     prevFree = block->prevFree;
     if (arg3 == 0) {
         oldNext = block->header.next;
@@ -139,10 +142,10 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
                 oldNext->prev = following;
             }
             remainder = 0;
-            ((AllocatorFreeBlock *)following)->nextFree = nextFree;
+            ((AllocatorFreeBlock *)following)->nextFree = blockPhase.next;
             ((AllocatorFreeBlock *)following)->prevFree = prevFree;
-            if (nextFree != 0) {
-                nextFree->prevFree = (AllocatorFreeBlock *)following;
+            if (blockPhase.next != 0) {
+                blockPhase.next->prevFree = (AllocatorFreeBlock *)following;
             } else {
                 D_800380BC = (AllocatorFreeBlock *)following;
             }
@@ -153,15 +156,15 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
             }
         } else {
             following = oldNext;
-            if (nextFree != 0) {
-                nextFree->prevFree = prevFree;
+            if (blockPhase.next != 0) {
+                blockPhase.next->prevFree = prevFree;
             } else {
                 D_800380BC = prevFree;
             }
             if (prevFree != 0) {
-                prevFree->nextFree = nextFree;
+                prevFree->nextFree = blockPhase.next;
             } else {
-                D_800380B8 = nextFree;
+                D_800380B8 = blockPhase.next;
             }
         }
         if (previous == 0) {
@@ -195,15 +198,15 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
         allocated->prev = previous;
         allocated->taggedSize = ((u32)arg1 << 24) |
                                ((u32)end - (u32)allocated - 0xC);
-        if (nextFree != 0) {
-            nextFree->prevFree = prevFree;
+        if (blockPhase.next != 0) {
+            blockPhase.next->prevFree = prevFree;
         } else {
             D_800380BC = prevFree;
         }
         if (prevFree != 0) {
-            prevFree->nextFree = nextFree;
+            prevFree->nextFree = blockPhase.next;
         } else {
-            D_800380B8 = nextFree;
+            D_800380B8 = blockPhase.next;
         }
         if (previous == 0) {
             D_800380B4 = allocated;

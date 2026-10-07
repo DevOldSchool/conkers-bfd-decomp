@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_8000C350
  * - func_8000C530
- * - func_8000C934
  * - func_8000CEAC
  * - func_8000D2F8
  * - func_8000D96C
@@ -603,7 +602,7 @@ void func_800086FC(u8, u8, u8);
 void func_80008744(u8, u8, u8);
 void func_80008824(u8, u8, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000C530 CURRENT (48) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000C530 CURRENT (20) */
 s32 func_8000C530(s32 arg0, u8 arg1, f32 arg2, f32 arg3, f32 arg4) {
     s32 oldMode;
     s32 mode;
@@ -614,14 +613,13 @@ s32 func_8000C530(s32 arg0, u8 arg1, f32 arg2, f32 arg3, f32 arg4) {
     s32 low;
     s32 high;
     s32 oldHigh;
-    u8 channel;
 
     upper = (u32)arg0 >> 8;
     mode = oldMode = arg0 & 3;
     countdown = ((u32)arg0 >> 2) & 0x3F;
-    fade = arg0 & 0xFF000000;
-    oldHigh = ((u32)arg0 >> 16) & 0xFF;
     oldLow = upper & 0xFF;
+    oldHigh = ((u32)arg0 >> 16) & 0xFF;
+    fade = arg0 & 0xFF000000;
     low = oldLow;
     high = oldHigh;
     if (D_80041F08 != 0 &&
@@ -643,10 +641,9 @@ s32 func_8000C530(s32 arg0, u8 arg1, f32 arg2, f32 arg3, f32 arg4) {
             func_800085F8(((u8 *)&arg1)[0], oldMode + 9);
         }
         if (mode != 0) {
-            channel = (u8)(mode + 9);
-            func_80008824(((u8 *)&arg1)[0], channel, (u8)low);
-            func_800086FC(((u8 *)&arg1)[0], channel, (u8)(high >> 7));
-            func_80008744(((u8 *)&arg1)[0], channel, high & 0x7F);
+            func_80008824(((u8 *)&arg1)[0], (u8)(mode + 9), (u8)low);
+            func_800086FC(((u8 *)&arg1)[0], (u8)(mode + 9), (u8)(high >> 7));
+            func_80008744(((u8 *)&arg1)[0], (u8)(mode + 9), high & 0x7F);
         }
     } else if (oldMode != 0 && D_80041F08 != 0 && upper != D_80041F0C) {
         if (low != oldLow) {
@@ -721,14 +718,15 @@ s32 func_8000C7E8(s32 arg0, s32 arg1, f32 arg2, s32 arg3, f32 arg4) {
 }
 extern s32 D_800BE9F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000C934 CURRENT (24) */
 s32 func_8000C934(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    s32 output[1];
+    union {
+        s32 output[1];
+        s32 value;
+    } result;
     s32 maximum;
     s32 flag;
-    s32 value;
 
-    output[0] = 0;
+    result.output[0] = 0;
     flag = *(s32 *)(D_800DBFF0 + 0x5F0) & 1;
     if (flag != 0) {
         maximum = 0x7FFF;
@@ -737,19 +735,17 @@ s32 func_8000C934(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     if (D_800BE9F0 == 0x37 && flag == 0) {
         func_800114D0(0x898, 0x42A, -0x640, maximum,
-                      0xBB8, 0x5DC, 0, output, 0);
-        value = output[0];
-        value = maximum - (value & 0xFF00);
-        output[0] = value;
+                      0xBB8, 0x5DC, 0, result.output, 0);
+        result.value = result.output[0];
+        result.value = maximum - (result.value & 0xFF00);
+        result.output[0] = result.value;
     }
-    value = output[0];
-    if ((u16)(value != arg0)) {
-        func_8000E40C(0x54, value);
+    result.value = result.output[0];
+    if ((u16)(result.value != arg0)) {
+        func_8000E40C(0x54, result.value);
     }
-    return value | 0x80000000;
+    return result.value | 0x80000000;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000C934 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000C934.s")
 s32 func_800114D0(s32, s32, s32, s32, s32, s32, s32 *, s32 *, s32 *);
 extern s32 D_800BE9F0;
 
@@ -1025,7 +1021,7 @@ void func_80008660(s32, s32, s32, s32);
 void func_80008C04(s32, s32, s32);
 s32 func_80008CE8(s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000D2F8 CURRENT (726) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000D2F8 CURRENT (580) */
 void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     typedef struct {
         SequenceCallback callback;
@@ -1038,6 +1034,8 @@ void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     extern CallbackEntry D_8002B07C[];
     extern MarkerEntry D_8002B080[];
     s32 status;
+    /* Original stack layout leaves two words between status and channel. */
+    u32 stackPadding[2];
     s32 channel;
     s32 offset;
     SequenceRecordState **slot;
@@ -1241,7 +1239,7 @@ void func_8000D758(f32 arg0, f32 arg1, f32 arg2) {
 }
 void *func_8000B1FC(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000D96C CURRENT (1068) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000D96C CURRENT (668) */
 void func_8000D96C(s32 arg0, s32 arg1, s32 arg2) {
     SequenceRecordState *outgoing;
     SequenceRecordState *incoming;
@@ -1355,7 +1353,10 @@ void func_8000D96C(s32 arg0, s32 arg1, s32 arg2) {
             goto simple_transition;
         }
         return;
+    } else {
+        goto fallback_lookup;
     }
+fallback_lookup:
     if (arg1 != 0) {
         outgoing = func_8000B1FC(arg1);
         if (outgoing != 0) {

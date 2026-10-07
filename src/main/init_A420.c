@@ -108,7 +108,7 @@ void func_85049148(f32 *, f32, f32 *);
 s32 func_8000A420(s32, s32, s32, f32, s32, s32, s32, s32, s32,
                   s32 *, s32 *, s32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A750 CURRENT (2335) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A750 CURRENT (2275) */
 s32 func_8000A750(s32 index, s32 panX, s32 panY, s32 panZ, f32 rotation,
                   s32 distanceX, s32 distanceY, s32 distanceZ,
                   s32 nearLimit, s32 farLimit, s32 *panOut,
@@ -140,9 +140,8 @@ s32 func_8000A750(s32 index, s32 panX, s32 panY, s32 panZ, f32 rotation,
 
     outside = 0;
     count = D_800D2108[index];
-    previousDistance = 0x7FFFFFFF;
+    bestDistance = previousDistance = 0x7FFFFFFF;
     closest = -2;
-    bestDistance = 0x7FFFFFFF;
     if (count == 0) {
         return 0;
     }

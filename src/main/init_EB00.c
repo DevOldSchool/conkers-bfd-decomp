@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_8000F6B8
  * - func_8000FA64
- * - func_8000FE88
  * - func_8000FEF0
  * - func_80010154
  * - func_80010344
@@ -699,23 +698,17 @@ void func_8000FDF4(u16 arg0) {
         }
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FE88 CURRENT (8) */
 s32 func_8000FE88(SoundArrayRecord *records, s32 index, s32 *count) {
-    SoundArrayRecord *record;
-
     if (index < *count) {
-        index = (u32)index * sizeof(*record);
-        record = (SoundArrayRecord *)((u8 *)records + (u32)index);
-        if (record->handle != 0) {
-            func_800111C8(record->handle);
+        index = (u32)index * sizeof(SoundArrayRecord);
+        if (((SoundArrayRecord *)((u8 *)records + (u32)index))->handle != 0) {
+            func_800111C8(((SoundArrayRecord *)((u8 *)records + (u32)index))->handle);
         }
-        record->flags |= 0x80;
+        ((SoundArrayRecord *)((u8 *)records + (u32)index))->flags |= 0x80;
         return 0;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000FE88 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000FE88.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FEF0 CURRENT (500) */
 s32 func_8000FEF0(u16 arg0, void *owner, s32 key) {
     SoundArrayRecord *record;

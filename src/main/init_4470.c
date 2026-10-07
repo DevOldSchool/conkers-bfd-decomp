@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/main_allocator_transfer_controller_boundaries.md
  *
  * TODO: Implement these source-unit functions:
- * - func_800046E4
  * - func_8000480C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -121,38 +120,34 @@ void func_80004674(void) {
     }
     D_8003A571 = 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800046E4 CURRENT (60) */
 void func_800046E4(u32 source, void *destination, u32 size) {
     TransferIoMessage request;
     void *response;
-    TransferMessageQueue *queue;
+    s32 index;
     u32 chunk;
     u32 processed;
 
     processed = 0;
-    chunk = D_8002BE00->id - 3;
-    if (((s32)chunk >= 4) || ((s32)chunk < 0)) {
-        chunk = 0;
+    index = D_8002BE00->id - 3;
+    if ((index >= 4) || (index < 0)) {
+        index = 0;
     }
     func_80022D10(destination, size);
     if (size != 0) {
-        queue = &D_80038908[(s32)chunk];
         do {
             if (size - processed < 0x14000U) {
                 chunk = size - processed;
             } else {
                 chunk = 0x14000;
             }
-            func_80024920(&request, 0, 0, source, destination, chunk, queue);
-            func_80023440(queue, &response, 1);
+            func_80024920(&request, 0, 0, source, destination, chunk, &D_80038908[index]);
+            func_80023440(&D_80038908[index], &response, 1);
             processed += chunk;
             source += chunk;
             destination = (u8 *)destination + chunk;
         } while (processed < size);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_800046E4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_4470/func_800046E4.s")
 typedef union {
     s32 word;
     u16 half[2];

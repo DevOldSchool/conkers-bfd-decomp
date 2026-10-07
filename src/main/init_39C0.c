@@ -40,7 +40,7 @@ void func_800039C0(void) {
     func_80024830(D_8002AAE8[D_800BE9C0 ^ 1]);
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80003ACC CURRENT (760) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80003ACC CURRENT (265) */
 void func_80003ACC(s32 red, s32 green, s32 blue) {
     u16 *pixels;
     u16 *second;
@@ -50,9 +50,10 @@ void func_80003ACC(s32 red, s32 green, s32 blue) {
 
     byteCount = (u32)D_800BE620 * (u32)D_800BE624 * 2;
     pixels = D_8002AAE8[0];
+    second = pixels;
     count = (s32)byteCount >> 1;
     i = 0;
-    if (pixels != 0) {
+    if (second != 0) {
         for (; i < count; i++) {
             pixels++;
             pixels[-1] = (((u32)red << 8) & 0xF800) |
