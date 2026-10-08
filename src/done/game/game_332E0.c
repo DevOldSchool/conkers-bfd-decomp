@@ -12,13 +12,13 @@ typedef struct Game332E0State {
     s16 unk1E0;
 } Game332E0State;
 
-void func_15124B18(void);
+void func_15124B18(void *);
 extern s32 D_800BE9F0;
 
 void func_15005E30(Game332E0State *arg0) {
     if (D_800BE9F0 == 0x32) {
         arg0->unk1B4 = 2;
         arg0->unk1E0 = 4;
-        func_15124B18();
+        func_15124B18(arg0);
     }
 }
