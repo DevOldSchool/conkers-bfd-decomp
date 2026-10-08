@@ -13,7 +13,7 @@ extern s32 D_800BE9E4;
 
 void func_1515BAE0(u8 *arg0) {
     s8 temp_v0;
-    struct { s8 value; } temp_v0_2;
+    s16 temp_v0_2;
     u8 var_v1;
 
     var_v1 = 0;
@@ -37,9 +37,9 @@ void func_1515BAE0(u8 *arg0) {
         }
     }
     if (var_v1 != 0) {
-        (temp_v0_2.value) = *(s8 *)(arg0 + 0x39);
-        if ((temp_v0_2.value) != -1) {
-            if (D_8008B07C[(temp_v0_2.value)](arg0) != 0) {
+        temp_v0_2 = *(s8 *)(arg0 + 0x39);
+        if (temp_v0_2 != -1) {
+            if (D_8008B07C[temp_v0_2](arg0) != 0) {
                 func_1516972C(arg0);
             }
         } else {

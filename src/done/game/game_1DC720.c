@@ -37,7 +37,7 @@ void func_1516962C(s32, void *, s32);
 u32 func_1513418C(void *, s32, u8, s32);
 
 u32 func_151AF270(Game1DC720Actor *arg0, u8 arg1, s32 arg2) {
-    s32 unused;
+    u32 result;
     Game1DC720EffectPacket packet;
 
     if (arg0 == 0) {
@@ -59,7 +59,8 @@ u32 func_151AF270(Game1DC720Actor *arg0, u8 arg1, s32 arg2) {
     packet.field2C = -1;
     packet.field2D = 9;
     packet.fieldC = arg0;
-    return func_1513418C(&packet, 0, arg1, arg2);
+    result = func_1513418C(&packet, 0, arg1, arg2);
+    return result;
 }
 typedef struct {
     u8 pad_0[0xC];

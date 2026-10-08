@@ -30,7 +30,7 @@ typedef struct Game1DBC60Packet {
 } Game1DBC60Packet;
 
 u32 func_151AE7B0(void *arg0, f32 arg1, s16 arg2, u8 arg3, s32 arg4) {
-    volatile s32 sp18;
+    u32 result;
     Game1DBC60Packet packet;
     s16 temp_v0;
 
@@ -59,5 +59,6 @@ u32 func_151AE7B0(void *arg0, f32 arg1, s16 arg2, u8 arg3, s32 arg4) {
     packet.field_2B = 6;
     packet.field_2C = -1;
     packet.field_2D = 5;
-    return func_1513418C(&packet, 0, arg3, arg4);
+    result = func_1513418C(&packet, 0, arg3, arg4);
+    return result;
 }

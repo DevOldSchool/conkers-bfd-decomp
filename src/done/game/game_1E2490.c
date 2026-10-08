@@ -31,7 +31,7 @@ extern f32 D_800AA3E4;
 u32 func_1513418C(void *, s32, u8, s32);
 
 u32 func_151B4FE0(void *arg0, u8 arg1, s32 arg2) {
-    s32 unused;
+    u32 result;
     Game1E2490EffectPacket packet;
 
     if (arg0 == 0) {
@@ -52,7 +52,8 @@ u32 func_151B4FE0(void *arg0, u8 arg1, s32 arg2) {
     packet.field2C = -1;
     packet.field2D = 8;
     packet.fieldC = arg0;
-    return func_1513418C((void *)&packet, 0, arg1, arg2);
+    result = func_1513418C(&packet, 0, arg1, arg2);
+    return result;
 }
 typedef struct {
     u8 pad_0[0xC];

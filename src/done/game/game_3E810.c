@@ -19,7 +19,7 @@ typedef struct Game3E810Colors {
 
 void func_15008E00(void);
 void func_15008E10(s32);
-extern Game3E810Colors *volatile D_800B0DF0;
+extern Game3E810Colors *D_800B0DF0;
 extern Game3E810State *D_800D2E4C;
 
 void func_15011360(void) {

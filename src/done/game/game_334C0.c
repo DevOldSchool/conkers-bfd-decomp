@@ -7,7 +7,7 @@
 
 typedef struct Game334C0State {
     u8 pad0[0x84];
-    volatile s32 flags;
+    s32 flags;
     u8 pad1[0x104];
     f32 unk18C;
     f32 unk190;
@@ -38,8 +38,8 @@ void func_15124B18(void *);
 void func_15006010(Game334C0State *arg0) {
     if (arg0->child3D0->unk102 != 0) {
         if (func_15123934(arg0, 8, 0, 0, 0) != 0) {
-            *(s32 *)((u8 *)arg0 + 0x84) |= 0x100000;
-            arg0->flags = *(s32 *)((u8 *)arg0 + 0x84) & ~4;
+            arg0->flags |= 0x100000;
+            arg0->flags &= ~4;
             arg0->unk1B4 = 1;
             arg0->unk1E0 = 3;
             func_15124B18(arg0);
@@ -53,8 +53,8 @@ void func_15006010(Game334C0State *arg0) {
 
     if (arg0->unk23E == 0x3B) {
         if (func_15123934(arg0, 8, 0, 0, 0) != 0) {
-            *(s32 *)((u8 *)arg0 + 0x84) |= 0x100000;
-            arg0->flags = *(s32 *)((u8 *)arg0 + 0x84) & ~4;
+            arg0->flags |= 0x100000;
+            arg0->flags &= ~4;
             arg0->unk348 = 155.0f;
             arg0->unk34C = 155.0f;
             arg0->unk190 = 30.0f;

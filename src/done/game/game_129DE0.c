@@ -19,10 +19,10 @@ void func_1516972C(void *arg0);
 void func_1514933C(s32 arg0);
 
 void func_150FC974(void *arg0) {
-    volatile void **field_38 = (volatile void **)((u8 *)arg0 + 0x38);
+    void **field_38 = (void **)((u8 *)arg0 + 0x38);
 
     if (*field_38 != 0) {
-        func_1516972C((void *)*field_38);
+        func_1516972C(*field_38);
     }
 }
 void func_150FC9A4(s32 arg0) {
