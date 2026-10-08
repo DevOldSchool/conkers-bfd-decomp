@@ -1,6 +1,7 @@
 {
   "functions": [
     {
+      "overlay": "main",
       "regions": {
         "eu": {
           "state": "in_progress",
@@ -13,12 +14,13 @@
             "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
             "verified_revision": "working-tree"
           },
+          "size_bytes": 36,
           "state": "matched",
           "symbol": "func_80001420",
           "vram": "0x80001420"
         }
       },
-      "source": "src/main/init_1420.c",
+      "source": "src/done/main/init_1420.c",
       "symbol": "func_bootstrap_clear_region"
     },
     {
@@ -92532,7 +92534,7 @@
           "vram": "0x80001444"
         }
       },
-      "source": "src/main/init_1420.c",
+      "source": "src/done/main/init_1420.c",
       "symbol": "func_80001444"
     },
     {
@@ -92550,7 +92552,7 @@
           "vram": "0x800014A0"
         }
       },
-      "source": "src/main/init_1420.c",
+      "source": "src/done/main/init_1420.c",
       "symbol": "func_800014A0"
     },
     {
@@ -92568,7 +92570,7 @@
           "vram": "0x800014C4"
         }
       },
-      "source": "src/main/init_1420.c",
+      "source": "src/done/main/init_1420.c",
       "symbol": "func_800014C4"
     },
     {

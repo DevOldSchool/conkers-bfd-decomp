@@ -19542,15 +19542,15 @@
         "func_800014A0",
         "func_800014C4"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x1550",
           "start": "0x1420",
-          "state": "candidate"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_1420.c"
+      "source": "src/done/main/init_1420.c"
     },
     {
       "boundary_evidence": {
