@@ -13,7 +13,7 @@ future goal and does not currently gate progress.
 
 ## Project progress
 
-[![US objdiff code match](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us.svg?mode=shield&category=all&measure=matched_code_percent&label=US%20objdiff%20code%20match)](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us?category=all)
+[![US Code](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us.svg?mode=shield&category=all&measure=matched_code_percent&label=US%20Code)](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us?category=all)
 
 The badge is native objdiff matching for tracked US CPU code, including SDK code;
 it excludes data, assets and EU/PAL. `./conker progress` shows the same metric from

@@ -1364,7 +1364,7 @@ class GameInventoryTests(unittest.TestCase):
         self.assertNotEqual(12.5, result['code_bytes']['percentage'])
         self.assertEqual(12.5, result['objdiff']['matched_code_percent'])
         text = first[project_state.DOCUMENT_FILE]
-        self.assertLess(text.index('US objdiff code match: 12.5000%'), text.index('Canonical inventory'))
+        self.assertLess(text.index('US Code: 12.5000%'), text.index('Canonical inventory'))
 
     def test_progress_render_is_deterministic_local_output_and_preserves_guide(self) -> None:
         guide = self.root / "docs/progress.md"

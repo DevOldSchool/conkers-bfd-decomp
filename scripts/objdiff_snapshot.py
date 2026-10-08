@@ -104,7 +104,7 @@ def read_status(root: Path) -> dict:
 def render_status(status: dict) -> list[str]:
     current = status['status'] == 'current'
     value = f"{status['matched_code_percent']:.4f}%" if current else f"unavailable ({status['status']})"
-    lines = [f'## US objdiff code match: {value}', '', status['reason']]
+    lines = [f'## US Code: {value}', '', status['reason']]
     if not current and status['status'] != 'not_requested':
         lines.extend(['', GENERATE, 'Use `./conker progress --inventory-only` to skip this section.'])
     if 'git_revision' in status:

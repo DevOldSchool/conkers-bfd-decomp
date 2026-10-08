@@ -60,7 +60,7 @@ class ObjdiffSnapshotTests(unittest.TestCase):
         self.assertEqual(12.5, status['matched_code_percent'])
         self.assertEqual(self.proof['git_revision'], status['git_revision'])
         text = '\n'.join(snapshot.render_status(status))
-        self.assertIn('US objdiff code match: 12.5000%', text)
+        self.assertIn('US Code: 12.5000%', text)
         self.assertIn('Profile: **us**', text)
         self.assertIn(self.proof['report_sha256'], text)
 
@@ -69,7 +69,7 @@ class ObjdiffSnapshotTests(unittest.TestCase):
         status = snapshot.read_status(self.root)
         self.assertEqual('stale', status['status'])
         text = '\n'.join(snapshot.render_status(status))
-        self.assertIn('code match: unavailable (stale)', text)
+        self.assertIn('US Code: unavailable (stale)', text)
         self.assertIn('Last snapshot (not current)', text)
 
     def test_added_and_deleted_input_invalidate_fingerprint(self):
@@ -174,12 +174,12 @@ class ObjdiffSnapshotTests(unittest.TestCase):
 class PublicBadgeTests(unittest.TestCase):
     def test_readme_uses_explicit_native_us_all_category_badge(self):
         text = (ROOT / 'README.md').read_text()
-        url = re.search(r'\[!\[US objdiff code match\]\(([^)]+)\)', text).group(1)
+        url = re.search(r'\[!\[US Code\]\(([^)]+)\)', text).group(1)
         parsed = urlparse(url)
         self.assertEqual('https', parsed.scheme)
         self.assertEqual('decomp.dev', parsed.netloc)
         self.assertEqual('/DevOldSchool/conkers-bfd-decomp/us.svg', parsed.path)
         self.assertEqual({'mode': ['shield'], 'category': ['all'],
-                          'measure': ['matched_code_percent'], 'label': ['US objdiff code match']},
+                          'measure': ['matched_code_percent'], 'label': ['US Code']},
                          parse_qs(parsed.query))
         self.assertNotIn('[![EU', text)
