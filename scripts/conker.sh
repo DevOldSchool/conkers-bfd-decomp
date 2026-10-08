@@ -479,11 +479,20 @@ run_python_tests() {
         return 2
     fi
     ensure_image || return 2
-    # Match workspace_mount_args: sources stay read-only, while the generated
-    # output roots that ROM-enabled tests may populate are writable.
-    for argument in asm assets build reference; do
-        mkdir -p "$repo_root/$argument"
-        test_mount_args+=(--mount "type=bind,source=$repo_root/$argument,target=/workspace/$argument")
+    # Match workspace_mount_args: a disposable /workspace tmpfs takes stray
+    # root-level outputs (splat's undefined_*_auto.txt), every top-level
+    # checkout entry is mounted read-only, and the generated output roots that
+    # ROM-enabled tests may populate are writable.
+    mkdir -p "$repo_root/asm" "$repo_root/assets" "$repo_root/build" "$repo_root/reference"
+    test_mount_args=(--tmpfs /workspace:rw,nosuid,nodev,size=256m,mode=1777)
+    for argument in "$repo_root"/* "$repo_root"/.[!.]*; do
+        [[ -e "$argument" ]] || continue
+        case "${argument##*/}" in
+            asm|assets|build|reference)
+                test_mount_args+=(--mount "type=bind,source=$argument,target=/workspace/${argument##*/}") ;;
+            *)
+                test_mount_args+=(--mount "type=bind,source=$argument,target=/workspace/${argument##*/},readonly") ;;
+        esac
     done
     for argument in "${container_run_args[@]}"; do
         if [[ "$replace_next" == 1 && "$argument" == /tmp:* ]]; then
@@ -499,7 +508,6 @@ run_python_tests() {
     fi
     printf 'tests: docker runner (%s)\n' "$image_name"
     docker run --rm "${test_run_args[@]}" \
-        --mount "type=bind,source=$repo_root,target=/workspace,readonly" \
         "${test_mount_args[@]}" \
         --env CONKER_IN_CONTAINER=1 \
         --env HOME=/tmp \

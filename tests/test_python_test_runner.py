@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import re
 import subprocess
 import tempfile
 import unittest
@@ -15,6 +16,9 @@ TEST_COMMAND = ("case test in\n    test)\n"
 class PythonTestRunnerTests(unittest.TestCase):
     def run_command(self, *args, docker="up", host="ok", runner=None, extra_env=None):
         with tempfile.TemporaryDirectory() as root:
+            for directory in ("src", ".github"):
+                (Path(root) / directory).mkdir()
+            (Path(root) / "conker").write_text("")
             harness = r'''
 set -euo pipefail
 repo_root="$1"; docker_state="$2"; host_state="$3"; shift 3
@@ -51,13 +55,15 @@ python3() {
         self.assertIn("tests: docker runner (rsp-image)", result.stdout)
         command = next(line for line in result.stderr.splitlines() if line.startswith("docker run "))
         self.assertIn("--rm --platform linux/amd64 --read-only --tmpfs /tmp:rw,exec,nosuid,nodev,size=1g ", command)
-        self.assertEqual(1, command.count("--tmpfs"))
+        self.assertEqual(1, command.count("--tmpfs /tmp:"))
         self.assertNotIn("TMPDIR", command)
-        self.assertRegex(command, r"source=\S+,target=/workspace,readonly ")
+        self.assertIn("--tmpfs /workspace:rw,nosuid,nodev,size=256m,mode=1777 ", command)
+        self.assertNotRegex(command, r"target=/workspace[, ]")
+        for entry in ("src", ".github", "conker"):
+            self.assertRegex(command, rf"source=\S+/{re.escape(entry)},target=/workspace/{re.escape(entry)},readonly ")
         for generated in ("asm", "assets", "build", "reference"):
             self.assertRegex(command, rf"source=\S+/{generated},target=/workspace/{generated} ")
-        self.assertEqual(5, command.count("--mount "))
-        self.assertNotIn("target=/workspace/src", command)
+        self.assertEqual(7, command.count("--mount "))
         for setting in ("CONKER_IN_CONTAINER=1", "HOME=/tmp", "PYTHONDONTWRITEBYTECODE=1"):
             self.assertIn("--env " + setting, command)
         self.assertTrue(command.endswith("rsp-image python3 -m unittest discover -s tests -q"))
