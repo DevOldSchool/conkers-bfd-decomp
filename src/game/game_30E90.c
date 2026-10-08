@@ -9,7 +9,6 @@
  * - func_15004574
  * - func_150045C4
  * - func_150049A4
- * - func_15004AAC
  * - func_15004CE0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -97,58 +96,70 @@ extern u16 D_800BE2A4;
 
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15004AAC CURRENT (275) */
-void func_15004AAC(u8 *arg0, s32 arg1) {
-    f32 temp_fa1;
-    f32 temp_ft5;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    s32 temp_ft0;
-    s32 temp_ft2;
-    s32 temp_ft3;
-    s32 var_a2;
-    s32 var_v0;
-    u16 temp_a1;
-    u16 temp_v1;
-    u8 *var_a3;
+void func_15004AAC(void *arg0, s32 arg1) {
+    f32 sz;
+    f32 sx;
+    f32 sy;
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 root;
+    f32 new_var;
+    s32 maxv = 0;
+    s32 off;
+    s32 len;
+    s32 val;
+    s16 *p;
+    u16 new_var2;
+    u16 cur;
+    u16 count;
 
-    temp_a1 = *(u16 *)((u8 *)arg0 + 0x16);
-    var_v0 = 0;
-    var_a2 = 0;
-    if ((s32) temp_a1 > 0) {
-        var_a3 = (void *)(*(void **)((u8 *)arg0 + 0x28));
+    count = *((u16 *)(((s8 *)arg0) + 0x16));
+    new_var2 = count;
+    if (0 < ((s32)new_var2)) {
+        if ((arg0 && arg0) && arg0) {
+        }
+        off = 0;
+        p = *((s16 **)(((s8 *)arg0) + 0x28));
+        sz = *((f32 *)(((s8 *)arg0) + 0x34));
+        z = ((f32)p[2]) * sz;
+        sx = *((f32 *)(((s8 *)arg0) + 0x2C));
+        x = ((f32)p[0]) * sx;
+        sy = *((f32 *)(((s8 *)arg0) + 0x30));
+        if (!arg0) {
+        }
+        len = ((s32)new_var2) * 0x10;
         do {
-            var_a2 += 0x10;
-            temp_fv1 = *(f32 *)((u8 *)arg0 + 0x34) * (f32) *(s16 *)((u8 *)var_a3 + 4);
-            temp_fa1 = *(f32 *)((u8 *)arg0 + 0x2C) * (f32) *(s16 *)((u8 *)var_a3 + 0);
-            temp_ft5 = *(f32 *)((u8 *)arg0 + 0x30) * (f32) *(s16 *)((u8 *)var_a3 + 2);
-            temp_ft3 = (s32) ((temp_fv1 * temp_fv1) + ((temp_fa1 * temp_fa1) + (temp_ft5 * temp_ft5)));
-            if (var_v0 < temp_ft3) {
-                var_v0 = temp_ft3;
+            off += 0x10;
+            z = ((f32)p[2]) * sz;
+            x = ((f32)p[0]) * sx;
+            new_var = sy;
+            y = ((f32)p[1]) * new_var;
+            val = (s32)((z * z) + ((x * x) + (y * y)));
+            if (maxv < val) {
+                maxv = val;
             }
-            var_a3 += 0x10;
-        } while (var_a2 < (temp_a1 * 0x10));
+            p = p + 8;
+        } while (off < len);
     }
-    if (var_v0 != 0) {
-        temp_v1 = *(u16 *)((u8 *)arg0 + 0x50);
-        temp_fv0 = sqrtf((f32) var_v0);
-        if (temp_v1 == 0) {
-            temp_ft0 = (s32) temp_fv0;
-            *(u16 *)((u8 *)arg0 + 0x50) = (u16) temp_ft0;
-            *(u16 *)((u8 *)arg0 + 0x52) = (u16) temp_ft0;
+    if (maxv != 0) {
+        cur = *((u16 *)(((s8 *)arg0) + 0x50));
+        root = sqrtf((f32)maxv);
+        if ((*((u16 *)(((s8 *)arg0) + 0x50))) == 0) {
+            val = (s32)root;
+            *((u16 *)(((s8 *)arg0) + 0x50)) = (u16)val;
+            *((u16 *)(((s8 *)arg0) + 0x52)) = (u16)val;
             D_800BE2A2 += 1;
             return;
         }
-        temp_ft2 = (s32) temp_fv0;
-        if (((s32) temp_v1 < temp_ft2) || ((s32) *(u16 *)((u8 *)arg0 + 0x52) < temp_ft2)) {
+        val = (s32)root;
+        if ((((s32)cur) < val) || (((s32)(*((u16 *)(((s8 *)arg0) + 0x52)))) < val)) {
             D_800BE2A0 += 1;
             return;
         }
         D_800BE2A4 += 1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15004AAC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_30E90/func_15004AAC.s")
 extern s32 D_800DBEF0;
 extern u8 D_800DBF00;
 

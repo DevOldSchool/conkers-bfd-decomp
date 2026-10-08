@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_1BFC70.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_units_up_to_64_bytes.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151927C0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game1BFC70State {
@@ -19,16 +14,13 @@ typedef struct Game1BFC70State {
     s8 unk3B;
 } Game1BFC70State;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151927C0 CURRENT (75) */
-s32 func_151927C0(Game1BFC70State *arg0) {
-    s32 value = arg0->unk14;
-    s32 packed = (s16)((value & 0xFF) >> 1) * 0x10001;
+void func_151927C0(s8 *arg0)
+{
+  s16 new_var;
 
-    arg0->unk38 = 0x12C;
-    arg0->unk3A = 0xA;
-    arg0->unk14 = packed;
-    arg0->unk3B = 0;
-    return value;
+  new_var = (s16) (((s32) ((*((s32 *) (((s8 *) arg0) + 0x14))) & 0xFF)) >> 1);
+  *((s16 *) (((s8 *) arg0) + 0x38)) = 0x12C;
+  *((s8 *) (((s8 *) arg0) + 0x3A)) = 0xA;
+  *((s32 *) (((s8 *) arg0) + 0x14)) = (s32) ((new_var << 16) + new_var);
+  *((s8 *) (((s8 *) arg0) + 0x3B)) = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151927C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BFC70/func_151927C0.s")
