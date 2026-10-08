@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_360A0.c
@@ -32,7 +33,6 @@ typedef struct Game360A0Descriptor {
     s32 field48, field4C;
 } Game360A0Descriptor;
 
-void func_15143874(s16, f32, f32 *, f32 *);
 void func_15189900(void *, u8);
 extern f32 D_80095B40, D_80095B44, D_80095B48;
 extern f32 D_80095B4C, D_80095B50, D_80095B54;

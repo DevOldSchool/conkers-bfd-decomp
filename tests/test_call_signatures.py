@@ -266,6 +266,224 @@ func_151F0000 = other_sdk_function;
         self.assertEqual([SDK_DECLARATION], record['declarations'])
         self.assertIn(calls.SDK_ALIAS_MAP, record['evidence'][0])
 
+    def header_context(self, declaration='void func_target(void *, s32, s32);'):
+        context = m2c.m2c_context.clean_context(
+            '# 1 "src/game/example.c"\n'
+            '# 1 "include/types.h"\ntypedef signed int s32;\n'
+            '# 1 "include/example_functions.h"\n' + declaration + '\n'
+            '# 3 "src/game/example.c"\n'
+            '#pragma GLOBAL_ASM("asm/nonmatchings/example/func_wrapper.s")\n')
+        path = self.root / 'build/context.c'
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(context)
+        return path, ['m2c', '--context', 'build/context.c', 'input.s']
+
+    def test_initial_header_prototype_is_reused_by_starter_and_prepare(self):
+        declaration = 'void func_target(void *, s32, s32);'
+        (self.root / 'include/example_functions.h').write_text(declaration + '\n')
+        source = ('#include "types.h"\n#include "example_functions.h"\n'
+                  '#pragma GLOBAL_ASM("asm/nonmatchings/example/func_wrapper.s")\n')
+        self.source.write_text(source)
+        _, command = self.header_context(declaration)
+
+        def decompile(command, **kwargs):
+            context = (self.root / command[command.index('--context') + 1]).read_text()
+            # Recovery remains in the decompiler input even when public output reuses a header.
+            self.assertTrue(context.endswith(declaration + '\n'))
+            return SimpleNamespace(returncode=0, stdout=REPAIRED)
+
+        with patch.object(m2c, 'ROOT', self.root), patch.object(m2c.subprocess, 'run', side_effect=decompile):
+            output, status = m2c.generate_with_call_context(
+                command, WRAPPER, 'func_wrapper', self.source, 'us')
+        self.assertEqual(0, status)
+        self.assertNotIn(declaration, output)
+        self.assertIn(REPAIRED, output)
+        prepared = automate.candidate_rewrites.prepare_starter(
+            output, 'func_wrapper', source, root=self.root)
+        self.assertEqual((), prepared.declarations)
+        self.assertEqual(source, self.source.read_text())
+        record = json.loads((self.root / 'build/m2c/calls/func_wrapper.json').read_text())
+        self.assertEqual([declaration], record['declarations'])
+        self.assertEqual([], record['emitted_declarations'])
+        self.assertFalse(record['source_context_fallback'])
+
+    def test_failed_generator_does_not_record_unemitted_declarations(self):
+        declaration = 'void func_target(void *, s32, s32);'
+        (self.root / 'include/example_functions.h').write_text(declaration + '\n')
+        with patch.object(m2c, 'ROOT', self.root), patch.object(
+            m2c.subprocess, 'run', return_value=SimpleNamespace(returncode=1, stdout='failed\n')
+        ):
+            output, status = m2c.generate_with_call_context(
+                ['m2c', 'input.s'], WRAPPER, 'func_wrapper', self.source, 'us')
+        self.assertEqual((output, status), ('failed\n', 1))
+        record = json.loads((self.root / 'build/m2c/calls/func_wrapper.json').read_text())
+        self.assertEqual([declaration], record['declarations'])
+        self.assertEqual([], record['emitted_declarations'])
+
+    def test_header_reuse_keeps_missing_disagreeing_and_abi_only_declarations(self):
+        declaration = 'void func_target(void *, s32, s32);'
+        missing = 's32 func_missing(void);'
+        path, command = self.header_context(declaration)
+        context = path.read_text()
+        with patch.object(m2c, 'ROOT', self.root):
+            recovery = calls.Recovery((declaration, missing))
+            self.assertEqual((missing,), m2c.starter_declarations(command, recovery))
+            for extra in ('void func_target(s32);', 'void func_target(Private *);'):
+                with self.subTest(extra=extra):
+                    path.write_text(context + extra + '\n')
+                    self.assertEqual(recovery.declarations, m2c.starter_declarations(command, recovery))
+            path.write_text(context)
+            for item in ('void func_target(s32);', declaration + ' /* CONKER_ABI_DISCARDED_RETURN */'):
+                with self.subTest(item=item):
+                    recovery = calls.Recovery((item,))
+                    self.assertEqual((item,), m2c.starter_declarations(command, recovery))
+
+    def test_header_reuse_requires_provenance_and_preserves_fallback(self):
+        declaration = 'void func_target(void *, s32, s32);'
+        recovery = calls.Recovery((declaration,))
+        path, command = self.header_context(declaration)
+        with patch.object(m2c, 'ROOT', self.root):
+            self.assertEqual((declaration,), m2c.starter_declarations(
+                command, recovery, context_fallback=True))
+            for context in (
+                declaration + '\n',  # Raw context cannot prove where the declaration came from.
+                '# 1 "src/example.c"\n' + declaration + '\n',
+                '# 1 "src/example.c"\n#pragma GLOBAL_ASM("asm/target.s")\n'
+                '# 1 "include/late.h"\n' + declaration + '\n',
+            ):
+                with self.subTest(context=context):
+                    path.write_text(m2c.m2c_context.clean_context(context))
+                    self.assertEqual((declaration,), m2c.starter_declarations(command, recovery))
+            path.unlink()
+            self.assertEqual((declaration,), m2c.starter_declarations(command, recovery))
+            self.assertEqual((declaration,), m2c.starter_declarations(['m2c', 'input.s'], recovery))
+
+    def test_header_context_tool_changes_invalidate_saved_starters_and_later_stages(self):
+        tool = self.root / 'scripts/m2c_context.py'
+        tool.parent.mkdir()
+        tool.write_text('# original header provenance rules\n')
+        with patch.object(automate, 'ROOT', self.root):
+            args = automate.parse_args(['--all'])
+            before = automate.stage_fingerprint_seeds(args)
+            fingerprint = automate.automation_fingerprint()
+            tool.write_text('# revised header provenance rules\n')
+            after = automate.stage_fingerprint_seeds(args)
+            self.assertNotEqual(fingerprint, automate.automation_fingerprint())
+        self.assertEqual(before['inventory'], after['inventory'])
+        for stage in ('m2c', 'declarations', 'prepare', 'compile', 'diff', 'permute', 'finish'):
+            with self.subTest(stage=stage):
+                self.assertNotEqual(before[stage], after[stage])
+
+    def write_guarded_header(self, *declarations):
+        (self.root / 'include/example_functions.h').write_text(
+            '#ifndef EXAMPLE_FUNCTIONS_H\n#define EXAMPLE_FUNCTIONS_H\n'
+            '#include "types.h"\n' + ''.join(d + '\n' for d in declarations) + '#endif\n')
+        self.source.write_text('#include "types.h"\n#include "example_functions.h"\n'
+                               '#pragma GLOBAL_ASM("asm/nonmatchings/example/func_wrapper.s")\n')
+
+    def test_header_owned_prototype_is_not_redeclared_without_source_context(self):
+        declaration = 'void func_target(void *, s32, s32);'
+        self.write_guarded_header(declaration)
+        with patch.object(m2c, 'ROOT', self.root), patch.object(
+            m2c.subprocess, 'run', return_value=SimpleNamespace(returncode=0, stdout=REPAIRED)
+        ):
+            # No --context: the IDO preprocessor was unavailable for this source.
+            output, status = m2c.generate_with_call_context(
+                ['m2c', 'input.s'], WRAPPER, 'func_wrapper', self.source, 'us')
+        self.assertEqual(0, status)
+        self.assertNotIn(declaration, output)
+        self.assertIn('/* Call context: func_target: declared by example_functions.h */', output)
+        self.assertNotIn('CONKER_REQUIRED_INCLUDE', output)
+        self.assertIn('required-declarations:\n  none', m2c.ready_output(output, 'func_wrapper'))
+        record = json.loads((self.root / 'build/m2c/calls/func_wrapper.json').read_text())
+        self.assertEqual([declaration], record['declarations'])
+        self.assertEqual([], record['emitted_declarations'])
+        self.assertEqual([], record['header_conflicts'])
+
+    def test_header_owned_prototype_wins_over_project_call_evidence(self):
+        declaration = 'void func_target(void *, s32, s32);'
+        self.write_guarded_header(declaration)
+        (self.root / 'src/game/other.c').write_text('void func_target(s32);\n')
+        with patch.object(m2c, 'ROOT', self.root):
+            header_text = m2c.initial_header_text(self.source.read_text())
+        recovery = calls.recover(WRAPPER, self.source.read_text() + '\n' + header_text,
+                                 root=self.root)
+        self.assertEqual((declaration,), recovery.declarations)
+
+    def test_disagreeing_recovery_for_header_owned_name_is_noted_not_emitted(self):
+        self.write_guarded_header('void func_target(s32);')
+        recovered = 'void func_target(void *, s32, s32); /* CONKER_ABI_DISCARDED_RETURN */'
+        missing = 's32 func_missing(void);'
+        recovery = calls.Recovery((recovered, missing), ('func_missing: unique active project prototype',))
+        source = self.source.read_text()
+        with patch.object(m2c, 'ROOT', self.root):
+            emitted = m2c.starter_declarations(['m2c', 'input.s'], recovery, source_text=source)
+            notes, includes, conflicts = m2c.call_context_notes(recovery, emitted, source)
+        self.assertEqual((missing,), emitted)
+        self.assertEqual([], includes)  # Already included by the source.
+        self.assertEqual([recovered], conflicts)
+        self.assertEqual('func_missing: unique active project prototype', notes[1])
+        self.assertIn('differs from the header, ABI review required', notes[0])
+        self.assertNotIn(';', notes[0])
+
+    def test_caller_without_the_owning_header_gets_an_include_not_a_prototype(self):
+        declaration = 'void func_target(void *, s32, s32);'
+        self.write_guarded_header(declaration)
+        source = ('#include "types.h"\n\ntypedef struct Local { s32 x; } Local;\n'
+                  '#pragma GLOBAL_ASM("asm/nonmatchings/example/func_wrapper.s")\n')
+        self.source.write_text(source)
+        with patch.object(m2c, 'ROOT', self.root), patch.object(
+            m2c.subprocess, 'run', return_value=SimpleNamespace(returncode=0, stdout=REPAIRED)
+        ):
+            output, status = m2c.generate_with_call_context(
+                ['m2c', 'input.s'], WRAPPER, 'func_wrapper', self.source, 'us')
+        self.assertEqual(0, status)
+        self.assertNotIn(declaration, output)
+        self.assertIn('func_target: declared by example_functions.h, which the candidate source must include',
+                      output)
+        ready = m2c.ready_output(output, 'func_wrapper')
+        self.assertIn('required-includes:\n  #include "example_functions.h"\nrequired-declarations:\n  none',
+                      ready)
+        record = json.loads((self.root / 'build/m2c/calls/func_wrapper.json').read_text())
+        self.assertEqual(['example_functions.h'], record['required_includes'])
+        prepared = automate.candidate_rewrites.prepare_starter(
+            output, 'func_wrapper', source, root=self.root)
+        self.assertEqual((), prepared.declarations)
+        self.assertEqual(('example_functions.h',), prepared.includes)
+        updated = automate.candidate_source(automate.automation_common.replace_target_pragma(
+            source.encode(), 'src/game/example.c', 'func_wrapper',
+            automate.candidate_block(prepared)), prepared).decode()
+        self.assertTrue(updated.startswith('#include "types.h"\n#include "example_functions.h"\n\n'
+                                           'typedef struct Local'))
+        self.assertIn(REPAIRED.strip(), updated)
+
+    def test_prepare_replaces_resolved_owned_prototypes_with_the_header(self):
+        self.write_guarded_header('void func_target(void *, s32, s32);')
+        source = '#include "types.h"\n#pragma GLOBAL_ASM("asm/nonmatchings/example/func_wrapper.s")\n'
+        starter = 'void func_target(void *, s32, s32);\n\n' + REPAIRED
+        prepared = automate.candidate_rewrites.prepare_starter(
+            starter, 'func_wrapper', source, root=self.root)
+        self.assertEqual((), prepared.declarations)
+        self.assertEqual(('example_functions.h',), prepared.includes)
+        conflicting = 'void func_target(s32);\n\n' + REPAIRED
+        prepared = automate.candidate_rewrites.prepare_starter(
+            conflicting, 'func_wrapper', source, root=self.root)
+        self.assertEqual((), prepared.declarations)
+        self.assertTrue(any('ABI review required' in note for note in prepared.evidence))
+
+    def test_initial_includes_are_added_once_after_the_include_block(self):
+        cases = {
+            '#include "types.h"\nvoid f(void);\n':
+                '#include "types.h"\n#include "x_functions.h"\nvoid f(void);\n',
+            '#include "types.h"\r\n\r\nvoid f(void);\r\n':
+                '#include "types.h"\r\n#include "x_functions.h"\r\n\r\nvoid f(void);\r\n',
+            'void f(void);\n': '#include "x_functions.h"\nvoid f(void);\n',
+            '#include "types.h"\n#include "x_functions.h"\n': '#include "types.h"\n#include "x_functions.h"\n',
+        }
+        for source, expected in cases.items():
+            with self.subTest(source=source):
+                self.assertEqual(expected, calls.add_initial_includes(source, ['x_functions.h']))
+
     def test_sdk_inputs_invalidate_saved_raw_and_deferred_stage_results(self):
         mapping, header = self.write_sdk()
         with patch.object(automate, 'ROOT', self.root):

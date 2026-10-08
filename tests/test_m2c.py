@@ -304,6 +304,42 @@ void func_wrapper(s32 arg0) {
             self.assertNotIn("#if", generated)
             self.assertNotIn("#pragma", generated)
 
+    def test_flattened_context_inlines_reviewed_headers_with_provenance(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            include = root / "include"
+            include.mkdir()
+            (include / "types.h").write_text("typedef signed int s32;\n")
+            (include / "example_command.h").write_text(
+                "#ifndef EXAMPLE_COMMAND_H\n#define EXAMPLE_COMMAND_H\n#include \"types.h\"\n"
+                "typedef struct Command { s32 opcode; } Command;\n#endif\n")
+            (include / "example_functions.h").write_text(
+                "#ifndef EXAMPLE_FUNCTIONS_H\n#define EXAMPLE_FUNCTIONS_H\n"
+                "#include \"types.h\"\n#include \"example_command.h\"\n"
+                "Command *func_command(Command *, s32);\nvoid func_owned(s32);\n#endif /* guard */\n")
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text('#include "types.h"\n#include "example_functions.h"\n\n'
+                              "/* unit comment */\nvoid func_caller(void) { func_owned(1); }\n")
+            with patch.object(m2c_helper, "ROOT", root):
+                context = m2c_helper.flattened_source_context(source)
+                assert context is not None
+                self.assertNotIn("#", context)
+                self.assertLess(context.index("typedef struct Command"), context.index("func_command"))
+                self.assertLess(context.index("void func_owned(s32);"), context.index("func_caller"))
+                self.assertEqual(("void func_owned(s32);",),
+                                 m2c_helper.m2c_context.header_declarations(context))
+                for text in (
+                    "#ifndef X\n#define X\n#if PROFILE_US\nvoid func_owned(s32);\n#endif\n#endif\n",
+                    "void func_owned(s32);\n",  # No include guard.
+                ):
+                    with self.subTest(text=text):
+                        (include / "example_functions.h").write_text(text)
+                        self.assertIsNone(m2c_helper.flattened_source_context(source))
+                # A reviewed include after source code starts is not initial; use IDO.
+                source.write_text('#include "types.h"\nvoid early(void);\n#include "example_command.h"\n')
+                self.assertIsNone(m2c_helper.flattened_source_context(source))
+
     def test_mips_to_c_command_uses_source_context_when_available(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             temporary_root = Path(temporary_directory)

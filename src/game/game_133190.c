@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_133190.c
@@ -232,7 +233,6 @@ typedef struct Game133190CurveObject {
 
 void *func_151061EC(u8 *);
 f32 func_150ADA68(void);
-void func_15143874(s16, f32, f32 *, f32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15106610 CURRENT (2042) */
 void func_15106610(void *arg0) {

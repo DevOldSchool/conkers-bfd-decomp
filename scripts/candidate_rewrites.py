@@ -7,6 +7,7 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
+import call_signatures
 import declaration_facts
 import candidate_syntax
 
@@ -64,6 +65,8 @@ class PreparedCandidate:
     definition: str
     declarations: tuple[str, ...]
     evidence: tuple[str, ...]
+    # Reviewed headers to include before the candidate instead of local prototypes.
+    includes: tuple[str, ...] = ()
 
 
 def required_intrinsic_declarations(
@@ -516,10 +519,23 @@ def prepare_starter(
     )
     declarations.extend(intrinsic_declarations)
     evidence.extend(intrinsic_evidence)
+    # A function owned by a reviewed header is never redeclared locally.
+    declarations, owned_includes, conflicts = call_signatures.header_owned_declarations(
+        declarations, source, root)
+    evidence.extend(f"{call_signatures.declared_name(declaration)}: owning header signature "
+                    "replaces a differing recovered prototype, ABI review required"
+                    for declaration in conflicts)
+    included = call_signatures.initial_includes(source)
+    includes = []
+    for header in [match["name"] for match in call_signatures.REQUIRED_INCLUDE.finditer(prefix)] + owned_includes:
+        if header not in included and header not in includes:
+            includes.append(header)
+    evidence.extend(f"{header}: include added for header-owned prototypes" for header in includes)
     return PreparedCandidate(
         definition + "\n",
         tuple(declarations),
         tuple(evidence),
+        tuple(includes),
     )
 
 

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_61490.c
@@ -23,29 +24,23 @@ typedef struct Game61490Actor {
     u8 pad2E8[0x44];
 } Game61490Actor;
 
-typedef struct Game61490Command {
-    s16 opcode;
-    s16 value;
-} Game61490Command;
-
 extern Game61490Actor D_800CC2D0[];
 
-Game61490Command *func_150341BC(Game61490Command *, s32);
-Game61490Command *func_15034340(Game61490Command *, s32);
-Game61490Command *func_150343B0(Game61490Command *, s32);
-Game61490Command *func_15034420(Game61490Command *, s32);
+GameCommand *func_150341BC(GameCommand *, s32);
+GameCommand *func_15034340(GameCommand *, s32);
+GameCommand *func_150343B0(GameCommand *, s32);
+GameCommand *func_15034420(GameCommand *, s32);
 s16 *func_150344A0(s16 *, s32);
 void *func_150BE438(void *, s32);
-Game61490Command *func_150B58F0(Game61490Command *, s32);
-Game61490Command *func_150D8590(Game61490Command *, s32);
-Game61490Command *func_150F1B48(Game61490Command *, s32);
+GameCommand *func_150B58F0(GameCommand *, s32);
+GameCommand *func_150F1B48(GameCommand *, s32);
 s32 func_1503DA3C(s32, s32);
-s16 *func_15034860(Game61490Command *, Game61490Actor *, s32, s32);
+s16 *func_15034860(GameCommand *, Game61490Actor *, s32, s32);
 
-void func_15033FE0(Game61490Command *arg0, s32 arg1) {
+void func_15033FE0(GameCommand *arg0, s32 arg1) {
     Game61490Actor *actor;
     s32 first;
-    Game61490Command *cursor;
+    GameCommand *cursor;
 
     actor = &D_800CC2D0[arg1];
     cursor = arg0;
@@ -62,7 +57,7 @@ void func_15033FE0(Game61490Command *arg0, s32 arg1) {
             break;
         case 0x28:
         case 0x77:
-            cursor = (Game61490Command *)func_150344A0(&arg0->opcode, arg1);
+            cursor = (GameCommand *)func_150344A0(&arg0->opcode, arg1);
             break;
         case 0x4B:
             cursor = func_150B58F0(arg0, arg1);
@@ -94,7 +89,7 @@ extern f32 D_80097D14;
 extern u8 D_800C3E78;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150341BC CURRENT (1930) */
-Game61490Command *func_150341BC(Game61490Command *arg0, s32 arg1) {
+GameCommand *func_150341BC(GameCommand *arg0, s32 arg1) {
     Game61490Actor *actor = &D_800CC2D0[arg1];
     u8 *nested = *(u8 **)((u8 *)actor + 0x31C);
 
@@ -134,7 +129,7 @@ Game61490Command *func_150341BC(Game61490Command *arg0, s32 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150341BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_61490/func_150341BC.s")
 
-Game61490Command *func_15034340(Game61490Command *arg0, s32 arg1) {
+GameCommand *func_15034340(GameCommand *arg0, s32 arg1) {
     Game61490Actor *actor;
 
     actor = &D_800CC2D0[arg1];
@@ -145,7 +140,7 @@ Game61490Command *func_15034340(Game61490Command *arg0, s32 arg1) {
     }
     return arg0;
 }
-Game61490Command *func_150343B0(Game61490Command *arg0, s32 arg1) {
+GameCommand *func_150343B0(GameCommand *arg0, s32 arg1) {
     Game61490Actor *actor;
 
     actor = &D_800CC2D0[arg1];
@@ -159,7 +154,7 @@ Game61490Command *func_150343B0(Game61490Command *arg0, s32 arg1) {
 extern f32 D_80097D18;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15034420 CURRENT (55) */
-Game61490Command *func_15034420(Game61490Command *arg0, s32 arg1) {
+GameCommand *func_15034420(GameCommand *arg0, s32 arg1) {
     s32 value;
     s32 part;
 
