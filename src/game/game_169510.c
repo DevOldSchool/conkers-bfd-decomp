@@ -23,10 +23,8 @@
  * - func_1513EAD8
  * - func_1513EE14
  * - func_1513F114
- * - func_1513F4E4
  * - func_1513F728
  * - func_1513FAB4
- * - func_1513FFF4
  * - func_15140190
  * - func_15140410
  * - func_151406AC
@@ -136,7 +134,7 @@ typedef struct Game169510Vec3 {
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_15167A68(s32, s32, s32, s32, u8, u8);
-void func_1513FFF4(void *, s32, s32);
+void func_1513FFF4(void *, u8, u8);
 void func_151400D0(void *, void *);
 void *func_1515D440(void);
 s32 func_1515D480(s32);
@@ -990,49 +988,70 @@ s32 func_15140410(s32, s32, s32, s16);
 void func_1513F4B0(s32 arg0, s16 arg1) {
     func_15140410(arg0, arg0 + 0x110, arg0 + 0x11C, arg1);
 }
-s16 func_15143044(u8, s32, s32 *);
+s16 func_15143044(u8, s32);
 extern u8 D_800A4BA8[];
 extern s16 D_800DD1BE;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513F4E4 CURRENT (2899) */
-s32 *func_1513F4E4(s32 *arg0, u8 arg1, u8 *arg2) {
-    s16 selected;
-    s32 *output;
-    u8 *entry;
+typedef struct {
+    u32 w0;
+    u32 w1;
+} Game169510Gwords;
 
-    selected = func_15143044(arg1, 0, arg0);
-    output = arg0;
-    if (selected != D_800DD1BE) {
+typedef union {
+    Game169510Gwords words;
+} Gfx;
+
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+#define G_SETCOMBINE 0xfc
+#define G_RDPPIPESYNC 0xe7
+#define gDPNoParam(pkt, cmd) \
+{ \
+    Gfx *_g = (Gfx *)(pkt); \
+ \
+    _g->words.w0 = _SHIFTL(cmd, 24, 8); \
+    _g->words.w1 = 0; \
+}
+#define gDPPipeSync(pkt) gDPNoParam(pkt, G_RDPPIPESYNC)
+#define gDPSetCombine(pkt, muxs0, muxs1) \
+{ \
+    Gfx *_g = (Gfx *)(pkt); \
+ \
+    _g->words.w0 = _SHIFTL(G_SETCOMBINE, 24, 8) | _SHIFTL(muxs0, 0, 24); \
+    _g->words.w1 = (u32)(muxs1); \
+}
+#define GCCc0w0(saRGB0, mRGB0, saA0, mA0) \
+    (_SHIFTL((saRGB0), 20, 4) | _SHIFTL((mRGB0), 15, 5) | \
+     _SHIFTL((saA0), 12, 3) | _SHIFTL((mA0), 9, 3))
+#define GCCc1w0(saRGB1, mRGB1) \
+    (_SHIFTL((saRGB1), 5, 4) | _SHIFTL((mRGB1), 0, 5))
+#define GCCc0w1(sbRGB0, aRGB0, sbA0, aA0) \
+    (_SHIFTL((sbRGB0), 28, 4) | _SHIFTL((aRGB0), 15, 3) | \
+     _SHIFTL((sbA0), 12, 3) | _SHIFTL((aA0), 9, 3))
+#define GCCc1w1(sbRGB1, saA1, mA1, aRGB1, sbA1, aA1) \
+    (_SHIFTL((sbRGB1), 24, 4) | _SHIFTL((saA1), 21, 3) | \
+     _SHIFTL((mA1), 18, 3) | _SHIFTL((aRGB1), 6, 3) | \
+     _SHIFTL((sbA1), 3, 3) | _SHIFTL((aA1), 0, 3))
+
+Gfx *func_1513F4E4(Gfx *gdl, u8 arg1, u8 *arg2) {
+    extern s16 D_800DD1BE;
+    extern u8 D_800A4BA8[];
+    s32 v0;
+    u8 *p;
+
+    v0 = func_15143044(arg1, 0);
+    if (v0 != D_800DD1BE) {
         if (*arg2 == 1) {
-            output[0] = 0xE7000000;
-            output += 2;
-            output[-1] = 0;
+            gDPPipeSync(gdl++);
             *arg2 = 0;
         }
-        entry = D_800A4BA8 + ((u8)arg1 * 16);
-        output[0] = 0xFC000000 | (((entry[10] & 0x1F) |
-                      ((entry[8] & 0xF) << 5) |
-                      ((entry[0] & 0xF) << 20) |
-                      ((entry[2] & 0x1F) << 15) |
-                      ((entry[4] & 7) << 12) |
-                      ((entry[6] & 7) << 9)) & 0xFFFFFF);
-        output[1] = (entry[15] & 7) |
-                    ((entry[9] & 0xF) << 24) |
-                    ((entry[12] & 7) << 21) |
-                    ((entry[14] & 7) << 18) |
-                    ((entry[11] & 7) << 6) |
-                    ((entry[13] & 7) << 3) |
-                    (entry[1] << 28) |
-                    ((entry[3] & 7) << 15) |
-                    ((entry[5] & 7) << 12) |
-                    ((entry[7] & 7) << 9);
-        output += 2;
-        D_800DD1BE = selected;
+        p = &D_800A4BA8[arg1 * 16];
+        gDPSetCombine(gdl++,
+            GCCc0w0(p[0], p[2], p[4], p[6]) | GCCc1w0(p[8], p[10]),
+            GCCc0w1(p[1], p[3], p[5], p[7]) | GCCc1w1(p[9], p[12], p[14], p[11], p[13], p[15]));
+        D_800DD1BE = v0;
     }
-    return output;
+    return gdl;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513F4E4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513F4E4.s")
 void func_1513F680(void *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4) {
     *(s8 *)((u8 *)arg0 + 0x70) = arg1;
     *(s8 *)((u8 *)arg0 + 0x71) = arg2;
@@ -1122,59 +1141,40 @@ typedef struct {
 
 extern Game169510TextureInfo D_80090B60[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513FFF4 CURRENT (2920) */
-void func_1513FFF4(void *arg0, s32 arg1, s32 arg2) {
-    s16 first_width;
-    s16 second_width;
-    s16 first_height;
-    s16 second_height;
-    s32 texture_index;
-    s32 flags;
-    u8 *output;
+void func_1513FFF4(void *arg0, u8 arg1, u8 arg2) {
+    typedef struct {
+        s16 ob[3];
+        u16 flag;
+        s16 tc[2];
+        u8 cn[4];
+    } LocalVtx_t;
+    typedef struct {
+        LocalVtx_t v;
+    } LocalVtx;
+    Game169510TextureInfo *p;
+    s32 a;
+    u16 w;
+    u16 h;
 
-    texture_index = arg1 & 0xFF;
-    flags = arg2 & 0xFF;
-    output = arg0;
-    if (texture_index != 0xFF) {
-        Game169510TextureInfo *texture;
-        s32 width;
-        s32 height;
-
-        texture = &D_80090B60[texture_index];
-        width = (texture->width - 1) & 0xFFFF;
-        height = (texture->height - 1) & 0xFFFF;
-        if (flags & 1) {
-            first_width = width << 6;
-        } else {
-            first_width = 0;
-        }
-        *(s16 *)(output + 0x38) = first_width;
-        *(s16 *)(output + 8) = first_width;
-        if (flags & 1) {
-            second_width = 0;
-        } else {
-            second_width = width << 6;
-        }
-        *(s16 *)(output + 0x28) = second_width;
-        *(s16 *)(output + 0x18) = second_width;
-        if (flags & 2) {
-            first_height = height << 6;
-        } else {
-            first_height = 0;
-        }
-        *(s16 *)(output + 0x1A) = first_height;
-        *(s16 *)(output + 0xA) = first_height;
-        if (flags & 2) {
-            second_height = 0;
-        } else {
-            second_height = height << 6;
-        }
-        *(s16 *)(output + 0x3A) = second_height;
-        *(s16 *)(output + 0x2A) = second_height;
+    if (arg1 == 0xFF) {
+        return;
     }
+    p = &D_80090B60[arg1];
+    w = p->width - 1;
+    h = p->height - 1;
+    a = (arg2 & 1) ? (w << 6) : 0;
+    ((LocalVtx *)arg0)[3].v.tc[0] = a;
+    ((LocalVtx *)arg0)[0].v.tc[0] = a;
+    a = (arg2 & 1) ? 0 : (w << 6);
+    ((LocalVtx *)arg0)[2].v.tc[0] = a;
+    ((LocalVtx *)arg0)[1].v.tc[0] = a;
+    a = (arg2 & 2) ? (h << 6) : 0;
+    ((LocalVtx *)arg0)[1].v.tc[1] = a;
+    ((LocalVtx *)arg0)[0].v.tc[1] = a;
+    a = (arg2 & 2) ? 0 : (h << 6);
+    ((LocalVtx *)arg0)[3].v.tc[1] = a;
+    ((LocalVtx *)arg0)[2].v.tc[1] = a;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513FFF4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513FFF4.s")
 void func_151400D0(void *arg0, void *arg1) {
     *(u16 *)((u8 *)arg0 + 6) = *(u16 *)((u8 *)arg1 + 8);
     arg0 = (u8 *)arg0 + 0x30;

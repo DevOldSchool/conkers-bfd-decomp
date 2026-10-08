@@ -23,14 +23,11 @@ class DebuggerWorkflowTests(unittest.TestCase):
         for name, path in {
             "FUNCTIONS_FILE": "progress/functions.json",
             "SOURCE_UNITS_FILE": "progress/source_units.json",
-            "SUMMARY_FILE": "progress/summary.json",
-            "DOCUMENT_FILE": "docs/progress.md",
+            "SUMMARY_FILE": "build/progress/summary.json",
+            "DOCUMENT_FILE": "build/progress/progress.md",
             "OVERLAYS_FILE": "config/overlays.json",
         }.items():
             self.stack.enter_context(patch.object(state, name, self.root / path))
-        self.stack.enter_context(patch.object(state, "BADGE_FILES", {
-            region: self.root / f"progress/badge-{region}.json" for region in state.KNOWN_REGIONS
-        }))
         state.write_json(state.FUNCTIONS_FILE, {"schema_version": 1, "functions": []})
         state.write_json(state.SOURCE_UNITS_FILE, {"schema_version": 1, "source_units": []})
         self.config = {"schema_version": 1, "overlays": {

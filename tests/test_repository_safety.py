@@ -29,6 +29,7 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertEqual(workflow["permissions"], {"contents": "read"})
         self.assertEqual(set(workflow["jobs"]), {"verify-main"})
         job = workflow["jobs"]["verify-main"]
+        self.assertNotIn("permissions", job)  # Inherits read-only permissions.
         self.assertEqual(job["if"], "github.ref == 'refs/heads/main'")
         self.assertEqual(job["environment"], "rom-verification")
         steps = job["steps"]

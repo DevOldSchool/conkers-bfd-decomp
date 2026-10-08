@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_439B0.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_compact_multi_function_units.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15016588
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_100226F0(void *, s32);
@@ -47,34 +42,25 @@ s32 func_1502B020(s32 *arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4);
 extern u8 D_800BE580[8];
 extern u8 D_800BEAAB;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15016588 CURRENT (328) */
 void func_15016588(void) {
-    s32 var_s0;
-    s32 var_s1;
-    s32 mask;
-    struct { s32 result; volatile s32 mask; } query;
+    extern u8 D_800BE580[];
+    s32 i;
+    s32 byte;
+    s32 bit;
+    s32 out;
 
     func_100226F0(D_800BE580, 8);
-    var_s1 = -1;
-    var_s0 = 0;
-    mask = query.mask;
-
-    do {
-        if (!(var_s0 & 7)) {
-            mask = 1;
-            var_s1++;
+    byte = -1;
+    for (i = 0; i != 0x43; i++) {
+        if ((i & 7) == 0) {
+            bit = 1;
+            byte++;
         } else {
-            mask *= 2;
+            bit <<= 1;
         }
-
-        func_1502B020(&query.result, 3, 0x1A, D_800BEAAB, var_s0);
-        var_s0++;
-        if (query.result != 0) {
-            D_800BE580[var_s1] |= mask;
+        func_1502B020(&out, 3, 0x1A, D_800BEAAB, i);
+        if (out != 0) {
+            D_800BE580[byte] |= bit;
         }
-    } while (var_s0 != 0x43);
-    query.mask = mask;
-
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15016588 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_439B0/func_15016588.s")

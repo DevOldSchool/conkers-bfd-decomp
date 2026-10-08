@@ -7,31 +7,23 @@
  * TODO: Implement these source-unit functions:
  * - func_15134070
  * - func_151342BC
- * - func_15134908
  * - func_151349D0
- * - func_15134DAC
  * - func_15134E48
- * - func_1513532C
- * - func_151353A8
  * - func_15135480
- * - func_151355B8
  * - func_151356D4
  * - func_15135BF8
  * - func_15135DD0
  * - func_15136404
  * - func_15136698
- * - func_151368A8
  * - func_15136AE4
  * - func_15136C3C
  * - func_15136F50
  * - func_15137610
  * - func_1513783C
- * - func_15137F30
  * - func_15138120
  * - func_151382E0
  * - func_15138424
  * - func_151389A8
- * - func_15138BC0
  * - func_15138C80
  * - func_15138E98
  * - func_15139578
@@ -113,6 +105,7 @@ enum {
  * profile, or 99 when unsupported. The profile indexes D_800A3FD8,
  * D_80089A20 and D_800A3F14; it is not a bank or model ID.
  */
+extern f32 D_800BE9A4;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15134070 CURRENT (2310) */
 s32 func_15134070(void *arg0) {
     u8 temp_v0;
@@ -335,29 +328,30 @@ void func_151348F0(f32 arg0, f32 arg1, s32 arg2, s32 arg3) {
 }
 /* Call context: func_10022EC0: unique active declaration in the allowed source */
 /* Call context: func_15167A68: unique active declaration in the allowed source */
-void func_15134908(s32 *, s32, u8, s32);
+void *func_15134908(void *, s32, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15134908 CURRENT (1750) */
-void func_15134908(s32 *arg0, s32 arg1, u8 arg2, s32 arg3) {
-    u8 *temp_v0;
+void *func_15134908(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
+    void *v0;
+    f32 **pp;
+    f32 f0;
+    f32 f18;
 
-    temp_v0 = (void *)(func_15167A68(0x2A, arg3, arg1 + 0x40, 1, (s32) arg2, 1));
-    if (temp_v0 == 0) {
-        return;
+    v0 = func_15167A68(0x2A, arg3, arg1 + 0x40, 1, arg2, 1);
+    if (v0 == 0) {
+        return 0;
     }
-    *(u8 *)((u8 *)arg0 + 0x16) = (u8) (*(u8 *)((u8 *)arg0 + 0x16) | 2);
-    {
-        u8 * sp24 = temp_v0;
-    func_10022EC0(temp_v0 + 0x10, arg0, 0x1C);
-    *(f32 *)((u8 *)sp24 + 0x2C) = (f32) **(f32 **)((u8 *)sp24 + 0x10);
-    *(f32 *)((u8 *)sp24 + 0x30) = (f32) **(f32 **)((u8 *)sp24 + 0x14);
-    *(f32 *)((u8 *)sp24 + 0x3C) = 0.0f;
-    *(f32 *)((u8 *)sp24 + 0x34) = (f32) **(f32 **)((u8 *)sp24 + 0x18);
-    *(f32 *)((u8 *)sp24 + 0x38) = (f32) (1.0f / (2.0f * *(f32 *)((u8 *)sp24 + 0x1C)));
-    }
+    *((u8 *)(((s32)arg0) + 0x16)) |= 2;
+    func_10022EC0(((u8 *)v0) + 0x10, arg0, 0x1C);
+    f0 = *((f32 *)(((u8 *)v0) + 0x1C));
+    pp = (f32 **)(((u8 *)v0) + 0x10);
+    f18 = 1.0f / (f0 + f0);
+    *((f32 *)(((u8 *)v0) + 0x2C)) = *pp[0];
+    *((f32 *)(((u8 *)v0) + 0x30)) = *pp[1];
+    *((f32 *)(((u8 *)v0) + 0x34)) = *pp[2];
+    *((f32 *)(((u8 *)v0) + 0x38)) = f18;
+    *((f32 *)(((u8 *)v0) + 0x3C)) = 0.0f;
+    return v0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15134908 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134908.s")
 typedef struct {
     f32 x;
     f32 y;
@@ -384,12 +378,10 @@ typedef struct {
 
 extern s32 (*D_80089B18[])(void *);
 extern void (*D_80089AFC[])(f32, f32, f32, f32, f32, f32, void *);
-extern f32 D_800BE9A4;
+
 extern s32 D_800BE9E4;
 f32 func_150ADA68(void);
 f32 sqrtf(f32);
-#pragma intrinsic(sqrtf)
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151349D0 CURRENT (2481) */
 void func_151349D0(BloodTrail *trail) {
     f32 radius;
@@ -466,7 +458,6 @@ void func_15134CD4(f32 arg0, f32 arg1, s32 arg2, s32 arg3) {
 }
 extern f32 D_800A45B0;
 extern s32 D_800BE9E4;
-extern f32 D_800BE9A4;
 
 s32 func_15134CEC(void *arg0) {
     s32 temp_v1;
@@ -489,31 +480,30 @@ s32 func_15134CEC(void *arg0) {
 /* Call context: func_10022EC0: unique active declaration in the allowed source */
 /* Call context: func_15167A68: unique active declaration in the allowed source */
 void * func_15167A68(s32, s32, s32, s32, s32, s32);
+void *func_15134DAC(void *arg0, s32 arg1) {
+    void *v1;
+    void *v0;
+    void *t8;
+    s16 t9;
+    f32 f0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15134DAC CURRENT (20) */
-void *func_15134DAC(u8 *arg0, s32 arg1) {
-    u8 *temp_v0;
-
-    temp_v0 = (void *)(func_15167A68(0x29, 0, arg1 + 0x80, 1, 0xFF, 1));
-    if (temp_v0 == 0) {
+    v1 = func_15167A68(0x29, 0, arg1 + 0x80, 1, 0xFF, 1);
+    if (v1 == 0) {
         return 0;
     }
-    {
-        u8 * sp24 = temp_v0;
-        s16 lifetime;
-    func_10022EC0(temp_v0 + 0x18, arg0, 0x3C);
-    lifetime = *(s16 *)(arg0 + 0x28);
-    *(s32 *)((u8 *)sp24 + 0x10) = 1;
-    *(s16 *)((u8 *)sp24 + 0x54) = (s16) -lifetime;
-    *(s32 *)((u8 *)sp24 + 0x14) = 0;
-    *(f32 *)((u8 *)sp24 + 0x70) = 0.0f;
-    *(f32 *)((u8 *)sp24 + 0x74) = 0.0f;
-    *(f32 *)((u8 *)sp24 + 0x78) = 0.0f;
-    return sp24;
-    }
+    func_10022EC0((void *)((s32)v1 + 0x18), arg0, 0x3C);
+    t8 = arg0;
+    v0 = v1;
+    f0 = 0.0f;
+    t9 = ((((((((((*((s16 *)(((s32)t8) + 0x28))) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF);
+    *((s16 *)(((s32)v0) + 0x54)) = -t9;
+    *((s32 *)(((s32)v0) + 0x10)) = 1;
+    *((s32 *)(((s32)v0) + 0x14)) = 0;
+    *((f32 *)(((s32)v0) + 0x70)) = f0;
+    *((f32 *)(((s32)v0) + 0x74)) = f0;
+    *((f32 *)(((s32)v0) + 0x78)) = f0;
+    return v0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15134DAC */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134DAC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134E48.s")
 void func_151352EC(void) {
     func_15169804();
@@ -521,53 +511,46 @@ void func_151352EC(void) {
 void func_1513530C(void) {
     func_15169824();
 }
-void func_100111C8(u16, BloodState *); /* extern */
+/* extern */
 extern void (*D_80089B70[])(BloodState *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513532C CURRENT (468) */
-void func_1513532C(BloodState *arg0) {
-    s32 index;
-    u16 handle;
+void func_100111C8(u16 arg0);
+void func_1513532C(struct102 *arg0) {
+    void (**tbl)(struct102 *) = D_80089B70;
+    s32 idx = *(u8 *)((s32)arg0 + 0x50);
+    u16 tmp;
 
-    index = arg0->field50;
-    if (index < 0) {
-        index = 0;
+    if (idx < 0) {
+        idx = 0;
+    } else if (idx >= 6) {
+        idx = 0;
     }
-    if (index >= 6) {
-        index = 0;
+    tmp = *(u16 *)((s32)arg0 + 0x44);
+    if (tmp != 0) {
+        func_100111C8(tmp);
+        *(u16 *)((s32)arg0 + 0x44) = 0;
     }
-    handle = arg0->field44;
-    if (handle != 0) {
-        func_100111C8(handle, arg0);
-        arg0->field44 = 0;
-    }
-    D_80089B70[index](arg0);
+    tbl[idx](arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513532C */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513532C.s")
 extern void (*D_80089B88[])(BloodState *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151353A8 CURRENT (468) */
-void func_151353A8(BloodState *arg0) {
-    s32 index;
-    u16 handle;
+void func_151353A8(struct102 *arg0) {
+    void (**tbl)(struct102 *) = D_80089B88;
+    s32 idx = *(u8 *)((s32)arg0 + 0x50);
+    u16 tmp;
 
-    index = arg0->field50;
-    if (index < 0) {
-        index = 0;
+    if (idx < 0) {
+        idx = 0;
+    } else if (idx >= 6) {
+        idx = 0;
     }
-    if (index >= 6) {
-        index = 0;
+    tmp = *(u16 *)((s32)arg0 + 0x44);
+    if (tmp != 0) {
+        func_100111C8(tmp);
+        *(u16 *)((s32)arg0 + 0x44) = 0;
     }
-    handle = arg0->field44;
-    if (handle != 0) {
-        func_100111C8(handle, arg0);
-        arg0->field44 = 0;
-    }
-    D_80089B88[index](arg0);
+    tbl[idx](arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151353A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151353A8.s")
 void func_15145EA4(s32 *, s32 *, s32, s32);
 
 void func_15135424(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
@@ -631,25 +614,27 @@ void func_1513555C(void *arg0, void *arg1, u8 arg2) {
 }
 /* Call context: func_1516972C: unique active declaration in the allowed source */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151355B8 CURRENT (15) */
-void func_151355B8(void *arg0, void *arg1, u8 arg2) {
-    switch (arg2) {                              /* irregular */
+void func_151355B8(struct102 *arg0, s32 *arg1, u8 arg2) {
+    switch (arg2) {
     case 0:
-        if ((*(s32 *)((u8 *)arg1 + 0) == *(s32 *)((u8 *)arg0 + 0x1C)) || (*(u8 *)((u8 *)arg1 + 4) == *(u8 *)((u8 *)arg0 + 0x18))) {
+        if ((arg1[0] == *(s32 *)((s32)arg0 + 0x1C)) ||
+            (*(u8 *)((s32)arg1 + 4) == *(u8 *)((s32)arg0 + 0x18))) {
+            if (1) {}
             func_1516972C(arg0);
-            return;
         }
-        return;
+        break;
     case 3:
-        if ((*(s32 *)((u8 *)arg1 + 0) == *(s32 *)((u8 *)arg0 + 0x1C)) || (*(u8 *)((u8 *)arg1 + 4) == *(u8 *)((u8 *)arg0 + 0x18))) {
-            *(s32 *)((u8 *)arg0 + 0x10) &= ~1;
-            *(volatile s32 *)((u8 *)arg0 + 0x10) = *(s32 *)((u8 *)arg0 + 0x10);
+        if ((arg1[0] == *(s32 *)((s32)arg0 + 0x1C)) ||
+            (*(u8 *)((s32)arg1 + 4) == *(u8 *)((s32)arg0 + 0x18))) {
+            s32 *p = (s32 *)((s32)arg0 + 0x10);
+            s32 t;
+            *p &= ~1;
+            t = *p;
+            *p = t;
         }
         break;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151355B8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151355B8.s")
 s32 func_15135658(f32 *arg0) {
     arg0[0x1D] = 1.0f;
     return 1;
@@ -893,28 +878,21 @@ void *func_15136698(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15136698 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136698.s")
-extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151368A8 CURRENT (1495) */
-s32 func_151368A8(void *arg0) {
-    s16 temp_v0;
-    s32 temp_v1;
-    volatile f32 *rate;
+s32 func_151368A8(struct102 *arg0) {
+    s16 tmp = *(s16 *)((s32)arg0 + 0x1C);
+    f32 *ptr = (f32 *)((s32)arg0 + 0x128);
 
-    temp_v0 = *(s16 *)((u8 *)arg0 + 0x1C);
-    if (temp_v0 < 0x20) {
-        temp_v1 = temp_v0 * 8;
-        if (temp_v1 < (s32) *(u8 *)((u8 *)arg0 + 0x5C)) {
-            *(u8 *)((u8 *)arg0 + 0x5C) = (u8) temp_v1;
+    if (tmp < 0x20) {
+        s32 value = tmp * 8;
+        if (value < *(u8 *)((s32)arg0 + 0x5C)) {
+            *(u8 *)((s32)arg0 + 0x5C) = value;
         }
     }
-    rate = (volatile f32 *)((u8 *)arg0 + 0x128);
-    *(f32 *)((u8 *)arg0 + 0x2C) += *rate * D_800BE9A4;
-    *(f32 *)((u8 *)arg0 + 0x30) += *rate * D_800BE9A4;
+    *(f32 *)((s32)arg0 + 0x2C) += *ptr * D_800BE9A4;
+    *(f32 *)((s32)arg0 + 0x30) += *ptr * D_800BE9A4;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151368A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151368A8.s")
 typedef struct {
     s32 field00;
     s16 field04;
@@ -969,7 +947,7 @@ s32 func_15136A1C(BloodState *arg0) {
     return 1;
 }
 /* Call context: func_15134908: unique active project prototype */
-void func_15134908(s32 *, s32, u8, s32);
+void *func_15134908(void *, s32, u8, s32);
 extern f32 D_800A461C;
 extern f32 D_800A4620;
 
@@ -1196,8 +1174,9 @@ s32 func_15137E10(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x74) = (f32) (((func_150ADA68() * 50.0f) + 580.0f) * D_800A4828);
     return 1;
 }
-void func_15137F30(void *, void *, void *, void *, f32, void *, void *, void *,
-                   void *, f32 *, s16 *, s8 *, f32 *);
+typedef struct BloodStruct259 { u8 pad0[0x74]; f32 unk74; } struct259;
+void func_15137F30(f32 *, f32 *, f32 *, f32 *, f32, struct259 *, f32 *, f32 *,
+                   f32 *, f32 *, s16 *, u8 *, f32 *);
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32,
                    f32, s32, s32, s32, s32, s32, s32);
 
@@ -1211,7 +1190,7 @@ void func_15137E60(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4,
     s8 alpha;
     f32 scale;
 
-    func_15137F30(arg0, arg1, arg2, arg3, arg4, arg5, position, direction,
+    func_15137F30(arg0, arg1, arg2, arg3, arg4, (struct259 *)arg5, position, direction,
                    vector, &value, &count, &alpha, &scale);
     func_151D9014(position, vector, 0, value, count, (u8)alpha, scale, 0,
                    1.0f, 1.0f, 1, 0, 1, 0, arg5[0xC], arg5[1]);
@@ -1219,24 +1198,28 @@ void func_15137E60(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4,
 u32 func_150ADA20();                                /* extern */
 extern f32 D_800A482C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15137F30 CURRENT (405) */
-void func_15137F30(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4, void *arg5, void *arg6, void *arg7, void *arg8, f32 *arg9, s16 *arg10, s8 *arg11, f32 *arg12) {
-    *(f32 *)((u8 *)arg6 + 0) = (f32) (*(f32 *)((u8 *)arg0 + 0) + (*(f32 *)((u8 *)arg2 + 0) * arg4));
-    *(f32 *)((u8 *)arg6 + 4) = (f32) (*(f32 *)((u8 *)arg0 + 4) + (*(f32 *)((u8 *)arg2 + 4) * arg4));
-    *(f32 *)((u8 *)arg6 + 8) = (f32) (*(f32 *)((u8 *)arg0 + 8) + (*(f32 *)((u8 *)arg2 + 8) * arg4));
-    *(f32 *)((u8 *)arg7 + 0) = (f32) (*(f32 *)((u8 *)arg1 + 0) + (*(f32 *)((u8 *)arg3 + 0) * arg4));
-    *(f32 *)((u8 *)arg7 + 4) = (f32) (*(f32 *)((u8 *)arg1 + 4) + (*(f32 *)((u8 *)arg3 + 4) * arg4));
-    *(f32 *)((u8 *)arg7 + 8) = (f32) (*(f32 *)((u8 *)arg1 + 8) + (*(f32 *)((u8 *)arg3 + 8) * arg4));
-    *(f32 *)((u8 *)arg8 + 0) = (f32) ((*(f32 *)((u8 *)arg7 + 0) - *(f32 *)((u8 *)arg6 + 0)) * *(f32 *)((u8 *)arg5 + 0x74));
-    *(f32 *)((u8 *)arg8 + 4) = (f32) ((*(f32 *)((u8 *)arg7 + 4) - *(f32 *)((u8 *)arg6 + 4)) * *(f32 *)((u8 *)arg5 + 0x74));
-    *(f32 *)((u8 *)arg8 + 8) = (f32) ((*(f32 *)((u8 *)arg7 + 8) - *(f32 *)((u8 *)arg6 + 8)) * *(f32 *)((u8 *)arg5 + 0x74));
-    *arg9 = ((func_150ADA68(arg4) * 217.0f) + -456.0f) * D_800A482C;
-    *arg10 = (func_150ADA20() % 31U) + 0x1E;
-    *arg11 = (func_150ADA20() % 156U) + 0x64;
-    *arg12 = (func_150ADA68() * 35.0f) + 40.0f;
+void func_15137F30(
+    f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3,
+    f32 arg4, struct259 *arg5,
+    f32 *arg6, f32 *arg7, f32 *arg8,
+    f32 *arg9, s16 *argA, u8 *argB, f32 *argC)
+
+{
+    arg6[0] = (arg2[0] * arg4) + arg0[0];
+    arg6[1] = (arg2[1] * arg4) + arg0[1];
+    arg6[2] = (arg2[2] * arg4) + arg0[2];
+    arg7[0] = (arg3[0] * arg4) + arg1[0];
+    arg7[1] = (arg3[1] * arg4) + arg1[1];
+    arg7[2] = (arg3[2] * arg4) + arg1[2];
+    arg8[0] = (arg7[0] - arg6[0]) * arg5->unk74;
+    arg8[1] = (arg7[1] - arg6[1]) * arg5->unk74;
+    arg8[2] = (arg7[2] - arg6[2]) * arg5->unk74;
+
+    *arg9 = ((func_150ADA68() * 217.0f) + (-456.0f)) * D_800A482C;
+    *argA = (func_150ADA20() % 31U) + 0x1E;
+    *argB = (func_150ADA20() % 156U) + 0x64;
+    *argC = (func_150ADA68() * 35.0f) + 40.0f;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15137F30 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15137F30.s")
 typedef struct {
     u8 pad_0[0x74];
     u8 field_74;
@@ -1275,7 +1258,7 @@ extern u8 D_800A4058;
 extern u8 D_800A4068;
 extern u8 D_1000EBC4;
 s32 func_1000FA64(s32, s16, s16, s16, s32, s32, s32, void *, s32, s32, s32, s32);
-void *func_15134DAC(u8 *, s32);
+void *func_15134DAC(void *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15138120 CURRENT (969) */
 void func_15138120(Blood1380B4State *arg0, s32 arg1, s32 arg2) {
@@ -1456,8 +1439,6 @@ typedef struct Blood39578Particle {
     s32 flags;
 } Blood39578Particle;
 
-f32 fabsf(f32);
-#pragma intrinsic(fabsf)
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A486C;
 extern f32 D_800A4870;
@@ -1521,28 +1502,22 @@ void func_15138120(Blood1380B4State *, s32, s32);
 void func_151382E0(f32 *, s32, void *, u8, s32);
 void func_15138424(Blood1380B4State *, f32 *, s32, void *, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15138BC0 CURRENT (96) */
-void func_15138BC0(Blood1380B4State *arg0, u8 arg1, s32 arg2) {
-    struct {
-        u8 pad[0x27];
-        u8 sp4F;
-        f32 sp50;
-    } locals;
+void func_15138BC0(s32 arg0, u8 arg1, s32 arg2) {
+    s32 sp50[4];
+    u8 sp28[0x20];
     s32 temp_v0;
-
+    u8 *a1p = &arg1;
     temp_v0 = func_15134070(arg0);
     if (temp_v0 != 0x63) {
-        locals.sp4F = func_151380B4(arg0, temp_v0, &locals.sp50);
+        sp28[0x1F] = func_151380B4(arg0, temp_v0, (s32)sp50);
         func_15138120(arg0, temp_v0, 1);
-        if (locals.sp4F != 0) {
-            func_1504715C(locals.pad, arg0);
-            func_151382E0(&locals.sp50, temp_v0, locals.pad, arg1, arg2);
-            func_15138424(arg0, &locals.sp50, temp_v0, locals.pad, arg1, arg2);
+        if (sp28[0x1F] != 0) {
+            func_1504715C(sp28 - 8, arg0);
+            func_151382E0(sp50, temp_v0, (s32)(sp28 - 8), *a1p, arg2);
+            func_15138424(arg0, sp50, temp_v0, sp28 - 8, *a1p, arg2);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15138BC0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15138BC0.s")
 typedef struct {
     f32 height;
     u8 geometry[0x20];

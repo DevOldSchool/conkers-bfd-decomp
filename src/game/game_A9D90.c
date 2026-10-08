@@ -12,7 +12,6 @@
  * - func_1507D4F8
  * - func_1507D754
  * - func_1507DB6C
- * - func_1507DE4C
  * - func_1507DFE4
  * - func_1507E1D0
  *
@@ -306,9 +305,8 @@ draw:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507DB6C.s")
 void func_150836CC(void *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507DE4C CURRENT (35) */
 void func_1507DE4C(void *arg0) {
-    u8 temp_v0;
+    s32 temp_v0;
 
     if (*(s32 *)arg0 == 1) {
         func_150836CC(arg0, 0x44);
@@ -327,8 +325,6 @@ void func_1507DE4C(void *arg0) {
         *(s32 *)((u8 *)arg0 + 0x9C) |= 0xFF8;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507DE4C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507DE4C.s")
 void func_1507DF10(void *arg0, s32 arg1) {
     switch (arg1) {
     case 9:
