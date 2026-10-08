@@ -9242,7 +9242,7 @@
         "us": {
           "end": "0x167010",
           "start": "0x1669A0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_193E50.c"

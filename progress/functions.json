@@ -61453,17 +61453,16 @@
       "symbol": "func_151668B8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 781,
-        "reason": "Valid CURRENT781 baseline retained; canonical matched D90/E68 fourth slot is s32, no ABI changes. Real zero-word union regressed2701/frame80, prior FP-zero address regressedframeA0. No supported zero-transport hypothesis remains; F20/F22 allocation, zero MFC1 A3 and loop-tail scheduling residual.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 432,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151669A0",
           "vram": "0x151669A0"
         }
