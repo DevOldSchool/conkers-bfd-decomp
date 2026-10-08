@@ -14,13 +14,13 @@ typedef struct {
     s16 field_1E0;
 } GameFC3C0State;
 
-void func_15124B18(void);
+void func_15124B18(void *);
 
 void func_150CEF10(GameFC3C0State *arg0) {
     arg0->field_84 |= 0x10;
     if (arg0->field_1B4 == 3) {
         arg0->field_1E0 = 5;
         arg0->field_1B4 = 2;
-        func_15124B18();
+        func_15124B18(arg0);
     }
 }

@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_state_lifecycle_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1503DE70
  * - func_1503DF48
  * - func_1503E260
  * - func_1503E5F8
@@ -27,21 +26,16 @@ extern u8 D_800CC2D0[];
 extern Game6B320MaskPair *D_8008446C[];
 void func_1503DF0C(s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503DE70 CURRENT (80) */
 void func_1503DE70(s32 arg0, s32 arg1, s32 arg2) {
-    Game6B320MaskPair *temp_v0;
     s32 temp_a0;
 
     temp_a0 = ((u8 *)arg0 - D_800CC2D0) / 812;
     if (arg2 != -1) {
-        temp_v0 = &D_8008446C[arg1][arg2];
-        func_1503DF0C(temp_a0, arg1, temp_v0->first, temp_v0->second);
+        func_1503DF0C(temp_a0, arg1, (&D_8008446C[arg1][arg2])->first, (&D_8008446C[arg1][arg2])->second);
         return;
     }
     func_1503DF0C(temp_a0, arg1, -1, -1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503DE70 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503DE70.s")
 typedef struct {
     u8 pad_0[0x1EC];
     f32 field_1EC;

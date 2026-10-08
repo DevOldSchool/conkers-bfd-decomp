@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1513B5E0
- * - func_1513B798
  * - func_1513B83C
  * - func_1513BAE8
  * - func_1513BBFC
@@ -90,43 +89,36 @@ void *func_1513B5E0(s8 *arg0, u8 arg1, s32 arg2, u8 arg3, s32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513B5E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_168A90/func_1513B5E0.s")
-typedef s32 (*Game168A90Callback)(void *);
+typedef s32 (*Game168A90Callback)(void);
 
 extern Game168A90Callback D_80089C18[];
 extern s32 D_800BE9E4;
 void func_1516972C(void *arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513B798 CURRENT (120) */
 void func_1513B798(void *arg0) {
-    s32 result;
-    u8 sp1B;
-    s8 callback_index;
-    u8 callback_pending;
+    typedef struct {
+        u8 pad0[0x10];
+        u8 unk10;
+        s8 unk11;
+        u8 pad12[2];
+        s16 unk14;
+    } Local;
+    Local *a0 = arg0;
+    u8 ret = 0;
 
-    callback_pending = 0;
-    if (*(u8 *)((u8 *)arg0 + 0x10) & 1) {
-        *(s16 *)((u8 *)arg0 + 0x14) = (s16) (*(s16 *)((u8 *)arg0 + 0x14) - D_800BE9E4);
-        if (*(s16 *)((u8 *)arg0 + 0x14) < 0) {
-            callback_pending = 1;
+    if ((a0->unk10 & 1) != 0) {
+        a0->unk14 -= D_800BE9E4;
+        if (a0->unk14 < 0) {
+            ret = 1;
         }
     }
-    if (callback_pending == 0) {
-        callback_index = *(s8 *)((u8 *)arg0 + 0x11);
-        if (callback_index != -1) {
-            sp1B = callback_pending;
-            result = D_80089C18[(s32) callback_index](arg0);
-            callback_pending = sp1B;
-            if (result == 0) {
-                callback_pending = 1;
-            }
-        }
+    if ((ret == 0) && (a0->unk11 != -1) && (D_80089C18[a0->unk11]() == 0)) {
+        ret = 1;
     }
-    if (callback_pending != 0) {
+    if (ret) {
         func_1516972C(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513B798 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_168A90/func_1513B798.s")
 typedef struct {
     u8 pad0[0x10];
     u8 flags;
