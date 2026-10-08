@@ -2487,16 +2487,15 @@
       "symbol": "func_151638E0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 224,
-        "reason": "Three source-only narrowing and expression variants plateaued at CURRENT (224); target homes a2, masks it into a2 before branching, and homes a1 afterward, while CFE keeps the mask temporary live through the branch.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_151639D0",
           "vram": "0x151639D0"
         }
@@ -13086,17 +13085,16 @@
       "symbol": "func_1514672C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 110,
-        "reason": "CURRENT (110) under the current full registered-span comparator: final add.s operands remain reversed and the candidate lacks one trailing padding nop at span offset 0xE8. Reversing the source addition was neutral; arithmetic and tail-layout issues require separate new evidence.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 236,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151467A4",
           "vram": "0x151467A4"
         }
@@ -30269,17 +30267,16 @@
       "symbol": "func_15048F90"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 45,
-        "reason": "New declaration-order evidence: existing f32 sqrtf/intrinsic was below caller. Moving it before caller improved3363\u21921585; one coherent angle accumulator45. Separate radians scalar45 and explicit quotient assignment45, discarded. Fullspan now differs only7 final-angle f2 vs f12 rows. No automated repeat of250variantsearch or scoped-register probe.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 224,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15048FC8",
           "vram": "0x15048FC8"
         }
@@ -36585,17 +36582,16 @@
       "symbol": "func_1515FB94"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 382,
-        "reason": "Three source-only variants recovered the lookup result field at 0x98, actor size 0x32C, actor u16 field 0x7A, and s32 lookup key ABI; best CURRENT (382) retains a volatile null slot but differs in its exact stack position and call scheduling.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 112,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515FBC4",
           "vram": "0x1515FBC4"
         }
@@ -45876,17 +45872,16 @@
       "symbol": "func_15131EE4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 80,
-        "reason": "CURRENT (80), ten register-only rows in nonnegative mask-pair branch; 32-budget permutation (3 distinct variants) found no exact match; no source-local type or ordering evidence for further variant.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 156,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1503DE70",
           "vram": "0x1503DE70"
         }
@@ -48162,17 +48157,16 @@
       "symbol": "func_1510F8D8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 80,
-        "reason": "CURRENT 80 pure register-only plateau; all opcodes, operands, control flow, and row counts match, but the bounded 32-variant permutation search found no exact register allocation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 236,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510FC34",
           "vram": "0x1510FC34"
         }
@@ -57775,17 +57769,16 @@
       "symbol": "func_15080738"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 110,
-        "reason": "Three source-only variants recovered the u16 table pointer and direct global increment semantics; remaining focused difference is one commutative branch operand order plus adjacent-span evidence.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 112,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15080784",
           "vram": "0x15080784"
         }
@@ -58263,17 +58256,16 @@
       "symbol": "func_1509D054"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 50,
-        "reason": "Manual typed8-byteentry and bitset pointer, index-first initialization improved100to50. Six mask/address temporary register rows remain; AND reversal and namedmask both unchanged50. Best50 preserved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 244,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509D08C",
           "vram": "0x1509D08C"
         }
@@ -60413,17 +60405,16 @@
       "symbol": "func_150B3F5C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 85,
-        "reason": "CURRENT (85): full-span instruction count, control flow, stack and non-register operands align. Fourteen register-only rows remain in inner ring-tail update and final Vec3 copy; explicit byte-offset addressing and reversed wrap comparison improved, no next evidence-backed variant within manual revision limit.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 428,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150B40E8",
           "vram": "0x150B40E8"
         }
@@ -90184,17 +90175,16 @@
       "symbol": "func_150948C0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 130,
-        "reason": "Manual natural loops6800->130; corrected 4B output stride and 16B pointer progression. Split packed lifetime4285 and pointer typing130 exhausted; only V0/V1 swap remains. Best ledger deferred-manual-20260928.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 284,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509499C",
           "vram": "0x1509499C"
         }
