@@ -11,7 +11,6 @@
  * - func_1510F720
  * - func_1510F820
  * - func_1510F8D8
- * - func_1510FC34
  * - func_1510FD20
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -317,7 +316,6 @@ extern f32 D_800DBDD0;
 extern s16 D_800DBE30[];
 extern u8 *D_800DBFF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510FC34 CURRENT (80) */
 void func_1510FC34(s32 arg0) {
     Game13BB20Node *node;
     u8 *state;
@@ -326,7 +324,8 @@ void func_1510FC34(s32 arg0) {
     s32 index;
 
     D_800DBDC0 = arg0;
-    state = D_800DBFF0 + (arg0 * 0x9A0);
+    x = arg0 * 0x9A0;
+    state = D_800DBFF0 + x;
     x = (s32)*(f32 *)(state + 0x2F8);
     z = (s32)*(f32 *)(state + 0x300);
     D_800DBDCC = (f32)x;
@@ -343,8 +342,6 @@ void func_1510FC34(s32 arg0) {
         func_150F33F8(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510FC34 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510FC34.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1510FD20 CURRENT (360) */
 Game13BB20Node *func_1510FD20(s32 arg0, s32 arg1) {
     s32 temp_v0;
