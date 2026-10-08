@@ -16,7 +16,6 @@
  * - func_1515E888
  * - func_1515EB84
  * - func_1515EC78
- * - func_1515F008
  * - func_1515F040
  * - func_1515F0AC
  * - func_1515F338
@@ -568,18 +567,16 @@ void func_1515EF74(s32 arg0) {
     func_1515F040(1.0f / func_1515F008(arg0, 0xA), 2);
     func_1515F0AC(-func_1515F008(arg0, 0xE), 3);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515F008 CURRENT (35) */
 f32 func_1515F008(s32 arg0, s32 arg1) {
     s32 value;
     s16 *temp_v1;
 
     temp_v1 = (s16 *)arg0 + arg1;
     value = *temp_v1;
-    value = *(u16 *)((u8 *)temp_v1 + 0x20) | (value * 0x10000);
+    temp_v1 = (u8 *)temp_v1 + 0x20;
+    value = *(u16 *)temp_v1 | (value * 0x10000);
     return (f32)value * 0.000015258789f;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515F008 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F008.s")
 extern f32 D_800A6520;
 extern s32 D_800DCD10[];
 

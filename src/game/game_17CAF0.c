@@ -61,7 +61,7 @@ s32 func_1514F6E8(void *arg0) {
     var_v0 = *(u8 *)arg0;
     temp_a0 = (f32 *)((u8 *)arg0 + 4);
     if (!(var_v0 & 1)) {
-        if ((var_v0 = func_15145128(temp_a0, temp_a0, 0, 0)) == 0) {
+        if (func_15145128(temp_a0, temp_a0, 0, 0) == 0) {
             return 0;
         }
         *(u8 *)arg0 |= 1;
@@ -80,11 +80,11 @@ s32 func_1514F6E8(void *arg0) {
     }
     temp_a0_2 = (f32 *)((u8 *)arg0 + 0x10);
     if (!(var_v0 & 4)) {
-        if ((var_v0 = func_15145128(temp_a0_2, temp_a0_2, 0, 0)) == 0) {
+        if (func_15145128(temp_a0_2, temp_a0_2, 0, 0) == 0) {
             return 0;
         }
         temp_a0_3 = (f32 *)((u8 *)arg0 + 0x1C);
-        if ((var_v0 = func_15145128(temp_a0_3, temp_a0_3, 0, 0)) == 0) {
+        if (func_15145128(temp_a0_3, temp_a0_3, 0, 0) == 0) {
             return 0;
         }
         *(u8 *)arg0 |= 4;

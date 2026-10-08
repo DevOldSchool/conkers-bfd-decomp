@@ -21,6 +21,7 @@ import compile_c
 import diff
 import objdiff_targets
 import objdiff
+import objdiff_snapshot
 import project_state as state
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -258,14 +259,7 @@ def validate_report(report: dict, coverage: dict, config: dict) -> None:
 
 
 def input_fingerprint() -> str:
-    paths = []
-    for directory in ('src', 'include', 'config', 'progress'):
-        paths.extend(p for p in (ROOT / directory).rglob('*') if p.is_file())
-    paths.extend([ROOT / 'Makefile', ROOT / 'toolchain/tools.lock.json', Path(__file__), ROOT / 'scripts/objdiff.py', ROOT / 'scripts/objdiff_targets.py',
-                  ROOT / 'scripts/extract_game_code.py', ROOT / 'scripts/rom_span.py',
-                  ROOT / 'scripts/project_state.py', ROOT / 'scripts/compile_c.py',
-                  ROOT / 'scripts/normalize_asm.py', ROOT / 'scripts/conker.sh'])
-    return digest_files(paths)
+    return objdiff_snapshot.input_fingerprint(ROOT)
 
 
 def generate(binary: Path) -> int:
@@ -274,6 +268,8 @@ def generate(binary: Path) -> int:
         (OUTPUT / name).unlink(missing_ok=True)
     before = input_fingerprint()
     revision = subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip()
+    source_dirty = bool(objdiff_snapshot.git(ROOT, 'status', '--porcelain', '--untracked-files=normal',
+                                             '--', *objdiff_snapshot.INPUTS))
     started = time.perf_counter()
     subprocess.run([str(ROOT / 'conker'), 'objdiff-report-prepare'], cwd=ROOT, check=True)
     prepared = time.perf_counter()
@@ -287,14 +283,16 @@ def generate(binary: Path) -> int:
     for unit in coverage['units']:
         if objdiff_targets.sha256(OUTPUT / unit['target_path']) != unit['target_sha256']:
             raise ValueError(f'validated target changed during report generation: {unit["key"]}')
-    if before != input_fingerprint():
+    if (before != input_fingerprint()
+            or revision != subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()):
         raise ValueError('source inputs changed during report generation')
     # Round-trip through the native parser as an independent format smoke test.
     subprocess.run([str(binary), 'report', 'changes', str(OUTPUT/'report.json'), str(OUTPUT/'report.json'),
                     '-o', str(OUTPUT/'self-changes.json')], check=True, cwd=ROOT)
     with zipfile.ZipFile(OUTPUT/'us_report.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
         archive.write(OUTPUT/'report.json', 'report.json')
-    validation = {'git_revision': revision, 'source_fingerprint': before,
+    validation = {'snapshot_schema': 1, 'profile': 'us', 'source_dirty': source_dirty,
+                  'git_revision': revision, 'source_fingerprint': before,
                   'scope': coverage['scope'], 'format_version': report['version'],
                   'expected_code_bytes': expected, 'reported_code_bytes': measured,
                   'mapped_code_bytes': coverage['mapped_code_bytes'],
@@ -306,7 +304,7 @@ def generate(binary: Path) -> int:
                   'report_sha256': hashlib.sha256((OUTPUT/'report.json').read_bytes()).hexdigest(),
                   'preparation_seconds': prepared-started, 'report_and_validation_seconds': time.perf_counter()-prepared,
                   'compile_errors': coverage['compile_errors'],
-                  'existing_progress': json.loads((ROOT/'progress/summary.json').read_text())['code_bytes']['regions']['us'],
+                  'existing_progress': state.summary(state.validate_project()[1])['code_bytes']['regions']['us'],
                   'measures': report['measures']}
     objdiff.write_json(OUTPUT/'validation.json', validation)
     print(json.dumps(validation, indent=2))

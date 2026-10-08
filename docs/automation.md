@@ -88,6 +88,34 @@ It does not revalidate fingerprints; counts may overlap. Inspect retained starte
 and recover declarations from project evidence before retrying. Counts alone do
 not prove types or justify indiscriminate placeholder replacement.
 
+```sh
+./conker declaration-conflicts
+./conker declaration-conflicts --json
+```
+
+The declaration conflict report lists externally visible symbols that compiled C
+declares differently in different files. It skips `#if 0` deferred candidates,
+macro bodies and `static` symbols, and writes
+`build/reports/declaration-conflicts.{md,json}`. Typedefs are resolved before
+comparison, so one name with different definitions still conflicts. K&R
+definitions keep their parameter declarations and are compared by their
+default-promoted calling contract (`u8`/`s16` become `s32`, `f32` becomes `f64`). Each symbol
+gets the weakest severity that reconciles its variants: qualifier, aggregate name,
+aggregate unverified, pointee, signedness, byte placeholder or incompatible.
+Differently named structs count as the same shape only when their computed MIPS
+o32 layouts match; otherwise compatibility is reported as unknown.
+
+Treat the report as an investigation aid. Its risk shortlist (MIPS o32 argument
+or return location changes, float/int values sharing a register, argument counts,
+array-vs-pointer, access or element widths) is a heuristic for review, not a
+verified or exhaustive defect count. Only leading floating-point arguments use
+`$f12`/`$f14`; a float after an integer argument travels in a general register.
+Whether a
+disagreement matters depends on how each site uses the symbol. A matched C
+definition is the strongest signature evidence; other conflicts need caller or
+assembly evidence before a shared declaration is chosen. The report is read-only
+and does not gate matching.
+
 ## Full scans and analysis
 
 A full execution scan is an explicit, long-running operation:

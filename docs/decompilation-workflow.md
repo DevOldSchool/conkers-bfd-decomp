@@ -646,6 +646,9 @@ first.
 
 ## Regional and progress rules
 
+See [progress reports](progress.md) for reading progress locally. Rendered
+reports live in ignored `build/progress/`; commit inventory and evidence only.
+
 `progress/functions.json` is the canonical instruction-match inventory.
 `progress/source_units.json` separately tracks reviewed C-file boundaries and
 integration state. A registered function may be matched before its containing

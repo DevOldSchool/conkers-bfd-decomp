@@ -157,7 +157,6 @@ extern void *D_800D154C;
 
 void func_1507EEF4(u32 arg0) {
     u8 *temp_v1;
-    void *sp1C;
     s32 temp_v0;
 
     temp_v1 = (void *)(*(void **)((u8 *)D_800D154C + 0x31C));
@@ -169,7 +168,6 @@ void func_1507EEF4(u32 arg0) {
         return;
     }
     if (temp_v0 == 1) {
-        sp1C = temp_v1;
         func_150ADA20(arg0);
         if ((s32) *(u8 *)((u8 *)temp_v1 + 0xD) >= 3) {
             *(s8 *)((u8 *)temp_v1 + 0xC) = 2;
@@ -177,7 +175,6 @@ void func_1507EEF4(u32 arg0) {
             return;
         }
     } else {
-        sp1C = temp_v1;
         if ((s32) *(u8 *)((u8 *)temp_v1 + 0xD) >= ((s32)(func_150ADA20(arg0) & 3) + 8)) {
             *(s8 *)((u8 *)temp_v1 + 0xC) = 1;
             *(u8 *)((u8 *)temp_v1 + 0xD) = 0U;

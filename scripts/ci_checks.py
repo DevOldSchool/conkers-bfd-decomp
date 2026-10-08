@@ -12,6 +12,7 @@ import compile_c
 ROOT = Path(__file__).resolve().parent.parent
 GLOBAL_ASM = re.compile(r"^[ \t]*#pragma[ \t]+GLOBAL_ASM\([^\r\n]*\)[ \t]*\r?$", re.M)
 GENERATED_ROOTS = {"roms", "asm", "assets", "build", "expected", "reference", ".conker", ".private-rom-assets", "private-work", "private-assets"}
+RETIRED_PROGRESS = {"progress/summary.json", "progress/badge-us.json", "progress/badge-eu.json"}
 ROM_MAGIC = {bytes.fromhex(x) for x in ("80371240", "37804012", "40123780")}
 
 
@@ -19,7 +20,7 @@ def forbidden_path(name: str) -> bool:
     if name == "roms/.gitkeep":
         return False
     path = PurePosixPath(name)
-    return (path.parts[0] in GENERATED_ROOTS or path.name.lower().startswith("baserom.")
+    return (name in RETIRED_PROGRESS or path.parts[0] in GENERATED_ROOTS or path.name.lower().startswith("baserom.")
             or path.suffix.lower() in {".z64", ".n64", ".v64", ".o", ".obj", ".elf", ".a"})
 
 

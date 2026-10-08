@@ -92,23 +92,6 @@ class ProjectStateTests(unittest.TestCase):
         for counts in result["regions"].values():
             self.assertEqual(sum(counts.values()), result["known_functions"])
 
-    def test_render_badge_formats_the_selected_region_percentage(self) -> None:
-        result = {
-            "code_bytes": {
-                "regions": {
-                    "us": {"percentage": 0.010548},
-                    "eu": {"percentage": 12.5},
-                }
-            }
-        }
-
-        us_badge = project_state.render_badge(result, "us")
-        eu_badge = project_state.render_badge(result, "eu")
-        self.assertEqual(us_badge["label"], "US")
-        self.assertEqual(us_badge["message"], "0.0105%")
-        self.assertEqual(eu_badge["label"], "EU/PAL")
-        self.assertEqual(eu_badge["message"], "12.5%")
-
     def test_merged_size_does_not_double_count_overlapping_ranges(self) -> None:
         self.assertEqual(project_state.merged_size([(0x10, 0x20), (0x18, 0x28)]), 0x18)
 
@@ -1362,6 +1345,69 @@ class ProjectStateTests(unittest.TestCase):
 
 
 class GameInventoryTests(unittest.TestCase):
+    def test_inventory_only_and_check_never_read_objdiff_snapshots(self) -> None:
+        with patch.object(project_state.objdiff_snapshot, 'read_status', side_effect=AssertionError('snapshot read')):
+            for check in (False, True):
+                with redirect_stdout(io.StringIO()) as output:
+                    project_state.progress(SimpleNamespace(render=False, check=check, inventory_only=True))
+                if not check:
+                    self.assertIn('Inventory-only mode', output.getvalue())
+                    self.assertIn('Canonical inventory (separate from objdiff)', output.getvalue())
+
+    def test_progress_headline_uses_objdiff_instead_of_inventory_percentage(self) -> None:
+        status = {'status': 'current', 'reason': 'test', 'matched_code_percent': 12.5}
+        with patch.object(project_state.objdiff_snapshot, 'read_status', return_value=status):
+            _, functions = project_state.validate_project()
+            first = project_state.progress_contents(functions)
+            self.assertEqual(first, project_state.progress_contents(functions))
+        result = json.loads(first[project_state.SUMMARY_FILE])
+        self.assertNotEqual(12.5, result['code_bytes']['percentage'])
+        self.assertEqual(12.5, result['objdiff']['matched_code_percent'])
+        text = first[project_state.DOCUMENT_FILE]
+        self.assertLess(text.index('US Code: 12.5000%'), text.index('Canonical inventory'))
+
+    def test_progress_render_is_deterministic_local_output_and_preserves_guide(self) -> None:
+        guide = self.root / "docs/progress.md"
+        guide.parent.mkdir(parents=True, exist_ok=True)
+        guide.write_text("static guide\n")
+        _, functions = project_state.validate_project()
+        expected = project_state.progress_contents(functions)
+        self.assertEqual(expected, project_state.progress_contents(functions))
+        self.assertEqual({self.root / "build/progress"}, {path.parent for path in expected})
+        with redirect_stdout(io.StringIO()):
+            project_state.progress(SimpleNamespace(render=True, check=False))
+        self.assertEqual(expected, {path: path.read_text() for path in expected})
+        self.assertEqual("static guide\n", guide.read_text())
+        self.assertFalse((self.root / "progress/summary.json").exists())
+        # Automatic inventory transactions and the public CLI share one renderer.
+        project_state.render_progress(functions)
+        self.assertEqual(expected, {path: path.read_text() for path in expected})
+
+    def test_progress_check_needs_no_snapshots_and_never_reads_or_writes_them(self) -> None:
+        with redirect_stdout(io.StringIO()):
+            project_state.progress(SimpleNamespace(render=False, check=True))
+        self.assertFalse(project_state.SUMMARY_FILE.parent.exists())
+        project_state.SUMMARY_FILE.parent.mkdir(parents=True)
+        project_state.SUMMARY_FILE.write_text("old local snapshot")
+        with redirect_stdout(io.StringIO()):
+            project_state.progress(SimpleNamespace(render=False, check=True))
+        self.assertEqual("old local snapshot", project_state.SUMMARY_FILE.read_text())
+        self.assertFalse(project_state.DOCUMENT_FILE.exists())
+
+    def test_all_progress_modes_reject_invalid_canonical_data_before_writing(self) -> None:
+        project_state.FUNCTIONS_FILE.write_text('{"schema_version": 999, "functions": []}')
+        for render, check in ((True, False), (False, True), (False, False)):
+            with self.subTest(render=render, check=check):
+                with self.assertRaises(project_state.ProjectStateError):
+                    project_state.progress(SimpleNamespace(render=render, check=check))
+                self.assertFalse(project_state.SUMMARY_FILE.parent.exists())
+
+    def test_progress_check_exercises_every_renderer(self) -> None:
+        for name in ("summary", "render_markdown"):
+            with self.subTest(renderer=name), patch.object(project_state, name, side_effect=RuntimeError("render failure")):
+                with self.assertRaisesRegex(RuntimeError, "render failure"):
+                    project_state.progress(SimpleNamespace(render=False, check=True))
+
     def setUp(self) -> None:
         self.temporary_directory = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary_directory.name)
@@ -1372,7 +1418,6 @@ class GameInventoryTests(unittest.TestCase):
                 "FUNCTIONS_FILE",
                 "SOURCE_UNITS_FILE",
                 "SUMMARY_FILE",
-                "BADGE_FILES",
                 "DOCUMENT_FILE",
                 "OVERLAYS_FILE",
                 "ROMS_FILE",
@@ -1381,12 +1426,8 @@ class GameInventoryTests(unittest.TestCase):
         project_state.ROOT = self.root
         project_state.FUNCTIONS_FILE = self.root / "progress" / "functions.json"
         project_state.SOURCE_UNITS_FILE = self.root / "progress" / "source_units.json"
-        project_state.SUMMARY_FILE = self.root / "progress" / "summary.json"
-        project_state.BADGE_FILES = {
-            "us": self.root / "progress" / "badge-us.json",
-            "eu": self.root / "progress" / "badge-eu.json",
-        }
-        project_state.DOCUMENT_FILE = self.root / "docs" / "progress.md"
+        project_state.SUMMARY_FILE = self.root / "build" / "progress" / "summary.json"
+        project_state.DOCUMENT_FILE = self.root / "build" / "progress" / "progress.md"
         project_state.OVERLAYS_FILE = self.root / "config" / "overlays.json"
         project_state.ROMS_FILE = self.root / "config" / "roms.json"
         self.write_inventory()
@@ -1842,7 +1883,7 @@ class GameInventoryTests(unittest.TestCase):
         before = project_state.FUNCTIONS_FILE.read_bytes(), project_state.SOURCE_UNITS_FILE.read_bytes()
         views = {
             path: path.read_bytes()
-            for path in (project_state.SUMMARY_FILE, *project_state.BADGE_FILES.values(), project_state.DOCUMENT_FILE)
+            for path in (project_state.SUMMARY_FILE, project_state.DOCUMENT_FILE)
         }
         unlink = Path.unlink
 
@@ -1965,8 +2006,6 @@ class GameInventoryTests(unittest.TestCase):
         self.assertEqual({"us"}, set(functions["functions"][0]["regions"]))
         self.assertEqual([], units["source_units"])
         self.assertTrue(project_state.SUMMARY_FILE.is_file())
-        self.assertTrue(project_state.BADGE_FILES["us"].is_file())
-        self.assertTrue(project_state.BADGE_FILES["eu"].is_file())
         self.assertIn("Known functions: **1**", project_state.DOCUMENT_FILE.read_text(encoding="utf-8"))
 
     def test_register_game_rejects_an_existing_region_symbol(self) -> None:

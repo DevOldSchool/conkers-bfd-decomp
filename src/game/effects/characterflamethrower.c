@@ -281,8 +281,6 @@ CharacterFlamethrowerPanel *func_15195984(s32 identity, s32 dimensions, s32 posi
     register s32 width;
     register s32 scaled_height;
     register s32 height;
-    s16 x;
-    s16 y;
     s32 index;
 
     node = (CharacterFlamethrowerPanel *)func_151957B0(sizeof(CharacterFlamethrowerPanel), &D_800E08E8, &D_800E08EC);
@@ -304,8 +302,8 @@ CharacterFlamethrowerPanel *func_15195984(s32 identity, s32 dimensions, s32 posi
             scaled_width = width * 2;
             scaled_height = height * 2;
         }
-        x = node->position[0] = (position >> 12) & 0xFFF;
-        y = node->position[1] = position & 0xFFF;
+        node->position[0] = (position >> 12) & 0xFFF;
+        node->position[1] = position & 0xFFF;
         node->width = scaled_width;
         node->height = scaled_height;
         node->position[0] *= 8;
