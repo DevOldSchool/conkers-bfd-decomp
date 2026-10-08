@@ -24,7 +24,7 @@ void func_150F6478(s32 arg0) {
 /* Call context: func_151411A4: unique active project prototype */
 void func_151411A4(s32 arg0);
 
-void func_150F6484(volatile s32 arg0) {
+void func_150F6484(s32 arg0) {
     func_150F6478(arg0);
     func_151411A4(arg0);
 }
