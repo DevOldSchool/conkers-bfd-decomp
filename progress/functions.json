@@ -1,12 +1,6 @@
 {
   "functions": [
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "Full36 CURRENT30 independently restored48794abf. Actual5.3 trace showed count/cursor/endpoint ranges; new explicit base/end-before-cursor form250 retains extra MOVE, baseA0/endV0/cursorV1 and fails rawA1. Reject after one revision. Prior width/store snapshot/endpoint/OR/stride families exhausted; preserve original, no artificial pressure/padding/ABI/shared/ASM changes or repeated search.",
-        "recorded_revision": "working-tree"
-      },
       "regions": {
         "eu": {
           "state": "in_progress",
@@ -14,7 +8,12 @@
           "vram": "0x800014B0"
         },
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_80001420",
           "vram": "0x80001420"
         }
@@ -650,16 +649,15 @@
       "symbol": "func_151348F0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1750,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15134908",
           "vram": "0x15134908"
         }
@@ -737,16 +735,15 @@
       "symbol": "func_15134CEC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Improved754 to20: load lifetime before flag store. Four register rows remain (lh a0 vs t9; constant t9 vs t1). Negated s32 local regressed30. Fixed conflicting local return declaration. Two hypotheses exhausted; best retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15134DAC",
           "vram": "0x15134DAC"
         }
@@ -1207,16 +1204,15 @@
       "symbol": "func_15137E60"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 405,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15137F30",
           "vram": "0x15137F30"
         }
@@ -1697,16 +1693,15 @@
       "symbol": "func_15160954"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2787,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15160A58",
           "vram": "0x15160A58"
         }
@@ -2204,16 +2199,15 @@
       "symbol": "func_151623F4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 896,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15162510",
           "vram": "0x15162510"
         }
@@ -6574,17 +6568,16 @@
       "symbol": "func_150484A0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 250,
-        "reason": "wave-a continue score 250",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 336,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500E470",
           "vram": "0x1500E470"
         }
@@ -6906,17 +6899,16 @@
       "symbol": "func_15010780"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 210,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 336,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15010880",
           "vram": "0x15010880"
         }
@@ -7389,17 +7381,16 @@
       "symbol": "func_15122C5C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 265,
-        "reason": "wave-a continue score 265",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 268,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15123070",
           "vram": "0x15123070"
         }
@@ -7703,17 +7694,16 @@
       "symbol": "func_151253CC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 560,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 100,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15125490",
           "vram": "0x15125490"
         }
@@ -7777,17 +7767,16 @@
       "symbol": "func_15125608"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1100,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 104,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15125628",
           "vram": "0x15125628"
         }
@@ -7851,17 +7840,16 @@
       "symbol": "func_15125924"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 90,
-        "reason": "Manual raw camera candidate265\u2192155\u219290. Named byte mode fixes GPRs; reversed outer FP source operands fixes all FP rows. Full468B/control/registers exact except14 frame/spill rows: raw48 vs30. No padding; best90 camera-raw-manual-20260930.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 468,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15125A6C",
           "vram": "0x15125A6C"
         }
@@ -8019,17 +8007,16 @@
       "symbol": "func_151279A0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 308,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15127EB8",
           "vram": "0x15127EB8"
         }
@@ -9680,17 +9667,16 @@
       "symbol": "func_1505959C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 460,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 460,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150597FC",
           "vram": "0x150597FC"
         }
@@ -10302,17 +10288,16 @@
       "symbol": "func_1505ED34"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 875,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 68,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1505EEB0",
           "vram": "0x1505EEB0"
         }
@@ -10995,17 +10980,16 @@
       "symbol": "func_1513B5E0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 164,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1513B798",
           "vram": "0x1513B798"
         }
@@ -11777,17 +11761,16 @@
       "symbol": "func_151422F8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 820,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 196,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15142314",
           "vram": "0x15142314"
         }
@@ -11832,17 +11815,16 @@
       "symbol": "func_15142444"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 316,
-        "reason": "Manual4x4matrix restores all instructions/registers/order,6410->316. Pure frame70vs68 and matrix30vs28 plus corresponding argument offsets8. Grouped used scale factors/matrix record3186 regresses. Best316 preserved; no padding or further useful hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 268,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151424F4",
           "vram": "0x151424F4"
         }
@@ -12014,17 +11996,16 @@
       "symbol": "func_15142B44"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 240,
-        "reason": "wave-a continue score 240",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 148,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15142B7C",
           "vram": "0x15142B7C"
         }
@@ -12033,17 +12014,16 @@
       "symbol": "func_15142B7C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2276,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 224,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15142C10",
           "vram": "0x15142C10"
         }
@@ -12052,17 +12032,16 @@
       "symbol": "func_15142C10"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2718,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 308,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15142CF0",
           "vram": "0x15142CF0"
         }
@@ -12089,17 +12068,16 @@
       "symbol": "func_15142E24"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 540,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 136,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15142FBC",
           "vram": "0x15142FBC"
         }
@@ -12177,17 +12155,16 @@
       "symbol": "func_151432BC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 260,
-        "reason": "CURRENT260 original restored. Volatile output formal with one snapshot260 neutral; ordered volatile radius/output reads290 regresses FP registers. Raw output LW remains later between products; two non-improving probes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 136,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151436B4",
           "vram": "0x151436B4"
         }
@@ -13126,17 +13103,16 @@
       "symbol": "func_151467A4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 550,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15167010",
           "vram": "0x15167010"
         }
@@ -13269,17 +13245,16 @@
       "symbol": "func_15167AD8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 45,
-        "reason": "CURRENT (45): eight register-only rows allocate fade/negated fade to a1/a3 instead of raw v1/a1; byte type added sign extension, register qualifier neutral, 32-budget permutation no exact match",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 276,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15167B44",
           "vram": "0x15167B44"
         }
@@ -13479,17 +13454,16 @@
       "symbol": "func_15168B10"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 210,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 104,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15168B44",
           "vram": "0x15168B44"
         }
@@ -13774,17 +13748,16 @@
       "symbol": "func_1516968C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "Manual20260927 live780 improved120: cached global count and direct indexed slot remove alias reloads and all register mismatches. Remaining two entry scheduling rows swap table-base addiu and index-zero move across branch. Explicit base local neutral; retained simpler best after3 revisions.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 80,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151696DC",
           "vram": "0x151696DC"
         }
@@ -16673,17 +16646,16 @@
       "symbol": "func_15014B60"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 800,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 312,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15014F6C",
           "vram": "0x15014F6C"
         }
@@ -19733,17 +19705,16 @@
       "symbol": "func_1506D584"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 265,
-        "reason": "Manual510->265 after4 revisions: anonymous fieldreads, explicit >=2 if/else fixes raw join branch, volatile globalword view retains ADDIU. Remaining globaladdress t8 vs v1 and separate store LUI, FP compare/OR operand order. Prior FP reversal exhausted. Ledger deferred-manual-20260927.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 152,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1506D6B4",
           "vram": "0x1506D6B4"
         }
@@ -19970,17 +19941,16 @@
       "symbol": "func_1506DBD4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 215,
-        "reason": "Full148B CURRENT215 preserved after new actual conditional threshold snapshot230: semantic compare orientation corrected but F0/F2 allocation regressed; tail branch still missing. Original restored and finished. Prior four revisions including reverse equality and per-arm calls remain exhausted. Remaining raw CEQ F10,F0 versus reversed, missing branch at74 and resulting registered-span spillover; no new justified local hypothesis. See deferred-exact-20261005 ledger.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 148,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1506DC10",
           "vram": "0x1506DC10"
         }
@@ -22004,17 +21974,16 @@
       "symbol": "func_15070C18"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 916,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 156,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15070C40",
           "vram": "0x15070C40"
         }
@@ -23664,17 +23633,16 @@
       "symbol": "func_15073A50"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 160,
-        "reason": "CURRENT (160): instruction count and control flow are exact; the D_800D1580 and D_800D154C base addresses remain assigned to v0/v1 in the opposite order after two bounded lifetime revisions",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 240,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15073B38",
           "vram": "0x15073B38"
         }
@@ -23984,17 +23952,16 @@
       "symbol": "func_15074664"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 235,
-        "reason": "CURRENT (235): all control flow and effects align; the only remaining mismatch is the D_800D1580 versus field_1CA load order, which swaps v0/v1 and the subtraction operands, and an assignment-expression revision produced identical codegen.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 244,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150746F0",
           "vram": "0x150746F0"
         }
@@ -24003,17 +23970,16 @@
       "symbol": "func_150746F0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 310,
-        "reason": "CURRENT (310): byte-base cast fixed extra x4 stride, but compiler folds index-1 into negative store offsets instead of raw delay-slot addiu v1,v0,-1 and positive offsets, with remaining base/register scheduling; named index regressed to 535",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150747E4",
           "vram": "0x150747E4"
         }
@@ -24168,17 +24134,16 @@
       "symbol": "func_15074A6C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 80,
-        "reason": "Explicit interpolation delta improved CURRENT (95) to (80); 12 register-only differences remain. Two source variants and one 32-variant permutation search; see build/abi-pass/.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 232,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15074A94",
           "vram": "0x15074A94"
         }
@@ -25344,17 +25309,16 @@
       "symbol": "func_15076760"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "CURRENT120 unchanged by grouping existing transform and position in their natural adjacent stack order. Original preserved; raw final position store precedes call with stack address in delay slot, compiler reverses scheduling. No useful new hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 140,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15076768",
           "vram": "0x15076768"
         }
@@ -26633,17 +26597,16 @@
       "symbol": "func_150791F0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 70,
-        "reason": "register-only CURRENT(70); permute exhausted",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 184,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15079228",
           "vram": "0x15079228"
         }
@@ -27013,17 +26976,16 @@
       "symbol": "func_15079F50"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 50,
-        "reason": "Best valid full80B CURRENT50 unchanged. Explicit typed address-of-global pointer cursor canonicalized to original code; eight register rows remain (global address v1 vs a0, low-byte base and OR operands). Restored simpler original candidate. Stop plateau without permutation or artificial pressure.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 80,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15079F6C",
           "vram": "0x15079F6C"
         }
@@ -27213,17 +27175,16 @@
       "symbol": "func_1507A3E8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 440,
-        "reason": "CURRENT (440): raw loads globals in 1890/1891/1892/1893 order, builds packed word, then applies ori 1 and nor zero; original candidate loads 1891 before 1890 and computes nor with final low byte; explicit packed-then-OR and four named byte loads regressed to 580 and 585",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 84,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1507A428",
           "vram": "0x1507A428"
         }
@@ -27232,17 +27193,16 @@
       "symbol": "func_1507A428"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 540,
-        "reason": "Manual mask local improves 865 to 540; remaining address/load register allocation in the packed byte reads.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1507A47C",
           "vram": "0x1507A47C"
         }
@@ -29055,17 +29015,16 @@
       "symbol": "func_1513F4B0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2899,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 412,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1513F4E4",
           "vram": "0x1513F4E4"
         }
@@ -29196,17 +29155,16 @@
       "symbol": "func_1513FAB4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2920,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 220,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1513FFF4",
           "vram": "0x1513FFF4"
         }
@@ -30657,8 +30615,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 625,
-        "reason": "restore after failed authored-fork port attempt",
+        "current_score": 20,
+        "reason": "Authored fork loop body (jefemagril/conker game_BC510.c) links to identical bytes; CURRENT 20 is 4 relocation-symbol rows only: reference names D_800D246D/D_800D247D where the unrolled loop emits D_800D2460+0xd/+0x1d. Rev1 split the first two stores onto the named symbols with a 4-iteration loop: regressed to 1230 (different unroll shape). No C form found that keeps the 6-iteration unroll and the named symbols; not changing symbols/asm to force it.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -31369,17 +31327,16 @@
       "symbol": "func_1509DDC4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 990,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 200,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509DDFC",
           "vram": "0x1509DDFC"
         }
@@ -31586,17 +31543,16 @@
       "symbol": "func_150C2290"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 130,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 248,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C2424",
           "vram": "0x150C2424"
         }
@@ -31730,17 +31686,16 @@
       "symbol": "func_150C2C00"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 665,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 192,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C2FCC",
           "vram": "0x150C2FCC"
         }
@@ -31981,17 +31936,16 @@
       "symbol": "func_15104C44"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 530,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 184,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15104FF8",
           "vram": "0x15104FF8"
         }
@@ -33146,17 +33100,16 @@
       "symbol": "func_151D93F4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1936,
-        "reason": "restore after failed authored-fork port attempt",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 228,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D9450",
           "vram": "0x151D9450"
         }

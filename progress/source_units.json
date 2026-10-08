@@ -2478,7 +2478,7 @@
         "us": {
           "end": "0xE5C0",
           "start": "0xE470",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_3B920.c"
@@ -2777,7 +2777,7 @@
         "us": {
           "end": "0x10A60",
           "start": "0x10780",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_3DC30.c"

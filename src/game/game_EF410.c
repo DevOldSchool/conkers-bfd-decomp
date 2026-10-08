@@ -7,13 +7,11 @@
  * TODO: Implement these source-unit functions:
  * - func_150C1F60
  * - func_150C2290
- * - func_150C2424
  * - func_150C2558
  * - func_150C2700
  * - func_150C2898
  * - func_150C29F0
  * - func_150C2C00
- * - func_150C2FCC
  * - func_150C3230
  * - func_150C3574
  * - func_150C3994
@@ -245,21 +243,42 @@ void func_150C2290(u8 arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C2290 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2290.s")
 f32 func_150ADA68(void);
-void func_1514C470(f32, f32, f32, f32, f32, f32, f32, s32, s32, f32, s32, s32);
+void func_1514C470(f32, f32, f32, f32, f32, f32, f32, s32, s32, f32, s32, u8);
 extern f32 D_800A0268;
 extern f32 D_800A026C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C2424 CURRENT (130) */
-void func_150C2424(volatile u8 arg0) {
-    func_1514C470(D_800A0268, -490.0f, -328.0f, D_800A0268,
-                  -490.0f, 328.0f, (func_150ADA68() * 8.0f) + 8.0f,
-                  1, 0, 0.0f, 0, (s32)arg0);
-    func_1514C470(D_800A026C, -560.0f, -580.0f, 8117.0f,
-                  -560.0f, -580.0f, (func_150ADA68() * 3.0f) + 4.0f,
-                  3, 0, 0.0f, 0, (s32)arg0);
+void func_150C2424(u8 arg0) {
+    f32 *p = &D_800A0268;
+
+    func_1514C470(
+        *p,
+        -490.0f,
+        -328.0f,
+        *p,
+        -490.0f,
+        328.0f,
+        (func_150ADA68() * 8.0f) + 8.0f,
+        1,
+        0,
+        0.0f,
+        0,
+        arg0
+    );
+    func_1514C470(
+        D_800A026C,
+        -560.0f,
+        -580.0f,
+        8117.0f,
+        -560.0f,
+        -580.0f,
+        (func_150ADA68() * 3.0f) + 4.0f,
+        3,
+        0,
+        0.0f,
+        0,
+        arg0
+    );
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C2424 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2424.s")
 
 s32 func_150C251C(void *arg0) {
     typedef struct {
@@ -552,30 +571,20 @@ void func_150C29F0(GameEF410Emitter *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2C00.s")
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C2FCC CURRENT (665) */
-s32 func_150C2FCC(void *arg0) {
-    f32 temp_fa0;
-    f32 temp_fa1;
-    f32 temp_ft5;
-    f32 temp_fv0;
-    f32 temp_fv1;
+typedef struct T150C { u8 pad0[0x2C]; f32 unk2C, unk30, unk34, unk38; u8 pad3C[0x10]; f32 unk4C, unk50; u8 pad54[0xFC]; f32 unk150; } T150C;
 
-    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x2C);
-    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x150);
-    temp_fa0 = *(f32 *)((u8 *)arg0 + 0x30);
-    temp_fa1 = *(f32 *)((u8 *)arg0 + 0x50);
-    temp_ft5 = *(f32 *)((u8 *)arg0 + 0x4C);
-    *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (temp_fv0 - (temp_fv0 * temp_fv1));
-    *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fa0 - (temp_fa0 * temp_fv1));
-    *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(f32 *)((u8 *)arg0 + 0x38) + ((temp_fa1 * D_800BE9A4) + (0.5f * temp_ft5 * D_800BE9A4 * D_800BE9A4)));
-    *(f32 *)((u8 *)arg0 + 0x50) = (f32) (temp_fa1 + (temp_ft5 * D_800BE9A4));
-    if ((*(f32 *)((u8 *)arg0 + 0x2C) < 10.0f) || (*(f32 *)((u8 *)arg0 + 0x30) < 10.0f)) {
+s32 func_150C2FCC(T150C *arg0) {
+    f32 *dt = &D_800BE9A4;
+
+    arg0->unk2C = arg0->unk2C - (arg0->unk2C * arg0->unk150);
+    arg0->unk30 = arg0->unk30 - (arg0->unk30 * arg0->unk150);
+    arg0->unk38 += (arg0->unk50 * *dt) + (((0.5f * arg0->unk4C) * *dt) * *dt);
+    arg0->unk50 += arg0->unk4C * *dt;
+    if ((arg0->unk2C < 10.0f) || (arg0->unk30 < 10.0f)) {
         return 0;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C2FCC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2FCC.s")
 f32 func_150484A0(f32, f32);
 s32 func_15144B34(s32);
 f32 func_15144C8C(f32, f32);
