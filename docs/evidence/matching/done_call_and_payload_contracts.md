@@ -56,8 +56,7 @@ review or infer the original meanings of the three payload scalar fields.
 All twelve functions passed independent full-span US `CURRENT (0)`, source-unit
 layout, progress and whitespace checks on the first attempt, without permutation.
 The clean `verify-batch` returned `BATCH_COMPLETE`: the 2,072,880-byte integrated
-US GAME image and mapped external data matched the reference; 1,978 tests ran
+US GAME image and mapped external data matched the reference; 2,000 tests ran
 successfully with 41 skips, and metadata/progress/whitespace checks passed.
 This is a recheck of existing matches, with no new match credit or source-unit
-transition. No full-ROM or EU verification is claimed. Current task logs and
-file hashes are kept under `build/us/manual-attempts/done-contract-cleanup/`.
+transition. No full-ROM or EU verification is claimed.
