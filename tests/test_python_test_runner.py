@@ -19,7 +19,7 @@ class PythonTestRunnerTests(unittest.TestCase):
 set -euo pipefail
 repo_root="$1"; docker_state="$2"; host_state="$3"; shift 3
 image_name=pinned-image
-container_run_args=(--platform linux/amd64 --read-only)
+container_run_args=(--platform linux/amd64 --read-only --tmpfs /tmp:rw,nosuid,nodev,size=1g)
 die() { printf 'error: %s\n' "$*" >&2; exit 1; }
 require_docker_access() { [[ "$docker_state" == up ]]; }
 ensure_image() { image_name=rsp-image; }
@@ -41,18 +41,19 @@ python3() {
                 ["bash", "-c", harness + RUNNER + TEST_COMMAND, "test", root, docker, host, *args],
                 capture_output=True, text=True, env=env)
 
-    def test_docker_is_default_with_writable_build_and_executable_tmp(self):
+    def test_docker_is_default_with_writable_build_and_executable_tmp_outside_checkout(self):
         result = self.run_command("-q")
         self.assertEqual(0, result.returncode, result.stderr)
         self.assertNotIn("host-check", result.stderr)
         self.assertNotIn("host-python", result.stderr)
         self.assertIn("tests: docker runner (rsp-image)", result.stdout)
         command = next(line for line in result.stderr.splitlines() if line.startswith("docker run "))
-        self.assertIn("--rm --platform linux/amd64 --read-only", command)
+        self.assertIn("--rm --platform linux/amd64 --read-only --tmpfs /tmp:rw,exec,nosuid,nodev,size=1g ", command)
+        self.assertEqual(1, command.count("--tmpfs"))
+        self.assertNotIn("TMPDIR", command)
         self.assertRegex(command, r"source=\S+,target=/workspace,readonly ")
         self.assertRegex(command, r"source=\S+/build,target=/workspace/build ")
-        for setting in ("CONKER_IN_CONTAINER=1", "HOME=/tmp", "PYTHONDONTWRITEBYTECODE=1",
-                        "TMPDIR=/workspace/build/test-tmp"):
+        for setting in ("CONKER_IN_CONTAINER=1", "HOME=/tmp", "PYTHONDONTWRITEBYTECODE=1"):
             self.assertIn("--env " + setting, command)
         self.assertTrue(command.endswith("rsp-image python3 -m unittest discover -s tests -q"))
 

@@ -457,34 +457,43 @@ select_test_runner() {
 
 # Docker is the default and never falls back to the host silently. Tests read
 # the whole checkout (wrapper, workflows, docs), so mount it read-only with only
-# build/ writable; Docker's /tmp tmpfs is noexec, so use a build/ temp directory.
+# build/ writable. Tests run fixture scripts from temporary directories, and some
+# require those directories to be outside any Git checkout, so /tmp stays a
+# tmpfs outside /workspace but permits execution.
 run_python_tests() {
     local status=0
+    local argument
+    local replace_next=0
+    local test_run_args=()
     if [[ "$test_runner" == "host" ]]; then
         python3 "$repo_root/scripts/host_environment.py" check || return 2
-        printf 'tests: host runner (%s); CI runs the full suite in Docker
-' "$(python3 --version 2>&1)"
+        printf 'tests: host runner (%s); CI runs the full suite in Docker\n' "$(python3 --version 2>&1)"
         # macOS /var and /tmp aliases must agree with resolved fixture paths.
         host_test_tmpdir="$(python3 -c 'import os, tempfile; print(os.path.realpath(tempfile.gettempdir()))')"
         TMPDIR="$host_test_tmpdir" python3 -m unittest discover -s tests "$@" || status=$?
         return "$status"
     fi
     if ! require_docker_access; then
-        printf '%s
-' 'error: Docker-mode tests need Docker; use --host (or CONKER_TEST_RUNNER=host) after ./conker host-setup.' >&2
+        printf '%s\n' 'error: Docker-mode tests need Docker; use --host (or CONKER_TEST_RUNNER=host) after ./conker host-setup.' >&2
         return 2
     fi
     ensure_image || return 2
-    mkdir -p "$repo_root/build/test-tmp"
-    printf 'tests: docker runner (%s)
-' "$image_name"
-    docker run --rm "${container_run_args[@]}" \
+    mkdir -p "$repo_root/build"
+    for argument in "${container_run_args[@]}"; do
+        if [[ "$replace_next" == 1 && "$argument" == /tmp:* ]]; then
+            argument="${argument/,nosuid/,exec,nosuid}"
+        fi
+        replace_next=0
+        [[ "$argument" == --tmpfs ]] && replace_next=1
+        test_run_args+=("$argument")
+    done
+    printf 'tests: docker runner (%s)\n' "$image_name"
+    docker run --rm "${test_run_args[@]}" \
         --mount "type=bind,source=$repo_root,target=/workspace,readonly" \
         --mount "type=bind,source=$repo_root/build,target=/workspace/build" \
         --env CONKER_IN_CONTAINER=1 \
         --env HOME=/tmp \
         --env PYTHONDONTWRITEBYTECODE=1 \
-        --env TMPDIR=/workspace/build/test-tmp \
         --workdir /workspace \
         "$image_name" python3 -m unittest discover -s tests "$@" || status=$?
     return "$status"
