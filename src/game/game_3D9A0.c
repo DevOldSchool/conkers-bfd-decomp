@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_compact_multi_function_units.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150104F0
  * - func_15010538
  * - func_15010600
  *
@@ -16,16 +15,16 @@ extern s32 func_151149AC(u8 arg0);
 extern u8 D_800D9950[];
 extern s8 D_80088980;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150104F0 CURRENT (140) */
 void func_150104F0(void) {
-    D_800D9950[1] = 0;
-    D_800D9950[0] = 0;
-    D_800D9950[2] = 0;
-    *(f32 *)((u8 *)func_151149AC(0xF6) + 0x7C) = 2.0f;
+    typedef struct {
+        u8 unk[3];
+    } Col;
+    Col *c = (Col *)&D_800D9950;
+
+    c->unk[0] = c->unk[1] = c->unk[2] = 0;
+    *(f32 *)(func_151149AC(0xF6) + 0x7C) = 2.0f;
     D_80088980 = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150104F0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_3D9A0/func_150104F0.s")
 
 void func_10022EC0(void *arg0, void *arg1, s32 arg2);
 u8 *func_15149130(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8);

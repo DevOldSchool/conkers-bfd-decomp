@@ -54,7 +54,6 @@
  * - func_1505F298
  * - func_1506045C
  * - func_15060778
- * - func_15060BE0
  * - func_15060D54
  * - func_15060F28
  * - func_150611E8
@@ -2199,50 +2198,59 @@ typedef struct Game83300MotionOwner {
 extern u8 D_800C3E90;
 extern u8 *D_800D1C90[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15060BE0 CURRENT (850) */
-void func_15060BE0(Game83300MotionOwner *arg0) {
-    f32 z_component;
-    f32 x_component;
-    f32 y_component;
-    f32 length;
-    f32 factor;
-    Game83300MotionInfo *info;
-    Game83300Motion *motion;
-    s32 valid = 0;
+void func_15060BE0(struct127 *arg0) {
+    f32 pad0;
+    f32 pad1;
+    f32 pad2;
+    f32 pad3;
+    f32 sp4;
+    f32 temp_f0;
+    f32 temp_f12;
+    f32 temp_f14;
+    f32 temp_f16;
+    f32 temp_f2;
+    f32 var_f0;
+    f32 var_f18;
+    f32 var_f2;
+    s32 var_v0;
+    struct124 *temp_v0;
+    u8 *temp_a2;
 
-    if (arg0->index != 0xFF && arg0->motions != 0 && D_800C3E90 == 0) {
-        info = (Game83300MotionInfo *)D_800D1C90[arg0->index];
-        motion = &arg0->motions[info->motionIndex];
-        length = (f32)info->scale * arg0->scale;
-        if (length != 0.0f) {
-            f32 dx = motion->directionX;
-            f32 dy = motion->directionY;
-            f32 dz = motion->directionZ;
-            factor = sqrtf(dx * dx + dy * dy + dz * dz);
-            if (factor != 0.0f) {
-                factor = length / factor;
+    var_v0 = 0;
+    if (arg0->id != 0xFF) {
+        if ((arg0->unk1D4 != 0) && (D_800C3E90 == 0)) {
+            temp_v0 = D_800D1C90[arg0->id];
+            temp_a2 = (u8 *)arg0->unk1D4;
+            temp_a2 += *(u8 *)((u8 *)temp_v0 + 0x27) << 6;
+            temp_f2 = (f32) *(s16 *)((u8 *)temp_v0 + 0x14) * arg0->y_scale;
+            if (temp_f2) {
+                temp_f12 = *(f32 *)(temp_a2 + 0x10);
+                temp_f14 = *(f32 *)(temp_a2 + 0x14);
+                temp_f16 = *(f32 *)(temp_a2 + 0x18);
+                temp_f0 = sqrtf((temp_f12 * temp_f12) + (temp_f14 * temp_f14) + (temp_f16 * temp_f16));
+                var_f18 = temp_f0;
+                if (temp_f0) {
+                    var_f18 = temp_f2 / temp_f0;
+                }
+                var_f2 = temp_f12 * var_f18;
+                var_f0 = temp_f14 * var_f18;
+                sp4 = temp_f16 * var_f18;
+            } else {
+                var_f0 = (sp4 = 0.0f);
+                var_f2 = var_f0;
             }
-            x_component = dx * factor;
-            y_component = dy * factor;
-            z_component = dz * factor;
-        } else {
-            x_component = 0.0f;
-            z_component = 0.0f;
-            y_component = 0.0f;
+            var_v0 = 1;
+            *(s16 *)((u8 *)arg0 + 0x1BC) = (s16) (s32) (*(f32 *)(temp_a2 + 0x30) + var_f2);
+            *(s16 *)((u8 *)arg0 + 0x1BE) = (s16) (s32) (*(f32 *)(temp_a2 + 0x34) + var_f0);
+            *(s16 *)((u8 *)arg0 + 0x1C0) = (s16) (s32) (*(f32 *)(temp_a2 + 0x38) + sp4);
         }
-        valid = 1;
-        arg0->resultX = (s16)(s32)(motion->positionX + x_component);
-        arg0->resultY = (s16)(s32)(motion->positionY + y_component);
-        arg0->resultZ = (s16)(s32)(motion->positionZ + z_component);
     }
-    if (valid == 0) {
-        arg0->resultX = (s16)(s32)arg0->fallbackX;
-        arg0->resultY = (s16)(s32)arg0->fallbackY;
-        arg0->resultZ = (s16)(s32)arg0->fallbackZ;
+    if (var_v0 == 0) {
+        *(s16 *)((u8 *)arg0 + 0x1BC) = (s16) (s32) arg0->x_position;
+        *(s16 *)((u8 *)arg0 + 0x1BE) = (s16) (s32) arg0->y_position;
+        *(s16 *)((u8 *)arg0 + 0x1C0) = (s16) (s32) arg0->z_position;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15060BE0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060BE0.s")
 typedef struct Game83300ActorLink {
     s32 active;
     u8 pad4[0x61];

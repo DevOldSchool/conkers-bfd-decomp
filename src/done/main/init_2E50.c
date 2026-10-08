@@ -46,7 +46,6 @@ void func_80002E50(void *argument) {
     DeviceManager *manager;
 
     message = 0;
-    result = 0;
     manager = argument;
     while (1) {
         func_80023440(manager->commandQueue, (void **) &message, 1);

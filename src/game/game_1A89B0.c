@@ -11,7 +11,6 @@
  * - func_1517BBAC
  * - func_1517CFC4
  * - func_1517D074
- * - func_1517D578
  * - func_1517D690
  * - func_1517D7B0
  * - func_1517DE5C
@@ -189,26 +188,21 @@ void func_1517CFC4(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517CFC4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A89B0/func_1517CFC4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A89B0/func_1517D074.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517D578 CURRENT (40) */
 void func_1517D578(s16 arg0, s16 arg1, s16 arg2, f32 arg3, s32 arg4, s32 arg5, u8 arg6) {
-    Game1A89B0Record *temp_v1;
     s32 temp_v0;
 
     temp_v0 = D_8008CEB0;
     if (temp_v0 < 3) {
-        temp_v1 = &D_800DDD28[temp_v0];
-        temp_v1->unk0 = arg0;
-        temp_v1->unk2 = arg1;
-        temp_v1->unk4 = arg2;
-        temp_v1->unkC = arg3;
+        (&D_800DDD28[temp_v0])->unk0 = arg0;
+        (&D_800DDD28[temp_v0])->unk2 = arg1;
+        (&D_800DDD28[temp_v0])->unk4 = arg2;
+        (&D_800DDD28[temp_v0])->unkC = arg3;
+        (&D_800DDD28[temp_v0])->unk8 = arg4;
+        (&D_800DDD28[temp_v0])->unkA = arg5;
+        (&D_800DDD28[temp_v0])->unk6 = arg6;
         D_8008CEB0 = temp_v0 + 1;
-        temp_v1->unk8 = arg4;
-        temp_v1->unkA = arg5;
-        temp_v1->unk6 = arg6;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517D578 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A89B0/func_1517D578.s")
 void func_1517D5FC(s16 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5) {
     func_1517D578(
         arg0,

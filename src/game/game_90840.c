@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15063628
- * - func_150636A4
  * - func_15063B64
  * - func_15063C60
  * - func_15063E84
@@ -124,7 +123,6 @@ void func_15063628(Game90840Actor *arg0, f32 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15063628 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063628.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150636A4 CURRENT (15) */
 void func_150636A4(Game90840Actor *arg0) {
     void *temp_a1;
     void *temp_v0;
@@ -132,15 +130,13 @@ void func_150636A4(Game90840Actor *arg0) {
     temp_v0 = *(void **)((u8 *)arg0->field_31C + 0xB0);
     if (temp_v0 != 0) {
         temp_a1 = *(void **)((u8 *)temp_v0 + 0x31C);
-        if (temp_a1 != 0) {
+        if (*(void **)((u8 *)temp_v0 + 0x31C) != 0) {
             *(s8 *)((u8 *)temp_a1 + 0x195) = 0x1E;
             *(s8 *)((u8 *)*(void **)((u8 *)temp_v0 + 0x31C) + 0x196) =
                 (s8)(arg0 - D_800CC2D0);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150636A4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_150636A4.s")
 typedef struct Game90840Requests {
     u8 pad0[0x78];
     u8 action;

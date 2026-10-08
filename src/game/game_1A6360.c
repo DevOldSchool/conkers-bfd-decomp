@@ -10,7 +10,6 @@
  * - func_151794C8
  * - func_15179600
  * - func_151797B0
- * - func_15179AB8
  * - func_15179B14
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -269,20 +268,21 @@ wrappedZ:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151797B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A6360/func_151797B0.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15179AB8 CURRENT (35) */
 void func_15179AB8(void) {
-    void **var_a0;
+    void **ptr;
     void *temp_v0_2;
     s32 var_v1;
+    int tmp1;
     s32 temp_v0;
     s32 temp_a1;
 
-    temp_v0 = D_800DD436 - 1;
+    tmp1 = D_800DD436 - 1;
+    temp_v0 = tmp1;
     if (temp_v0 >= 0) {
         var_v1 = temp_v0 * 4;
-        var_a0 = (void **)((u8 *)(s32)D_800DD440 + var_v1);
+        ptr = (void **)((u8 *)(s32)D_800DD440 + var_v1);
         do {
-            temp_v0_2 = *var_a0;
+            temp_v0_2 = *ptr;
             var_v1 -= 4;
             if (temp_v0_2 != 0) {
                 temp_a1 = *(s32 *)((u8 *)temp_v0_2 + 0x90);
@@ -291,12 +291,10 @@ void func_15179AB8(void) {
                     return;
                 }
             }
-            var_a0--;
+            ptr--;
         } while (var_v1 >= 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15179AB8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A6360/func_15179AB8.s")
 s32 func_150ADA20(void);
 s32 func_1510F8D8(s32, s32, s32, s32);
 void func_1516865C(void *, s32, s32, s32, s32);
