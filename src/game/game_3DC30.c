@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_3DC30.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_next_compact_units.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15010880
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_15177410(s32, s32, s32, s32, s32, f32, s32, f32, s32, s32, s32, s32, s32, s32, s32, s32);
@@ -32,27 +27,29 @@ extern u8 *D_800D2E4C;
 extern u8 D_800D3098[];
 extern void (*D_800E0934)(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15010880 CURRENT (210) */
-void func_15010880(void) {
-    Game3DC30Packet packet;
-    u8 *object;
+typedef struct Game3DC30Temp { s16 unk0; s16 pad2; s32 unk4; s32 unk8; } Game3DC30Temp;
 
-    func_15177410(0x10, 0xE9, -0x1B5, 0x463, -0xCBF, 90.0f, 0x3A98, 36.0f,
-                  0x4D, 0xF, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F);
-    D_800E0934 = func_150DE32C;
-    packet.value = 0;
-    packet.first = (s32)(*(u32 *)D_800D3098 + 0xEA0U);
-    packet.second = (s32)(*(u32 *)D_800D3098 + 0xED4U);
-    object = func_15149130(0x12C, -1, 0x5E, -1, 0, 0, 0xC, 0xFF, 1);
-    if (object != 0) {
-        func_10022EC0(object + 0x28, &packet, sizeof(packet));
+void func_15010880(void) {
+    Game3DC30Temp tmp;
+    struct37 *temp_v0;
+
+    if (*((u8 *)D_800D2E4C + 0x12)) {
     }
-    if (D_800D2E4C[0x12] & 0x40) {
-        func_15149130(5, 9, -1, -1, 1, 0, 0, 0xFF, 1);
+    func_15177410(0x10, 0xE9, -437, 0x463, -0xCBF, 90.0f, 15000, 36.0f, 0x4D, 15, 127, 127, 127, 127, 127, 127);
+    D_800E0934 = func_150DE32C;
+    if (((!temp_v0) && (!temp_v0)) && (!temp_v0)) {
+    }
+    tmp.unk0 = 0;
+    tmp.unk4 = (*((s32 *)(&D_800D3098))) + 0xEA0;
+    tmp.unk8 = (*((s32 *)(&D_800D3098))) + 0xED4;
+    temp_v0 = func_15149130(300, -1, 94, -1, 0, 0, 12, 255, 1);
+    if (temp_v0 != 0) {
+        func_10022EC0(&temp_v0->unk28, &tmp, 12);
+    }
+    if ((*((u8 *)D_800D2E4C + 0x12) & 0x40) != 0) {
+        func_15149130(5, 9, -1, -1, 1, 0, 0, 255, 1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15010880 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_3DC30/func_15010880.s")
 typedef struct Game3DC30PositionBlock {
     f32 values[6];
 } Game3DC30PositionBlock;

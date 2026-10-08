@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1509DDC4
- * - func_1509DDFC
  * - func_1509DEC4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -61,27 +60,22 @@ void func_15178C34(u8, s32, s32, s32, s32);
 s32 func_15084000(s32);
 extern u8 D_800CC2D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509DDFC CURRENT (990) */
-s32 func_1509DDFC(s32 arg0, s32 arg1, u8 *arg2) {
+typedef struct GameCB1C0WordPair { s16 unk0; s16 unk2; } GameCB1C0WordPair;
+typedef struct struct215 { u8 pad0[8]; s32 unk8; union { GameCB1C0WordPair s; struct { s32 unk0; } i; } unkC; s32 unk10; s32 unk14; } struct215;
+
+s32 func_1509DDFC(s32 arg0, s32 arg1, struct215 *arg2) {
     switch (arg1) {
-        case 0:
-            func_15178BE4(arg0,
-                          (u8 *) &D_800CC2D0 + (func_15084000(*(s32 *) (arg2 + 8) & ~0x2000) * 0x32C) + 0x14,
-                          *(s16 *) (arg2 + 0xE));
-            return 1;
-        case 1:
-            func_15178C34(arg0,
-                          *(s32 *) (arg2 + 8),
-                          *(s32 *) (arg2 + 0xC),
-                          *(s32 *) (arg2 + 0x10),
-                          *(s32 *) (arg2 + 0x14));
-            return 1;
-        default:
-            return 0;
+    case 0: {
+        s32 mask = ~0x2000;
+        func_15178BE4(arg0 & 0xFF, &((struct127 *)((u8 *)&D_800CC2D0 + func_15084000(arg2->unk8 & mask) * 0x32C))->x_position, arg2->unkC.s.unk2);
+        return 1;
     }
+    case 1:
+        func_15178C34(arg0 & 0xFF, arg2->unk8, arg2->unkC.i.unk0, arg2->unk10, arg2->unk14);
+        return 1;
+    }
+    return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509DDFC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CB1C0/func_1509DDFC.s")
 s32 func_15178C9C(u8, s32);                         /* extern */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509DEC4 CURRENT (860) */
