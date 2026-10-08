@@ -5,7 +5,8 @@ set -euo pipefail
 repo_root="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 # Keep host helpers/tests in the same isolated interpreter; Docker keeps its
 # own pinned Python. Setup remains explicit and never installs during matching.
-if [[ -x "$repo_root/build/host-python/bin/python3" ]]; then
+# Inside the toolchain container the host venv is a foreign binary; skip it.
+if [[ -z "${CONKER_IN_CONTAINER:-}" && -x "$repo_root/build/host-python/bin/python3" ]]; then
     export PATH="$repo_root/build/host-python/bin:$PATH"
 fi
 exec "$repo_root/scripts/conker.sh" "$@"

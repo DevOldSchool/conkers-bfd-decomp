@@ -124,6 +124,48 @@ project declarations must agree. Recovery records the selected evidence in
 `build/m2c/calls/<work-item-id>.json`. Local declarations are never overwritten,
 and candidates still require the ordinary focused and integration gates.
 
+## Shared function declarations
+
+Use `include/<overlay>_functions.h` for reviewed cross-source function
+prototypes, starting with `include/game_functions.h`. Include it in each owning
+definition and every source that uses a covered function; remove their local
+prototype copies, including declarations retained for deferred callers. Keep
+shared type definitions in focused headers such as `include/game_command.h`,
+which the overlay header includes as needed. Private or partial structures stay
+in their owning C file. These headers are maintained source, not generated m2c
+output, and are seeded incrementally as interfaces are reviewed.
+
+Use the registered matched C definition as the starting evidence, then audit
+all declaration sites and callers before adopting its signature. A matched body
+can omit unused parameters, so a self-contained signature alone is insufficient
+proof of the full call contract. Review argument count, return use, conversions,
+signedness and o32 argument locations; unresolved families remain separate ABI
+review work. Never add casts or remove arguments simply to satisfy a header.
+
+Adding a header makes every one of its prototypes visible from the top of each
+including translation unit. Audit all references to its functions across those
+files, including earlier implicit calls and address-taking. Recheck the affected
+matched definitions and callers with full-span US `finish`, then run a clean
+`verify-batch`; retain pending IDs until `BATCH_COMPLETE`. The overlay-header
+ownership test rejects duplicate local prototypes and missing includes for
+active C references; compiler and matching gates still establish type agreement
+and instruction preservation.
+
+The m2c starter and `prepare_starter` never redeclare a function owned by a
+reviewed `*_functions.h` header. If the source does not already include that
+header in its initial include block, `next --ready` lists it under
+`required-includes` and automation adds the include after that block; add it
+the same way when editing by hand. Initially included header prototypes seed
+call recovery as local declarations, and the flattened source context inlines
+guarded reviewed headers, so sources need no IDO preprocessing just for them.
+A recovered signature that disagrees with the header is omitted and reported as
+an ABI review note. Other prototypes are reused only when the IDO
+preprocessor proves they come from the initial include block; recovered
+declarations are otherwise retained when visibility or type agreement is
+uncertain, or source context falls back. The call-context evidence records the
+recovered, emitted and header-conflicting declarations and required includes; header reuse does not
+change the signature supplied to the decompiler.
+
 ## Match one function
 
 Replace only the selected function's `GLOBAL_ASM` pragma, at the same source

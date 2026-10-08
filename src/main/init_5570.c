@@ -1,4 +1,5 @@
 #include "types.h"
+#include "libultra_os.h"
 
 /*
  * Reviewed source unit: src/main/init_5570.c
@@ -15,11 +16,9 @@
 #define motor_pak_init func_800057E0
 #define motor_pak_pack_write_command func_80005948
 
-typedef struct MessageQueue MessageQueue;
-
 typedef struct PakDevice {
     s32 status;
-    MessageQueue *queue;
+    OSMesgQueue *queue;
     s32 channel;
     u8 pad0C[0x59];
     u8 activeBank;
@@ -35,7 +34,6 @@ typedef struct PakReply {
     u8 dataCrc;
 } PakReply;
 
-s32 func_80023440(MessageQueue *, void **, s32);
 void func_80025750(void);
 void func_80025794(void);
 s32 func_800257C0(s32, void *);
@@ -100,13 +98,13 @@ s32 func_800056A0(PakDevice *device) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_800056A0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_5570/func_800056A0.s")
-s32 func_80025870(MessageQueue *, s32, u16, u8 *, s32);
-s32 func_80025C20(MessageQueue *, s32, u16, u8 *);
+s32 func_80025870(OSMesgQueue *, s32, u16, u8 *, s32);
+s32 func_80025C20(OSMesgQueue *, s32, u16, u8 *);
 void motor_pak_pack_write_command(s32, u16, u8 *, u8 *);
 extern u8 D_8003BE30[32];
 extern u8 D_8003BE50[32];
 
-s32 motor_pak_init(MessageQueue *queue, PakDevice *device, s32 channel) {
+s32 motor_pak_init(OSMesgQueue *queue, PakDevice *device, s32 channel) {
     s32 i;
     s32 result;
     u8 data[32];

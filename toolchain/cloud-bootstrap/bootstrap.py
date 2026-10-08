@@ -2,7 +2,7 @@
 """Restore the Conker toolchain adapter outside the checkout. Never handles ROMs."""
 import argparse, hashlib, json, os, pathlib, platform, shutil, subprocess, sys
 HOME=pathlib.Path(__file__).resolve().parent
-IMAGE='ghcr.io/devoldschool/conkers-bfd-decomp-toolchain@sha256:b3e29a92f2c26f11a58fbafde2d5d3b1184416e21b635e07b2a6303591ed5c8b'
+IMAGE='ghcr.io/devoldschool/conkers-bfd-decomp-toolchain@sha256:8da82ea0fc3ea2ca84987f521040732a7bc8b0e9595469a5363b90d3f306ae11'
 REV='156f78f6bccfc07498578ac491ce7fe2a1e807a6'
 CMAKE_HASH='2f766bb46367e5e0559fa33184653754bce044583a06014dcaebf8e6dff8a1f1'
 DOCKERFILE_HASH='b161bd2fdb84561aa0480fe553e1806420ba7f3caf648dffa0331b42b426713c'

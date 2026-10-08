@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 import subprocess
 import tempfile
 import unittest
@@ -8,7 +9,7 @@ SCRIPT = (Path(__file__).resolve().parents[1] / "scripts/conker.sh").read_text()
 
 
 class DebuggerCommandTests(unittest.TestCase):
-    def run_script(self, body, *args, failure=""):
+    def run_script(self, body, *args, failure="", runner=None):
         with tempfile.TemporaryDirectory() as root:
             harness = r'''
 set -euo pipefail
@@ -19,7 +20,11 @@ selected_value=func_debugger
 failure="$1"; shift
 die() { printf 'error: %s\n' "$*" >&2; exit 1; }
 python3() {
-    if [[ "$1" == "$repo_root/scripts/host_environment.py" && "$failure" == host ]]; then return 2; fi
+    if [[ "$1" == "$repo_root/scripts/host_environment.py" ]]; then
+        [[ "$failure" == host-core ]] && return 2
+        [[ "$failure" == host && "$3" != --core ]] && return 2
+        return 0
+    fi
     case "${2:-}" in
         batch-plan|integration-plan) printf 'debugger\n' ;;
         batch-fingerprint) printf 'fingerprint\n' ;;
@@ -27,6 +32,8 @@ python3() {
 }
 git() { return 0; }
 ensure_warm_container() { return 0; }
+select_test_runner() { test_runner="${CONKER_TEST_RUNNER:-docker}"; }
+run_python_tests() { return 0; }
 run_in_container_libultra() {
     printf 'libraries: %s\n' "$*" >&2
     [[ "$failure" != libraries ]]
@@ -39,8 +46,12 @@ run_in_warm_container() {
 run_in_container_integrating() { printf 'integrate: %s\n' "$*" >&2; }
 parse_profile_and_value() { shift; selected_value="$1"; }
 '''
+            env = dict(os.environ)
+            env.pop("CONKER_TEST_RUNNER", None)
+            if runner:
+                env["CONKER_TEST_RUNNER"] = runner
             return subprocess.run(["bash", "-c", harness + body, "test", root, failure, *args],
-                                  capture_output=True, text=True)
+                                  capture_output=True, text=True, env=env)
 
     def test_batch_stages_profile_archives_before_full_rom_build(self):
         body = ("case verify-batch in\n    verify-batch)\n"
@@ -59,7 +70,24 @@ parse_profile_and_value() { shift; selected_value="$1"; }
     def test_batch_missing_host_dependencies_stops_before_build(self):
         body = ("case verify-batch in\n    verify-batch)\n"
                 + SCRIPT.split("    verify-batch)\n", 1)[1].split("    stop)\n", 1)[0] + "esac\n")
+        for result in (self.run_script(body, "func_debugger", failure="host", runner="host"),
+                       self.run_script(body, "--host-tests", "func_debugger", failure="host")):
+            self.assertEqual(2, result.returncode)
+            self.assertIn("AGENT_ACTION: BLOCKED_TOOLING", result.stdout)
+            self.assertNotIn("libraries:", result.stderr)
+            self.assertNotIn("build:", result.stderr)
+
+    def test_batch_docker_tests_do_not_need_host_dependencies(self):
+        body = ("case verify-batch in\n    verify-batch)\n"
+                + SCRIPT.split("    verify-batch)\n", 1)[1].split("    stop)\n", 1)[0] + "esac\n")
         result = self.run_script(body, "func_debugger", failure="host")
+        self.assertEqual(0, result.returncode, result.stderr)
+        self.assertIn("AGENT_ACTION: BATCH_COMPLETE", result.stdout)
+
+    def test_batch_missing_core_host_dependencies_stop_docker_mode_before_build(self):
+        body = ("case verify-batch in\n    verify-batch)\n"
+                + SCRIPT.split("    verify-batch)\n", 1)[1].split("    stop)\n", 1)[0] + "esac\n")
+        result = self.run_script(body, "func_debugger", failure="host-core")
         self.assertEqual(2, result.returncode)
         self.assertIn("AGENT_ACTION: BLOCKED_TOOLING", result.stdout)
         self.assertNotIn("libraries:", result.stderr)

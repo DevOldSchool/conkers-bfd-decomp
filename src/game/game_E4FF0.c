@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_E4FF0.c
@@ -167,7 +168,6 @@ void func_150B85C0(GameE4FF0Vector *arg0, f32 *arg1, f32 *arg2, s32 arg3, s32 ar
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B85C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4FF0/func_150B85C0.s")
 f32 func_150ADA68(void);
-void func_15143874(s16, f32, f32 *, f32 *);
 void *func_10022EC0(void *, const void *, u32);
 extern f32 D_8009FD8C;
 extern f32 D_8009FD90;

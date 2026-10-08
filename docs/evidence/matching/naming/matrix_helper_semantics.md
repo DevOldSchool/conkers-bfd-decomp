@@ -1,7 +1,7 @@
 # Matrix construction and translation helpers
 
-Source: `src/done/game/game_71240.c`; volatile argument homes remain
-unchanged.
+Source: `src/done/game/game_71240.c`; naming retains the accepted `f32`
+rotation-argument contracts.
 
 | Symbol | C name | Complete span |
 | --- | --- | --- |
@@ -20,8 +20,10 @@ The latter multiplies all sixteen floats by 65536 and packs their high/low
 halfwords into the N64 fixed-matrix layout. The scaled builder additionally
 multiplies each three-component basis row by its corresponding scale.
 `151669A0` chooses the scaled builder at `15166AB0` or the unit-scale builder
-at `15166AE4`. Integer destination addresses and the third rotation argument's
-existing `volatile s32` float-bit representation are preserved.
+at `15166AE4`. Integer destination addresses are preserved. The third rotation
+argument uses the accepted `f32` contract, matching `150A8050` and `150A9B0C`;
+the earlier `volatile s32` float-bit representation was superseded by the
+source-quality cleanup on main.
 
 `15043EC8` changes an existing float matrix: it overwrites translation and
 scales the three basis rows. It neither initializes rotation nor writes the

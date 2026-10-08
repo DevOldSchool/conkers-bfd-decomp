@@ -330,12 +330,15 @@ class RegisteredMainComparisonTests(unittest.TestCase):
             self.skipTest("historical layout-negative candidate is no longer deferred")
         source = Path("src/main/init_5570.c")
         original = (root / source).read_bytes()
+        # The fixture has no Makefile, so generate reference assembly in the
+        # checkout first instead of relying on another test having done so.
+        diff.ensure_reference("us")
         (root / "build").mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(dir=root / "build") as temporary:
             fixture = Path(temporary)
             for directory in ("scripts", "progress", "src"):
                 shutil.copytree(root / directory, fixture / directory)
-            for directory in ("config", "include", "reference", "roms", "toolchain"):
+            for directory in ("config", "include", "lib", "reference", "roms", "toolchain"):
                 (fixture / directory).symlink_to(root / directory, target_is_directory=True)
             shutil.copy2(root / "Dockerfile", fixture / "Dockerfile")
             # Recreate the historical focused-zero case independently of the

@@ -1,5 +1,6 @@
 from pathlib import Path
 import importlib.metadata
+import os
 import subprocess
 import sys
 import tempfile
@@ -15,7 +16,7 @@ class HostEnvironmentTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory(); self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name); (self.root / "toolchain").mkdir()
-        self.path = self.root / "toolchain/host-requirements.txt"
+        self.path = self.root / "toolchain/python-requirements.txt"
         self.path.write_text("".join(name + "==1.2.3\n" for name in host.MODULES))
 
     def test_exact_complete_unique_pins_required(self):
@@ -24,6 +25,12 @@ class HostEnvironmentTests(unittest.TestCase):
         for text in ["numpy>=1\n", original + "numpy==1.2.3\n", "numpy==1.2.3\n"]:
             self.path.write_text(text)
             with self.assertRaises(ValueError): host.requirements(self.root)
+
+    def test_core_scope_checks_only_packages_host_helpers_import(self):
+        with patch.object(host.importlib.metadata, "version", side_effect=importlib.metadata.PackageNotFoundError("fixture")):
+            errors = host.check(self.root, core=True)
+        self.assertEqual(["PyYAML"], [error.split(":", 1)[0] for error in errors[:-1]])
+        self.assertIn("./conker host-setup", errors[-1])
 
     def test_all_missing_stale_and_broken_imports_reported_with_remedy(self):
         with patch.object(host.importlib.metadata, "version", side_effect=importlib.metadata.PackageNotFoundError("fixture")), patch.object(host.importlib, "import_module") as imports:
@@ -52,8 +59,13 @@ class HostEnvironmentTests(unittest.TestCase):
         launcher=self.root/"conker"; launcher.write_bytes((ROOT/"conker").read_bytes()); launcher.chmod(0o755)
         python=self.root/"build/host-python/bin/python3"; python.parent.mkdir(parents=True)
         python.write_text('#!/bin/sh\nexit 0\n'); python.chmod(0o755)
-        result=subprocess.run([str(launcher),"host-check"],capture_output=True,text=True,check=True)
+        environment={k:v for k,v in os.environ.items() if k!="CONKER_IN_CONTAINER"}
+        result=subprocess.run([str(launcher),"host-check"],capture_output=True,text=True,check=True,env=environment)
         self.assertEqual(str(python),result.stdout.strip())
+        # Inside the toolchain container the host venv is never selected.
+        result=subprocess.run([str(launcher),"host-check"],capture_output=True,text=True,check=True,
+                              env=dict(environment,CONKER_IN_CONTAINER="1"))
+        self.assertNotEqual(str(python),result.stdout.strip())
 
 
 if __name__ == "__main__": unittest.main()

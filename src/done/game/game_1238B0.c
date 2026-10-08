@@ -17,12 +17,14 @@ typedef struct Game1238B0Inner {
 
 typedef struct Game1238B0Object {
     u8 pad0[0x160];
-    Game1238B0Inner *volatile field_160;
+    Game1238B0Inner *field_160;
 } Game1238B0Object;
 
 void func_150F6400(Game1238B0Object *arg0) {
-    if (arg0->field_160) {
-        Game1238B0Substate *state = &arg0->field_160->field_28;
+    Game1238B0Inner **inner = &arg0->field_160;
+
+    if (*inner) {
+        Game1238B0Substate *state = &(*inner)->field_28;
 
         state->field_8 = 0;
     }

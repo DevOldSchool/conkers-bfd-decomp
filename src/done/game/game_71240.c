@@ -17,13 +17,13 @@
 /* Call context: func_150A7790: unique active declaration in the allowed source */
 /* Call context: func_150A8050: unique active declaration in the allowed source */
 void func_150A7790(void *, s32);
-void func_150A8050(void *, f32, f32, s32);
+void func_150A8050(void *, f32, f32, f32);
 
 typedef struct {
     f32 m[4][4];
 } Game71240Work;
 
-void matrix_fixed_build_scaled_euler_transform(s32 arg0, f32 arg1, f32 arg2, volatile s32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
+void matrix_fixed_build_scaled_euler_transform(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
     Game71240Work sp18;
 
     func_150A8050(&sp18, arg1, arg2, arg3);
@@ -41,10 +41,10 @@ void matrix_fixed_build_scaled_euler_transform(s32 arg0, f32 arg1, f32 arg2, vol
     sp18.m[2][2] *= arg6;
     func_150A7790(&sp18, arg0);
 }
-void func_150A8050(void *, f32, f32, s32);
+void func_150A8050(void *, f32, f32, f32);
 void func_150A7790(void *, s32);
 
-void matrix_fixed_build_euler_transform(s32 arg0, f32 arg1, f32 arg2, volatile s32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+void matrix_fixed_build_euler_transform(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     Game71240Work sp18;
 
     func_150A8050(&sp18, arg1, arg2, arg3);
@@ -67,9 +67,9 @@ void matrixf_scale_basis_and_set_translation(void *arg0, f32 arg1, f32 arg2, f32
     *(f32 *)((u8 *)arg0 + 0x24) = (f32) (*(f32 *)((u8 *)arg0 + 0x24) * arg3);
     *(f32 *)((u8 *)arg0 + 0x28) = (f32) (*(f32 *)((u8 *)arg0 + 0x28) * arg3);
 }
-void func_150A9B0C(void *, f32, f32, s32, f32, f32, f32);
+void func_150A9B0C(void *, f32, f32, f32, f32, f32, f32);
 
-void matrixf_build_scaled_euler_transform(Game71240Work *arg0, f32 arg1, f32 arg2, volatile s32 arg3,
+void matrixf_build_scaled_euler_transform(Game71240Work *arg0, f32 arg1, f32 arg2, f32 arg3,
                    f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
     func_150A9B0C(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
     arg0->m[3][0] = arg7;

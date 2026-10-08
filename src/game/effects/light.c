@@ -772,6 +772,7 @@ s32 func_15161E24(LightEffectActor *arg0, u8 arg1, u8 arg2, s16 arg3,
     }
     return result;
 }
+s32 func_15163F50();
 void func_15161F2C(s32 arg0) {
     func_15163F50(arg0, arg0 + 0x18);
 }

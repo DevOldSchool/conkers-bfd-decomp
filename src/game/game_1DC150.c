@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1DC150.c
@@ -32,7 +33,6 @@ void func_1504715C(void *, void *);
 s32 func_15046C80(void *, u16, f32, void *);
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
-void func_15143874(s16, f32, f32 *, f32 *);
 void func_15153F18(s16 *, void *, void *, s32, s32);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
 void func_151DAB58(u8, f32, u8, f32 *, s32, u8, s32);

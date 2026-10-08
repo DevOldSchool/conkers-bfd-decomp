@@ -1,4 +1,5 @@
 #include "types.h"
+#include "libultra_os.h"
 
 /*
  * Reviewed source unit: src/main/init_49E0.c
@@ -16,15 +17,13 @@
 #define scheduler_try_complete_gfx_task func_80004FE0
 #define scheduler_complete_gfx_task func_80005020
 
-typedef struct SchedulerMessageQueue SchedulerMessageQueue;
-
 typedef struct {
     u8 pad0[0xC];
     u32 flags;
     void *framebuffer;
     u8 pad14[4];
     u8 task[0x40];
-    SchedulerMessageQueue *completionQueue;
+    OSMesgQueue *completionQueue;
     void *completionMessage;
 } SchedulerTask;
 
@@ -32,7 +31,6 @@ extern SchedulerTask *D_8002AC50;
 extern u8 D_8002AC5C;
 void func_8515FDA0(s32);
 void func_80024830(void *);
-s32 func_80023580(SchedulerMessageQueue *, void *, s32);
 
 void scheduler_complete_gfx_task(void);
 extern u8 D_8003A582;
@@ -40,7 +38,7 @@ extern u8 D_8003B238;
 
 typedef struct SchedulerClient {
     struct SchedulerClient *next;
-    SchedulerMessageQueue *queue;
+    OSMesgQueue *queue;
     u32 flags;
 } SchedulerClient;
 
@@ -48,9 +46,8 @@ void scheduler_update_gfx_task(void);
 void scheduler_try_complete_gfx_task(void);
 void func_80003330(u8 *);
 void func_8000349C(u8 *);
-s32 func_80023440(SchedulerMessageQueue *, void **, s32);
 u32 func_80024A30(void);
-s32 func_80024A40(void *, u64, u64, SchedulerMessageQueue *, void *);
+s32 func_80024A40(void *, u64, u64, OSMesgQueue *, void *);
 u32 func_80024B20(u8 *);
 void func_80024BA0(void);
 void func_80024BC0(void *);
@@ -62,8 +59,8 @@ extern u8 D_8003A583;
 extern u8 D_8003A584;
 extern u8 D_8003A588;
 extern u16 D_8003A5C8;
-extern SchedulerMessageQueue D_8003B200;
-extern SchedulerMessageQueue D_8003B218;
+extern OSMesgQueue D_8003B200;
+extern OSMesgQueue D_8003B218;
 extern SchedulerClient *D_8003B234;
 extern u8 D_8003B23A;
 extern u8 D_8003B240[];
@@ -173,10 +170,9 @@ void func_800049E0(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_49E0/func_800049E0.s")
 void scheduler_start_gfx_task(void);
 void scheduler_try_complete_gfx_task(void);
-s32 func_80023440(SchedulerMessageQueue *, void **, s32);
 void *func_80024E20(void);
 void *func_80024E60(void);
-extern SchedulerMessageQueue D_8003B1E8;
+extern OSMesgQueue D_8003B1E8;
 extern u8 D_8003B239;
 extern u8 D_8003B23A;
 
@@ -209,7 +205,7 @@ extern SchedulerTask *D_8002AC58;
 extern s8 D_8003A580;
 extern u8 D_8003A583;
 extern u8 D_8003A584;
-extern SchedulerMessageQueue *D_8003B230;
+extern OSMesgQueue *D_8003B230;
 extern u8 D_8003B240[];
 extern s32 D_800BE9E4;
 extern u8 D_800C35EA;

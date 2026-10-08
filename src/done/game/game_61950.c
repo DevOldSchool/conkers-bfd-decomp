@@ -43,26 +43,16 @@ s16 *func_150344A0(s16 *arg0, s32 arg1) {
     return arg0 + 4;
 }
 void func_1503453C(s32 arg0) {
-    if ((s32) D_800CC2D4[arg0 * 0x32C] >= 0x81) {
-        if (D_800CC2D4[arg0 * 0x32C] != 0xB0) {
-            return;
-        }
-        goto block_8;
-    }
-    if ((s32) D_800CC2D4[arg0 * 0x32C] >= 5) {
-        if (D_800CC2D4[arg0 * 0x32C] != 0x80) {
-            return;
-        }
-        goto block_8;
-    }
     switch (D_800CC2D4[arg0 * 0x32C]) {
     case 0:
     case 1:
     case 2:
     case 3:
     case 4:
-block_8:
+    case 0x80:
+    case 0xB0:
         func_1503B9BC();
+        break;
     }
 }
 void func_15034EB4(void *, s32, s32);

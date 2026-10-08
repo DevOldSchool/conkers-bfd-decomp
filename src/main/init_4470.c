@@ -1,4 +1,5 @@
 #include "types.h"
+#include "libultra_os.h"
 
 /*
  * Reviewed source unit: src/main/init_4470.c
@@ -15,15 +16,6 @@
 
 typedef struct TransferThread TransferThread;
 
-typedef struct TransferMessageQueue {
-    TransferThread *messageWaiters;
-    TransferThread *fullWaiters;
-    s32 validCount;
-    s32 first;
-    s32 messageCount;
-    void **messages;
-} TransferMessageQueue;
-
 struct TransferThread {
     u8 pad0[0x14];
     s32 id;
@@ -33,7 +25,7 @@ typedef struct {
     u16 type;
     u8 priority;
     u8 status;
-    TransferMessageQueue *returnQueue;
+    OSMesgQueue *returnQueue;
     void *dramAddress;
     u32 deviceAddress;
     u32 size;
@@ -42,20 +34,18 @@ typedef struct {
 
 extern TransferThread *D_8002BE00;
 void func_80022D10(void *, s32);
-s32 func_80024920(TransferIoMessage *, s32, s32, u32, void *, u32, TransferMessageQueue *);
+s32 func_80024920(TransferIoMessage *, s32, s32, u32, void *, u32, OSMesgQueue *);
 
-s32 func_80023440(TransferMessageQueue *, void **, s32);
-extern TransferMessageQueue D_800388C8;
+extern OSMesgQueue D_800388C8;
 extern u8 D_8003A571;
 
-void func_800030A0(s32, TransferMessageQueue *, void **, s32);
-void func_80023790(TransferMessageQueue *, void **, s32);
-extern TransferMessageQueue D_800388B0;
+void func_800030A0(s32, OSMesgQueue *, void **, s32);
+extern OSMesgQueue D_800388B0;
 extern void *D_800380E0[];
 extern void *D_80038400[];
 extern void *D_800388F8[3];
 extern void *D_80038904[];
-extern TransferMessageQueue D_80038908[];
+extern OSMesgQueue D_80038908[];
 extern u8 D_8003A570;
 
 void func_80004470(void) {
@@ -78,7 +68,7 @@ void func_8000480C(u32, void *, u32);
 extern TransferIoMessage D_80038950[];
 
 void func_80004514(u32 source, void *destination, u32 size, s32 blocking) {
-    TransferMessageQueue *queue;
+    OSMesgQueue *queue;
     TransferIoMessage request;
     TransferIoMessage *message;
     s32 index;

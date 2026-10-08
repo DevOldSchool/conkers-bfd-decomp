@@ -542,6 +542,8 @@ extern u8 D_800C3C88;
 extern u8 D_800C3C89;
 extern u8 D_800C35EA[];
 
+s32 func_151F2CDC(void);
+
 void func_1501E1B4(s32 arg0) {
     if (D_800C3C88 == 0) {
         if (D_800C35EA[arg0] != 1) {

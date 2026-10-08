@@ -7,11 +7,21 @@ command details.
 
 ## Setup
 
-Run `./conker host-setup` once with Python 3.12 or newer. This installs the
-pinned host helper and full-suite test dependencies into ignored
-`build/host-python`; `./conker` selects it automatically. `host-check`,
-`doctor`, matching readiness and batch verification reject missing or stale
-dependencies before Docker/build work. Setup never changes global Python.
+Run `./conker host-setup` once with Python 3.12 or newer. Host helpers such as
+`project_state.py` need the pinned PyYAML; setup installs it, together with the
+host-mode test packages, into ignored `build/host-python`, which `./conker`
+selects automatically. Setup never changes global Python. `doctor`, matching
+readiness and batch verification reject a missing or stale PyYAML before
+Docker/build work.
+
+`./conker test` and `verify-batch` run the Python suite in the pinned toolchain
+container, which already has every test package. To run the suite directly on
+the host instead (as the Mac and Codex cloud setups do), use
+`./conker test --host`, `verify-batch --host-tests`, or set
+`CONKER_TEST_RUNNER=host`; host mode also requires the full pinned package set
+from `host-setup`. Host mode skips tests that need the container's MIPS binutils
+or asm-differ, so CI always also runs the full suite in Docker. Docker mode
+never falls back to the host.
 
 1. For local work, install Docker and run `./conker doctor`.
 2. Supply your own reviewed US ROM at `roms/baserom.us.z64`, then run
@@ -43,7 +53,9 @@ inspect partial writes before retrying a failed helper. Record the reason for
 unchanged rechecks, and count them, compilation repairs and accidental duplicates
 separately from new hypotheses.
 
-Use `types.h` aliases and existing structures. For incomplete local evidence, use
+Use `types.h` aliases (the pinned SDK's `PR/ultratypes.h`) and existing structures;
+stock SDK types come from `lib/ultralib` headers such as `PR/os_message.h`, not
+local copies. For incomplete local evidence, use
 a typed pointer or source-local partial structure. Resolve unknown types from
 project evidence and add concrete required declarations before `finish`. Keep
 `sb`/`sh` parameters as `s32` unless existing declarations prove otherwise. Never

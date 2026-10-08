@@ -9,6 +9,7 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
+import host_environment
 import matching_prerequisites as readiness
 
 
@@ -22,9 +23,6 @@ class MatchingPrerequisiteTests(unittest.TestCase):
         return result.stdout.strip()
 
     def setUp(self):
-        patcher = patch.object(readiness.host_environment, "check", return_value=[])
-        patcher.start()
-        self.addCleanup(patcher.stop)
         self.temporary = tempfile.TemporaryDirectory(prefix="ready inputs ")
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
@@ -94,9 +92,10 @@ class MatchingPrerequisiteTests(unittest.TestCase):
         (self.sdk / "Makefile").unlink()
         self.assertEqual(2, len(readiness.check(self.root)))
 
-    def test_missing_host_dependencies_are_reported_before_docker(self):
-        with patch.object(readiness.host_environment, "check", return_value=["missing numpy", "run ./conker host-setup"]):
-            self.assertEqual(["missing numpy", "run ./conker host-setup"], readiness.check(self.root))
+    def test_host_test_dependencies_do_not_gate_matching(self):
+        with patch.object(host_environment, "check", return_value=["missing numpy"]) as host:
+            self.assertEqual([], readiness.check(self.root))
+        host.assert_not_called()
 
     def test_cli_reports_blocked_tooling(self):
         with patch.object(readiness, "check", return_value=["missing fixture"]), \

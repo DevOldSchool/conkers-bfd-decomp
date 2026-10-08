@@ -31,13 +31,6 @@ typedef struct Game1E2180Actor {
     u8 field3B;
 } Game1E2180Actor;
 
-typedef struct Game1E2180Locals {
-    s32 classification;
-    s8 flag;
-    u8 pad5[3];
-    Game1E2180EffectPacket packet;
-} Game1E2180Locals;
-
 s32 func_15134070(void *);
 u32 func_1513418C(void *, s32, u8, s32);
 void func_1516962C(s32, void *, s32);
@@ -47,43 +40,44 @@ extern u8 D_800A3FE6[];
 
 u32 func_151B4CD0(Game1E2180Actor *arg0, u8 arg1, s32 arg2) {
     u32 result;
-    Game1E2180Locals locals;
-    u32 unused;
+    Game1E2180EffectPacket packet;
+    s8 flag[1];
+    s32 classification;
 
     if (arg0 == 0) {
         return 0;
     }
-    locals.classification = func_15134070(arg0);
-    if (locals.classification == 0x63) {
+    classification = func_15134070(arg0);
+    if (classification == 0x63) {
         return 0;
     }
-    if (D_800A3FE6[locals.classification * 0x10] == 2) {
+    if (D_800A3FE6[classification * 0x10] == 2) {
         return 0;
     }
     func_1516962C(0x28, arg0, 0x16);
-    locals.packet.field0 = 0;
-    locals.packet.field4 = 0;
-    locals.packet.field8 = arg0->field3B;
-    locals.packet.field14 = 0.0f;
-    locals.packet.field18 = -27.0f;
-    locals.packet.field1C = 16.0f;
-    locals.packet.field20 = 15.0f;
-    locals.packet.field24 = 0.448f;
-    locals.packet.field10 = 2;
-    locals.packet.field2A = 6;
-    locals.packet.fieldC = arg0;
-    locals.packet.field28 = (func_150ADA20() % 21U) + 0x28;
-    locals.packet.field2B = 8;
-    locals.packet.field2C = -1;
-    locals.packet.field2D = 7;
-    if (D_800A3FE6[locals.classification * 0x10] == 1) {
-        locals.flag = 1;
+    packet.field0 = 0;
+    packet.field4 = 0;
+    packet.field8 = arg0->field3B;
+    packet.field14 = 0.0f;
+    packet.field18 = -27.0f;
+    packet.field1C = 16.0f;
+    packet.field20 = 15.0f;
+    packet.field24 = 0.448f;
+    packet.field10 = 2;
+    packet.field2A = 6;
+    packet.fieldC = arg0;
+    packet.field28 = (func_150ADA20() % 21U) + 0x28;
+    packet.field2B = 8;
+    packet.field2C = -1;
+    packet.field2D = 7;
+    if (D_800A3FE6[classification * 0x10] == 1) {
+        flag[0] = 1;
     } else {
-        locals.flag = 0;
+        flag[0] = 0;
     }
-    result = func_1513418C(&locals.packet, 1, arg1, arg2);
+    result = func_1513418C(&packet, 1, arg1, arg2);
     if (result != 0) {
-        func_10022EC0((u8 *)result + 0x58, &locals.flag, 1);
+        func_10022EC0((u8 *)result + 0x58, flag, 1);
     }
     return result;
 }

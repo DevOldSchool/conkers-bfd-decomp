@@ -238,6 +238,35 @@ void func_wrapper(s32 arg0) {
         self.assertIn("  M2C_UNK func_target(s32, s32); /* extern */", output)
         self.assertIn("c-starter:\n" + starter, output)
 
+    def test_types_header_inlines_quoted_sdk_include(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            sdk = temporary_root / "lib" / "sdk" / "PR" / "ultratypes.h"
+            sdk.parent.mkdir(parents=True)
+            sdk.write_text(
+                "#ifndef _ULTRATYPES_H_\n#define _ULTRATYPES_H_\n"
+                "#if defined(_LANGUAGE_C)\n"
+                "typedef long s32;\ntypedef unsigned long u32;\n"
+                "#if (_MIPS_SZLONG == 32)\ntypedef unsigned int size_t;\n#endif\n"
+                "#if (_MIPS_SZLONG == 64)\ntypedef unsigned long size_t;\n#endif\n"
+                "#endif\n#define NULL 0\n#endif\n",
+                encoding="utf-8",
+            )
+            types = temporary_root / "include" / "types.h"
+            types.parent.mkdir(parents=True)
+            types.write_text(
+                '#ifndef TYPES_H\n#define TYPES_H\n#include "../lib/sdk/PR/ultratypes.h"\n#endif\n',
+                encoding="utf-8",
+            )
+
+            with patch.object(m2c_helper, "ROOT", temporary_root):
+                flattened = m2c_helper.flattened_types_header()
+
+            self.assertEqual(
+                "typedef long s32;\ntypedef unsigned long u32;\ntypedef unsigned int size_t;",
+                flattened,
+            )
+
     def test_prepares_source_local_context_under_ignored_build_output(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             temporary_root = Path(temporary_directory)
@@ -274,6 +303,53 @@ void func_wrapper(s32 arg0) {
             self.assertNotIn("#include", generated)
             self.assertNotIn("#if", generated)
             self.assertNotIn("#pragma", generated)
+
+    def test_flattened_context_inlines_reviewed_headers_with_provenance(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            include = root / "include"
+            include.mkdir()
+            (include / "types.h").write_text("typedef signed int s32;\n")
+            (include / "example_command.h").write_text(
+                "#ifndef EXAMPLE_COMMAND_H\n#define EXAMPLE_COMMAND_H\n#include \"types.h\"\n"
+                "typedef struct Command { s32 opcode; } Command;\n#endif\n")
+            (include / "example_functions.h").write_text(
+                "#ifndef EXAMPLE_FUNCTIONS_H\n#define EXAMPLE_FUNCTIONS_H\n"
+                "#include \"types.h\"\n#include \"example_command.h\"\n"
+                "Command *func_command(Command *, s32);\nvoid func_owned(s32);\n#endif /* guard */\n")
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text('#include "types.h"\n#include "example_functions.h"\n\n'
+                              "/* unit comment */\nvoid func_caller(void) { func_owned(1); }\n")
+            with patch.object(m2c_helper, "ROOT", root):
+                context = m2c_helper.flattened_source_context(source)
+                assert context is not None
+                self.assertNotIn("#", context)
+                self.assertLess(context.index("typedef struct Command"), context.index("func_command"))
+                self.assertLess(context.index("void func_owned(s32);"), context.index("func_caller"))
+                self.assertEqual(("void func_owned(s32);",),
+                                 m2c_helper.m2c_context.header_declarations(context))
+                original = ('#include "types.h"\n#include "example_functions.h"\n\n'
+                            '#define named_caller func_15000000\n'
+                            'void named_caller(void) { func_owned(1); }\n')
+                source.write_text(original)
+                context = m2c_helper.flattened_source_context(source)
+                self.assertIsNotNone(context)
+                self.assertIn('void func_15000000(void) { func_owned(1); }', context)
+                self.assertNotIn('#define', context)
+                self.assertEqual(("void func_owned(s32);",),
+                                 m2c_helper.m2c_context.header_declarations(context))
+                self.assertEqual(original, source.read_text())
+                for text in (
+                    "#ifndef X\n#define X\n#if PROFILE_US\nvoid func_owned(s32);\n#endif\n#endif\n",
+                    "void func_owned(s32);\n",  # No include guard.
+                ):
+                    with self.subTest(text=text):
+                        (include / "example_functions.h").write_text(text)
+                        self.assertIsNone(m2c_helper.flattened_source_context(source))
+                # A reviewed include after source code starts is not initial; use IDO.
+                source.write_text('#include "types.h"\nvoid early(void);\n#include "example_command.h"\n')
+                self.assertIsNone(m2c_helper.flattened_source_context(source))
 
     def test_mips_to_c_command_uses_source_context_when_available(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

@@ -33,14 +33,14 @@ void func_1512D748(void *, s32, s32);
 void func_15143134(f32 *, f32 *, s32);
 void func_151D3FF4(s32, u8, s32);
 u32 func_150ADA20(void);
-void func_1514C858(f32, f32, s32, f32, s32, s32, s32, s32, s32,
-                   s32, f32, s32, s32);
-void func_151D8868(s8 *, s32, s32, s32);
+void func_1514C858(f32, f32, f32, f32, s32, s32, s32, s32, s32,
+                   s32, f32, s32, u8);
+void func_151D8868(s8 *, s32, u8, s32);
 extern f32 D_8009FBC0;
 extern s32 D_800BE9E8;
 extern s32 D_800DBFF0;
 
-void func_150B3AB0(GameE0F60Entity *arg0, volatile u8 arg1) {
+void func_150B3AB0(GameE0F60Entity *arg0, u8 arg1) {
     GameE0F60Position position;
     GameE0F60Packet packet;
 
@@ -48,7 +48,7 @@ void func_150B3AB0(GameE0F60Entity *arg0, volatile u8 arg1) {
         func_1512D748((void *)(D_800DBFF0 + D_800BE9E8 * 0x9A0), 6, 1);
         position.fieldE = (arg0->field7A >> 8) + 0x40;
         func_15143134(&D_8009FBC0, &position.x, arg0->field1D4 + 0x640);
-        func_1514C858(position.x, position.y, *(s32 *)&position.z, 10.0f,
+        func_1514C858(position.x, position.y, position.z, 10.0f,
                        position.fieldE, 0, 0xFF,
                        (func_150ADA20() % 31U) + 0x28, 8, 0, 0.0f, 0,
                        arg1);

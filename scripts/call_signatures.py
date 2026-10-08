@@ -492,6 +492,139 @@ def callee_home_arguments(assembly: str) -> tuple[str, ...] | None:
     return tuple('void *' if i in pointers else 's32' for i in range(len(homes)))
 
 
+# Reviewed shared headers (include/*_functions.h and the headers they include)
+# contain only include guards, nested project includes and declarations.
+PROJECT_INCLUDE = re.compile(r'^\s*#include\s+"(?P<name>[A-Za-z0-9_]+\.h)"\s*$')
+TYPES_INCLUDE = re.compile(r'^\s*#include\s+"types\.h"\s*$')
+FUNCTIONS_HEADER_SUFFIX = '_functions.h'
+HEADER_GUARD = re.compile(r'^\s*#ifndef\s+(?P<guard>[A-Za-z_]\w*)\s*$')
+HEADER_END = re.compile(r'^\s*#endif\b')
+REQUIRED_INCLUDE_MARKER = 'CONKER_REQUIRED_INCLUDE'
+REQUIRED_INCLUDE = re.compile(r'/\* ' + REQUIRED_INCLUDE_MARKER + r': "(?P<name>[A-Za-z0-9_]+\.h)" \*/')
+DECLARED_NAME = re.compile(r'([A-Za-z_]\w*)\s*\(')
+
+
+def declared_name(declaration: str) -> str | None:
+    match = DECLARED_NAME.search(declaration)
+    return match[1] if match else None
+
+
+def flattened_header(root: Path, name: str, seen: set[str] | None = None) -> str | None:
+    """Inline one guarded project header, failing closed on other directives."""
+    seen = set() if seen is None else seen
+    if name == 'types.h' or name in seen:
+        return ''
+    path = root / 'include' / name
+    if not path.is_file():
+        return None
+    seen.add(name)
+    lines = path.read_text(encoding='utf-8').splitlines(keepends=True)
+    directives = [index for index, line in enumerate(lines) if line.lstrip().startswith('#')]
+    guard = HEADER_GUARD.match(lines[directives[0]]) if len(directives) >= 3 else None
+    if (guard is None
+            or not re.fullmatch(rf'\s*#define\s+{guard["guard"]}\s*', lines[directives[1]])
+            or not HEADER_END.match(lines[directives[-1]])):
+        return None
+    parts = []
+    for index, line in enumerate(lines):
+        if index in (directives[0], directives[1], directives[-1]):
+            continue
+        if line.lstrip().startswith('#'):
+            include = PROJECT_INCLUDE.match(line)
+            nested = flattened_header(root, include['name'], seen) if include else None
+            if nested is None:
+                return None
+            line = nested
+        parts.append(line)
+    return ''.join(parts)
+
+
+def initial_includes(source: str) -> list[str]:
+    """Reviewed headers included before any other source line, in order."""
+    names = []
+    for line in source.splitlines():
+        if not line.strip() or TYPES_INCLUDE.match(line):
+            continue
+        include = PROJECT_INCLUDE.match(line)
+        if include is None or not include['name'].endswith(FUNCTIONS_HEADER_SUFFIX):
+            break
+        names.append(include['name'])
+    return names
+
+
+def initial_header_text(root: Path, source: str) -> str | None:
+    """Flatten the initial reviewed headers; None if one cannot be flattened.
+
+    Only these are visible at every candidate position.
+    """
+    seen: set[str] = set()
+    parts = []
+    for name in initial_includes(source):
+        text = flattened_header(root, name, seen)
+        if text is None:
+            return None
+        parts.append(text)
+    return ''.join(parts)
+
+
+def header_owners(root: Path) -> dict[str, tuple[str, set[Signature | None]]]:
+    """Map each function declared by a flattenable reviewed header to its owner."""
+    owners = {}
+    for header in sorted((root / 'include').glob('*' + FUNCTIONS_HEADER_SUFFIX)):
+        text = flattened_header(root, header.name)
+        if text is None:
+            continue
+        for name, choices in source_signatures(text).items():
+            owners.setdefault(name, (header.name, choices))
+    return owners
+
+
+def header_owned_declarations(declarations, source: str, root: Path):
+    """Replace prototypes owned by a reviewed header with that header's include.
+
+    Returns kept declarations, headers the source must include before the
+    candidate, and owned declarations whose signature differs from the header.
+    The header remains authoritative; a difference needs ABI review.
+    """
+    owners = header_owners(root) if declarations else {}
+    included = set(initial_includes(source))
+    kept, includes, conflicts = [], [], []
+    for declaration in declarations:
+        name = declared_name(declaration)
+        if name not in owners:
+            kept.append(declaration)
+            continue
+        header, choices = owners[name]
+        if source_signatures(declaration).get(name) != choices:
+            conflicts.append(declaration)
+        if header not in included and header not in includes:
+            includes.append(header)
+    return kept, includes, conflicts
+
+
+def required_include_marker(header: str) -> str:
+    return f'/* {REQUIRED_INCLUDE_MARKER}: "{header}" */'
+
+
+def add_initial_includes(source: str, headers) -> str:
+    """Insert includes after the initial include block, keeping newline style."""
+    headers = [header for header in headers if header not in initial_includes(source)]
+    if not headers:
+        return source
+    newline = '\r\n' if '\r\n' in source else '\n'
+    lines = source.splitlines(keepends=True)
+    position = 0
+    for index, line in enumerate(lines):
+        if TYPES_INCLUDE.match(line) or PROJECT_INCLUDE.match(line):
+            position = index + 1
+        elif line.strip():
+            break
+    added = ''.join(f'#include "{header}"{newline}' for header in headers)
+    if position and not lines[position - 1].endswith(('\n', '\r')):
+        added = newline + added
+    return ''.join(lines[:position]) + added + ''.join(lines[position:])
+
+
 @dataclass(frozen=True)
 class Recovery:
     declarations: tuple[str, ...] = ()

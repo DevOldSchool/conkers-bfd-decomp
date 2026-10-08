@@ -1,4 +1,5 @@
 #include "types.h"
+#include "libultra_os.h"
 
 /*
  * Reviewed source unit: src/main/init_B1B0.c
@@ -907,8 +908,6 @@ s32 func_8000CDA0(u8 arg0, SequenceRecordState *record) {
     }
     return arg0 == 0;
 }
-typedef struct MessageQueue MessageQueue;
-
 extern s32 D_800417C0[][16];
 extern s32 D_800418B0[][16];
 extern s32 D_80041880[];
@@ -917,7 +916,6 @@ extern s32 D_800418A0[];
 extern u8 D_80041970[][16];
 extern u8 D_800419A0;
 extern u8 D_800CC2D0[];
-s32 func_80023440(MessageQueue *, void **, s32);
 void func_8507E7E4(void *, s32, s32, s32, s32);
 void func_800084D8(u8);
 void func_80008F58(u8);
@@ -939,7 +937,7 @@ void func_8000CEAC(s32 arg0) {
         modes = record->field8;
         masks = record->fieldC;
         D_800418AC[arg0] = 0;
-        while (func_80023440((MessageQueue *)(D_80041E58 + arg0 * 0x18),
+        while (func_80023440((OSMesgQueue *)(D_80041E58 + arg0 * 0x18),
                             &message, 0) == 0) {
             bit = (s32)message & 7;
             if ((s32)message & 0x10) {
