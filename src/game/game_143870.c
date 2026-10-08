@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1511650C
- * - func_15116888
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -47,20 +46,21 @@ void func_151163C0(u8 *actor) {
 f32 func_15048A40(s32);                             /* extern */
 s32 func_150490A8(f32 *);                      /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15116888 CURRENT (13) */
 s32 func_15116888(s32 arg0, s32 arg1, s32 arg2, void *arg3) {
     s32 x;
     s32 z;
     s32 bearing;
     s32 angle;
+    s32 tmp1;
     f32 result;
     f32 displacement[3];
     f32 cosine;
 
     x = (s32)*(f32 *)((u8 *)arg3 + 0x14);
     z = (s32)*(f32 *)((u8 *)arg3 + 0x1C);
+    tmp1 = z;
     displacement[0] = (f32)(x - arg0);
-    displacement[2] = (f32)(z - arg1);
+    displacement[2] = tmp1 - arg1;
     bearing = func_150490A8(displacement);
     angle = *(u16 *)((u8 *)arg3 + 0x76);
     angle = 0x40 - (angle >> 8);
@@ -69,8 +69,6 @@ s32 func_15116888(s32 arg0, s32 arg1, s32 arg2, void *arg3) {
     result = *(f32 *)((u8 *)arg3 + 0x3C) * cosine;
     return (s32)result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15116888 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_143870/func_15116888.s")
 void func_15116924(s32 arg0) {
 
 }

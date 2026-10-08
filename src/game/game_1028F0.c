@@ -9,7 +9,6 @@
  * - func_150D596C
  * - func_150D5A6C
  * - func_150D6434
- * - func_150D65F0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -152,12 +151,11 @@ void func_150D64E8(void *arg0, f32 *arg1) {
 u32 func_150ADA20(void);
 void func_151A5D58(f32, s32, s32, s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D65F0 CURRENT (90) */
 void func_150D65F0(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
     struct {
-        u32 final_random;
         f32 value;
         u32 random_value;
+        u32 final_random;
     } locals;
 
     locals.value = func_150ADA68();
@@ -166,10 +164,8 @@ void func_150D65F0(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
     func_151A5D58((locals.value * 100.0f) + 150.0f,
                   ((locals.random_value % 71U) + 0x82) & 0xFF,
                   arg0, arg1, (locals.final_random % 31U) + 0x32,
-                  0, 1, (s32)arg2, arg3);
+                  0, 1, (u32)arg2, arg3);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D65F0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1028F0/func_150D65F0.s")
 void func_15182670(s32, s32, s32, s32, s32, s32, s32, s32);
 
 void func_150D66A4(u8 arg0, u8 arg1, s32 arg2) {
