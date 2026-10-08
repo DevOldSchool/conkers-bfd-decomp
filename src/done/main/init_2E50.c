@@ -1,4 +1,5 @@
 #include "types.h"
+#include "libultra_os.h"
 
 /*
  * Reviewed source unit: src/main/init_2E50.c
@@ -6,15 +7,14 @@
  */
 
 typedef struct ThreadState ThreadState;
-typedef struct MessageQueue MessageQueue;
 typedef struct PiHandle PiHandle;
 
 typedef struct DeviceManager {
     s32 active;
     ThreadState *thread;
-    MessageQueue *commandQueue;
-    MessageQueue *eventQueue;
-    MessageQueue *accessQueue;
+    OSMesgQueue *commandQueue;
+    OSMesgQueue *eventQueue;
+    OSMesgQueue *accessQueue;
     s32 (*dma)(s32, u32, void *, u32);
     s32 (*extendedDma)(PiHandle *, s32, u32, void *, u32);
 } DeviceManager;
@@ -23,7 +23,7 @@ typedef struct IoMessage {
     u16 type;
     u8 priority;
     u8 status;
-    MessageQueue *returnQueue;
+    OSMesgQueue *returnQueue;
     void *dramAddress;
     u32 deviceAddress;
     u32 size;
@@ -31,8 +31,6 @@ typedef struct IoMessage {
 } IoMessage;
 
 void func_80022E00(ThreadState *);
-s32 func_80023440(MessageQueue *, void **, s32);
-s32 func_80023580(MessageQueue *, void *, s32);
 extern ThreadState D_80035910;
 extern volatile u8 D_8003A572;
 extern volatile u8 D_8003A573;

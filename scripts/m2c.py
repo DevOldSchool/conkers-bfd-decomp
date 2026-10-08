@@ -32,6 +32,9 @@ JAL_PATTERN = re.compile(r"\bjal\s+([A-Za-z_][A-Za-z0-9_]*)\b")
 ARGUMENT_REGISTER_PATTERN = re.compile(r"\$a([0-3])\b")
 PREPROCESSOR_PATTERN = re.compile(r"^\s*#")
 TYPES_INCLUDE_PATTERN = re.compile(r'^\s*#include\s+"types\.h"\s*$')
+QUOTED_INCLUDE_PATTERN = re.compile(r'^\s*#\s*include\s+"([^"]+)"')
+TYPEDEF_NAME_PATTERN = re.compile(r"^\s*typedef\b[^;]*?\b([A-Za-z_]\w*)\s*;")
+BLOCK_COMMENT_PATTERN = re.compile(r"/\*.*?\*/", re.S)
 GLOBAL_ASM_PATTERN = re.compile(r"^\s*#pragma\s+GLOBAL_ASM\b")
 INTRINSIC_PRAGMA_PATTERN = re.compile(
     r"^\s*(?:#pragma\s+intrinsic\s*\(\s*(?:sqrtf|fabsf)\s*\)"
@@ -592,16 +595,41 @@ def ready_output(starter: str, symbol: str) -> str:
 
 
 def flattened_types_header() -> str:
-    """Return scalar aliases without include guards or other directives."""
+    """Return scalar aliases without include guards or other directives.
+
+    Quoted includes in types.h (the SDK's PR/ultratypes.h) are inlined in
+    place; a typedef name that appears twice keeps its first definition, which
+    is the 32-bit branch of the SDK's conditional size_t typedefs.
+    """
 
     source = ROOT / TYPES_HEADER
     if not source.is_file():
         return ""
-    return "".join(
-        line
-        for line in source.read_text(encoding="utf-8").splitlines(keepends=True)
-        if not PREPROCESSOR_PATTERN.match(line)
-    ).strip()
+    lines: list[str] = []
+    seen_typedefs: set[str] = set()
+
+    def flatten(header: Path) -> None:
+        text = BLOCK_COMMENT_PATTERN.sub("", header.read_text(encoding="utf-8"))
+        for line in text.splitlines(keepends=True):
+            if not line.strip():
+                continue
+            included = QUOTED_INCLUDE_PATTERN.match(line)
+            if included:
+                nested = (header.parent / included.group(1)).resolve()
+                if nested.is_file():
+                    flatten(nested)
+                continue
+            if PREPROCESSOR_PATTERN.match(line):
+                continue
+            typedef = TYPEDEF_NAME_PATTERN.match(line)
+            if typedef:
+                if typedef.group(1) in seen_typedefs:
+                    continue
+                seen_typedefs.add(typedef.group(1))
+            lines.append(line.rstrip() + "\n")
+
+    flatten(source)
+    return "".join(lines).strip()
 
 
 def initial_header_text(source_text: str) -> str | None:

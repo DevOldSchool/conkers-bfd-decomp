@@ -35,6 +35,8 @@ def compiler_flags(profile: str) -> list[str]:
         f"-DPROFILE_{profile.upper()}=1",
         "-I",
         "include",
+        "-I",
+        "lib/ultralib/include",
         "-O2",
         "-g3",
         "-mips2",

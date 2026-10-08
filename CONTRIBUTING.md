@@ -43,7 +43,9 @@ inspect partial writes before retrying a failed helper. Record the reason for
 unchanged rechecks, and count them, compilation repairs and accidental duplicates
 separately from new hypotheses.
 
-Use `types.h` aliases and existing structures. For incomplete local evidence, use
+Use `types.h` aliases (the pinned SDK's `PR/ultratypes.h`) and existing structures;
+stock SDK types come from `lib/ultralib` headers such as `PR/os_message.h`, not
+local copies. For incomplete local evidence, use
 a typed pointer or source-local partial structure. Resolve unknown types from
 project evidence and add concrete required declarations before `finish`. Keep
 `sb`/`sh` parameters as `s32` unless existing declarations prove otherwise. Never

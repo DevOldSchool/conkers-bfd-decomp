@@ -2240,6 +2240,7 @@ void func_1507AD30(void) {
 void func_1507AD60(void) {
     D_800D154C->field_1E4 = D_800D1890;
 }
+s32 func_1507A3E8(void);
 void func_1507AD7C(void) {
     s32 mask;
 
