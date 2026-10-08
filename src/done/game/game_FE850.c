@@ -18,7 +18,7 @@ typedef struct GameFE850State {
 } GameFE850State;
 
 void func_15059C84(GameFE850State *);
-void func_151467A4(s32, s32, s32, s32, f32, f32, f32, s32);
+void func_151467A4(f32 *, f32, f32 *, f32, f32, f32, f32, f32 *);
 void func_1515D4D4(s32, u8, u8, s32);
 extern f32 D_800A08B0;
 extern f32 D_800A08B4;
@@ -65,11 +65,11 @@ void func_150D146C(s32 arg0) {
     }
 }
 void func_150D149C(void *arg0) {
-    s32 sp28;
+    f32 *sp28;
 
-    sp28 = (s32)arg0 + 0x28;
-    func_151467A4((s32)((u8 *)arg0 + 0x30), 0x41200000,
-                  (s32)((u8 *)arg0 + 0x2C), 0x42480000,
+    sp28 = (f32 *)((u8 *)arg0 + 0x28);
+    func_151467A4((f32 *)((u8 *)arg0 + 0x30), 10.0f,
+                  (f32 *)((u8 *)arg0 + 0x2C), 50.0f,
                   100.0f, 123.0f, D_800A08C0, sp28);
-    func_1515D4D4((s32)*(f32 *)sp28, D_800DCD20[1], D_800DCD20[2], 0);
+    func_1515D4D4((s32)*sp28, D_800DCD20[1], D_800DCD20[2], 0);
 }

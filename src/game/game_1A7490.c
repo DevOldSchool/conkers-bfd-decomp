@@ -153,7 +153,7 @@ s32 func_1517A394(s32 arg0) {
 }
 s32 func_1510AEE0(f32 *, f32, f32, f32, f32, f32, f32, f32, f32 *, f32 *);
 s32 func_1517A9A8(s32, s32);
-void func_15043D90(s32, f32, f32, s32, f32, f32, f32, f32, f32, f32);
+void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 void *func_15142FBC(void *, s32, s32, u8 *);
 extern u8 D_800D9C10[];
 extern f32 D_800D35E0[2];
@@ -164,16 +164,10 @@ extern s16 D_800DD450;
 extern s32 D_800D2C9C;
 extern u8 D_8008CDF0[];
 
-typedef union Game1A7490FloatWord {
-    f32 value;
-    s32 bits;
-} Game1A7490FloatWord;
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1517A3A0 CURRENT (4278) */
 s32 func_1517A3A0(s32 arg0, Game1A7490Motion *effect, s32 view) {
     u8 flag;
     f32 scale;
-    Game1A7490FloatWord angle;
     s32 mode;
     u32 *command;
 
@@ -192,10 +186,8 @@ s32 func_1517A3A0(s32 arg0, Game1A7490Motion *effect, s32 view) {
     }
     arg0 = func_1517A9A8(arg0, effect->field9F);
     scale = effect->fieldA8;
-    /* The existing matrix helper carries its third float angle in an s32 slot. */
-    angle.value = (f32)effect->pos9A;
     func_15043D90((s32)((u8 *)effect + (D_800BE9C0 << 6) + 0x10),
-                   (f32)effect->pos96, (f32)effect->pos98, angle.bits,
+                   (f32)effect->pos96, (f32)effect->pos98, (f32)effect->pos9A,
                    scale, scale, scale,
                    (f32)effect->pos90, (f32)effect->pos92, (f32)effect->pos94);
     command = (u32 *)arg0;

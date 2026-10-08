@@ -29,18 +29,13 @@ void func_100226F0(void *, s32);
 Game1765E0EffectHeader *func_15149130(s16 initialTimer, s8 expiryCallbackIndex, s8 tickCallbackIndex, s8 drawCallbackIndex,
                                       u8 flags, u8 callbackSetIndex, s32 extraBytes, u8 arg7,
                                       s32 arg8) {
-    volatile struct {
-        s32 pad_20;
-        s32 sp24;
-        s32 pad_28;
-        Game1765E0EffectHeader *sp2C;
-    } locals;
     Game1765E0EffectHeader *object;
     u8 objectKind;
+    s32 size;
 
-    locals.sp24 = extraBytes + 0x28;
+    size = extraBytes + 0x28;
     objectKind = (flags & 2) ? 0x5F : 0x23;
-    object = func_15167A68(objectKind, arg8, locals.sp24, 1, arg7, 1);
+    object = func_15167A68(objectKind, arg8, size, 1, arg7, 1);
     if (object == 0) {
         return 0;
     }
@@ -50,9 +45,8 @@ Game1765E0EffectHeader *func_15149130(s16 initialTimer, s8 expiryCallbackIndex, 
     object->drawCallbackIndex = drawCallbackIndex;
     object->flags = flags;
     object->callbackSetIndex = callbackSetIndex;
-    locals.sp2C = object;
     func_100226F0(object->data, 0x10);
-    return locals.sp2C;
+    return object;
 }
 
 /*

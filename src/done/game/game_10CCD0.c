@@ -15,7 +15,7 @@ void func_150DF820(void *arg0) {
     *(s32 *)((u8 *)arg0 + 0x84) &= ~0x1010;
     if (*(u8 *)((u8 *)*(void **)((u8 *)arg0 + 0x3D0) + 0xAD) != 0) {
         *(s32 *)((u8 *)arg0 + 0x84) |= 0x1010;
-        *(volatile s32 *)((u8 *)arg0 + 0x84) = *(s32 *)((u8 *)arg0 + 0x84) & ~4;
+        *(s32 *)((u8 *)arg0 + 0x84) &= ~4;
         *(f32 *)((u8 *)arg0 + 0x374) = D_800A0F60;
         return;
     }
