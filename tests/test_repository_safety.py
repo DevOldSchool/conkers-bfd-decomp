@@ -73,18 +73,21 @@ class RepositorySafetyTests(unittest.TestCase):
 
     def test_public_tests_run_on_pinned_host_and_in_built_image(self) -> None:
         jobs = yaml.safe_load((ROOT / ".github/workflows/ci.yml").read_text())["jobs"]
-        steps = jobs["tooling"]["steps"]
-        commands = [step["run"] for step in steps if "run" in step]
-        self.assertLess(commands.index("./conker host-setup"), commands.index("./conker test --host -v"))
-        python = next(step for step in steps if step.get("uses", "").startswith("actions/setup-python@"))
-        self.assertEqual(python["with"]["python-version"], "3.12")
-        self.assertEqual(python["with"]["cache-dependency-path"], "toolchain/python-requirements.txt")
+        # Host helpers (doctor's project_state validation) need the pinned PyYAML
+        # even when tests run in Docker, so both jobs set up the host first.
+        for name, consumer in (("tooling", "./conker test --host -v"),
+                               ("toolchain", "CONKER_IMAGE=conkers-bfd-decomp-toolchain:ci ./conker doctor")):
+            steps = jobs[name]["steps"]
+            commands = [step["run"] for step in steps if "run" in step]
+            self.assertLess(commands.index("./conker host-setup"), commands.index(consumer))
+            python = next(step for step in steps if step.get("uses", "").startswith("actions/setup-python@"))
+            self.assertEqual(python["with"]["python-version"], "3.12")
+            self.assertEqual(python["with"]["cache-dependency-path"], "toolchain/python-requirements.txt")
         commands = [step["run"] for step in jobs["toolchain"]["steps"] if "run" in step]
         build = next(i for i, command in enumerate(commands)
                      if command.startswith("docker build ") and "--tag conkers-bfd-decomp-toolchain:ci" in command)
         tests = commands.index("CONKER_IMAGE=conkers-bfd-decomp-toolchain:ci ./conker test -v")
         self.assertLess(build, tests)
-        self.assertNotIn("./conker host-setup", commands)
 
     def test_public_compile_fetches_pinned_sdk_and_mounts_only_its_headers(self) -> None:
         workflow = yaml.safe_load((ROOT / ".github/workflows/ci.yml").read_text())
