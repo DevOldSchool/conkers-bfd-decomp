@@ -361,14 +361,12 @@ s32 func_150888A8(volatile s32, volatile u8, s8);
 
 void func_15087DCC(s32 arg0, s32 arg1) {
     u8 *temp_v1;
-    void *sp1C;
     s8 temp_v0;
 
     if (D_800872A0 != 0) {
         temp_v1 = (void *)((arg0 * 0x84) + D_800872A0);
         if (arg1 != *(s8 *)((u8 *)temp_v1 + 0x2F)) {
             if (arg1 != 0) {
-                sp1C = temp_v1;
                 temp_v0 = func_150888A8((s32) *(u8 *)((u8 *)temp_v1 + 0x2B), *(u8 *)((u8 *)temp_v1 + 0x2C), 1);
                 *(s8 *)((u8 *)temp_v1 + 0x2D) = temp_v0;
                 *(s8 *)((u8 *)temp_v1 + 0x2E) = func_150888A8((s32) *(u8 *)((u8 *)temp_v1 + 0x2C), temp_v0 & 0xFF, 1);

@@ -174,7 +174,6 @@ s32 func_1519D030(void *arg0, s32 arg1, s16 arg2, u8 arg3, u8 arg4, s32 arg5) {
         return 0;
     }
     locals.data.field20 = 0.0f;
-    flags = 0;
     locals.data.origin.x = ((Game1CA420TrailOwner *)arg0)->position.x;
     spec = &D_800A8B80[arg1];
     locals.data.origin.y = ((Game1CA420TrailOwner *)arg0)->position.y;

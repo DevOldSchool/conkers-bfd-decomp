@@ -3914,13 +3914,9 @@ f32 sqrtf(f32);
 void func_15074F48(void *arg0, void *arg1, s32 arg2) {
     f32 temp_fa0;
     f32 temp_fa1;
-    f32 sp1C;
-    f32 sp18;
 
     temp_fa0 = D_8009A108 - *(f32 *)((u8 *)arg0 + 0x14);
     temp_fa1 = *(f32 *)((u8 *)arg0 + 0x1C) - D_8009A10C;
-    sp1C = temp_fa0;
-    sp18 = temp_fa1;
     *(s16 *)((u8 *)arg1 + 0x76) = func_1505A630(temp_fa0, temp_fa1, 0);
     *(f32 *)((u8 *)arg1 + 0x3C) = (f32) (sqrtf((temp_fa0 * temp_fa0) + (temp_fa1 * temp_fa1)) * D_8009A110);
     func_15194408((s32) arg0, (s32) arg1);
