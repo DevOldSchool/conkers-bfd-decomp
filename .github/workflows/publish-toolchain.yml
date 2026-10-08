@@ -7,6 +7,8 @@ on:
       - Dockerfile
       - .dockerignore
       - toolchain/mupen64plus-debug.sh
+      - toolchain/python-constraints.txt
+      - toolchain/python-requirements.txt
       - toolchain/tools.lock.json
       - .github/workflows/publish-toolchain.yml
   workflow_dispatch:

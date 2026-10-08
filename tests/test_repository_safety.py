@@ -82,7 +82,7 @@ class RepositorySafetyTests(unittest.TestCase):
             self.assertLess(setup, consumer)
             python = next(step for step in steps if step.get("uses", "").startswith("actions/setup-python@"))
             self.assertEqual(python["with"]["python-version"], "3.12")
-            self.assertEqual(python["with"]["cache-dependency-path"], "toolchain/host-requirements.txt")
+            self.assertEqual(python["with"]["cache-dependency-path"], "toolchain/python-requirements.txt")
         tests = next(step["run"] for step in jobs["tooling"]["steps"]
                      if "unittest discover" in step.get("run", ""))
         self.assertTrue(tests.startswith("build/host-python/bin/python3 "))
@@ -167,10 +167,22 @@ class RepositorySafetyTests(unittest.TestCase):
                 "!toolchain/",
                 "!toolchain/mupen64plus-debug.sh",
                 "!toolchain/python-constraints.txt",
+                "!toolchain/python-requirements.txt",
                 "!toolchain/Dockerfile.mupen-software",
             ],
             patterns,
         )
+
+    def test_image_and_host_share_one_python_requirements_file(self) -> None:
+        dockerfile = (ROOT / "Dockerfile").read_text(encoding="utf-8")
+        self.assertIn("COPY toolchain/python-requirements.txt /tmp/python-requirements.txt", dockerfile)
+        install = next(step for step in dockerfile.split("\n    && ")
+                       if "--requirement /tmp/python-requirements.txt" in step)
+        self.assertIn("--constraint /tmp/python-constraints.txt", install)
+        self.assertIn("--requirement /opt/tools/n64splat/requirements.txt", install)
+        paths = yaml.safe_load((ROOT / ".github/workflows/publish-toolchain.yml").read_text())[True]["push"]["paths"]
+        self.assertIn("toolchain/python-constraints.txt", paths)
+        self.assertIn("toolchain/python-requirements.txt", paths)
 
     def test_publish_workflow_normalizes_the_ghcr_repository_owner(self) -> None:
         workflow = (

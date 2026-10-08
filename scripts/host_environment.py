@@ -18,7 +18,7 @@ MODULES = {"PyYAML": "yaml", "numpy": "numpy", "scipy": "scipy",
 
 def requirements(root: Path = ROOT) -> dict[str, str]:
     result = {}
-    for line in (root / "toolchain/host-requirements.txt").read_text().splitlines():
+    for line in (root / "toolchain/python-requirements.txt").read_text().splitlines():
         line = line.strip()
         if not line or line.startswith("#"):
             continue
@@ -57,7 +57,7 @@ def setup(root: Path = ROOT) -> None:
     venv.EnvBuilder(with_pip=True).create(environment)
     python = environment / "bin/python3"
     subprocess.run([str(python), "-m", "pip", "install", "--requirement",
-                    str(root / "toolchain/host-requirements.txt")], check=True)
+                    str(root / "toolchain/python-requirements.txt")], check=True)
     subprocess.run([str(python), str(root / "scripts/host_environment.py"), "check"], check=True)
 
 
