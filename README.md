@@ -13,13 +13,12 @@ future goal and does not currently gate progress.
 
 ## Project progress
 
-[![US progress](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FDevOldSchool%2Fconkers-bfd-decomp%2Fmain%2Fprogress%2Fbadge-us.json)](docs/progress.md)
-[![EU progress](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FDevOldSchool%2Fconkers-bfd-decomp%2Fmain%2Fprogress%2Fbadge-eu.json)](docs/progress.md)
+[![US Code](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us.svg?mode=shield&category=all&measure=matched_code_percent&label=US%20Code)](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us?category=all)
 
-US instruction matches and completed source units are tracked separately. The
-EU/PAL badge is informational until that regional target becomes active. See
-the generated [progress report](docs/progress.md) for the current function,
-source-unit, byte, and executable-area breakdown.
+The badge is native objdiff matching for tracked US CPU code, including SDK code;
+it excludes data, assets and EU/PAL. `./conker progress` shows the same metric from
+your local `./conker objdiff report`, plus source-unit and function counts. See
+[progress reports](docs/progress.md).
 
 The repository contains no ROMs or extracted game assets. Read
 [LEGAL.md](LEGAL.md) before contributing.
@@ -63,7 +62,7 @@ verification in detail.
 | Area | Start here |
 | --- | --- |
 | Function matching and source integration | [Contributing](CONTRIBUTING.md) and [decompilation workflow](docs/decompilation-workflow.md) |
-| Current progress | [Generated progress report](docs/progress.md) |
+| Current progress | [US objdiff report](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us?category=all) · [Local reports](docs/progress.md) |
 | Clean-room baseline and ROM profiles | [Bootstrap guide](docs/bootstrap.md) |
 | Asset extraction and format research | [RZIP and asset extraction](docs/rzip-assets.md) |
 | Model previews and scoped material evidence | [Model appearance extraction](docs/model-appearance.md) |
