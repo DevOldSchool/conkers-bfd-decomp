@@ -12,7 +12,7 @@ OBJCOPY := mips-linux-gnu-objcopy
 # double operations. The bootstrap assembler must retain those bytes verbatim.
 ASFLAGS := -W -EB -march=vr4300 -mabi=32 -I include
 CFLAGS := -c -32 -G 0 -Xfullwarn -Xcpluscomm -signed -nostdinc -non_shared -Wab,-r4300_mul \
-	-D_LANGUAGE_C -D_FINALROM -D_MIPS_SZLONG=32 -I include -O2 -g3 -mips2
+	-D_LANGUAGE_C -D_FINALROM -D_MIPS_SZLONG=32 -I include -I lib/ultralib/include -O2 -g3 -mips2
 PROFILE_CFLAGS_us := -DPROFILE_US=1
 PROFILE_CFLAGS_eu := -DPROFILE_EU=1
 PROFILE_CFLAGS := $(PROFILE_CFLAGS_$(PROFILE))

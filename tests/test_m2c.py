@@ -238,6 +238,35 @@ void func_wrapper(s32 arg0) {
         self.assertIn("  M2C_UNK func_target(s32, s32); /* extern */", output)
         self.assertIn("c-starter:\n" + starter, output)
 
+    def test_types_header_inlines_quoted_sdk_include(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            sdk = temporary_root / "lib" / "sdk" / "PR" / "ultratypes.h"
+            sdk.parent.mkdir(parents=True)
+            sdk.write_text(
+                "#ifndef _ULTRATYPES_H_\n#define _ULTRATYPES_H_\n"
+                "#if defined(_LANGUAGE_C)\n"
+                "typedef long s32;\ntypedef unsigned long u32;\n"
+                "#if (_MIPS_SZLONG == 32)\ntypedef unsigned int size_t;\n#endif\n"
+                "#if (_MIPS_SZLONG == 64)\ntypedef unsigned long size_t;\n#endif\n"
+                "#endif\n#define NULL 0\n#endif\n",
+                encoding="utf-8",
+            )
+            types = temporary_root / "include" / "types.h"
+            types.parent.mkdir(parents=True)
+            types.write_text(
+                '#ifndef TYPES_H\n#define TYPES_H\n#include "../lib/sdk/PR/ultratypes.h"\n#endif\n',
+                encoding="utf-8",
+            )
+
+            with patch.object(m2c_helper, "ROOT", temporary_root):
+                flattened = m2c_helper.flattened_types_header()
+
+            self.assertEqual(
+                "typedef long s32;\ntypedef unsigned long u32;\ntypedef unsigned int size_t;",
+                flattened,
+            )
+
     def test_prepares_source_local_context_under_ignored_build_output(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             temporary_root = Path(temporary_directory)

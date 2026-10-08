@@ -1,4 +1,5 @@
 #include "types.h"
+#include "libultra_os.h"
 
 /*
  * Reviewed source unit: src/main/init_34E0.c
@@ -7,22 +8,14 @@
  */
 
 typedef struct ThreadState ThreadState;
-typedef struct MessageQueue {
-    ThreadState *receiveThreads;
-    ThreadState *sendThreads;
-    s32 validCount;
-    s32 first;
-    s32 messageCount;
-    void **messages;
-} MessageQueue;
 typedef struct PiHandle PiHandle;
 
 typedef struct DeviceManager {
     s32 active;
     ThreadState *thread;
-    MessageQueue *commandQueue;
-    MessageQueue *eventQueue;
-    MessageQueue *accessQueue;
+    OSMesgQueue *commandQueue;
+    OSMesgQueue *eventQueue;
+    OSMesgQueue *accessQueue;
     s32 (*dma)(s32, u32, void *, u32);
     s32 (*extendedDma)(PiHandle *, s32, u32, void *, u32);
 } DeviceManager;
@@ -31,7 +24,7 @@ typedef struct MessageHeader {
     u16 type;
     u8 priority;
     u8 status;
-    MessageQueue *returnQueue;
+    OSMesgQueue *returnQueue;
 } MessageHeader;
 
 typedef struct ViMessage {
@@ -44,8 +37,6 @@ typedef struct ViMessage {
 
 void func_80023EB0(void);
 void func_800242B0(void);
-void func_80023790(MessageQueue *, void **, s32);
-void func_800237C0(s32, MessageQueue *, void *);
 s32 func_80023830(ThreadState *);
 void func_80022BB0(ThreadState *, s32);
 s32 func_80022DC0(void);
@@ -56,7 +47,7 @@ void D_10003658(void *);
 extern DeviceManager D_8002AB70;
 extern ThreadState D_80036BA0;
 static u64 viThreadStack[512];
-static MessageQueue D_80037DD0;
+static OSMesgQueue D_80037DD0;
 static void *D_80037DE8[5];
 static ViMessage D_80037E00;
 static ViMessage D_80037E18;
@@ -108,12 +99,10 @@ typedef struct ViContext {
     void *frame;
     void *mode;
     u32 control;
-    MessageQueue *messageQueue;
+    OSMesgQueue *messageQueue;
     void *message;
 } ViContext;
 
-s32 func_80023440(MessageQueue *, void **, s32);
-s32 func_80023580(MessageQueue *, void *, s32);
 void func_80023F3C(void);
 ViContext *func_80024400(void);
 void func_80024410(void);

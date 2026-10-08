@@ -33,6 +33,8 @@ extern s8 D_8002AC60;
 extern s16 D_8002AC64;
 extern s32 D_800BE728;
 
+s32 func_1501BBB8(void);
+
 void func_150186D0(void) {
     func_10001444();
     func_1501A39C();

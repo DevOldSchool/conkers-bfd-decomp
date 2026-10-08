@@ -1,4 +1,5 @@
 #include "types.h"
+#include "libultra_os.h"
 #include "../lib/ultralib/include/PR/abi.h"
 
 /*
@@ -40,7 +41,6 @@ typedef struct {
 
 extern AudioBankManager D_800406A0;
 
-typedef struct MessageQueue MessageQueue;
 typedef struct AudioTaskRecord AudioTaskRecord;
 typedef s32 (*ALDMAproc)(s32 addr, s32 len, void *state);
 typedef void *(*ConkerBankFetch)(void *, s32);
@@ -75,7 +75,7 @@ typedef struct {
     void *framebuffer;
     u8 pad14[4];
     AudioRspTask task;
-    MessageQueue *completionQueue;
+    OSMesgQueue *completionQueue;
     void *completionMessage;
 } AudioSchedulerTask;
 
@@ -131,7 +131,6 @@ void func_80012588(s32);
 void *func_80012844(u8 *, s32, AudioHeap *, s32, s32);
 void func_80018DA0(void *, AudioDriverConfig *);
 void func_80022A60(ThreadState *);
-void func_80023790(MessageQueue *, void **, s32);
 s32 func_800263D0(u32);
 void func_800037F0(ThreadState *, s32, void (*)(void *), void *, void *, s32);
 void D_10009400(void *);
@@ -153,8 +152,8 @@ void func_800226F0(void *, s32);
 extern u8 D_8002AE40;
 extern u8 D_8003E3A0[];
 extern AudioTaskRecord *D_8003E390[3];
-extern MessageQueue D_8003E5D0;
-extern MessageQueue D_8003E608;
+extern OSMesgQueue D_8003E5D0;
+extern OSMesgQueue D_8003E608;
 extern u8 D_8003E640[];
 extern Acmd *D_8003E388[];
 extern u8 D_80040F84;
@@ -164,8 +163,8 @@ extern u8 D_800406B8[];
 extern u8 D_800406CC[];
 extern u8 D_80040AC8[];
 extern u8 D_80040AE0[];
-extern MessageQueue D_80041298;
-extern MessageQueue D_800416F0;
+extern OSMesgQueue D_80041298;
+extern OSMesgQueue D_800416F0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_80008F90 CURRENT (1811) */
 void func_80008F90(AudioDriverConfig *config, s32 priority, AudioDeviceConfig *device) {
@@ -280,15 +279,14 @@ void func_800093CC(void) {
 
 typedef struct AudioSchedulerClient {
     struct AudioSchedulerClient *next;
-    MessageQueue *queue;
+    OSMesgQueue *queue;
     u32 flags;
 } AudioSchedulerClient;
 
 
-void func_800051C8(AudioSchedulerClient *, MessageQueue *);
+void func_800051C8(AudioSchedulerClient *, OSMesgQueue *);
 s32 func_800095A0(AudioTaskRecord *, AudioTaskRecord *);
 void func_80018E0C(void *);
-s32 func_80023440(MessageQueue *, void **, s32);
 extern u8 D_8002AC5C;
 extern u32 D_8002AE44;
 
@@ -350,12 +348,11 @@ void func_800099BC(void);
 void func_8000A03C(void);
 Acmd *func_80019498(Acmd *, s32 *, s16 *, s32);
 void func_80024F10(void);
-s32 func_80023580(MessageQueue *, void *, s32);
 extern u8 D_100290D0[];
 extern u8 D_100291A0[];
 extern u8 D_8002C960[];
 extern s32 D_8002AE4C;
-extern MessageQueue D_8003B200;
+extern OSMesgQueue D_8003B200;
 extern volatile u32 D_A4500004;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_800095A0 CURRENT (1380) */
@@ -434,12 +431,11 @@ s32 D_100097CC(s32, s32, void *);
 
 extern u32 D_8002AE48;
 
-typedef struct TransferMessageQueue TransferMessageQueue;
 typedef struct {
     u16 type;
     u8 priority;
     u8 status;
-    TransferMessageQueue *returnQueue;
+    OSMesgQueue *returnQueue;
     void *dramAddress;
     u32 deviceAddress;
     u32 size;
@@ -447,7 +443,7 @@ typedef struct {
 } TransferIoMessage;
 
 s32 func_80024920(TransferIoMessage *, s32, s32, u32, void *, u32,
-                 TransferMessageQueue *);
+                 OSMesgQueue *);
 extern TransferIoMessage D_80040F98[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_800097CC CURRENT (305) */
@@ -514,7 +510,7 @@ s32 func_800097CC(s32 addr, s32 len, void *state) {
     record->address = request;
     record->frame = D_8002AE44;
     func_80024920(&D_80040F98[D_8002AE48++], 1, 0, request, buffer,
-                 0x800, (TransferMessageQueue *)&D_80041298);
+                 0x800, &D_80041298);
     return (s32)(func_800233C0(buffer) + (u32)offset);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_800097CC */
@@ -778,7 +774,7 @@ void *func_80009CBC(void *arg0, s32 mode) {
                 func_80022D10(record->buffer, alignedSize);
                 func_80024920(&D_80041330[D_8002AE50++], 1, 0,
                              (value >> 5) & ~7U, record->buffer, alignedSize,
-                             (TransferMessageQueue *)&D_800416F0);
+                             &D_800416F0);
                 *(u32 *)arg0 = (u32)record;
             }
         }

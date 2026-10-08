@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 import unittest
 from pathlib import Path
 
@@ -382,7 +383,12 @@ class RepositorySafetyTests(unittest.TestCase):
                         ensure_rsp.index("docker build"))
 
     def test_canonical_scalar_aliases_cover_m2c_integer_types(self) -> None:
-        types = (ROOT / "include" / "types.h").read_text(encoding="utf-8")
+        # types.h takes its aliases from the SDK's PR/ultratypes.h; check the
+        # flattened context that m2c actually receives.
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import m2c
+
+        types = m2c.flattened_types_header()
 
         for alias in ("s8", "u8", "s16", "u16", "s32", "u32", "s64", "u64"):
             self.assertRegex(types, rf"typedef [^;]+ {alias};")
