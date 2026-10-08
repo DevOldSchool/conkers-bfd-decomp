@@ -11,7 +11,7 @@ The **PR validation** workflow exposes separate check rows:
 | Check | What it establishes |
 | --- | --- |
 | Repository metadata | Valid function and source-unit inventories |
-| Generated progress consistency | Committed progress agrees with inventory |
+| Progress inventory check | Canonical inventories validate and every report renderer runs; nothing is written or compared |
 | PR whitespace and prohibited files | Committed changes have clean whitespace; prohibited paths, binary outputs and ROM signatures are absent |
 | Python tests and shell syntax | Tooling regression tests and entry-point syntax pass |
 | Toolchain image and compiler smoke test | The public image builds and IDO/debugger installations work |
@@ -56,12 +56,10 @@ objects or raw private build logs to a PR.
 
 ## Required checks and reviews
 
-The current ruleset still requires the old `metadata-and-tooling` name. After
-the named checks pass on the PR, an owner must replace that requirement with
-**All public PR checks passed**, select GitHub Actions as its expected source,
-and retain the up-to-date branch requirement. Preserve unrelated rules.
-Do not require a private verifier status: that proposed service is not used.
-Changing workflow YAML does not migrate GitHub's required-check configuration.
+The main ruleset requires **All public PR checks passed** from GitHub Actions
+and an up-to-date branch. This aggregate still depends on every public job.
+No private verifier status is required. Workflow changes do not change the
+repository ruleset.
 
 Keep the current zero-required-review policy until another eligible maintainer
 joins. Then add another appropriate code owner and enable the desired fresh
@@ -89,7 +87,8 @@ Configure these environment secrets without committing private repository names:
 The workflow builds the public toolchain before fetching private inputs, checks
 out only the US ROM without persisting credentials, and runs `./conker build --all`
 and `./conker objdiff report`. Report preparation validates linked targets for
-both tracked US CPU-code ranges. Only `build/us/objdiff-report/report.json` is
+the tracked main/game/debugger US CPU-code ranges. Only
+`build/us/objdiff-report/report.json` is
 uploaded as `us_report`, retained for 90 days. No ROM, assembly or object file is
 an artifact. Cleanup stops the toolchain and removes the private checkout and
 copied ROM; remaining generated files disappear with the disposable hosted runner.
@@ -97,6 +96,11 @@ copied ROM; remaining generated files disappear with the disposable hosted runne
 Build/report failures block report publication. They occur after merge and
 cannot retroactively prevent it; maintainers must handle the failure promptly.
 See the [objdiff guide](objdiff.md#scope) for coverage limits.
+
+This workflow needs only `contents: read` and makes no repository commits.
+decomp.dev imports `us_report` from completed default-branch push runs and
+attributes it to that run's source SHA; a manual `workflow_dispatch` is not
+guaranteed to refresh it.
 
 ## Toolchain and reporting
 
