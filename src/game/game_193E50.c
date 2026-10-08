@@ -16,8 +16,8 @@
 
 void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_1517E05C(s32, s32, s32);
-void func_15043D90(s32, f32, f32, volatile s32, f32, f32, f32, f32, f32, f32);
-void func_15043E68(s32, f32, f32, volatile s32, f32, f32, f32);
+void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
+void func_15043E68(s32, f32, f32, f32, f32, f32, f32);
 u32 func_150ADA20(void);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151669A0 CURRENT (781) */
@@ -45,10 +45,10 @@ void func_151669A0(s32 arg0, s32 arg1, s32 arg2, f32 arg3, u8 arg4, s32 arg5) {
         z = (f32)arg2;
         do {
             if (arg3 != 1.0f) {
-                func_15043D90((s32)cursor, 0.0f, (f32)random_offset, 0,
+                func_15043D90((s32)cursor, 0.0f, (f32)random_offset, 0.0f,
                                arg3, arg3, arg3, x, y, z);
             } else {
-                func_15043E68((s32)cursor, 0.0f, (f32)random_offset, 0,
+                func_15043E68((s32)cursor, 0.0f, (f32)random_offset, 0.0f,
                                x, y, z);
             }
             random_offset += func_150ADA20() & 0x3F;

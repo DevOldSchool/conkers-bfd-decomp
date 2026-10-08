@@ -785,8 +785,7 @@ typedef struct Game1944C0RenderState {
     u8 pad00[0x10];
     u8 matrices[2][0x40];
     f32 values90[3];
-    f32 field9C, fieldA0;
-    s32 fieldA4;
+    f32 field9C, fieldA0, fieldA4;
     u8 padA8[0x18];
     f32 valuesC0[3];
     u8 padCC[4];
@@ -796,7 +795,7 @@ typedef struct Game1944C0RenderState {
     u8 padE7[5];
     u8 kind, mode;
 } Game1944C0RenderState;
-void func_15043D90(s32, f32, f32, s32, f32, f32, f32, f32, f32, f32);
+void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 extern s16 D_800DD1C0, D_800DD1C2, D_800DD1C4, D_800DD1C6;
 extern u8 D_800BE9C0;
 
