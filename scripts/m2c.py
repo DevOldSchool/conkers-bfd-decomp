@@ -584,7 +584,11 @@ def ready_output(starter: str, symbol: str) -> str:
         if ";" in line and line.strip().endswith((";", "*/"))
     ]
     declaration_block = "\n".join(f"  {line}" for line in declarations) or "  none"
-    return f"required-declarations:\n{declaration_block}\nc-starter:\n{starter}"
+    includes = [f'  #include "{match["name"]}"'
+                for match in call_signatures.REQUIRED_INCLUDE.finditer(prefix)]
+    include_block = "\n".join(includes) or "  none"
+    return (f"required-includes:\n{include_block}\n"
+            f"required-declarations:\n{declaration_block}\nc-starter:\n{starter}")
 
 
 def flattened_types_header() -> str:
@@ -600,14 +604,28 @@ def flattened_types_header() -> str:
     ).strip()
 
 
+def initial_header_text(source_text: str) -> str | None:
+    return call_signatures.initial_header_text(ROOT, source_text)
+
+
 def flattened_source_context(source: Path) -> str | None:
     """Flatten one canonical source file into parser-ready m2c context."""
 
+    source_text = source.read_text(encoding="utf-8")
+    headers = initial_header_text(source_text)
+    if headers is None:
+        return None
     lines: list[str] = []
     disabled_depth = 0
-    for line in source.read_text(encoding="utf-8").splitlines(keepends=True):
+    initial = True
+    for line in source_text.splitlines(keepends=True):
         if call_signatures.ABI_MARKER in line:
             continue
+        include = call_signatures.PROJECT_INCLUDE.match(line)
+        if initial and include and include["name"].endswith(call_signatures.FUNCTIONS_HEADER_SUFFIX):
+            continue  # Already inlined by initial_header_text.
+        if line.strip() and not TYPES_INCLUDE_PATTERN.match(line):
+            initial = False
         if (TYPES_INCLUDE_PATTERN.match(line) or GLOBAL_ASM_PATTERN.match(line)
                 or INTRINSIC_PRAGMA_PATTERN.match(line)):
             continue
@@ -623,11 +641,15 @@ def flattened_source_context(source: Path) -> str | None:
     if disabled_depth:
         return None
     types = flattened_types_header()
+    headers = headers.strip()
     body = "".join(lines).lstrip()
+    marker = m2c_context.header_marker(headers)
     return (
         "/* Generated m2c context; canonical declarations remain in project source. */\n\n"
         + (types + "\n\n" if types else "")
+        + (headers + "\n\n" if headers else "")
         + body
+        + (("" if not body or body.endswith("\n") else "\n") + marker + "\n" if marker else "")
     )
 
 
@@ -769,17 +791,89 @@ def generator_evidence(command: list[str]) -> dict:
     return evidence
 
 
+def starter_declarations(command: list[str], recovery: call_signatures.Recovery,
+                         *, context_fallback: bool = False,
+                         source_text: str | None = None) -> tuple[str, ...]:
+    """Omit prototypes that a header supplies or must supply.
+
+    With source_text, functions owned by a reviewed *_functions.h header are
+    never redeclared: the header is included instead (call_context_includes).
+    Otherwise omit only exact prototypes proven visible by the generated header
+    marker (IDO line markers, before the first source declaration/ASM pragma);
+    whole-file context also contains later source declarations. Keep recovery
+    intact for the decompiler and evidence; filter public output only.
+    """
+    remaining = recovery.declarations
+    if source_text is not None:
+        remaining = tuple(call_signatures.header_owned_declarations(remaining, source_text, ROOT)[0])
+    if not remaining or context_fallback or "--context" not in command:
+        return remaining
+    try:
+        context = (ROOT / command[command.index("--context") + 1]).read_text(encoding="utf-8")
+    except (IndexError, OSError):
+        return remaining
+    supplied = m2c_context.header_signatures(context)
+    names = {call_signatures.declared_name(declaration) for declaration in remaining} & supplied.keys()
+    if not names:
+        return remaining
+    visible = call_signatures.source_signatures(context, names)
+    emitted = []
+    for declaration in remaining:
+        parsed = call_signatures.source_signatures(declaration)
+        if len(parsed) == 1:
+            name, signatures = next(iter(parsed.items()))
+            if name in names and signatures == {supplied[name]} == visible.get(name):
+                continue
+        emitted.append(declaration)
+    return tuple(emitted)
+
+
+def call_context_notes(recovery: call_signatures.Recovery, emitted: tuple[str, ...],
+                       source_text: str = "") -> tuple[list[str], list[str], list[str]]:
+    """Explain emitted declarations and why recovered ones were omitted.
+
+    Returns notes, headers the source must include, and recovered declarations
+    that disagree with their owning header. Notes avoid semicolons so
+    ready_output does not read them as declarations.
+    """
+    evidence = {note.split(":", 1)[0]: note for note in recovery.evidence}
+    _, includes, conflicts = call_signatures.header_owned_declarations(
+        recovery.declarations, source_text, ROOT)
+    owners = call_signatures.header_owners(ROOT)
+    notes = []
+    for declaration in recovery.declarations:
+        name = call_signatures.declared_name(declaration)
+        if declaration in emitted:
+            if name in evidence:
+                notes.append(evidence[name])
+        elif name in owners:
+            header = owners[name][0]
+            note = f"{name}: declared by {header}"
+            if header in includes:
+                note += ", which the candidate source must include"
+            if declaration in conflicts:
+                note += ", recovered signature differs from the header, ABI review required"
+            notes.append(note)
+        else:
+            notes.append(f"{name}: declared by an initial project header")
+    return notes, includes, conflicts
+
+
 def generate_with_call_context(command: list[str], assembly: str, symbol: str,
                                source: Path | None, profile: str) -> tuple[str, int]:
     source_text = source.read_text(encoding="utf-8") if source else ""
-    recovery = call_signatures.recover(assembly, source_text, root=ROOT, profile=profile)
+    # Reviewed header prototypes are local declarations for every caller that
+    # includes them, so they take precedence over project-wide call evidence.
+    header_text = initial_header_text(source_text) or ""
+    recovery_source = source_text + ("\n" + header_text if header_text else "")
+    recovery = call_signatures.recover(assembly, recovery_source, root=ROOT, profile=profile)
     allow_fallback = any(INTRINSIC_PRAGMA_PATTERN.match(line) for line in source_text.splitlines())
     result, context_fallback = run_m2c_command(
         command, recovery, symbol, allow_context_fallback=allow_fallback,
     )
     wrapper = call_signatures.wrapper_call(assembly)
     if result.returncode == 0 and wrapper and call_signatures.discarded_call(result.stdout, symbol, wrapper[0]):
-        augmented = call_signatures.recover(assembly, source_text, root=ROOT,
+        augmented = call_signatures.recover(assembly, recovery_source, root=ROOT,
                                             profile=profile, allow_raw=True)
         if augmented != recovery:
             recovery = augmented
@@ -789,17 +883,28 @@ def generate_with_call_context(command: list[str], assembly: str, symbol: str,
     starter = result.stdout
     if context_fallback:
         starter = "/* m2c: source context errors; using the starter without source context. */\n" + starter
+    emitted = ()
+    includes: list[str] = []
+    conflicts: list[str] = []
     if result.returncode == 0 and recovery.declarations:
-        # m2c suppresses declarations supplied through --context. Keep them in
-        # its public output so automate/next can insert them with the candidate.
-        notes = "\n".join(f"/* Call context: {note} */" for note in recovery.evidence)
-        starter = notes + "\n" + "\n".join(recovery.declarations) + "\n\n" + starter
+        # Retain missing declarations for next/prepare_starter, while reusing
+        # prototypes already supplied by an initial included header.
+        emitted = starter_declarations(command, recovery, context_fallback=context_fallback,
+                                       source_text=source_text)
+        notes, includes, conflicts = call_context_notes(recovery, emitted, source_text)
+        block = ([f"/* Call context: {note} */" for note in notes]
+                 + [call_signatures.required_include_marker(header) for header in includes]
+                 + list(emitted))
+        if block:
+            starter = "\n".join(block) + "\n\n" + starter
     evidence_path = ROOT / "build/m2c/calls" / f"{symbol}.json"
     evidence_path.parent.mkdir(parents=True, exist_ok=True)
     context_path = ROOT / command[command.index("--context") + 1] if "--context" in command else None
     context_digest = hashlib.sha256(context_path.read_bytes()).hexdigest() if context_path and context_path.is_file() else None
     evidence_path.write_text(json.dumps({"symbol": symbol, "profile": profile,
         "declarations": recovery.declarations, "evidence": recovery.evidence,
+        "emitted_declarations": emitted, "required_includes": includes,
+        "header_conflicts": conflicts,
         "generator": generator_evidence(command), "source_context_sha256": context_digest,
         "source_context_fallback": context_fallback,
         "callee_fingerprint": call_signatures.dependency_digest(ROOT, assembly, profile=profile)}, indent=2) + "\n")

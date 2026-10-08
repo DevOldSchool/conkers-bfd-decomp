@@ -32,6 +32,76 @@ class M2CContextTests(unittest.TestCase):
         self.assertEqual(m2c_context.clean_context(text),
                          'typedef int s32;\nstruct State { s32 field; };\nextern struct State *state;\n')
 
+    def test_initial_and_nested_header_declarations_keep_compiler_provenance(self):
+        text = '\n'.join([
+            '# 1 "src/game/example.c"', '',
+            '# 1 "include/game_functions.h" 1',
+            'void first(s32);',
+            '# 1 "include/nested.h" 1', 's32 second(void *);',
+            '# 4 "include/game_functions.h" 2', 'void third(void);',
+            '# 2 "src/game/example.c" 2', 'void caller(void) {}',
+        ])
+        context = m2c_context.clean_context(text)
+        self.assertEqual(m2c_context.header_declarations(context), (
+            'void first(s32);', 's32 second(void *);', 'void third(void);',
+        ))
+        self.assertEqual(context, m2c_context.clean_context(context))
+        self.assertIn('void caller(void) {}', context)
+
+    def test_only_active_header_output_is_evidence_not_other_source_declarations(self):
+        # IDO emitted the active branch only; no source/header reread is used.
+        text = '\n'.join([
+            '# 1 "include/profile.h"', 'void active(s32);',
+            '# 10 "src/example.c"', 'void later_definition(s32 n) {}',
+            'void later_prototype(s32);',
+            '# 1 "include/late.h"', 'void too_late(s32);',
+        ])
+        self.assertEqual(m2c_context.header_declarations(m2c_context.clean_context(text)),
+                         ('void active(s32);',))
+
+    def test_source_global_asm_permanently_closes_initial_header_region(self):
+        text = '\n'.join([
+            '# 1 "src/example.c"', '#pragma GLOBAL_ASM("asm/target.s")',
+            '# 1 "include/late.h"', 'void too_late(s32);',
+        ])
+        context = m2c_context.clean_context(text)
+        self.assertIn('void too_late(s32);', context)
+        self.assertEqual((), m2c_context.header_declarations(context))
+
+    def test_unknown_provenance_and_source_before_headers_do_not_qualify(self):
+        for text in (
+            'void unproven(s32);\n',
+            '# 1 "src/example.c"\nvoid earlier(void) {}\n'
+            '# 1 "include/late.h"\nvoid late(s32);\n',
+        ):
+            with self.subTest(text=text):
+                self.assertEqual((), m2c_context.header_declarations(m2c_context.clean_context(text)))
+
+    def test_unsupported_ambiguous_and_abi_only_header_declarations_are_excluded(self):
+        text = '\n'.join([
+            '# 1 "include/functions.h"', 'void known(s32);',
+            'Thing *unsupported(Thing *);',
+            'void conflict(s32);', 'void conflict(f32);',
+            'void discard(s32); /* CONKER_ABI_DISCARDED_RETURN */',
+        ])
+        self.assertEqual(m2c_context.header_declarations(m2c_context.clean_context(text)),
+                         ('void known(s32);',))
+
+    def test_missing_malformed_or_ambiguous_header_markers_are_ignored(self):
+        valid = '/* CONKER_M2C_HEADER_DECLARATIONS: ["void known(s32);"] */'
+        for context in (
+            '', 'void known(s32);', valid + '\n' + valid,
+            '/* CONKER_M2C_HEADER_DECLARATIONS: not json */',
+            '/* CONKER_M2C_HEADER_DECLARATIONS: {"known": "void"} */',
+            '/* CONKER_M2C_HEADER_DECLARATIONS: [1] */',
+            '/* CONKER_M2C_HEADER_DECLARATIONS: ["void known(s32);", "void known(s32);"] */',
+            '/* CONKER_M2C_HEADER_DECLARATIONS: ["Thing *unknown(Thing *);"] */',
+            '/* CONKER_M2C_HEADER_DECLARATIONS: ["void known(s32) {}"] */',
+        ):
+            with self.subTest(context=context):
+                self.assertEqual((), m2c_context.header_declarations(context))
+        self.assertEqual(('void known(s32);',), m2c_context.header_declarations(valid))
+
     def test_unknown_layout_pragmas_and_unexpanded_directives_fail_closed(self):
         for line in ('#pragma pack(1)', '#define VALUE 1', '__pragma(2, state);',
                      '#pragma intrinsic(other)', '#pragma intrinsic(sqrtf) junk'):

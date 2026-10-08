@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1D5FD0.c
@@ -153,7 +154,6 @@ void func_151A8F1C(Game1D5FD0State *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
     func_151432BC(arg0->field_2C, arg1, arg1 + 2, arg2, arg3);
     arg1[1] = *arg2;
 }
-void func_15143874(s16, f32, f32 *, f32 *);
 s32 func_150ADA20(void);
 f32 func_150ADA68(void);
 

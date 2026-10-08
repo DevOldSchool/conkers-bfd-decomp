@@ -4,14 +4,18 @@
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import subprocess
 from pathlib import Path
 
+import call_signatures
 import compile_c
 
 ROOT = Path(__file__).resolve().parent.parent
-LINE_MARKER = re.compile(r'^\s*#\s*\d+\s+"[^"\n]+"(?:\s+\d+)*\s*$')
+LINE_MARKER = re.compile(r'^\s*#\s*\d+\s+"(?P<filename>[^"\n]+)"(?:\s+\d+)*\s*$')
+HEADER_MARKER = 'CONKER_M2C_HEADER_DECLARATIONS'
+HEADER_DECLARATIONS = re.compile(r'/\* ' + HEADER_MARKER + r': (.*) \*/')
 ASM_PRAGMA = re.compile(r'^\s*#pragma\s+GLOBAL_ASM\("[^"\n]+"\)\s*$')
 INTRINSICS = r'(?:sqrtf|fabsf)(?:\s*,\s*(?:sqrtf|fabsf))*'
 INTRINSIC_PRAGMA = re.compile(
@@ -20,15 +24,86 @@ INTRINSIC_PRAGMA = re.compile(
 )
 
 
+def header_signatures(context: str) -> dict[str, call_signatures.Signature]:
+    """Read generated header provenance, retaining nothing on malformed input."""
+    markers = [line.strip() for line in context.splitlines() if HEADER_MARKER in line]
+    if len(markers) != 1:
+        return {}
+    match = HEADER_DECLARATIONS.fullmatch(markers[0])
+    if match is None:
+        return {}
+    try:
+        declarations = json.loads(match[1])
+    except (TypeError, ValueError):
+        return {}
+    if not isinstance(declarations, list):
+        return {}
+    supplied = {}
+    for declaration in declarations:
+        if (not isinstance(declaration, str)
+                or any(part in declaration for part in ('\n', '\r', '/*', '*/'))):
+            return {}
+        signatures = call_signatures.source_signatures(declaration)
+        if len(signatures) != 1:
+            return {}
+        symbol, choices = next(iter(signatures.items()))
+        if symbol in supplied or len(choices) != 1 or None in choices:
+            return {}
+        signature = next(iter(choices))
+        if signature.declaration(symbol) != declaration:
+            return {}
+        supplied[symbol] = signature
+    return supplied
+
+
+def header_declarations(context: str) -> tuple[str, ...]:
+    return tuple(signature.declaration(symbol)
+                 for symbol, signature in header_signatures(context).items())
+
+
+def header_marker(header_text: str) -> str:
+    """Record supported prototypes from headers visible before source code."""
+    signatures = call_signatures.source_signatures(header_text)
+    declarations = [next(iter(choices)).declaration(symbol)
+                    for symbol, choices in sorted(signatures.items())
+                    if len(choices) == 1 and None not in choices]
+    return f'/* {HEADER_MARKER}: {json.dumps(declarations)} */' if declarations else ''
+
+
 def clean_context(text: str) -> str:
-    """Remove only understood metadata; unknown layout pragmas fail closed."""
+    """Strip known metadata and retain proven initial-header declarations.
+
+    The compiler already selected active branches. Filename markers distinguish
+    initial (including nested) headers from source C; after source code starts,
+    later includes cannot establish visibility at an earlier candidate position.
+    Already-cleaned contexts retain their generated marker without regeneration.
+    """
     lines = []
+    header_lines = []
+    in_header = False
+    initial_headers = True
     for line in text.splitlines():
-        if LINE_MARKER.fullmatch(line) or ASM_PRAGMA.fullmatch(line) or INTRINSIC_PRAGMA.fullmatch(line):
+        marker = LINE_MARKER.fullmatch(line)
+        if marker is not None:
+            in_header = Path(marker['filename']).suffix == '.h'
+            continue
+        if ASM_PRAGMA.fullmatch(line):
+            if not in_header:
+                initial_headers = False
+            continue
+        if INTRINSIC_PRAGMA.fullmatch(line):
             continue
         if line.lstrip().startswith(('#', '__pragma')):
             raise ValueError(f'unsupported preprocessed directive: {line.strip()}')
         lines.append(line)
+        if initial_headers and line.strip():
+            if in_header:
+                header_lines.append(line)
+            else:
+                initial_headers = False
+    marker = header_marker('\n'.join(header_lines))
+    if marker:
+        lines.append(marker)
     return '\n'.join(lines) + '\n'
 
 
