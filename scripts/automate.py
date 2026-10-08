@@ -562,6 +562,14 @@ def candidate_block(prepared: candidate_rewrites.PreparedCandidate) -> str:
     return declarations + "\n\n" + prepared.definition if declarations else prepared.definition
 
 
+def candidate_source(updated: bytes, prepared: candidate_rewrites.PreparedCandidate) -> bytes:
+    """Add reviewed header includes that replace header-owned local prototypes."""
+    if not prepared.includes:
+        return updated
+    return call_signatures.add_initial_includes(
+        updated.decode("utf-8"), prepared.includes).encode("utf-8")
+
+
 def apply_best_function(source: Path, symbol: str, best: Path) -> None:
     content = source.read_text(encoding="utf-8")
     start, end = project_state.c_function_span(content, symbol)
@@ -714,11 +722,14 @@ def analyze_raw_candidate(
             original.decode("utf-8"),
             root=ROOT,
         )
-        automation_common.replace_target_pragma(
-            original,
-            candidate.source,
-            candidate.identifier,
-            candidate_block(prepared),
+        candidate_source(
+            automation_common.replace_target_pragma(
+                original,
+                candidate.source,
+                candidate.identifier,
+                candidate_block(prepared),
+            ),
+            prepared,
         )
     except (
         UnicodeDecodeError,
@@ -812,11 +823,14 @@ def try_raw_candidate(
             original.decode("utf-8"),
             root=ROOT,
         )
-        updated = automation_common.replace_target_pragma(
-            original,
-            candidate.source,
-            candidate.identifier,
-            candidate_block(prepared),
+        updated = candidate_source(
+            automation_common.replace_target_pragma(
+                original,
+                candidate.source,
+                candidate.identifier,
+                candidate_block(prepared),
+            ),
+            prepared,
         )
     except (UnicodeDecodeError, automation_common.AutomationError, candidate_rewrites.CandidateError) as error:
         detail = str(error)

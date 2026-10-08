@@ -392,7 +392,8 @@ func_151F0000 = other_sdk_function;
                 ['m2c', 'input.s'], WRAPPER, 'func_wrapper', self.source, 'us')
         self.assertEqual(0, status)
         self.assertNotIn(declaration, output)
-        self.assertIn('/* Call context: func_target: declared by an initial project header */', output)
+        self.assertIn('/* Call context: func_target: declared by example_functions.h */', output)
+        self.assertNotIn('CONKER_REQUIRED_INCLUDE', output)
         self.assertIn('required-declarations:\n  none', m2c.ready_output(output, 'func_wrapper'))
         record = json.loads((self.root / 'build/m2c/calls/func_wrapper.json').read_text())
         self.assertEqual([declaration], record['declarations'])
@@ -410,20 +411,78 @@ func_151F0000 = other_sdk_function;
         self.assertEqual((declaration,), recovery.declarations)
 
     def test_disagreeing_recovery_for_header_owned_name_is_noted_not_emitted(self):
-        header = 'void func_target(s32);'
-        self.write_guarded_header(header)
-        with patch.object(m2c, 'ROOT', self.root):
-            header_text = m2c.initial_header_text(self.source.read_text())
+        self.write_guarded_header('void func_target(s32);')
         recovered = 'void func_target(void *, s32, s32); /* CONKER_ABI_DISCARDED_RETURN */'
         missing = 's32 func_missing(void);'
         recovery = calls.Recovery((recovered, missing), ('func_missing: unique active project prototype',))
-        emitted = m2c.starter_declarations(['m2c', 'input.s'], recovery, header_text=header_text)
+        source = self.source.read_text()
+        with patch.object(m2c, 'ROOT', self.root):
+            emitted = m2c.starter_declarations(['m2c', 'input.s'], recovery, source_text=source)
+            notes, includes, conflicts = m2c.call_context_notes(recovery, emitted, source)
         self.assertEqual((missing,), emitted)
-        notes, conflicts = m2c.call_context_notes(recovery, emitted, header_text)
+        self.assertEqual([], includes)  # Already included by the source.
         self.assertEqual([recovered], conflicts)
         self.assertEqual('func_missing: unique active project prototype', notes[1])
-        self.assertIn('differs from the initial project header', notes[0])
+        self.assertIn('differs from the header, ABI review required', notes[0])
         self.assertNotIn(';', notes[0])
+
+    def test_caller_without_the_owning_header_gets_an_include_not_a_prototype(self):
+        declaration = 'void func_target(void *, s32, s32);'
+        self.write_guarded_header(declaration)
+        source = ('#include "types.h"\n\ntypedef struct Local { s32 x; } Local;\n'
+                  '#pragma GLOBAL_ASM("asm/nonmatchings/example/func_wrapper.s")\n')
+        self.source.write_text(source)
+        with patch.object(m2c, 'ROOT', self.root), patch.object(
+            m2c.subprocess, 'run', return_value=SimpleNamespace(returncode=0, stdout=REPAIRED)
+        ):
+            output, status = m2c.generate_with_call_context(
+                ['m2c', 'input.s'], WRAPPER, 'func_wrapper', self.source, 'us')
+        self.assertEqual(0, status)
+        self.assertNotIn(declaration, output)
+        self.assertIn('func_target: declared by example_functions.h, which the candidate source must include',
+                      output)
+        ready = m2c.ready_output(output, 'func_wrapper')
+        self.assertIn('required-includes:\n  #include "example_functions.h"\nrequired-declarations:\n  none',
+                      ready)
+        record = json.loads((self.root / 'build/m2c/calls/func_wrapper.json').read_text())
+        self.assertEqual(['example_functions.h'], record['required_includes'])
+        prepared = automate.candidate_rewrites.prepare_starter(
+            output, 'func_wrapper', source, root=self.root)
+        self.assertEqual((), prepared.declarations)
+        self.assertEqual(('example_functions.h',), prepared.includes)
+        updated = automate.candidate_source(automate.automation_common.replace_target_pragma(
+            source.encode(), 'src/game/example.c', 'func_wrapper',
+            automate.candidate_block(prepared)), prepared).decode()
+        self.assertTrue(updated.startswith('#include "types.h"\n#include "example_functions.h"\n\n'
+                                           'typedef struct Local'))
+        self.assertIn(REPAIRED.strip(), updated)
+
+    def test_prepare_replaces_resolved_owned_prototypes_with_the_header(self):
+        self.write_guarded_header('void func_target(void *, s32, s32);')
+        source = '#include "types.h"\n#pragma GLOBAL_ASM("asm/nonmatchings/example/func_wrapper.s")\n'
+        starter = 'void func_target(void *, s32, s32);\n\n' + REPAIRED
+        prepared = automate.candidate_rewrites.prepare_starter(
+            starter, 'func_wrapper', source, root=self.root)
+        self.assertEqual((), prepared.declarations)
+        self.assertEqual(('example_functions.h',), prepared.includes)
+        conflicting = 'void func_target(s32);\n\n' + REPAIRED
+        prepared = automate.candidate_rewrites.prepare_starter(
+            conflicting, 'func_wrapper', source, root=self.root)
+        self.assertEqual((), prepared.declarations)
+        self.assertTrue(any('ABI review required' in note for note in prepared.evidence))
+
+    def test_initial_includes_are_added_once_after_the_include_block(self):
+        cases = {
+            '#include "types.h"\nvoid f(void);\n':
+                '#include "types.h"\n#include "x_functions.h"\nvoid f(void);\n',
+            '#include "types.h"\r\n\r\nvoid f(void);\r\n':
+                '#include "types.h"\r\n#include "x_functions.h"\r\n\r\nvoid f(void);\r\n',
+            'void f(void);\n': '#include "x_functions.h"\nvoid f(void);\n',
+            '#include "types.h"\n#include "x_functions.h"\n': '#include "types.h"\n#include "x_functions.h"\n',
+        }
+        for source, expected in cases.items():
+            with self.subTest(source=source):
+                self.assertEqual(expected, calls.add_initial_includes(source, ['x_functions.h']))
 
     def test_sdk_inputs_invalidate_saved_raw_and_deferred_stage_results(self):
         mapping, header = self.write_sdk()

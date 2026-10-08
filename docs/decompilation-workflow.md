@@ -151,16 +151,19 @@ ownership test rejects duplicate local prototypes and missing includes for
 active C references; compiler and matching gates still establish type agreement
 and instruction preservation.
 
-The m2c starter never redeclares a function owned by a reviewed
-`*_functions.h` header included before any other source line. Those prototypes
-seed call recovery as local declarations, and the flattened source context
-inlines guarded reviewed headers, so sources need no IDO preprocessing just for
-them. A recovered signature that disagrees with the header is omitted and
-reported as an ABI review note. Other prototypes are reused only when the IDO
+The m2c starter and `prepare_starter` never redeclare a function owned by a
+reviewed `*_functions.h` header. If the source does not already include that
+header in its initial include block, `next --ready` lists it under
+`required-includes` and automation adds the include after that block; add it
+the same way when editing by hand. Initially included header prototypes seed
+call recovery as local declarations, and the flattened source context inlines
+guarded reviewed headers, so sources need no IDO preprocessing just for them.
+A recovered signature that disagrees with the header is omitted and reported as
+an ABI review note. Other prototypes are reused only when the IDO
 preprocessor proves they come from the initial include block; recovered
 declarations are otherwise retained when visibility or type agreement is
 uncertain, or source context falls back. The call-context evidence records the
-recovered, emitted and header-conflicting declarations; header reuse does not
+recovered, emitted and header-conflicting declarations and required includes; header reuse does not
 change the signature supplied to the decompiler.
 
 ## Match one function
