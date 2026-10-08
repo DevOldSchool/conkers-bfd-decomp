@@ -12,10 +12,10 @@ typedef struct Game33410State {
     s16 unk1B4;
 } Game33410State;
 
-void func_15124B18(void);
+void func_15124B18(void *);
 
 void func_15005F60(Game33410State *arg0) {
     arg0->unk1B4 = 2;
-    func_15124B18();
+    func_15124B18(arg0);
     arg0->flags84 |= 0x4000;
 }

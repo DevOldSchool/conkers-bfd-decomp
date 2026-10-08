@@ -14,11 +14,11 @@ typedef struct Game333D0State {
     s16 unk1E0;
 } Game333D0State;
 
-void func_15124B18(void);
+void func_15124B18(void *);
 
 void func_15005F20(Game333D0State *arg0) {
     arg0->unk1B4 = 3;
     arg0->unk1E0 = 0xF;
-    func_15124B18();
+    func_15124B18(arg0);
     arg0->unk134 = 1;
 }
