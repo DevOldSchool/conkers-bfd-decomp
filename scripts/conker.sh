@@ -487,6 +487,10 @@ run_python_tests() {
         [[ "$argument" == --tmpfs ]] && replace_next=1
         test_run_args+=("$argument")
     done
+    # Forward explicit test opt-ins; the container does not inherit host env.
+    if [[ -n "${CONKER_ROM_TESTS:-}" ]]; then
+        test_run_args+=(--env "CONKER_ROM_TESTS=$CONKER_ROM_TESTS")
+    fi
     printf 'tests: docker runner (%s)\n' "$image_name"
     docker run --rm "${test_run_args[@]}" \
         --mount "type=bind,source=$repo_root,target=/workspace,readonly" \

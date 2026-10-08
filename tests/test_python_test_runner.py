@@ -13,7 +13,7 @@ TEST_COMMAND = ("case test in\n    test)\n"
 
 
 class PythonTestRunnerTests(unittest.TestCase):
-    def run_command(self, *args, docker="up", host="ok", runner=None):
+    def run_command(self, *args, docker="up", host="ok", runner=None, extra_env=None):
         with tempfile.TemporaryDirectory() as root:
             harness = r'''
 set -euo pipefail
@@ -35,6 +35,8 @@ python3() {
 '''
             env = dict(os.environ)
             env.pop("CONKER_TEST_RUNNER", None)
+            env.pop("CONKER_ROM_TESTS", None)
+            env.update(extra_env or {})
             if runner is not None:
                 env["CONKER_TEST_RUNNER"] = runner
             return subprocess.run(
@@ -56,6 +58,13 @@ python3() {
         for setting in ("CONKER_IN_CONTAINER=1", "HOME=/tmp", "PYTHONDONTWRITEBYTECODE=1"):
             self.assertIn("--env " + setting, command)
         self.assertTrue(command.endswith("rsp-image python3 -m unittest discover -s tests -q"))
+        self.assertNotIn("CONKER_ROM_TESTS", command)
+
+    def test_docker_runner_forwards_rom_integration_opt_in(self):
+        result = self.run_command("-q", extra_env={"CONKER_ROM_TESTS": "1"})
+        self.assertEqual(0, result.returncode, result.stderr)
+        command = next(line for line in result.stderr.splitlines() if line.startswith("docker run "))
+        self.assertIn("--env CONKER_ROM_TESTS=1 ", command)
 
     def test_unavailable_docker_never_falls_back_to_host(self):
         result = self.run_command(docker="down")
