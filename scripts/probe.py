@@ -19,6 +19,7 @@ from pathlib import Path
 
 import compile_c
 import diff
+import project_state
 
 ROOT = diff.ROOT
 
@@ -33,7 +34,15 @@ SC_ABS = 5
 
 
 class ProbeError(Exception):
-    """A variant or object could not be processed."""
+    """A probe could not be completed."""
+
+
+class VariantError(ProbeError):
+    """One variant was rejected (splice or compiler error); other variants may run."""
+
+
+class ToolingError(ProbeError):
+    """The scorer or object inspection failed; the batch result is unreliable."""
 
 
 @dataclass(frozen=True)
@@ -43,83 +52,51 @@ class Local:
     frame_offset: int  # relative to the frame top (negative for locals)
 
 
-def _matching_brace(content: str, open_index: int) -> int:
-    depth = 0
-    index = open_index
-    length = len(content)
-    while index < length:
-        char = content[index]
-        if content.startswith("/*", index):
-            end = content.find("*/", index + 2)
-            if end < 0:
-                break
-            index = end + 2
-            continue
-        if content.startswith("//", index):
-            end = content.find("\n", index)
-            index = length if end < 0 else end
-            continue
-        if char in "\"'":
-            index += 1
-            while index < length and content[index] != char:
-                index += 2 if content[index] == "\\" else 1
-        elif char == "{":
-            depth += 1
-        elif char == "}":
-            depth -= 1
-            if depth == 0:
-                return index
-        index += 1
-    raise ProbeError("unbalanced braces in function definition")
+def definition_names(content: str, identifier: str, regional_symbol: str) -> list[str]:
+    """Names a work item may be defined under, including profile macro aliases."""
 
-
-def definition_span(content: str, symbol: str) -> tuple[int, int] | None:
-    """Return the [start, end) span of a top-level C definition of ``symbol``."""
-
-    pattern = re.compile(
-        r"^(?![ \t#])[^;{}\n]*\b" + re.escape(symbol) + r"[ \t]*\(([^;{}]*)\)[ \t\n]*\{",
-        re.MULTILINE,
+    alias = re.compile(
+        rf"(?m)^\s*#\s*define\s+([A-Za-z_]\w*)\s+{re.escape(regional_symbol)}\s*$"
     )
-    for match in pattern.finditer(content):
-        if _inside_disabled_block(content, match.start()):
+    names = [regional_symbol, identifier, *(match.group(1) for match in alias.finditer(content))]
+    return list(dict.fromkeys(names))
+
+
+def defines_any(content: str, names: list[str]) -> bool:
+    for name in names:
+        try:
+            project_state.c_function_span(content, name)
+        except project_state.ProjectStateError:
             continue
-        close = _matching_brace(content, match.end() - 1)
-        end = close + 1
-        if content[end : end + 1] == "\n":
-            end += 1
-        return match.start(), end
-    return None
+        return True
+    return False
 
 
-def _inside_disabled_block(content: str, index: int) -> bool:
-    before = content[:index]
-    tag = "CONKER_DEFERRED_CANDIDATE"
-    return before.count(f"#if 0 /* {tag} ") > before.count(f"#endif /* {tag} ")
-
-
-def splice_variant(content: str, symbol: str, variant: str) -> str:
-    """Replace ``symbol``'s definition (or GLOBAL_ASM pragma) with ``variant``.
+def splice_variant(content: str, identifier: str, regional_symbol: str,
+                   source_relative: str, variant: str) -> str:
+    """Replace the work item's definition (or GLOBAL_ASM pragma) with ``variant``.
 
     A variant containing ``#include`` is treated as a complete source file.
-    Otherwise it may carry helper declarations before the function definition.
+    Otherwise it may carry helper declarations before the function definition,
+    which may use the regional symbol, the work-item ID or a profile macro alias.
     """
 
     if re.search(r"^[ \t]*#include\b", variant, re.MULTILINE):
         return variant
-    if definition_span(variant, symbol) is None:
-        raise ProbeError(f"variant does not define {symbol}")
+    names = definition_names(content, identifier, regional_symbol)
+    if not defines_any(variant, names):
+        raise VariantError(f"variant does not define {identifier} (accepted names: {', '.join(names)})")
     replacement = variant if variant.endswith("\n") else variant + "\n"
-    span = definition_span(content, symbol)
-    if span is None:
-        pragma = re.compile(
-            r'^[ \t]*#pragma[ \t]+GLOBAL_ASM\("[^"\n]*/' + re.escape(symbol) + r'\.s"\)[ \t]*\n',
-            re.MULTILINE,
-        )
-        match = pragma.search(content)
-        if match is None:
-            raise ProbeError(f"source has neither a C definition nor a GLOBAL_ASM pragma for {symbol}")
-        span = (match.start(), match.end())
-    start, end = span
+    pragma = project_state.global_asm_pragma(source_relative, identifier)
+    pragma_line = re.compile(r"(?m)^[ \t]*" + re.escape(pragma) + r"[ \t]*\n?")
+    match = pragma_line.search(content)
+    if match is not None:
+        start, end = match.span()
+    else:
+        try:
+            start, end = project_state.work_item_function_span(content, identifier, regional_symbol)
+        except project_state.ProjectStateError as error:
+            raise VariantError(f"source has neither a C definition nor a GLOBAL_ASM pragma: {error}") from error
     return content[:start] + replacement + content[end:]
 
 
@@ -174,13 +151,16 @@ FRAME = re.compile(r"addiu\s+\$?sp,\s*\$?sp,\s*-(0x[0-9A-Fa-f]+|\d+)")
 
 
 def object_frame_size(path: Path, symbol: str) -> int | None:
-    output = subprocess.run(
-        ["mips-linux-gnu-objdump", "-d", "--no-show-raw-insn", str(path)],
-        cwd=ROOT, check=True, capture_output=True, text=True,
-    ).stdout
+    try:
+        output = subprocess.run(
+            ["mips-linux-gnu-objdump", "-d", "--no-show-raw-insn", str(path)],
+            cwd=ROOT, check=True, capture_output=True, text=True,
+        ).stdout
+    except (OSError, subprocess.CalledProcessError) as error:
+        raise ToolingError(f"objdump failed for {path}: {error}") from error
     start = output.find(f"<{symbol}>:")
     if start < 0:
-        raise ProbeError(f"{symbol} not found in {path}")
+        raise ToolingError(f"{symbol} not found in {path}")
     for line in output[start:].split("\n")[1:12]:
         if re.match(r"^[0-9a-f]+ <", line):
             break
@@ -226,39 +206,59 @@ def resolve(identifier: str, profile: str) -> Target:
                   diff.expected_function_size(profile, symbol), directory)
 
 
-def build_variant(target: Target, variant: Path | None, index: int) -> Path:
+def probe_source(target: Target, variant: Path | None) -> str:
+    """Return the focused source for one probe without editing the work tree."""
+
     content = target.source.read_text(encoding="utf-8")
+    source_relative = target.source.relative_to(ROOT).as_posix()
     if variant is not None:
-        content = splice_variant(content, target.symbol, variant.read_text(encoding="utf-8"))
-    content = diff.GLOBAL_ASM_LINE.sub("", content)
-    if definition_span(content, target.symbol) is None:
-        raise ProbeError(f"{target.symbol} has no C definition to probe")
+        return splice_variant(content, target.identifier, target.symbol, source_relative,
+                              variant.read_text(encoding="utf-8"))
+    if diff.work_item_is_deferred(target.identifier):
+        return diff.activate_deferred_candidate(content, target.source, target.identifier)
+    pragma = project_state.global_asm_pragma(source_relative, target.identifier)
+    if pragma in content:
+        raise VariantError(f"{target.identifier} has no C definition to probe; pass a variant file")
+    return content
+
+
+def build_variant(target: Target, variant: Path | None, index: int) -> Path:
+    content = diff.GLOBAL_ASM_LINE.sub("", probe_source(target, variant))
     stem = f"variant{index:03d}" if variant is not None else "current"
     source = target.directory / f"{stem}.c"
     output = target.directory / f"{stem}.o"
     source.write_text(content, encoding="utf-8")
     output.unlink(missing_ok=True)
-    result = subprocess.run(
-        compile_c.compile_command(target.profile, source, output),
-        cwd=ROOT, capture_output=True, text=True,
-    )
+    try:
+        result = subprocess.run(
+            compile_c.compile_command(target.profile, source, output),
+            cwd=ROOT, capture_output=True, text=True,
+        )
+    except OSError as error:
+        raise ToolingError(f"could not run the compiler: {error}") from error
     if result.returncode:
         message = "\n".join(line for line in result.stdout.splitlines() + result.stderr.splitlines()
                             if "Error" in line or "error" in line)
-        raise ProbeError(message.strip() or "compile failed")
+        raise VariantError(message.strip() or "compile failed")
     return output
 
 
 def score(target: Target, candidate: Path) -> int:
     settings = diff.write_settings(target.profile, target.source, directory=target.directory)
-    result = subprocess.run(
-        diff.asm_diff_command(candidate, target.reference, target.symbol,
-                              target.expected_size, require_match=True),
-        cwd=settings, capture_output=True, text=True,
-    )
+    try:
+        result = subprocess.run(
+            diff.asm_diff_command(candidate, target.reference, target.symbol,
+                                  target.expected_size, require_match=True),
+            cwd=settings, capture_output=True, text=True,
+        )
+    except (OSError, ValueError) as error:
+        raise ToolingError(f"could not run asm-differ: {error}") from error
     if result.returncode:
-        raise ProbeError((result.stderr or result.stdout).strip() or "asm-differ failed")
-    return diff.current_difference_count(result.stdout)
+        raise ToolingError((result.stderr or result.stdout).strip() or "asm-differ failed")
+    try:
+        return diff.current_difference_count(result.stdout)
+    except ValueError as error:
+        raise ToolingError(f"asm-differ returned an invalid score: {error}") from error
 
 
 def print_layout(target: Target, candidate: Path) -> None:
@@ -301,7 +301,10 @@ def main() -> int:
             candidate = build_variant(target, variant, 0)
             print(f"{target.symbol}: CURRENT ({score(target, candidate)}) [probe]")
             print_layout(target, candidate)
-        except (ProbeError, ValueError, OSError, subprocess.CalledProcessError) as error:
+        except VariantError as error:
+            print(f"error: {error}", file=sys.stderr)
+            return diff.EXIT_FIX_COMPILE
+        except (ProbeError, OSError) as error:
             print(f"error: {error}", file=sys.stderr)
             return diff.EXIT_BLOCKED_TOOLING
         return 0
@@ -312,21 +315,29 @@ def main() -> int:
         label = "current source" if variant is None else str(variant)
         try:
             candidate = build_variant(target, variant, index)
+        except VariantError as error:
+            first = str(error).splitlines()[0] if str(error) else "variant rejected"
+            print(f"skip {label}: {first}", file=sys.stderr)
+            continue
+        except (ProbeError, OSError) as error:
+            print(f"error: {label}: {error}", file=sys.stderr)
+            return diff.EXIT_BLOCKED_TOOLING
+        try:
             value = score(target, candidate)
             frame = object_frame_size(candidate, target.symbol)
-            results.append((value, label, hex(frame) if frame is not None else "leaf"))
-        except (ProbeError, ValueError, OSError, subprocess.CalledProcessError) as error:
-            first = str(error).splitlines()[0] if str(error) else type(error).__name__
-            print(f"skip {label}: {first}", file=sys.stderr)
+        except (ProbeError, OSError) as error:
+            # A scorer failure makes any ranking unreliable; stop without a partial result.
+            print(f"error: scoring {label} failed: {error}", file=sys.stderr)
+            return diff.EXIT_BLOCKED_TOOLING
+        results.append((value, label, hex(frame) if frame is not None else "leaf"))
     if not results:
-        print("error: no variant compiled and scored", file=sys.stderr)
+        print("error: no variant compiled", file=sys.stderr)
         return diff.EXIT_FIX_COMPILE
     reference_frame = reference_frame_size(target.assembly, target.symbol)
     print(f"{target.symbol}: reference frame {hex(reference_frame) if reference_frame else 'leaf'}")
     for value, label, frame in sorted(results, key=lambda item: item[0]):
         print(f"CURRENT ({value})\tframe {frame}\t{label}")
-    best = min(result[0] for result in results)
-    if best == 0:
+    if min(result[0] for result in results) == 0:
         print("note: a probe zero is not a match; apply the variant and run ./conker finish")
     return 0
 
