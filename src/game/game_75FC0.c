@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15048C30
- * - func_15048FC8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -191,24 +190,24 @@ extern f32 D_80099074;
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15048FC8 CURRENT (45) */
 f32 func_15048FC8(f32 *arg0) {
-    f32 x;
     f32 z;
     f32 length;
+    f32 *tmp1;
     f32 angle;
-
-    x = arg0[0];
     z = arg0[2];
-    length = sqrtf(x * x + z * z);
+    length = sqrtf((arg0[0] * arg0[0]) + (z * z));
     if (length == 0.0f) {
         return 0.0f;
     }
-    angle = func_15048C30(-x / length, x);
-    if (arg0[2] > 0.0f) {
-        angle = 270.0f - angle * D_80099070;
+    angle = (-arg0[0]) / length;
+    z = func_15048C30(angle, arg0[0]);
+    tmp1 = arg0;
+    angle = z;
+    if (tmp1[2] > 0.0f) {
+        angle = 270.0f - (angle * D_80099070);
     } else {
-        angle = angle * D_80099074 + 90.0f;
+        angle = (angle * D_80099074) + 90.0f;
     }
     angle -= 90.0f;
     if (angle < 0.0f) {
@@ -216,8 +215,6 @@ f32 func_15048FC8(f32 *arg0) {
     }
     return angle;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15048FC8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_75FC0/func_15048FC8.s")
 
 f32 func_15048864(f32, f32);                        /* extern */
 

@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15104A80
  * - func_15104C44
- * - func_15104FF8
  * - func_151050B0
  * - func_1510558C
  * - func_15105848
@@ -89,38 +88,34 @@ void func_15104A80(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15104A80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_131F30/func_15104A80.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_131F30/func_15104C44.s")
-void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
-void func_1000FD38(void *, void *, s32);
-extern u8 D_1000EF40[];
+u16 func_1000FA64(u16, s16, s16, s16, s32, u16, s16, s32, void *, s32, s32, s32);
+s32 func_1000FD38();
+s32 D_1000EF40();
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15104FF8 CURRENT (530) */
-void func_15104FF8(void *arg0, s32 arg1, u8 arg2) {
-    struct { u8 *volatile context; void *state; void *object; } saved;
-    void *state;
-    void *object;
+typedef struct struct205 { u8 pad0[0x14]; u8 unk14; } struct205;
+typedef struct struct206 { struct205 *unk0; u16 unk4; u8 pad6[0x6]; u8 unkC; u8 padD[0x63]; s32 *unk70; } struct206;
+typedef struct struct207 { u8 pad0[0x28]; struct206 *unk28; } struct207;
 
-    state = (u8 *)arg0 + 0x28;
-    if (arg2 != 0x38) {
-        return;
+void func_15104FF8(struct207 *arg0, s32 arg1, u8 arg2) {
+    struct206 *m = &arg0->unk28;
+    if ((arg2 == 0x38) && (m->unk0->unk14 == 1)) {
+        *(s16 *)((u8 *)m + 8) = 300;
+        func_1000FD38(D_1000EF40, (struct205 *)((s32)m->unk0), 0);
+        func_1000FA64(
+            0x236,
+            ((s16 *)m->unk0)[0],
+            ((s16 *)m->unk0)[1],
+            ((s16 *)m->unk0)[2],
+            0x4000,
+            0x5DC,
+            0x3E8,
+            (s32)D_1000EF40,
+            m->unk0,
+            0,
+            8,
+            0);
     }
-    object = *(void **)state;
-    if (*(u8 *)((u8 *)object + 0x14) != 1) {
-        return;
-    }
-    *(s16 *)((u8 *)state + 8) = 0x12C;
-    saved.context = D_1000EF40;
-    saved.state = state;
-    func_1000FD38(D_1000EF40, object, 0);
-    saved.object = *(void **)saved.state;
-    func_1000FA64(0x236,
-                  *(s16 *)((u8 *)saved.object + 0),
-                  *(s16 *)((u8 *)saved.object + 2),
-                  *(s16 *)((u8 *)saved.object + 4),
-                  0x4000, 0x5DC, 0x3E8, saved.context,
-                  (s32)saved.object, 0, 8, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15104FF8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_131F30/func_15104FF8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_131F30/func_151050B0.s")
 void func_1516972C(u8 *);
 

@@ -11,7 +11,6 @@
  * - func_151D3130
  * - func_151D324C
  * - func_151D3354
- * - func_151D343C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -432,12 +431,9 @@ typedef struct {
 } Game1FFF60DispatchDescriptor;
 extern Game1FFF60DispatchDescriptor D_800AB168;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D343C CURRENT (100) */
 void func_151D343C(s32 arg0, u8 arg1) {
     Game1FFF60DispatchDescriptor sp1C;
 
     sp1C = D_800AB168;
     func_15169260(&sp1C.value, 1, arg0, arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D343C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D343C.s")

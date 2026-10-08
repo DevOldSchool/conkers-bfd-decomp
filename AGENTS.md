@@ -46,6 +46,8 @@ only exact results through transactional `finish`.
 
 ## Sustained matching
 
+- On a stack, frame or float-register residual, follow the [diagnosis checklist](docs/decompilation-workflow.md#diagnosis-checklist)
+  and compare hypotheses with `./conker probe` before reshaping statements by hand.
 - Prefer short spans, concrete declaration/type fixes and proven sibling patterns.
   A low `CURRENT` score does not establish an easy match. Make at most one bounded
   sibling lookup after a match, following [selection and reuse](docs/decompilation-workflow.md#selection-and-reuse).
@@ -74,6 +76,9 @@ only exact results through transactional `finish`.
   distinguish positive hits from bounded negative traces.
 
 ## Reporting
+
+Commit inventories and evidence, never rendered `build/progress/` reports. See
+[progress reports](docs/progress.md).
 
 Give one brief start update; then report failures, blockers or commands over 60 seconds.
 For function work report function/source, changed files, shared dependency (yes/no),

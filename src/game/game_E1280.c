@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150B3F5C
- * - func_150B40E8
  * - func_150B4294
  * - func_150B4710
  * - func_150B5088
@@ -166,13 +165,11 @@ typedef struct GameE1280TimedObject {
 extern f32 D_800BE9A4;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B40E8 CURRENT (85) */
 s32 func_150B40E8(GameE1280TimedObject *arg0) {
     GameE1280TimedState *state = arg0->state;
     GameE1280TimedEntry *entries = arg0->entries;
     GameE1280TimedEntry *entry;
     s32 index;
-    s32 current;
     s32 expired;
 
     if (arg0->count < 2 && (state->flags1C & 1)) {
@@ -199,8 +196,7 @@ s32 func_150B40E8(GameE1280TimedObject *arg0) {
             entry->velocity18 += state->speed28 * D_800BE9A4;
             if (expired != 0 && index != arg0->tail) {
                 do {
-                    current = arg0->tail + 1;
-                    arg0->tail = current;
+                    arg0->tail = arg0->tail + 1;
                     if (arg0->tail == arg0->capacity) {
                         arg0->tail = 0;
                     }
@@ -210,8 +206,7 @@ s32 func_150B40E8(GameE1280TimedObject *arg0) {
         } while (index != arg0->tail);
     }
     if (arg0->count > 0) {
-        entry = (GameE1280TimedEntry *)((u8 *)entries + arg0->tail * 0x24);
-        arg0->output = entry->position;
+        arg0->output = ((GameE1280TimedEntry *)((u8 *)entries + arg0->tail * 0x24))->position;
     } else {
         arg0->output.x = 0.0f;
         arg0->output.y = 0.0f;
@@ -219,8 +214,6 @@ s32 func_150B40E8(GameE1280TimedObject *arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B40E8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B40E8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B4294.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B4710.s")
 void func_150B5060(void *arg0) {

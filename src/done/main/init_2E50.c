@@ -49,7 +49,6 @@ void pi_dma_manager_thread_entry(void *argument) {
     DeviceManager *manager;
 
     message = 0;
-    result = 0;
     manager = argument;
     while (1) {
         func_80023440(manager->commandQueue, (void **) &message, 1);

@@ -43,7 +43,9 @@ Getting started
   rom-info <path>                Print a ROM's SHA-1 and file size.
   setup --us <path> [--eu <path>]
                                  Validate the active US ROM; EU/PAL is optional future setup.
-  progress [render|check]        Show, regenerate, or verify project progress.
+  progress [show|render] [--inventory-only]
+                                 Read local US objdiff progress and inventory; never build.
+  progress check                Validate inventory/rendering without build snapshots.
   progress match <work-item-id>
                                  Verify and record a zero-difference function match.
   progress integrate <work-item-id>
@@ -62,6 +64,9 @@ Getting started
   matching-context <id>          Retrieve bounded contract/storage matching hypotheses.
   matching-callers <callee>...   List possible matched direct callers needing review.
   blockers [--limit N] [--json]  Rank saved declaration and placeholder blockers (read-only).
+  declaration-conflicts [--out DIR] [--limit N] [--json]
+                                 Report symbols declared differently across compiled C files
+                                 (read-only; writes build/reports/declaration-conflicts.*).
   automate [--limit N | --all | --function ID] [--max-attempts N] [--rewrite-budget N]
            [--exhaustive] [--stack-shapes] (opt-in storage-shape pilot)
            [--defer-best] [--skip-final-build] [--report PATH] [--restart] [--verbose] [--model-tokens N]
@@ -85,6 +90,9 @@ Getting started
   diagnose-diff <work-item-id>   Classify a live or deferred candidate's focused differences.
   permute <work-item-id> [--budget N] [--exhaustive] [--stack-shapes]
                                  Search safe declaration/lifetime and expression-form variants.
+  probe <work-item-id> [<variant.c>...] [--layout]
+                                 Score function variants in one pass without editing source;
+                                 --layout prints frame size and named-local stack offsets.
   finish [--profile us] <work-item-id>
                                  Record CURRENT (0), then check progress and whitespace.
   verify-batch [--incremental] <work-item-id> [<work-item-id>...]
@@ -101,7 +109,7 @@ After the raw base split map is available
                                  Keep an auto-rebuilding focused diff open while editing.
   objdiff install               Install the checksum-pinned host objdiff CLI.
   objdiff compare <id> [<id>...] Compare US candidates with objdiff and asm-differ.
-  objdiff report                Generate a full US CPU-code report for decomp.dev testing.
+  objdiff report                Build/validate the full US CPU-code report (ROM/toolchain needed).
   objdiff view <id>             Open an interactive objdiff after preparing both objects.
   first-diff [--profile us]      Report the first difference in a rebuilt ROM.
   mupen [mupen64plus-options]    Run the pinned headless Mupen64Plus debugger on the US ROM.
@@ -602,17 +610,25 @@ case "$command" in
         ;;
     progress)
         action="${1:-show}"
+        if [[ "$action" == "--inventory-only" ]]; then
+            action=show
+        elif [[ $# -gt 0 ]]; then
+            shift
+        fi
         case "$action" in
-            show) python3 "$state_tool" progress --show ;;
-            render) python3 "$state_tool" progress --render ;;
-            check) python3 "$state_tool" progress --check ;;
+            show|render)
+                [[ $# -eq 0 || ( $# -eq 1 && "$1" == "--inventory-only" ) ]] || die "usage: ./conker progress [show|render] [--inventory-only]"
+                python3 "$state_tool" progress "--$action" "$@"
+                ;;
+            check)
+                [[ $# -eq 0 ]] || die "usage: ./conker progress check"
+                python3 "$state_tool" progress --check
+                ;;
             match)
-                shift
                 parse_profile_and_value "usage: ./conker progress match [--profile us] <work-item-id>" "$@"
                 verify_and_record_match
                 ;;
             integrate)
-                shift
                 parse_profile_and_value "usage: ./conker progress integrate [--profile us] <work-item-id>|--all-reviewed" "$@"
                 python3 "$state_tool" setup-check --profile "$selected_profile"
                 integration_overlays="$(python3 "$state_tool" integration-plan "$selected_value")"
@@ -649,6 +665,9 @@ case "$command" in
         ;;
     blockers)
         python3 scripts/matching_blockers.py "$@"
+        ;;
+    declaration-conflicts)
+        python3 scripts/declaration_conflicts.py "$@"
         ;;
     automate)
         python3 scripts/automate.py "$@"
@@ -710,6 +729,12 @@ case "$command" in
         ensure_warm_container
         run_in_warm_container python3 scripts/prepare_nonmatching_asm.py \
             --profile us --identifier "$reopened_symbol"
+        ;;
+    probe)
+        [[ $# -ge 1 ]] || die "usage: ./conker probe <work-item-id> [<variant.c>...] [--layout]"
+        python3 "$state_tool" setup-check --profile us
+        ensure_warm_container
+        run_in_warm_container python3 scripts/probe.py us "$@"
         ;;
     diagnose-diff)
         parse_profile_and_value "usage: ./conker diagnose-diff [--profile us] <work-item-id>" "$@"

@@ -18,7 +18,6 @@
  * - func_150593C4
  * - func_15059444
  * - func_1505959C
- * - func_150597FC
  * - func_150599C8
  * - func_15059B54
  * - func_15059C84
@@ -46,7 +45,6 @@
  * - func_1505E650
  * - func_1505E874
  * - func_1505ED34
- * - func_1505EEB0
  * - func_1505EEF4
  * - func_1505EFD0
  * - func_1505F0AC
@@ -54,7 +52,6 @@
  * - func_1505F298
  * - func_1506045C
  * - func_15060778
- * - func_15060BE0
  * - func_15060D54
  * - func_15060F28
  * - func_150611E8
@@ -845,48 +842,45 @@ extern s8 D_8008FD8C;
 extern s32 D_800CC268;
 void func_1505959C(void *, s32, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150597FC CURRENT (460) */
-void func_150597FC(Game83300InteractionActor *arg0) {
-    s32 var_a1;
-    u8 temp_v1;
-    Game83300InteractionState *temp_a2;
-    Game83300InteractionActor *temp_v0;
-    Game83300InteractionActor *temp_v0_2;
+void func_150597FC(struct127 *arg0)
+{
+  s32 i;
+  struct126 *temp_a2;
+  struct127 *new_var;
+  s32 new_var2;
+  struct127 *temp;
+  u8 temp_v1;
+  s32 one;
+  one = 1;
+  new_var2 = D_800CC268;
+  for (i = 0; i < D_8008FD8C; i++)
+  {
+    temp = (struct127 *)((u8 *)&D_800CC2D0 + i * 0x32C);
+    if (((((((1 << i) & new_var2) && (temp->unk13C == 0)) && (temp->disable_run == 0)) && (temp->interaction_state == one)) && (temp->stunned == 0)) && (temp->unk127 != 0xFF))
+    {
+      break;
+    }
+  }
 
-    var_a1 = 0;
-    if (D_8008FD8C > 0) {
-loop_2:
-        if (!((1 << var_a1) & D_800CC268) ||
-            (temp_v0 = (Game83300InteractionActor *)((u8 *)&D_800CC2D0 + var_a1 * 0x32C), temp_v0->unk13C != 0) ||
-            temp_v0->unk89 != 0 || temp_v0->unk0 != 1 ||
-            temp_v0->unk104 != 0 || temp_v0->unk127 == 0xFF) {
-            var_a1 += 1;
-            if (var_a1 < D_8008FD8C) {
-                goto loop_2;
-            }
+  if (i != D_8008FD8C)
+  {
+    temp = (struct127 *)((u8 *)&D_800CC2D0 + i * 0x32C);
+    if (temp->unk13C == 0)
+    {
+      temp_a2 = temp->unk31C;
+      if ((((((((((temp_a2->unk27 == 0) && (temp->health != 0)) && (arg0->unk13D == (one * 0))) && (((arg0->stunned != 0) || (arg0->unk25C & 0x1000)) || (arg0->id == 0x57))) && (arg0->unk28 == 0.0f)) && (temp->unk28 == 0.0f)) && (arg0->unk25C & 8)) && (temp_a2->unk19B == 0)) && (((temp_v1 = arg0->id, temp_v1 != 0xA9)) || ((*((u8 *) (&temp->pad128))) == 0))) && ((temp_v1 != 0xA8) || ((*((u8 *) (&temp->pad128))) != 0)))
+      {
+        if (temp_v1)
+        {
         }
+        (new_var = temp)->unk13C = D_800C3E78 + 0x64;
+        new_var->xz_velocity = 0.0f;
+        *((s16 *) (((u8 *) temp_a2) + 0x18)) = 0;
+        func_1505959C(arg0, i, temp_a2);
+      }
     }
-    if (var_a1 != D_8008FD8C) {
-        temp_v0_2 = (Game83300InteractionActor *)((u8 *)&D_800CC2D0 + var_a1 * 0x32C);
-        if (temp_v0_2->unk13C == 0) {
-            temp_a2 = temp_v0_2->unk31C;
-            if ((temp_a2->unk27 == 0) && (temp_v0_2->unk1CA != 0) &&
-                (arg0->unk13D == 0) &&
-                ((arg0->unk104 != 0) || (arg0->unk25C & 0x1000) || (arg0->unk4 == 0x57)) &&
-                (arg0->unk28 == 0.0f) && (temp_v0_2->unk28 == 0.0f) &&
-                (arg0->unk25C & 8) && (temp_a2->unk19B == 0) &&
-                ((temp_v1 = arg0->unk4, temp_v1 != 0xA9) || temp_v0_2->unk128 == 0) &&
-                ((temp_v1 != 0xA8) || temp_v0_2->unk128 != 0)) {
-                temp_v0_2->unk3C = 0.0f;
-                temp_v0_2->unk13C = (u8)(D_800C3E78 + 0x64);
-                temp_a2->unk18 = 0;
-                func_1505959C(arg0, var_a1, temp_a2);
-            }
-        }
-    }
+  }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150597FC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150597FC.s")
 extern s16 D_800CC264;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150599C8 CURRENT (1385) */
@@ -1870,28 +1864,17 @@ loop_14:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505ED34.s")
 extern s32 D_800CC2D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505EEB0 CURRENT (875) */
-s32 *func_1505EEB0(s32 arg0, s32 *arg1) {
-    s32 *var_v1;
-    s32 var_a2;
+struct127 *func_1505EEB0(s32 arg0, s32 *arg1) {
+    struct127 *tmp = (struct127 *)&D_800CC2D0;
+    s32 i = 0;
 
-    var_v1 = &D_800CC2D0;
-    var_a2 = 0;
-    if (arg0 != D_800CC2D0) {
-loop_1:
-        var_a2 += 1;
-        var_v1 = (s32 *)((u8 *)var_v1 + 0x32C);
-        if (var_a2 < 0x19) {
-            if (arg0 != *var_v1) {
-                goto loop_1;
-            }
-        }
+    while (i < 25 && arg0 != tmp->interaction_state) {
+        i++;
+        tmp++;
     }
-    *arg1 = var_a2;
-    return var_v1;
+    *arg1 = i;
+    return tmp;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505EEB0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505EEB0.s")
 extern u8 D_800CC40F;
 extern s32 D_800CC5FC;
 
@@ -2217,50 +2200,59 @@ typedef struct Game83300MotionOwner {
 extern u8 D_800C3E90;
 extern u8 *D_800D1C90[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15060BE0 CURRENT (850) */
-void func_15060BE0(Game83300MotionOwner *arg0) {
-    f32 z_component;
-    f32 x_component;
-    f32 y_component;
-    f32 length;
-    f32 factor;
-    Game83300MotionInfo *info;
-    Game83300Motion *motion;
-    s32 valid = 0;
+void func_15060BE0(struct127 *arg0) {
+    f32 pad0;
+    f32 pad1;
+    f32 pad2;
+    f32 pad3;
+    f32 sp4;
+    f32 temp_f0;
+    f32 temp_f12;
+    f32 temp_f14;
+    f32 temp_f16;
+    f32 temp_f2;
+    f32 var_f0;
+    f32 var_f18;
+    f32 var_f2;
+    s32 var_v0;
+    struct124 *temp_v0;
+    u8 *temp_a2;
 
-    if (arg0->index != 0xFF && arg0->motions != 0 && D_800C3E90 == 0) {
-        info = (Game83300MotionInfo *)D_800D1C90[arg0->index];
-        motion = &arg0->motions[info->motionIndex];
-        length = (f32)info->scale * arg0->scale;
-        if (length != 0.0f) {
-            f32 dx = motion->directionX;
-            f32 dy = motion->directionY;
-            f32 dz = motion->directionZ;
-            factor = sqrtf(dx * dx + dy * dy + dz * dz);
-            if (factor != 0.0f) {
-                factor = length / factor;
+    var_v0 = 0;
+    if (arg0->id != 0xFF) {
+        if ((arg0->unk1D4 != 0) && (D_800C3E90 == 0)) {
+            temp_v0 = D_800D1C90[arg0->id];
+            temp_a2 = (u8 *)arg0->unk1D4;
+            temp_a2 += *(u8 *)((u8 *)temp_v0 + 0x27) << 6;
+            temp_f2 = (f32) *(s16 *)((u8 *)temp_v0 + 0x14) * arg0->y_scale;
+            if (temp_f2) {
+                temp_f12 = *(f32 *)(temp_a2 + 0x10);
+                temp_f14 = *(f32 *)(temp_a2 + 0x14);
+                temp_f16 = *(f32 *)(temp_a2 + 0x18);
+                temp_f0 = sqrtf((temp_f12 * temp_f12) + (temp_f14 * temp_f14) + (temp_f16 * temp_f16));
+                var_f18 = temp_f0;
+                if (temp_f0) {
+                    var_f18 = temp_f2 / temp_f0;
+                }
+                var_f2 = temp_f12 * var_f18;
+                var_f0 = temp_f14 * var_f18;
+                sp4 = temp_f16 * var_f18;
+            } else {
+                var_f0 = (sp4 = 0.0f);
+                var_f2 = var_f0;
             }
-            x_component = dx * factor;
-            y_component = dy * factor;
-            z_component = dz * factor;
-        } else {
-            x_component = 0.0f;
-            z_component = 0.0f;
-            y_component = 0.0f;
+            var_v0 = 1;
+            *(s16 *)((u8 *)arg0 + 0x1BC) = (s16) (s32) (*(f32 *)(temp_a2 + 0x30) + var_f2);
+            *(s16 *)((u8 *)arg0 + 0x1BE) = (s16) (s32) (*(f32 *)(temp_a2 + 0x34) + var_f0);
+            *(s16 *)((u8 *)arg0 + 0x1C0) = (s16) (s32) (*(f32 *)(temp_a2 + 0x38) + sp4);
         }
-        valid = 1;
-        arg0->resultX = (s16)(s32)(motion->positionX + x_component);
-        arg0->resultY = (s16)(s32)(motion->positionY + y_component);
-        arg0->resultZ = (s16)(s32)(motion->positionZ + z_component);
     }
-    if (valid == 0) {
-        arg0->resultX = (s16)(s32)arg0->fallbackX;
-        arg0->resultY = (s16)(s32)arg0->fallbackY;
-        arg0->resultZ = (s16)(s32)arg0->fallbackZ;
+    if (var_v0 == 0) {
+        *(s16 *)((u8 *)arg0 + 0x1BC) = (s16) (s32) arg0->x_position;
+        *(s16 *)((u8 *)arg0 + 0x1BE) = (s16) (s32) arg0->y_position;
+        *(s16 *)((u8 *)arg0 + 0x1C0) = (s16) (s32) arg0->z_position;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15060BE0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060BE0.s")
 typedef struct Game83300ActorLink {
     s32 active;
     u8 pad4[0x61];

@@ -152,7 +152,6 @@ def integrate(symbol: str, profile: str) -> None:
         project_state.SOURCE_UNITS_FILE,
         project_state.SUMMARY_FILE,
         project_state.DOCUMENT_FILE,
-        *project_state.BADGE_FILES.values(),
     )
     snapshots = {path: path.read_bytes() if path.exists() else None for path in tracked_paths}
     done_directory_existed = done_path.parent.exists()
@@ -316,7 +315,6 @@ def integrate_all_reviewed(profile: str) -> None:
         project_state.SOURCE_UNITS_FILE,
         project_state.SUMMARY_FILE,
         project_state.DOCUMENT_FILE,
-        *project_state.BADGE_FILES.values(),
     )
     snapshots = {path: path.read_bytes() if path.exists() else None for path in tracked_paths}
     moved_sources: list[tuple[Path, Path]] = []

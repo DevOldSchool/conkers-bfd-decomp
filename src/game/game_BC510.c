@@ -31,19 +31,13 @@ extern s8 D_800D246D;
 extern s8 D_800D247D;
 extern s32 D_800D24C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508F060 CURRENT (625) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508F060 CURRENT (20) */
 void func_1508F060(void) {
-    s32 temp_v0;
-    u8 *temp_v1;
+    s32 i;
 
-    D_800D246D = 0;
-    D_800D247D = 0;
-    temp_v0 = 2;
-    temp_v1 = D_800D2460[temp_v0];
-    temp_v1[0x1D] = 0;
-    temp_v1[0x2D] = 0;
-    temp_v1[0x3D] = 0;
-    temp_v1[0xD] = 0;
+    for (i = 0; i < 6; i++) {
+        D_800D2460[i][13] = 0;
+    }
     D_800D24C0 = 0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1508F060 */

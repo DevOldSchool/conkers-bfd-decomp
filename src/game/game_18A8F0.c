@@ -16,14 +16,12 @@
  * - func_1515E888
  * - func_1515EB84
  * - func_1515EC78
- * - func_1515F008
  * - func_1515F040
  * - func_1515F0AC
  * - func_1515F338
  * - func_1515F5C4
  * - func_1515F850
  * - func_1515FB70
- * - func_1515FBC4
  * - func_1515FC60
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -568,18 +566,16 @@ void func_1515EF74(s32 arg0) {
     func_1515F040(1.0f / func_1515F008(arg0, 0xA), 2);
     func_1515F0AC(-func_1515F008(arg0, 0xE), 3);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515F008 CURRENT (35) */
 f32 func_1515F008(s32 arg0, s32 arg1) {
     s32 value;
     s16 *temp_v1;
 
     temp_v1 = (s16 *)arg0 + arg1;
     value = *temp_v1;
-    value = *(u16 *)((u8 *)temp_v1 + 0x20) | (value * 0x10000);
+    temp_v1 = (u8 *)temp_v1 + 0x20;
+    value = *(u16 *)temp_v1 | (value * 0x10000);
     return (f32)value * 0.000015258789f;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515F008 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F008.s")
 extern f32 D_800A6520;
 extern s32 D_800DCD10[];
 
@@ -838,16 +834,12 @@ typedef struct Game18A8F0LookupResult {
 Game18A8F0LookupResult *func_15105C24(s32);
 extern Game18A8F0Actor D_800CC2D0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515FBC4 CURRENT (382) */
 void func_1515FBC4(Game18A8F0Actor *arg0, s32 arg1) {
-    Game18A8F0Actor * volatile sp18;
-    Game18A8F0Actor *actor;
     Game18A8F0LookupResult *result;
+    Game18A8F0Actor *actor = 0;
     s32 actor_index;
 
-    sp18 = 0;
     result = func_15105C24(arg1);
-    actor = sp18;
     if (result != 0) {
         actor = result->actor_98;
     }
@@ -858,8 +850,6 @@ void func_1515FBC4(Game18A8F0Actor *arg0, s32 arg1) {
     }
     func_1505D024((s32)arg0, 0x6002E, arg0->field_7A, actor_index);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515FBC4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515FBC4.s")
 void func_1505D024(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 
 void func_1515FC34(s32 arg0, s32 arg1) {

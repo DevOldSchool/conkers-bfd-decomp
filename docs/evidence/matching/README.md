@@ -14,6 +14,7 @@ Start with the [conversion audit](matching_conversion_audit.md) for the distinct
 - [Blocked-function recovery evidence (US)](blocked_function_recovery.md)
 - [Camera source-unit completion work](camera_camera_completion.md)
 - [Repeated descriptor pointer contract (US)](descriptor_pointer_contract.md)
+- [Completed caller and payload contracts (US)](done_call_and_payload_contracts.md)
 - [Consumer-proven effect record extents](effect_record_extents.md)
 - [Emitter-state callback matching (US)](game_1897a0_callback_matching.md)
 - [Controller allocation word and pointer contract (US)](game_controller_allocation_contract.md)

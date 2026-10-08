@@ -16,7 +16,6 @@
  * - func_1503195C
  * - func_150319CC
  * - func_15031C14
- * - func_15031E2C
  * - func_15031E7C
  * - func_15031FC8
  * - func_150331B8
@@ -808,27 +807,20 @@ typedef struct {
 
 extern s32 D_800902BC[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15031E2C CURRENT (35) */
 s32 func_15031E2C(Game5D2C0State *arg0, s32 arg1) {
     s32 var_v0;
-    s32 temp_v1;
-    s32 temp_t9;
 
     var_v0 = arg0->field_38;
-    temp_v1 = var_v0;
     if (var_v0 >= 3) {
         var_v0 = 5 - var_v0;
     }
     arg0->field_18 = (s16)D_800902BC[var_v0];
-    temp_t9 = temp_v1 + 1;
-    arg0->field_38 = temp_t9;
-    if (temp_t9 >= 6) {
+    arg0->field_38 = arg0->field_38 + 1;
+    if (arg0->field_38 >= 6) {
         arg0->field_38 = 0;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15031E2C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15031E2C.s")
 extern f32 D_800970DC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15031E7C CURRENT (1205) */

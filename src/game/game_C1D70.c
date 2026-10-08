@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150948C0
- * - func_1509499C
  * - func_15094AB8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -43,15 +42,14 @@ void func_150948C0(u8 *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150948C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C1D70/func_150948C0.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509499C CURRENT (130) */
 void func_1509499C(u8 *arg0, u8 *arg1) {
     s16 temp_a2;
     s16 temp_v1;
     s32 var_a3;
     u8 *var_v0;
 
-    temp_v1 = arg0[1];
     var_v0 = *(u8 **)(arg0 + 4);
+    temp_v1 = arg0[1];
     temp_a2 = temp_v1 & 0xF;
     temp_v1 = (temp_v1 >> 4) + 1;
     for (var_a3 = 0; var_a3 < temp_a2; var_a3++) {
@@ -65,8 +63,6 @@ void func_1509499C(u8 *arg0, u8 *arg1) {
         ((s32 *)arg1)[var_a3] = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509499C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C1D70/func_1509499C.s")
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);                             /* extern */
