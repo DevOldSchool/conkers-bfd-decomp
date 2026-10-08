@@ -465,6 +465,7 @@ run_python_tests() {
     local argument
     local replace_next=0
     local test_run_args=()
+    local test_mount_args=()
     if [[ "$test_runner" == "host" ]]; then
         python3 "$repo_root/scripts/host_environment.py" check || return 2
         printf 'tests: host runner (%s); CI runs the full suite in Docker\n' "$(python3 --version 2>&1)"
@@ -478,7 +479,12 @@ run_python_tests() {
         return 2
     fi
     ensure_image || return 2
-    mkdir -p "$repo_root/build"
+    # Match workspace_mount_args: sources stay read-only, while the generated
+    # output roots that ROM-enabled tests may populate are writable.
+    for argument in asm assets build reference; do
+        mkdir -p "$repo_root/$argument"
+        test_mount_args+=(--mount "type=bind,source=$repo_root/$argument,target=/workspace/$argument")
+    done
     for argument in "${container_run_args[@]}"; do
         if [[ "$replace_next" == 1 && "$argument" == /tmp:* ]]; then
             argument="${argument/,nosuid/,exec,nosuid}"
@@ -494,7 +500,7 @@ run_python_tests() {
     printf 'tests: docker runner (%s)\n' "$image_name"
     docker run --rm "${test_run_args[@]}" \
         --mount "type=bind,source=$repo_root,target=/workspace,readonly" \
-        --mount "type=bind,source=$repo_root/build,target=/workspace/build" \
+        "${test_mount_args[@]}" \
         --env CONKER_IN_CONTAINER=1 \
         --env HOME=/tmp \
         --env PYTHONDONTWRITEBYTECODE=1 \

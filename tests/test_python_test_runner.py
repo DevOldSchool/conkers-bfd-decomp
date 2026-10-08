@@ -43,7 +43,7 @@ python3() {
                 ["bash", "-c", harness + RUNNER + TEST_COMMAND, "test", root, docker, host, *args],
                 capture_output=True, text=True, env=env)
 
-    def test_docker_is_default_with_writable_build_and_executable_tmp_outside_checkout(self):
+    def test_docker_is_default_with_writable_outputs_and_executable_tmp_outside_checkout(self):
         result = self.run_command("-q")
         self.assertEqual(0, result.returncode, result.stderr)
         self.assertNotIn("host-check", result.stderr)
@@ -54,7 +54,10 @@ python3() {
         self.assertEqual(1, command.count("--tmpfs"))
         self.assertNotIn("TMPDIR", command)
         self.assertRegex(command, r"source=\S+,target=/workspace,readonly ")
-        self.assertRegex(command, r"source=\S+/build,target=/workspace/build ")
+        for generated in ("asm", "assets", "build", "reference"):
+            self.assertRegex(command, rf"source=\S+/{generated},target=/workspace/{generated} ")
+        self.assertEqual(5, command.count("--mount "))
+        self.assertNotIn("target=/workspace/src", command)
         for setting in ("CONKER_IN_CONTAINER=1", "HOME=/tmp", "PYTHONDONTWRITEBYTECODE=1"):
             self.assertIn("--env " + setting, command)
         self.assertTrue(command.endswith("rsp-image python3 -m unittest discover -s tests -q"))
