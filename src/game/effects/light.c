@@ -29,7 +29,6 @@
  * - func_15163414
  * - func_15163604
  * - func_15163704
- * - func_151639D0
  * - func_15163A60
  * - func_15163B98
  * - func_15163BE8
@@ -1353,9 +1352,7 @@ s32 func_151638E0(struct225 *arg0) {
     arg0->unk14->unk2F = temp_v1->unk4 + (temp_v1->unk8 * sp1C);
     return 1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151639D0 CURRENT (224) */
-void func_151639D0(void *arg0, s32 arg1, s32 arg2) {
-    arg2 &= 0xFF;
+void func_151639D0(void *arg0, s32 arg1, u8 arg2) {
     if (arg2 == 0x27) {
         *(s8 *)(*(u8 **)((u8 *)arg0 + 0x14) + 9) = 1;
         return;
@@ -1364,8 +1361,6 @@ void func_151639D0(void *arg0, s32 arg1, s32 arg2) {
         *(s8 *)(*(u8 **)((u8 *)arg0 + 0x14) + 9) = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151639D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151639D0.s")
 void func_15163A18(void *arg0, s32 arg1, u8 arg2) {
     if (arg2 == 0x27) {
         *(s8 *)(*(u8 **)((u8 *)arg0 + 0x14) + 9) = 0;

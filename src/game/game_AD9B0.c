@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_periodic_actor_resource_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15080784
  * - func_15080828
  * - func_15080BE8
  *
@@ -114,12 +113,11 @@ extern u8 D_800D1994;
 extern u8 D_800D1995;
 extern u16 *D_800D1998;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15080784 CURRENT (110) */
 void func_15080784(void) {
     s32 value;
 
     if (D_800D1998 != 0) {
-        if (D_800D1995 != D_800D1994) {
+        if (D_800D1994 != D_800D1995) {
             value = D_800D1998[D_800D1994];
             if (value != 0) {
                 func_1001263C(value, 0x7FFF, 0x40);
@@ -128,8 +126,6 @@ void func_15080784(void) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15080784 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AD9B0/func_15080784.s")
 
 void func_150807F4(s32 arg0, s32 arg1, s32 arg2) {
     if (arg2 == 0x20) {
