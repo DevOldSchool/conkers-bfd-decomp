@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import json
+import io
 import sys
 import tempfile
 from pathlib import Path
 import unittest
 from unittest.mock import patch
+from contextlib import redirect_stdout
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / 'scripts'))
@@ -94,6 +96,36 @@ class CoveragePlanTests(unittest.TestCase):
 
 
 class NativeReportValidationTests(unittest.TestCase):
+    def test_generation_uses_canonical_progress_without_any_saved_summary(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            output = root / 'build/us/objdiff-report'
+            coverage = {'scope': 'synthetic', 'expected_code_bytes': 0,
+                        'mapped_code_bytes': 0, 'excluded_zero_bytes': 0,
+                        'target_method': 'synthetic', 'target_verification': {},
+                        'compile_errors': [], 'units': []}
+            native = {'version': 2, 'measures': {'total_code': '0'}, 'units': []}
+            def run(command, **kwargs):
+                if 'objdiff-report-prepare' in command:
+                    (output / 'coverage.json').write_text(json.dumps(coverage))
+                    (output / 'objdiff.json').write_text('{"units": []}')
+                elif 'generate' in command:
+                    (output / 'report.json').write_text(json.dumps(native))
+            expected = report.state.summary(report.state.validate_project()[1])['code_bytes']['regions']['us']
+            with patch.object(report, 'ROOT', root), patch.object(report, 'OUTPUT', output), \
+                    patch.object(report, 'input_fingerprint', return_value='stable-inputs'), \
+                    patch.object(report.subprocess, 'check_output', return_value='a' * 40), \
+                    patch.object(report.subprocess, 'run', side_effect=run), redirect_stdout(io.StringIO()):
+                self.assertEqual(0, report.generate(Path('/synthetic/objdiff')))
+            self.assertFalse((root / 'progress/summary.json').exists())
+            self.assertFalse((root / 'build/progress/summary.json').exists())
+            validation = json.loads((output / 'validation.json').read_text())
+            self.assertEqual(expected, validation['existing_progress'])
+            self.assertEqual(1, validation['snapshot_schema'])
+            self.assertEqual('us', validation['profile'])
+            self.assertEqual('a' * 40, validation['git_revision'])
+            self.assertIn('source_dirty', validation)
+
     def fixtures(self):
         config = {'units': [{'name':'a'}, {'name':'b'}]}
         coverage = {'expected_code_bytes':12, 'mapped_code_bytes':16, 'excluded_zero_bytes':4,

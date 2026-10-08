@@ -43,7 +43,9 @@ Getting started
   rom-info <path>                Print a ROM's SHA-1 and file size.
   setup --us <path> [--eu <path>]
                                  Validate the active US ROM; EU/PAL is optional future setup.
-  progress [render|check]        Show, regenerate, or verify project progress.
+  progress [show|render] [--inventory-only]
+                                 Read local US objdiff progress and inventory; never build.
+  progress check                Validate inventory/rendering without build snapshots.
   progress match <work-item-id>
                                  Verify and record a zero-difference function match.
   progress integrate <work-item-id>
@@ -107,7 +109,7 @@ After the raw base split map is available
                                  Keep an auto-rebuilding focused diff open while editing.
   objdiff install               Install the checksum-pinned host objdiff CLI.
   objdiff compare <id> [<id>...] Compare US candidates with objdiff and asm-differ.
-  objdiff report                Generate a full US CPU-code report for decomp.dev testing.
+  objdiff report                Build/validate the full US CPU-code report (ROM/toolchain needed).
   objdiff view <id>             Open an interactive objdiff after preparing both objects.
   first-diff [--profile us]      Report the first difference in a rebuilt ROM.
   mupen [mupen64plus-options]    Run the pinned headless Mupen64Plus debugger on the US ROM.
@@ -608,17 +610,25 @@ case "$command" in
         ;;
     progress)
         action="${1:-show}"
+        if [[ "$action" == "--inventory-only" ]]; then
+            action=show
+        elif [[ $# -gt 0 ]]; then
+            shift
+        fi
         case "$action" in
-            show) python3 "$state_tool" progress --show ;;
-            render) python3 "$state_tool" progress --render ;;
-            check) python3 "$state_tool" progress --check ;;
+            show|render)
+                [[ $# -eq 0 || ( $# -eq 1 && "$1" == "--inventory-only" ) ]] || die "usage: ./conker progress [show|render] [--inventory-only]"
+                python3 "$state_tool" progress "--$action" "$@"
+                ;;
+            check)
+                [[ $# -eq 0 ]] || die "usage: ./conker progress check"
+                python3 "$state_tool" progress --check
+                ;;
             match)
-                shift
                 parse_profile_and_value "usage: ./conker progress match [--profile us] <work-item-id>" "$@"
                 verify_and_record_match
                 ;;
             integrate)
-                shift
                 parse_profile_and_value "usage: ./conker progress integrate [--profile us] <work-item-id>|--all-reviewed" "$@"
                 python3 "$state_tool" setup-check --profile "$selected_profile"
                 integration_overlays="$(python3 "$state_tool" integration-plan "$selected_value")"
