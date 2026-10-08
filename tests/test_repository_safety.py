@@ -386,6 +386,10 @@ class RepositorySafetyTests(unittest.TestCase):
     def test_canonical_scalar_aliases_cover_m2c_integer_types(self) -> None:
         # types.h takes its aliases from the SDK's PR/ultratypes.h; check the
         # flattened context that m2c actually receives.
+        types_header = (ROOT / "include" / "types.h").read_text(encoding="utf-8")
+        self.assertIn('#include "../lib/ultralib/include/PR/ultratypes.h"', types_header)
+        if not (ROOT / "lib" / "ultralib" / "include" / "PR" / "ultratypes.h").is_file():
+            self.skipTest("lib/ultralib submodule is not checked out")
         sys.path.insert(0, str(ROOT / "scripts"))
         import m2c
 
