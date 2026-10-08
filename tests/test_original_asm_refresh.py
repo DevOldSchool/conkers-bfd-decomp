@@ -30,7 +30,6 @@ class OriginalAssemblyRefreshTests(unittest.TestCase):
                                'SUMMARY_FILE': 'build/progress/summary.json', 'DOCUMENT_FILE': 'build/progress/progress.md'}.items():
             self.stack.enter_context(patch.object(state, name, self.root / relative))
         self.stack.enter_context(patch.object(state, 'ROOT', self.root))
-        self.stack.enter_context(patch.object(state, 'BADGE_FILES', {'us': self.root / 'build/progress/badge.json'}))
         self.stack.enter_context(patch.object(state, 'validate_rom_config'))
         state.write_json(state.ROMS_FILE, {})
         state.write_json(state.OVERLAYS_FILE, {'schema_version': 1, 'overlays': {

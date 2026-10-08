@@ -42,7 +42,6 @@ class IntegrationTests(unittest.TestCase):
                 "FUNCTIONS_FILE",
                 "SOURCE_UNITS_FILE",
                 "SUMMARY_FILE",
-                "BADGE_FILES",
                 "DOCUMENT_FILE",
                 "OVERLAYS_FILE",
             )
@@ -52,10 +51,6 @@ class IntegrationTests(unittest.TestCase):
         project_state.FUNCTIONS_FILE = self.root / "progress" / "functions.json"
         project_state.SOURCE_UNITS_FILE = self.root / "progress" / "source_units.json"
         project_state.SUMMARY_FILE = self.root / "build" / "progress" / "summary.json"
-        project_state.BADGE_FILES = {
-            "us": self.root / "build" / "progress" / "badge-us.json",
-            "eu": self.root / "build" / "progress" / "badge-eu.json",
-        }
         project_state.DOCUMENT_FILE = self.root / "build" / "progress" / "progress.md"
         project_state.OVERLAYS_FILE = self.root / "config" / "overlays.json"
         self.write_project()

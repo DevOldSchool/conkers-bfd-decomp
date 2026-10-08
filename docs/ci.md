@@ -97,13 +97,10 @@ Build/report failures block report publication. They occur after merge and
 cannot retroactively prevent it; maintainers must handle the failure promptly.
 See the [objdiff guide](objdiff.md#scope) for coverage limits.
 
-This workflow needs only `contents: read`; it uploads the existing native objdiff
-report for decomp.dev and makes no repository commits. The service reads completed
-main push runs and attributes the report to the run's source SHA. A manual
-`workflow_dispatch` can verify a build, but should not be assumed to refresh the
-service: its upstream importer handles default-branch push events. Compare the
-public report's SHA before describing it as current. Local inventory reports stay
-ignored; there is no inventory publication job or Pages deployment.
+This workflow needs only `contents: read` and makes no repository commits.
+decomp.dev imports `us_report` from completed default-branch push runs and
+attributes it to that run's source SHA; a manual `workflow_dispatch` is not
+guaranteed to refresh it.
 
 ## Toolchain and reporting
 

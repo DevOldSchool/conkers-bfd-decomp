@@ -15,14 +15,10 @@ future goal and does not currently gate progress.
 
 [![US objdiff code match](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us.svg?mode=shield&category=all&measure=matched_code_percent&label=US%20objdiff%20code%20match)](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us?category=all)
 
-The headline measures native objdiff **US CPU code matching** across all tracked
-main/game/debugger ranges, including SDK code. It does not measure the whole ROM,
-data, assets or EU/PAL. The [public report](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us?category=all)
-identifies its source commit and may lag main while verification or ingestion is
-pending. `./conker progress` reads the same metric from your local objdiff report
-and states whether it matches your current checkout; it never builds implicitly.
-Reviewed source units, mixed C/ASM and deferred/original-ASM inventory details
-remain separate. See [local progress and metric definitions](docs/progress.md).
+The badge is native objdiff matching for tracked US CPU code, including SDK code;
+it excludes data, assets and EU/PAL. `./conker progress` shows the same metric from
+your local `./conker objdiff report`, plus source-unit and function counts. See
+[progress reports](docs/progress.md).
 
 The repository contains no ROMs or extracted game assets. Read
 [LEGAL.md](LEGAL.md) before contributing.

@@ -92,23 +92,6 @@ class ProjectStateTests(unittest.TestCase):
         for counts in result["regions"].values():
             self.assertEqual(sum(counts.values()), result["known_functions"])
 
-    def test_render_badge_formats_the_selected_region_percentage(self) -> None:
-        result = {
-            "code_bytes": {
-                "regions": {
-                    "us": {"percentage": 0.010548},
-                    "eu": {"percentage": 12.5},
-                }
-            }
-        }
-
-        us_badge = project_state.render_badge(result, "us")
-        eu_badge = project_state.render_badge(result, "eu")
-        self.assertEqual(us_badge["label"], "US inventory bytes")
-        self.assertEqual(us_badge["message"], "0.0105%")
-        self.assertEqual(eu_badge["label"], "EU/PAL inventory bytes (inactive)")
-        self.assertEqual(eu_badge["message"], "12.5%")
-
     def test_merged_size_does_not_double_count_overlapping_ranges(self) -> None:
         self.assertEqual(project_state.merged_size([(0x10, 0x20), (0x18, 0x28)]), 0x18)
 
@@ -1420,7 +1403,7 @@ class GameInventoryTests(unittest.TestCase):
                 self.assertFalse(project_state.SUMMARY_FILE.parent.exists())
 
     def test_progress_check_exercises_every_renderer(self) -> None:
-        for name in ("summary", "render_badge", "render_markdown"):
+        for name in ("summary", "render_markdown"):
             with self.subTest(renderer=name), patch.object(project_state, name, side_effect=RuntimeError("render failure")):
                 with self.assertRaisesRegex(RuntimeError, "render failure"):
                     project_state.progress(SimpleNamespace(render=False, check=True))
@@ -1435,7 +1418,6 @@ class GameInventoryTests(unittest.TestCase):
                 "FUNCTIONS_FILE",
                 "SOURCE_UNITS_FILE",
                 "SUMMARY_FILE",
-                "BADGE_FILES",
                 "DOCUMENT_FILE",
                 "OVERLAYS_FILE",
                 "ROMS_FILE",
@@ -1445,10 +1427,6 @@ class GameInventoryTests(unittest.TestCase):
         project_state.FUNCTIONS_FILE = self.root / "progress" / "functions.json"
         project_state.SOURCE_UNITS_FILE = self.root / "progress" / "source_units.json"
         project_state.SUMMARY_FILE = self.root / "build" / "progress" / "summary.json"
-        project_state.BADGE_FILES = {
-            "us": self.root / "build" / "progress" / "badge-us.json",
-            "eu": self.root / "build" / "progress" / "badge-eu.json",
-        }
         project_state.DOCUMENT_FILE = self.root / "build" / "progress" / "progress.md"
         project_state.OVERLAYS_FILE = self.root / "config" / "overlays.json"
         project_state.ROMS_FILE = self.root / "config" / "roms.json"
@@ -1905,7 +1883,7 @@ class GameInventoryTests(unittest.TestCase):
         before = project_state.FUNCTIONS_FILE.read_bytes(), project_state.SOURCE_UNITS_FILE.read_bytes()
         views = {
             path: path.read_bytes()
-            for path in (project_state.SUMMARY_FILE, *project_state.BADGE_FILES.values(), project_state.DOCUMENT_FILE)
+            for path in (project_state.SUMMARY_FILE, project_state.DOCUMENT_FILE)
         }
         unlink = Path.unlink
 
@@ -2028,8 +2006,6 @@ class GameInventoryTests(unittest.TestCase):
         self.assertEqual({"us"}, set(functions["functions"][0]["regions"]))
         self.assertEqual([], units["source_units"])
         self.assertTrue(project_state.SUMMARY_FILE.is_file())
-        self.assertTrue(project_state.BADGE_FILES["us"].is_file())
-        self.assertTrue(project_state.BADGE_FILES["eu"].is_file())
         self.assertIn("Known functions: **1**", project_state.DOCUMENT_FILE.read_text(encoding="utf-8"))
 
     def test_register_game_rejects_an_existing_region_symbol(self) -> None:

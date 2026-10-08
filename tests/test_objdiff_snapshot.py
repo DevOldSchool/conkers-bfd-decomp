@@ -82,13 +82,21 @@ class ObjdiffSnapshotTests(unittest.TestCase):
         (self.root / 'src/example.c').unlink()
         self.assertNotEqual(before, snapshot.input_fingerprint(self.root))
 
-    def test_commit_lag_is_explicit_even_with_identical_code(self):
+    def test_commit_with_identical_inputs_stays_current_and_reports_both_revisions(self):
         (self.root / 'README.md').write_text('documentation only\n')
         self.git('add', 'README.md')
         self.commit()
         status = snapshot.read_status(self.root)
-        self.assertEqual('stale', status['status'])
-        self.assertEqual('HEAD differs from the report source revision', status['reason'])
+        self.assertEqual('current', status['status'])
+        self.assertIn('another commit with identical inputs', status['reason'])
+        self.assertNotEqual(status['git_revision'], status['current_revision'])
+
+    def test_unavailable_snapshot_explains_how_to_generate_or_skip(self):
+        (self.output / 'report.json').unlink()
+        text = '\n'.join(snapshot.render_status(snapshot.read_status(self.root)))
+        self.assertIn('unavailable (missing)', text)
+        self.assertIn('./conker objdiff report', text)
+        self.assertIn('--inventory-only', text)
 
     def test_generated_outputs_do_not_invalidate_input_fingerprint(self):
         before = snapshot.input_fingerprint(self.root)

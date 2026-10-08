@@ -86,13 +86,14 @@ def read_status(root: Path) -> dict:
                   'total_code': total, 'matched_code_percent': percent}
         revision = git(root, 'rev-parse', 'HEAD').strip()
         fingerprint = input_fingerprint(root)
-        reasons = []
-        if revision != proof['git_revision']:
-            reasons.append('HEAD differs from the report source revision')
-        if fingerprint != proof['source_fingerprint']:
-            reasons.append('report inputs have changed')
-        result.update(status='stale' if reasons else 'current', current_revision=revision,
-                      reason='; '.join(reasons) if reasons else 'Source revision and input fingerprint match.')
+        # The fingerprint covers every build input, including uncommitted edits
+        # and SDK submodules, so a commit that changes no inputs stays current.
+        current = fingerprint == proof['source_fingerprint']
+        reason = ('Report inputs match this checkout.' if current
+                  else 'Report inputs have changed since generation.')
+        if current and revision != proof['git_revision']:
+            reason += ' It was generated at another commit with identical inputs.'
+        result.update(status='current' if current else 'stale', current_revision=revision, reason=reason)
     except (OSError, subprocess.CalledProcessError) as error:
         result.update(status='unverified', reason=f'Cannot read/check snapshot inputs ({type(error).__name__}).')
     except (ValueError, KeyError, TypeError, AttributeError, OverflowError) as error:
@@ -104,6 +105,8 @@ def render_status(status: dict) -> list[str]:
     current = status['status'] == 'current'
     value = f"{status['matched_code_percent']:.4f}%" if current else f"unavailable ({status['status']})"
     lines = [f'## US objdiff code match: {value}', '', status['reason']]
+    if not current and status['status'] != 'not_requested':
+        lines.extend(['', GENERATE, 'Use `./conker progress --inventory-only` to skip this section.'])
     if 'git_revision' in status:
         lines.extend(['', f"- Profile: **{status['profile']}**; native metric: `matched_code_percent` (all categories).",
                       f"- Report source revision: `{status['git_revision']}`.",
@@ -111,8 +114,6 @@ def render_status(status: dict) -> list[str]:
                       f"- Input fingerprint: `{status['source_fingerprint']}`.",
                       f"- Report SHA-256: `{status['report_sha256']}`.",
                       f"- {'Matched' if current else 'Last snapshot (not current)'} code: **{status['matched_code']:,} / {status['total_code']:,} bytes ({status['matched_code_percent']:.4f}%)**."])
-    lines.extend(['', 'Snapshot: `build/us/objdiff-report/report.json` with local `validation.json`.',
-                  GENERATE, 'Reading progress never builds, installs tools or accesses the network.',
-                  'Compare with decomp.dev only for the same source inputs, revision, US version and all-category metric.',
+    lines.extend(['', 'Same metric and generator as the decomp.dev badge (`./conker objdiff report`).',
                   'Tracked US CPU code only; no data/assets, other boot code, RSP or EU coverage.', ''])
     return lines

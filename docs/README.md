@@ -30,8 +30,8 @@ matches the work you intend to do.
   used when static code or display-list evidence cannot identify a consumer.
 - [Library track](library-track.md) records Nintendo 64 library boundary work,
   archive integration, and the associated commands.
-- [Decompilation progress](progress.md) explains local reports and links to the
-  US objdiff report and separate canonical inventory details.
+- [Decompilation progress](progress.md) defines the progress metric and how to
+  read it locally.
 
 ## Assets and research
 
@@ -77,9 +77,8 @@ when adding or moving research.
 - `progress/functions.json` is the canonical function-match inventory.
 - `progress/source_units.json` records reviewed source boundaries and
   integration state.
-- `build/progress/` holds ignored generated reports and badges; do not commit
-  them. `docs/progress.md` is the tracked static guide. Published checkpoints
-  come from the existing decomp.dev US objdiff report.
+- `build/progress/` holds ignored generated reports; do not commit them.
+  Public progress comes from the decomp.dev US objdiff report.
 - `docs/evidence/` contains scoped research records. Evidence documents support
   a claim but do not themselves mark a function or source unit complete.
 - Generated assembly, extracted assets, and build products are ignored local

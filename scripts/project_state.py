@@ -24,10 +24,6 @@ OVERLAYS_FILE = ROOT / "config" / "overlays.json"
 FUNCTIONS_FILE = ROOT / "progress" / "functions.json"
 SOURCE_UNITS_FILE = ROOT / "progress" / "source_units.json"
 SUMMARY_FILE = ROOT / "build" / "progress" / "summary.json"
-BADGE_FILES = {
-    "us": ROOT / "build" / "progress" / "badge-us.json",
-    "eu": ROOT / "build" / "progress" / "badge-eu.json",
-}
 DOCUMENT_FILE = ROOT / "build" / "progress" / "progress.md"
 LOCAL_SETUP_FILE = ROOT / ".conker" / "roms.json"
 ROM_LINKS = {
@@ -1318,7 +1314,7 @@ def render_markdown(result: dict[str, Any]) -> str:
         *objdiff_snapshot.render_status(result.get('objdiff', objdiff_snapshot.inventory_only())),
         "## Canonical inventory (separate from objdiff)",
         "",
-        "Inventory span percentages below are not the objdiff headline or public badge metric.",
+        "Counts from the canonical inventories. The objdiff figure above is the only progress percentage.",
         "",
         f"- Known functions: **{result['known_functions']}**",
         "- Active target: **North America (US)**",
@@ -1331,12 +1327,10 @@ def render_markdown(result: dict[str, Any]) -> str:
         f"- Mixed C/ASM source units in the canonical build: **{result['mixed_source_units']}**",
         f"- Functions awaiting reviewed source-unit boundaries: **{result['unassigned_functions']}**",
         "- Matched function bytes for active target: "
-        f"**{result['code_bytes']['matched_bytes']:,} / {result['code_bytes']['total_bytes']:,} "
-        f"({result['code_bytes']['percentage']:.4f}%)**",
+        f"**{result['code_bytes']['matched_bytes']:,} / {result['code_bytes']['total_bytes']:,}**",
         "- Fully matched source-unit bytes: "
         f"**{result['code_bytes']['fully_matched_source_unit_bytes']:,} / "
-        f"{result['code_bytes']['total_bytes']:,} "
-        f"({result['code_bytes']['fully_matched_source_unit_percentage']:.4f}%)**",
+        f"{result['code_bytes']['total_bytes']:,}**",
         "- Archive-backed library text bytes included above: "
         f"**{result['code_bytes']['library_text_bytes']:,}**",
         "",
@@ -1359,8 +1353,8 @@ def render_markdown(result: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "| Region | Matched function bytes | Fully matched source-unit bytes | Total code bytes | Function byte match |",
-            "| --- | ---: | ---: | ---: | ---: |",
+            "| Region | Matched function bytes | Fully matched source-unit bytes | Total code bytes |",
+            "| --- | ---: | ---: | ---: |",
         ]
     )
     for region in KNOWN_REGIONS:
@@ -1368,13 +1362,13 @@ def render_markdown(result: dict[str, Any]) -> str:
         lines.append(
             f"| {REGION_NAMES[region]} | {values['matched_bytes']:,} | "
             f"{values['fully_matched_source_unit_bytes']:,} | "
-            f"{values['total_bytes']:,} | {values['percentage']:.4f}% |"
+            f"{values['total_bytes']:,} |"
         )
     lines.extend(
         [
             "",
-            "| Area | Known functions | Matched for active target | Matched function bytes | Fully matched source-unit bytes | Total bytes | Function byte match |",
-            "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+            "| Area | Known functions | Matched for active target | Matched function bytes | Fully matched source-unit bytes | Total bytes |",
+            "| --- | ---: | ---: | ---: | ---: | ---: |",
         ]
     )
     for overlay, counts in result["overlays"].items():
@@ -1383,8 +1377,7 @@ def render_markdown(result: dict[str, Any]) -> str:
             f"| {OVERLAYS[overlay]} | {counts['known_functions']} | {counts['target_matched']} | "
             f"{byte_counts['matched_bytes']:,} | "
             f"{byte_counts['fully_matched_source_unit_bytes']:,} | "
-            f"{byte_counts['total_bytes']:,} | "
-            f"{byte_counts['percentage']:.4f}% |"
+            f"{byte_counts['total_bytes']:,} |"
         )
     lines.extend(
         [
@@ -1400,19 +1393,6 @@ def render_markdown(result: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def render_badge(result: dict[str, Any], region: str) -> dict[str, Any]:
-    """Return one region's Shields badge for the matched-byte metric."""
-
-    region_progress = result["code_bytes"]["regions"][region]
-    value = f"{region_progress['percentage']:.4f}".rstrip("0").rstrip(".")
-    return {
-        "schemaVersion": 1,
-        "label": f"{REGION_NAMES[region]} inventory bytes" + (" (inactive)" if region in FUTURE_REGIONS else ""),
-        "message": f"{value}%",
-        "color": "blue",
-    }
-
-
 def progress_contents(functions: list[dict[str, Any]], *, inventory_only: bool = False) -> dict[Path, str]:
     """Render local views deterministically for fixed inventory/snapshot inputs."""
 
@@ -1421,10 +1401,6 @@ def progress_contents(functions: list[dict[str, Any]], *, inventory_only: bool =
                          else objdiff_snapshot.read_status(ROOT))
     return {
         SUMMARY_FILE: json.dumps(result, indent=2, sort_keys=True) + "\n",
-        **{
-            BADGE_FILES[region]: json.dumps(render_badge(result, region), indent=2, sort_keys=True) + "\n"
-            for region in KNOWN_REGIONS
-        },
         DOCUMENT_FILE: render_markdown(result),
     }
 
@@ -1580,9 +1556,7 @@ def mark_matched(args: argparse.Namespace) -> None:
         f"{FUNCTIONS_FILE.relative_to(ROOT)}, "
         + (f"{SOURCE_UNITS_FILE.relative_to(ROOT)}, " if source_unit is not None else "")
         + (f"{function['source']}, " if source_todo_updated else "")
-        + f"{SUMMARY_FILE.relative_to(ROOT)}, "
-        + ", ".join(str(BADGE_FILES[region].relative_to(ROOT)) for region in KNOWN_REGIONS)
-        + ", "
+        + f"{SUMMARY_FILE.relative_to(ROOT)} "
         + f"and {DOCUMENT_FILE.relative_to(ROOT)}."
     )
 
@@ -1641,7 +1615,7 @@ def verify_original_asm(args: argparse.Namespace) -> None:
         data = {"schema_version": 1, "functions": functions}
         validate_functions(data)
         original_asm.validate_source(ROOT, function)
-        paths = [FUNCTIONS_FILE, SUMMARY_FILE, DOCUMENT_FILE, *BADGE_FILES.values()]
+        paths = [FUNCTIONS_FILE, SUMMARY_FILE, DOCUMENT_FILE]
         previous = {path: path.read_bytes() if path.exists() else None for path in paths}
         try:
             write_json(FUNCTIONS_FILE, data)
@@ -2482,7 +2456,7 @@ def retire_library_units(args: argparse.Namespace) -> None:
 
     original_files = {
         path: path.read_bytes() if path.is_file() else None
-        for path in (FUNCTIONS_FILE, SOURCE_UNITS_FILE, SUMMARY_FILE, *BADGE_FILES.values(), DOCUMENT_FILE)
+        for path in (FUNCTIONS_FILE, SOURCE_UNITS_FILE, SUMMARY_FILE, DOCUMENT_FILE)
     }
     try:
         write_json(FUNCTIONS_FILE, updated_functions)
@@ -2557,7 +2531,7 @@ def normalize_done_sources() -> None:
         return
 
     tracked = (FUNCTIONS_FILE, SOURCE_UNITS_FILE, SUMMARY_FILE, DOCUMENT_FILE,
-               *BADGE_FILES.values(), *maps)
+               *maps)
     snapshots = {path: path.read_bytes() if path.exists() else None for path in tracked}
     moved = []
     created_directories = set()
@@ -2635,7 +2609,7 @@ def withdraw_source_unit(args: argparse.Namespace) -> None:
         if count != 1:
             raise ProjectStateError("could not identify one exact source mapping")
     updated = {**data, "source_units": [item for item in units if item is not unit]}
-    paths = (SOURCE_UNITS_FILE, map_path, source_path, SUMMARY_FILE, DOCUMENT_FILE, *BADGE_FILES.values())
+    paths = (SOURCE_UNITS_FILE, map_path, source_path, SUMMARY_FILE, DOCUMENT_FILE)
     originals = {path: path.read_bytes() if path.exists() else None for path in paths}
     try:
         write_json(SOURCE_UNITS_FILE, updated)
