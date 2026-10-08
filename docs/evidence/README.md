@@ -72,7 +72,7 @@ Prepare a JSON object mapping old repository-relative paths to new paths within
 ./conker relocate-evidence --map /tmp/evidence-moves.json
 ./conker relocate-evidence --map /tmp/evidence-moves.json --apply
 ./conker progress check
-build/host-python/bin/python3 -m unittest discover -s tests
+./conker test
 git -c core.whitespace=cr-at-eol diff --check
 ```
 

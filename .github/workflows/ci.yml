@@ -74,8 +74,8 @@ jobs:
         run: ./conker host-setup
       - name: Check shell entry points
         run: bash -n conker scripts/conker.sh
-      - name: Run tooling and public-check regression tests
-        run: build/host-python/bin/python3 -m unittest discover -s tests -v
+      - name: Run tooling and public-check regression tests on the host
+        run: ./conker test --host -v
 
   toolchain:
     name: Toolchain image and compiler smoke test
@@ -96,6 +96,8 @@ jobs:
         run: docker build --platform linux/amd64 --tag conkers-bfd-decomp-toolchain:ci .
       - name: Verify IDO and debugger installations
         run: CONKER_IMAGE=conkers-bfd-decomp-toolchain:ci ./conker doctor
+      - name: Run the full regression suite in the built image
+        run: CONKER_IMAGE=conkers-bfd-decomp-toolchain:ci ./conker test -v
 
   compile:
     name: US C compilation (no ROM)
