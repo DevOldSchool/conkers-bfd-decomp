@@ -121,6 +121,10 @@ class NativeReportValidationTests(unittest.TestCase):
             self.assertFalse((root / 'build/progress/summary.json').exists())
             validation = json.loads((output / 'validation.json').read_text())
             self.assertEqual(expected, validation['existing_progress'])
+            self.assertEqual(1, validation['snapshot_schema'])
+            self.assertEqual('us', validation['profile'])
+            self.assertEqual('a' * 40, validation['git_revision'])
+            self.assertIn('source_dirty', validation)
 
     def fixtures(self):
         config = {'units': [{'name':'a'}, {'name':'b'}]}

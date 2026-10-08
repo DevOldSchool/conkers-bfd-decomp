@@ -87,7 +87,8 @@ Configure these environment secrets without committing private repository names:
 The workflow builds the public toolchain before fetching private inputs, checks
 out only the US ROM without persisting credentials, and runs `./conker build --all`
 and `./conker objdiff report`. Report preparation validates linked targets for
-both tracked US CPU-code ranges. Only `build/us/objdiff-report/report.json` is
+the tracked main/game/debugger US CPU-code ranges. Only
+`build/us/objdiff-report/report.json` is
 uploaded as `us_report`, retained for 90 days. No ROM, assembly or object file is
 an artifact. Cleanup stops the toolchain and removes the private checkout and
 copied ROM; remaining generated files disappear with the disposable hosted runner.
@@ -96,33 +97,13 @@ Build/report failures block report publication. They occur after merge and
 cannot retroactively prevent it; maintainers must handle the failure promptly.
 See the [objdiff guide](objdiff.md#scope) for coverage limits.
 
-After that entire job succeeds, **Publish verified progress checkpoint** checks
-out the same source SHA in a fresh public-only runner and renders the inventory
-reports. Only this separate job requests `contents: write`; PR jobs and the ROM
-verifier retain `contents: read`. It uses the short-lived `GITHUB_TOKEN`, receives
-no environment secrets, and consumes no PR artifacts or private build output.
-It publishes exactly `summary.json`, `badge-us.json`, `badge-eu.json`, `progress.md`
-and `checkpoint.json` to `progress-reports`. The checkpoint records the verified
-source SHA, verification run/attempt URL and public file hashes. This is an
-inventory summary associated with the successful US verification, not new proof
-for every function or EU/PAL. Existing local full-span, relocation, layout and
-exact-output gates remain required.
-
-Publication is serialized, but does not rely on queue order: the previous source
-must be an ancestor of the proposed source. Same/older runs skip; divergent
-histories fail. Every update parents the expected report head and atomically
-pushes all five files with ordinary fast-forward semantics. A pre-push hook
-checks Git's advertised remote head against the expected SHA (including initial
-absence); the server rejects subsequent ref races. A concurrent change fails
-closed and requires a rerun, never a force push. Source branches are untouched.
-
-The first successful approved run after migration creates the report branch;
-there is no seeded or pre-verification checkpoint. Until then, report links and
-badges have no published data. See [migration and bootstrap](progress.md#migration-and-first-publication).
-If repository/organization policy denies this job's requested write permission
-or branch creation, publication fails while the previous checkpoint stays live.
-An owner must review that permission separately; do not add credentials or bypass
-rules to make it pass. No repository setting change is part of this workflow.
+This workflow needs only `contents: read`; it uploads the existing native objdiff
+report for decomp.dev and makes no repository commits. The service reads completed
+main push runs and attributes the report to the run's source SHA. A manual
+`workflow_dispatch` can verify a build, but should not be assumed to refresh the
+service: its upstream importer handles default-branch push events. Compare the
+public report's SHA before describing it as current. Local inventory reports stay
+ignored; there is no inventory publication job or Pages deployment.
 
 ## Toolchain and reporting
 

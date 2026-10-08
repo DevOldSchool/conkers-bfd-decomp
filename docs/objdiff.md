@@ -69,8 +69,8 @@ batch verification retain their existing rules.
 
 This builds the mapped SDK archives and active C implementations, prepares
 independent splat targets for every range in `config/overlays.json`, and
-invokes the pinned native `objdiff-cli report generate`. It covers both US CPU
-overlays, including raw/unassigned code. The command uses four
+invokes the pinned native `objdiff-cli report generate`. It covers tracked
+main/game/debugger US CPU code, including raw/unassigned code. The command uses four
 object-preparation workers and validates cached base object hashes before
 reuse. The first run requires the pinned `lib/ultralib` submodule (`git
 submodule update --init lib/ultralib`).
@@ -125,7 +125,8 @@ Output is local under `build/us/objdiff-report/`:
   target objects, linker scripts, linked validation images, and logs.
 - `coverage.json`: range ownership, source/SDK mappings, target link proofs,
   excluded zero ranges, cache keys, object hashes, and any compiler failures.
-- `validation.json`: snapshot revision/fingerprint, exact denominator checks,
+- `validation.json`: US profile, snapshot revision/fingerprint, modified-input status,
+  report hash, exact denominator checks,
   timings, native measures, and existing tracker totals.
 - `self-changes.json`: the report compared with itself through objdiff's native
   parser; it must contain no changed units.

@@ -613,12 +613,12 @@ first.
 
 ## Regional and progress rules
 
-Use `./conker progress` for current working-tree totals, or `./conker progress render`
-to save ignored reports under `build/progress/`. `progress check` validates the
+Use `./conker progress` for local objdiff status and separate inventory details, or
+`./conker progress render` to save ignored reports under `build/progress/`. `progress check` validates the
 canonical inventories and rendering without comparing saved reports. Transactions
 refresh these local views automatically; commit the inventory/evidence changes
-only. See [progress reports](progress.md) for local access, published checkpoints
-and migration from committed snapshots.
+only. See [progress reports](progress.md) for local objdiff freshness, separate
+inventory details and migration from committed snapshots.
 
 `progress/functions.json` is the canonical instruction-match inventory.
 `progress/source_units.json` separately tracks reviewed C-file boundaries and

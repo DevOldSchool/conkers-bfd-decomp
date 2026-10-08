@@ -104,9 +104,9 @@ class ProjectStateTests(unittest.TestCase):
 
         us_badge = project_state.render_badge(result, "us")
         eu_badge = project_state.render_badge(result, "eu")
-        self.assertEqual(us_badge["label"], "US")
+        self.assertEqual(us_badge["label"], "US inventory bytes")
         self.assertEqual(us_badge["message"], "0.0105%")
-        self.assertEqual(eu_badge["label"], "EU/PAL")
+        self.assertEqual(eu_badge["label"], "EU/PAL inventory bytes (inactive)")
         self.assertEqual(eu_badge["message"], "12.5%")
 
     def test_merged_size_does_not_double_count_overlapping_ranges(self) -> None:
@@ -1362,6 +1362,27 @@ class ProjectStateTests(unittest.TestCase):
 
 
 class GameInventoryTests(unittest.TestCase):
+    def test_inventory_only_and_check_never_read_objdiff_snapshots(self) -> None:
+        with patch.object(project_state.objdiff_snapshot, 'read_status', side_effect=AssertionError('snapshot read')):
+            for check in (False, True):
+                with redirect_stdout(io.StringIO()) as output:
+                    project_state.progress(SimpleNamespace(render=False, check=check, inventory_only=True))
+                if not check:
+                    self.assertIn('Inventory-only mode', output.getvalue())
+                    self.assertIn('Canonical inventory (separate from objdiff)', output.getvalue())
+
+    def test_progress_headline_uses_objdiff_instead_of_inventory_percentage(self) -> None:
+        status = {'status': 'current', 'reason': 'test', 'matched_code_percent': 12.5}
+        with patch.object(project_state.objdiff_snapshot, 'read_status', return_value=status):
+            _, functions = project_state.validate_project()
+            first = project_state.progress_contents(functions)
+            self.assertEqual(first, project_state.progress_contents(functions))
+        result = json.loads(first[project_state.SUMMARY_FILE])
+        self.assertNotEqual(12.5, result['code_bytes']['percentage'])
+        self.assertEqual(12.5, result['objdiff']['matched_code_percent'])
+        text = first[project_state.DOCUMENT_FILE]
+        self.assertLess(text.index('US objdiff code match: 12.5000%'), text.index('Canonical inventory'))
+
     def test_progress_render_is_deterministic_local_output_and_preserves_guide(self) -> None:
         guide = self.root / "docs/progress.md"
         guide.parent.mkdir(parents=True, exist_ok=True)

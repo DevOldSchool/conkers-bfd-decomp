@@ -13,15 +13,16 @@ future goal and does not currently gate progress.
 
 ## Project progress
 
-[![US progress](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FDevOldSchool%2Fconkers-bfd-decomp%2Fprogress-reports%2Fbadge-us.json)](https://github.com/DevOldSchool/conkers-bfd-decomp/blob/progress-reports/progress.md)
-[![EU progress](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FDevOldSchool%2Fconkers-bfd-decomp%2Fprogress-reports%2Fbadge-eu.json)](https://github.com/DevOldSchool/conkers-bfd-decomp/blob/progress-reports/progress.md)
+[![US objdiff code match](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us.svg?mode=shield&category=all&measure=matched_code_percent&label=US%20objdiff%20code%20match)](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us?category=all)
 
-US instruction matches and completed source units are tracked separately. The
-EU/PAL badge is informational until that regional target becomes active. See
-the [latest published checkpoint](https://github.com/DevOldSchool/conkers-bfd-decomp/blob/progress-reports/progress.md) for the function,
-source-unit, byte, and executable-area breakdown. It identifies the verified main
-commit and may lag main while approval or publication is pending. Generate your
-own current report with `./conker progress render`; see [local reports and publication](docs/progress.md).
+The headline measures native objdiff **US CPU code matching** across all tracked
+main/game/debugger ranges, including SDK code. It does not measure the whole ROM,
+data, assets or EU/PAL. The [public report](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us?category=all)
+identifies its source commit and may lag main while verification or ingestion is
+pending. `./conker progress` reads the same metric from your local objdiff report
+and states whether it matches your current checkout; it never builds implicitly.
+Reviewed source units, mixed C/ASM and deferred/original-ASM inventory details
+remain separate. See [local progress and metric definitions](docs/progress.md).
 
 The repository contains no ROMs or extracted game assets. Read
 [LEGAL.md](LEGAL.md) before contributing.
@@ -65,7 +66,7 @@ verification in detail.
 | Area | Start here |
 | --- | --- |
 | Function matching and source integration | [Contributing](CONTRIBUTING.md) and [decompilation workflow](docs/decompilation-workflow.md) |
-| Current progress | [Published checkpoint](https://github.com/DevOldSchool/conkers-bfd-decomp/blob/progress-reports/progress.md) · [Local reports](docs/progress.md) |
+| Current progress | [US objdiff report](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us?category=all) · [Local reports](docs/progress.md) |
 | Clean-room baseline and ROM profiles | [Bootstrap guide](docs/bootstrap.md) |
 | Asset extraction and format research | [RZIP and asset extraction](docs/rzip-assets.md) |
 | Model previews and scoped material evidence | [Model appearance extraction](docs/model-appearance.md) |

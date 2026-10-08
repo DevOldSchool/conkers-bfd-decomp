@@ -31,7 +31,7 @@ matches the work you intend to do.
 - [Library track](library-track.md) records Nintendo 64 library boundary work,
   archive integration, and the associated commands.
 - [Decompilation progress](progress.md) explains local reports and links to the
-  latest published verified-main checkpoint.
+  US objdiff report and separate canonical inventory details.
 
 ## Assets and research
 
@@ -79,7 +79,7 @@ when adding or moving research.
   integration state.
 - `build/progress/` holds ignored generated reports and badges; do not commit
   them. `docs/progress.md` is the tracked static guide. Published checkpoints
-  live on the separate `progress-reports` branch.
+  come from the existing decomp.dev US objdiff report.
 - `docs/evidence/` contains scoped research records. Evidence documents support
   a claim but do not themselves mark a function or source unit complete.
 - Generated assembly, extracted assets, and build products are ignored local

@@ -66,30 +66,3 @@ jobs:
         run: |
           ./conker stop || true
           rm -rf -- .private-rom-assets roms/baserom.us.z64
-
-  publish-progress:
-    name: Publish verified progress checkpoint
-    needs: verify-main
-    if: github.ref == 'refs/heads/main' && github.repository == 'DevOldSchool/conkers-bfd-decomp'
-    runs-on: ubuntu-24.04
-    timeout-minutes: 10
-    permissions:
-      contents: write
-    concurrency:
-      group: publish-progress-reports
-      cancel-in-progress: false
-    steps:
-      # Fresh public checkout: no ROM inputs, private logs or PR artifacts cross
-      # the job boundary. Only a successful approved exact-SHA build gets here.
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          ref: ${{ github.sha }}
-          fetch-depth: 0
-          persist-credentials: false
-      - name: Render public inventory reports for the verified commit
-        run: ./conker progress render
-      - name: Publish the allowlisted checkpoint without moving source branches
-        env:
-          GH_TOKEN: ${{ github.token }}
-          VERIFIED_SHA: ${{ github.sha }}
-        run: python3 scripts/publish_progress.py

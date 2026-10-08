@@ -82,10 +82,11 @@ or deferring. For continued groups, follow [sibling selection and reuse](docs/de
   source unit. Use supported transactions; never hand-edit inventory or generated
   assembly/progress reports. `./conker progress render` writes ignored local
   reports under `build/progress/`; open `build/progress/progress.md` or use
-  `./conker progress` to see your current totals. Commit canonical inventory and
-  evidence changes, never generated reports. `progress check` validates canonical
+  `./conker progress` to inspect objdiff freshness and separate inventory totals.
+  Commit canonical inventory and evidence changes, never generated reports. `progress check` validates canonical
   inputs and rendering without requiring local snapshots. See the
-  [progress guide](docs/progress.md) for migration and published checkpoints.
+  [progress guide](docs/progress.md) for migration, inventory-only use and objdiff
+  report generation.
 - Review original object boundaries and every member before source-unit registration.
   Alignment, a standalone build or a matching function does not prove ownership.
   Keep the evidence comment below the include block. Use `withdraw-source-unit` for
