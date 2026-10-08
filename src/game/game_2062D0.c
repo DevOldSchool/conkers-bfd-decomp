@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151D8F30
  * - func_151D9014
- * - func_151D9450
  * - func_151D9534
  * - func_151D98D0
  * - func_151D9918
@@ -129,7 +128,7 @@ s32 func_151D8FE0(void) {
     return ((u8 *)&sp1C)[func_150ADA20() & 3];
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9014.s")
-s32 func_151D9450(s32, s32);                        /* extern */
+s32 func_151D9450(void *, void *);
 s32 func_151D9534(s32, s32);                        /* extern */
 
 f32 func_151423D8(u8);
@@ -137,7 +136,7 @@ f32 func_151423D8(u8);
 s32 func_151D93F4(s32 arg0, s32 arg1) {
     s32 var_v1;
 
-    if (func_151D9450(arg0, arg1) != 0) {
+    if (func_151D9450((void *)arg0, (void *)arg1) != 0) {
         if (func_151D9534(arg0, arg1) != 0) {
             var_v1 = 1;
         } else {
@@ -148,26 +147,38 @@ s32 func_151D93F4(s32 arg0, s32 arg1) {
     }
     return var_v1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D9450 CURRENT (1936) */
-s32 func_151D9450(s32 arg0, s32 arg1) {
-    s32 sp18;
-    u8 temp_a0;
-    s32 temp_v1;
+s32 func_151D9450(void *arg0, void *arg1) {
+    typedef struct {
+        f32 unk0;
+        u8 unk4;
+        u8 unk5;
+        s8 unk6;
+        s8 unk7;
+        f32 unk8;
+        f32 unkC;
+    } Mid;
+    typedef struct {
+        u8 pad[0x38];
+        f32 unk38;
+        f32 unk3C;
+        u8 pad40[0x68];
+        Mid unkA8;
+        u8 padB8[9];
+        u8 unkC1;
+    } Local;
+    Mid *m;
 
-    temp_v1 = arg0 + 0xA8;
-    if (*(u8 *)(arg0 + 0xC1) & 1) {
+    arg1 = arg0;
+    m = &((Local *) arg1)->unkA8;
+    if (((Local *) arg1)->unkC1 & 1) {
         return 1;
     }
-    temp_a0 = *(u8 *)(temp_v1 + 4) + (*(s8 *)(temp_v1 + 6) * D_800BE9E4);
-    *(u8 *)(temp_v1 + 4) = temp_a0;
-    *(u8 *)(temp_v1 + 5) = (u8)(*(u8 *)(temp_v1 + 5) + (*(s8 *)(temp_v1 + 7) * D_800BE9E4));
-    sp18 = temp_v1;
-    *(f32 *)(arg0 + 0x38) = (func_151423D8((temp_a0 - 0x40) & 0xFF) * *(f32 *)(temp_v1 + 8)) + *(f32 *)(arg0 + 0xA8);
-    *(f32 *)(arg0 + 0x3C) = (func_151423D8((*(u8 *)(sp18 + 5) - 0x40) & 0xFF) * *(f32 *)(sp18 + 0xC)) + *(f32 *)(arg0 + 0xA8);
+    m->unk4 += m->unk6 * D_800BE9E4;
+    m->unk5 += m->unk7 * D_800BE9E4;
+    ((Local *) arg1)->unk38 = func_151423D8((u8) (m->unk4 - 0x40)) * m->unk8 + m->unk0;
+    ((Local *) arg1)->unk3C = func_151423D8((u8) (m->unk5 - 0x40)) * m->unkC + m->unk0;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D9450 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9450.s")
 s32 func_1514672C(f32 *);
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);

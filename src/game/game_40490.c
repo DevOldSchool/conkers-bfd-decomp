@@ -14,7 +14,6 @@
  * - func_150144B8
  * - func_1501474C
  * - func_15014B60
- * - func_15014F6C
  * - func_15015354
  * - func_150156F4
  *
@@ -559,38 +558,50 @@ typedef struct {
 void func_150A8050(f32 *, f32, f32, f32);
 u32 func_150ADA20(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15014F6C CURRENT (800) */
-s32 func_15014F6C(u8 *arg0) {
-    Game40490ParticlePacket packet;
-    s32 result;
-    s8 enabled;
+typedef struct struct260 { u8 bytes[0x24]; } struct260;
 
-    enabled = 0;
-    arg0[0x16] |= 4;
-    packet.type = *(s32 *)(arg0 + 0x20);
-    if (*(s32 *)(arg0 + 0x1C) & 1) {
-        enabled = 1;
+typedef struct Game40490Struct134 {
+    s16 unk0; s16 unk2; s16 unk4; s16 unk6; u16 unk8; u16 unkA; s32 unkC; s32 unk10; u16 unk14; u8 unk16; u8 unk17; s32 unk18; s32 unk1C; s32 unk20; s32 unk24;
+} struct134;
+
+s32 func_15014F6C(struct134 *arg0) {
+    typedef struct {
+        struct134 *unk0;
+        s32 unk4;
+        s32 unk8;
+        s32 unkC;
+        f32 mtx[4][4];
+        u8 unk50;
+        u8 unk51;
+        u8 pad52[2];
+    } Pack;
+    Pack p;
+    struct260 *v0;
+    s32 v;
+
+    arg0->unk16 |= 4;
+    p.unk51 = arg0->unk20;
+    v = 0;
+    if (arg0->unk1C & 1) {
+        v = 1;
+    } else {
+        v = 0;
     }
-    packet.enabled = enabled;
-    packet.object = arg0;
-    packet.rangeStart = *(u32 *)(arg0 + 0x18) & 0xFFFF;
-    packet.rangeSize = (*(u32 *)(arg0 + 0x18) >> 16) & 0xFFFF;
-    packet.value = (func_150ADA20() % (u32)(packet.rangeSize + 1)) +
-                   packet.rangeStart;
-    func_150A8050(packet.matrix, *(s32 *)(arg0 + 0xC),
-                  *(s32 *)(arg0 + 0x10), 0);
-    packet.position[0] = (f32)*(s16 *)(arg0 + 0);
-    packet.position[1] = (f32)*(s16 *)(arg0 + 2);
-    packet.position[2] = (f32)*(s16 *)(arg0 + 4);
-    result = func_15149130(0x12C, -1, 0x31, -1, 0, 0x2A, 0x54,
-                           0xFF, 0);
-    if (result != 0) {
-        func_10022EC0((void *)(result + 0x28), &packet, 0x54);
+    p.unk50 = v;
+    p.unk0 = arg0;
+    p.unk4 = arg0->unk18 & 0xFFFF;
+    p.unk8 = ((u32) arg0->unk18 >> 16) & 0xFFFF;
+    p.unkC = (func_150ADA20() % (u32) (p.unk8 + 1)) + p.unk4;
+    func_150A8050(p.mtx, *(f32 *) &arg0->unkC, *(f32 *) &arg0->unk10, 0.0f);
+    p.mtx[3][0] = (f32) arg0->unk0;
+    p.mtx[3][1] = (f32) (s16) arg0->unk2;
+    p.mtx[3][2] = (f32) arg0->unk4;
+    v0 = func_15149130(0x12C, -1, 0x31, -1, 0, 0x2A, 0x54, 0xFF, 0);
+    if (v0 != 0) {
+        func_10022EC0((u8 *) v0 + 0x28, &p, 0x54);
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15014F6C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014F6C.s")
 void *func_1515F1B0(void);
 void func_1515F25C(void **, void *);
 

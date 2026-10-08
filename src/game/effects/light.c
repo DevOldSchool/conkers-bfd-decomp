@@ -10,7 +10,6 @@
  * - func_151606A8
  * - func_151607A4
  * - func_15160954
- * - func_15160A58
  * - func_15160B74
  * - func_15160CDC
  * - func_15160E30
@@ -19,7 +18,6 @@
  * - func_15161F4C
  * - func_15162034
  * - func_151623F4
- * - func_15162510
  * - func_15162740
  * - func_1516284C
  * - func_1516295C
@@ -322,62 +320,54 @@ void func_15160954(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15160954 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15160954.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15160A58 CURRENT (2787) */
-s32 func_15160A58(void *arg0, u8 arg1, void *arg2, u8 arg3, s16 arg4,
-                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
-                   s32 arg10, s8 arg11, s32 arg12, u8 arg13, u8 arg14,
-                   s32 arg15) {
-    s32 sp64;
-    struct {
-        u8 field0;
-        s8 field1;
-        s16 field2;
-        s8 field4;
-    } sp5C;
-    struct {
-        void *object;
-        u8 object_value;
-        u8 arg1;
-        u8 pad4A[2];
-        s32 vector[3];
-        s8 arg11;
-        u8 arg13;
-        u8 pad5A[2];
-    } sp44;
-    s32 sp38[3];
-    s32 temp_v0;
-    s32 var_v1;
+typedef struct LightHeader2 { s32 unk0; s32 unk4; s32 unk8; } Header2;
+typedef struct LightHeader { s8 unk0; s8 unk1; s16 unk2; s8 unk4; u8 pad5; } Header;
+
+struct225 *func_15160A58(struct127 *arg0, u8 arg1, void *arg2, u8 arg3, s16 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 argA, s8 argB, s32 argC, u8 argD, u8 argE, s32 argF) {
+    typedef struct {
+        f32 unk0, unk4, unk8;
+    } Vec;
+    typedef struct {
+        void *unk0;
+        u8 unk4;
+        u8 unk5;
+        u8 pad6[2];
+        Vec unk8;
+        s8 unk14;
+        u8 unk15;
+    } Copy;
+    typedef struct {
+        Header2 h2;
+        Copy tmp;
+        Header h;
+    } Stk;
+    struct225 *v0;
+    Stk s;
 
     if (arg0 == 0) {
         return 0;
     }
-    sp5C.field0 = arg3;
-    sp5C.field1 = 5;
-    sp5C.field4 = 0x10;
-    sp5C.field2 = arg4;
-    sp44.object = arg0;
-    sp44.arg1 = arg1;
-    sp44.object_value = *(u8 *)((u8 *)arg0 + 0x3B);
-    sp44.vector[0] = *(s32 *)((u8 *)arg2 + 0);
-    sp44.vector[1] = *(s32 *)((u8 *)arg2 + 4);
-    sp44.vector[2] = *(s32 *)((u8 *)arg2 + 8);
-    sp38[0] = 0;
-    sp38[1] = 0;
-    sp38[2] = 0;
-    sp44.arg11 = arg11;
-    sp44.arg13 = arg13;
-    temp_v0 = func_151602C0((u8 *)&sp5C, sp38, arg5, arg6, arg7, arg8,
-                            0xFF, 0, arg12 + 0x18, arg14, arg15);
-    var_v1 = temp_v0;
-    if (temp_v0 != 0) {
-        sp64 = temp_v0;
-        func_10022EC0((u8 *)temp_v0 + 0x18, &sp44, 0x18);
-        var_v1 = sp64;
+
+    s.h.unk0 = arg3;
+    s.h.unk1 = 5;
+    s.h.unk2 = arg4;
+    s.h.unk4 = 0x10;
+
+    s.tmp.unk0 = arg0;
+    s.tmp.unk4 = arg0->unique_id;
+    s.tmp.unk5 = arg1;
+    s.tmp.unk8 = *(Vec *) arg2;
+    s.h2.unk0 = 0;
+    s.h2.unk4 = 0;
+    s.h2.unk8 = 0;
+    s.tmp.unk14 = argB;
+    s.tmp.unk15 = argD;
+    v0 = func_151602C0(&s.h, &s.h2, arg5, arg6, arg7, arg8, 0xFF, 0, argC + sizeof(s.tmp), argE, argF);
+    if (v0 != 0) {
+        func_10022EC0(&v0->unk18, &s.tmp, sizeof(s.tmp));
     }
-    return var_v1;
+    return v0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15160A58 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15160A58.s")
 void func_15143134(f32 *, f32 *, s32);
 extern u8 (*D_8008B1F8[])(void *);
 
@@ -938,22 +928,21 @@ void *func_151623F4(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s8 arg4,
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15162510 CURRENT (896) */
-s32 func_15162510(void *arg0) {
-    f32 factor;
-    f32 *state;
+typedef struct Light225Output { u8 pad0[5]; u8 unk5; u8 unk6; u8 unk7; } Light225Output;
+typedef struct Light235 { f32 unk0, unk4, unk8, unkC, unk10, unk14, unk18, unk1C; } struct235;
+typedef struct Light237 { f32 unk0[5]; Light225Output *unk14; struct235 unk18; } struct237;
 
-    factor = func_15047D60(*(f32 *)((u8 *)arg0 + 0x30));
-    state = (f32 *)((s32)arg0 + 0x18);
-    (*(s8 **)((u8 *)arg0 + 0x14))[5] = (s8)(u32)(state[0] + factor * state[3]);
-    (*(s8 **)((u8 *)arg0 + 0x14))[6] = (s8)(u32)(state[1] + factor * state[4]);
-    (*(s8 **)((u8 *)arg0 + 0x14))[7] = (s8)(u32)(state[2] + factor * state[5]);
-    state[6] += state[7] * D_800BE9A4;
-    state[6] = func_15144B68(state[6]);
+s32 func_15162510(struct237 *arg0) {
+    struct235 *v1 = (struct235 *)((u8 *)arg0 + 0x18);
+    f32 s;
+    s = func_15047D60(arg0->unk18.unk18);
+    arg0->unk14->unk5 = v1->unk0 + (s * v1->unkC);
+    arg0->unk14->unk6 = v1->unk4 + (s * v1->unk10);
+    arg0->unk14->unk7 = v1->unk8 + (s * v1->unk14);
+    v1->unk18 += v1->unk1C * D_800BE9A4;
+    v1->unk18 = func_15144B68(v1->unk18);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15162510 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15162510.s")
 extern f32 D_800A6760[];
 extern f32 D_800A67C0[];
 extern f32 D_800A6820[];
@@ -1434,8 +1423,6 @@ s32 func_15163B98(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15163B98 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163B98.s")
-s32 func_15160A58(void *, u8, void *, u8, s16, s32, s32, s32, s32, s32,
-                   s32, s8, s32, u8, u8, s32);
 extern u8 D_800A6A0C;
 extern f32 D_800A6B0C;
 
