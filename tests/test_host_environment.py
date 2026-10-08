@@ -1,5 +1,6 @@
 from pathlib import Path
 import importlib.metadata
+import os
 import subprocess
 import sys
 import tempfile
@@ -52,8 +53,13 @@ class HostEnvironmentTests(unittest.TestCase):
         launcher=self.root/"conker"; launcher.write_bytes((ROOT/"conker").read_bytes()); launcher.chmod(0o755)
         python=self.root/"build/host-python/bin/python3"; python.parent.mkdir(parents=True)
         python.write_text('#!/bin/sh\nexit 0\n'); python.chmod(0o755)
-        result=subprocess.run([str(launcher),"host-check"],capture_output=True,text=True,check=True)
+        environment={k:v for k,v in os.environ.items() if k!="CONKER_IN_CONTAINER"}
+        result=subprocess.run([str(launcher),"host-check"],capture_output=True,text=True,check=True,env=environment)
         self.assertEqual(str(python),result.stdout.strip())
+        # Inside the toolchain container the host venv is never selected.
+        result=subprocess.run([str(launcher),"host-check"],capture_output=True,text=True,check=True,
+                              env=dict(environment,CONKER_IN_CONTAINER="1"))
+        self.assertNotEqual(str(python),result.stdout.strip())
 
 
 if __name__ == "__main__": unittest.main()

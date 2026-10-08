@@ -37,8 +37,12 @@ usage() {
 Usage: ./conker <command> [options]
 
 Getting started
-  host-setup                     Install pinned host/test dependencies in build/host-python.
+  host-setup                     Install pinned test dependencies in build/host-python
+                                 (only needed for host-mode tests).
   host-check                     Check host Python package pins and imports.
+  test [--host] [unittest options]
+                                 Run the Python test suite in the toolchain container;
+                                 --host or CONKER_TEST_RUNNER=host runs it on the host.
   doctor                         Check Docker and local prerequisites.
   rom-info <path>                Print a ROM's SHA-1 and file size.
   setup --us <path> [--eu <path>]
@@ -95,8 +99,9 @@ Getting started
                                  --layout prints frame size and named-local stack offsets.
   finish [--profile us] <work-item-id>
                                  Record CURRENT (0), then check progress and whitespace.
-  verify-batch [--incremental] <work-item-id> [<work-item-id>...]
+  verify-batch [--incremental] [--host-tests] <work-item-id> [<work-item-id>...]
                                  Run end-of-batch gates; incremental is for local iteration only.
+                                 --host-tests (or CONKER_TEST_RUNNER=host) runs tests on the host.
   stop                           Stop and remove this checkout's warm toolchain container.
 
 After the raw base split map is available
@@ -442,6 +447,49 @@ run_in_container_libultra() {
         "$image_name" "$@"
 }
 
+select_test_runner() {
+    test_runner="${CONKER_TEST_RUNNER:-docker}"
+    case "$test_runner" in
+        docker|host) ;;
+        *) die "CONKER_TEST_RUNNER must be 'docker' or 'host'" ;;
+    esac
+}
+
+# Docker is the default and never falls back to the host silently. Tests read
+# the whole checkout (wrapper, workflows, docs), so mount it read-only with only
+# build/ writable; Docker's /tmp tmpfs is noexec, so use a build/ temp directory.
+run_python_tests() {
+    local status=0
+    if [[ "$test_runner" == "host" ]]; then
+        python3 "$repo_root/scripts/host_environment.py" check || return 2
+        printf 'tests: host runner (%s); CI runs the full suite in Docker
+' "$(python3 --version 2>&1)"
+        # macOS /var and /tmp aliases must agree with resolved fixture paths.
+        host_test_tmpdir="$(python3 -c 'import os, tempfile; print(os.path.realpath(tempfile.gettempdir()))')"
+        TMPDIR="$host_test_tmpdir" python3 -m unittest discover -s tests "$@" || status=$?
+        return "$status"
+    fi
+    if ! require_docker_access; then
+        printf '%s
+' 'error: Docker-mode tests need Docker; use --host (or CONKER_TEST_RUNNER=host) after ./conker host-setup.' >&2
+        return 2
+    fi
+    ensure_image || return 2
+    mkdir -p "$repo_root/build/test-tmp"
+    printf 'tests: docker runner (%s)
+' "$image_name"
+    docker run --rm "${container_run_args[@]}" \
+        --mount "type=bind,source=$repo_root,target=/workspace,readonly" \
+        --mount "type=bind,source=$repo_root/build,target=/workspace/build" \
+        --env CONKER_IN_CONTAINER=1 \
+        --env HOME=/tmp \
+        --env PYTHONDONTWRITEBYTECODE=1 \
+        --env TMPDIR=/workspace/build/test-tmp \
+        --workdir /workspace \
+        "$image_name" python3 -m unittest discover -s tests "$@" || status=$?
+    return "$status"
+}
+
 run_in_container_interactive() {
     ensure_image
     if ! watch_image_is_compatible; then
@@ -574,6 +622,14 @@ case "$command" in
         [[ $# -eq 0 ]] || die "usage: ./conker $command"
         python3 "$repo_root/scripts/host_environment.py" "${command#host-}"
         ;;
+    test)
+        select_test_runner
+        if [[ "${1:-}" == "--host" ]]; then
+            test_runner=host
+            shift
+        fi
+        run_python_tests "$@"
+        ;;
     help|-h|--help)
         usage
         ;;
@@ -587,7 +643,6 @@ case "$command" in
         python3 scripts/matching_callers.py "$@"
         ;;
     doctor)
-        python3 "$repo_root/scripts/host_environment.py" check
         ensure_image
         if ! image_is_healthy; then
             printf 'Toolchain image failed its smoke tests; rebuilding it locally...\n'
@@ -804,16 +859,22 @@ case "$command" in
         printf 'AGENT_ACTION: STOP_MATCHED\n'
         ;;
     verify-batch)
-        if ! python3 "$repo_root/scripts/host_environment.py" check; then
+        batch_mode="clean"
+        select_test_runner
+        while [[ $# -gt 0 ]]; do
+            case "$1" in
+                --incremental) batch_mode="incremental" ;;
+                --host-tests) test_runner=host ;;
+                *) break ;;
+            esac
+            shift
+        done
+        [[ $# -gt 0 ]] || die "usage: ./conker verify-batch [--incremental] [--host-tests] <work-item-id> [<work-item-id>...]"
+        # Fail before the long build when host-mode tests cannot run.
+        if [[ "$test_runner" == "host" ]] && ! python3 "$repo_root/scripts/host_environment.py" check; then
             printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
             exit 2
         fi
-        batch_mode="clean"
-        if [[ "${1:-}" == "--incremental" ]]; then
-            batch_mode="incremental"
-            shift
-        fi
-        [[ $# -gt 0 ]] || die "usage: ./conker verify-batch [--incremental] <work-item-id> [<work-item-id>...]"
         batch_failure_stamp="$repo_root/build/verify-batch/clean-integration-failure.sha256"
         batch_fingerprint="$(python3 "$state_tool" batch-fingerprint)"
         if [[ "$batch_mode" == "clean" && -f "$batch_failure_stamp" ]]; then
@@ -876,9 +937,7 @@ case "$command" in
                 exit 1
             fi
         done <<< "$original_asm_items"
-        # macOS /var and /tmp aliases must agree with resolved fixture paths.
-        host_test_tmpdir="$(python3 -c 'import os, tempfile; print(os.path.realpath(tempfile.gettempdir()))')"
-        if ! TMPDIR="$host_test_tmpdir" python3 -m unittest discover -s tests -q -b; then
+        if ! run_python_tests -q -b; then
             printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
             exit 1
         fi
@@ -1157,7 +1216,7 @@ case "$command" in
         ;;
     library-audit)
         [[ $# -eq 0 || ( $# -eq 1 && "$1" == "--json" ) ]] || die "usage: ./conker library-audit [--json]"
-        python3 scripts/audit_library_boundaries.py "$@"
+        run_in_container python3 scripts/audit_library_boundaries.py "$@"
         ;;
     libultra)
         libultra_version=L

@@ -72,7 +72,7 @@ Prepare a JSON object mapping old repository-relative paths to new paths within
 ./conker relocate-evidence --map /tmp/evidence-moves.json
 ./conker relocate-evidence --map /tmp/evidence-moves.json --apply
 ./conker progress check
-build/host-python/bin/python3 -m unittest discover -s tests
+./conker test
 git -c core.whitespace=cr-at-eol diff --check
 ```
 
@@ -88,4 +88,4 @@ changes, verify that only evidence paths moved, then refresh its byte pin, the
 confidence sidecar's record bindings and the sidecar byte pin as required by the
 [naming evidence contract](assets/naming/model_name_confidence_review.md).
 The relocation command does not refresh those pins automatically. Run the full
-Python suite above (after `./conker host-setup`) before publishing the migration.
+Python suite above before publishing the migration.

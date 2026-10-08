@@ -30,6 +30,17 @@ class AutomateTests(unittest.TestCase):
         self.history_save.start()
         self.addCleanup(self.history_load.stop)
         self.addCleanup(self.history_save.stop)
+        # Keep candidate logs out of the checkout's real build directory; tests
+        # that patch ROOT to a fixture keep their fixture-relative log paths.
+        logs = tempfile.TemporaryDirectory()
+        self.addCleanup(logs.cleanup)
+        checkout, original = automation.ROOT, automation.candidate_log_path
+        log_path = patch.object(
+            automation, "candidate_log_path",
+            side_effect=lambda symbol: (Path(logs.name) / f"{symbol}.log"
+                                        if automation.ROOT == checkout else original(symbol)))
+        log_path.start()
+        self.addCleanup(log_path.stop)
 
     SOURCE = "src/game/test.c"
     PRAGMA = '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_test.s")\n'

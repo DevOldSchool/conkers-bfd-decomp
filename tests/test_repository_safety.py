@@ -71,21 +71,20 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertEqual(set(required["needs"]), set(workflow["jobs"]) - {"required"})
         self.assertIn("job['result'] == 'success'", required["steps"][0]["run"])
 
-    def test_public_tests_and_doctor_use_pinned_host_environment(self) -> None:
+    def test_public_tests_run_on_pinned_host_and_in_built_image(self) -> None:
         jobs = yaml.safe_load((ROOT / ".github/workflows/ci.yml").read_text())["jobs"]
-        for name in ("tooling", "toolchain"):
-            steps = jobs[name]["steps"]
-            commands = [step["run"] for step in steps if "run" in step]
-            setup = commands.index("./conker host-setup")
-            consumer = next(i for i, command in enumerate(commands)
-                            if "unittest discover" in command or "./conker doctor" in command)
-            self.assertLess(setup, consumer)
-            python = next(step for step in steps if step.get("uses", "").startswith("actions/setup-python@"))
-            self.assertEqual(python["with"]["python-version"], "3.12")
-            self.assertEqual(python["with"]["cache-dependency-path"], "toolchain/python-requirements.txt")
-        tests = next(step["run"] for step in jobs["tooling"]["steps"]
-                     if "unittest discover" in step.get("run", ""))
-        self.assertTrue(tests.startswith("build/host-python/bin/python3 "))
+        steps = jobs["tooling"]["steps"]
+        commands = [step["run"] for step in steps if "run" in step]
+        self.assertLess(commands.index("./conker host-setup"), commands.index("./conker test --host -v"))
+        python = next(step for step in steps if step.get("uses", "").startswith("actions/setup-python@"))
+        self.assertEqual(python["with"]["python-version"], "3.12")
+        self.assertEqual(python["with"]["cache-dependency-path"], "toolchain/python-requirements.txt")
+        commands = [step["run"] for step in jobs["toolchain"]["steps"] if "run" in step]
+        build = next(i for i, command in enumerate(commands)
+                     if command.startswith("docker build ") and "--tag conkers-bfd-decomp-toolchain:ci" in command)
+        tests = commands.index("CONKER_IMAGE=conkers-bfd-decomp-toolchain:ci ./conker test -v")
+        self.assertLess(build, tests)
+        self.assertNotIn("./conker host-setup", commands)
 
     def test_public_compile_fetches_pinned_sdk_and_mounts_only_its_headers(self) -> None:
         workflow = yaml.safe_load((ROOT / ".github/workflows/ci.yml").read_text())
@@ -326,7 +325,7 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertIn('batch-plan "$@"', batch_case)
         self.assertIn("game-integrated-refresh", batch_case)
         self.assertIn("game-integrated", batch_case)
-        self.assertIn("python3 -m unittest discover -s tests -q -b", batch_case)
+        self.assertIn("run_python_tests -q -b", batch_case)
         self.assertIn("batch-fingerprint", batch_case)
         self.assertIn("clean-integration-failure.sha256", batch_case)
         self.assertIn("AGENT_ACTION: FIX_INTEGRATION", batch_case)

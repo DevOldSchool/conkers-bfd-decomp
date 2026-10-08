@@ -46,8 +46,8 @@ git() { return 0; }
     def test_batch_test_tmpdir_is_resolved_and_preserves_spaces(self):
         script = (ROOT / "scripts/conker.sh").read_text()
         assignment = next(line.strip() for line in script.splitlines() if line.strip().startswith("host_test_tmpdir="))
-        command = next(line.strip()[len("if ! "):-len("; then")]
-                       for line in script.splitlines() if "if ! TMPDIR=\"$host_test_tmpdir\"" in line)
+        command = next(line.strip()[:-len(" || status=$?")]
+                       for line in script.splitlines() if line.strip().startswith("TMPDIR=\"$host_test_tmpdir\" "))
         with tempfile.TemporaryDirectory() as directory:
             actual = Path(directory) / "actual path"
             actual.mkdir()
