@@ -11,7 +11,7 @@ The **PR validation** workflow exposes separate check rows:
 | Check | What it establishes |
 | --- | --- |
 | Repository metadata | Valid function and source-unit inventories |
-| Progress validation and rendering | Canonical inputs validate and reports render locally; no committed snapshot comparison |
+| Progress inventory check | Canonical inventories validate and every report renderer runs; nothing is written or compared |
 | PR whitespace and prohibited files | Committed changes have clean whitespace; prohibited paths, binary outputs and ROM signatures are absent |
 | Python tests and shell syntax | Tooling regression tests and entry-point syntax pass |
 | Toolchain image and compiler smoke test | The public image builds and IDO/debugger installations work |

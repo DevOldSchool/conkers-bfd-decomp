@@ -29,7 +29,7 @@ jobs:
         run: python3 scripts/project_state.py validate
 
   progress:
-    name: Progress validation and rendering
+    name: Progress inventory check
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
