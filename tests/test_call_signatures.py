@@ -374,6 +374,57 @@ func_151F0000 = other_sdk_function;
             with self.subTest(stage=stage):
                 self.assertNotEqual(before[stage], after[stage])
 
+    def write_guarded_header(self, *declarations):
+        (self.root / 'include/example_functions.h').write_text(
+            '#ifndef EXAMPLE_FUNCTIONS_H\n#define EXAMPLE_FUNCTIONS_H\n'
+            '#include "types.h"\n' + ''.join(d + '\n' for d in declarations) + '#endif\n')
+        self.source.write_text('#include "types.h"\n#include "example_functions.h"\n'
+                               '#pragma GLOBAL_ASM("asm/nonmatchings/example/func_wrapper.s")\n')
+
+    def test_header_owned_prototype_is_not_redeclared_without_source_context(self):
+        declaration = 'void func_target(void *, s32, s32);'
+        self.write_guarded_header(declaration)
+        with patch.object(m2c, 'ROOT', self.root), patch.object(
+            m2c.subprocess, 'run', return_value=SimpleNamespace(returncode=0, stdout=REPAIRED)
+        ):
+            # No --context: the IDO preprocessor was unavailable for this source.
+            output, status = m2c.generate_with_call_context(
+                ['m2c', 'input.s'], WRAPPER, 'func_wrapper', self.source, 'us')
+        self.assertEqual(0, status)
+        self.assertNotIn(declaration, output)
+        self.assertIn('/* Call context: func_target: declared by an initial project header */', output)
+        self.assertIn('required-declarations:\n  none', m2c.ready_output(output, 'func_wrapper'))
+        record = json.loads((self.root / 'build/m2c/calls/func_wrapper.json').read_text())
+        self.assertEqual([declaration], record['declarations'])
+        self.assertEqual([], record['emitted_declarations'])
+        self.assertEqual([], record['header_conflicts'])
+
+    def test_header_owned_prototype_wins_over_project_call_evidence(self):
+        declaration = 'void func_target(void *, s32, s32);'
+        self.write_guarded_header(declaration)
+        (self.root / 'src/game/other.c').write_text('void func_target(s32);\n')
+        with patch.object(m2c, 'ROOT', self.root):
+            header_text = m2c.initial_header_text(self.source.read_text())
+        recovery = calls.recover(WRAPPER, self.source.read_text() + '\n' + header_text,
+                                 root=self.root)
+        self.assertEqual((declaration,), recovery.declarations)
+
+    def test_disagreeing_recovery_for_header_owned_name_is_noted_not_emitted(self):
+        header = 'void func_target(s32);'
+        self.write_guarded_header(header)
+        with patch.object(m2c, 'ROOT', self.root):
+            header_text = m2c.initial_header_text(self.source.read_text())
+        recovered = 'void func_target(void *, s32, s32); /* CONKER_ABI_DISCARDED_RETURN */'
+        missing = 's32 func_missing(void);'
+        recovery = calls.Recovery((recovered, missing), ('func_missing: unique active project prototype',))
+        emitted = m2c.starter_declarations(['m2c', 'input.s'], recovery, header_text=header_text)
+        self.assertEqual((missing,), emitted)
+        notes, conflicts = m2c.call_context_notes(recovery, emitted, header_text)
+        self.assertEqual([recovered], conflicts)
+        self.assertEqual('func_missing: unique active project prototype', notes[1])
+        self.assertIn('differs from the initial project header', notes[0])
+        self.assertNotIn(';', notes[0])
+
     def test_sdk_inputs_invalidate_saved_raw_and_deferred_stage_results(self):
         mapping, header = self.write_sdk()
         with patch.object(automate, 'ROOT', self.root):

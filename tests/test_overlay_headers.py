@@ -47,6 +47,15 @@ def file_prototypes(source: str) -> set[str]:
     return names
 
 
+def resolve_include(root: Path, source: Path, spelling: str) -> Path | None:
+    """Follow the build's search order: the including directory, then include/."""
+    for directory in (source.parent, root / "include"):
+        candidate = directory / spelling
+        if candidate.is_file():
+            return candidate.resolve()
+    return None
+
+
 def ownership_errors(root: Path) -> list[str]:
     errors: list[str] = []
     owners: dict[str, str] = {}
@@ -79,14 +88,15 @@ def ownership_errors(root: Path) -> list[str]:
             continue
         # Read directive tokens, so a string containing #include cannot count.
         includes = {
-            match[1]
+            resolved
             for token in candidate_syntax.TOKEN.finditer(source)
             if (match := re.match(r'#\s*include\s*[<"]([^>"\n]+)[>"]', token.group()))
+            and (resolved := resolve_include(root, path, match[1])) is not None
         }
         local_prototypes = file_prototypes(source)
         for name in sorted(references):
             location = path.relative_to(root)
-            if owners[name] not in includes:
+            if (root / "include" / owners[name]).resolve() not in includes:
                 errors.append(f"{location}: {name} requires direct #include \"{owners[name]}\"")
             if name in local_prototypes:
                 errors.append(f"{location}: remove local prototype for {name}; owned by {owners[name]}")
@@ -100,7 +110,8 @@ class OverlayHeaderOwnershipTests(unittest.TestCase):
 
 class OwnershipCheckerTests(unittest.TestCase):
     def check(self, source: str, *, second_header: str | None = None,
-              legacy_header: str | None = None) -> list[str]:
+              legacy_header: str | None = None,
+              shadow_header: str | None = None) -> list[str]:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             (root / "include").mkdir()
@@ -114,6 +125,8 @@ class OwnershipCheckerTests(unittest.TestCase):
             if legacy_header is not None:
                 (root / "include/nested").mkdir()
                 (root / "include/nested/legacy.h").write_text(legacy_header)
+            if shadow_header is not None:
+                (root / "src/example_functions.h").write_text(shadow_header)
             (root / "src/example.c").write_text(source)
             return ownership_errors(root)
 
@@ -142,6 +155,13 @@ class OwnershipCheckerTests(unittest.TestCase):
             '/* owned(0, 1);\n#if 0\n*/\n// owned\n'
             'const char *text = "owned /* not a comment */";\n'
         ))
+
+    def test_include_spelling_is_resolved_like_the_compiler(self) -> None:
+        call = 'void caller(void) { owned(0, 1); }'
+        self.assertEqual([], self.check('#include "../include/example_functions.h"\n' + call))
+        # A same-named header beside the source shadows the canonical one.
+        self.assertEqual(1, len(self.check('#include "example_functions.h"\n' + call,
+                                           shadow_header='/* not canonical */\n')))
 
     def test_commented_or_disabled_include_does_not_satisfy_ownership(self) -> None:
         for prefix in (

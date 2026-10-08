@@ -60,7 +60,7 @@ FINGERPRINT_INPUTS = (
 ) + call_signatures.SDK_ALIAS_INPUTS
 STAGE_INPUTS = {
     "inventory": ("scripts/automation_common.py", "scripts/project_state.py"),
-    "m2c": ("scripts/m2c.py", "scripts/m2c_context.py", "toolchain/tools.lock.json"),
+    "m2c": ("scripts/m2c.py", "toolchain/tools.lock.json"),
     "declarations": ("scripts/declaration_facts.py",),
     "prepare": ("scripts/candidate_rewrites.py", "scripts/candidate_syntax.py"),
     "compile": (

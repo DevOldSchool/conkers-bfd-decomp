@@ -24,36 +24,50 @@ INTRINSIC_PRAGMA = re.compile(
 )
 
 
-def header_declarations(context: str) -> tuple[str, ...]:
+def header_signatures(context: str) -> dict[str, call_signatures.Signature]:
     """Read generated header provenance, retaining nothing on malformed input."""
     markers = [line.strip() for line in context.splitlines() if HEADER_MARKER in line]
     if len(markers) != 1:
-        return ()
+        return {}
     match = HEADER_DECLARATIONS.fullmatch(markers[0])
     if match is None:
-        return ()
+        return {}
     try:
         declarations = json.loads(match[1])
     except (TypeError, ValueError):
-        return ()
+        return {}
     if not isinstance(declarations, list):
-        return ()
-    seen = set()
+        return {}
+    supplied = {}
     for declaration in declarations:
         if (not isinstance(declaration, str)
                 or any(part in declaration for part in ('\n', '\r', '/*', '*/'))):
-            return ()
+            return {}
         signatures = call_signatures.source_signatures(declaration)
         if len(signatures) != 1:
-            return ()
+            return {}
         symbol, choices = next(iter(signatures.items()))
-        if symbol in seen or len(choices) != 1 or None in choices:
-            return ()
+        if symbol in supplied or len(choices) != 1 or None in choices:
+            return {}
         signature = next(iter(choices))
         if signature.declaration(symbol) != declaration:
-            return ()
-        seen.add(symbol)
-    return tuple(declarations)
+            return {}
+        supplied[symbol] = signature
+    return supplied
+
+
+def header_declarations(context: str) -> tuple[str, ...]:
+    return tuple(signature.declaration(symbol)
+                 for symbol, signature in header_signatures(context).items())
+
+
+def header_marker(header_text: str) -> str:
+    """Record supported prototypes from headers visible before source code."""
+    signatures = call_signatures.source_signatures(header_text)
+    declarations = [next(iter(choices)).declaration(symbol)
+                    for symbol, choices in sorted(signatures.items())
+                    if len(choices) == 1 and None not in choices]
+    return f'/* {HEADER_MARKER}: {json.dumps(declarations)} */' if declarations else ''
 
 
 def clean_context(text: str) -> str:
@@ -87,12 +101,9 @@ def clean_context(text: str) -> str:
                 header_lines.append(line)
             else:
                 initial_headers = False
-    signatures = call_signatures.source_signatures('\n'.join(header_lines))
-    declarations = [next(iter(choices)).declaration(symbol)
-                    for symbol, choices in sorted(signatures.items())
-                    if len(choices) == 1 and None not in choices]
-    if declarations:
-        lines.append(f'/* {HEADER_MARKER}: {json.dumps(declarations)} */')
+    marker = header_marker('\n'.join(header_lines))
+    if marker:
+        lines.append(marker)
     return '\n'.join(lines) + '\n'
 
 
