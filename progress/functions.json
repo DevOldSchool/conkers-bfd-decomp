@@ -6584,7 +6584,7 @@
           "vram": "0x1500E470"
         }
       },
-      "source": "src/game/game_3B920.c",
+      "source": "src/done/game/game_3B920.c",
       "symbol": "func_1500E470"
     },
     {
@@ -6897,7 +6897,7 @@
           "vram": "0x15010780"
         }
       },
-      "source": "src/game/game_3DC30.c",
+      "source": "src/done/game/game_3DC30.c",
       "symbol": "func_15010780"
     },
     {
@@ -6915,7 +6915,7 @@
           "vram": "0x15010880"
         }
       },
-      "source": "src/game/game_3DC30.c",
+      "source": "src/done/game/game_3DC30.c",
       "symbol": "func_15010880"
     },
     {
@@ -6933,7 +6933,7 @@
           "vram": "0x150109D0"
         }
       },
-      "source": "src/game/game_3DC30.c",
+      "source": "src/done/game/game_3DC30.c",
       "symbol": "func_150109D0"
     },
     {
