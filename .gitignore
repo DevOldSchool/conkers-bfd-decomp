@@ -62,6 +62,10 @@ assets/
 # Asset research is documentation, not extracted ROM output.
 !/docs/evidence/assets/
 build/
+# Obsolete generated snapshots from checkouts predating local progress reports.
+/progress/summary.json
+/progress/badge-us.json
+/progress/badge-eu.json
 expected/
 /reference/
 .splache

@@ -13,9 +13,11 @@ import ci_checks
 
 class PublicChecksTests(unittest.TestCase):
     def test_forbidden_paths_and_allowed_project_files(self):
-        for path in ['roms/test.bin', 'asm/test.s', 'build/a.json', 'x.Z64', 'x.o', 'x.n64', 'private-work/private-build.log', 'private-assets/input.bin']:
+        for path in ['roms/test.bin', 'asm/test.s', 'build/a.json', 'x.Z64', 'x.o', 'x.n64', 'private-work/private-build.log', 'private-assets/input.bin',
+                     'progress/summary.json', 'progress/badge-us.json', 'progress/badge-eu.json', 'build/progress/progress.md']:
             self.assertTrue(ci_checks.forbidden_path(path), path)
-        for path in ['roms/.gitkeep', 'docs/ci.md', 'tests/fixtures/ido_smoke.c', 'src/main/a.c']:
+        for path in ['roms/.gitkeep', 'docs/ci.md', 'tests/fixtures/ido_smoke.c', 'src/main/a.c',
+                     'docs/progress.md', 'progress/functions.json', 'progress/source_units.json']:
             self.assertFalse(ci_checks.forbidden_path(path), path)
 
     def test_committed_whitespace_is_checked_even_with_clean_worktree(self):

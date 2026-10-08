@@ -29,14 +29,14 @@ jobs:
         run: python3 scripts/project_state.py validate
 
   progress:
-    name: Generated progress consistency
+    name: Progress inventory check
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
-      - name: Check generated reports against authoritative inventories
+      - name: Validate canonical inputs and exercise every renderer
         run: ./conker progress check
 
   hygiene:

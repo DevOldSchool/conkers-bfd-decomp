@@ -84,8 +84,7 @@ class OriginalAssemblyTests(unittest.TestCase):
                 before = json.dumps({"schema_version": 1, "functions": [entry]})
                 inventory.write_text(before)
                 for name, value in {"ROOT": root, "FUNCTIONS_FILE": inventory,
-                                    "SUMMARY_FILE": root / "summary.json", "DOCUMENT_FILE": root / "progress.md",
-                                    "BADGE_FILES": {"us": root / "badge.json"}}.items():
+                                    "SUMMARY_FILE": root / "summary.json", "DOCUMENT_FILE": root / "progress.md"}.items():
                     stack.enter_context(patch.object(project_state, name, value))
                 stack.enter_context(patch.object(project_state, "validate_project", return_value=({}, [entry])))
                 stack.enter_context(patch.object(original_asm, "validate_source"))
