@@ -52,13 +52,18 @@ class Local:
     frame_offset: int  # relative to the frame top (negative for locals)
 
 
-def definition_names(content: str, identifier: str, regional_symbol: str) -> list[str]:
-    """Names a work item may be defined under, including profile macro aliases."""
+def definition_names(content: str, regional_symbol: str) -> list[str]:
+    """Names whose definition emits ``regional_symbol``: itself or a profile macro alias.
+
+    A work-item ID that differs from the regional symbol (for example
+    ``func_bootstrap_clear_region`` for ``func_80001420``) names only the pragma;
+    a function defined under that ID would not emit the symbol being scored.
+    """
 
     alias = re.compile(
         rf"(?m)^\s*#\s*define\s+([A-Za-z_]\w*)\s+{re.escape(regional_symbol)}\s*$"
     )
-    names = [regional_symbol, identifier, *(match.group(1) for match in alias.finditer(content))]
+    names = [regional_symbol, *(match.group(1) for match in alias.finditer(content))]
     return list(dict.fromkeys(names))
 
 
@@ -78,14 +83,17 @@ def splice_variant(content: str, identifier: str, regional_symbol: str,
 
     A variant containing ``#include`` is treated as a complete source file.
     Otherwise it may carry helper declarations before the function definition,
-    which may use the regional symbol, the work-item ID or a profile macro alias.
+    which must emit the regional symbol directly or through a profile macro alias.
     """
 
     if re.search(r"^[ \t]*#include\b", variant, re.MULTILINE):
         return variant
-    names = definition_names(content, identifier, regional_symbol)
+    names = definition_names(content, regional_symbol)
     if not defines_any(variant, names):
-        raise VariantError(f"variant does not define {identifier} (accepted names: {', '.join(names)})")
+        raise VariantError(
+            f"variant does not define {regional_symbol} for {identifier} "
+            f"(define it as: {', '.join(names)})"
+        )
     replacement = variant if variant.endswith("\n") else variant + "\n"
     pragma = project_state.global_asm_pragma(source_relative, identifier)
     pragma_line = re.compile(r"(?m)^[ \t]*" + re.escape(pragma) + r"[ \t]*\n?")

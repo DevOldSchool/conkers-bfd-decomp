@@ -280,7 +280,8 @@ attempts:
 
 Each variant file holds the function definition, optionally preceded by the
 declarations it needs; a file containing `#include` is used as the complete
-source. Variants are spliced in memory, compiled with the pinned flags under
+source. Define the function under its regional symbol or the source's profile
+macro alias; a differing work-item ID would not emit the scored symbol. Variants are spliced in memory, compiled with the pinned flags under
 `build/us/probe/<symbol>/`, and scored with the same focused asm-differ
 comparison as `diff`, in one warm-container pass. The table also reports each
 frame size against the reference. `--layout` prints the frame size and every

@@ -81,6 +81,14 @@ class SpliceVariantTests(unittest.TestCase):
         self.assertIn('void func_80001420(void) {', result)
         self.assertNotIn('func_bootstrap_clear_region.s', result)
 
+    def test_differing_work_item_id_is_rejected_because_it_emits_no_regional_symbol(self):
+        variant = 'void func_bootstrap_clear_region(void) {\n}\n'
+        with self.assertRaisesRegex(probe.VariantError, 'func_80001420, clear_bootstrap_region'):
+            splice(ALIASED, 'func_bootstrap_clear_region', 'func_80001420', variant)
+
+    def test_matching_work_item_id_is_its_own_regional_symbol(self):
+        self.assertEqual(['func_10000000'], probe.definition_names(SOURCE, 'func_10000000'))
+
     def test_complete_source_variant_is_used_verbatim(self):
         variant = '#include "types.h"\nvoid func_10000000(void) {\n}\n'
         self.assertEqual(variant, splice(SOURCE, 'func_10000000', 'func_10000000', variant))
