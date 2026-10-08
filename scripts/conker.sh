@@ -37,8 +37,8 @@ usage() {
 Usage: ./conker <command> [options]
 
 Getting started
-  host-setup                     Install pinned test dependencies in build/host-python
-                                 (only needed for host-mode tests).
+  host-setup                     Install pinned host dependencies in build/host-python:
+                                 PyYAML for host helpers, the rest for host-mode tests.
   host-check                     Check host Python package pins and imports.
   test [--host] [unittest options]
                                  Run the Python test suite in the toolchain container;
@@ -605,6 +605,11 @@ prepare_next_work() {
             || die "usage: ./conker next --ready [--function ID] [--exclude-source PATH]..."
         shift 2
     done
+    # project_state imports PyYAML; report it before the first host helper fails.
+    if ! python3 "$repo_root/scripts/host_environment.py" check --core >/dev/null; then
+        printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+        exit 2
+    fi
     # Bash 3 treats an empty array as unset under nounset.
     details="$(python3 "$state_tool" next --one --details ${selectors[@]+"${selectors[@]}"})"
     first_line="${details%%$'\n'*}"
@@ -652,6 +657,7 @@ case "$command" in
         python3 scripts/matching_callers.py "$@"
         ;;
     doctor)
+        python3 "$repo_root/scripts/host_environment.py" check --core
         ensure_image
         if ! image_is_healthy; then
             printf 'Toolchain image failed its smoke tests; rebuilding it locally...\n'
@@ -879,8 +885,11 @@ case "$command" in
             shift
         done
         [[ $# -gt 0 ]] || die "usage: ./conker verify-batch [--incremental] [--host-tests] <work-item-id> [<work-item-id>...]"
-        # Fail before the long build when host-mode tests cannot run.
-        if [[ "$test_runner" == "host" ]] && ! python3 "$repo_root/scripts/host_environment.py" check; then
+        # Host helpers always need the core pins; host-mode tests need them all.
+        # Fail before the long build when either is missing.
+        host_check_scope=--core
+        [[ "$test_runner" == "host" ]] && host_check_scope=--all
+        if ! python3 "$repo_root/scripts/host_environment.py" check "$host_check_scope"; then
             printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
             exit 2
         fi

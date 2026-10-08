@@ -88,4 +88,4 @@ changes, verify that only evidence paths moved, then refresh its byte pin, the
 confidence sidecar's record bindings and the sidecar byte pin as required by the
 [naming evidence contract](assets/naming/model_name_confidence_review.md).
 The relocation command does not refresh those pins automatically. Run the full
-Python suite above before publishing the migration.
+Python suite above (after `./conker host-setup`) before publishing the migration.

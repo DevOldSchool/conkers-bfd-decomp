@@ -6,17 +6,21 @@ fresh or reset cloud executors also need [cloud setup and recovery](cloud-matchi
 
 ## Local ROM setup
 
+Run `./conker host-setup` once with Python 3.12 or newer. Host helpers such as
+`project_state.py` need the pinned PyYAML; setup installs it, together with the
+host-mode test packages, into ignored `build/host-python`, which `./conker`
+selects automatically. Setup never changes global Python. `doctor`, matching
+readiness and batch verification reject a missing or stale PyYAML before
+Docker/build work.
+
 `./conker test` and `verify-batch` run the Python suite in the pinned toolchain
-container, which already has every test dependency; no host setup is needed.
-To run the suite directly on the host instead (as the Mac and Codex cloud
-setups do), run `./conker host-setup` once with Python 3.12 or newer, then use
+container, which already has every test package. To run the suite directly on
+the host instead (as the Mac and Codex cloud setups do), use
 `./conker test --host`, `verify-batch --host-tests`, or set
-`CONKER_TEST_RUNNER=host`. Setup installs the pinned packages into ignored
-`build/host-python`, which `./conker` selects automatically, and never changes
-global Python. Host mode rejects missing or stale packages before build work.
-It skips tests that need the container's MIPS binutils or asm-differ, so CI
-always also runs the full suite in Docker. Docker mode never falls back to the
-host.
+`CONKER_TEST_RUNNER=host`; host mode also requires the full pinned package set
+from `host-setup`. Host mode skips tests that need the container's MIPS binutils
+or asm-differ, so CI always also runs the full suite in Docker. Docker mode
+never falls back to the host.
 
 The reviewed regional revisions are pinned in `config/roms.json`:
 

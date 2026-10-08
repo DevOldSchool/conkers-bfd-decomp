@@ -20,7 +20,11 @@ selected_value=func_debugger
 failure="$1"; shift
 die() { printf 'error: %s\n' "$*" >&2; exit 1; }
 python3() {
-    if [[ "$1" == "$repo_root/scripts/host_environment.py" && "$failure" == host ]]; then return 2; fi
+    if [[ "$1" == "$repo_root/scripts/host_environment.py" ]]; then
+        [[ "$failure" == host-core ]] && return 2
+        [[ "$failure" == host && "$3" != --core ]] && return 2
+        return 0
+    fi
     case "${2:-}" in
         batch-plan|integration-plan) printf 'debugger\n' ;;
         batch-fingerprint) printf 'fingerprint\n' ;;
@@ -79,6 +83,15 @@ parse_profile_and_value() { shift; selected_value="$1"; }
         result = self.run_script(body, "func_debugger", failure="host")
         self.assertEqual(0, result.returncode, result.stderr)
         self.assertIn("AGENT_ACTION: BATCH_COMPLETE", result.stdout)
+
+    def test_batch_missing_core_host_dependencies_stop_docker_mode_before_build(self):
+        body = ("case verify-batch in\n    verify-batch)\n"
+                + SCRIPT.split("    verify-batch)\n", 1)[1].split("    stop)\n", 1)[0] + "esac\n")
+        result = self.run_script(body, "func_debugger", failure="host-core")
+        self.assertEqual(2, result.returncode)
+        self.assertIn("AGENT_ACTION: BLOCKED_TOOLING", result.stdout)
+        self.assertNotIn("libraries:", result.stderr)
+        self.assertNotIn("build:", result.stderr)
 
     def test_finish_materializes_asm_before_layout_and_fails_closed(self):
         body = SCRIPT.split("verify_and_record_match() {", 1)[1].split("prepare_next_work() {", 1)[0]

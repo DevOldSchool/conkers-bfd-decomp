@@ -26,6 +26,12 @@ class HostEnvironmentTests(unittest.TestCase):
             self.path.write_text(text)
             with self.assertRaises(ValueError): host.requirements(self.root)
 
+    def test_core_scope_checks_only_packages_host_helpers_import(self):
+        with patch.object(host.importlib.metadata, "version", side_effect=importlib.metadata.PackageNotFoundError("fixture")):
+            errors = host.check(self.root, core=True)
+        self.assertEqual(["PyYAML"], [error.split(":", 1)[0] for error in errors[:-1]])
+        self.assertIn("./conker host-setup", errors[-1])
+
     def test_all_missing_stale_and_broken_imports_reported_with_remedy(self):
         with patch.object(host.importlib.metadata, "version", side_effect=importlib.metadata.PackageNotFoundError("fixture")), patch.object(host.importlib, "import_module") as imports:
             errors = host.check(self.root)
