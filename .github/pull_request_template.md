@@ -7,13 +7,13 @@ Describe the function, tooling, or documentation change.
 ### Public checks (automatic; no ROM access)
 
 - Repository metadata
-- Generated progress consistency
+- Progress inventory check
 - PR whitespace and prohibited files
 - Python tests and shell syntax
 - Toolchain image and compiler smoke test
 - US C compilation (no ROM; not match evidence)
 - GitHub workflow syntax
-- All public PR checks passed (required aggregate after ruleset migration)
+- All public PR checks passed (required aggregate)
 
 ### Local US verification before merge
 
