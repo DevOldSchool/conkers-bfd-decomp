@@ -51,12 +51,12 @@ class IntegrationTests(unittest.TestCase):
         project_state.ROOT = self.root
         project_state.FUNCTIONS_FILE = self.root / "progress" / "functions.json"
         project_state.SOURCE_UNITS_FILE = self.root / "progress" / "source_units.json"
-        project_state.SUMMARY_FILE = self.root / "progress" / "summary.json"
+        project_state.SUMMARY_FILE = self.root / "build" / "progress" / "summary.json"
         project_state.BADGE_FILES = {
-            "us": self.root / "progress" / "badge-us.json",
-            "eu": self.root / "progress" / "badge-eu.json",
+            "us": self.root / "build" / "progress" / "badge-us.json",
+            "eu": self.root / "build" / "progress" / "badge-eu.json",
         }
-        project_state.DOCUMENT_FILE = self.root / "docs" / "progress.md"
+        project_state.DOCUMENT_FILE = self.root / "build" / "progress" / "progress.md"
         project_state.OVERLAYS_FILE = self.root / "config" / "overlays.json"
         self.write_project()
 
@@ -268,6 +268,20 @@ class IntegrationTests(unittest.TestCase):
                 integrate.integrate_all_reviewed("us")
         self.assertEqual(before, {path: path.read_bytes() for path in self.root.rglob("*") if path.is_file()})
         self.assertFalse((self.root / "src/done").exists())
+
+    @mock.patch.object(integrate.subprocess, "run")
+    def test_failed_transaction_removes_reports_that_did_not_exist_before(self, run: mock.Mock) -> None:
+        self.add_profile_unit("main", "func_main", 0x40)
+        before = {path: path.read_bytes() for path in self.root.rglob("*") if path.is_file()}
+        self.assertFalse(project_state.SUMMARY_FILE.exists())
+        render = project_state.render_progress
+        def fail_after_render(functions: list[dict]) -> None:
+            render(functions)
+            raise RuntimeError("render failed after writes")
+        with mock.patch.object(project_state, "render_progress", side_effect=fail_after_render):
+            with self.assertRaisesRegex(RuntimeError, "render failed after writes"):
+                integrate.integrate_all_reviewed("us")
+        self.assertEqual(before, {path: path.read_bytes() for path in self.root.rglob("*") if path.is_file()})
 
     @mock.patch.object(integrate.subprocess, "run")
     def test_all_reviewed_skips_incomplete_main_but_integrates_raw_debugger(self, run: mock.Mock) -> None:

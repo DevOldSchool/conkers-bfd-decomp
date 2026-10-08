@@ -80,7 +80,12 @@ or deferring. For continued groups, follow [sibling selection and reuse](docs/de
 - `progress/functions.json` owns function matches; `progress/source_units.json`
   owns reviewed boundaries and integration. A function match does not complete its
   source unit. Use supported transactions; never hand-edit inventory or generated
-  assembly/progress reports. Regenerate reports with `./conker progress render`.
+  assembly/progress reports. `./conker progress render` writes ignored local
+  reports under `build/progress/`; open `build/progress/progress.md` or use
+  `./conker progress` to see your current totals. Commit canonical inventory and
+  evidence changes, never generated reports. `progress check` validates canonical
+  inputs and rendering without requiring local snapshots. See the
+  [progress guide](docs/progress.md) for migration and published checkpoints.
 - Review original object boundaries and every member before source-unit registration.
   Alignment, a standalone build or a matching function does not prove ownership.
   Keep the evidence comment below the include block. Use `withdraw-source-unit` for

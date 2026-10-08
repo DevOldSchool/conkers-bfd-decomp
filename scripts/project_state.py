@@ -22,12 +22,12 @@ ROMS_FILE = ROOT / "config" / "roms.json"
 OVERLAYS_FILE = ROOT / "config" / "overlays.json"
 FUNCTIONS_FILE = ROOT / "progress" / "functions.json"
 SOURCE_UNITS_FILE = ROOT / "progress" / "source_units.json"
-SUMMARY_FILE = ROOT / "progress" / "summary.json"
+SUMMARY_FILE = ROOT / "build" / "progress" / "summary.json"
 BADGE_FILES = {
-    "us": ROOT / "progress" / "badge-us.json",
-    "eu": ROOT / "progress" / "badge-eu.json",
+    "us": ROOT / "build" / "progress" / "badge-us.json",
+    "eu": ROOT / "build" / "progress" / "badge-eu.json",
 }
-DOCUMENT_FILE = ROOT / "docs" / "progress.md"
+DOCUMENT_FILE = ROOT / "build" / "progress" / "progress.md"
 LOCAL_SETUP_FILE = ROOT / ".conker" / "roms.json"
 ROM_LINKS = {
     "us": ROOT / "roms" / "baserom.us.z64",
@@ -1406,55 +1406,49 @@ def render_badge(result: dict[str, Any], region: str) -> dict[str, Any]:
     }
 
 
+def progress_contents(functions: list[dict[str, Any]]) -> dict[Path, str]:
+    """Render deterministic local views from the canonical inventory."""
+
+    result = summary(functions)
+    return {
+        SUMMARY_FILE: json.dumps(result, indent=2, sort_keys=True) + "\n",
+        **{
+            BADGE_FILES[region]: json.dumps(render_badge(result, region), indent=2, sort_keys=True) + "\n"
+            for region in KNOWN_REGIONS
+        },
+        DOCUMENT_FILE: render_markdown(result),
+    }
+
+
 def progress(args: argparse.Namespace) -> None:
     _, functions = validate_project()
-    result = summary(functions)
-    markdown = render_markdown(result)
-    badges = {region: render_badge(result, region) for region in KNOWN_REGIONS}
-    summary_content = json.dumps(result, indent=2, sort_keys=True) + "\n"
-    badge_contents = {
-        region: json.dumps(badge, indent=2, sort_keys=True) + "\n"
-        for region, badge in badges.items()
-    }
+    contents = progress_contents(functions)
     if args.render:
-        write_json(SUMMARY_FILE, result)
-        for region, badge in badges.items():
-            write_json(BADGE_FILES[region], badge)
-        DOCUMENT_FILE.write_text(markdown, encoding="utf-8")
-        print(
-            "Updated "
-            + ", ".join(
-                str(path.relative_to(ROOT))
-                for path in (SUMMARY_FILE, *BADGE_FILES.values(), DOCUMENT_FILE)
-            )
-        )
+        write_progress(contents)
+        print("Updated " + ", ".join(str(path.relative_to(ROOT)) for path in contents))
+        print("Local report: build/progress/progress.md (ignored; do not commit).")
     elif args.check:
-        expected_summary = SUMMARY_FILE.read_text(encoding="utf-8") if SUMMARY_FILE.exists() else ""
-        expected_badges = {
-            region: path.read_text(encoding="utf-8") if path.exists() else ""
-            for region, path in BADGE_FILES.items()
-        }
-        expected_document = DOCUMENT_FILE.read_text(encoding="utf-8") if DOCUMENT_FILE.exists() else ""
-        if (
-            expected_summary != summary_content
-            or expected_badges != badge_contents
-            or expected_document != markdown
-        ):
-            raise ProjectStateError("progress output is stale; run ./conker progress render and commit the result")
-        print("Progress output is current.")
+        # Validate inputs and exercise every renderer even in a fresh checkout.
+        # Local snapshots can be absent or old; they are not acceptance evidence.
+        print("Canonical progress and report rendering are valid (local files are not checked).")
     else:
-        print(markdown, end="")
+        print(contents[DOCUMENT_FILE], end="")
+
+
+def write_progress(contents: dict[Path, str]) -> None:
+    for path, content in contents.items():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content, encoding="utf-8")
 
 
 def render_progress(functions: list[dict[str, Any]]) -> None:
-    """Refresh the checked-in progress views after an inventory change."""
+    """Refresh ignored local views after an inventory change.
 
-    result = summary(functions)
-    write_json(SUMMARY_FILE, result)
-    for region in KNOWN_REGIONS:
-        write_json(BADGE_FILES[region], render_badge(result, region))
-    DOCUMENT_FILE.parent.mkdir(parents=True, exist_ok=True)
-    DOCUMENT_FILE.write_text(render_markdown(result), encoding="utf-8")
+    Transaction snapshots use the same output constants, including rollback
+    when no local report existed before the transaction.
+    """
+
+    write_progress(progress_contents(functions))
 
 
 def remove_source_todo(source: str, symbol: str) -> bool:

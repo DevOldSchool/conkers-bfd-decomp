@@ -43,7 +43,7 @@ Getting started
   rom-info <path>                Print a ROM's SHA-1 and file size.
   setup --us <path> [--eu <path>]
                                  Validate the active US ROM; EU/PAL is optional future setup.
-  progress [render|check]        Show, regenerate, or verify project progress.
+  progress [render|check]        Show, render local reports, or validate progress.
   progress match <work-item-id>
                                  Verify and record a zero-difference function match.
   progress integrate <work-item-id>

@@ -306,7 +306,7 @@ def generate(binary: Path) -> int:
                   'report_sha256': hashlib.sha256((OUTPUT/'report.json').read_bytes()).hexdigest(),
                   'preparation_seconds': prepared-started, 'report_and_validation_seconds': time.perf_counter()-prepared,
                   'compile_errors': coverage['compile_errors'],
-                  'existing_progress': json.loads((ROOT/'progress/summary.json').read_text())['code_bytes']['regions']['us'],
+                  'existing_progress': state.summary(state.validate_project()[1])['code_bytes']['regions']['us'],
                   'measures': report['measures']}
     objdiff.write_json(OUTPUT/'validation.json', validation)
     print(json.dumps(validation, indent=2))

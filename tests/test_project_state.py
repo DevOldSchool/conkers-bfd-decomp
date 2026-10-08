@@ -1362,6 +1362,48 @@ class ProjectStateTests(unittest.TestCase):
 
 
 class GameInventoryTests(unittest.TestCase):
+    def test_progress_render_is_deterministic_local_output_and_preserves_guide(self) -> None:
+        guide = self.root / "docs/progress.md"
+        guide.parent.mkdir(parents=True, exist_ok=True)
+        guide.write_text("static guide\n")
+        _, functions = project_state.validate_project()
+        expected = project_state.progress_contents(functions)
+        self.assertEqual(expected, project_state.progress_contents(functions))
+        self.assertEqual({self.root / "build/progress"}, {path.parent for path in expected})
+        with redirect_stdout(io.StringIO()):
+            project_state.progress(SimpleNamespace(render=True, check=False))
+        self.assertEqual(expected, {path: path.read_text() for path in expected})
+        self.assertEqual("static guide\n", guide.read_text())
+        self.assertFalse((self.root / "progress/summary.json").exists())
+        # Automatic inventory transactions and the public CLI share one renderer.
+        project_state.render_progress(functions)
+        self.assertEqual(expected, {path: path.read_text() for path in expected})
+
+    def test_progress_check_needs_no_snapshots_and_never_reads_or_writes_them(self) -> None:
+        with redirect_stdout(io.StringIO()):
+            project_state.progress(SimpleNamespace(render=False, check=True))
+        self.assertFalse(project_state.SUMMARY_FILE.parent.exists())
+        project_state.SUMMARY_FILE.parent.mkdir(parents=True)
+        project_state.SUMMARY_FILE.write_text("old local snapshot")
+        with redirect_stdout(io.StringIO()):
+            project_state.progress(SimpleNamespace(render=False, check=True))
+        self.assertEqual("old local snapshot", project_state.SUMMARY_FILE.read_text())
+        self.assertFalse(project_state.DOCUMENT_FILE.exists())
+
+    def test_all_progress_modes_reject_invalid_canonical_data_before_writing(self) -> None:
+        project_state.FUNCTIONS_FILE.write_text('{"schema_version": 999, "functions": []}')
+        for render, check in ((True, False), (False, True), (False, False)):
+            with self.subTest(render=render, check=check):
+                with self.assertRaises(project_state.ProjectStateError):
+                    project_state.progress(SimpleNamespace(render=render, check=check))
+                self.assertFalse(project_state.SUMMARY_FILE.parent.exists())
+
+    def test_progress_check_exercises_every_renderer(self) -> None:
+        for name in ("summary", "render_badge", "render_markdown"):
+            with self.subTest(renderer=name), patch.object(project_state, name, side_effect=RuntimeError("render failure")):
+                with self.assertRaisesRegex(RuntimeError, "render failure"):
+                    project_state.progress(SimpleNamespace(render=False, check=True))
+
     def setUp(self) -> None:
         self.temporary_directory = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary_directory.name)
@@ -1381,12 +1423,12 @@ class GameInventoryTests(unittest.TestCase):
         project_state.ROOT = self.root
         project_state.FUNCTIONS_FILE = self.root / "progress" / "functions.json"
         project_state.SOURCE_UNITS_FILE = self.root / "progress" / "source_units.json"
-        project_state.SUMMARY_FILE = self.root / "progress" / "summary.json"
+        project_state.SUMMARY_FILE = self.root / "build" / "progress" / "summary.json"
         project_state.BADGE_FILES = {
-            "us": self.root / "progress" / "badge-us.json",
-            "eu": self.root / "progress" / "badge-eu.json",
+            "us": self.root / "build" / "progress" / "badge-us.json",
+            "eu": self.root / "build" / "progress" / "badge-eu.json",
         }
-        project_state.DOCUMENT_FILE = self.root / "docs" / "progress.md"
+        project_state.DOCUMENT_FILE = self.root / "build" / "progress" / "progress.md"
         project_state.OVERLAYS_FILE = self.root / "config" / "overlays.json"
         project_state.ROMS_FILE = self.root / "config" / "roms.json"
         self.write_inventory()

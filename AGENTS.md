@@ -75,6 +75,11 @@ only exact results through transactional `finish`.
 
 ## Reporting
 
+Progress transactions refresh ignored `build/progress/` reports automatically.
+Commit the canonical inventories and evidence, never rendered totals.
+`./conker progress` shows current local totals; `progress check` validates inputs
+and rendering without requiring snapshots. See [progress reports](docs/progress.md).
+
 Give one brief start update; then report failures, blockers or commands over 60 seconds.
 For function work report function/source, changed files, shared dependency (yes/no),
 US focused diff, whitespace, status (`matched`/`candidate`/`blocked`) and attempts.

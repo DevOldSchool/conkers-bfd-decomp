@@ -26,8 +26,9 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertEqual(set(events), {"push", "workflow_dispatch"})
         self.assertEqual(events["push"]["branches"], ["main"])
         self.assertEqual(workflow["permissions"], {"contents": "read"})
-        self.assertEqual(set(workflow["jobs"]), {"verify-main"})
+        self.assertEqual(set(workflow["jobs"]), {"verify-main", "publish-progress"})
         job = workflow["jobs"]["verify-main"]
+        self.assertNotIn("permissions", job)  # Inherits read-only permissions.
         self.assertEqual(job["if"], "github.ref == 'refs/heads/main'")
         self.assertEqual(job["environment"], "rom-verification")
         steps = job["steps"]
@@ -52,6 +53,25 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertEqual(steps[-1]["if"], "always()")
         self.assertIn("./conker stop", steps[-1]["run"])
         self.assertIn("rm -rf -- .private-rom-assets roms/baserom.us.z64", steps[-1]["run"])
+
+    def test_progress_publisher_requires_successful_main_verification_and_is_isolated(self) -> None:
+        workflow = yaml.safe_load((ROOT / ".github/workflows/rom-verify-main.yml").read_text())
+        job = workflow["jobs"]["publish-progress"]
+        self.assertEqual("verify-main", job["needs"])
+        # No always()/failure()/cancelled() override of needs' success condition.
+        self.assertEqual("github.ref == 'refs/heads/main' && github.repository == 'DevOldSchool/conkers-bfd-decomp'", job["if"])
+        self.assertEqual({"contents": "write"}, job["permissions"])
+        self.assertNotIn("environment", job)
+        self.assertNotIn("secrets.", str(job))
+        self.assertNotIn("download-artifact", str(job))
+        self.assertEqual({"group": "publish-progress-reports", "cancel-in-progress": False}, job["concurrency"])
+        steps = job["steps"]
+        self.assertEqual(len(steps), 3)
+        self.assertTrue(steps[0]["uses"].startswith("actions/checkout@"))
+        self.assertEqual({"ref": "${{ github.sha }}", "fetch-depth": 0, "persist-credentials": False}, steps[0]["with"])
+        self.assertEqual("./conker progress render", steps[1]["run"])
+        self.assertEqual("python3 scripts/publish_progress.py", steps[2]["run"])
+        self.assertEqual({"GH_TOKEN": "${{ github.token }}", "VERIFIED_SHA": "${{ github.sha }}"}, steps[2]["env"])
 
     def test_public_pr_workflow_has_no_private_credentials_or_privileged_trigger(self) -> None:
         raw = (ROOT / ".github/workflows/ci.yml").read_text()

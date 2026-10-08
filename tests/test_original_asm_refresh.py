@@ -27,10 +27,10 @@ class OriginalAssemblyRefreshTests(unittest.TestCase):
         for name, relative in {'FUNCTIONS_FILE': 'progress/functions.json',
                                'SOURCE_UNITS_FILE': 'progress/source_units.json',
                                'ROMS_FILE': 'config/roms.json', 'OVERLAYS_FILE': 'config/overlays.json',
-                               'SUMMARY_FILE': 'progress/summary.json', 'DOCUMENT_FILE': 'docs/progress.md'}.items():
+                               'SUMMARY_FILE': 'build/progress/summary.json', 'DOCUMENT_FILE': 'build/progress/progress.md'}.items():
             self.stack.enter_context(patch.object(state, name, self.root / relative))
         self.stack.enter_context(patch.object(state, 'ROOT', self.root))
-        self.stack.enter_context(patch.object(state, 'BADGE_FILES', {'us': self.root / 'progress/badge.json'}))
+        self.stack.enter_context(patch.object(state, 'BADGE_FILES', {'us': self.root / 'build/progress/badge.json'}))
         self.stack.enter_context(patch.object(state, 'validate_rom_config'))
         state.write_json(state.ROMS_FILE, {})
         state.write_json(state.OVERLAYS_FILE, {'schema_version': 1, 'overlays': {
@@ -138,6 +138,7 @@ class OriginalAssemblyRefreshTests(unittest.TestCase):
         evidence = original_asm.verify(self.root, self.entry, refresh=True)
         (self.root / 'proof.json').write_text(json.dumps({'symbol': 'func_test', 'evidence': evidence}))
         before = state.FUNCTIONS_FILE.read_bytes()
+        state.SUMMARY_FILE.parent.mkdir(parents=True, exist_ok=True)
         state.SUMMARY_FILE.write_text('old summary')
         def broken_render(_):
             state.SUMMARY_FILE.write_text('changed summary')
