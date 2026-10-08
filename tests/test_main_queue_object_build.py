@@ -12,7 +12,7 @@ import unittest
 ROOT = Path(__file__).resolve().parent.parent
 
 
-def compiler_object() -> tuple[bytes, int]:
+def compiler_object(relocation_count=7) -> tuple[bytes, int]:
     data = bytearray(52)
     data[:7] = b"\x7fELF\x01\x02\x01"
     struct.pack_into(">HHI", data, 16, 1, 8, 1)
@@ -25,10 +25,12 @@ def compiler_object() -> tuple[bytes, int]:
         return offset
 
     section(1, 6, bytes(0x80))
-    table_offset = section(1, 2, struct.pack(">8I", *range(0x10, 0x80, 0x10), 0))
+    words = list(range(0x10, (relocation_count + 1) * 0x10, 0x10))
+    words += [0] * (-len(words) % 4)
+    table_offset = section(1, 2, struct.pack(">" + "I" * len(words), *words))
     symbols = bytes(16) + struct.pack(">IIIBBH", 0, 0, 0x80, 3, 0, 1)
     section(2, 0, symbols, info=2, entry_size=16)
-    relocations = b"".join(struct.pack(">II", offset, 0x102) for offset in range(0, 28, 4))
+    relocations = b"".join(struct.pack(">II", offset, 0x102) for offset in range(0, relocation_count * 4, 4))
     section(9, 0, relocations, link=3, info=2, entry_size=8)
     table = len(data)
     for entry in sections:
@@ -41,9 +43,15 @@ def compiler_object() -> tuple[bytes, int]:
 @unittest.skipUnless(shutil.which("make"), "make is required for the object-cache regression")
 class MainQueueObjectBuildTests(unittest.TestCase):
     def test_focused_check_overwrite_is_prepared_again_without_double_rebasing(self):
-        physical, table_offset = compiler_object()
+        self.check_object_refresh("init_2E50", 7)
+
+    def test_selector_object_is_prepared_again_without_double_rebasing(self):
+        self.check_object_refresh("init_11FA0", 5)
+
+    def check_object_refresh(self, source_name, relocation_count):
+        physical, table_offset = compiler_object(relocation_count)
         expected = bytearray(physical)
-        for index, value in enumerate(range(0x10, 0x80, 0x10)):
+        for index, value in enumerate(range(0x10, (relocation_count + 1) * 0x10, 0x10)):
             struct.pack_into(">I", expected, table_offset + index * 4, 0x90000000 + value)
 
         with tempfile.TemporaryDirectory() as directory:
@@ -51,7 +59,7 @@ class MainQueueObjectBuildTests(unittest.TestCase):
             (root / "scripts").mkdir()
             (root / "src/done/main").mkdir(parents=True)
             (root / "Makefile").write_bytes((ROOT / "Makefile").read_bytes())
-            source = root / "src/done/main/init_2E50.c"
+            source = root / f"src/done/main/{source_name}.c"
             source.write_text("void queue_thread(void) {}\n")
             (root / "fixture.o").write_bytes(physical)
             # The compiler stub writes the same physical ELF produced by a focused check.
@@ -64,8 +72,8 @@ class MainQueueObjectBuildTests(unittest.TestCase):
             (root / "scripts/list_integrated_sources.py").write_text(
                 "import sys\n"
                 "if '--overlay' in sys.argv and sys.argv[sys.argv.index('--overlay') + 1] == 'main':\n"
-                "    print('src/done/main/init_2E50.c')\n")
-            target = "build/us/src/done/main/init_2E50.o"
+                f"    print('src/done/main/{source_name}.c')\n")
+            target = f"build/us/src/done/main/{source_name}.o"
             command = [shutil.which("make"), "--no-print-directory", "--silent", target, "PROFILE=us"]
             subprocess.run(command, cwd=root, capture_output=True, text=True, check=True)
             output = root / target

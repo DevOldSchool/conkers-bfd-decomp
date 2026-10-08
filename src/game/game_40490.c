@@ -15,7 +15,6 @@
  * - func_1501474C
  * - func_15014B60
  * - func_15014F6C
- * - func_150150A4
  * - func_15015354
  * - func_150156F4
  *
@@ -595,26 +594,17 @@ s32 func_15014F6C(u8 *arg0) {
 void *func_1515F1B0(void);
 void func_1515F25C(void **, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150150A4 CURRENT (20) */
 s32 func_150150A4(void) {
     void *temp_v0;
-    volatile void *sp1C;
-    f32 increase;
-    f32 *accumulator;
 
     temp_v0 = func_1515F1B0();
     if (temp_v0 == 0) {
         return 1;
     }
-    sp1C = temp_v0;
     func_1515F25C(&D_800DCDC4, temp_v0);
-    accumulator = &D_800DCD90;
-    increase = *(f32 *)((u8 *)sp1C + 8);
-    *accumulator = *accumulator + increase;
+    *&D_800DCD90 += *(f32 *)((u8 *)temp_v0 + 8);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150150A4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150150A4.s")
 void func_10022EC0(void *, void *, s32);
 void func_1510F800(s32);
 s32 func_1510FD20(s16, s16, void *);

@@ -25,6 +25,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [US callback switch table](game_c98f0_jump_table.md)
 - [Effect helper floating constants (US)](game_effect_constant_pools.md)
 - [AI buffer submission private data](main_ai_private_data.md)
+- [B1B0 literal-pool integration](main_b1b0_literal_pool.md)
 - [VI manager source and private storage](main_init_vi_layout.md)
 - [Main text zero-tail classification at `0x226B0`](main_text_zero_tail_226b0.md)
 - [US jump tables for the manual matching batch](manual_batch_jump_tables.md)

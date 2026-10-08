@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_80003C6C
  * - func_80004074
- * - func_800043B4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -52,16 +51,20 @@ extern s32 D_8003C8E0;
 void func_850AD770(void);
 void func_8000440C(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80003C6C CURRENT (3959) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80003C6C CURRENT (1375) */
 s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     AllocatorBlock *allocated;
     u8 *end;
-    u32 aligned;
+    s32 aligned;
     u32 remainder;
+    /* The size is consumed before the free-list link is loaded. */
+    union {
+        u32 size;
+        AllocatorFreeBlock *next;
+    } blockPhase;
     AllocatorBlock *previous;
     AllocatorBlock *following;
     AllocatorBlock *oldNext;
-    AllocatorFreeBlock *nextFree;
     AllocatorFreeBlock *prevFree;
     s32 offset;
     s32 mask;
@@ -104,8 +107,9 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
             }
             return 0;
         }
-        aligned = ((u32)block + offset + 0xC) & mask;
-        end = (u8 *)((u32)block + block->header.taggedSize + 0xC);
+        blockPhase.size = block->header.taggedSize;
+        aligned = (s32)((u8 *)block + offset + 0xC) & mask;
+        end = (u8 *)block + blockPhase.size + 0xC;
         if ((u32)end >= aligned + (u32)arg0) {
             break;
         }
@@ -116,18 +120,18 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
         }
     }
     if (arg3 == 0) {
-        allocated = (AllocatorBlock *)(aligned - 0xC);
+        allocated = (AllocatorBlock *)((u32)aligned - 0xC);
         following = (AllocatorBlock *)((u32)allocated + (u32)arg0 + 0xC);
-        remainder = (u32)block + block->header.taggedSize -
+        remainder = (u32)block + blockPhase.size -
                     ((u32)allocated + (u32)arg0);
     } else {
-        allocated = (AllocatorBlock *)((((u32)block + block->header.taggedSize -
+        allocated = (AllocatorBlock *)((((u32)block + blockPhase.size -
                                         (u32)arg0 + 0xC) & mask) - 0xC);
         following = block->header.next;
         remainder = (u32)allocated - (u32)block;
     }
     previous = block->header.prev;
-    nextFree = block->nextFree;
+    blockPhase.next = block->nextFree;
     prevFree = block->prevFree;
     if (arg3 == 0) {
         oldNext = block->header.next;
@@ -138,10 +142,10 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
                 oldNext->prev = following;
             }
             remainder = 0;
-            ((AllocatorFreeBlock *)following)->nextFree = nextFree;
+            ((AllocatorFreeBlock *)following)->nextFree = blockPhase.next;
             ((AllocatorFreeBlock *)following)->prevFree = prevFree;
-            if (nextFree != 0) {
-                nextFree->prevFree = (AllocatorFreeBlock *)following;
+            if (blockPhase.next != 0) {
+                blockPhase.next->prevFree = (AllocatorFreeBlock *)following;
             } else {
                 D_800380BC = (AllocatorFreeBlock *)following;
             }
@@ -152,15 +156,15 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
             }
         } else {
             following = oldNext;
-            if (nextFree != 0) {
-                nextFree->prevFree = prevFree;
+            if (blockPhase.next != 0) {
+                blockPhase.next->prevFree = prevFree;
             } else {
                 D_800380BC = prevFree;
             }
             if (prevFree != 0) {
-                prevFree->nextFree = nextFree;
+                prevFree->nextFree = blockPhase.next;
             } else {
-                D_800380B8 = nextFree;
+                D_800380B8 = blockPhase.next;
             }
         }
         if (previous == 0) {
@@ -177,12 +181,11 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
             following->prev = allocated;
         }
     } else if (remainder >= 0x14) {
-        oldNext = block->header.next;
+        allocated->next = block->header.next;
         allocated->prev = &block->header;
-        allocated->next = oldNext;
-        oldNext = allocated->next;
         allocated->taggedSize = ((u32)arg1 << 24) |
                                ((u32)end - (u32)allocated - 0xC);
+        oldNext = allocated->next;
         if (oldNext != 0) {
             oldNext->prev = allocated;
         }
@@ -190,20 +193,20 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
         block->header.taggedSize = remainder - 0xC;
     } else {
         aligned = ((u32)block + offset + 0xC) & mask;
-        allocated = (AllocatorBlock *)(aligned - 0xC);
+        allocated = (AllocatorBlock *)aligned - 1;
         allocated->next = following;
         allocated->prev = previous;
         allocated->taggedSize = ((u32)arg1 << 24) |
                                ((u32)end - (u32)allocated - 0xC);
-        if (nextFree != 0) {
-            nextFree->prevFree = prevFree;
+        if (blockPhase.next != 0) {
+            blockPhase.next->prevFree = prevFree;
         } else {
             D_800380BC = prevFree;
         }
         if (prevFree != 0) {
-            prevFree->nextFree = nextFree;
+            prevFree->nextFree = blockPhase.next;
         } else {
-            D_800380B8 = nextFree;
+            D_800380B8 = blockPhase.next;
         }
         if (previous == 0) {
             D_800380B4 = allocated;
@@ -229,19 +232,19 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_80003C6C */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_3C40/func_80003C6C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80004074 CURRENT (1026) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80004074 CURRENT (668) */
 void func_80004074(s32 arg0) {
     AllocatorFreeBlock *block;
     AllocatorFreeBlock *neighbor;
-    s32 merged;
+    AllocatorFreeBlock *cursor;
     s32 mask;
     AllocatorFreeBlock *original;
-    AllocatorFreeBlock *cursor;
+    AllocatorFreeBlock *nextFree;
 
     original = (AllocatorFreeBlock *)(arg0 - 0xC);
     if (arg0 != 0) {
         block = original;
-        merged = 0;
+        arg0 = 0;
         mask = func_80024880(1);
         neighbor = (AllocatorFreeBlock *)original->header.prev;
         ((u8 *)&original->header.taggedSize)[0] = 0;
@@ -252,7 +255,7 @@ void func_80004074(s32 arg0) {
                 neighbor->header.next->prev = &neighbor->header;
             }
             block = neighbor;
-            merged = 1;
+            arg0 = 1;
         }
         neighbor = (AllocatorFreeBlock *)block->header.next;
         if ((neighbor != 0) && ((neighbor->header.taggedSize >> 24) == 0)) {
@@ -275,9 +278,9 @@ void func_80004074(s32 arg0) {
                     cursor->nextFree = block;
                 }
             }
-            merged = 1;
+            arg0 = 1;
         }
-        if (merged == 0) {
+        if (arg0 == 0) {
             cursor = D_800380B8;
             if (cursor == 0) {
                 block->nextFree = 0;
@@ -290,21 +293,21 @@ void func_80004074(s32 arg0) {
                 D_800380B8 = block;
             } else {
                 for (;;) {
-                    neighbor = cursor->nextFree;
-                    if (neighbor == 0) {
+                    nextFree = cursor->nextFree;
+                    if (nextFree == 0) {
                         block->nextFree = 0;
                         block->prevFree = cursor;
                         cursor->nextFree = block;
                         break;
                     }
-                    if ((u32)block < (u32)neighbor) {
-                        block->nextFree = neighbor;
+                    if ((u32)block < (u32)nextFree) {
+                        block->nextFree = nextFree;
                         block->prevFree = cursor;
-                        neighbor->prevFree = block;
+                        nextFree->prevFree = block;
                         cursor->nextFree = block;
                         break;
                     }
-                    cursor = neighbor;
+                    cursor = nextFree;
                 }
             }
         }
@@ -366,18 +369,15 @@ void func_80004308(void) {
 }
 s32 func_80024880(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800043B4 CURRENT (260) */
 void func_800043B4(void *arg0, s32 arg1) {
     s32 mask;
     AllocatorBlock *block;
 
     mask = func_80024880(1);
-    block = (AllocatorBlock *)arg0 - 1;
+    block = (AllocatorBlock *)((u32)arg0 - sizeof(AllocatorBlock));
     block->taggedSize = (block->taggedSize & 0xFFFFFF) | ((u32)arg1 << 24);
     func_80024880(mask);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_800043B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_3C40/func_800043B4.s")
 void func_8000440C(void) {
     s32 maximum;
     AllocatorFreeBlock *largest;

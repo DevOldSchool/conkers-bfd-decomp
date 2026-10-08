@@ -12,7 +12,6 @@
  * - func_151674F8
  * - func_15167B44
  * - func_15167C58
- * - func_15167D84
  * - func_15167E0C
  * - func_15168118
  * - func_1516865C
@@ -301,7 +300,6 @@ typedef struct Game1944C0AnimatedEffect {
     u8 alpha;
     u8 callback;
 } Game1944C0AnimatedEffect;
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15167B44 CURRENT (45) */
 void func_15167B44(Game1944C0AnimatedEffect *arg0) {
     s16 temp_a2;
@@ -407,27 +405,16 @@ void func_15167C58(s32 arg0, Game1944C0RenderInput *arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15167C58.s")
 /* Call context: func_10023A10: unique active project prototype */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15167D84 CURRENT (837) */
-void func_15167D84(void *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
-    u8 *temp_v0;
-    u8 *sp24;
-    s32 var_a0;
+void *func_15167D84(void *arg0, s32 arg1, s32 arg2, s8 arg3, u8 arg4, s32 arg5) {
+    void *v0 = func_15167A68(arg1 == 0 ? 5 : 0x42, arg5, arg2 + 0x50, 0, arg4, 1);
 
-    if (arg1 == 0) {
-        var_a0 = 5;
-    } else {
-        var_a0 = 0x42;
+    if (v0 == 0) {
+        return v0;
     }
-    temp_v0 = (void *)(func_15167A68(var_a0, arg5, arg2 + 0x50, 0, (u8) (s32) arg4, 1U));
-    if (temp_v0 == 0) {
-        return;
-    }
-    sp24 = temp_v0;
-    func_10023A10(arg0, temp_v0 + 0x10, 0x38);
-    *(s8 *)((u8 *)sp24 + 0x48) = *((s8 *)&arg3 + 3);
+    func_10023A10(arg0, (u8 *)v0 + 0x10, 0x38);
+    ((s8 *)v0)[0x48] = arg3;
+    return v0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15167D84 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15167D84.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15167E0C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168118.s")
 extern u8 *D_8008CA4C[];
@@ -1094,7 +1081,6 @@ void func_1516968C(void *arg0, u8 *arg1, u8 arg2) {
 }
 extern s8 D_800DD190;
 extern Game1944C0Node *D_800DD198[];
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151696DC CURRENT (120) */
 void func_151696DC(void *arg0) {
     s8 temp_v0;

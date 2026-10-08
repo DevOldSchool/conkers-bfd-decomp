@@ -10,7 +10,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern s8 D_80038080;
+extern u8 D_80038080;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_80003920 CURRENT (60) */
 void func_80003920(void) {

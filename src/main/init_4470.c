@@ -5,9 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/main/main_allocator_transfer_controller_boundaries.md
  *
  * TODO: Implement these source-unit functions:
- * - func_80004470
- * - func_80004514
- * - func_800046E4
  * - func_8000480C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -54,39 +51,35 @@ extern TransferMessageQueue D_800388B0;
 extern void *D_800380E0[];
 extern void *D_80038400[];
 extern void *D_800388F8[3];
+extern void *D_80038904[];
 extern TransferMessageQueue D_80038908[];
 extern u8 D_8003A570;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80004470 CURRENT (70) */
 void func_80004470(void) {
-    void **message;
-    TransferMessageQueue *queue;
-    void **end;
+    s32 index;
 
     func_800030A0(0x96, &D_800388B0, D_800380E0, 0xC8);
-    message = D_800388F8;
-    queue = D_80038908;
-    end = D_800388F8 + 3;
-    do {
-        func_80023790(queue, message, 1);
-        message++;
-        queue++;
-    } while (message != end);
+    index = 0;
+    for (;;) {
+        func_80023790(&D_80038908[index], &D_800388F8[index], 1);
+        index++;
+        if (D_80038904 == &D_800388F8[index]) {
+            break;
+        }
+    }
     func_80023790(&D_800388C8, D_80038400, 0x12C);
     D_8003A570 = 0;
     D_8003A571 = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80004470 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_4470/func_80004470.s")
 void func_8000480C(u32, void *, u32);
 extern TransferIoMessage D_80038950[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80004514 CURRENT (1369) */
 void func_80004514(u32 source, void *destination, u32 size, s32 blocking) {
     TransferMessageQueue *queue;
     TransferIoMessage request;
     TransferIoMessage *message;
     s32 index;
+    u8 messageIndex;
 
     index = D_8002BE00->id - 3;
     if ((size < 0xC8U) && (index == 0)) {
@@ -100,26 +93,25 @@ void func_80004514(u32 source, void *destination, u32 size, s32 blocking) {
         if (D_8003A571 == 0x12C) {
             return;
         }
-        message = &D_80038950[D_8003A570];
+        messageIndex = D_8003A570;
+        message = &D_80038950[messageIndex];
         queue = &D_800388C8;
-        if (D_8003A570 == 0x12B) {
+        if (messageIndex == 0x12B) {
             D_8003A570 = 0;
         } else {
-            D_8003A570++;
+            D_8003A570 = messageIndex + 1;
         }
         D_8003A571++;
     } else {
         message = &request;
         queue = &D_80038908[index];
     }
-    func_80022D10(destination, size);
+    func_80022D10(destination, ((s32 *)&size)[0]);
     func_80024920(message, 0, 0, source, destination, size, queue);
     if (blocking != 0) {
         func_80023440(queue, 0, 1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80004514 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_4470/func_80004514.s")
 void func_80004674(void) {
     s32 i;
 
@@ -128,11 +120,9 @@ void func_80004674(void) {
     }
     D_8003A571 = 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800046E4 CURRENT (20) */
 void func_800046E4(u32 source, void *destination, u32 size) {
     TransferIoMessage request;
     void *response;
-    TransferMessageQueue *queue;
     s32 index;
     u32 chunk;
     u32 processed;
@@ -144,23 +134,20 @@ void func_800046E4(u32 source, void *destination, u32 size) {
     }
     func_80022D10(destination, size);
     if (size != 0) {
-        queue = &D_80038908[index];
         do {
             if (size - processed < 0x14000U) {
                 chunk = size - processed;
             } else {
                 chunk = 0x14000;
             }
-            func_80024920(&request, 0, 0, source, destination, chunk, queue);
-            func_80023440(queue, &response, 1);
+            func_80024920(&request, 0, 0, source, destination, chunk, &D_80038908[index]);
+            func_80023440(&D_80038908[index], &response, 1);
             processed += chunk;
             source += chunk;
             destination = (u8 *)destination + chunk;
         } while (processed < size);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_800046E4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_4470/func_800046E4.s")
 typedef union {
     s32 word;
     u16 half[2];
@@ -173,10 +160,11 @@ extern volatile u8 D_8003A573;
 extern volatile u8 D_8003A575;
 void func_80022A60(TransferThread *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000480C CURRENT (2031) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000480C CURRENT (1154) */
 void func_8000480C(u32 source, void *destination, u32 size) {
     u32 count;
     TransferWord data;
+    u32 status;
     u32 offset;
     u32 readAddress;
     u8 *writeAddress;
@@ -185,10 +173,9 @@ void func_8000480C(u32 source, void *destination, u32 size) {
     size = (size + 1) & ~1U;
     while (D_8003A573 != 0) {
     }
-    while (*(volatile u32 *)0xA4600010 & 3) {
+    while ((status = *(volatile u32 *)0xA4600010) & 3) {
     }
     source |= D_80000308;
-    count = size - 2;
     if (source & 2) {
         size -= 2;
         data.word = *(volatile u32 *)((source - 2) | 0xA0000000);
@@ -212,6 +199,7 @@ void func_8000480C(u32 source, void *destination, u32 size) {
             *(u16 *)((u8 *)((void **)&destination)[0] + offset + 2) = data.half[0];
         }
     } else {
+        count = size - 2;
         offset = 0;
         if (count != 0) {
             readAddress = source;

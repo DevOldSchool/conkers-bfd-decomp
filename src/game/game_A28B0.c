@@ -24,7 +24,6 @@
  * - func_15079B30
  * - func_15079F6C
  * - func_1507A2F8
- * - func_1507A3E8
  * - func_1507A428
  * - func_1507A47C
  * - func_1507A4D4
@@ -98,12 +97,16 @@ typedef struct GameA28B0State {
 } GameA28B0State;
 
 extern GameA28B0State *D_800D154C;
-extern u8 D_800D1890;
+
 extern f32 D_800D1898[];
 void func_15075548(void);
 void func_15075650(void);
 void func_150836CC(GameA28B0State *arg0, u8 arg1);
 
+extern u8  D_800D1890;
+extern u8  D_800D1891;
+extern u8  D_800D1892;
+extern u8  D_800D1893;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15075400 CURRENT (60) */
 void func_15075400(s32 arg0) {
     u8 count;
@@ -128,7 +131,6 @@ void func_15075400(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15075400 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15075400.s")
-extern u8 D_800D1893;
 
 void func_15075498(void) {
     u32 value;
@@ -149,7 +151,6 @@ void func_15075498(void) {
 }
 extern f32 D_8009A13C;
 extern u8 D_800BE616;
-extern u8 D_800D1892;
 
 void func_15075548(void) {
     D_800D154C->pad223[0] = 0;
@@ -166,7 +167,7 @@ void func_15075548(void) {
     func_15075498();
 }
 extern u8 *D_800D2108;
-extern u8 D_800D1891;
+
 u32 func_150ADA20();
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15075650 CURRENT (3069) */
@@ -237,8 +238,6 @@ extern GameA28B0ValueGrid **D_800D2104;
 
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-extern u8 D_800D1891;
-
 void func_15075884(void) {
     f32 x;
     f32 z;
@@ -298,8 +297,7 @@ void func_15075938(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15075938 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15075938.s")
-extern u8 D_800D1891;
-extern u8 D_800D1892;
+
 
 void func_15075A50(void) {
     u8 temp_v0;
@@ -311,7 +309,6 @@ void func_15075A50(void) {
 }
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
-
 void func_15075AAC(void) {
     f32 absolute_x;
     f32 x;
@@ -341,7 +338,6 @@ void func_15075BB8(void) {
     *(u16 *)((u8 *)D_800D154C + 0x22C) =
         (u16) (*(u16 *)((u8 *)D_800D154C + 0x22C) | 2);
 }
-extern u8 D_800D1893;
 
 void func_15075BE8(void) {
     if (D_800D1893 != 0) {
@@ -408,15 +404,13 @@ void func_15075E98(void) {
     D_800D154C->field_235 = D_800D1890;
 }
 u32 func_150ADA20();                                /* extern */
-extern u8 D_800D1892;
 
 void func_15075EB4(void) {
     if ((u32) (func_150ADA20() % 100U) < (u8) D_800D1892) {
         func_15075400((s32) D_800D1890);
     }
 }
-extern u8 D_800D1891;
-extern u8 D_800D1892;
+
 
 void func_15075F00(void) {
     D_800D154C->pad233[1] = D_800D1890;
@@ -545,7 +539,6 @@ void func_150764C8(void) {
 void func_150764E4(void) {
     D_800D154C->field_239 = D_800D1890;
 }
-extern u8 D_800D1891;
 
 void func_15076500(void) {
     *(s16 *)((u8 *)D_800D154C + 0x22E) = (s16) ((D_800D1890 << 8) | D_800D1891);
@@ -612,7 +605,6 @@ typedef struct GameA28B0Position {
 void func_1504715C(void *, GameA28B0State *);
 void func_1514B364(f32 *, void *, s32, s32);
 void func_15197A7C(GameA28B0State *);
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15076768 CURRENT (120) */
 void func_15076768(void) {
     GameA28B0Position position;
@@ -1791,11 +1783,9 @@ void func_15079988(void) {
 }
 void func_150799B4(void) {
     s32 var_a0;
-    s32 sp1C;
 
     var_a0 = (D_800D1890 << 8) + D_800D1891;
     if (D_800D1892 != 0) {
-        sp1C = var_a0;
         var_a0 += func_150ADA20(var_a0) % (u8) D_800D1892;
     }
     func_15060A30(var_a0, D_800D154C);
@@ -2034,20 +2024,10 @@ void func_1507A3B4(void) {
 void func_1507A3CC(void) {
     D_800D154C->field_229 = D_800D1890;
 }
-extern u8 D_800D1892;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507A3E8 CURRENT (525) */
 s32 func_1507A3E8(void) {
-    s32 word;
-
-    word = D_800D1890 << 24;
-    word |= D_800D1891 << 16;
-    word |= D_800D1892 << 8;
-    word |= D_800D1893;
-    return word;
+    return (((((D_800D1890 << 12) << 12) | ((D_800D1891 << 8) << 8)) | ((D_800D1892 << 4) << 4)) | (D_800D1893 & 0xFF));
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507A3E8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_1507A3E8.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507A428 CURRENT (440) */
 void func_1507A428(void) {
     *(s32 *)((u8 *)D_800D154C + 0x94) = (s32) ~((D_800D1890 << 0x18) | (D_800D1891 << 0x10) | (D_800D1892 << 8) | 1 | D_800D1893);

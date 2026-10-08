@@ -73,5 +73,71 @@ class MainRodataTests(unittest.TestCase):
                 verifier.verify_bytes(linked, rom)
 
 
+SELECTOR = ".main_rodata_init_11fa0"
+
+
+def image_sections(entries):
+    names = bytearray(b"\0.shstrtab\0")
+    starts = []
+    for name, flags, address, payload in entries:
+        starts.append(len(names))
+        names.extend(name.encode() + b"\0")
+    data = bytearray(52) + names
+    sections = [(0,) * 10, (1, 3, 0, 0, 52, len(names), 0, 0, 1, 0)]
+    for start, (_, flags, address, payload) in zip(starts, entries):
+        sections.append((start, 1, flags, address, len(data), len(payload), 0, 0, 4, 0))
+        data.extend(payload)
+    table_offset = len(data)
+    for section in sections:
+        data.extend(struct.pack(">10I", *section))
+    struct.pack_into(">16sHHIIIIIHHHHHH", data, 0,
+                     b"\x7fELF\x01\x02\x01" + bytes(9), 2, 8, 1, 0, 0,
+                     table_offset, 0, 52, 0, 0, 40, len(sections), 1)
+    return bytes(data)
+
+
+class MainSelectorRodataTests(unittest.TestCase):
+    def setUp(self):
+        self.queue = (verifier.SECTION_NAME, 0, verifier.SECTION_VRAM, bytes(range(32)))
+        self.selector = (SELECTOR, 0, 0x8002C410, bytes(range(64)))
+        self.required = (verifier.SECTION_NAME, SELECTOR)
+
+    def test_both_reviewed_sections_and_selector_only(self):
+        self.assertEqual(verifier.external_payloads(image_sections([self.queue, self.selector]), self.required),
+                         {self.queue[0]: self.queue[3], self.selector[0]: self.selector[3]})
+        self.assertEqual(verifier.external_payloads(image_sections([self.selector]), (SELECTOR,)),
+                         {SELECTOR: self.selector[3]})
+
+    def test_missing_duplicate_and_unrequested_selector_rejected(self):
+        for entries, required in [([self.queue], self.required),
+                                  ([self.queue, self.selector, self.selector], self.required),
+                                  ([self.queue, self.selector], (verifier.SECTION_NAME,))]:
+            with self.subTest(entries=len(entries), required=required), self.assertRaises(ValueError):
+                verifier.external_payloads(image_sections(entries), required)
+
+    def test_selector_address_extent_and_flags_fail_closed(self):
+        for flags, address, payload in [(1, 0x8002C410, bytes(64)),
+                                        (2, 0x8002C410, bytes(64)),
+                                        (0, 0x8002C414, bytes(64)),
+                                        (0, 0x8002C410, bytes(60))]:
+            with self.subTest(flags=flags, address=address, size=len(payload)), self.assertRaises(ValueError):
+                verifier.external_payloads(image_sections([(SELECTOR, flags, address, payload)]), (SELECTOR,))
+
+    def test_every_selector_table_literal_and_padding_byte_is_checked(self):
+        payload = self.selector[3]
+        rom = bytes(0x2C410) + payload
+        verifier.verify_bytes(payload, rom, SELECTOR)
+        for at in range(64):
+            changed = bytearray(payload)
+            changed[at] ^= 1
+            with self.subTest(at=at), self.assertRaisesRegex(ValueError, "differs"):
+                verifier.verify_bytes(bytes(changed), rom, SELECTOR)
+
+    def test_invalid_required_section_lists_rejected(self):
+        for required in [(), (SELECTOR, SELECTOR), (".main_rodata_unknown",)]:
+            with self.subTest(required=required), self.assertRaises(ValueError):
+                verifier.external_payloads(image_sections([self.selector]), required)
+
+
 if __name__ == "__main__":
     unittest.main()
