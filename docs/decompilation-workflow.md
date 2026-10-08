@@ -268,6 +268,53 @@ Each search initializes its own differ settings. Compiler-rejected variants may
 be skipped; scorer failures stop with `BLOCKED_TOOLING` and diagnostic evidence,
 preserving any already scored best candidate. If no candidate was scored, the
 command reports that explicitly and does not claim a saved best file.
+### Fast probing
+
+Use `probe` to compare several hypotheses without editing source or recording
+attempts:
+
+```sh
+./conker probe <work-item-id> build/us/manual-attempts/<task>/a.c build/us/manual-attempts/<task>/b.c
+./conker probe <work-item-id> --layout [<variant.c>]
+```
+
+Each variant file holds the function definition, optionally preceded by the
+declarations it needs; a file containing `#include` is used as the complete
+source. Variants are spliced in memory, compiled with the pinned flags under
+`build/us/probe/<symbol>/`, and scored with the same focused asm-differ
+comparison as `diff`, in one warm-container pass. The table also reports each
+frame size against the reference. `--layout` prints the frame size and every
+named local's stack offset read from IDO's `.mdebug` symbols. A probe score is
+search evidence only: apply the chosen body and run `finish`. One probe batch
+counts as one manual revision for the attempt limits; record its hypothesis and
+best score in the ledger.
+
+### Diagnosis checklist
+
+Check these before reshaping statements:
+
+- Frame size or every stack offset differs: run `probe --layout`. IDO gives each
+  named local, including unused and register-allocated ones, a slot in
+  declaration order from the frame top. Compare the count and order of named
+  locals with the reference offsets before changing expressions.
+- Frame differs although the locals agree: the area below the lowest local is
+  outgoing arguments, saved registers and reserved spill words. Some constructs
+  reserve an extra word; in `func_150DE7C0`, a variable array index
+  (`array[i]`) did and pointer arithmetic (`*(array + i)`) did not.
+- A float register differs on a rodata constant load: IDO's FP temporaries
+  rotate through `$f4`, `$f6`, `$f8`, `$f10`, `$f16` and `$f18`, never `$f12`
+  or `$f14`, so `$f12`/`$f14` mean a register-allocated value. An `extern f32`
+  symbol is promoted as a global, whereas a float literal competes as a constant
+  with different allocation priority. Read the value from the checksum-validated
+  ROM and try the literal; owned literals need a reviewed
+  `config/game/us-rodata.ld` mapping and
+  [data-layout evidence](evidence/data-layout/README.md).
+- Only a few register rows remain and nothing structural differs: try one
+  bounded `permute` before more manual passes.
+
+After one failed sweep of a hypothesis family, such as statement orders, change
+the hypothesis instead of repeating that family.
+
 If an older focused match is invalidated by mixed-object layout evidence, do
 not edit progress JSON. Reopen it transactionally:
 

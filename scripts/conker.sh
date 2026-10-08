@@ -88,6 +88,9 @@ Getting started
   diagnose-diff <work-item-id>   Classify a live or deferred candidate's focused differences.
   permute <work-item-id> [--budget N] [--exhaustive] [--stack-shapes]
                                  Search safe declaration/lifetime and expression-form variants.
+  probe <work-item-id> [<variant.c>...] [--layout]
+                                 Score function variants in one pass without editing source;
+                                 --layout prints frame size and named-local stack offsets.
   finish [--profile us] <work-item-id>
                                  Record CURRENT (0), then check progress and whitespace.
   verify-batch [--incremental] <work-item-id> [<work-item-id>...]
@@ -716,6 +719,12 @@ case "$command" in
         ensure_warm_container
         run_in_warm_container python3 scripts/prepare_nonmatching_asm.py \
             --profile us --identifier "$reopened_symbol"
+        ;;
+    probe)
+        [[ $# -ge 1 ]] || die "usage: ./conker probe <work-item-id> [<variant.c>...] [--layout]"
+        python3 "$state_tool" setup-check --profile us
+        ensure_warm_container
+        run_in_warm_container python3 scripts/probe.py us "$@"
         ;;
     diagnose-diff)
         parse_profile_and_value "usage: ./conker diagnose-diff [--profile us] <work-item-id>" "$@"
