@@ -1,4 +1,4 @@
-# Host helpers and the complete mandatory batch test suite. Python >= 3.12.
+# Python packages for the toolchain image and the optional host environment. Python >= 3.12.
 PyYAML==6.0.3
 numpy==2.5.3
 scipy==1.18.1

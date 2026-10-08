@@ -7,4 +7,5 @@
 !toolchain/
 !toolchain/mupen64plus-debug.sh
 !toolchain/python-constraints.txt
+!toolchain/python-requirements.txt
 !toolchain/Dockerfile.mupen-software

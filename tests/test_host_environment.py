@@ -15,7 +15,7 @@ class HostEnvironmentTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory(); self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name); (self.root / "toolchain").mkdir()
-        self.path = self.root / "toolchain/host-requirements.txt"
+        self.path = self.root / "toolchain/python-requirements.txt"
         self.path.write_text("".join(name + "==1.2.3\n" for name in host.MODULES))
 
     def test_exact_complete_unique_pins_required(self):
