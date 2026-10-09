@@ -255,19 +255,11 @@ void func_15169824(s32);
 extern Game1A5C00Node *D_800DCF3C;
 
 void func_15178DA4(Game1A5C00Owner *arg0) {
-    struct {
-        Game1A5C00Node * volatile saved;
-        u32 pad;
-    } home;
     Game1A5C00Node *next;
     Game1A5C00Node *node;
-    u16 key;
 
     node = D_800DCF3C;
-    key = arg0->field_2E;
-    home.saved = node;
-    func_100111C8(key, node);
-    node = home.saved;
+    func_100111C8(arg0->field_2E, node);
     while (node != 0) {
         next = node->next_8;
         if (arg0 == node->owner_14) {

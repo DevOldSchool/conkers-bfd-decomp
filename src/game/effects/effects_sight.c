@@ -46,13 +46,15 @@
 void func_151403A8(void **arg0, s32 arg1, void *arg2);
 
 void func_151C8674(void *arg0, s32 arg1) {
-    volatile s32 sp1C;
-    void *sp18;
+    struct {
+        void *owner;
+        s32 value;
+    } message;
 
     if (arg0 != 0) {
-        sp18 = arg0;
-        sp1C = arg1;
-        func_151403A8(&sp18, 0x20, arg0);
+        message.owner = arg0;
+        message.value = arg1;
+        func_151403A8(&message.owner, 0x20, arg0);
     }
 }
 s32 func_151C87E0(s32, void *);

@@ -356,7 +356,7 @@ void func_1507FC2C(void *volatile arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507FC2C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507FC2C.s")
 
-void func_1507FC2C(void *volatile);
+void func_1507FC2C(void *);
 void func_1507FF94(void *);
 extern s32 D_800BE9E4;
 extern u8 D_800C35EA;

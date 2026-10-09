@@ -508,7 +508,7 @@ void func_15194E54(s32 arg0, Game1C1150Data *arg1, s32 arg2) {
 }
 u32 func_150ADA20(void);
 void func_15182670(s32, s32, s32, s32, s32, s32, s32, s32);
-void func_15194BF0(s32 volatile, void *volatile, s8 *volatile);
+void func_15194BF0(s32, void *, s8 *);
 
 void func_15194EA8(s32 arg0, void *arg1, s32 arg2) {
     struct {

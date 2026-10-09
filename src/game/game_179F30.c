@@ -192,7 +192,7 @@ extern f32 D_800A5DEC;
 extern f32 D_800A5DF0;
 
 typedef struct {
-    void * volatile sp1C;
+    void *sp1C;
     u8 sp20;
     s8 sp21;
     u8 pad22[2];
