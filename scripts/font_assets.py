@@ -11,9 +11,11 @@ from pathlib import Path
 from typing import Any
 
 try:
+    from scripts.build_files import write_if_changed
     from scripts.rzip_archive import normalize_rom
     from scripts.rzip_extract import ROOT, display_path, load_layout, manifest_source, prepare_output
 except ModuleNotFoundError:
+    from build_files import write_if_changed
     from rzip_archive import normalize_rom  # type: ignore[no-redef]
     from rzip_extract import (  # type: ignore[no-redef]
         ROOT,
@@ -243,7 +245,7 @@ def safe_manifest_file(input_dir: Path, filename: str) -> Path:
     return input_dir / relative
 
 
-def pack_fonts(input_dir: Path, output: Path) -> bytes:
+def packed_font_bytes(input_dir: Path) -> bytes:
     manifest_path = input_dir / "manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     if manifest.get("schema_version") != 1 or not isinstance(manifest.get("glyphs"), list):
@@ -283,9 +285,29 @@ def pack_fonts(input_dir: Path, output: Path) -> bytes:
         raise ValueError(
             f"packed font table is {len(packed)} bytes; expected {expected_size}"
         )
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_bytes(packed)
     return packed
+
+
+def pack_fonts(input_dir: Path, output: Path) -> bytes:
+    packed = packed_font_bytes(input_dir)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    write_if_changed(output, packed)
+    return packed
+
+
+def build_fonts(profile: str, input_dir: Path, output: Path) -> bytes:
+    """Initialize editable inputs once, then always rebuild from those inputs."""
+    if not (input_dir / "manifest.json").is_file():
+        extract_fonts(profile, None, input_dir, force=False)
+    layout = load_layout(profile)
+    manifest = json.loads((input_dir / "manifest.json").read_text())
+    if (manifest["profile"] != profile or
+            manifest["normalized_sha1"] not in layout["normalized_sha1"] or
+            int(manifest["font_start"], 0) != layout["font_start"] or
+            int(manifest["font_storage_end"], 0) != layout["font_storage_end"] or
+            manifest["record_count"] != layout["font_count"]):
+        raise ValueError("font build manifest differs from the reviewed profile range")
+    return pack_fonts(input_dir, output)
 
 
 def verify_fonts(profile: str, rom_argument: Path | None) -> tuple[int, int]:
@@ -314,6 +336,11 @@ def parse_args() -> argparse.Namespace:
     preview_parser.add_argument("--rom", type=Path)
     preview_parser.add_argument("--output", type=Path)
     preview_parser.add_argument("--force", action="store_true")
+
+    build_parser = subparsers.add_parser("build")
+    build_parser.add_argument("--profile", choices=("us",), default="us")
+    build_parser.add_argument("--input", type=Path, required=True)
+    build_parser.add_argument("--output", type=Path, required=True)
 
     pack_parser = subparsers.add_parser("pack")
     pack_parser.add_argument("--input", type=Path, required=True)
@@ -348,10 +375,11 @@ def main() -> int:
                 output = ROOT / output
             manifest = font_preview.preview_fonts(args.profile, args.rom, output, args.force)
             print(f"Previewed {manifest['glyph_count']} glyphs and {manifest['distinct_input_byte_count']} input bytes in {display_path(output)}")
-        elif args.command == "pack":
+        elif args.command in ("pack", "build"):
             input_dir = args.input if args.input.is_absolute() else ROOT / args.input
             output = args.output if args.output.is_absolute() else ROOT / args.output
-            packed = pack_fonts(input_dir, output)
+            packed = (build_fonts(args.profile, input_dir, output) if args.command == "build"
+                      else pack_fonts(input_dir, output))
             print(f"Packed {len(packed)} font bytes to {display_path(output)}")
         else:
             count, size = verify_fonts(args.profile, args.rom)
