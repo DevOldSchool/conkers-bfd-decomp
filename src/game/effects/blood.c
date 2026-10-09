@@ -910,8 +910,11 @@ void *func_1513C73C(s32 *, s32, s32, void *, f32, f32, f32, f32,
 void func_15136918(f32 arg0, u8 arg1, u8 arg2, s16 arg3, s16 arg4,
                    void *arg5, f32 *arg6, u8 arg7, s32 arg8) {
     Blood6918Packet packet;
-    s32 padding[2];
+    f32 *position;
+    f32 scale;
 
+    position = arg6;
+    scale = arg0;
     packet.field06 = 0x55;
     packet.field00 = 0x300;
     packet.field08 = 0;
@@ -931,8 +934,8 @@ void func_15136918(f32 arg0, u8 arg1, u8 arg2, s16 arg3, s16 arg4,
         packet.field00 = 0x301;
         packet.field04 = arg3 + 0x20;
     }
-    func_1513C73C(&packet.field00, 0xD, 0, arg5, arg6[0], arg6[1],
-                  arg6[2], arg0, arg0, arg4, 0, 0, arg7, arg8);
+    func_1513C73C(&packet.field00, 0xD, 0, arg5, position[0], position[1],
+                  position[2], scale, scale, arg4, 0, 0, arg7, arg8);
 }
 s32 func_15136A1C(BloodState *arg0) {
     s16 temp_v0 = arg0->unk1C;
