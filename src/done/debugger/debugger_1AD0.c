@@ -2,15 +2,9 @@
 #include <../lib/ultralib/include/compiler/ido/stdarg.h>
 
 /*
- * Provisional debugger C collection: memory, string, and formatting helpers.
+ * Debugger source unit: memory, string, and formatting helpers.
  * US virtual range: 0x16001AD0..0x16003650 (exclusive end).
- * Evidence: docs/evidence/debugger/us_debugger_overlay.md
- *
- * Original source-object ownership remains unreviewed; this collection is
- * not registered as a source unit. Individual full-span C matches are tracked
- * independently. Preserve function order and the canonical GLOBAL_ASM bodies
- * for deferred candidates until their full registered spans match.
- * Loaded data and the privileged TLB capture routine remain separate raw ASM.
+ * Evidence: docs/evidence/debugger/us_debugger_source_units.md
  */
 
 void *func_16001AD0(void *dst, const void *src, u32 count) {
