@@ -336,13 +336,20 @@ $(BUILD_DIR)/src/%.o: src/%.c
 	python3 scripts/compile_c.py --profile $(PROFILE) --output $@ $<
 
 # Each canonical glyph record is rebuilt from its editable pixels and metadata.
-.PHONY: font-parts-refresh
+.PHONY: font-parts-refresh data-splits-check
 font-parts-refresh:
 	python3 scripts/font_splits.py build-parts
 
 $(FONT_OBJS): build/us/assets/%.o: font-parts-refresh
 	@mkdir -p "$(@D)"
 	cd build/us/fonts/parts && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin
+
+data-splits-check:
+	python3 scripts/data_boundaries.py
+
+ifeq ($(PROFILE),us)
+raw-build: data-splits-check
+endif
 
 # Canonical YAML subsegments are individual link inputs, rebuilt once per invocation.
 .PHONY: mp3-bank-refresh

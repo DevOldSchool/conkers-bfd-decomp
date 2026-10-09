@@ -223,6 +223,14 @@ those bytes enter the same bounded asm-differ gate. Unsupported relocations reta
 symbolic comparison; original objects still supply switch-table evidence. Watch
 mode remains symbolic and requires a fresh `finish` afterward.
 
+Reviewed GAME units also support terminal alignment padding when a focused
+compilation omits ASM siblings and therefore produces fewer padding bytes. The
+complete unit is freshly compiled; every member offset, the exact object
+extent, and all linked unit bytes must match their reviewed boundaries and the
+checksum-validated ROM. The final 4–12 zero bytes must already exist in that
+object, without another symbol or relocation. The comparison retains the full
+registered reference span. See the [five-case evidence](evidence/data-layout/us_focused_text_padding.md).
+
 ## Focused iteration
 
 In an interactive terminal, a persistent watcher avoids restarting the focused
