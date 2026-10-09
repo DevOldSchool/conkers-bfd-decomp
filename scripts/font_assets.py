@@ -11,9 +11,11 @@ from pathlib import Path
 from typing import Any
 
 try:
+    from scripts.build_files import write_if_changed
     from scripts.rzip_archive import normalize_rom
     from scripts.rzip_extract import ROOT, display_path, load_layout, manifest_source, prepare_output
 except ModuleNotFoundError:
+    from build_files import write_if_changed
     from rzip_archive import normalize_rom  # type: ignore[no-redef]
     from rzip_extract import (  # type: ignore[no-redef]
         ROOT,
@@ -289,7 +291,7 @@ def packed_font_bytes(input_dir: Path) -> bytes:
 def pack_fonts(input_dir: Path, output: Path) -> bytes:
     packed = packed_font_bytes(input_dir)
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_bytes(packed)
+    write_if_changed(output, packed)
     return packed
 
 

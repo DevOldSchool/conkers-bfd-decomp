@@ -98,8 +98,9 @@ these against original record headers, writes each rebuilt part, then links
 independent references. Each rebuilt record must retain its individual extent;
 offsetting length changes in two glyphs cannot hide a shifted boundary.
 
-Each build repacks the inputs, so pixel changes, metadata changes and deleted
-files cannot silently reuse a stale object. Existing inputs are never refreshed
+The build repacks when editable inputs, their directories or build dependencies
+change, and recovers missing generated parts. Unchanged part contents retain their
+timestamps, so a no-change asset build does not relink its objects. Existing inputs are never refreshed
 from the ROM automatically. Invalid/missing inputs fail; the manifest must agree
 with the reviewed profile, checksum provenance, record count and storage range.
 The final full-ROM comparison remains the acceptance gate for any input edit.
