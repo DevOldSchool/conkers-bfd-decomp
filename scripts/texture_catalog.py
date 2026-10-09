@@ -9,7 +9,7 @@ try:
     from scripts import (texture_assets as t, texture_ci8, texture_rgba16,
                          texture_native, hud_assets as h, hud_additional_artwork as artwork,
                          texture_model_catalog, texture_cpu_descriptors, texture_cpu_effects,
-                         texture_cpu_grids, texture_cpu_particles)
+                         texture_cpu_grids, texture_cpu_particles, texture_cpu_literals)
 except ModuleNotFoundError:
     import texture_assets as t
     import texture_ci8
@@ -22,6 +22,7 @@ except ModuleNotFoundError:
     import texture_cpu_effects
     import texture_cpu_grids
     import texture_cpu_particles
+    import texture_cpu_literals
 
 
 def runtime_context(path: Path, rom: bytes):
@@ -138,7 +139,7 @@ def load_extended(root: Path, rom: bytes, *, excluded_indices=()) -> dict[int, t
     occupied = set(result) | set(excluded_indices)
     excluded_ids = {entry.index for index, entry in enumerate(entries) if index in occupied}
     for module in (texture_cpu_descriptors, texture_cpu_effects, texture_cpu_grids,
-                   texture_cpu_particles):
+                   texture_cpu_particles, texture_cpu_literals):
         for resource, contract in module.load(root, rom, entries, excluded_ids).items():
             if resource in excluded_ids:
                 raise ValueError('CPU descriptor catalog returned an already classified texture')

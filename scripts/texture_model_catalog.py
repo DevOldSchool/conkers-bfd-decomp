@@ -9,7 +9,7 @@ from types import SimpleNamespace
 try:
     from scripts import (model_assets as models, model_texture_sequences as sequences,
                          texture_assets as t, texture_rgba16, texture_native, texture_model_storage,
-                         texture_character_selectors)
+                         texture_character_selectors, texture_event_selectors)
 except ModuleNotFoundError:
     import model_assets as models
     import model_texture_sequences as sequences
@@ -18,6 +18,7 @@ except ModuleNotFoundError:
     import texture_native
     import texture_model_storage
     import texture_character_selectors
+    import texture_event_selectors
 
 FORMATS = {(2, 0): 'ci4', (2, 1): 'ci8', (0, 2): 'rgba16', (0, 3): 'rgba32',
            (3, 0): 'ia4', (3, 1): 'ia8', (3, 2): 'ia16', (4, 0): 'i4', (4, 1): 'i8'}
@@ -390,6 +391,9 @@ def load(root: Path, rom: bytes, entries, excluded_ids=()) -> dict[int, dict]:
                     'renderer_texture_selection': default['renderer_texture_selection']})
     selector_choices = (texture_character_selectors.load(root, rom, defaults)
                         if any(bank == 1 for bank, *_ in source_models) else {})
+    if any(bank == 1 and entry == 141 for bank, entry, *_ in source_models):
+        for entry, choices in texture_event_selectors.load(root, rom, defaults).items():
+            selector_choices.setdefault(entry, []).extend(choices)
     for bank, entry, segment, geometry, character in source_models:
         if bank != 1:
             continue

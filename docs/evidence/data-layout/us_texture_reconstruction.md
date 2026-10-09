@@ -1,8 +1,8 @@
 # US texture reconstruction
 
-The canonical flat YAML now selects **6,832 distinct textures**. The new batch
-adds four native character-update textures and fourteen stored script-selector
-textures to the passing 6,814-texture checkpoint committed as `464dfdf`.
+The canonical flat YAML now selects **6,846 distinct textures**. This batch
+adds three stored event-selector textures and eleven direct native-loader
+textures to the passing 6,832-texture checkpoint committed as `97c74a9`.
 Batch validation is recorded below; earlier passing checkpoints are retained.
 
 ## Selection and resource identity
@@ -45,7 +45,9 @@ The selected families, deduplicated in this order, are:
 | Effect, literal-image and glyph descriptors | 113 |
 | Native UI and effect grid storage | 271 |
 | Parent-selected particle frames | 5 |
-| **Total** | **6,832** |
+| Stored event selectors with constructor bindings | 3 |
+| Direct native-loader images | 11 |
+| **Total** | **6,846** |
 
 The tiled runtime catalog has 2,526 resources before deduplication: 1,822 CI4
 and 704 CI8 payloads. Two already have direct contracts. Only actual runtime
@@ -399,10 +401,49 @@ and 34,240 decoded bytes. All 6,814 earlier contracts and input hashes are
 unchanged. Native function spans, selector tables and the reference ROM are
 checksum guarded.
 
+## Event constructor selectors and direct native images
+
+Scene 47 lists event 164. Its reviewed constructor packet requests actor
+selector 24, whose first scene spawn declares model 141. The program copies
+the returned handle through frame slot -8 into state slot 36. Three subsequent
+native-6 packets write segment-6 descriptor 8, segment-7 descriptor 10 and
+segment-10 descriptor 2. The intervening operation changes actor flags only.
+Whole event, scene, spawn, native dispatch and selector-table sources are
+checksum guarded. No branch enters the middle of the constructor block.
+The three CI8 contracts remain conditional on successful actor resolution and
+retention of the declared model; they do not claim runtime activation.
+
+Eleven additional sources follow direct calls to flat loader `0x1510D0EC`.
+The complete guarded callers pass resource IDs and use the returned pointer
+unchanged in SetTextureImage. Their emitted load tiles, zero-DXT LoadBlock
+transfers, render strides and tile bounds account for each complete payload:
+
+| Runtime resources | Format | Dimensions | Native caller |
+| --- | --- | --- | --- |
+| 3343 | RGBA32 | 32 x 32 | `0x1507DB6C` |
+| 3347 | RGBA16 | 32 x 32 | `0x150918EC` |
+| 3313, 3314 | IA8 | 64 x 64 | `0x150918EC` |
+| 3315 | IA8 | 32 x 32 | `0x15093B58` |
+| 2632 | IA8 | 64 x 64 | `0x151D2830` |
+| 2043 | RGBA16 | 48 x 32 | `0x151EEBE8` |
+| 3348 | RGBA32 | 32 x 32 | `0x151E966C` |
+| 3344 | RGBA32 | 32 x 32 | `0x151E9D18` |
+| 3345, 3346 | RGBA32 | 16 x 32 | `0x151E9D18` |
+
+The flag branch at `0x15093138` supplies both 3313 and 3314. The selector
+branches at `0x151E9D68..0x151E9DA4` pair 3344 with width 32 and 3345/3346
+with width 16 before the shared renderer. These are declared source layouts,
+not a claim that every branch has been observed in gameplay. Partial loads,
+unknown selectors and size-only candidates remain excluded.
+
+Together the fourteen additions contribute 14,543 stored bytes and 42,496
+decoded bytes. Thirteen use default zlib and one uses GNU gzip. All previous
+6,832 contracts and source-input hashes remain unchanged.
+
 ## Exact reconstruction
 
-All 6,832 texture source bundles round-trip to their complete original payloads.
-Default zlib level-9 compression reproduces 6,302 entries. The remaining 530
+All 6,846 texture source bundles round-trip to their complete original payloads.
+Default zlib level-9 compression reproduces 6,315 entries. The remaining 531
 select **GNU gzip 1.12 at level 9**; every selected encoder must reproduce the
 original compressed bytes before any output in the batch is replaced.
 
@@ -416,10 +457,10 @@ changes fail closed. This workflow does not support asset editing.
 `./conker texture-assets build` runs in the pinned toolchain container, which
 provides GNU gzip 1.12. Surveys and extraction retain host dispatch.
 
-Selected storage is **8,261,621 bytes**, with **14,167,344 decoded bytes**.
-The selection requires 8,288 PNGs. The flat archive has 7,163 nonoverlapping rows:
-6,832 rebuilt entries and 331 raw intervals. The selected Data denominator is
-**8,468,693 bytes**, including 201,632 initialized CPU bytes and 5,440 font
+Selected storage is **8,276,164 bytes**, with **14,209,840 decoded bytes**.
+The selection requires 8,302 PNGs. The flat archive has 7,172 nonoverlapping rows:
+6,846 rebuilt entries and 326 raw intervals. The selected Data denominator is
+**8,483,236 bytes**, including 201,632 initialized CPU bytes and 5,440 font
 bytes. Decoded bytes and raw ranges receive no additional credit.
 
 Raw means ROM-backed storage, not necessarily unidentified content. Exhausting
@@ -699,5 +740,28 @@ These timings measure individual commands, not total workflow duration.
 
 Report source fingerprint:
 `0575aea665e1ea027f81e4b1e2fe60e661d8e5c1d2a57b26f3669b49b129dcc4`.
+
+These timings measure individual commands, not total workflow duration.
+
+## Passing event-constructor and direct-image batch validation
+
+- 119 focused provenance, descriptor, codec, catalog and reconstruction tests
+  passed after updating the catalog's synthetic provider fixture.
+- The independent selection audit admits exactly fourteen new textures. All
+  8,302 PNG inputs verify, and all 6,832 earlier contracts and input hashes
+  remain unchanged.
+- Full US ROM build passed in 422.21 seconds. Independent comparison confirms
+  all 67,108,864 bytes match the original US ROM.
+- Full container suite: 2,267 tests, 8 skipped, no failures; 184.727 seconds in
+  the runner and 189.70 seconds command elapsed time.
+- All 6,846 native texture units are fully matched and complete, totaling
+  8,276,164 stored bytes. There are no compile errors and the snapshot is current.
+- Native report command elapsed time: 498.96 seconds.
+- Aggregate Data: 8,282,708 / 8,483,236 matched bytes (97.636185%) and
+  8,281,940 complete bytes (97.627140%). Code totals are unchanged.
+- Canonical progress validation, progress rendering and whitespace checks passed.
+
+Report source fingerprint:
+`de3986da1fd0cf6726683737d1d641e8e8ff106a8b7802d0fbe76b5d6b1b6bcf`.
 
 These timings measure individual commands, not total workflow duration.
