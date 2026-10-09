@@ -1,8 +1,8 @@
 # US texture reconstruction
 
-The canonical flat YAML now selects **6,863 distinct textures**. This batch
-adds two native I4 source strips to the passing 6,861-texture checkpoint
-committed as `789efb3`.
+The canonical flat YAML now selects **6,865 distinct textures**. This batch
+adds two scene light texture sources to the passing 6,863-texture checkpoint
+committed as `8d9b984`.
 Batch validation is recorded below; earlier passing checkpoints are retained.
 
 ## Selection and resource identity
@@ -51,7 +51,8 @@ The selected families, deduplicated in this order, are:
 | Captured boat source storage | 1 |
 | Native attachment frame witnesses | 9 |
 | Native I4 source strips | 2 |
-| **Total** | **6,863** |
+| Authored object light phase | 2 |
+| **Total** | **6,865** |
 
 The tiled runtime catalog has 2,526 resources before deduplication: 1,822 CI4
 and 704 CI8 payloads. Two already have direct contracts. Only actual runtime
@@ -544,10 +545,37 @@ resource pair, source identity, PNG inverse and fresh compression are checked.
 The two default-zlib sources add 258 stored bytes and 2,048 decoded bytes;
 all 6,861 preceding contracts and source-input hashes remain unchanged.
 
+## Scene 28 light phase texture sources
+
+Resources 1684 and 1685 form row 1 of the table at `0x80090204`, used by
+`0x150DE458` for model `[4, 28, 12]`. The scene's 52-byte light records at
+`[12, 28, 5]`, indices 35, 39, 40 and 41, select callbacks 24 through 27.
+The callback table invokes `0x15009990`; its ROM tables carry phase parameters
+1 through 4 and object IDs 246, 243, 237 and 240. Those IDs match placement
+records 8, 11, 17 and 14, respectively, at placement byte `0x33`. The native
+loader copies that byte to object `+0x72` and initializes selector `+0x7C` to zero.
+
+For phase parameter 1, the constructor starts time and phase at zero. A
+transition from phase 0 to phase 1 at time 12 selects callback 0; phase 1
+covers `[12, 37)`. The guarded updater invokes `0x15162EF8`, which resolves
+the authored object ID and sets selector bit 0. The object material updater
+then selects resources 1684 and 1685 for pixel segments 4/6 and palette
+segments 5/7. Phase 3's callback clears the same bit. This finite phase
+witness establishes the source binding; it does not claim observed gameplay
+activation, a particular real frame duration or native raster parity.
+
+Both sources are complete CI8 32 x 64 images with inline 512-byte palettes.
+The model commands and full PNG inverse establish all 2,560 decoded bytes
+per source. Resource 1684 reproduces its original stream using GNU gzip;
+1685 uses default zlib. They add 4,170 stored and 5,120 decoded bytes.
+Full native functions, dispatch and phase tables, scene light data, target
+placements and model geometry are guarded. All 6,863 preceding contracts
+and source-input hashes remain unchanged.
+
 ## Exact reconstruction
 
-All 6,863 texture source bundles round-trip to their complete original payloads.
-Default zlib level-9 compression reproduces 6,322 entries. The remaining 541
+All 6,865 texture source bundles round-trip to their complete original payloads.
+Default zlib level-9 compression reproduces 6,323 entries. The remaining 542
 select **GNU gzip 1.12 at level 9**; every selected encoder must reproduce the
 original compressed bytes before any output in the batch is replaced.
 
@@ -561,10 +589,10 @@ changes fail closed. This workflow does not support asset editing.
 `./conker texture-assets build` runs in the pinned toolchain container, which
 provides GNU gzip 1.12. Surveys and extraction retain host dispatch.
 
-Selected storage is **8,280,522 bytes**, with **14,234,672 decoded bytes**.
-The selection requires 8,319 PNGs. The flat archive has 7,185 nonoverlapping rows:
-6,863 rebuilt entries and 322 raw intervals. The selected Data denominator is
-**8,487,594 bytes**, including 201,632 initialized CPU bytes and 5,440 font
+Selected storage is **8,284,692 bytes**, with **14,239,792 decoded bytes**.
+The selection requires 8,321 PNGs. The flat archive has 7,186 nonoverlapping rows:
+6,865 rebuilt entries and 321 raw intervals. The selected Data denominator is
+**8,491,764 bytes**, including 201,632 initialized CPU bytes and 5,440 font
 bytes. Decoded bytes and raw ranges receive no additional credit.
 
 Raw means ROM-backed storage, not necessarily unidentified content. Exhausting
@@ -934,5 +962,27 @@ These timings measure individual commands, not total workflow duration.
 
 Report source fingerprint:
 `4ee5c3ab44d7f81f61bebfc5344ba7c8378390e0ff0671a1a85bc297ce78f87b`.
+
+These timings measure individual commands, not total workflow duration.
+
+## Passing object light phase batch validation
+
+- 41 focused provenance, phase, codec, catalog and reconstruction tests passed.
+- The independent selection audit admits exactly two new textures. All 8,321
+  PNG inputs verify, and all 6,863 earlier contracts and source-input hashes
+  remain unchanged.
+- Full US ROM build passed in 428.03 seconds. Independent comparison confirms
+  all 67,108,864 bytes match the original US ROM.
+- Full container suite: 2,280 tests, 8 skipped, no failures; 183.979 seconds in
+  the runner and 189.51 seconds command elapsed time.
+- All 6,865 native texture units are fully matched and complete, totaling
+  8,284,692 stored bytes. There are no compile errors and the snapshot is current.
+- Native report command elapsed time: 496.53 seconds.
+- Aggregate Data: 8,291,236 / 8,491,764 matched bytes (97.63856%) and
+  8,290,468 complete bytes (97.62952%). Code totals are unchanged.
+- Canonical progress validation, progress rendering and whitespace checks passed.
+
+Report source fingerprint:
+`c1984e977c89966fd67bf815b00eb1ee5b681431659a8c15c98c3300e70cfcd7`.
 
 These timings measure individual commands, not total workflow duration.
