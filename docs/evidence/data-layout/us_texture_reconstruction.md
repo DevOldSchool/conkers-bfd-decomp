@@ -1,8 +1,8 @@
 # US texture reconstruction
 
-The canonical flat YAML now selects **6,851 distinct textures**. This batch
-adds five native-table textures to the passing 6,846-texture checkpoint
-committed as `33ccb08`.
+The canonical flat YAML now selects **6,861 distinct textures**. This batch
+adds one captured boat source and nine attachment animation textures to the
+passing 6,851-texture checkpoint committed as `ead4fc1`.
 Batch validation is recorded below; earlier passing checkpoints are retained.
 
 ## Selection and resource identity
@@ -48,7 +48,9 @@ The selected families, deduplicated in this order, are:
 | Stored event selectors with constructor bindings | 3 |
 | Direct native-loader images | 11 |
 | Native table images with complete stored extents | 5 |
-| **Total** | **6,851** |
+| Captured boat source storage | 1 |
+| Native attachment frame witnesses | 9 |
+| **Total** | **6,861** |
 
 The tiled runtime catalog has 2,526 resources before deduplication: 1,822 CI4
 and 704 CI8 payloads. Two already have direct contracts. Only actual runtime
@@ -469,10 +471,56 @@ The five sources add 1,184 stored bytes and 14,336 decoded bytes. Three use
 default zlib and two use GNU gzip. All 6,846 preceding contracts and source
 input hashes are preserved.
 
+## Captured boat source and attachment animation frames
+
+Resource 4195 is a complete CI8 32 x 32 source with a 512-byte palette.
+The existing `shc-boat-captured-parent42` contract binds it to runs 2 and 3 of
+model 09:0047:00. Its ROM/model hashes, contract checksum, recorded context and
+capture provenance are preserved; both runs must independently invert to the
+same complete payload. This reuses the recorded Soldier 88 / actor 42 draw
+binding. The capture was not replayed, the parent pose is not baked into the
+source, and this does not establish a universal Soldier default or activation
+of animation 24 / action 74.
+
+Action 76 declares attachment model 49 and updater `0x150F56B0`. With a
+non-null parent animation and animation ID 174, explicit frame witnesses
+select eight additional words of the table at `0x80090274`:
+
+| Frame witness | Table index | Runtime resource |
+| ---: | ---: | ---: |
+| 52 | 0 | 3250 |
+| 49 | 1 | 3251 |
+| 46 | 2 | 3252 |
+| 43 | 3 | 3253 |
+| 40 | 4 | 3254 |
+| 37 | 5 | 3255 |
+| 61 | 7 | 3257 |
+| 64 | 8 | 3258 |
+
+These are CI4 32 x 32 sources with complete 32-byte palettes. Table index six
+was already selected. The reviewed selector arms retain single-precision
+arithmetic and the original `0x800A1B40` constant (float32 1/6). Other animation
+arms and runtime activation are not inferred from this finite witness set.
+
+Action 9 declares model 19 and updater `0x150D82BC`. Parent animation 13 at
+frame 23 selects resource 1351 from `0x800902B4`. The updater writes the first
+F2 command's upper-left coordinate to two at this frame, exactly preserving
+its original `F2002002 000FE07E` command. The model therefore proves complete
+CI8 64 x 32 storage with a 512-byte palette without assuming later shifted
+coordinates. Shared constructors, action records, updater dispatch, full
+native functions, tables, constants and model bytes are guarded. The ordinary
+renderer binds the selected descriptor resource to segment six.
+
+All ten new sources invert completely from PNG and freshly recompress to the
+original streams: two with default zlib and eight with GNU gzip. They add
+2,916 stored bytes and 8,448 decoded bytes. All 6,851 earlier contracts and
+source-input hashes remain unchanged. These contracts establish source
+storage under explicit bindings, not observed gameplay activation.
+
 ## Exact reconstruction
 
-All 6,851 texture source bundles round-trip to their complete original payloads.
-Default zlib level-9 compression reproduces 6,318 entries. The remaining 533
+All 6,861 texture source bundles round-trip to their complete original payloads.
+Default zlib level-9 compression reproduces 6,320 entries. The remaining 541
 select **GNU gzip 1.12 at level 9**; every selected encoder must reproduce the
 original compressed bytes before any output in the batch is replaced.
 
@@ -486,10 +534,10 @@ changes fail closed. This workflow does not support asset editing.
 `./conker texture-assets build` runs in the pinned toolchain container, which
 provides GNU gzip 1.12. Surveys and extraction retain host dispatch.
 
-Selected storage is **8,277,348 bytes**, with **14,224,176 decoded bytes**.
-The selection requires 8,307 PNGs. The flat archive has 7,176 nonoverlapping rows:
-6,851 rebuilt entries and 325 raw intervals. The selected Data denominator is
-**8,484,420 bytes**, including 201,632 initialized CPU bytes and 5,440 font
+Selected storage is **8,280,264 bytes**, with **14,232,624 decoded bytes**.
+The selection requires 8,317 PNGs. The flat archive has 7,184 nonoverlapping rows:
+6,861 rebuilt entries and 323 raw intervals. The selected Data denominator is
+**8,487,336 bytes**, including 201,632 initialized CPU bytes and 5,440 font
 bytes. Decoded bytes and raw ranges receive no additional credit.
 
 Raw means ROM-backed storage, not necessarily unidentified content. Exhausting
@@ -815,5 +863,27 @@ These timings measure individual commands, not total workflow duration.
 
 Report source fingerprint:
 `390901bd50da61798acaedf10a29260029e1063f290dddd7341bdfa9d77f3b42`.
+
+These timings measure individual commands, not total workflow duration.
+
+## Passing captured-boat and attachment-frame batch validation
+
+- 71 focused model, provenance, codec, catalog and reconstruction tests passed.
+- The independent selection audit admits exactly ten new textures. All 8,317
+  PNG inputs verify, and all 6,851 earlier contracts and source-input hashes
+  remain unchanged.
+- Full US ROM build passed in 423.94 seconds. Independent comparison confirms
+  all 67,108,864 bytes match the original US ROM.
+- Full container suite: 2,274 tests, 8 skipped, no failures; 183.834 seconds in
+  the runner and 189.19 seconds command elapsed time.
+- All 6,861 native texture units are fully matched and complete, totaling
+  8,280,264 stored bytes. There are no compile errors and the snapshot is current.
+- Native report command elapsed time: 491.74 seconds.
+- Aggregate Data: 8,286,808 / 8,487,336 matched bytes (97.637330%) and
+  8,286,040 complete bytes (97.628280%). Code totals are unchanged.
+- Canonical progress validation, progress rendering and whitespace checks passed.
+
+Report source fingerprint:
+`3863945a04433ffd7ee1d503c700724198cd95b7686bf646d9d72e5773b2d6af`.
 
 These timings measure individual commands, not total workflow duration.

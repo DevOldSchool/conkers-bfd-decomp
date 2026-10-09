@@ -7,9 +7,33 @@ import unittest
 from unittest.mock import patch
 
 from scripts import texture_assets as t, texture_native as native, texture_model_catalog as catalog
+from scripts import model_shc_boat_appearance as boat
 
 
 class ModelTextureCatalogTests(unittest.TestCase):
+    def test_captured_binding_preserves_scope_and_requires_both_full_inverses(self):
+        payload = bytes(range(256)) * 6
+        png = t.encode_ci8_png(payload, t.ROW_LAYOUT_TMEM, 32, 32)
+        preview = SimpleNamespace(flat_index=4195, format=2, size=1, width=32,
+                                  height=32, png_data=png, sha1=hashlib.sha1(png).hexdigest())
+        evidence = boat.contract()
+        # Existing boat tests cover the ROM/model/metadata guards. Isolate the
+        # catalog adapter to test that a valid-looking partial view earns no credit.
+        with patch.object(boat, 'checked_model', return_value=('geometry', {})), \
+                patch.object(boat, 'map_geometry', return_value='mapped'), \
+                patch.object(boat, 'decode_textures', return_value=[None, None, preview, preview]) as decoder:
+            result = catalog.captured_boat_contract(b'native source', 'rom digest', {4195: payload})
+            self.assertEqual(result['family'], 'model-captured-storage')
+            self.assertEqual(result['consumer']['context'], evidence['context'])
+            self.assertEqual(result['consumer']['provenance'], evidence['provenance'])
+            self.assertFalse(result['consumer']['capture_replayed_locally'])
+            with self.assertRaisesRegex(ValueError, 'complete source inverse'):
+                catalog.captured_boat_contract(b'native source', 'rom digest', {4195: payload + b'tail'})
+            other = SimpleNamespace(**{**vars(preview), 'flat_index': 4196})
+            decoder.return_value = [None, None, preview, other]
+            with self.assertRaisesRegex(ValueError, 'complete source inverse'):
+                catalog.captured_boat_contract(b'native source', 'rom digest', {4195: payload})
+
     def test_binding_variant_retains_the_proven_native_palette_and_source_identity(self):
         for fmt, size in ((2, 0), (2, 1), (0, 3)):
             pixel = catalog.models.ModelTextureBinding(0xFD100000, segment=4, offset=0)

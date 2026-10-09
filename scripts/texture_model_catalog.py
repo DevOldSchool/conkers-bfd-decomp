@@ -9,7 +9,7 @@ from types import SimpleNamespace
 try:
     from scripts import (model_assets as models, model_texture_sequences as sequences,
                          texture_assets as t, texture_rgba16, texture_native, texture_model_storage,
-                         texture_character_selectors, texture_event_selectors)
+                         texture_character_selectors, texture_event_selectors, texture_attachment_phases)
 except ModuleNotFoundError:
     import model_assets as models
     import model_texture_sequences as sequences
@@ -19,6 +19,7 @@ except ModuleNotFoundError:
     import texture_model_storage
     import texture_character_selectors
     import texture_event_selectors
+    import texture_attachment_phases
 
 FORMATS = {(2, 0): 'ci4', (2, 1): 'ci8', (0, 2): 'rgba16', (0, 3): 'rgba32',
            (3, 0): 'ia4', (3, 1): 'ia8', (3, 2): 'ia16', (4, 0): 'i4', (4, 1): 'i8'}
@@ -69,6 +70,31 @@ def binding_variant(run, first, variant, payloads, tables, context):
             != (first.width, first.height, first.format, first.size)):
         raise ValueError('binding variant differs from the complete ROM binding proof')
     return preview, status
+
+
+def captured_boat_contract(raw: bytes, digest: str, payloads: dict) -> dict:
+    """Reuse the shipped captured binding, retaining its exact context and limits."""
+    try:
+        from scripts import model_shc_boat_appearance as boat
+    except ModuleNotFoundError:
+        import model_shc_boat_appearance as boat
+    evidence = boat.contract()
+    geometry, _ = boat.checked_model(raw, digest, evidence)
+    mapped = boat.map_geometry(geometry, evidence)
+    previews = boat.decode_textures(mapped, payloads, evidence)
+    contracts = [full_payload_contract(previews[i], payloads[4195]) for i in (2, 3)]
+    if (any(previews[i].flat_index != 4195 for i in (2, 3))
+            or contracts[0] is None or contracts[0] != contracts[1]):
+        raise ValueError('captured boat binding lacks a complete source inverse')
+    return dict(contracts[0], family='model-captured-storage', consumer={
+        'model': [9, 47, 0], 'material_runs': [2, 3],
+        'model_sha1': evidence['identity']['model_sha1'],
+        'preset': boat.PRESET, 'contract_sha256': boat.CONTRACT_SHA256,
+        'context': evidence['context'], 'provenance': evidence['provenance'],
+        'decoded_png_sha1': [previews[i].sha1 for i in (2, 3)],
+        'capture_replayed_locally': False,
+        'scope': 'complete-source-storage-from-preserved-captured-binding; '
+                 'no-universal-actor-default-or-new-activation-claim'})
 
 
 def load(root: Path, rom: bytes, entries, excluded_ids=()) -> dict[int, dict]:
@@ -422,4 +448,24 @@ def load(root: Path, rom: bytes, entries, excluded_ids=()) -> dict[int, dict]:
                         'initializer_sha1': default['sha1'],
                         'descriptor_indices': default['descriptor_indices'],
                         'selector_evidence': proof})
+    if 4195 not in excluded and 4195 not in result:
+        for bank, entry, segment, _, _ in source_models:
+            if (bank, entry, segment.index) == (9, 47, 0):
+                result[4195] = captured_boat_contract(segment.data, digest, payloads)
+                break
+    phase_choices = (texture_attachment_phases.load(root, rom)
+                     if any(bank == 9 and entry in texture_attachment_phases.MODELS
+                            for bank, entry, *_ in source_models) else {})
+    for bank, entry, segment, geometry, _ in source_models:
+        if bank != 9 or entry not in phase_choices or segment.index != 0:
+            continue
+        texture_attachment_phases.check_model(entry, segment.data)
+        for state, proof in phase_choices[entry]:
+            for index, run in enumerate(geometry.material_runs):
+                preview, status, binding = models.rom_attachment_binding_preview_texture(
+                    run, {}, payloads, state)
+                accept(preview, 'model-attachment-phase', {
+                    'model': [bank, entry, segment.index], 'material_run': index,
+                    'model_sha1': hashlib.sha1(segment.data).hexdigest(),
+                    'status': status, 'selector_evidence': proof, 'binding_evidence': binding})
     return result
