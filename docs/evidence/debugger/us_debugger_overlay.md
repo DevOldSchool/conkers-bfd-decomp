@@ -9,14 +9,13 @@ reviewed library code; external screenshots were discovery leads only.
 
 ## Mapping decisions
 
-All range ends are exclusive. The two C collections contain individually
-verified C functions and preserved deferred candidates with active `GLOBAL_ASM`
-bodies. Their grouping is provisional, not recovered original source ownership.
+All range ends are exclusive. The two C ranges are reviewed source units; see
+the [source-unit boundaries](us_debugger_source_units.md).
 
 | Region | US ROM range | Virtual range |
 | --- | --- | --- |
-| [28 debugger/UI functions](../../../src/debugger/debugger_0000.c) | `0x19EA88–0x1A0558` | `0x16000000–0x16001AD0` |
-| [10 library helpers](../../../src/debugger/debugger_1AD0.c) | `0x1A0558–0x1A20D8` | `0x16001AD0–0x16003650` |
+| [28 debugger/UI functions](../../../src/done/debugger/debugger_0000.c) | `0x19EA88–0x1A0558` | `0x16000000–0x16001AD0` |
+| [10 library helpers](../../../src/done/debugger/debugger_1AD0.c) | `0x1A0558–0x1A20D8` | `0x16001AD0–0x16003650` |
 | Raw TLB capture and alignment | `0x1A20D8–0x1A2178` | `0x16003650–0x160036F0` |
 | Raw loaded data | `0x1A2178–0x1A33E8` | `0x160036F0–0x16004960` |
 
@@ -35,11 +34,10 @@ Keep privileged TLB instructions and loaded data in raw assembly. The
 independent reference remains wholly raw. The matching workflow now supports
 individual debugger registration and explicitly reviewed debugger source units;
 see the [workflow](../../decompilation-workflow.md#source-unit-boundaries-and-integration).
-The two provisional collections have not been registered or marked reviewed
-as source units, so neither receives completed source-unit credit. Individual
-function matches are counted separately: all 28 debugger/UI spans and
-all 10 library-helper spans have full-span US `CURRENT (0)` and clean batch
-verification. Both C collections contain no remaining `GLOBAL_ASM` bodies.
+Both C ranges are registered from [structural evidence](us_debugger_source_units.md)
+and integrated as complete source units under `src/done/debugger/`. All 28
+debugger/UI spans and all 10 library-helper spans have full-span US
+`CURRENT (0)`; neither unit contains `GLOBAL_ASM` bodies.
 The 14,064-byte code interval is included as a separate US progress area;
 no EU/PAL interval is inferred.
 

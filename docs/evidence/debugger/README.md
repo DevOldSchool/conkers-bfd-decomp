@@ -9,6 +9,7 @@ Start with the [retail debugger overlay](us_debugger_overlay.md) and [retail deb
 - [Debugger Putfld external table integration](debugger_printf_rodata.md)
 - [Debugger SI DMA registered-span composition](debugger_si_span.md)
 - [US retail debugger overlay](us_debugger_overlay.md)
+- [US debugger source-unit boundaries](us_debugger_source_units.md)
 - [Retail debug metadata](us_retail_debug_metadata.md)
 
 ## Supporting data
