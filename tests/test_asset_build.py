@@ -129,6 +129,28 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
                 self.assertGreater(objects[0].stat().st_mtime_ns, before[0])
                 self.assertEqual(objects[1].stat().st_mtime_ns, before[1])
 
+    def test_asset_link_commands_are_logged_on_success_and_failure(self):
+        for kind in ('font', 'mp3'):
+            with self.subTest(kind=kind):
+                result, objects = self.run_make(kind)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                for path in objects:
+                    self.assertIn(str(path), result.stderr)
+                self.assertIn('fake_ld.py -r -b binary', result.stderr)
+                unchanged, _ = self.run_make(kind)
+                self.assertEqual(unchanged.returncode, 0, unchanged.stderr)
+                self.assertNotIn('fake_ld.py -r -b binary', unchanged.stderr)
+        self.ld.write_text('raise SystemExit(7)\n')
+        for kind in ('font', 'mp3'):
+            with self.subTest(failed_kind=kind):
+                prefix = 'font/glyphs' if kind == 'font' else 'audio/mp3/streams'
+                path = self.root / f'build/us/assets/{prefix}/0000.o'
+                path.unlink()
+                result, _ = self.run_make(kind)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('fake_ld.py -r -b binary', result.stderr)
+                self.assertIn(str(path), result.stderr)
+
     def test_missing_part_is_recovered_and_missing_editable_input_fails(self):
         result, objects = self.run_make('font')
         self.assertEqual(result.returncode, 0, result.stderr)

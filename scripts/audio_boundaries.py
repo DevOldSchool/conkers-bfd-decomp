@@ -16,8 +16,10 @@ ROOT = Path(__file__).resolve().parent.parent
 
 def bank_layout(profile: Path, *, configuration: dict | None = None) -> tuple[int, int, list[tuple[int, str]]]:
     segments = (load_profile(profile) if configuration is None else configuration)['segments']
-    index = next(i for i, segment in enumerate(segments)
-                 if isinstance(segment, dict) and segment.get('name') == 'asset_bank_17')
+    index = next((i for i, segment in enumerate(segments)
+                  if isinstance(segment, dict) and segment.get('name') == 'asset_bank_17'), None)
+    if index is None:
+        raise ValueError(f'{profile}: missing required asset group: asset_bank_17')
     bank = segments[index]
     if bank['type'] != 'group' or bank['align'] != 1 or bank['subalign'] != 1:
         raise ValueError('audio bank must be a byte-aligned group')

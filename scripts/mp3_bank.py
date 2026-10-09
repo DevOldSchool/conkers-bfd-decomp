@@ -141,8 +141,10 @@ def layout_bins(profile: Path, *, configuration: dict | None = None) -> list[tup
     except ModuleNotFoundError:
         from profile_config import load_profile
     config = load_profile(profile) if configuration is None else configuration
-    bank = next(segment for segment in config['segments']
-                if isinstance(segment, dict) and segment.get('name') == 'asset_bank_16')
+    bank = next((segment for segment in config['segments']
+                 if isinstance(segment, dict) and segment.get('name') == 'asset_bank_16'), None)
+    if bank is None:
+        raise ValueError(f'{profile}: missing required asset group: asset_bank_16')
     if bank['type'] != 'group' or bank['align'] != 1 or bank['subalign'] != 1:
         raise ValueError('MP3 bank must retain byte-aligned group placement')
     result = []

@@ -153,6 +153,26 @@ class ProfileConfigTests(unittest.TestCase):
                     self.assertEqual(len([line for line in stderr.getvalue().splitlines()
                                           if 'error:' in line]), 1)
 
+    def test_renamed_required_asset_groups_report_profile_and_group(self):
+        repository = Path(__file__).resolve().parent.parent
+        original = profile_config.load_profile(repository / 'config/profiles/us.yaml')
+        for name in ('font_rle', 'asset_bank_16', 'asset_bank_17'):
+            with self.subTest(group=name):
+                document = yaml.safe_load(yaml.safe_dump(original))
+                group = next(s for s in document['segments']
+                             if isinstance(s, dict) and s.get('name') == name)
+                group['name'] = name + '_renamed'
+                self.profile.write_text(yaml.safe_dump(document))
+                result = subprocess.run(
+                    [sys.executable, profile_config.__file__, 'make-assets', str(self.profile)],
+                    cwd=self.root, text=True, capture_output=True)
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertEqual(result.stdout, '')
+                self.assertIn(str(self.profile), result.stderr)
+                self.assertIn('missing required asset group: ' + name, result.stderr)
+                self.assertNotIn('Traceback', result.stderr)
+                self.assertNotIn('StopIteration', result.stderr)
+
     def test_paths_are_yaml_scalars_in_inline_and_reference_profiles(self):
         for spelling in ('__ROM_PATH__', '"__ROM_PATH__"', "'__ROM_PATH__'"):
             self.profile.write_text('options:\n  target_path: ' + spelling + '\nsegments: []\n')
