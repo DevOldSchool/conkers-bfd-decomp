@@ -47,7 +47,7 @@ class AssetMakeTests(unittest.TestCase):
                      'scripts/texture_ci8.py', 'scripts/texture_rgba16.py',
                      'scripts/texture_native.py', 'scripts/rzip_pack.py',
                      'scripts/hud_assets.py', 'scripts/hud_additional_artwork.py',
-                     'scripts/texture_model_catalog.py'):
+                     'scripts/texture_model_catalog.py', 'scripts/texture_model_storage.py'):
             path = self.root / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.touch()

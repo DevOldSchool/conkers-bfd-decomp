@@ -124,4 +124,7 @@ def load_extended(root: Path, rom: bytes, *, excluded_indices=()) -> dict[int, t
         add(resource, contract['family'], contract['format'], contract['width'],
             contract['height'], contract['row_layout'], contract['source_origin'])
         result[ordinals[resource]][1]['consumer'] = contract['consumer']
+        if 'levels' in contract:
+            result[ordinals[resource]][1].update(levels=contract['levels'],
+                                                palette_size=contract['palette_size'])
     return result

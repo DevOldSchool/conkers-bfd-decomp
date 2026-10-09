@@ -1,10 +1,9 @@
 # US texture reconstruction
 
-The canonical flat YAML now selects **5,665 distinct textures**. The new batch
-adds 1,278 complete model-material, animation-frame and ROM-binding textures to
-the fully passing 4,387-texture checkpoint committed as `f2f7e20`. All 5,665 units passed
-the full build, suite and native-report gates; earlier passing checkpoints
-remain recorded below.
+The canonical flat YAML now selects **6,006 distinct textures**. The new batch
+adds 261 complete TMEM image/mipmap resources and 80 character-selector textures
+to the fully passing 5,665-texture checkpoint committed as `3746d1d`.
+Batch validation is recorded below; earlier passing checkpoints are retained.
 
 ## Selection and resource identity
 
@@ -30,7 +29,9 @@ The selected families, deduplicated in this order, are:
 | Model material consumers | 1,190 |
 | ROM animation frame sets | 24 |
 | ROM defaults and texture bindings | 64 |
-| **Total** | **5,665** |
+| Complete declared TMEM storage | 261 |
+| Additional character selectors | 80 |
+| **Total** | **6,006** |
 
 The tiled runtime catalog has 2,526 resources before deduplication: 1,822 CI4
 and 704 CI8 payloads. Two already have direct contracts. Only actual runtime
@@ -70,10 +71,47 @@ stored bytes. Fresh compression reproduced all of them: 1,250 with default
 zlib and 28 with GNU gzip. The production catalog returns exactly the same
 resource set as the independent model, frame and binding audits.
 
+## Complete mipmaps and character selectors
+
+The TMEM expansion uses the descriptor captured at LoadBlock time, rather than
+assuming that the final render tile still describes the transfer. It requires
+an explicit zero-DXT load covering the complete pixel payload, valid TMEM
+capacity, a matching same-resource TLUT for indexed formats and an explicit
+contiguous chain of render tiles. Tile masks, shifts, formats, strides and
+offsets must agree. Gaps, overlaps, missing levels and unrepresented tails do
+not qualify. RGBA32 strides and offsets account for both TMEM banks.
+
+The 261 resources comprise 245 mip chains and 16 complete single-level views.
+They contain 136 CI8, 106 CI4, 11 I8, three IA8, three RGBA32 and two IA4
+payloads. Each declared level becomes its own PNG, including texels outside
+the visible bounds when the tile's row stride is wider. Indexed level PNGs
+each preserve the full shared palette; packing requires those palettes to
+agree and appends the palette exactly once. All source bytes are represented
+by images; no opaque tail or copied ROM bytes supply missing content.
+
+Source manifest schema 2 records the level file list, offsets, storage and
+visible dimensions, and palette size. Every PNG participates in input hashing,
+Make invalidation and race checks. Existing schema-1 bundles are unchanged.
+
+The selector expansion checks initializers, both additional three-state blink
+table entries, verified instance variants and stored expressions. Native
+consumer hashes guard the three-byte blink-table stride and the expression
+application path. With a zero action selector, texture selector writes follow
+the morph writes unconditionally; the matching-only resolver therefore retains
+the original morph record while resolving its texture choices. It does not
+change the gallery's stricter expression preview policy or claim to render that
+morph state. Nonzero actions, reserved state and overflowing blink codes remain
+excluded. Zero texture overrides retain initializer selections.
+
+Independent audits found exactly the same 341 additional resources as the
+production catalog. Every level round-trips and fresh compression recovers
+all 351,130 added stored bytes: 327 default-zlib and 14 GNU-gzip streams.
+All 5,665 prior source contracts and input hashes are preserved.
+
 ## Exact reconstruction
 
-All 5,665 source PNGs round-trip to their complete original payloads.
-Default zlib level-9 compression reproduces 5,217 entries. The remaining 448
+All 6,006 texture source bundles round-trip to their complete original payloads.
+Default zlib level-9 compression reproduces 5,544 entries. The remaining 462
 select **GNU gzip 1.12 at level 9**; every selected encoder must reproduce the
 original compressed bytes before any output in the batch is replaced.
 
@@ -87,10 +125,10 @@ changes fail closed. This workflow does not support asset editing.
 `./conker texture-assets build` runs in the pinned toolchain container, which
 provides GNU gzip 1.12. Surveys and extraction retain host dispatch.
 
-Selected storage is **6,933,902 bytes**, with **11,348,960 decoded bytes**.
-The entire flat archive is partitioned into 6,241 nonoverlapping rows:
-5,665 rebuilt entries and 576 raw intervals. The selected Data denominator is
-**7,140,974 bytes**, including 201,632 initialized CPU bytes and 5,440 font
+Selected storage is **7,285,032 bytes**, with **11,911,536 decoded bytes**.
+The entire flat archive is partitioned into 6,469 nonoverlapping rows:
+6,006 rebuilt entries and 463 raw intervals. The selected Data denominator is
+**7,492,104 bytes**, including 201,632 initialized CPU bytes and 5,440 font
 bytes. Decoded bytes and raw ranges receive no additional credit.
 
 Raw means ROM-backed storage, not necessarily unidentified content. Exhausting
@@ -156,7 +194,7 @@ Report source fingerprint:
 
 These are command timings, not total workflow duration.
 
-## Current model batch validation
+## Passing model checkpoint validation (`3746d1d`)
 
 - 37 focused catalog, reconstruction and Make tests passed.
 - All 4,387 committed source bundles retain their hashes.
@@ -173,3 +211,25 @@ These are command timings, not total workflow duration.
 
 Report source fingerprint:
 `058543eab17a71aa79cac5b9988f520e941ba8e32821a54fce4684b18f0166b1`.
+
+## Current mipmap and selector batch validation
+
+- 48 focused reconstruction, catalog, storage-contract and Make tests passed.
+- All 6,800 PNG inputs verify; all 5,665 prior source bundles retain their hashes.
+- Full US ROM build passed in 352.97 seconds. Independent comparison confirms
+  all 67,108,864 bytes are identical to the original US ROM.
+- Full container suite: 2,203 tests, 8 skipped, no failures; 168.989 seconds in
+  the runner and 174.18 seconds command elapsed time. The first run exposed a
+  missing dependency in the miniature Make test fixture; the corrected fixture
+  and full-suite rerun both passed. No second full ROM build was needed.
+- All 6,006 PNG-derived compressed sources match, totaling 7,285,032 bytes.
+- Native report: all 6,006 texture units fully matched and complete, with no
+  compile errors and snapshot status `current`. Command elapsed time: 615.42 seconds.
+- Aggregate Data: 7,291,576 / 7,492,104 matched bytes (97.32348%) and
+  7,290,808 complete bytes (97.313225%). Code totals are unchanged.
+- Canonical progress validation, progress rendering and whitespace checks passed.
+
+Report source fingerprint:
+`1b437e6e8a69f5a309331fd127ebaa934b6931dbb23b63ef20ee21f8b6c04324`.
+
+These timings measure individual commands, not total workflow duration.

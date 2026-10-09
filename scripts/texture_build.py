@@ -77,6 +77,11 @@ def describe_texture(rom: bytes, texture: texture_assets.TextureAsset, *, rom_sh
     if contract is not None:
         expected.update(source_contract=contract, row_layout=contract['row_layout'],
                         file=f"{texture.flat_index:04d}.{contract['format']}.png")
+        if 'levels' in contract:
+            expected['schema_version'] = 2
+            expected['files'] = [f"{texture.flat_index:04d}.level-{level['level']}.{contract['format']}.png"
+                                 for level in contract['levels']]
+            del expected['file']
     if rzip_pack.encode_rzip_chunk(texture.payload) != rom[texture.rom_start:texture.rom_end]:
         expected['encoder'] = {'format': 'gzip-raw-deflate', 'level': 9,
                                'implementation': 'GNU gzip 1.12'}
@@ -191,23 +196,69 @@ def reviewed_textures(root: Path = ROOT) -> tuple[bytes, list[tuple[dict, textur
 def initialize_inputs(directory: Path, expected: dict, payload: bytes) -> None:
     if directory.exists():
         raise ValueError('texture inputs exist without a manifest; refusing to overwrite them')
+    images, palette_size = source_images(expected)
+    palette = payload[-palette_size:] if palette_size else b''
+    encoded = [(name, source_png(payload[offset:offset + size] + palette, plane))
+               for name, plane, offset, size in images]
     directory.mkdir(parents=True)
-    (directory / expected['file']).write_bytes(
-        source_png(payload, expected))
+    for name, png in encoded:
+        (directory / name).write_bytes(png)
     (directory / 'manifest.json').write_text(json.dumps(expected, indent=2) + '\n')
+
+
+def source_images(expected: dict) -> tuple[list[tuple[str, dict, int, int]], int]:
+    """Return complete image planes; all shared palette bytes are PNG sources."""
+    if expected['schema_version'] == 1:
+        return [(expected['file'], expected, 0, expected['decoded_size'])], 0
+    if expected['schema_version'] != 2:
+        raise ValueError('unsupported texture source schema')
+    contract = expected['source_contract']
+    levels, names, palette_size = contract['levels'], expected['files'], contract['palette_size']
+    fmt = contract['format']
+    bits = {'ci4': 4, 'ci8': 8, 'rgba16': 16, 'rgba32': 32,
+            'ia4': 4, 'ia8': 8, 'ia16': 16, 'i4': 4, 'i8': 8}[fmt]
+    if (not 1 <= len(levels) <= 6 or len(names) != len(levels) or len(set(names)) != len(names)
+            or any(Path(name).name != name for name in names)
+            or palette_size != {'ci4': 32, 'ci8': 512}.get(fmt, 0)):
+        raise ValueError('invalid layered texture source contract')
+    images, cursor = [], 0
+    for index, (name, level) in enumerate(zip(names, levels)):
+        width, height, size = level['width'], level['height'], level['bytes']
+        if (level['level'] != index or level['offset'] != cursor or width <= 0 or height <= 0
+                or width * bits % 8 or size != width * bits // 8 * height):
+            raise ValueError('layered texture images do not cover contiguous storage')
+        plane = {**expected, 'source_contract': {**contract, 'width': width, 'height': height}}
+        images.append((name, plane, cursor, size))
+        cursor += size
+    if cursor + palette_size != expected['decoded_size']:
+        raise ValueError('layered texture images do not cover the entire payload')
+    return images, palette_size
 
 
 def input_hashes(directory: Path, expected: dict) -> dict[str, str]:
     if json.loads((directory / 'manifest.json').read_text()) != expected:
         raise ValueError('texture manifest differs from the reviewed ROM contract')
+    images, _ = source_images(expected)
     return {name: sha256((directory / name).read_bytes())
-            for name in ('manifest.json', expected['file'])}
+            for name in ['manifest.json'] + [image[0] for image in images]}
 
 
 def packed_texture(directory: Path, expected: dict) -> tuple[bytes, dict[str, str]]:
     """Encode current PNG pixels, never copy original compressed bytes."""
     before = input_hashes(directory, expected)
-    payload = source_png((directory / expected['file']).read_bytes(), expected, decode=True)
+    images, palette_size = source_images(expected)
+    planes, palette = [], None
+    for name, plane, _, size in images:
+        decoded = source_png((directory / name).read_bytes(), plane, decode=True)
+        if len(decoded) != size + palette_size:
+            raise ValueError('texture image has an unexpected decoded size')
+        if palette_size:
+            current = decoded[-palette_size:]
+            if palette is not None and current != palette:
+                raise ValueError('texture levels disagree on the shared palette')
+            palette = current
+        planes.append(decoded[:size])
+    payload = b''.join(planes) + (palette or b'')
     if (len(payload) != expected['decoded_size']
             or sha256(payload) != expected['original_decoded_sha256']):
         raise ValueError('texture PNG no longer reconstructs the original payload')
