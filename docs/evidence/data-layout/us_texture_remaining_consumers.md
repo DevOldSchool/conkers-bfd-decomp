@@ -140,6 +140,71 @@ contract, even before proving either hypothetical selector reachable.
 Neither resource is newly admitted. A different binding or concrete mutation
 witness is required before revisiting these exclusions.
 
+## Event operation domains and object property writes
+
+The class-3 setter `1509E900` must be distinguished from the class-2 actor
+setter. Its jump table at `8009F3F0` sends operation 4 to `1509EAD8`, which
+writes arguments 2, 3 and 4 into object words `+7C`, `+80` and `+84`, skipping
+each argument equal to `INT_MAX`. Operation 8 enters at `1509EB80`: it replaces
+the upper halfword of object `+3C` with argument 2 and writes argument 3 to
+object `+7C`, without that sentinel check. Operation 8 cannot be dismissed as
+only a coordinate update for every handle class.
+
+The research event decoder recovered 203 stored programs and 5,093 calls to
+native dispatch slot 6, with no syntax errors under its documented header and
+data-section extensions. Twelve calls have a nonliteral operation operand.
+All twelve read frame argument `+8` in three internal helpers. Their stored
+callers supply these exact literal domains:
+
+| Event | Helper byte offset | Setter calls | Operation values |
+| ---: | ---: | ---: | --- |
+| 10 | 2820 | 2836, 2852, 2868 | 5, 6 |
+| 44 | 3188 | 3204, 3220, 3236 | 5, 6 |
+| 73 | 3150 | 3162, 3174, 3186, 3198, 3210, 3222 | 0, 1 |
+
+The helpers do not write frame argument `+8`. No other explicit branch or
+internal call enters their interiors, and none is a header entrypoint. Thus
+these stored call paths add neither actor texture operations 110/111 nor
+class-3 property operations 4/8. This is a stored control-flow argument, not a
+proof against runtime modification of event code or frames.
+
+Thirty-two additional slot-6 packets have empty pending-argument-count sets
+in the decoder's graph, which starts at all five header entrypoints and every
+stored internal callee. The empty sets mean no path was found
+in that graph. This observation does not establish
+unconditional runtime unreachability.
+
+Three previously unresolved actor-handle producer domains are also bounded:
+
+| Event | Counter test byte offset | Counter body values | Constructor input |
+| ---: | ---: | --- | --- |
+| 73 | 110 | 0 through 4 | `0x2006..0x200A` |
+| 150 | 2552 | 0 through 3 | `0x2013..0x2016` |
+| 167, initial loop | 214 | 0 through 3 | `0x2007..0x200A` |
+| 167, update loop | 1238 | 0 through 9 | `0x2007..0x2010` |
+
+Each counter starts at zero, increments by one, and exits on the failed signed
+less-than test. Event 150's helper returns a counter value or -1; its caller
+rejects the negative result before adding `0x2013`. The reviewed constructor
+inputs therefore select class 2, not the class-3 object setter. Events 73 and
+150 pass the production syntax decoder. Event 167 retains the research-only
+constant-data boundary at byte 1786. Native interpreter words were checked
+for addition, copy, signed comparison and conditional branch semantics.
+
+A separate initial-placement join examined literal class-3 operations 4/8
+that can write `+7C`. It produced 142 packet/placement associations covering
+43 distinct models. Their parsed pixel and palette sources are all direct
+resources already selected by the validated texture batch. The join preserves
+scene-list count and extent checks but allows empty lists and duplicate IDs:
+13 scenes declare zero events, and scene 6 declares 37 entries with event 29
+listed twice. The duplicate must not cause the entire scene to be omitted.
+
+Nineteen associations still lack an explicit initial placement: event 99 in
+scene 67 targets IDs 227/228; event 142 in scene 4 targets IDs
+245/248/249/250/251; event 173 in scene 61 targets IDs 252/253. Runtime-created
+objects, scene aliases, later mutations and rewritten display lists require
+separate evidence. These checks admit no new texture contracts.
+
 ## Remaining uncertainty
 
 These checks narrow specific consumer hypotheses. They do not prove global
