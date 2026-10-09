@@ -85,9 +85,11 @@ Getting started
                                  Skip a raw item that cannot enter the C candidate loop;
                                  retain its GLOBAL_ASM and record the blocker.
   unblock-raw <work-item-id>     Return a blocked raw item to manual selection.
-  verify-original-asm <id> [--refresh | --reason <text> --evidence-reference <path>]
+  verify-original-asm <id> [--check | --reason <text> --evidence-reference <path>]
                                  Verify retained handwritten ASM against the full US ROM span;
                                  classify separately from C matches. --check revalidates it.
+  verify-original-asm <id>... --refresh
+                                 Re-verify regenerated text for one or more classified items.
   resume <work-item-id>          Restore its C candidate and return it to automatic selection.
   reopen-match <work-item-id> --reason <text>
                                  Preserve an invalidated match and restore its GLOBAL_ASM safely.
@@ -789,22 +791,40 @@ case "$command" in
         python3 "$state_tool" "$command" "$@"
         ;;
     verify-original-asm)
-        [[ $# -gt 0 ]] || die "usage: ./conker verify-original-asm <id> [--check | --refresh | --reason TEXT --evidence-reference PATH]"
+        [[ $# -gt 0 ]] || die "usage: ./conker verify-original-asm <id> [--check | --reason TEXT --evidence-reference PATH] | <id>... --refresh"
         original_refresh_flag=""
+        original_ids=()
         for original_argument in "$@"; do
             if [[ "$original_argument" == "--refresh" ]]; then
                 original_refresh_flag="--refresh"
+            else
+                original_ids+=("$original_argument")
             fi
         done
         if [[ -n "$original_refresh_flag" ]]; then
-            python3 "$state_tool" setup-check --profile us --reverify-original-asm "$1"
+            # Refresh several stale items together; only the named items may be stale.
+            original_reverify=()
+            for original_id in "${original_ids[@]}"; do
+                [[ "$original_id" != -* ]] || die "--refresh accepts only work-item IDs"
+                original_reverify+=(--reverify-original-asm "$original_id")
+            done
+            python3 "$state_tool" setup-check --profile us "${original_reverify[@]}"
+            for original_id in "${original_ids[@]}"; do
+                original_with=()
+                for original_other in "${original_ids[@]}"; do
+                    [[ "$original_other" == "$original_id" ]] || original_with+=(--refresh-with "$original_other")
+                done
+                original_proof="build/us/original-asm/$original_id/proof.json"
+                run_in_container python3 scripts/project_state.py verify-original-asm "$original_id" --refresh ${original_with[@]+"${original_with[@]}"} --proof-output "$original_proof"
+                python3 "$state_tool" verify-original-asm "$original_id" --refresh ${original_with[@]+"${original_with[@]}"} --proof "$repo_root/$original_proof"
+            done
         else
             python3 "$state_tool" setup-check --profile us
             run_in_container python3 scripts/prepare_nonmatching_asm.py --profile us --identifier "$1"
+            original_proof="build/us/original-asm/$1/proof.json"
+            run_in_container python3 scripts/project_state.py verify-original-asm "$1" --proof-output "$original_proof"
+            python3 "$state_tool" verify-original-asm "$@" --proof "$repo_root/$original_proof"
         fi
-        original_proof="build/us/original-asm/$1/proof.json"
-        run_in_container python3 scripts/project_state.py verify-original-asm "$1" ${original_refresh_flag:+"$original_refresh_flag"} --proof-output "$original_proof"
-        python3 "$state_tool" verify-original-asm "$@" --proof "$repo_root/$original_proof"
         ;;
     resume)
         [[ $# -eq 1 ]] || die "usage: ./conker resume <work-item-id>"
