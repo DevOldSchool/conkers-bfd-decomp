@@ -178,6 +178,32 @@ class CheckedManifestTests(unittest.TestCase):
                 with self.subTest(change=change), self.assertRaises(ValueError):
                     data.checked_manifest(root, deepcopy(images), 'rom')
 
+    def test_source_move_preserves_manifest_without_editing_owners(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            images, document = self.fixture(root)
+            manifest = root / 'config/data/us.json'
+            manifest.write_text(json.dumps(document))
+            before = manifest.read_bytes()
+            data.checked_manifest(root, images, 'rom')
+            destination = root / 'src/done/main/pool.c'
+            destination.parent.mkdir(parents=True)
+            (root / 'src/main/pool.c').rename(destination)
+            data.checked_manifest(root, images, 'rom')
+            self.assertEqual(manifest.read_bytes(), before)
+            self.assertEqual(data.active_source(root, document['owners']['main'][0]['owner']['sources']),
+                             'src/done/main/pool.c')
+
+    def test_real_source_owners_support_raw_and_done_paths(self):
+        document = json.loads((ROOT / 'config/data/us.json').read_text())
+        for records in document['owners'].values():
+            for record in records:
+                sources = record['owner'].get('sources')
+                if sources:
+                    raw = sources[0].replace('src/done/', 'src/')
+                    with self.subTest(address=record['address'], source=raw):
+                        self.assertEqual(sources, [raw, raw.replace('src/', 'src/done/', 1)])
+
     def test_active_source_rejects_missing_and_ambiguous_alternatives(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

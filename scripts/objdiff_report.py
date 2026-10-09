@@ -440,7 +440,7 @@ def generate(binary: Path) -> int:
     for unit in coverage['units']:
         for path, digest in (unit.get('source_inputs', {}) | unit.get('linked_inputs', {})).items():
             if objdiff_targets.sha256(ROOT / path) != digest:
-                raise ValueError('font source or ROM build input changed during report generation')
+                raise ValueError('source or ROM build input changed during report generation: ' + path)
         if objdiff_targets.sha256(OUTPUT / unit['target_path']) != unit['target_sha256']:
             raise ValueError(f'validated target changed during report generation: {unit["key"]}')
         if unit.get('base_path'):

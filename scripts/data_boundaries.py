@@ -128,7 +128,7 @@ def active_source(root: Path, sources: list[str]) -> str:
     """Resolve raw/done alternatives consistently for auditing and reporting."""
     active = [source for source in sources if (root / source).is_file()]
     if len(active) != 1:
-        raise ValueError('data owner needs exactly one active source')
+        raise ValueError('data owner needs exactly one active source from ' + ', '.join(sources))
     return active[0]
 
 
@@ -151,7 +151,13 @@ def checked_manifest(root: Path, images: dict, digest: str) -> dict:
         mapped = {(span['start'], span['input']) for span in image['ranges']
                   if span['kind'] != 'unassigned'}
         if owners.keys() != mapped:
-            raise ValueError(overlay + ' data owners disagree with canonical build placements')
+            missing = ', '.join(f'{address:#010x}:{section}'
+                                for address, section in sorted(mapped - owners.keys()))
+            extra = ', '.join(f'{address:#010x}:{section}'
+                              for address, section in sorted(owners.keys() - mapped))
+            raise ValueError(overlay + ' data owners disagree with canonical build placements; '
+                             + f'update config/data/us.json (missing: {missing or "none"}; '
+                             + f'extra: {extra or "none"})')
         for span in image['ranges']:
             if span['kind'] == 'unassigned':
                 span['owner'] = None

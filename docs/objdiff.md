@@ -153,6 +153,14 @@ validated target objects did not change. Compilation failures remain explicit
 in coverage, retain the reference in the denominator, and produce a failing
 command exit status. See each unit's `build.log` for diagnostics.
 
+Report freshness requires the editable font inputs used to produce its candidate.
+Cleaning `build/` invalidates that evidence (and usually removes the report itself);
+recreate the inputs and regenerate the report after cleaning. During preparation,
+completed source units run Make before the cache check so the cache hashes the
+current actual build object. This adds per-unit Make overhead; it is not a promise
+that every object is recompiled. Run report generation after ROM-enabled tests
+and other builds finish, because they can update the same linked objects.
+
 ### Scope
 
 The published report covers the project's **tracked US CPU-code ranges and
@@ -185,6 +193,12 @@ native report. It never patches the report counts. `completion_downgrades` in
 validation records affected units and their code/data bytes. Private/INFO/NOLOAD data still supplied by preserved ROM streams remains
 incomplete, even when its C owner has integrated code. This can reduce a file's
 fully-linked code measure while retaining its native matching credit.
+A selector such as `*foo.o(.rodata)` alone does not establish that the ROM uses
+that object's bytes: all current source-owned external placements are INFO/NOLOAD
+verification sections. The raw ROM or original GAME-data archive still supplies
+the final bytes. A future source-data integration must replace that backing and
+add verification of the actual linked input before it can receive completion.
+
 Known SDK data names and payload sizes come from `config/symbols/us.txt`.
 Declaration-backed zero alignment padding stays anonymous in the reference,
 while every byte remains in the section and ROM checks. This avoids treating

@@ -681,6 +681,24 @@ Keep model settings unchanged unless an experiment is explicitly requested.
 active profile and remains the clean baseline command for CI and future
 multi-profile activation.
 
+US ROM builds also run `data-splits-check`. The ownership manifest
+`config/data/us.json` lists both `src/<overlay>/...` and
+`src/done/<overlay>/...` alternatives for each source owner; exactly one must
+exist. The normal `next --ready` / `finish` / integration flow can move a file
+between those paths without editing the manifest. Keep the existing transactional
+move rather than copying the source and leaving both files active.
+
+Adding or removing a reviewed linker/private-data placement requires updating its
+owner entry in the same change. The key is the loaded hex address plus the input
+section; source owners list both paths, while SDK owners identify the archive and
+member. An extent-only change at the same address/section needs no owner edit.
+`next` and `finish` do not infer owners or grant permission to change shared linker
+placements. After an authorized placement change, run `./conker objdiff data-audit`
+for a focused check before the normal build/integration gates. A mismatch lists
+missing or extra keys in `config/data/us.json`; resolve the ownership evidence
+rather than disabling the audit. The audit decompresses the checked GAME archive
+and currently takes about 0.4 seconds locally.
+
 `./conker game-build` incrementally rebuilds the canonical game overlay and
 verifies mixed or completed source units against the decompressed payload. Use
 `./conker game-build --refresh` before a pull request, after shared build or
