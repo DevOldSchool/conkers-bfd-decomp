@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+import struct
 from dataclasses import replace
 
 try:
@@ -135,6 +136,55 @@ def bound_contract(run, preview, payload: bytes) -> dict | None:
     return layered_contract(mapped, payload, storage_extensions=True)
 
 
+def authored_contract(data: bytes, geometry, run, payload: bytes) -> tuple[dict, dict] | None:
+    """Prove a complete storage tile authored after the current texture load.
+
+    These draws retain tile 1 and may sample earlier TMEM contents. A fresh,
+    explicitly bounded tile 0 describes the stored image, not the final draw.
+    Accept only the exact native command sequence, never an inherited tile.
+    """
+    pixel, palette = run.pixel, run.palette
+    if (pixel is None or palette is None or pixel.flat_index is None
+            or pixel.mode != 0 or palette.mode != 1 or pixel.flat_index != palette.flat_index
+            or pixel.image_command != 0xFD100000 or palette.image_command != 0xFD100000
+            or run.texture_scale is None or run.texture_scale[0] != 0xD7000902
+            or pixel.load_command is None or palette.load_command is None
+            or not 0 <= run.first_face < len(geometry.face_command_offsets)):
+        return None
+    begin, end = geometry.display_list_offset, geometry.face_command_offsets[run.first_face]
+    if begin < 0 or end > len(data) or end <= begin or (end - begin) % 8:
+        return None
+    words = list(struct.iter_unpack('>II', data[begin:end]))
+    starts = [i for i, pair in enumerate(words) if pair == (pixel.image_command, pixel.flat_index)]
+    if not starts:
+        return None
+    start = starts[-1]
+    commands = words[start:]
+    prefix = [(0xFD100000, pixel.flat_index), (0xE6000000, 0), pixel.load_command,
+              (0xE7000000, 0), (0xE6000000, 0),
+              (0xFD100000, 0x400000 | pixel.flat_index), palette.load_command, (0xE7000000, 0)]
+    if (len(commands) not in (10, 11) or commands[:8] != prefix
+            or (len(commands) == 11 and commands[10] != (0xD9FFFFFF, 0x400))):
+        return None
+    tile, bounds = commands[8:10]
+    if (tile[0] >> 24 != 0xF5 or bounds[0] >> 24 != 0xF2
+            or tile[1] >> 24 != 0 or bounds[1] >> 24 != 0
+            or (0, *tile) not in run.render_tiles):
+        return None
+    storage_run = replace(run, render_tile=tile, tile_bounds=bounds, texture_dimensions=None,
+                          texture_scale=(0xD7000002, run.texture_scale[1]))
+    contract = layered_contract(storage_run, payload)
+    if contract is None or contract['format'] != 'ci8':
+        return None
+    offset = begin + start * 8
+    return contract, {'scope': 'authored-source-storage-not-composed-render',
+                      'storage_tile': 0, 'draw_tile': 1,
+                      'draw_texture_scale': list(run.texture_scale),
+                      'command_start': offset, 'command_end': end,
+                      'command_sha256': hashlib.sha256(data[offset:end]).hexdigest(),
+                      'commands': [list(pair) for pair in commands]}
+
+
 def detail_contract(run, preview, payload: bytes) -> dict | None:
     """Retain all indexed mip storage and the native IA4 detail plane.
 
@@ -185,14 +235,24 @@ def detail_contract(run, preview, payload: bytes) -> dict | None:
     return contract
 
 
-def expression_selectors(initial: dict, preset: dict, consumers: dict) -> dict | None:
-    """Selector writes are unconditional after morph writes when action is zero.
+def expression_selectors(initial: dict, preset: dict, consumers: dict,
+                         *, action_program: dict | None = None) -> dict | None:
+    """Selector writes follow morph writes and the optional constructor action.
 
     This describes stored textures, not a rendered morph or animation state.
     Keep the shared gallery's stricter expression-preview policy unchanged.
     """
-    if preset['animation_selector'] or preset['reserved_byte']:
+    if preset['reserved_byte']:
         return None
+    if preset['animation_selector']:
+        if (action_program is None or action_program['selector'] != preset['animation_selector']
+                or action_program['native_action'] != preset.get('native_action')
+                or not action_program['operations']
+                or len(action_program['operations']) != action_program['record_count']
+                or any(op['dispatch_kind'] not in (1, 2)
+                       or op['operation'] != 'attachment-constructor' or op['bank'] != 9
+                       for op in action_program['operations'])):
+            return None
     selectors, codes = preset['blink_selector_bytes'], preset['actor_blink_codes']
     overrides = preset['texture_descriptor_overrides']
     if (len(selectors) != 2 or len(overrides) != 2
@@ -204,10 +264,39 @@ def expression_selectors(initial: dict, preset: dict, consumers: dict) -> dict |
     for segment, override in zip(('10', '11'), overrides):
         if override:
             indices[segment] = override
-    return {**initial, 'preset': f'ROM-expression-{preset["index"]}-selector-only',
-            'descriptor_indices': indices, 'expression_texture_selection': {
+    selection = {
                 'stored_preset': preset, 'consumer_sha1': consumers,
-                'selection_policy': 'texture-storage-only-no-morph-preview-claim'}}
+                'selection_policy': 'texture-storage-only-no-morph-preview-claim'}
+    if action_program is not None:
+        selection['action_program'] = action_program
+        selection['selection_policy'] = 'texture-storage-after-constructor-no-runtime-activation-claim'
+    return {**initial, 'preset': f'ROM-expression-{preset["index"]}-selector-only',
+            'descriptor_indices': indices, 'expression_texture_selection': selection}
+
+
+def action_selector_choices(manifest: dict, entry: int) -> list[tuple[str, dict]]:
+    """Use only Conker's separately verified attachment-only action programs.
+
+    The native caller ignores the action's return value and writes these
+    selectors afterwards. No parent-modification dispatch or rendered
+    attachment state is admitted by the constructor evidence module.
+    """
+    if entry != 0 or entry not in manifest['entries']:
+        return []
+    constructors = manifest['expression_constructors']
+    if constructors['family'] != 'ROM-expression-attachment-constructors':
+        raise ValueError('expression action lacks verified constructor evidence')
+    programs = {p['selector']: p for p in constructors['programs']}
+    initial, choices = manifest['entries'][entry], []
+    for preset in initial['expression_presets']:
+        if not preset['animation_selector']:
+            continue
+        program = programs.get(preset['animation_selector'])
+        selected = expression_selectors(initial, preset, constructors['consumer_sha1'],
+                                        action_program=program)
+        if selected is not None:
+            choices.append((f'action-expression-{preset["index"]}', selected))
+    return choices
 
 
 def selector_choices(manifest: dict, entry: int, rom: bytes) -> list[tuple[str, dict]]:

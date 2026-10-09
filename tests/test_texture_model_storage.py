@@ -1,6 +1,7 @@
 """Complete TMEM coverage and native selector semantics must be explicit."""
 import copy
 import hashlib
+import struct
 from dataclasses import replace
 from types import SimpleNamespace as NS
 import unittest
@@ -9,6 +10,56 @@ from scripts import texture_model_storage as storage
 
 
 class ModelStorageTests(unittest.TestCase):
+    def authored_fixture(self):
+        pixel = storage.models.ModelTextureBinding(0xFD100000, 42, 0,
+                                                   load_command=(0xF3000000, 0x070FF000))
+        palette = storage.models.ModelTextureBinding(0xFD100000, 42, 1,
+                                                     load_command=(0xF0000000, 0x063FC000))
+        tile, bounds = (0xF5080400, 0x14040), (0xF2002002, 0x3E07E)
+        draw = (0xF5081000, 0x01014060)
+        run = storage.models.ModelMaterialRun(
+            0, 1, True, pixel, palette, draw, ((0, *tile), (1, *draw)),
+            (0xF2002002, 0x010FE07E), (0xD7000902, 0xFFFFFFFF), None, None, None,
+            texture_loads=((pixel, (0xF5100000, 0x07000000)),
+                           (palette, (0xF5000100, 0x06000000))))
+        commands = [(0xFD100000, 42), (0xE6000000, 0), pixel.load_command,
+                    (0xE7000000, 0), (0xE6000000, 0), (0xFD100000, 0x40002A),
+                    palette.load_command, (0xE7000000, 0), tile, bounds]
+        return run, commands
+
+    def authored(self, run, commands, payload=bytes(1024)):
+        data = b''.join(struct.pack('>II', *pair) for pair in commands)
+        geometry = NS(display_list_offset=0, face_command_offsets=(len(data),))
+        return storage.authored_contract(data, geometry, run, payload)
+
+    def test_authored_storage_retains_draw_tile_and_complete_source_provenance(self):
+        run, commands = self.authored_fixture()
+        for tail in ([], [(0xD9FFFFFF, 0x400)]):
+            contract, evidence = self.authored(run, commands + tail)
+            self.assertEqual((contract['format'], contract['width'], contract['height']), ('ci8', 16, 32))
+            self.assertEqual(contract['levels'][0]['bytes'], 512)
+            self.assertEqual(contract['palette_size'], 512)
+            self.assertEqual(evidence['commands'], [list(pair) for pair in commands + tail])
+            self.assertEqual((evidence['storage_tile'], evidence['draw_tile']), (0, 1))
+            self.assertEqual(run.texture_scale[0], 0xD7000902)
+            self.assertEqual(run.render_tile[1] >> 24, 1)
+
+    def test_inherited_tiles_intervening_commands_and_wrong_pointer_do_not_qualify(self):
+        run, commands = self.authored_fixture()
+        for changed in (commands[:8], commands[:8] + [(0xE7000000, 0), commands[9]],
+                        commands + [(0xDE000000, 0x08000040)],
+                        [(0xFD100000, 43)] + commands[1:],
+                        commands[:5] + [(0xFD100000, 0x40002B)] + commands[6:]):
+            self.assertIsNone(self.authored(run, changed))
+        self.assertIsNone(self.authored(replace(run, render_tiles=run.render_tiles[1:]), commands))
+
+    def test_authored_storage_requires_full_payload_and_captured_load(self):
+        run, commands = self.authored_fixture()
+        self.assertIsNone(self.authored(run, commands, bytes(1025)))
+        self.assertIsNone(self.authored(replace(run, texture_loads=()), commands))
+        bad_bounds = commands[:-1] + [(0xF2002002, 0x3E03E)]
+        self.assertIsNone(self.authored(run, bad_bounds))
+
     def test_complete_detail_source_requires_every_plane_and_zero_tail(self):
         try:
             from tests.test_model_assets import ModelAssetTests
@@ -208,6 +259,30 @@ class ModelStorageTests(unittest.TestCase):
                        {'blink_selector_bytes': [246, 6], 'actor_blink_codes': [0, 16]},
                        {'actor_blink_codes': [15, 17]}):
             self.assertIsNone(storage.expression_selectors(initial, {**preset, **update}, {}))
+
+    def test_action_selectors_require_verified_attachment_only_program_and_identity(self):
+        initial = {'descriptor_indices': {'6': 1, '7': 2, '10': 3, '11': 4}}
+        preset = {'index': 22, 'animation_selector': 2, 'native_action': 6, 'reserved_byte': 0,
+                  'morph_shape': 10, 'blink_selector_bytes': [25, 25], 'actor_blink_codes': [35, 35],
+                  'texture_descriptor_overrides': [37, 37]}
+        program = {'selector': 2, 'native_action': 6, 'record_count': 1, 'operations': [
+            {'dispatch_kind': 1, 'operation': 'attachment-constructor', 'bank': 9}]}
+        initial['expression_presets'] = [preset]
+        manifest = {'entries': {0: initial}, 'expression_constructors': {
+            'family': 'ROM-expression-attachment-constructors', 'programs': [program],
+            'consumer_sha1': {'whole-native-functions': 'verified'}}}
+        choices = storage.action_selector_choices(manifest, 0)
+        self.assertEqual(choices[0][0], 'action-expression-22')
+        self.assertEqual(choices[0][1]['descriptor_indices'], {'6': 25, '7': 25, '10': 37, '11': 37})
+        proof = choices[0][1]['expression_texture_selection']
+        self.assertEqual(proof['stored_preset']['animation_selector'], 2)
+        self.assertEqual(proof['action_program'], program)
+        self.assertEqual(storage.action_selector_choices(manifest, 1), [])
+        self.assertIsNone(storage.expression_selectors(initial, preset, {}))
+        for changed in ({**program, 'selector': 3}, {**program, 'native_action': 7},
+                        {**program, 'record_count': 2}, {**program, 'operations': []},
+                        {**program, 'operations': [{'dispatch_kind': 0, 'operation': 'parent-modification', 'bank': 1}]}):
+            self.assertIsNone(storage.expression_selectors(initial, preset, {}, action_program=changed))
 
     def test_blink_tables_are_read_from_verified_initializer(self):
         raw = bytes(range(80))

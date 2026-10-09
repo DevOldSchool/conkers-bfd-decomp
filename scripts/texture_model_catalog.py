@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+from dataclasses import replace
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -44,6 +45,27 @@ def full_payload_contract(preview, payload: bytes) -> dict | None:
         return None
     return {'format': fmt, 'width': width, 'height': height,
             'row_layout': row, 'source_origin': 'bottom-left'}
+
+
+def binding_variant(run, first, variant, payloads, tables, context):
+    """Reproduce a variant already decoded by the complete binding resolver."""
+    resource = variant['flat_index']
+    pixel = replace(run.pixel, flat_index=resource, mode=0, segment=None, offset=None)
+    palette = run.palette
+    if palette is not None:
+        if (first.format, first.size) not in ((2, 0), (2, 1)):
+            raise ValueError('binding variant has an unsupported palette format')
+        palette = replace(palette, flat_index=resource, mode=2 if first.size == 0 else 1,
+                          segment=None, offset=None)
+    mapped = replace(run, pixel=pixel, palette=palette)
+    preview, status = models.choose_preview_texture(mapped, {}, payloads)
+    if preview is None:
+        preview, status, _ = models.rom_object_preview_texture(mapped, {}, payloads, tables, context)
+    if (preview is None or preview.flat_index != resource or preview.sha1 != variant['png_sha1']
+            or (preview.width, preview.height, preview.format, preview.size)
+            != (first.width, first.height, first.format, first.size)):
+        raise ValueError('binding variant differs from the complete ROM binding proof')
+    return preview, status
 
 
 def load(root: Path, rom: bytes, entries, excluded_ids=()) -> dict[int, dict]:
@@ -273,4 +295,72 @@ def load(root: Path, rom: bytes, entries, excluded_ids=()) -> dict[int, dict]:
                 result[run.pixel.flat_index] = dict(contract, family='model-detail-storage', consumer={
                     'model': [bank, entry, segment.index], 'material_run': index,
                     'status': status, 'model_sha1': hashlib.sha1(segment.data).hexdigest()})
+    for bank, entry, segment, geometry, _ in source_models:
+        for index, run in enumerate(geometry.material_runs):
+            if (run.pixel is None or run.pixel.flat_index not in payloads
+                    or run.pixel.flat_index in excluded or run.pixel.flat_index in result):
+                continue
+            try:
+                authored = texture_model_storage.authored_contract(
+                    segment.data, geometry, run, payloads[run.pixel.flat_index])
+            except ValueError:
+                continue
+            if authored is not None:
+                contract, evidence = authored
+                result[run.pixel.flat_index] = dict(contract, family='model-authored-storage', consumer={
+                    'model': [bank, entry, segment.index], 'material_run': index,
+                    'status': 'complete-authored-source-storage', 'authored_storage': evidence,
+                    'model_sha1': hashlib.sha1(segment.data).hexdigest()})
+    # Constructor-only expression actions return before the same selector
+    # writes. Keep this expansion last to preserve all earlier source contracts.
+    for bank, entry, segment, geometry, character in source_models:
+        if bank != 1 or entry != 0:
+            continue
+        for index, run in enumerate(geometry.material_runs):
+            if run.pixel is None or run.pixel.segment not in (6, 7, 10, 11):
+                continue
+            for choice, default in texture_model_storage.action_selector_choices(defaults, entry):
+                descriptor = models.model_character_defaults.select_descriptor(
+                    default, character['texture_descriptors'], run.pixel.segment)
+                if (descriptor is None or descriptor['flat_index'] not in payloads
+                        or descriptor['flat_index'] in excluded or descriptor['flat_index'] in result):
+                    continue
+                preview, status, _ = models.rom_default_preview_texture(
+                    run, default, character['texture_descriptors'], payloads, bank_contexts[bank])
+                accept(preview, 'model-action-selector', {
+                    'model': [bank, entry, segment.index], 'material_run': index,
+                    'selection': choice, 'status': status,
+                    'model_sha1': hashlib.sha1(segment.data).hexdigest(),
+                    'initializer_sha1': default['sha1'],
+                    'descriptor_indices': default['descriptor_indices'],
+                    'expression_texture_selection': default['expression_texture_selection']})
+    for bank, entry, segment, geometry, _ in source_models:
+        if bank not in (3, 4, 9):
+            continue
+        context = contexts.get((bank, entry, segment.index))
+        geometry, update = models.apply_rom_attachment_preview_update(segment.data, geometry, context)
+        geometry, ui = models.model_ui_materials.apply_preview_geometry(
+            geometry, segment.data, context, payloads, {})
+        tables = bank_contexts[bank]
+        for index, run in enumerate(geometry.material_runs):
+            if run.pixel is None or run.pixel.flat_index is not None:
+                continue
+            resolvers = [(models.rom_object_binding_preview_texture, (run, {}, payloads, tables, context))]
+            if update is not None:
+                resolvers.append((models.rom_attachment_binding_preview_texture, (run, {}, payloads, update)))
+            if ui is not None:
+                resolvers.append((models.rom_direct_binding_preview_texture, (run, {}, payloads, ui)))
+            for resolve, args in resolvers:
+                first, _, proof = resolve(*args)
+                if first is None:
+                    continue
+                for variant in proof['decoded_variants']:
+                    resource = variant['flat_index']
+                    if resource in excluded or resource in result:
+                        continue
+                    preview, status = binding_variant(run, first, variant, payloads, tables, context)
+                    accept(preview, 'model-binding-variant', {
+                        'model': [bank, entry, segment.index], 'material_run': index,
+                        'status': status, 'model_sha1': hashlib.sha1(segment.data).hexdigest(),
+                        'selected_variant': variant, 'complete_binding': proof})
     return result

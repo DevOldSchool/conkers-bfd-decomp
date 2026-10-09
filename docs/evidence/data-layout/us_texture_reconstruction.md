@@ -1,8 +1,8 @@
 # US texture reconstruction
 
-The canonical flat YAML now selects **6,185 distinct textures**. The new batch
-adds ten complete texture-storage sources to the fully passing 6,175-texture
-checkpoint committed as `f07d713`.
+The canonical flat YAML now selects **6,212 distinct textures**. The new batch
+adds 27 complete texture-storage sources to the fully passing 6,185-texture
+checkpoint committed as `439ac4f`.
 Batch validation is recorded below; earlier passing checkpoints are retained.
 
 ## Selection and resource identity
@@ -35,7 +35,10 @@ The selected families, deduplicated in this order, are:
 | Bound selector storage | 5 |
 | Specialized attachment storage | 1 |
 | Indexed mipmaps with IA4 detail | 3 |
-| **Total** | **6,185** |
+| Explicit authored storage tiles | 4 |
+| Attachment-action expression selectors | 2 |
+| Complete object/attachment binding variants | 21 |
+| **Total** | **6,212** |
 
 The tiled runtime catalog has 2,526 resources before deduplication: 1,822 CI4
 and 704 CI8 payloads. Two already have direct contracts. Only actual runtime
@@ -178,10 +181,57 @@ banks. Only RGBA32 permits this doubled alignment; other formats retain the
 streams, totaling 14,404 stored bytes, with default zlib. All 6,175 prior
 contracts and source inputs are unchanged.
 
+## Authored storage tiles and attachment-action selectors
+
+Four CI8 sources, runtime IDs 4255, 4252, 4254 and 1553, have explicit tile-0
+storage declarations immediately after their pixel and palette loads. The
+actual draw keeps tile 1 and can combine bytes retained from previous loads.
+The matching resolver verifies the exact native command sequence through the
+first face, including source IDs, load commands, SetTile and SetTileSize. It
+rejects inherited tile state and any intervening transfer or call. The source
+contract records both tile identities, command offsets, bytes and a hash.
+Complete storage is 16 by 32 or 32 by 32 CI8 texels with all 256 palette entries.
+This adds 2,333 stored bytes without changing the shared composed-TMEM preview.
+
+Two further CI8 resources, runtime IDs 3650 and 3651, are selected by Conker's
+stored expression records 22, 23 and 31. Their nonzero actions are separately
+verified by `model_expression_constructors`: exact whole-function and source
+hashes guard the selector tables, dispatcher, constructor and loaders. Every
+admitted operation is an attachment constructor (dispatch kind 1 or 2); parent
+modification dispatch is excluded. The expression caller ignores the action
+return value and writes the texture selectors afterwards. Matching records the
+original action, preset, complete program and consumer hashes. It does not
+claim action activation, allocation success, attachment placement or a rendered
+morph state, and the shared gallery's expression policy is unchanged.
+
+Both expression textures pass the existing full-payload preview inverse gate.
+They add 969 stored bytes. All six new sources round-trip and freshly compress
+exactly with default zlib. All 6,185 earlier contracts and input hashes remain
+unchanged at this intermediate six-source stage.
+
+## Complete binding variants
+
+Existing object, attachment, callback, timer and UI resolvers validate every
+image in each admitted binding list, while their previews select one image.
+The matching catalog now also considers the remaining already-validated
+variants. It reproduces each resolver-recorded PNG hash without changing the
+binding list, original selector state or shared preview policy, then requires
+the inverse PNG to recover the complete payload. Image shape, format, source
+identity and full palette semantics must agree with the original binding proof.
+
+The independent audit checked 72 variant occurrences covering 38 resources.
+Twenty-one add new storage: nine CI8, two CI4, one RGBA32 and nine IA4 timer
+digits. They total 17,180 stored bytes; twenty use default zlib and one uses
+GNU gzip. Each manifest retains the complete original binding evidence and
+the chosen variant record. No playback time or composed runtime state is
+claimed. Combined with the six authored/action sources, this batch adds 27
+textures and 20,482 stored bytes. All 6,185 earlier source contracts and inputs
+are preserved, and the complete selection contains 7,644 PNGs.
+
 ## Exact reconstruction
 
-All 6,185 texture source bundles round-trip to their complete original payloads.
-Default zlib level-9 compression reproduces 5,716 entries. The remaining 469
+All 6,212 texture source bundles round-trip to their complete original payloads.
+Default zlib level-9 compression reproduces 5,742 entries. The remaining 470
 select **GNU gzip 1.12 at level 9**; every selected encoder must reproduce the
 original compressed bytes before any output in the batch is replaced.
 
@@ -195,10 +245,10 @@ changes fail closed. This workflow does not support asset editing.
 `./conker texture-assets build` runs in the pinned toolchain container, which
 provides GNU gzip 1.12. Surveys and extraction retain host dispatch.
 
-Selected storage is **7,508,765 bytes**, with **12,245,648 decoded bytes**.
-The entire flat archive is partitioned into 6,592 nonoverlapping rows:
-6,185 rebuilt entries and 407 raw intervals. The selected Data denominator is
-**7,715,837 bytes**, including 201,632 initialized CPU bytes and 5,440 font
+Selected storage is **7,529,247 bytes**, with **12,280,272 decoded bytes**.
+The entire flat archive is partitioned into 6,611 nonoverlapping rows:
+6,212 rebuilt entries and 399 raw intervals. The selected Data denominator is
+**7,736,319 bytes**, including 201,632 initialized CPU bytes and 5,440 font
 bytes. Decoded bytes and raw ranges receive no additional credit.
 
 Raw means ROM-backed storage, not necessarily unidentified content. Exhausting
@@ -326,7 +376,7 @@ These timings measure individual commands, not total workflow duration.
 Report source fingerprint:
 `5098fd5fced8cc13369655aef1685a7b126e5a8e78d29347cc88d40c95472036`.
 
-## Passing mixed-detail and bound-source batch validation
+## Passing mixed-detail and bound-source checkpoint validation (`439ac4f`)
 
 - 41 focused reconstruction and storage-contract tests passed.
 - All 7,617 PNG inputs verify; all 6,175 prior bundles retain their hashes.
@@ -347,3 +397,26 @@ Report source fingerprint:
 `f8c03ad7aebfa852dfd34f6604a1579639b513f71336f1b7af905b5e215a33e3`.
 
 These timings measure individual commands, not total workflow duration.
+
+## Passing authored-storage, action-selector and binding-variant batch validation
+
+- 56 focused storage, catalog, reconstruction and constructor tests passed.
+- All 7,644 PNG inputs verify; all 6,185 prior bundles retain their input hashes.
+- Full US ROM build passed in 376.11 seconds. Independent comparison confirms
+  all 67,108,864 bytes match the original US ROM.
+- Full container suite: 2,220 tests, 8 skipped, no failures; 181.811 seconds in
+  the runner and 186.91 seconds command elapsed time.
+- All 6,212 native texture units are fully matched and complete, totaling
+  7,529,247 stored bytes. There are no compile errors and the snapshot is current.
+- Native report command elapsed time: 461.36 seconds.
+- Aggregate Data: 7,535,791 / 7,736,319 matched bytes (97.407970%) and
+  7,535,023 complete bytes (97.398030%). Code totals are unchanged.
+- Canonical progress validation, progress rendering and whitespace checks passed.
+
+Report source fingerprint:
+`987992e78b9d40ebd4c337136b47192ef9958828e451c28966c591c8b0875e3b`.
+
+The initial six-source selection also passed a full build and suite. The batch
+was expanded before its native report to cover all 27 sources together; the
+results above apply to that final selection. These timings measure individual
+commands, not total workflow duration.
