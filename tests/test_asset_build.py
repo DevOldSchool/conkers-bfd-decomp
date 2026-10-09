@@ -195,9 +195,52 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
                 self.assertNotIn('profile_config.py', result.stderr)
         self.assertEqual((self.root / 'build/eu/assets/boot.o').read_bytes(), b'boot')
 
+    def test_code_object_does_not_require_rom_or_run_packers(self):
+        (self.root / 'roms/baserom.us.z64').unlink()
+        (self.root / 'src').mkdir()
+        (self.root / 'src/foo.c').write_text('code')
+        (self.root / 'scripts/compile_c.py').write_text(
+            "from pathlib import Path\nimport sys\n"
+            "Path(sys.argv[sys.argv.index('--output') + 1]).write_text('object')\n")
+        for goal in ('build/us/src/foo.o', './build/us/src/foo.o'):
+            result = subprocess.run([MAKE, goal], cwd=self.root, text=True, capture_output=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual((self.root / 'build/us/src/foo.o').read_text(), 'object')
+        self.assertFalse((self.root / 'font_splits.calls').exists())
+        self.assertFalse((self.root / 'mp3_bank.calls').exists())
+
+    def test_game_and_diff_goals_skip_broken_fragments_and_packing(self):
+        self.fragment.unlink()
+        # Dry-run the real goal graph. Missing game/toolchain prerequisites in
+        # this asset-only fixture may stop it, but asset planning must not.
+        for goal in ('game-asm', 'game-asm-prepare', 'game-integrated',
+                     'game-integrated-refresh', 'game-integrated-prepare',
+                     'game-integrated-raw', 'diff',
+                     './build/game-integrated/us/conker.game.us.integrated.bin'):
+            with self.subTest(goal=goal):
+                result = subprocess.run([MAKE, '-n', goal], cwd=self.root,
+                                        text=True, capture_output=True)
+                output = result.stdout + result.stderr
+                self.assertNotIn('profile_config.py make-assets failed', output)
+                self.assertNotIn('font_splits.py build-parts', output)
+                self.assertNotIn('mp3_bank.py build-parts', output)
+                self.assertNotIn('roms/baserom.us.z64', result.stderr)
+        self.assertFalse((self.root / 'font_splits.calls').exists())
+        self.assertFalse((self.root / 'mp3_bank.calls').exists())
+
+    def test_mixed_game_and_asset_goals_still_validate_fragments(self):
+        self.fragment.unlink()
+        result = subprocess.run([MAKE, '-n', 'game-asm', 'build/us/conker.us.z64'],
+                                cwd=self.root, text=True, capture_output=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('profile_config.py make-assets failed', result.stderr)
+        self.assertNotIn('Traceback', result.stderr)
+
     def test_new_aggregate_goal_packs_and_links_asset_inputs(self):
         with (self.root / 'Makefile').open('a') as stream:
-            stream.write('\n.PHONY: all\nall: $(FONT_OBJS) $(MP3_BANK_OBJS)\n')
+            stream.write('\n.PHONY: all\nall: build/combined.bin\n'
+                         'build/combined.bin: $(FONT_OBJS) $(MP3_BANK_OBJS)\n'
+                         '\tcat $^ > $@\n')
         result = subprocess.run([MAKE, '-j4', f'LD={sys.executable} {self.ld}', 'all'],
                                 cwd=self.root, text=True, capture_output=True)
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -205,6 +248,19 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
             for index in range(2):
                 path = self.root / f'build/us/assets/{prefix}/{index:04d}.o'
                 self.assertEqual(path.read_bytes(), bytes([index]))
+        combined = self.root / 'build/combined.bin'
+        self.assertEqual(combined.read_bytes(), bytes([0, 1, 0, 1]))
+        before = combined.stat().st_mtime_ns
+        unchanged = subprocess.run([MAKE, '-j4', f'LD={sys.executable} {self.ld}', 'all'],
+                                   cwd=self.root, text=True, capture_output=True)
+        self.assertEqual(unchanged.returncode, 0, unchanged.stderr)
+        self.assertEqual(combined.stat().st_mtime_ns, before)
+        time.sleep(1.05)
+        (self.root / 'build/fonts/us/0000.pgm').write_bytes(b'changed')
+        changed = subprocess.run([MAKE, '-j4', f'LD={sys.executable} {self.ld}', 'all'],
+                                 cwd=self.root, text=True, capture_output=True)
+        self.assertEqual(changed.returncode, 0, changed.stderr)
+        self.assertEqual(combined.read_bytes(), b'changed' + bytes([1, 0, 1]))
         self.fragment.unlink()
         failed = subprocess.run([MAKE, 'all'], cwd=self.root, text=True, capture_output=True)
         self.assertIn('profile_config.py make-assets failed', failed.stderr)

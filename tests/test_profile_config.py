@@ -120,6 +120,39 @@ class ProfileConfigTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual(result.stdout, '')
 
+    def test_missing_and_malformed_yaml_cli_errors_are_concise(self):
+        rom = self.root / 'roms/baserom.us.z64'
+        rom.parent.mkdir()
+        rom.touch()
+        for path in (self.fragment, self.profile):
+            for contents in (None, '[broken'):
+                with self.subTest(path=path, contents=contents):
+                    self.save()
+                    self.fragment.write_text(yaml.safe_dump(self.rows))
+                    if contents is None:
+                        path.unlink()
+                    else:
+                        path.write_text(contents)
+                    for action in ('dependencies', 'make-assets'):
+                        result = subprocess.run(
+                            [sys.executable, profile_config.__file__, action, str(self.profile)],
+                            cwd=self.root, text=True, capture_output=True)
+                        self.assertEqual(result.returncode, 2, result.stderr)
+                        self.assertEqual(result.stdout, '')
+                        self.assertNotIn('Traceback', result.stderr)
+                        self.assertIn(str(path), result.stderr)
+                    stderr = io.StringIO()
+                    with patch.object(prepare_profile, 'ROOT', self.root), \
+                         patch.object(prepare_profile, 'ROM_PATHS', {'us': rom}), \
+                         patch.object(sys, 'argv', ['prepare_profile', 'us']), \
+                         redirect_stderr(stderr), self.assertRaises(SystemExit) as error:
+                        prepare_profile.main()
+                    self.assertEqual(error.exception.code, 2)
+                    self.assertIn(str(path), stderr.getvalue())
+                    self.assertNotIn('Traceback', stderr.getvalue())
+                    self.assertEqual(len([line for line in stderr.getvalue().splitlines()
+                                          if 'error:' in line]), 1)
+
     def test_paths_are_yaml_scalars_in_inline_and_reference_profiles(self):
         for spelling in ('__ROM_PATH__', '"__ROM_PATH__"', "'__ROM_PATH__'"):
             self.profile.write_text('options:\n  target_path: ' + spelling + '\nsegments: []\n')

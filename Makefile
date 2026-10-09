@@ -25,10 +25,13 @@ ROM_NAME := conker.$(PROFILE).z64
 ROM_PATH := roms/baserom.$(PROFILE).z64
 ASM_SRCS := $(shell find asm/$(PROFILE) -type f -name '*.s' ! -path '*/nonmatchings/*' 2>/dev/null)
 ASM_OBJS := $(patsubst asm/%.s,$(BUILD_DIR)/asm/%.o,$(ASM_SRCS))
-REQUESTED_GOALS := $(if $(MAKECMDGOALS),$(MAKECMDGOALS),help)
+REQUESTED_GOALS := $(patsubst ./%,%,$(if $(MAKECMDGOALS),$(MAKECMDGOALS),help))
 # Load the US layout by default, including aliases and future aggregate goals.
 # Only goals known not to link the ROM may bypass broken asset fragments.
-NON_ROM_GOALS := clean help prepare-reference libultra libultrare profile-libs game-libs
+NON_ROM_GOALS := clean help prepare-reference libultra libultrare profile-libs game-libs \
+	game-asm game-asm-prepare game-integrated game-integrated-refresh \
+	game-integrated-prepare game-integrated-raw diff \
+	build/game-reference/% build/game-integrated/% build/game-libs/%
 ifeq ($(PROFILE),us)
 ifneq ($(filter-out $(NON_ROM_GOALS),$(REQUESTED_GOALS)),)
 PROFILE_ASSETS := $(shell python3 scripts/profile_config.py make-assets $(PROFILE_CONFIG) || echo __PROFILE_ASSETS_FAILED__)
@@ -353,9 +356,10 @@ $(BUILD_DIR)/src/%.o: src/%.c
 	@mkdir -p "$(@D)"
 	python3 scripts/compile_c.py --profile $(PROFILE) --output $@ $<
 
-# Rebuild parts before make inspects their timestamps. Included stamps avoid
-# stale cached .bin mtimes when only one editable input changes. Unchanged parts
-# retain their timestamps, so only changed link inputs rebuild their objects.
+# Pack only when an asset target is reached. These are ordinary prerequisites,
+# not included makefiles (which Make would refresh even for unrelated goals).
+# Packing preserves unchanged parts' mtimes. The object recipes compare the
+# fresh on-disk timestamps because Make may cache a part's mtime before packing.
 ifeq ($(PROFILE),us)
 ASSET_PACK_DEPS := Makefile $(PROFILE_INPUTS) scripts/profile_config.py config/rzip_layouts.json \
 	scripts/build_files.py scripts/rzip_archive.py scripts/rzip_extract.py \
@@ -371,10 +375,10 @@ FONT_PARTS_MISSING := $(filter-out $(wildcard $(FONT_PARTS)),$(FONT_PARTS))
 ifeq ($(wildcard build/fonts/us/manifest.json),)
 FONT_PARTS_MISSING += manifest
 endif
-$(BUILD_DIR)/fonts/parts.mk: $(ASSET_PACK_DEPS) scripts/font_splits.py scripts/font_assets.py $(FONT_PART_INPUTS) $(if $(FONT_PARTS_MISSING),asset-parts-missing)
+$(BUILD_DIR)/fonts/parts.stamp: $(ASSET_PACK_DEPS) scripts/font_splits.py scripts/font_assets.py $(FONT_PART_INPUTS) $(if $(FONT_PARTS_MISSING),asset-parts-missing)
 	python3 scripts/font_splits.py build-parts
 	@touch $@
-include $(BUILD_DIR)/fonts/parts.mk
+$(FONT_PARTS): $(BUILD_DIR)/fonts/parts.stamp ;
 endif
 
 ifneq ($(MP3_BANK_PARTS),)
@@ -383,20 +387,24 @@ MP3_PARTS_MISSING := $(filter-out $(wildcard $(MP3_BANK_PARTS)),$(MP3_BANK_PARTS
 ifeq ($(wildcard build/assets/mp3-bank/us/manifest.json),)
 MP3_PARTS_MISSING += manifest
 endif
-$(BUILD_DIR)/audio/parts.mk: $(ASSET_PACK_DEPS) scripts/mp3_bank.py scripts/mp3_assets.py $(MP3_PART_INPUTS) $(if $(MP3_PARTS_MISSING),asset-parts-missing)
+$(BUILD_DIR)/audio/parts.stamp: $(ASSET_PACK_DEPS) scripts/mp3_bank.py scripts/mp3_assets.py $(MP3_PART_INPUTS) $(if $(MP3_PARTS_MISSING),asset-parts-missing)
 	python3 scripts/mp3_bank.py build-parts
 	@touch $@
-include $(BUILD_DIR)/audio/parts.mk
+$(MP3_BANK_PARTS): $(BUILD_DIR)/audio/parts.stamp ;
 endif
 endif
 
 $(FONT_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/fonts/parts/%.bin
-	@mkdir -p "$(@D)"
-	cd $(BUILD_DIR)/fonts/parts && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin
+	@if test ! -f "$@" || test "$<" -nt "$@"; then \
+		mkdir -p "$(@D)" && cd $(BUILD_DIR)/fonts/parts && \
+		$(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
+	fi
 
 $(MP3_BANK_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/audio/parts/%.bin
-	@mkdir -p "$(@D)"
-	cd $(BUILD_DIR)/audio/parts && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin
+	@if test ! -f "$@" || test "$<" -nt "$@"; then \
+		mkdir -p "$(@D)" && cd $(BUILD_DIR)/audio/parts && \
+		$(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
+	fi
 
 .PHONY: data-splits-check
 data-splits-check:

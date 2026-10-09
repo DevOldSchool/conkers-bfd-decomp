@@ -15,9 +15,20 @@ import textwrap
 import yaml
 
 
+def _yaml(path: Path, source: str, *, compose: bool = False):
+    """Keep YAML diagnostics local to the input, without parser tracebacks."""
+    try:
+        return yaml.compose(source) if compose else yaml.safe_load(source)
+    except yaml.YAMLError as error:
+        mark = getattr(error, "problem_mark", None)
+        location = f":{mark.line + 1}:{mark.column + 1}" if mark else ""
+        problem = getattr(error, "problem", None) or str(error)
+        raise ValueError(f"{path}{location}: {' '.join(problem.split())}") from error
+
+
 def _read(path: Path) -> tuple[dict, list[Path]]:
     path = path.resolve()
-    profile = yaml.safe_load(path.read_text(encoding="utf-8"))
+    profile = _yaml(path, path.read_text(encoding="utf-8"))
     if not isinstance(profile, dict) or not isinstance(profile.get("segments"), list):
         raise ValueError(f"{path}: expected a profile with a segments list")
     dependencies = [path]
@@ -38,7 +49,7 @@ def _read(path: Path) -> tuple[dict, list[Path]]:
             raise ValueError(f"{path}: include escapes the profile directory: {name}")
         if fragment in dependencies:
             raise ValueError(f"{path}: repeated or self-referencing include: {name}")
-        rows = yaml.safe_load(fragment.read_text(encoding="utf-8"))
+        rows = _yaml(fragment, fragment.read_text(encoding="utf-8"))
         if not isinstance(rows, list) or not rows:
             raise ValueError(f"{fragment}: expected a nonempty binary subsegment list")
         for row in rows:
@@ -77,8 +88,8 @@ def render_profile(path: Path, target_path: str, *, reference: bool = False) -> 
     the splice against the shared loader before anything is written.
     """
     source = path.read_text(encoding="utf-8")
-    expected = yaml.safe_load(source) if reference else load_profile(path)
-    root = yaml.compose(source)
+    expected = _yaml(path, source) if reference else load_profile(path)
+    root = _yaml(path, source, compose=True)
     try:
         _, options = _field(root, "options")
         _, target = _field(options, "target_path")
@@ -172,11 +183,14 @@ def main() -> None:
     parser.add_argument("action", choices=("dependencies", "make-assets"))
     parser.add_argument("profile", type=Path)
     args = parser.parse_args()
-    if args.action == "make-assets":
-        names = make_assets(args.profile, relative_to=Path.cwd())
-    else:
-        paths = profile_dependencies(args.profile)
-        names = [os.path.relpath(path, Path.cwd()) for path in paths]
+    try:
+        if args.action == "make-assets":
+            names = make_assets(args.profile, relative_to=Path.cwd())
+        else:
+            paths = profile_dependencies(args.profile)
+            names = [os.path.relpath(path, Path.cwd()) for path in paths]
+    except (OSError, ValueError) as error:
+        parser.error(str(error))
     # Make consumes whitespace-separated prerequisites; fail rather than split
     # a path into unrelated inputs. Repository profile paths use plain names.
     if any(any(c.isspace() or c in "#$:%\\" for c in name) for name in names):

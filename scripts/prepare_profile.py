@@ -38,7 +38,7 @@ def main() -> int:
 
     try:
         output = render_profile(template_path, str(rom_path.relative_to(ROOT)), reference=args.reference)
-    except ValueError as error:
+    except (OSError, ValueError) as error:
         parser.error(str(error))
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)

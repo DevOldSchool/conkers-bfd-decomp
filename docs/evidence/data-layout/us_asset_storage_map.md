@@ -37,8 +37,12 @@ Asset verifiers, data reports and library audits read the same expanded
 structure. Make tracks the root and every included fragment when packing
 assets; missing or invalid fragments stop ROM/asset builds. Make plans the
 US dependencies, asset bins and executable sources in one parse. US goals load
-and pack assets by default, including aggregate targets and paths prefixed with
-`./`; only housekeeping and independent library/reference goals bypass them.
+asset lists by default, including aggregate targets and paths prefixed with
+`./`. Packing runs only when the dependency graph reaches the font or MP3 asset
+objects; code-only compilation does not require the ROM or run the packers.
+Housekeeping, independent library, game, reference and diff goals bypass US
+asset planning. Game comparison fingerprints likewise exclude the full-ROM
+asset map, which is not an input to the independent game build.
 EU targets do not load US fragments. The independent raw
 reference profile remains separate and does not resolve these asset files.
 

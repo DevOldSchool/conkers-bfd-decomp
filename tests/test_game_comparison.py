@@ -329,8 +329,7 @@ class GameComparisonWorkflowTests(unittest.TestCase):
             files = ["src/game/unit.c", "include/types.h", "src/game/local.h", "raw.s",
                      "asm/raw.s", "progress/functions.json", "progress/source_units.json",
                      "toolchain/tools.lock.json", "Dockerfile", "Makefile", "config/roms.json",
-                     "config/overlays.json", "config/reference/us.yaml", "config/profiles/us.yaml",
-                     "config/profiles/us/assets/bank17.yaml",
+                     "config/overlays.json", "config/reference/us.yaml",
                      "config/game/us.yaml", "config/symbols/game-us.txt", "config/relocs/us.txt",
                      "scripts/compile_c.py", "rom.z64", "installed/ido/cc", "installed/ido/uopt",
                      "installed/asm/build.py", "installed/asm/prelude.inc", "installed/asm/helper.py",
@@ -339,6 +338,7 @@ class GameComparisonWorkflowTests(unittest.TestCase):
                 path = root / name
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text("input\n")
+            (root / "config/profiles/us/assets").mkdir(parents=True)
             (root / "config/profiles/us.yaml").write_text(
                 'segments:\n  - type: group\n    subsegments: {include: us/assets/bank17.yaml}\n')
             (root / "config/profiles/us/assets/bank17.yaml").write_text('- [0, bin, audio/test]\n')
@@ -359,8 +359,12 @@ class GameComparisonWorkflowTests(unittest.TestCase):
                         self.assertNotEqual(before, fingerprint())
                         path.write_bytes(original)
                 before = fingerprint()
-                for name in ('config/profiles/eu.yaml', 'config/profiles/us/assets/unused.yaml'):
+                for name in ('config/profiles/eu.yaml', 'config/profiles/us.yaml',
+                             'config/profiles/us/assets/bank17.yaml',
+                             'config/profiles/us/assets/unused.yaml'):
                     (root / name).write_text('unrelated change\n')
+                    self.assertEqual(before, fingerprint())
+                    (root / name).unlink()
                     self.assertEqual(before, fingerprint())
                 with patch.object(diff.compile_c, "compiler_flags", return_value=["different"]):
                     self.assertNotEqual(before, fingerprint())
