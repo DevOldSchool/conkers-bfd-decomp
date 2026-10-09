@@ -777,6 +777,10 @@ def parse_args() -> argparse.Namespace:
     pack_parser.add_argument("--output", type=Path, required=True)
     pack_parser.add_argument("--force", action="store_true")
 
+    build_parser = subparsers.add_parser("build-bank")
+    build_parser.add_argument("--input", type=Path, required=True)
+    build_parser.add_argument("--output", type=Path, required=True)
+
     verify_parser = subparsers.add_parser("verify")
     verify_parser.add_argument("--profile", choices=("us",), default="us")
     verify_parser.add_argument("--rom", type=Path)
@@ -813,6 +817,16 @@ def main() -> int:
             count = sum(len(bank) for bank in packed.values())
             size = sum(len(data) for bank in packed.values() for data in bank.values())
             print(f"Packed {count} US MP3 bank entries ({size} bytes) to {display_path(output)}")
+        elif args.command == "build-bank":
+            try:
+                from scripts.mp3_bank import build_bank
+            except ModuleNotFoundError:
+                from mp3_bank import build_bank
+            input_dir = args.input if args.input.is_absolute() else ROOT / args.input
+            output = args.output if args.output.is_absolute() else ROOT / args.output
+            packed, evidence = build_bank(input_dir, output)
+            print(f"Built US MP3 bank: {evidence['stream_count']} streams, {len(packed)} bytes; "
+                  f"matches original: {evidence['matches_original']}")
         elif args.command == "verify":
             count, size = verify_mp3_assets(args.profile, args.rom)
             print(f"Verified US MP3 assets: {count} entries, {size} bytes, byte-identical")

@@ -5,6 +5,7 @@ The existing path supports undefined address-bearing bootstrap labels. A separat
 debugger SI path also proves literal MMIO operands, retaining natural same-object
 call resolution. The debugger also permits one explicitly reviewed empty-return
 companion within its unchanged registered span. Reviewed main initialized data uses explicit ROM-backed placement manifests.
+GAME also proves terminal alignment padding using complete reviewed units.
 Other paths reject local data relocations; no path rewrites originals.
 """
 from __future__ import annotations
@@ -357,12 +358,54 @@ def main_eligible(candidate: Path, reference: Path, symbol: str, size: int) -> b
 
 
 def game_eligible(candidate: Path, reference: Path, symbol: str, size: int) -> bool:
-    """GAME only admits exact-extent, symbolic data-address aliases."""
+    """Attempt full-unit proof for aliases or a short terminal-padding extent.
+
+    The focused object can lack section padding. Eligibility never supplies
+    those bytes: prepare_game requires them in the freshly built complete unit.
+    """
+    current, raw = Object32(candidate.read_bytes()), Object32(reference.read_bytes())
     try:
-        return address_alias_present(Object32(candidate.read_bytes()),
-                                     Object32(reference.read_bytes()), symbol, size)
+        function(raw, symbol, size, reference=True)
+        if game_padding_extent(current, symbol, size) is not None:
+            return True
+        return address_alias_present(current, raw, symbol, size)
     except ValueError:
         return False
+
+
+def game_padding_extent(obj: Object32, symbol: str, size: int) -> int | None:
+    """Recognize at most three words of possible 16-byte terminal alignment."""
+    matches = [s for symbols in obj.symbols.values() for s in symbols if s[0] == symbol]
+    if len(matches) != 1:
+        raise ValueError("game padding proof requires one function symbol")
+    _, _, extent, _ = matches[0]
+    if size % 4 or extent % 4 or not 0 < size - extent < 16 or extent <= 0:
+        return None
+    # Require the complete payload even in the reduced focused object.
+    function(obj, symbol, extent)
+    return extent
+
+
+def game_terminal_padding(obj: Object32, symbol: str, size: int,
+                          start: int, unit_end: int) -> bool:
+    """Validate physical terminal padding; ROM/unit equality is still required."""
+    extent = game_padding_extent(obj, symbol, size)
+    if extent is None:
+        return False
+    origin, section = function(obj, symbol, size, padding=True)
+    end = origin + size
+    if start + size != unit_end or unit_end % 16 or end != len(obj.section(section)):
+        raise ValueError("game padding proof requires the complete terminal text span")
+    tail_start = origin + extent
+    if any(obj.section(section)[tail_start:end]):
+        raise ValueError("game padding proof requires zero terminal alignment bytes")
+    if any(index == section and tail_start <= offset < end for index, offset in obj.relocations):
+        raise ValueError("game padding proof cannot relocate terminal alignment bytes")
+    if any(target == section and name != symbol
+           and (tail_start <= value < end or length > 0 and value < end and value + length > tail_start)
+           for name, value, length, target in obj.non_section_symbols):
+        raise ValueError("game padding proof overlaps another text symbol")
+    return True
 
 
 def game_unit_registered(root: Path, source: str, symbol: str) -> bool:
@@ -479,11 +522,12 @@ def prepare_game(root: Path, source: str, candidate: Path, reference: Path, asse
     """Prove the target and every physical byte of its freshly built GAME unit."""
     entry, unit, members, addresses, unit_start, extent, spans = game_context(root, source, symbol, start, size)
     current, raw = Object32(candidate.read_bytes()), Object32(reference.read_bytes())
-    if not address_alias_present(current, raw, symbol, size):
+    padding = game_terminal_padding(current, symbol, size, start, unit_start + extent)
+    if not padding and not address_alias_present(current, raw, symbol, size):
         return None
     measured, text_size, alignment = layout_check.archived_object_layout(current.data)
     layout_check.validate_layout(entry, unit, measured, text_size, alignment, "us", root=root)
-    origin, section = function(current, symbol, size)
+    origin, section = function(current, symbol, size, padding=padding)
     if alignment != 16 or text_size != extent or start - origin != unit_start:
         raise layout_check.LayoutMismatch("game comparison needs the exact unit extent, origin and alignment")
     current_symbols = game_definitions(current, addresses, section, unit_start)
@@ -511,7 +555,7 @@ def prepare_game(root: Path, source: str, candidate: Path, reference: Path, asse
     if raw_bytes != expected:
         raise ValueError("linked raw-reference span differs from the US ROM")
     current_bytes = linked_span(candidate, current, symbol, start, size, current_symbols,
-                                output / "candidate", reference=False)
+                                output / "candidate", reference=False, padding=padding)
     # linked_span writes the whole real .text section before extracting the
     # bounded display span. No fabricated alignment or cropped unit is accepted.
     complete = (output / "candidate.bin").read_bytes()

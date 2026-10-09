@@ -1,0 +1,798 @@
+{
+  "schema_version": 2,
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "owners": {
+    "main": [
+      {
+        "address": "0x8002AAF0",
+        "section": ".data",
+        "owner": {
+          "archive": "libultrare",
+          "member": "xprintf.o"
+        }
+      },
+      {
+        "address": "0x8002AB40",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/main/init_2DB0.c",
+            "src/done/main/init_2DB0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8002B9D0",
+        "section": ".data",
+        "owner": {
+          "archive": "libultrare",
+          "member": "syncputchars_data.o"
+        }
+      },
+      {
+        "address": "0x8002BA20",
+        "section": ".data",
+        "owner": {
+          "archive": "libultrare",
+          "member": "n_sndplayer.o"
+        }
+      },
+      {
+        "address": "0x8002BA40",
+        "section": ".data",
+        "owner": {
+          "archive": "libultrare",
+          "member": "n_sl.o"
+        }
+      },
+      {
+        "address": "0x8002BA50",
+        "section": ".data",
+        "owner": {
+          "archive": "libultrare",
+          "member": "n_csplayer.o"
+        }
+      },
+      {
+        "address": "0x8002BC10",
+        "section": ".data",
+        "owner": {
+          "archive": "libultrare",
+          "member": "n_env.o"
+        }
+      },
+      {
+        "address": "0x8002BD10",
+        "section": ".data",
+        "owner": {
+          "archive": "libultra_2_0G",
+          "member": "initialize.o"
+        }
+      },
+      {
+        "address": "0x8002BD30",
+        "section": ".data",
+        "owner": {
+          "archive": "libultra_2_0G",
+          "member": "xlitob.o"
+        }
+      },
+      {
+        "address": "0x8002BD60",
+        "section": ".data",
+        "owner": {
+          "archive": "libultra_2_0G",
+          "member": "piacs.o"
+        }
+      },
+      {
+        "address": "0x8002BD70",
+        "section": ".data",
+        "owner": {
+          "archive": "libultra_2_0G",
+          "member": "timerintr.o"
+        }
+      },
+      {
+        "address": "0x8002BD80",
+        "section": ".data",
+        "owner": {
+          "archive": "libultra_2_0G",
+          "member": "vi.o"
+        }
+      },
+      {
+        "address": "0x8002BDF0",
+        "section": ".data",
+        "owner": {
+          "archive": "libultra_2_0G",
+          "member": "thread.o"
+        }
+      },
+      {
+        "address": "0x8002BE10",
+        "section": ".data",
+        "owner": {
+          "archive": "libultra_2_0G",
+          "member": "controller.o"
+        }
+      },
+      {
+        "address": "0x8002BE20",
+        "section": ".data",
+        "owner": {
+          "archive": "libultra_2_0G",
+          "member": "siacs.o"
+        }
+      },
+      {
+        "address": "0x8002BE30",
+        "section": ".data",
+        "owner": {
+          "archive": "libultra_2_0G",
+          "member": "vimodepallan1.o"
+        }
+      },
+      {
+        "address": "0x8002BE80",
+        "section": ".data",
+        "owner": {
+          "archive": "libultra_2_0G",
+          "member": "vimodempallan1.o"
+        }
+      },
+      {
+        "address": "0x8002BED0",
+        "section": ".data",
+        "owner": {
+          "archive": "libultra_2_0G",
+          "member": "vimodentsclan1.o"
+        }
+      },
+      {
+        "address": "0x8002BF20",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "xldtob.o"
+        }
+      },
+      {
+        "address": "0x8002BF80",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "xprintf.o"
+        }
+      },
+      {
+        "address": "0x8002C080",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/main/init_2E50.c",
+            "src/done/main/init_2E50.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8002C1B0",
+        "section": ".data",
+        "owner": {
+          "archive": "libultrare",
+          "member": "exceptasm_data.o"
+        }
+      },
+      {
+        "address": "0x8002C220",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/main/init_B1B0.c",
+            "src/done/main/init_B1B0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8002C410",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/main/init_11FA0.c",
+            "src/done/main/init_11FA0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8002C450",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "osc.o"
+        }
+      },
+      {
+        "address": "0x8002C460",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "n_csplayer.o"
+        }
+      },
+      {
+        "address": "0x8002C6B0",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "n_sndplayer.o"
+        }
+      },
+      {
+        "address": "0x8002C750",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "n_synthesizer.o"
+        }
+      },
+      {
+        "address": "0x8002C760",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultra_2_0G_d",
+          "member": "cents2ratio.o"
+        }
+      },
+      {
+        "address": "0x8002C770",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "n_drvrNew.o"
+        }
+      },
+      {
+        "address": "0x8002C790",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "n_synfx.o"
+        }
+      },
+      {
+        "address": "0x8002C7A0",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "n_reverb.o"
+        }
+      },
+      {
+        "address": "0x8002C7D0",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "n_env.o"
+        }
+      },
+      {
+        "address": "0x8002C820",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "n_auxbus.o"
+        }
+      },
+      {
+        "address": "0x8002C830",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "n_resample2.o"
+        }
+      },
+      {
+        "address": "0x8002C840",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "n_resample.o"
+        }
+      },
+      {
+        "address": "0x8002C850",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultra_2_0G",
+          "member": "setintmask.o"
+        }
+      },
+      {
+        "address": "0x8002C8D0",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultra_2_0G",
+          "member": "sinf.o"
+        }
+      },
+      {
+        "address": "0x8002C920",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultra_2_0G",
+          "member": "libm_vals.o"
+        }
+      }
+    ],
+    "game": [
+      {
+        "address": "0x80085EA0",
+        "section": ".data",
+        "owner": {
+          "archive": "libultrare",
+          "member": "cosf.o"
+        }
+      },
+      {
+        "address": "0x80085EB0",
+        "section": ".data",
+        "owner": {
+          "archive": "libultrare",
+          "member": "sinf.o"
+        }
+      },
+      {
+        "address": "0x80091970",
+        "section": ".data",
+        "owner": {
+          "archive": "libultra_2_0G",
+          "member": "random.o"
+        }
+      },
+      {
+        "address": "0x80091990",
+        "section": ".data",
+        "owner": {
+          "archive": "libultrare",
+          "member": "decoder.o"
+        }
+      },
+      {
+        "address": "0x80095A30",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/entrypoint.c",
+            "src/done/game/entrypoint.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800966C0",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_433F0.c",
+            "src/done/game/game_433F0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800969A0",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_49BE0.c",
+            "src/done/game/game_49BE0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80096DF8",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_58F80.c",
+            "src/done/game/game_58F80.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80096F40",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_5D2C0.c",
+            "src/done/game/game_5D2C0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80097C80",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_61490.c",
+            "src/done/game/game_61490.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80097D1C",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_61950.c",
+            "src/done/game/game_61950.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80098AB0",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_6EA90.c",
+            "src/done/game/game_6EA90.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80098B98",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_70200.c",
+            "src/done/game/game_70200.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80098D70",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "cosf.o"
+        }
+      },
+      {
+        "address": "0x80098D90",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "sinf.o"
+        }
+      },
+      {
+        "address": "0x80098DB0",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "perspective.o"
+        }
+      },
+      {
+        "address": "0x80098DC0",
+        "section": ".data",
+        "owner": {
+          "archive": "libultrare",
+          "member": "rotate.o"
+        }
+      },
+      {
+        "address": "0x80099000",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_75C90.c",
+            "src/done/game/game_75C90.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800990A0",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "expf.o"
+        }
+      },
+      {
+        "address": "0x800990B0",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "logf.o"
+        }
+      },
+      {
+        "address": "0x800996D8",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_90840.c",
+            "src/done/game/game_90840.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80099DAC",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_981E0.c",
+            "src/done/game/game_981E0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009B884",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_A9D90.c",
+            "src/done/game/game_A9D90.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009CC40",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_AEB40.c",
+            "src/done/game/game_AEB40.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009DA94",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_B4080.c",
+            "src/done/game/game_B4080.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009E458",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_C98F0.c",
+            "src/done/game/game_C98F0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009F550",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_CD860.c",
+            "src/done/game/game_CD860.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A0D5C",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_10BC70.c",
+            "src/done/game/game_10BC70.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A1854",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_11D830.c",
+            "src/done/game/game_11D830.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A192C",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_11F780.c",
+            "src/done/game/game_11F780.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A3218",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1483E0.c",
+            "src/done/game/game_1483E0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A3800",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_15D730.c",
+            "src/done/game/game_15D730.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A5218",
+        "section": ".rodata.16ee20_0",
+        "owner": {
+          "sources": [
+            "src/game/game_16EE20.c",
+            "src/done/game/game_16EE20.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A52CC",
+        "section": ".rodata.16ee20_b4",
+        "owner": {
+          "sources": [
+            "src/game/game_16EE20.c",
+            "src/done/game/game_16EE20.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A5430",
+        "section": ".rodata.16ee20_218",
+        "owner": {
+          "sources": [
+            "src/game/game_16EE20.c",
+            "src/done/game/game_16EE20.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A5648",
+        "section": ".rodata.16ee20_258",
+        "owner": {
+          "sources": [
+            "src/game/game_16EE20.c",
+            "src/done/game/game_16EE20.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A565C",
+        "section": ".rodata.16ee20_26c",
+        "owner": {
+          "sources": [
+            "src/game/game_16EE20.c",
+            "src/done/game/game_16EE20.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A5E20",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_179F30.c",
+            "src/done/game/game_179F30.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A7B7C",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1BC650.c",
+            "src/done/game/game_1BC650.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A811C",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1BF090.c",
+            "src/done/game/game_1BF090.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A8258",
+        "section": ".rodata.1c1150_0",
+        "owner": {
+          "sources": [
+            "src/game/game_1C1150.c",
+            "src/done/game/game_1C1150.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A826C",
+        "section": ".rodata.1c1150_14",
+        "owner": {
+          "sources": [
+            "src/game/game_1C1150.c",
+            "src/done/game/game_1C1150.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A82BC",
+        "section": ".rodata.1c1150_28",
+        "owner": {
+          "sources": [
+            "src/game/game_1C1150.c",
+            "src/done/game/game_1C1150.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A9DD4",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1DC720.c",
+            "src/done/game/game_1DC720.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800AA3D0",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1E2180.c",
+            "src/done/game/game_1E2180.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800AA3E8",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1E2490.c",
+            "src/done/game/game_1E2490.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800ABB20",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "decoder.o"
+        }
+      },
+      {
+        "address": "0x800B0C50",
+        "section": ".rodata",
+        "owner": {
+          "archive": "libultrare",
+          "member": "lib_46650.o"
+        }
+      }
+    ],
+    "debugger": [
+      {
+        "address": "0x1600487C",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/debugger/debugger_1AD0.c",
+            "src/done/debugger/debugger_1AD0.c"
+          ]
+        }
+      }
+    ]
+  }
+}

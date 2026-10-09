@@ -1,3 +1,4 @@
+.DEFAULT_GOAL := help
 PROFILE ?= us
 SYMBOL ?=
 PROFILE_CONFIG := config/profiles/$(PROFILE).yaml
@@ -45,7 +46,42 @@ MAIN_PRIVATE_DATA_SOURCES := $(foreach source,$(C_SRCS),--source $(source))
 LDFLAGS := -m elf32btsmip $(if $(PROFILE_RODATA_SCRIPT),-T $(PROFILE_RODATA_SCRIPT)) $(if $(PROFILE_MAIN_RODATA_SCRIPT),-T $(PROFILE_MAIN_RODATA_SCRIPT)) $(if $(PROFILE_MAIN_VI_BSS_SCRIPT),-T $(PROFILE_MAIN_VI_BSS_SCRIPT)) $(if $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT),-T $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT)) -T $(BUILD_DIR)/conker.$(PROFILE).ld
 NORMALIZED_ASM_DIR := $(BUILD_DIR)/normalized-asm
 BOOTSTRAP_SYMBOLS := $(BUILD_DIR)/bootstrap-symbols.ld
-ASSET_BINS_us := assets/boot.bin assets/2D4B0.bin assets/1A33E8.bin
+ifeq ($(PROFILE),us)
+# A failure token also works with macOS make 3.81, which lacks .SHELLSTATUS.
+FONT_BINS := $(shell python3 scripts/font_splits.py list-bins || echo __ASSET_LIST_FAILED__)
+ifneq ($(filter __ASSET_LIST_FAILED__,$(FONT_BINS)),)
+$(error scripts/font_splits.py list-bins failed; see the error above)
+endif
+FONT_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(FONT_BINS))
+AUDIO_BANK_BINS := $(shell python3 scripts/audio_boundaries.py list-bins || echo __ASSET_LIST_FAILED__)
+ifneq ($(filter __ASSET_LIST_FAILED__,$(AUDIO_BANK_BINS)),)
+$(error scripts/audio_boundaries.py list-bins failed; see the error above)
+endif
+AUDIO_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(AUDIO_BANK_BINS))
+MP3_BANK_BINS := $(shell python3 scripts/mp3_bank.py list-bins || echo __ASSET_LIST_FAILED__)
+ifneq ($(filter __ASSET_LIST_FAILED__,$(MP3_BANK_BINS)),)
+$(error scripts/mp3_bank.py list-bins failed; see the error above)
+endif
+MP3_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(MP3_BANK_BINS))
+endif
+
+# US bin segments mirror the reviewed storage map in config/profiles/us.yaml.
+ASSET_BINS_us := \
+	assets/boot.bin assets/unassigned_after_main.bin $(FONT_BINS) \
+	assets/game_archive_index.bin assets/game_code_rzip.bin assets/game_code_gap.bin \
+	assets/game_data_rzip.bin assets/game_data_gap.bin assets/unassigned_after_debugger.bin \
+	assets/assets_flat_rzip.bin assets/assets_flat_gap.bin assets/asset_bank_index.bin \
+	assets/asset_bank_00.bin assets/asset_bank_01.bin assets/asset_bank_02.bin \
+	assets/asset_bank_03.bin assets/asset_bank_04.bin assets/asset_bank_05.bin \
+	assets/asset_bank_06.bin assets/asset_bank_07.bin assets/asset_bank_08.bin \
+	assets/asset_bank_09.bin assets/asset_bank_0a.bin assets/asset_bank_0b.bin \
+	assets/asset_bank_0c.bin assets/asset_bank_0d.bin assets/asset_bank_0e.bin \
+	assets/asset_bank_0f.bin assets/asset_bank_10.bin assets/asset_bank_11.bin \
+	assets/asset_bank_12.bin assets/asset_bank_13.bin assets/asset_bank_14.bin \
+	assets/asset_bank_15.bin $(MP3_BANK_BINS) $(AUDIO_BANK_BINS) \
+	assets/asset_bank_18.bin assets/asset_bank_19.bin assets/asset_bank_1a.bin \
+	assets/asset_bank_1b.bin assets/asset_bank_1c.bin assets/asset_raw_1d.bin \
+	assets/unassigned_rom_tail.bin
 ASSET_BINS_eu := assets/boot.bin assets/2D810.bin
 ASSET_BINS := $(ASSET_BINS_$(PROFILE))
 ASSET_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(ASSET_BINS))
@@ -309,6 +345,68 @@ build/us/src/done/main/init_11FA0.o: src/done/main/init_11FA0.c scripts/compile_
 $(BUILD_DIR)/src/%.o: src/%.c
 	@mkdir -p "$(@D)"
 	python3 scripts/compile_c.py --profile $(PROFILE) --output $@ $<
+
+# Rebuild parts before make inspects their timestamps. Included stamps avoid
+# stale cached .bin mtimes when only one editable input changes. Unchanged parts
+# retain their timestamps, so only changed link inputs rebuild their objects.
+ifeq ($(PROFILE),us)
+ASSET_BUILD_GOALS := $(if $(MAKECMDGOALS),$(MAKECMDGOALS),help)
+ASSET_ROM_GOALS := raw-build $(BUILD_DIR)/$(ROM_NAME) $(BUILD_DIR)/conker.$(PROFILE).elf
+ASSET_PACK_DEPS := Makefile config/profiles/us.yaml config/rzip_layouts.json \
+	scripts/build_files.py scripts/rzip_archive.py scripts/rzip_extract.py \
+	toolchain/python-requirements.txt $(ROM_PATH)
+FONT_PARTS := $(patsubst assets/%,$(BUILD_DIR)/fonts/parts/%,$(FONT_BINS))
+MP3_BANK_PARTS := $(patsubst assets/%,$(BUILD_DIR)/audio/parts/%,$(MP3_BANK_BINS))
+.PHONY: asset-parts-missing
+asset-parts-missing:
+
+ifneq ($(filter $(ASSET_ROM_GOALS) $(FONT_OBJS) $(FONT_PARTS),$(ASSET_BUILD_GOALS)),)
+FONT_PART_INPUTS := $(wildcard build/fonts/us build/fonts/us/*)
+FONT_PARTS_MISSING := $(filter-out $(wildcard $(FONT_PARTS)),$(FONT_PARTS))
+ifeq ($(wildcard build/fonts/us/manifest.json),)
+FONT_PARTS_MISSING += manifest
+endif
+$(BUILD_DIR)/fonts/parts.mk: $(ASSET_PACK_DEPS) scripts/font_splits.py scripts/font_assets.py $(FONT_PART_INPUTS) $(if $(FONT_PARTS_MISSING),asset-parts-missing)
+	python3 scripts/font_splits.py build-parts
+	@touch $@
+include $(BUILD_DIR)/fonts/parts.mk
+endif
+
+ifneq ($(filter $(ASSET_ROM_GOALS) $(MP3_BANK_OBJS) $(MP3_BANK_PARTS),$(ASSET_BUILD_GOALS)),)
+MP3_PART_INPUTS := $(wildcard build/assets/mp3-bank/us build/assets/mp3-bank/us/* build/assets/mp3-bank/us/streams/* build/assets/mp3-bank/us/padding/*)
+MP3_PARTS_MISSING := $(filter-out $(wildcard $(MP3_BANK_PARTS)),$(MP3_BANK_PARTS))
+ifeq ($(wildcard build/assets/mp3-bank/us/manifest.json),)
+MP3_PARTS_MISSING += manifest
+endif
+$(BUILD_DIR)/audio/parts.mk: $(ASSET_PACK_DEPS) scripts/mp3_bank.py scripts/mp3_assets.py $(MP3_PART_INPUTS) $(if $(MP3_PARTS_MISSING),asset-parts-missing)
+	python3 scripts/mp3_bank.py build-parts
+	@touch $@
+include $(BUILD_DIR)/audio/parts.mk
+endif
+endif
+
+$(FONT_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/fonts/parts/%.bin
+	@mkdir -p "$(@D)"
+	cd $(BUILD_DIR)/fonts/parts && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin
+
+$(MP3_BANK_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/audio/parts/%.bin
+	@mkdir -p "$(@D)"
+	cd $(BUILD_DIR)/audio/parts && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin
+
+.PHONY: data-splits-check
+data-splits-check:
+	python3 scripts/data_boundaries.py
+
+ifeq ($(PROFILE),us)
+raw-build: data-splits-check
+endif
+
+# Require checked-in bank-17 splits to agree with the loader and sequence descriptors.
+.PHONY: audio-boundaries-check
+audio-boundaries-check:
+	python3 scripts/audio_boundaries.py verify
+
+$(AUDIO_BANK_OBJS): | audio-boundaries-check
 
 $(BUILD_DIR)/assets/%.o: assets/%.bin
 	@mkdir -p "$(@D)"

@@ -223,6 +223,14 @@ those bytes enter the same bounded asm-differ gate. Unsupported relocations reta
 symbolic comparison; original objects still supply switch-table evidence. Watch
 mode remains symbolic and requires a fresh `finish` afterward.
 
+Reviewed GAME units also support terminal alignment padding when a focused
+compilation omits ASM siblings and therefore produces fewer padding bytes. The
+complete unit is freshly compiled; every member offset, the exact object
+extent, and all linked unit bytes must match their reviewed boundaries and the
+checksum-validated ROM. The final 4–12 zero bytes must already exist in that
+object, without another symbol or relocation. The comparison retains the full
+registered reference span. See the [five-case evidence](evidence/data-layout/us_focused_text_padding.md).
+
 ## Focused iteration
 
 In an interactive terminal, a persistent watcher avoids restarting the focused
@@ -672,6 +680,24 @@ Keep model settings unchanged unless an experiment is explicitly requested.
 `./conker build` targets US by default. `./conker build --all` verifies every
 active profile and remains the clean baseline command for CI and future
 multi-profile activation.
+
+US ROM builds also run `data-splits-check`. The ownership manifest
+`config/data/us.json` lists both `src/<overlay>/...` and
+`src/done/<overlay>/...` alternatives for each source owner; exactly one must
+exist. The normal `next --ready` / `finish` / integration flow can move a file
+between those paths without editing the manifest. Keep the existing transactional
+move rather than copying the source and leaving both files active.
+
+Adding or removing a reviewed linker/private-data placement requires updating its
+owner entry in the same change. The key is the loaded hex address plus the input
+section; source owners list both paths, while SDK owners identify the archive and
+member. An extent-only change at the same address/section needs no owner edit.
+`next` and `finish` do not infer owners or grant permission to change shared linker
+placements. After an authorized placement change, run `./conker objdiff data-audit`
+for a focused check before the normal build/integration gates. A mismatch lists
+missing or extra keys in `config/data/us.json`; resolve the ownership evidence
+rather than disabling the audit. The audit decompresses the checked GAME archive
+and currently takes about 0.4 seconds locally.
 
 `./conker game-build` incrementally rebuilds the canonical game overlay and
 verifies mixed or completed source units against the decompressed payload. Use
