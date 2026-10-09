@@ -1,8 +1,8 @@
 # US texture reconstruction
 
-The canonical flat YAML now selects **6,846 distinct textures**. This batch
-adds three stored event-selector textures and eleven direct native-loader
-textures to the passing 6,832-texture checkpoint committed as `97c74a9`.
+The canonical flat YAML now selects **6,851 distinct textures**. This batch
+adds five native-table textures to the passing 6,846-texture checkpoint
+committed as `33ccb08`.
 Batch validation is recorded below; earlier passing checkpoints are retained.
 
 ## Selection and resource identity
@@ -47,7 +47,8 @@ The selected families, deduplicated in this order, are:
 | Parent-selected particle frames | 5 |
 | Stored event selectors with constructor bindings | 3 |
 | Direct native-loader images | 11 |
-| **Total** | **6,846** |
+| Native table images with complete stored extents | 5 |
+| **Total** | **6,851** |
 
 The tiled runtime catalog has 2,526 resources before deduplication: 1,822 CI4
 and 704 CI8 payloads. Two already have direct contracts. Only actual runtime
@@ -440,10 +441,38 @@ Together the fourteen additions contribute 14,543 stored bytes and 42,496
 decoded bytes. Thirteen use default zlib and one uses GNU gzip. All previous
 6,832 contracts and source-input hashes remain unchanged.
 
+## Native table images and inherited sampling bounds
+
+The renderer `0x15180580` loads five additional resources from the guarded
+six-word table at `0x80090298`. Table word zero identifies geometry and is
+excluded. Words one and two select resources 1968 (I8) and 4417 (IA8), each
+64 x 64. Words three through five select resources 4414, 4415 and 4416,
+each RGBA16 with complete 32 x 32 storage.
+
+The native counter at `0x800DDD78 + instance` selects `table[3 + counter]`.
+The successor at `0x1518121C..0x15181238` increments states zero and one and
+resets values at least two to zero. Only the declared zero/one/two cycle is
+admitted; this does not claim all runtime counter values or observed activation.
+The table binding, native caller, loader and rectangle helper are checksum
+guarded. All loader results become unmodified image-base addresses.
+
+Storage dimensions are derived from explicit render strides and zero-DXT
+LoadBlock extents, not guessed from compressed or decoded sizes. Resource
+1968 installs half-texel sampler bounds covering 64 x 64; subsequent loads
+inherit those bounds. The final three sources transfer 2,048 bytes with a
+64-byte RGBA16 row stride, establishing 32 x 32 stored images despite the
+larger retained sampling bounds. The helper `0x1517FB9C` only emits rectangle
+draw commands and preserves that state. These contracts describe complete
+stored sources, not the appearance of every possible sampled rectangle.
+
+The five sources add 1,184 stored bytes and 14,336 decoded bytes. Three use
+default zlib and two use GNU gzip. All 6,846 preceding contracts and source
+input hashes are preserved.
+
 ## Exact reconstruction
 
-All 6,846 texture source bundles round-trip to their complete original payloads.
-Default zlib level-9 compression reproduces 6,315 entries. The remaining 531
+All 6,851 texture source bundles round-trip to their complete original payloads.
+Default zlib level-9 compression reproduces 6,318 entries. The remaining 533
 select **GNU gzip 1.12 at level 9**; every selected encoder must reproduce the
 original compressed bytes before any output in the batch is replaced.
 
@@ -457,10 +486,10 @@ changes fail closed. This workflow does not support asset editing.
 `./conker texture-assets build` runs in the pinned toolchain container, which
 provides GNU gzip 1.12. Surveys and extraction retain host dispatch.
 
-Selected storage is **8,276,164 bytes**, with **14,209,840 decoded bytes**.
-The selection requires 8,302 PNGs. The flat archive has 7,172 nonoverlapping rows:
-6,846 rebuilt entries and 326 raw intervals. The selected Data denominator is
-**8,483,236 bytes**, including 201,632 initialized CPU bytes and 5,440 font
+Selected storage is **8,277,348 bytes**, with **14,224,176 decoded bytes**.
+The selection requires 8,307 PNGs. The flat archive has 7,176 nonoverlapping rows:
+6,851 rebuilt entries and 325 raw intervals. The selected Data denominator is
+**8,484,420 bytes**, including 201,632 initialized CPU bytes and 5,440 font
 bytes. Decoded bytes and raw ranges receive no additional credit.
 
 Raw means ROM-backed storage, not necessarily unidentified content. Exhausting
@@ -763,5 +792,28 @@ These timings measure individual commands, not total workflow duration.
 
 Report source fingerprint:
 `de3986da1fd0cf6726683737d1d641e8e8ff106a8b7802d0fbe76b5d6b1b6bcf`.
+
+These timings measure individual commands, not total workflow duration.
+
+## Passing native-table batch validation
+
+- 122 focused provenance, descriptor, codec, catalog and reconstruction tests
+  passed.
+- The independent selection audit admits exactly five new textures. All 8,307
+  PNG inputs verify, and all 6,846 earlier contracts and input hashes remain
+  unchanged.
+- Full US ROM build passed in 418.19 seconds. Independent comparison confirms
+  all 67,108,864 bytes match the original US ROM.
+- Full container suite: 2,270 tests, 8 skipped, no failures; 181.558 seconds in
+  the runner and 186.43 seconds command elapsed time.
+- All 6,851 native texture units are fully matched and complete, totaling
+  8,277,348 stored bytes. There are no compile errors and the snapshot is current.
+- Native report command elapsed time: 498.78 seconds.
+- Aggregate Data: 8,283,892 / 8,484,420 matched bytes (97.636510%) and
+  8,283,124 complete bytes (97.627464%). Code totals are unchanged.
+- Canonical progress validation, progress rendering and whitespace checks passed.
+
+Report source fingerprint:
+`390901bd50da61798acaedf10a29260029e1063f290dddd7341bdfa9d77f3b42`.
 
 These timings measure individual commands, not total workflow duration.

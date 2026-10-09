@@ -234,7 +234,7 @@ palette slots, transparent RGB values, and original pixel indices:
 Manifest schema 3 records each entry's row layout and the source/PNG origins.
 Verification round-trips all 704 entries byte-identically.
 
-The 6,846 reviewed textures additionally support exact reconstruction of their **compressed ROM
+The 6,851 reviewed textures additionally support exact reconstruction of their **compressed ROM
 storage** through `./conker texture-assets build`. Each PNG-derived payload is
 freshly compressed and supplied as an actual ROM linker input. See the
 [batch build and reporting proof](evidence/data-layout/us_texture_reconstruction.md).
