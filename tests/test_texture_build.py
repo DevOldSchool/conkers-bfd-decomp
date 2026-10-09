@@ -49,7 +49,7 @@ class TextureBuildTests(unittest.TestCase):
         cases = [('ci4', 32, 8, 160), ('ci8', 32, 8, 768),
                  ('rgba16', 16, 8, 256), ('rgba32', 16, 8, 512),
                  ('i4', 16, 8, 64), ('i8', 16, 8, 128),
-                 ('ia8', 16, 8, 128), ('ia16', 16, 8, 256)]
+                 ('ia8', 16, 8, 128), ('ia16', 16, 8, 256), ('ia4', 16, 8, 64)]
         for fmt, width, height, size in cases:
             for row in ('linear', 'tmem-odd-row-32bit-swap'):
                 with self.subTest(format=fmt, row=row):

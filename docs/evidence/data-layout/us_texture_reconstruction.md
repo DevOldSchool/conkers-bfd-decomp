@@ -1,9 +1,10 @@
 # US texture reconstruction
 
-The canonical flat YAML selects **4,387 distinct textures**, covering every
-full-payload contract in the currently reviewed square, direct, tiled and
-HUD/menu catalogs. The expanded selection passed the full build, test suite and independent native
-report gates below. All 4,387 texture units are fully matched and complete.
+The canonical flat YAML now selects **5,665 distinct textures**. The new batch
+adds 1,278 complete model-material, animation-frame and ROM-binding textures to
+the fully passing 4,387-texture checkpoint committed as `f2f7e20`. All 5,665 units passed
+the full build, suite and native-report gates; earlier passing checkpoints
+remain recorded below.
 
 ## Selection and resource identity
 
@@ -26,7 +27,10 @@ The selected families, deduplicated in this order, are:
 | Runtime tiled ranges | 2,524 |
 | Reviewed HUD selector resources | 159 |
 | Additional reviewed HUD/menu artwork | 74 |
-| **Total** | **4,387** |
+| Model material consumers | 1,190 |
+| ROM animation frame sets | 24 |
+| ROM defaults and texture bindings | 64 |
+| **Total** | **5,665** |
 
 The tiled runtime catalog has 2,526 resources before deduplication: 1,822 CI4
 and 704 CI8 payloads. Two already have direct contracts. Only actual runtime
@@ -46,10 +50,30 @@ Earlier local bundles, including the pilot and all square sources, are
 preserved without overwriting them. Existing gallery extraction behavior is
 unchanged; the build explicitly supplies runtime-indexed entries to the surveys.
 
+## Model consumer evidence
+
+The additional catalog parses model banks 01, 03, 04 and 09 and reuses their
+validated texture resolvers. It also checks ROM render-state consensus,
+animation frame arrays, character defaults, object/scene bindings and reviewed
+attachment/UI state. Each source manifest records its concrete model/material
+consumer or frame-set binding. Runtime resource IDs remain distinct from
+physical storage ordinals.
+
+A preview qualifies only when decoding its PNG recovers the **entire original
+payload**, including all palette entries. Cropped images, transformed alpha,
+unrepresented mip levels and trailing bytes receive no credit. Missing consumer
+evidence or a changed reference ROM fails closed. Overlapping consumers are
+counted once and all 4,387 previous source bundles retain their hashes.
+
+The independent census found 1,278 new complete payloads, totaling 1,821,586
+stored bytes. Fresh compression reproduced all of them: 1,250 with default
+zlib and 28 with GNU gzip. The production catalog returns exactly the same
+resource set as the independent model, frame and binding audits.
+
 ## Exact reconstruction
 
-All 4,387 source PNGs round-trip to their complete original payloads.
-Default zlib level-9 compression reproduces 3,967 entries. The remaining 420
+All 5,665 source PNGs round-trip to their complete original payloads.
+Default zlib level-9 compression reproduces 5,217 entries. The remaining 448
 select **GNU gzip 1.12 at level 9**; every selected encoder must reproduce the
 original compressed bytes before any output in the batch is replaced.
 
@@ -63,10 +87,10 @@ changes fail closed. This workflow does not support asset editing.
 `./conker texture-assets build` runs in the pinned toolchain container, which
 provides GNU gzip 1.12. Surveys and extraction retain host dispatch.
 
-Selected storage is **5,112,316 bytes**, with **8,378,912 decoded bytes**.
-The entire flat archive is partitioned into 5,066 nonoverlapping rows:
-4,387 rebuilt entries and 679 raw intervals. The selected Data denominator is
-**5,319,388 bytes**, including 201,632 initialized CPU bytes and 5,440 font
+Selected storage is **6,933,902 bytes**, with **11,348,960 decoded bytes**.
+The entire flat archive is partitioned into 6,241 nonoverlapping rows:
+5,665 rebuilt entries and 576 raw intervals. The selected Data denominator is
+**7,140,974 bytes**, including 201,632 initialized CPU bytes and 5,440 font
 bytes. Decoded bytes and raw ranges receive no additional credit.
 
 Raw means ROM-backed storage, not necessarily unidentified content. Exhausting
@@ -108,7 +132,7 @@ Ignored per-entry census and command logs live under
 `build/us/objdiff-report/`. The canonical YAML records every selected physical
 ROM boundary. Generated reports and ROM-derived images are not committed.
 
-Expanded checkpoint validation:
+Passing 4,387-texture checkpoint validation (commit `f2f7e20`):
 
 - Fresh PNG-derived compression: all 4,387 streams exactly match, totaling
   5,112,316 bytes; command elapsed time 58.74 seconds.
@@ -131,3 +155,21 @@ Report source fingerprint:
 `575bafcfe96e4450b918c8a3d4ac0e5066c50c3412232b773bd19a4a9d71c833`.
 
 These are command timings, not total workflow duration.
+
+## Current model batch validation
+
+- 37 focused catalog, reconstruction and Make tests passed.
+- All 4,387 committed source bundles retain their hashes.
+- Full US ROM build passed in 442.46 seconds; independent comparison confirms
+  byte equality with the original 67,108,864-byte US ROM.
+- Full container suite: 2,192 tests, 8 skipped, no failures; 254.961 seconds in
+  the runner and 262.51 seconds command elapsed time.
+- All 5,665 PNG-derived compressed sources match, totaling 6,933,902 bytes.
+- Native report: all 5,665 texture units fully matched and complete, with no
+  compile errors and snapshot status `current`. Command elapsed time: 752.12 seconds.
+- Aggregate Data: 6,940,446 / 7,140,974 matched bytes (97.19187%) and
+  6,939,678 complete bytes (97.181114%). Code totals are unchanged.
+- Canonical progress validation, progress rendering and whitespace checks passed.
+
+Report source fingerprint:
+`058543eab17a71aa79cac5b9988f520e941ba8e32821a54fce4684b18f0166b1`.

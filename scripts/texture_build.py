@@ -165,7 +165,8 @@ def reviewed_textures(root: Path = ROOT) -> tuple[bytes, list[tuple[dict, textur
         raise ValueError('texture selection differs from proven RZIP boundaries/family')
     requested = {int(name.rsplit('/', 1)[1]) for name in names}
     if requested - by_index.keys():
-        for index, (texture, contract) in texture_catalog.load_extended(root, rom).items():
+        for index, (texture, contract) in texture_catalog.load_extended(
+                root, rom, excluded_indices=by_index).items():
             if index in by_index:
                 if by_index[index] != texture:
                     raise ValueError('extended texture conflicts with the square family')

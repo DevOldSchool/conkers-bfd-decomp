@@ -7,7 +7,8 @@ from pathlib import Path
 
 try:
     from scripts import (texture_assets as t, texture_ci8, texture_rgba16,
-                         texture_native, hud_assets as h, hud_additional_artwork as artwork)
+                         texture_native, hud_assets as h, hud_additional_artwork as artwork,
+                         texture_model_catalog)
 except ModuleNotFoundError:
     import texture_assets as t
     import texture_ci8
@@ -15,6 +16,7 @@ except ModuleNotFoundError:
     import texture_native
     import hud_assets as h
     import hud_additional_artwork as artwork
+    import texture_model_catalog
 
 
 def runtime_context(path: Path, rom: bytes):
@@ -36,7 +38,7 @@ def runtime_context(path: Path, rom: bytes):
     return layout, entries, family
 
 
-def load_extended(root: Path, rom: bytes) -> dict[int, tuple[t.TextureAsset, dict]]:
+def load_extended(root: Path, rom: bytes, *, excluded_indices=()) -> dict[int, tuple[t.TextureAsset, dict]]:
     """Only full-payload, reviewed contracts qualify; duplicate consumers count once."""
     path = root / 'roms/baserom.us.z64'
     digest = hashlib.sha1(rom).hexdigest()
@@ -114,4 +116,12 @@ def load_extended(root: Path, rom: bytes) -> dict[int, tuple[t.TextureAsset, dic
                 raise ValueError(f'HUD artwork size differs from reviewed contract: {resource}')
             add(resource, 'hud-additional-artwork', fmt, width, height,
                 t.ROW_LAYOUT_TMEM, 'top-left')
+    occupied = set(result) | set(excluded_indices)
+    excluded_ids = {entry.index for index, entry in enumerate(entries) if index in occupied}
+    for resource, contract in texture_model_catalog.load(root, rom, entries, excluded_ids).items():
+        if resource in excluded_ids:
+            raise ValueError('model catalog returned an already classified texture')
+        add(resource, contract['family'], contract['format'], contract['width'],
+            contract['height'], contract['row_layout'], contract['source_origin'])
+        result[ordinals[resource]][1]['consumer'] = contract['consumer']
     return result

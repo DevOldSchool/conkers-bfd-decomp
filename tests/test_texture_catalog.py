@@ -43,6 +43,7 @@ class TextureCatalogTests(unittest.TestCase):
             mock(catalog.h, 'resource_preview_image', return_value=SimpleNamespace(
                 bytes_used=1024, texture_format='rgba32'))
             mock(catalog.artwork, 'ARTWORK', new=())
+            mock(catalog.texture_model_catalog, 'load', return_value={})
             result = catalog.load_extended(Path('/synthetic'), rom)
             self.assertEqual(ci8.call_args.kwargs['flat_entries'], entries)
             return result
