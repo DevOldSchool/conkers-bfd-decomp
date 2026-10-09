@@ -52,12 +52,20 @@ def flip_vertical(pixels: bytes, width: int, height: int, pixel_size: int) -> by
     )
 
 
+def source_rows(pixels: bytes, width: int, height: int, source_origin: str) -> bytes:
+    if source_origin == 'bottom-left':
+        return flip_vertical(pixels, width, height, 2)
+    if source_origin == 'top-left':
+        return pixels
+    raise ValueError('unsupported RGBA16 source origin')
+
+
 def encode_png(
-    payload: bytes, row_layout: str, width: int, height: int
+    payload: bytes, row_layout: str, width: int, height: int, *,
+    source_origin: str = 'bottom-left',
 ) -> bytes:
-    pixels = flip_vertical(
-        convert_row_layout(payload, row_layout, width, height), width, height, 2
-    )
+    pixels = source_rows(convert_row_layout(payload, row_layout, width, height),
+                         width, height, source_origin)
     words = struct.unpack(f">{width * height}H", pixels)
     rgba = b"".join(
         bytes(
@@ -74,7 +82,8 @@ def encode_png(
 
 
 def decode_png(
-    data: bytes, row_layout: str, width: int, height: int
+    data: bytes, row_layout: str, width: int, height: int, *,
+    source_origin: str = 'bottom-left',
 ) -> bytes:
     if not data.startswith(t.PNG_SIGNATURE):
         raise ValueError("texture file is not a PNG")
@@ -134,7 +143,7 @@ def decode_png(
         )
     payload = struct.pack(f">{len(words)}H", *words)
     return convert_row_layout(
-        flip_vertical(payload, width, height, 2), row_layout, width, height
+        source_rows(payload, width, height, source_origin), row_layout, width, height
     )
 
 

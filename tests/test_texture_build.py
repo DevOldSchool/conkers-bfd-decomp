@@ -118,6 +118,40 @@ class TextureBuildTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'source origin'):
             build.source_png(payload, expected)
 
+    def test_rgba16_top_origin_preserves_rows_and_strict_color_encoding(self):
+        width, height = 16, 8
+        linear = bytes(range(256))
+        codec, row = build.texture_rgba16, texture_assets.ROW_LAYOUT_TMEM
+        payload = codec.convert_row_layout(linear, row, width, height)
+        expected = {'row_layout': row, 'source_contract': {
+            'format': 'rgba16', 'width': width, 'height': height, 'source_origin': 'top-left'}}
+        png = build.source_png(payload, expected)
+        pixels = texture_assets.decode_rgba_png_pixels(png, width, height)
+        bottom = texture_assets.decode_rgba_png_pixels(codec.encode_png(payload, row, width, height), width, height)
+        self.assertEqual(pixels, codec.flip_vertical(bottom, width, height, 4))
+        self.assertEqual(build.source_png(png, expected, decode=True), payload)
+        for channel, value in ((0, 1), (3, 128)):
+            edited = bytearray(pixels)
+            edited[channel] = value
+            with self.subTest(channel=channel), self.assertRaises(ValueError):
+                build.source_png(texture_assets.encode_rgba_png(width, height, edited), expected, decode=True)
+
+    def test_rgba16_top_origin_changed_pixels_fail_original_payload_gate(self):
+        payload = bytes(range(256))
+        packed = rzip_pack.encode_rzip_chunk(payload)
+        texture = texture_assets.TextureAsset(42, 0, len(packed), payload)
+        contract = {'format': 'rgba16', 'width': 16, 'height': 8,
+                    'row_layout': 'linear', 'source_origin': 'top-left'}
+        expected = build.describe_texture(packed, texture, contract=contract)
+        directory = self.root / 'rgba16-top'
+        build.initialize_inputs(directory, expected, payload)
+        png_path = directory / expected['file']
+        altered = bytearray(payload)
+        altered[0] ^= 8
+        png_path.write_bytes(build.source_png(altered, expected))
+        with self.assertRaisesRegex(ValueError, 'original payload'):
+            build.packed_texture(directory, expected)
+
     def add_linear_texture(self):
         payload = bytes((i * 7 + 31) % 256 for i in range(2048)) + bytes(reversed(range(32)))
         packed = rzip_pack.encode_rzip_chunk(payload)

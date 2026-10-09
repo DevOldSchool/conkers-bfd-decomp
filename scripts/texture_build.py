@@ -122,6 +122,9 @@ def source_png(data: bytes, expected: dict, *, decode: bool = False) -> bytes:
     row = expected['row_layout']
     origin = contract.get('source_origin', 'bottom-left')
     if origin == 'top-left':
+        if fmt == 'rgba16':
+            codec = texture_rgba16.decode_png if decode else texture_rgba16.encode_png
+            return codec(data, row, width, height, source_origin=origin)
         if decode:
             pixels = texture_assets.decode_rgba_png_pixels(data, width, height)
             linear = texture_native.rgba_to_payload(pixels, fmt)
