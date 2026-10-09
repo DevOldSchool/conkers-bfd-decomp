@@ -92,8 +92,10 @@ ownership for an entire surrounding range.
 Splat receives the independently validated original main CPU code as analysis
 context and the complete main initialized-data image. The RSP interval remains
 a separate binary segment. Every audited range gets an assembled data target,
-including all eight unassigned ranges. References retain splat's symbols,
-section contents and relocations. The data-only link asserts each extent and
+including all eight unassigned ranges. References use the canonical symbol names
+and payload sizes. Proven unreferenced zero padding after explicitly sized
+payloads stays anonymous; section contents and relocations remain intact. See
+[SDK symbol evidence](us_sdk_data_symbols.md). The data-only link asserts each extent and
 must reproduce all 7,824 original bytes, including zeros and padding.
 
 Main's execution aliases can cause splat to emit jump labels without undefined
@@ -113,8 +115,9 @@ does not establish completed-source ownership.
 
 Native data matching depends on symbols and relocations as well as bytes.
 For example, the AI flag's 16-byte initialized section is byte-identical but its
-candidate lacks an ordinary data symbol. Neither target nor base symbols are
-resized or fabricated to eliminate these differences. Literal equality is not
+candidate lacks an ordinary data symbol. Reference extents follow explicit
+declarations; candidate symbols are never resized or fabricated to eliminate
+these differences. Literal equality is not
 substituted for native credit.
 
 ## Asset boundaries are the larger next coverage source
@@ -225,16 +228,18 @@ partition for these tables is separate follow-up work.
 
 ## Verified data counts
 
-The source-grouped report generated from `f390bce` on 2026-10-09, with the native
-completion gate enabled, has these data measures:
+The source-grouped report regenerated on 2026-10-09 from `35193f6` plus the
+[SDK symbol correction](us_sdk_data_symbols.md), with the native completion gate
+enabled, has these data measures. Its validated source fingerprint is
+`5f4d0dcca454b995af4472563b5430709a5b6b06d6df4a8935e6dd21bb335cf5`.
 
-| Category | Total bytes | Native matched bytes | Completed bytes |
+| Storage | Total bytes | Native matched bytes | Completed bytes |
 | --- | ---: | ---: | ---: |
-| Main initialized data | 7,824 | 384 | 128 |
+| Main initialized data | 7,824 | 592 | 336 |
 | GAME initialized data | 189,088 | 512 | 0 |
 | Debugger initialized data | 4,720 | 0 | 0 |
 | Stored font asset | 5,440 | 5,440 | 5,440 |
-| Total | 207,072 | 6,336 | 5,568 |
+| Total | 207,072 | 6,544 | 5,776 |
 
 All 201,632 loaded initialized-data bytes are represented: 171,988 unassigned
 and 29,644 mapped. Font adds 5,440 stored bytes to the ordinary Data category.
@@ -243,10 +248,15 @@ within each unit. Matching preserved GAME data still does not qualify because it
 is not rebuilt into the compressed stream. SDK data with different native symbol
 metadata also remains incomplete even when its linked bytes match the ROM.
 
-The native completion gate removed 816 completed data bytes across 22 units.
-Their whole-unit completion flags also removed 17,584 fully-linked code bytes:
-`complete_code` fell from 132,672 to 115,088. Native matched code remains 513,144
-bytes and native matched data remains 6,336 bytes. All final units satisfy
+The earlier report downgraded 22 SDK units, removing 17,584 fully-linked code
+bytes. Correct names, payload sizes and anonymous alignment padding restore eight
+units: 2,196 fully-linked code bytes and 208 matched/completed data bytes.
+`complete_code` is now 117,284; native matched code remains 513,144 bytes (22.843681%).
+Native matched data is 6,544 bytes (3.1602535%), of which 5,776 bytes are complete
+(2.789368%). Fourteen units still lose completion: 15,388 code bytes and 608 data
+bytes. Eleven contain anonymous constants; three VI tables have SDK symbol sizes
+that truncate their true payloads. These are native comparison limitations, not
+new differences in their ROM-identical data sections. All final units satisfy
 `complete_data <= matched_data`; aggregate or category totals cannot conceal a
 violation. The validation file records the affected units in `completion_downgrades`.
 

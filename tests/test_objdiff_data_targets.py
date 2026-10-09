@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import os
 import struct
 import shutil
 import subprocess
@@ -37,6 +38,71 @@ def object_file(entries):
 
 
 class DataTargetTests(unittest.TestCase):
+    @unittest.skipUnless(os.environ.get('CONKER_ROM_TESTS') == '1' and shutil.which('splat')
+                         and shutil.which('mips-linux-gnu-as'), 'requires owned ROM and toolchain')
+    def test_canonical_sdk_payload_extents_survive_splat_and_full_image_link(self):
+        audit = targets.data_boundaries.audit(ROOT)
+        declared = targets.declared_data_symbols(ROOT / 'config/symbols/us.txt')
+        self.assertTrue(declared)
+        with tempfile.TemporaryDirectory(dir=ROOT / 'build', prefix='sdk-symbol-test-') as tmp:
+            output = Path(tmp)
+            units, proof = targets.prepare_targets(audit['images']['main'],
+                (ROOT / 'roms/baserom.us.z64').read_bytes(), output=output)
+            self.assertTrue(proof['matches_original'])
+            found = {}
+            for unit in units:
+                obj = targets.Object32((output / unit['target_path']).read_bytes())
+                for name, offset, size, section in obj.non_section_symbols:
+                    if name in declared and section:
+                        self.assertNotIn(name, found)
+                        found[name] = (unit['start'] + offset, size)
+            self.assertEqual(found, declared)
+
+    def test_declared_padding_is_anonymous_but_keeps_every_byte(self):
+        text = (
+            '.section .data, "wa"\n'
+            'glabel counter\n'
+            '/* 0010 80000010 00000000 */ .word 0x00000000\n'
+            '.size counter, . - counter\n'
+            '/* Automatically generated and unreferenced pad */\n'
+            'glabel D_80000014\n'
+            '/* 0014 80000014 00000000 */ .word 0x00000000\n'
+            '/* 0018 80000018 00000000 */ .word 0x00000000\n'
+            '/* 001C 8000001C 00000000 */ .word 0x00000000\n'
+            '.size D_80000014, . - D_80000014\n')
+        declared = {'counter': (0x80000010, 4)}
+        actual = targets.reference_assembly(text, '.data', declared_symbols=declared)
+        self.assertNotIn('D_80000014', actual)
+        self.assertIn('.size counter, . - counter', actual)
+        self.assertEqual(actual.count('.word 0x00000000'), 4)
+        for modified, sizes in (
+                (text, {}),
+                (text, {'counter': (0x80000010, 8)}),
+                (text, {'counter': (0x80000000, 4)}),
+                (text.replace(' and unreferenced', ''), declared),
+                (text.replace('001C 8000001C 00000000', '001C 8000001C 00000001'), declared),
+                (text.replace('001C 8000001C', '0020 80000020'), declared),
+                (text.replace('.word 0x00000000\n.size D_', '.word 0x00000001\n.size D_'), declared),
+                (text.replace('.size D_', '/* 0020 80000020 00000000 */ .word 0x00000000\n.size D_'), declared)):
+            with self.subTest(text=modified, sizes=sizes):
+                actual = targets.reference_assembly(modified, '.data', declared_symbols=sizes)
+                self.assertIn('.globl D_80000014', actual)
+
+    def test_rodata_zero_padding_accepts_float_and_byte_rows(self):
+        for directive, width, encoded in (('float 0', 4, '00000000 '), ('byte 0x00', 1, '')):
+            with self.subTest(directive=directive):
+                payload = ('glabel scalar\n'
+                           '/* 0010 80000010 00000001 */ .word 0x00000001\n'
+                           '.size scalar, . - scalar\n')
+                padding = ''.join(f'/* {offset:04X} {0x80000000 + offset:08X} {encoded}*/ .{directive}\n'
+                                  for offset in range(0x14, 0x20, width))
+                text = ('.section .rodata, "a"\n' + payload
+                        + '/* Automatically generated and unreferenced pad */\n'
+                        + 'glabel pad\n' + padding + '.size pad, . - pad\n')
+                actual = targets.reference_assembly(text, '.rodata', declared_symbols={'scalar': (0x80000010, 4)})
+                self.assertNotIn('.globl pad', actual)
+                self.assertIn(padding, actual)
+
     def test_pointer_definitions_use_verified_original_rows(self):
         rom = bytes.fromhex('10002ff4')
         text = '/* 0000 80000000 10002FF4 */ .word .L10002FF4_main-data'

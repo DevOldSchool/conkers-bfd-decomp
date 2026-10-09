@@ -185,6 +185,12 @@ native report. It never patches the report counts. `completion_downgrades` in
 validation records affected units and their code/data bytes. Private/INFO/NOLOAD data still supplied by preserved ROM streams remains
 incomplete, even when its C owner has integrated code. This can reduce a file's
 fully-linked code measure while retaining its native matching credit.
+Known SDK data names and payload sizes come from `config/symbols/us.txt`.
+Declaration-backed zero alignment padding stays anonymous in the reference,
+while every byte remains in the section and ROM checks. This avoids treating
+splat's generated padding labels as missing SDK variables. See the
+[SDK symbol evidence](evidence/data-layout/us_sdk_data_symbols.md) for remaining
+anonymous pools and incorrect SDK symbol extents.
 Native comparisons determine perfect-match credit. Every final unit must satisfy
 `complete_data <= matched_data`; category or aggregate totals cannot hide a
 violation. Units whose data is still ROM-backed need actual build integration

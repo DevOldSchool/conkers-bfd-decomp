@@ -1,0 +1,24 @@
+// Main SDK data: canonical placements in config/profiles/us.yaml.
+// Payload extents follow SDK declarations; section alignment remains separate.
+// See docs/evidence/data-layout/us_sdk_data_symbols.md.
+__osRdbSendMessage = 0x8002B9D0; // size:0x4
+__osRdbWriteOK = 0x8002B9D4; // size:0x4
+n_alGlobals = 0x8002BA40; // size:0x4
+n_syn = 0x8002BA44; // size:0x4
+osClockRate = 0x8002BD10; // size:0x8
+__osShutdown = 0x8002BD18; // size:0x4
+__OSGlobalIntMask = 0x8002BD1C; // size:0x4
+osDiskExist = 0x8002BD20; // size:0x4
+__osPiAccessQueueEnabled = 0x8002BD60; // size:0x4
+__osContinitialized = 0x8002BE10; // size:0x4
+__osSiAccessQueueEnabled = 0x8002BE20; // size:0x4
+osViModePalLan1 = 0x8002BE30; // size:0x50
+osViModeMpalLan1 = 0x8002BE80; // size:0x50
+osViModeNtscLan1 = 0x8002BED0; // size:0x50
+D_8002BF20 = 0x8002BF20; // size:0x48
+D_8002BF68 = 0x8002BF68; // size:0x4
+D_8002BF6C = 0x8002BF6C; // size:0x4
+D_8002BF70 = 0x8002BF70; // size:0x2
+__conkerIntOffTable = 0x8002C1B0; // size:0x20
+__conkerIntTable = 0x8002C1D0; // size:0x24
+__libm_qnan_f = 0x8002C920; // size:0x4
