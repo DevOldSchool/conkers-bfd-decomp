@@ -71,7 +71,7 @@ This builds the mapped SDK archives and active C implementations, prepares
 independent splat targets for every range in `config/overlays.json`, and
 invokes the pinned native `objdiff-cli report generate`. It covers tracked
 main/game/debugger US CPU code and initialized data, including raw/unassigned ranges,
-plus the rebuilt font asset. The command uses four
+plus the rebuilt font and 663 reviewed textures. The command uses four
 object-preparation workers and validates cached base object hashes before
 reuse. The first run requires the pinned `lib/ultralib` submodule (`git
 submodule update --init lib/ultralib`).
@@ -153,7 +153,7 @@ validated target objects did not change. Compilation failures remain explicit
 in coverage, retain the reference in the denominator, and produce a failing
 command exit status. See each unit's `build.log` for diagnostics.
 
-Report freshness requires the editable font inputs used to produce its candidate.
+Report freshness requires the font and texture source inputs used to produce their candidates.
 Cleaning `build/` invalidates that evidence (and usually removes the report itself);
 recreate the inputs and regenerate the report after cleaning. During preparation,
 completed source units run Make before the cache check so the cache hashes the
@@ -164,9 +164,9 @@ and other builds finish, because they can update the same linked objects.
 ### Scope
 
 The published report covers the project's **tracked US CPU-code ranges and
-initialized main/GAME/debugger data images**, plus the **rebuilt font**. Its data
-denominator is 207,072 bytes: 201,632 loaded bytes (7,824 main, 189,088 GAME and
-4,720 debugger), and 5,440 bytes of font storage. Existing
+initialized main/GAME/debugger data images**, plus the **rebuilt font and 663 reviewed textures**. Its data
+denominator is 1,296,953 bytes: 201,632 loaded bytes (7,824 main, 189,088 GAME and
+4,720 debugger), 5,440 bytes of font storage and 1,089,881 stored texture bytes. Existing
 YAML placements and reviewed linker/private-data contracts establish mapped
 ranges; all remaining bytes stay as unassigned targets. Shared storage is
 counted once. BSS, other stored assets (including MP3 and raw audio), boot code
@@ -225,8 +225,16 @@ Canonical YAML boundaries must agree. Changed glyphs remain in the denominator
 but cannot retain completion when their rebuilt bytes differ. This does
 not change function match records or certify original source-object boundaries.
 
+[The 663 selected textures](evidence/data-layout/us_texture_reconstruction.md) are independently
+rebuilt from indexed PNG pixels and palette through fresh RZIP compression.
+Each candidate is the actual ROM link object, checked against a fresh encode;
+each target comes from the checksum-validated ROM. Changed texture pixels,
+palette, metadata or compressed output fail this exact-reconstruction pilot.
+The 1,089,881 stored bytes enter Data once; decoded bytes and adjacent raw storage
+do not add credit. Native matching and source/link-input verification gate completion.
+
 Generation validates code and data counts per unit, aggregate data coverage,
-unassigned ranges, target/base hashes, and font source/build-input hashes.
+unassigned ranges, target/base hashes, and asset source/build-input hashes.
 Saved snapshots become stale when editable glyphs change. The JSON remains native objdiff
 output. The existing CI upload of `build/us/objdiff-report/report.json` as
 `us_report` supplies both bars; no separate report upload or site configuration

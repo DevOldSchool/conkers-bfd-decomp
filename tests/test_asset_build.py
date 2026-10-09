@@ -42,7 +42,8 @@ class AssetMakeTests(unittest.TestCase):
         for name in ('config/profiles/us.yaml', 'config/rzip_layouts.json',
                      'toolchain/python-requirements.txt', 'roms/baserom.us.z64',
                      'scripts/build_files.py', 'scripts/font_assets.py', 'scripts/mp3_assets.py',
-                     'scripts/rzip_archive.py', 'scripts/rzip_extract.py'):
+                     'scripts/rzip_archive.py', 'scripts/rzip_extract.py',
+                     'scripts/texture_assets.py', 'scripts/rzip_pack.py'):
             path = self.root / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.touch()
@@ -60,20 +61,21 @@ name = Path(__file__).stem
 if (root / ('fail-' + name)).exists():
     raise SystemExit('intentional ' + name + ' failure')
 font = name == 'font_splits'
-prefix = 'font/glyphs' if font else 'audio/mp3/streams'
+texture = name == 'texture_build'
+prefix = 'flat/textures' if texture else 'font/glyphs' if font else 'audio/mp3/streams'
 def layout_bins(profile, *, configuration=None):
     assert configuration is not None
     rows = [(i, prefix + '/%04d' % i) for i in range(2)]
-    return (rows, 2) if font else rows
+    return (rows, 2) if font or texture else rows
 def bank_layout(profile, *, configuration=None):
     assert configuration is not None
     return 0, 1, [(0, 'audio/bank17/index')]
 if __name__ == '__main__':
     assert sys.argv[1] == 'build-parts'
-    inputs = root / ('build/fonts/us' if font else 'build/assets/mp3-bank/us')
-    parts = root / ('build/us/fonts/parts' if font else 'build/us/audio/parts')
+    inputs = root / ('build/assets/texture-build/us' if texture else 'build/fonts/us' if font else 'build/assets/mp3-bank/us')
+    parts = root / ('build/us/textures/parts' if texture else 'build/us/fonts/parts' if font else 'build/us/audio/parts')
     for i in range(2):
-        source = inputs / ('%04d.pgm' % i if font else 'streams/%04d.mp3' % i)
+        source = inputs / ('%04d.png' % i if texture else '%04d.pgm' % i if font else 'streams/%04d.mp3' % i)
         payload = source.read_bytes()
         path = parts / prefix / ('%04d.bin' % i)
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -84,7 +86,7 @@ if __name__ == '__main__':
 '''
         (self.root / 'scripts/list_integrated_sources.py').write_text(
             'def profile_sources(profile, segment):\n    return []\n')
-        for name in ('font_splits', 'mp3_bank', 'audio_boundaries'):
+        for name in ('font_splits', 'mp3_bank', 'audio_boundaries', 'texture_build'):
             (self.root / f'scripts/{name}.py').write_text(script)
         self.ld = self.root / 'scripts/fake_ld.py'
         self.ld.write_text('''from pathlib import Path
@@ -93,16 +95,17 @@ output = Path(sys.argv[sys.argv.index('-o') + 1])
 output.write_bytes(Path(sys.argv[-1]).read_bytes())
 ''')
         for directory, suffix in (('build/fonts/us', '.pgm'),
+                                  ('build/assets/texture-build/us', '.png'),
                                   ('build/assets/mp3-bank/us/streams', '.mp3')):
             parent = self.root / directory
             parent.mkdir(parents=True)
             for i in range(2):
                 (parent / f'{i:04d}{suffix}').write_bytes(bytes([i]))
-        for directory in ('build/fonts/us', 'build/assets/mp3-bank/us'):
+        for directory in ('build/fonts/us', 'build/assets/mp3-bank/us', 'build/assets/texture-build/us'):
             (self.root / directory / 'manifest.json').write_text('{}')
 
     def run_make(self, kind):
-        prefix = 'font/glyphs' if kind == 'font' else 'audio/mp3/streams'
+        prefix = 'flat/textures' if kind == 'texture' else 'font/glyphs' if kind == 'font' else 'audio/mp3/streams'
         objects = [self.root / f'build/us/assets/{prefix}/{i:04d}.o' for i in range(2)]
         result = subprocess.run([MAKE, '-j4', f'LD={sys.executable} {self.ld}',
                                  *[str(p.relative_to(self.root)) for p in objects]],
@@ -112,6 +115,7 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
     def test_no_change_and_single_edit_only_rebuild_affected_objects(self):
         for kind, source, packer in (
                 ('font', 'build/fonts/us/0000.pgm', 'font_splits'),
+                ('texture', 'build/assets/texture-build/us/0000.png', 'texture_build'),
                 ('mp3', 'build/assets/mp3-bank/us/streams/0000.mp3', 'mp3_bank')):
             with self.subTest(kind=kind):
                 result, objects = self.run_make(kind)

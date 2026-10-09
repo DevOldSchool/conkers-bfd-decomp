@@ -158,11 +158,12 @@ def profile_sources(configuration: dict, segment_name: str) -> list[str]:
 def make_assets(path: Path, *, relative_to: Path | None = None) -> list[str]:
     """Plan inputs in one parse; dependencies are absolute unless a base is given."""
     try:
-        from scripts import audio_boundaries, font_splits, mp3_bank
+        from scripts import audio_boundaries, font_splits, mp3_bank, texture_build
     except ModuleNotFoundError:
         import audio_boundaries
         import font_splits
         import mp3_bank
+        import texture_build
 
     profile, dependencies = _read(path)
     tokens = ["dep=" + (str(p) if relative_to is None else os.path.relpath(p, relative_to))
@@ -170,7 +171,8 @@ def make_assets(path: Path, *, relative_to: Path | None = None) -> list[str]:
     fonts, _ = font_splits.layout_bins(path, configuration=profile)
     _, _, audio = audio_boundaries.bank_layout(path, configuration=profile)
     mp3 = mp3_bank.layout_bins(path, configuration=profile)
-    for label, rows in (("font", fonts), ("audio", audio), ("mp3", mp3)):
+    flat, _ = texture_build.layout_bins(path, configuration=profile)
+    for label, rows in (("font", fonts), ("audio", audio), ("mp3", mp3), ("flat", flat)):
         tokens.extend(f"{label}=assets/{name}.bin" for _, name in rows)
     for segment in ("main", "debugger"):
         tokens.extend("source=" + name for name in

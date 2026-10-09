@@ -14,6 +14,7 @@ import diff
 from elf_sections import sections
 import font_assets
 import font_splits
+import texture_build
 import normalize_asm
 import objdiff
 import objdiff_targets
@@ -380,6 +381,62 @@ def font_input_hashes(directory: Path) -> dict[str, str]:
     paths = [directory / 'manifest.json'] + [font_assets.safe_manifest_file(directory, item['file'])
                                             for item in manifest['glyphs']]
     return {path.relative_to(ROOT).as_posix(): objdiff_targets.sha256(path) for path in paths}
+
+
+def prepare_texture(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    """Compare an actual PNG-built ROM link object with independent stored bytes."""
+    index = expected['flat_index']
+    key = f'texture-{index:04d}'
+    name = texture_build.part_name(index)
+    directory = output / key
+    directory.mkdir(parents=True, exist_ok=True)
+    linked = ROOT / ('build/us/assets/' + name + '.o')
+    inputs = ROOT / texture_build.input_directory(index)
+    packed, hashes = texture_build.packed_texture(inputs, expected)
+    start, end = expected['rom_start'], expected['rom_end']
+    original = rom[start:end]
+    base, target = directory / 'base.o', directory / 'target.o'
+    linked_bytes = linked.read_bytes()
+    base.write_bytes(linked_bytes)
+    relative = name + '.bin'
+    reference = directory / relative
+    reference.parent.mkdir(parents=True, exist_ok=True)
+    reference.write_bytes(original)
+    subprocess.run(['mips-linux-gnu-ld', '-r', '-b', 'binary', '-m', 'elf32btsmip',
+                    '-o', 'target.o', relative], cwd=directory, check=True)
+    for path in (base, target):
+        target_extent(path, '.data', end - start)
+    candidate = sections(base.read_bytes(), 1)['.data'][1]
+    if (candidate != packed or hashes != texture_build.input_hashes(inputs, expected)
+            or linked.read_bytes() != linked_bytes):
+        raise ValueError('texture candidate differs from current editable inputs')
+    proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
+                                              original, f'texture {index} RZIP storage')
+    unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data',
+            'size': end - start, 'rom_start': start, 'rom_end': end,
+            'source_inputs': {(texture_build.input_directory(index) / p).as_posix(): h for p, h in hashes.items()},
+            'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
+            'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
+            'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
+            'literal_payload_matches_rom': candidate == original, 'target_verification': proof,
+            'report_code_bytes': 0, 'report_data_bytes': end - start, 'complete': candidate == original}
+    item = {'name': 'assets/' + name, 'target_path': unit['target_path'],
+            'base_path': unit['base_path'],
+            'metadata': {'complete': unit['complete'], 'progress_categories': ['data']}}
+    return unit, item
+
+
+def prepare_textures(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    """Validate selection once and rebuild all selected linker inputs in one Make call."""
+    checked_rom, selected = texture_build.reviewed_textures(ROOT)
+    if checked_rom != rom:
+        raise ValueError('texture reference ROM differs from the validated report ROM')
+    paths = ['build/us/assets/' + texture_build.part_name(e['flat_index']) + '.o' for e, _ in selected]
+    with (output / 'texture-build.log').open('w') as log:
+        subprocess.run(['make', '--silent', '--jobs', '4', *paths, 'PROFILE=us'],
+                       cwd=ROOT, stdout=log, stderr=log, check=True)
+    pairs = [prepare_texture(rom, expected, output=output) for expected, _ in selected]
+    return [unit for unit, _ in pairs], [item for _, item in pairs]
 
 
 def prepare_font(rom: bytes, *, output: Path | None = None) -> tuple[dict, dict]:

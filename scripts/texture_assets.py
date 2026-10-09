@@ -2012,6 +2012,7 @@ def verify_tiled_views(
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
+    subparsers.add_parser("build", help="rebuild reviewed textures as ROM link inputs")
     extract_parser = subparsers.add_parser("extract")
     extract_parser.add_argument("--profile", choices=("us",), default="us")
     extract_parser.add_argument(
@@ -2086,7 +2087,15 @@ def main() -> int:
         except ModuleNotFoundError:
             import texture_native
     try:
-        if args.command == "extract":
+        if args.command == "build":
+            try:
+                from scripts import texture_build
+            except ModuleNotFoundError:
+                import texture_build
+            proof = texture_build.build_parts()
+            print(f"Built {proof['texture_count']} textures: {proof['stored_bytes']} RZIP bytes; "
+                  f"matches original: {proof['matches_original']}")
+        elif args.command == "extract":
             default_name = args.profile
             if args.family != SQUARE_FAMILY_NAME:
                 default_name = f"{args.profile}-{args.family}"

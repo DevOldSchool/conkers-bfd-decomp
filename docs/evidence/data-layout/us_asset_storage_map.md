@@ -15,7 +15,7 @@ allocations. No data-completion or objdiff matching credit follows from a split.
 `config/profiles/us.yaml` retains profile options, top-level ROM order, group
 extents and alignment, and all main/debugger executable mappings. Detailed
 binary subsegment lists live beside it under `config/profiles/us/assets/`:
-`font.yaml`, `mp3.yaml` and `bank17.yaml`. For example:
+`font.yaml`, `mp3.yaml`, `bank17.yaml` and `flat.yaml`. For example:
 
 ```yaml
     subsegments:
@@ -38,7 +38,7 @@ structure. Make tracks the root and every included fragment when packing
 assets; missing or invalid fragments stop ROM/asset builds. Make plans the
 US dependencies, asset bins and executable sources in one parse. US goals load
 asset lists by default, including aggregate targets and paths prefixed with
-`./`. Packing runs only when the dependency graph reaches the font or MP3 asset
+`./`. Packing runs only when the dependency graph reaches the font, MP3 or texture asset
 objects; code-only compilation does not require the ROM or run the packers.
 Housekeeping, independent library, game, reference and diff goals bypass US
 asset planning. Game comparison fingerprints likewise exclude the full-ROM
@@ -175,7 +175,9 @@ Native font coverage is 5,440/5,440 matched and completed stored bytes, includin
 the 13-byte alignment tail. Completion requires the current editable glyphs and
 metadata to encode exactly to the actual ROM linker input and original storage.
 The published report combines 201,632 loaded initialized-data bytes with these
-5,440 font bytes: 207,072 total. Current matching and completion measures are
+5,440 font bytes and 1,089,881 bytes of 663 rebuilt textures: 1,296,953 total.
+The [texture batch](us_texture_reconstruction.md) documents independent PNG and
+compression proof. Current matching and completion measures are
 recorded in the validated native report; source grouping can change symbol matches.
 
 Font integration validation on 2026-10-08: `./conker build --all` passed with the

@@ -681,6 +681,12 @@ Keep model settings unchanged unless an experiment is explicitly requested.
 active profile and remains the clean baseline command for CI and future
 multi-profile activation.
 
+The normal build wrapper uses four Make jobs for both SDK prerequisites and
+the ROM build, matching the bounded parallelism used by batch verification.
+Reuse the same isolated worktree for a related batch so unchanged SDK objects,
+asset parts and report candidates stay available. Do not share mutable build
+directories between implementation checkouts.
+
 US ROM builds also run `data-splits-check`. The ownership manifest
 `config/data/us.json` lists both `src/<overlay>/...` and
 `src/done/<overlay>/...` alternatives for each source owner; exactly one must
@@ -726,6 +732,28 @@ pull request.
 Do not rerun an unchanged failed clean batch. The command records the build
 input fingerprint and rejects an identical retry; change the source or layout
 first.
+
+### Asset reconstruction batches
+
+After proving a new format with one pilot, work on a cohesive group of assets
+using that format; start with 10–25 entries where the existing encoder supports
+them. Per asset, verify reconstruction against the independent ROM bytes,
+including compression when stored bytes are the report unit. Keep focused
+tests around the changed packer, boundaries and reporting contract. Host tests
+are useful for iteration; Docker remains the full-suite acceptance runner.
+
+Run the full US ROM build, Docker suite and native objdiff report once after the
+group is ready. Generate the report after the build and tests finish so its
+source/link-input checks see stable files. Flush a smaller pending group around
+45 minutes, before stopping/handoff/commit/PR, or when a change needs an earlier
+integration check. Until the final gates pass, label assets as individually
+verified with batch integration pending; do not claim published matching credit.
+
+Avoid a full project report or the complete test suite after every
+asset. Rerun affected checks when inputs change or failures require it. For a
+small tooling-only follow-up, use the tests appropriate to that change and keep
+the earlier asset report explicitly historical if its fingerprint is now stale.
+Do not rerun it merely to refresh a progress display during an ongoing batch.
 
 ## Regional and progress rules
 

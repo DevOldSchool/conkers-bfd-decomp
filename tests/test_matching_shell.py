@@ -11,6 +11,35 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 class MatchingShellTests(unittest.TestCase):
+    def test_build_dispatch_parallelizes_sdk_and_rom_and_stops_on_sdk_failure(self):
+        script = (ROOT / 'scripts/conker.sh').read_text()
+        dispatch = '    prepare|build)' + script.split('    prepare|build)', 1)[1].split('        ;;', 1)[0] + '        ;;\n'
+        harness = '''set -euo pipefail
+state_tool=state-tool
+command=$1
+shift
+python3() { return 0; }
+parse_profile_only() { selected_profile="${3:-us}"; }
+run_in_container_libultra() { printf 'SDK:%s\\n' "$*"; return "$sdk_status"; }
+run_in_container() { printf 'ROM:%s\\n' "$*"; }
+'''
+        for command, arguments, profile, sdk in (
+                ('build', ['--all'], 'us', True),
+                ('build', [], 'us', True),
+                ('build', ['--profile', 'us'], 'us', True),
+                ('build', ['--profile', 'eu'], 'eu', False),
+                ('prepare', ['--all'], 'us', False)):
+            for status in (0, 7) if sdk else (0,):
+                with self.subTest(command=command, arguments=arguments, status=status):
+                    result = subprocess.run(['bash', '-c', harness + f'sdk_status={status}\n'
+                                             + 'case "$command" in\n' + dispatch + 'esac\n',
+                                             'test', command, *arguments], capture_output=True, text=True)
+                    expected = ['SDK:make --jobs 4 profile-libs PROFILE=us'] if sdk else []
+                    if not status:
+                        expected.append(f'ROM:make --jobs 4 {command} PROFILE={profile}')
+                    self.assertEqual(result.returncode, status, result.stderr)
+                    self.assertEqual(result.stdout.splitlines(), expected)
+
     def test_finish_wrapper_and_existing_gate_actions(self):
         script = (ROOT / "scripts/conker.sh").read_text()
         dispatch = "    finish)" + script.split("    finish)", 1)[1].split("        ;;", 1)[0] + "        ;;\n"

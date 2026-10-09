@@ -73,8 +73,8 @@ original section or object ownership and are not promoted to mappings.
 
 ## Published report integration
 
-`./conker objdiff report` includes all three initialized-data images and the
-rebuilt font in the artifact used by decomp.dev. See the
+`./conker objdiff report` includes all three initialized-data images, the
+rebuilt font and [663 reviewed textures](us_texture_reconstruction.md) in the artifact used by decomp.dev. See the
 [report scope and validation rules](../../objdiff.md#scope). Ownership is recorded in `config/data/us.json` by overlay, hexadecimal address
 and input section. It contains no duplicate boundaries: those come from the
 canonical YAML, private-data configuration and linker placements. The audit

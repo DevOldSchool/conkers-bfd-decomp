@@ -359,6 +359,63 @@ class DataTargetTests(unittest.TestCase):
                 self.assertFalse(config['metadata']['complete'])
 
 
+    def test_texture_batch_builds_all_objects_in_one_make_call(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            selected = [({'flat_index': index}, None) for index in (1063, 1296)]
+            with patch.object(targets, 'ROOT', root), \
+                    patch.object(targets.texture_build, 'reviewed_textures', return_value=(b'ROM', selected)), \
+                    patch.object(targets, 'prepare_texture', side_effect=[({'key': 'a'}, {'name': 'a'}),
+                                                                        ({'key': 'b'}, {'name': 'b'})]) as prepare, \
+                    patch.object(targets.subprocess, 'run') as run:
+                units, configs = targets.prepare_textures(b'ROM', output=root)
+                self.assertEqual(len(units), 2)
+                self.assertEqual(len(configs), 2)
+                self.assertEqual(prepare.call_count, 2)
+                run.assert_called_once()
+                self.assertEqual(run.call_args.args[0], ['make', '--silent', '--jobs', '4',
+                    'build/us/assets/flat/textures/1063.o', 'build/us/assets/flat/textures/1296.o', 'PROFILE=us'])
+                run.reset_mock()
+                with self.assertRaisesRegex(ValueError, 'reference ROM differs'):
+                    targets.prepare_textures(b'wrong ROM', output=root)
+                run.assert_not_called()
+
+    def test_texture_uses_actual_link_input_and_rejects_stale_object(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            original = bytes(range(16))
+            rom = bytes(16) + original
+            expected = {'flat_index': 1063, 'rom_start': 16, 'rom_end': 32}
+            linked = root / ('build/us/assets/' + targets.texture_build.part_name(1063) + '.o')
+            linked.parent.mkdir(parents=True)
+            linked.write_bytes(object_file([('.data', 1, 3, original)]))
+            change_during_wrap = False
+            def run(command, **kwargs):
+                if command[0] == 'mips-linux-gnu-ld':
+                    directory = kwargs['cwd']
+                    payload = (directory / command[-1]).read_bytes()
+                    (directory / command[-2]).write_bytes(object_file([('.data', 1, 3, payload)]))
+                    if change_during_wrap:
+                        linked.write_bytes(object_file([('.data', 1, 3, bytes([1]) * 16)]))
+            with patch.object(targets, 'ROOT', root), \
+                    patch.object(targets.subprocess, 'run', side_effect=run), \
+                    patch.object(targets.texture_build, 'packed_texture', return_value=(original, {'1063.ci4.png': 'hash'})), \
+                    patch.object(targets.texture_build, 'input_hashes', return_value={'1063.ci4.png': 'hash'}):
+                unit, config = targets.prepare_texture(rom, expected, output=root)
+                self.assertEqual(unit['report_data_bytes'], 16)
+                self.assertEqual(unit['report_code_bytes'], 0)
+                self.assertTrue(config['metadata']['complete'])
+                self.assertEqual(config['metadata']['progress_categories'], ['data'])
+                self.assertEqual((root / unit['base_path']).read_bytes(), linked.read_bytes())
+                self.assertEqual(targets.sections((root / unit['target_path']).read_bytes(), 1)['.data'][1], original)
+                self.assertIn(linked.relative_to(root).as_posix(), unit['linked_inputs'])
+                change_during_wrap = True
+                with self.assertRaisesRegex(ValueError, 'current editable inputs'):
+                    targets.prepare_texture(rom, expected, output=root)
+                change_during_wrap = False
+                with self.assertRaisesRegex(ValueError, 'current editable inputs'):
+                    targets.prepare_texture(rom, expected, output=root)
+
     def test_target_extent_checks_every_allocated_section(self):
         with tempfile.TemporaryDirectory() as temporary:
             path = Path(temporary) / 'target.o'

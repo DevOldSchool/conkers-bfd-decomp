@@ -162,7 +162,7 @@ After the raw base split map is available
                                  Extract or verify US MP3 streams, tables, and embedded cues.
   audio-assets <survey|extract|preview|sample-preview|soundtrack-preview|verify> [options]
                                  Survey, extract, preview, or byte-verify US non-MP3 audio assets.
-  texture-assets <extract|pack|verify|survey> [options]
+  texture-assets <extract|pack|build|verify|survey> [options]
                                  Survey, extract, rebuild, or verify proven US textures.
   model-assets <appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]
                                  Export model banks or run cached ROM, glTF, Blender and image checks.
@@ -1004,19 +1004,20 @@ case "$command" in
         fi
         ;;
     prepare|build)
+        # Match verify-batch's bounded parallelism, including recursive SDK makes.
         if [[ $# -eq 1 && "$1" == "--all" ]]; then
             python3 "$state_tool" setup-check --all
             if [[ "$command" == "build" ]]; then
-                run_in_container_libultra make profile-libs PROFILE=us
+                run_in_container_libultra make --jobs 4 profile-libs PROFILE=us
             fi
-            run_in_container make "$command" PROFILE=us
+            run_in_container make --jobs 4 "$command" PROFILE=us
         else
             parse_profile_only "usage: ./conker $command [--profile us|--all]" "$@"
             python3 "$state_tool" setup-check --profile "$selected_profile"
             if [[ "$command" == "build" && "$selected_profile" == "us" ]]; then
-                run_in_container_libultra make profile-libs PROFILE=us
+                run_in_container_libultra make --jobs 4 profile-libs PROFILE=us
             fi
-            run_in_container make "$command" PROFILE="$selected_profile"
+            run_in_container make --jobs 4 "$command" PROFILE="$selected_profile"
         fi
         ;;
     m2c-context)
@@ -1222,7 +1223,7 @@ case "$command" in
         python3 scripts/audio_assets.py "$@"
         ;;
     texture-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker texture-assets <extract|pack|verify|survey> [options]"
+        [[ $# -ge 1 ]] || die "usage: ./conker texture-assets <extract|pack|build|verify|survey> [options]"
         python3 scripts/texture_assets.py "$@"
         ;;
     model-assets)
