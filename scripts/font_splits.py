@@ -2,21 +2,25 @@
 from pathlib import Path
 import json
 import sys
-import yaml
 
 try:
+    from scripts.profile_config import load_profile
     from scripts.build_files import write_if_changed
     from scripts import font_assets
 except ModuleNotFoundError:
+    from profile_config import load_profile
     from build_files import write_if_changed
     import font_assets
 
 ROOT = Path(__file__).resolve().parent.parent
 
 
-def layout_bins(profile: Path) -> tuple[list[tuple[int, str]], int]:
-    segments = yaml.safe_load(profile.read_text())['segments']
-    index = next(i for i, s in enumerate(segments) if isinstance(s, dict) and s.get('name') == 'font_rle')
+def layout_bins(profile: Path, *, configuration: dict | None = None) -> tuple[list[tuple[int, str]], int]:
+    segments = (load_profile(profile) if configuration is None else configuration)['segments']
+    index = next((i for i, s in enumerate(segments)
+                  if isinstance(s, dict) and s.get('name') == 'font_rle'), None)
+    if index is None:
+        raise ValueError(f'{profile}: missing required asset group: font_rle')
     group, following = segments[index:index + 2]
     end = following['start'] if isinstance(following, dict) else following[0]
     if group['type'] != 'group' or group.get('align') != 1 or group.get('subalign') != 1:

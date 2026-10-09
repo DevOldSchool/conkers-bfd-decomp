@@ -46,20 +46,30 @@ class AssetMakeTests(unittest.TestCase):
             path = self.root / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.touch()
+        shutil.copy(ROOT / 'scripts/profile_config.py', self.root / 'scripts/profile_config.py')
+        (self.root / 'config/profiles/us.yaml').write_text(
+            'segments:\n  - name: font\n    type: group\n'
+            '    subsegments:\n      include: us/assets/font.yaml\n')
+        self.fragment = self.root / 'config/profiles/us/assets/font.yaml'
+        self.fragment.parent.mkdir(parents=True)
+        self.fragment.write_text('- [0x100, bin, font/glyphs/0000]\n')
         script = '''from pathlib import Path
 import sys
 root = Path.cwd()
 name = Path(__file__).stem
 if (root / ('fail-' + name)).exists():
-    raise SystemExit('intentional list failure')
+    raise SystemExit('intentional ' + name + ' failure')
 font = name == 'font_splits'
 prefix = 'font/glyphs' if font else 'audio/mp3/streams'
-if name == 'audio_boundaries':
-    print('assets/audio/bank17/index.bin')
-    raise SystemExit(0)
-if sys.argv[1] == 'list-bins':
-    print(' '.join('assets/' + prefix + '/%04d.bin' % i for i in range(2)))
-else:
+def layout_bins(profile, *, configuration=None):
+    assert configuration is not None
+    rows = [(i, prefix + '/%04d' % i) for i in range(2)]
+    return (rows, 2) if font else rows
+def bank_layout(profile, *, configuration=None):
+    assert configuration is not None
+    return 0, 1, [(0, 'audio/bank17/index')]
+if __name__ == '__main__':
+    assert sys.argv[1] == 'build-parts'
     inputs = root / ('build/fonts/us' if font else 'build/assets/mp3-bank/us')
     parts = root / ('build/us/fonts/parts' if font else 'build/us/audio/parts')
     for i in range(2):
@@ -72,6 +82,8 @@ else:
     with (root / (name + '.calls')).open('a') as stream:
         stream.write('packed\\n')
 '''
+        (self.root / 'scripts/list_integrated_sources.py').write_text(
+            'def profile_sources(profile, segment):\n    return []\n')
         for name in ('font_splits', 'mp3_bank', 'audio_boundaries'):
             (self.root / f'scripts/{name}.py').write_text(script)
         self.ld = self.root / 'scripts/fake_ld.py'
@@ -117,6 +129,28 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
                 self.assertGreater(objects[0].stat().st_mtime_ns, before[0])
                 self.assertEqual(objects[1].stat().st_mtime_ns, before[1])
 
+    def test_asset_link_commands_are_logged_on_success_and_failure(self):
+        for kind in ('font', 'mp3'):
+            with self.subTest(kind=kind):
+                result, objects = self.run_make(kind)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                for path in objects:
+                    self.assertIn(str(path), result.stderr)
+                self.assertIn('fake_ld.py -r -b binary', result.stderr)
+                unchanged, _ = self.run_make(kind)
+                self.assertEqual(unchanged.returncode, 0, unchanged.stderr)
+                self.assertNotIn('fake_ld.py -r -b binary', unchanged.stderr)
+        self.ld.write_text('raise SystemExit(7)\n')
+        for kind in ('font', 'mp3'):
+            with self.subTest(failed_kind=kind):
+                prefix = 'font/glyphs' if kind == 'font' else 'audio/mp3/streams'
+                path = self.root / f'build/us/assets/{prefix}/0000.o'
+                path.unlink()
+                result, _ = self.run_make(kind)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('fake_ld.py -r -b binary', result.stderr)
+                self.assertIn(str(path), result.stderr)
+
     def test_missing_part_is_recovered_and_missing_editable_input_fails(self):
         result, objects = self.run_make('font')
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -141,6 +175,22 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
         self.assertFalse((self.root / 'mp3_bank.calls').exists())
         self.assertFalse((self.root / 'build/us').exists())
 
+    def test_fragment_change_invalidates_packing_and_missing_fragment_stops_make(self):
+        result, objects = self.run_make('font')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        before = [p.stat().st_mtime_ns for p in objects]
+        time.sleep(1.05)  # macOS make 3.81 has second-resolution timestamps.
+        self.fragment.write_text('- [0x108, bin, font/glyphs/0000]\n')
+        result, _ = self.run_make('font')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual((self.root / 'font_splits.calls').read_text(), 'packed\npacked\n')
+        self.assertEqual([p.stat().st_mtime_ns for p in objects], before)
+        self.fragment.unlink()
+        result, _ = self.run_make('font')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('profile_config.py make-assets failed', result.stderr)
+        self.assertEqual([p.stat().st_mtime_ns for p in objects], before)
+
     def test_all_bin_list_errors_stop_make_at_the_generator(self):
         for name in ('font_splits', 'mp3_bank', 'audio_boundaries'):
             with self.subTest(name=name):
@@ -148,6 +198,102 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
                 flag.touch()
                 result, objects = self.run_make('font')
                 self.assertNotEqual(result.returncode, 0)
-                self.assertIn(f'{name}.py list-bins failed', result.stderr)
+                self.assertIn(f'intentional {name} failure', result.stderr)
+                self.assertIn('profile_config.py make-assets failed', result.stderr)
                 self.assertFalse(any(p.exists() for p in objects))
                 flag.unlink()
+
+    def test_broken_us_fragment_does_not_block_housekeeping_reference_or_eu(self):
+        self.fragment.unlink()
+        for args in (['help'], ['clean'], ['-n', 'prepare-reference'],
+                     ['PROFILE=eu', 'build/eu/assets/boot.o']):
+            with self.subTest(args=args):
+                assets = self.root / 'assets'
+                assets.mkdir(exist_ok=True)
+                (assets / 'boot.bin').write_bytes(b'boot')
+                result = subprocess.run([MAKE, f'LD={sys.executable} {self.ld}', *args],
+                                        cwd=self.root, text=True, capture_output=True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertNotIn('profile_config.py', result.stderr)
+        self.assertEqual((self.root / 'build/eu/assets/boot.o').read_bytes(), b'boot')
+
+    def test_code_object_does_not_require_rom_or_run_packers(self):
+        (self.root / 'roms/baserom.us.z64').unlink()
+        (self.root / 'src').mkdir()
+        (self.root / 'src/foo.c').write_text('code')
+        (self.root / 'scripts/compile_c.py').write_text(
+            "from pathlib import Path\nimport sys\n"
+            "Path(sys.argv[sys.argv.index('--output') + 1]).write_text('object')\n")
+        for goal in ('build/us/src/foo.o', './build/us/src/foo.o'):
+            result = subprocess.run([MAKE, goal], cwd=self.root, text=True, capture_output=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual((self.root / 'build/us/src/foo.o').read_text(), 'object')
+        self.assertFalse((self.root / 'font_splits.calls').exists())
+        self.assertFalse((self.root / 'mp3_bank.calls').exists())
+
+    def test_game_and_diff_goals_skip_broken_fragments_and_packing(self):
+        self.fragment.unlink()
+        # Dry-run the real goal graph. Missing game/toolchain prerequisites in
+        # this asset-only fixture may stop it, but asset planning must not.
+        for goal in ('game-asm', 'game-asm-prepare', 'game-integrated',
+                     'game-integrated-refresh', 'game-integrated-prepare',
+                     'game-integrated-raw', 'diff',
+                     './build/game-integrated/us/conker.game.us.integrated.bin'):
+            with self.subTest(goal=goal):
+                result = subprocess.run([MAKE, '-n', goal], cwd=self.root,
+                                        text=True, capture_output=True)
+                output = result.stdout + result.stderr
+                self.assertNotIn('profile_config.py make-assets failed', output)
+                self.assertNotIn('font_splits.py build-parts', output)
+                self.assertNotIn('mp3_bank.py build-parts', output)
+                self.assertNotIn('roms/baserom.us.z64', result.stderr)
+        self.assertFalse((self.root / 'font_splits.calls').exists())
+        self.assertFalse((self.root / 'mp3_bank.calls').exists())
+
+    def test_mixed_game_and_asset_goals_still_validate_fragments(self):
+        self.fragment.unlink()
+        result = subprocess.run([MAKE, '-n', 'game-asm', 'build/us/conker.us.z64'],
+                                cwd=self.root, text=True, capture_output=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('profile_config.py make-assets failed', result.stderr)
+        self.assertNotIn('Traceback', result.stderr)
+
+    def test_new_aggregate_goal_packs_and_links_asset_inputs(self):
+        with (self.root / 'Makefile').open('a') as stream:
+            stream.write('\n.PHONY: all\nall: build/combined.bin\n'
+                         'build/combined.bin: $(FONT_OBJS) $(MP3_BANK_OBJS)\n'
+                         '\tcat $^ > $@\n')
+        result = subprocess.run([MAKE, '-j4', f'LD={sys.executable} {self.ld}', 'all'],
+                                cwd=self.root, text=True, capture_output=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        for prefix in ('font/glyphs', 'audio/mp3/streams'):
+            for index in range(2):
+                path = self.root / f'build/us/assets/{prefix}/{index:04d}.o'
+                self.assertEqual(path.read_bytes(), bytes([index]))
+        combined = self.root / 'build/combined.bin'
+        self.assertEqual(combined.read_bytes(), bytes([0, 1, 0, 1]))
+        before = combined.stat().st_mtime_ns
+        unchanged = subprocess.run([MAKE, '-j4', f'LD={sys.executable} {self.ld}', 'all'],
+                                   cwd=self.root, text=True, capture_output=True)
+        self.assertEqual(unchanged.returncode, 0, unchanged.stderr)
+        self.assertEqual(combined.stat().st_mtime_ns, before)
+        time.sleep(1.05)
+        (self.root / 'build/fonts/us/0000.pgm').write_bytes(b'changed')
+        changed = subprocess.run([MAKE, '-j4', f'LD={sys.executable} {self.ld}', 'all'],
+                                 cwd=self.root, text=True, capture_output=True)
+        self.assertEqual(changed.returncode, 0, changed.stderr)
+        self.assertEqual(combined.read_bytes(), b'changed' + bytes([1, 0, 1]))
+        self.fragment.unlink()
+        failed = subprocess.run([MAKE, 'all'], cwd=self.root, text=True, capture_output=True)
+        self.assertIn('profile_config.py make-assets failed', failed.stderr)
+        self.assertNotEqual(failed.returncode, 0)
+
+    def test_dot_prefixed_rom_goal_retains_all_asset_prerequisites(self):
+        # This fixture lacks the rest of the ROM. Inspect Make's actual target
+        # database rather than claiming a ROM link from these synthetic assets.
+        result = subprocess.run([MAKE, '-np', './build/us/conker.us.z64'],
+                                cwd=self.root, text=True, capture_output=True)
+        objects = next(line for line in result.stdout.splitlines() if line.startswith('ASSET_OBJS := '))
+        for name in ('font/glyphs/0000', 'audio/mp3/streams/0000', 'audio/bank17/index'):
+            self.assertIn('build/us/assets/' + name + '.o', objects)
+        self.assertNotIn('profile_config.py make-assets failed', result.stderr)

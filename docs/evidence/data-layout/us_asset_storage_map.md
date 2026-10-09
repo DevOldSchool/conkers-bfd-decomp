@@ -10,6 +10,57 @@ boundaries or decoded runtime addresses. Asset banks remain stored binaries;
 semantic subresources inside a compressed entry do not create additional ROM
 allocations. No data-completion or objdiff matching credit follows from a split.
 
+## Profile organization
+
+`config/profiles/us.yaml` retains profile options, top-level ROM order, group
+extents and alignment, and all main/debugger executable mappings. Detailed
+binary subsegment lists live beside it under `config/profiles/us/assets/`:
+`font.yaml`, `mp3.yaml` and `bank17.yaml`. For example:
+
+```yaml
+    subsegments:
+      include: us/assets/font.yaml
+```
+
+Each `.yaml` fragment is a plain list of `[ROM offset, bin, name]` rows. Paths are
+relative to the root profile's directory and must remain within it; subfolders
+are supported and their YAML files remain trackable. Only asset
+groups support this form; empty fragments, nested includes, repeated files and
+code mappings in fragments are rejected. Keep executable mappings inline so
+source-integration transactions continue to edit their original locations.
+
+`scripts/profile_config.py` supplies the shared loader and dependency list.
+Profile preparation expands the fragments into ordinary Splat YAML at
+`build/config/us.yaml`, preserving comments and hexadecimal offsets and quoting
+the ROM path as a YAML scalar. This generated file is never edited or committed.
+Asset verifiers, data reports and library audits read the same expanded
+structure. Make tracks the root and every included fragment when packing
+assets; missing or invalid fragments stop ROM/asset builds. Make plans the
+US dependencies, asset bins and executable sources in one parse. US goals load
+asset lists by default, including aggregate targets and paths prefixed with
+`./`. Packing runs only when the dependency graph reaches the font or MP3 asset
+objects; code-only compilation does not require the ROM or run the packers.
+Housekeeping, independent library, game, reference and diff goals bypass US
+asset planning. Game comparison fingerprints likewise exclude the full-ROM
+asset map, which is not an input to the independent game build.
+EU targets do not load US fragments. The independent raw
+reference profile remains separate and does not resolve these asset files.
+
+Moving rows between these files changes no boundaries, linker input names,
+asset bytes or report credit. Validate layout edits against the original ROM
+contracts and finish with a byte-identical `./conker build --all`.
+
+The initial split was verified on 2026-10-09 against `99cf6c9`: expansion equals
+the original parsed profile exactly (96 font, 822 MP3 and 272 bank-17 rows).
+The complete 67,108,864-byte US ROM remained byte-identical. All 2,148 Docker
+tests passed with eight skips; progress and whitespace checks passed. These are
+historical local results, not shared build artifacts. Reproduce the checks with
+`./conker test`, `./conker build --all`,
+`./conker game-build --profile us --refresh`, `./conker progress check` and
+`git -c core.whitespace=cr-at-eol diff --check`. A fresh checkout also needs
+`./conker _prepare-reference --profile us` before the game build. The current
+PR records the tested commit and current results; private build logs remain local.
+
 ## Evidence
 
 The input is the complete 67,108,864-byte US ROM, SHA-1

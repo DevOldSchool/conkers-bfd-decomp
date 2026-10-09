@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 import re
 
-import yaml
+from profile_config import load_profile
 
 import main_private_data
 import rom_span
@@ -81,7 +81,7 @@ def external_mappings(text: str, evidence: str) -> list[dict]:
 
 def main_image(root: Path, rom: bytes) -> tuple[bytes, int, list[dict]]:
     """Bound main initialized data using the canonical map and checked RSP extents."""
-    profile = yaml.safe_load((root / 'config/profiles/us.yaml').read_text())
+    profile = load_profile(root / 'config/profiles/us.yaml')
     main = next(s for s in profile['segments'] if isinstance(s, dict) and s.get('name') == 'main')
     entries = []
     for s in main['subsegments']:
