@@ -2,6 +2,10 @@
 PROFILE ?= us
 SYMBOL ?=
 PROFILE_CONFIG := config/profiles/$(PROFILE).yaml
+PROFILE_INPUTS := $(shell python3 scripts/profile_config.py dependencies $(PROFILE_CONFIG) || echo __PROFILE_INPUTS_FAILED__)
+ifneq ($(filter __PROFILE_INPUTS_FAILED__,$(PROFILE_INPUTS)),)
+$(error scripts/profile_config.py dependencies failed; see the error above)
+endif
 MATERIALIZED_CONFIG := build/config/$(PROFILE).yaml
 BUILD_DIR := build/$(PROFILE)
 AS := mips-linux-gnu-as
@@ -352,7 +356,7 @@ $(BUILD_DIR)/src/%.o: src/%.c
 ifeq ($(PROFILE),us)
 ASSET_BUILD_GOALS := $(if $(MAKECMDGOALS),$(MAKECMDGOALS),help)
 ASSET_ROM_GOALS := raw-build $(BUILD_DIR)/$(ROM_NAME) $(BUILD_DIR)/conker.$(PROFILE).elf
-ASSET_PACK_DEPS := Makefile config/profiles/us.yaml config/rzip_layouts.json \
+ASSET_PACK_DEPS := Makefile $(PROFILE_INPUTS) scripts/profile_config.py config/rzip_layouts.json \
 	scripts/build_files.py scripts/rzip_archive.py scripts/rzip_extract.py \
 	toolchain/python-requirements.txt $(ROM_PATH)
 FONT_PARTS := $(patsubst assets/%,$(BUILD_DIR)/fonts/parts/%,$(FONT_BINS))

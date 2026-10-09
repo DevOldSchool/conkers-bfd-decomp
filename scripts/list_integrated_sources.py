@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import argparse
 
-import yaml
+from profile_config import load_profile
 
 import project_state
 
@@ -20,7 +20,7 @@ def mapped_sources(profile: str, *, overlay: str | None = None,
     # segment explicitly; debugger source units are separate from main units.
     segment_name = profile_segment if profile_segment is not None else overlay
     path = project_state.ROOT / "config/profiles" / f"{profile}.yaml"
-    configuration = yaml.safe_load(path.read_text(encoding="utf-8"))
+    configuration = load_profile(path)
     sources = []
     for segment in configuration["segments"]:
         if not isinstance(segment, dict) or segment.get("name") != segment_name:

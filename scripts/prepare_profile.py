@@ -6,6 +6,13 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+import yaml
+
+try:
+    from scripts.profile_config import load_profile
+except ModuleNotFoundError:
+    from profile_config import load_profile
+
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = ROOT / "build" / "config"
@@ -35,7 +42,8 @@ def main() -> int:
     if not rom_path.is_file():
         parser.error(f"configured {args.profile} ROM does not exist: {rom_path}; run ./conker setup")
 
-    template = template_path.read_text(encoding="utf-8")
+    template = (template_path.read_text(encoding="utf-8") if args.reference else
+                yaml.safe_dump(load_profile(template_path), sort_keys=False))
     output = template.replace("__ROM_PATH__", yaml_string(str(rom_path.relative_to(ROOT))))
     if output == template:
         parser.error(f"{template_path.relative_to(ROOT)} is missing the __ROM_PATH__ token")

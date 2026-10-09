@@ -17,7 +17,7 @@ import sys
 import time
 import zipfile
 
-import yaml
+from profile_config import load_profile
 
 import compile_c
 import data_boundaries
@@ -164,7 +164,7 @@ def prepare_font() -> tuple[dict, dict]:
     """Credit the editable font only when the actual ROM build input matches."""
     rom = main_private_data.validated_rom(ROOT)
     unit, item = objdiff_data_targets.prepare_font(rom, output=OUTPUT)
-    profile = yaml.safe_load((ROOT / 'config/profiles/us.yaml').read_text())
+    profile = load_profile(ROOT / 'config/profiles/us.yaml')
     segments = profile['segments']
     index = next(i for i, s in enumerate(segments) if isinstance(s, dict) and s.get('name') == 'font_rle')
     following = segments[index + 1]

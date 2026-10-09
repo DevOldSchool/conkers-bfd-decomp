@@ -46,6 +46,13 @@ class AssetMakeTests(unittest.TestCase):
             path = self.root / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.touch()
+        shutil.copy(ROOT / 'scripts/profile_config.py', self.root / 'scripts/profile_config.py')
+        (self.root / 'config/profiles/us.yaml').write_text(
+            'segments:\n  - name: font\n    type: group\n'
+            '    subsegments:\n      include: us/assets/font.yaml\n')
+        self.fragment = self.root / 'config/profiles/us/assets/font.yaml'
+        self.fragment.parent.mkdir(parents=True)
+        self.fragment.write_text('- [0x100, bin, font/glyphs/0000]\n')
         script = '''from pathlib import Path
 import sys
 root = Path.cwd()
@@ -140,6 +147,22 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
         self.assertFalse((self.root / 'font_splits.calls').exists())
         self.assertFalse((self.root / 'mp3_bank.calls').exists())
         self.assertFalse((self.root / 'build/us').exists())
+
+    def test_fragment_change_invalidates_packing_and_missing_fragment_stops_make(self):
+        result, objects = self.run_make('font')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        before = [p.stat().st_mtime_ns for p in objects]
+        time.sleep(1.05)  # macOS make 3.81 has second-resolution timestamps.
+        self.fragment.write_text('- [0x108, bin, font/glyphs/0000]\n')
+        result, _ = self.run_make('font')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual((self.root / 'font_splits.calls').read_text(), 'packed\npacked\n')
+        self.assertEqual([p.stat().st_mtime_ns for p in objects], before)
+        self.fragment.unlink()
+        result, _ = self.run_make('font')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('profile_config.py dependencies failed', result.stderr)
+        self.assertEqual([p.stat().st_mtime_ns for p in objects], before)
 
     def test_all_bin_list_errors_stop_make_at_the_generator(self):
         for name in ('font_splits', 'mp3_bank', 'audio_boundaries'):

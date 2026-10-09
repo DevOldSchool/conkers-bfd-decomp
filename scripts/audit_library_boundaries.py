@@ -11,7 +11,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 
-import yaml
+from profile_config import load_profile
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -154,7 +154,7 @@ def read_object_templates(path: Path) -> list[TextTemplate]:
 
 
 def main_subsegments(path: Path) -> list:
-    config = yaml.safe_load(path.read_text(encoding="utf-8"))
+    config = load_profile(path)
     return next(segment["subsegments"] for segment in config["segments"] if segment.get("name") == "main")
 
 

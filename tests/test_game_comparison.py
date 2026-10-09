@@ -330,6 +330,7 @@ class GameComparisonWorkflowTests(unittest.TestCase):
                      "asm/raw.s", "progress/functions.json", "progress/source_units.json",
                      "toolchain/tools.lock.json", "Dockerfile", "Makefile", "config/roms.json",
                      "config/overlays.json", "config/reference/us.yaml", "config/profiles/us.yaml",
+                     "config/profiles/us/assets/bank17.yaml",
                      "config/game/us.yaml", "config/symbols/game-us.txt", "config/relocs/us.txt",
                      "scripts/compile_c.py", "rom.z64", "installed/ido/cc", "installed/ido/uopt",
                      "installed/asm/build.py", "installed/asm/prelude.inc", "installed/asm/helper.py",

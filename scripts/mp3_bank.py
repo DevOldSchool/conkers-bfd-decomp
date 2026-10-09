@@ -136,8 +136,11 @@ def build_bank(input_dir: Path, output: Path) -> tuple[bytes, dict]:
 
 def layout_bins(profile: Path) -> list[tuple[int, str]]:
     """Read the canonical splat input names and boundaries without opening a ROM."""
-    import yaml
-    config = yaml.safe_load(profile.read_text())
+    try:
+        from scripts.profile_config import load_profile
+    except ModuleNotFoundError:
+        from profile_config import load_profile
+    config = load_profile(profile)
     bank = next(segment for segment in config['segments']
                 if isinstance(segment, dict) and segment.get('name') == 'asset_bank_16')
     if bank['type'] != 'group' or bank['align'] != 1 or bank['subalign'] != 1:

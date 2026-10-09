@@ -59,6 +59,9 @@ class MainQueueObjectBuildTests(unittest.TestCase):
             (root / "scripts").mkdir()
             (root / "src/done/main").mkdir(parents=True)
             (root / "Makefile").write_bytes((ROOT / "Makefile").read_bytes())
+            (root / "config/profiles").mkdir(parents=True)
+            (root / "config/profiles/us.yaml").write_text("segments: []\n")
+            shutil.copy(ROOT / "scripts/profile_config.py", root / "scripts/profile_config.py")
             source = root / f"src/done/main/{source_name}.c"
             source.write_text("void queue_thread(void) {}\n")
             (root / "fixture.o").write_bytes(physical)

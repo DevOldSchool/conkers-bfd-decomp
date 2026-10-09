@@ -7,6 +7,7 @@ from copy import deepcopy
 from pathlib import Path
 
 import yaml
+from scripts.profile_config import load_profile
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -181,7 +182,7 @@ class SegmentMapTests(unittest.TestCase):
         self.assertEqual(16, game_map.count("libultrare,"))
 
     def test_main_initialized_sections_follow_linker_group_order(self) -> None:
-        profile = yaml.safe_load((ROOT / "config/profiles/us.yaml").read_text())
+        profile = load_profile(ROOT / "config/profiles/us.yaml")
         main = next(segment for segment in profile["segments"] if segment.get("name") == "main")
         seen_rodata = False
         for entry in main["subsegments"]:
@@ -203,7 +204,7 @@ class SegmentMapTests(unittest.TestCase):
         self.assertFalse((ROOT / "src" / "fixtures").exists())
 
     def test_main_zero_tail_is_text_ordered_data_without_function_credit(self) -> None:
-        profile = yaml.safe_load((ROOT / "config/profiles/us.yaml").read_text())
+        profile = load_profile(ROOT / "config/profiles/us.yaml")
         main = next(segment for segment in profile["segments"] if segment.get("name") == "main")
         entries = main["subsegments"]
         index = next(i for i, entry in enumerate(entries)
@@ -325,7 +326,7 @@ class SegmentMapTests(unittest.TestCase):
             self.assertEqual(("lib", section), working[offset])
             self.assertNotEqual("lib", reference.get(offset, (None, None))[0])
 
-        profile = yaml.safe_load((ROOT / "config" / "profiles" / "us.yaml").read_text(encoding="utf-8"))
+        profile = load_profile(ROOT / "config" / "profiles" / "us.yaml")
         main = next(segment for segment in profile["segments"] if segment.get("name") == "main")
         linked_bss = [
             entry
@@ -410,9 +411,7 @@ class SegmentMapTests(unittest.TestCase):
         self.assertEqual(
             ("lib", "libultra_2_0G, timerintr, .data"), working[0x2BD70]
         )
-        profile = yaml.safe_load(
-            (ROOT / "config/profiles/us.yaml").read_text(encoding="utf-8")
-        )
+        profile = load_profile(ROOT / "config/profiles/us.yaml")
         main = next(segment for segment in profile["segments"] if segment.get("name") == "main")
         linked_bss = {
             entry["vram"]: (entry["name"], entry["object"])
@@ -453,9 +452,7 @@ class SegmentMapTests(unittest.TestCase):
         )
         self.assertNotIn(0x2C760, reference)
 
-        profile = yaml.safe_load(
-            (ROOT / "config/profiles/us.yaml").read_text(encoding="utf-8")
-        )
+        profile = load_profile(ROOT / "config/profiles/us.yaml")
         main = next(segment for segment in profile["segments"] if segment.get("name") == "main")
         self.assertIn([0x2C770, "lib", "libultrare", "n_drvrNew", ".rodata"], main["subsegments"])
 
@@ -519,9 +516,7 @@ class SegmentMapTests(unittest.TestCase):
         self.assertNotIn(0x2BE30, reference)
         for offset in (0x2AAF0, 0x2B9D0, 0x2BF80, 0x2C1B0):
             self.assertNotIn(offset, reference)
-        profile = yaml.safe_load(
-            (ROOT / "config/profiles/us.yaml").read_text(encoding="utf-8")
-        )
+        profile = load_profile(ROOT / "config/profiles/us.yaml")
         main = next(segment for segment in profile["segments"] if segment.get("name") == "main")
         self.assertIn(
             {"start": 0x2BF80, "type": "lib", "name": "libultrare", "object": "xprintf",
@@ -583,7 +578,7 @@ class SegmentMapTests(unittest.TestCase):
         ):
             self.assertEqual((end, "lib", f"libultrare, {member}, .text"), ranges[start])
             self.assertEqual(("asm", None), reference[start])
-        profile = yaml.safe_load((ROOT / "config/profiles/us.yaml").read_text())
+        profile = load_profile(ROOT / "config/profiles/us.yaml")
         main = next(segment for segment in profile["segments"] if segment.get("name") == "main")
         self.assertIn([0x2BA40, "lib", "libultrare", "n_sl", ".data"], main["subsegments"])
         self.assertIn([0x2BA50, "lib", "libultrare", "n_csplayer", ".data"], main["subsegments"])

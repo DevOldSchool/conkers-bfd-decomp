@@ -10,6 +10,42 @@ boundaries or decoded runtime addresses. Asset banks remain stored binaries;
 semantic subresources inside a compressed entry do not create additional ROM
 allocations. No data-completion or objdiff matching credit follows from a split.
 
+## Profile organization
+
+`config/profiles/us.yaml` retains profile options, top-level ROM order, group
+extents and alignment, and all main/debugger executable mappings. Detailed
+binary subsegment lists live beside it under `config/profiles/us/assets/`:
+`font.yaml`, `mp3.yaml` and `bank17.yaml`. For example:
+
+```yaml
+    subsegments:
+      include: us/assets/font.yaml
+```
+
+Each fragment is a plain list of `[ROM offset, bin, name]` rows. Paths are
+relative to the root profile's directory and must remain within it. Only asset
+groups support this form; empty fragments, nested includes, repeated files and
+code mappings in fragments are rejected. Keep executable mappings inline so
+source-integration transactions continue to edit their original locations.
+
+`scripts/profile_config.py` supplies the shared loader and dependency list.
+Profile preparation expands the fragments into ordinary Splat YAML at
+`build/config/us.yaml`; this generated file is never edited or committed.
+Asset verifiers, data reports and library audits read the same expanded
+structure. Make tracks the root and every included fragment when packing
+assets; missing or invalid fragments stop the build. The independent raw
+reference profile remains separate and does not resolve these asset files.
+
+Moving rows between these files changes no boundaries, linker input names,
+asset bytes or report credit. Validate layout edits against the original ROM
+contracts and finish with a byte-identical `./conker build --all`.
+
+The initial split was verified on 2026-10-09 against `99cf6c9`: expansion equals
+the original parsed profile exactly (96 font, 822 MP3 and 272 bank-17 rows).
+The complete 67,108,864-byte US ROM remained byte-identical. All 2,148 Docker
+tests passed with eight skips; progress and whitespace checks passed. Local
+evidence and logs are under `build/profile-refactor/`.
+
 ## Evidence
 
 The input is the complete 67,108,864-byte US ROM, SHA-1
