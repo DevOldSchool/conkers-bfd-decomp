@@ -48,11 +48,9 @@ extern void func_1516972C(void *arg0);
 
 void func_151ABD54(void *arg0, u8 *arg1, u8 arg2) {
     u8 *temp_v0;
-    u8 tmp1;
     s32 temp_t6;
 
-    tmp1 = arg2;
-    temp_t6 = tmp1;
+    temp_t6 = arg2;
     temp_v0 = (u8 *)arg0 + 0x28;
     if (temp_t6 == 0) {
         if ((*(s32 *)temp_v0 == *(s32 *)arg1) || (temp_v0[4] == arg1[4])) {

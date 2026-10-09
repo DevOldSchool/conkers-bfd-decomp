@@ -51,7 +51,7 @@ s32 func_10003C40(s32, s32, s32, s32);
 void func_15001970(void) {
     s32 temp_v0;
     s32 sp18;
-    s32 tmp1;
+    s32 buffer;
 
     D_800B0DE4 = 0;
     D_800DBE63 = 0;
@@ -62,8 +62,8 @@ void func_15001970(void) {
     D_800DBE24 = 0;
     temp_v0 = func_10003C40(sp18, 1, 0, 0);
     D_800B0DC0[0] = temp_v0;
-    tmp1 = D_800B0DC0[0];
-    D_800B0DC8 = sp18 + tmp1;
+    buffer = D_800B0DC0[0];
+    D_800B0DC8 = sp18 + buffer;
     D_800B0DC4 = temp_v0;
 }
 extern s32 D_80000308;

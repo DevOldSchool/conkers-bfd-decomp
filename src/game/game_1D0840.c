@@ -749,7 +749,6 @@ void func_151A4A38(u8 *object) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4A38.s")
 void func_151A4CE0(void *arg0, void *arg1, u8 arg2) {
     void *temp_v0;
-    u8 *tmp2;
 
     temp_v0 = *(void **)((u8 *)arg0 + 0x98);
     if (arg2 == 0) {
@@ -758,13 +757,12 @@ void func_151A4CE0(void *arg0, void *arg1, u8 arg2) {
         }
     } else if (arg2 == 0x2D) {
         arg0 = *(void **)((u8 *)arg1 + 0);
-        tmp2 = (u8 *)temp_v0;
-        if ((s32)arg0 == *(s32 *)(tmp2 + 0)) {
+        if ((s32)arg0 == *(s32 *)((u8 *)temp_v0 + 0)) {
             *(s32 *)((u8 *)temp_v0 + 0) = *(s32 *)((u8 *)arg1 + 4);
             *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 9);
             return;
         }
-        if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)(tmp2 + 0)) {
+        if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)((u8 *)temp_v0 + 0)) {
             *(s32 *)((u8 *)temp_v0 + 0) = (s32)arg0;
             *(u8 *)((u8 *)temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 8);
         }

@@ -183,7 +183,6 @@ f32 sqrtf(f32);
 f32 func_15048FC8(f32 *arg0) {
     f32 z;
     f32 length;
-    f32 *tmp1;
     f32 angle;
     z = arg0[2];
     length = sqrtf((arg0[0] * arg0[0]) + (z * z));
@@ -192,9 +191,8 @@ f32 func_15048FC8(f32 *arg0) {
     }
     angle = (-arg0[0]) / length;
     z = func_15048C30(angle, arg0[0]);
-    tmp1 = arg0;
     angle = z;
-    if (tmp1[2] > 0.0f) {
+    if (arg0[2] > 0.0f) {
         angle = 270.0f - (angle * D_80099070);
     } else {
         angle = (angle * D_80099074) + 90.0f;
