@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import argparse
 
-from profile_config import load_profile
+from profile_config import load_profile, profile_sources
 
 import project_state
 
@@ -22,22 +22,6 @@ def mapped_sources(profile: str, *, overlay: str | None = None,
     path = project_state.ROOT / "config/profiles" / f"{profile}.yaml"
     configuration = load_profile(path)
     return profile_sources(configuration, segment_name)
-
-
-def profile_sources(configuration: dict, segment_name: str) -> list[str]:
-    sources = []
-    for segment in configuration["segments"]:
-        if not isinstance(segment, dict) or segment.get("name") != segment_name:
-            continue
-        for entry in segment.get("subsegments", []):
-            if isinstance(entry, dict):
-                kind, name = entry.get("type"), entry.get("name")
-            else:
-                kind = entry[1]
-                name = entry[2] if len(entry) > 2 else None
-            if kind == "c" and name:
-                sources.append(f"src/{name}.c")
-    return sources
 
 
 def main() -> int:

@@ -26,10 +26,11 @@ ROM_PATH := roms/baserom.$(PROFILE).z64
 ASM_SRCS := $(shell find asm/$(PROFILE) -type f -name '*.s' ! -path '*/nonmatchings/*' 2>/dev/null)
 ASM_OBJS := $(patsubst asm/%.s,$(BUILD_DIR)/asm/%.o,$(ASM_SRCS))
 REQUESTED_GOALS := $(if $(MAKECMDGOALS),$(MAKECMDGOALS),help)
-# Only ROM/asset targets need the US asset layout. Recovery, independent reference,
-# library and EU targets must remain usable when a US fragment is broken.
+# Load the US layout by default, including aliases and future aggregate goals.
+# Only goals known not to link the ROM may bypass broken asset fragments.
+NON_ROM_GOALS := clean help prepare-reference libultra libultrare profile-libs game-libs
 ifeq ($(PROFILE),us)
-ifneq ($(filter build raw-build $(BUILD_DIR)/$(ROM_NAME) $(BUILD_DIR)/conker.$(PROFILE).elf $(BUILD_DIR)/assets/% $(BUILD_DIR)/fonts/% $(BUILD_DIR)/audio/%,$(REQUESTED_GOALS)),)
+ifneq ($(filter-out $(NON_ROM_GOALS),$(REQUESTED_GOALS)),)
 PROFILE_ASSETS := $(shell python3 scripts/profile_config.py make-assets $(PROFILE_CONFIG) || echo __PROFILE_ASSETS_FAILED__)
 ifneq ($(filter __PROFILE_ASSETS_FAILED__,$(PROFILE_ASSETS)),)
 $(error scripts/profile_config.py make-assets failed; see the error above)
@@ -42,7 +43,7 @@ endif
 endif
 ifneq ($(PROFILE_ASSETS),)
 C_SRCS := $(patsubst source=%,%,$(filter source=%,$(PROFILE_ASSETS)))
-else ifneq ($(filter-out clean help prepare-reference,$(REQUESTED_GOALS)),)
+else ifneq ($(filter-out $(NON_ROM_GOALS),$(REQUESTED_GOALS)),)
 C_SRCS := $(shell python3 scripts/list_integrated_sources.py --overlay main --profile $(PROFILE) 2>/dev/null) \
 	$(shell python3 scripts/list_integrated_sources.py --profile-segment debugger --profile $(PROFILE) 2>/dev/null)
 endif
@@ -356,8 +357,6 @@ $(BUILD_DIR)/src/%.o: src/%.c
 # stale cached .bin mtimes when only one editable input changes. Unchanged parts
 # retain their timestamps, so only changed link inputs rebuild their objects.
 ifeq ($(PROFILE),us)
-ASSET_BUILD_GOALS := $(if $(MAKECMDGOALS),$(MAKECMDGOALS),help)
-ASSET_ROM_GOALS := raw-build $(BUILD_DIR)/$(ROM_NAME) $(BUILD_DIR)/conker.$(PROFILE).elf
 ASSET_PACK_DEPS := Makefile $(PROFILE_INPUTS) scripts/profile_config.py config/rzip_layouts.json \
 	scripts/build_files.py scripts/rzip_archive.py scripts/rzip_extract.py \
 	toolchain/python-requirements.txt $(ROM_PATH)
@@ -366,7 +365,7 @@ MP3_BANK_PARTS := $(patsubst assets/%,$(BUILD_DIR)/audio/parts/%,$(MP3_BANK_BINS
 .PHONY: asset-parts-missing
 asset-parts-missing:
 
-ifneq ($(filter $(ASSET_ROM_GOALS) $(FONT_OBJS) $(FONT_PARTS),$(ASSET_BUILD_GOALS)),)
+ifneq ($(FONT_PARTS),)
 FONT_PART_INPUTS := $(wildcard build/fonts/us build/fonts/us/*)
 FONT_PARTS_MISSING := $(filter-out $(wildcard $(FONT_PARTS)),$(FONT_PARTS))
 ifeq ($(wildcard build/fonts/us/manifest.json),)
@@ -378,7 +377,7 @@ $(BUILD_DIR)/fonts/parts.mk: $(ASSET_PACK_DEPS) scripts/font_splits.py scripts/f
 include $(BUILD_DIR)/fonts/parts.mk
 endif
 
-ifneq ($(filter $(ASSET_ROM_GOALS) $(MP3_BANK_OBJS) $(MP3_BANK_PARTS),$(ASSET_BUILD_GOALS)),)
+ifneq ($(MP3_BANK_PARTS),)
 MP3_PART_INPUTS := $(wildcard build/assets/mp3-bank/us build/assets/mp3-bank/us/* build/assets/mp3-bank/us/streams/* build/assets/mp3-bank/us/padding/*)
 MP3_PARTS_MISSING := $(filter-out $(wildcard $(MP3_BANK_PARTS)),$(MP3_BANK_PARTS))
 ifeq ($(wildcard build/assets/mp3-bank/us/manifest.json),)

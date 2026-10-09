@@ -36,8 +36,10 @@ the ROM path as a YAML scalar. This generated file is never edited or committed.
 Asset verifiers, data reports and library audits read the same expanded
 structure. Make tracks the root and every included fragment when packing
 assets; missing or invalid fragments stop ROM/asset builds. Make plans the
-US dependencies, asset bins and executable sources in one parse; housekeeping,
-independent reference and EU targets do not load US fragments. The independent raw
+US dependencies, asset bins and executable sources in one parse. US goals load
+and pack assets by default, including aggregate targets and paths prefixed with
+`./`; only housekeeping and independent library/reference goals bypass them.
+EU targets do not load US fragments. The independent raw
 reference profile remains separate and does not resolve these asset files.
 
 Moving rows between these files changes no boundaries, linker input names,

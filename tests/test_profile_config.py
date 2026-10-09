@@ -1,5 +1,8 @@
 """Profile composition preserves Splat inputs and keeps code mappings local."""
 from pathlib import Path
+from contextlib import chdir, redirect_stderr
+import io
+import os
 import subprocess
 import shutil
 import sys
@@ -142,6 +145,40 @@ class ProfileConfigTests(unittest.TestCase):
                 self.assertIn(text, rendered)
             self.assertNotIn('include:', rendered)
 
+    def test_following_segment_comments_remain_after_the_expanded_rows(self):
+        for marker in ('\n      include: us/assets/font.yaml\n',
+                       ' {include: us/assets/font.yaml}\n',
+                       '\n      include: >-\n        us/assets/font.yaml\n'):
+            self.profile.write_text(
+                'options: {target_path: __ROM_PATH__}\nsegments:\n'
+                '  - name: font\n    type: group\n    subsegments:' + marker +
+                '\n  # This comment belongs to the following segment.\n'
+                '  - name: following\n    type: bin\n    start: 0x110\n')
+            rendered = profile_config.render_profile(self.profile, 'roms/test.z64')
+            self.assertIn('\n  # This comment belongs to the following segment.\n  - name: following', rendered)
+            self.assertLess(rendered.index('font/padding'), rendered.index('# This comment'))
+            self.assertEqual(rendered.count('# This comment'), 1)
+
+    def test_missing_rom_path_fields_report_profile_and_expected_token(self):
+        rom = self.root / 'rom.z64'
+        rom.touch()
+        for options in ('', 'options: {}\n', 'options: []\n', 'options: null\n'):
+            self.profile.write_text(options + 'segments: []\n')
+            for reference in (False, True):
+                with self.assertRaisesRegex(ValueError, 'options.target_path.*__ROM_PATH__') as error:
+                    profile_config.render_profile(self.profile, 'rom.z64', reference=reference)
+                self.assertIn(str(self.profile), str(error.exception))
+            errors = io.StringIO()
+            with patch.object(prepare_profile, 'ROOT', self.root), \
+                 patch.object(prepare_profile, 'ROM_PATHS', {'us': rom}), \
+                 patch.object(sys, 'argv', ['prepare_profile', 'us']), \
+                 redirect_stderr(errors), self.assertRaises(SystemExit) as error:
+                prepare_profile.main()
+            self.assertEqual(error.exception.code, 2)
+            self.assertIn(str(self.profile), errors.getvalue())
+            self.assertIn('__ROM_PATH__', errors.getvalue())
+            self.assertNotIn('StopIteration', errors.getvalue())
+
     def test_nested_yaml_fragments_are_trackable_but_payloads_remain_ignored(self):
         repository = Path(__file__).resolve().parent.parent
         shutil.copy(repository / '.gitignore', self.root / '.gitignore')
@@ -164,10 +201,30 @@ class ProfileConfigTests(unittest.TestCase):
         repository = Path(__file__).resolve().parent.parent
         profile = repository / 'config/profiles/us.yaml'
         dependencies = profile_config.profile_dependencies(profile)
-        with patch.object(sys, 'path', [str(repository / 'scripts'), *sys.path]), \
+        with chdir(self.root), \
              patch.object(profile_config.yaml, 'safe_load', wraps=yaml.safe_load) as parse:
             tokens = profile_config.make_assets(profile)
         self.assertEqual(parse.call_count, len(dependencies))
         self.assertEqual(len([t for t in tokens if t.startswith('dep=')]), len(dependencies))
         self.assertEqual(len([t for t in tokens if t.startswith('font=')]), 96)
         self.assertTrue(any(t.startswith('source=src/') for t in tokens))
+        self.assertTrue(all(Path(t.removeprefix('dep=')).is_absolute()
+                            for t in tokens if t.startswith('dep=')))
+
+    def test_package_and_cli_planning_work_outside_the_repository(self):
+        repository = Path(__file__).resolve().parent.parent
+        profile = repository / 'config/profiles/us.yaml'
+        env = dict(os.environ, PYTHONPATH=str(repository))
+        result = subprocess.run(
+            [sys.executable, '-c',
+             'from pathlib import Path; from scripts.profile_config import make_assets; '
+             'import sys; print("\\n".join(make_assets(Path(sys.argv[1]))))', str(profile)],
+            cwd=self.root, env=env, text=True, capture_output=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('dep=' + str(profile), result.stdout)
+        cli = subprocess.run([sys.executable, '-m', 'scripts.profile_config', 'make-assets', str(profile)],
+                             cwd=self.root, env=env, text=True, capture_output=True)
+        self.assertEqual(cli.returncode, 0, cli.stderr)
+        dependencies = [(self.root / t.removeprefix('dep=')).resolve()
+                        for t in cli.stdout.split() if t.startswith('dep=')]
+        self.assertEqual(dependencies, profile_config.profile_dependencies(profile))

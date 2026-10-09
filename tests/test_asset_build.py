@@ -194,3 +194,28 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
                 self.assertEqual(result.returncode, 0, result.stderr)
                 self.assertNotIn('profile_config.py', result.stderr)
         self.assertEqual((self.root / 'build/eu/assets/boot.o').read_bytes(), b'boot')
+
+    def test_new_aggregate_goal_packs_and_links_asset_inputs(self):
+        with (self.root / 'Makefile').open('a') as stream:
+            stream.write('\n.PHONY: all\nall: $(FONT_OBJS) $(MP3_BANK_OBJS)\n')
+        result = subprocess.run([MAKE, '-j4', f'LD={sys.executable} {self.ld}', 'all'],
+                                cwd=self.root, text=True, capture_output=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        for prefix in ('font/glyphs', 'audio/mp3/streams'):
+            for index in range(2):
+                path = self.root / f'build/us/assets/{prefix}/{index:04d}.o'
+                self.assertEqual(path.read_bytes(), bytes([index]))
+        self.fragment.unlink()
+        failed = subprocess.run([MAKE, 'all'], cwd=self.root, text=True, capture_output=True)
+        self.assertIn('profile_config.py make-assets failed', failed.stderr)
+        self.assertNotEqual(failed.returncode, 0)
+
+    def test_dot_prefixed_rom_goal_retains_all_asset_prerequisites(self):
+        # This fixture lacks the rest of the ROM. Inspect Make's actual target
+        # database rather than claiming a ROM link from these synthetic assets.
+        result = subprocess.run([MAKE, '-np', './build/us/conker.us.z64'],
+                                cwd=self.root, text=True, capture_output=True)
+        objects = next(line for line in result.stdout.splitlines() if line.startswith('ASSET_OBJS := '))
+        for name in ('font/glyphs/0000', 'audio/mp3/streams/0000', 'audio/bank17/index'):
+            self.assertIn('build/us/assets/' + name + '.o', objects)
+        self.assertNotIn('profile_config.py make-assets failed', result.stderr)

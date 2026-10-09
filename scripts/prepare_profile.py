@@ -36,7 +36,10 @@ def main() -> int:
     if not rom_path.is_file():
         parser.error(f"configured {args.profile} ROM does not exist: {rom_path}; run ./conker setup")
 
-    output = render_profile(template_path, str(rom_path.relative_to(ROOT)), reference=args.reference)
+    try:
+        output = render_profile(template_path, str(rom_path.relative_to(ROOT)), reference=args.reference)
+    except ValueError as error:
+        parser.error(str(error))
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     output_path = (

@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 import textwrap
 
@@ -61,7 +62,11 @@ def profile_dependencies(path: Path) -> list[Path]:
 
 
 def _field(node: yaml.MappingNode, name: str):
-    return next((key, value) for key, value in node.value if key.value == name)
+    if isinstance(node, yaml.MappingNode):
+        for key, value in node.value:
+            if key.value == name:
+                return key, value
+    raise ValueError(f"missing required mapping field: {name}")
 
 
 def render_profile(path: Path, target_path: str, *, reference: bool = False) -> str:
@@ -74,8 +79,11 @@ def render_profile(path: Path, target_path: str, *, reference: bool = False) -> 
     source = path.read_text(encoding="utf-8")
     expected = yaml.safe_load(source) if reference else load_profile(path)
     root = yaml.compose(source)
-    _, options = _field(root, "options")
-    _, target = _field(options, "target_path")
+    try:
+        _, options = _field(root, "options")
+        _, target = _field(options, "target_path")
+    except ValueError as error:
+        raise ValueError(f"{path}: missing or invalid options.target_path; expected __ROM_PATH__") from error
     if not isinstance(target, yaml.ScalarNode) or target.value != "__ROM_PATH__":
         raise ValueError(f"{path}: target_path must be __ROM_PATH__")
     expected["options"]["target_path"] = target_path
@@ -96,16 +104,22 @@ def render_profile(path: Path, target_path: str, *, reference: bool = False) -> 
             indent = " " * (key.start_mark.column + 2)
             # Retain comments attached to the include directive as well as all
             # original root/fragment comments, hexadecimal values and row styles.
-            comments = [line.strip() for line in source[key.start_mark.index:value.end_mark.index].splitlines()
+            comments = [line.strip() for line in source[key.start_mark.index:include.start_mark.index].splitlines()
                         if line.lstrip().startswith("#")]
             suffix = source[include.end_mark.index:].partition("\n")[0]
-            if suffix.lstrip().startswith("#"):
+            if not value.flow_style and include.end_mark.column and suffix.lstrip().startswith("#"):
                 comments.append(suffix.strip())
             body = "\n".join(comments + fragment.rstrip("\n").splitlines())
             replacement = "subsegments:\n" + textwrap.indent(body, indent) + "\n"
+            end = value.end_mark.index
             if not value.flow_style:
-                replacement += " " * value.end_mark.column
-            edits.append((key.start_mark.index, value.end_mark.index, replacement))
+                # Mapping end marks include comments/indentation before the next
+                # segment. Replace only through the include scalar's own line.
+                end = include.end_mark.index
+                if include.end_mark.column:
+                    newline = source.find("\n", end)
+                    end = len(source) if newline == -1 else newline + 1
+            edits.append((key.start_mark.index, end, replacement))
     for start, end, replacement in sorted(edits, reverse=True):
         source = source[:start] + replacement + source[end:]
     if yaml.safe_load(source) != expected:
@@ -113,15 +127,35 @@ def render_profile(path: Path, target_path: str, *, reference: bool = False) -> 
     return source
 
 
-def make_assets(path: Path) -> list[str]:
-    """Plan dependencies, asset inputs and executable sources in one parse."""
-    import audio_boundaries
-    import font_splits
-    import list_integrated_sources
-    import mp3_bank
+def profile_sources(configuration: dict, segment_name: str) -> list[str]:
+    """Read executable sources without importing the progress tooling."""
+    sources = []
+    for segment in configuration["segments"]:
+        if not isinstance(segment, dict) or segment.get("name") != segment_name:
+            continue
+        for entry in segment.get("subsegments", []):
+            if isinstance(entry, dict):
+                kind, name = entry.get("type"), entry.get("name")
+            else:
+                kind = entry[1]
+                name = entry[2] if len(entry) > 2 else None
+            if kind == "c" and name:
+                sources.append(f"src/{name}.c")
+    return sources
+
+
+def make_assets(path: Path, *, relative_to: Path | None = None) -> list[str]:
+    """Plan inputs in one parse; dependencies are absolute unless a base is given."""
+    try:
+        from scripts import audio_boundaries, font_splits, mp3_bank
+    except ModuleNotFoundError:
+        import audio_boundaries
+        import font_splits
+        import mp3_bank
 
     profile, dependencies = _read(path)
-    tokens = ["dep=" + str(p.relative_to(Path.cwd().resolve())) for p in dependencies]
+    tokens = ["dep=" + (str(p) if relative_to is None else os.path.relpath(p, relative_to))
+              for p in dependencies]
     fonts, _ = font_splits.layout_bins(path, configuration=profile)
     _, _, audio = audio_boundaries.bank_layout(path, configuration=profile)
     mp3 = mp3_bank.layout_bins(path, configuration=profile)
@@ -129,7 +163,7 @@ def make_assets(path: Path) -> list[str]:
         tokens.extend(f"{label}=assets/{name}.bin" for _, name in rows)
     for segment in ("main", "debugger"):
         tokens.extend("source=" + name for name in
-                      list_integrated_sources.profile_sources(profile, segment))
+                      profile_sources(profile, segment))
     return tokens
 
 
@@ -139,10 +173,10 @@ def main() -> None:
     parser.add_argument("profile", type=Path)
     args = parser.parse_args()
     if args.action == "make-assets":
-        names = make_assets(args.profile)
+        names = make_assets(args.profile, relative_to=Path.cwd())
     else:
         paths = profile_dependencies(args.profile)
-        names = [str(path.relative_to(Path.cwd().resolve())) for path in paths]
+        names = [os.path.relpath(path, Path.cwd()) for path in paths]
     # Make consumes whitespace-separated prerequisites; fail rather than split
     # a path into unrelated inputs. Repository profile paths use plain names.
     if any(any(c.isspace() or c in "#$:%\\" for c in name) for name in names):
