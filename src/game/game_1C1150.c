@@ -35,7 +35,7 @@ typedef struct Game1C1150Event {
 extern u8 D_800A8210;
 void *func_1518D1C0(Game1C1150Event *, s32, s32, s32, s32, s32, void *);
 
-void func_15194320(void *volatile arg0, Game1C1150Event *arg1, s32 volatile arg2) {
+void func_15194320(void *arg0, Game1C1150Event *arg1, s32 arg2) {
     switch (arg1->type) {
         case 0:
             goto spawn;
@@ -55,7 +55,7 @@ spawn:
 }
 extern u8 D_800A822C;
 
-void func_15194394(void *volatile arg0, Game1C1150Event *arg1, s32 volatile arg2) {
+void func_15194394(void *arg0, Game1C1150Event *arg1, s32 arg2) {
     switch (arg1->type) {
         case 0:
             goto spawn;

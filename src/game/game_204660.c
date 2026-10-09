@@ -104,7 +104,7 @@ void func_151D7264(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D7264 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7264.s")
-extern void (*volatile D_8008FCA4[])(void *, s32, u8);
+extern void (*D_8008FCA4[])(void *, s32, u8);
 
 void func_151D73A8(void *arg0, s32 arg1, u8 arg2) {
     u8 *selector;

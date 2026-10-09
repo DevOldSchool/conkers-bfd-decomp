@@ -38,7 +38,7 @@ typedef struct Game64120InitBlock {
 
 typedef struct Game64120InitState {
     u8 pad0[0x324];
-    Game64120InitBlock *volatile block;
+    Game64120InitBlock *block;
 } Game64120InitState;
 
 void *func_10003C40(s32, s32, s32, s32);
