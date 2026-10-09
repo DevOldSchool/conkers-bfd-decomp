@@ -88,9 +88,15 @@ def read_status(root: Path) -> dict:
         fingerprint = input_fingerprint(root)
         # The fingerprint covers every build input, including uncommitted edits
         # and SDK submodules, so a commit that changes no inputs stays current.
-        current = fingerprint == proof['source_fingerprint']
+        assets_current = all(
+            (root / path).is_file() and hashlib.sha256((root / path).read_bytes()).hexdigest() == digest
+            for asset in proof.get('asset_verification', {}).values()
+            for path, digest in asset.get('source_inputs', {}).items())
+        current = fingerprint == proof['source_fingerprint'] and assets_current
         reason = ('Report inputs match this checkout.' if current
                   else 'Report inputs have changed since generation.')
+        if not assets_current:
+            reason = 'Editable asset inputs have changed or are missing since report generation.'
         if current and revision != proof['git_revision']:
             reason += ' It was generated at another commit with identical inputs.'
         result.update(status='current' if current else 'stale', current_revision=revision, reason=reason)
@@ -115,5 +121,5 @@ def render_status(status: dict) -> list[str]:
                       f"- Report SHA-256: `{status['report_sha256']}`.",
                       f"- {'Matched' if current else 'Last snapshot (not current)'} code: **{status['matched_code']:,} / {status['total_code']:,} bytes ({status['matched_code_percent']:.4f}%)**."])
     lines.extend(['', 'Same metric and generator as the decomp.dev badge (`./conker objdiff report`).',
-                  'Tracked US CPU code only; no data/assets, other boot code, RSP or EU coverage.', ''])
+                  'This section shows CPU-code progress. The published report also measures initialized CPU data and the rebuilt font; other assets, boot code, RSP and EU remain excluded.', ''])
     return lines

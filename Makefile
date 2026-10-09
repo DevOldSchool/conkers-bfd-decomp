@@ -393,6 +393,14 @@ $(MP3_BANK_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/audio/parts/%.bin
 	@mkdir -p "$(@D)"
 	cd $(BUILD_DIR)/audio/parts && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin
 
+.PHONY: data-splits-check
+data-splits-check:
+	python3 scripts/data_boundaries.py
+
+ifeq ($(PROFILE),us)
+raw-build: data-splits-check
+endif
+
 # Require checked-in bank-17 splits to agree with the loader and sequence descriptors.
 .PHONY: audio-boundaries-check
 audio-boundaries-check:

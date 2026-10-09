@@ -114,7 +114,8 @@ After the raw base split map is available
                                  Keep an auto-rebuilding focused diff open while editing.
   objdiff install               Install the checksum-pinned host objdiff CLI.
   objdiff compare <id> [<id>...] Compare US candidates with objdiff and asm-differ.
-  objdiff report                Build/validate the full US CPU-code report (ROM/toolchain needed).
+  objdiff data-audit             Audit US loaded data boundaries; no build or progress credit.
+  objdiff report                Build/validate the US code/data/asset report (ROM/toolchain needed).
   objdiff view <id>             Open an interactive objdiff after preparing both objects.
   first-diff [--profile us]      Report the first difference in a rebuilt ROM.
   mupen [mupen64plus-options]    Run the pinned headless Mupen64Plus debugger on the US ROM.

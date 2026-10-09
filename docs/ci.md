@@ -87,7 +87,8 @@ Configure these environment secrets without committing private repository names:
 The workflow builds the public toolchain before fetching private inputs, checks
 out only the US ROM without persisting credentials, and runs `./conker build --all`
 and `./conker objdiff report`. Report preparation validates linked targets for
-the tracked main/game/debugger US CPU-code ranges. Only
+the tracked main/game/debugger US CPU-code and initialized-data ranges, plus the
+rebuilt font asset. Only
 `build/us/objdiff-report/report.json` is
 uploaded as `us_report`, retained for 90 days. No ROM, assembly or object file is
 an artifact. Cleanup stops the toolchain and removes the private checkout and
@@ -114,5 +115,7 @@ The build context allowlist excludes private inputs and generated outputs.
 After the approved-main report succeeds, a repository administrator can register
 the US report at [decomp.dev project management](https://decomp.dev/manage/new).
 Uploading the artifact alone does not register the project. Report coverage is
-tracked US CPU code, not all data/assets, boot code or RSP microcode; see the
+tracked US CPU code, initialized CPU data and the rebuilt font, excluding other
+stored assets, BSS,
+other boot code and RSP microcode; see the
 [official integration guide](https://decomp.wiki/tools/decomp-dev).
