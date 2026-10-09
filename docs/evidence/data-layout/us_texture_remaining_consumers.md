@@ -90,6 +90,56 @@ is a complete instance of the timer model's 16-by-32 IA4 image (256 bytes).
 This excludes a new full-payload timer contract without asserting that negative
 timers are reachable or that these resources lack other uses.
 
+## Boat appearance table and command queue
+
+The seven words at `80090214` are resources 4195, 4197, 4196, 4198, 7180,
+7181 and 7182. Script opcode 13, suboperations 2 and 3, reads a signed table
+index from command byte 5. The loads at `15024AFC` and `15024B20` store the
+selected resource into attachment halfwords `+18` and `+1A`. Attachment lookup
+`1503195C` receives the command's signed halfword at `+2`, plus one; a null
+lookup skips the store.
+
+A census of all 483 decoded bank-06 scripts completed without errors and found
+seven opcode-13 texture commands:
+
+| Bank / entry / script | Command bytes | Attachment | Field | Table index |
+| --- | --- | ---: | --- | ---: |
+| 6 / 4 / 9 | `0d32004902000000` | 74 | `+18` | 0 |
+| 6 / 4 / 9 | `0d00004903000000` | 74 | `+1A` | 0 |
+| 6 / 4 / 9 | `0d00004903030000` | 74 | `+1A` | 3 |
+| 6 / 4 / 9 | `0d0e004902030000` | 74 | `+18` | 3 |
+| 6 / 6 / 38 | `0d37003a02050000` | 59 | `+18` | 5 |
+| 6 / 20 / 4 | `0d07003a02060000` | 59 | `+18` | 6 |
+| 6 / 37 / 9 | `0d5900ab02040000` | 172 | `+18` | 4 |
+
+None selects index 1 or 2, which would identify resources 4197 and 4196.
+This is a stored-command census, not proof that every listed command executes.
+
+The reviewed native queue forwards command pointers rather than manufacturing
+new opcode-13 packets. Track processor `150242F8` calls insertion routine
+`150241B4` at `150244B8`. Queue records are 12 bytes; their first word is the
+command pointer. Drain routine `15024130` calls wrapper `1502A8A0` at
+`15024180`; that wrapper calls command dispatcher `1502460C` at `1502A9C0`
+and `1502AA8C`. The two direct drain calls are `150241F0` and `150245B4`.
+
+A fresh scan of all three checksum-validated CPU code intervals found exactly
+these six JAL calls to the insertion, drain, wrapper and dispatcher functions.
+It found no J tail calls, aligned function-address literals in those code
+intervals, or lexical LUI plus ADDIU/ORI address-construction leads within
+32 preceding instructions. This bounded scan does not cover literal pointers
+in data, arbitrary computed dispatch, or later mutation of script bytes.
+
+The nearby light table at `80090204` is a separate consumer. Light renderer
+`150DE458` forms a pair address using object `+7C` times eight. Hypothetical
+selectors 2 and 3 would overlap the boat words, but the reviewed model
+`4:28:12` uses 32-by-64 CI8 sources with a 512-byte palette: 2,560 bytes.
+Resources 4196 and 4197 each contain 1,536 decoded bytes. This neighboring
+lookup therefore does not establish a complete light-material storage
+contract, even before proving either hypothetical selector reachable.
+
+Neither resource is newly admitted. A different binding or concrete mutation
+witness is required before revisiting these exclusions.
+
 ## Remaining uncertainty
 
 These checks narrow specific consumer hypotheses. They do not prove global
