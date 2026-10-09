@@ -8,7 +8,7 @@ from pathlib import Path
 try:
     from scripts import (texture_assets as t, texture_ci8, texture_rgba16,
                          texture_native, hud_assets as h, hud_additional_artwork as artwork,
-                         texture_model_catalog, texture_cpu_descriptors)
+                         texture_model_catalog, texture_cpu_descriptors, texture_cpu_effects)
 except ModuleNotFoundError:
     import texture_assets as t
     import texture_ci8
@@ -18,6 +18,7 @@ except ModuleNotFoundError:
     import hud_additional_artwork as artwork
     import texture_model_catalog
     import texture_cpu_descriptors
+    import texture_cpu_effects
 
 
 def runtime_context(path: Path, rom: bytes):
@@ -133,13 +134,15 @@ def load_extended(root: Path, rom: bytes, *, excluded_indices=()) -> dict[int, t
                     result[ordinals[resource]][1][key] = contract[key]
     occupied = set(result) | set(excluded_indices)
     excluded_ids = {entry.index for index, entry in enumerate(entries) if index in occupied}
-    for resource, contract in texture_cpu_descriptors.load(root, rom, entries, excluded_ids).items():
-        if resource in excluded_ids:
-            raise ValueError('CPU descriptor catalog returned an already classified texture')
-        entry = by_id[resource]
-        index = ordinals[resource]
-        texture = t.TextureAsset(index, layout['flat_assets_start'] + entry.start,
-                                 layout['flat_assets_start'] + entry.end, entry.data)
-        result[index] = (texture, {'identity': 'runtime-resource',
-                                  'runtime_resource_id': resource, **contract})
+    for module in (texture_cpu_descriptors, texture_cpu_effects):
+        for resource, contract in module.load(root, rom, entries, excluded_ids).items():
+            if resource in excluded_ids:
+                raise ValueError('CPU descriptor catalog returned an already classified texture')
+            entry = by_id[resource]
+            index = ordinals[resource]
+            texture = t.TextureAsset(index, layout['flat_assets_start'] + entry.start,
+                                     layout['flat_assets_start'] + entry.end, entry.data)
+            result[index] = (texture, {'identity': 'runtime-resource',
+                                      'runtime_resource_id': resource, **contract})
+            excluded_ids.add(resource)
     return result
