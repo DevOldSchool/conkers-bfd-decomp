@@ -127,7 +127,7 @@ def load_extended(root: Path, rom: bytes, *, excluded_indices=()) -> dict[int, t
         if 'levels' in contract:
             result[ordinals[resource]][1].update(levels=contract['levels'],
                                                 palette_size=contract['palette_size'])
-            for key in ('zero_alignment', 'pixel_tlut_overlap_bytes', 'clamped_npot_dimensions'):
+            for key in ('zero_alignment', 'pixel_tlut_overlap_bytes', 'clamped_npot_dimensions', 'mixed_detail'):
                 if key in contract:
                     result[ordinals[resource]][1][key] = contract[key]
     return result

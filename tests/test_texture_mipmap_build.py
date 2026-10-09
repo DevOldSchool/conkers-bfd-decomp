@@ -9,6 +9,82 @@ from scripts import texture_assets as t, texture_build as build, rzip_pack
 
 
 class MipmapBuildTests(unittest.TestCase):
+    def mixed_fixture(self, root, fmt):
+        bits, palette_size = (4, 32) if fmt == 'ci4' else (8, 512)
+        levels, cursor = [], 0
+        for index, (form, height) in enumerate(((fmt, 8), (fmt, 4), ('ia4', 2))):
+            size = 8 * height
+            levels.append({'level': index, 'format': form, 'role': 'detail' if index == 2 else 'mip',
+                           'offset': cursor, 'width': 16 if form == 'ia4' else 64 // bits,
+                           'height': height, 'bytes': size})
+            cursor += size
+        payload = bytes(range(cursor)) + bytes(16) + bytes(i % 256 for i in range(palette_size))
+        packed = rzip_pack.encode_rzip_chunk(payload)
+        texture = t.TextureAsset(54, 0, len(packed), payload)
+        contract = {'format': fmt, 'width': 64 // bits, 'height': 8, 'row_layout': t.ROW_LAYOUT_TMEM,
+                    'mixed_detail': True, 'palette_size': palette_size, 'levels': levels,
+                    'zero_alignment': {'offset': cursor, 'size': 16, 'alignment': 64}}
+        expected = build.describe_texture(packed, texture, contract=contract)
+        directory = root / fmt
+        build.initialize_inputs(directory, expected, payload)
+        return directory, expected, packed
+
+    def test_mixed_detail_sources_roundtrip_with_full_indexed_palette(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            for fmt in ('ci4', 'ci8'):
+                directory, expected, packed = self.mixed_fixture(Path(tmp), fmt)
+                self.assertEqual(expected['schema_version'], 4)
+                self.assertTrue(expected['files'][-1].endswith('.ia4.png'))
+                result, hashes = build.packed_texture(directory, expected)
+                self.assertEqual(result, packed)
+                self.assertEqual(set(hashes), {'manifest.json', *expected['files']})
+                name, plane, _, size = build.source_images(expected)[0][-1]
+                raw = build.source_png((directory / name).read_bytes(), plane, decode=True)
+                self.assertEqual(len(raw), size)  # IA4 has no indexed palette.
+
+    def test_mixed_detail_changes_missing_input_and_race_fail(self):
+        for failure in ('change', 'missing', 'race', 'palette'):
+            with self.subTest(failure=failure), tempfile.TemporaryDirectory() as tmp:
+                directory, expected, packed = self.mixed_fixture(Path(tmp), 'ci8')
+                images = build.source_images(expected)[0]
+                name, plane, _, _ = images[1 if failure == 'palette' else -1]
+                path = directory / name
+                if failure == 'race':
+                    def encode(*_):
+                        path.write_bytes(path.read_bytes() + b'changed')
+                        return packed
+                    with patch.object(build, 'encode_payload', side_effect=encode), \
+                            self.assertRaisesRegex(ValueError, 'changed during packing'):
+                        build.packed_texture(directory, expected)
+                    continue
+                if failure == 'missing':
+                    path.unlink()
+                    error, message = FileNotFoundError, ''
+                else:
+                    raw = bytearray(build.source_png(path.read_bytes(), plane, decode=True))
+                    raw[-1 if failure == 'palette' else 0] ^= 1
+                    path.write_bytes(build.source_png(bytes(raw), plane))
+                    error, message = ValueError, 'shared palette' if failure == 'palette' else 'original payload'
+                with self.assertRaisesRegex(error, message):
+                    build.packed_texture(directory, expected)
+
+    def test_mixed_detail_wrong_format_role_gap_and_unrepresented_tail_fail(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            _, expected, _ = self.mixed_fixture(Path(tmp), 'ci4')
+            for change in ('format', 'role', 'gap', 'tail'):
+                altered = copy.deepcopy(expected)
+                last = altered['source_contract']['levels'][-1]
+                if change == 'format':
+                    last['format'] = 'ci4'
+                elif change == 'role':
+                    last['role'] = 'mip'
+                elif change == 'gap':
+                    last['offset'] += 1
+                else:
+                    altered['decoded_size'] += 1
+                with self.assertRaises(ValueError):
+                    build.source_images(altered)
+
     def fixture(self, root, fmt='ci8', padding=0):
         palette_size = 512 if fmt == 'ci8' else 0
         payload = bytes(i % 256 for i in range(112 + palette_size))

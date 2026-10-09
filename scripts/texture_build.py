@@ -78,8 +78,8 @@ def describe_texture(rom: bytes, texture: texture_assets.TextureAsset, *, rom_sh
         expected.update(source_contract=contract, row_layout=contract['row_layout'],
                         file=f"{texture.flat_index:04d}.{contract['format']}.png")
         if 'levels' in contract:
-            expected['schema_version'] = 3 if 'zero_alignment' in contract else 2
-            expected['files'] = [f"{texture.flat_index:04d}.level-{level['level']}.{contract['format']}.png"
+            expected['schema_version'] = 4 if contract.get('mixed_detail') else (3 if 'zero_alignment' in contract else 2)
+            expected['files'] = [f"{texture.flat_index:04d}.level-{level['level']}.{level.get('format', contract['format'])}.png"
                                  for level in contract['levels']]
             del expected['file']
     if rzip_pack.encode_rzip_chunk(texture.payload) != rom[texture.rom_start:texture.rom_end]:
@@ -201,7 +201,8 @@ def initialize_inputs(directory: Path, expected: dict, payload: bytes) -> None:
     if padding and payload[len(payload) - palette_size - len(padding):len(payload) - palette_size] != padding:
         raise ValueError('texture alignment bytes are not zero')
     palette = payload[-palette_size:] if palette_size else b''
-    encoded = [(name, source_png(payload[offset:offset + size] + palette, plane))
+    encoded = [(name, source_png(payload[offset:offset + size] +
+                                (palette if palette_size and plane['source_contract']['format'] in ('ci4', 'ci8') else b''), plane))
                for name, plane, offset, size in images]
     directory.mkdir(parents=True)
     for name, png in encoded:
@@ -216,9 +217,10 @@ def alignment_padding(expected: dict, pixel_size: int) -> bytes:
         if expected['schema_version'] == 3:
             raise ValueError('aligned texture source lacks zero alignment')
         return b''
-    if (expected['schema_version'] != 3 or padding['alignment'] != 64
-            or padding['offset'] != pixel_size or not 0 < padding['size'] < 64
-            or pixel_size + padding['size'] != (pixel_size + 63) // 64 * 64):
+    boundary = 128 if expected['source_contract']['format'] == 'rgba32' else 64
+    if (expected['schema_version'] not in (3, 4) or padding['alignment'] != boundary
+            or padding['offset'] != pixel_size or not 0 < padding['size'] < boundary
+            or pixel_size + padding['size'] != (pixel_size + boundary - 1) // boundary * boundary):
         raise ValueError('invalid texture zero alignment contract')
     return bytes(padding['size'])
 
@@ -227,24 +229,34 @@ def source_images(expected: dict) -> tuple[list[tuple[str, dict, int, int]], int
     """Return complete image planes; all shared palette bytes are PNG sources."""
     if expected['schema_version'] == 1:
         return [(expected['file'], expected, 0, expected['decoded_size'])], 0
-    if expected['schema_version'] not in (2, 3):
+    if expected['schema_version'] not in (2, 3, 4):
         raise ValueError('unsupported texture source schema')
     contract = expected['source_contract']
     levels, names, palette_size = contract['levels'], expected['files'], contract['palette_size']
     fmt = contract['format']
-    bits = {'ci4': 4, 'ci8': 8, 'rgba16': 16, 'rgba32': 32,
-            'ia4': 4, 'ia8': 8, 'ia16': 16, 'i4': 4, 'i8': 8}[fmt]
+    depths = {'ci4': 4, 'ci8': 8, 'rgba16': 16, 'rgba32': 32,
+              'ia4': 4, 'ia8': 8, 'ia16': 16, 'i4': 4, 'i8': 8}
+    mixed = expected['schema_version'] == 4
     if (not 1 <= len(levels) <= 6 or len(names) != len(levels) or len(set(names)) != len(names)
             or any(Path(name).name != name for name in names)
             or palette_size != {'ci4': 32, 'ci8': 512}.get(fmt, 0)):
         raise ValueError('invalid layered texture source contract')
+    if mixed and (not contract.get('mixed_detail') or fmt not in ('ci4', 'ci8') or len(levels) < 2):
+        raise ValueError('invalid mixed detail source contract')
     images, cursor = [], 0
     for index, (name, level) in enumerate(zip(names, levels)):
         width, height, size = level['width'], level['height'], level['bytes']
+        plane_format = level.get('format', fmt)
+        if (plane_format not in depths or (not mixed and plane_format != fmt)
+                or (mixed and (plane_format != ('ia4' if index == len(levels) - 1 else fmt)
+                               or level.get('role') != ('detail' if index == len(levels) - 1 else 'mip')))):
+            raise ValueError('invalid texture plane format or role')
+        bits = depths[plane_format]
         if (level['level'] != index or level['offset'] != cursor or width <= 0 or height <= 0
                 or width * bits % 8 or size != width * bits // 8 * height):
             raise ValueError('layered texture images do not cover contiguous storage')
-        plane = {**expected, 'source_contract': {**contract, 'width': width, 'height': height}}
+        plane = {**expected, 'source_contract': {**contract, 'format': plane_format,
+                                                'width': width, 'height': height}}
         images.append((name, plane, cursor, size))
         cursor += size
     if cursor + len(alignment_padding(expected, cursor)) + palette_size != expected['decoded_size']:
@@ -267,10 +279,11 @@ def packed_texture(directory: Path, expected: dict) -> tuple[bytes, dict[str, st
     planes, palette = [], None
     for name, plane, _, size in images:
         decoded = source_png((directory / name).read_bytes(), plane, decode=True)
-        if len(decoded) != size + palette_size:
+        plane_palette = palette_size if palette_size and plane['source_contract']['format'] in ('ci4', 'ci8') else 0
+        if len(decoded) != size + plane_palette:
             raise ValueError('texture image has an unexpected decoded size')
-        if palette_size:
-            current = decoded[-palette_size:]
+        if plane_palette:
+            current = decoded[-plane_palette:]
             if palette is not None and current != palette:
                 raise ValueError('texture levels disagree on the shared palette')
             palette = current

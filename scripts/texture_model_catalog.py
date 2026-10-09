@@ -210,4 +210,67 @@ def load(root: Path, rom: bytes, entries, excluded_ids=()) -> dict[int, dict]:
                     'model': [bank, entry, segment.index], 'material_run': index,
                     'status': 'complete-source-storage-not-rendered-appearance',
                     'model_sha1': hashlib.sha1(segment.data).hexdigest()})
+    # Append new consumer classes after established contracts so existing PNG
+    # bundles and their provenance never change when coverage expands.
+    for bank, entry, segment, geometry, character in source_models:
+        if bank != 1:
+            continue
+        for index, run in enumerate(geometry.material_runs):
+            if run.pixel is None or run.pixel.segment not in (6, 7, 10, 11):
+                continue
+            for choice, default in choices.get(entry, []):
+                descriptor = models.model_character_defaults.select_descriptor(
+                    default, character['texture_descriptors'], run.pixel.segment)
+                if (descriptor is None or descriptor['flat_index'] not in payloads
+                        or descriptor['flat_index'] in excluded or descriptor['flat_index'] in result):
+                    continue
+                resource = descriptor['flat_index']
+                preview, status, evidence = models.rom_default_preview_texture(
+                    run, default, character['texture_descriptors'], payloads, bank_contexts[bank])
+                if preview is None or preview.flat_index != resource:
+                    continue
+                try:
+                    contract = texture_model_storage.bound_contract(run, preview, payloads[resource])
+                except ValueError:
+                    continue
+                if contract is not None:
+                    result[resource] = dict(contract, family='model-selector-storage', consumer={
+                        'model': [bank, entry, segment.index], 'material_run': index,
+                        'selection': choice, 'status': status, 'binding_evidence': evidence,
+                        'model_sha1': hashlib.sha1(segment.data).hexdigest(),
+                        'initializer_sha1': default['sha1'],
+                        'descriptor_indices': default['descriptor_indices'],
+                        'expression_texture_selection': default.get('expression_texture_selection')})
+    for bank, entry, segment, geometry, _ in source_models:
+        if bank != 9:
+            continue
+        adjusted, state = models.model_special_attachment_materials.apply_preview_geometry(
+            geometry, segment.data, contexts.get((bank, entry, segment.index)), payloads, {})
+        if state is None:
+            continue
+        for index, run in enumerate(adjusted.material_runs):
+            preview, status = models.choose_preview_texture(run, {}, payloads)
+            if preview is None:
+                preview, status, _ = models.rom_render_state_preview_texture(
+                    run, {}, payloads, bank_contexts[bank])
+            accept(preview, 'model-special-attachment', {
+                'model': [bank, entry, segment.index], 'material_run': index,
+                'status': status, 'model_sha1': hashlib.sha1(segment.data).hexdigest()})
+    for bank, entry, segment, geometry, _ in source_models:
+        for index, run in enumerate(geometry.material_runs):
+            if (run.pixel is None or run.pixel.flat_index not in payloads
+                    or run.pixel.flat_index in excluded or run.pixel.flat_index in result):
+                continue
+            preview, status = models.choose_preview_texture(run, {}, payloads)
+            if preview is None:
+                preview, status, _ = models.rom_render_state_preview_texture(
+                    run, {}, payloads, bank_contexts[bank])
+            try:
+                contract = texture_model_storage.detail_contract(run, preview, payloads[run.pixel.flat_index])
+            except ValueError:
+                continue
+            if contract is not None:
+                result[run.pixel.flat_index] = dict(contract, family='model-detail-storage', consumer={
+                    'model': [bank, entry, segment.index], 'material_run': index,
+                    'status': status, 'model_sha1': hashlib.sha1(segment.data).hexdigest()})
     return result

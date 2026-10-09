@@ -1,6 +1,7 @@
 """Complete TMEM coverage and native selector semantics must be explicit."""
 import copy
 import hashlib
+from dataclasses import replace
 from types import SimpleNamespace as NS
 import unittest
 
@@ -8,6 +9,56 @@ from scripts import texture_model_storage as storage
 
 
 class ModelStorageTests(unittest.TestCase):
+    def test_complete_detail_source_requires_every_plane_and_zero_tail(self):
+        try:
+            from tests.test_model_assets import ModelAssetTests
+        except ModuleNotFoundError:
+            from test_model_assets import ModelAssetTests
+        for size in (0, 1):
+            run = ModelAssetTests().detail_indexed_run(size)
+            palette_size = 32 if size == 0 else 512
+            payload = bytes(range(160)) + bytes(palette_size)
+            preview, _ = storage.models.choose_preview_texture(run, {}, {42: payload})
+            contract = storage.detail_contract(run, preview, payload)
+            self.assertEqual([r['format'] for r in contract['levels']],
+                             ['ci4' if size == 0 else 'ci8'] * 2 + ['ia4'])
+            self.assertEqual([r['offset'] for r in contract['levels']], [0, 64, 96])
+            self.assertEqual(sum(r['bytes'] for r in contract['levels']), 160)
+            aligned = payload[:160] + bytes(32) + payload[160:]
+            self.assertEqual(storage.detail_contract(run, preview, aligned)['zero_alignment']['size'], 32)
+            for tail in (bytes(33), b'x' + bytes(31), bytes(96)):
+                self.assertIsNone(storage.detail_contract(run, preview, payload[:160] + tail + payload[160:]))
+            self.assertIsNone(storage.detail_contract(run, None, payload))
+            gap = replace(run, render_tiles=tuple(
+                (i, cmd + 1 if i == 0 else cmd, arg) for i, cmd, arg in run.render_tiles))
+            self.assertIsNone(storage.detail_contract(gap, preview, payload))
+
+    def test_bound_storage_only_relocates_authenticated_zero_origin_and_palette_tail(self):
+        try:
+            from tests.test_model_assets import ModelAssetTests
+        except ModuleNotFoundError:
+            from test_model_assets import ModelAssetTests
+        from unittest.mock import patch
+        run = ModelAssetTests().direct_ci4_run()
+        pixel = replace(run.pixel, flat_index=None, mode=None, segment=6, offset=0)
+        palette = replace(run.palette, flat_index=None, mode=None, segment=6, offset=128)
+        bound = replace(run, pixel=pixel, palette=palette,
+                        texture_loads=((pixel, (0xF5100000, 0)), (palette, (0xF5100100, 0))))
+        preview = NS(flat_index=42, format=2, size=0)
+        with patch.object(storage, 'layered_contract', return_value={'verified': True}) as check:
+            self.assertEqual(storage.bound_contract(bound, preview, bytes(160)), {'verified': True})
+            mapped = check.call_args.args[0]
+            self.assertEqual((mapped.pixel.flat_index, mapped.pixel.mode, mapped.pixel.segment), (42, 0, None))
+            self.assertEqual((mapped.palette.flat_index, mapped.palette.mode), (42, 2))
+            self.assertEqual(mapped.texture_loads[0][0], mapped.pixel)
+            self.assertEqual(mapped.texture_loads[1][0], mapped.palette)
+            check.reset_mock()
+            for candidate in (replace(bound, pixel=replace(pixel, offset=4)),
+                              replace(bound, palette=replace(palette, offset=127)),
+                              replace(bound, palette=replace(palette, segment=7))):
+                self.assertIsNone(storage.bound_contract(candidate, preview, bytes(160)))
+            check.assert_not_called()
+
     def run_fixture(self):
         pixel = NS(mode=0, external=False, flat_index=42, image_command=0xFD900000,
                    load_command=(0xF3000000, 0x07037000))  # 56 RGBA16 transfers, 112 bytes
@@ -86,6 +137,10 @@ class ModelStorageTests(unittest.TestCase):
         levels = storage.layered_contract(run, bytes(352))['levels']
         self.assertEqual([(level['offset'], level['width'], level['bytes']) for level in levels],
                          [(0, 8, 256), (256, 4, 64), (320, 4, 32)])
+        aligned = storage.layered_contract(run, bytes(384), storage_extensions=True)
+        self.assertEqual(aligned['zero_alignment'], {'offset': 352, 'size': 32, 'alignment': 128})
+        self.assertIsNone(storage.layered_contract(run, bytes(512), storage_extensions=True))
+        self.assertIsNone(storage.layered_contract(run, bytes(352) + b'x' + bytes(31), storage_extensions=True))
 
     def indexed_fixture(self):
         run = self.run_fixture()

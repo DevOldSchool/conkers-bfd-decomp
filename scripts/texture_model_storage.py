@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+from dataclasses import replace
 
 try:
     from scripts import model_assets as models
@@ -54,8 +55,9 @@ def layered_contract(run, payload: bytes, *, storage_extensions: bool = False) -
             return None
     pixel_end = len(payload) - palette_size
     alignment = pixel_end - loaded
-    if alignment and (not storage_extensions or not 0 < alignment < 64
-                      or pixel_end != (loaded + 63) // 64 * 64
+    boundary = 128 if fmt == 'rgba32' else 64
+    if alignment and (not storage_extensions or not 0 < alignment < boundary
+                      or pixel_end != (loaded + boundary - 1) // boundary * boundary
                       or any(payload[loaded:pixel_end])):
         return None
     overlap = max(0, loaded - 2048) if palette_size else 0
@@ -104,11 +106,82 @@ def layered_contract(run, payload: bytes, *, storage_extensions: bool = False) -
                 'row_layout': 'tmem-odd-row-32bit-swap', 'source_origin': 'bottom-left',
                 'levels': levels, 'palette_size': palette_size}
     if alignment:
-        contract['zero_alignment'] = {'offset': loaded, 'size': alignment, 'alignment': 64}
+        contract['zero_alignment'] = {'offset': loaded, 'size': alignment, 'alignment': boundary}
     if overlap:
         contract['pixel_tlut_overlap_bytes'] = overlap
     if clamped_npot:
         contract['clamped_npot_dimensions'] = True
+    return contract
+
+
+def bound_contract(run, preview, payload: bytes) -> dict | None:
+    """Relocate only pointers authenticated by the ROM selector preview resolver."""
+    if (preview is None or run.pixel is None or run.pixel.segment not in (6, 7, 10, 11)
+            or run.pixel.offset != 0 or preview.flat_index is None):
+        return None
+    resource = preview.flat_index
+    pixel = replace(run.pixel, flat_index=resource, mode=0, segment=None, offset=None)
+    palette = run.palette
+    if palette is not None:
+        size = {(2, 0): 32, (2, 1): 512}.get((preview.format, preview.size))
+        if (size is None or palette.segment != run.pixel.segment
+                or palette.offset != len(payload) - size):
+            return None
+        palette = replace(palette, flat_index=resource, mode=2 if size == 32 else 1,
+                          segment=None, offset=None)
+    mapped = replace(run, pixel=pixel, palette=palette, texture_loads=tuple(
+        (pixel if ref == run.pixel else palette if ref == run.palette else ref, tile)
+        for ref, tile in run.texture_loads))
+    return layered_contract(mapped, payload, storage_extensions=True)
+
+
+def detail_contract(run, preview, payload: bytes) -> dict | None:
+    """Retain all indexed mip storage and the native IA4 detail plane.
+
+    The preview must come from direct_detail_indexed_preview_texture, including
+    ROM render-state resolution where needed. It proves formats, bounds, loads,
+    and mip/detail semantics; here we additionally require complete storage.
+    """
+    if (preview is None or preview.family != 'us-direct-detail-indexed-base'
+            or run.pixel is None or preview.flat_index != run.pixel.flat_index
+            or run.palette is None):
+        return None
+    tiles = {i: (cmd, arg) for i, cmd, arg in run.render_tiles}
+    bounds = {i: (cmd, arg) for i, cmd, arg in run.detail_tile_bounds}
+    first = ((run.texture_scale[0] >> 8) & 7) + 1
+    maximum = (run.texture_scale[0] >> 11) & 7
+    palette_size = 32 if preview.size == 0 else 512
+    pixel_end = len(payload) - palette_size
+    levels, cursor = [], 0
+    for level, index in enumerate([*range(first, first + maximum + 1), first - 1]):
+        tile, bound = tiles.get(index), bounds.get(index)
+        if tile is None or bound is None:
+            return None
+        state = models.texture_coordinate_state(replace(
+            run, render_tile=tile, tile_bounds=bound, texture_dimensions=None))
+        fmt = FORMATS.get((state['format'], state['size']))
+        role = 'detail' if index == first - 1 else 'mip'
+        if fmt != ('ia4' if role == 'detail' else ('ci4' if preview.size == 0 else 'ci8')):
+            return None
+        stride, start = ((tile[0] >> 9) & 511) * 8, (tile[0] & 511) * 8
+        bits = 8 if fmt == 'ci8' else 4
+        size = stride * state['height']
+        if not stride or start != cursor or start + size > pixel_end:
+            return None
+        levels.append({'level': level, 'tile': index, 'role': role, 'format': fmt,
+                       'offset': start, 'width': stride * 8 // bits, 'height': state['height'],
+                       'visible_width': state['width'], 'visible_height': state['height'], 'bytes': size})
+        cursor += size
+    gap = pixel_end - cursor
+    if gap and (not 0 < gap < 64 or pixel_end != (cursor + 63) // 64 * 64
+                or any(payload[cursor:pixel_end])):
+        return None
+    contract = {'format': levels[0]['format'], 'width': levels[0]['width'],
+                'height': levels[0]['height'], 'row_layout': 'tmem-odd-row-32bit-swap',
+                'source_origin': 'bottom-left', 'levels': levels, 'palette_size': palette_size,
+                'mixed_detail': True}
+    if gap:
+        contract['zero_alignment'] = {'offset': cursor, 'size': gap, 'alignment': 64}
     return contract
 
 
