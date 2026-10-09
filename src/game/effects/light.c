@@ -1225,21 +1225,26 @@ extern LightUpdateCallback D_8008B36C[];
 
 s32 func_15163504(void *arg0) {
     s32 result;
+    s8 *handler;
 
     result = 1;
+    handler = (s8 *)((u8 *)arg0 + 0x24);
     *(s16 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 0xE) = (s16)(s32)**(f32 **)((u8 *)arg0 + 0x18);
     *(s16 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 0x10) = (s16)(s32)**(f32 **)((u8 *)arg0 + 0x1C);
     *(s16 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 0x12) = (s16)(s32)**(f32 **)((u8 *)arg0 + 0x20);
-    if (*(volatile s8 *)((u8 *)arg0 + 0x24) != -1) {
-        return D_8008B36C[(s32) *(s8 *)((u8 *)arg0 + 0x24)](arg0);
+    if (*(s8 *)((u8 *)arg0 + 0x24) != -1) {
+        return D_8008B36C[*handler](arg0);
     }
     return result;
 }
 extern void (*D_8008B370[])(void *, void *, u8);
 
 void func_151635A8(void *arg0, void *arg1, u8 arg2) {
-    if (D_8008B370[*(volatile u8 *)((u8 *)arg0 + 0x25)] != 0) {
-        D_8008B370[*(u8 *)((u8 *)arg0 + 0x25)](arg0, arg1, arg2);
+    u8 *handler;
+
+    handler = (u8 *)arg0 + 0x25;
+    if (D_8008B370[*(u8 *)((u8 *)arg0 + 0x25)] != 0) {
+        D_8008B370[*handler](arg0, arg1, arg2);
     }
 }
 extern u8 D_800A6964[];
