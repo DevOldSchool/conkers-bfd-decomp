@@ -200,7 +200,7 @@ void func_151D2E5C(void *arg0, void *arg1, u8 arg2) {
 }
 void *func_151D2F00(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
     void *temp_v0;
-    volatile void *sp24;
+    void *sp24;
 
     temp_v0 = func_15167A68(0x3E, arg3, arg1 + 0x30, 1, arg2, 1);
     if (temp_v0 == 0) {

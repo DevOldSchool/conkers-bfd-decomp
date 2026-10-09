@@ -25,10 +25,10 @@ void func_15147740(u8 *arg0) {
     u8 temp_v0_2;
 
     {
-        volatile s8 spill_pad;
+        s8 spill_pad;
         s8 var_a1 = 0;
         if (*(u16 *)(arg0 + 0x1E) & 1) {
-            *(s16 *)(arg0 + 0x1C) = *(s16 *)(arg0 + 0x1C) - D_800BE9E4;
+            *(s16 *)(arg0 + 0x1C) -= D_800BE9E4;
             if (*(s16 *)(arg0 + 0x1C) < 0) {
                 var_a1 = 1;
             }

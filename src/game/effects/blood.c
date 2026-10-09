@@ -620,7 +620,6 @@ void func_151355B8(struct102 *arg0, s32 *arg1, u8 arg2) {
     case 0:
         if ((arg1[0] == *(s32 *)((s32)arg0 + 0x1C)) ||
             (*(u8 *)((s32)arg1 + 4) == *(u8 *)((s32)arg0 + 0x18))) {
-            if (1) {}
             func_1516972C(arg0);
         }
         break;
@@ -911,7 +910,7 @@ void *func_1513C73C(s32 *, s32, s32, void *, f32, f32, f32, f32,
 void func_15136918(f32 arg0, u8 arg1, u8 arg2, s16 arg3, s16 arg4,
                    void *arg5, f32 *arg6, u8 arg7, s32 arg8) {
     Blood6918Packet packet;
-    volatile s32 padding[2];
+    s32 padding[2];
 
     packet.field06 = 0x55;
     packet.field00 = 0x300;

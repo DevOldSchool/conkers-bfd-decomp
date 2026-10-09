@@ -145,7 +145,7 @@ void func_150D8E1C(void *arg0) {
     *(s8 *)((u8 *)arg0 + 0x30) = 0;
     *(u16 *)((u8 *)arg0 + 0x1E) &= 0xFFFD;
     *(u16 *)((u8 *)arg0 + 0x1E) |= 8;
-    *(volatile u16 *)((u8 *)arg0 + 0x1E) = *(u16 *)((u8 *)arg0 + 0x1E) | 1;
+    *(u16 *)((u8 *)arg0 + 0x1E) |= 1;
     *(s16 *)((u8 *)arg0 + 0x1C) = 0x28;
 }
 typedef struct Game105FC0Sub {

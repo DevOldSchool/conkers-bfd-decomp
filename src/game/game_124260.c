@@ -21,7 +21,7 @@ void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
 void func_150F6DB0(void *arg0) {
     struct {
         void *sp18;
-        volatile u8 sp1C;
+        u8 sp1C;
     } sp;
 
     sp.sp18 = arg0;

@@ -401,7 +401,7 @@ s32 func_151C96DC(void *arg0, s32 arg1) {
 void func_151C970C(s32 arg0, void *arg1) {
     struct {
         void *sp18;
-        volatile s8 sp1C;
+        s8 sp1C;
     } sp;
 
     sp.sp18 = arg1;

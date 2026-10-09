@@ -1189,7 +1189,7 @@ s32 func_151253CC(u8 *arg0) {
 
     if (*(s32 *)(arg0 + 0x2C) & 0x40000) {
         *(s32 *)(arg0 + 0x84) &= ~0x4F;
-        *(volatile s32 *)(arg0 + 0x84) = *(s32 *)(arg0 + 0x84) | 0x2680;
+        *(s32 *)(arg0 + 0x84) |= 0x2680;
         value = 0.0f;
         *(f32 *)(arg0 + 0x3A8) = value;
         *(f32 *)(arg0 + 0x5E8) = value;
@@ -1481,7 +1481,7 @@ extern f32 D_800C3624;
 extern s8 D_800C365C;
 
 void func_15125A6C(struct108 *arg0) {
-    void *volatile *p_D_800A3554 = (void *)&D_800A3554;
+    void **p_D_800A3554 = (void *)&D_800A3554;
     s32 pad0;
     s32 pad1;
     f32 sp38;

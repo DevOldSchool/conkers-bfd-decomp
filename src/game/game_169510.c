@@ -554,7 +554,7 @@ void *func_1513D594(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4,
                     u8 arg5, s16 arg6, f32 arg7, f32 arg8, s32 arg9,
                     s32 arg10, s32 arg11, s32 arg12, u8 arg13, s32 arg14,
                     u8 arg15, s32 arg16) {
-    volatile void *sp3C;
+    void *sp3C;
     void *temp_v0;
 
     if (arg1 == 0) {

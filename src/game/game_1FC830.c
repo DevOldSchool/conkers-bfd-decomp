@@ -104,7 +104,7 @@ void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
 void func_151D0024(void *arg0) {
     struct {
         void *sp18;
-        volatile u8 sp1C;
+        u8 sp1C;
     } sp;
 
     sp.sp18 = arg0;
@@ -187,7 +187,7 @@ void func_151D08F0(u8 *arg0, u8 *arg1, u8 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D09A8.s")
 void func_1516972C(void *arg0);
 void func_151D0ED8(void *arg0) {
-    volatile void **field_A8 = (volatile void **)((u8 *)arg0 + 0xA8);
+    void **field_A8 = (void **)((u8 *)arg0 + 0xA8);
 
     if (*field_A8 != 0) {
         func_1516972C((void *)*field_A8);

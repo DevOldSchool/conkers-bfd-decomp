@@ -99,7 +99,7 @@ s32 func_151602C0(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4,
 }
 void *func_1516037C(GameLightDescriptor *arg0, s32 arg1, void *arg2, u8 arg3, s32 arg4) {
     void *temp_v0;
-    volatile void *sp24;
+    void *sp24;
 
     temp_v0 = func_15167A68(0x35, arg4, (u8 *)arg2 + 0x18, 1, (s32)arg3, 1);
     if (temp_v0 == 0) {
@@ -1495,7 +1495,7 @@ void func_15163DEC(s32 arg0, s32 arg1) {
     Light63DECState *state = (Light63DECState *)arg1;
     f32 current;
 
-    state->timer = state->timer - D_800BE9A4;
+    state->timer -= D_800BE9A4;
     if (state->timer < 0.0f) {
         state->timer = func_150ADA68() * state->duration;
         if (func_150ADA20() & 3) {
@@ -1508,7 +1508,7 @@ void func_15163DEC(s32 arg0, s32 arg1) {
     }
     state->value += (state->target - state->value) * state->weight;
     *(s8 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 0x2F) =
-        (s8)(u32)*(volatile f32 *)&state->value;
+        (s8)(u32)*(f32 *)&state->value;
 }
 s32 func_15163F50(void *arg0, void *arg1) {
     void *temp_v1;

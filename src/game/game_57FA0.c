@@ -212,7 +212,7 @@ extern s32 D_8003809C;
 extern s32 D_8003C8E0;
 
 s32 func_1502B224(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    volatile s32 padding[2];
+    s32 padding[2];
     s32 original;
     s32 buffer;
     u32 size;

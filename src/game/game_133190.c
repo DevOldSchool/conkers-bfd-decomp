@@ -384,7 +384,7 @@ Game133190Holder *func_15107604(Game133190Object *arg0) {
 void func_1516972C(void *arg0);
 
 void func_1510761C(void *arg0) {
-    volatile void **field_30 = (volatile void **)((u8 *)arg0 + 0x30);
+    void **field_30 = (void **)((u8 *)arg0 + 0x30);
 
     if (*field_30 != 0) {
         func_1516972C((void *)*field_30);

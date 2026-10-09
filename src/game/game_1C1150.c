@@ -526,7 +526,7 @@ void func_15194BF0(s32 volatile, void *volatile, s8 *volatile);
 
 void func_15194EA8(s32 arg0, void *arg1, s32 arg2) {
     struct {
-        volatile u32 sp2C;
+        u32 sp2C;
         u8 pad30[7];
         s8 sp37;
     } locals;

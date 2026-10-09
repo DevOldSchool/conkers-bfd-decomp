@@ -257,7 +257,6 @@ s32 func_151415D4(void *arg0) {
     Mid *m = &a->unk170;
     f32 d;
     if (m->unkC < m->unk10) {
-        if (1) {}
         a->unk158 = m->unk4;
     } else if (m->unkC < m->unk14) {
         f32 s;
