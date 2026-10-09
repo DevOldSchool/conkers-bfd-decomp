@@ -1136,21 +1136,15 @@ s32 func_15137C64(BloodVec3 *arg0, BloodVec3 *arg1, BloodVec3 *arg2,
     if (arg5 != 0 && arg6 != 0) {
         *arg0 = *arg5;
         *arg1 = *arg6;
-        goto have_positions;
-    }
-    if (arg5 != 0) {
+    } else if (arg5 != 0) {
         *arg0 = *arg5;
         *arg1 = *arg5;
-        goto have_positions;
-    }
-    if (arg6 != 0) {
+    } else if (arg6 != 0) {
         *arg0 = *arg6;
         *arg1 = *arg6;
-        goto have_positions;
+    } else {
+        return 0;
     }
-    return 0;
-
-have_positions:
     if (arg7 == 0) {
         arg2->x = arg1->x - arg0->x;
         arg2->y = arg1->y - arg0->y;

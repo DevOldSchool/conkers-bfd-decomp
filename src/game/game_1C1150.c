@@ -38,40 +38,26 @@ void *func_1518D1C0(Game1C1150Event *, s32, s32, s32, s32, s32, void *);
 void func_15194320(void *arg0, Game1C1150Event *arg1, s32 arg2) {
     switch (arg1->type) {
         case 0:
-            goto spawn;
         case 1:
-            goto spawn;
         case 2:
-            goto spawn;
         case 3:
-            goto spawn;
         case 4:
-            goto spawn;
+            func_1518D1C0(arg1, 0xA, 0, 1, 0xFF, 1, &D_800A8210);
+            break;
     }
-    return;
-
-spawn:
-    func_1518D1C0(arg1, 0xA, 0, 1, 0xFF, 1, &D_800A8210);
 }
 extern u8 D_800A822C;
 
 void func_15194394(void *arg0, Game1C1150Event *arg1, s32 arg2) {
     switch (arg1->type) {
         case 0:
-            goto spawn;
         case 1:
-            goto spawn;
         case 2:
-            goto spawn;
         case 3:
-            goto spawn;
         case 4:
-            goto spawn;
+            func_1518D1C0(arg1, 0xC, 0, 1, 0xFF, 1, &D_800A822C);
+            break;
     }
-    return;
-
-spawn:
-    func_1518D1C0(arg1, 0xC, 0, 1, 0xFF, 1, &D_800A822C);
 }
 typedef struct Game194408Packet {
     s16 field00;
