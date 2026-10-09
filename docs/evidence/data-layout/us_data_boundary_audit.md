@@ -225,22 +225,30 @@ partition for these tables is separate follow-up work.
 
 ## Verified data counts
 
-The source-grouped report on 2026-10-09, before the native completion gate, had
-these data measures (historical baseline):
+The source-grouped report generated from `f390bce` on 2026-10-09, with the native
+completion gate enabled, has these data measures:
 
 | Category | Total bytes | Native matched bytes | Completed bytes |
 | --- | ---: | ---: | ---: |
-| Main initialized data | 7,824 | 384 | 944 |
+| Main initialized data | 7,824 | 384 | 128 |
 | GAME initialized data | 189,088 | 512 | 0 |
 | Debugger initialized data | 4,720 | 0 | 0 |
 | Stored font asset | 5,440 | 5,440 | 5,440 |
-| Total | 207,072 | 6,336 | 6,384 |
+| Total | 207,072 | 6,336 | 5,568 |
 
 All 201,632 loaded initialized-data bytes are represented: 171,988 unassigned
-and 29,644 mapped. Font adds 5,440 stored bytes. Native matching and completed
-(fully linked) data are separate measures: linked SDK bytes may have different
-symbol metadata, while matching preserved GAME data is not yet rebuilt into its
-compressed stream. Neither measure is substituted for the other.
+and 29,644 mapped. Font adds 5,440 stored bytes to the ordinary Data category.
+Completion requires both real build integration and complete native data matching
+within each unit. Matching preserved GAME data still does not qualify because it
+is not rebuilt into the compressed stream. SDK data with different native symbol
+metadata also remains incomplete even when its linked bytes match the ROM.
+
+The native completion gate removed 816 completed data bytes across 22 units.
+Their whole-unit completion flags also removed 17,584 fully-linked code bytes:
+`complete_code` fell from 132,672 to 115,088. Native matched code remains 513,144
+bytes and native matched data remains 6,336 bytes. All final units satisfy
+`complete_data <= matched_data`; aggregate or category totals cannot conceal a
+violation. The validation file records the affected units in `completion_downgrades`.
 
 All three complete data reference images relink exactly to the checked US ROM.
 The final grouped objects also independently relink to the complete original
