@@ -1,8 +1,8 @@
 # US texture reconstruction
 
-The canonical flat YAML now selects **6,861 distinct textures**. This batch
-adds one captured boat source and nine attachment animation textures to the
-passing 6,851-texture checkpoint committed as `ead4fc1`.
+The canonical flat YAML now selects **6,863 distinct textures**. This batch
+adds two native I4 source strips to the passing 6,861-texture checkpoint
+committed as `789efb3`.
 Batch validation is recorded below; earlier passing checkpoints are retained.
 
 ## Selection and resource identity
@@ -50,7 +50,8 @@ The selected families, deduplicated in this order, are:
 | Native table images with complete stored extents | 5 |
 | Captured boat source storage | 1 |
 | Native attachment frame witnesses | 9 |
-| **Total** | **6,861** |
+| Native I4 source strips | 2 |
+| **Total** | **6,863** |
 
 The tiled runtime catalog has 2,526 resources before deduplication: 1,822 CI4
 and 704 CI8 payloads. Two already have direct contracts. Only actual runtime
@@ -517,10 +518,36 @@ original streams: two with default zlib and eight with GNU gzip. They add
 source-input hashes remain unchanged. These contracts establish source
 storage under explicit bindings, not observed gameplay activation.
 
+## Native I4 strips with oversized transfers
+
+The complete guarded renderer `0x15181EE0` reads resources 1956 and 1957
+from `0x800902C8`. Its loader returns each decompressed image base without
+an image expansion. Both render tiles declare I4, a 64-byte row stride and
+128-pixel S bounds. Each rectangle is 30 screen pixels tall, with positive
+5.10 T step `0x222`: the nominal T span is 16,380 / 1,024 texels, establishing
+a sixteen-row strip independently of the decoded file length. The complete
+stored payload is exactly 128 x 16 x 4 bits, or 1,024 bytes, for each source.
+
+The native LoadBlock deliberately remains separate evidence: it transfers
+4,096 bytes through a 16-bit load tile and uses larger 128 x 64 sampler bounds.
+Only the first 1,024 bytes belong to this source. The additional 3,072 fetched
+bytes are unknown and receive no reconstruction or matching credit. The PNG
+represents every stored source byte; no synthesized padding, copied ROM tail
+or claim of complete TMEM/raster reconstruction is involved. Clipping,
+visibility, filtering at source edges and actual runtime appearance remain
+outside this source-storage contract.
+
+This resolves the earlier oversized-load rejection using the native I4
+render stride and rectangle T extent, rather than weakening the exact-size
+rules for other texture families. The full consumer and loader functions,
+resource pair, source identity, PNG inverse and fresh compression are checked.
+The two default-zlib sources add 258 stored bytes and 2,048 decoded bytes;
+all 6,861 preceding contracts and source-input hashes remain unchanged.
+
 ## Exact reconstruction
 
-All 6,861 texture source bundles round-trip to their complete original payloads.
-Default zlib level-9 compression reproduces 6,320 entries. The remaining 541
+All 6,863 texture source bundles round-trip to their complete original payloads.
+Default zlib level-9 compression reproduces 6,322 entries. The remaining 541
 select **GNU gzip 1.12 at level 9**; every selected encoder must reproduce the
 original compressed bytes before any output in the batch is replaced.
 
@@ -534,10 +561,10 @@ changes fail closed. This workflow does not support asset editing.
 `./conker texture-assets build` runs in the pinned toolchain container, which
 provides GNU gzip 1.12. Surveys and extraction retain host dispatch.
 
-Selected storage is **8,280,264 bytes**, with **14,232,624 decoded bytes**.
-The selection requires 8,317 PNGs. The flat archive has 7,184 nonoverlapping rows:
-6,861 rebuilt entries and 323 raw intervals. The selected Data denominator is
-**8,487,336 bytes**, including 201,632 initialized CPU bytes and 5,440 font
+Selected storage is **8,280,522 bytes**, with **14,234,672 decoded bytes**.
+The selection requires 8,319 PNGs. The flat archive has 7,185 nonoverlapping rows:
+6,863 rebuilt entries and 322 raw intervals. The selected Data denominator is
+**8,487,594 bytes**, including 201,632 initialized CPU bytes and 5,440 font
 bytes. Decoded bytes and raw ranges receive no additional credit.
 
 Raw means ROM-backed storage, not necessarily unidentified content. Exhausting
@@ -885,5 +912,27 @@ These timings measure individual commands, not total workflow duration.
 
 Report source fingerprint:
 `3863945a04433ffd7ee1d503c700724198cd95b7686bf646d9d72e5773b2d6af`.
+
+These timings measure individual commands, not total workflow duration.
+
+## Passing native I4 strip batch validation
+
+- 53 focused provenance, codec, catalog and reconstruction tests passed.
+- The independent selection audit admits exactly two new textures. All 8,319
+  PNG inputs verify, and all 6,861 earlier contracts and source-input hashes
+  remain unchanged.
+- Full US ROM build passed in 422.02 seconds. Independent comparison confirms
+  all 67,108,864 bytes match the original US ROM.
+- Full container suite: 2,277 tests, 8 skipped, no failures; 182.243 seconds in
+  the runner and 187.21 seconds command elapsed time.
+- All 6,863 native texture units are fully matched and complete, totaling
+  8,280,522 stored bytes. There are no compile errors and the snapshot is current.
+- Native report command elapsed time: 496.46 seconds.
+- Aggregate Data: 8,287,066 / 8,487,594 matched bytes (97.637400%) and
+  8,286,298 complete bytes (97.628350%). Code totals are unchanged.
+- Canonical progress validation, progress rendering and whitespace checks passed.
+
+Report source fingerprint:
+`4ee5c3ab44d7f81f61bebfc5344ba7c8378390e0ff0671a1a85bc297ce78f87b`.
 
 These timings measure individual commands, not total workflow duration.

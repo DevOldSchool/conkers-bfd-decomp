@@ -175,7 +175,7 @@ Native font coverage is 5,440/5,440 matched and completed stored bytes, includin
 the 13-byte alignment tail. Completion requires the current editable glyphs and
 metadata to encode exactly to the actual ROM linker input and original storage.
 The published report combines 201,632 loaded initialized-data bytes with these
-5,440 font bytes and 8,280,264 bytes of 6,861 rebuilt textures: 8,487,336 total.
+5,440 font bytes and 8,280,522 bytes of 6,863 rebuilt textures: 8,487,594 total.
 The [texture batch](us_texture_reconstruction.md) documents independent PNG and
 compression proof. Current matching and completion measures are
 recorded in the validated native report; source grouping can change symbol matches.
