@@ -53,8 +53,9 @@ entries for `build/us/assets/audio/mp3/index.o`, `streams/<index>.o` and
 `padding/<offset>.o`. These individual objects are the ROM link inputs.
 
 The Makefile obtains their names directly from the YAML. Its dedicated rule
-repacks once per build, verifies every YAML boundary against the checked ROM
-manifest, and wraps each rebuilt part separately. Raw splat outputs remain
+repacks when editable inputs or build dependencies change, verifies every YAML
+boundary against the checked ROM manifest, and wraps changed parts separately.
+Unchanged parts retain their timestamps; missing generated parts are recovered. Raw splat outputs remain
 independent references. Missing files, invalid framing, changed metadata/padding
 or changed inputs during packing fail the build. The existing `mp3-assets pack`
 workflow retains its stricter original-stream checks.

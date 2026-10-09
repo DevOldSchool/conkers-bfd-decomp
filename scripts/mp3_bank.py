@@ -7,8 +7,10 @@ from pathlib import Path
 import struct
 
 try:
+    from scripts.build_files import write_if_changed
     from scripts import mp3_assets
 except ModuleNotFoundError:
+    from build_files import write_if_changed
     import mp3_assets
 
 
@@ -120,9 +122,7 @@ def build_bank(input_dir: Path, output: Path) -> tuple[bytes, dict]:
         initialize_inputs(input_dir, expected, rom)
     packed, hashes = packed_bank(input_dir, expected)
     output.parent.mkdir(parents=True, exist_ok=True)
-    temporary = output.with_suffix(output.suffix + '.tmp')
-    temporary.write_bytes(packed)
-    temporary.replace(output)
+    write_if_changed(output, packed)
     evidence = {'rom_start': expected['rom_start'], 'rom_end': expected['rom_end'],
                 'rom_sha1': expected['rom_sha1'], 'stream_count': len(expected['streams']),
                 'index_bytes': len(expected['records']) * 8,
@@ -130,7 +130,7 @@ def build_bank(input_dir: Path, output: Path) -> tuple[bytes, dict]:
                 'padding_bytes': sum(s['size'] for s in expected['padding']),
                 'source_inputs': hashes, 'sha256': sha256(packed),
                 'matches_original': packed == rom[expected['rom_start']:expected['rom_end']]}
-    output.with_suffix('.json').write_text(json.dumps(evidence, indent=2) + '\n')
+    write_if_changed(output.with_suffix('.json'), (json.dumps(evidence, indent=2) + '\n').encode())
     return packed, evidence
 
 
@@ -165,7 +165,7 @@ def write_parts(packed: bytes, manifest: dict, profile: Path, directory: Path) -
     for (begin, name), end in zip(splits, [p[0] for p in splits[1:]] + [manifest['rom_end']]):
         path = directory / (name + '.bin')
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_bytes(packed[begin - start:end - start])
+        write_if_changed(path, packed[begin - start:end - start])
 
 
 if __name__ == '__main__':

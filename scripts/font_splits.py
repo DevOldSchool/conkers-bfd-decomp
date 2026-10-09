@@ -4,6 +4,7 @@ import json
 import sys
 import yaml
 
+from build_files import write_if_changed
 import font_assets
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -57,7 +58,7 @@ def build_parts(root: Path = ROOT) -> list[tuple[int, int, str]]:
     for start, end, name in ranges:
         path = root / 'build/us/fonts/parts' / (name + '.bin')
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_bytes(packed[start - layout['font_start']:end - layout['font_start']])
+        write_if_changed(path, packed[start - layout['font_start']:end - layout['font_start']])
     return ranges
 
 
