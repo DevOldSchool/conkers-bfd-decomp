@@ -140,6 +140,10 @@ for narrower generated reports.
 
 ### Loader-proven US MP3 streams and tables
 
+Bank `0x16` is also a reconstructed ROM build input. See the
+[MP3 bank build workflow and evidence](evidence/data-layout/us_mp3_bank_build.md)
+for its editable stream bundle, preserved index/gaps and separate objdiff category.
+
 The exact US caller loads a selected entry from bank `0x16`, receives both its
 ROM address and byte length, and passes those values to `mp3_play_file`. All 453
 nonempty entries start with MPEG frame sync and are emitted as sparse-indexed

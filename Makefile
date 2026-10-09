@@ -45,7 +45,32 @@ MAIN_PRIVATE_DATA_SOURCES := $(foreach source,$(C_SRCS),--source $(source))
 LDFLAGS := -m elf32btsmip $(if $(PROFILE_RODATA_SCRIPT),-T $(PROFILE_RODATA_SCRIPT)) $(if $(PROFILE_MAIN_RODATA_SCRIPT),-T $(PROFILE_MAIN_RODATA_SCRIPT)) $(if $(PROFILE_MAIN_VI_BSS_SCRIPT),-T $(PROFILE_MAIN_VI_BSS_SCRIPT)) $(if $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT),-T $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT)) -T $(BUILD_DIR)/conker.$(PROFILE).ld
 NORMALIZED_ASM_DIR := $(BUILD_DIR)/normalized-asm
 BOOTSTRAP_SYMBOLS := $(BUILD_DIR)/bootstrap-symbols.ld
-ASSET_BINS_us := assets/boot.bin assets/2D4B0.bin assets/1A33E8.bin
+ifeq ($(PROFILE),us)
+FONT_BINS := $(shell python3 scripts/font_splits.py list-bins)
+FONT_OBJS := $(patsubst assets/%.bin,build/us/assets/%.o,$(FONT_BINS))
+AUDIO_BANK_BINS := $(shell python3 scripts/audio_boundaries.py list-bins)
+AUDIO_BANK_OBJS := $(patsubst assets/%.bin,build/us/assets/%.o,$(AUDIO_BANK_BINS))
+MP3_BANK_BINS := $(shell python3 scripts/mp3_bank.py list-bins)
+MP3_BANK_OBJS := $(patsubst assets/%.bin,build/us/assets/%.o,$(MP3_BANK_BINS))
+endif
+
+# US bin segments mirror the reviewed storage map in config/profiles/us.yaml.
+ASSET_BINS_us := \
+	assets/boot.bin assets/unassigned_after_main.bin $(FONT_BINS) \
+	assets/game_archive_index.bin assets/game_code_rzip.bin assets/game_code_gap.bin \
+	assets/game_data_rzip.bin assets/game_data_gap.bin assets/unassigned_after_debugger.bin \
+	assets/assets_flat_rzip.bin assets/assets_flat_gap.bin assets/asset_bank_index.bin \
+	assets/asset_bank_00.bin assets/asset_bank_01.bin assets/asset_bank_02.bin \
+	assets/asset_bank_03.bin assets/asset_bank_04.bin assets/asset_bank_05.bin \
+	assets/asset_bank_06.bin assets/asset_bank_07.bin assets/asset_bank_08.bin \
+	assets/asset_bank_09.bin assets/asset_bank_0a.bin assets/asset_bank_0b.bin \
+	assets/asset_bank_0c.bin assets/asset_bank_0d.bin assets/asset_bank_0e.bin \
+	assets/asset_bank_0f.bin assets/asset_bank_10.bin assets/asset_bank_11.bin \
+	assets/asset_bank_12.bin assets/asset_bank_13.bin assets/asset_bank_14.bin \
+	assets/asset_bank_15.bin $(MP3_BANK_BINS) $(AUDIO_BANK_BINS) \
+	assets/asset_bank_18.bin assets/asset_bank_19.bin assets/asset_bank_1a.bin \
+	assets/asset_bank_1b.bin assets/asset_bank_1c.bin assets/asset_raw_1d.bin \
+	assets/unassigned_rom_tail.bin
 ASSET_BINS_eu := assets/boot.bin assets/2D810.bin
 ASSET_BINS := $(ASSET_BINS_$(PROFILE))
 ASSET_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(ASSET_BINS))
@@ -309,6 +334,31 @@ build/us/src/done/main/init_11FA0.o: src/done/main/init_11FA0.c scripts/compile_
 $(BUILD_DIR)/src/%.o: src/%.c
 	@mkdir -p "$(@D)"
 	python3 scripts/compile_c.py --profile $(PROFILE) --output $@ $<
+
+# Each canonical glyph record is rebuilt from its editable pixels and metadata.
+.PHONY: font-parts-refresh
+font-parts-refresh:
+	python3 scripts/font_splits.py build-parts
+
+$(FONT_OBJS): build/us/assets/%.o: font-parts-refresh
+	@mkdir -p "$(@D)"
+	cd build/us/fonts/parts && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin
+
+# Canonical YAML subsegments are individual link inputs, rebuilt once per invocation.
+.PHONY: mp3-bank-refresh
+mp3-bank-refresh:
+	python3 scripts/mp3_bank.py build-parts
+
+$(MP3_BANK_OBJS): build/us/assets/%.o: mp3-bank-refresh
+	@mkdir -p "$(@D)"
+	cd build/us/audio/parts && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin
+
+# Require checked-in bank-17 splits to agree with the loader and sequence descriptors.
+.PHONY: audio-boundaries-check
+audio-boundaries-check:
+	python3 scripts/audio_boundaries.py verify
+
+$(AUDIO_BANK_OBJS): | audio-boundaries-check
 
 $(BUILD_DIR)/assets/%.o: assets/%.bin
 	@mkdir -p "$(@D)"
