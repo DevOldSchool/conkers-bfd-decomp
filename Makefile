@@ -386,12 +386,13 @@ $(FONT_PARTS): $(BUILD_DIR)/fonts/parts.stamp ;
 endif
 
 ifneq ($(TEXTURE_PARTS),)
-TEXTURE_INPUTS := $(wildcard build/assets/texture-build/us build/assets/texture-build/us/* build/assets/texture-build/us/*/*)
+TEXTURE_INPUTS := $(wildcard build/assets/texture-build/us build/assets/texture-build/us/* build/assets/texture-build/us/*/* build/assets/texture-build/us/*/*/*)
 TEXTURE_PARTS_MISSING := $(filter-out $(wildcard $(TEXTURE_PARTS)),$(TEXTURE_PARTS))
 ifeq ($(wildcard build/assets/texture-build/us/manifest.json),)
 TEXTURE_PARTS_MISSING += manifest
 endif
-$(BUILD_DIR)/textures/parts.stamp: $(ASSET_PACK_DEPS) scripts/texture_build.py scripts/texture_assets.py scripts/rzip_pack.py $(TEXTURE_INPUTS) $(if $(TEXTURE_PARTS_MISSING),asset-parts-missing)
+TEXTURE_CODEC_DEPS := scripts/texture_assets.py scripts/texture_catalog.py scripts/texture_ci8.py scripts/texture_rgba16.py scripts/texture_native.py scripts/hud_assets.py scripts/hud_additional_artwork.py scripts/rzip_pack.py
+$(BUILD_DIR)/textures/parts.stamp: $(ASSET_PACK_DEPS) scripts/texture_build.py $(TEXTURE_CODEC_DEPS) $(TEXTURE_INPUTS) $(if $(TEXTURE_PARTS_MISSING),asset-parts-missing)
 	python3 scripts/texture_build.py build-parts
 	@touch $@
 $(TEXTURE_PARTS): $(BUILD_DIR)/textures/parts.stamp ;

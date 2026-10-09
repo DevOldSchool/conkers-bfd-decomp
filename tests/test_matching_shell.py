@@ -11,6 +11,23 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 class MatchingShellTests(unittest.TestCase):
+    def test_texture_build_uses_pinned_container_without_moving_host_surveys(self):
+        script = (ROOT / 'scripts/conker.sh').read_text()
+        dispatch = '    texture-assets)' + script.split('    texture-assets)', 1)[1].split('        ;;', 1)[0] + '        ;;\n'
+        harness = '''set -euo pipefail
+python3() { printf 'host:%s\\n' "$*"; }
+run_in_container() { printf 'container:%s\\n' "$*"; }
+'''
+        for command in ('build', 'verify', 'survey', 'extract'):
+            with self.subTest(command=command):
+                result = subprocess.run(['bash', '-c', harness + 'case texture-assets in\n'
+                                         + dispatch + 'esac\n', 'test', command],
+                                        capture_output=True, text=True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                expected = ('container:python3 scripts/texture_assets.py ' if command == 'build'
+                            else 'host:scripts/texture_assets.py ') + command
+                self.assertEqual(result.stdout.strip(), expected)
+
     def test_build_dispatch_parallelizes_sdk_and_rom_and_stops_on_sdk_failure(self):
         script = (ROOT / 'scripts/conker.sh').read_text()
         dispatch = '    prepare|build)' + script.split('    prepare|build)', 1)[1].split('        ;;', 1)[0] + '        ;;\n'

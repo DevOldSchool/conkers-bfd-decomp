@@ -1224,7 +1224,11 @@ case "$command" in
         ;;
     texture-assets)
         [[ $# -ge 1 ]] || die "usage: ./conker texture-assets <extract|pack|build|verify|survey> [options]"
-        python3 scripts/texture_assets.py "$@"
+        if [[ "$1" == "build" ]]; then
+            run_in_container python3 scripts/texture_assets.py "$@"
+        else
+            python3 scripts/texture_assets.py "$@"
+        fi
         ;;
     model-assets)
         [[ $# -ge 1 ]] || die "usage: ./conker model-assets <appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]"

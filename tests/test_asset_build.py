@@ -43,7 +43,10 @@ class AssetMakeTests(unittest.TestCase):
                      'toolchain/python-requirements.txt', 'roms/baserom.us.z64',
                      'scripts/build_files.py', 'scripts/font_assets.py', 'scripts/mp3_assets.py',
                      'scripts/rzip_archive.py', 'scripts/rzip_extract.py',
-                     'scripts/texture_assets.py', 'scripts/rzip_pack.py'):
+                     'scripts/texture_assets.py', 'scripts/texture_catalog.py',
+                     'scripts/texture_ci8.py', 'scripts/texture_rgba16.py',
+                     'scripts/texture_native.py', 'scripts/rzip_pack.py',
+                     'scripts/hud_assets.py', 'scripts/hud_additional_artwork.py'):
             path = self.root / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.touch()

@@ -3,6 +3,8 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import zlib
+from types import SimpleNamespace
 from unittest.mock import patch
 
 import yaml
@@ -42,6 +44,79 @@ class TextureBuildTests(unittest.TestCase):
 
     def initialize(self):
         build.initialize_inputs(self.inputs, self.expected, self.payload)
+
+    def test_all_proven_pixel_formats_rebuild_storage_and_reject_changed_pixels(self):
+        cases = [('ci4', 32, 8, 160), ('ci8', 32, 8, 768),
+                 ('rgba16', 16, 8, 256), ('rgba32', 16, 8, 512),
+                 ('i4', 16, 8, 64), ('i8', 16, 8, 128),
+                 ('ia8', 16, 8, 128), ('ia16', 16, 8, 256)]
+        for fmt, width, height, size in cases:
+            for row in ('linear', 'tmem-odd-row-32bit-swap'):
+                with self.subTest(format=fmt, row=row):
+                    payload = bytes(i % 256 for i in range(size))
+                    packed = rzip_pack.encode_rzip_chunk(payload)
+                    texture = texture_assets.TextureAsset(53, 0, len(packed), payload)
+                    expected = build.describe_texture(packed, texture, contract={
+                        'family': 'synthetic-proven', 'format': fmt, 'width': width,
+                        'height': height, 'row_layout': row})
+                    directory = self.root / (fmt + '-' + row)
+                    build.initialize_inputs(directory, expected, payload)
+                    self.assertEqual(build.packed_texture(directory, expected)[0], packed)
+                    offsets = (0, width * height) if fmt == 'ci8' else (0,)
+                    for offset in offsets:
+                        changed = bytearray(payload)
+                        changed[offset] ^= 1
+                        (directory / expected['file']).write_bytes(
+                            build.source_png(bytes(changed), expected))
+                        with self.assertRaisesRegex(ValueError, 'original payload'):
+                            build.packed_texture(directory, expected)
+
+    def test_extended_contract_is_required_and_legacy_inputs_remain_unchanged(self):
+        payload = bytes(range(256))
+        packed = rzip_pack.encode_rzip_chunk(payload)
+        start = len(self.rom)
+        texture = texture_assets.TextureAsset(53, start, start + len(packed), payload)
+        self.rom += packed + bytes(4)
+        self.layout['flat_assets_end'] = len(self.rom)
+        self.document['segments'][0]['subsegments'] = [
+            [offset, 'bin', name] for offset, name in build.partition(self.layout, [self.texture, texture])]
+        self.document['segments'][1] = [len(self.rom)]
+        self.save_profile()
+        self.load.return_value = (None, self.rom, 'z64', self.layout, [self.texture])
+        self.expected = build.describe_texture(self.rom, self.texture)
+        self.initialize()
+        before = {p.name: p.read_bytes() for p in self.inputs.iterdir()}
+        contract = {'identity': 'runtime-resource', 'runtime_resource_id': 55,
+                    'family': 'rgba16-proven', 'format': 'rgba16', 'width': 16,
+                    'height': 8, 'row_layout': 'tmem-odd-row-32bit-swap'}
+        with patch.object(build.texture_catalog, 'load_extended', return_value={53: (texture, contract)}):
+            proof = build.build_parts(self.root)
+        self.assertEqual(proof['texture_count'], 2)
+        self.assertEqual(proof['stored_bytes'], len(self.packed) + len(packed))
+        self.assertEqual(proof['textures'][1]['source_contract'], contract)
+        self.assertTrue((self.root / build.input_directory(53, proof['textures'][1]) /
+                         'manifest.json').is_file())
+        self.assertFalse((self.root / build.input_directory(53)).exists())
+        for name, data in before.items():
+            self.assertEqual((self.inputs / name).read_bytes(), data)
+        with patch.object(build.texture_catalog, 'load_extended', return_value={}), \
+                self.assertRaisesRegex(ValueError, 'proven RZIP boundaries/family'):
+            build.reviewed_textures(self.root)
+
+    def test_hud_source_keeps_top_row_and_roundtrips_tmem_storage(self):
+        width, height = 16, 8
+        linear = bytes(range(128))
+        fmt, row = 'i8', texture_assets.ROW_LAYOUT_TMEM
+        payload = build.texture_native.convert_row_layout(linear, row, fmt, width, height)
+        expected = {'row_layout': row, 'source_contract': {
+            'format': fmt, 'width': width, 'height': height, 'source_origin': 'top-left'}}
+        png = build.source_png(payload, expected)
+        pixels = texture_assets.decode_rgba_png_pixels(png, width, height)
+        self.assertEqual(pixels, build.texture_native.payload_to_rgba(linear, fmt))
+        self.assertEqual(build.source_png(png, expected, decode=True), payload)
+        expected['source_contract']['source_origin'] = 'unknown'
+        with self.assertRaisesRegex(ValueError, 'source origin'):
+            build.source_png(payload, expected)
 
     def add_linear_texture(self):
         payload = bytes((i * 7 + 31) % 256 for i in range(2048)) + bytes(reversed(range(32)))
@@ -99,7 +174,7 @@ class TextureBuildTests(unittest.TestCase):
     def test_reconstruction_uses_encoder_and_preserves_unchanged_part_timestamp(self):
         with patch.object(rzip_pack, 'encode_rzip_chunk', wraps=rzip_pack.encode_rzip_chunk) as encode:
             proof = build.build_parts(self.root)
-        encode.assert_called_once_with(self.payload)
+        encode.assert_called_with(self.payload)
         self.assertTrue(proof['matches_original'])
         output = self.root / 'build/us/textures/parts' / (build.part_name(1063) + '.bin')
         self.assertEqual(output.read_bytes(), self.packed)
@@ -157,6 +232,29 @@ class TextureBuildTests(unittest.TestCase):
                     patch.object(rzip_pack, 'encode_rzip_chunk', return_value=packed), \
                     self.assertRaisesRegex(ValueError, message):
                 build.packed_texture(self.inputs, self.expected)
+
+    def test_gnu_gzip_wrapper_is_verified_and_only_deflate_enters_rzip(self):
+        expected = dict(self.expected, encoder={'format': 'gzip-raw-deflate', 'level': 9,
+                                               'implementation': 'GNU gzip 1.12'})
+        compressor = zlib.compressobj(9, wbits=31)
+        gz = compressor.compress(self.payload) + compressor.flush()
+        with patch.object(build, 'require_gnu_gzip'), \
+                patch.object(build.subprocess, 'run', return_value=SimpleNamespace(stdout=gz)) as run:
+            packed = build.encode_payload(self.payload, expected)
+            self.assertEqual(packed, self.packed)
+            self.assertEqual(run.call_args.args[0], ['gzip', '-n', '-9', '-c'])
+            self.assertEqual(run.call_args.kwargs['input'], self.payload)
+            for changed in (gz[:3] + b'\x08' + gz[4:], gz[:-1] + bytes([gz[-1] ^ 1])):
+                run.return_value.stdout = changed
+                with self.assertRaisesRegex(ValueError, 'wrapper or checksum'):
+                    build.encode_payload(self.payload, expected)
+
+    def test_wrong_gzip_implementation_is_rejected(self):
+        build.require_gnu_gzip.cache_clear()
+        self.addCleanup(build.require_gnu_gzip.cache_clear)
+        with patch.object(build.subprocess, 'check_output', return_value='Apple gzip\n'), \
+                self.assertRaisesRegex(ValueError, 'GNU gzip 1.12'):
+            build.require_gnu_gzip()
 
     def test_concurrent_input_change_is_rejected(self):
         self.initialize()

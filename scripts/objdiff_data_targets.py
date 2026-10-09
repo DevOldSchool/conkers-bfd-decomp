@@ -391,7 +391,7 @@ def prepare_texture(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, 
     directory = output / key
     directory.mkdir(parents=True, exist_ok=True)
     linked = ROOT / ('build/us/assets/' + name + '.o')
-    inputs = ROOT / texture_build.input_directory(index)
+    inputs = ROOT / texture_build.input_directory(index, expected)
     packed, hashes = texture_build.packed_texture(inputs, expected)
     start, end = expected['rom_start'], expected['rom_end']
     original = rom[start:end]
@@ -414,7 +414,7 @@ def prepare_texture(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, 
                                               original, f'texture {index} RZIP storage')
     unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data',
             'size': end - start, 'rom_start': start, 'rom_end': end,
-            'source_inputs': {(texture_build.input_directory(index) / p).as_posix(): h for p, h in hashes.items()},
+            'source_inputs': {(texture_build.input_directory(index, expected) / p).as_posix(): h for p, h in hashes.items()},
             'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
             'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
             'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
