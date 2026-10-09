@@ -284,6 +284,40 @@ class ModelStorageTests(unittest.TestCase):
                         {**program, 'operations': [{'dispatch_kind': 0, 'operation': 'parent-modification', 'bank': 1}]}):
             self.assertIsNone(storage.expression_selectors(initial, preset, {}, action_program=changed))
 
+    def renderer_fixture(self):
+        return {'entries': {123: {'descriptor_indices': {'6': 7, '10': 2, '11': 3}}},
+                'renderer_texture_presets': {123: {
+                    'consumer_sha1': {
+                        '0x150F1CB0': '4ceb60c5b35d31cc6e2df4d6a5b06b979ffb86e3',
+                        '0x150622F8': 'acb3c86862962cf9c98de7e18d177209c2c0bcb0'},
+                    'model_id_load': {'address': '0x15061BD8', 'word': '0x92700004'},
+                    'descriptor_indices': {'10': 12, '11': 19}}}}
+
+    def test_renderer_damage_precedence_and_animation_preserve_other_selectors(self):
+        manifest = self.renderer_fixture()
+        before = copy.deepcopy(manifest)
+        choices = storage.renderer_selector_choices(manifest, 123)
+        self.assertEqual(len(choices), 8)
+        outcomes = {}
+        for _, choice in choices:
+            state = choice['renderer_texture_selection']['runtime_state']
+            outcomes[state['actor_0x84_u16'], state['actor_0x2E4_u32']] = choice['descriptor_indices']
+        for animation, segment10 in ((0, 12), (20, 27)):
+            for damage, segment11 in ((0, 19), (3, 20), (12, 23), (15, 23)):
+                self.assertEqual(outcomes[animation, damage], {'6': 7, '10': segment10, '11': segment11})
+        self.assertEqual(manifest, before)
+        self.assertEqual(storage.renderer_selector_choices(manifest, 40), [])
+        self.assertEqual(storage.renderer_selector_choices({'entries': {}}, 123), [])
+
+    def test_renderer_variants_require_native_and_model_binding_evidence(self):
+        for field in ('consumer_sha1', 'model_id_load', 'descriptor_indices'):
+            manifest = self.renderer_fixture()
+            manifest['renderer_texture_presets'][123][field] = {}
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, 'evidence changed'):
+                storage.renderer_selector_choices(manifest, 123)
+        with self.assertRaisesRegex(ValueError, 'evidence changed'):
+            storage.renderer_selector_choices({'entries': {123: {}}}, 123)
+
     def test_blink_tables_are_read_from_verified_initializer(self):
         raw = bytes(range(80))
         initial = {'rom_start': '0x0', 'rom_end': '0x50', 'compressed': False,

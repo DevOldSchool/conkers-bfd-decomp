@@ -363,4 +363,27 @@ def load(root: Path, rom: bytes, entries, excluded_ids=()) -> dict[int, dict]:
                         'model': [bank, entry, segment.index], 'material_run': index,
                         'status': status, 'model_sha1': hashlib.sha1(segment.data).hexdigest(),
                         'selected_variant': variant, 'complete_binding': proof})
+    # Keep additional renderer states last: earlier manifests and PNGs retain
+    # their original consumer even when the same storage has another view.
+    for bank, entry, segment, geometry, character in source_models:
+        if bank != 1 or entry != 123:
+            continue
+        for choice, default in texture_model_storage.renderer_selector_choices(defaults, entry):
+            for index, run in enumerate(geometry.material_runs):
+                if run.pixel is None or run.pixel.segment not in (10, 11):
+                    continue
+                descriptor = models.model_character_defaults.select_descriptor(
+                    default, character['texture_descriptors'], run.pixel.segment)
+                if (descriptor is None or descriptor['flat_index'] not in payloads
+                        or descriptor['flat_index'] in excluded or descriptor['flat_index'] in result):
+                    continue
+                preview, status, _ = models.rom_default_preview_texture(
+                    run, default, character['texture_descriptors'], payloads, bank_contexts[bank])
+                accept(preview, 'model-renderer-variant', {
+                    'model': [bank, entry, segment.index], 'material_run': index,
+                    'selection': choice, 'status': status,
+                    'model_sha1': hashlib.sha1(segment.data).hexdigest(),
+                    'initializer_sha1': default['sha1'],
+                    'descriptor_indices': default['descriptor_indices'],
+                    'renderer_texture_selection': default['renderer_texture_selection']})
     return result

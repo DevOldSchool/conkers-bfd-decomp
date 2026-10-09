@@ -299,6 +299,36 @@ def action_selector_choices(manifest: dict, entry: int) -> list[tuple[str, dict]
     return choices
 
 
+def renderer_selector_choices(manifest: dict, entry: int) -> list[tuple[str, dict]]:
+    """All Experiment selector outcomes from native 150F1CB0, after model binding.
+
+    load_character_defaults verifies the native function, model-selection branch
+    and descriptor binding instructions. Other actor state and high damage bits
+    cannot affect these assignments. These are storage choices, not activation.
+    """
+    if entry != 123 or entry not in manifest['entries']:
+        return []
+    evidence = manifest.get('renderer_texture_presets', {}).get(entry)
+    if (evidence is None or evidence.get('consumer_sha1') != {
+            '0x150F1CB0': '4ceb60c5b35d31cc6e2df4d6a5b06b979ffb86e3',
+            '0x150622F8': 'acb3c86862962cf9c98de7e18d177209c2c0bcb0'}
+            or evidence.get('model_id_load') != {'address': '0x15061BD8', 'word': '0x92700004'}
+            or evidence.get('descriptor_indices') != {'10': 12, '11': 19}):
+        raise ValueError('Experiment renderer selector evidence changed')
+    initial, choices = manifest['entries'][entry], []
+    for animation in (0, 20):
+        for damage in (0, 3, 12, 15):
+            indices = {**initial['descriptor_indices'], '10': 27 if animation == 20 else 12,
+                       '11': 23 if damage & 12 == 12 else 20 if damage & 3 == 3 else 19}
+            name = f'renderer-animation-{animation}-damage-{damage}'
+            choices.append((name, {**initial, 'preset': name, 'descriptor_indices': indices,
+                'renderer_texture_selection': {
+                    'consumer_sha1': evidence['consumer_sha1'], 'model_id_load': evidence['model_id_load'],
+                    'runtime_state': {'actor_0x84_u16': animation, 'actor_0x2E4_u32': damage},
+                    'selection_policy': 'complete-native-selector-outcomes-no-runtime-activation-claim'}}))
+    return choices
+
+
 def selector_choices(manifest: dict, entry: int, rom: bytes) -> list[tuple[str, dict]]:
     initial = manifest['entries'].get(entry)
     if initial is None:

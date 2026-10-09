@@ -1,8 +1,8 @@
 # US texture reconstruction
 
-The canonical flat YAML now selects **6,806 distinct textures**. The new batch
-adds 271 complete UI-grid, effect-grid and split-image sources to the fully
-passing 6,535-texture checkpoint committed as `52318e9`.
+The canonical flat YAML now selects **6,814 distinct textures**. The new batch
+adds five particle frames and three Experiment renderer variants to the fully
+passing 6,806-texture checkpoint committed as `b5cd304`.
 Batch validation is recorded below; earlier passing checkpoints are retained.
 
 ## Selection and resource identity
@@ -38,10 +38,12 @@ The selected families, deduplicated in this order, are:
 | Explicit authored storage tiles | 4 |
 | Attachment-action expression selectors | 2 |
 | Complete object/attachment binding variants | 21 |
+| Additional native renderer selectors | 3 |
 | CPU renderer descriptors | 210 |
 | Effect, literal-image and glyph descriptors | 113 |
 | Native UI and effect grid storage | 271 |
-| **Total** | **6,806** |
+| Parent-selected particle frames | 5 |
+| **Total** | **6,814** |
 
 The tiled runtime catalog has 2,526 resources before deduplication: 1,822 CI4
 and 704 CI8 payloads. Two already have direct contracts. Only actual runtime
@@ -331,10 +333,40 @@ These contracts prove complete native storage consumption, not runtime
 activation. Every admitted payload independently round-trips through PNG and
 fresh compression before selection.
 
+## Particle callback frames and renderer states
+
+Five RGBA32 frames, runtime resources 4051 through 4055, come from the
+five-frame descriptor at `0x80090414` and its array at `0x80090400`.
+`0x150DBD70` copies this descriptor into the type-0x22 parent configuration.
+The parent constructor selects callback index 4 in both callback arrays;
+`0x150DC558` and `0x150DCEA0` copy the configured descriptor into the child
+packet. `0x15167D84` creates a type-5 child and copies that packet. Its draw
+function `0x15168118` selects the frame through `0x15142E24`, and its update
+`0x15167E0C` bounds the phase using the descriptor's frame count. Whole native
+functions, both dispatch rows, both callback arrays, the descriptor, every
+frame-array byte and the transfer-size tables are guarded. The five complete
+32-by-32 sources add 3,860 stored bytes and 20,480 decoded bytes.
+
+Three CI8 sources come from additional states of model `01:123` (Experiment).
+The native model-ID branch calls `0x150F1CB0`. Animation 20 selects descriptor
+27 for segment 10; other animations select 12. Segment 11 starts with 19,
+changes to 20 when both low damage bits are set, and then changes to 23 when
+both next damage bits are set. The latter assignment wins when both tests pass.
+The catalog enumerates all outcomes while retaining other initializer selectors.
+Native code and model binding evidence are verified before the existing model
+load, TLUT and full-payload inverse checks. Resources 7160, 7167 and 7168 add
+4,003 stored bytes and 5,632 decoded bytes. Tank movement states were also
+checked; all their complete sources were already selected.
+
+All eight additions use default zlib and independently reconstruct their PNGs,
+palettes and freshly compressed streams exactly. Every earlier 6,806 source
+contract and input hash is preserved. These are complete storage contracts;
+they do not establish runtime activation or permit edited assets.
+
 ## Exact reconstruction
 
-All 6,806 texture source bundles round-trip to their complete original payloads.
-Default zlib level-9 compression reproduces 6,276 entries. The remaining 530
+All 6,814 texture source bundles round-trip to their complete original payloads.
+Default zlib level-9 compression reproduces 6,284 entries. The remaining 530
 select **GNU gzip 1.12 at level 9**; every selected encoder must reproduce the
 original compressed bytes before any output in the batch is replaced.
 
@@ -348,10 +380,10 @@ changes fail closed. This workflow does not support asset editing.
 `./conker texture-assets build` runs in the pinned toolchain container, which
 provides GNU gzip 1.12. Surveys and extraction retain host dispatch.
 
-Selected storage is **8,231,989 bytes**, with **14,106,992 decoded bytes**.
-The selection requires 8,250 PNGs. The flat archive has 7,155 nonoverlapping rows:
-6,806 rebuilt entries and 349 raw intervals. The selected Data denominator is
-**8,439,061 bytes**, including 201,632 initialized CPU bytes and 5,440 font
+Selected storage is **8,239,852 bytes**, with **14,133,104 decoded bytes**.
+The selection requires 8,258 PNGs. The flat archive has 7,160 nonoverlapping rows:
+6,814 rebuilt entries and 346 raw intervals. The selected Data denominator is
+**8,446,924 bytes**, including 201,632 initialized CPU bytes and 5,440 font
 bytes. Decoded bytes and raw ranges receive no additional credit.
 
 Raw means ROM-backed storage, not necessarily unidentified content. Exhausting
@@ -567,7 +599,7 @@ Report source fingerprint:
 
 These timings measure individual commands, not total workflow duration.
 
-## Passing UI and effect grid batch validation
+## Passing UI and effect grid checkpoint (`b5cd304`)
 
 - 77 focused descriptor, grid, codec, catalog and reconstruction tests passed.
 - The independent selection audit admits exactly 271 new textures. All 8,250
@@ -586,5 +618,27 @@ These timings measure individual commands, not total workflow duration.
 
 Report source fingerprint:
 `b657442ac14db6c0d6cfb24510e572358518c1c18b29b1341aa52ad1f5eb93e9`.
+
+These timings measure individual commands, not total workflow duration.
+
+## Passing particle and Experiment batch validation
+
+- 84 focused descriptor, selector, codec, catalog and reconstruction tests passed.
+- The independent selection audit admits exactly eight new textures. All 8,258
+  PNG inputs verify, and all 6,806 earlier contracts and input hashes remain
+  unchanged.
+- Full US ROM build passed in 423.86 seconds. Independent comparison confirms
+  all 67,108,864 bytes match the original US ROM.
+- Full container suite: 2,250 tests, 8 skipped, no failures; 189.231 seconds in
+  the runner and 194.81 seconds command elapsed time.
+- All 6,814 native texture units are fully matched and complete, totaling
+  8,239,852 stored bytes. There are no compile errors and the snapshot is current.
+- Native report command elapsed time: 493.30 seconds.
+- Aggregate Data: 8,246,396 / 8,446,924 matched bytes (97.62602%) and
+  8,245,628 complete bytes (97.61693%). Code totals are unchanged.
+- Canonical progress validation, progress rendering and whitespace checks passed.
+
+Report source fingerprint:
+`266854067a0116026e154e251f53d7d492a885e938690a862aecd8615baf0c2a`.
 
 These timings measure individual commands, not total workflow duration.
