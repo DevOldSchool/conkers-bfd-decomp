@@ -7,6 +7,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import threading
 import unittest
 from unittest.mock import patch
 from types import SimpleNamespace
@@ -415,6 +416,52 @@ class DataTargetTests(unittest.TestCase):
                 change_during_wrap = False
                 with self.assertRaisesRegex(ValueError, 'current editable inputs'):
                     targets.prepare_texture(rom, expected, output=root)
+
+    def test_texture_references_are_bounded_parallel_and_keep_catalog_order(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            selected = [({'flat_index': index}, None) for index in range(8)]
+            barrier, lock = threading.Barrier(4, timeout=5), threading.Lock()
+            released = [threading.Event(), threading.Event()]
+            active = peak = 0
+            finished = []
+            def prepare(rom, expected, *, output):
+                nonlocal active, peak
+                index = expected['flat_index']
+                with lock:
+                    active += 1
+                    peak = max(peak, active)
+                barrier.wait()
+                if index % 4 == 0:
+                    self.assertTrue(released[index // 4].wait(5))
+                with lock:
+                    finished.append(index)
+                    active -= 1
+                if index % 4 == 1:
+                    released[index // 4].set()
+                return {'key': index}, {'name': index}
+            with patch.object(targets.texture_build, 'reviewed_textures', return_value=(b'ROM', selected)), \
+                    patch.object(targets, 'prepare_texture', side_effect=prepare), \
+                    patch.object(targets.subprocess, 'run'):
+                units, configs = targets.prepare_textures(b'ROM', output=root)
+            self.assertEqual(peak, 4)
+            self.assertLess(finished.index(1), finished.index(0))
+            self.assertEqual([unit['key'] for unit in units], list(range(8)))
+            self.assertEqual([item['name'] for item in configs], list(range(8)))
+
+    def test_parallel_texture_reference_failure_propagates(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            selected = [({'flat_index': index}, None) for index in range(4)]
+            def prepare(rom, expected, *, output):
+                if expected['flat_index'] == 2:
+                    raise ValueError('changed source')
+                return {}, {}
+            with patch.object(targets.texture_build, 'reviewed_textures', return_value=(b'ROM', selected)), \
+                    patch.object(targets, 'prepare_texture', side_effect=prepare), \
+                    patch.object(targets.subprocess, 'run'), \
+                    self.assertRaisesRegex(ValueError, 'changed source'):
+                targets.prepare_textures(b'ROM', output=root)
 
     def test_target_extent_checks_every_allocated_section(self):
         with tempfile.TemporaryDirectory() as temporary:

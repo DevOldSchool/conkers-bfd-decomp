@@ -78,7 +78,7 @@ def describe_texture(rom: bytes, texture: texture_assets.TextureAsset, *, rom_sh
         expected.update(source_contract=contract, row_layout=contract['row_layout'],
                         file=f"{texture.flat_index:04d}.{contract['format']}.png")
         if 'levels' in contract:
-            expected['schema_version'] = 2
+            expected['schema_version'] = 3 if 'zero_alignment' in contract else 2
             expected['files'] = [f"{texture.flat_index:04d}.level-{level['level']}.{contract['format']}.png"
                                  for level in contract['levels']]
             del expected['file']
@@ -197,6 +197,9 @@ def initialize_inputs(directory: Path, expected: dict, payload: bytes) -> None:
     if directory.exists():
         raise ValueError('texture inputs exist without a manifest; refusing to overwrite them')
     images, palette_size = source_images(expected)
+    padding = alignment_padding(expected, sum(image[3] for image in images))
+    if padding and payload[len(payload) - palette_size - len(padding):len(payload) - palette_size] != padding:
+        raise ValueError('texture alignment bytes are not zero')
     palette = payload[-palette_size:] if palette_size else b''
     encoded = [(name, source_png(payload[offset:offset + size] + palette, plane))
                for name, plane, offset, size in images]
@@ -206,11 +209,25 @@ def initialize_inputs(directory: Path, expected: dict, payload: bytes) -> None:
     (directory / 'manifest.json').write_text(json.dumps(expected, indent=2) + '\n')
 
 
+def alignment_padding(expected: dict, pixel_size: int) -> bytes:
+    """Regenerate only explicitly verified zero alignment, never an opaque tail."""
+    padding = expected.get('source_contract', {}).get('zero_alignment')
+    if padding is None:
+        if expected['schema_version'] == 3:
+            raise ValueError('aligned texture source lacks zero alignment')
+        return b''
+    if (expected['schema_version'] != 3 or padding['alignment'] != 64
+            or padding['offset'] != pixel_size or not 0 < padding['size'] < 64
+            or pixel_size + padding['size'] != (pixel_size + 63) // 64 * 64):
+        raise ValueError('invalid texture zero alignment contract')
+    return bytes(padding['size'])
+
+
 def source_images(expected: dict) -> tuple[list[tuple[str, dict, int, int]], int]:
     """Return complete image planes; all shared palette bytes are PNG sources."""
     if expected['schema_version'] == 1:
         return [(expected['file'], expected, 0, expected['decoded_size'])], 0
-    if expected['schema_version'] != 2:
+    if expected['schema_version'] not in (2, 3):
         raise ValueError('unsupported texture source schema')
     contract = expected['source_contract']
     levels, names, palette_size = contract['levels'], expected['files'], contract['palette_size']
@@ -230,7 +247,7 @@ def source_images(expected: dict) -> tuple[list[tuple[str, dict, int, int]], int
         plane = {**expected, 'source_contract': {**contract, 'width': width, 'height': height}}
         images.append((name, plane, cursor, size))
         cursor += size
-    if cursor + palette_size != expected['decoded_size']:
+    if cursor + len(alignment_padding(expected, cursor)) + palette_size != expected['decoded_size']:
         raise ValueError('layered texture images do not cover the entire payload')
     return images, palette_size
 
@@ -258,7 +275,8 @@ def packed_texture(directory: Path, expected: dict) -> tuple[bytes, dict[str, st
                 raise ValueError('texture levels disagree on the shared palette')
             palette = current
         planes.append(decoded[:size])
-    payload = b''.join(planes) + (palette or b'')
+    pixels = b''.join(planes)
+    payload = pixels + alignment_padding(expected, len(pixels)) + (palette or b'')
     if (len(payload) != expected['decoded_size']
             or sha256(payload) != expected['original_decoded_sha256']):
         raise ValueError('texture PNG no longer reconstructs the original payload')

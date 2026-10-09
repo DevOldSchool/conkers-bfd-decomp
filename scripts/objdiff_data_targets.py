@@ -1,6 +1,8 @@
 """Independent data and rebuilt-asset targets for the published objdiff report."""
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
+from functools import partial
 import hashlib
 import json
 import os
@@ -435,7 +437,11 @@ def prepare_textures(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict
     with (output / 'texture-build.log').open('w') as log:
         subprocess.run(['make', '--silent', '--jobs', '4', *paths, 'PROFILE=us'],
                        cwd=ROOT, stdout=log, stderr=log, check=True)
-    pairs = [prepare_texture(rom, expected, output=output) for expected, _ in selected]
+    # Each reference has its own directory. Preserve catalog order and retain
+    # all per-object checks; the report also rechecks every source hash at end.
+    with ThreadPoolExecutor(max_workers=4) as workers:
+        pairs = list(workers.map(partial(prepare_texture, rom, output=output),
+                                 (expected for expected, _ in selected)))
     return [unit for unit, _ in pairs], [item for _, item in pairs]
 
 

@@ -71,7 +71,7 @@ This builds the mapped SDK archives and active C implementations, prepares
 independent splat targets for every range in `config/overlays.json`, and
 invokes the pinned native `objdiff-cli report generate`. It covers tracked
 main/game/debugger US CPU code and initialized data, including raw/unassigned ranges,
-plus the rebuilt font and 6,006 reviewed textures. The command uses four
+plus the rebuilt font and 6,175 reviewed textures. The command uses four
 object-preparation workers and validates cached base object hashes before
 reuse. The first run requires the pinned `lib/ultralib` submodule (`git
 submodule update --init lib/ultralib`).
@@ -164,9 +164,9 @@ and other builds finish, because they can update the same linked objects.
 ### Scope
 
 The published report covers the project's **tracked US CPU-code ranges and
-initialized main/GAME/debugger data images**, plus the **rebuilt font and 6,006 reviewed textures**. Its data
-denominator is 7,492,104 bytes: 201,632 loaded bytes (7,824 main, 189,088 GAME and
-4,720 debugger), 5,440 bytes of font storage and 7,285,032 stored texture bytes. Existing
+initialized main/GAME/debugger data images**, plus the **rebuilt font and 6,175 reviewed textures**. Its data
+denominator is 7,701,433 bytes: 201,632 loaded bytes (7,824 main, 189,088 GAME and
+4,720 debugger), 5,440 bytes of font storage and 7,494,361 stored texture bytes. Existing
 YAML placements and reviewed linker/private-data contracts establish mapped
 ranges; all remaining bytes stay as unassigned targets. Shared storage is
 counted once. BSS, other stored assets (including MP3 and raw audio), boot code
@@ -225,13 +225,15 @@ Canonical YAML boundaries must agree. Changed glyphs remain in the denominator
 but cannot retain completion when their rebuilt bytes differ. This does
 not change function match records or certify original source-object boundaries.
 
-[The 6,006 selected textures](evidence/data-layout/us_texture_reconstruction.md) are independently
+[The 6,175 selected textures](evidence/data-layout/us_texture_reconstruction.md) are independently
 rebuilt from indexed or truecolor PNGs through fresh RZIP compression.
 Mipmap bundles require every declared level and a consistent shared palette.
+Explicitly verified zero alignment is regenerated; opaque tails are unsupported.
+Independent texture references use four bounded workers with unchanged byte and source-hash gates.
 Each candidate is the actual ROM link object, checked against a fresh encode;
 each target comes from the checksum-validated ROM. Changed texture pixels,
 palette, metadata or compressed output fail this exact-reconstruction pilot.
-The 7,285,032 stored bytes enter Data once; decoded bytes and adjacent raw storage
+The 7,494,361 stored bytes enter Data once; decoded bytes and adjacent raw storage
 do not add credit. Native matching and source/link-input verification gate completion.
 
 Generation validates code and data counts per unit, aggregate data coverage,

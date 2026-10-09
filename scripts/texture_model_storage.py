@@ -13,7 +13,7 @@ FORMATS = {(2, 0): 'ci4', (2, 1): 'ci8', (0, 2): 'rgba16', (0, 3): 'rgba32',
            (3, 0): 'ia4', (3, 1): 'ia8', (3, 2): 'ia16', (4, 0): 'i4', (4, 1): 'i8'}
 
 
-def layered_contract(run, payload: bytes) -> dict | None:
+def layered_contract(run, payload: bytes, *, storage_extensions: bool = False) -> dict | None:
     """Require explicit contiguous TMEM levels covering the entire pixel load."""
     state = models.texture_coordinate_state(run)
     if not state or run.pixel is None:
@@ -53,7 +53,17 @@ def layered_contract(run, payload: bytes) -> dict | None:
                 or (run.render_tile[1] >> 20) & 15):
             return None
     pixel_end = len(payload) - palette_size
-    if loaded != pixel_end or loaded > (2048 if palette_size else 4096):
+    alignment = pixel_end - loaded
+    if alignment and (not storage_extensions or not 0 < alignment < 64
+                      or pixel_end != (loaded + 63) // 64 * 64
+                      or any(payload[loaded:pixel_end])):
+        return None
+    overlap = max(0, loaded - 2048) if palette_size else 0
+    if loaded > 4096 or (overlap and not storage_extensions):
+        return None
+    if overlap and not any(binding == run.palette for binding, _ in run.texture_loads[load_index + 1:]):
+        # Retain the authored transfer sequence, including the later TLUT
+        # overwrite. This is complete source storage, not a full rendered view.
         return None
     tiles = {index: (cmd, arg) for index, cmd, arg in run.render_tiles}
     base, last = (run.texture_scale[0] >> 8) & 7, (run.texture_scale[0] >> 11) & 7
@@ -61,7 +71,7 @@ def layered_contract(run, payload: bytes) -> dict | None:
         return None
     factor = 2 if fmt == 'rgba32' else 1
     bits = (4, 8, 16, 32)[state['size']]
-    levels, cursor = [], 0
+    levels, cursor, clamped_npot = [], 0, False
     for level in range(last + 1):
         tile = tiles.get(base + level)
         if tile is None:
@@ -71,21 +81,35 @@ def layered_contract(run, payload: bytes) -> dict | None:
         stride, start = ((cmd >> 9) & 511) * 8 * factor, (cmd & 511) * 8 * factor
         if (cmd >> 19) & 31 != (run.render_tile[0] >> 19) & 31:
             return None
-        if last and ((1 << ((arg >> 4) & 15), 1 << ((arg >> 14) & 15)) != (width, height)
-                     or (arg & 15, (arg >> 10) & 15) != (level, level)):
-            return None
+        if last:
+            if (arg & 15, (arg >> 10) & 15) != (level, level):
+                return None
+            for dimension, mask, clamp in ((width, (arg >> 4) & 15, arg & 0x200),
+                                           (height, (arg >> 14) & 15, arg & 0x80000)):
+                if 1 << mask != dimension:
+                    if (not storage_extensions or not clamp
+                            or 1 << mask != 1 << (dimension - 1).bit_length()):
+                        return None
+                    clamped_npot = True
         if (not stride or stride * 8 < bits * width or start != cursor
-                or start + stride * height > pixel_end):
+                or start + stride * height > loaded):
             return None
         levels.append({'level': level, 'offset': start, 'width': stride * 8 // bits,
                        'height': height, 'visible_width': width, 'visible_height': height,
                        'bytes': stride * height})
         cursor = start + stride * height
-    if cursor != pixel_end:
+    if cursor != loaded:
         return None
-    return {'format': fmt, 'width': levels[0]['width'], 'height': levels[0]['height'],
-            'row_layout': 'tmem-odd-row-32bit-swap', 'source_origin': 'bottom-left',
-            'levels': levels, 'palette_size': palette_size}
+    contract = {'format': fmt, 'width': levels[0]['width'], 'height': levels[0]['height'],
+                'row_layout': 'tmem-odd-row-32bit-swap', 'source_origin': 'bottom-left',
+                'levels': levels, 'palette_size': palette_size}
+    if alignment:
+        contract['zero_alignment'] = {'offset': loaded, 'size': alignment, 'alignment': 64}
+    if overlap:
+        contract['pixel_tlut_overlap_bytes'] = overlap
+    if clamped_npot:
+        contract['clamped_npot_dimensions'] = True
+    return contract
 
 
 def expression_selectors(initial: dict, preset: dict, consumers: dict) -> dict | None:

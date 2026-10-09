@@ -195,4 +195,19 @@ def load(root: Path, rom: bytes, entries, excluded_ids=()) -> dict[int, dict]:
                         'initializer_sha1': default['sha1'],
                         'descriptor_indices': default['descriptor_indices'],
                         'expression_texture_selection': default.get('expression_texture_selection')})
+    for bank, entry, segment, geometry, _ in source_models:
+        for index, run in enumerate(geometry.material_runs):
+            if (run.pixel is None or run.pixel.flat_index not in payloads
+                    or run.pixel.flat_index in excluded or run.pixel.flat_index in result):
+                continue
+            try:
+                contract = texture_model_storage.layered_contract(
+                    run, payloads[run.pixel.flat_index], storage_extensions=True)
+            except ValueError:
+                continue
+            if contract is not None:
+                result[run.pixel.flat_index] = dict(contract, family='model-storage-extended', consumer={
+                    'model': [bank, entry, segment.index], 'material_run': index,
+                    'status': 'complete-source-storage-not-rendered-appearance',
+                    'model_sha1': hashlib.sha1(segment.data).hexdigest()})
     return result

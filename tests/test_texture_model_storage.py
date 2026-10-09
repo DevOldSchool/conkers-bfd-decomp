@@ -87,6 +87,60 @@ class ModelStorageTests(unittest.TestCase):
         self.assertEqual([(level['offset'], level['width'], level['bytes']) for level in levels],
                          [(0, 8, 256), (256, 4, 64), (320, 4, 32)])
 
+    def indexed_fixture(self):
+        run = self.run_fixture()
+        run.pixel.image_command = 0xFD500000
+        run.palette = NS(flat_index=42, mode=1, image_command=0xFD100000,
+                         load_command=(0xF0000000, 255 << 14))
+        run.texture_loads += ((run.palette, (0xF5100100, 0)),)
+        run.render_tiles = tuple((i, cmd ^ 0xC00000, arg) for i, cmd, arg in run.render_tiles)
+        run.render_tile = run.render_tiles[0][1:]
+        return run
+
+    def test_storage_extension_accepts_only_zero_padding_to_64_bytes(self):
+        run = self.indexed_fixture()
+        self.assertIsNone(storage.layered_contract(run, bytes(640)))
+        contract = storage.layered_contract(run, bytes(640), storage_extensions=True)
+        self.assertEqual(contract['zero_alignment'], {'offset': 112, 'size': 16, 'alignment': 64})
+        self.assertEqual(sum(level['bytes'] for level in contract['levels']), 112)
+        for payload in (bytes(641), bytes(704), bytes(112) + b'x' + bytes(527)):
+            self.assertIsNone(storage.layered_contract(run, payload, storage_extensions=True))
+        native = storage.layered_contract(self.run_fixture(), bytes(128), storage_extensions=True)
+        self.assertEqual(native['zero_alignment'], contract['zero_alignment'])
+
+    def test_npot_mips_require_clamping_and_exact_rounded_mask_periods(self):
+        run = self.indexed_fixture()
+        run.texture_dimensions = (32, 44)
+        run.texture_scale = (0xD7001802, 0xFFFFFFFF)
+        run.pixel.load_command = (0xF3000000, 943 << 12)
+        run.render_tiles = ((0, 0xF5480800, 0x98250), (1, 0xF54804B0, 0x1094641),
+                            (2, 0xF54802DC, 0x2090A32), (3, 0xF54802E7, 0x308CE23))
+        run.render_tile = run.render_tiles[0][1:]
+        self.assertIsNone(storage.layered_contract(run, bytes(2400)))
+        contract = storage.layered_contract(run, bytes(2400), storage_extensions=True)
+        self.assertTrue(contract['clamped_npot_dimensions'])
+        self.assertEqual([level['height'] for level in contract['levels']], [44, 22, 11, 5])
+        self.assertEqual(sum(level['bytes'] for level in contract['levels']), 1888)
+        for changed in (0x1094641 ^ 0x80000, 0x1094641 + 0x4000, 0x1094641 ^ 1):
+            candidate = copy.deepcopy(run)
+            candidate.render_tiles = (run.render_tiles[0], (1, 0xF54804B0, changed), *run.render_tiles[2:])
+            self.assertIsNone(storage.layered_contract(candidate, bytes(2400), storage_extensions=True))
+
+    def test_storage_overlap_retains_complete_transfer_and_later_palette(self):
+        run = self.indexed_fixture()
+        run.pixel.load_command = (0xF3000000, 1055 << 12)
+        run.texture_dimensions = (44, 44)
+        run.texture_scale = (0xD7000002, 0xFFFFFFFF)
+        run.render_tile = (0xF5480C00, 0)
+        run.render_tiles = ((0, *run.render_tile),)
+        self.assertIsNone(storage.layered_contract(run, bytes(2624)))
+        contract = storage.layered_contract(run, bytes(2624), storage_extensions=True)
+        self.assertEqual(contract['pixel_tlut_overlap_bytes'], 64)
+        self.assertEqual((contract['width'], contract['height']), (48, 44))
+        self.assertEqual(contract['levels'][0]['bytes'], 2112)
+        run.texture_loads = tuple(reversed(run.texture_loads))
+        self.assertIsNone(storage.layered_contract(run, bytes(2624), storage_extensions=True))
+
     def test_expression_morph_does_not_change_selector_writes(self):
         initial = {'descriptor_indices': {'6': 1, '7': 2, '10': 3, '11': 4}}
         preset = {'index': 2, 'animation_selector': 0, 'reserved_byte': 0, 'morph_shape': 9,

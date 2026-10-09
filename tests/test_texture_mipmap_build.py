@@ -9,9 +9,10 @@ from scripts import texture_assets as t, texture_build as build, rzip_pack
 
 
 class MipmapBuildTests(unittest.TestCase):
-    def fixture(self, root, fmt='ci8'):
+    def fixture(self, root, fmt='ci8', padding=0):
         palette_size = 512 if fmt == 'ci8' else 0
         payload = bytes(i % 256 for i in range(112 + palette_size))
+        payload = payload[:112] + bytes(padding) + payload[112:]
         packed = rzip_pack.encode_rzip_chunk(payload)
         texture = t.TextureAsset(53, 0, len(packed), payload)
         contract = {'identity': 'runtime-resource', 'format': fmt, 'width': 8, 'height': 8,
@@ -20,10 +21,36 @@ class MipmapBuildTests(unittest.TestCase):
                         {'level': 0, 'offset': 0, 'width': 8, 'height': 8, 'bytes': 64},
                         {'level': 1, 'offset': 64, 'width': 8, 'height': 4, 'bytes': 32},
                         {'level': 2, 'offset': 96, 'width': 8, 'height': 2, 'bytes': 16}]}
+        if padding:
+            contract['zero_alignment'] = {'offset': 112, 'size': padding, 'alignment': 64}
         expected = build.describe_texture(packed, texture, contract=contract)
         directory = root / fmt
         build.initialize_inputs(directory, expected, payload)
         return directory, expected, payload, packed
+
+    def test_unloaded_alignment_is_generated_zero_without_an_opaque_input(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            directory, expected, payload, packed = self.fixture(root, padding=16)
+            self.assertEqual(expected['schema_version'], 3)
+            self.assertEqual(build.packed_texture(directory, expected)[0], packed)
+            self.assertEqual(set(p.name for p in directory.iterdir()), {'manifest.json', *expected['files']})
+            changed = bytearray(payload)
+            changed[112] = 1
+            with self.assertRaisesRegex(ValueError, 'alignment bytes are not zero'):
+                build.initialize_inputs(root / 'nonzero', expected, bytes(changed))
+            self.assertFalse((root / 'nonzero').exists())
+            for change in ({'size': 15}, {'size': 80}, {'offset': 111}, {'alignment': 32}):
+                altered = copy.deepcopy(expected)
+                altered['source_contract']['zero_alignment'].update(change)
+                with self.assertRaisesRegex(ValueError, 'zero alignment'):
+                    build.source_images(altered)
+            altered = copy.deepcopy(expected)
+            del altered['source_contract']['zero_alignment']
+            with self.assertRaisesRegex(ValueError, 'lacks zero alignment'):
+                build.source_images(altered)
+            native_dir, native_expected, _, native_packed = self.fixture(root, 'i8', padding=16)
+            self.assertEqual(build.packed_texture(native_dir, native_expected)[0], native_packed)
 
     def test_all_levels_rebuild_exactly_with_or_without_palette(self):
         with tempfile.TemporaryDirectory() as tmp:
