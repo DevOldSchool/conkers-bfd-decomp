@@ -8,7 +8,8 @@ from types import SimpleNamespace
 
 try:
     from scripts import (model_assets as models, model_texture_sequences as sequences,
-                         texture_assets as t, texture_rgba16, texture_native, texture_model_storage)
+                         texture_assets as t, texture_rgba16, texture_native, texture_model_storage,
+                         texture_character_selectors)
 except ModuleNotFoundError:
     import model_assets as models
     import model_texture_sequences as sequences
@@ -16,6 +17,7 @@ except ModuleNotFoundError:
     import texture_rgba16
     import texture_native
     import texture_model_storage
+    import texture_character_selectors
 
 FORMATS = {(2, 0): 'ci4', (2, 1): 'ci8', (0, 2): 'rgba16', (0, 3): 'rgba32',
            (3, 0): 'ia4', (3, 1): 'ia8', (3, 2): 'ia16', (4, 0): 'i4', (4, 1): 'i8'}
@@ -386,4 +388,34 @@ def load(root: Path, rom: bytes, entries, excluded_ids=()) -> dict[int, dict]:
                     'initializer_sha1': default['sha1'],
                     'descriptor_indices': default['descriptor_indices'],
                     'renderer_texture_selection': default['renderer_texture_selection']})
+    selector_choices = (texture_character_selectors.load(root, rom, defaults)
+                        if any(bank == 1 for bank, *_ in source_models) else {})
+    for bank, entry, segment, geometry, character in source_models:
+        if bank != 1:
+            continue
+        for choice, default, proof in selector_choices.get(entry, []):
+            for index, run in enumerate(geometry.material_runs):
+                if run.pixel is None or run.pixel.segment not in (6, 7, 10, 11):
+                    continue
+                descriptor = models.model_character_defaults.select_descriptor(
+                    default, character['texture_descriptors'], run.pixel.segment)
+                if (descriptor is None or descriptor['flat_index'] not in payloads
+                        or descriptor['flat_index'] in excluded or descriptor['flat_index'] in result):
+                    continue
+                resource = descriptor['flat_index']
+                preview, status, binding = models.rom_default_preview_texture(
+                    run, default, character['texture_descriptors'], payloads, bank_contexts[bank])
+                if preview is None or preview.flat_index != resource:
+                    continue
+                contract = full_payload_contract(preview, payloads[resource])
+                if contract is None:
+                    contract = texture_model_storage.bound_contract(run, preview, payloads[resource])
+                if contract is not None:
+                    result[resource] = dict(contract, family=proof['family'], consumer={
+                        'model': [bank, entry, segment.index], 'material_run': index,
+                        'selection': choice, 'status': status, 'binding_evidence': binding,
+                        'model_sha1': hashlib.sha1(segment.data).hexdigest(),
+                        'initializer_sha1': default['sha1'],
+                        'descriptor_indices': default['descriptor_indices'],
+                        'selector_evidence': proof})
     return result

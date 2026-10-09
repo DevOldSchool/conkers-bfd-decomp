@@ -1,8 +1,8 @@
 # US texture reconstruction
 
-The canonical flat YAML now selects **6,814 distinct textures**. The new batch
-adds five particle frames and three Experiment renderer variants to the fully
-passing 6,806-texture checkpoint committed as `b5cd304`.
+The canonical flat YAML now selects **6,832 distinct textures**. The new batch
+adds four native character-update textures and fourteen stored script-selector
+textures to the passing 6,814-texture checkpoint committed as `464dfdf`.
 Batch validation is recorded below; earlier passing checkpoints are retained.
 
 ## Selection and resource identity
@@ -39,11 +39,13 @@ The selected families, deduplicated in this order, are:
 | Attachment-action expression selectors | 2 |
 | Complete object/attachment binding variants | 21 |
 | Additional native renderer selectors | 3 |
+| Stored script selectors with initial actor bindings | 14 |
+| Native character-update selectors | 4 |
 | CPU renderer descriptors | 210 |
 | Effect, literal-image and glyph descriptors | 113 |
 | Native UI and effect grid storage | 271 |
 | Parent-selected particle frames | 5 |
-| **Total** | **6,814** |
+| **Total** | **6,832** |
 
 The tiled runtime catalog has 2,526 resources before deduplication: 1,822 CI4
 and 704 CI8 payloads. Two already have direct contracts. Only actual runtime
@@ -363,10 +365,44 @@ palettes and freshly compressed streams exactly. Every earlier 6,806 source
 contract and input hash is preserved. These are complete storage contracts;
 they do not establish runtime activation or permit edited assets.
 
+## Character-update and stored script selectors
+
+Four additional CI8 sources follow complete native selector writes in
+`0x15061B4C` and the blink-phase producer `0x1502EEF4`. Model 66 selects
+segment-10 descriptors 12 and 21 through animation and random-bit branches;
+model 91 maps blink phases through the three-word table at `0x8009942C`.
+The latter contributes descriptors 18 and 11. Initializer selectors for other
+segments are preserved. The two model-66 resources include all four stored
+mipmap levels, including padded storage for the last level.
+
+Fourteen sources follow stored bank-6 script commands. The native loader
+`0x1501D348` identifies the fourth directory group from all three relevant
+header counts. The queue producer `0x150242F8` skips four metadata records,
+uses signed time markers and accumulates unsigned delays. Queue insertion,
+sorting and dispatch are guarded through `0x150241B4`, `0x15024130` and
+`0x1502A8A0`. In `0x1502460C`, opcode 9 writes expression selectors and
+opcode 5/subcommand 111 writes segment-10/11 selectors. Only supported signed
+operands and axes are admitted.
+
+Each command retains its indexed source, whole decoded-script hash, track,
+preceding records, initial type-2 actor descriptor and first matching spawn
+record. Existing native spawn and scene-prefix evidence binds that initial
+actor to its declared model. This establishes stored selector contracts
+conditional on retaining that model; it does not establish runtime activation,
+complete gameplay history or the absence of later actor mutation. The catalog
+requires independently validated model loads, palettes and a complete payload
+inverse for every admitted source. Partial previews remain excluded.
+
+All eighteen additions reproduce their PNG-derived payloads and freshly
+compressed streams exactly with default zlib. They add 21,769 stored bytes
+and 34,240 decoded bytes. All 6,814 earlier contracts and input hashes are
+unchanged. Native function spans, selector tables and the reference ROM are
+checksum guarded.
+
 ## Exact reconstruction
 
-All 6,814 texture source bundles round-trip to their complete original payloads.
-Default zlib level-9 compression reproduces 6,284 entries. The remaining 530
+All 6,832 texture source bundles round-trip to their complete original payloads.
+Default zlib level-9 compression reproduces 6,302 entries. The remaining 530
 select **GNU gzip 1.12 at level 9**; every selected encoder must reproduce the
 original compressed bytes before any output in the batch is replaced.
 
@@ -380,10 +416,10 @@ changes fail closed. This workflow does not support asset editing.
 `./conker texture-assets build` runs in the pinned toolchain container, which
 provides GNU gzip 1.12. Surveys and extraction retain host dispatch.
 
-Selected storage is **8,239,852 bytes**, with **14,133,104 decoded bytes**.
-The selection requires 8,258 PNGs. The flat archive has 7,160 nonoverlapping rows:
-6,814 rebuilt entries and 346 raw intervals. The selected Data denominator is
-**8,446,924 bytes**, including 201,632 initialized CPU bytes and 5,440 font
+Selected storage is **8,261,621 bytes**, with **14,167,344 decoded bytes**.
+The selection requires 8,288 PNGs. The flat archive has 7,163 nonoverlapping rows:
+6,832 rebuilt entries and 331 raw intervals. The selected Data denominator is
+**8,468,693 bytes**, including 201,632 initialized CPU bytes and 5,440 font
 bytes. Decoded bytes and raw ranges receive no additional credit.
 
 Raw means ROM-backed storage, not necessarily unidentified content. Exhausting
@@ -640,5 +676,28 @@ These timings measure individual commands, not total workflow duration.
 
 Report source fingerprint:
 `266854067a0116026e154e251f53d7d492a885e938690a862aecd8615baf0c2a`.
+
+These timings measure individual commands, not total workflow duration.
+
+## Passing character-update and script-selector batch validation
+
+- 91 focused selector-provenance, descriptor, codec, catalog and reconstruction
+  tests passed.
+- The independent selection audit admits exactly eighteen new textures. All
+  8,288 PNG inputs verify, and all 6,814 earlier contracts and input hashes
+  remain unchanged.
+- Full US ROM build passed in 421.58 seconds. Independent comparison confirms
+  all 67,108,864 bytes match the original US ROM.
+- Full container suite: 2,257 tests, 8 skipped, no failures; 182.318 seconds in
+  the runner and 187.91 seconds command elapsed time.
+- All 6,832 native texture units are fully matched and complete, totaling
+  8,261,621 stored bytes. There are no compile errors and the snapshot is current.
+- Native report command elapsed time: 494.10 seconds.
+- Aggregate Data: 8,268,165 / 8,468,693 matched bytes (97.632126%) and
+  8,267,397 complete bytes (97.623055%). Code totals are unchanged.
+- Canonical progress validation, progress rendering and whitespace checks passed.
+
+Report source fingerprint:
+`0575aea665e1ea027f81e4b1e2fe60e661d8e5c1d2a57b26f3669b49b129dcc4`.
 
 These timings measure individual commands, not total workflow duration.
