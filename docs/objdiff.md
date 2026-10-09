@@ -61,7 +61,7 @@ experimental diagnostics and cannot record a match. `./conker finish` remains
 the authoritative full-span US match/layout gate; source-unit integration and
 batch verification retain their existing rules.
 
-## Full-repository CPU-code report
+## Published code and data report
 
 ```sh
 ./conker objdiff report
@@ -70,17 +70,29 @@ batch verification retain their existing rules.
 This builds the mapped SDK archives and active C implementations, prepares
 independent splat targets for every range in `config/overlays.json`, and
 invokes the pinned native `objdiff-cli report generate`. It covers tracked
-main/game/debugger US CPU code, including raw/unassigned code. The command uses four
+main/game/debugger US CPU code and initialized data, including raw/unassigned ranges,
+plus the rebuilt font asset. The command uses four
 object-preparation workers and validates cached base object hashes before
 reuse. The first run requires the pinned `lib/ultralib` submodule (`git
 submodule update --init lib/ultralib`).
 
-Unlike `compare`, the repository report leaves deferred `#if 0` candidates
-disabled. GLOBAL_ASM placeholders are removed from generated C copies, so
-undecompiled assembly cannot earn matching credit as if it were C. Source units
-marked `integration: c` supply completion metadata; SDK completion comes from
-their canonical archive mappings. Objdiff calculates matching independently
-from the newly built objects.
+Completed C units without GLOBAL_ASM use freshly built objects from the actual
+build. Mixed units use generated C-only copies, leaving deferred code disabled,
+so preserved assembly cannot earn source credit. Coverage records the candidate
+origin. SDK candidates come from the canonical archives.
+
+Owned code and data references are combined into one source/SDK object unit.
+The YAML, private-data configuration and reviewed linker placements own the
+boundaries, payload extents and padding contracts. `config/data/us.json` records
+only owners keyed by overlay, hexadecimal loaded address and input section.
+Every audit and US build checks that these keys cover exactly the mapped ranges
+and that owners agree with the build selectors. Unknown ranges are derived from
+the build partition and have no owner entry. Changing an extent requires editing
+its canonical build placement, without maintaining a second copy in this manifest.
+Unassigned ranges remain separate. Reference grouping preserves section extents
+and relocations; it never creates symbols or absorbs padding. The final grouped
+objects must also relink at their original addresses and reproduce all six
+main/GAME/debugger code and data images byte for byte.
 
 The code range is partitioned into source units, SDK objects, and unassigned
 ranges, with no overlap or gaps. An isolated splat configuration enables
@@ -120,7 +132,10 @@ Output is local under `build/us/objdiff-report/`:
   GitHub Actions artifact contents. The protected US CI workflow uploads the
   JSON directly as `us_report`; this local command does not upload or register
   anything. See [CI and registration](ci.md#toolchain-and-reporting).
-- `objdiff.json`: the complete generated CPU-code project.
+- `objdiff.json`: the generated code and initialized-data project.
+- `data/`: independently assembled data references, C/SDK candidates and linked image proofs.
+- `owned/`: combined source/SDK targets and `verification.json`, proving the exact
+  grouped report inputs reproduce all six original code and data images.
 - `targets/`: isolated splat configs, original full assembly, normalized copies,
   target objects, linker scripts, linked validation images, and logs.
 - `coverage.json`: range ownership, source/SDK mappings, target link proofs,
@@ -140,17 +155,93 @@ command exit status. See each unit's `build.log` for diagnostics.
 
 ### Scope
 
-This is an exhaustive report of the project's **tracked US CPU-code ranges**,
-not a claim of full ROM reconstruction. Main/game/debugger data, BSS, assets, boot code
-outside those ranges, and RSP microcode are not measured. In particular,
-objdiff emits 100% data fields for a zero data denominator; those fields do not
-establish any data coverage. EU/PAL remains outside the active target.
+The published report covers the project's **tracked US CPU-code ranges and
+initialized main/GAME/debugger data images**, plus the **rebuilt font**. Its data
+denominator is 207,072 bytes: 201,632 loaded bytes (7,824 main, 189,088 GAME and
+4,720 debugger), and 5,440 bytes of font storage. Existing
+YAML placements and reviewed linker/private-data contracts establish mapped
+ranges; all remaining bytes stay as unassigned targets. Shared storage is
+counted once. BSS, other stored assets (including MP3 and raw audio), boot code
+outside the tracked ranges, RSP and EU/PAL are excluded.
 
-Full-disassembly output follows the sections in the current maps. These report
-maps cover CPU text; complete per-object data/rodata/BSS ownership is not yet
-established. An unexpected nonempty allocated target section fails validation
-instead of being silently discarded. Exact code-image relinking does not prove
-original source boundaries or full-object data equivalence.
+Data references are assembled independently with original code as disassembly
+context, and each complete linked data image must reproduce the checked ROM.
+Candidates use active C with GLOBAL_ASM removed and deferred code disabled, or
+mapped SDK objects. Reviewed payload extents distinguish compiler padding from
+neighboring ROM data. Candidate sections and relocations are preserved. Split
+rodata without a proved C-only partition keeps its target without a candidate.
+
+The native report provides `total_data`, `matched_data` and
+`matched_data_percent` to decomp.dev's blue **Data** bar. The site shows
+`complete_data` as “fully linked” and matching beyond that as “perfect match”;
+see its [rendering implementation](https://github.com/encounter/decomp.dev/blob/main/crates/web/src/handlers/common.rs).
+Data placement alone grants no fully linked completion. A grouped unit is complete
+only when its code and every owned data range qualify. ROM-identical,
+relocation-free main SDK data linked through canonical archive placements is
+eligible, but completion also requires every data byte in its grouped unit to
+match in native objdiff. Generation first measures candidates, removes completion
+from eligible units with incomplete native data matching, then regenerates the
+native report. It never patches the report counts. `completion_downgrades` in
+validation records affected units and their code/data bytes. Private/INFO/NOLOAD data still supplied by preserved ROM streams remains
+incomplete, even when its C owner has integrated code. This can reduce a file's
+fully-linked code measure while retaining its native matching credit.
+Native comparisons determine perfect-match credit. Every final unit must satisfy
+`complete_data <= matched_data`; category or aggregate totals cannot hide a
+violation. Units whose data is still ROM-backed need actual build integration
+before they can become complete. This currently includes GAME and debugger data.
+
+When this report is first published, fully-linked code can decrease for two
+reasons: a grouped unit owns data still supplied by ROM, or its linked data fails
+native symbol matching. Native matched code and function inventory records are
+unchanged by this completion policy; the drop reflects a stricter whole-unit gate.
+Rebuilt font bytes contribute to the ordinary Data category, with no separate
+Font or Rebuilt assets category. The font earns completion when all 95 editable
+PGM glyphs and their manifest rebuild through the canonical Makefile rule into the exact original 5,440 bytes
+(including 13 alignment bytes). Its candidate concatenates the `.data` payloads of the 96 actual ROM link inputs:
+`build/us/assets/font/glyphs/0000.o` through `0094.o`, then `font/padding.o`.
+Each input's extent and hash is checked; its independent target comes from the
+checked ROM. Both aggregate binaries use the same ordinary linker wrapper.
+Canonical YAML boundaries must agree. Changed glyphs remain in the denominator
+but cannot retain completion when their rebuilt bytes differ. This does
+not change function match records or certify original source-object boundaries.
+
+Generation validates code and data counts per unit, aggregate data coverage,
+unassigned ranges, target/base hashes, and font source/build-input hashes.
+Saved snapshots become stale when editable glyphs change. The JSON remains native objdiff
+output. The existing CI upload of `build/us/objdiff-report/report.json` as
+`us_report` supplies both bars; no separate report upload or site configuration
+is required for data. A local generation does not publish anything.
+
+### Why retain native objdiff generation?
+
+N64 projects such as Puzzle League and Snowboard Kids use mapfile_parser's
+objdiff-format exporter. Its [configuration documentation](https://github.com/Decompollaborate/mapfile_parser/blob/2.x/src/mapfile_parser/frontends/objdiff_report.py)
+requires `.NON_MATCHING` markers on both function and data symbols when data
+reporting is enabled, and warns that missing markers inflate progress.
+Conker does not provide those markers comprehensively. Its preserved GAME data
+stream and INFO verification sections also require explicit backing ownership.
+Switching exporters alone would therefore misrepresent credit. We retain native
+comparisons, source-object grouping, complete loaded-image denominators and
+independent ROM checks. A future exporter migration must first prove equivalent
+marker coverage and unique runtime storage accounting.
+
+## Data boundary groundwork
+
+```sh
+./conker objdiff data-audit
+```
+
+This separate, ROM-validated audit partitions the loaded US main, game and
+debugger data images into existing mappings and explicit unassigned ranges.
+It validates the checked-in ownership manifest against SDK placements,
+private-data mappings and external linker payload contracts; shared backing is counted once, and explicit compiler padding does
+not claim neighboring ROM data. BSS and RSP remain outside its scope.
+
+The command writes `build/us/data-boundaries/audit.json` without building,
+installing objdiff or changing native report credit. Mapped ranges are placement
+evidence, not original object-boundary or C-match certification. See the
+[data boundary audit](evidence/data-layout/us_data_boundary_audit.md) for the
+first verified totals, evidence limits and remaining report work.
 
 ## Interpreting differences
 
