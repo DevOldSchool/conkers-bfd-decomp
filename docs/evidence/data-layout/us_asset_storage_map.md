@@ -112,10 +112,10 @@ All extracted and packed material stays ignored.
 ./conker objdiff report
 ```
 
-The published report includes `assets/font_rle` in the separate `font-assets`
-category. Its target is independently wrapped from the checksum-validated ROM
-slice; its base concatenates the payloads of the actual per-record build objects. Both use the normal binary
-linker wrapper, with no injected symbol sizes. Target extent and bytes are
+The dependent data-report change counts these rebuilt bytes in ordinary Data,
+without a separate Font or Assets category. Its target is independently wrapped
+from the checksum-validated ROM slice; its base concatenates the payloads of the
+actual per-record build objects. Both use the normal binary linker wrapper, with no injected symbol sizes. Target extent and bytes are
 checked, the candidate must equal a fresh encode of current editable inputs,
 and all 96 input file hashes (manifest plus glyphs) are recorded and rechecked.
 A changed font remains a compared candidate rather than altering the reference.
