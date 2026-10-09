@@ -8,7 +8,7 @@ from pathlib import Path
 try:
     from scripts import (texture_assets as t, texture_ci8, texture_rgba16,
                          texture_native, hud_assets as h, hud_additional_artwork as artwork,
-                         texture_model_catalog)
+                         texture_model_catalog, texture_cpu_descriptors)
 except ModuleNotFoundError:
     import texture_assets as t
     import texture_ci8
@@ -17,6 +17,7 @@ except ModuleNotFoundError:
     import hud_assets as h
     import hud_additional_artwork as artwork
     import texture_model_catalog
+    import texture_cpu_descriptors
 
 
 def runtime_context(path: Path, rom: bytes):
@@ -130,4 +131,15 @@ def load_extended(root: Path, rom: bytes, *, excluded_indices=()) -> dict[int, t
             for key in ('zero_alignment', 'pixel_tlut_overlap_bytes', 'clamped_npot_dimensions', 'mixed_detail'):
                 if key in contract:
                     result[ordinals[resource]][1][key] = contract[key]
+    occupied = set(result) | set(excluded_indices)
+    excluded_ids = {entry.index for index, entry in enumerate(entries) if index in occupied}
+    for resource, contract in texture_cpu_descriptors.load(root, rom, entries, excluded_ids).items():
+        if resource in excluded_ids:
+            raise ValueError('CPU descriptor catalog returned an already classified texture')
+        entry = by_id[resource]
+        index = ordinals[resource]
+        texture = t.TextureAsset(index, layout['flat_assets_start'] + entry.start,
+                                 layout['flat_assets_start'] + entry.end, entry.data)
+        result[index] = (texture, {'identity': 'runtime-resource',
+                                  'runtime_resource_id': resource, **contract})
     return result

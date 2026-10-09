@@ -44,8 +44,10 @@ class TextureCatalogTests(unittest.TestCase):
                 bytes_used=1024, texture_format='rgba32'))
             mock(catalog.artwork, 'ARTWORK', new=())
             mock(catalog.texture_model_catalog, 'load', return_value={})
+            cpu = mock(catalog.texture_cpu_descriptors, 'load', return_value={})
             result = catalog.load_extended(Path('/synthetic'), rom)
             self.assertEqual(ci8.call_args.kwargs['flat_entries'], entries)
+            self.assertIn(3, cpu.call_args.args[3])
             return result
 
     def test_runtime_gap_and_duplicate_consumers_use_one_physical_range(self):

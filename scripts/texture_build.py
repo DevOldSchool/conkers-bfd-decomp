@@ -241,14 +241,18 @@ def source_images(expected: dict) -> tuple[list[tuple[str, dict, int, int]], int
             or any(Path(name).name != name for name in names)
             or palette_size != {'ci4': 32, 'ci8': 512}.get(fmt, 0)):
         raise ValueError('invalid layered texture source contract')
-    if mixed and (not contract.get('mixed_detail') or fmt not in ('ci4', 'ci8') or len(levels) < 2):
+    detail_format = {'ci4': 'ia4', 'ci8': 'ia4', 'rgba16': 'i4'}.get(fmt)
+    if mixed and (not contract.get('mixed_detail') or detail_format is None or len(levels) < 2
+                  or (fmt == 'rgba16' and (len(levels) != 2
+                      or any((level['width'], level['height']) != (contract['width'], contract['height'])
+                             for level in levels)))):
         raise ValueError('invalid mixed detail source contract')
     images, cursor = [], 0
     for index, (name, level) in enumerate(zip(names, levels)):
         width, height, size = level['width'], level['height'], level['bytes']
         plane_format = level.get('format', fmt)
         if (plane_format not in depths or (not mixed and plane_format != fmt)
-                or (mixed and (plane_format != ('ia4' if index == len(levels) - 1 else fmt)
+                or (mixed and (plane_format != (detail_format if index == len(levels) - 1 else fmt)
                                or level.get('role') != ('detail' if index == len(levels) - 1 else 'mip')))):
             raise ValueError('invalid texture plane format or role')
         bits = depths[plane_format]

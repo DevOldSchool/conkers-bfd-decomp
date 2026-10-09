@@ -1,8 +1,8 @@
 # US texture reconstruction
 
-The canonical flat YAML now selects **6,212 distinct textures**. The new batch
-adds 27 complete texture-storage sources to the fully passing 6,185-texture
-checkpoint committed as `439ac4f`.
+The canonical flat YAML now selects **6,422 distinct textures**. The new batch
+adds 210 complete texture-storage sources to the fully passing 6,212-texture
+checkpoint committed as `a68eb77`.
 Batch validation is recorded below; earlier passing checkpoints are retained.
 
 ## Selection and resource identity
@@ -38,7 +38,8 @@ The selected families, deduplicated in this order, are:
 | Explicit authored storage tiles | 4 |
 | Attachment-action expression selectors | 2 |
 | Complete object/attachment binding variants | 21 |
-| **Total** | **6,212** |
+| CPU renderer descriptors | 210 |
+| **Total** | **6,422** |
 
 The tiled runtime catalog has 2,526 resources before deduplication: 1,822 CI4
 and 704 CI8 payloads. Two already have direct contracts. Only actual runtime
@@ -228,10 +229,45 @@ claimed. Combined with the six authored/action sources, this batch adds 27
 textures and 20,482 stored bytes. All 6,185 earlier source contracts and inputs
 are preserved, and the complete selection contains 7,644 PNGs.
 
+## CPU renderer descriptor storage
+
+The table at `0x80090B60` contains 207 twelve-byte descriptors, ending before
+the independently consumed resource word at `0x80091514`. Each descriptor
+declares a resource or frame-array pointer, frame count, dimensions, format
+and texel size. Whole-function hashes guard the descriptor selector, loader,
+cache helper, draw caller and resource loader. The complete descriptor table,
+all referenced frame arrays in table order, and the transfer-size tables at
+`0x8009DEB0` are independently pinned. Altered native code or data is rejected.
+
+The native loader starts at byte zero and uses zero-DXT LoadBlock transfers.
+Its size tables determine transfer count and render stride; the catalog
+requires both to cover the complete stored image without truncation or row
+padding. Indexed formats require their full palette immediately after the
+pixels. Unsupported fields, partial payloads, extra bytes, oversized loads and
+unaligned rows do not qualify. Every accepted image also passes its PNG inverse.
+
+This adds 205 single-image sources: 140 RGBA32, 34 I8, 13 IA8, six RGBA16,
+six I4, five IA16 and one CI8. The CI8 descriptor stores resource ID 1844
+directly; the native selector's literal-resource branch supplies its pixels
+and all 256 palette entries. Physical stream 1842 retains the canonical name.
+
+Five further descriptors use native format 5. The renderer explicitly loads
+an RGBA16 base and a same-sized I4 detail image, with the second tile beginning
+after all base pixels. Both images are required source PNGs. Schema 4 admits
+this exact two-plane combination with no palette, alongside the existing
+indexed/IA4 contracts. Different formats, plane counts, shapes, gaps, edits,
+missing inputs and changes during packing fail closed.
+
+All 210 additions freshly reproduce 292,537 compressed bytes and 671,168
+decoded bytes: 190 streams use default zlib and 20 use GNU gzip. The complete
+selection has 7,859 PNGs. All 6,212 prior source contracts and input hashes are
+unchanged. The contracts prove declared storage; they do not claim that every
+frame or descriptor is activated in gameplay.
+
 ## Exact reconstruction
 
-All 6,212 texture source bundles round-trip to their complete original payloads.
-Default zlib level-9 compression reproduces 5,742 entries. The remaining 470
+All 6,422 texture source bundles round-trip to their complete original payloads.
+Default zlib level-9 compression reproduces 5,932 entries. The remaining 490
 select **GNU gzip 1.12 at level 9**; every selected encoder must reproduce the
 original compressed bytes before any output in the batch is replaced.
 
@@ -245,10 +281,10 @@ changes fail closed. This workflow does not support asset editing.
 `./conker texture-assets build` runs in the pinned toolchain container, which
 provides GNU gzip 1.12. Surveys and extraction retain host dispatch.
 
-Selected storage is **7,529,247 bytes**, with **12,280,272 decoded bytes**.
-The entire flat archive is partitioned into 6,611 nonoverlapping rows:
-6,212 rebuilt entries and 399 raw intervals. The selected Data denominator is
-**7,736,319 bytes**, including 201,632 initialized CPU bytes and 5,440 font
+Selected storage is **7,821,784 bytes**, with **12,951,440 decoded bytes**.
+The entire flat archive is partitioned into 6,799 nonoverlapping rows:
+6,422 rebuilt entries and 377 raw intervals. The selected Data denominator is
+**8,028,856 bytes**, including 201,632 initialized CPU bytes and 5,440 font
 bytes. Decoded bytes and raw ranges receive no additional credit.
 
 Raw means ROM-backed storage, not necessarily unidentified content. Exhausting
@@ -398,7 +434,7 @@ Report source fingerprint:
 
 These timings measure individual commands, not total workflow duration.
 
-## Passing authored-storage, action-selector and binding-variant batch validation
+## Passing authored-storage, action-selector and binding-variant checkpoint validation (`a68eb77`)
 
 - 56 focused storage, catalog, reconstruction and constructor tests passed.
 - All 7,644 PNG inputs verify; all 6,185 prior bundles retain their input hashes.
@@ -420,3 +456,24 @@ The initial six-source selection also passed a full build and suite. The batch
 was expanded before its native report to cover all 27 sources together; the
 results above apply to that final selection. These timings measure individual
 commands, not total workflow duration.
+
+## Passing CPU descriptor batch validation
+
+- 58 focused descriptor, catalog, storage and reconstruction tests passed.
+- The independent selection audit admits exactly 210 new textures. All 7,859
+  PNG inputs verify, and all 6,212 earlier bundles retain their input hashes.
+- Full US ROM build passed in 396.45 seconds. Independent comparison confirms
+  all 67,108,864 bytes match the original US ROM.
+- Full container suite: 2,228 tests, 8 skipped, no failures; 181.541 seconds in
+  the runner and 186.70 seconds command elapsed time.
+- All 6,422 native texture units are fully matched and complete, totaling
+  7,821,784 stored bytes. There are no compile errors and the snapshot is current.
+- Native report command elapsed time: 460.04 seconds.
+- Aggregate Data: 7,828,328 / 8,028,856 matched bytes (97.502410%) and
+  7,827,560 complete bytes (97.492840%). Code totals are unchanged.
+- Canonical progress validation, progress rendering and whitespace checks passed.
+
+Report source fingerprint:
+`ba0dc209988a2cc929474e059265d949ca02592f10242ffb9aabc5fec4ed4d62`.
+
+These timings measure individual commands, not total workflow duration.

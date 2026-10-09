@@ -9,6 +9,65 @@ from scripts import texture_assets as t, texture_build as build, rzip_pack
 
 
 class MipmapBuildTests(unittest.TestCase):
+    def rgba_detail_fixture(self, root):
+        from scripts import texture_cpu_descriptors as cpu
+        payload = bytes(i % 256 for i in range(640))
+        contract = cpu.storage_contract({'format': 5, 'size': 2, 'width': 16, 'height': 16,
+                                         'count': 1, 'flags': 0}, payload)
+        packed = rzip_pack.encode_rzip_chunk(payload)
+        expected = build.describe_texture(packed, t.TextureAsset(55, 0, len(packed), payload), contract=contract)
+        directory = root / 'rgba16-i4'
+        build.initialize_inputs(directory, expected, payload)
+        return directory, expected, packed
+
+    def test_rgba16_i4_requires_both_original_image_planes(self):
+        for failure in (None, 'change-base', 'change-detail', 'missing-detail', 'race'):
+            with self.subTest(failure=failure), tempfile.TemporaryDirectory() as tmp:
+                directory, expected, packed = self.rgba_detail_fixture(Path(tmp))
+                self.assertEqual(expected['schema_version'], 4)
+                self.assertEqual(build.packed_texture(directory, expected)[0], packed)
+                images, palette = build.source_images(expected)
+                self.assertEqual(palette, 0)
+                if failure is None:
+                    continue
+                name, plane, _, _ = images[0 if failure == 'change-base' else 1]
+                path = directory / name
+                if failure == 'race':
+                    def encode(*_):
+                        path.write_bytes(path.read_bytes() + b'changed')
+                        return packed
+                    with patch.object(build, 'encode_payload', side_effect=encode), \
+                            self.assertRaisesRegex(ValueError, 'changed during packing'):
+                        build.packed_texture(directory, expected)
+                elif failure == 'missing-detail':
+                    path.unlink()
+                    with self.assertRaises(FileNotFoundError):
+                        build.packed_texture(directory, expected)
+                else:
+                    raw = bytearray(build.source_png(path.read_bytes(), plane, decode=True))
+                    raw[0] ^= 1
+                    path.write_bytes(build.source_png(bytes(raw), plane))
+                    with self.assertRaisesRegex(ValueError, 'original payload'):
+                        build.packed_texture(directory, expected)
+
+    def test_rgba16_detail_rejects_other_formats_shapes_and_plane_counts(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            _, expected, _ = self.rgba_detail_fixture(Path(tmp))
+            for failure in ('format', 'shape', 'count', 'palette'):
+                altered = copy.deepcopy(expected)
+                contract = altered['source_contract']
+                if failure == 'format':
+                    contract['levels'][1]['format'] = 'ia4'
+                elif failure == 'shape':
+                    contract['levels'][1].update(width=32, height=8)
+                elif failure == 'count':
+                    contract['levels'].append(dict(contract['levels'][1]))
+                    altered['files'].append('third.png')
+                else:
+                    contract['palette_size'] = 32
+                with self.subTest(failure=failure), self.assertRaises(ValueError):
+                    build.source_images(altered)
+
     def mixed_fixture(self, root, fmt):
         bits, palette_size = (4, 32) if fmt == 'ci4' else (8, 512)
         levels, cursor = [], 0
