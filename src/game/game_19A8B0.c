@@ -496,17 +496,18 @@ s32 func_1516ECAC(Game19A8B0Motion *arg0) {
 }
 extern u8 D_800CC2D4[];
 
-void func_1516ED68(volatile s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
+void func_1516ED68(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
     s32 state;
 
     state = *(u8 *)((u32)D_800CC2D4 + (u32)arg0 * 0x32CU);
-    if (state == 0x3A) {
-        func_1516D99C(5, 0, 0, 4, 0, 0xFF, 0xFF, 0xFF,
-            0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 8,
-            0, 0, 0, 0, 0, 0, 0, 0x124, 0x124, 0, 0, arg1,
-            0, 0, arg0, 0xC, 0, 0, 0x81, 2, 0, 1,
-            0, 0, 0, 5, 0, arg2, arg3);
+    if (state != 0x3A) {
+        return;
     }
+    func_1516D99C(5, 0, 0, 4, 0, 0xFF, 0xFF, 0xFF,
+        0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 8,
+        0, 0, 0, 0, 0, 0, 0, 0x124, 0x124, 0, 0, arg1,
+        0, 0, arg0, 0xC, 0, 0, 0x81, 2, 0, 1,
+        0, 0, 0, 5, 0, arg2, arg3);
 }
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1516EED4 CURRENT (2997) */
 void func_1516EED4(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {

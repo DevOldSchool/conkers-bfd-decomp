@@ -872,20 +872,17 @@ f32 func_15047D60(f32);
 f32 func_15144B68(f32);
 void func_1515D4D4(s32, s32, s32, s32);
 
-void func_151621B8(void *volatile arg0) {
-    f32 factor;
-    s32 red;
-    f32 *state;
-    s32 priority;
+typedef struct Light235 { f32 unk0, unk4, unk8, unkC, unk10, unk14, unk18, unk1C; } struct235;
 
-    factor = func_15047D60(*(f32 *)((u8 *)arg0 + 0x40));
-    state = (f32 *)((u8 *)arg0 + 0x28);
-    priority = 0;
-    func_1515D4D4(red = (u32)(factor * state[3] + state[0]) & 0xFF,
-                   (u32)(factor * state[4] + state[1]) & 0xFF,
-                   (u32)(factor * state[5] + state[2]) & 0xFF, priority);
-    state[6] += state[7] * D_800BE9A4;
-    state[6] = func_15144B68(state[6]);
+void func_151621B8(void *arg0) {
+    struct235 *v1 = (struct235 *)((u8 *)arg0 + 0x28);
+    f32 s;
+
+    s = func_15047D60(v1->unk18);
+    func_1515D4D4((u8)(v1->unk0 + (s * v1->unkC)), (u8)(v1->unk4 + (s * v1->unk10)),
+                  (u8)(v1->unk8 + (s * v1->unk14)), 0);
+    v1->unk18 += v1->unk1C * D_800BE9A4;
+    v1->unk18 = func_15144B68(v1->unk18);
 }
 extern s32 D_800A670C[];
 extern s32 D_800A6730[];
@@ -930,7 +927,6 @@ f32 func_15047D60(f32);
 f32 func_15144B68(f32);
 
 typedef struct Light225Output { u8 pad0[5]; u8 unk5; u8 unk6; u8 unk7; } Light225Output;
-typedef struct Light235 { f32 unk0, unk4, unk8, unkC, unk10, unk14, unk18, unk1C; } struct235;
 typedef struct Light237 { f32 unk0[5]; Light225Output *unk14; struct235 unk18; } struct237;
 
 s32 func_15162510(struct237 *arg0) {

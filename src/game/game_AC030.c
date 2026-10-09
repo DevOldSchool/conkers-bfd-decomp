@@ -119,16 +119,13 @@ s32 func_1507EC38(u8 *candidates, s32 candidate_count, u8 *output,
     }
     return result;
 }
-void func_1507EE58(volatile u8 arg0, u8 *arg1) {
-    s32 value;
+void func_1507EEB8(u8, u8 *);
 
+void func_1507EE58(u8 arg0, u8 *arg1) {
     func_1507EEB8(arg0, arg1);
-    value = arg0;
-    if (value == 0x11) {
+    if (arg0 == 0x11) {
         func_1507EEB8(0x12, arg1);
-        return;
-    }
-    if (value == 0x12) {
+    } else if (arg0 == 0x12) {
         func_1507EEB8(0x11, arg1);
     }
 }
