@@ -9,7 +9,6 @@
  * - func_151BF0C8
  * - func_151BF340
  * - func_151BF81C
- * - func_151BFB2C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -261,24 +260,22 @@ typedef struct {
 
 void func_1516972C(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BFB2C CURRENT (50) */
 void func_151BFB2C(Game1EC390ResourceOwner *arg0) {
     u8 i;
-    struct { void *primary; void *secondary[2]; } *resources;
+    struct {
+        void *primary;
+        void *secondary[2];
+    } *resources = (void *)((u8 *)arg0 + 0x28);
 
-    if (*(s32 *)&arg0->primary != 0) {
-        func_1516972C((void *)*(s32 *)&arg0->primary);
+    if (resources->primary != NULL) {
+        func_1516972C(resources->primary);
     }
-
-    resources = (void *)((u8 (*)[1])arg0)[0x28];
     for (i = 0; i < 2; i++) {
-        if (resources->secondary[i] != 0) {
+        if (resources->secondary[i] != NULL) {
             func_1516972C(resources->secondary[i]);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151BFB2C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EC390/func_151BFB2C.s")
 
 void func_1514933C(s32 arg0);
 

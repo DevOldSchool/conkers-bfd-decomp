@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_compact_display_resource_pairs.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151D275C
  * - func_151D2830
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -41,35 +40,33 @@ void func_151D2718(s16 arg0) {
 void func_1516972C(u8 *);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D275C CURRENT (115) */
 void func_151D275C(void *arg0) {
-    s32 temp_v1;
+    u8 *p = arg0;
     s8 temp_v0;
+    u16 temp_v1; // stored as s16 either way, but s32 here changes register allocation
 
-    *(s16 *)((u8 *)arg0 + 0xE) = (s16)(*(s16 *)((u8 *)arg0 + 0xE) +
-        (D_800BE9E4 * (temp_v0 = *(s8 *)((u8 *)arg0 + 0x16))));
-    if ((temp_v0 > 0) && (*(s16 *)((u8 *)arg0 + 0xE) >= 0xED)) {
-        temp_v1 = 0x128 - *(s16 *)((u8 *)arg0 + 0xE);
-        *(s16 *)((u8 *)arg0 + 0x14) = (s16)(temp_v1 * 4);
-        if (*(s16 *)((u8 *)arg0 + 0x14) < 0) {
-            *(s16 *)((u8 *)arg0 + 0x14) = 0;
+    // the target loads the step (lb 0x16) before the position (lh 0xE)
+    *(s16 *)(p + 0xE) = (s16)(D_800BE9E4 * (temp_v0 = *(s8 *)(p + 0x16)) + *(s16 *)(p + 0xE));
+    if (temp_v0 > 0 && *(s16 *)(p + 0xE) >= 0xED) {
+        temp_v1 = 0x128 - *(s16 *)(p + 0xE);
+        *(s16 *)(p + 0x14) = (s16)(temp_v1 * 4);
+        if (*(s16 *)(p + 0x14) < 0) {
+            *(s16 *)(p + 0x14) = 0;
         }
     } else {
-        *(s16 *)((u8 *)arg0 + 0x14) = (s16)(*(s16 *)((u8 *)arg0 + 0xE) * 2);
+        *(s16 *)(p + 0x14) = (s16)(*(s16 *)(p + 0xE) * 2);
     }
-    if (*(s16 *)((u8 *)arg0 + 0x14) >= 0x80) {
-        *(s16 *)((u8 *)arg0 + 0x14) = 0x80;
+    if (*(s16 *)(p + 0x14) >= 0x80) {
+        *(s16 *)(p + 0x14) = 0x80;
     }
-    *(s16 *)((u8 *)arg0 + 0x12) = (s16)(*(s16 *)((u8 *)arg0 + 0x12) + 1);
-    if (*(s16 *)((u8 *)arg0 + 0x12) >= 0x100) {
-        *(s16 *)((u8 *)arg0 + 0x12) = (s16)(*(s16 *)((u8 *)arg0 + 0x12) - 0x100);
+    *(s16 *)(p + 0x12) = (s16)(*(s16 *)(p + 0x12) + 1);
+    if (*(s16 *)(p + 0x12) >= 0x100) {
+        *(s16 *)(p + 0x12) = (s16)(*(s16 *)(p + 0x12) - 0x100);
     }
-    if ((*(s16 *)((u8 *)arg0 + 0xE) >= 0x12D) || (*(s16 *)((u8 *)arg0 + 0xE) < 0)) {
-        func_1516972C((u8 *)arg0);
+    if (*(s16 *)(p + 0xE) >= 0x12D || *(s16 *)(p + 0xE) < 0) {
+        func_1516972C(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D275C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FFB70/func_151D275C.s")
 typedef struct GameD2830Command { u32 word0, word1; } GameD2830Command;
 typedef struct GameD2830State {
     u8 pad00[0x10];

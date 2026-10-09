@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/effects/effects_light.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151603FC
  * - func_151604A0
  * - func_151606A8
  * - func_151607A4
@@ -116,37 +115,23 @@ extern LightCallback D_8008B0F0[];
 extern s32 D_800BE9E4;
 void func_1516972C(void *arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151603FC CURRENT (120) */
 void func_151603FC(void *arg0) {
-    s32 result;
-    u8 sp1B;
-    s8 callback_index;
-    u8 callback_pending;
+    u8 *ptr = arg0;
+    u8 ret = 0;
 
-    callback_pending = 0;
-    if (*(u8 *)((u8 *)arg0 + 0xE) & 1) {
-        *(s16 *)((u8 *)arg0 + 0x10) = (s16) (*(s16 *)((u8 *)arg0 + 0x10) - D_800BE9E4);
-        if (*(s16 *)((u8 *)arg0 + 0x10) < 0) {
-            callback_pending = 1;
+    if ((ptr[0xE] & 1) != 0) {
+        *(s16 *)(ptr + 0x10) -= D_800BE9E4;
+        if (*(s16 *)(ptr + 0x10) < 0) {
+            ret = 1;
         }
     }
-    if (callback_pending == 0) {
-        callback_index = *(s8 *)((u8 *)arg0 + 0xF);
-        if (callback_index != -1) {
-            sp1B = callback_pending;
-            result = D_8008B0F0[(s32) callback_index](arg0);
-            callback_pending = sp1B;
-            if (result == 0) {
-                callback_pending = 1;
-            }
-        }
+    if ((ret == 0) && (*(s8 *)(ptr + 0xF) != -1) && (D_8008B0F0[*(s8 *)(ptr + 0xF)](arg0) == 0)) {
+        ret = 1;
     }
-    if (callback_pending != 0) {
+    if (ret) {
         func_1516972C(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151603FC */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151603FC.s")
 extern void (*D_8008B150[])(void *);
 void func_151618BC(u16, s16, u8, s32, void *, s16, s16);
 
