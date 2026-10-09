@@ -2413,10 +2413,9 @@ extern s32 D_800BE628;
 
 void func_15127EB8(struct108 *arg0)
 {
-  u8 new_var;
   struct127 *v0;
   struct127 *v1;
-  u8 a0;
+  u8 index;
   func_151239CC(arg0, 1);
   arg0->unk3D4->unk197 = 0;
   func_151C9ED4(arg0);
@@ -2429,11 +2428,10 @@ void func_15127EB8(struct108 *arg0)
   func_150627D4(arg0->unk3D0);
   D_800DBFF4[arg0->unk23D] = 2;
   v1 = arg0->unk3D0;
-  a0 = v1->unk65;
-  new_var = a0;
-  if (new_var != 0)
+  index = v1->unk65;
+  if (index)
   {
-    v0 = &((struct127 *)D_800CC2D0)[new_var - 1];
+    v0 = &((struct127 *)D_800CC2D0)[index - 1];
   }
   else
   {
