@@ -63,8 +63,9 @@ assets/
 !/docs/evidence/assets/
 # Asset boundary fragments are source configuration; extracted payloads stay ignored.
 !/config/profiles/*/assets/
-/config/profiles/*/assets/*
-!/config/profiles/*/assets/*.yaml
+/config/profiles/*/assets/**
+!/config/profiles/*/assets/**/
+!/config/profiles/*/assets/**/*.yaml
 build/
 # Obsolete generated snapshots from checkouts predating local progress reports.
 /progress/summary.json

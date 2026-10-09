@@ -21,6 +21,10 @@ def mapped_sources(profile: str, *, overlay: str | None = None,
     segment_name = profile_segment if profile_segment is not None else overlay
     path = project_state.ROOT / "config/profiles" / f"{profile}.yaml"
     configuration = load_profile(path)
+    return profile_sources(configuration, segment_name)
+
+
+def profile_sources(configuration: dict, segment_name: str) -> list[str]:
     sources = []
     for segment in configuration["segments"]:
         if not isinstance(segment, dict) or segment.get("name") != segment_name:

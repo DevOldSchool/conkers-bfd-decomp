@@ -22,18 +22,22 @@ binary subsegment lists live beside it under `config/profiles/us/assets/`:
       include: us/assets/font.yaml
 ```
 
-Each fragment is a plain list of `[ROM offset, bin, name]` rows. Paths are
-relative to the root profile's directory and must remain within it. Only asset
+Each `.yaml` fragment is a plain list of `[ROM offset, bin, name]` rows. Paths are
+relative to the root profile's directory and must remain within it; subfolders
+are supported and their YAML files remain trackable. Only asset
 groups support this form; empty fragments, nested includes, repeated files and
 code mappings in fragments are rejected. Keep executable mappings inline so
 source-integration transactions continue to edit their original locations.
 
 `scripts/profile_config.py` supplies the shared loader and dependency list.
 Profile preparation expands the fragments into ordinary Splat YAML at
-`build/config/us.yaml`; this generated file is never edited or committed.
+`build/config/us.yaml`, preserving comments and hexadecimal offsets and quoting
+the ROM path as a YAML scalar. This generated file is never edited or committed.
 Asset verifiers, data reports and library audits read the same expanded
 structure. Make tracks the root and every included fragment when packing
-assets; missing or invalid fragments stop the build. The independent raw
+assets; missing or invalid fragments stop ROM/asset builds. Make plans the
+US dependencies, asset bins and executable sources in one parse; housekeeping,
+independent reference and EU targets do not load US fragments. The independent raw
 reference profile remains separate and does not resolve these asset files.
 
 Moving rows between these files changes no boundaries, linker input names,
@@ -43,8 +47,13 @@ contracts and finish with a byte-identical `./conker build --all`.
 The initial split was verified on 2026-10-09 against `99cf6c9`: expansion equals
 the original parsed profile exactly (96 font, 822 MP3 and 272 bank-17 rows).
 The complete 67,108,864-byte US ROM remained byte-identical. All 2,148 Docker
-tests passed with eight skips; progress and whitespace checks passed. Local
-evidence and logs are under `build/profile-refactor/`.
+tests passed with eight skips; progress and whitespace checks passed. These are
+historical local results, not shared build artifacts. Reproduce the checks with
+`./conker test`, `./conker build --all`,
+`./conker game-build --profile us --refresh`, `./conker progress check` and
+`git -c core.whitespace=cr-at-eol diff --check`. A fresh checkout also needs
+`./conker _prepare-reference --profile us` before the game build. The current
+PR records the tested commit and current results; private build logs remain local.
 
 ## Evidence
 

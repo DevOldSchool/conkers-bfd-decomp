@@ -1,6 +1,7 @@
 """Profile composition preserves Splat inputs and keeps code mappings local."""
 from pathlib import Path
 import subprocess
+import shutil
 import sys
 import tempfile
 import unittest
@@ -69,7 +70,7 @@ class ProfileConfigTests(unittest.TestCase):
                              reference.read_text().replace('__ROM_PATH__', 'roms/baserom.us.z64'))
 
     def test_include_rejects_missing_escaping_or_non_asset_inputs(self):
-        for name in ('missing.yaml', '../outside.yaml', str(self.fragment), ''):
+        for name in ('missing.yaml', '../outside.yaml', str(self.fragment), '', 'us/assets/font.txt'):
             with self.subTest(name=name):
                 self.document['segments'][1]['subsegments'] = {'include': name}
                 self.save()
@@ -115,3 +116,58 @@ class ProfileConfigTests(unittest.TestCase):
         result = subprocess.run(command, cwd=self.root, text=True, capture_output=True)
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual(result.stdout, '')
+
+    def test_paths_are_yaml_scalars_in_inline_and_reference_profiles(self):
+        for spelling in ('__ROM_PATH__', '"__ROM_PATH__"', "'__ROM_PATH__'"):
+            self.profile.write_text('options:\n  target_path: ' + spelling + '\nsegments: []\n')
+            for name in ('roms/a: b # c.z64', 'roms/quotes"and\\slashes.z64',
+                         'roms/new\nline.z64', 'roms/été.z64'):
+                for reference in (False, True):
+                    with self.subTest(spelling=spelling, name=name, reference=reference):
+                        result = profile_config.render_profile(self.profile, name, reference=reference)
+                        self.assertEqual(yaml.safe_load(result)['options']['target_path'], name)
+
+    def test_render_preserves_comments_hexadecimal_offsets_and_row_style(self):
+        for marker in ('\n      # include note\n      include: us/assets/font.yaml # inline note\n',
+                       ' {include: us/assets/font.yaml} # inline note\n'):
+            self.profile.write_text(
+                '# profile comment\noptions:\n  target_path: __ROM_PATH__ # ROM comment\n'
+                'segments:\n  - name: font\n    type: group\n    start: 0x100\n'
+                '    subsegments:' + marker + '  - [0x110] # end comment\n')
+            self.fragment.write_text('# fragment comment\n- [0x100, bin, font/a] # row comment\n')
+            rendered = profile_config.render_profile(self.profile, 'roms/test.z64')
+            for text in ('# profile comment', '# ROM comment', '# inline note',
+                         '# fragment comment', '# row comment', '# end comment',
+                         'start: 0x100', '[0x100, bin, font/a]', '[0x110]'):
+                self.assertIn(text, rendered)
+            self.assertNotIn('include:', rendered)
+
+    def test_nested_yaml_fragments_are_trackable_but_payloads_remain_ignored(self):
+        repository = Path(__file__).resolve().parent.parent
+        shutil.copy(repository / '.gitignore', self.root / '.gitignore')
+        subprocess.run(['git', 'init', '-q', str(self.root)], check=True)
+        for name, ignored in (
+                ('config/profiles/us/assets/font.yaml', False),
+                ('config/profiles/us/assets/audio/samples/bank17.yaml', False),
+                ('config/profiles/us/assets/audio/samples/data.bin', True),
+                ('assets/audio/data.bin', True)):
+            result = subprocess.run(['git', 'check-ignore', '-q', name], cwd=self.root)
+            self.assertEqual(result.returncode, 0 if ignored else 1, name)
+        nested = self.fragment.parent / 'audio/samples/font.yaml'
+        nested.parent.mkdir(parents=True)
+        self.fragment.rename(nested)
+        self.document['segments'][1]['subsegments']['include'] = 'us/assets/audio/samples/font.yaml'
+        self.save()
+        self.assertEqual(profile_config.load_profile(self.profile)['segments'][1]['subsegments'], self.rows)
+
+    def test_make_plan_parses_each_input_once(self):
+        repository = Path(__file__).resolve().parent.parent
+        profile = repository / 'config/profiles/us.yaml'
+        dependencies = profile_config.profile_dependencies(profile)
+        with patch.object(sys, 'path', [str(repository / 'scripts'), *sys.path]), \
+             patch.object(profile_config.yaml, 'safe_load', wraps=yaml.safe_load) as parse:
+            tokens = profile_config.make_assets(profile)
+        self.assertEqual(parse.call_count, len(dependencies))
+        self.assertEqual(len([t for t in tokens if t.startswith('dep=')]), len(dependencies))
+        self.assertEqual(len([t for t in tokens if t.startswith('font=')]), 96)
+        self.assertTrue(any(t.startswith('source=src/') for t in tokens))

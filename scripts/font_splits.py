@@ -15,8 +15,8 @@ except ModuleNotFoundError:
 ROOT = Path(__file__).resolve().parent.parent
 
 
-def layout_bins(profile: Path) -> tuple[list[tuple[int, str]], int]:
-    segments = load_profile(profile)['segments']
+def layout_bins(profile: Path, *, configuration: dict | None = None) -> tuple[list[tuple[int, str]], int]:
+    segments = (load_profile(profile) if configuration is None else configuration)['segments']
     index = next(i for i, s in enumerate(segments) if isinstance(s, dict) and s.get('name') == 'font_rle')
     group, following = segments[index:index + 2]
     end = following['start'] if isinstance(following, dict) else following[0]

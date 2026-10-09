@@ -2,10 +2,6 @@
 PROFILE ?= us
 SYMBOL ?=
 PROFILE_CONFIG := config/profiles/$(PROFILE).yaml
-PROFILE_INPUTS := $(shell python3 scripts/profile_config.py dependencies $(PROFILE_CONFIG) || echo __PROFILE_INPUTS_FAILED__)
-ifneq ($(filter __PROFILE_INPUTS_FAILED__,$(PROFILE_INPUTS)),)
-$(error scripts/profile_config.py dependencies failed; see the error above)
-endif
 MATERIALIZED_CONFIG := build/config/$(PROFILE).yaml
 BUILD_DIR := build/$(PROFILE)
 AS := mips-linux-gnu-as
@@ -29,8 +25,27 @@ ROM_NAME := conker.$(PROFILE).z64
 ROM_PATH := roms/baserom.$(PROFILE).z64
 ASM_SRCS := $(shell find asm/$(PROFILE) -type f -name '*.s' ! -path '*/nonmatchings/*' 2>/dev/null)
 ASM_OBJS := $(patsubst asm/%.s,$(BUILD_DIR)/asm/%.o,$(ASM_SRCS))
+REQUESTED_GOALS := $(if $(MAKECMDGOALS),$(MAKECMDGOALS),help)
+# Only ROM/asset targets need the US asset layout. Recovery, independent reference,
+# library and EU targets must remain usable when a US fragment is broken.
+ifeq ($(PROFILE),us)
+ifneq ($(filter build raw-build $(BUILD_DIR)/$(ROM_NAME) $(BUILD_DIR)/conker.$(PROFILE).elf $(BUILD_DIR)/assets/% $(BUILD_DIR)/fonts/% $(BUILD_DIR)/audio/%,$(REQUESTED_GOALS)),)
+PROFILE_ASSETS := $(shell python3 scripts/profile_config.py make-assets $(PROFILE_CONFIG) || echo __PROFILE_ASSETS_FAILED__)
+ifneq ($(filter __PROFILE_ASSETS_FAILED__,$(PROFILE_ASSETS)),)
+$(error scripts/profile_config.py make-assets failed; see the error above)
+endif
+PROFILE_INPUTS := $(patsubst dep=%,%,$(filter dep=%,$(PROFILE_ASSETS)))
+FONT_BINS := $(patsubst font=%,%,$(filter font=%,$(PROFILE_ASSETS)))
+AUDIO_BANK_BINS := $(patsubst audio=%,%,$(filter audio=%,$(PROFILE_ASSETS)))
+MP3_BANK_BINS := $(patsubst mp3=%,%,$(filter mp3=%,$(PROFILE_ASSETS)))
+endif
+endif
+ifneq ($(PROFILE_ASSETS),)
+C_SRCS := $(patsubst source=%,%,$(filter source=%,$(PROFILE_ASSETS)))
+else ifneq ($(filter-out clean help prepare-reference,$(REQUESTED_GOALS)),)
 C_SRCS := $(shell python3 scripts/list_integrated_sources.py --overlay main --profile $(PROFILE) 2>/dev/null) \
 	$(shell python3 scripts/list_integrated_sources.py --profile-segment debugger --profile $(PROFILE) 2>/dev/null)
+endif
 C_OBJS := $(patsubst src/%.c,$(BUILD_DIR)/src/%.o,$(C_SRCS))
 # Reviewed main tables and literal pools are external to their text units.
 PROFILE_MAIN_RODATA_SECTIONS_us := $(if $(filter $(BUILD_DIR)/src/done/main/init_2E50.o,$(C_OBJS)),.main_rodata_init_2e50) $(if $(filter $(BUILD_DIR)/src/done/main/init_11FA0.o,$(C_OBJS)),.main_rodata_init_11fa0)
@@ -51,21 +66,8 @@ LDFLAGS := -m elf32btsmip $(if $(PROFILE_RODATA_SCRIPT),-T $(PROFILE_RODATA_SCRI
 NORMALIZED_ASM_DIR := $(BUILD_DIR)/normalized-asm
 BOOTSTRAP_SYMBOLS := $(BUILD_DIR)/bootstrap-symbols.ld
 ifeq ($(PROFILE),us)
-# A failure token also works with macOS make 3.81, which lacks .SHELLSTATUS.
-FONT_BINS := $(shell python3 scripts/font_splits.py list-bins || echo __ASSET_LIST_FAILED__)
-ifneq ($(filter __ASSET_LIST_FAILED__,$(FONT_BINS)),)
-$(error scripts/font_splits.py list-bins failed; see the error above)
-endif
 FONT_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(FONT_BINS))
-AUDIO_BANK_BINS := $(shell python3 scripts/audio_boundaries.py list-bins || echo __ASSET_LIST_FAILED__)
-ifneq ($(filter __ASSET_LIST_FAILED__,$(AUDIO_BANK_BINS)),)
-$(error scripts/audio_boundaries.py list-bins failed; see the error above)
-endif
 AUDIO_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(AUDIO_BANK_BINS))
-MP3_BANK_BINS := $(shell python3 scripts/mp3_bank.py list-bins || echo __ASSET_LIST_FAILED__)
-ifneq ($(filter __ASSET_LIST_FAILED__,$(MP3_BANK_BINS)),)
-$(error scripts/mp3_bank.py list-bins failed; see the error above)
-endif
 MP3_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(MP3_BANK_BINS))
 endif
 

@@ -58,15 +58,18 @@ import sys
 root = Path.cwd()
 name = Path(__file__).stem
 if (root / ('fail-' + name)).exists():
-    raise SystemExit('intentional list failure')
+    raise SystemExit('intentional ' + name + ' failure')
 font = name == 'font_splits'
 prefix = 'font/glyphs' if font else 'audio/mp3/streams'
-if name == 'audio_boundaries':
-    print('assets/audio/bank17/index.bin')
-    raise SystemExit(0)
-if sys.argv[1] == 'list-bins':
-    print(' '.join('assets/' + prefix + '/%04d.bin' % i for i in range(2)))
-else:
+def layout_bins(profile, *, configuration=None):
+    assert configuration is not None
+    rows = [(i, prefix + '/%04d' % i) for i in range(2)]
+    return (rows, 2) if font else rows
+def bank_layout(profile, *, configuration=None):
+    assert configuration is not None
+    return 0, 1, [(0, 'audio/bank17/index')]
+if __name__ == '__main__':
+    assert sys.argv[1] == 'build-parts'
     inputs = root / ('build/fonts/us' if font else 'build/assets/mp3-bank/us')
     parts = root / ('build/us/fonts/parts' if font else 'build/us/audio/parts')
     for i in range(2):
@@ -79,6 +82,8 @@ else:
     with (root / (name + '.calls')).open('a') as stream:
         stream.write('packed\\n')
 '''
+        (self.root / 'scripts/list_integrated_sources.py').write_text(
+            'def profile_sources(profile, segment):\n    return []\n')
         for name in ('font_splits', 'mp3_bank', 'audio_boundaries'):
             (self.root / f'scripts/{name}.py').write_text(script)
         self.ld = self.root / 'scripts/fake_ld.py'
@@ -161,7 +166,7 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
         self.fragment.unlink()
         result, _ = self.run_make('font')
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn('profile_config.py dependencies failed', result.stderr)
+        self.assertIn('profile_config.py make-assets failed', result.stderr)
         self.assertEqual([p.stat().st_mtime_ns for p in objects], before)
 
     def test_all_bin_list_errors_stop_make_at_the_generator(self):
@@ -171,6 +176,21 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
                 flag.touch()
                 result, objects = self.run_make('font')
                 self.assertNotEqual(result.returncode, 0)
-                self.assertIn(f'{name}.py list-bins failed', result.stderr)
+                self.assertIn(f'intentional {name} failure', result.stderr)
+                self.assertIn('profile_config.py make-assets failed', result.stderr)
                 self.assertFalse(any(p.exists() for p in objects))
                 flag.unlink()
+
+    def test_broken_us_fragment_does_not_block_housekeeping_reference_or_eu(self):
+        self.fragment.unlink()
+        for args in (['help'], ['clean'], ['-n', 'prepare-reference'],
+                     ['PROFILE=eu', 'build/eu/assets/boot.o']):
+            with self.subTest(args=args):
+                assets = self.root / 'assets'
+                assets.mkdir(exist_ok=True)
+                (assets / 'boot.bin').write_bytes(b'boot')
+                result = subprocess.run([MAKE, f'LD={sys.executable} {self.ld}', *args],
+                                        cwd=self.root, text=True, capture_output=True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertNotIn('profile_config.py', result.stderr)
+        self.assertEqual((self.root / 'build/eu/assets/boot.o').read_bytes(), b'boot')

@@ -14,8 +14,8 @@ except ModuleNotFoundError:
 ROOT = Path(__file__).resolve().parent.parent
 
 
-def bank_layout(profile: Path) -> tuple[int, int, list[tuple[int, str]]]:
-    segments = load_profile(profile)['segments']
+def bank_layout(profile: Path, *, configuration: dict | None = None) -> tuple[int, int, list[tuple[int, str]]]:
+    segments = (load_profile(profile) if configuration is None else configuration)['segments']
     index = next(i for i, segment in enumerate(segments)
                  if isinstance(segment, dict) and segment.get('name') == 'asset_bank_17')
     bank = segments[index]

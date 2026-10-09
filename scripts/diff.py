@@ -267,7 +267,9 @@ def game_comparison_inputs(source: str, assembly: Path) -> dict[str, str]:
              ROOT / "config/rzip_layouts.json", ROOT / "config/roms.json",
              ROOT / "config/overlays.json", ROOT / "config/reference/us.yaml",
              ROOT / "config/profiles/us.yaml"}
-    for directory in ("config/game", "config/profiles", "config/symbols", "config/relocs", "scripts"):
+    from profile_config import profile_dependencies
+    paths.update(profile_dependencies(ROOT / "config/profiles/us.yaml"))
+    for directory in ("config/game", "config/symbols", "config/relocs", "scripts"):
         paths.update(path for path in (ROOT / directory).rglob("*")
                      if path.is_file() and "__pycache__" not in path.parts)
     paths.update((ROOT / "src").rglob("*.h"))
