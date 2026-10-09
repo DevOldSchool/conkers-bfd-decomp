@@ -52,17 +52,17 @@ FONT_BINS := $(shell python3 scripts/font_splits.py list-bins || echo __ASSET_LI
 ifneq ($(filter __ASSET_LIST_FAILED__,$(FONT_BINS)),)
 $(error scripts/font_splits.py list-bins failed; see the error above)
 endif
-FONT_OBJS := $(patsubst assets/%.bin,build/us/assets/%.o,$(FONT_BINS))
+FONT_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(FONT_BINS))
 AUDIO_BANK_BINS := $(shell python3 scripts/audio_boundaries.py list-bins || echo __ASSET_LIST_FAILED__)
 ifneq ($(filter __ASSET_LIST_FAILED__,$(AUDIO_BANK_BINS)),)
 $(error scripts/audio_boundaries.py list-bins failed; see the error above)
 endif
-AUDIO_BANK_OBJS := $(patsubst assets/%.bin,build/us/assets/%.o,$(AUDIO_BANK_BINS))
+AUDIO_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(AUDIO_BANK_BINS))
 MP3_BANK_BINS := $(shell python3 scripts/mp3_bank.py list-bins || echo __ASSET_LIST_FAILED__)
 ifneq ($(filter __ASSET_LIST_FAILED__,$(MP3_BANK_BINS)),)
 $(error scripts/mp3_bank.py list-bins failed; see the error above)
 endif
-MP3_BANK_OBJS := $(patsubst assets/%.bin,build/us/assets/%.o,$(MP3_BANK_BINS))
+MP3_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(MP3_BANK_BINS))
 endif
 
 # US bin segments mirror the reviewed storage map in config/profiles/us.yaml.
@@ -355,8 +355,8 @@ ASSET_ROM_GOALS := raw-build $(BUILD_DIR)/$(ROM_NAME) $(BUILD_DIR)/conker.$(PROF
 ASSET_PACK_DEPS := Makefile config/profiles/us.yaml config/rzip_layouts.json \
 	scripts/build_files.py scripts/rzip_archive.py scripts/rzip_extract.py \
 	toolchain/python-requirements.txt $(ROM_PATH)
-FONT_PARTS := $(patsubst assets/%,build/us/fonts/parts/%,$(FONT_BINS))
-MP3_BANK_PARTS := $(patsubst assets/%,build/us/audio/parts/%,$(MP3_BANK_BINS))
+FONT_PARTS := $(patsubst assets/%,$(BUILD_DIR)/fonts/parts/%,$(FONT_BINS))
+MP3_BANK_PARTS := $(patsubst assets/%,$(BUILD_DIR)/audio/parts/%,$(MP3_BANK_BINS))
 .PHONY: asset-parts-missing
 asset-parts-missing:
 
@@ -366,10 +366,10 @@ FONT_PARTS_MISSING := $(filter-out $(wildcard $(FONT_PARTS)),$(FONT_PARTS))
 ifeq ($(wildcard build/fonts/us/manifest.json),)
 FONT_PARTS_MISSING += manifest
 endif
-build/us/fonts/parts.mk: $(ASSET_PACK_DEPS) scripts/font_splits.py scripts/font_assets.py $(FONT_PART_INPUTS) $(if $(FONT_PARTS_MISSING),asset-parts-missing)
+$(BUILD_DIR)/fonts/parts.mk: $(ASSET_PACK_DEPS) scripts/font_splits.py scripts/font_assets.py $(FONT_PART_INPUTS) $(if $(FONT_PARTS_MISSING),asset-parts-missing)
 	python3 scripts/font_splits.py build-parts
 	@touch $@
-include build/us/fonts/parts.mk
+include $(BUILD_DIR)/fonts/parts.mk
 endif
 
 ifneq ($(filter $(ASSET_ROM_GOALS) $(MP3_BANK_OBJS) $(MP3_BANK_PARTS),$(ASSET_BUILD_GOALS)),)
@@ -378,20 +378,20 @@ MP3_PARTS_MISSING := $(filter-out $(wildcard $(MP3_BANK_PARTS)),$(MP3_BANK_PARTS
 ifeq ($(wildcard build/assets/mp3-bank/us/manifest.json),)
 MP3_PARTS_MISSING += manifest
 endif
-build/us/audio/parts.mk: $(ASSET_PACK_DEPS) scripts/mp3_bank.py scripts/mp3_assets.py $(MP3_PART_INPUTS) $(if $(MP3_PARTS_MISSING),asset-parts-missing)
+$(BUILD_DIR)/audio/parts.mk: $(ASSET_PACK_DEPS) scripts/mp3_bank.py scripts/mp3_assets.py $(MP3_PART_INPUTS) $(if $(MP3_PARTS_MISSING),asset-parts-missing)
 	python3 scripts/mp3_bank.py build-parts
 	@touch $@
-include build/us/audio/parts.mk
+include $(BUILD_DIR)/audio/parts.mk
 endif
 endif
 
-$(FONT_OBJS): build/us/assets/%.o: build/us/fonts/parts/%.bin
+$(FONT_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/fonts/parts/%.bin
 	@mkdir -p "$(@D)"
-	cd build/us/fonts/parts && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin
+	cd $(BUILD_DIR)/fonts/parts && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin
 
-$(MP3_BANK_OBJS): build/us/assets/%.o: build/us/audio/parts/%.bin
+$(MP3_BANK_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/audio/parts/%.bin
 	@mkdir -p "$(@D)"
-	cd build/us/audio/parts && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin
+	cd $(BUILD_DIR)/audio/parts && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin
 
 # Require checked-in bank-17 splits to agree with the loader and sequence descriptors.
 .PHONY: audio-boundaries-check

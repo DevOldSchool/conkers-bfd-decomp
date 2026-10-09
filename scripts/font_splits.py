@@ -4,8 +4,12 @@ import json
 import sys
 import yaml
 
-from build_files import write_if_changed
-import font_assets
+try:
+    from scripts.build_files import write_if_changed
+    from scripts import font_assets
+except ModuleNotFoundError:
+    from build_files import write_if_changed
+    import font_assets
 
 ROOT = Path(__file__).resolve().parent.parent
 

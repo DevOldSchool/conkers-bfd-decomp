@@ -1,13 +1,10 @@
 from dataclasses import replace
 from pathlib import Path
-import sys
 import tempfile
 import unittest
 from unittest.mock import patch
 import yaml
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'scripts'))
-import font_assets
-import font_splits
+from scripts import font_assets, font_splits
 
 
 class FontSplitTests(unittest.TestCase):
