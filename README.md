@@ -99,6 +99,7 @@ Thanks to the authors and maintainers of:
   [spimdisasm](https://github.com/Decompollaborate/spimdisasm),
   [m2c](https://github.com/matt-kempster/m2c),
   [asm-differ](https://github.com/simonlindholm/asm-differ),
+  [decomp-permuter](https://github.com/simonlindholm/decomp-permuter),
   and [objdiff](https://github.com/encounter/objdiff)
 - **Reused work:** [ultralib](https://github.com/decompals/ultralib),
   [Rare-modified library sources](lib/libultrare/README.md), and

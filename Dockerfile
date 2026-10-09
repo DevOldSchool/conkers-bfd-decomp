@@ -8,6 +8,7 @@ ARG ASM_DIFFER_REV=c80ea4e3d16ecc8f4c21923633f3f9b1fb534c53
 ARG ASM_PROCESSOR_REV=f3b2f85a5bc7e8ae2030ea5a83ea8aa0bcbede03
 ARG MIPS_TO_C_REV=09e0e72337804a713e2c3b8d522abe85838470ea
 ARG N64SPLAT_REV=3376e8c1b542d68016d74c685a9b3c64d4e488a1
+ARG DECOMP_PERMUTER_REV=8556c81d80d1c1af98a858c8f4dc951357f29139
 ARG MUPEN64PLUS_CORE_REV=b0d68c20f49b8f833afa21450e0e8874c87c13c4
 ARG MUPEN64PLUS_UI_CONSOLE_REV=1a68327fddda71f1acbad8a63ef04288b1887d19
 ARG MUPEN64PLUS_RSP_HLE_REV=2798e65d6fc89d89aace0b0d779af6406809b940
@@ -62,13 +63,18 @@ RUN git clone https://github.com/simonlindholm/asm-differ.git /opt/tools/asm-dif
     && git -C /opt/tools/mips_to_c checkout --detach "$MIPS_TO_C_REV" \
     && git clone https://github.com/ethteck/n64splat.git /opt/tools/n64splat \
     && git -C /opt/tools/n64splat checkout --detach "$N64SPLAT_REV" \
+    && git clone https://github.com/simonlindholm/decomp-permuter.git /opt/tools/decomp-permuter \
+    && git -C /opt/tools/decomp-permuter checkout --detach "$DECOMP_PERMUTER_REV" \
     && python3 -m pip install --break-system-packages \
         /opt/tools/asm-differ \
         /opt/tools/mips_to_c \
         /opt/tools/n64splat \
     && python3 -m pip install --break-system-packages \
         --constraint /tmp/python-constraints.txt \
-        --requirement /opt/tools/n64splat/requirements.txt
+        --requirement /opt/tools/n64splat/requirements.txt \
+    && python3 -m pip install --break-system-packages \
+        --constraint /tmp/python-constraints.txt \
+        toml
 
 # Runtime tracing uses a debugger-enabled interpreter build. The console and
 # HLE RSP are pinned independently because Mupen64Plus ships them as separate
