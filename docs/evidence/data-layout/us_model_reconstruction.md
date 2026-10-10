@@ -166,9 +166,9 @@ The expansion is based on main `f55e9d1` and adds 57 direct models from indexed
 bank 09, ROM range `0x1204780–0x125CED0`. The selection is explicit in
 `config/model_build.us.json` (contract schema 2, `banks.09`); individual source
 bundles retain schema 1, so the existing bank-03 inputs remain compatible.
-`config/profiles/us/assets/models09.yaml` partitions the bank into 111 spans:
-57 selected compressed records and 54 retained raw spans. The index, gaps and
-all other records remain unmatched.
+`config/profiles/us/assets/models09.yaml` partitions the bank into 111 spans.
+These include 57 selected compressed records and 54 retained raw spans. The
+index, gaps and all other records remain unmatched.
 
 The selected models reconstruct 31,272 decoded bytes and 17,609 stored bytes.
 All 296 direct bank-09 models were inspected with the existing parser. These
@@ -260,9 +260,9 @@ Validated the completed review-fix working tree based on `5e522ed`:
   original, SHA-1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`.
 - Canonical progress, shell syntax and whitespace checks pass.
 
-The native report above remains historical evidence for the initial expansion
-commit `5e522ed`; it was not regenerated for these tooling fixes, and its source
-fingerprint no longer describes the current tree. The reviewed selection,
+At this checkpoint, the native report from expansion commit `5e522ed` was
+retained as historical evidence rather than regenerated. The bank-slot acceptance
+below supersedes that report validation with a fresh run. The reviewed selection,
 record format and stored byte totals are unchanged. Private validation logs,
 tested source hashes and the byte comparison are under
 `build/us/models/validation/pr92-review/`.
@@ -271,3 +271,36 @@ Full game-archive decoding remains part of the bank-09 consumer check. A ten-run
 host benchmark measured a median 8.22 ms for decoding versus 1.059 s for the
 complete 79-model review (under 1%). This follow-up keeps the existing verifier
 rather than introducing a cache or another archive decoder.
+
+
+### Bank-slot and fresh-report acceptance, 10 October 2026
+
+Validated the completed follow-up working tree based on `e875625`:
+
+- Model bank slots fall back to their original raw bank inputs when their profile
+  entries are no longer reconstruction groups. Make tests cover either bank raw,
+  both raw, exact storage ordering and linking the original bytes without packing.
+- Docker suites pass: 20 asset-Make and 10 ROM-build-mode tests, with no skips
+  or failures. These are the affected suites for this Make-only follow-up;
+  the earlier model, profile and objdiff tests remain recorded above.
+- A fresh `./conker build --assets` passes. Direct comparison confirms all
+  67,108,864 US ROM bytes equal the original, SHA-1
+  `4cbadd3c4e0729dec46af64ad018050eada4f47a`.
+- A fresh `./conker objdiff report` passes, with independent full-disassembly
+  reference verification, per-unit coverage validation and no compile errors.
+  All 79 model units are fully matched and complete, totaling 28,216 stored bytes.
+- All 7,956 unit measures, category measures and aggregate measures equal the
+  previous report. Data remains 8,319,452 / 65,120,512 matched bytes (12.775471%).
+- Native snapshot status is `current`: the source fingerprint and editable asset
+  hashes match this tree. Canonical progress and whitespace checks also pass.
+
+Source fingerprint:
+`e51fcd7b1dda7d7529244cb9d2ac83a1281f755cd2df6670e83a049a46b8831c`.
+The newly generated report has the same SHA-256 as the earlier report because
+all report contents remain identical:
+`ff9c48f47d34767de84f28f5e2f42d1b3674a69b21bf773e547a59c677872a1a`.
+
+Validation ran before committing these identical source inputs. Documentation
+and tests are outside the native source fingerprint. Logs, the preserved prior
+report and the independent byte/accounting audit remain private under
+`build/us/models/validation/pr92-final/`.

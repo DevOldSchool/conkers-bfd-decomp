@@ -106,9 +106,9 @@ ASSET_BINS_us := \
 	assets/game_data_rzip.bin assets/game_data_gap.bin assets/unassigned_after_debugger.bin \
 	$(FLAT_BINS) assets/assets_flat_gap.bin assets/asset_bank_index.bin \
 	assets/asset_bank_00.bin assets/asset_bank_01.bin assets/asset_bank_02.bin \
-	$(MODEL_BANK_BINS_03) assets/asset_bank_04.bin assets/asset_bank_05.bin \
+	$(or $(MODEL_BANK_BINS_03),assets/asset_bank_03.bin) assets/asset_bank_04.bin assets/asset_bank_05.bin \
 	assets/asset_bank_06.bin assets/asset_bank_07.bin assets/asset_bank_08.bin \
-	$(MODEL_BANK_BINS_09) assets/asset_bank_0a.bin assets/asset_bank_0b.bin \
+	$(or $(MODEL_BANK_BINS_09),assets/asset_bank_09.bin) assets/asset_bank_0a.bin assets/asset_bank_0b.bin \
 	assets/asset_bank_0c.bin assets/asset_bank_0d.bin assets/asset_bank_0e.bin \
 	assets/asset_bank_0f.bin assets/asset_bank_10.bin assets/asset_bank_11.bin \
 	assets/asset_bank_12.bin assets/asset_bank_13.bin assets/asset_bank_14.bin \

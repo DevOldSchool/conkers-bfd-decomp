@@ -159,7 +159,7 @@ from build_files import write_if_changed
 BANKS = (3, 9)
 def layout_bins(profile, *, bank, configuration=None):
     assert configuration is not None
-    assert any(s.get('name') == f'asset_bank_{bank:02d}' for s in configuration['segments'])
+    assert any(isinstance(s, dict) and s.get('name') == f'asset_bank_{bank:02d}' for s in configuration['segments'])
     return [(0, f'models/bank{bank:02d}/0003')], 1
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -237,6 +237,45 @@ if __name__ == '__main__':
             position = names.index(f'assets/models/bank{bank}/0003.bin')
             self.assertEqual(names[position - 1], f'assets/asset_bank_{previous}.bin')
             self.assertEqual(names[position + 1], f'assets/asset_bank_{following}.bin')
+
+    def test_raw_model_banks_keep_their_asset_slots_and_link_original_storage(self):
+        self.setup_model_banks(('03', '09'))
+        profile = self.root / 'config/profiles/us.yaml'
+        grouped = profile.read_text()
+        with (self.root / 'Makefile').open('a') as stream:
+            stream.write('\n.PHONY: show-assets\nshow-assets:\n\t@echo $(ASSET_BINS_us)\n')
+        for raw_banks in (('03',), ('09',), ('03', '09')):
+            with self.subTest(raw_banks=raw_banks):
+                contents = grouped
+                for bank in raw_banks:
+                    contents = contents.replace(
+                        f'  - name: asset_bank_{bank}\n    type: group\n',
+                        f'  - [0x{bank}00, bin, asset_bank_{bank}]\n')
+                    source = self.root / f'assets/asset_bank_{bank}.bin'
+                    source.parent.mkdir(parents=True, exist_ok=True)
+                    source.write_text('original bank ' + bank)
+                profile.write_text(contents)
+                assets = subprocess.run([MAKE, 'ASSETS=1', '--no-print-directory', 'show-assets'],
+                                        cwd=self.root, text=True, capture_output=True)
+                self.assertEqual(assets.returncode, 0, assets.stderr)
+                names = assets.stdout.split()
+                for bank, previous, following in (('03', '02', '04'), ('09', '08', '0a')):
+                    raw = f'assets/asset_bank_{bank}.bin'
+                    model = f'assets/models/bank{bank}/0003.bin'
+                    expected, excluded = (raw, model) if bank in raw_banks else (model, raw)
+                    self.assertEqual(names.count(expected), 1)
+                    self.assertNotIn(excluded, names)
+                    position = names.index(expected)
+                    self.assertEqual(names[position - 1], f'assets/asset_bank_{previous}.bin')
+                    self.assertEqual(names[position + 1], f'assets/asset_bank_{following}.bin')
+                targets = [f'build/us/assets/asset_bank_{bank}.o' for bank in raw_banks]
+                linked = subprocess.run([MAKE, 'ASSETS=1', '-j4', f'LD={sys.executable} {self.ld}', *targets],
+                                        cwd=self.root, text=True, capture_output=True)
+                self.assertEqual(linked.returncode, 0, linked.stderr)
+                for bank, target in zip(raw_banks, targets):
+                    self.assertEqual((self.root / target).read_text(), 'original bank ' + bank)
+        self.assertFalse((self.root / 'model_build_03.calls').exists())
+        self.assertFalse((self.root / 'model_build_09.calls').exists())
 
     def check_model_parts(self, bank):
         self.setup_model_banks((bank,))
