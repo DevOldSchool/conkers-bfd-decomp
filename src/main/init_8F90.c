@@ -443,7 +443,7 @@ s32 func_80024920(TransferIoMessage *, s32, s32, u32, void *, u32,
                  OSMesgQueue *);
 extern TransferIoMessage D_80040F98[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800097CC CURRENT (305) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800097CC CURRENT (180) */
 s32 func_800097CC(s32 addr, s32 len, void *state) {
     u8 *buffer;
     s32 offset;
@@ -501,8 +501,8 @@ s32 func_800097CC(s32 addr, s32 len, void *state) {
             record->prev = 0;
         }
     }
-    offset = request & 1;
     buffer = record->buffer;
+    offset = request & 1;
     request -= offset;
     record->address = request;
     record->frame = D_8002AE44;
