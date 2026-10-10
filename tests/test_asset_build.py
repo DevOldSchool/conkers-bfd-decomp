@@ -111,10 +111,10 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
             (self.root / directory).mkdir(parents=True, exist_ok=True)
             (self.root / directory / 'manifest.json').write_text('{}')
 
-    def run_make(self, kind):
+    def run_make(self, kind, *, jobs=4):
         prefix = 'flat/textures' if kind == 'texture' else 'font/glyphs' if kind == 'font' else 'audio/mp3/streams'
         objects = [self.root / f'build/us/assets/{prefix}/{i:04d}.o' for i in range(2)]
-        result = subprocess.run([MAKE, 'ASSETS=1', '-j4', f'LD={sys.executable} {self.ld}',
+        result = subprocess.run([MAKE, 'ASSETS=1', f'-j{jobs}', f'LD={sys.executable} {self.ld}',
                                  *[str(p.relative_to(self.root)) for p in objects]],
                                 cwd=self.root, text=True, capture_output=True)
         return result, objects
@@ -205,14 +205,16 @@ if __name__ == '__main__':
                 self.assertEqual([path.stat().st_mtime_ns for path in objects], before)
 
     def test_asset_link_commands_are_logged_on_success_and_failure(self):
+        # Shell xtrace writes can interleave under parallel Make. This test
+        # checks complete command logging; other tests retain parallel builds.
         for kind in ('font', 'mp3'):
             with self.subTest(kind=kind):
-                result, objects = self.run_make(kind)
+                result, objects = self.run_make(kind, jobs=1)
                 self.assertEqual(result.returncode, 0, result.stderr)
                 for path in objects:
                     self.assertIn(str(path), result.stderr)
                 self.assertIn('fake_ld.py -r -b binary', result.stderr)
-                unchanged, _ = self.run_make(kind)
+                unchanged, _ = self.run_make(kind, jobs=1)
                 self.assertEqual(unchanged.returncode, 0, unchanged.stderr)
                 self.assertNotIn('fake_ld.py -r -b binary', unchanged.stderr)
         self.ld.write_text('raise SystemExit(7)\n')
@@ -221,7 +223,7 @@ if __name__ == '__main__':
                 prefix = 'font/glyphs' if kind == 'font' else 'audio/mp3/streams'
                 path = self.root / f'build/us/assets/{prefix}/0000.o'
                 path.unlink()
-                result, _ = self.run_make(kind)
+                result, _ = self.run_make(kind, jobs=1)
                 self.assertNotEqual(result.returncode, 0)
                 self.assertIn('fake_ld.py -r -b binary', result.stderr)
                 self.assertIn(str(path), result.stderr)

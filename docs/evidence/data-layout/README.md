@@ -6,6 +6,8 @@ Jump tables, literal pools and private storage have their own proof requirements
 
 ## Records
 
+- [US complete bounded asset storage accounting](us_asset_storage_accounting.md)
+
 - [US bank-03 model reconstruction](us_model_reconstruction.md)
 
 - [US texture 1063 PNG-to-RZIP build and data credit](us_texture_1063_build.md)

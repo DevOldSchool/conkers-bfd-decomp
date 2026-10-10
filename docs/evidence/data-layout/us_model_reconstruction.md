@@ -82,7 +82,8 @@ Validated working-tree changes based on main
   source races, incremental Make recovery and independent report targets.
 - Native objdiff reports all 22 model units fully matched and complete:
   10,607 / 10,607 stored bytes, with no compile errors.
-- Aggregate Data is 8,301,843 / 8,502,371 matched bytes (97.6415%);
+- At the initial, narrower report scope, aggregate Data was
+  8,301,843 / 8,502,371 matched bytes (97.6415%);
   8,301,075 bytes are complete (97.63248%).
 - Canonical progress and whitespace checks pass. No C-function inventory or
   source-unit ownership changes are part of this batch.
@@ -93,3 +94,7 @@ Report source fingerprint:
 Local logs are retained in `build/us/models/validation/`; the native report
 and its per-file source/link proofs are in `build/us/objdiff-report/`.
 These results apply to the working tree, not an additional committed revision.
+
+The subsequent [complete storage accounting](us_asset_storage_accounting.md)
+retains these model matches and adds all remaining bounded asset storage as
+unmatched targets. The earlier aggregate percentage is historical.
