@@ -14,6 +14,13 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define sequence_slots_set_ducking_ramp func_8000CBF0
+#define sequence_slot_update_volume func_8000CC54
+#define sequence_volume_step_toward func_8000CD40
+#define sequence_record_set_base_volume func_8000E40C
+#define sequence_record_set_channels_fx_bus func_8000E704
+
 typedef struct SequenceRecordState {
     s32 index;
     s32 id;
@@ -224,7 +231,7 @@ void func_800085B8(s32, s32, s32);
 void func_800088F0(s32, s32, s32);
 void func_80008790(u8, s32, u8, s32);
 void func_80011FA0(s32);
-s32 func_8000E704(s32, s32, s32);
+s32 sequence_record_set_channels_fx_bus(s32, s32, s32);
 
 s32 func_8000B638(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 bit2;
@@ -261,15 +268,15 @@ s32 func_8000B638(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
         func_80011FA0(4);
         if (bit2 == 0) {
             bit2 = 2;
-            func_8000E704(1, 1, 0xFFFF);
+            sequence_record_set_channels_fx_bus(1, 1, 0xFFFF);
         }
     } else if (bit2 != 0) {
-        func_8000E704(1, 0, 0xFFFF);
+        sequence_record_set_channels_fx_bus(1, 0, 0xFFFF);
         bit2 = 0;
     }
     return bit2 | arg0;
 }
-void func_8000E40C(s32, s32);
+void sequence_record_set_base_volume(s32, s32);
 extern u8 *D_800DBFF0;
 
 s32 func_8000B830(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
@@ -278,10 +285,10 @@ s32 func_8000B830(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     flag = *(s32 *)(D_800DBFF0 + 0x5F0) & 1;
     if (flag != 0 && arg0 == 0) {
         arg0 = 1;
-        func_8000E40C(0x10, 0x3E8);
+        sequence_record_set_base_volume(0x10, 0x3E8);
     } else if (flag == 0 && arg0 != 0) {
         arg0 = 0;
-        func_8000E40C(0x10, 0x4650);
+        sequence_record_set_base_volume(0x10, 0x4650);
     }
     return arg0;
 }
@@ -362,11 +369,11 @@ s32 func_8000BAFC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     arg0 |= state;
     return arg0;
 }
-s32 func_8000E704(s32, s32, s32);
+s32 sequence_record_set_channels_fx_bus(s32, s32, s32);
 
 s32 func_8000BBE8(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     if (arg0 == 0) {
-        func_8000E704(0x14, 1, 0xFFFF);
+        sequence_record_set_channels_fx_bus(0x14, 1, 0xFFFF);
         arg0 = 1;
     }
     return arg0;
@@ -467,7 +474,7 @@ s32 func_8000BF60(u32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     mode = arg0 & 3;
     packed = arg0 >> 8;
     if (!(arg0 & 0x80)) {
-        func_8000E40C(0x22, 0x5DC0);
+        sequence_record_set_base_volume(0x22, 0x5DC0);
         if (D_800C35EA == 1) {
             func_8000DF68(0x22, 0x14, 1);
         }
@@ -530,7 +537,7 @@ s32 func_8000BF60(u32 arg0, s32 arg1, s32 arg2, s32 arg3) {
             if (countdown != 0) {
                 countdown -= (D_800BE9E4 >> 1) * 4;
                 if (countdown <= 0) {
-                    func_8000E704(0x22, 0, 0xFFFF);
+                    sequence_record_set_channels_fx_bus(0x22, 0, 0xFFFF);
                     arg0 = 0x81;
                 } else {
                     arg0 = countdown | 0x80;
@@ -541,7 +548,7 @@ s32 func_8000BF60(u32 arg0, s32 arg1, s32 arg2, s32 arg3) {
         case 2:
             arg0 = 0xF8;
             func_80011FA0(4);
-            func_8000E704(0x22, 1, 0xFFFF);
+            sequence_record_set_channels_fx_bus(0x22, 1, 0xFFFF);
             func_8000E46C(0x22, 0, 0xFE0, initialized);
             break;
         }
@@ -563,16 +570,16 @@ s32 func_8000C350(s32 arg0, u8 arg1, s32 arg2, s32 arg3) {
         if (D_800C35EA != 1) {
             func_8000886C(arg1, 0x1E, 1);
             func_8000886C(arg1, 1, 1);
-            func_8000E40C(0x23, 0x61A8);
+            sequence_record_set_base_volume(0x23, 0x61A8);
         } else if (D_800C35E8 == 3) {
-            func_8000E40C(0x23, 0xFA);
+            sequence_record_set_base_volume(0x23, 0xFA);
             func_85178EFC(2);
         } else if (D_800C35E8 == 6) {
             func_8000886C(arg1, 0x1E, 1);
             func_8000886C(arg1, 1, 0x40);
             func_85178EFC(2);
         } else {
-            func_8000E40C(0x23, 0x61A8);
+            sequence_record_set_base_volume(0x23, 0x61A8);
         }
         return arg0;
     }
@@ -686,8 +693,8 @@ s32 func_8000C7E8(s32 arg0, s32 arg1, f32 arg2, s32 arg3, f32 arg4) {
     if (D_800BE9F0 == 0x31) {
         if (arg0 != 2) {
             if (func_8000B1B0(9) == 0) {
-                func_8000E704(0x3E, 0, 0xFFFF);
-                func_8000E40C(0x3E, 0x7FFF);
+                sequence_record_set_channels_fx_bus(0x3E, 0, 0xFFFF);
+                sequence_record_set_base_volume(0x3E, 0x7FFF);
                 func_8000D96C(0x3D, 0x3E, 4);
             }
             return 2;
@@ -708,7 +715,7 @@ s32 func_8000C7E8(s32 arg0, s32 arg1, f32 arg2, s32 arg3, f32 arg4) {
     } else if (24000.0f < distance) {
         value = 24000.0f;
     }
-    func_8000E40C(0x3E, (s32)value);
+    sequence_record_set_base_volume(0x3E, (s32)value);
     return arg0;
 }
 extern s32 D_800BE9F0;
@@ -737,7 +744,7 @@ s32 func_8000C934(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     result.value = result.output[0];
     if ((u16)(result.value != arg0)) {
-        func_8000E40C(0x54, result.value);
+        sequence_record_set_base_volume(0x54, result.value);
     }
     return result.value | 0x80000000;
 }
@@ -760,7 +767,7 @@ s32 func_8000CA18(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
         value = 0x5DC0;
     }
     if ((u16)(value != arg0)) {
-        func_8000E40C(0x54, value);
+        sequence_record_set_base_volume(0x54, value);
     }
     return value | 0x80000000;
 }
@@ -777,11 +784,11 @@ s32 func_8000CAE4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
         func_80011FA0(4);
         if (arg0 == 0) {
             arg0 = 1;
-            func_8000E704(0x58, 1, 0xFFFF);
+            sequence_record_set_channels_fx_bus(0x58, 1, 0xFFFF);
         }
     } else if (arg0 != 0) {
-        func_8000E704(0x58, 0, 0xFFFF);
-        func_8000E40C(0x58, 0x3E80);
+        sequence_record_set_channels_fx_bus(0x58, 0, 0xFFFF);
+        sequence_record_set_base_volume(0x58, 0x3E80);
         arg0 = 0;
     }
     if (bit2 == 0) {
@@ -800,7 +807,7 @@ void func_8000CBA8(s32 arg0) {
         D_800417B0[1]->duration = 0x500;
     }
 }
-void func_8000CBF0(s32 arg0, s32 arg1, s32 arg2) {
+void sequence_slots_set_ducking_ramp(s32 arg0, s32 arg1, s32 arg2) {
     SequenceRecordState **slot;
     SequenceRecordState *record;
     s32 i;
@@ -822,7 +829,7 @@ void func_8000CBF0(s32 arg0, s32 arg1, s32 arg2) {
 void func_80008988(s32, s32, s32);
 void func_80008EE0(u8, s32);
 
-void func_8000CC54(s32 arg0) {
+void sequence_slot_update_volume(s32 arg0) {
     u32 value;
     SequenceRecordState *record;
 
@@ -844,7 +851,7 @@ void func_8000CC54(s32 arg0) {
 }
 extern s32 D_800BE9E4;
 
-s32 func_8000CD40(s32 arg0, s32 arg1, s32 arg2) {
+s32 sequence_volume_step_toward(s32 arg0, s32 arg1, s32 arg2) {
     if (arg1 != arg0) {
         arg2 *= D_800BE9E4;
         if (arg0 < arg1) {
@@ -1053,7 +1060,7 @@ void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
                 record = *slot;
             }
             (*slot)->value = record->current4C = 0x7FFF;
-            func_8000CC54((s32)((u32 *)&arg0)[0]);
+            sequence_slot_update_volume((s32)((u32 *)&arg0)[0]);
             (*slot)->field24 = 0;
             (*slot)->field20 = 0;
         }
@@ -1094,7 +1101,7 @@ void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
                                 record = *slot;
                             }
                             record->current = 0;
-                            func_8000CC54((s32)((u32 *)&arg0)[0]);
+                            sequence_slot_update_volume((s32)((u32 *)&arg0)[0]);
                             func_800084D8(((u8 *)&channel)[3]);
                             if ((*slot)->flags38 != 0) {
                                 func_800088F0(((u8 *)&channel)[3], (*slot)->flags38, 0);
@@ -1138,14 +1145,14 @@ void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
             }
             if (func_8000CDA0(((u8 *)record)[0x1F], record->owner)) {
                 record = *slot;
-                (*slot)->current4C = func_8000CD40(record->current4C, record->value, (u16)record->duration);
+                (*slot)->current4C = sequence_volume_step_toward(record->current4C, record->value, (u16)record->duration);
                 record = *slot;
-                (*slot)->current52 = func_8000CD40(record->current52, record->target54, (u16)record->duration56);
+                (*slot)->current52 = sequence_volume_step_toward(record->current52, record->target54, (u16)record->duration56);
                 record = *slot;
-                (*slot)->current58 = func_8000CD40(record->current58, record->target5A, (u16)record->duration5C);
+                (*slot)->current58 = sequence_volume_step_toward(record->current58, record->target5A, (u16)record->duration5C);
                 (*slot)->fadeMask = 0;
             }
-            func_8000CC54((s32)((u32 *)&arg0)[0]);
+            sequence_slot_update_volume((s32)((u32 *)&arg0)[0]);
             record = *slot;
             if (record->ownerSync != 0 &&
                 ((owner = record->owner) == 0 || owner == record || owner->id <= 0 ||
@@ -1204,18 +1211,18 @@ void func_8000D758(f32 arg0, f32 arg1, f32 arg2) {
             }
         }
         if (mask5 != 0) {
-            func_8000CBF0(0x1770, 0x400, mask5 ^ 0xFF ^ mask40);
-            func_8000CBF0(0x8000, 0x6400, mask5);
+            sequence_slots_set_ducking_ramp(0x1770, 0x400, mask5 ^ 0xFF ^ mask40);
+            sequence_slots_set_ducking_ramp(0x8000, 0x6400, mask5);
         } else if (mask34 != 0) {
-            func_8000CBF0(0x1F4, 0x400, mask34 ^ 0xFF);
-            func_8000CBF0(0x8000, 0x800, mask34);
+            sequence_slots_set_ducking_ramp(0x1F4, 0x400, mask34 ^ 0xFF);
+            sequence_slots_set_ducking_ramp(0x8000, 0x800, mask34);
         } else if (func_851F2CDC() == 1 &&
                    (D_800427F4 < 0x7D || D_800427F4 >= 0x81) &&
                    D_800427F4 < 0x1C9 && D_800427F4 != 0x170 &&
                    D_800427F4 != 0x171) {
-            func_8000CBF0(0x36B0, 0x200, mask12 ^ 0xFF);
+            sequence_slots_set_ducking_ramp(0x36B0, 0x200, mask12 ^ 0xFF);
         } else {
-            func_8000CBF0(0x8000, 0x800, 0xFF);
+            sequence_slots_set_ducking_ramp(0x8000, 0x800, 0xFF);
         }
         i = 0;
         do {
@@ -1459,7 +1466,7 @@ void func_8000DF68(s32 arg0, s32 arg1, s32 arg2) {
         if (arg2 == 1) {
             record->current4C = arg1;
             if (record->index >= 0) {
-                func_8000CC54(record->index);
+                sequence_slot_update_volume(record->index);
             }
         }
         if (arg2 >= 2) {
@@ -1488,7 +1495,7 @@ interpolation_done:
 s32 *func_8000B1B0(s32);
 void func_800084D8(u8);
 void func_80008F58(u8);
-void func_8000CC54(s32);
+void sequence_slot_update_volume(s32);
 
 void func_8000E054(s32 arg0, s32 arg1) {
     SequenceRecordState *record;
@@ -1499,7 +1506,7 @@ void func_8000E054(s32 arg0, s32 arg1) {
             func_800084D8(((u8 *)record)[3]);
             record->pauseMode = 0;
             record->current = -1;
-            func_8000CC54(record->index);
+            sequence_slot_update_volume(record->index);
             return;
         }
         if (record->pauseMode != 2 && arg1 != 0) {
@@ -1593,13 +1600,13 @@ void func_8000E2F4(s32 arg0) {
                     func_800084D8((u8)i);
                 }
                 D_800417B0[i]->current = -1;
-                func_8000CC54(i);
+                sequence_slot_update_volume(i);
             }
         }
     }
     D_80041F00 = arg0;
 }
-void func_8000E40C(s32 arg0, s32 arg1) {
+void sequence_record_set_base_volume(s32 arg0, s32 arg1) {
     SequenceRecordState *record;
 
     if (arg1 >= 0x8000) {
@@ -1708,7 +1715,7 @@ s32 func_8000E654(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 void func_80008A94(s32, s32, s32);
 
-s32 func_8000E704(s32 arg0, s32 arg1, s32 arg2) {
+s32 sequence_record_set_channels_fx_bus(s32 arg0, s32 arg1, s32 arg2) {
     s32 *record;
 
     record = func_8000B1B0(arg0);

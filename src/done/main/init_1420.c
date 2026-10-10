@@ -5,6 +5,9 @@
  * Boundary evidence: docs/evidence/boundaries/main/main_bootstrap_source_units.md
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define main_thread_stop func_800014A0
+
 #if PROFILE_US
 #define clear_bootstrap_region func_80001420
 #define bootstrap_region D_80043B40
@@ -55,7 +58,7 @@ void func_80001444(void) {
     func_80022DE0(saved_mask);
 }
 
-void func_800014A0(void) {
+void main_thread_stop(void) {
     func_80022E00(&D_80031AE0);
 }
 

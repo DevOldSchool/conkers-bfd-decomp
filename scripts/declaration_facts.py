@@ -131,6 +131,87 @@ def active_text(text: str) -> str:
     return "".join(output)
 
 
+def function_alias_text(text: str, *, strip_definitions: bool = False) -> str:
+    """Canonical parsing view for simple, unconditional address-symbol aliases.
+
+    This is not a preprocessor: conditional, repeated, undefined, continued or
+    chained aliases remain unresolved. Unrelated continued macros are permitted.
+    Comments, strings and macro bodies stay intact; parser-only contexts may
+    remove the accepted alias definitions after expansion.
+    """
+    if not re.search(r"#\s*define\b", text):
+        return text
+    # Recognize logical directives/comments without changing physical source.
+    # Gap positions also record splices at the end of a logical directive.
+    scan = text
+    offsets = range(len(text) + 1)
+    gaps = []
+    continuations = list(re.finditer(r"\\\r?\n", text))
+    if continuations:
+        pieces = []
+        offsets = []
+        cursor = 0
+        for continuation in continuations:
+            pieces.append(text[cursor:continuation.start()])
+            offsets.extend(range(cursor, continuation.start()))
+            gaps.append(len(offsets))
+            cursor = continuation.end()
+        pieces.append(text[cursor:])
+        offsets.extend(range(cursor, len(text)))
+        offsets.append(len(text))
+        scan = "".join(pieces)
+    definitions: dict[str, list[tuple[int, int, str | None]]] = {}
+    depth = 0
+    for token in candidate_syntax.TOKEN.finditer(scan):
+        directive = token.group()
+        if not directive.startswith("#"):
+            continue
+        if directive.rstrip().endswith("\\"):
+            return text
+        directive = re.sub(r"/\*.*?\*/|//[^\n]*", " ", directive)
+        if "/*" in directive:
+            return text
+        if PREPROCESSOR_IF.match(directive):
+            depth += 1
+        elif PREPROCESSOR_ENDIF.match(directive):
+            depth = max(0, depth - 1)
+        match = re.match(r"#\s*(define|undef)\s+([A-Za-z_]\w*)", directive)
+        if match is None:
+            continue
+        target = re.fullmatch(r"\s+(func_[0-9A-Fa-f]{8})\s*", directive[match.end():])
+        line_start = scan.rfind("\n", 0, token.start()) + 1
+        continued = any(line_start <= gap <= token.end() for gap in gaps)
+        value = (target.group(1) if target and not depth and not continued
+                 and match[1] == "define" else None)
+        end = token.end() - int(scan[token.end() - 1:token.end()] == "\r")
+        definitions.setdefault(match[2], []).append((token.start(), end, value))
+    items = candidate_syntax.tokens(scan)
+    aliases = {}
+    for name, records in definitions.items():
+        if len(records) != 1:
+            continue
+        start, end, target = records[0]
+        if (target is not None and target not in definitions
+                and not any(item.text == name and (
+                    item.start < end or
+                    text[offsets[item.start]:offsets[item.end - 1] + 1] != name)
+                    for item in items)):
+            aliases[name] = (end, target)
+    replacements = []
+    if strip_definitions:
+        replacements.extend((offsets[definitions[name][0][0]],
+                             offsets[definitions[name][0][1]], "")
+                            for name in aliases)
+    for item in items:
+        if item.text in aliases:
+            end, target = aliases[item.text]
+            if item.start >= end:
+                replacements.append((offsets[item.start], offsets[item.end - 1] + 1, target))
+    for start, end, replacement in sorted(replacements, reverse=True):
+        text = text[:start] + replacement + text[end:]
+    return text
+
+
 def evidence_files(root: Path = ROOT) -> list[Path]:
     files: list[Path] = []
     for directory, suffixes in ((root / "src", {".c", ".h"}), (root / "include", {".h"})):
@@ -297,6 +378,7 @@ def object_declaration(symbol: str, *, root: Path = ROOT, source: str = "") -> D
 
 
 def declaration_already_present(source: str, declaration: Declaration) -> bool:
+    source = function_alias_text(source)
     if "(*" in declaration.text:
         pointer = re.compile(
             rf"(?m)^\s*(?:extern\s+|static\s+)?{TYPE_TEXT}\s*\(\s*\*\s*"
@@ -382,6 +464,7 @@ def resolve_required_declarations(
 
 def file_scope_matches(pattern: re.Pattern, source: str):
     """Yield declarations at file scope, excluding comments and disabled C."""
+    source = function_alias_text(source)
     active = active_text(re.sub(r"/\*.*?\*/|//[^\n]*", "", source, flags=re.S))
     depth = 0
     top_level = set()

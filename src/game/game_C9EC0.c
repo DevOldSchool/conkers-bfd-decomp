@@ -17,6 +17,11 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define resource_descriptor_name func_1509CA10
+#define resource_descriptor_packed_id func_1509CA78
+#define resource_descriptor_mark_dependencies_available func_1509CCB4
+
 /* ROM-verified 0x14-byte records; names identify tasks/scenes when present. */
 typedef struct ResourceDescriptor {
     const char *name;
@@ -45,7 +50,7 @@ extern GameC9EC0HalfwordEntry D_80087438[];
 extern GameC9EC0HalfwordEntry D_8008743A[];
 
 /* Resource descriptor name accessor; unnamed records return NULL. */
-const char *func_1509CA10(s32 descriptor_index) {
+const char *resource_descriptor_name(s32 descriptor_index) {
     return D_80087430[descriptor_index].name;
 }
 u16 func_1509CA30(s32 arg0) {
@@ -54,7 +59,7 @@ u16 func_1509CA30(s32 arg0) {
 s32 func_1509CA50(s32 arg0) {
     return D_8008743A[arg0].field_0 & 0xFFF;
 }
-s32 func_1509CA78(s32 arg0) {
+s32 resource_descriptor_packed_id(s32 arg0) {
     return D_80087434[arg0].packed_id;
 }
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509CA98 CURRENT (60) */
@@ -153,14 +158,14 @@ block_5:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CBD4.s")
 extern s32 D_8008743C[];
 extern void func_1509CE64(s32 arg0, void (*arg1)(s32), s32 arg2);
-void func_1509CCB4();
+void resource_descriptor_mark_dependencies_available();
 
 void func_1509CC94(void) {
-    func_1509CCB4();
+    resource_descriptor_mark_dependencies_available();
 }
 
-void func_1509CCB4(s32 arg0) {
-    func_1509CE64(((ResourceDescriptorIdField *)D_8008743C)[arg0].packed_id, func_1509CCB4, arg0);
+void resource_descriptor_mark_dependencies_available(s32 arg0) {
+    func_1509CE64(((ResourceDescriptorIdField *)D_8008743C)[arg0].packed_id, resource_descriptor_mark_dependencies_available, arg0);
 }
 extern s32 D_80087440;
 extern u8 D_800D2E70;
@@ -187,7 +192,7 @@ s32 func_1509CCF4(s32 arg0) {
             temp_a1 = var_s4 + *var_s0;
             if (*temp_a1 != var_s3) {
                 *temp_a1 = 3;
-                func_1509CCB4(*var_s0);
+                resource_descriptor_mark_dependencies_available(*var_s0);
                 var_s1 += 1;
             }
             var_v1 = var_s0[1];

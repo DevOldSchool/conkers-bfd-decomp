@@ -10,13 +10,24 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-s32 func_15080738(s32);
+/* Semantic names retain numeric linkage.
+ * Evidence: docs/evidence/matching/naming/actor_resource_controller_helper_semantics.md
+ */
+#define actor_resource_request func_15080500
+#define actor_resource_set_persistent_request func_15080620
+#define actor_resource_clear_transient_requests func_150806A8
+#define actor_resource_request_bit_location func_15080718
+#define actor_resource_request_flag_is_set func_15080738
+#define actor_resource_controller_handle_event func_150807F4
+#define actor_resource_controller_poll_completion func_15080C64
+
+s32 actor_resource_request_flag_is_set(s32);
 extern s8 D_800D1940;
 extern void *D_800D199C;
 extern u8 D_800D2E60[];
 extern s32 D_800D3098;
 
-void func_15080500(u8 *arg0, void *arg1, s32 arg2, s32 arg3) {
+void actor_resource_request(u8 *arg0, void *arg1, s32 arg2, s32 arg3) {
     u8 *temp_v0;
 
     if ((arg0 != 0) && (*(s32 *)arg0 != 0) && (arg0[0x127] != 0xFF)) {
@@ -25,7 +36,7 @@ void func_15080500(u8 *arg0, void *arg1, s32 arg2, s32 arg3) {
             D_800D199C = arg1;
             arg3 = 0x2A;
         } else {
-            if (func_15080738(arg3) != 0) {
+            if (actor_resource_request_flag_is_set(arg3) != 0) {
                 D_800D1940 = arg3;
                 if (!(D_800D2E60[arg3 >> 3] & (1 << (arg3 & 7)))) {
                     arg3 = 0x1A;
@@ -49,7 +60,7 @@ void func_15080500(u8 *arg0, void *arg1, s32 arg2, s32 arg3) {
 }
 extern void * D_800CC5EC;
 
-void func_15080620(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+void actor_resource_set_persistent_request(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     if (arg2 != 0) {
         arg2 |= 0x80;
     }
@@ -73,7 +84,7 @@ typedef struct GameAD9B0Actor {
 
 extern GameAD9B0Actor D_800CC2D0[];
 
-void func_150806A8(s32 arg0) {
+void actor_resource_clear_transient_requests(s32 arg0) {
     GameAD9B0Actor *actor;
     GameAD9B0Nested *nested;
     u8 value_74;
@@ -91,17 +102,17 @@ void func_150806A8(s32 arg0) {
         nested->field_75 = 0;
     }
 }
-void func_15080718(s32 arg0, s32 *arg1, s32 *arg2) {
+void actor_resource_request_bit_location(s32 arg0, s32 *arg1, s32 *arg2) {
     *arg2 = 1 << (arg0 & 7);
     *arg1 = arg0 >> 3;
 }
 extern u8 D_800BE580[];
 
-s32 func_15080738(s32 arg0) {
+s32 actor_resource_request_flag_is_set(s32 arg0) {
     s32 sp1C;
     s32 sp18;
 
-    func_15080718(arg0, &sp1C, &sp18);
+    actor_resource_request_bit_location(arg0, &sp1C, &sp18);
     if (D_800BE580[sp1C] & sp18) {
         return 1;
     }
@@ -126,7 +137,7 @@ void func_15080784(void) {
     }
 }
 
-void func_150807F4(s32 arg0, s32 arg1, s32 arg2) {
+void actor_resource_controller_handle_event(s32 arg0, s32 arg1, s32 arg2) {
     if (arg2 == 0x20) {
         func_15080784();
     }
@@ -158,7 +169,7 @@ void func_15080BE8(void) {
 }
 void func_15080BE8(void);
 
-void func_15080C64(void) {
+void actor_resource_controller_poll_completion(void) {
     if ((D_800D1941 != 0) && (*(u8 *)((u8 *)D_800D1950 + 0x15) == 0)) {
         func_15080BE8();
         if ((D_800BE9F0 != 0x29) && (D_800BE9F0 != 0x2E)) {

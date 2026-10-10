@@ -5,6 +5,10 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define actor_zero_masked_model_matrix_bases func_15034728
+#define actor_pool_zero_masked_model_matrix_bases func_150347E8
+
 typedef struct Game61950Matrix {
     f32 values[16];
 } Game61950Matrix;
@@ -87,7 +91,7 @@ void func_150345E4(s32 arg0) {
 }
 s32 func_1502DB20(u8);                              /* extern */
 
-void func_15034728(Game61950Actor *arg0) {
+void actor_zero_masked_model_matrix_bases(Game61950Actor *arg0) {
     s32 count;
     s32 i;
     s32 row;
@@ -117,7 +121,7 @@ void func_15034728(Game61950Actor *arg0) {
 extern u8 D_800BEAC0;
 extern Game61950Actor D_800D121C;
 
-void func_150347E8(void) {
+void actor_pool_zero_masked_model_matrix_bases(void) {
     Game61950Actor *actor;
     Game61950Actor *end;
 
@@ -126,7 +130,7 @@ void func_150347E8(void) {
         end = &D_800D121C;
         do {
             if ((actor->field_0 != 0) && (actor->field_9C != 0)) {
-                func_15034728(actor);
+                actor_zero_masked_model_matrix_bases(actor);
             }
             actor++;
         } while (actor != end);

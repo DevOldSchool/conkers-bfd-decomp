@@ -7,7 +7,19 @@
  * Evidence: docs/evidence/debugger/us_debugger_source_units.md
  */
 
-void *func_16001AD0(void *dst, const void *src, u32 count) {
+/* Keep address symbols for linking and registered match evidence. */
+#define debugger_copy_bytes func_16001AD0
+#define debugger_string_length func_16001B00
+#define debugger_sprintf func_16001B34
+#define debugger_append_bytes func_16001B8C
+#define debugger_vformat_to_callback func_16001BB4
+#define debugger_format_field func_160021FC
+#define debugger_format_f64 func_1600288C
+#define debugger_unscale_f64 func_16002D2C
+#define debugger_format_decimal_digits func_16002DE4
+#define debugger_format_integer_digits func_160033A8
+
+void *debugger_copy_bytes(void *dst, const void *src, u32 count) {
     u8 *out = dst;
     const u8 *in = src;
 
@@ -19,7 +31,7 @@ void *func_16001AD0(void *dst, const void *src, u32 count) {
     }
     return dst;
 }
-s32 func_16001B00(const u8 *text) {
+s32 debugger_string_length(const u8 *text) {
     const u8 *cursor = text;
     s32 length = 0;
 
@@ -29,26 +41,26 @@ s32 func_16001B00(const u8 *text) {
     }
     return length;
 }
-void *func_16001B8C(void *dst, const u8 *src, u32 count);
-s32 func_16001BB4(void *(*output)(void *, const u8 *, u32), void *arg,
+void *debugger_append_bytes(void *dst, const u8 *src, u32 count);
+s32 debugger_vformat_to_callback(void *(*output)(void *, const u8 *, u32), void *arg,
                  const u8 *format, va_list args);
 
-s32 func_16001B34(u8 *dst, const u8 *format, ...) {
+s32 debugger_sprintf(u8 *dst, const u8 *format, ...) {
     va_list args;
     s32 length;
 
     va_start(args, format);
-    length = func_16001BB4(func_16001B8C, dst, format, args);
+    length = debugger_vformat_to_callback(debugger_append_bytes, dst, format, args);
     va_end(args);
     if (length >= 0) {
         dst[length] = 0;
     }
     return length;
 }
-void *func_16001AD0(void *dst, const void *src, u32 count);
+void *debugger_copy_bytes(void *dst, const void *src, u32 count);
 
-void *func_16001B8C(void *dst, const u8 *src, u32 count) {
-    return (u8 *)func_16001AD0(dst, src, count) + count;
+void *debugger_append_bytes(void *dst, const u8 *src, u32 count) {
+    return (u8 *)debugger_copy_bytes(dst, src, count) + count;
 }
 /* SDK formatting descriptor shared by the debugger formatting helpers. */
 typedef struct {
@@ -66,7 +78,7 @@ extern const u8 D_16004800[4];
 extern const u8 D_16004804[6];
 extern const u32 D_1600480C[6];
 u8 *func_10022F14(const u8 *text, s32 code);
-void func_160021FC(ConkerPft *px, va_list *args, u8 type, u8 *buffer);
+void debugger_format_field(ConkerPft *px, va_list *args, u8 type, u8 *buffer);
 
 #define FLAGS_SPACE 1
 #define FLAGS_PLUS 2
@@ -108,7 +120,7 @@ void func_160021FC(ConkerPft *px, va_list *args, u8 type, u8 *buffer);
 			return x.nchar;					   \
 	}
 
-s32 func_16001BB4(void *(*prout)(void *, const u8 *, u32), void *arg, const u8 *fmt, va_list args)
+s32 debugger_vformat_to_callback(void *(*prout)(void *, const u8 *, u32), void *arg, const u8 *fmt, va_list args)
 {
 	ConkerPft x;
 	x.nchar = 0;
@@ -171,7 +183,7 @@ s32 func_16001BB4(void *(*prout)(void *, const u8 *, u32), void *arg, const u8 *
 			++s;
 		}
 
-		func_160021FC(&x, &args, *s, ac);
+		debugger_format_field(&x, &args, *s, ac);
 
 		x.width = x.width - x.n0 - x.nz0 - x.n1 - x.nz1 - x.n2 - x.nz2;
 
@@ -205,10 +217,10 @@ s32 func_16001BB4(void *(*prout)(void *, const u8 *, u32), void *arg, const u8 *
 	return 0;
 }
 
-void func_160033A8(ConkerPft *px, u8 code);
-void func_1600288C(ConkerPft *args, u8 type);
+void debugger_format_integer_digits(ConkerPft *px, u8 code);
+void debugger_format_f64(ConkerPft *args, u8 type);
 
-void func_160021FC(ConkerPft *x, va_list *args, u8 type, u8 *buff)
+void debugger_format_field(ConkerPft *x, va_list *args, u8 type, u8 *buff)
 {
 	x->n0 = x->nz0 = x->n1 = x->nz1 = x->n2 = x->nz2 = 0;
 
@@ -240,7 +252,7 @@ void func_160021FC(ConkerPft *x, va_list *args, u8 type, u8 *buff)
 
 		x->s = (u8 *)&buff[x->n0];
 
-		func_160033A8(x, type);
+		debugger_format_integer_digits(x, type);
 		break;
 	case 'x':
 	case 'X':
@@ -269,7 +281,7 @@ void func_160021FC(ConkerPft *x, va_list *args, u8 type, u8 *buff)
 		}
 
 		x->s = (u8 *)&buff[x->n0];
-		func_160033A8(x, type);
+		debugger_format_integer_digits(x, type);
 		break;
 	case 'e':
 	case 'f':
@@ -287,7 +299,7 @@ void func_160021FC(ConkerPft *x, va_list *args, u8 type, u8 *buff)
 		}
 
 		x->s = (u8 *)&buff[x->n0];
-		func_1600288C(x, type);
+		debugger_format_f64(x, type);
 		break;
 	case 'n':
 		if (x->qual == 'h') {
@@ -303,11 +315,11 @@ void func_160021FC(ConkerPft *x, va_list *args, u8 type, u8 *buff)
 	case 'p':
 		x->v.ll = (long)va_arg(*args, void *);
 		x->s = (u8 *)&buff[x->n0];
-		func_160033A8(x, 'x');
+		debugger_format_integer_digits(x, 'x');
 		break;
 	case 's':
 		x->s = va_arg(*args, u8 *);
-		x->n1 = func_16001B00(x->s);
+		x->n1 = debugger_string_length(x->s);
 
 		if (x->prec >= 0 && x->n1 > x->prec) {
 			x->n1 = x->prec;
@@ -327,10 +339,10 @@ extern const f64 D_16004828[9];
 extern const u8 D_16004870[4];
 extern const u8 D_16004874[4];
 extern const f64 D_16004950;
-s16 func_16002D2C(s16 *exponent, f64 *value);
-void func_16002DE4(ConkerPft *px, u8 code, u8 *digits, s16 count, s16 exponent);
+s16 debugger_unscale_f64(s16 *exponent, f64 *value);
+void debugger_format_decimal_digits(ConkerPft *px, u8 code, u8 *digits, s16 count, s16 exponent);
 
-void func_1600288C(ConkerPft *args, u8 type)
+void debugger_format_f64(ConkerPft *args, u8 type)
 {
 	u8 buff[0x20];
 	u8 *p = buff;
@@ -351,10 +363,10 @@ void func_1600288C(ConkerPft *args, u8 type)
 		args->prec = 1;
 	}
 
-	err = func_16002D2C(&exp, &args->v.ld);
+	err = debugger_unscale_f64(&exp, &args->v.ld);
 
 	if (err > 0) {
-		func_16001AD0(args->s, err == 2 ? D_16004870 : D_16004874, args->n1 = 3);
+		debugger_copy_bytes(args->s, err == 2 ? D_16004870 : D_16004874, args->n1 = 3);
 		return;
 	}
 
@@ -468,13 +480,13 @@ void func_1600288C(ConkerPft *args, u8 type)
 		}
 	}
 
-	func_16002DE4(args, type, p, nsig, exp);
+	debugger_format_decimal_digits(args, type, p, nsig, exp);
 }
 
 
 
 
-s16 func_16002D2C(s16 *exponent, f64 *value) {
+s16 debugger_unscale_f64(s16 *exponent, f64 *value) {
     u16 *words = (u16 *)value;
     s16 characteristic = (words[0] & 0x7FF0) >> 4;
 
@@ -494,7 +506,7 @@ s16 func_16002D2C(s16 *exponent, f64 *value) {
 }
 extern const u8 D_16004878[2];
 
-void func_16002DE4(ConkerPft *px, u8 code, u8 *p, s16 nsig, s16 xexp)
+void debugger_format_decimal_digits(ConkerPft *px, u8 code, u8 *p, s16 nsig, s16 xexp)
 {
 	const u8 point = '.';
 
@@ -541,12 +553,12 @@ void func_16002DE4(ConkerPft *px, u8 code, u8 *p, s16 nsig, s16 xexp)
 
 			px->n2 = nsig;
 
-			func_16001AD0(&px->s[px->n1], p, nsig);
+			debugger_copy_bytes(&px->s[px->n1], p, nsig);
 
 			px->nz2 = px->prec - nsig;
 		} else if (nsig < xexp) {
 			/* zeros before point */
-			func_16001AD0(&px->s[px->n1], p, nsig);
+			debugger_copy_bytes(&px->s[px->n1], p, nsig);
 
 			px->n1 += nsig;
 			px->nz1 = xexp - nsig;
@@ -559,7 +571,7 @@ void func_16002DE4(ConkerPft *px, u8 code, u8 *p, s16 nsig, s16 xexp)
 			px->nz2 = px->prec;
 		} else {
 			/* enough digits before point */
-			func_16001AD0(&px->s[px->n1], p, xexp);
+			debugger_copy_bytes(&px->s[px->n1], p, xexp);
 
 			px->n1 += xexp;
 			nsig -= xexp;
@@ -572,7 +584,7 @@ void func_16002DE4(ConkerPft *px, u8 code, u8 *p, s16 nsig, s16 xexp)
 				nsig = px->prec;
 			}
 
-			func_16001AD0(&px->s[px->n1], p + xexp, nsig);
+			debugger_copy_bytes(&px->s[px->n1], p + xexp, nsig);
 
 			px->n1 += nsig;
 			px->nz1 = px->prec - nsig;
@@ -611,7 +623,7 @@ void func_16002DE4(ConkerPft *px, u8 code, u8 *p, s16 nsig, s16 xexp)
 				nsig = px->prec;
 			}
 
-			func_16001AD0(&px->s[px->n1], p, nsig);
+			debugger_copy_bytes(&px->s[px->n1], p, nsig);
 
 			px->n1 += nsig;
 			px->nz1 = px->prec - nsig;
@@ -667,7 +679,7 @@ extern u8 D_16003CCC[17];
 #define FLAGS_MINUS 4
 #define FLAGS_ZERO 16
 
-void func_160033A8(ConkerPft *px, u8 code) {
+void debugger_format_integer_digits(ConkerPft *px, u8 code) {
     u8 buff[24];
     const u8 *digs;
     int base;
@@ -699,7 +711,7 @@ void func_160033A8(ConkerPft *px, u8 code) {
 
     px->n1 = 24 - i;
 
-    func_16001AD0(px->s, buff + i, px->n1);
+    debugger_copy_bytes(px->s, buff + i, px->n1);
 
     if (px->n1 < px->prec) {
         px->nz0 = px->prec - px->n1;

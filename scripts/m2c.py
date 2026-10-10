@@ -14,6 +14,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import call_signatures
+import declaration_facts
 import m2c_context
 import project_state
 import rzip_archive
@@ -646,7 +647,8 @@ def flattened_source_context(source: Path) -> str | None:
     lines: list[str] = []
     disabled_depth = 0
     initial = True
-    for line in source_text.splitlines(keepends=True):
+    content = declaration_facts.function_alias_text(source_text, strip_definitions=True)
+    for line in content.splitlines(keepends=True):
         if call_signatures.ABI_MARKER in line:
             continue
         include = call_signatures.PROJECT_INCLUDE.match(line)

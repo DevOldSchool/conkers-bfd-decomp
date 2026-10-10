@@ -25,7 +25,17 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_15168B10(s32 arg0, s32 arg1);
+/* Keep address symbols for linking and registered match evidence. */
+#define managed_object_allocate func_15167A68
+#define managed_object_queue_free func_15168A2C
+#define managed_object_link func_15168A4C
+#define managed_object_unlink func_15168A9C
+#define managed_object_change_kind func_15168B10
+#define managed_objects_broadcast_event func_15169040
+#define managed_object_queue_removal func_15169804
+#define managed_object_unlink_and_free func_15169824
+
+void managed_object_change_kind(s32 arg0, s32 arg1);
 
 extern u8 D_8008B4A8;
 
@@ -252,9 +262,9 @@ typedef struct Game1944C0AllocatedEffect {
 } Game1944C0AllocatedEffect;
 
 Game1944C0AllocatedEffect *func_10003C6C(s32, s32, s32, s32, u8);
-void func_15168A4C(s32, s32);
+void managed_object_link(s32, s32);
 
-void *func_15167A68(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5) {
+void *managed_object_allocate(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5) {
     Game1944C0AllocatedEffect *effect;
     Game1944C0AllocatedEffect *sp24;
     Game1944C0AllocatedEffect *result;
@@ -264,7 +274,7 @@ void *func_15167A68(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5) {
     if (effect != 0) {
         effect->field_1 = arg1;
         sp24 = effect;
-        func_15168A4C((s32)result, arg0);
+        managed_object_link((s32)result, arg0);
         result = sp24;
         result->field_C = arg4;
     }
@@ -276,13 +286,13 @@ typedef struct Game1944C0Effect28 {
     u8 payload[0x18];
 } Game1944C0Effect28;
 
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
+void *managed_object_allocate(s32, s32, s32, s32, u8, u8);
 void func_10023A10(void *, void *, s32);
 
 void func_15167AD8(void *arg0, u8 arg1, s32 arg2) {
     Game1944C0Effect28 *effect;
 
-    effect = func_15167A68(3, arg2, sizeof(*effect), 0, arg1, 1);
+    effect = managed_object_allocate(3, arg2, sizeof(*effect), 0, arg1, 1);
     if (effect != 0) {
         func_10023A10(arg0, effect->payload, sizeof(effect->payload));
         effect->payload[0x13] = 0xFF;
@@ -433,7 +443,7 @@ void func_15167C58(s32 arg0, Game1944C0RenderInput *arg1, s32 arg2) {
 /* Call context: func_10023A10: unique active project prototype */
 
 void *func_15167D84(void *arg0, s32 arg1, s32 arg2, s8 arg3, u8 arg4, s32 arg5) {
-    void *v0 = func_15167A68(arg1 == 0 ? 5 : 0x42, arg5, arg2 + 0x50, 0, arg4, 1);
+    void *v0 = managed_object_allocate(arg1 == 0 ? 5 : 0x42, arg5, arg2 + 0x50, 0, arg4, 1);
 
     if (v0 == 0) {
         return v0;
@@ -537,7 +547,7 @@ Game1944C0EffectB8 *func_15168800(void *arg0, u8 arg1, s32 arg2) {
     Game1944C0EffectB8 *effect;
     Game1944C0EffectB8 *sp24;
 
-    effect = func_15167A68(0xE, arg2, sizeof(*effect), 1, arg1, 1);
+    effect = managed_object_allocate(0xE, arg2, sizeof(*effect), 1, arg1, 1);
     if (effect == 0) {
         return 0;
     }
@@ -613,10 +623,10 @@ void func_15168870(Game168870State *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15168870 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168870.s")
-void func_15168A2C(s32 arg0) {
-    func_15168B10(arg0, 0);
+void managed_object_queue_free(s32 arg0) {
+    managed_object_change_kind(arg0, 0);
 }
-void func_15168A9C(s32 arg0);
+void managed_object_unlink(s32 arg0);
 
 typedef struct Game1944C0Node {
     u8 field_0;
@@ -628,7 +638,7 @@ typedef struct Game1944C0Node {
 
 extern Game1944C0Node *D_800DCE50[][104];
 
-void func_15168A4C(s32 arg0, s32 arg1) {
+void managed_object_link(s32 arg0, s32 arg1) {
     Game1944C0Node **temp_v1;
     Game1944C0Node *node;
     s32 group;
@@ -644,7 +654,7 @@ void func_15168A4C(s32 arg0, s32 arg1) {
     node->field_4 = 0;
     *temp_v1 = node;
 }
-void func_15168A9C(s32 arg0) {
+void managed_object_unlink(s32 arg0) {
     u8 row;
     u8 column;
     Game1944C0Node **head;
@@ -667,9 +677,9 @@ void func_15168A9C(s32 arg0) {
         next->field_8 = node->field_8;
     }
 }
-void func_15168B10(s32 arg0, s32 arg1) {
-    func_15168A9C(arg0);
-    func_15168A4C(arg0, arg1);
+void managed_object_change_kind(s32 arg0, s32 arg1) {
+    managed_object_unlink(arg0);
+    managed_object_link(arg0, arg1);
 }
 typedef struct Local15168B44 { u8 pad0[0x14]; s32 unk14; u8 pad18[0x20]; s16 unk38; u8 pad3A[5]; u8 unk3F; } Local15168B44;
 
@@ -765,14 +775,14 @@ typedef struct Game1944C0Effect {
     u8 payload[0x60];
 } Game1944C0Effect;
 
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
+void *managed_object_allocate(s32, s32, s32, s32, u8, u8);
 void func_10023A10(void *, void *, s32);
 
 void func_15168BE4(Game1944C0State *arg0, u8 arg1, s32 arg2) {
     Game1944C0Effect *effect;
 
     if (arg0->active_effect != 0) {
-        effect = func_15167A68(0x10, arg2, 0xF0, 1, arg1, 1);
+        effect = managed_object_allocate(0x10, arg2, 0xF0, 1, arg1, 1);
         if (effect != 0) {
             func_10023A10(arg0, effect->payload, sizeof(effect->payload));
         }
@@ -949,7 +959,7 @@ void func_15168F84(s32 arg0, s32 *arg1, s32 *arg2) {
 }
 void func_15169070(s32 arg0, s32 arg1, s32 arg2, u8 arg3);
 
-void func_15169040(s32 arg0, u8 arg1) {
+void managed_objects_broadcast_event(s32 arg0, u8 arg1) {
     func_15169070(0, 0x68, arg0, arg1);
 }
 typedef struct Game1944C0TraversalEntry {
@@ -1126,7 +1136,7 @@ void func_151695F0(void *arg0, u8 arg1) {
 
     descriptor.object = arg0;
     descriptor.kind = *(u8 *)((u8 *)arg0 + 0x3B);
-    func_15169040((s32) &descriptor, arg1);
+    managed_objects_broadcast_event((s32) &descriptor, arg1);
 }
 /* Call context: func_1516944C: unique active project prototype */
 void func_1516944C(s32, s8 *, u8);
@@ -1172,8 +1182,8 @@ typedef struct Game1944C0DestroyRecord {
 extern Game1944C0DestroyRecord D_8008B4D0[];
 extern Game1944C0DestroyRecord D_8008B4D4[];
 void func_151696DC(struct102 *);
-void func_15169804(s32);
-void func_15169824(s32);
+void managed_object_queue_removal(s32);
+void managed_object_unlink_and_free(s32);
 
 void func_1516972C(u8 *arg0) {
     Game1944C0DestroyCallback callback;
@@ -1187,7 +1197,7 @@ void func_1516972C(u8 *arg0) {
             callback(arg0);
             return;
         }
-        func_15169804((s32)arg0);
+        managed_object_queue_removal((s32)arg0);
     }
 }
 
@@ -1200,16 +1210,16 @@ void func_1516979C(u8 *arg0) {
         callback(arg0);
         return;
     }
-    func_15169824((s32)arg0);
+    managed_object_unlink_and_free((s32)arg0);
 }
-void func_15169804(s32 arg0) {
-    func_15168B10(arg0, 1);
+void managed_object_queue_removal(s32 arg0) {
+    managed_object_change_kind(arg0, 1);
 }
-void func_15168A9C(s32 arg0);
+void managed_object_unlink(s32 arg0);
 void func_10004074(s32 arg0);
 
-void func_15169824(s32 arg0) {
-    func_15168A9C(arg0);
+void managed_object_unlink_and_free(s32 arg0) {
+    managed_object_unlink(arg0);
     func_10004074(arg0);
 }
 /* Call context: func_1516972C: unique active declaration in the allowed source */

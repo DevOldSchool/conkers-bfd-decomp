@@ -9,16 +9,17 @@ exclusive ownership, live creation or runtime appearance.
 
 | Existing symbol | Naming-only change |
 | --- | --- |
-| `func_15141C0C` | Role comment `actor_get_effect_selector_callback_index`; existing `arg0` becomes `actor` |
-| `func_15141DA4` | Role comment `actor_request_timed_effect_handler`; existing `arg0/arg1/arg2/temp_v0` become `actorAddress/selectorCallbackIndex/effectHandlerIndex/handlerRecord` |
+| `func_15141C0C` | C alias `actor_get_effect_selector_callback_index`; existing `arg0` becomes `actor` |
+| `func_15141DA4` | C alias `actor_request_timed_effect_handler`; existing `arg0/arg1/arg2/temp_v0` become `actorAddress/selectorCallbackIndex/effectHandlerIndex/handlerRecord` |
 | `func_15134070` | Role comment `actor_get_fragment_effect_profile_index` before the existing disabled guard; deferred C is unchanged |
 | `func_151B01B8` | Local `kind` becomes `effectProfileIndex`; comment distinguishes optional profile-source actor `arg1` from position/transform actor `arg0` |
 | `func_15194B1C` | Local `type` becomes `effectProfileIndex`; comment only describes its guarded first call |
 
 The last two functions retain numeric whole-function identities. No inferred
 particle purpose is assigned. All argument types, declaration order, casts,
-control flow, checks, layouts, struct fields, shared headers, aliases, enums,
-source-unit boundaries and function states remain unchanged. `func_151B4CD0`
+control flow, checks, layouts, struct fields, shared headers, enums, source-unit
+boundaries and function states remain unchanged. The descriptive C aliases
+retain numeric linked symbols. `func_151B4CD0`
 retains its numeric role.
 
 ## Evidence and index domains
@@ -82,7 +83,8 @@ purpose, anatomy, scene activation or native visual appearance.
 | `15149264` | `timer_callback_object_update` |
 | `151336A8` | `model_resource_load_by_lookup_selector` |
 
-The first four retain their matched definitions. Their scoped names are:
+The first four use source-local aliases for their matched definitions,
+preserving numeric linked symbols. Their scoped parameter/local names are:
 
 - `151380B4`: `arg0/arg1/arg2` become `actor/effectProfileIndex/outPosition`;
   `temp_v0` becomes `actorMatrices`
@@ -152,6 +154,60 @@ role is therefore not character-exclusive or particle-only. Expiry/tick/draw
 selectors test -1 rather than performing general bounds validation; clamps in
 the separate +0x13 callback-set consumers are not constructor validation.
 
+## Timer-object lifecycle and events
+
+Seven more matched helpers use source-local aliases with unchanged numeric
+symbols and ABI. Their complete spans are in `reference/game/us/asm/149130.s`.
+
+| Symbol | C name | Span |
+| --- | --- | --- |
+| `15149318` | `timer_callback_object_defer_resource_release` | `0x24` |
+| `1514933C` | `timer_callback_object_queue_removal` | `0x2C` |
+| `15149368` | `timer_callback_object_free` | `0x2C` |
+| `15149434` | `timer_callback_object_dispatch_event` | `0x5C` |
+| `15149490` | `timer_callback_object_dispatch_draw` | `0x50` |
+| `151494E0` | `timer_callback_objects_broadcast_event` | `0x34` |
+| `15149514` | `timer_callback_object_handle_owner_event` | `0x3C` |
+
+`15149318` passes object `+0x14` to `151D5E30`, which visits four pointer slots
+and tags each nonnull allocation with three through `100043B4`. Maintenance
+`80004250` lowers tag three to two and frees tag-two allocations: resource
+release is deferred and the slots are not cleared. The existing extra argument
+to `151D5E30` is preserved. `1514933C` then calls `15169804`, which moves the
+object to kind one; its updater moves it to kind zero, whose updater unlinks
+and frees it. `15149368` instead directly invokes that unlink/free helper,
+`15169824`. Immediate freeing applies to the object body, not its resources.
+No frame-count promise is made.
+
+`15149434` dispatches a nonnull event callback from `D_8008A8D8`, using unsigned
+byte `+0x13` and entry zero for values at least 74. Both timer kinds' `+0x1C`
+records and original list walkers establish the three-argument event contract.
+`15149490` dispatches drawing through `D_8008A670` using signed byte `+0x12`;
+selector -1 returns the incoming display-list cursor. Kind-record `+0x08` and
+renderer `151674F8` establish its cursor/object/signed-halfword arguments.
+Neither helper gains any new bounds or null checks.
+
+`151494E0` passes the two ROM words `[0x23,0x5F]` at `800A5770` to `15169260`.
+That walker visits both list rows for those kinds, runs the common event
+pre-handler, then invokes kind-record `+0x1C`. The existing byte declaration
+of `D_800A5770` is unchanged; this is not a broadcast to every object kind.
+
+`15149514` forwards owner events to `15169850`: event zero requests removal
+when packet word `+0` equals the stored owner pointer or packet byte `+4`
+equals the stored owner byte. Event `0x2D` swaps a matching owner pointer
+between packet words `+0/+4` and
+copies the corresponding byte `+8/+9`. Constructor `150BA4C0` stores its actor
+pointer and actor byte `+0x3B` in payload `+0x28/+0x2C`; callback `150BA8F0`
+passes those storage addresses to the wrapper. The byte is not named an actor
+kind or generation counter. Other events do nothing. All pointer-shaped `s32`
+arguments remain unchanged, and the final three registered padding NOPs at
+`15149544/548/54C` remain in the full-span comparison.
+
+Dispatchers `15149394/151493E4` remain numeric: their tables do not universally
+mean deferred versus immediate cleanup. Slot `0x29` routes the first table to
+the free wrapper and the second to the queue wrapper; slot `0x32` has custom
+paths. The proved kind-record offsets alone do not justify broader phase names.
+
 ## Model-resource evidence
 
 The sole direct caller, `1513264C` at `15132778`, supplies template halfword
@@ -208,12 +264,16 @@ are valid.
 
 ## Shared resource helpers
 
+The matched helpers below use descriptive C names through source-local aliases;
+linked address symbols, types, layouts and operations remain unchanged.
+
 | Symbol | Descriptive role | Evidence boundary |
 | --- | --- | --- |
 | `func_1500390C` | `flat_asset_find_cached_index` | Returns the first equal cached address, or -1; duplicate pointers/sentinels prevent a unique inverse |
 | `func_1510D374` | `flat_asset_rom_address` | Sums preceding compressed sizes onto ROM base `0x1A37E0`; no helper-local index validation is claimed |
 | `func_1510D608` | `flat_asset_update_nonzero_state` | Nonzero state becomes `(previousState & 0x40) | stateBits`; bit `0x40` retains no invented meaning |
 | `func_151EDB58` | `ui_release_model_resources` | Releases the resource at owner `+0x24`, then tags owner and copied display-list allocations with value four |
+| `func_1510D630` | `flat_asset_release_reference_list` | Drops each counted flat-resource reference, then frees the list; no null guard or immediate asset-free claim |
 
 Runtime flat IDs span `0..7761`, through 7,762 unsigned-halfword sizes at
 `D_80091D20`. Empty slots 1767/1768 remain part of that identity domain; physical
@@ -232,10 +292,19 @@ Allocation tagging is not described as immediate deallocation: the helper
 continues reading the owner after tagging it. No named character or world
 placement is inferred from this UI path.
 
+`1510D630` reads a signed halfword count at list `+0` and halfword flat IDs
+from `+2`, calls `1510D694` for each, then frees the list through `10004074`.
+The callee decrements nonzero reference counts in `D_800D9F68`; transition to
+zero widens the pending range and requests state three through `1510D608` at
+`1510D708`. The loader conditionally increments the same counts, saturating at
+255 (`1510D338..1510D358`). This names reference release, not immediate asset
+deallocation or a new ownership contract.
+
 ## Attachment action 35 and 68 requests
 
 `func_1514DCAC` has the bounded role
-`actor_request_attachment_actions_35_and_68`; its pointer parameter is `parentActor`.
+`actor_request_attachment_actions_35_and_68` through a source-local C alias;
+its pointer parameter is `parentActor`.
 It first stores numeric `0x6000` at parent `+0x9C`, whose meaning is left unnamed,
 then unconditionally requests action 35 followed by action 68 on the same
 saved pointer. Its existing raw `s32` argument words, including `0x3F800000`,
@@ -257,6 +326,8 @@ not guaranteed attachments or exclusive character ownership.
 
 ## Digital timer
 
+These two matched helpers use source-local aliases with unchanged linked symbols.
+
 | Symbol | Descriptive role | Boundary |
 | --- | --- | --- |
 | `func_15093818` | `timer_display_set_enabled` | Nonzero request initializes only on a disabled-to-enabled transition; zero clears the enable byte |
@@ -277,9 +348,10 @@ The two calls in `func_1514DCAC` now spell their reviewed selectors as
 `ACTION_SELECTOR_35 = 35` and `ACTION_SELECTOR_68 = 68`. These anonymous enum
 constants are declared after the reviewed source-unit comment and before use.
 They describe action-table selectors, not model IDs or guaranteed creation.
-Only the two unsuffixed integer call operands change spelling. Signatures,
-parameter types, numeric function definitions, other literals and linked symbols
-remain intact; no shared header or enum-typed ABI is introduced.
+The constants replace only the two unsuffixed integer call operands. The
+function separately uses its descriptive C alias. Signatures, parameter types,
+other literals and numeric linked symbols remain intact; no shared header or
+enum-typed ABI is introduced.
 
 Whole-source m2c context remains available and all recovered signatures are
 unchanged. Running the pinned m2c parser on the same raw function with the full

@@ -24,6 +24,13 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define placed_object_test_actor_mask func_15114050
+#define placed_object_first_actor_mask_index func_151140C4
+#define placed_object_build_orientation func_151148A8
+#define placed_object_build_transform func_1511490C
+#define placed_object_find_by_id func_151149AC
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15112520.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15112A80.s")
 extern s32 D_800DBEF0;
@@ -137,7 +144,7 @@ void func_150A7790(void *, s32);
 void func_150A7B80(void *);
 void func_150A7CB0(Game13F9D0Matrix *, s32, s32, s32);
 void func_150442C0(f32 [4][4], f32, f32, f32);
-void func_1511490C(Game13F9D0Transform *, Game13F9D0MotionArgs *);
+void placed_object_build_transform(Game13F9D0Transform *, Game13F9D0MotionArgs *);
 extern s32 D_80082FA0;
 extern u8 D_800CC2D0;
 extern u8 D_800DBF08[];
@@ -469,7 +476,7 @@ extern u32 *D_800DBF94;
  * Require flag 0x80; -1 accepts that flag without consulting the actor mask.
  * See docs/evidence/assets/naming/placed_object_helper_semantics.md.
  */
-s32 func_15114050(Game13F9D0Entry *placedObject, s32 actorIndexOrAny) {
+s32 placed_object_test_actor_mask(Game13F9D0Entry *placedObject, s32 actorIndexOrAny) {
     if (placedObject->flags & 0x80) {
         if (actorIndexOrAny == -1) {
             return 1;
@@ -485,7 +492,7 @@ s32 func_15114050(Game13F9D0Entry *placedObject, s32 actorIndexOrAny) {
  * Require flag 0x80 and scan bits 0..31; zero also represents no set bit.
  * See docs/evidence/assets/naming/placed_object_helper_semantics.md.
  */
-s32 func_151140C4(u8 *placedObject) {
+s32 placed_object_first_actor_mask_index(u8 *placedObject) {
     s32 actorIndex;
     u32 actorMask;
     u32 actorBit;
@@ -614,7 +621,7 @@ void func_150A8050(void *, f32, f32, f32);
  * Compose placement-derived X/Y/Z rotations, expressed in degrees.
  * See docs/evidence/assets/naming/placed_object_helper_semantics.md.
  */
-void func_151148A8(Game13F9D0Transform *orientation, Game13F9D0TransformArgs *rotation) {
+void placed_object_build_orientation(Game13F9D0Transform *orientation, Game13F9D0TransformArgs *rotation) {
     Game13F9D0Transform xzRotation;
 
     func_150A8050(orientation, 0.0f, rotation->rotationYDegrees, 0.0f);
@@ -627,11 +634,11 @@ void func_150A7CB0(Game13F9D0Matrix *, s32, s32, s32);
  * Add the vertical offset to Y; pass scale bit patterns through unchanged.
  * See docs/evidence/assets/naming/placed_object_helper_semantics.md.
  */
-void func_1511490C(Game13F9D0Transform *transform,
-                   Game13F9D0MotionArgs *placedObject) {
+void placed_object_build_transform(Game13F9D0Transform *transform,
+                                   Game13F9D0MotionArgs *placedObject) {
     Game13F9D0Matrix scaleMatrix;
 
-    func_151148A8(transform, (Game13F9D0TransformArgs *)placedObject);
+    placed_object_build_orientation(transform, (Game13F9D0TransformArgs *)placedObject);
     transform->position_x = (f32)placedObject->positionX;
     transform->position_y = (f32)placedObject->positionY + placedObject->verticalOffset;
     transform->position_z = (f32)placedObject->positionZ;
@@ -642,7 +649,7 @@ void func_1511490C(Game13F9D0Transform *transform,
  * Return the first matching object address; zero ID or no match returns zero.
  * See docs/evidence/assets/naming/placed_object_helper_semantics.md.
  */
-s32 func_151149AC(u8 objectId) {
+s32 placed_object_find_by_id(u8 objectId) {
     s32 requestedObjectId;
     s32 objectOffset;
     s32 objectAddress;

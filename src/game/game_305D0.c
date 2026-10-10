@@ -15,6 +15,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define flat_asset_find_cached_index func_1500390C
+
 extern s32 D_800B0E30;
 extern s32 D_800B0E34;
 extern s32 D_800B0E00[];
@@ -389,7 +392,7 @@ void func_150038A0(void) {
 /* Descriptive role: flat_asset_find_cached_index.
  * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
  */
-s32 func_1500390C(s32 cachedAddress) {
+s32 flat_asset_find_cached_index(s32 cachedAddress) {
     s32 resourceIndex;
 
     for (resourceIndex = 0; resourceIndex < 0x1E52; resourceIndex++) {

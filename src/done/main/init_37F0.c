@@ -5,6 +5,9 @@
  * Boundary evidence: docs/evidence/boundaries/main/main_system_wrapper_boundaries.md
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define thread_init func_800037F0
+
 typedef struct ThreadState {
     struct ThreadState *next;
     s32 priority;
@@ -33,7 +36,7 @@ void func_80022DE0(s32);
 extern u8 D_10007BF8;
 extern ThreadState *D_8002BDFC;
 
-void func_800037F0(ThreadState *thread, s32 id, void (*entry)(void *),
+void thread_init(ThreadState *thread, s32 id, void (*entry)(void *),
                    void *argument, void *stack, s32 priority) {
     s32 mask;
 

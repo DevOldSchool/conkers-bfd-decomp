@@ -22,6 +22,10 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define timer_display_set_enabled func_15093818
+#define timer_display_init func_15093878
+
 extern u8 D_800D2460[][0x10];
 extern s8 D_800D246D;
 extern s8 D_800D247D;
@@ -332,16 +336,16 @@ void func_150916B4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_150916B4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_150918EC.s")
 /* Call context: func_15093878: unique active project prototype */
-void func_15093878(void);
+void timer_display_init(void);
 extern u8 D_800D2458;
 
 /* Descriptive role: timer_display_set_enabled.
  * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
  */
-void func_15093818(s32 enabled) {
+void timer_display_set_enabled(s32 enabled) {
     if ((enabled != 0) && (D_800D2458 == 0)) {
         D_800D2458 = 1;
-        func_15093878();
+        timer_display_init();
         return;
     }
     if ((enabled == 0) && (D_800D2458 != 0)) {
@@ -356,7 +360,7 @@ extern void *D_800D244C;
 /* Descriptive role: timer_display_init.
  * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
  */
-void func_15093878(void) {
+void timer_display_init(void) {
     D_800D2448 = func_1518C900(0xBA);
     D_800D244C = func_10003C40(0x80, 1, 1, 0);
 }

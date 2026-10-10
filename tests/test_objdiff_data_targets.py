@@ -44,6 +44,20 @@ class DataTargetTests(unittest.TestCase):
         jobs.start()
         self.addCleanup(jobs.stop)
 
+    def test_declared_data_symbols_exclude_explicit_function_types(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            symbols = Path(temporary) / 'symbols.txt'
+            symbols.write_text(
+                '__osRdbWriteOK = 0x8002B9D4; // size:0x4\n'
+                'func_16000304 = 0x16000304; // type:func size:0x8\n'
+                'empty_stub = 0x1600030C; // size:0x8 type:func\n'
+                'func_pointer = 0x8002B9D8; // type:data size:0x4\n'
+                'unsized = 0x8002B9DC;\n')
+            self.assertEqual(targets.declared_data_symbols(symbols), {
+                '__osRdbWriteOK': (0x8002B9D4, 4),
+                'func_pointer': (0x8002B9D8, 4),
+            })
+
     @unittest.skipUnless(os.environ.get('CONKER_ROM_TESTS') == '1' and shutil.which('splat')
                          and shutil.which('mips-linux-gnu-as'), 'requires owned ROM and toolchain')
     def test_canonical_sdk_payload_extents_survive_splat_and_full_image_link(self):

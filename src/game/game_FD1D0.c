@@ -18,6 +18,14 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define text_sequence_find_terminator func_150CFD5C
+#define text_sequence_measure_segment_bytes func_150CFD84
+#define text_sequence_handle_event func_150D00C0
+#define text_sequence_create_centered_crossfade func_150D0134
+#define text_sequence_create_typewriter func_150D02B4
+#define text_sequence_create_left_crossfade func_150D04C4
+
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150CFD20 CURRENT (15) */
 u8 *func_150CFD20(u8 *arg0) {
     u8 temp_v0;
@@ -38,7 +46,7 @@ loop_2:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150CFD20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFD20.s")
-u8 *func_150CFD5C(u8 *arg0) {
+u8 *text_sequence_find_terminator(u8 *arg0) {
     if (*arg0 != 0) {
         do {
             arg0 += 1;
@@ -46,7 +54,7 @@ u8 *func_150CFD5C(u8 *arg0) {
     }
     return arg0;
 }
-s32 func_150CFD84(s32 arg0, s32 *arg1) {
+s32 text_sequence_measure_segment_bytes(s32 arg0, s32 *arg1) {
     s32 temp_v0;
 
     temp_v0 = func_150CFD20(arg0);
@@ -62,10 +70,10 @@ s32 func_150CFDB8(u8 *arg0) {
     u8 *temp_v0_2;
 
     var_s0 = 0;
-    temp_v0 = func_150CFD5C(arg0);
+    temp_v0 = text_sequence_find_terminator(arg0);
     if ((u32)arg0 < temp_v0) {
         do {
-            temp_v0_3 = func_150CFD84((s32)arg0, &sp2C);
+            temp_v0_3 = text_sequence_measure_segment_bytes((s32)arg0, &sp2C);
             if (var_s0 < temp_v0_3) {
                 var_s0 = temp_v0_3;
             }
@@ -123,7 +131,7 @@ void func_150CFE98(GameFD1D0State *arg0) {
     text = &arg0->text;
     if (*text->cursor != 0) {
         text->field_C = text->cursor + 1;
-        text->width = func_150CFD84((s32)text->field_C, (s32 *)&text->cursor);
+        text->width = text_sequence_measure_segment_bytes((s32)text->field_C, (s32 *)&text->cursor);
         text->page ^= 1;
         func_150CFE3C(arg0);
         text->flags |= 1;
@@ -172,7 +180,7 @@ struct GameFD1D0Object *func_150CFF10(u8 arg0, u8 *arg1, s16 arg2, s32 arg3,
     packet.field_25 = arg5;
     packet.field_24 = arg4;
     packet.field_0 = arg0;
-    packet.field_14 = func_150CFD84((s32)arg1, &packet.field_10);
+    packet.field_14 = text_sequence_measure_segment_bytes((s32)arg1, &packet.field_10);
     packet.field_18 = 0;
     packet.field_1C = 0;
     packet.field_20 = 0;
@@ -221,7 +229,7 @@ typedef void (*GameFD1D0Callback)(GameFD1D0State *);
 void func_150CFE98(GameFD1D0State *);
 extern GameFD1D0Callback D_800888B0[];
 
-void func_150D00C0(GameFD1D0State *arg0, u8 *arg1, u8 arg2) {
+void text_sequence_handle_event(GameFD1D0State *arg0, u8 *arg1, u8 arg2) {
     GameFD1D0Callback callback;
 
     if (arg2 == 0x51) {
@@ -254,7 +262,7 @@ typedef struct GameFD1D0SmallByteSlot {
 
 GameFD1D0Object *func_150CFF10(u8, u8 *, s16, s32, s8, u8, u8, s32);
 
-void func_150D0134(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
+void text_sequence_create_centered_crossfade(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
     GameFD1D0Object *object;
     GameFD1D0ByteSlot slot;
 
@@ -319,7 +327,7 @@ typedef struct {
     u8 pad6[2];
 } GameFD1D0ValuePacket;
 
-void func_150D02B4(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
+void text_sequence_create_typewriter(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
     GameFD1D0Object *object;
     GameFD1D0ValuePacket packet;
 
@@ -375,7 +383,7 @@ s32 func_150D032C(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150D032C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D032C.s")
-void func_150D04C4(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
+void text_sequence_create_left_crossfade(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
     GameFD1D0SmallByteSlot slot;
     GameFD1D0Object *object;
 

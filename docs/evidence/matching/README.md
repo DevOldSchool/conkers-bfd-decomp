@@ -6,6 +6,9 @@ Start with the [conversion audit](matching_conversion_audit.md) for the distinct
 
 ## Records
 
+- [Completed-function naming evidence](naming/README.md): 38 grouped notes preserve
+  numeric linkage, semantic contracts and full-span verification requirements.
+
 - [Actor playback-rate update (US)](actor_rate_matching.md)
 - [Actor update and related manual follow-ups (US)](actor_update_matching.md)
 - [Blocked-function recovery evidence (US)](blocked_function_recovery.md)

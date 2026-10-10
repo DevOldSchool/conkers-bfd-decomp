@@ -12,7 +12,10 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_150415E0(s32 arg0, s32 *arg1, s32 *arg2, f32 *arg3, s32 *arg4, f32 *arg5) {
+/* Keep address symbols for linking and registered match evidence. */
+#define text_get_special_glyph_metadata func_150415E0
+
+void text_get_special_glyph_metadata(s32 arg0, s32 *arg1, s32 *arg2, f32 *arg3, s32 *arg4, f32 *arg5) {
     if ((arg0 >= 0xA8) && (arg0 < 0x100)) {
         *arg5 = 1.0f;
         switch (arg0) {

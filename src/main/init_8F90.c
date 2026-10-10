@@ -18,6 +18,14 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define audio_thread_stop func_800093CC
+#define audio_dma_callback_new func_80009980
+#define audio_bank_cache_release func_80009B2C
+#define audio_bank_cache_release_and_queue_reclaim func_80009B4C
+#define audio_bank_cache_retain func_80009B90
+#define audio_bank_fetch_callback_new func_80009FFC
+
 typedef struct AudioBufferState {
     struct AudioBufferState *next;
     struct AudioBufferState *prev;
@@ -270,7 +278,7 @@ void func_80008F90(AudioDriverConfig *config, s32 priority, AudioDeviceConfig *d
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_80008F90.s")
 void func_80022E00(void *);
 
-void func_800093CC(void) {
+void audio_thread_stop(void) {
     if (D_8002AE40 != 0) {
         func_80022E00(D_8003E3A0);
     }
@@ -513,7 +521,7 @@ s32 func_800097CC(s32 addr, s32 len, void *state) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_800097CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_800097CC.s")
 
-ALDMAproc func_80009980(void *state) {
+ALDMAproc audio_dma_callback_new(void *state) {
     if (D_80040F78.initialized == 0) {
         D_80040F78.field4 = 0;
         D_80040F78.base = D_800406B8;
@@ -585,14 +593,14 @@ void func_800099BC(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_800099BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_800099BC.s")
-void func_80009B2C(void *arg0) {
+void audio_bank_cache_release(void *arg0) {
     if (((u32)arg0 & 1) == 0) {
         ((AudioBufferState *)arg0)->count--;
     }
 }
 void func_80009BE4(void *);
 
-void func_80009B4C(void *arg0) {
+void audio_bank_cache_release_and_queue_reclaim(void *arg0) {
     if (((u32)arg0 & 1) == 0) {
         ((AudioBufferState *)arg0)->count--;
         if (((AudioBufferState *)arg0)->count == 0) {
@@ -600,7 +608,7 @@ void func_80009B4C(void *arg0) {
         }
     }
 }
-void func_80009B90(void *arg0) {
+void audio_bank_cache_retain(void *arg0) {
     if (((u32)arg0 & 1) == 0) {
         if (((AudioBufferState *)arg0)->state == 1) {
             if (((AudioBufferState *)arg0)->field16 == 1) {
@@ -796,7 +804,7 @@ void *func_80009CBC(void *arg0, s32 mode) {
 
 void *D_10009CBC(void *, s32);
 
-ConkerBankFetch func_80009FFC(void) {
+ConkerBankFetch audio_bank_fetch_callback_new(void) {
     if (D_800406A0.initialized == 0) {
         D_800406A0.active = 0;
         D_800406A0.base = D_80040AC8;

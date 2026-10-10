@@ -10,9 +10,12 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define angle_lerp_degrees_single_wrap_delta func_15048720
+
 f32 func_15048A70(f32 arg0, f32 arg1);
 
-f32 func_15048720(f32 arg0, f32 arg1, f32 arg2) {
+f32 angle_lerp_degrees_single_wrap_delta(f32 arg0, f32 arg1, f32 arg2) {
     f32 result = func_15048A70(arg1, arg2);
     f32 product = result * arg0;
 

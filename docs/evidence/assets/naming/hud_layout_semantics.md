@@ -1,7 +1,10 @@
 # HUD layout naming evidence
 
-These inferred names preserve source-local types, widths, padding, expressions
-and linked symbols. No new C match follows. [Confidence/provenance](model_name_confidence_review.md)
+The eight matched helpers below use descriptive C names through source-local
+aliases, preserving types, widths, padding, expressions and linked symbols.
+The two existing multiline macros are joined onto single physical lines with
+identical replacement tokens so alias-aware tooling can parse the source.
+No new C match follows. [Confidence/provenance](model_name_confidence_review.md)
 separates source descriptors, conditional behavior and runtime appearance.
 
 ## Queue and state roles
@@ -44,8 +47,8 @@ then reused for projected Y. Node `+0x0E..+0x11` feed glyph color arguments at
 `0x15043658`–`0x150436AC` and the sprite environment-color command.
 `field_12..field_15` remain unresolved; the `+0x15` text-measurement test alone
 does not establish a secondary alpha or shadow role. `next`, `text`, and all
-padding remain unchanged. The separate `Game70200Entry` and every later source
-line remain byte-for-byte unchanged despite their overlapping field spellings.
+padding remain unchanged. The separate `Game70200Entry` fields remain unchanged despite their overlapping
+spellings; its function aliases have separate [ring evidence](../../matching/naming/record_ring_helper_semantics.md).
 
 The raw renderer reads metadata `+2` and multiplies it by `1/128`
 (`0x150436D4`–`0x15043710`); `+3` is tested as raw bits at `0x15043720`–`0x15043730`.

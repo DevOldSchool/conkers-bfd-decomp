@@ -28,6 +28,34 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define actor_script_branch_on_path_point_index func_15075A50
+#define actor_script_switch_program func_15075DE8
+#define actor_script_branch_random_percent func_15075EB4
+#define actor_script_adjust_position_y func_1507659C
+#define actor_script_advance_path_point func_150778F0
+#define actor_script_branch_on_filtered_pool_actor_xz_distance func_150779D4
+#define actor_script_reset_program_by_model func_15077BB4
+#define actor_script_set_path_point_index func_15077DA0
+#define actor_script_snap_to_path_point func_15077DBC
+#define actor_script_play_mp3_asset_spatial func_15077E9C
+#define actor_script_branch_on_any_active_pool_actor_xz_distance func_15078074
+#define actor_script_branch_on_selected_actor_inactive func_1507813C
+#define actor_script_branch_on_path_point_xz_distance func_150781F4
+#define actor_script_branch_on_selected_actor_distance func_1507839C
+#define actor_script_branch func_15078520
+#define actor_script_branch_on_selected_actor_animation_time func_1507879C
+#define actor_script_copy_selected_actor_animation_times func_15078A08
+#define actor_script_set_representation_override func_150791F0
+#define actor_script_set_default_program func_150792E0
+#define actor_script_randomize_bounded_path_point_xz func_150793D8
+#define actor_script_branch_on_current_path_point_xz_distance func_150798F8
+#define actor_script_set_path_point_component func_1507A100
+#define actor_script_update_path_point_step func_1507A528
+#define actor_script_branch_on_selected_actor_model func_1507A8EC
+#define actor_script_set_path_point_range func_1507ACB0
+#define actor_script_dispatch_callback func_1507B884
+
 typedef struct GameA28B0NestedState {
     u8 pad0[0x75];
     u8 field_75;
@@ -293,7 +321,7 @@ void func_15075938(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15075938.s")
 
 
-void func_15075A50(void) {
+void actor_script_branch_on_path_point_index(void) {
     u8 temp_v0;
 
     temp_v0 = D_800D154C->field_21E;
@@ -378,7 +406,7 @@ void func_15075DC8(void) {
 }
 s32 func_1507BB28(s32, s32);
 
-void func_15075DE8(void) {
+void actor_script_switch_program(void) {
     if (D_800D1891 == 0) {
         D_800D1891 = D_800D154C->field_232;
     }
@@ -399,7 +427,7 @@ void func_15075E98(void) {
 }
 u32 func_150ADA20();                                /* extern */
 
-void func_15075EB4(void) {
+void actor_script_branch_random_percent(void) {
     if ((u32) (func_150ADA20() % 100U) < (u8) D_800D1892) {
         func_15075400((s32) D_800D1890);
     }
@@ -540,7 +568,7 @@ void func_1507652C(void) {
     }
     *(u8 *)((u8 *)D_800D154C + 0x125) = D_800D1890;
 }
-void func_1507659C(void) {
+void actor_script_adjust_position_y(void) {
     *(f32 *)((u8 *)D_800D154C + 0x18) = (f32) (*(f32 *)((u8 *)D_800D154C + 0x18) + (f32) (D_800D1890 * 0x64));
     if (D_800D1893 != 0) {
         *(f32 *)((u8 *)D_800D154C + 0x18) = 1800.0f;
@@ -1039,7 +1067,7 @@ void func_15077508(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15077508 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15077508.s")
-void func_150778F0(void) {
+void actor_script_advance_path_point(void) {
     u8 limit;
     u8 override;
     u8 minimum;
@@ -1065,7 +1093,7 @@ f32 func_1505A6F8(GameA28B0State *, s32 *);
 extern u8 D_800C3E78;
 extern s32 D_800CC2D0;
 
-void func_150779D4(void) {
+void actor_script_branch_on_filtered_pool_actor_xz_distance(void) {
     s32 *temp_a1;
     u8 var_v0;
     f32 distance;
@@ -1104,7 +1132,7 @@ void func_15077B80(void) {
 }
 void *func_1505F0AC(u8);                            /* extern */
 
-void func_15077BB4(void) {
+void actor_script_reset_program_by_model(void) {
     void *temp_v0;
 
     temp_v0 = func_1505F0AC(D_800D1891);
@@ -1161,10 +1189,10 @@ block_14:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15077C38 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15077C38.s")
-void func_15077DA0(void) {
+void actor_script_set_path_point_index(void) {
     D_800D154C->field_21E = D_800D1890;
 }
-void func_15077DBC(void) {
+void actor_script_snap_to_path_point(void) {
     if (D_800D1890 != 0xFA) {
         D_800D154C->field_21E = D_800D1890;
     }
@@ -1175,7 +1203,7 @@ void func_15077DBC(void) {
 /* Call context: func_10012718: unique active project prototype */
 void func_10012718(u16, u8 *, s32, s16, s32);
 
-void func_15077E9C(void) {
+void actor_script_play_mp3_asset_spatial(void) {
     s32 id = (D_800D1890 << 8) + D_800D1891;
 
     func_10012718(id, (u8 *) D_800D154C, 0x5DC0, 0x1F4, 0x9C4);
@@ -1219,7 +1247,7 @@ f32 func_1505A6F8(GameA28B0State *, s32 *);         /* extern */
 extern u8 D_800C3E78;
 extern s32 D_800CC2D0;
 
-void func_15078074(void) {
+void actor_script_branch_on_any_active_pool_actor_xz_distance(void) {
     f32 temp_fs0;
     s32 var_s0;
     s32 *var_s1;
@@ -1232,7 +1260,7 @@ void func_15078074(void) {
         }
     }
 }
-void func_1507813C(void) {
+void actor_script_branch_on_selected_actor_inactive(void) {
     s32 index = D_800D154C->field_222;
 
     if (*(s32 *) ((u8 *) &D_800CC2D0 + index * 0x32C) == 0) {
@@ -1245,7 +1273,7 @@ void func_150781A4(void) {
     D_800D154C->pad23F[2] = D_800D1890;
     D_800D154C->pad23F[3] = D_800D1893;
 }
-void func_150781F4(void) {
+void actor_script_branch_on_path_point_xz_distance(void) {
     f32 x;
     f32 z;
     f32 distance;
@@ -1284,7 +1312,7 @@ void func_15078358(void) {
 }
 extern f32 D_800CC2E8;
 
-void func_1507839C(void) {
+void actor_script_branch_on_selected_actor_distance(void) {
     f32 var_fv0;
     f32 var_fv1;
 
@@ -1303,7 +1331,7 @@ void func_1507839C(void) {
         func_15075400((s32) D_800D1890);
     }
 }
-void func_15078520(void) {
+void actor_script_branch(void) {
     func_15075400((s32) D_800D1890);
 }
 f32 func_15047D60(f32);
@@ -1358,7 +1386,7 @@ void func_15078544(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15078544.s")
 extern u8 D_800CC5A0[];
 
-void func_1507879C(void) {
+void actor_script_branch_on_selected_actor_animation_time(void) {
     f32 value;
     f32 *state;
 
@@ -1392,7 +1420,7 @@ void func_15078900(void) {
 }
 extern u8 D_800CC5A0[];
 
-void func_15078A08(void) {
+void actor_script_copy_selected_actor_animation_times(void) {
     void *temp_a0;
     void *temp_v0;
 
@@ -1567,7 +1595,7 @@ void func_1507911C(void) {
  * total count +2C9. Zero is stored unchanged; this handler does not apply it.
  * See docs/evidence/assets/naming/actor_representation_selection_semantics.md.
  */
-void func_150791F0(void) {
+void actor_script_set_representation_override(void) {
     if ((s32) *(u8 *)((u8 *)D_800D154C + 0x2C9) < (s32) D_800D1890) {
         D_800D154C->pad10F[0xBA] = 0xFF;
         return;
@@ -1599,7 +1627,7 @@ void func_15079228(void) {
     ((struct127 *)D_800D154C)->unk218 -= 1;
     ((struct127 *)D_800D154C)->unk21C = 1;
 }
-void func_150792E0(void) {
+void actor_script_set_default_program(void) {
     D_800D154C->field_232 = D_800D1890;
 }
 void func_150792FC(void) {
@@ -1632,7 +1660,7 @@ void func_15079390(void) {
 }
 void func_1505A184(u16, f32, f32, f32 *, f32 *, f32 *);
 
-void func_150793D8(void) {
+void actor_script_randomize_bounded_path_point_xz(void) {
     f32 offset_x;
     f32 offset_z;
     f32 offset_y;
@@ -1743,11 +1771,11 @@ void func_15079880(void) {
     D_800D1892 = (u8) var_v0;
     func_15075548();
 }
-void func_150781F4(void);
+void actor_script_branch_on_path_point_xz_distance(void);
 
-void func_150798F8(void) {
+void actor_script_branch_on_current_path_point_xz_distance(void) {
     D_800D1891 = D_800D154C->field_21E;
-    func_150781F4();
+    actor_script_branch_on_path_point_xz_distance();
 }
 void func_1507E7E4(GameA28B0State *, u8, u8, s32, s32);
 
@@ -1933,7 +1961,7 @@ void func_15079FBC(void) {
     func_15075F40();
     *(s32 *)((u8 *)D_800D154C + 0xF4) |= 0x40;
 }
-void func_1507A100(void) {
+void actor_script_set_path_point_component(void) {
     s32 value;
 
     value = ((s8)D_800D1892 << 8) | D_800D1893;
@@ -2029,7 +2057,7 @@ void func_1507A4D4(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507A4D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_1507A4D4.s")
-void func_1507A528(void) {
+void actor_script_update_path_point_step(void) {
     s32 var_a1;
     s8 temp_v1;
     s32 var_a0;
@@ -2139,7 +2167,7 @@ void func_1507A8A8(void) {
 }
 extern u8 D_800CC2D4;
 
-void func_1507A8EC(void) {
+void actor_script_branch_on_selected_actor_model(void) {
     if (D_800D1891 == *(&D_800CC2D4 + (D_800D154C->field_222 * 0x32C))) {
         D_800D1892 ^= 1;
     }
@@ -2216,7 +2244,7 @@ void func_1507AA48(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507AA48 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_1507AA48.s")
-void func_1507ACB0(void) {
+void actor_script_set_path_point_range(void) {
     D_800D154C->pad21F[1] = D_800D1890;
     D_800D154C->pad21F[0] = D_800D1891;
 }
@@ -2517,7 +2545,7 @@ typedef void (*GameA28B0Callback)(s32);
 
 extern GameA28B0Callback D_80086150[];
 
-void func_1507B884(void) {
+void actor_script_dispatch_callback(void) {
     GameA28B0State *saved_state;
     s32 saved_index;
     u8 selector;

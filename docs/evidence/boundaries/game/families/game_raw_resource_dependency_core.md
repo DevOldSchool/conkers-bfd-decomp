@@ -156,6 +156,21 @@ resource against the same `800D2E4C` availability bitset. That shared query
 contract connects this loader lifecycle to the dependency core. The next
 entry `1509D180` instead begins the effect-command switch and is excluded.
 
+## Matched helper names
+
+The existing matched C helpers use source-local aliases, preserving numeric
+linked symbols, signatures, layouts and operations:
+
+| Symbol | C name | Boundary |
+| --- | --- | --- |
+| `1509CA10` | `resource_descriptor_name` | Nullable task/scene label; no index validation |
+| `1509CA78` | `resource_descriptor_packed_id` | Full signed packed word at `+4`, without masking or search adjustment |
+| `1509CCB4` | `resource_descriptor_mark_dependencies_available` | Recursively visits `+0x0C` dependencies through `1509CE64`; does not necessarily mark the starting descriptor |
+
+The recursive helper keeps its old-style forward declaration, existing
+argumentless wrapper call and numeric callback target. Availability bits and
+state three are resource bookkeeping, not a claim of gameplay completion.
+
 ## Validation
 
 All fifteen labels agree with the independent US index. Their spans total

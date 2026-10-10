@@ -20,6 +20,28 @@ import project_state
 from candidate_tables import Object32
 
 
+def replace_fixture_neighbor_with_asm(content: str, source: str, symbol: str) -> str:
+    """Restore a real raw neighbor in the historical layout-negative fixture."""
+    start, end = project_state.work_item_function_span(content, symbol, regional_symbol=symbol)
+    pragma = project_state.global_asm_pragma(source, symbol)
+    return content[:start] + pragma + "\n" + content[end:]
+
+
+class LayoutFailureFixtureTests(unittest.TestCase):
+    def test_raw_neighbor_replacement_preserves_numeric_linkage_and_surroundings(self):
+        source = "src/main/init_5570.c"
+        symbol = "func_800057E0"
+        for definition in (symbol, "motor_pak_init"):
+            with self.subTest(definition=definition):
+                alias = f"#define {definition} {symbol}\n" if definition != symbol else ""
+                prefix = alias + f"int {definition}(int value);\nint before(void) {{ return 1; }}\n"
+                body = f"int {definition}(int value) {{\n    return value;\n}}\n"
+                suffix = f"int after(void) {{ return {definition}(2); }}\n"
+                replaced = replace_fixture_neighbor_with_asm(prefix + body + suffix, source, symbol)
+                self.assertEqual(prefix + project_state.global_asm_pragma(source, symbol) + "\n" + suffix,
+                                 replaced)
+
+
 @unittest.skipUnless(shutil.which("mips-linux-gnu-as") and shutil.which("mips-linux-gnu-ld"),
                      "requires pinned MIPS binutils")
 class MainComparisonTests(unittest.TestCase):
@@ -328,8 +350,7 @@ class RegisteredMainComparisonTests(unittest.TestCase):
             for neighbor in ("func_800057E0", "func_80005948"):
                 pragma = project_state.global_asm_pragma(source.as_posix(), neighbor)
                 if pragma not in content:
-                    start, end = project_state.c_function_span(content, neighbor)
-                    content = content[:start] + pragma + "\n" + content[end:]
+                    content = replace_fixture_neighbor_with_asm(content, source.as_posix(), neighbor)
                     entry = next(entry for entry in inventory["functions"] if entry["symbol"] == neighbor)
                     entry["regions"]["us"]["state"] = "raw_asm"
                     entry.pop("deferred", None)

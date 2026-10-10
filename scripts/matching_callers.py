@@ -16,11 +16,13 @@ from matching_context import source_bodies, source_calls
 
 ROOT = Path(__file__).resolve().parent.parent
 LIMITATIONS = ("Incomplete: direct C call spellings in unique registered matched US definitions only; "
-               "indirect, macro-expanded, raw ASM and unregistered callers are not resolved. "
+               "simple unconditional address aliases are expanded; indirect, other macro-expanded, "
+               "raw ASM and unregistered callers are not resolved. "
                "Spelling is a recheck lead, not proof of a linked call or complete impact coverage.")
 
 
 def _headers(source: str) -> dict[str, list[tuple[str, ...]]]:
+    source = declaration_facts.function_alias_text(source)
     source = call_signatures.without_abi_declarations(source)
     source = re.sub(r'/\*.*?\*/|//[^\n]*', '', source, flags=re.S)
     items = candidate_syntax.tokens(declaration_facts.active_text(source))

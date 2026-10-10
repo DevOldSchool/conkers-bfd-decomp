@@ -6,6 +6,9 @@
  * Boundary evidence: docs/evidence/boundaries/main/main_system_wrapper_boundaries.md
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define pi_dma_manager_thread_entry func_80002E50
+
 typedef struct ThreadState ThreadState;
 typedef struct PiHandle PiHandle;
 
@@ -36,7 +39,7 @@ extern volatile u8 D_8003A572;
 extern volatile u8 D_8003A573;
 extern volatile u8 D_8003A575;
 
-void func_80002E50(void *argument) {
+void pi_dma_manager_thread_entry(void *argument) {
     IoMessage *message;
     void *event;
     void *dummy;

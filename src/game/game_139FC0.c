@@ -14,6 +14,10 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define flat_asset_rom_address func_1510D374
+#define flat_asset_update_nonzero_state func_1510D608
+
 typedef struct Game139FC0LevelEntry {
     u8 pad0[0x5F0];
     s32 flags5F0;
@@ -249,7 +253,7 @@ s32 func_1510CE60(s8 *volatile arg0, volatile s32 arg1, volatile s32 arg2, volat
 void func_10004074(s32);
 void func_10004514(s32, s32, s32, s32);
 void func_10006240(s32, void *, s32);
-u8 *func_1510D374(s32);
+u8 *flat_asset_rom_address(s32);
 u8 *func_10003C6C(s32, s32, s32, s32, s32);
 extern u8 D_80091D20;
 extern u16 D_800B87A0[];
@@ -297,7 +301,7 @@ s32 func_1510D0EC(s32 arg0, s32 *arg1, volatile s32 arg2, s32 arg3) {
         if (arg2 == 0x3F) {
             arg2 = 0x3E;
         }
-        size = (s32)func_1510D374(arg0);
+        size = (s32)flat_asset_rom_address(arg0);
         romAddress = size;
         if (size & 1) {
             romAddress = (s32)((u32)size - 1U);
@@ -354,7 +358,7 @@ extern u8 D_80091D20;
 /* Descriptive role: flat_asset_rom_address.
  * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
  */
-u8 *func_1510D374(s32 resourceIndex) {
+u8 *flat_asset_rom_address(s32 resourceIndex) {
     u8 *romAddress;
     s32 sizeIndex;
 
@@ -447,7 +451,7 @@ extern s8 D_800BC448[];
 /* Descriptive role: flat_asset_update_nonzero_state.
  * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
  */
-void func_1510D608(s32 resourceIndex, s32 stateBits) {
+void flat_asset_update_nonzero_state(s32 resourceIndex, s32 stateBits) {
     s8 *resourceState;
     s8 previousState;
 

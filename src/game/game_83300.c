@@ -72,6 +72,24 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define actor_update_animation_playback_rate func_1505841C
+#define actor_update_vertical_acceleration_and_clamp_velocity func_15058EA4
+#define actor_distance_xz func_1505A6F8
+#define actor_distance_xyz func_1505A72C
+#define actor_apply_motion_preset_and_begin_animation_sequence func_1505D2B8
+#define xz_offset_scale_rotate_heading_degrees func_1505D34C
+#define actor_distance_squared_to_pool_actor func_1505DF10
+#define actor_reset_animation_state func_1505DFDC
+#define animation_state_copy_primary_to_secondary func_1505E060
+#define actor_find_animation_sequence_index func_1505E7CC
+#define actor_play_sound_store_handle_8c func_15060A30
+#define actor_play_sound_without_saved_handle func_15060A9C
+#define actor_play_sound_without_saved_handle_with_volume func_15060B04
+#define actor_play_sound_store_handle_8e func_15060B70
+#define actor_get_view_opacity func_1506196C
+#define actor_set_scale_and_refresh_bounds func_15062BDC
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15055E50.s")
 extern f32 D_80099440;
 extern s32 D_800D2104;
@@ -278,7 +296,7 @@ extern f32 D_80099470;
 extern f32 D_80099474;
 void func_1505E650(Game83300Actor *, s32, f32, f32, f32, f32, s32);
 
-void func_1505841C(Game83300Actor *arg0, f32 arg1) {
+void actor_update_animation_playback_rate(Game83300Actor *arg0, f32 arg1) {
     Game83300Inner *inner;
     f32 speed;
     f32 fade;
@@ -458,7 +476,7 @@ void func_150585F0(u8 *arg0, register f32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150585F0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15058898.s")
-void func_15058EA4(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+void actor_update_vertical_acceleration_and_clamp_velocity(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     f32 temp_fv0;
     f32 temp_fv1;
 
@@ -721,7 +739,7 @@ extern f32 D_800860CC[];
 extern u16 D_800860E4[];
 extern void *D_800D1588[];
 s32 func_1505A630(f32, f32, s32);
-u32 func_1505E7CC(s32, void *);
+u32 actor_find_animation_sequence_index(s32, void *);
 void func_1505E874(u8, void *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1505959C CURRENT (852) */
@@ -757,7 +775,7 @@ void func_1505959C(void *arg0, s32 arg1, register void *arg2) {
         0.0f, 0.0f, 0.0f, 0);
     *((u8 *)arg0 + 0x104) = 0xFE;
     *((u8 *)arg0 + 0x105) = 0;
-    *((u8 *)arg0 + 0x106) = func_1505E7CC(*(u16 *)((u8 *)D_800860E4 + offset), arg0);
+    *((u8 *)arg0 + 0x106) = actor_find_animation_sequence_index(*(u16 *)((u8 *)D_800860E4 + offset), arg0);
     *(u16 *)((u8 *)arg0 + 0x84) = 0xFFFF;
     func_1505E874(D_800C3E78, arg0);
     {
@@ -1143,7 +1161,7 @@ s32 func_1505A630(f32 arg0, f32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A630.s")
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-f32 func_1505A6F8(void *arg0, void *arg1) {
+f32 actor_distance_xz(void *arg0, void *arg1) {
     f32 temp_fa0;
     f32 temp_fv1;
 
@@ -1153,7 +1171,7 @@ f32 func_1505A6F8(void *arg0, void *arg1) {
     temp_fa0 *= temp_fa0;
     return sqrtf(temp_fv1 + temp_fa0);
 }
-f32 func_1505A72C(void *arg0, void *arg1) {
+f32 actor_distance_xyz(void *arg0, void *arg1) {
     f32 temp_fa0;
     f32 temp_fa1;
     f32 temp_fv1;
@@ -1358,12 +1376,12 @@ void func_1505D1C4(f32 arg0, f32 arg1, f32 arg2, s32 arg3, s32 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1505D1C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505D1C4.s")
-u32 func_1505E7CC(s32, void *);
+u32 actor_find_animation_sequence_index(s32, void *);
 void func_1505E874(u8, void *);
 extern u8 D_8009A6D8[];
 extern u8 D_800C3E78;
 
-void func_1505D2B8(void *arg0, u8 arg1) {
+void actor_apply_motion_preset_and_begin_animation_sequence(void *arg0, u8 arg1) {
     void *temp_v0;
 
     temp_v0 = (u8 *)D_8009A6D8 + (arg1 * 0x28);
@@ -1372,7 +1390,7 @@ void func_1505D2B8(void *arg0, u8 arg1) {
     *(f32 *)((u8 *)arg0 + 0x24) = *(f32 *)((u8 *)temp_v0 + 0x1C);
     *(u8 *)((u8 *)arg0 + 0x104) = 0xFE;
     *(u8 *)((u8 *)arg0 + 0x105) = 0;
-    *(u8 *)((u8 *)arg0 + 0x106) = func_1505E7CC((*(u8 *)((u8 *)arg0 + 0x10E) & 0x7F), arg0);
+    *(u8 *)((u8 *)arg0 + 0x106) = actor_find_animation_sequence_index((*(u8 *)((u8 *)arg0 + 0x10E) & 0x7F), arg0);
     *(u8 *)((u8 *)arg0 + 0x10E) = 0xFF;
     func_1505E874(D_800C3E78, arg0);
 }
@@ -1380,7 +1398,7 @@ f32 func_150AD780(f32);                             /* extern */
 f32 func_150AD78C(f32);                             /* extern */
 extern f32 D_80099520;
 
-f32 func_1505D34C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 *arg4) {
+f32 xz_offset_scale_rotate_heading_degrees(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 *arg4) {
     struct {
         f32 output;
         f32 cosine;
@@ -1472,7 +1490,7 @@ void func_1505D5D0(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg
     f32 temp_fv1;
     f32 temp_fv1_2;
 
-    temp_fv0 = func_1505D34C(*(f32 *)((u8 *)arg1 + 0x40), arg11, arg12, *(f32 *)((u8 *)arg1 + 0x14C), &arg12);
+    temp_fv0 = xz_offset_scale_rotate_heading_degrees(*(f32 *)((u8 *)arg1 + 0x40), arg11, arg12, *(f32 *)((u8 *)arg1 + 0x14C), &arg12);
     temp_ft2 = arg8 * *(f32 *)((u8 *)arg1 + 0x14C);
     arg8 = temp_ft2;
     temp_fv1 = *(f32 *)((u8 *)arg1 + 0x150);
@@ -1509,7 +1527,7 @@ typedef struct {
 
 extern f32 D_80099534;
 extern f32 D_80099538;
-f32 func_1505DF10(void *, u8, s16 *, f32 *, f32 *);
+f32 actor_distance_squared_to_pool_actor(void *, u8, s16 *, f32 *, f32 *);
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *,
                    f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
 
@@ -1550,7 +1568,7 @@ s32 func_1505DADC(Game83300AimActor *self, u16 *angleOut,
             ((((s32)self - (s32)&D_800CC2D0) / 812) & 0xFF) != index &&
             (other->flags & 0x40) && (excludeIndex != index) &&
             (other->enabled != 0)) {
-            distance = func_1505DF10(self, index & 0xFF, &angle,
+            distance = actor_distance_squared_to_pool_actor(self, index & 0xFF, &angle,
                                       &horizontalSquared, &vertical);
             if ((distance < bestDistance) || ((other->priority == 0) && (priority != 0))) {
                 if ((((s32)((u16)angle - self->heading) >> 8) +
@@ -1583,7 +1601,7 @@ s32 func_1505DADC(Game83300AimActor *self, u16 *angleOut,
 extern s32 D_80082FA0;
 extern s32 D_800CC2D0;
 
-f32 func_1505DF10(void *, u8, s16 *, f32 *, f32 *);
+f32 actor_distance_squared_to_pool_actor(void *, u8, s16 *, f32 *, f32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1505DDA8 CURRENT (1964) */
 s8 func_1505DDA8(void *arg0, s32 arg1, s32 arg2, f32 arg3) {
@@ -1601,7 +1619,7 @@ s8 func_1505DDA8(void *arg0, s32 arg1, s32 arg2, f32 arg3) {
 loop_2:
         if (*(s32 *)((u8 *)&D_800CC2D0 + (var_s0 * 0x32C)) != 0) {
             temp_fs0 = *(f32 *)((u8 *)arg0 + 0x3C) * arg3 * 0.5f;
-            if ((func_1505DF10(arg0, var_s0 & 0xFF, &sp6C, &sp68, &sp64) < (temp_fs0 * temp_fs0)) && ((((*(u16 *)((u8 *)arg0 + 0x76) - (u16) sp6C) + (temp_s2 / 2)) & 0xFFFF) < temp_s2)) {
+            if ((actor_distance_squared_to_pool_actor(arg0, var_s0 & 0xFF, &sp6C, &sp68, &sp64) < (temp_fs0 * temp_fs0)) && ((((*(u16 *)((u8 *)arg0 + 0x76) - (u16) sp6C) + (temp_s2 / 2)) & 0xFFFF) < temp_s2)) {
                 return var_s0;
             }
             goto block_7;
@@ -1622,7 +1640,7 @@ block_8:
 /* Call context: func_1505A630: unique active project prototype */
 extern s32 D_800CC2D0;
 
-f32 func_1505DF10(void *arg0, u8 arg1, s16 *arg2, f32 *arg3, f32 *arg4) {
+f32 actor_distance_squared_to_pool_actor(void *arg0, u8 arg1, s16 *arg2, f32 *arg3, f32 *arg4) {
     u8 *target;
     f32 x;
     f32 y;
@@ -1644,7 +1662,7 @@ f32 func_1505DF10(void *arg0, u8 arg1, s16 *arg2, f32 *arg3, f32 *arg4) {
 void func_100226F0(void *, s32);
 extern u16 D_800C4ED0[];
 
-void func_1505DFDC(Game83300Actor *arg0) {
+void actor_reset_animation_state(Game83300Actor *arg0) {
     s32 sp1C;
     Game83300Inner *sp18;
     u16 *temp_v1;
@@ -1665,7 +1683,7 @@ void func_1505DFDC(Game83300Actor *arg0) {
 /* Call context: func_10023A10: unique active project prototype */
 void func_10023A10(void *, void *, s32);
 
-void func_1505E060(u8 *arg0) {
+void animation_state_copy_primary_to_secondary(u8 *arg0) {
     *(u16 *)((u8 *)arg0 + 6) = (u16) *(u16 *)((u8 *)arg0 + 4);
     *(f32 *)((u8 *)arg0 + 0xC) = (f32) *(f32 *)((u8 *)arg0 + 8);
     *(f32 *)((u8 *)arg0 + 0x14) = (f32) *(f32 *)((u8 *)arg0 + 0x10);
@@ -1677,7 +1695,7 @@ void func_1505E060(u8 *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505E0C4.s")
 s32 func_150229E4(void *);
-void func_1505DFDC(Game83300Actor *);
+void actor_reset_animation_state(Game83300Actor *);
 void func_1505E0C4(f32, Game83300Actor *, u16 *, Game83300Inner *, s32, s32, s32, s32, f32, f32, f32, f32, s32);
 extern u8 D_800C3638;
 extern u8 D_800C3654;
@@ -1722,7 +1740,7 @@ void func_1505E650(Game83300Actor *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
     }
     temp_v0_2 = D_800D1588[temp_a2];
     if (temp_v0_2 == 0) {
-        func_1505DFDC(arg0);
+        actor_reset_animation_state(arg0);
         return;
     }
     if ((u16)arg1 >= D_800C5A90[temp_a2]) {
@@ -1734,7 +1752,7 @@ void func_1505E650(Game83300Actor *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
     }
     temp_v0_3 = *temp_a1;
     if (temp_v0_3 >= 0x7530) {
-        func_1505DFDC(arg0);
+        actor_reset_animation_state(arg0);
         return;
     }
     if (*(u8 *)((u8 *)arg0 + 0x2FF) == 0) {
@@ -1744,7 +1762,7 @@ void func_1505E650(Game83300Actor *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1505E650 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505E650.s")
-u32 func_1505E7CC(s32 arg0, void *arg1) {
+u32 actor_find_animation_sequence_index(s32 arg0, void *arg1) {
     u32 temp_v0_2;
     u32 var_v1;
     u8 *temp_a0;
@@ -2100,7 +2118,7 @@ s32 func_10010344(s32, s32, u32, s16, s32);
 void func_10010630(u16, Game83300DispatchState *, s32, s32, s32);
 void func_15060778(s32, Game83300DispatchState *, s32, s32, s32, s32, s32);
 
-void func_15060A30(s32 arg0, Game83300DispatchState *arg1) {
+void actor_play_sound_store_handle_8c(s32 arg0, Game83300DispatchState *arg1) {
     if (arg1->field_318 == 0) {
         func_10010344((u16)arg0, (s32)arg1, 0x6D60U, 0x1F4, 0x9C4);
         return;
@@ -2108,14 +2126,14 @@ void func_15060A30(s32 arg0, Game83300DispatchState *arg1) {
     func_15060778(arg0, arg1, 0x5DC0, 0, 0x1F4, 0x9C4, 1);
 }
 
-void func_15060A9C(s32 arg0, Game83300DispatchState *arg1) {
+void actor_play_sound_without_saved_handle(s32 arg0, Game83300DispatchState *arg1) {
     if (arg1->field_318 == 0) {
         func_10010630((u16)arg0, arg1, 0x5DC0, 0x1F4, 0x9C4);
         return;
     }
     func_15060778(arg0, arg1, 0x5DC0, 0, 0x1F4, 0x9C4, 0);
 }
-void func_15060B04(s32 arg0, Game83300DispatchState *arg1, s32 arg2) {
+void actor_play_sound_without_saved_handle_with_volume(s32 arg0, Game83300DispatchState *arg1, s32 arg2) {
     if (arg1->field_318 == 0) {
         func_10010630((u16)arg0, arg1, arg2, 0x1F4, 0x9C4);
         return;
@@ -2124,7 +2142,7 @@ void func_15060B04(s32 arg0, Game83300DispatchState *arg1, s32 arg2) {
 }
 void func_10010154(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
-void func_15060B70(u16 arg0, s32 arg1) {
+void actor_play_sound_store_handle_8e(u16 arg0, s32 arg1) {
     func_10010154(arg0, arg1, 0x6D60, 0x1F4, 0x9C4);
 }
 s32 func_15060BA4(void *arg0, s32 arg1) {
@@ -2658,7 +2676,7 @@ block_22:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150617BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150617BC.s")
-s32 func_1506196C(u8 *arg0, s32 arg1) {
+s32 actor_get_view_opacity(u8 *arg0, s32 arg1) {
     s32 var_v1;
 
     var_v1 = *(u8 *)((u8 *)arg0 + 7) * *(u8 *)((u8 *)(arg0 + arg1) + 0xB);
@@ -3030,7 +3048,7 @@ void func_15062B84(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15062B84.s")
 extern u8 *D_800D1C90[];
 
-void func_15062BDC(u8 *arg0, f32 arg1, f32 arg2) {
+void actor_set_scale_and_refresh_bounds(u8 *arg0, f32 arg1, f32 arg2) {
     f32 temp_fv0;
     f32 temp_fv1;
     u8 temp_v1;

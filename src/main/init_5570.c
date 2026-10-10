@@ -11,6 +11,11 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define motor_pak_stop func_80005570
+#define motor_pak_init func_800057E0
+#define motor_pak_pack_write_command func_80005948
+
 typedef struct PakDevice {
     s32 status;
     OSMesgQueue *queue;
@@ -37,7 +42,7 @@ extern u8 D_8003BD30[][64];
 extern u8 D_800429D0[64];
 extern u8 D_80042A50;
 
-s32 func_80005570(PakDevice *device) {
+s32 motor_pak_stop(PakDevice *device) {
     u8 *ptr;
     s32 result;
     s32 i;
@@ -95,11 +100,11 @@ s32 func_800056A0(PakDevice *device) {
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_5570/func_800056A0.s")
 s32 func_80025870(OSMesgQueue *, s32, u16, u8 *, s32);
 s32 func_80025C20(OSMesgQueue *, s32, u16, u8 *);
-void func_80005948(s32, u16, u8 *, u8 *);
+void motor_pak_pack_write_command(s32, u16, u8 *, u8 *);
 extern u8 D_8003BE30[32];
 extern u8 D_8003BE50[32];
 
-s32 func_800057E0(OSMesgQueue *queue, PakDevice *device, s32 channel) {
+s32 motor_pak_init(OSMesgQueue *queue, PakDevice *device, s32 channel) {
     s32 i;
     s32 result;
     u8 data[32];
@@ -129,13 +134,13 @@ s32 func_800057E0(OSMesgQueue *queue, PakDevice *device, s32 channel) {
         D_8003BE50[i] = 1;
         D_8003BE30[i] = 0;
     }
-    func_80005948(channel, 0x600, D_8003BE50, D_8003BD30[channel]);
-    func_80005948(channel, 0x600, D_8003BE30, D_8003BC30[channel]);
+    motor_pak_pack_write_command(channel, 0x600, D_8003BE50, D_8003BD30[channel]);
+    motor_pak_pack_write_command(channel, 0x600, D_8003BE30, D_8003BC30[channel]);
     return 0;
 }
 u8 func_80025FD0(u16);
 
-void func_80005948(s32 channel, u16 address, u8 *data, u8 *command) {
+void motor_pak_pack_write_command(s32 channel, u16 address, u8 *data, u8 *command) {
     u8 *ptr = command;
     PakReply reply;
     s32 i;

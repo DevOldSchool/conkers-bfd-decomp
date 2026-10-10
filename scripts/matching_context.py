@@ -20,6 +20,7 @@ MAX_SOURCE_SIBLINGS = 64
 
 def source_bodies(source: str, wanted: set[str], *, active_only: bool = False) -> dict[str, str]:
     """Read ordinary definitions once; comments, strings and declarations cannot match."""
+    source = declaration_facts.function_alias_text(source)
     if active_only:
         source = declaration_facts.active_text(source)
     items = candidate_syntax.tokens(source)

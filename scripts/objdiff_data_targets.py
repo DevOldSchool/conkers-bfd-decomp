@@ -102,11 +102,15 @@ def reference_definitions(assembly: str, rom: bytes, *, origin: int = 0x80000000
 
 
 def declared_data_symbols(path: Path) -> dict[str, tuple[int, int]]:
-    """Read explicit payload extents from the canonical splat symbol file."""
+    """Read explicit data payload extents, excluding declared code symbols."""
     pattern = (r'^([A-Za-z_.$][\w.$]*)\s*=\s*(0x[0-9A-Fa-f]+);'
-               r'[^\n]*?\bsize:(0x[0-9A-Fa-f]+)')
-    return {name: (int(address, 16), int(size, 16))
-            for name, address, size in re.findall(pattern, path.read_text(), re.M)}
+               r'([^\n]*)')
+    result = {}
+    for name, address, metadata in re.findall(pattern, path.read_text(), re.M):
+        size = re.search(r'\bsize:(0x[0-9A-Fa-f]+)', metadata)
+        if size and not re.search(r'\btype:\s*func\b', metadata):
+            result[name] = (int(address, 16), int(size[1], 16))
+    return result
 
 
 def anonymous_declared_padding(text: str, declared: dict[str, tuple[int, int]]) -> str:

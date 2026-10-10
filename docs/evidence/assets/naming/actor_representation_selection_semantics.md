@@ -1,6 +1,8 @@
 # Actor representation selection and mutable model bytes
 
-These are inferred roles with original linked symbols and ABI preserved.
+The matched override-or-base getter and actor-script setter use descriptive
+source-local aliases with original linked symbols, ABI and operations preserved.
+Other function roles remain evidence comments only.
 [Confidence and provenance](model_name_confidence_review.md) distinguish code
 behavior from model descriptions and runtime activation. Full consumer pins are
 in the registry; additional complete support spans are in that note.
@@ -42,8 +44,9 @@ field is not merely a boolean lock or the ordinary distance-selected ordinal.
 `func_150849A0` is `actor_get_override_or_base_representation_model`.
 Its complete 44-byte span returns `list[selector ? selector - 1 : 0]`, reading
 the unsigned selector at `+0x1C9` and list pointer at `+0x2C4`. It never reads
-`+0x1C8` or the applied byte at `+4`. The only C identifier change is the local
-`representationSelector` to `representationOverrideSelector`.
+`+0x1C8` or the applied byte at `+4`. Its local selector is named
+`representationOverrideSelector`; the function alias does not change its
+parameters, fields or operations.
 
 The zero-selector path always chooses the first list entry, even if automatic
 selection has applied a different ordinal. Its seven direct call sites are

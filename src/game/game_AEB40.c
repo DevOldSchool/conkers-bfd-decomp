@@ -29,6 +29,12 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define actor_create_animation_state func_150838EC
+#define actor_apply_character_defaults func_150839B8
+#define actor_load_representation_resources func_15084488
+#define actor_get_override_or_base_representation_model func_150849A0
+
 typedef struct GameAEB40NestedState {
     u8 pad0[0x56];
     u8 field_56;
@@ -433,7 +439,7 @@ void func_1505E650(u8 *, s32, s32, f32, f32, f32, s32);
 extern u16 D_800C5A90[];
 extern void *D_800D1588[];
 
-s32 func_150838EC(u8 *arg0, u16 arg1, s32 arg2, s32 arg3) {
+s32 actor_create_animation_state(u8 *arg0, u16 arg1, s32 arg2, s32 arg3) {
     u8 index;
 
     index = arg0[4];
@@ -458,7 +464,7 @@ void func_15036C70(void *);
 /* Semantic role: actor_apply_character_defaults (shared, not character-specific).
  * See docs/evidence/assets/naming/character_semantic_naming.md; keep the linked symbol stable.
  */
-void func_150839B8(void *actor, s32 modelIndex, void *spawnRecord) {
+void actor_apply_character_defaults(void *actor, s32 modelIndex, void *spawnRecord) {
     u16 spawnOverride;
     s32 value;
     u8 *defaults;
@@ -587,9 +593,9 @@ s32 func_15083AC8(s32 arg0, u8 arg1, u8 arg2, s32 arg3,
     if (restore != 0) {
         D_800C3638 = 0;
     }
-    func_150839B8(actor, arg2, 0);
+    actor_apply_character_defaults(actor, arg2, 0);
     func_150837D4((s32)(actor - (u8 *)&D_800CC2D0) / 0x32C, arg2, 1);
-    func_150838EC(actor, arg7, mode, *(s32 *)&arg8);
+    actor_create_animation_state(actor, arg7, mode, *(s32 *)&arg8);
     if (restore != 0) {
         D_800C3638 = 1;
     }
@@ -898,7 +904,7 @@ extern u8 *D_800D1C90[];
  * list. arg1 is unused here; arg2 is forwarded without assigning it a role.
  * See docs/evidence/assets/naming/actor_representation_asset_semantics.md.
  */
-void func_15084488(u8 *spawnRecord, s32 arg1, s32 arg2) {
+void actor_load_representation_resources(u8 *spawnRecord, s32 arg1, s32 arg2) {
     s32 modelCount;
     s32 modelOffset;
     u8 *defaults;
@@ -936,7 +942,7 @@ void func_15084488(u8 *spawnRecord, s32 arg1, s32 arg2) {
  * Nonzero selectors are one-based; no sentinel or bounds normalization occurs.
  * See docs/evidence/assets/naming/actor_representation_selection_semantics.md.
  */
-u8 func_150849A0(void *actor) {
+u8 actor_get_override_or_base_representation_model(void *actor) {
     u8 representationOverrideSelector;
 
     representationOverrideSelector = *(u8 *)((u8 *)actor + 0x1C9);

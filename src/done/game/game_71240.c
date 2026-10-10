@@ -3,7 +3,16 @@
 /*
  * Reviewed source unit: src/game/game_71240.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
+ * Semantic evidence: docs/evidence/matching/naming/matrix_helper_semantics.md
  */
+
+/* Keep address symbols for linking and registered match evidence. */
+#define matrix_fixed_build_scaled_euler_transform func_15043D90
+#define matrix_fixed_build_euler_transform func_15043E68
+#define matrixf_scale_basis_and_set_translation func_15043EC8
+#define matrixf_build_scaled_euler_transform func_15043F6C
+#define matrix_fixed_get_translation_signed_fraction func_15043FF0
+#define matrixf_build_look_at_pose func_150440A0
 
 /* Call context: func_150A7790: unique active declaration in the allowed source */
 /* Call context: func_150A8050: unique active declaration in the allowed source */
@@ -14,7 +23,7 @@ typedef struct {
     f32 m[4][4];
 } Game71240Work;
 
-void func_15043D90(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
+void matrix_fixed_build_scaled_euler_transform(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
     Game71240Work sp18;
 
     func_150A8050(&sp18, arg1, arg2, arg3);
@@ -35,7 +44,7 @@ void func_15043D90(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
 void func_150A8050(void *, f32, f32, f32);
 void func_150A7790(void *, s32);
 
-void func_15043E68(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+void matrix_fixed_build_euler_transform(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     Game71240Work sp18;
 
     func_150A8050(&sp18, arg1, arg2, arg3);
@@ -44,7 +53,7 @@ void func_15043E68(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     sp18.m[3][2] = arg6;
     func_150A7790(&sp18, arg0);
 }
-void func_15043EC8(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+void matrixf_scale_basis_and_set_translation(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     *(f32 *)((u8 *)arg0 + 0x30) = arg4;
     *(f32 *)((u8 *)arg0 + 0x34) = arg5;
     *(f32 *)((u8 *)arg0 + 0x38) = arg6;
@@ -60,7 +69,7 @@ void func_15043EC8(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
 }
 void func_150A9B0C(void *, f32, f32, f32, f32, f32, f32);
 
-void func_15043F6C(Game71240Work *arg0, f32 arg1, f32 arg2, f32 arg3,
+void matrixf_build_scaled_euler_transform(Game71240Work *arg0, f32 arg1, f32 arg2, f32 arg3,
                    f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
     func_150A9B0C(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
     arg0->m[3][0] = arg7;
@@ -88,7 +97,7 @@ typedef struct Game71240TransformSource {
     s16 dz;
 } Game71240TransformSource;
 
-void func_15043FF0(Game71240Vec3f *arg0, Game71240TransformSource *arg1) {
+void matrix_fixed_get_translation_signed_fraction(Game71240Vec3f *arg0, Game71240TransformSource *arg1) {
     arg0->x = (f32)arg1->x;
     arg0->y = (f32)arg1->y;
     arg0->z = (f32)arg1->z;
@@ -98,7 +107,7 @@ void func_15043FF0(Game71240Vec3f *arg0, Game71240TransformSource *arg1) {
 }
 f32 func_10026530(f32);
 
-void func_150440A0(void *arg0, f32 arg1, f32 arg2, f32 arg3,
+void matrixf_build_look_at_pose(void *arg0, f32 arg1, f32 arg2, f32 arg3,
                    f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
     f32 x;
     f32 y;

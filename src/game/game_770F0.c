@@ -3,6 +3,7 @@
 /*
  * Reviewed source unit: src/game/game_770F0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_preserved_helper_groups.md
+ * Semantic evidence: docs/evidence/matching/naming/vector_transform_helper_semantics.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15049CB8
@@ -12,7 +13,10 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_15049C40(void *arg0, void *arg1) {
+/* Keep address symbols for linking and registered match evidence. */
+#define quaternion_align_hemisphere func_15049C40
+
+void quaternion_align_hemisphere(void *arg0, void *arg1) {
     f32 dot;
 
     dot = (*(f32 *)((u8 *)arg0 + 0) * *(f32 *)((u8 *)arg1 + 0)) + (*(f32 *)((u8 *)arg0 + 4) * *(f32 *)((u8 *)arg1 + 4)) + (*(f32 *)((u8 *)arg0 + 8) * *(f32 *)((u8 *)arg1 + 8)) + (*(f32 *)((u8 *)arg0 + 0xC) * *(f32 *)((u8 *)arg1 + 0xC));

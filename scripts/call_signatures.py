@@ -67,6 +67,7 @@ def source_signatures(text: str, wanted: set[str] | None = None, *,
                       definitions_only: bool = False) -> dict[str, set[Signature | None]]:
     """Collect supported external signatures without importing another scope."""
     found: dict[str, set[Signature | None]] = {}
+    text = declaration_facts.function_alias_text(text)
     # Remove comments before interpreting preprocessor lines.
     text = without_abi_declarations(text)
     text = re.sub(r'/\*.*?\*/|//[^\n]*', '', text, flags=re.S)

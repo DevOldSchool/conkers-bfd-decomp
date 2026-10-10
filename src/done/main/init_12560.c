@@ -5,6 +5,14 @@
  * Boundary evidence: docs/evidence/boundaries/main/main_sequence_api_mp3_adapter_boundaries.md
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define mp3_text_enqueue_callback func_80012560
+#define mp3_adapter_init func_80012588
+#define mp3_play_asset func_8001263C
+#define mp3_text_read_record func_800126E8
+#define mp3_play_asset_spatial func_80012718
+#define mp3_is_playing_paused_or_loading func_800127D0
+
 typedef struct {
     s32 buffer;
     s32 capacity;
@@ -15,7 +23,7 @@ typedef struct {
 extern Mp3TextTransport D_800427A0;
 s32 func_85043BB8(Mp3TextTransport *, s32 *, s32);
 
-void func_80012560(s32 arg0, u8 *text, s32 length) {
+void mp3_text_enqueue_callback(s32 arg0, u8 *text, s32 length) {
     func_85043BB8(&D_800427A0, (s32 *)text, length);
 }
 void func_85016170(s32);
@@ -24,7 +32,7 @@ void func_851F3C1C(void (*)(s32, u8 *, s32));
 void D_10012560(s32, u8 *, s32);
 extern u8 D_800427B0[];
 
-void func_80012588(s32 arg0) {
+void mp3_adapter_init(s32 arg0) {
     func_85016170(arg0);
     func_85043A00(&D_800427A0, (s32)D_800427B0, 0x40);
     func_851F3C1C(D_10012560);
@@ -54,7 +62,7 @@ void func_851F2DFC(s32, s32);
 void func_851F2E4C(s32, s32);
 extern s16 D_800427F4;
 
-void func_8001263C(s32 arg0, s32 volume, s32 pan) {
+void mp3_play_asset(s32 arg0, s32 volume, s32 pan) {
     void *resource;
     s32 size;
 
@@ -74,7 +82,7 @@ void func_8001263C(s32 arg0, s32 volume, s32 pan) {
 }
 s32 func_85043CA4(Mp3TextTransport *, u8 *, s32);
 
-s32 func_800126E8(u8 *text, s32 capacity) {
+s32 mp3_text_read_record(u8 *text, s32 capacity) {
     return func_85043CA4(&D_800427A0, text, capacity);
 }
 typedef struct {
@@ -88,25 +96,25 @@ typedef struct {
 
 void func_800114D0(s32, s32, s32, s32, s32, s32, s32 *, s32 *, s32 *);
 
-s32 func_80012718(u16 arg0, u8 *arg1, s32 arg2, s16 arg3, s32 arg4) {
+s32 mp3_play_asset_spatial(u16 arg0, u8 *arg1, s32 arg2, s16 arg3, s32 arg4) {
     s32 pan;
     s32 volume;
     s32 spatial;
 
     if (((Mp3SpatialState *)arg1)->field318 != 0) {
-        func_8001263C(arg0, arg2, 0x40);
+        mp3_play_asset(arg0, arg2, 0x40);
     } else {
         func_800114D0((s32)((Mp3SpatialState *)arg1)->x,
                      (s32)((Mp3SpatialState *)arg1)->y,
                      (s32)((Mp3SpatialState *)arg1)->z,
                      arg2, (u16)arg4, arg3, &pan, &volume, &spatial);
-        func_8001263C(arg0, volume, pan);
+        mp3_play_asset(arg0, volume, pan);
     }
     return 1;
 }
 s32 func_851F2CDC(void);
 
-s32 func_800127D0(void) {
+s32 mp3_is_playing_paused_or_loading(void) {
     s32 state;
 
     state = func_851F2CDC();

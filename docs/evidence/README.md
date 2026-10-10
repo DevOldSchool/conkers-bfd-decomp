@@ -19,7 +19,7 @@ their existing identity so symbols, old notes and Git history remain searchable.
 | --- | --- |
 | [Source boundaries](boundaries/README.md) | [Game mapping](boundaries/game/mapping/game_mapping_residual_frontier.md), [main frontier](boundaries/main/main_boundary_residual_frontier.md), named effects |
 | [Libraries](libraries/README.md) | [2.0G reclassification](libraries/libultra_2_0G_rare_reclassification.md), SDK objects and Rare reconstruction |
-| [Function matching](matching/README.md) | [Conversion audit](matching/matching_conversion_audit.md), ABI/storage contracts and candidate investigations |
+| [Function matching](matching/README.md) | [Conversion audit](matching/matching_conversion_audit.md), [completed-function naming](matching/naming/README.md), ABI/storage contracts and candidate investigations |
 | [Data and section layout](data-layout/README.md) | Jump tables, literal pools, private data and integration proposals |
 | [Models and scenes](assets/models/README.md) | [Reference corrections](assets/models/us_model_reference_corrections.md), geometry, pose, placement and validation |
 | [Materials and render state](assets/materials/README.md) | [Material frontier](assets/materials/us_model_material_frontier.md), texture formats and consumer state |
@@ -32,6 +32,10 @@ their existing identity so symbols, old notes and Git history remain searchable.
 The [asset roadmap](../asset-roadmap.md) owns the dated asset-status summary.
 Local coverage, batch and validation reports reflect their supplied inputs.
 Historical reports are not fresh verification of the checkout.
+
+Completed-function names remain source-local aliases with numeric linkage and full-span
+verification. Their [shared scope and evidence](matching/naming/README.md) is separate from
+model/asset identity and confidence contracts.
 
 ## Find a specific claim
 

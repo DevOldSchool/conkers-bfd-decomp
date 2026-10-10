@@ -15,6 +15,16 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define actor_attachments_request_cleanup func_1514D310
+#define actor_request_attachment_actions_35_and_68 func_1514DCAC
+#define attachment_link_allocate func_1514EBA4
+#define actor_attachment_add func_1514EC1C
+#define attachment_link_find_by_selector func_1514ECE0
+#define attachment_link_find_by_object func_1514ED3C
+#define actor_attachment_unlink func_1514ED8C
+#define actor_attachment_remove_object_links func_1514EDF0
+
 /* Reviewed attachment action selectors, distinct from bank-09 model IDs.
  * See docs/evidence/assets/naming/model_resource_role_names.md.
  */
@@ -106,7 +116,7 @@ extern void (*D_8008AB58[])(s32);
 extern Game179F30DispatchEntry *D_8008ABE8[];
 void func_1516972C(void *arg0);
 
-s32 func_1514D310(void *arg0) {
+s32 actor_attachments_request_cleanup(void *arg0) {
     Game179F30Node *node;
     Game179F30Node *next;
     s16 sentinel;
@@ -184,7 +194,7 @@ s32 func_1514D4B8(s16 arg0, s16 arg1) {
     return 0;
 }
 void func_10022EC0(void *, void *, s32);
-s32 func_1514EC1C(s32, s32, s16);
+s32 actor_attachment_add(s32, s32, s16);
 s32 func_150C5370(f32 *, s32);
 extern f32 D_800A5DE4;
 extern f32 D_800A5DE8;
@@ -238,7 +248,7 @@ void func_1514D564(u8 *arg0) {
     temp_v0 = func_150C5370(&tail.sp34, 0x14);
     if (temp_v0 != 0) {
         func_10022EC0((void *)(temp_v0 + 0xC8), (void *)&head.sp1C, 0x14);
-        func_1514EC1C(temp_v0, (s32)arg0, 0x15);
+        actor_attachment_add(temp_v0, (s32)arg0, 0x15);
     }
 }
 /* Raw US callees establish pointer arguments and the stack byte parameters. */
@@ -249,7 +259,7 @@ extern u8 D_800A58E4[];
 extern u8 D_800A58F8[];
 extern u8 D_800A590C[];
 
-s32 func_1514EC1C(s32, s32, s16);
+s32 actor_attachment_add(s32, s32, s16);
 void *func_15160A58(void *, s32, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A5DF4;
 extern f32 D_800A5DF8;
@@ -356,7 +366,7 @@ void func_1514D64C(void *arg0) {
     setup.sp68 = 75.0f;
     setup.sp114 = 1.0f;
     allocated = func_15189FF0(&setup.sp74, &setup.spCC, &setup.sp54, 2, 0U, 0U, 0U);
-    func_1514EC1C(allocated, (s32)arg0, 9);
+    actor_attachment_add(allocated, (s32)arg0, 9);
     setup.sp74 = 3;
     setup.sp7C = 0;
     setup.sp80 = 0;
@@ -399,7 +409,7 @@ void func_1514D64C(void *arg0) {
     setup.sp68 = -140.0f;
     setup.sp114 = 1.0f;
     allocated = func_15189FF0(&setup.sp74, &setup.spCC, &setup.sp54, 2, 0U, 0U, 0U);
-    func_1514EC1C(allocated, (s32)arg0, 0xA);
+    actor_attachment_add(allocated, (s32)arg0, 0xA);
     func_15160A58(arg0, 5, &setup.sp54, 2, 0x12C, 0x28, 0xFF, 0, 0, 0xFF, 0, 1, 0, 0, 0xFF, 1);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514D64C */
@@ -421,7 +431,7 @@ typedef struct {
 
 void func_10022EC0(void *, void *, s32);
 extern s32 func_15158BD0(s32, s32, s32);
-extern s32 func_1514EC1C(s32 arg0, s32 arg1, s16 arg2);
+extern s32 actor_attachment_add(s32 arg0, s32 arg1, s16 arg2);
 
 void func_1514D978(s32 arg0) {
     Game179F30LargePacket packet;
@@ -438,14 +448,14 @@ void func_1514D978(s32 arg0) {
     object = func_15158BD0(arg0, 1, sizeof(packet));
     if (object != 0) {
         func_10022EC0((void *)(object + 0x58), &packet, sizeof(packet));
-        func_1514EC1C(object, arg0, 0x13);
+        actor_attachment_add(object, arg0, 0x13);
     }
 }
 extern s32 func_151ACA60(s32 arg0, s32 arg1, s32 arg2);
 
 void func_1514D9F4(s32 arg0) {
     func_1514D978(arg0);
-    func_1514EC1C(func_151ACA60(arg0, 0x41A00000, 0), arg0, 0x14);
+    actor_attachment_add(func_151ACA60(arg0, 0x41A00000, 0), arg0, 0x14);
 }
 
 typedef struct Game179F30Packet {
@@ -471,7 +481,7 @@ void func_1514DA38(s32 arg0) {
     object = func_15158BD0(arg0, 1, sizeof(packet));
     if (object != 0) {
         func_10022EC0((void *)(object + 0x58), &packet, sizeof(packet));
-        func_1514EC1C(object, arg0, 0x13);
+        actor_attachment_add(object, arg0, 0x13);
     }
 }
 
@@ -496,7 +506,7 @@ void func_1514DAA4(s32 arg0) {
         object = func_15158BD0(arg0, 1, sizeof(packet));
         if (object != 0) {
             func_10022EC0((void *)(object + 0x58), &packet, sizeof(packet));
-            func_1514EC1C(object, arg0, 0x13);
+            actor_attachment_add(object, arg0, 0x13);
         }
     }
 }
@@ -507,7 +517,7 @@ void func_1514DB18(s32 arg0) {
 
     temp_v0 = func_15158BD0(arg0, 1, 0);
     if (temp_v0 != 0) {
-        func_1514EC1C(temp_v0, arg0, 0x13);
+        actor_attachment_add(temp_v0, arg0, 0x13);
     }
 }
 void func_1514DB58(s32 arg0) {
@@ -548,14 +558,14 @@ void func_1514DC84(u8 *arg0) {
 void func_1514DC98(u8 *arg0) {
     *(u32 *)(arg0 + 0x94) |= 0x710;
 }
-void func_1514DCAC(void *arg0);
+void actor_request_attachment_actions_35_and_68(void *arg0);
 
 void *func_15083568(void *, s32, s32, s32);
 
 /* Descriptive role: actor_request_attachment_actions_35_and_68.
  * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
  */
-void func_1514DCAC(void *parentActor) {
+void actor_request_attachment_actions_35_and_68(void *parentActor) {
     *(s32 *)((u8 *)parentActor + 0x9C) = 0x6000;
     func_15083568(parentActor, ACTION_SELECTOR_35, 0x3F800000, 0);
     func_15083568(parentActor, ACTION_SELECTOR_68, 0x3F800000, 0);
@@ -572,28 +582,28 @@ void func_1514DCF4(void *arg0) {
     func_15083568(arg0, 0x17, 0x3F800000, 0);
 }
 void func_1514DD2C(void *arg0) {
-    func_1514DCAC(arg0);
+    actor_request_attachment_actions_35_and_68(arg0);
 }
 void func_1514DD4C(void *arg0) {
-    func_1514DCAC(arg0);
+    actor_request_attachment_actions_35_and_68(arg0);
 }
 void func_1514DD6C(void *arg0) {
-    func_1514DCAC(arg0);
+    actor_request_attachment_actions_35_and_68(arg0);
 }
 void func_1514DD8C(void *arg0) {
-    func_1514DCAC(arg0);
+    actor_request_attachment_actions_35_and_68(arg0);
 }
 void func_1514DDAC(void *arg0) {
-    func_1514DCAC(arg0);
+    actor_request_attachment_actions_35_and_68(arg0);
 }
 void func_1514DDCC(void *arg0) {
-    func_1514DCAC(arg0);
+    actor_request_attachment_actions_35_and_68(arg0);
 }
 void func_1514DDEC(void *arg0) {
-    func_1514DCAC(arg0);
+    actor_request_attachment_actions_35_and_68(arg0);
 }
 void func_1514DE0C(void *arg0) {
-    func_1514DCAC(arg0);
+    actor_request_attachment_actions_35_and_68(arg0);
 }
 void func_1514DE2C(s32 arg0) {
 
@@ -608,7 +618,7 @@ extern void *D_800D2E4C;
 
 void func_1514DE50(void *arg0) {
     if (*(u8 *)((u8 *)D_800D2E4C + 0x11) & 8) {
-        func_1514DCAC(arg0);
+        actor_request_attachment_actions_35_and_68(arg0);
     }
 }
 void func_1514DE88(s32 arg0) {
@@ -634,7 +644,7 @@ void func_1514DE94(s32 arg0) {
     effect = func_15160A58((void *)arg0, 0, D_800A58C4, 2, 0x12C,
                            0xB, 0xFF, 0xFF, 0xFF, 2, 0, -1, 0, 0,
                            0xFF, 1);
-    func_1514EC1C((s32)effect, arg0, 0x19);
+    actor_attachment_add((s32)effect, arg0, 0x19);
 }
 /* Call context: func_15083FB0: unique active project prototype */
 u8 func_15083FB0(u8);
@@ -743,7 +753,7 @@ void func_1514E00C(void *arg0) {
     setup.sp34 = 59.0f;
     setup.sp40 = D_800A5E0C;
     setup.spEC = 1.0f;
-    func_1514EC1C(func_15189FF0(&setup.sp4C, &setup.spA4, &setup.sp2C, 2, 0U, 0U, 0U), (s32) arg0, 6);
+    actor_attachment_add(func_15189FF0(&setup.sp4C, &setup.spA4, &setup.sp2C, 2, 0U, 0U, 0U), (s32) arg0, 6);
     func_151D74B0((s32) arg0, 5, -1, 0xFF, 1);
 }
 
@@ -847,7 +857,7 @@ void func_1514E194(void *arg0) {
     setup.sp34 = 59.0f;
     setup.sp40 = D_800A5E14;
     setup.spEC = 1.0f;
-    func_1514EC1C(func_15189FF0(&setup.sp4C, &setup.spA4, &setup.sp2C, 2, 0U, 0U, 0U), (s32) arg0, 6);
+    actor_attachment_add(func_15189FF0(&setup.sp4C, &setup.spA4, &setup.sp2C, 2, 0U, 0U, 0U), (s32) arg0, 6);
     func_151D74B0((s32) arg0, 5, -1, 0xFF, 1);
 }
 
@@ -950,7 +960,7 @@ void func_1514E31C(void *arg0) {
     setup.sp64 = 100.0f;
     setup.sp70 = 600.0f;
     setup.sp11C = 1.0f;
-    func_1514EC1C(func_15189FF0(&setup.sp7C, &setup.spD4, &setup.sp5C, 2, 3U, 0U, 0U), (s32) arg0, 7);
+    actor_attachment_add(func_15189FF0(&setup.sp7C, &setup.spD4, &setup.sp5C, 2, 3U, 0U, 0U), (s32) arg0, 7);
     {
         f32 effect_position[3];
 
@@ -966,9 +976,9 @@ void * func_1518D1C0(s32, s32, s32, s32, s32, s32, void *);
 void func_1514E508(s32 arg0) {
     s32 temp_v1;
 
-    func_1514EC1C((s32) func_1518D1C0(arg0, 5, 0, 1, 0xFF, 1, D_800A58D0), arg0, 0xD);
+    actor_attachment_add((s32) func_1518D1C0(arg0, 5, 0, 1, 0xFF, 1, D_800A58D0), arg0, 0xD);
     temp_v1 = arg0 + 0x14;
-    func_1514EC1C((s32) func_1515D5F8(-0x8000, temp_v1 >> 0x10, temp_v1 & 0xFFFF, 5, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0U), arg0, 0x18);
+    actor_attachment_add((s32) func_1515D5F8(-0x8000, temp_v1 >> 0x10, temp_v1 & 0xFFFF, 5, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0U), arg0, 0x18);
 }
 
 
@@ -977,9 +987,9 @@ void * func_1518D1C0(s32, s32, s32, s32, s32, s32, void *);
 void func_1514E5B8(s32 arg0) {
     s32 temp_v1;
 
-    func_1514EC1C((s32) func_1518D1C0(arg0, 5, 0, 1, 0xFF, 1, D_800A58E4), arg0, 0xD);
+    actor_attachment_add((s32) func_1518D1C0(arg0, 5, 0, 1, 0xFF, 1, D_800A58E4), arg0, 0xD);
     temp_v1 = arg0 + 0x14;
-    func_1514EC1C((s32) func_1515D5F8(-0x8000, temp_v1 >> 0x10, temp_v1 & 0xFFFF, 5, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0U), arg0, 0x18);
+    actor_attachment_add((s32) func_1515D5F8(-0x8000, temp_v1 >> 0x10, temp_v1 & 0xFFFF, 5, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0U), arg0, 0x18);
 }
 
 
@@ -988,9 +998,9 @@ void * func_1518D1C0(s32, s32, s32, s32, s32, s32, void *);
 void func_1514E668(s32 arg0) {
     s32 temp_v1;
 
-    func_1514EC1C((s32) func_1518D1C0(arg0, 5, 0, 1, 0xFF, 1, D_800A58F8), arg0, 0xD);
+    actor_attachment_add((s32) func_1518D1C0(arg0, 5, 0, 1, 0xFF, 1, D_800A58F8), arg0, 0xD);
     temp_v1 = arg0 + 0x14;
-    func_1514EC1C((s32) func_1515D5F8(-0x8000, temp_v1 >> 0x10, temp_v1 & 0xFFFF, 5, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0U), arg0, 0x18);
+    actor_attachment_add((s32) func_1515D5F8(-0x8000, temp_v1 >> 0x10, temp_v1 & 0xFFFF, 5, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0U), arg0, 0x18);
 }
 
 
@@ -999,9 +1009,9 @@ void * func_1518D1C0(s32, s32, s32, s32, s32, s32, void *);
 void func_1514E718(s32 arg0) {
     s32 temp_v1;
 
-    func_1514EC1C((s32) func_1518D1C0(arg0, 5, 0, 1, 0xFF, 1, D_800A590C), arg0, 0xE);
+    actor_attachment_add((s32) func_1518D1C0(arg0, 5, 0, 1, 0xFF, 1, D_800A590C), arg0, 0xE);
     temp_v1 = arg0 + 0x14;
-    func_1514EC1C((s32) func_1515D5F8(-0x8000, temp_v1 >> 0x10, temp_v1 & 0xFFFF, 5, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0U), arg0, 0x18);
+    actor_attachment_add((s32) func_1515D5F8(-0x8000, temp_v1 >> 0x10, temp_v1 & 0xFFFF, 5, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0U), arg0, 0x18);
 }
 
 
@@ -1012,7 +1022,7 @@ void func_1514E7C8(s32 arg0) {
     void *temp_v0;
 
     temp_v0 = func_1518D1C0(arg0, 7, 0, 1, 0xFF, 1, &D_800A5920);
-    func_1514EC1C((s32)temp_v0, arg0, 0xF);
+    actor_attachment_add((s32)temp_v0, arg0, 0xF);
 }
 void func_1514E824(s32 arg0) {
 
@@ -1170,7 +1180,7 @@ typedef struct {
 
 Game179F30Effect *func_15167A68(s32, s32, s32, s32, u8, u8);
 
-Game179F30Effect *func_1514EBA4(void *arg0, s16 arg1, s32 arg2) {
+Game179F30Effect *attachment_link_allocate(void *arg0, s16 arg1, s32 arg2) {
     Game179F30Effect *effect;
 
     effect = func_15167A68(0x24, 1, arg2 + sizeof(Game179F30Effect), 1, 0xFF, 1);
@@ -1183,13 +1193,13 @@ Game179F30Effect *func_1514EBA4(void *arg0, s16 arg1, s32 arg2) {
     effect->id = arg1;
     return effect;
 }
-s32 func_1514EC1C(s32 arg0, s32 arg1, s16 arg2) {
+s32 actor_attachment_add(s32 arg0, s32 arg1, s16 arg2) {
     Game179F30Effect *var_t0;
     s16 temp_v0_2;
 
     var_t0 = 0;
     if (arg0 != 0) {
-        var_t0 = func_1514EBA4((void *)arg0, arg2, 0);
+        var_t0 = attachment_link_allocate((void *)arg0, arg2, 0);
         if (var_t0 != 0) {
             var_t0->field_14 = *(Game179F30Effect **)((u8 *)arg1 + 0x2F4);
             *(Game179F30Effect **)((u8 *)arg1 + 0x2F4) = var_t0;
@@ -1208,7 +1218,7 @@ s32 func_1514EC1C(s32 arg0, s32 arg1, s16 arg2) {
     }
     return (s32)var_t0;
 }
-s32 func_1514ECE0(void *arg0, s16 arg1, void **arg2) {
+s32 attachment_link_find_by_selector(void *arg0, s16 arg1, void **arg2) {
     s32 var_v1;
     void *var_v0;
     void *next;
@@ -1228,7 +1238,7 @@ s32 func_1514ECE0(void *arg0, s16 arg1, void **arg2) {
     }
     return var_v1;
 }
-s32 func_1514ED3C(void *arg0, s32 arg1, void **arg2) {
+s32 attachment_link_find_by_object(void *arg0, s32 arg1, void **arg2) {
     s32 var_v1;
     void *var_v0;
     void *next;
@@ -1248,7 +1258,7 @@ s32 func_1514ED3C(void *arg0, s32 arg1, void **arg2) {
     }
     return var_v1;
 }
-s32 func_1514ED8C(void *arg0, void *arg1) {
+s32 actor_attachment_unlink(void *arg0, void *arg1) {
     s32 sp1C;
     void *temp_v0;
     void *temp_v0_2;
@@ -1270,7 +1280,7 @@ s32 func_1514ED8C(void *arg0, void *arg1) {
 }
 /* Call context: func_1514ED8C: unique active project prototype */
 
-void func_1514EDF0(s32 arg0, void *arg1) {
+void actor_attachment_remove_object_links(s32 arg0, void *arg1) {
     s32 temp_v0;
     void *var_s1;
 
@@ -1279,11 +1289,11 @@ void func_1514EDF0(s32 arg0, void *arg1) {
         void *sp34 = 0;
         u8 loop_flag;
         do {
-            temp_v0 = func_1514ED3C(var_s1, arg0, &sp34);
+            temp_v0 = attachment_link_find_by_object(var_s1, arg0, &sp34);
             loop_flag = temp_v0;
             if (temp_v0 != 0) {
                 var_s1 = *(void **)((u8 *)sp34 + 0x14);
-                func_1514ED8C(sp34, arg1);
+                actor_attachment_unlink(sp34, arg1);
             }
         } while (loop_flag != 0);
     }
@@ -1304,7 +1314,7 @@ void func_1514EE70(u8 *arg0) {
     sp20.field_5 = 0;
     sp20.field_6 = 0x12C;
     temp_v0 = func_1515BE50(&sp20, 0, 0xFF, 1);
-    func_1514EC1C((s32)temp_v0, (s32)arg0, 0x16);
+    actor_attachment_add((s32)temp_v0, (s32)arg0, 0x16);
 }
 typedef struct Game179F30TrialVector {
     s32 x, y, z;
@@ -1342,7 +1352,7 @@ void func_1514EECC(void *arg0) {
     } setup;
     Game179F30TrialVector second;
     Game179F30TrialVector first;
-    func_1514EC1C((s32)func_15160A58(arg0, 1, &D_800A5934, 2, 0x12C, 2, 0xFF, 0, 0, 0xFF, 0, 3, 0, 0, 0xFF, 1), (s32) arg0, 0x19);
+    actor_attachment_add((s32)func_15160A58(arg0, 1, &D_800A5934, 2, 0x12C, 2, 0xFF, 0, 0, 0xFF, 0, 3, 0, 0, 0xFF, 1), (s32) arg0, 0x19);
     setup.spC4 = 0x69;
     setup.sp104 = 0x04ED200A;
     setup.spC8 = 0x12C;
@@ -1450,7 +1460,7 @@ void func_1514F194(void *arg0) {
     effect = func_15160A58(arg0, 1, &D_800A5964, 2,
                             0x12C, 0xF, 0xFF, 0, 0, 0xFF, 1, -1, 0, 0, 0xFF, 1);
     if (effect != 0) {
-        func_1514EC1C((s32)effect, (s32)arg0, 0x19);
+        actor_attachment_add((s32)effect, (s32)arg0, 0x19);
     }
 }
 void func_15160CDC(s32, s32, void *, void *, f32, s32, s32, s32, s32, s32,
@@ -1501,7 +1511,7 @@ void func_1514F44C(s32 arg0) {
     void *temp_v0;
 
     temp_v0 = func_1518D1C0(arg0, 5, 0, 1, 0xFF, 1, &D_800A5988);
-    func_1514EC1C((s32)temp_v0, arg0, 0xD);
+    actor_attachment_add((s32)temp_v0, arg0, 0xD);
 }
 void func_151D74B0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 

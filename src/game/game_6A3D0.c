@@ -21,12 +21,17 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define asset_relocate_untagged_offset func_1503D438
+#define actor_scripts_relocate_program_offsets func_1503D45C
+#define animation_routes_relocate_event_offsets func_1503D484
+
 /* Semantic role: model_load_bank01_resources.
  * Install model-indexed geometry/draw/texture tables; this is a shared loader.
  * See docs/evidence/assets/naming/actor_representation_asset_semantics.md.
  */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503CF20.s")
-void func_1503D438(s32 *, s32);
+void asset_relocate_untagged_offset(s32 *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D368 CURRENT (1525) */
 void func_1503D368(s8 *arg0, s32 arg1) {
@@ -44,10 +49,10 @@ void func_1503D368(s8 *arg0, s32 arg1) {
             do {
                 if (opcode != -0x24) {
                     if (opcode == 1) {
-                        func_1503D438((s32 *)(entry + 4), arg1);
+                        asset_relocate_untagged_offset((s32 *)(entry + 4), arg1);
                     }
                 } else if (*(u8 *)(entry + 3) == 0xE) {
-                    func_1503D438((s32 *)(entry + 4), arg1);
+                    asset_relocate_untagged_offset((s32 *)(entry + 4), arg1);
                 }
                 index++;
                 entry = base + (index * 8);
@@ -62,7 +67,7 @@ void func_1503D368(s8 *arg0, s32 arg1) {
  * Only nonzero values with (value & 0x0F000000) == 0 receive the base address.
  * See docs/evidence/assets/naming/actor_representation_asset_semantics.md.
  */
-void func_1503D438(s32 *offsetSlot, s32 baseAddress) {
+void asset_relocate_untagged_offset(s32 *offsetSlot, s32 baseAddress) {
     s32 offset;
 
     offset = *offsetSlot;
@@ -70,7 +75,7 @@ void func_1503D438(s32 *offsetSlot, s32 baseAddress) {
         *offsetSlot = offset + baseAddress;
     }
 }
-void func_1503D45C(s32 *arg0, s32 arg1) {
+void actor_scripts_relocate_program_offsets(s32 *arg0, s32 arg1) {
     s32 var_v0;
 
     var_v0 = *arg0;
@@ -89,14 +94,14 @@ extern s16 D_800C5A90[];
  * relative to the route-record base. Store the route count by model index.
  * See docs/evidence/assets/naming/actor_representation_asset_semantics.md.
  */
-void func_1503D484(u8 *routeRecord, s32 modelIndex) {
+void animation_routes_relocate_event_offsets(u8 *routeRecord, s32 modelIndex) {
     u16 *routeBase;
 
     routeBase = (u16 *)routeRecord;
     if (*(u16 *)routeRecord != 0x3E7) {
         do {
             if (*(s32 *)((u8 *)routeRecord + 4) != 0) {
-                func_1503D438((s32 *)((u8 *)routeRecord + 4), (s32)routeBase);
+                asset_relocate_untagged_offset((s32 *)((u8 *)routeRecord + 4), (s32)routeBase);
             }
             routeRecord += 8;
         } while (*(u16 *)routeRecord != 0x3E7);
@@ -212,8 +217,8 @@ typedef struct Game6A3D0Resource {
 } Game6A3D0Resource;
 
 Game6A3D0Resource *func_1502B5C8(s32 *, s32, ...);
-void func_1503D45C(s32 *, s32);
-void func_1503D484(u8 *, s32);
+void actor_scripts_relocate_program_offsets(s32 *, s32);
+void animation_routes_relocate_event_offsets(u8 *, s32);
 void func_1503D510(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D660 CURRENT (466) */
@@ -245,7 +250,7 @@ s32 func_1503D660(s32 arg0, s32 arg1) {
     if (*temp_v0 != 0) {
         *temp_v0 = (u8 *)*temp_v0 + (s32)temp_v0;
         temp_v0_2 = *sp28;
-        func_1503D45C(*temp_v0_2, (u8 *)temp_v0_2 + 0x10);
+        actor_scripts_relocate_program_offsets(*temp_v0_2, (u8 *)temp_v0_2 + 0x10);
     }
     temp_v0_3 = *sp28;
     temp_a0 = temp_v0_3[1];
@@ -260,7 +265,7 @@ s32 func_1503D660(s32 arg0, s32 arg1) {
     }
     temp_a0_3 = (void **)((u8 *)temp_v0_3 + 0x10);
     *sp28 = temp_a0_3;
-    func_1503D484((u8 *)temp_a0_3, arg0);
+    animation_routes_relocate_event_offsets((u8 *)temp_a0_3, arg0);
     func_1503D510(arg0);
     return 0;
 }

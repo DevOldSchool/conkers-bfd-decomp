@@ -11,6 +11,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define pi_dma_wait_pending func_80004674
+
 typedef struct TransferThread TransferThread;
 
 struct TransferThread {
@@ -102,7 +105,7 @@ void func_80004514(u32 source, void *destination, u32 size, s32 blocking) {
         func_80023440(queue, 0, 1);
     }
 }
-void func_80004674(void) {
+void pi_dma_wait_pending(void) {
     s32 i;
 
     for (i = 0; i < (s32)D_8003A571; i++) {

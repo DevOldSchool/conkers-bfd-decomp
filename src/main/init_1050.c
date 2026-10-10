@@ -10,6 +10,10 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define boot_init func_80001050
+#define idle_thread_entry func_800010F8
+
 #if PROFILE_US
 #define queue_start func_800226F0
 #define configure_task func_800061F8
@@ -89,7 +93,7 @@ extern u8 task_queue;
 extern u8 D_80031AE0;
 extern u8 queue_end;
 
-void func_80001050(void) {
+void boot_init(void) {
     queue_start(&bss_start, &queue_end - &bss_start);
     configure_task(1, 0x1F);
     reset_task();
@@ -99,7 +103,7 @@ void func_80001050(void) {
     start_task(&task_queue);
 }
 
-void func_800010F8(s32 arg0) {
+void idle_thread_entry(s32 arg0) {
     func_80004470();
     queue_message(&D_80031AE0, 3, &D_10001194, arg0, &task_queue, 10);
     if ((D_8002AC5C == 0) && (D_80000310 == 0x17D9)) {
