@@ -121,5 +121,5 @@ def render_status(status: dict) -> list[str]:
                       f"- Report SHA-256: `{status['report_sha256']}`.",
                       f"- {'Matched' if current else 'Last snapshot (not current)'} code: **{status['matched_code']:,} / {status['total_code']:,} bytes ({status['matched_code_percent']:.4f}%)**."])
     lines.extend(['', 'Same metric and generator as the decomp.dev badge (`./conker objdiff report`).',
-                  'This section shows CPU-code progress. The published report also measures initialized CPU data, the rebuilt font and reviewed textures; other assets, boot code, RSP and EU remain excluded.', ''])
+                  'This section shows CPU-code progress. The published report also measures initialized CPU data and all bounded font, flat and indexed asset storage. Unreconstructed storage stays unmatched; unassigned ROM regions, duplicate CPU archive backing, boot code, RSP and EU remain excluded.', ''])
     return lines

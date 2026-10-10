@@ -171,7 +171,7 @@ After the raw base split map is available
                                  Survey, extract, preview, or byte-verify US non-MP3 audio assets.
   texture-assets <extract|pack|build|verify|survey> [options]
                                  Survey, extract, rebuild, or verify proven US textures.
-  model-assets <appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]
+  model-assets <build|recover|appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]
                                  Export model banks or run cached ROM, glTF, Blender and image checks.
   hud-assets <survey|extract|preview|verify> [options]
                                  Extract, preview, or verify US HUD/menu metadata and sprites.
@@ -1296,8 +1296,14 @@ case "$command" in
         fi
         ;;
     model-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker model-assets <appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]"
-        if [[ "$1" == "alpha-frontier" ]]; then
+        [[ $# -ge 1 ]] || die "usage: ./conker model-assets <build|recover|appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]"
+        if [[ "$1" == "build" ]]; then
+            [[ $# -eq 1 ]] || die "usage: ./conker model-assets build"
+            run_in_container python3 scripts/model_build.py build-parts
+        elif [[ "$1" == "recover" ]]; then
+            shift
+            run_in_container python3 scripts/model_build.py recover "$@"
+        elif [[ "$1" == "alpha-frontier" ]]; then
             shift
             python3 scripts/model_character_alpha.py "$@"
         elif [[ "$1" == "event-activation" ]]; then

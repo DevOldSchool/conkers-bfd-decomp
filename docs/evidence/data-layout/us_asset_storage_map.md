@@ -174,7 +174,7 @@ A changed font remains a compared candidate rather than altering the reference.
 Native font coverage is 5,440/5,440 matched and completed stored bytes, including
 the 13-byte alignment tail. Completion requires the current editable glyphs and
 metadata to encode exactly to the actual ROM linker input and original storage.
-The published report combines 201,632 loaded initialized-data bytes with these
+The initial font/texture report combined 201,632 loaded initialized-data bytes with these
 5,440 font bytes and 8,284,692 bytes of 6,865 rebuilt textures: 8,491,764 total.
 The [texture batch](us_texture_reconstruction.md) documents independent PNG and
 compression proof. Current matching and completion measures are
@@ -193,7 +193,8 @@ Bank `0x16` is a group in `config/profiles/us.yaml` with 822 explicit subsegment
 It links individual rebuilt inputs for 453 encoded MP3 files, an index containing
 462 original records, and 368 verified padding files. Its 23,586,160-byte
 stored range is verified by the packer and complete ROM build. MP3 storage is
-excluded from the objdiff comparison report. See
+now included as unmatched storage in the objdiff denominator; the copied encoded
+streams receive no automatic reconstruction credit. See
 [the bank build evidence](us_mp3_bank_build.md) for exact ranges, edit constraints,
 report accounting and the complete ROM check.
 
@@ -201,10 +202,25 @@ report accounting and the complete ROM check.
 
 Bank `0x17` is now a group with 272 explicit YAML/linker inputs, including
 149 individually bounded compact sequences. These raw storage ranges are
-currently outside the published report scope. See the
+included as unmatched storage in the published report denominator. See the
 [bank-17 boundary evidence](us_audio_bank17_boundaries.md).
 
 
 Font record integration was verified on 2026-10-09 against main `1716856`.
 The complete US ROM still matches after replacing the aggregate font object
 with 96 YAML-driven linker inputs. Log: `build/us/data-boundaries/font-splits-build.log`.
+
+## Rebuilt bank-03 model inputs
+
+The [first model batch](us_model_reconstruction.md) partitions bank 03 through
+`us/assets/models03.yaml`, rebuilding 22 independently bounded RZIP entries
+from native model records. Index bytes, gaps and unselected entries retain
+their original raw backing and receive no model completion credit.
+
+## Complete bounded-storage denominator
+
+The report now includes all bounded asset storage, retaining unrebuilt ranges
+without candidates. The asset total is 64,918,880 bytes; with initialized CPU
+data, Data totals 65,120,512 bytes. See the
+[accounting proof and scope](us_asset_storage_accounting.md). Earlier totals in
+this document record historical validation of narrower report scope.

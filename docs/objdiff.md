@@ -71,8 +71,9 @@ This builds the mapped SDK archives and active C implementations, prepares
 independent splat targets for every range in `config/overlays.json`, and
 invokes the pinned native `objdiff-cli report generate`. It covers tracked
 main/game/debugger US CPU code and initialized data, including raw/unassigned ranges,
-plus the rebuilt font and 6,865 reviewed textures. The command uses four
-object-preparation workers and validates cached base object hashes before
+plus all bounded asset storage. The font, 6,865 reviewed textures and 22 reviewed
+models have reconstructed candidates; remaining asset storage stays unmatched.
+The command uses four object-preparation workers and validates cached base object hashes before
 reuse. The first run requires the pinned `lib/ultralib` submodule (`git
 submodule update --init lib/ultralib`).
 
@@ -132,8 +133,9 @@ Output is local under `build/us/objdiff-report/`:
   GitHub Actions artifact contents. The protected US CI workflow uploads the
   JSON directly as `us_report`; this local command does not upload or register
   anything. See [CI and registration](ci.md#toolchain-and-reporting).
-- `objdiff.json`: the generated code and initialized-data project.
+- `objdiff.json`: the generated code, initialized-data and stored-asset project.
 - `data/`: independently assembled data references, C/SDK candidates and linked image proofs.
+- `storage/`: target-only objects for unreconstructed asset spans, grouped by storage region.
 - `owned/`: combined source/SDK targets and `verification.json`, proving the exact
   grouped report inputs reproduce all six original code and data images.
 - `targets/`: isolated splat configs, original full assembly, normalized copies,
@@ -141,7 +143,7 @@ Output is local under `build/us/objdiff-report/`:
 - `coverage.json`: range ownership, source/SDK mappings, target link proofs,
   excluded zero ranges, cache keys, object hashes, and any compiler failures.
 - `validation.json`: US profile, snapshot revision/fingerprint, modified-input status,
-  report hash, exact denominator checks,
+  report hash, exact denominator checks, bounded-storage partition proof,
   timings, native measures, and existing tracker totals.
 - `self-changes.json`: the report compared with itself through objdiff's native
   parser; it must contain no changed units.
@@ -153,7 +155,7 @@ validated target objects did not change. Compilation failures remain explicit
 in coverage, retain the reference in the denominator, and produce a failing
 command exit status. See each unit's `build.log` for diagnostics.
 
-Report freshness requires the font and texture source inputs used to produce their candidates.
+Report freshness requires the font, texture and model source inputs used to produce their candidates.
 Cleaning `build/` invalidates that evidence (and usually removes the report itself);
 recreate the inputs and regenerate the report after cleaning. During preparation,
 completed source units run Make before the cache check so the cache hashes the
@@ -164,13 +166,33 @@ and other builds finish, because they can update the same linked objects.
 ### Scope
 
 The published report covers the project's **tracked US CPU-code ranges and
-initialized main/GAME/debugger data images**, plus the **rebuilt font and 6,865 reviewed textures**. Its data
-denominator is 8,491,764 bytes: 201,632 loaded bytes (7,824 main, 189,088 GAME and
-4,720 debugger), 5,440 bytes of font storage and 8,284,692 stored texture bytes. Existing
-YAML placements and reviewed linker/private-data contracts establish mapped
-ranges; all remaining bytes stay as unassigned targets. Shared storage is
-counted once. BSS, other stored assets (including MP3 and raw audio), boot code
-outside the tracked ranges, RSP and EU/PAL are excluded.
+initialized main/GAME/debugger data images**, plus **all bounded font, flat and
+indexed asset storage**. Its Data denominator is **65,120,512 bytes**:
+201,632 initialized CPU-data bytes (7,824 main, 189,088 GAME and 4,720 debugger)
+and 64,918,880 stored asset bytes. The asset total includes the entire flat
+archive, its alignment gap, the outer bank index, all 30 bank ranges (including
+inner indices and gaps), and font storage. See the
+[storage accounting evidence](evidence/data-layout/us_asset_storage_accounting.md).
+
+The rebuilt font, 6,865 reviewed textures and 22 reviewed models retain their
+independent comparison and completion gates. All remaining bounded asset bytes
+have independent ROM targets **without candidates or completion credit**. In
+particular, identifying a model bank or repacking original encoded MP3 streams
+does not automatically establish reconstruction credit. Newly reconstructed
+ranges replace their own unmatched storage spans, keeping the denominator fixed.
+
+Every physical asset byte is counted once. Loaded CPU data and code are measured
+in decoded bytes; their compressed GAME archive backing is not counted again.
+BSS, unassigned ROM regions before the font/flat archives and after the final
+bank, boot code outside tracked ranges, RSP and EU/PAL remain excluded. The sum
+of Code and Data is therefore not a partition of the physical ROM size.
+
+Native categories provide Stored assets, Flat assets, Model banks, Animation
+bank, Audio banks and Other asset storage alongside Data. These describe storage
+families, including their metadata and gaps, rather than semantic completion of
+every contained resource. Textures embedded in models do not add another stored
+allocation. Each family is a subset of Stored assets and Data; do not add these
+overlapping category totals together.
 
 Data references are assembled independently with original code as disassembly
 context, and each complete linked data image must reproduce the checked ROM.
@@ -214,8 +236,7 @@ When this report is first published, fully-linked code can decrease for two
 reasons: a grouped unit owns data still supplied by ROM, or its linked data fails
 native symbol matching. Native matched code and function inventory records are
 unchanged by this completion policy; the drop reflects a stricter whole-unit gate.
-Rebuilt font bytes contribute to the ordinary Data category, with no separate
-Font or Rebuilt assets category. The font earns completion when all 95 editable
+Rebuilt font bytes contribute to Data, Stored assets and Other asset storage. The font earns completion when all 95 editable
 PGM glyphs and their manifest rebuild through the canonical Makefile rule into the exact original 5,440 bytes
 (including 13 alignment bytes). Its candidate concatenates the `.data` payloads of the 96 actual ROM link inputs:
 `build/us/assets/font/glyphs/0000.o` through `0094.o`, then `font/padding.o`.
@@ -233,8 +254,14 @@ Independent texture references use four bounded workers with unchanged byte and 
 Each candidate is the actual ROM link object, checked against a fresh encode;
 each target comes from the checksum-validated ROM. Changed texture pixels,
 palette, metadata or compressed output fail this exact-reconstruction pilot.
-The 8,284,692 stored bytes enter Data once; decoded bytes and adjacent raw storage
-do not add credit. Native matching and source/link-input verification gate completion.
+The 8,284,692 reconstructed stored bytes enter Data once; decoded bytes do not
+add storage, and adjacent raw storage remains in the denominator without credit. Native matching and source/link-input verification gate completion.
+
+[The 22 selected bank-03 models](evidence/data-layout/us_model_reconstruction.md)
+reconstruct native header, vertex and display-command records through fresh RZIP
+compression. Their actual ROM linker inputs and independent stored-byte targets
+use the same native matching and source-stability gates. Raw bank index, gaps
+and unselected records remain in the Model banks denominator without credit.
 
 Generation validates code and data counts per unit, aggregate data coverage,
 unassigned ranges, target/base hashes, and asset source/build-input hashes.
