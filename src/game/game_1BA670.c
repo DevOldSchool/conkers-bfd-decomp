@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1518D1C0
  * - func_1518D6E0
- * - func_1518E308
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -42,28 +41,20 @@ typedef struct Game1BA670State {
 void func_1516972C(void *);
 void func_100226F0(void *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518E308 CURRENT (8) */
 void func_1518E308(Game1BA670State *arg0) {
-    Game1BA670Slot *first;
     Game1BA670Slot *slot;
     s32 i;
 
     slot = arg0->slots;
-    first = slot;
     arg0->field_28 = 0;
-    i = 0;
     arg0->field_24 = 0.0f;
-    do {
+    for (i = 0; i < 100; i++, slot++) {
         if (slot->effect != 0) {
             func_1516972C(slot->effect);
         }
-        i++;
-        slot++;
-    } while (i != 100);
-    func_100226F0(first, sizeof(arg0->slots));
+    }
+    func_100226F0(arg0->slots, sizeof(arg0->slots));
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518E308 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BA670/func_1518E308.s")
 /* Call context: func_1518E308: unique active project prototype */
 void func_1518E308(Game1BA670State *);
 

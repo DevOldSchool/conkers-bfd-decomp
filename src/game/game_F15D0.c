@@ -19,7 +19,7 @@ void func_15149368(s32 arg0);
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F15D0/func_150C4120.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F15D0/func_150C44A4.s")
 void func_150C4AD8(void *arg0) {
-    volatile void **field_34 = (volatile void **)((u8 *)arg0 + 0x34);
+    void **field_34 = (void **)((u8 *)arg0 + 0x34);
 
     if (*field_34 != 0) {
         func_1516972C((void *)*field_34);

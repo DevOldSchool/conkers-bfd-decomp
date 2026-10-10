@@ -893,15 +893,15 @@ void func_100111C8(s32, void *);
 void func_151346EC(void *);
 
 void func_151AB788(void *arg0) {
-    void *sp18;
-    void *temp_v0;
+    u8 *state;
+    void *data;
 
-    temp_v0 = (void *)(*(s32 *)((u8 *)arg0 + 0x58) + 0x58);
-    if (*(volatile u16 *)((u8 *)arg0 + 0x5E) != 0) {
-        sp18 = temp_v0;
-        func_100111C8((s32) *(u16 *)((u8 *)arg0 + 0x5E), arg0);
+    state = (u8 *)arg0 + 0x58;
+    data = (u8 *)*(void **)state + 0x58;
+    if (*(u16 *)((u8 *)arg0 + 0x5E) != 0) {
+        func_100111C8(*(u16 *)(state + 6), arg0);
     }
-    *(s32 *)((u8 *)temp_v0 + 0x1C) = 0;
+    *(s32 *)((u8 *)data + 0x1C) = 0;
     func_151346EC(arg0);
 }
 /* Call context: func_100111C8: unique active project prototype */
@@ -909,15 +909,15 @@ void func_151AB788(void *arg0) {
 void func_1513470C(void *);
 
 void func_151AB7D8(void *arg0) {
-    void *sp18;
-    void *temp_v0;
+    u8 *state;
+    void *data;
 
-    temp_v0 = (void *)(*(s32 *)((u8 *)arg0 + 0x58) + 0x58);
-    if (*(volatile u16 *)((u8 *)arg0 + 0x5E) != 0) {
-        sp18 = temp_v0;
-        func_100111C8((s32) *(u16 *)((u8 *)arg0 + 0x5E), arg0);
+    state = (u8 *)arg0 + 0x58;
+    data = (u8 *)*(void **)state + 0x58;
+    if (*(u16 *)((u8 *)arg0 + 0x5E) != 0) {
+        func_100111C8(*(u16 *)(state + 6), arg0);
     }
-    *(s32 *)((u8 *)temp_v0 + 0x1C) = 0;
+    *(s32 *)((u8 *)data + 0x1C) = 0;
     func_1513470C(arg0);
 }
 void func_15141DA4(s32 arg0, s32 arg1, s32 arg2, void *arg3);

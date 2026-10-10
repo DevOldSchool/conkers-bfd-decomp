@@ -342,9 +342,9 @@ segments:
     vram: 0x16000000
     align: 8
     subsegments:
-      # Provisional C collections, not reviewed original source objects.
-      - [0x19EA88, c, debugger/debugger_0000]
-      - [0x1A0558, c, debugger/debugger_1AD0]
+      # Reviewed debugger source units: docs/evidence/debugger/us_debugger_source_units.md
+      - [0x19EA88, c, done/debugger/debugger_0000]
+      - [0x1A0558, c, done/debugger/debugger_1AD0]
       - [0x1A20D8, asm, debugger/tlb]
       - [0x1A2178, data, debugger/data]
   # Outer asset-table records bound each bank; child entries remain in their bank.

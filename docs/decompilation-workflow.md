@@ -506,7 +506,7 @@ with independent full-span ROM proof (for example, routines with a custom ABI):
 ```sh
 ./conker verify-original-asm <id> --reason "reviewed custom ABI" --evidence-reference docs/evidence/<review>.md
 ./conker verify-original-asm <id> --check
-./conker verify-original-asm <id> --refresh
+./conker verify-original-asm <id> [<id>...] --refresh
 ```
 
 The command assembles/links the original body, verifies its entire registered ROM
@@ -519,7 +519,8 @@ Use `--refresh` when regenerated assembly text changes but the routine's recorde
 ROM bytes remain identical. It reassembles the complete span and updates the text
 hash transactionally, preserving the existing classification. Changed ROM/span
 hashes are rejected; normal validation and `--check` continue to reject stale
-evidence. Materialization preserves existing verified original assembly.
+evidence. Name every stale item in one refresh: only the named items may carry a
+stale text hash while each is re-verified in turn. Materialization preserves existing verified original assembly.
 
 Main proofs use the checksum-validated CPU interval, excluding the boot blob and
 RSP payloads. Main and debugger batches require full-ROM equality; game batches require the

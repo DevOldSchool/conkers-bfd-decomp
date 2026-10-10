@@ -474,7 +474,7 @@ extern Game1865D0A974Entry D_800A636C[];
 void *func_151A8B20(void *, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 
-void func_1515A974(void *volatile arg0, s32 arg1) {
+void func_1515A974(void *arg0, s32 arg1) {
     typedef struct { u8 bytes[4]; } Byte4;
     typedef struct { s32 words[10]; } Copy40;
     Game1865D0A974Descriptor descriptor;
@@ -484,26 +484,27 @@ void func_1515A974(void *volatile arg0, s32 arg1) {
     u8 temp_v1;
 
     temp_v1 = *(u8 *)((u8 *)arg0 + 0x1F);
-    if ((s32)temp_v1 <= 0) {
-        temp_v0 = &D_800A636C[temp_v1];
-        descriptor.field00 = 0xF;
-        descriptor.owner = arg0;
-        descriptor.field08 = *(f32 *)&temp_v0->bytes[0];
-        descriptor.field0C = *(f32 *)&temp_v0->bytes[4];
-        descriptor.field24 = 0;
-        descriptor.field25 = -1;
-        descriptor.field26 = 2;
-        descriptor.zero10 = 0.0f;
-        descriptor.zero14 = 0.0f;
-        descriptor.zero18 = 0.0f;
-        descriptor.zero1C = 0.0f;
-        descriptor.zero20 = 0.0f;
-        *(Byte4 *)&payload.bytes[0] = *(Byte4 *)&temp_v0->bytes[8];
-        *(Copy40 *)&payload.bytes[4] = *(Copy40 *)&temp_v0->bytes[0xC];
-        result = func_151A8B20(&descriptor, -1, 0x2C, 0xFF, 0);
-        if (result != 0) {
-            func_10022EC0((u8 *)result + 0x80, &payload, 0x2C);
-        }
+    if (temp_v1 > 0) {
+        return;
+    }
+    temp_v0 = &D_800A636C[temp_v1];
+    descriptor.field00 = 0xF;
+    descriptor.owner = arg0;
+    descriptor.field08 = *(f32 *)&temp_v0->bytes[0];
+    descriptor.field0C = *(f32 *)&temp_v0->bytes[4];
+    descriptor.field24 = 0;
+    descriptor.field25 = -1;
+    descriptor.field26 = 2;
+    descriptor.zero10 = 0.0f;
+    descriptor.zero14 = 0.0f;
+    descriptor.zero18 = 0.0f;
+    descriptor.zero1C = 0.0f;
+    descriptor.zero20 = 0.0f;
+    *(Byte4 *)&payload.bytes[0] = *(Byte4 *)&temp_v0->bytes[8];
+    *(Copy40 *)&payload.bytes[4] = *(Copy40 *)&temp_v0->bytes[0xC];
+    result = func_151A8B20(&descriptor, -1, 0x2C, 0xFF, 0);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x80, &payload, 0x2C);
     }
 }
 typedef struct {

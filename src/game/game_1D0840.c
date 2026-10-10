@@ -53,7 +53,7 @@ void *func_15160A58(void *, s32, void *, s32, s32, s32, s32, s32,
 extern f32 D_800A8D50;
 extern f32 D_800A8D54;
 
-void func_151A3390(u8 *arg0, volatile u8 arg1) {
+void func_151A3390(u8 *arg0, u8 arg1) {
     Game1D0840LaunchPacket packet;
     f32 origin[3];
 
@@ -749,7 +749,7 @@ void func_151A4A38(u8 *object) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4A38.s")
 void func_151A4CE0(void *arg0, void *arg1, u8 arg2) {
     void *temp_v0;
-    u8 *tmp2;
+    s32 value;
 
     temp_v0 = *(void **)((u8 *)arg0 + 0x98);
     if (arg2 == 0) {
@@ -757,15 +757,14 @@ void func_151A4CE0(void *arg0, void *arg1, u8 arg2) {
             func_151A4E9C(arg0);
         }
     } else if (arg2 == 0x2D) {
-        arg0 = *(void **)((u8 *)arg1 + 0);
-        tmp2 = (u8 *)temp_v0;
-        if ((s32)arg0 == *(s32 *)(tmp2 + 0)) {
+        value = *(s32 *)((u8 *)arg1 + 0);
+        if (value == *(s32 *)((u8 *)temp_v0 + 0)) {
             *(s32 *)((u8 *)temp_v0 + 0) = *(s32 *)((u8 *)arg1 + 4);
             *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 9);
             return;
         }
-        if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)(tmp2 + 0)) {
-            *(s32 *)((u8 *)temp_v0 + 0) = (s32)arg0;
+        if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)((u8 *)temp_v0 + 0)) {
+            *(s32 *)((u8 *)temp_v0 + 0) = value;
             *(u8 *)((u8 *)temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 8);
         }
     }
@@ -838,7 +837,7 @@ void func_151A4E9C(void *arg0) {
     *(s8 *)((u8 *)arg0 + 0x30) = 0;
     *(u16 *)((u8 *)arg0 + 0x1E) = (u16) (*(u16 *)((u8 *)arg0 + 0x1E) & 0xFFFD);
     temp_v0[0x30] |= 1;
-    ((volatile u8 *)temp_v0)[0x30] = temp_v0[0x30] | 4;
+    temp_v0[0x30] |= 4;
 }
 extern void *func_151A3504(void *arg0, u8 arg1);
 

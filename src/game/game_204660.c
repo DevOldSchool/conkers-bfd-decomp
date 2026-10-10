@@ -104,12 +104,12 @@ void func_151D7264(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D7264 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7264.s")
-extern void (*volatile D_8008FCA4[])(void *, s32, u8);
+extern void (*D_8008FCA4[])(void *, s32, u8);
 
 void func_151D73A8(void *arg0, s32 arg1, u8 arg2) {
-    volatile u8 *selector;
+    u8 *selector;
 
-    selector = (volatile u8 *)((u8 *)arg0 + 0x2C);
+    selector = (u8 *)arg0 + 0x2C;
     if (D_8008FCA4[*selector] != 0) {
         D_8008FCA4[*selector](arg0, arg1, arg2);
     }
@@ -136,7 +136,7 @@ void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
 void func_151D747C(void *arg0) {
     struct {
         void *sp18;
-        volatile u8 sp1C;
+        u8 sp1C;
     } sp;
 
     sp.sp18 = arg0;

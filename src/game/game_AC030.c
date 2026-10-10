@@ -119,16 +119,13 @@ s32 func_1507EC38(u8 *candidates, s32 candidate_count, u8 *output,
     }
     return result;
 }
-void func_1507EE58(volatile u8 arg0, u8 *arg1) {
-    s32 value;
+void func_1507EEB8(u8, u8 *);
 
+void func_1507EE58(u8 arg0, u8 *arg1) {
     func_1507EEB8(arg0, arg1);
-    value = arg0;
-    if (value == 0x11) {
+    if (arg0 == 0x11) {
         func_1507EEB8(0x12, arg1);
-        return;
-    }
-    if (value == 0x12) {
+    } else if (arg0 == 0x12) {
         func_1507EEB8(0x11, arg1);
     }
 }
@@ -182,22 +179,14 @@ void func_1507EEF4(u32 arg0) {
     }
 }
 void func_1507EFA0(s32 arg0, u8 *arg1) {
-    s32 var_v0;
-    u8 *var_v1;
+    s32 i;
 
-    var_v0 = 4;
-    var_v1 = arg1 + 4;
-loop_1:
-    var_v0 -= 1;
-    if (arg0 == *var_v1) {
-        *var_v1 = 0;
-        return;
+    for (i = 4; i >= 0; i--) {
+        if (arg0 == arg1[i]) {
+            arg1[i] = 0;
+            return;
+        }
     }
-    var_v1 -= 1;
-    if (var_v0 < 0) {
-        return;
-    }
-    goto loop_1;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EFD0.s")
 typedef struct GameAC030AnimationState {
@@ -241,30 +230,27 @@ s32 func_1507F454(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507F454 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507F454.s")
 s32 func_1507F4C0(s32 arg0) {
-    s32 sp20;
-    s32 var_v1;
-    u32 var_a0;
-    u32 sp1C;
+    u32 random;
+    s32 base;
+    u32 range;
 
     if (arg0 == 0) {
-        var_v1 = 0xB4;
-        var_a0 = 0x3C;
-        goto block_7;
-    }
-    if (D_800BE9F0 == 0x31) {
-        return 0;
-    }
-    var_v1 = 0;
-    if (arg0 == 1) {
-        var_v1 = 0x3C;
-        var_a0 = 0x3C;
+        base = 0xB4;
+        range = 0x3C;
     } else {
-        var_a0 = 0x1E;
+        if (D_800BE9F0 == 0x31) {
+            return 0;
+        }
+        base = 0;
+        if (arg0 == 1) {
+            base = 0x3C;
+            range = 0x3C;
+        } else {
+            range = 0x1E;
+        }
     }
-block_7:
-    sp20 = var_v1;
-    sp1C = var_a0;
-    return (func_150ADA20(var_a0) % var_a0) + var_v1;
+    random = func_150ADA20(range);
+    return (random % range) + base;
 }
 void func_1505E650(u8 *, s32, s32, s32, f32, f32, s32);
 extern u8 D_800B85A4[];
@@ -370,7 +356,7 @@ void func_1507FC2C(void *volatile arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507FC2C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507FC2C.s")
 
-void func_1507FC2C(void *volatile);
+void func_1507FC2C(void *);
 void func_1507FF94(void *);
 extern s32 D_800BE9E4;
 extern u8 D_800C35EA;

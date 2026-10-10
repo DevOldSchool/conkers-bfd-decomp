@@ -1476,15 +1476,15 @@
       "functions": [
         "func_151927C0"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x192800",
           "start": "0x1927C0",
-          "state": "candidate"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1BFC70.c"
+      "source": "src/done/game/game_1BFC70.c"
     },
     {
       "boundary_evidence": {
@@ -1854,15 +1854,15 @@
       "functions": [
         "func_1508EF80"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x8F060",
           "start": "0x8EF80",
-          "state": "candidate"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_BC430.c"
+      "source": "src/done/game/game_BC430.c"
     },
     {
       "boundary_evidence": {
@@ -2143,15 +2143,15 @@
         "func_15016500",
         "func_15016588"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x16670",
           "start": "0x16500",
-          "state": "candidate"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_439B0.c"
+      "source": "src/done/game/game_439B0.c"
     },
     {
       "boundary_evidence": {
@@ -11336,7 +11336,7 @@
         "us": {
           "end": "0x11EF40",
           "start": "0x11E780",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_14BC30.c"
@@ -17969,15 +17969,15 @@
       "functions": [
         "func_1501C730"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x1C860",
           "start": "0x1C730",
-          "state": "candidate"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_49BE0.c"
+      "source": "src/done/game/game_49BE0.c"
     },
     {
       "boundary_evidence": {
@@ -20293,6 +20293,84 @@
         }
       },
       "source": "src/done/main/init_38E0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/debugger/us_debugger_source_units.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_16000000",
+        "func_16000028",
+        "func_16000058",
+        "func_16000224",
+        "func_16000314",
+        "func_16000384",
+        "func_16000424",
+        "func_16000590",
+        "func_160006CC",
+        "func_1600078C",
+        "func_16000A5C",
+        "func_16000B14",
+        "func_16000F8C",
+        "func_16001044",
+        "func_160012B0",
+        "func_16001338",
+        "func_16001390",
+        "func_160014F0",
+        "func_1600160C",
+        "func_16001678",
+        "func_160016F4",
+        "func_16001700",
+        "func_16001830",
+        "func_160018BC",
+        "func_16001984",
+        "func_160019A8",
+        "func_16001A6C",
+        "func_16001AB0"
+      ],
+      "integration": "c",
+      "regions": {
+        "us": {
+          "end": "0x1A0558",
+          "start": "0x19EA88",
+          "state": "complete"
+        }
+      },
+      "source": "src/done/debugger/debugger_0000.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/debugger/us_debugger_source_units.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_16001AD0",
+        "func_16001B00",
+        "func_16001B34",
+        "func_16001B8C",
+        "func_16001BB4",
+        "func_160021FC",
+        "func_1600288C",
+        "func_16002D2C",
+        "func_16002DE4",
+        "func_160033A8"
+      ],
+      "integration": "c",
+      "regions": {
+        "us": {
+          "end": "0x1A20D8",
+          "start": "0x1A0558",
+          "state": "complete"
+        }
+      },
+      "source": "src/done/debugger/debugger_1AD0.c"
     }
   ]
 }

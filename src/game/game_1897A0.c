@@ -157,50 +157,46 @@ s32 func_1515C534(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515C534 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1897A0/func_1515C534.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1897A0/func_1515C6F4.s")
-s32 func_1515CF9C(void *arg0, void *arg1)
-{
-  typedef struct
-  {
-    s32 unk0;
-    s32 unk4;
-    s32 unk8;
-  } Vec3;
-  typedef struct
-  {
-    u8 pad[0x39];
-    s8 unk39;
-  } A1;
-  s32 temp_v1;
-  s8 temp_v0;
-  s8 *temp_t1;
-  A1 *b = arg1;
-  temp_v0 = *((s8 *) (((u8 *) arg0) + 0x2C));
-  if (((s32) temp_v0) < ((*((u8 *) (((u8 *) arg0) + 0x25))) - 1))
-  {
-    temp_v1 = *((s32 *) (((u8 *) arg0) + 0x94));
-    *((s8 *) (((u8 *) arg0) + 0x2C)) = (s8) (temp_v0 + 1);
-    temp_t1 = (s8 *) (temp_v1 + (((*((s8 *) (((u8 *) arg0) + 0x2E))) * 0x10) ^ 0));
-    *((Vec3 *) ((s8 *) (temp_v1 + ((*((s8 *) (((u8 *) arg0) + 0x2E))) * 0x10)))) = *((Vec3 *) (((u8 *) arg0) + 0x10));
-    *((f32 *) (((s8 *) (temp_v1 + ((*((s8 *) (((u8 *) arg0) + 0x2E))) * 0x10))) + 0xC)) = *((f32 *) (((u8 *) arg1) + 8));
-    *((s8 *) (((u8 *) arg0) + 0x2E)) = (s8) ((*((s8 *) (((u8 *) arg0) + 0x2E))) + 1);
-    if ((*((u8 *) (((u8 *) arg0) + 0x25))) == (*((s8 *) (((u8 *) arg0) + 0x2E))))
-    {
-      goto zero;
+typedef struct Game1897A0Vec3i {
+    s32 x, y, z;
+} Game1897A0Vec3i;
+
+typedef struct Game1897A0TrailPoint {
+    Game1897A0Vec3i position;
+    f32 width;
+} Game1897A0TrailPoint;
+
+typedef struct Game1897A0Trail {
+    u8 pad0[0x10];
+    Game1897A0Vec3i position;
+    u8 pad1C[9];
+    u8 capacity;
+    u8 pad26[6];
+    s8 count;
+    u8 pad2D;
+    s8 head;
+    u8 pad2F[0x65];
+    Game1897A0TrailPoint *points;
+} Game1897A0Trail;
+
+s32 func_1515CF9C(Game1897A0Trail *arg0, u8 *arg1) {
+    s8 count;
+
+    count = arg0->count;
+    if (count < arg0->capacity - 1) {
+        Game1897A0TrailPoint *points = arg0->points;
+
+        arg0->count = count + 1;
+        points[arg0->head].position = arg0->position;
+        points[arg0->head].width = *(f32 *)(arg1 + 8);
+        arg0->head++;
+        if (arg0->head == arg0->capacity) {
+            arg0->head = 0;
+        }
+    } else {
+        *(s8 *)(arg1 + 0x39) = -1;
     }
-    goto done;
-    zero:
-    *((s8 *) (((u8 *) arg0) + 0x2E)) = 0;
-
-    done:
-    ;
-
-    ;
-  }
-  else
-  {
-    b->unk39 = -1;
-  }
-  return 1;
+    return 1;
 }
 s32 func_1515D030(void *arg0, s32 arg1) {
     s32 var_v1;

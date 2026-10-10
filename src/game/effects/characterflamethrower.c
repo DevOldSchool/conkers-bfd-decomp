@@ -635,7 +635,6 @@ s32 func_15197AB4(void *arg0) {
 s32 func_15197BBC(void *arg0) {
     f32 temp_fa0;
     f32 temp_fv0;
-    s16 *tmp1;
     f32 temp_fv1;
 
     temp_fv0 = *(f32 *)((u8 *)arg0 + 0x30);
@@ -644,8 +643,7 @@ s32 func_15197BBC(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fv0 - (temp_fv0 * temp_fv1));
     *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (temp_fa0 - (temp_fa0 * temp_fv1));
     if (*(s16 *)((u8 *)arg0 + 0x1C) < *(s16 *)((u8 *)arg0 + 0x168)) {
-        tmp1 = (s16 *)((u8 *)arg0 + 0x16A);
-        *(s8 *)((u8 *)arg0 + 0x5C) = (s8) (*tmp1 * *(s16 *)((u8 *)arg0 + 0x1C));
+        *(s8 *)((u8 *)arg0 + 0x5C) = (s8) (*(s16 *)((u8 *)arg0 + 0x16A) * *(s16 *)((u8 *)arg0 + 0x1C));
     }
     return 1;
 }

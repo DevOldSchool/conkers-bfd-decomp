@@ -154,6 +154,16 @@ class OriginalAssemblyTests(unittest.TestCase):
             parsed.symbols = {0: [(".L80008120", 1, 0, 0)]}
             with self.assertRaisesRegex(ValueError, "unsupported"):
                 original_asm.verify(root, entry)
+            symbol_file = root / "config/symbols/us.txt"
+            symbol_file.parent.mkdir(parents=True)
+            symbol_file.write_text("__OSGlobalIntMask = 0x8002BD1C; // size:0x4\n")
+            parsed.symbols = {0: [("__OSGlobalIntMask", 0, 0, 0)]}
+            original_asm.verify(root, entry)
+            self.assertEqual({"__OSGlobalIntMask": 0x8002BD1C}, link.call_args.args[5])
+            for invalid in (("other_symbol", 0, 0, 0), ("__OSGlobalIntMask", 4, 0, 0)):
+                parsed.symbols = {0: [invalid]}
+                with self.assertRaisesRegex(ValueError, "unsupported"):
+                    original_asm.verify(root, entry)
             parsed.symbols = {}
             proof = root / "proof.json"
             proof.write_text(json.dumps({"symbol": "func_test", "evidence": evidence}))

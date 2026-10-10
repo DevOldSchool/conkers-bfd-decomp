@@ -25,13 +25,13 @@ extern s32 D_800BE628;
 extern u8 *D_800DC2A0[];
 extern u8 D_800D2CA8[];
 
-void func_15094EA0(volatile s32 arg0) {
+void func_15094EA0(s32 arg0) {
     u8 sp58[0x40];
     u8 sp18[0x40];
 
     func_151EFEB8(sp58, (s32)(D_800DC2A0[D_800BE9C0] + (arg0 << 6)));
     func_151EFEB8(sp18, (s32)((u8 *)D_800BE628 + (arg0 * 0x180) + (D_800BE9C0 << 6) + 0x100));
-    func_150A7A48(sp58, sp18, D_800D2CA8 + (arg0 << 6));
+    func_150A7A48(sp58, sp18, D_800D2CA8 + arg0 * 0x40);
 }
 extern s32 D_800873D0;
 extern s32 D_800D2CA0;

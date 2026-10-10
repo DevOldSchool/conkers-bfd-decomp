@@ -87,6 +87,14 @@ class OriginalAssemblyRefreshTests(unittest.TestCase):
         self.save(other)
         with self.assertRaisesRegex(state.ProjectStateError, 'func_other.*changed'):
             state.validate_project(original_asm_refresh='func_test')
+        # A multi-item refresh relaxes exactly the named items.
+        state.validate_project(original_asm_refresh=['func_test', 'func_other'])
+        with self.assertRaisesRegex(state.ProjectStateError, 'func_other.*changed'):
+            state.verify_original_asm(self.args())
+        with self.assertRaisesRegex(state.ProjectStateError, 'already classified'):
+            state.validate_project(original_asm_refresh=['func_test', 'missing'])
+        with self.assertRaisesRegex(state.ProjectStateError, '--refresh-with requires'):
+            state.verify_original_asm(self.args(refresh=False, check=True, refresh_with=['func_other']))
         self.save()
         with self.assertRaisesRegex(state.ProjectStateError, 'already classified'):
             state.validate_project(original_asm_refresh='missing')

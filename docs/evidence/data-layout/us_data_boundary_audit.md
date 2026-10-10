@@ -185,7 +185,7 @@ section still has to equal its audited extent, and all targets must relink to
 the complete original image byte for byte. This affects reference assembly only;
 C compiler flags and emitted candidate sections remain unchanged.
 
-The formatter base is freshly compiled from `src/debugger/debugger_1AD0.c`, with
+The formatter base is freshly compiled from `src/done/debugger/debugger_1AD0.c`, with
 GLOBAL_ASM placeholders removed and deferred C disabled. Its `.rodata` is 208
 bytes with 52 relocations. Before source grouping native objdiff awarded it zero
 matching bytes; no symbols are fabricated or resized to change that result. The two
