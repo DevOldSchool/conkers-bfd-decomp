@@ -202,12 +202,13 @@ def make_original_assets(path: Path, *, relative_to: Path | None = None) -> list
 def make_assets(path: Path, *, relative_to: Path | None = None) -> list[str]:
     """Plan inputs in one parse; dependencies are absolute unless a base is given."""
     try:
-        from scripts import audio_boundaries, font_splits, mp3_bank, texture_build
+        from scripts import audio_boundaries, font_splits, mp3_bank, texture_build, model_build
     except ModuleNotFoundError:
         import audio_boundaries
         import font_splits
         import mp3_bank
         import texture_build
+        import model_build
 
     profile, dependencies = _read(path)
     tokens = ["dep=" + (str(p) if relative_to is None else os.path.relpath(p, relative_to))
@@ -218,14 +219,12 @@ def make_assets(path: Path, *, relative_to: Path | None = None) -> list[str]:
     flat, _ = texture_build.layout_bins(path, configuration=profile)
     for label, rows in (("font", fonts), ("audio", audio), ("mp3", mp3), ("flat", flat)):
         tokens.extend(f"{label}=assets/{name}.bin" for _, name in rows)
-    if any(isinstance(s, dict) and s.get("name") == "asset_bank_03" and s.get("type") == "group"
-           for s in profile["segments"]):
-        try:
-            from scripts import model_build
-        except ModuleNotFoundError:
-            import model_build
-        models, _ = model_build.layout_bins(path, configuration=profile)
-        tokens.extend(f"model=assets/{name}.bin" for _, name in models)
+    for bank in model_build.BANKS:
+        if any(isinstance(s, dict) and s.get("name") == f"asset_bank_{bank:02d}" and s.get("type") == "group"
+               for s in profile["segments"]):
+            models, _ = model_build.layout_bins(path, bank=bank, configuration=profile)
+            tokens.append(f"model-bank={bank:02d}")
+            tokens.extend(f"model{bank:02d}=assets/{name}.bin" for _, name in models)
     for segment in ("main", "debugger"):
         tokens.extend("source=" + name for name in
                       profile_sources(profile, segment))
