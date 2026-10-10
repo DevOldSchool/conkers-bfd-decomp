@@ -27,12 +27,13 @@ def regions(rom: bytes, layout: dict) -> list[dict]:
     for _ in rzip_archive.iter_flat_rzip_entries(rom[flat_start:flat_end]):
         pass
     banks = rzip_archive.parse_asset_banks(rom, table)
+    # Optional evidence labels do not control report filters or byte accounting.
     categories = layout.get('asset_bank_categories')
-    allowed = {'assets-models', 'assets-animations', 'assets-audio', 'assets-other'}
+    if categories is None:
+        categories = {}
     if (not isinstance(categories, dict)
-            or set(categories) != {f'{b.index:02X}' for b in banks}
-            or any(not isinstance(v, str) or v not in allowed for v in categories.values())):
-        raise ValueError('asset bank categories must classify every ROM bank exactly once')
+            or any(not isinstance(v, str) or not v.strip() for v in categories.values())):
+        raise ValueError('asset bank evidence labels must be nonempty strings')
     result = []
 
     def add(key, start, end, category):
@@ -49,7 +50,7 @@ def regions(rom: bytes, layout: dict) -> list[dict]:
         # The checked US table is contiguous; preserve any bounded interbank gap.
         add(f'before-bank{bank.index:02X}', cursor, bank.start, 'assets-other')
         rzip_archive.parse_asset_entries(rom, bank)
-        category = categories[f'{bank.index:02X}']
+        category = categories.get(f'{bank.index:02X}', 'unclassified')
         add(f'bank{bank.index:02X}', bank.start, bank.end, category)
         cursor = bank.end
     return result
@@ -131,8 +132,10 @@ def prepare_remainder(rom: bytes, region: dict, output: Path) -> tuple[dict, dic
 
 def prepare(rom: bytes, layout: dict, rebuilt: list[dict], configs: list[dict], *,
             output: Path) -> tuple[list[dict], list[dict], dict]:
+    if len(rebuilt) != len(configs):
+        raise ValueError('rebuilt assets and report configs must have the same length')
     plan = partition(regions(rom, layout), rebuilt)
-    for _, config in zip(rebuilt, configs, strict=True):
+    for config in configs:
         config['metadata']['progress_categories'] = ['data']
     pairs = [prepare_remainder(rom, r, output) for r in plan if r['unreconstructed_bytes']]
     proof = {'rom_sha1': hashlib.sha1(rom).hexdigest(), 'regions': plan,

@@ -189,8 +189,9 @@ of Code and Data is therefore not a partition of the physical ROM size.
 
 All asset storage contributes to the single Data category in the public report.
 Storage families remain recorded in the coverage evidence, including their
-metadata and gaps, without separate dropdown categories. Textures embedded in
-models do not add another stored allocation.
+metadata and gaps, without separate dropdown categories. Bank-family labels are
+optional evidence metadata; unlabelled banks are recorded as `unclassified`.
+Textures embedded in models do not add another stored allocation.
 
 Data references are assembled independently with original code as disassembly
 context, and each complete linked data image must reproduce the checked ROM.
