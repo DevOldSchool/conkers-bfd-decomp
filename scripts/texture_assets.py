@@ -1024,7 +1024,7 @@ def scan_direct_texture_references(
 
 
 def survey_rectangular_textures(
-    profile: str, rom_argument: Path | None
+    profile: str, rom_argument: Path | None, *, flat_entries=None
 ) -> dict[str, Any]:
     rom_path, layout = resolve_rom(profile, rom_argument)
     normalized, source_order = normalize_rom(rom_path.read_bytes())
@@ -1034,7 +1034,9 @@ def survey_rectangular_textures(
 
     flat_start = layout["flat_assets_start"]
     flat_end = layout["flat_assets_end"]
-    flat_entries = list(iter_flat_rzip_entries(normalized[flat_start:flat_end]))
+    flat_entries = list(iter_flat_rzip_entries(normalized[flat_start:flat_end])
+                        if flat_entries is None else flat_entries)
+    flat_entry_count = max((entry.index for entry in flat_entries), default=-1) + 1
     rectangular = {
         entry.index: entry
         for entry in flat_entries
@@ -1155,14 +1157,14 @@ def survey_rectangular_textures(
         game.data,
         layout,
         target_indices,
-        len(flat_entries),
+        flat_entry_count,
     )
     tiled_groups, tiled_candidates = scan_tiled_render_groups(
         game.code,
         game.data,
         layout,
         target_indices,
-        len(flat_entries),
+        flat_entry_count,
     )
     tiled_only_indices = tiled_candidates - direct_indices
     preload_only_indices = preloaded_candidates - direct_indices - tiled_candidates
@@ -2012,6 +2014,7 @@ def verify_tiled_views(
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
+    subparsers.add_parser("build", help="rebuild reviewed textures as ROM link inputs")
     extract_parser = subparsers.add_parser("extract")
     extract_parser.add_argument("--profile", choices=("us",), default="us")
     extract_parser.add_argument(
@@ -2086,7 +2089,15 @@ def main() -> int:
         except ModuleNotFoundError:
             import texture_native
     try:
-        if args.command == "extract":
+        if args.command == "build":
+            try:
+                from scripts import texture_build
+            except ModuleNotFoundError:
+                import texture_build
+            proof = texture_build.build_parts()
+            print(f"Built {proof['texture_count']} textures: {proof['stored_bytes']} RZIP bytes; "
+                  f"matches original: {proof['matches_original']}")
+        elif args.command == "extract":
             default_name = args.profile
             if args.family != SQUARE_FAMILY_NAME:
                 default_name = f"{args.profile}-{args.family}"

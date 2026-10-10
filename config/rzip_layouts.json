@@ -51,7 +51,39 @@
       "game_vram": "0x15000000",
       "normalized_sha1": [
         "4cbadd3c4e0729dec46af64ad018050eada4f47a"
-      ]
+      ],
+      "asset_bank_categories": {
+        "00": "assets-other",
+        "01": "assets-models",
+        "02": "assets-animations",
+        "03": "assets-models",
+        "04": "assets-models",
+        "05": "assets-other",
+        "06": "assets-other",
+        "07": "assets-other",
+        "08": "assets-other",
+        "09": "assets-models",
+        "0A": "assets-other",
+        "0B": "assets-other",
+        "0C": "assets-other",
+        "0D": "assets-other",
+        "0E": "assets-other",
+        "0F": "assets-other",
+        "10": "assets-other",
+        "11": "assets-other",
+        "12": "assets-other",
+        "13": "assets-other",
+        "14": "assets-other",
+        "15": "assets-other",
+        "16": "assets-audio",
+        "17": "assets-audio",
+        "18": "assets-other",
+        "19": "assets-other",
+        "1A": "assets-other",
+        "1B": "assets-other",
+        "1C": "assets-other",
+        "1D": "assets-other"
+      }
     }
   },
   "schema_version": 1
