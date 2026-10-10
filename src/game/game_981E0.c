@@ -3820,7 +3820,6 @@ typedef struct Game981E0BeamEvent {
 } Game981E0BeamEvent;
 
 void func_151942E8(s32, s32, s32);
-void func_150335C8(void *, void *, s32, s32, s32, s32);
 f32 func_150484A0(f32, f32);
 void func_15166118(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern f32 D_8009A104;

@@ -493,8 +493,6 @@ typedef struct {
 } Game1DA6F8Object;
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_15147DA0(void *, void *, s32, s32, s32, s32, s32, s32,
-                   s32, s32, s32, void *, void *, u8, s32);
 extern u8 D_800AB3F4[], D_800AB404[], D_800AB330[];
 extern f32 D_800AB498;
 

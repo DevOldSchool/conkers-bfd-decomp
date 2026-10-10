@@ -406,7 +406,6 @@ s32 func_150C2700(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C2700 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2700.s")
-void func_15134908(s32 *, s32, u8, s32);
 extern f32 D_800A0280;
 extern f32 D_800A0284;
 
@@ -436,7 +435,7 @@ void func_150C2804(s32 arg0, s32 arg1, s32 arg2, s16 arg3, u8 arg4, s32 arg5) {
     sp1C.field_17 = 6;
     sp1C.field_18 = 3;
     sp1C.field_19 = -1;
-    func_15134908((s32 *)&sp1C, 0, arg4, arg5);
+    func_15134908(&sp1C, 0, arg4, arg5);
 }
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32, f32,
                    s32, s32, s32, s32, s32, s32);

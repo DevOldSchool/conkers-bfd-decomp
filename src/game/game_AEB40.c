@@ -934,7 +934,7 @@ void func_15084488(u8 *spawnRecord, s32 arg1, s32 arg2) {
  * Nonzero selectors are one-based; no sentinel or bounds normalization occurs.
  * See docs/evidence/assets/naming/actor_representation_selection_semantics.md.
  */
-u8 func_150849A0(void *actor) {
+s32 func_150849A0(void *actor) {
     u8 representationOverrideSelector;
 
     representationOverrideSelector = *(u8 *)((u8 *)actor + 0x1C9);

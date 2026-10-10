@@ -197,7 +197,6 @@ typedef struct {
 typedef struct { s16 kind[3]; } PipeExplodeKinds;
 
 void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
-void *func_15147DA0(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, void *, s32, u8, s32);
 u32 func_150ADA20(void);
 extern PipeExplodeKinds D_80088700;
 

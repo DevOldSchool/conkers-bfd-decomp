@@ -324,8 +324,6 @@ void func_150B0094(GameDC6B0Vector *arg0, GameDC6B0Vector *arg1, u8 arg2, s32 ar
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B0094 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150B0094.s")
 void func_150B02C0(void *arg0);
-void func_15132570(s32 arg0);
-void func_1513259C(s32 arg0);
 
 void func_150B02C0(void *arg0) {
     void **field_170 = (void **)((u8 *)arg0 + 0x170);
@@ -335,12 +333,12 @@ void func_150B02C0(void *arg0) {
     }
 }
 
-void func_150B02F0(s32 arg0) {
-    func_150B02C0((void *)arg0);
+void func_150B02F0(void *arg0) {
+    func_150B02C0(arg0);
     func_15132570(arg0);
 }
-void func_150B031C(s32 arg0) {
-    func_150B02C0((void *)arg0);
+void func_150B031C(void *arg0) {
+    func_150B02C0(arg0);
     func_1513259C(arg0);
 }
 typedef struct GameDC6B0Burst {

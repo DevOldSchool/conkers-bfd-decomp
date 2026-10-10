@@ -322,9 +322,6 @@ void func_151347CC(Blood347CCState *arg0, Blood347CCEvent *arg1, u8 arg2) {
 void func_151348F0(f32 arg0, f32 arg1, s32 arg2, s32 arg3) {
 
 }
-/* Call context: func_10022EC0: unique active declaration in the allowed source */
-/* Call context: func_15167A68: unique active declaration in the allowed source */
-void *func_15134908(void *, s32, u8, s32);
 
 void *func_15134908(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
     void *v0;
@@ -941,8 +938,6 @@ s32 func_15136A1C(BloodState *arg0) {
     }
     return 1;
 }
-/* Call context: func_15134908: unique active project prototype */
-void *func_15134908(void *, s32, u8, s32);
 extern f32 D_800A461C;
 extern f32 D_800A4620;
 

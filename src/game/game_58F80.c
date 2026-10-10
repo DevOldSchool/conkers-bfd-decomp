@@ -550,7 +550,6 @@ extern f32 D_80096DE0;
 extern f32 D_80096DE4;
 extern u8 D_800BE616;
 extern u8 D_800C35EA;
-u8 func_150849A0(void *);
 void func_150837D4(s32, u8, s32, void *);
 
 /* Semantic role: actor_update_distance_representation.

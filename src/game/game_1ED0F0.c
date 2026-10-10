@@ -422,14 +422,13 @@ void func_151C1570(volatile s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151C1570 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C1570.s")
-void func_151C1570(s32 arg0);
-void func_1513259C(s32 arg0);
+void func_151C1570(void *arg0);
 
-void func_151C15FC(s32 arg0) {
+void func_151C15FC(void *arg0) {
     func_151C1570(arg0);
     func_15132570(arg0);
 }
-void func_151C1628(s32 arg0) {
+void func_151C1628(void *arg0) {
     func_151C1570(arg0);
     func_1513259C(arg0);
 }

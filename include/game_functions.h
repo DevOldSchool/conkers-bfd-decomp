@@ -80,5 +80,11 @@ void *func_15190770(void *, s32, u8, s32);
 s32 func_15083FB0(u8);
 void func_1514EDF0(void *, void *);
 void *func_15130280(void *, u8, struct Game15D730CopyBlock *, s32, u8, s32);
+void *func_15147DA0(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, void *, s32, u8, s32);
+void func_15132570(void *);
+void func_1513259C(void *);
+void *func_15134908(void *, s32, u8, s32);
+void *func_150335C8(void *, void *, s32, s32, s32, s32);
+s32 func_150849A0(void *);
 
 #endif
