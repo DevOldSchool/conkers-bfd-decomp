@@ -75,10 +75,10 @@ void func_150D5A4C(void *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1028F0/func_150D5A6C.s")
 u32 func_150ADA20(void);
-void func_151541B8(s32, f32, s32, f32, f32, u8, s32);
+void func_151541B8(f32 *, f32, f32, f32, f32, u8, s32);
 f32 func_150ADA68();
 
-void func_150D6388(s32 arg0, u8 arg1, s32 arg2) {
+void func_150D6388(f32 *arg0, u8 arg1, s32 arg2) {
     struct {
         f32 value;
         u32 random;
@@ -86,7 +86,7 @@ void func_150D6388(s32 arg0, u8 arg1, s32 arg2) {
 
     locals.value = func_150ADA68();
     locals.random = func_150ADA20();
-    func_151541B8(arg0, (locals.value * 4.0f) + 15.0f, 0x3FAFF1E9,
+    func_151541B8(arg0, (locals.value * 4.0f) + 15.0f, 1.37457f,
                  (f32)((locals.random % 56U) + 0xC8), 0.0f, arg1, arg2);
 }
 void func_15154884(s32, f32, f32, f32, s32, s32);

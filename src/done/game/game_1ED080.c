@@ -6,7 +6,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_table_runs.md
  */
 
-void func_151BFBD0(s32 arg0) {
+void func_151BFBD0(void *arg0) {
     func_151BFB2C(arg0);
     func_15149368(arg0);
 }
