@@ -87,6 +87,9 @@ class CoveragePlanTests(unittest.TestCase):
                          {'size': 6, 'report_code_bytes': 0, 'report_data_bytes': 6}],
                         [{'name': 'assets/flat/textures/1063', 'metadata': {'complete': False}},
                          {'name': 'assets/flat/textures/1064', 'metadata': {'complete': False}}])), \
+                    patch.object(report, 'prepare_models', return_value=(
+                        [{'size': 5, 'report_code_bytes': 0, 'report_data_bytes': 5}],
+                        [{'name': 'assets/models/bank03/0003', 'metadata': {'complete': False}}])), \
                     patch.object(report, 'elf_text_symbols', return_value=symbols), \
                     patch.object(report.subprocess, 'run') as run:
                 report.prepare()
@@ -100,12 +103,13 @@ class CoveragePlanTests(unittest.TestCase):
             self.assertIn({'id': 'debugger', 'name': 'Debugger overlay'}, config['progress_categories'])
             self.assertEqual(coverage['mapped_code_bytes'], 12)
             self.assertEqual(coverage['expected_code_bytes'], 12)
-            self.assertEqual(coverage['stored_asset_bytes'], 18)
-            native = {'version': 2, 'measures': {'total_code': '12', 'total_data': '18'}, 'units': [
+            self.assertEqual(coverage['stored_asset_bytes'], 23)
+            native = {'version': 2, 'measures': {'total_code': '12', 'total_data': '23'}, 'units': [
                 {'name': u['name'], 'measures': {'total_code': '0', 'total_data': '8'}
                  if u['name'] == 'assets/font' else {'total_code': '0', 'total_data': '4'}
                  if u['name'] == 'assets/flat/textures/1063' else {'total_code': '0', 'total_data': '6'}
-                 if u['name'] == 'assets/flat/textures/1064' else {'total_code': '4'}} for u in config['units']]}
+                 if u['name'] == 'assets/flat/textures/1064' else {'total_code': '0', 'total_data': '5'}
+                 if u['name'] == 'assets/models/bank03/0003' else {'total_code': '4'}} for u in config['units']]}
             report.validate_report(native, coverage, config)
 
 

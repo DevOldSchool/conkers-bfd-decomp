@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "profile": "us",
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "bank": 3,
+  "encoder": {
+    "format": "rzip-raw-deflate",
+    "level": 9,
+    "window_bits": -15,
+    "memory_level": 8,
+    "strategy": 0
+  },
+  "entries": [
+    3,
+    51,
+    55,
+    56,
+    70,
+    71,
+    72,
+    76,
+    81,
+    82,
+    89,
+    91,
+    94,
+    98,
+    100,
+    101,
+    104,
+    105,
+    108,
+    109,
+    110,
+    113
+  ]
+}

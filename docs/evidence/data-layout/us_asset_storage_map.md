@@ -208,3 +208,10 @@ currently outside the published report scope. See the
 Font record integration was verified on 2026-10-09 against main `1716856`.
 The complete US ROM still matches after replacing the aggregate font object
 with 96 YAML-driven linker inputs. Log: `build/us/data-boundaries/font-splits-build.log`.
+
+## Rebuilt bank-03 model inputs
+
+The [first model batch](us_model_reconstruction.md) partitions bank 03 through
+`us/assets/models03.yaml`, rebuilding 22 independently bounded RZIP entries
+from native model records. Index bytes, gaps and unselected entries retain
+their original raw backing and receive no model completion credit.

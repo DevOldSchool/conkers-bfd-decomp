@@ -3,7 +3,7 @@
 
 References come from independently assembled splat full-disassembly units.
 Their linked code bytes must reproduce the original US CPU-code ranges. Missing implementations stay
-in the denominator. The rebuilt font and reviewed textures are included; other stored assets, BSS and RSP are excluded.
+in the denominator. The rebuilt font, reviewed textures and models are included; other stored assets, BSS and RSP are excluded.
 """
 from __future__ import annotations
 
@@ -184,6 +184,10 @@ def prepare_textures() -> tuple[list[dict], list[dict]]:
     return objdiff_data_targets.prepare_textures(main_private_data.validated_rom(ROOT), output=OUTPUT)
 
 
+def prepare_models() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_models(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
 def prepare() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     for name in ('objdiff.json', 'coverage.json'):
@@ -312,15 +316,16 @@ def prepare() -> None:
     data_built, data_config, data_coverage = prepare_data()
     font, font_config = prepare_font()
     textures, texture_configs = prepare_textures()
-    data_built.extend([font, *textures])
-    data_config.extend([font_config, *texture_configs])
-    stored_bytes = font['size'] + sum(t['size'] for t in textures)
+    models, model_configs = prepare_models()
+    data_built.extend([font, *textures, *models])
+    data_config.extend([font_config, *texture_configs, *model_configs])
+    stored_bytes = font['size'] + sum(t['size'] for t in [*textures, *models])
     data_coverage['loaded_data_bytes'] = data_coverage.get('expected_data_bytes', 0)
     data_coverage['expected_data_bytes'] = data_coverage.get('expected_data_bytes', 0) + stored_bytes
     data_coverage['mapped_data_bytes'] = data_coverage.get('mapped_data_bytes', 0) + stored_bytes
     data_coverage['stored_asset_bytes'] = stored_bytes
     grouped, grouped_config = objdiff_ownership.group_units(built + data_built, units + data_config, ROOT, OUTPUT)
-    coverage = {'scope': 'US main/game/debugger CPU code, initialized data, rebuilt font and reviewed textures; other assets, BSS and RSP excluded',
+    coverage = {'scope': 'US main/game/debugger CPU code, initialized data, rebuilt font, reviewed textures and models; other assets, BSS and RSP excluded',
                 'mapped_code_bytes': sum(u['code_bytes'] for u in built),
                 'expected_code_bytes': sum(u['report_code_bytes'] for u in built),
                 'excluded_zero_bytes': sum(u['excluded_zero_bytes'] for u in built),
@@ -476,7 +481,7 @@ def generate(binary: Path) -> int:
                   'data_target_verification': coverage.get('data_target_verification', {}),
                   'loaded_data_bytes': coverage.get('loaded_data_bytes', 0),
                   'stored_asset_bytes': coverage.get('stored_asset_bytes', 0),
-                  'data_coverage': 'Initialized CPU data plus rebuilt font and reviewed textures; asset completion requires exact current ROM build inputs',
+                  'data_coverage': 'Initialized CPU data plus rebuilt font, reviewed textures and models; asset completion requires exact current ROM build inputs',
                   'asset_verification': {u['key']: {k: u[k] for k in (
                       'literal_payload_matches_rom', 'source_inputs', 'linked_inputs', 'target_verification')}
                       for u in coverage['units'] if u.get('kind') == 'rebuilt_asset'},

@@ -71,7 +71,7 @@ This builds the mapped SDK archives and active C implementations, prepares
 independent splat targets for every range in `config/overlays.json`, and
 invokes the pinned native `objdiff-cli report generate`. It covers tracked
 main/game/debugger US CPU code and initialized data, including raw/unassigned ranges,
-plus the rebuilt font and 6,865 reviewed textures. The command uses four
+plus the rebuilt font, 6,865 reviewed textures and 22 reviewed models. The command uses four
 object-preparation workers and validates cached base object hashes before
 reuse. The first run requires the pinned `lib/ultralib` submodule (`git
 submodule update --init lib/ultralib`).
@@ -153,7 +153,7 @@ validated target objects did not change. Compilation failures remain explicit
 in coverage, retain the reference in the denominator, and produce a failing
 command exit status. See each unit's `build.log` for diagnostics.
 
-Report freshness requires the font and texture source inputs used to produce their candidates.
+Report freshness requires the font, texture and model source inputs used to produce their candidates.
 Cleaning `build/` invalidates that evidence (and usually removes the report itself);
 recreate the inputs and regenerate the report after cleaning. During preparation,
 completed source units run Make before the cache check so the cache hashes the
@@ -164,9 +164,9 @@ and other builds finish, because they can update the same linked objects.
 ### Scope
 
 The published report covers the project's **tracked US CPU-code ranges and
-initialized main/GAME/debugger data images**, plus the **rebuilt font and 6,865 reviewed textures**. Its data
-denominator is 8,491,764 bytes: 201,632 loaded bytes (7,824 main, 189,088 GAME and
-4,720 debugger), 5,440 bytes of font storage and 8,284,692 stored texture bytes. Existing
+initialized main/GAME/debugger data images**, plus the **rebuilt font, 6,865 reviewed textures and 22 reviewed models**. Its data
+denominator is 8,502,371 bytes: 201,632 loaded bytes (7,824 main, 189,088 GAME and
+4,720 debugger), 5,440 bytes of font storage 8,284,692 stored texture bytes and 10,607 stored model bytes. Existing
 YAML placements and reviewed linker/private-data contracts establish mapped
 ranges; all remaining bytes stay as unassigned targets. Shared storage is
 counted once. BSS, other stored assets (including MP3 and raw audio), boot code
@@ -235,6 +235,12 @@ each target comes from the checksum-validated ROM. Changed texture pixels,
 palette, metadata or compressed output fail this exact-reconstruction pilot.
 The 8,284,692 stored bytes enter Data once; decoded bytes and adjacent raw storage
 do not add credit. Native matching and source/link-input verification gate completion.
+
+[The 22 selected bank-03 models](evidence/data-layout/us_model_reconstruction.md)
+reconstruct native header, vertex and display-command records through fresh RZIP
+compression. Their actual ROM linker inputs and independent stored-byte targets
+use the same native matching and source-stability gates. Raw bank index, gaps
+and unselected records remain outside the reported model bytes.
 
 Generation validates code and data counts per unit, aggregate data coverage,
 unassigned ranges, target/base hashes, and asset source/build-input hashes.

@@ -140,6 +140,44 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
                 self.assertGreater(objects[0].stat().st_mtime_ns, before[0])
                 self.assertEqual(objects[1].stat().st_mtime_ns, before[1])
 
+    def test_model_parts_recover_and_preserve_unchanged_linker_objects(self):
+        shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
+        profile = self.root / 'config/profiles/us.yaml'
+        profile.write_text(profile.read_text() +
+            '  - name: asset_bank_03\n    type: group\n')
+        (self.root / 'config/model_build.us.json').write_text('{}')
+        (self.root / 'scripts/model_build.py').write_text("""from pathlib import Path
+from build_files import write_if_changed
+def layout_bins(profile, *, configuration=None):
+    return [(0, 'models/bank03/0003')], 1
+if __name__ == '__main__':
+    source = Path('build/assets/model-build/us/03/0003/model.json')
+    write_if_changed(Path('build/us/models/parts/models/bank03/0003.bin'), source.read_bytes())
+""")
+        inputs = self.root / 'build/assets/model-build/us/03/0003'
+        inputs.mkdir(parents=True)
+        (inputs / 'manifest.json').write_text('{}')
+        source = inputs / 'model.json'
+        source.write_bytes(b'model')
+        target = self.root / 'build/us/assets/models/bank03/0003.o'
+        part = self.root / 'build/us/models/parts/models/bank03/0003.bin'
+        def run():
+            return subprocess.run([MAKE, 'ASSETS=1', f'LD={sys.executable} {self.ld}',
+                                   str(target.relative_to(self.root))],
+                                  cwd=self.root, text=True, capture_output=True)
+        result = run()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        stamp = target.stat().st_mtime_ns
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(target.stat().st_mtime_ns, stamp)
+        part.unlink()
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(target.read_bytes(), b'model')
+        time.sleep(1.05)
+        source.unlink()
+        self.assertNotEqual(run().returncode, 0)
+        self.assertEqual(target.read_bytes(), b'model')
+
     def test_every_texture_module_and_encoder_contract_invalidates_packing(self):
         dependencies = sorted(path.relative_to(ROOT) for path in (ROOT / 'scripts').glob('texture_*.py'))
         dependencies += [Path('scripts/texture_future_selector.py'),

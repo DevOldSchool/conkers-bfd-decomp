@@ -37,7 +37,7 @@ ASM_SRCS := $(shell find asm/$(PROFILE) -type f -name '*.s' ! -path '*/nonmatchi
 ASM_OBJS := $(patsubst asm/%.s,$(BUILD_DIR)/asm/%.o,$(ASM_SRCS))
 REQUESTED_GOALS := $(patsubst ./%,%,$(if $(MAKECMDGOALS),$(MAKECMDGOALS),help))
 ifeq ($(ASSETS),0)
-ifneq ($(filter $(BUILD_DIR)/assets/flat/% $(BUILD_DIR)/assets/font/% $(BUILD_DIR)/assets/audio/%,$(REQUESTED_GOALS)),)
+ifneq ($(filter $(BUILD_DIR)/assets/flat/% $(BUILD_DIR)/assets/font/% $(BUILD_DIR)/assets/audio/% $(BUILD_DIR)/assets/models/%,$(REQUESTED_GOALS)),)
 $(error Reconstructed asset targets require ASSETS=1 or ./conker build --assets)
 endif
 endif
@@ -60,6 +60,8 @@ AUDIO_BANK_BINS := $(patsubst audio=%,%,$(filter audio=%,$(PROFILE_ASSETS)))
 MP3_BANK_BINS := $(patsubst mp3=%,%,$(filter mp3=%,$(PROFILE_ASSETS)))
 FLAT_BINS := $(patsubst flat=%,%,$(filter flat=%,$(PROFILE_ASSETS)))
 TEXTURE_BINS := $(filter assets/flat/textures/%.bin,$(FLAT_BINS))
+MODEL_BANK_BINS := $(patsubst model=%,%,$(filter model=%,$(PROFILE_ASSETS)))
+MODEL_BINS := $(filter assets/models/bank03/%.bin,$(MODEL_BANK_BINS))
 endif
 endif
 ifneq ($(PROFILE_ASSETS),)
@@ -92,6 +94,7 @@ FONT_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(FONT_BINS))
 AUDIO_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(AUDIO_BANK_BINS))
 MP3_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(MP3_BANK_BINS))
 TEXTURE_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(TEXTURE_BINS))
+MODEL_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(MODEL_BINS))
 endif
 
 # US bin segments mirror the reviewed storage map in config/profiles/us.yaml.
@@ -101,7 +104,7 @@ ASSET_BINS_us := \
 	assets/game_data_rzip.bin assets/game_data_gap.bin assets/unassigned_after_debugger.bin \
 	$(FLAT_BINS) assets/assets_flat_gap.bin assets/asset_bank_index.bin \
 	assets/asset_bank_00.bin assets/asset_bank_01.bin assets/asset_bank_02.bin \
-	assets/asset_bank_03.bin assets/asset_bank_04.bin assets/asset_bank_05.bin \
+	$(MODEL_BANK_BINS) assets/asset_bank_04.bin assets/asset_bank_05.bin \
 	assets/asset_bank_06.bin assets/asset_bank_07.bin assets/asset_bank_08.bin \
 	assets/asset_bank_09.bin assets/asset_bank_0a.bin assets/asset_bank_0b.bin \
 	assets/asset_bank_0c.bin assets/asset_bank_0d.bin assets/asset_bank_0e.bin \
@@ -383,6 +386,7 @@ ASSET_PACK_DEPS := Makefile $(PROFILE_INPUTS) scripts/profile_config.py config/r
 	toolchain/python-requirements.txt $(ROM_PATH)
 FONT_PARTS := $(patsubst assets/%,$(BUILD_DIR)/fonts/parts/%,$(FONT_BINS))
 MP3_BANK_PARTS := $(patsubst assets/%,$(BUILD_DIR)/audio/parts/%,$(MP3_BANK_BINS))
+MODEL_PARTS := $(patsubst assets/%,$(BUILD_DIR)/models/parts/%,$(MODEL_BINS))
 TEXTURE_PARTS := $(patsubst assets/%,$(BUILD_DIR)/textures/parts/%,$(TEXTURE_BINS))
 .PHONY: asset-parts-missing
 asset-parts-missing:
@@ -397,6 +401,17 @@ $(BUILD_DIR)/fonts/parts.stamp: $(ASSET_PACK_DEPS) scripts/font_splits.py script
 	$(TIMING) --stage fonts -- python3 scripts/font_splits.py build-parts
 	@touch $@
 $(FONT_PARTS): $(BUILD_DIR)/fonts/parts.stamp ;
+endif
+
+ifneq ($(MODEL_PARTS),)
+MODEL_INPUTS := $(wildcard build/assets/model-build/us/03 build/assets/model-build/us/03/* build/assets/model-build/us/03/*/*)
+MODEL_PARTS_MISSING := $(filter-out $(wildcard $(MODEL_PARTS)),$(MODEL_PARTS))
+MODEL_MANIFESTS := $(patsubst assets/models/bank03/%.bin,build/assets/model-build/us/03/%/manifest.json,$(MODEL_BINS))
+MODEL_PARTS_MISSING += $(filter-out $(wildcard $(MODEL_MANIFESTS)),$(MODEL_MANIFESTS))
+$(BUILD_DIR)/models/parts.stamp: $(ASSET_PACK_DEPS) scripts/model_build.py scripts/texture_build.py $(wildcard scripts/model_*.py) scripts/rzip_pack.py config/model_build.us.json $(MODEL_INPUTS) $(if $(MODEL_PARTS_MISSING),asset-parts-missing)
+	$(TIMING) --stage models -- python3 scripts/model_build.py build-parts
+	@touch $@
+$(MODEL_PARTS): $(BUILD_DIR)/models/parts.stamp ;
 endif
 
 ifneq ($(TEXTURE_PARTS),)
@@ -440,6 +455,12 @@ $(MP3_BANK_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/audio/parts/%.bin
 $(TEXTURE_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/textures/parts/%.bin
 	@if test ! -f "$@" || test "$<" -nt "$@"; then \
 		mkdir -p "$(@D)" && cd $(BUILD_DIR)/textures/parts && \
+		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
+	fi
+
+$(MODEL_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/models/parts/%.bin
+	@if test ! -f "$@" || test "$<" -nt "$@"; then \
+		mkdir -p "$(@D)" && cd $(BUILD_DIR)/models/parts && \
 		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
 	fi
 
