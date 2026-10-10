@@ -17,7 +17,6 @@ typedef struct Game1765E0EffectHeader {
     u8 data[0x10];
 } Game1765E0EffectHeader;
 
-Game1765E0EffectHeader *func_15167A68();
 void func_100226F0(void *, s32);
 
 /*

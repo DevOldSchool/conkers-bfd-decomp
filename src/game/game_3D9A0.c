@@ -12,7 +12,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern s32 func_151149AC(u8 arg0);
 extern u8 D_800D9950[];
 extern s8 D_80088980;
 
@@ -23,7 +22,7 @@ void func_150104F0(void) {
     Col *c = (Col *)&D_800D9950;
 
     c->unk[0] = c->unk[1] = c->unk[2] = 0;
-    *(f32 *)(func_151149AC(0xF6) + 0x7C) = 2.0f;
+    *(f32 *)((u8 *)func_151149AC(0xF6) + 0x7C) = 2.0f;
     D_80088980 = 0;
 }
 

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_FE340.c
@@ -10,7 +11,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-s32 func_151149AC(u8);
 void func_15136C3C(void *, s32, s32, s32, s32, s32, s32, s32);
 void func_15145A50(u8 *);
 void func_10010154(s32, void *, s32, s32, s32);
@@ -22,7 +22,7 @@ extern s32 D_80088898;
 extern s32 D_8008889C;
 extern s32 D_800BE9E4;
 extern u8 D_800CC2D0[];
-extern s32 D_800DBEF4;
+extern u8 *D_800DBEF4;
 extern u32 *D_800DBF94;
 
 void func_150D0E90(s32 arg0) {
@@ -36,14 +36,14 @@ void func_150D0E90(s32 arg0) {
     i = 0;
     if ((*(u8 **)(D_800CC2D0 + 0x31C))[0x120] == 0) {
         do {
-            index = (func_151149AC(0xFA - i) - D_800DBEF4) / 160;
+            index = ((u8 *)func_151149AC(0xFA - i) - D_800DBEF4) / 160;
             if (D_800DBF94[index] & 1) {
                 func_151951E0(D_800CC2D0);
                 func_10010154(0x627, D_800CC2D0, 0x7FFF, 0xC8, 0x2BC);
             }
             i++;
         } while (i != 3);
-        index = (func_151149AC(0xFB) - D_800DBEF4) / 160;
+        index = ((u8 *)func_151149AC(0xFB) - D_800DBEF4) / 160;
         if (D_800DBF94[index] & 1) {
             func_10010154(0x627, D_800CC2D0, 0x7FFF, 0xC8, 0x2BC);
             func_15136C3C(D_800CC2D0, 1, 1, 1, 1, 0, 0xFF, 1);

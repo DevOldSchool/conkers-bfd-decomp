@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_108AE0.c
@@ -45,7 +46,6 @@ typedef struct Game108AE0Owner {
 } Game108AE0Owner;
 
 void *func_10022EC0(void *, const void *, u32);
-f32 func_151423D8(u8);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 extern f32 D_800A0BF0;
 

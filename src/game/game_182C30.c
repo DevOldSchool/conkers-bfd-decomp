@@ -26,7 +26,6 @@ typedef struct {
 } Game182C30Effect;
 
 s32 func_1518C900(s32); /* extern */
-Game182C30Effect *func_15167A68(s32, s32, s32, s32, s32, s32); /* extern */
 
 Game182C30Effect *func_15155780(s32 arg0, s32 arg1) {
     Game182C30Effect *effect;
@@ -65,7 +64,6 @@ void func_151557FC(s32 arg0, s32 arg1, f32 arg2) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_1515589C.s")
-f32 func_15048A40(u8);
 void *func_15096934(void *);
 void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 extern u8 D_800BE9C0;

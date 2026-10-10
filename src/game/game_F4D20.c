@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_F4D20.c
@@ -91,8 +92,6 @@ void func_150C7968(GameF4D20State *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F4D20/func_150C7968.s")
 void func_1000D96C(s32, s32, s32);
 void func_1000DE1C(s32, s32);
-f32 func_150489B0(u8);
-f32 func_15048A40(u8);
 u32 func_150ADA20(void);
 void func_15179FE0(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern s32 D_800887F4;
@@ -159,8 +158,6 @@ typedef struct GameF4D20Object7C90 {
     u8 pad0[0x12];
     s16 angle;
 } GameF4D20Object7C90;
-
-void *func_151149AC(s32, s32 *, void *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7C90 CURRENT (1603) */
 void func_150C7C90(void *arg0) {

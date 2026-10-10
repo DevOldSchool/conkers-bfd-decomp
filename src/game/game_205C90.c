@@ -50,7 +50,6 @@ loop_1:
 s32 func_151D87E0(u8);
 s32 func_15181CC8(s32);
 s32 func_1517EF00(s32);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void *func_10022EC0(void *, const void *, u32);
 void func_1501C010(u8, u8);
 extern s32 D_80082FA0;

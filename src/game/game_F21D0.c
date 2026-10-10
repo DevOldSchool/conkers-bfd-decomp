@@ -27,7 +27,6 @@ typedef struct GameF21D0Mover {
 } GameF21D0Mover;
 
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-f32 func_15048A40(u8);
 extern f32 D_800A03F0;
 extern f32 D_800A03F4;
 extern f32 D_800A03F8;

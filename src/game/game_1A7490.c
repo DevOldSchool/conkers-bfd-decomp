@@ -43,7 +43,6 @@ typedef struct Game1A7490Motion {
 } Game1A7490Motion;
 
 u32 func_150ADA20(void);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 extern f32 D_800A7220;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15179FE0 CURRENT (2175) */

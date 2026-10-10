@@ -12,8 +12,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
-
 void *func_1519E970(s16 arg0, s32 arg1, u8 arg2, s32 arg3, s32 arg4, u8 arg5, s32 arg6) {
     void *temp_v0;
 

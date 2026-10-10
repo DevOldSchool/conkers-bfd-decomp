@@ -43,7 +43,6 @@ typedef struct {
 
 extern Game1104D0Slot *D_800D99D0[8];
 
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 extern f32 D_800A1030;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150E3020 CURRENT (1090) */

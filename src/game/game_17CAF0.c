@@ -681,7 +681,6 @@ typedef struct {
     s16 fadeStart, fadeRate;
 } Game1539B4Packet;
 
-f32 func_151423D8(u8);
 void *func_15156190(s32, u8, s32, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151539B4 CURRENT (1353) */

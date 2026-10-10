@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1483E0.c
@@ -437,8 +438,6 @@ typedef struct Game1483E0WaveMesh {
     s32 phase;
 } Game1483E0WaveMesh;
 
-f32 func_150489B0(u8);
-f32 func_15048A40(u8);
 void func_1511A494(void *, void *, void *);
 extern s32 D_800BE9E4;
 

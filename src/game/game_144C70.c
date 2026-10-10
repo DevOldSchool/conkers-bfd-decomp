@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_144C70.c
@@ -280,7 +281,6 @@ void func_15117D3C(Game144C70MotionState *arg0, Game144C70EventState *arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_15117D3C.s")
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
-void *func_151149AC(u8);
 void func_1511F31C(void *);
 extern f32 D_800A2FF4;
 extern f32 D_800A2FF8;
@@ -470,8 +470,6 @@ typedef struct {
 
 void func_151194D4(void *, void *, s32, s32);
 f32 func_150484A0(f32, f32);
-f32 func_150489B0(u8);
-f32 func_15048A40(u8);
 extern f32 D_800A315C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151196D4 CURRENT (970) */

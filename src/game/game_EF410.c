@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_EF410.c
@@ -508,7 +509,6 @@ typedef struct GameEF410Emitter {
     f32 field28[4];
 } GameEF410Emitter;
 
-f32 func_151423D8(u8);
 void func_15149550(f32 *, s32, s32, s32, s32, s32);
 extern f32 D_800A02A0;
 extern f32 D_800A02A4;

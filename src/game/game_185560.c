@@ -25,7 +25,6 @@ void *func_151580B0(void *arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4, u8 arg5, 
 void *func_10022EC0(void *, const void *, u32);
 void *func_1515D440(void);
 s32 func_1515D480(s32);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 extern s32 D_80082FA0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151580B0 CURRENT (20) */

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_E0F60.c
@@ -77,7 +78,6 @@ typedef struct GameE0F60Particle {
     s16 field38;
 } GameE0F60Particle;
 
-f32 func_151423D8(u8);
 void func_151429E0(u8, u8 *, u8 *, u8 *);
 void func_15156190(void *, u8, s32, u8, s32);
 void func_15156388(void *, u8, s32);

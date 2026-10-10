@@ -28,7 +28,7 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15112520.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15112A80.s")
 extern s32 D_800DBEF0;
-extern s32 D_800DBEF4;
+extern u8 *D_800DBEF4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15113180 CURRENT (185) */
 void func_15113180(void) {
@@ -642,12 +642,12 @@ void func_1511490C(Game13F9D0Transform *transform,
  * Return the first matching object address; zero ID or no match returns zero.
  * See docs/evidence/assets/naming/placed_object_helper_semantics.md.
  */
-s32 func_151149AC(u8 objectId) {
+void *func_151149AC(u8 objectId) {
     s32 requestedObjectId;
     s32 objectOffset;
-    s32 objectAddress;
+    u8 *objectAddress;
     s32 objectIndex;
-    s32 objectPoolBase;
+    u8 *objectPoolBase;
 
     requestedObjectId = objectId;
     if (requestedObjectId == 0) {
@@ -660,7 +660,7 @@ s32 func_151149AC(u8 objectId) {
         objectAddress = objectPoolBase;
         do {
             objectIndex += 1;
-            if (requestedObjectId == *(u8 *)((u8 *)objectAddress + 0x72)) {
+            if (requestedObjectId == objectAddress[0x72]) {
                 return objectOffset + objectPoolBase;
             }
             objectOffset += 0xA0;

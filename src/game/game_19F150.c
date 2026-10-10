@@ -32,8 +32,6 @@ typedef struct Game19F150Object {
     s8 field_59;
 } Game19F150Object;
 
-extern Game19F150Object *func_15167A68(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
-
 Game19F150Object *func_15171CA0(s16 arg0, u16 arg1, u8 arg2, s32 arg3, s32 arg4, s32 arg5, u8 arg6, s32 arg7) {
     Game19F150Object *var_v1;
 

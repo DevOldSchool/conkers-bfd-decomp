@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_EE710.c
@@ -70,7 +71,6 @@ typedef struct {
 
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 void func_15142314(s32, s32, void *);
-f32 func_151423D8(u8);
 void func_1514C2F0(f32, f32, f32, f32, u8, s8, s16, u8, s32, f32, s32, u8);
 void func_15165F80(s32, s32, s32, s32, s32, s32, s32, u8, s32);
 u32 func_150ADA20(void);

@@ -220,7 +220,7 @@ typedef struct {
     u8 bytes[4];
 } Game36680PackedLightIndices;
 
-void *func_1516037C(Game36680LightDescriptor *, s32, void *, u8, s32);
+void *func_1516037C(Game36680LightDescriptor *, s32, s32, u8, s32);
 extern Game36680PackedLightIndices D_80082BE0;
 
 void func_15009628(s32 arg0, s32 arg1) {
@@ -360,7 +360,7 @@ typedef struct Game36680LightParameters {
 
 s32 func_15187EC0(s32, f32, s32, s32, u8, u8, u8, u8);
 /* These callers consume the allocation pointer left by func_1516037C. */
-void *func_1516387C(s32, u8, s8, s16, u8, void *, u8, s32);
+void *func_1516387C(s32, u8, s8, s16, u8, s32, u8, s32);
 
 void func_15009BD0(s32 arg0, s32 arg1) {
     void *result;
@@ -369,7 +369,7 @@ void func_15009BD0(s32 arg0, s32 arg1) {
     parameters.offset = 0.0f;
     parameters.radius = 90.0f;
     parameters.index = func_15187EC0(0, 0.0f, 0, 0, 0, 220, 220, 255);
-    result = func_1516387C(arg0, 2, 0x10, 0x12C, 0, (void *)12, 255, 1);
+    result = func_1516387C(arg0, 2, 0x10, 0x12C, 0, 12, 255, 1);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0x18, &parameters, 12);
     }
@@ -381,7 +381,7 @@ void func_15009C7C(s32 arg0, s32 arg1) {
     parameters.offset = 0.0f;
     parameters.radius = 50.0f;
     parameters.index = func_15187EC0(0, 0.0f, 0, 0, 0, 220, 220, 255);
-    result = func_1516387C(arg0, 2, 0x10, 0x12C, 0, (void *)12, 255, 1);
+    result = func_1516387C(arg0, 2, 0x10, 0x12C, 0, 12, 255, 1);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0x18, &parameters, 12);
     }
@@ -424,7 +424,7 @@ void func_15009F74(s32 arg0, s32 arg1) {
     parameters.offset = 0.0f;
     parameters.radius = 60.0f;
     parameters.index = func_15187EC0(1, 0.1f, 100, 100, 100, 255, 100, 100);
-    result = func_1516387C(arg0, 2, 0x10, 0x12C, 0, (void *)12, 255, 1);
+    result = func_1516387C(arg0, 2, 0x10, 0x12C, 0, 12, 255, 1);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0x18, &parameters, 12);
     }
@@ -548,7 +548,7 @@ void func_1500A6D8(s32 arg0, s32 arg1) {
         descriptor.field_1 = 0x17;
         descriptor.field_2 = 0x12C;
         descriptor.field_4 = 0;
-        result = func_1516037C(&descriptor, arg0, (void *)0x18, 255, 1);
+        result = func_1516037C(&descriptor, arg0, 0x18, 255, 1);
         if (result != 0) {
             func_10022EC0((u8 *)result + 0x18, &attachment, 0x18);
         }
@@ -564,7 +564,6 @@ typedef struct Game36680AttachmentObject {
     s16 z;
 } Game36680AttachmentObject;
 
-void *func_151149AC(u8);
 extern Game36680SixIndices D_80082BF4;
 
 void func_1500A7E8(s32 arg0, s32 arg1) {
@@ -585,7 +584,7 @@ void func_1500A7E8(s32 arg0, s32 arg1) {
         descriptor.field_1 = 0x17;
         descriptor.field_2 = 0x12C;
         descriptor.field_4 = 0;
-        result = func_1516037C(&descriptor, arg0, (void *)0x18, 255, 1);
+        result = func_1516037C(&descriptor, arg0, 0x18, 255, 1);
         if (result != 0) {
             func_10022EC0((u8 *)result + 0x18, &attachment, 0x18);
         }

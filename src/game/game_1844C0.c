@@ -26,7 +26,6 @@ void *func_10022EC0(void *, const void *, u32);
 s32 func_1503F62C(s32, s32, void *, void *, void **, void *, void *);
 void *func_1515D440(void);
 void *func_1515D480(s32);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_1503F5B8(void *, s32, s32, f32, f32, s32);
 extern s32 D_80082FA0;
 

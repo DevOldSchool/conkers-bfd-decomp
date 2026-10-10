@@ -16,7 +16,6 @@ typedef struct Game196DB0Effect {
     u8 payload[0x3C];
 } Game196DB0Effect;
 
-Game196DB0Effect *func_15167A68(s32, s32, s32, s32, s32, s32);
 void func_10023A10(void *, void *, s32);
 
 Game196DB0Effect *func_15169900(void *arg0, s32 arg1) {

@@ -186,7 +186,6 @@ s32 func_1513416C(void *arg0) {
     }
     return 1;
 }
-void *func_15167A68(s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 void func_15143134(f32 *, f32 *, s32);
 
@@ -477,7 +476,6 @@ s32 func_15134CEC(void *arg0) {
 }
 /* Call context: func_10022EC0: unique active declaration in the allowed source */
 /* Call context: func_15167A68: unique active declaration in the allowed source */
-void * func_15167A68(s32, s32, s32, s32, s32, s32);
 void *func_15134DAC(void *arg0, s32 arg1) {
     void *v1;
     void *v0;

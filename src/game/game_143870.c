@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_143870.c
@@ -39,7 +40,6 @@ void func_151163C0(u8 *actor) {
     *(f32 *)(actor + 0x60) = result - previousSway;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_143870/func_1511650C.s")
-f32 func_15048A40(s32);                             /* extern */
 s32 func_150490A8(f32 *);                      /* extern */
 
 s32 func_15116888(s32 arg0, s32 arg1, s32 arg2, void *arg3) {
@@ -61,7 +61,7 @@ s32 func_15116888(s32 arg0, s32 arg1, s32 arg2, void *arg3) {
     angle = *(u16 *)((u8 *)arg3 + 0x76);
     angle = 0x40 - (angle >> 8);
     angle -= bearing;
-    cosine = func_15048A40(angle & 0xFF);
+    cosine = func_15048A40(angle);
     result = *(f32 *)((u8 *)arg3 + 0x3C) * cosine;
     return (s32)result;
 }

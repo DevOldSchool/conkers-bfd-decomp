@@ -1,11 +1,11 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_75E60.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_final_compact_units.md
  */
 
-f32 func_150489B0(u8 arg0);
 extern f32 D_8009A220[];
 
 f32 func_150489B0(u8 arg0) {

@@ -340,7 +340,6 @@ s32 func_151B1478(void *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B14AC.s")
 /* Call context: func_151423D8: unique active project prototype */
-f32 func_151423D8(u8);
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B1828 CURRENT (303) */

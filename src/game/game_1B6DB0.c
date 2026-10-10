@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1B6DB0.c
@@ -31,7 +32,6 @@ typedef struct {
 } Game1B6DB0Effect;
 
 void *func_10022EC0(void *, const void *, u32);
-Game1B6DB0Effect *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_1510F800(s32);
 s32 func_1510FD20(s32, s32);
 

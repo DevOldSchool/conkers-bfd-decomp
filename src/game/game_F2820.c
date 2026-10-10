@@ -13,7 +13,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void *func_15167A68(s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 f32 func_15143E64(f32 *);
 

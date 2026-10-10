@@ -20,7 +20,6 @@
  */
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_100226F0(void *, s32, void *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A7950 CURRENT (445) */

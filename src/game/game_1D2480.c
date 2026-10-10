@@ -23,8 +23,6 @@ typedef struct {
     s8 field_1A;
 } Game1D2480Effect;
 
-void *func_15167A68(s32, s32, s32, s32, s32, s32);
-
 Game1D2480Effect *func_151A4FD0(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
                                 s32 arg4, s32 arg5, u8 arg6, s32 arg7) {
     Game1D2480Effect *effect;

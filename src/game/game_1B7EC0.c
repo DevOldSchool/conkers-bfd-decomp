@@ -73,8 +73,6 @@ typedef struct Game1B7EC0RadialEffect {
     u8 pad25[3];
 } Game1B7EC0RadialEffect;
 
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
-
 void *func_1518AADC(s32 arg0, s16 arg1, u8 arg2) {
     s32 temp_t8;
     void *temp_v0;

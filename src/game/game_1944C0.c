@@ -277,7 +277,6 @@ typedef struct Game1944C0Effect28 {
     u8 payload[0x18];
 } Game1944C0Effect28;
 
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_10023A10(void *, void *, s32);
 
 void func_15167AD8(void *arg0, u8 arg1, s32 arg2) {
@@ -764,7 +763,6 @@ typedef struct Game1944C0Effect {
     u8 payload[0x60];
 } Game1944C0Effect;
 
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_10023A10(void *, void *, s32);
 
 void func_15168BE4(Game1944C0State *arg0, u8 arg1, s32 arg2) {

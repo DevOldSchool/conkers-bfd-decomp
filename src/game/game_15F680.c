@@ -389,7 +389,6 @@ s32 *func_15132B80(s32 *arg0, Game15F680TransformState *arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132B80.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132DDC.s")
 void *func_10022EC0(void *, const void *, u32);
-f32 func_151423D8(u8);
 extern f32 D_800BE9A4;
 extern s32 D_800BE9E4;
 

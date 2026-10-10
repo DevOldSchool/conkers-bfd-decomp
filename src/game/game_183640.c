@@ -17,7 +17,6 @@
  */
 
 typedef struct Game183640Copy3 { s32 words[3]; } Game183640Copy3;
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_100226F0(void *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15156190 CURRENT (933) */

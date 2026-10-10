@@ -18,5 +18,10 @@ void *func_15169968(void *);
 void *func_15149130(s16, s8, s8, s8, u8, u8, s32, u8, s32);
 void *func_151491F4(s16, s8, s8, u8, u8, s32, u8, s32);
 void func_151494E0(void *, u8);
+void *func_15167A68(s32, s32, s32, s32, u8, u8);
+f32 func_151423D8(u8);
+f32 func_15048A40(u8);
+f32 func_150489B0(u8);
+void *func_151149AC(u8);
 
 #endif

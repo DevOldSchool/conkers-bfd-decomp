@@ -53,7 +53,7 @@ typedef struct {
 } Game135D00LightWork;
 
 void *func_1513B5E0(s8 *, u8, s32, u8, s32);
-void *func_1516037C(void *, s32, void *, u8, s32);
+void *func_1516037C(void *, s32, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15108850 CURRENT (886) */

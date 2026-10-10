@@ -233,7 +233,6 @@ extern s8 D_800DDD8B;
 extern s8 D_800DDD8C;
 extern s16 D_800DDE08;
 extern u8 D_8008D010[][6];
-f32 func_15048A40(s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1517F564 CURRENT (3177) */
 s32 func_1517F564(s32 arg0) {

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_10EF60.c
@@ -53,7 +54,6 @@ extern Game10EF60Texture *D_8008CA4C[];
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 f32 func_150484A0(f32, f32);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_1516979C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150E1AB0 CURRENT (5622) */

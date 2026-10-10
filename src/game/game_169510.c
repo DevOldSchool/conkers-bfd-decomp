@@ -133,7 +133,6 @@ typedef struct Game169510Vec3 {
 } Game169510Vec3;
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_1513FFF4(void *, u8, u8);
 void func_151400D0(void *, void *);
 void *func_1515D440(void);
@@ -664,7 +663,6 @@ void func_1513E084(void *arg0, void *arg1, u8 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513E084 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513E084.s")
 /* Call context: func_151423D8: unique active project prototype */
-f32 func_151423D8(u8);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E13C CURRENT (2081) */
 void *func_1513E13C(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, u8 arg6) {

@@ -57,7 +57,6 @@ void func_15147928(s32);
 
 /* Call context: func_151423D8: unique active project prototype */
 /* Call context: func_15143E08: unique active project prototype */
-f32 func_151423D8(u8);
 s32 func_15143E08(u16 *);
 extern f32 D_800A8CE0;
 extern f32 D_800A8CE4;

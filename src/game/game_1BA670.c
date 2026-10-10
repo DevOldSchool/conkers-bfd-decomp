@@ -64,7 +64,6 @@ void func_1518E37C(void *arg0, u8 arg1) {
         *(u8 *)((u8 *)arg0 + 0x22) = arg1;
     }
 }
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void *func_10022EC0(void *, const void *, u32);
 
 void *func_1518E3C4(void **arg0, u8 arg1) {

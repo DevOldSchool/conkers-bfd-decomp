@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_2062D0.c
@@ -130,8 +131,6 @@ s32 func_151D8FE0(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9014.s")
 s32 func_151D9450(void *, void *);
 s32 func_151D9534(s32, s32);                        /* extern */
-
-f32 func_151423D8(u8);
 
 s32 func_151D93F4(s32 arg0, s32 arg1) {
     s32 var_v1;
@@ -743,7 +742,6 @@ void func_151DAB58(u8 arg0, f32 arg1, u8 arg2, f32 *arg3, s32 arg4, u8 arg5, s32
     }
 }
 /* Call context: func_151423D8: unique active project prototype */
-f32 func_151423D8(u8);
 
 s32 func_151DADA0(void *arg0) {
     typedef struct {

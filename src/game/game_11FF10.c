@@ -25,7 +25,6 @@ void func_10010630(u16, void *, s32, s16, u16);
 void func_15060F28(u8 *, s32);
 void func_1507CD64(void *, s32);
 void *func_15083E90(u8);
-s32 func_151149AC(u8);
 void func_15136C3C(void *, s32, s32, s32, s32, s32, s32, s32);
 void func_15145A50(u8 *);
 void func_15196318(void *, s32, s32);

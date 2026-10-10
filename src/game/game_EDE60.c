@@ -62,7 +62,6 @@ void func_150C0A48(s32 arg0) {
 }
 /* SDK memcpy alias and the matched allocator declaration. */
 void *func_10022EC0(void *, const void *, u32);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150C0AC0 CURRENT (815) */
 void *func_150C0AC0(u8 *arg0, u8 arg1, s32 arg2) {

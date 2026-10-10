@@ -49,7 +49,6 @@ typedef struct {
     f32 field3C;
 } GameE3900Spawn;
 
-f32 func_151423D8(u8);
 void func_15143794(s16, s16, f32, void *);
 void *func_150B3F5C(GameE3900Spawn *, GameE3900Vector *, s16);
 extern GameE3900Vector D_8009FC3C[];

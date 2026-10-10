@@ -20,7 +20,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-s32 func_151149AC(u8);
 void func_1505D024(s32, s32, s32, s32);
 typedef struct GameCollisionHeightActor {
     u8 pad00[0x18];
@@ -456,7 +455,6 @@ void func_150B0348(void *arg0, s32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150B0348.s")
 
 /* Call context: func_151149AC: unique active project prototype */
-s32 func_151149AC(u8);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B060C CURRENT (200) */
 s32 func_150B060C(u8 arg0, void *arg1) {

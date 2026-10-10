@@ -20,7 +20,6 @@
 
 void *func_10022EC0(void *, const void *, u32);
 void func_100226F0(void *, s32);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_15191B8C(s32, u8);
 u8 func_151D8E20(void);
 
@@ -60,7 +59,6 @@ void func_1519086C(s32 arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_15190898.s")
 /* Call context: func_151423D8: unique active project prototype */
-f32 func_151423D8(u8);
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15190F9C CURRENT (303) */

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_EEB70.c
@@ -28,7 +29,6 @@ typedef struct {
     u8 mode, count, pad1E[2];
 } GameEEB70Descriptor;
 
-f32 func_151423D8(u8);
 void *func_15147DA0(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, void *, s32, u8, s32);
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);

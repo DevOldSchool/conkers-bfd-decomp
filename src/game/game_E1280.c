@@ -225,7 +225,6 @@ void func_150B5060(void *arg0) {
     *(u8 *)((u8 *)temp_v0 + 0x1C) = (u8) (*(u8 *)((u8 *)temp_v0 + 0x1C) | 1);
 }
 f32 func_150ADA68(void);
-f32 func_151423D8(u8);
 void *func_15147DA0(void *, void *, s32, s32, s32, s32, s32, s32, s32,
                    s32, s32, void *, s32, u8, s32);
 extern u8 D_8009FBF0[];

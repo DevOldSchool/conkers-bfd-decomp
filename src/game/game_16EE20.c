@@ -997,7 +997,6 @@ void func_1514373C(f32 arg0, f32 arg1, f32 *arg2, f32 *arg3) {
     *arg3 = arg1 * sp1C;
 }
 /* Call context: func_151423D8: unique active project prototype */
-f32 func_151423D8(u8);
 
 void func_15143794(s16 arg0, s16 arg1, f32 arg2, void *arg3) {
     f32 sp24;
@@ -1028,7 +1027,6 @@ extern void func_15143794(s16 arg0, s16 arg1, f32 arg2, void *arg3);
 void func_15143834(s16 arg0, s16 arg1, f32 arg2, void *arg3) {
     func_15143794(arg0, arg1, arg2, arg3);
 }
-f32 func_151423D8(u8);                              /* extern */
 
 void func_15143874(s16 arg0, f32 arg1, f32 *arg2, f32 *arg3) {
     f32 sp1C;

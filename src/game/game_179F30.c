@@ -1166,8 +1166,6 @@ typedef struct {
     u8 pad1E[2];
 } Game179F30Effect;
 
-Game179F30Effect *func_15167A68(s32, s32, s32, s32, u8, u8);
-
 Game179F30Effect *func_1514EBA4(void *arg0, s16 arg1, s32 arg2) {
     Game179F30Effect *effect;
 
