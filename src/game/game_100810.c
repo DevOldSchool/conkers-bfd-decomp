@@ -17,8 +17,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_150D4C2C(s32 arg0);
-void func_15147928(s32 arg0);
+void func_150D4C2C(void *arg0);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D3360.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D3A68.s")
@@ -223,11 +222,11 @@ s32 func_150D4AE0(f32 *arg0, f32 *arg1, void *arg2, s32 arg3) {
     arg1[2] = *(f32 *)((u8 *)arg2 + 0x1C);
     return 2;
 }
-void func_150D4BD4(s32 arg0) {
+void func_150D4BD4(void *arg0) {
     func_150D4C2C(arg0);
     func_151478F4(arg0);
 }
-void func_150D4C00(s32 arg0) {
+void func_150D4C00(void *arg0) {
     func_150D4C2C(arg0);
     func_15147928(arg0);
 }
@@ -235,7 +234,7 @@ void func_1000FD38(void *, void *, s32);
 extern s8 D_8008FD8C;
 void func_150D5124(void);
 
-void func_150D4C2C(s32 arg0) {
+void func_150D4C2C(void *arg0) {
     void *temp_s0;
 
     temp_s0 = *(void **)((u8 *)arg0 + 0x98);

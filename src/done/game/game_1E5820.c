@@ -16,13 +16,11 @@ void func_151B8370(void *arg0) {
         func_1516972C((void *)temp_a1);
     }
 }
-void func_15147928(s32 arg0);
-
-void func_151B83A0(s32 arg0) {
-    func_151B8370((void *)arg0);
+void func_151B83A0(void *arg0) {
+    func_151B8370(arg0);
     func_151478F4(arg0);
 }
 void func_151B83CC(void *arg0) {
     func_151B8370(arg0);
-    func_15147928((s32)arg0);
+    func_15147928(arg0);
 }

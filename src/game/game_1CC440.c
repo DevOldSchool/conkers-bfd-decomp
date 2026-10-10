@@ -52,8 +52,6 @@ typedef struct Game1CC440AttachmentOwner {
     Game1CC440Attachments attachments;
 } Game1CC440AttachmentOwner;
 
-void func_151478F4(s32);
-void func_15147928(s32);
 
 /* Call context: func_151423D8: unique active project prototype */
 /* Call context: func_15143E08: unique active project prototype */
@@ -132,7 +130,7 @@ void func_1519F108(Game1CC440State *arg0) {
             data->field8 = 0;
         }
     }
-    func_151478F4((s32) arg0);
+    func_151478F4(arg0);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1519F108 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F108.s")
@@ -150,7 +148,7 @@ void func_1519F168(Game1CC440State *arg0) {
             ((Game1CC440NodeData *)arg0)->field8 = 0;
         }
     }
-    func_15147928((s32) owner);
+    func_15147928(owner);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1519F168 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F168.s")

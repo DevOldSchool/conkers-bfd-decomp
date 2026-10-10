@@ -453,6 +453,6 @@ s32 func_151490C8(void *arg0) {
     }
     return 1;
 }
-void func_15149104(void) {
-    func_151478F4();
+void func_15149104(void *arg0) {
+    func_151478F4(arg0);
 }

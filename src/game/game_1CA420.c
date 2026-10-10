@@ -49,10 +49,7 @@ void func_1519CFA0(Game1CA420Actor *arg0) {
     arg0->flags &= ~2;
     packet->flags = (packet->flags |= 1) | 4;
 }
-/* Call context: func_151478F4: unique active project prototype */
 /* Call context: func_1514EDF0: unique active project prototype */
-void func_151478F4(void *);
-
 void func_1519CFD0(void *arg0) {
     void **temp_v0;
 
@@ -60,10 +57,7 @@ void func_1519CFD0(void *arg0) {
     func_1514EDF0(arg0, *temp_v0);
     func_151478F4(arg0);
 }
-/* Call context: func_15147928: unique active project prototype */
 /* Call context: func_1514EDF0: unique active project prototype */
-void func_15147928(void *);
-
 void func_1519D000(void *arg0) {
     void **temp_v0;
 

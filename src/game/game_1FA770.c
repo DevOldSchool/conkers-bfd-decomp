@@ -465,8 +465,6 @@ void func_151CE47C(Game1FA770Object *arg0) {
     *(u16 *)&arg0->flags &= 0xFFFD;
     arg0->flags = *(u16 *)&arg0->flags | 8;
 }
-extern void func_151478F4(s32 arg0);
-
 void func_151CE49C(void *arg0) {
     s32 sp1C;
     u8 *state;
@@ -474,10 +472,8 @@ void func_151CE49C(void *arg0) {
     state = *(u8 **)((u8 *)arg0 + 0x98);
     sp1C = *(s32 *)(state + 0x48);
     func_151494E0(&sp1C, 0x23);
-    func_151478F4((s32) arg0);
+    func_151478F4(arg0);
 }
-extern void func_15147928(s32 arg0);
-
 void func_151CE4DC(void *arg0) {
     s32 sp1C;
     u8 *state;
@@ -485,7 +481,7 @@ void func_151CE4DC(void *arg0) {
     state = *(u8 **)((u8 *)arg0 + 0x98);
     sp1C = *(s32 *)(state + 0x48);
     func_151494E0(&sp1C, 0x23);
-    func_15147928((s32) arg0);
+    func_15147928(arg0);
 }
 typedef struct {
     f32 x;

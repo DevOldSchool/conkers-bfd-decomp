@@ -48,13 +48,11 @@ extern s32 D_800E08F0;
 struct CharacterFlamethrowerActor;
 void func_1519CDB0(struct CharacterFlamethrowerActor *arg0, f32 arg1, s32 arg2);
 void func_10010F30(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-void func_151478F4(s32 arg0);
 extern void (*D_8008F88C[])(void *);
 extern void (*D_8008F898[])(void *);
-extern void (*D_8008F8B4[])(s32);
+extern void (*D_8008F8B4[])(void *);
 extern void (*D_8008F8C0[])(void);
-void func_15147928(s32 arg0);
-void func_15199980(s32 arg0);
+void func_15199980(void *arg0);
 void func_100111C8(u16 arg0);
 struct CharacterFlamethrowerPanel;
 struct CharacterFlamethrowerPanel *func_15195DD4(s32, s32, s32, s32, s32, s32, s32);
@@ -554,7 +552,7 @@ void func_15196330(void *arg0) {
     if (temp_v1_2 != -1) {
         D_8008F88C[temp_v1_2](arg0);
     }
-    func_151478F4((s32)arg0);
+    func_151478F4(arg0);
 }
 void func_151963B4(void *arg0) {
     void *temp_v0;
@@ -570,7 +568,7 @@ void func_151963B4(void *arg0) {
     if (temp_v1_2 != -1) {
         D_8008F88C[temp_v1_2](arg0);
     }
-    func_15147928((s32)arg0);
+    func_15147928(arg0);
 }
 typedef struct CharacterFlamethrowerJetTemplate {
     s16 unk0;
@@ -1373,15 +1371,15 @@ void func_1519986C(CharacterFlamethrowerActor *actor, CharacterFlamethrowerEvent
         }
     }
 }
-void func_15199928(s32 arg0) {
+void func_15199928(void *arg0) {
     func_15199980(arg0);
     func_151478F4(arg0);
 }
-void func_15199954(s32 arg0) {
+void func_15199954(void *arg0) {
     func_15199980(arg0);
     func_15147928(arg0);
 }
-void func_15199980(s32 arg0) {
+void func_15199980(void *arg0) {
     CharacterFlamethrowerState *var_v1;
     s8 temp_v0;
     s8 temp_v0_2;

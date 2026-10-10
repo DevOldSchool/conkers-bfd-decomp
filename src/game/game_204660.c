@@ -545,19 +545,13 @@ void func_151D8764(void *arg0) {
         *(s32 *)((u8 *)leaf + 0x28) = 0;
     }
 }
-/* Call context: func_151478F4: unique active project prototype */
 /* Call context: func_151D8764: unique active project prototype */
-void func_151478F4(s32);
-
 void func_151D8780(void *arg0) {
     func_151D8764(arg0);
-    func_151478F4((s32) arg0);
+    func_151478F4(arg0);
 }
-/* Call context: func_15147928: unique active project prototype */
 /* Call context: func_151D8764: unique active project prototype */
-void func_15147928(s32);
-
 void func_151D87AC(void *arg0) {
     func_151D8764(arg0);
-    func_15147928((s32) arg0);
+    func_15147928(arg0);
 }

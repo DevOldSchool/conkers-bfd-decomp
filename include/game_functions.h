@@ -27,6 +27,8 @@ void func_1516979C(void *);
 void func_15169804(void *);
 void func_15169824(void *);
 void func_1514933C(void *);
+void func_151478F4(void *);
+void func_15147928(void *);
 void func_15149368(void *);
 void func_1513CA6C(void *);
 void func_1513CAA0(void *);
