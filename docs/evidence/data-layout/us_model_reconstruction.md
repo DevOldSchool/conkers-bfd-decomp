@@ -30,17 +30,17 @@ bytes, and pairs of native command words. Unknown header or command semantics
 remain uninterpreted; integer serialization preserves their bits. This is a
 native record reconstruction, not an OBJ/glTF importer.
 
-The bank contains 77 models. Twenty-five have this complete region layout;
-22 reproduce their original compressed bytes with the reviewed zlib encoder.
-Entries 1, 39 and 54 do not reproduce their original RZIP bytes with this
-encoder; they and the 52 records with additional regions are excluded from
-this first batch. No original compressed payload
-is copied into a reconstructed candidate and no opaque tail is admitted.
+The bank contains 77 models, of which 25 have this complete region layout.
+Twenty-two reproduce their original compressed bytes with the reviewed zlib
+encoder. Entries 1, 39 and 54 fail that compression check, and the other 52
+records contain additional regions. Those 55 records are excluded from the
+first batch. Candidates contain no copied original compressed payloads or
+opaque tails.
 
 ## Build and report contract
 
 `./conker model-assets build` initializes source records below
-`build/assets/model-build/us/03/<entry>/` only when absent. Each bundle contains
+`build/assets/model-build/us/<bank>/<entry>/` only when absent. Each bundle contains
 `manifest.json` and `model.json`; existing incomplete or changed bundles fail
 without being replaced. Initialization publishes a complete bundle atomically.
 The packer validates every selected candidate and rechecks its source hashes
@@ -51,9 +51,9 @@ size/hash. Edited geometry is retained but rejected by this exact-match build;
 this command is not a ROM model-editing workflow. Compression drift fails
 without choosing another encoder or falling back to original ROM bytes.
 
-`./conker build --assets` links 22 reconstructed objects under
-`build/us/assets/models/bank03/`. The ordinary default build continues to use
-the original bank. Each native report candidate is copied from the actual
+`./conker build --assets` links 79 reconstructed objects under
+`build/us/assets/models/bank03/` and `bank09/`. The ordinary default build
+continues to use the original banks. Each native report candidate is copied from the actual
 model linker object and checked against a fresh encode of the current source.
 Its independent target is wrapped from the original checksum-validated ROM
 slice. Completion requires native matching, exact payload equality, source
@@ -111,7 +111,7 @@ ordinary builds never replace existing editable records. To restore a reviewed
 entry explicitly (decimal bank-03 ID):
 
 ```sh
-./conker model-assets recover --entry 3
+./conker model-assets recover --bank 3 --entry 3
 ./conker model-assets build
 ```
 
@@ -190,8 +190,8 @@ asserting model names or complete runtime appearance.
 
 Build inputs now live at `build/assets/model-build/us/<bank>/<entry>/`.
 Linker objects, report keys, source proofs and recovery backups include the bank,
-so equal entry IDs cannot collide. Explicit recovery retains bank 3 as the
-default; use the bank selector for the new group:
+so equal entry IDs cannot collide. Recovery requires an explicit `--bank`
+selector, including for bank 03:
 
 ```sh
 ./conker model-assets recover --bank 9 --entry 2
@@ -201,10 +201,15 @@ default; use the bank selector for the new group:
 ```
 
 The ordinary build continues to collapse both model groups to their original
-bank inputs. Rebuilt mode tracks missing or edited source files in both banks,
-revalidates all candidates before publishing parts, and compares actual linker
-objects against independently wrapped original ROM slices. Data gains only the
-17,609 newly reconstructed stored bytes; its 65,120,512-byte denominator is
+bank inputs. Rebuilt mode tracks missing or edited source files separately for
+each bank. Each Make target validates and publishes its own bank, with independent
+stamps and receipts under `build/us/models/bank<bank>/`. Bank-09 consumer checks
+do not block bank-03 builds or recovery. `./conker model-assets build --bank 3`
+and `--bank 9` provide the same isolation; omitting `--bank` validates both banks
+before publishing any parts and writes the combined `build/us/models/batch.json`
+receipt. Native reporting compares actual linker objects against independently
+wrapped original ROM slices. Data gains only the 17,609 newly reconstructed
+stored bytes; its 65,120,512-byte denominator is
 unchanged. Generated inputs, ROMs and reports remain ignored.
 
 ### Bank-09 acceptance, 10 October 2026
@@ -236,3 +241,33 @@ Private logs and byte/accounting audits are under
 `build/us/models/validation/expansion/`; native report/source/link proofs are
 in `build/us/objdiff-report/`. These results apply to the completed working
 tree, not an additional committed revision.
+
+
+### Bank isolation and review acceptance, 10 October 2026
+
+Validated the completed review-fix working tree based on `5e522ed`:
+
+- Required bank arguments reject omitted selectors; recovery requires `--bank`.
+- The real Makefile test builds both banks in parallel, preserves unchanged
+  outputs, isolates edits and missing parts, and allows bank-03 rebuilding when
+  bank-09 validation fails. Asset ordering follows the ROM storage map.
+- Docker suites pass: 26 model-build, 19 asset-Make, 15 profile-config,
+  10 ROM-build-mode and 27 objdiff-data tests; 97 run, 96 passed and one
+  ROM-opt-in skip. The complete repository suite was not rerun for this follow-up.
+- Fresh per-bank receipts validate all 79 models: 52,232 decoded bytes and
+  28,216 stored bytes, with the original decoded/stored hashes and ROM bytes.
+- `./conker build --assets` passes; all 67,108,864 US ROM bytes equal the
+  original, SHA-1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`.
+- Canonical progress, shell syntax and whitespace checks pass.
+
+The native report above remains historical evidence for the initial expansion
+commit `5e522ed`; it was not regenerated for these tooling fixes, and its source
+fingerprint no longer describes the current tree. The reviewed selection,
+record format and stored byte totals are unchanged. Private validation logs,
+tested source hashes and the byte comparison are under
+`build/us/models/validation/pr92-review/`.
+
+Full game-archive decoding remains part of the bank-09 consumer check. A ten-run
+host benchmark measured a median 8.22 ms for decoding versus 1.059 s for the
+complete 79-model review (under 1%). This follow-up keeps the existing verifier
+rather than introducing a cache or another archive decoder.

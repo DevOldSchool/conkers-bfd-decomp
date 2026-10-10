@@ -94,6 +94,7 @@ if __name__ == '__main__':
             'def profile_sources(profile, segment):\n    return []\n')
         for name in ('font_splits', 'mp3_bank', 'audio_boundaries', 'texture_build'):
             (self.root / f'scripts/{name}.py').write_text(script)
+        (self.root / 'scripts/model_build.py').write_text('BANKS = (3, 9)\n')
         self.ld = self.root / 'scripts/fake_ld.py'
         self.ld.write_text('''from pathlib import Path
 import sys
@@ -146,22 +147,99 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
     def test_bank09_model_parts_recover_and_preserve_unchanged_linker_objects(self):
         self.check_model_parts('09')
 
-    def check_model_parts(self, bank):
+    def setup_model_banks(self, banks):
         shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
         profile = self.root / 'config/profiles/us.yaml'
-        profile.write_text(profile.read_text() +
-            f'  - name: asset_bank_{bank}\n    type: group\n')
+        profile.write_text(profile.read_text() + ''.join(
+            f'  - name: asset_bank_{bank}\n    type: group\n' for bank in banks))
         (self.root / 'config/model_build.us.json').write_text('{}')
         (self.root / 'scripts/model_build.py').write_text("""from pathlib import Path
+import argparse
 from build_files import write_if_changed
-def layout_bins(profile, *, bank=3, configuration=None):
-    return [(0, 'models/bank03/0003')], 1
+BANKS = (3, 9)
+def layout_bins(profile, *, bank, configuration=None):
+    assert configuration is not None
+    assert any(s.get('name') == f'asset_bank_{bank:02d}' for s in configuration['segments'])
+    return [(0, f'models/bank{bank:02d}/0003')], 1
 if __name__ == '__main__':
-    with Path('model_build.calls').open('a') as log:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('command', choices=['build-parts'])
+    parser.add_argument('--bank', type=int, choices=BANKS, required=True)
+    bank = parser.parse_args().bank
+    if Path(f'fail-model-{bank:02d}').exists():
+        raise SystemExit(f'intentional bank-{bank:02d} failure')
+    source = Path(f'build/assets/model-build/us/{bank:02d}/0003/model.json')
+    write_if_changed(Path(f'build/us/models/parts/models/bank{bank:02d}/0003.bin'), source.read_bytes())
+    with Path(f'model_build_{bank:02d}.calls').open('a') as log:
         log.write('packed\\n')
-    source = Path('build/assets/model-build/us/03/0003/model.json')
-    write_if_changed(Path('build/us/models/parts/models/bank03/0003.bin'), source.read_bytes())
-""".replace("bank03", "bank" + bank).replace("us/03", "us/" + bank))
+""")
+
+    def run_model_banks(self, banks):
+        return subprocess.run([MAKE, 'ASSETS=1', '-j4', f'LD={sys.executable} {self.ld}',
+                               *[f'build/us/assets/models/bank{bank}/0003.o' for bank in banks]],
+                              cwd=self.root, text=True, capture_output=True)
+
+    def test_both_model_banks_build_in_parallel_and_fail_independently(self):
+        banks = ('03', '09')
+        self.setup_model_banks(banks)
+        for bank in banks:
+            inputs = self.root / f'build/assets/model-build/us/{bank}/0003'
+            inputs.mkdir(parents=True)
+            (inputs / 'manifest.json').write_text('{}')
+            (inputs / 'model.json').write_text('model' + bank)
+        result = self.run_model_banks(banks)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        objects = [self.root / f'build/us/assets/models/bank{bank}/0003.o' for bank in banks]
+        before = [p.stat().st_mtime_ns for p in objects]
+        self.assertEqual([p.read_text() for p in objects], ['model03', 'model09'])
+        for bank in banks:
+            self.assertTrue((self.root / f'build/us/models/bank{bank}/parts.stamp').is_file())
+        self.assertEqual(self.run_model_banks(banks).returncode, 0)
+        self.assertEqual([p.stat().st_mtime_ns for p in objects], before)
+        for bank in banks:
+            self.assertEqual((self.root / f'model_build_{bank}.calls').read_text(), 'packed\n')
+
+        # Editing bank 09 invalidates only its packer, even with both goals.
+        time.sleep(1.05)
+        source09 = self.root / 'build/assets/model-build/us/09/0003/model.json'
+        source09.write_text('changed09')
+        self.assertEqual(self.run_model_banks(banks).returncode, 0)
+        self.assertEqual(objects[1].read_text(), 'changed09')
+        self.assertEqual(objects[0].stat().st_mtime_ns, before[0])
+        self.assertEqual((self.root / 'model_build_03.calls').read_text(), 'packed\n')
+        self.assertEqual((self.root / 'model_build_09.calls').read_text(), 'packed\npacked\n')
+        part09 = self.root / 'build/us/models/parts/models/bank09/0003.bin'
+        part09.unlink()
+        self.assertEqual(self.run_model_banks(banks).returncode, 0)
+        self.assertEqual(part09.read_text(), 'changed09')
+        self.assertEqual((self.root / 'model_build_03.calls').read_text(), 'packed\n')
+        self.assertEqual((self.root / 'model_build_09.calls').read_text(), 'packed\npacked\npacked\n')
+
+        # Missing inputs and failed validation in bank 09 must not block a fresh bank-03 part.
+        source09.unlink()
+        (self.root / 'fail-model-09').touch()
+        (self.root / 'build/us/models/parts/models/bank03/0003.bin').unlink()
+        self.assertEqual(self.run_model_banks(('03',)).returncode, 0)
+        self.assertEqual(objects[0].read_text(), 'model03')
+        failed = self.run_model_banks(banks)
+        self.assertNotEqual(failed.returncode, 0)
+        self.assertIn('intentional bank-09 failure', failed.stderr)
+        self.assertEqual(objects[1].read_text(), 'changed09')
+
+        # The full asset sequence retains the storage-map positions of both banks.
+        with (self.root / 'Makefile').open('a') as stream:
+            stream.write('\n.PHONY: show-assets\nshow-assets:\n\t@echo $(ASSET_BINS_us)\n')
+        assets = subprocess.run([MAKE, 'ASSETS=1', '--no-print-directory', 'show-assets'],
+                                cwd=self.root, text=True, capture_output=True)
+        self.assertEqual(assets.returncode, 0, assets.stderr)
+        names = assets.stdout.split()
+        for bank, previous, following in (('03', '02', '04'), ('09', '08', '0a')):
+            position = names.index(f'assets/models/bank{bank}/0003.bin')
+            self.assertEqual(names[position - 1], f'assets/asset_bank_{previous}.bin')
+            self.assertEqual(names[position + 1], f'assets/asset_bank_{following}.bin')
+
+    def check_model_parts(self, bank):
+        self.setup_model_banks((bank,))
         inputs = self.root / f'build/assets/model-build/us/{bank}/0003'
         inputs.mkdir(parents=True)
         (inputs / 'manifest.json').write_text('{}')
@@ -181,8 +259,8 @@ if __name__ == '__main__':
         part.unlink()
         self.assertEqual(run().returncode, 0)
         self.assertEqual(target.read_bytes(), b'model')
-        pack_stamp = self.root / 'build/us/models/parts.stamp'
-        calls = self.root / 'model_build.calls'
+        pack_stamp = self.root / f'build/us/models/bank{bank}/parts.stamp'
+        calls = self.root / f'model_build_{bank}.calls'
         before = calls.read_text()
         unrelated = self.root / 'scripts/model_unrelated_preview.py'
         unrelated.write_text('# unrelated preview tool')

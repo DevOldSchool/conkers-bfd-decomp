@@ -23,15 +23,15 @@ CONTRACT = Path('config/model_build.us.json')
 sha256 = texture_build.sha256
 
 
-def part_name(index: int, bank: int = 3) -> str:
+def part_name(index: int, bank: int) -> str:
     return f'models/bank{bank:02d}/{index:04d}'
 
 
-def input_directory(index: int, bank: int = 3) -> Path:
+def input_directory(index: int, bank: int) -> Path:
     return INPUT_DIRECTORY / f'{bank:02d}' / f'{index:04d}'
 
 
-def layout_bins(profile: Path, *, bank: int = 3, configuration: dict | None = None):
+def layout_bins(profile: Path, *, bank: int, configuration: dict | None = None):
     segments = (load_profile(profile) if configuration is None else configuration)['segments']
     position = next((i for i, s in enumerate(segments)
                      if isinstance(s, dict) and s.get('name') == f'asset_bank_{bank:02d}'), None)
@@ -63,7 +63,7 @@ def partition(bank, entries):
     return rows
 
 
-def model_records(payload: bytes, *, bank: int = 3) -> dict:
+def model_records(payload: bytes, *, bank: int) -> dict:
     if bank not in BANKS:
         raise ValueError('unsupported direct-model bank')
     geometry = model_assets.parse_model_geometry(payload, model_relative_vertices=bank == 9)
@@ -76,7 +76,7 @@ def model_records(payload: bytes, *, bank: int = 3) -> dict:
                 '>II', payload[geometry.display_list_offset:])]}
 
 
-def encode_records(records: dict, *, bank: int = 3) -> bytes:
+def encode_records(records: dict, *, bank: int) -> bytes:
     if not isinstance(records, dict) or set(records) != {'header_words', 'vertices', 'display_commands'}:
         raise ValueError('invalid model record schema')
     try:
@@ -90,7 +90,11 @@ def encode_records(records: dict, *, bank: int = 3) -> bytes:
     return payload
 
 
-def reviewed_models(root: Path = ROOT):
+def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
+    """Review one bank independently, or the complete explicit selection."""
+    if bank is not None and bank not in BANKS:
+        raise ValueError('unsupported direct-model bank')
+    requested = BANKS if bank is None else (bank,)
     path, layout = model_assets.resolve_rom('us', root / 'roms/baserom.us.z64')
     rom, _ = rzip_archive.normalize_rom(path.read_bytes())
     digest = hashlib.sha1(rom).hexdigest()
@@ -101,16 +105,17 @@ def reviewed_models(root: Path = ROOT):
     if (contract.get('schema_version') != 2 or contract.get('profile') != 'us'
             or contract.get('rom_sha1') != digest
             or contract.get('encoder') != texture_build.ENCODERS['zlib']
-            or not isinstance(selections, dict) or set(selections) != {'03', '09'}):
+            or not isinstance(selections, dict) or set(selections) != {f'{b:02d}' for b in BANKS}):
         raise ValueError('invalid committed US model reconstruction contract')
-    for selected in selections.values():
+    for bank_id in requested:
+        selected = selections[f'{bank_id:02d}']
         if (not isinstance(selected, list) or not selected
                 or any(type(i) is not int or i < 0 for i in selected)
                 or selected != sorted(set(selected))):
             raise ValueError('invalid committed US model reconstruction selection')
     banks = rzip_archive.parse_asset_banks(rom, layout['asset_table'])
     result = []
-    for bank_id in BANKS:
+    for bank_id in requested:
         selected = selections[f'{bank_id:02d}']
         bank = next((b for b in banks if b.index == bank_id), None)
         if bank is None or bank.flags:
@@ -162,9 +167,9 @@ def input_files(expected: dict, records: dict) -> dict[str, bytes]:
             for name, value in [('manifest.json', expected), ('model.json', records)]}
 
 
-def recover_inputs(entry: int, root: Path = ROOT, *, bank: int = 3) -> dict:
+def recover_inputs(entry: int, root: Path = ROOT, *, bank: int) -> dict:
     """Explicitly restore one reviewed bundle, retaining the complete old folder."""
-    _, selected = reviewed_models(root)
+    _, selected = reviewed_models(root, bank=bank)
     chosen = next((pair for pair in selected if pair[0]['bank'] == bank and pair[0]['entry'] == entry), None)
     if chosen is None:
         raise ValueError(f'model entry {entry} is not in the reviewed bank-{bank:02d} selection')
@@ -207,8 +212,8 @@ def packed_model(directory: Path, expected: dict):
     return packed, before
 
 
-def build_parts(root: Path = ROOT):
-    rom, selected = reviewed_models(root)
+def build_parts(root: Path = ROOT, *, bank: int | None = None):
+    rom, selected = reviewed_models(root, bank=bank)
     candidates = []
     for expected, records in selected:
         directory = root / input_directory(expected['entry'], expected['bank'])
@@ -216,7 +221,7 @@ def build_parts(root: Path = ROOT):
             texture_build.publish_inputs(directory, input_files(expected, records))
         packed, hashes = packed_model(directory, expected)
         if packed != rom[expected['rom_start']:expected['rom_end']]:
-            raise ValueError(f"model {expected['entry']} differs from independent original ROM bytes")
+            raise ValueError(f"model {expected['bank']:02d}:{expected['entry']:04d} differs from independent original ROM bytes")
         candidates.append((expected, directory, packed, hashes))
     for expected, directory, _, hashes in candidates:
         if input_hashes(directory, expected) != hashes:
@@ -230,7 +235,10 @@ def build_parts(root: Path = ROOT):
               'decoded_bytes': sum(e['decoded_size'] for e in proofs), 'models': proofs,
               'verification': 'decoded_and_stored_hashes_and_independent_rom_bytes',
               'matches_original': all(e['matches_original'] for e in proofs)}
-    write_if_changed(root / 'build/us/models/batch.json', (json.dumps(result, indent=2) + '\n').encode())
+    receipt = root / 'build/us/models'
+    if bank is not None:
+        receipt /= f'bank{bank:02d}'
+    write_if_changed(receipt / 'batch.json', (json.dumps(result, indent=2) + '\n').encode())
     return result
 
 
@@ -238,16 +246,17 @@ def main(argv=None):
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='command', required=True)
-    commands.add_parser('build-parts')
+    build = commands.add_parser('build-parts')
+    build.add_argument('--bank', type=int, choices=BANKS, help='build only this bank (default: all)')
     recover = commands.add_parser('recover', help='back up and restore one reviewed input bundle')
-    recover.add_argument('--bank', type=int, choices=BANKS, default=3, help='model bank (default: 3)')
+    recover.add_argument('--bank', type=int, choices=BANKS, required=True, help='model bank')
     recover.add_argument('--entry', required=True, type=int, help='decimal model entry ID')
     args = parser.parse_args(argv)
     try:
         if args.command == 'recover':
             print(json.dumps(recover_inputs(args.entry, bank=args.bank), indent=2))
         else:
-            proof = build_parts()
+            proof = build_parts(bank=args.bank)
             print(f"Verified {proof['model_count']} models: {proof['stored_bytes']} RZIP bytes; "
                   'decoded/stored hashes and original ROM bytes agree')
     except (ValueError, OSError) as error:

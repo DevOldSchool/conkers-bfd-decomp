@@ -474,9 +474,9 @@ def prepare_model(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, di
     candidate = sections(base.read_bytes(), 1)['.data'][1]
     if (candidate != packed or hashes != model_build.input_hashes(inputs, expected)
             or linked.read_bytes() != linked_bytes):
-        raise ValueError('model candidate differs from current editable inputs')
+        raise ValueError(f'model {bank:02d}:{index:04d} candidate differs from current editable inputs')
     proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
-                                              original, f'model {index} RZIP storage')
+                                              original, f'model {bank:02d}:{index:04d} RZIP storage')
     unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data',
             'size': end - start, 'rom_start': start, 'rom_end': end,
             'source_inputs': {(model_build.input_directory(index, bank) / p).as_posix(): h for p, h in hashes.items()},

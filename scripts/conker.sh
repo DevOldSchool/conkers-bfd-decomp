@@ -1298,8 +1298,8 @@ case "$command" in
     model-assets)
         [[ $# -ge 1 ]] || die "usage: ./conker model-assets <build|recover|appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]"
         if [[ "$1" == "build" ]]; then
-            [[ $# -eq 1 ]] || die "usage: ./conker model-assets build"
-            run_in_container python3 scripts/model_build.py build-parts
+            shift
+            run_in_container python3 scripts/model_build.py build-parts "$@"
         elif [[ "$1" == "recover" ]]; then
             shift
             run_in_container python3 scripts/model_build.py recover "$@"
