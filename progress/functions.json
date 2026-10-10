@@ -95450,7 +95450,7 @@
           "vram": "0x80008180"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008180"
     },
     {
@@ -95468,7 +95468,7 @@
           "vram": "0x800084D8"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_800084D8"
     },
     {
@@ -95486,7 +95486,7 @@
           "vram": "0x8000853C"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_8000853C"
     },
     {
@@ -95504,7 +95504,7 @@
           "vram": "0x80008570"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008570"
     },
     {
@@ -95522,7 +95522,7 @@
           "vram": "0x800085A4"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_800085A4"
     },
     {
@@ -95540,7 +95540,7 @@
           "vram": "0x800085B8"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_800085B8"
     },
     {
@@ -95558,7 +95558,7 @@
           "vram": "0x800085F8"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_800085F8"
     },
     {
@@ -95576,7 +95576,7 @@
           "vram": "0x8000862C"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_8000862C"
     },
     {
@@ -95594,7 +95594,7 @@
           "vram": "0x80008660"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008660"
     },
     {
@@ -95612,7 +95612,7 @@
           "vram": "0x800086FC"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_800086FC"
     },
     {
@@ -95630,7 +95630,7 @@
           "vram": "0x80008744"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008744"
     },
     {
@@ -95648,7 +95648,7 @@
           "vram": "0x80008790"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008790"
     },
     {
@@ -95666,7 +95666,7 @@
           "vram": "0x80008824"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008824"
     },
     {
@@ -95684,7 +95684,7 @@
           "vram": "0x8000886C"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_8000886C"
     },
     {
@@ -95702,7 +95702,7 @@
           "vram": "0x800088F0"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_800088F0"
     },
     {
@@ -95720,7 +95720,7 @@
           "vram": "0x80008988"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008988"
     },
     {
@@ -95738,7 +95738,7 @@
           "vram": "0x80008A4C"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008A4C"
     },
     {
@@ -95756,7 +95756,7 @@
           "vram": "0x80008A94"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008A94"
     },
     {
@@ -95774,7 +95774,7 @@
           "vram": "0x80008B2C"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008B2C"
     },
     {
@@ -95792,7 +95792,7 @@
           "vram": "0x80008B60"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008B60"
     },
     {
@@ -95810,7 +95810,7 @@
           "vram": "0x80008BC0"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008BC0"
     },
     {
@@ -95828,7 +95828,7 @@
           "vram": "0x80008C04"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008C04"
     },
     {
@@ -95846,7 +95846,7 @@
           "vram": "0x80008C6C"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008C6C"
     },
     {
@@ -95864,7 +95864,7 @@
           "vram": "0x80008CE8"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008CE8"
     },
     {
@@ -95882,7 +95882,7 @@
           "vram": "0x80008EE0"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008EE0"
     },
     {
@@ -95900,7 +95900,7 @@
           "vram": "0x80008F24"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008F24"
     },
     {
@@ -95918,7 +95918,7 @@
           "vram": "0x80008F58"
         }
       },
-      "source": "src/main/init_8180.c",
+      "source": "src/done/main/init_8180.c",
       "symbol": "func_80008F58"
     },
     {

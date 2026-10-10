@@ -17,7 +17,7 @@ below establish working membership separately from that old map.
 
 | Source | US ROM range | Entries | Bytes | Range SHA-1 |
 | --- | --- | ---: | ---: | --- |
-| `src/main/init_8180.c` | `0x8180:0x8F90` | 27 | 3,600 | `54642d097818a0902de51931a4a4f1df107a3f64` |
+| `src/done/main/init_8180.c` | `0x8180:0x8F90` | 27 | 3,600 | `54642d097818a0902de51931a4a4f1df107a3f64` |
 | `src/main/init_12560.c` | `0x12560:0x12820` | 7 | 704 | `8a9afaba6a1db81609680ce5ec26abbbf9287060` |
 
 ## Sequence-player API, `0x8180:0x8F90`

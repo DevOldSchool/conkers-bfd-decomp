@@ -20108,15 +20108,15 @@
         "func_80008F24",
         "func_80008F58"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x8F90",
           "start": "0x8180",
-          "state": "candidate"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_8180.c"
+      "source": "src/done/main/init_8180.c"
     },
     {
       "boundary_evidence": {
