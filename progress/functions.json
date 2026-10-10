@@ -1104,7 +1104,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15136C3C",
           "vram": "0x15136C3C"
         }
@@ -3272,6 +3277,12 @@
       "symbol": "func_151963B4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1324,
+        "reason": "scheduling residual in template copy block (27 rows, CURRENT 1324); 2 non-improving revisions",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -9106,6 +9117,12 @@
       "symbol": "func_151CB510"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6057,
+        "reason": "best 6057: layout solved but needs shared mode/bits variable plus one more real home; scheduling residuals",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -9353,6 +9370,12 @@
       "symbol": "func_151CCE94"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3493,
+        "reason": "best 3493; next hypothesis (s32 arg3 masked at use + object/select homes) hits BLOCKED_TOOLING address-alias padding check",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

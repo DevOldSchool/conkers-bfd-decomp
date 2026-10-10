@@ -40,7 +40,7 @@ Native objdiff measures their bytes; the generator never patches native totals.
 Validation rejects any credit, candidate or completion for these remainder units.
 
 The existing reconstructed font (5,440 bytes), textures (8,284,692 bytes) and
-models (10,607 bytes) retain their actual linker-input, fresh encode, independent
+models (28,216 bytes) retain their actual linker-input, fresh encode, independent
 reference and source-stability checks. A copied raw asset or rewrapped encoded
 MP3 stream does not automatically earn reconstruction credit. Model storage
 categories describe bank families, not a count of visually finished models.
@@ -58,6 +58,10 @@ to the physical ROM size. A lower percentage records newly counted work, not los
 matches.
 
 ## Validation
+
+The results below are the original accounting checkpoint. The later
+[bank-09 expansion](us_model_reconstruction.md#bank-09-expansion) adds 17,609
+matched model bytes without changing the storage denominator.
 
 Reproduce with `./conker test -p 'test_objdiff*.py'`, `./conker objdiff report`,
 `./conker progress check` and `git diff --check`. Regression tests exercise

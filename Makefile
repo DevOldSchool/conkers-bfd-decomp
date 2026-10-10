@@ -60,8 +60,10 @@ AUDIO_BANK_BINS := $(patsubst audio=%,%,$(filter audio=%,$(PROFILE_ASSETS)))
 MP3_BANK_BINS := $(patsubst mp3=%,%,$(filter mp3=%,$(PROFILE_ASSETS)))
 FLAT_BINS := $(patsubst flat=%,%,$(filter flat=%,$(PROFILE_ASSETS)))
 TEXTURE_BINS := $(filter assets/flat/textures/%.bin,$(FLAT_BINS))
-MODEL_BANK_BINS := $(patsubst model=%,%,$(filter model=%,$(PROFILE_ASSETS)))
-MODEL_BINS := $(filter assets/models/bank03/%.bin,$(MODEL_BANK_BINS))
+MODEL_BANKS := $(patsubst model-bank=%,%,$(filter model-bank=%,$(PROFILE_ASSETS)))
+$(foreach bank,$(MODEL_BANKS),$(eval MODEL_BANK_BINS_$(bank) := $(patsubst model$(bank)=%,%,$(filter model$(bank)=%,$(PROFILE_ASSETS)))))
+MODEL_BANK_BINS := $(foreach bank,$(MODEL_BANKS),$(MODEL_BANK_BINS_$(bank)))
+MODEL_BINS := $(filter $(foreach bank,$(MODEL_BANKS),assets/models/bank$(bank)/%.bin),$(MODEL_BANK_BINS))
 endif
 endif
 ifneq ($(PROFILE_ASSETS),)
@@ -104,9 +106,9 @@ ASSET_BINS_us := \
 	assets/game_data_rzip.bin assets/game_data_gap.bin assets/unassigned_after_debugger.bin \
 	$(FLAT_BINS) assets/assets_flat_gap.bin assets/asset_bank_index.bin \
 	assets/asset_bank_00.bin assets/asset_bank_01.bin assets/asset_bank_02.bin \
-	$(MODEL_BANK_BINS) assets/asset_bank_04.bin assets/asset_bank_05.bin \
+	$(or $(MODEL_BANK_BINS_03),assets/asset_bank_03.bin) assets/asset_bank_04.bin assets/asset_bank_05.bin \
 	assets/asset_bank_06.bin assets/asset_bank_07.bin assets/asset_bank_08.bin \
-	assets/asset_bank_09.bin assets/asset_bank_0a.bin assets/asset_bank_0b.bin \
+	$(or $(MODEL_BANK_BINS_09),assets/asset_bank_09.bin) assets/asset_bank_0a.bin assets/asset_bank_0b.bin \
 	assets/asset_bank_0c.bin assets/asset_bank_0d.bin assets/asset_bank_0e.bin \
 	assets/asset_bank_0f.bin assets/asset_bank_10.bin assets/asset_bank_11.bin \
 	assets/asset_bank_12.bin assets/asset_bank_13.bin assets/asset_bank_14.bin \
@@ -404,17 +406,21 @@ $(FONT_PARTS): $(BUILD_DIR)/fonts/parts.stamp ;
 endif
 
 ifneq ($(MODEL_PARTS),)
-MODEL_INPUTS := $(wildcard build/assets/model-build/us/03 build/assets/model-build/us/03/* build/assets/model-build/us/03/*/*)
-MODEL_PARTS_MISSING := $(filter-out $(wildcard $(MODEL_PARTS)),$(MODEL_PARTS))
-MODEL_MANIFESTS := $(patsubst assets/models/bank03/%.bin,build/assets/model-build/us/03/%/manifest.json,$(MODEL_BINS))
-MODEL_REQUIRED_INPUTS := $(MODEL_MANIFESTS) $(patsubst %/manifest.json,%/model.json,$(MODEL_MANIFESTS))
-MODEL_PARTS_MISSING += $(filter-out $(wildcard $(MODEL_REQUIRED_INPUTS)),$(MODEL_REQUIRED_INPUTS))
-# Only codecs used by the reviewed native-record reconstruction path.
+# A model target validates only its own bank; receipts and stamps cannot race.
 MODEL_CODEC_DEPS := scripts/model_build.py scripts/model_assets.py scripts/texture_build.py scripts/rzip_pack.py
-$(BUILD_DIR)/models/parts.stamp: $(ASSET_PACK_DEPS) $(MODEL_CODEC_DEPS) config/model_build.us.json $(MODEL_INPUTS) $(if $(MODEL_PARTS_MISSING),asset-parts-missing)
-	$(TIMING) --stage models -- python3 scripts/model_build.py build-parts
-	@touch $@
-$(MODEL_PARTS): $(BUILD_DIR)/models/parts.stamp ;
+define MODEL_BANK_RULES
+MODEL_PARTS_$(1) := $(patsubst assets/%,$(BUILD_DIR)/models/parts/%,$(filter assets/models/bank$(1)/%.bin,$(MODEL_BINS)))
+MODEL_INPUTS_$(1) := $(wildcard build/assets/model-build/us/$(1) build/assets/model-build/us/$(1)/* build/assets/model-build/us/$(1)/*/*)
+MODEL_MANIFESTS_$(1) := $(patsubst assets/models/bank$(1)/%.bin,build/assets/model-build/us/$(1)/%/manifest.json,$(filter assets/models/bank$(1)/%.bin,$(MODEL_BINS)))
+MODEL_REQUIRED_INPUTS_$(1) = $$(MODEL_MANIFESTS_$(1)) $$(patsubst %/manifest.json,%/model.json,$$(MODEL_MANIFESTS_$(1)))
+MODEL_PARTS_MISSING_$(1) = $$(filter-out $$(wildcard $$(MODEL_PARTS_$(1))),$$(MODEL_PARTS_$(1))) $$(filter-out $$(wildcard $$(MODEL_REQUIRED_INPUTS_$(1))),$$(MODEL_REQUIRED_INPUTS_$(1)))
+$(BUILD_DIR)/models/bank$(1)/parts.stamp: $(ASSET_PACK_DEPS) $(MODEL_CODEC_DEPS) config/model_build.us.json $$(MODEL_INPUTS_$(1)) $$(if $$(strip $$(MODEL_PARTS_MISSING_$(1))),asset-parts-missing)
+	$(TIMING) --stage models-$(1) -- python3 scripts/model_build.py build-parts --bank $(1)
+	@mkdir -p "$$(@D)"
+	@touch $$@
+$$(MODEL_PARTS_$(1)): $(BUILD_DIR)/models/bank$(1)/parts.stamp ;
+endef
+$(foreach bank,$(MODEL_BANKS),$(eval $(call MODEL_BANK_RULES,$(bank))))
 endif
 
 ifneq ($(TEXTURE_PARTS),)
