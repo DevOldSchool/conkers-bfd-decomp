@@ -27,9 +27,13 @@ def first_difference(expected: bytes, actual: bytes) -> int | None:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("profile", choices=("us", "eu"))
+    parser.add_argument("--assets", action="store_true")
     args = parser.parse_args()
     target = ROOT / "roms" / f"baserom.{args.profile}.z64"
-    current = ROOT / "build" / args.profile / f"conker.{args.profile}.z64"
+    output_dir = ROOT / "build" / args.profile
+    if not args.assets:
+        output_dir /= "original-assets"
+    current = output_dir / f"conker.{args.profile}.z64"
     if not target.is_file() or not current.is_file():
         parser.error(f"missing ROM input or build output; run ./conker build --profile {args.profile} first")
     expected_data = target.read_bytes()

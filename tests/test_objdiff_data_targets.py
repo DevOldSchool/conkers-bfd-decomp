@@ -7,6 +7,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import threading
 import unittest
 from unittest.mock import patch
 from types import SimpleNamespace
@@ -38,6 +39,11 @@ def object_file(entries):
 
 
 class DataTargetTests(unittest.TestCase):
+    def setUp(self):
+        jobs = patch.dict(os.environ, CONKER_JOBS='4')
+        jobs.start()
+        self.addCleanup(jobs.stop)
+
     @unittest.skipUnless(os.environ.get('CONKER_ROM_TESTS') == '1' and shutil.which('splat')
                          and shutil.which('mips-linux-gnu-as'), 'requires owned ROM and toolchain')
     def test_canonical_sdk_payload_extents_survive_splat_and_full_image_link(self):
@@ -347,17 +353,128 @@ class DataTargetTests(unittest.TestCase):
                     payload = (directory / command[-1]).read_bytes()
                     (directory / command[-2]).write_bytes(object_file([('.data', 1, 3, payload)]))
             with patch.object(targets, 'ROOT', root), patch.object(targets, 'OUTPUT', root), \
-                    patch.object(targets.subprocess, 'run', side_effect=run), \
+                    patch.dict(os.environ, CONKER_JOBS='1'), \
+                    patch.object(targets.subprocess, 'run', side_effect=run) as commands, \
                     patch.object(targets.font_splits, 'verify_splits', return_value=[(16, 32, 'font_test')]), \
                     patch.object(targets.font_assets, 'load_layout', return_value={
                         'font_start': 16, 'font_storage_end': 32}), \
                     patch.object(targets.font_assets, 'packed_font_bytes', return_value=edited):
                 unit, config = targets.prepare_font(bytes(16) + original)
+                self.assertEqual(commands.call_args_list[0].args[0][:4], ['make', '--silent', '--jobs', '1'])
                 self.assertFalse(unit['literal_payload_matches_rom'])
                 self.assertEqual(targets.sections((root / unit['target_path']).read_bytes(), 1)['.data'][1], original)
                 self.assertEqual(config['metadata']['progress_categories'], ['data'])
                 self.assertFalse(config['metadata']['complete'])
 
+
+    def test_texture_batch_builds_all_objects_in_one_make_call(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            selected = [({'flat_index': index}, None) for index in (1063, 1296)]
+            with patch.object(targets, 'ROOT', root), \
+                    patch.object(targets.texture_build, 'reviewed_textures', return_value=(b'ROM', selected)), \
+                    patch.object(targets, 'prepare_texture', side_effect=[({'key': 'a'}, {'name': 'a'}),
+                                                                        ({'key': 'b'}, {'name': 'b'})]) as prepare, \
+                    patch.object(targets.subprocess, 'run') as run:
+                units, configs = targets.prepare_textures(b'ROM', output=root)
+                self.assertEqual(len(units), 2)
+                self.assertEqual(len(configs), 2)
+                self.assertEqual(prepare.call_count, 2)
+                run.assert_called_once()
+                self.assertEqual(run.call_args.args[0], ['make', '--silent', '--jobs', '4',
+                    'build/us/assets/flat/textures/1063.o', 'build/us/assets/flat/textures/1296.o', 'PROFILE=us', 'ASSETS=1'])
+                run.reset_mock()
+                with patch.dict(os.environ, CONKER_JOBS='1'), patch.object(targets, 'prepare_texture', return_value=({}, {})), \
+                        patch.object(targets, 'ThreadPoolExecutor', wraps=targets.ThreadPoolExecutor) as pool:
+                    targets.prepare_textures(b'ROM', output=root)
+                self.assertEqual(run.call_args.args[0][3], '1')
+                pool.assert_called_once_with(max_workers=1)
+                run.reset_mock()
+                with self.assertRaisesRegex(ValueError, 'reference ROM differs'):
+                    targets.prepare_textures(b'wrong ROM', output=root)
+                run.assert_not_called()
+
+    def test_texture_uses_actual_link_input_and_rejects_stale_object(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            original = bytes(range(16))
+            rom = bytes(16) + original
+            expected = {'flat_index': 1063, 'rom_start': 16, 'rom_end': 32}
+            linked = root / ('build/us/assets/' + targets.texture_build.part_name(1063) + '.o')
+            linked.parent.mkdir(parents=True)
+            linked.write_bytes(object_file([('.data', 1, 3, original)]))
+            change_during_wrap = False
+            def run(command, **kwargs):
+                if command[0] == 'mips-linux-gnu-ld':
+                    directory = kwargs['cwd']
+                    payload = (directory / command[-1]).read_bytes()
+                    (directory / command[-2]).write_bytes(object_file([('.data', 1, 3, payload)]))
+                    if change_during_wrap:
+                        linked.write_bytes(object_file([('.data', 1, 3, bytes([1]) * 16)]))
+            with patch.object(targets, 'ROOT', root), \
+                    patch.object(targets.subprocess, 'run', side_effect=run), \
+                    patch.object(targets.texture_build, 'packed_texture', return_value=(original, {'1063.ci4.png': 'hash'})), \
+                    patch.object(targets.texture_build, 'input_hashes', return_value={'1063.ci4.png': 'hash'}):
+                unit, config = targets.prepare_texture(rom, expected, output=root)
+                self.assertEqual(unit['report_data_bytes'], 16)
+                self.assertEqual(unit['report_code_bytes'], 0)
+                self.assertTrue(config['metadata']['complete'])
+                self.assertEqual(config['metadata']['progress_categories'], ['data'])
+                self.assertEqual((root / unit['base_path']).read_bytes(), linked.read_bytes())
+                self.assertEqual(targets.sections((root / unit['target_path']).read_bytes(), 1)['.data'][1], original)
+                self.assertIn(linked.relative_to(root).as_posix(), unit['linked_inputs'])
+                change_during_wrap = True
+                with self.assertRaisesRegex(ValueError, 'current editable inputs'):
+                    targets.prepare_texture(rom, expected, output=root)
+                change_during_wrap = False
+                with self.assertRaisesRegex(ValueError, 'current editable inputs'):
+                    targets.prepare_texture(rom, expected, output=root)
+
+    def test_texture_references_are_bounded_parallel_and_keep_catalog_order(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            selected = [({'flat_index': index}, None) for index in range(8)]
+            barrier, lock = threading.Barrier(4, timeout=5), threading.Lock()
+            released = [threading.Event(), threading.Event()]
+            active = peak = 0
+            finished = []
+            def prepare(rom, expected, *, output):
+                nonlocal active, peak
+                index = expected['flat_index']
+                with lock:
+                    active += 1
+                    peak = max(peak, active)
+                barrier.wait()
+                if index % 4 == 0:
+                    self.assertTrue(released[index // 4].wait(5))
+                with lock:
+                    finished.append(index)
+                    active -= 1
+                if index % 4 == 1:
+                    released[index // 4].set()
+                return {'key': index}, {'name': index}
+            with patch.object(targets.texture_build, 'reviewed_textures', return_value=(b'ROM', selected)), \
+                    patch.object(targets, 'prepare_texture', side_effect=prepare), \
+                    patch.object(targets.subprocess, 'run'):
+                units, configs = targets.prepare_textures(b'ROM', output=root)
+            self.assertEqual(peak, 4)
+            self.assertLess(finished.index(1), finished.index(0))
+            self.assertEqual([unit['key'] for unit in units], list(range(8)))
+            self.assertEqual([item['name'] for item in configs], list(range(8)))
+
+    def test_parallel_texture_reference_failure_propagates(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            selected = [({'flat_index': index}, None) for index in range(4)]
+            def prepare(rom, expected, *, output):
+                if expected['flat_index'] == 2:
+                    raise ValueError('changed source')
+                return {}, {}
+            with patch.object(targets.texture_build, 'reviewed_textures', return_value=(b'ROM', selected)), \
+                    patch.object(targets, 'prepare_texture', side_effect=prepare), \
+                    patch.object(targets.subprocess, 'run'), \
+                    self.assertRaisesRegex(ValueError, 'changed source'):
+                targets.prepare_textures(b'ROM', output=root)
 
     def test_target_extent_checks_every_allocated_section(self):
         with tempfile.TemporaryDirectory() as temporary:
