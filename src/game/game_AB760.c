@@ -207,12 +207,9 @@ s32 func_1507E6B8(void *actor) {
         if (expressionIndex == 0x15) {
             return 1;
         }
-        goto block_9;
-    }
-    if (representationModelIndex == 0x52) {
+    } else if (representationModelIndex == 0x52) {
         return 1;
     }
-block_9:
     return 0;
 }
 

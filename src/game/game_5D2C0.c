@@ -234,7 +234,7 @@ void func_150302F0(void *arg0, s32 arg1) {
     func_15030310(arg0, arg1, 0xFF);
 }
 /* Call context: func_15030158: unique active declaration in the allowed source */
-void func_15030158(u8 *, s32 volatile);
+void func_15030158(u8 *, s32);
 extern void * D_800C3EE0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15030310 CURRENT (814) */
@@ -277,7 +277,7 @@ advance:
 #endif /* CONKER_DEFERRED_CANDIDATE func_15030310 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030310.s")
 extern void *D_800C3EE0;
-void func_15030158(u8 *, s32 volatile);
+void func_15030158(u8 *, s32);
 
 s32 func_150303E4(void *arg0) {
     s32 var_s1;

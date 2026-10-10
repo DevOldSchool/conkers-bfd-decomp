@@ -341,7 +341,7 @@ void func_151193AC(void *arg0, void *arg1) {
         if (!(temp_v0 & 3)) {
             if (!(temp_v0 & 4)) {
                 *(u8 *)((u8 *)arg0 + 0x73) = temp_v0 & 0xFFFC;
-                *(volatile u8 *)((u8 *)arg0 + 0x73) = *(u8 *)((u8 *)arg0 + 0x73) | 2;
+                *(u8 *)((u8 *)arg0 + 0x73) |= 2;
             }
         }
     }

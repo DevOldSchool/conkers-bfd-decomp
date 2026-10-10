@@ -12,7 +12,7 @@ import subprocess
 import sys
 from collections import Counter
 from pathlib import Path
-from typing import Any, NamedTuple
+from typing import Any, Iterable, NamedTuple
 
 import original_asm
 import layout_check
@@ -1043,23 +1043,25 @@ def validate_blocked_raw_sources(functions: list[dict[str, Any]]) -> None:
             raise ProjectStateError(f"blocked function {function['symbol']} must retain {pragma}")
 
 
-def validate_project(*, original_asm_refresh: str | None = None) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+def validate_project(*, original_asm_refresh: str | Iterable[str] | None = None) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     roms = load_json(ROMS_FILE)
     functions = load_json(FUNCTIONS_FILE)
     validate_rom_config(roms)
     validate_code_ranges(load_json(OVERLAYS_FILE))
     validated_functions = validate_functions(functions)
-    if original_asm_refresh is not None:
-        selected = next((entry for entry in validated_functions
-                         if entry["symbol"] == original_asm_refresh), None)
-        if selected is None or selected["regions"]["us"]["state"] != "original_asm":
-            raise ProjectStateError("refresh requires an already classified original assembly span")
+    # Only the explicitly named refresh items may carry a stale text hash.
+    refreshing = ({original_asm_refresh} if isinstance(original_asm_refresh, str)
+                  else set(original_asm_refresh or ()))
+    classified = {entry["symbol"] for entry in validated_functions
+                  if entry["regions"]["us"]["state"] == "original_asm"}
+    if original_asm_refresh is not None and (not refreshing or not refreshing <= classified):
+        raise ProjectStateError("refresh requires an already classified original assembly span")
     validate_deferred_candidate_sources(validated_functions)
     validate_blocked_raw_sources(validated_functions)
     for function in validated_functions:
         if function.get("original_asm"):
             try:
-                if function["symbol"] == original_asm_refresh:
+                if function["symbol"] in refreshing:
                     original_asm.validate_source(ROOT, function, allow_stale_hash=True)
                 else:
                     original_asm.validate_source(ROOT, function)
@@ -1566,7 +1568,11 @@ def verify_original_asm(args: argparse.Namespace) -> None:
     refresh = bool(getattr(args, "refresh", False))
     if refresh and (args.check or args.reason or args.evidence_reference):
         raise ProjectStateError("--refresh preserves classification and cannot combine with --check, --reason or --evidence-reference")
-    _, functions = (validate_project(original_asm_refresh=args.symbol) if refresh else validate_project())
+    refresh_with = list(getattr(args, "refresh_with", None) or [])
+    if refresh_with and not refresh:
+        raise ProjectStateError("--refresh-with requires --refresh")
+    _, functions = (validate_project(original_asm_refresh=[args.symbol, *refresh_with])
+                    if refresh else validate_project())
     function = next((entry for entry in functions if entry["symbol"] == args.symbol), None)
     if function is None:
         raise ProjectStateError(f"unknown work-item ID: {args.symbol}")
@@ -3364,7 +3370,7 @@ def parse_args() -> argparse.Namespace:
     setup_parser.add_argument("--us", required=True)
     setup_parser.add_argument("--eu", help="optional future EU/PAL ROM; not required by active work")
     setup_check_parser = subparsers.add_parser("setup-check")
-    setup_check_parser.add_argument("--reverify-original-asm", help=argparse.SUPPRESS)
+    setup_check_parser.add_argument("--reverify-original-asm", action="append", help=argparse.SUPPRESS)
     setup_check_parser.add_argument("--profile", choices=TARGET_REGIONS)
     setup_check_parser.add_argument("--all", action="store_true")
     progress_parser = subparsers.add_parser("progress")
@@ -3394,6 +3400,8 @@ def parse_args() -> argparse.Namespace:
     original_parser.add_argument("--evidence-reference")
     original_parser.add_argument("--proof-output")
     original_parser.add_argument("--proof")
+    # Other items in the same multi-item refresh; only these may also be stale.
+    original_parser.add_argument("--refresh-with", action="append", help=argparse.SUPPRESS)
     original_list_parser = subparsers.add_parser("original-asm-items")
     original_list_parser.add_argument("symbols", nargs="+")
     resume_parser = subparsers.add_parser("resume")

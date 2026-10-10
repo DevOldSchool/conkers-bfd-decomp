@@ -281,9 +281,9 @@ s32 func_1518F7C4(void *arg0) {
 extern void (*D_8008D680[])(void);
 
 void func_1518F858(void *arg0) {
-    volatile s8 *field;
+    s8 *field;
 
-    field = (volatile s8 *)((u8 *)arg0 + 0x89);
+    field = (s8 *)((u8 *)arg0 + 0x89);
     if (*field != -1) {
         D_8008D680[*field]();
     }

@@ -544,12 +544,12 @@ void func_1506BBA8(s32 arg0, s32 arg1) {
 s32 func_10010344(s32, u8 *, u32, s16, s32);
 extern u16 D_800D1582;
 
-void func_1506BC24(volatile s16 arg0, s32 arg1) {
+void func_1506BC24(s32 arg0, s32 arg1) {
     u8 *sp24;
 
     sp24 = D_800D154C;
-    if (*(s32 *)((u8 *)sp24 + 0x318) == 0) {
-        func_10010344((s32) D_800D1582, sp24, 0x36B0U, arg0, arg1);
+    if (*(s32 *)(sp24 + 0x318) == 0) {
+        func_10010344((s32) D_800D1582, sp24, 0x36B0U, (s16) arg0, arg1);
         return;
     }
     func_10010344((s32) D_800D1582, sp24, 0x2EE0U, 0x1F4, 0x9C4);
@@ -1363,7 +1363,7 @@ void func_1506EA18(void) {
         func_1506BAD8(0xBB8, 0x1F40);
     }
 }
-extern void func_1506BC24(volatile s16 arg0, s32 arg1);
+extern void func_1506BC24(s32 arg0, s32 arg1);
 
 void func_1506EA58(void) {
     if (func_1506E46C(D_800D154C, &D_800D1580, 1) != 0) {

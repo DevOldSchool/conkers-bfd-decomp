@@ -1,2 +1,4 @@
 # Required for compatibility with the project's GNU MIPS assembler path.
 spimdisasm==1.33.0
+# decomp-permuter reads its settings with the toml package.
+toml==0.10.2

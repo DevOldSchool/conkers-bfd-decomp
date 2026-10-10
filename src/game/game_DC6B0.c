@@ -330,7 +330,7 @@ void func_15132570(s32 arg0);
 void func_1513259C(s32 arg0);
 
 void func_150B02C0(void *arg0) {
-    volatile void **field_170 = (volatile void **)((u8 *)arg0 + 0x170);
+    void **field_170 = (void **)((u8 *)arg0 + 0x170);
 
     if (*field_170 != 0) {
         func_1516972C((void *)*field_170);

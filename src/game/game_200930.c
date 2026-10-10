@@ -666,7 +666,7 @@ void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
 void func_151D4668(void *arg0) {
     struct {
         void *sp18;
-        volatile u8 sp1C;
+        u8 sp1C;
     } sp;
 
     sp.sp18 = arg0;
@@ -1227,14 +1227,15 @@ void func_151D3FF4(s32, u8, s32);
 void func_151D5514(s32, u8, s32);
 
 void func_151D5648(s32 arg0, u8 arg1, s32 arg2) {
-    volatile s32 spacer;
+    u32 random;
     f32 random_float;
     u32 random_value;
 
     func_151D5514(arg0, arg1, arg2);
     func_151D3FF4(arg0, arg1, arg2);
     random_float = func_150ADA68();
-    random_value = (func_150ADA20() % 56U) + 0xC8;
+    random = func_150ADA20();
+    random_value = (random % 56U) + 0xC8;
     func_151541B8(arg0, (random_float * 4.0f) + 12.0f, 0x3FD20C49,
                   (f32)random_value, 0.0f, arg1, arg2);
 }

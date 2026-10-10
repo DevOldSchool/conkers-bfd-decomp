@@ -104,10 +104,8 @@ extern s32 (*D_8008FC40[])(void *, void *);
 extern void (*D_8008FC48[])(void *, void *);
 
 void func_151D2C40(Game1FFF60Motion *arg0) {
-    struct {
-        Game1FFF60Vec3 position;
-        s32 padding;
-    } local;
+    s32 frame;
+    Game1FFF60Vec3 position;
     Game1FFF60MotionSource *source;
 
     source = arg0->source;
@@ -116,23 +114,24 @@ void func_151D2C40(Game1FFF60Motion *arg0) {
         func_1516972C(arg0);
         return;
     }
-    func_15143134(arg0->position, (f32 *)&local.position, (s32)(source->frames + (arg0->frame << 6)));
+    frame = source->frames + (arg0->frame << 6);
+    func_15143134(arg0->position, (f32 *)&position, frame);
     if (arg0->flags & 1) {
         arg0->timer = (s16)(arg0->timer - D_800BE9E4);
         if (arg0->timer < 0) {
             if (arg0->end_callback != -1) {
-                D_8008FC48[arg0->end_callback](arg0, &local.position);
+                D_8008FC48[arg0->end_callback](arg0, &position);
             }
             arg0->state = 0;
             func_1516972C(arg0);
             return;
         }
     }
-    if ((arg0->update_callback != -1) && (D_8008FC40[arg0->update_callback](arg0, &local.position) == 0)) {
+    if ((arg0->update_callback != -1) && (D_8008FC40[arg0->update_callback](arg0, &position) == 0)) {
         func_1516972C(arg0);
         return;
     }
-    arg0->result = local.position;
+    arg0->result = position;
 }
 void func_151D3354();
 
@@ -200,7 +199,7 @@ void func_151D2E5C(void *arg0, void *arg1, u8 arg2) {
 }
 void *func_151D2F00(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
     void *temp_v0;
-    volatile void *sp24;
+    void *sp24;
 
     temp_v0 = func_15167A68(0x3E, arg3, arg1 + 0x30, 1, arg2, 1);
     if (temp_v0 == 0) {
