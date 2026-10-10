@@ -129,7 +129,6 @@ void *func_15155CFC(void *arg0, Game182C30Effect *arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15155CFC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_15155CFC.s")
-extern void func_1515F10C(void *arg0);
 extern void func_1518CA04(s32 arg0);
 
 void func_15155EF8(void *arg0) {

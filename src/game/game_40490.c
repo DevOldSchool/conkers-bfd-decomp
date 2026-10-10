@@ -600,13 +600,12 @@ s32 func_15014F6C(struct134 *arg0) {
     }
     return 1;
 }
-void *func_1515F1B0(void);
 void func_1515F25C(void **, void *);
 
-s32 func_150150A4(void) {
+s32 func_150150A4(s32 arg0) {
     void *temp_v0;
 
-    temp_v0 = func_1515F1B0();
+    temp_v0 = func_1515F1B0(arg0);
     if (temp_v0 == 0) {
         return 1;
     }

@@ -508,13 +508,12 @@ void func_1514DB18(s32 arg0) {
 void func_1514DB58(s32 arg0) {
 
 }
-void func_151B2060(void);
 void func_1514F194();
 extern s32 D_800BE9F0;
 
-void func_1514DB64(void) {
+void func_1514DB64(void *arg0) {
     if (D_800BE9F0 == 0x14) {
-        func_151B2060();
+        func_151B2060(arg0);
     }
 }
 void func_1514DB98(void) {
@@ -1015,10 +1014,9 @@ void func_1514E850(void *arg0) {
     func_1518E308(arg0);
     func_1516972C(arg0);
 }
-void func_1515F10C(void);
 
-void func_1514E87C(void) {
-    func_1515F10C();
+void func_1514E87C(void *arg0) {
+    func_1515F10C(arg0);
 }
 s32 func_1514E89C(void *arg0, s32 arg1, s32 arg2) {
     s32 temp_v0;

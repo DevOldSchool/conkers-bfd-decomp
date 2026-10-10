@@ -36,8 +36,6 @@ void func_150C7870(void *arg0) {
         func_1511650C(arg0, 1, 0x43, 400.0f);
     }
 }
-/* Call context: func_151150BC: unique active project prototype */
-void func_151150BC(void);
 extern void * D_800DBEF4;
 
 void func_150C78E0(void *arg0) {
@@ -47,10 +45,9 @@ void func_150C78E0(void *arg0) {
         state = D_800DBEF4;
         state += 0x1E0;
         *(s32 *)((u8 *)arg0 + 0x3C) = (s32) (-(*(s32 *)(state + 0x3C) & 0xFFFF0000) & 0xFFFF0000);
-        func_151150BC();
+        func_151150BC(arg0);
     }
 }
-void func_151150BC(void);
 extern void *D_800DBEF4;
 
 void func_150C7930(void *arg0) {
@@ -59,7 +56,7 @@ void func_150C7930(void *arg0) {
     temp_v0 = D_800DBEF4;
     temp_v0 += 0x1E0;
     *(s32 *)((u8 *)arg0 + 0x3C) = *(s32 *)(temp_v0 + 0x3C) & 0xFFFF0000;
-    func_151150BC();
+    func_151150BC(arg0);
 }
 typedef struct {
     u8 pad_0[0x73];

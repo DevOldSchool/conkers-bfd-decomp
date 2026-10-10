@@ -71,7 +71,6 @@ typedef struct LightCallData {
 } LightCallData;
 
 void *func_1515D5F8(s32, s32, s32, s32, s32, s32, s32, s32, s32, u8);
-void func_1515F10C(void *);
 
 s32 func_151602C0(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4,
                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
@@ -645,7 +644,6 @@ void func_151617C4(void *arg0) {
 void func_151617E4(void *arg0) {
     func_15169824(arg0);
 }
-void func_1515F10C(void *);
 extern void (*D_8008B208[])(void *);
 
 void func_15161804(void *arg0) {
