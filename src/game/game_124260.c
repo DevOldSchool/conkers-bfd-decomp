@@ -178,7 +178,6 @@ typedef struct Game124260Root {
 void func_15145740(void *, void *, void *, void *, f32);
 void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *,
                   f32, s32, s32, s32, s32, s32, s32);
-void func_1502EA98(void *, s32, s32, s32, s32, s32, s32);
 extern f32 D_800D9A50[3];
 extern f32 D_800A1BB4, D_800A1BB8;
 extern u8 D_800C35EA;

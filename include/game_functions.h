@@ -86,5 +86,8 @@ void func_1513259C(void *);
 void *func_15134908(void *, s32, u8, s32);
 void *func_150335C8(void *, void *, s32, s32, s32, s32);
 s32 func_150849A0(void *);
+void func_1503DE70(void *, s32, s32);
+void func_151D74B0(void *, u8, s8, u8, s32);
+void func_1502EA98(void *, s32, s32, s32, s32, s32, s32);
 
 #endif

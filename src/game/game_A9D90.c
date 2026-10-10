@@ -143,8 +143,6 @@ void func_1507D4F8(s32 arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507D4F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D4F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D754.s")
-void func_1503DE70(void *arg0, s32 arg1, s32 arg2);
-
 void func_1507DB44(void *arg0, s32 arg1) {
     func_1503DE70(arg0, arg1, -1);
 }

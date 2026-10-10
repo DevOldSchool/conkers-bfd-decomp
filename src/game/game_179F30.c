@@ -638,7 +638,6 @@ void func_1514DFD0(void *arg0) {
     *(s8 *)((u8 *)arg0 + 0x65) = (s8) (func_15083FB0(9U) + 1);
     *(u8 *)((u8 *)arg0 + 0x101) = (u8) (*(u8 *)((u8 *)arg0 + 0x101) | 0x34);
 }
-void func_151D74B0(s32, s32, s32, s32, s32);
 extern f32 D_800A5E08;
 extern f32 D_800A5E0C;
 
@@ -739,10 +738,9 @@ void func_1514E00C(void *arg0) {
     setup.sp40 = D_800A5E0C;
     setup.spEC = 1.0f;
     func_1514EC1C(func_15189FF0(&setup.sp4C, &setup.spA4, &setup.sp2C, 2, 0U, 0U, 0U), (s32) arg0, 6);
-    func_151D74B0((s32) arg0, 5, -1, 0xFF, 1);
+    func_151D74B0(arg0, 5, -1, 0xFF, 1);
 }
 
-void func_151D74B0(s32, s32, s32, s32, s32);
 extern f32 D_800A5E10;
 extern f32 D_800A5E14;
 
@@ -843,7 +841,7 @@ void func_1514E194(void *arg0) {
     setup.sp40 = D_800A5E14;
     setup.spEC = 1.0f;
     func_1514EC1C(func_15189FF0(&setup.sp4C, &setup.spA4, &setup.sp2C, 2, 0U, 0U, 0U), (s32) arg0, 6);
-    func_151D74B0((s32) arg0, 5, -1, 0xFF, 1);
+    func_151D74B0(arg0, 5, -1, 0xFF, 1);
 }
 
 extern f32 D_800A5E18;
@@ -1493,18 +1491,16 @@ void func_1514F44C(s32 arg0) {
     temp_v0 = func_1518D1C0(arg0, 5, 0, 1, 0xFF, 1, &D_800A5988);
     func_1514EC1C((s32)temp_v0, arg0, 0xD);
 }
-void func_151D74B0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-
-void func_1514F4A8(s32 arg0) {
+void func_1514F4A8(void *arg0) {
     func_151D74B0(arg0, 1, -1, 0xFF, 1);
 }
-void func_1514F4D8(s32 arg0) {
+void func_1514F4D8(void *arg0) {
     func_151D74B0(arg0, 2, 1, 0xFF, 1);
 }
-void func_1514F508(s32 arg0) {
+void func_1514F508(void *arg0) {
     func_151D74B0(arg0, 3, 0, 0xFF, 1);
 }
-void func_1514F538(s32 arg0) {
+void func_1514F538(void *arg0) {
     func_151D74B0(arg0, 4, -1, 0xFF, 1);
 }
 void func_150C4120(void *, s32, s32, s32); /* CONKER_ABI_DISCARDED_RETURN */

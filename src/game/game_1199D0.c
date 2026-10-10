@@ -141,8 +141,6 @@ typedef struct Game1199D0State {
     Game1199D0Params params;
 } Game1199D0State;
 
-void func_1502EA98(Game1199D0Actor *, u8, u8, u8, s32, s32, s32);
-
 void func_150ECB8C(Game1199D0State *arg0) {
     Game1199D0Params *params = &arg0->params;
     Game1199D0Actor *actor = arg0->params.actor;

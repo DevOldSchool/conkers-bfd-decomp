@@ -873,9 +873,6 @@ void func_15077294(void) {
         return;
     }
 }
-/* Call context: func_1503DE70: unique active project prototype */
-void func_1503DE70(void *, s32, s32);
-
 void func_150772E8(void) {
     func_1503DE70(D_800D154C, (s32) D_800D1890, -1);
 }
@@ -1962,8 +1959,6 @@ void func_1507A210(void) {
     *(u16 *)((u8 *)D_800D154C + 0x22C) = (u16) (*(u16 *)((u8 *)D_800D154C + 0x22C) & 0xFD);
     func_15075498();
 }
-/* Call context: func_1503DE70: unique active project prototype */
-
 void func_1507A270(void) {
     func_1503DE70(D_800D154C, (s32) D_800D1890, (s32) (s8) D_800D1891);
 }

@@ -650,7 +650,6 @@ void *func_150319CC(s32 arg0, void *arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_150319CC.s")
 s32 func_150859AC(s32, s32);
 void func_150D5440(void *, u8, s32);
-void func_151D74B0(void *, u8, s8, u8, s32);
 void func_150D3360(void *, u8, s32);
 void func_151001B4(void *);
 void func_15163BE8(void *, u8, s32);
