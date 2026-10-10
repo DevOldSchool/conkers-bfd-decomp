@@ -717,7 +717,6 @@ s32 func_10003C40(s32, s32, s32, s32);
 void func_10004074(s32);
 s32 func_1503F62C(s32, s32, Game215960Command ***, u8 *, void **, void **, Game1ED90CActor **);
 void func_150A7BC0(void *);
-void func_1503F5B8(Game1ED90CActor *, s32, s32, f32, f32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151ED90C CURRENT (370) */
 Game1ED90CObject *func_151ED90C(s32 arg0, s32 arg1, s32 arg2, f32 arg3) {

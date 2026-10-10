@@ -25,7 +25,6 @@ void *func_10022EC0(void *, const void *, u32);
 /* Raw callee forwards full-width a0 and stores full-width a1. */
 s32 func_1503F62C(s32, s32, void *, void *, void **, void *, void *);
 void *func_1515D480(s32);
-void func_1503F5B8(void *, s32, s32, f32, f32, s32);
 extern s32 D_80082FA0;
 
 s32 func_15157010(s32 arg0, s32 arg1, f32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7) {
@@ -55,7 +54,7 @@ s32 func_15157010(s32 arg0, s32 arg1, f32 arg2, s32 arg3, s32 arg4, s32 arg5, s3
     func_150A7BC0(temp_s1);
     *(u8 **)(*(u8 **)(temp_v0 + 0x68) + 0x3E0) = temp_s0;
     *(u8 **)(*(u8 **)(temp_v0 + 0x68) + 0x3E4) = temp_s1;
-    func_1503F5B8(*(u8 **)((u8 *)(temp_v0) + 0x68), 1, arg1, arg2, 0.0f, 0);
+    func_1503F5B8(*(void **)((u8 *)(temp_v0) + 0x68), 1, arg1, arg2, 0.0f, 0);
     *(s32 *)((u8 *)(temp_v0) + 0xFC) = arg3;
     *(s32 *)((u8 *)(temp_v0) + 0x118) = arg4;
     *(s8 *)((u8 *)(temp_v0) + 0x100) = 0;

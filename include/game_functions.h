@@ -7,6 +7,7 @@
 struct Game15D730CopyBlock;
 struct Game1944C0EffectB8;
 struct Game1BA670State;
+struct Game6C960Actor;
 struct Game7FA40Owner;
 struct GameAB760State;
 
@@ -101,5 +102,6 @@ void func_1518E308(struct Game1BA670State *);
 void func_1516D2E0(void *);
 void func_1515C244(void *, void *, f32 *, f32 *);
 f32 func_1505A72C(void *, void *);
+void func_1503F5B8(struct Game6C960Actor *, s32, s32, f32, f32, s32);
 
 #endif
