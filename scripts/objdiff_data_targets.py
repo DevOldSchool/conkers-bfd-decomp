@@ -10,6 +10,7 @@ from pathlib import Path
 import re
 import subprocess
 
+from build_jobs import job_count
 import compile_c
 import data_boundaries
 import diff
@@ -435,11 +436,11 @@ def prepare_textures(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict
         raise ValueError('texture reference ROM differs from the validated report ROM')
     paths = ['build/us/assets/' + texture_build.part_name(e['flat_index']) + '.o' for e, _ in selected]
     with (output / 'texture-build.log').open('w') as log:
-        subprocess.run(['make', '--silent', '--jobs', '4', *paths, 'PROFILE=us', 'ASSETS=1'],
+        subprocess.run(['make', '--silent', '--jobs', str(job_count()), *paths, 'PROFILE=us', 'ASSETS=1'],
                        cwd=ROOT, stdout=log, stderr=log, check=True)
     # Each reference has its own directory. Preserve catalog order and retain
     # all per-object checks; the report also rechecks every source hash at end.
-    with ThreadPoolExecutor(max_workers=4) as workers:
+    with ThreadPoolExecutor(max_workers=job_count()) as workers:
         pairs = list(workers.map(partial(prepare_texture, rom, output=output),
                                  (expected for expected, _ in selected)))
     return [unit for unit, _ in pairs], [item for _, item in pairs]
@@ -452,7 +453,7 @@ def prepare_font(rom: bytes, *, output: Path | None = None) -> tuple[dict, dict]
     ranges = font_splits.verify_splits(ROOT / 'config/profiles/us.yaml', rom, layout)
     paths = [ROOT / ('build/us/assets/' + name + '.o') for _, _, name in ranges]
     with (directory / 'build.log').open('w') as log:
-        subprocess.run(['make', '--silent', *[str(p.relative_to(ROOT)) for p in paths], 'PROFILE=us', 'ASSETS=1'],
+        subprocess.run(['make', '--silent', '--jobs', str(job_count()), *[str(p.relative_to(ROOT)) for p in paths], 'PROFILE=us', 'ASSETS=1'],
                        cwd=ROOT, stdout=log, stderr=log, check=True)
     layout = font_assets.load_layout('us')
     start, end = layout['font_start'], layout['font_storage_end']

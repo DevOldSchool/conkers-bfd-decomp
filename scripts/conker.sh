@@ -105,11 +105,12 @@ Getting started
   stop                           Stop and remove this checkout's warm toolchain container.
 
 After the raw base split map is available
-  prepare [--profile us] [--assets] [--refresh]
+  prepare [--profile us] [--assets] [--refresh] [--jobs N]
                                  Cache generated sources; --refresh forces a new split.
   build [--profile us|--all] [--assets] [--refresh] [--jobs N]
                                  Default: C with original ROM assets. --assets rebuilds assets.
                                  Timings: build/timings/*.jsonl. Jobs default to 4 (CONKER_JOBS).
+                                 CONKER_JOBS also controls batch, integration and objdiff workers.
   diff [--profile us] <work-item-id>
   diff --record [--profile us] <work-item-id>
                                  Show a focused diff and record it immediately when CURRENT (0).
@@ -416,38 +417,51 @@ run_host_mips_to_c() {
         python3 scripts/m2c.py "$@"
 }
 
+configure_build_jobs() {
+    build_jobs="$(python3 "$repo_root/scripts/build_jobs.py" "$@")" || return
+    export CONKER_JOBS="$build_jobs"
+}
+
 run_in_container() {
+    configure_build_jobs || return
     ensure_warm_container
     run_in_warm_container "$@"
 }
 
 run_in_warm_container() {
-    docker exec --workdir /workspace "$warm_container_name" "$@"
+    configure_build_jobs || return
+    docker exec --env "CONKER_JOBS=$build_jobs" --workdir /workspace "$warm_container_name" "$@"
 }
 
 run_in_ephemeral_container() {
+    configure_build_jobs || return
     ensure_image
     workspace_mount_args
     docker run --rm "${container_run_args[@]}" \
         "${workspace_mounts[@]}" \
+        --env "CONKER_JOBS=$build_jobs" \
         --workdir /workspace \
         "$image_name" "$@"
 }
 
 run_in_container_integrating() {
+    configure_build_jobs || return
     ensure_image
     workspace_mount_args integrate
     docker run --rm "${container_run_args[@]}" \
         "${workspace_mounts[@]}" \
+        --env "CONKER_JOBS=$build_jobs" \
         --workdir /workspace \
         "$image_name" "$@"
 }
 
 run_in_container_libultra() {
+    configure_build_jobs || return
     ensure_image
     workspace_mount_args libultra
     docker run --rm "${container_run_args[@]}" \
         "${workspace_mounts[@]}" \
+        --env "CONKER_JOBS=$build_jobs" \
         --workdir /workspace \
         "$image_name" "$@"
 }
@@ -523,6 +537,7 @@ run_python_tests() {
 }
 
 run_in_container_interactive() {
+    configure_build_jobs || return
     ensure_image
     if ! watch_image_is_compatible; then
         printf 'Toolchain image predates diff-watch support; rebuilding it locally...\n'
@@ -531,7 +546,7 @@ run_in_container_interactive() {
         image_is_healthy || die "toolchain image failed the diff-watch smoke test"
     fi
     ensure_warm_container
-    exec docker exec --interactive --tty --workdir /workspace "$warm_container_name" "$@"
+    exec docker exec --env "CONKER_JOBS=$build_jobs" --interactive --tty --workdir /workspace "$warm_container_name" "$@"
 }
 
 require_profile() {
@@ -722,14 +737,15 @@ case "$command" in
                 verify_and_record_match
                 ;;
             integrate)
+                configure_build_jobs || exit $?
                 parse_profile_and_value "usage: ./conker progress integrate [--profile us] <work-item-id>|--all-reviewed" "$@"
                 python3 "$state_tool" setup-check --profile "$selected_profile"
                 integration_overlays="$(python3 "$state_tool" integration-plan "$selected_value")"
                 if [[ " $integration_overlays " == *" main "* || " $integration_overlays " == *" debugger "* ]]; then
-                    run_in_container_libultra make --silent profile-libs PROFILE="$selected_profile"
+                    run_in_container_libultra make --silent --jobs "$build_jobs" profile-libs PROFILE="$selected_profile"
                 fi
                 if [[ " $integration_overlays " == *" game "* ]]; then
-                    run_in_container_libultra make --silent game-libs
+                    run_in_container_libultra make --silent --jobs "$build_jobs" game-libs
                 fi
                 if [[ "$selected_value" == "--all-reviewed" ]]; then
                     run_in_container_integrating python3 scripts/integrate.py --profile "$selected_profile" --all-reviewed
@@ -897,6 +913,7 @@ case "$command" in
         printf 'AGENT_ACTION: STOP_MATCHED\n'
         ;;
     verify-batch)
+        configure_build_jobs || exit $?
         batch_mode="clean"
         select_test_runner
         while [[ $# -gt 0 ]]; do
@@ -937,17 +954,17 @@ case "$command" in
             exit 1
         fi
         if [[ " $batch_overlays " == *" main "* || " $batch_overlays " == *" debugger "* ]]; then
-            if ! run_in_container_libultra make --silent profile-libs PROFILE=us; then
+            if ! run_in_container_libultra make --silent --jobs "$build_jobs" profile-libs PROFILE=us; then
                 printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
                 exit 1
             fi
-            if ! run_in_container make --silent --jobs 4 build PROFILE=us; then
+            if ! run_in_container make --silent --jobs "$build_jobs" build PROFILE=us; then
                 printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
                 exit 1
             fi
         fi
         if [[ " $batch_overlays " == *" game "* ]]; then
-            if ! run_in_container_libultra make --silent game-libs; then
+            if ! run_in_container_libultra make --silent --jobs "$build_jobs" game-libs; then
                 printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
                 exit 1
             fi
@@ -955,7 +972,7 @@ case "$command" in
             if [[ "$batch_mode" == "incremental" ]]; then
                 game_batch_target="game-integrated"
             fi
-            if ! run_in_container make --silent --jobs 4 "$game_batch_target" GAME_PROFILE=us; then
+            if ! run_in_container make --silent --jobs "$build_jobs" "$game_batch_target" GAME_PROFILE=us; then
                 integrated_binary="$repo_root/build/game-integrated/us/conker.game.us.integrated.bin"
                 integrated_reference="$repo_root/build/game-integrated/us/game.code.bin"
                 if [[ -f "$integrated_binary" && -f "$integrated_reference" ]] && ! cmp -s "$integrated_binary" "$integrated_reference"; then
@@ -1023,7 +1040,7 @@ case "$command" in
                 *) profile_arguments+=("$1"); shift ;;
             esac
         done
-        [[ "$build_jobs" =~ ^[1-9][0-9]*$ ]] || die '--jobs/CONKER_JOBS must be a positive integer'
+        configure_build_jobs "$build_jobs"
         if [[ ${#profile_arguments[@]} -eq 1 && "${profile_arguments[0]}" == "--all" ]]; then
             selected_profile=us
             python3 "$state_tool" setup-check --all
@@ -1075,10 +1092,11 @@ case "$command" in
         python3 scripts/objdiff.py "$@"
         ;;
     objdiff-report-prepare)
+        configure_build_jobs || exit $?
         python3 "$state_tool" setup-check --profile us
         python3 "$state_tool" progress --check
-        run_in_container_libultra make --silent --jobs 4 profile-libs PROFILE=us
-        run_in_container_libultra make --silent --jobs 4 game-libs
+        run_in_container_libultra make --silent --jobs "$build_jobs" profile-libs PROFILE=us
+        run_in_container_libultra make --silent --jobs "$build_jobs" game-libs
         run_in_container python3 scripts/objdiff_report.py prepare
         ;;
     objdiff-prepare)
@@ -1211,14 +1229,15 @@ case "$command" in
         run_in_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay
         ;;
     game-build)
+        configure_build_jobs || exit $?
         parse_game_build_options "usage: ./conker game-build [--profile us] [--refresh]" "$@"
         python3 "$state_tool" setup-check --profile "$selected_profile"
-        run_in_container_libultra make --silent game-libs
+        run_in_container_libultra make --silent --jobs "$build_jobs" game-libs
         game_build_target=game-integrated
         if [[ "$refresh_game_build" == "true" ]]; then
             game_build_target=game-integrated-refresh
         fi
-        run_in_container make --silent --jobs 4 "$game_build_target" GAME_PROFILE="$selected_profile"
+        run_in_container make --silent --jobs "$build_jobs" "$game_build_target" GAME_PROFILE="$selected_profile"
         ;;
     rzip-extract)
         profile_supplied=false

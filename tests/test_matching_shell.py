@@ -36,11 +36,14 @@ state_tool=state-tool
 die() { printf "%s\\n" "$*" >&2; exit 2; }
 command=$1
 shift
-python3() { return 0; }
+python3() { if [[ "$1" == */build_jobs.py ]]; then command python3 "$@"; fi; }
 parse_profile_only() { selected_profile="${3:-us}"; }
 run_in_container_libultra() { printf 'SDK:%s\\n' "$*"; return "$sdk_status"; }
 run_in_container() { printf 'ROM:%s\\n' "$*"; }
 '''
+        helper = script.split('configure_build_jobs() {', 1)[1].split('\n}\n', 1)[0]
+        harness += f'repo_root={str(ROOT)!r}\nconfigure_build_jobs() {{' + helper + '\n}\n'
+        harness += 'unset CONKER_JOBS\n'
         for command, arguments, profile, sdk, assets, refresh, jobs in (
                 ('build', ['--all'], 'us', True, 0, 0, 4),
                 ('build', [], 'us', True, 0, 0, 4),

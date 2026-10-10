@@ -704,6 +704,13 @@ asset inputs or force unchanged asset encoders to run. An interrupted split
 cannot retain a successful cache stamp. Switching modes preserves separate
 linker scripts and checks that the shared assembly still matches.
 
+`CONKER_JOBS` controls Make jobs and objdiff worker pools across builds,
+preparation, batch verification and integration (default: 4). For serial runs,
+use `CONKER_JOBS=1 ./conker verify-batch <ids...>` or
+`CONKER_JOBS=1 ./conker objdiff report`. `build` and `prepare` also accept
+`--jobs N`, which overrides the environment for that invocation. The setting
+is forwarded into both warm and disposable toolchain containers.
+
 Builds print stage durations and append timestamped results, commands and exit
 codes to `build/timings/us-original.jsonl` or `us-rebuilt.jsonl`. SDK, preparation,
 asset encoding (when needed), compile/link/verification and build totals are
@@ -783,6 +790,16 @@ first.
 
 ### Asset reconstruction batches
 
+The [asset acceptance rules](../CONTRIBUTING.md#asset-and-build-changes) also
+apply when changing existing reconstruction code: selectors (including
+`texture_cpu_*`), packers and their model helpers, encoder contracts, asset
+layouts or shared build/preparation dependencies affecting reconstruction.
+Run `./conker build --assets` once after the related changes are ready, before
+handoff/commit/PR, and record the tested commit and byte-identical US ROM result.
+Default builds, `finish`, `verify-batch` and public PR CI do not provide this
+asset gate. Without a ROM, mark verification pending for a maintainer to complete
+before merge. C-only and documentation-only changes do not require this gate.
+
 After proving a new format with one pilot, work on a cohesive group of assets
 using that format; start with 10–25 entries where the existing encoder supports
 them. Per asset, verify reconstruction against the independent ROM bytes,
@@ -791,17 +808,17 @@ tests around the changed packer, boundaries and reporting contract. Host tests
 are useful for iteration; Docker remains the full-suite acceptance runner.
 
 Run the full US ROM build (`./conker build --assets`), Docker suite and native
-objdiff report once after the
-group is ready. Generate the report after the build and tests finish so its
-source/link-input checks see stable files. Flush a smaller pending group around
+objdiff report once after the group is ready. Generate the report after the build
+and tests finish so its source/link-input checks see stable files. Flush a smaller pending group around
 45 minutes, before stopping/handoff/commit/PR, or when a change needs an earlier
 integration check. Until the final gates pass, label assets as individually
 verified with batch integration pending; do not claim published matching credit.
 
 Avoid a full project report or the complete test suite after every
 asset. Rerun affected checks when inputs change or failures require it. For a
-small tooling-only follow-up, use the tests appropriate to that change and keep
-the earlier asset report explicitly historical if its fingerprint is now stale.
+small tooling-only follow-up, use the tests appropriate to that change; also run
+`./conker build --assets` if it can affect reconstruction. Keep the earlier asset
+report explicitly historical if its fingerprint is now stale.
 Do not rerun it merely to refresh a progress display during an ongoing batch.
 
 ## Regional and progress rules

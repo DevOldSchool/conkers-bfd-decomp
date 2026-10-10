@@ -17,6 +17,7 @@ import sys
 import time
 import zipfile
 
+from build_jobs import job_count
 from profile_config import load_profile
 
 import compile_c
@@ -282,7 +283,7 @@ def prepare() -> None:
             return unit
 
     built = []
-    with ThreadPoolExecutor(max_workers=4) as pool:
+    with ThreadPoolExecutor(max_workers=job_count()) as pool:
         futures = {pool.submit(build_unit, spec): spec for spec in specs}
         for future in as_completed(futures):
             spec = futures[future]

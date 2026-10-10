@@ -39,6 +39,11 @@ def object_file(entries):
 
 
 class DataTargetTests(unittest.TestCase):
+    def setUp(self):
+        jobs = patch.dict(os.environ, CONKER_JOBS='4')
+        jobs.start()
+        self.addCleanup(jobs.stop)
+
     @unittest.skipUnless(os.environ.get('CONKER_ROM_TESTS') == '1' and shutil.which('splat')
                          and shutil.which('mips-linux-gnu-as'), 'requires owned ROM and toolchain')
     def test_canonical_sdk_payload_extents_survive_splat_and_full_image_link(self):
@@ -348,12 +353,14 @@ class DataTargetTests(unittest.TestCase):
                     payload = (directory / command[-1]).read_bytes()
                     (directory / command[-2]).write_bytes(object_file([('.data', 1, 3, payload)]))
             with patch.object(targets, 'ROOT', root), patch.object(targets, 'OUTPUT', root), \
-                    patch.object(targets.subprocess, 'run', side_effect=run), \
+                    patch.dict(os.environ, CONKER_JOBS='1'), \
+                    patch.object(targets.subprocess, 'run', side_effect=run) as commands, \
                     patch.object(targets.font_splits, 'verify_splits', return_value=[(16, 32, 'font_test')]), \
                     patch.object(targets.font_assets, 'load_layout', return_value={
                         'font_start': 16, 'font_storage_end': 32}), \
                     patch.object(targets.font_assets, 'packed_font_bytes', return_value=edited):
                 unit, config = targets.prepare_font(bytes(16) + original)
+                self.assertEqual(commands.call_args_list[0].args[0][:4], ['make', '--silent', '--jobs', '1'])
                 self.assertFalse(unit['literal_payload_matches_rom'])
                 self.assertEqual(targets.sections((root / unit['target_path']).read_bytes(), 1)['.data'][1], original)
                 self.assertEqual(config['metadata']['progress_categories'], ['data'])
@@ -376,6 +383,12 @@ class DataTargetTests(unittest.TestCase):
                 run.assert_called_once()
                 self.assertEqual(run.call_args.args[0], ['make', '--silent', '--jobs', '4',
                     'build/us/assets/flat/textures/1063.o', 'build/us/assets/flat/textures/1296.o', 'PROFILE=us', 'ASSETS=1'])
+                run.reset_mock()
+                with patch.dict(os.environ, CONKER_JOBS='1'), patch.object(targets, 'prepare_texture', return_value=({}, {})), \
+                        patch.object(targets, 'ThreadPoolExecutor', wraps=targets.ThreadPoolExecutor) as pool:
+                    targets.prepare_textures(b'ROM', output=root)
+                self.assertEqual(run.call_args.args[0][3], '1')
+                pool.assert_called_once_with(max_workers=1)
                 run.reset_mock()
                 with self.assertRaisesRegex(ValueError, 'reference ROM differs'):
                     targets.prepare_textures(b'wrong ROM', output=root)
