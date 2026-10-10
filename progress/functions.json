@@ -92713,7 +92713,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Full16 CURRENT60: sole byte store remains before JR instead of in delay slot. New actual-store void return expression rejected by pinned CFE (4df313af), which disallows a void expression in void return; restored simple assignment and rechecked. Prior signed/unsigned declaration and separate explicit return forms neutral. No flag/ABI/volatile/ASM workaround or further supported C revision. No source/shared changes retained.",
+        "reason": "Full16 CURRENT60: SB before JR vs raw delay-slot SB; u8 decl, explicit return, same-line brace all neutral; no flag-independent C form found",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93388,8 +93388,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 395,
-        "reason": "Fresh full368 CURRENT395 e1a12f96: exact instruction stream/frame58/stack,47 register rows. Authorized budget32 declaration/lifetime search exhausted all16 generated variants with best395 and no source application; search-report build/us/permute/func_800099BC/search-report.json. Existing explicit neighbor/saved-next and shared neighbor/anchor graph hypotheses already rejected. Do not repeat finite exhausted search with increased budget. No retained source/ABI/shared changes.",
+        "current_score": 50,
+        "reason": "Full368 CURRENT50 (improved from 395) via alLink link-block form; decomp-permuter r1+r2 (published toolchain image) found no improvement below 50",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93461,8 +93461,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 95,
-        "reason": "Full216 CURRENT95 restored after one new manual manager/child phase-union hypothesis gave870: named manager folded to field addresses and required saved-anchor MOVE vanished. Whole selected source restored to inherited baseline, no retained source or shared/ABI/ASM change. This phase family now exhausted; see init-completion-20261007 ledger.",
+        "current_score": 80,
+        "reason": "Full216 CURRENT80 (improved from95): list-link block now keeps anchor = linkAfter->next but tests/updates through linkAfter->next (shape that matches sibling func_8000A348 exactly). Without the anchor store275. decomp-permuter 15min from95 (published toolchain 14b7eb44, barrier passes disabled) only reached 30/65 via copy temps or assignment-in-condition; rejected as fakes. Ledger build/us/manual-attempts/main-permuter-20261010/ledger.md. No shared/ABI/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93534,17 +93534,16 @@
       "symbol": "func_8000A03C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 65,
-        "reason": "Large-search pilot: fresh full216 CURRENT65, purely12 register rows. Authorized budget5000 exhaustive declaration/lifetime/expression search exhausted all25 generated variants with no improvement or exact result. Reviewed retained baseline has only real record/next/anchor/owner/link snapshots; no artificial storage, ABI/shared/ASM changes. Do not repeat this finite exhausted space. Ledger build/us/manual-attempts/init-large-permute-20261007/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 216,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000A348",
           "vram": "0x8000A348"
         }
@@ -93841,17 +93840,16 @@
       "symbol": "func_8000C350"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Manual best improved48to20 over full696 bytes: frame58 and all spill/formal homes now exact. Only two adjacent independent ANDIs at38/3C reversed. Actual5.3 ugen tree/listing confirms late low/high copies emit masks low-first; no new supported order-preserving revision after exhausted chain/type/reverse-copy forms. Preserve anonymous-channel and expression-ID storage gain; no shared/ABI/ASM/flags changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 696,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000C530",
           "vram": "0x8000C530"
         }
@@ -95853,17 +95851,16 @@
       "symbol": "func_80008C6C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 80,
-        "reason": "Full504 CURRENT80 restored after two new manual hypotheses: oldbuffer assignment inside condition neutral80; actual poll-return oldbuffer ROMaddress phases using existing scalar reproduce1547/frame48 and nine stack differences. Both rejected, no sourcegain. Best exact instruction/control/frame/homes with15 register rows preserved; no equivalent precolor/phase-union retry justified. No ABI/shared/ASM changes. See init-completion-20261007 ledger.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 504,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80008CE8",
           "vram": "0x80008CE8"
         }

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/main/main_audio_driver_sequence_boundaries.md
  *
  * TODO: Implement these source-unit functions:
- * - func_8000C530
  * - func_8000CEAC
  * - func_8000D2F8
  * - func_8000D96C
@@ -602,7 +601,6 @@ void func_800086FC(u8, u8, u8);
 void func_80008744(u8, u8, u8);
 void func_80008824(u8, u8, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000C530 CURRENT (20) */
 s32 func_8000C530(s32 arg0, u8 arg1, f32 arg2, f32 arg3, f32 arg4) {
     s32 oldMode;
     s32 mode;
@@ -620,8 +618,7 @@ s32 func_8000C530(s32 arg0, u8 arg1, f32 arg2, f32 arg3, f32 arg4) {
     oldLow = upper & 0xFF;
     oldHigh = ((u32)arg0 >> 16) & 0xFF;
     fade = arg0 & 0xFF000000;
-    low = oldLow;
-    high = oldHigh;
+    low = oldLow; high = oldHigh;
     if (D_80041F08 != 0 &&
         (oldMode != 2 || countdown == 0 || D_80041F08 == 2)) {
         mode = D_80041F08;
@@ -675,8 +672,6 @@ s32 func_8000C530(s32 arg0, u8 arg1, f32 arg2, f32 arg3, f32 arg4) {
     D_80041F08 = 0;
     return (countdown * 4) | mode | (low << 8) | (high << 16) | fade;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000C530 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000C530.s")
 extern s32 D_8002B070;
 extern s32 D_800BE9F0;
 extern f32 D_8002C238;

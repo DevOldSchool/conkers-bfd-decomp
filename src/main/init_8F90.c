@@ -14,7 +14,6 @@
  * - func_80009BE4
  * - func_80009CBC
  * - func_8000A03C
- * - func_8000A348
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -523,7 +522,7 @@ ALDMAproc func_80009980(void *state) {
     *(void **)state = 0;
     return D_100097CC;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800099BC CURRENT (395) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800099BC CURRENT (50) */
 void func_800099BC(void) {
     u32 i;
     void *message;
@@ -568,8 +567,8 @@ void func_800099BC(void) {
                     record->prev = anchor;
                     linkAfter = anchor;
                     anchor = linkAfter->next;
-                    if (anchor != 0) {
-                        anchor->prev = linkNode;
+                    if (linkAfter->next != 0) {
+                        linkAfter->next->prev = linkNode;
                     }
                     linkAfter->next = linkNode;
                 } else {
@@ -616,7 +615,7 @@ void func_80009B90(void *arg0) {
 void func_850AD770(void);
 extern s32 D_8003C8E0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009BE4 CURRENT (95) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009BE4 CURRENT (80) */
 void func_80009BE4(void *arg0) {
     AudioBufferState *record = arg0;
     AudioBufferState *anchor;
@@ -652,8 +651,8 @@ void func_80009BE4(void *arg0) {
             linkNode->prev = anchor;
             linkAfter = anchor;
             anchor = linkAfter->next;
-            if (anchor != 0) {
-                anchor->prev = linkNode;
+            if (linkAfter->next != 0) {
+                linkAfter->next->prev = linkNode;
             }
             linkAfter->next = linkNode;
         }
@@ -960,7 +959,6 @@ void func_8000A03C(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_8000A03C */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_8000A03C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A348 CURRENT (65) */
 void func_8000A348(void) {
     AudioBufferState *record;
     AudioBufferState *next;
@@ -994,8 +992,8 @@ void func_8000A348(void) {
                         linkNode->prev = anchor;
                         linkAfter = anchor;
                         anchor = linkAfter->next;
-                        if (anchor != 0) {
-                            anchor->prev = linkNode;
+                        if (linkAfter->next != 0) {
+                            linkAfter->next->prev = linkNode;
                         }
                         linkAfter->next = linkNode;
                     }
@@ -1009,5 +1007,3 @@ void func_8000A348(void) {
         } while (next != 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000A348 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_8000A348.s")

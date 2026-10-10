@@ -20113,7 +20113,7 @@
         "us": {
           "end": "0x8F90",
           "start": "0x8180",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/main/init_8180.c"
