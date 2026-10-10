@@ -1507,10 +1507,9 @@ void func_150C4120(void *, s32, s32, s32); /* CONKER_ABI_DISCARDED_RETURN */
 void func_1514F568(void *arg0) {
     func_150C4120(arg0, -1, 0xFF, 1);
 }
-void func_1501175C(s32, s32, s32);
-void func_15011A78(s32, s32, s32);
+void func_1501175C(void *, s32, s32);
 
-void func_1514F590(s32 arg0) {
+void func_1514F590(void *arg0) {
     func_1501175C(arg0, 0xFF, 1);
     func_15011A78(arg0, 0xFF, 1);
 }
