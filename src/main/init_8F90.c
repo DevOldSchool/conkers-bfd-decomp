@@ -326,16 +326,14 @@ void func_80009400(s32 arg0) {
                 first = 0;
             }
             cadence++;
-            goto dispatch_done;
+            break;
         case 4:
             done = 1;
-            goto dispatch_done;
+            break;
         case 10:
             done = 1;
-            goto dispatch_done;
+            break;
         }
-dispatch_done:
-        ;
     }
     func_80018E0C(D_8003E640);
     for (;;) {

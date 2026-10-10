@@ -854,7 +854,7 @@ void func_151E7EF8(void) {
         } while (cursor < end);
     }
     if (checksum != 0xBFC924E3U) {
-        *(volatile s32 *)D_10003330 = 0;
+        *(s32 *)(u32)D_10003330 = 0;
     }
 }
 typedef struct Game20F9A0SpawnConfig {

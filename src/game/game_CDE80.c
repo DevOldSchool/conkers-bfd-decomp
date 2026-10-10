@@ -581,7 +581,7 @@ s32 func_150A2E4C(s32 arg0, f32 arg1, f32 arg2, volatile f32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150A2E4C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A2E4C.s")
-s32 func_150A2E4C(s32, f32, f32, volatile f32);
+s32 func_150A2E4C(s32, f32, f32, f32);
 extern u8 D_800CC2D0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150A2EE4 CURRENT (1130) */

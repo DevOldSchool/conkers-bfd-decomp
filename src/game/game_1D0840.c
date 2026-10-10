@@ -53,7 +53,7 @@ void *func_15160A58(void *, s32, void *, s32, s32, s32, s32, s32,
 extern f32 D_800A8D50;
 extern f32 D_800A8D54;
 
-void func_151A3390(u8 *arg0, volatile u8 arg1) {
+void func_151A3390(u8 *arg0, u8 arg1) {
     Game1D0840LaunchPacket packet;
     f32 origin[3];
 
@@ -838,7 +838,7 @@ void func_151A4E9C(void *arg0) {
     *(s8 *)((u8 *)arg0 + 0x30) = 0;
     *(u16 *)((u8 *)arg0 + 0x1E) = (u16) (*(u16 *)((u8 *)arg0 + 0x1E) & 0xFFFD);
     temp_v0[0x30] |= 1;
-    ((volatile u8 *)temp_v0)[0x30] = temp_v0[0x30] | 4;
+    temp_v0[0x30] |= 4;
 }
 extern void *func_151A3504(void *arg0, u8 arg1);
 

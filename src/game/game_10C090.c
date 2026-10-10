@@ -13,16 +13,11 @@
 extern void func_150DEC28(u8 arg0, s32 arg1);
 
 void func_150DEBE0(s32 arg0) {
-    s32 var_s0;
+    u8 i;
 
-    var_s0 = 0;
-loop_1:
-        func_150DEC28((u8)var_s0, 1);
-        var_s0 += 1;
-        var_s0 &= 0xFF;
-        if (var_s0 < 4) {
-            goto loop_1;
-        }
+    for (i = 0; i < 4; i++) {
+        func_150DEC28(i, 1);
+    }
 }
 typedef struct Game10C090LookupRecord {
     u8 value;

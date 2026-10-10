@@ -71,7 +71,7 @@ void func_151411C4(void) {
 }
 typedef struct Game1411E4State {
     u8 pad_0[0x154];
-    void *volatile field_154;
+    void *field_154;
     u8 pad_158[0x10];
     u8 field_168;
 } Game1411E4State;
@@ -81,8 +81,10 @@ extern u8 D_80089F9C[];
 extern s32 D_800DC9F0;
 
 void func_151411E4(Game1411E4State *arg0) {
+    void **attached = &arg0->field_154;
+
     if (arg0->field_154 != 0) {
-        func_1517E134(arg0->field_154);
+        func_1517E134(*attached);
     }
     D_800DC9F0 -= 1;
     (*(void (**)(Game1411E4State *))(D_80089F9C + (arg0->field_168 * 4)))(arg0);
@@ -90,8 +92,10 @@ void func_151411E4(Game1411E4State *arg0) {
 extern u8 D_80089FE4[];
 
 void func_15141250(Game1411E4State *arg0) {
+    void **attached = &arg0->field_154;
+
     if (arg0->field_154 != 0) {
-        func_1517E134(arg0->field_154);
+        func_1517E134(*attached);
     }
     D_800DC9F0 -= 1;
     (*(void (**)(Game1411E4State *))(D_80089FE4 + (arg0->field_168 * 4)))(arg0);
@@ -257,7 +261,6 @@ s32 func_151415D4(void *arg0) {
     Mid *m = &a->unk170;
     f32 d;
     if (m->unkC < m->unk10) {
-        if (1) {}
         a->unk158 = m->unk4;
     } else if (m->unkC < m->unk14) {
         f32 s;

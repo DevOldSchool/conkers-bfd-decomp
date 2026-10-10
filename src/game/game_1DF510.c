@@ -45,23 +45,22 @@ s32 func_15083E90(s32, void *);
 s32 func_151491F4(s32, s32, s32, s32, s32, s32, s32, s32);
 
 void func_151B2060(void *arg0) {
-    struct {
-        Game1DF510Packet packet;
-        s32 padding;
-    } frame;
+    s32 id;
+    Game1DF510Packet packet;
     s32 object;
 
     if (arg0 != 0) {
-        frame.packet.field_0 = arg0;
-        frame.packet.field_4 = *(u8 *)((u8 *)arg0 + 0x3B);
-        frame.packet.field_8 = func_15083E90(1, arg0);
-        frame.packet.field_C = 1;
-        frame.packet.field_D = 0;
-        func_100226F0(frame.packet.field_10, 0xC);
-        frame.packet.field_1C = 0;
+        packet.field_0 = arg0;
+        packet.field_4 = *(u8 *)((u8 *)arg0 + 0x3B);
+        id = func_15083E90(1, arg0);
+        packet.field_8 = id;
+        packet.field_C = 1;
+        packet.field_D = 0;
+        func_100226F0(packet.field_10, 0xC);
+        packet.field_1C = 0;
         object = func_151491F4(0x12C, -1, 0x16, 0, 0x12, 0x20, 0xFF, 1);
         if (object != 0) {
-            func_10022EC0(object + 0x28, &frame.packet, 0x20);
+            func_10022EC0(object + 0x28, &packet, 0x20);
         }
     }
 }

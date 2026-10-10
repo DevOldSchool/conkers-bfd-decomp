@@ -530,20 +530,12 @@ s32 func_151897A4(s32 arg0, u8 *arg1, s16 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151897A4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B5CC0/func_151897A4.s")
 void func_151898C0(s32 arg0, s32 arg1) {
-    void *var_v0;
+    void *node;
 
-    var_v0 = D_800DF7C8;
-    if (var_v0 != 0) {
-loop_1:
-        if (arg0 == *(s32 *)((u8 *)var_v0 + 0x10)) {
-            *(s32 *)((u8 *)var_v0 + 0x14) = arg1;
+    for (node = D_800DF7C8; node != 0; node = *(void **)((u8 *)node + 0xC)) {
+        if (arg0 == *(s32 *)((u8 *)node + 0x10)) {
+            *(s32 *)((u8 *)node + 0x14) = arg1;
             return;
-        }
-        var_v0 = *(void **)((u8 *)var_v0 + 0xC);
-        if (var_v0 == 0) {
-
-        } else {
-            goto loop_1;
         }
     }
 }

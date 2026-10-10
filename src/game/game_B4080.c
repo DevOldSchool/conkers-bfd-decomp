@@ -223,7 +223,7 @@ f32 func_15086D94(f32 arg0, f32 arg1, volatile f32 arg2, volatile f32 arg3, f32 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15086D94.s")
 
 s32 func_15086D48(s32);
-s32 func_150888A8(volatile s32, volatile u8, s8);
+s32 func_150888A8(s32, u8, s8);
 void func_15088824(void *);
 s32 func_10003C40(s32, s32, s32, s32);
 extern s32 D_800872A0, D_800D2394;
@@ -357,7 +357,7 @@ void func_15087CC0(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15087CC0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15087CC0.s")
-s32 func_150888A8(volatile s32, volatile u8, s8);
+s32 func_150888A8(s32, u8, s8);
 
 void func_15087DCC(s32 arg0, s32 arg1) {
     u8 *temp_v1;

@@ -384,7 +384,7 @@ Game133190Holder *func_15107604(Game133190Object *arg0) {
 void func_1516972C(void *arg0);
 
 void func_1510761C(void *arg0) {
-    volatile void **field_30 = (volatile void **)((u8 *)arg0 + 0x30);
+    void **field_30 = (void **)((u8 *)arg0 + 0x30);
 
     if (*field_30 != 0) {
         func_1516972C((void *)*field_30);
@@ -401,8 +401,11 @@ void func_15107678(s32 arg0) {
 extern u8 D_80088C38;
 
 void func_151076A4(void *arg0, s32 arg1, u8 arg2) {
-    if (*(void **)(((u8 (*)[4])&D_80088C38)[*(volatile u8 *)((u8 *)arg0 + 0x68)]) != 0) {
-        (*(void (**)(void *, s32, u8))(((u8 (*)[4])&D_80088C38)[*(volatile u8 *)((u8 *)arg0 + 0x68)]))(arg0, arg1, arg2);
+    u8 *handler;
+
+    handler = (u8 *)arg0 + 0x68;
+    if (*(void **)(((u8 (*)[4])&D_80088C38)[*(u8 *)((u8 *)arg0 + 0x68)]) != 0) {
+        (*(void (**)(void *, s32, u8))(((u8 (*)[4])&D_80088C38)[*handler]))(arg0, arg1, arg2);
     }
 }
 typedef struct Game133190Vector {

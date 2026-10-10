@@ -98,7 +98,7 @@ s32 func_151602C0(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4,
 }
 void *func_1516037C(GameLightDescriptor *arg0, s32 arg1, void *arg2, u8 arg3, s32 arg4) {
     void *temp_v0;
-    volatile void *sp24;
+    void *sp24;
 
     temp_v0 = func_15167A68(0x35, arg4, (u8 *)arg2 + 0x18, 1, (s32)arg3, 1);
     if (temp_v0 == 0) {
@@ -857,20 +857,17 @@ f32 func_15047D60(f32);
 f32 func_15144B68(f32);
 void func_1515D4D4(s32, s32, s32, s32);
 
-void func_151621B8(void *volatile arg0) {
-    f32 factor;
-    s32 red;
-    f32 *state;
-    s32 priority;
+typedef struct Light235 { f32 unk0, unk4, unk8, unkC, unk10, unk14, unk18, unk1C; } struct235;
 
-    factor = func_15047D60(*(f32 *)((u8 *)arg0 + 0x40));
-    state = (f32 *)((u8 *)arg0 + 0x28);
-    priority = 0;
-    func_1515D4D4(red = (u32)(factor * state[3] + state[0]) & 0xFF,
-                   (u32)(factor * state[4] + state[1]) & 0xFF,
-                   (u32)(factor * state[5] + state[2]) & 0xFF, priority);
-    state[6] += state[7] * D_800BE9A4;
-    state[6] = func_15144B68(state[6]);
+void func_151621B8(void *arg0) {
+    struct235 *v1 = (struct235 *)((u8 *)arg0 + 0x28);
+    f32 s;
+
+    s = func_15047D60(v1->unk18);
+    func_1515D4D4((u8)(v1->unk0 + (s * v1->unkC)), (u8)(v1->unk4 + (s * v1->unk10)),
+                  (u8)(v1->unk8 + (s * v1->unk14)), 0);
+    v1->unk18 += v1->unk1C * D_800BE9A4;
+    v1->unk18 = func_15144B68(v1->unk18);
 }
 extern s32 D_800A670C[];
 extern s32 D_800A6730[];
@@ -915,7 +912,6 @@ f32 func_15047D60(f32);
 f32 func_15144B68(f32);
 
 typedef struct Light225Output { u8 pad0[5]; u8 unk5; u8 unk6; u8 unk7; } Light225Output;
-typedef struct Light235 { f32 unk0, unk4, unk8, unkC, unk10, unk14, unk18, unk1C; } struct235;
 typedef struct Light237 { f32 unk0[5]; Light225Output *unk14; struct235 unk18; } struct237;
 
 s32 func_15162510(struct237 *arg0) {
@@ -1210,21 +1206,26 @@ extern LightUpdateCallback D_8008B36C[];
 
 s32 func_15163504(void *arg0) {
     s32 result;
+    s8 *handler;
 
     result = 1;
+    handler = (s8 *)((u8 *)arg0 + 0x24);
     *(s16 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 0xE) = (s16)(s32)**(f32 **)((u8 *)arg0 + 0x18);
     *(s16 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 0x10) = (s16)(s32)**(f32 **)((u8 *)arg0 + 0x1C);
     *(s16 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 0x12) = (s16)(s32)**(f32 **)((u8 *)arg0 + 0x20);
-    if (*(volatile s8 *)((u8 *)arg0 + 0x24) != -1) {
-        return D_8008B36C[(s32) *(s8 *)((u8 *)arg0 + 0x24)](arg0);
+    if (*(s8 *)((u8 *)arg0 + 0x24) != -1) {
+        return D_8008B36C[*handler](arg0);
     }
     return result;
 }
 extern void (*D_8008B370[])(void *, void *, u8);
 
 void func_151635A8(void *arg0, void *arg1, u8 arg2) {
-    if (D_8008B370[*(volatile u8 *)((u8 *)arg0 + 0x25)] != 0) {
-        D_8008B370[*(u8 *)((u8 *)arg0 + 0x25)](arg0, arg1, arg2);
+    u8 *handler;
+
+    handler = (u8 *)arg0 + 0x25;
+    if (D_8008B370[*(u8 *)((u8 *)arg0 + 0x25)] != 0) {
+        D_8008B370[*handler](arg0, arg1, arg2);
     }
 }
 extern u8 D_800A6964[];
@@ -1480,7 +1481,7 @@ void func_15163DEC(s32 arg0, s32 arg1) {
     Light63DECState *state = (Light63DECState *)arg1;
     f32 current;
 
-    state->timer = state->timer - D_800BE9A4;
+    state->timer -= D_800BE9A4;
     if (state->timer < 0.0f) {
         state->timer = func_150ADA68() * state->duration;
         if (func_150ADA20() & 3) {
@@ -1493,7 +1494,7 @@ void func_15163DEC(s32 arg0, s32 arg1) {
     }
     state->value += (state->target - state->value) * state->weight;
     *(s8 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 0x2F) =
-        (s8)(u32)*(volatile f32 *)&state->value;
+        (s8)(u32)*(f32 *)&state->value;
 }
 s32 func_15163F50(void *arg0, void *arg1) {
     void *temp_v1;

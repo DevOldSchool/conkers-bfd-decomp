@@ -651,12 +651,12 @@ void func_1503F16C(s32 arg0) {
     if (func_1503EF4C(2, 0, arg0) != 0) {
         entity = D_800CC2D0 + arg0 * 0x32C;
         *(s32 *)(entity + 0x94) |= 0x40;
-        *(volatile s32 *)(entity + 0x94) = *(s32 *)(entity + 0x94) & ~0x200;
+        *(s32 *)(entity + 0x94) &= ~0x200;
     }
     if (func_1503EF4C(2, 1, arg0) != 0) {
         entity = D_800CC2D0 + arg0 * 0x32C;
         *(s32 *)(entity + 0x94) |= 0x80;
-        *(volatile s32 *)(entity + 0x94) = *(s32 *)(entity + 0x94) & ~0x100;
+        *(s32 *)(entity + 0x94) &= ~0x100;
     }
     if (func_1503EF4C(2, 2, arg0) != 0) {
         entity = D_800CC2D0 + arg0 * 0x32C;

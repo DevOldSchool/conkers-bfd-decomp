@@ -334,21 +334,21 @@ void func_1507DF10(void *arg0, s32 arg1) {
         return;
     case 8:
         *(s32 *)((u8 *)arg0 + 0x94) |= 0x40;
-        *(volatile s32 *)((u8 *)arg0 + 0x94) = *(s32 *)((u8 *)arg0 + 0x94) & ~0x200;
+        *(s32 *)((u8 *)arg0 + 0x94) &= ~0x200;
         *(s32 *)((u8 *)arg0 + 0x9C) = (s32) (*(s32 *)((u8 *)arg0 + 0x9C) | 0xF00);
         *(s32 *)((u8 *)arg0 + 0x2E4) = 2;
         return;
     case 6:
     case 7:
         *(s32 *)((u8 *)arg0 + 0x94) |= 0xE;
-        *(volatile s32 *)((u8 *)arg0 + 0x94) = *(s32 *)((u8 *)arg0 + 0x94) & ~0x410;
+        *(s32 *)((u8 *)arg0 + 0x94) &= ~0x410;
         *(s32 *)((u8 *)arg0 + 0x9C) = (s32) (*(s32 *)((u8 *)arg0 + 0x9C) | 0xEE0000);
         *(s32 *)((u8 *)arg0 + 0x2E4) = 4;
         return;
     case 4:
     case 5:
         *(s32 *)((u8 *)arg0 + 0x94) |= 0x80;
-        *(volatile s32 *)((u8 *)arg0 + 0x94) = *(s32 *)((u8 *)arg0 + 0x94) & ~0x500;
+        *(s32 *)((u8 *)arg0 + 0x94) &= ~0x500;
         *(s32 *)((u8 *)arg0 + 0x2E4) = 8;
         /* fallthrough */
     default:

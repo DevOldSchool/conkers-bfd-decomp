@@ -38,7 +38,7 @@ typedef struct Game64120InitBlock {
 
 typedef struct Game64120InitState {
     u8 pad0[0x324];
-    Game64120InitBlock *volatile block;
+    Game64120InitBlock *block;
 } Game64120InitState;
 
 void *func_10003C40(s32, s32, s32, s32);
@@ -745,14 +745,12 @@ void func_1503A678(void);
 extern u8 D_800C3FFA;
 
 void func_1503A7F0(void) {
-    s32 temp_t6;
-    s32 sp1C;
+    s32 saved;
 
-    temp_t6 = D_800C3FFA;
+    saved = D_800C3FFA;
     D_800C3FFA = 0;
-    sp1C = temp_t6;
     func_15036F34();
-    D_800C3FFA = sp1C;
+    D_800C3FFA = saved;
     func_1503A678();
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_1503A830.s")

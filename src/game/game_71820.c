@@ -396,38 +396,26 @@ extern void func_1505D024(void *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern u8 D_800CC2D0[];
 
 void func_15044DA0(void) {
-    volatile u8 *state;
-
-    state = D_800CC2D0;
-    if ((state[0x104] == 0) && (state[0x125] == 0)) {
-        func_1505D024((void *)state, 5, *(volatile u16 *)(state + 0x7A), -1);
+    if ((D_800CC2D0[0x104] == 0) && (D_800CC2D0[0x125] == 0)) {
+        func_1505D024(D_800CC2D0, 5, *(u16 *)(D_800CC2D0 + 0x7A), -1);
     }
 }
 /* Call context: func_1505D024: unique active project prototype */
 extern u8 D_800C35EA;
 
 void func_15044DE8(void) {
-    volatile u8 *state;
-
-    state = D_800CC2D0;
-    if ((state[0x104] == 0) && (state[0x125] == 0) && (D_800C35EA != 1)) {
-        func_1505D024((void *)state, 4, *(volatile u16 *)(state + 0x7A), -1);
+    if ((D_800CC2D0[0x104] == 0) && (D_800CC2D0[0x125] == 0) && (D_800C35EA != 1)) {
+        func_1505D024(D_800CC2D0, 4, *(u16 *)(D_800CC2D0 + 0x7A), -1);
     }
 }
 void func_15044E40(void) {
-    volatile u8 *state;
-
-    state = D_800CC2D0;
-    if ((state[0x104] == 0) && (state[0x125] == 0)) {
-        func_1505D024((void *)state, 0x40, *(volatile u16 *)(state + 0x7A), -1);
+    if ((D_800CC2D0[0x104] == 0) && (D_800CC2D0[0x125] == 0)) {
+        func_1505D024(D_800CC2D0, 0x40, *(u16 *)(D_800CC2D0 + 0x7A), -1);
     }
 }
 void func_15044E88(void) {
-    volatile u8 *state;
-
-    state = D_800CC2D0;
-    if ((state[0x104] == 0) && (state[0x125] == 0)) {
-        func_1505D024((void *)state, 1, *(volatile u16 *)(state + 0x7A), -1);
+    if ((D_800CC2D0[0x104] == 0) && (D_800CC2D0[0x125] == 0)) {
+        func_1505D024(D_800CC2D0, 1, *(u16 *)(D_800CC2D0 + 0x7A), -1);
     }
 }
 typedef struct Game71820XZ {
@@ -1541,7 +1529,7 @@ void func_15047688(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
 void func_150A7BC0(Game71820Matrix *);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-void func_15047700(Game71820Matrix *, s32, f32, f32, f32, f32, f32, f32, volatile f32, volatile f32, volatile f32);
+void func_15047700(Game71820Matrix *, s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15047700 CURRENT (12607) */
 void func_15047700(Game71820Matrix *arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, volatile f32 arg8, volatile f32 arg9, volatile f32 arg10) {

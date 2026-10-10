@@ -1656,10 +1656,10 @@ void func_1505DFDC(Game83300Actor *arg0) {
         sp18->field_28 = 0;
         func_100226F0((u8 *)sp18 + 0x40, 0x3A0);
         temp_v1 = &D_800C4ED0[sp1C];
-        *(volatile u8 *)&sp18->field_41 = (u8)(*temp_v1 + 1);
+        sp18->field_41 = *temp_v1 + 1;
         sp18->field_211 = (u8)(*temp_v1 + 1);
-        *(volatile s32 *)&sp18->field_30 = 0;
-        *(volatile s32 *)&sp18->field_34 = 0;
+        sp18->field_30 = 0;
+        sp18->field_34 = 0;
     }
 }
 /* Call context: func_10023A10: unique active project prototype */

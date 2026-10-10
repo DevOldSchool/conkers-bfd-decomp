@@ -94,22 +94,20 @@ void *func_1518AADC(s32 arg0, s16 arg1, u8 arg2) {
     return temp_v0;
 }
 
-void *func_1518AB60(s32 arg0, volatile u8 arg1) {
-    volatile Game1B7EC0Effect *effect;
-    u8 selector;
+void *func_1518AB60(s32 arg0, u8 arg1) {
+    Game1B7EC0Effect *effect;
 
     effect = func_15167A68(0x1E, 0, sizeof(Game1B7EC0Effect), 1, 0xFF, 1);
     if (effect == 0) {
         return 0;
     }
     effect->field_10 = arg0;
-    selector = arg1;
+    effect->field_1C = arg1;
     effect->field_14 = 0;
     effect->field_18 = 0;
-    effect->field_1C = (long long)selector;
-    return (void *)effect;
+    return effect;
 }
-void *func_1518AB60(s32, volatile u8);
+void *func_1518AB60(s32, u8);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1518ABD0 CURRENT (182) */
 s32 func_1518ABD0(Game1B7EC0RadialEffect *arg0, s32 arg1, u8 arg2) {

@@ -16,31 +16,27 @@ extern f32 D_800A2FB4;
 extern s32 D_800BE9E4;
 
 void func_151163C0(u8 *actor) {
-    volatile f32 sp2C;
-    s32 sp28;
-    s32 sp24;
-    volatile f32 sp20;
-    s16 sp1E;
-    f32 sp18;
+    f32 heightScale;
+    s32 heightRate;
+    s32 swayRate;
+    f32 swayScale;
+    s16 previousHeight;
+    f32 previousSway;
     f32 result;
-    s32 packed;
-    s32 component;
 
-    packed = *(s32 *)(actor + 0x3C);
-    component = (packed >> 8) & 0xFF;
-    sp28 = (packed >> 16) & 0xFF;
-    sp2C = (f32)(packed & 0xFF);
-    sp24 = (packed >> 24) & 0xFF;
-    sp20 = (f32)(u32)component * 1.40625f;
-    sp1E = *(s16 *)(actor + 0x12);
-    sp18 = *(f32 *)actor;
-    *(f32 *)(actor + 0x18) = func_15047C00((f32)*(s32 *)(actor + 0x7C) * D_800A2FB0) * sp2C;
-    result = func_15047C00((f32)*(s32 *)(actor + 0x80) * D_800A2FB4) * sp20;
+    heightRate = (*(s32 *)(actor + 0x3C) >> 16) & 0xFF;
+    heightScale = (f32)(*(s32 *)(actor + 0x3C) & 0xFF);
+    swayRate = (*(s32 *)(actor + 0x3C) >> 24) & 0xFF;
+    swayScale = (f32)(u32)((*(s32 *)(actor + 0x3C) >> 8) & 0xFF) * 1.40625f;
+    previousHeight = *(s16 *)(actor + 0x12);
+    previousSway = *(f32 *)actor;
+    *(f32 *)(actor + 0x18) = func_15047C00((f32)*(s32 *)(actor + 0x7C) * D_800A2FB0) * heightScale;
+    result = func_15047C00((f32)*(s32 *)(actor + 0x80) * D_800A2FB4) * swayScale;
     *(f32 *)actor = result;
-    *(s32 *)(actor + 0x7C) += sp28 * D_800BE9E4;
-    *(s32 *)(actor + 0x80) += sp24 * D_800BE9E4;
-    *(s16 *)(actor + 0x5C) = *(s16 *)(actor + 0x12) - sp1E;
-    *(f32 *)(actor + 0x60) = result - sp18;
+    *(s32 *)(actor + 0x7C) += heightRate * D_800BE9E4;
+    *(s32 *)(actor + 0x80) += swayRate * D_800BE9E4;
+    *(s16 *)(actor + 0x5C) = *(s16 *)(actor + 0x12) - previousHeight;
+    *(f32 *)(actor + 0x60) = result - previousSway;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_143870/func_1511650C.s")
 f32 func_15048A40(s32);                             /* extern */
