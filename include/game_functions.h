@@ -23,5 +23,22 @@ f32 func_151423D8(u8);
 f32 func_15048A40(u8);
 f32 func_150489B0(u8);
 void *func_151149AC(u8);
+void func_1516979C(void *);
+void func_15169804(void *);
+void func_15169824(void *);
+void func_1514933C(void *);
+void func_15149368(void *);
+void func_1513CA6C(void *);
+void func_1513CAA0(void *);
+void func_151411A4(void *);
+void func_151411C4(void *);
+void func_151346EC(void *);
+void func_1513470C(void *);
+void func_151352EC(void *);
+void func_1513530C(void *);
+void func_151617C4(void *);
+void func_151617E4(void *);
+void func_1513173C(void *);
+void func_1513175C(void *);
 
 #endif

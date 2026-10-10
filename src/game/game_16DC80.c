@@ -64,11 +64,11 @@ copy_done:
     return result;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151408A4.s")
-void func_151411A4(void) {
-    func_1513CA6C();
+void func_151411A4(void *arg0) {
+    func_1513CA6C(arg0);
 }
-void func_151411C4(void) {
-    func_1513CAA0();
+void func_151411C4(void *arg0) {
+    func_1513CAA0(arg0);
 }
 typedef struct Game1411E4State {
     u8 pad_0[0x154];

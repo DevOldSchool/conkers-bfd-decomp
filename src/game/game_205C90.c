@@ -154,9 +154,9 @@ void func_151D8A24(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_205C90/func_151D8A24.s")
 /* Call context: func_1501C17C: unique active project prototype */
 void func_1501C17C(u8);
-void func_151D8B24(s32);
+void func_151D8B24(u8 *);
 
-void func_151D8B24(s32 arg0) {
+void func_151D8B24(u8 *arg0) {
     u8 i;
 
     for (i = 0; i < 4; i++) {
@@ -165,15 +165,13 @@ void func_151D8B24(s32 arg0) {
         }
     }
 }
-void func_151D8B24(s32 arg0);
-void func_15169804(s32 arg0);
-void func_15169824(s32 arg0);
+void func_151D8B24(u8 *arg0);
 
-void func_151D8B88(s32 arg0) {
+void func_151D8B88(void *arg0) {
     func_151D8B24(arg0);
     func_15169804(arg0);
 }
-void func_151D8BB4(s32 arg0) {
+void func_151D8BB4(void *arg0) {
     func_151D8B24(arg0);
     func_15169824(arg0);
 }

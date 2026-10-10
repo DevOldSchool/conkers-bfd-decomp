@@ -13,8 +13,6 @@
 
 void func_1514EDF0(s32 arg0, s32 arg1);
 void func_1518E308(void *arg0);
-void func_15169804(s32 arg0);
-void func_15169824(s32 arg0);
 
 void func_1518E4A0(void *arg0) {
     func_1518E308(arg0);
@@ -22,11 +20,11 @@ void func_1518E4A0(void *arg0) {
 }
 void func_1518E4CC(void *arg0) {
     func_1518E4A0(arg0);
-    func_15169804((s32) arg0);
+    func_15169804(arg0);
 }
 void func_1518E4F8(void *arg0) {
     func_1518E4A0(arg0);
-    func_15169824((s32) arg0);
+    func_15169824(arg0);
 }
 s32 func_150ADA20();                                /* extern */
 

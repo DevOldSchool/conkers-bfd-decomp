@@ -57,18 +57,17 @@ void func_150D21CC(void *arg0) {
         packet->field0 = 0;
     }
 }
-void func_150D22D4(s32 arg0);
-void func_15149368(s32 arg0);
+void func_150D22D4(u8 *arg0);
 
-void func_150D227C(s32 arg0) {
+void func_150D227C(void *arg0) {
     func_150D22D4(arg0);
     func_1514933C(arg0);
 }
-void func_150D22A8(s32 arg0) {
+void func_150D22A8(void *arg0) {
     func_150D22D4(arg0);
     func_15149368(arg0);
 }
-void func_150D22D4(s32 arg0) {
+void func_150D22D4(u8 *arg0) {
     D_800D9900--;
 }
 typedef struct GameFF5C0Params {

@@ -234,11 +234,11 @@ s32 func_151346D0(s32 arg0, void *arg1, s32 arg2) {
         (unsigned char)(*((unsigned char *)arg1 + 0x3A) & 0xFFEF);
     return arg0;
 }
-void func_151346EC(void) {
-    func_15169804();
+void func_151346EC(void *arg0) {
+    func_15169804(arg0);
 }
-void func_1513470C(void) {
-    func_15169824();
+void func_1513470C(void *arg0) {
+    func_15169824(arg0);
 }
 extern void (*D_80089AAC[])(void);
 
@@ -501,11 +501,11 @@ void *func_15134DAC(void *arg0, s32 arg1) {
     return v0;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134E48.s")
-void func_151352EC(void) {
-    func_15169804();
+void func_151352EC(void *arg0) {
+    func_15169804(arg0);
 }
-void func_1513530C(void) {
-    func_15169824();
+void func_1513530C(void *arg0) {
+    func_15169824(arg0);
 }
 /* extern */
 extern void (*D_80089B70[])(BloodState *);

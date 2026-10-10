@@ -26,7 +26,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_15168B10(s32 arg0, s32 arg1);
+void func_15168B10(void *arg0, s32 arg1);
 
 extern u8 D_8008B4A8;
 
@@ -253,7 +253,7 @@ typedef struct Game1944C0AllocatedEffect {
 } Game1944C0AllocatedEffect;
 
 Game1944C0AllocatedEffect *func_10003C6C(s32, s32, s32, s32, u8);
-void func_15168A4C(s32, s32);
+void func_15168A4C(void *, s32);
 
 void *func_15167A68(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5) {
     Game1944C0AllocatedEffect *effect;
@@ -265,7 +265,7 @@ void *func_15167A68(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5) {
     if (effect != 0) {
         effect->field_1 = arg1;
         sp24 = effect;
-        func_15168A4C((s32)result, arg0);
+        func_15168A4C(result, arg0);
         result = sp24;
         result->field_C = arg4;
     }
@@ -611,10 +611,10 @@ void func_15168870(Game168870State *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15168870 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168870.s")
-void func_15168A2C(s32 arg0) {
+void func_15168A2C(void *arg0) {
     func_15168B10(arg0, 0);
 }
-void func_15168A9C(s32 arg0);
+void func_15168A9C(void *arg0);
 
 typedef struct Game1944C0Node {
     u8 field_0;
@@ -626,12 +626,12 @@ typedef struct Game1944C0Node {
 
 extern Game1944C0Node *D_800DCE50[][104];
 
-void func_15168A4C(s32 arg0, s32 arg1) {
+void func_15168A4C(void *arg0, s32 arg1) {
     Game1944C0Node **temp_v1;
     Game1944C0Node *node;
     s32 group;
 
-    node = (Game1944C0Node *)arg0;
+    node = arg0;
     group = node->field_1;
     temp_v1 = &D_800DCE50[group][arg1];
     node->field_8 = *temp_v1;
@@ -642,14 +642,14 @@ void func_15168A4C(s32 arg0, s32 arg1) {
     node->field_4 = 0;
     *temp_v1 = node;
 }
-void func_15168A9C(s32 arg0) {
+void func_15168A9C(void *arg0) {
     u8 row;
     u8 column;
     Game1944C0Node **head;
     Game1944C0Node *next;
     Game1944C0Node *node;
 
-    node = (Game1944C0Node *)arg0;
+    node = arg0;
     row = node->field_1;
     column = node->field_0;
     head = &D_800DCE50[row][column];
@@ -665,7 +665,7 @@ void func_15168A9C(s32 arg0) {
         next->field_8 = node->field_8;
     }
 }
-void func_15168B10(s32 arg0, s32 arg1) {
+void func_15168B10(void *arg0, s32 arg1) {
     func_15168A9C(arg0);
     func_15168A4C(arg0, arg1);
 }
@@ -1168,8 +1168,6 @@ typedef struct Game1944C0DestroyRecord {
 extern Game1944C0DestroyRecord D_8008B4D0[];
 extern Game1944C0DestroyRecord D_8008B4D4[];
 void func_151696DC(struct102 *);
-void func_15169804(s32);
-void func_15169824(s32);
 
 void func_1516972C(void *arg0) {
     Game1944C0DestroyCallback callback;
@@ -1183,28 +1181,28 @@ void func_1516972C(void *arg0) {
             callback(arg0);
             return;
         }
-        func_15169804((s32)arg0);
+        func_15169804(arg0);
     }
 }
 
-void func_1516979C(u8 *arg0) {
+void func_1516979C(void *arg0) {
     Game1944C0DestroyCallback callback;
 
     func_151696DC(arg0);
-    callback = D_8008B4D4[*arg0].callback;
+    callback = D_8008B4D4[*(u8 *)arg0].callback;
     if (callback != 0) {
         callback(arg0);
         return;
     }
-    func_15169824((s32)arg0);
+    func_15169824(arg0);
 }
-void func_15169804(s32 arg0) {
+void func_15169804(void *arg0) {
     func_15168B10(arg0, 1);
 }
-void func_15168A9C(s32 arg0);
-void func_10004074(s32 arg0);
+void func_15168A9C(void *arg0);
+void func_10004074(void *arg0);
 
-void func_15169824(s32 arg0) {
+void func_15169824(void *arg0) {
     func_15168A9C(arg0);
     func_10004074(arg0);
 }

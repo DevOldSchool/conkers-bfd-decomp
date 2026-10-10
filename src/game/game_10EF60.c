@@ -54,7 +54,6 @@ extern Game10EF60Texture *D_8008CA4C[];
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 f32 func_150484A0(f32, f32);
-void func_1516979C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150E1AB0 CURRENT (5622) */
 void func_150E1AB0(volatile s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14, s32 arg15, s32 arg16, s32 arg17, s32 arg18, s32 arg19, s32 arg20, s32 arg21, f32 arg22, f32 arg23, f32 arg24, f32 arg25, f32 arg26, f32 arg27) {

@@ -179,15 +179,13 @@ void func_151D0ED8(void *arg0) {
         func_1516972C((void *)*field_A8);
     }
 }
-void func_1513173C();
-void func_1513175C();
 
-void func_151D0F08(s32 arg0) {
-    func_151D0ED8((void *)*(s32 *)&arg0);
+void func_151D0F08(void *arg0) {
+    func_151D0ED8(*(void **)&arg0);
     func_1513173C(arg0);
 }
-void func_151D0F34(s32 arg0) {
-    func_151D0ED8((void *)arg0);
+void func_151D0F34(void *arg0) {
+    func_151D0ED8(arg0);
     func_1513175C(arg0);
 }
 typedef struct Game1FC830Vector {
@@ -323,15 +321,13 @@ void func_151D13E0();
 void func_151D1368() {
     func_151D13E0();
 }
-void func_1514933C(s32);
 
-void func_151D1388(s32 arg0) {
+void func_151D1388(void *arg0) {
     func_151D1368(arg0);
     func_1514933C(arg0);
 }
-void func_15149368(s32 arg0);
 
-void func_151D13B4(s32 arg0) {
+void func_151D13B4(void *arg0) {
     func_151D1368(arg0);
     func_15149368(arg0);
 }

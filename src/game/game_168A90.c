@@ -177,16 +177,14 @@ s32 func_1513B968(s32 arg0, s32 arg1) {
     return 1;
 }
 void func_100043B4(void *arg0, s32 arg1);
-void func_15169804(s32 arg0);
-void func_15169824(s32 arg0);
 
 void func_1513B9A8(void *arg0) {
     func_100043B4(((Game168A90Allocated *)arg0)->source, 4);
-    func_15169804((s32)arg0);
+    func_15169804(arg0);
 }
 void func_1513B9DC(void *arg0) {
     func_100043B4(((Game168A90Allocated *)arg0)->source, 4);
-    func_15169824((s32)arg0);
+    func_15169824(arg0);
 }
 typedef void (*Func_1513BA10)(void *);
 extern Func_1513BA10 D_80089C44[];

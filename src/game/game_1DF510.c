@@ -123,14 +123,12 @@ void func_151B222C(Game1DF510EffectOwner *arg0) {
         func_1516972C(effect);
     }
 }
-void func_1514933C(s32);
-void func_15149368(s32);
 
-void func_151B229C(s32 arg0) {
+void func_151B229C(void *arg0) {
     func_151B220C(arg0);
     func_1514933C(arg0);
 }
-void func_151B22C8(s32 arg0) {
+void func_151B22C8(void *arg0) {
     func_151B220C(arg0);
     func_15149368(arg0);
 }

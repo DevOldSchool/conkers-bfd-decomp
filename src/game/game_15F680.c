@@ -173,7 +173,7 @@ extern s32 D_800DC63C;
 extern u8 D_800DC640[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15132444 CURRENT (935) */
-void func_15132444(s32 arg0) {
+void func_15132444(u8 *arg0) {
     Game15F680Owner *owner;
     Game15F680ListNode *node;
     Game15F680ListNode *link;
@@ -220,14 +220,13 @@ void func_15132444(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15132444 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132444.s")
-void func_15132444(s32 arg0);
-void func_15169824(s32 arg0);
+void func_15132444(u8 *arg0);
 
-void func_15132570(s32 arg0) {
+void func_15132570(void *arg0) {
     func_15132444(arg0);
     func_15169804(arg0);
 }
-void func_1513259C(s32 arg0) {
+void func_1513259C(void *arg0) {
     func_15132444(arg0);
     func_15169824(arg0);
 }

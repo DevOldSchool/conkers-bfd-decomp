@@ -368,7 +368,7 @@ s32 func_151B1828(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B1828.s")
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B1918 CURRENT (520) */
-void func_151B1918(s32 arg0) {
+void func_151B1918(u8 *arg0) {
     s32 var_s3;
     u8 *var_s0;
     u8 *var_s1;
@@ -418,15 +418,13 @@ void func_151B19A4(void *arg0, void *arg1, u8 arg2) {
         }
     }
 }
-void func_151B1918(s32 arg0);
-void func_1514933C(s32 arg0);
-void func_15149368(s32 arg0);
+void func_151B1918(u8 *arg0);
 
-void func_151B1A58(s32 arg0) {
+void func_151B1A58(void *arg0) {
     func_151B1918(arg0);
     func_1514933C(arg0);
 }
-void func_151B1A84(s32 arg0) {
+void func_151B1A84(void *arg0) {
     func_151B1918(arg0);
     func_15149368(arg0);
 }

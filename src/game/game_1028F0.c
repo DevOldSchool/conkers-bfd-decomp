@@ -67,11 +67,11 @@ void func_150D596C(void *arg0, void *arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150D596C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1028F0/func_150D596C.s")
-void func_150D5A2C(void) {
-    func_1514933C();
+void func_150D5A2C(void *arg0) {
+    func_1514933C(arg0);
 }
-void func_150D5A4C(void) {
-    func_15149368();
+void func_150D5A4C(void *arg0) {
+    func_15149368(arg0);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1028F0/func_150D5A6C.s")
 u32 func_150ADA20(void);

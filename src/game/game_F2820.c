@@ -36,14 +36,12 @@ void *func_150C5370(void *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C5370 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F2820/func_150C5370.s")
-void func_15169804(s32);
-void func_15169824(s32);
 
 void func_150C5430(void *arg0) {
-    func_15169804((s32)arg0);
+    func_15169804(arg0);
 }
 void func_150C5450(void *arg0) {
-    func_15169824((s32)arg0);
+    func_15169824(arg0);
 }
 typedef struct {
     u8 pad_0[0x38];

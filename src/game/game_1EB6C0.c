@@ -145,8 +145,6 @@ void func_151BE644(void *arg0) {
     }
 }
 void func_151BE644(void *arg0);
-void func_1513CA6C(void *arg0);
-void func_1513CAA0(void *arg0);
 
 void func_151BE674(void *arg0) {
     func_151BE644(arg0);
@@ -198,8 +196,6 @@ void func_151BE7C8(void *arg0) {
     }
 }
 void func_151BE7C8(void *arg0);
-void func_151411A4(void *arg0);
-void func_151411C4(void *arg0);
 
 void func_151BE7F8(void *arg0) {
     func_151BE7C8(arg0);

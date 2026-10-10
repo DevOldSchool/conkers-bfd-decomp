@@ -114,19 +114,18 @@ void func_151571C4(void *arg0) {
 extern void func_151571C4(void *arg0);
 extern void func_1518CA04(s32 arg0);
 extern void func_1503F7B8(s32 arg0);
-extern void func_15169804(s32 arg0);
 
 void func_15157248(void *arg0) {
     func_151571C4(arg0);
     func_1518CA04(*(s32 *)((u8 *)arg0 + 0x18));
     func_1503F7B8(*(s32 *)((u8 *)arg0 + 0x68));
-    func_15169804((s32) arg0);
+    func_15169804(arg0);
 }
 void func_1515728C(void *arg0) {
     func_151571C4(arg0);
     func_1518CA04(*(s32 *)((u8 *)arg0 + 0x18));
     func_1503F7B8(*(s32 *)((u8 *)arg0 + 0x68));
-    func_15169824((s32) arg0);
+    func_15169824(arg0);
 }
 extern s32 D_800BE9E4;
 extern s32 (*D_8008AD90[])(u8 *);

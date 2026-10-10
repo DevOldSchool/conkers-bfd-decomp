@@ -131,7 +131,6 @@ void *func_15155CFC(void *arg0, Game182C30Effect *arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15155CFC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_15155CFC.s")
 extern void func_1515F10C(void *arg0);
-extern void func_15169804(s32 arg0);
 extern void func_1518CA04(s32 arg0);
 
 void func_15155EF8(void *arg0) {
@@ -141,7 +140,7 @@ void func_15155EF8(void *arg0) {
     if (*(void **)((u8 *)temp_a1 + 0x14) != 0) {
         func_1515F10C(*(void **)((u8 *)temp_a1 + 0x14));
     }
-    func_15169804((s32) temp_a1);
+    func_15169804(temp_a1);
     func_1518CA04(0xA6);
 }
 /* Call context: func_15155FD4: unique active project prototype */

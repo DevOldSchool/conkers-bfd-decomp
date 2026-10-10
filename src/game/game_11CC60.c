@@ -12,10 +12,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern void func_1513CA6C(void *arg0);
-extern void func_1516979C(void *arg0);
-extern void func_1513CAA0(void *arg0);
-
 void func_150EF7B0(void *arg0) {
     void **var_s1;
     void **base;

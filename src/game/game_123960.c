@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_123960.c
@@ -10,7 +11,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_150F64B0(s32 arg0) {
+void func_150F64B0(void *arg0) {
     func_150F6478(arg0);
     func_151411C4(arg0);
 }

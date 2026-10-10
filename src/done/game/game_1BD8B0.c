@@ -45,7 +45,6 @@ Game1BD8B0Inner *func_15190454(Game1BD8B0Object *arg0) {
     inner->field_84 = 0;
     return inner;
 }
-void func_151617C4(Game1BD8B0Object *arg0);
 
 void func_15190464(Game1BD8B0Object *arg0) {
     func_15190454(arg0);

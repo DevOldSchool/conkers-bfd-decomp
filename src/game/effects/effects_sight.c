@@ -274,7 +274,6 @@ s32 func_151C8FCC(s32 arg0, Sight8FCCVector *arg1, Sight8FCCVector *arg2,
 #endif /* CONKER_DEFERRED_CANDIDATE func_151C8FCC */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C8FCC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9198.s")
-void func_1513CA6C(s32);
 void func_1000FD38(void *, void *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C94D4 CURRENT (20) */
@@ -333,7 +332,6 @@ void func_151C94D4(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151C94D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C94D4.s")
-void func_1513CAA0(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C95D8 CURRENT (20) */
 void func_151C95D8(void *arg0) {

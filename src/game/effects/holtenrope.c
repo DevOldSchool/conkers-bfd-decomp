@@ -653,11 +653,11 @@ typedef struct {
     u8 field_44;
 } HoltenRopeState;
 
-void func_151D5E30(s32, s32);
-extern void (*D_8008FB70[])(s32);
+void func_151D5E30(void *, void *);
+extern void (*D_8008FB70[])(void *);
 
-void func_151B4C1C(s32 arg0) {
-    void (*temp_v0)(s32);
+void func_151B4C1C(u8 *arg0) {
+    void (*temp_v0)(void *);
 
     func_151D5E30(arg0 + 0x140, arg0);
     temp_v0 = D_8008FB70[((HoltenRopeState *)arg0)->field_44];
@@ -665,14 +665,13 @@ void func_151B4C1C(s32 arg0) {
         temp_v0(arg0);
     }
 }
-void func_151B4C1C(s32 arg0);
-void func_15169824(s32 arg0);
+void func_151B4C1C(u8 *arg0);
 
-void func_151B4C6C(s32 arg0) {
+void func_151B4C6C(void *arg0) {
     func_151B4C1C(arg0);
     func_15169824(arg0);
 }
-void func_151B4C98(s32 arg0) {
+void func_151B4C98(void *arg0) {
     func_151B4C1C(arg0);
     func_15169824(arg0);
 }

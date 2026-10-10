@@ -273,11 +273,7 @@ void func_15106610(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15106610.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151067B8.s")
 void func_15106E78(void *arg0);
-void func_15169804(s32 arg0);
-void func_15169824(s32 arg0);
 void func_1510761C(void *arg0);
-void func_1514933C(s32 arg0);
-void func_15149368(s32 arg0);
 
 typedef void (*Game133190Callback)(void *);
 extern Game133190Callback D_80088C18[];
@@ -304,12 +300,12 @@ void func_15106E78(void *arg0) {
     }
     func_151D5E30((u8 *)var_a1 + 0x74);
 }
-void func_15106EF8(s32 arg0) {
-    func_15106E78((void *) arg0);
+void func_15106EF8(void *arg0) {
+    func_15106E78(arg0);
     func_15169804(arg0);
 }
-void func_15106F24(s32 arg0) {
-    func_15106E78((void *) arg0);
+void func_15106F24(void *arg0) {
+    func_15106E78(arg0);
     func_15169824(arg0);
 }
 extern void (*D_80088C28[])(void *, s32, u8, s32);
@@ -386,12 +382,12 @@ void func_1510761C(void *arg0) {
         func_1516972C((void *)*field_30);
     }
 }
-void func_1510764C(s32 arg0) {
-    func_1510761C((void *)arg0);
+void func_1510764C(void *arg0) {
+    func_1510761C(arg0);
     func_1514933C(arg0);
 }
-void func_15107678(s32 arg0) {
-    func_1510761C((void *)arg0);
+void func_15107678(void *arg0) {
+    func_1510761C(arg0);
     func_15149368(arg0);
 }
 extern u8 D_80088C38;

@@ -70,19 +70,17 @@ void func_15147740(u8 *arg0) {
         func_1516972C(arg0);
     }
 }
-void func_151478D0(s32 arg0) {
+void func_151478D0(u8 *arg0) {
     func_151D5E30(arg0 + 0x84, arg0);
 }
-void func_1514795C(s32 arg0);
-void func_15169804(s32 arg0);
-void func_15169824(s32 arg0);
+void func_1514795C(u8 *arg0);
 
-void func_151478F4(s32 arg0) {
+void func_151478F4(void *arg0) {
     func_151478D0(arg0);
     func_1514795C(arg0);
     func_15169804(arg0);
 }
-void func_15147928(s32 arg0) {
+void func_15147928(void *arg0) {
     func_151478D0(arg0);
     func_1514795C(arg0);
     func_15169824(arg0);
@@ -91,7 +89,7 @@ void func_100043B4(void *, s32);
 extern s32 D_80082FA0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1514795C CURRENT (890) */
-void func_1514795C(s32 arg0) {
+void func_1514795C(u8 *arg0) {
     void *temp_v0;
     s32 var_s0;
     s32 var_s1;

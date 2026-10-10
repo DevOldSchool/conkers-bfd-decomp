@@ -154,8 +154,6 @@ typedef struct CharacterFlamethrowerLocal {
 
 void func_15147D64(void *arg0, s32 arg1, CharacterFlamethrowerActor *arg2);
 
-void func_151617C4();
-void func_151617E4();
 void func_1519C258(CharacterFlamethrowerContext *arg0);
 
 typedef struct CharacterFlamethrowerListNode {

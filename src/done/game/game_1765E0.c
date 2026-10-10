@@ -99,19 +99,15 @@ void func_15149264(Game1765E0Effect *object) {
         func_1516972C(object);
     }
 }
-void func_15149318(s32 arg0) {
+void func_15149318(u8 *arg0) {
     func_151D5E30(arg0 + 0x14, arg0);
 }
-void func_15169804(s32);
 
-void func_1514933C(s32 arg0) {
+void func_1514933C(void *arg0) {
     func_15149318(arg0);
     func_15169804(arg0);
 }
-void func_15149318(s32 arg0);
-void func_15169824(s32 arg0);
-
-void func_15149368(s32 arg0) {
+void func_15149368(void *arg0) {
     func_15149318(arg0);
     func_15169824(arg0);
 }

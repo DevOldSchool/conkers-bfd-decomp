@@ -191,7 +191,6 @@ typedef struct {
     u8 field_5C;
 } Game1D4E00State;
 
-void func_15169804(s32);
 void func_151A8560(s32);
 extern void (*D_8008F94C[])(s32);
 
@@ -208,7 +207,6 @@ void func_151A8584(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A8584 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A8584.s")
-void func_15169824(s32);
 extern void (*D_8008F958[])(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A85D4 CURRENT (575) */

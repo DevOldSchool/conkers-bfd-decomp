@@ -582,23 +582,21 @@ void func_151AAABC(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151AAABC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AAABC.s")
-void func_151352EC(void);
 
 void func_151AAB50(u8 *arg0) {
     u8 *temp_v0;
 
     temp_v0 = *(u8 **)(arg0 + 0x80) + 0x58;
     *(s32 *)(temp_v0 + 0x14) = 0;
-    func_151352EC();
+    func_151352EC(arg0);
 }
-void func_1513530C(void);
 
 void func_151AAB78(u8 *arg0) {
     u8 *temp_v0;
 
     temp_v0 = *(u8 **)(arg0 + 0x80) + 0x58;
     *(s32 *)(temp_v0 + 0x14) = 0;
-    func_1513530C();
+    func_1513530C(arg0);
 }
 s32 func_151AABA0(void *arg0) {
     s32 var_v1;
@@ -889,7 +887,6 @@ u8 func_151AB6B8(void *arg0) {
 /* Call context: func_100111C8: unique active project prototype */
 /* Call context: func_151346EC: unique active project prototype */
 void func_100111C8(s32, void *);
-void func_151346EC(void *);
 
 void func_151AB788(void *arg0) {
     u8 *state;
@@ -905,7 +902,6 @@ void func_151AB788(void *arg0) {
 }
 /* Call context: func_100111C8: unique active project prototype */
 /* Call context: func_1513470C: unique active project prototype */
-void func_1513470C(void *);
 
 void func_151AB7D8(void *arg0) {
     u8 *state;

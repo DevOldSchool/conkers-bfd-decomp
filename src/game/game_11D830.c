@@ -48,8 +48,6 @@ Game11D830Inner *func_150F0380(Game11D830Object *arg0) {
     return inner;
 }
 Game11D830AltInner *func_150F03E8(Game11D830AltObject *arg0);
-void func_151617C4(Game11D830AltObject *arg0);
-void func_151617E4(Game11D830AltObject *arg0);
 
 void func_150F0390(Game11D830AltObject *arg0) {
     func_150F03E8(arg0);

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_F3BA0.c
@@ -172,23 +173,21 @@ s32 func_150C6D1C(void *arg0) {
     *(u8 *)((u8 *)arg0 + 0x5C) = 0U;
     return var_v1;
 }
-void func_151346EC(void);
 
 void func_150C6D40(u8 *arg0) {
     u8 *temp_v0;
 
     temp_v0 = *(u8 **)(arg0 + 0x58) + 0x58;
     *(s32 *)(temp_v0 + 0x18) = 0;
-    func_151346EC();
+    func_151346EC(arg0);
 }
-void func_1513470C(void);
 
 void func_150C6D68(u8 *arg0) {
     u8 *temp_v0;
 
     temp_v0 = *(u8 **)(arg0 + 0x58) + 0x58;
     *(s32 *)(temp_v0 + 0x18) = 0;
-    func_1513470C();
+    func_1513470C(arg0);
 }
 typedef struct GameF3BA0Vector {
     f32 coordinates[3];

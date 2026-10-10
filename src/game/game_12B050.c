@@ -12,9 +12,7 @@
  */
 
 void *func_1513EDE4(void *, s16);                   /* extern */
-void func_150FDC2C(s32 arg0);
-void func_1513CA6C(s32 arg0);
-void func_1513CAA0(s32 arg0);
+void func_150FDC2C(u8 *arg0);
 
 void *func_150FDBA0(void *arg0, s16 arg1) {
     void *temp_v0;
@@ -39,7 +37,7 @@ typedef struct Game12B050Cleanup {
 } Game12B050Cleanup;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FDC2C CURRENT (421) */
-void func_150FDC2C(s32 arg0) {
+void func_150FDC2C(u8 *arg0) {
     Game12B050Cleanup *state;
     void *resource;
     u16 sound1;
@@ -65,11 +63,11 @@ void func_150FDC2C(s32 arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150FDC2C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12B050/func_150FDC2C.s")
 
-void func_150FDCAC(s32 arg0) {
+void func_150FDCAC(void *arg0) {
     func_150FDC2C(arg0);
     func_1513CA6C(arg0);
 }
-void func_150FDCD8(s32 arg0) {
+void func_150FDCD8(void *arg0) {
     func_150FDC2C(arg0);
     func_1513CAA0(arg0);
 }

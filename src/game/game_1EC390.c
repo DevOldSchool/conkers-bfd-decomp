@@ -277,9 +277,7 @@ void func_151BFB2C(Game1EC390ResourceOwner *arg0) {
     }
 }
 
-void func_1514933C(s32 arg0);
-
-void func_151BFBA4(s32 arg0) {
+void func_151BFBA4(void *arg0) {
     func_151BFB2C(arg0);
     func_1514933C(arg0);
 }

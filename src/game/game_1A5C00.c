@@ -251,7 +251,6 @@ typedef struct Game1A5C00Node {
 } Game1A5C00Node;
 
 void func_100111C8(s32, Game1A5C00Node *);
-void func_15169824(s32);
 extern Game1A5C00Node *D_800DCF3C;
 
 void func_15178DA4(Game1A5C00Owner *arg0) {
@@ -267,7 +266,7 @@ void func_15178DA4(Game1A5C00Owner *arg0) {
         }
         node = next;
     }
-    func_15169824((s32)arg0);
+    func_15169824(arg0);
 }
 void *func_15178B98(u8);
 void func_15178DA4(Game1A5C00Owner *);

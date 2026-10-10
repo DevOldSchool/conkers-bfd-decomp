@@ -236,11 +236,11 @@ s32 func_1513170C(u8 *arg0, s32 arg1) {
     func_15131958(arg0 + 0x58, *(f32 *)((u8 *)arg0 + 0xA8));
     return 1;
 }
-void func_1513173C(void) {
-    func_15169804();
+void func_1513173C(void *arg0) {
+    func_15169804(arg0);
 }
-void func_1513175C(void) {
-    func_15169824();
+void func_1513175C(void *arg0) {
+    func_15169824(arg0);
 }
 extern void (*D_80089814[])(void);
 

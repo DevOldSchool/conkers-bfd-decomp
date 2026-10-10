@@ -31,7 +31,6 @@ typedef struct {
     f32 field28;
 } Game1D9F10Record;
 
-void func_1516979C(u8 *);
 s32 func_151ACB38(void *, s8 *);
 extern u8 D_800CC2D0;
 

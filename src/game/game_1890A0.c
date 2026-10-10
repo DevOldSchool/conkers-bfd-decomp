@@ -145,16 +145,14 @@ void *func_1515BE50(void **arg0, s32 arg1, u8 arg2, s32 arg3) {
 /* Call context: func_1514EDF0: unique active project prototype */
 /* Call context: func_15169804: unique active project prototype */
 void func_1514EDF0(s32, s32);
-void func_15169804(s32);
-void func_15169824(s32);
 
 void func_1515BF50(void *arg0) {
     func_1514EDF0((s32) arg0, *(s32 *)((u8 *)arg0 + 0x18));
-    func_15169804((s32) arg0);
+    func_15169804(arg0);
 }
 void func_1515BF7C(void *arg0) {
     func_1514EDF0((s32) arg0, *(s32 *)((u8 *)arg0 + 0x18));
-    func_15169824((s32) arg0);
+    func_15169824(arg0);
 }
 extern f32 D_800BE9A8;
 extern s32 D_800BE9E4;

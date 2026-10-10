@@ -119,15 +119,13 @@ void func_151D77C8();
 void func_151D7404() {
     func_151D77C8();
 }
-void func_1514933C(s32);
 
-void func_151D7424(s32 arg0) {
+void func_151D7424(void *arg0) {
     func_151D7404(arg0);
     func_1514933C(arg0);
 }
-void func_15149368(s32 arg0);
 
-void func_151D7450(s32 arg0) {
+void func_151D7450(void *arg0) {
     func_151D7404(arg0);
     func_15149368(arg0);
 }

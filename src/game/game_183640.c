@@ -411,18 +411,16 @@ void func_15156D24(void *arg0, u8 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15156D24 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_183640/func_15156D24.s")
-void func_15156F94(s32 arg0) {
+void func_15156F94(u8 *arg0) {
     func_151D5E30(arg0 + 0x88, arg0);
 }
-void func_15169804(s32);
 
-void func_15156FB8(s32 arg0) {
+void func_15156FB8(void *arg0) {
     func_15156F94(arg0);
     func_15169804(arg0);
 }
-void func_15169824(s32 arg0);
 
-void func_15156FE4(s32 arg0) {
+void func_15156FE4(void *arg0) {
     func_15156F94(arg0);
     func_15169824(arg0);
 }

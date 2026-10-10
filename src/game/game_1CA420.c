@@ -1018,27 +1018,24 @@ void func_1519E818(u8 *arg0, Game1CA420Event *arg1, u8 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519E818.s")
 /* Call context: func_1514933C: unique active project prototype */
 /* Call context: func_1514EDF0: unique active project prototype */
-void func_1514933C(s32);
 void func_1514EDF0(s32, s32);
-void func_15149368();
 
 void func_1519E8CC(void *arg0) {
     func_1514EDF0((s32) arg0, *(s32 *)((u8 *)arg0 + 0x28));
-    func_1514933C((s32) arg0);
+    func_1514933C(arg0);
 }
 void func_1519E8F8(void *arg0) {
     func_1514EDF0((s32) arg0, *(s32 *)((u8 *)arg0 + 0x28));
-    func_15149368((s32) arg0);
+    func_15149368(arg0);
 }
 /* Call context: func_1514933C: unique active project prototype */
-void func_1514933C(s32);
 extern void *D_800E0920[1];
 
-void func_1519E924(s32 arg0) {
+void func_1519E924(void *arg0) {
     D_800E0920[0] = 0;
     func_1514933C(arg0);
 }
-void func_1519E948(void) {
+void func_1519E948(void *arg0) {
     D_800E0920[0] = 0;
-    func_15149368();
+    func_15149368(arg0);
 }
