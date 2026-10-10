@@ -252,20 +252,21 @@ void func_151BF0C8(f32 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EC390/func_151BF340.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EC390/func_151BF81C.s")
 
-typedef struct {
-    u8 pad0[0x28];
+typedef struct Game1EC390Resources {
     void *primary;
     void *secondary[2];
+} Game1EC390Resources;
+
+typedef struct {
+    u8 pad0[0x28];
+    Game1EC390Resources resources;
 } Game1EC390ResourceOwner;
 
 void func_1516972C(void *);
 
 void func_151BFB2C(Game1EC390ResourceOwner *arg0) {
     u8 i;
-    struct {
-        void *primary;
-        void *secondary[2];
-    } *resources = (void *)((u8 *)arg0 + 0x28);
+    Game1EC390Resources *resources = &arg0->resources;
 
     if (resources->primary != NULL) {
         func_1516972C(resources->primary);
