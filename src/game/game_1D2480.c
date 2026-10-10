@@ -11,7 +11,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct {
+typedef struct Game1D2480Effect {
     u8 pad_0[0x10];
     s32 field_10;
     s8 field_14;

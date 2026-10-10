@@ -2464,7 +2464,6 @@ void func_150716EC(s32 arg0) {
 void *func_15083E90(u8);
 void func_150F0BEC(void *);
 void func_150F10D4(void *);
-void func_15161E24(void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 void func_15071764(s32 arg0) {
     void *object;

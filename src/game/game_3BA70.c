@@ -28,7 +28,7 @@ extern u8 D_800D992A[];
 extern u8 D_800D993A[];
 extern u8 D_800D9946[];
 extern u8 D_800D9890;
-extern s32 D_800D9894;
+extern void *D_800D9894;
 extern s32 D_800D98D0[];
 extern s32 D_80088870;
 extern u8 D_800BE500[];

@@ -1288,18 +1288,17 @@ typedef struct SightSpawnOwner {
 } SightSpawnOwner;
 
 extern u8 D_800BE616;
-s32 func_151A4FD0(s32, s32, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 
 void func_151CCE94(SightSpawnOwner *arg0) {
-    s32 object;
+    void *object;
     SightSpawnOwner *owner;
 
     if (D_800BE616 != 0) {
         owner = arg0;
         object = func_151A4FD0(0, 0, 0, 0xFF, 0, arg0->type, 1, 4);
         if (object != 0) {
-            func_10022EC0((void *)(object + 0x20), &owner, sizeof(owner));
+            func_10022EC0((u8 *)object + 0x20, &owner, sizeof(owner));
         }
     }
 }
