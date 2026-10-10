@@ -105,7 +105,14 @@ class CoveragePlanTests(unittest.TestCase):
             self.assertNotIn('base_path', debugger)
             self.assertFalse(debugger['metadata']['complete'])
             self.assertEqual(debugger['metadata']['progress_categories'], ['debugger', 'project'])
-            self.assertIn({'id': 'debugger', 'name': 'Debugger overlay'}, config['progress_categories'])
+            self.assertEqual(config['progress_categories'], [
+                {'id': 'main', 'name': 'Main executable'},
+                {'id': 'game', 'name': 'Game overlay'},
+                {'id': 'debugger', 'name': 'Debugger overlay'},
+                {'id': 'project', 'name': 'Project code'},
+                {'id': 'sdk', 'name': 'SDK libraries'},
+                {'id': 'data', 'name': 'Data'},
+            ])
             self.assertEqual(coverage['mapped_code_bytes'], 12)
             self.assertEqual(coverage['expected_code_bytes'], 12)
             self.assertEqual(coverage['stored_asset_bytes'], 30)
