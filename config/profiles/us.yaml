@@ -79,7 +79,7 @@ segments:
       - [0x6240, asm]
       - [0x71D0, asm]
       - [0x8120, asm]
-      - [0x8180, asm]
+      - [0x8180, c, done/main/init_8180]
       - [0x8F90, asm]
       - [0xA420, asm]
       - [0xB1B0, asm]
@@ -356,11 +356,13 @@ segments:
     align: 1
     subalign: 1
   - name: assets_flat_rzip
-    type: bin
+    type: group
     start: 0x1A37E0
     follows_vram: unassigned_after_debugger
     align: 1
     subalign: 1
+    subsegments:
+      include: us/assets/flat.yaml
   - name: assets_flat_gap
     type: bin
     start: 0xAB1941
@@ -392,11 +394,13 @@ segments:
     align: 1
     subalign: 1
   - name: asset_bank_03
-    type: bin
+    type: group
     start: 0xF8F278
     follows_vram: asset_bank_02
     align: 1
     subalign: 1
+    subsegments:
+      include: us/assets/models03.yaml
   - name: asset_bank_04
     type: bin
     start: 0xF9E660

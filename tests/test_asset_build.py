@@ -14,7 +14,7 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 from build_files import write_if_changed
 
 MAKE = shutil.which('make')
-MAKE_VERSION = subprocess.check_output([MAKE, '--version'], text=True).splitlines()[0] if MAKE else ''
+MAKE_VERSION = subprocess.check_output([MAKE, 'ASSETS=1', '--version'], text=True).splitlines()[0] if MAKE else ''
 MATCH = re.search(r'GNU Make (\d+)\.(\d+)', MAKE_VERSION)
 GNU_MAKE = MATCH is not None
 
@@ -41,12 +41,19 @@ class AssetMakeTests(unittest.TestCase):
         shutil.copy(ROOT / 'Makefile', self.root / 'Makefile')
         for name in ('config/profiles/us.yaml', 'config/rzip_layouts.json',
                      'toolchain/python-requirements.txt', 'roms/baserom.us.z64',
+                     'config/texture_encoders.us.json',
                      'scripts/build_files.py', 'scripts/font_assets.py', 'scripts/mp3_assets.py',
-                     'scripts/rzip_archive.py', 'scripts/rzip_extract.py'):
+                     'scripts/rzip_archive.py', 'scripts/rzip_extract.py',
+                     'scripts/texture_assets.py', 'scripts/texture_catalog.py',
+                     'scripts/texture_ci8.py', 'scripts/texture_rgba16.py',
+                     'scripts/texture_native.py', 'scripts/rzip_pack.py', 'scripts/model_assets.py',
+                     'scripts/hud_assets.py', 'scripts/hud_additional_artwork.py',
+                     'scripts/texture_model_catalog.py', 'scripts/texture_model_storage.py'):
             path = self.root / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.touch()
         shutil.copy(ROOT / 'scripts/profile_config.py', self.root / 'scripts/profile_config.py')
+        shutil.copy(ROOT / 'scripts/build_timing.py', self.root / 'scripts/build_timing.py')
         (self.root / 'config/profiles/us.yaml').write_text(
             'segments:\n  - name: font\n    type: group\n'
             '    subsegments:\n      include: us/assets/font.yaml\n')
@@ -60,20 +67,21 @@ name = Path(__file__).stem
 if (root / ('fail-' + name)).exists():
     raise SystemExit('intentional ' + name + ' failure')
 font = name == 'font_splits'
-prefix = 'font/glyphs' if font else 'audio/mp3/streams'
+texture = name == 'texture_build'
+prefix = 'flat/textures' if texture else 'font/glyphs' if font else 'audio/mp3/streams'
 def layout_bins(profile, *, configuration=None):
     assert configuration is not None
     rows = [(i, prefix + '/%04d' % i) for i in range(2)]
-    return (rows, 2) if font else rows
+    return (rows, 2) if font or texture else rows
 def bank_layout(profile, *, configuration=None):
     assert configuration is not None
     return 0, 1, [(0, 'audio/bank17/index')]
 if __name__ == '__main__':
     assert sys.argv[1] == 'build-parts'
-    inputs = root / ('build/fonts/us' if font else 'build/assets/mp3-bank/us')
-    parts = root / ('build/us/fonts/parts' if font else 'build/us/audio/parts')
+    inputs = root / ('build/assets/texture-build/us' if texture else 'build/fonts/us' if font else 'build/assets/mp3-bank/us')
+    parts = root / ('build/us/textures/parts' if texture else 'build/us/fonts/parts' if font else 'build/us/audio/parts')
     for i in range(2):
-        source = inputs / ('%04d.pgm' % i if font else 'streams/%04d.mp3' % i)
+        source = inputs / ('%04d.png' % i if texture else '%04d.pgm' % i if font else 'streams/%04d.mp3' % i)
         payload = source.read_bytes()
         path = parts / prefix / ('%04d.bin' % i)
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -84,7 +92,7 @@ if __name__ == '__main__':
 '''
         (self.root / 'scripts/list_integrated_sources.py').write_text(
             'def profile_sources(profile, segment):\n    return []\n')
-        for name in ('font_splits', 'mp3_bank', 'audio_boundaries'):
+        for name in ('font_splits', 'mp3_bank', 'audio_boundaries', 'texture_build'):
             (self.root / f'scripts/{name}.py').write_text(script)
         self.ld = self.root / 'scripts/fake_ld.py'
         self.ld.write_text('''from pathlib import Path
@@ -93,18 +101,20 @@ output = Path(sys.argv[sys.argv.index('-o') + 1])
 output.write_bytes(Path(sys.argv[-1]).read_bytes())
 ''')
         for directory, suffix in (('build/fonts/us', '.pgm'),
+                                  ('build/assets/texture-build/us', '.png'),
                                   ('build/assets/mp3-bank/us/streams', '.mp3')):
             parent = self.root / directory
             parent.mkdir(parents=True)
             for i in range(2):
                 (parent / f'{i:04d}{suffix}').write_bytes(bytes([i]))
-        for directory in ('build/fonts/us', 'build/assets/mp3-bank/us'):
+        for directory in ('build/fonts/us', 'build/assets/mp3-bank/us', 'build/assets/texture-build/us/1063'):
+            (self.root / directory).mkdir(parents=True, exist_ok=True)
             (self.root / directory / 'manifest.json').write_text('{}')
 
-    def run_make(self, kind):
-        prefix = 'font/glyphs' if kind == 'font' else 'audio/mp3/streams'
+    def run_make(self, kind, *, jobs=4):
+        prefix = 'flat/textures' if kind == 'texture' else 'font/glyphs' if kind == 'font' else 'audio/mp3/streams'
         objects = [self.root / f'build/us/assets/{prefix}/{i:04d}.o' for i in range(2)]
-        result = subprocess.run([MAKE, '-j4', f'LD={sys.executable} {self.ld}',
+        result = subprocess.run([MAKE, 'ASSETS=1', f'-j{jobs}', f'LD={sys.executable} {self.ld}',
                                  *[str(p.relative_to(self.root)) for p in objects]],
                                 cwd=self.root, text=True, capture_output=True)
         return result, objects
@@ -112,6 +122,7 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
     def test_no_change_and_single_edit_only_rebuild_affected_objects(self):
         for kind, source, packer in (
                 ('font', 'build/fonts/us/0000.pgm', 'font_splits'),
+                ('texture', 'build/assets/texture-build/us/0000.png', 'texture_build'),
                 ('mp3', 'build/assets/mp3-bank/us/streams/0000.mp3', 'mp3_bank')):
             with self.subTest(kind=kind):
                 result, objects = self.run_make(kind)
@@ -129,15 +140,105 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
                 self.assertGreater(objects[0].stat().st_mtime_ns, before[0])
                 self.assertEqual(objects[1].stat().st_mtime_ns, before[1])
 
+    def test_model_parts_recover_and_preserve_unchanged_linker_objects(self):
+        shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
+        profile = self.root / 'config/profiles/us.yaml'
+        profile.write_text(profile.read_text() +
+            '  - name: asset_bank_03\n    type: group\n')
+        (self.root / 'config/model_build.us.json').write_text('{}')
+        (self.root / 'scripts/model_build.py').write_text("""from pathlib import Path
+from build_files import write_if_changed
+def layout_bins(profile, *, configuration=None):
+    return [(0, 'models/bank03/0003')], 1
+if __name__ == '__main__':
+    with Path('model_build.calls').open('a') as log:
+        log.write('packed\\n')
+    source = Path('build/assets/model-build/us/03/0003/model.json')
+    write_if_changed(Path('build/us/models/parts/models/bank03/0003.bin'), source.read_bytes())
+""")
+        inputs = self.root / 'build/assets/model-build/us/03/0003'
+        inputs.mkdir(parents=True)
+        (inputs / 'manifest.json').write_text('{}')
+        source = inputs / 'model.json'
+        source.write_bytes(b'model')
+        target = self.root / 'build/us/assets/models/bank03/0003.o'
+        part = self.root / 'build/us/models/parts/models/bank03/0003.bin'
+        def run():
+            return subprocess.run([MAKE, 'ASSETS=1', f'LD={sys.executable} {self.ld}',
+                                   str(target.relative_to(self.root))],
+                                  cwd=self.root, text=True, capture_output=True)
+        result = run()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        stamp = target.stat().st_mtime_ns
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(target.stat().st_mtime_ns, stamp)
+        part.unlink()
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(target.read_bytes(), b'model')
+        pack_stamp = self.root / 'build/us/models/parts.stamp'
+        calls = self.root / 'model_build.calls'
+        before = calls.read_text()
+        unrelated = self.root / 'scripts/model_unrelated_preview.py'
+        unrelated.write_text('# unrelated preview tool')
+        future = pack_stamp.stat().st_mtime_ns + 10_000_000_000
+        os.utime(unrelated, ns=(future, future))
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(calls.read_text(), before)
+        for name in ('model_build', 'model_assets', 'texture_build', 'rzip_pack'):
+            dependency = self.root / f'scripts/{name}.py'
+            original = dependency.stat()
+            newer = pack_stamp.stat().st_mtime_ns + 10_000_000_000
+            os.utime(dependency, ns=(newer, newer))
+            try:
+                self.assertEqual(run().returncode, 0)
+            finally:
+                os.utime(dependency, ns=(original.st_atime_ns, original.st_mtime_ns))
+            self.assertEqual(calls.read_text(), before + 'packed\n')
+            before = calls.read_text()
+        # Deliberately give the directory an older timestamp. Missing inputs
+        # must invalidate packing even on a filesystem with a coarse clock.
+        source.unlink()
+        os.utime(inputs, ns=(1_000_000_000, 1_000_000_000))
+        self.assertNotEqual(run().returncode, 0)
+        self.assertEqual(target.read_bytes(), b'model')
+
+    def test_every_texture_module_and_encoder_contract_invalidates_packing(self):
+        dependencies = sorted(path.relative_to(ROOT) for path in (ROOT / 'scripts').glob('texture_*.py'))
+        dependencies += [Path('scripts/texture_future_selector.py'),
+                         Path('config/texture_encoders.us.json')]
+        result, objects = self.run_make('texture')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        before = [path.stat().st_mtime_ns for path in objects]
+        stamp = self.root / 'build/us/textures/parts.stamp'
+        calls = self.root / 'texture_build.calls'
+        for number, relative in enumerate(dependencies, 2):
+            with self.subTest(dependency=relative):
+                dependency = self.root / relative
+                dependency.touch()
+                original = dependency.stat()
+                # Exercise the actual Make graph, including newly added modules,
+                # without sleeping for Make 3.81's second-resolution clock.
+                newer = stamp.stat().st_mtime_ns + 2_000_000_000
+                os.utime(dependency, ns=(newer, newer))
+                try:
+                    result, _ = self.run_make('texture')
+                finally:
+                    os.utime(dependency, ns=(original.st_atime_ns, original.st_mtime_ns))
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(calls.read_text().count('packed'), number)
+                self.assertEqual([path.stat().st_mtime_ns for path in objects], before)
+
     def test_asset_link_commands_are_logged_on_success_and_failure(self):
+        # Shell xtrace writes can interleave under parallel Make. This test
+        # checks complete command logging; other tests retain parallel builds.
         for kind in ('font', 'mp3'):
             with self.subTest(kind=kind):
-                result, objects = self.run_make(kind)
+                result, objects = self.run_make(kind, jobs=1)
                 self.assertEqual(result.returncode, 0, result.stderr)
                 for path in objects:
                     self.assertIn(str(path), result.stderr)
                 self.assertIn('fake_ld.py -r -b binary', result.stderr)
-                unchanged, _ = self.run_make(kind)
+                unchanged, _ = self.run_make(kind, jobs=1)
                 self.assertEqual(unchanged.returncode, 0, unchanged.stderr)
                 self.assertNotIn('fake_ld.py -r -b binary', unchanged.stderr)
         self.ld.write_text('raise SystemExit(7)\n')
@@ -146,7 +247,7 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
                 prefix = 'font/glyphs' if kind == 'font' else 'audio/mp3/streams'
                 path = self.root / f'build/us/assets/{prefix}/0000.o'
                 path.unlink()
-                result, _ = self.run_make(kind)
+                result, _ = self.run_make(kind, jobs=1)
                 self.assertNotEqual(result.returncode, 0)
                 self.assertIn('fake_ld.py -r -b binary', result.stderr)
                 self.assertIn(str(path), result.stderr)
@@ -166,8 +267,8 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
         self.assertEqual([p.stat().st_mtime_ns for p in objects], before)
 
     def test_default_goal_is_help_without_packing_assets(self):
-        default = subprocess.run([MAKE], cwd=self.root, text=True, capture_output=True)
-        help_result = subprocess.run([MAKE, 'help'], cwd=self.root, text=True, capture_output=True)
+        default = subprocess.run([MAKE, 'ASSETS=1'], cwd=self.root, text=True, capture_output=True)
+        help_result = subprocess.run([MAKE, 'ASSETS=1', 'help'], cwd=self.root, text=True, capture_output=True)
         self.assertEqual(default.returncode, 0, default.stderr)
         self.assertEqual(help_result.returncode, 0, help_result.stderr)
         self.assertEqual(default.stdout, help_result.stdout)
@@ -211,7 +312,7 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
                 assets = self.root / 'assets'
                 assets.mkdir(exist_ok=True)
                 (assets / 'boot.bin').write_bytes(b'boot')
-                result = subprocess.run([MAKE, f'LD={sys.executable} {self.ld}', *args],
+                result = subprocess.run([MAKE, 'ASSETS=1', f'LD={sys.executable} {self.ld}', *args],
                                         cwd=self.root, text=True, capture_output=True)
                 self.assertEqual(result.returncode, 0, result.stderr)
                 self.assertNotIn('profile_config.py', result.stderr)
@@ -225,11 +326,36 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
             "from pathlib import Path\nimport sys\n"
             "Path(sys.argv[sys.argv.index('--output') + 1]).write_text('object')\n")
         for goal in ('build/us/src/foo.o', './build/us/src/foo.o'):
-            result = subprocess.run([MAKE, goal], cwd=self.root, text=True, capture_output=True)
+            result = subprocess.run([MAKE, 'ASSETS=1', goal], cwd=self.root, text=True, capture_output=True)
             self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual((self.root / 'build/us/src/foo.o').read_text(), 'object')
         self.assertFalse((self.root / 'font_splits.calls').exists())
         self.assertFalse((self.root / 'mp3_bank.calls').exists())
+
+    def test_default_code_object_bypasses_fragments_and_asset_modules(self):
+        self.fragment.unlink()
+        (self.root / 'scripts/texture_build.py').write_text('raise ImportError("unavailable codec")')
+        (self.root / 'src').mkdir()
+        (self.root / 'src/foo.c').write_text('code')
+        (self.root / 'scripts/compile_c.py').write_text(
+            "from pathlib import Path\nimport sys\n"
+            "Path(sys.argv[sys.argv.index('--output') + 1]).write_text('object')\n")
+        result = subprocess.run([MAKE, 'build/us/src/foo.o'], cwd=self.root,
+                                text=True, capture_output=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual((self.root / 'build/us/src/foo.o').read_text(), 'object')
+        for codec in ('texture_build', 'font_splits', 'mp3_bank'):
+            self.assertFalse((self.root / (codec + '.calls')).exists())
+
+    def test_default_mode_rejects_reconstructed_targets_even_if_already_present(self):
+        for name in ('flat/textures/0000', 'font/glyphs/0000', 'audio/mp3/streams/0000'):
+            target = self.root / ('build/us/assets/' + name + '.o')
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text('existing object')
+            result = subprocess.run([MAKE, str(target.relative_to(self.root))], cwd=self.root,
+                                    text=True, capture_output=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('require ASSETS=1', result.stderr)
 
     def test_game_and_diff_goals_skip_broken_fragments_and_packing(self):
         self.fragment.unlink()
@@ -240,7 +366,7 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
                      'game-integrated-raw', 'diff',
                      './build/game-integrated/us/conker.game.us.integrated.bin'):
             with self.subTest(goal=goal):
-                result = subprocess.run([MAKE, '-n', goal], cwd=self.root,
+                result = subprocess.run([MAKE, 'ASSETS=1', '-n', goal], cwd=self.root,
                                         text=True, capture_output=True)
                 output = result.stdout + result.stderr
                 self.assertNotIn('profile_config.py make-assets failed', output)
@@ -252,7 +378,7 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
 
     def test_mixed_game_and_asset_goals_still_validate_fragments(self):
         self.fragment.unlink()
-        result = subprocess.run([MAKE, '-n', 'game-asm', 'build/us/conker.us.z64'],
+        result = subprocess.run([MAKE, 'ASSETS=1', '-n', 'game-asm', 'build/us/conker.us.z64'],
                                 cwd=self.root, text=True, capture_output=True)
         self.assertNotEqual(result.returncode, 0)
         self.assertIn('profile_config.py make-assets failed', result.stderr)
@@ -263,7 +389,7 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
             stream.write('\n.PHONY: all\nall: build/combined.bin\n'
                          'build/combined.bin: $(FONT_OBJS) $(MP3_BANK_OBJS)\n'
                          '\tcat $^ > $@\n')
-        result = subprocess.run([MAKE, '-j4', f'LD={sys.executable} {self.ld}', 'all'],
+        result = subprocess.run([MAKE, 'ASSETS=1', '-j4', f'LD={sys.executable} {self.ld}', 'all'],
                                 cwd=self.root, text=True, capture_output=True)
         self.assertEqual(result.returncode, 0, result.stderr)
         for prefix in ('font/glyphs', 'audio/mp3/streams'):
@@ -273,25 +399,25 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
         combined = self.root / 'build/combined.bin'
         self.assertEqual(combined.read_bytes(), bytes([0, 1, 0, 1]))
         before = combined.stat().st_mtime_ns
-        unchanged = subprocess.run([MAKE, '-j4', f'LD={sys.executable} {self.ld}', 'all'],
+        unchanged = subprocess.run([MAKE, 'ASSETS=1', '-j4', f'LD={sys.executable} {self.ld}', 'all'],
                                    cwd=self.root, text=True, capture_output=True)
         self.assertEqual(unchanged.returncode, 0, unchanged.stderr)
         self.assertEqual(combined.stat().st_mtime_ns, before)
         time.sleep(1.05)
         (self.root / 'build/fonts/us/0000.pgm').write_bytes(b'changed')
-        changed = subprocess.run([MAKE, '-j4', f'LD={sys.executable} {self.ld}', 'all'],
+        changed = subprocess.run([MAKE, 'ASSETS=1', '-j4', f'LD={sys.executable} {self.ld}', 'all'],
                                  cwd=self.root, text=True, capture_output=True)
         self.assertEqual(changed.returncode, 0, changed.stderr)
         self.assertEqual(combined.read_bytes(), b'changed' + bytes([1, 0, 1]))
         self.fragment.unlink()
-        failed = subprocess.run([MAKE, 'all'], cwd=self.root, text=True, capture_output=True)
+        failed = subprocess.run([MAKE, 'ASSETS=1', 'all'], cwd=self.root, text=True, capture_output=True)
         self.assertIn('profile_config.py make-assets failed', failed.stderr)
         self.assertNotEqual(failed.returncode, 0)
 
     def test_dot_prefixed_rom_goal_retains_all_asset_prerequisites(self):
         # This fixture lacks the rest of the ROM. Inspect Make's actual target
         # database rather than claiming a ROM link from these synthetic assets.
-        result = subprocess.run([MAKE, '-np', './build/us/conker.us.z64'],
+        result = subprocess.run([MAKE, 'ASSETS=1', '-np', './build/us/conker.us.z64'],
                                 cwd=self.root, text=True, capture_output=True)
         objects = next(line for line in result.stdout.splitlines() if line.startswith('ASSET_OBJS := '))
         for name in ('font/glyphs/0000', 'audio/mp3/streams/0000', 'audio/bank17/index'):

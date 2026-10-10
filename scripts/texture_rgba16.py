@@ -52,12 +52,20 @@ def flip_vertical(pixels: bytes, width: int, height: int, pixel_size: int) -> by
     )
 
 
+def source_rows(pixels: bytes, width: int, height: int, source_origin: str) -> bytes:
+    if source_origin == 'bottom-left':
+        return flip_vertical(pixels, width, height, 2)
+    if source_origin == 'top-left':
+        return pixels
+    raise ValueError('unsupported RGBA16 source origin')
+
+
 def encode_png(
-    payload: bytes, row_layout: str, width: int, height: int
+    payload: bytes, row_layout: str, width: int, height: int, *,
+    source_origin: str = 'bottom-left',
 ) -> bytes:
-    pixels = flip_vertical(
-        convert_row_layout(payload, row_layout, width, height), width, height, 2
-    )
+    pixels = source_rows(convert_row_layout(payload, row_layout, width, height),
+                         width, height, source_origin)
     words = struct.unpack(f">{width * height}H", pixels)
     rgba = b"".join(
         bytes(
@@ -74,7 +82,8 @@ def encode_png(
 
 
 def decode_png(
-    data: bytes, row_layout: str, width: int, height: int
+    data: bytes, row_layout: str, width: int, height: int, *,
+    source_origin: str = 'bottom-left',
 ) -> bytes:
     if not data.startswith(t.PNG_SIGNATURE):
         raise ValueError("texture file is not a PNG")
@@ -134,7 +143,7 @@ def decode_png(
         )
     payload = struct.pack(f">{len(words)}H", *words)
     return convert_row_layout(
-        flip_vertical(payload, width, height, 2), row_layout, width, height
+        source_rows(payload, width, height, source_origin), row_layout, width, height
     )
 
 
@@ -209,14 +218,15 @@ def consistent_contracts(references: list[dict]) -> list[dict]:
     return proven
 
 
-def survey(profile: str, rom_argument: Path | None):
+def survey(profile: str, rom_argument: Path | None, *, flat_entries=None):
     rom_path, layout = t.resolve_rom(profile, rom_argument)
     rom, source_order = t.normalize_rom(rom_path.read_bytes())
     digest = hashlib.sha1(rom).hexdigest()
     if digest not in layout["normalized_sha1"]:
         raise ValueError(f"US normalized ROM SHA-1 mismatch: got {digest}")
     start, end = layout["flat_assets_start"], layout["flat_assets_end"]
-    entries = list(t.iter_flat_rzip_entries(rom[start:end]))
+    entries = list(t.iter_flat_rzip_entries(rom[start:end]) if flat_entries is None else flat_entries)
+    by_index = {entry.index: entry for entry in entries}
     sizes = {entry.index: len(entry.data) for entry in entries}
     references = []
     for bank in t.parse_asset_banks(rom, layout["asset_table"]):
@@ -239,7 +249,7 @@ def survey(profile: str, rom_argument: Path | None):
         if not proven:
             continue
         width, height = proven[0]["width"], proven[0]["height"]
-        entry = entries[index]
+        entry = by_index[index]
         textures.append(
             {
                 "flat_index": index,

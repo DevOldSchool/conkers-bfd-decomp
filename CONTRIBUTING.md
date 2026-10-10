@@ -119,6 +119,27 @@ Persist pending IDs until clean success and report blocked batches as pending.
 [Verified original assembly](docs/decompilation-workflow.md#verified-original-assembly)
 can join a batch, but contributes no C matches or completed C source units.
 
+## Asset and build changes
+
+Changes that can affect asset reconstruction require a successful local US
+`./conker build --assets` once per completed batch before handoff, commit or PR,
+plus the relevant focused tests. This includes texture selectors and packers
+(`scripts/texture_*.py`, including `texture_cpu_*`), model helpers used by texture
+packing, font/audio packers, encoder contracts, asset layout fragments and shared
+build/preparation dependencies that affect reconstruction. This requirement also
+applies to fixes in existing asset tooling, not just newly mapped assets.
+
+Record the tested commit, command and byte-identical US ROM result in the PR.
+If you lack a ROM, mark this verification pending and arrange for a maintainer
+to complete it before merge. Recheck after changes affecting the result.
+Default builds, `finish`, `verify-batch` and public PR CI do not establish asset
+reconstruction; the main-branch ROM workflow runs after merge. C-only and
+documentation-only changes do not need this additional asset gate.
+
+Follow the [asset batch workflow](docs/decompilation-workflow.md#asset-reconstruction-batches)
+for new reconstruction coverage and report validation. Batch related edits
+before running the full build; do not repeat it after every asset or selector.
+
 ## Review and handoff
 
 Before handoff, commit or PR, complete the clean batch for function changes.

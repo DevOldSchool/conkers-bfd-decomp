@@ -225,7 +225,7 @@ class RepositorySafetyTests(unittest.TestCase):
         script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
 
         self.assertIn("MODERN_LD=1", makefile)
-        self.assertIn("run_in_container_libultra make profile-libs PROFILE=us", script)
+        self.assertIn('run_in_container_libultra "${timing[@]}" --stage sdk -- make --jobs "$build_jobs" profile-libs PROFILE=us', script)
         self.assertIn("PROFILE_LIB_G_us", makefile)
         self.assertIn("PROFILE_LIB_GD_us", makefile)
         self.assertIn("PROFILE_LIB_RARE_us", makefile)
