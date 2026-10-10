@@ -42,6 +42,10 @@ DMA callbacks, initializes the manager thread and starts it. It temporarily
 raises the calling thread's priority when needed and restores priority and the
 interrupt mask afterward. Original call `80004498` supplies priority 150 and
 command capacity 200. Existing manager, queue and stack addresses are retained.
+The access-queue flag uses canonical SDK name `__osPiAccessQueueEnabled` at
+`0x8002BD60`, as declared `u32` in `PRinternal/piint.h` and mapped by
+`config/symbols/us.txt`; this replaces its older numeric spelling without
+changing the type, address or operations.
 
 ## VI and timer events
 

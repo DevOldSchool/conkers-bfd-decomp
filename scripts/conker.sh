@@ -85,9 +85,11 @@ Getting started
                                  Skip a raw item that cannot enter the C candidate loop;
                                  retain its GLOBAL_ASM and record the blocker.
   unblock-raw <work-item-id>     Return a blocked raw item to manual selection.
-  verify-original-asm <id> [--refresh | --reason <text> --evidence-reference <path>]
+  verify-original-asm <id> [--check | --reason <text> --evidence-reference <path>]
                                  Verify retained handwritten ASM against the full US ROM span;
                                  classify separately from C matches. --check revalidates it.
+  verify-original-asm <id>... --refresh
+                                 Re-verify regenerated text for one or more classified items.
   resume <work-item-id>          Restore its C candidate and return it to automatic selection.
   reopen-match <work-item-id> --reason <text>
                                  Preserve an invalidated match and restore its GLOBAL_ASM safely.
@@ -105,8 +107,12 @@ Getting started
   stop                           Stop and remove this checkout's warm toolchain container.
 
 After the raw base split map is available
-  prepare [--profile us]         Extract generated sources (defaults to US).
-  build [--profile us|--all]     Build US by default (`--all` means all active profiles).
+  prepare [--profile us] [--assets] [--refresh] [--jobs N]
+                                 Cache generated sources; --refresh forces a new split.
+  build [--profile us|--all] [--assets] [--refresh] [--jobs N]
+                                 Default: C with original ROM assets. --assets rebuilds assets.
+                                 Timings: build/timings/*.jsonl. Jobs default to 4 (CONKER_JOBS).
+                                 CONKER_JOBS also controls batch, integration and objdiff workers.
   diff [--profile us] <work-item-id>
   diff --record [--profile us] <work-item-id>
                                  Show a focused diff and record it immediately when CURRENT (0).
@@ -117,7 +123,8 @@ After the raw base split map is available
   objdiff data-audit             Audit US loaded data boundaries; no build or progress credit.
   objdiff report                Build/validate the US code/data/asset report (ROM/toolchain needed).
   objdiff view <id>             Open an interactive objdiff after preparing both objects.
-  first-diff [--profile us]      Report the first difference in a rebuilt ROM.
+  first-diff [--profile us] [--assets]
+                                 Report the first difference in a rebuilt ROM.
   mupen [mupen64plus-options]    Run the pinned headless Mupen64Plus debugger on the US ROM.
   mupen-trace --spec <path> --output <build-path> [options]
                                  Record versioned model draw-state evidence from debugger stops.
@@ -162,9 +169,9 @@ After the raw base split map is available
                                  Extract or verify US MP3 streams, tables, and embedded cues.
   audio-assets <survey|extract|preview|sample-preview|soundtrack-preview|verify> [options]
                                  Survey, extract, preview, or byte-verify US non-MP3 audio assets.
-  texture-assets <extract|pack|verify|survey> [options]
+  texture-assets <extract|pack|build|verify|survey> [options]
                                  Survey, extract, rebuild, or verify proven US textures.
-  model-assets <appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]
+  model-assets <build|recover|appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]
                                  Export model banks or run cached ROM, glTF, Blender and image checks.
   hud-assets <survey|extract|preview|verify> [options]
                                  Extract, preview, or verify US HUD/menu metadata and sprites.
@@ -412,38 +419,51 @@ run_host_mips_to_c() {
         python3 scripts/m2c.py "$@"
 }
 
+configure_build_jobs() {
+    build_jobs="$(python3 "$repo_root/scripts/build_jobs.py" "$@")" || return
+    export CONKER_JOBS="$build_jobs"
+}
+
 run_in_container() {
+    configure_build_jobs || return
     ensure_warm_container
     run_in_warm_container "$@"
 }
 
 run_in_warm_container() {
-    docker exec --workdir /workspace "$warm_container_name" "$@"
+    configure_build_jobs || return
+    docker exec --env "CONKER_JOBS=$build_jobs" --workdir /workspace "$warm_container_name" "$@"
 }
 
 run_in_ephemeral_container() {
+    configure_build_jobs || return
     ensure_image
     workspace_mount_args
     docker run --rm "${container_run_args[@]}" \
         "${workspace_mounts[@]}" \
+        --env "CONKER_JOBS=$build_jobs" \
         --workdir /workspace \
         "$image_name" "$@"
 }
 
 run_in_container_integrating() {
+    configure_build_jobs || return
     ensure_image
     workspace_mount_args integrate
     docker run --rm "${container_run_args[@]}" \
         "${workspace_mounts[@]}" \
+        --env "CONKER_JOBS=$build_jobs" \
         --workdir /workspace \
         "$image_name" "$@"
 }
 
 run_in_container_libultra() {
+    configure_build_jobs || return
     ensure_image
     workspace_mount_args libultra
     docker run --rm "${container_run_args[@]}" \
         "${workspace_mounts[@]}" \
+        --env "CONKER_JOBS=$build_jobs" \
         --workdir /workspace \
         "$image_name" "$@"
 }
@@ -519,6 +539,7 @@ run_python_tests() {
 }
 
 run_in_container_interactive() {
+    configure_build_jobs || return
     ensure_image
     if ! watch_image_is_compatible; then
         printf 'Toolchain image predates diff-watch support; rebuilding it locally...\n'
@@ -527,7 +548,7 @@ run_in_container_interactive() {
         image_is_healthy || die "toolchain image failed the diff-watch smoke test"
     fi
     ensure_warm_container
-    exec docker exec --interactive --tty --workdir /workspace "$warm_container_name" "$@"
+    exec docker exec --env "CONKER_JOBS=$build_jobs" --interactive --tty --workdir /workspace "$warm_container_name" "$@"
 }
 
 require_profile() {
@@ -718,14 +739,15 @@ case "$command" in
                 verify_and_record_match
                 ;;
             integrate)
+                configure_build_jobs || exit $?
                 parse_profile_and_value "usage: ./conker progress integrate [--profile us] <work-item-id>|--all-reviewed" "$@"
                 python3 "$state_tool" setup-check --profile "$selected_profile"
                 integration_overlays="$(python3 "$state_tool" integration-plan "$selected_value")"
                 if [[ " $integration_overlays " == *" main "* || " $integration_overlays " == *" debugger "* ]]; then
-                    run_in_container_libultra make --silent profile-libs PROFILE="$selected_profile"
+                    run_in_container_libultra make --silent --jobs "$build_jobs" profile-libs PROFILE="$selected_profile"
                 fi
                 if [[ " $integration_overlays " == *" game "* ]]; then
-                    run_in_container_libultra make --silent game-libs
+                    run_in_container_libultra make --silent --jobs "$build_jobs" game-libs
                 fi
                 if [[ "$selected_value" == "--all-reviewed" ]]; then
                     run_in_container_integrating python3 scripts/integrate.py --profile "$selected_profile" --all-reviewed
@@ -789,22 +811,40 @@ case "$command" in
         python3 "$state_tool" "$command" "$@"
         ;;
     verify-original-asm)
-        [[ $# -gt 0 ]] || die "usage: ./conker verify-original-asm <id> [--check | --refresh | --reason TEXT --evidence-reference PATH]"
+        [[ $# -gt 0 ]] || die "usage: ./conker verify-original-asm <id> [--check | --reason TEXT --evidence-reference PATH] | <id>... --refresh"
         original_refresh_flag=""
+        original_ids=()
         for original_argument in "$@"; do
             if [[ "$original_argument" == "--refresh" ]]; then
                 original_refresh_flag="--refresh"
+            else
+                original_ids+=("$original_argument")
             fi
         done
         if [[ -n "$original_refresh_flag" ]]; then
-            python3 "$state_tool" setup-check --profile us --reverify-original-asm "$1"
+            # Refresh several stale items together; only the named items may be stale.
+            original_reverify=()
+            for original_id in "${original_ids[@]}"; do
+                [[ "$original_id" != -* ]] || die "--refresh accepts only work-item IDs"
+                original_reverify+=(--reverify-original-asm "$original_id")
+            done
+            python3 "$state_tool" setup-check --profile us "${original_reverify[@]}"
+            for original_id in "${original_ids[@]}"; do
+                original_with=()
+                for original_other in "${original_ids[@]}"; do
+                    [[ "$original_other" == "$original_id" ]] || original_with+=(--refresh-with "$original_other")
+                done
+                original_proof="build/us/original-asm/$original_id/proof.json"
+                run_in_container python3 scripts/project_state.py verify-original-asm "$original_id" --refresh ${original_with[@]+"${original_with[@]}"} --proof-output "$original_proof"
+                python3 "$state_tool" verify-original-asm "$original_id" --refresh ${original_with[@]+"${original_with[@]}"} --proof "$repo_root/$original_proof"
+            done
         else
             python3 "$state_tool" setup-check --profile us
             run_in_container python3 scripts/prepare_nonmatching_asm.py --profile us --identifier "$1"
+            original_proof="build/us/original-asm/$1/proof.json"
+            run_in_container python3 scripts/project_state.py verify-original-asm "$1" --proof-output "$original_proof"
+            python3 "$state_tool" verify-original-asm "$@" --proof "$repo_root/$original_proof"
         fi
-        original_proof="build/us/original-asm/$1/proof.json"
-        run_in_container python3 scripts/project_state.py verify-original-asm "$1" ${original_refresh_flag:+"$original_refresh_flag"} --proof-output "$original_proof"
-        python3 "$state_tool" verify-original-asm "$@" --proof "$repo_root/$original_proof"
         ;;
     resume)
         [[ $# -eq 1 ]] || die "usage: ./conker resume <work-item-id>"
@@ -893,6 +933,7 @@ case "$command" in
         printf 'AGENT_ACTION: STOP_MATCHED\n'
         ;;
     verify-batch)
+        configure_build_jobs || exit $?
         batch_mode="clean"
         select_test_runner
         while [[ $# -gt 0 ]]; do
@@ -933,17 +974,17 @@ case "$command" in
             exit 1
         fi
         if [[ " $batch_overlays " == *" main "* || " $batch_overlays " == *" debugger "* ]]; then
-            if ! run_in_container_libultra make --silent profile-libs PROFILE=us; then
+            if ! run_in_container_libultra make --silent --jobs "$build_jobs" profile-libs PROFILE=us; then
                 printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
                 exit 1
             fi
-            if ! run_in_container make --silent --jobs 4 build PROFILE=us; then
+            if ! run_in_container make --silent --jobs "$build_jobs" build PROFILE=us; then
                 printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
                 exit 1
             fi
         fi
         if [[ " $batch_overlays " == *" game "* ]]; then
-            if ! run_in_container_libultra make --silent game-libs; then
+            if ! run_in_container_libultra make --silent --jobs "$build_jobs" game-libs; then
                 printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
                 exit 1
             fi
@@ -951,7 +992,7 @@ case "$command" in
             if [[ "$batch_mode" == "incremental" ]]; then
                 game_batch_target="game-integrated"
             fi
-            if ! run_in_container make --silent --jobs 4 "$game_batch_target" GAME_PROFILE=us; then
+            if ! run_in_container make --silent --jobs "$build_jobs" "$game_batch_target" GAME_PROFILE=us; then
                 integrated_binary="$repo_root/build/game-integrated/us/conker.game.us.integrated.bin"
                 integrated_reference="$repo_root/build/game-integrated/us/game.code.bin"
                 if [[ -f "$integrated_binary" && -f "$integrated_reference" ]] && ! cmp -s "$integrated_binary" "$integrated_reference"; then
@@ -1004,20 +1045,37 @@ case "$command" in
         fi
         ;;
     prepare|build)
-        if [[ $# -eq 1 && "$1" == "--all" ]]; then
+        build_started=$SECONDS
+        build_assets=0
+        build_refresh=0
+        build_jobs="${CONKER_JOBS:-4}"
+        profile_arguments=()
+        while [[ $# -gt 0 ]]; do
+            case "$1" in
+                --assets) build_assets=1; shift ;;
+                --refresh) build_refresh=1; shift ;;
+                --jobs)
+                    [[ $# -ge 2 ]] || die '--jobs requires a positive integer'
+                    build_jobs="$2"; shift 2 ;;
+                *) profile_arguments+=("$1"); shift ;;
+            esac
+        done
+        configure_build_jobs "$build_jobs"
+        if [[ ${#profile_arguments[@]} -eq 1 && "${profile_arguments[0]}" == "--all" ]]; then
+            selected_profile=us
             python3 "$state_tool" setup-check --all
-            if [[ "$command" == "build" ]]; then
-                run_in_container_libultra make profile-libs PROFILE=us
-            fi
-            run_in_container make "$command" PROFILE=us
         else
-            parse_profile_only "usage: ./conker $command [--profile us|--all]" "$@"
+            parse_profile_only "usage: ./conker $command [--profile us|--all] [--assets] [--refresh] [--jobs N]" ${profile_arguments[@]+"${profile_arguments[@]}"}
             python3 "$state_tool" setup-check --profile "$selected_profile"
-            if [[ "$command" == "build" && "$selected_profile" == "us" ]]; then
-                run_in_container_libultra make profile-libs PROFILE=us
-            fi
-            run_in_container make "$command" PROFILE="$selected_profile"
         fi
+        build_mode=original
+        [[ "$build_assets" == 0 ]] || build_mode=rebuilt
+        timing=(python3 scripts/build_timing.py --profile "$selected_profile" --mode "$build_mode")
+        if [[ "$command" == "build" && "$selected_profile" == "us" ]]; then
+            run_in_container_libultra "${timing[@]}" --stage sdk -- make --jobs "$build_jobs" profile-libs PROFILE=us
+        fi
+        run_in_container "${timing[@]}" --stage "$command" -- make --jobs "$build_jobs" "$command" PROFILE="$selected_profile" ASSETS="$build_assets" REFRESH="$build_refresh"
+        printf 'TIMING %s/%s %s including setup, SDK and Docker: %ss\n' "$selected_profile" "$build_mode" "$command" "$((SECONDS - build_started))"
         ;;
     m2c-context)
         parse_profile_and_value "usage: ./conker m2c-context [--profile us] <source.c>" "$@"
@@ -1054,10 +1112,11 @@ case "$command" in
         python3 scripts/objdiff.py "$@"
         ;;
     objdiff-report-prepare)
+        configure_build_jobs || exit $?
         python3 "$state_tool" setup-check --profile us
         python3 "$state_tool" progress --check
-        run_in_container_libultra make --silent --jobs 4 profile-libs PROFILE=us
-        run_in_container_libultra make --silent --jobs 4 game-libs
+        run_in_container_libultra make --silent --jobs "$build_jobs" profile-libs PROFILE=us
+        run_in_container_libultra make --silent --jobs "$build_jobs" game-libs
         run_in_container python3 scripts/objdiff_report.py prepare
         ;;
     objdiff-prepare)
@@ -1065,9 +1124,15 @@ case "$command" in
         run_in_container python3 scripts/objdiff.py prepare "$@"
         ;;
     first-diff)
-        parse_profile_only "usage: ./conker first-diff [--profile us]" "$@"
+        diff_assets=()
+        profile_arguments=()
+        for argument in "$@"; do
+            if [[ "$argument" == "--assets" ]]; then diff_assets=(--assets)
+            else profile_arguments+=("$argument"); fi
+        done
+        parse_profile_only "usage: ./conker first-diff [--profile us] [--assets]" ${profile_arguments[@]+"${profile_arguments[@]}"}
         python3 "$state_tool" setup-check --profile "$selected_profile"
-        run_in_container python3 scripts/first_diff.py "$selected_profile"
+        run_in_container python3 scripts/first_diff.py "$selected_profile" ${diff_assets[@]+"${diff_assets[@]}"}
         ;;
     mupen)
         ensure_mupen_image
@@ -1184,14 +1249,15 @@ case "$command" in
         run_in_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay
         ;;
     game-build)
+        configure_build_jobs || exit $?
         parse_game_build_options "usage: ./conker game-build [--profile us] [--refresh]" "$@"
         python3 "$state_tool" setup-check --profile "$selected_profile"
-        run_in_container_libultra make --silent game-libs
+        run_in_container_libultra make --silent --jobs "$build_jobs" game-libs
         game_build_target=game-integrated
         if [[ "$refresh_game_build" == "true" ]]; then
             game_build_target=game-integrated-refresh
         fi
-        run_in_container make --silent --jobs 4 "$game_build_target" GAME_PROFILE="$selected_profile"
+        run_in_container make --silent --jobs "$build_jobs" "$game_build_target" GAME_PROFILE="$selected_profile"
         ;;
     rzip-extract)
         profile_supplied=false
@@ -1222,12 +1288,22 @@ case "$command" in
         python3 scripts/audio_assets.py "$@"
         ;;
     texture-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker texture-assets <extract|pack|verify|survey> [options]"
-        python3 scripts/texture_assets.py "$@"
+        [[ $# -ge 1 ]] || die "usage: ./conker texture-assets <extract|pack|build|verify|survey> [options]"
+        if [[ "$1" == "build" ]]; then
+            run_in_container python3 scripts/texture_assets.py "$@"
+        else
+            python3 scripts/texture_assets.py "$@"
+        fi
         ;;
     model-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker model-assets <appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]"
-        if [[ "$1" == "alpha-frontier" ]]; then
+        [[ $# -ge 1 ]] || die "usage: ./conker model-assets <build|recover|appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]"
+        if [[ "$1" == "build" ]]; then
+            shift
+            run_in_container python3 scripts/model_build.py build-parts "$@"
+        elif [[ "$1" == "recover" ]]; then
+            shift
+            run_in_container python3 scripts/model_build.py recover "$@"
+        elif [[ "$1" == "alpha-frontier" ]]; then
             shift
             python3 scripts/model_character_alpha.py "$@"
         elif [[ "$1" == "event-activation" ]]; then

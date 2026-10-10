@@ -1,8 +1,8 @@
 # Debugger session, prompt and numeric rendering
 
-Source: `src/debugger/debugger_0000.c`; ownership remains provisional. Empty
-and identity helpers stay numeric. See [debugger
-overlay](../../debugger/us_debugger_overlay.md),
+Source: `src/done/debugger/debugger_0000.c`; adopted boundaries are documented
+in [source-unit evidence](../../debugger/us_debugger_source_units.md). Empty
+and identity helpers stay numeric. See [debugger overlay](../../debugger/us_debugger_overlay.md),
 [framebuffer/controller](debugger_io_helper_semantics.md) and
 [screen](debugger_screen_helper_semantics.md) evidence.
 

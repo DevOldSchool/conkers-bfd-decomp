@@ -11,6 +11,7 @@ import re
 import struct
 import subprocess
 
+from build_jobs import job_count
 import extract_game_code
 import normalize_asm
 import rom_span
@@ -43,6 +44,8 @@ def config_document(specs: list[dict], directory: Path, binary: Path, sha1: str)
         'asm_function_macro': 'glabel', 'asm_data_macro': 'glabel',
         'asm_jtbl_label_macro': 'jlabel', 'mips_abi_float_regs': 'o32',
         'symbol_addrs_path': ['config/symbols/' + ('game-us' if overlay == 'game' else 'us') + '.txt'],
+        # Match the canonical US profiles' relocation overrides.
+        'reloc_addrs_path': ['config/relocs/' + ('game-us' if overlay == 'game' else 'us') + '.txt'],
     }
     segments = []
     if specs[0]['start']:
@@ -198,7 +201,7 @@ def prepare(specs: list[dict], output: Path) -> tuple[dict, dict]:
                                   'source': source.relative_to(output).as_posix(),
                                   'sha256': sha256(obj), 'text_bytes': extent}
 
-        with ThreadPoolExecutor(max_workers=4) as pool:
+        with ThreadPoolExecutor(max_workers=job_count()) as pool:
             prepared = dict(pool.map(assemble, units))
         objects = [(output / prepared[s['key']]['path']).relative_to(ROOT) for s in units]
         externals = '\n'.join((dest / name).read_text() for name in ('undefined_funcs.txt', 'undefined_syms.txt'))

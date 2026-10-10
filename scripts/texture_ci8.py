@@ -175,14 +175,15 @@ def extractable_contracts(flat_index: int, references: list[dict]) -> list[dict]
     return consistent_contracts(references)
 
 
-def survey(profile: str, rom_argument: Path | None):
+def survey(profile: str, rom_argument: Path | None, *, flat_entries=None):
     rom_path, layout = t.resolve_rom(profile, rom_argument)
     rom, order = t.normalize_rom(rom_path.read_bytes())
     digest = hashlib.sha1(rom).hexdigest()
     if digest not in layout["normalized_sha1"]:
         raise ValueError(f"US normalized ROM SHA-1 mismatch: got {digest}")
     start, end = layout["flat_assets_start"], layout["flat_assets_end"]
-    entries = list(t.iter_flat_rzip_entries(rom[start:end]))
+    entries = list(t.iter_flat_rzip_entries(rom[start:end]) if flat_entries is None else flat_entries)
+    by_index = {entry.index: entry for entry in entries}
     game = t.parse_game_archive(rom[layout["game_start"]:layout["game_end"]])
     # func_1510CE60: mode bit 0 selects payload_end - 512 for the TLUT.
     for address, instruction in {
@@ -212,7 +213,7 @@ def survey(profile: str, rom_argument: Path | None):
         if not proven:
             continue
         width, height = proven[0]["width"], proven[0]["height"]
-        entry = entries[index]
+        entry = by_index[index]
         preview_width, preview_height, row_layout, evidence, preview_status = (
             preview_contract(index, width, height)
         )

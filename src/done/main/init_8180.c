@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/main/init_8180.c
  * Boundary evidence: docs/evidence/boundaries/main/main_sequence_api_mp3_adapter_boundaries.md
- *
- * TODO: Implement these source-unit functions:
- * - func_80008CE8
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 /* Keep address symbols for linking and registered match evidence. */
@@ -119,7 +114,7 @@ extern AudioBank *D_8003E368;
 extern AudioHeap D_8003E370;
 extern u8 D_80044B20[];
 s32 func_80003C40(s32, s32, s32, s32);
-void func_80004074(s32);
+void func_80004074(void *);
 extern SequencePlayer *D_8003C900[];
 extern u8 D_8003C90C[];
 extern u16 D_8003C910[];
@@ -167,7 +162,7 @@ void func_80008180(void) {
     header = (SequenceFile *)func_80003C40(0x10, 1, 2, 0);
     func_800046E4(sequenceAddress, header, 0x10);
     sequenceSize = header->count * 8 + 4;
-    func_80004074((s32)header);
+    func_80004074(header);
     D_8003CD40 = (SequenceFile *)func_80003C40(sequenceSize, 0xFF, 2, 0);
     func_800046E4(sequenceAddress, D_8003CD40, (sequenceSize + 0xF) & ~0xF);
     func_800128D0(D_8003CD40, (u8 *)sequenceAddress);
@@ -405,7 +400,6 @@ void func_80017F80(SequenceData *, u8 *);
 void func_80018C60(SequencePlayer *);
 void func_80018CB0(SequencePlayer *, SequenceData *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80008CE8 CURRENT (80) */
 s32 func_80008CE8(u8 arg0, s32 sequence) {
     s32 address;
     u32 count;
@@ -422,9 +416,8 @@ s32 func_80008CE8(u8 arg0, s32 sequence) {
         }
     }
     if (sequence != D_8003CA3C[arg0]) {
-        count = D_8003CA48[arg0];
-        if (count != 0) {
-            func_80004074((s32)count);
+        if (D_8003CA48[arg0] != 0) {
+            func_80004074((void *)D_8003CA48[arg0]);
             D_8003CA48[arg0] = 0;
         }
         address = (s32)D_8003CD40->entries[sequence].address;
@@ -441,8 +434,6 @@ s32 func_80008CE8(u8 arg0, s32 sequence) {
     func_80017B30(D_8003C900[arg0]);
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80008CE8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_80008CE8.s")
 void func_80018D00(SequencePlayer *, s16);
 
 void sequence_player_set_volume(u8 arg0, s32 volume) {

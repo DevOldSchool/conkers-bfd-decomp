@@ -212,7 +212,8 @@ extern s32 D_8003809C;
 extern s32 D_8003C8E0;
 
 s32 func_1502B224(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    volatile s32 padding[2];
+    s32 compression;
+    u32 aligned;
     s32 original;
     s32 buffer;
     u32 size;
@@ -221,12 +222,14 @@ s32 func_1502B224(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     if ((arg3 != 0) && ((u32)arg3 < size)) {
         size = arg3;
     }
-    if ((arg2 & 0x70000000) == 0x10000000) {
+    compression = arg2 & 0x70000000;
+    aligned = (size + 0xF) & ~0xF;
+    if (compression == 0x10000000) {
         buffer = func_10003C40(size, 1, 2, 2);
         if (buffer == 0) {
             return 0;
         }
-        func_10004514((s32)arg0, buffer, (size + 0xF) & ~0xF, 1);
+        func_10004514((s32)arg0, buffer, aligned, 1);
         original = *(s32 *)buffer & 0x7FFFFFFF;
         if ((size = func_10006240(buffer, arg1, D_8003809C)) != original) {
             D_8003C8E0 = 0x0C000036;
@@ -234,7 +237,7 @@ s32 func_1502B224(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
         }
         func_10004074(buffer);
     } else {
-        func_10004514((s32)arg0, arg1, (size + 0xF) & ~0xF, 1);
+        func_10004514((s32)arg0, arg1, aligned, 1);
     }
     return size;
 }

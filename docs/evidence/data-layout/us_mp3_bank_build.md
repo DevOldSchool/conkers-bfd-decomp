@@ -68,6 +68,8 @@ the full ROM check; see `build/us/data-boundaries/report-review-build.log`.
 The packer tests cover index flags, empty slots, fixed ranges, preserved edits,
 invalid/missing inputs, input changes during packing, and source protection.
 
-MP3 storage is currently outside the published report denominator and progress.
+All 23,586,160 MP3-bank storage bytes are included in the published report
+denominator as unmatched targets. Repacking original encoded streams does not
+automatically grant reconstruction credit.
 The bank remains split and verified in `us.yaml` and the ROM build. Generated
 bundles remain ignored. See [the published report scope](../../objdiff.md#scope).

@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/main/main_sound_record_family_boundary.md
  *
  * TODO: Implement these source-unit functions:
- * - func_8000F6B8
  * - func_8000FA64
  * - func_8000FEF0
  * - func_80010154
@@ -509,7 +508,6 @@ s32 func_8000A420(s32, s32, s32, f32, s32, s32, s32, s32, s32,
                  s32 *, s32 *, s32 *);
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000F6B8 CURRENT (230) */
 s32 func_8000F6B8(s32 arg0, s16 arg1, s16 arg2, s16 arg3,
                    s32 *output, s32 nearDistance, s32 farDistance) {
     s32 result;
@@ -522,9 +520,10 @@ s32 func_8000F6B8(s32 arg0, s16 arg1, s16 arg2, s16 arg3,
     s32 bestZ;
     s32 dz;
     u32 distance;
-    u32 closest;
 
     if (D_80082FA0 != 0) {
+        u32 closest;
+
         closest = 0xFFFFFFFF;
         for (index = 0; index <= D_80082FA0; index++) {
             dx = arg1 - D_80041F68[index].xC;
@@ -550,8 +549,6 @@ s32 func_8000F6B8(s32 arg0, s16 arg1, s16 arg2, s16 arg3,
                  (s16)farDistance, (s16)nearDistance, output, &result, 0);
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000F6B8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000F6B8.s")
 s32 func_8000F3D0(u16);
 f32 func_80019AB0(s32);
 void func_80017714(struct sndstate *, s16, s32);
@@ -1039,9 +1036,6 @@ extern void *D_8003E368;
 struct sndstate *func_80017438(void *, s16, u16, u8, f32, u8, u8,
                                struct sndstate **);
 
-extern u16 D_800425E4;
-extern struct sndstate *D_800425E8;
-
 u16 func_80010BE8(u16 arg0, s32 sound, u16 volume, u8 pan,
                   s16 cents, u8 arg5, u8 bus) {
     u16 result;
@@ -1055,19 +1049,15 @@ u16 func_80010BE8(u16 arg0, s32 sound, u16 volume, u8 pan,
             func_80017594(D_800425E0[index].state);
             D_800425E0[index].state = 0;
         }
-    } else if ((((D_800425E0[index].state != 0) &&
+    } else if (((D_800425E0[index].state != 0) &&
+                (func_800173C4(&D_800425E0[index].state) != 0)) ||
+               (D_800425E0[index].value & 0x8000)) {
+        index = 0;
+        while ((index < 0x10) &&
+               (((D_800425E0[index].state != 0) &&
                  (func_800173C4(&D_800425E0[index].state) != 0)) ||
-                (D_800425E0[index].value & 0x8000)) &&
-               (((index = 0, D_800425E0[0].state != 0) &&
-                 (func_800173C4(&D_800425E8) != 0)) || (D_800425E4 & 0x8000))) {
-search_next_slot:
-        index++;
-        if (index < 0x10) {
-            if (((D_800425E0[index].state != 0) &&
-                 (func_800173C4(&D_800425E0[index].state) != 0)) ||
-                (D_800425E0[index].value & 0x8000)) {
-                goto search_next_slot;
-            }
+                (D_800425E0[index].value & 0x8000))) {
+            index++;
         }
     }
     if (volume < 0x64) {
@@ -1075,33 +1065,32 @@ search_next_slot:
     }
     if (index >= 0x10) {
         result = 0;
-        goto return_result;
-    }
-    if (sound == 0) {
-        return 0;
-    }
-    if ((sound & 0x7FFF) >= 0x6E3) {
-        return 0;
-    }
-    result = D_800425E0[index].field2;
-    next = result + 0x10;
-    D_800425E0[index].id = result;
-    if (next < 0x10) {
-        next += 0x10;
-    }
-    D_800425E0[index].field2 = next;
-    D_800425E0[index].value = sound;
-    if (D_800425E0[index].state != 0) {
-        ((u8 *)D_800425E0[index].state)[0x54] = 5;
-    }
-    if ((arg5 & 0x7F) + (u8)D_80041FD8 < 0x80) {
-        arg5 = (u8)(arg5 + (u8)D_80041FD8);
     } else {
-        arg5 = (u8)(arg5 | 0x7F);
+        if (sound == 0) {
+            return 0;
+        }
+        if ((sound & 0x7FFF) >= 0x6E3) {
+            return 0;
+        }
+        result = D_800425E0[index].field2;
+        next = result + 0x10;
+        D_800425E0[index].id = result;
+        if (next < 0x10) {
+            next += 0x10;
+        }
+        D_800425E0[index].field2 = next;
+        D_800425E0[index].value = sound;
+        if (D_800425E0[index].state != 0) {
+            ((u8 *)D_800425E0[index].state)[0x54] = 5;
+        }
+        if ((arg5 & 0x7F) + (u8)D_80041FD8 < 0x80) {
+            arg5 = (u8)(arg5 + (u8)D_80041FD8);
+        } else {
+            arg5 = (u8)(arg5 | 0x7F);
+        }
+        func_80017438(D_8003E368, (sound & 0x7FFF), volume, pan,
+                     func_80019AB0(cents), arg5, bus, &D_800425E0[index].state);
     }
-    func_80017438(D_8003E368, (sound & 0x7FFF), volume, pan,
-                 func_80019AB0(cents), arg5, bus, &D_800425E0[index].state);
-return_result:
     return result;
 }
 u16 func_80010BE8(u16, s32, u16, u8, s16, u8, u8);

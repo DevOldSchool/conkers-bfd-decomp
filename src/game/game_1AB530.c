@@ -51,33 +51,21 @@ void *func_1517E080(s32 arg0, s32 arg1) {
 void func_10004074(s32);
 
 void func_1517E134(void *arg0) {
-    void *var_v0;
-    void *var_v1;
+    void *prev;
 
-    var_v0 = D_800DDD64;
-    if (arg0 == var_v0) {
+    if (arg0 == D_800DDD64) {
         D_800DDD64 = *(void **)((u8 *)arg0 + 0x24);
-        goto block_8;
-    }
-    var_v1 = var_v0;
-    if (var_v0 != 0) {
-        var_v0 = *(void **)((u8 *)var_v0 + 0x24);
-        if (arg0 != var_v0) {
-loop_4:
-            var_v1 = var_v0;
-            if (var_v0 != 0) {
-                var_v0 = *(void **)((u8 *)var_v0 + 0x24);
-                if (arg0 != var_v0) {
-                    goto loop_4;
-                }
-            }
+    } else {
+        prev = D_800DDD64;
+        while (prev != 0 && *(void **)((u8 *)prev + 0x24) != arg0) {
+            prev = *(void **)((u8 *)prev + 0x24);
         }
+        if (prev == 0) {
+            return;
+        }
+        *(void **)((u8 *)prev + 0x24) = *(void **)((u8 *)arg0 + 0x24);
     }
-    if (var_v1 != 0) {
-        *(void **)((u8 *)var_v1 + 0x24) = (void *) *(void **)((u8 *)arg0 + 0x24);
-block_8:
-        func_10004074((s32) arg0);
-    }
+    func_10004074((s32)arg0);
 }
 typedef struct Game1AB530Node {
     u8 pad0[0xC];

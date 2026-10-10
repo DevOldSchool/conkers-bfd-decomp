@@ -417,7 +417,8 @@ Use `./conker register-main` for a reviewed main-executable function.
 a work item but does not claim that one function equals one original source
 file.
 
-After a full build, locate the first differing word with:
+After a default build, locate the first differing word with (add `--assets`
+for the reconstructed-assets output):
 
 ```sh
 ./conker first-diff
@@ -505,7 +506,7 @@ with independent full-span ROM proof (for example, routines with a custom ABI):
 ```sh
 ./conker verify-original-asm <id> --reason "reviewed custom ABI" --evidence-reference docs/evidence/<review>.md
 ./conker verify-original-asm <id> --check
-./conker verify-original-asm <id> --refresh
+./conker verify-original-asm <id> [<id>...] --refresh
 ```
 
 The command assembles/links the original body, verifies its entire registered ROM
@@ -518,7 +519,8 @@ Use `--refresh` when regenerated assembly text changes but the routine's recorde
 ROM bytes remain identical. It reassembles the complete span and updates the text
 hash transactionally, preserving the existing classification. Changed ROM/span
 hashes are rejected; normal validation and `--check` continue to reject stale
-evidence. Materialization preserves existing verified original assembly.
+evidence. Name every stale item in one refresh: only the named items may carry a
+stale text hash while each is re-verified in turn. Materialization preserves existing verified original assembly.
 
 Main proofs use the checksum-validated CPU interval, excluding the boot blob and
 RSP payloads. Main and debugger batches require full-ROM equality; game batches require the
@@ -677,9 +679,69 @@ Keep model settings unchanged unless an experiment is explicitly requested.
 
 ## Builds and batch verification
 
-`./conker build` targets US by default. `./conker build --all` verifies every
-active profile and remains the clean baseline command for CI and future
-multi-profile activation.
+`./conker build` targets US and uses original ROM asset banks by default. This
+is the normal C-matching path, including main/debugger integration and
+`verify-batch`. It still compiles the integrated C, links the full image, audits
+loaded data and requires byte-for-byte equality with the checked ROM. It does
+not prove asset reconstruction. GAME has its separate `game-build` gate.
+
+Use `./conker build --assets` when working on assets. This rebuilds reviewed
+textures, fonts and MP3 inputs and validates the audio splits. ROM-backed CI
+uses `./conker build --all --assets`; `--all` means all active profiles, currently
+US. Native data reports explicitly build their reconstructed targets regardless
+of the default build mode.
+
+Default ROM/ELF/linker outputs live under `build/us/original-assets/`.
+Reconstructed outputs retain `build/us/`. Both share C/SDK objects, but original
+bank objects have distinct names from reconstructed asset objects. Use
+`./conker first-diff --assets` to inspect the reconstructed ROM and plain
+`./conker first-diff` for the default ROM. Low-level Make callers opt into
+reconstruction with `ASSETS=1`.
+
+Preparation is cached by the materialized profile, ROM, symbol/relocation maps,
+toolchain inputs and generated file contents. Missing or changed generated
+files invalidate it. `--refresh` forces a new split; it does not delete editable
+asset inputs or force unchanged asset encoders to run. An interrupted split
+cannot retain a successful cache stamp. Switching modes preserves separate
+linker scripts and checks that the shared assembly still matches.
+
+`CONKER_JOBS` controls Make jobs and objdiff worker pools across builds,
+preparation, batch verification and integration (default: 4). For serial runs,
+use `CONKER_JOBS=1 ./conker verify-batch <ids...>` or
+`CONKER_JOBS=1 ./conker objdiff report`. `build` and `prepare` also accept
+`--jobs N`, which overrides the environment for that invocation. The setting
+is forwarded into both warm and disposable toolchain containers.
+
+Builds print stage durations and append timestamped results, commands and exit
+codes to `build/timings/us-original.jsonl` or `us-rebuilt.jsonl`. SDK, preparation,
+asset encoding (when needed), compile/link/verification and build totals are
+reported. Nested stage durations overlap; do not sum them. The final shell
+summary also includes setup and Docker overhead. For a comparison, use the
+same checkout, job count and cache conditions, run modes sequentially, and
+label refreshed versus warm builds. These are command timings, not total
+interactive workflow time.
+
+Local comparison on 2026-10-10, using the same checkout and pinned Docker
+image with four jobs, run sequentially after tests:
+
+| Command | Preparation | Command wall time |
+| --- | --- | ---: |
+| `./conker build --refresh` | Refreshed, original asset banks | 25.22 s |
+| `./conker build` | Cached, original asset banks | 18.86 s |
+| `./conker build --assets --refresh` | Refreshed, asset encoders executed | 445.83 s |
+
+All three produced the byte-identical US ROM. The asset run spent 69.28 s in
+texture reconstruction (6,865 streams), 1.50 s in fonts and 7.18 s in MP3
+packing. Existing SDK objects and editable asset inputs were retained; these
+are not fresh-checkout/bootstrap timings. The remaining asset-build cost
+includes Make's large dependency graph, object creation, linking and verification.
+The refreshed default pathway was 17.7 times faster in this comparison.
+
+The wrapper defaults to four Make jobs. Use `--jobs 1` or `CONKER_JOBS=1` for a
+serial build; `--jobs` takes precedence. Reuse the same isolated worktree for a
+related batch so unchanged SDK objects, asset parts and report candidates stay
+available. Do not share mutable build directories between implementation
+checkouts.
 
 US ROM builds also run `data-splits-check`. The ownership manifest
 `config/data/us.json` lists both `src/<overlay>/...` and
@@ -726,6 +788,39 @@ pull request.
 Do not rerun an unchanged failed clean batch. The command records the build
 input fingerprint and rejects an identical retry; change the source or layout
 first.
+
+### Asset reconstruction batches
+
+The [asset acceptance rules](../CONTRIBUTING.md#asset-and-build-changes) also
+apply when changing existing reconstruction code: selectors (including
+`texture_cpu_*`), packers and their model helpers, encoder contracts, asset
+layouts or shared build/preparation dependencies affecting reconstruction.
+Run `./conker build --assets` once after the related changes are ready, before
+handoff/commit/PR, and record the tested commit and byte-identical US ROM result.
+Default builds, `finish`, `verify-batch` and public PR CI do not provide this
+asset gate. Without a ROM, mark verification pending for a maintainer to complete
+before merge. C-only and documentation-only changes do not require this gate.
+
+After proving a new format with one pilot, work on a cohesive group of assets
+using that format; start with 10–25 entries where the existing encoder supports
+them. Per asset, verify reconstruction against the independent ROM bytes,
+including compression when stored bytes are the report unit. Keep focused
+tests around the changed packer, boundaries and reporting contract. Host tests
+are useful for iteration; Docker remains the full-suite acceptance runner.
+
+Run the full US ROM build (`./conker build --assets`), Docker suite and native
+objdiff report once after the group is ready. Generate the report after the build
+and tests finish so its source/link-input checks see stable files. Flush a smaller pending group around
+45 minutes, before stopping/handoff/commit/PR, or when a change needs an earlier
+integration check. Until the final gates pass, label assets as individually
+verified with batch integration pending; do not claim published matching credit.
+
+Avoid a full project report or the complete test suite after every
+asset. Rerun affected checks when inputs change or failures require it. For a
+small tooling-only follow-up, use the tests appropriate to that change; also run
+`./conker build --assets` if it can affect reconstruction. Keep the earlier asset
+report explicitly historical if its fingerprint is now stale.
+Do not rerun it merely to refresh a progress display during an ongoing batch.
 
 ## Regional and progress rules
 

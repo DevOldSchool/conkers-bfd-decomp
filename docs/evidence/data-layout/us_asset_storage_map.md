@@ -10,6 +10,57 @@ boundaries or decoded runtime addresses. Asset banks remain stored binaries;
 semantic subresources inside a compressed entry do not create additional ROM
 allocations. No data-completion or objdiff matching credit follows from a split.
 
+## Profile organization
+
+`config/profiles/us.yaml` retains profile options, top-level ROM order, group
+extents and alignment, and all main/debugger executable mappings. Detailed
+binary subsegment lists live beside it under `config/profiles/us/assets/`:
+`font.yaml`, `mp3.yaml`, `bank17.yaml` and `flat.yaml`. For example:
+
+```yaml
+    subsegments:
+      include: us/assets/font.yaml
+```
+
+Each `.yaml` fragment is a plain list of `[ROM offset, bin, name]` rows. Paths are
+relative to the root profile's directory and must remain within it; subfolders
+are supported and their YAML files remain trackable. Only asset
+groups support this form; empty fragments, nested includes, repeated files and
+code mappings in fragments are rejected. Keep executable mappings inline so
+source-integration transactions continue to edit their original locations.
+
+`scripts/profile_config.py` supplies the shared loader and dependency list.
+Profile preparation expands the fragments into ordinary Splat YAML at
+`build/config/us.yaml`, preserving comments and hexadecimal offsets and quoting
+the ROM path as a YAML scalar. This generated file is never edited or committed.
+Asset verifiers, data reports and library audits read the same expanded
+structure. Make tracks the root and every included fragment when packing
+assets; missing or invalid fragments stop ROM/asset builds. Make plans the
+US dependencies, asset bins and executable sources in one parse. US goals load
+asset lists by default, including aggregate targets and paths prefixed with
+`./`. Packing runs only when the dependency graph reaches the font, MP3 or texture asset
+objects; code-only compilation does not require the ROM or run the packers.
+Housekeeping, independent library, game, reference and diff goals bypass US
+asset planning. Game comparison fingerprints likewise exclude the full-ROM
+asset map, which is not an input to the independent game build.
+EU targets do not load US fragments. The independent raw
+reference profile remains separate and does not resolve these asset files.
+
+Moving rows between these files changes no boundaries, linker input names,
+asset bytes or report credit. Validate layout edits against the original ROM
+contracts and finish with a byte-identical `./conker build --all`.
+
+The initial split was verified on 2026-10-09 against `99cf6c9`: expansion equals
+the original parsed profile exactly (96 font, 822 MP3 and 272 bank-17 rows).
+The complete 67,108,864-byte US ROM remained byte-identical. All 2,148 Docker
+tests passed with eight skips; progress and whitespace checks passed. These are
+historical local results, not shared build artifacts. Reproduce the checks with
+`./conker test`, `./conker build --all`,
+`./conker game-build --profile us --refresh`, `./conker progress check` and
+`git -c core.whitespace=cr-at-eol diff --check`. A fresh checkout also needs
+`./conker _prepare-reference --profile us` before the game build. The current
+PR records the tested commit and current results; private build logs remain local.
+
 ## Evidence
 
 The input is the complete 67,108,864-byte US ROM, SHA-1
@@ -123,8 +174,10 @@ A changed font remains a compared candidate rather than altering the reference.
 Native font coverage is 5,440/5,440 matched and completed stored bytes, including
 the 13-byte alignment tail. Completion requires the current editable glyphs and
 metadata to encode exactly to the actual ROM linker input and original storage.
-The published report combines 201,632 loaded initialized-data bytes with these
-5,440 font bytes: 207,072 total. Current matching and completion measures are
+The initial font/texture report combined 201,632 loaded initialized-data bytes with these
+5,440 font bytes and 8,284,692 bytes of 6,865 rebuilt textures: 8,491,764 total.
+The [texture batch](us_texture_reconstruction.md) documents independent PNG and
+compression proof. Current matching and completion measures are
 recorded in the validated native report; source grouping can change symbol matches.
 
 Font integration validation on 2026-10-08: `./conker build --all` passed with the
@@ -140,7 +193,8 @@ Bank `0x16` is a group in `config/profiles/us.yaml` with 822 explicit subsegment
 It links individual rebuilt inputs for 453 encoded MP3 files, an index containing
 462 original records, and 368 verified padding files. Its 23,586,160-byte
 stored range is verified by the packer and complete ROM build. MP3 storage is
-excluded from the objdiff comparison report. See
+now included as unmatched storage in the objdiff denominator; the copied encoded
+streams receive no automatic reconstruction credit. See
 [the bank build evidence](us_mp3_bank_build.md) for exact ranges, edit constraints,
 report accounting and the complete ROM check.
 
@@ -148,10 +202,26 @@ report accounting and the complete ROM check.
 
 Bank `0x17` is now a group with 272 explicit YAML/linker inputs, including
 149 individually bounded compact sequences. These raw storage ranges are
-currently outside the published report scope. See the
+included as unmatched storage in the published report denominator. See the
 [bank-17 boundary evidence](us_audio_bank17_boundaries.md).
 
 
 Font record integration was verified on 2026-10-09 against main `1716856`.
 The complete US ROM still matches after replacing the aggregate font object
 with 96 YAML-driven linker inputs. Log: `build/us/data-boundaries/font-splits-build.log`.
+
+## Rebuilt bank-03 and bank-09 model inputs
+
+The [model reconstruction batches](us_model_reconstruction.md) partition banks
+03 and 09 through `us/assets/models03.yaml` and `us/assets/models09.yaml`,
+rebuilding 79 independently bounded RZIP entries from native model records
+(28,216 stored bytes). Index bytes, gaps and unselected entries retain
+their original raw backing and receive no model completion credit.
+
+## Complete bounded-storage denominator
+
+The report now includes all bounded asset storage, retaining unrebuilt ranges
+without candidates. The asset total is 64,918,880 bytes; with initialized CPU
+data, Data totals 65,120,512 bytes. See the
+[accounting proof and scope](us_asset_storage_accounting.md). Earlier totals in
+this document record historical validation of narrower report scope.

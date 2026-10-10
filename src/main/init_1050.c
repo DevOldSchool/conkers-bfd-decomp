@@ -110,8 +110,8 @@ void idle_thread_entry(s32 arg0) {
         start_task(&D_80031AE0);
     }
     func_80022BB0(&task_queue, 0);
-loop:
-    goto loop;
+    for (;;) {
+    }
 }
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_80001194 CURRENT (90) */

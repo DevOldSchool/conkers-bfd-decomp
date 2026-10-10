@@ -104,7 +104,7 @@ void func_151403A8(void **arg0, s32 arg1, void *arg2);
 void func_151027E8(void *arg0) {
     struct {
         void *sp18;
-        volatile u8 sp1C;
+        u8 sp1C;
     } sp;
 
     sp.sp18 = arg0;

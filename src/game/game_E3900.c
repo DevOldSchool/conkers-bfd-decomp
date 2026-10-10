@@ -144,11 +144,10 @@ u32 func_150ADA20(void);
 void func_15182670(s32, s32, s32, s32, s32, s32, s32, s32);
 
 void func_150B6754(u8 arg0, s32 arg1) {
-    struct {
-        u32 value;
-        u32 padding;
-    } sp28;
+    u32 time;
+    u32 value;
 
-    sp28.value = func_150ADA20();
-    func_15182670(0xCC, 0xCC, 0xFF, ((sp28.value % 56U) + 0xC8) & 0xFF, (func_150ADA20() % 11U) + 0xF, 0, (s32) arg0, arg1);
+    value = func_150ADA20();
+    time = func_150ADA20();
+    func_15182670(0xCC, 0xCC, 0xFF, ((value % 56U) + 0xC8) & 0xFF, (time % 11U) + 0xF, 0, (s32) arg0, arg1);
 }

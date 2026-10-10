@@ -1,14 +1,9 @@
 #include "types.h"
 
 /*
- * Provisional debugger C collection: debugger UI, rendering, and controller I/O.
+ * Debugger source unit: debugger UI, rendering, and controller I/O.
  * US virtual range: 0x16000000..0x16001AD0 (exclusive end).
- * Evidence: docs/evidence/debugger/us_debugger_overlay.md
- *
- * Original source-object ownership remains unreviewed; this collection is
- * not registered as a source unit. All 28 registered spans have individual
- * full-span C matches; preserve function order and their observed boundaries.
- * Loaded data and the privileged TLB capture routine remain separate raw ASM.
+ * Evidence: docs/evidence/debugger/us_debugger_source_units.md
  */
 
 /* Keep address symbols for linking and registered match evidence. */
@@ -207,7 +202,7 @@ void debugger_draw_numeric_value(s32 position, s32 mode, u32 value);
 
 void debugger_draw_exception_summary(struct OSThread_s *thread) {
     u32 cause;
-    s32 unused;
+    s32 coprocessor;
     s32 exception;
 
     debugger_set_draw_color(0xFF, 0xFF, 0xFF);
@@ -220,7 +215,8 @@ void debugger_draw_exception_summary(struct OSThread_s *thread) {
     exception = (cause >> 2) & 0xF;
     debugger_draw_text(0x6B, D_16003848[exception]);
     if (exception == 0xB) {
-        debugger_draw_numeric_value(0x6F, 1, (cause >> 28) & 3);
+        coprocessor = (cause >> 28) & 3;
+        debugger_draw_numeric_value(0x6F, 1, coprocessor);
     }
     debugger_set_draw_color(0xFF, 0xFF, 0xFF);
     debugger_draw_text(0x83, D_16004734);
@@ -244,7 +240,7 @@ void debugger_draw_float_register_page(struct OSThread_s *thread) {
     s32 base;
     u32 bits;
     u32 page = 0;
-    register u32 *words = (u32 *)thread;
+    u32 *words = (u32 *)thread;
 
     bits = words[0x12C / 4];
     debugger_draw_text(3, D_160047A4);
@@ -287,7 +283,7 @@ void debugger_draw_general_registers(struct OSThread_s *thread) {
     DebuggerLabel label = D_16003B48;
     s32 position = 0x123;
     u8 *descriptor = D_160037F0;
-    register s32 index;
+    s32 index;
 
     debugger_set_draw_color(0xC0, 0xC0, 0xFF);
     do {
@@ -309,13 +305,13 @@ extern u8 D_8002D4B0[];
 extern u8 D_8002D8B0[];
 
 void debugger_draw_stack_view(void) {
-    register u32 *stack;
-    register s32 decimal_position;
-    register u32 tag;
-    register s32 position;
-    register s32 row;
-    register u32 value;
-    register u32 *address;
+    u32 *stack;
+    s32 decimal_position;
+    u32 tag;
+    s32 position;
+    s32 row;
+    u32 value;
+    u32 *address;
 
     stack = (u32 *)(u32)((u64 *)D_1600389C)[0xF0 / 8];
     debugger_set_draw_color(0, 0xFF, 0);
@@ -445,19 +441,21 @@ s32 debugger_read_controller_pif(void);
 void debugger_unpack_controller_pads(DebuggerControllerPad *data);
 
 s32 debugger_run_session(struct OSThread_s *thread) {
-    s32 unused[3];
+    u32 *context;
+    u32 *frame;
+    u32 entryLo;
     s32 first;
-    register s32 state;
-    register s32 stick;
-    register u32 pc;
-    register u32 page;
-    register s32 odd;
-    register u32 flags;
-    register s32 offset;
-    register s32 *entry;
+    s32 state;
+    s32 stick;
+    u32 pc;
+    u32 page;
+    s32 odd;
+    u32 flags;
+    s32 offset;
+    s32 *entry;
     u32 *saved;
-    register void (*draw)(void);
-    register s32 (*input)(void);
+    void (*draw)(void);
+    s32 (*input)(void);
 
     state = 0;
     first = 1;
@@ -471,7 +469,8 @@ s32 debugger_run_session(struct OSThread_s *thread) {
         return 0;
     }
     func_16003650();
-    saved = D_8003C8E8;
+    context = D_8003C8E8;
+    saved = context;
     D_160038AC[15] = saved[0];
     D_1600392C[15] = saved[1];
     D_160039E8 = saved[2];
@@ -486,7 +485,8 @@ s32 debugger_run_session(struct OSThread_s *thread) {
         D_16003AF0 = 0;
         for (offset = 0; offset < 32; offset++) {
             if (page == D_160039AC[offset]) {
-                flags = odd ? D_1600392C[offset] : D_160038AC[offset];
+                entryLo = odd ? D_1600392C[offset] : D_160038AC[offset];
+                flags = entryLo;
                 if (flags & 2) {
                     D_16003AF0 = 1;
                 }
@@ -496,7 +496,8 @@ s32 debugger_run_session(struct OSThread_s *thread) {
     if ((((u32)D_8003C8E0 >> 24) & 0xFF) == 0xC) {
         thread = &D_80031AE0;
     }
-    if ((saved = (u32 *)D_8002BDE0->framep) == (u32 *)D_8002AAE8[1]) {
+    frame = (u32 *)D_8002BDE0->framep;
+    if ((saved = frame) == (u32 *)D_8002AAE8[1]) {
         *(s8 *)&D_16003888 = 1;
     }
     D_1600389C = thread;
@@ -601,7 +602,8 @@ void debugger_draw_numeric_value(s32 position, s32 mode, u32 value) {
     s32 exponent;
     u8 character;
     DebuggerDecimalPowers powers;
-    s32 unused[2];
+    s32 power;
+    u32 mantissa;
     f32 copy;
     u8 buffer[36];
     u8 *destination;
@@ -632,8 +634,9 @@ void debugger_draw_numeric_value(s32 position, s32 mode, u32 value) {
             }
             started = 0;
             for (decimal_index = 9; decimal_index >= 0; decimal_index--) {
-                digit = (s32)value / powers.power[decimal_index];
-                value = (s32)value % powers.power[decimal_index];
+                power = powers.power[decimal_index];
+                digit = (s32)value / power;
+                value = (s32)value % power;
                 if ((digit > 0) || started || (decimal_index == 0)) {
                     destination = debugger_draw_glyph(destination, digit + '0');
                     started = 1;
@@ -642,8 +645,9 @@ void debugger_draw_numeric_value(s32 position, s32 mode, u32 value) {
             break;
         case 2:
             exponent = (s32)(value & 0x7F800000) >> 23;
+            mantissa = value << 9;
             if (((exponent <= 0) || (exponent >= 0xFF)) &&
-                ((exponent != 0) || (value << 9))) {
+                ((exponent != 0) || mantissa)) {
                 debugger_draw_text(position, D_160047E4);
                 return;
             }
@@ -872,7 +876,7 @@ void debugger_pack_controller_read(void) {
     *ptr = 0xFE;
 }
 s32 debugger_si_is_busy(void) {
-    register u32 status = *(volatile u32 *)0xA4800018;
+    u32 status = *(volatile u32 *)0xA4800018;
 
     if (status & 3) {
         return 1;

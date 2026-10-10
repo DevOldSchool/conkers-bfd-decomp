@@ -58,6 +58,10 @@
     "angrylion-rdp-plus": {
       "repository": "https://github.com/ata4/angrylion-rdp-plus.git",
       "revision": "9c8b9ed3e7d7f00dff8bc872ccdd3fba1a3673fc"
+    },
+    "decomp-permuter": {
+      "repository": "https://github.com/simonlindholm/decomp-permuter.git",
+      "revision": "8556c81d80d1c1af98a858c8f4dc951357f29139"
     }
   },
   "objdiff_cli": {

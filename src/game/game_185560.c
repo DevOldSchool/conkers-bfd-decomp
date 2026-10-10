@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151580B0
- * - func_15158224
  * - func_151582C8
  * - func_1515858C
  * - func_15158684
@@ -84,37 +83,28 @@ extern Game185560Callback D_8008AE00[];
 extern s32 D_800BE9E4;
 void func_1516972C(void *arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15158224 CURRENT (120) */
 void func_15158224(void *arg0) {
-    s32 result;
-    u8 sp1B;
-    s8 callback_index;
-    u8 callback_pending;
+    u8 *p = (u8 *)arg0;
+    u8 pending = 0;
 
-    callback_pending = 0;
-    if (*(u8 *)((u8 *)arg0 + 0x10) & 1) {
-        *(s16 *)((u8 *)arg0 + 0x14) = (s16) (*(s16 *)((u8 *)arg0 + 0x14) - D_800BE9E4);
-        if (*(s16 *)((u8 *)arg0 + 0x14) < 0) {
-            callback_pending = 1;
+    if (p[0x10] & 1) {
+        *(s16 *)(p + 0x14) = (s16)((s16)(*(s16 *)(p + 0x14)) - D_800BE9E4);
+        if (*(s16 *)(p + 0x14) < 0) {
+            pending = 1;
         }
     }
-    if (callback_pending == 0) {
-        callback_index = *(s8 *)((u8 *)arg0 + 0x12);
-        if (callback_index != -1) {
-            sp1B = callback_pending;
-            result = D_8008AE00[(s32) callback_index](arg0);
-            callback_pending = sp1B;
-            if (result == 0) {
-                callback_pending = 1;
+    if (pending == 0) {
+        s8 cb = *(s8 *)(p + 0x12);
+        if (cb != -1) {
+            if (D_8008AE00[cb](arg0) == 0) {
+                pending = 1;
             }
         }
     }
-    if (callback_pending != 0) {
+    if (pending) {
         func_1516972C(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15158224 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_185560/func_15158224.s")
 typedef struct Game185560RenderActor {
     u8 pad0[0x10];
     u8 flags;

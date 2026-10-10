@@ -33,7 +33,7 @@ void D_10002E50(void *);
 s32 D_10023850(s32, u32, void *, u32);
 s32 D_10023930(PiHandle *, s32, u32, void *, u32);
 extern DeviceManager D_8002AB50;
-extern u32 D_8002BD60;
+extern u32 __osPiAccessQueueEnabled;
 extern ThreadState D_80035910;
 extern OSMesgQueue D_80036B40;
 extern void *D_80036B58[1];
@@ -50,7 +50,7 @@ void pi_dma_manager_init(s32 priority, OSMesgQueue *commandQueue,
     }
     func_80023790(commandQueue, commandBuffer, commandCount);
     func_80023790(&D_80036B40, D_80036B58, 1);
-    if (D_8002BD60 == 0) {
+    if (__osPiAccessQueueEnabled == 0) {
         func_800236D0();
     }
     func_800237C0(8, &D_80036B40, (void *) 0x22222222);

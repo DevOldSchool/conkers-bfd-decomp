@@ -59,6 +59,11 @@ class MainQueueObjectBuildTests(unittest.TestCase):
             (root / "scripts").mkdir()
             (root / "src/done/main").mkdir(parents=True)
             (root / "Makefile").write_bytes((ROOT / "Makefile").read_bytes())
+            (root / "config/profiles").mkdir(parents=True)
+            (root / "config/profiles/us.yaml").write_text("segments: []\n")
+            (root / "scripts/profile_config.py").write_text(
+                "import sys\nassert sys.argv[1] == 'make-original-assets'\n"
+                f"print('source=src/done/main/{source_name}.c')\n")
             source = root / f"src/done/main/{source_name}.c"
             source.write_text("void queue_thread(void) {}\n")
             (root / "fixture.o").write_bytes(physical)

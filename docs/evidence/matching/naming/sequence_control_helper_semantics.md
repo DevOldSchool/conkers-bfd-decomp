@@ -1,6 +1,6 @@
 # Sequence-player state and channel controls
 
-Source: `src/main/init_8180.c`.
+Source: `src/done/main/init_8180.c`.
 
 | Symbol | C name | Bytes |
 | --- | --- | ---: |

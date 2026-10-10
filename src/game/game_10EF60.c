@@ -147,7 +147,7 @@ void func_150E1AB0(volatile s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f3
 s32 func_150E2DA4(s32 arg0, s32 arg1) {
     return arg0;
 }
-void func_150E1AB0(volatile s32, f32, f32, f32, f32, f32, f32, f32, f32, f32,
+void func_150E1AB0(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32,
                    f32, s32, s32, s32, s32, s32, s32, s32, s32, s32,
                    s32, s32, f32, f32, f32, f32, f32, f32);
 

@@ -12,11 +12,13 @@
 
 s32 func_150DB630(void *arg0) {
     f32 value;
+    f32 **source;
 
-    if (**(f32 *volatile *)((u8 *)arg0 + 0x120) > 255.0f) {
+    source = (f32 **)((u8 *)arg0 + 0x120);
+    if (**(f32 **)((u8 *)arg0 + 0x120) > 255.0f) {
         *(u8 *)((u8 *)arg0 + 0x5C) = 0xFF;
     } else {
-        value = **(f32 *volatile *)((u8 *)arg0 + 0x120);
+        value = **source;
         if (value < 0.0f) {
             *(u8 *)((u8 *)arg0 + 0x5C) = 0;
         } else {

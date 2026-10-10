@@ -1,8 +1,8 @@
 # Debugger menu, register and stack pages
 
-Source: `src/debugger/debugger_0000.c`; collection boundaries remain
-provisional. See [overlay evidence](../../debugger/us_debugger_overlay.md) and [the
-original data map](../../debugger/us_debugger_data_objects.json).
+Source: `src/done/debugger/debugger_0000.c`; see the adopted [source-unit
+boundaries](../../debugger/us_debugger_source_units.md), [overlay evidence](../../debugger/us_debugger_overlay.md)
+and [original data map](../../debugger/us_debugger_data_objects.json).
 
 | Symbol | C name | Bytes |
 | --- | --- | ---: |

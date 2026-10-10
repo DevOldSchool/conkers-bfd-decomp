@@ -20,54 +20,54 @@ extern s32 (*D_8008A284[])(u8 *, s32);
 void func_1516972C(u8 *);
 
 void func_15147740(u8 *arg0) {
-    s8 temp_v0_3;
-    u8 temp_v0;
-    u8 temp_v0_2;
+    s8 light;
+    u8 type;
+    u8 effect;
+    u8 behaviour;
+    s8 done;
 
-    {
-        volatile s8 spill_pad;
-        s8 var_a1 = 0;
-        if (*(u16 *)(arg0 + 0x1E) & 1) {
-            *(s16 *)(arg0 + 0x1C) = *(s16 *)(arg0 + 0x1C) - D_800BE9E4;
-            if (*(s16 *)(arg0 + 0x1C) < 0) {
-                var_a1 = 1;
-            }
+    done = 0;
+    if (*(u16 *)(arg0 + 0x1E) & 1) {
+        *(s16 *)(arg0 + 0x1C) -= D_800BE9E4;
+        if (*(s16 *)(arg0 + 0x1C) < 0) {
+            done = 1;
         }
-        temp_v0 = arg0[0x2F];
-        if (temp_v0 >= 0xF) {
+    }
+    type = arg0[0x2F];
+    if (type >= 0xF) {
+        func_1516972C(arg0);
+        return;
+    }
+    behaviour = type;
+    if (behaviour != 0 && done == 0) {
+        if (D_8008A200[type](arg0, done) == 0) {
+            done = 1;
+        }
+    }
+    effect = arg0[0x30];
+    if (effect >= 0x12) {
+        func_1516972C(arg0);
+        return;
+    }
+    if (effect != 0 && done == 0) {
+        if (D_8008A23C[effect](arg0, done) == 0) {
+            done = 1;
+        }
+    }
+    if (*(u16 *)(arg0 + 0x1E) & 0x10) {
+        light = *(s8 *)(arg0 + 0x24);
+        if (light < -1 || light >= 8) {
             func_1516972C(arg0);
             return;
         }
-        if (temp_v0 != 0 && var_a1 == 0) {
-            if (D_8008A200[temp_v0](arg0, var_a1) == 0) {
-                var_a1 = 1;
+        if (light != -1 && done == 0) {
+            if (D_8008A284[light](arg0, done) == 0) {
+                done = 1;
             }
         }
-        temp_v0_2 = arg0[0x30];
-        if (temp_v0_2 >= 0x12) {
-            func_1516972C(arg0);
-            return;
-        }
-        if (temp_v0_2 != 0 && var_a1 == 0) {
-            if (D_8008A23C[temp_v0_2](arg0, var_a1) == 0) {
-                var_a1 = 1;
-            }
-        }
-        if (*(u16 *)(arg0 + 0x1E) & 0x10) {
-            temp_v0_3 = *(s8 *)(arg0 + 0x24);
-            if (temp_v0_3 < -1 || temp_v0_3 >= 8) {
-                func_1516972C(arg0);
-                return;
-            }
-            if (temp_v0_3 != -1 && var_a1 == 0) {
-                if (D_8008A284[temp_v0_3](arg0, var_a1) == 0) {
-                    var_a1 = 1;
-                }
-            }
-        }
-        if (var_a1 != 0) {
-            func_1516972C(arg0);
-        }
+    }
+    if (done != 0) {
+        func_1516972C(arg0);
     }
 }
 void func_151478D0(s32 arg0) {

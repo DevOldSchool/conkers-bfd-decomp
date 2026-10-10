@@ -21,7 +21,7 @@ void func_15116930(void *arg0, void *arg1) {
         if (!(flags & 3) && !(flags & 4)) {
             if (*(u8 *)((u8 *)*(void **)((u8 *)arg1 + 0x31C) + 0x57) == 1) {
                 *(u8 *)((u8 *)arg0 + 0x73) = flags & 0xFFFC;
-                *(volatile u8 *)((u8 *)arg0 + 0x73) = *(u8 *)((u8 *)arg0 + 0x73) | 2;
+                *(u8 *)((u8 *)arg0 + 0x73) |= 2;
             }
         }
     }

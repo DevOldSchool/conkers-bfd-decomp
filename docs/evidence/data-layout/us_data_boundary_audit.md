@@ -73,8 +73,8 @@ original section or object ownership and are not promoted to mappings.
 
 ## Published report integration
 
-`./conker objdiff report` includes all three initialized-data images and the
-rebuilt font in the artifact used by decomp.dev. See the
+`./conker objdiff report` includes all three initialized-data images, the
+rebuilt font and [6,865 reviewed textures](us_texture_reconstruction.md) in the artifact used by decomp.dev. See the
 [report scope and validation rules](../../objdiff.md#scope). Ownership is recorded in `config/data/us.json` by overlay, hexadecimal address
 and input section. It contains no duplicate boundaries: those come from the
 canonical YAML, private-data configuration and linker placements. The audit
@@ -185,7 +185,7 @@ section still has to equal its audited extent, and all targets must relink to
 the complete original image byte for byte. This affects reference assembly only;
 C compiler flags and emitted candidate sections remain unchanged.
 
-The formatter base is freshly compiled from `src/debugger/debugger_1AD0.c`, with
+The formatter base is freshly compiled from `src/done/debugger/debugger_1AD0.c`, with
 GLOBAL_ASM placeholders removed and deferred C disabled. Its `.rodata` is 208
 bytes with 52 relocations. Before source grouping native objdiff awarded it zero
 matching bytes; no symbols are fabricated or resized to change that result. The two

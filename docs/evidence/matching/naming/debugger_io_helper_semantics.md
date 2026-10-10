@@ -1,8 +1,8 @@
 # Debugger framebuffer and controller helpers
 
-Source: `src/debugger/debugger_0000.c`. This collection remains provisional,
-not a recovered source unit; see [debugger overlay
-evidence](../../debugger/us_debugger_overlay.md).
+Source: `src/done/debugger/debugger_0000.c`. The adopted source-unit boundaries
+and remaining alternatives are recorded in [source-unit evidence](../../debugger/us_debugger_source_units.md);
+see also [debugger overlay evidence](../../debugger/us_debugger_overlay.md).
 
 | Symbol | C name | Registered bytes |
 | --- | --- | ---: |

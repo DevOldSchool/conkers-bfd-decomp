@@ -6,8 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/main/main_audio_driver_sequence_boundaries.md
  *
  * TODO: Implement these source-unit functions:
- * - func_8000C350
- * - func_8000C530
  * - func_8000CEAC
  * - func_8000D2F8
  * - func_8000D96C
@@ -564,8 +562,9 @@ void func_80008790(u8, s32, u8, s32);
 void func_8000886C(u8, s32, u8);
 void func_80008F24(u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000C350 CURRENT (10) */
 s32 func_8000C350(s32 arg0, u8 arg1, s32 arg2, s32 arg3) {
+    s32 id;
+
     if (!(arg0 & 0x80)) {
         arg0 |= 0x80;
         if (D_800C35EA != 1) {
@@ -584,9 +583,10 @@ s32 func_8000C350(s32 arg0, u8 arg1, s32 arg2, s32 arg3) {
         }
         return arg0;
     }
+    id = arg0 & 0x7F;
     if (D_800BE9F0 != 0x1D) {
         func_80008F24(arg1);
-    } else if ((arg0 & 0x7F) != D_80041F08) {
+    } else if (id != D_80041F08) {
         switch (D_80041F08) {
         case 1:
             func_80008790(arg1, 0x1E, 0, 0);
@@ -602,15 +602,12 @@ s32 func_8000C350(s32 arg0, u8 arg1, s32 arg2, s32 arg3) {
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000C350 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000C350.s")
 extern s32 D_800BE9E4;
 void func_800085F8(u8, s32);
 void func_800086FC(u8, u8, u8);
 void func_80008744(u8, u8, u8);
 void func_80008824(u8, u8, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000C530 CURRENT (20) */
 s32 func_8000C530(s32 arg0, u8 arg1, f32 arg2, f32 arg3, f32 arg4) {
     s32 oldMode;
     s32 mode;
@@ -628,8 +625,7 @@ s32 func_8000C530(s32 arg0, u8 arg1, f32 arg2, f32 arg3, f32 arg4) {
     oldLow = upper & 0xFF;
     oldHigh = ((u32)arg0 >> 16) & 0xFF;
     fade = arg0 & 0xFF000000;
-    low = oldLow;
-    high = oldHigh;
+    low = oldLow; high = oldHigh;
     if (D_80041F08 != 0 &&
         (oldMode != 2 || countdown == 0 || D_80041F08 == 2)) {
         mode = D_80041F08;
@@ -683,8 +679,6 @@ s32 func_8000C530(s32 arg0, u8 arg1, f32 arg2, f32 arg3, f32 arg4) {
     D_80041F08 = 0;
     return (countdown * 4) | mode | (low << 8) | (high << 16) | fade;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000C530 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000C530.s")
 extern s32 D_8002B070;
 extern s32 D_800BE9F0;
 extern f32 D_8002C238;
@@ -1244,7 +1238,7 @@ void func_8000D758(f32 arg0, f32 arg1, f32 arg2) {
 }
 void *func_8000B1FC(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000D96C CURRENT (668) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000D96C CURRENT (678) */
 void func_8000D96C(s32 arg0, s32 arg1, s32 arg2) {
     SequenceRecordState *outgoing;
     SequenceRecordState *incoming;
