@@ -190,8 +190,7 @@ f32 func_15048FC8(f32 *arg0) {
         return 0.0f;
     }
     angle = (-arg0[0]) / length;
-    z = func_15048C30(angle, arg0[0]);
-    angle = z;
+    angle = func_15048C30(angle, arg0[0]);
     if (arg0[2] > 0.0f) {
         angle = 270.0f - (angle * D_80099070);
     } else {
