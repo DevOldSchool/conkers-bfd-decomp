@@ -17,7 +17,6 @@ typedef struct Game11D770Object {
 } Game11D770Object;
 
 Game11D770Inner *func_150F0318(Game11D770Object *arg0);
-void func_150F0380(void *arg0);
 
 void func_150F02C0(Game11D770Object *arg0) {
     func_150F0318(arg0);

@@ -134,9 +134,8 @@ s32 func_151B85AC(void *arg0) {
     }
     return 1;
 }
-void func_1513FA70(s32 arg0, s16 arg1);
 
-void func_151B863C(s32 arg0, s16 arg1) {
+void func_151B863C(void *arg0, s16 arg1) {
     func_1513FA70(arg0, arg1);
 }
 extern f32 D_800AA4C8;

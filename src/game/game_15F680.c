@@ -432,9 +432,8 @@ return_active:
     }
     return 1;
 }
-void func_151424F4(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 
-s32 func_15133510(s32 arg0, Game15F680TransformState *arg1) {
+s32 func_15133510(void *arg0, Game15F680TransformState *arg1) {
     func_151424F4(arg0, arg1->field18, arg1->field1C, arg1->field20,
         arg1->field24, arg1->field28, arg1->field2C, arg1->field30,
         arg1->field34, arg1->field38, arg1->field3C, arg1->field40);

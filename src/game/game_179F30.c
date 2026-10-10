@@ -26,7 +26,6 @@ enum {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514CA80.s")
 void *func_15155FD4(s32);
-void *func_15155780(s32, s32);
 s32 func_1514CA80(void *, s32 *, s32 *, s32 *);
 extern void (*D_8008AACC)(void *);
 extern void (*D_8008AA70[])(void *);

@@ -2173,7 +2173,6 @@ void func_150707F8(s32 arg0) {
 void func_15070830(s32 arg0) {
     func_150FE320(D_800D154C, 0xFF, 1);
 }
-void func_150FE49C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_15070860(s32 arg0) {
     func_150FE49C(D_800D154C, 0xFF, 1, 0, 0);

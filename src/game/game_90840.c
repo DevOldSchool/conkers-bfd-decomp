@@ -158,7 +158,6 @@ s32 func_15081E78(Game90840Actor *, void *, s32);
 s32 func_10010894(void *);
 u32 func_150ADA20(void);
 void func_10010558(u16, void *, s32, s32, s32, s32);
-void func_1512D2E4(void *, s32);
 void func_150FFCC8(void *, void *, void *, void *, void *);
 void func_150FFD84(f32 *, f32 *, s32, s32);
 

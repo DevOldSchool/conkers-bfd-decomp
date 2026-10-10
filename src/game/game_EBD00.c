@@ -34,7 +34,6 @@ typedef struct GameEBD00Actor {
 void func_151254F4(void *, s32);
 s32 func_1509BE40(s32, s32, s32);
 void func_1509BFB0(s32, s32, s32);
-void func_1512868C(void *);
 extern f32 D_800A00B0;
 extern f32 D_800A00B4;
 extern u8 D_800CC335;

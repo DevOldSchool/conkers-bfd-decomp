@@ -2569,7 +2569,6 @@ s32 func_15128030(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15128030 */
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15128030.s")
 void func_15120158();
-void func_15121C80(void *, f32);
 void func_15122170();
 void func_15122440();
 void func_15129934();

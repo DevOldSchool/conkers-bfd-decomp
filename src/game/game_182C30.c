@@ -14,7 +14,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct {
+typedef struct Game182C30Effect {
     u8 pad0[0xE];
     s16 fieldE;
     s8 field10;
@@ -41,7 +41,6 @@ Game182C30Effect *func_15155780(s32 arg0, s32 arg1) {
     func_1518C900(0xA6);
     return effect;
 }
-Game182C30Effect *func_15155780(s32, s32);
 void *func_15155FD4(s32);
 extern u8 D_800CC37D[];
 

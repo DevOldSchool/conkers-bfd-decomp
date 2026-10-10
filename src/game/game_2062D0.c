@@ -1101,9 +1101,6 @@ typedef struct Game1DBE80Packet {
     s16 field56;
 } Game1DBE80Packet;
 
-void func_1513D668(s32, s32, s32, s32, u8, u8, s16, f32, f32,
-                   s32, s32, u8, s32, u8, s32);
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151DBE80 CURRENT (898) */
 void func_151DBE80(s32 arg0, f32 arg1, f32 arg2, s16 arg3, s32 *arg4,
                     s32 arg5, u8 arg6, u8 arg7, u8 arg8, s32 arg9) {

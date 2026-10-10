@@ -1147,7 +1147,6 @@ typedef struct BloodImpactActor {
     void *transforms;
 } BloodImpactActor;
 
-void func_151036B4(void *, u8, s32);
 void func_15136F50(BloodVec3 *, BloodVec3 *, BloodVec3 *, u8, u8, s32);
 void func_151C329C(void *, u8, s32);
 void func_151C577C(BloodVec3 *, BloodVec3 *, BloodVec3 *, u8, u8, u8, u8, s32);
@@ -1629,7 +1628,6 @@ typedef struct {
 } BloodHitRecord;
 
 void func_1504715C(void *, void *);
-void func_151036B4(void *, u8, s32);
 void func_151382E0(f32 *, s32, void *, u8, s32);
 void func_15138E98(Blood1380B4State *, f32 *, s32, void *, s32, s32);
 void func_15139768(Blood1380B4State *, f32 *, f32, void *, s32, s32);

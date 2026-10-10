@@ -281,7 +281,6 @@ void func_15117D3C(Game144C70MotionState *arg0, Game144C70EventState *arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_15117D3C.s")
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
-void func_1511F31C(void *);
 extern f32 D_800A2FF4;
 extern f32 D_800A2FF8;
 extern f32 D_800A2FFC;

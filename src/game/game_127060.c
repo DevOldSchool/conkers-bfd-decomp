@@ -295,7 +295,6 @@ void func_150FADC8(void *arg0, s32 arg1, u8 arg2) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAE18.s")
-void func_15157DEC(Game127060State *, Game127060Transform *);
 extern f32 D_800A1DC0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FB188 CURRENT (654) */

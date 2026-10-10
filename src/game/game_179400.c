@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_179400.c
@@ -15,7 +16,7 @@ void func_1514BF50(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x44) = (f32) (*(f32 *)((u8 *)arg0 + 0x38) + 100.0f);
     *(f32 *)((u8 *)arg0 + 0x48) = (f32) *(f32 *)((u8 *)arg0 + 0x3C);
 }
-void func_1514BF7C(s32 arg0) {
+void func_1514BF7C(u8 *arg0) {
     func_1514BC08(arg0, arg0 + 0x110);
 }
 void func_1514BF9C(s32 arg0);

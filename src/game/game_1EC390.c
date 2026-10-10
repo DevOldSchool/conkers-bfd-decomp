@@ -61,7 +61,6 @@ typedef struct Game1EC390Spawn {
 } Game1EC390Spawn;
 
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-s32 func_15133760(s32, void *);
 extern Game1EC390Selector D_8008FBC0;
 extern f32 D_800AA8E4;
 extern s32 D_800BE9F0;

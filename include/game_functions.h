@@ -5,6 +5,16 @@
 #include "game_command.h"
 
 struct Game15D730CopyBlock;
+struct Game11D830Inner;
+struct Game11D830Object;
+struct Game12B7D0Vec3;
+struct Game130B40WordVector;
+struct Game133190Color;
+struct Game133190Object;
+struct Game14F130Camera;
+struct Game159940Object;
+struct Game15F680TransformState;
+struct Game182C30Effect;
 struct Game12B250Vec3;
 struct Game1238B0Object;
 struct Game3C230Actor;
@@ -141,5 +151,21 @@ void func_150FB240(u8 *, s16, s16, s16, s16);
 void func_150FDF38(void *, u8, s32, struct Game12B250Vec3 *, struct Game12B250Vec3 *);
 s32 func_1509D08C(s32, s32, s32 *, s32 *);
 void func_150E2EA4(s32, u8, s16, s32, f32, f32, f32, f32, f32, f32, s16, s16, u16, f32, f32, u8, f32);
+struct Game11D830Inner *func_150F0380(struct Game11D830Object *);
+void func_150FE49C(void *, u8, s32, struct Game12B7D0Vec3 *, struct Game12B7D0Vec3 *);
+void func_151036B4(struct Game130B40WordVector *, u8, s32);
+struct Game133190Object *func_15107C1C(void *, u8, f32 *, s16, s16, s16, s32, f32, f32, s16, s16, struct Game133190Color *, u8, s32);
+void func_1511F31C(u8 *);
+void func_15121C80(struct Game14F130Camera *, f32);
+void func_1512868C(u8 *);
+void func_1512D2E4(struct Game159940Object *, s32);
+s32 func_15133760(s32, struct Game15F680TransformState *);
+void *func_1513C4EC(s32, s32, u8, u8, f32, f32, f32, f32, f32, u8, u8, s32, s32, s32, u8, s32);
+void func_1513D668(s32, s32, u8, u8, u8, u8, s16, f32, f32, s32, s32, u8, s32, u8, s32);
+void func_1513FA70(void *, s16);
+void func_151424F4(void *, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
+s32 func_1514BC08(void *, void *);
+struct Game182C30Effect *func_15155780(s32, s32);
+void func_15157DEC(u8 *, u8 *);
 
 #endif
