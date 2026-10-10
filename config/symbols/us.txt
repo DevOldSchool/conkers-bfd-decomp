@@ -22,3 +22,8 @@ D_8002BF70 = 0x8002BF70; // size:0x2
 __conkerIntOffTable = 0x8002C1B0; // size:0x20
 __conkerIntTable = 0x8002C1D0; // size:0x24
 __libm_qnan_f = 0x8002C920; // size:0x4
+// Debugger empty functions inside registered spans; the C objects emit each
+// as its own 8-byte function. See docs/evidence/debugger/debugger_si_span.md.
+func_16000304 = 0x16000304; // type:func size:0x8
+func_1600030C = 0x1600030C; // type:func size:0x8
+func_16001A64 = 0x16001A64; // type:func size:0x8
