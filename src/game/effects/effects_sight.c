@@ -473,10 +473,10 @@ s32 func_151C9B64(void *arg0, s8 *arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9BA0.s")
 void func_150BDE90(s32, u8, s32);
 s32 func_151C9F38(s32, s32, s32, s8, s32);
-s32 func_151CB5FC(s32, s32, s32, s8, s32);
+void func_151CB5FC(s32, u8, u8, s8, u8);
 void func_151CC524(s32, s32, s32, s32, s32, s32);
 s32 func_151CC840(s32, s32, s32, s32, s32, s32);
-s32 func_151CCF08(s32, s32, s8, s32);
+void func_151CCF08(s32, u8, s8, u8);
 extern s32 D_800BE9F0;
 extern s8 D_8008CD00;
 
@@ -690,6 +690,152 @@ void func_151CB510(void *arg0) {
     *(f32 *)(var_v0 + 4) += (var_fv0 - temp_fv1) * D_800AAEA8;
     *(s8 *)((u8 *)arg0 + 0x2E) = (s8)(u32)*(f32 *)(var_v0 + 4);
 }
+typedef struct SightCrosshairPayload {
+    u8 *owner;
+    f32 unk4;
+    f32 unk8;
+    u8 mode;
+    u8 arg1;
+    u8 side;
+    u8 padF;
+    f32 unk10;
+    f32 unk14;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    u8 pad24[0x30];
+    s8 unk54;
+    u8 pad55[3];
+} SightCrosshairPayload;
+
+typedef struct SightCrosshairSpawn {
+    f32 x;
+    f32 y;
+    f32 width;
+    f32 height;
+    u8 type;
+    u8 pad11;
+    s16 angle;
+    u16 flags;
+    s16 count;
+    s16 color;
+    u8 mode;
+    u8 arg1;
+    u8 arg2;
+    u8 arg3;
+    u8 time;
+    u8 color0;
+    u8 color1;
+    u8 color2;
+    u8 color3;
+    u8 color4;
+    s32 field24;
+    s32 field28;
+    s32 field2C;
+    s32 field30;
+    s32 field34;
+    s32 field38;
+    s32 field3C;
+    u8 field40;
+    u8 field41;
+    u8 pad42[2];
+    u8 field44;
+    u8 pad45[3];
+} SightCrosshairSpawn;
+
+extern f32 D_800AAD84[];
+extern f32 D_800AADAC[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CB5FC CURRENT (6057) */
+void func_151CB5FC(s32 arg0, u8 arg1, u8 arg2, s8 arg3, u8 arg4) {
+    f32 alpha;
+    s32 mode;
+    s32 bits;
+    s32 index;
+    SightCrosshairSpawn spawn;
+    void *object;
+    SightCrosshairPayload payload;
+
+    alpha = 255.0f;
+    payload.unk4 = alpha;
+    payload.unk8 = alpha;
+    payload.arg1 = arg1;
+    payload.owner = (u8 *)arg0;
+    if (arg3 == -1) {
+        mode = 0;
+    } else {
+        mode = 4;
+    }
+    payload.mode = mode;
+    payload.unk54 = arg3;
+    payload.unk14 = alpha;
+    spawn.angle = 300;
+    spawn.width = 49.0f;
+    payload.unk10 = 0.0f;
+    spawn.height = 18.0f;
+    if (arg2) {
+        bits = 0x40;
+    } else {
+        bits = 0;
+    }
+    spawn.flags = bits | 0x32 | (1 << (((u8 *)arg0)[0x23D] + 11));
+    spawn.mode = 7;
+    spawn.arg1 = 255;
+    spawn.count = 1;
+    spawn.arg2 = 255;
+    spawn.arg3 = 255;
+    spawn.color0 = 255;
+    spawn.color1 = 255;
+    spawn.color2 = 255;
+    spawn.color = 255;
+    spawn.color3 = 255;
+    spawn.color4 = 255;
+    spawn.field24 = 0;
+    spawn.field28 = 0x200004;
+    spawn.field2C = 0x1F0601;
+    spawn.field30 = 7;
+    spawn.field34 = 0x22;
+    spawn.field38 = 0x80;
+    spawn.field3C = 0x20;
+    spawn.field40 = 0;
+    spawn.field41 = 7;
+    payload.side = 0;
+    spawn.time = 255;
+    spawn.type = 0x7B;
+    payload.unk1C = 0.0f;
+    spawn.field44 = ((u8 *)arg0)[0x23D];
+    spawn.x = 88.0f;
+    spawn.y = 91.0f;
+    payload.unk18 = D_800AAD84[D_80082FA0 == 1];
+    payload.unk20 = D_800AADAC[D_80082FA0 == 1];
+    object = func_1515548C(&spawn, 5, 0, 0, 0x58, arg4, 0);
+    if (object != NULL) {
+        func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
+    }
+    spawn.time = 0;
+    spawn.type = 0x7C;
+    object = func_1515548C(&spawn, 5, 0, 0, 0x58, arg4, 0);
+    if (object != NULL) {
+        func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
+    }
+    spawn.flags &= 0xFFFD;
+    spawn.time = 255;
+    spawn.type = 0x7B;
+    payload.side = 1;
+    spawn.x = -88.0f;
+    spawn.y = 91.0f;
+    object = func_1515548C(&spawn, 5, 0, 0, 0x58, arg4, 0);
+    if (object != NULL) {
+        func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
+    }
+    spawn.time = 0;
+    spawn.type = 0x7C;
+    object = func_1515548C(&spawn, 5, 0, 0, 0x58, arg4, 0);
+    if (object != NULL) {
+        func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CB5FC */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB5FC.s")
 void func_151CB918(u8 *arg0, u8 *arg1, u8 arg2) {
     u8 *temp_v0;
@@ -1161,6 +1307,155 @@ void func_151CCE94(SightSpawnOwner *arg0) {
         }
     }
 }
+typedef struct SightPanelColors {
+    u8 values[4];
+} SightPanelColors;
+
+typedef struct SightPanelPayload {
+    u8 *owner;
+    f32 unk4;
+    f32 unk8;
+    u8 mode;
+    u8 side;
+    u8 padE[0xA];
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    u8 pad24[0x30];
+    s8 unk54;
+    u8 pad55[3];
+} SightPanelPayload;
+
+typedef struct SightPanelSpawn {
+    f32 x;
+    f32 y;
+    f32 width;
+    f32 height;
+    u8 type;
+    u8 pad11;
+    s16 angle;
+    u16 flags;
+    s16 count;
+    s16 color;
+    u8 mode;
+    u8 arg1;
+    u8 arg2;
+    u8 arg3;
+    u8 time;
+    u8 color0;
+    u8 color1;
+    u8 color2;
+    u8 color3;
+    u8 color4;
+    s32 field24;
+    s32 field28;
+    s32 field2C;
+    s32 field30;
+    s32 field34;
+    s32 field38;
+    s32 field3C;
+    u8 field40;
+    u8 field41;
+    u8 pad42[2];
+    u8 field44;
+    u8 pad45[3];
+    f32 field48;
+    f32 field4C;
+    f32 field50;
+    f32 field54;
+} SightPanelSpawn;
+
+extern SightPanelColors D_8008FC28;
+extern f32 D_800AAD8C[];
+extern f32 D_800AADB4[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CCF08 CURRENT (3493) */
+void func_151CCF08(s32 arg0, u8 arg1, s8 arg2, u8 arg3) {
+    SightPanelSpawn spawn;
+    SightPanelPayload payload;
+    SightPanelColors colors;
+    s32 select;
+    u8 side;
+    u8 slot;
+    void *object;
+
+    payload.unk1C = 0.0f;
+    payload.owner = (u8 *)arg0;
+    payload.unk4 = 0.0f;
+    payload.unk18 = D_800AAD8C[D_80082FA0 == 1];
+    payload.unk20 = D_800AADB4[D_80082FA0 == 1];
+    payload.unk8 = 130.0f;
+    if (arg2 == -1) {
+        select = 0;
+    } else {
+        select = 4;
+    }
+    payload.mode = select;
+    payload.unk54 = arg2;
+    spawn.angle = 300;
+    if (arg1) {
+        select = 0x40;
+    } else {
+        select = 0;
+    }
+    spawn.mode = 7;
+    spawn.arg1 = 255;
+    spawn.flags = select | 0x30;
+    spawn.count = 1;
+    spawn.arg2 = 255;
+    spawn.arg3 = 255;
+    spawn.time = 255;
+    spawn.color0 = 255;
+    spawn.color = 255;
+    spawn.color1 = 255;
+    spawn.color2 = 255;
+    spawn.color3 = 255;
+    spawn.color4 = 255;
+    spawn.field24 = 0;
+    spawn.field28 = 0x200004;
+    spawn.field2C = 0x1F0601;
+    spawn.field30 = 8;
+    spawn.field34 = 0x13;
+    spawn.field38 = 0x80;
+    spawn.field3C = 0x20;
+    spawn.field40 = 0;
+    spawn.field41 = 0;
+    spawn.field50 = 0.0f;
+    spawn.field54 = 0.0f;
+    spawn.field48 = 1.0f;
+    spawn.field4C = 1.0f;
+    spawn.width = 35.75f;
+    spawn.height = 16.0f;
+    spawn.field44 = ((u8 *)arg0)[0x23D];
+    for (side = 0; side < 2; side++) {
+        colors = D_8008FC28;
+        if (side) {
+            spawn.y = 92.0f;
+        } else {
+            spawn.y = -90.0f;
+        }
+        if (side) {
+            select = 4;
+        } else {
+            select = 0;
+        }
+        spawn.flags |= select;
+        if (side) {
+            payload.side = 5;
+        } else {
+            payload.side = 4;
+        }
+        for (slot = 0; slot < 4; slot++) {
+            spawn.x = slot * 71.5f + 35.75f - 143.0f;
+            spawn.type = colors.values[slot];
+            object = func_1515548C(&spawn, 0xB, 0, 0, 0x58, arg3, 1);
+            if (object != NULL) {
+                func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CCF08 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CCF08.s")
 f32 func_151CC1D4(void *);                          /* extern */
 

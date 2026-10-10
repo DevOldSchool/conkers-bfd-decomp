@@ -17,7 +17,6 @@
  * - func_15136404
  * - func_15136698
  * - func_15136AE4
- * - func_15136C3C
  * - func_15136F50
  * - func_15137610
  * - func_1513783C
@@ -1016,7 +1015,134 @@ void func_15136AE4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15136AE4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136AE4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136C3C.s")
+typedef struct Blood36C3CActor {
+    u8 pad0[4];
+    u8 unk4;
+    u8 pad5[0x147];
+    f32 unk14C;
+    f32 unk150;
+} Blood36C3CActor;
+
+typedef struct {
+    f32 values[4];
+} Blood1380B4Vector;
+
+typedef struct {
+    s32 x;
+    s32 y;
+    s32 z;
+} BloodA48CPosition;
+
+typedef struct Blood36C3CHit {
+    f32 height;
+    u8 geometry[0x20];
+} Blood36C3CHit;
+
+typedef struct Blood36C3CSpray {
+    s32 countBase;
+    s32 countRange;
+    BloodVec3 origin;
+    s16 angleBase;
+    s16 angleRange;
+    s16 pitchBase;
+    s16 pitchRange;
+    f32 maxDistance;
+    f32 sizeBase;
+    f32 sizeRange;
+    s16 lifeBase;
+    s16 lifeRange;
+    u8 kind;
+} Blood36C3CSpray;
+
+s32 func_15134070();
+void func_1515C244(void *, void *, f32 *, f32 *);
+void func_1513A24C(BloodVec3 *, s32 *, f32 *, s32, f32, u8, u8, u8 *, void *,
+                   u8, s32);
+void func_15150D1C(Blood36C3CSpray *, u8, s32);
+void func_151A9834(BloodVec3 *, f32, f32, void *, s32, u8, s8 *, u8, s32);
+void func_151C61A0(s32, s32, u8, s32);
+void func_1513A48C(BloodA48CPosition *, u8, s32);
+extern s32 *D_80089A20[];
+extern f32 D_800A3C30;
+extern s32 D_800A3F14[];
+extern s32 D_800A3F64[];
+extern Blood1380B4Vector D_800A3FD8[];
+extern Blood1380B4Vector D_800A3FF8;
+extern Blood1380B4Vector D_800A40C8;
+extern Blood1380B4Vector D_800A40F8;
+extern f32 D_800A4630;
+
+void func_15136C3C(Blood36C3CActor *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4,
+                   u8 arg5, u8 arg6, s32 arg7) {
+    BloodVec3 position;
+    f32 unused0;
+    f32 unused1;
+    f32 halfHeight;
+    Blood36C3CHit hit;
+    s32 kind;
+    Blood36C3CSpray spray;
+    s8 heavy;
+
+    if (arg0 == NULL) {
+        return;
+    }
+    halfHeight = (arg0->unk14C + arg0->unk150) * 0.5f;
+    func_1515C244(arg0, &position, &unused0, &unused1);
+    kind = func_15134070(arg0);
+    if (kind == 0x63) {
+        return;
+    }
+    func_1504715C(&hit, arg0);
+    if (arg3 != 0) {
+        func_1513A24C(&position, D_80089A20[kind], &D_800A3C30,
+                      ((arg5 != 0) || ((kind == 4) && (arg0->unk4 != 0x16)))
+                          ? D_800A3F14[kind] - 2
+                          : D_800A3F14[kind],
+                      halfHeight, kind, D_800A3F64[kind], (u8 *)arg0, &hit, arg6,
+                      arg7);
+    }
+    if (((u8 *)&D_800A3FD8[kind])[0xE] == 2) {
+        return;
+    }
+    if (arg1 != 0) {
+        spray.countBase = 0xC;
+        spray.countRange = 3;
+        spray.origin = position;
+        spray.angleBase = 0;
+        spray.angleRange = 0xFF;
+        spray.pitchBase = -0x40;
+        spray.pitchRange = 0x45;
+        spray.lifeBase = 0x96;
+        spray.lifeRange = 0x64;
+        spray.maxDistance = D_800A4630;
+        spray.sizeBase = 25.0f;
+        spray.sizeRange = 10.0f;
+        if ((&D_800A3FF8 == &D_800A3FD8[kind]) || (&D_800A40C8 == &D_800A3FD8[kind]) ||
+            (&D_800A40F8 == &D_800A3FD8[kind])) {
+            spray.kind = 1;
+        } else {
+            spray.kind = 0;
+        }
+        func_15150D1C(&spray, arg6, arg7);
+    }
+    if (arg2 != 0) {
+        if ((&D_800A3FF8 == &D_800A3FD8[kind]) || (&D_800A40C8 == &D_800A3FD8[kind]) ||
+            (&D_800A40F8 == &D_800A3FD8[kind])) {
+            heavy = 1;
+        } else {
+            heavy = 0;
+        }
+        func_151A9834(&position, position.y - 300.0f, 300.0f, &hit,
+                      (func_150ADA20() % 6U) + 0x12, 0, &heavy, arg6, arg7);
+    }
+    if (arg4 != 0) {
+        if ((&D_800A3FF8 == &D_800A3FD8[kind]) || (&D_800A40C8 == &D_800A3FD8[kind])) {
+            func_151C61A0((s32)&position, (s32)&hit, arg6, arg7);
+        } else {
+            func_1513A48C((BloodA48CPosition *)&position, arg6, arg7);
+        }
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136F50.s")
 typedef struct BloodImpactActor {
     u8 pad0[4];
@@ -1223,12 +1349,7 @@ typedef struct {
     u8 *field_1D4;
 } Blood1380B4State;
 
-typedef struct {
-    f32 values[4];
-} Blood1380B4Vector;
-
 void func_15143134(f32 *, f32 *, s32);
-extern Blood1380B4Vector D_800A3FD8[];
 
 /*
  * Descriptive role: actor_transform_effect_profile_offset.
@@ -1748,12 +1869,6 @@ void func_1513A24C(BloodVec3 *arg0, s32 *arg1, f32 *arg2, s32 arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513A24C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513A24C.s")
-
-typedef struct {
-    s32 x;
-    s32 y;
-    s32 z;
-} BloodA48CPosition;
 
 typedef struct {
     s32 field_0;
