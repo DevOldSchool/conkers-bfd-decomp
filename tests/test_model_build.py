@@ -160,6 +160,67 @@ class ModelBuildTests(unittest.TestCase):
             with self.subTest(size=size), self.assertRaises(ValueError):
                 build.encode_records(dict(self.records, zero_suffix_bytes=size), bank=3)
 
+    def test_attachment_records_rebuild_rigid_jointed_and_multiple_parts(self):
+        from test_model_attachment_format import payload
+        for jointed in (False, True):
+            for parts in (1, 2):
+                for suffix in (b'', bytes(8)):
+                    raw = payload(jointed=jointed, parts=parts) + suffix
+                    with self.subTest(jointed=jointed, parts=parts, suffix=len(suffix)):
+                        records = build.model_records(raw, bank=9)
+                        self.assertEqual(records['format'], 'attachment-three-pair')
+                        self.assertEqual(len(records['part_pointers']), parts)
+                        self.assertEqual(len(records['joints']), int(jointed))
+                        self.assertEqual(records['normal_xy_s8'][0], [1, -2])
+                        self.assertEqual(build.encode_records(records, bank=9), raw)
+                        with self.assertRaisesRegex(ValueError, 'require bank 09'):
+                            build.encode_records(records, bank=3)
+
+    def test_attachment_boundaries_and_joint_fields_are_not_opaque(self):
+        from test_model_attachment_format import payload
+        raw = payload(jointed=True, parts=2)
+        records = build.model_records(raw, bank=9)
+        for field in ('vertices', 'normal_xy_s8', 'joints'):
+            changed = copy.deepcopy(records)
+            changed[field][0][0 if field == 'vertices' else -1] += 1
+            with self.subTest(field=field):
+                self.assertNotEqual(build.encode_records(changed, bank=9), raw)
+        invalid = []
+        changed = copy.deepcopy(records)
+        changed['part_pointers'][1] = changed['part_pointers'][0]
+        invalid.append(changed)
+        changed = copy.deepcopy(records)
+        changed['normal_xy_s8'].pop()
+        invalid.append(changed)
+        changed = copy.deepcopy(records)
+        changed['joints'][0][0] = 0  # A cycle is invalid even if byte encoding succeeds.
+        invalid.append(changed)
+        changed = copy.deepcopy(records)
+        changed['joints'][0][-1] = float('nan')
+        invalid.append(changed)
+        changed = copy.deepcopy(records)
+        changed['header_words'][4] += 8
+        invalid.append(changed)
+        for changed in invalid:
+            with self.subTest(records=changed), self.assertRaises(ValueError):
+                build.encode_records(changed, bank=9)
+
+    def test_attachment_zero_regions_cannot_hide_gaps_or_nonzero_source(self):
+        from test_model_attachment_format import payload
+        raw = payload(jointed=True) + bytes(8)
+        records = build.model_records(raw, bank=9)
+        offset, size = records['zero_regions'][0]
+        poisoned = bytearray(raw)
+        poisoned[offset] = 1
+        with self.assertRaisesRegex(ValueError, 'nonzero'):
+            build.model_records(bytes(poisoned), bank=9)
+        for zero_regions in ([], [[offset, size + 4]], [[offset + 1, size]],
+                             [[offset, True]], [[offset, 0x10000000]]):
+            with self.subTest(zero_regions=zero_regions), self.assertRaises(ValueError):
+                build.encode_records(dict(records, zero_regions=zero_regions), bank=9)
+        with self.assertRaisesRegex(ValueError, 'schema'):
+            build.encode_records(dict(records, opaque_tail='00'), bank=9)
+
     def test_bank09_source_changes_preserve_existing_linker_parts(self):
         expected = dict(self.expected, bank=9)
         directory = self.root / build.input_directory(3, 9)

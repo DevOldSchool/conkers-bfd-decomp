@@ -63,9 +63,93 @@ def partition(bank, entries):
     return rows
 
 
+def attachment_records(payload: bytes) -> dict:
+    """Decode all three-pair container regions into editable native fields."""
+    geometry, layout = model_assets.parse_attachment_model(payload, model_assets.parse_model_geometry)
+    header = list(geometry.header_words)
+    display_start = layout['display_list_pointers'][0]
+    display_end = display_start + geometry.display_list_size
+    normal_start, normal_size = layout['normal_offset'], layout['normal_size']
+    if normal_size % 64:
+        raise ValueError('attachment normal region does not contain complete tables')
+    records = {
+        'format': 'attachment-three-pair',
+        'header_words': header,
+        'vertices': [[v.x, v.y, v.z, v.flag, v.s, v.t, *v.color] for v in geometry.vertices],
+        'part_pointers': layout['display_list_pointers'],
+        'joints': [list(row) for row in struct.iter_unpack(
+            '>bBBB3f', payload[header[2]:header[2] + header[3]])],
+        'display_commands': [list(row) for row in struct.iter_unpack(
+            '>II', payload[display_start:display_end])],
+        'normal_xy_s8': [list(row) for row in struct.iter_unpack(
+            '>bb', payload[normal_start:normal_start + normal_size])],
+        'zero_regions': [],
+    }
+    ranges = [(0, header[0] + header[1]), (display_start, display_end)]
+    ranges += [(start, start + size) for start, size in
+               ((header[2], header[3]), (normal_start, normal_size)) if size]
+    cursor = 0
+    for start, end in sorted(ranges) + [(len(payload), len(payload))]:
+        if start < cursor or any(payload[cursor:start]):
+            raise ValueError('attachment contains overlapping regions or an opaque gap')
+        if start > cursor:
+            if start - cursor not in (4, 8):
+                raise ValueError('attachment has an unsupported zero region')
+            records['zero_regions'].append([cursor, start - cursor])
+        cursor = end
+    return records
+
+
+def encode_attachment_records(records: dict) -> bytes:
+    fields = {'format', 'header_words', 'vertices', 'part_pointers', 'joints',
+              'display_commands', 'normal_xy_s8', 'zero_regions'}
+    if set(records) != fields:
+        raise ValueError('invalid attachment record schema')
+    try:
+        header = records['header_words']
+        chunks = [(0, struct.pack('>6I', *header)),
+                  (24, b''.join(struct.pack('>hhhHhh4B', *row) for row in records['vertices'])),
+                  (header[0], b''.join(struct.pack('>I', p) for p in records['part_pointers'])),
+                  (records['part_pointers'][0], b''.join(
+                      struct.pack('>II', *row) for row in records['display_commands']))]
+        for offset, rows, fmt in ((header[2], records['joints'], '>bBBB3f'),
+                                  (header[4], records['normal_xy_s8'], '>bb')):
+            if rows:
+                chunks.append((offset, b''.join(struct.pack(fmt, *row) for row in rows)))
+        for offset, size in records['zero_regions']:
+            if type(offset) is not int or type(size) is not int or size not in (4, 8):
+                raise ValueError('invalid attachment zero region')
+            chunks.append((offset, bytes(size)))
+    except (struct.error, TypeError, IndexError, OverflowError) as error:
+        raise ValueError('invalid native attachment record') from error
+    cursor, parts = 0, []
+    for offset, data in sorted(chunks):
+        if offset != cursor:
+            raise ValueError('attachment records overlap or leave an uncovered gap')
+        parts.append(data)
+        cursor += len(data)
+    payload = b''.join(parts)
+    if attachment_records(payload) != records:
+        raise ValueError('attachment records disagree with their declared boundaries')
+    return payload
+
+
+def verify_attachment_consumers(code: bytes, base: int) -> None:
+    """Pin the whole US loader and vertex-copy functions for three-pair records."""
+    for address, size, digest in (
+        (0x1502FE10, 456, '8637778facf0ce5e9a4cd03316b390e02fdf84e2'),
+        (0x1502FFD8, 384, 'd03a13f16beb1aacae4a2c964a393164e8a477c4'),
+    ):
+        offset = address - base
+        if offset < 0 or hashlib.sha1(code[offset:offset + size]).hexdigest() != digest:
+            raise ValueError(f'ROM attachment consumer changed at 0x{address:08X}')
+
+
 def model_records(payload: bytes, *, bank: int) -> dict:
     if bank not in BANKS:
         raise ValueError('unsupported direct-model bank')
+    if bank == 9 and model_assets.is_attachment_model(payload):
+        return attachment_records(payload)
     geometry = model_assets.parse_model_geometry(payload, model_relative_vertices=bank == 9)
     if any(geometry.header_words[2:9]) or geometry.header_words[9] != 0x80000000:
         raise ValueError('model has unsupported auxiliary regions')
@@ -95,6 +179,10 @@ def model_records(payload: bytes, *, bank: int) -> dict:
 
 
 def encode_records(records: dict, *, bank: int) -> bytes:
+    if isinstance(records, dict) and records.get('format') == 'attachment-three-pair':
+        if bank != 9:
+            raise ValueError('attachment records require bank 09')
+        return encode_attachment_records(records)
     required = {'header_words', 'vertices', 'display_commands'}
     if (not isinstance(records, dict) or not required <= set(records)
             or set(records) - required - {'normal_xy_s8', 'zero_suffix_bytes'}):
@@ -157,6 +245,7 @@ def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
         rows, end = layout_bins(root / 'config/profiles/us.yaml', bank=bank_id)
         if ([e.index for e in entries] != selected or rows != partition(bank, entries) or end != bank.end):
             raise ValueError(f'model YAML splits differ from reviewed bank-{bank_id:02d} boundaries')
+        attachment_consumers_checked = False
         for entry in entries:
             if not entry.compressed:
                 raise ValueError('reviewed model must use RZIP storage')
@@ -165,6 +254,9 @@ def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
             if chunk.consumed != len(stored):
                 raise ValueError('model stored extent includes unowned trailing bytes')
             records = model_records(chunk.data, bank=bank_id)
+            if records.get('format') == 'attachment-three-pair' and not attachment_consumers_checked:
+                verify_attachment_consumers(game.code, int(layout['game_vram']))
+                attachment_consumers_checked = True
             if encode_records(records, bank=bank_id) != chunk.data:
                 raise ValueError('model records failed independent decoded comparison')
             expected = {'schema_version': 1, 'profile': 'us', 'bank': bank_id, 'entry': entry.index,

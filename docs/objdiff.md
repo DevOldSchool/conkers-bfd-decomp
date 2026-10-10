@@ -71,7 +71,7 @@ This builds the mapped SDK archives and active C implementations, prepares
 independent splat targets for every range in `config/overlays.json`, and
 invokes the pinned native `objdiff-cli report generate`. It covers tracked
 main/game/debugger US CPU code and initialized data, including raw/unassigned ranges,
-plus all bounded asset storage. The font, 6,865 reviewed textures and 221 reviewed
+plus all bounded asset storage. The font, 6,865 reviewed textures and 293 reviewed
 models have reconstructed candidates; remaining asset storage stays unmatched.
 The command uses four object-preparation workers and validates cached base object hashes before
 reuse. The first run requires the pinned `lib/ultralib` submodule (`git
@@ -257,8 +257,9 @@ palette, metadata or compressed output fail this exact-reconstruction pilot.
 The 8,284,692 reconstructed stored bytes enter Data once; decoded bytes do not
 add storage, and adjacent raw storage remains in the denominator without credit. Native matching and source/link-input verification gate completion.
 
-[The 221 selected bank-03 and bank-09 models](evidence/data-layout/us_model_reconstruction.md)
-reconstruct native header, vertex, display-command and referenced normal records through fresh RZIP
+[The 293 selected bank-03 and bank-09 models](evidence/data-layout/us_model_reconstruction.md)
+reconstruct native headers, vertices, display commands, normal records and attachment
+part/joint tables through fresh RZIP
 compression. Their actual ROM linker inputs and independent stored-byte targets
 use the same native matching and source-stability gates. Raw bank index, gaps
 and unselected records remain in the Model banks denominator without credit.

@@ -1,9 +1,9 @@
-# US direct-model reconstruction
+# US model reconstruction
 
-The current selection reconstructs **221 direct models**, totaling **118,724
-stored RZIP bytes**: 36 bank-03 models and 185 bank-09 models. The
-[normal-table expansion](#normal-table-expansion) adds referenced signed XY
-normal records and explicit zero suffixes to the native record schema.
+The current selection reconstructs **293 models**, totaling **166,257 stored
+RZIP bytes**: 36 bank-03 direct models, 185 bank-09 direct models and 72 bank-09
+three-pair attachment models. The [normal-table expansion](#normal-table-expansion)
+and [attachment expansion](#attachment-expansion) retain complete native records.
 
 The first model storage batch selected 22 direct bank-03 models from the
 checksum-validated US ROM (SHA-1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`).
@@ -51,7 +51,7 @@ size/hash. Edited geometry is retained but rejected by this exact-match build;
 this command is not a ROM model-editing workflow. Compression drift fails
 without choosing another encoder or falling back to original ROM bytes.
 
-`./conker build --assets` links 221 reconstructed objects under
+`./conker build --assets` links 293 reconstructed objects under
 `build/us/assets/models/bank03/` and `bank09/`. The ordinary default build
 continues to use the original banks. Each native report candidate is copied from the actual
 model linker object and checked against a fresh encode of the current source.
@@ -366,3 +366,62 @@ Validation ran before committing the same source inputs. Documentation and tests
 are outside the native source fingerprint. Private logs are `build/model-normal-*`;
 ROMs, editable model records, objects and reports remain ignored. This is local
 verification; publishing the PR does not publish the native report.
+
+
+## Attachment expansion
+
+The bank-09 selection adds 72 three-pair attachment models, totaling 88,208
+decoded bytes and 47,533 stored bytes. The complete 293-model selection contains
+294,472 decoded bytes and 166,257 stored bytes. The [attachment selection
+audit](us_model_attachment_reconstruction.json) records original ROM ranges,
+hashes, part/joint counts, normal counts, explicit zero regions and the 83
+attachment entries excluded because their compression differs.
+
+The `attachment-three-pair` source format contains the six header words,
+16-byte vertex fields, 32-bit part pointers, 16-byte joint records, paired
+32-bit display commands and signed XY normal pairs. Joint rows preserve the
+signed parent index, matrix/animation indices, flags and three finite native
+float32 pivot values. Both rigid and jointed models retain their original
+native pointers; the preview parser's temporary rebasing is never serialized.
+
+Every nonzero region comes from typed source records. Each observed four- or
+eight-byte zero gap is listed explicitly as `[offset, size]` and regenerated.
+The encoder requires contiguous, nonoverlapping coverage before concatenation,
+then reparses the completed container to check declared extents, callable-list
+terminators, vertex loads, normal pointers and the acyclic joint hierarchy.
+There is no opaque data region or copied compressed candidate.
+
+The build pins the complete ROM loader `1502FE10` (456 bytes, SHA-1
+`8637778facf0ce5e9a4cd03316b390e02fdf84e2`) and vertex-copy wrapper `1502FFD8`
+(384 bytes, SHA-1 `d03a13f16beb1aacae4a2c964a393164e8a477c4`) when attachment
+records are selected. The loader establishes bank 09, vertices at `+0x18`,
+four-byte part pointers and 16-byte joints. The existing direct pointer-relocation
+proof also remains required. Make tracks the attachment parser as a model codec
+dependency, so parser edits invalidate model build receipts.
+
+### Attachment acceptance, 11 October 2026
+
+- All 293 models reconstruct 294,472 decoded bytes and 166,257 stored bytes
+  exactly. Every model has a native matched and complete Data unit.
+- The full Docker suite runs 2,349 tests with eight skips and no failures;
+  all 32 focused model tests and 20 asset-Make tests pass.
+- An independent mutation audit rejects 151 altered attachment fields and four
+  changes to the endpoints of the two pinned consumer spans.
+- `./conker build --assets` passes; direct comparison verifies all 67,108,864
+  output bytes equal the original US ROM, SHA-1
+  `4cbadd3c4e0729dec46af64ad018050eada4f47a`.
+- A fresh native report validates 8,170 units with no compile errors. Data is
+  8,457,493 / 65,120,512 matched bytes (12.987449%); 8,456,725 bytes are
+  complete (12.986270%). Both counts gain exactly 47,533 bytes.
+- All previously reconstructed unit measures and all Code measures remain
+  unchanged. Bank-09 unreconstructed storage shrinks by the same 47,533 bytes;
+  the overall Data denominator remains unchanged.
+- Snapshot status is `current`; canonical progress and whitespace checks pass.
+
+Source fingerprint:
+`651140f8846c2fc5e5e2afa6919b966878bb0ed9d1f211a82e526a2daa52db67`.
+Native report SHA-256:
+`437835c228b1de9feab4f1ee3a15a3acdc831affef87a23c109868c61f1f4c09`.
+
+Validation ran before committing the same source inputs. Private logs and audits
+are `build/model-attachment-*`; generated records, ROMs and reports remain ignored.
