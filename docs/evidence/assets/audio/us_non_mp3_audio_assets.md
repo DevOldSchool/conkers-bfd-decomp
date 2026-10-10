@@ -58,9 +58,10 @@ records the multiple-of-nine payload length used by Conker's decoder.
 
 Entry `3` has revision `0x5331` (`S1`) and 149 descriptors. The first sequence
 begins exactly after the `0x4AC`-byte descriptor table. All sequence offsets are
-four-byte aligned; every length is in bounds; and each alignment gap is zero
-through three bytes. The bytes in those gaps are retained verbatim because many
-are nonzero and therefore cannot be regenerated as generic padding. Every
+four-byte aligned; every length is in bounds; and each following span is exactly zero
+through three bytes to the next four-byte boundary. These are alignment padding;
+many contain nonzero bytes, so their contents must be retained verbatim rather
+than regenerated as zeros. Every
 compact sequence has a valid 68-byte, 16-track header. Observed divisions are
 384 and 480 ticks per quarter note, and the collection exercises one through
 sixteen active tracks.
@@ -110,3 +111,10 @@ The separate [soundtrack listening desk](../../../soundtrack-preview.md) renders
 events into approximate single-pass WAVs with the extracted B1 samples and
 provides a local naming workflow. This does not change the generic MIDI
 preview's contract or establish native playback fidelity or track identities.
+
+## Canonical ROM split configuration
+
+The [bank-17 storage integration](../../data-layout/us_audio_bank17_boundaries.md)
+puts the seven bank entries and all 149 sequence boundaries into `us.yaml` as
+actual extraction/linker inputs. Nonzero sequence alignment padding remains explicit. The
+experimental report includes the ranges as targets without matching credit.

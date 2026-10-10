@@ -265,8 +265,8 @@ def game_comparison_inputs(source: str, assembly: Path) -> dict[str, str]:
     inputs = layout_check.failure_inputs(ROOT, source)
     paths = {assembly, ROOT / "Dockerfile", ROOT / "Makefile",
              ROOT / "config/rzip_layouts.json", ROOT / "config/roms.json",
-             ROOT / "config/overlays.json", ROOT / "config/reference/us.yaml",
-             ROOT / "config/profiles/us.yaml"}
+             ROOT / "config/overlays.json", ROOT / "config/reference/us.yaml"}
+    # Game builds use config/game; the full-ROM asset map is not a proof input.
     for directory in ("config/game", "config/symbols", "config/relocs", "scripts"):
         paths.update(path for path in (ROOT / directory).rglob("*")
                      if path.is_file() and "__pycache__" not in path.parts)

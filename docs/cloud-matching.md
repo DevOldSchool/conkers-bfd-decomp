@@ -56,7 +56,7 @@ images and arbitrary Docker operations are unsupported and fail closed.
 
 Current immutable pins, also checked against `toolchain/tools.lock.json`:
 
-- CPU image: `ghcr.io/devoldschool/conkers-bfd-decomp-toolchain@sha256:b3e29a92f2c26f11a58fbafde2d5d3b1184416e21b635e07b2a6303591ed5c8b`
+- CPU image: `ghcr.io/devoldschool/conkers-bfd-decomp-toolchain@sha256:8da82ea0fc3ea2ca84987f521040732a7bc8b0e9595469a5363b90d3f306ae11`
 - Linux AMD64 manifest: `sha256:3da4b9927f4cc0db09155734cf7572dbb379020ac93cad6c3e796b4ceef40d2b`
 - Image configuration: `sha256:10a77ef378fd060dfec5756b8b195197fbf5c399c4f35798eb1ca9344c934fc8`
 - IDO static recomp: `v1.2`; archive SHA-256
@@ -87,11 +87,12 @@ mkdir -m 700 "$runtime"
 cp -R toolchain/cloud-bootstrap/. "$runtime/"
 python3 "$runtime/bootstrap.py" --rebuild-armips "$repo"
 export PATH="$runtime/bin:$PATH"
+export CONKER_TEST_RUNNER=host
 ./conker host-setup
 ./conker doctor
 ```
 
-Restore this PATH in subsequent shells and keep the runtime warm across targets.
+Restore this PATH and `CONKER_TEST_RUNNER=host` in subsequent shells and keep the runtime warm across targets.
 When adding a worker, coordinate with the integrator and pass all explicit build
 checkout roots in one invocation: the allowlist is replaced, not appended. Never
 allow a parent workspace or credential directory.

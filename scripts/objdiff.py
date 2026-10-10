@@ -198,7 +198,8 @@ def compare(binary: Path, identifiers: list[str]) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
-    commands.add_parser("report", help="generate an exhaustive US CPU-code progress report")
+    commands.add_parser("report", help="generate the US code, data and rebuilt-asset progress report")
+    commands.add_parser("data-audit", help="audit ROM-backed US data boundaries without changing progress")
     commands.add_parser("install", help="download and verify the pinned host CLI")
     for command in ("compare", "view", "prepare"):
         sub = commands.add_parser(command, help={"compare": "compare selected US C/deferred candidates using both tools",
@@ -210,6 +211,9 @@ def main() -> int:
         if args.command == "prepare":
             prepare(args.ids)
             return 0
+        if args.command == "data-audit":
+            import data_boundaries
+            return data_boundaries.generate(ROOT)
         binary = install()
         if args.command == "report":
             import objdiff_report

@@ -16,6 +16,7 @@ ARG IDO_RECOMP_VERSION=v1.2
 ARG IDO_RECOMP_SHA256=ab5c741561f80913d58c8b074771f23941a3edd312505a8ebed6d1dfeb65e506
 
 COPY toolchain/python-constraints.txt /tmp/python-constraints.txt
+COPY toolchain/python-requirements.txt /tmp/python-requirements.txt
 
 RUN apt-get update \
     && apt-get install --yes --no-install-recommends \
@@ -72,6 +73,7 @@ RUN git clone https://github.com/simonlindholm/asm-differ.git /opt/tools/asm-dif
     && python3 -m pip install --break-system-packages \
         --constraint /tmp/python-constraints.txt \
         --requirement /opt/tools/n64splat/requirements.txt \
+        --requirement /tmp/python-requirements.txt \
     && python3 -m pip install --break-system-packages \
         --constraint /tmp/python-constraints.txt \
         toml

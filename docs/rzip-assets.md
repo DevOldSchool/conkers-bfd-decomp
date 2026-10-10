@@ -138,7 +138,27 @@ or paired arbitrarily. The summary distinguishes identical locators from
 relocated content. Use `--base`, repeated `--compare`, `--output`, and `--force`
 for narrower generated reports.
 
+### Editable build inputs
+
+The current extraction convention stores editable glyphs in `build/fonts/us` and
+encoded MP3 inputs in `build/assets/mp3-bank/us`. These are not disposable caches
+once edited: deleting `build/` or running `make clean` removes those edits. Keep a
+private backup outside `build/` before cleaning. A later build initializes absent
+input trees from the original ROM; it cannot recover edits that were deleted.
+Existing partial trees are rejected rather than overwritten.
+
+Asset part generation follows these real inputs and preserves unchanged output
+timestamps. An unchanged asset build does not repack or relink its objects. The
+full `raw-build` still runs verification and existing unrelated forced refreshes.
+Bank 17 only has reviewed splits and validation; its inputs remain copied ROM
+bytes, unlike the rebuilt glyph records and the packed bank-16 MP3 container.
+
 ### Loader-proven US MP3 streams and tables
+
+Bank `0x16` is also a reconstructed ROM build input. See the
+[MP3 bank build workflow and evidence](evidence/data-layout/us_mp3_bank_build.md)
+for its editable stream bundle and preserved index/gaps. MP3 storage is excluded
+from the published objdiff report.
 
 The exact US caller loads a selected entry from bank `0x16`, receives both its
 ROM address and byte length, and passes those values to `mp3_play_file`. All 453

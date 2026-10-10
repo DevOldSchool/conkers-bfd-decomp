@@ -7,7 +7,7 @@ Putfld switch table at VRAM `[0x1600487C, 0x1600494C)`, ROM
 [debugger data map](us_debugger_data_objects.json) and
 [formatter provenance](../libraries/libultrare_us_xprintf_reconstruction.md).
 
-The recovered C switch in `src/debugger/debugger_1AD0.c` emits one `0xD0`
+The recovered C switch in `src/done/debugger/debugger_1AD0.c` emits one `0xD0`
 `.rodata` section. The full registered Putfld instruction span and all 52 object
 case relocations must pass the existing focused verification independently.
 Neither compiler output nor this placement map establishes an original source

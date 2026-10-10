@@ -177,6 +177,88 @@ class GameComparisonTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     self.prove(root, candidate, reference)
 
+    def padding_objects(self, root, *, body="jr $ra\nnop", tail="", size=8,
+                        prefix="jr $ra\nnop\nnop\nnop"):
+        self.metadata(root)
+        fp, up = root / "progress/functions.json", root / "progress/source_units.json"
+        functions, units = json.loads(fp.read_text()), json.loads(up.read_text())
+        functions["functions"].pop()
+        units["source_units"][0]["functions"].pop()
+        units["source_units"][0]["regions"]["us"]["end"] = "0x1020"
+        fp.write_text(json.dumps(functions))
+        up.write_text(json.dumps(units))
+        candidate = self.assemble(root, "mixed", self.function("func_15001000", prefix)
+                                  + self.function(self.symbol, body, size) + tail + "\n.balign 16\n")
+        reference = self.assemble(root, "raw", self.function(self.symbol, "jr $ra\nnop\nnop\nnop"))
+        return candidate, reference
+
+    def prove_padding(self, root, candidate, reference):
+        words = [0x03E00008, 0, 0, 0]
+        return self.prove(root, candidate, reference, words=words, unit_words=words + words)
+
+    def test_terminal_padding_proves_full_unit_without_aliases_or_invented_bytes(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            candidate, reference = self.padding_objects(root)
+            original = candidate.read_bytes()
+            self.assertTrue(linked_aliases.game_eligible(candidate, reference, self.symbol, 16))
+            pair = self.prove_padding(root, candidate, reference)
+            self.assertIsNotNone(pair)
+            self.assertEqual(pair[0].read_bytes(), pair[1].read_bytes())
+            self.assertEqual(original, candidate.read_bytes())
+            output = root / "build/us/linked-aliases" / self.symbol
+            self.assertEqual(32, len((output / "candidate.bin").read_bytes()))
+            obj = Object32(pair[0].read_bytes())
+            _, section = linked_aliases.function(obj, self.symbol, 16)
+            self.assertEqual(16, len(obj.section(section)))
+
+    def test_short_focused_object_is_only_eligibility_not_padding_proof(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            _, reference = self.padding_objects(root)
+            # There are no trailing bytes in this ELF; the complete unit must
+            # supply them. The function payload itself must still be present.
+            candidate = root / "focused.o"
+            candidate.write_bytes(linked_aliases.comparison_object(struct.pack(">II", 0x03E00008, 0), self.symbol))
+            self.assertTrue(linked_aliases.game_eligible(candidate, reference, self.symbol, 16))
+            with self.assertRaises(ValueError):
+                self.prove_padding(root, candidate, reference)
+            self.assertFalse(linked_aliases.game_eligible(candidate, reference, self.symbol, 32))
+
+    def test_terminal_padding_rejects_nonzero_named_relocated_and_extended_tails(self):
+        tails = ["nop\n.word 1\n", "\n.globl tail_label\ntail_label:\n",
+                 "\n.word D_800E8000\n", "\n.space 12\n"]
+        for tail in tails:
+            with self.subTest(tail=tail), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                candidate, reference = self.padding_objects(root, tail=tail)
+                with self.assertRaises(ValueError):
+                    self.prove_padding(root, candidate, reference)
+
+    def test_terminal_padding_rejects_wrong_payload_neighbor_or_shifted_members(self):
+        for options in ({"body": "jr $ra\naddiu $v0,$zero,1"},
+                        {"prefix": "jr $ra\naddiu $v0,$zero,1\nnop\nnop"},
+                        {"prefix": "jr $ra\nnop"}):
+            with self.subTest(options=options), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                candidate, reference = self.padding_objects(root, **options)
+                if len(options.get("prefix", "").splitlines()) == 2:
+                    with self.assertRaises(ValueError):
+                        self.prove_padding(root, candidate, reference)
+                else:
+                    self.assertIsNone(self.prove_padding(root, candidate, reference))
+
+    def test_terminal_padding_requires_reviewed_complete_unit(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            candidate, reference = self.padding_objects(root)
+            path = root / "progress/source_units.json"
+            units = json.loads(path.read_text())
+            units["source_units"][0]["boundary_evidence"]["us"]["reviewed"] = False
+            path.write_text(json.dumps(units))
+            with self.assertRaisesRegex(ValueError, "reviewed"):
+                self.prove_padding(root, candidate, reference)
+
     def foreign_unit(self, root, start, end, *, size=None, overlay="game", profile="us"):
         functions_path = root / "progress/functions.json"
         units_path = root / "progress/source_units.json"
@@ -247,7 +329,7 @@ class GameComparisonWorkflowTests(unittest.TestCase):
             files = ["src/game/unit.c", "include/types.h", "src/game/local.h", "raw.s",
                      "asm/raw.s", "progress/functions.json", "progress/source_units.json",
                      "toolchain/tools.lock.json", "Dockerfile", "Makefile", "config/roms.json",
-                     "config/overlays.json", "config/reference/us.yaml", "config/profiles/us.yaml",
+                     "config/overlays.json", "config/reference/us.yaml",
                      "config/game/us.yaml", "config/symbols/game-us.txt", "config/relocs/us.txt",
                      "scripts/compile_c.py", "rom.z64", "installed/ido/cc", "installed/ido/uopt",
                      "installed/asm/build.py", "installed/asm/prelude.inc", "installed/asm/helper.py",
@@ -256,6 +338,10 @@ class GameComparisonWorkflowTests(unittest.TestCase):
                 path = root / name
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text("input\n")
+            (root / "config/profiles/us/assets").mkdir(parents=True)
+            (root / "config/profiles/us.yaml").write_text(
+                'segments:\n  - type: group\n    subsegments: {include: us/assets/bank17.yaml}\n')
+            (root / "config/profiles/us/assets/bank17.yaml").write_text('- [0, bin, audio/test]\n')
             (root / "src/game/unit.c").write_text('#pragma GLOBAL_ASM("asm/raw.s")\n')
             (root / "config/rzip_layouts.json").write_text(json.dumps({"profiles": {"us": {"default_rom": "rom.z64"}}}))
             with patch.object(diff, "ROOT", root), \
@@ -269,10 +355,17 @@ class GameComparisonWorkflowTests(unittest.TestCase):
                         before = fingerprint()
                         path = root / name
                         original = path.read_bytes()
-                        path.write_bytes(original + b"changed\n")
+                        path.write_bytes(original + b"# changed\n")
                         self.assertNotEqual(before, fingerprint())
                         path.write_bytes(original)
                 before = fingerprint()
+                for name in ('config/profiles/eu.yaml', 'config/profiles/us.yaml',
+                             'config/profiles/us/assets/bank17.yaml',
+                             'config/profiles/us/assets/unused.yaml'):
+                    (root / name).write_text('unrelated change\n')
+                    self.assertEqual(before, fingerprint())
+                    (root / name).unlink()
+                    self.assertEqual(before, fingerprint())
                 with patch.object(diff.compile_c, "compiler_flags", return_value=["different"]):
                     self.assertNotEqual(before, fingerprint())
                 with patch.object(diff.shutil, "which", return_value=None):
@@ -374,6 +467,32 @@ class GameComparisonWorkflowTests(unittest.TestCase):
 @unittest.skipUnless(os.environ.get("CONKER_ROM_TESTS") == "1" and diff.compile_c.IDO_CC.is_file(),
                      "opt-in integration tests require the pinned toolchain and reviewed US ROM")
 class RegisteredGameComparisonTests(unittest.TestCase):
+    def test_five_real_terminal_padding_spans_pass_strict_gate_without_source_changes(self):
+        root = diff.ROOT
+        inventory = (root / "progress/functions.json").read_bytes()
+        for symbol in ("func_1507EB4C", "func_15141928", "func_1515D130",
+                       "func_151898C0", "func_1519EF04"):
+            with self.subTest(symbol=symbol):
+                source, _ = diff.find_work_item(symbol, "us", overlay="game")
+                original = source.read_bytes()
+                result = subprocess.run([sys.executable, "scripts/diff.py", "us", symbol,
+                                         "--game", "--require-match"], cwd=root,
+                                        capture_output=True, text=True)
+                self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+                self.assertIn("CURRENT (0)", result.stdout)
+                output = root / "build/us/linked-aliases" / symbol
+                size = diff.expected_function_size("us", symbol)
+                _, _, _, _, start, extent, _ = linked_aliases.game_context(
+                    root, source.relative_to(root).as_posix(), symbol, int(symbol[-8:], 16), size)
+                code, base, _ = rom_span.game_code(root)
+                self.assertEqual(code[start-base:start-base+extent], (output / "candidate.bin").read_bytes())
+                for name in ("candidate.o", "reference.o"):
+                    obj = Object32((output / name).read_bytes())
+                    origin, section = linked_aliases.function(obj, symbol, size)
+                    self.assertEqual(size, len(obj.section(section)) - origin)
+                self.assertEqual(original, source.read_bytes())
+        self.assertEqual(inventory, (root / "progress/functions.json").read_bytes())
+
     def test_real_preceding_unit_cannot_claim_the_initializer_interval(self):
         root, symbol = diff.ROOT, "func_15172C50"
         source_path, _ = diff.find_work_item(symbol, "us", overlay="game")
@@ -414,7 +533,7 @@ class RegisteredGameComparisonTests(unittest.TestCase):
             fixture = Path(temporary)
             for directory in ("scripts", "progress", "src", "config"):
                 shutil.copytree(root / directory, fixture / directory)
-            for directory in ("include", "reference", "roms", "toolchain", "docs"):
+            for directory in ("include", "reference", "roms", "toolchain", "docs", "lib"):
                 (fixture / directory).symlink_to(root / directory, target_is_directory=True)
             for name in ("Dockerfile", "Makefile"):
                 shutil.copy2(root / name, fixture / name)

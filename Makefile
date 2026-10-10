@@ -1,3 +1,4 @@
+.DEFAULT_GOAL := help
 PROFILE ?= us
 SYMBOL ?=
 PROFILE_CONFIG := config/profiles/$(PROFILE).yaml
@@ -24,8 +25,31 @@ ROM_NAME := conker.$(PROFILE).z64
 ROM_PATH := roms/baserom.$(PROFILE).z64
 ASM_SRCS := $(shell find asm/$(PROFILE) -type f -name '*.s' ! -path '*/nonmatchings/*' 2>/dev/null)
 ASM_OBJS := $(patsubst asm/%.s,$(BUILD_DIR)/asm/%.o,$(ASM_SRCS))
+REQUESTED_GOALS := $(patsubst ./%,%,$(if $(MAKECMDGOALS),$(MAKECMDGOALS),help))
+# Load the US layout by default, including aliases and future aggregate goals.
+# Only goals known not to link the ROM may bypass broken asset fragments.
+NON_ROM_GOALS := clean help prepare-reference libultra libultrare profile-libs game-libs \
+	game-asm game-asm-prepare game-integrated game-integrated-refresh \
+	game-integrated-prepare game-integrated-raw diff \
+	build/game-reference/% build/game-integrated/% build/game-libs/%
+ifeq ($(PROFILE),us)
+ifneq ($(filter-out $(NON_ROM_GOALS),$(REQUESTED_GOALS)),)
+PROFILE_ASSETS := $(shell python3 scripts/profile_config.py make-assets $(PROFILE_CONFIG) || echo __PROFILE_ASSETS_FAILED__)
+ifneq ($(filter __PROFILE_ASSETS_FAILED__,$(PROFILE_ASSETS)),)
+$(error scripts/profile_config.py make-assets failed; see the error above)
+endif
+PROFILE_INPUTS := $(patsubst dep=%,%,$(filter dep=%,$(PROFILE_ASSETS)))
+FONT_BINS := $(patsubst font=%,%,$(filter font=%,$(PROFILE_ASSETS)))
+AUDIO_BANK_BINS := $(patsubst audio=%,%,$(filter audio=%,$(PROFILE_ASSETS)))
+MP3_BANK_BINS := $(patsubst mp3=%,%,$(filter mp3=%,$(PROFILE_ASSETS)))
+endif
+endif
+ifneq ($(PROFILE_ASSETS),)
+C_SRCS := $(patsubst source=%,%,$(filter source=%,$(PROFILE_ASSETS)))
+else ifneq ($(filter-out $(NON_ROM_GOALS),$(REQUESTED_GOALS)),)
 C_SRCS := $(shell python3 scripts/list_integrated_sources.py --overlay main --profile $(PROFILE) 2>/dev/null) \
 	$(shell python3 scripts/list_integrated_sources.py --profile-segment debugger --profile $(PROFILE) 2>/dev/null)
+endif
 C_OBJS := $(patsubst src/%.c,$(BUILD_DIR)/src/%.o,$(C_SRCS))
 # Reviewed main tables and literal pools are external to their text units.
 PROFILE_MAIN_RODATA_SECTIONS_us := $(if $(filter $(BUILD_DIR)/src/done/main/init_2E50.o,$(C_OBJS)),.main_rodata_init_2e50) $(if $(filter $(BUILD_DIR)/src/done/main/init_11FA0.o,$(C_OBJS)),.main_rodata_init_11fa0)
@@ -45,7 +69,29 @@ MAIN_PRIVATE_DATA_SOURCES := $(foreach source,$(C_SRCS),--source $(source))
 LDFLAGS := -m elf32btsmip $(if $(PROFILE_RODATA_SCRIPT),-T $(PROFILE_RODATA_SCRIPT)) $(if $(PROFILE_MAIN_RODATA_SCRIPT),-T $(PROFILE_MAIN_RODATA_SCRIPT)) $(if $(PROFILE_MAIN_VI_BSS_SCRIPT),-T $(PROFILE_MAIN_VI_BSS_SCRIPT)) $(if $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT),-T $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT)) -T $(BUILD_DIR)/conker.$(PROFILE).ld
 NORMALIZED_ASM_DIR := $(BUILD_DIR)/normalized-asm
 BOOTSTRAP_SYMBOLS := $(BUILD_DIR)/bootstrap-symbols.ld
-ASSET_BINS_us := assets/boot.bin assets/2D4B0.bin assets/1A33E8.bin
+ifeq ($(PROFILE),us)
+FONT_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(FONT_BINS))
+AUDIO_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(AUDIO_BANK_BINS))
+MP3_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(MP3_BANK_BINS))
+endif
+
+# US bin segments mirror the reviewed storage map in config/profiles/us.yaml.
+ASSET_BINS_us := \
+	assets/boot.bin assets/unassigned_after_main.bin $(FONT_BINS) \
+	assets/game_archive_index.bin assets/game_code_rzip.bin assets/game_code_gap.bin \
+	assets/game_data_rzip.bin assets/game_data_gap.bin assets/unassigned_after_debugger.bin \
+	assets/assets_flat_rzip.bin assets/assets_flat_gap.bin assets/asset_bank_index.bin \
+	assets/asset_bank_00.bin assets/asset_bank_01.bin assets/asset_bank_02.bin \
+	assets/asset_bank_03.bin assets/asset_bank_04.bin assets/asset_bank_05.bin \
+	assets/asset_bank_06.bin assets/asset_bank_07.bin assets/asset_bank_08.bin \
+	assets/asset_bank_09.bin assets/asset_bank_0a.bin assets/asset_bank_0b.bin \
+	assets/asset_bank_0c.bin assets/asset_bank_0d.bin assets/asset_bank_0e.bin \
+	assets/asset_bank_0f.bin assets/asset_bank_10.bin assets/asset_bank_11.bin \
+	assets/asset_bank_12.bin assets/asset_bank_13.bin assets/asset_bank_14.bin \
+	assets/asset_bank_15.bin $(MP3_BANK_BINS) $(AUDIO_BANK_BINS) \
+	assets/asset_bank_18.bin assets/asset_bank_19.bin assets/asset_bank_1a.bin \
+	assets/asset_bank_1b.bin assets/asset_bank_1c.bin assets/asset_raw_1d.bin \
+	assets/unassigned_rom_tail.bin
 ASSET_BINS_eu := assets/boot.bin assets/2D810.bin
 ASSET_BINS := $(ASSET_BINS_$(PROFILE))
 ASSET_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(ASSET_BINS))
@@ -309,6 +355,71 @@ build/us/src/done/main/init_11FA0.o: src/done/main/init_11FA0.c scripts/compile_
 $(BUILD_DIR)/src/%.o: src/%.c
 	@mkdir -p "$(@D)"
 	python3 scripts/compile_c.py --profile $(PROFILE) --output $@ $<
+
+# Pack only when an asset target is reached. These are ordinary prerequisites,
+# not included makefiles (which Make would refresh even for unrelated goals).
+# Packing preserves unchanged parts' mtimes. The object recipes compare the
+# fresh on-disk timestamps because Make may cache a part's mtime before packing.
+ifeq ($(PROFILE),us)
+ASSET_PACK_DEPS := Makefile $(PROFILE_INPUTS) scripts/profile_config.py config/rzip_layouts.json \
+	scripts/build_files.py scripts/rzip_archive.py scripts/rzip_extract.py \
+	toolchain/python-requirements.txt $(ROM_PATH)
+FONT_PARTS := $(patsubst assets/%,$(BUILD_DIR)/fonts/parts/%,$(FONT_BINS))
+MP3_BANK_PARTS := $(patsubst assets/%,$(BUILD_DIR)/audio/parts/%,$(MP3_BANK_BINS))
+.PHONY: asset-parts-missing
+asset-parts-missing:
+
+ifneq ($(FONT_PARTS),)
+FONT_PART_INPUTS := $(wildcard build/fonts/us build/fonts/us/*)
+FONT_PARTS_MISSING := $(filter-out $(wildcard $(FONT_PARTS)),$(FONT_PARTS))
+ifeq ($(wildcard build/fonts/us/manifest.json),)
+FONT_PARTS_MISSING += manifest
+endif
+$(BUILD_DIR)/fonts/parts.stamp: $(ASSET_PACK_DEPS) scripts/font_splits.py scripts/font_assets.py $(FONT_PART_INPUTS) $(if $(FONT_PARTS_MISSING),asset-parts-missing)
+	python3 scripts/font_splits.py build-parts
+	@touch $@
+$(FONT_PARTS): $(BUILD_DIR)/fonts/parts.stamp ;
+endif
+
+ifneq ($(MP3_BANK_PARTS),)
+MP3_PART_INPUTS := $(wildcard build/assets/mp3-bank/us build/assets/mp3-bank/us/* build/assets/mp3-bank/us/streams/* build/assets/mp3-bank/us/padding/*)
+MP3_PARTS_MISSING := $(filter-out $(wildcard $(MP3_BANK_PARTS)),$(MP3_BANK_PARTS))
+ifeq ($(wildcard build/assets/mp3-bank/us/manifest.json),)
+MP3_PARTS_MISSING += manifest
+endif
+$(BUILD_DIR)/audio/parts.stamp: $(ASSET_PACK_DEPS) scripts/mp3_bank.py scripts/mp3_assets.py $(MP3_PART_INPUTS) $(if $(MP3_PARTS_MISSING),asset-parts-missing)
+	python3 scripts/mp3_bank.py build-parts
+	@touch $@
+$(MP3_BANK_PARTS): $(BUILD_DIR)/audio/parts.stamp ;
+endif
+endif
+
+$(FONT_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/fonts/parts/%.bin
+	@if test ! -f "$@" || test "$<" -nt "$@"; then \
+		mkdir -p "$(@D)" && cd $(BUILD_DIR)/fonts/parts && \
+		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
+	fi
+
+$(MP3_BANK_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/audio/parts/%.bin
+	@if test ! -f "$@" || test "$<" -nt "$@"; then \
+		mkdir -p "$(@D)" && cd $(BUILD_DIR)/audio/parts && \
+		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
+	fi
+
+.PHONY: data-splits-check
+data-splits-check:
+	python3 scripts/data_boundaries.py
+
+ifeq ($(PROFILE),us)
+raw-build: data-splits-check
+endif
+
+# Require checked-in bank-17 splits to agree with the loader and sequence descriptors.
+.PHONY: audio-boundaries-check
+audio-boundaries-check:
+	python3 scripts/audio_boundaries.py verify
+
+$(AUDIO_BANK_OBJS): | audio-boundaries-check
 
 $(BUILD_DIR)/assets/%.o: assets/%.bin
 	@mkdir -p "$(@D)"

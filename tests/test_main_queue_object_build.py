@@ -59,6 +59,11 @@ class MainQueueObjectBuildTests(unittest.TestCase):
             (root / "scripts").mkdir()
             (root / "src/done/main").mkdir(parents=True)
             (root / "Makefile").write_bytes((ROOT / "Makefile").read_bytes())
+            (root / "config/profiles").mkdir(parents=True)
+            (root / "config/profiles/us.yaml").write_text("segments: []\n")
+            (root / "scripts/profile_config.py").write_text(
+                "import sys\nassert sys.argv[1] == 'make-assets'\n"
+                f"print('source=src/done/main/{source_name}.c')\n")
             source = root / f"src/done/main/{source_name}.c"
             source.write_text("void queue_thread(void) {}\n")
             (root / "fixture.o").write_bytes(physical)
@@ -73,6 +78,11 @@ class MainQueueObjectBuildTests(unittest.TestCase):
                 "import sys\n"
                 "if '--overlay' in sys.argv and sys.argv[sys.argv.index('--overlay') + 1] == 'main':\n"
                 f"    print('src/done/main/{source_name}.c')\n")
+            # This fixture builds code only, so it has no asset bins.
+            for script in ("font_splits.py", "audio_boundaries.py", "mp3_bank.py"):
+                (root / "scripts" / script).write_text(
+                    "import sys\n"
+                    "assert sys.argv[1:] == ['list-bins']\n")
             target = f"build/us/src/done/main/{source_name}.o"
             command = [shutil.which("make"), "--no-print-directory", "--silent", target, "PROFILE=us"]
             subprocess.run(command, cwd=root, capture_output=True, text=True, check=True)

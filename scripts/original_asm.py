@@ -55,6 +55,15 @@ def validate_source(root: Path, entry: dict, *, allow_stale_hash: bool = False) 
             raise ValueError("retained original assembly changed since verification")
 
 
+def declared_symbols(root: Path, game_reference: bool) -> dict[str, int]:
+    """Named addresses from the reviewed US symbol file used by the raw split."""
+    path = root / "config/symbols/us.txt"
+    if game_reference or not path.is_file():
+        return {}
+    pattern = r"^([A-Za-z_.$][\w.$]*)\s*=\s*(0x[0-9A-Fa-f]+);"
+    return {name: int(address, 16) for name, address in re.findall(pattern, path.read_text(), re.M)}
+
+
 def reference_image(root: Path, entry: dict) -> tuple[bytes, int, str]:
     return rom_span.code_image(root, entry.get("overlay", "main"))
 
@@ -88,6 +97,7 @@ def verify(root: Path, entry: dict, *, refresh: bool = False) -> dict:
     path = diff.reference_object("us", symbol, game_reference=game_reference, assembly=copy)
     obj = Object32(path.read_bytes())
     symbols = {}
+    declared = declared_symbols(root, game_reference)
     for table in obj.symbols.values():
         for name, value, _, section in table:
             if name and section == 0:
@@ -102,6 +112,10 @@ def verify(root: Path, entry: dict, *, refresh: bool = False) -> dict:
                 local = re.fullmatch(r"\.L([0-9A-Fa-f]{8})", name) if not game_reference else None
                 if local and not base <= int(local[1], 16) < base + len(code):
                     raise ValueError(f"original assembly local target is outside {entry['overlay']} CPU text: {name}")
+                if match is None and local is None and name in declared and not value:
+                    # Canonical SDK names replace D_ labels in the raw split.
+                    symbols[name] = declared[name]
+                    continue
                 if (match is None and local is None) or value:
                     raise ValueError(f"unsupported original assembly external symbol: {name}")
                 symbols[name] = int((match or local)[1], 16)

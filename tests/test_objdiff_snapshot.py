@@ -72,6 +72,20 @@ class ObjdiffSnapshotTests(unittest.TestCase):
         self.assertIn('US Code: unavailable (stale)', text)
         self.assertIn('Last snapshot (not current)', text)
 
+    def test_ignored_editable_font_changes_invalidate_snapshot(self):
+        glyph = self.root / 'build/fonts/us/glyph.pgm'
+        glyph.parent.mkdir(parents=True)
+        glyph.write_bytes(b'original pixels')
+        self.proof['asset_verification'] = {'font': {'source_inputs': {
+            glyph.relative_to(self.root).as_posix(): hashlib.sha256(glyph.read_bytes()).hexdigest()}}}
+        self.save()
+        self.assertEqual('current', snapshot.read_status(self.root)['status'])
+        glyph.write_bytes(b'edited pixels')
+        self.assertEqual(self.proof['source_fingerprint'], snapshot.input_fingerprint(self.root))
+        self.assertEqual('stale', snapshot.read_status(self.root)['status'])
+        glyph.unlink()
+        self.assertEqual('stale', snapshot.read_status(self.root)['status'])
+
     def test_added_and_deleted_input_invalidate_fingerprint(self):
         before = snapshot.input_fingerprint(self.root)
         source = self.root / 'src/new.c'
