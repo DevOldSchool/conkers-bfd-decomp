@@ -318,7 +318,6 @@ void func_1506B4EC(void) {
 }
 extern s32 D_800D1580;
 void func_15141A7C(u8 *arg0, s32 arg1);
-void func_15192800(u8 *arg0, s32 arg1);
 void func_1507C8E0(u8 *arg0, s32 arg1);
 void func_1507F640(void);
 void func_1512D748(void *arg0, s32 arg1, s32 arg2);
@@ -2061,7 +2060,6 @@ void func_15193660(u8 *arg0, s32 arg1, s32 arg2);
 void func_150700E4(s32 arg0) {
     func_15193660(D_800D154C, 0xFF, 1);
 }
-void func_151937F4(u8 *arg0, s32 arg1, s32 arg2);
 
 void func_15070114(s32 arg0) {
     func_151937F4(D_800D154C, 0xFF, 1);

@@ -27,7 +27,6 @@ void func_1507CD64(void *, s32);
 void *func_15083E90(u8);
 void func_15136C3C(void *, s32, s32, s32, s32, s32, s32, s32);
 void func_15145A50(u8 *);
-void func_15196318(void *, s32, s32);
 extern void **D_800BE4F0;
 extern u8 D_800CC2D0;
 extern u8 D_800CC40C;

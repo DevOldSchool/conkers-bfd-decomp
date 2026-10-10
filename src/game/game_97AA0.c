@@ -176,10 +176,9 @@ void func_1506A968(void *arg0, s32 arg1) {
     sp20[2] = D_800D1570[2] - D_800D1560[2];
     func_151D3480(sp2C, sp20, 0, 1, 0xFF, 1);
 }
-extern void func_151B6320(s32 arg0, s32 arg1, s32 arg2);
-extern void func_151B7144(s32 arg0, s32 arg1, s32 arg2);
+extern void func_151B7144(void *arg0, s32 arg1, s32 arg2);
 
-void func_1506AA08(s32 arg0, s32 arg1) {
+void func_1506AA08(void *arg0, s32 arg1) {
     func_151B7144(arg0, 0xFF, 1);
     func_151B6320(arg0, 0xFF, 1);
 }

@@ -5,6 +5,11 @@
 #include "game_command.h"
 
 struct Game15D730CopyBlock;
+struct CharacterFlamethrowerControl;
+struct Game1BD8B0Inner;
+struct Game1BD8B0Object;
+struct Game1E2180Actor;
+struct HoltenRopeEffect;
 struct Game1865D0State;
 struct Game1890A0State;
 struct Game1944C0State;
@@ -190,5 +195,14 @@ void func_1516F864(struct Game19A8B0Motion *);
 void func_15172C50(s32);
 void func_15172D80(s32);
 void func_15172E7C(struct Game1A0100Actor *, s32, s32);
+struct Game1BD8B0Inner *func_15190454(struct Game1BD8B0Object *);
+void func_15192800(void *, s32);
+void func_151937F4(void *, s32, s32);
+void func_15196318(struct CharacterFlamethrowerControl *, s32, s32);
+void func_151A561C(s32, u8);
+struct HoltenRopeEffect *func_151B30B0(void *, f32, s32, u8, s32);
+void *func_151B4CD0(struct Game1E2180Actor *, u8, s32);
+void func_151B6320(void *, u8, s32);
+void func_1518F45C(s32, u8);
 
 #endif

@@ -216,7 +216,6 @@ typedef struct Game1DF510Request {
     u8 pad35[3];
 } Game1DF510Request;
 
-u8 *func_151B30B0(void *, f32, s32, u8, s32);
 extern Game1DF510Vector D_800AA320;
 extern Game1DF510Vector D_800AA32C;
 extern Game1DF510Vector D_800AA368;

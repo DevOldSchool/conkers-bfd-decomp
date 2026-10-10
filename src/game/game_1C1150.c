@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1C1150.c
@@ -161,7 +162,6 @@ typedef struct Game1C1150Vec3 {
     f32 z;
 } Game1C1150Vec3;
 
-void *func_151B4CD0(void *, u8, s32);
 extern u8 D_800A3FE6[];
 s32 func_15134070(void *);
 

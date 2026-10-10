@@ -11,7 +11,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_15190454(void *arg0);
 void func_1000FD38(void *, void *, s32);
 void func_151D2B4C(s32);
 
