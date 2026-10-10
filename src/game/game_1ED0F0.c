@@ -73,9 +73,6 @@ void func_151BFC40(void *arg0, f32 *arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151BFC40.s")
 void func_151BFC40(void *, f32 *);
 void func_151C0418(void *, u8, s32);
-void func_151C04F8(f32 *, u8, s32);
-void func_151C05A4(f32 *, u8, s32);
-void func_151C05F0(f32 *, u8, s32);
 void func_1514FB98(void *, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151BFDA0 CURRENT (848) */

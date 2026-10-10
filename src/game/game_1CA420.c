@@ -307,7 +307,6 @@ s32 func_1519D240(Game1CA420Trail *arg0) {
     }
     return 1;
 }
-s32 func_1514ED3C(void *, s32, void **);
 u32 func_150ADA20(void);
 extern f32 D_800BE9A8;
 
@@ -825,7 +824,6 @@ typedef struct Game1CA420Effect {
     Game1CA420OwnerLink link;
 } Game1CA420Effect;
 
-s32 func_1514ED3C(void *, s32, void **);
 
 void func_1519E464(Game1CA420Effect *arg0) {
     struct {
@@ -848,7 +846,7 @@ void func_1519E464(Game1CA420Effect *arg0) {
         locals.result = func_1519D030(locals.link->actor, locals.link->value, arg0->timer,
                                arg0->flags & 1, arg0->strength, arg0->mode);
         if (locals.result != 0) {
-            if (func_1514ED3C(locals.link->actor->links, (s32)arg0, 0) != 0) {
+            if (func_1514ED3C(locals.link->actor->links, arg0, 0) != 0) {
                 func_1514EC1C(locals.result, (s32)locals.link->actor, 0x10);
             }
         }

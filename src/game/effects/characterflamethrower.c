@@ -519,7 +519,7 @@ next:
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15195DD4.s")
 
 
-void func_15195FB0(
+CharacterFlamethrowerPanel *func_15195FB0(
     CharacterFlamethrowerDispatch *arg0,
     s32 arg1,
     s32 arg2,
@@ -528,7 +528,7 @@ void func_15195FB0(
     s32 arg5,
     s32 arg6
 ) {
-    func_15195DD4(arg0->unk1C, arg1, arg2, arg3, arg4, arg5, arg6);
+    return func_15195DD4(arg0->unk1C, arg1, arg2, arg3, arg4, arg5, arg6);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15195FF0.s")

@@ -311,7 +311,6 @@ s32 func_1518FC04(void *arg0, void *arg1) {
     func_1514BE20((s32) temp_a0);
     return 1;
 }
-extern void func_1514BF50(void *arg0, void *arg1);
 
 s32 func_1518FC44(void *arg0, void *arg1) {
     typedef struct { s32 words[3]; } Copy3;
@@ -324,7 +323,7 @@ s32 func_1518FC44(void *arg0, void *arg1) {
     temp_a2 = arg0;
     temp_a0 = temp_a2->field2C;
     *(Copy3 *)((u8 *)temp_a0 + 0x34) = *(Copy3 *)arg1;
-    func_1514BF50(temp_a0, arg1);
+    func_1514BF50(temp_a0);
     return 1;
 }
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1518FC84 CURRENT (311) */

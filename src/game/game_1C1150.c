@@ -339,7 +339,6 @@ void func_151949F4(s32 arg0, Game1C1150ActorState *arg1, s32 arg2) {
     }
 }
 void func_1507DE4C(s32 arg0);
-void func_15138BC0(s32 arg0, s32 arg1, s32 arg2);
 void func_151949F4(s32 arg0, Game1C1150ActorState *arg1, s32 arg2);
 
 void func_15194A68(s32 arg0, s32 arg1, s32 arg2) {
