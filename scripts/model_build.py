@@ -5,6 +5,7 @@ import hashlib
 import json
 import struct
 import tempfile
+import zlib
 from pathlib import Path
 
 try:
@@ -21,6 +22,7 @@ INPUT_DIRECTORY = Path('build/assets/model-build/us')
 BANKS = (3, 9)
 CONTRACT = Path('config/model_build.us.json')
 sha256 = texture_build.sha256
+LEVEL6_ENCODER = dict(texture_build.ENCODERS['zlib'], level=6)
 
 
 def part_name(index: int, bank: int) -> str:
@@ -206,6 +208,32 @@ def encode_records(records: dict, *, bank: int) -> bytes:
     return payload
 
 
+def level6_selections(contract: dict) -> dict:
+    """Validate explicit reviewed overrides; old level-nine contracts stay valid."""
+    choices = contract.get('level6_entries', {'03': [], '09': []})
+    if not isinstance(choices, dict) or set(choices) != {'03', '09'}:
+        raise ValueError('invalid model level-six encoder selection')
+    for bank, entries in choices.items():
+        if (not isinstance(entries, list) or any(type(i) is not int for i in entries)
+                or entries != sorted(set(entries))
+                or not set(entries) <= set(contract['banks'][bank])):
+            raise ValueError('invalid model level-six encoder selection')
+    return choices
+
+
+def encode_model_payload(payload: bytes, encoder: dict) -> bytes:
+    if encoder == texture_build.ENCODERS['zlib']:
+        return rzip_pack.encode_rzip_chunk(payload)
+    if encoder != LEVEL6_ENCODER:
+        raise ValueError('unsupported reviewed model encoder')
+    compressor = zlib.compressobj(level=6, wbits=-15, memLevel=8, strategy=0)
+    packed = struct.pack('>I', len(payload)) + compressor.compress(payload) + compressor.flush()
+    decoded = rzip_archive.decode_rzip_chunk(packed)
+    if decoded.data != payload or decoded.consumed != len(packed):
+        raise ValueError('new model RZIP chunk did not validate after compression')
+    return packed
+
+
 def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
     """Review one bank independently, or the complete explicit selection."""
     if bank is not None and bank not in BANKS:
@@ -229,6 +257,7 @@ def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
                 or any(type(i) is not int or i < 0 for i in selected)
                 or selected != sorted(set(selected))):
             raise ValueError('invalid committed US model reconstruction selection')
+    level6 = level6_selections(contract)
     banks = rzip_archive.parse_asset_banks(rom, layout['asset_table'])
     result = []
     for bank_id in requested:
@@ -262,7 +291,9 @@ def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
             expected = {'schema_version': 1, 'profile': 'us', 'bank': bank_id, 'entry': entry.index,
                         'rom_sha1': digest, 'rom_start': entry.start, 'rom_end': entry.end,
                         'decoded_size': len(chunk.data), 'original_decoded_sha256': sha256(chunk.data),
-                        'original_stored_sha256': sha256(stored), 'encoder': contract['encoder']}
+                        'original_stored_sha256': sha256(stored),
+                        'encoder': (dict(LEVEL6_ENCODER) if entry.index in level6[f'{bank_id:02d}']
+                                    else contract['encoder'])}
             result.append((expected, records))
     return rom, result
 
@@ -321,9 +352,7 @@ def packed_model(directory: Path, expected: dict):
         raise input_error(directory, expected, str(error)) from error
     if len(payload) != expected['decoded_size'] or sha256(payload) != expected['original_decoded_sha256']:
         raise ValueError('model records no longer reconstruct original payload')
-    if expected['encoder'] != texture_build.ENCODERS['zlib']:
-        raise ValueError('unsupported reviewed model encoder')
-    packed = rzip_pack.encode_rzip_chunk(payload)
+    packed = encode_model_payload(payload, expected['encoder'])
     if (len(packed) != expected['rom_end'] - expected['rom_start']
             or sha256(packed) != expected['original_stored_sha256']):
         raise ValueError('reviewed model encoder differs from original RZIP storage')

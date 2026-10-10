@@ -359,6 +359,40 @@ class ModelBuildTests(unittest.TestCase):
                 targets.prepare_models(self.rom, output=output)
         self.assertEqual((output / 'model-build.log').read_text(), 'model compiler details')
 
+    def test_reviewed_level6_choices_reject_unselected_or_ambiguous_entries(self):
+        contract = {'banks': {'03': [1, 3], '09': [3]}}
+        self.assertEqual(build.level6_selections(contract), {'03': [], '09': []})
+        choices = {'03': [1], '09': [3]}
+        self.assertEqual(build.level6_selections(dict(contract, level6_entries=choices)), choices)
+        for choices in (None, {}, {'03': [1]}, {'03': [1], '04': []},
+                        {'03': [True], '09': []}, {'03': [2], '09': []},
+                        {'03': [1, 1], '09': []}, {'03': [3, 1], '09': []},
+                        {'03': '1', '09': []}, {'03': [[]], '09': []}):
+            with self.subTest(choices=choices), self.assertRaisesRegex(ValueError, 'encoder selection'):
+                build.level6_selections(dict(contract, level6_entries=choices))
+
+    def test_level6_build_uses_exact_declared_encoder_without_fallback(self):
+        expected = dict(self.expected, encoder=dict(build.LEVEL6_ENCODER))
+        packed = build.encode_model_payload(self.payload, expected['encoder'])
+        expected.update(rom_end=6 + len(packed), original_stored_sha256=build.sha256(packed))
+        (self.inputs / 'manifest.json').write_text(json.dumps(expected))
+        with patch.object(build.zlib, 'compressobj', wraps=build.zlib.compressobj) as compress, \
+                patch.object(build.rzip_pack, 'encode_rzip_chunk') as legacy:
+            actual, _ = build.packed_model(self.inputs, expected)
+        self.assertEqual(actual, packed)
+        self.assertEqual(build.rzip_archive.decode_rzip_chunk(packed).data, self.payload)
+        compress.assert_called_once_with(level=6, wbits=-15, memLevel=8, strategy=0)
+        legacy.assert_not_called()
+        for encoder in (dict(build.LEVEL6_ENCODER, level=5),
+                        dict(build.LEVEL6_ENCODER, memory_level=9),
+                        dict(build.LEVEL6_ENCODER, window_bits=15)):
+            with self.subTest(encoder=encoder), self.assertRaisesRegex(ValueError, 'unsupported'):
+                build.encode_model_payload(self.payload, encoder)
+        with patch.object(build, 'encode_model_payload', return_value=b'changed') as encode:
+            with self.assertRaisesRegex(ValueError, 'encoder differs'):
+                build.packed_model(self.inputs, expected)
+        encode.assert_called_once_with(self.payload, build.LEVEL6_ENCODER)
+
     def test_encoder_drift_is_not_accepted_or_retried(self):
         with patch.object(build.rzip_pack, 'encode_rzip_chunk', return_value=bytes(len(self.packed))) as encode:
             with self.assertRaisesRegex(ValueError, 'encoder differs'):
@@ -456,6 +490,17 @@ class ModelBuildTests(unittest.TestCase):
             _, selected = build.reviewed_models(self.root)
             self.assertEqual([e['bank'] for e, _ in selected], [3, 9])
             self.assertEqual(selected[0][0], self.expected)
+            choices = json.loads(contract.read_text())
+            choices['level6_entries'] = {'03': [], '09': [3]}
+            contract.write_text(json.dumps(choices))
+            _, override = build.reviewed_models(self.root)
+            self.assertEqual(override[0][0], self.expected)
+            self.assertEqual(override[1][0]['encoder'], build.LEVEL6_ENCODER)
+            del choices['level6_entries']
+            contract.write_text(json.dumps(choices))
+            consumers.reset_mock()
+            partitions.reset_mock()
+            build.reviewed_models(self.root)
             self.assertEqual([call.kwargs['bank'] for call in partitions.call_args_list], [3, 9])
             consumers.assert_called_once_with(b'code', 0x15000000)
             consumers.side_effect = ValueError('ROM direct-model consumer changed')

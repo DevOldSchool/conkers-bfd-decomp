@@ -1,9 +1,9 @@
 # US model reconstruction
 
-The current selection reconstructs **293 models**, totaling **166,257 stored
-RZIP bytes**: 36 bank-03 direct models, 185 bank-09 direct models and 72 bank-09
-three-pair attachment models. The [normal-table expansion](#normal-table-expansion)
-and [attachment expansion](#attachment-expansion) retain complete native records.
+The current selection reconstructs **506 models**, totaling **370,270 stored
+RZIP bytes**: 55 bank-03 direct models, 296 bank-09 direct models and 155 bank-09
+three-pair attachment models. The expansions below retain complete native records
+and explicitly reviewed compression settings.
 
 The first model storage batch selected 22 direct bank-03 models from the
 checksum-validated US ROM (SHA-1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`).
@@ -51,7 +51,7 @@ size/hash. Edited geometry is retained but rejected by this exact-match build;
 this command is not a ROM model-editing workflow. Compression drift fails
 without choosing another encoder or falling back to original ROM bytes.
 
-`./conker build --assets` links 293 reconstructed objects under
+`./conker build --assets` links 506 reconstructed objects under
 `build/us/assets/models/bank03/` and `bank09/`. The ordinary default build
 continues to use the original banks. Each native report candidate is copied from the actual
 model linker object and checked against a fresh encode of the current source.
@@ -425,3 +425,58 @@ Native report SHA-256:
 
 Validation ran before committing the same source inputs. Private logs and audits
 are `build/model-attachment-*`; generated records, ROMs and reports remain ignored.
+
+
+## Level-six compression expansion
+
+A bounded compression audit found that all 213 previously structured models
+whose level-nine compression differed reproduce their complete original stored
+bytes with zlib level six. This adds 19 bank-03 direct models, 111 bank-09 direct
+models and 83 attachments: 415,128 decoded bytes and 204,013 stored bytes.
+The complete selection is 506 models, 709,600 decoded bytes and 370,270 stored
+bytes. Per-entry ranges and hashes are in the [selection audit](us_model_level6_reconstruction.json).
+
+The schema-two contract's optional `level6_entries` maps each bank to a sorted,
+unique subset of its selected entries. Those entries explicitly use raw DEFLATE
+level six, window bits -15, memory level eight and strategy zero. All previous
+entries retain their level-nine contracts and unchanged editable manifests.
+Missing overrides preserve the earlier contract semantics. Invalid or unselected
+overrides fail before reconstruction. There is no automatic encoder search or
+fallback while building, recovering inputs or producing a report.
+
+Each candidate is freshly compressed once with its declared encoder, decoded
+again, and compared against the original stored size/hash and ROM bytes. The
+record parsers, original consumer proofs and independent native target path
+remain unchanged. These exact outputs establish a reproducible encoder contract;
+they do not identify the original game's compressor implementation.
+
+### Level-six acceptance, 11 October 2026
+
+- All 506 selected models reconstruct 709,600 decoded bytes and 370,270 stored
+  bytes exactly. Independent assembly also reproduces both complete banks:
+  62,440 bytes in bank 03 and 362,320 bytes in bank 09.
+- Every one of the 213 new entries reproduces its original stored bytes with
+  level six and differs with level nine. The 586 source files belonging to the
+  previous 293 models retain their exact hashes.
+- The full Docker suite runs 2,351 tests with eight skips and no failures.
+  All 34 focused model tests pass, including explicit encoder selection,
+  malformed overrides, unsupported parameters and no fallback on encoder drift.
+- `./conker build --assets` passes. Independent comparison confirms all
+  67,108,864 bytes equal the original US ROM, SHA-1
+  `4cbadd3c4e0729dec46af64ad018050eada4f47a`.
+- A fresh native report validates 8,383 units with no compile errors. All 506
+  model units are fully matched and complete, totaling 370,270 stored bytes.
+- Data is 8,661,506 / 65,120,512 matched bytes (13.300734%); 8,660,738 bytes
+  are complete (13.299555%). Both counts gain exactly 204,013 bytes.
+- All prior reconstructed unit measures and all Code measures remain unchanged.
+  The corresponding unreconstructed bank spans shrink by exactly the new stored
+  bytes, preserving the Data denominator.
+- Snapshot status is `current`; canonical progress and whitespace checks pass.
+
+Source fingerprint:
+`7a715d7ef5e9cdb0dc97c127dc95163c358de8c0403e431369a8c0b7f6eb9f9b`.
+Native report SHA-256:
+`11263e9878662c8f8ba14399f7cc6a160958025a9b92b357f472598ec0592b1e`.
+
+Validation ran before committing the same source inputs. Private logs and audits
+are `build/model-level6-*`; generated records, ROMs and reports remain ignored.
