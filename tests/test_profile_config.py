@@ -156,7 +156,7 @@ class ProfileConfigTests(unittest.TestCase):
     def test_renamed_required_asset_groups_report_profile_and_group(self):
         repository = Path(__file__).resolve().parent.parent
         original = profile_config.load_profile(repository / 'config/profiles/us.yaml')
-        for name in ('font_rle', 'asset_bank_16', 'asset_bank_17'):
+        for name in ('font_rle', 'asset_bank_16', 'asset_bank_17', 'assets_flat_rzip'):
             with self.subTest(group=name):
                 document = yaml.safe_load(yaml.safe_dump(original))
                 group = next(s for s in document['segments']

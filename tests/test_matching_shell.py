@@ -11,6 +11,66 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 class MatchingShellTests(unittest.TestCase):
+    def test_texture_build_uses_pinned_container_without_moving_host_surveys(self):
+        script = (ROOT / 'scripts/conker.sh').read_text()
+        dispatch = '    texture-assets)' + script.split('    texture-assets)', 1)[1].split('        ;;', 1)[0] + '        ;;\n'
+        harness = '''set -euo pipefail
+python3() { printf 'host:%s\\n' "$*"; }
+run_in_container() { printf 'container:%s\\n' "$*"; }
+'''
+        for command in ('build', 'verify', 'survey', 'extract'):
+            with self.subTest(command=command):
+                result = subprocess.run(['bash', '-c', harness + 'case texture-assets in\n'
+                                         + dispatch + 'esac\n', 'test', command],
+                                        capture_output=True, text=True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                expected = ('container:python3 scripts/texture_assets.py ' if command == 'build'
+                            else 'host:scripts/texture_assets.py ') + command
+                self.assertEqual(result.stdout.strip(), expected)
+
+    def test_build_dispatch_parallelizes_sdk_and_rom_and_stops_on_sdk_failure(self):
+        script = (ROOT / 'scripts/conker.sh').read_text()
+        dispatch = '    prepare|build)' + script.split('    prepare|build)', 1)[1].split('        ;;', 1)[0] + '        ;;\n'
+        harness = '''set -euo pipefail
+state_tool=state-tool
+die() { printf "%s\\n" "$*" >&2; exit 2; }
+command=$1
+shift
+python3() { if [[ "$1" == */build_jobs.py ]]; then command python3 "$@"; fi; }
+parse_profile_only() { selected_profile="${3:-us}"; }
+run_in_container_libultra() { printf 'SDK:%s\\n' "$*"; return "$sdk_status"; }
+run_in_container() { printf 'ROM:%s\\n' "$*"; }
+'''
+        helper = script.split('configure_build_jobs() {', 1)[1].split('\n}\n', 1)[0]
+        harness += f'repo_root={str(ROOT)!r}\nconfigure_build_jobs() {{' + helper + '\n}\n'
+        harness += 'unset CONKER_JOBS\n'
+        for command, arguments, profile, sdk, assets, refresh, jobs in (
+                ('build', ['--all'], 'us', True, 0, 0, 4),
+                ('build', [], 'us', True, 0, 0, 4),
+                ('build', ['--profile', 'us'], 'us', True, 0, 0, 4),
+                ('build', ['--profile', 'eu'], 'eu', False, 0, 0, 4),
+                ('prepare', ['--all'], 'us', False, 0, 0, 4),
+                ('build', ['--all', '--assets', '--jobs', '1', '--refresh'], 'us', True, 1, 1, 1),
+                ('prepare', ['--assets', '--profile', 'us'], 'us', False, 1, 0, 4)):
+            for status in (0, 7) if sdk else (0,):
+                with self.subTest(command=command, arguments=arguments, status=status):
+                    result = subprocess.run(['bash', '-c', harness + f'sdk_status={status}\n'
+                                             + 'case "$command" in\n' + dispatch + 'esac\n',
+                                             'test', command, *arguments], capture_output=True, text=True)
+                    mode = 'rebuilt' if assets else 'original'
+                    timing = f'python3 scripts/build_timing.py --profile {profile} --mode {mode}'
+                    expected = [f'SDK:{timing} --stage sdk -- make --jobs {jobs} profile-libs PROFILE=us'] if sdk else []
+                    if not status:
+                        expected.append(f'ROM:{timing} --stage {command} -- make --jobs {jobs} {command} PROFILE={profile} ASSETS={assets} REFRESH={refresh}')
+                    self.assertEqual(result.returncode, status, result.stderr)
+                    self.assertEqual([line for line in result.stdout.splitlines() if not line.startswith("TIMING ")], expected)
+        for arguments in (['--jobs', '0'], ['--jobs', 'invalid'], ['--jobs']):
+            result = subprocess.run(['bash', '-c', harness + 'sdk_status=0\n'
+                                     + 'case "$command" in\n' + dispatch + 'esac\n',
+                                     'test', 'build', *arguments], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 2, result.stderr)
+            self.assertNotIn('ROM:', result.stdout)
+
     def test_finish_wrapper_and_existing_gate_actions(self):
         script = (ROOT / "scripts/conker.sh").read_text()
         dispatch = "    finish)" + script.split("    finish)", 1)[1].split("        ;;", 1)[0] + "        ;;\n"

@@ -356,11 +356,13 @@ segments:
     align: 1
     subalign: 1
   - name: assets_flat_rzip
-    type: bin
+    type: group
     start: 0x1A37E0
     follows_vram: unassigned_after_debugger
     align: 1
     subalign: 1
+    subsegments:
+      include: us/assets/flat.yaml
   - name: assets_flat_gap
     type: bin
     start: 0xAB1941
