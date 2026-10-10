@@ -11336,7 +11336,7 @@
         "us": {
           "end": "0x11EF40",
           "start": "0x11E780",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_14BC30.c"

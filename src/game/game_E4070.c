@@ -10,7 +10,6 @@
  * - func_150B6D34
  * - func_150B6E3C
  * - func_150B7220
- * - func_150B73F0
  * - func_150B76BC
  * - func_150B77A8
  * - func_150B791C
@@ -378,28 +377,25 @@ void func_150B7220(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B7220 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B7220.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B73F0 CURRENT (80) */
 void func_150B73F0(void *arg0) {
-    s16 target_x;
     s16 target_y;
+    s16 target_x;
     s16 scale;
+    s16 start_y;
     s32 divisor;
-    s16 temp_v0;
-    s16 temp_v1;
+    s16 start_x;
     s32 temp_lo;
 
-    temp_v0 = *(s16 *)((u8 *)arg0 + 0x18);
-    scale = *(s16 *)((u8 *)arg0 + 0x24);
-    divisor = *(s32 *)((u8 *)arg0 + 0x1C);
-    temp_lo = (s32) (scale << 0x10) / divisor;
+    start_x = *(s16 *)((u8 *)arg0 + 0x18);
+    start_y = *(s16 *)((u8 *)arg0 + 0x1A);
     target_x = *(s16 *)((u8 *)arg0 + 0x20);
-    temp_v1 = *(s16 *)((u8 *)arg0 + 0x1A);
     target_y = *(s16 *)((u8 *)arg0 + 0x22);
-    *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (((s32) ((target_x - temp_v0) * temp_lo) >> 0x10) + temp_v0);
-    *(f32 *)((u8 *)arg0 + 0x30) = (f32) (((s32) ((target_y - temp_v1) * temp_lo) >> 0x10) + temp_v1);
+    divisor = *(s32 *)((u8 *)arg0 + 0x1C);
+    scale = *(s16 *)((u8 *)arg0 + 0x24);
+    temp_lo = (scale * 0x10000) / divisor;
+    *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (((s32) ((target_x - start_x) * temp_lo) >> 0x10) + start_x);
+    *(f32 *)((u8 *)arg0 + 0x30) = (f32) (((s32) ((target_y - start_y) * temp_lo) >> 0x10) + start_y);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B73F0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B73F0.s")
 
 
 extern u8 D_800918DC;
