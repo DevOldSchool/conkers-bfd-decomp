@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1312F0.c
@@ -30,10 +31,8 @@ f32 func_150ADA68(void);
 void func_150E7FEC(f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_150E83AC(void *, s16, u8, s32);
 void func_151541B8(s32, f32, s32, f32, f32, u8, s32);
-void func_151D3FF4(s32, u8, s32);
 void func_151D40D4(void *, s32, s32, s32, s32, s32, s32, s32);
 void func_151D5334(s32, s32, s32, s32, s32, s32, s32);
-void func_151D5404(void *, f32, f32, f32, s16, s16);
 void func_151D5514(s32, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15103E40 CURRENT (2996) */

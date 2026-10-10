@@ -52,5 +52,7 @@ void func_1515F170(s32, u8);
 void func_151D3F14(void *, u8, s32);
 void *func_15167D84(void *, s32, s32, s8, u8, s32);
 void func_151616D0(u8, u8, s32);
+void func_151D5404(void *, f32, f32, f32, s16, s16, s32, s32);
+void func_151D3FF4(f32 *, u8, s32);
 
 #endif

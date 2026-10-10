@@ -2266,8 +2266,7 @@ typedef struct {
 } Game981E0Position;
 
 extern Game981E0CopiedVector D_80099BA0, D_80099BAC;
-void func_151D5404(Game981E0Position *, s32, s32, s32, s32, s32, s32, s32);
-void func_151D5334(s32, s32, s32, s32, s32, s32, s32);
+void func_151D5334(f32 *, f32, f32, f32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15070F60 CURRENT (828) */
 void func_15070F60(s32 arg0) {
@@ -2318,10 +2317,10 @@ void func_15070F60(s32 arg0) {
         func_151602C0((u8 *)&descriptor, position,
                       func_150ADA20() % 201U + 55,
                       0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0xFF, 0);
-        func_151D5404(&transformed, 0x43FD0000, 0x447D4000,
-                      0x3A8163D3, 0xF, 0x14, 0xFF, 0);
-        func_151D5334((s32)&transformed, 0x43FD0000, 0x447D4000,
-                      0x3A8163D3, 5, 0xFF, 0);
+        func_151D5404(&transformed, 506.0f, 1013.0f,
+                      0.0009871669f, 0xF, 0x14, 0xFF, 0);
+        func_151D5334((f32 *)&transformed, 506.0f, 1013.0f,
+                      0.0009871669f, 5, 0xFF, 0);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15070F60 */
@@ -2451,7 +2450,6 @@ typedef struct {
     Game981E0Position position;
 } Game981E0PositionSource;
 
-void func_151D5404(Game981E0Position *, s32, s32, s32, s32, s32, s32, s32);
 
 void func_150716EC(s32 arg0) {
     Game981E0Position position;
@@ -2461,7 +2459,7 @@ void func_150716EC(s32 arg0) {
     position.x = source->position.x;
     position.y = source->position.y;
     position.z = source->position.z;
-    func_151D5404(&position, 0x44BBC000, 0x453B8000, 0x39AEC33E, 0xC, 0xF, 0xFF, 0);
+    func_151D5404(&position, 1502.0f, 3000.0f, 0.00033333333f, 0xC, 0xF, 0xFF, 0);
 }
 void *func_15083E90(u8);
 void func_150F0BEC(void *);

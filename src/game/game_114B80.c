@@ -214,7 +214,6 @@ typedef struct GameE81A8Event {
 } GameE81A8Event;
 
 void func_1514FCE8(s16 *, s32, s32);
-void func_151D3FF4(s32, u8, s32);
 void *func_151D8868(s8 *, s32, s32, s32);
 extern GameE81A8Position D_800A1290[];
 extern f32 D_800A1354, D_800A1358, D_800A135C, D_800A1360, D_800A1364;

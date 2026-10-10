@@ -11,8 +11,6 @@ s32 func_150B2480(s32 arg0, s32 arg1) {
 }
 u32 func_150ADA20(void);
 void func_1514C678(f32, f32, f32, f32, s32, s32, s32, s32, s32, f32, s32, s32);
-void func_151D5404(f32 *, s32, s32, s32, s32, s32, s32, s32);
-void func_151D3FF4(s32, u8, s32);
 
 void func_150B2494(void *arg0, s32 arg1, s32 arg2) {
     f32 position[3];
@@ -23,9 +21,9 @@ void func_150B2494(void *arg0, s32 arg1, s32 arg2) {
     func_1514C678(position[0], position[1], position[2], 135.0f,
                   0, 0xFF, (func_150ADA20() % 15U) + 0x1B,
                   7, 0, 0.0f, 0, 0xFF);
-    func_151D5404(position, 0x44BBC000, 0x453B8000, 0x39AEC33E,
+    func_151D5404(position, 1502.0f, 3000.0f, 0.00033333333f,
                   0xC, 0xF, 0xFF, 0);
-    func_151D3FF4((s32)position, 0xFF, 0);
+    func_151D3FF4(position, 0xFF, 0);
 }
 void func_151429E0(u8, u8 *, u8 *, u8 *);
 void func_15156190(s32, u8, s32, u8, s32);
