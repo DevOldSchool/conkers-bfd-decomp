@@ -58,7 +58,6 @@ s8 func_150C673C(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C673C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F3BA0/func_150C673C.s")
-extern void func_1513F6C0(void *arg0, s32 arg1, s32 arg2);
 
 s32 func_150C682C(void *arg0) {
     u8 (*temp_v0)[0x58];

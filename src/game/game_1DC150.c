@@ -35,7 +35,6 @@ u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_15153F18(s16 *, void *, void *, s32, s32);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
-void func_151DAB58(u8, f32, u8, f32 *, s32, u8, s32);
 void func_15136698(f32, f32, s32, s32, s32, void *, void *, s32, s32, s32, s32);
 extern f32 D_800A9DA8, D_800A9DAC, D_800A9DB0, D_800A9DB4, D_800A9DB8;
 extern f32 D_800A9DBC, D_800A9DC0, D_800A9DC4, D_800A9DC8;

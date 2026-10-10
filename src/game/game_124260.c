@@ -179,7 +179,6 @@ typedef struct Game124260Root {
 void func_15145740(void *, void *, void *, void *, f32);
 void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *,
                   f32, s32, s32, s32, s32, s32, s32);
-s32 func_1506196C(u8 *, s32);
 void func_1502EA98(void *, s32, s32, s32, s32, s32, s32);
 extern f32 D_800D9A50[3];
 extern f32 D_800A1BB4, D_800A1BB8;
@@ -263,7 +262,6 @@ void func_150F7310(void *arg0, void *arg1, u8 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F7310 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_124260/func_150F7310.s")
 /* Call context: func_1514EDF0: unique active project prototype */
-void func_1514EDF0(s32, s32);
 
 void func_150F739C(u8 *arg0) {
     s32 var_s0;
@@ -281,7 +279,7 @@ void func_150F739C(u8 *arg0) {
         var_s0++;
         var_s0 &= 0xFF;
     } while (var_s0 < 2);
-    func_1514EDF0(arg0, *(s32 *)state);
+    func_1514EDF0(arg0, *(void **)state);
 }
 void func_150F740C(void *arg0) {
     func_150F739C(arg0);

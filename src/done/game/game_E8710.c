@@ -30,8 +30,6 @@ typedef struct {
     s16 fieldB2;
 } Func150BB408State;
 
-extern void func_1513F6C0(void *arg0, s32 arg1, s32 arg2);
-
 void func_150BB408(Func150BB408State *arg0) {
     arg0->field18 |= 1;
     arg0->field1C = 0x32;

@@ -84,7 +84,6 @@ typedef struct {
 } Game13AE20RenderState;
 
 void func_150A7D00(volatile s64 *, f32, f32, f32);
-s32 func_1506196C(u8 *, s32);
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 extern s32 D_80091770[];
 extern u8 D_800BE9C0;

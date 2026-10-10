@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_call_singletons.md
  */
 
-void func_1516962C(s32, void *, s32);
 extern f32 D_800A9D80;
 
 typedef struct Game1DBC60Packet {

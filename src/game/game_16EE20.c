@@ -60,15 +60,13 @@ enum {
     MODEL_RED_DINOSAUR = 165
 };
 
-void func_1514EDF0(s32 arg0, s32 arg1);
-
-void func_15141970(s32 *arg0) {
-    func_1514EDF0((s32)arg0, arg0[0xB]);
+void func_15141970(void **arg0) {
+    func_1514EDF0(arg0, arg0[0xB]);
 }
-void func_15141990(s32 *arg0) {
+void func_15141990(void **arg0) {
     func_15141970(arg0);
 }
-void func_151419B0(s32 *arg0) {
+void func_151419B0(void **arg0) {
     func_15141970(arg0);
 }
 
@@ -271,7 +269,6 @@ void func_15141DA4(s32 actorAddress, s32 selectorCallbackIndex, s32 effectHandle
     }
 }
 s32 func_1514ECE0(void *, s32, void **);
-void func_1514EC1C(void *, void *, s32);
 void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15141E38 CURRENT (1418) */

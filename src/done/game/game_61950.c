@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_61950.c
@@ -85,7 +86,6 @@ void func_150345E4(s32 arg0) {
         }
     }
 }
-s32 func_1502DB20(u8);                              /* extern */
 
 void func_15034728(Game61950Actor *arg0) {
     s32 count;

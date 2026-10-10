@@ -182,7 +182,6 @@ s32 func_1514672C(f32 *);
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
 void func_151D9FC0(u8, f32, u8, s32, f32 *, u8, s32);
-void func_151DAB58(u8, f32, u8, f32 *, s32, u8, s32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 extern f32 D_800AB44C, D_800AB450, D_800AB454, D_800AB458, D_800AB45C, D_800AB460;
@@ -578,7 +577,6 @@ void *func_151DA6F8(Game2062D0Vector3 *arg0, Game2062D0Vector3 *arg1,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DA6F8.s")
 
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
-void func_151DAB58(u8, f32, u8, f32 *, s32, u8, s32);
 extern f32 D_800AB49C;
 typedef struct {
     f32 x;

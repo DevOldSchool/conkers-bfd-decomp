@@ -51,26 +51,25 @@ void func_1519CFA0(Game1CA420Actor *arg0) {
 }
 /* Call context: func_151478F4: unique active project prototype */
 /* Call context: func_1514EDF0: unique active project prototype */
-void func_151478F4(s32);
-void func_1514EDF0(s32, s32);
+void func_151478F4(void *);
 
 void func_1519CFD0(void *arg0) {
-    s32 *temp_v0;
+    void **temp_v0;
 
-    temp_v0 = *(s32 **)((u8 *)arg0 + 0x98);
-    func_1514EDF0((s32) arg0, *temp_v0);
-    func_151478F4((s32) arg0);
+    temp_v0 = *(void ***)((u8 *)arg0 + 0x98);
+    func_1514EDF0(arg0, *temp_v0);
+    func_151478F4(arg0);
 }
 /* Call context: func_15147928: unique active project prototype */
 /* Call context: func_1514EDF0: unique active project prototype */
-void func_15147928(s32);
+void func_15147928(void *);
 
 void func_1519D000(void *arg0) {
-    s32 *temp_v0;
+    void **temp_v0;
 
-    temp_v0 = *(s32 **)((u8 *)arg0 + 0x98);
-    func_1514EDF0((s32) arg0, *temp_v0);
-    func_15147928((s32) arg0);
+    temp_v0 = *(void ***)((u8 *)arg0 + 0x98);
+    func_1514EDF0(arg0, *temp_v0);
+    func_15147928(arg0);
 }
 typedef struct Game1CA420Vector {
     f32 x;
@@ -314,7 +313,6 @@ s32 func_1519D240(Game1CA420Trail *arg0) {
     }
     return 1;
 }
-void func_1514EC1C(s32, s32, s32);
 s32 func_1514ED3C(void *, s32, void **);
 u32 func_150ADA20(void);
 extern f32 D_800BE9A8;
@@ -834,7 +832,6 @@ typedef struct Game1CA420Effect {
 } Game1CA420Effect;
 
 s32 func_1514ED3C(void *, s32, void **);
-void func_1514EC1C(s32, s32, s32);
 
 void func_1519E464(Game1CA420Effect *arg0) {
     struct {
@@ -1018,14 +1015,13 @@ void func_1519E818(u8 *arg0, Game1CA420Event *arg1, u8 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519E818.s")
 /* Call context: func_1514933C: unique active project prototype */
 /* Call context: func_1514EDF0: unique active project prototype */
-void func_1514EDF0(s32, s32);
 
 void func_1519E8CC(void *arg0) {
-    func_1514EDF0((s32) arg0, *(s32 *)((u8 *)arg0 + 0x28));
+    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x28));
     func_1514933C(arg0);
 }
 void func_1519E8F8(void *arg0) {
-    func_1514EDF0((s32) arg0, *(s32 *)((u8 *)arg0 + 0x28));
+    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x28));
     func_15149368(arg0);
 }
 /* Call context: func_1514933C: unique active project prototype */

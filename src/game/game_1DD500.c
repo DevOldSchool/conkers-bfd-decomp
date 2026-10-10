@@ -243,7 +243,6 @@ void *func_151B09BC(Game1DD500Owner *arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B0B88.s")
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
-void func_151DAB58(u8, f32, u8, f32 *, s32, u8, s32);
 extern f32 D_800AA2F0;
 extern f32 D_800AA2F4;
 extern f32 D_800AA2F8;

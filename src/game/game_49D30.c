@@ -448,7 +448,6 @@ s32 func_100127D0(void);
 void func_151F2BA8(void);
 void *func_15072208(void *, s32);
 void func_15060F28(u8 *, s32);
-void func_1517EE40(s32, s32, s32, s32, s8, s32);
 void func_1000E17C(void);
 extern u8 D_800C35A9;
 extern u8 D_800C35C4;
@@ -533,7 +532,6 @@ s32 func_1501E05C(s32 arg0) {
     }
     return 0;
 }
-void func_1517EE40(s32, s32, s32, s32, s8, s32);
 void func_1000E17C(void);
 void func_1501DF04(s32);
 s32 func_1501E05C(s32);

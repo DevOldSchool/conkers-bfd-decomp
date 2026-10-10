@@ -26,7 +26,6 @@ typedef struct Game3F560Descriptor {
     u8 field_A;
 } Game3F560Descriptor;
 
-void func_15190770(Game3F560Descriptor *, s32, u8, s32);
 extern s32 D_800BE9F0;
 
 void *func_10022EC0(void *, const void *, u32);

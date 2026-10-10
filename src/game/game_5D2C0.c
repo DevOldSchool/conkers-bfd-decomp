@@ -150,7 +150,6 @@ s32 func_1502FFD8(u8 *arg0, u8 *arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_1502FFD8.s")
 void func_15031C14(void *);
 void func_100043B4(s32, s32);
-void func_1503F7B8(void *);
 void func_1518CA04(s32);
 extern void *D_800C3EE0;
 
@@ -466,7 +465,6 @@ void func_15030D54(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
 /* Call context: func_15083E90: unique active project prototype */
 void * func_15083E90(u8);
 s32 func_150311C4(s32, void *, void *, s32, s32);   /* extern */
-s32 func_1506196C(void *, s32);                     /* extern */
 extern void * D_800C3EE0;
 
 s32 func_15030E08(s32 arg0, s32 arg1, s32 arg2) {

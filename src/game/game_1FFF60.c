@@ -262,7 +262,6 @@ void func_151D2F90(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2F90.s")
 extern void (*D_8008FC48[])(void *, void *);
 extern void (*D_8008FC5C[])(s32);
-void func_1514EDF0(s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3130 CURRENT (415) */
 void func_151D3130(u8 *arg0) {
@@ -286,7 +285,7 @@ void func_151D3130(u8 *arg0) {
         var_s0 = temp_s1;
         } while (var_s0 != 0);
     }
-    func_1514EDF0(arg0, *(s32 *)((u8 *)arg0 + 0x10));
+    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x10));
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D3130 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D3130.s")

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1A0100.c
@@ -17,8 +18,6 @@ void func_15172C50(s32 arg0) {
     }
     D_800DD2C0[0] = arg0;
 }
-
-void func_1517EE40(s32, s32, s32, s32, s32, s32);
 
 void func_15172CA8(s32 arg0) {
     s8 *temp_v0;

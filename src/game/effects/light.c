@@ -57,7 +57,6 @@ extern f32 D_800A6ADC;
 extern f32 D_800A6AE0;
 
 void func_15163CF8(s32 arg0, s32 arg1);
-void func_1514EDF0(s32 arg0, s32 arg1);
 void func_1516944C(s32 arg0, s8 *arg1, u8 arg2);
 
 typedef struct LightEntry {
@@ -625,19 +624,19 @@ void func_151616D0(u8 arg0, u8 arg1, s32 arg2) {
 }
 
 void func_15161714(void *arg0) {
-    func_1514EDF0((s32)arg0, *(s32 *)((u8 *)arg0 + 0x18));
+    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x18));
     func_151617C4(arg0);
 }
 void func_15161740(void *arg0) {
-    func_1514EDF0((s32)arg0, *(s32 *)((u8 *)arg0 + 0x18));
+    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x18));
     func_151617E4(arg0);
 }
 void func_1516176C(void *arg0) {
-    func_1514EDF0((s32)arg0, *(s32 *)((u8 *)arg0 + 0x18));
+    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x18));
     func_151617C4(arg0);
 }
 void func_15161798(void *arg0) {
-    func_1514EDF0((s32)arg0, *(s32 *)((u8 *)arg0 + 0x18));
+    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x18));
     func_151617E4(arg0);
 }
 void func_151617C4(void *arg0) {

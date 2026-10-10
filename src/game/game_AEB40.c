@@ -382,7 +382,6 @@ void func_150836CC(void *arg0, s32 arg1) {
 extern u8 *D_800D1C90[];
 extern u16 D_800C5A90[];
 s32 func_1502B020(s32, s32, s32, s32);
-void func_15062BDC(void *, s32, s32, s32);
 s8 func_15084D00(void *);
 
 /* Semantic role: actor_assign_model.

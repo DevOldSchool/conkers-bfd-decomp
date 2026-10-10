@@ -740,7 +740,6 @@ void func_15076CCC(void) {
 void func_15076D04(void) {
     *(f32 *)((u8 *)D_800D154C + 0x3C) = (f32)(u32)D_800D1890;
 }
-void func_15062BDC(GameA28B0State *, f32, f32);
 extern f32 D_8009A144;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15076D3C CURRENT (180) */
@@ -1062,7 +1061,6 @@ void func_150779A8(void) {
     func_15075650();
     D_800D154C->pad223[0] = 0xB;
 }
-f32 func_1505A6F8(GameA28B0State *, s32 *);
 extern u8 D_800C3E78;
 extern s32 D_800CC2D0;
 
@@ -1216,7 +1214,6 @@ void func_15077F64(void) {
         func_15056A00(D_800D154C, angle, mode);
     }
 }
-f32 func_1505A6F8(GameA28B0State *, s32 *);         /* extern */
 extern u8 D_800C3E78;
 extern s32 D_800CC2D0;
 
@@ -1272,7 +1269,6 @@ void func_150782E8(void) {
         func_15075400((s32) D_800D1890);
     }
 }
-s32 func_15083FB0(s32);
 
 void func_15078358(void) {
     s32 temp_v0;

@@ -34,7 +34,6 @@ typedef struct Game1DC720Actor {
 
 extern f32 D_800A9DCC;
 extern f32 D_800A9DD0;
-void func_1516962C(s32, void *, s32);
 
 void *func_151AF270(Game1DC720Actor *arg0, u8 arg1, s32 arg2) {
     void *result;

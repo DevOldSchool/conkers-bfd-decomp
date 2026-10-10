@@ -264,7 +264,6 @@ void func_150D0134(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
         func_10022EC0(object->field_48, &slot.value, 1);
     }
 }
-void func_1504332C(u8, u8, u8, u8);
 void func_15042D94(s32, s32, u8, s32);
 extern s32 D_800BE9E4;
 

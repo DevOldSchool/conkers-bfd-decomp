@@ -37,7 +37,6 @@ typedef struct Game113D60Effect {
 f32 func_15047D60(f32);
 f32 func_150ADA68();
 s32 func_150ADA20(void);
-void func_151436B4(f32, f32, f32, void *);
 f32 func_15144528(f32, f32, f32);
 void *func_150E5FD0(void *, void *, f32, f32, f32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A1304, D_800A1308, D_800BE9A4;

@@ -14,7 +14,6 @@
 void func_15190454(void *arg0);
 void func_1000FD38(void *, void *, s32);
 void func_151D2B4C(s32);
-void func_1518E298(void);
 
 void func_15190490(void *arg0) {
     func_15190454(arg0);

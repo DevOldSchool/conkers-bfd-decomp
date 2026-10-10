@@ -183,7 +183,6 @@ s32 func_1514D4B8(s16 arg0, s16 arg1) {
     return 0;
 }
 void *func_10022EC0(void *, const void *, u32);
-s32 func_1514EC1C(s32, s32, s16);
 s32 func_150C5370(f32 *, s32);
 extern f32 D_800A5DE4;
 extern f32 D_800A5DE8;
@@ -248,7 +247,6 @@ extern u8 D_800A58E4[];
 extern u8 D_800A58F8[];
 extern u8 D_800A590C[];
 
-s32 func_1514EC1C(s32, s32, s16);
 void *func_15160A58(void *, s32, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A5DF4;
 extern f32 D_800A5DF8;
@@ -420,7 +418,6 @@ typedef struct {
 
 void *func_10022EC0(void *, const void *, u32);
 extern s32 func_15158BD0(s32, s32, s32);
-extern s32 func_1514EC1C(s32 arg0, s32 arg1, s16 arg2);
 
 void func_1514D978(s32 arg0) {
     Game179F30LargePacket packet;
@@ -636,7 +633,6 @@ void func_1514DE94(s32 arg0) {
     func_1514EC1C((s32)effect, arg0, 0x19);
 }
 /* Call context: func_15083FB0: unique active project prototype */
-u8 func_15083FB0(u8);
 
 void func_1514DFD0(void *arg0) {
     *(s8 *)((u8 *)arg0 + 0x65) = (s8) (func_15083FB0(9U) + 1);
@@ -1224,7 +1220,7 @@ s32 func_1514ECE0(void *arg0, s16 arg1, void **arg2) {
     }
     return var_v1;
 }
-s32 func_1514ED3C(void *arg0, s32 arg1, void **arg2) {
+s32 func_1514ED3C(void *arg0, void *arg1, void **arg2) {
     s32 var_v1;
     void *var_v0;
     void *next;
@@ -1233,7 +1229,7 @@ s32 func_1514ED3C(void *arg0, s32 arg1, void **arg2) {
     var_v0 = arg0;
     while ((var_v0 != 0) && (var_v1 == 0)) {
         next = *(void **)((u8 *)var_v0 + 0x14);
-        if (arg1 == *(s32 *)((u8 *)var_v0 + 0x10)) {
+        if (arg1 == *(void **)((u8 *)var_v0 + 0x10)) {
             var_v1 = 1;
         } else {
             var_v0 = next;
@@ -1266,7 +1262,7 @@ s32 func_1514ED8C(void *arg0, void *arg1) {
 }
 /* Call context: func_1514ED8C: unique active project prototype */
 
-void func_1514EDF0(s32 arg0, void *arg1) {
+void func_1514EDF0(void *arg0, void *arg1) {
     s32 temp_v0;
     void *var_s1;
 

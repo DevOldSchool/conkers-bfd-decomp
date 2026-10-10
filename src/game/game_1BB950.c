@@ -11,12 +11,11 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_1514EDF0(s32 arg0, s32 arg1);
 void func_1518E308(void *arg0);
 
 void func_1518E4A0(void *arg0) {
     func_1518E308(arg0);
-    func_1514EDF0((s32) arg0, *(s32 *)((u8 *)arg0 + 0x18));
+    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x18));
 }
 void func_1518E4CC(void *arg0) {
     func_1518E4A0(arg0);

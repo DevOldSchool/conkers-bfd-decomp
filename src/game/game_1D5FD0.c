@@ -96,7 +96,6 @@ typedef struct {
 } Game1D5FD0State;
 
 f32 func_150ADA68(void);
-s32 func_151464B8(void *);
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_151A8F1C(Game1D5FD0State *, f32 *, f32 *, f32 *);
 void func_151A8F6C(Game1D5FD0State *, f32 *, f32 *, f32 *);

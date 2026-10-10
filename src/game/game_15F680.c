@@ -265,7 +265,6 @@ void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
 void *func_15132A4C(void *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
     return func_1513264C(arg0, arg1, arg2, 0, arg3, arg4, arg5);
 }
-s32 func_151464B8(s32, void *);
 typedef s32 (*Game15F680Callback)(void *, void *);
 extern Game15F680Callback D_8008998C[];
 extern u8 D_800BE9C0;

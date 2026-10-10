@@ -206,7 +206,6 @@ s32 func_1519021C(s32, u8 *, u8, s16, u8, s32);
 void func_151D2AB0(s32);
 void *func_151D2F00(void *, s32, u8, s32);
 s32 func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, void *, void *, s32, s32);
-s32 func_1518E298(void *, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F5D0 CURRENT (2197) */
 s32 func_1518F5D0(void *arg0, s32 arg1, s16 arg2, s8 arg3,

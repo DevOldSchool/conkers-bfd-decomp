@@ -15,7 +15,6 @@
  */
 
 void func_151432BC(s32, f32 *, f32 *, f32 *, s32);
-s32 func_151464B8(s32, void *);
 void *func_10022EC0(void *, const void *, u32);
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);

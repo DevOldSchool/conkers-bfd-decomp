@@ -748,7 +748,6 @@ s8 func_151AB090(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151AB090 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AB090.s")
-extern void func_1513F6C0(void *arg0, s32 arg1, s32 arg2);
 
 s32 func_151AB180(void *arg0) {
     u8 (*temp_v0)[0x58];
@@ -927,8 +926,6 @@ typedef struct Game1D6E80Event {
     s8 value9;
     s8 valueA;
 } Game1D6E80Event;
-
-void func_15190770(Game1D6E80Event *, s32, u8, u8);
 
 void func_151AB854(u8 *arg0) {
     u8 *object;

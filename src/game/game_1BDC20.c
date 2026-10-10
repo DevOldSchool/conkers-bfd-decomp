@@ -85,7 +85,6 @@ s32 func_15190F9C(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15190F9C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_15190F9C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_1519108C.s")
-void func_1513F680(void *, s32, s32, s32, u8);
 u32 func_150ADA20(void);
 extern u8 D_800A9D40[];
 
@@ -138,7 +137,6 @@ s32 func_1519187C(void *arg0) {
     }
     return 1;
 }
-void *func_15190770(void *, s32, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151918BC CURRENT (895) */
 void func_151918BC(void *arg0) {

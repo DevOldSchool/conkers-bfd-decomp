@@ -48,7 +48,6 @@ typedef struct {
 extern u8 D_800CC2D0;
 extern u32 D_8003C8E0;
 extern u32 D_80084160[], D_80084190[];
-s32 func_1506196C(u8 *, s32);
 void *func_1502C408(void *, s32);
 s32 func_1502C974(s32, s32, s16, s32, s32);
 void *func_150368C4(s32, s32, s16);
@@ -319,7 +318,6 @@ extern u8 D_800C3638;
 extern u8 D_800C3656;
 extern s32 D_80082FA0;
 s32 func_150229E4(void *);
-s32 func_1506196C(u8 *, s32);
 void *func_1510D970(s32, s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1502C1A4 CURRENT (320) */

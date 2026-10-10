@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_A9D90.c
@@ -153,7 +154,6 @@ void func_1507DB64(void) {
 typedef struct { u32 first, second; } GameA9D90Command;
 
 s32 func_1510D0EC(s32, s32 *, s32, s32);
-void func_1517EE40(s32, s32, s32, s32, s8, s32);
 void func_15181DC8(s32);
 extern u8 D_80086B80[];
 extern u8 D_D0F;
