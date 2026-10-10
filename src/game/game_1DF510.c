@@ -40,14 +40,13 @@ typedef struct {
 } Game1DF510Packet;
 
 void func_100226F0(void *, s32);
-void func_10022EC0(s32, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 s32 func_15083E90(s32, void *);
-s32 func_151491F4(s32, s32, s32, s32, s32, s32, s32, s32);
 
 void func_151B2060(void *arg0) {
     s32 id;
     Game1DF510Packet packet;
-    s32 object;
+    u8 *object;
 
     if (arg0 != 0) {
         packet.field_0 = arg0;
@@ -220,7 +219,6 @@ typedef struct Game1DF510Request {
 } Game1DF510Request;
 
 u8 *func_151B30B0(void *, f32, s32, u8, s32);
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern Game1DF510Vector D_800AA320;
 extern Game1DF510Vector D_800AA32C;
 extern Game1DF510Vector D_800AA368;

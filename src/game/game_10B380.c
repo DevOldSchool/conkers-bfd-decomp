@@ -12,8 +12,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void *func_151491F4(s32, s32, s32, s32, s32, s32, s32, s32);
-
 void func_150DDED0(void *arg0) {
     void *object;
     s32 tag;

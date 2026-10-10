@@ -13,7 +13,6 @@
  */
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_15149130();
 void func_151D2AB0(s32);
 
 void *func_150B53D0(void *arg0, s16 arg1, u8 arg2, s32 arg3) {

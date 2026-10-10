@@ -72,7 +72,6 @@ typedef struct {
     s16 field_2;
 } GameDBA60Entry;
 
-void *func_151491F4(s16, s8, s8, u8, u8, s32, u8, s32);
 void func_15001A08(void);
 extern u32 D_15001B08;
 extern s32 D_800886E0;

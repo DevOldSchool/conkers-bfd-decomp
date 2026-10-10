@@ -17,8 +17,7 @@ typedef struct {
     s16 field4;
 } BeeCavernEffectPacket;
 
-void func_10022EC0(void *, void *, s32); /* extern */
-u8 *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
+void *func_10022EC0(void *, const void *, u32);
 
 void func_150BDE90(s32 arg0, u8 arg1, s32 arg2) {
     BeeCavernEffectPacket packet;

@@ -234,7 +234,6 @@ void func_15191A84(void *arg0, void *arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15191A84 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_15191A84.s")
-void func_151494E0(s32, u8);
 void func_15169260(s32 *, s32, s32, u8);
 extern s32 D_800A8010;
 

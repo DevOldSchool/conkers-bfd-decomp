@@ -187,7 +187,7 @@ s32 func_1513416C(void *arg0) {
     return 1;
 }
 void *func_15167A68(s32, s32, s32, s32, s32, s32);
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 void func_15143134(f32 *, f32 *, s32);
 
 void *func_1513418C(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {

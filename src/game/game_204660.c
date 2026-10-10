@@ -21,8 +21,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_10022EC0(void *, void *, s32);
-s32 func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D71B0 CURRENT (816) */
 s32 func_151D71B0(s16 arg0, u8 arg1, u8 arg2, s32 arg3,
@@ -132,7 +131,6 @@ void func_151D7450(s32 arg0) {
     func_151D7404(arg0);
     func_15149368(arg0);
 }
-void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
 
 void func_151D747C(void *arg0) {
     struct {
@@ -142,9 +140,9 @@ void func_151D747C(void *arg0) {
 
     sp.sp18 = arg0;
     sp.sp1C = *(u8 *)((u8 *)arg0 + 0x3B);
-    func_151494E0((s32 *)&sp, 0x3D, (s32)arg0);
+    func_151494E0(&sp, 0x3D);
 }
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 s32 func_151D71B0(s16, u8, u8, s32, s32, u8, s32);
 
 typedef struct Game204660D74B0Packet {

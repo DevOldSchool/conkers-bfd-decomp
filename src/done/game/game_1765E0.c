@@ -27,9 +27,8 @@ void func_100226F0(void *, s32);
  * clears only bytes +0x14..+0x23. Both kinds share the timer/draw dispatch.
  * arg7 and arg8 retain their unresolved forwarding roles.
  */
-Game1765E0EffectHeader *func_15149130(s16 initialTimer, s8 expiryCallbackIndex, s8 tickCallbackIndex, s8 drawCallbackIndex,
-                                      u8 flags, u8 callbackSetIndex, s32 extraBytes, u8 arg7,
-                                      s32 arg8) {
+void *func_15149130(s16 initialTimer, s8 expiryCallbackIndex, s8 tickCallbackIndex, s8 drawCallbackIndex,
+                     u8 flags, u8 callbackSetIndex, s32 extraBytes, u8 arg7, s32 arg8) {
     Game1765E0EffectHeader *object;
     u8 objectKind;
     s32 size;
@@ -52,12 +51,12 @@ Game1765E0EffectHeader *func_15149130(s16 initialTimer, s8 expiryCallbackIndex, 
 
 /*
  * Descriptive role: timer_callback_object_create_without_draw_callback.
- * Uses draw-callback selector -1; the existing void wrapper discards the
- * constructor result. arg6 and arg7 remain unresolved forwarding arguments.
+ * Uses draw-callback selector -1 and returns the constructed object, which
+ * callers keep. arg6 and arg7 remain unresolved forwarding arguments.
  */
-void func_151491F4(s16 initialTimer, s8 expiryCallbackIndex, s8 tickCallbackIndex, u8 flags, u8 callbackSetIndex,
-                   s32 extraBytes, u8 arg6, s32 arg7) {
-    func_15149130(initialTimer, expiryCallbackIndex, tickCallbackIndex, -1, flags, callbackSetIndex, extraBytes, arg6, arg7);
+void *func_151491F4(s16 initialTimer, s8 expiryCallbackIndex, s8 tickCallbackIndex, u8 flags, u8 callbackSetIndex,
+                    s32 extraBytes, u8 arg6, s32 arg7) {
+    return func_15149130(initialTimer, expiryCallbackIndex, tickCallbackIndex, -1, flags, callbackSetIndex, extraBytes, arg6, arg7);
 }
 typedef struct Game1765E0Effect {
     u8 pad_0[0xD];
@@ -177,10 +176,10 @@ s32 func_15149490(s32 arg0, Game1765E0DispatchState *arg1, s16 arg2) {
     }
     return arg0;
 }
-void func_15169260(void *, s32, s32, u8);
+void func_15169260(void *, s32, void *, u8);
 extern u8 D_800A5770;
 
-void func_151494E0(s32 arg0, u8 arg1) {
+void func_151494E0(void *arg0, u8 arg1) {
     func_15169260(&D_800A5770, 2, arg0, arg1);
 }
 void func_15169850(s32, u8, s32, s32, s32);

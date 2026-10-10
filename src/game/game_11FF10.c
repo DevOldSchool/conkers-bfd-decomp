@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_11FF10.c
@@ -81,8 +82,7 @@ loop:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F2A60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11FF10/func_150F2A60.s")
-void func_10022EC0(void *, void *, s32);
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 typedef struct Game11FF10F2C8CPacket {
     void *owner;
     u8 type;
@@ -95,7 +95,7 @@ typedef struct Game11FF10F2C8CPacket {
 
 void func_150F2C8C(void *arg0) {
     Game11FF10F2C8CPacket packet;
-    s32 temp_v0;
+    u8 *temp_v0;
 
     packet.owner = arg0;
     packet.type = *(u8 *)((u8 *)arg0 + 0x3B);

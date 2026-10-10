@@ -15,7 +15,6 @@
 
 void *func_10022EC0(void *, const void *, u32);
 s32 func_15083E90(u8);
-s32 func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800AA418;
 
 typedef struct {

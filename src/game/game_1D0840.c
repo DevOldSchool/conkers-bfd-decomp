@@ -114,7 +114,7 @@ typedef struct {
     u8 tail68[4];
 } Game1D0840SpawnLocals;
 
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32,
                     s32, s32, s32);
 s32 func_151A4E34();
@@ -265,7 +265,6 @@ s32 func_151A361C(Game1D0840TimedObject *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A361C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A361C.s")
 u32 func_150ADA20(void);
-s32 func_151491F4(s32, s32, s32, s32, s32, s32, s32, s32);
 void func_151A4E9C(void *);
 f32 sqrtf(f32);
 f32 fabsf(f32);
@@ -584,8 +583,7 @@ s32 func_151A4900(u8 *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A4900 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4900.s")
-void func_10022EC0(void *, void *, s32);
-s32 func_151491F4(s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 extern f32 D_800A8D64;
 
 typedef struct Game1D0840EffectPacket {
@@ -604,7 +602,7 @@ typedef struct Game1D0840EffectPacket {
 
 void func_151A499C(void *arg0, u8 arg1) {
     Game1D0840EffectPacket packet;
-    s32 temp_v0;
+    u8 *temp_v0;
 
     packet.field_0 = arg0;
     packet.field_4 = *(u8 *)((u8 *)arg0 + 0x3B);

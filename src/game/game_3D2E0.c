@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_3D2E0.c
@@ -65,8 +66,6 @@ void func_1500FF9C(void) {
 void *func_10022EC0(void *, const void *, u32);
 void func_1500FE30(void);
 void func_15195AA8(s32, s32, s32, s32, s32, s32, s32, s32);
-void *func_151491F4(s16, s8, s8, u8, u8, s32, u8, s32);
-void *func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 extern s32 D_80088870;
 extern s32 D_800902DC;
 extern s32 D_800B0E00;

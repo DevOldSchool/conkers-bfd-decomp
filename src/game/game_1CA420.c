@@ -314,7 +314,6 @@ s32 func_1519D240(Game1CA420Trail *arg0) {
     }
     return 1;
 }
-s32 func_151491F4(s16, s8, s8, u8, u8, s32, u8, s32);
 void func_1514EC1C(s32, s32, s32);
 s32 func_1514ED3C(void *, s32, void **);
 u32 func_150ADA20(void);
@@ -797,7 +796,6 @@ s32 func_1519E304(Game1CA420Transform *arg0, f32 *arg1,
 }
 void func_1519E688(void);
 s32 func_1519D030(void *, s32, s16, u8, u8, s32);
-s32 func_151491F4(s16, s8, s8, u8, u8, s32, u8, s32);
 
 void func_1519E3BC(void *arg0, s16 arg1, u8 arg2, s32 arg3) {
     func_1519E688();
@@ -941,12 +939,11 @@ void func_1519E688(void) {
 }
 void func_1519E688(void);
 void *func_10022EC0(void *, const void *, u32);
-s32 func_151491F4(s16, s8, s8, u8, u8, s32, u8, s32);
-extern s32 D_800E0920[1];
+extern void *D_800E0920[1];
 
 void func_1519E6BC(u8 *arg0) {
     Game1CA420Link link;
-    s32 result;
+    u8 *result;
 
     func_1519E688();
     if (D_800E0920[0] == 0) {
@@ -1035,7 +1032,7 @@ void func_1519E8F8(void *arg0) {
 }
 /* Call context: func_1514933C: unique active project prototype */
 void func_1514933C(s32);
-extern s32 D_800E0920[1];
+extern void *D_800E0920[1];
 
 void func_1519E924(s32 arg0) {
     D_800E0920[0] = 0;

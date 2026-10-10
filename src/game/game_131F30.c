@@ -27,7 +27,6 @@ typedef struct Game131F30Request {
     void *selected;
 } Game131F30Request;
 
-void func_151494E0(s32, u8);
 extern Game131F30Choices D_800A2380;
 extern Game131F30Choices D_800A238C;
 extern Game131F30Choices D_800A2398;

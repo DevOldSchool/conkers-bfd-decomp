@@ -148,8 +148,6 @@ void func_151B01B8(void *arg0, void *arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B03B8.s")
 void *func_10022EC0(void *, const void *, u32);
 /* The independent wrapper preserves the allocator result in v0. */
-void *func_151491F4(s16, s8, s8, u8, u8, s32, u8, s32);
-void func_151494E0(s32, u8);
 s32 func_15134070(void *);
 extern u8 D_800A3FE6[];
 

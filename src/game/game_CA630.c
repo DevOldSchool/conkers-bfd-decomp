@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_CA630.c
@@ -109,7 +110,6 @@ typedef struct GameCA630ColorRequest {
 
 void func_15197A7C(void *);
 void func_151403A8(s32, u8);
-void func_151494E0(s32, u8);
 void func_1515F170(s32, u8);
 void func_151645C4(s32);
 void func_1516944C(s32, s8 *, u8);

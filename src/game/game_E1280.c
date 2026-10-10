@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_E1280.c
@@ -24,7 +25,6 @@ typedef struct GameE1280State {
 void func_1000FC18(s32, s16, s16, s16, s32);
 void func_151478F4(s32);
 void func_15147D64(s32, s32);
-void func_151494E0(s8 *, s32);
 
 void func_150B3DD0(void) {
     struct {

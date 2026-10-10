@@ -336,7 +336,6 @@ typedef struct Game133190SpawnPacket {
     u8 pad81[3];
 } Game133190SpawnPacket;
 
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 void func_151070F8(s32, s32, s16, s32);
 

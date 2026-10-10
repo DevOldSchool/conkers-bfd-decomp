@@ -2485,7 +2485,6 @@ typedef struct {
 } Game981E0MenuInput;
 
 void func_15131D4C(Game981E0MenuInput *, s32);
-void func_151494E0(Game981E0MenuInput *, s32);
 
 void func_150717E0(s32 arg0) {
     struct {

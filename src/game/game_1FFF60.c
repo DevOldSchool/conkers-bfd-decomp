@@ -46,7 +46,7 @@ void func_151D2B4C(s32 arg0) {
     }
 }
 void *func_15167A68(s32, s32, s32, s32, u8, u8);
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 void func_151D3308(void *);
 
 typedef struct Game1FFF60Vec3 {

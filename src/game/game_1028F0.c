@@ -14,7 +14,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 typedef struct Game1028F0D5440Packet {
     void *owner;
     u8 type;
@@ -22,11 +22,9 @@ typedef struct Game1028F0D5440Packet {
     f32 value;
 } Game1028F0D5440Packet;
 
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
-
 void func_150D5440(void *arg0, u8 arg1, s32 arg2) {
     Game1028F0D5440Packet packet;
-    s32 temp_v0;
+    u8 *temp_v0;
 
     packet.owner = arg0;
     packet.type = *(u8 *)((u8 *)arg0 + 0x3B);

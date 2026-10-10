@@ -283,7 +283,7 @@ extern f32 D_800A1864;
 extern f32 D_800A1868;
 extern f32 D_800A186C;
 extern Game11D830Position D_800A5480;
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F0BEC CURRENT (135) */
 void func_150F0BEC(u8 *arg0) {
@@ -420,8 +420,7 @@ void func_150F1020(u8 *arg0, u8 *arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F1020 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1020.s")
-void func_10022EC0(void *, void *, s32);
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 
 typedef struct Game11D830SpawnPacket {
     void *field_0;
@@ -435,7 +434,7 @@ typedef struct Game11D830SpawnPacket {
 
 void func_150F10D4(void *arg0) {
     Game11D830SpawnPacket packet;
-    s32 temp_v0;
+    u8 *temp_v0;
 
     packet.field_0 = arg0;
     packet.field_4 = *(u8 *)((u8 *)arg0 + 0x3B);

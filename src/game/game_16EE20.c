@@ -272,7 +272,6 @@ void func_15141DA4(s32 actorAddress, s32 selectorCallbackIndex, s32 effectHandle
 }
 s32 func_1514ECE0(void *, s32, void **);
 void func_1514EC1C(void *, void *, s32);
-u8 *func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15141E38 CURRENT (1418) */

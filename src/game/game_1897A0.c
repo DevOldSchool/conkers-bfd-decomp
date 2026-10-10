@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1897A0.c
@@ -12,7 +13,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 void *func_1515C2F0(void *arg0, void *arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
@@ -215,7 +216,6 @@ s32 func_1515D030(void *arg0, s32 arg1) {
     }
     return var_v1;
 }
-extern s32 func_151491F4(s32, s32, s32, s32, s32, s32, s32, s32);
 
 s32 func_1515D088(void *arg0) {
     s32 temp_v0;
@@ -228,7 +228,7 @@ s32 func_1515D088(void *arg0) {
     }
     packet.owner = arg0;
     packet.value = 0.0f;
-    temp_v0 = func_151491F4(0x12C, -1, 0x11, 0, 0xD, 0xC, 0xFF, 1);
+    temp_v0 = (s32)func_151491F4(0x12C, -1, 0x11, 0, 0xD, 0xC, 0xFF, 1);
     if (temp_v0 != 0) {
         func_10022EC0((u8 *)temp_v0 + 0x28, &packet, 0xC);
     }

@@ -34,7 +34,7 @@ typedef struct Game200930ResourceSlots {
 void func_100043B4(s32, s32);
 
 u16 func_10010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-void * func_10022EC0(void *, const void *, u32);
+void *func_10022EC0(void *, const void *, u32);
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *, f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
@@ -662,8 +662,6 @@ void func_151D4408(void *arg0, void *arg1, s32 arg2, void *arg3,
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D4408 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D4408.s")
 
-void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
-
 void func_151D4668(void *arg0) {
     struct {
         void *sp18;
@@ -672,10 +670,9 @@ void func_151D4668(void *arg0) {
 
     sp.sp18 = arg0;
     sp.sp1C = *(u8 *)((u8 *)arg0 + 0x3B);
-    func_151494E0((s32 *)&sp, 0x3C, (s32)arg0);
+    func_151494E0(&sp, 0x3C);
 }
 void *func_10022EC0(void *, const void *, u32);
-u8 *func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 extern void (*D_8008FC70[])(u8 *, s16, void *);
 
 typedef struct Game200930SpawnPacket {

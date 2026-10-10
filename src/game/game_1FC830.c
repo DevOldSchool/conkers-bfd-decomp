@@ -53,7 +53,6 @@ f32 func_15047C00(f32);
 s32 func_15046C80(Game71820XZ *, u16, f32, Game71820Hit *);
 f32 func_15144AA8(s32);
 s32 func_15144B34(s32);
-void *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 extern f32 D_800AB020;
 extern f32 D_800AB024;
@@ -98,7 +97,6 @@ void func_151CF898(void *arg0, f32 arg1, f32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CF898 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151CF898.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151CFA4C.s")
-void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
 
 void func_151D0024(void *arg0) {
     struct {
@@ -108,11 +106,10 @@ void func_151D0024(void *arg0) {
 
     sp.sp18 = arg0;
     sp.sp1C = *(u8 *)((u8 *)arg0 + 0x3B);
-    func_151494E0((s32 *)&sp, 0x18, (s32)arg0);
+    func_151494E0(&sp, 0x18);
 }
 void *func_10022EC0(void *, const void *, u32);
 u32 func_150ADA20(void);
-void *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 void func_151D0058(void *arg0, u8 arg1, u8 arg2, s32 arg3) {
     struct {

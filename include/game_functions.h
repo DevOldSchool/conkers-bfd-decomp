@@ -15,5 +15,8 @@ void func_151C1FB8(void *);
 void func_151D0024(void *);
 void func_1516972C(void *);
 void *func_15169968(void *);
+void *func_15149130(s16, s8, s8, s8, u8, u8, s32, u8, s32);
+void *func_151491F4(s16, s8, s8, u8, u8, s32, u8, s32);
+void func_151494E0(void *, u8);
 
 #endif

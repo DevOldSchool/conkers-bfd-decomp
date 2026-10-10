@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_FD1D0.c
@@ -78,7 +79,7 @@ s32 func_150CFDB8(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150CFDB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFDB8.s")
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 
 struct GameFD1D0State;
 
@@ -132,7 +133,6 @@ void func_150CFE98(GameFD1D0State *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150CFE98 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFE98.s")
 s32 func_150CFDB8(u8 *);
-GameFD1D0State *func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 struct GameFD1D0Object;
 
 typedef struct {

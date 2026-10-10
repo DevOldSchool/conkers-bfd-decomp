@@ -48,7 +48,7 @@ typedef struct GameLightDescriptor {
 
 void *func_1516037C(GameLightDescriptor *, s32, void *, u8, s32);
 void *func_15167A68(s32, s32, void *, s32, s32, s32);
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 extern f32 D_800A6AE4;
 extern f32 D_800A6AE8;
 extern f32 D_800A6AEC;
@@ -831,11 +831,10 @@ void *func_15162034(s32 arg0, s32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15162034 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15162034.s")
-s32 func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A6AF4;
 
 void func_15162110(s32 arg0) {
-    s32 temp_v0;
+    u8 *temp_v0;
     struct {
         f32 values[8];
     } payload;

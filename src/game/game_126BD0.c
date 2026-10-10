@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_126BD0.c
@@ -23,7 +24,6 @@ typedef struct Game126BD0Message {
 } Game126BD0Message;
 
 extern Game126BD0LookupRecord D_800A1C40[];
-void func_151494E0(Game126BD0Message *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F9720 CURRENT (651) */
 void func_150F9720(u8 arg0) {

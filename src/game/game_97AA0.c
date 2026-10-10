@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_97AA0.c
@@ -134,7 +135,7 @@ typedef struct {
     u8 tailPad[4];
 } Game97AA0Spawn;
 
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32,
                    s32, s32);
 extern f32 D_80099A28;
@@ -183,8 +184,7 @@ void func_1506AA08(s32 arg0, s32 arg1) {
     func_151B7144(arg0, 0xFF, 1);
     func_151B6320(arg0, 0xFF, 1);
 }
-void func_10022EC0(void *, void *, s32);
-void *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 typedef struct Game97AA0Packet {
     void *arg0;
     u8 byte;

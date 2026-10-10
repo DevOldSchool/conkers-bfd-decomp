@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_3F1F0.c
@@ -52,11 +53,10 @@ typedef struct Game3F1F0Position {
 } Game3F1F0Position;
 
 void func_100226F0(void *arg0, s32 arg1);
-void func_10022EC0(void *arg0, void *arg1, s32 arg2);
+void *func_10022EC0(void *, const void *, u32);
 u32 func_150ADA20(void);
 s32 func_151149AC(u8 arg0);
 Game3F1F0Position *func_151438D8(s32 arg0, s32 arg1, s32 arg2, Game3F1F0Descriptor *arg3);
-u8 *func_15149130(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8);
 
 extern u8 D_800A1C00[][8];
 extern s32 D_800D3094;

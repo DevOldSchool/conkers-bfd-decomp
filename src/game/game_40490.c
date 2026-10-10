@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_40490.c
@@ -87,10 +88,9 @@ s32 func_1501374C(u8 *arg0) {
     func_1515D088(arg0);
     return 1;
 }
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_150A8050(f32 *, f32, f32, f32);
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
 extern u8 D_1000EF40[];
 extern f32 D_80096640;
@@ -355,8 +355,7 @@ s32 func_1501407C(s32 arg0) {
 extern f32 func_15144598(void *arg0, void *arg1);
 extern void func_1510F800(s32 arg0);
 extern s32 func_1510FD20(s16 arg0, s16 arg1, void *arg2);
-extern void func_10022EC0(void *arg0, void *arg1, s32 arg2);
-extern s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15014094 CURRENT (1394) */
 void func_15014094(void *arg0) {
@@ -412,7 +411,7 @@ typedef struct Game4049014210Packet {
 
 s32 func_15014220(void *arg0) {
     Game4049014210Packet packet;
-    s32 temp_v0;
+    u8 *temp_v0;
 
     *(u8 *)((u8 *)arg0 + 0x16) = (u8)(*(u8 *)((u8 *)arg0 + 0x16) | 4);
     packet.active = 1;
@@ -479,7 +478,7 @@ s32 func_150142EC(Game40490CallbackState *arg0) {
     packet.x = low1;
     packet.y = high1;
     packet.zero = 0.0f;
-    first = func_15149130(0x12C, -1, 0x29, -1, 0, 0, 0x18, 0xFF, 0);
+    first = (u32)func_15149130(0x12C, -1, 0x29, -1, 0, 0, 0x18, 0xFF, 0);
     if (first != 0) {
         func_10022EC0((void *)(first + 0x28), &packet, 0x18);
     }
@@ -616,10 +615,9 @@ s32 func_150150A4(void) {
     *&D_800DCD90 += *(f32 *)((u8 *)temp_v0 + 8);
     return 1;
 }
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 void func_1510F800(s32);
 s32 func_1510FD20(s16, s16, void *);
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 typedef struct Game40490SpawnPacket {
     void *object;
@@ -633,7 +631,7 @@ typedef struct Game40490SpawnPacket {
 
 s32 func_15015104(u8 *arg0) {
     Game40490SpawnPacket packet;
-    s32 result;
+    u8 *result;
     s32 present;
     s32 flag1;
     s32 flag2;
@@ -683,7 +681,7 @@ typedef struct Game40490LargeSpawnPacket {
 
 s32 func_150151D4(u8 *arg0) {
     Game40490LargeSpawnPacket packet;
-    s32 result;
+    u8 *result;
 
     arg0[0x16] |= 4;
     arg0[0x14] = 1;
@@ -805,7 +803,7 @@ extern f32 func_15144598(void *arg0, void *arg1);
 
 s32 func_15015644(void *arg0, void *arg1) {
     struct { void *owner; f32 value; s32 index; s8 flag; } packet;
-    s32 temp_v0;
+    u8 *temp_v0;
 
     *(u8 *)((u8 *)arg0 + 0x16) |= 4;
     *(u8 *)((u8 *)arg0 + 0x14) = 1;

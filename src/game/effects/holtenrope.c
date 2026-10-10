@@ -43,7 +43,7 @@ typedef s32 (*HoltenRopeStateCallback)(HoltenRopeEffect *, void *, s32);
 typedef s32 (*HoltenRopeUpdateCallback)(HoltenRopeEffect *);
 
 void func_100226F0(void *, s32);
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 HoltenRopeEffect *func_15167A68(s32, s32, s32, s32, s32, s32);
 extern f32 D_800AA390;
 extern s32 D_800BE9E4;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1EF500.c
@@ -684,7 +685,6 @@ typedef struct Game1EF500TimedOwner {
     Game1EF500TimedEmitter emitter;
 } Game1EF500TimedOwner;
 
-u8 *func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800AAA80;
 extern f32 D_800AAA84;
 extern s32 D_800BE9E4;

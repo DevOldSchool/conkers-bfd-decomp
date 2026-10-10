@@ -72,7 +72,7 @@ extern s8 D_8008FD90;
 extern s8 D_800E0BCE[];
 extern u8 D_800CC2D0[];
 extern void *func_1513B5E0(s8 *, s32, s32, s32, s32);
-extern void *func_10022EC0(void *, const void *, u32);
+void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B9F00 CURRENT (1427) */
 void *func_151B9F00(void *arg0, u8 arg1, s32 arg2) {

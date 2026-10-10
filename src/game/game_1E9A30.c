@@ -372,7 +372,6 @@ void func_151BD79C(u8 *arg0, s32 arg1) {
     }
     func_1513170C(arg0, arg1);
 }
-void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
 
 void func_151BD7F4(void *arg0) {
     struct {
@@ -382,7 +381,7 @@ void func_151BD7F4(void *arg0) {
 
     sp.sp18 = arg0;
     sp.sp1C = *(u8 *)((u8 *)arg0 + 0x3B);
-    func_151494E0((s32 *)&sp, 0x3B, (s32)arg0);
+    func_151494E0(&sp, 0x3B);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BD828.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BDD8C.s")

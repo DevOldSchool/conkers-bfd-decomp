@@ -1,12 +1,12 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_3F3D0.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_small_units_3D6F0_3FC30.md
  */
 
-void func_10022EC0(void *, f32 *, s32);
-void *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 
 void func_15011F20(s32 arg0) {
     f32 sp34[3];

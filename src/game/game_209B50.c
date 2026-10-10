@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_209B50.c
@@ -86,7 +87,6 @@ void func_151DC6A0(void *arg0, s32 arg1, s32 arg2) {
 
 void func_151DC6A0(void *, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
-s32 func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 
 void func_151DC8BC(void *arg0, s16 arg1, u8 arg2, u8 arg3, u8 arg4, s32 arg5) {
     typedef struct { s32 words[3]; } Copy3;
@@ -95,7 +95,7 @@ void func_151DC8BC(void *arg0, s16 arg1, u8 arg2, u8 arg3, u8 arg4, s32 arg5) {
         f32 value;
         u8 byte;
     } packet;
-    s32 temp_v0;
+    u8 *temp_v0;
 
     if (arg2 != 0) {
         func_151DC6A0(arg0, arg4, arg5);

@@ -74,7 +74,6 @@ typedef struct Game128D70Effect {
 } Game128D70Effect;
 
 void *func_10022EC0(void *, const void *, u32);
-u8 *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void *func_15164780(u8 *, s32, u8, s32);
 extern f32 D_800A1EB0, D_800A1EB4, D_800A1EB8;
 extern f32 D_800A1EBC, D_800A1EC0, D_800A1EC4;

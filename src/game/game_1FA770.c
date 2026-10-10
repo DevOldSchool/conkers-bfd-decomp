@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1FA770.c
@@ -18,10 +19,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_151494E0(s32 arg0, u8 arg1);
-
-void func_10022EC0(void *, void *, s32);
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 
 typedef struct Game1FA770Packet {
     void *field_0;
@@ -55,7 +53,7 @@ void func_151CD35C(s32 arg0) {
 
     if ((arg0 >= 0) && (arg0 < 4)) {
         sp1C = arg0;
-        func_151494E0((s32)&sp1C, 0x17);
+        func_151494E0(&sp1C, 0x17);
     }
 }
 void func_151CD394(s32 arg0) {
@@ -63,7 +61,7 @@ void func_151CD394(s32 arg0) {
 
     if ((arg0 >= 0) && (arg0 < 4)) {
         sp1C = arg0;
-        func_151494E0((s32)&sp1C, 0x18);
+        func_151494E0(&sp1C, 0x18);
     }
 }
 typedef struct Game1FA770DispatchState {
@@ -475,7 +473,7 @@ void func_151CE49C(void *arg0) {
 
     state = *(u8 **)((u8 *)arg0 + 0x98);
     sp1C = *(s32 *)(state + 0x48);
-    func_151494E0((s32)&sp1C, 0x23);
+    func_151494E0(&sp1C, 0x23);
     func_151478F4((s32) arg0);
 }
 extern void func_15147928(s32 arg0);
@@ -486,7 +484,7 @@ void func_151CE4DC(void *arg0) {
 
     state = *(u8 **)((u8 *)arg0 + 0x98);
     sp1C = *(s32 *)(state + 0x48);
-    func_151494E0((s32)&sp1C, 0x23);
+    func_151494E0(&sp1C, 0x23);
     func_15147928((s32) arg0);
 }
 typedef struct {

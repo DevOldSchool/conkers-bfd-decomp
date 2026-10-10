@@ -182,7 +182,7 @@ s32 func_1514D4B8(s16 arg0, s16 arg1) {
     }
     return 0;
 }
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 s32 func_1514EC1C(s32, s32, s16);
 s32 func_150C5370(f32 *, s32);
 extern f32 D_800A5DE4;
@@ -418,7 +418,7 @@ typedef struct {
     s32 field_1C;
 } Game179F30LargePacket;
 
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 extern s32 func_15158BD0(s32, s32, s32);
 extern s32 func_1514EC1C(s32 arg0, s32 arg1, s16 arg2);
 
@@ -1478,8 +1478,6 @@ typedef struct Game179F30F3CCPacket {
     u8 pad5[3];
     f32 value;
 } Game179F30F3CCPacket;
-
-void *func_15149130(s16, s8, s8, s8, u8, u8, s32, u8, s32);
 
 void func_1514F3CC(void *arg0) {
     Game179F30F3CCPacket packet;

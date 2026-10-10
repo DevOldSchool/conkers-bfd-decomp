@@ -103,7 +103,7 @@ f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 /* Call context: func_10022EC0: verified SDK alias memcpy=0x10022EC0 in config/game/us-sdk.ld; prototype and unsigned size_t in lib/ultralib/include/compiler/ido/memory.h */
 /* Call context: func_151D5D60: unique active project prototype */
-void * func_10022EC0(void *, const void *, u32);
+void *func_10022EC0(void *, const void *, u32);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 
 f32 func_150489B0(s32);                             /* extern */

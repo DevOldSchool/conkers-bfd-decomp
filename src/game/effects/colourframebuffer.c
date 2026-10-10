@@ -84,7 +84,7 @@ reload_slot:
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515FDA0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/colourframebuffer/func_1515FDA0.s")
 
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 ColourFramebufferEffect *func_15167A68(s32, s32, s32, s32, u8, u8);
 
 ColourFramebufferEffect *func_1515FF74(void *arg0, s32 arg1, u8 arg2, s32 arg3) {

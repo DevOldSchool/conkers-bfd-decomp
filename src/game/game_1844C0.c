@@ -21,7 +21,7 @@
  * an unused a1, so retain an unspecified argument list for those calls. */
 void func_150A7BC0();
 
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 /* Raw callee forwards full-width a0 and stores full-width a1. */
 s32 func_1503F62C(s32, s32, void *, void *, void **, void *, void *);
 void *func_1515D440(void);
@@ -191,7 +191,7 @@ s32 func_15157860(s32 arg0) {
 }
 void func_15169260(void *arg0, s32 arg1, s32 arg2, u8 arg3);
 extern u8 D_800A6060;
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 s32 func_15157010(s32, s32, f32, s32, s32, s32, s32, s32);
 
 s32 func_15157898(s32 arg0, s32 arg1, s32 arg2, f32 arg3, s32 arg4,

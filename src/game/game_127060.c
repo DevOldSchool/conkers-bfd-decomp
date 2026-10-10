@@ -198,13 +198,12 @@ void func_150FA468(void *arg0, s32 arg1, u8 arg2) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FA520.s")
 void *func_10022EC0(void *, const void *, u32);
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern u8 D_80088B60;
-extern s32 D_800D3098;
+extern u8 *D_800D3098;
 
 void func_150FAA40(u8 arg0, s32 arg1) {
-    struct { s32 first; s32 second; f32 value; } packet;
-    s32 temp_v0;
+    struct { u8 *first; u8 *second; f32 value; } packet;
+    u8 *temp_v0;
 
     if (D_80088B60 == 0) {
         packet.first = D_800D3098 + 0x71C;
@@ -272,8 +271,7 @@ void func_150FACE4(void *arg0, s32 arg1, u8 arg2) {
     }
 }
 void func_1515F170(s32, s32);
-void func_151494E0(s32, s32);
-extern s32 D_800D3098;
+extern u8 *D_800D3098;
 
 void func_150FAD28(void) {
     func_1515F170(8, 0);

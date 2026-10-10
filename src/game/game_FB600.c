@@ -13,7 +13,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern void *func_10022EC0(void *, const void *, u32);
+void *func_10022EC0(void *, const void *, u32);
 extern void *func_1515FF74(s8 *arg0, s32 arg1, s32 arg2);
 extern f32 D_800A07FC;
 

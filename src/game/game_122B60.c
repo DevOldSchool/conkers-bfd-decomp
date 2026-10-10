@@ -18,8 +18,7 @@
 void func_150F631C(s32 arg0);
 void func_1514933C(s32 arg0);
 void func_15149368(s32 arg0);
-void func_10022EC0(s32, void **, s32);
-s32 func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 
 typedef struct Game122B60TextureAttachment {
     u8 unknown00[0x18];
@@ -177,7 +176,7 @@ void func_150F5C08(void *arg0, s16 arg1, u8 arg2, s32 arg3) {
         u8 pad5[3];
         f32 field_8;
     } packet;
-    s32 temp_v0;
+    u8 *temp_v0;
 
     packet.field_0 = arg0;
     packet.field_4 = *(u8 *)((u8 *)arg0 + 0x3B);

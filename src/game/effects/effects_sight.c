@@ -497,7 +497,6 @@ void func_151C9DE8(s32 arg0, u8 arg1, s8 arg2, u8 arg3, s32 arg4) {
 void func_15160274(void *, u8);
 void func_1515572C();
 void func_151A561C(void *, u8);
-void func_151494E0(void *, u8);
 extern s8 D_8008CD00;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9ED4 CURRENT (1434) */
