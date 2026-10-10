@@ -115,13 +115,15 @@ class StorageTests(unittest.TestCase):
             self.assertEqual(proof['stored_asset_bytes'], len(rom) - 16 + 4)
             self.assertEqual(proof['rebuilt_asset_bytes'], sum(u['size'] for u in selected))
             self.assertEqual(sum(u['report_data_bytes'] for u in units), proof['unreconstructed_asset_bytes'])
-            self.assertEqual(configs[1]['metadata']['progress_categories'], ['data', 'assets', 'assets-flat'])
+            for config in configs:
+                self.assertEqual(config['metadata']['progress_categories'], ['data'])
             self.assertTrue(configs[1]['metadata']['complete'])
             observed = []
             for unit, item in zip(units, items, strict=True):
                 self.assertNotIn('base_path', unit)
                 self.assertNotIn('base_path', item)
                 self.assertFalse(item['metadata']['complete'])
+                self.assertEqual(item['metadata']['progress_categories'], ['data'])
                 self.assertEqual(unit['report_code_bytes'], 0)
                 expected = b''.join(rom[a:b] for a, b in unit['rom_ranges'])
                 self.assertEqual(sections((output / unit['target_path']).read_bytes(), 1)['.data'][1], expected)

@@ -187,12 +187,10 @@ BSS, unassigned ROM regions before the font/flat archives and after the final
 bank, boot code outside tracked ranges, RSP and EU/PAL remain excluded. The sum
 of Code and Data is therefore not a partition of the physical ROM size.
 
-Native categories provide Stored assets, Flat assets, Model banks, Animation
-bank, Audio banks and Other asset storage alongside Data. These describe storage
-families, including their metadata and gaps, rather than semantic completion of
-every contained resource. Textures embedded in models do not add another stored
-allocation. Each family is a subset of Stored assets and Data; do not add these
-overlapping category totals together.
+All asset storage contributes to the single Data category in the public report.
+Storage families remain recorded in the coverage evidence, including their
+metadata and gaps, without separate dropdown categories. Textures embedded in
+models do not add another stored allocation.
 
 Data references are assembled independently with original code as disassembly
 context, and each complete linked data image must reproduce the checked ROM.
@@ -236,7 +234,7 @@ When this report is first published, fully-linked code can decrease for two
 reasons: a grouped unit owns data still supplied by ROM, or its linked data fails
 native symbol matching. Native matched code and function inventory records are
 unchanged by this completion policy; the drop reflects a stricter whole-unit gate.
-Rebuilt font bytes contribute to Data, Stored assets and Other asset storage. The font earns completion when all 95 editable
+Rebuilt font bytes contribute to Data. The font earns completion when all 95 editable
 PGM glyphs and their manifest rebuild through the canonical Makefile rule into the exact original 5,440 bytes
 (including 13 alignment bytes). Its candidate concatenates the `.data` payloads of the 96 actual ROM link inputs:
 `build/us/assets/font/glyphs/0000.o` through `0094.o`, then `font/padding.o`.

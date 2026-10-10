@@ -9,10 +9,6 @@ from elf_sections import sections
 import objdiff_targets
 import rzip_archive
 
-CATEGORIES = [('assets', 'Stored assets'), ('assets-flat', 'Flat assets'),
-              ('assets-models', 'Model banks'), ('assets-animations', 'Animation bank'),
-              ('assets-audio', 'Audio banks'), ('assets-other', 'Other asset storage')]
-
 
 def regions(rom: bytes, layout: dict) -> list[dict]:
     """Derive disjoint storage extents from the checked ROM's archive table.
@@ -129,16 +125,15 @@ def prepare_remainder(rom: bytes, region: dict, output: Path) -> tuple[dict, dic
             'report_code_bytes': 0, 'report_data_bytes': len(payload), 'complete': False}
     item = {'name': 'assets/storage/' + region['key'] + '/unreconstructed',
             'target_path': unit['target_path'],
-            'metadata': {'complete': False, 'progress_categories': ['data', 'assets', region['category']]}}
+            'metadata': {'complete': False, 'progress_categories': ['data']}}
     return unit, item
 
 
 def prepare(rom: bytes, layout: dict, rebuilt: list[dict], configs: list[dict], *,
             output: Path) -> tuple[list[dict], list[dict], dict]:
     plan = partition(regions(rom, layout), rebuilt)
-    for unit, config in zip(rebuilt, configs, strict=True):
-        owner = next(r for r in plan if r['rom_start'] <= unit['rom_start'] < unit['rom_end'] <= r['rom_end'])
-        config['metadata']['progress_categories'] = ['data', 'assets', owner['category']]
+    for _, config in zip(rebuilt, configs, strict=True):
+        config['metadata']['progress_categories'] = ['data']
     pairs = [prepare_remainder(rom, r, output) for r in plan if r['unreconstructed_bytes']]
     proof = {'rom_sha1': hashlib.sha1(rom).hexdigest(), 'regions': plan,
              'stored_asset_bytes': sum(r['rom_end'] - r['rom_start'] for r in plan),
