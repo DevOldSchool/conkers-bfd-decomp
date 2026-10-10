@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_F15D0.c
@@ -13,8 +14,6 @@
  */
 
 void func_150C4AD8(void *arg0);
-void func_1516972C(void *arg0);
-void func_15149368(s32 arg0);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F15D0/func_150C4120.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F15D0/func_150C44A4.s")
@@ -25,12 +24,12 @@ void func_150C4AD8(void *arg0) {
         func_1516972C((void *)*field_34);
     }
 }
-void func_150C4B08(s32 arg0) {
-    func_150C4AD8((void *)arg0);
+void func_150C4B08(void *arg0) {
+    func_150C4AD8(arg0);
     func_1514933C(arg0);
 }
-void func_150C4B34(s32 arg0) {
-    func_150C4AD8((void *)arg0);
+void func_150C4B34(void *arg0) {
+    func_150C4AD8(arg0);
     func_15149368(arg0);
 }
 /* Call context: func_15149514: unique active project prototype */

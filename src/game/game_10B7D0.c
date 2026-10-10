@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_10B7D0.c
@@ -20,7 +21,6 @@ typedef struct {
 
 void func_150A2864(s32, s32);
 s32 func_150A32B4(s32, s32, s32, s32);
-void *func_151149AC(u8, s32);
 extern Game10B7D0Lookup8 D_80088950;
 extern Game10B7D0Lookup8 D_80088958;
 extern s32 D_800D3098;
@@ -129,7 +129,6 @@ void func_150DE458(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150DE458 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10B7D0/func_150DE458.s")
-f32 func_15048A40(s32);                             /* extern */
 extern f32 D_800A0D48;
 extern f32 D_800A0D4C;
 extern f32 D_800A0D50;
@@ -137,9 +136,9 @@ extern f32 D_800A0D54;
 extern s32 D_800BE9E4;
 
 void func_150DE6D8(void *arg0) {
-    *(s16 *)((u8 *)arg0 + 0x12) = (s16) (s32) ((func_15048A40(((s32) *(s32 *)((u8 *)arg0 + 0x7C) >> 3) & 0xFF) * D_800A0D48) + D_800A0D4C);
-    *(f32 *)((u8 *)arg0 + 0) = (f32) (func_15048A40(((s32) *(s32 *)((u8 *)arg0 + 0x80) >> 3) & 0xFF) * D_800A0D50);
-    *(f32 *)((u8 *)arg0 + 8) = (f32) (func_15048A40(((s32) *(s32 *)((u8 *)arg0 + 0x84) >> 3) & 0xFF) * D_800A0D54);
+    *(s16 *)((u8 *)arg0 + 0x12) = (s16) (s32) ((func_15048A40((s32) *(s32 *)((u8 *)arg0 + 0x7C) >> 3) * D_800A0D48) + D_800A0D4C);
+    *(f32 *)((u8 *)arg0 + 0) = (f32) (func_15048A40((s32) *(s32 *)((u8 *)arg0 + 0x80) >> 3) * D_800A0D50);
+    *(f32 *)((u8 *)arg0 + 8) = (f32) (func_15048A40((s32) *(s32 *)((u8 *)arg0 + 0x84) >> 3) * D_800A0D54);
     *(s32 *)((u8 *)arg0 + 0x7C) = (s32) (*(s32 *)((u8 *)arg0 + 0x7C) + (D_800BE9E4 * 0xC));
     *(s32 *)((u8 *)arg0 + 0x80) = (s32) (*(s32 *)((u8 *)arg0 + 0x80) + (D_800BE9E4 * 0x10));
     *(s32 *)((u8 *)arg0 + 0x84) = (s32) (*(s32 *)((u8 *)arg0 + 0x84) + (D_800BE9E4 * 0x18));

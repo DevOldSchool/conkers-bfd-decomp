@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1765E0.c
@@ -16,7 +17,6 @@ typedef struct Game1765E0EffectHeader {
     u8 data[0x10];
 } Game1765E0EffectHeader;
 
-Game1765E0EffectHeader *func_15167A68();
 void func_100226F0(void *, s32);
 
 /*
@@ -26,9 +26,8 @@ void func_100226F0(void *, s32);
  * clears only bytes +0x14..+0x23. Both kinds share the timer/draw dispatch.
  * arg7 and arg8 retain their unresolved forwarding roles.
  */
-Game1765E0EffectHeader *func_15149130(s16 initialTimer, s8 expiryCallbackIndex, s8 tickCallbackIndex, s8 drawCallbackIndex,
-                                      u8 flags, u8 callbackSetIndex, s32 extraBytes, u8 arg7,
-                                      s32 arg8) {
+void *func_15149130(s16 initialTimer, s8 expiryCallbackIndex, s8 tickCallbackIndex, s8 drawCallbackIndex,
+                     u8 flags, u8 callbackSetIndex, s32 extraBytes, u8 arg7, s32 arg8) {
     Game1765E0EffectHeader *object;
     u8 objectKind;
     s32 size;
@@ -51,12 +50,12 @@ Game1765E0EffectHeader *func_15149130(s16 initialTimer, s8 expiryCallbackIndex, 
 
 /*
  * Descriptive role: timer_callback_object_create_without_draw_callback.
- * Uses draw-callback selector -1; the existing void wrapper discards the
- * constructor result. arg6 and arg7 remain unresolved forwarding arguments.
+ * Uses draw-callback selector -1 and returns the constructed object, which
+ * callers keep. arg6 and arg7 remain unresolved forwarding arguments.
  */
-void func_151491F4(s16 initialTimer, s8 expiryCallbackIndex, s8 tickCallbackIndex, u8 flags, u8 callbackSetIndex,
-                   s32 extraBytes, u8 arg6, s32 arg7) {
-    func_15149130(initialTimer, expiryCallbackIndex, tickCallbackIndex, -1, flags, callbackSetIndex, extraBytes, arg6, arg7);
+void *func_151491F4(s16 initialTimer, s8 expiryCallbackIndex, s8 tickCallbackIndex, u8 flags, u8 callbackSetIndex,
+                    s32 extraBytes, u8 arg6, s32 arg7) {
+    return func_15149130(initialTimer, expiryCallbackIndex, tickCallbackIndex, -1, flags, callbackSetIndex, extraBytes, arg6, arg7);
 }
 typedef struct Game1765E0Effect {
     u8 pad_0[0xD];
@@ -69,7 +68,6 @@ typedef struct Game1765E0Effect {
 extern s32 D_800BE9E4;
 extern void (*D_8008A4C0[])(Game1765E0Effect *);
 extern void (*D_8008A4E8[])(Game1765E0Effect *);
-void func_1516972C(Game1765E0Effect *);
 
 /*
  * Descriptive role: timer_callback_object_update.
@@ -101,19 +99,15 @@ void func_15149264(Game1765E0Effect *object) {
         func_1516972C(object);
     }
 }
-void func_15149318(s32 arg0) {
+void func_15149318(u8 *arg0) {
     func_151D5E30(arg0 + 0x14, arg0);
 }
-void func_15169804(s32);
 
-void func_1514933C(s32 arg0) {
+void func_1514933C(void *arg0) {
     func_15149318(arg0);
     func_15169804(arg0);
 }
-void func_15149318(s32 arg0);
-void func_15169824(s32 arg0);
-
-void func_15149368(s32 arg0) {
+void func_15149368(void *arg0) {
     func_15149318(arg0);
     func_15169824(arg0);
 }
@@ -177,10 +171,10 @@ s32 func_15149490(s32 arg0, Game1765E0DispatchState *arg1, s16 arg2) {
     }
     return arg0;
 }
-void func_15169260(void *, s32, s32, u8);
+void func_15169260(void *, s32, void *, u8);
 extern u8 D_800A5770;
 
-void func_151494E0(s32 arg0, u8 arg1) {
+void func_151494E0(void *arg0, u8 arg1) {
     func_15169260(&D_800A5770, 2, arg0, arg1);
 }
 void func_15169850(s32, u8, s32, s32, s32);

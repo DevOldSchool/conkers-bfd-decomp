@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_DDF10.c
@@ -50,12 +51,12 @@ void func_150B0A60(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, s
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B0A60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DDF10/func_150B0A60.s")
-extern void func_150B0C58(void *arg0, s32 arg1, s32 arg2);
+extern void func_150B0C58(void *arg0, u8 arg1, s32 arg2);
 
 void func_150B0C34(void *arg0) {
     func_150B0C58(arg0, 0xFF, 1);
 }
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 typedef struct GameDDF10B0C58Packet {
     void *owner;
     u8 type;
@@ -63,16 +64,14 @@ typedef struct GameDDF10B0C58Packet {
     f32 value;
 } GameDDF10B0C58Packet;
 
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
-
-void func_150B0C58(void *arg0, s32 arg1, s32 arg2) {
+void func_150B0C58(void *arg0, u8 arg1, s32 arg2) {
     GameDDF10B0C58Packet packet;
-    s32 temp_v0;
+    u8 *temp_v0;
 
     packet.owner = arg0;
     packet.type = *(u8 *)((u8 *)arg0 + 0x3B);
     packet.value = 0.0f;
-    temp_v0 = func_15149130(0x12C, -1, 0x58, -1, 0, 0x43, 0xC, (u8)arg1, arg2);
+    temp_v0 = func_15149130(0x12C, -1, 0x58, -1, 0, 0x43, 0xC, arg1, arg2);
     if (temp_v0 != 0) {
         func_10022EC0((void *)(temp_v0 + 0x28), &packet, 0xC);
     }

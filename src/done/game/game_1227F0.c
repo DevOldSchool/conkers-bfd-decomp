@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1227F0.c
@@ -9,7 +10,6 @@ typedef struct Game1227F0Indices {
     s32 values[17];
 } Game1227F0Indices;
 
-void func_1515F170(s32, s32);
 void func_151C970C(s32, void *);
 extern Game1227F0Indices D_800A1AB0;
 extern s32 D_800D3098;

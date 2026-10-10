@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_83300.c
@@ -1677,7 +1678,6 @@ void func_1505E060(u8 *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505E0C4.s")
 s32 func_150229E4(void *);
-void func_1505DFDC(Game83300Actor *);
 void func_1505E0C4(f32, Game83300Actor *, u16 *, Game83300Inner *, s32, s32, s32, s32, f32, f32, f32, f32, s32);
 extern u8 D_800C3638;
 extern u8 D_800C3654;
@@ -2283,7 +2283,6 @@ typedef struct Game83300CleanupActor {
 
 s32 func_1514D310(void *);
 void func_151695F0(void *, u8);
-void func_1516972C(u8 *);
 void func_15084558(void *);
 void func_150626EC(s32, s32);
 void func_1504AF10(void *, s32, s32);

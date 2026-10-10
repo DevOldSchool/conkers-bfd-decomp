@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_204660.c
@@ -20,8 +21,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_10022EC0(void *, void *, s32);
-s32 func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D71B0 CURRENT (816) */
 s32 func_151D71B0(s16 arg0, u8 arg1, u8 arg2, s32 arg3,
@@ -64,7 +64,6 @@ typedef struct Game204660Position {
 } Game204660Position;
 
 extern s32 (*D_8008FCA0[])(void *);
-f32 func_15143E64(void *);
 void func_151D7830(void *);
 void func_151D77C8();
 
@@ -119,19 +118,16 @@ void func_151D77C8();
 void func_151D7404() {
     func_151D77C8();
 }
-void func_1514933C(s32);
 
-void func_151D7424(s32 arg0) {
+void func_151D7424(void *arg0) {
     func_151D7404(arg0);
     func_1514933C(arg0);
 }
-void func_15149368(s32 arg0);
 
-void func_151D7450(s32 arg0) {
+void func_151D7450(void *arg0) {
     func_151D7404(arg0);
     func_15149368(arg0);
 }
-void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
 
 void func_151D747C(void *arg0) {
     struct {
@@ -141,9 +137,9 @@ void func_151D747C(void *arg0) {
 
     sp.sp18 = arg0;
     sp.sp1C = *(u8 *)((u8 *)arg0 + 0x3B);
-    func_151494E0((s32 *)&sp, 0x3D, (s32)arg0);
+    func_151494E0(&sp, 0x3D);
 }
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 s32 func_151D71B0(s16, u8, u8, s32, s32, u8, s32);
 
 typedef struct Game204660D74B0Packet {
@@ -167,7 +163,6 @@ void func_151D74B0(void *arg0, u8 arg1, s8 arg2, u8 arg3, s32 arg4) {
         func_10022EC0((void *)(temp_v0 + 0x40), &packet, 8);
     }
 }
-void func_1516972C(u8 *);
 void func_15149514(s32, u8, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7538 CURRENT (260) */
@@ -550,19 +545,13 @@ void func_151D8764(void *arg0) {
         *(s32 *)((u8 *)leaf + 0x28) = 0;
     }
 }
-/* Call context: func_151478F4: unique active project prototype */
 /* Call context: func_151D8764: unique active project prototype */
-void func_151478F4(s32);
-
 void func_151D8780(void *arg0) {
     func_151D8764(arg0);
-    func_151478F4((s32) arg0);
+    func_151478F4(arg0);
 }
-/* Call context: func_15147928: unique active project prototype */
 /* Call context: func_151D8764: unique active project prototype */
-void func_15147928(s32);
-
 void func_151D87AC(void *arg0) {
     func_151D8764(arg0);
-    func_15147928((s32) arg0);
+    func_15147928(arg0);
 }

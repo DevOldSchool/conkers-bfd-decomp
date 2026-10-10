@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1EB6C0.c
@@ -76,7 +77,6 @@ typedef struct Game1EB6C0State {
     u8 field_58;
 } Game1EB6C0State;
 
-void func_1516972C(void *arg0);
 void *func_1513FAB4(void *arg0, s32 arg1, f32 *arg2, s16 arg3);
 
 void *func_151BE4B8(void *arg0, s16 arg1) {
@@ -145,8 +145,6 @@ void func_151BE644(void *arg0) {
     }
 }
 void func_151BE644(void *arg0);
-void func_1513CA6C(void *arg0);
-void func_1513CAA0(void *arg0);
 
 void func_151BE674(void *arg0) {
     func_151BE644(arg0);
@@ -198,8 +196,6 @@ void func_151BE7C8(void *arg0) {
     }
 }
 void func_151BE7C8(void *arg0);
-void func_151411A4(void *arg0);
-void func_151411C4(void *arg0);
 
 void func_151BE7F8(void *arg0) {
     func_151BE7C8(arg0);

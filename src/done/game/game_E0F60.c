@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_E0F60.c
@@ -31,7 +32,6 @@ typedef struct GameE0F60Packet {
 
 void func_1512D748(void *, s32, s32);
 void func_15143134(f32 *, f32 *, s32);
-void func_151D3FF4(s32, u8, s32);
 u32 func_150ADA20(void);
 void func_1514C858(f32, f32, f32, f32, s32, s32, s32, s32, s32,
                    s32, f32, s32, u8);
@@ -58,7 +58,7 @@ void func_150B3AB0(GameE0F60Entity *arg0, u8 arg1) {
         packet.field6 = -1;
         packet.field5 = 1;
         func_151D8868(&packet.field0, 0, arg1, 0);
-        func_151D3FF4((s32)&position, arg1, 0);
+        func_151D3FF4(&position.x, arg1, 0);
     }
 }
 typedef struct GameE0F60Particle {
@@ -77,7 +77,6 @@ typedef struct GameE0F60Particle {
     s16 field38;
 } GameE0F60Particle;
 
-f32 func_151423D8(u8);
 void func_151429E0(u8, u8 *, u8 *, u8 *);
 void func_15156190(void *, u8, s32, u8, s32);
 void func_15156388(void *, u8, s32);

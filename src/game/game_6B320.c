@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_6B320.c
@@ -26,7 +27,7 @@ extern u8 D_800CC2D0[];
 extern Game6B320MaskPair *D_8008446C[];
 void func_1503DF0C(s32, s32, s32, s32);
 
-void func_1503DE70(s32 arg0, s32 arg1, s32 arg2) {
+void func_1503DE70(void *arg0, s32 arg1, s32 arg2) {
     s32 temp_a0;
 
     temp_a0 = ((u8 *)arg0 - D_800CC2D0) / 812;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_14C3F0.c
@@ -14,8 +15,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_14C3F0/func_1511EF40.s")
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
-void func_1511490C(void *, s32);
-s32 func_151149AC(u8);
+void func_1511490C(void *, void *);
 extern s32 D_800BE9F0;
 
 void func_1511F31C(u8 *arg0) {
@@ -23,7 +23,7 @@ void func_1511F31C(u8 *arg0) {
     f32 x;
     f32 y;
     f32 z;
-    s32 object;
+    void *object;
     u16 type;
 
     type = *(u16 *)(arg0 + 0x3E);
@@ -201,10 +201,9 @@ void func_1511F788(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1511F788 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_14C3F0/func_1511F788.s")
 /* Call context: func_151149AC: unique active project prototype */
-s32 func_151149AC(u8);
 
 void func_1511F92C(void *arg0) {
-    s32 temp_v0;
+    u8 *temp_v0;
 
     temp_v0 = func_151149AC(*(u8 *)((u8 *)arg0 + 0x3F));
     if (temp_v0 != 0) {

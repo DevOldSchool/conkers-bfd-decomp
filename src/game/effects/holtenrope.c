@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/effects/holtenrope.c
@@ -42,8 +43,7 @@ typedef s32 (*HoltenRopeStateCallback)(HoltenRopeEffect *, void *, s32);
 typedef s32 (*HoltenRopeUpdateCallback)(HoltenRopeEffect *);
 
 void func_100226F0(void *, s32);
-void func_10022EC0(void *, void *, s32);
-HoltenRopeEffect *func_15167A68(s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 extern f32 D_800AA390;
 extern s32 D_800BE9E4;
 extern HoltenRopeStateCallback D_8008FAF0[];
@@ -65,7 +65,6 @@ HoltenRopeEffect *func_151B30B0(void *arg0, f32 arg1, s32 arg2, u8 arg3, s32 arg
     func_100226F0(result->resetState, 0x10);
     return result;
 }
-void func_1516972C(HoltenRopeEffect *);
 
 void func_151B3184(HoltenRopeEffect *arg0) {
     s32 callback;
@@ -654,11 +653,11 @@ typedef struct {
     u8 field_44;
 } HoltenRopeState;
 
-void func_151D5E30(s32, s32);
-extern void (*D_8008FB70[])(s32);
+void func_151D5E30(void *, void *);
+extern void (*D_8008FB70[])(void *);
 
-void func_151B4C1C(s32 arg0) {
-    void (*temp_v0)(s32);
+void func_151B4C1C(u8 *arg0) {
+    void (*temp_v0)(void *);
 
     func_151D5E30(arg0 + 0x140, arg0);
     temp_v0 = D_8008FB70[((HoltenRopeState *)arg0)->field_44];
@@ -666,14 +665,13 @@ void func_151B4C1C(s32 arg0) {
         temp_v0(arg0);
     }
 }
-void func_151B4C1C(s32 arg0);
-void func_15169824(s32 arg0);
+void func_151B4C1C(u8 *arg0);
 
-void func_151B4C6C(s32 arg0) {
+void func_151B4C6C(void *arg0) {
     func_151B4C1C(arg0);
     func_15169824(arg0);
 }
-void func_151B4C98(s32 arg0) {
+void func_151B4C98(void *arg0) {
     func_151B4C1C(arg0);
     func_15169824(arg0);
 }

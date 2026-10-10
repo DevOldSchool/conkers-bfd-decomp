@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1D4E00.c
@@ -19,7 +20,6 @@
  */
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_100226F0(void *, s32, void *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A7950 CURRENT (445) */
@@ -191,7 +191,6 @@ typedef struct {
     u8 field_5C;
 } Game1D4E00State;
 
-void func_15169804(s32);
 void func_151A8560(s32);
 extern void (*D_8008F94C[])(s32);
 
@@ -208,7 +207,6 @@ void func_151A8584(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A8584 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A8584.s")
-void func_15169824(s32);
 extern void (*D_8008F958[])(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A85D4 CURRENT (575) */
@@ -359,7 +357,6 @@ typedef struct Game1D4E00Beam {
 
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *, f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
 void func_15143134(f32 *, f32 *, s32);
-f32 func_15143E64(void *);
 s32 func_15145C90(s32);
 s32 func_15146078(void *, void *, void *);
 
@@ -446,7 +443,6 @@ void func_151A8A20(void *arg0, s32 arg1, u8 arg2) {
         temp_v1(arg0, arg1, arg2);
     }
 }
-void func_1516972C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A8A78 CURRENT (115) */
 void func_151A8A78(void *arg0, void *arg1, u8 arg2) {

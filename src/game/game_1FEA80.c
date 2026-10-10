@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1FEA80.c
@@ -33,17 +34,11 @@ void func_151D223C(Game1FEA80Object *arg0) {
         leaf->field_30 = 0;
     }
 }
-/* Call context: func_151478F4: unique active project prototype */
-void func_151478F4(s32);
-
 void func_151D2258(Game1FEA80Object *arg0) {
     func_151D223C(arg0);
-    func_151478F4((s32) arg0);
+    func_151478F4(arg0);
 }
-/* Call context: func_15147928: unique active project prototype */
-void func_15147928(s32);
-
 void func_151D2284(Game1FEA80Object *arg0) {
     func_151D223C(arg0);
-    func_15147928((s32) arg0);
+    func_15147928(arg0);
 }

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_3F560.c
@@ -25,15 +26,13 @@ typedef struct Game3F560Descriptor {
     u8 field_A;
 } Game3F560Descriptor;
 
-void func_15190770(Game3F560Descriptor *, s32, u8, s32);
 extern s32 D_800BE9F0;
 
-void func_10022EC0(s32, f32 *, s32);
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 extern f32 D_80096540;
 
 void func_150120B0(s32 arg0) {
-    s32 temp_v0;
+    u8 *temp_v0;
     f32 values[8];
 
     values[0] = 50.0f;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1865D0.c
@@ -244,7 +245,6 @@ u8 func_15159594(u8 *arg0, s32 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15159594 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_15159594.s")
 /* Call context: func_151423D8: unique active project prototype */
-f32 func_151423D8(u8);
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151596BC CURRENT (2734) */
@@ -310,7 +310,6 @@ void func_15159BB0(f32 arg0, f32 arg1, f32 arg2, s32 arg3, s32 arg4, s32 arg5, v
 /* Call context: func_15047D60: unique active project prototype */
 /* Call context: func_151423D8: unique active project prototype */
 f32 func_15047D60(f32);
-f32 func_151423D8(u8);
 f32 func_15144B68(f32);                             /* extern */
 extern f32 D_800BE9A4;
 extern s32 D_800BE9E4;
@@ -421,7 +420,7 @@ block_9:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515A78C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_1515A78C.s")
-typedef struct {
+typedef struct Game1865D0State {
     u8 pad_0[0x2F4];
     s32 field_2F4;
 } Game1865D0State;
@@ -534,7 +533,6 @@ typedef struct {
 } Game1865D0Spawn;
 
 u32 func_150ADA20(void);
-void *func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1515AA84 CURRENT (400) */

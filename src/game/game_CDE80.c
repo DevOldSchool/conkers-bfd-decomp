@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_CDE80.c
@@ -331,7 +332,6 @@ void func_150A25D4(GameA25D4Event *arg0, void *arg1, s32 arg2,
 #endif /* CONKER_DEFERRED_CANDIDATE func_150A25D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A25D4.s")
 s32 func_150A1DA0();
-void func_15172E7C(void *, u8, s32);
 extern u32 D_800D3094;
 extern s32 D_800D3098;
 

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_58F80.c
@@ -47,7 +48,6 @@ typedef struct {
 extern u8 D_800CC2D0;
 extern u32 D_8003C8E0;
 extern u32 D_80084160[], D_80084190[];
-s32 func_1506196C(u8 *, s32);
 void *func_1502C408(void *, s32);
 s32 func_1502C974(s32, s32, s16, s32, s32);
 void *func_150368C4(s32, s32, s16);
@@ -318,9 +318,7 @@ extern u8 D_800C3638;
 extern u8 D_800C3656;
 extern s32 D_80082FA0;
 s32 func_150229E4(void *);
-s32 func_1506196C(u8 *, s32);
 void *func_1510D970(s32, s32, s32, s32, s32);
-void func_1516972C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1502C1A4 CURRENT (320) */
 void func_1502C1A4(void) {
@@ -552,7 +550,6 @@ extern f32 D_80096DE0;
 extern f32 D_80096DE4;
 extern u8 D_800BE616;
 extern u8 D_800C35EA;
-u8 func_150849A0(void *);
 void func_150837D4(s32, u8, s32, void *);
 
 /* Semantic role: actor_update_distance_representation.
@@ -822,7 +819,6 @@ void func_1502D630(Game58F80Actor *arg0, s32 *arg1, s32 arg2) {
 
 void func_10004514(s32, s32, s32, s32);
 void func_1000480C(s32, s32, s32);
-void func_1505DFDC(void *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1502D824 CURRENT (1975) */
 void func_1502D824(void *model, s32 actorAddress, s32 output) {
@@ -1435,7 +1431,6 @@ extern u16 D_800C5A90[];
 extern void *D_800D1588[];
 void func_150837D4(s32, u8, s32, void *);
 void func_1505E650(void *, s32, f32, f32, f32, f32, s32);
-void func_1507EABC(void *);
 
 /* Semantic role: actor_apply_representation_override.
  * Zero returns; 0xFF clears the override and applies entry zero. Other selectors

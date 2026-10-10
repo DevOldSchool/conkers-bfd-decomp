@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_AD9B0.c
@@ -133,7 +134,6 @@ void func_150807F4(s32 arg0, s32 arg1, s32 arg2) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AD9B0/func_15080828.s")
 void func_10004074(s32);
-void func_1516D2E0(void *);
 void func_151F2D6C(s32, s32);
 extern u8 D_800D1941;
 extern s32 D_800D1944;

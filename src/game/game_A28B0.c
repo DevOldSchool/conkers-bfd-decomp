@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_A28B0.c
@@ -478,7 +479,6 @@ extern void func_1000CBA8(u8);
 void func_150762B0(void) {
     func_1000CBA8(D_800D1890);
 }
-void func_151669A0(s32, s32, s32, f32, s32, s32);
 
 void func_150762D4(void) {
     func_151669A0((s32)D_800D154C->position_x,
@@ -634,7 +634,6 @@ typedef struct GameA28B0ObjectSlot {
     u8 bytes[0x32C];
 } GameA28B0ObjectSlot;
 
-f32 func_1505A72C(GameA28B0State *, s32 *);
 extern void *D_800D1C90[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150768DC CURRENT (800) */
@@ -739,7 +738,6 @@ void func_15076CCC(void) {
 void func_15076D04(void) {
     *(f32 *)((u8 *)D_800D154C + 0x3C) = (f32)(u32)D_800D1890;
 }
-void func_15062BDC(GameA28B0State *, f32, f32);
 extern f32 D_8009A144;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15076D3C CURRENT (180) */
@@ -873,9 +871,6 @@ void func_15077294(void) {
         return;
     }
 }
-/* Call context: func_1503DE70: unique active project prototype */
-void func_1503DE70(void *, s32, s32);
-
 void func_150772E8(void) {
     func_1503DE70(D_800D154C, (s32) D_800D1890, -1);
 }
@@ -1061,7 +1056,6 @@ void func_150779A8(void) {
     func_15075650();
     D_800D154C->pad223[0] = 0xB;
 }
-f32 func_1505A6F8(GameA28B0State *, s32 *);
 extern u8 D_800C3E78;
 extern s32 D_800CC2D0;
 
@@ -1121,7 +1115,6 @@ void func_15077BE4(void) {
 void func_15077C1C(void) {
     D_800D154C->field_23D = D_800D1890;
 }
-f32 func_1505A72C(GameA28B0State *, s32 *);         /* extern */
 extern f32 D_8009A148;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15077C38 CURRENT (155) */
@@ -1215,7 +1208,6 @@ void func_15077F64(void) {
         func_15056A00(D_800D154C, angle, mode);
     }
 }
-f32 func_1505A6F8(GameA28B0State *, s32 *);         /* extern */
 extern u8 D_800C3E78;
 extern s32 D_800CC2D0;
 
@@ -1271,7 +1263,6 @@ void func_150782E8(void) {
         func_15075400((s32) D_800D1890);
     }
 }
-s32 func_15083FB0(s32);
 
 void func_15078358(void) {
     s32 temp_v0;
@@ -1309,8 +1300,6 @@ void func_15078520(void) {
 f32 func_15047D60(f32);
 f32 func_150484A0(f32, f32);
 f32 func_15047C00(f32);
-f32 func_150489B0(u8);
-f32 func_15048A40(u8);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15078544 CURRENT (555) */
 void func_15078544(void) {
@@ -1967,8 +1956,6 @@ void func_1507A210(void) {
     *(u16 *)((u8 *)D_800D154C + 0x22C) = (u16) (*(u16 *)((u8 *)D_800D154C + 0x22C) & 0xFD);
     func_15075498();
 }
-/* Call context: func_1503DE70: unique active project prototype */
-
 void func_1507A270(void) {
     func_1503DE70(D_800D154C, (s32) D_800D1890, (s32) (s8) D_800D1891);
 }

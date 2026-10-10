@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_3DC30.c
@@ -20,8 +21,7 @@ typedef struct Game3DC30Packet {
     s32 second;
 } Game3DC30Packet;
 
-void func_10022EC0(void *, void *, s32);
-u8 *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 void func_150DE32C(void);
 extern u8 *D_800D2E4C;
 extern s32 D_800D3098;

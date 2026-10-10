@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_F4890.c
@@ -18,7 +19,6 @@ typedef struct GameF4890LightState {
     s32 brightness;
 } GameF4890LightState;
 
-void func_151616D0(u8, u8, s32);
 void func_10010F30(s32, s32, s32, s32, s32);
 u32 func_150ADA20(void);
 extern f32 D_800A04B0;

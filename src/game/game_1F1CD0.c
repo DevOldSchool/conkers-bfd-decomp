@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1F1CD0.c
@@ -31,7 +32,6 @@ typedef struct Game1F1CD0Actor {
 } Game1F1CD0Actor;
 
 f32 func_15047D60(f32);
-void func_151436B4(f32, f32, f32, void *);
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 f32 func_15144B68(f32);

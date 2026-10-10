@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_197F20.c
@@ -134,7 +135,6 @@ void func_1516D0CC(void *arg0, f32 *arg1, f32 *arg2, s32 arg3) {
 void func_1516D2D8(void) {
 
 }
-void func_1516972C(void *);
 
 void func_1516D2E0(void *arg0) {
     if ((arg0 != 0) && (*(u8 *)((u8 *)arg0 + 0) == 0x51)) {

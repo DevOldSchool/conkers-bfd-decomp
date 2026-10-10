@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1890A0.c
@@ -91,7 +92,6 @@ void func_1515BE48(void) {
 
 }
 void *func_10022EC0(void *, const void *, u32);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 
 typedef struct {
     u8 pad0[0x10];
@@ -144,21 +144,17 @@ void *func_1515BE50(void **arg0, s32 arg1, u8 arg2, s32 arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1890A0/func_1515BE50.s")
 /* Call context: func_1514EDF0: unique active project prototype */
 /* Call context: func_15169804: unique active project prototype */
-void func_1514EDF0(s32, s32);
-void func_15169804(s32);
-void func_15169824(s32);
 
 void func_1515BF50(void *arg0) {
-    func_1514EDF0((s32) arg0, *(s32 *)((u8 *)arg0 + 0x18));
-    func_15169804((s32) arg0);
+    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x18));
+    func_15169804(arg0);
 }
 void func_1515BF7C(void *arg0) {
-    func_1514EDF0((s32) arg0, *(s32 *)((u8 *)arg0 + 0x18));
-    func_15169824((s32) arg0);
+    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x18));
+    func_15169824(arg0);
 }
 extern f32 D_800BE9A8;
 extern s32 D_800BE9E4;
-void func_1516972C(u8 *);
 
 typedef struct {
     s32 x;

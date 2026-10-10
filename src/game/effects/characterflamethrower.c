@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/effects/characterflamethrower.c
@@ -47,14 +48,11 @@ extern s32 D_800E08F0;
 struct CharacterFlamethrowerActor;
 void func_1519CDB0(struct CharacterFlamethrowerActor *arg0, f32 arg1, s32 arg2);
 void func_10010F30(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-void func_151478F4(s32 arg0);
 extern void (*D_8008F88C[])(void *);
 extern void (*D_8008F898[])(void *);
-extern void (*D_8008F8B4[])(s32);
+extern void (*D_8008F8B4[])(void *);
 extern void (*D_8008F8C0[])(void);
-void func_15147928(s32 arg0);
-void func_15199980(s32 arg0);
-void func_1516972C(s32 arg0);
+void func_15199980(void *arg0);
 void func_100111C8(u16 arg0);
 struct CharacterFlamethrowerPanel;
 struct CharacterFlamethrowerPanel *func_15195DD4(s32, s32, s32, s32, s32, s32, s32);
@@ -106,7 +104,7 @@ typedef struct CharacterFlamethrowerState {
     char pad68[0xC8];
     u16 unk130;
     char pad132[0x16];
-    s32 unk148;
+    void *unk148;
     f32 spacing;
     u8 flags150;
     char pad151[7];
@@ -154,8 +152,6 @@ typedef struct CharacterFlamethrowerLocal {
 
 void func_15147D64(void *arg0, s32 arg1, CharacterFlamethrowerActor *arg2);
 
-void func_151617C4();
-void func_151617E4();
 void func_1519C258(CharacterFlamethrowerContext *arg0);
 
 typedef struct CharacterFlamethrowerListNode {
@@ -523,7 +519,7 @@ next:
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15195DD4.s")
 
 
-void func_15195FB0(
+CharacterFlamethrowerPanel *func_15195FB0(
     CharacterFlamethrowerDispatch *arg0,
     s32 arg1,
     s32 arg2,
@@ -532,7 +528,7 @@ void func_15195FB0(
     s32 arg5,
     s32 arg6
 ) {
-    func_15195DD4(arg0->unk1C, arg1, arg2, arg3, arg4, arg5, arg6);
+    return func_15195DD4(arg0->unk1C, arg1, arg2, arg3, arg4, arg5, arg6);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15195FF0.s")
@@ -556,7 +552,7 @@ void func_15196330(void *arg0) {
     if (temp_v1_2 != -1) {
         D_8008F88C[temp_v1_2](arg0);
     }
-    func_151478F4((s32)arg0);
+    func_151478F4(arg0);
 }
 void func_151963B4(void *arg0) {
     void *temp_v0;
@@ -572,7 +568,7 @@ void func_151963B4(void *arg0) {
     if (temp_v1_2 != -1) {
         D_8008F88C[temp_v1_2](arg0);
     }
-    func_15147928((s32)arg0);
+    func_15147928(arg0);
 }
 typedef struct CharacterFlamethrowerJetTemplate {
     s16 unk0;
@@ -1035,7 +1031,6 @@ extern s8 D_800DD190;
 extern void *D_800DD198[];
 extern u8 D_800DDE80[];
 void func_15183ACC(s32);
-void func_15168B10(s32, s32);
 s32 func_1510F8D8(s32, s32, s32, s32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1519897C CURRENT (3849) */
@@ -1207,8 +1202,6 @@ typedef struct CharacterFlamethrowerEmission {
 
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
-f32 func_151423D8(u8);
-void func_15167D84(void *, s32, s32, s32, u8, s32);
 extern u8 D_80090514[];
 extern CharacterFlamethrowerEmissionPreset D_800A8770[];
 
@@ -1360,7 +1353,7 @@ void func_1519986C(CharacterFlamethrowerActor *actor, CharacterFlamethrowerEvent
 
     if (kind == 0 || kind == 2 || kind == 0x26) {
         if (event->removed.identity == state->identity || event->removed.generation == state->generation) {
-            func_1516972C((s32)actor);
+            func_1516972C(actor);
         }
     } else if (kind == 0x2D) {
         actor = (CharacterFlamethrowerActor *)event->replaced.first;
@@ -1377,19 +1370,19 @@ void func_1519986C(CharacterFlamethrowerActor *actor, CharacterFlamethrowerEvent
         }
     }
 }
-void func_15199928(s32 arg0) {
+void func_15199928(void *arg0) {
     func_15199980(arg0);
     func_151478F4(arg0);
 }
-void func_15199954(s32 arg0) {
+void func_15199954(void *arg0) {
     func_15199980(arg0);
     func_15147928(arg0);
 }
-void func_15199980(s32 arg0) {
+void func_15199980(void *arg0) {
     CharacterFlamethrowerState *var_v1;
     s8 temp_v0;
     s8 temp_v0_2;
-    s32 temp_a0;
+    void *temp_a0;
 
     var_v1 = ((CharacterFlamethrowerActor *)arg0)->state;
     temp_v0 = var_v1->unk39;

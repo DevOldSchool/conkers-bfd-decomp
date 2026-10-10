@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1228D0.c
@@ -35,7 +36,6 @@ typedef struct Game1228D0Spawn {
     u8 byte5D;
 } Game1228D0Spawn;
 
-void func_15169968(void *);
 extern u8 D_800917F8;
 extern u8 D_80091930;
 extern u8 D_8009193C;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_FE9E0.c
@@ -10,8 +11,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-s32 func_15123934(void *, s32, s32, s32, s32);
-s32 func_151239CC(void *, s32);
 s32 func_1509BE40(s32, ...);
 extern f32 D_800A08D0, D_800A08D4;
 extern s32 D_800BE9F0;

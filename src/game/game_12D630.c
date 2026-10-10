@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_12D630.c
@@ -11,8 +12,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
-
 void func_15100180(void *arg0) {
     struct {
         void *sp18;
@@ -21,7 +20,7 @@ void func_15100180(void *arg0) {
 
     sp.sp18 = arg0;
     sp.sp1C = *(u8 *)((u8 *)arg0 + 0x3B);
-    func_151494E0((s32 *)&sp, 0x48, (s32)arg0);
+    func_151494E0(&sp, 0x48);
 }
 typedef struct {
     u8 pad0[0x3B];
@@ -35,8 +34,7 @@ typedef struct {
     s16 field6;
 } Game12D630EffectPacket;
 
-void func_10022EC0(void *, void *, s32); /* extern */
-u8 *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
+void *func_10022EC0(void *, const void *, u32);
 
 void func_151001B4(Game12D630Actor *arg0) {
     Game12D630EffectPacket packet;
@@ -51,7 +49,6 @@ void func_151001B4(Game12D630Actor *arg0) {
     }
 }
 void func_15149514(s32, u8, s32, s32, s32);
-void func_1516972C(u8 *);
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15100230 CURRENT (260) */
 void func_15100230(void *arg0, void *arg1, u8 arg2) {
     u8 *temp_a2;

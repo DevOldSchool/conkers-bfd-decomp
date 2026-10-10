@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_E3900.c
@@ -9,8 +10,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-void func_1516972C(u8 *);
 
 void func_150B6450(s32 arg0, s32 arg1, u8 arg2) {
     if (arg2 == 0x4A) {
@@ -50,7 +49,6 @@ typedef struct {
     f32 field3C;
 } GameE3900Spawn;
 
-f32 func_151423D8(u8);
 void func_15143794(s16, s16, f32, void *);
 void *func_150B3F5C(GameE3900Spawn *, GameE3900Vector *, s16);
 extern GameE3900Vector D_8009FC3C[];

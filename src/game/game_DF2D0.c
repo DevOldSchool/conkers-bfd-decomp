@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_DF2D0.c
@@ -34,15 +35,14 @@ typedef struct GameDF2D0Packet {
     f32 field_C;
 } GameDF2D0Packet;
 
-extern void *func_10022EC0(void *arg0, const void *arg1, u32 arg2);
+void *func_10022EC0(void *, const void *, u32);
 extern u32 func_150ADA20(void);
-extern s32 func_15149130(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8);
 
 void func_150B1EE0(void *arg0, GameDF2D0Packet *arg1, s32 arg2, s32 arg3) {
     typedef struct { s32 words[3]; } Copy3;
     GameDF2D0Packet packet;
     s16 temp_a0;
-    s32 temp_v0;
+    u8 *temp_v0;
 
     *(Copy3 *)&packet = *(Copy3 *)arg1;
     packet.field_C = 0.0f;

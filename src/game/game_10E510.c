@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_10E510.c
@@ -27,10 +28,8 @@ typedef struct Game10E510Payload1060 {
 } Game10E510Payload1060;
 
 void *func_10022EC0(void *, const void *, u32);
-Game10E510Object1060 *func_151149AC(u8);
 void func_1510F800(s32);
 s32 func_1510FD20(s16, s16);
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern u8 D_800A0FE0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150E1060 CURRENT (626) */

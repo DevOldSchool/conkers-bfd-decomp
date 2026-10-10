@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1EC390.c
@@ -60,7 +61,6 @@ typedef struct Game1EC390Spawn {
 } Game1EC390Spawn;
 
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-s32 func_15133760(s32, void *);
 extern Game1EC390Selector D_8008FBC0;
 extern f32 D_800AA8E4;
 extern s32 D_800BE9F0;
@@ -262,8 +262,6 @@ typedef struct {
     Game1EC390Resources resources;
 } Game1EC390ResourceOwner;
 
-void func_1516972C(void *);
-
 void func_151BFB2C(Game1EC390ResourceOwner *arg0) {
     u8 i;
     Game1EC390Resources *resources = &arg0->resources;
@@ -278,9 +276,7 @@ void func_151BFB2C(Game1EC390ResourceOwner *arg0) {
     }
 }
 
-void func_1514933C(s32 arg0);
-
-void func_151BFBA4(s32 arg0) {
+void func_151BFBA4(void *arg0) {
     func_151BFB2C(arg0);
     func_1514933C(arg0);
 }

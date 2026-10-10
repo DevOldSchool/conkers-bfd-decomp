@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_E4070.c
@@ -64,14 +65,12 @@ void func_150B6BC0(s32 arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B6BC0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B6BC0.s")
 extern s32 D_800BE9E8;
-extern s32 D_800D9894;
-extern s32 D_800D9898;
+extern void *D_800D9894;
+extern void *D_800D9898;
 extern s32 D_800D989C;
 extern s32 D_800D98A0;
-extern s32 D_800D98C0;
+extern void *D_800D98C0;
 extern s8 D_800D9890;
-void func_1516972C(s32);
-s32 func_151A4FD0(s32, s32, s32, s32, s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6C90 CURRENT (670) */
 void func_150B6C90(void) {
@@ -99,8 +98,8 @@ clear_words:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B6C90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B6C90.s")
-extern s32 D_800D9898;
-extern s32 D_800D98A4;
+extern void *D_800D9898;
+extern void *D_800D98A4;
 extern s8 D_800D9890;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6D34 CURRENT (70) */
@@ -123,15 +122,14 @@ loop:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B6D34 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B6D34.s")
-extern s32 D_800D9894;
-extern s32 D_800D98C0;
+extern void *D_800D9894;
+extern void *D_800D98C0;
 extern s8 D_800D9890;
-void func_1516972C(s32);
 
 void func_150B6D78(void) {
-    s32 *var_s0;
-    s32 *var_s1;
-    s32 temp_a0;
+    void **var_s0;
+    void **var_s1;
+    void *temp_a0;
 
     if (D_800D9894 != 0) {
         func_1516972C(D_800D9894);
@@ -312,7 +310,6 @@ typedef struct {
     u8 field39;
 } GameE4070Descriptor;
 
-void *func_15169900(void *, s32);
 extern u8 D_80091924;
 extern s32 D_800BE638;
 
@@ -399,7 +396,6 @@ void func_150B73F0(void *arg0) {
 
 
 extern u8 D_800918DC;
-s32 func_15169968(void *);
 
 void func_150B7484(void) {
     GameE4070Descriptor descriptor;

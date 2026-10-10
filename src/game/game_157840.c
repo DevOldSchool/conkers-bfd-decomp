@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_157840.c
@@ -261,11 +262,9 @@ typedef struct GameC20CActor {
 } GameC20CActor;
 
 void func_15048758(f32 *);
-void func_15048F90(void *, void *, void *);
 void func_15049148(void *, f32, void *);
 void func_150491EC(void *, void *, void *);
 void func_1508EF80(f32 *, f32 *, f32, f32 *);
-f32 func_15048FC8(f32 *);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 extern f32 D_800895B0;

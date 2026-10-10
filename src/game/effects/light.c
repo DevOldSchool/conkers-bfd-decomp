@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/effects/light.c
@@ -45,9 +46,8 @@ typedef struct GameLightDescriptor {
     u8 field4;
 } GameLightDescriptor;
 
-void *func_1516037C(GameLightDescriptor *, s32, void *, u8, s32);
-void *func_15167A68(s32, s32, void *, s32, s32, s32);
-void func_10022EC0(void *, void *, s32);
+void *func_1516037C(GameLightDescriptor *, s32, s32, u8, s32);
+void *func_10022EC0(void *, const void *, u32);
 extern f32 D_800A6AE4;
 extern f32 D_800A6AE8;
 extern f32 D_800A6AEC;
@@ -55,12 +55,8 @@ f32 func_150ADA68();
 extern f32 D_800A6AD8;
 extern f32 D_800A6ADC;
 extern f32 D_800A6AE0;
-s32 func_151149AC(u8);
 
 void func_15163CF8(s32 arg0, s32 arg1);
-void func_1514EDF0(s32 arg0, s32 arg1);
-void func_151617C4();
-void func_151617E4();
 void func_1516944C(s32 arg0, s8 *arg1, u8 arg2);
 
 typedef struct LightEntry {
@@ -75,7 +71,6 @@ typedef struct LightCallData {
 } LightCallData;
 
 void *func_1515D5F8(s32, s32, s32, s32, s32, s32, s32, s32, s32, u8);
-void func_1515F10C(void *);
 
 s32 func_151602C0(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4,
                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
@@ -87,7 +82,7 @@ s32 func_151602C0(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4,
                               arg5, (u8)arg6, (u8)arg7, 0);
     if (allocated != 0) {
         result = func_1516037C((GameLightDescriptor *)arg0, (s32)allocated,
-                               (void *)arg8, (u8)arg9, arg10);
+                               arg8, (u8)arg9, arg10);
         if (result != 0) {
             *(u8 *)((u8 *)result + 0xE) |= 2;
         } else {
@@ -96,11 +91,11 @@ s32 func_151602C0(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4,
     }
     return (s32)result;
 }
-void *func_1516037C(GameLightDescriptor *arg0, s32 arg1, void *arg2, u8 arg3, s32 arg4) {
+void *func_1516037C(GameLightDescriptor *arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4) {
     void *temp_v0;
     void *sp24;
 
-    temp_v0 = func_15167A68(0x35, arg4, (u8 *)arg2 + 0x18, 1, (s32)arg3, 1);
+    temp_v0 = func_15167A68(0x35, arg4, arg2 + 0x18, 1, arg3, 1);
     if (temp_v0 == 0) {
         return 0;
     }
@@ -113,7 +108,6 @@ typedef s32 (*LightCallback)(void *);
 
 extern LightCallback D_8008B0F0[];
 extern s32 D_800BE9E4;
-void func_1516972C(void *arg0);
 
 void func_151603FC(void *arg0) {
     u8 *ptr = arg0;
@@ -496,7 +490,7 @@ void *func_1516127C(s32 arg0, u8 arg1, s32 arg2) {
     descriptor.field2 = 0x12C;
     descriptor.field4 = 5;
     values[3] = D_800A6ADC;
-    result = func_1516037C(&descriptor, arg0, (void *)0x10, arg1, arg2);
+    result = func_1516037C(&descriptor, arg0, 0x10, arg1, arg2);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0x18, values, 0x10);
     }
@@ -519,7 +513,7 @@ void *func_15161334(s32 arg0, u8 arg1, s32 arg2) {
     values[5] = 10.0f;
     values[6] = D_800A6AE0;
     values[7] = 127.0f;
-    result = func_1516037C(&descriptor, arg0, (void *)0x20, arg1, arg2);
+    result = func_1516037C(&descriptor, arg0, 0x20, arg1, arg2);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0x18, values, 0x20);
     }
@@ -528,14 +522,14 @@ void *func_15161334(s32 arg0, u8 arg1, s32 arg2) {
 void *func_15161408(s32 arg0, u8 arg1, s32 arg2) {
     void *result;
     GameLightDescriptor descriptor;
-    s32 sp20;
+    void *sp20;
 
     sp20 = func_151149AC(0xF9U);
     descriptor.field0 = 0;
     descriptor.field1 = 3;
     descriptor.field2 = 0x12C;
     descriptor.field4 = 8;
-    result = func_1516037C(&descriptor, arg0, (void *)4, arg1, arg2);
+    result = func_1516037C(&descriptor, arg0, 4, arg1, arg2);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0x18, &sp20, 4);
     }
@@ -554,7 +548,7 @@ void *func_15161494(s32 arg0, u8 arg1, s32 arg2) {
     values[1] = 100.0f;
     values[2] = 0.0f;
     values[3] = D_800A6AE4;
-    result = func_1516037C(&descriptor, arg0, (void *)0x10, arg1, arg2);
+    result = func_1516037C(&descriptor, arg0, 0x10, arg1, arg2);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0x18, values, 0x10);
     }
@@ -573,7 +567,7 @@ void *func_15161540(s32 arg0, u8 arg1, s32 arg2) {
     descriptor.field2 = 0x12C;
     descriptor.field4 = 5;
     values[3] = D_800A6AEC;
-    result = func_1516037C(&descriptor, arg0, (void *)0x10, arg1, arg2);
+    result = func_1516037C(&descriptor, arg0, 0x10, arg1, arg2);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0x18, values, 0x10);
     }
@@ -613,7 +607,7 @@ void *func_151615F8(s32 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4,
     payload.value2 = 0.0f;
     payload.value3 = 0.0f;
     payload.value0 = value;
-    result = func_1516037C(&descriptor, arg0, (void *)0x14, arg4, arg5);
+    result = func_1516037C(&descriptor, arg0, 0x14, arg4, arg5);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0x18, &payload, 0x14);
     }
@@ -629,28 +623,27 @@ void func_151616D0(u8 arg0, u8 arg1, s32 arg2) {
 }
 
 void func_15161714(void *arg0) {
-    func_1514EDF0((s32)arg0, *(s32 *)((u8 *)arg0 + 0x18));
+    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x18));
     func_151617C4(arg0);
 }
 void func_15161740(void *arg0) {
-    func_1514EDF0((s32)arg0, *(s32 *)((u8 *)arg0 + 0x18));
+    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x18));
     func_151617E4(arg0);
 }
 void func_1516176C(void *arg0) {
-    func_1514EDF0((s32)arg0, *(s32 *)((u8 *)arg0 + 0x18));
+    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x18));
     func_151617C4(arg0);
 }
 void func_15161798(void *arg0) {
-    func_1514EDF0((s32)arg0, *(s32 *)((u8 *)arg0 + 0x18));
+    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x18));
     func_151617E4(arg0);
 }
-void func_151617C4(void) {
-    func_15169804();
+void func_151617C4(void *arg0) {
+    func_15169804(arg0);
 }
-void func_151617E4(void) {
-    func_15169824();
+void func_151617E4(void *arg0) {
+    func_15169824(arg0);
 }
-void func_1515F10C(void *);
 extern void (*D_8008B208[])(void *);
 
 void func_15161804(void *arg0) {
@@ -822,7 +815,7 @@ void *func_15162034(s32 arg0, s32 arg1, s32 arg2) {
     values[6] = D_800A6AF0;
     values[4] = 0.0f;
     values[7] = 127.0f;
-    result = func_1516037C(&descriptor, arg0, (void *)0x20,
+    result = func_1516037C(&descriptor, arg0, 0x20,
                            arg1 & 0xFF, arg2);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0x18, values, 0x20);
@@ -831,11 +824,10 @@ void *func_15162034(s32 arg0, s32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15162034 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15162034.s")
-s32 func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A6AF4;
 
 void func_15162110(s32 arg0) {
-    s32 temp_v0;
+    u8 *temp_v0;
     struct {
         f32 values[8];
     } payload;
@@ -898,7 +890,7 @@ void *func_151623F4(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s8 arg4,
     descriptor.field1 = arg4;
     descriptor.field2 = arg5;
     descriptor.field4 = arg2;
-    result = func_1516037C(&descriptor, arg0, (void *)0x20, arg6, arg7);
+    result = func_1516037C(&descriptor, arg0, 0x20, arg6, arg7);
     if (result != 0) {
         saved = result;
         func_10022EC0((u8 *)result + 0x18, &values, 0x20);
@@ -957,7 +949,7 @@ void *func_15162740(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4,
     locals.descriptor.field1 = arg5;
     locals.descriptor.field2 = arg4;
     locals.descriptor.field4 = arg2;
-    result = func_1516037C(&locals.descriptor, arg0, (void *)0x20, arg6,
+    result = func_1516037C(&locals.descriptor, arg0, 0x20, arg6,
                            arg7);
     if (result != 0) {
         locals.saved = result;
@@ -1060,7 +1052,7 @@ void *func_1516295C(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4,
     locals.descriptor.field2 = arg4;
     locals.descriptor.field4 = arg2;
     locals.payload.values[8] = 1.0f / width;
-    result = func_1516037C(&locals.descriptor, arg0, (void *)(arg10 + 0x30), arg11, arg12);
+    result = func_1516037C(&locals.descriptor, arg0, arg10 + 0x30, arg11, arg12);
     if (result != 0) {
         locals.saved = result;
         func_10022EC0((u8 *)result + 0x18, &locals.payload, 0x30);
@@ -1075,7 +1067,7 @@ void func_151403A8(s8 *, s32);
 
 void func_15162EF8(void *arg0) {
     s8 sp1C[12];
-    s32 temp_v0;
+    u8 *temp_v0;
 
     temp_v0 = func_151149AC(*(u8 *)((u8 *)arg0 + 0x48));
     if (temp_v0 != 0) {
@@ -1086,7 +1078,7 @@ void func_15162EF8(void *arg0) {
 }
 void func_15162F50(void *arg0) {
     s8 sp1C[12];
-    s32 temp_v0;
+    u8 *temp_v0;
 
     temp_v0 = func_151149AC(*(u8 *)((u8 *)arg0 + 0x48));
     if (temp_v0 != 0) {
@@ -1151,7 +1143,7 @@ void *func_15162FAC(s32 arg0, u8 arg1, u8 arg2, u8 arg3,
     locals.descriptor.field1 = arg5;
     locals.descriptor.field2 = arg4;
     locals.descriptor.field4 = arg2;
-    result = func_1516037C(&locals.descriptor, arg0, (void *)0x34,
+    result = func_1516037C(&locals.descriptor, arg0, 0x34,
                            arg6, arg7);
     if (result != 0) {
         locals.saved = result;
@@ -1263,7 +1255,7 @@ void *func_15163604(s32 arg0, s32 arg1, u8 arg2, s16 arg3, u8 arg4,
     locals.descriptor.field1 = 1;
     locals.descriptor.field2 = arg3;
     locals.descriptor.field4 = arg2;
-    result = func_1516037C(&locals.descriptor, arg0, (void *)0x10, arg6, arg7);
+    result = func_1516037C(&locals.descriptor, arg0, 0x10, arg6, arg7);
     if (result != 0) {
         locals.saved = result;
         func_10022EC0((u8 *)result + 0x18, locals.values, 0x10);
@@ -1304,15 +1296,15 @@ void func_1516381C(s32 arg0, u8 arg1, u8 arg2, s32 arg3) {
     sp20.field4 = arg1;
     func_1516037C(&sp20, arg0, 0, arg2, arg3);
 }
-void func_1516387C(s32 arg0, u8 arg1, s8 arg2, s16 arg3, u8 arg4,
-                   void *arg5, u8 arg6, s32 arg7) {
+void *func_1516387C(s32 arg0, u8 arg1, s8 arg2, s16 arg3, u8 arg4,
+                    s32 arg5, u8 arg6, s32 arg7) {
     GameLightDescriptor sp20;
 
     sp20.field0 = arg1;
     sp20.field1 = arg2;
     sp20.field2 = arg3;
     sp20.field4 = arg4;
-    func_1516037C(&sp20, arg0, arg5, arg6, arg7);
+    return func_1516037C(&sp20, arg0, arg5, arg6, arg7);
 }
 void func_15187FC0(s32, void *);
 void func_15188010(s32, f32 *);
@@ -1604,7 +1596,6 @@ typedef struct LightInput {
     s32 field_C;
 } LightInput;
 
-void func_1516972C(void *);
 void func_15145CD0(s32, void **, f32 **, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151640C0 CURRENT (978) */
@@ -1679,7 +1670,7 @@ void *func_15164208(s32 arg0, u8 arg1, u8 arg2, s32 arg3) {
     sp2C.field1 = 0x14;
     sp2C.field2 = 0x12C;
     sp2C.field4 = 0x27;
-    result = func_1516037C(&sp2C, arg0, (void *)8, arg2, arg3);
+    result = func_1516037C(&sp2C, arg0, 8, arg2, arg3);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0x18, &payload, 8);
     }
@@ -1781,7 +1772,6 @@ extern s32 D_800BE9F0;
 extern u8 D_800DCD20[3];
 extern s8 D_800DCDD0;
 void func_1511172C(s32);
-void func_1515F170(s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151645C4 CURRENT (100) */
 void func_151645C4(u8 arg0) {

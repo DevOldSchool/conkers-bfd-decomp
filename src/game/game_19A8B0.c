@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_19A8B0.c
@@ -103,7 +104,6 @@ void func_1516D400(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1516D400 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516D400.s")
 
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void *func_150448D0(s32, void *, s32, s32, s32, s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1516D4E8 CURRENT (60) */
@@ -154,7 +154,6 @@ void func_1516D4E8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s
 
 extern s32 D_800BE9E4;
 extern s32 (*D_8008CBA0[])(Game19A8B0Motion *);
-void func_1516972C(void *);
 
 void func_1516D678(Game19A8B0Motion *arg0) {
     s32 value;
@@ -533,7 +532,6 @@ extern const Game19A8B0Table D_8008CBC4;
 extern const Game19A8B0Table D_8008CBD0;
 extern const Game19A8B0Table D_8008CBDC;
 extern const Game19A8B0Table D_8008CBE8;
-void func_1516F864(Game19A8B0Motion *);
 void func_1516F94C(s32, s32);
 
 s32 func_1516F024(Game19A8B0Motion *arg0) {
@@ -894,8 +892,6 @@ void func_1516FE1C(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1516FE1C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516FE1C.s")
-f32 func_150489B0(u8);
-f32 func_15048A40(u8);
 u32 func_150ADA20(void);
 
 void func_15170034(s32 arg0, f32 *arg1, f32 *arg2, f32 *arg3) {

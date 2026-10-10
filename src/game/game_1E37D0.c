@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1E37D0.c
@@ -158,7 +159,6 @@ s32 func_151B6420(Game1B6420Actor *actor) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B6420 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B6420.s")
-f32 func_15143E64(void *);           /* extern */
 extern f32 D_800AA474;
 extern f32 D_800AA478;
 extern f32 D_800BE9A4;
@@ -329,7 +329,6 @@ typedef struct Game1E37D0ParticleSpawn {
 
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
-void *func_15130280(void *, u8, void *, s32, u8, s32);
 extern f32 D_800AA47C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B7144 CURRENT (493) */
@@ -660,7 +659,6 @@ void func_151B82CC(void *arg0, s32 arg1, u8 arg2) {
         temp_v1(arg0, arg1, arg2);
     }
 }
-void func_1516972C(void *);
 
 void func_151B8318(void *arg0, void *arg1, u8 arg2) {
     u8 *state;

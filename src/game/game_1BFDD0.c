@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1BFDD0.c
@@ -12,8 +13,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_10022EC0(void *, void *, s32);
-s32 func_151491F4(s16, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 typedef struct Game1BFDD0Packet {
     void *owner;
     u8 type;

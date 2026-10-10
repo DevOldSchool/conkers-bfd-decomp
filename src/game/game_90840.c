@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_90840.c
@@ -108,7 +109,6 @@ void func_15063570(Game90840Actor *arg0) {
 }
 
 void func_15081690(f32, s32, s32, s32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);
-void func_150636A4(Game90840Actor *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15063628 CURRENT (481) */
 void func_15063628(Game90840Actor *arg0, f32 arg1) {
@@ -158,7 +158,6 @@ s32 func_15081E78(Game90840Actor *, void *, s32);
 s32 func_10010894(void *);
 u32 func_150ADA20(void);
 void func_10010558(u16, void *, s32, s32, s32, s32);
-void func_1512D2E4(void *, s32);
 void func_150FFCC8(void *, void *, void *, void *, void *);
 void func_150FFD84(f32 *, f32 *, s32, s32);
 

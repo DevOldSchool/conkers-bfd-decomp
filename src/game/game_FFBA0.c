@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_FFBA0.c
@@ -38,7 +39,6 @@ void func_150D26F0(u8 *volatile arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FFBA0/func_150D26F0.s")
 void *func_10022EC0(void *, const void *, u32);
 f32 func_150ADA68(void);
-void *func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 extern u8 D_800A0990[];
 extern f32 D_800A099C;
 extern f32 D_800A09A0;

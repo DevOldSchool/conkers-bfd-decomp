@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1A7490.c
@@ -42,7 +43,6 @@ typedef struct Game1A7490Motion {
 } Game1A7490Motion;
 
 u32 func_150ADA20(void);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 extern f32 D_800A7220;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15179FE0 CURRENT (2175) */
@@ -88,7 +88,6 @@ void func_15179FE0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_15179FE0.s")
 
 
-void func_1516972C(u8 *);
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1517A1EC CURRENT (1975) */
@@ -264,7 +263,6 @@ void func_1517A644(f32 arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517A644 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_1517A644.s")
-void func_1516972C(u8 *);
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1517A84C CURRENT (200) */

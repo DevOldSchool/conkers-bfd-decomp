@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1B8B60.c
@@ -70,7 +71,6 @@ typedef struct {
 } RingSpawn;
 
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-f32 func_151423D8(u8);
 void func_151429E0(u8, u8 *, u8 *, u8 *);
 void func_1518CA80(RingSpawn *, u8);
 u32 func_150ADA20(void);

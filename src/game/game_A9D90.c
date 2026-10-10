@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_A9D90.c
@@ -142,8 +143,6 @@ void func_1507D4F8(s32 arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507D4F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D4F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D754.s")
-void func_1503DE70(void *arg0, s32 arg1, s32 arg2);
-
 void func_1507DB44(void *arg0, s32 arg1) {
     func_1503DE70(arg0, arg1, -1);
 }
@@ -153,7 +152,6 @@ void func_1507DB64(void) {
 typedef struct { u32 first, second; } GameA9D90Command;
 
 s32 func_1510D0EC(s32, s32 *, s32, s32);
-void func_1517EE40(s32, s32, s32, s32, s8, s32);
 void func_15181DC8(s32);
 extern u8 D_80086B80[];
 extern u8 D_D0F;

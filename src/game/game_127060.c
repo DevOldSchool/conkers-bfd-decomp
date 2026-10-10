@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_127060.c
@@ -197,13 +198,12 @@ void func_150FA468(void *arg0, s32 arg1, u8 arg2) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FA520.s")
 void *func_10022EC0(void *, const void *, u32);
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern u8 D_80088B60;
-extern s32 D_800D3098;
+extern u8 *D_800D3098;
 
 void func_150FAA40(u8 arg0, s32 arg1) {
-    struct { s32 first; s32 second; f32 value; } packet;
-    s32 temp_v0;
+    struct { u8 *first; u8 *second; f32 value; } packet;
+    u8 *temp_v0;
 
     if (D_80088B60 == 0) {
         packet.first = D_800D3098 + 0x71C;
@@ -265,16 +265,12 @@ void func_150FAAEC(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150FAAEC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAAEC.s")
 
-extern void func_1516972C(s32 arg0);
-
-void func_150FACE4(s32 arg0, s32 arg1, u8 arg2) {
+void func_150FACE4(void *arg0, s32 arg1, u8 arg2) {
     if ((arg2 == 0x4E) || (arg2 == 0x4F)) {
         func_1516972C(arg0);
     }
 }
-void func_1515F170(s32, s32);
-void func_151494E0(s32, s32);
-extern s32 D_800D3098;
+extern u8 *D_800D3098;
 
 void func_150FAD28(void) {
     func_1515F170(8, 0);
@@ -299,7 +295,6 @@ void func_150FADC8(void *arg0, s32 arg1, u8 arg2) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAE18.s")
-void func_15157DEC(Game127060State *, Game127060Transform *);
 extern f32 D_800A1DC0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FB188 CURRENT (654) */

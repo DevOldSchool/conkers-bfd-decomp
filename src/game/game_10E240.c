@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_10E240.c
@@ -31,8 +32,6 @@ typedef struct Game10E240Camera {
     s32 timer;
 } Game10E240Camera;
 
-s32 func_15123934(void *, s32, s32, s32, s32);
-s32 func_151239CC(void *, s32);
 s32 func_1509BE40(s32, ...);
 void func_1509BFB0(s32, ...);
 void func_15124B18(void *);

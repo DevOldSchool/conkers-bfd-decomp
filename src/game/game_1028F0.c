@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1028F0.c
@@ -13,7 +14,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 typedef struct Game1028F0D5440Packet {
     void *owner;
     u8 type;
@@ -21,11 +22,9 @@ typedef struct Game1028F0D5440Packet {
     f32 value;
 } Game1028F0D5440Packet;
 
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
-
 void func_150D5440(void *arg0, u8 arg1, s32 arg2) {
     Game1028F0D5440Packet packet;
-    s32 temp_v0;
+    u8 *temp_v0;
 
     packet.owner = arg0;
     packet.type = *(u8 *)((u8 *)arg0 + 0x3B);
@@ -36,7 +35,6 @@ void func_150D5440(void *arg0, u8 arg1, s32 arg2) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1028F0/func_150D54C8.s")
-void func_1516972C(void *, s32, void *);
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150D596C CURRENT (1602) */
 void func_150D596C(void *arg0, void *arg1, s32 arg2) {
     s32 temp_a0;
@@ -69,18 +67,18 @@ void func_150D596C(void *arg0, void *arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150D596C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1028F0/func_150D596C.s")
-void func_150D5A2C(void) {
-    func_1514933C();
+void func_150D5A2C(void *arg0) {
+    func_1514933C(arg0);
 }
-void func_150D5A4C(void) {
-    func_15149368();
+void func_150D5A4C(void *arg0) {
+    func_15149368(arg0);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1028F0/func_150D5A6C.s")
 u32 func_150ADA20(void);
-void func_151541B8(s32, f32, s32, f32, f32, u8, s32);
+void func_151541B8(f32 *, f32, f32, f32, f32, u8, s32);
 f32 func_150ADA68();
 
-void func_150D6388(s32 arg0, u8 arg1, s32 arg2) {
+void func_150D6388(f32 *arg0, u8 arg1, s32 arg2) {
     struct {
         f32 value;
         u32 random;
@@ -88,7 +86,7 @@ void func_150D6388(s32 arg0, u8 arg1, s32 arg2) {
 
     locals.value = func_150ADA68();
     locals.random = func_150ADA20();
-    func_151541B8(arg0, (locals.value * 4.0f) + 15.0f, 0x3FAFF1E9,
+    func_151541B8(arg0, (locals.value * 4.0f) + 15.0f, 1.37457f,
                  (f32)((locals.random % 56U) + 0xC8), 0.0f, arg1, arg2);
 }
 void func_15154884(s32, f32, f32, f32, s32, s32);
