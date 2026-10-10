@@ -2413,10 +2413,9 @@ void func_150715D4(s32 arg0) {
 void func_1507161C(s32 arg0) {
 
 }
-extern void func_151D0058(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 
 void func_15071628(s32 arg0) {
-    func_151D0058(D_800D154C, (arg0 - 0x55) & 0xFF, 0xFF, 1);
+    func_151D0058(D_800D154C, arg0 - 0x55, 0xFF, 1);
 }
 
 void func_15071668(s32 arg0) {

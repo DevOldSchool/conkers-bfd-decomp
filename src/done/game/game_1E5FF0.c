@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1E5FF0.c
@@ -27,14 +28,13 @@ typedef struct Game1E5FF0MotionState {
     f32 field_64;
 } Game1E5FF0MotionState;
 
-s32 func_151D9450(s32, s32);
 
-void func_151B8BE0(Game1E5FF0MotionState *arg0, s32 arg1) {
+void func_151B8BE0(Game1E5FF0MotionState *arg0, void *arg1) {
     arg0->field_44 = (func_15047D60(arg0->field_58) * arg0->field_64) +
                      arg0->field_5C;
     arg0->field_58 += arg0->field_60 * D_800BE9A4;
     arg0->field_58 = func_15144B68(arg0->field_58);
-    func_151D9450((s32)arg0, arg1);
+    func_151D9450(arg0, arg1);
 }
 /* Call context: func_15047D60: unique active declaration in the allowed source */
 /* Call context: func_15144B68: unique active declaration in the allowed source */

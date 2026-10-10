@@ -153,7 +153,6 @@ void func_150ECB8C(Game1199D0State *arg0) {
                   params->field_8, 0, params->field_9);
 }
 void func_150ECA68(void *, u8, u8, u8, u8, u8, s16, u8, s32);
-void func_151C9AC0(void *, u8, s32);
 
 void func_150ECC00(void *arg0, u8 arg1, s32 arg2) {
     func_151C9AC0(arg0, arg1, arg2);

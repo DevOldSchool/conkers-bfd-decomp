@@ -530,7 +530,6 @@ void func_1514DBB8(void *arg0) {
 void func_1514DC38(void *arg0) {
     func_1500EE18(arg0, 0xFF, 1);
 }
-void func_151D0F60(void *, s32, s32, s32); /* CONKER_ABI_DISCARDED_RETURN */
 
 void func_1514DC5C(void *arg0) {
     func_151D0F60(arg0, 0, 0xFF, 1);

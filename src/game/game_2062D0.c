@@ -129,7 +129,6 @@ s32 func_151D8FE0(void) {
     return ((u8 *)&sp1C)[func_150ADA20() & 3];
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9014.s")
-s32 func_151D9450(void *, void *);
 s32 func_151D9534(s32, s32);                        /* extern */
 
 s32 func_151D93F4(s32 arg0, s32 arg1) {

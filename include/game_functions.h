@@ -5,6 +5,7 @@
 #include "game_command.h"
 
 struct Game15D730CopyBlock;
+struct EffectsSightActor;
 struct CharacterFlamethrowerControl;
 struct Game1BD8B0Inner;
 struct Game1BD8B0Object;
@@ -204,5 +205,10 @@ struct HoltenRopeEffect *func_151B30B0(void *, f32, s32, u8, s32);
 void *func_151B4CD0(struct Game1E2180Actor *, u8, s32);
 void func_151B6320(void *, u8, s32);
 void func_1518F45C(s32, u8);
+void func_151C9AC0(struct EffectsSightActor *, u8, s32);
+s32 func_151CEC10(void *, void *, void *);
+void func_151D0058(void *, u8, u8, s32);
+void func_151D0F60(void *, u8, u8, s32);
+s32 func_151D9450(void *, void *);
 
 #endif
