@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1E58B0.c
@@ -248,7 +249,6 @@ typedef struct Game1E58B0ChoiceTable {
 } Game1E58B0ChoiceTable;
 
 struct Game15D730CopyBlock;
-void *func_15130280(void *, u8, struct Game15D730CopyBlock *, s32, u8, s32);
 extern Game1E58B0ChoiceTable D_800AA4B8;
 extern Game1E58B0Vec3 D_800A5480;
 

@@ -74,8 +74,6 @@ void *func_15130280(void *arg0, u8 arg1, Game15D730CopyBlock *arg2,
     return sp24;
 }
 
-void *func_15130280(void *, u8, Game15D730CopyBlock *, s32, u8, s32);
-
 void *func_15130374(s32 arg0, u8 arg1, s32 arg2, u8 arg3, s32 arg4) {
     return func_15130280((void *)arg0, arg1, 0, arg2, arg3, arg4);
 }

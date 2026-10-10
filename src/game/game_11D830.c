@@ -275,7 +275,6 @@ typedef struct Game11D830SpawnTail {
 
 s32 func_150ADA20(void *);
 f32 func_150ADA68(void);
-s32 func_15130280(void *, s32, s32, s32, s32, s32);
 extern f32 D_800A1860;
 extern f32 D_800A1864;
 extern f32 D_800A1868;
@@ -287,7 +286,7 @@ void *func_10022EC0(void *, const void *, u32);
 void func_150F0BEC(u8 *arg0) {
     Game11D830EffectInitPacket packet;
     Game11D830SpawnTail tail;
-    s32 result;
+    void *result;
     s32 flags2;
     s32 flags1;
 

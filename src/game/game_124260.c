@@ -76,7 +76,6 @@ typedef struct Game124260Descriptor {
 } Game124260Descriptor;
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_15130280(void *, u8, void *, s32, u8, s32);
 extern f32 D_800A1BB0;
 extern Game124260Copy3 D_800A5480;
 

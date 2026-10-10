@@ -1178,7 +1178,6 @@ typedef struct {
     f32 field6C;
 } Game1DC034Packet;
 
-void *func_15130280(void *, u8, void *, s32, u8, s32);
 extern u8 D_800AB320[];
 extern u8 D_800AB330[];
 

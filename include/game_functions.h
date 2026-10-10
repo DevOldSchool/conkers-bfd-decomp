@@ -4,6 +4,8 @@
 #include "types.h"
 #include "game_command.h"
 
+struct Game15D730CopyBlock;
+
 /* Reviewed shared interfaces from matched US definitions.
  * Include this header in both definitions and callers; do not redeclare locally.
  * See docs/decompilation-workflow.md, Shared function declarations.
@@ -77,5 +79,6 @@ s32 func_1514EC1C(s32, s32, s16);
 void *func_15190770(void *, s32, u8, s32);
 s32 func_15083FB0(u8);
 void func_1514EDF0(void *, void *);
+void *func_15130280(void *, u8, struct Game15D730CopyBlock *, s32, u8, s32);
 
 #endif
