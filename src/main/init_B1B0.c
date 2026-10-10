@@ -220,8 +220,8 @@ s32 func_8000B548(s32 (*arg0)[]) {
 }
 extern s32 D_80041F04;
 extern s32 D_800BE9F0;
-void func_800085B8(s32, s32, s32);
-void func_800088F0(s32, s32, s32);
+void func_800085B8(u8, s32, u8);
+void func_800088F0(u8, s32, s32);
 void func_80008790(u8, s32, u8, s32);
 void func_80011FA0(s32);
 s32 func_8000E704(s32, s32, s32);
@@ -819,7 +819,7 @@ void func_8000CBF0(s32 arg0, s32 arg1, s32 arg2) {
         }
     }
 }
-void func_80008988(s32, s32, s32);
+void func_80008988(u8, s32, s32);
 void func_80008EE0(u8, s32);
 
 void func_8000CC54(s32 arg0) {
@@ -869,7 +869,7 @@ typedef struct {
 extern SequenceModeEntry D_8002B078[];
 
 extern u8 D_800418AC[];
-s32 func_8000853C(s32);
+s32 func_8000853C(u8);
 
 s32 func_8000CDA0(u8 arg0, SequenceRecordState *record) {
     if (arg0 == 0) {
@@ -880,7 +880,7 @@ s32 func_8000CDA0(u8 arg0, SequenceRecordState *record) {
             if (D_800417B0[record->index] == 0 || record->id <= 0) {
                 return 1;
             }
-            if (func_8000853C(record->index & 0xFF) == 3) {
+            if (func_8000853C(record->index) == 3) {
                 return 1;
             }
             if (!(D_8002B078[record->id].flags & 0x20)) {
@@ -1008,10 +1008,10 @@ void func_8000CEAC(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000CEAC.s")
 s32 func_8000CDA0(u8, SequenceRecordState *);
 void func_8000B3D4(SequenceRecordState *, SequenceRecordState *);
-void func_80008C6C(s32, s32);
-void func_80008660(s32, s32, s32, s32);
-void func_80008C04(s32, s32, s32);
-s32 func_80008CE8(s32, s32);
+void func_80008C6C(u8, u8);
+void func_80008660(u8, u8, u8, s32);
+void func_80008C04(u8, u8, s32);
+s32 func_80008CE8(u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_8000D2F8 CURRENT (580) */
 void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
@@ -1426,7 +1426,7 @@ void func_8000DE1C(s32 arg0, s32 arg1) {
         func_8000D96C(0, arg0, arg1);
     }
 }
-s32 func_8000853C(s32);
+s32 func_8000853C(u8);
 extern SequenceRecordState D_800419A8[];
 extern u8 D_80041E58[];
 
@@ -1438,7 +1438,7 @@ void func_8000DEC4(void) {
             if (D_800419A8[index].id != -1) {
                 D_800419A8[index].id = -1;
             }
-        } else if (func_8000853C(D_800419A8[index].index & 0xFF) == 0) {
+        } else if (func_8000853C(D_800419A8[index].index) == 0) {
             D_800417B0[D_800419A8[index].index] = 0;
             D_800419A8[index].index = -1;
             D_800419A8[index].id = -1;
@@ -1681,7 +1681,7 @@ s32 func_8000E588(s32 arg0, s32 arg1, s32 arg2) {
     }
     return 0;
 }
-void func_80008C6C(s32, s32);
+void func_80008C6C(u8, u8);
 
 s32 func_8000E654(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     SequenceRecordState *record;
@@ -1694,7 +1694,7 @@ s32 func_8000E654(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     if (record != 0) {
         if (arg2 == 0 && record->index >= 0) {
-            func_80008C6C(record->index & 0xFF, (arg1 - 1) & 0xFF);
+            func_80008C6C(record->index, arg1 - 1);
             return 1;
         }
         record->field24 = arg1;
@@ -1706,7 +1706,7 @@ s32 func_8000E654(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     return 0;
 }
-void func_80008A94(s32, s32, s32);
+void func_80008A94(u8, s32, s32);
 
 s32 func_8000E704(s32 arg0, s32 arg1, s32 arg2) {
     s32 *record;

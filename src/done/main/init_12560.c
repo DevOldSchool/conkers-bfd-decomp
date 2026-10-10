@@ -86,7 +86,7 @@ typedef struct {
     s32 field318;
 } Mp3SpatialState;
 
-void func_800114D0(s32, s32, s32, s32, s32, s32, s32 *, s32 *, s32 *);
+s32 func_800114D0(s32, s32, s32, s32, s32, s32, s32 *, s32 *, s32 *);
 
 s32 func_80012718(u16 arg0, u8 *arg1, s32 arg2, s16 arg3, s32 arg4) {
     s32 pan;

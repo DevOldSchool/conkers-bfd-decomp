@@ -370,7 +370,7 @@ void func_80008C6C(u8 arg0, u8 marker) {
                   &D_8003CD48[arg0][marker]);
 }
 
-s32 func_80004514(s32, void *, u32, s32);
+void func_80004514(u32, void *, u32, s32);
 void func_80017B30(SequencePlayer *);
 void func_80017F80(SequenceData *, u8 *);
 void func_80018C60(SequencePlayer *);
