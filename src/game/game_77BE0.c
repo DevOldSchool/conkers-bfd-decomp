@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_77BE0.c
@@ -229,7 +230,7 @@ typedef struct {
     u16 field1A0;
 } Game77BE0TimerState;
 
-typedef struct {
+typedef struct Game77BE0State {
     u8 pad0[0x89];
     u8 field89;
     u8 field8A;
@@ -291,7 +292,6 @@ void func_1504BC38(Game77BE0State *arg0) {
     }
 }
 
-void func_1507EB2C(void *);
 f32 func_150AD78C(f32);
 u32 func_150ADA20(void);
 extern f32 D_800991D8;

@@ -125,7 +125,6 @@ s32 func_1505A630(f32, f32, s32);
 f32 func_150AD78C(f32);
 
 void func_1505A770(void *);
-s32 *func_1505EEB0(s32, s32 *);
 extern f32 D_8009F8C4;
 extern f32 D_8009F8C8;
 extern u8 D_800BE9A0;

@@ -40,7 +40,6 @@ void func_151163C0(u8 *actor) {
     *(f32 *)(actor + 0x60) = result - previousSway;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_143870/func_1511650C.s")
-s32 func_150490A8(f32 *);                      /* extern */
 
 s32 func_15116888(s32 arg0, s32 arg1, s32 arg2, void *arg3) {
     s32 x;

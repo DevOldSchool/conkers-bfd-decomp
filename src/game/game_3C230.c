@@ -21,7 +21,7 @@ void func_1500ED80(void) {
     func_150124A0();
 }
 
-typedef struct {
+typedef struct Game3C230Actor {
     u8 pad0[0x3B];
     u8 type;
 } Game3C230Actor;

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_recovered_pointer_helper_groups.md
  */
 
-void func_150F6400(void *arg0);
 
 void func_150F6420(void *arg0) {
     func_150F6400(arg0);

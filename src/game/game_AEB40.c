@@ -451,7 +451,6 @@ s32 func_150838EC(u8 *arg0, u16 arg1, s32 arg2, s32 arg3) {
 }
 extern u8 *D_80086CAC[];
 extern u8 *D_800D1C90[];
-void func_15036C70(void *);
 
 /* Semantic role: actor_apply_character_defaults (shared, not character-specific).
  * See docs/evidence/assets/naming/character_semantic_naming.md; keep the linked symbol stable.

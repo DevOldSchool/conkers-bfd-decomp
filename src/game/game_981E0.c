@@ -1895,8 +1895,6 @@ void func_1506F8C0(s32 arg0) {
     func_1519EF70((s32) D_800D154C, 0, 0);
 }
 f32 func_150ADA68(void);
-void func_150E2EA4(s32, u8, u8, s32, f32, f32, f32, f32, f32, f32,
-                   s32, s32, s32, f32, f32, s32, f32);
 extern f32 D_80099E98;
 
 void func_1506F8F0(s32 arg0) {
@@ -1971,8 +1969,6 @@ void func_1506FCC8(s32 arg0) {
 void func_1506FCFC(s32 arg0) {
     func_15196438(D_800D154C, 5, 0xFF, 0);
 }
-void func_150E2EA4(s32, u8, u8, s32, f32, f32, f32, f32, f32, f32,
-                   s32, s32, s32, f32, f32, s32, f32);
 f32 func_150ADA68(void);
 extern f32 D_80099EA0;
 
@@ -2169,7 +2165,6 @@ void func_15070794(s32 arg0) {
 void func_150707C8(s32 arg0) {
     func_150FDDA0(D_800D154C, 0xFF, 1);
 }
-void func_150FDF38(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_150707F8(s32 arg0) {
     func_150FDF38(D_800D154C, 0xFF, 1, 0, 0);

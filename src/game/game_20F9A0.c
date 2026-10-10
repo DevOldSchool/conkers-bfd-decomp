@@ -34,7 +34,6 @@ void func_1509CC94();
 void func_1509CDDC();
 s32 func_1509CF28(s8, s32 *);
 void func_1509D054(void);
-s32 func_1509D08C(s8, u8, s32 *, s32 *);
 u16 func_1509CA30(s32);
 s32 func_1509CA50(s32);
 void func_15085710(s16, s32, s32);

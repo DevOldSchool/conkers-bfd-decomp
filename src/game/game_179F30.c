@@ -527,8 +527,6 @@ void *func_15160A58(void *, s32, void *, s32, s32, s32, s32, s32, s32, s32, s32,
 void func_1514DBB8(void *arg0) {
     func_15160A58(arg0, 2, D_800A58A0, 2, 0x12C, 0x28, 0xFF, 0xFF, 0xFF, 0xFF, 0, -1, 0, 0, 0xFF, 1);
 }
-/* Call context: func_1500EE18: raw o32 argument homes in asm/nonmatchings/game_3C230/func_1500EE18.s; pointer uses in entry block; caller discards result */
-void func_1500EE18(void *, s32, s32); /* CONKER_ABI_DISCARDED_RETURN */
 
 void func_1514DC38(void *arg0) {
     func_1500EE18(arg0, 0xFF, 1);

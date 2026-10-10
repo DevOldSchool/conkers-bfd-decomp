@@ -19,7 +19,6 @@ typedef struct Game12B250Vec3 {
 } Game12B250Vec3;
 
 void func_15145740(void *, void *, void *, void *, f32);
-void func_150FDF38(void *, u8, s32, Game12B250Vec3 *, Game12B250Vec3 *);
 u32 func_150ADA20();
 f32 func_150ADA68(void);
 s32 func_151C229C(Game12B250Vec3 *, Game12B250Vec3 *, s32, s32, s32,

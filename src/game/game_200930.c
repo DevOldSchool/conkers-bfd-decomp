@@ -1278,7 +1278,6 @@ void func_151D5714(void *arg0, s32 arg1, s32 arg2, u8 arg3,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5714.s")
 void func_151D5174(void *, void *, void *, void *, void *, void *, void *, void **, void **, void *);
 void func_151D5A18(void *, s32, void *, void *, void *, s32, u8);
-void func_150636A4(void *);
 void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
 extern s32 D_8008FC8C[];

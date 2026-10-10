@@ -819,7 +819,6 @@ void func_1502D630(Game58F80Actor *arg0, s32 *arg1, s32 arg2) {
 
 void func_10004514(s32, s32, s32, s32);
 void func_1000480C(s32, s32, s32);
-void func_1505DFDC(void *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1502D824 CURRENT (1975) */
 void func_1502D824(void *model, s32 actorAddress, s32 output) {
