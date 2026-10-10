@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 import struct
+import tempfile
 from pathlib import Path
 
 try:
@@ -97,7 +98,9 @@ def reviewed_models(root: Path = ROOT):
             or any(type(i) is not int or i < 0 for i in selected)
             or selected != sorted(set(selected))):
         raise ValueError('invalid committed US model reconstruction contract')
-    bank = next(b for b in rzip_archive.parse_asset_banks(rom, layout['asset_table']) if b.index == 3)
+    bank = next((b for b in rzip_archive.parse_asset_banks(rom, layout['asset_table']) if b.index == 3), None)
+    if bank is None:
+        raise ValueError('reviewed model bank 03 is missing from the ROM asset table')
     entries = [e for e in rzip_archive.parse_asset_entries(rom, bank) if e.index in selected]
     rows, end = layout_bins(root / 'config/profiles/us.yaml')
     if ([e.index for e in entries] != selected or rows != partition(bank, entries) or end != bank.end):
@@ -121,15 +124,58 @@ def reviewed_models(root: Path = ROOT):
     return rom, result
 
 
+def input_error(directory: Path, expected: dict, reason: str) -> ValueError:
+    return ValueError(f'{directory}: {reason}. Inputs were preserved; restore your files or run '
+                      f"./conker model-assets recover --entry {expected['entry']} "
+                      'to back up this folder and restore reviewed ROM inputs.')
+
+
 def input_hashes(directory: Path, expected: dict):
-    if json.loads((directory / 'manifest.json').read_text()) != expected:
-        raise ValueError('model manifest differs from reviewed ROM contract')
-    return {name: sha256((directory / name).read_bytes()) for name in ('manifest.json', 'model.json')}
+    try:
+        if json.loads((directory / 'manifest.json').read_text()) != expected:
+            raise ValueError('model manifest differs from reviewed ROM contract')
+        return {name: sha256((directory / name).read_bytes()) for name in ('manifest.json', 'model.json')}
+    except (OSError, ValueError) as error:
+        raise input_error(directory, expected, str(error)) from error
+
+
+def input_files(expected: dict, records: dict) -> dict[str, bytes]:
+    return {name: (json.dumps(value, indent=2) + '\n').encode()
+            for name, value in [('manifest.json', expected), ('model.json', records)]}
+
+
+def recover_inputs(entry: int, root: Path = ROOT) -> dict:
+    """Explicitly restore one reviewed bundle, retaining the complete old folder."""
+    _, selected = reviewed_models(root)
+    chosen = next((pair for pair in selected if pair[0]['entry'] == entry), None)
+    if chosen is None:
+        raise ValueError(f'model entry {entry} is not in the reviewed bank-03 selection')
+    expected, records = chosen
+    directory = root / INPUT_DIRECTORY / f'{entry:04d}'
+    if directory.is_symlink() or (directory.exists() and not directory.is_dir()):
+        raise ValueError(f'refusing recovery of a non-directory or symlink: {directory}')
+    backup = None
+    if directory.exists():
+        backups = root / 'build/assets/model-build/recovery/us/03'
+        backups.mkdir(parents=True, exist_ok=True)
+        backup = Path(tempfile.mkdtemp(prefix=f'{entry:04d}-', dir=backups)) / 'inputs'
+        directory.rename(backup)
+    try:
+        texture_build.publish_inputs(directory, input_files(expected, records))
+    except Exception:
+        if backup is not None and not directory.exists():
+            backup.rename(directory)
+        raise
+    return {'entry': entry, 'input_directory': str(directory),
+            'backup_directory': str(backup) if backup is not None else None}
 
 
 def packed_model(directory: Path, expected: dict):
     before = input_hashes(directory, expected)
-    payload = encode_records(json.loads((directory / 'model.json').read_text()))
+    try:
+        payload = encode_records(json.loads((directory / 'model.json').read_text()))
+    except (OSError, ValueError) as error:
+        raise input_error(directory, expected, str(error)) from error
     if len(payload) != expected['decoded_size'] or sha256(payload) != expected['original_decoded_sha256']:
         raise ValueError('model records no longer reconstruct original payload')
     if expected['encoder'] != texture_build.ENCODERS['zlib']:
@@ -148,11 +194,11 @@ def build_parts(root: Path = ROOT):
     candidates = []
     for expected, records in selected:
         directory = root / INPUT_DIRECTORY / f"{expected['entry']:04d}"
-        if not (directory / 'manifest.json').is_file():
-            texture_build.publish_inputs(directory, {
-                'manifest.json': (json.dumps(expected, indent=2) + '\n').encode(),
-                'model.json': (json.dumps(records, indent=2) + '\n').encode()})
+        if not directory.exists():
+            texture_build.publish_inputs(directory, input_files(expected, records))
         packed, hashes = packed_model(directory, expected)
+        if packed != rom[expected['rom_start']:expected['rom_end']]:
+            raise ValueError(f"model {expected['entry']} differs from independent original ROM bytes")
         candidates.append((expected, directory, packed, hashes))
     for expected, directory, _, hashes in candidates:
         if input_hashes(directory, expected) != hashes:
@@ -160,19 +206,34 @@ def build_parts(root: Path = ROOT):
     proofs = []
     for expected, directory, packed, hashes in candidates:
         write_if_changed(root / 'build/us/models/parts' / (part_name(expected['entry']) + '.bin'), packed)
-        proofs.append({**expected, 'source_inputs': hashes,
+        proofs.append({**expected, 'source_inputs': hashes, 'stored_sha256': sha256(packed),
                        'matches_original': packed == rom[expected['rom_start']:expected['rom_end']]})
     result = {'model_count': len(proofs), 'stored_bytes': sum(len(p) for _, _, p, _ in candidates),
               'decoded_bytes': sum(e['decoded_size'] for e in proofs), 'models': proofs,
+              'verification': 'decoded_and_stored_hashes_and_independent_rom_bytes',
               'matches_original': all(e['matches_original'] for e in proofs)}
     write_if_changed(root / 'build/us/models/batch.json', (json.dumps(result, indent=2) + '\n').encode())
     return result
 
 
+def main(argv=None):
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    commands = parser.add_subparsers(dest='command', required=True)
+    commands.add_parser('build-parts')
+    recover = commands.add_parser('recover', help='back up and restore one reviewed input bundle')
+    recover.add_argument('--entry', required=True, type=int, help='decimal bank-03 entry ID')
+    args = parser.parse_args(argv)
+    try:
+        if args.command == 'recover':
+            print(json.dumps(recover_inputs(args.entry), indent=2))
+        else:
+            proof = build_parts()
+            print(f"Verified {proof['model_count']} models: {proof['stored_bytes']} RZIP bytes; "
+                  'decoded/stored hashes and original ROM bytes agree')
+    except (ValueError, OSError) as error:
+        parser.exit(2, f'error: {error}\n')
+
+
 if __name__ == '__main__':
-    import sys
-    if sys.argv[1:] != ['build-parts']:
-        raise SystemExit('Use ./conker model-assets build')
-    proof = build_parts()
-    print(f"Built {proof['model_count']} models: {proof['stored_bytes']} RZIP bytes; "
-          f"matches original: {proof['matches_original']}")
+    main()

@@ -24,6 +24,7 @@ from profile_config import load_profile
 import compile_c
 import data_boundaries
 import diff
+import font_assets
 import main_private_data
 import objdiff
 import objdiff_data_targets
@@ -192,7 +193,7 @@ def prepare_models() -> tuple[list[dict], list[dict]]:
 
 def prepare_storage(rebuilt: list[dict], configs: list[dict]) -> tuple[list[dict], list[dict], dict]:
     return objdiff_storage.prepare(main_private_data.validated_rom(ROOT),
-                                   objdiff_data_targets.font_assets.load_layout('us'),
+                                   font_assets.load_layout('us'),
                                    rebuilt, configs, output=OUTPUT)
 
 

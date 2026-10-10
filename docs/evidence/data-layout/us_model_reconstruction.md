@@ -98,3 +98,59 @@ These results apply to the working tree, not an additional committed revision.
 The subsequent [complete storage accounting](us_asset_storage_accounting.md)
 retains these model matches and adds all remaining bounded asset storage as
 unmatched targets. The earlier aggregate percentage is historical.
+
+## Input recovery and verification semantics
+
+A missing or stale input bundle fails with its path and a recovery command;
+ordinary builds never replace existing editable records. To restore a reviewed
+entry explicitly (decimal bank-03 ID):
+
+```sh
+./conker model-assets recover --entry 3
+./conker model-assets build
+```
+
+Recovery moves the entire previous folder, including edits and extra notes, to a
+unique directory under `build/assets/model-build/recovery/us/03/`, then publishes
+fresh reviewed inputs atomically. It prints the backup location. If publication
+fails before a replacement appears, the original folder is restored. Unreviewed
+IDs and symlink/non-directory destinations are rejected.
+
+`batch.json` is a successful-build receipt, not an independent progress metric.
+`matches_original` is necessarily true on success: decoded/stored hash checks
+and a direct comparison with the original ROM slice all pass before any linker
+part is written. Each model records its actual `stored_sha256`; the command
+reports these verification gates explicitly. Native objdiff and the complete
+ROM build remain independent acceptance checks.
+
+Make tracks the reconstruction path's four codec modules (`model_build`,
+`model_assets`, `texture_build`, `rzip_pack`) and the shared ROM/layout/build
+inputs. Unrelated model inspection tools no longer invalidate the model stamp.
+Missing `manifest.json` or `model.json` forces validation even if directory
+mtime cannot distinguish the deletion. Report Make failures name
+`build/us/objdiff-report/model-build.log`.
+
+## Recovery and diagnostics acceptance, 10 October 2026
+
+Validated the completed review-fix working tree based on `da1402e`:
+
+- Docker focused suites pass: 17 model-build, 17 asset-Make, 105 objdiff
+  (one ROM-opt-in skip), 15 profile-config and 16 RZIP tests; 170 total.
+- Shell syntax, staged whitespace and canonical progress checks pass.
+- All 22 model reconstructions reproduce 10,607 stored bytes exactly.
+- A fresh `./conker build --assets` reproduces all 67,108,864 US ROM
+  bytes, SHA-1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`.
+- A fresh native report has no compile errors and retains identical measures
+  for all 7,899 units, every category and the aggregate.
+  Data remains 8,301,843 / 65,120,512 matched bytes (12.74843%).
+- Source fingerprint:
+  `103bf39b08136d58eb1bf740d909eae46266fc0922cd890ca46ad88a48211c27`.
+- Native report SHA-256:
+  `f19eca5a43d707b5bf79973a02f00ff081117cce21c8fa4e632ad7422183ce80`.
+
+These checks cover explicit backup/recovery, failed-publication rollback,
+preservation of orphaned records, missing-bank diagnostics, logged Make failures,
+ROM mismatch rejection before output, precise rebuild dependencies, and layout
+classification validation. The complete repository suite was not rerun locally
+for these review fixes. Logs and the accounting audit are retained privately in
+`build/us/models/validation/review/`; generated artifacts remain ignored.

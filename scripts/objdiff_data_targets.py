@@ -496,9 +496,13 @@ def prepare_models(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]
     if checked_rom != rom:
         raise ValueError('model reference ROM differs from the validated report ROM')
     paths = ['build/us/assets/' + model_build.part_name(e['entry']) + '.o' for e, _ in selected]
-    with (output / 'model-build.log').open('w') as log:
-        subprocess.run(['make', '--silent', '--jobs', str(job_count()), *paths, 'PROFILE=us', 'ASSETS=1'],
-                       cwd=ROOT, stdout=log, stderr=log, check=True)
+    log_path = output / 'model-build.log'
+    with log_path.open('w') as log:
+        try:
+            subprocess.run(['make', '--silent', '--jobs', str(job_count()), *paths, 'PROFILE=us', 'ASSETS=1'],
+                           cwd=ROOT, stdout=log, stderr=log, check=True)
+        except subprocess.CalledProcessError as error:
+            raise ValueError(f'model linker-input build failed (exit {error.returncode}); see {log_path}') from error
     # Each reference has its own directory. Preserve catalog order and retain
     # all per-object checks; the report also rechecks every source hash at end.
     with ThreadPoolExecutor(max_workers=job_count()) as workers:

@@ -22,7 +22,9 @@ The [storage map](us_asset_storage_map.md) documents the original boundary evide
 ## Accounting and credit
 
 `scripts/objdiff_storage.py` checks the ROM checksum, exact flat-stream end and
-outer/inner bank boundaries. It partitions 34 disjoint regions. Every rebuilt
+outer/inner bank boundaries. Bank families come from the explicit US
+`asset_bank_categories` map in `config/rzip_layouts.json`; missing, extra or
+invalid classifications are rejected. It partitions 34 disjoint regions. Every rebuilt
 font, texture or model range must belong wholly to exactly one region, have the
 claimed size, and overlap no other rebuilt range. Subtracting those ranges leaves
 the exact unmatched complement, including metadata, indices and gaps. Future
@@ -88,3 +90,9 @@ Private logs and the before/after audit remain under
 `build/us/data-boundaries/storage-report-validation/`. The PR records the
 committed revision containing these identical tested inputs. This local report
 is not published until the protected report workflow uploads it.
+
+The recovery/diagnostic follow-up was revalidated against this snapshot:
+all 7,899 native unit measures, categories and totals remain identical, and the
+complete US asset ROM remains byte-identical. The current report source
+fingerprint is `103bf39b08136d58eb1bf740d909eae46266fc0922cd890ca46ad88a48211c27`. See the
+[review-fix acceptance results](us_model_reconstruction.md#recovery-and-diagnostics-acceptance-10-october-2026).

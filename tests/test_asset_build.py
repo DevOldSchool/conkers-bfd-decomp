@@ -46,7 +46,7 @@ class AssetMakeTests(unittest.TestCase):
                      'scripts/rzip_archive.py', 'scripts/rzip_extract.py',
                      'scripts/texture_assets.py', 'scripts/texture_catalog.py',
                      'scripts/texture_ci8.py', 'scripts/texture_rgba16.py',
-                     'scripts/texture_native.py', 'scripts/rzip_pack.py',
+                     'scripts/texture_native.py', 'scripts/rzip_pack.py', 'scripts/model_assets.py',
                      'scripts/hud_assets.py', 'scripts/hud_additional_artwork.py',
                      'scripts/texture_model_catalog.py', 'scripts/texture_model_storage.py'):
             path = self.root / name
@@ -151,6 +151,8 @@ from build_files import write_if_changed
 def layout_bins(profile, *, configuration=None):
     return [(0, 'models/bank03/0003')], 1
 if __name__ == '__main__':
+    with Path('model_build.calls').open('a') as log:
+        log.write('packed\\n')
     source = Path('build/assets/model-build/us/03/0003/model.json')
     write_if_changed(Path('build/us/models/parts/models/bank03/0003.bin'), source.read_bytes())
 """)
@@ -173,8 +175,30 @@ if __name__ == '__main__':
         part.unlink()
         self.assertEqual(run().returncode, 0)
         self.assertEqual(target.read_bytes(), b'model')
-        time.sleep(1.05)
+        pack_stamp = self.root / 'build/us/models/parts.stamp'
+        calls = self.root / 'model_build.calls'
+        before = calls.read_text()
+        unrelated = self.root / 'scripts/model_unrelated_preview.py'
+        unrelated.write_text('# unrelated preview tool')
+        future = pack_stamp.stat().st_mtime_ns + 10_000_000_000
+        os.utime(unrelated, ns=(future, future))
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(calls.read_text(), before)
+        for name in ('model_build', 'model_assets', 'texture_build', 'rzip_pack'):
+            dependency = self.root / f'scripts/{name}.py'
+            original = dependency.stat()
+            newer = pack_stamp.stat().st_mtime_ns + 10_000_000_000
+            os.utime(dependency, ns=(newer, newer))
+            try:
+                self.assertEqual(run().returncode, 0)
+            finally:
+                os.utime(dependency, ns=(original.st_atime_ns, original.st_mtime_ns))
+            self.assertEqual(calls.read_text(), before + 'packed\n')
+            before = calls.read_text()
+        # Deliberately give the directory an older timestamp. Missing inputs
+        # must invalidate packing even on a filesystem with a coarse clock.
         source.unlink()
+        os.utime(inputs, ns=(1_000_000_000, 1_000_000_000))
         self.assertNotEqual(run().returncode, 0)
         self.assertEqual(target.read_bytes(), b'model')
 

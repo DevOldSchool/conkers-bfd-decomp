@@ -407,8 +407,11 @@ ifneq ($(MODEL_PARTS),)
 MODEL_INPUTS := $(wildcard build/assets/model-build/us/03 build/assets/model-build/us/03/* build/assets/model-build/us/03/*/*)
 MODEL_PARTS_MISSING := $(filter-out $(wildcard $(MODEL_PARTS)),$(MODEL_PARTS))
 MODEL_MANIFESTS := $(patsubst assets/models/bank03/%.bin,build/assets/model-build/us/03/%/manifest.json,$(MODEL_BINS))
-MODEL_PARTS_MISSING += $(filter-out $(wildcard $(MODEL_MANIFESTS)),$(MODEL_MANIFESTS))
-$(BUILD_DIR)/models/parts.stamp: $(ASSET_PACK_DEPS) scripts/model_build.py scripts/texture_build.py $(wildcard scripts/model_*.py) scripts/rzip_pack.py config/model_build.us.json $(MODEL_INPUTS) $(if $(MODEL_PARTS_MISSING),asset-parts-missing)
+MODEL_REQUIRED_INPUTS := $(MODEL_MANIFESTS) $(patsubst %/manifest.json,%/model.json,$(MODEL_MANIFESTS))
+MODEL_PARTS_MISSING += $(filter-out $(wildcard $(MODEL_REQUIRED_INPUTS)),$(MODEL_REQUIRED_INPUTS))
+# Only codecs used by the reviewed native-record reconstruction path.
+MODEL_CODEC_DEPS := scripts/model_build.py scripts/model_assets.py scripts/texture_build.py scripts/rzip_pack.py
+$(BUILD_DIR)/models/parts.stamp: $(ASSET_PACK_DEPS) $(MODEL_CODEC_DEPS) config/model_build.us.json $(MODEL_INPUTS) $(if $(MODEL_PARTS_MISSING),asset-parts-missing)
 	$(TIMING) --stage models -- python3 scripts/model_build.py build-parts
 	@touch $@
 $(MODEL_PARTS): $(BUILD_DIR)/models/parts.stamp ;

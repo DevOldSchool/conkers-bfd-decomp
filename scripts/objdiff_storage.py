@@ -31,6 +31,12 @@ def regions(rom: bytes, layout: dict) -> list[dict]:
     for _ in rzip_archive.iter_flat_rzip_entries(rom[flat_start:flat_end]):
         pass
     banks = rzip_archive.parse_asset_banks(rom, table)
+    categories = layout.get('asset_bank_categories')
+    allowed = {'assets-models', 'assets-animations', 'assets-audio', 'assets-other'}
+    if (not isinstance(categories, dict)
+            or set(categories) != {f'{b.index:02X}' for b in banks}
+            or any(not isinstance(v, str) or v not in allowed for v in categories.values())):
+        raise ValueError('asset bank categories must classify every ROM bank exactly once')
     result = []
 
     def add(key, start, end, category):
@@ -47,9 +53,7 @@ def regions(rom: bytes, layout: dict) -> list[dict]:
         # The checked US table is contiguous; preserve any bounded interbank gap.
         add(f'before-bank{bank.index:02X}', cursor, bank.start, 'assets-other')
         rzip_archive.parse_asset_entries(rom, bank)
-        category = ('assets-models' if bank.index in (1, 3, 4, 9) else
-                    'assets-animations' if bank.index == 2 else
-                    'assets-audio' if bank.index in (0x16, 0x17) else 'assets-other')
+        category = categories[f'{bank.index:02X}']
         add(f'bank{bank.index:02X}', bank.start, bank.end, category)
         cursor = bank.end
     return result

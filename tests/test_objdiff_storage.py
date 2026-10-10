@@ -30,6 +30,9 @@ def fixture():
     return bytes(rom), {'font_start': 4, 'font_storage_end': 8,
                         'flat_assets_start': 16, 'flat_assets_end': 16 + len(flat),
                         'asset_table': table,
+                        'asset_bank_categories': {f'{i:02X}': ('assets-models' if i in (1,3,4,9)
+                            else 'assets-animations' if i == 2 else 'assets-audio' if i in (22,23)
+                            else 'assets-other') for i in range(30)},
                         'normalized_sha1': [hashlib.sha1(rom).hexdigest()]}
 
 
@@ -53,6 +56,18 @@ class StorageTests(unittest.TestCase):
         self.assertEqual(categories['assets-animations'], 12)
         self.assertEqual(regions[2]['rom_end'] - regions[2]['rom_start'], 2)
         self.assertEqual(regions[3]['rom_end'] - regions[3]['rom_start'], 240)
+
+    def test_layout_categories_are_applied_and_must_cover_every_bank(self):
+        rom, layout = fixture()
+        categories = layout['asset_bank_categories']
+        categories['03'] = 'assets-audio'
+        region = next(r for r in storage.regions(rom, layout) if r['key'] == 'bank03')
+        self.assertEqual(region['category'], 'assets-audio')
+        for invalid in (None, {}, {**categories, '03': 'typo'},
+                        {**categories, '1E': 'assets-other'},
+                        {k: v for k, v in categories.items() if k != '03'}):
+            with self.subTest(categories=invalid), self.assertRaisesRegex(ValueError, 'classify every ROM bank'):
+                storage.regions(rom, {**layout, 'asset_bank_categories': invalid})
 
     def test_changed_rom_or_unconsumed_flat_tail_is_rejected(self):
         rom, layout = fixture()
