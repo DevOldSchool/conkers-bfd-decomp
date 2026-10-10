@@ -105,8 +105,11 @@ Getting started
   stop                           Stop and remove this checkout's warm toolchain container.
 
 After the raw base split map is available
-  prepare [--profile us]         Extract generated sources (defaults to US).
-  build [--profile us|--all]     Build US by default (`--all` means all active profiles).
+  prepare [--profile us] [--assets] [--refresh]
+                                 Cache generated sources; --refresh forces a new split.
+  build [--profile us|--all] [--assets] [--refresh] [--jobs N]
+                                 Default: C with original ROM assets. --assets rebuilds assets.
+                                 Timings: build/timings/*.jsonl. Jobs default to 4 (CONKER_JOBS).
   diff [--profile us] <work-item-id>
   diff --record [--profile us] <work-item-id>
                                  Show a focused diff and record it immediately when CURRENT (0).
@@ -117,7 +120,8 @@ After the raw base split map is available
   objdiff data-audit             Audit US loaded data boundaries; no build or progress credit.
   objdiff report                Build/validate the US code/data/asset report (ROM/toolchain needed).
   objdiff view <id>             Open an interactive objdiff after preparing both objects.
-  first-diff [--profile us]      Report the first difference in a rebuilt ROM.
+  first-diff [--profile us] [--assets]
+                                 Report the first difference in a rebuilt ROM.
   mupen [mupen64plus-options]    Run the pinned headless Mupen64Plus debugger on the US ROM.
   mupen-trace --spec <path> --output <build-path> [options]
                                  Record versioned model draw-state evidence from debugger stops.
@@ -1004,21 +1008,37 @@ case "$command" in
         fi
         ;;
     prepare|build)
-        # Match verify-batch's bounded parallelism, including recursive SDK makes.
-        if [[ $# -eq 1 && "$1" == "--all" ]]; then
+        build_started=$SECONDS
+        build_assets=0
+        build_refresh=0
+        build_jobs="${CONKER_JOBS:-4}"
+        profile_arguments=()
+        while [[ $# -gt 0 ]]; do
+            case "$1" in
+                --assets) build_assets=1; shift ;;
+                --refresh) build_refresh=1; shift ;;
+                --jobs)
+                    [[ $# -ge 2 ]] || die '--jobs requires a positive integer'
+                    build_jobs="$2"; shift 2 ;;
+                *) profile_arguments+=("$1"); shift ;;
+            esac
+        done
+        [[ "$build_jobs" =~ ^[1-9][0-9]*$ ]] || die '--jobs/CONKER_JOBS must be a positive integer'
+        if [[ ${#profile_arguments[@]} -eq 1 && "${profile_arguments[0]}" == "--all" ]]; then
+            selected_profile=us
             python3 "$state_tool" setup-check --all
-            if [[ "$command" == "build" ]]; then
-                run_in_container_libultra make --jobs 4 profile-libs PROFILE=us
-            fi
-            run_in_container make --jobs 4 "$command" PROFILE=us
         else
-            parse_profile_only "usage: ./conker $command [--profile us|--all]" "$@"
+            parse_profile_only "usage: ./conker $command [--profile us|--all] [--assets] [--refresh] [--jobs N]" ${profile_arguments[@]+"${profile_arguments[@]}"}
             python3 "$state_tool" setup-check --profile "$selected_profile"
-            if [[ "$command" == "build" && "$selected_profile" == "us" ]]; then
-                run_in_container_libultra make --jobs 4 profile-libs PROFILE=us
-            fi
-            run_in_container make --jobs 4 "$command" PROFILE="$selected_profile"
         fi
+        build_mode=original
+        [[ "$build_assets" == 0 ]] || build_mode=rebuilt
+        timing=(python3 scripts/build_timing.py --profile "$selected_profile" --mode "$build_mode")
+        if [[ "$command" == "build" && "$selected_profile" == "us" ]]; then
+            run_in_container_libultra "${timing[@]}" --stage sdk -- make --jobs "$build_jobs" profile-libs PROFILE=us
+        fi
+        run_in_container "${timing[@]}" --stage "$command" -- make --jobs "$build_jobs" "$command" PROFILE="$selected_profile" ASSETS="$build_assets" REFRESH="$build_refresh"
+        printf 'TIMING %s/%s %s including setup, SDK and Docker: %ss\n' "$selected_profile" "$build_mode" "$command" "$((SECONDS - build_started))"
         ;;
     m2c-context)
         parse_profile_and_value "usage: ./conker m2c-context [--profile us] <source.c>" "$@"
@@ -1066,9 +1086,15 @@ case "$command" in
         run_in_container python3 scripts/objdiff.py prepare "$@"
         ;;
     first-diff)
-        parse_profile_only "usage: ./conker first-diff [--profile us]" "$@"
+        diff_assets=()
+        profile_arguments=()
+        for argument in "$@"; do
+            if [[ "$argument" == "--assets" ]]; then diff_assets=(--assets)
+            else profile_arguments+=("$argument"); fi
+        done
+        parse_profile_only "usage: ./conker first-diff [--profile us] [--assets]" ${profile_arguments[@]+"${profile_arguments[@]}"}
         python3 "$state_tool" setup-check --profile "$selected_profile"
-        run_in_container python3 scripts/first_diff.py "$selected_profile"
+        run_in_container python3 scripts/first_diff.py "$selected_profile" ${diff_assets[@]+"${diff_assets[@]}"}
         ;;
     mupen)
         ensure_mupen_image

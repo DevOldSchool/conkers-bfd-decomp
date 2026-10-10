@@ -46,7 +46,7 @@ For function changes, use the normal [contribution workflow](../CONTRIBUTING.md)
    relevant evidence after source, header, build-input or base changes.
 
 For shared build/layout changes, also verify the applicable complete images:
-`./conker build --all` and `./conker game-build --profile us --refresh`.
+`./conker build --all --assets` and `./conker game-build --profile us --refresh`.
 Tooling-only changes need their relevant tests; documentation-only changes do
 not require an empty function batch. US is active; EU/PAL does not gate work.
 
@@ -85,7 +85,7 @@ Configure these environment secrets without committing private repository names:
 - `ROM_ASSETS_READ_TOKEN`: an expiring token with Contents: read on that storage only.
 
 The workflow builds the public toolchain before fetching private inputs, checks
-out only the US ROM without persisting credentials, and runs `./conker build --all`
+out only the US ROM without persisting credentials, and runs `./conker build --all --assets`
 and `./conker objdiff report`. Report preparation validates linked targets for
 the tracked main/game/debugger US CPU-code and initialized-data ranges, plus the
 rebuilt font asset. Only

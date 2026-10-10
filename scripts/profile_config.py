@@ -155,6 +155,50 @@ def profile_sources(configuration: dict, segment_name: str) -> list[str]:
     return sources
 
 
+def original_asset_profile(path: Path) -> dict:
+    """Keep executable mappings but use whole original binary asset groups.
+
+    Asset fragments and codecs are deliberately not loaded on this path.
+    Group metadata (including alignment and follows_vram) remains authoritative.
+    """
+    profile = _yaml(path, path.read_text(encoding="utf-8"))
+    if not isinstance(profile, dict) or not isinstance(profile.get("segments"), list):
+        raise ValueError(f"{path}: expected a profile with a segments list")
+    for segment in profile["segments"]:
+        if isinstance(segment, dict) and segment.get("type") == "group":
+            reference = segment.get("subsegments")
+            if not isinstance(reference, dict) or set(reference) != {"include"}:
+                raise ValueError(f"{path}: original-assets mode requires file-backed asset groups")
+            segment.pop("subsegments")
+            segment["type"] = "bin"
+    return profile
+
+
+def render_original_profile(path: Path, target_path: str) -> str:
+    profile = original_asset_profile(path)
+    options = profile["options"]
+    if options.get("target_path") != "__ROM_PATH__":
+        raise ValueError(f"{path}: target_path must be __ROM_PATH__")
+    options["target_path"] = target_path
+    for key in ("elf_path", "ld_script_path"):
+        output = Path(options[key])
+        options[key] = str(output.parent / "original-assets" / output.name)
+    return yaml.safe_dump(profile, sort_keys=False)
+
+
+def make_original_assets(path: Path, *, relative_to: Path | None = None) -> list[str]:
+    profile = original_asset_profile(path)
+    dependency = path.resolve()
+    tokens = ["dep=" + (str(dependency) if relative_to is None else os.path.relpath(dependency, relative_to))]
+    for segment in profile["segments"]:
+        if isinstance(segment, dict) and segment.get("type") == "bin":
+            name = segment.get("name") or f"{segment['start']:X}"
+            tokens.append(f"original=assets/{name}.bin")
+    for segment in ("main", "debugger"):
+        tokens.extend("source=" + name for name in profile_sources(profile, segment))
+    return tokens
+
+
 def make_assets(path: Path, *, relative_to: Path | None = None) -> list[str]:
     """Plan inputs in one parse; dependencies are absolute unless a base is given."""
     try:
@@ -182,11 +226,13 @@ def make_assets(path: Path, *, relative_to: Path | None = None) -> list[str]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("dependencies", "make-assets"))
+    parser.add_argument("action", choices=("dependencies", "make-assets", "make-original-assets"))
     parser.add_argument("profile", type=Path)
     args = parser.parse_args()
     try:
-        if args.action == "make-assets":
+        if args.action == "make-original-assets":
+            names = make_original_assets(args.profile, relative_to=Path.cwd())
+        elif args.action == "make-assets":
             names = make_assets(args.profile, relative_to=Path.cwd())
         else:
             paths = profile_dependencies(args.profile)

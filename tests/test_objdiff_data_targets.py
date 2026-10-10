@@ -375,7 +375,7 @@ class DataTargetTests(unittest.TestCase):
                 self.assertEqual(prepare.call_count, 2)
                 run.assert_called_once()
                 self.assertEqual(run.call_args.args[0], ['make', '--silent', '--jobs', '4',
-                    'build/us/assets/flat/textures/1063.o', 'build/us/assets/flat/textures/1296.o', 'PROFILE=us'])
+                    'build/us/assets/flat/textures/1063.o', 'build/us/assets/flat/textures/1296.o', 'PROFILE=us', 'ASSETS=1'])
                 run.reset_mock()
                 with self.assertRaisesRegex(ValueError, 'reference ROM differs'):
                     targets.prepare_textures(b'wrong ROM', output=root)

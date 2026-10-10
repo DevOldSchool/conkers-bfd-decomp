@@ -417,7 +417,8 @@ Use `./conker register-main` for a reviewed main-executable function.
 a work item but does not claim that one function equals one original source
 file.
 
-After a full build, locate the first differing word with:
+After a default build, locate the first differing word with (add `--assets`
+for the reconstructed-assets output):
 
 ```sh
 ./conker first-diff
@@ -677,15 +678,62 @@ Keep model settings unchanged unless an experiment is explicitly requested.
 
 ## Builds and batch verification
 
-`./conker build` targets US by default. `./conker build --all` verifies every
-active profile and remains the clean baseline command for CI and future
-multi-profile activation.
+`./conker build` targets US and uses original ROM asset banks by default. This
+is the normal C-matching path, including main/debugger integration and
+`verify-batch`. It still compiles the integrated C, links the full image, audits
+loaded data and requires byte-for-byte equality with the checked ROM. It does
+not prove asset reconstruction. GAME has its separate `game-build` gate.
 
-The normal build wrapper uses four Make jobs for both SDK prerequisites and
-the ROM build, matching the bounded parallelism used by batch verification.
-Reuse the same isolated worktree for a related batch so unchanged SDK objects,
-asset parts and report candidates stay available. Do not share mutable build
-directories between implementation checkouts.
+Use `./conker build --assets` when working on assets. This rebuilds reviewed
+textures, fonts and MP3 inputs and validates the audio splits. ROM-backed CI
+uses `./conker build --all --assets`; `--all` means all active profiles, currently
+US. Native data reports explicitly build their reconstructed targets regardless
+of the default build mode.
+
+Default ROM/ELF/linker outputs live under `build/us/original-assets/`.
+Reconstructed outputs retain `build/us/`. Both share C/SDK objects, but original
+bank objects have distinct names from reconstructed asset objects. Use
+`./conker first-diff --assets` to inspect the reconstructed ROM and plain
+`./conker first-diff` for the default ROM. Low-level Make callers opt into
+reconstruction with `ASSETS=1`.
+
+Preparation is cached by the materialized profile, ROM, symbol/relocation maps,
+toolchain inputs and generated file contents. Missing or changed generated
+files invalidate it. `--refresh` forces a new split; it does not delete editable
+asset inputs or force unchanged asset encoders to run. An interrupted split
+cannot retain a successful cache stamp. Switching modes preserves separate
+linker scripts and checks that the shared assembly still matches.
+
+Builds print stage durations and append timestamped results, commands and exit
+codes to `build/timings/us-original.jsonl` or `us-rebuilt.jsonl`. SDK, preparation,
+asset encoding (when needed), compile/link/verification and build totals are
+reported. Nested stage durations overlap; do not sum them. The final shell
+summary also includes setup and Docker overhead. For a comparison, use the
+same checkout, job count and cache conditions, run modes sequentially, and
+label refreshed versus warm builds. These are command timings, not total
+interactive workflow time.
+
+Local comparison on 2026-10-10, using the same checkout and pinned Docker
+image with four jobs, run sequentially after tests:
+
+| Command | Preparation | Command wall time |
+| --- | --- | ---: |
+| `./conker build --refresh` | Refreshed, original asset banks | 25.22 s |
+| `./conker build` | Cached, original asset banks | 18.86 s |
+| `./conker build --assets --refresh` | Refreshed, asset encoders executed | 445.83 s |
+
+All three produced the byte-identical US ROM. The asset run spent 69.28 s in
+texture reconstruction (6,865 streams), 1.50 s in fonts and 7.18 s in MP3
+packing. Existing SDK objects and editable asset inputs were retained; these
+are not fresh-checkout/bootstrap timings. The remaining asset-build cost
+includes Make's large dependency graph, object creation, linking and verification.
+The refreshed default pathway was 17.7 times faster in this comparison.
+
+The wrapper defaults to four Make jobs. Use `--jobs 1` or `CONKER_JOBS=1` for a
+serial build; `--jobs` takes precedence. Reuse the same isolated worktree for a
+related batch so unchanged SDK objects, asset parts and report candidates stay
+available. Do not share mutable build directories between implementation
+checkouts.
 
 US ROM builds also run `data-splits-check`. The ownership manifest
 `config/data/us.json` lists both `src/<overlay>/...` and
@@ -742,7 +790,8 @@ including compression when stored bytes are the report unit. Keep focused
 tests around the changed packer, boundaries and reporting contract. Host tests
 are useful for iteration; Docker remains the full-suite acceptance runner.
 
-Run the full US ROM build, Docker suite and native objdiff report once after the
+Run the full US ROM build (`./conker build --assets`), Docker suite and native
+objdiff report once after the
 group is ready. Generate the report after the build and tests finish so its
 source/link-input checks see stable files. Flush a smaller pending group around
 45 minutes, before stopping/handoff/commit/PR, or when a change needs an earlier

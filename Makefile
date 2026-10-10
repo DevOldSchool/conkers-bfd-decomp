@@ -1,8 +1,18 @@
 .DEFAULT_GOAL := help
 PROFILE ?= us
+ASSETS ?= 0
+REFRESH ?= 0
+ifneq ($(ASSETS),0)
+ifneq ($(ASSETS),1)
+$(error ASSETS must be 0 or 1)
+endif
+endif
+ASSET_MODE := $(if $(filter 1,$(ASSETS)),rebuilt,original)
+ROM_BUILD_DIR := build/$(PROFILE)$(if $(filter 0,$(ASSETS)),/original-assets)
+TIMING := python3 scripts/build_timing.py --profile $(PROFILE) --mode $(ASSET_MODE)
 SYMBOL ?=
 PROFILE_CONFIG := config/profiles/$(PROFILE).yaml
-MATERIALIZED_CONFIG := build/config/$(PROFILE).yaml
+MATERIALIZED_CONFIG := build/config/$(PROFILE)$(if $(filter 0,$(ASSETS)),.original-assets).yaml
 BUILD_DIR := build/$(PROFILE)
 AS := mips-linux-gnu-as
 AR := mips-linux-gnu-ar
@@ -26,6 +36,11 @@ ROM_PATH := roms/baserom.$(PROFILE).z64
 ASM_SRCS := $(shell find asm/$(PROFILE) -type f -name '*.s' ! -path '*/nonmatchings/*' 2>/dev/null)
 ASM_OBJS := $(patsubst asm/%.s,$(BUILD_DIR)/asm/%.o,$(ASM_SRCS))
 REQUESTED_GOALS := $(patsubst ./%,%,$(if $(MAKECMDGOALS),$(MAKECMDGOALS),help))
+ifeq ($(ASSETS),0)
+ifneq ($(filter $(BUILD_DIR)/assets/flat/% $(BUILD_DIR)/assets/font/% $(BUILD_DIR)/assets/audio/%,$(REQUESTED_GOALS)),)
+$(error Reconstructed asset targets require ASSETS=1 or ./conker build --assets)
+endif
+endif
 # Load the US layout by default, including aliases and future aggregate goals.
 # Only goals known not to link the ROM may bypass broken asset fragments.
 NON_ROM_GOALS := clean help prepare-reference libultra libultrare profile-libs game-libs \
@@ -34,9 +49,10 @@ NON_ROM_GOALS := clean help prepare-reference libultra libultrare profile-libs g
 	build/game-reference/% build/game-integrated/% build/game-libs/%
 ifeq ($(PROFILE),us)
 ifneq ($(filter-out $(NON_ROM_GOALS),$(REQUESTED_GOALS)),)
-PROFILE_ASSETS := $(shell python3 scripts/profile_config.py make-assets $(PROFILE_CONFIG) || echo __PROFILE_ASSETS_FAILED__)
+PROFILE_PLAN := $(if $(filter 1,$(ASSETS)),make-assets,make-original-assets)
+PROFILE_ASSETS := $(shell python3 scripts/profile_config.py $(PROFILE_PLAN) $(PROFILE_CONFIG) || echo __PROFILE_ASSETS_FAILED__)
 ifneq ($(filter __PROFILE_ASSETS_FAILED__,$(PROFILE_ASSETS)),)
-$(error scripts/profile_config.py make-assets failed; see the error above)
+$(error scripts/profile_config.py $(PROFILE_PLAN) failed; see the error above)
 endif
 PROFILE_INPUTS := $(patsubst dep=%,%,$(filter dep=%,$(PROFILE_ASSETS)))
 FONT_BINS := $(patsubst font=%,%,$(filter font=%,$(PROFILE_ASSETS)))
@@ -68,7 +84,7 @@ PROFILE_MAIN_PRIVATE_DATA_SCRIPT := $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT_$(PROFILE
 PROFILE_MAIN_PRIVATE_DATA_VERIFY_us := scripts/main_private_data.py
 PROFILE_MAIN_PRIVATE_DATA_VERIFY := $(PROFILE_MAIN_PRIVATE_DATA_VERIFY_$(PROFILE))
 MAIN_PRIVATE_DATA_SOURCES := $(foreach source,$(C_SRCS),--source $(source))
-LDFLAGS := -m elf32btsmip $(if $(PROFILE_RODATA_SCRIPT),-T $(PROFILE_RODATA_SCRIPT)) $(if $(PROFILE_MAIN_RODATA_SCRIPT),-T $(PROFILE_MAIN_RODATA_SCRIPT)) $(if $(PROFILE_MAIN_VI_BSS_SCRIPT),-T $(PROFILE_MAIN_VI_BSS_SCRIPT)) $(if $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT),-T $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT)) -T $(BUILD_DIR)/conker.$(PROFILE).ld
+LDFLAGS := -m elf32btsmip $(if $(PROFILE_RODATA_SCRIPT),-T $(PROFILE_RODATA_SCRIPT)) $(if $(PROFILE_MAIN_RODATA_SCRIPT),-T $(PROFILE_MAIN_RODATA_SCRIPT)) $(if $(PROFILE_MAIN_VI_BSS_SCRIPT),-T $(PROFILE_MAIN_VI_BSS_SCRIPT)) $(if $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT),-T $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT)) -T $(ROM_BUILD_DIR)/conker.$(PROFILE).ld
 NORMALIZED_ASM_DIR := $(BUILD_DIR)/normalized-asm
 BOOTSTRAP_SYMBOLS := $(BUILD_DIR)/bootstrap-symbols.ld
 ifeq ($(PROFILE),us)
@@ -96,7 +112,7 @@ ASSET_BINS_us := \
 	assets/asset_bank_1b.bin assets/asset_bank_1c.bin assets/asset_raw_1d.bin \
 	assets/unassigned_rom_tail.bin
 ASSET_BINS_eu := assets/boot.bin assets/2D810.bin
-ASSET_BINS := $(ASSET_BINS_$(PROFILE))
+ASSET_BINS := $(if $(and $(filter us,$(PROFILE)),$(filter 0,$(ASSETS))),$(patsubst original=%,%,$(filter original=%,$(PROFILE_ASSETS))),$(ASSET_BINS_$(PROFILE)))
 ASSET_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(ASSET_BINS))
 GAME_PROFILE := us
 GAME_REFERENCE_PROFILE ?= us
@@ -274,9 +290,7 @@ help:
 prepare:
 	@test "$(PROFILE)" = us -o "$(PROFILE)" = eu
 	@test -f "$(PROFILE_CONFIG)"
-	rm -rf "asm/$(PROFILE)"
-	python3 scripts/prepare_profile.py "$(PROFILE)"
-	splat split "$(MATERIALIZED_CONFIG)"
+	$(TIMING) --stage prepare -- python3 scripts/prepare_rom.py $(PROFILE) $(if $(filter 1,$(ASSETS)),--assets) $(if $(filter 1,$(REFRESH)),--refresh)
 
 prepare-reference:
 	@test "$(PROFILE)" = us -o "$(PROFILE)" = eu
@@ -285,27 +299,27 @@ prepare-reference:
 	splat split "build/config/reference/$(PROFILE).yaml"
 
 build: prepare
-	$(MAKE) --no-print-directory raw-build PROFILE=$(PROFILE)
+	+$(TIMING) --stage compile-link-verify -- $(MAKE) --no-print-directory raw-build PROFILE=$(PROFILE) ASSETS=$(ASSETS)
 
-raw-build: $(BUILD_DIR)/$(ROM_NAME) $(PROFILE_RODATA_VERIFY) $(PROFILE_MAIN_RODATA_VERIFY) $(PROFILE_MAIN_VI_BSS_VERIFY) $(PROFILE_MAIN_PRIVATE_DATA_VERIFY)
+raw-build: $(ROM_BUILD_DIR)/$(ROM_NAME) $(PROFILE_RODATA_VERIFY) $(PROFILE_MAIN_RODATA_VERIFY) $(PROFILE_MAIN_VI_BSS_VERIFY) $(PROFILE_MAIN_PRIVATE_DATA_VERIFY)
 ifneq ($(PROFILE_RODATA_VERIFY),)
-	python3 $(PROFILE_RODATA_VERIFY) "$(BUILD_DIR)/conker.$(PROFILE).elf"
+	python3 $(PROFILE_RODATA_VERIFY) "$(ROM_BUILD_DIR)/conker.$(PROFILE).elf"
 endif
 ifneq ($(PROFILE_MAIN_RODATA_VERIFY),)
-	python3 $(PROFILE_MAIN_RODATA_VERIFY) "$(BUILD_DIR)/conker.$(PROFILE).elf" $(foreach section,$(PROFILE_MAIN_RODATA_SECTIONS),--require $(section))
+	python3 $(PROFILE_MAIN_RODATA_VERIFY) "$(ROM_BUILD_DIR)/conker.$(PROFILE).elf" $(foreach section,$(PROFILE_MAIN_RODATA_SECTIONS),--require $(section))
 endif
 ifneq ($(PROFILE_MAIN_VI_BSS_VERIFY),)
-	python3 $(PROFILE_MAIN_VI_BSS_VERIFY) "$(BUILD_DIR)/conker.$(PROFILE).elf"
+	python3 $(PROFILE_MAIN_VI_BSS_VERIFY) "$(ROM_BUILD_DIR)/conker.$(PROFILE).elf"
 endif
 ifneq ($(PROFILE_MAIN_PRIVATE_DATA_VERIFY),)
-	python3 $(PROFILE_MAIN_PRIVATE_DATA_VERIFY) verify --elf "$(BUILD_DIR)/conker.$(PROFILE).elf" $(MAIN_PRIVATE_DATA_SOURCES)
+	python3 $(PROFILE_MAIN_PRIVATE_DATA_VERIFY) verify --elf "$(ROM_BUILD_DIR)/conker.$(PROFILE).elf" $(MAIN_PRIVATE_DATA_SOURCES)
 endif
-	@cmp -s "$(BUILD_DIR)/$(ROM_NAME)" "$(ROM_PATH)" || { \
-		printf '%s\n' "build mismatch: $(BUILD_DIR)/$(ROM_NAME)" >&2; exit 1; \
+	@cmp -s "$(ROM_BUILD_DIR)/$(ROM_NAME)" "$(ROM_PATH)" || { \
+		printf '%s\n' "build mismatch: $(ROM_BUILD_DIR)/$(ROM_NAME)" >&2; exit 1; \
 	}
-	@printf '%s\n' "$(BUILD_DIR)/$(ROM_NAME): OK"
+	@printf '%s\n' "$(ROM_BUILD_DIR)/$(ROM_NAME): OK"
 
-$(BUILD_DIR)/$(ROM_NAME): $(BUILD_DIR)/conker.$(PROFILE).elf
+$(ROM_BUILD_DIR)/$(ROM_NAME): $(ROM_BUILD_DIR)/conker.$(PROFILE).elf
 	$(OBJCOPY) -O binary $< $@
 
 $(BOOTSTRAP_SYMBOLS): $(ASM_SRCS) $(C_SRCS) scripts/create_bootstrap_symbols.py
@@ -319,7 +333,7 @@ main-private-data-refresh:
 build/us/main-private-data.ld: config/main/private-data.json scripts/main_private_data.py progress/source_units.json main-private-data-refresh
 	python3 scripts/main_private_data.py linker --output $@ $(MAIN_PRIVATE_DATA_SOURCES)
 
-$(BUILD_DIR)/conker.$(PROFILE).elf: $(BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_DEPS) $(PROFILE_RODATA_SCRIPT) $(PROFILE_MAIN_RODATA_SCRIPT) $(PROFILE_MAIN_VI_BSS_SCRIPT) $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT)
+$(ROM_BUILD_DIR)/conker.$(PROFILE).elf: $(ROM_BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_DEPS) $(PROFILE_RODATA_SCRIPT) $(PROFILE_MAIN_RODATA_SCRIPT) $(PROFILE_MAIN_VI_BSS_SCRIPT) $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT)
 	$(LD) $(LDFLAGS) -T $(BOOTSTRAP_SYMBOLS) -o $@ $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_INPUTS)
 
 $(NORMALIZED_ASM_DIR)/%.s: asm/%.s scripts/normalize_asm.py
@@ -380,7 +394,7 @@ ifeq ($(wildcard build/fonts/us/manifest.json),)
 FONT_PARTS_MISSING += manifest
 endif
 $(BUILD_DIR)/fonts/parts.stamp: $(ASSET_PACK_DEPS) scripts/font_splits.py scripts/font_assets.py $(FONT_PART_INPUTS) $(if $(FONT_PARTS_MISSING),asset-parts-missing)
-	python3 scripts/font_splits.py build-parts
+	$(TIMING) --stage fonts -- python3 scripts/font_splits.py build-parts
 	@touch $@
 $(FONT_PARTS): $(BUILD_DIR)/fonts/parts.stamp ;
 endif
@@ -393,7 +407,7 @@ TEXTURE_PARTS_MISSING += manifest
 endif
 TEXTURE_CODEC_DEPS := $(wildcard scripts/texture_*.py) $(wildcard scripts/model_*.py) scripts/hud_assets.py scripts/hud_additional_artwork.py scripts/rzip_pack.py config/texture_encoders.us.json
 $(BUILD_DIR)/textures/parts.stamp: $(ASSET_PACK_DEPS) scripts/texture_build.py $(TEXTURE_CODEC_DEPS) $(TEXTURE_INPUTS) $(if $(TEXTURE_PARTS_MISSING),asset-parts-missing)
-	python3 scripts/texture_build.py build-parts
+	$(TIMING) --stage textures -- python3 scripts/texture_build.py build-parts
 	@touch $@
 $(TEXTURE_PARTS): $(BUILD_DIR)/textures/parts.stamp ;
 endif
@@ -405,7 +419,7 @@ ifeq ($(wildcard build/assets/mp3-bank/us/manifest.json),)
 MP3_PARTS_MISSING += manifest
 endif
 $(BUILD_DIR)/audio/parts.stamp: $(ASSET_PACK_DEPS) scripts/mp3_bank.py scripts/mp3_assets.py $(MP3_PART_INPUTS) $(if $(MP3_PARTS_MISSING),asset-parts-missing)
-	python3 scripts/mp3_bank.py build-parts
+	$(TIMING) --stage mp3 -- python3 scripts/mp3_bank.py build-parts
 	@touch $@
 $(MP3_BANK_PARTS): $(BUILD_DIR)/audio/parts.stamp ;
 endif
