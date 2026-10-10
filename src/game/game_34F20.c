@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_34F20.c
@@ -22,7 +23,6 @@ void func_150175E0(void);
 void func_150177F8(void);
 void func_1503FB08(void);
 void func_15089BB0(void);
-void func_15172C50(u8);
 extern u8 D_80087280[];
 extern s8 D_800BE938;
 extern s8 D_800BE9B4;

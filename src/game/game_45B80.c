@@ -117,7 +117,6 @@ s32 func_15018F08(s32 arg0, s16 arg1) {
 s32 func_1517F40C(s32);
 void func_1517F448(s32);
 void func_1501B640(void);
-void func_15172D80(s16);
 extern s32 D_8003C8E0;
 extern s16 D_800D3674;
 extern u8 *D_800DBFF0;

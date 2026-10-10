@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_19E040.c
@@ -47,7 +48,6 @@ typedef struct Game70F4CPacket {
 } Game70F4CPacket;
 s32 func_1518C900(s32);
 f32 func_150ADA68(void);
-void func_15168BE4(void *, s32, s32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 extern Game70F4CEntry D_800A6ED8[];

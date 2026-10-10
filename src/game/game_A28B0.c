@@ -479,7 +479,6 @@ extern void func_1000CBA8(u8);
 void func_150762B0(void) {
     func_1000CBA8(D_800D1890);
 }
-void func_151669A0(s32, s32, s32, f32, s32, s32);
 
 void func_150762D4(void) {
     func_151669A0((s32)D_800D154C->position_x,

@@ -310,7 +310,6 @@ typedef struct {
     u8 field39;
 } GameE4070Descriptor;
 
-void *func_15169900(void *, s32);
 extern u8 D_80091924;
 extern s32 D_800BE638;
 

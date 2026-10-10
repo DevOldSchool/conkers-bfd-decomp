@@ -30,7 +30,6 @@ typedef s32 (*Game40490SimpleCallback)(u8 *);
 extern Game40490SimpleCallback D_80082EA0[];
 extern Game40490SimpleCallback D_80082ECC[];
 extern Game40490SimpleCallback D_80082F40[];
-extern void *func_1515D088(u8 *);
 
 void func_15012FE0(void) {
     D_800BE570 = 0;

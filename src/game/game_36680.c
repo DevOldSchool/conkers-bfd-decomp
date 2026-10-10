@@ -111,7 +111,6 @@ typedef struct Game36680PointLink {
 
 extern Game36680Point *D_800D3098;
 void *func_10003C40(s32, s32, s32, s32);
-void *func_1515D5AC(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_1500AB5C(s32);
 void func_1500A94C(s32, s32);
 
@@ -199,12 +198,10 @@ void func_15009334(u32 index) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15009334 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009334.s")
-void func_1516127C(s32 arg0, s32 arg1, s32 arg2);
 
 void func_150095D8(s32 arg0, u8 arg1) {
     func_1516127C(arg0, 0xFF, 1);
 }
-void func_15161334(s32 arg0, s32 arg1, s32 arg2);
 
 void func_15009600(s32 arg0, u8 arg1) {
     func_15161334(arg0, 0xFF, 1);
@@ -233,7 +230,6 @@ void func_15009628(s32 arg0, s32 arg1) {
     descriptor.field_4 = packed.bytes[arg1 - 3];
     func_1516037C(&descriptor, arg0, 0, 0xFF, 1);
 }
-void func_15161408(s32 arg0, s32 arg1, s32 arg2);
 
 void func_1500969C(s32 arg0, u8 arg1) {
     func_15161408(arg0, 0xFF, 1);
@@ -255,7 +251,6 @@ void func_150096C4(s32 arg0, s32 arg1) {
     func_1516037C(&descriptor, arg0, 0, 0xFF, 1);
 }
 
-void func_15161494(s32 arg0, s32 arg1, s32 arg2);
 
 void func_15009740(s32 arg0, u8 arg1) {
     func_15161494(arg0, 0xFF, 1);
@@ -265,7 +260,6 @@ s32 func_151615F8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
 void func_15009768(s32 arg0, u8 arg1) {
     func_151615F8(arg0, 0, 0, 0xE, 0xFF, 1);
 }
-void func_15161540(s32 arg0, s32 arg1, s32 arg2);
 
 void func_150097A4(s32 arg0, u8 arg1) {
     func_15161540(arg0, 0xFF, 1);

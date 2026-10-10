@@ -26,7 +26,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_15168B10(void *arg0, s32 arg1);
 
 extern u8 D_8008B4A8;
 

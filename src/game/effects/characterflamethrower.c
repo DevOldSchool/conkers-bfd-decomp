@@ -1031,7 +1031,6 @@ extern s8 D_800DD190;
 extern void *D_800DD198[];
 extern u8 D_800DDE80[];
 void func_15183ACC(s32);
-void func_15168B10(s32, s32);
 s32 func_1510F8D8(s32, s32, s32, s32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1519897C CURRENT (3849) */

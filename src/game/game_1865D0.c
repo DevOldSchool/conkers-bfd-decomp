@@ -420,7 +420,7 @@ block_9:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515A78C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_1515A78C.s")
-typedef struct {
+typedef struct Game1865D0State {
     u8 pad_0[0x2F4];
     s32 field_2F4;
 } Game1865D0State;

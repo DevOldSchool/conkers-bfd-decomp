@@ -5,6 +5,12 @@
 #include "game_command.h"
 
 struct Game15D730CopyBlock;
+struct Game1865D0State;
+struct Game1890A0State;
+struct Game1944C0State;
+struct Game196DB0Effect;
+struct Game19A8B0Motion;
+struct Game1A0100Actor;
 struct Game11D830Inner;
 struct Game11D830Object;
 struct Game12B7D0Vec3;
@@ -167,5 +173,22 @@ void func_151424F4(void *, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32
 s32 func_1514BC08(void *, void *);
 struct Game182C30Effect *func_15155780(s32, s32);
 void func_15157DEC(u8 *, u8 *);
+s32 func_1515A920(struct Game1865D0State *, s32 *);
+s32 func_1515C0F8(struct Game1890A0State *, u8 **);
+s32 func_1515D088(void *);
+void *func_1515D5AC(s32, s32, s32, s32, s32, s32, s32, s32, s32, u8);
+void *func_1516127C(s32, u8, s32);
+void *func_15161334(s32, u8, s32);
+void *func_15161408(s32, u8, s32);
+void *func_15161494(s32, u8, s32);
+void *func_15161540(s32, u8, s32);
+void func_151669A0(s32, s32, s32, f32, u8, s32);
+void func_15168B10(void *, s32);
+void func_15168BE4(struct Game1944C0State *, u8, s32);
+struct Game196DB0Effect *func_15169900(void *, s32);
+void func_1516F864(struct Game19A8B0Motion *);
+void func_15172C50(s32);
+void func_15172D80(s32);
+void func_15172E7C(struct Game1A0100Actor *, s32, s32);
 
 #endif

@@ -532,7 +532,6 @@ extern const Game19A8B0Table D_8008CBC4;
 extern const Game19A8B0Table D_8008CBD0;
 extern const Game19A8B0Table D_8008CBDC;
 extern const Game19A8B0Table D_8008CBE8;
-void func_1516F864(Game19A8B0Motion *);
 void func_1516F94C(s32, s32);
 
 s32 func_1516F024(Game19A8B0Motion *arg0) {
