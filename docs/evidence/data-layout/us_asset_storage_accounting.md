@@ -22,9 +22,11 @@ The [storage map](us_asset_storage_map.md) documents the original boundary evide
 ## Accounting and credit
 
 `scripts/objdiff_storage.py` checks the ROM checksum, exact flat-stream end and
-outer/inner bank boundaries. Bank families come from the explicit US
-`asset_bank_categories` map in `config/rzip_layouts.json`; missing, extra or
-invalid classifications are rejected. It partitions 34 disjoint regions. Every rebuilt
+outer/inner bank boundaries. Optional bank-family evidence labels come from the US
+`asset_bank_categories` map in `config/rzip_layouts.json`. Unlabelled banks are
+recorded as `unclassified`; labels do not affect report filters or byte accounting.
+The map accepts nonempty string labels without a fixed vocabulary or a requirement
+to classify every bank. It partitions 34 disjoint regions. Every rebuilt
 font, texture or model range must belong wholly to exactly one region, have the
 claimed size, and overlap no other rebuilt range. Subtracting those ranges leaves
 the exact unmatched complement, including metadata, indices and gaps. Future

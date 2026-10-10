@@ -316,14 +316,19 @@ def prepare_game_comparison(source: Path, candidate: Path, reference: Path, asse
     mixed_object.unlink(missing_ok=True)
     fresh_reference = reference_object("us", symbol, game_reference=True, assembly=assembly, force=True)
     subprocess.run(compile_c.compile_command("us", mixed_source, mixed_object), cwd=ROOT, check=True)
+    short = None
     try:
         pair = linked_aliases.prepare_game(ROOT, relative, mixed_object, fresh_reference, assembly,
                                           symbol, start, size)
     except layout_check.LayoutMismatch:
         pair = None  # Preserve symbolic diagnostics; finish still has its layout gate.
+    except linked_aliases.ShortInteriorExtent as error:
+        pair, short = None, error
     if (inputs != game_comparison_inputs(relative, assembly)
             or mixed_source.read_text(encoding="utf-8") != content):
         raise ValueError("game comparison inputs changed during proof; rebuild the candidate")
+    if short is not None:
+        raise short
     return pair
 
 
@@ -481,6 +486,7 @@ def asm_diff_command(
     *,
     require_match: bool = False,
     watch: bool = False,
+    candidate_extent: int | None = None,
 ) -> list[str]:
     if expected_size <= 0 or expected_size % 4:
         raise ValueError(f"{symbol} has an invalid {expected_size}-byte instruction span")
@@ -488,6 +494,12 @@ def asm_diff_command(
         "python3",
         str(ROOT / "scripts" / "diff.py"),
         "--asm-differ",
+    ]
+    if candidate_extent is not None:
+        if not 0 < candidate_extent < expected_size or candidate_extent % 4:
+            raise ValueError(f"{symbol} has an invalid {candidate_extent}-byte candidate extent")
+        command.extend(["--candidate-lines", str(candidate_extent // 4)])
+    command += [
         "-o",
         "-f",
         str(candidate),
@@ -532,13 +544,15 @@ def registered_span_lines(lines: list, instruction_count: int, *, reference: boo
     return result
 
 
-def configure_registered_span_differ(differ) -> None:
+def configure_registered_span_differ(differ, candidate_lines: int | None = None) -> None:
     """Adapt the pinned viewer's truncation heuristics for exact bounded matching.
 
     Upstream inserts a synthetic ellipsis when more object text follows the
     requested span. Its scorer can then ignore real differences after a long
     matching prefix. Exclude that display marker before alignment/scoring, and
     retain trailing nops because they are part of our reviewed byte span.
+    A candidate line limit excludes focused alignment beyond a proven short
+    extent, so missing words are scored rather than filled by padding.
     """
 
     original_do_diff = differ.do_diff
@@ -551,20 +565,22 @@ def configure_registered_span_differ(differ) -> None:
             raise ValueError("registered-span comparison requires a positive instruction count")
         base = registered_span_lines(base, count, reference=True)
         current = registered_span_lines(current, count, reference=False)
+        if candidate_lines is not None:
+            current = current[:candidate_lines]
         return original_do_diff(base, current, config)
 
     differ.do_diff = do_registered_diff
     differ.trim_nops = lambda lines, arch: lines
 
 
-def run_pinned_asm_differ() -> None:
+def run_pinned_asm_differ(candidate_lines: int | None = None) -> None:
     spec = importlib.util.spec_from_file_location("conker_asm_differ", ASM_DIFFER)
     if spec is None or spec.loader is None:
         raise ValueError(f"cannot load pinned asm-differ: {ASM_DIFFER}")
     differ = importlib.util.module_from_spec(spec)
     sys.modules[spec.name] = differ
     spec.loader.exec_module(differ)
-    configure_registered_span_differ(differ)
+    configure_registered_span_differ(differ, candidate_lines)
     differ.main()
 
 
@@ -587,6 +603,7 @@ def run_required_asm_diff(
     *,
     compact_mismatch: bool = False,
     table_check: Callable[[], None] | None = None,
+    candidate_extent: int | None = None,
 ) -> int:
     """Verify an exact match; optionally summarize the same mismatch evidence."""
 
@@ -596,6 +613,7 @@ def run_required_asm_diff(
         symbol,
         expected_size,
         require_match=True,
+        candidate_extent=candidate_extent,
     )
     try:
         result = subprocess.run(
@@ -614,6 +632,11 @@ def run_required_asm_diff(
         return EXIT_BLOCKED_TOOLING
     try:
         require_zero_difference(result.stdout, symbol)
+        if candidate_extent is not None:
+            # A short non-terminal extent can never be an exact match.
+            raise NonzeroDifferenceError(
+                f"{symbol} is not matched: candidate extent {candidate_extent:#x} is short "
+                f"of {expected_size:#x}; inventory was not changed")
         if table_check is not None:
             table_check()
     except NonzeroDifferenceError as error:
@@ -625,7 +648,7 @@ def run_required_asm_diff(
                 return EXIT_BLOCKED_TOOLING
         else:
             display_command = asm_diff_command(
-                candidate, reference, symbol, expected_size
+                candidate, reference, symbol, expected_size, candidate_extent=candidate_extent
             )
             run_asm_diff(display_command, directory)
         print(f"error: {error}", file=sys.stderr)
@@ -643,13 +666,15 @@ def run_score_only_diff(
     symbol: str,
     directory: Path,
     expected_size: int,
+    *, candidate_extent: int | None = None,
 ) -> int:
     """Print only the machine-readable focused-diff score for shell callers."""
 
     try:
         result = subprocess.run(
             asm_diff_command(
-                candidate, reference, symbol, expected_size, require_match=True
+                candidate, reference, symbol, expected_size, require_match=True,
+                candidate_extent=candidate_extent,
             ),
             cwd=directory,
             check=False,
@@ -860,11 +885,13 @@ def run_diagnose_diff(
     directory: Path,
     expected_size: int,
     *, table_check: Callable[[], None] | None = None,
+    candidate_extent: int | None = None,
 ) -> int:
     try:
         result = subprocess.run(
             asm_diff_command(
-                candidate, reference, symbol, expected_size, require_match=True
+                candidate, reference, symbol, expected_size, require_match=True,
+                candidate_extent=candidate_extent,
             ),
             cwd=directory,
             check=False,
@@ -882,6 +909,8 @@ def run_diagnose_diff(
         score = current_difference_count(result.stdout)
         rows = diagnostic_rows(result.stdout)
         counts = classify_diff_rows(rows)
+        if not score and candidate_extent is not None:
+            raise ValueError(f"{symbol} short candidate extent {candidate_extent:#x} scored zero")
         if score:
             print_compact_mismatch(result.stdout, symbol, directory)
         else:
@@ -1009,9 +1038,14 @@ def main() -> int:
             if not arguments.watch:
                 if (overlay == "game" and linked_aliases.game_unit_registered(
                         ROOT, source.relative_to(ROOT).as_posix(), symbol)):
-                    pair = prepare_game_comparison(
-                        source, candidate, reference, reference_assembly, symbol,
-                        int(region["vram"], 16), expected_size, deferred_symbol=deferred_symbol)
+                    try:
+                        pair = prepare_game_comparison(
+                            source, candidate, reference, reference_assembly, symbol,
+                            int(region["vram"], 16), expected_size, deferred_symbol=deferred_symbol)
+                    except linked_aliases.ShortInteriorExtent as short:
+                        # Score only real candidate words; focused alignment
+                        # must not stand in for the absent next function.
+                        table_options["candidate_extent"] = short.extent
                 else:
                     pair = linked_aliases.prepare(
                         ROOT, candidate, reference, reference_assembly,
@@ -1027,7 +1061,8 @@ def main() -> int:
             return EXIT_BLOCKED_TOOLING
     directory = write_settings(arguments.profile, source)
     if arguments.score_only:
-        return run_score_only_diff(candidate, reference, symbol, directory, expected_size)
+        return run_score_only_diff(candidate, reference, symbol, directory, expected_size,
+                                   candidate_extent=table_options.get("candidate_extent"))
     if arguments.diagnose:
         return run_diagnose_diff(
             candidate, reference, symbol, directory, expected_size, **table_options
@@ -1043,6 +1078,7 @@ def main() -> int:
         symbol,
         expected_size,
         watch=arguments.watch,
+        candidate_extent=table_options.get("candidate_extent"),
     )
     return run_asm_diff(command, directory)
 
@@ -1051,7 +1087,13 @@ if __name__ == "__main__":
     if sys.argv[1:2] == ["--asm-differ"]:
         del sys.argv[1]
         try:
-            run_pinned_asm_differ()
+            candidate_lines = None
+            if sys.argv[1:2] == ["--candidate-lines"]:
+                candidate_lines = int(sys.argv[2])
+                del sys.argv[1:3]
+                if candidate_lines <= 0:
+                    raise ValueError("candidate line limit must be positive")
+            run_pinned_asm_differ(candidate_lines)
         except (ValueError, OSError) as error:
             print(f"error: {error}", file=sys.stderr)
             raise SystemExit(EXIT_BLOCKED_TOOLING)
