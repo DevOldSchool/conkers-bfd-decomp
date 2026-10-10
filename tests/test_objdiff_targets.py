@@ -122,6 +122,7 @@ class TargetValidationTests(unittest.TestCase):
             config = targets.config_document(units, root / 'report/targets/debugger', binary, 'us-sha1')
             self.assertEqual(config['options']['target_path'], 'roms/baserom.us.z64')
             self.assertEqual(config['options']['symbol_addrs_path'], ['config/symbols/us.txt'])
+            self.assertEqual(config['options']['reloc_addrs_path'], ['config/relocs/us.txt'])
             self.assertEqual(config['segments'][0], [0, 'bin', 'prefix'])
             self.assertEqual(config['segments'][1]['vram'], 0x16000000)
             self.assertEqual(config['segments'][1]['align'], 8)
