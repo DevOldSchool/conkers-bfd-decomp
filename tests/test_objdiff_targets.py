@@ -109,6 +109,7 @@ class TargetValidationTests(unittest.TestCase):
             self.assertEqual(config['segments'][0]['subsegments'],
                              [[0,'c','000000'],[16,'asm','000010']])
             self.assertEqual(config['sha1'],'test-sha1')
+            self.assertEqual(options['reloc_addrs_path'],['config/relocs/game-us.txt'])
 
 
     def test_debugger_uses_full_rom_symbols_and_eight_byte_alignment(self):

@@ -620,7 +620,6 @@ void func_151355B8(struct102 *arg0, s32 *arg1, u8 arg2) {
     case 0:
         if ((arg1[0] == *(s32 *)((s32)arg0 + 0x1C)) ||
             (*(u8 *)((s32)arg1 + 4) == *(u8 *)((s32)arg0 + 0x18))) {
-            if (1) {}
             func_1516972C(arg0);
         }
         break;
@@ -911,8 +910,11 @@ void *func_1513C73C(s32 *, s32, s32, void *, f32, f32, f32, f32,
 void func_15136918(f32 arg0, u8 arg1, u8 arg2, s16 arg3, s16 arg4,
                    void *arg5, f32 *arg6, u8 arg7, s32 arg8) {
     Blood6918Packet packet;
-    volatile s32 padding[2];
+    f32 *position;
+    f32 scale;
 
+    position = arg6;
+    scale = arg0;
     packet.field06 = 0x55;
     packet.field00 = 0x300;
     packet.field08 = 0;
@@ -932,8 +934,8 @@ void func_15136918(f32 arg0, u8 arg1, u8 arg2, s16 arg3, s16 arg4,
         packet.field00 = 0x301;
         packet.field04 = arg3 + 0x20;
     }
-    func_1513C73C(&packet.field00, 0xD, 0, arg5, arg6[0], arg6[1],
-                  arg6[2], arg0, arg0, arg4, 0, 0, arg7, arg8);
+    func_1513C73C(&packet.field00, 0xD, 0, arg5, position[0], position[1],
+                  position[2], scale, scale, arg4, 0, 0, arg7, arg8);
 }
 s32 func_15136A1C(BloodState *arg0) {
     s16 temp_v0 = arg0->unk1C;
@@ -1137,21 +1139,15 @@ s32 func_15137C64(BloodVec3 *arg0, BloodVec3 *arg1, BloodVec3 *arg2,
     if (arg5 != 0 && arg6 != 0) {
         *arg0 = *arg5;
         *arg1 = *arg6;
-        goto have_positions;
-    }
-    if (arg5 != 0) {
+    } else if (arg5 != 0) {
         *arg0 = *arg5;
         *arg1 = *arg5;
-        goto have_positions;
-    }
-    if (arg6 != 0) {
+    } else if (arg6 != 0) {
         *arg0 = *arg6;
         *arg1 = *arg6;
-        goto have_positions;
+    } else {
+        return 0;
     }
-    return 0;
-
-have_positions:
     if (arg7 == 0) {
         arg2->x = arg1->x - arg0->x;
         arg2->y = arg1->y - arg0->y;

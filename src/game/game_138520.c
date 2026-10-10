@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_view_command_cores.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1510B070
  * - func_1510B128
  * - func_1510B3B0
  * - func_1510B458
@@ -26,21 +25,13 @@ extern s32 D_800BE628;
 extern s16 D_800DD2F2;
 extern s16 D_800DD2F4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B070 CURRENT (30) */
 void func_1510B070(s32 arg0) {
-    f32 temp_fv0;
-    f32 temp_fv1;
-
     D_800D9B20 = (f32)D_800DD2F2;
     D_800D9B1C = (f32)D_800DD2F4;
     D_800D3670 = 100.0f - D_800D9B1C;
-    temp_fv0 = *(f32 *)((u8 *)D_800BE628 + 0x10);
-    temp_fv1 = *(f32 *)((u8 *)D_800BE628 + 0xC);
-    func_151EF954(&D_800D9B28, -temp_fv1, temp_fv1, -temp_fv0, temp_fv0,
-                  1.0f, D_800A2C20, 1.0f);
+    func_151EF954(&D_800D9B28, -*(f32 *)((u8 *)D_800BE628 + 0xC), *(f32 *)((u8 *)D_800BE628 + 0xC),
+                  -*(f32 *)((u8 *)D_800BE628 + 0x10), *(f32 *)((u8 *)D_800BE628 + 0x10), 1.0f, D_800A2C20, 1.0f);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510B070 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_138520/func_1510B070.s")
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 void func_1510B5F8(s32, void *, f32, f32, f32, f32, f32);

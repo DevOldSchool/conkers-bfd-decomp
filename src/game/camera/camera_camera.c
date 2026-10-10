@@ -1189,7 +1189,7 @@ s32 func_151253CC(u8 *arg0) {
 
     if (*(s32 *)(arg0 + 0x2C) & 0x40000) {
         *(s32 *)(arg0 + 0x84) &= ~0x4F;
-        *(volatile s32 *)(arg0 + 0x84) = *(s32 *)(arg0 + 0x84) | 0x2680;
+        *(s32 *)(arg0 + 0x84) |= 0x2680;
         value = 0.0f;
         *(f32 *)(arg0 + 0x3A8) = value;
         *(f32 *)(arg0 + 0x5E8) = value;
@@ -1481,20 +1481,20 @@ extern f32 D_800C3624;
 extern s8 D_800C365C;
 
 void func_15125A6C(struct108 *arg0) {
-    void *volatile *p_D_800A3554 = (void *)&D_800A3554;
-    s32 pad0;
-    s32 pad1;
-    f32 sp38;
-    f32 pad34;
-    f32 pad30;
-    f32 sp2C;
-    f32 sp28;
-    f32 sp24;
-    u8 new_var;
+    f32 offsetCos;
+    f32 offsetSin;
+    f32 radius;
+    f32 yaw;
+    f32 offsetRadius;
+    f32 height;
+    f32 trig;
+    f32 angle;
+    f32 offsetAngle;
+    u8 mode;
 
-    new_var = arg0->unk23E;
-    if (new_var == 0x2A) {
-        sp38 = arg0->unk3D0->unk40;
+    mode = arg0->unk23E;
+    if (mode == 0x2A) {
+        yaw = arg0->unk3D0->unk40;
         if (arg0->unk2C != 0x40000) {
             func_1512D560(arg0, 5, 0);
             arg0->unk7E4 = 1U;
@@ -1502,17 +1502,22 @@ void func_15125A6C(struct108 *arg0) {
         *D_800DBFF4 = 3;
         ((struct168 *)&D_800C3600)->unk0 = 1;
         ((struct168 *)&D_800C3600)->unk4 = 0;
-        sp28 = sp38 * D_800A3550;
-        sp2C = func_15047D60(sp28);
-        sp24 = (sp38 - 90.0f) * D_800A3554;
-        D_800C3614 = (arg0->unk3D0->x_position + (138.0f * sp2C)) + (func_15047D60(sp24) * 46.0f);
-        D_800C3618 = arg0->unk3D0->y_position + 96.0f;
-        sp2C = func_15047C00(sp28);
-        D_800C361C = (func_15047C00(sp24) * 46.0f) + (arg0->unk3D0->z_position + (138.0f * sp2C));
+        radius = 138.0f;
+        offsetRadius = 46.0f;
+        height = 96.0f;
+        angle = yaw * D_800A3550;
+        trig = func_15047D60(angle);
+        offsetAngle = (yaw - 90.0f) * D_800A3554;
+        offsetSin = func_15047D60(offsetAngle);
+        D_800C3614 = (offsetSin * offsetRadius) + (arg0->unk3D0->x_position + (radius * trig));
+        D_800C3618 = arg0->unk3D0->y_position + height;
+        trig = func_15047C00(angle);
+        offsetCos = func_15047C00(offsetAngle);
+        D_800C361C = (offsetCos * offsetRadius) + (arg0->unk3D0->z_position + (radius * trig));
         ((struct168 *)&D_800C3600)->unk20 = 0.0f;
         D_800C3624 = -180.0f;
         ((struct168 *)&D_800C3600)->unk8 = 0.0f;
-        ((struct168 *)&D_800C3600)->unk28 = sp38 - 180.0f;
+        ((struct168 *)&D_800C3600)->unk28 = yaw - 180.0f;
         D_800C365C = 0;
         func_1512D560(arg0, 7, &D_800C3600);
         return;
@@ -2413,10 +2418,9 @@ extern s32 D_800BE628;
 
 void func_15127EB8(struct108 *arg0)
 {
-  u8 new_var;
   struct127 *v0;
   struct127 *v1;
-  u8 a0;
+  u8 index;
   func_151239CC(arg0, 1);
   arg0->unk3D4->unk197 = 0;
   func_151C9ED4(arg0);
@@ -2429,11 +2433,10 @@ void func_15127EB8(struct108 *arg0)
   func_150627D4(arg0->unk3D0);
   D_800DBFF4[arg0->unk23D] = 2;
   v1 = arg0->unk3D0;
-  a0 = v1->unk65;
-  new_var = a0;
-  if (new_var != 0)
+  index = v1->unk65;
+  if (index)
   {
-    v0 = &((struct127 *)D_800CC2D0)[new_var - 1];
+    v0 = &((struct127 *)D_800CC2D0)[index - 1];
   }
   else
   {

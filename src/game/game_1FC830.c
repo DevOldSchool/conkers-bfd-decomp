@@ -10,7 +10,6 @@
  * - func_151CF898
  * - func_151CFA4C
  * - func_151D014C
- * - func_151D08F0
  * - func_151D09A8
  * - func_151D10E4
  * - func_151D1138
@@ -104,7 +103,7 @@ void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
 void func_151D0024(void *arg0) {
     struct {
         void *sp18;
-        volatile u8 sp1C;
+        u8 sp1C;
     } sp;
 
     sp.sp18 = arg0;
@@ -153,41 +152,33 @@ void func_151D0128(u8 *arg0) {
 /* Call context: func_1516972C: unique active declaration in the allowed source */
 void func_1516972C(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D08F0 CURRENT (235) */
-void func_151D08F0(u8 *arg0, u8 *arg1, u8 arg2) {
-    s32 temp_a0;
+void func_151D08F0(void *arg0, u8 *arg1, u8 arg2) {
+    u8 *temp_v0;
     s32 temp_v1;
-    struct { s32 object; u8 index; } *temp_v0;
 
+    temp_v0 = (u8 *)arg0 + 0x28;
     if ((arg2 == 0) || (arg2 == 0x18)) {
-        temp_v0 = (void *)(arg0 + 0x28);
         temp_v1 = *(s32 *)arg1;
-        if ((temp_v1 == temp_v0->object) || (temp_v0->index == arg1[4])) {
+        if ((temp_v1 == *(s32 *)temp_v0) ||
+            (*(u8 *)(temp_v0 + 4) == *(u8 *)(arg1 + 4))) {
             func_1516972C(arg0);
         }
-    } else {
-        temp_v0 = (void *)(arg0 + 0x28);
-        if (arg2 == 0x2D) {
-            temp_a0 = temp_v0->object;
-            temp_v1 = *(s32 *)((u8 *)arg1 + 0);
-            if (temp_v1 == temp_a0) {
-                temp_v0->object = (s32) *(s32 *)((u8 *)arg1 + 4);
-                temp_v0->index = (u8) *(u8 *)((u8 *)arg1 + 9);
-                return;
-            }
-            if (*(s32 *)((u8 *)arg1 + 4) == temp_a0) {
-                temp_v0->object = temp_v1;
-                temp_v0->index = (u8) *(u8 *)((u8 *)arg1 + 8);
-            }
+    } else if (arg2 == 0x2D) {
+        if (*(s32 *)arg1 == *(s32 *)temp_v0) {
+            *(s32 *)temp_v0 = *(s32 *)(arg1 + 4);
+            *(u8 *)(temp_v0 + 4) = *(u8 *)(arg1 + 9);
+            return;
+        }
+        if (*(s32 *)(arg1 + 4) == *(s32 *)temp_v0) {
+            *(s32 *)temp_v0 = *(s32 *)arg1;
+            *(u8 *)(temp_v0 + 4) = *(u8 *)(arg1 + 8);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D08F0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D08F0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D09A8.s")
 void func_1516972C(void *arg0);
 void func_151D0ED8(void *arg0) {
-    volatile void **field_A8 = (volatile void **)((u8 *)arg0 + 0xA8);
+    void **field_A8 = (void **)((u8 *)arg0 + 0xA8);
 
     if (*field_A8 != 0) {
         func_1516972C((void *)*field_A8);

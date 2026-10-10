@@ -12,7 +12,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_150F739C(volatile s32 arg0);
+void func_150F739C(s32 arg0);
 void func_1516972C(void *arg0);
 void func_15149368(s32 arg0);
 
@@ -21,7 +21,7 @@ void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
 void func_150F6DB0(void *arg0) {
     struct {
         void *sp18;
-        volatile u8 sp1C;
+        u8 sp1C;
     } sp;
 
     sp.sp18 = arg0;
@@ -269,7 +269,7 @@ void func_150F7310(void *arg0, void *arg1, u8 arg2) {
 /* Call context: func_1514EDF0: unique active project prototype */
 void func_1514EDF0(s32, s32);
 
-void func_150F739C(volatile s32 arg0) {
+void func_150F739C(s32 arg0) {
     s32 var_s0;
     void *temp_a0;
     u8 *state;

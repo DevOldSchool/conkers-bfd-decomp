@@ -8,7 +8,6 @@
  * - func_15075400
  * - func_15075650
  * - func_15075938
- * - func_15075F6C
  * - func_150768DC
  * - func_15076B94
  * - func_15076D3C
@@ -416,14 +415,10 @@ void func_15075F40(void) {
     func_15075548();
     D_800D154C->pad223[0] = 3;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15075F6C CURRENT (30) */
 void func_15075F6C(void) {
-    s32 value;
-
-    value = D_800D1890;
-    if (value != 0) {
+    if (D_800D1890 != 0) {
         if (D_800D1892 == 0) {
-            *(f32 *)((u8 *)D_800D154C + 0x20) = (f32)(u32)value;
+            *(f32 *)((u8 *)D_800D154C + 0x20) = (f32)(u32)D_800D1890;
         } else {
             *(f32 *)((u8 *)D_800D154C + 0x20) = (f32)-(s32)D_800D1890;
         }
@@ -431,10 +426,8 @@ void func_15075F6C(void) {
     if (D_800D1891 != 0) {
         *(f32 *)((u8 *)D_800D154C + 0x24) = (f32)(u32)D_800D1891;
     }
-    D_800D154C->pad6[0x34] = D_800D1893;
+    D_800D154C->pad20[0x1A] = D_800D1893;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15075F6C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15075F6C.s")
 /* Call context: func_15075548: unique active declaration in the allowed source */
 void func_15075548(void);
 
@@ -1274,7 +1267,7 @@ void func_150782CC(void) {
     D_800D154C->field_23E = D_800D1890;
 }
 void func_150782E8(void) {
-    if (((D_800D1892 == 0) && (D_800D1891 == D_800D154C->pad6[0x35])) || ((D_800D1892 == 1) && (D_800D1891 != D_800D154C->pad6[0x35]))) {
+    if (((D_800D1892 == 0) && (D_800D1891 == D_800D154C->pad20[0x1B])) || ((D_800D1892 == 1) && (D_800D1891 != D_800D154C->pad20[0x1B]))) {
         func_15075400((s32) D_800D1890);
     }
 }

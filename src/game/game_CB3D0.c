@@ -23,7 +23,7 @@ typedef struct GameCB3D0Record {
     s32 value;
 } GameCB3D0Record;
 
-void func_1509DF20(volatile s32 arg0, GameCB3D0Record *arg1) {
+void func_1509DF20(s32 arg0, GameCB3D0Record *arg1) {
     if ((arg1->type == 1) && (D_800D3840 == 3)) {
         D_800D2FC0[arg1->index] = (f32)arg1->value * 0.000015258789f;
         D_800D2FD8[arg1->index] = (f32)arg1->value * 0.000015258789f;

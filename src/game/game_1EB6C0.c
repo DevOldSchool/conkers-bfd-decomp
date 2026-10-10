@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151BE210
  * - func_151BE558
- * - func_151BE6CC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -157,31 +156,31 @@ void func_151BE6A0(void *arg0) {
     func_151BE644(arg0);
     func_1513CAA0(arg0);
 }
-extern s32 D_800AA7A8[];
+typedef struct Game1EB6C0Choices {
+    s32 values[4];
+} Game1EB6C0Choices;
+
+extern Game1EB6C0Choices D_800AA7A8;
 extern f32 D_800AA8AC;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BE6CC CURRENT (430) */
 s32 func_151BE6CC(void *arg0) {
-    typedef struct { s32 words[4]; } Copy4;
     typedef struct { u8 pad0[0x48]; f32 value; } State;
     f32 current;
-    Copy4 values;
+    Game1EB6C0Choices choices;
     State *state;
 
-    values = *(Copy4 *)D_800AA7A8;
+    choices = D_800AA7A8;
+    state = (State *)((u8 *)arg0 + 0x110);
     *(s16 *)((u8 *)arg0 + 0x170) -= D_800BE9E4;
     if (*(s16 *)((u8 *)arg0 + 0x170) < 0) {
-        *(s8 *)((u8 *)arg0 + 0x18) = (s8)values.words[func_150ADA20() & 3];
+        *(s8 *)((u8 *)arg0 + 0x18) = (s8)choices.values[func_150ADA20() & 3];
         *(s16 *)((u8 *)arg0 + 0x170) = (s16)((func_150ADA20() & 7) + 3);
     }
-    state = (State *)((u8 *)arg0 + 0x110);
     current = state->value;
     state->value += (*(f32 *)((u8 *)arg0 + 0x174) - current) * D_800AA8AC;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151BE6CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EB6C0/func_151BE6CC.s")
 extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_151BE788(s32 arg0, s32 arg1, u8 arg2) {

@@ -1,3 +1,12 @@
+// func_80010BE8 searches the 16-entry D_800425E0 sound-handle table (stride
+// 0xC) with a for loop; IDO peeled index 0, addressing its state (+0x8) and
+// value (+0x4) fields as table + offset in the original object.
+rom:0x10C94 reloc:MIPS_HI16 symbol:D_800425E0 addend:0x8
+rom:0x10C98 reloc:MIPS_LO16 symbol:D_800425E0 addend:0x8
+rom:0x10CA0 reloc:MIPS_HI16 symbol:D_800425E0 addend:0x8
+rom:0x10CB0 reloc:MIPS_LO16 symbol:D_800425E0 addend:0x8
+rom:0x10CB8 reloc:MIPS_HI16 symbol:D_800425E0 addend:0x4
+rom:0x10CBC reloc:MIPS_LO16 symbol:D_800425E0 addend:0x4
 // Debugger SI register accesses: IDO emits literal KSEG1 addresses here, so
 // keep them as assembled constants instead of D_A48000xx relocations.
 rom:0x1A040C reloc:CUSTOM_CONSTANT_HI symbol:0xA4800018

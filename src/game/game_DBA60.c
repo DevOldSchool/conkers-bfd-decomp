@@ -141,8 +141,8 @@ void func_150AED4C(void *arg0) {
     limit = *(s16 *)((u8 *)arg0 + 0x2A);
     if (limit < value) {
         *(s16 *)((u8 *)arg0 + 0x34) = limit;
-        *(volatile s8 *)((u8 *)arg0 + 0x3A) = 0x46;
-        value = *(volatile s16 *)((u8 *)arg0 + 0x34);
+        *(s8 *)((u8 *)arg0 + 0x3A) = 0x46;
+        value = *(s16 *)((u8 *)arg0 + 0x34);
     }
     *(s16 *)((u8 *)arg0 + 0x36) = value;
 }

@@ -143,9 +143,9 @@ s32 func_1512B630(void *arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) 
     s16 var_v0;
 
     if (arg5 == 0) {
-        var_v0 = *(s16 *)(D_800DC204 + (*(volatile s16 *)((u8 *)arg0 + 0x1B4) << 3) + (*(volatile u8 *)((u8 *)arg0 + 0x23D) << 5));
+        var_v0 = *(s16 *)(D_800DC204 + (*(s16 *)((u8 *)arg0 + 0x1B4) << 3) + (*(u8 *)((u8 *)arg0 + 0x23D) << 5));
     } else {
-        var_v0 = *(s16 *)(D_800DC206 + (*(volatile s16 *)((u8 *)arg0 + 0x1B4) << 3) + (*(volatile u8 *)((u8 *)arg0 + 0x23D) << 5));
+        var_v0 = *(s16 *)(D_800DC206 + (*(s16 *)((u8 *)arg0 + 0x1B4) << 3) + (*(u8 *)((u8 *)arg0 + 0x23D) << 5));
     }
     if (*(s32 *)((u8 *)arg0 + 0x84) & 0x8000) {
         var_v0 *= 2;

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/main/main_audio_driver_sequence_boundaries.md
  *
  * TODO: Implement these source-unit functions:
- * - func_8000C350
  * - func_8000C530
  * - func_8000CEAC
  * - func_8000D2F8
@@ -557,8 +556,9 @@ void func_80008790(u8, s32, u8, s32);
 void func_8000886C(u8, s32, u8);
 void func_80008F24(u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000C350 CURRENT (10) */
 s32 func_8000C350(s32 arg0, u8 arg1, s32 arg2, s32 arg3) {
+    s32 id;
+
     if (!(arg0 & 0x80)) {
         arg0 |= 0x80;
         if (D_800C35EA != 1) {
@@ -577,9 +577,10 @@ s32 func_8000C350(s32 arg0, u8 arg1, s32 arg2, s32 arg3) {
         }
         return arg0;
     }
+    id = arg0 & 0x7F;
     if (D_800BE9F0 != 0x1D) {
         func_80008F24(arg1);
-    } else if ((arg0 & 0x7F) != D_80041F08) {
+    } else if (id != D_80041F08) {
         switch (D_80041F08) {
         case 1:
             func_80008790(arg1, 0x1E, 0, 0);
@@ -595,8 +596,6 @@ s32 func_8000C350(s32 arg0, u8 arg1, s32 arg2, s32 arg3) {
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000C350 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000C350.s")
 extern s32 D_800BE9E4;
 void func_800085F8(u8, s32);
 void func_800086FC(u8, u8, u8);

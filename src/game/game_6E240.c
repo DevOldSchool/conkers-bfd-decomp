@@ -90,10 +90,9 @@ void func_15040FCC(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6E240/func_15040FCC.s")
 void func_1504129C(void) {
     s32 value = 0;
+    s32 step = 4;
 
-loop:
-    value += 4;
-    if (value != 0x18000000) {
-        goto loop;
-    }
+    do {
+        value += step;
+    } while (value != 0x18000000);
 }

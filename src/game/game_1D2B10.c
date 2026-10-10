@@ -19,21 +19,24 @@ void func_1514933C(s32);
 extern void func_151A5D2C(s32 arg0, void *arg1);
 
 void func_151A5CAC(void *arg0) {
-    if (*(volatile u16 *)((u8 *)arg0 + 0x6C) != 0) {
-        func_151A5D2C((s32) *(u16 *)((u8 *)arg0 + 0x6C), arg0);
+    u8 *state;
+
+    state = (u8 *)arg0 + 0x58;
+    if (*(u16 *)((u8 *)arg0 + 0x6C) != 0) {
+        func_151A5D2C(*(u16 *)(state + 0x14), arg0);
     }
-    func_1514933C((s32) arg0);
+    func_1514933C((s32)arg0);
 }
 extern void func_15149368(void *arg0);
 
 void func_151A5CEC(void *arg0) {
-    void *temp_a1;
+    u8 *state;
 
-    temp_a1 = arg0;
-    if (*(volatile u16 *)((u8 *)temp_a1 + 0x6C) != 0) {
-        func_151A5D2C(*(u16 *)((u8 *)temp_a1 + 0x6C), temp_a1);
+    state = (u8 *)arg0 + 0x58;
+    if (*(u16 *)((u8 *)arg0 + 0x6C) != 0) {
+        func_151A5D2C(*(u16 *)(state + 0x14), arg0);
     }
-    func_15149368(temp_a1);
+    func_15149368(arg0);
 }
 /* Call context: func_100111C8: unique active project prototype */
 void func_100111C8(s32, u16);

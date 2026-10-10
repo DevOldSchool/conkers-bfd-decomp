@@ -88,7 +88,7 @@ s32 func_150A02D0(s32 arg0, s32 arg1, s32 *arg2) {
 }
 extern s32 D_800D3014[];
 
-s32 func_150A0374(s32 arg0, s32 arg1, volatile s32 arg2) {
+s32 func_150A0374(s32 arg0, s32 arg1, s32 arg2) {
     if (arg1 == 3) {
         return *(s32 *)((u8 *)D_800D3014 + (arg0 * 0xC));
     }

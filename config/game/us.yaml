@@ -22,6 +22,8 @@ options:
   asm_data_macro: dlabel
   symbol_addrs_path:
     - config/symbols/game-us.txt
+  reloc_addrs_path:
+    - config/relocs/game-us.txt
 segments:
   - name: game
     type: code

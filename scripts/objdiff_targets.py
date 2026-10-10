@@ -43,8 +43,8 @@ def config_document(specs: list[dict], directory: Path, binary: Path, sha1: str)
         'asm_function_macro': 'glabel', 'asm_data_macro': 'glabel',
         'asm_jtbl_label_macro': 'jlabel', 'mips_abi_float_regs': 'o32',
         'symbol_addrs_path': ['config/symbols/' + ('game-us' if overlay == 'game' else 'us') + '.txt'],
-        # Match the canonical US profile's relocation overrides.
-        **({} if overlay == 'game' else {'reloc_addrs_path': ['config/relocs/us.txt']}),
+        # Match the canonical US profiles' relocation overrides.
+        'reloc_addrs_path': ['config/relocs/' + ('game-us' if overlay == 'game' else 'us') + '.txt'],
     }
     segments = []
     if specs[0]['start']:
