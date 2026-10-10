@@ -15,7 +15,7 @@ class MipmapBuildTests(unittest.TestCase):
         contract = cpu.storage_contract({'format': 5, 'size': 2, 'width': 16, 'height': 16,
                                          'count': 1, 'flags': 0}, payload)
         packed = rzip_pack.encode_rzip_chunk(payload)
-        expected = build.describe_texture(packed, t.TextureAsset(55, 0, len(packed), payload), contract=contract)
+        expected = build.describe_texture(packed, t.TextureAsset(55, 0, len(packed), payload), contract=contract, encoder=build.ENCODERS['zlib'])
         directory = root / 'rgba16-i4'
         build.initialize_inputs(directory, expected, payload)
         return directory, expected, packed
@@ -83,7 +83,7 @@ class MipmapBuildTests(unittest.TestCase):
         contract = {'format': fmt, 'width': 64 // bits, 'height': 8, 'row_layout': t.ROW_LAYOUT_TMEM,
                     'mixed_detail': True, 'palette_size': palette_size, 'levels': levels,
                     'zero_alignment': {'offset': cursor, 'size': 16, 'alignment': 64}}
-        expected = build.describe_texture(packed, texture, contract=contract)
+        expected = build.describe_texture(packed, texture, contract=contract, encoder=build.ENCODERS['zlib'])
         directory = root / fmt
         build.initialize_inputs(directory, expected, payload)
         return directory, expected, packed
@@ -158,7 +158,7 @@ class MipmapBuildTests(unittest.TestCase):
                         {'level': 2, 'offset': 96, 'width': 8, 'height': 2, 'bytes': 16}]}
         if padding:
             contract['zero_alignment'] = {'offset': 112, 'size': padding, 'alignment': 64}
-        expected = build.describe_texture(packed, texture, contract=contract)
+        expected = build.describe_texture(packed, texture, contract=contract, encoder=build.ENCODERS['zlib'])
         directory = root / fmt
         build.initialize_inputs(directory, expected, payload)
         return directory, expected, payload, packed

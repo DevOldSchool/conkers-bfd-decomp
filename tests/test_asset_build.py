@@ -41,6 +41,7 @@ class AssetMakeTests(unittest.TestCase):
         shutil.copy(ROOT / 'Makefile', self.root / 'Makefile')
         for name in ('config/profiles/us.yaml', 'config/rzip_layouts.json',
                      'toolchain/python-requirements.txt', 'roms/baserom.us.z64',
+                     'config/texture_encoders.us.json',
                      'scripts/build_files.py', 'scripts/font_assets.py', 'scripts/mp3_assets.py',
                      'scripts/rzip_archive.py', 'scripts/rzip_extract.py',
                      'scripts/texture_assets.py', 'scripts/texture_catalog.py',
@@ -105,7 +106,8 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
             parent.mkdir(parents=True)
             for i in range(2):
                 (parent / f'{i:04d}{suffix}').write_bytes(bytes([i]))
-        for directory in ('build/fonts/us', 'build/assets/mp3-bank/us', 'build/assets/texture-build/us'):
+        for directory in ('build/fonts/us', 'build/assets/mp3-bank/us', 'build/assets/texture-build/us/1063'):
+            (self.root / directory).mkdir(parents=True, exist_ok=True)
             (self.root / directory / 'manifest.json').write_text('{}')
 
     def run_make(self, kind):
@@ -136,6 +138,32 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
                 self.assertEqual(objects[0].read_bytes(), b'changed')
                 self.assertGreater(objects[0].stat().st_mtime_ns, before[0])
                 self.assertEqual(objects[1].stat().st_mtime_ns, before[1])
+
+    def test_every_texture_module_and_encoder_contract_invalidates_packing(self):
+        dependencies = sorted(path.relative_to(ROOT) for path in (ROOT / 'scripts').glob('texture_*.py'))
+        dependencies += [Path('scripts/texture_future_selector.py'),
+                         Path('config/texture_encoders.us.json')]
+        result, objects = self.run_make('texture')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        before = [path.stat().st_mtime_ns for path in objects]
+        stamp = self.root / 'build/us/textures/parts.stamp'
+        calls = self.root / 'texture_build.calls'
+        for number, relative in enumerate(dependencies, 2):
+            with self.subTest(dependency=relative):
+                dependency = self.root / relative
+                dependency.touch()
+                original = dependency.stat()
+                # Exercise the actual Make graph, including newly added modules,
+                # without sleeping for Make 3.81's second-resolution clock.
+                newer = stamp.stat().st_mtime_ns + 2_000_000_000
+                os.utime(dependency, ns=(newer, newer))
+                try:
+                    result, _ = self.run_make('texture')
+                finally:
+                    os.utime(dependency, ns=(original.st_atime_ns, original.st_mtime_ns))
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(calls.read_text().count('packed'), number)
+                self.assertEqual([path.stat().st_mtime_ns for path in objects], before)
 
     def test_asset_link_commands_are_logged_on_success_and_failure(self):
         for kind in ('font', 'mp3'):

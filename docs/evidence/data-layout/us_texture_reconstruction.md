@@ -5,6 +5,46 @@ adds two scene light texture sources to the passing 6,863-texture checkpoint
 committed as `8d9b984`.
 Batch validation is recorded below; earlier passing checkpoints are retained.
 
+## Reproducible encoder contracts and input recovery
+
+`config/texture_encoders.us.json` records the encoder choice for each of the
+6,865 selected physical streams: 6,323 use zlib raw DEFLATE and 542 use GNU gzip
+1.12 raw DEFLATE. These choices were transcribed from the fully verified batch
+at the `b6a0720` checkpoint. They are committed source contracts, not inferred
+from the current compressor. The contract must cover exactly the selected YAML
+texture rows and match the reference ROM hash. A different compressor output
+fails byte verification without changing the manifest or selecting a fallback.
+
+The texture part stamp depends on every `scripts/texture_*.py` module, existing
+model dependencies and the encoder contract. New selector modules therefore
+participate in incremental invalidation automatically.
+
+New input bundles are written into a sibling temporary directory and published
+with a directory rename only after every PNG and the manifest are present.
+Texture 1063 now uses `build/assets/texture-build/us/1063/`. Existing pilot files
+at the parent are copied byte-for-byte into a complete bundle before their old
+copies are removed. Interrupted cleanup resumes after checking each remaining
+old file against the published copy; conflicting or partial legacy inputs are
+preserved and rejected. Other texture directories are untouched.
+
+### Follow-up validation (2026-10-10)
+
+- 51 focused host tests passed, including Make invalidation for every texture
+  module and a new selector, committed encoder drift, interrupted publication,
+  resumable pilot migration and conflicting input preservation.
+- The full Docker suite ran 2,289 tests with 8 skipped and no failures
+  (203.779 seconds in the runner; 210.74 seconds command wall time).
+- The US build passed in 531.93 seconds command wall time. Independent comparison
+  confirmed all 67,108,864 ROM bytes were unchanged, with SHA-1
+  `4cbadd3c4e0729dec46af64ad018050eada4f47a`.
+- The real pilot migration preserved both original input-file SHA-256 hashes.
+- A fresh native report passed in 732.49 seconds command wall time: all 6,865
+  texture units are fully matched and complete (8,284,692 stored bytes).
+  Overall tracked Data remains 8,291,236 / 8,491,764 matched bytes (97.63856%).
+- Report source fingerprint:
+  `1a2931ad8182afac7f90f5e466e43a713e8d72439227b12c1b7be483a584e8de`.
+  Progress validation and whitespace checks passed.
+
 ## Selection and resource identity
 
 The game has 7,762 runtime flat-resource slots but 7,760 physical streams.

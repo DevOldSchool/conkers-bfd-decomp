@@ -1,8 +1,8 @@
 # US flat texture 1063 build input
 
 This records the original single-texture pilot. The subsequent
-[26-texture batch](us_ci4_texture_batch.md) owns the current selection, partition
-and report totals; the pilot input bundle and texture identity are preserved.
+[reconstruction summary](us_texture_reconstruction.md) owns the current selection,
+partition and report totals; the pilot pixels and texture identity are preserved.
 
 This pilot reconstructs flat RZIP entry 1063 from an indexed PNG. The source
 ROM is the reviewed US image, SHA-1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`.
@@ -32,8 +32,10 @@ compatibility, not an exact compressor for the whole flat archive.
 ```
 
 The first build initializes absent inputs at
-`build/assets/texture-build/us/{manifest.json,1063.ci4.png}`. An existing partial
-bundle is refused. Existing PNGs are never replaced. The manifest is checked
+`build/assets/texture-build/us/1063/{manifest.json,1063.ci4.png}` through an atomic
+directory rename. Existing pilot files in the parent are migrated byte-for-byte
+with resumable cleanup. An existing partial bundle is refused. Existing PNGs
+are never replaced. The manifest is checked
 against the checksum-validated ROM, including its original payload and stored
 digests, coordinates and encoder settings. Changed pixels or palette values
 are rejected: this pilot supports exact reconstruction only. Recompression

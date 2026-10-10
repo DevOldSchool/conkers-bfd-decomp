@@ -7,6 +7,7 @@ import json
 import re
 import struct
 import subprocess
+import tempfile
 import zlib
 from pathlib import Path
 
@@ -25,6 +26,26 @@ except ModuleNotFoundError:
 
 ROOT = Path(__file__).resolve().parent.parent
 INPUT_DIRECTORY = Path('build/assets/texture-build/us')
+ENCODER_CONTRACT = Path('config/texture_encoders.us.json')
+ENCODERS = {
+    'zlib': {'format': 'rzip-raw-deflate', 'level': 9,
+             'window_bits': -15, 'memory_level': 8, 'strategy': 0},
+    'gzip': {'format': 'gzip-raw-deflate', 'level': 9,
+             'implementation': 'GNU gzip 1.12'},
+}
+
+
+def reviewed_encoders(root: Path, selected: set[int], rom_sha1: str) -> dict[int, dict]:
+    """Encoder choices are committed evidence, never inferred from this runtime."""
+    document = json.loads((root / ENCODER_CONTRACT).read_text())
+    choices = document.get('encoders')
+    if (document.get('schema_version') != 1 or document.get('profile') != 'us'
+            or document.get('rom_sha1') != rom_sha1 or not isinstance(choices, dict)
+            or set(choices) != {f'{index:04d}' for index in selected}
+            or any(not isinstance(choice, str) or choice not in ENCODERS
+                   for choice in choices.values())):
+        raise ValueError('committed texture encoder contract differs from selected US textures/ROM')
+    return {int(index): dict(ENCODERS[choice]) for index, choice in choices.items()}
 
 
 def part_name(index: int) -> str:
@@ -34,8 +55,7 @@ def part_name(index: int) -> str:
 def input_directory(index: int, expected: dict | None = None) -> Path:
     if expected and expected.get('source_contract', {}).get('identity') == 'runtime-resource':
         return INPUT_DIRECTORY / 'runtime' / f'{index:04d}'
-    # Preserve the pilot's existing input bundle, including any local changes.
-    return INPUT_DIRECTORY if index == 1063 else INPUT_DIRECTORY / f'{index:04d}'
+    return INPUT_DIRECTORY / f'{index:04d}'
 
 
 def sha256(data: bytes) -> str:
@@ -62,8 +82,11 @@ def layout_bins(profile: Path, *, configuration: dict | None = None) -> tuple[li
     return [(r[0], r[2]) for r in rows], end
 
 
-def describe_texture(rom: bytes, texture: texture_assets.TextureAsset, *, rom_sha1: str | None = None,
+def describe_texture(rom: bytes, texture: texture_assets.TextureAsset, *, encoder: dict,
+                     rom_sha1: str | None = None,
                      contract: dict | None = None) -> dict:
+    if encoder not in ENCODERS.values():
+        raise ValueError('unsupported reviewed texture encoder')
     expected = {'schema_version': 1, 'profile': 'us', 'flat_index': texture.flat_index,
             'rom_sha1': rom_sha1 or hashlib.sha1(rom).hexdigest(),
             'rom_start': texture.rom_start, 'rom_end': texture.rom_end,
@@ -72,8 +95,7 @@ def describe_texture(rom: bytes, texture: texture_assets.TextureAsset, *, rom_sh
             'original_stored_sha256': sha256(rom[texture.rom_start:texture.rom_end]),
             'row_layout': ('linear' if texture.flat_index in texture_assets.LINEAR_FLAT_INDICES
                            else 'tmem-odd-row-32bit-swap'), 'file': f'{texture.flat_index:04d}.ci4.png',
-            'encoder': {'format': 'rzip-raw-deflate', 'level': 9,
-                        'window_bits': -15, 'memory_level': 8, 'strategy': 0}}
+            'encoder': dict(encoder)}
     if contract is not None:
         expected.update(source_contract=contract, row_layout=contract['row_layout'],
                         file=f"{texture.flat_index:04d}.{contract['format']}.png")
@@ -82,9 +104,6 @@ def describe_texture(rom: bytes, texture: texture_assets.TextureAsset, *, rom_sh
             expected['files'] = [f"{texture.flat_index:04d}.level-{level['level']}.{level.get('format', contract['format'])}.png"
                                  for level in contract['levels']]
             del expected['file']
-    if rzip_pack.encode_rzip_chunk(texture.payload) != rom[texture.rom_start:texture.rom_end]:
-        expected['encoder'] = {'format': 'gzip-raw-deflate', 'level': 9,
-                               'implementation': 'GNU gzip 1.12'}
     return expected
 
 
@@ -96,10 +115,9 @@ def require_gnu_gzip() -> None:
 
 
 def encode_payload(payload: bytes, expected: dict) -> bytes:
-    if expected['encoder']['format'] == 'rzip-raw-deflate':
+    if expected['encoder'] == ENCODERS['zlib']:
         return rzip_pack.encode_rzip_chunk(payload)
-    if expected['encoder'] != {'format': 'gzip-raw-deflate', 'level': 9,
-                               'implementation': 'GNU gzip 1.12'}:
+    if expected['encoder'] != ENCODERS['gzip']:
         raise ValueError('unsupported texture encoder contract')
     require_gnu_gzip()
     gz = subprocess.run(['gzip', '-n', '-9', '-c'], input=payload,
@@ -192,7 +210,8 @@ def reviewed_textures(root: Path = ROOT) -> tuple[bytes, list[tuple[dict, textur
             or rows != partition(layout, selected) or end != layout['flat_assets_end']):
         raise ValueError('flat texture YAML splits differ from the verified RZIP boundaries')
     digest = hashlib.sha1(rom).hexdigest()
-    return rom, [(describe_texture(rom, t, rom_sha1=digest,
+    encoders = reviewed_encoders(root, requested, digest)
+    return rom, [(describe_texture(rom, t, encoder=encoders[t.flat_index], rom_sha1=digest,
                                   contract=contracts.get(t.flat_index)), t) for t in selected]
 
 
@@ -207,10 +226,53 @@ def initialize_inputs(directory: Path, expected: dict, payload: bytes) -> None:
     encoded = [(name, source_png(payload[offset:offset + size] +
                                 (palette if palette_size and plane['source_contract']['format'] in ('ci4', 'ci8') else b''), plane))
                for name, plane, offset, size in images]
-    directory.mkdir(parents=True)
-    for name, png in encoded:
-        (directory / name).write_bytes(png)
-    (directory / 'manifest.json').write_text(json.dumps(expected, indent=2) + '\n')
+    files = dict(encoded)
+    files['manifest.json'] = (json.dumps(expected, indent=2) + '\n').encode()
+    publish_inputs(directory, files)
+
+
+def publish_inputs(directory: Path, files: dict[str, bytes]) -> None:
+    """Publish a complete bundle; interruption cannot create a partial destination."""
+    if directory.exists():
+        raise ValueError('texture input directory already exists; refusing to overwrite it')
+    directory.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix=f'.{directory.name}.staging-',
+                                     dir=directory.parent) as temporary:
+        staged = Path(temporary) / 'bundle'
+        staged.mkdir()
+        for name, data in files.items():
+            (staged / name).write_bytes(data)
+        if directory.exists():
+            raise ValueError('texture input directory appeared during initialization')
+        staged.rename(directory)
+
+
+def migrate_legacy_inputs(root: Path, expected: dict) -> None:
+    """Move the pilot out of the shared parent without losing editable bytes.
+
+    Publish the full copy first. Interrupted removal of the old files resumes
+    only when each remaining file is identical to its canonical counterpart.
+    """
+    legacy = root / INPUT_DIRECTORY
+    destination = root / input_directory(1063, expected)
+    names = ['manifest.json'] + [image[0] for image in source_images(expected)[0]]
+    remaining = [name for name in names if (legacy / name).exists()]
+    if not remaining:
+        return
+    if not destination.exists():
+        # Refuse partial old bundles and preserve all their bytes for recovery.
+        before = input_hashes(legacy, expected)
+        files = {name: (legacy / name).read_bytes() for name in names}
+        if {name: sha256(data) for name, data in files.items()} != before:
+            raise ValueError('legacy texture inputs changed during migration')
+        publish_inputs(destination, files)
+    input_hashes(destination, expected)
+    # Check every remaining file before removing any, including conflicting PNGs.
+    for name in remaining:
+        if (legacy / name).read_bytes() != (destination / name).read_bytes():
+            raise ValueError('legacy texture inputs conflict with migrated 1063 bundle')
+    for name in remaining:
+        (legacy / name).unlink()
 
 
 def alignment_padding(expected: dict, pixel_size: int) -> bytes:
@@ -302,9 +364,11 @@ def packed_texture(directory: Path, expected: dict) -> tuple[bytes, dict[str, st
         raise ValueError('texture PNG no longer reconstructs the original payload')
     packed = encode_payload(payload, expected)
     if len(packed) != expected['rom_end'] - expected['rom_start']:
-        raise ValueError('texture encoder changes the fixed compressed extent')
+        raise ValueError(f"texture {expected['flat_index']}: reviewed encoder output differs "
+                         'from the fixed compressed extent; use the pinned toolchain')
     if sha256(packed) != expected['original_stored_sha256']:
-        raise ValueError('texture encoder does not reproduce the original RZIP bytes')
+        raise ValueError(f"texture {expected['flat_index']}: reviewed encoder output differs "
+                         'from the original RZIP bytes; use the pinned toolchain')
     if before != input_hashes(directory, expected):
         raise ValueError('texture inputs changed during packing')
     return packed, before
@@ -312,13 +376,10 @@ def packed_texture(directory: Path, expected: dict) -> tuple[bytes, dict[str, st
 
 def build_parts(root: Path = ROOT) -> dict:
     rom, selected = reviewed_textures(root)
-    # Initialize the legacy parent bundle first even if future selections include
-    # earlier indices whose new child directories would create that parent.
-    for expected, texture in selected:
-        if texture.flat_index == 1063 and not (root / INPUT_DIRECTORY / 'manifest.json').is_file():
-            initialize_inputs(root / INPUT_DIRECTORY, expected, texture.payload)
     candidates = []
     for expected, texture in selected:
+        if texture.flat_index == 1063:
+            migrate_legacy_inputs(root, expected)
         directory = root / input_directory(texture.flat_index, expected)
         if not (directory / 'manifest.json').is_file():
             initialize_inputs(directory, expected, texture.payload)

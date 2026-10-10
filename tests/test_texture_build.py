@@ -1,5 +1,6 @@
 """Exact PNG reconstruction and fail-closed compressed build inputs."""
 import json
+import hashlib
 from pathlib import Path
 import tempfile
 import unittest
@@ -17,14 +18,14 @@ class TextureBuildTests(unittest.TestCase):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
         self.root = Path(temporary.name)
-        self.inputs = self.root / build.INPUT_DIRECTORY
+        self.inputs = self.root / build.input_directory(1063)
         # Synthetic pixels and palette; no game bytes in tests.
         self.payload = bytes(range(256)) * 8 + bytes(range(32))
         self.packed = rzip_pack.encode_rzip_chunk(self.payload)
         self.start, self.end = 20, 20 + len(self.packed)
         self.rom = bytes(20) + self.packed + bytes(4)
         self.texture = texture_assets.TextureAsset(1063, self.start, self.end, self.payload)
-        self.expected = build.describe_texture(self.rom, self.texture)
+        self.expected = build.describe_texture(self.rom, self.texture, encoder=build.ENCODERS['zlib'])
         self.layout = {'flat_assets_start': 4, 'flat_assets_end': self.end + 4}
         self.profile = self.root / 'config/profiles/us.yaml'
         self.profile.parent.mkdir(parents=True)
@@ -41,9 +42,157 @@ class TextureBuildTests(unittest.TestCase):
 
     def save_profile(self):
         self.profile.write_text(yaml.safe_dump(self.document))
+        names = [row[2].rsplit('/', 1)[1] for row in self.document['segments'][0]['subsegments']
+                 if row[2].startswith('flat/textures/')]
+        (self.root / build.ENCODER_CONTRACT).write_text(json.dumps({
+            'schema_version': 1, 'profile': 'us', 'rom_sha1': hashlib.sha1(self.rom).hexdigest(),
+            'encoders': {name: 'zlib' for name in names}}))
 
     def initialize(self):
         build.initialize_inputs(self.inputs, self.expected, self.payload)
+
+    def test_committed_encoder_selection_never_probes_the_runtime_compressor(self):
+        with patch.object(rzip_pack, 'encode_rzip_chunk', side_effect=AssertionError('must not probe')):
+            _, selected = build.reviewed_textures(self.root)
+        self.assertEqual(selected[0][0], self.expected)
+        path = self.root / build.ENCODER_CONTRACT
+        document = json.loads(path.read_text())
+        document['encoders']['1063'] = 'gzip'
+        path.write_text(json.dumps(document))
+        # Even a runtime that would reproduce this payload with zlib must retain
+        # the committed gzip choice, without probing either compressor.
+        with patch.object(rzip_pack, 'encode_rzip_chunk', side_effect=AssertionError('must not probe')):
+            _, selected = build.reviewed_textures(self.root)
+        self.assertEqual(selected[0][0]['encoder'], build.ENCODERS['gzip'])
+
+    def test_encoder_drift_fails_build_without_changing_manifest_or_choosing_fallback(self):
+        self.initialize()
+        manifest = (self.inputs / 'manifest.json').read_bytes()
+        changed = self.packed[:-1] + bytes([self.packed[-1] ^ 1])
+        with patch.object(rzip_pack, 'encode_rzip_chunk', return_value=changed) as encode, \
+                patch.object(build.subprocess, 'run', side_effect=AssertionError('no fallback')), \
+                self.assertRaisesRegex(ValueError, 'reviewed encoder output differs'):
+            build.build_parts(self.root)
+        self.assertEqual(encode.call_count, 1)
+        self.assertEqual((self.inputs / 'manifest.json').read_bytes(), manifest)
+
+    def test_encoder_contract_rejects_missing_extra_unknown_or_wrong_rom_entries(self):
+        path = self.root / build.ENCODER_CONTRACT
+        original = path.read_text()
+        for error in ('missing', 'extra', 'unknown', 'rom', 'version'):
+            with self.subTest(error=error):
+                document = json.loads(original)
+                if error == 'missing':
+                    del document['encoders']['1063']
+                elif error == 'extra':
+                    document['encoders']['0001'] = 'zlib'
+                elif error == 'unknown':
+                    document['encoders']['1063'] = 'automatic'
+                elif error == 'rom':
+                    document['rom_sha1'] = 'wrong'
+                else:
+                    document['schema_version'] = 2
+                path.write_text(json.dumps(document))
+                with self.assertRaisesRegex(ValueError, 'committed texture encoder contract'):
+                    build.build_parts(self.root)
+                self.assertFalse(self.inputs.exists())
+
+    def test_repository_encoder_contract_covers_exactly_the_selected_texture_rows(self):
+        root = Path(__file__).resolve().parent.parent
+        rows, _ = build.layout_bins(root / 'config/profiles/us.yaml')
+        selected = {int(name.rsplit('/', 1)[1]) for _, name in rows
+                    if name.startswith('flat/textures/')}
+        document = json.loads((root / build.ENCODER_CONTRACT).read_text())
+        self.assertEqual(set(build.reviewed_encoders(root, selected, document['rom_sha1'])), selected)
+
+    def test_interrupted_initialization_never_publishes_partial_bundle_and_retries(self):
+        write = Path.write_bytes
+        rename = Path.rename
+        for failure in ('png', 'manifest', 'publish'):
+            for parent in ('direct', 'runtime'):
+                directory = self.root / parent / failure
+                def interrupted_write(path, data):
+                    result = write(path, data)
+                    if ((failure == 'manifest' and path.name == 'manifest.json')
+                            or (failure == 'png' and path.suffix == '.png')):
+                        raise KeyboardInterrupt('simulated interruption')
+                    return result
+                def interrupted_rename(path, target):
+                    if failure == 'publish':
+                        raise KeyboardInterrupt('simulated interruption')
+                    return rename(path, target)
+                with self.subTest(failure=failure, parent=parent), \
+                        patch.object(Path, 'write_bytes', interrupted_write), \
+                        patch.object(Path, 'rename', interrupted_rename), \
+                        self.assertRaises(KeyboardInterrupt):
+                    build.initialize_inputs(directory, self.expected, self.payload)
+                self.assertFalse(directory.exists())
+                # A hard-killed process may leave a hidden staging directory;
+                # it must not block publishing a new complete bundle.
+                abandoned = directory.parent / ('.' + directory.name + '.staging-abandoned')
+                abandoned.mkdir()
+                (abandoned / 'partial.png').write_bytes(b'partial')
+                build.initialize_inputs(directory, self.expected, self.payload)
+                self.assertEqual(build.packed_texture(directory, self.expected)[0], self.packed)
+
+    def legacy_bundle(self):
+        legacy = self.root / build.INPUT_DIRECTORY
+        build.initialize_inputs(legacy, self.expected, self.payload)
+        # Noncanonical formatting and user-edited bytes must survive migration.
+        (legacy / 'manifest.json').write_text(json.dumps(self.expected, indent=4))
+        return legacy
+
+    def test_legacy_migration_preserves_input_bytes_and_sibling_directories(self):
+        legacy = self.legacy_bundle()
+        (legacy / self.expected['file']).write_bytes(b'user-edited PNG')
+        files = {p.name: p.read_bytes() for p in legacy.iterdir()}
+        sibling = legacy / 'runtime/0053/keep.png'
+        sibling.parent.mkdir(parents=True)
+        sibling.write_bytes(b'unrelated input')
+        build.migrate_legacy_inputs(self.root, self.expected)
+        self.assertEqual({p.name: p.read_bytes() for p in self.inputs.iterdir()}, files)
+        self.assertTrue(all(not (legacy / name).exists() for name in files))
+        self.assertEqual(sibling.read_bytes(), b'unrelated input')
+
+    def test_interrupted_legacy_migration_resumes_before_or_after_publication(self):
+        for failure in ('publish', 'cleanup'):
+            with self.subTest(failure=failure):
+                # Each iteration gets an independent legacy bundle.
+                directory = self.root / failure
+                legacy = directory / build.INPUT_DIRECTORY
+                destination = directory / build.input_directory(1063)
+                build.initialize_inputs(legacy, self.expected, self.payload)
+                files = {p.name: p.read_bytes() for p in legacy.iterdir()}
+                unlink = Path.unlink
+                def interrupted_unlink(path, *args, **kwargs):
+                    result = unlink(path, *args, **kwargs)
+                    if path.parent == legacy:
+                        raise KeyboardInterrupt('interrupted old-file cleanup')
+                    return result
+                context = (patch.object(Path, 'rename', side_effect=KeyboardInterrupt('before publication'))
+                           if failure == 'publish' else patch.object(Path, 'unlink', interrupted_unlink))
+                with context, self.assertRaises(KeyboardInterrupt):
+                    build.migrate_legacy_inputs(directory, self.expected)
+                if failure == 'publish':
+                    self.assertFalse(destination.exists())
+                    self.assertEqual({p.name: p.read_bytes() for p in legacy.iterdir()}, files)
+                else:
+                    self.assertEqual({p.name: p.read_bytes() for p in destination.iterdir()}, files)
+                build.migrate_legacy_inputs(directory, self.expected)
+                self.assertEqual({p.name: p.read_bytes() for p in destination.iterdir()}, files)
+                self.assertTrue(all(not (legacy / name).exists() for name in files))
+
+    def test_conflicting_legacy_bundle_is_preserved_without_removing_any_files(self):
+        legacy = self.legacy_bundle()
+        self.initialize()
+        # Keep manifest formatting identical so the PNG is the conflict.
+        (self.inputs / 'manifest.json').write_bytes((legacy / 'manifest.json').read_bytes())
+        (legacy / self.expected['file']).write_bytes(b'different user input')
+        with self.assertRaisesRegex(ValueError, 'conflict'):
+            build.migrate_legacy_inputs(self.root, self.expected)
+        self.assertTrue((legacy / 'manifest.json').exists())
+        self.assertEqual((legacy / self.expected['file']).read_bytes(), b'different user input')
+        self.assertEqual(build.packed_texture(self.inputs, self.expected)[0], self.packed)
 
     def test_all_proven_pixel_formats_rebuild_storage_and_reject_changed_pixels(self):
         cases = [('ci4', 32, 8, 160), ('ci8', 32, 8, 768),
@@ -56,7 +205,7 @@ class TextureBuildTests(unittest.TestCase):
                     payload = bytes(i % 256 for i in range(size))
                     packed = rzip_pack.encode_rzip_chunk(payload)
                     texture = texture_assets.TextureAsset(53, 0, len(packed), payload)
-                    expected = build.describe_texture(packed, texture, contract={
+                    expected = build.describe_texture(packed, texture, encoder=build.ENCODERS['zlib'], contract={
                         'family': 'synthetic-proven', 'format': fmt, 'width': width,
                         'height': height, 'row_layout': row})
                     directory = self.root / (fmt + '-' + row)
@@ -83,7 +232,7 @@ class TextureBuildTests(unittest.TestCase):
         self.document['segments'][1] = [len(self.rom)]
         self.save_profile()
         self.load.return_value = (None, self.rom, 'z64', self.layout, [self.texture])
-        self.expected = build.describe_texture(self.rom, self.texture)
+        self.expected = build.describe_texture(self.rom, self.texture, encoder=build.ENCODERS['zlib'])
         self.initialize()
         before = {p.name: p.read_bytes() for p in self.inputs.iterdir()}
         contract = {'identity': 'runtime-resource', 'runtime_resource_id': 55,
@@ -142,7 +291,7 @@ class TextureBuildTests(unittest.TestCase):
         texture = texture_assets.TextureAsset(42, 0, len(packed), payload)
         contract = {'format': 'rgba16', 'width': 16, 'height': 8,
                     'row_layout': 'linear', 'source_origin': 'top-left'}
-        expected = build.describe_texture(packed, texture, contract=contract)
+        expected = build.describe_texture(packed, texture, contract=contract, encoder=build.ENCODERS['zlib'])
         directory = self.root / 'rgba16-top'
         build.initialize_inputs(directory, expected, payload)
         png_path = directory / expected['file']
@@ -164,7 +313,7 @@ class TextureBuildTests(unittest.TestCase):
         self.document['segments'][1] = [len(self.rom)]
         self.save_profile()
         self.load.return_value = (None, self.rom, 'z64', self.layout, [self.texture, texture])
-        self.expected = build.describe_texture(self.rom, self.texture)
+        self.expected = build.describe_texture(self.rom, self.texture, encoder=build.ENCODERS['zlib'])
         return texture, packed
 
     def test_batch_counts_only_selected_storage_and_preserves_both_row_layouts(self):
