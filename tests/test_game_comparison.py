@@ -225,6 +225,57 @@ class GameComparisonTests(unittest.TestCase):
                 self.prove_padding(root, candidate, reference)
             self.assertFalse(linked_aliases.game_eligible(candidate, reference, self.symbol, 32))
 
+    def test_short_non_terminal_extent_falls_back_to_symbolic_diff(self):
+        # A near-miss candidate two words short: the next function starts
+        # inside the registered span, so this is a mismatch, never padding.
+        for alias in (False, True):
+            with self.subTest(alias=alias), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                self.metadata(root)
+                body = ("lui $v0,%hi(D_800E7FFC+4)\njr $ra\naddiu $v0,$v0,%lo(D_800E7FFC+4)"
+                        if alias else "jr $ra\nnop")
+                candidate, reference = self.objects(root, body=body, size=None)
+                current = Object32(candidate.read_bytes())
+                extent = 12 if alias else 8
+                with self.assertRaisesRegex(ValueError, "overlaps the next text symbol"):
+                    linked_aliases.function(current, self.symbol, 16, padding=True)
+                self.assertEqual(extent, linked_aliases.game_interior_short_extent(
+                    current, self.symbol, 16, self.start, 0x15001030))
+                with self.assertRaises(linked_aliases.ShortInteriorExtent) as raised:
+                    self.prove(root, candidate, reference)
+                self.assertEqual(extent, raised.exception.extent)
+                self.assertNotIsInstance(raised.exception, ValueError)
+
+    @unittest.skipUnless(diff.ASM_DIFFER.is_file() and shutil.which("mips-linux-gnu-objdump"),
+                         "requires pinned asm-differ")
+    def test_focused_alignment_cannot_fill_short_interior_extent(self):
+        # The focused object drops the following GLOBAL_ASM neighbor, so
+        # alignment nops make the 8-byte candidate look like the 16-byte span.
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            focused = self.assemble(root, "focused", self.function(self.symbol, "jr $ra\nnop")
+                                    + ".balign 16\n")
+            reference = self.assemble(root, "raw", self.function(self.symbol, "jr $ra\nnop\nnop\nnop"))
+            directory = diff.write_settings("us", root / "unit.c", directory=root / "diff")
+            def score(**options):
+                result = subprocess.run(diff.asm_diff_command(focused, reference, self.symbol, 16,
+                                                              require_match=True, **options),
+                                        cwd=directory, capture_output=True, text=True, check=True)
+                return diff.current_difference_count(result.stdout)
+            self.assertEqual(0, score())
+            self.assertGreater(score(candidate_extent=8), 0)
+            with patch("sys.stdout"), patch("sys.stderr"):
+                self.assertEqual(diff.EXIT_MISMATCH, diff.run_required_asm_diff(
+                    focused, reference, self.symbol, directory, 16, compact_mismatch=True,
+                    candidate_extent=8))
+
+    def test_terminal_short_extent_is_not_treated_as_interior(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            candidate, _ = self.padding_objects(root, tail="\n.globl tail_label\ntail_label:\n")
+            self.assertFalse(linked_aliases.game_interior_short_extent(
+                Object32(candidate.read_bytes()), self.symbol, 16, self.start, 0x15001020))
+
     def test_terminal_padding_rejects_nonzero_named_relocated_and_extended_tails(self):
         tails = ["nop\n.word 1\n", "\n.globl tail_label\ntail_label:\n",
                  "\n.word D_800E8000\n", "\n.space 12\n"]
@@ -462,6 +513,39 @@ class GameComparisonWorkflowTests(unittest.TestCase):
                     else:
                         strict.assert_called_once()
                         table.assert_called_once_with(Path("original.o"), "func_15001010", Path("raw.s"), 16)
+
+
+    def test_short_interior_extent_limits_every_focused_diff_mode(self):
+        modes = {"--require-match": "run_required_asm_diff", "--diagnose": "run_diagnose_diff",
+                 "--score-only": "run_score_only_diff"}
+        for flag, runner in modes.items():
+            with self.subTest(flag=flag), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                source, reference = root / "unit.c", root / "raw.o"
+                source.write_text("void func_15001010(void) {}\n")
+                reference.write_bytes(b"raw")
+                (root / "progress").mkdir()
+                (root / "progress/functions.json").write_text(json.dumps({"functions": [
+                    {"symbol": "func_15001010",
+                     "regions": {"us": {"symbol": "func_15001010", "vram": "0x15001010"}}}]}))
+                with ExitStack() as stack:
+                    stack.enter_context(patch.object(diff, "ROOT", root))
+                    stack.enter_context(patch.object(sys, "argv", ["diff.py", "us", "func_15001010",
+                                                                   "--game", flag]))
+                    for name, value in (("find_work_item", (source, "func_15001010")),
+                                        ("ensure_reference_function", Path("raw.s")),
+                                        ("expected_function_size", 16), ("require_c_implementation", None),
+                                        ("compile_candidate", Path("focused.o")), ("reference_object", reference),
+                                        ("write_settings", root)):
+                        stack.enter_context(patch.object(diff, name, return_value=value))
+                    stack.enter_context(patch.object(linked_aliases, "game_unit_registered", return_value=True))
+                    stack.enter_context(patch.object(
+                        diff, "prepare_game_comparison",
+                        side_effect=linked_aliases.ShortInteriorExtent("func_15001010", 8)))
+                    run = stack.enter_context(patch.object(diff, runner, return_value=1))
+                    self.assertEqual(1, diff.main())
+                    self.assertEqual(Path("focused.o"), run.call_args.args[0])
+                    self.assertEqual(8, run.call_args.kwargs["candidate_extent"])
 
 
 @unittest.skipUnless(os.environ.get("CONKER_ROM_TESTS") == "1" and diff.compile_c.IDO_CC.is_file(),
