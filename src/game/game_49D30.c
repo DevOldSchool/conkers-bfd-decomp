@@ -688,7 +688,6 @@ void func_1501E540(s32 arg0) {
     }
 }
 void *func_15083E90(u8);
-void func_1507EABC(void *);
 extern void *D_800C35F0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1501E73C CURRENT (70) */
@@ -1624,7 +1623,6 @@ extern u8 D_800C3CA0;
 void func_150233BC(void) {
     func_100226F0(&D_800C3CA0, 0xA8);
 }
-void func_1516D2E0(Game49D30Resource *);
 extern u8 D_800C3D48;
 
 void func_150233E4(void) {

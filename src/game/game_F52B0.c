@@ -33,7 +33,6 @@ typedef struct {
     u8 pad678[0x50]; s32 locked;
     u8 pad6CC[0x70]; s16 state73C;
 } GameF52B0Camera;
-void func_15123070(void *);
 void func_151254F4(void *, s32);
 void func_15124B18(void *);
 GameF52B0Actor *func_15083E90(s32);

@@ -635,7 +635,6 @@ typedef struct GameA28B0ObjectSlot {
     u8 bytes[0x32C];
 } GameA28B0ObjectSlot;
 
-f32 func_1505A72C(GameA28B0State *, s32 *);
 extern void *D_800D1C90[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150768DC CURRENT (800) */
@@ -1117,7 +1116,6 @@ void func_15077BE4(void) {
 void func_15077C1C(void) {
     D_800D154C->field_23D = D_800D1890;
 }
-f32 func_1505A72C(GameA28B0State *, s32 *);         /* extern */
 extern f32 D_8009A148;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15077C38 CURRENT (155) */

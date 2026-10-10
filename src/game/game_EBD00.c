@@ -31,7 +31,6 @@ typedef struct GameEBD00Actor {
     s16 field73C;
 } GameEBD00Actor;
 
-void func_15123070(void *);
 void func_151254F4(void *, s32);
 s32 func_1509BE40(s32, s32, s32);
 void func_1509BFB0(s32, s32, s32);

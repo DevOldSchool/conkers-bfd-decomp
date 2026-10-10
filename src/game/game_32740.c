@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_32740.c
@@ -80,7 +81,6 @@ typedef struct {
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 void func_1510E7A4(s32, s32, s32, s32, s32, s32, f32, f32, f32, f32, u16, s32, f32, f32);
-void func_15123070(void *);
 void func_1512523C(void *);
 void func_15125330(void *);
 void func_1512D560(void *, s32, s32);

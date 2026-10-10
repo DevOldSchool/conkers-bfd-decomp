@@ -5,6 +5,10 @@
 #include "game_command.h"
 
 struct Game15D730CopyBlock;
+struct Game1944C0EffectB8;
+struct Game1BA670State;
+struct Game7FA40Owner;
+struct GameAB760State;
 
 /* Reviewed shared interfaces from matched US definitions.
  * Include this header in both definitions and callers; do not redeclare locally.
@@ -89,5 +93,13 @@ s32 func_150849A0(void *);
 void func_1503DE70(void *, s32, s32);
 void func_151D74B0(void *, u8, s8, u8, s32);
 void func_1502EA98(void *, s32, s32, s32, s32, s32, s32);
+void func_15123070(struct108 *);
+void func_15052590(struct Game7FA40Owner *);
+struct Game1944C0EffectB8 *func_15168800(void *, u8, s32);
+void func_1507EABC(struct GameAB760State *);
+void func_1518E308(struct Game1BA670State *);
+void func_1516D2E0(void *);
+void func_1515C244(void *, void *, f32 *, f32 *);
+f32 func_1505A72C(void *, void *);
 
 #endif

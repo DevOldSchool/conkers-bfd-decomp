@@ -8,7 +8,6 @@
 
 s32 func_150859AC(s32, s32);
 s32 func_1509BE40(s32, s32, s32, s32);
-void func_15123070(void *);
 
 void func_15107FE0(void *arg0) {
     u8 *state;

@@ -544,7 +544,6 @@ s32 func_15107924(void *arg0, s8 *arg1) {
     return 1;
 }
 void func_15143794(s16, s16, f32, void *);
-void func_1515C244(void *, f32 *, f32 *, f32 *);
 
 void func_15107A20(void *arg0, s16 arg1, s16 arg2, void *arg3, void *arg4) {
     typedef struct { f32 values[3]; } Copy3;
@@ -588,7 +587,6 @@ void func_15107AE0(void *arg0, void *arg1, void *arg2, void *arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15107AE0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15107AE0.s")
-void func_1515C244(void *, f32 *, f32 *, f32 *);
 void func_15143794(s16, s16, f32, void *);
 void func_151C329C(f32 *, u8, s32);
 

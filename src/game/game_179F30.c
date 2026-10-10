@@ -1014,7 +1014,6 @@ void func_1514E824(s32 arg0) {
 void func_1514E830(void *arg0) {
     func_1516972C(arg0);
 }
-void func_1518E308(void *arg0);
 
 void func_1514E850(void *arg0) {
     func_1518E308(arg0);

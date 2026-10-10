@@ -54,7 +54,6 @@ typedef struct Game1B9210EffectPacket {
 
 u32 func_150ADA20(void);
 void func_1516865C(void *, s32, s32, s32, s32);
-void *func_15168800(void *, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1518C57C CURRENT (2414) */
 s32 func_1518C57C(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {

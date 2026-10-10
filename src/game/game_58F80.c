@@ -1432,7 +1432,6 @@ extern u16 D_800C5A90[];
 extern void *D_800D1588[];
 void func_150837D4(s32, u8, s32, void *);
 void func_1505E650(void *, s32, f32, f32, f32, f32, s32);
-void func_1507EABC(void *);
 
 /* Semantic role: actor_apply_representation_override.
  * Zero returns; 0xFF clears the override and applies entry zero. Other selectors

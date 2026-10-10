@@ -230,7 +230,6 @@ typedef struct GameAB760State {
 } GameAB760State;
 
 void func_1507E2B0(GameAB760State *);
-void func_1507EABC(GameAB760State *);
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E73C CURRENT (220) */

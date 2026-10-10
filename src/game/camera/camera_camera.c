@@ -60,7 +60,6 @@ void func_15122AE0(void) {
 }
 void func_15097798(s32);
 void func_1510B128(s32, f32, f32, f32, f32);
-void func_15123070(struct108 *);
 void func_15123508(void *);
 void func_15125394(void *);
 void func_15125594(void *);

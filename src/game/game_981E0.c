@@ -3681,7 +3681,6 @@ void func_1507490C(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507490C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1507490C.s")
-f32 func_1505A72C(struct127 *, struct127 *);
 extern s8 D_8008FD8C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15074980 CURRENT (30) */

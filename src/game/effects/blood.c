@@ -1044,7 +1044,6 @@ typedef struct Blood36C3CSpray {
 } Blood36C3CSpray;
 
 s32 func_15134070();
-void func_1515C244(void *, void *, f32 *, f32 *);
 void func_1513A24C(BloodVec3 *, s32 *, f32 *, s32, f32, u8, u8, u8 *, void *,
                    u8, s32);
 void func_15150D1C(Blood36C3CSpray *, u8, s32);

@@ -55,8 +55,6 @@ void func_1518E308(Game1BA670State *arg0) {
     }
     func_100226F0(arg0->slots, sizeof(arg0->slots));
 }
-/* Call context: func_1518E308: unique active project prototype */
-void func_1518E308(Game1BA670State *);
 
 void func_1518E37C(void *arg0, u8 arg1) {
     if (arg1 != *(u8 *)((u8 *)arg0 + 0x22)) {

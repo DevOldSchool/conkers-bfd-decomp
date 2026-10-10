@@ -97,7 +97,6 @@ void func_1506E5FC(void);
 void func_1506E8D8(void);
 f32 func_150F34A0(s32, f32);
 
-void func_15052590(void *);
 void func_1505E650(void *, s32, f32, f32, f32, f32, s32);
 /* Raw callee consumes global D_800D1580, not incoming arguments. */
 void func_15073FA0(void);
