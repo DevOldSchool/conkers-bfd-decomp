@@ -82,6 +82,19 @@ class CoveragePlanTests(unittest.TestCase):
                     patch.object(report, 'prepare_font', return_value=(
                         {'size': 8, 'report_code_bytes': 0, 'report_data_bytes': 8},
                         {'name': 'assets/font', 'metadata': {'complete': False}})), \
+                    patch.object(report, 'prepare_textures', return_value=(
+                        [{'size': 4, 'report_code_bytes': 0, 'report_data_bytes': 4},
+                         {'size': 6, 'report_code_bytes': 0, 'report_data_bytes': 6}],
+                        [{'name': 'assets/flat/textures/1063', 'metadata': {'complete': False}},
+                         {'name': 'assets/flat/textures/1064', 'metadata': {'complete': False}}])), \
+                    patch.object(report, 'prepare_models', return_value=(
+                        [{'size': 5, 'report_code_bytes': 0, 'report_data_bytes': 5}],
+                        [{'name': 'assets/models/bank03/0003', 'metadata': {'complete': False}}])), \
+                    patch.object(report, 'prepare_storage', return_value=(
+                        [{'kind': 'unreconstructed_asset', 'size': 7, 'report_code_bytes': 0,
+                          'report_data_bytes': 7, 'complete': False}],
+                        [{'name': 'assets/storage/flat/unreconstructed', 'metadata': {'complete': False}}],
+                        {'stored_asset_bytes': 30})), \
                     patch.object(report, 'elf_text_symbols', return_value=symbols), \
                     patch.object(report.subprocess, 'run') as run:
                 report.prepare()
@@ -95,10 +108,24 @@ class CoveragePlanTests(unittest.TestCase):
             self.assertIn({'id': 'debugger', 'name': 'Debugger overlay'}, config['progress_categories'])
             self.assertEqual(coverage['mapped_code_bytes'], 12)
             self.assertEqual(coverage['expected_code_bytes'], 12)
-            native = {'version': 2, 'measures': {'total_code': '12', 'total_data': '8'}, 'units': [
+            self.assertEqual(coverage['stored_asset_bytes'], 30)
+            native = {'version': 2, 'measures': {'total_code': '12', 'total_data': '30'}, 'units': [
                 {'name': u['name'], 'measures': {'total_code': '0', 'total_data': '8'}
-                 if u['name'] == 'assets/font' else {'total_code': '4'}} for u in config['units']]}
+                 if u['name'] == 'assets/font' else {'total_code': '0', 'total_data': '4'}
+                 if u['name'] == 'assets/flat/textures/1063' else {'total_code': '0', 'total_data': '6'}
+                 if u['name'] == 'assets/flat/textures/1064' else {'total_code': '0', 'total_data': '5'}
+                 if u['name'] == 'assets/models/bank03/0003' else {'total_code': '0', 'total_data': '7'}
+                 if u['name'] == 'assets/storage/flat/unreconstructed' else {'total_code': '4'}} for u in config['units']]}
             report.validate_report(native, coverage, config)
+            stored = next(u for u in native['units'] if u['name'].endswith('/unreconstructed'))
+            stored['measures']['matched_data'] = '7'
+            with self.assertRaisesRegex(ValueError, 'without a matching candidate'):
+                report.validate_report(native, coverage, config)
+            stored['measures']['matched_data'] = '0'
+            remainder = next(u for u in config['units'] if u['name'].endswith('/unreconstructed'))
+            remainder['base_path'] = 'raw-copy.o'
+            with self.assertRaisesRegex(ValueError, 'unreconstructed storage'):
+                report.validate_report(native, coverage, config)
 
 
 class NativeReportValidationTests(unittest.TestCase):
@@ -204,7 +231,7 @@ class PublishedDataTests(unittest.TestCase):
     def test_data_total_must_include_all_audited_ranges(self):
         native, coverage, config = self.fixtures()
         coverage['unassigned_data_bytes'] = 0
-        with self.assertRaisesRegex(ValueError, 'audited initialized images'):
+        with self.assertRaisesRegex(ValueError, 'audited data and storage ranges'):
             report.validate_report(native, coverage, config)
 
     def test_published_preparation_uses_fresh_loaded_ranges_without_assets(self):

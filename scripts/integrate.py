@@ -9,6 +9,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+from build_jobs import job_count
 import project_state
 
 
@@ -222,12 +223,12 @@ def build_overlays(overlays: set[str], profile: str) -> None:
 
     if overlays & {"main", "debugger"}:
         subprocess.run(
-            ["make", "--silent", "--jobs", "4", "build", f"PROFILE={profile}"],
+            ["make", "--silent", "--jobs", str(job_count()), "build", f"PROFILE={profile}"],
             cwd=ROOT, check=True,
         )
     if "game" in overlays:
         subprocess.run(
-            ["make", "--silent", "--jobs", "4", "game-integrated-refresh"],
+            ["make", "--silent", "--jobs", str(job_count()), "game-integrated-refresh"],
             cwd=ROOT, check=True,
         )
 
@@ -390,7 +391,7 @@ def main() -> int:
             parser.error("provide a symbol or --all-reviewed")
         else:
             integrate(arguments.symbol, arguments.profile)
-    except (project_state.ProjectStateError, subprocess.CalledProcessError, OSError) as error:
+    except (project_state.ProjectStateError, subprocess.CalledProcessError, OSError, ValueError) as error:
         print(f"error: integration failed and project files were restored: {error}", file=sys.stderr)
         return 1
     return 0

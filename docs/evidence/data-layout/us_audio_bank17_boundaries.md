@@ -45,7 +45,8 @@ kept as its stored RZIP range; the 21,705,520-byte wavetable remains one range.
 Its 2,258 known sample ranges are a later subdivision. This step does not add
 an ADPCM encoder, MIDI import or independently rebuilt sound-bank graph.
 
-Bank-17 storage is currently outside the published report scope. Named boundaries
+All 22,886,280 bank-17 storage bytes are included in the published report
+denominator as unmatched targets. Named boundaries
 and copied ROM inputs alone do not establish reconstruction credit.
 
 Validation:

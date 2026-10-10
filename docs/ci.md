@@ -46,9 +46,19 @@ For function changes, use the normal [contribution workflow](../CONTRIBUTING.md)
    relevant evidence after source, header, build-input or base changes.
 
 For shared build/layout changes, also verify the applicable complete images:
-`./conker build --all` and `./conker game-build --profile us --refresh`.
-Tooling-only changes need their relevant tests; documentation-only changes do
-not require an empty function batch. US is active; EU/PAL does not gate work.
+`./conker build --all --assets` and `./conker game-build --profile us --refresh`.
+Changes affecting asset reconstruction require local `./conker build --assets`
+verification even when they only change tooling: this includes selectors,
+packers, encoder contracts, asset layouts and shared build dependencies. Follow
+[asset acceptance](../CONTRIBUTING.md#asset-and-build-changes), and record the
+tested commit, command and byte-identical US ROM result. Default builds,
+`finish`, `verify-batch` and public PR checks do not verify full ROM reconstruction.
+If the contributor cannot run this check, a maintainer must complete it before
+merge; the post-merge main workflow is not a substitute.
+
+Other tooling-only changes need their relevant tests; documentation-only changes
+do not require an empty function batch or asset build. US is active; EU/PAL does
+not gate work.
 
 Local evidence is a maintainer review requirement, not a GitHub-enforced ROM
 check or an uploaded attestation. Do not attach ROMs, generated assembly,
@@ -85,7 +95,7 @@ Configure these environment secrets without committing private repository names:
 - `ROM_ASSETS_READ_TOKEN`: an expiring token with Contents: read on that storage only.
 
 The workflow builds the public toolchain before fetching private inputs, checks
-out only the US ROM without persisting credentials, and runs `./conker build --all`
+out only the US ROM without persisting credentials, and runs `./conker build --all --assets`
 and `./conker objdiff report`. Report preparation validates linked targets for
 the tracked main/game/debugger US CPU-code and initialized-data ranges, plus the
 rebuilt font asset. Only

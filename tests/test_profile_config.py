@@ -156,7 +156,7 @@ class ProfileConfigTests(unittest.TestCase):
     def test_renamed_required_asset_groups_report_profile_and_group(self):
         repository = Path(__file__).resolve().parent.parent
         original = profile_config.load_profile(repository / 'config/profiles/us.yaml')
-        for name in ('font_rle', 'asset_bank_16', 'asset_bank_17'):
+        for name in ('font_rle', 'asset_bank_16', 'asset_bank_17', 'assets_flat_rzip'):
             with self.subTest(group=name):
                 document = yaml.safe_load(yaml.safe_dump(original))
                 group = next(s for s in document['segments']
@@ -260,6 +260,9 @@ class ProfileConfigTests(unittest.TestCase):
         self.assertEqual(parse.call_count, len(dependencies))
         self.assertEqual(len([t for t in tokens if t.startswith('dep=')]), len(dependencies))
         self.assertEqual(len([t for t in tokens if t.startswith('font=')]), 96)
+        self.assertEqual([t for t in tokens if t.startswith('model-bank=')], ['model-bank=03', 'model-bank=09'])
+        self.assertEqual(len([t for t in tokens if t.startswith('model03=assets/models/bank03/')]), 22)
+        self.assertEqual(len([t for t in tokens if t.startswith('model09=assets/models/bank09/')]), 57)
         self.assertTrue(any(t.startswith('source=src/') for t in tokens))
         self.assertTrue(all(Path(t.removeprefix('dep=')).is_absolute()
                             for t in tokens if t.startswith('dep=')))

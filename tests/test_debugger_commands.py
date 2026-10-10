@@ -9,7 +9,7 @@ SCRIPT = (Path(__file__).resolve().parents[1] / "scripts/conker.sh").read_text()
 
 
 class DebuggerCommandTests(unittest.TestCase):
-    def run_script(self, body, *args, failure="", runner=None):
+    def run_script(self, body, *args, failure="", runner=None, jobs=None):
         with tempfile.TemporaryDirectory() as root:
             harness = r'''
 set -euo pipefail
@@ -20,6 +20,9 @@ selected_value=func_debugger
 failure="$1"; shift
 die() { printf 'error: %s\n' "$*" >&2; exit 1; }
 python3() {
+    if [[ "$1" == */build_jobs.py ]]; then
+        command python3 "$job_helper" "${@:2}"; return
+    fi
     if [[ "$1" == "$repo_root/scripts/host_environment.py" ]]; then
         [[ "$failure" == host-core ]] && return 2
         [[ "$failure" == host && "$3" != --core ]] && return 2
@@ -46,7 +49,13 @@ run_in_warm_container() {
 run_in_container_integrating() { printf 'integrate: %s\n' "$*" >&2; }
 parse_profile_and_value() { shift; selected_value="$1"; }
 '''
+            helper = SCRIPT.split('configure_build_jobs() {', 1)[1].split('\n}\n', 1)[0]
+            harness += 'configure_build_jobs() {' + helper + '\n}\n'
+            harness += f'job_helper={str(Path(__file__).resolve().parents[1] / "scripts/build_jobs.py")!r}\n'
             env = dict(os.environ)
+            env.pop("CONKER_JOBS", None)
+            if jobs is not None:
+                env["CONKER_JOBS"] = jobs
             env.pop("CONKER_TEST_RUNNER", None)
             if runner:
                 env["CONKER_TEST_RUNNER"] = runner
@@ -59,13 +68,27 @@ parse_profile_and_value() { shift; selected_value="$1"; }
         result = self.run_script(body, "func_debugger")
         self.assertEqual(0, result.returncode, result.stderr)
         self.assertEqual([
-            "libraries: make --silent profile-libs PROFILE=us",
+            "libraries: make --silent --jobs 4 profile-libs PROFILE=us",
             "build: make --silent --jobs 4 build PROFILE=us",
         ], result.stderr.splitlines())
         self.assertIn("AGENT_ACTION: BATCH_COMPLETE", result.stdout)
         failed = self.run_script(body, "func_debugger", failure="libraries")
         self.assertNotEqual(0, failed.returncode)
         self.assertNotIn("build:", failed.stderr)
+
+    def test_batch_job_override_and_invalid_setting(self):
+        body = ("case verify-batch in\n    verify-batch)\n"
+                + SCRIPT.split("    verify-batch)\n", 1)[1].split("    stop)\n", 1)[0] + "esac\n")
+        result = self.run_script(body, "func_debugger", jobs="1")
+        self.assertEqual(0, result.returncode, result.stderr)
+        self.assertIn("libraries: make --silent --jobs 1 profile-libs", result.stderr)
+        self.assertIn("build: make --silent --jobs 1 build", result.stderr)
+        for jobs in ("0", "-1", "invalid", "1 2"):
+            result = self.run_script(body, "func_debugger", jobs=jobs)
+            self.assertNotEqual(0, result.returncode)
+            self.assertIn("positive integer", result.stderr)
+            self.assertNotIn("libraries:", result.stderr)
+            self.assertNotIn("build:", result.stderr)
 
     def test_batch_missing_host_dependencies_stops_before_build(self):
         body = ("case verify-batch in\n    verify-batch)\n"
@@ -112,7 +135,7 @@ parse_profile_and_value() { shift; selected_value="$1"; }
         result = self.run_script(body, "integrate", "func_debugger")
         self.assertEqual(0, result.returncode, result.stderr)
         self.assertEqual([
-            "libraries: make --silent profile-libs PROFILE=us",
+            "libraries: make --silent --jobs 4 profile-libs PROFILE=us",
             "integrate: python3 scripts/integrate.py --profile us func_debugger",
         ], result.stderr.splitlines())
 
