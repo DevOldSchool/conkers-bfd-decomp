@@ -1027,6 +1027,12 @@ typedef struct {
     f32 values[4];
 } Blood1380B4Vector;
 
+typedef struct {
+    s32 x;
+    s32 y;
+    s32 z;
+} BloodA48CPosition;
+
 typedef struct Blood36C3CHit {
     f32 height;
     u8 geometry[0x20];
@@ -1050,12 +1056,12 @@ typedef struct Blood36C3CSpray {
 
 s32 func_15134070();
 void func_1515C244(void *, void *, f32 *, f32 *);
-void func_1513A24C(BloodVec3 *, s32 *, f32 *, s32, f32, s32, s32, void *,
-                   void *, s32, s32);
+void func_1513A24C(BloodVec3 *, s32 *, f32 *, s32, f32, u8, u8, u8 *, void *,
+                   u8, s32);
 void func_15150D1C(Blood36C3CSpray *, u8, s32);
 void func_151A9834(BloodVec3 *, f32, f32, void *, s32, u8, s8 *, u8, s32);
 void func_151C61A0(s32, s32, u8, s32);
-void func_1513A48C(void *, s32, s32);
+void func_1513A48C(BloodA48CPosition *, u8, s32);
 extern s32 *D_80089A20[];
 extern f32 D_800A3C30;
 extern s32 D_800A3F14[];
@@ -1092,7 +1098,7 @@ void func_15136C3C(Blood36C3CActor *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4,
                       ((arg5 != 0) || ((kind == 4) && (arg0->unk4 != 0x16)))
                           ? D_800A3F14[kind] - 2
                           : D_800A3F14[kind],
-                      halfHeight, kind, D_800A3F64[kind], arg0, &hit, arg6,
+                      halfHeight, kind, D_800A3F64[kind], (u8 *)arg0, &hit, arg6,
                       arg7);
     }
     if (((u8 *)&D_800A3FD8[kind])[0xE] == 2) {
@@ -1133,7 +1139,7 @@ void func_15136C3C(Blood36C3CActor *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4,
         if ((&D_800A3FF8 == &D_800A3FD8[kind]) || (&D_800A40C8 == &D_800A3FD8[kind])) {
             func_151C61A0((s32)&position, (s32)&hit, arg6, arg7);
         } else {
-            func_1513A48C(&position, arg6, arg7);
+            func_1513A48C((BloodA48CPosition *)&position, arg6, arg7);
         }
     }
 }
@@ -1863,12 +1869,6 @@ void func_1513A24C(BloodVec3 *arg0, s32 *arg1, f32 *arg2, s32 arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513A24C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513A24C.s")
-
-typedef struct {
-    s32 x;
-    s32 y;
-    s32 z;
-} BloodA48CPosition;
 
 typedef struct {
     s32 field_0;
