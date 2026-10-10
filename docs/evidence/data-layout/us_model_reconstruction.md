@@ -1,9 +1,9 @@
 # US direct-model reconstruction
 
-The current selection reconstructs **79 direct models**, totaling **28,216
-stored RZIP bytes**: 22 bank-03 models and 57 bank-09 models. The
-[bank-09 expansion](#bank-09-expansion) uses the same complete native record
-schema with the proven model-relative vertex-address convention.
+The current selection reconstructs **221 direct models**, totaling **118,724
+stored RZIP bytes**: 36 bank-03 models and 185 bank-09 models. The
+[normal-table expansion](#normal-table-expansion) adds referenced signed XY
+normal records and explicit zero suffixes to the native record schema.
 
 The first model storage batch selected 22 direct bank-03 models from the
 checksum-validated US ROM (SHA-1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`).
@@ -23,7 +23,7 @@ Selected decimal entries: 3, 51, 55, 56, 70, 71, 72, 76, 81, 82, 89, 91, 94,
 98, 100, 101, 104, 105, 108, 109, 110 and 113.
 
 The existing direct-model parser proves a 40-byte header, 16-byte vertices and
-8-byte display-list commands. Each selected record ends exactly at its primary
+8-byte display-list commands. Each record in the first batch ends exactly at its primary
 display list and has no auxiliary regions. The input format preserves ten
 native header words, signed position/UV components, unsigned flags and RGBA
 bytes, and pairs of native command words. Unknown header or command semantics
@@ -51,7 +51,7 @@ size/hash. Edited geometry is retained but rejected by this exact-match build;
 this command is not a ROM model-editing workflow. Compression drift fails
 without choosing another encoder or falling back to original ROM bytes.
 
-`./conker build --assets` links 79 reconstructed objects under
+`./conker build --assets` links 221 reconstructed objects under
 `build/us/assets/models/bank03/` and `bank09/`. The ordinary default build
 continues to use the original banks. Each native report candidate is copied from the actual
 model linker object and checked against a fresh encode of the current source.
@@ -304,3 +304,65 @@ Validation ran before committing these identical source inputs. Documentation
 and tests are outside the native source fingerprint. Logs, the preserved prior
 report and the independent byte/accounting audit remain private under
 `build/us/models/validation/pr92-final/`.
+
+
+## Normal-table expansion
+
+The new selection adds 142 models and 90,508 stored bytes to the reconstruction
+contract. The complete selection encodes 206,264 decoded bytes into 118,724
+stored bytes; decoded bytes are not a second report allocation. Per-entry ROM
+ranges, hashes, normal-table counts, suffix sizes and excluded-entry reasons
+are recorded in [the selection audit](us_model_normal_reconstruction.json).
+
+Each admitted `DC38000E` command references a complete 64-byte table of 32
+signed X/Y byte pairs, using the [existing normal consumer
+contract](../assets/models/us_asset_inventory.md). Signed Z remains in the
+vertex flag. The structured `normal_xy_s8` field preserves all 32 slots,
+including unused slots and zero vectors. No preview-normal normalization or
+fallback enters reconstruction. Unique referenced tables must cover the
+region immediately after the primary display list with no gaps or overlaps.
+Every pointer and extent is rechecked during encoding.
+
+Some records have exactly eight zero bytes after the primary list or final
+normal table. `zero_suffix_bytes: 8` records this observed suffix explicitly;
+the encoder regenerates zeros. This is not an inferred alignment requirement.
+Nonzero suffixes, other lengths, auxiliary header regions, unreferenced normal
+blocks and incomplete blocks remain unsupported. The original simple record
+schema remains unchanged for existing editable inputs.
+
+All admitted entries must re-encode their complete decoded payload and freshly
+compress to their independently checked original stored bytes. Entries whose
+compression differs stay excluded; original compressed data is never used as
+a candidate fallback. The existing bank partitions, Make recipes and native
+objdiff candidate path consume the expanded reviewed selection.
+
+### Normal-table acceptance, 11 October 2026
+
+- The 221 models rebuild all 206,264 decoded bytes and 118,724 stored bytes
+  exactly. Independent bank assembly reproduces the complete 62,440-byte bank
+  03 and 362,320-byte bank 09.
+- Mutating a signed normal value is rejected by the original-payload gate in
+  all 101 selected models with normal tables. Focused Docker tests cover
+  pointer gaps, overlaps, truncated tables, explicit suffixes and invalid values.
+- `./conker build --assets` passes. An additional direct comparison confirms
+  all 67,108,864 ROM bytes equal the original, SHA-1
+  `4cbadd3c4e0729dec46af64ad018050eada4f47a`.
+- The full Docker suite on the isolated PR batch runs 2,346 tests with eight
+  skips and no failures. The focused model suite passes all 29 tests.
+- A fresh `./conker objdiff report` validates 8,098 units with no compile errors.
+  All 221 model units are fully matched and complete: 118,724 stored bytes.
+- Native Data is 8,409,960 / 65,120,512 matched bytes (12.914456%); 8,409,192
+  bytes are complete (12.913277%). Both counts gain exactly 90,508 bytes over
+  the previous 79-model report; the denominator is unchanged.
+- Native snapshot status is `current`; source and editable-asset fingerprints,
+  canonical progress and staged whitespace checks pass.
+
+Source fingerprint:
+`dfd22940e4137902934774a0d023da38e575bab19caab468d900876f1abdb73f`.
+Native report SHA-256:
+`4092d2f4e502558a2448c2027ab71ae1c73de8ec7ed045546b0f5a7b763c8a7b`.
+
+Validation ran before committing the same source inputs. Documentation and tests
+are outside the native source fingerprint. Private logs are `build/model-normal-*`;
+ROMs, editable model records, objects and reports remain ignored. This is local
+verification; publishing the PR does not publish the native report.

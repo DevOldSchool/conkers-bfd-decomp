@@ -67,22 +67,50 @@ def model_records(payload: bytes, *, bank: int) -> dict:
     if bank not in BANKS:
         raise ValueError('unsupported direct-model bank')
     geometry = model_assets.parse_model_geometry(payload, model_relative_vertices=bank == 9)
-    if (geometry.display_list_offset + geometry.display_list_size != len(payload)
-            or any(geometry.header_words[2:8])):
-        raise ValueError('model has unsupported auxiliary regions or trailing bytes')
-    return {'header_words': list(geometry.header_words),
-            'vertices': [[v.x, v.y, v.z, v.flag, v.s, v.t, *v.color] for v in geometry.vertices],
-            'display_commands': [list(pair) for pair in struct.iter_unpack(
-                '>II', payload[geometry.display_list_offset:])]}
+    if any(geometry.header_words[2:9]) or geometry.header_words[9] != 0x80000000:
+        raise ValueError('model has unsupported auxiliary regions')
+    display_end = geometry.display_list_offset + geometry.display_list_size
+    commands = list(struct.iter_unpack('>II', payload[geometry.display_list_offset:display_end]))
+    # DC38000E transfers 32 signed XY pairs, addressed by vertex-cache slot.
+    # Admit only complete, contiguous, referenced tables; do not absorb gaps.
+    normal_offsets = sorted({argument for command, argument in commands
+                             if command == model_assets.CHARACTER_CUSTOM_MOVEMEM_COMMAND})
+    normal_end = display_end + 64 * len(normal_offsets)
+    if (normal_offsets != list(range(display_end, normal_end, 64))
+            or normal_end > len(payload)):
+        raise ValueError('model normal tables are incomplete or noncontiguous')
+    suffix = payload[normal_end:]
+    if suffix not in (b'', bytes(8)):
+        raise ValueError('model has unsupported trailing bytes')
+    records = {'header_words': list(geometry.header_words),
+               'vertices': [[v.x, v.y, v.z, v.flag, v.s, v.t, *v.color] for v in geometry.vertices],
+               'display_commands': [list(pair) for pair in commands]}
+    if normal_offsets:
+        records['normal_xy_s8'] = [[list(pair) for pair in struct.iter_unpack(
+            '>bb', payload[offset:offset + 64])] for offset in normal_offsets]
+    if suffix:
+        # This is an observed zero suffix, not an inferred alignment rule.
+        records['zero_suffix_bytes'] = 8
+    return records
 
 
 def encode_records(records: dict, *, bank: int) -> bytes:
-    if not isinstance(records, dict) or set(records) != {'header_words', 'vertices', 'display_commands'}:
+    required = {'header_words', 'vertices', 'display_commands'}
+    if (not isinstance(records, dict) or not required <= set(records)
+            or set(records) - required - {'normal_xy_s8', 'zero_suffix_bytes'}):
         raise ValueError('invalid model record schema')
+    normals = records.get('normal_xy_s8', [])
+    suffix_size = records.get('zero_suffix_bytes', 0)
+    if (not isinstance(normals, list) or any(not isinstance(table, list) or len(table) != 32
+                                           for table in normals)
+            or type(suffix_size) is not int or suffix_size not in (0, 8)):
+        raise ValueError('invalid model normal table or zero suffix')
     try:
         payload = (struct.pack('>10I', *records['header_words'])
                    + b''.join(struct.pack('>hhhHhh4B', *row) for row in records['vertices'])
-                   + b''.join(struct.pack('>II', *row) for row in records['display_commands']))
+                   + b''.join(struct.pack('>II', *row) for row in records['display_commands'])
+                   + b''.join(struct.pack('>bb', *pair) for table in normals for pair in table)
+                   + bytes(suffix_size))
     except (struct.error, TypeError, OverflowError) as error:
         raise ValueError('invalid native model record') from error
     if model_records(payload, bank=bank) != records:

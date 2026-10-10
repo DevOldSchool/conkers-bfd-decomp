@@ -111,11 +111,54 @@ class ModelBuildTests(unittest.TestCase):
         self.assertEqual(json.loads((self.inputs / 'manifest.json').read_text()), self.expected)
 
     def test_bank09_rejects_auxiliary_or_uncovered_storage(self):
-        for payload in (self.payload + bytes(8),
+        for payload in (self.payload + bytes(16),
                         struct.pack('>10I', 88, 24, 112, 8, 0, 0, 0, 0, 0, 0x80000000)
                         + self.payload[40:] + bytes(8)):
             with self.assertRaisesRegex(ValueError, 'auxiliary|trailing'):
                 build.model_records(payload, bank=9)
+
+    def test_normal_tables_and_observed_zero_suffix_rebuild_exactly(self):
+        for bank in (3, 9):
+            for suffix in (b'', bytes(8)):
+                header = [88, 32, 0, 0, 0, 0, 0, 0, 0, 0x80000000]
+                normals = b''.join(struct.pack('>bb', i - 16, 127 - i) for i in range(32))
+                payload = (struct.pack('>10I', *header) + self.payload[40:88]
+                           + struct.pack('>II', 0xDC38000E, 120) + self.payload[88:]
+                           + normals + suffix)
+                with self.subTest(bank=bank, suffix=len(suffix)):
+                    records = build.model_records(payload, bank=bank)
+                    self.assertEqual(records['normal_xy_s8'][0][0], [-16, 127])
+                    self.assertEqual(records.get('zero_suffix_bytes', 0), len(suffix))
+                    self.assertEqual(build.encode_records(records, bank=bank), payload)
+                    altered = copy.deepcopy(records)
+                    altered['normal_xy_s8'][0][0][0] = -17
+                    self.assertNotEqual(build.encode_records(altered, bank=bank), payload)
+                    altered['normal_xy_s8'][0].pop()
+                    with self.assertRaisesRegex(ValueError, 'normal table'):
+                        build.encode_records(altered, bank=bank)
+
+    def test_normal_pointer_ranges_do_not_admit_gaps_overlap_or_truncation(self):
+        for pointer in (88, 112, 121, 128, 184):
+            payload = (struct.pack('>10I', 88, 32, 0, 0, 0, 0, 0, 0, 0, 0x80000000)
+                       + self.payload[40:88] + struct.pack('>II', 0xDC38000E, pointer)
+                       + self.payload[88:] + bytes(64))
+            with self.subTest(pointer=pointer), self.assertRaises(ValueError):
+                build.model_records(payload, bank=9)
+        payload = (struct.pack('>10I', 88, 32, 0, 0, 0, 0, 0, 0, 0, 0x80000000)
+                   + self.payload[40:88] + struct.pack('>II', 0xDC38000E, 120)
+                   + self.payload[88:] + bytes(63))
+        with self.assertRaisesRegex(ValueError, 'incomplete'):
+            build.model_records(payload, bank=9)
+
+    def test_zero_suffix_is_explicit_and_cannot_encode_opaque_bytes(self):
+        records = dict(self.records, zero_suffix_bytes=8)
+        self.assertEqual(build.encode_records(records, bank=3), self.payload + bytes(8))
+        for suffix in (bytes(7), bytes(16), bytes(7) + b'X'):
+            with self.subTest(suffix=suffix), self.assertRaisesRegex(ValueError, 'trailing'):
+                build.model_records(self.payload + suffix, bank=3)
+        for size in (True, -1, 1, 16, 8.0):
+            with self.subTest(size=size), self.assertRaises(ValueError):
+                build.encode_records(dict(self.records, zero_suffix_bytes=size), bank=3)
 
     def test_bank09_source_changes_preserve_existing_linker_parts(self):
         expected = dict(self.expected, bank=9)
@@ -134,7 +177,7 @@ class ModelBuildTests(unittest.TestCase):
 
     def test_auxiliary_regions_and_trailing_bytes_are_not_admitted(self):
         with self.assertRaisesRegex(ValueError, 'auxiliary|trailing'):
-            build.model_records(self.payload + bytes(8), bank=3)
+            build.model_records(self.payload + bytes(16), bank=3)
         altered = dict(self.records, header_words=[88, 24, 112, 8, 0, 0, 0, 0, 0, 0x80000000])
         data = struct.pack('>10I', *altered['header_words']) + self.payload[40:] + bytes(8)
         with self.assertRaisesRegex(ValueError, 'auxiliary|trailing'):
