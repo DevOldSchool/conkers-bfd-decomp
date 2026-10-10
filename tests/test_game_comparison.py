@@ -225,6 +225,30 @@ class GameComparisonTests(unittest.TestCase):
                 self.prove_padding(root, candidate, reference)
             self.assertFalse(linked_aliases.game_eligible(candidate, reference, self.symbol, 32))
 
+    def test_short_non_terminal_extent_falls_back_to_symbolic_diff(self):
+        # A near-miss candidate two words short: the next function starts
+        # inside the registered span, so this is a mismatch, never padding.
+        for alias in (False, True):
+            with self.subTest(alias=alias), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                self.metadata(root)
+                body = ("lui $v0,%hi(D_800E7FFC+4)\njr $ra\naddiu $v0,$v0,%lo(D_800E7FFC+4)"
+                        if alias else "jr $ra\nnop")
+                candidate, reference = self.objects(root, body=body, size=None)
+                current = Object32(candidate.read_bytes())
+                with self.assertRaisesRegex(ValueError, "overlaps the next text symbol"):
+                    linked_aliases.function(current, self.symbol, 16, padding=True)
+                self.assertTrue(linked_aliases.game_interior_short_extent(
+                    current, self.symbol, 16, self.start, 0x15001030))
+                self.assertIsNone(self.prove(root, candidate, reference))
+
+    def test_terminal_short_extent_is_not_treated_as_interior(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            candidate, _ = self.padding_objects(root, tail="\n.globl tail_label\ntail_label:\n")
+            self.assertFalse(linked_aliases.game_interior_short_extent(
+                Object32(candidate.read_bytes()), self.symbol, 16, self.start, 0x15001020))
+
     def test_terminal_padding_rejects_nonzero_named_relocated_and_extended_tails(self):
         tails = ["nop\n.word 1\n", "\n.globl tail_label\ntail_label:\n",
                  "\n.word D_800E8000\n", "\n.space 12\n"]

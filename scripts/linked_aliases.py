@@ -386,6 +386,24 @@ def game_padding_extent(obj: Object32, symbol: str, size: int) -> int | None:
     return extent
 
 
+def game_interior_short_extent(obj: Object32, symbol: str, size: int,
+                               start: int, unit_end: int) -> bool:
+    """Recognize a short non-terminal extent that is an ordinary mismatch.
+
+    Another text symbol starts inside the registered span, so the shortfall
+    cannot be terminal alignment. No proof applies; callers keep the symbolic
+    focused diff, which can never report this extent as a match.
+    """
+    extent = game_padding_extent(obj, symbol, size)
+    if extent is None or start + size == unit_end:
+        return False
+    origin, section = function(obj, symbol, extent)
+    return any(name and name != symbol and index == section
+               and origin + extent <= value < origin + size
+               for symbols in obj.symbols.values()
+               for name, value, _, index in symbols)
+
+
 def game_terminal_padding(obj: Object32, symbol: str, size: int,
                           start: int, unit_end: int) -> bool:
     """Validate physical terminal padding; ROM/unit equality is still required."""
@@ -522,6 +540,8 @@ def prepare_game(root: Path, source: str, candidate: Path, reference: Path, asse
     """Prove the target and every physical byte of its freshly built GAME unit."""
     entry, unit, members, addresses, unit_start, extent, spans = game_context(root, source, symbol, start, size)
     current, raw = Object32(candidate.read_bytes()), Object32(reference.read_bytes())
+    if game_interior_short_extent(current, symbol, size, start, unit_start + extent):
+        return None
     padding = game_terminal_padding(current, symbol, size, start, unit_start + extent)
     if not padding and not address_alias_present(current, raw, symbol, size):
         return None
