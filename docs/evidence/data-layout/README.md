@@ -6,6 +6,13 @@ Jump tables, literal pools and private storage have their own proof requirements
 
 ## Records
 
+- [US complete bounded asset storage accounting](us_asset_storage_accounting.md)
+
+- [US bank-03 and bank-09 model reconstruction](us_model_reconstruction.md)
+
+- [US texture 1063 PNG-to-RZIP build and data credit](us_texture_1063_build.md)
+- [US 26-texture CI4 reconstruction batch](us_ci4_texture_batch.md)
+- [US CI4 reconstruction: 50 additional textures, 76 total](us_ci4_texture_batch_50.md)
 - [US jump tables exposed by the September 18 automation batch](automation_jump_tables.md)
 - [Recovered US switch table placement](blocked_switch_jump_tables.md)
 - [Entrypoint switch table](entrypoint_jump_table.md)
@@ -37,3 +44,5 @@ Jump tables, literal pools and private storage have their own proof requirements
 These are scoped research records, not a fresh verification of the checkout.
 Keep new evidence with its topic and link it from this index; amend an existing
 record when extending the same claim.
+
+- [Continuing US texture reconstruction](us_texture_reconstruction.md)

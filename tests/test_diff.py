@@ -10,7 +10,7 @@ import unittest
 from contextlib import redirect_stderr, redirect_stdout
 from io import StringIO
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -455,6 +455,37 @@ class DiffReferenceTests(unittest.TestCase):
         self.assertEqual(0, result)
         run.assert_called_once()
         summarize.assert_not_called()
+
+    def test_short_candidate_extent_never_reports_exact_match(self) -> None:
+        evidence = subprocess.CompletedProcess([], 0, '{"current_score": 0, "rows": []}', "")
+        for runner in ("required", "diagnose"):
+            with (
+                self.subTest(runner=runner),
+                patch.object(diff_helper.subprocess, "run", return_value=evidence) as run,
+                patch.object(diff_helper, "run_asm_diff"),
+                redirect_stdout(StringIO()), redirect_stderr(StringIO()),
+            ):
+                table = Mock()
+                if runner == "required":
+                    result = diff_helper.run_required_asm_diff(
+                        Path("candidate.o"), Path("reference.o"), "func_test", Path("unused"), 16,
+                        table_check=table, candidate_extent=8)
+                    self.assertEqual(diff_helper.EXIT_MISMATCH, result)
+                else:
+                    result = diff_helper.run_diagnose_diff(
+                        Path("candidate.o"), Path("reference.o"), "func_test", Path("unused"), 16,
+                        table_check=table, candidate_extent=8)
+                    self.assertEqual(diff_helper.EXIT_BLOCKED_TOOLING, result)
+                table.assert_not_called()
+                command = run.call_args_list[0].args[0]
+                self.assertEqual(["--asm-differ", "--candidate-lines", "2"],
+                                 command[2:5])
+
+    def test_candidate_extent_must_be_short_and_word_aligned(self) -> None:
+        for extent in (0, 6, 16, 20):
+            with self.subTest(extent=extent), self.assertRaises(ValueError):
+                diff_helper.asm_diff_command(Path("c.o"), Path("r.o"), "func_test", 16,
+                                             candidate_extent=extent)
 
     def test_rejects_invalid_json_evidence(self) -> None:
         with self.assertRaises(ValueError):

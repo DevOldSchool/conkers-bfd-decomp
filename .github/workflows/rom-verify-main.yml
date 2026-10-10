@@ -51,7 +51,7 @@ jobs:
       - name: Build and verify active US target
         run: |
           ./conker setup --us .private-rom-assets/baserom.us.z64
-          ./conker build --all
+          ./conker build --all --assets
       - name: Generate and validate US objdiff report
         run: ./conker objdiff report
       - name: Upload US progress for decomp.dev

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import os
+
 import importlib.util
 import json
 import subprocess
@@ -32,6 +34,9 @@ class IntegrationTests(unittest.TestCase):
                          "      - [0x68, data, debugger/data]\n", path.read_text())
 
     def setUp(self) -> None:
+        jobs = mock.patch.dict(os.environ, CONKER_JOBS="4")
+        jobs.start()
+        self.addCleanup(jobs.stop)
         self.temporary_directory = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary_directory.name)
         self.original_integrate_root = integrate.ROOT
@@ -187,6 +192,16 @@ class IntegrationTests(unittest.TestCase):
         project_state.write_json(project_state.FUNCTIONS_FILE, functions)
         project_state.write_json(project_state.SOURCE_UNITS_FILE, units)
         return source
+
+    @mock.patch.object(integrate.subprocess, "run")
+    def test_build_overlays_respects_jobs(self, run):
+        with mock.patch.dict(os.environ, CONKER_JOBS="1"):
+            integrate.build_overlays({"main", "game"}, "us")
+        self.assertEqual([call.args[0][3] for call in run.call_args_list], ["1", "1"])
+        run.reset_mock()
+        with mock.patch.dict(os.environ, CONKER_JOBS="0"), self.assertRaises(ValueError):
+            integrate.build_overlays({"main", "game"}, "us")
+        run.assert_not_called()
 
     @mock.patch.object(integrate.subprocess, "run")
     def test_debugger_finalization_uses_eight_byte_boundaries_and_full_rom(self, run: mock.Mock) -> None:

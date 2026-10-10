@@ -572,6 +572,196 @@ void func_151963B4(void *arg0) {
     }
     func_15147928((s32)arg0);
 }
+typedef struct CharacterFlamethrowerJetTemplate {
+    s16 unk0;
+    f32 unk4;
+    f32 unk8;
+    u8 unkC;
+    s32 unk10;
+    u8 unk14;
+    CharacterFlamethrowerVec3 unk18;
+    CharacterFlamethrowerVec3 unk24;
+    s8 unk30;
+    u8 unk31;
+    u8 unk32;
+    u8 unk33;
+    f32 unk34;
+    f32 unk38;
+    s8 unk3C;
+    s8 unk3D;
+    s8 unk3E;
+    s8 unk3F;
+    s8 unk40;
+    s8 unk41;
+    s8 unk42;
+    u16 unk44;
+    u8 unk46;
+    u8 unk47;
+    f32 unk48;
+    u8 unk4C;
+    f32 unk50;
+    u8 unk54;
+    f32 unk58;
+    u8 unk5C;
+    u8 unk5D;
+    u8 unk5E;
+    u8 unk5F;
+} CharacterFlamethrowerJetTemplate;
+
+typedef struct CharacterFlamethrowerJet {
+    void *owner;
+    u8 unk4;
+    u8 unk5;
+    s8 unk6;
+    s8 unk7;
+    CharacterFlamethrowerVec3 unk8;
+    CharacterFlamethrowerVec3 unk14;
+    CharacterFlamethrowerVec3 unk20;
+    CharacterFlamethrowerVec3 unk2C;
+    f32 unk38;
+    f32 unk3C;
+    f32 unk40;
+    f32 unk44;
+    f32 unk48;
+    f32 unk4C;
+    u8 unk50;
+    u8 unk51;
+    u8 unk52;
+    u8 unk53;
+    u8 unk54;
+    f32 unk58;
+    f32 unk5C;
+    s8 unk60;
+    s8 unk61;
+    s8 unk62;
+    s8 unk63;
+    s8 unk64;
+    s8 unk65;
+    s16 unk66;
+    s8 unk68;
+    u8 unk69;
+    u8 unk6A;
+    f32 unk6C;
+    f32 unk70;
+    u8 unk74;
+    f32 unk78;
+    f32 unk7C;
+    u8 unk80;
+    f32 unk84;
+    f32 unk88;
+    u8 unk8C;
+    u8 unk8D;
+    u8 unk8E;
+    u8 unk8F;
+} CharacterFlamethrowerJet;
+
+typedef struct CharacterFlamethrowerJetSpawn {
+    f32 position[3];
+    s16 unkC;
+    u16 unkE;
+    s32 unk10;
+    u8 unk14;
+    u8 unk15;
+} CharacterFlamethrowerJetSpawn;
+
+extern CharacterFlamethrowerJetTemplate D_800A87A0[];
+extern f32 (*D_8008F870[])(void *, s32);
+extern void (*D_8008F87C[])(void *);
+extern s16 (*D_8008F890[])(void);
+void func_15143134(f32 *, f32 *, s32);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32,
+                    s32, s32);
+void *func_10022EC0(void *, const void *, u32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15196438 CURRENT (1324) */
+void *func_15196438(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
+    s8 kind;
+    CharacterFlamethrowerJetSpawn spawn;
+    CharacterFlamethrowerJet local;
+    void *result;
+    s32 matrix;
+    CharacterFlamethrowerJetTemplate *entry;
+    CharacterFlamethrowerJet *jet;
+
+    if (arg0 == NULL) {
+        return NULL;
+    }
+    if (*(s32 *)((u8 *)arg0 + 0x1D4) == 0) {
+        return NULL;
+    }
+    local.owner = arg0;
+    entry = &D_800A87A0[arg1];
+    local.unk4 = *(u8 *)((u8 *)arg0 + 0x3B);
+    local.unk6 = 2;
+    local.unk50 = 0;
+    local.unk4C = 0.0f;
+    local.unk70 = 0.0f;
+    local.unk7C = 0.0f;
+    local.unk88 = 0.0f;
+    local.unk60 = entry->unk3C;
+    local.unk61 = entry->unk3D;
+    local.unk62 = entry->unk3E;
+    spawn.unkC = entry->unk0;
+    local.unk40 = entry->unk4;
+    local.unk48 = entry->unk8;
+    local.unk51 = entry->unkC;
+    spawn.unk15 = entry->unk10;
+    local.unk5 = entry->unk14;
+    local.unk8 = entry->unk18;
+    local.unk14 = entry->unk24;
+    local.unk80 = entry->unk54;
+    local.unk63 = entry->unk3F;
+    local.unk7 = entry->unk30;
+    local.unk52 = entry->unk31;
+    local.unk53 = entry->unk32;
+    local.unk54 = entry->unk33;
+    spawn.unkE = entry->unk44;
+    local.unk6A = entry->unk47;
+    local.unk74 = entry->unk4C;
+    local.unk58 = entry->unk34;
+    local.unk5C = entry->unk38;
+    local.unk6C = entry->unk48;
+    local.unk78 = entry->unk50;
+    local.unk84 = entry->unk58;
+    local.unk64 = entry->unk40;
+    local.unk65 = entry->unk41;
+    local.unk68 = entry->unk42;
+    local.unk69 = entry->unk46;
+    local.unk8C = entry->unk5C;
+    local.unk8D = entry->unk5D;
+    local.unk8E = entry->unk5E;
+    local.unk8F = entry->unk5F;
+    if (local.unk63 != -1) {
+        local.unk66 = D_8008F890[local.unk63]();
+    } else {
+        local.unk66 = 0;
+    }
+    matrix = *(s32 *)((u8 *)local.owner + 0x1D4) + (local.unk5 << 6);
+    func_15143134(&local.unk8.x, &local.unk20.x, matrix);
+    func_15143134(&local.unk14.x, &local.unk2C.x, matrix);
+    spawn.unk10 = 3;
+    spawn.position[0] = local.unk20.x;
+    spawn.position[1] = local.unk20.y;
+    spawn.position[2] = local.unk20.z;
+    local.unk3C = 0.0f;
+    result = func_15147A80(&spawn, (void *)0x90, 0x24, 2, 2, 2, 0, 0, 0,
+                           arg2, arg3);
+    if (result != NULL) {
+        jet = *(CharacterFlamethrowerJet **)((u8 *)result + 0x98);
+        func_10022EC0(jet, &local, 0x90);
+        kind = jet->unk7;
+        if (kind != -1) {
+            jet->unk38 = D_8008F870[kind](result, kind);
+        } else {
+            jet->unk38 = 0.0f;
+        }
+        if (local.unk60 != -1) {
+            D_8008F87C[local.unk60](result);
+        }
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15196438 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196438.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196748.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196B4C.s")

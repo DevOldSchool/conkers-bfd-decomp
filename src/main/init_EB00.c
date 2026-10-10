@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/main/main_sound_record_family_boundary.md
  *
  * TODO: Implement these source-unit functions:
- * - func_8000F6B8
  * - func_8000FA64
  * - func_8000FEF0
  * - func_80010154
@@ -509,7 +508,6 @@ s32 func_8000A420(s32, s32, s32, f32, s32, s32, s32, s32, s32,
                  s32 *, s32 *, s32 *);
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000F6B8 CURRENT (230) */
 s32 func_8000F6B8(s32 arg0, s16 arg1, s16 arg2, s16 arg3,
                    s32 *output, s32 nearDistance, s32 farDistance) {
     s32 result;
@@ -522,9 +520,10 @@ s32 func_8000F6B8(s32 arg0, s16 arg1, s16 arg2, s16 arg3,
     s32 bestZ;
     s32 dz;
     u32 distance;
-    u32 closest;
 
     if (D_80082FA0 != 0) {
+        u32 closest;
+
         closest = 0xFFFFFFFF;
         for (index = 0; index <= D_80082FA0; index++) {
             dx = arg1 - D_80041F68[index].xC;
@@ -550,8 +549,6 @@ s32 func_8000F6B8(s32 arg0, s16 arg1, s16 arg2, s16 arg3,
                  (s16)farDistance, (s16)nearDistance, output, &result, 0);
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000F6B8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000F6B8.s")
 s32 func_8000F3D0(u16);
 f32 func_80019AB0(s32);
 void func_80017714(struct sndstate *, s16, s32);
