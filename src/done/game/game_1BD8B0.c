@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1BD8B0.c
@@ -26,8 +27,6 @@ typedef struct {
     u8 field_4;
 } Game1BD8B0Data;
 
-void func_1516972C(Game1BD8B0State *, Game1BD8B0Data *, u8, u8);
-
 void func_15190400(Game1BD8B0State *arg0, Game1BD8B0Data *arg1, u8 arg2) {
     s32 stateWord;
     s32 dataWord;
@@ -37,7 +36,7 @@ void func_15190400(Game1BD8B0State *arg0, Game1BD8B0Data *arg1, u8 arg2) {
     if (!arg2 && ((stateWord = arg0->field_18, dataWord = arg1->field_0,
         temp_a2 = arg0->field_1C, temp_a3 = arg1->field_4,
         (stateWord == dataWord)) || (temp_a2 == temp_a3))) {
-        func_1516972C(arg0, arg1, temp_a2, temp_a3);
+        func_1516972C(arg0);
     }
 }
 Game1BD8B0Inner *func_15190454(Game1BD8B0Object *arg0) {

@@ -48,7 +48,6 @@ typedef struct Game133190Triple {
 } Game133190Triple;
 extern Game133190EventCallback D_80088C10[];
 extern s32 D_800BE9E4;
-void func_1516972C(void *);
 void func_15106214(s32);
 void func_15106610(void *);
 u32 func_150ADA20(void);
@@ -282,7 +281,6 @@ void func_15149368(s32 arg0);
 
 typedef void (*Game133190Callback)(void *);
 extern Game133190Callback D_80088C18[];
-void func_1516972C(void *);
 void func_151D5E30(void *);
 
 void func_15106E78(void *arg0) {
@@ -381,7 +379,6 @@ Game133190Holder *func_15107604(Game133190Object *arg0) {
     subobject->field_8 = 0;
     return holder;
 }
-void func_1516972C(void *arg0);
 
 void func_1510761C(void *arg0) {
     void **field_30 = (void **)((u8 *)arg0 + 0x30);

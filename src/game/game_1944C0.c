@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1944C0.c
@@ -290,7 +291,6 @@ void func_15167AD8(void *arg0, u8 arg1, s32 arg2) {
 }
 typedef void (*Game1944C0EffectCallback)(void);
 extern Game1944C0EffectCallback D_8008CA20[];
-void func_1516972C(u8 *);
 
 typedef struct Game1944C0AnimatedEffect {
     u8 pad0[0x10];
@@ -561,7 +561,6 @@ typedef void (*Game168870Callback)(void);
 extern Game168870Callback D_8008C9C8[];
 extern u8 *D_8008CA4C[];
 extern s32 D_800BE9E4;
-void func_1516972C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15168870 CURRENT (245) */
 void func_15168870(Game168870State *arg0) {
@@ -1139,7 +1138,6 @@ void func_1516962C(s32 arg0, void *arg1, u8 arg2) {
     func_1516944C(arg0, (s8 *) &descriptor, arg2);
 }
 extern s8 D_800D2DAB;
-void func_1516972C(u8 *arg0);
 
 s32 func_15169668(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     D_800D2DAB = 1;
@@ -1175,12 +1173,12 @@ void func_151696DC(struct102 *);
 void func_15169804(s32);
 void func_15169824(s32);
 
-void func_1516972C(u8 *arg0) {
+void func_1516972C(void *arg0) {
     Game1944C0DestroyCallback callback;
     u8 type;
 
     func_151696DC(arg0);
-    type = *arg0;
+    type = *(u8 *)arg0;
     if (type >= 2) {
         callback = D_8008B4D0[type].callback;
         if (callback != 0) {

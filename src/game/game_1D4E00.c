@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1D4E00.c
@@ -446,7 +447,6 @@ void func_151A8A20(void *arg0, s32 arg1, u8 arg2) {
         temp_v1(arg0, arg1, arg2);
     }
 }
-void func_1516972C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A8A78 CURRENT (115) */
 void func_151A8A78(void *arg0, void *arg1, u8 arg2) {

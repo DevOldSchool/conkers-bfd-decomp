@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1765E0.c
@@ -69,7 +70,6 @@ typedef struct Game1765E0Effect {
 extern s32 D_800BE9E4;
 extern void (*D_8008A4C0[])(Game1765E0Effect *);
 extern void (*D_8008A4E8[])(Game1765E0Effect *);
-void func_1516972C(Game1765E0Effect *);
 
 /*
  * Descriptive role: timer_callback_object_update.

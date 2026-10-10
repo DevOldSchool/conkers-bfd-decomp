@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1FFF60.c
@@ -97,7 +98,6 @@ typedef struct Game1FFF60Motion {
     Game1FFF60Vec3 result;
 } Game1FFF60Motion;
 
-void func_1516972C();
 void func_15143134(f32 *, f32 *, s32);
 extern s32 D_800BE9E4;
 extern s32 (*D_8008FC40[])(void *, void *);
@@ -138,7 +138,6 @@ void func_151D3354();
 void func_151D2DAC(void) {
     func_151D3354();
 }
-extern void func_1516972C();
 void func_15169804(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D2DCC CURRENT (410) */
@@ -399,7 +398,6 @@ void func_151D3354(Game1FFF60Node *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D3354 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D3354.s")
-extern void func_1516972C();
 
 void func_151D33B8(void *arg0) {
     if (*(s16 *)((u8 *)arg0 + 0x20) > 0) {
@@ -408,7 +406,6 @@ void func_151D33B8(void *arg0) {
         } while (*(s16 *)((u8 *)arg0 + 0x20) > 0);
     }
 }
-extern void func_1516972C(void *arg0, void *arg1);
 
 void func_151D33FC(void *arg0, void *arg1) {
     s32 temp_v0;
@@ -421,7 +418,7 @@ void func_151D33FC(void *arg0, void *arg1) {
     temp_a2 = *(u8 *)((u8 *)arg0 + 0x14);
     temp_a3 = *(u8 *)((u8 *)arg1 + 4);
     if ((temp_v0 == temp_v1) || (temp_a2 == temp_a3)) {
-        func_1516972C(arg0, arg1);
+        func_1516972C(arg0);
     }
 }
 extern void func_15169260(s32 *arg0, s32 arg1, s32 arg2, u8 arg3);

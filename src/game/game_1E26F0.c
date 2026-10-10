@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1E26F0.c
@@ -67,8 +68,6 @@ typedef struct {
     s32 second;
     u8 secondFlag;
 } Game1E26F0State;
-
-void func_1516972C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B5A9C CURRENT (1940) */
 void func_151B5A9C(u8 *arg0, void *arg1, u8 arg2) {

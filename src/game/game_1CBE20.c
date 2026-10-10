@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1CBE20.c
@@ -45,7 +46,6 @@ typedef struct Game1CBE20Effect {
 } Game1CBE20Effect;
 
 extern s32 D_800BE9E4;
-void func_1516972C(void *);
 
 void func_1519EA04(Game1CBE20Effect *arg0) {
     Game1CBE20Owner *owner;

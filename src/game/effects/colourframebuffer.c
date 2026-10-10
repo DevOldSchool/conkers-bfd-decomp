@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/effects/colourframebuffer.c
@@ -100,7 +101,6 @@ typedef s32 (*ColourFramebufferCallback)(void *);
 
 extern ColourFramebufferCallback D_8008B0D0[];
 extern s32 D_800BE9E4;
-void func_1516972C(void *arg0);
 
 void func_1515FFEC(void *arg0) {
     u8 *p = (u8 *)arg0;

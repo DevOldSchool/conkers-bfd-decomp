@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1B8F40.c
@@ -22,7 +23,6 @@ typedef struct Game1B8F40Node {
 extern u8 D_800DCE50[];
 extern s8 D_800DD190;
 extern Game1B8F40Node *D_800DD198[];
-void func_1516972C(u8 *);
 
 typedef struct Game1B8F40Effect {
     u8 pad0[0x2C];

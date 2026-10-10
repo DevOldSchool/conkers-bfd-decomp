@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1E37D0.c
@@ -660,7 +661,6 @@ void func_151B82CC(void *arg0, s32 arg1, u8 arg2) {
         temp_v1(arg0, arg1, arg2);
     }
 }
-void func_1516972C(void *);
 
 void func_151B8318(void *arg0, void *arg1, u8 arg2) {
     u8 *state;

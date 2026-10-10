@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/effects/characterflamethrower.c
@@ -54,7 +55,6 @@ extern void (*D_8008F8B4[])(s32);
 extern void (*D_8008F8C0[])(void);
 void func_15147928(s32 arg0);
 void func_15199980(s32 arg0);
-void func_1516972C(s32 arg0);
 void func_100111C8(u16 arg0);
 struct CharacterFlamethrowerPanel;
 struct CharacterFlamethrowerPanel *func_15195DD4(s32, s32, s32, s32, s32, s32, s32);
@@ -106,7 +106,7 @@ typedef struct CharacterFlamethrowerState {
     char pad68[0xC8];
     u16 unk130;
     char pad132[0x16];
-    s32 unk148;
+    void *unk148;
     f32 spacing;
     u8 flags150;
     char pad151[7];
@@ -1170,7 +1170,7 @@ void func_1519986C(CharacterFlamethrowerActor *actor, CharacterFlamethrowerEvent
 
     if (kind == 0 || kind == 2 || kind == 0x26) {
         if (event->removed.identity == state->identity || event->removed.generation == state->generation) {
-            func_1516972C((s32)actor);
+            func_1516972C(actor);
         }
     } else if (kind == 0x2D) {
         actor = (CharacterFlamethrowerActor *)event->replaced.first;
@@ -1199,7 +1199,7 @@ void func_15199980(s32 arg0) {
     CharacterFlamethrowerState *var_v1;
     s8 temp_v0;
     s8 temp_v0_2;
-    s32 temp_a0;
+    void *temp_a0;
 
     var_v1 = ((CharacterFlamethrowerActor *)arg0)->state;
     temp_v0 = var_v1->unk39;

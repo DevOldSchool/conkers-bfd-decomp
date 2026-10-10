@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_FF0E0.c
@@ -12,7 +13,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_1516972C(void *arg0);
 extern s32 D_800A5480;
 
 typedef struct {

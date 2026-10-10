@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_179F30.c
@@ -25,7 +26,6 @@ enum {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514CA80.s")
 void *func_15155FD4(s32);
-void func_1516972C(void *);
 void *func_15155780(s32, s32);
 s32 func_1514CA80(void *, s32 *, s32 *, s32 *);
 extern void (*D_8008AACC)(void *);
@@ -104,7 +104,6 @@ typedef struct {
 
 extern void (*D_8008AB58[])(s32);
 extern Game179F30DispatchEntry *D_8008ABE8[];
-void func_1516972C(void *arg0);
 
 s32 func_1514D310(void *arg0) {
     Game179F30Node *node;
@@ -1017,7 +1016,6 @@ void func_1514E7C8(s32 arg0) {
 void func_1514E824(s32 arg0) {
 
 }
-void func_1516972C(void *arg0);
 
 void func_1514E830(void *arg0) {
     func_1516972C(arg0);

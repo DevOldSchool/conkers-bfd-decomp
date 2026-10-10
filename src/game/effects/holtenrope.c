@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/effects/holtenrope.c
@@ -65,7 +66,6 @@ HoltenRopeEffect *func_151B30B0(void *arg0, f32 arg1, s32 arg2, u8 arg3, s32 arg
     func_100226F0(result->resetState, 0x10);
     return result;
 }
-void func_1516972C(HoltenRopeEffect *);
 
 void func_151B3184(HoltenRopeEffect *arg0) {
     s32 callback;

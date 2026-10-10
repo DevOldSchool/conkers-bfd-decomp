@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/effects/effects_sight.c
@@ -274,7 +275,6 @@ s32 func_151C8FCC(s32 arg0, Sight8FCCVector *arg1, Sight8FCCVector *arg2,
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C8FCC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9198.s")
 void func_1513CA6C(s32);
-void func_1516972C(void *);
 void func_1000FD38(void *, void *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C94D4 CURRENT (20) */
@@ -515,7 +515,6 @@ void func_151C9ED4(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9ED4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9F38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CA6A0.s")
-extern void func_1516972C(void *arg0);
 extern void (*D_8008FC10[])(void *, void **, u8);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CAACC CURRENT (265) */

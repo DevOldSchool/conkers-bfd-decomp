@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_15F680.c
@@ -74,7 +75,6 @@ extern Game15F680Update D_80089988[];
 extern Game15F680Cleanup D_8008997C[];
 extern s32 D_800BE9E4;
 s32 func_1514672C(f32 *);
-void func_1516972C(void *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151321D0 CURRENT (260) */
 void func_151321D0(Game15F680TransformState *arg0) {
@@ -266,7 +266,6 @@ void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
 void *func_15132A4C(void *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
     return func_1513264C(arg0, arg1, arg2, 0, arg3, arg4, arg5);
 }
-void func_1516972C(void *);
 s32 func_151464B8(s32, void *);
 typedef s32 (*Game15F680Callback)(void *, void *);
 extern Game15F680Callback D_8008998C[];
@@ -712,7 +711,6 @@ s32 func_15133D20(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) 
     }
     return 1;
 }
-void func_1516972C(void *arg0);
 void func_15133DE8(void *arg0, s32 *arg1, u8 arg2) {
     s32 temp_v0;
 

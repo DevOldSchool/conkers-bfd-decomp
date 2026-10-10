@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_19A8B0.c
@@ -154,7 +155,6 @@ void func_1516D4E8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s
 
 extern s32 D_800BE9E4;
 extern s32 (*D_8008CBA0[])(Game19A8B0Motion *);
-void func_1516972C(void *);
 
 void func_1516D678(Game19A8B0Motion *arg0) {
     s32 value;

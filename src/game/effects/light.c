@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/effects/light.c
@@ -113,7 +114,6 @@ typedef s32 (*LightCallback)(void *);
 
 extern LightCallback D_8008B0F0[];
 extern s32 D_800BE9E4;
-void func_1516972C(void *arg0);
 
 void func_151603FC(void *arg0) {
     u8 *ptr = arg0;
@@ -1604,7 +1604,6 @@ typedef struct LightInput {
     s32 field_C;
 } LightInput;
 
-void func_1516972C(void *);
 void func_15145CD0(s32, void **, f32 **, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151640C0 CURRENT (978) */

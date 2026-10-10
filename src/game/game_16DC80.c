@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_16DC80.c
@@ -282,7 +283,6 @@ s32 func_151415D4(void *arg0) {
 }
 typedef void (*Game16DC80Callback)(u8 *, u8 *, u8);
 extern Game16DC80Callback D_8008A02C;
-void func_1516972C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151416E8 CURRENT (1995) */
 void func_151416E8(u8 *arg0, u8 *arg1, u8 arg2) {

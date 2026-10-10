@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_168A90.c
@@ -93,7 +94,6 @@ typedef s32 (*Game168A90Callback)(void);
 
 extern Game168A90Callback D_80089C18[];
 extern s32 D_800BE9E4;
-void func_1516972C(void *arg0);
 
 void func_1513B798(void *arg0) {
     typedef struct {

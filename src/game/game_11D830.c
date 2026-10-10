@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_11D830.c
@@ -66,7 +67,6 @@ Game11D830AltInner *func_150F03E8(Game11D830AltObject *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F03F8.s")
 /* Call context: func_1516972C: unique active declaration in the allowed source */
-void func_1516972C(u8 *);
 
 void func_150F07E4(void *arg0, void *arg1, u8 arg2) {
     s32 temp_a0;
@@ -387,7 +387,6 @@ s32 func_150F0E48(u8 *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F0E48 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F0E48.s")
-void func_1516972C(u8 *);           /* extern */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1020 CURRENT (1290) */
 void func_150F1020(u8 *arg0, u8 *arg1, u8 arg2) {

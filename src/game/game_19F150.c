@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_19F150.c
@@ -57,7 +58,6 @@ typedef struct Game171D4CGeometry {
     s16 values[0x1E];
 } Game171D4CGeometry;
 
-void func_1516972C(Game19F150Object *);
 Game19F150Object *func_15171CA0(s16, u16, u8, s32, s32, s32, u8, s32);
 s32 func_15172B20(s32, f32, f32, f32, f32, s32, s32, u8);
 extern u8 *D_8008CA4C[];
@@ -128,7 +128,6 @@ void func_15171D4C(f32 arg0, f32 arg1, f32 arg2, s16 arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15171D4C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19F150/func_15171D4C.s")
-void func_1516972C(Game19F150Object *);
 Game19F150Object *func_15171CA0(s16, u16, u8, s32, s32, s32, u8, s32);
 s32 func_151725FC(s32, s32, f32, f32, f32, f32, s32, s32);
 f32 func_15047C00(f32);

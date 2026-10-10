@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_129DE0.c
@@ -15,7 +16,6 @@ s32 func_150FC930(void *arg0, s32 arg1, s32 arg2) {
     return 1;
 }
 void func_150FC974(void *arg0);
-void func_1516972C(void *arg0);
 void func_1514933C(s32 arg0);
 
 void func_150FC974(void *arg0) {

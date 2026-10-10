@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_58F80.c
@@ -320,7 +321,6 @@ extern s32 D_80082FA0;
 s32 func_150229E4(void *);
 s32 func_1506196C(u8 *, s32);
 void *func_1510D970(s32, s32, s32, s32, s32);
-void func_1516972C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1502C1A4 CURRENT (320) */
 void func_1502C1A4(void) {

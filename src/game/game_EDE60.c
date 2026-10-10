@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_EDE60.c
@@ -40,8 +41,6 @@ typedef struct {
     s16 first_index;
     s16 last_index;
 } GameEDE60ResourceList;
-
-void func_1516972C(void *);
 
 void func_150C0A48(s32 arg0) {
     GameEDE60ResourceList *list;

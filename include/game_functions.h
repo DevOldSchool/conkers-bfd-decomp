@@ -13,5 +13,7 @@ void func_15143874(s16, f32, f32 *, f32 *);
 void func_151AB930(void *);
 void func_151C1FB8(void *);
 void func_151D0024(void *);
+void func_1516972C(void *);
+void *func_15169968(void *);
 
 #endif

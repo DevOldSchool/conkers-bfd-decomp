@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_127060.c
@@ -265,9 +266,7 @@ void func_150FAAEC(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150FAAEC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAAEC.s")
 
-extern void func_1516972C(s32 arg0);
-
-void func_150FACE4(s32 arg0, s32 arg1, u8 arg2) {
+void func_150FACE4(void *arg0, s32 arg1, u8 arg2) {
     if ((arg2 == 0x4E) || (arg2 == 0x4F)) {
         func_1516972C(arg0);
     }

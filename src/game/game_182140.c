@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_182140.c
@@ -16,7 +17,6 @@
 
 typedef s32 (*Game182140Callback)(u8 *, s8);
 
-void func_1516972C(u8 *);
 extern Game182140Callback D_8008ACC8[];
 extern s32 D_800BE9E4;
 

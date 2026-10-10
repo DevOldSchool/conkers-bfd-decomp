@@ -44,7 +44,6 @@ void func_151AB930(void *arg0) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D8DE0/func_151AB9C8.s")
-extern void func_1516972C(void *arg0);
 
 void func_151ABD54(void *arg0, u8 *arg1, u8 arg2) {
     u8 *temp_v0;

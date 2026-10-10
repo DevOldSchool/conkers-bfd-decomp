@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_FB600.c
@@ -228,7 +229,6 @@ void func_150CE450(GameFB600Actor *arg0, s32 pixels) {
         }
     }
 }
-void func_1516972C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150CE694 CURRENT (1817) */
 void func_150CE694(void *arg0, void *arg1, s32 arg2) {

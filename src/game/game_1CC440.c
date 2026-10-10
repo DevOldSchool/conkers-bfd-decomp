@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1CC440.c
@@ -280,7 +281,6 @@ void func_1519F3B8(void *arg0) {
 }
 void func_1519F48C(Game1CC440State *);
 void func_151A0928(void *);
-void func_1516972C(void *);
 
 void func_1519F400(void *arg0) {
     Game1CC440State *temp_a0;
@@ -485,7 +485,6 @@ void func_151A0950(Game1CC440State *arg0, Game1CC440Lookup *arg1, u8 arg2) {
         }
     }
 }
-void func_1516972C(void *);
 
 void func_151A09B4(void *arg0, void *arg1, u8 arg2) {
     void *temp_v0;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1BDC20.c
@@ -140,7 +141,6 @@ s32 func_1519187C(void *arg0) {
     }
     return 1;
 }
-void func_1516972C(void *);
 void *func_15190770(void *, s32, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151918BC CURRENT (895) */

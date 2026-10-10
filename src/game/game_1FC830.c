@@ -150,7 +150,6 @@ void func_151D0128(u8 *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D014C.s")
 /* Call context: func_1516972C: unique active declaration in the allowed source */
-void func_1516972C(void *);
 
 void func_151D08F0(void *arg0, u8 *arg1, u8 arg2) {
     u8 *temp_v0;
@@ -176,7 +175,6 @@ void func_151D08F0(void *arg0, u8 *arg1, u8 arg2) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D09A8.s")
-void func_1516972C(void *arg0);
 void func_151D0ED8(void *arg0) {
     void **field_A8 = (void **)((u8 *)arg0 + 0xA8);
 

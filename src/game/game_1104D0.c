@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1104D0.c
@@ -185,7 +186,6 @@ s32 func_150E3414(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s3
 
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_100111C8(u16);
-void func_1516972C(u8 *);
 
 void func_150E3514(u8 *arg0) {
     Game1104D0Slot **slot;

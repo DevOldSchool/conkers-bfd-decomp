@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1CA420.c
@@ -868,7 +869,6 @@ void func_1519E464(Game1CA420Effect *arg0) {
         arg0->flags |= 1;
     }
 }
-void func_1516972C(s32);
 
 typedef struct Game1CA420Link {
     u8 *actor;
@@ -891,8 +891,6 @@ typedef union Game1CA420Event {
         u8 secondGeneration;
     } swapped;
 } Game1CA420Event;
-
-void func_1516972C(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1519E570 CURRENT (250) */
 void func_1519E570(u8 *arg0, Game1CA420Event *arg1, u8 arg2) {
@@ -927,9 +925,7 @@ void func_1519E570(u8 *arg0, Game1CA420Event *arg1, u8 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1519E570 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519E570.s")
 
-extern void func_1516972C(s32 arg0);
-
-void func_1519E61C(s32 arg0, s32 arg1, u8 arg2) {
+void func_1519E61C(void *arg0, s32 arg1, u8 arg2) {
     if ((arg2 == 0) || (arg2 == 9)) {
         func_1516972C(arg0);
     }

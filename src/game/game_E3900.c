@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_E3900.c
@@ -9,8 +10,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-void func_1516972C(u8 *);
 
 void func_150B6450(s32 arg0, s32 arg1, u8 arg2) {
     if (arg2 == 0x4A) {

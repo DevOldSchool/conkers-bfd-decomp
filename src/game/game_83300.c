@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_83300.c
@@ -2283,7 +2284,6 @@ typedef struct Game83300CleanupActor {
 
 s32 func_1514D310(void *);
 void func_151695F0(void *, u8);
-void func_1516972C(u8 *);
 void func_15084558(void *);
 void func_150626EC(s32, s32);
 void func_1504AF10(void *, s32, s32);

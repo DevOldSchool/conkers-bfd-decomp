@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_105FC0.c
@@ -255,7 +256,6 @@ void func_150DA4E0(s32 arg0) {
     func_150DA484((void *)arg0);
     func_15147928(arg0);
 }
-void func_1516972C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150DA50C CURRENT (280) */
 void func_150DA50C(u8 *arg0, u8 *arg1, u8 arg2) {

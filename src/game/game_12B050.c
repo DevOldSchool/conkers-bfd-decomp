@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_12B050.c
@@ -27,7 +28,6 @@ void *func_150FDBA0(void *arg0, s16 arg1) {
     }
     return temp_v0;
 }
-void func_1516972C(void *);
 void func_100111C8(u16);
 
 typedef struct Game12B050Cleanup {

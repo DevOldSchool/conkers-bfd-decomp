@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1BC650.c
@@ -134,10 +135,9 @@ void func_1518F45C(s32 arg0, u8 arg1) {
 
     func_15169260(&sp1C.value, 1, arg0, arg1);
 }
-void func_15169850(s32, u8, s32, s32, s32);
-void func_1516972C(s32);
+void func_15169850(s32, u8, void *, void *, void *);
 
-void func_1518F49C(s32 arg0, s32 arg1, u8 arg2) {
+void func_1518F49C(u8 *arg0, s32 arg1, u8 arg2) {
     s32 first;
     s32 second;
     u8 first_kind;

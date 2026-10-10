@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_121A20.c
@@ -26,7 +27,6 @@ typedef struct Game121A20State {
     Game121A20NestedState nested170;
 } Game121A20State;
 
-void func_1516972C(u8 *);
 s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_10022EC0(s32, s32 *, s32);
 

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_196DB0.c
@@ -28,10 +29,9 @@ Game196DB0Effect *func_15169900(void *arg0, s32 arg1) {
     return effect;
 }
 
-void func_15169968(void *arg0) {
-    func_15169900(arg0, 0xFF);
+void *func_15169968(void *arg0) {
+    return func_15169900(arg0, 0xFF);
 }
-void func_1516972C(u8 *);
 extern void (*D_8008CA20[])(void);
 extern s32 D_800BE9E4;
 

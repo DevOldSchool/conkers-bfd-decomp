@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_193430.c
@@ -130,7 +131,6 @@ typedef struct {
 } Game193430State;
 
 extern s32 D_800BE9E4;
-void func_1516972C(void *);
 
 void func_15166204(Game193430State *arg0) {
     s32 temp_v0;

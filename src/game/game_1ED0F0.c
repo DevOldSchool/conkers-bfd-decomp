@@ -389,7 +389,6 @@ s32 func_151C110C(void *arg0, s32 arg1, s32 *arg2, s32 arg3, s32 arg4, s32 arg5,
     return 0;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C1180.s")
-void func_1516972C(s32);
 void func_1000FD38(s32 (*)(void *, s32, s32 *, s32, s32, s32, s16 *), s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C1570 CURRENT (720) */

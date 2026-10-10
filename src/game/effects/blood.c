@@ -189,7 +189,6 @@ s32 func_1513416C(void *arg0) {
 void *func_15167A68(s32, s32, s32, s32, s32, s32);
 void func_10022EC0(void *, void *, s32);
 void func_15143134(f32 *, f32 *, s32);
-void func_1516972C(void *);
 
 void *func_1513418C(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
     void *temp_v0;
@@ -288,8 +287,6 @@ typedef struct {
     u8 field08;
     u8 field09;
 } Blood347CCEvent;
-
-void func_1516972C(void *);
 
 void func_151347CC(Blood347CCState *arg0, Blood347CCEvent *arg1, u8 arg2) {
     s32 temp_v0;
@@ -604,7 +601,6 @@ void func_15135480(void *arg0, void *arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15135480 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135480.s")
-void func_1516972C(void *);
 
 void func_1513555C(void *arg0, void *arg1, u8 arg2) {
     if (((arg2 == 0) || (arg2 == 0x12)) &&

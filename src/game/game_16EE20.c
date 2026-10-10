@@ -71,7 +71,6 @@ void func_15141990(s32 *arg0) {
 void func_151419B0(s32 *arg0) {
     func_15141970(arg0);
 }
-void func_1516972C(void *);
 
 extern f32 D_800A56A4;
 extern s32  D_80082FA0;

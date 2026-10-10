@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1E9A30.c
@@ -28,7 +29,6 @@ s32 func_151BC580(void *arg0) {
     }
     return result;
 }
-void func_1516972C(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151BC5A4 CURRENT (10) */
 void func_151BC5A4(void *arg0, void *arg1, u8 arg2) {
@@ -386,7 +386,6 @@ void func_151BD7F4(void *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BD828.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BDD8C.s")
-void func_1516972C(s32);
 void func_15169850(s32, u8, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151BE0AC CURRENT (260) */
@@ -406,7 +405,6 @@ void func_151BE0AC(void *arg0, void *arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151BE0AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BE0AC.s")
-void func_1516972C(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151BE138 CURRENT (421) */
 void func_151BE138(s32 arg0) {

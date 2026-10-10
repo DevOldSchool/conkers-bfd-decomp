@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_DC6B0.c
@@ -138,7 +139,6 @@ void func_1516D99C(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s
 void func_150AFC68(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
     func_1516D99C(1, 0, 0, 0xD, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0, 0xFF, 0, 1, 0, 0, 0, 0, 0xAA, 0xAA, 0xAA, 0xAA, arg2, arg3, 0, arg0, 0xF0, 0x50, 0x50, 1, 4, 0, 1, 0, 0, 0, arg1, 0, (u8) (s32) arg4, arg5);
 }
-void func_1516972C(void *);
 extern u8 D_800C3E78;
 extern void *D_800DCE94;
 extern s8 D_800DD190;
@@ -324,7 +324,6 @@ void func_150B0094(GameDC6B0Vector *arg0, GameDC6B0Vector *arg1, u8 arg2, s32 ar
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B0094 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150B0094.s")
-void func_1516972C(void *arg0);
 void func_150B02C0(void *arg0);
 void func_15132570(s32 arg0);
 void func_1513259C(s32 arg0);

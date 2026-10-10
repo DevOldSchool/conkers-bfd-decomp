@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_10B380.c
@@ -12,7 +13,6 @@
  */
 
 void *func_151491F4(s32, s32, s32, s32, s32, s32, s32, s32);
-void func_1516972C(void *);
 
 void func_150DDED0(void *arg0) {
     void *object;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1EC390.c
@@ -261,8 +262,6 @@ typedef struct {
     u8 pad0[0x28];
     Game1EC390Resources resources;
 } Game1EC390ResourceOwner;
-
-void func_1516972C(void *);
 
 void func_151BFB2C(Game1EC390ResourceOwner *arg0) {
     u8 i;
