@@ -450,12 +450,13 @@ def prepare_textures(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict
 def prepare_model(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
     """Compare an actual record-built ROM link object with independent stored bytes."""
     index = expected['entry']
-    key = f'model-03-{index:04d}'
-    name = model_build.part_name(index)
+    bank = expected['bank']
+    key = f'model-{bank:02d}-{index:04d}'
+    name = model_build.part_name(index, bank)
     directory = output / key
     directory.mkdir(parents=True, exist_ok=True)
     linked = ROOT / ('build/us/assets/' + name + '.o')
-    inputs = ROOT / (model_build.INPUT_DIRECTORY / f'{index:04d}')
+    inputs = ROOT / model_build.input_directory(index, bank)
     packed, hashes = model_build.packed_model(inputs, expected)
     start, end = expected['rom_start'], expected['rom_end']
     original = rom[start:end]
@@ -478,7 +479,7 @@ def prepare_model(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, di
                                               original, f'model {index} RZIP storage')
     unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data',
             'size': end - start, 'rom_start': start, 'rom_end': end,
-            'source_inputs': {((model_build.INPUT_DIRECTORY / f'{index:04d}') / p).as_posix(): h for p, h in hashes.items()},
+            'source_inputs': {(model_build.input_directory(index, bank) / p).as_posix(): h for p, h in hashes.items()},
             'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
             'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
             'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
@@ -495,7 +496,7 @@ def prepare_models(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]
     checked_rom, selected = model_build.reviewed_models(ROOT)
     if checked_rom != rom:
         raise ValueError('model reference ROM differs from the validated report ROM')
-    paths = ['build/us/assets/' + model_build.part_name(e['entry']) + '.o' for e, _ in selected]
+    paths = ['build/us/assets/' + model_build.part_name(e['entry'], e['bank']) + '.o' for e, _ in selected]
     log_path = output / 'model-build.log'
     with log_path.open('w') as log:
         try:

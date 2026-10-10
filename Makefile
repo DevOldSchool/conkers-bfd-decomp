@@ -61,7 +61,7 @@ MP3_BANK_BINS := $(patsubst mp3=%,%,$(filter mp3=%,$(PROFILE_ASSETS)))
 FLAT_BINS := $(patsubst flat=%,%,$(filter flat=%,$(PROFILE_ASSETS)))
 TEXTURE_BINS := $(filter assets/flat/textures/%.bin,$(FLAT_BINS))
 MODEL_BANK_BINS := $(patsubst model=%,%,$(filter model=%,$(PROFILE_ASSETS)))
-MODEL_BINS := $(filter assets/models/bank03/%.bin,$(MODEL_BANK_BINS))
+MODEL_BINS := $(filter assets/models/bank03/%.bin assets/models/bank09/%.bin,$(MODEL_BANK_BINS))
 endif
 endif
 ifneq ($(PROFILE_ASSETS),)
@@ -106,7 +106,7 @@ ASSET_BINS_us := \
 	assets/asset_bank_00.bin assets/asset_bank_01.bin assets/asset_bank_02.bin \
 	$(MODEL_BANK_BINS) assets/asset_bank_04.bin assets/asset_bank_05.bin \
 	assets/asset_bank_06.bin assets/asset_bank_07.bin assets/asset_bank_08.bin \
-	assets/asset_bank_09.bin assets/asset_bank_0a.bin assets/asset_bank_0b.bin \
+	assets/asset_bank_0a.bin assets/asset_bank_0b.bin \
 	assets/asset_bank_0c.bin assets/asset_bank_0d.bin assets/asset_bank_0e.bin \
 	assets/asset_bank_0f.bin assets/asset_bank_10.bin assets/asset_bank_11.bin \
 	assets/asset_bank_12.bin assets/asset_bank_13.bin assets/asset_bank_14.bin \
@@ -404,9 +404,9 @@ $(FONT_PARTS): $(BUILD_DIR)/fonts/parts.stamp ;
 endif
 
 ifneq ($(MODEL_PARTS),)
-MODEL_INPUTS := $(wildcard build/assets/model-build/us/03 build/assets/model-build/us/03/* build/assets/model-build/us/03/*/*)
+MODEL_INPUTS := $(wildcard build/assets/model-build/us/* build/assets/model-build/us/*/* build/assets/model-build/us/*/*/*)
 MODEL_PARTS_MISSING := $(filter-out $(wildcard $(MODEL_PARTS)),$(MODEL_PARTS))
-MODEL_MANIFESTS := $(patsubst assets/models/bank03/%.bin,build/assets/model-build/us/03/%/manifest.json,$(MODEL_BINS))
+MODEL_MANIFESTS := $(foreach bank,03 09,$(patsubst assets/models/bank$(bank)/%.bin,build/assets/model-build/us/$(bank)/%/manifest.json,$(filter assets/models/bank$(bank)/%.bin,$(MODEL_BINS))))
 MODEL_REQUIRED_INPUTS := $(MODEL_MANIFESTS) $(patsubst %/manifest.json,%/model.json,$(MODEL_MANIFESTS))
 MODEL_PARTS_MISSING += $(filter-out $(wildcard $(MODEL_REQUIRED_INPUTS)),$(MODEL_REQUIRED_INPUTS))
 # Only codecs used by the reviewed native-record reconstruction path.

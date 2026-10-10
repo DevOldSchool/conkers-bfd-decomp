@@ -12,6 +12,7 @@ import subprocess
 import unittest
 from unittest.mock import patch
 from contextlib import redirect_stderr, redirect_stdout
+from types import SimpleNamespace
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / 'scripts'))
@@ -40,7 +41,7 @@ class ModelBuildTests(unittest.TestCase):
                          'original_decoded_sha256': build.sha256(self.payload),
                          'original_stored_sha256': build.sha256(self.packed),
                          'encoder': build.texture_build.ENCODERS['zlib']}
-        self.inputs = self.root / build.INPUT_DIRECTORY / '0003'
+        self.inputs = self.root / build.input_directory(3)
         self.initialize()
 
     def initialize(self):
@@ -55,6 +56,60 @@ class ModelBuildTests(unittest.TestCase):
         self.assertEqual(packed, self.packed)
         encode.assert_called_once_with(self.payload)
         self.assertEqual(set(hashes), {'manifest.json', 'model.json'})
+
+    def test_bank09_relative_addresses_are_bank_scoped_and_preserve_command_words(self):
+        records = copy.deepcopy(self.records)
+        records['display_commands'][0][1] = 0x28
+        payload = build.encode_records(records, bank=9)
+        self.assertEqual(build.model_records(payload, bank=9), records)
+        self.assertEqual(struct.unpack_from('>II', payload, 88), (0x01003006, 0x28))
+        with self.assertRaisesRegex(ValueError, 'invalid vertex load'):
+            build.encode_records(records, bank=3)
+        for address in (0x18, 0x29, 0x58):
+            with self.subTest(address=address), self.assertRaises(ValueError):
+                records['display_commands'][0][1] = address
+                build.encode_records(records, bank=9)
+        with self.assertRaisesRegex(ValueError, 'unsupported direct-model bank'):
+            build.model_records(self.payload, bank=4)
+
+    def test_same_entry_id_in_two_banks_has_separate_inputs_outputs_and_recovery(self):
+        expected09 = dict(self.expected, bank=9)
+        inputs09 = self.root / build.input_directory(3, 9)
+        build.texture_build.publish_inputs(inputs09, build.input_files(expected09, self.records))
+        selected = [(self.expected, self.records), (expected09, self.records)]
+        with patch.object(build, 'reviewed_models', return_value=(self.rom, selected)):
+            proof = build.build_parts(self.root)
+            (inputs09 / 'notes.txt').write_text('bank09 edit')
+            recovered = build.recover_inputs(3, self.root, bank=9)
+        self.assertEqual(proof['model_count'], 2)
+        for bank in (3, 9):
+            self.assertEqual((self.root / 'build/us/models/parts' /
+                              (build.part_name(3, bank) + '.bin')).read_bytes(), self.packed)
+        self.assertEqual(recovered['bank'], 9)
+        self.assertEqual((Path(recovered['backup_directory']) / 'notes.txt').read_text(), 'bank09 edit')
+        self.assertEqual(json.loads((self.inputs / 'manifest.json').read_text()), self.expected)
+
+    def test_bank09_rejects_auxiliary_or_uncovered_storage(self):
+        for payload in (self.payload + bytes(8),
+                        struct.pack('>10I', 88, 24, 112, 8, 0, 0, 0, 0, 0, 0x80000000)
+                        + self.payload[40:] + bytes(8)):
+            with self.assertRaisesRegex(ValueError, 'auxiliary|trailing'):
+                build.model_records(payload, bank=9)
+
+    def test_bank09_source_changes_preserve_existing_linker_parts(self):
+        expected = dict(self.expected, bank=9)
+        directory = self.root / build.input_directory(3, 9)
+        with patch.object(build, 'reviewed_models', return_value=(self.rom, [(expected, self.records)])):
+            build.build_parts(self.root)
+            part = self.root / 'build/us/models/parts/models/bank09/0003.bin'
+            before = part.read_bytes(), part.stat().st_mtime_ns
+            records = copy.deepcopy(self.records)
+            records['vertices'][0][0] += 1
+            (directory / 'model.json').write_text(json.dumps(records))
+            with self.assertRaisesRegex(ValueError, 'original payload'):
+                build.build_parts(self.root)
+            self.assertEqual((part.read_bytes(), part.stat().st_mtime_ns), before)
+            self.assertEqual(json.loads((directory / 'model.json').read_text()), records)
 
     def test_auxiliary_regions_and_trailing_bytes_are_not_admitted(self):
         with self.assertRaisesRegex(ValueError, 'auxiliary|trailing'):
@@ -89,7 +144,7 @@ class ModelBuildTests(unittest.TestCase):
 
     def test_missing_input_and_changed_manifest_are_preserved(self):
         (self.inputs / 'model.json').unlink()
-        with self.assertRaisesRegex(ValueError, r'model.json.*Inputs were preserved;.*recover --entry 3'):
+        with self.assertRaisesRegex(ValueError, r'model.json.*Inputs were preserved;.*recover --bank 3 --entry 3'):
             build.packed_model(self.inputs, self.expected)
         self.assertFalse((self.inputs / 'model.json').exists())
         (self.inputs / 'manifest.json').write_text('{}')
@@ -101,7 +156,7 @@ class ModelBuildTests(unittest.TestCase):
         (self.inputs / 'manifest.json').write_text('stale manifest')
         (self.inputs / 'notes.txt').write_text('user work')
         with patch.object(build, 'reviewed_models', return_value=(self.rom, [(self.expected, self.records)])):
-            with self.assertRaisesRegex(ValueError, 'recover --entry 3'):
+            with self.assertRaisesRegex(ValueError, 'recover --bank 3 --entry 3'):
                 build.build_parts(self.root)
             result = build.recover_inputs(3, self.root)
             packed, _ = build.packed_model(self.inputs, self.expected)
@@ -127,7 +182,7 @@ class ModelBuildTests(unittest.TestCase):
         (self.inputs / 'manifest.json').unlink()
         before = (self.inputs / 'model.json').read_bytes()
         with patch.object(build, 'reviewed_models', return_value=(self.rom, [(self.expected, self.records)])):
-            with self.assertRaisesRegex(ValueError, 'manifest.json.*recover --entry 3'):
+            with self.assertRaisesRegex(ValueError, 'manifest.json.*recover --bank 3 --entry 3'):
                 build.build_parts(self.root)
         self.assertEqual((self.inputs / 'model.json').read_bytes(), before)
         self.assertFalse((self.inputs / 'manifest.json').exists())
@@ -136,14 +191,14 @@ class ModelBuildTests(unittest.TestCase):
         with patch.object(build, 'recover_inputs', return_value={'backup_directory': 'kept'}) as recover, \
                 redirect_stdout(io.StringIO()) as stdout:
             build.main(['recover', '--entry', '3'])
-        recover.assert_called_once_with(3)
+        recover.assert_called_once_with(3, bank=3)
         self.assertEqual(json.loads(stdout.getvalue())['backup_directory'], 'kept')
-        with patch.object(build, 'build_parts', side_effect=ValueError('broken input; recover --entry 3')), \
+        with patch.object(build, 'build_parts', side_effect=ValueError('broken input; recover --bank 3 --entry 3')), \
                 redirect_stderr(io.StringIO()) as stderr:
             with self.assertRaises(SystemExit) as error:
                 build.main(['build-parts'])
         self.assertEqual(error.exception.code, 2)
-        self.assertIn('error: broken input; recover --entry 3', stderr.getvalue())
+        self.assertIn('error: broken input; recover --bank 3 --entry 3', stderr.getvalue())
         self.assertNotIn('Traceback', stderr.getvalue())
 
     def test_absent_bank_raises_domain_error(self):
@@ -151,8 +206,8 @@ class ModelBuildTests(unittest.TestCase):
         rom.write_bytes(self.rom)
         contract = self.root / build.CONTRACT
         contract.parent.mkdir(parents=True)
-        contract.write_text(json.dumps({'schema_version': 1, 'profile': 'us', 'bank': 3,
-            'rom_sha1': self.expected['rom_sha1'], 'encoder': self.expected['encoder'], 'entries': [3]}))
+        contract.write_text(json.dumps({'schema_version': 2, 'profile': 'us',
+            'rom_sha1': self.expected['rom_sha1'], 'encoder': self.expected['encoder'], 'banks': {'03': [3], '09': [3]}}))
         with patch.object(build.model_assets, 'resolve_rom', return_value=(rom, {
                 'normalized_sha1': [self.expected['rom_sha1']], 'asset_table': 0})), \
                 patch.object(build.rzip_archive, 'normalize_rom', return_value=(self.rom, 'z64')), \
@@ -232,3 +287,74 @@ class ModelBuildTests(unittest.TestCase):
             linked.write_bytes(object_file([('.data', 1, 3, bytes(len(self.packed)))]))
             with self.assertRaisesRegex(ValueError, 'current editable inputs'):
                 targets.prepare_model(self.rom, self.expected, output=output)
+
+    def test_bank09_report_key_and_source_proof_do_not_collide_with_bank03(self):
+        expected = dict(self.expected, bank=9)
+        inputs = self.root / build.input_directory(3, 9)
+        build.texture_build.publish_inputs(inputs, build.input_files(expected, self.records))
+        linked = self.root / 'build/us/assets/models/bank09/0003.o'
+        linked.parent.mkdir(parents=True)
+        linked.write_bytes(object_file([('.data', 1, 3, self.packed)]))
+        def link(args, *, cwd, check):
+            self.assertEqual(args[-1], 'models/bank09/0003.bin')
+            (cwd / 'target.o').write_bytes(object_file([('.data', 1, 3, self.packed)]))
+        with patch.object(targets, 'ROOT', self.root), patch.object(targets.subprocess, 'run', side_effect=link):
+            unit, item = targets.prepare_model(self.rom, expected, output=self.root / 'report')
+        self.assertEqual(unit['key'], 'model-09-0003')
+        self.assertEqual(item['name'], 'assets/models/bank09/0003')
+        self.assertTrue(unit['complete'])
+        self.assertEqual(set(unit['source_inputs']), {
+            'build/assets/model-build/us/09/0003/manifest.json',
+            'build/assets/model-build/us/09/0003/model.json'})
+
+    def test_reviewed_selection_checks_both_bank_partitions_and_consumer_proof(self):
+        rom = self.root / 'rom.bin'
+        rom.write_bytes(self.rom)
+        contract = self.root / build.CONTRACT
+        contract.parent.mkdir(parents=True)
+        contract.write_text(json.dumps({'schema_version': 2, 'profile': 'us',
+            'rom_sha1': self.expected['rom_sha1'], 'encoder': self.expected['encoder'],
+            'banks': {'03': [3], '09': [3]}}))
+        layout = {'normalized_sha1': [self.expected['rom_sha1']], 'asset_table': 0,
+                  'game_format': 'rzip', 'game_start': 0, 'game_end': 6, 'game_vram': 0x15000000}
+        banks = [build.rzip_archive.AssetBank(bank, 6, self.expected['rom_end'], 0) for bank in (3, 9)]
+        entry = build.rzip_archive.AssetEntry(3, 6, self.expected['rom_end'], 0x10, True)
+        def rows(profile, *, bank):
+            return build.partition(banks[(3, 9).index(bank)], [entry]), self.expected['rom_end']
+        with patch.object(build.model_assets, 'resolve_rom', return_value=(rom, layout)), \
+                patch.object(build.rzip_archive, 'normalize_rom', return_value=(self.rom, 'z64')), \
+                patch.object(build.rzip_archive, 'parse_asset_banks', return_value=banks), \
+                patch.object(build.rzip_archive, 'parse_asset_entries', return_value=[entry]), \
+                patch.object(build.rzip_archive, 'parse_game_archive', return_value=SimpleNamespace(code=b'code')), \
+                patch.object(build, 'layout_bins', side_effect=rows) as partitions, \
+                patch.object(build.model_assets, 'verify_direct_model_consumers') as consumers:
+            _, selected = build.reviewed_models(self.root)
+            self.assertEqual([e['bank'] for e, _ in selected], [3, 9])
+            self.assertEqual(selected[0][0], self.expected)
+            self.assertEqual([call.kwargs['bank'] for call in partitions.call_args_list], [3, 9])
+            consumers.assert_called_once_with(b'code', 0x15000000)
+            consumers.side_effect = ValueError('ROM direct-model consumer changed')
+            with self.assertRaisesRegex(ValueError, 'consumer changed'):
+                build.reviewed_models(self.root)
+            consumers.side_effect = None
+            partitions.side_effect = lambda profile, *, bank: ([(6, 'models/bank03/0003')], self.expected['rom_end'])
+            with self.assertRaisesRegex(ValueError, 'bank-09 boundaries'):
+                build.reviewed_models(self.root)
+
+    def test_model_contract_rejects_unsupported_banks_and_malformed_selections(self):
+        rom = self.root / 'rom.bin'
+        rom.write_bytes(self.rom)
+        contract = self.root / build.CONTRACT
+        contract.parent.mkdir(parents=True)
+        base = {'schema_version': 2, 'profile': 'us', 'rom_sha1': self.expected['rom_sha1'],
+                'encoder': self.expected['encoder'], 'banks': {'03': [3], '09': [3]}}
+        with patch.object(build.model_assets, 'resolve_rom', return_value=(rom, {
+                'normalized_sha1': [self.expected['rom_sha1']], 'asset_table': 0})), \
+                patch.object(build.rzip_archive, 'normalize_rom', return_value=(self.rom, 'z64')):
+            for banks in ({'03': [3]}, {'03': [3], '04': [3]}, {'03': [3], '09': []},
+                          {'03': [3], '09': [True]}, {'03': [3], '09': [3, 3]},
+                          {'03': [3], '09': [3, 2]}, {'03': [3], '09': [-1]}):
+                with self.subTest(banks=banks):
+                    contract.write_text(json.dumps(dict(base, banks=banks)))
+                    with self.assertRaisesRegex(ValueError, 'reconstruction contract|reconstruction selection'):
+                        build.reviewed_models(self.root)

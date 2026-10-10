@@ -1,6 +1,11 @@
-# US bank-03 model reconstruction
+# US direct-model reconstruction
 
-The first model storage batch selects 22 direct bank-03 models from the
+The current selection reconstructs **79 direct models**, totaling **28,216
+stored RZIP bytes**: 22 bank-03 models and 57 bank-09 models. The
+[bank-09 expansion](#bank-09-expansion) uses the same complete native record
+schema with the proven model-relative vertex-address convention.
+
+The first model storage batch selected 22 direct bank-03 models from the
 checksum-validated US ROM (SHA-1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`).
 It adds 10,607 stored RZIP bytes to ordinary native Data comparison. It does
 not establish model names, runtime appearance or new C-function matches.
@@ -154,3 +159,80 @@ ROM mismatch rejection before output, precise rebuild dependencies, and layout
 classification validation. The complete repository suite was not rerun locally
 for these review fixes. Logs and the accounting audit are retained privately in
 `build/us/models/validation/review/`; generated artifacts remain ignored.
+
+## Bank-09 expansion
+
+The expansion is based on main `f55e9d1` and adds 57 direct models from indexed
+bank 09, ROM range `0x1204780–0x125CED0`. The selection is explicit in
+`config/model_build.us.json` (contract schema 2, `banks.09`); individual source
+bundles retain schema 1, so the existing bank-03 inputs remain compatible.
+`config/profiles/us/assets/models09.yaml` partitions the bank into 111 spans:
+57 selected compressed records and 54 retained raw spans. The index, gaps and
+all other records remain unmatched.
+
+The selected models reconstruct 31,272 decoded bytes and 17,609 stored bytes.
+All 296 direct bank-09 models were inspected with the existing parser. These
+57 exhaust their complete decoded extent with ten header words, 16-byte vertex
+records and eight-byte display-command pairs. The other 239 direct models have
+additional regions or trailing storage and are excluded. Attachments, effect
+containers, emission-point sets and unclassified records are also excluded.
+No copied compressed stream or opaque tail is an editable reconstruction input.
+
+Fifty-five selected models use unsegmented model-relative vertex addresses;
+entries 426 and 431 use segment 1. The existing
+[bank-09 consumer proof](../assets/models/us_bank09_relative_models.md)
+pins the complete ROM-derived spans of `func_1518C900`, `func_15168E54` and
+`func_15168E34`. The build rechecks those hashes before accepting bank 09.
+Only bank 09 enables relative vertex parsing; command words are serialized
+unchanged, and vertex alignment, cache bounds, model boundaries and the final
+EndDL remain checked. This establishes native storage reconstruction, without
+asserting model names or complete runtime appearance.
+
+Build inputs now live at `build/assets/model-build/us/<bank>/<entry>/`.
+Linker objects, report keys, source proofs and recovery backups include the bank,
+so equal entry IDs cannot collide. Explicit recovery retains bank 3 as the
+default; use the bank selector for the new group:
+
+```sh
+./conker model-assets recover --bank 9 --entry 2
+./conker model-assets build
+./conker build --assets
+./conker objdiff report
+```
+
+The ordinary build continues to collapse both model groups to their original
+bank inputs. Rebuilt mode tracks missing or edited source files in both banks,
+revalidates all candidates before publishing parts, and compares actual linker
+objects against independently wrapped original ROM slices. Data gains only the
+17,609 newly reconstructed stored bytes; its 65,120,512-byte denominator is
+unchanged. Generated inputs, ROMs and reports remain ignored.
+
+### Bank-09 acceptance, 10 October 2026
+
+Validated the completed working tree based on main `f55e9d1`:
+
+- All 79 models exactly reconstruct 52,232 decoded bytes and 28,216 stored bytes.
+- Rebuilt entries plus retained raw intervals reproduce the complete 62,440-byte
+  bank 03 and 362,320-byte bank 09.
+- The fresh `./conker build --assets` passes; all 67,108,864 ROM bytes equal the
+  original, SHA-1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`.
+- Focused Docker suites run 162 tests: 24 model-build, 18 asset-Make, 105 objdiff
+  and 15 profile tests. There are 161 passes, one ROM-opt-in skip and no failures.
+  The complete repository suite was not rerun for this expansion.
+- The fresh native report contains 7,956 units and no compile errors. All 79
+  model units are fully matched and complete, totaling 28,216 stored bytes.
+- Native Data is 8,319,452 / 65,120,512 matched bytes (12.775471%); 8,318,684
+  bytes are complete (12.774292%). The increase is exactly 17,609 bytes;
+  the denominator and Code measures are unchanged.
+- Canonical progress and whitespace checks pass. No C sources, function
+  inventories or source-unit ownership records changed.
+
+Source fingerprint:
+`ac011557cab70f46216ec2e8527b373784c411fb2898bed52d6920095a706c0a`.
+Native report SHA-256:
+`ff9c48f47d34767de84f28f5e2f42d1b3674a69b21bf773e547a59c677872a1a`.
+
+Private logs and byte/accounting audits are under
+`build/us/models/validation/expansion/`; native report/source/link proofs are
+in `build/us/objdiff-report/`. These results apply to the completed working
+tree, not an additional committed revision.

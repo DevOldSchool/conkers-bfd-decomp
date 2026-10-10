@@ -71,7 +71,7 @@ This builds the mapped SDK archives and active C implementations, prepares
 independent splat targets for every range in `config/overlays.json`, and
 invokes the pinned native `objdiff-cli report generate`. It covers tracked
 main/game/debugger US CPU code and initialized data, including raw/unassigned ranges,
-plus all bounded asset storage. The font, 6,865 reviewed textures and 22 reviewed
+plus all bounded asset storage. The font, 6,865 reviewed textures and 79 reviewed
 models have reconstructed candidates; remaining asset storage stays unmatched.
 The command uses four object-preparation workers and validates cached base object hashes before
 reuse. The first run requires the pinned `lib/ultralib` submodule (`git
@@ -174,7 +174,7 @@ archive, its alignment gap, the outer bank index, all 30 bank ranges (including
 inner indices and gaps), and font storage. See the
 [storage accounting evidence](evidence/data-layout/us_asset_storage_accounting.md).
 
-The rebuilt font, 6,865 reviewed textures and 22 reviewed models retain their
+The rebuilt font, 6,865 reviewed textures and 79 reviewed models retain their
 independent comparison and completion gates. All remaining bounded asset bytes
 have independent ROM targets **without candidates or completion credit**. In
 particular, identifying a model bank or repacking original encoded MP3 streams
@@ -257,7 +257,7 @@ palette, metadata or compressed output fail this exact-reconstruction pilot.
 The 8,284,692 reconstructed stored bytes enter Data once; decoded bytes do not
 add storage, and adjacent raw storage remains in the denominator without credit. Native matching and source/link-input verification gate completion.
 
-[The 22 selected bank-03 models](evidence/data-layout/us_model_reconstruction.md)
+[The 79 selected bank-03 and bank-09 models](evidence/data-layout/us_model_reconstruction.md)
 reconstruct native header, vertex and display-command records through fresh RZIP
 compression. Their actual ROM linker inputs and independent stored-byte targets
 use the same native matching and source-stability gates. Raw bank index, gaps

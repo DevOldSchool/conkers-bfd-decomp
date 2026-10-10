@@ -218,14 +218,15 @@ def make_assets(path: Path, *, relative_to: Path | None = None) -> list[str]:
     flat, _ = texture_build.layout_bins(path, configuration=profile)
     for label, rows in (("font", fonts), ("audio", audio), ("mp3", mp3), ("flat", flat)):
         tokens.extend(f"{label}=assets/{name}.bin" for _, name in rows)
-    if any(isinstance(s, dict) and s.get("name") == "asset_bank_03" and s.get("type") == "group"
-           for s in profile["segments"]):
-        try:
-            from scripts import model_build
-        except ModuleNotFoundError:
-            import model_build
-        models, _ = model_build.layout_bins(path, configuration=profile)
-        tokens.extend(f"model=assets/{name}.bin" for _, name in models)
+    for bank in (3, 9):
+        if any(isinstance(s, dict) and s.get("name") == f"asset_bank_{bank:02d}" and s.get("type") == "group"
+               for s in profile["segments"]):
+            try:
+                from scripts import model_build
+            except ModuleNotFoundError:
+                import model_build
+            models, _ = model_build.layout_bins(path, bank=bank, configuration=profile)
+            tokens.extend(f"model=assets/{name}.bin" for _, name in models)
     for segment in ("main", "debugger"):
         tokens.extend("source=" + name for name in
                       profile_sources(profile, segment))

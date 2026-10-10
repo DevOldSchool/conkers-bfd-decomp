@@ -1,4 +1,4 @@
-"""Reconstruct reviewed bank-03 model storage from structured native records."""
+"""Reconstruct reviewed bank-03 and bank-09 model storage from structured native records."""
 from __future__ import annotations
 
 import hashlib
@@ -17,21 +17,26 @@ except ModuleNotFoundError:
     from profile_config import load_profile
 
 ROOT = Path(__file__).resolve().parent.parent
-INPUT_DIRECTORY = Path('build/assets/model-build/us/03')
+INPUT_DIRECTORY = Path('build/assets/model-build/us')
+BANKS = (3, 9)
 CONTRACT = Path('config/model_build.us.json')
 sha256 = texture_build.sha256
 
 
-def part_name(index: int) -> str:
-    return f'models/bank03/{index:04d}'
+def part_name(index: int, bank: int = 3) -> str:
+    return f'models/bank{bank:02d}/{index:04d}'
 
 
-def layout_bins(profile: Path, *, configuration: dict | None = None):
+def input_directory(index: int, bank: int = 3) -> Path:
+    return INPUT_DIRECTORY / f'{bank:02d}' / f'{index:04d}'
+
+
+def layout_bins(profile: Path, *, bank: int = 3, configuration: dict | None = None):
     segments = (load_profile(profile) if configuration is None else configuration)['segments']
     position = next((i for i, s in enumerate(segments)
-                     if isinstance(s, dict) and s.get('name') == 'asset_bank_03'), None)
+                     if isinstance(s, dict) and s.get('name') == f'asset_bank_{bank:02d}'), None)
     if position is None:
-        raise ValueError('missing required asset group: asset_bank_03')
+        raise ValueError(f'missing required asset group: asset_bank_{bank:02d}')
     group, following = segments[position:position + 2]
     end = following['start'] if isinstance(following, dict) else following[0]
     rows = group.get('subsegments', [])
@@ -40,7 +45,7 @@ def layout_bins(profile: Path, *, configuration: dict | None = None):
                                or '..' in Path(r[2]).parts for r in rows)
             or rows[0][0] != group['start'] or len({r[2] for r in rows}) != len(rows)
             or any(a[0] >= b[0] for a, b in zip(rows, rows[1:] + [[end]]))):
-        raise ValueError('invalid bank-03 model YAML partition')
+        raise ValueError(f'invalid bank-{bank:02d} model YAML partition')
     return [(r[0], r[2]) for r in rows], end
 
 
@@ -51,15 +56,17 @@ def partition(bank, entries):
             raise ValueError('overlapping or out-of-range model storage')
         if cursor < entry.start:
             rows.append((cursor, f'models/raw/{cursor:08X}'))
-        rows.append((entry.start, part_name(entry.index)))
+        rows.append((entry.start, part_name(entry.index, bank.index)))
         cursor = entry.end
     if cursor < bank.end:
         rows.append((cursor, f'models/raw/{cursor:08X}'))
     return rows
 
 
-def model_records(payload: bytes) -> dict:
-    geometry = model_assets.parse_model_geometry(payload)
+def model_records(payload: bytes, *, bank: int = 3) -> dict:
+    if bank not in BANKS:
+        raise ValueError('unsupported direct-model bank')
+    geometry = model_assets.parse_model_geometry(payload, model_relative_vertices=bank == 9)
     if (geometry.display_list_offset + geometry.display_list_size != len(payload)
             or any(geometry.header_words[2:8])):
         raise ValueError('model has unsupported auxiliary regions or trailing bytes')
@@ -69,7 +76,7 @@ def model_records(payload: bytes) -> dict:
                 '>II', payload[geometry.display_list_offset:])]}
 
 
-def encode_records(records: dict) -> bytes:
+def encode_records(records: dict, *, bank: int = 3) -> bytes:
     if not isinstance(records, dict) or set(records) != {'header_words', 'vertices', 'display_commands'}:
         raise ValueError('invalid model record schema')
     try:
@@ -78,7 +85,7 @@ def encode_records(records: dict) -> bytes:
                    + b''.join(struct.pack('>II', *row) for row in records['display_commands']))
     except (struct.error, TypeError, OverflowError) as error:
         raise ValueError('invalid native model record') from error
-    if model_records(payload) != records:
+    if model_records(payload, bank=bank) != records:
         raise ValueError('model records disagree with their declared boundaries')
     return payload
 
@@ -90,43 +97,54 @@ def reviewed_models(root: Path = ROOT):
     if digest not in layout['normalized_sha1']:
         raise ValueError('US model ROM checksum mismatch')
     contract = json.loads((root / CONTRACT).read_text())
-    selected = contract.get('entries')
-    if (contract.get('schema_version') != 1 or contract.get('profile') != 'us'
-            or contract.get('rom_sha1') != digest or contract.get('bank') != 3
+    selections = contract.get('banks')
+    if (contract.get('schema_version') != 2 or contract.get('profile') != 'us'
+            or contract.get('rom_sha1') != digest
             or contract.get('encoder') != texture_build.ENCODERS['zlib']
-            or not isinstance(selected, list) or not selected
-            or any(type(i) is not int or i < 0 for i in selected)
-            or selected != sorted(set(selected))):
+            or not isinstance(selections, dict) or set(selections) != {'03', '09'}):
         raise ValueError('invalid committed US model reconstruction contract')
-    bank = next((b for b in rzip_archive.parse_asset_banks(rom, layout['asset_table']) if b.index == 3), None)
-    if bank is None:
-        raise ValueError('reviewed model bank 03 is missing from the ROM asset table')
-    entries = [e for e in rzip_archive.parse_asset_entries(rom, bank) if e.index in selected]
-    rows, end = layout_bins(root / 'config/profiles/us.yaml')
-    if ([e.index for e in entries] != selected or rows != partition(bank, entries) or end != bank.end):
-        raise ValueError('model YAML splits differ from reviewed bank boundaries')
+    for selected in selections.values():
+        if (not isinstance(selected, list) or not selected
+                or any(type(i) is not int or i < 0 for i in selected)
+                or selected != sorted(set(selected))):
+            raise ValueError('invalid committed US model reconstruction selection')
+    banks = rzip_archive.parse_asset_banks(rom, layout['asset_table'])
     result = []
-    for entry in entries:
-        if not entry.compressed:
-            raise ValueError('reviewed model must use RZIP storage')
-        stored = rom[entry.start:entry.end]
-        chunk = rzip_archive.decode_rzip_chunk(stored)
-        if chunk.consumed != len(stored):
-            raise ValueError('model stored extent includes unowned trailing bytes')
-        records = model_records(chunk.data)
-        if encode_records(records) != chunk.data:
-            raise ValueError('model records failed independent decoded comparison')
-        expected = {'schema_version': 1, 'profile': 'us', 'bank': 3, 'entry': entry.index,
-                    'rom_sha1': digest, 'rom_start': entry.start, 'rom_end': entry.end,
-                    'decoded_size': len(chunk.data), 'original_decoded_sha256': sha256(chunk.data),
-                    'original_stored_sha256': sha256(stored), 'encoder': contract['encoder']}
-        result.append((expected, records))
+    for bank_id in BANKS:
+        selected = selections[f'{bank_id:02d}']
+        bank = next((b for b in banks if b.index == bank_id), None)
+        if bank is None or bank.flags:
+            raise ValueError(f'reviewed model bank {bank_id:02d} is missing or not an indexed ROM bank')
+        if bank_id == 9:
+            if layout.get('game_format') != 'rzip':
+                raise ValueError('bank-09 consumer proof requires the RZIP game archive')
+            game = rzip_archive.parse_game_archive(rom[layout['game_start']:layout['game_end']])
+            model_assets.verify_direct_model_consumers(game.code, int(layout['game_vram']))
+        entries = [e for e in rzip_archive.parse_asset_entries(rom, bank) if e.index in selected]
+        rows, end = layout_bins(root / 'config/profiles/us.yaml', bank=bank_id)
+        if ([e.index for e in entries] != selected or rows != partition(bank, entries) or end != bank.end):
+            raise ValueError(f'model YAML splits differ from reviewed bank-{bank_id:02d} boundaries')
+        for entry in entries:
+            if not entry.compressed:
+                raise ValueError('reviewed model must use RZIP storage')
+            stored = rom[entry.start:entry.end]
+            chunk = rzip_archive.decode_rzip_chunk(stored)
+            if chunk.consumed != len(stored):
+                raise ValueError('model stored extent includes unowned trailing bytes')
+            records = model_records(chunk.data, bank=bank_id)
+            if encode_records(records, bank=bank_id) != chunk.data:
+                raise ValueError('model records failed independent decoded comparison')
+            expected = {'schema_version': 1, 'profile': 'us', 'bank': bank_id, 'entry': entry.index,
+                        'rom_sha1': digest, 'rom_start': entry.start, 'rom_end': entry.end,
+                        'decoded_size': len(chunk.data), 'original_decoded_sha256': sha256(chunk.data),
+                        'original_stored_sha256': sha256(stored), 'encoder': contract['encoder']}
+            result.append((expected, records))
     return rom, result
 
 
 def input_error(directory: Path, expected: dict, reason: str) -> ValueError:
     return ValueError(f'{directory}: {reason}. Inputs were preserved; restore your files or run '
-                      f"./conker model-assets recover --entry {expected['entry']} "
+                      f"./conker model-assets recover --bank {expected['bank']} --entry {expected['entry']} "
                       'to back up this folder and restore reviewed ROM inputs.')
 
 
@@ -144,19 +162,19 @@ def input_files(expected: dict, records: dict) -> dict[str, bytes]:
             for name, value in [('manifest.json', expected), ('model.json', records)]}
 
 
-def recover_inputs(entry: int, root: Path = ROOT) -> dict:
+def recover_inputs(entry: int, root: Path = ROOT, *, bank: int = 3) -> dict:
     """Explicitly restore one reviewed bundle, retaining the complete old folder."""
     _, selected = reviewed_models(root)
-    chosen = next((pair for pair in selected if pair[0]['entry'] == entry), None)
+    chosen = next((pair for pair in selected if pair[0]['bank'] == bank and pair[0]['entry'] == entry), None)
     if chosen is None:
-        raise ValueError(f'model entry {entry} is not in the reviewed bank-03 selection')
+        raise ValueError(f'model entry {entry} is not in the reviewed bank-{bank:02d} selection')
     expected, records = chosen
-    directory = root / INPUT_DIRECTORY / f'{entry:04d}'
+    directory = root / input_directory(entry, bank)
     if directory.is_symlink() or (directory.exists() and not directory.is_dir()):
         raise ValueError(f'refusing recovery of a non-directory or symlink: {directory}')
     backup = None
     if directory.exists():
-        backups = root / 'build/assets/model-build/recovery/us/03'
+        backups = root / 'build/assets/model-build/recovery/us' / f'{bank:02d}'
         backups.mkdir(parents=True, exist_ok=True)
         backup = Path(tempfile.mkdtemp(prefix=f'{entry:04d}-', dir=backups)) / 'inputs'
         directory.rename(backup)
@@ -166,14 +184,14 @@ def recover_inputs(entry: int, root: Path = ROOT) -> dict:
         if backup is not None and not directory.exists():
             backup.rename(directory)
         raise
-    return {'entry': entry, 'input_directory': str(directory),
+    return {'bank': bank, 'entry': entry, 'input_directory': str(directory),
             'backup_directory': str(backup) if backup is not None else None}
 
 
 def packed_model(directory: Path, expected: dict):
     before = input_hashes(directory, expected)
     try:
-        payload = encode_records(json.loads((directory / 'model.json').read_text()))
+        payload = encode_records(json.loads((directory / 'model.json').read_text()), bank=expected['bank'])
     except (OSError, ValueError) as error:
         raise input_error(directory, expected, str(error)) from error
     if len(payload) != expected['decoded_size'] or sha256(payload) != expected['original_decoded_sha256']:
@@ -193,7 +211,7 @@ def build_parts(root: Path = ROOT):
     rom, selected = reviewed_models(root)
     candidates = []
     for expected, records in selected:
-        directory = root / INPUT_DIRECTORY / f"{expected['entry']:04d}"
+        directory = root / input_directory(expected['entry'], expected['bank'])
         if not directory.exists():
             texture_build.publish_inputs(directory, input_files(expected, records))
         packed, hashes = packed_model(directory, expected)
@@ -205,7 +223,7 @@ def build_parts(root: Path = ROOT):
             raise ValueError('model inputs changed during batch packing')
     proofs = []
     for expected, directory, packed, hashes in candidates:
-        write_if_changed(root / 'build/us/models/parts' / (part_name(expected['entry']) + '.bin'), packed)
+        write_if_changed(root / 'build/us/models/parts' / (part_name(expected['entry'], expected['bank']) + '.bin'), packed)
         proofs.append({**expected, 'source_inputs': hashes, 'stored_sha256': sha256(packed),
                        'matches_original': packed == rom[expected['rom_start']:expected['rom_end']]})
     result = {'model_count': len(proofs), 'stored_bytes': sum(len(p) for _, _, p, _ in candidates),
@@ -222,11 +240,12 @@ def main(argv=None):
     commands = parser.add_subparsers(dest='command', required=True)
     commands.add_parser('build-parts')
     recover = commands.add_parser('recover', help='back up and restore one reviewed input bundle')
-    recover.add_argument('--entry', required=True, type=int, help='decimal bank-03 entry ID')
+    recover.add_argument('--bank', type=int, choices=BANKS, default=3, help='model bank (default: 3)')
+    recover.add_argument('--entry', required=True, type=int, help='decimal model entry ID')
     args = parser.parse_args(argv)
     try:
         if args.command == 'recover':
-            print(json.dumps(recover_inputs(args.entry), indent=2))
+            print(json.dumps(recover_inputs(args.entry, bank=args.bank), indent=2))
         else:
             proof = build_parts()
             print(f"Verified {proof['model_count']} models: {proof['stored_bytes']} RZIP bytes; "

@@ -432,11 +432,13 @@ segments:
     align: 1
     subalign: 1
   - name: asset_bank_09
-    type: bin
+    type: group
     start: 0x1204780
     follows_vram: asset_bank_08
     align: 1
     subalign: 1
+    subsegments:
+      include: us/assets/models09.yaml
   - name: asset_bank_0a
     type: bin
     start: 0x125CED0

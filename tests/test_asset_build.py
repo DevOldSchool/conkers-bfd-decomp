@@ -140,29 +140,35 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
                 self.assertGreater(objects[0].stat().st_mtime_ns, before[0])
                 self.assertEqual(objects[1].stat().st_mtime_ns, before[1])
 
-    def test_model_parts_recover_and_preserve_unchanged_linker_objects(self):
+    def test_bank03_model_parts_recover_and_preserve_unchanged_linker_objects(self):
+        self.check_model_parts('03')
+
+    def test_bank09_model_parts_recover_and_preserve_unchanged_linker_objects(self):
+        self.check_model_parts('09')
+
+    def check_model_parts(self, bank):
         shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
         profile = self.root / 'config/profiles/us.yaml'
         profile.write_text(profile.read_text() +
-            '  - name: asset_bank_03\n    type: group\n')
+            f'  - name: asset_bank_{bank}\n    type: group\n')
         (self.root / 'config/model_build.us.json').write_text('{}')
         (self.root / 'scripts/model_build.py').write_text("""from pathlib import Path
 from build_files import write_if_changed
-def layout_bins(profile, *, configuration=None):
+def layout_bins(profile, *, bank=3, configuration=None):
     return [(0, 'models/bank03/0003')], 1
 if __name__ == '__main__':
     with Path('model_build.calls').open('a') as log:
         log.write('packed\\n')
     source = Path('build/assets/model-build/us/03/0003/model.json')
     write_if_changed(Path('build/us/models/parts/models/bank03/0003.bin'), source.read_bytes())
-""")
-        inputs = self.root / 'build/assets/model-build/us/03/0003'
+""".replace("bank03", "bank" + bank).replace("us/03", "us/" + bank))
+        inputs = self.root / f'build/assets/model-build/us/{bank}/0003'
         inputs.mkdir(parents=True)
         (inputs / 'manifest.json').write_text('{}')
         source = inputs / 'model.json'
         source.write_bytes(b'model')
-        target = self.root / 'build/us/assets/models/bank03/0003.o'
-        part = self.root / 'build/us/models/parts/models/bank03/0003.bin'
+        target = self.root / f'build/us/assets/models/bank{bank}/0003.o'
+        part = self.root / f'build/us/models/parts/models/bank{bank}/0003.bin'
         def run():
             return subprocess.run([MAKE, 'ASSETS=1', f'LD={sys.executable} {self.ld}',
                                    str(target.relative_to(self.root))],
