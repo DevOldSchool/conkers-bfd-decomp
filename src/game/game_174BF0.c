@@ -145,7 +145,6 @@ void func_15147A30(Game174BF0State *arg0) {
     D_8008A340[temp_v0]();
 }
 void *func_10022EC0(void *, const void *, u32);
-void *func_1515D440(void);
 void func_100226F0(void *, s32);
 void *func_1515D480(s32);
 

@@ -91,7 +91,6 @@ extern f32 D_800A0450;
 extern f32 D_800A0454;
 extern f32 D_800A0458;
 s32 func_15045800(f32 *, u16, f32, void *);
-void *func_1513418C(s32, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
 
 typedef struct GameF3BA0SpawnPacket {

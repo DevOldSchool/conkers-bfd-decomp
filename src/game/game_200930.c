@@ -711,7 +711,6 @@ void func_151D469C(u8 *arg0, u8 arg1, s16 arg2, u8 arg3, s32 arg4) {
         func_10022EC0(result + 0x28, &packet, 0x20U);
     }
 }
-f32 func_15143E64(void *);
 void *func_15130280(void *, u8, void *, s32, u8, s32);
 extern f32 D_800AB1FC;
 extern f32 D_800AB200;

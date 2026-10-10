@@ -1775,7 +1775,6 @@ extern s32 D_800BE9F0;
 extern u8 D_800DCD20[3];
 extern s8 D_800DCDD0;
 void func_1511172C(s32);
-void func_1515F170(s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151645C4 CURRENT (100) */
 void func_151645C4(u8 arg0) {

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_EBD00.c
@@ -34,8 +35,6 @@ void func_15123070(void *);
 void func_151254F4(void *, s32);
 s32 func_1509BE40(s32, s32, s32);
 void func_1509BFB0(s32, s32, s32);
-s32 func_15123934(void *, s32, s32, s32, s32);
-s32 func_151239CC(void *, s32);
 void func_1512868C(void *);
 extern f32 D_800A00B0;
 extern f32 D_800A00B4;

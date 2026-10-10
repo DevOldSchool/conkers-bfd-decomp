@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_33260.c
@@ -18,8 +19,6 @@ typedef struct Game33260Object {
     u8 pad378[0x3C4];
     s16 field_73C;
 } Game33260Object;
-
-void func_15123934(Game33260Object *, s32, s32, s32, s32);
 
 void func_15005DB0(Game33260Object *arg0) {
     func_15123934(arg0, 8, 0, arg0->field_134, 3);

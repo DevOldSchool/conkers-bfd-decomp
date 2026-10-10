@@ -76,7 +76,6 @@ typedef struct GameF4A38Actor {
 } GameF4A38Actor;
 
 s32 func_15144B34(s32);
-f32 func_15143E64(void *);
 void func_1000F9D4(s32, s32, s32, s32);
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 func_150ADA20(void);

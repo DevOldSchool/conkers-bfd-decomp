@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_C3E20.c
@@ -191,7 +192,6 @@ typedef struct GameC3E20View {
 
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
-void func_15048F90(void *, void *, void *);
 f32 func_150AD900(f32 *, f32 *);
 u8 *func_1505EEF4(s32);
 f32 sqrtf(f32);
@@ -248,7 +248,6 @@ s32 func_1509759C(s32 arg0, s32 arg1, s32 *arg2) {
 
 
 
-void func_15048F90(void *, void *, void *);
 void func_1504917C(void *, void *);
 extern u8 *D_800DBFF0;
 extern s32 D_800D2E30[];

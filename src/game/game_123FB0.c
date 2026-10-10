@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_123FB0.c
@@ -34,12 +35,10 @@ typedef struct {
     f32 turnState;
 } Game123FB0Actor;
 
-void func_15048F90(void *, void *, void *);
 void func_1504917C(void *, void *);
 void func_15049688(void *, f32, void *, f32, f32, f32);
 f32 func_150AD900(f32 *, f32 *);
 f32 func_150AD930(void *);
-f32 func_15048FC8(f32 *);
 s32 func_1509BE40(s32, ...);
 void func_1509BFB0(s32, ...);
 extern f32 D_800A1B80[3], D_800A1B8C[3], D_800D9A50[3];

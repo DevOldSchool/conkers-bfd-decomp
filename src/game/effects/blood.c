@@ -189,7 +189,7 @@ s32 func_1513416C(void *arg0) {
 void *func_10022EC0(void *, const void *, u32);
 void func_15143134(f32 *, f32 *, s32);
 
-void *func_1513418C(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
+void *func_1513418C(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
     void *temp_v0;
     void *sp24;
     u8 *temp_v1;
@@ -204,7 +204,7 @@ void *func_1513418C(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
         return (void *)0;
     }
     sp24 = temp_v0;
-    func_10022EC0((u8 *)sp24 + 0x10, (void *)arg0, 0x30);
+    func_10022EC0((u8 *)sp24 + 0x10, arg0, 0x30);
     temp_a0 = *(u8 *)((u8 *)sp24 + 0x3A);
     if (temp_a0 & 2) {
         temp_v0_2 = *(void **)((u8 *)sp24 + 0x1C);

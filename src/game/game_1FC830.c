@@ -267,7 +267,6 @@ s32 func_151D10E4(s32 arg0, s32 arg1, u8 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D10E4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D10E4.s")
 s32 func_1510F8CC(s32);
-f32 func_15143E64(void *);
 void func_151D13E0();
 void func_151D1448(u8 *);
 

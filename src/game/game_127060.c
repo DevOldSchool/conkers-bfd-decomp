@@ -270,7 +270,6 @@ void func_150FACE4(void *arg0, s32 arg1, u8 arg2) {
         func_1516972C(arg0);
     }
 }
-void func_1515F170(s32, s32);
 extern u8 *D_800D3098;
 
 void func_150FAD28(void) {

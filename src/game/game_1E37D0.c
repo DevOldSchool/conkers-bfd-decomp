@@ -159,7 +159,6 @@ s32 func_151B6420(Game1B6420Actor *actor) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B6420 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B6420.s")
-f32 func_15143E64(void *);           /* extern */
 extern f32 D_800AA474;
 extern f32 D_800AA478;
 extern f32 D_800BE9A4;

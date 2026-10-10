@@ -117,7 +117,6 @@ typedef struct {
 } Game1CDEC0Particle;
 
 u32 func_150ADA20(void);
-void func_15167D84(void *, s32, s32, s32, u8, s32);
 extern u8 D_8008F8D0[];
 extern u8 D_8009187C[];
 extern u8 D_800918A0[];

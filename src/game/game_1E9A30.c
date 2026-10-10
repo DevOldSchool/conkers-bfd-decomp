@@ -125,7 +125,6 @@ s32 func_151BC64C(u8 *actor) {
     }
     return 1;
 }
-f32 func_15143E64(void *);
 extern f32 D_800AA848;
 extern f32 D_800AA84C;
 extern f32 D_800BE9A4;

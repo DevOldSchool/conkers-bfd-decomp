@@ -14,7 +14,6 @@
  */
 
 void *func_10022EC0(void *, const void *, u32);
-f32 func_15143E64(f32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150C5370 CURRENT (280) */
 void *func_150C5370(void *arg0, s32 arg1) {

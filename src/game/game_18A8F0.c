@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_18A8F0.c
@@ -645,8 +646,8 @@ void func_1515F170(s32 arg0, u8 arg1) {
         } while (var_v0 != 0);
     }
 }
-extern Game18A8F0ValueNode *func_10003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern f32 func_15144598(s32 arg0);
+extern Game18A8F0ValueNode *func_10003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern f32 func_1514462C(s32 arg0);
 
 Game18A8F0ValueNode *func_1515F1B0(s32 arg0) {

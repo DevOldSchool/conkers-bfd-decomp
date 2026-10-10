@@ -30,7 +30,6 @@ typedef struct Game1E6B40Packet {
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
 u32 func_150ADA20(void);
-void func_15167D84(void *, s32, s32, s32, u8, s32);
 extern void *D_8008CA4C[];
 extern f32 D_800AA580;
 

@@ -40,5 +40,17 @@ void func_151617C4(void *);
 void func_151617E4(void *);
 void func_1513173C(void *);
 void func_1513175C(void *);
+s32 func_15123934(void *, s32, s32, s32, s32);
+s32 func_151239CC(void *, s32);
+f32 func_15143E64(void *);
+void *func_1513418C(void *, s32, u8, s32);
+void func_15142314(void *, s32, f32 *);
+void func_15048F90(void *, void *, void *);
+f32 func_15048FC8(f32 *);
+void *func_1515D440(void);
+void func_1515F170(s32, u8);
+void func_151D3F14(void *, u8, s32);
+void *func_15167D84(void *, s32, s32, s8, u8, s32);
+void func_151616D0(u8, u8, s32);
 
 #endif

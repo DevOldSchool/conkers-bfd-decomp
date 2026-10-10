@@ -1015,7 +1015,6 @@ typedef struct CharacterFlamethrowerEmission {
 
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
-void func_15167D84(void *, s32, s32, s32, u8, s32);
 extern u8 D_80090514[];
 extern CharacterFlamethrowerEmissionPreset D_800A8770[];
 

@@ -357,7 +357,6 @@ typedef struct Game1D4E00Beam {
 
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *, f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
 void func_15143134(f32 *, f32 *, s32);
-f32 func_15143E64(void *);
 s32 func_15145C90(s32);
 s32 func_15146078(void *, void *, void *);
 

@@ -89,7 +89,7 @@ typedef struct Game194408Packet {
 
 void func_1504715C(void *, s32);
 void func_15153F18(s16 *, void *, s32, s32, s32);
-u32 func_151AE7B0(void *, f32, s16, u8, s32);
+void *func_151AE7B0(void *, f32, s16, u8, s32);
 extern f32 D_800A8294;
 extern f32 D_800A8298;
 extern f32 D_800A829C;
@@ -161,7 +161,7 @@ typedef struct Game1C1150Vec3 {
     f32 z;
 } Game1C1150Vec3;
 
-u32 func_151B4CD0(void *, u8, s32);
+void *func_151B4CD0(void *, u8, s32);
 extern u8 D_800A3FE6[];
 s32 func_15134070(void *);
 
@@ -226,7 +226,7 @@ void func_151945CC(void *arg0, u8 *arg1, s32 volatile arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_151945CC.s")
 void func_151B01B8(u8 *, s32); /* extern */
 void func_151B09BC(u8 *, s32, s32, s32, s32); /* extern */
-s32 func_151AF270(void *, u8, s32); /* extern */
+void *func_151AF270(void *, u8, s32);
 
 void func_15194794(u8 *arg0, Game1C1150Event *arg1, s8 *arg2) {
     func_151B01B8(arg0, (s32)arg1);

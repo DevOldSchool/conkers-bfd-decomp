@@ -64,7 +64,6 @@ typedef struct Game204660Position {
 } Game204660Position;
 
 extern s32 (*D_8008FCA0[])(void *);
-f32 func_15143E64(void *);
 void func_151D7830(void *);
 void func_151D77C8();
 

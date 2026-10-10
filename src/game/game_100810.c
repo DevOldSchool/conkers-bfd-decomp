@@ -22,7 +22,6 @@ void func_15147928(s32 arg0);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D3360.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D3A68.s")
-f32 func_15143E64(void *);                             /* extern */
 s32 func_1515C0F8(void *, u8 **);              /* extern */
 extern f32 D_800A0A10;
 extern u8 D_800C35EA;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_135490.c
@@ -8,8 +9,6 @@
 s32 func_150859AC(s32, s32);
 s32 func_1509BE40(s32, s32, s32, s32);
 void func_15123070(void *);
-s32 func_15123934(void *, s32, s32, s32, s32);
-s32 func_151239CC(void *, s32);
 
 void func_15107FE0(void *arg0) {
     u8 *state;

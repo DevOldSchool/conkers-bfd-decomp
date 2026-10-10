@@ -36,7 +36,6 @@ typedef struct Game209B50Packet {
 void func_15103254(s32, s32, f32, void *, s32, s32, s32);
 void func_15150178(s16 *, f32 *, s32, u8, s32);
 void func_15182670(s32, s32, s32, s32, s32, s32, s32, s32);
-void func_151D3F14(void *, u8, s32);
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800AB518, D_800AB51C, D_800AB520, D_800AB524;

@@ -36,7 +36,6 @@ void func_150C522C(void);
 void func_150E35DC(s32);
 void func_150EB8C4(void);
 void func_150F9720(u8);
-void func_151616D0(s32, s32, s32);
 extern s8 D_800D9920;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509D780 CURRENT (600) */
@@ -110,7 +109,6 @@ typedef struct GameCA630ColorRequest {
 
 void func_15197A7C(void *);
 void func_151403A8(s32, u8);
-void func_1515F170(s32, u8);
 void func_151645C4(s32);
 void func_1516944C(s32, s8 *, u8);
 void func_150DEC28(u8, s32);

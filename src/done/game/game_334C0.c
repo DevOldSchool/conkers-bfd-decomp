@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_334C0.c
@@ -31,8 +32,6 @@ typedef struct Game334C0Child {
     u8 unk102;
 } Game334C0Child;
 
-s32 func_15123934(Game334C0State *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-void func_151239CC(Game334C0State *arg0, s32 arg1);
 void func_15124B18(void *);
 
 void func_15006010(Game334C0State *arg0) {

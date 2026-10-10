@@ -462,7 +462,7 @@ s32 func_151422F8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 }
 extern u8 D_800C3E90;
 
-void func_15142314(s32 arg0, s32 arg1, f32 *arg2) {
+void func_15142314(void *arg0, s32 arg1, f32 *arg2) {
     u8 *p;
 
     p = ((u8 *)arg0) + (arg1 << 6);
@@ -927,7 +927,6 @@ s32 func_1514306C(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514306C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_1514306C.s")
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
-void func_15142314(s32, s32, f32 *);
 void func_151EFEB8(void *, s32);
 extern s32 D_800DCA00;
 extern s32 D_800DCA04;

@@ -84,7 +84,6 @@ typedef struct EffectDescriptor193E50 {
 } EffectDescriptor193E50;
 
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
-void func_15167D84(void *, s32, s32, s32, u8, s32);
 void func_151EFEB8(void *, s32);
 extern u8 *D_8008CA4C[];
 

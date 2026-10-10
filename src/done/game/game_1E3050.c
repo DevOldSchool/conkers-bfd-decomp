@@ -10,7 +10,7 @@ typedef struct {
     u8 field_4;
 } Game1E3050Data;
 
-u32 func_151B4FE0(void *, u8, s32);
+void *func_151B4FE0(void *, u8, s32);
 
 void func_151B5BA0(Game1E3050Data *arg0, Game1E3050Data *arg1) {
     if ((arg0->field_4 == 0x53) && (arg1->field_4 == 0x16)) {

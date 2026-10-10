@@ -103,7 +103,6 @@ typedef struct Game126BD0Workspace {
 } Game126BD0Workspace;
 
 s32 func_150FF288(void *);
-void func_151D3F14(void *, u8, s32);
 void func_150FF474(void *, void *, u8, s32);
 s32 func_150FF6E0(void *, void *, void *, void *, void *, void *, s32);
 void func_151D4408(void *, void *, s32, void *, f32, s32, s32);

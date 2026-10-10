@@ -224,7 +224,6 @@ f32 func_15165BB0(void *, void *, f32, f32, f32);
 void func_15165B80(u8 *arg0) {
     func_15165BB0(arg0, arg0 + 0x108, *(f32 *)((u8 *)arg0 + 0x114), *(f32 *)((u8 *)arg0 + 0x118), *(f32 *)((u8 *)arg0 + 0x11C));
 }
-f32 func_15143E64(void *);                   /* extern */
 s32 func_15144B34(s32);                    /* extern */
 
 f32 func_15165BB0(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4) {

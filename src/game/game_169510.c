@@ -133,7 +133,6 @@ typedef struct Game169510Vec3 {
 void *func_10022EC0(void *, const void *, u32);
 void func_1513FFF4(void *, u8, u8);
 void func_151400D0(void *, void *);
-void *func_1515D440(void);
 s32 func_1515D480(s32);
 extern u8 D_800A4AA0;
 extern s32 D_80082FA0;

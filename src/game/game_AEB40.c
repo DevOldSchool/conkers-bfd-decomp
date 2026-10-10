@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_AEB40.c
@@ -57,7 +58,6 @@ typedef struct GameAEB40State {
 } GameAEB40State;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15081690.s")
-f32 func_15143E64(void *);
 s32 func_151452C4(void *, void *, s32, f32, s32, s32, f32 *, f32 *);
 s32 func_15145128(void *, void *, f32 *, f32 *);
 
@@ -178,7 +178,6 @@ void func_150829D8(GameAEB40State *arg0) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15082A44.s")
-s32 func_1515D440();                                /* extern */
 void *func_1515D480(s32);                              /* extern */
 extern s32 D_80082FA0;
 

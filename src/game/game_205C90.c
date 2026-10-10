@@ -179,7 +179,6 @@ void func_151D8C00(void *, u8 *);
 void func_151D8BE0(s32 arg0) {
     func_151D8C00((void *)arg0, (u8 *)(arg0 + 0x18));
 }
-f32 func_15143E64(void *);
 s32 func_15144B34(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D8C00 CURRENT (25) */

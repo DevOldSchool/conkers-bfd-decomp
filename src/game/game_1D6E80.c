@@ -339,7 +339,6 @@ void func_151AA210(Game1D6E80State *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151AA210 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA210.s")
-u32 func_1513418C(void *, s32, u8, s32);
 extern f32 D_800A8F94;
 
 void func_151AA264(void *arg0, void *arg1) {
@@ -641,7 +640,6 @@ typedef struct Game1D6E80ImpactHit {
     u8 geometry[0x20];
 } Game1D6E80ImpactHit;
 
-void func_15142314(s32, s32, void *);
 void func_15153F18(s16 *, void *, s32, s32, s32);
 u8 func_151D8E20(void);
 s32 func_1504697C(void *, u16, f32, void *);

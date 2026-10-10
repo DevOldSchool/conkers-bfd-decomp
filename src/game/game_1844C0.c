@@ -24,7 +24,6 @@ void func_150A7BC0();
 void *func_10022EC0(void *, const void *, u32);
 /* Raw callee forwards full-width a0 and stores full-width a1. */
 s32 func_1503F62C(s32, s32, void *, void *, void **, void *, void *);
-void *func_1515D440(void);
 void *func_1515D480(s32);
 void func_1503F5B8(void *, s32, s32, f32, f32, s32);
 extern s32 D_80082FA0;

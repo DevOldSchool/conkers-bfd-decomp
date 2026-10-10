@@ -374,7 +374,6 @@ s32 func_151A37C0(Game1D0840TimedObject *object) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A37C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A37C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A3BE4.s")
-u32 func_1513418C(void *, s32, u8, s32);
 extern f32 D_800A8D5C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4590 CURRENT (716) */
