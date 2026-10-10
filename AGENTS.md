@@ -68,6 +68,12 @@ only exact results through transactional `finish`.
   aim for 5–10 matches, flush at about 45 minutes or before stopping/handoff/commit/PR
   or required integration. Avoid empty batches and singleton batches merely because
   one function matched. Persist pending IDs until clean success; report blocked batches.
+- For changes affecting asset reconstruction, run `./conker build --assets` once
+  per completed batch before handoff/commit/PR, following the
+  [asset acceptance rules](CONTRIBUTING.md#asset-and-build-changes). Default builds,
+  `finish`, `verify-batch` and public PR CI do not verify reconstructed assets.
+  Record the tested commit and result; if no ROM is available, report verification
+  pending and require a maintainer to complete it before merge.
 - Use `diff --watch` only with interactive stdin/stdout; exit before `finish`. Keep the
   container warm across functions; stop it only for requested cleanup or finished work
   with no likely follow-up.

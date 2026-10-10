@@ -3,7 +3,8 @@
 
 References come from independently assembled splat full-disassembly units.
 Their linked code bytes must reproduce the original US CPU-code ranges. Missing implementations stay
-in the denominator. The rebuilt font is included; other stored assets, BSS and RSP are excluded.
+in the denominator. All bounded font, flat and indexed asset storage is included;
+unreconstructed storage has no candidate. BSS, RSP and unassigned ROM regions are excluded.
 """
 from __future__ import annotations
 
@@ -17,14 +18,17 @@ import sys
 import time
 import zipfile
 
+from build_jobs import job_count
 from profile_config import load_profile
 
 import compile_c
 import data_boundaries
 import diff
+import font_assets
 import main_private_data
 import objdiff
 import objdiff_data_targets
+import objdiff_storage
 import objdiff_snapshot
 import objdiff_ownership
 import objdiff_targets
@@ -179,6 +183,20 @@ def prepare_font() -> tuple[dict, dict]:
     return unit, item
 
 
+def prepare_textures() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_textures(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_models() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_models(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_storage(rebuilt: list[dict], configs: list[dict]) -> tuple[list[dict], list[dict], dict]:
+    return objdiff_storage.prepare(main_private_data.validated_rom(ROOT),
+                                   font_assets.load_layout('us'),
+                                   rebuilt, configs, output=OUTPUT)
+
+
 def prepare() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     for name in ('objdiff.json', 'coverage.json'):
@@ -278,7 +296,7 @@ def prepare() -> None:
             return unit
 
     built = []
-    with ThreadPoolExecutor(max_workers=4) as pool:
+    with ThreadPoolExecutor(max_workers=job_count()) as pool:
         futures = {pool.submit(build_unit, spec): spec for spec in specs}
         for future in as_completed(futures):
             spec = futures[future]
@@ -306,14 +324,21 @@ def prepare() -> None:
         units.append(unit)
     data_built, data_config, data_coverage = prepare_data()
     font, font_config = prepare_font()
-    data_built.append(font)
-    data_config.append(font_config)
+    textures, texture_configs = prepare_textures()
+    models, model_configs = prepare_models()
+    rebuilt = [font, *textures, *models]
+    rebuilt_configs = [font_config, *texture_configs, *model_configs]
+    storage, storage_configs, storage_proof = prepare_storage(rebuilt, rebuilt_configs)
+    data_built.extend([*rebuilt, *storage])
+    data_config.extend([*rebuilt_configs, *storage_configs])
+    stored_bytes = storage_proof['stored_asset_bytes']
+    data_coverage['storage_verification'] = storage_proof
     data_coverage['loaded_data_bytes'] = data_coverage.get('expected_data_bytes', 0)
-    data_coverage['expected_data_bytes'] = data_coverage.get('expected_data_bytes', 0) + font['size']
-    data_coverage['mapped_data_bytes'] = data_coverage.get('mapped_data_bytes', 0) + font['size']
-    data_coverage['stored_asset_bytes'] = font['size']
+    data_coverage['expected_data_bytes'] = data_coverage.get('expected_data_bytes', 0) + stored_bytes
+    data_coverage['mapped_data_bytes'] = data_coverage.get('mapped_data_bytes', 0) + stored_bytes
+    data_coverage['stored_asset_bytes'] = stored_bytes
     grouped, grouped_config = objdiff_ownership.group_units(built + data_built, units + data_config, ROOT, OUTPUT)
-    coverage = {'scope': 'US main/game/debugger CPU code, initialized data and rebuilt font; other assets, BSS and RSP excluded',
+    coverage = {'scope': 'US main/game/debugger CPU code, initialized data and all bounded font/flat/indexed asset storage; unassigned ROM regions, CPU archive backing, BSS and RSP excluded',
                 'mapped_code_bytes': sum(u['code_bytes'] for u in built),
                 'expected_code_bytes': sum(u['report_code_bytes'] for u in built),
                 'excluded_zero_bytes': sum(u['excluded_zero_bytes'] for u in built),
@@ -326,7 +351,7 @@ def prepare() -> None:
     objdiff.write_json(OUTPUT / 'objdiff.json', {'build_target': False, 'build_base': False,
         'units': grouped_config, 'progress_categories': [{'id': k, 'name': n} for k,n in
             [('main','Main executable'),('game','Game overlay'),('debugger','Debugger overlay'),
-             ('project','Project code'),('sdk','SDK libraries'),('data','Data')]]})
+             ('project','Project code'),('sdk','SDK libraries'),('data','Data'), *objdiff_storage.CATEGORIES]]})
 
 
 def validate_report(report: dict, coverage: dict, config: dict, *,
@@ -351,7 +376,7 @@ def validate_report(report: dict, coverage: dict, config: dict, *,
     if (int(report['measures'].get('total_data', 0)) != data_total
             or sum(size[1] for size in planned.values()) != data_total
             or coverage.get('mapped_data_bytes', 0) + coverage.get('unassigned_data_bytes', 0) != data_total):
-        raise ValueError('native data total differs from audited initialized images')
+        raise ValueError('native data total differs from audited data and storage ranges')
     by_name = {u['name']: u['measures'] for u in report['units']}
     for item, spec in zip(config['units'], coverage['units']):
         measures = by_name[item['name']]
@@ -359,6 +384,9 @@ def validate_report(report: dict, coverage: dict, config: dict, *,
         matched = int(measures.get('matched_data', 0))
         if not 0 <= matched <= total or (not item.get('base_path') and matched):
             raise ValueError('data without a matching candidate earned native credit')
+        if spec.get('kind') == 'unreconstructed_asset' and (item.get('base_path') or
+                spec.get('base_path') or spec.get('complete') or item.get('metadata', {}).get('complete')):
+            raise ValueError('unreconstructed storage cannot have a candidate or completion')
         complete = bool(item.get('metadata', {}).get('complete'))
         expected_complete = total if spec.get('complete') else 0
         if total and complete:
@@ -469,7 +497,8 @@ def generate(binary: Path) -> int:
                   'data_target_verification': coverage.get('data_target_verification', {}),
                   'loaded_data_bytes': coverage.get('loaded_data_bytes', 0),
                   'stored_asset_bytes': coverage.get('stored_asset_bytes', 0),
-                  'data_coverage': 'Initialized CPU data plus rebuilt font; font completion requires exact current ROM build input',
+                  'storage_verification': coverage.get('storage_verification', {}),
+                  'data_coverage': 'Initialized CPU data plus bounded asset storage; unreconstructed spans have no candidate or credit',
                   'asset_verification': {u['key']: {k: u[k] for k in (
                       'literal_payload_matches_rom', 'source_inputs', 'linked_inputs', 'target_verification')}
                       for u in coverage['units'] if u.get('kind') == 'rebuilt_asset'},

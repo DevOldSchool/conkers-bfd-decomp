@@ -50,8 +50,14 @@ clean-room baseline is a byte-identical raw-assembly rebuild, established before
 C functions are promoted. Verify the selected checkout's active full-ROM build:
 
 ```sh
-./conker build --all
+./conker build
 ```
+
+This default uses original ROM asset banks so C contributors avoid asset
+reconstruction. Use `./conker build --assets` for asset work and
+`./conker build --all --assets` for the ROM-backed CI gate. Both require full
+ROM equality; only the latter exercises reconstructed asset inputs. Timings
+are printed and saved under `build/timings/`.
 
 Only US is currently active. The [build and batch reference](decompilation-workflow.md#builds-and-batch-verification)
 explains the separate canonical game-overlay build and checks required after

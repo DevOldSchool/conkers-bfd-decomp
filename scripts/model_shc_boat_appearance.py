@@ -7,7 +7,11 @@ import hashlib
 import json
 from pathlib import Path
 
-from scripts import model_assets as models, model_validation
+try:
+    from scripts import model_assets as models, model_validation
+except ModuleNotFoundError:
+    import model_assets as models
+    import model_validation
 
 ROOT = Path(__file__).resolve().parents[1]
 PRESET = "shc-boat-captured-parent42"

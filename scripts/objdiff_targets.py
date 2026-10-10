@@ -11,6 +11,7 @@ import re
 import struct
 import subprocess
 
+from build_jobs import job_count
 import extract_game_code
 import normalize_asm
 import rom_span
@@ -200,7 +201,7 @@ def prepare(specs: list[dict], output: Path) -> tuple[dict, dict]:
                                   'source': source.relative_to(output).as_posix(),
                                   'sha256': sha256(obj), 'text_bytes': extent}
 
-        with ThreadPoolExecutor(max_workers=4) as pool:
+        with ThreadPoolExecutor(max_workers=job_count()) as pool:
             prepared = dict(pool.map(assemble, units))
         objects = [(output / prepared[s['key']]['path']).relative_to(ROOT) for s in units]
         externals = '\n'.join((dest / name).read_text() for name in ('undefined_funcs.txt', 'undefined_syms.txt'))
