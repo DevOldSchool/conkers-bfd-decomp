@@ -405,6 +405,94 @@ s32 func_1501D2C4(s32 arg0, s32 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1501D2C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501D2C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501D348.s")
+typedef struct Game49D30ColorEvent {
+    u8 pad0[5];
+    s8 color;
+    s16 mode;
+} Game49D30ColorEvent;
+
+s32 func_15023BB0(u32, s32, s32, void **, s32, s32, s32, s32, s32, s32, s32);
+extern u8 D_80084110[];
+extern u8 D_800C3C99;
+extern u8 D_800C35A9;
+extern u8 D_800C3C9C;
+extern u8 D_800C35AA;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501DAAC CURRENT (2508) */
+void func_1501DAAC(s32 arg0) {
+    void *sp74;
+    u8 *sp68;
+    s32 *var_s6;
+    s32 temp_v0;
+    s32 temp_v0_2;
+    s32 temp_v0_3;
+    s32 var_s1;
+    s32 var_s5;
+    u32 temp_s0;
+    u8 *temp_t7;
+    u8 *temp_v0_4;
+    u8 *temp_v0_5;
+
+    D_800C3C99 = 0;
+    D_800C35A9 = 0;
+    D_800C3C9C = 0;
+    D_800C35AA = 0;
+    temp_t7 = &D_800C363A[arg0];
+    D_800C3C8E = 0;
+    sp68 = temp_t7;
+    var_s5 = -1;
+    var_s1 = 0;
+    if ((s32) *temp_t7 > 0) {
+        var_s6 = (s32 *)(D_800C3688 + arg0 * 0x78);
+        do {
+            temp_v0 = *var_s6;
+            temp_s0 = temp_v0 + 0x18;
+            if (temp_v0 != 0) {
+                sp74 = NULL;
+                func_15023BB0(temp_s0, 5, var_s1, &sp74, 1, 0x1E, 0, 0, 0, 0, arg0);
+                if (sp74 != NULL) {
+                    D_800C3C99 = 1;
+                }
+                sp74 = NULL;
+                func_15023BB0(temp_s0, 5, var_s1, &sp74, 1, 0xE, 0, 0, 0, 0, arg0);
+                if (sp74 != NULL) {
+                    D_800C3C9C = 1;
+                }
+                sp74 = NULL;
+                func_15023BB0(temp_s0, 5, var_s1, &sp74, 1, 0x68, 0, 0, 0, 0, arg0);
+                if (sp74 != NULL) {
+                    D_800C35AA = 1;
+                }
+                sp74 = NULL;
+                func_15023BB0(temp_s0, 5, var_s1, &sp74, 1, 0x44, 0, 0, 0, 0, arg0);
+                if (sp74 != NULL) {
+                    D_800C35A9 = 1;
+                }
+                sp74 = NULL;
+                temp_v0_2 = func_15023BB0(temp_s0, 5, var_s1, &sp74, 1, 0x77, 0, 0, 0, 0, arg0);
+                if (sp74 != NULL) {
+                    D_800C3C8E = (u16) temp_v0_2;
+                }
+                sp74 = NULL;
+                temp_v0_3 = func_15023BB0(temp_s0, 5, var_s1, &sp74, 1, 1, 1, 0, 0, 0, arg0);
+                if ((sp74 != NULL) && ((var_s5 == -1) || (temp_v0_3 < var_s5))) {
+                    var_s5 = temp_v0_3;
+                    if (((Game49D30ColorEvent *)sp74)->mode == 1) {
+                        temp_v0_4 = ((u8 *) D_80084110) + (((Game49D30ColorEvent *)sp74)->color * 3);
+                        func_1517EE40((s32) temp_v0_4[0], (s32) temp_v0_4[1], (s32) temp_v0_4[2], 0, 1, 0);
+                    } else {
+                        temp_v0_5 = ((u8 *) D_80084110) + (((Game49D30ColorEvent *)sp74)->color * 3);
+                        func_1517EE40((s32) temp_v0_5[0], (s32) temp_v0_5[1], (s32) temp_v0_5[2], 0, 0, 0);
+                    }
+                }
+            }
+            var_s1 += 1;
+            var_s6 += 1;
+        } while (var_s1 < (s32) *sp68);
+    }
+    D_800C35B0[arg0] = (s32) D_800C3C8E;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1501DAAC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501DAAC.s")
 void func_150242F8(s32, s32);
 void func_1501EC38(s32);

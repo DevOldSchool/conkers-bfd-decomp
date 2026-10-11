@@ -12574,6 +12574,12 @@
       "symbol": "func_1514462C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1519,
+        "reason": "Manual budget exhausted after three focused finishes and two probe batches. Best full-span CURRENT1519, frame0xA0 versus reference0x98;46 stack rows plus radiusX/savedX FP allocation and angle/store scheduling differ. Rotated x/y lifetimes improved6362 to1519; volatile savedX probe worsened4735. No exact match.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -39176,6 +39182,12 @@
       "symbol": "func_1501D348"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2508,
+        "reason": "Best initial candidate CURRENT2508 retained after two focused finishes and two bounded probe batches. Correct-frame inline variant3060, union3775 and volatile count3210 did not improve. Frame0x98 versus0x80, count pointer scheduling/register allocation and color-call argument stores remain. Raw cursor advances four bytes; candidate s32 cursor increments one. No exact match.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -68260,6 +68272,12 @@
       "symbol": "func_150F5310"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 775,
+        "reason": "CURRENT (775), original frame 0x110 and all stack offsets exact. Two finishes/two probe batches. Remaining 15 differing rows involve threshold/direction load order, matrix addu operand order, delta.z branch-delay store and short-circuit normalization branch scheduling. Final direct-fabs square/component probes regress to1315; best verified candidate retained. Manual budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

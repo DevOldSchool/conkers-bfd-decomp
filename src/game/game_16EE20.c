@@ -1608,6 +1608,116 @@ f32 func_1514462C(s32 arg0) {
     }
     return f2;
 }
+typedef struct Game16EE20SampleRegion {
+    s16 x;
+    s16 y;
+    s16 z;
+    s16 radiusX;
+    s16 height;
+    s16 radiusZ;
+    u8 padC[9];
+    u8 flags;
+    u8 pad16[0xE];
+    f32 cosineX;
+    f32 sineX;
+    f32 sineZ;
+    f32 cosineZ;
+} Game16EE20SampleRegion;
+
+extern f32 D_800A56A0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514470C CURRENT (1519) */
+void func_1514470C(Game16EE20SampleRegion *arg0, f32 *arg1) {
+    f32 radiusZ;
+    f32 height;
+    f32 radiusX;
+    f32 cosineX;
+    f32 sineX;
+    f32 sineZ;
+    f32 cosineZ;
+    s32 mode;
+
+    radiusX = arg0->radiusX;
+    height = arg0->height;
+    radiusZ = arg0->radiusZ;
+    cosineX = arg0->cosineX;
+    sineX = arg0->sineX;
+    sineZ = arg0->sineZ;
+    cosineZ = arg0->cosineZ;
+    mode = arg0->flags & 3;
+    switch (mode) {
+    default:
+        arg1[0] = arg0->x;
+        arg1[1] = arg0->y;
+        arg1[2] = arg0->z;
+        return;
+    case 2: {
+        f32 y;
+        f32 x;
+        f32 mixed;
+        f32 z;
+        f32 savedX;
+        f32 rotatedZ;
+
+        x = func_150ADA68() * (2.0f * radiusX) - radiusX;
+        y = func_150ADA68() * height;
+        z = func_150ADA68() * (2.0f * radiusZ) - radiusZ;
+        savedX = x;
+        mixed = y * cosineX + z * sineX;
+        x = x * cosineZ + mixed * sineZ;
+        y = y * sineX - z * cosineX;
+        arg1[0] = arg0->x + x;
+        arg1[1] = arg0->y + y;
+        rotatedZ = mixed * cosineZ - savedX * sineZ;
+        arg1[2] = arg0->z + rotatedZ;
+        return;
+    }
+    case 0: {
+        f32 y;
+        f32 x;
+        f32 mixed;
+        f32 z;
+        f32 savedX;
+        f32 radius;
+        u8 angle;
+
+        radius = func_150ADA68() * radiusX;
+        angle = func_150ADA20();
+        x = func_151423D8((angle - 0x40) & 0xFF) * radius;
+        y = func_150ADA68() * height;
+        z = func_151423D8(angle) * radius;
+        savedX = x;
+        mixed = y * cosineX + z * sineX;
+        x = x * cosineZ + mixed * sineZ;
+        y = y * sineX - z * cosineX;
+        arg1[0] = arg0->x + x;
+        arg1[1] = arg0->y + y;
+        arg1[2] = arg0->z + (mixed * cosineZ - savedX * sineZ);
+        return;
+    }
+    case 1: {
+        f32 offset[3];
+        f32 sampleRadius;
+        f32 origin;
+        f32 randomB;
+        f32 randomA;
+
+        randomA = func_150ADA68();
+        randomB = func_150ADA68();
+        sampleRadius = func_150ADA68() * radiusX;
+        func_151436B4(randomA * D_800A56A0, randomB * D_800A56A0,
+                      sampleRadius, offset);
+        origin = arg0->x;
+        arg1[0] = origin + offset[0];
+        origin = arg0->y;
+        arg1[1] = origin + offset[1];
+        origin = arg0->z;
+        arg1[2] = origin + offset[2];
+        return;
+    }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514470C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_1514470C.s")
 f32 func_15144A74(void *arg0, void *arg1) {
     return *(f32 *)((u8 *)arg0 + 8) * *(f32 *)((u8 *)arg1 + 8) + (*(f32 *)((u8 *)arg0 + 4) * *(f32 *)((u8 *)arg1 + 4) + *(f32 *)((u8 *)arg1 + 0) * *(f32 *)((u8 *)arg0 + 0));
