@@ -10,15 +10,11 @@ Use objdiff alongside the existing registered-span asm-differ adapter:
 ./conker objdiff view func_15001970
 ```
 
-`compare` and `view` install the CLI automatically if necessary. The upstream
-[v3.8.1 source](https://github.com/encounter/objdiff/tree/fba10a617154f19b3fc25c8817dc81f81d8489b5)
-and local full-data patch are pinned by SHA-256 in `toolchain/tools.lock.json`.
-This locally patched build requires host Rust/Cargo, Git and curl on first use;
-Cargo uses the upstream dependency lockfile. It runs natively from ignored
-`build/host-tools/`. Installation runs synthetic native regression cases and
-records a binary checksum; subsequent uses recheck the cache and can run offline.
-See `toolchain/patches/README.md` for patch scope and provenance. Game compilation
-and reference assembly still use the pinned Docker image.
+`compare` and `view` install the official v3.8.1 CLI release automatically if
+necessary. Platform release checksums are pinned in `toolchain/tools.lock.json`;
+installation downloads the executable to ignored `build/host-tools/` and verifies
+its checksum on every use. No Rust/Cargo or locally modified objdiff is required.
+Game compilation and reference assembly still use the pinned Docker image.
 
 The command accepts registered US work-item IDs with either active C or a
 preserved deferred candidate. Deferred C is activated in a generated copy;
@@ -223,8 +219,10 @@ that object's bytes. Source-owned INFO/NOLOAD placements retain raw ROM or
 original GAME-data archive backing, which must be replaced and verified before
 completion. Both debugger C units have allocated `.data` and `.rodata` placements in the
 canonical profile, with actual runtime-input and whole-image verification.
-Their native units enable `data_diff_full_section`: anonymous bytes, padding and
-relocations must agree across the entire initialized section. The independent
+Native percentages come directly from the unmodified release. Its treatment of
+anonymous data can leave native data matching below 100% despite a successful
+independent full-image ROM comparison. These are reported as separate facts;
+no symbols or percentages are fabricated to bridge that difference. The independent
 reference disassembly includes original rodata context for switch destinations.
 The maintained TLB source `src/debugger/tlb.s` supplies an assembled candidate.
 Its `Original assembly` unit earns native matching and linked completion only

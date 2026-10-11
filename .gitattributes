@@ -1,2 +1,0 @@
-# Unified diffs encode blank context lines with a single space.
-/toolchain/patches/objdiff-full-data.patch whitespace=-blank-at-eol

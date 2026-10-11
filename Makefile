@@ -377,19 +377,23 @@ $(BUILD_DIR)/asm/%.o: $(NORMALIZED_ASM_DIR)/%.s
 	@mkdir -p "$(@D)"
 	$(AS) $(ASFLAGS) -o $@ $<
 
-# The reviewed TLB unit is maintained assembly. The canonical ASM placement
-# stays fixed; generated disassembly is only an independent reference.
-build/us/asm/us/debugger/tlb.o: src/debugger/tlb.s include/macro.inc Makefile
+ifeq ($(PROFILE),us)
+# Canonical placement stays fixed; generated disassembly is only a reference.
+$(BUILD_DIR)/asm/$(PROFILE)/debugger/tlb.o: src/debugger/tlb.s include/macro.inc Makefile
 	@mkdir -p "$(@D)"
 	$(AS) $(ASFLAGS) -o $@ $<
 
-# UI source consumes the editable local glyph atlas and string table.
+# Only the include is disposable. Editable inputs live under .conker/.
 .PHONY: debugger-assets-refresh
 debugger-assets-refresh:
-	python3 scripts/debugger_assets.py
 
-build/us/src/done/debugger/debugger_0000.o: | debugger-assets-refresh
-build/us/src/done/debugger/debugger_0000.o: $(wildcard build/us/debugger-assets/ui.inc.c build/us/debugger-assets/glyphs.pgm build/us/debugger-assets/strings.json) scripts/debugger_assets.py
+$(BUILD_DIR)/debugger-assets/ui.inc.c: debugger-assets-refresh scripts/debugger_assets.py scripts/debugger_asset_inputs.py scripts/debugger_layout.py
+	python3 scripts/debugger_assets.py --output "$@"
+
+$(BUILD_DIR)/src/done/debugger/debugger_0000.o: src/done/debugger/debugger_0000.c $(BUILD_DIR)/debugger-assets/ui.inc.c scripts/compile_c.py Makefile
+	@mkdir -p "$(@D)"
+	python3 scripts/compile_c.py --profile $(PROFILE) --generated-dir $(BUILD_DIR) --inputs-prepared --output $@ $<
+endif
 
 $(BUILD_DIR)/asm/$(PROFILE)/header.o: src/header.c
 	@mkdir -p "$(@D)"
@@ -580,6 +584,7 @@ $(BUILD_DIR)/assets/%.o: assets/%.bin
 	$(LD) -r -b binary -m elf32btsmip -o $@ $<
 
 clean:
+	python3 "$(dir $(firstword $(MAKEFILE_LIST)))scripts/debugger_asset_inputs.py"
 	rm -rf build asm assets reference .splache undefined_funcs_auto.txt undefined_syms_auto.txt
 
 diff:

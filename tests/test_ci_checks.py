@@ -67,7 +67,7 @@ class PublicChecksTests(unittest.TestCase):
             source.parent.mkdir(parents=True)
             original = ('#include "types.h"\nextern const u8 glyphs[];\n'
                         'int f(void) { return glyphs[0]; }\n'
-                        '#include "../build/us/debugger-assets/ui.inc.c"\n'
+                        '#include "debugger-assets/ui.inc.c"\n'
                         '#include "another-required.inc.c"\n')
             source.write_text(original)
             # No ROM or generated asset exists in this checkout.
@@ -77,7 +77,7 @@ class PublicChecksTests(unittest.TestCase):
                 run.assert_called_once()
                 self.assertTrue(run.call_args.kwargs['check'])
             temporary = (root / 'build/ci-compile' / name).read_text()
-            self.assertNotIn('#include "../build/us/debugger-assets/ui.inc.c"', temporary)
+            self.assertNotIn('#include "debugger-assets/ui.inc.c"', temporary)
             self.assertIn('#include "types.h"', temporary)
             self.assertIn('#include "another-required.inc.c"', temporary)
             self.assertIn('extern const u8 glyphs[];', temporary)
@@ -89,7 +89,7 @@ class PublicChecksTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             (root / 'src').mkdir()
-            original = '#include "../build/us/debugger-assets/ui.inc.c"\n'
+            original = '#include "debugger-assets/ui.inc.c"\n'
             (root / 'src/other.c').write_text(original)
             with patch.object(ci_checks, 'tracked_paths', return_value=['src/other.c']), \
                  patch.object(ci_checks.subprocess, 'run'):

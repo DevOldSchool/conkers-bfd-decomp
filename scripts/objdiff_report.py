@@ -302,7 +302,7 @@ def prepare() -> None:
                 focused_path = directory / 'base.c'
                 focused_path.write_text(focused)
                 # No activation of deferred #if 0 candidates in a public report.
-                result = subprocess.run(compile_c.compile_command('us', focused_path, directory / 'base.o'),
+                result = compile_c.run_compile('us', focused_path, directory / 'base.o',
                                         cwd=ROOT, stdout=log, stderr=log)
                 if result.returncode:
                     unit['compile_error'] = f'{spec["key"]}/build.log'
@@ -563,7 +563,7 @@ def generate(binary: Path) -> int:
                       for u in coverage['units'] if u.get('kind') == 'rebuilt_asset'},
                   'editable_source_inputs': {path: digest for u in coverage['units']
                       for path, digest in u.get('source_inputs', {}).items()},
-                  'native_toolchain': json.loads((ROOT / 'toolchain/tools.lock.json').read_text())['objdiff_cli'].get('source_build'),
+                  'native_toolchain': json.loads((ROOT / 'toolchain/tools.lock.json').read_text())['objdiff_cli'],
                   'report_sha256': hashlib.sha256((OUTPUT/'report.json').read_bytes()).hexdigest(),
                   'preparation_seconds': prepared-started, 'report_and_validation_seconds': time.perf_counter()-prepared,
                   'completion_downgrades': completion_downgrades,

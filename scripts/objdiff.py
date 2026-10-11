@@ -26,9 +26,6 @@ def write_json(path: Path, value: object) -> None:
 def install() -> Path:
     """Install the pinned native tool into the ignored, checksum-checked cache."""
     lock = json.loads((ROOT / "toolchain/tools.lock.json").read_text())["objdiff_cli"]
-    if "source_build" in lock:
-        from objdiff_native import install_patched
-        return install_patched(ROOT, lock)
     system = {"Darwin": "macos", "Linux": "linux"}.get(platform.system())
     machine = {"arm64": "arm64", "aarch64": "arm64", "x86_64": "x86_64", "AMD64": "x86_64"}.get(platform.machine())
     if system == "linux" and machine == "arm64":

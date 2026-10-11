@@ -36,6 +36,12 @@ def elf_fixture(extra_name=b'.data', extra_size=0):
 
 
 class TargetValidationTests(unittest.TestCase):
+    def setUp(self):
+        layout = targets.debugger_layout.load(ROOT)
+        mocked = patch.object(targets.debugger_layout, 'load', return_value=layout)
+        mocked.start()
+        self.addCleanup(mocked.stop)
+
     def test_full_linked_bytes_include_padding(self):
         expected = bytes.fromhex('03e000080000000000000000')
         result = targets.verify_linked_bytes(expected, expected, 'game')
@@ -135,6 +141,20 @@ class TargetValidationTests(unittest.TestCase):
             self.assertIn('.unit0 0x16000000', script)
             self.assertIn('ASSERT(SIZEOF(.unit0) == 14064', script)
 
+    def test_debugger_layout_drift_never_silently_drops_context(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(targets, 'ROOT', Path(tmp)):
+            root = Path(tmp)
+            binary = root / 'rom.bin'
+            binary.write_bytes(bytes(0x1A33E8))
+            unit = {'start': 0x19EA88, 'end': 0x1A217C, 'kind': 'unassigned',
+                    'overlay': 'debugger', 'key': 'debugger/test'}
+            with self.assertRaisesRegex(ValueError, 'complete reference context'):
+                targets.config_document([unit], root / 'report', binary, 'hash')
+            unit['end'] = 0x1A2178
+            binary.write_bytes(bytes(0x1A33E7))
+            with self.assertRaisesRegex(ValueError, 'complete reference context'):
+                targets.config_document([unit], root / 'report', binary, 'hash')
+
     def test_debugger_context_uses_same_object_paths_as_linker_inputs(self):
         with tempfile.TemporaryDirectory() as tmp, patch.object(targets, 'ROOT', Path(tmp)):
             root = Path(tmp)
@@ -224,6 +244,7 @@ class TargetValidationTests(unittest.TestCase):
                     return subprocess.CompletedProcess(command, 0)
                 with patch.object(targets.extract_game_code, 'extract_code', return_value=game), \
                         patch.object(targets.rom_span, 'debugger_code', return_value=(code, 0x16000000, digest)), \
+                        patch.object(targets.debugger_layout, 'load', return_value={'code_end': start + len(code), 'rom_end': start + len(code), 'context': []}), \
                         patch.object(targets, 'text_extent', return_value=8), \
                         patch.object(targets.subprocess, 'run', side_effect=run):
                     if corrupt:

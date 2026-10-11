@@ -13,13 +13,15 @@ import subprocess
 
 from build_jobs import job_count
 import extract_game_code
+import debugger_layout
 import normalize_asm
 import rom_span
 
 ROOT = Path(__file__).resolve().parent.parent
-DEBUGGER_ROM_START = 0x19EA88
+_debugger_layout = debugger_layout.load(ROOT)
+DEBUGGER_ROM_START = _debugger_layout['rom_start']
 ORIGINS = {'main': 0x80000000, 'game': 0x15000000,
-           'debugger': 0x16000000 - DEBUGGER_ROM_START}
+           'debugger': _debugger_layout['origin']}
 
 
 def sha256(path: Path) -> str:
@@ -58,12 +60,15 @@ def config_document(specs: list[dict], directory: Path, binary: Path, sha1: str)
                         for s in specs],
     })
     suffix = specs[-1]['end']
-    if overlay == 'debugger' and specs[-1]['end'] == 0x1A2178 and binary.stat().st_size >= 0x1A33E8:
+    if overlay == 'debugger':
+        layout = debugger_layout.load(ROOT)
+        if specs[-1]['end'] != layout['code_end'] or binary.stat().st_size < layout['rom_end']:
+            raise ValueError('debugger target layout differs from complete reference context')
         # Original data context identifies switch destinations in the independent
         # text disassembly. It is not assembled into the text target objects.
-        segments[-1]['subsegments'] += [[0x1A2178, 'data', 'context_data'],
-                                        [0x1A2768, 'rodata', 'context_rodata']]
-        suffix = 0x1A33E8
+        segments[-1]['subsegments'] += [[part['rom_start'], part['section'][1:], part['name']]
+                                        for part in layout['context']]
+        suffix = layout['rom_end']
     if suffix < binary.stat().st_size:
         segments.append([suffix, 'bin', 'suffix'])
     segments.append([binary.stat().st_size])
@@ -163,10 +168,9 @@ def debugger_context_objects(directory: Path) -> tuple[list[Path], list[str]]:
     It is never copied into candidate objects or counted as another report unit.
     """
     objects, placements = [], []
-    for name, section, start, size in (
-        ('context_data', '.data', 0x160036F0, 0x5F0),
-        ('context_rodata', '.rodata', 0x16003CE0, 0xC80),
-    ):
+    for part in debugger_layout.load(ROOT)['context']:
+        name, section, start = part['name'], part['section'], part['start']
+        size = part['end'] - start
         source = directory / 'asm/data' / (name + section + '.s')
         normalized = directory / (name + '.s')
         obj = directory / (name + '.o')
@@ -241,7 +245,10 @@ def prepare(specs: list[dict], output: Path) -> tuple[dict, dict]:
         script = dest / 'targets.ld'
         content = linker_script(units, objects, externals)
         context_objects = []
-        if overlay == 'debugger' and units[-1]['end'] == 0x1A2178 and len(rom_bytes) >= 0x1A33E8:
+        if overlay == 'debugger':
+            layout = debugger_layout.load(ROOT)
+            if units[-1]['end'] != layout['code_end'] or len(rom_bytes) < layout['rom_end']:
+                raise ValueError('debugger target layout differs from complete reference context')
             context_objects, placements = debugger_context_objects(dest)
             content = content.replace('/DISCARD/', '\n'.join(placements) + '\n/DISCARD/', 1)
         script.write_text(content)
@@ -259,7 +266,7 @@ def prepare(specs: list[dict], output: Path) -> tuple[dict, dict]:
             parsed = sections(elf.read_bytes(), 2)
             context_data = parsed['.context_data'][1] + parsed['.context_rodata'][1]
             verification[overlay]['data_context'] = verify_linked_bytes(
-                context_data, rom_bytes[0x1A2178:0x1A33E8], 'debugger original data context')
+                context_data, rom_bytes[layout['code_end']:layout['rom_end']], 'debugger original data context')
         verification[overlay].update({'unit_count': len(units), 'input_sha1': digest,
                                       'config_sha256': sha256(config)})
         targets.update(prepared)

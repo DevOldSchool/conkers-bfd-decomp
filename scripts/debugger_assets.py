@@ -11,11 +11,12 @@ from pathlib import Path
 
 from build_files import write_if_changed
 import main_private_data
+import debugger_layout
 
 ROOT = Path(__file__).resolve().parent.parent
-DIRECTORY = Path('build/us/debugger-assets')
-START, STRINGS, END = 0x16003CE0, 0x16003FE0, 0x16004800
-ORIGIN = 0x16000000 - 0x19EA88
+from debugger_asset_inputs import DIRECTORY, LEGACY_DIRECTORY, INPUTS, migrate
+
+GENERATED = Path('build/us/debugger-assets/ui.inc.c')
 
 
 def encode_atlas(pixels: bytes) -> bytes:
@@ -44,13 +45,16 @@ def decode_atlas(data: bytes) -> bytes:
 def extract(root: Path = ROOT) -> None:
     directory = root / DIRECTORY
     directory.mkdir(parents=True, exist_ok=True)
+    if any((directory / name).exists() for name in INPUTS):
+        raise ValueError('refusing to extract over existing or partial editable debugger inputs')
     rom = main_private_data.validated_rom(root)
-    evidence = json.loads((root / 'docs/evidence/debugger/us_debugger_data_objects.json').read_text())
+    layout = debugger_layout.ui(root)
+    origin = layout['origin']
     items = []
-    for item in evidence['strings']:
+    for item in layout['strings']:
         address, end = int(item['start'], 0), int(item['payload_end'], 0)
-        if STRINGS <= address < END:
-            raw = rom[address - ORIGIN:end - ORIGIN]
+        if layout['strings_start'] <= address < layout['end']:
+            raw = rom[address - origin:end - origin]
             if not raw.endswith(b'\0') or b'\0' in raw[:-1]:
                 raise ValueError('invalid debugger string extent')
             items.append({'address': address, 'text': raw[:-1].decode('ascii')})
@@ -58,13 +62,14 @@ def extract(root: Path = ROOT) -> None:
     strings = directory / 'strings.json'
     # Never silently overwrite user edits or a partially existing input set.
     if not atlas.exists():
-        atlas.write_bytes(b'P5\n128 48\n255\n' + decode_atlas(rom[START - ORIGIN:STRINGS - ORIGIN]))
+        atlas.write_bytes(b'P5\n128 48\n255\n' + decode_atlas(rom[layout['start'] - origin:layout['strings_start'] - origin]))
     if not strings.exists():
         strings.write_text(json.dumps(items, indent=2) + '\n')
 
 
 def pack(root: Path = ROOT) -> tuple[bytes, list[tuple[int, bytes]]]:
     directory = root / DIRECTORY
+    layout = debugger_layout.ui(root)
     pgm = (directory / 'glyphs.pgm').read_bytes()
     header = b'P5\n128 48\n255\n'
     if not pgm.startswith(header):
@@ -73,7 +78,7 @@ def pack(root: Path = ROOT) -> tuple[bytes, list[tuple[int, bytes]]]:
     items = json.loads((directory / 'strings.json').read_text())
     payload = bytearray(glyphs)
     strings = []
-    cursor = STRINGS
+    cursor = layout['strings_start']
     for item in items:
         address = item['address']
         text = item['text'].encode('ascii')
@@ -86,30 +91,36 @@ def pack(root: Path = ROOT) -> tuple[bytes, list[tuple[int, bytes]]]:
         payload.extend(bytes(padding))
         cursor += len(text) + padding
     payload.extend(bytes(-len(payload) % 16))
-    if len(payload) != END - START:
+    if len(payload) != layout['end'] - layout['start']:
         raise ValueError('debugger UI storage differs from its reviewed extent')
     return bytes(payload), strings
 
 
-def prepare(root: Path = ROOT) -> Path:
-    directory = root / DIRECTORY
-    if not all((directory / name).is_file() for name in ('glyphs.pgm', 'strings.json')):
+def ensure_inputs(root: Path) -> None:
+    if not migrate(root):
         extract(root)
+
+
+def prepare(root: Path = ROOT, *, output: Path | None = None) -> Path:
+    ensure_inputs(root)
+    layout = debugger_layout.ui(root)
     payload, strings = pack(root)
     lines = ['/* Generated from local editable debugger assets. Do not commit. */',
-             'const u8 D_16003CE0[768] = {']
+             f'const u8 D_{layout["start"]:08X}[768] = {{']
     for i in range(0, 768, 16):
         lines.append('    ' + ', '.join(f'0x{x:02X}' for x in payload[i:i + 16]) + ',')
     lines.append('};')
     for address, text in strings:
         # Numeric character initializers preserve arbitrary ASCII/control bytes.
         lines.append(f'const u8 D_{address:08X}[{len(text)}] = {{' + ', '.join(str(c) for c in text) + '};')
-    path = directory / 'ui.inc.c'
+    path = output if output is not None else root / GENERATED
+    path.parent.mkdir(parents=True, exist_ok=True)
     write_if_changed(path, ('\n'.join(lines) + '\n').encode())
     return path
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.parse_args()
-    print(prepare())
+    parser.add_argument("--output", type=Path)
+    args = parser.parse_args()
+    print(prepare(output=args.output))

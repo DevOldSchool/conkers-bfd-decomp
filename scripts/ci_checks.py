@@ -14,7 +14,7 @@ GLOBAL_ASM = re.compile(r"^[ \t]*#pragma[ \t]+GLOBAL_ASM\([^\r\n]*\)[ \t]*\r?$",
 # These definitions require local ROM-derived assets. Their users already have
 # typed extern declarations; only the temporary public compile omits the data.
 ROM_ASSET_INCLUDES = {
-    "src/done/debugger/debugger_0000.c": ("../build/us/debugger-assets/ui.inc.c",),
+    "src/done/debugger/debugger_0000.c": ("debugger-assets/ui.inc.c",),
 }
 GENERATED_ROOTS = {"roms", "asm", "assets", "build", "expected", "reference", ".conker", ".private-rom-assets", "private-work", "private-assets"}
 RETIRED_PROGRESS = {"progress/summary.json", "progress/badge-us.json", "progress/badge-eu.json"}

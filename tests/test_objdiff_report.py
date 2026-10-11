@@ -158,7 +158,7 @@ class NativeReportValidationTests(unittest.TestCase):
             output = root / 'build/us/objdiff-report'
             (root / 'toolchain').mkdir()
             (root / 'toolchain/tools.lock.json').write_text(json.dumps({'objdiff_cli': {
-                'source_build': {'revision': 'test', 'patch_sha256': 'test'}}}))
+                'version': 'test', 'assets': {'official': 'test'}}}))
             coverage = {'scope': 'synthetic', 'expected_code_bytes': 0,
                         'mapped_code_bytes': 0, 'excluded_zero_bytes': 0,
                         'target_method': 'synthetic', 'target_verification': {},
@@ -180,7 +180,7 @@ class NativeReportValidationTests(unittest.TestCase):
             self.assertFalse((root / 'build/progress/summary.json').exists())
             validation = json.loads((output / 'validation.json').read_text())
             self.assertEqual(expected, validation['existing_progress'])
-            self.assertEqual('test', validation['native_toolchain']['patch_sha256'])
+            self.assertEqual('test', validation['native_toolchain']['version'])
             self.assertEqual(1, validation['snapshot_schema'])
             self.assertEqual('us', validation['profile'])
             self.assertEqual('a' * 40, validation['git_revision'])

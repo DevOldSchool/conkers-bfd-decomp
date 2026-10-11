@@ -377,7 +377,7 @@ def prepare_candidates(units: list[dict], *, output: Path | None = None) -> list
             if source:
                 focused = directory / 'base.c'
                 focused.write_text(diff.GLOBAL_ASM_LINE.sub('', source.read_text()))
-                result = subprocess.run(compile_c.compile_command('us', focused, base),
+                result = compile_c.run_compile('us', focused, base,
                                         cwd=ROOT, stdout=log, stderr=log)
                 unit['source'] = source.relative_to(ROOT).as_posix()
                 if result.returncode:

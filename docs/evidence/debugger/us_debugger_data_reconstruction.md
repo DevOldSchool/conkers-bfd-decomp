@@ -16,7 +16,11 @@ Definitions and compiler alignment reproduce the complete original section.
 
 `scripts/debugger_assets.py` extracts 96 eight-by-eight monochrome glyphs into
 an editable 128-by-48 PGM atlas, and 109 strings into JSON. These local inputs
-and their generated C include live under ignored `build/us/debugger-assets/`.
+live under ignored `.conker/debugger-assets/us/`, outside `make clean`. Only the
+generated C include lives in `build/us/debugger-assets/`. Existing input pairs
+from the old build directory are copied without overwrite on first preparation
+or before `make clean` deletes generated files. Partial input sets stop preparation
+and cleaning with an actionable error instead of re-extracting or discarding data.
 Repacking reads those editable files, not original encoded bytes; it preserves
 bit order, reviewed string addresses, terminators and alignment. Existing edits
 are not overwritten. A changed pixel or string reaches the actual C object and
@@ -35,107 +39,67 @@ at their canonical placements. It requires the entire source unit's text and
 every owned data section to match the ROM before emitting the bounded comparison
 object. The independent full-span `CURRENT (0)` and layout gates still apply.
 
-Native data comparison uses the pinned, locally maintained objdiff full-section
-patch documented in `toolchain/patches/README.md`. The report has no artificial
-symbols, cropped sections or edited percentages. TLB completion is separately
-proved as [maintained original assembly](us_debugger_tlb.md). Its source object
-may earn native matching credit while remaining excluded from C-only statistics.
+Native data comparison uses the checksum-pinned, unmodified objdiff release.
+The report has no artificial symbols, cropped sections or edited percentages.
+The independent allocated-image check establishes byte equality separately from
+objdiff's symbol-based data matching. TLB completion is separately proved as
+[maintained original assembly](us_debugger_tlb.md), excluded from C-only statistics.
 
-## Initial data completion validation on 2026-10-11
+## Stock objdiff validation after review
 
-Validated on `codex/debugger-completion`, based on commit
-`fc0d8b90418f64c41a299c38d6d27a8a37d74dad`, with uncommitted source changes.
-Before promotion of TLB to maintained assembly, the production
-`./conker objdiff report` completed successfully and its snapshot reader returned
-`current` for the following source fingerprint. The maintained-assembly
-validation below supersedes this snapshot. Source fingerprint:
-`b0e90683f28eec1a8233c7a05a2d0961d1ee6035b790b9044093193035bf29d3`.
-Native report SHA-256:
-`e2548c9428f3dec826ce7e916403a51e2d7cd349b92ce7cf70807c85c0551488`.
+The locally patched objdiff implementation and its 100% data/completion claims
+have been withdrawn. The repository uses the checksum-pinned official v3.8.1
+release. No Cargo build, custom data-diff option, artificial symbol or edited
+native measure is required.
 
-| Debugger measure | Verified result |
-| --- | ---: |
-| Linked code | 14,040 / 14,040 bytes (100%) |
-| Matched and linked initialized data | 4,720 / 4,720 bytes (100%) |
-| C-matched code | 13,888 / 14,040 bytes (98.91737%) |
-| Complete report units | 3 / 3 |
-
-The report excludes 24 independently verified zero alignment bytes from its
-code denominator. Runtime verification includes all 14,064 loaded code bytes
-and all 4,720 data bytes. The remaining 152 instruction bytes are the verified
-TLB assembly routine; its registered proof also includes eight alignment bytes.
-There are no debugger completion downgrades and no report compile errors.
-Unmatched data in other overlays remains subject to the existing completion
-downgrade rules.
-
-All 38 registered debugger C spans passed fresh full-span `CURRENT (0)` and
-layout/progress/whitespace gates. A clean 39-item `verify-batch`, including the
-TLB original-assembly proof, returned `BATCH_COMPLETE`; its host suite passed
-2,462 tests with 53 skips. The full Docker suite passed 2,461 tests with nine
-skips. After the final report-only reference and build-order repairs, all 121
-focused objdiff tests passed with four skips. The patched native executable
-also passed ten independent positive and negative synthetic ELF regressions.
-
-`./conker build --assets` produced a byte-identical US ROM with these debugger
-sources and placements (exit 0, 673 seconds including setup). The ordinary
-US ROM build also passed. Later fixes change report preparation only: original
-reference data is linked and verified separately, and runtime preparation runs
-before code snapshots so main's mandatory object refreshes cannot stale them.
-All final input hashes, native coverage checks and report round-trip checks
-passed. Shared build/report tooling changed; no shared C headers changed.
-
-Local logs, per-function rechecks, candidate history and the clean batch list
-are under `build/us/manual-attempts/debugger-completion/`. The final report run
-is `production-report4.log`; generated reports, ROMs and extracted assets remain
-ignored and are not evidence files to commit. This validation does not publish
-the report to decomp.dev.
-
-## Maintained assembly completion validation on 2026-10-11
-
-The final production report on the same branch and base commit includes
-`src/debugger/tlb.s` as maintained source and labels it **Original assembly**.
-The source is assembled separately from the independent reference; its object
-is identical to the actual runtime linker input. All 160 allocated bytes match
-the checked ROM, and native objdiff matches all 152 instruction bytes. The
-function inventory remains `original_asm`, excluded from C-only matching.
-
-| Debugger measure | Verified result |
+| Debugger measure | Stock result |
 | --- | ---: |
 | Matching code | 14,040 / 14,040 bytes (100%) |
-| Linked code | 14,040 / 14,040 bytes (100%) |
-| Matching initialized data | 4,720 / 4,720 bytes (100%) |
-| Linked initialized data | 4,720 / 4,720 bytes (100%) |
+| Matching initialized data | 112 / 4,720 bytes (2.3728814%) |
+| Linked code | 152 / 14,040 bytes (1.0826211%) |
+| Linked initialized data | 0 / 4,720 bytes (0%) |
 | Matched native functions | 42 / 42 |
-| Complete report units | 3 / 3 |
+| Complete report units | 1 / 3 |
 | Original assembly matching and linked code | 152 / 152 bytes (100%) |
 
-`./conker objdiff report` exited successfully, with no compile errors or
-debugger completion downgrades. The snapshot reader returned `current`.
-Unrelated SDK data downgrades remain in force. All native coverage, round-trip,
-source-hash and object-hash checks passed. Source fingerprint:
-`f25b18b8694f15eb84075ad50ded3728837688126322d1fd6b0433648ca672ec`.
-Native report SHA-256:
-`03fd591cc2e8c00efedd5ec0274ed5b455082c0048f6b193ebcab02546109465`.
-Preparation took 892.87 seconds; native report generation and validation took
-8.73 seconds. These are report-tool timings, not total interactive task time.
+Stock objdiff's data accounting does not cover the anonymous initialized bytes.
+The existing per-unit completion rule therefore downgrades both C units; only
+TLB is complete in the native report. This does not contradict the separate
+runtime check: all 14,064 allocated code bytes and all 4,720 initialized data
+bytes reproduce the checksum-validated US ROM. Native code totals exclude 24
+verified alignment bytes. This change does not claim 100% native data or linked
+completion, and does not alter the completion policy to obtain those values.
 
-The maintained source passed a fresh clean
-`CONKER_TEST_RUNNER=host ./conker verify-batch func_16003650` with
-`BATCH_COMPLETE`, an ordinary byte-identical US ROM, full debugger code/data
-verification, progress and whitespace gates, and 2,468 host tests (55 skips).
-After the report-only address-label resolution fix, all 124 focused Docker
-objdiff tests passed (two skips). Negative cases reject changed instructions,
-padding, relocated buffer addresses, runtime objects, missing maintained source
-and incomplete report proofs. The prior 38 C full-span matches remain unchanged.
+Main at `84ff754fe52c9c6dde5f469b6cce5e7bf8bcb6a5` was merged into the branch
+as `d18f560eba32ea5cb2dfbd5c8cddce0e9a011172`. On that base with the review fixes,
+`./conker test` passed all 2,493 tests (eight skips) in the new native ARM64
+container. `./conker build --assets` produced a byte-identical US ROM, exit 0,
+in 126 seconds including setup, SDK and Docker. The earlier clean 39-item batch
+returned `BATCH_COMPLETE`, with full-span C and original-assembly, layout,
+progress, whitespace and ordinary US ROM gates; its 2,483 host tests passed
+with 56 skips. The review fixes change tooling and the generated include path,
+not the debugger C function bodies or maintained TLB instructions.
 
-A fresh `./conker build --assets` also produced a byte-identical US ROM with
-maintained TLB assembly (exit 0; 705.27 seconds for the build, 716 seconds
-including setup, SDK and Docker). The tested base is
-`fc0d8b90418f64c41a299c38d6d27a8a37d74dad` with the uncommitted inputs identified
-by the source fingerprint above. Shared build/report tooling changed; no shared
-C headers changed.
+The regression suite covers persistent input migration, actual `make clean`,
+partial-input preservation, side-effect-free compile command construction,
+missing or misplaced candidate sections, encoded relocation addends, preserved
+objdiff options and reference-layout drift. ROM-free CI compilation also passed
+locally for all 747 C files before the main merge; it does not establish matching.
 
-Local evidence logs are `tlb-maintained-batch2.log`,
-`tlb-maintained-assets.log`, and `tlb-maintained-production-report.log` under
-`build/us/manual-attempts/debugger-completion/`. Generated reports and extracted
-assets remain ignored. This validation does not publish the report to decomp.dev.
+Report provenance for the final reviewed inputs is recorded below. Generated
+reports, ROMs, extracted assets and local logs remain ignored. Nothing has been
+published to decomp.dev. Local logs are under
+`build/us/manual-attempts/debugger-completion/`.
+
+The final `./conker objdiff report` exited 0 and the snapshot reader returned
+`current`. It reported no compile errors; both C debugger units were downgraded
+for native data matching, as described above. All coverage, source/object hash
+and native round-trip checks passed. Tested base: `d18f560eba32ea5cb2dfbd5c8cddce0e9a011172`
+with the staged review fixes. Source fingerprint:
+`00f5a552f64881745a7720549d510fb9edf756da9fe3a1a87fb8ef95f2f97ed2`.
+Report SHA-256:
+`aec19065a12749ad0b555ee9856209456ef4e6244028cfa4652074c5bd894aec`.
+Preparation took 268.18 seconds and native report/validation
+took 9.63 seconds. These are tool timings, not
+total interactive work time. The log is `review-stock-report-final.log`; the
+asset and test logs are `review-main-assets.log` and `review-main-tests2.log`.

@@ -1064,4 +1064,4 @@ static DebuggerVideoRecord debuggerVideoRecords[3] = {
 static u32 debuggerReserved3C68[2] = {0};
 
 /* Locally extracted, editable glyph pixels and text stay ignored. */
-#include "../build/us/debugger-assets/ui.inc.c"
+#include "debugger-assets/ui.inc.c"

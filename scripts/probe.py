@@ -238,8 +238,7 @@ def build_variant(target: Target, variant: Path | None, index: int) -> Path:
     source.write_text(content, encoding="utf-8")
     output.unlink(missing_ok=True)
     try:
-        result = subprocess.run(
-            compile_c.compile_command(target.profile, source, output),
+        result = compile_c.run_compile(target.profile, source, output,
             cwd=ROOT, capture_output=True, text=True,
         )
     except OSError as error:

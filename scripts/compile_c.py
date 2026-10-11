@@ -43,11 +43,11 @@ def compiler_flags(profile: str) -> list[str]:
     ]
 
 
-def compile_command(profile: str, source: Path, output: Path) -> list[str]:
-    if profile == 'us' and '#include "../build/us/debugger-assets/ui.inc.c"' in source.read_text():
-        import debugger_assets
-        debugger_assets.prepare(ROOT)
+def compile_command(profile: str, source: Path, output: Path, *,
+                    generated_dir: Path | None = None) -> list[str]:
     flags = compiler_flags(profile)
+    if '#include "debugger-assets/ui.inc.c"' in source.read_text():
+        flags += ['-I', str(generated_dir or ROOT / 'build' / profile)]
     if not GLOBAL_ASM_PRAGMA.search(source.read_text(encoding="utf-8")):
         return [str(IDO_CC), *flags, "-o", str(output), str(source)]
     return [
@@ -74,16 +74,32 @@ def compile_command(profile: str, source: Path, output: Path) -> list[str]:
     ]
 
 
+def run_compile(profile: str, source: Path, output: Path, *,
+                inputs_prepared: bool = False, generated_dir: Path | None = None, **kwargs):
+    """Prepare local generated inputs explicitly, then execute the compiler."""
+    if not inputs_prepared and '#include "debugger-assets/ui.inc.c"' in source.read_text():
+        if profile != 'us':
+            raise ValueError('debugger assets currently support US only')
+        import debugger_assets
+        debugger_assets.prepare(ROOT, output=(generated_dir or ROOT / 'build' / profile)
+                                / 'debugger-assets/ui.inc.c')
+    options = {'generated_dir': generated_dir} if generated_dir is not None else {}
+    return subprocess.run(compile_command(profile, source, output, **options), **kwargs)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--profile", choices=("us", "eu"), required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("source", type=Path)
+    parser.add_argument("--inputs-prepared", action="store_true",
+                        help="Caller already prepared all generated inputs (Make prerequisite).")
+    parser.add_argument("--generated-dir", type=Path)
     arguments = parser.parse_args()
 
     arguments.output.parent.mkdir(parents=True, exist_ok=True)
-    subprocess.run(
-        compile_command(arguments.profile, arguments.source, arguments.output),
+    run_compile(arguments.profile, arguments.source, arguments.output,
+        inputs_prepared=arguments.inputs_prepared, generated_dir=arguments.generated_dir,
         cwd=ROOT,
         check=True,
     )

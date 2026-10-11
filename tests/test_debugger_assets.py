@@ -1,4 +1,5 @@
 import json
+import subprocess
 from pathlib import Path
 import sys
 import tempfile
@@ -11,6 +12,12 @@ import debugger_assets as assets
 
 
 class DebuggerAssetTests(unittest.TestCase):
+    def setUp(self):
+        self.layout = assets.debugger_layout.ui(ROOT)
+        mocked = patch.object(assets.debugger_layout, 'ui', return_value=self.layout)
+        mocked.start()
+        self.addCleanup(mocked.stop)
+
     def test_atlas_bit_order_and_tile_boundaries(self):
         data = bytearray(768)
         data[0] = 0x80
@@ -35,12 +42,12 @@ class DebuggerAssetTests(unittest.TestCase):
             directory.mkdir(parents=True)
             (directory / 'glyphs.pgm').write_bytes(b'P5\n128 48\n255\n' + bytes(128 * 48))
             # Synthetic editable storage with the same total bounded extent.
-            entries = [{'address': assets.STRINGS, 'text': 'x' * (assets.END - assets.STRINGS - 1)}]
+            entries = [{'address': self.layout['strings_start'], 'text': 'x' * (self.layout['end'] - self.layout['strings_start'] - 1)}]
             path = directory / 'strings.json'
             path.write_text(json.dumps(entries))
             with patch.object(assets.main_private_data, 'validated_rom', side_effect=AssertionError('ROM read during pack')):
                 data, strings = assets.pack(root)
-                self.assertEqual(len(data), assets.END - assets.START)
+                self.assertEqual(len(data), self.layout['end'] - self.layout['start'])
                 self.assertEqual(data[:768], bytes(768))
                 self.assertEqual(strings[0][1][-1:], b'\0')
                 generated = assets.prepare(root)
@@ -55,4 +62,76 @@ class DebuggerAssetTests(unittest.TestCase):
             self.skipTest('local editable debugger assets unavailable')
         rom = assets.main_private_data.validated_rom(ROOT)
         packed, _ = assets.pack(ROOT)
-        self.assertEqual(packed, rom[assets.START - assets.ORIGIN:assets.END - assets.ORIGIN])
+        self.assertEqual(packed, rom[self.layout['start'] - self.layout['origin']:self.layout['end'] - self.layout['origin']])
+
+    def test_edits_survive_actual_make_clean_and_repack_without_rom(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            directory = root / assets.DIRECTORY
+            directory.mkdir(parents=True)
+            pixels = bytearray(128 * 48)
+            pixels[0] = 255
+            (directory / 'glyphs.pgm').write_bytes(b'P5\n128 48\n255\n' + pixels)
+            entries = [{'address': self.layout['strings_start'],
+                        'text': 'x' * (self.layout['end'] - self.layout['strings_start'] - 1)}]
+            (directory / 'strings.json').write_text(json.dumps(entries))
+            with patch.object(assets.main_private_data, 'validated_rom', side_effect=AssertionError('ROM accessed')):
+                before = assets.prepare(root).read_bytes()
+                subprocess.run(['make', '-f', str(ROOT / 'Makefile'), 'clean'], cwd=root,
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+                self.assertFalse((root / 'build').exists())
+                self.assertEqual(assets.prepare(root).read_bytes(), before)
+                self.assertEqual(assets.pack(root)[0][0], 0x80)
+
+    def test_legacy_inputs_migrate_without_overwrite_or_rom_access(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            old = root / assets.LEGACY_DIRECTORY
+            old.mkdir(parents=True)
+            for name in assets.INPUTS:
+                (old / name).write_bytes(b'user edit ' + name.encode())
+            with patch.object(assets, 'extract', side_effect=AssertionError('re-extracted')):
+                assets.ensure_inputs(root)
+                for name in assets.INPUTS:
+                    self.assertEqual((root / assets.DIRECTORY / name).read_bytes(), (old / name).read_bytes())
+                current = root / assets.DIRECTORY / assets.INPUTS[0]
+                current.write_bytes(b'new edit')
+                assets.ensure_inputs(root)
+                self.assertEqual(current.read_bytes(), b'new edit')
+
+    def test_partial_inputs_never_trigger_silent_reextraction(self):
+        for location in (assets.DIRECTORY, assets.LEGACY_DIRECTORY):
+            with self.subTest(location=location), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                directory = root / location
+                directory.mkdir(parents=True)
+                path = directory / 'strings.json'
+                path.write_bytes(b'edited')
+                with patch.object(assets, 'extract', side_effect=AssertionError('re-extracted')):
+                    with self.assertRaisesRegex(ValueError, 'partial'):
+                        assets.ensure_inputs(root)
+                self.assertEqual(path.read_bytes(), b'edited')
+
+    def test_first_clean_migrates_legacy_edits_before_deleting_build(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            legacy = root / assets.LEGACY_DIRECTORY
+            legacy.mkdir(parents=True)
+            for name in assets.INPUTS:
+                (legacy / name).write_bytes(b'user edits ' + name.encode())
+            subprocess.run(['make', '-f', str(ROOT / 'Makefile'), 'clean'], cwd=root,
+                           stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+            self.assertFalse((root / 'build').exists())
+            for name in assets.INPUTS:
+                self.assertEqual((root / assets.DIRECTORY / name).read_bytes(), b'user edits ' + name.encode())
+
+    def test_clean_stops_before_deleting_partial_legacy_inputs(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            legacy = root / assets.LEGACY_DIRECTORY
+            legacy.mkdir(parents=True)
+            (legacy / 'strings.json').write_bytes(b'user edits')
+            result = subprocess.run(['make', '-f', str(ROOT / 'Makefile'), 'clean'], cwd=root,
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertEqual((legacy / 'strings.json').read_bytes(), b'user edits')

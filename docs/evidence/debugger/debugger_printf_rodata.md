@@ -35,15 +35,11 @@ a separate gate, and the existing per-unit completion downgrade still applies.
 
 ## Native anonymous data comparison
 
-Upstream objdiff 3.8.1 bounds data comparison at the last named symbol. IDO's
-anonymous switch table and trailing double therefore require the pinned local
-`data_diff_full_section` patch described in `toolchain/patches/README.md`.
-The debugger reference disassembly also receives the original rodata context,
-retaining real switch destinations. Equivalent relocated destinations are checked
-without inventing candidate symbols. The patched native report credits all 464
-bytes only when anonymous bytes, full extents and relocations agree. Synthetic
-negative cases cover changed bytes, destinations, missing/extra relocations and
-shorter/longer storage.
+The unmodified objdiff release performs its native symbol-based comparison.
+Anonymous switch tables and trailing literals can leave native data matching
+below the independently verified allocated byte count. The debugger reference
+still includes original rodata context for real switch destinations. Full ROM
+verification checks all 464 bytes; native percentages are reported unchanged.
 
 The [UI data reconstruction](us_debugger_data_reconstruction.md) supplies the
 other 4,256 bytes. The [TLB routine](us_debugger_tlb.md) remains verified original

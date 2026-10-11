@@ -319,14 +319,19 @@ def prepare(root: Path, candidate: Path, reference: Path, assembly: Path,
         elif overlay == "debugger" and (eligible or si_literal_equivalent(
                 current, raw, symbol, size, empty_companion=empty_companion)):
             import linked_debugger_data
-            data_layout = linked_debugger_data.context(root, current, symbol, start)
-            current_symbols = (data_layout['definitions'] if data_layout else
-                               si_definitions(current, symbol, start, size, empty_companion=empty_companion))
+            current_symbols = None
             raw_symbols = si_definitions(raw, symbol, start, size, reference=True)
         else:
             return None
     except ValueError:
         return None
+    if overlay == 'debugger':
+        try:
+            data_layout = linked_debugger_data.context(root, current, symbol, start)
+        except linked_debugger_data.CandidateMismatch:
+            return None
+        current_symbols = (data_layout['definitions'] if data_layout else
+                           si_definitions(current, symbol, start, size, empty_companion=empty_companion))
     if current_symbols is None or raw_symbols is None:
         return None
     code, base, _ = rom_span.code_image(root, overlay)

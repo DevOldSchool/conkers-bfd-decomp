@@ -11,7 +11,7 @@ import subprocess
 
 REPORT_DIRECTORY = Path('build/us/objdiff-report')
 INPUTS = ('src', 'include', 'config', 'progress', 'lib', 'scripts',
-          'Makefile', 'Dockerfile', 'conker', 'toolchain/tools.lock.json', 'toolchain/patches')
+          'Makefile', 'Dockerfile', 'conker', 'toolchain/tools.lock.json')
 GENERATE = 'Run ./conker objdiff report with your configured US ROM, pinned SDK and toolchain; then ./conker progress.'
 
 

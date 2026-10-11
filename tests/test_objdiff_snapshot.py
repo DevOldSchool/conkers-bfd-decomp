@@ -87,7 +87,7 @@ class ObjdiffSnapshotTests(unittest.TestCase):
         self.assertEqual('stale', snapshot.read_status(self.root)['status'])
 
     def test_debugger_editable_source_changes_invalidate_snapshot(self):
-        source = self.root / 'build/us/debugger-assets/strings.json'
+        source = self.root / '.conker/debugger-assets/us/strings.json'
         source.parent.mkdir(parents=True)
         source.write_bytes(b'original text')
         self.proof['editable_source_inputs'] = {
