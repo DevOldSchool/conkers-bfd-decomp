@@ -8818,6 +8818,12 @@
       "symbol": "func_151C8FCC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1147,
+        "reason": "CURRENT1147 after two finishes and two bounded probe batches; frame and addressed locals match, but initial float scheduling, temporary-register allocation and shared loop-bound hoisting differ. Const scale and for-loop probes unchanged. Best candidate preserved; no shared dependencies.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -30792,6 +30798,12 @@
       "symbol": "func_1508F9C4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4979,
+        "reason": "CURRENT4979 after three scored finishes plus one compile repair and two probe batches. Wave lifetime recovers frame50; raw step snapshot removes repeated delta loads. Register allocation, duration multiplication and branch scheduling remain; index reuse regressed. Original uninitialized stack paths preserved; no shared dependencies.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -30863,6 +30875,12 @@
       "symbol": "func_1509093C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6510,
+        "reason": "CURRENT6510 after three finishes and two probe batches. Argument cursor improves allocation; frameA0 vsA8, state base rematerialization, command snapshot and float scheduling differ. Best valid candidate preserved with original ASM active; no shared dependencies.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -31833,6 +31851,12 @@
       "symbol": "func_150C3160"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1830,
+        "reason": "Best CURRENT 1830 has exact frame60 and release packet3C; remaining pointer allocation, folded linked-object offsets, branch duplication and packet-address scheduling persist after two bounded probe batches.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -33533,6 +33557,12 @@
       "symbol": "func_151DA08C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4404,
+        "reason": "CURRENT4404 after three finishes and two bounded probe batches. Reused scalar lifetimes and typed owner/compound angle improve4887, but frameE0 vsD8 and global-address hoisting displace original registers and spill slots. Best valid candidate preserved; no shared dependencies.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -36331,6 +36361,12 @@
       "symbol": "func_1515E43C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 180,
+        "reason": "Best full-span CURRENT 180: exact frame/registers/operands; three instruction scheduling pairs differ (initial cursor increment, loop command snapshot, special-command ori). Two bounded probe batches exhausted; SDK Gfx representation previously unchanged.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -46397,6 +46433,12 @@
       "symbol": "func_1503F404"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1885,
+        "reason": "Best CURRENT 1885 has exact 0x40 frame but swapped offset/base registers, promoted switch constants, remaining-count branch scheduling and actor-loop scheduling differences; two bounded probe batches exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -62057,6 +62099,12 @@
       "symbol": "func_150CCCB4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1598,
+        "reason": "CURRENT1598: exact frame and local offsets; matrix address hoisting displaces raw target-address registers and shifts later register allocation. Separate branch child lifetimes improved2619; matrix representations plateaued after two probe batches.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -69747,6 +69795,12 @@
       "symbol": "func_150BB498"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1228,
+        "reason": "Best CURRENT 1228 retains the raw RNG call sequence but has frame128 versus118, addressed locals shifted16, reversed cached FP allocation and early angle narrowing; direct and const global hypotheses regress after two bounded probe batches.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -75870,6 +75924,12 @@
       "symbol": "func_151DE8E8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 7205,
+        "reason": "Best CURRENT 7205 preserves backward unrolled copy; frame58 versus40, array bases held across loops, saved registers and counter/branch scheduling remain. Wide counter and pointer arithmetic probes regress after two bounded probe batches.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -85886,6 +85946,12 @@
       "symbol": "func_150E9178"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6200,
+        "reason": "CURRENT6200 after two finishes and two probe batches. Frame140 vs128 and extra global-address promotion displace local-buffer pointers; pointer arithmetic improves operand order, const unchanged, volatile and size-snapshot probes worse. Original RNG sequence and full 0x7C descriptor preserved; no shared dependencies.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

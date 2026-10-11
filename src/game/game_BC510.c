@@ -39,6 +39,8 @@ void func_1508F060(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1508F060 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_1508F060.s")
+void func_1508F9F4(void);
+
 void func_1508F0A4(void) {
     func_1508F0D4();
     func_1508F9F4();
@@ -103,6 +105,122 @@ void func_1508F9C4(void) {
     D_800D2410[D_800D2456] = 0.0f;
     D_800D2456 += 1;
 }
+typedef struct GameBC510Entry {
+    s16 x;
+    s16 y;
+    s16 originX;
+    s16 size;
+    s16 radius;
+    s16 timer;
+    u8 acceleration;
+    u8 state;
+    u8 angle;
+    u8 phase;
+} GameBC510Entry;
+
+extern u8 D_800CC2D0[];
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508F9F4 CURRENT (4979) */
+void func_1508F9F4(void) {
+    GameBC510Entry *entry;
+    s32 timer;
+    s32 enabled;
+    s32 value;
+    s32 duration;
+    s32 i;
+    s32 step;
+    f32 wave;
+
+    if (D_800D24C0 != 0) {
+        timer = D_800D24C0 - D_800BE9E4;
+        if (timer < 0) timer = 0;
+        D_800D24C0 = timer;
+    }
+    if (D_800CC2D0[0xAD] != 0) {
+        value = *(u16 *)(D_800CC2D0 + 0xB2);
+    } else {
+        value = 0;
+    }
+    /* The original leaves enabled and duration unset on some paths. */
+    if (value >= 0x5B) {
+        duration = value / 240;
+        if (duration >= 7) duration = 6;
+        duration = 6 - duration;
+        duration *= 9;
+        if (duration == 0) enabled = 0;
+    } else {
+        enabled = 0;
+    }
+    entry = (GameBC510Entry *)D_800D2460;
+    do {
+        if (entry->state == 2) {
+            timer = entry->timer - D_800BE9E4;
+            if (timer <= 0) {
+                timer = 6;
+                entry->state = 3;
+            }
+            entry->timer = timer;
+        }
+        switch (entry->state) {
+        case 0:
+            if (enabled != 0 && D_800D24C0 == 0) {
+                D_800D24C0 = 10;
+                entry->state = 1;
+                entry->x = 0xFC;
+                entry->y = 0x60;
+                entry->size = 0;
+                entry->acceleration = 0;
+                value = func_150ADA20();
+                entry->angle = value;
+                entry->radius = 0x500;
+                entry->originX = 0xFC - ((s32)(func_15048A40(value) * (f32)entry->radius) >> 8);
+                entry->phase = 0;
+                entry->timer = duration;
+            }
+            break;
+        case 1:
+            timer = entry->size + D_800BE9E4 * 200;
+            if (timer >= 0x666) {
+                entry->state = 2;
+                timer = 0x666;
+            }
+            entry->size = timer;
+            break;
+        case 2:
+            step = D_800BE9E4;
+            value = entry->acceleration;
+            i = 0;
+            if (value < 0x20) {
+                value += step;
+                if (value >= 0x21) value = 0x20;
+                entry->acceleration = value;
+                value = (u8)value;
+            }
+            entry->y -= (step * value) >> 4;
+            timer = entry->size;
+            if (step > 0) {
+                do {
+                    i++;
+                    timer = (timer * 0x104) >> 8;
+                } while (i < step);
+            }
+            entry->size = timer;
+            value = entry->angle + step * 5;
+            entry->angle = value;
+            entry->radius += step * 30;
+            wave = func_15048A40(value) * (f32)entry->radius;
+            entry->phase += D_800BE9E4 * 10;
+            entry->x = ((s32)wave >> 8) + entry->originX;
+            break;
+        case 3:
+            if (entry->timer == 0) entry->state = 0;
+            break;
+        }
+        entry++;
+    } while (entry != (GameBC510Entry *)&D_800D24C0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1508F9F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_1508F9F4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_1508FD38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_150900F0.s")
@@ -110,19 +228,6 @@ typedef struct GameBC510Command {
     u32 w0;
     u32 w1;
 } GameBC510Command;
-
-typedef struct GameBC510Entry {
-    s16 x;
-    s16 y;
-    u8 pad4[2];
-    s16 size;
-    u8 pad8[2];
-    s16 timer;
-    u8 padC;
-    u8 state;
-    u8 padE;
-    u8 phase;
-} GameBC510Entry;
 
 typedef struct GameBC510Sprite {
     u8 pad0[6];
@@ -236,6 +341,150 @@ GameBC510Command *func_15090630(GameBC510Command *dl) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15090630 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_15090630.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_1509093C.s")
+void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
+extern u8 D_80083440[], D_800835C0[], D_80084160[], D_80084190[];
+extern f32 D_8009DD40, D_8009DD44, D_8009DD48;
+
+typedef struct GameBC510DisplayState {
+    u8 matrices[0x80];
+    u32 displayList;
+    u32 buffers[2];
+    u8 pad8C[0x14];
+    f32 x, fieldA4, y;
+    u8 padAC[4];
+    u16 resources[4];
+    u8 padB8[2];
+    u8 alpha;
+} GameBC510DisplayState;
+extern u8 D_800D24C8[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150911F4 CURRENT (6510) */
+GameBC510Command *func_150911F4(GameBC510Command *dl) {
+    s32 resource0, resource1, resource2, resource3;
+    s32 address;
+    s32 loaded;
+    register GameBC510DisplayState *state;
+
+    state = (GameBC510DisplayState *)D_800D24C8;
+    if (state->alpha == 0) {
+        return dl;
+    }
+    {
+        GameBC510Command *packet = dl++;
+        packet->w0 = 0xDE000000;
+        packet->w1 = (u32)D_80084160;
+    }
+    {
+        GameBC510Command *packet = dl++;
+        packet->w0 = 0xD9FFFFFF;
+        packet->w1 = 0x400;
+    }
+    {
+        GameBC510Command *packet = dl++;
+        packet->w0 = 0xD9F1FDFE;
+        packet->w1 = 0;
+    }
+    {
+        GameBC510Command *packet = dl++;
+        packet->w0 = 0xD9BDFFFF;
+        packet->w1 = 0;
+    }
+    if (state->alpha < 0xFF) {
+        {
+            GameBC510Command *packet = dl++;
+            packet->w0 = 0xDB060020;
+            packet->w1 = (u32)D_80083440;
+        }
+    } else {
+        {
+            GameBC510Command *packet = dl++;
+            packet->w0 = 0xDB060020;
+            packet->w1 = (u32)D_800835C0;
+        }
+    }
+    func_15043D90((s32)(state->matrices + (D_800BE9C0 << 6)),
+                  -1.0f - state->x, -11.0f + state->y, 0.0f,
+                  D_8009DD40, D_8009DD40, D_8009DD40,
+                  D_8009DD44, 152.0f, D_8009DD48);
+    {
+        GameBC510Command *packet = dl++;
+        packet->w0 = 0xDA380003;
+        packet->w1 = (u32)(state->matrices + (D_800BE9C0 << 6));
+    }
+    {
+        GameBC510Command *packet = dl++;
+        packet->w0 = 0xF8000000;
+        packet->w1 = 0xFF;
+    }
+    {
+        GameBC510Command *packet = dl++;
+        packet->w0 = 0xFA00F200;
+        packet->w1 = 0;
+    }
+    {
+        GameBC510Command *packet = dl++;
+        packet->w0 = 0xFB000000;
+        packet->w1 = state->alpha;
+    }
+    {
+        GameBC510Command *packet = dl++;
+        packet->w0 = 0xDB06000C;
+        packet->w1 = (u32)(state->matrices + (D_800BE9C0 << 6));
+    }
+    {
+        GameBC510Command *packet = dl++;
+        packet->w0 = 0xDB060004;
+        packet->w1 = state->buffers[D_800BE9C0];
+    }
+    resource0 = state->resources[0];
+    if (resource0 != 0) {
+        address = func_1510D0EC(resource0, &loaded, 3, 0);
+        {
+            GameBC510Command *packet = dl++;
+            packet->w0 = 0xdb060018;
+            packet->w1 = address;
+        }
+    }
+    resource1 = state->resources[1];
+    if (resource1 != 0) {
+        address = func_1510D0EC(resource1, &loaded, 3, 0);
+        {
+            GameBC510Command *packet = dl++;
+            packet->w0 = 0xdb06001c;
+            packet->w1 = address;
+        }
+    }
+    resource2 = state->resources[2];
+    if (resource2 != 0) {
+        address = func_1510D0EC(resource2, &loaded, 3, 0);
+        {
+            GameBC510Command *packet = dl++;
+            packet->w0 = 0xdb060028;
+            packet->w1 = address;
+        }
+    }
+    resource3 = state->resources[3];
+    if (resource3 != 0) {
+        address = func_1510D0EC(resource3, &loaded, 3, 0);
+        {
+            GameBC510Command *packet = dl++;
+            packet->w0 = 0xdb06002c;
+            packet->w1 = address;
+        }
+    }
+    {
+        GameBC510Command *packet = dl++;
+        packet->w0 = 0xDE000000;
+        packet->w1 = state->displayList;
+    }
+    {
+        GameBC510Command *packet = dl++;
+        packet->w0 = 0xDE000000;
+        packet->w1 = (u32)D_80084190;
+    }
+    return dl;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150911F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_150911F4.s")
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 extern u8 D_D16;

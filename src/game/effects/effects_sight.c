@@ -273,6 +273,159 @@ s32 func_151C8FCC(s32 arg0, Sight8FCCVector *arg1, Sight8FCCVector *arg2,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151C8FCC */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C8FCC.s")
+void *func_15132A4C(void *, s32, s32, s32, u8, s32);
+s32 func_15144E80(void *, void *, void *, void *);
+void func_15145974(void *, f32 *, f32 *);
+extern f32 D_800AAC7C;
+
+/* func_1513264C copies all 0x7C bytes into the spawned effect. */
+typedef struct SightSpawnDescriptor {
+    f32 scale0, scale1, field08, field0C;
+    f32 pitch, yaw, roll;
+    f32 scale[3];
+    Sight8FCCVector position;
+    f32 motion[7];
+    s32 flags;
+    s16 lifetime, kind;
+    s8 field58;
+    u8 pad59[3];
+    s32 owner;
+    u8 channels[8];
+    s8 field68, field69, field6A;
+    u8 pad6B;
+    s32 field6C;
+    s8 field70;
+    u8 pad71;
+    s16 field72, field74;
+    u8 pad76[6];
+} SightSpawnDescriptor;
+
+typedef struct SightSpawnCommand {
+    s16 id;
+    s8 mode;
+    u8 pad3;
+    s32 value;
+} SightSpawnCommand;
+
+typedef struct SightSpawnCommands {
+    s8 count;
+    u8 pad1[3];
+    SightSpawnCommand entries[2];
+} SightSpawnCommands;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9198 CURRENT (1147) */
+void func_151C9198(struct Game15F680TransformState **arg0, Sight8FCCVector *arg1,
+                   void *arg2, s32 arg3, s32 arg4, volatile u8 arg5, u8 arg6, u8 arg7, s32 arg8) {
+    Sight8FCCVector vector0, vector1, vector2;
+    SightSpawnDescriptor descriptor;
+    struct Game15F680TransformState *result;
+    SightSpawnCommands commands;
+    s32 offset;
+    s32 flags;
+    struct Game15F680TransformState *effect;
+
+    if (func_15144E80(arg2, &vector0, &vector1, &vector2) != 0) {
+        func_15145974(&vector2, &descriptor.yaw, &descriptor.pitch);
+        descriptor.scale0 = 1.0f;
+        descriptor.scale1 = 1.0f;
+        descriptor.scale[0] = 1.0f;
+        descriptor.scale[1] = 1.0f;
+        descriptor.pitch += 90.0f;
+        descriptor.scale[2] = 1.0f;
+        descriptor.field0C = D_800AAC7C;
+        descriptor.field08 = D_800AAC7C;
+        descriptor.roll = 0.0f;
+        descriptor.position = *arg1;
+        descriptor.motion[0] = 0.0f;
+        descriptor.motion[1] = 0.0f;
+        descriptor.motion[2] = 0.0f;
+        descriptor.motion[3] = 0.0f;
+        descriptor.motion[4] = 0.0f;
+        descriptor.motion[5] = 0.0f;
+        descriptor.motion[6] = 0.0f;
+        if (arg6 != 0) {
+            flags = 0x400;
+        } else {
+            flags = 0;
+        }
+        descriptor.flags = flags | 0x900 | 0x10000 | 0x4000 | 0x40000 | 0x80000;
+        descriptor.lifetime = 0x12C;
+        descriptor.kind = 0x36;
+        descriptor.field58 = 0;
+        descriptor.channels[0] = 0xFF;
+        descriptor.channels[1] = 0;
+        descriptor.channels[2] = 0;
+        descriptor.channels[3] = 0;
+        descriptor.channels[4] = 0;
+        descriptor.channels[5] = 0;
+        descriptor.channels[6] = 0;
+        descriptor.channels[7] = 0;
+        descriptor.field68 = 2;
+        descriptor.field6A = 0;
+        descriptor.field6C = 0;
+        descriptor.field70 = 0;
+        descriptor.field72 = 1;
+        descriptor.field74 = 0xFF;
+        descriptor.field69 = -1;
+        descriptor.owner = arg4;
+        result = func_15132A4C(&descriptor, 3, 0xFF, 0, arg7, arg8);
+        arg0[0] = result;
+        if (result != 0) {
+            offset = 0;
+            do {
+                effect = arg0[0];
+                func_15133760((s32)((u8 *)effect + offset + 0x90), effect);
+                offset += 0x40;
+            } while (offset != 0x80);
+        }
+        descriptor.field69 = 2;
+        commands.count = 2;
+        commands.entries[0].mode = 4;
+        commands.entries[1].mode = 6;
+        commands.entries[0].value = 0x3E;
+        commands.entries[1].value = 0x3E;
+        if (arg5 != 0) {
+            commands.entries[0].id = 0x87;
+            commands.entries[1].id = 0x88;
+        } else {
+            commands.entries[0].id = 0x8B;
+            commands.entries[1].id = 0x8C;
+        }
+        descriptor.kind = 0x37;
+        descriptor.field68 = 0;
+        result = func_15132A4C(&descriptor, 3, 0xFF, 0x14, arg7, arg8);
+        arg0[1] = result;
+        if (result != 0) {
+            offset = 0;
+            do {
+                effect = arg0[1];
+                func_15133760((s32)((u8 *)effect + offset + 0x90), effect);
+                offset += 0x40;
+            } while (offset != 0x80);
+            func_10022EC0((u8 *)arg0[1] + 0x170, &commands, 0x14);
+        }
+        descriptor.kind = 0x38;
+        if (arg5 != 0) {
+            commands.entries[0].id = 0x89;
+            commands.entries[1].id = 0x8A;
+        } else {
+            commands.entries[0].id = 0x8D;
+            commands.entries[1].id = 0x8E;
+        }
+        result = func_15132A4C(&descriptor, 3, 0xFF, 0x14, arg7, arg8);
+        arg0[2] = result;
+        if (result != 0) {
+            offset = 0;
+            do {
+                effect = arg0[2];
+                func_15133760((s32)((u8 *)effect + offset + 0x90), effect);
+                offset += 0x40;
+            } while (offset != 0x80);
+            func_10022EC0((u8 *)arg0[2] + 0x170, &commands, 0x14);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C9198 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9198.s")
 void func_1000FD38(void *, void *, s32);
 

@@ -199,6 +199,101 @@ void func_150E9178(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150E9178 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_115F30/func_150E9178.s")
 
+void *func_15132A4C(void *, s32, s32, s32, u8, s32);
+extern u8 D_800A12F0[];
+extern f32 D_800A12F4[];
+extern f32 D_800A13C8, D_800A13CC, D_800A13D0, D_800A13D4;
+extern f32 D_800A13D8, D_800A13DC, D_800A13E0, D_800A13E4;
+
+/* The spawn helper copies the full 0x7C-byte descriptor. */
+typedef struct Game115F30Particle {
+    f32 field00, field04, field08, field0C;
+    f32 rotation[3], scale[3], position[3], velocity[3];
+    f32 field40, field44, field48, field4C;
+    s32 flags;
+    s16 lifetime, kind;
+    u8 field58, pad59[3];
+    s32 owner;
+    u8 channels[8];
+    u8 field68, field69, field6A, pad6B;
+    s32 field6C;
+    u8 field70, pad71;
+    s16 field72, field74;
+    u8 pad76[6];
+} Game115F30Particle;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E93DC CURRENT (6200) */
+void func_150E93DC(u8 *arg0) {
+    f32 *state;
+    Game115F30Particle particle;
+    u8 *result;
+    f32 extra[7];
+    f32 random0, random1;
+    f32 size;
+    f32 scale;
+    f32 range;
+    s32 index;
+
+    state = (f32 *)(arg0 + 0x28);
+    *(volatile f32 *)&state[5] += (state[3] + func_150ADA68() * state[4]) * D_800BE9A4;
+    if (*(volatile f32 *)&state[5] > 1.0f) {
+        range = D_800A13C8;
+        particle.field00 = 0.0f;
+        particle.field04 = 1.0f;
+        particle.scale[0] = 1.0f;
+        particle.scale[1] = 1.0f;
+        particle.scale[2] = 1.0f;
+        particle.flags = 0x49E8;
+        particle.velocity[0] = 0.0f;
+        particle.velocity[1] = 0.0f;
+        particle.velocity[2] = 0.0f;
+        particle.field44 = 0.0f;
+        particle.field58 = 0;
+        particle.owner = 0;
+        particle.channels[0] = 0xFF;
+        particle.channels[2] = 0;
+        particle.channels[3] = 0;
+        particle.channels[4] = 0;
+        particle.channels[5] = 0;
+        particle.channels[6] = 0;
+        particle.channels[7] = 0;
+        particle.field68 = 2;
+        particle.field6A = 2;
+        particle.field6C = 0;
+        particle.field70 = 0;
+        particle.field72 = 1;
+        particle.field74 = 0xFF;
+        scale = D_800A13CC;
+        do {
+            index = func_150ADA20() % 1U;
+            particle.kind = *(D_800A12F0 + index);
+            size = ((func_150ADA68() * D_800A13D0) + 400.0f) * *(D_800A12F4 + index) * scale;
+            particle.field08 = size;
+            particle.field0C = size;
+            particle.rotation[0] = func_150ADA68() * 360.0f;
+            particle.rotation[1] = func_150ADA68() * 360.0f;
+            particle.rotation[2] = func_150ADA68() * 360.0f;
+            particle.field4C = ((func_150ADA68() * D_800A13D4) + D_800A13D8) * scale;
+            particle.lifetime = (func_150ADA20() % 1U) + 100;
+            particle.field40 = ((func_150ADA68() * range) + D_800A13DC) * scale;
+            particle.field48 = ((func_150ADA68() * range) + D_800A13E0) * scale;
+            random0 = func_150ADA68();
+            random1 = func_150ADA68();
+            func_151436B4(random0 * D_800A13E4, random1 * D_800A13E4,
+                          func_150ADA68() * 50.0f, particle.position);
+            particle.position[0] += state[0];
+            particle.position[1] += state[1];
+            particle.channels[1] = 8;
+            particle.position[2] += state[2];
+            result = func_15132A4C(&particle, 3, 0xFF, 0x1C, arg0[0xC], arg0[1]);
+            if (result != 0) {
+                func_10022EC0(result + 0x170, extra, 0x1C);
+            }
+            *(volatile f32 *)&state[5] -= 1.0f;
+        } while (*(volatile f32 *)&state[5] > 1.0f);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E93DC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_115F30/func_150E93DC.s")
 typedef struct Game115F30Owner {
     u8 pad0;

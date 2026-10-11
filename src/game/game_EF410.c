@@ -659,7 +659,117 @@ Gfx *func_150C3160(Gfx *gdl, s8 *arg1)
   }
   return gdl;
 }
+void func_15059C84(void *);
+void func_1505A770(void *);
+void func_15058898(u8 *, s32);
+void func_1505B5F8(u8 *, f32);
+void func_1505E650(void *, s32, f32, f32, f32, f32, s32);
+void func_1507C324(void *, void *);
+void func_1508B20C(f32, f32, f32, s32);
+void func_15060F28(u8 *, s32);
+void func_1506AC8C(void *, s32, void *);
+extern u8 D_800BE616;
+extern s32 D_800BE9E4;
+extern u8 D_800C35EA;
+extern u8 D_800CC028[];
+extern u8 D_800CC2D0[];
+
+typedef struct GameEF410Release {
+    void *owner;
+    GameEF410Vector position;
+    s32 index;
+} GameEF410Release;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C3230 CURRENT (1830) */
+void func_150C3230(u8 *arg0) {
+    s32 index;
+    s32 kind;
+    s32 timer;
+    u8 *linked;
+    GameEF410Release release;
+    s32 reason;
+
+    *(s32 *)(arg0 + 0xF8) |= 0x04000000;
+    if (arg0[0x222] != 0 && arg0[0x65] == 0) {
+        linked = D_800CC2D0 + arg0[0x124] * 0x32C;
+        *(f32 *)(arg0 + 0x2C) = *(f32 *)(linked - 0x318);
+        *(f32 *)(arg0 + 0x30) = *(f32 *)(linked - 0x314);
+        *(f32 *)(arg0 + 0x34) = *(f32 *)(linked - 0x310);
+        arg0[0x222] = 0;
+    }
+    func_15059C84(arg0);
+    func_1505A770(arg0);
+    func_15058898(arg0, *(s32 *)(arg0 + 0x30));
+    func_1505B5F8(arg0, *(f32 *)(arg0 + 0x180));
+    if (*(f32 *)(arg0 + 0x28) == 0.0f) {
+        *(f32 *)(arg0 + 0x3C) *= 0.5f;
+    }
+    index = arg0[0x65];
+    if (index != 0) {
+        arg0[0x222] = index;
+        kind = *(u16 *)(D_800CC028 + index * 0x32C);
+        if (kind == 0x1F9) {
+            index = 2;
+        } else {
+            index = 1;
+            if (kind == 0x1FB) {
+                index = 3;
+            }
+        }
+    } else {
+        index = 0;
+    }
+    func_1505E650(arg0, index & 0xFFFF, 0.0f, 0.0f, 0.0f, 0.0f, 0);
+    index = arg0[0x65];
+    if (index != 0) {
+        func_1507C324(arg0, index * 0x32C - 0x32C + D_800CC2D0);
+    }
+    if (*(s32 *)(arg0 + 0x2E4) != 0) {
+        index = arg0[0x65];
+        linked = NULL;
+        if (index != 0) {
+            linked = index * 0x32C - 0x32C + D_800CC2D0;
+            if (*(s32 *)linked == 5) {
+                arg0[0x65] = 0;
+                *(s32 *)(arg0 + 0x2E4) = 0;
+            }
+        }
+        if (D_800BE616 == 0 && D_800C35EA == 0 && arg0[0x65] == 0) {
+            *(s32 *)(arg0 + 0x2E4) = 0;
+        }
+        kind = D_800BE9E4;
+        timer = *(s32 *)(arg0 + 0x2E4);
+        if (kind < timer) {
+            *(s32 *)(arg0 + 0x2E4) = timer - kind;
+            if (D_800BE616 != 0) {
+                func_1508B20C(*(f32 *)(arg0 + 0x14), *(f32 *)(arg0 + 0x18),
+                               *(f32 *)(arg0 + 0x1C), 0x44610000);
+            }
+        } else {
+            release.position.x = *(f32 *)(arg0 + 0x14);
+            release.position.y = *(f32 *)(arg0 + 0x18);
+            release.position.z = *(f32 *)(arg0 + 0x1C);
+            release.owner = arg0[0x124] * 0x32C - 0x32C + D_800CC2D0;
+            release.index = arg0[0x65];
+            if (linked != NULL) {
+                linked[0x104] = 0;
+                linked[0x125] = 0;
+                if (linked[0x1CA] != 0) {
+                    linked[0x1CA] = 1;
+                }
+            }
+            reason = 0xE;
+            if (D_800BE616 != 0) {
+                reason = 0xB;
+            }
+            func_1506AC8C(arg0, reason, &release);
+            func_15060F28(arg0, 1);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C3230 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3230.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3574.s")
 void func_15059140(u8 *);
 void func_15060F28(u8 *, s32);

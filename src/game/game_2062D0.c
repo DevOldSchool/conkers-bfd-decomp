@@ -531,6 +531,76 @@ void func_151D9FC0(u8 arg0, f32 arg1, u8 arg2, s32 arg3, f32 *arg4,
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D9FC0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9FC0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DA08C.s")
+void *func_151DB5D0(s32, f32 *, f32 *, f32, f32, f32, f32,
+                    s32, s32, s32, s32, s32, s32, s32);
+extern f32 D_800AB480, D_800AB484, D_800AB488;
+extern f32 D_800AB48C, D_800AB490, D_800AB494;
+extern f32 D_800BE9A4;
+
+typedef struct Game1DA368Motion {
+    u8 angle0, angle1;
+    s8 speed0, speed1;
+    f32 amplitude0, amplitude1;
+    f32 phase, center, decay;
+    u8 kind;
+} Game1DA368Motion;
+
+typedef struct Game1DA368Owner {
+    u8 pad0, owner;
+    u8 pad2[0xA];
+    u8 priority;
+    u8 padD[0x1F];
+    f32 sizeX, sizeY;
+    Game2062D0Vector position;
+    u8 pad40[0xE8];
+    Game1DA368Motion motion;
+} Game1DA368Owner;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DA368 CURRENT (4404) */
+s32 func_151DA368(Game1DA368Owner *arg0) {
+    Game1DA368Motion *motion;
+    u8 phase;
+    Game2062D0Vector position;
+    Game2062D0Vector velocity;
+    s16 angle;
+    f32 radius;
+    f32 cosine;
+    f32 average;
+    f32 radiusLimit;
+    f32 size;
+
+    phase = (arg0->motion.angle0 += arg0->motion.speed0 * D_800BE9E4);
+    arg0->motion.angle1 += arg0->motion.speed1 * D_800BE9E4;
+    motion = &arg0->motion;
+    arg0->sizeX = func_151423D8(phase - 0x40) * motion->amplitude0 + motion->center;
+    arg0->sizeY = func_151423D8(motion->angle1 - 0x40) * motion->amplitude1 + motion->center;
+    *(volatile f32 *)&motion->phase += (D_800AB480 + func_150ADA68() * D_800AB484) * D_800BE9A4;
+    average = (arg0->sizeX + arg0->sizeY) * 0.5f;
+    if (*(volatile f32 *)&motion->phase > 1.0f) {
+        radiusLimit = average * 500.0f;
+        size = average * D_800AB488;
+        do {
+            angle = func_150ADA20() & 0xFF;
+            radius = func_150ADA68() * radiusLimit;
+            cosine = func_151423D8(angle - 0x40);
+            position.x = arg0->position.x + func_151423D8(angle) * radius;
+            position.y = arg0->position.y + -3.5f;
+            position.z = arg0->position.z + cosine * radius;
+            velocity.x = 0.0f;
+            velocity.y = 0.0f;
+            velocity.z = 0.0f;
+            angle = (func_150ADA20() % 51U) + 0x96;
+            radius = func_150ADA68();
+            func_151DB5D0(motion->kind, &position.x, &velocity.x, size,
+                          ((radius * 154.0f) + D_800AB48C) * D_800AB490,
+                          1.0f, ((func_150ADA68() * 25.0f) + -50.0f) * D_800AB494,
+                          angle, 0x9B, angle, 0xFF / angle, 1, arg0->priority, arg0->owner);
+            *(volatile f32 *)&motion->phase -= 1.0f;
+        } while (*(volatile f32 *)&motion->phase > 1.0f);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151DA368 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DA368.s")
 
 s32 func_151DA6A8(u8 *arg0) {
