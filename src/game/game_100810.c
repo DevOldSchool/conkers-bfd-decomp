@@ -231,7 +231,7 @@ void func_150D4C00(void *arg0) {
 }
 void func_1000FD38(void *, void *, s32);
 extern s8 D_8008FD8C;
-void func_150D5124(void);
+s32 func_150D5124(u8 *, s32, u32 *, s32, s32 *, s32, u16 *);
 
 void func_150D4C2C(void *arg0) {
     void *temp_s0;
@@ -273,4 +273,118 @@ s32 func_150D4CC4(void *arg0) {
     return 1;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D4D58.s")
+void func_100111C8(u16);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D5124 CURRENT (635) */
+s32 func_150D5124(u8 *arg0, s32 arg1, u32 *arg2, s32 arg3, s32 *arg4, s32 arg5, u16 *arg6) {
+    s32 kind;
+    s32 target = 0;
+    s32 pitch = 0;
+    u8 *state;
+    s32 level;
+    s32 currentPitch;
+    u8 *owner;
+    f32 speed;
+
+    kind = *(s32 *)(arg0 + 0x1C);
+    state = *(u8 **)(arg0 + 0x18);
+    level = *(s32 *)(arg0 + 0xC);
+    currentPitch = *arg4;
+    if (kind == 0x5B3) {
+        owner = *(u8 **)state;
+        if (owner != 0) {
+            speed = *(f32 *)(owner + 0x28);
+            target = speed * 25.0f;
+            if (target > 5000) {
+                target = 5000;
+            } else if (target < 500) {
+                target = 0;
+            }
+            pitch += speed * 5.0f;
+            if (pitch > 1000) {
+                pitch = 1000;
+            }
+        }
+        if (state[5] == 2) {
+            target += 7000;
+        } else if (state[5] == 1) {
+            target += 7000;
+            pitch = 400;
+        } else {
+            pitch = 400;
+            if (target != 0) {
+                level = target;
+            }
+        }
+    } else if (kind == 0x5BC) {
+        target = 24000;
+        if (state[5] == 0) {
+            level = 24000;
+        } else {
+            target = 400;
+        }
+    } else if (kind == 0x5B4) {
+        if (state[5] == 0) {
+            target = 16000;
+            pitch = 400;
+            level = 16000;
+        } else if (state[5] == 1 || D_8008FD8C >= 5) {
+            target = 12000;
+        } else {
+            pitch = 400;
+        }
+    }
+    if (level != target) {
+        if (level < target) {
+            level += D_800BE9E4 << 8;
+            if (level > target) {
+                level = target;
+            }
+        } else {
+            level -= D_800BE9E4 << 8;
+            if (level < target) {
+                level = target;
+            }
+        }
+    }
+    if (currentPitch != pitch) {
+        if (currentPitch < pitch) {
+            currentPitch += D_800BE9E4 << 8;
+            if (currentPitch > pitch) {
+                currentPitch = pitch;
+            }
+        } else {
+            currentPitch -= D_800BE9E4 * 8;
+            if (currentPitch < pitch) {
+                currentPitch = pitch;
+            }
+        }
+    }
+    if (level < 500) {
+        level = 0;
+    } else if (*arg6 == 0) {
+        *(s16 *)arg0 = kind;
+        *arg6 = kind;
+    }
+    *(s16 *)(arg0 + 2) = (s32)*(f32 *)(*(u8 **)state + 0x14);
+    *(s16 *)(arg0 + 4) = (s32)*(f32 *)(*(u8 **)state + 0x18);
+    *(s16 *)(arg0 + 6) = (s32)*(f32 *)(*(u8 **)state + 0x1C);
+    if (D_800C35EA == 1) {
+        *(s32 *)(arg0 + 0xC) = level >> 1;
+        *arg2 >>= 1;
+    } else {
+        *(s32 *)(arg0 + 0xC) = level;
+    }
+    *(s16 *)(arg0 + 0x20) = currentPitch;
+    *arg4 = (s16)currentPitch;
+    if (*arg2 == 0) {
+        if (*(u16 *)(arg0 + 0x24) != 0) {
+            func_100111C8(*(u16 *)(arg0 + 0x24));
+            *(u16 *)(arg0 + 0x24) = 0;
+        }
+        *arg6 = 0;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150D5124 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D5124.s")

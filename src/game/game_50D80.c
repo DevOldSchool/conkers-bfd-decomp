@@ -264,6 +264,63 @@ loop_4:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150241B4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_50D80/func_150241B4.s")
+void func_15024130(s32, s32);
+void func_150241B4(u8 *, s32 *, s32, s32, s32, s32, s32);
+extern s32 D_800C35B8[];
+extern u8 D_800C35C0[], D_800C35EA[], D_800C363A[], D_800C3C8C;
+extern s8 D_800C3638;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150242F8 CURRENT (4995) */
+void func_150242F8(s32 mode, s32 owner) {
+    u8 *record;
+    s32 time;
+    s32 track;
+    s32 queued;
+
+    if (D_800C3C8C != 2 && D_800C35EA[owner] == 1 && D_800C3C9A != 0) {
+        D_800C3638 = 0;
+        queued = 0;
+        for (track = 0; track < D_800C363A[owner]; track++) {
+            if (*(u8 **)(D_800C3688 + owner * 0x78 + track * 4) != NULL &&
+                D_800C35B8[owner] != D_800C35B0[owner]) {
+                record = *(u8 **)(D_800C3688 + owner * 0x78 + track * 4) + 0x20;
+                time = ((Game50D80Record *)*(u8 **)(D_800C3688 + owner * 0x78 + track * 4))->value;
+                while ((u32)(((s32)(record - *(u8 **)(D_800C3688 + owner * 0x78 + track * 4)) >> 3)) < D_800C35D8[owner][track]) {
+                    if (((Game50D80Record *)record)->step == 0 && ((Game50D80Record *)record)->kind == 0) {
+                        time = ((Game50D80Record *)record)->value;
+                    } else {
+                        if (D_800C35B0[owner] >= time && D_800C35B8[owner] < time) {
+                            while (1) {
+                                if ((u32)(((s32)(record - *(u8 **)(D_800C3688 + owner * 0x78 + track * 4)) >> 3)) >= D_800C35D8[owner][track]) break;
+                                if ((mode == 0 && ((Game50D80Record *)record)->kind != 0x11) || (mode == 1 && ((Game50D80Record *)record)->kind == 0x11)) {
+                                    func_150241B4((u8 *)D_800C3D50, &queued, (s32)record, track,
+                                        ((s32)(record - *(u8 **)(D_800C3688 + owner * 0x78 + track * 4)) >> 3), time, owner);
+                                }
+                                if (((Game50D80Record *)record)->step != 0 || (((Game50D80Record *)record)->step == 0 && ((Game50D80Record *)record)->kind == 0)) break;
+                                record += 8;
+                            }
+                        }
+                        if (D_800C35B0[owner] < time) break;
+                        while (((Game50D80Record *)record)->step == 0) {
+                            if (((Game50D80Record *)record)->kind == 0) {
+                                time = ((Game50D80Record *)record)->value;
+                                break;
+                            }
+                            record += 8;
+                            if ((u32)(((s32)(record - *(u8 **)(D_800C3688 + owner * 0x78 + track * 4)) >> 3)) >= D_800C35D8[owner][track]) break;
+                        }
+                        time += ((Game50D80Record *)record)->step;
+                    }
+                    record += 8;
+                }
+            }
+        }
+        func_15024130(queued, owner);
+        D_800C3638 = 1;
+        if (mode == 0) D_800C35C0[owner] = 1;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150242F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_50D80/func_150242F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_50D80/func_1502460C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_50D80/func_150265CC.s")

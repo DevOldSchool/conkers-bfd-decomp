@@ -343,6 +343,97 @@ s32 func_151BD42C(u8 *arg0) {
     *(s16 *)(arg0 + 0x80) = 0;
     return 1;
 }
+typedef struct Game1E9A30Particle {
+    s32 flags, zero4;
+    s16 texture, lifetime;
+    s32 zeroC, zero10;
+    u8 red, green, blue, alpha0, red1, green1, blue1;
+    u8 alpha, maximum, kind;
+    s16 duration, period, field22;
+    f32 field24, width, height;
+    f32 x, y, z;
+    f32 originX, originY, originZ;
+    f32 vx, vy, vz, rotation;
+    s32 mode, unused5C;
+    s8 field60, field61, field62, field63, field64, field65;
+    u8 pad66[0xA];
+} Game1E9A30Particle;
+
+typedef struct Game1E9A30Owner {
+    void *object;
+    u8 id;
+} Game1E9A30Owner;
+
+void *func_15130374(s32, u8, s32, u8, s32);
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+extern f32 D_800AA854, D_800AA858, D_800AA85C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BD43C CURRENT (3202) */
+void func_151BD43C(f32 *arg0, f32 *arg1, s32 arg2, s32 arg3, f32 arg4, void *arg5) {
+    Game1E9A30Particle particle;
+    f32 scale;
+    void *spawned;
+    Game1E9A30Owner owner;
+    s32 flag0;
+    s32 flag1;
+
+    if ((*(u8 *)((u8 *)*(void **)((u8 *)arg5 + 0x1C) + 0x74) & 0xF) != 0xF) {
+        particle.kind = 0x29;
+        particle.texture = 0xE03;
+        particle.flags = 0x200005;
+        particle.zero4 = 0;
+        particle.zeroC = 0;
+        particle.zero10 = 0;
+        particle.rotation = (func_150ADA68() * 251.0f + 44.0f) * D_800AA854;
+        particle.duration = 0x14;
+        particle.period = 0xC;
+        flag0 = (func_150ADA20() & 1) ? 0x40 : 0;
+        flag1 = (func_150ADA20() & 1) ? 0x80 : 0;
+        particle.mode = flag1 | 7 | flag0 | 0xDE00;
+        particle.field60 = 3;
+        particle.field61 = 3;
+        particle.field63 = -1;
+        particle.field64 = -1;
+        particle.field65 = 7;
+        particle.field22 = 0x22;
+        particle.red = 0xDD;
+        particle.green = 0xD3;
+        particle.blue = 0xCD;
+        particle.alpha0 = 0xFF;
+        particle.red1 = 0x57;
+        particle.green1 = 0x55;
+        particle.blue1 = 0x5A;
+        scale = D_800AA858;
+        particle.field24 = D_800AA85C;
+        particle.alpha = func_150ADA20() % 156U + 0x64;
+        particle.maximum = 0xFF;
+        particle.lifetime = func_150ADA20() % 18U + 0x19;
+        particle.width = particle.height = func_150ADA68() * 53.0f + 49.0f;
+        particle.vx = (arg1[0] - arg0[0]) * *(f32 *)((u8 *)arg5 + 0x74);
+        particle.vy = (arg1[1] - arg0[1]) * *(f32 *)((u8 *)arg5 + 0x74);
+        particle.vz = (arg1[2] - arg0[2]) * *(f32 *)((u8 *)arg5 + 0x74);
+        particle.x = arg0[0] - *(f32 *)((u8 *)*(void **)((u8 *)arg5 + 0x1C) + 0x14);
+        particle.y = arg0[1] - *(f32 *)((u8 *)*(void **)((u8 *)arg5 + 0x1C) + 0x18);
+        particle.z = arg0[2] - *(f32 *)((u8 *)*(void **)((u8 *)arg5 + 0x1C) + 0x1C);
+        particle.x += particle.vx * arg4;
+        particle.y += particle.vy * arg4;
+        particle.z += particle.vz * arg4;
+        owner.object = *(void **)((u8 *)arg5 + 0x1C);
+        particle.field62 = 0x13;
+        owner.id = *(u8 *)((u8 *)*(void **)((u8 *)arg5 + 0x1C) + 0x3B);
+        particle.originX = *(f32 *)((u8 *)*(void **)((u8 *)arg5 + 0x1C) + 0x14);
+        particle.originY = *(f32 *)((u8 *)*(void **)((u8 *)arg5 + 0x1C) + 0x18);
+        particle.originZ = *(f32 *)((u8 *)*(void **)((u8 *)arg5 + 0x1C) + 0x1C);
+        spawned = func_15130374((s32)&particle, 1, 0x10,
+                                *(u8 *)((u8 *)arg5 + 0xC), *(u8 *)((u8 *)arg5 + 1));
+        if (spawned != NULL) {
+            func_10022EC0((u8 *)spawned + 0xA8, &scale, 4);
+            func_10022EC0((u8 *)spawned + 0xB0, &owner, 8);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151BD43C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BD43C.s")
 extern f32 D_800AA860;
 extern f32 D_800AA864;

@@ -3350,6 +3350,74 @@ void func_150730D0(void) {
     }
     *(u16 *)((u8 *)D_800D154C + 0x2F8) = (u16) (*(u16 *)((u8 *)D_800D154C + 0x2F8) & 0xFEFF);
 }
+u8 *func_1505ED34(void);
+void func_151EFEB8(void *, s32);
+s32 func_1515D480(s32);
+u8 *func_15158BD0(void *, u8, s32);
+extern s32 D_80082FA0;
+extern f32 D_8009A098;
+extern u8 D_800C3E90;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15073118 CURRENT (510) */
+u8 *func_15073118(u8 *arg0, s32 arg1, s32 arg2, f32 arg3, f32 arg4,
+                  f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, s32 arg10) {
+    u8 *actor;
+    f32 matrix[4][4];
+    u8 *transform;
+    f32 x, y, z;
+    s32 i;
+    u32 angle;
+
+    actor = func_1505ED34();
+    *(f32 *)(actor + 0x24) = arg9;
+    *(f32 *)(actor + 0x20) = arg8;
+    *(f32 *)(actor + 0x3C) = arg7;
+    actor[0x83] = arg10;
+    if (*(u8 **)(arg0 + 0x1D4) != NULL && arg1 != -1) {
+        transform = *(u8 **)(arg0 + 0x1D4) + (arg1 << 6);
+        if (D_800C3E90 != 0) {
+            func_151EFEB8(matrix, (s32)transform);
+            transform = (u8 *)matrix;
+        }
+        func_150A7960(transform, arg3, arg4, arg5, &x, &y, &z);
+    } else {
+        x = *(f32 *)(arg0 + 0x14);
+        y = *(f32 *)(arg0 + 0x18);
+        z = *(f32 *)(arg0 + 0x1C);
+    }
+    *(f32 *)(actor + 0x14) = x;
+    *(f32 *)(actor + 0x18) = y;
+    *(f32 *)(actor + 0x1C) = z;
+    angle = (u32)((f32)(u32)*(u16 *)(arg0 + 0x7A) + arg6 * D_8009A098);
+    *(s16 *)(actor + 0x7A) = angle;
+    *(s16 *)(actor + 0x76) = angle;
+    *(s32 *)actor = 0x21;
+    actor[0x125] = 0xFF;
+    *(s32 *)(actor + 0xF8) = 2;
+    if (arg2 != 0x42) *(s32 *)(actor + 0xF8) = 0x100E;
+    actor[0x66] = arg0[0x66] & 0xC;
+    *(s16 *)(actor + 0xE4) = 10;
+    *(s16 *)(actor + 0xE6) = 10;
+    *(f32 *)(actor + 0xEC) = 1.0f;
+    *(f32 *)(actor + 0xF0) = 1.0f;
+    *(f32 *)(actor + 0xDC) = 1.0f;
+    *(f32 *)(actor + 0xE0) = 1.0f;
+    *(f32 *)(actor + 0x14C) = 0.5f;
+    *(f32 *)(actor + 0x150) = 0.5f;
+    if (arg2 == 0x1F) *(f32 *)(actor + 0xC8) = 10.0f;
+    *(s16 *)(actor + 0x278) = arg2;
+    actor[5] = 5;
+    actor[0x3B] = 0xFF - ((s32)(actor - (u8 *)&D_800CC2D0) / 812);
+    func_15083568(actor, arg2, 0x3F800000, 0);
+    for (i = 0; i <= D_80082FA0; i++) {
+        *(s32 *)(actor + 0x304 + i * 4) = func_1515D480(1);
+    }
+    if (*(s32 *)(actor + i * 4 + 0x300) != 0) actor[0x301] = 1;
+    *(void **)(actor + 0x314) = func_1515D440();
+    func_1514EC1C(func_15158BD0(actor, 1, 0), (s32)actor, 0x13);
+    return actor;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15073118 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15073118.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1507342C.s")
 /* Call context: func_1505E650: unique active project prototype */

@@ -1120,4 +1120,82 @@ void func_1500BE68(void) {
     D_800DDD20 = 0;
     func_1500BE40(0);
 }
+typedef struct {
+    s32 (*create)(s32, s32, s32, s32, s32, s16 **);
+    u8 pad04[8];
+} Game36680Creator;
+
+typedef struct {
+    s16 creator;
+    s16 count;
+} Game36680CreationChoice;
+
+void func_1500AD84(s32, s32, s32);
+void func_1510F800(s32);
+void func_1517B89C(s32, s32);
+extern u8 D_80038080;
+extern s32 D_8008CEB4;
+extern Game36680Creator D_8008CEB8[];
+extern Game36680CreationChoice D_8008CF00[][8];
+extern s16 **D_800DBE3C;
+extern s32 D_800DBE4C;
+extern u32 *D_800DBE5C;
+extern u8 D_800DDC10[];
+extern s16 D_800DDC90[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500BEC0 CURRENT (1285) */
+void func_1500BEC0(void) {
+    s32 i;
+    s32 resource;
+    s32 variant;
+    u32 packed;
+    Game36680ResourceChoice *choice;
+    Game36680CreationChoice *creation;
+    s16 *phase;
+    u8 *frames;
+
+    func_1500BE68();
+    if (D_800B0DF0->count != 0 && (D_800BE9F0 != 6 || D_80038080 != 0) && D_800BE9F0 != 0x1D) {
+        i = 0;
+        choice = (Game36680ResourceChoice *)D_800BE4A0;
+        for (; i < 15; i++) {
+            func_1500AD84(i, choice->id, choice->flags);
+            choice++;
+        }
+        *(Game36680Record **)&D_800DDD18 = func_10003C40(D_800B0DF0->count * 14, 1, 2, 0);
+        func_1510F800(0);
+        if (D_800DBE5C != 0) {
+            for (i = 0; i < D_800DBE4C; i++) {
+                packed = D_800DBE5C[i];
+                if (packed & 0xF0000) {
+                    resource = ((packed >> 16) & 15) - 1;
+                    variant = (packed >> 20) & 7;
+                    creation = &D_8008CF00[D_800DDC80[resource]][variant];
+                    D_800DDD20 = D_8008CEB8[creation->creator].create(
+                        creation->count, (u8)variant, resource, ((packed >> 5) & 3) ^ 3,
+                        D_800DDD20, (s16 **)((u8 *)D_800DBE3C + i * 12));
+                    D_800BE478[resource]++;
+                }
+            }
+        }
+        for (i = 0; i < D_800DDD20; i++) {
+            D_800DDD18[i].padB = 0;
+        }
+        D_8008CEB4 = 0;
+        func_1517B89C(0, D_800DDD20 - 1);
+        phase = D_800DDC90;
+        for (i = 0; i != 60; i++) {
+            resource = i >> 2;
+            frames = &D_800DDBD0[resource];
+            if (*frames != 0) {
+                *phase = (func_151EF610() % *frames) << 8;
+            } else {
+                *phase = 0;
+            }
+            D_800DDC10[resource] = func_151EF610();
+            phase++;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1500BEC0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500BEC0.s")

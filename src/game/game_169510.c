@@ -426,6 +426,94 @@ void func_1513CF9C(s32 arg0, s32 arg1, u8 arg2) {
 }
 void func_1513CFD0(s32 arg0, s32 arg1, s32 arg2) {
 }
+extern s32 (*D_80089CB8[])(void *);
+extern s32 (*D_80089D60[])(void *);
+extern s32 (*D_80089E10[])(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513CFE4 CURRENT (1570) */
+void func_1513CFE4(void *arg0) {
+    s32 flags;
+    s8 expired;
+    s32 lifetime, product, speed, boundary, value;
+    u8 callback;
+
+    if (*(s32 *)((u8 *)arg0 + 0x10) & 1) {
+        expired = 0;
+        if (*(s32 *)((u8 *)arg0 + 0x58) & 1) {
+            *(s16 *)((u8 *)arg0 + 0x1C) -= D_800BE9E4;
+            if (*(s16 *)((u8 *)arg0 + 0x1C) < 0) expired = 1;
+        }
+        callback = *((u8 *)arg0 + 0x70);
+        if (callback != 0) {
+            if (D_80089CB8[callback](arg0) == 0) expired = 1;
+        }
+        callback = *((u8 *)arg0 + 0x71);
+        if (callback != 0) {
+            if (D_80089D60[callback](arg0) == 0) expired = 1;
+        }
+        flags = *(s32 *)((u8 *)arg0 + 0x58);
+        if ((flags & 0x08000000) && expired == 0) {
+            lifetime = *(s16 *)((u8 *)arg0 + 0x1C);
+            if (lifetime < *(s16 *)((u8 *)arg0 + 0x6C)) {
+                product = *(s16 *)((u8 *)arg0 + 0x6E) * lifetime;
+                if (product < *((u8 *)arg0 + 0x5C)) {
+                    *((u8 *)arg0 + 0x5C) = product;
+                    flags = *(s32 *)((u8 *)arg0 + 0x58);
+                }
+            }
+        }
+        if ((flags & 0x10000000) && expired == 0) {
+            lifetime = *(s16 *)((u8 *)arg0 + 0x1C);
+            if (lifetime < *(s16 *)((u8 *)arg0 + 0x6C)) {
+                product = *(s16 *)((u8 *)arg0 + 0x6E) * lifetime;
+                if (product < *((u8 *)arg0 + 0x5C)) {
+                    *((u8 *)arg0 + 0x2B) = product;
+                }
+            }
+        }
+        if (expired == 0) {
+            speed = *(s32 *)((u8 *)arg0 + 0x24);
+            if (speed != 0) {
+                boundary = (D_80090B64[*((u8 *)arg0 + 0x18) * 12] << 16) - 1;
+                value = *(s32 *)((u8 *)arg0 + 0x20) + speed * D_800BE9E4;
+                *(s32 *)((u8 *)arg0 + 0x20) = value;
+                if (boundary < value) {
+                    flags = *(s32 *)((u8 *)arg0 + 0x58);
+                    if (flags & 0x800) expired = 1;
+                    else if (flags & 0x400) {
+                        *(s32 *)((u8 *)arg0 + 0x20) = boundary - value % boundary;
+                        *(s32 *)((u8 *)arg0 + 0x24) = -speed;
+                    } else {
+                        do {
+                            value -= boundary;
+                            *(s32 *)((u8 *)arg0 + 0x20) = value;
+                        } while (boundary < value);
+                    }
+                } else if (value < 0) {
+                    flags = *(s32 *)((u8 *)arg0 + 0x58);
+                    if (flags & 0x1000) expired = 1;
+                    else if (flags & 0x400) {
+                        *(s32 *)((u8 *)arg0 + 0x20) = -value % boundary;
+                        *(s32 *)((u8 *)arg0 + 0x24) = -speed;
+                    } else {
+                        do {
+                            value += boundary;
+                            *(s32 *)((u8 *)arg0 + 0x20) = value;
+                        } while (value < 0);
+                    }
+                }
+            }
+        }
+        if (expired != 0) {
+            callback = *((u8 *)arg0 + 0x72);
+            if (callback != 0) {
+                if (D_80089E10[callback](arg0) != 0) expired = 0;
+            }
+        }
+        if (expired != 0) func_1516972C(arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513CFE4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513CFE4.s")
 typedef struct Game169510Effect {
     u8 pad0[0x10];

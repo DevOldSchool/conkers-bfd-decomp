@@ -247,6 +247,95 @@ void func_15105848(void *arg0, s32 arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15105848 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_131F30/func_15105848.s")
+typedef struct Game131F30Handle { s16 *shape; f32 scale; } Game131F30Handle;
+
+typedef struct Game131F30Spawn {
+    Game131F30Vector position;
+    s16 lifetime, kind;
+    s32 flags;
+    s8 mode, count;
+} Game131F30Spawn;
+
+typedef struct Game131F30Motion {
+    f32 size;
+    Game131F30Vector velocity;
+    f32 spread;
+    u8 field14, field15, field16, field17, field18, field19, field1A;
+    u8 field1B, field1C, field1D, field1E, field1F, field20, field21;
+    s32 flags, mode;
+    s16 duration, period, repeat;
+    u8 field32;
+    f32 scale;
+    s8 field38, field39;
+} Game131F30Motion;
+
+void func_151432BC(void *, f32 *, f32 *, f32 *, f32 *);
+void func_15143794(s16, s16, f32, void *);
+void *func_1515C2F0(void *, void *, s32, s32, u8, s32);
+extern f32 D_800A23EC, D_800A23F0, D_800A23F4, D_800A23F8;
+extern f32 D_800A23FC, D_800A2400;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151058B4 CURRENT (1288) */
+void func_151058B4(void *arg0) {
+    f32 count;
+    f32 base;
+    f32 range;
+    Game131F30Spawn spawn;
+    Game131F30Motion motion;
+    f32 upper;
+    f32 lower;
+    u32 random0, random1;
+
+    if (func_151464B8(*(s16 **)((u8 *)arg0 + 0x30)) == 0) {
+        count = (func_150ADA68() * D_800A23EC + D_800A23F0) * ((Game131F30Handle *)((u8 *)arg0 + 0x28))->scale;
+        if (count > 1.0f) {
+            spawn.kind = 0x15;
+            spawn.flags = 0xA;
+            spawn.mode = -1;
+            motion.field14 = 4;
+            motion.field15 = 2;
+            motion.field16 = 3;
+            motion.field17 = 0x61;
+            motion.field18 = 0xF2;
+            motion.field19 = 0xFF;
+            motion.field1B = 0xFF;
+            motion.field1C = 0xFF;
+            motion.field1D = 0xFF;
+            motion.field1E = 0xFF;
+            motion.field1F = 0xFF;
+            motion.field20 = 3;
+            motion.field21 = 0x24;
+            motion.flags = 0x200005;
+            motion.mode = 0x60600;
+            motion.duration = 0x14;
+            motion.period = 0xC;
+            motion.repeat = 1;
+            motion.field32 = 0;
+            motion.scale = 1.0f;
+            motion.field38 = -1;
+            motion.field39 = 0;
+            base = D_800A23F4;
+            range = D_800A23F8;
+            spawn.position.y = (f32)((Game131F30Handle *)((u8 *)arg0 + 0x28))->shape[1];
+            do {
+                motion.field1A = func_150ADA20() % 101U + 0x9B;
+                spawn.count = (func_150ADA20() & 3) + 3;
+                func_151432BC(((Game131F30Handle *)((u8 *)arg0 + 0x28))->shape, &spawn.position.x, &spawn.position.z, &upper, &lower);
+                spawn.lifetime = func_150ADA20() % 31U + 0x1E;
+                motion.size = func_150ADA68() * range + base;
+                random0 = func_150ADA20();
+                random1 = func_150ADA20();
+                func_15143794((s16)(random0 & 0xFF), (s16)(random1 % 22U - 0x36),
+                              func_150ADA68() * 20.0f + 30.0f, &motion.velocity);
+                motion.spread = func_150ADA68() * D_800A23FC + D_800A2400;
+                func_1515C2F0(&spawn, NULL, (s32)&motion, 0,
+                              *(u8 *)((u8 *)arg0 + 0xC), *(u8 *)((u8 *)arg0 + 1));
+                count -= 1.0f;
+            } while (count > 1.0f);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151058B4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_131F30/func_151058B4.s")
 void func_1508B20C(f32, f32, f32, s32);
 

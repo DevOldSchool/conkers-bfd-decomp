@@ -14,6 +14,127 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FEA80/func_151D15D0.s")
+typedef struct {
+    u8 *owner;
+    u8 pad04[8];
+    f32 limit;
+    f32 widthBase;
+    f32 widthScale;
+    f32 alphaScale;
+    f32 ownerScale;
+} Game1FEA80TrailState;
+
+typedef struct {
+    f32 x, y, z, length;
+    u8 pad10[4];
+    u8 alpha;
+    u8 pad15[7];
+    f32 width;
+    u8 pad20[8];
+} Game1FEA80TrailPoint;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D197C CURRENT (3782) */
+s32 func_151D197C(u8 *arg0) {
+    f32 savedTotal;
+    f32 savedInverse;
+    f32 total;
+    f32 inverse;
+    f32 remaining;
+    f32 widthFactor;
+    f32 alphaFactor;
+    f32 length;
+    f32 ratio;
+    f32 sourceX, sourceY, sourceZ;
+    f32 x, y, z;
+    s32 index;
+    s32 previous;
+    Game1FEA80TrailState *state;
+    Game1FEA80TrailPoint *points;
+    Game1FEA80TrailPoint *point;
+    Game1FEA80TrailPoint *next;
+
+    state = *(Game1FEA80TrailState **)(arg0 + 0x98);
+    points = *(Game1FEA80TrailPoint **)(arg0 + 0x94);
+    if (state->owner != 0) {
+        state->ownerScale = *(f32 *)(*(u8 **)(state->owner + 0x28) + 0x14C);
+    }
+    if (*(s8 *)(arg0 + 0x2C) >= 2) {
+        total = 0.0f;
+        index = *(s8 *)(arg0 + 0x2E) - 1;
+        if (index < 0) {
+            index = arg0[0x25] - 1;
+        }
+        if (index != *(s8 *)(arg0 + 0x2D)) {
+            do {
+                previous = index;
+                index--;
+                if (index < 0) {
+                    index = arg0[0x25] - 1;
+                }
+                point = &points[previous];
+                length = point->length;
+                total += length;
+                if (state->limit < total) {
+                    if (length != 0.0f) {
+                        ratio = (total - state->limit) / length;
+                        sourceX = point->x;
+                        sourceY = point->y;
+                        sourceZ = point->z;
+                        next = &points[index];
+                        x = next->x;
+                        y = next->y;
+                        z = next->z;
+                        next->x = x - (x - sourceX) * ratio;
+                        next->y = y - (y - sourceY) * ratio;
+                        next->z = z - (z - sourceZ) * ratio;
+                        point->length *= 1.0f - ratio;
+                    }
+                    if (index != *(s8 *)(arg0 + 0x2D)) {
+                        do {
+                            (*(s8 *)(arg0 + 0x2D))++;
+                            if (arg0[0x25] == *(s8 *)(arg0 + 0x2D)) {
+                                *(s8 *)(arg0 + 0x2D) = 0;
+                            }
+                            (*(s8 *)(arg0 + 0x2C))--;
+                        } while (index != *(s8 *)(arg0 + 0x2D));
+                    }
+                    total = state->limit;
+                }
+            } while (index != *(s8 *)(arg0 + 0x2D));
+        }
+        if (total != 0.0f) {
+            inverse = 1.0f / total;
+        } else {
+            inverse = 0.0f;
+        }
+        savedInverse = inverse;
+        savedTotal = total;
+    }
+    inverse = savedInverse;
+    total = savedTotal;
+    if (*(s8 *)(arg0 + 0x2C) >= 2) {
+        index = *(s8 *)(arg0 + 0x2E);
+        remaining = total;
+        widthFactor = state->widthScale * state->ownerScale * inverse;
+        alphaFactor = state->alphaScale * inverse;
+        do {
+            index--;
+            if (index < 0) {
+                index = arg0[0x25] - 1;
+            }
+            point = &points[index];
+            point->width = state->widthBase * state->ownerScale +
+                           remaining * widthFactor;
+            point->alpha = (u32)(remaining * alphaFactor);
+            remaining -= point->length;
+        } while (index != *(s8 *)(arg0 + 0x2D));
+    }
+    if ((*(u16 *)(arg0 + 0x1E) & 1) && (*(u16 *)(arg0 + 0x1E) & 8)) {
+        *((s8 *)state + 8) = *(s16 *)(arg0 + 0x1C) * 6;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D197C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FEA80/func_151D197C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FEA80/func_151D1C98.s")
 typedef struct Game1FEA80Leaf {
