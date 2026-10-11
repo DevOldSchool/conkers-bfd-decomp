@@ -1516,6 +1516,130 @@ void func_1519944C(CharacterFlamethrowerActor *arg0) {
         D_800E0900[var_a1]->active = 1;
     }
 }
+typedef struct {
+    CharacterFlamethrowerIdentity *owner;
+    u8 generation, joint, flags, pad07;
+    CharacterFlamethrowerVec3 first, second;
+    u8 pad20[0x14];
+    s8 initialize, field35, field36, sound;
+    u8 field38, field39, size;
+    u8 pad3B[0x11];
+} CharacterFlamethrowerSeed;
+typedef struct { s32 words[17]; } CharacterFlamethrowerRecord44;
+typedef struct { s32 words[15]; } CharacterFlamethrowerRecord3C;
+typedef struct {
+    s32 kind;
+    CharacterFlamethrowerSeed seed;
+    u8 red, green, blue, alpha, flags;
+    u8 pad55[3];
+    CharacterFlamethrowerRecord44 first, second;
+    CharacterFlamethrowerRecord3C third;
+} CharacterFlamethrowerSetup;
+typedef struct {
+    CharacterFlamethrowerSeed seed;
+    CharacterFlamethrowerRecord44 first, second;
+    CharacterFlamethrowerRecord3C third;
+    CharacterFlamethrowerVec3 firstPosition, secondPosition;
+    f32 field128, field12C;
+    u8 pad130[4];
+    f32 field134, field138, field13C, size, minimum;
+    void *light;
+    f32 field14C;
+    u8 flags, field151;
+    s16 field152;
+} CharacterFlamethrowerInitialState;
+typedef struct {
+    union {
+        CharacterFlamethrowerVec3 vector;
+        f32 values[3];
+    } position;
+    s16 lifetime;
+    u16 kind;
+    s32 flags;
+    u8 mode, id;
+    u8 pad16[6];
+} CharacterFlamethrowerFullSpawn;
+
+void func_15145EA4(s32 *, s32 *, s32, s32);
+s32 func_1519C09C(s32, f32 *, u8, u8, u8, u8, u8, s32);
+extern void (*D_8008F8A4[])(void *);
+extern s16 (*D_8008F8B8[])(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151994B8 CURRENT (80) */
+void *func_151994B8(s32 arg0, CharacterFlamethrowerSetup *arg1, u8 arg2, s32 arg3) {
+    CharacterFlamethrowerActor *result;
+    CharacterFlamethrowerFullSpawn spawn;
+    CharacterFlamethrowerInitialState initial;
+    CharacterFlamethrowerIdentity *owner;
+    CharacterFlamethrowerVec3 *inputs[2];
+    CharacterFlamethrowerVec3 *outputs[2];
+    CharacterFlamethrowerState *state;
+    s32 flag8;
+    s32 flag4;
+    s32 flag2;
+    s32 flag32;
+    s32 flags;
+
+    owner = arg1->seed.owner;
+    if (*(s32 *)((u8 *)owner + 0x1D4) == 0) {
+        return NULL;
+    }
+    spawn.id = arg1->kind;
+    spawn.lifetime = 0x12C;
+    spawn.kind = 0x12;
+    spawn.flags = 0xE;
+    spawn.mode = 0;
+    initial.seed = arg1->seed;
+    inputs[0] = &initial.seed.first;
+    inputs[1] = &initial.seed.second;
+    outputs[0] = &initial.firstPosition;
+    outputs[1] = &initial.secondPosition;
+    func_15145EA4((s32 *)inputs, (s32 *)outputs,
+                   *(s32 *)((u8 *)owner + 0x1D4) + (initial.seed.joint << 6), 2);
+    initial.field128 = 0.0f;
+    spawn.position.vector = initial.firstPosition;
+    initial.field12C = 0.0f;
+    initial.size = (f32)(u32)initial.seed.size;
+    initial.minimum = -16384.0f;
+    initial.first = arg1->first;
+    initial.field134 = 0.0f;
+    initial.second = arg1->second;
+    initial.field138 = 0.0f;
+    initial.third = arg1->third;
+    initial.field13C = 0.0f;
+    initial.field14C = 0.0f;
+    flags = arg1->flags;
+    flag8 = (flags & 8) ? 8 : 0;
+    flag4 = (flags & 4) ? 4 : 0;
+    flag2 = (flags & 2) ? 2 : 0;
+    flag32 = (flags & 0x10) ? 0x20 : 0;
+    initial.flags = flag32 | flag2 | flag4 | flag8;
+    initial.field152 = 0;
+    initial.field151 = 0;
+    result = func_15147A80(&spawn, (void *)(arg0 + 0x158), 0x28,
+                           0xC, 0xC, 0xC, 0, 0, 0, arg2, arg3);
+    if (result != NULL) {
+        state = result->state;
+        func_10022EC0(state, &initial, 0x154);
+        if (initial.seed.sound != -1) {
+            state->unk130 = D_8008F8B8[initial.seed.sound]();
+        } else {
+            state->unk130 = 0;
+        }
+        if (initial.seed.initialize != -1) {
+            D_8008F8A4[initial.seed.initialize](result);
+        }
+        if (arg1->flags & 1) {
+            state->unk148 = (void *)func_1519C09C((s32)result, spawn.position.values,
+                               arg1->red, arg1->green, arg1->blue, arg1->alpha,
+                               arg2, arg3);
+        } else {
+            state->unk148 = NULL;
+        }
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151994B8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151994B8.s")
 void func_15199834(CharacterFlamethrowerActor *arg0) {
     CharacterFlamethrowerLocal sp18;

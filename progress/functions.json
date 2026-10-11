@@ -3708,6 +3708,12 @@
       "symbol": "func_1519944C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 80,
+        "reason": "CURRENT 80 after three focused comparisons and two manual probe batches: exact frame, offsets, registers and branches; two address setup instructions are swapped and one zero store is scheduled before the vector copy. Initialization-order hypotheses exhausted; no shared dependency changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -84979,6 +84985,12 @@
       "symbol": "func_151B1478"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1699,
+        "reason": "CURRENT 1699: correct square-root intrinsic and vertex calculations, but frame 0x78 versus 0x68, pointer spill homes and FP register/scheduling differences remain. Three finish calls including one invalid missing-intrinsic attempt, two bounded probe batches; no shared dependency changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
