@@ -52723,6 +52723,12 @@
       "symbol": "func_15152190"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1067,
+        "reason": "CURRENT 1067 after three focused checks and two probe batches. Contiguous payload preserves the raw 0x38-byte motion copy across the descriptor boundary; remaining frame 0x108 versus 0x100, packet offsets and setup register order differ. No shared declaration changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -87199,6 +87205,12 @@
       "symbol": "func_151ABE40"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2740,
+        "reason": "CURRENT 2740 with original 0xE8 frame and payload offsets; retained over initial 2327 with incorrect 0xD8 frame. Two focused checks and two probe batches. Table address is delayed, pitch uses a word spill at 0x64 instead of halfword 0x72, and setup/register differences remain. All 15 argument slots preserved; no shared declarations changed.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

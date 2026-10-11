@@ -641,13 +641,121 @@ void func_15151A38(Game151A38Config *arg0, u8 arg1, s32 arg2) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15151D6C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152190.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152520.s")
 typedef struct {
     u8 red;
     u8 green;
     u8 blue;
     u8 alpha;
 } Game17CAF0Color;
+
+typedef struct {
+    s32 countBase, countRange;
+    Game17CAF0Vec3f position;
+    s16 yawBase, yawRange, pitchBase, pitchRange;
+    f32 speedBase, speedRange, jitter, sizeBase, sizeRange;
+    s16 lifeBase, lifeRange;
+    s32 field34, field38, field3C;
+    f32 field40, field44, scaleBase, scaleRange;
+    Game17CAF0Vec3f velocityBase, velocityRange;
+    Game17CAF0Color firstColor, secondColor;
+    u8 flags, mode;
+    s16 field72, field74;
+} Game152520Config;
+
+typedef struct {
+    u8 flags, field01, field02;
+    s8 field03, field04;
+    u8 pad05;
+    s16 life;
+    s32 field08, field0C, field10, field14, field18;
+    s32 field1C, field20, field24, field28;
+    u8 field2C, field2D, pad2E[2];
+    Game17CAF0Color firstColor, secondColor;
+    u8 field38, pad39[3];
+    s32 field3C;
+    u8 field40, field41, pad42[2];
+    Game17CAF0Vec3f position;
+    u8 pad50[4];
+    s16 field54, field56;
+} Game152520Descriptor;
+
+typedef struct {
+    Game17CAF0Vec3f angles;
+    f32 scale;
+    Game17CAF0Vec3f direction, velocity;
+    f32 size, jitter;
+    u8 mode, pad31[3];
+} Game152520Motion;
+
+s32 func_15157898(s32, s32, s32, f32, s32, s32, s32, u8, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15152520 CURRENT (1067) */
+void func_15152520(Game152520Config *arg0, s32 arg1, s32 arg2) {
+    u8 priority;
+    /* The 0x38-byte motion copy includes the descriptor's first four bytes. */
+    struct {
+        Game152520Motion motion;
+        Game152520Descriptor descriptor;
+    } packet;
+    s32 count;
+    u32 randomPitch;
+
+    priority = arg1;
+    packet.descriptor.field38 = 0;
+    packet.descriptor.flags = arg0->flags | 2;
+    packet.descriptor.field01 = 0;
+    packet.descriptor.field02 = 1;
+    packet.descriptor.field03 = -1;
+    packet.descriptor.field04 = -1;
+    packet.descriptor.field08 = arg0->field34;
+    packet.descriptor.field0C = arg0->field38;
+    packet.descriptor.field24 = 0x80;
+    packet.descriptor.field28 = 0x20;
+    packet.descriptor.field10 = 0;
+    packet.descriptor.field14 = 0x220405;
+    packet.descriptor.field18 = 0x40200;
+    packet.descriptor.field2C = 0;
+    packet.descriptor.field2D = 8;
+    packet.descriptor.field1C = 1;
+    packet.descriptor.field20 = 0x38;
+    packet.descriptor.field3C = 0;
+    packet.descriptor.field40 = 0;
+    packet.descriptor.field41 = 2;
+    packet.descriptor.position = arg0->position;
+    packet.motion.jitter = arg0->jitter;
+    packet.descriptor.firstColor = arg0->firstColor;
+    packet.descriptor.secondColor = arg0->secondColor;
+    packet.descriptor.field54 = arg0->field72;
+    packet.descriptor.field56 = arg0->field74;
+    packet.motion.mode = arg0->mode;
+    count = func_150ADA20() % (u32)(arg0->countRange + 1) + arg0->countBase;
+    if (count != 0) {
+        do {
+            packet.descriptor.life = func_150ADA20() % (u32)(arg0->lifeRange + 1) + arg0->lifeBase;
+            packet.motion.angles.x = func_150ADA68() * 360.0f;
+            packet.motion.angles.y = func_150ADA68() * 360.0f;
+            packet.motion.angles.z = func_150ADA68() * 360.0f;
+            packet.motion.scale = func_150ADA68() * arg0->scaleRange + arg0->scaleBase;
+            arg1 = func_150ADA20();
+            randomPitch = func_150ADA20();
+            func_15143794(
+                (s16)((u32)arg1 % (u32)(arg0->yawRange + 1) + arg0->yawBase),
+                (s16)(randomPitch % (u32)(arg0->pitchRange + 1) + arg0->pitchBase),
+                func_150ADA68() * arg0->speedRange + arg0->speedBase,
+                &packet.motion.direction);
+            packet.motion.velocity.x = func_150ADA68() * arg0->velocityRange.x + arg0->velocityBase.x;
+            packet.motion.velocity.y = func_150ADA68() * arg0->velocityRange.y + arg0->velocityBase.y;
+            packet.motion.velocity.z = func_150ADA68() * arg0->velocityRange.z + arg0->velocityBase.z;
+            packet.motion.size = func_150ADA68() * arg0->sizeRange + arg0->sizeBase;
+            func_15157898((s32)&packet.descriptor, (s32)&packet, arg0->field3C,
+                func_150ADA68() * arg0->field44 + arg0->field40,
+                0, 0, 0, priority, arg2);
+            count--;
+        } while (count != 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15152520 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152520.s")
 
 typedef struct {
     s32 countBase, countRange;
