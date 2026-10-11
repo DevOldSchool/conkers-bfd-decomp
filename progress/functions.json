@@ -68865,6 +68865,12 @@
       "symbol": "func_150B12FC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1000,
+        "reason": "CURRENT (1000), frame 0x38 matches; early 210 constant and call-argument setup schedule differ, global-base allocation and address operand order differ, velocity store occupies branch delay slot instead of preceding branch. Three finishes and two bounded probe batches exhausted; no shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -68897,6 +68903,12 @@
       "symbol": "func_150B17DC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1365,
+        "reason": "CURRENT (1365), frame 0x88 and descriptor/angle/float spill offsets match. Initial intermediate flags store optimized out; integer-word fourth argument to func_1505E650 uses move instead of mfc1; remaining register allocation and float operand scheduling differ. Full 0x38-byte descriptor retained. Three finishes and two bounded probes exhausted; no shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
