@@ -122,6 +122,74 @@ void func_15191400(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15191400 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_15191400.s")
+s32 func_1514672C(f32 *);
+s32 func_15046C80(f32 *, u16, f32, void *);
+void func_151DBCBC(s32, f32, s32, s32, f32 *, s32, s32);
+void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
+extern f32 D_800BE9A4, D_800A801C, D_800A8020;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15191520 CURRENT (5362) */
+s32 func_15191520(u8 *arg0) {
+    f32 dx;
+    f32 dz;
+    f32 dy;
+    s8 alive;
+    volatile f32 oldY;
+    volatile f32 oldZ;
+    volatile f32 oldX;
+    f32 position[3];
+    f32 *motion;
+    f32 damping;
+    volatile f32 oldVelocityY;
+    volatile f32 acceleration;
+
+    oldY = *(f32 *)(arg0 + 0x38);
+    oldX = *(f32 *)(arg0 + 0x110);
+    motion = (f32 *)(arg0 + 0x110);
+    oldZ = *(f32 *)(arg0 + 0x118);
+    alive = 1;
+    damping = *(f32 *)(arg0 + 0x120);
+    *(f32 *)(arg0 + 0x110) = oldX * (damping * D_800BE9A4);
+    *(f32 *)(arg0 + 0x118) = oldZ * (damping * D_800BE9A4);
+    oldVelocityY = *(f32 *)(arg0 + 0x114);
+    dx = (*(f32 *)(arg0 + 0x110) + oldX) * 0.5f * D_800BE9A4;
+    acceleration = *(f32 *)(arg0 + 0x11C) * D_800BE9A4;
+    dy = oldVelocityY * D_800BE9A4 + acceleration * D_800BE9A4 * 0.5f;
+    dz = (*(f32 *)(arg0 + 0x118) + oldZ) * 0.5f * D_800BE9A4;
+    *(f32 *)(arg0 + 0x114) = oldVelocityY + acceleration;
+    *(f32 *)(arg0 + 0x34) += dx;
+    *(f32 *)(arg0 + 0x38) = oldY + dy;
+    *(f32 *)(arg0 + 0x3C) += dz;
+    *(f32 *)(arg0 + 0x40) += dx;
+    *(f32 *)(arg0 + 0x44) += dy;
+    *(f32 *)(arg0 + 0x48) += dz;
+    *(f32 *)(arg0 + 0x40) = *(f32 *)(arg0 + 0x34) + (*(f32 *)(arg0 + 0x40) - *(f32 *)(arg0 + 0x34)) * motion[6];
+    *(f32 *)(arg0 + 0x44) = *(f32 *)(arg0 + 0x38) + (*(f32 *)(arg0 + 0x44) - *(f32 *)(arg0 + 0x38)) * motion[6];
+    *(f32 *)(arg0 + 0x48) = *(f32 *)(arg0 + 0x3C) + (*(f32 *)(arg0 + 0x48) - *(f32 *)(arg0 + 0x3C)) * motion[6];
+    position[0] = *(f32 *)(arg0 + 0x34);
+    position[1] = oldY - *(f32 *)(arg0 + 0x30);
+    position[2] = *(f32 *)(arg0 + 0x3C);
+    if (func_1514672C(position) == 0) {
+        return 0;
+    }
+    if (func_15046C80(position, 0, *(f32 *)(arg0 + 0x38) - *(f32 *)(arg0 + 0x30), (u8 *)motion + 0x38) != 0) {
+        position[1] = motion[14];
+        if (((u8 *)motion)[0x55] == 3) {
+            func_151DBCBC(((u8 *)motion)[0x5C], *(f32 *)(arg0 + 0x2C) * *(f32 *)(arg0 + 0x30) * 0.25f,
+                         arg0[0x5C], (s32)((u8 *)motion + 0x3C), position, arg0[0xC], arg0[1]);
+        } else if (func_150ADA20() & 1) {
+            func_151D9B8C(((u8 *)motion)[0x5C], *(f32 *)(arg0 + 0x2C) * *(f32 *)(arg0 + 0x30) * D_800A801C,
+                         arg0[0x5C], (s32)((u8 *)motion + 0x3C), position, func_150ADA20() % 41U + 0x50,
+                         1, 1, 0, arg0[0xC], arg0[1]);
+        } else {
+            func_151DAB58(((u8 *)motion)[0x5C], *(f32 *)(arg0 + 0x2C) * *(f32 *)(arg0 + 0x30) * D_800A8020,
+                         arg0[0x5C], position, 1, arg0[0xC], arg0[1]);
+        }
+        alive = 0;
+    }
+    return alive;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15191520 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_15191520.s")
 s32 func_1519187C(void *arg0) {
     s16 temp_v0;

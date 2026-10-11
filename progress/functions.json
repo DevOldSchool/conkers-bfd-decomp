@@ -57115,6 +57115,12 @@
       "symbol": "func_15191400"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5362,
+        "reason": "Two finishes and two bounded probe batches; best CURRENT 5362 (b69b10f91604463da646ffc7dbc1ca82), frame 0x88 versus raw 0x80. Snapshot spills improve initial 6916, but broad FP register/scheduling differences and stack offsets remain. Final escaped-aggregate/dead-damping reuse hypotheses regressed to 6402 or worse and were not applied. Correct canonical one-pointer func_1514672C call; no shared declarations changed. Manual revision budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -61292,6 +61298,12 @@
       "symbol": "func_15149104"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 300,
+        "reason": "Three finishes and two bounded probe batches: CURRENT1658 -> 1509 -> 300; final eb8a7cd6394344dfa9a5420f78bbbeb8. Frame0x100 and all local/payload offsets match; raw callee copies descriptor0x7C and motion0x28 is retained. Residual radius store/RNG call delay slot, cosine store/angle reload order, and final random/zero FP register allocation; no shared declarations changed. Manual budget exhausted; canonical assembly restored.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -80855,6 +80867,12 @@
       "symbol": "func_1511DF6C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 40,
+        "reason": "Three finishes and two bounded probe batches: CURRENT 4049 -> 794 -> 40. Final frame 0x58 and all stack offsets/control flow match; seven register-only rows remain: raw addu v1,s0,t9 versus candidate v1,t9,s0 at 0x4c and swapped f8/f16 loads for three positive-positive vertex coordinates at 0x1c4/1c8, 0x1ec/1f0, 0x214/218. Explicit s32 parameter home retained; no shared declarations changed. Manual revision budget exhausted; permutation not authorized.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

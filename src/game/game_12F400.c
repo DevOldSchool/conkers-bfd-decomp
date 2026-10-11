@@ -14,6 +14,68 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+void *func_10022EC0(void *, const void *, u32);
+s32 func_15144E80(void *, void *, void *, void *);
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15101F50 CURRENT (40) */
+void *func_15101F50(u8 *arg0, s32 arg1) {
+    u8 *source;
+    void *vertices;
+    void *result;
+    f32 first[3];
+    f32 second[3];
+    u8 fresh;
+    u8 *slot;
+
+    func_151D5D60(arg0 + 0x100, ((s16 *)&arg1)[1], 0x40, &vertices, &fresh);
+    result = vertices;
+    if (vertices != NULL) {
+        if (fresh != 0) {
+            slot = (u8 *)((u32)arg0 + ((s16 *)&arg1)[1] * 4);
+            source = arg0 + 0xC0;
+            func_10022EC0(*(void **)(slot + 0x100), source, 0x40U);
+            func_10022EC0(*(u8 **)(slot + 0x100) + 0x40, source, 0x40U);
+        }
+    } else {
+        return NULL;
+    }
+    {
+        if (!(arg0[0x110] & 1)) {
+            return NULL;
+        }
+        if (func_15144E80(arg0 + 0x112, first, second, NULL) == 0) {
+            return NULL;
+        }
+        func_15145128(first, first, NULL, NULL);
+        func_15145128(second, second, NULL, NULL);
+        first[0] *= *(f32 *)(arg0 + 0x2C);
+        first[1] *= *(f32 *)(arg0 + 0x2C);
+        first[2] *= *(f32 *)(arg0 + 0x2C);
+        second[0] *= *(f32 *)(arg0 + 0x30);
+        second[1] *= *(f32 *)(arg0 + 0x30);
+        second[2] *= *(f32 *)(arg0 + 0x30);
+        ((s16 *)vertices)[0] = (s32)(second[0] + (*(f32 *)(arg0 + 0x34) - first[0]));
+        ((s16 *)vertices)[1] = (s32)(second[1] + (*(f32 *)(arg0 + 0x38) - first[1]));
+        ((s16 *)vertices)[2] = (s32)(second[2] + (*(f32 *)(arg0 + 0x3C) - first[2]));
+        ((s16 *)vertices)[3] = 0;
+        ((s16 *)vertices)[8] = (s32)(second[0] + (*(f32 *)(arg0 + 0x34) + first[0]));
+        ((s16 *)vertices)[9] = (s32)(second[1] + (*(f32 *)(arg0 + 0x38) + first[1]));
+        ((s16 *)vertices)[10] = (s32)(second[2] + (*(f32 *)(arg0 + 0x3C) + first[2]));
+        ((s16 *)vertices)[11] = 0;
+        ((s16 *)vertices)[16] = (s32)((*(f32 *)(arg0 + 0x34) + first[0]) - second[0]);
+        ((s16 *)vertices)[17] = (s32)((*(f32 *)(arg0 + 0x38) + first[1]) - second[1]);
+        ((s16 *)vertices)[18] = (s32)((*(f32 *)(arg0 + 0x3C) + first[2]) - second[2]);
+        ((s16 *)vertices)[19] = 0;
+        ((s16 *)vertices)[24] = (s32)((*(f32 *)(arg0 + 0x34) - first[0]) - second[0]);
+        ((s16 *)vertices)[25] = (s32)((*(f32 *)(arg0 + 0x38) - first[1]) - second[1]);
+        ((s16 *)vertices)[26] = (s32)((*(f32 *)(arg0 + 0x3C) - first[2]) - second[2]);
+        ((s16 *)vertices)[27] = 0;
+        return result;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15101F50 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_15101F50.s")
 typedef struct Game12F400Animation {
     u8 pad0[0x24];
