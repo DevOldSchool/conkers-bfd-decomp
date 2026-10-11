@@ -142,6 +142,64 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
                 self.assertGreater(objects[0].stat().st_mtime_ns, before[0])
                 self.assertEqual(objects[1].stat().st_mtime_ns, before[1])
 
+    def test_sequences_rebuild_from_records_and_missing_inputs_cannot_reuse_objects(self):
+        shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
+        for name in ('sequence_codec', 'audio_assets'):
+            (self.root / f'scripts/{name}.py').touch()
+        profile = self.root / 'config/profiles/us.yaml'
+        profile.write_text(profile.read_text() + '  - name: asset_bank_17\n    type: group\n')
+        (self.root / 'scripts/audio_boundaries.py').write_text("""def bank_layout(profile, *, configuration=None):
+    return 0, 100, [(0, 'audio/bank17/sequences/index'),
+                    (8, 'audio/bank17/sequences/0000'),
+                    (40, 'audio/bank17/sequences/padding/00000028'),
+                    (48, 'audio/bank17/sequences/0001')]
+""")
+        (self.root / 'scripts/sequence_build.py').write_text("""from pathlib import Path
+from build_files import write_if_changed
+for index in range(2):
+    source = Path(f'build/assets/sequence-build/us/{index:04d}')
+    assert (source / 'manifest.json').read_text() == '{}'
+    payload = (source / 'sequence.json').read_bytes()
+    write_if_changed(Path(f'build/us/sequences/parts/audio/bank17/sequences/{index:04d}.bin'), payload)
+with Path('sequence.calls').open('a') as log:
+    log.write('packed\\n')
+""")
+        for index in range(2):
+            source = self.root / f'build/assets/sequence-build/us/{index:04d}'
+            source.mkdir(parents=True)
+            (source / 'manifest.json').write_text('{}')
+            (source / 'sequence.json').write_text(f'sequence{index}')
+        names = [f'build/us/assets/audio/bank17/sequences/{i:04d}.o' for i in range(2)]
+        def run():
+            return subprocess.run([MAKE, 'ASSETS=1', '-j4', f'LD={sys.executable} {self.ld}', *names],
+                                  cwd=self.root, text=True, capture_output=True)
+        result = run()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        objects = [self.root / name for name in names]
+        before = [p.stat().st_mtime_ns for p in objects]
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual([p.stat().st_mtime_ns for p in objects], before)
+        self.assertEqual((self.root / 'sequence.calls').read_text(), 'packed\n')
+        time.sleep(1.05)
+        source = self.root / 'build/assets/sequence-build/us/0000/sequence.json'
+        source.write_text('edited sequence')
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(objects[0].read_text(), 'edited sequence')
+        self.assertEqual(objects[1].stat().st_mtime_ns, before[1])
+        part = self.root / 'build/us/sequences/parts/audio/bank17/sequences/0000.bin'
+        part.unlink()
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(part.read_text(), 'edited sequence')
+        source.unlink()
+        self.assertNotEqual(run().returncode, 0)
+        self.assertEqual(objects[0].read_text(), 'edited sequence')
+        with (self.root / 'Makefile').open('a') as file:
+            file.write('\nshow-sequences:\n\t@echo $(SEQUENCE_BINS)\n')
+        listing = subprocess.run([MAKE, 'ASSETS=1', '--no-print-directory', 'show-sequences'],
+                                 cwd=self.root, text=True, capture_output=True)
+        self.assertEqual(listing.returncode, 0, listing.stderr)
+        self.assertEqual(listing.stdout.split(), [f'assets/audio/bank17/sequences/{i:04d}.bin' for i in range(2)])
+
     def test_bank03_model_parts_recover_and_preserve_unchanged_linker_objects(self):
         self.check_model_parts('03')
 

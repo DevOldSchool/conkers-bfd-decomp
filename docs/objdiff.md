@@ -72,7 +72,7 @@ independent splat targets for every range in `config/overlays.json`, and
 invokes the pinned native `objdiff-cli report generate`. It covers tracked
 main/game/debugger US CPU code and initialized data, including raw/unassigned ranges,
 plus all bounded asset storage. The font, 6,865 reviewed textures and 557 reviewed
-assets in model banks have reconstructed candidates; remaining asset storage stays unmatched.
+assets in model banks plus 149 compact audio sequences have reconstructed candidates; remaining asset storage stays unmatched.
 The command uses four object-preparation workers and validates cached base object hashes before
 reuse. The first run requires the pinned `lib/ultralib` submodule (`git
 submodule update --init lib/ultralib`).
@@ -345,3 +345,13 @@ not general diff performance or end-to-end matching throughput.
 `comparison.json` times each differ invocation separately, excluding compilation,
 Docker setup and downloads. The host-native/container comparison is not
 architecture-neutral, and first binary launch can add substantial overhead.
+
+
+### Compact audio sequences
+
+[All 149 bank-17 compact sequences](evidence/data-layout/us_sequence_reconstruction.md)
+reconstruct 684,228 bytes from native headers, MIDI events, tempo and loop
+fields, and explicit back-reference plans. Actual ROM linker objects and
+independent original-ROM targets enter native Data through the same source
+and object stability checks. Descriptor tables, sequence padding, ADPCM samples
+and MP3 streams retain their existing reconstruction status.

@@ -40,13 +40,14 @@ sequence descriptors. It also reconstructs the complete sequence container
 from its descriptors, payloads and padding as a boundary check. The Makefile
 obtains input names from the YAML and requires this verifier before linking.
 
-These inputs remain raw extracted ROM storage. The compressed control graph is
+At the boundary-mapping stage these inputs remained raw extracted ROM storage. The compressed control graph is
 kept as its stored RZIP range; the 21,705,520-byte wavetable remains one range.
 Its 2,258 known sample ranges are a later subdivision. This step does not add
 an ADPCM encoder, MIDI import or independently rebuilt sound-bank graph.
 
-All 22,886,280 bank-17 storage bytes are included in the published report
-denominator as unmatched targets. Named boundaries
+At that stage all 22,886,280 bank-17 storage bytes were included in the published
+report denominator as unmatched targets. The later [sequence reconstruction](us_sequence_reconstruction.md)
+replaces 149 payload candidates (684,228 bytes) with native event reconstruction. Named boundaries
 and copied ROM inputs alone do not establish reconstruction credit.
 
 Validation:

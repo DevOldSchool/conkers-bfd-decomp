@@ -57,6 +57,7 @@ endif
 PROFILE_INPUTS := $(patsubst dep=%,%,$(filter dep=%,$(PROFILE_ASSETS)))
 FONT_BINS := $(patsubst font=%,%,$(filter font=%,$(PROFILE_ASSETS)))
 AUDIO_BANK_BINS := $(patsubst audio=%,%,$(filter audio=%,$(PROFILE_ASSETS)))
+SEQUENCE_BINS := $(filter-out assets/audio/bank17/sequences/index.bin assets/audio/bank17/sequences/padding/%.bin,$(filter assets/audio/bank17/sequences/%.bin,$(AUDIO_BANK_BINS)))
 MP3_BANK_BINS := $(patsubst mp3=%,%,$(filter mp3=%,$(PROFILE_ASSETS)))
 FLAT_BINS := $(patsubst flat=%,%,$(filter flat=%,$(PROFILE_ASSETS)))
 TEXTURE_BINS := $(filter assets/flat/textures/%.bin,$(FLAT_BINS))
@@ -94,6 +95,7 @@ BOOTSTRAP_SYMBOLS := $(BUILD_DIR)/bootstrap-symbols.ld
 ifeq ($(PROFILE),us)
 FONT_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(FONT_BINS))
 AUDIO_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(AUDIO_BANK_BINS))
+SEQUENCE_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(SEQUENCE_BINS))
 MP3_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(MP3_BANK_BINS))
 TEXTURE_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(TEXTURE_BINS))
 MODEL_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(MODEL_BINS))
@@ -388,6 +390,7 @@ ASSET_PACK_DEPS := Makefile $(PROFILE_INPUTS) scripts/profile_config.py config/r
 	toolchain/python-requirements.txt $(ROM_PATH)
 FONT_PARTS := $(patsubst assets/%,$(BUILD_DIR)/fonts/parts/%,$(FONT_BINS))
 MP3_BANK_PARTS := $(patsubst assets/%,$(BUILD_DIR)/audio/parts/%,$(MP3_BANK_BINS))
+SEQUENCE_PARTS := $(patsubst assets/%,$(BUILD_DIR)/sequences/parts/%,$(SEQUENCE_BINS))
 MODEL_PARTS := $(patsubst assets/%,$(BUILD_DIR)/models/parts/%,$(MODEL_BINS))
 TEXTURE_PARTS := $(patsubst assets/%,$(BUILD_DIR)/textures/parts/%,$(TEXTURE_BINS))
 .PHONY: asset-parts-missing
@@ -436,6 +439,18 @@ $(BUILD_DIR)/textures/parts.stamp: $(ASSET_PACK_DEPS) scripts/texture_build.py $
 $(TEXTURE_PARTS): $(BUILD_DIR)/textures/parts.stamp ;
 endif
 
+ifneq ($(SEQUENCE_PARTS),)
+SEQUENCE_INPUTS := $(wildcard build/assets/sequence-build/us build/assets/sequence-build/us/* build/assets/sequence-build/us/*/*)
+SEQUENCE_MANIFESTS := $(patsubst assets/audio/bank17/sequences/%.bin,build/assets/sequence-build/us/%/manifest.json,$(SEQUENCE_BINS))
+SEQUENCE_REQUIRED_INPUTS := $(SEQUENCE_MANIFESTS) $(patsubst %/manifest.json,%/sequence.json,$(SEQUENCE_MANIFESTS))
+SEQUENCE_MISSING := $(filter-out $(wildcard $(SEQUENCE_PARTS) $(SEQUENCE_REQUIRED_INPUTS)),$(SEQUENCE_PARTS) $(SEQUENCE_REQUIRED_INPUTS))
+SEQUENCE_CODEC_DEPS := scripts/sequence_build.py scripts/sequence_codec.py scripts/audio_assets.py scripts/audio_boundaries.py scripts/texture_build.py
+$(BUILD_DIR)/sequences/parts.stamp: $(ASSET_PACK_DEPS) $(SEQUENCE_CODEC_DEPS) $(SEQUENCE_INPUTS) $(if $(SEQUENCE_MISSING),asset-parts-missing)
+	$(TIMING) --stage sequences -- python3 scripts/sequence_build.py build-parts
+	@touch $@
+$(SEQUENCE_PARTS): $(BUILD_DIR)/sequences/parts.stamp ;
+endif
+
 ifneq ($(MP3_BANK_PARTS),)
 MP3_PART_INPUTS := $(wildcard build/assets/mp3-bank/us build/assets/mp3-bank/us/* build/assets/mp3-bank/us/streams/* build/assets/mp3-bank/us/padding/*)
 MP3_PARTS_MISSING := $(filter-out $(wildcard $(MP3_BANK_PARTS)),$(MP3_BANK_PARTS))
@@ -452,6 +467,12 @@ endif
 $(FONT_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/fonts/parts/%.bin
 	@if test ! -f "$@" || test "$<" -nt "$@"; then \
 		mkdir -p "$(@D)" && cd $(BUILD_DIR)/fonts/parts && \
+		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
+	fi
+
+$(SEQUENCE_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/sequences/parts/%.bin
+	@if test ! -f "$@" || test "$<" -nt "$@"; then \
+		mkdir -p "$(@D)" && cd $(BUILD_DIR)/sequences/parts && \
 		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
 	fi
 
