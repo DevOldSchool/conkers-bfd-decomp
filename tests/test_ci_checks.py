@@ -59,6 +59,43 @@ class PublicChecksTests(unittest.TestCase):
             self.assertEqual((root / 'src/a.c').read_text(), source)
 
 
+    def test_compile_omits_only_reviewed_local_asset_include(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            name = 'src/done/debugger/debugger_0000.c'
+            source = root / name
+            source.parent.mkdir(parents=True)
+            original = ('#include "types.h"\nextern const u8 glyphs[];\n'
+                        'int f(void) { return glyphs[0]; }\n'
+                        '#include "../build/us/debugger-assets/ui.inc.c"\n'
+                        '#include "another-required.inc.c"\n')
+            source.write_text(original)
+            # No ROM or generated asset exists in this checkout.
+            with patch.object(ci_checks, 'tracked_paths', return_value=[name]), \
+                 patch.object(ci_checks.subprocess, 'run') as run:
+                ci_checks.compile_active(root)
+                run.assert_called_once()
+                self.assertTrue(run.call_args.kwargs['check'])
+            temporary = (root / 'build/ci-compile' / name).read_text()
+            self.assertNotIn('#include "../build/us/debugger-assets/ui.inc.c"', temporary)
+            self.assertIn('#include "types.h"', temporary)
+            self.assertIn('#include "another-required.inc.c"', temporary)
+            self.assertIn('extern const u8 glyphs[];', temporary)
+            self.assertIn('return glyphs[0];', temporary)
+            self.assertEqual(source.read_text(), original)
+            self.assertFalse((root / 'build/us/debugger-assets').exists())
+
+    def test_local_asset_omission_is_scoped_to_reviewed_source(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'src').mkdir()
+            original = '#include "../build/us/debugger-assets/ui.inc.c"\n'
+            (root / 'src/other.c').write_text(original)
+            with patch.object(ci_checks, 'tracked_paths', return_value=['src/other.c']), \
+                 patch.object(ci_checks.subprocess, 'run'):
+                ci_checks.compile_active(root)
+            self.assertEqual((root / 'build/ci-compile/src/other.c').read_text(), original)
+
     def test_source_list_rejects_escape_without_running_compiler(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp); (root / 'src').mkdir()

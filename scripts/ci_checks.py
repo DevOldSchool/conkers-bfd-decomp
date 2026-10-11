@@ -11,6 +11,11 @@ import compile_c
 
 ROOT = Path(__file__).resolve().parent.parent
 GLOBAL_ASM = re.compile(r"^[ \t]*#pragma[ \t]+GLOBAL_ASM\([^\r\n]*\)[ \t]*\r?$", re.M)
+# These definitions require local ROM-derived assets. Their users already have
+# typed extern declarations; only the temporary public compile omits the data.
+ROM_ASSET_INCLUDES = {
+    "src/done/debugger/debugger_0000.c": ("../build/us/debugger-assets/ui.inc.c",),
+}
 GENERATED_ROOTS = {"roms", "asm", "assets", "build", "expected", "reference", ".conker", ".private-rom-assets", "private-work", "private-assets"}
 RETIRED_PROGRESS = {"progress/summary.json", "progress/badge-us.json", "progress/badge-eu.json"}
 ROM_MAGIC = {bytes.fromhex(x) for x in ("80371240", "37804012", "40123780")}
@@ -59,14 +64,19 @@ def compile_active(root: Path, source_list: Path | None = None) -> None:
             raise ValueError(f"Source symlink is unsupported: {name}")
         temporary = output / name
         temporary.parent.mkdir(parents=True, exist_ok=True)
-        temporary.write_text(GLOBAL_ASM.sub("", source.read_text()), encoding="utf-8")
+        text = GLOBAL_ASM.sub("", source.read_text())
+        for include in ROM_ASSET_INCLUDES.get(name, ()):
+            pattern = r'^[ \t]*#include[ \t]+"' + re.escape(include) + r'"[ \t]*\r?$'
+            text = re.sub(pattern, '/* Local asset definitions omitted for ROM-free compilation. */',
+                          text, flags=re.M)
+        temporary.write_text(text, encoding="utf-8")
         command = [str(compile_c.IDO_CC), *compile_c.compiler_flags("us"),
                    "-I", str(source.parent), "-o", str(temporary.with_suffix(".o")), str(temporary)]
         print(f"Compiling active US C: {name}", flush=True)
         subprocess.run(command, cwd=root, check=True)
     if not sources:
         raise ValueError("No tracked C source units found")
-    print(f"Compiled {len(sources)} source units; GLOBAL_ASM bodies and disabled candidates were not compiled.")
+    print(f"Compiled {len(sources)} source units; GLOBAL_ASM bodies, local asset definitions and disabled candidates were not compiled.")
     print("Compile-only success is not full-span matching or link verification.")
 
 
