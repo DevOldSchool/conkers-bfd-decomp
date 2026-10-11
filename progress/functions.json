@@ -40577,11 +40577,15 @@
       "symbol": "func_1502DB20"
     },
     {
+      "blocked": {
+        "reason": "Required output/scratch layouts are unresolved: emitted func_15033FE0 declaration is M2C_UNK with an inferred third argument, while canonical definition is void func_15033FE0(GameCommand *, s32). Recover its GameCommand output extent and the func_1502D824 scratch extent before declaring the large stack buffers; do not invent an ABI or padding.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 948,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_1502DB84",
           "vram": "0x1502DB84"
         }
@@ -69266,6 +69270,12 @@
       "symbol": "func_150B1EE0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1136,
+        "reason": "CURRENT (1136) after two finish calls and two bounded probe batches. Required loop constant snapshots retained and RNG branch/scale stores improved; frame0x120 versus0x110, descriptor offsets, constant setup and OR/register scheduling remain. Original ASM active.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -79531,6 +79541,12 @@
       "symbol": "func_150E83AC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1120,
+        "reason": "CURRENT (1120) after one finish call and two bounded probe batches. Exact0x110 frame and all addressed locals; speedScale is spilled instead of80.0f, with setup, FP and OR-register scheduling differences. Final scale-field variants did not improve; original ASM active.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
