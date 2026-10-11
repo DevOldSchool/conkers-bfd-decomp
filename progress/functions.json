@@ -8923,6 +8923,12 @@
       "symbol": "func_151C970C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3809,
+        "reason": "CURRENT 3809 after two focused comparisons and two bounded probe batches. Ground-hit geometry and canonical helper contracts recovered. Frame 0xA0 versus 0x98, priority spills, owner snapshot and instruction scheduling remain. Reused homes recover frame size but score 3845 is worse. No shared dependency changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -61078,6 +61084,12 @@
       "symbol": "func_150C1198"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 816,
+        "reason": "CURRENT 816 after three focused comparisons and two bounded probe batches. Full parent, child and extra descriptors recovered; original 0xF0 frame and data offsets now agree. Parent pointer home 0xCC versus original spill 0x30, plus integer register allocation and scheduling remain. No shared dependency changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

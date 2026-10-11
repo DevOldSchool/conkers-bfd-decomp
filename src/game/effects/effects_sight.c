@@ -561,8 +561,6 @@ void func_151C970C(s32 arg0, void *arg1) {
     sp.sp1C = (s8)arg0;
     func_151403A8(&sp.sp18, 0x3A, arg1);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9740.s")
-
 typedef struct EffectsSightVec3f {
     f32 x;
     f32 y;
@@ -581,6 +579,83 @@ typedef struct EffectsSightActor {
     u8 pad20[0x160];
     f32 y;
 } EffectsSightActor;
+
+s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_150E7FEC(f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+s32 func_15046C80(f32 *, u16, f32, void *);
+void func_1504715C(EffectsSightTransform *, EffectsSightActor *);
+void func_150E83AC(void *, s16, u8, s32);
+void func_15136C3C(void *, s32, s32, s32, s32, s32, s32, s32);
+void *func_151541B8(void *, f32, f32, f32, f32, s32, s32);
+void func_151D5334(void *, f32, f32, f32, u8, u8, s32);
+void func_151D5514(void *, u8, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9740 CURRENT (3809) */
+void func_151C9740(EffectsSightActor *arg0, u8 arg1, s32 arg2) {
+    EffectsSightVec3f origin;
+    EffectsSightVec3f impact;
+    u8 hit;
+    u8 airborne;
+    EffectsSightVec3f query;
+    union {
+        EffectsSightTransform transform;
+        f32 values[9];
+    } collision;
+    f32 *point;
+    u32 randomWord;
+    f32 randomFloat;
+    register s32 priority;
+
+    priority = arg1;
+    if (arg0 != NULL) {
+        origin.x = arg0->x;
+        origin.y = *(f32 *)((u8 *)arg0 + 0x18) + 135.0f;
+        origin.z = arg0->z;
+        hit = 0;
+        airborne = *(f32 *)((u8 *)arg0 + 0x2D8) != 0.0f;
+        if (!airborne) {
+            query.x = origin.x;
+            query.y = origin.y;
+            query.z = origin.z;
+            func_1504715C(&collision.transform, arg0);
+            if (func_15046C80(&query.x, 0, origin.y - 200.0f, &collision.transform) != 0 &&
+                (collision.transform.bytes[0x1C] & 1)) {
+                impact.x = query.x;
+                hit = 1;
+                impact.y = collision.values[0];
+                impact.z = query.z;
+                randomFloat = func_150ADA68();
+                randomWord = func_150ADA20();
+                func_150E7FEC(randomFloat * 125.0f + 204.0f,
+                    (randomWord % 101U + 0x9B) & 0xFF,
+                    (s32)&collision.values[1], (s32)&impact,
+                    func_150ADA20() % 302U + 0x1F4, 0, 1, 0, 0, 0, priority, 0);
+            }
+        }
+        func_151D5404(&origin, 506.0f, 1013.0f, 0.000987166888f, 0xF, 0x14, priority, arg2);
+        func_151D5334(&origin, 506.0f, 1013.0f, 0.000987166888f, 5, priority, arg2);
+        func_151D5514(&origin, priority, arg2);
+        func_151D3FF4(&origin.x, priority, arg2);
+        point = hit ? &impact.x : &origin.x;
+        func_150E83AC(point, (s16)(func_150ADA20() % 62U + 0x78), priority, arg2);
+        randomFloat = func_150ADA68();
+        func_151541B8(&origin, 2.0f * randomFloat + 8.0f, 2.4641099f,
+            (f32)(func_150ADA20() % 56U + 0xC8), 0.0f, priority, arg2);
+        if (!airborne) {
+            func_15136C3C(arg0, 0, 0, 1, 0, 0, priority, arg2);
+        }
+        func_10010F88(0x60D, 0x7D00, 0, 0, 0, (s32)origin.x,
+            (s32)origin.y, (s32)origin.z, 0x1F4, 0x3E8);
+        if (airborne) {
+            func_151C9AC0(arg0, priority, arg2);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C9740 */
+#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9740.s")
+
 
 void func_1504715C(EffectsSightTransform *, EffectsSightActor *);
 void func_151ABE40(EffectsSightVec3f *, EffectsSightTransform *, s32, u8, s32);
