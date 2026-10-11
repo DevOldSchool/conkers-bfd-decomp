@@ -6,7 +6,7 @@ LABEL org.devoldschool.conker.diff-watch="1"
 ARG DEBIAN_FRONTEND=noninteractive
 ARG ASM_DIFFER_REV=c80ea4e3d16ecc8f4c21923633f3f9b1fb534c53
 ARG ASM_PROCESSOR_REV=f3b2f85a5bc7e8ae2030ea5a83ea8aa0bcbede03
-ARG MIPS_TO_C_REV=09e0e72337804a713e2c3b8d522abe85838470ea
+ARG MIPS_TO_C_REV=a03c6f296e4673728b9b2da67fd3f00949688bdc
 ARG N64SPLAT_REV=3376e8c1b542d68016d74c685a9b3c64d4e488a1
 ARG DECOMP_PERMUTER_REV=8556c81d80d1c1af98a858c8f4dc951357f29139
 ARG MUPEN64PLUS_CORE_REV=b0d68c20f49b8f833afa21450e0e8874c87c13c4
@@ -54,13 +54,14 @@ RUN curl --fail --location --output /tmp/ido.tar.gz \
     && rm /tmp/ido.tar.gz \
     && chmod --recursive a+rx /opt/ido
 
-# These tools are fetched from their upstream repositories at immutable
-# revisions recorded in toolchain/tools.lock.json. They are not project source.
+# These tools are fetched from their repositories at immutable revisions
+# recorded in toolchain/tools.lock.json. They are not project source. m2c is
+# cloned from a project mirror of upstream that carries IDO starter patches.
 RUN git clone https://github.com/simonlindholm/asm-differ.git /opt/tools/asm-differ \
     && git -C /opt/tools/asm-differ checkout --detach "$ASM_DIFFER_REV" \
     && git clone https://github.com/simonlindholm/asm-processor.git /opt/tools/asm-processor \
     && git -C /opt/tools/asm-processor checkout --detach "$ASM_PROCESSOR_REV" \
-    && git clone https://github.com/matt-kempster/mips_to_c.git /opt/tools/mips_to_c \
+    && git clone https://github.com/DevOldSchool/m2c.git /opt/tools/mips_to_c \
     && git -C /opt/tools/mips_to_c checkout --detach "$MIPS_TO_C_REV" \
     && git clone https://github.com/ethteck/n64splat.git /opt/tools/n64splat \
     && git -C /opt/tools/n64splat checkout --detach "$N64SPLAT_REV" \
