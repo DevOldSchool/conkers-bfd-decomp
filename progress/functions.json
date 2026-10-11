@@ -60414,6 +60414,12 @@
       "symbol": "func_1503B9BC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4654,
+        "reason": "CURRENT 4654 after three focused comparisons and two bounded probe batches. Matrix ABI, four-link interpolation and normalized direction recovered; original 0x178 frame and named buffer offsets agree. Matrix-base caching, normal temporary spills, FP allocation and instruction scheduling remain. No shared dependency changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -85657,6 +85663,12 @@
       "symbol": "func_1512B100"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5377,
+        "reason": "CURRENT 5377 after three focused comparisons, including one invalid pointer-base attempt, and two bounded probe batches. Two-sided depth decoding and original index scaling recovered. Coefficient snapshot improves code, but frame 0xA80 versus 0xA78, global-base promotion, integer and FP allocation remain. No shared dependency changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

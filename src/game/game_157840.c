@@ -96,6 +96,70 @@ void func_1512B100(void *arg0) {
         *(s16 *)(base + 0x5FE) = 0x3C;
     }
 }
+s32 func_1512B630(void *, u8 *, s32, s32, s32, s32);
+extern s32 D_800BE628;
+extern u8 D_80089630[];
+extern const f32 D_800A3678;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512B1B8 CURRENT (5377) */
+void func_1512B1B8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    s16 radius;
+    s32 depths[640];
+    s32 index;
+    u8 *record;
+    f32 oldX;
+    f32 oldY;
+    s32 targetY;
+    u16 packed;
+    s32 *entry;
+    f32 blend;
+    s32 start;
+
+    blend = D_800A3678;
+    record = (u8 *)&D_800DC200 + ((arg0[0x23D] << 5) +
+        (*(s16 *)(arg0 + 0x1B4) * 8));
+    radius = *(s16 *)record;
+    oldX = *(f32 *)(arg0 + 0x60C);
+    targetY = *(s16 *)(record + 2);
+    oldY = *(f32 *)(arg0 + 0x610);
+    *(f32 *)(arg0 + 0x60C) = oldX + ((f32)radius - oldX) * blend;
+    radius = (s16)((f32)(s16)(s32)*(f32 *)(arg0 + 0x60C) + 0.5f);
+    *(f32 *)(arg0 + 0x610) = oldY + ((f32)targetY - oldY) * blend;
+    start = radius / 4;
+    index = start;
+    if (index < radius) {
+        do {
+            if (*(f32 *)(D_800BE628 + arg0[0x23D] * 0x180 + 0x2C) < (f32)(arg1 - index)) {
+                packed = *(u16 *)(*(u8 **)(arg0 + 0x8BC) + arg1 * 2 + -(index * 2));
+                entry = (s32 *)(D_80089630 + ((packed >> 13) * 8));
+                arg2 = arg3 - ((u32)(entry[1] + (((packed >> 2) & 0x7FF) << entry[0])) >> 3);
+                *(depths + radius + -index) = arg2;
+                if (func_1512B630(arg0, &D_800DC0C0 + (((((arg0[0x23D] << 2) + arg0[0x23D]) << 2) - arg0[0x23D]) << 2),
+                        arg2, index, radius * 3 / 4, 0) != 0) {
+                    index = radius;
+                }
+            }
+            index++;
+        } while (index < radius);
+        index = start;
+    }
+    if (start < radius) {
+        do {
+            if ((f32)(arg1 + index) < *(f32 *)(D_800BE628 + arg0[0x23D] * 0x180 + 0x30)) {
+                packed = *(u16 *)(*(u8 **)(arg0 + 0x8BC) + arg1 * 2 + index * 2);
+                entry = (s32 *)(D_80089630 + ((packed >> 13) * 8));
+                arg2 = arg3 - ((u32)(entry[1] + (((packed >> 2) & 0x7FF) << entry[0])) >> 3);
+                *(depths + index + radius) = arg2;
+                if (func_1512B630(arg0, &D_800DC0C0 + (((((arg0[0x23D] << 2) + arg0[0x23D]) << 2) - arg0[0x23D]) << 2) + 0xC,
+                        arg2, index, radius * 3 / 4, 0) != 0) {
+                    index = radius;
+                }
+            }
+            index++;
+        } while (index < radius);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1512B1B8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_157840/func_1512B1B8.s")
 extern s32 D_800BE628;
 
