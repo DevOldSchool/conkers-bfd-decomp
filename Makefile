@@ -1,4 +1,13 @@
 .DEFAULT_GOAL := help
+# Every rule here is explicit. Make otherwise tries its built-in suffix and
+# RCS/SCCS rules for each of the ~20k editable asset inputs, which costs minutes
+# of CPU per invocation. Cancel them locally so sub-makes keep their defaults.
+.SUFFIXES:
+%: %,v
+%: RCS/%,v
+%: RCS/%
+%: s.%
+%: SCCS/s.%
 PROFILE ?= us
 ASSETS ?= 0
 REFRESH ?= 0
@@ -344,8 +353,13 @@ main-private-data-refresh:
 build/us/main-private-data.ld: config/main/private-data.json scripts/main_private_data.py progress/source_units.json main-private-data-refresh
 	python3 scripts/main_private_data.py linker --output $@ $(MAIN_PRIVATE_DATA_SOURCES)
 
-$(ROM_BUILD_DIR)/conker.$(PROFILE).elf: $(ROM_BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_DEPS) $(PROFILE_RODATA_SCRIPT) $(PROFILE_MAIN_RODATA_SCRIPT) $(PROFILE_MAIN_VI_BSS_SCRIPT) $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT)
-	$(LD) $(LDFLAGS) -T $(BOOTSTRAP_SYMBOLS) -o $@ $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_INPUTS)
+$(ROM_BUILD_DIR)/conker.$(PROFILE).elf: $(ROM_BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_DEPS) $(PROFILE_RODATA_SCRIPT) $(PROFILE_MAIN_RODATA_SCRIPT) $(PROFILE_MAIN_VI_BSS_SCRIPT) $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT) scripts/link_groups.py
+	$(file >$(ROM_BUILD_DIR)/link-inputs.txt,$(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS))
+	python3 scripts/link_groups.py $(ROM_BUILD_DIR)/conker.$(PROFILE).ld \
+		--output $(ROM_BUILD_DIR)/conker.$(PROFILE).grouped.ld --group-dir $(ROM_BUILD_DIR)/link-groups \
+		--inputs $(ROM_BUILD_DIR)/link-inputs.txt --responses $(ROM_BUILD_DIR)/link-inputs.rsp --linker "$(LD)"
+	$(LD) $(subst -T $(ROM_BUILD_DIR)/conker.$(PROFILE).ld,-T $(ROM_BUILD_DIR)/conker.$(PROFILE).grouped.ld,$(LDFLAGS)) \
+		-T $(BOOTSTRAP_SYMBOLS) -o $@ @$(ROM_BUILD_DIR)/link-inputs.rsp $(PROFILE_LIB_INPUTS)
 
 $(NORMALIZED_ASM_DIR)/%.s: asm/%.s scripts/normalize_asm.py
 	python3 scripts/normalize_asm.py $< $@
