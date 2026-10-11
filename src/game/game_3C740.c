@@ -12,7 +12,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void *func_1513C5B0(s32 *, s32, s32, s32, f32, f32, f32, f32, f32, s32, s32, s32, s32, s32);
+void *func_1513C5B0(s32, s32, u8, u8, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
 s32 func_151EF610(void);
 
 typedef struct {

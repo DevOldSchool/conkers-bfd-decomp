@@ -152,7 +152,7 @@ s32 func_15159370(void *arg0, s8 *arg1) {
     return var_v1;
 }
 /* Call context: func_1514ECE0: unique active declaration in the allowed source */
-s32 func_1514ECE0(s32, s32, void **, void *);
+s32 func_1514ECE0();
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1515942C CURRENT (3560) */
 u8 func_1515942C(void *arg0, s16 arg1, s16 arg2, void *arg3, s16 arg4, s16 arg5) {
@@ -169,7 +169,7 @@ u8 func_1515942C(void *arg0, s16 arg1, s16 arg2, void *arg3, s16 arg4, s16 arg5)
 
     sp37 = 0;
     var_t2 = sp37;
-    if (func_1514ECE0(*(s32 *)((u8 *)arg0 + 0x2F4), 0x13, &sp38, arg3) == 0) {
+    if (func_1514ECE0(*(s32 *)((u8 *)arg0 + 0x2F4), 0x13, &sp38) == 0) {
         return 0U;
     }
     temp_a1 = *(void **)((u8 *)sp38 + 0x10);
@@ -425,7 +425,7 @@ typedef struct Game1865D0State {
     s32 field_2F4;
 } Game1865D0State;
 
-s32 func_1514ECE0(s32, s32, void **, void *);
+s32 func_1514ECE0();
 
 s32 func_1515A920(Game1865D0State *arg0, s32 *arg1) {
     void *sp1C;

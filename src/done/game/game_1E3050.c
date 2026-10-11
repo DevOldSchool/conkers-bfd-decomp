@@ -5,7 +5,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_call_singletons.md
  */
 
-typedef struct {
+typedef struct Game1E3050Data {
     u8 pad_0[4];
     u8 field_4;
 } Game1E3050Data;

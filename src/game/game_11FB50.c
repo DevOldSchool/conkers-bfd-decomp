@@ -13,7 +13,6 @@
 
 s32 func_1509BE40(s32, ...);
 void func_15124B18(u8 *);
-void func_15128774(void *, void *);
 void func_150F2994(s32, s32);
 
 void func_150F26A0(u8 *actor) {
@@ -38,7 +37,7 @@ void func_150F26A0(u8 *actor) {
             if (actor[0x3E8] == 0) {
                 if (0.5f * *(f32 *)(actor + 0x374) <
                     *(f32 *)(actor + 0x370) - *(f32 *)(actor + 0x374)) {
-                    func_15128774(actor, *(u8 **)(actor + 0x3D0));
+                    func_15128774((struct CameraCameraTargetState *) actor, *(struct CameraCameraTarget **)(actor + 0x3D0));
                 }
             }
         }

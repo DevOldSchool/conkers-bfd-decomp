@@ -5,8 +5,8 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_small_units_3D6F0_3FC30.md
  */
 
-extern void (*D_800E0940)(void);
-void func_150EA904(void);
+extern void (*D_800E0940)(s32, s32);
+void func_150EA904(s32, s32);
 
 void func_15010680(void) {
     D_800E0940 = func_150EA904;

@@ -141,7 +141,8 @@ typedef struct GameEC420Spawn {
     f32 field68;
 } GameEC420Spawn;
 
-void func_15136C3C(void *, s32, s32, s32, s32, s32, s32, s32);
+struct Blood36C3CActor;
+void func_15136C3C(struct Blood36C3CActor *, u8, u8, u8, u8, u8, u8, s32);
 void func_15153634(GameEC420Spawn *, s32, s32, s32);
 extern f32 D_800A0134;
 extern f32 D_800A0138;

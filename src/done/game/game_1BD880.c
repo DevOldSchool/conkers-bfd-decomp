@@ -6,7 +6,7 @@
  */
 
 void func_15163DEC(s32 arg0, s32 arg1);
-void func_15163F50(s32 arg0, s32 arg1);
+s32 func_15163F50();
 
 void func_151903D0(s32 arg0) {
     func_15163DEC(arg0, arg0 + 0x20);

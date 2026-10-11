@@ -164,7 +164,6 @@ typedef struct {
 } Game15F680Owner;
 
 void func_100043B4(s32, s32);
-void func_1510D630(s32, s32 *, s16 *);
 void func_151325C8(void *);
 extern Game15F680ListNode *D_800DC460;
 extern Game15F680ListNode *D_800DC464;
@@ -191,7 +190,7 @@ void func_15132444(u8 *arg0) {
         if (node->active != 0) {
             *count = 1;
         } else {
-            func_1510D630(*(s32 *) (D_800DC640 + (index * 4)), &D_800DC63C, D_800DC468);
+            func_1510D630(*(struct Game13AAE0ValueList **) (D_800DC640 + (index * 4)));
             node = owner->node;
             link = node->prev;
             if (link == 0) {

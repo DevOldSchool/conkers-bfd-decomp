@@ -14,7 +14,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct {
+typedef struct Game1188E0Vector {
     f32 x;
     f32 y;
     f32 z;
@@ -33,7 +33,7 @@ void func_150EB430(Game1188E0Vector *arg0, Game1188E0Vector *arg1, void *arg2) {
 }
 void func_150A2864(s32, s32);
 void *func_15083E90(s32);
-s32 func_150A34B0(void *, Game1188E0Vector *, f32 *, void *);
+s32 func_150A34B0();
 void func_150EBC80(void *, u8, s32);
 extern s32 D_80088AA0[];
 extern s32 D_80088AB0[];

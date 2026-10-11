@@ -238,8 +238,7 @@ typedef struct GameF3270ParticleState {
     f32 interpolation;
 } GameF3270ParticleState;
 
-void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32,
-                   u8, u8, s32, u8, s32);
+void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
 void func_15143134(f32 *, f32 *, s32);
 u8 func_151D8E20(void);
 extern GameF3270Vector D_800887D0;

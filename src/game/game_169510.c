@@ -539,8 +539,8 @@ void func_1513D4B8(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u8 ar
 }
 extern u8 D_800A4AA0;
 
-void func_1513D524(s32 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, s32 arg6, u8 arg7, s32 arg8) {
-    func_1513D2F0(arg0, (s32)&D_800A4AA0, arg1, arg2, arg3, arg4, arg5,
+void *func_1513D524(s32 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, s32 arg6, u8 arg7, s32 arg8) {
+    return func_1513D2F0(arg0, (s32)&D_800A4AA0, arg1, arg2, arg3, arg4, arg5,
                   0, 0, arg6, arg7, arg8);
 }
 s32 func_1513D6FC(void *, s16, f32, f32, s32, s32, s32);
@@ -899,13 +899,13 @@ void func_1513EAD8(void *arg0, s32 arg1, s16 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513EAD8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513EAD8.s")
-void func_1513EAD8(void *arg0, s32 arg1, s16 arg2);
+void *func_1513EAD8(void *arg0, s32 arg1, s16 arg2);
 
 void func_1513EDB4(void *arg0, s16 arg1) {
     func_1513EAD8(arg0, 0, arg1);
 }
-void func_1513EDE4(void *arg0, s16 arg1) {
-    func_1513EAD8(arg0, 1, arg1);
+void *func_1513EDE4(void *arg0, s16 arg1) {
+    return func_1513EAD8(arg0, 1, arg1);
 }
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1513EE14 CURRENT (2650) */
 void *func_1513EE14(void *arg0, s32 arg1) {
@@ -1266,8 +1266,8 @@ void *func_15140190(Game169510RenderOwner *arg0, s32 arg1) {
 void func_15169260(void *arg0, s32 arg1, s32 arg2, u8 arg3);
 extern u8 D_800A5168;
 
-void func_151403A8(s32 arg0, u8 arg1) {
-    func_15169260(&D_800A5168, 4, arg0, arg1);
+void func_151403A8(void *arg0, u8 arg1) {
+    func_15169260(&D_800A5168, 4, (s32) arg0, arg1);
 }
 extern u8 D_800A5178;
 

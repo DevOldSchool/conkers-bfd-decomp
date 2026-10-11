@@ -19,7 +19,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct {
+typedef struct Game1D9F10Record {
     u8 pad0[0x10];
     s32 field10;
     s32 field14;

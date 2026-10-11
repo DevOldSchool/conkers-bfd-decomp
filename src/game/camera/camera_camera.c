@@ -1204,7 +1204,7 @@ s32 func_151253CC(u8 *arg0) {
     }
     return 0;
 }
-typedef struct {
+typedef struct CameraCameraTarget {
     u8 pad_0[0x14];
     f32 field_14;
     f32 field_18;
@@ -1215,7 +1215,7 @@ typedef struct {
     f32 field_118;
 } CameraCameraTarget;
 
-typedef struct {
+typedef struct CameraCameraTargetState {
     u8 pad_0[0x84];
     u32 field_84;
     u8 pad_88[0x1B4];
@@ -2607,7 +2607,6 @@ void func_151283B8(void *arg0) {
             return;
     }
 }
-void func_15128774(CameraCameraTargetState *, CameraCameraTarget *); /* extern */
 
 void func_151284C4(CameraCameraTargetState *arg0) {
     u8 temp_v1;

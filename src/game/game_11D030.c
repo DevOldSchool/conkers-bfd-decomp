@@ -48,8 +48,7 @@ typedef struct Game11D030SpawnOwner {
 } Game11D030SpawnOwner;
 
 void *func_10022EC0(void *, const void *, u32);
-s32 func_151407D0(void *, u32, Game11D030SpawnDescriptor *,
-                  u8, u8, u8, u8, s8, u8, s32);
+s32 func_151407D0();
 extern s32 (*D_8008FD00)(void *, u8);
 extern f32 D_800A1830, D_800A1834;
 

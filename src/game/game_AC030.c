@@ -405,7 +405,7 @@ void func_1507FEA0(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507FEA0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507FEA0.s")
-extern void func_15191B8C(u8 *arg0, s32 arg1, void *arg2);
+void func_15191B8C();
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507FF94 CURRENT (300) */
 void func_1507FF94(void *arg0) {

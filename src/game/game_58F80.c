@@ -410,7 +410,7 @@ typedef struct Game58F80Sprite {
     u8 alpha, green, blue, mode;
     void *output;
 } Game58F80Sprite;
-s32 func_15094F70(void *, void *, s32, void *, s32, s32, s32, s32, s32);
+s32 func_15094F70();
 void *func_15095760(void *, s16 *);
 extern u8 D_800873D0[];
 extern u8 D_80087408[];

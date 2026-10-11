@@ -178,7 +178,6 @@ void func_151604A0(void *arg0, u8 *arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151604A0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151604A0.s")
-s32 func_151422DC(s32, void *, s32, s32, s32, void *, s32);
 extern u8 D_800A6690;
 extern u8 D_800A6698;
 
@@ -1101,7 +1100,7 @@ void *func_1516295C(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4,
 #endif /* CONKER_DEFERRED_CANDIDATE func_1516295C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516295C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15162B28.s")
-void func_151403A8(s8 *, s32);
+void func_151403A8(void *, u8);
 
 void func_15162EF8(void *arg0) {
     s8 sp1C[12];

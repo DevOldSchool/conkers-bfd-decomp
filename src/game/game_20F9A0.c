@@ -835,7 +835,7 @@ void func_151E7E9C(void) {
 }
 extern s32 D_10003330[];
 extern s32 func_151DDC20[];
-extern s32 func_151DE7D4[];
+void func_151DE7D4(void);
 
 void func_151E7EF8(void) {
     u32 cursor;
