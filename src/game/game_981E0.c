@@ -2118,7 +2118,108 @@ void func_15070224(s32 arg0) {
                   (func_150ADA20() % 3U) + 4,
                   0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0xFF, 1);
 }
+typedef struct Game981E0CopiedVector {
+    f32 values[3];
+} Game981E0CopiedVector;
+
+s32 *func_1507515C(s32);
+void func_1506CE6C(void);
+void func_15145EA4(s32 *, s32 *, s32, s32);
+void func_151C1860(void *, u8, s32);
+void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32,
+                   s32, s32, s32, s32, s32, s32);
+extern Game981E0CopiedVector D_80099B70, D_80099B7C;
+extern f32 D_80099EA4, D_80099EA8;
+extern s8 D_800E0BCE[];
+extern u8 D_800BE616;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15070300 CURRENT (3564) */
+void func_15070300(s32 arg0) {
+    u8 active;
+    u8 *owner;
+    u8 mode;
+    u8 *partner;
+    s32 kind;
+    struct { s32 flags; u8 *owner; u8 *partner; u8 *source; } request;
+    Game981E0CopiedVector input;
+    Game981E0CopiedVector second;
+    f32 ranges[2];
+    f32 transformed[3];
+    f32 *inputPointer;
+    f32 *outputPointer;
+    s32 index;
+    u32 secondRandom;
+    u32 firstRandom;
+
+    partner = NULL;
+    kind = D_800D154C[4];
+    mode = 1;
+    if (kind == 0x77) {
+        index = ((s32)((u32)D_800D154C - (u32)&D_800CC2D0) / 0x32C) & 0xFF;
+        owner = D_800D154C;
+        if (index < 2 && (kind = D_800E0BCE[index], active = 1, kind != 0)) {
+            partner = (u8 *)((u32)&D_800CC2D0 + ((((((((((u32)kind << 2) - kind) << 2) + kind) << 2) - kind) << 2) - kind) << 2));
+        } else {
+            active = 0;
+            if ((*(u8 **)(owner + 0x31C))[0x197] != 0) {
+                active = 1;
+            }
+        }
+    } else if (kind == 0x28) {
+        owner = (u8 *)func_1507515C((s32)D_800D154C);
+        mode = 0;
+        active = 0;
+        if ((*(u8 **)(owner + 0x31C))[0x197] != 0) {
+            active = 1;
+        }
+    } else {
+        return;
+    }
+    func_151C1FB8(owner);
+    if (partner != NULL) {
+        func_151C1FB8(partner);
+    }
+    if (D_800BE616 != 0) {
+        if ((*(u8 **)(D_800D154C + 0x31C))[0x128] & 0x10) {
+            D_800D1580 = 10;
+            mode = 2;
+            (*(u16 **)(D_800D154C + 0x31C))[0x12C / 2] -= 1;
+        } else {
+            D_800D1580 = 9;
+        }
+    } else {
+        D_800D1580 = 5;
+    }
+    if (active != 0) {
+        request.flags = 3;
+        request.owner = owner;
+        request.partner = partner;
+        request.source = D_800D154C;
+        func_151C0698(owner, (s32)partner, &request.flags, mode, 0xFF, 1);
+    } else {
+        func_1506CE6C();
+    }
+    if (*(s32 *)(D_800D154C + 0x1D4) != 0 && (D_800D154C[0x74] & 0xF) != 0xF) {
+        input = D_80099B70;
+        second = D_80099B7C;
+        ranges[0] = func_150ADA68() * 30.0f + 40.0f;
+        ranges[1] = func_150ADA68() * D_80099EA4 + D_80099EA8;
+        inputPointer = input.values;
+        outputPointer = transformed;
+        func_15145EA4((s32 *)&inputPointer, (s32 *)&outputPointer,
+                      *(s32 *)(D_800D154C + 0x1D4) + 0x100, 1);
+        firstRandom = func_150ADA20();
+        secondRandom = func_150ADA20();
+        func_15102B38((s32)D_800D154C, 4, (s32)&input, (s32)&second,
+                      ranges, firstRandom % 5U + 5, secondRandom % 56U + 200,
+                      func_150ADA68() * 510.0f + 1296.0f,
+                      (s32)transformed, 0xFF, 0, -1, 0xFF, 1);
+        func_151C1860(transformed, 0xFF, 1);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15070300 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15070300.s")
+
 void func_150EEE00(u8 *arg0, s32 arg1, s32 arg2);
 
 void func_15070690(s32 arg0) {
@@ -2299,9 +2400,6 @@ void func_15070CDC(s32 arg0) {
 void func_15070D00(s32 arg0) {
     func_15070C40(0);
 }
-typedef struct Game981E0CopiedVector {
-    f32 values[3];
-} Game981E0CopiedVector;
 
 extern Game981E0CopiedVector D_80099B88;
 extern Game981E0CopiedVector D_80099B94;

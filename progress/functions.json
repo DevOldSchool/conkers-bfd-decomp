@@ -21898,6 +21898,12 @@
       "symbol": "func_15070224"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3564,
+        "reason": "Three focused finishes and two bounded probe batches reduced CURRENT 6040 to 3564. Explicit table-offset shifts remove promoted-divisor guards; the 0xB0 frame and addressed offsets now match. Owner snapshot, integer register allocation and branch/call scheduling still differ; original assembly retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -92437,11 +92443,22 @@
       "symbol": "func_150A515C"
     },
     {
+      "original_asm": {
+        "reason": "Reviewed handwritten entry: saves gp and individual odd FP registers, calls func_150A5AB8 with t0/t1/t2 inputs and consumes t3 output, then jumps to shared func_150A579C with its 0x160 frame and FP display-command state still live. Ordinary C ABI cannot preserve this register protocol.",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/boundaries/game/families/game_raw_handwritten_entry_families.md"
+      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "assembly_sha256": "2e9a1df3237d13fe8dd45ea61fcee9e6b432b209fe45d1ae774ad74370bfe678",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "7674656f35575c9434a8528c58c0e5e908f2706d1962a86c6f889e48a13b51fd",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 912,
-          "state": "raw_asm",
+          "state": "original_asm",
           "symbol": "func_150A5378",
           "vram": "0x150A5378"
         }
