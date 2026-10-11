@@ -44,6 +44,9 @@ def compiler_flags(profile: str) -> list[str]:
 
 
 def compile_command(profile: str, source: Path, output: Path) -> list[str]:
+    if profile == 'us' and '#include "../build/us/debugger-assets/ui.inc.c"' in source.read_text():
+        import debugger_assets
+        debugger_assets.prepare(ROOT)
     flags = compiler_flags(profile)
     if not GLOBAL_ASM_PRAGMA.search(source.read_text(encoding="utf-8")):
         return [str(IDO_CC), *flags, "-o", str(output), str(source)]

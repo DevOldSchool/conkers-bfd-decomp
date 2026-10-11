@@ -93,8 +93,13 @@ def group_units(specs: list[dict], configs: list[dict], root: Path, output: Path
                     path: digest for part in data_parts
                     for path, digest in part.get('linked_inputs', {}).items()}
 
+            unit['source_inputs'] = {
+                path: digest for part in parts
+                for path, digest in part.get('source_inputs', {}).items()}
             config['metadata']['progress_categories'] = list(dict.fromkeys(
                 c for item in items for c in item['metadata']['progress_categories']))
+        if unit.get('overlay') == 'debugger':
+            config['options'] = {'data_diff_full_section': True}
         results.append(unit)
         settings.append(config)
     if verify:

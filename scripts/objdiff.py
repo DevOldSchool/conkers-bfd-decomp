@@ -24,8 +24,11 @@ def write_json(path: Path, value: object) -> None:
 
 
 def install() -> Path:
-    """Fetch an official release into the ignored cache, checking even cached bytes."""
+    """Install the pinned native tool into the ignored, checksum-checked cache."""
     lock = json.loads((ROOT / "toolchain/tools.lock.json").read_text())["objdiff_cli"]
+    if "source_build" in lock:
+        from objdiff_native import install_patched
+        return install_patched(ROOT, lock)
     system = {"Darwin": "macos", "Linux": "linux"}.get(platform.system())
     machine = {"arm64": "arm64", "aarch64": "arm64", "x86_64": "x86_64", "AMD64": "x86_64"}.get(platform.machine())
     if system == "linux" and machine == "arm64":
@@ -200,7 +203,7 @@ def main() -> int:
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("report", help="generate the US code, data and rebuilt-asset progress report")
     commands.add_parser("data-audit", help="audit ROM-backed US data boundaries without changing progress")
-    commands.add_parser("install", help="download and verify the pinned host CLI")
+    commands.add_parser("install", help="build or download and verify the pinned host CLI")
     for command in ("compare", "view", "prepare"):
         sub = commands.add_parser(command, help={"compare": "compare selected US C/deferred candidates using both tools",
                                                 "view": "open an interactive terminal diff",

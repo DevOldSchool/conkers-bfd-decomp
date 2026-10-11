@@ -127,11 +127,34 @@ class TargetValidationTests(unittest.TestCase):
             self.assertEqual(config['segments'][0], [0, 'bin', 'prefix'])
             self.assertEqual(config['segments'][1]['vram'], 0x16000000)
             self.assertEqual(config['segments'][1]['align'], 8)
-            self.assertEqual(config['segments'][1]['subsegments'], [[0x19EA88, 'asm', '19EA88']])
-            self.assertEqual(config['segments'][2], [0x1A2178, 'bin', 'suffix'])
+            self.assertEqual(config['segments'][1]['subsegments'], [[0x19EA88, 'asm', '19EA88'],
+                [0x1A2178, 'data', 'context_data'], [0x1A2768, 'rodata', 'context_rodata']])
+            self.assertEqual(config['options']['asm_jtbl_label_macro'], 'glabel')
+            self.assertEqual(config['segments'][2], [0x1A33E8])
             script = targets.linker_script(units, [Path('debugger.o')], '')
             self.assertIn('.unit0 0x16000000', script)
             self.assertIn('ASSERT(SIZEOF(.unit0) == 14064', script)
+
+    def test_debugger_context_uses_same_object_paths_as_linker_inputs(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(targets, 'ROOT', Path(tmp)):
+            root = Path(tmp)
+            directory = root / 'report/targets/debugger'
+            sources = directory / 'asm/data'
+            sources.mkdir(parents=True)
+            for name, section in [('context_data', '.data'), ('context_rodata', '.rodata')]:
+                (sources / (name + section + '.s')).write_text(section + '\n.word 0\n')
+            with patch.object(targets.subprocess, 'run') as run:
+                objects, placements = targets.debugger_context_objects(directory)
+            self.assertEqual(run.call_count, 2)
+            script = '\n'.join(placements)
+            for obj in objects:
+                self.assertFalse(obj.is_absolute())
+                self.assertIn('"' + str(obj) + '"', script)
+            self.assertNotIn(str(root), script)
+            self.assertIn('.context_data 0x160036F0', script)
+            self.assertIn('.context_rodata 0x16003CE0', script)
+            self.assertIn('SIZEOF(.context_data) == 1520', script)
+            self.assertIn('SIZEOF(.context_rodata) == 3200', script)
 
     def test_debugger_plan_must_cover_checked_text_including_raw_tail(self):
         code = bytes.fromhex('03e0000800000000')

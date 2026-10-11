@@ -8,16 +8,16 @@ change source-unit registration, linker maps, matching records or report credit.
 
 ## Current audit
 
-Validated against main `e7d4eb3` and US ROM SHA-1
-`4cbadd3c4e0729dec46af64ad018050eada4f47a` on 2026-10-09.
+Updated for debugger data integration on base `fc0d8b9` and US ROM SHA-1
+`4cbadd3c4e0729dec46af64ad018050eada4f47a` on 2026-10-11.
 All ends are exclusive; addresses below are loaded virtual addresses.
 
 | Image | Interval | Loaded bytes | Existing mapped bytes | Unassigned bytes |
 | --- | --- | ---: | ---: | ---: |
 | Main | `0x8002AAD0–0x8002C960` | 7,824 | 3,152 | 4,672 |
 | Game | `0x80082B20–0x800B0DC0` | 189,088 | 26,284 | 162,804 |
-| Debugger | `0x160036F0–0x16004960` | 4,720 | 208 | 4,512 |
-| Total | | 201,632 | 29,644 | 171,988 |
+| Debugger | `0x160036F0–0x16004960` | 4,720 | 4,720 | 0 |
+| Total | | 201,632 | 34,156 | 167,476 |
 
 Mapped bytes describe placement evidence, not newly verified C data matches or
 recovered original object boundaries. SDK ranges are the intervals reserved by
@@ -25,7 +25,7 @@ canonical mappings; their current archive sections have not been rebuilt or
 compared by this audit. External pools can belong to provisional C collections.
 
 The partition has 39 main mappings (35 SDK placements, two private sections and
-two external pools), 48 game payload mappings and one debugger payload mapping.
+two external pools), 48 game payload mappings and four allocated debugger source mappings.
 Every unassigned byte remains visible, including zero-filled bytes. Each range
 has a payload SHA-256 and each image reconciles mapped plus unassigned bytes
 with its complete loaded size. BSS, RSP payloads and other ROM assets are excluded.
@@ -66,8 +66,9 @@ constant. The audit retains that following range as unassigned. Other explicit
 payload/padding exceptions receive the same treatment.
 
 Debugger uses the [loader-proven image](../debugger/us_debugger_overlay.md) through
-`rom_span.debugger_image`. Only the [208-byte formatter table](../debugger/debugger_printf_rodata.md)
-is presently mapped. The detailed debugger access map is useful research
+`rom_span.debugger_image`. The [464-byte formatter sections](../debugger/debugger_printf_rodata.md)
+and the [4,256-byte UI sections](../debugger/us_debugger_data_reconstruction.md)
+are mapped into the actual ROM link. The detailed debugger access map is useful research
 input, but observed access widths, strings and zero runs do not establish
 original section or object ownership and are not promoted to mappings.
 
@@ -161,35 +162,35 @@ alone must not be counted as reconstructed source.
 
 ## Debugger data references
 
-The report covers the entire 4,720-byte loader-proven debugger data image,
-using the existing `config/debugger/us-rodata.ld` mapping.
+The report covers the entire 4,720-byte loader-proven debugger data image.
+The canonical profile owns the formatter's allocated source placements.
 
 | Loaded range | Bytes | Report role |
 | --- | ---: | --- |
-| `0x160036F0–0x1600487C` | 4,492 | Unassigned reference; no base or matching credit |
-| `0x1600487C–0x1600494C` | 208 | Reviewed formatter table; fresh C candidate |
-| `0x1600494C–0x16004960` | 20 | Unassigned reference; no base or matching credit |
+| `0x160036F0–0x16003C70` | 1,408 | Unassigned reference; no base or matching credit |
+| `0x16003C70–0x16003CE0` | 112 | Formatter writable data; fresh C candidate and actual link proof |
+| `0x16003CE0–0x16004800` | 2,848 | Unassigned reference; no base or matching credit |
+| `0x16004800–0x16004960` | 352 | Formatter read-only data; fresh C candidate and actual link proof |
 
-The independently disassembled input combines the loader-validated debugger
-code and data at their loaded addresses. The complete code supplies analysis
-context; only the three data target objects enter the data report. Original
-pointer definitions are checked against the image's byte offsets and loaded
-origin, without borrowing candidate symbols or relocation information.
+The independent disassembly combines the loader-validated code and data at their
+loaded addresses. Code supplies analysis context; only the four data references
+enter the data report. Pointer definitions are checked against original image
+bytes without borrowing candidate symbols or relocation information. All targets
+must relink to the entire original image byte for byte.
 
-Data ranges can end or begin inside a compiler-aligned section. References use
-GNU as `-no-pad-sections` to avoid adding trailing bytes beyond a range and
-`.align 0` to disable implicit directive alignment. For example, the last range
-starts at `0x1600494C`: its double at `0x16004950` belongs at object offset four,
-not eight. Original symbol extents and relocations stay intact. Every target
-section still has to equal its audited extent, and all targets must relink to
-the complete original image byte for byte. This affects reference assembly only;
-C compiler flags and emitted candidate sections remain unchanged.
+Raw reference assembly preserves exact physical extents with `-no-pad-sections`
+and disables implicit alignment. Declaration-backed zero compiler padding remains
+anonymous; no candidate symbols are fabricated or resized. The earlier table-only
+mapping starting at `0x1600487C` has been replaced by the full formatter sections.
 
-The formatter base is freshly compiled from `src/done/debugger/debugger_1AD0.c`, with
-GLOBAL_ASM placeholders removed and deferred C disabled. Its `.rodata` is 208
-bytes with 52 relocations. Before source grouping native objdiff awarded it zero
-matching bytes; no symbols are fabricated or resized to change that result. The two
-unassigned ranges also receive zero credit.
+The candidate contains 112 `.data` bytes and 352 `.rodata` bytes, including the
+52 table relocations and the compiler-generated floating literal. Runtime build
+verification checks the full allocated debugger image; reporting also checks the
+fresh compilation against the actual link object. Native objdiff credits the 112
+writable bytes but not the whole read-only section: its last-visible-symbol bound
+excludes IDO's anonymous trailing data. The grouped formatter therefore remains
+incomplete under the per-unit native-match gate. See the
+[formatter integration evidence](../debugger/debugger_printf_rodata.md).
 
 ## GAME data references
 
@@ -226,7 +227,7 @@ deferred C to create candidate credit. `candidate_unavailable` in coverage and
 `unavailable_candidates` in validation record the limitation. Proving a C-only
 partition for these tables is separate follow-up work.
 
-## Verified data counts
+## Historical verified data counts (2026-10-09)
 
 The source-grouped report regenerated on 2026-10-09 from `35193f6` plus the
 [SDK symbol correction](us_sdk_data_symbols.md), with the native completion gate

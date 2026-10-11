@@ -27,3 +27,17 @@ __libm_qnan_f = 0x8002C920; // size:0x4
 func_16000304 = 0x16000304; // type:func size:0x8
 func_1600030C = 0x1600030C; // type:func size:0x8
 func_16001A64 = 0x16001A64; // type:func size:0x8
+
+// Debugger formatter payloads and compiler alignment: docs/evidence/debugger/debugger_printf_rodata.md
+D_16003C70 = 0x16003C70; // size:0x21
+D_16003C94 = 0x16003C94; // size:0x21
+D_16003CB8 = 0x16003CB8; // size:0x11
+D_16003CCC = 0x16003CCC; // size:0x11
+D_16004800 = 0x16004800; // size:0x4
+D_16004804 = 0x16004804; // size:0x6
+D_1600480C = 0x1600480C; // size:0x18
+D_16004828 = 0x16004828; // size:0x48
+D_16004870 = 0x16004870; // size:0x4
+D_16004874 = 0x16004874; // size:0x4
+D_16004878 = 0x16004878; // size:0x2
+D_16004950 = 0x16004950; // size:0x8

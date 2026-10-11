@@ -10,13 +10,15 @@ Use objdiff alongside the existing registered-span asm-differ adapter:
 ./conker objdiff view func_15001970
 ```
 
-`compare` and `view` install the CLI automatically if necessary. The official
-[v3.8.1 release](https://github.com/encounter/objdiff/releases/tag/v3.8.1) is
-pinned by version and per-platform SHA-256 in `toolchain/tools.lock.json`. The
-binary runs natively from ignored `build/host-tools/` on Linux or macOS, on
-x86_64 or ARM64. First use needs HTTPS access and host `curl`; subsequent uses
-verify the cached binary and can run offline. Compilation and reference
-assembly still use the existing pinned Docker image.
+`compare` and `view` install the CLI automatically if necessary. The upstream
+[v3.8.1 source](https://github.com/encounter/objdiff/tree/fba10a617154f19b3fc25c8817dc81f81d8489b5)
+and local full-data patch are pinned by SHA-256 in `toolchain/tools.lock.json`.
+This locally patched build requires host Rust/Cargo, Git and curl on first use;
+Cargo uses the upstream dependency lockfile. It runs natively from ignored
+`build/host-tools/`. Installation runs synthetic native regression cases and
+records a binary checksum; subsequent uses recheck the cache and can run offline.
+See `toolchain/patches/README.md` for patch scope and provenance. Game compilation
+and reference assembly still use the pinned Docker image.
 
 The command accepts registered US work-item IDs with either active C or a
 preserved deferred candidate. Deferred C is activated in a generated copy;
@@ -79,8 +81,10 @@ submodule update --init lib/ultralib`).
 
 Completed C units without GLOBAL_ASM use freshly built objects from the actual
 build. Mixed units use generated C-only copies, leaving deferred code disabled,
-so preserved assembly cannot earn source credit. Coverage records the candidate
-origin. SDK candidates come from the canonical archives.
+so generated assembly fallbacks cannot earn source credit. Reviewed maintained
+assembly units are assembled separately, require full-span/runtime proof, and
+are labelled `Original assembly`. Coverage records the candidate origin. SDK
+candidates come from the canonical archives.
 
 Owned code and data references are combined into one source/SDK object unit.
 The YAML, private-data configuration and reviewed linker placements own the
@@ -215,10 +219,18 @@ validation records affected units and their code/data bytes. Private/INFO/NOLOAD
 incomplete, even when its C owner has integrated code. This can reduce a file's
 fully-linked code measure while retaining its native matching credit.
 A selector such as `*foo.o(.rodata)` alone does not establish that the ROM uses
-that object's bytes: all current source-owned external placements are INFO/NOLOAD
-verification sections. The raw ROM or original GAME-data archive still supplies
-the final bytes. A future source-data integration must replace that backing and
-add verification of the actual linked input before it can receive completion.
+that object's bytes. Source-owned INFO/NOLOAD placements retain raw ROM or
+original GAME-data archive backing, which must be replaced and verified before
+completion. Both debugger C units have allocated `.data` and `.rodata` placements in the
+canonical profile, with actual runtime-input and whole-image verification.
+Their native units enable `data_diff_full_section`: anonymous bytes, padding and
+relocations must agree across the entire initialized section. The independent
+reference disassembly includes original rodata context for switch destinations.
+The maintained TLB source `src/debugger/tlb.s` supplies an assembled candidate.
+Its `Original assembly` unit earns native matching and linked completion only
+after full-span candidate and runtime-image verification. Native matched code
+includes assembly source; the separate C-only inventory still excludes TLB.
+Generated fallback assembly remains ineligible for native source credit.
 
 Known SDK data names and payload sizes come from `config/symbols/us.txt`.
 Declaration-backed zero alignment padding stays anonymous in the reference,
@@ -229,7 +241,8 @@ anonymous pools and incorrect SDK symbol extents.
 Native comparisons determine perfect-match credit. Every final unit must satisfy
 `complete_data <= matched_data`; category or aggregate totals cannot hide a
 violation. Units whose data is still ROM-backed need actual build integration
-before they can become complete. This currently includes GAME and debugger data.
+before they can become complete. This includes preserved GAME data. All debugger initialized data is now allocated
+source storage and remains subject to complete native data matching.
 
 When this report is first published, fully-linked code can decrease for two
 reasons: a grouped unit owns data still supplied by ROM, or its linked data fails

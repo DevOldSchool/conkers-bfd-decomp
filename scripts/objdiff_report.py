@@ -32,6 +32,7 @@ import objdiff_storage
 import objdiff_snapshot
 import objdiff_ownership
 import objdiff_targets
+import objdiff_original_asm
 import project_state as state
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -72,9 +73,12 @@ def plan() -> list[dict]:
             if members[0].get('overlay', 'main') != overlay:
                 continue
             region = unit['regions']['us']
+            retained = overlay == 'debugger' and all(
+                m['regions']['us']['state'] == 'original_asm' for m in members)
             owned.append({'start': int(region['start'], 0), 'end': int(region['end'], 0),
-                          'kind': 'source', 'source': unit['source'],
-                          'complete': unit['integration'] == 'c'})
+                          'kind': 'original_asm' if retained else 'source', 'source': unit['source'],
+                          'complete': unit['integration'] == 'c',
+                          **({'original_asm_members': unit['functions']} if retained else {})})
         entries = state.mapped_subsegments('us', overlay)
         for pos, (offset, kind, name) in enumerate(entries):
             if kind != 'lib' or not start <= offset < end:
@@ -209,12 +213,30 @@ def prepare_storage(rebuilt: list[dict], configs: list[dict]) -> tuple[list[dict
                                    rebuilt, configs, output=OUTPUT)
 
 
+def debugger_runtime_from_data(units: list[dict]) -> dict[str, str]:
+    """Reuse the fresh ROM proof established by debugger data preparation."""
+    path = 'build/us/original-assets/conker.us.elf'
+    owners = [u for u in units if u.get('overlay') == 'debugger'
+              and u.get('kind') == 'source_placement']
+    proofs = {u.get('linked_inputs', {}).get(path) for u in owners}
+    if (not owners or any(not u.get('data_completion_verified') for u in owners)
+            or None in proofs or len(proofs) != 1):
+        raise ValueError('original assembly requires the fresh debugger data runtime proof')
+    return {path: proofs.pop()}
+
+
 def prepare() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     for name in ('objdiff.json', 'coverage.json'):
         (OUTPUT / name).unlink(missing_ok=True)
     specs = plan()
     targets, target_verification = objdiff_targets.prepare(specs, OUTPUT)
+    # Data preparation refreshes the full runtime build. Do it before copying
+    # code objects: main's phony alias-preparation rules rebuild those objects.
+    data_built, data_config, data_coverage = prepare_data()
+    original_runtime = {}
+    if any(s['kind'] == 'original_asm' for s in specs):
+        original_runtime = debugger_runtime_from_data(data_built)
     linked = {overlay: (OUTPUT / 'targets' / overlay / 'targets.bin').read_bytes()
               for overlay in state.OVERLAYS}
     origins = {overlay: min(s['start'] for s in specs if s['overlay'] == overlay)
@@ -251,6 +273,10 @@ def prepare() -> None:
                 subprocess.run(['make', '--silent', str(linked_object.relative_to(ROOT)), 'PROFILE=us'],
                                cwd=ROOT, stdout=log, stderr=log, check=True)
             digest.update(linked_object.read_bytes())
+        retained = {}
+        if spec['kind'] == 'original_asm':
+            retained = objdiff_original_asm.qualify(spec, original_runtime, ROOT, output=OUTPUT)
+            digest.update(json.dumps(retained, sort_keys=True).encode())
         key = digest.hexdigest()
         cache = directory / 'unit.json'
         if cache.exists():
@@ -264,7 +290,7 @@ def prepare() -> None:
             unit = {**spec, 'cache_key': key, 'target_path': target['path'],
                     'target_source': target['source'], 'target_sha256': target['sha256'],
                     'symbol_count': len(target_symbols),
-                    'code_bytes': target['text_bytes'], **symbol_coverage}
+                    'code_bytes': target['text_bytes'], **symbol_coverage, **retained}
             if linked_object:
                 (directory / 'base.o').write_bytes(linked_object.read_bytes())
                 unit['base_path'] = spec['key'] + '/base.o'
@@ -324,9 +350,12 @@ def prepare() -> None:
         category = 'sdk' if item['kind'] == 'sdk' else 'project'
         metadata = {'complete': item.get('complete', False),
                     'progress_categories': [item['overlay'], category]}
-        if item.get('source'):
-            metadata['source_path'] = item['source']
-        name = item.get('source', '').removeprefix('src/') or (
+        if item['kind'] == 'original_asm':
+            metadata['progress_categories'].append('original_assembly')
+        source = item.get('assembly_source') or item.get('source', '')
+        if source:
+            metadata['source_path'] = source
+        name = source.removeprefix('src/') or (
             f'{item["overlay"]}/sdk/{item["archive"]}/{item["member"]}' if item['kind'] == 'sdk'
             else f'{item["overlay"]}/unassigned/{item["start"]:06X}')
         unit = {'name': name, 'target_path': item['target_path'], 'metadata': metadata}
@@ -334,7 +363,6 @@ def prepare() -> None:
             if field in item:
                 unit[field] = item[field]
         units.append(unit)
-    data_built, data_config, data_coverage = prepare_data()
     font, font_config = prepare_font()
     textures, texture_configs = prepare_textures()
     models, model_configs = prepare_models()
@@ -366,7 +394,8 @@ def prepare() -> None:
     objdiff.write_json(OUTPUT / 'objdiff.json', {'build_target': False, 'build_base': False,
         'units': grouped_config, 'progress_categories': [{'id': k, 'name': n} for k,n in
             [('main','Main executable'),('game','Game overlay'),('debugger','Debugger overlay'),
-             ('project','Project code'),('sdk','SDK libraries'),('data','Data')]]})
+             ('project','Project code'),('sdk','SDK libraries'),('data','Data'),
+             ('original_assembly','Original assembly')]]})
 
 
 def validate_report(report: dict, coverage: dict, config: dict, *,
@@ -402,6 +431,21 @@ def validate_report(report: dict, coverage: dict, config: dict, *,
         if spec.get('kind') == 'unreconstructed_asset' and (item.get('base_path') or
                 spec.get('base_path') or spec.get('complete') or item.get('metadata', {}).get('complete')):
             raise ValueError('unreconstructed storage cannot have a candidate or completion')
+        if spec.get('kind') == 'original_asm':
+            if (not spec.get('base_path') or item.get('base_path') != spec['base_path']
+                    or spec.get('candidate_origin') != 'maintained_original_assembly'
+                    or not spec.get('original_asm_completion_verified') or not spec.get('original_asm_proofs')
+                    or not spec.get('maintained_assembly_proof', {}).get('matches_original')
+                    or spec.get('maintained_assembly_proof', {}).get('bytes') != spec['end'] - spec['start']
+                    or not spec.get('linked_inputs') or not spec.get('source_inputs')
+                    or spec.get('assembly_source') not in spec['source_inputs']
+                    or item.get('metadata', {}).get('source_path') != spec.get('assembly_source')
+                    or 'original_assembly' not in item.get('metadata', {}).get('progress_categories', [])):
+                raise ValueError('original assembly requires a maintained candidate, label and fresh full-span proofs')
+            expected_code = spec['report_code_bytes'] if spec.get('complete') else 0
+            if (int(measures.get('complete_code', 0)) != expected_code
+                    or int(measures.get('matched_code', 0)) != spec['report_code_bytes']):
+                raise ValueError('original assembly must match natively and agree with verified linked bytes')
         complete = bool(item.get('metadata', {}).get('complete'))
         expected_complete = total if spec.get('complete') else 0
         if total and complete:
@@ -517,6 +561,9 @@ def generate(binary: Path) -> int:
                   'asset_verification': {u['key']: {k: u[k] for k in (
                       'literal_payload_matches_rom', 'source_inputs', 'linked_inputs', 'target_verification')}
                       for u in coverage['units'] if u.get('kind') == 'rebuilt_asset'},
+                  'editable_source_inputs': {path: digest for u in coverage['units']
+                      for path, digest in u.get('source_inputs', {}).items()},
+                  'native_toolchain': json.loads((ROOT / 'toolchain/tools.lock.json').read_text())['objdiff_cli'].get('source_build'),
                   'report_sha256': hashlib.sha256((OUTPUT/'report.json').read_bytes()).hexdigest(),
                   'preparation_seconds': prepared-started, 'report_and_validation_seconds': time.perf_counter()-prepared,
                   'completion_downgrades': completion_downgrades,

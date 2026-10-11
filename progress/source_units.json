@@ -20371,6 +20371,27 @@
         }
       },
       "source": "src/done/debugger/debugger_1AD0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/debugger/us_debugger_tlb.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_16003650"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x1A2178",
+          "start": "0x1A20D8",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/debugger/tlb.c"
     }
   ]
 }

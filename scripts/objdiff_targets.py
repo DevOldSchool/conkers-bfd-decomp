@@ -42,7 +42,7 @@ def config_document(specs: list[dict], directory: Path, binary: Path, sha1: str)
         'create_c_files': False, 'make_full_disasm_for_code': True,
         'disassemble_all': True, 'asm_emit_size_directive': True,
         'asm_function_macro': 'glabel', 'asm_data_macro': 'glabel',
-        'asm_jtbl_label_macro': 'jlabel', 'mips_abi_float_regs': 'o32',
+        'asm_jtbl_label_macro': 'glabel' if overlay == 'debugger' else 'jlabel', 'mips_abi_float_regs': 'o32',
         'symbol_addrs_path': ['config/symbols/' + ('game-us' if overlay == 'game' else 'us') + '.txt'],
         # Match the canonical US profiles' relocation overrides.
         'reloc_addrs_path': ['config/relocs/' + ('game-us' if overlay == 'game' else 'us') + '.txt'],
@@ -57,8 +57,15 @@ def config_document(specs: list[dict], directory: Path, binary: Path, sha1: str)
         'subsegments': [[s['start'], 'c' if s['kind'] == 'source' else 'asm', f"{s['start']:06X}"]
                         for s in specs],
     })
-    if specs[-1]['end'] < binary.stat().st_size:
-        segments.append([specs[-1]['end'], 'bin', 'suffix'])
+    suffix = specs[-1]['end']
+    if overlay == 'debugger' and specs[-1]['end'] == 0x1A2178 and binary.stat().st_size >= 0x1A33E8:
+        # Original data context identifies switch destinations in the independent
+        # text disassembly. It is not assembled into the text target objects.
+        segments[-1]['subsegments'] += [[0x1A2178, 'data', 'context_data'],
+                                        [0x1A2768, 'rodata', 'context_rodata']]
+        suffix = 0x1A33E8
+    if suffix < binary.stat().st_size:
+        segments.append([suffix, 'bin', 'suffix'])
     segments.append([binary.stat().st_size])
     return {'name': overlay + ' objdiff targets', 'sha1': sha1, 'options': options, 'segments': segments}
 
@@ -149,6 +156,32 @@ def debugger_target_bytes(specs: list[dict], rom: bytes, digest: str) -> bytes:
     return code
 
 
+def debugger_context_objects(directory: Path) -> tuple[list[Path], list[str]]:
+    """Assemble original analysis context for reference linking only.
+
+    Context establishes symbols that no longer appear in splat's undefined list.
+    It is never copied into candidate objects or counted as another report unit.
+    """
+    objects, placements = [], []
+    for name, section, start, size in (
+        ('context_data', '.data', 0x160036F0, 0x5F0),
+        ('context_rodata', '.rodata', 0x16003CE0, 0xC80),
+    ):
+        source = directory / 'asm/data' / (name + section + '.s')
+        normalized = directory / (name + '.s')
+        obj = directory / (name + '.o')
+        normalized.write_text(normalize_asm.normalize(source.read_text()))
+        with (directory / (name + '.log')).open('w') as log:
+            subprocess.run(['mips-linux-gnu-as', '-W', '-EB', '-march=vr4300', '-mabi=32',
+                            '-I', 'include', '-o', str(obj), str(normalized)],
+                           cwd=ROOT, stdout=log, stderr=log, check=True)
+        output = '.' + name
+        placements += [f'{output} 0x{start:X} : SUBALIGN(1) {{ "{obj.relative_to(ROOT)}"({section}) }}',
+                       f'ASSERT(SIZEOF({output}) == {size}, "original data context extent")']
+        objects.append(obj.relative_to(ROOT))
+    return objects, placements
+
+
 def prepare(specs: list[dict], output: Path) -> tuple[dict, dict]:
     """Fresh split, independent assembly, and whole-overlay link validation."""
     if {s['overlay'] for s in specs} != set(ORIGINS):
@@ -206,15 +239,27 @@ def prepare(specs: list[dict], output: Path) -> tuple[dict, dict]:
         objects = [(output / prepared[s['key']]['path']).relative_to(ROOT) for s in units]
         externals = '\n'.join((dest / name).read_text() for name in ('undefined_funcs.txt', 'undefined_syms.txt'))
         script = dest / 'targets.ld'
-        script.write_text(linker_script(units, objects, externals))
+        content = linker_script(units, objects, externals)
+        context_objects = []
+        if overlay == 'debugger' and units[-1]['end'] == 0x1A2178 and len(rom_bytes) >= 0x1A33E8:
+            context_objects, placements = debugger_context_objects(dest)
+            content = content.replace('/DISCARD/', '\n'.join(placements) + '\n/DISCARD/', 1)
+        script.write_text(content)
         elf, linked = dest / 'targets.elf', dest / 'targets.bin'
         with (dest / 'link.log').open('w') as log:
             subprocess.run(['mips-linux-gnu-ld', '-m', 'elf32btsmip', '-T', str(script), '-o', str(elf),
-                            *map(str, objects)], cwd=ROOT, stdout=log, stderr=log, check=True)
-            subprocess.run(['mips-linux-gnu-objcopy', '-O', 'binary', str(elf), str(linked)],
+                            *map(str, objects + context_objects)], cwd=ROOT, stdout=log, stderr=log, check=True)
+            selected = ['--only-section=.unit*'] if context_objects else []
+            subprocess.run(['mips-linux-gnu-objcopy', '-O', 'binary', *selected, str(elf), str(linked)],
                            cwd=ROOT, stdout=log, stderr=log, check=True)
         verification[overlay] = verify_linked_bytes(linked.read_bytes(),
             original[units[0]['start'] - origin:units[-1]['end'] - origin], overlay)
+        if context_objects:
+            from elf_sections import sections
+            parsed = sections(elf.read_bytes(), 2)
+            context_data = parsed['.context_data'][1] + parsed['.context_rodata'][1]
+            verification[overlay]['data_context'] = verify_linked_bytes(
+                context_data, rom_bytes[0x1A2178:0x1A33E8], 'debugger original data context')
         verification[overlay].update({'unit_count': len(units), 'input_sha1': digest,
                                       'config_sha256': sha256(config)})
         targets.update(prepared)

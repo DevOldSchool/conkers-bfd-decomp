@@ -354,6 +354,20 @@ $(BUILD_DIR)/asm/%.o: $(NORMALIZED_ASM_DIR)/%.s
 	@mkdir -p "$(@D)"
 	$(AS) $(ASFLAGS) -o $@ $<
 
+# The reviewed TLB unit is maintained assembly. The canonical ASM placement
+# stays fixed; generated disassembly is only an independent reference.
+build/us/asm/us/debugger/tlb.o: src/debugger/tlb.s include/macro.inc Makefile
+	@mkdir -p "$(@D)"
+	$(AS) $(ASFLAGS) -o $@ $<
+
+# UI source consumes the editable local glyph atlas and string table.
+.PHONY: debugger-assets-refresh
+debugger-assets-refresh:
+	python3 scripts/debugger_assets.py
+
+build/us/src/done/debugger/debugger_0000.o: | debugger-assets-refresh
+build/us/src/done/debugger/debugger_0000.o: $(wildcard build/us/debugger-assets/ui.inc.c build/us/debugger-assets/glyphs.pgm build/us/debugger-assets/strings.json) scripts/debugger_assets.py
+
 $(BUILD_DIR)/asm/$(PROFILE)/header.o: src/header.c
 	@mkdir -p "$(@D)"
 	python3 scripts/compile_c.py --profile $(PROFILE) --output $@ $<

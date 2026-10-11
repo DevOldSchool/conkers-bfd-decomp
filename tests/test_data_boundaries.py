@@ -72,6 +72,23 @@ class DataBoundaryTests(unittest.TestCase):
         self.assertEqual(pool['emitted_size'], 240)
         self.assertEqual(pool['compiler_padding_bytes'], 4)
 
+    def test_allocated_debugger_ranges_follow_canonical_profile(self):
+        mapped = data.debugger_source_mappings(ROOT)
+        self.assertEqual([(r['start'], r['end'], r['input']) for r in mapped], [
+            (0x160036F0, 0x16003C70, '.data'), (0x16003C70, 0x16003CE0, '.data'),
+            (0x16003CE0, 0x16004800, '.rodata'), (0x16004800, 0x16004960, '.rodata')])
+        self.assertTrue(all(r['kind'] == 'source_placement' and r['linker_mode'] == 'allocated'
+                            for r in mapped))
+        self.assertEqual([r['emitted_size'] for r in mapped], [1408, 112, 2848, 352])
+
+    def test_allocated_debugger_rejects_unreviewed_source_path(self):
+        profile = {'segments': [{'name': 'debugger', 'start': 0, 'vram': 0x16000000,
+                                 'subsegments': [{'start': 0, 'type': '.data', 'name': '../other'},
+                                                 [16, 'data', 'raw']]}]}
+        with patch.object(data, 'original_asset_profile', return_value=profile):
+            with self.assertRaisesRegex(ValueError, 'owner'):
+                data.debugger_source_mappings(ROOT)
+
     def test_shared_backing_counted_once_and_bss_excluded(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -87,7 +104,8 @@ class DataBoundaryTests(unittest.TestCase):
             (root / 'config/rzip_layouts.json').write_text(json.dumps({'profiles': {'us': {
                 'normalized_sha1': [digest], 'game_format': 'rzip', 'game_start': '0x0',
                 'game_end': '0x20', 'game_data_vram': '0x2000'}}}))
-            with patch.object(data, 'checked_manifest', side_effect=lambda root, images, digest: images), \
+            with patch.object(data, 'debugger_source_mappings', return_value=[]), \
+                    patch.object(data, 'checked_manifest', side_effect=lambda root, images, digest: images), \
                     patch.object(data.main_private_data, 'validated_rom', return_value=bytes(32)), \
                     patch.object(data, 'main_image', return_value=(bytes(32), 0x1000,
                         [{'start': 0x1000, 'end': 0x1010, 'kind': 'sdk_placement'}])), \

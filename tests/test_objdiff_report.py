@@ -15,6 +15,17 @@ import objdiff_report as report
 
 
 class CoveragePlanTests(unittest.TestCase):
+    def test_original_assembly_reuses_fresh_data_runtime_proof(self):
+        path = 'build/us/original-assets/conker.us.elf'
+        unit = {'kind': 'source_placement', 'overlay': 'debugger',
+                'data_completion_verified': True, 'linked_inputs': {path: 'checked'}}
+        self.assertEqual(report.debugger_runtime_from_data([unit]), {path: 'checked'})
+        for units in ([], [{**unit, 'data_completion_verified': False}],
+                      [{**unit, 'linked_inputs': {}}],
+                      [unit, {**unit, 'linked_inputs': {path: 'different'}}]):
+            with self.subTest(units=units), self.assertRaisesRegex(ValueError, 'fresh debugger'):
+                report.debugger_runtime_from_data(units)
+
     def test_unassigned_gaps_remain_in_denominator(self):
         plan = report.partition(0, 40, [{'start': 8, 'end': 20, 'kind': 'source'}], [4, 24, 32])
         self.assertEqual([(u['start'],u['end']) for u in plan],
@@ -78,7 +89,7 @@ class CoveragePlanTests(unittest.TestCase):
                     patch.object(report.objdiff_targets, 'prepare', return_value=(targets, {})), \
                     patch.object(report, 'digest_files', return_value='inputs'), \
                     patch.object(report.objdiff_ownership, 'verify_grouped_images'), \
-                    patch.object(report, 'prepare_data', return_value=([], [], {})), \
+                    patch.object(report, 'prepare_data', return_value=([], [], {})) as data_prepared, \
                     patch.object(report, 'prepare_font', return_value=(
                         {'size': 8, 'report_code_bytes': 0, 'report_data_bytes': 8},
                         {'name': 'assets/font', 'metadata': {'complete': False}})), \
@@ -98,7 +109,8 @@ class CoveragePlanTests(unittest.TestCase):
                           'report_data_bytes': 7, 'complete': False}],
                         [{'name': 'assets/storage/flat/unreconstructed', 'metadata': {'complete': False}}],
                         {'stored_asset_bytes': 30})), \
-                    patch.object(report, 'elf_text_symbols', return_value=symbols), \
+                    patch.object(report, 'elf_text_symbols', side_effect=lambda _: (
+                        self.assertTrue(data_prepared.called), symbols)[1]), \
                     patch.object(report.subprocess, 'run') as run:
                 report.prepare()
             run.assert_not_called()
@@ -115,6 +127,7 @@ class CoveragePlanTests(unittest.TestCase):
                 {'id': 'project', 'name': 'Project code'},
                 {'id': 'sdk', 'name': 'SDK libraries'},
                 {'id': 'data', 'name': 'Data'},
+                {'id': 'original_assembly', 'name': 'Original assembly'},
             ])
             self.assertEqual(coverage['mapped_code_bytes'], 12)
             self.assertEqual(coverage['expected_code_bytes'], 12)
@@ -143,6 +156,9 @@ class NativeReportValidationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             output = root / 'build/us/objdiff-report'
+            (root / 'toolchain').mkdir()
+            (root / 'toolchain/tools.lock.json').write_text(json.dumps({'objdiff_cli': {
+                'source_build': {'revision': 'test', 'patch_sha256': 'test'}}}))
             coverage = {'scope': 'synthetic', 'expected_code_bytes': 0,
                         'mapped_code_bytes': 0, 'excluded_zero_bytes': 0,
                         'target_method': 'synthetic', 'target_verification': {},
@@ -164,10 +180,45 @@ class NativeReportValidationTests(unittest.TestCase):
             self.assertFalse((root / 'build/progress/summary.json').exists())
             validation = json.loads((output / 'validation.json').read_text())
             self.assertEqual(expected, validation['existing_progress'])
+            self.assertEqual('test', validation['native_toolchain']['patch_sha256'])
             self.assertEqual(1, validation['snapshot_schema'])
             self.assertEqual('us', validation['profile'])
             self.assertEqual('a' * 40, validation['git_revision'])
             self.assertIn('source_dirty', validation)
+
+    def test_original_assembly_credit_requires_maintained_source_and_native_match(self):
+        import copy
+        config = {'units': [{'name': 'tlb', 'base_path': 'base.o', 'metadata': {
+            'complete': True, 'source_path': 'src/debugger/tlb.s',
+            'progress_categories': ['debugger', 'original_assembly']}}]}
+        spec = {'kind': 'original_asm', 'report_code_bytes': 152, 'report_data_bytes': 0,
+                'start': 0, 'end': 160, 'base_path': 'base.o', 'assembly_source': 'src/debugger/tlb.s',
+                'candidate_origin': 'maintained_original_assembly',
+                'complete': True, 'original_asm_completion_verified': True,
+                'maintained_assembly_proof': {'bytes': 160, 'matches_original': True},
+                'original_asm_proofs': {'tlb': {'span_sha256': 'checked'}},
+                'source_inputs': {'src/debugger/tlb.s': 'checked'}, 'linked_inputs': {'runtime.elf': 'checked'}}
+        coverage = {'units': [spec], 'expected_code_bytes': 152, 'mapped_code_bytes': 160,
+                    'excluded_zero_bytes': 8}
+        measures = {'total_code': '152', 'matched_code': '152', 'complete_code': '152'}
+        native = {'version': 2, 'measures': measures,
+                  'units': [{'name': 'tlb', 'measures': dict(measures)}]}
+        report.validate_report(native, coverage, config)
+        for field in ('matched_code', 'complete_code'):
+            changed = copy.deepcopy(native)
+            changed['units'][0]['measures'][field] = '0'
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, 'original assembly'):
+                report.validate_report(changed, coverage, config)
+        for field in ('base_path', 'candidate_origin', 'maintained_assembly_proof', 'assembly_source',
+                      'original_asm_completion_verified', 'original_asm_proofs', 'linked_inputs'):
+            changed = copy.deepcopy(coverage)
+            del changed['units'][0][field]
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, 'original assembly'):
+                report.validate_report(native, changed, config)
+        changed = copy.deepcopy(config)
+        changed['units'][0]['metadata']['progress_categories'] = ['debugger']
+        with self.assertRaisesRegex(ValueError, 'original assembly'):
+            report.validate_report(native, coverage, changed)
 
     def fixtures(self):
         config = {'units': [{'name':'a'}, {'name':'b'}]}

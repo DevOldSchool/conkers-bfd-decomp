@@ -72,6 +72,12 @@
       "objdiff-cli-linux-x86_64": "c8290281e82114bcc1a06ff73061110d3902a177822e750337de2537188e358f",
       "objdiff-cli-macos-arm64": "98f8275c27900c4fe2248fce3af37617658be49648fa7dbb5b376371f046dfdb",
       "objdiff-cli-macos-x86_64": "13e2535c252b8ecb6dba76b5aaef0bc03c6e36460c739fe5ac35af16d898501e"
+    },
+    "source_build": {
+      "revision": "fba10a617154f19b3fc25c8817dc81f81d8489b5",
+      "archive_sha256": "4e10f3b4fd0d9a3505c4af927ddda9f8f351dcc1e926e36d583978ff2b936b05",
+      "patch": "toolchain/patches/objdiff-full-data.patch",
+      "patch_sha256": "461804a8eaa7935388460ef4442bb80e0450c6c3c10b4a1a853bb72dce3e5bf7"
     }
   }
 }
