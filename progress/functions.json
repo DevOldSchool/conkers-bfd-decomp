@@ -4071,6 +4071,12 @@
       "symbol": "func_1519C4E4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2597,
+        "reason": "Bounded manual attempts exhausted: CURRENT2597 with exact0x90 frame; FP allocation, cross spills and copy temporaries remain. Final lower probe score was blocked by address-alias proof extent validation and is not credited.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -8717,6 +8723,12 @@
       "symbol": "func_151C7E98"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 970,
+        "reason": "CURRENT970; exact0x20 frame and floating-point sequence. GPR allocation begins with s0 instead of t6 and final owner load follows rather than precedes unsigned conversion. Two bounded probe batches did not improve; initial candidate retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -63698,6 +63710,12 @@
       "symbol": "func_15036570"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1356,
+        "reason": "CURRENT1356; five-vertex color loop and integer register sequence recovered from5178. Frame0x88 versus0x80, effect/matrix spill offsets and packet-store ordering remain; final lifetime probes worsened to1744/frame0x90. Bounded attempts exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
