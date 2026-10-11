@@ -43068,6 +43068,12 @@
       "symbol": "func_1504A140"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2025,
+        "reason": "Best valid full-span CURRENT2025 after three finishes and two probe batches; original0xD0 frame and all stack offsets match. Initial byte-index contract rejected and annotated invalid; source-local s32 index now follows raw full-register indexing. Remaining114 register rows,3 opcode/control rows and9 missing/extra rows from floating temporary allocation, radius/position snapshots and table-pointer scheduling. No exact match.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -60073,6 +60079,12 @@
       "symbol": "func_150417AC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4150,
+        "reason": "Best initial full-span CURRENT4150 retained after one finish and two bounded probe batches. Initial frame0xA0 versus0x80; smaller lifetime variants4648/5750 and escaped metric-aggregate variants5930/5950 regressed. Remaining saved-register pressure, ordinary-flag spill, glyph address hoist and operand/load scheduling. No exact match.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
