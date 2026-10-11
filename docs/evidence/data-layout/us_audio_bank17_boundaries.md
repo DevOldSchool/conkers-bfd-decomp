@@ -8,7 +8,10 @@ The original boundary pass defined bank `0x17` as a byte-aligned group with
 [sound-bank reconstruction](us_sound_bank_reconstruction.md) expands this to
 322 splits by separating typed external records from unexplained spans. The
 [ADPCM reconstruction](us_adpcm_reconstruction.md) expands the sample entry into
-5,104 complete-frame and raw regions, for 5,425 splits overall. The group covers ROM `[0x29AE9E8, 0x3F82170)`:
+5,104 complete-frame and raw regions, for 5,425 splits at that stage.
+[Complete sample reconstruction](us_adpcm_complete_reconstruction.md) consolidates
+these into 2,258 sample ranges including native zero alignment, for 2,579 splits
+overall. The group covers ROM `[0x29AE9E8, 0x3F82170)`:
 22,886,280 stored bytes. These are actual splat extraction boundaries and
 individual linker inputs under `build/us/assets/audio/bank17/`.
 
@@ -73,3 +76,7 @@ The PCM16 encoder supplies 2,690 complete-frame candidates totaling 21,691,971
 sample bytes. Ambiguous frames, incomplete tails and storage gaps occupy the
 remaining 13,549 raw bytes. The native sample graph and explicit frame exclusions
 derive this partition; only reconstructed complete frames receive Data credit.
+
+The complete sample encoder reconstructs all 21,705,520 entry-2 bytes from PCM
+with retained headroom where needed and native two/eight-byte zero alignment.
+No sample-storage range remains on the raw extraction path.

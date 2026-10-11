@@ -1,4 +1,4 @@
-"""Rebuild native ADPCM frame regions from PCM16 WAVs and semantic encoding plans."""
+"""Rebuild complete native ADPCM samples from PCM WAVs and semantic encoding plans."""
 from __future__ import annotations
 
 import hashlib
@@ -6,12 +6,14 @@ import json
 from pathlib import Path
 import tempfile
 import struct
+import shutil
 
 try:
-    from scripts import adpcm_codec, adpcm_layout, audio_assets, audio_boundaries, sound_bank_codec, texture_build
+    from scripts import adpcm_codec, adpcm_layout, audio_assets, audio_boundaries, sound_bank_codec, texture_build, adpcm_headroom
     from scripts.build_files import write_if_changed
 except ModuleNotFoundError:
     import adpcm_codec
+    import adpcm_headroom
     import adpcm_layout
     import audio_assets
     import audio_boundaries
@@ -44,7 +46,9 @@ def reviewed_samples(root=ROOT):
     graph = family.sound_graph.manifest
     asset = family.assets[2]
     contract = adpcm_layout.load_contract(root)
-    partition = adpcm_layout.partition(asset, graph['samples'], contract)
+    complete = adpcm_layout.complete_samples(asset, graph['samples'], contract)
+    partition = [(row['rom_start'], row['rom_end'], adpcm_layout.part_name(row['sample'], 0))
+                 for row in complete]
     start, end, splits = audio_boundaries.bank_layout(root / 'config/profiles/us.yaml')
     if (start, end) != (family.bank_start, family.bank_end):
         raise ValueError('ADPCM YAML bank extent differs from reviewed ROM')
@@ -54,28 +58,33 @@ def reviewed_samples(root=ROOT):
               if asset.rom_start <= at < asset.rom_end]
     if len(extents) != len(splits) or actual != partition:
         raise ValueError('ADPCM YAML differs from reviewed complete-frame partition')
-    runs = adpcm_layout.selected_runs(graph['samples'], contract)
     selected = []
-    for sample, regions in zip(graph['samples'], runs, strict=True):
-        if not regions:
-            continue
+    for sample, extent in zip(graph['samples'], complete, strict=True):
         index = sample['index']
         wave = graph['wavetables'][sample['wavetable_indices'][0]]
         book = graph['adpcm_books'][wave['book_index']]
         begin = asset.rom_start + int(sample['base'], 16)
         raw = rom[begin:begin + sample['runtime_payload_length']]
         plan = adpcm_codec.frame_plan(raw, book['coefficients'], book['order'], book['predictor_count'])
-        pcm = audio_assets.decode_n64_vadpcm(raw, book['coefficients'], book['order'], book['predictor_count'])
-        wav = adpcm_codec.source_wav(pcm, family.sound_bank.sample_rate)
-        parts = [{'first_frame': first, 'end_frame': stop, 'rom_start': begin + first * 9,
-                  'rom_end': begin + stop * 9, 'original_stored_sha256': sha256(raw[first * 9:stop * 9])}
-                 for first, stop in regions]
-        expected = {'schema_version': 1, 'profile': 'us', 'sample': index,
+        if extent['pcm_format'] == 'float32-headroom':
+            pcm = adpcm_headroom.decode_headroom(raw, book['coefficients'], book['order'], book['predictor_count'])
+            wav = adpcm_headroom.source_float_wav(pcm, family.sound_bank.sample_rate)
+            pcm_code = 'i'
+        else:
+            pcm = audio_assets.decode_n64_vadpcm(raw, book['coefficients'], book['order'], book['predictor_count'])
+            wav = adpcm_codec.source_wav(pcm, family.sound_bank.sample_rate)
+            pcm_code = 'h'
+        parts = [{'first_frame': 0, 'end_frame': len(raw) // 9,
+                  'rom_start': begin, 'rom_end': extent['rom_end'],
+                  'zero_padding_bytes': extent['zero_padding_bytes'],
+                  'original_stored_sha256': extent['stored_sha256']}]
+        expected = {'schema_version': 2, 'profile': 'us', 'sample': index,
                     'rom_sha1': adpcm_layout.ROM_SHA1, 'rom_start': begin,
                     'runtime_bytes': len(raw), 'pcm_frames': len(pcm),
                     'sample_rate': family.sound_bank.sample_rate,
+                    'pcm_format': extent['pcm_format'],
                     'context_wavetable': wave['index'], 'context_book': wave['book_index'],
-                    'original_pcm_sha256': sha256(struct.pack(f'<{len(pcm)}h', *pcm)),
+                    'original_pcm_sha256': sha256(struct.pack(f'<{len(pcm)}{pcm_code}', *pcm)),
                     'native_plan_sha256': plan_digest(plan), 'parts': parts}
         selected.append((expected, plan, wav))
     return rom, selected
@@ -108,18 +117,28 @@ def packed_sample(directory, expected):
         adpcm_codec.validate_plan(plan)
         if plan_digest(plan) != expected['native_plan_sha256']:
             raise ValueError('ADPCM frame parameters or native book context changed')
-        pcm = adpcm_codec.read_wav((directory / 'sample.wav').read_bytes(),
-                                   expected['sample_rate'], expected['pcm_frames'])
-        # Check the entire PCM context, including ambiguous frames not published
-        # as candidates. Never silently ignore an edit outside a credited region.
-        if sha256(struct.pack(f'<{len(pcm)}h', *pcm)) != expected['original_pcm_sha256']:
+        source_format = expected.get('pcm_format', 'pcm16')
+        if source_format == 'float32-headroom':
+            pcm = adpcm_headroom.read_float_wav((directory / 'sample.wav').read_bytes(),
+                                               expected['sample_rate'], expected['pcm_frames'])
+            pcm_code = 'i'
+            encode = adpcm_headroom.encode_headroom
+        elif source_format == 'pcm16':
+            pcm = adpcm_codec.read_wav((directory / 'sample.wav').read_bytes(),
+                                       expected['sample_rate'], expected['pcm_frames'])
+            pcm_code = 'h'
+            encode = adpcm_codec.encode_pcm
+        else:
+            raise ValueError('unsupported ADPCM PCM source format')
+        if sha256(struct.pack(f'<{len(pcm)}{pcm_code}', *pcm)) != expected['original_pcm_sha256']:
             raise ValueError('ADPCM source PCM differs from reviewed decoded samples')
-        encoded = adpcm_codec.encode_pcm(pcm, plan)
+        encoded = encode(pcm, plan)
         if len(encoded) != expected['runtime_bytes']:
             raise ValueError('ADPCM encoder produced an incorrect sample extent')
         parts = []
         for part in expected['parts']:
             raw = encoded[part['first_frame'] * 9:part['end_frame'] * 9]
+            raw += bytes(part.get('zero_padding_bytes', 0))
             if (len(raw) != part['rom_end'] - part['rom_start']
                     or sha256(raw) != part['original_stored_sha256']):
                 raise ValueError('ADPCM encoding differs from original complete-frame region')
@@ -181,9 +200,40 @@ def build_parts(root=ROOT):
                            'stored_sha256': sha256(raw), 'matches_original': True})
     result = {'sample_count': len(selected), 'part_count': len(proofs),
               'stored_bytes': sum(p['rom_end'] - p['rom_start'] for p in proofs),
-              'parts': proofs, 'verification': 'pcm16_and_native_frame_plan', 'matches_original': True}
+              'parts': proofs, 'verification': 'pcm_and_native_frame_plan_with_zero_alignment', 'matches_original': True}
     write_if_changed(root / 'build/us/adpcm/batch.json', (json.dumps(result, indent=2) + '\n').encode())
     return result
+
+
+def recover_all_inputs(root=ROOT):
+    """Prepare a full restoration before backing up the current source tree."""
+    _, selected = reviewed_samples(root)
+    directory = root / 'build/assets/adpcm-build/us'
+    if directory.is_symlink() or (directory.exists() and not directory.is_dir()):
+        raise ValueError(f'refusing recovery of a non-directory or symlink: {directory}')
+    directory.parent.mkdir(parents=True, exist_ok=True)
+    staging = Path(tempfile.mkdtemp(prefix='.restore-', dir=directory.parent))
+    prepared = staging / 'us'
+    prepared.mkdir()
+    backup = None
+    try:
+        for expected, plan, wav in selected:
+            texture_build.publish_inputs(prepared / f"{expected['sample']:04d}", input_files(expected, plan, wav))
+        if directory.exists():
+            backups = root / 'build/assets/adpcm-build/recovery/us'
+            backups.mkdir(parents=True, exist_ok=True)
+            backup = Path(tempfile.mkdtemp(prefix='all-', dir=backups)) / 'inputs'
+            directory.rename(backup)
+        try:
+            prepared.rename(directory)
+        except Exception:
+            if backup is not None and not directory.exists():
+                backup.rename(directory)
+            raise
+    finally:
+        shutil.rmtree(staging)
+    return {'sample_count': len(selected), 'input_directory': str(directory),
+            'backup_directory': str(backup) if backup is not None else None}
 
 
 def main(argv=None):
@@ -191,11 +241,14 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='command', required=True)
     commands.add_parser('build-parts')
-    commands.add_parser('recover').add_argument('--sample', required=True, type=int)
+    recovery = commands.add_parser('recover').add_mutually_exclusive_group(required=True)
+    recovery.add_argument('--sample', type=int)
+    recovery.add_argument('--all', action='store_true')
     args = parser.parse_args(argv)
     try:
         if args.command == 'recover':
-            print(json.dumps(recover_inputs(args.sample), indent=2))
+            result = recover_all_inputs() if args.all else recover_inputs(args.sample)
+            print(json.dumps(result, indent=2))
         else:
             proof = build_parts()
             print(f"Verified {proof['part_count']} ADPCM parts: {proof['stored_bytes']} ROM bytes")

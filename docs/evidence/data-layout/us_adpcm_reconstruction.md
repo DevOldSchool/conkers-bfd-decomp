@@ -1,5 +1,10 @@
 # US ADPCM reconstruction from PCM16
 
+This records the validated first PCM16 frame batch. The later
+[complete sample reconstruction](us_adpcm_complete_reconstruction.md) adds
+pre-saturation headroom and zero alignment, replacing the frame partition with
+complete sample units. The acceptance values below describe the first batch.
+
 The PCM encoder rebuilds 21,691,971 stored bytes across 2,690 complete-frame
 regions from 2,258 native samples. This includes 2,143 complete runtime payloads
 and 547 matching frame runs in the remaining 115 samples. The original sample

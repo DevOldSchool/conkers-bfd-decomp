@@ -463,7 +463,7 @@ ADPCM_SAMPLE_IDS := $(sort $(foreach part,$(patsubst assets/audio/bank17/samples
 ADPCM_MANIFESTS := $(foreach sample,$(ADPCM_SAMPLE_IDS),build/assets/adpcm-build/us/$(sample)/manifest.json)
 ADPCM_REQUIRED_INPUTS := $(ADPCM_MANIFESTS) $(patsubst %/manifest.json,%/encoding.json,$(ADPCM_MANIFESTS)) $(patsubst %/manifest.json,%/sample.wav,$(ADPCM_MANIFESTS))
 ADPCM_MISSING := $(filter-out $(wildcard $(ADPCM_PARTS) $(ADPCM_REQUIRED_INPUTS)),$(ADPCM_PARTS) $(ADPCM_REQUIRED_INPUTS))
-ADPCM_CODEC_DEPS := scripts/adpcm_build.py scripts/adpcm_codec.py scripts/adpcm_layout.py scripts/audio_assets.py scripts/audio_boundaries.py scripts/sound_bank_codec.py scripts/texture_build.py config/adpcm_reconstruction.us.json
+ADPCM_CODEC_DEPS := scripts/adpcm_build.py scripts/adpcm_codec.py scripts/adpcm_headroom.py scripts/adpcm_layout.py scripts/audio_assets.py scripts/audio_boundaries.py scripts/sound_bank_codec.py scripts/texture_build.py config/adpcm_reconstruction.us.json
 $(BUILD_DIR)/adpcm/parts.stamp: $(ASSET_PACK_DEPS) $(ADPCM_CODEC_DEPS) $(ADPCM_INPUTS) $(if $(ADPCM_MISSING),asset-parts-missing)
 	$(TIMING) --stage adpcm -- python3 scripts/adpcm_build.py build-parts
 	@touch $@

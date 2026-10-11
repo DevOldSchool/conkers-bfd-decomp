@@ -72,7 +72,7 @@ independent splat targets for every range in `config/overlays.json`, and
 invokes the pinned native `objdiff-cli report generate`. It covers tracked
 main/game/debugger US CPU code and initialized data, including raw/unassigned ranges,
 plus all bounded asset storage. The font, 6,865 reviewed textures and 557 reviewed
-assets in model banks, 149 compact audio sequences, 27 sound-bank parts and 2,690 ADPCM frame regions have reconstructed candidates; remaining asset storage stays unmatched.
+assets in model banks, 149 compact audio sequences, 27 sound-bank parts and 2,258 complete ADPCM samples have reconstructed candidates; remaining asset storage stays unmatched.
 The command uses four object-preparation workers and validates cached base object hashes before
 reuse. The first run requires the pinned `lib/ultralib` submodule (`git
 submodule update --init lib/ultralib`).
@@ -366,11 +366,12 @@ actual linker objects and independent targets gate native Data credit. The
 656 unexplained external bytes stay raw and unmatched.
 
 
-### ADPCM sample frames
+### Complete ADPCM samples
 
-[PCM16 sample reconstruction](evidence/data-layout/us_adpcm_reconstruction.md)
-produces 2,690 complete-frame regions totaling 21,691,971 bytes. Editable WAVs
-and native predictor/scale plans derive fresh residual nibbles. The full PCM
-context is checked even when a sample contains excluded frames. Actual ROM
-linker objects and independent original targets gate native Data credit. The
-13,549 bytes of ambiguous frames, incomplete tails and storage gaps stay raw.
+[Complete PCM sample reconstruction](evidence/data-layout/us_adpcm_complete_reconstruction.md)
+produces 2,258 sample units totaling 21,705,520 bytes, covering the entire native
+sample-storage entry. PCM16 sources and 115 Float32 sources with retained
+pre-saturation headroom derive fresh residual nibbles. Native lengths determine
+8,131 bytes of zero alignment. Actual linker objects and independent targets
+gate native Data credit. Recovery can back up one sample or the complete source
+tree before restoring reviewed inputs.

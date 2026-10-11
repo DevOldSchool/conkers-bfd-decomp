@@ -144,7 +144,7 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
 
     def test_adpcm_frame_regions_share_pcm_inputs_and_keep_raw_gaps_uncredited(self):
         shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
-        for name in ('adpcm_codec','adpcm_layout','audio_assets','sound_bank_codec'):
+        for name in ('adpcm_codec','adpcm_headroom','adpcm_layout','audio_assets','sound_bank_codec'):
             (self.root / f'scripts/{name}.py').write_text('# dependency\n')
         (self.root / 'config/adpcm_reconstruction.us.json').write_text('{}')
         (self.root / 'scripts/audio_boundaries.py').write_text("""def bank_layout(profile, *, configuration=None):
@@ -194,7 +194,7 @@ with Path('adpcm.calls').open('a') as log:log.write('packed\\n')
             self.assertNotEqual(run().returncode,0)
             self.assertEqual(objects[0].read_text(),'edited pcm')
             path.write_bytes(raw)
-        for name in ('adpcm_build','adpcm_codec','adpcm_layout','sound_bank_codec'):
+        for name in ('adpcm_build','adpcm_codec','adpcm_headroom','adpcm_layout','sound_bank_codec'):
             path=self.root/f'scripts/{name}.py';old=path.stat()
             stamp=self.root/'build/us/adpcm/parts.stamp';newer=stamp.stat().st_mtime_ns+10_000_000_000
             calls=(self.root/'adpcm.calls').read_text()
