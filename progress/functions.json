@@ -68406,6 +68406,12 @@
       "symbol": "func_150FEC28"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4162,
+        "reason": "Three focused attempts and two bounded probe batches reduced CURRENT 6288 to 4162; frame 0x110 versus raw 0x108, promoted global addresses and floating-point initialization/register scheduling remain. Original assembly retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -79532,6 +79538,12 @@
       "symbol": "func_15109ED4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5111,
+        "reason": "Initial full-span CURRENT 5111 with exact 0x110 frame; two bounded probe batches did not improve. Weight-table address promotion, vector pointer caches and floating-point temporary allocation differ. Original assembly retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

@@ -455,6 +455,84 @@ s32 func_15109ED4(s32 arg0, s16 arg1, s8 arg2, s8 arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15109ED4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1368C0/func_15109ED4.s")
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+void func_1511490C(void *, void *);
+extern Game1368C0EmitterVector D_800A2568[], D_800A25BC[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15109FB8 CURRENT (5111) */
+void func_15109FB8(u8 *arg0) {
+    s32 callback;
+    f32 matrix[16];
+    Game1368C0EmitterVector position;
+    Game1368C0EmitterVector first;
+    Game1368C0EmitterVector second;
+    Game1368C0EmitterVector third;
+    Game1368C0EmitterVector direction;
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 random;
+    f32 remaining;
+    f32 *weight;
+    s32 index;
+    s32 offset;
+    Game1368C0EmitterVector *segment;
+    Game1368C0EmitterVector *thirdPoint;
+    Game1368C0Spawn *state;
+
+    state = (Game1368C0Spawn *)(arg0 + 0x28);
+    state->zero += state->value * D_800A251C * D_800BE9A4;
+    if (state->field_D != -1) {
+        state = (Game1368C0Spawn *)(arg0 + 0x28);
+        if (state->zero > 1.0f) {
+            do {
+                index = 0;
+                func_1511490C(matrix, state->source);
+                remaining = func_150ADA68();
+                remaining = D_800A2504.total * remaining;
+                weight = D_800A2504.weights;
+                while (*weight < remaining) {
+                    remaining -= *weight;
+                    index++;
+                    weight++;
+                }
+                random = func_150ADA68();
+                offset = index * 0xC;
+                segment = (Game1368C0EmitterVector *)((u8 *)D_800A2568 + offset);
+                x = segment->x;
+                y = segment->y;
+                z = segment->z;
+                func_150A7960(matrix, ((segment[1].x - x) * random) + x,
+                    ((segment[1].y - y) * random) + y,
+                    ((segment[1].z - z) * random) + z,
+                    &position.x, &position.y, &position.z);
+                func_150A7960(matrix, segment->x, segment->y, segment->z,
+                    &first.x, &first.y, &first.z);
+                func_150A7960(matrix, segment[1].x, segment[1].y, segment[1].z,
+                    &second.x, &second.y, &second.z);
+                thirdPoint = (Game1368C0EmitterVector *)((u8 *)D_800A25BC + offset);
+                func_150A7960(matrix, thirdPoint->x, thirdPoint->y, thirdPoint->z,
+                    &third.x, &third.y, &third.z);
+                random = func_150ADA68();
+                direction.x = (((third.x - second.x) * random) + second.x) - first.x;
+                direction.y = (((third.y - second.y) * random) + second.y) - first.y;
+                direction.z = (((third.z - second.z) * random) + second.z) - first.z;
+                func_15145128(&direction, &direction, NULL, NULL);
+                D_80088C64[state->field_D](arg0, &position, &first, &second, &third, &direction);
+                state->zero -= 1.0f;
+            } while (state->zero > 1.0f);
+        }
+    } else if (state->zero > 1.0f) {
+        do {
+            state->zero -= 1.0f;
+        } while (state->zero > 1.0f);
+    }
+    callback = state->field_C;
+    if (callback != -1) {
+        D_80088C60[callback](arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15109FB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1368C0/func_15109FB8.s")
 extern f32 D_800A2684;
 extern f32 D_800A2688;
