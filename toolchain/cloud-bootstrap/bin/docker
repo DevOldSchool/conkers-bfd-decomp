@@ -18,7 +18,8 @@ def base_record(): return load('base-image.json')
 def image(ref):
  base=base_record()
  if ref==BASE:
-  return {'Id':base['config_digest'],'Config':base['config']['config'],'armips':False}
+  return {'Id':base['config_digest'],'Config':base['config']['config'],'armips':False,
+          'Os':base['config'].get('os',''),'Architecture':base['config'].get('architecture','')}
  try: images=load('images.json')
  except FileNotFoundError: images={}
  if ref not in images: fail('Unknown/unbuilt image: '+ref)
@@ -36,6 +37,10 @@ def inspect(data,fmt):
  if fmt=='{{.Id}}': print(data['Id'])
  elif fmt=='{{.Image}}': print(data['Image'])
  elif fmt=='{{.State.Running}}': print('true')
+ elif fmt=='{{.Os}}/{{.Architecture}}':
+  # Images registered before platform metadata was recorded share the base config.
+  config=base_record()['config']
+  print((data.get('Os') or config.get('os',''))+'/'+(data.get('Architecture') or config.get('architecture','')))
  elif 'org.devoldschool.conker.warm-schema' in fmt: print(data['Config']['Labels'].get('org.devoldschool.conker.warm-schema',''))
  elif 'org.devoldschool.conker.diff-watch' in fmt: print(data['Config'].get('Labels',{}).get('org.devoldschool.conker.diff-watch',''))
  else: fail('Unsupported inspect format '+fmt)
