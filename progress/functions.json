@@ -93372,17 +93372,16 @@
       "symbol": "func_800095A0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 180,
-        "reason": "Full436 CURRENT180 (was305): honest reorder buffer=record->buffer before offset from permuter hint. Remaining5 rows: ref hoists &D_8002AE48 into loop preheader and schedules move a3,a0 earlier; request/record swap, for-loop, split return, local pointer probed and rejected. See build/us/manual-attempts/main-permuter-20261010/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 436,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800097CC",
           "vram": "0x800097CC"
         }
@@ -93409,17 +93408,16 @@
       "symbol": "func_80009980"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 50,
-        "reason": "Full368 CURRENT50 (improved from 395) via alLink link-block form; decomp-permuter r1+r2 (published toolchain image) found no improvement below 50",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 368,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800099BC",
           "vram": "0x800099BC"
         }
@@ -93482,17 +93480,16 @@
       "symbol": "func_80009B90"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 80,
-        "reason": "Full216 CURRENT80 (improved from95): list-link block now keeps anchor = linkAfter->next but tests/updates through linkAfter->next (shape that matches sibling func_8000A348 exactly). Without the anchor store275. decomp-permuter 15min from95 (published toolchain 14b7eb44, barrier passes disabled) only reached 30/65 via copy temps or assignment-in-condition; rejected as fakes. Ledger build/us/manual-attempts/main-permuter-20261010/ledger.md. No shared/ABI/ASM changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 216,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80009BE4",
           "vram": "0x80009BE4"
         }
@@ -93501,17 +93498,16 @@
       "symbol": "func_80009BE4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 330,
-        "reason": "Unchanged after pass 3 permuter/manual work (decomp-permuter 45-60 min where run; only fake-copy or semantic-changing results). See build/us/manual-attempts/main-permuter-20261010/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 832,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80009CBC",
           "vram": "0x80009CBC"
         }
@@ -93540,8 +93536,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 685,
-        "reason": "Full780 best CURRENT685 independently restored after two manual transfers from newly exact9400: explicit cleanup join685 instruction-identical, entry-tested cleanup while690 only changes required S2 backedge to S0. Existing frame78/allhomes exact; missing two anchor copies, found MOVE versus LI, extra cleanup B/MOVE and associated register/branch offsets remain. Prior insertion/continue/commonadvance/busyfirst/assignmentcondition/flag forms exhausted; no retained source/ABI/shared/ASM changes.",
+        "current_score": 600,
+        "reason": "Full780 CURRENT600 (improved from685): both alLink blocks now use SDK audiomgr shape (test and linkAfter read D_800406A0.field directly), fixing all register rows. Remaining: freeAnchor loop tail emits an extra record=next block vs reference shared move s0,s2 + bnezl s2. Probed single tail record=next (1205), per-branch inner record=next (1085), while-loop plain (1205) and while-loop sdk (605); none improved. Ledger build/us/manual-attempts/main-matching-20261012/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
