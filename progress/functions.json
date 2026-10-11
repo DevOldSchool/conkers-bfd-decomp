@@ -59629,6 +59629,12 @@
       "symbol": "func_150C88D0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2804,
+        "reason": "CURRENT 2804 after two finishes and two bounded probe batches. Volatile expiry reproduces byte stack accesses and explicit heading restores saved-register order; frame remains A0 versus 98, global/table register order, trig argument scheduling and vector x reload differ. Final direct-global variants worse (5121/5392); retained original constant snapshots. No shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -89871,6 +89877,12 @@
       "symbol": "func_150888A8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1460,
+        "reason": "CURRENT 1460 after two bounded probe batches. Frame 0x18 matches; node shift argument copies, table addition operand order, and best-duration register allocation remain. Pointer-order probe unchanged; three-node snapshots worse at 1490. Preserve fullwidth duration and corrected s32 return. No shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

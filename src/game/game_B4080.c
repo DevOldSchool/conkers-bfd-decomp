@@ -895,8 +895,135 @@ s32 func_150888A8(volatile s32 arg0, volatile u8 arg1, s8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150888A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_150888A8.s")
+typedef struct GameB4080ProgressEntry {
+    u8 pad0[8];
+    f32 phase;
+    u8 padC[0xC];
+    s32 previousTime;
+    s32 elapsed;
+    s32 lastTime;
+    s16 steps;
+    s8 length;
+    s8 lap;
+    s8 bestLap;
+    u8 pad29[2];
+    u8 previousNode, node, nextNode, followingNode;
+    s8 group;
+    s8 computer;
+    s8 actor;
+} GameB4080ProgressEntry;
+
+extern u8 D_800BE616;
+extern s8 D_800D2390, D_800E0BE7;
+extern s16 D_800E0C10[];
+extern s32 D_800E0C18[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15088A08 CURRENT (1460) */
+s32 func_15088A08(void *arg0, f32 arg1) {
+    GameB4080ProgressEntry *entry = arg0;
+    f32 phase;
+    s16 *best;
+    s32 duration;
+    s32 elapsed;
+    s32 oldBest;
+    s32 laps;
+    s32 actor;
+    s32 currentLap;
+    s32 changed;
+    s32 total;
+    s32 kind;
+    s32 alternateKind;
+
+    changed = 0;
+    entry->phase += arg1;
+    phase = entry->phase;
+    if (phase < 0.0f) {
+        entry->phase = phase + 1.0f;
+        entry->followingNode = entry->nextNode;
+        entry->nextNode = entry->node;
+        entry->node = entry->previousNode;
+        entry->previousNode = func_150888A8(entry->nextNode & 0xFF, entry->node & 0xFF, entry->group);
+        changed = -1;
+    } else if (phase >= 1.0f) {
+        entry->phase = phase - 1.0f;
+        entry->previousNode = entry->node;
+        entry->node = entry->nextNode;
+        entry->nextNode = entry->followingNode;
+        entry->followingNode = func_150888A8(entry->node & 0xFF, entry->nextNode & 0xFF, entry->group);
+        changed = 1;
+        if (D_800D23A8 == 0) {
+            kind = D_800D2350[entry->node * 0x10 + 0xF];
+            if (kind == 5) {
+                D_800D2390 = 1;
+                kind = D_800D2350[entry->node * 0x10 + 0xF];
+            }
+            if (kind == 6) {
+                D_800D2390 = 2;
+            }
+        } else {
+            alternateKind = D_800D2350[entry->node * 0x10 + 0xF];
+            if (alternateKind == 7) {
+                D_800D2390 = 1;
+                alternateKind = D_800D2350[entry->node * 0x10 + 0xF];
+            }
+            if (alternateKind == 8) {
+                D_800D2390 = 2;
+                alternateKind = D_800D2350[entry->node * 0x10 + 0xF];
+            }
+            if (alternateKind == 9) {
+                D_800D2390 = 3;
+            }
+        }
+    }
+    if (changed != 0) {
+        laps = D_800E0BE7;
+        entry->steps += changed;
+        actor = entry->actor;
+        entry->lap = entry->steps / entry->length;
+        if ((D_800BE616 != 0) && (laps < entry->lap)) {
+            entry->lap = laps + 1;
+        }
+        currentLap = entry->lap;
+        if (entry->bestLap < currentLap) {
+            entry->bestLap = currentLap;
+            if ((actor < D_8008FD90) && (entry->computer == 0)) {
+                elapsed = entry->elapsed;
+                if (elapsed > 0) {
+                    if (laps >= entry->bestLap) {
+                        best = &D_800E0C10[actor];
+                        duration = elapsed - entry->previousTime;
+                        if (duration >= 0x7D01) {
+                            duration = 0x7D00;
+                        }
+                        oldBest = *best;
+                        if ((oldBest <= 0) || (duration < oldBest)) {
+                            *best = duration;
+                        }
+                        entry->lastTime = duration;
+                    }
+                    if (laps == entry->bestLap) {
+                        total = entry->elapsed;
+                        if (total >= 0x57E41) {
+                            total = 0x57E40;
+                        }
+                        D_800E0C18[actor] = total;
+                    }
+                }
+            }
+            currentLap = entry->bestLap;
+            if (laps == currentLap) {
+                entry->previousTime = -entry->elapsed;
+            } else if (currentLap < laps) {
+                entry->previousTime = entry->elapsed;
+            }
+        }
+    }
+    return changed;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15088A08 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15088A08.s")
-void func_15088A08(void *, f32);
+
+s32 func_15088A08(void *, f32);
 void func_15088F30(f32 *, f32 *, f32 *, f32 *);
 f32 func_150497E0(f32 *, s32, f32);
 f32 func_150498A4(f32 *, s32, f32, f32 *);
