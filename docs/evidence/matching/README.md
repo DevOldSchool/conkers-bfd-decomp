@@ -26,6 +26,7 @@ Start with the [conversion audit](matching_conversion_audit.md) for the distinct
 - [Bounded sprite, motion and angle candidates (US)](manual_motion_and_angle_candidates.md)
 - [Bounded owner, route and particle candidates (US)](manual_owner_route_particle_candidates.md)
 - [Bounded transform and callback candidates (US)](manual_transform_and_callback_candidates.md)
+- [m2c fork starter comparison (US), 2026-10-11](m2c_fork_starter_comparison.md)
 - [Manual matching conversion audit, 2026-09-30](matching_conversion_audit.md)
 - [Parallel manual candidate families](parallel_manual_candidate_families.md)
 - [Particle callback storage matching and raw-ABI follow-ups (US)](particle_callback_storage_matching.md)
