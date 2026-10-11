@@ -10,6 +10,7 @@ from pathlib import Path
 import re
 import subprocess
 
+import binary_object
 from build_jobs import job_count
 import compile_c
 import data_boundaries
@@ -410,8 +411,8 @@ def prepare_texture(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, 
     reference = directory / relative
     reference.parent.mkdir(parents=True, exist_ok=True)
     reference.write_bytes(original)
-    subprocess.run(['mips-linux-gnu-ld', '-r', '-b', 'binary', '-m', 'elf32btsmip',
-                    '-o', 'target.o', relative], cwd=directory, check=True)
+    # Byte-identical to `ld -r -b binary` from this directory, without a process per asset.
+    target.write_bytes(binary_object.binary_object(original, relative))
     for path in (base, target):
         target_extent(path, '.data', end - start)
     candidate = sections(base.read_bytes(), 1)['.data'][1]
@@ -466,8 +467,8 @@ def prepare_rebuilt_asset(rom, *, key, name, extent, packed, hashes,
     reference = directory / relative
     reference.parent.mkdir(parents=True, exist_ok=True)
     reference.write_bytes(original)
-    subprocess.run(['mips-linux-gnu-ld', '-r', '-b', 'binary', '-m', 'elf32btsmip',
-                    '-o', 'target.o', relative], cwd=directory, check=True)
+    # Byte-identical to `ld -r -b binary` from this directory, without a process per asset.
+    target.write_bytes(binary_object.binary_object(original, relative))
     for path in (base, target):
         target_extent(path, '.data', end - start)
     candidate = sections(base.read_bytes(), 1)['.data'][1]

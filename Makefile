@@ -510,47 +510,32 @@ $(MP3_BANK_PARTS): $(BUILD_DIR)/audio/parts.stamp ;
 endif
 endif
 
-$(FONT_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/fonts/parts/%.bin
-	@if test ! -f "$@" || test "$<" -nt "$@"; then \
-		mkdir -p "$(@D)" && cd $(BUILD_DIR)/fonts/parts && \
-		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
-	fi
-
-$(SOUND_BANK_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/sound-bank/parts/%.bin
-	@if test ! -f "$@" || test "$<" -nt "$@"; then \
-		mkdir -p "$(@D)" && cd $(BUILD_DIR)/sound-bank/parts && \
-		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
-	fi
-
-$(ADPCM_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/adpcm/parts/%.bin
-	@if test ! -f "$@" || test "$<" -nt "$@"; then \
-		mkdir -p "$(@D)" && cd $(BUILD_DIR)/adpcm/parts && \
-		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
-	fi
-
-$(SEQUENCE_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/sequences/parts/%.bin
-	@if test ! -f "$@" || test "$<" -nt "$@"; then \
-		mkdir -p "$(@D)" && cd $(BUILD_DIR)/sequences/parts && \
-		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
-	fi
-
-$(MP3_BANK_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/audio/parts/%.bin
-	@if test ! -f "$@" || test "$<" -nt "$@"; then \
-		mkdir -p "$(@D)" && cd $(BUILD_DIR)/audio/parts && \
-		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
-	fi
-
-$(TEXTURE_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/textures/parts/%.bin
-	@if test ! -f "$@" || test "$<" -nt "$@"; then \
-		mkdir -p "$(@D)" && cd $(BUILD_DIR)/textures/parts && \
-		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
-	fi
-
-$(MODEL_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/models/parts/%.bin
-	@if test ! -f "$@" || test "$<" -nt "$@"; then \
-		mkdir -p "$(@D)" && cd $(BUILD_DIR)/models/parts && \
-		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
-	fi
+# Write each family's link objects in one process. scripts/binary_object.py
+# reproduces `ld -r -b binary` byte for byte; spawning ld per asset cost minutes
+# under emulation. It rewrites only objects older than their part and replaces
+# an object only when its bytes change.
+BINARY_OBJECT_DEPS := scripts/binary_object.py
+# Bank-17 objects must not be written before their checked-in splits verify.
+AUDIO_OBJECT_ORDER := $(if $(AUDIO_BANK_OBJS),audio-boundaries-check)
+# $(1): stamp, $(2): parts directory, $(3): object list, $(4): order-only prerequisite.
+define BINARY_OBJECT_RULES
+ifneq ($(strip $(3)),)
+$(1): $(patsubst $(BUILD_DIR)/assets/%.o,$(2)/%.bin,$(3)) $(BINARY_OBJECT_DEPS) $$(if $$(filter-out $$(wildcard $(3)),$(3)),asset-parts-missing) $(if $(4),| $(4))
+	@mkdir -p "$$(@D)"
+	$$(file >$$@.names,$(patsubst $(BUILD_DIR)/assets/%.o,%.bin,$(3)))
+	python3 scripts/binary_object.py --root $(2) --output-root $(BUILD_DIR)/assets --names-from $$@.names
+	@touch $$@
+$(3): $(1) ;
+endif
+endef
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/fonts/objects.stamp,$(BUILD_DIR)/fonts/parts,$(FONT_OBJS)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/sound-bank/objects.stamp,$(BUILD_DIR)/sound-bank/parts,$(SOUND_BANK_OBJS),$(AUDIO_OBJECT_ORDER)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/adpcm/objects.stamp,$(BUILD_DIR)/adpcm/parts,$(ADPCM_OBJS),$(AUDIO_OBJECT_ORDER)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/sequences/objects.stamp,$(BUILD_DIR)/sequences/parts,$(SEQUENCE_OBJS),$(AUDIO_OBJECT_ORDER)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/audio/objects.stamp,$(BUILD_DIR)/audio/parts,$(MP3_BANK_OBJS)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/textures/objects.stamp,$(BUILD_DIR)/textures/parts,$(TEXTURE_OBJS)))
+# Each model bank packs and fails independently, so its objects do too.
+$(foreach bank,$(MODEL_BANKS),$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/models/bank$(bank)/objects.stamp,$(BUILD_DIR)/models/parts,$(filter $(BUILD_DIR)/assets/models/bank$(bank)/%.o,$(MODEL_OBJS)))))
 
 .PHONY: data-splits-check
 data-splits-check:

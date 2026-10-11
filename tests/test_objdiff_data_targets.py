@@ -404,15 +404,13 @@ class DataTargetTests(unittest.TestCase):
             linked.parent.mkdir(parents=True)
             linked.write_bytes(object_file([('.data', 1, 3, original)]))
             change_during_wrap = False
-            def run(command, **kwargs):
-                if command[0] == 'mips-linux-gnu-ld':
-                    directory = kwargs['cwd']
-                    payload = (directory / command[-1]).read_bytes()
-                    (directory / command[-2]).write_bytes(object_file([('.data', 1, 3, payload)]))
-                    if change_during_wrap:
-                        linked.write_bytes(object_file([('.data', 1, 3, bytes([1]) * 16)]))
+            wrap_target = targets.binary_object.binary_object
+            def wrap(payload, name):
+                if change_during_wrap:
+                    linked.write_bytes(object_file([('.data', 1, 3, bytes([1]) * 16)]))
+                return wrap_target(payload, name)
             with patch.object(targets, 'ROOT', root), \
-                    patch.object(targets.subprocess, 'run', side_effect=run), \
+                    patch.object(targets.binary_object, 'binary_object', side_effect=wrap), \
                     patch.object(targets.texture_build, 'packed_texture', return_value=(original, {'1063.ci4.png': 'hash'})), \
                     patch.object(targets.texture_build, 'input_hashes', return_value={'1063.ci4.png': 'hash'}):
                 unit, config = targets.prepare_texture(rom, expected, output=root)
