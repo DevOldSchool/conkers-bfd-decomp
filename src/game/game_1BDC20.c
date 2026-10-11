@@ -84,6 +84,83 @@ s32 func_15190F9C(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15190F9C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_15190F9C.s")
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+f32 func_15047C00(f32);
+f32 func_15047D60(f32);
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+extern f32 D_800A8018, D_800BE9A8;
+extern u8 D_800DD1D8[], D_800DD1E8[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519108C CURRENT (1399) */
+void *func_1519108C(u8 *arg0, s16 arg1) {
+    void *vertices;
+    void *base;
+    f32 sine;
+    volatile f32 heightCos;
+    volatile f32 heightSin;
+    f32 widthCos;
+    f32 widthSin;
+    f32 angle;
+    f32 sign;
+    u8 fresh;
+    u8 *buffers;
+    f32 *axisZ;
+    f32 *axisX;
+
+    func_151D5D60(arg0 + 0x100, arg1, 0x40, &vertices, &fresh);
+    base = vertices;
+    if (vertices != 0) {
+        if (fresh != 0) {
+            buffers = arg0 + arg1 * 4;
+            axisZ = (f32 *)(arg0 + 0xC0);
+            func_10022EC0(*(void **)(buffers + 0x100), axisZ, 0x40U);
+            func_10022EC0(*(u8 **)(buffers + 0x100) + 0x40, axisZ, 0x40U);
+        }
+    } else {
+        return 0;
+    }
+    axisZ = (f32 *)(D_800DD1E8 + arg1 * 4);
+    axisX = (f32 *)(D_800DD1D8 + arg1 * 4);
+    sign = -1.0f;
+    angle = (*axisZ * (*(f32 *)(arg0 + 0x40) - *(f32 *)(arg0 + 0x34)) -
+             *axisX * (*(f32 *)(arg0 + 0x48) - *(f32 *)(arg0 + 0x3C))) * D_800BE9A8;
+    if (angle < 0.0f) {
+        sign = 1.0f;
+        angle = -angle;
+    }
+    angle = sqrtf(angle) * *(f32 *)(arg0 + 0x12C);
+    if (D_800A8018 < angle) angle = D_800A8018;
+    angle *= sign;
+    sine = func_15047D60(angle);
+    angle = func_15047C00(angle);
+    sign = *(f32 *)(arg0 + 0x30);
+    widthCos = *(f32 *)(arg0 + 0x2C) * angle;
+    widthSin = *(f32 *)(arg0 + 0x2C) * sine;
+    heightCos = sign * angle;
+    heightSin = sign * sine;
+    angle = -widthCos;
+    *(s16 *)vertices = (s32)(*axisZ * angle + *(f32 *)(arg0 + 0x34));
+    *(s16 *)((u8 *)vertices + 2) = (s32)(*(f32 *)(arg0 + 0x38) + widthSin);
+    *(s16 *)((u8 *)vertices + 4) = (s32)(*(f32 *)(arg0 + 0x3C) - *axisX * angle);
+    *(s16 *)((u8 *)vertices + 6) = 0;
+    *(s16 *)((u8 *)vertices + 0x10) = (s32)(*axisZ * widthCos + *(f32 *)(arg0 + 0x34));
+    *(s16 *)((u8 *)vertices + 0x12) = (s32)(*(f32 *)(arg0 + 0x38) - widthSin);
+    *(s16 *)((u8 *)vertices + 0x14) = (s32)(*(f32 *)(arg0 + 0x3C) - *axisX * widthCos);
+    *(s16 *)((u8 *)vertices + 0x16) = 0;
+    angle = widthCos - heightSin;
+    *(s16 *)((u8 *)vertices + 0x20) = (s32)(*axisZ * angle + *(f32 *)(arg0 + 0x34));
+    *(s16 *)((u8 *)vertices + 0x22) = (s32)(*(f32 *)(arg0 + 0x38) - widthSin - heightCos);
+    *(s16 *)((u8 *)vertices + 0x24) = (s32)(*(f32 *)(arg0 + 0x3C) - *axisX * angle);
+    *(s16 *)((u8 *)vertices + 0x26) = 0;
+    angle = -(widthCos + heightSin);
+    *(s16 *)((u8 *)vertices + 0x30) = (s32)(*axisZ * angle + *(f32 *)(arg0 + 0x34));
+    *(s16 *)((u8 *)vertices + 0x32) = (s32)(*(f32 *)(arg0 + 0x38) + widthSin - heightCos);
+    *(s16 *)((u8 *)vertices + 0x34) = (s32)(*(f32 *)(arg0 + 0x3C) - *axisX * angle);
+    *(s16 *)((u8 *)vertices + 0x36) = 0;
+    return base;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1519108C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_1519108C.s")
 u32 func_150ADA20(void);
 extern u8 D_800A9D40[];

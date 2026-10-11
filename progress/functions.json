@@ -57123,6 +57123,12 @@
       "symbol": "func_15190F9C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1399,
+        "reason": "CURRENT1399 after two finishes and two bounded probe batches. Frame70 versus68 and FP/spill scheduling remain; final correct-frame variants scored3053/3333 and were worse. Correctness-rejected probe1809 excluded.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -67099,6 +67105,12 @@
       "symbol": "func_151AA5A4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 360,
+        "reason": "CURRENT360: 52 FP register rows; exact frame and instruction sequence. Qualified scale loads unchanged; real difference temporaries638/2440 worse. Sibling operand/type hypotheses already exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -92861,11 +92873,22 @@
       "symbol": "func_150AA9A0"
     },
     {
+      "original_asm": {
+        "reason": "Reviewed handwritten custom ABI: inputs in f0-f2 and f23-f31, RA saved in t7 across helper calls, shared alternate return at func_150AAD84; ordinary o32 C cannot preserve this entry contract.",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/boundaries/game/families/game_raw_handwritten_entry_families.md"
+      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "assembly_sha256": "7d02c320171022daf68ab2205e0473dc220d5908a83fe55aff9c0c88252358bb",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "7f2eed67c30f610fa8009f03906d4c88ec81361113910c00304f975708eb312e",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 888,
-          "state": "raw_asm",
+          "state": "original_asm",
           "symbol": "func_150AAA20",
           "vram": "0x150AAA20"
         }
