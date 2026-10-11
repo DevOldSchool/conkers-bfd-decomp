@@ -44970,6 +44970,12 @@
       "symbol": "func_151EDB58"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1303,
+        "reason": "CURRENT 1303 after two finishes and two bounded probe batches. Frame 0x28 is exact; original pointer spill is 0x24 versus 0x20, and display-list command advancement, store ordering and temporary allocation still differ.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -78914,6 +78920,12 @@
       "symbol": "func_150CD59C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1565,
+        "reason": "Bounded manual pass improved 4826 to 1565; remaining frame108 versus F0, 20 stack rows, constant lifetime and register scheduling differences after two probe batches.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

@@ -86,7 +86,99 @@ void *func_150CD59C(u8 *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150CD59C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FA360/func_150CD59C.s")
+typedef struct { f32 x, y, z; } GameFA360Vector;
+typedef struct {
+    s32 countBase, countRange;
+    GameFA360Vector position;
+    s16 angleBase, angleRange, pitchBase, pitchRange;
+    f32 speedBase, speedRange, field24;
+    f32 scaleBase, scaleRange;
+    s8 colorIndex;
+    u8 pad31;
+    s16 lifeBase, lifeRange;
+    u8 pad36[2];
+    f32 field38, field3C, field40, field44, field48;
+} GameFA360Particle;
+typedef struct { f32 values[5]; } GameFA360Angles;
+
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+void func_1514373C(f32, f32, f32 *, f32 *);
+void func_15152874(GameFA360Particle *, u8, s32);
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+extern s32 D_80082FA4;
+extern GameFA360Angles D_80088874;
+extern u8 *D_800DBFF0;
+extern f32 D_800BE9A4;
+extern f32 D_800A0754, D_800A0758, D_800A075C;
+extern f64 D_800A0760, D_800A0768;
+extern f32 D_800A0770, D_800A0774, D_800A0778, D_800A077C, D_800A0780;
+extern f32 D_800A0784, D_800A0788, D_800A078C, D_800A0790;
+extern f32 D_800A0794, D_800A0798, D_800A079C, D_800A07A0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CD7F8 CURRENT (1565) */
+void func_150CD7F8(u8 *arg0) {
+    f32 random;
+    GameFA360Particle particle;
+    GameFA360Angles angles;
+    f32 angle;
+    f32 yaw;
+    f64 radiusBase;
+    f64 radiusRange;
+    s32 index;
+    f32 *pending;
+
+    pending = (f32 *)(arg0 + 0x28);
+    *pending += D_800A0754 * D_800BE9A4 * *(f32 *)(arg0 + 0x2C);
+    if (*pending > 1.0f) {
+        particle.pitchBase = -23;
+        particle.pitchRange = 6;
+        particle.colorIndex = 0;
+        particle.field24 = D_800A0758;
+        particle.field48 = D_800A075C;
+        radiusBase = D_800A0760;
+        radiusRange = D_800A0768;
+        do {
+            angles = D_80088874;
+            index = (func_150ADA20() % 5U) & 0xFF;
+            angle = func_150ADA68() * D_800A0770 + angles.values[index];
+            yaw = *(f32 *)(D_800DBFF0 + D_80082FA4 * 0x9A0 + 0x380) - 180.0f;
+            if (yaw > 360.0f) {
+                do { yaw -= 360.0f; } while (yaw > 360.0f);
+            }
+            if (yaw < 0.0f) {
+                do { yaw += 360.0f; } while (yaw < 0.0f);
+            }
+            yaw *= D_800A0774;
+            if (fabsf(angle - yaw) < D_800A0778) {
+                random = func_150ADA68();
+                particle.position.y = D_800A077C * random + D_800A0780 + 500.0f;
+                func_1514373C(angle, (f32)((f64)random * radiusRange + radiusBase),
+                              &particle.position.x, &particle.position.z);
+                particle.countBase = 15;
+                particle.countRange = 20;
+                particle.angleRange = 12;
+                particle.lifeBase = 0x226;
+                particle.lifeRange = 0;
+                particle.field3C = 15.0f;
+                particle.field38 = 15.0f;
+                particle.field44 = D_800A0784;
+                particle.field40 = D_800A0784;
+                particle.angleBase = (s32)((angle + D_800A0788 - D_800A078C) * D_800A0790);
+                particle.speedBase = D_800A0794;
+                particle.speedRange = D_800A0798;
+                particle.scaleBase = D_800A079C;
+                particle.scaleRange = D_800A07A0;
+                func_15152874(&particle, arg0[0xC], arg0[1]);
+            }
+            *pending -= 1.0f;
+        } while (*pending > 1.0f);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150CD7F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FA360/func_150CD7F8.s")
+
 extern s32 D_80088870;
 extern f32 D_800A07A4;
 
