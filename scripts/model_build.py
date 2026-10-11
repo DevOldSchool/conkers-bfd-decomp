@@ -1,28 +1,30 @@
-"""Reconstruct reviewed bank-03 and bank-09 model storage from structured native records."""
+"""Reconstruct reviewed bank-03, bank-04 and bank-09 model storage from structured native records."""
 from __future__ import annotations
 
 import hashlib
 import json
 import struct
+import subprocess
 import tempfile
 import zlib
 from pathlib import Path
 
 try:
-    from scripts import model_assets, rzip_archive, rzip_pack, texture_build
+    from scripts import model_assets, model_bundle_build, rzip_archive, rzip_pack, texture_build
     from scripts.build_files import write_if_changed
     from scripts.profile_config import load_profile
 except ModuleNotFoundError:
-    import model_assets, rzip_archive, rzip_pack, texture_build
+    import model_assets, model_bundle_build, rzip_archive, rzip_pack, texture_build
     from build_files import write_if_changed
     from profile_config import load_profile
 
 ROOT = Path(__file__).resolve().parent.parent
 INPUT_DIRECTORY = Path('build/assets/model-build/us')
-BANKS = (3, 9)
+BANKS = (3, 4, 9)
 CONTRACT = Path('config/model_build.us.json')
 sha256 = texture_build.sha256
 LEVEL6_ENCODER = dict(texture_build.ENCODERS['zlib'], level=6)
+GZIP6_ENCODER = dict(texture_build.ENCODERS['gzip'], level=6)
 
 
 def part_name(index: int, bank: int) -> str:
@@ -150,6 +152,8 @@ def verify_attachment_consumers(code: bytes, base: int) -> None:
 def model_records(payload: bytes, *, bank: int) -> dict:
     if bank not in BANKS:
         raise ValueError('unsupported direct-model bank')
+    if bank == 4:
+        return model_bundle_build.bundle_records(payload, lambda raw: model_records(raw, bank=3))
     if bank == 9 and model_assets.is_attachment_model(payload):
         return attachment_records(payload)
     geometry = model_assets.parse_model_geometry(payload, model_relative_vertices=bank == 9)
@@ -181,6 +185,9 @@ def model_records(payload: bytes, *, bank: int) -> dict:
 
 
 def encode_records(records: dict, *, bank: int) -> bytes:
+    if bank == 4:
+        return model_bundle_build.encode_bundle_records(records,
+            lambda rows: encode_records(rows, bank=3), lambda raw: model_records(raw, bank=3))
     if isinstance(records, dict) and records.get('format') == 'attachment-three-pair':
         if bank != 9:
             raise ValueError('attachment records require bank 09')
@@ -210,8 +217,8 @@ def encode_records(records: dict, *, bank: int) -> bytes:
 
 def level6_selections(contract: dict) -> dict:
     """Validate explicit reviewed overrides; old level-nine contracts stay valid."""
-    choices = contract.get('level6_entries', {'03': [], '09': []})
-    if not isinstance(choices, dict) or set(choices) != {'03', '09'}:
+    choices = contract.get('level6_entries', {b: [] for b in contract['banks']})
+    if not isinstance(choices, dict) or set(choices) != set(contract['banks']):
         raise ValueError('invalid model level-six encoder selection')
     for bank, entries in choices.items():
         if (not isinstance(entries, list) or any(type(i) is not int for i in entries)
@@ -221,14 +228,40 @@ def level6_selections(contract: dict) -> dict:
     return choices
 
 
+def gzip6_selections(contract: dict) -> dict:
+    choices = contract.get('gzip6_entries', {b: [] for b in contract['banks']})
+    if not isinstance(choices, dict) or set(choices) != set(contract['banks']):
+        raise ValueError('invalid model gzip-six encoder selection')
+    level6 = level6_selections(contract)
+    for bank, entries in choices.items():
+        if (not isinstance(entries, list) or any(type(i) is not int for i in entries)
+                or entries != sorted(set(entries))
+                or not set(entries) <= set(contract['banks'][bank])
+                or set(entries) & set(level6[bank])):
+            raise ValueError('invalid model gzip-six encoder selection')
+    return choices
+
+
 def encode_model_payload(payload: bytes, encoder: dict) -> bytes:
     if encoder == texture_build.ENCODERS['zlib']:
         return rzip_pack.encode_rzip_chunk(payload)
-    if encoder != LEVEL6_ENCODER:
+    if encoder == GZIP6_ENCODER:
+        texture_build.require_gnu_gzip()
+        gz = subprocess.run(['gzip', '-n', '-6', '-c'], input=payload,
+                            stdout=subprocess.PIPE, check=True).stdout
+        if (len(gz) < 18 or gz[:8] != bytes.fromhex('1f8b080000000000')
+                or struct.unpack('<II', gz[-8:]) != (zlib.crc32(payload), len(payload) & 0xffffffff)):
+            raise ValueError('unexpected GNU gzip wrapper or checksum')
+        packed = struct.pack('>I', len(payload)) + gz[10:-8]
+    elif encoder == LEVEL6_ENCODER:
+        compressor = zlib.compressobj(level=6, wbits=-15, memLevel=8, strategy=0)
+        packed = struct.pack('>I', len(payload)) + compressor.compress(payload) + compressor.flush()
+    else:
         raise ValueError('unsupported reviewed model encoder')
-    compressor = zlib.compressobj(level=6, wbits=-15, memLevel=8, strategy=0)
-    packed = struct.pack('>I', len(payload)) + compressor.compress(payload) + compressor.flush()
-    decoded = rzip_archive.decode_rzip_chunk(packed)
+    try:
+        decoded = rzip_archive.decode_rzip_chunk(packed)
+    except zlib.error as error:
+        raise ValueError('new model RZIP chunk failed independent decoding') from error
     if decoded.data != payload or decoded.consumed != len(packed):
         raise ValueError('new model RZIP chunk did not validate after compression')
     return packed
@@ -249,8 +282,11 @@ def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
     if (contract.get('schema_version') != 2 or contract.get('profile') != 'us'
             or contract.get('rom_sha1') != digest
             or contract.get('encoder') != texture_build.ENCODERS['zlib']
-            or not isinstance(selections, dict) or set(selections) != {f'{b:02d}' for b in BANKS}):
+            or not isinstance(selections, dict) or set(selections) not in ({'03', '09'}, {'03', '04', '09'})):
         raise ValueError('invalid committed US model reconstruction contract')
+    if bank is not None and f'{bank:02d}' not in selections:
+        raise ValueError('requested model bank has no reviewed selection')
+    requested = tuple(b for b in requested if f'{b:02d}' in selections)
     for bank_id in requested:
         selected = selections[f'{bank_id:02d}']
         if (not isinstance(selected, list) or not selected
@@ -258,6 +294,7 @@ def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
                 or selected != sorted(set(selected))):
             raise ValueError('invalid committed US model reconstruction selection')
     level6 = level6_selections(contract)
+    gzip6 = gzip6_selections(contract)
     banks = rzip_archive.parse_asset_banks(rom, layout['asset_table'])
     result = []
     for bank_id in requested:
@@ -265,11 +302,14 @@ def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
         bank = next((b for b in banks if b.index == bank_id), None)
         if bank is None or bank.flags:
             raise ValueError(f'reviewed model bank {bank_id:02d} is missing or not an indexed ROM bank')
-        if bank_id == 9:
+        if bank_id in (4, 9):
             if layout.get('game_format') != 'rzip':
-                raise ValueError('bank-09 consumer proof requires the RZIP game archive')
+                raise ValueError(f'bank-{bank_id:02d} consumer proof requires the RZIP game archive')
             game = rzip_archive.parse_game_archive(rom[layout['game_start']:layout['game_end']])
-            model_assets.verify_direct_model_consumers(game.code, int(layout['game_vram']))
+            if bank_id == 4:
+                model_bundle_build.verify_consumers(game.code, int(layout['game_vram']))
+            else:
+                model_assets.verify_direct_model_consumers(game.code, int(layout['game_vram']))
         entries = [e for e in rzip_archive.parse_asset_entries(rom, bank) if e.index in selected]
         rows, end = layout_bins(root / 'config/profiles/us.yaml', bank=bank_id)
         if ([e.index for e in entries] != selected or rows != partition(bank, entries) or end != bank.end):
@@ -292,7 +332,8 @@ def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
                         'rom_sha1': digest, 'rom_start': entry.start, 'rom_end': entry.end,
                         'decoded_size': len(chunk.data), 'original_decoded_sha256': sha256(chunk.data),
                         'original_stored_sha256': sha256(stored),
-                        'encoder': (dict(LEVEL6_ENCODER) if entry.index in level6[f'{bank_id:02d}']
+                        'encoder': (dict(GZIP6_ENCODER) if entry.index in gzip6[f'{bank_id:02d}']
+                                    else dict(LEVEL6_ENCODER) if entry.index in level6[f'{bank_id:02d}']
                                     else contract['encoder'])}
             result.append((expected, records))
     return rom, result

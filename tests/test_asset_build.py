@@ -47,7 +47,7 @@ class AssetMakeTests(unittest.TestCase):
                      'scripts/texture_assets.py', 'scripts/texture_catalog.py',
                      'scripts/texture_ci8.py', 'scripts/texture_rgba16.py',
                      'scripts/texture_native.py', 'scripts/rzip_pack.py', 'scripts/model_assets.py',
-                     'scripts/model_attachment_format.py',
+                     'scripts/model_attachment_format.py', 'scripts/model_bundle_build.py',
                      'scripts/hud_assets.py', 'scripts/hud_additional_artwork.py',
                      'scripts/texture_model_catalog.py', 'scripts/texture_model_storage.py'):
             path = self.root / name
@@ -95,7 +95,7 @@ if __name__ == '__main__':
             'def profile_sources(profile, segment):\n    return []\n')
         for name in ('font_splits', 'mp3_bank', 'audio_boundaries', 'texture_build'):
             (self.root / f'scripts/{name}.py').write_text(script)
-        (self.root / 'scripts/model_build.py').write_text('BANKS = (3, 9)\n')
+        (self.root / 'scripts/model_build.py').write_text('BANKS = (3, 4, 9)\n')
         self.ld = self.root / 'scripts/fake_ld.py'
         self.ld.write_text('''from pathlib import Path
 import sys
@@ -145,6 +145,9 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
     def test_bank03_model_parts_recover_and_preserve_unchanged_linker_objects(self):
         self.check_model_parts('03')
 
+    def test_bank04_model_parts_recover_and_preserve_unchanged_linker_objects(self):
+        self.check_model_parts('04')
+
     def test_bank09_model_parts_recover_and_preserve_unchanged_linker_objects(self):
         self.check_model_parts('09')
 
@@ -157,7 +160,7 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
         (self.root / 'scripts/model_build.py').write_text("""from pathlib import Path
 import argparse
 from build_files import write_if_changed
-BANKS = (3, 9)
+BANKS = (3, 4, 9)
 def layout_bins(profile, *, bank, configuration=None):
     assert configuration is not None
     assert any(isinstance(s, dict) and s.get('name') == f'asset_bank_{bank:02d}' for s in configuration['segments'])
@@ -278,6 +281,32 @@ if __name__ == '__main__':
         self.assertFalse((self.root / 'model_build_03.calls').exists())
         self.assertFalse((self.root / 'model_build_09.calls').exists())
 
+    def test_raw_bank04_keeps_its_slot_without_reconstruction(self):
+        self.setup_model_banks(('04',))
+        profile = self.root / 'config/profiles/us.yaml'
+        profile.write_text(profile.read_text().replace(
+            '  - name: asset_bank_04\n    type: group\n',
+            '  - [0x0400, bin, asset_bank_04]\n'))
+        source = self.root / 'assets/asset_bank_04.bin'
+        source.parent.mkdir(parents=True, exist_ok=True)
+        source.write_bytes(b'original bank 04')
+        with (self.root / 'Makefile').open('a') as stream:
+            stream.write('\n.PHONY: show-assets\nshow-assets:\n\t@echo $(ASSET_BINS_us)\n')
+        result = subprocess.run([MAKE, 'ASSETS=1', '--no-print-directory', 'show-assets'],
+                                cwd=self.root, text=True, capture_output=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        names = result.stdout.split()
+        position = names.index('assets/asset_bank_04.bin')
+        self.assertEqual(names[position - 1:position + 2], [
+            'assets/asset_bank_03.bin', 'assets/asset_bank_04.bin', 'assets/asset_bank_05.bin'])
+        self.assertNotIn('assets/models/bank04/0003.bin', names)
+        target = 'build/us/assets/asset_bank_04.o'
+        linked = subprocess.run([MAKE, 'ASSETS=1', f'LD={sys.executable} {self.ld}', target],
+                                cwd=self.root, text=True, capture_output=True)
+        self.assertEqual(linked.returncode, 0, linked.stderr)
+        self.assertEqual((self.root / target).read_bytes(), source.read_bytes())
+        self.assertFalse((self.root / 'model_build_04.calls').exists())
+
     def check_model_parts(self, bank):
         self.setup_model_banks((bank,))
         inputs = self.root / f'build/assets/model-build/us/{bank}/0003'
@@ -308,7 +337,7 @@ if __name__ == '__main__':
         os.utime(unrelated, ns=(future, future))
         self.assertEqual(run().returncode, 0)
         self.assertEqual(calls.read_text(), before)
-        for name in ('model_build', 'model_assets', 'model_attachment_format', 'texture_build', 'rzip_pack'):
+        for name in ('model_build', 'model_assets', 'model_attachment_format', 'model_bundle_build', 'texture_build', 'rzip_pack'):
             dependency = self.root / f'scripts/{name}.py'
             original = dependency.stat()
             newer = pack_stamp.stat().st_mtime_ns + 10_000_000_000

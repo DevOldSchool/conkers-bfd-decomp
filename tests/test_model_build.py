@@ -91,7 +91,7 @@ class ModelBuildTests(unittest.TestCase):
                 records['display_commands'][0][1] = address
                 build.encode_records(records, bank=9)
         with self.assertRaisesRegex(ValueError, 'unsupported direct-model bank'):
-            build.model_records(self.payload, bank=4)
+            build.model_records(self.payload, bank=5)
 
     def test_same_entry_id_in_two_banks_has_separate_inputs_outputs_and_recovery(self):
         expected09 = dict(self.expected, bank=9)
@@ -392,6 +392,43 @@ class ModelBuildTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'encoder differs'):
                 build.packed_model(self.inputs, expected)
         encode.assert_called_once_with(self.payload, build.LEVEL6_ENCODER)
+
+    def test_gzip6_selection_requires_disjoint_reviewed_entries(self):
+        contract = {'banks': {'03': [1], '04': [6, 10], '09': [3]},
+                    'level6_entries': {'03': [], '04': [6], '09': []}}
+        choices = {'03': [], '04': [10], '09': []}
+        self.assertEqual(build.gzip6_selections(contract), {'03': [], '04': [], '09': []})
+        self.assertEqual(build.gzip6_selections(dict(contract, gzip6_entries=choices)), choices)
+        for invalid in (None, {}, {'03': [], '04': [6], '09': []},
+                        {'03': [], '04': [11], '09': []},
+                        {'03': [], '04': [10, 10], '09': []},
+                        {'03': [True], '04': [], '09': []}):
+            with self.subTest(invalid=invalid), self.assertRaisesRegex(ValueError, 'encoder selection'):
+                build.gzip6_selections(dict(contract, gzip6_entries=invalid))
+
+    def test_gzip6_checks_wrapper_roundtrip_version_and_never_falls_back(self):
+        import gzip
+        gz = gzip.compress(self.payload, compresslevel=6, mtime=0)
+        with patch.object(build.texture_build, 'require_gnu_gzip') as version, \
+                patch.object(build.subprocess, 'run', return_value=SimpleNamespace(stdout=gz)) as run, \
+                patch.object(build.rzip_pack, 'encode_rzip_chunk') as legacy:
+            packed = build.encode_model_payload(self.payload, build.GZIP6_ENCODER)
+            self.assertEqual(build.rzip_archive.decode_rzip_chunk(packed).data, self.payload)
+            run.assert_called_once_with(['gzip', '-n', '-6', '-c'], input=self.payload,
+                                        stdout=subprocess.PIPE, check=True)
+            version.assert_called_once()
+            legacy.assert_not_called()
+            for invalid in (b'', b'badheader!' + gz[10:], gz[:-1] + bytes([gz[-1] ^ 1]),
+                            gz[:10] + bytes(len(gz) - 18) + gz[-8:]):
+                run.return_value.stdout = invalid
+                with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                    build.encode_model_payload(self.payload, build.GZIP6_ENCODER)
+            version.side_effect = ValueError('requires GNU gzip 1.12')
+            run.reset_mock()
+            with self.assertRaisesRegex(ValueError, 'requires GNU gzip'):
+                build.encode_model_payload(self.payload, build.GZIP6_ENCODER)
+            run.assert_not_called()
+            legacy.assert_not_called()
 
     def test_encoder_drift_is_not_accepted_or_retried(self):
         with patch.object(build.rzip_pack, 'encode_rzip_chunk', return_value=bytes(len(self.packed))) as encode:

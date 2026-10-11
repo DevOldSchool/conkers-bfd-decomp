@@ -504,3 +504,77 @@ Merged source fingerprint:
 `d1094fd8360bac4927e15831c8f6ef575c398dab7eeb06fd14e336bbf1679c95`.
 Merged report SHA-256:
 `c46ec50a6890454517281de78ff03b56fc4a3c7490adfaa62f1d126d31f22223`.
+
+## Bank-04 model bundles and surface records
+
+Nineteen bank-04 containers now have complete typed reconstructions: entries
+6, 10, 14, 16, 20, 26, 27, 30, 38, 39, 40, 43, 46, 48, 56, 61, 63, 65 and 66.
+They contain 182 nonempty model parts, totaling 1,252,992 decoded bytes and
+489,365 stored bytes. A container is one native objdiff unit; its child parts
+are not counted as additional ROM allocations.
+
+The editable records retain every native eight-byte descriptor, including empty
+slots and the final flag. The primary model has a fielded ten-word header,
+vertices, paired display-list commands, an eight-byte surface header and one
+32-bit surface word per decoded face. Its observed zero suffix is recorded
+explicitly as 0, 4, 8 or 12 bytes. Other nonempty parts use the direct-model
+codec, including referenced signed XY normal tables. Re-encoding validates
+contiguous ranges and reparses all records; unknown auxiliary data is rejected.
+
+The full US loader at `150031EC` (712 bytes) proves bank selection, descriptor
+stride and primary surface-pointer setup. `150039BC` (36 bytes) advances that
+pointer by eight bytes. `150450CC` (576 bytes) indexes the resulting array using
+a collision-record index and reads a 32-bit word. All three full registered
+spans are pinned by hash and checked before reconstruction. This establishes
+storage and access semantics without assigning speculative meaning to every
+surface bit.
+
+Eight containers use the existing zlib level-six encoder. Eleven additional
+containers reproduce exactly with GNU gzip 1.12, level six, no filename or
+timestamp; only the newly generated raw DEFLATE stream enters the RZIP wrapper.
+The committed `gzip6_entries` selection is disjoint from `level6_entries`, and
+both are subsets of the reviewed model selection. Encoding uses only the
+selected implementation and parameters, validates the wrapper and independent
+decoder consumption, and never falls back to original compressed bytes.
+
+The complete pre-integration byte audit reconstructs all 19 containers exactly.
+All 201 tested vertex/surface mutations change the reconstructed payload.
+Five other fully structured containers (12, 19, 47, 52 and 60) still differ under
+all checked zlib and GNU gzip levels 1 through 9; they remain unreconstructed.
+Bundles with unknown auxiliary regions also remain outside the selection.
+Per-container ranges, counts and hashes are recorded in
+`us_model_bundle_reconstruction.json`.
+
+### Bank-04 bundle acceptance, 11 October 2026
+
+- The production model build reconstructs all 525 selected containers exactly:
+  859,635 stored bytes and 1,962,592 decoded bytes.
+- Independent reconstruction reproduces the entire 1,793,096-byte bank 04,
+  including its index, gaps and unselected storage. All 1,012 prior model input
+  files retain their hashes.
+- Six mutations at the first and last bytes of the three pinned consumer spans
+  are rejected. All 201 tested native vertex/surface field edits change the
+  decoded reconstruction.
+- All 79 focused model, bundle, profile and asset-Make tests pass. The full
+  Docker suite runs 2,369 tests with eight skips and no failures.
+
+Private logs and independent audits are `build/model-bundle-*`; the generated
+records, ROM and report remain ignored.
+
+`./conker build --assets` passes for the bundle batch. Independent comparison
+confirms all 67,108,864 bytes equal the original US ROM, SHA-1
+`4cbadd3c4e0729dec46af64ad018050eada4f47a`. Canonical progress and whitespace
+checks also pass.
+
+The fresh native report validates 8,402 units without compile errors. All 525
+model-container units are fully matched and complete, totaling 859,635 stored
+bytes. Matched Data is 9,150,871 / 65,120,512 bytes (14.052209%); complete Data is
+9,150,103 bytes (14.051030%). Both counts gain exactly 489,365 bytes. Every prior
+unit retains its measures except the unreconstructed bank-04 span, which loses
+exactly those bytes. Code measures and the Data denominator remain unchanged.
+The snapshot is `current`.
+
+Source fingerprint:
+`6e55427a3aceedb52171b74ba6beb1443f4220f7ef19d45fe5c004899d327e05`.
+Native report SHA-256:
+`41984725734a5d9c820a8390106c0c2e595f74881f40df187570882f49ce42b6`.
