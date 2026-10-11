@@ -18,11 +18,19 @@ permissions:
   packages: write
 
 jobs:
-  publish:
-    name: Publish reviewed toolchain and record immutable digest
+  build:
+    name: Build ${{ matrix.platform }} toolchain on a native runner
     if: github.ref == 'refs/heads/main'
     timeout-minutes: 45
-    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-24.04
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
@@ -41,20 +49,68 @@ jobs:
         run: |
           owner_lc="$(printf '%s' "$OWNER" | tr '[:upper:]' '[:lower:]')"
           echo "repository=ghcr.io/$owner_lc/conkers-bfd-decomp-toolchain" >> "$GITHUB_OUTPUT"
-      - name: Build and publish public CPU toolchain
+      - name: Build and push the platform image by digest
         id: published
         uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
         with:
           context: .
-          platforms: linux/amd64
-          push: true
-          tags: |
-            ${{ steps.image.outputs.repository }}:latest
-            ${{ steps.image.outputs.repository }}:${{ github.sha }}
+          platforms: ${{ matrix.platform }}
+          outputs: type=image,name=${{ steps.image.outputs.repository }},push-by-digest=true,name-canonical=true,push=true
+      - name: Save the platform digest
+        env:
+          DIGEST: ${{ steps.published.outputs.digest }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/digests"
+          touch "$RUNNER_TEMP/digests/${DIGEST#sha256:}"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: toolchain-digest-${{ strategy.job-index }}
+          path: ${{ runner.temp }}/digests/*
+          if-no-files-found: error
+          retention-days: 1
+
+  publish:
+    name: Publish reviewed toolchain and record immutable digest
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    timeout-minutes: 15
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          path: ${{ runner.temp }}/digests
+          pattern: toolchain-digest-*
+          merge-multiple: true
+      - uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435 # v3.11.1
+      - uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3.3.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Normalize image repository
+        id: image
+        env:
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          owner_lc="$(printf '%s' "$OWNER" | tr '[:upper:]' '[:lower:]')"
+          echo "repository=ghcr.io/$owner_lc/conkers-bfd-decomp-toolchain" >> "$GITHUB_OUTPUT"
+      - name: Publish the multi-platform manifest
+        id: published
+        env:
+          IMAGE: ${{ steps.image.outputs.repository }}
+        working-directory: ${{ runner.temp }}/digests
+        run: |
+          test "$(ls | wc -l)" -eq 2
+          docker buildx imagetools create \
+            --tag "${{ steps.image.outputs.repository }}:latest" \
+            --tag "$IMAGE:${{ github.sha }}" \
+            $(printf "$IMAGE@sha256:%s " *)
+          digest="$(docker buildx imagetools inspect "$IMAGE:${{ github.sha }}" --format '{{json .Manifest}}' | jq -r .digest)"
+          echo "digest=$digest" >> "$GITHUB_OUTPUT"
       - name: Record the registry manifest digest for future pin updates
         env:
           IMAGE: ${{ steps.image.outputs.repository }}
           DIGEST: ${{ steps.published.outputs.digest }}
         run: |
-          printf 'Published immutable toolchain: `%s@%s`\n' "$IMAGE" "$DIGEST" >> "$GITHUB_STEP_SUMMARY"
+          printf 'Published immutable toolchain (linux/amd64 and linux/arm64): `%s@%s`\n' "$IMAGE" "$DIGEST" >> "$GITHUB_STEP_SUMMARY"
           printf 'Use this registry manifest digest in tools.lock.json; do not assume a local docker image ID is retrievable from the registry.\n' >> "$GITHUB_STEP_SUMMARY"

@@ -155,6 +155,14 @@ class RepositorySafetyTests(unittest.TestCase):
         ):
             self.assertIn(lock["tools"][tool]["revision"], dockerfile)
         self.assertIn("DEBUGGER=1", dockerfile)
+        ido = lock["ido_static_recomp"]
+        self.assertEqual({"linux/amd64", "linux/arm64"}, set(ido["assets"]))
+        self.assertIn(f"ARG IDO_RECOMP_VERSION={ido['version']}", dockerfile)
+        for platform, pin in ido["assets"].items():
+            arch = platform.removeprefix("linux/")
+            self.assertRegex(pin["sha256"], re.compile(r"^[0-9a-f]{64}$"))
+            self.assertIn(f"ARG IDO_RECOMP_SHA256_{arch.upper()}={pin['sha256']}", dockerfile)
+            self.assertIn(f"{arch}) ido_asset={pin['asset']}; ido_sha256=\"$IDO_RECOMP_SHA256_{arch.upper()}\"", dockerfile)
         self.assertIn("Mupen64Plus debugger smoke test: OK", script)
         self.assertNotIn("$HOME/Development/mupen64plus-debug", script)
 

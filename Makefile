@@ -1,4 +1,22 @@
 .DEFAULT_GOAL := help
+# Every rule here is explicit. Make otherwise tries its built-in suffix and
+# RCS/SCCS rules for each of the ~20k editable asset inputs, which costs minutes
+# of CPU per invocation. Cancel them locally so sub-makes keep their defaults.
+.SUFFIXES:
+%: %,v
+%: RCS/%,v
+%: RCS/%
+%: s.%
+%: SCCS/s.%
+define NEWLINE
+
+
+endef
+# $(call WRITE_WORDS,file,words) in a recipe writes a long word list as one
+# short shell command per chunk: one command would exceed the kernel's
+# argument limit, and macOS Make 3.81 lacks $(file ...).
+WRITE_WORDS = @: >$(1)$(call WRITE_WORD_CHUNKS,$(1),$(2))
+WRITE_WORD_CHUNKS = $(if $(2),$(NEWLINE)@printf '%s\n' $(wordlist 1,500,$(2)) >>$(1)$(call WRITE_WORD_CHUNKS,$(1),$(wordlist 501,$(words $(2)),$(2))))
 PROFILE ?= us
 ASSETS ?= 0
 REFRESH ?= 0
@@ -344,8 +362,13 @@ main-private-data-refresh:
 build/us/main-private-data.ld: config/main/private-data.json scripts/main_private_data.py progress/source_units.json main-private-data-refresh
 	python3 scripts/main_private_data.py linker --output $@ $(MAIN_PRIVATE_DATA_SOURCES)
 
-$(ROM_BUILD_DIR)/conker.$(PROFILE).elf: $(ROM_BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_DEPS) $(PROFILE_RODATA_SCRIPT) $(PROFILE_MAIN_RODATA_SCRIPT) $(PROFILE_MAIN_VI_BSS_SCRIPT) $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT)
-	$(LD) $(LDFLAGS) -T $(BOOTSTRAP_SYMBOLS) -o $@ $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_INPUTS)
+$(ROM_BUILD_DIR)/conker.$(PROFILE).elf: $(ROM_BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_DEPS) $(PROFILE_RODATA_SCRIPT) $(PROFILE_MAIN_RODATA_SCRIPT) $(PROFILE_MAIN_VI_BSS_SCRIPT) $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT) scripts/link_groups.py
+	$(call WRITE_WORDS,$(ROM_BUILD_DIR)/link-inputs.txt,$(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS))
+	python3 scripts/link_groups.py $(ROM_BUILD_DIR)/conker.$(PROFILE).ld \
+		--output $(ROM_BUILD_DIR)/conker.$(PROFILE).grouped.ld --group-dir $(ROM_BUILD_DIR)/link-groups \
+		--inputs $(ROM_BUILD_DIR)/link-inputs.txt --responses $(ROM_BUILD_DIR)/link-inputs.rsp --linker "$(LD)"
+	$(LD) $(subst -T $(ROM_BUILD_DIR)/conker.$(PROFILE).ld,-T $(ROM_BUILD_DIR)/conker.$(PROFILE).grouped.ld,$(LDFLAGS)) \
+		-T $(BOOTSTRAP_SYMBOLS) -o $@ @$(ROM_BUILD_DIR)/link-inputs.rsp $(PROFILE_LIB_INPUTS)
 
 $(NORMALIZED_ASM_DIR)/%.s: asm/%.s scripts/normalize_asm.py
 	python3 scripts/normalize_asm.py $< $@
@@ -510,47 +533,32 @@ $(MP3_BANK_PARTS): $(BUILD_DIR)/audio/parts.stamp ;
 endif
 endif
 
-$(FONT_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/fonts/parts/%.bin
-	@if test ! -f "$@" || test "$<" -nt "$@"; then \
-		mkdir -p "$(@D)" && cd $(BUILD_DIR)/fonts/parts && \
-		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
-	fi
-
-$(SOUND_BANK_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/sound-bank/parts/%.bin
-	@if test ! -f "$@" || test "$<" -nt "$@"; then \
-		mkdir -p "$(@D)" && cd $(BUILD_DIR)/sound-bank/parts && \
-		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
-	fi
-
-$(ADPCM_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/adpcm/parts/%.bin
-	@if test ! -f "$@" || test "$<" -nt "$@"; then \
-		mkdir -p "$(@D)" && cd $(BUILD_DIR)/adpcm/parts && \
-		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
-	fi
-
-$(SEQUENCE_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/sequences/parts/%.bin
-	@if test ! -f "$@" || test "$<" -nt "$@"; then \
-		mkdir -p "$(@D)" && cd $(BUILD_DIR)/sequences/parts && \
-		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
-	fi
-
-$(MP3_BANK_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/audio/parts/%.bin
-	@if test ! -f "$@" || test "$<" -nt "$@"; then \
-		mkdir -p "$(@D)" && cd $(BUILD_DIR)/audio/parts && \
-		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
-	fi
-
-$(TEXTURE_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/textures/parts/%.bin
-	@if test ! -f "$@" || test "$<" -nt "$@"; then \
-		mkdir -p "$(@D)" && cd $(BUILD_DIR)/textures/parts && \
-		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
-	fi
-
-$(MODEL_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/models/parts/%.bin
-	@if test ! -f "$@" || test "$<" -nt "$@"; then \
-		mkdir -p "$(@D)" && cd $(BUILD_DIR)/models/parts && \
-		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
-	fi
+# Write each family's link objects in one process. scripts/binary_object.py
+# reproduces `ld -r -b binary` byte for byte; spawning ld per asset cost minutes
+# under emulation. It rewrites only objects older than their part and replaces
+# an object only when its bytes change.
+BINARY_OBJECT_DEPS := scripts/binary_object.py
+# Bank-17 objects must not be written before their checked-in splits verify.
+AUDIO_OBJECT_ORDER := $(if $(AUDIO_BANK_OBJS),audio-boundaries-check)
+# $(1): stamp, $(2): parts directory, $(3): object list, $(4): order-only prerequisite.
+define BINARY_OBJECT_RULES
+ifneq ($(strip $(3)),)
+$(1): $(patsubst $(BUILD_DIR)/assets/%.o,$(2)/%.bin,$(3)) $(BINARY_OBJECT_DEPS) $$(if $$(filter-out $$(wildcard $(3)),$(3)),asset-parts-missing) $(if $(4),| $(4))
+	@mkdir -p "$$(@D)"
+	$$(call WRITE_WORDS,$$@.names,$(patsubst $(BUILD_DIR)/assets/%.o,%.bin,$(3)))
+	python3 scripts/binary_object.py --root $(2) --output-root $(BUILD_DIR)/assets --names-from $$@.names
+	@touch $$@
+$(3): $(1) ;
+endif
+endef
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/fonts/objects.stamp,$(BUILD_DIR)/fonts/parts,$(FONT_OBJS)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/sound-bank/objects.stamp,$(BUILD_DIR)/sound-bank/parts,$(SOUND_BANK_OBJS),$(AUDIO_OBJECT_ORDER)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/adpcm/objects.stamp,$(BUILD_DIR)/adpcm/parts,$(ADPCM_OBJS),$(AUDIO_OBJECT_ORDER)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/sequences/objects.stamp,$(BUILD_DIR)/sequences/parts,$(SEQUENCE_OBJS),$(AUDIO_OBJECT_ORDER)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/audio/objects.stamp,$(BUILD_DIR)/audio/parts,$(MP3_BANK_OBJS)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/textures/objects.stamp,$(BUILD_DIR)/textures/parts,$(TEXTURE_OBJS)))
+# Each model bank packs and fails independently, so its objects do too.
+$(foreach bank,$(MODEL_BANKS),$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/models/bank$(bank)/objects.stamp,$(BUILD_DIR)/models/parts,$(filter $(BUILD_DIR)/assets/models/bank$(bank)/%.o,$(MODEL_OBJS)))))
 
 .PHONY: data-splits-check
 data-splits-check:
