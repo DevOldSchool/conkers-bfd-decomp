@@ -34011,6 +34011,12 @@
       "symbol": "func_151DB4CC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2232,
+        "reason": "CURRENT (2232) after two finishes and two bounded probe batches. Raw narrow parameter loads and RNG sequence recovered; frame0xC8 versus0xC0, cached mode/lifetime and GPR scheduling differences remain. Final lifetime variants worsened; original ASM active.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -74696,6 +74702,12 @@
       "symbol": "func_15178E14"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1558,
+        "reason": "CURRENT (1558) after two finishes and two bounded probe batches. Original 0x78 frame and main vector/current snapshots recovered; owner-base propagation, two stack rows and FP/register/store scheduling remain. Original assembly retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -92583,11 +92595,22 @@
       "symbol": "func_150A5378"
     },
     {
+      "original_asm": {
+        "reason": "Handwritten alternate-entry continuation consumes live command cursor and saved registers from func_150A5378, shares internal entry points, and restores its 0x160-byte caller frame; no independent C ABI.",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/boundaries/game/families/game_raw_handwritten_entry_families.md"
+      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "assembly_sha256": "65694f9bb724b58b0b54dad1a52938c3f060934a234014554521508c56067fde",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "2fc7d54e0270ab2b24383d29f10a8004f5fcb5dcd6692f3dec95dc45d3bd1631",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 944,
-          "state": "raw_asm",
+          "state": "original_asm",
           "symbol": "func_150A5708",
           "vram": "0x150A5708"
         }

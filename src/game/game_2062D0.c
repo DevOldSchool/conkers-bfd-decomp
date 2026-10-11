@@ -1032,6 +1032,119 @@ void func_151DB4CC(void *arg0) {
     *(s8 *)((u8 *)arg0 + 0x19) = (s8) ((func_150ADA20() % 56U) + 0xC8);
     *(s8 *)((u8 *)arg0 + 0x1A) = (s8) ((func_150ADA20() % 56U) + 0xC8);
 }
+typedef struct {
+    s32 field00;
+    s32 field04;
+    s16 field08;
+    s16 field0A;
+    s32 field0C;
+    s32 field10;
+    u8 field14, field15, field16, field17;
+    u8 field18, field19, field1A, field1B, field1C, field1D;
+    s16 field1E, field20, field22;
+    f32 field24, scaleY, scaleX;
+    Game2062D0Vector3 position;
+    Game2062D0Vector3 vector3C;
+    Game2062D0Vector3 vector48;
+    f32 field54;
+    s32 flags;
+    s32 field5C;
+    s8 field60, field61, field62, field63, field64, field65;
+    u8 field66;
+    u8 pad67;
+    s16 field68;
+    u8 pad6A[2];
+    f32 field6C;
+} Game1DC034Packet;
+
+typedef struct Game1DB5D0Extension {
+    u8 flags;
+    u8 pad1[3];
+    f32 scale;
+    s8 angleX, angleY, angleZ;
+    s8 stepX, stepY, stepZ;
+    u8 padE[2];
+    Game2062D0Vector amplitude;
+} Game1DB5D0Extension;
+
+extern void (*D_8008FD38[])(void *);
+extern f32 D_800AB4B4, D_800AB4B8, D_800AB4BC;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DB5D0 CURRENT (2232) */
+void *func_151DB5D0(s32 arg0, f32 *arg1, f32 *arg2, f32 arg3, f32 arg4,
+                    f32 arg5, f32 arg6, s32 arg7, s32 arg8, s32 arg9,
+                    s32 arg10, s32 arg11, s32 arg12, s32 arg13) {
+    Game1DC034Packet packet;
+    void *result;
+    Game1DB5D0Extension extension;
+    s32 random2;
+    s32 timed;
+    s32 mode;
+    register s32 random1;
+
+    timed = ((u8 *)&arg11)[3] != 0 ? 1 : 0;
+    mode = arg5 == 1.0f ? 0 : 2;
+    extension.flags = mode | timed;
+    extension.scale = arg5;
+    extension.angleX = 0;
+    extension.angleY = 0;
+    extension.angleZ = 0;
+    if (((u8 *)&arg11)[3] != 0) {
+        extension.stepX = func_150ADA20() % 7U - 3;
+        extension.stepY = func_150ADA20() % 7U - 3;
+        extension.stepZ = func_150ADA20() % 7U - 3;
+        extension.amplitude.x = (func_150ADA68() * D_800AB4B4 + D_800AB4B4) * arg3;
+        extension.amplitude.y = (func_150ADA68() * D_800AB4B8 + D_800AB4B8) * arg3;
+        extension.amplitude.z = (func_150ADA68() * D_800AB4BC + D_800AB4BC) * arg3;
+    } else {
+        extension.stepX = 0;
+        extension.stepY = 0;
+        extension.stepZ = 0;
+        extension.amplitude = *(Game2062D0Vector *)&D_800A5480;
+    }
+    D_8008FD38[((u8 *)&arg0)[3]](&packet);
+    packet.field1D = 0x6C;
+    packet.field08 = 0x5103;
+    packet.field00 = 0x200005;
+    packet.field04 = 0x9F0600;
+    if (((s16 *)&arg7)[1] == -1) packet.field0A = 300;
+    else packet.field0A = ((s16 *)&arg7)[1];
+    packet.field0C = 0;
+    packet.field10 = 0;
+    packet.field17 = 255;
+    packet.field1C = 255;
+    packet.scaleX = arg3;
+    packet.scaleY = arg3;
+    packet.field1B = ((u8 *)&arg8)[3];
+    packet.position = *(Game2062D0Vector3 *)arg1;
+    packet.vector3C = *(Game2062D0Vector3 *)&D_800A5480;
+    packet.vector48 = *(Game2062D0Vector3 *)arg2;
+    packet.field54 = arg6;
+    packet.field1E = ((s16 *)&arg9)[1];
+    packet.field20 = ((s16 *)&arg10)[1];
+    if (((s16 *)&arg7)[1] == -1) packet.field22 = 1;
+    else packet.field22 = ((s16 *)&arg7)[1];
+    packet.field24 = arg4;
+    random1 = (func_150ADA20() & 1) ? 0x80 : 0;
+    random2 = (func_150ADA20() & 1) ? 0x40 : 0;
+    timed = ((s16 *)&arg7)[1] == -1 ? 0 : 1;
+    mode = ((u8 *)&arg11)[3] != 0 ? 0x1000 : 0;
+    packet.flags = mode | timed | 6 | random2 | random1 | 0xCE00 | 0x40000 | 0x800000;
+    packet.field60 = 8;
+    packet.field61 = 6;
+    packet.field62 = 5;
+    packet.field63 = -1;
+    packet.field64 = -1;
+    packet.field65 = 0;
+    packet.field5C = 0;
+    packet.field66 = 255;
+    packet.field68 = 1000;
+    packet.field6C = 1000.0f;
+    result = func_15130280(&packet, 1, NULL, 0x1C, ((u8 *)&arg12)[3], arg13);
+    if (result != NULL) func_10022EC0((u8 *)result + 0xA8, &extension, 0x1C);
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151DB5D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DB5D0.s")
 /* Call context: func_15131918: unique active project prototype */
 /* Call context: func_151423D8: unique active project prototype */
@@ -1310,31 +1423,6 @@ void func_151DBE80(s32 arg0, f32 arg1, f32 arg2, s16 arg3, s32 *arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151DBE80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DBE80.s")
-typedef struct {
-    s32 field00;
-    s32 field04;
-    s16 field08;
-    s16 field0A;
-    s32 field0C;
-    s32 field10;
-    u8 field14, field15, field16, field17;
-    u8 field18, field19, field1A, field1B, field1C, field1D;
-    s16 field1E, field20, field22;
-    f32 field24, scaleY, scaleX;
-    Game2062D0Vector3 position;
-    Game2062D0Vector3 vector3C;
-    Game2062D0Vector3 vector48;
-    f32 field54;
-    s32 flags;
-    s32 field5C;
-    s8 field60, field61, field62, field63, field64, field65;
-    u8 field66;
-    u8 pad67;
-    s16 field68;
-    u8 pad6A[2];
-    f32 field6C;
-} Game1DC034Packet;
-
 extern u8 D_800AB320[];
 extern u8 D_800AB330[];
 
