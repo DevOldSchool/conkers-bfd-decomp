@@ -20,8 +20,8 @@
       "revision": "f3b2f85a5bc7e8ae2030ea5a83ea8aa0bcbede03"
     },
     "mips_to_c": {
-      "repository": "https://github.com/matt-kempster/mips_to_c.git",
-      "revision": "09e0e72337804a713e2c3b8d522abe85838470ea"
+      "repository": "https://github.com/DevOldSchool/m2c.git",
+      "revision": "a03c6f296e4673728b9b2da67fd3f00949688bdc"
     },
     "mupen64plus-core": {
       "repository": "https://github.com/mupen64plus/mupen64plus-core.git",
