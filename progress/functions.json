@@ -49217,11 +49217,15 @@
       "symbol": "func_15194FF4"
     },
     {
+      "blocked": {
+        "reason": "Unresolved call contract: raw calls at15195500/1519550C set only a0/a1. Current matched func_150D10E4(u8*,u8,void*,s32) forwards arg2/arg3 to func_15134DAC, so emitted starter has unset a2/a3. Need independent callee-chain ABI audit before valid C; do not fabricate extra argument values or change shared declarations to force matching.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 840,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_151951E0",
           "vram": "0x151951E0"
         }
@@ -50472,6 +50476,12 @@
       "symbol": "func_151B22F4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2022,
+        "reason": "After three focused finishes and two bounded probe batches, best CURRENT (2022). Frame A8 and all packet stack offsets now exact; arg0 stays promoted in s2 instead of raw home-store/reload and later cursor allocation, shifting integer registers and first-call scheduling. Manual budget exhausted; no shared dependencies changed.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -54893,6 +54903,12 @@
       "symbol": "func_151C69CC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 7885,
+        "reason": "Two focused finishes and two bounded probe batches: CURRENT (7885), improved from 9912. Typed vector indexing and explicit delta snapshots improve raw expression order, but frame140 versus130, promoted owner/parameter spills and FP/register scheduling remain. K&R unchanged; volatile homes worse. Manual budget exhausted; source-local types and no shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
