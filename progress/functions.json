@@ -75235,6 +75235,12 @@
       "symbol": "func_1504CB98"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4619,
+        "reason": "CURRENT 4619; frame 0x70 matches, floating-point lifetimes, spills and clamp/store scheduling remain. Five finish calls include one correctness repair and validation of a prior probe; two probe batches. Volatile-object candidate 4484599b23544df098599e1e3075bdcc is invalid and excluded.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -82668,6 +82674,12 @@
       "symbol": "func_150FADC8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2229,
+        "reason": "CURRENT 2229 after three finishes and two bounded probe batches; frame 0x120 and all stack offsets exact, 44 differing rows in saved-register lifetimes and descriptor initialization scheduling.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
