@@ -2,7 +2,7 @@
 """Fetch and verify the reviewed public OCI image, without persistent credentials."""
 import argparse, concurrent.futures, hashlib, json, os, pathlib, shutil, stat, tarfile, urllib.request
 REPO='devoldschool/conkers-bfd-decomp-toolchain'
-DIGEST='sha256:8da82ea0fc3ea2ca84987f521040732a7bc8b0e9595469a5363b90d3f306ae11'
+DIGEST='sha256:67de4f788e404fbe1794725192801956abdae4cecf1db43c01988df058f9b429'
 BASE='https://ghcr.io/v2/'+REPO
 HOME=pathlib.Path(__file__).resolve().parent
 CACHE=HOME/'oci'; ROOT=HOME/'rootfs'

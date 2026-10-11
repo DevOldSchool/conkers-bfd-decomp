@@ -56,10 +56,10 @@ images and arbitrary Docker operations are unsupported and fail closed.
 
 Current immutable pins, also checked against `toolchain/tools.lock.json`:
 
-- CPU image: `ghcr.io/devoldschool/conkers-bfd-decomp-toolchain@sha256:8da82ea0fc3ea2ca84987f521040732a7bc8b0e9595469a5363b90d3f306ae11`
-- Linux AMD64 manifest: `sha256:3da4b9927f4cc0db09155734cf7572dbb379020ac93cad6c3e796b4ceef40d2b`
-- Image configuration: `sha256:10a77ef378fd060dfec5756b8b195197fbf5c399c4f35798eb1ca9344c934fc8`
-- IDO static recomp: `v1.2`; archive SHA-256
+- CPU image: `ghcr.io/devoldschool/conkers-bfd-decomp-toolchain@sha256:67de4f788e404fbe1794725192801956abdae4cecf1db43c01988df058f9b429`
+- Linux AMD64 manifest: `sha256:155f519fb8522944e2c060e187ef7ebdc46df5eb42c9a391331da329e3950582`
+- Image configuration: `sha256:c94959efe1ce511a4937a68fb942aa1e82663e52177d6c4fb1e0e5d46a649760`
+- IDO static recomp: `v1.2`; Linux AMD64 archive SHA-256
   `ab5c741561f80913d58c8b074771f23941a3edd312505a8ebed6d1dfeb65e506`
 - RSP armips: `156f78f6bccfc07498578ac491ce7fe2a1e807a6`
 - RSP recipe SHA-256: `b161bd2fdb84561aa0480fe553e1806420ba7f3caf648dffa0331b42b426713c`

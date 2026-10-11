@@ -17,6 +17,9 @@ RUN apt-get update \
     && make --directory /tmp/mupen64plus-rsp-cxd4/projects/unix \
         PREFIX=/opt/mupen64plus APIDIR=/opt/mupen64plus/include/mupen64plus \
         PLUGINDIR=/opt/mupen64plus/lib/mupen64plus install \
+    && plugins=/opt/mupen64plus/lib/mupen64plus \
+    && { test -e "$plugins/mupen64plus-rsp-cxd4-sse2.so" \
+        || ln -s mupen64plus-rsp-cxd4.so "$plugins/mupen64plus-rsp-cxd4-sse2.so"; } \
     && git clone https://github.com/ata4/angrylion-rdp-plus.git /tmp/angrylion-rdp-plus \
     && git -C /tmp/angrylion-rdp-plus checkout --detach "$ANGRYLION_RDP_PLUS_REV" \
     && cmake -S /tmp/angrylion-rdp-plus -B /tmp/angrylion-rdp-plus/build \

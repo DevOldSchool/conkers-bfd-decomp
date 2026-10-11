@@ -13,7 +13,9 @@ ARG MUPEN64PLUS_CORE_REV=b0d68c20f49b8f833afa21450e0e8874c87c13c4
 ARG MUPEN64PLUS_UI_CONSOLE_REV=1a68327fddda71f1acbad8a63ef04288b1887d19
 ARG MUPEN64PLUS_RSP_HLE_REV=2798e65d6fc89d89aace0b0d779af6406809b940
 ARG IDO_RECOMP_VERSION=v1.2
-ARG IDO_RECOMP_SHA256=ab5c741561f80913d58c8b074771f23941a3edd312505a8ebed6d1dfeb65e506
+ARG IDO_RECOMP_SHA256_AMD64=ab5c741561f80913d58c8b074771f23941a3edd312505a8ebed6d1dfeb65e506
+ARG IDO_RECOMP_SHA256_ARM64=b6844c986fa65d7de4ce10b27583769a5ec7a88ae37a151f6dc66c929d3e1c92
+ARG TARGETARCH
 
 COPY toolchain/python-constraints.txt /tmp/python-constraints.txt
 COPY toolchain/python-requirements.txt /tmp/python-requirements.txt
@@ -45,10 +47,16 @@ RUN python3 -m pip install --break-system-packages spimdisasm==1.33.0
 
 # The original compiler was statically recompiled for modern Linux by the
 # decompals project. Pin both release and digest so a rebuild cannot silently
-# change the C code generator.
-RUN curl --fail --location --output /tmp/ido.tar.gz \
-        "https://github.com/decompals/ido-static-recomp/releases/download/${IDO_RECOMP_VERSION}/ido-5.3-recomp-linux.tar.gz" \
-    && echo "${IDO_RECOMP_SHA256}  /tmp/ido.tar.gz" | sha256sum --check \
+# change the C code generator. The arm64 build of the same release produces
+# identical objects outside .mdebug debug metadata.
+RUN case "${TARGETARCH:-amd64}" in \
+        amd64) ido_asset=ido-5.3-recomp-linux.tar.gz; ido_sha256="$IDO_RECOMP_SHA256_AMD64" ;; \
+        arm64) ido_asset=ido-5.3-recomp-linux-arm.tar.gz; ido_sha256="$IDO_RECOMP_SHA256_ARM64" ;; \
+        *) echo "unsupported architecture: $TARGETARCH" >&2; exit 1 ;; \
+    esac \
+    && curl --fail --location --output /tmp/ido.tar.gz \
+        "https://github.com/decompals/ido-static-recomp/releases/download/${IDO_RECOMP_VERSION}/${ido_asset}" \
+    && echo "${ido_sha256}  /tmp/ido.tar.gz" | sha256sum --check \
     && mkdir -p /opt/ido \
     && tar --extract --gzip --file /tmp/ido.tar.gz --directory /opt/ido \
     && rm /tmp/ido.tar.gz \
