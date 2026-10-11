@@ -8,7 +8,7 @@ Unsupported Docker commands and security-affecting options fail closed.
 import hashlib, json, os, pathlib, re, resource, shutil, subprocess, sys
 HOME=pathlib.Path(__file__).resolve().parent.parent
 STATE=HOME/'state'
-BASE='ghcr.io/devoldschool/conkers-bfd-decomp-toolchain@sha256:8da82ea0fc3ea2ca84987f521040732a7bc8b0e9595469a5363b90d3f306ae11'
+BASE='ghcr.io/devoldschool/conkers-bfd-decomp-toolchain@sha256:67de4f788e404fbe1794725192801956abdae4cecf1db43c01988df058f9b429'
 REV='156f78f6bccfc07498578ac491ce7fe2a1e807a6'
 
 def fail(message): raise RuntimeError(message)
