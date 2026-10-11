@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import importlib.machinery
 import importlib.util
+import io
 import json
 from pathlib import Path
 import tempfile
@@ -64,6 +65,16 @@ class CloudBootstrapTests(unittest.TestCase):
                 with self.subTest(key=key), self.assertRaisesRegex(RuntimeError, 'Unsupported'):
                     adapter.launch({key: value}, adapter.BASE, ['true'])
             execute.assert_not_called()
+
+    def test_image_inspect_reports_the_verified_base_platform(self):
+        base = {'config_digest': 'sha256:' + '0' * 64,
+                'config': {'os': 'linux', 'architecture': 'amd64', 'config': {}}}
+        older_record = {'Id': 'sha256:' + '1' * 64, 'Config': {}, 'armips': True}
+        with patch.object(adapter, 'base_record', return_value=base):
+            for record in (adapter.image(adapter.BASE), older_record):
+                with self.subTest(record=record['Id']), patch('sys.stdout', new=io.StringIO()) as output:
+                    adapter.inspect(record, '{{.Os}}/{{.Architecture}}')
+                    self.assertEqual('linux/amd64\n', output.getvalue())
 
     def test_bind_sources_resolve_within_explicit_checkout(self):
         with tempfile.TemporaryDirectory() as tmp:

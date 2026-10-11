@@ -231,7 +231,14 @@ watch_image_is_compatible() {
 }
 
 image_has_platform() {
-    [[ "$(docker image inspect --format '{{.Os}}/{{.Architecture}}' "$1" 2>/dev/null)" == "$conker_platform" ]]
+    local platform
+    if platform="$(docker image inspect --format '{{.Os}}/{{.Architecture}}' "$1" 2>/dev/null)"; then
+        [[ "$platform" == "$conker_platform" ]]
+        return
+    fi
+    # Docker-compatible adapters installed before platform reporting (such as
+    # an older cloud runtime) serve only amd64; accept an image they hold.
+    [[ "$conker_platform" == linux/amd64 ]] && docker image inspect "$1" >/dev/null 2>&1
 }
 
 ensure_cpu_image() {
