@@ -7340,6 +7340,12 @@
       "symbol": "func_15048AD0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1745,
+        "reason": "CURRENT1745 after one finish and two probe batches. Full7C helper copy buffer gives frame128 versus raw108; local offsets otherwise agree. Repeated rodata load promotion and FP registers differ. Chained stores and const declarations did not improve.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -73748,6 +73754,12 @@
       "symbol": "func_151163C0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1005,
+        "reason": "CURRENT1005 after three finishes and two probe batches, improved from7281. Frame38 exact and control flow agrees; 136 register rows plus one operand and one extra/missing row remain. Canonical one-argument rotation and sound-stop helpers retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
