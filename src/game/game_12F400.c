@@ -15,7 +15,87 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_15101F50.s")
+typedef struct Game12F400Animation {
+    u8 pad0[0x24];
+    u8 *linked24, *linked28, *linked2C;
+    u8 pad30[4];
+    u8 *linked34;
+    f32 field38, field3C, field40;
+    u8 pad44[0xC];
+    f32 angle, rate, rotation, velocity, targetVelocity, velocityRange;
+    f32 timer, timerRange, velocityBlend;
+    f32 alpha, targetAlpha, alphaBase, alphaRange, alphaTimer, alphaTimerRange, alphaBlend;
+} Game12F400Animation;
+
+f32 func_15144B68(f32);
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+extern f32 D_800BE9A4, D_800A228C, D_800A2290, D_800A2294;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151022AC CURRENT (1982) */
+s32 func_151022AC(u8 *arg0) {
+    u8 *scaleLink;
+    u8 *particleLink;
+    Game12F400Animation *state;
+    u8 *link;
+    u32 alpha;
+    f32 upperBound;
+
+    state = (Game12F400Animation *)(arg0 + 0x110);
+    *(f32 *)(arg0 + 0x160) += *(f32 *)(arg0 + 0x164) * D_800BE9A4;
+    state->angle = func_15144B68(*(f32 *)(arg0 + 0x160));
+    upperBound = D_800A228C;
+    state->rotation += state->velocity * D_800BE9A4;
+    while (upperBound < state->rotation) {
+        state->rotation -= 65536.0f;
+    }
+    while (state->rotation < -32768.0f) {
+        state->rotation += 65536.0f;
+    }
+    state->timer -= D_800BE9A4;
+    if (state->timer < 0.0f) {
+        state->timer = func_150ADA68() * state->timerRange;
+        state->targetVelocity = func_150ADA68() * (2.0f * state->velocityRange) - state->velocityRange;
+    }
+    state->velocity += (state->targetVelocity - state->velocity) * state->velocityBlend;
+    state->field38 += (state->field3C - state->field38) * state->field40;
+    link = state->linked28;
+    if (link != NULL) {
+        scaleLink = link;
+        *(f32 *)(scaleLink + 0x2C) = *(f32 *)(scaleLink + 0x30) =
+            (func_150ADA68() * D_800A2290 + D_800A2294) * state->field38;
+    }
+    state->alphaTimer -= D_800BE9A4;
+    if (state->alphaTimer < 0.0f) {
+        state->alphaTimer = func_150ADA68() * state->alphaTimerRange;
+        state->targetAlpha = func_150ADA68() * state->alphaRange + state->alphaBase;
+    }
+    state->alpha += (state->targetAlpha - state->alpha) * state->alphaBlend;
+    alpha = (u32)state->alpha;
+    arg0[0x5C] = alpha;
+    link = state->linked28;
+    if (link != NULL) {
+        link[0x5C] = alpha;
+    }
+    link = state->linked24;
+    if (link != NULL) {
+        link[0x2B] = arg0[0x5C];
+    }
+    link = state->linked2C;
+    if (link != NULL) {
+        particleLink = link;
+        (*(u8 **)(particleLink + 0x14))[0x2F] = (func_150ADA20() & 3) + 2;
+    }
+    link = state->linked34;
+    if (link != NULL) {
+        state = (Game12F400Animation *)link;
+        state->field38 = state->field3C = func_150ADA68() * 10.0f + 120.0f;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151022AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_151022AC.s")
+
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */

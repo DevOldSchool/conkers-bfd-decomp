@@ -34454,6 +34454,12 @@
       "symbol": "func_151070F8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 380,
+        "reason": "CURRENT380: instruction sequence identical; frame0xB0 versus0xA8 and all addressed locals eight bytes high, plus three final counter-register rows. Two finishes/two bounded probe batches exhausted. Typed and explicit byte-pointer arithmetic did not alter hidden stack reservations.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -80776,6 +80782,12 @@
       "symbol": "func_15101F50"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1982,
+        "reason": "CURRENT1982/frame0x30 exact after explicit upper-bound snapshot fixed FP promotion. Remaining differences are folded arg0/state pointer lifetime, coalesced stack pointer snapshots, unsigned conversion register and tail saved-pointer reuse. Two finishes/two probe batches exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -87251,6 +87263,12 @@
       "symbol": "func_15174B48"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1288,
+        "reason": "Corrected 0x1C spawn descriptor matches nested callee copy extent; CURRENT1288 with frame0xF0 exact but spawn/motion locals twelve bytes high, extra promoted packet address displaces modulo101 saved register and changes division checks. Three finishes/two probe batches exhausted; earlier 0x18 descriptor attempts invalid.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

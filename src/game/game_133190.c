@@ -365,41 +365,6 @@ s32 func_15106F98(Game133190Triple *arg0, Game133190Triple *arg1,
 #endif /* CONKER_DEFERRED_CANDIDATE func_15106F98 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15106F98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151070F8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151072BC.s")
-Game133190Holder *func_15107604(Game133190Object *arg0) {
-    Game133190Holder *holder;
-    Game133190Subobject *subobject = &arg0->holder->target->subobject;
-
-    holder = arg0->holder;
-    subobject->field_8 = 0;
-    return holder;
-}
-
-void func_1510761C(void *arg0) {
-    void **field_30 = (void **)((u8 *)arg0 + 0x30);
-
-    if (*field_30 != 0) {
-        func_1516972C((void *)*field_30);
-    }
-}
-void func_1510764C(void *arg0) {
-    func_1510761C(arg0);
-    func_1514933C(arg0);
-}
-void func_15107678(void *arg0) {
-    func_1510761C(arg0);
-    func_15149368(arg0);
-}
-extern u8 D_80088C38;
-
-void func_151076A4(void *arg0, s32 arg1, u8 arg2) {
-    u8 *handler;
-
-    handler = (u8 *)arg0 + 0x68;
-    if (*(void **)(((u8 (*)[4])&D_80088C38)[*(u8 *)((u8 *)arg0 + 0x68)]) != 0) {
-        (*(void (**)(void *, s32, u8))(((u8 (*)[4])&D_80088C38)[*handler]))(arg0, arg1, arg2);
-    }
-}
 typedef struct Game133190Vector {
     f32 x;
     f32 y;
@@ -438,6 +403,119 @@ typedef struct Game133190Beam {
     u8 pad4D[3];
 } Game133190Beam;
 
+typedef struct Game133190BeamConfig {
+    f32 scaleBase, scaleRange, width, speedBase, speedRange;
+    s16 spread, lower, upper, lifeBase, lifeRange;
+    u8 pad1E[2];
+    s32 countBase, countRange;
+    u8 red, green, blue, alphaBase, alphaRange;
+} Game133190BeamConfig;
+typedef struct Game133190BeamChain {
+    s32 count, index;
+    Game133190Object *child;
+    Game133190Vector *points;
+    Game133190BeamConfig config;
+} Game133190BeamChain;
+
+Game133190Object *func_15105CE0(Game133190Beam *, s32, u8, s32);
+void func_15143794(s16, s16, f32, void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151072BC CURRENT (380) */
+void func_151072BC(u8 *arg0) {
+    Game133190Object *child;
+    Game133190Beam beam;
+    u8 *owner;
+    Game133190Vector direction;
+    Game133190BeamConfig *config;
+    Game133190BeamChain *chain;
+    u32 randomB;
+    u32 randomA;
+
+    chain = (Game133190BeamChain *)(arg0 + 0x28);
+    if (*(s32 *)(arg0 + 0x30) == 0) {
+        if (chain->index >= chain->count - 1) {
+            *(s16 *)(arg0 + 0xE) = -1;
+            arg0[0xD] |= 1;
+            return;
+        }
+        owner = arg0;
+        beam.enabled = 1;
+        beam.flag = -1;
+        config = &chain->config;
+        beam.scale = func_150ADA68() * config->scaleRange + config->scaleBase;
+        beam.width = config->width;
+        beam.lower = config->lower;
+        beam.upper = config->upper;
+        beam.position = chain->points[chain->index];
+        beam.contact = chain->points[chain->index + 1];
+        randomA = func_150ADA20();
+        randomB = func_150ADA20();
+        func_15143794((s16)(randomA & 0xFF),
+            (s16)(randomB % (u32)(config->spread + 1) - (config->spread >> 1) - 0x40),
+            func_150ADA68() * config->speedRange + config->speedBase, &direction);
+        beam.axis0.x = beam.position.x + direction.x;
+        beam.axis0.y = beam.position.y + direction.y;
+        beam.axis0.z = beam.position.z + direction.z;
+        randomA = func_150ADA20();
+        randomB = func_150ADA20();
+        func_15143794((s16)(randomA & 0xFF),
+            (s16)(randomB % (u32)(config->spread + 1) - (config->spread >> 1) - 0x40),
+            func_150ADA68() * config->speedRange + config->speedBase, &direction);
+        beam.axis1.x = beam.contact.x + direction.x;
+        beam.axis1.y = beam.contact.y + direction.y;
+        beam.axis1.z = beam.contact.z + direction.z;
+        beam.color.bytes[0] = config->red;
+        beam.color.bytes[1] = config->green;
+        beam.color.bytes[2] = config->blue;
+        beam.life = func_150ADA20() % (u32)(config->lifeRange + 1) + config->lifeBase;
+        beam.color.bytes[3] = func_150ADA20() % (u32)(config->alphaRange + 1) + config->alphaBase;
+        beam.mode = 1;
+        beam.count = func_150ADA20() % (u32)(config->countRange + 1) + config->countBase;
+        child = func_15105CE0(&beam, 4, arg0[0xC], arg0[1]);
+        chain->child = child;
+        if (child != NULL) {
+            func_10022EC0(child->holder, &owner, 4U);
+        }
+        chain->index++;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151072BC */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151072BC.s")
+
+Game133190Holder *func_15107604(Game133190Object *arg0) {
+    Game133190Holder *holder;
+    Game133190Subobject *subobject = &arg0->holder->target->subobject;
+
+    holder = arg0->holder;
+    subobject->field_8 = 0;
+    return holder;
+}
+
+void func_1510761C(void *arg0) {
+    void **field_30 = (void **)((u8 *)arg0 + 0x30);
+
+    if (*field_30 != 0) {
+        func_1516972C((void *)*field_30);
+    }
+}
+void func_1510764C(void *arg0) {
+    func_1510761C(arg0);
+    func_1514933C(arg0);
+}
+void func_15107678(void *arg0) {
+    func_1510761C(arg0);
+    func_15149368(arg0);
+}
+extern u8 D_80088C38;
+
+void func_151076A4(void *arg0, s32 arg1, u8 arg2) {
+    u8 *handler;
+
+    handler = (u8 *)arg0 + 0x68;
+    if (*(void **)(((u8 (*)[4])&D_80088C38)[*(u8 *)((u8 *)arg0 + 0x68)]) != 0) {
+        (*(void (**)(void *, s32, u8))(((u8 (*)[4])&D_80088C38)[*handler]))(arg0, arg1, arg2);
+    }
+}
 typedef struct Game133190Owner {
     void *owner;
     u8 kind;
