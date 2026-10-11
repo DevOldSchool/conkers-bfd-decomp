@@ -52784,6 +52784,12 @@
       "symbol": "func_15151D6C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1380,
+        "reason": "Two focused finishes and two bounded probe batches improved CURRENT 2360 to 1380 with the exact 0xF0 frame and addressed local offsets. Integer register allocation and final size expression/load-store scheduling remain; original assembly retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -78091,6 +78097,12 @@
       "symbol": "func_150C4D20"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1000,
+        "reason": "Three focused finishes and two bounded probe batches reduced CURRENT 2481 to 1000 with the exact 0x58 frame and addressed local offsets. Zero constant lifetime, FP expression scheduling and loop register allocation remain; original assembly retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

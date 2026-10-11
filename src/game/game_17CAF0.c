@@ -639,7 +639,104 @@ void func_15151A38(Game151A38Config *arg0, u8 arg1, s32 arg2) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15151D6C.s")
+typedef struct Game154884Descriptor {
+    f32 field00, field04, field08, field0C;
+    Game17CAF0Vec3f angles;
+    Game17CAF0Vec3f scale;
+    Game17CAF0Vec3f position;
+    Game17CAF0Vec3f velocity;
+    f32 field40, field44, field48, field4C;
+    s32 field50;
+    s16 field54, field56;
+    u8 field58;
+    s32 field5C;
+    u8 field60, field61, field62, field63;
+    u8 field64, field65, field66, field67;
+    u8 field68, pad69, field6A, pad6B;
+    s32 field6C;
+    u8 field70;
+    s16 field72, field74;
+    u8 unknown76[6];
+} Game154884Descriptor;
+
+typedef struct Game152190Config {
+    s32 countBase, countRange;
+    Game17CAF0Vec3f position;
+    s16 yawBase, yawRange, pitchBase, pitchRange;
+    f32 speedBase, speedRange, durationBase, durationRange;
+    s16 lifeBase, lifeRange;
+    f32 sizeBase, sizeRange, jitter;
+} Game152190Config;
+
+void *func_15132A4C(void *, s32, s32, s32, u8, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15152190 CURRENT (1380) */
+void func_15152190(Game152190Config *arg0, s32 *arg1, f32 *arg2, u32 arg3,
+                   f32 arg4, s32 arg5, s32 arg6, s32 arg7) {
+    u32 flags;
+    Game154884Descriptor packet;
+    s16 yaw;
+    s16 pitch;
+    s32 count;
+
+    packet.field00 = 1.0f;
+    packet.field04 = 1.0f;
+    packet.scale.x = 1.0f;
+    packet.scale.y = 1.0f;
+    packet.scale.z = 1.0f;
+    packet.field44 = 0.0f;
+    if (((u8 *)&arg5)[3] != 0) {
+        flags = 0x100000;
+    } else {
+        flags = 0;
+    }
+    packet.field50 = flags | 0x29E8;
+    packet.field58 = 0;
+    packet.field5C = 0;
+    packet.field60 = 0xFF;
+    packet.field61 = 8;
+    packet.field62 = 0;
+    packet.field63 = 0;
+    packet.field64 = 0;
+    packet.field65 = 0;
+    packet.field66 = 0;
+    packet.field67 = 0;
+    packet.field68 = 2;
+    packet.field6A = 0;
+    packet.field6C = 0;
+    packet.field70 = 0;
+    packet.field72 = 12;
+    packet.field74 = 21;
+    count = func_150ADA20() % (u32)(arg0->countRange + 1) + arg0->countBase;
+    if (count != 0) {
+        do {
+            yaw = func_150ADA20() % (u32)(arg0->yawRange + 1) + arg0->yawBase;
+            pitch = func_150ADA20() % (u32)(arg0->pitchRange + 1) + arg0->pitchBase;
+            packet.angles.x = func_150ADA68() * 360.0f;
+            packet.angles.y = func_150ADA68() * 360.0f;
+            packet.angles.z = func_150ADA68() * 360.0f;
+            func_15143794(yaw, pitch, func_150ADA68() * arg0->speedRange + arg0->speedBase,
+                          &packet.velocity);
+            packet.field40 = func_150ADA68() * (2.0f * arg0->jitter) - arg0->jitter;
+            packet.field48 = func_150ADA68() * (2.0f * arg0->jitter) - arg0->jitter;
+            packet.field4C = func_150ADA68() * arg0->durationRange + arg0->durationBase;
+            packet.field54 = func_150ADA20() % (u32)(arg0->lifeRange + 1) + arg0->lifeBase;
+            func_15143794(yaw, pitch, arg4, &packet.position);
+            packet.position.x += arg0->position.x;
+            packet.position.y += arg0->position.y;
+            packet.position.z += arg0->position.z;
+            flags = func_150ADA20() % arg3;
+            packet.field56 = arg1[flags];
+            packet.field0C = arg2[flags] * (arg0->sizeBase + func_150ADA68() * arg0->sizeRange);
+            packet.field08 = *(volatile f32 *)&packet.field0C;
+            func_15132A4C(&packet, 3, 0xFF, 0, (u8)arg6, arg7);
+            count--;
+        } while (count != 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15152190 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152190.s")
+
 typedef struct {
     u8 red;
     u8 green;
@@ -1222,25 +1319,6 @@ void func_15153F18(Game17CAF0AngleRanges *arg0, f32 *arg1, void *arg2,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15153F18 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153F18.s")
-typedef struct Game154884Descriptor {
-    f32 field00, field04, field08, field0C;
-    Game17CAF0Vec3f angles;
-    Game17CAF0Vec3f scale;
-    Game17CAF0Vec3f position;
-    Game17CAF0Vec3f velocity;
-    f32 field40, field44, field48, field4C;
-    s32 field50;
-    s16 field54, field56;
-    u8 field58;
-    s32 field5C;
-    u8 field60, field61, field62, field63;
-    u8 field64, field65, field66, field67;
-    u8 field68, pad69, field6A, pad6B;
-    s32 field6C;
-    u8 field70;
-    s16 field72, field74;
-    u8 unknown76[6];
-} Game154884Descriptor;
 typedef struct {
     f32 elapsed, duration, size, alpha, decay;
     u8 mode;
