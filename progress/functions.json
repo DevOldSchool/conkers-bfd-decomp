@@ -52948,6 +52948,12 @@
       "symbol": "func_15153F18"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2369,
+        "reason": "CURRENT2369 after three scored finishes, one declaration compile repair and two bounded probe batches. Frame C0 and payload offsets match; repeated zero-constant loads, FP allocation and branch scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -77840,6 +77846,12 @@
       "symbol": "func_150EA10C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 360,
+        "reason": "CURRENT360 after two finishes/two bounded probe batches. Frame B8, stack offsets and instruction sequence agree; 52 floating-point register rows remain. Operand reversal and typed emitter-field hypotheses did not resolve allocation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

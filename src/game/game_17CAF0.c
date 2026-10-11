@@ -1117,6 +1117,102 @@ void func_15153F18(Game17CAF0AngleRanges *arg0, f32 *arg1, void *arg2,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15153F18 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153F18.s")
+typedef struct Game154884Descriptor {
+    f32 field00, field04, field08, field0C;
+    Game17CAF0Vec3f angles;
+    Game17CAF0Vec3f scale;
+    Game17CAF0Vec3f position;
+    Game17CAF0Vec3f velocity;
+    f32 field40, field44, field48, field4C;
+    s32 field50;
+    s16 field54, field56;
+    u8 field58;
+    s32 field5C;
+    u8 field60, field61, field62, field63;
+    u8 field64, field65, field66, field67;
+    u8 field68, pad69, field6A, pad6B;
+    s32 field6C;
+    u8 field70;
+    s16 field72, field74;
+    u8 unknown76[6];
+} Game154884Descriptor;
+typedef struct {
+    f32 elapsed, duration, size, alpha, decay;
+    u8 mode;
+    u8 pad15[3];
+} Game1541B8Extra;
+
+void *func_10022EC0(void *, const void *, u32);
+void *func_15132A4C(void *, s32, s32, s32, u8, s32);
+extern f32 D_800A6004, D_800A6008, D_800A600C;
+extern f32 D_800A6010, D_800A6014, D_800A6018;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151541B8 CURRENT (2369) */
+void *func_151541B8(void *arg0, f32 arg1, f32 arg2, f32 arg3,
+                    f32 arg4, s32 arg5, s32 arg6) {
+    void *result;
+    Game154884Descriptor descriptor;
+    Game1541B8Extra extra;
+    s8 mode;
+
+    if (arg1 <= 0.0f) return 0;
+    extra.elapsed = 0.0f;
+    extra.duration = arg1;
+    extra.size = arg2;
+    extra.alpha = arg3;
+    extra.decay = arg3 / (arg1 * arg1);
+    if (arg4 != 0.0f) mode = 1;
+    else mode = 0;
+    extra.mode = mode;
+    descriptor.field08 = 0.0f;
+    descriptor.field0C = arg4;
+    descriptor.field00 = 1.0f;
+    descriptor.field04 = 1.0f;
+    if (arg4 != 0.0f) descriptor.angles.x = 0.0f;
+    else descriptor.angles.x = func_150ADA68() * 360.0f;
+    descriptor.angles.y = func_150ADA68() * 360.0f;
+    if (arg4 != 0.0f) descriptor.angles.z = 0.0f;
+    else descriptor.angles.z = func_150ADA68() * 360.0f;
+    descriptor.scale.x = 1.0f;
+    descriptor.scale.y = 1.0f;
+    descriptor.scale.z = 1.0f;
+    descriptor.position = *(Game17CAF0Vec3f *)arg0;
+    descriptor.velocity.x = 0.0f;
+    descriptor.velocity.y = 0.0f;
+    descriptor.velocity.z = 0.0f;
+    if (arg4 != 0.0f) descriptor.field40 = 0.0f;
+    else descriptor.field40 = func_150ADA68() * D_800A6004 + D_800A6008;
+    if (arg4 != 0.0f) descriptor.field44 = func_150ADA68() * D_800A600C + D_800A6010;
+    else descriptor.field44 = 0.0f;
+    if (arg4 != 0.0f) descriptor.field48 = 0.0f;
+    else descriptor.field48 = func_150ADA68() * D_800A6014 + D_800A6018;
+    descriptor.field4C = 0.0f;
+    descriptor.field50 = 0x100140;
+    descriptor.field56 = 0x54;
+    descriptor.field58 = 0;
+    descriptor.field5C = 0;
+    descriptor.field60 = (u32)arg3;
+    descriptor.field61 = 0xF;
+    descriptor.field62 = 0;
+    descriptor.field63 = 0;
+    descriptor.field64 = 0;
+    descriptor.field65 = 0;
+    descriptor.field66 = 0;
+    descriptor.field67 = 0;
+    descriptor.field68 = 2;
+    descriptor.field6A = 0;
+    descriptor.field6C = 0;
+    descriptor.field70 = 0;
+    descriptor.field72 = 1;
+    descriptor.field74 = 0xFF;
+    descriptor.field54 = 0x12C;
+    result = func_15132A4C(&descriptor, 0, 0, 0x18, ((u8 *)&arg5)[3], arg6);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x170, &extra, 0x18U);
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151541B8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_151541B8.s")
 extern f32 D_800BE9A4;
 f32 sqrtf(f32);
@@ -1209,25 +1305,6 @@ void func_15154684(s16 *arg0, u8 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15154684 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15154684.s")
-typedef struct Game154884Descriptor {
-    f32 field00, field04, field08, field0C;
-    Game17CAF0Vec3f angles;
-    Game17CAF0Vec3f scale;
-    Game17CAF0Vec3f position;
-    Game17CAF0Vec3f velocity;
-    f32 field40, field44, field48, field4C;
-    s32 field50;
-    s16 field54, field56;
-    u8 field58;
-    s32 field5C;
-    u8 field60, field61, field62, field63;
-    u8 field64, field65, field66, field67;
-    u8 field68, pad69, field6A, pad6B;
-    s32 field6C;
-    u8 field70;
-    s16 field72, field74;
-    u8 unknown76[6];
-} Game154884Descriptor;
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
