@@ -12,29 +12,28 @@ class AdpcmBuildTests(unittest.TestCase):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup);self.root=Path(self.temp.name)
         self.pcm=list(range(-8,8))*3
         self.plan={'format':'conker-adpcm-pcm16-plan-v1','order':2,'predictor_count':1,'coefficients':[0]*16,'frames':[[0,0]]*3}
-        self.wav=codec.source_wav(self.pcm,22050);self.raw=codec.encode_pcm(self.pcm,self.plan);self.rom=b'prefix'+self.raw+b'tail'
-        self.expected={'schema_version':1,'profile':'us','sample':0,'rom_sha1':'test','rom_start':6,
+        self.wav=codec.source_wav(self.pcm,22050);self.raw=codec.encode_pcm(self.pcm,self.plan);self.packed=self.raw+bytes(5);self.rom=b'prefix'+self.packed+b'tail'
+        self.expected={'schema_version':2,'pcm_format':'pcm16','profile':'us','sample':0,'rom_sha1':'test','rom_start':6,
                        'runtime_bytes':27,'pcm_frames':48,'sample_rate':22050,'context_wavetable':0,'context_book':0,
                        'original_pcm_sha256':build.sha256(struct.pack('<48h',*self.pcm)),
                        'native_plan_sha256':build.plan_digest(self.plan),
-                       'parts':[{'first_frame':0,'end_frame':1,'rom_start':6,'rom_end':15,'original_stored_sha256':build.sha256(self.raw[:9])},
-                                {'first_frame':2,'end_frame':3,'rom_start':24,'rom_end':33,'original_stored_sha256':build.sha256(self.raw[18:])}]}
+                       'parts':[{'first_frame':0,'end_frame':3,'rom_start':6,'rom_end':38,'zero_padding_bytes':5,'original_stored_sha256':build.sha256(self.packed)}]}
         self.inputs=self.root/build.input_directory(0)
         build.texture_build.publish_inputs(self.inputs,build.input_files(self.expected,self.plan,self.wav))
         self.selection=(self.rom,[(self.expected,self.plan,self.wav)])
 
-    def test_encoder_receives_pcm_plan_and_only_complete_reviewed_regions_publish(self):
+    def test_encoder_receives_pcm_plan_and_complete_sample_storage_publishes(self):
         with patch.object(codec,'encode_pcm',wraps=codec.encode_pcm) as encode:
             parts,hashes=build.packed_sample(self.inputs,self.expected)
         encode.assert_called_once_with(self.pcm,self.plan)
-        self.assertEqual([raw for _,raw in parts],[self.raw[:9],self.raw[18:]])
+        self.assertEqual([raw for _,raw in parts],[self.packed])
         self.assertEqual(set(hashes),set(build.SOURCE_NAMES))
         with patch.object(build,'reviewed_samples',return_value=self.selection):
             proof=build.build_parts(self.root)
-        self.assertEqual((proof['sample_count'],proof['part_count'],proof['stored_bytes']),(1,2,18))
-        self.assertEqual(len(list((self.root/'build/us/adpcm/parts').rglob('*.bin'))),2)
+        self.assertEqual((proof['sample_count'],proof['part_count'],proof['stored_bytes']),(1,1,32))
+        self.assertEqual(len(list((self.root/'build/us/adpcm/parts').rglob('*.bin'))),1)
 
-    def test_edits_even_in_excluded_pcm_preserved_and_recovery_backs_up_entire_folder(self):
+    def test_pcm_edits_preserved_and_recovery_backs_up_entire_folder(self):
         with patch.object(build,'reviewed_samples',return_value=self.selection):
             first=build.build_parts(self.root)
             path=self.root/'build/us/adpcm/parts'/ (layout.part_name(0,0)+'.bin')
@@ -50,7 +49,7 @@ class AdpcmBuildTests(unittest.TestCase):
             self.assertEqual(build.build_parts(self.root),first)
             self.assertEqual((path.read_bytes(),path.stat().st_mtime_ns),before)
 
-    def test_native_book_or_excluded_frame_plan_edits_fail_even_if_output_would_be_unchanged(self):
+    def test_native_book_or_frame_plan_edits_fail_even_if_output_would_be_unchanged(self):
         for field in ('coefficients','frames'):
             plan=copy.deepcopy(self.plan)
             if field=='coefficients':plan[field][0]=1
@@ -97,11 +96,11 @@ class AdpcmBuildTests(unittest.TestCase):
             (cwd/'target.o').write_bytes(object_file([('.data',1,3,raw)]))
         with patch.object(targets,'ROOT',self.root),patch.object(targets.subprocess,'run',side_effect=link):
             pairs=targets.prepare_adpcm_sample(self.rom,self.expected,output=self.root/'report')
-            self.assertEqual(len(pairs),2)
-            self.assertEqual(sum(unit['report_data_bytes'] for unit,_ in pairs),18)
+            self.assertEqual(len(pairs),1)
+            self.assertEqual(sum(unit['report_data_bytes'] for unit,_ in pairs),32)
             self.assertTrue(all(unit['complete'] for unit,_ in pairs))
             self.assertTrue(all(len(unit['source_inputs'])==3 for unit,_ in pairs))
-            self.assertEqual([item['name'] for _,item in pairs],['assets/'+layout.part_name(0,f) for f in (0,2)])
-            linked[1].write_bytes(object_file([('.data',1,3,bytes(9))]))
+            self.assertEqual([item['name'] for _,item in pairs],['assets/'+layout.part_name(0,f) for f in (0,)])
+            linked[0].write_bytes(object_file([('.data',1,3,bytes(len(self.packed)))]))
             with self.assertRaisesRegex(ValueError,'candidate differs'):
                 targets.prepare_adpcm_sample(self.rom,self.expected,output=self.root/'report')

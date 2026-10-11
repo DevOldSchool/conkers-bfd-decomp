@@ -22,7 +22,7 @@ def color_records(payload: bytes) -> dict:
         raise ValueError('unsupported color-animation model regions')
     display_end = header[0] + header[1]
     commands = [list(row) for row in struct.iter_unpack('>II', payload[header[0]:display_end])]
-    if any(command == 0xDC38000E for command, _ in commands):
+    if any(command == model_assets.CHARACTER_CUSTOM_MOVEMEM_COMMAND for command, _ in commands):
         raise ValueError('color-animation model has an unsupported normal region')
     segment = model_assets.ModelSegment(0, 0, len(payload), True, payload)
     words = model_assets.bank_04_collision_surface_words(segment, geometry)

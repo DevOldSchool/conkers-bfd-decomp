@@ -1,12 +1,12 @@
 """Typed B1 control and loader-referenced external sound-bank records."""
 from __future__ import annotations
-import hashlib
 import struct
 
 try:
-    from scripts import audio_assets
+    from scripts import audio_assets, audio_consumers
 except ModuleNotFoundError:
     import audio_assets
+    import audio_consumers
 
 SCHEMAS = {
     'bank': ('>HBBII', ('instrument_count','flags','reserved_zero','sample_rate','percussion_offset')),
@@ -146,11 +146,7 @@ def typed_regions(control,external,wavetable):
 
 
 def verify_consumers(rom):
-    for start,size,digest in [(0x8180,856,'48d344a7a4e395907f0693a79c226514804a82e5'),
-                              (0x128D0,1200,'4aa9fcb168fff33dbb3fb5e0e2ac8fa0363d4c41'),
-                              (0x214F0,2896,'4d737ccdfc2ab189bcb5306fb866b9091b446f80')]:
-        if hashlib.sha1(rom[start:start+size]).hexdigest()!=digest:
-            raise ValueError(f'ROM sound-bank consumer changed at 0x{start:X}')
+    audio_consumers.verify_spans(rom, audio_consumers.SOUND_BANK, 'sound-bank')
 
 
 def external_partition(asset, regions):

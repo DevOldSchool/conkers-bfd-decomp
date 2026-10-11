@@ -4,7 +4,6 @@ from __future__ import annotations
 import hashlib
 import json
 import struct
-import subprocess
 import tempfile
 import zlib
 from pathlib import Path
@@ -12,18 +11,21 @@ from pathlib import Path
 try:
     from scripts import (model_assets, model_bundle_build, model_color_build, model_aux_build,
                          model_effect_format, model_emission_points, rzip_archive, rzip_pack, texture_build)
+    from scripts import rzip_gzip
     from scripts.build_files import write_if_changed
     from scripts.profile_config import load_profile
 except ModuleNotFoundError:
     import model_assets, model_bundle_build, model_color_build
     import model_aux_build, model_effect_format, model_emission_points
     import rzip_archive, rzip_pack, texture_build
+    import rzip_gzip
     from build_files import write_if_changed
     from profile_config import load_profile
 
 ROOT = Path(__file__).resolve().parent.parent
 INPUT_DIRECTORY = Path('build/assets/model-build/us')
 BANKS = (3, 4, 9)
+EFFECT_ENTRIES = range(173, 184)
 CONTRACT = Path('config/model_build.us.json')
 sha256 = texture_build.sha256
 LEVEL6_ENCODER = dict(texture_build.ENCODERS['zlib'], level=6)
@@ -136,7 +138,11 @@ def encode_attachment_records(records: dict) -> bytes:
         parts.append(data)
         cursor += len(data)
     payload = b''.join(parts)
-    if attachment_records(payload) != records:
+    try:
+        checked = attachment_records(payload)
+    except (struct.error, TypeError, IndexError, OverflowError) as error:
+        raise ValueError('invalid native attachment boundaries') from error
+    if checked != records:
         raise ValueError('attachment records disagree with their declared boundaries')
     return payload
 
@@ -159,7 +165,7 @@ def model_records(payload: bytes, *, bank: int, entry: int | None = None) -> dic
         return model_bundle_build.bundle_records(payload, lambda raw: model_records(raw, bank=3))
     if bank == 9 and entry in model_emission_points.ENTRIES:
         return model_aux_build.point_records(payload)
-    if bank == 9 and entry in range(173, 184):
+    if bank == 9 and entry in EFFECT_ENTRIES:
         return model_aux_build.effect_records(payload)
     if bank == 9 and model_assets.is_attachment_model(payload):
         return attachment_records(payload)
@@ -259,13 +265,7 @@ def encode_model_payload(payload: bytes, encoder: dict) -> bytes:
     if encoder == texture_build.ENCODERS['zlib']:
         return rzip_pack.encode_rzip_chunk(payload)
     if encoder == GZIP6_ENCODER:
-        texture_build.require_gnu_gzip()
-        gz = subprocess.run(['gzip', '-n', '-6', '-c'], input=payload,
-                            stdout=subprocess.PIPE, check=True).stdout
-        if (len(gz) < 18 or gz[:8] != bytes.fromhex('1f8b080000000000')
-                or struct.unpack('<II', gz[-8:]) != (zlib.crc32(payload), len(payload) & 0xffffffff)):
-            raise ValueError('unexpected GNU gzip wrapper or checksum')
-        packed = struct.pack('>I', len(payload)) + gz[10:-8]
+        return rzip_gzip.encode_payload(payload, 6)
     elif encoder == LEVEL6_ENCODER:
         compressor = zlib.compressobj(level=6, wbits=-15, memLevel=8, strategy=0)
         packed = struct.pack('>I', len(payload)) + compressor.compress(payload) + compressor.flush()
@@ -324,11 +324,11 @@ def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
             else:
                 model_assets.verify_direct_model_consumers(game.code, int(layout['game_vram']))
         entries = [e for e in rzip_archive.parse_asset_entries(rom, bank) if e.index in selected]
-        if bank_id == 9 and set(selected) & set(range(173, 184)):
+        if bank_id == 9 and set(selected) & set(EFFECT_ENTRIES):
             types = model_effect_format.verify_effect_consumers(
                 game.code, int(layout['game_vram']), game.data, int(layout['game_data_vram']))
             payloads = {e.index: rzip_archive.decode_rzip_chunk(rom[e.start:e.end]).data
-                        for e in entries if e.index in range(173, 184)}
+                        for e in entries if e.index in EFFECT_ENTRIES}
             sources = model_effect_format.resolve_effect_sources(payloads, types)
             for index, source in sources.items():
                 model_effect_format.parse_effect_model(

@@ -22,7 +22,7 @@ def surface_records(payload: bytes) -> dict:
     words = model_assets.bank_04_collision_surface_words(segment, geometry)
     commands = [list(row) for row in struct.iter_unpack(
         '>II', payload[header[0]:header[0] + header[1]])]
-    if any(command[0] == 0xDC38000E for command in commands):
+    if any(command[0] == model_assets.CHARACTER_CUSTOM_MOVEMEM_COMMAND for command in commands):
         raise ValueError('primary surface model has an unsupported normal region')
     end = header[4] + header[5]
     suffix = len(payload) - end

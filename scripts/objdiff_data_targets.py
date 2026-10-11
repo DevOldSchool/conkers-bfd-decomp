@@ -1,7 +1,7 @@
 """Independent data and rebuilt-asset targets for the published objdiff report."""
 from __future__ import annotations
 
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 from functools import partial
 import hashlib
 import json
@@ -451,18 +451,13 @@ def prepare_textures(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict
     return [unit for unit, _ in pairs], [item for _, item in pairs]
 
 
-def prepare_model(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
-    """Compare an actual record-built ROM link object with independent stored bytes."""
-    index = expected['entry']
-    bank = expected['bank']
-    key = f'model-{bank:02d}-{index:04d}'
-    name = model_build.part_name(index, bank)
+def prepare_rebuilt_asset(rom, *, key, name, extent, packed, hashes,
+                          source_directory, read_hashes, label, output):
+    """Compare one actual linker object with fresh source bytes and an independent target."""
     directory = output / key
     directory.mkdir(parents=True, exist_ok=True)
     linked = ROOT / ('build/us/assets/' + name + '.o')
-    inputs = ROOT / model_build.input_directory(index, bank)
-    packed, hashes = model_build.packed_model(inputs, expected)
-    start, end = expected['rom_start'], expected['rom_end']
+    start, end = extent['rom_start'], extent['rom_end']
     original = rom[start:end]
     base, target = directory / 'base.o', directory / 'target.o'
     linked_bytes = linked.read_bytes()
@@ -476,14 +471,14 @@ def prepare_model(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, di
     for path in (base, target):
         target_extent(path, '.data', end - start)
     candidate = sections(base.read_bytes(), 1)['.data'][1]
-    if (candidate != packed or hashes != model_build.input_hashes(inputs, expected)
+    if (candidate != packed or hashes != read_hashes()
             or linked.read_bytes() != linked_bytes):
-        raise ValueError(f'model {bank:02d}:{index:04d} candidate differs from current editable inputs')
+        raise ValueError(f'{label} candidate differs from current editable inputs')
     proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
-                                              original, f'model {bank:02d}:{index:04d} RZIP storage')
+                                              original, label)
     unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data',
             'size': end - start, 'rom_start': start, 'rom_end': end,
-            'source_inputs': {(model_build.input_directory(index, bank) / p).as_posix(): h for p, h in hashes.items()},
+            'source_inputs': {(source_directory / p).as_posix(): h for p, h in hashes.items()},
             'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
             'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
             'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
@@ -495,19 +490,34 @@ def prepare_model(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, di
     return unit, item
 
 
+def prepare_model(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    index, bank = expected['entry'], expected['bank']
+    source = model_build.input_directory(index, bank)
+    packed, hashes = model_build.packed_model(ROOT / source, expected)
+    return prepare_rebuilt_asset(
+        rom, key=f'model-{bank:02d}-{index:04d}', name=model_build.part_name(index, bank),
+        extent=expected, packed=packed, hashes=hashes, source_directory=source,
+        read_hashes=partial(model_build.input_hashes, ROOT / source, expected),
+        label=f'model {bank:02d}:{index:04d}', output=output)
+
+
+def build_rebuilt_objects(paths, label, output):
+    log_path = output / (label + '-build.log')
+    with log_path.open('w') as log:
+        try:
+            subprocess.run(['make', '--silent', '--jobs', str(job_count()), *paths, 'PROFILE=us', 'ASSETS=1'],
+                           cwd=ROOT, stdout=log, stderr=log, check=True)
+        except subprocess.CalledProcessError as error:
+            raise ValueError(f'{label} linker-input build failed (exit {error.returncode}); see {log_path}') from error
+
+
 def prepare_models(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
     """Validate selection once and rebuild all selected linker inputs in one Make call."""
     checked_rom, selected = model_build.reviewed_models(ROOT)
     if checked_rom != rom:
         raise ValueError('model reference ROM differs from the validated report ROM')
     paths = ['build/us/assets/' + model_build.part_name(e['entry'], e['bank']) + '.o' for e, _ in selected]
-    log_path = output / 'model-build.log'
-    with log_path.open('w') as log:
-        try:
-            subprocess.run(['make', '--silent', '--jobs', str(job_count()), *paths, 'PROFILE=us', 'ASSETS=1'],
-                           cwd=ROOT, stdout=log, stderr=log, check=True)
-        except subprocess.CalledProcessError as error:
-            raise ValueError(f'model linker-input build failed (exit {error.returncode}); see {log_path}') from error
+    build_rebuilt_objects(paths, 'model', output)
     # Each reference has its own directory. Preserve catalog order and retain
     # all per-object checks; the report also rechecks every source hash at end.
     with ThreadPoolExecutor(max_workers=job_count()) as workers:
@@ -517,46 +527,14 @@ def prepare_models(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]
 
 
 def prepare_sequence(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
-    """Compare an actual record-built ROM link object with independent stored bytes."""
     index = expected['entry']
-    key = f'sequence-{index:04d}'
-    name = sequence_build.part_name(index)
-    directory = output / key
-    directory.mkdir(parents=True, exist_ok=True)
-    linked = ROOT / ('build/us/assets/' + name + '.o')
-    inputs = ROOT / sequence_build.input_directory(index)
-    packed, hashes = sequence_build.packed_sequence(inputs, expected)
-    start, end = expected['rom_start'], expected['rom_end']
-    original = rom[start:end]
-    base, target = directory / 'base.o', directory / 'target.o'
-    linked_bytes = linked.read_bytes()
-    base.write_bytes(linked_bytes)
-    relative = name + '.bin'
-    reference = directory / relative
-    reference.parent.mkdir(parents=True, exist_ok=True)
-    reference.write_bytes(original)
-    subprocess.run(['mips-linux-gnu-ld', '-r', '-b', 'binary', '-m', 'elf32btsmip',
-                    '-o', 'target.o', relative], cwd=directory, check=True)
-    for path in (base, target):
-        target_extent(path, '.data', end - start)
-    candidate = sections(base.read_bytes(), 1)['.data'][1]
-    if (candidate != packed or hashes != sequence_build.input_hashes(inputs, expected)
-            or linked.read_bytes() != linked_bytes):
-        raise ValueError(f'sequence {index:04d} candidate differs from current editable inputs')
-    proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
-                                              original, f'sequence {index:04d} compact-sequence storage')
-    unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data',
-            'size': end - start, 'rom_start': start, 'rom_end': end,
-            'source_inputs': {(sequence_build.input_directory(index) / p).as_posix(): h for p, h in hashes.items()},
-            'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
-            'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
-            'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
-            'literal_payload_matches_rom': candidate == original, 'target_verification': proof,
-            'report_code_bytes': 0, 'report_data_bytes': end - start, 'complete': candidate == original}
-    item = {'name': 'assets/' + name, 'target_path': unit['target_path'],
-            'base_path': unit['base_path'],
-            'metadata': {'complete': unit['complete'], 'progress_categories': ['data']}}
-    return unit, item
+    source = sequence_build.input_directory(index)
+    packed, hashes = sequence_build.packed_sequence(ROOT / source, expected)
+    return prepare_rebuilt_asset(
+        rom, key=f'sequence-{index:04d}', name=sequence_build.part_name(index),
+        extent=expected, packed=packed, hashes=hashes, source_directory=source,
+        read_hashes=partial(sequence_build.input_hashes, ROOT / source, expected),
+        label=f'sequence {index:04d} compact-sequence storage', output=output)
 
 
 def prepare_sequences(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -565,13 +543,7 @@ def prepare_sequences(rom: bytes, *, output: Path) -> tuple[list[dict], list[dic
     if checked_rom != rom:
         raise ValueError('sequence reference ROM differs from the validated report ROM')
     paths = ['build/us/assets/' + sequence_build.part_name(e['entry']) + '.o' for e, _ in selected]
-    log_path = output / 'sequence-build.log'
-    with log_path.open('w') as log:
-        try:
-            subprocess.run(['make', '--silent', '--jobs', str(job_count()), *paths, 'PROFILE=us', 'ASSETS=1'],
-                           cwd=ROOT, stdout=log, stderr=log, check=True)
-        except subprocess.CalledProcessError as error:
-            raise ValueError(f'sequence linker-input build failed (exit {error.returncode}); see {log_path}') from error
+    build_rebuilt_objects(paths, 'sequence', output)
     # Each reference has its own directory. Preserve catalog order and retain
     # all per-object checks; the report also rechecks every source hash at end.
     with ThreadPoolExecutor(max_workers=job_count()) as workers:
@@ -581,46 +553,14 @@ def prepare_sequences(rom: bytes, *, output: Path) -> tuple[list[dict], list[dic
 
 
 def prepare_sound_part(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
-    """Compare an actual record-built ROM link object with independent stored bytes."""
-    part = expected['part']
-    key = f'sound-bank-{part}'
-    name = sound_bank_build.part_name(part)
-    directory = output / key
-    directory.mkdir(parents=True, exist_ok=True)
-    linked = ROOT / ('build/us/assets/' + name + '.o')
-    inputs = ROOT / sound_bank_build.input_directory(part)
-    packed, hashes = sound_bank_build.packed_part(inputs, expected)
-    start, end = expected['rom_start'], expected['rom_end']
-    original = rom[start:end]
-    base, target = directory / 'base.o', directory / 'target.o'
-    linked_bytes = linked.read_bytes()
-    base.write_bytes(linked_bytes)
-    relative = name + '.bin'
-    reference = directory / relative
-    reference.parent.mkdir(parents=True, exist_ok=True)
-    reference.write_bytes(original)
-    subprocess.run(['mips-linux-gnu-ld', '-r', '-b', 'binary', '-m', 'elf32btsmip',
-                    '-o', 'target.o', relative], cwd=directory, check=True)
-    for path in (base, target):
-        target_extent(path, '.data', end - start)
-    candidate = sections(base.read_bytes(), 1)['.data'][1]
-    if (candidate != packed or hashes != sound_bank_build.input_hashes(inputs, expected)
-            or linked.read_bytes() != linked_bytes):
-        raise ValueError(f'sound-bank part {part} candidate differs from current editable inputs')
-    proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
-                                              original, f'sound-bank part {part} sound-bank storage')
-    unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data',
-            'size': end - start, 'rom_start': start, 'rom_end': end,
-            'source_inputs': {(sound_bank_build.input_directory(part) / p).as_posix(): h for p, h in hashes.items()},
-            'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
-            'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
-            'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
-            'literal_payload_matches_rom': candidate == original, 'target_verification': proof,
-            'report_code_bytes': 0, 'report_data_bytes': end - start, 'complete': candidate == original}
-    item = {'name': 'assets/' + name, 'target_path': unit['target_path'],
-            'base_path': unit['base_path'],
-            'metadata': {'complete': unit['complete'], 'progress_categories': ['data']}}
-    return unit, item
+    index = expected['part']
+    source = sound_bank_build.input_directory(index)
+    packed, hashes = sound_bank_build.packed_part(ROOT / source, expected)
+    return prepare_rebuilt_asset(
+        rom, key=f'sound-bank-{index}', name=sound_bank_build.part_name(index),
+        extent=expected, packed=packed, hashes=hashes, source_directory=source,
+        read_hashes=partial(sound_bank_build.input_hashes, ROOT / source, expected),
+        label=f'sound-bank part {index} sound-bank storage', output=output)
 
 
 def prepare_sound_bank(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -629,13 +569,7 @@ def prepare_sound_bank(rom: bytes, *, output: Path) -> tuple[list[dict], list[di
     if checked_rom != rom:
         raise ValueError('sound-bank reference ROM differs from the validated report ROM')
     paths = ['build/us/assets/' + sound_bank_build.part_name(e['part']) + '.o' for e, _ in selected]
-    log_path = output / 'sound-bank-build.log'
-    with log_path.open('w') as log:
-        try:
-            subprocess.run(['make', '--silent', '--jobs', str(job_count()), *paths, 'PROFILE=us', 'ASSETS=1'],
-                           cwd=ROOT, stdout=log, stderr=log, check=True)
-        except subprocess.CalledProcessError as error:
-            raise ValueError(f'sound-bank linker-input build failed (exit {error.returncode}); see {log_path}') from error
+    build_rebuilt_objects(paths, 'sound-bank', output)
     # Each reference has its own directory. Preserve catalog order and retain
     # all per-object checks; the report also rechecks every source hash at end.
     with ThreadPoolExecutor(max_workers=job_count()) as workers:
@@ -645,51 +579,27 @@ def prepare_sound_bank(rom: bytes, *, output: Path) -> tuple[list[dict], list[di
 
 
 def prepare_adpcm_sample(rom: bytes, expected: dict, *, output: Path) -> list[tuple[dict, dict]]:
-    """Encode the whole PCM context once, then compare each complete frame region."""
+    """Freshly encode the complete sample; build receipts never grant report credit."""
     sample = expected['sample']
-    inputs = ROOT / adpcm_build.input_directory(sample)
-    parts, hashes = adpcm_build.packed_sample(inputs, expected)
-    pairs = []
-    for part, packed in parts:
-        first = part['first_frame']
-        key = f'adpcm-{sample:04d}-{first:08X}'
-        name = adpcm_layout.part_name(sample, first)
-        directory = output / key
-        directory.mkdir(parents=True, exist_ok=True)
-        linked = ROOT / ('build/us/assets/' + name + '.o')
-        start, end = part['rom_start'], part['rom_end']
-        original = rom[start:end]
-        base, target = directory / 'base.o', directory / 'target.o'
-        linked_bytes = linked.read_bytes()
-        base.write_bytes(linked_bytes)
-        relative = name + '.bin'
-        reference = directory / relative
-        reference.parent.mkdir(parents=True, exist_ok=True)
-        reference.write_bytes(original)
-        subprocess.run(['mips-linux-gnu-ld', '-r', '-b', 'binary', '-m', 'elf32btsmip',
-                        '-o', 'target.o', relative], cwd=directory, check=True)
-        for path in (base, target):
-            target_extent(path, '.data', end - start)
-        candidate = sections(base.read_bytes(), 1)['.data'][1]
-        if candidate != packed or linked.read_bytes() != linked_bytes:
-            raise ValueError(f'ADPCM sample {sample} frame {first} candidate differs from current PCM inputs')
-        proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
-                                                  original, f'ADPCM sample {sample} frame {first}')
-        unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data',
-                'size': end - start, 'rom_start': start, 'rom_end': end,
-                'source_inputs': {(adpcm_build.input_directory(sample) / p).as_posix(): h for p, h in hashes.items()},
-                'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
-                'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
-                'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
-                'literal_payload_matches_rom': candidate == original, 'target_verification': proof,
-                'report_code_bytes': 0, 'report_data_bytes': end - start, 'complete': candidate == original}
-        item = {'name': 'assets/' + name, 'target_path': unit['target_path'],
-                'base_path': unit['base_path'],
-                'metadata': {'complete': unit['complete'], 'progress_categories': ['data']}}
-        pairs.append((unit, item))
-    if hashes != adpcm_build.input_hashes(inputs, expected):
-        raise ValueError(f'ADPCM sample {sample} source inputs changed during object preparation')
-    return pairs
+    source = adpcm_build.input_directory(sample)
+    parts, hashes = adpcm_build.packed_sample(ROOT / source, expected)
+    return [prepare_rebuilt_asset(
+        rom, key=f'adpcm-{sample:04d}-{part["first_frame"]:08X}',
+        name=adpcm_layout.part_name(sample, part['first_frame']), extent=part,
+        packed=packed, hashes=hashes, source_directory=source,
+        read_hashes=partial(adpcm_build.input_hashes, ROOT / source, expected),
+        label=f'ADPCM sample {sample}', output=output) for part, packed in parts]
+
+
+def initialize_adpcm_report_worker(root, rom, output):
+    # Pass the ROM once per process, not once per sample. Explicit initialization
+    # works with spawn as well as fork, including a caller's isolated checkout.
+    global ROOT, _ADPCM_REPORT_ROM, _ADPCM_REPORT_OUTPUT
+    ROOT, _ADPCM_REPORT_ROM, _ADPCM_REPORT_OUTPUT = root, rom, output
+
+
+def prepare_adpcm_report_worker(expected):
+    return prepare_adpcm_sample(_ADPCM_REPORT_ROM, expected, output=_ADPCM_REPORT_OUTPUT)
 
 
 def prepare_adpcm(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -698,16 +608,12 @@ def prepare_adpcm(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
         raise ValueError('ADPCM reference ROM differs from the validated report ROM')
     paths = ['build/us/assets/' + adpcm_layout.part_name(e['sample'], p['first_frame']) + '.o'
              for e, _, _ in selected for p in e['parts']]
-    log_path = output / 'adpcm-build.log'
-    with log_path.open('w') as log:
-        try:
-            subprocess.run(['make', '--silent', '--jobs', str(job_count()), *paths, 'PROFILE=us', 'ASSETS=1'],
-                           cwd=ROOT, stdout=log, stderr=log, check=True)
-        except subprocess.CalledProcessError as error:
-            raise ValueError(f'ADPCM linker-input build failed (exit {error.returncode}); see {log_path}') from error
-    with ThreadPoolExecutor(max_workers=job_count()) as workers:
-        groups = list(workers.map(partial(prepare_adpcm_sample, rom, output=output),
-                                  (expected for expected, _, _ in selected)))
+    build_rebuilt_objects(paths, 'adpcm', output)
+    with ProcessPoolExecutor(max_workers=job_count(),
+                             initializer=initialize_adpcm_report_worker,
+                             initargs=(ROOT, rom, output)) as workers:
+        groups = list(workers.map(prepare_adpcm_report_worker,
+                                  (expected for expected, _, _ in selected), chunksize=8))
     pairs = [pair for group in groups for pair in group]
     return [unit for unit, _ in pairs], [item for _, item in pairs]
 

@@ -4,16 +4,17 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
-import tempfile
 
 try:
     from scripts import audio_assets, audio_boundaries, sequence_codec, texture_build
+    from scripts import asset_inputs
     from scripts.build_files import write_if_changed
 except ModuleNotFoundError:
     import audio_assets
     import audio_boundaries
     import sequence_codec
     import texture_build
+    import asset_inputs
     from build_files import write_if_changed
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -79,9 +80,7 @@ def input_files(expected, records):
 
 def input_hashes(directory, expected):
     try:
-        if json.loads((directory / 'manifest.json').read_text()) != expected:
-            raise ValueError('sequence manifest differs from reviewed ROM contract')
-        return {name: sha256((directory / name).read_bytes()) for name in ('manifest.json', 'sequence.json')}
+        return asset_inputs.manifest_hashes(directory, expected, ('manifest.json', 'sequence.json'), 'sequence')
     except (OSError, ValueError) as error:
         raise input_error(directory, expected, str(error)) from error
 
@@ -107,22 +106,11 @@ def recover_inputs(entry, root=ROOT):
         raise ValueError(f'sequence {entry} is not in the reviewed selection')
     expected, records = pair
     directory = root / input_directory(entry)
-    if directory.is_symlink() or (directory.exists() and not directory.is_dir()):
-        raise ValueError(f'refusing recovery of a non-directory or symlink: {directory}')
-    backup = None
-    if directory.exists():
-        backups = root / 'build/assets/sequence-build/recovery/us'
-        backups.mkdir(parents=True, exist_ok=True)
-        backup = Path(tempfile.mkdtemp(prefix=f'{entry:04d}-', dir=backups)) / 'inputs'
-        directory.rename(backup)
-    try:
-        texture_build.publish_inputs(directory, input_files(expected, records))
-    except Exception:
-        if backup is not None and not directory.exists():
-            backup.rename(directory)
-        raise
+    backup = asset_inputs.recover_directory(
+        directory, root / 'build/assets/sequence-build/recovery/us', f'{entry:04d}-',
+        input_files(expected, records))
     return {'entry': entry, 'input_directory': str(directory),
-            'backup_directory': str(backup) if backup is not None else None}
+            'backup_directory': backup}
 
 
 def build_parts(root=ROOT):
@@ -136,9 +124,7 @@ def build_parts(root=ROOT):
         if packed != rom[expected['rom_start']:expected['rom_end']]:
             raise ValueError('sequence differs from independent original ROM bytes')
         candidates.append((expected, directory, packed, hashes))
-    for expected, directory, _, hashes in candidates:
-        if input_hashes(directory, expected) != hashes:
-            raise ValueError('sequence inputs changed during batch packing')
+    asset_inputs.check_batch_sources(candidates, input_hashes, 'sequence')
     proofs = []
     for expected, directory, packed, hashes in candidates:
         write_if_changed(root / 'build/us/sequences/parts' / (part_name(expected['entry']) + '.bin'), packed)

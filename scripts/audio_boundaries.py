@@ -99,12 +99,14 @@ def verify(profile: Path = ROOT / 'config/profiles/us.yaml') -> tuple[bytes, lis
         raise ValueError('audio ROM changed during boundary verification')
     start, end, splits = bank_layout(profile)
     sound_regions = None
-    if any(name.startswith('audio/bank17/sound-bank/') for _, name in splits):
+    has_sound = any(name.startswith('audio/bank17/sound-bank/') for _, name in splits)
+    has_samples = any(name.startswith('audio/bank17/samples/') for _, name in splits)
+    if has_sound or has_samples:
         sound_bank_codec.verify_consumers(rom)
+    if has_sound:
         sound_regions = sound_bank_codec.typed_regions(*(asset.data for asset in family.assets[:3]))
     adpcm_contract = None
-    if any(name.startswith('audio/bank17/samples/') for _, name in splits):
-        sound_bank_codec.verify_consumers(rom)
+    if has_samples:
         adpcm_contract = adpcm_layout.load_contract(ROOT)
     ranges = proven_ranges(rom, family, mp3, sound_regions=sound_regions, adpcm_contract=adpcm_contract)
     if (start != family.bank_start or end != family.bank_end

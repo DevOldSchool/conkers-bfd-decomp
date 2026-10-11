@@ -205,6 +205,20 @@ class ModelBuildTests(unittest.TestCase):
             with self.subTest(records=changed), self.assertRaises(ValueError):
                 build.encode_records(changed, bank=9)
 
+    def test_bad_model_row_sizes_show_recovery_hint_and_preserve_edits(self):
+        from test_model_attachment_format import payload
+        from test_model_aux_build import effect_payload
+        for entry, raw, field in ((0, payload(jointed=True), 3), (173, effect_payload(), 1)):
+            records = build.model_records(raw, bank=9, entry=entry)
+            records['header_words'][field] -= 1
+            expected = dict(self.expected, bank=9, entry=entry)
+            directory = self.root / build.input_directory(entry, 9)
+            build.texture_build.publish_inputs(directory, build.input_files(expected, records))
+            before = (directory / 'model.json').read_bytes()
+            with self.subTest(entry=entry), self.assertRaisesRegex(ValueError, 'Inputs were preserved.*recover'):
+                build.packed_model(directory, expected)
+            self.assertEqual((directory / 'model.json').read_bytes(), before)
+
     def test_attachment_zero_regions_cannot_hide_gaps_or_nonzero_source(self):
         from test_model_attachment_format import payload
         raw = payload(jointed=True) + bytes(8)
@@ -409,8 +423,8 @@ class ModelBuildTests(unittest.TestCase):
     def test_gzip6_checks_wrapper_roundtrip_version_and_never_falls_back(self):
         import gzip
         gz = gzip.compress(self.payload, compresslevel=6, mtime=0)
-        with patch.object(build.texture_build, 'require_gnu_gzip') as version, \
-                patch.object(build.subprocess, 'run', return_value=SimpleNamespace(stdout=gz)) as run, \
+        with patch.object(build.rzip_gzip, 'require_gnu_gzip') as version, \
+                patch.object(build.rzip_gzip.subprocess, 'run', return_value=SimpleNamespace(stdout=gz)) as run, \
                 patch.object(build.rzip_pack, 'encode_rzip_chunk') as legacy:
             packed = build.encode_model_payload(self.payload, build.GZIP6_ENCODER)
             self.assertEqual(build.rzip_archive.decode_rzip_chunk(packed).data, self.payload)

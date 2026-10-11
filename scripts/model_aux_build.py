@@ -50,7 +50,11 @@ def encode_effect_records(records: dict) -> bytes:
                    + bytes(records['zero_suffix_bytes']))
     except (struct.error, TypeError, OverflowError) as error:
         raise ValueError('invalid native effect-model record') from error
-    if effect_records(payload) != records:
+    try:
+        checked = effect_records(payload)
+    except (struct.error, TypeError, IndexError, OverflowError) as error:
+        raise ValueError('invalid native effect-model boundaries') from error
+    if checked != records:
         raise ValueError('effect records disagree with declared boundaries')
     return payload
 

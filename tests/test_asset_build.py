@@ -42,6 +42,7 @@ class AssetMakeTests(unittest.TestCase):
         for name in ('config/profiles/us.yaml', 'config/rzip_layouts.json',
                      'toolchain/python-requirements.txt', 'roms/baserom.us.z64',
                      'config/texture_encoders.us.json',
+                     'scripts/asset_inputs.py', 'scripts/audio_consumers.py', 'scripts/build_jobs.py', 'scripts/rzip_gzip.py',
                      'scripts/build_files.py', 'scripts/font_assets.py', 'scripts/mp3_assets.py',
                      'scripts/rzip_archive.py', 'scripts/rzip_extract.py',
                      'scripts/texture_assets.py', 'scripts/texture_catalog.py',
@@ -142,21 +143,19 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
                 self.assertGreater(objects[0].stat().st_mtime_ns, before[0])
                 self.assertEqual(objects[1].stat().st_mtime_ns, before[1])
 
-    def test_adpcm_frame_regions_share_pcm_inputs_and_keep_raw_gaps_uncredited(self):
+    def test_complete_adpcm_samples_use_inputs_and_keep_unchanged_objects(self):
         shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
         for name in ('adpcm_codec','adpcm_headroom','adpcm_layout','audio_assets','sound_bank_codec'):
             (self.root / f'scripts/{name}.py').write_text('# dependency\n')
         (self.root / 'config/adpcm_reconstruction.us.json').write_text('{}')
         (self.root / 'scripts/audio_boundaries.py').write_text("""def bank_layout(profile, *, configuration=None):
     assert configuration is not None
-    return 0, 36, [(0, 'audio/bank17/samples/0000/00000000'),
-                   (9, 'audio/bank17/samples/raw/00000009'),
-                   (18, 'audio/bank17/samples/0000/00000002'),
-                   (27, 'audio/bank17/samples/0001/00000000')]
+    return 0, 32, [(0, 'audio/bank17/samples/0000/00000000'),
+                   (16, 'audio/bank17/samples/0001/00000000')]
 """)
         (self.root / 'scripts/adpcm_build.py').write_text("""from pathlib import Path
 from build_files import write_if_changed
-for sample, frames in [(0,[0,2]),(1,[0])]:
+for sample, frames in [(0,[0]),(1,[0])]:
     directory=Path(f'build/assets/adpcm-build/us/{sample:04d}')
     assert (directory/'manifest.json').read_text()=='{}'
     (directory/'encoding.json').read_bytes()
@@ -170,9 +169,7 @@ with Path('adpcm.calls').open('a') as log:log.write('packed\\n')
             directory.mkdir(parents=True)
             for name in ('manifest.json','encoding.json'):(directory/name).write_text('{}')
             (directory/'sample.wav').write_text(f'pcm{sample}')
-        hole=self.root/'assets/audio/bank17/samples/raw/00000009.bin'
-        hole.parent.mkdir(parents=True);hole.write_text('uncredited')
-        paths=['0000/00000000','0000/00000002','0001/00000000','raw/00000009']
+        paths=['0000/00000000','0001/00000000']
         names=['build/us/assets/audio/bank17/samples/'+p+'.o' for p in paths]
         def run():
             return subprocess.run([MAKE,'ASSETS=1','-j4',f'LD={sys.executable} {self.ld}',*names],cwd=self.root,text=True,capture_output=True)
@@ -184,9 +181,9 @@ with Path('adpcm.calls').open('a') as log:log.write('packed\\n')
         time.sleep(1.05)
         source=self.root/'build/assets/adpcm-build/us/0000/sample.wav';source.write_text('edited pcm')
         self.assertEqual(run().returncode,0)
-        self.assertEqual([p.read_text() for p in objects],['edited pcm','edited pcm','pcm1','uncredited'])
-        self.assertEqual([p.stat().st_mtime_ns for p in objects[2:]],before[2:])
-        part=self.root/'build/us/adpcm/parts/audio/bank17/samples/0000/00000002.bin';part.unlink()
+        self.assertEqual([p.read_text() for p in objects],['edited pcm','pcm1'])
+        self.assertEqual([p.stat().st_mtime_ns for p in objects[1:]],before[1:])
+        part=self.root/'build/us/adpcm/parts/audio/bank17/samples/0000/00000000.bin';part.unlink()
         self.assertEqual(run().returncode,0);self.assertEqual(part.read_text(),'edited pcm')
         for name in ('manifest.json','encoding.json','sample.wav'):
             path=source.parent/name;raw=path.read_bytes();path.unlink()

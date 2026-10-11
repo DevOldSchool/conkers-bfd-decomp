@@ -5,10 +5,10 @@ import hashlib
 import json
 from pathlib import Path
 import re
-import tempfile
 
 try:
     from scripts import audio_assets, audio_boundaries, sound_bank_codec, texture_build, rzip_pack
+    from scripts import asset_inputs
     from scripts.build_files import write_if_changed
 except ModuleNotFoundError:
     import audio_assets
@@ -16,6 +16,7 @@ except ModuleNotFoundError:
     import sound_bank_codec
     import texture_build
     import rzip_pack
+    import asset_inputs
     from build_files import write_if_changed
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -99,9 +100,7 @@ def input_files(expected, records):
 
 def input_hashes(directory, expected):
     try:
-        if json.loads((directory / 'manifest.json').read_text()) != expected:
-            raise ValueError('sound-bank manifest differs from reviewed ROM contract')
-        return {name: sha256((directory / name).read_bytes()) for name in ('manifest.json', 'records.json')}
+        return asset_inputs.manifest_hashes(directory, expected, ('manifest.json', 'records.json'), 'sound-bank')
     except (OSError, ValueError) as error:
         raise input_error(directory, expected, str(error)) from error
 
@@ -135,22 +134,11 @@ def recover_inputs(part, root=ROOT):
         raise ValueError(f'sound-bank part {part} is not in the reviewed selection')
     expected, records = pair
     directory = root / input_directory(part)
-    if directory.is_symlink() or (directory.exists() and not directory.is_dir()):
-        raise ValueError(f'refusing recovery of a non-directory or symlink: {directory}')
-    backup = None
-    if directory.exists():
-        backups = root / 'build/assets/sound-bank-build/recovery/us'
-        backups.mkdir(parents=True, exist_ok=True)
-        backup = Path(tempfile.mkdtemp(prefix=part+'-', dir=backups)) / 'inputs'
-        directory.rename(backup)
-    try:
-        texture_build.publish_inputs(directory, input_files(expected, records))
-    except Exception:
-        if backup is not None and not directory.exists():
-            backup.rename(directory)
-        raise
+    backup = asset_inputs.recover_directory(
+        directory, root / 'build/assets/sound-bank-build/recovery/us', part + '-',
+        input_files(expected, records))
     return {'part': part, 'input_directory': str(directory),
-            'backup_directory': str(backup) if backup is not None else None}
+            'backup_directory': backup}
 
 
 def build_parts(root=ROOT):
@@ -164,9 +152,7 @@ def build_parts(root=ROOT):
         if packed != rom[expected['rom_start']:expected['rom_end']]:
             raise ValueError('sound-bank part differs from independent original ROM bytes')
         candidates.append((expected, directory, packed, hashes))
-    for expected, directory, _, hashes in candidates:
-        if input_hashes(directory, expected) != hashes:
-            raise ValueError('sound-bank inputs changed during batch packing')
+    asset_inputs.check_batch_sources(candidates, input_hashes, 'sound-bank')
     proofs = []
     for expected, directory, packed, hashes in candidates:
         write_if_changed(root / 'build/us/sound-bank/parts' / (part_name(expected['part']) + '.bin'), packed)

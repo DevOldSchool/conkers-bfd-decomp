@@ -375,3 +375,9 @@ pre-saturation headroom derive fresh residual nibbles. Native lengths determine
 8,131 bytes of zero alignment. Actual linker objects and independent targets
 gate native Data credit. Recovery can back up one sample or the complete source
 tree before restoring reviewed inputs.
+
+ADPCM source decoding and fresh report encoding use process workers, controlled
+by `CONKER_JOBS` (default four). Build batches reuse verified unchanged sample
+outputs, while reports always encode current sources independently of those
+build receipts. See the [review follow-up](evidence/data-layout/us_asset_review_followup.md)
+for cache invalidation, recovery and regression-test details.

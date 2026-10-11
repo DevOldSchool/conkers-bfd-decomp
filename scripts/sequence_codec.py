@@ -1,13 +1,13 @@
 """Typed Conker compact-sequence events and native back-reference encoding."""
 from __future__ import annotations
 
-import hashlib
 import struct
 
 try:
-    from scripts import audio_assets
+    from scripts import audio_assets, audio_consumers
 except ModuleNotFoundError:
     import audio_assets
+    import audio_consumers
 
 
 class RecordReader(audio_assets.CompactTrackReader):
@@ -242,11 +242,5 @@ def encode_records(records):
     return payload
 
 
-def verify_consumers(rom: bytes) -> None:
-    for start, size, digest in (
-        (0x8180, 856, '48d344a7a4e395907f0693a79c226514804a82e5'),
-        (0x8CE8, 504, '21d68d0373511ef4017672422691890bf2badc9d'),
-        (0x17F80, 3296, 'ad6237d34f7707388f7f55169c625d8d7b72ef79'),
-    ):
-        if hashlib.sha1(rom[start:start + size]).hexdigest() != digest:
-            raise ValueError(f'ROM compact-sequence consumer changed at 0x{start:X}')
+def verify_consumers(rom):
+    audio_consumers.verify_spans(rom, audio_consumers.SEQUENCE, 'compact-sequence')
