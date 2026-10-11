@@ -20,12 +20,12 @@ consecutive functions and follow-up work; use `./conker stop` only for explicit
 cleanup or when the broader contribution is finished. If the pinned image
 changes, the wrapper replaces the stale container automatically.
 
-The pinned `mips_to_c` files, from the [DevOldSchool m2c fork](https://github.com/DevOldSchool/m2c),
-are copied into the ignored `build/host-tools/` cache and run with the existing
-host Python. This avoids repeated amd64 emulation without installing an
-additional host dependency. The cache is keyed by the copied checkout's Git
-revision; when the locked image predates a pin update, the wrapper warns and
-uses the image's revision until the image digest is updated.
+The pinned `mips_to_c` files are copied into the ignored `build/host-tools/`
+cache and run with the existing host Python. This avoids repeated amd64
+emulation without installing an additional host dependency. The cache is keyed
+by the copied checkout's Git revision; when the locked image predates a pin
+update, the wrapper warns and uses the image's revision until the image digest
+is updated.
 
 For an optional second opinion, `./conker objdiff compare <id> [<id>...]` runs
 the pinned native objdiff CLI alongside the existing diff adapter. See the

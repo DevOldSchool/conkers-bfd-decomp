@@ -55,8 +55,8 @@ RUN curl --fail --location --output /tmp/ido.tar.gz \
     && chmod --recursive a+rx /opt/ido
 
 # These tools are fetched from their repositories at immutable revisions
-# recorded in toolchain/tools.lock.json. They are not project source. m2c comes
-# from the DevOldSchool fork, which tracks upstream plus IDO starter fixes.
+# recorded in toolchain/tools.lock.json. They are not project source. m2c is
+# cloned from a project mirror of upstream that carries IDO starter patches.
 RUN git clone https://github.com/simonlindholm/asm-differ.git /opt/tools/asm-differ \
     && git -C /opt/tools/asm-differ checkout --detach "$ASM_DIFFER_REV" \
     && git clone https://github.com/simonlindholm/asm-processor.git /opt/tools/asm-processor \

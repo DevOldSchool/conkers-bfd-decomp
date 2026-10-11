@@ -2,9 +2,9 @@
 
 ## Result and scope
 
-Switching the pinned starter generator from upstream `mips_to_c`
-`09e0e72` to the [DevOldSchool m2c fork](https://github.com/DevOldSchool/m2c)
-at `a03c6f2` raised the number of unedited starters that compile from 27 to
+Switching the pinned starter generator from upstream
+[m2c](https://github.com/matt-kempster/m2c) `09e0e72` to the project's
+patched mirror of it at `a03c6f2` raised the number of unedited starters that compile from 27 to
 79 of 201 never-attempted GAME functions, with no starter losing compilation.
 These are starter-quality measurements only; no function was matched and
 compiled starters remain far from `CURRENT (0)`.

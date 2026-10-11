@@ -97,7 +97,7 @@ Thanks to the authors and maintainers of:
   [armips](https://github.com/Kingcom/armips)
 - **Decompilation and matching:** [splat](https://github.com/ethteck/splat),
   [spimdisasm](https://github.com/Decompollaborate/spimdisasm),
-  [m2c](https://github.com/matt-kempster/m2c) (via the [DevOldSchool fork](https://github.com/DevOldSchool/m2c)),
+  [m2c](https://github.com/matt-kempster/m2c),
   [asm-differ](https://github.com/simonlindholm/asm-differ),
   [decomp-permuter](https://github.com/simonlindholm/decomp-permuter),
   and [objdiff](https://github.com/encounter/objdiff)
