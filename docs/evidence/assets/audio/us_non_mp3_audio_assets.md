@@ -1,5 +1,11 @@
 # Conker US non-MP3 audio assets
 
+This document records the original classification and preview pass. The later
+[sequence](../../data-layout/us_sequence_reconstruction.md),
+[sound-bank](../../data-layout/us_sound_bank_reconstruction.md) and
+[complete ADPCM](../../data-layout/us_adpcm_complete_reconstruction.md) pipelines
+rebuild native bytes and connect actual linker objects to objdiff Data.
+
 This pass classifies indexed bank `0x17` entries `0` through `3` from the main
 audio initialization path. It does not infer their roles from proximity to the
 MP3 decoder entries or from file magic alone.

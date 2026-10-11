@@ -1,0 +1,4133 @@
+{
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "models": [
+    {
+      "bank": 3,
+      "entry": 0,
+      "rom_start": 16315912,
+      "stored_bytes": 336,
+      "decoded_bytes": 648,
+      "stored_sha256": "ce375e4ce3c2f92fcb34026e98b90deaf0af49636099689d1c6798b2cbb27f19",
+      "decoded_sha256": "aff07ec03101dcfa3f7c4f041319ee1a69f3d6ccde34eaee581ef0ed77faa061",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 3,
+      "rom_start": 16317376,
+      "stored_bytes": 317,
+      "decoded_bytes": 472,
+      "stored_sha256": "6f3f9077d739ce37ce78e664b03f6b2bc9406c5294d1f3423d081c7f34636cc4",
+      "decoded_sha256": "a59171baa05d3282d76464ec8fab6a9c0b0144cde1e3ef64097da2d36f4f06d4",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 36,
+      "rom_start": 16317696,
+      "stored_bytes": 284,
+      "decoded_bytes": 520,
+      "stored_sha256": "970b02a69920b1ec8ae8124f48c55428d613174010a8db19688f4ac9286124ed",
+      "decoded_sha256": "8462737dc2eb1faffd2451aad2b4a2e61c2c35db9353310588706cbba55d4983",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 3,
+      "entry": 38,
+      "rom_start": 16318560,
+      "stored_bytes": 639,
+      "decoded_bytes": 1080,
+      "stored_sha256": "503315217ca4f3c3af48e59acdf3e6d0f32308d3dda811f5a8fa39d8def5e647",
+      "decoded_sha256": "b558c8ba54f238ae6db734247c5445e2f919a17242d70ecdc9732f816ee58cf6",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 3,
+      "entry": 51,
+      "rom_start": 16328920,
+      "stored_bytes": 98,
+      "decoded_bytes": 184,
+      "stored_sha256": "ff5610d9bc447a845b2678aa394c6af95ba6931768538445b25af78ace62e147",
+      "decoded_sha256": "3f17b11ea82a67e3ec1c3d5a5b4506206545733fa59ca02fa00ebbf380ef92fc",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 52,
+      "rom_start": 16329024,
+      "stored_bytes": 911,
+      "decoded_bytes": 1496,
+      "stored_sha256": "293f8fa34daf7083dc403b65a8b70aedeca566e1c0c4b8c604431614163a0599",
+      "decoded_sha256": "972ad8bed1eb9aac9510b6274233b003944f18b383114ac01ce91778eeaa0e29",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 3,
+      "entry": 53,
+      "rom_start": 16329936,
+      "stored_bytes": 366,
+      "decoded_bytes": 600,
+      "stored_sha256": "09eed767dfa71b3e01cecefd7f0f76af4fc73defedcc46dd804997c66c265455",
+      "decoded_sha256": "6db642506d9fb93f1d53524480f8f5520921bb45e670faadd94f42948a65158e",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 3,
+      "entry": 55,
+      "rom_start": 16331704,
+      "stored_bytes": 713,
+      "decoded_bytes": 1016,
+      "stored_sha256": "8898fcc3e98540f5b7d5bc718b4a0d3de8b1f21d02c7dcfbdea9e04f1d743e90",
+      "decoded_sha256": "a6da841649d3a4f94a53d637b056a123aa715fe088102997956a3e6e0be24eeb",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 56,
+      "rom_start": 16332424,
+      "stored_bytes": 792,
+      "decoded_bytes": 1336,
+      "stored_sha256": "d86a9fd267afb1e3bfb6c76f2169acbb798770ee0ab5e6cfb0acf88b4a97129a",
+      "decoded_sha256": "90088ac826b14ca948fcacdf95f1451e0d84fbb1251c1b7c421f5b1ed10c0a85",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 57,
+      "rom_start": 16333216,
+      "stored_bytes": 714,
+      "decoded_bytes": 1544,
+      "stored_sha256": "678b21e203381a1ba6b89dd783aeac493f94416686af7b54743ddae2fb40cd13",
+      "decoded_sha256": "08742779a8c8a20b6f63eac8794eca47de20abe7d506c9d0fa91f034be1b699f",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 3,
+      "entry": 58,
+      "rom_start": 16333936,
+      "stored_bytes": 577,
+      "decoded_bytes": 1128,
+      "stored_sha256": "e6a4235d8928b2861c8d0ea9661ae53ad7bfd75b100c552067f855ffefb57cd9",
+      "decoded_sha256": "f5e955141e14c7c741dd39af705ac3d760e313a065d6dcb2d95d5d65523c86d3",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 3,
+      "entry": 70,
+      "rom_start": 16343824,
+      "stored_bytes": 605,
+      "decoded_bytes": 1336,
+      "stored_sha256": "87e5d96f7e7318bd5ee3de7587babae733d93754d0b6894553fa207d4e77c17a",
+      "decoded_sha256": "1dc689c6d77f44996d7bbb1cf8f572bf8d773750fd30eec298005e01bd52955f",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 71,
+      "rom_start": 16344432,
+      "stored_bytes": 720,
+      "decoded_bytes": 1768,
+      "stored_sha256": "0d6a7ce3cde4c6560043c31cc047bab2980632eb084e7646380b16ad8273678b",
+      "decoded_sha256": "6a505a3132c38607089e27ae3efc907263205206b72a892b964c6bbe2e40ca19",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 72,
+      "rom_start": 16345152,
+      "stored_bytes": 418,
+      "decoded_bytes": 744,
+      "stored_sha256": "7c9796d819a87ff6aed1b33291f0d4bcade1ac380b568c324cb882734f67f3d2",
+      "decoded_sha256": "993f8d3629c112de90fe216af5397af372be5fc78fb204b565ba39378a3beb72",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 76,
+      "rom_start": 16348168,
+      "stored_bytes": 392,
+      "decoded_bytes": 824,
+      "stored_sha256": "253ed6ad62d3719ce41a9eae8fd10b484715da2bd5012469db86d408237ab744",
+      "decoded_sha256": "7d669c2c2f2ba67833ea315d1b97c4ddb51e068b5e17776953c4712e29947200",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 80,
+      "rom_start": 16350768,
+      "stored_bytes": 419,
+      "decoded_bytes": 760,
+      "stored_sha256": "135cecc837de23780ddf98c0f9d35a97c8595a8f05ad8ee8593c812309136e6e",
+      "decoded_sha256": "3bcaf577d35f39ae4884892a56b17ca786cc34529e920cfc4c33c450e0c621d3",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 3,
+      "entry": 81,
+      "rom_start": 16351192,
+      "stored_bytes": 320,
+      "decoded_bytes": 552,
+      "stored_sha256": "91d596fd58eecab79da78d13d01ee92cced3c4eb838835cf0aa44c44a1168c7e",
+      "decoded_sha256": "4528ac6dac13994f2bc17f0e4e4a3af84ae17ee656fe7a3bea266592125dfc19",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 82,
+      "rom_start": 16351512,
+      "stored_bytes": 515,
+      "decoded_bytes": 872,
+      "stored_sha256": "cdd9cecd952167e0682763d3a4ecc693bbe0a98d1ee8da78a66b8229991e0df9",
+      "decoded_sha256": "62d56ea6ae55c54fe7a969b64dfd72f5fcde6745bd915baa5842ef69f52efb84",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 87,
+      "rom_start": 16357608,
+      "stored_bytes": 395,
+      "decoded_bytes": 792,
+      "stored_sha256": "e4255821ad58eee60e2773be290a546bc0867e268f4d71f7320561e100da5f74",
+      "decoded_sha256": "818938c7ade06f444d2a3f2b3710eefdfb547962b998c53bcaa50dbe0897924d",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 3,
+      "entry": 89,
+      "rom_start": 16359112,
+      "stored_bytes": 558,
+      "decoded_bytes": 1160,
+      "stored_sha256": "e6345eed1c2b19a696fb57d52f29985638f3aebd3a216955a0fb619cee05c8cb",
+      "decoded_sha256": "43e2df303719ec4ea28c235412de2b8faf764b1ed05e228c0ff5b22b5a6bd58a",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 90,
+      "rom_start": 16359672,
+      "stored_bytes": 518,
+      "decoded_bytes": 1192,
+      "stored_sha256": "a9f947302422331598d7eb4863a0224da2c2d4e657cf899405ae9341838768b5",
+      "decoded_sha256": "37da4f423687427f7780c091622947909beaf2f600dc789f223185b9e44d0636",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 3,
+      "entry": 91,
+      "rom_start": 16360192,
+      "stored_bytes": 430,
+      "decoded_bytes": 792,
+      "stored_sha256": "0e6e47a9ae269a8f2df977e2d644261dc921441a9e75da33602145a862597af0",
+      "decoded_sha256": "13f9c3163141fd4df80c7b6fec578f9f2809edda4a2d33de6a56b17dcce5f7e7",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 94,
+      "rom_start": 16363176,
+      "stored_bytes": 757,
+      "decoded_bytes": 1720,
+      "stored_sha256": "0208f492b6cf1d7df91f35eaab97e68d6a8fbc7dde4b2b9f9709ffeb7122843f",
+      "decoded_sha256": "164a8fa130761a76534fc148b07264b516c3e0c6e4fd22a30dceb89ba33ee1a7",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 95,
+      "rom_start": 16363936,
+      "stored_bytes": 2504,
+      "decoded_bytes": 4792,
+      "stored_sha256": "02c5d8ab3be63f39fbfaa240c4021d4bce05bc74bc8b2cdb58bab5a12836b0a4",
+      "decoded_sha256": "4c03680dc777df4669dd8d0c2377b5a22814a1654d76c403eddf6a29a4aa3410",
+      "normal_tables": 7,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 3,
+      "entry": 98,
+      "rom_start": 16367368,
+      "stored_bytes": 426,
+      "decoded_bytes": 680,
+      "stored_sha256": "059fc10a8cbc62143f1325c4aa57371b682a0ab126616c7a8cb909f48ed84b04",
+      "decoded_sha256": "000fa0e5a6a5a1b72a883c22608b059c862416284d7ec23008cb7402cdb36ae6",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 100,
+      "rom_start": 16368568,
+      "stored_bytes": 720,
+      "decoded_bytes": 1768,
+      "stored_sha256": "0d6a7ce3cde4c6560043c31cc047bab2980632eb084e7646380b16ad8273678b",
+      "decoded_sha256": "6a505a3132c38607089e27ae3efc907263205206b72a892b964c6bbe2e40ca19",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 101,
+      "rom_start": 16369288,
+      "stored_bytes": 418,
+      "decoded_bytes": 744,
+      "stored_sha256": "7c9796d819a87ff6aed1b33291f0d4bcade1ac380b568c324cb882734f67f3d2",
+      "decoded_sha256": "993f8d3629c112de90fe216af5397af372be5fc78fb204b565ba39378a3beb72",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 102,
+      "rom_start": 16369712,
+      "stored_bytes": 327,
+      "decoded_bytes": 920,
+      "stored_sha256": "e3f4fbf14c47ae29978d1f3c2bf2450cda25e1e7c2368447cf623465bc01b4da",
+      "decoded_sha256": "a417cc20867afdc81c40894612c77c3a8ccf8e6c079affb059acacfc6deaad41",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 104,
+      "rom_start": 16370616,
+      "stored_bytes": 315,
+      "decoded_bytes": 712,
+      "stored_sha256": "39b2bb976b3c0b0353ead3b61192ced61bcc37a627718bba14379cf91a22872c",
+      "decoded_sha256": "4be09045478535c5d363a5b09e6ddaeb34c31739b8558138396aaceffcabdd4a",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 105,
+      "rom_start": 16370936,
+      "stored_bytes": 308,
+      "decoded_bytes": 712,
+      "stored_sha256": "6a74153965ed4c5a436a49362f996663e7cd86ee49b181dbf03f4b097c64fe90",
+      "decoded_sha256": "1db7a5f2ecefef9563e74a0cb5a9e75e1e2f366c50160a137d42d6343c69d4aa",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 106,
+      "rom_start": 16371248,
+      "stored_bytes": 1626,
+      "decoded_bytes": 3608,
+      "stored_sha256": "2ff0f58adf00c886b637fb3107fb0fc05875e0b427ad2124c364d04038d097ce",
+      "decoded_sha256": "1c34be0da46f6d8c2340ae4a82e00621742a2489d501ae26977a30e2ca575b84",
+      "normal_tables": 6,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 3,
+      "entry": 108,
+      "rom_start": 16374616,
+      "stored_bytes": 907,
+      "decoded_bytes": 1800,
+      "stored_sha256": "47edcf720995f849cbc1d722756e82a9051662ec7247471a3576745c9a08512d",
+      "decoded_sha256": "2761814cba5b147ecf8b94fdc389ce3bf0010d56e51dd3728ad883f7654834ba",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 109,
+      "rom_start": 16375528,
+      "stored_bytes": 390,
+      "decoded_bytes": 792,
+      "stored_sha256": "e7a1c93d1601930595a7bff918531060b774ca55fbf172ee6534669f22e85886",
+      "decoded_sha256": "b900d46459fc372683e8e7f22c9607d9e6e4188c476956e5eba0d9f31d2f7e9f",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 110,
+      "rom_start": 16375920,
+      "stored_bytes": 390,
+      "decoded_bytes": 792,
+      "stored_sha256": "e3ef6ec1596d3a9bd5376d18de0b20953da4283f99b65e6f9d53fcc12cada72f",
+      "decoded_sha256": "79e0312ad74920e2315503fb81193e4cab2fea3c02bba32c59e4188337dbe1ca",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 112,
+      "rom_start": 16376488,
+      "stored_bytes": 842,
+      "decoded_bytes": 1304,
+      "stored_sha256": "ddb74503e604480d29763cba8d2accc91478de4dd0b38163740ebe0f348bc7a3",
+      "decoded_sha256": "959f16a2810761b21f8a8f3c518bed6e0003274bac4840a8ff547a4510ade0df",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 3,
+      "entry": 113,
+      "rom_start": 16377336,
+      "stored_bytes": 98,
+      "decoded_bytes": 184,
+      "stored_sha256": "ff5610d9bc447a845b2678aa394c6af95ba6931768538445b25af78ace62e147",
+      "decoded_sha256": "3f17b11ea82a67e3ec1c3d5a5b4506206545733fa59ca02fa00ebbf380ef92fc",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 0,
+      "rom_start": 18896536,
+      "stored_bytes": 141,
+      "decoded_bytes": 216,
+      "stored_sha256": "577ba64b32fc062bc3064631a5b33738149913b8d5405b90a432ca0151aad392",
+      "decoded_sha256": "37ef5866104ea6ed51f9f515143b45f7a7714a4fd55ed605df31e82161c9ea25",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 1,
+      "rom_start": 18896680,
+      "stored_bytes": 544,
+      "decoded_bytes": 840,
+      "stored_sha256": "109e053fdc3ccb7b8c5469577bc80a73b05abb3031fe5359951a6aab59228d18",
+      "decoded_sha256": "1ca2e6fc1fb54d951219038da0203d6c144a0d1afce6d4bc23d54d6c924632fc",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 2,
+      "rom_start": 18897224,
+      "stored_bytes": 378,
+      "decoded_bytes": 520,
+      "stored_sha256": "9c547aeed93bde480afcb4aa645d92f5380e9c3102b319bdb294873e170f0e8e",
+      "decoded_sha256": "7c74bdb54704d0d86aac7eb09d4b27c8d56c56a8575aaf15681cda9a858fd3e9",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 3,
+      "rom_start": 18897608,
+      "stored_bytes": 348,
+      "decoded_bytes": 488,
+      "stored_sha256": "1d11d377a87ce81d8b7a3863f792687868ef439a32a210fa74bd960527fc0cd6",
+      "decoded_sha256": "0e1cc990ec3bd37b38c6388b446153a493d7b71a7a7343df3d936b5d562ee77b",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 4,
+      "rom_start": 18897960,
+      "stored_bytes": 417,
+      "decoded_bytes": 616,
+      "stored_sha256": "44ea8fd8466d07ecc5192412d78ac4623317557549473b984a9c4abf51db2e5a",
+      "decoded_sha256": "a7e252d1b835265cab4315f364f8a0b02380c25986f742e7bdb4bcb711a05348",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 5,
+      "rom_start": 18898384,
+      "stored_bytes": 458,
+      "decoded_bytes": 712,
+      "stored_sha256": "8342fddbcf52395379fe9b754d112ee2ad2df077be83da4a4e6fea3341f38aa2",
+      "decoded_sha256": "8ad82079bf36c1e2a519c39bfe5d7dc47a1988783bc9416851a2c77ed23dc9e5",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 6,
+      "rom_start": 18898848,
+      "stored_bytes": 410,
+      "decoded_bytes": 600,
+      "stored_sha256": "f5ee52878fdf4b1b06a57a34ce1b7c6728d9d353f68d44da4deeaa101cb666fd",
+      "decoded_sha256": "f269c0b29aa24b4dfcd4be4b891049298699e08159febe443fc1614c4757e6a6",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 7,
+      "rom_start": 18899264,
+      "stored_bytes": 502,
+      "decoded_bytes": 696,
+      "stored_sha256": "6312faa6e17fc226fc1d32b58ec318f840cb0d89a8101469370b301188b8da9d",
+      "decoded_sha256": "bd78898baa6e4f9393060208826e77baa3c070d387b6b8bae150ef891b411c20",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 8,
+      "rom_start": 18899768,
+      "stored_bytes": 403,
+      "decoded_bytes": 584,
+      "stored_sha256": "133c971f40fc75fa4f6900e37d1e3e666f7c102f9b17a9609e01b8c282060e64",
+      "decoded_sha256": "578f087b71c83905846f22a68462cf85555dbc1c32fe2969b2751bf5c62c09c7",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 9,
+      "rom_start": 18900176,
+      "stored_bytes": 408,
+      "decoded_bytes": 584,
+      "stored_sha256": "9a95cd15826c47b10911499684b14a11a4d0eeadd7925f4fc55e0fc3386f605d",
+      "decoded_sha256": "7ecdb8e1c2738ef110b9d530e405f6af28796c9f7ecf146a266c26d7c0da104e",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 10,
+      "rom_start": 18900584,
+      "stored_bytes": 403,
+      "decoded_bytes": 568,
+      "stored_sha256": "c279d3cb1a6b059d4ab70e8fffa95d8f31d2f2328e9259a416bf7d4bf8def58c",
+      "decoded_sha256": "be88ab7496f402e1ff970a7f97359b2ee2e8ab0578f19d23b90dce572dbc6f01",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 11,
+      "rom_start": 18900992,
+      "stored_bytes": 279,
+      "decoded_bytes": 392,
+      "stored_sha256": "55b34209bc905fe8a18d4d34671eb5a72af48277e797cef1eb6c4828b9ed57b2",
+      "decoded_sha256": "2ac0e805a466aad8e0ce33fbbb8049c3958088da6042d7c5ff7b5deb095574fb",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 167,
+      "rom_start": 19044424,
+      "stored_bytes": 251,
+      "decoded_bytes": 440,
+      "stored_sha256": "28d861abfeb8b49be43e00a5cf977ed9d51ec3bcacea9e7e8c364ae850401a6f",
+      "decoded_sha256": "ea7294b32088211a5a1048da3be23ff718f4cd363b3ef3dc467c12d23f25358d",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 168,
+      "rom_start": 19044680,
+      "stored_bytes": 302,
+      "decoded_bytes": 536,
+      "stored_sha256": "548d0185459c18b1ca468d284ae04ac7e96dd132cfb83245696d4dac44e1b838",
+      "decoded_sha256": "5f134b2a23d2206518a5e96f8737d27bb889e9f4c53f3ccd40b1e29a3d073e1f",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 169,
+      "rom_start": 19044984,
+      "stored_bytes": 361,
+      "decoded_bytes": 600,
+      "stored_sha256": "3cbe964140389ab42d4a91e4290508afc33b92510c8136b0a9a67e3cbab61150",
+      "decoded_sha256": "0881a31375a9f25273480bf3a21e7ab147adf99b399d7dc1c63106450e35d99d",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 170,
+      "rom_start": 19045352,
+      "stored_bytes": 878,
+      "decoded_bytes": 1640,
+      "stored_sha256": "6bc3fe5d62a1d217ccc25f19ffa4aa9f17a7a6f636a89a9aac78a044eeabc2b3",
+      "decoded_sha256": "2dbe53f66d14ad02e62c6d47ac89e1bce58742a83b872af475a0c9cacee8078e",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 171,
+      "rom_start": 19046232,
+      "stored_bytes": 1082,
+      "decoded_bytes": 2168,
+      "stored_sha256": "b0fd509cc237c3df449b6340c3dd413c7963e333a6994a9497afb779ddbf879b",
+      "decoded_sha256": "c5ecd25bbffcfad8c2055a8622adc6f2cc6ebf346916965637623f291100e804",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 172,
+      "rom_start": 19047320,
+      "stored_bytes": 850,
+      "decoded_bytes": 1688,
+      "stored_sha256": "0580de64dd4876680dbdaf8392b7490592348593faade0e5b7f09e3e4c332ea2",
+      "decoded_sha256": "5a1da103775b90cdd650097fb0a892cf61673ced127a73c11002c7abd62130ee",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 184,
+      "rom_start": 19051272,
+      "stored_bytes": 301,
+      "decoded_bytes": 472,
+      "stored_sha256": "d1e45be44fdd67f08e9f3aa0f33a70131e6c6e4689308f3fc61792b6bedaa0ec",
+      "decoded_sha256": "f3d1804356eded0d9d647a9efda430e6b800e73b9c1cb419a4518854bebdde56",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 186,
+      "rom_start": 19054384,
+      "stored_bytes": 846,
+      "decoded_bytes": 1928,
+      "stored_sha256": "83064d28361a8939926d02bf4966d9a4b8e8a8466e33d7480ffd71481069da34",
+      "decoded_sha256": "efd0fb9de977d69539b88b9539c0d642642a378aa372527d19e5d108207bfbd2",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 187,
+      "rom_start": 19055232,
+      "stored_bytes": 410,
+      "decoded_bytes": 696,
+      "stored_sha256": "427ffe120b091946f86200e58e9836d9d333b68b9386a9b4c3a08371c5c12e75",
+      "decoded_sha256": "2d98ede4807e21c53e8426c0a67a7365231775913b926a0b483914c4e443ca98",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 189,
+      "rom_start": 19056648,
+      "stored_bytes": 360,
+      "decoded_bytes": 568,
+      "stored_sha256": "eeb766d4aa2956dbb5d4e5a9303332f67380808e721f3d19589d3c4102fd466b",
+      "decoded_sha256": "960c1e803c04218382b83705df2d8570216b83bee79d258c10ef46fb52ecf435",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 190,
+      "rom_start": 19057008,
+      "stored_bytes": 750,
+      "decoded_bytes": 1336,
+      "stored_sha256": "3b1d875dfd97d252f3ddc8fb8acd59b8659e1412ac8757deae481995bd0ee98e",
+      "decoded_sha256": "777dea04eee283adc6ec6e5af0bda806a9dafb795eaad572aab12065abc0b368",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 191,
+      "rom_start": 19057760,
+      "stored_bytes": 259,
+      "decoded_bytes": 376,
+      "stored_sha256": "193f4f8fcc1a3446203dfaf63449baa750b50f6c2d46be0a71fda2726226aa30",
+      "decoded_sha256": "67c6d10d933fe45bd70f2eab315269c55d107d7ff817e4b8b840ca3d8e5604f5",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 192,
+      "rom_start": 19058024,
+      "stored_bytes": 537,
+      "decoded_bytes": 696,
+      "stored_sha256": "7fbda32e83d879103f84387b056ef425f8f7c39e71db1207352fa02a48e4768f",
+      "decoded_sha256": "45bbf826435a9f8d2fd2fd4346a495d136314e4fc86a824c98678692b3fb4e72",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 193,
+      "rom_start": 19058568,
+      "stored_bytes": 405,
+      "decoded_bytes": 632,
+      "stored_sha256": "1df30976851d8fb4e63d48eaf2d77cb8ae28c0f6c83d6df0a95066c726e6e57d",
+      "decoded_sha256": "752c9d43749aea59ad43a691f153d4518babfa3d19d1497c907fee1edcaad85c",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 194,
+      "rom_start": 19058976,
+      "stored_bytes": 284,
+      "decoded_bytes": 520,
+      "stored_sha256": "ba9ef5119088e7b162569765bac70647a27ccab7f100533d251287ad57e737a4",
+      "decoded_sha256": "88809efac23d2fd97b4ea29e3f4c8fee624b671b26b4d2dcecb46bad6e7f2dbe",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 195,
+      "rom_start": 19059264,
+      "stored_bytes": 191,
+      "decoded_bytes": 296,
+      "stored_sha256": "7e690acc2be724aaa249a77d1c0b590ad969264b870aba6a59af351b2ead2db7",
+      "decoded_sha256": "84712e927d6ad45f0a0bcc726e259ac8cf17837ef52b0efa4d64f85c30e605d3",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 196,
+      "rom_start": 19059456,
+      "stored_bytes": 179,
+      "decoded_bytes": 248,
+      "stored_sha256": "62d0eec02a05592d1e6862d265c05e6288cb1f7ba7da0465af77a510e9a75a91",
+      "decoded_sha256": "27d372e390df17a906f2f9f010426a075ad6835e221d4632af8f213cf0913af6",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 197,
+      "rom_start": 19059640,
+      "stored_bytes": 354,
+      "decoded_bytes": 568,
+      "stored_sha256": "af7817864d22015e31786d96abacbd73f9cb4f108e9a09026b426d34712dc10d",
+      "decoded_sha256": "48eca1f8b0e5497cbade08d3f5e2c452d55be3f1277b75b541b0a4bb5a01f177",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 198,
+      "rom_start": 19060000,
+      "stored_bytes": 490,
+      "decoded_bytes": 776,
+      "stored_sha256": "b6dec10e3dd2b9020d7292c06c603ee641ce2732e9009bb73e9f1e1206ebe4ac",
+      "decoded_sha256": "ef0fd35c3a2a3bd494777c867141565a99e906c499e5ddb704cee678b61f4f58",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 199,
+      "rom_start": 19060496,
+      "stored_bytes": 510,
+      "decoded_bytes": 792,
+      "stored_sha256": "e88077eb41157f1f0fc8ed491eed18b80aa0f924686bad783cf8b5a1dec692ca",
+      "decoded_sha256": "51aaa6aaf31e91b997522325ff208d1a985588674a4fc681b3d096fabe7a8010",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 200,
+      "rom_start": 19061008,
+      "stored_bytes": 444,
+      "decoded_bytes": 696,
+      "stored_sha256": "2935ee3f3253fcaf3e79bc1a6d81f9e7855ad1f8acf2d5d57d429140b8bea106",
+      "decoded_sha256": "2934bd2c114f28c34b091edc95266d8f0b684339a2f7126b4b3a306efbbe108b",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 201,
+      "rom_start": 19061456,
+      "stored_bytes": 539,
+      "decoded_bytes": 1192,
+      "stored_sha256": "f767720a52088b249b50af2916588841186aa6fffec4ff80e72f75533418aaf9",
+      "decoded_sha256": "58349992cc47653ba30b74f8d86115d44acc3304fd6bb43380c7007e6808332b",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 202,
+      "rom_start": 19062000,
+      "stored_bytes": 386,
+      "decoded_bytes": 664,
+      "stored_sha256": "a496904b339c60a9b9096cac0d0a206a7814bce195620ade1a169db3cccb28e9",
+      "decoded_sha256": "af3a2fc8e6c02f76ab086bea98eaff184bc8e8f992d772eba95b70ca3473c5a2",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 203,
+      "rom_start": 19062392,
+      "stored_bytes": 272,
+      "decoded_bytes": 392,
+      "stored_sha256": "5ae67c61ab2c8d28b8ba08ba0313ab8214157e6685d8ccf50830e2078d29d55a",
+      "decoded_sha256": "a54ec90e727542926329a9e15b43153d714d0902f9e79b081603e54bbf9f3b2d",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 204,
+      "rom_start": 19062664,
+      "stored_bytes": 283,
+      "decoded_bytes": 536,
+      "stored_sha256": "3b18f7b0e59b3043195495c8836763e282f1835d18bb15d822bbcc44ddff55cb",
+      "decoded_sha256": "2efcf4129e8eb0055f63843cba07a09179966a0e6966abd2e17e5ee07ba586e6",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 205,
+      "rom_start": 19062952,
+      "stored_bytes": 435,
+      "decoded_bytes": 696,
+      "stored_sha256": "3d072a4d6f067a204da553b4bb790302bb9d9654482bb5ad03fe019028d24264",
+      "decoded_sha256": "399e33d07ff1391a1212f6f567eeaeafa96ac0f7427007679e0553b4776a6fe9",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 206,
+      "rom_start": 19063392,
+      "stored_bytes": 305,
+      "decoded_bytes": 536,
+      "stored_sha256": "d1d7a34e28bef24e608424b87244b2b1572aa88d050690ff6ad57537bbb432fc",
+      "decoded_sha256": "8fd51546a381d6fd76c43d0275c7d022ce9e4ad3961e475fc5643c1ebe5c649d",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 207,
+      "rom_start": 19063704,
+      "stored_bytes": 375,
+      "decoded_bytes": 648,
+      "stored_sha256": "fc127d8ea1899495e9459def1a43270da2da11b6745b12661121d74a56f9201a",
+      "decoded_sha256": "0738b0f9b7fd78ed65a747707c97d42b168d311f14926dd8593458b5bc7a5db3",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 208,
+      "rom_start": 19064080,
+      "stored_bytes": 299,
+      "decoded_bytes": 408,
+      "stored_sha256": "cf9e5acb0639c5830fa32011062dc76980e062591e19936296eeee953cd249b4",
+      "decoded_sha256": "51cf80694637db36cc52888117ab6c97a6cf087b39bb0ed932986f3c54ad0bc8",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 209,
+      "rom_start": 19064384,
+      "stored_bytes": 270,
+      "decoded_bytes": 440,
+      "stored_sha256": "5fbc7ce0b09f327c500d847635e04fac6fce32fd55111874d345e3c2c6ea80c7",
+      "decoded_sha256": "a4ba6c94bf40f700d2496fbe0f245bd3635eaf8bd3ac9da2dbb63f43d58cba37",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 210,
+      "rom_start": 19064656,
+      "stored_bytes": 381,
+      "decoded_bytes": 696,
+      "stored_sha256": "7649db09e6f9681c94422e579240d6656f1034db2e637fd130aeed4ef4fcaa81",
+      "decoded_sha256": "4a8190bf9f32376bdd075e4d46735952c51a7200c7740837a541778e13ba0bba",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 211,
+      "rom_start": 19065040,
+      "stored_bytes": 281,
+      "decoded_bytes": 376,
+      "stored_sha256": "e13c99ee1f679a38e085ba47f47e17b024baeca3fbb86451084f0e74e786a50b",
+      "decoded_sha256": "72a9aaa48532765e3c05d726ee10d7f9508a9956ff04bcfc5852669f36b95813",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 212,
+      "rom_start": 19065328,
+      "stored_bytes": 375,
+      "decoded_bytes": 536,
+      "stored_sha256": "cbcb9b4e7a839e3478b7c63d79f42bda652c5d9911062615dbd29804597146aa",
+      "decoded_sha256": "54c7138943837e3dd1c89cdc4de09dd2f115ce851d39bd71bb307641363eb29c",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 214,
+      "rom_start": 19066032,
+      "stored_bytes": 552,
+      "decoded_bytes": 872,
+      "stored_sha256": "8b164facd22db8c1065964dd0a324382b8bb6323b06e4bd8c36a2094c0d086ac",
+      "decoded_sha256": "dc17b4cdf6f8da986e3cf975dea32a2a30423154c2b601768c49d1c60bea9046",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 216,
+      "rom_start": 19067272,
+      "stored_bytes": 526,
+      "decoded_bytes": 840,
+      "stored_sha256": "fb03901beb726c4fff7cfe5667312065868c74db1f7b22d6dc61ef38c6723ecd",
+      "decoded_sha256": "5ed9d073acda9e2faa53bdabd87c59d95f6e842fc97ab939cd32f9583fe22042",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 218,
+      "rom_start": 19068592,
+      "stored_bytes": 1037,
+      "decoded_bytes": 1656,
+      "stored_sha256": "77cdf306e3a1260da733dbc949e42e191ba8c1f3d3359e7862c4623d22cdc674",
+      "decoded_sha256": "ecb582eab2ebb7f9b82c0ab53233809b946bd7f6b1b616b0c62f1ddf6201072c",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 220,
+      "rom_start": 19070616,
+      "stored_bytes": 441,
+      "decoded_bytes": 728,
+      "stored_sha256": "b5ae218e576d9f836b689ac8e52356753082f617f6f282648d2b3342a7b0418a",
+      "decoded_sha256": "9dbecaab42ed89429bc3677bc6b99fa5f517df0417939f729a723d1a3c2e2960",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 221,
+      "rom_start": 19071064,
+      "stored_bytes": 187,
+      "decoded_bytes": 312,
+      "stored_sha256": "b8edc3b3717ad61b9b5fec959a7857354b2d24b0615d6655146febaee36426fe",
+      "decoded_sha256": "ea73c540689bbf57608fda55fc277a67712c6e2ce2e8ff811590ded6dc94bc15",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 222,
+      "rom_start": 19071256,
+      "stored_bytes": 169,
+      "decoded_bytes": 248,
+      "stored_sha256": "f1027a70e7d22b647f61c6423715ba0c8e5087b7ba42a9f6587bdada9dac9a03",
+      "decoded_sha256": "274395be15394c3e116c199144326f7e6f8fec74125c31e3f8f945c885652775",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 223,
+      "rom_start": 19071432,
+      "stored_bytes": 285,
+      "decoded_bytes": 568,
+      "stored_sha256": "34ca0ce7ef1150054c609b36f25a36d1a48f9cc96a29d6861fd8c65a6c4d4650",
+      "decoded_sha256": "6b6001cebc23e13f37492b1bf9429f7852ae1b799f8b1b4e82c7860d9d17ffe9",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 225,
+      "rom_start": 19072368,
+      "stored_bytes": 312,
+      "decoded_bytes": 536,
+      "stored_sha256": "08a75b382e53cb713c4893e682bb06cc4b557fbd737943727ef5205f8cf5bc36",
+      "decoded_sha256": "83c00ee5af8ead17bd022a5226cacd24bb815f5dd14f7e6f3cadd91d1ef0dde1",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 226,
+      "rom_start": 19072680,
+      "stored_bytes": 807,
+      "decoded_bytes": 1336,
+      "stored_sha256": "a87f27f31d0cb43c87686abe929f0a2a4dd8018f0bb642ccb56305074f12980c",
+      "decoded_sha256": "50d171fad8321c20a75f1ebe8cb1484b4165f4b123ec946020ee72d42b1d5892",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 228,
+      "rom_start": 19074192,
+      "stored_bytes": 484,
+      "decoded_bytes": 712,
+      "stored_sha256": "774d2ddeead36841f95babecf791ca275c27dce66a8b73daa4ec5d4b8325c607",
+      "decoded_sha256": "4815bd082bc9d467b5fdcd9fcba039790a6c6adcc7bd9e169d9bd4abaf03cbd6",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 234,
+      "rom_start": 19079256,
+      "stored_bytes": 581,
+      "decoded_bytes": 808,
+      "stored_sha256": "5694041f3531f5555230d7cd3acf5730ee5f800e4f7fab7e51a4960c3eb6c477",
+      "decoded_sha256": "c800db3a08bf28e7a07387c74a697f8f9f51c9cf97dbd8f7b52e0174a62f1ad3",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 239,
+      "rom_start": 19084176,
+      "stored_bytes": 595,
+      "decoded_bytes": 936,
+      "stored_sha256": "5fb4a027d3346ca1b72fec788bacd0467ecf8640a43a8dfbe33d27fe798d51a6",
+      "decoded_sha256": "1d6a2f5302bfa2112680d950572222da5450c9532eb78556478170de12de4178",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 240,
+      "rom_start": 19084776,
+      "stored_bytes": 904,
+      "decoded_bytes": 1384,
+      "stored_sha256": "5a79312fce604b34a1e19d2004a481ba014157f3a3b17d65c8586f707fcdd338",
+      "decoded_sha256": "4e776fdd3fdcd4efaf40939afe5eb311b19772b7203091f22614246fc9e6d938",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 241,
+      "rom_start": 19085680,
+      "stored_bytes": 527,
+      "decoded_bytes": 776,
+      "stored_sha256": "faf4e0ae35c2fcdf5777cdd73f62d39b867f44d9fdeafda96b880d18cc993001",
+      "decoded_sha256": "18ebd9c7b0cb3d24e8272255a7acb5be63433f84d7ab0d19a6cc41b312edb644",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 242,
+      "rom_start": 19086208,
+      "stored_bytes": 805,
+      "decoded_bytes": 1336,
+      "stored_sha256": "4eeb58c9e92dd23c1e8ca6778c4cbc4a943db5bbcc816827b0eefa1b5b271b80",
+      "decoded_sha256": "3496531ec49f210fcc9c3e89e16edf9622b1a439362ba837d4eba6164a509173",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 243,
+      "rom_start": 19087016,
+      "stored_bytes": 468,
+      "decoded_bytes": 728,
+      "stored_sha256": "9cd4e8ab6476247f72938cdc54bd1d74e5925925c5e21f32febdcbbf5b9affad",
+      "decoded_sha256": "2303d74832fa8469e21f427a29f091154207ecbc327c5ba557278ee2a2ac77ee",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 244,
+      "rom_start": 19087488,
+      "stored_bytes": 393,
+      "decoded_bytes": 600,
+      "stored_sha256": "977ab6cfd3b012ace0597ce6530ea3260b6deb81879df1a74e87e7de79213313",
+      "decoded_sha256": "77344288512ff5cd72fa75b0c23a988739fb06b57e54c7ce31a4ce5bdf1e2c40",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 246,
+      "rom_start": 19088632,
+      "stored_bytes": 1075,
+      "decoded_bytes": 1736,
+      "stored_sha256": "32cfa93b10f96bf3cec81365e601d9b3e6ccc80361604dbe3a3807456e3e5878",
+      "decoded_sha256": "670a9def781141c0f6e347f11d034dbaf87ec48a159a93fbe4c58eedbff72bc8",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 250,
+      "rom_start": 19092536,
+      "stored_bytes": 876,
+      "decoded_bytes": 1496,
+      "stored_sha256": "b08f2dbb3f5b92191044f869be7c1c23d1bf654b1e87bde23e11b63b8d49d40b",
+      "decoded_sha256": "c118f4be3ebb7e8c4a9ab428df78f13c679a8b6a922a4477211d45084e6a0c02",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 251,
+      "rom_start": 19093416,
+      "stored_bytes": 878,
+      "decoded_bytes": 1496,
+      "stored_sha256": "e602cb7bde3029d5ac3e44ec93deea8852c8722c2792bf62e863f1b16d7242b0",
+      "decoded_sha256": "e8b14e68a3c608744786947c6898756262f74b9cdf426d0389c31104ca0c8e50",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 253,
+      "rom_start": 19095152,
+      "stored_bytes": 527,
+      "decoded_bytes": 856,
+      "stored_sha256": "0e059f7c0754ed28311752b1a1495fcf9edc38fd1a398e5a7bf4c37ea18aed15",
+      "decoded_sha256": "773704c767d8bf834cbfc57f7928ec0fa11aa40abbf97ec68e69de696c3c0928",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 255,
+      "rom_start": 19098704,
+      "stored_bytes": 676,
+      "decoded_bytes": 1064,
+      "stored_sha256": "cac773dcc42905f4b7d5df723b93b8a7b9a4a346521aecc19f5ef5ee801de640",
+      "decoded_sha256": "17648a162aa4bb71c3ff1d67f8554064504f521770d8b726231709b8d0789547",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 258,
+      "rom_start": 19101096,
+      "stored_bytes": 3559,
+      "decoded_bytes": 6920,
+      "stored_sha256": "e831eb6146f90ad95e3e6ae82ab443b0dee5960d20cce6b51b567caeb8b4bdc8",
+      "decoded_sha256": "4d73d10500cb57ca88278068982e731431eb8f5f65d1c3e84fba0331f70d0f82",
+      "normal_tables": 10,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 259,
+      "rom_start": 19104656,
+      "stored_bytes": 541,
+      "decoded_bytes": 824,
+      "stored_sha256": "a1bfd57debb27d7adf7caa0917b0e0a4af03fd3d851160f5144cad3846823475",
+      "decoded_sha256": "38891c50cdc926dd3ff9cc95e5e7b27d44329ea5e15c3146bfd2e6a9b22c3d5a",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 260,
+      "rom_start": 19105200,
+      "stored_bytes": 707,
+      "decoded_bytes": 1432,
+      "stored_sha256": "5ef7247904c97c20f0d2fb0dc5ca4b515a36868a8a90a12e8197e68abadff9a2",
+      "decoded_sha256": "b32963348bd55b8de7a6d49e5ff453ad8406146237a4fc31cf5b02d227912cec",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 261,
+      "rom_start": 19105912,
+      "stored_bytes": 2057,
+      "decoded_bytes": 3688,
+      "stored_sha256": "0489d8f556d8afc68955a21c67d28d3029cd5b7262d00d4c176588afabe8303c",
+      "decoded_sha256": "12a07486140dcac1136c263c6b57c83c854fb2a82339c55360035892d92b2ab1",
+      "normal_tables": 5,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 267,
+      "rom_start": 19111544,
+      "stored_bytes": 597,
+      "decoded_bytes": 872,
+      "stored_sha256": "667c27cf45286884b7f90cb39464361fc5ac38c0d5449e6dfb1340a93c39eaf7",
+      "decoded_sha256": "ea77f0a7339cd5db281d9f51eb236f472ceaa0fc18d6420fd16e246a1fe58981",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 269,
+      "rom_start": 19112832,
+      "stored_bytes": 460,
+      "decoded_bytes": 712,
+      "stored_sha256": "29882e3680de5497b83ce547b9983a1febad65c8f79b8748dd7b1478d6db4b8e",
+      "decoded_sha256": "658a5c0ca539d94b5c291b52c52757ba402aef622755a173c89daa8bdbf8bc3a",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 270,
+      "rom_start": 19113296,
+      "stored_bytes": 627,
+      "decoded_bytes": 968,
+      "stored_sha256": "bd7f97a3bd62debef17454da763fd7390778feaf4255a61edc338d1d1c1925bb",
+      "decoded_sha256": "3bba01222f08631177afe20c10cc763bcef4fd181a439929400d36f59adadb82",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 272,
+      "rom_start": 19114632,
+      "stored_bytes": 807,
+      "decoded_bytes": 1336,
+      "stored_sha256": "a87f27f31d0cb43c87686abe929f0a2a4dd8018f0bb642ccb56305074f12980c",
+      "decoded_sha256": "50d171fad8321c20a75f1ebe8cb1484b4165f4b123ec946020ee72d42b1d5892",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 274,
+      "rom_start": 19116024,
+      "stored_bytes": 563,
+      "decoded_bytes": 808,
+      "stored_sha256": "752f38e2026f9e67543ba1d58aa94d194fbf5ee7e6dfb787c299946affc249b2",
+      "decoded_sha256": "c5a02a79c782b12f9312c300b2b8069c86ef329c8731a732695ea79dcd5f482c",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 278,
+      "rom_start": 19119336,
+      "stored_bytes": 462,
+      "decoded_bytes": 760,
+      "stored_sha256": "050fcfa9061846bc68ba11d8e2fdf32beacea63457d8ac400c5fd93f4699863d",
+      "decoded_sha256": "c57c65d7866109fbc9e75dcce629cd66abdcefd5da9897e83d46b18c2b1948f0",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 280,
+      "rom_start": 19120120,
+      "stored_bytes": 638,
+      "decoded_bytes": 1160,
+      "stored_sha256": "d32ad81bde07527e168cfa851c69b338a59e466c8869c729c9387b8a44c3ac9a",
+      "decoded_sha256": "b3949cf2d4ab7e502df50c7d567c0405523a45c63f48aa382ed89c68a1fe6b69",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 281,
+      "rom_start": 19120760,
+      "stored_bytes": 517,
+      "decoded_bytes": 808,
+      "stored_sha256": "f4a5895537dbee87b37a6bde8e2e20ad891382475c3ed78f5333ff395950b0c8",
+      "decoded_sha256": "e5e1709f94e84371778de99e4a1cf3c50a5d9856ca51cf81f89580d4a39ca74a",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 283,
+      "rom_start": 19121960,
+      "stored_bytes": 1628,
+      "decoded_bytes": 2808,
+      "stored_sha256": "1334d2b350c3fbaf1bd2f5a808e3531a92a5245f0abb3eea78095da117bd807b",
+      "decoded_sha256": "68945a8e7207b959646d55dba9defa07aa26ba8e99438e7ceafb69a60b524433",
+      "normal_tables": 4,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 284,
+      "rom_start": 19123592,
+      "stored_bytes": 963,
+      "decoded_bytes": 1608,
+      "stored_sha256": "5833f951ce93c3b3136d5c4cbb48bfd57961a5f3eb9946312b9033df4e32ca4b",
+      "decoded_sha256": "b388a87c83214c6aa63a960b82cf593e745f6536be65da6c24b03085ba63bbd6",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 285,
+      "rom_start": 19124560,
+      "stored_bytes": 597,
+      "decoded_bytes": 888,
+      "stored_sha256": "bad2923f6afabcf65e22f9020135f247033c14f6e89a1de4d0845c881c8e2c8f",
+      "decoded_sha256": "b0070fd23fb0c2cd2bad6c1ac701709d265c7130f87bb91e054b1b84d1dfe9ea",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 286,
+      "rom_start": 19125160,
+      "stored_bytes": 834,
+      "decoded_bytes": 1384,
+      "stored_sha256": "c087e1dfbf9b41df5a187f1cf4c6855845ed5957ab5826902bfc33479a55421f",
+      "decoded_sha256": "e70f93d36dd9199490e9aa3a52726ab22f39004e5f6b63861fe3a16525c987cc",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 288,
+      "rom_start": 19126512,
+      "stored_bytes": 528,
+      "decoded_bytes": 792,
+      "stored_sha256": "896ba9747ce8280899cac07f66d1ba157945ebede43f2f5ed13b2e73843e8da5",
+      "decoded_sha256": "662a6345ae79897440169b52691ec864ce61f3d2ac480ba407d29b43896f08f8",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 292,
+      "rom_start": 19128896,
+      "stored_bytes": 553,
+      "decoded_bytes": 840,
+      "stored_sha256": "b62fe5be6fe2294f313cf003de8db1e74e78e424b82327be61cd447868251c3f",
+      "decoded_sha256": "5e187109fba37ea65cd035a5d81a6bb2e0f00a47e8dc3bfb145c6341ff5acf84",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 294,
+      "rom_start": 19130600,
+      "stored_bytes": 1050,
+      "decoded_bytes": 1752,
+      "stored_sha256": "84eb1b18c367e66593352c7aa88b6dc7c34435eb4b5fd9982bc9e4ce3f4a76aa",
+      "decoded_sha256": "7d543ff542b01d49666ff4398003de36a73c6f9aeaa851aec79cded370d5ebe0",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 296,
+      "rom_start": 19132808,
+      "stored_bytes": 1053,
+      "decoded_bytes": 1752,
+      "stored_sha256": "c5cc1ec54a3599a830035628ac14a376b6aec200f2058396fcc3af5ed4a61647",
+      "decoded_sha256": "b64efeacb5021114cbca530167e669b66b3fa4e1c5a44aa13f763456ad4e06a9",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 297,
+      "rom_start": 19133864,
+      "stored_bytes": 1171,
+      "decoded_bytes": 2152,
+      "stored_sha256": "7cf6ce74dd3865edb4f1a25859ad38546b2429118325b3f3bf2c77b0557ac642",
+      "decoded_sha256": "907b8e12e83fa80d17733dc29aa41c9cc7c997e3b6b158a9236daed1e0bf937c",
+      "normal_tables": 3,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 299,
+      "rom_start": 19135696,
+      "stored_bytes": 1178,
+      "decoded_bytes": 2152,
+      "stored_sha256": "56d64351b20d71fb716fbc36a0dc7fcb26eb0d826198ff17e7ace55dbda70b21",
+      "decoded_sha256": "4f66ab8ad9c24b1fbce5b2249553cef8a23012b7cf5102cdb598d0dad191f7f8",
+      "normal_tables": 3,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 301,
+      "rom_start": 19137536,
+      "stored_bytes": 403,
+      "decoded_bytes": 712,
+      "stored_sha256": "64918358364477e9a4ad3002caaae96fd3fad8c88287c39245e57fcbda53d9b9",
+      "decoded_sha256": "8dbe8322134f469a58edbf9255fc0706e14b953b6a1bb3123edd13262828ed19",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 302,
+      "rom_start": 19137944,
+      "stored_bytes": 589,
+      "decoded_bytes": 1096,
+      "stored_sha256": "88eb9f905db424cc3f10a3a5485773ed2069295d6bcd35e262626a2afbced315",
+      "decoded_sha256": "28d020a3afe66753adab44988752c32d6faa9d220f94243eceaac987528350cf",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 303,
+      "rom_start": 19138536,
+      "stored_bytes": 236,
+      "decoded_bytes": 392,
+      "stored_sha256": "af10a6634e2415269f593c73ee341e8d9e7ee7857e6c2f779bffd14e809513d5",
+      "decoded_sha256": "c331b024330e701460fd4a830f7623407f6bfe8de573e873b615e6a1ff7ce4d2",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 306,
+      "rom_start": 19139464,
+      "stored_bytes": 356,
+      "decoded_bytes": 616,
+      "stored_sha256": "8592145d1d7e591b7e1c00a234f05b25e5edd98744fab460ec3b5f9ff5e50044",
+      "decoded_sha256": "4af90e8831eba337547fae9c74de4a5eec0a36c717012b12bf95ed572e849fa3",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 315,
+      "rom_start": 19151896,
+      "stored_bytes": 492,
+      "decoded_bytes": 728,
+      "stored_sha256": "4e42ef769e3ad755f61dd7d3b49a01d880c7a8ec30fa0be028a0ad78f23d3af7",
+      "decoded_sha256": "bbc7637b1fdc14f051b3ea243487f144428450f0f5a9969d6f253536f08ee795",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 318,
+      "rom_start": 19154184,
+      "stored_bytes": 432,
+      "decoded_bytes": 584,
+      "stored_sha256": "df566eff9e2f08226c65e45a225972a39f53db8f16790510260542f9252227b0",
+      "decoded_sha256": "0bca835cc8168f69d8a988c30cd96ca4c11a93cc4d602b8ca4f52cd5f3dd4db9",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 321,
+      "rom_start": 19156096,
+      "stored_bytes": 492,
+      "decoded_bytes": 776,
+      "stored_sha256": "50d9d40f2b1bf6ef3b1d70b179c7310dbd78e4543ef2e3a3e00a13838ef1349d",
+      "decoded_sha256": "18fe9a94d7465c8e9cb0c73e531ec79ea4fa6d24d1bfc663eb12ab0e52416eab",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 327,
+      "rom_start": 19159416,
+      "stored_bytes": 1246,
+      "decoded_bytes": 2200,
+      "stored_sha256": "a34e2b1ffe5cbd8332c5301a092ada8917a605f8a49614b8ae1fdb33f60a2527",
+      "decoded_sha256": "cf026b1c58a5b574070e679e00e13ad4da500ccc1a7a4ef4d0699ce6f3b0fca9",
+      "normal_tables": 3,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 328,
+      "rom_start": 19160664,
+      "stored_bytes": 416,
+      "decoded_bytes": 680,
+      "stored_sha256": "24ae43a53bed538801788ac0a8b358c9d783aca9e4849478e29ed6a1c5b93e5e",
+      "decoded_sha256": "eb39ef0ff24c04bbbee76cbd6b06bc81a1b965baa84b6442dec3b97e07f32a6b",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 329,
+      "rom_start": 19161080,
+      "stored_bytes": 494,
+      "decoded_bytes": 840,
+      "stored_sha256": "2c540c8c72b8edb14688ebdf128d4931d65a2690fab69374066843ffdb748403",
+      "decoded_sha256": "8d8d86f0022164395448835a21d08d35f65812bdc325c8e21a3ff5a5d84f78a0",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 330,
+      "rom_start": 19161576,
+      "stored_bytes": 533,
+      "decoded_bytes": 904,
+      "stored_sha256": "f4441ee00589fc2f8e825a5c1d17ac45baa610ca20635a8a3c7150879f0f0251",
+      "decoded_sha256": "033f87c54675492bc6228d72a8430c31d66dbad0e1f61eaa8827bf22a8942617",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 332,
+      "rom_start": 19162520,
+      "stored_bytes": 725,
+      "decoded_bytes": 1336,
+      "stored_sha256": "bd56522db0360f5a20933a51585a30a3a1d0537c53cd56bd7c08c5c256f65bf1",
+      "decoded_sha256": "9df585ea38423f11af9bca28584983bf522509e623a60aa7d931289f1fa24980",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 333,
+      "rom_start": 19163248,
+      "stored_bytes": 478,
+      "decoded_bytes": 744,
+      "stored_sha256": "c5db787396548c401ec2ceb7cbcb205519740066a84c31ce1f209099e7faabd9",
+      "decoded_sha256": "eba3d808d25bb75065039636dc4ed1557286d831dc75171d8002c8a433654e16",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 334,
+      "rom_start": 19163728,
+      "stored_bytes": 189,
+      "decoded_bytes": 296,
+      "stored_sha256": "beaf4f5543b114b70f5dbd0abddb1cf7434251c55838f864d3be36e720a95b87",
+      "decoded_sha256": "094b2a6bfb2a2f6274ed8944ba9a95868da14ae991db8f04d87f03a82b22a026",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 336,
+      "rom_start": 19164768,
+      "stored_bytes": 1698,
+      "decoded_bytes": 3112,
+      "stored_sha256": "f5af377ad5cace50c880bc61683a51562d1a2e7f6dcd61a549a0e17d8fb3bde3",
+      "decoded_sha256": "660e59d02bfe70c2c180db2efb1dff1d15130607ee6e48959f707ce7e1f562e7",
+      "normal_tables": 4,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 339,
+      "rom_start": 19168088,
+      "stored_bytes": 192,
+      "decoded_bytes": 296,
+      "stored_sha256": "760b24d697397ead9e72ff8db906b984ffbf1705c020534b4f8fecbadaffe514",
+      "decoded_sha256": "7ab45a216a969fd8c61ab7c7d76f4e456e8795de96bc55ed0f416e11e9f18502",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 340,
+      "rom_start": 19168280,
+      "stored_bytes": 288,
+      "decoded_bytes": 408,
+      "stored_sha256": "e0035285f0e448633d83449c822517ca483decc8c640c8502bf98d070ccc15c3",
+      "decoded_sha256": "96bc8f61003a8e23954e847c3bab9fa568d00def16c85ddeb03d0d1be0d450a7",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 341,
+      "rom_start": 19168568,
+      "stored_bytes": 319,
+      "decoded_bytes": 520,
+      "stored_sha256": "ac4cc185f6341eacedd16e932b59efa8bf6119c12549e48161fcbf1e9cbc9d44",
+      "decoded_sha256": "753e75193bdc4a5664241d52e41afd856e77bfdf416ecd0e0432373f6046a32b",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 342,
+      "rom_start": 19168888,
+      "stored_bytes": 550,
+      "decoded_bytes": 1064,
+      "stored_sha256": "0487ece90ca13609a9cb822d5ce8c3c4996b410f22f5a4053df11ac82724622c",
+      "decoded_sha256": "2d96d2ed2b533e25a4f6b576142e115b620642e67eaa57c8b3dd19594beb38d3",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 344,
+      "rom_start": 19170128,
+      "stored_bytes": 692,
+      "decoded_bytes": 1736,
+      "stored_sha256": "5a9ad696fa49cc64aeb81ff7e227c550ead343310012afadea81a2416064130e",
+      "decoded_sha256": "1366b8bbca441abd503630576302f97ec7b1cd26168cdfe3c638fb3798b213c5",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 345,
+      "rom_start": 19170824,
+      "stored_bytes": 484,
+      "decoded_bytes": 872,
+      "stored_sha256": "6d0bf2273ecffffc18693bba2338eac5e2a725a7ffa005d330a0242f6c38ca4b",
+      "decoded_sha256": "4d9e9147a54343277a5a3635d18c59a40a26e05d8ca841e78ad6f6857dae16d9",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 349,
+      "rom_start": 19173352,
+      "stored_bytes": 491,
+      "decoded_bytes": 840,
+      "stored_sha256": "70534755ba2f0558062e18777ffa401cc829bdd72748c95d0907c39e0899efc0",
+      "decoded_sha256": "9634efd145d40dad5d88b245cb4c97ab4fb55e89cb09da976837abf1981291b1",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 350,
+      "rom_start": 19173848,
+      "stored_bytes": 527,
+      "decoded_bytes": 904,
+      "stored_sha256": "cdba796502ec2ca240e569eec3111edeb26aadbec4c83d8993a55a46dfff2160",
+      "decoded_sha256": "47b661ba8210abc8ec33f11be3e376024dbd3ffde261e19c863466b428f959e2",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 352,
+      "rom_start": 19174784,
+      "stored_bytes": 723,
+      "decoded_bytes": 1336,
+      "stored_sha256": "9bcce9b090b6b551c2e5f10829b3f6e039c209211af603cdb34c34bb2ec5a824",
+      "decoded_sha256": "b25262f5e675798e9cee5d30ed0e40776e9c8199012296e0de661e9c0512802a",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 353,
+      "rom_start": 19175512,
+      "stored_bytes": 596,
+      "decoded_bytes": 936,
+      "stored_sha256": "bdb12f1801774896e165dec8c14247341d9cfcbba5d73c5184cc3601424861e5",
+      "decoded_sha256": "1b046053c5c2f5d8f48b0cf5783886fe5558f9c28830d642c953c3ce64548d16",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 354,
+      "rom_start": 19176112,
+      "stored_bytes": 586,
+      "decoded_bytes": 920,
+      "stored_sha256": "8b3c04c02f71266c4a90564b69af344525d93dea4bd90ec161ff634e1f0e9f8f",
+      "decoded_sha256": "dd0c3a407fff52d46cd359cfc8c7461d09a2cbf9de3029fa26cf6df9306aaefd",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 357,
+      "rom_start": 19177576,
+      "stored_bytes": 598,
+      "decoded_bytes": 936,
+      "stored_sha256": "0b22c92efb7be0bb266c9b59b77c6d03e039a2b07e3e93b504c26db525a49576",
+      "decoded_sha256": "67b3cc3d6d4e6453fe9f1d0ca3606d9c83762aaded98719757175d080ddd9e7e",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 358,
+      "rom_start": 19178176,
+      "stored_bytes": 585,
+      "decoded_bytes": 920,
+      "stored_sha256": "2c333c7cbe48098ce5fceb13f4889d6f13f416c58504e35ce55cd04cfd171532",
+      "decoded_sha256": "f391bea12c70b8cc7a51cbece3c7d4137a43a33e1819f54cd85f3c25b73c6d8c",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 361,
+      "rom_start": 19179632,
+      "stored_bytes": 489,
+      "decoded_bytes": 776,
+      "stored_sha256": "43f388a6d199d80d6edabb2c7d433ebb51d2627066ce5340fb7757bcb0ee6ee6",
+      "decoded_sha256": "583e14d19632aec0b93d6f157db54b304358444b4601a6313e276ddab9e8d2f0",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 362,
+      "rom_start": 19180128,
+      "stored_bytes": 529,
+      "decoded_bytes": 824,
+      "stored_sha256": "3c39251e8f82857636ebda3d2e2582ddda3daf99ad08e426503ac018af1f6280",
+      "decoded_sha256": "8bc546721d0a3ac0f07caedebf45138a4c9ecabc259294916b28803108aa43f9",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 364,
+      "rom_start": 19181344,
+      "stored_bytes": 488,
+      "decoded_bytes": 776,
+      "stored_sha256": "e95b61a3328d49f9d8abec2334d51f6949e744d53418a20cb250813b437b37a7",
+      "decoded_sha256": "bc0a738397ee9a25bdae6a462ea52fd237ed1b0a30d341aa6f58e958c38c35b1",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 365,
+      "rom_start": 19181832,
+      "stored_bytes": 522,
+      "decoded_bytes": 824,
+      "stored_sha256": "fa1e0b4ecc4c51b331d6a70a509677d0fd8af15af5139d1a2311c2985b5d3d0f",
+      "decoded_sha256": "367b2fd0dd1f845012e57224674388332cfdc325741df615a33204d10368014f",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 367,
+      "rom_start": 19183024,
+      "stored_bytes": 362,
+      "decoded_bytes": 632,
+      "stored_sha256": "7856e97d987ade9f001a43c987c5183f2a656d7415760801a2de6de1e9c53dc9",
+      "decoded_sha256": "40235646241da2a87765866a9f561fea8699797134c03b17aeec44272a3b8bab",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 368,
+      "rom_start": 19183392,
+      "stored_bytes": 436,
+      "decoded_bytes": 776,
+      "stored_sha256": "387b38afd9ea4823a34dbbd19afa5392963a752916c916845521a7d76604609a",
+      "decoded_sha256": "3ebf5de2cdf8c3989dde014882b0d11c213f1e578f8e49ad3e7d0b7d9e4331e7",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 369,
+      "rom_start": 19183832,
+      "stored_bytes": 833,
+      "decoded_bytes": 1608,
+      "stored_sha256": "b6cc88de2807a3067549f8fa89fe446a033895fa7503e24740e3079457092139",
+      "decoded_sha256": "0066967c097baa788ae2d6797da55ec103ed8d67c877747276a80c1138ca7294",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 370,
+      "rom_start": 19184672,
+      "stored_bytes": 394,
+      "decoded_bytes": 584,
+      "stored_sha256": "7937c5c08399e56b22a141722c56e078080abf4f3562bed444a9d04873fab63f",
+      "decoded_sha256": "514e7e3e41a6448edf681fc70924be0b5b14b29dc5c0a1698e15c002c586abf3",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 371,
+      "rom_start": 19185072,
+      "stored_bytes": 399,
+      "decoded_bytes": 600,
+      "stored_sha256": "38c3772c4ab3dc801c8bb399781c3b98e932ba2df2d8c6c999277f8f5fda5594",
+      "decoded_sha256": "f4480a3cac7cb0ceeaffdf8d8e5f03aa5d3380025de8e46b0d852d757f854ed4",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 372,
+      "rom_start": 19185472,
+      "stored_bytes": 387,
+      "decoded_bytes": 568,
+      "stored_sha256": "4a77d63f951319cf1526689809ad41beff8fb14b6709230b50116b438f879190",
+      "decoded_sha256": "311f0fdb50bbd6403b550a203ca7d0a812814d9b528d77aa3a26d6a08b8aaa74",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 373,
+      "rom_start": 19185864,
+      "stored_bytes": 401,
+      "decoded_bytes": 600,
+      "stored_sha256": "186ef3549583350db95307e6571245fdf219f91c124d7a8fed357781c345c382",
+      "decoded_sha256": "6147e9b2d628247975bbdd4a784c0c048a0d4b33961f56f7507939be1e20cb3a",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 374,
+      "rom_start": 19186272,
+      "stored_bytes": 468,
+      "decoded_bytes": 712,
+      "stored_sha256": "d1b19fa5537d1552aef0b6343e145cd4eadd874200cb3cf2ced42fce67b525ec",
+      "decoded_sha256": "02508d081706d96b4e21d2ccb3b26d1aa3812817c7872ea822e82b7ee99cd748",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 375,
+      "rom_start": 19186744,
+      "stored_bytes": 377,
+      "decoded_bytes": 568,
+      "stored_sha256": "57f9f28b5d252c62bf24f9fed242901fd327818708cde628154c77f30c16e9f1",
+      "decoded_sha256": "ee3d6399176e7491dd7358794f51ad8313b8906805888f9ffb57abeb480c78dd",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 377,
+      "rom_start": 19187560,
+      "stored_bytes": 1015,
+      "decoded_bytes": 1640,
+      "stored_sha256": "8b07be29cc3589fd3041344fcf3c3514085070118883963be3f471c276e84e98",
+      "decoded_sha256": "6760c45050c7ae98e2d466e50bc4b15d421944b4634d3f0965865045807c68a8",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 378,
+      "rom_start": 19188576,
+      "stored_bytes": 513,
+      "decoded_bytes": 680,
+      "stored_sha256": "b27918949cf52a069cfa4c7d3c6bb3a937868891160b819df108a297bb983c86",
+      "decoded_sha256": "badd769406b1c91a84a5dd8fd3ba9d6fdcc402b39d0e9df874e4e1ed7b2526e0",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 379,
+      "rom_start": 19189096,
+      "stored_bytes": 618,
+      "decoded_bytes": 808,
+      "stored_sha256": "8091f70cd104cb1d3ff2b56eadf95f2579991cb21aba7bfc2c9a04de98faa89b",
+      "decoded_sha256": "db9359b6515d8c79ccedd6731de2635e39c71902a89c253bdccf1b695332a1fc",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 381,
+      "rom_start": 19190216,
+      "stored_bytes": 592,
+      "decoded_bytes": 952,
+      "stored_sha256": "49d2bfe65c2ff1fe519b6562decae506eaf6289282b384b5880e207ac6525e5c",
+      "decoded_sha256": "b636251b810b001452e9be7d0d33675c300b6737e8523ae6e9832dcc9fc47d67",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 382,
+      "rom_start": 19190808,
+      "stored_bytes": 443,
+      "decoded_bytes": 648,
+      "stored_sha256": "052c146253b8e18137e2d51be4e934b63c8ac98fd3ae56e79194d70da58faa25",
+      "decoded_sha256": "868c43f26225a475d81ae6ab17fff80ef864eff8ea5de0cdd879116463ad52d4",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 383,
+      "rom_start": 19191256,
+      "stored_bytes": 455,
+      "decoded_bytes": 728,
+      "stored_sha256": "c4b15b9ed0d515722dd6d6839b83d659387e4c0c75b6361102ce0325bb0096a7",
+      "decoded_sha256": "1125a8067aacb7697c6e55c3ee5ae915641167924989760f84ecd45760673391",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 384,
+      "rom_start": 19191712,
+      "stored_bytes": 1586,
+      "decoded_bytes": 2712,
+      "stored_sha256": "06b984674a5bb8dbfc51cac5f1555741a309d5db0209c833dac6dd6844d2e774",
+      "decoded_sha256": "d6355474e2a020e123f4ef8cc74a0abee596de919ca257d5508d68ba7ed74f1d",
+      "normal_tables": 4,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 388,
+      "rom_start": 19198376,
+      "stored_bytes": 1569,
+      "decoded_bytes": 2712,
+      "stored_sha256": "4a2893527c64811400a8d8a3bee276e8e25b221753990dfdab42be9266b7c11a",
+      "decoded_sha256": "dc8d36bc7d492f32aeeddacfd487d0c029fa4b9d9a8d786d6d1884ec4808ab15",
+      "normal_tables": 4,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 391,
+      "rom_start": 19203616,
+      "stored_bytes": 1387,
+      "decoded_bytes": 2360,
+      "stored_sha256": "affb13fc7063b2998c9c08fb997dc6b35cc4acf6138b4c4fd41e52e681d111aa",
+      "decoded_sha256": "1be782bc41161a443778a68ea54345157df6cd6198737d131622dd2d8f4b7615",
+      "normal_tables": 3,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 392,
+      "rom_start": 19205008,
+      "stored_bytes": 286,
+      "decoded_bytes": 360,
+      "stored_sha256": "1b7e9110c1ef1e2f617c2e47d4a7268ae9ce85394db2098298ecb97bf77c3bb7",
+      "decoded_sha256": "880a85617bab2cddb0e6491d1bc12906c63c3684f8cfba58ddf97305370ea642",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 397,
+      "rom_start": 19206600,
+      "stored_bytes": 159,
+      "decoded_bytes": 280,
+      "stored_sha256": "0083ab134ae88aebf9a79ef48ab23ca2939f7e408d8626511c2bb365db4fb682",
+      "decoded_sha256": "4f49df3fd643db335469744a1bbf14e0fa01f3c40b35b933d529d6a6fe154f91",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 398,
+      "rom_start": 19206760,
+      "stored_bytes": 577,
+      "decoded_bytes": 792,
+      "stored_sha256": "7102001b8b1e317c4b81450451c2235cb391e787999939001174953dabb3fc98",
+      "decoded_sha256": "86fb5b28293d84a216b8836c2205414deaa6bc7cb479a0262eae5f851168f413",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 399,
+      "rom_start": 19207344,
+      "stored_bytes": 323,
+      "decoded_bytes": 536,
+      "stored_sha256": "a5a50a1ac19931f4336d39cb64122172cba6b3822c885c0b87af4465461f428b",
+      "decoded_sha256": "cb13c958bd48354e2e6b47caf7d91dc1a81054bb5f9c26b25b306b6d8d99bab3",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 400,
+      "rom_start": 19207672,
+      "stored_bytes": 182,
+      "decoded_bytes": 328,
+      "stored_sha256": "a53add96d3c05b375d9aa4aaea33bf0fddd4a7582e1bf5670f6c42a1bff2de1d",
+      "decoded_sha256": "37c690bcaf5bc544463f4d5e8d9c4eaa574f8e99ba66a5928ed35f8696a06579",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 401,
+      "rom_start": 19207856,
+      "stored_bytes": 600,
+      "decoded_bytes": 872,
+      "stored_sha256": "7de010c92f550438a7bc41f11e9f6ad6a63883e209f206cb6172aad92e845d21",
+      "decoded_sha256": "bb60e0a8e9dc6553b259e55bb25a88669ee45f83fbf691f6f62f3a68bb44e92e",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 403,
+      "rom_start": 19208936,
+      "stored_bytes": 488,
+      "decoded_bytes": 776,
+      "stored_sha256": "9f407949ea27d24917dc5117201fbd7ace8b17cf04c2f8bbe5228284728c731f",
+      "decoded_sha256": "abbd62835e4624001ffac934bf038f0417cd92d71c23950af6afe07e7c1a7335",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 404,
+      "rom_start": 19209424,
+      "stored_bytes": 564,
+      "decoded_bytes": 824,
+      "stored_sha256": "a2d32011e31d5202baaa07624443108be14ee5b28dd7f16073ab08ae37b91efd",
+      "decoded_sha256": "7aec896b58a04ba65e5081cd1bb065013c4639f035010ec64447dbbad3e797f1",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 406,
+      "rom_start": 19210480,
+      "stored_bytes": 452,
+      "decoded_bytes": 728,
+      "stored_sha256": "294a8b68730c663f0a83535d30fd474ff6a03da9a727e5ebfd359bd6404f4060",
+      "decoded_sha256": "912e8bfe12d41e73e42b88b3f338c0e49ec5a42ca79f796dec1ea3b83820275f",
+      "normal_tables": 1,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 409,
+      "rom_start": 19211688,
+      "stored_bytes": 517,
+      "decoded_bytes": 1112,
+      "stored_sha256": "9cd86d215f2103fd8d7bd9380767297416f2860a6fbe3eeda142df573df08a58",
+      "decoded_sha256": "42ad8a99ac6c746f4569466d955d505f70366db9ca414e27da25bafeeb240f51",
+      "normal_tables": 2,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 422,
+      "rom_start": 19215992,
+      "stored_bytes": 1434,
+      "decoded_bytes": 2440,
+      "stored_sha256": "b089f3cf4e3a0619089d4c9e5d40abaee3e7459ff7695647ddb02d40f7650ada",
+      "decoded_sha256": "28f4bba1d8a2f2f1c3516dddf2abfdfc7cab9a41c4ed93bb7935a24fb52c1580",
+      "normal_tables": 3,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 426,
+      "rom_start": 19218432,
+      "stored_bytes": 659,
+      "decoded_bytes": 1544,
+      "stored_sha256": "8fbb1ea04c74de7a5586b27b420a49f3d1de5d1581935fc04a33c9e6579da898",
+      "decoded_sha256": "e10695d80956bd51c984fcb8e0429417befab6e3506a24803090b0a506530857",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 427,
+      "rom_start": 19219096,
+      "stored_bytes": 372,
+      "decoded_bytes": 632,
+      "stored_sha256": "1192844e9f2bf1ad6761f32865b48f2e9510aec3a78595b78fe0588f2d8fbbdf",
+      "decoded_sha256": "cb88051abe388e38eb92dab22ee9c4710914dbd3702021996ee5eb1a87d6d642",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 428,
+      "rom_start": 19219472,
+      "stored_bytes": 338,
+      "decoded_bytes": 664,
+      "stored_sha256": "695ceed276f68c4b59e457c05ac76ba30dac50b9e0cb93ff165f0b6a10d27011",
+      "decoded_sha256": "f8fd5905d70dbdbc0481de6b22325b8680014da1d6786101c10488de69c10141",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 429,
+      "rom_start": 19219816,
+      "stored_bytes": 366,
+      "decoded_bytes": 600,
+      "stored_sha256": "4b19f6072ecb243448bd0ff726b20319ea72c888bfc084942668a05d4255c4c6",
+      "decoded_sha256": "46a4d66fd78543ed25c1486af59712b5e2a74ff3584bc1d76bc4d7ded53af9c9",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 8
+    },
+    {
+      "bank": 9,
+      "entry": 431,
+      "rom_start": 19221456,
+      "stored_bytes": 243,
+      "decoded_bytes": 328,
+      "stored_sha256": "423dd28cf528e12cdc8bbbf37a3825d83bd4e5e21de8247196d9b9d207661e2e",
+      "decoded_sha256": "ff0b92882e8ee6b9fce929a56fd34888185eaa1c650c6eead5501ffeedbc80c5",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 453,
+      "rom_start": 19247600,
+      "stored_bytes": 243,
+      "decoded_bytes": 440,
+      "stored_sha256": "80c9fc59cd72a633504c508c3cf17f2891d65edd8ff609b7e361538b07b114c5",
+      "decoded_sha256": "f94db7a7d00b026452642f29b4fdbb74f712c232e80fa6378e246800b9693328",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 454,
+      "rom_start": 19247848,
+      "stored_bytes": 244,
+      "decoded_bytes": 440,
+      "stored_sha256": "4e006a87360e007b2fff2977ed5a4ea13b1e1a446f8d286dc464ba3e8e58a5f7",
+      "decoded_sha256": "595954cadc2dd87816d0d5c00c38bc48546ae24255e3c6879171f34d6661bf6f",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 455,
+      "rom_start": 19248096,
+      "stored_bytes": 244,
+      "decoded_bytes": 440,
+      "stored_sha256": "728cfeb6e31bcf661d64c6662b628f3903b6a27be8bd7958c8a0896885cc2c5d",
+      "decoded_sha256": "0c5114bd0b4f2d51b25f05aff0ca64cd46b8360e756baa2cce38e518024bb6d4",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 456,
+      "rom_start": 19248344,
+      "stored_bytes": 239,
+      "decoded_bytes": 440,
+      "stored_sha256": "3b8d61d8fa81d5af1a0253c7123d6008fc24dabb33c286f44889e52d787f67d5",
+      "decoded_sha256": "abfbb5fc73f949c3206e93ad8b05ef16c8d6bd2371a9fac3794422c75687ce13",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 457,
+      "rom_start": 19248584,
+      "stored_bytes": 240,
+      "decoded_bytes": 440,
+      "stored_sha256": "bbff342160ec85fe7090b81b783e3ceb1b53ce7cc55a9394f558a9cf55ac3ec6",
+      "decoded_sha256": "ebe5555ee2bf2d31eaca5ca4b7caa7c5f5d0196ab2a41329aefcae239b6dc04d",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 458,
+      "rom_start": 19248824,
+      "stored_bytes": 239,
+      "decoded_bytes": 440,
+      "stored_sha256": "b19d5791e53f3cda45edc686d279cb48b20b26c2fc9aa0b8122c67b63a1c5b4b",
+      "decoded_sha256": "5b0e14df82177d924c4cdd8e715ac1c69140cc56d8be0910c88bd400e01cbbde",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 459,
+      "rom_start": 19249064,
+      "stored_bytes": 243,
+      "decoded_bytes": 440,
+      "stored_sha256": "de9ecd76e3f517011a4c50a3cbcb3ae84a7077682e7eeaef6214ff51402dd4ee",
+      "decoded_sha256": "7be6a15ddb39f54fb03250140851fd4007c87446638bbb4503d75f7646370b55",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 460,
+      "rom_start": 19249312,
+      "stored_bytes": 243,
+      "decoded_bytes": 440,
+      "stored_sha256": "df107d3c89e8942c651190b99d77d7705861affa596dc61f00ac5f68a2f32a7d",
+      "decoded_sha256": "6467f03a8188bdd0f7cb2bd9a0343482e0f84d7a05a78380fe9a657fae0810bf",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 461,
+      "rom_start": 19249560,
+      "stored_bytes": 244,
+      "decoded_bytes": 440,
+      "stored_sha256": "8fd0f9abb96cf7193b0b5ab4b880d2b6e7ad15b021b4b837d9a0b33c3eacb2c5",
+      "decoded_sha256": "ea2c86b711a1a9aa0b67d5f09bd5898edcc77774249bd1a75db484f85b3e6e3a",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 462,
+      "rom_start": 19249808,
+      "stored_bytes": 239,
+      "decoded_bytes": 440,
+      "stored_sha256": "32a24b9c30e98f1952427d2cbd32d5c874a388f4869570e7556a713c0809b75e",
+      "decoded_sha256": "20bfbc64c40030c45aa4bf5cc6cc2f07290c0fce048f8347dd3575033389a573",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 463,
+      "rom_start": 19250048,
+      "stored_bytes": 238,
+      "decoded_bytes": 440,
+      "stored_sha256": "8bba3f4e5031623fbe237523fcabb17860a0c19b7c9c48cb545071a9d598d1c0",
+      "decoded_sha256": "9c67ea1f9fec8b90b46b5fe609cf849b5d02be3b38a89478ccbbd6348bc6a444",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 464,
+      "rom_start": 19250288,
+      "stored_bytes": 239,
+      "decoded_bytes": 440,
+      "stored_sha256": "c81988d1e38bb5f49646b2ee0dfbf3dde1a44ed3994af7d1af0a1551dd355d4a",
+      "decoded_sha256": "df2aaaba6600bcbb7bef6f041c245b476c7699f7e9a3b1869b8a2ae0e50296c7",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 465,
+      "rom_start": 19250528,
+      "stored_bytes": 245,
+      "decoded_bytes": 440,
+      "stored_sha256": "3fe4c51bc9bf2ea384a318767509aaf1aaaf760d7d657b9a55c9770c326f123e",
+      "decoded_sha256": "89eef1c41cd78839bafed95e1f19c62653aa587bc83863b751984899b55e7b60",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 466,
+      "rom_start": 19250776,
+      "stored_bytes": 245,
+      "decoded_bytes": 440,
+      "stored_sha256": "3e4de6ff50c7f1a42eb03d26d03fb2942430a9d557bbb40476af377a9849e5e4",
+      "decoded_sha256": "7666ab8f47a9430ba736f56005f399e792b2ee18b5515c924cc849030440afb3",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 467,
+      "rom_start": 19251024,
+      "stored_bytes": 241,
+      "decoded_bytes": 440,
+      "stored_sha256": "35b1fe4f1cda8d5ab5637abc8c7a189caf31a33c88ddfee609939252f87e7493",
+      "decoded_sha256": "860536ecb93bc548754d055adc317201b9e928dbac51d50e088a114c68fa4883",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 468,
+      "rom_start": 19251272,
+      "stored_bytes": 235,
+      "decoded_bytes": 440,
+      "stored_sha256": "223899b1ff2aca1011fa5e4a2da113cc5bdd26edb0f312e5cc0755afbce7b35c",
+      "decoded_sha256": "1a84f3e8e3ba56e075734e88448cfc6326b9bdfea2584d5d268b9b7d375f2e2a",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 469,
+      "rom_start": 19251512,
+      "stored_bytes": 238,
+      "decoded_bytes": 440,
+      "stored_sha256": "f77785b0a0026449c6eaa540f5865ef9be1c5c480751a17e5526836040f9e419",
+      "decoded_sha256": "66648b4bd096ecb69c6e7cefe0135778b18d04789926e89319eb500ef923ba5d",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 470,
+      "rom_start": 19251752,
+      "stored_bytes": 243,
+      "decoded_bytes": 440,
+      "stored_sha256": "aba12429aae1922f628b398811d2179beabec77e7c5fc234db9e5de8600c39b9",
+      "decoded_sha256": "65fbf141560392320ea20996353acf3cb49e8eef4797ca4dff1669b9d608f4b7",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 471,
+      "rom_start": 19252000,
+      "stored_bytes": 243,
+      "decoded_bytes": 440,
+      "stored_sha256": "530c8ca00e77d3c5110f3e1727a7d32231a9e8228d88fe70b89de5729da69b87",
+      "decoded_sha256": "802293932a1028b99e491f1a264b827a348330baee70681ba410ae6dd248ca9f",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 472,
+      "rom_start": 19252248,
+      "stored_bytes": 243,
+      "decoded_bytes": 440,
+      "stored_sha256": "2476fd250bac3872acf259c6498827ad0ed4654585063480967a7c79c31aede2",
+      "decoded_sha256": "b9ec533a0d3c807e8a2da2e8d00313bfc15cb47da41c12d50971b2ef2a496258",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 473,
+      "rom_start": 19252496,
+      "stored_bytes": 239,
+      "decoded_bytes": 440,
+      "stored_sha256": "89d3ab5d1b36c3e1d11265bb49de3520f62088186d29de62d6c55349c6a842b4",
+      "decoded_sha256": "09d406b9418a034fed78cbb034ff4d56549de6f203a052fb4f6829aace0de7f3",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 474,
+      "rom_start": 19252736,
+      "stored_bytes": 237,
+      "decoded_bytes": 440,
+      "stored_sha256": "9e7aeb5231f6b998b2ce83848634dc3bda0510fcb040b199d075af29c217a35f",
+      "decoded_sha256": "56dce205aa6c7b41ed610234bde329391195ba7e4b83370f7980624cac79caff",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 475,
+      "rom_start": 19252976,
+      "stored_bytes": 239,
+      "decoded_bytes": 440,
+      "stored_sha256": "3a4c166a58e74a2b8e015678cfcef39226012dce770fc0a63c2a096e0002e4f2",
+      "decoded_sha256": "fba1bcbb84dda51d4b0c1e449c74635d288e486aeae8e78027784be25fdb75f5",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 476,
+      "rom_start": 19253216,
+      "stored_bytes": 240,
+      "decoded_bytes": 440,
+      "stored_sha256": "1c8fea0d6bd798070b736eba13fffbb180351666d3db1410565f3ec665f79456",
+      "decoded_sha256": "8d6d12b090542d5b3bd3d2694434c3c533045e3ca730a2c144f281d85fb2eb42",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 477,
+      "rom_start": 19253456,
+      "stored_bytes": 250,
+      "decoded_bytes": 440,
+      "stored_sha256": "0316fb36a03769b584ad02ad0e4d8729443a222a8c6f6ea6d8c1d4dc2b5dd722",
+      "decoded_sha256": "9530cf2fafce778e887ce4d1cd9d6e1f976f1e701677b5e2390c058d2d885839",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 478,
+      "rom_start": 19253712,
+      "stored_bytes": 246,
+      "decoded_bytes": 440,
+      "stored_sha256": "c1059bf7f5097d60d19bd4c80ee56b92b7162cdfc643646346f16d2207058c48",
+      "decoded_sha256": "c428949c25c8097260f263ce33e687063dd058d8793c5ad64d61515a226928aa",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 479,
+      "rom_start": 19253960,
+      "stored_bytes": 248,
+      "decoded_bytes": 440,
+      "stored_sha256": "493fb72bf84e23b8a9a34eed4527c2f485e97eece8bad7c7b3c49d2f1bcf557f",
+      "decoded_sha256": "7a7967573b34d38998bb1ee01c20ecccc09eb6ca8ac1e66f8e5bb7bb408b0cda",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 480,
+      "rom_start": 19254208,
+      "stored_bytes": 241,
+      "decoded_bytes": 440,
+      "stored_sha256": "7619e2a5fc08122536a737b26eb43b72e1e7448242f093942f70d20b68d02666",
+      "decoded_sha256": "5d7a2b949c96700647119c91de659c942a8be0374b6a9d4631ca83dbab4935b1",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 481,
+      "rom_start": 19254456,
+      "stored_bytes": 257,
+      "decoded_bytes": 456,
+      "stored_sha256": "2e49fd04399453dbc36513dd5a79ac1c8d1fbedd119d02f7a38442ba2cec6dfa",
+      "decoded_sha256": "b1e8946403fae2063c69c98013c6b7d7cd9614422ff7af46d3fa1716d26e4467",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    },
+    {
+      "bank": 9,
+      "entry": 482,
+      "rom_start": 19254720,
+      "stored_bytes": 270,
+      "decoded_bytes": 488,
+      "stored_sha256": "c54ce97b11f7d54ac91688f5c002d39d504a6bf316d873e308d652f4f18ee309",
+      "decoded_sha256": "b7633728f0fc1ab193382b4f9affadaae3688ef6c270a17ae14538ea88270fd6",
+      "normal_tables": 0,
+      "zero_suffix_bytes": 0
+    }
+  ],
+  "excluded": [
+    {
+      "bank": 3,
+      "entry": 1,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 37,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 39,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 44,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 45,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 46,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 47,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 48,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 49,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 50,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 54,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 59,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 60,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 61,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 62,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 63,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 64,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 65,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 66,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 67,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 68,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 69,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 73,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 74,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 75,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 77,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 78,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 79,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 83,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 84,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 85,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 86,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 88,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 92,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 93,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 96,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 97,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 99,
+      "reason": "model has unsupported auxiliary regions"
+    },
+    {
+      "bank": 3,
+      "entry": 103,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 107,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 3,
+      "entry": 111,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 12,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 13,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 14,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 15,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 16,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 17,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 18,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 19,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 20,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 21,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 22,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 23,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 24,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 25,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 26,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 27,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 28,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 29,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 30,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 31,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 32,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 33,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 34,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 35,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 36,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 37,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 38,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 39,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 40,
+      "reason": "model candidate lacks its final DF display-list command"
+    },
+    {
+      "bank": 9,
+      "entry": 41,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 42,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 43,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 44,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 45,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 46,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 47,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 48,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 49,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 50,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 51,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 52,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 53,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 54,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 55,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 56,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 57,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 58,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 59,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 60,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 61,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 62,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 63,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 64,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 65,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 66,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 67,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 68,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 69,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 70,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 71,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 72,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 73,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 74,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 75,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 76,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 77,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 78,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 79,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 80,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 81,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 82,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 83,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 84,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 85,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 86,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 87,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 88,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 89,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 90,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 91,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 92,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 93,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 94,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 95,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 96,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 97,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 98,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 99,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 100,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 101,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 102,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 103,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 104,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 105,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 106,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 107,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 108,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 109,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 110,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 111,
+      "reason": "model candidate lacks its final DF display-list command"
+    },
+    {
+      "bank": 9,
+      "entry": 112,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 113,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 114,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 115,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 116,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 117,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 118,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 119,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 120,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 121,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 122,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 123,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 124,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 125,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 126,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 127,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 128,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 129,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 130,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 131,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 132,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 133,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 134,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 135,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 136,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 137,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 138,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 139,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 140,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 141,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 142,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 143,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 144,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 145,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 146,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 147,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 148,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 149,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 150,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 151,
+      "reason": "model candidate lacks its final DF display-list command"
+    },
+    {
+      "bank": 9,
+      "entry": 152,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 153,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 154,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 155,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 156,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 157,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 158,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 159,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 160,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 161,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 162,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 163,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 164,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 165,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 166,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 173,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 174,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 175,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 176,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 177,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 178,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 179,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 180,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 181,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 182,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 183,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 185,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 188,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 213,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 215,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 217,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 219,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 224,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 227,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 229,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 230,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 231,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 232,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 233,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 235,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 236,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 237,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 238,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 245,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 247,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 248,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 249,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 252,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 254,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 256,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 257,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 262,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 263,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 264,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 265,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 266,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 268,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 271,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 273,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 275,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 276,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 277,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 279,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 282,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 287,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 289,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 290,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 291,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 293,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 295,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 298,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 300,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 304,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 305,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 307,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 308,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 309,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 310,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 311,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 312,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 313,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 314,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 316,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 317,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 319,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 320,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 322,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 323,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 324,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 325,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 326,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 331,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 335,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 337,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 338,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 343,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 346,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 347,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 348,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 351,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 355,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 356,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 359,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 360,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 363,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 366,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 376,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 380,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 385,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 386,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 387,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 389,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 390,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 393,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 394,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 395,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 396,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 402,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 405,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 407,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 408,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 410,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 411,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 412,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 413,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 414,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 415,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 416,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 417,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 418,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 419,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 420,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 421,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 423,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 424,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 425,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 430,
+      "reason": "compression differs"
+    },
+    {
+      "bank": 9,
+      "entry": 432,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 433,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 434,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 435,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 436,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 437,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 438,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 439,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 440,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 441,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 442,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 443,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 444,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 445,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 446,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 447,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 448,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 449,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 450,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 451,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    },
+    {
+      "bank": 9,
+      "entry": 452,
+      "reason": "model candidate has invalid vertex/display-list boundaries"
+    }
+  ]
+}

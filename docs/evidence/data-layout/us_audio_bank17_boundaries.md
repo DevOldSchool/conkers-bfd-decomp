@@ -3,8 +3,15 @@
 Verified on 2026-10-08 against US ROM SHA-1
 `4cbadd3c4e0729dec46af64ad018050eada4f47a`.
 
-`config/profiles/us.yaml` now defines bank `0x17` as a byte-aligned group with
-272 explicit subsegments. The group covers ROM `[0x29AE9E8, 0x3F82170)`:
+The original boundary pass defined bank `0x17` as a byte-aligned group with
+272 explicit subsegments in `config/profiles/us.yaml`. The later
+[sound-bank reconstruction](us_sound_bank_reconstruction.md) expands this to
+322 splits by separating typed external records from unexplained spans. The
+[ADPCM reconstruction](us_adpcm_reconstruction.md) expands the sample entry into
+5,104 complete-frame and raw regions, for 5,425 splits at that stage.
+[Complete sample reconstruction](us_adpcm_complete_reconstruction.md) consolidates
+these into 2,258 sample ranges including native zero alignment, for 2,579 splits
+overall. The group covers ROM `[0x29AE9E8, 0x3F82170)`:
 22,886,280 stored bytes. These are actual splat extraction boundaries and
 individual linker inputs under `build/us/assets/audio/bank17/`.
 
@@ -40,13 +47,14 @@ sequence descriptors. It also reconstructs the complete sequence container
 from its descriptors, payloads and padding as a boundary check. The Makefile
 obtains input names from the YAML and requires this verifier before linking.
 
-These inputs remain raw extracted ROM storage. The compressed control graph is
+At the boundary-mapping stage these inputs remained raw extracted ROM storage. The compressed control graph is
 kept as its stored RZIP range; the 21,705,520-byte wavetable remains one range.
 Its 2,258 known sample ranges are a later subdivision. This step does not add
 an ADPCM encoder, MIDI import or independently rebuilt sound-bank graph.
 
-All 22,886,280 bank-17 storage bytes are included in the published report
-denominator as unmatched targets. Named boundaries
+At that stage all 22,886,280 bank-17 storage bytes were included in the published
+report denominator as unmatched targets. The later [sequence reconstruction](us_sequence_reconstruction.md)
+replaces 149 payload candidates (684,228 bytes) with native event reconstruction. Named boundaries
 and copied ROM inputs alone do not establish reconstruction credit.
 
 Validation:
@@ -57,3 +65,18 @@ Validation:
   disagreement, false padding and YAML drift.
 
 See [the published report scope](../../objdiff.md#scope).
+
+
+The later [B1 reconstruction](us_sound_bank_reconstruction.md) supplies fresh
+candidates for the 4,885-byte control and 429,952 external bytes. The other 656
+external bytes remain raw. This preserves the complete bank extent and its
+original entry order.
+
+The PCM16 encoder supplies 2,690 complete-frame candidates totaling 21,691,971
+sample bytes. Ambiguous frames, incomplete tails and storage gaps occupy the
+remaining 13,549 raw bytes. The native sample graph and explicit frame exclusions
+derive this partition; only reconstructed complete frames receive Data credit.
+
+The complete sample encoder reconstructs all 21,705,520 entry-2 bytes from PCM
+with retained headroom where needed and native two/eight-byte zero alignment.
+No sample-storage range remains on the raw extraction path.

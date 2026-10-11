@@ -167,7 +167,7 @@ After the raw base split map is available
                                  Extract, rebuild, preview, or byte-verify the RLE font table.
   mp3-assets <extract|pack|build-bank|verify|cue-extract|cue-verify> [options]
                                  Extract or verify US MP3 streams, tables, and embedded cues.
-  audio-assets <survey|extract|preview|sample-preview|soundtrack-preview|verify> [options]
+  audio-assets <build-adpcm|recover-adpcm|build-sound-bank|recover-sound-bank|build-sequences|recover-sequence|survey|extract|preview|sample-preview|soundtrack-preview|verify> [options]
                                  Survey, extract, preview, or byte-verify US non-MP3 audio assets.
   texture-assets <extract|pack|build|verify|survey> [options]
                                  Survey, extract, rebuild, or verify proven US textures.
@@ -1298,8 +1298,28 @@ case "$command" in
         python3 scripts/mp3_assets.py "$@"
         ;;
     audio-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker audio-assets <survey|extract|preview|sample-preview|soundtrack-preview|verify> [options]"
-        python3 scripts/audio_assets.py "$@"
+        [[ $# -ge 1 ]] || die "usage: ./conker audio-assets <build-adpcm|recover-adpcm|build-sound-bank|recover-sound-bank|build-sequences|recover-sequence|survey|extract|preview|sample-preview|soundtrack-preview|verify> [options]"
+        if [[ "$1" == "build-adpcm" ]]; then
+            shift
+            run_in_container python3 scripts/adpcm_build.py build-parts "$@"
+        elif [[ "$1" == "recover-adpcm" ]]; then
+            shift
+            run_in_container python3 scripts/adpcm_build.py recover "$@"
+        elif [[ "$1" == "build-sound-bank" ]]; then
+            shift
+            run_in_container python3 scripts/sound_bank_build.py build-parts "$@"
+        elif [[ "$1" == "recover-sound-bank" ]]; then
+            shift
+            run_in_container python3 scripts/sound_bank_build.py recover "$@"
+        elif [[ "$1" == "build-sequences" ]]; then
+            shift
+            run_in_container python3 scripts/sequence_build.py build-parts "$@"
+        elif [[ "$1" == "recover-sequence" ]]; then
+            shift
+            run_in_container python3 scripts/sequence_build.py recover "$@"
+        else
+            python3 scripts/audio_assets.py "$@"
+        fi
         ;;
     texture-assets)
         [[ $# -ge 1 ]] || die "usage: ./conker texture-assets <extract|pack|build|verify|survey> [options]"

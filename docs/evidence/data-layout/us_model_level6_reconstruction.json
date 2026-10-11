@@ -1,0 +1,2144 @@
+{
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "encoder": {
+    "format": "rzip-raw-deflate",
+    "level": 6,
+    "window_bits": -15,
+    "memory_level": 8,
+    "strategy": 0
+  },
+  "models": [
+    {
+      "bank": 3,
+      "entry": 1,
+      "rom_start": 16316248,
+      "stored_bytes": 1124,
+      "decoded_bytes": 2632,
+      "stored_sha256": "a36ed1eb6eef7465ae9315c806a460091c6cce6b82f6b2159011c6da585426c0",
+      "decoded_sha256": "8cb44594b869bb0e996ad2bd7a6bc8fc9dcb7928a5e5e1d6e1375f7386f823f5",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 37,
+      "rom_start": 16317984,
+      "stored_bytes": 573,
+      "decoded_bytes": 1480,
+      "stored_sha256": "5d92492fce0481835a4227bd9321964d9d99c40d773fa7de5463ad6e56719c4a",
+      "decoded_sha256": "a8b51454678faf18175570ca0defa56945d016bd104d0d5d387cdc55596545c5",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 39,
+      "rom_start": 16319200,
+      "stored_bytes": 838,
+      "decoded_bytes": 1832,
+      "stored_sha256": "9f40e768a93a4dd7fe4ff0b18bbd095e6ae2616ed8fd0feb31e50f72a7ef315c",
+      "decoded_sha256": "24518e6301ea9aa69af491fecd5463ac784a948c512854b23655ec63dd5784b7",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 54,
+      "rom_start": 16330304,
+      "stored_bytes": 1394,
+      "decoded_bytes": 3128,
+      "stored_sha256": "64839b8fa9a4cc50ac39338b1f34d825fa4761fe994a1b54c5edeb2c231b0a25",
+      "decoded_sha256": "200f218ead036ecc71571d9d9c54a0ae0e67b90b6e7788eaf0fde89e81f7cbd8",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 59,
+      "rom_start": 16334520,
+      "stored_bytes": 1600,
+      "decoded_bytes": 3304,
+      "stored_sha256": "52f913a9b48958c5982f732c721166997978ce135204617a0b0bd19cf43d38b5",
+      "decoded_sha256": "8c18661958f27592aac31627938a24dc271c432a44392b48cc3a9fcf8af07559",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 60,
+      "rom_start": 16336120,
+      "stored_bytes": 1177,
+      "decoded_bytes": 2488,
+      "stored_sha256": "678c104799149236c40a7fc31555a3e9787dfac2c23ea3dca17ac43bfae464a1",
+      "decoded_sha256": "fdd7766f39ed7a08b848e55265e67fde9ff3a39daabb969ff8322964b7aa36f1",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 61,
+      "rom_start": 16337304,
+      "stored_bytes": 1613,
+      "decoded_bytes": 3672,
+      "stored_sha256": "44281095fe9ac00ed494b12229071e58a7d57a9432d40fe5b4485aa0b85fe5c2",
+      "decoded_sha256": "096a7b44aae27581e202ac7be01089b08e23b28a1b91d84f881cbdfcc3a956c1",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 62,
+      "rom_start": 16338920,
+      "stored_bytes": 1264,
+      "decoded_bytes": 2920,
+      "stored_sha256": "97b52d2ce4d80eecb2a17a5fb7f1bd250dffd85be55c9c013de94236aaa0f6d2",
+      "decoded_sha256": "b7c7aade90f975bba762f9b19f85f386ba9226e4d0853f7b54aa125cd199ab40",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 83,
+      "rom_start": 16352032,
+      "stored_bytes": 2165,
+      "decoded_bytes": 4600,
+      "stored_sha256": "bc9229436935016a25c45812f175bdcf910e4b19581e4b3d49094ef9c4d479f5",
+      "decoded_sha256": "9eec9129c407338f9a38b2ca82286a9b69f3f941614b330f676ad71e0929dfe8",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 84,
+      "rom_start": 16354200,
+      "stored_bytes": 1763,
+      "decoded_bytes": 3480,
+      "stored_sha256": "0f5014fc164dd98f7943f34bc3e2fcdd9cbf901187285adaa4bded7f554a49fe",
+      "decoded_sha256": "74070949ecb6e6f9f6d2880b4bb6822ff1d55e1466aceb709a35b49ae24516e9",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 85,
+      "rom_start": 16355968,
+      "stored_bytes": 639,
+      "decoded_bytes": 1304,
+      "stored_sha256": "01af73c594d98031b0be8c50d4bd2d125700a8bfda3331cc34161e5de8a88cfc",
+      "decoded_sha256": "a3ecb482278927507e9d32cdc164cd66684ad4e3a654a2c695249c00c5b6f8c0",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 86,
+      "rom_start": 16356608,
+      "stored_bytes": 997,
+      "decoded_bytes": 2232,
+      "stored_sha256": "44c36dab8eea1ebe3de30d36da1740cf44af675a728d3f4cc0afd917d46f55b8",
+      "decoded_sha256": "d7a6572ca9db2c4879325b41e27371a623635f49d860633e6aab2b9e38e7d362",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 88,
+      "rom_start": 16358008,
+      "stored_bytes": 1100,
+      "decoded_bytes": 2024,
+      "stored_sha256": "32f6e31dc92f1e9bac2e9c45af83dd7be071880aec912509b0eabb6788f230be",
+      "decoded_sha256": "75a41170ca87635f649f9aea4406fb431a123d5bb9ca9f08ab17b97b8f09aba7",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 92,
+      "rom_start": 16360624,
+      "stored_bytes": 1555,
+      "decoded_bytes": 3800,
+      "stored_sha256": "93f9e49a6db855c5dedac9990d3872928627c518e486c09403e4a411e1ff34a8",
+      "decoded_sha256": "a0a4d7291415f1c6847b5e1bf4bed86c7e1bf73c9bc9ffa33c59c130b72b9bfa",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 93,
+      "rom_start": 16362184,
+      "stored_bytes": 986,
+      "decoded_bytes": 2120,
+      "stored_sha256": "d81fc24fd9c55ab3a1c1d0cb39292c13099a0042bf242cd410b00d27bc433aae",
+      "decoded_sha256": "10c1620b6c9ffe2a8b82e33ab5319889c274e696f24760abab297d2264128001",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 97,
+      "rom_start": 16367264,
+      "stored_bytes": 103,
+      "decoded_bytes": 248,
+      "stored_sha256": "be1be04343be8436e56ec5830750ace8af7dc73d6f659ffd97980ff1ed15c5b7",
+      "decoded_sha256": "8f260a74a1557d6861c7468bfefe4df4c32952b4dfe7b2bf93c81e4aa43e881c",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 103,
+      "rom_start": 16370040,
+      "stored_bytes": 572,
+      "decoded_bytes": 1576,
+      "stored_sha256": "f9e1ba5bafdcb55ab714310ba39d6ec117b461d97772a10f89e158a4fd5f1ac8",
+      "decoded_sha256": "d52f179aecb46f0766af0b6fefe160db00fb854098304a6dabe9b06b285234ff",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 107,
+      "rom_start": 16372880,
+      "stored_bytes": 1731,
+      "decoded_bytes": 3816,
+      "stored_sha256": "19eb0809e5265e7b39bc1fab8b71e25b97097306bc775e81c4e85af2838c61ab",
+      "decoded_sha256": "a192f55cba5aca76c8ecb430d553578d2877073520308bcde03b7a1dfc1388e6",
+      "format": "direct"
+    },
+    {
+      "bank": 3,
+      "entry": 111,
+      "rom_start": 16376312,
+      "stored_bytes": 172,
+      "decoded_bytes": 328,
+      "stored_sha256": "a8718542df2a41437047e0a0d67d2704e50cc81a0d0ee0a82d0c6d33d00b1e47",
+      "decoded_sha256": "9ffd25e52193f7d97430cc401b50d2f6a38469ea042d283aac38a898874db827",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 13,
+      "rom_start": 18901616,
+      "stored_bytes": 1148,
+      "decoded_bytes": 2920,
+      "stored_sha256": "7da37f892c92fda7cb03a8162337bfef84e15d8292d7082f86cc34a06c5b668b",
+      "decoded_sha256": "e94e2c8fc3f15ec30965efe6d965be4e11b0f80dd76258b70ab294109fe410f6",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 17,
+      "rom_start": 18903968,
+      "stored_bytes": 2427,
+      "decoded_bytes": 4488,
+      "stored_sha256": "6f39b11afa346e589b720b959b3863f5764f33f1de35d77bd3f37d22cfba3070",
+      "decoded_sha256": "073cf39e654773354f001cdf351bd0aa1423fafee841820ec20685d91c545d06",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 20,
+      "rom_start": 18907952,
+      "stored_bytes": 786,
+      "decoded_bytes": 2088,
+      "stored_sha256": "30000c2d527c09dbaf58581e988fc63426893e68af4d0e7c5242907f9f8f739e",
+      "decoded_sha256": "b3d718cd4be9e628ff20df87f20fc600d181596db808afacb8d564380c39781b",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 21,
+      "rom_start": 18908744,
+      "stored_bytes": 2194,
+      "decoded_bytes": 6408,
+      "stored_sha256": "e27cca3089de1e540972b9701d311d6c37ea93fe2178f39e25543ff83c8dcfa1",
+      "decoded_sha256": "5fce898fcaf76cbce5d87265eb476636b2948ae2828f34869547c81b1f1222bf",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 24,
+      "rom_start": 18912848,
+      "stored_bytes": 1248,
+      "decoded_bytes": 2744,
+      "stored_sha256": "d10a88f3e60f7926819e01c5bde83216b290f2413b0fa563e9488790d6d52423",
+      "decoded_sha256": "be64a2ae4563d571f7ffde2c11b2c8736a8af4af31048c3772df93fc55835248",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 25,
+      "rom_start": 18914096,
+      "stored_bytes": 876,
+      "decoded_bytes": 1768,
+      "stored_sha256": "24e835473a992022380c44c775e814d2088982fbfeddad5675036673db2cc2bf",
+      "decoded_sha256": "cfb282ce0478fb36fa086d13dc65b850d528c639f8f7734ac555c7e2f3c2ae14",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 26,
+      "rom_start": 18914976,
+      "stored_bytes": 990,
+      "decoded_bytes": 2264,
+      "stored_sha256": "9bae2b101b4e4e1a41a18ab97349756e7d0de95fe3b8c19d8132513fe31df6ac",
+      "decoded_sha256": "4d29f65b0a3606313b3271a145be6fc9bf3bce1791ebd14d3b59fa26b0c0da5c",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 27,
+      "rom_start": 18915968,
+      "stored_bytes": 994,
+      "decoded_bytes": 2280,
+      "stored_sha256": "0d01c284dc6973085f0785fcc98cfdf60465be1826c477de29cf2fc08506a0bc",
+      "decoded_sha256": "eac21345a0f06d2885fef353d954118b10fec23f13d69de09c808b48a26d0fe5",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 31,
+      "rom_start": 18918776,
+      "stored_bytes": 1211,
+      "decoded_bytes": 2696,
+      "stored_sha256": "d514aabba99707b23bca55791c1c7dba46eb99b028e7b23f79c3f986556ab0a3",
+      "decoded_sha256": "dbafbae9d06cc13c90feb0b5eac7ca924430a0d3a2de16deafb5e674ac4e707f",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 32,
+      "rom_start": 18919992,
+      "stored_bytes": 652,
+      "decoded_bytes": 1448,
+      "stored_sha256": "6330ee1c822a44091f1ef3a90d8a668a411d6d6119019d78378578f42d058b85",
+      "decoded_sha256": "9fe50c24a58b8a2fcaf853a84311988fc4967c8d229494da8493441099b7ecd6",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 33,
+      "rom_start": 18920648,
+      "stored_bytes": 586,
+      "decoded_bytes": 1112,
+      "stored_sha256": "9f3a53478a37159f13b16c7870dd3bc810552dc533a9b88150292026157cd420",
+      "decoded_sha256": "d229256b38a45d08f84b965cf265f185415bc5cd553674c6ab7053cffd70c300",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 34,
+      "rom_start": 18921240,
+      "stored_bytes": 1103,
+      "decoded_bytes": 2648,
+      "stored_sha256": "d4660091fffc05afc24e4fd9d64b59dee0b8f39a71d68f57e2997afdcf66ec2b",
+      "decoded_sha256": "2e2699848aa4b83c9ef8d34b1b8fe47c8cc62047ac1c991608a31101fb4fb47c",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 40,
+      "rom_start": 18926472,
+      "stored_bytes": 1670,
+      "decoded_bytes": 4168,
+      "stored_sha256": "422c1e0d0b248234e1e8504e277f6de53584656ac7fdba3b3b6fec8f727b07fb",
+      "decoded_sha256": "d3474409dbfb27e1e57b5dc6512b00a3929fcad08212a9faf6850d6e107c1c37",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 43,
+      "rom_start": 18929008,
+      "stored_bytes": 1585,
+      "decoded_bytes": 3880,
+      "stored_sha256": "86d89c9b5c397a294e58618fc1594b30cd803a84dd7f0a55fc1bb6c040bce628",
+      "decoded_sha256": "84752b79c10cfb33c0b4147ca660f4342aa8b42e0f6d21dc5c64d13485cc7589",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 46,
+      "rom_start": 18932664,
+      "stored_bytes": 461,
+      "decoded_bytes": 872,
+      "stored_sha256": "6997a548b967bf1e064441c1a5eb0fefe1732750f6c5c7dffe782e981b0d0465",
+      "decoded_sha256": "aeadbde617c7b7c9ec266ebc3c6da55f856287fe4c798a9b9105809f8876cda9",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 48,
+      "rom_start": 18933864,
+      "stored_bytes": 1546,
+      "decoded_bytes": 3496,
+      "stored_sha256": "d4a265ae37d58bd4fbcbc32e28ec5c4a7d66edc0e8be59ea3be00eeeadf70e06",
+      "decoded_sha256": "1548b484986c3a37514b5bd3cbe6ff99f7fb472a66429fd16a0b90ca0206740f",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 49,
+      "rom_start": 18935416,
+      "stored_bytes": 808,
+      "decoded_bytes": 1816,
+      "stored_sha256": "bf786d673431bbc74de8c28d1d983fe1ac726aafbd90384e31e1a790973bc449",
+      "decoded_sha256": "04054533e3fa9e40188a6c711a8bd08575155848f6f28b23800aa53411883af4",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 55,
+      "rom_start": 18938560,
+      "stored_bytes": 1666,
+      "decoded_bytes": 3688,
+      "stored_sha256": "5bfd76a0d1e5c645505d4b527545fc3faff25415554bd042038b429d63c4bf80",
+      "decoded_sha256": "91c2caf1375eecedc4c5cbd5bf299978dea7c628331a7542c590b56761697b3b",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 58,
+      "rom_start": 18940744,
+      "stored_bytes": 636,
+      "decoded_bytes": 1320,
+      "stored_sha256": "6fcae95f74f694491a0a0a518dcf03a76511605f28345b756abd4b07d18f26b6",
+      "decoded_sha256": "190f812e33c16ef2d6be955a45298fb7dcffcad945e8bc39aa3b78aa076db872",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 59,
+      "rom_start": 18941384,
+      "stored_bytes": 1128,
+      "decoded_bytes": 2760,
+      "stored_sha256": "88d4b42d30420487794cf7e197c8f88772a1bf3121b5416ec9ac18a54e7307e0",
+      "decoded_sha256": "899379a0a1e0110be0d5d93c4071f8e96b4c5c9a714bb1a5c514c18e76fc3ee2",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 60,
+      "rom_start": 18942512,
+      "stored_bytes": 826,
+      "decoded_bytes": 1688,
+      "stored_sha256": "6bf8e98d56f3753e0b07b60de36afe8571b7470025354484bf2a5e78ce52cfa4",
+      "decoded_sha256": "cce20e13a268018b4fad50b402b7a1120ce9832e7f5616a12c0f6e9e2d96ced2",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 61,
+      "rom_start": 18943344,
+      "stored_bytes": 840,
+      "decoded_bytes": 2568,
+      "stored_sha256": "188e9da38fff780d59bf59bfbdc82c950b7ad7b44efbc7b73e0623ebf257e68a",
+      "decoded_sha256": "f17e9e8b74d6f694a983a75a36b38d60afcf74bdf4a2890ce6032a306b649963",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 62,
+      "rom_start": 18944184,
+      "stored_bytes": 652,
+      "decoded_bytes": 1384,
+      "stored_sha256": "b19134e51cd8eb6fbe423a18b3042d17f28378a6455a4b206df260af0d797eca",
+      "decoded_sha256": "126bccbed655cb949f23d0606c28e34cd67043cb9a4a936e802ed46bb4013f22",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 65,
+      "rom_start": 18945688,
+      "stored_bytes": 1991,
+      "decoded_bytes": 5256,
+      "stored_sha256": "c72e5eaa027326359e4a22c50d1f796081cc818e9f59b65901a14be1cd858ca3",
+      "decoded_sha256": "52d6c9e261bf8358bc4ba86507d56e78caa264a9e01fb31ec96294352506f7cb",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 66,
+      "rom_start": 18947680,
+      "stored_bytes": 1787,
+      "decoded_bytes": 4104,
+      "stored_sha256": "661311465b1dca12da7be807d3bf626e21ea60a7c94fff8cb5a5b7e71d117b33",
+      "decoded_sha256": "249a0f298565ef905f5b79d40e82cc895efa7ab9c07ed81562bfe454f801d715",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 67,
+      "rom_start": 18949472,
+      "stored_bytes": 1816,
+      "decoded_bytes": 4104,
+      "stored_sha256": "0c1d4ce5ba143ad7fd82481f06de94d5dd53f9952d9a42830b4364fc27cd985d",
+      "decoded_sha256": "9360e40cbb434315e77f85a3d83555c4f8568e5b0ffcbda21d4e36c4c707ca1d",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 70,
+      "rom_start": 18952184,
+      "stored_bytes": 1296,
+      "decoded_bytes": 3032,
+      "stored_sha256": "f94e9e02e3973f109b1692625826a4b00c6cb62f50c8c31d7f070d560090686a",
+      "decoded_sha256": "f01253716ff9661c80711d30ecdcd1540adacdf24033c74527860a1e419aa2e3",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 72,
+      "rom_start": 18954776,
+      "stored_bytes": 788,
+      "decoded_bytes": 1768,
+      "stored_sha256": "faafd2d33145987c7189e2c0b7a2528e67ef8003c822b6b3db75af2f9f5095aa",
+      "decoded_sha256": "68ba3e8b941224107d488de0b09250fc0d6273cbf7021e1f7ef76ced6b056b44",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 73,
+      "rom_start": 18955568,
+      "stored_bytes": 835,
+      "decoded_bytes": 1768,
+      "stored_sha256": "b630453179acde40e5e968bc69fa84bf866efb5e0c0f51c9ab10400f3f6aaa40",
+      "decoded_sha256": "1cfeba54faec160658da60614c70ade3b6ab93167fc15318a6c3c23916d0b62d",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 74,
+      "rom_start": 18956408,
+      "stored_bytes": 422,
+      "decoded_bytes": 936,
+      "stored_sha256": "e9fb23997d18b592d4df0f7699629e684af8898d432b4c2b2acdfa75362aa244",
+      "decoded_sha256": "9cfc77e666832228d51fed95e909ce9ffc53a062049ab892db1d22ef62204fa2",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 75,
+      "rom_start": 18956832,
+      "stored_bytes": 422,
+      "decoded_bytes": 936,
+      "stored_sha256": "420040cfa5628374a53f1aada4502cbf5a50915df8e08fce6850d7bb60d156b5",
+      "decoded_sha256": "093d33a13f4d277f6521617571beafdc580f6da0738bce458b84e0049717180e",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 77,
+      "rom_start": 18957648,
+      "stored_bytes": 1337,
+      "decoded_bytes": 2952,
+      "stored_sha256": "c349caa2085b9852e82cbd7b2b033f804f92d023bd870be0ba1e01885eae7d03",
+      "decoded_sha256": "94303a06e571823336fededb661c33bd87748ed9f5ea9dddf0021b6a32e688dc",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 80,
+      "rom_start": 18961160,
+      "stored_bytes": 680,
+      "decoded_bytes": 1464,
+      "stored_sha256": "beccd63c02fec40d3fd91a89c628872e666ad0441b3efe3510b6cf6f34840714",
+      "decoded_sha256": "a21803b7cff09f0fd6d35deaaa21d0defa783f94cdbeaee913b2b541a18cbe0c",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 83,
+      "rom_start": 18962824,
+      "stored_bytes": 527,
+      "decoded_bytes": 968,
+      "stored_sha256": "4ce57aa22f3b9b34251abde59b7a6944c62f5b439014e7fbf2e895d008b98b00",
+      "decoded_sha256": "a0e8596da4cdb1315170702987e8c83aefe94296c0733f89656fff1e0d3d313b",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 84,
+      "rom_start": 18963352,
+      "stored_bytes": 686,
+      "decoded_bytes": 1848,
+      "stored_sha256": "cc05663c809fb2e349d9efed600d19de922f89b27bfdd578606e7df9392d73d3",
+      "decoded_sha256": "9abb3303fffd8277197a6f882ab7c97a5370812e959c9775ff188bd9ffe21847",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 85,
+      "rom_start": 18964040,
+      "stored_bytes": 683,
+      "decoded_bytes": 1864,
+      "stored_sha256": "b5f0ca787a478fccedd0947c6439ac172307e45958f5f3f7be03978f6709b5e3",
+      "decoded_sha256": "1897a3dd35ac72b9b71b1d2110eb9fa73dc1889cd366d5e0614ba3bf4b0307c4",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 87,
+      "rom_start": 18965320,
+      "stored_bytes": 1019,
+      "decoded_bytes": 2232,
+      "stored_sha256": "b979374e4c67c58bab9be409ca456b1e244acdf0fe65311708b7c4dfe83c366b",
+      "decoded_sha256": "5f952673fd5a3698b494d88c3bc124f8df41c0be46f0ce002fd77d681674f488",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 91,
+      "rom_start": 18967832,
+      "stored_bytes": 651,
+      "decoded_bytes": 1464,
+      "stored_sha256": "7bbfa5e03a993d3ef9723f064925926011033cef0191d06de8ae48b544f08e41",
+      "decoded_sha256": "cd403239d4becf2e664a36af209f95f155bb2a50b3c91f58736d936ba6109f50",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 93,
+      "rom_start": 18969000,
+      "stored_bytes": 1006,
+      "decoded_bytes": 1912,
+      "stored_sha256": "3fce4a9e3081370dcda9091dd516fc58f7920c2665038278b9c017892769367f",
+      "decoded_sha256": "304681e0d64d6413bfe29efb86b2a616e4fd0eb4ded1086643e1cf11d19bf71c",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 95,
+      "rom_start": 18971840,
+      "stored_bytes": 1390,
+      "decoded_bytes": 3512,
+      "stored_sha256": "4c9da2b116bfa79a08378211057beb5f1bc6cb77c4bf508084be3b79d3181f66",
+      "decoded_sha256": "47b2ab765c21113d313d9a6ced4cf6eead5636681d1cb4588ba62f73bab91f40",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 99,
+      "rom_start": 18975184,
+      "stored_bytes": 849,
+      "decoded_bytes": 1704,
+      "stored_sha256": "f80ffef5bd318aec63bcce573c552d40830ca5d9ec3b391183c27e219d169ded",
+      "decoded_sha256": "36cdbae3d1ef636062f47294cbb18dadd36c669fcb7dd27555e9524c626a5074",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 101,
+      "rom_start": 18976384,
+      "stored_bytes": 2186,
+      "decoded_bytes": 4856,
+      "stored_sha256": "2f095d5a5d75860597cb2992732e38b51e91c161f0343a114a45eda62486f7dc",
+      "decoded_sha256": "d3f6bce2ef23cc53be544693d0e5ec3920568d1386379cfdae30baf07a8df069",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 102,
+      "rom_start": 18978576,
+      "stored_bytes": 1005,
+      "decoded_bytes": 2216,
+      "stored_sha256": "5eb51948fffa11b6177c6f3a8e93990c90e7e35193d7cf56c494183c37570352",
+      "decoded_sha256": "11b210a579eb73b9a76286c0e4a421189d98416af753781c6fe1fa2d056d8585",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 106,
+      "rom_start": 18982496,
+      "stored_bytes": 521,
+      "decoded_bytes": 1016,
+      "stored_sha256": "d6b1ce2dc973b60d37f2d460b6b2b9d654cfe996e76ae7398f1631f212e06d1e",
+      "decoded_sha256": "fc6e3cfd000e4f01bb3ad556e4da6bec5017889683ce168936f54891a8a76b0e",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 107,
+      "rom_start": 18983024,
+      "stored_bytes": 1004,
+      "decoded_bytes": 2280,
+      "stored_sha256": "88cef2b303b672b868eaf7b431fa7e18a9669a74fc2fe51dd64e1a386817560e",
+      "decoded_sha256": "49015a8d15f96d46d1159340701a7a8ab46f1547e226b43e98c09e5c6dddaf28",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 108,
+      "rom_start": 18984032,
+      "stored_bytes": 581,
+      "decoded_bytes": 1112,
+      "stored_sha256": "8f4ea7d7087b76e3766d36a6f1402cc83f7fbf63667231f3f00a862668452062",
+      "decoded_sha256": "4b8f7c7d272bcecce7896787b9ee9374dd652af379e382854e1fb89a5bb278ba",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 112,
+      "rom_start": 18986248,
+      "stored_bytes": 655,
+      "decoded_bytes": 1336,
+      "stored_sha256": "a968342fd57328739a30775246af9da5b5579b01f4f9e5a494949ba9130965da",
+      "decoded_sha256": "1eb0d4cbd78b10ef73bd2cead65cab6cf93c293c11b69cc0b33b493079832643",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 113,
+      "rom_start": 18986904,
+      "stored_bytes": 897,
+      "decoded_bytes": 1384,
+      "stored_sha256": "34d700e5455b2fbb04dca8430ed94fb4a6195c7468dc4c80b1354ca8ac2b80f4",
+      "decoded_sha256": "74e6437e6a63239b10a979286f21f34c8e57d7fbfffb41c17e3aca7fe2358505",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 116,
+      "rom_start": 18988872,
+      "stored_bytes": 3932,
+      "decoded_bytes": 8504,
+      "stored_sha256": "aa2cfb77497c397b7ee8a4b946acaf87fcdb1774a1a01ad05e4a24df088d2d4d",
+      "decoded_sha256": "3943c29c108728deb3d07568e215080a7bce69b04b9df104b7bcfcc4ac7b9bd2",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 120,
+      "rom_start": 18994520,
+      "stored_bytes": 1319,
+      "decoded_bytes": 2872,
+      "stored_sha256": "3cb3b78119ed13cd859651c5f8d2163cea333a83b488bf53f6ffd832a0d24d35",
+      "decoded_sha256": "dc65f90294ed73b03e1289657d5928b1be12467d3bda90b2d7c83ac46a93009c",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 124,
+      "rom_start": 18997600,
+      "stored_bytes": 720,
+      "decoded_bytes": 1272,
+      "stored_sha256": "13ea63204607d377c094c81a41459f7c815b7286b7ffdc33df52c667578418f3",
+      "decoded_sha256": "abb09eb858308c65146d19a5816a6a143113b93a479f764436a5d45f25275a50",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 127,
+      "rom_start": 18999616,
+      "stored_bytes": 1443,
+      "decoded_bytes": 3512,
+      "stored_sha256": "b5db2eb250488471d9397bb8811e3082c204b7fa996af0e635781838cabe0088",
+      "decoded_sha256": "b1c53327e430010dc2813f4436da961b3a972d5f408fd1ad311501495058d274",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 128,
+      "rom_start": 19001064,
+      "stored_bytes": 1029,
+      "decoded_bytes": 2024,
+      "stored_sha256": "0043feceae8949583468ea60bacad4b63602a2561c74a73650b156f997c79bac",
+      "decoded_sha256": "b1c6a76068af5221f504f9b5090e84d8a7e1a43b0848705fd29028aac60c2a28",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 129,
+      "rom_start": 19002096,
+      "stored_bytes": 723,
+      "decoded_bytes": 1608,
+      "stored_sha256": "6176facaf780eff5bc8cd577db9ad82743dc898726221ea2e14753613eaf77d2",
+      "decoded_sha256": "7ea039f4717e45d0ace92a8c75e85a8f7e7a69549f7b0fbdbf626d50d50d6982",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 131,
+      "rom_start": 19003320,
+      "stored_bytes": 1224,
+      "decoded_bytes": 3352,
+      "stored_sha256": "77c99ff1ba8835f6807e37fe8ce4cb0739c62c6978e8aceae64bc9f24bd637e4",
+      "decoded_sha256": "f9d08b2937988aa67d66ffaec63819f0b3e288fd33d462a699cee128e822edf0",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 132,
+      "rom_start": 19004544,
+      "stored_bytes": 1420,
+      "decoded_bytes": 2840,
+      "stored_sha256": "0e578e7aa4677221fe680221f324c3ecdaf335814043ee0a6daf108f4050aedf",
+      "decoded_sha256": "5cbe5a077e60e6c443d229bf8c60f6f7d806ca822c349cf8a74a568d4337bfe3",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 133,
+      "rom_start": 19005968,
+      "stored_bytes": 1099,
+      "decoded_bytes": 2072,
+      "stored_sha256": "b45f50a67516ed666e410788f7302f3ce1858bfb7931948f2d69e5e1b5aaf997",
+      "decoded_sha256": "6e9e414e702b8cc63ceb100e06ed76c051c812cc27b6d6c222e39e5567c2ea5b",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 134,
+      "rom_start": 19007072,
+      "stored_bytes": 2233,
+      "decoded_bytes": 4984,
+      "stored_sha256": "ba54cab5bf1c6508d49849145d5392eefe9f092e5494c0449160ebaf615b3004",
+      "decoded_sha256": "7dc95c1d2221127faf3ad91fa0ecef3372407962ac6565f820204045b413c49a",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 136,
+      "rom_start": 19010112,
+      "stored_bytes": 1277,
+      "decoded_bytes": 4056,
+      "stored_sha256": "0f08350ed8a39efd32851b2f0b8d39737daf323072615ea2512b3ef85890ad20",
+      "decoded_sha256": "fa94b0fa3c6a26a3bb3f5bd57f4e58f7a1fe8ab38a5ed3f8b2d1cba2ca2ed1c4",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 138,
+      "rom_start": 19012248,
+      "stored_bytes": 1234,
+      "decoded_bytes": 3256,
+      "stored_sha256": "1d345d11c2a5f118ed93302c2b8bcdc3fed4cd0746c08ccae1ccb663e624c2ca",
+      "decoded_sha256": "41a8350a41594804c3e39cdb27ad237f72e9601aefbfd81b8aa379b02331751a",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 139,
+      "rom_start": 19013488,
+      "stored_bytes": 1755,
+      "decoded_bytes": 3736,
+      "stored_sha256": "08dee5a3aeb4448f01014f42479f620922c9eaa257250a4be277a2987b7bf93e",
+      "decoded_sha256": "757a7b02b596245a6a12c312ec53699b0f9c7a807b0fcc74cb53b50d0c501861",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 140,
+      "rom_start": 19015248,
+      "stored_bytes": 1625,
+      "decoded_bytes": 2968,
+      "stored_sha256": "89cae6710c53fe6c7ae87a7f720f9b43c02d4e77d49bf725580ce3a5f76d930d",
+      "decoded_sha256": "db08725a81491eb65bf40d722c262130a62c0164d9a269f2d0e4ab66ada3305b",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 141,
+      "rom_start": 19016880,
+      "stored_bytes": 1591,
+      "decoded_bytes": 3992,
+      "stored_sha256": "5019688d40bd81190439d06c80a986bedd10022a9c12e35f78302732abc85912",
+      "decoded_sha256": "545bbfd4675f8f3c244fe16a4cdde6912e45715f078ada5cde4bbe01de02aa32",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 142,
+      "rom_start": 19018472,
+      "stored_bytes": 1166,
+      "decoded_bytes": 2648,
+      "stored_sha256": "175e7b6d46bd739c0ef5054dc5d8c03e4e5671a5c25ced43780310345566ff17",
+      "decoded_sha256": "862153c49b4d6e849ee46bb1b9d4843201792dd644e4bd4ad0de81fc825e1aef",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 143,
+      "rom_start": 19019640,
+      "stored_bytes": 1506,
+      "decoded_bytes": 2296,
+      "stored_sha256": "c1a3f723abb38480593c1cd4234d5edd0426a05b0cddd112ceb118d9e54d822d",
+      "decoded_sha256": "7988f36a32aeffa0cefdf215ce7982647c8f819b41cacb731967f5b95c27fd6c",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 144,
+      "rom_start": 19021152,
+      "stored_bytes": 1672,
+      "decoded_bytes": 2904,
+      "stored_sha256": "3acb3eaef31031c006fa40f65282ec2d5666254b1d76d0850879fbea19c0f32c",
+      "decoded_sha256": "1ff39ff2e89175b2724b562100b931fb3997d66818b18fd92291953da0c48d3d",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 146,
+      "rom_start": 19023440,
+      "stored_bytes": 1924,
+      "decoded_bytes": 4312,
+      "stored_sha256": "350b0c70860be284f9822ad3dc54e651828fe9ea61c6799aae4361c5f354656b",
+      "decoded_sha256": "8e3a950a91c2660114c91ebb999943ec1a0b062b6bf54d956a2b584068cb878a",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 147,
+      "rom_start": 19025368,
+      "stored_bytes": 1853,
+      "decoded_bytes": 4312,
+      "stored_sha256": "1242cf30136f82c4472f7fe61b39cf1df1a4b150903ad2e2805c24e0d583835b",
+      "decoded_sha256": "d362c8164d040d00255f83d10cc3df56d40b41d85566ccaf8953755d84153be8",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 148,
+      "rom_start": 19027224,
+      "stored_bytes": 905,
+      "decoded_bytes": 1912,
+      "stored_sha256": "dae3c6287ce77487c1f6bcbeeb0394dbdb58187fbbd2a50bfe6a1ae09ea858be",
+      "decoded_sha256": "0750e11722b77b06b58a27713691dd6c54b0ca320f94c40182422bb23c934b0e",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 150,
+      "rom_start": 19029392,
+      "stored_bytes": 830,
+      "decoded_bytes": 1752,
+      "stored_sha256": "aefcfefff46b84480148fac3e3718abf1e2fe02ff6bcf353d2479b99b1fb8c6f",
+      "decoded_sha256": "9715b3f044d274ef2a46d3eebcd471edd6d8ef3d632acf098214264f3f0b4190",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 151,
+      "rom_start": 19030224,
+      "stored_bytes": 621,
+      "decoded_bytes": 1176,
+      "stored_sha256": "0a67a4daf3638eae0708ddd16f0fffc92a083008b74df96c1313d3986f1fad2d",
+      "decoded_sha256": "90f33236e03bf3683771d279b7b5e66e6cd376d64cbefb3b187c33e5c1773009",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 152,
+      "rom_start": 19030848,
+      "stored_bytes": 1261,
+      "decoded_bytes": 4056,
+      "stored_sha256": "5293ce1dfa6edb4b821ec4c27e715c5f024fd0c358fd2c9b4715808fc23734b3",
+      "decoded_sha256": "c649c3170c398341228afec12ffb6aed83cb40e360694412422dd8b096f51384",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 153,
+      "rom_start": 19032112,
+      "stored_bytes": 746,
+      "decoded_bytes": 1864,
+      "stored_sha256": "d3f33e47ce0fb1dba0011f754d0f525cf329551bc95bcff51a10028eb501fccc",
+      "decoded_sha256": "79b0e6b2d94315980302c2beef9ecd87f021951f8e9a1404845223f39199332d",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 154,
+      "rom_start": 19032864,
+      "stored_bytes": 351,
+      "decoded_bytes": 680,
+      "stored_sha256": "f8a542d85fe5a903b33d7bead2b9d473919d39ba7c7c40cb0d116bd3c04bd356",
+      "decoded_sha256": "72888d39f630bc8d8be90fa9e703952864577775e651e48b7bce2636e3802eea",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 155,
+      "rom_start": 19033216,
+      "stored_bytes": 883,
+      "decoded_bytes": 1768,
+      "stored_sha256": "e3b6d20913a9e8559fc65c4900df42a875fe77f0ac5afb068643b33d975df728",
+      "decoded_sha256": "332bed30392f073e577c23ed4b1aef4ac43e688923ec6eb3f5b8f5a99580c48f",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 157,
+      "rom_start": 19034656,
+      "stored_bytes": 832,
+      "decoded_bytes": 2216,
+      "stored_sha256": "284a10e4a3a94607042bf1f834eb9ddd76642741916c90ac04147966c49c1a5b",
+      "decoded_sha256": "c6723563961fb3157fecf39c040b1c9f978419374f7dd8c9e5c55238babb5966",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 158,
+      "rom_start": 19035488,
+      "stored_bytes": 683,
+      "decoded_bytes": 1512,
+      "stored_sha256": "76ff6cebd683a4dfe29de3018a704cbc548d1178a416f3349aefc92fe814c4c4",
+      "decoded_sha256": "4f8253b33c9576619eef15bbdff8f38b2ccbd30792dbc0ac23268c7ad3802c15",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 160,
+      "rom_start": 19036856,
+      "stored_bytes": 337,
+      "decoded_bytes": 760,
+      "stored_sha256": "0f48dd79f9dbd234ab36c103e1dfcf13454c7acfaf6e38a67392fc6aa8c605e7",
+      "decoded_sha256": "ba978c4e41825f048f2f7d6380c81654b28a8479fd8aa30a0943dc74666d6f41",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 161,
+      "rom_start": 19037200,
+      "stored_bytes": 385,
+      "decoded_bytes": 648,
+      "stored_sha256": "be9af84999115dee24d88a73ada0d50c7d7f8fb2376c5eaacce7e539d6eeff80",
+      "decoded_sha256": "593a9e8b5ea84dfa9871e50248fc3bc84f455af981f2666b1470daf937a2686b",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 163,
+      "rom_start": 19039008,
+      "stored_bytes": 1435,
+      "decoded_bytes": 2760,
+      "stored_sha256": "a057802a0425cf4f33d64d0040c5c709347c8296d371c16fccd1d9bed40bb40c",
+      "decoded_sha256": "95064e627f57705031c8f44a53c3a67ab5b5d306312a1007db35474bb35da02f",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 164,
+      "rom_start": 19040448,
+      "stored_bytes": 1543,
+      "decoded_bytes": 3256,
+      "stored_sha256": "b4138408d64b869f66e1522afd21ef7d638d02f7e3d1bad1f84029f36c101c4b",
+      "decoded_sha256": "c88b7dc1379313e31c2da6e232ae64491d63ce45993175f8003489d214887bbd",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 165,
+      "rom_start": 19041992,
+      "stored_bytes": 1554,
+      "decoded_bytes": 3320,
+      "stored_sha256": "c6e27210f783afee77a5e511c9978251922da2672d8807ba9ae92087b43147b4",
+      "decoded_sha256": "d7f6622a97fa5fdb6152711688d42f5c1cd5fb6c7d0e1033f8d067b1f839ca73",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 166,
+      "rom_start": 19043552,
+      "stored_bytes": 869,
+      "decoded_bytes": 1960,
+      "stored_sha256": "a093d0860b2fd21494163a9e83bf559e6ed2d72e5d3240684bc89948b31f0b66",
+      "decoded_sha256": "e69448717493c6d63560f8e9184d6bfb656241ea6d7f86ca95366d6ec93bf522",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 185,
+      "rom_start": 19051576,
+      "stored_bytes": 2801,
+      "decoded_bytes": 5768,
+      "stored_sha256": "d979095a771ce4b2fc761aacb3cc80c75baa867b8e670120a721696415837099",
+      "decoded_sha256": "d6824736a89130f76ad128c4b957b02b6e9e879f63265b058a65d09f10e85fc0",
+      "format": "attachment-three-pair"
+    },
+    {
+      "bank": 9,
+      "entry": 188,
+      "rom_start": 19055648,
+      "stored_bytes": 993,
+      "decoded_bytes": 2104,
+      "stored_sha256": "db920078559150e8847ce4e6e0b268cbb852de41b11e6e0d27efc81fe3b52d50",
+      "decoded_sha256": "ddbe683884538a10b9a135660a25a70df9ae7f071f1daf733fffdcea16a23d3a",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 213,
+      "rom_start": 19065704,
+      "stored_bytes": 326,
+      "decoded_bytes": 488,
+      "stored_sha256": "9d5a9707af520a4a340917e4298b7a2708ada41a9d36bfac10a2d6ebf29cf272",
+      "decoded_sha256": "ae72e009d0f8b21d7c618127f27d5c60b40c43a5cd7eb5b58ff2f68c5fee0005",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 215,
+      "rom_start": 19066584,
+      "stored_bytes": 684,
+      "decoded_bytes": 1160,
+      "stored_sha256": "2be33e67eafa0ebdf8577dd70764d46e1abe6c9f2f0cc296e3600ce229f0a789",
+      "decoded_sha256": "62dfd48a271246abba3e2a93b9511903af4b8570fdae41f808e146fa5f3b0fc3",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 217,
+      "rom_start": 19067800,
+      "stored_bytes": 790,
+      "decoded_bytes": 1272,
+      "stored_sha256": "887400ee8b9aafb377aa74898c2f6dca146a86c355584fee904756a5436bbf7b",
+      "decoded_sha256": "3991126fd51141d37b1092908d5cc61111a001264e74a24779bf77eda3bea5bc",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 219,
+      "rom_start": 19069632,
+      "stored_bytes": 980,
+      "decoded_bytes": 1800,
+      "stored_sha256": "d521e8bbaf2361ab28bc1b760b5e849ed4fc9334624fcc939ad1653abf0cbf35",
+      "decoded_sha256": "dac781c95346865af22b4068e085d26e0519028275d1cef88c7f11d6b5bb3252",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 224,
+      "rom_start": 19071720,
+      "stored_bytes": 641,
+      "decoded_bytes": 1144,
+      "stored_sha256": "8beae0125203837348874bd25b324fc6bf6972b4b876e43ce51694d622396bb3",
+      "decoded_sha256": "fb95fc55aba08a07ea5ddc1916d4ab425cdf612d596ab33f3f48b60cd6d8c9c4",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 227,
+      "rom_start": 19073488,
+      "stored_bytes": 698,
+      "decoded_bytes": 1176,
+      "stored_sha256": "7ad20b78b62c2eaecacd3ceda1d1f7da81288ef15195af37fb0750ed87ffc260",
+      "decoded_sha256": "91add1fa7d39fbfea2eb377323b352f436963f917ca5233190f85684fa7b0dd7",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 229,
+      "rom_start": 19074680,
+      "stored_bytes": 319,
+      "decoded_bytes": 488,
+      "stored_sha256": "7cdcf676961c0b303323d65f46f99c701e9f2821683ba1deca332564e22a648a",
+      "decoded_sha256": "29d168fb180245f808905129aca925b59bf6e01bd60d9ebb1915d22acc4007b6",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 230,
+      "rom_start": 19075000,
+      "stored_bytes": 2416,
+      "decoded_bytes": 4248,
+      "stored_sha256": "ce12aa74887b985b1d8e7efe8335d00445d3e6deaeab6b44e67a2dc2e2559e42",
+      "decoded_sha256": "7a6cfd2633a95e5093e0985735177284bad8ee3329df346e639eba9f1f3b4ebf",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 231,
+      "rom_start": 19077416,
+      "stored_bytes": 374,
+      "decoded_bytes": 584,
+      "stored_sha256": "facc67704f504071a24b7e356c22dd71cba4e59fcc48f7039e10c1a76716e370",
+      "decoded_sha256": "d424505e9647946f1a7d29e392e45058f9d9ca3270a2419e4214c5fd09b46864",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 232,
+      "rom_start": 19077792,
+      "stored_bytes": 1160,
+      "decoded_bytes": 2056,
+      "stored_sha256": "8adf58585661cb40e9d5292e15fa8646c00b87a373f761dde6e5acb10b79eab2",
+      "decoded_sha256": "42ccd0744ae163af8f4285c339462bc8ab2f449bbd673c2b01eda77abe26cf31",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 233,
+      "rom_start": 19078952,
+      "stored_bytes": 304,
+      "decoded_bytes": 472,
+      "stored_sha256": "5b9c72953efce39016847ca6d387ba74faf7055d1e379749825c8c91ec91c235",
+      "decoded_sha256": "52b980782f31d8a8670564c8f3503e125ab3763c689cde357f89145ad48d0805",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 235,
+      "rom_start": 19079840,
+      "stored_bytes": 766,
+      "decoded_bytes": 1144,
+      "stored_sha256": "da75f4ef9bce8f4f9e88a1d87329b7985635c5ce4b826d39fc59f86a5de37a3a",
+      "decoded_sha256": "63eec77b071d265af2c036a0826925329f1a074700677b1e0b22c3409ccd6327",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 236,
+      "rom_start": 19080608,
+      "stored_bytes": 357,
+      "decoded_bytes": 552,
+      "stored_sha256": "79d4cceccf6fe5483d5bf39579b1d1698b6acf4b6b5dfc695ebc44374c8fc151",
+      "decoded_sha256": "c7c881c0760f348118adec3d28d64f541967192a17e87b20a808ac64e0a4b944",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 237,
+      "rom_start": 19080968,
+      "stored_bytes": 793,
+      "decoded_bytes": 1224,
+      "stored_sha256": "edae4ff7d46bd003b76dc78eeec79a72f80775d268b421c6cc6dd1fd367bc6e4",
+      "decoded_sha256": "8a2b551fdd27896392c6bf50c12fd85ef51d7486d453c68c59ef232ca3665a85",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 238,
+      "rom_start": 19081768,
+      "stored_bytes": 2407,
+      "decoded_bytes": 4376,
+      "stored_sha256": "f3e7150b8b0b7ed2720a024a0a3d16286914e57c5cdc601593221881f42400b8",
+      "decoded_sha256": "7144c0aa9f3affc1e9e8742b81842f1454f0562b5c45e51a7a823eb5434e0e98",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 245,
+      "rom_start": 19087888,
+      "stored_bytes": 739,
+      "decoded_bytes": 1240,
+      "stored_sha256": "3bf42c24ad9156edf49d5026c1154c0ccf8f67c3a8e0d22f2ae3a0ed046c7133",
+      "decoded_sha256": "a51b315c02d47dc2fead501d9f781c3c421ab16a67992edd007ba1d3ce0895f9",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 247,
+      "rom_start": 19089712,
+      "stored_bytes": 268,
+      "decoded_bytes": 424,
+      "stored_sha256": "4ee96cd4de16c18d48fe934cab7d9c336bb0fcc0b1277e151cc59c8d70d1b792",
+      "decoded_sha256": "c31b01147e3fd149bfe5dddc7d05292f75ae7b95c2666ca427080e477904eb64",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 248,
+      "rom_start": 19089984,
+      "stored_bytes": 1270,
+      "decoded_bytes": 2072,
+      "stored_sha256": "99bb52b05320846182ac78d610b3e9c18e9421f5caedf80e897a913e682317c2",
+      "decoded_sha256": "13859a67d9d0e9d4253439429c4ed0672098a446f3e080e72628369d73170dde",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 249,
+      "rom_start": 19091256,
+      "stored_bytes": 1276,
+      "decoded_bytes": 2072,
+      "stored_sha256": "0aed735b5377620b44f4acb5a542cc9d7fd725fa2829e99be303b84aac077d09",
+      "decoded_sha256": "7551e85c62087985f5cb5e66a7423d45ad1c94e35060d812e12b909885d64d50",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 252,
+      "rom_start": 19094296,
+      "stored_bytes": 849,
+      "decoded_bytes": 1384,
+      "stored_sha256": "58c8df52cb2fd801a030b88768406683c46a0857409e8a883338b19e8b13e80d",
+      "decoded_sha256": "56ee9085510f9ce66b7353ba902b699a73060971d1baa4b395fe97d9ea9f551c",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 254,
+      "rom_start": 19095680,
+      "stored_bytes": 3020,
+      "decoded_bytes": 6104,
+      "stored_sha256": "592ec5924256beafce66a4805fca1fcc84c1bec23699369628b3500753ad99bf",
+      "decoded_sha256": "6633c80515b8732606ee859bdd23946d3e853f3d394062a260de4b76c2c43007",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 256,
+      "rom_start": 19099384,
+      "stored_bytes": 869,
+      "decoded_bytes": 1336,
+      "stored_sha256": "998925ff1e3b2e04619e985d6a2d713d431a0458eb3abe7df38ba6705debc42a",
+      "decoded_sha256": "8f3e078006f507a5bfd3057baf91730da800d5a1c42dd05c7a6fb064af130363",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 257,
+      "rom_start": 19100256,
+      "stored_bytes": 837,
+      "decoded_bytes": 1304,
+      "stored_sha256": "0445e778f91597f5f117661ec10f055735664f1f44bc86b0b3e32080afa2d24d",
+      "decoded_sha256": "3f8fe76ef70e2647302a2a9ea065852a7fb74823a122d60d686033bcf9f18b95",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 262,
+      "rom_start": 19107976,
+      "stored_bytes": 760,
+      "decoded_bytes": 1224,
+      "stored_sha256": "6f7b93d786b59b334ba19abe2a8fc07ddbe367301635cc86efc11fa234f6ab25",
+      "decoded_sha256": "0f3cecf1f58d70eb25f0f448dd7a13726d769cd0f99543510c1ef362d1450a45",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 263,
+      "rom_start": 19108736,
+      "stored_bytes": 811,
+      "decoded_bytes": 1352,
+      "stored_sha256": "37fa7d1a979e40d18e7ff8d93c427120951fc1ff68579175f29bca9b0c3a12b9",
+      "decoded_sha256": "9f2a7c3bc38d0984ca79dba964f7aeae8c60c9fbf71f6afb6b1bc0e5a63bd34d",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 264,
+      "rom_start": 19109552,
+      "stored_bytes": 736,
+      "decoded_bytes": 1208,
+      "stored_sha256": "6fe57089ae767666e15a36a0c3f026a2b274f7a600626d32ebf772c591655e6d",
+      "decoded_sha256": "e4fe240e162d5c92ff174f0aa6d8b95e7947cb3e5575e8779bad0cf9e021c2f9",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 265,
+      "rom_start": 19110288,
+      "stored_bytes": 738,
+      "decoded_bytes": 1224,
+      "stored_sha256": "e2d1bfda1396c1f268c7f473d7150e87199b257ceff66cb58ead24ee6ce6f18d",
+      "decoded_sha256": "c499a68403c09995a64101e6acbdb638a5d3a780f8a423c25cda525ea69d6564",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 266,
+      "rom_start": 19111032,
+      "stored_bytes": 508,
+      "decoded_bytes": 840,
+      "stored_sha256": "b8f32a060455180398223618f28b804f69a6770d5d45ba91aec15d6c8e610b4e",
+      "decoded_sha256": "a7b65ac47f4ff84ccabad6145a75f0ab331e15cd52a564390081e6d0a078d3e4",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 268,
+      "rom_start": 19112144,
+      "stored_bytes": 682,
+      "decoded_bytes": 1080,
+      "stored_sha256": "0873469225544494aae29abc35b23b4e6eae48a5b328fdcf7dafb198a17b7fdd",
+      "decoded_sha256": "327e2b340845e3d6e60abaf994a32ab605aa66dcb7e8455146d99343c8d2980c",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 271,
+      "rom_start": 19113928,
+      "stored_bytes": 698,
+      "decoded_bytes": 1176,
+      "stored_sha256": "7ad20b78b62c2eaecacd3ceda1d1f7da81288ef15195af37fb0750ed87ffc260",
+      "decoded_sha256": "91add1fa7d39fbfea2eb377323b352f436963f917ca5233190f85684fa7b0dd7",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 273,
+      "rom_start": 19115440,
+      "stored_bytes": 583,
+      "decoded_bytes": 856,
+      "stored_sha256": "aaf180852b37b3d4510e382947739c0409db340be5cc0356d177cc566be27d43",
+      "decoded_sha256": "1c8ae2e9c9793cd6bb384ea41483d7860003d39be72e2c160bc01e778e8b1f6a",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 275,
+      "rom_start": 19116592,
+      "stored_bytes": 477,
+      "decoded_bytes": 728,
+      "stored_sha256": "cf0864153554ea261d2e322b4382a971ee6db910f1f1f18e5695d5690e6a3519",
+      "decoded_sha256": "7ae4fdab97524dac4b609a78e87b3f42816362d97ebb7fc7eaf1de5ed266f689",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 276,
+      "rom_start": 19117072,
+      "stored_bytes": 700,
+      "decoded_bytes": 1176,
+      "stored_sha256": "01b109a59f4d210cfa850eb394cfce63f804481d7a2c0d1729c1a6c3bb6733d1",
+      "decoded_sha256": "93e3a5a0540e01f19ce4221e75f9a9cdd040e28d201a9c70a48af89b6512bcf0",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 277,
+      "rom_start": 19117776,
+      "stored_bytes": 1554,
+      "decoded_bytes": 3544,
+      "stored_sha256": "d981e8e28c6710c2381d9f5d2f7660359ad13e754e07fcf1bda547b5e7e0fc5c",
+      "decoded_sha256": "2a543d264eb37712f59273e4205561a16283a99db2c0aa23047bc335cad6494e",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 279,
+      "rom_start": 19119800,
+      "stored_bytes": 317,
+      "decoded_bytes": 504,
+      "stored_sha256": "8193fd5eb020bcd6e32f4e671343d6e8b70e463e6d8f2506aa4b199614ddb919",
+      "decoded_sha256": "69885ac194789b1cb1dc885533391e62907a20878d4e071b068cd5e77d11bbdf",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 282,
+      "rom_start": 19121280,
+      "stored_bytes": 679,
+      "decoded_bytes": 1240,
+      "stored_sha256": "b80a9cd01a61bf0d5926629aaf5c1e5aae30c329acdca30741e1f1b9bf1fdfbd",
+      "decoded_sha256": "bce60d9e4b3964ead6515c26d11dc31a1aab353b169ffd225ee5e36f8b3e323b",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 287,
+      "rom_start": 19126000,
+      "stored_bytes": 510,
+      "decoded_bytes": 792,
+      "stored_sha256": "61824f9c68509aca8c010e4cb1559da226e6cd613f7a76a9eae3fdb65bb56b6e",
+      "decoded_sha256": "34ccb00bd1d8a0060863f2c97c2bf689c1075e5b91450528a06e6b3abbcce2b1",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 289,
+      "rom_start": 19127040,
+      "stored_bytes": 714,
+      "decoded_bytes": 1192,
+      "stored_sha256": "d0b951e1cd8c1dac13ccddb2e6e315685261176a0e13077d5873e6472adadd8a",
+      "decoded_sha256": "907b53cf2d0636e945d337177b232eaf2b3c42ba00645c12233f26bb2d05e6c1",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 290,
+      "rom_start": 19127760,
+      "stored_bytes": 581,
+      "decoded_bytes": 952,
+      "stored_sha256": "c985144619e013dd23a03598b48bcfddd13c21464f1bfe76f748b71831b08997",
+      "decoded_sha256": "725080f8f3845ba719466f35efa287288912d35a96332fa786346b6d421ebd07",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 291,
+      "rom_start": 19128344,
+      "stored_bytes": 552,
+      "decoded_bytes": 824,
+      "stored_sha256": "e079a4c3c6f812cfbb3c99b7f3a71d4e6e1b929acf6f472c4b12e73e31d3e37e",
+      "decoded_sha256": "c6a9e3377eeb4307bd7fd3cf2719725c23a7eb62339f6a1c48f3c1d634fe771f",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 293,
+      "rom_start": 19129456,
+      "stored_bytes": 1141,
+      "decoded_bytes": 2072,
+      "stored_sha256": "d171afbd0c1a2968e7eb75e33878ad4c50aad481cb1807faa2f7ad45ee6238fc",
+      "decoded_sha256": "e6ed0373b9b02e0ca2ef8a3f535e8cf4730d2ad419a0916c476d9eedf268e076",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 295,
+      "rom_start": 19131656,
+      "stored_bytes": 1146,
+      "decoded_bytes": 2072,
+      "stored_sha256": "3a2d7aefb79b2ee052959231ebea5761c482c7d39efa2371b7ad86be72b726db",
+      "decoded_sha256": "f3e319e7369b8dadefd68df5af2182ee3624e57b3162f4f6077543658932defa",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 298,
+      "rom_start": 19135040,
+      "stored_bytes": 651,
+      "decoded_bytes": 1112,
+      "stored_sha256": "5de75498ca0c2ebc1b0e2b9daf99ced7f3c81cfa0118955ffef52c712b614dcb",
+      "decoded_sha256": "a2b50c7f94470f894234409266c8b4e8fa785ba1163093c3bd9778f7e5372456",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 300,
+      "rom_start": 19136880,
+      "stored_bytes": 655,
+      "decoded_bytes": 1112,
+      "stored_sha256": "5efff6067de94328e955b41d577faa2758c8e762eacf34d57662a52ea968807f",
+      "decoded_sha256": "8c8cb119c259271ba42fd05282fe7ec9251ea5d5ecfcb29067a1513cb15c368c",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 304,
+      "rom_start": 19138776,
+      "stored_bytes": 343,
+      "decoded_bytes": 632,
+      "stored_sha256": "f0b593dfc4533664fcab582994694bab6c8e21b89f0ea3bd3b643c0ede607258",
+      "decoded_sha256": "942dd505053b08086dda35ac528e433419c46d5c561329f926e193438d9d4a23",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 305,
+      "rom_start": 19139120,
+      "stored_bytes": 343,
+      "decoded_bytes": 632,
+      "stored_sha256": "f0b593dfc4533664fcab582994694bab6c8e21b89f0ea3bd3b643c0ede607258",
+      "decoded_sha256": "942dd505053b08086dda35ac528e433419c46d5c561329f926e193438d9d4a23",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 307,
+      "rom_start": 19139824,
+      "stored_bytes": 4074,
+      "decoded_bytes": 8280,
+      "stored_sha256": "83bb52a6ed7b76d71d7654062a30ab6e9979ed701b7b201f66a6b6db16b74a3a",
+      "decoded_sha256": "fa6d6c6dbed108f8b5a80ee791f824610c9d5998d1fda5b16cd9041692b76ed1",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 308,
+      "rom_start": 19143904,
+      "stored_bytes": 1352,
+      "decoded_bytes": 2376,
+      "stored_sha256": "7fc7b6ae17c7de60cf69e780f46b22ae6d0145b8b472c589783e78e5fd540874",
+      "decoded_sha256": "ecda90f07de91902959b9633b921afb1afea64923b9b8bbc729dd942ac03b714",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 309,
+      "rom_start": 19145256,
+      "stored_bytes": 1645,
+      "decoded_bytes": 2680,
+      "stored_sha256": "87fe1f9ea8c518a2f0df156ebcdc0993873f01c527558686940e8cdb6e69700b",
+      "decoded_sha256": "03bd85678bf0411905cde9b8f32d55d6c10b0f010590982592afa1743b92abb6",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 310,
+      "rom_start": 19146904,
+      "stored_bytes": 641,
+      "decoded_bytes": 1048,
+      "stored_sha256": "3d8bfcffeb60e7816b2d8861ee507f30cbbd326db2b3cd94c74804299e84fa06",
+      "decoded_sha256": "a6fee527559ba104015ba32285797e53a53f8abda358cc1312c357dd4e12432d",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 311,
+      "rom_start": 19147552,
+      "stored_bytes": 809,
+      "decoded_bytes": 1432,
+      "stored_sha256": "ae9dd284f571d250ac8a0356d9aeab1cd277e1946a6da4c50fbee02b984dc6e8",
+      "decoded_sha256": "81dd2508961f8b54b487b028b3098b91163a704539b61c0e75d7bf19dd69bbc3",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 312,
+      "rom_start": 19148368,
+      "stored_bytes": 1216,
+      "decoded_bytes": 2216,
+      "stored_sha256": "80692a3bf1cdb7b619091482c6f44f0eb8e83c7b42b844f721eadc209604c9be",
+      "decoded_sha256": "bf13762ce8fd9edb4b6791eef72b379a01563f1a0de5fd067a5a984e32cff60c",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 313,
+      "rom_start": 19149584,
+      "stored_bytes": 792,
+      "decoded_bytes": 1352,
+      "stored_sha256": "da8326982fab2ea6e51ec6ec1753f8d57fb4d78813dcb1f931e35611fcd33b6f",
+      "decoded_sha256": "3644b2b387ad9c3e0e4cd9f03dd2d6703ba657b90ba7d16ee9c39edf921dd8f2",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 314,
+      "rom_start": 19150376,
+      "stored_bytes": 1518,
+      "decoded_bytes": 2648,
+      "stored_sha256": "b33f66644cb865c1b25c5e7bcd1c876ce1a46e17803a7481eb03b7b8038ad0c6",
+      "decoded_sha256": "f571e8b59d8cd6a13081a1b6108f8d919bbe0f80873a4738bdf61d170aadf3cd",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 316,
+      "rom_start": 19152392,
+      "stored_bytes": 177,
+      "decoded_bytes": 280,
+      "stored_sha256": "27ac63af42fb7ab571fbda42adbe1d063a614923f3c09b3beda19840738acb6c",
+      "decoded_sha256": "29650a7dd39b5620d62fd0a49e865cd8adcda87ed9a07b4d389f538a415c67b2",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 317,
+      "rom_start": 19152576,
+      "stored_bytes": 1607,
+      "decoded_bytes": 2840,
+      "stored_sha256": "e69d5213094a031daf87437c5ec32c285670df0ecf1c5987706706fdd3eb2ba7",
+      "decoded_sha256": "8bc016268304da0405a56c45767b089103cdbc53feaeda61b0abe2544e78ce81",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 319,
+      "rom_start": 19154616,
+      "stored_bytes": 363,
+      "decoded_bytes": 488,
+      "stored_sha256": "0da13d223688672e27d887c1d8c0dd2cd94f8d28bf50aad900ac6a496826a9d4",
+      "decoded_sha256": "8d88eda4e05da1d388b74dc972b1462d037f759537cd0eee5a2d2a68fc837019",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 320,
+      "rom_start": 19154984,
+      "stored_bytes": 1111,
+      "decoded_bytes": 2040,
+      "stored_sha256": "03ac39e6883e04eda803543a5970f34fcf6a4cd8bafc2915968f042586ec5b76",
+      "decoded_sha256": "9320fd274a6e494fa2f94327fff5298ab80664133eb2b0425bd105b9e4e1f78c",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 322,
+      "rom_start": 19156592,
+      "stored_bytes": 479,
+      "decoded_bytes": 712,
+      "stored_sha256": "618af3b0d61471a346ad8591e5402cb9d68b3f867710bcccafee27005a083151",
+      "decoded_sha256": "5b2d376cb2452621dc203ec44e9969cfcde125c399babadcfaf137567f7efaaa",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 323,
+      "rom_start": 19157072,
+      "stored_bytes": 687,
+      "decoded_bytes": 1144,
+      "stored_sha256": "bb42d4678a70812449037e64c3632d3e1e8ac23c3e1ee7545b8e36ee49a542f5",
+      "decoded_sha256": "08c166ab9d65bfe4bb12a4a261a998de8d9531ff07e37afe45238ffe1ea3f3f0",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 324,
+      "rom_start": 19157760,
+      "stored_bytes": 571,
+      "decoded_bytes": 776,
+      "stored_sha256": "e9492c28b39d42f18fbf830fe629f7cc463276ef1eae15c28005bebdb9dc08db",
+      "decoded_sha256": "171c8e1913be43c2617b027f98409d0fea0b95e8b76be5215aaa19c0b10260b6",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 325,
+      "rom_start": 19158336,
+      "stored_bytes": 467,
+      "decoded_bytes": 680,
+      "stored_sha256": "173f0ca6f88ef3c8f8b9d04914584f2b936928ebc43d4f34bb5854ff45696c34",
+      "decoded_sha256": "9f9b9acf89c48e33db4fd4e675f515527c8f1410439e6145c9f5ae2ee2354efc",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 326,
+      "rom_start": 19158808,
+      "stored_bytes": 603,
+      "decoded_bytes": 904,
+      "stored_sha256": "8dc738bd99a5fcb2ae045042d4235976ac20f0a7a99c16e41e0d2084522dfc0d",
+      "decoded_sha256": "e321ac84c9aea736970184af1427c97eaa76ffae6ebd3a7462811fa186fbde1d",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 331,
+      "rom_start": 19162112,
+      "stored_bytes": 404,
+      "decoded_bytes": 680,
+      "stored_sha256": "bd7cee67c8b2f5e1004e33eb4f27564aec7b70f38d03d68fe4e0854fad93a206",
+      "decoded_sha256": "e927efd01970e80161c3d579e65ad2d1ffe8788073675c06edb3f33c61d69b90",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 335,
+      "rom_start": 19163920,
+      "stored_bytes": 848,
+      "decoded_bytes": 1512,
+      "stored_sha256": "53ab7332ceffcf1c6430ae5cbe4007a03a9e7f7486da7f4bd80fe5a51f6b2a15",
+      "decoded_sha256": "cae8e68ec27963434c853b18e9c4bfd2e2089135794b7fd9383c47e5f4b23cf1",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 337,
+      "rom_start": 19166472,
+      "stored_bytes": 1364,
+      "decoded_bytes": 2472,
+      "stored_sha256": "37b1874d5a56f6882f1f5d2fa7ffed695e54ef589bb5acbbb7f317b38f3046af",
+      "decoded_sha256": "21e4de507093e28c9ee2d4f7ea6ed3a3008f6da40525c3ff17dbdb980b8f0e8f",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 338,
+      "rom_start": 19167840,
+      "stored_bytes": 242,
+      "decoded_bytes": 376,
+      "stored_sha256": "67e6e7ce08b431351c0315935d826afc91db8c9853055c6f3f146e1657e51cc5",
+      "decoded_sha256": "4006381cbc210aab150c910e3f2a64b24d5b7d5fe83a259ba99c8af9aba3bfaa",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 343,
+      "rom_start": 19169440,
+      "stored_bytes": 686,
+      "decoded_bytes": 1912,
+      "stored_sha256": "04c7ba1c5da947001bb64ed7ab88fa16e64ea294d06da4e75f9e9378096281e8",
+      "decoded_sha256": "3ea4340569b44965045eb27f9fb455fe303833af81d0209c365d51df69795a42",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 346,
+      "rom_start": 19171312,
+      "stored_bytes": 558,
+      "decoded_bytes": 920,
+      "stored_sha256": "f240e16474503a554dc4445c3768d881a1914416aff56d247bdb294e0e9a6b2b",
+      "decoded_sha256": "2fe2ec220a0844faded6e182ac78dbdd15346a88c472337366b9c3f2400acfc4",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 347,
+      "rom_start": 19171872,
+      "stored_bytes": 741,
+      "decoded_bytes": 1400,
+      "stored_sha256": "4abff51d91aaecbc46bc3f3d4b3da71f2395856a6724b1ea27307b38436cdcf2",
+      "decoded_sha256": "2538dc23fd40ab6d2d14db6c63f45c3e1a6ef0c1f5fd1f8c66db2bcdb0ac36b0",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 348,
+      "rom_start": 19172616,
+      "stored_bytes": 734,
+      "decoded_bytes": 1272,
+      "stored_sha256": "ad8ed18fea99546421a3a3bfaa1a5b49f31f5180b041e1a5502fd7a078ce0162",
+      "decoded_sha256": "e0686d71a789117a46e8387d4b126462ec26bb25c6472065aaaf2512f60dc248",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 351,
+      "rom_start": 19174376,
+      "stored_bytes": 404,
+      "decoded_bytes": 680,
+      "stored_sha256": "25b3ad51a394fb7d33508e0cf36f4b0ad8a3e82768074c67623e88e1f07d5679",
+      "decoded_sha256": "46f63e163caa50ea4b1b955969b6f8e207b9e397b0a119e1757e91b73a46a929",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 355,
+      "rom_start": 19176704,
+      "stored_bytes": 389,
+      "decoded_bytes": 648,
+      "stored_sha256": "8234a31bc8a00303a7bf5a9dd0230d779e3664a4abb561b68698b2ca0ec017fb",
+      "decoded_sha256": "c47821bff1dc3f886f94408ee26294244c143d99e9c8298a73fbe824311f08cb",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 356,
+      "rom_start": 19177096,
+      "stored_bytes": 473,
+      "decoded_bytes": 744,
+      "stored_sha256": "ec1e9c1673aadac549559aaa5bc19a1fbef251d5fd28dd9432b936c05d4a59bb",
+      "decoded_sha256": "866362b36f23603a79c59199e7fe49aa14cc9e58baff08032fdc820f8a2cbe2f",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 359,
+      "rom_start": 19178768,
+      "stored_bytes": 390,
+      "decoded_bytes": 648,
+      "stored_sha256": "b3a43f714a171989985ebcbcb2b8cfa138c95ff7fda05954bd68f40af5689ab6",
+      "decoded_sha256": "a72e901bfb3d5d76012ef647ba776ec6edd07b8a98a1df7f6d1145caab3da09b",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 360,
+      "rom_start": 19179160,
+      "stored_bytes": 466,
+      "decoded_bytes": 744,
+      "stored_sha256": "35fe689536bfc0480906286b4e26428950f4a9289301311e86561c41ea2f481d",
+      "decoded_sha256": "954a577f8529f32460d39459a0ebcf1710f88142b729d296e6a085b276516df3",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 363,
+      "rom_start": 19180664,
+      "stored_bytes": 673,
+      "decoded_bytes": 1112,
+      "stored_sha256": "c2b28c12997b2924743a7e0e739760e5cc617d14d1bf01712f9605df68bdceae",
+      "decoded_sha256": "266260182bc4c2a0f57ecf944d74673054adc2b48c0c55a4e24101c90716eedb",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 366,
+      "rom_start": 19182360,
+      "stored_bytes": 664,
+      "decoded_bytes": 1112,
+      "stored_sha256": "93fcc28b166e72580c8129ae4ffdfccefa391535161faed30070c80e56a0bbf7",
+      "decoded_sha256": "75973b7bf12788c7e23d9be9711defe2658d0898eebaaae3d72978ce6f1d93f6",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 376,
+      "rom_start": 19187128,
+      "stored_bytes": 426,
+      "decoded_bytes": 632,
+      "stored_sha256": "d081057fff28ec01f7e184ec3c7e04e0b6c9b9f1eafe2d07696426bf8655aaa6",
+      "decoded_sha256": "4fc704f4db6feafb0f9129d501f519e737f823b22d99acbe4c4cfdcec57190b8",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 380,
+      "rom_start": 19189720,
+      "stored_bytes": 496,
+      "decoded_bytes": 712,
+      "stored_sha256": "0d20d756a855d25898e555e55371e11862d4547bafc397cc76fd472a8b375831",
+      "decoded_sha256": "91007ce8e7825656cb79cee56ab9a7e3b08548022d5ace06947a643078dc5323",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 385,
+      "rom_start": 19193304,
+      "stored_bytes": 1799,
+      "decoded_bytes": 3112,
+      "stored_sha256": "b6b55480278649c7ee1bad9de6d4b25d539f2eb4a3dce51e870f04d28314f96e",
+      "decoded_sha256": "7bfb77f021e034e981ef5ea3d8bf4aebd6208df3e059ccdf1526d2d089051f4f",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 386,
+      "rom_start": 19195104,
+      "stored_bytes": 1871,
+      "decoded_bytes": 3208,
+      "stored_sha256": "6e609ee82ac9b2faa1c1e0a2348059a74e48af5ac94322875e6831d3d497d3fe",
+      "decoded_sha256": "9159d8d694aa29a70b521330729d298f543bb5360c0285195d4e8a8f524d5103",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 387,
+      "rom_start": 19196976,
+      "stored_bytes": 1396,
+      "decoded_bytes": 2360,
+      "stored_sha256": "efc1b168a6e2831b2d21ed93b2a10792c02991316f08c7214f266c777d98e8f4",
+      "decoded_sha256": "ba11e49efa64c8e9f1f10d461d05bd9b7c0767e64a14c525b1971ce18bad7f1f",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 389,
+      "rom_start": 19199952,
+      "stored_bytes": 1790,
+      "decoded_bytes": 3112,
+      "stored_sha256": "c82791c2dc163320403500baed9a6ec67ad3e163238a3814b1884dacb8f3360e",
+      "decoded_sha256": "6666874f131880ff7c48ea6d4a7da2f3716dd337f0967c9457ec64c3480bff70",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 390,
+      "rom_start": 19201744,
+      "stored_bytes": 1865,
+      "decoded_bytes": 3208,
+      "stored_sha256": "77858a54950cd2f1b6328a7ba4de9519ce41ab95960bc3fe71b836f886938894",
+      "decoded_sha256": "6b43d8dc6e54657733f047f0a56ccf034790d431cb7fbf80124cca25752ac187",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 393,
+      "rom_start": 19205296,
+      "stored_bytes": 404,
+      "decoded_bytes": 744,
+      "stored_sha256": "5ec4e01b026cdf3573269617b62735353f68a1b183f6d2a75a7bdc770300255e",
+      "decoded_sha256": "413c868cb76bf01cfb493abcf37d5f48a875a5f8fde5e067035deb8ee88efc2c",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 394,
+      "rom_start": 19205704,
+      "stored_bytes": 383,
+      "decoded_bytes": 536,
+      "stored_sha256": "77c5a25696371eeaa1b1af310a71021eeac523c96ce76f0bdd270424a65f78d2",
+      "decoded_sha256": "b179a8c4d9135cfa877233d99cc948f87e7890046eec80c88bc0c2451ba8fb93",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 395,
+      "rom_start": 19206088,
+      "stored_bytes": 343,
+      "decoded_bytes": 536,
+      "stored_sha256": "bb05872aa1300c5c02ea33216f3549bfe83548254bc3a102d13724c242cad56b",
+      "decoded_sha256": "4888b9afb5da27130cefeb40f3b0a3ce5d6d16bb806e18123df1c9bbf287c29a",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 396,
+      "rom_start": 19206432,
+      "stored_bytes": 165,
+      "decoded_bytes": 392,
+      "stored_sha256": "dadbbf578fbf6622b8830cba5ab4c4a004ab5d20d5cd95627c4c53acb8cb342c",
+      "decoded_sha256": "9c5b090a3cb5539e4ef7c2d07331c8495298d51959e694208a07ccb088334fe0",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 402,
+      "rom_start": 19208456,
+      "stored_bytes": 473,
+      "decoded_bytes": 680,
+      "stored_sha256": "e4315a8a2c8b8eaa594ba699134079b99e2e3aa8d2c98dfcf5c15e7f46df3f64",
+      "decoded_sha256": "71d09640bb1c1d99b4b9e7614b0f157e39f82407783f53049b93db990db1662e",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 405,
+      "rom_start": 19209992,
+      "stored_bytes": 486,
+      "decoded_bytes": 680,
+      "stored_sha256": "fa1501829ee9169ca0d00b111927c9896cd609461ea19bac8dfb356ac75c5d22",
+      "decoded_sha256": "8a153be881da9618630b8ce9f3f743be7095d7c93f646defa6a7e9f9c4bd6a41",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 407,
+      "rom_start": 19210936,
+      "stored_bytes": 430,
+      "decoded_bytes": 792,
+      "stored_sha256": "baabe7184007d3431ffb064efc024648a310f55443e4dd44aed443ebbd46d730",
+      "decoded_sha256": "54c94e2766601ac443298e15fee803ad8c6d7e67592634a6b125ae1042447585",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 408,
+      "rom_start": 19211368,
+      "stored_bytes": 320,
+      "decoded_bytes": 552,
+      "stored_sha256": "0efa066bb06b7f3c8adcd28f5caa47e7a65d168dfaa7e0da510ac844e54e2797",
+      "decoded_sha256": "18702f2a99193dd962ea712a9e11281adaab5c041fee1fc7bd5ea50cd516ff33",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 410,
+      "rom_start": 19212208,
+      "stored_bytes": 348,
+      "decoded_bytes": 616,
+      "stored_sha256": "d17af910ad0705c4bd92a0f0869c6dce002541649f3a0eb18ef00315b7f1d2e2",
+      "decoded_sha256": "2e12bc63cfa26b7e8f64e603723f7b0dd3996bd20e5790eda03f8e650a5ea872",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 411,
+      "rom_start": 19212560,
+      "stored_bytes": 305,
+      "decoded_bytes": 536,
+      "stored_sha256": "fb8dd68be0045eb1063f1307d19b218cef8ed2d1429b136cedec4058850c0fc4",
+      "decoded_sha256": "5745f963515169d76a9473eeaad9786ef172382ee17605b9db02011aa6afd8af",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 412,
+      "rom_start": 19212872,
+      "stored_bytes": 326,
+      "decoded_bytes": 552,
+      "stored_sha256": "3e14c7ebe1f0cefb73a83ae604feadae4c09668f910d7759d2aa1cbbc7f2f835",
+      "decoded_sha256": "3ee5995d3402f10dbbb5a6be5a366aebd964ad09b3fe5399a2d7aa738c439c4c",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 413,
+      "rom_start": 19213200,
+      "stored_bytes": 380,
+      "decoded_bytes": 776,
+      "stored_sha256": "71f66bd64ea867675495d7542492d391aa5b58697240c48039b3c1373f36b688",
+      "decoded_sha256": "2f23233dbcb87714b633dd40fe9a9270768c35bf0da5bd0fac6a42100b02a1c6",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 414,
+      "rom_start": 19213584,
+      "stored_bytes": 355,
+      "decoded_bytes": 712,
+      "stored_sha256": "47e75298cdc3e457df77578e9f6b33d7e3213a999ff555727113bd57ec29e8d8",
+      "decoded_sha256": "50991bbcefafa3eb16d222b4a446fa7750735b55f532fb00bf33a580e58597f2",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 415,
+      "rom_start": 19213944,
+      "stored_bytes": 343,
+      "decoded_bytes": 680,
+      "stored_sha256": "5ad92b651a00e247f605cc8dd4c0e45d7c2b2da13ed25756f07900adcb9e7c8e",
+      "decoded_sha256": "a265de5829f1eee1a5236209cd4a11a697bd8094757a1861f74fe17d5a35ea46",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 416,
+      "rom_start": 19214288,
+      "stored_bytes": 388,
+      "decoded_bytes": 696,
+      "stored_sha256": "68101a05fc7995c8ccc566d32573e6b8721fa89051c9e29583dc3b08982a92ef",
+      "decoded_sha256": "81b3cf27b8dfecf6791483014e000b53d22071a008170476fc7af12f2e6db4a5",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 417,
+      "rom_start": 19214680,
+      "stored_bytes": 219,
+      "decoded_bytes": 344,
+      "stored_sha256": "892853c6950ba8b7abeb5887017003ed01752c74ebc18671c71458c1ad6c7aba",
+      "decoded_sha256": "fe71ad7f15c16cd146e56214a96a614f649565e3ee15a0b3cd1cd0798a25a9c8",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 418,
+      "rom_start": 19214904,
+      "stored_bytes": 172,
+      "decoded_bytes": 312,
+      "stored_sha256": "c25083341526e43163e06b020c5f4b0d94368e10a2d7bed9b18c9bf1c3b3c770",
+      "decoded_sha256": "ff7d1b7c7582f55999e0c56ede6fa903b78f7ca74250b630d1ab683727cebdad",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 419,
+      "rom_start": 19215080,
+      "stored_bytes": 172,
+      "decoded_bytes": 312,
+      "stored_sha256": "e21b137e9ec93c6efe618a08ddd578bd73aee4fc684a3425f2766b0bbb2b9341",
+      "decoded_sha256": "5f7e7e883d000cdfe769cc8b4a534a41b5a3dfee0892e0655a6e32dccdc883ad",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 420,
+      "rom_start": 19215256,
+      "stored_bytes": 350,
+      "decoded_bytes": 568,
+      "stored_sha256": "5831dd3998e240ee729aec62384b7f5bf534d437d4ec4c8638225a3d2aae475f",
+      "decoded_sha256": "e30232480dd180b52d6eb927937caaf41992e9e40336143c279556479114ff28",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 421,
+      "rom_start": 19215608,
+      "stored_bytes": 381,
+      "decoded_bytes": 568,
+      "stored_sha256": "7243778381afa2976c18a6eec06709d947017f96fd35fffd8d81074938d4293c",
+      "decoded_sha256": "0a87eff2c8ef9636be719910b8fd5b40d4678c82c62a8d49bd874d7353df943e",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 423,
+      "rom_start": 19217432,
+      "stored_bytes": 218,
+      "decoded_bytes": 344,
+      "stored_sha256": "22631b3b9ad5c22f9167a27596dc09ac1c59a56afc93daccb5ba5a3479da0b41",
+      "decoded_sha256": "eb5d953f5dfed116e1058922b5f20f6595744bb38c47512f59a89499f2a4df18",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 424,
+      "rom_start": 19217656,
+      "stored_bytes": 433,
+      "decoded_bytes": 712,
+      "stored_sha256": "1c39348dc740bfd8d2cc3778437454eb1391f56a549049c575caf1ad0e09cd60",
+      "decoded_sha256": "b196fd7b7a2568645a8f4c16fd5bf2a1e5def281b072a64cb420bc18348fe21e",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 425,
+      "rom_start": 19218096,
+      "stored_bytes": 332,
+      "decoded_bytes": 488,
+      "stored_sha256": "06e238e41ba9aa8fb0c21e182c57486adb1c5f7c804fd22d5fb8443d2524c158",
+      "decoded_sha256": "b3f14b5b16dbee0daea8a7041569ff0600897315f290b8ad302eaff11b91275d",
+      "format": "direct"
+    },
+    {
+      "bank": 9,
+      "entry": 430,
+      "rom_start": 19220184,
+      "stored_bytes": 1267,
+      "decoded_bytes": 3320,
+      "stored_sha256": "e07d25b2b7c923116b869b69f98c32d0209dcdc86dad30973260cf650eed6010",
+      "decoded_sha256": "5041bdce3ae760db56dac5627d8ae78a95da5c716c33fe2b774bf90a14df8583",
+      "format": "direct"
+    }
+  ],
+  "new_stored_bytes": 204013,
+  "new_decoded_bytes": 415128
+}
