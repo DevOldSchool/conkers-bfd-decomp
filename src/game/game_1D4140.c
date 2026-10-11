@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1D4140.c
@@ -43,8 +44,6 @@ typedef struct {
     u8 pad_66[0x10A];
     Game1D4140Entry field_170;
 } Game1D4140State;
-
-void func_1516972C(void *);
 
 s32 func_151A73EC(Game1D4140State *arg0) {
     Game1D4140Entry *temp_v0;

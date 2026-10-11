@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1D2B10.c
@@ -14,7 +15,6 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D2B10/func_151A5660.s")
 /* Call context: func_1514933C: unique active project prototype */
-void func_1514933C(s32);
 
 extern void func_151A5D2C(s32 arg0, void *arg1);
 
@@ -25,9 +25,8 @@ void func_151A5CAC(void *arg0) {
     if (*(u16 *)((u8 *)arg0 + 0x6C) != 0) {
         func_151A5D2C(*(u16 *)(state + 0x14), arg0);
     }
-    func_1514933C((s32)arg0);
+    func_1514933C(arg0);
 }
-extern void func_15149368(void *arg0);
 
 void func_151A5CEC(void *arg0) {
     u8 *state;

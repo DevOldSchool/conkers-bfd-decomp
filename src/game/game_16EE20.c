@@ -60,18 +60,15 @@ enum {
     MODEL_RED_DINOSAUR = 165
 };
 
-void func_1514EDF0(s32 arg0, s32 arg1);
-
-void func_15141970(s32 *arg0) {
-    func_1514EDF0((s32)arg0, arg0[0xB]);
+void func_15141970(void **arg0) {
+    func_1514EDF0(arg0, arg0[0xB]);
 }
-void func_15141990(s32 *arg0) {
+void func_15141990(void **arg0) {
     func_15141970(arg0);
 }
-void func_151419B0(s32 *arg0) {
+void func_151419B0(void **arg0) {
     func_15141970(arg0);
 }
-void func_1516972C(void *);
 
 extern f32 D_800A56A4;
 extern s32  D_80082FA0;
@@ -272,8 +269,6 @@ void func_15141DA4(s32 actorAddress, s32 selectorCallbackIndex, s32 effectHandle
     }
 }
 s32 func_1514ECE0(void *, s32, void **);
-void func_1514EC1C(void *, void *, s32);
-u8 *func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15141E38 CURRENT (1418) */
@@ -464,7 +459,7 @@ s32 func_151422F8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 }
 extern u8 D_800C3E90;
 
-void func_15142314(s32 arg0, s32 arg1, f32 *arg2) {
+void func_15142314(void *arg0, s32 arg1, f32 *arg2) {
     u8 *p;
 
     p = ((u8 *)arg0) + (arg1 << 6);
@@ -929,7 +924,6 @@ s32 func_1514306C(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514306C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_1514306C.s")
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
-void func_15142314(s32, s32, f32 *);
 void func_151EFEB8(void *, s32);
 extern s32 D_800DCA00;
 extern s32 D_800DCA04;
@@ -999,7 +993,6 @@ void func_1514373C(f32 arg0, f32 arg1, f32 *arg2, f32 *arg3) {
     *arg3 = arg1 * sp1C;
 }
 /* Call context: func_151423D8: unique active project prototype */
-f32 func_151423D8(u8);
 
 void func_15143794(s16 arg0, s16 arg1, f32 arg2, void *arg3) {
     f32 sp24;
@@ -1030,7 +1023,6 @@ extern void func_15143794(s16 arg0, s16 arg1, f32 arg2, void *arg3);
 void func_15143834(s16 arg0, s16 arg1, f32 arg2, void *arg3) {
     func_15143794(arg0, arg1, arg2, arg3);
 }
-f32 func_151423D8(u8);                              /* extern */
 
 void func_15143874(s16 arg0, f32 arg1, f32 *arg2, f32 *arg3) {
     f32 sp1C;

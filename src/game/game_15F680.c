@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_15F680.c
@@ -74,7 +75,6 @@ extern Game15F680Update D_80089988[];
 extern Game15F680Cleanup D_8008997C[];
 extern s32 D_800BE9E4;
 s32 func_1514672C(f32 *);
-void func_1516972C(void *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151321D0 CURRENT (260) */
 void func_151321D0(Game15F680TransformState *arg0) {
@@ -173,7 +173,7 @@ extern s32 D_800DC63C;
 extern u8 D_800DC640[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15132444 CURRENT (935) */
-void func_15132444(s32 arg0) {
+void func_15132444(u8 *arg0) {
     Game15F680Owner *owner;
     Game15F680ListNode *node;
     Game15F680ListNode *link;
@@ -220,14 +220,13 @@ void func_15132444(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15132444 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132444.s")
-void func_15132444(s32 arg0);
-void func_15169824(s32 arg0);
+void func_15132444(u8 *arg0);
 
-void func_15132570(s32 arg0) {
+void func_15132570(void *arg0) {
     func_15132444(arg0);
     func_15169804(arg0);
 }
-void func_1513259C(s32 arg0) {
+void func_1513259C(void *arg0) {
     func_15132444(arg0);
     func_15169824(arg0);
 }
@@ -266,8 +265,6 @@ void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
 void *func_15132A4C(void *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
     return func_1513264C(arg0, arg1, arg2, 0, arg3, arg4, arg5);
 }
-void func_1516972C(void *);
-s32 func_151464B8(s32, void *);
 typedef s32 (*Game15F680Callback)(void *, void *);
 extern Game15F680Callback D_8008998C[];
 extern u8 D_800BE9C0;
@@ -390,7 +387,6 @@ s32 *func_15132B80(s32 *arg0, Game15F680TransformState *arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132B80.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132DDC.s")
 void *func_10022EC0(void *, const void *, u32);
-f32 func_151423D8(u8);
 extern f32 D_800BE9A4;
 extern s32 D_800BE9E4;
 
@@ -436,9 +432,8 @@ return_active:
     }
     return 1;
 }
-void func_151424F4(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 
-s32 func_15133510(s32 arg0, Game15F680TransformState *arg1) {
+s32 func_15133510(void *arg0, Game15F680TransformState *arg1) {
     func_151424F4(arg0, arg1->field18, arg1->field1C, arg1->field20,
         arg1->field24, arg1->field28, arg1->field2C, arg1->field30,
         arg1->field34, arg1->field38, arg1->field3C, arg1->field40);
@@ -712,7 +707,6 @@ s32 func_15133D20(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) 
     }
     return 1;
 }
-void func_1516972C(void *arg0);
 void func_15133DE8(void *arg0, s32 *arg1, u8 arg2) {
     s32 temp_v0;
 

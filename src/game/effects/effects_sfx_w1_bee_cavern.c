@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/effects/effects_sfx_w1_bee_cavern.c
@@ -16,8 +17,7 @@ typedef struct {
     s16 field4;
 } BeeCavernEffectPacket;
 
-void func_10022EC0(void *, void *, s32); /* extern */
-u8 *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
+void *func_10022EC0(void *, const void *, u32);
 
 void func_150BDE90(s32 arg0, u8 arg1, s32 arg2) {
     BeeCavernEffectPacket packet;
@@ -128,8 +128,6 @@ typedef struct BeeCavernEffect {
 typedef struct BeeCavernMessage {
     BeeCavernActor *actor;
 } BeeCavernMessage;
-
-void func_1516972C(void *);
 
 void func_150BE150(BeeCavernEffect *arg0, BeeCavernMessage *arg1, u8 arg2) {
     if (arg2 == 0x21) {

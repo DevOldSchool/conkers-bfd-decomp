@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_CCD00.c
@@ -20,7 +21,6 @@ typedef struct GameCCD00Node {
 GameCCD00Node *func_1509B704(s16);
 s32 func_151E5F64(s32);
 f32 func_150ADA68(void);
-s32 func_1517EFAC(s32);
 extern u8 *D_800D2E4C;
 extern s32 D_800BE9F0;
 extern s32 D_800BE9F8;

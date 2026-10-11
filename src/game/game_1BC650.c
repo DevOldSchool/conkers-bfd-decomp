@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1BC650.c
@@ -134,10 +135,9 @@ void func_1518F45C(s32 arg0, u8 arg1) {
 
     func_15169260(&sp1C.value, 1, arg0, arg1);
 }
-void func_15169850(s32, u8, s32, s32, s32);
-void func_1516972C(s32);
+void func_15169850(s32, u8, void *, void *, void *);
 
-void func_1518F49C(s32 arg0, s32 arg1, u8 arg2) {
+void func_1518F49C(u8 *arg0, s32 arg1, u8 arg2) {
     s32 first;
     s32 second;
     u8 first_kind;
@@ -206,7 +206,6 @@ s32 func_1519021C(s32, u8 *, u8, s16, u8, s32);
 void func_151D2AB0(s32);
 void *func_151D2F00(void *, s32, u8, s32);
 s32 func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, void *, void *, s32, s32);
-s32 func_1518E298(void *, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F5D0 CURRENT (2197) */
 s32 func_1518F5D0(void *arg0, s32 arg1, s16 arg2, s8 arg3,
@@ -312,7 +311,6 @@ s32 func_1518FC04(void *arg0, void *arg1) {
     func_1514BE20((s32) temp_a0);
     return 1;
 }
-extern void func_1514BF50(void *arg0, void *arg1);
 
 s32 func_1518FC44(void *arg0, void *arg1) {
     typedef struct { s32 words[3]; } Copy3;
@@ -325,7 +323,7 @@ s32 func_1518FC44(void *arg0, void *arg1) {
     temp_a2 = arg0;
     temp_a0 = temp_a2->field2C;
     *(Copy3 *)((u8 *)temp_a0 + 0x34) = *(Copy3 *)arg1;
-    func_1514BF50(temp_a0, arg1);
+    func_1514BF50(temp_a0);
     return 1;
 }
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1518FC84 CURRENT (311) */

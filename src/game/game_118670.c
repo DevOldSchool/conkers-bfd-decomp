@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_118670.c
@@ -39,8 +40,6 @@ typedef struct GameEB1C0Actor {
 /* Raw helpers walk arg0 additional words after the three fixed arguments. */
 s32 func_1509BE40(s32, s32, s32, ...);
 s32 func_1509BFB0(s32, s32, s32, ...);
-s32 func_15123934(void *, s32, s32, s32, s32);
-s32 func_151239CC(void *, s32);
 void func_151254F4(void *, s32);
 extern s32 D_80088A90;
 extern f32 D_800A1480;

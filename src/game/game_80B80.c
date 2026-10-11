@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_80B80.c
@@ -36,7 +37,6 @@ void func_150536E8(void *arg0) {
 void func_1505371C(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x40) = (f32) ((f32) (s16) (*(u16 *)((u8 *)arg0 + 0x7A) + 0x4000) * 0.005493164f);
 }
-void func_15062BDC(u8 *, f32, f32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 
@@ -226,7 +226,6 @@ void func_15054F74(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15054F74 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_80B80/func_15054F74.s")
-void func_150335C8(void *arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
 
 void func_15055260(void *arg0, void *arg1, s32 arg2) {
     func_150335C8(arg0, arg1, 0x4D, arg2, 0, 0);

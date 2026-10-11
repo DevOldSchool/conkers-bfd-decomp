@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_FB600.c
@@ -12,7 +13,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern void *func_10022EC0(void *, const void *, u32);
+void *func_10022EC0(void *, const void *, u32);
 extern void *func_1515FF74(s8 *arg0, s32 arg1, s32 arg2);
 extern f32 D_800A07FC;
 
@@ -228,7 +229,6 @@ void func_150CE450(GameFB600Actor *arg0, s32 pixels) {
         }
     }
 }
-void func_1516972C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150CE694 CURRENT (1817) */
 void func_150CE694(void *arg0, void *arg1, s32 arg2) {

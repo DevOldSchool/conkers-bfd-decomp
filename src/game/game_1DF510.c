@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1DF510.c
@@ -24,7 +25,6 @@ typedef struct Game1DF510EffectOwner {
     Game1DF510EffectSlots slots;
 } Game1DF510EffectOwner;
 
-void func_1516972C(void *);
 void func_151B222C();
 
 typedef struct {
@@ -40,14 +40,13 @@ typedef struct {
 } Game1DF510Packet;
 
 void func_100226F0(void *, s32);
-void func_10022EC0(s32, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 s32 func_15083E90(s32, void *);
-s32 func_151491F4(s32, s32, s32, s32, s32, s32, s32, s32);
 
 void func_151B2060(void *arg0) {
     s32 id;
     Game1DF510Packet packet;
-    s32 object;
+    u8 *object;
 
     if (arg0 != 0) {
         packet.field_0 = arg0;
@@ -124,14 +123,12 @@ void func_151B222C(Game1DF510EffectOwner *arg0) {
         func_1516972C(effect);
     }
 }
-void func_1514933C(s32);
-void func_15149368(s32);
 
-void func_151B229C(s32 arg0) {
+void func_151B229C(void *arg0) {
     func_151B220C(arg0);
     func_1514933C(arg0);
 }
-void func_151B22C8(s32 arg0) {
+void func_151B22C8(void *arg0) {
     func_151B220C(arg0);
     func_15149368(arg0);
 }
@@ -219,8 +216,6 @@ typedef struct Game1DF510Request {
     u8 pad35[3];
 } Game1DF510Request;
 
-u8 *func_151B30B0(void *, f32, s32, u8, s32);
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern Game1DF510Vector D_800AA320;
 extern Game1DF510Vector D_800AA32C;
 extern Game1DF510Vector D_800AA368;

@@ -1,11 +1,11 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_188F90.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_reconciled_pointer_singleton_15bae0.md
  */
 
-void func_1516972C(u8 *);
 s32 func_1514401C(u8, void *, void *, u8);
 extern s32 (*D_8008B078[])(u8 *);
 extern s32 (*D_8008B07C[])(u8 *);

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_11FF10.c
@@ -24,10 +25,8 @@ void func_10010630(u16, void *, s32, s16, u16);
 void func_15060F28(u8 *, s32);
 void func_1507CD64(void *, s32);
 void *func_15083E90(u8);
-s32 func_151149AC(u8);
 void func_15136C3C(void *, s32, s32, s32, s32, s32, s32, s32);
 void func_15145A50(u8 *);
-void func_15196318(void *, s32, s32);
 extern void **D_800BE4F0;
 extern u8 D_800CC2D0;
 extern u8 D_800CC40C;
@@ -81,8 +80,7 @@ loop:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F2A60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11FF10/func_150F2A60.s")
-void func_10022EC0(void *, void *, s32);
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 typedef struct Game11FF10F2C8CPacket {
     void *owner;
     u8 type;
@@ -95,7 +93,7 @@ typedef struct Game11FF10F2C8CPacket {
 
 void func_150F2C8C(void *arg0) {
     Game11FF10F2C8CPacket packet;
-    s32 temp_v0;
+    u8 *temp_v0;
 
     packet.owner = arg0;
     packet.type = *(u8 *)((u8 *)arg0 + 0x3B);

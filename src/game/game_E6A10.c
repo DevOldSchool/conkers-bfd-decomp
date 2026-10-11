@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_E6A10.c
@@ -88,7 +89,6 @@ s32 func_150B9D14(void *arg0, GameE6A10TransformCommand *arg1) {
     return 1;
 }
 s32 func_150ADA20(void);
-void func_1513C4EC(void *, s32, s32, s32, f32, f32, f32, f32, f32, s32, s32, s32, s32, s32, s32, s32);
 
 typedef struct GameE6A10SpawnPacket {
     s32 kind;

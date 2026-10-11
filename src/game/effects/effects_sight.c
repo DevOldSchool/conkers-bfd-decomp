@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/effects/effects_sight.c
@@ -273,8 +274,6 @@ s32 func_151C8FCC(s32 arg0, Sight8FCCVector *arg1, Sight8FCCVector *arg2,
 #endif /* CONKER_DEFERRED_CANDIDATE func_151C8FCC */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C8FCC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9198.s")
-void func_1513CA6C(s32);
-void func_1516972C(void *);
 void func_1000FD38(void *, void *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C94D4 CURRENT (20) */
@@ -333,7 +332,6 @@ void func_151C94D4(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151C94D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C94D4.s")
-void func_1513CAA0(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C95D8 CURRENT (20) */
 void func_151C95D8(void *arg0) {
@@ -496,8 +494,6 @@ void func_151C9DE8(s32 arg0, u8 arg1, s8 arg2, u8 arg3, s32 arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9DE8.s")
 void func_15160274(void *, u8);
 void func_1515572C();
-void func_151A561C(void *, u8);
-void func_151494E0(void *, u8);
 extern s8 D_8008CD00;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9ED4 CURRENT (1434) */
@@ -515,7 +511,6 @@ void func_151C9ED4(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9ED4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9F38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CA6A0.s")
-extern void func_1516972C(void *arg0);
 extern void (*D_8008FC10[])(void *, void **, u8);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CAACC CURRENT (265) */
@@ -1292,18 +1287,17 @@ typedef struct SightSpawnOwner {
 } SightSpawnOwner;
 
 extern u8 D_800BE616;
-s32 func_151A4FD0(s32, s32, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 
 void func_151CCE94(SightSpawnOwner *arg0) {
-    s32 object;
+    void *object;
     SightSpawnOwner *owner;
 
     if (D_800BE616 != 0) {
         owner = arg0;
         object = func_151A4FD0(0, 0, 0, 0xFF, 0, arg0->type, 1, 4);
         if (object != 0) {
-            func_10022EC0((void *)(object + 0x20), &owner, sizeof(owner));
+            func_10022EC0((u8 *)object + 0x20, &owner, sizeof(owner));
         }
     }
 }

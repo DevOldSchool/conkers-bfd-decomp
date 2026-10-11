@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1E6B40.c
@@ -29,7 +30,6 @@ typedef struct Game1E6B40Packet {
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
 u32 func_150ADA20(void);
-void func_15167D84(void *, s32, s32, s32, u8, s32);
 extern void *D_8008CA4C[];
 extern f32 D_800AA580;
 
@@ -145,8 +145,6 @@ typedef struct Game1E6B40Pulse {
 } Game1E6B40Pulse;
 
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-f32 func_150489B0(u8);
-f32 func_15048A40(u8);
 u32 func_150ADA20(void);
 void func_15171D4C(f32, f32, f32, s32, s32, s32, f32, s32, s32, s32, s32, s32, s32, s32);
 extern s32 D_800BE9E4;
@@ -211,7 +209,6 @@ void func_151B9964(Game1E6B40Pulse *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B9964 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E6B40/func_151B9964.s")
-void *func_15167A68(s32, s32, s32, s32, s32, s32);
 
 void func_151B9BF0(s32 arg0, s32 arg1, s16 arg2, s16 arg3, s16 arg4,
     s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9, s16 arg10, s16 arg11,
@@ -236,7 +233,6 @@ void func_151B9BF0(s32 arg0, s32 arg1, s16 arg2, s16 arg3, s16 arg4,
         *(s32 *)(temp_v0 + 0x10) = arg13;
     }
 }
-void func_1516972C(u8 *);
 void func_151B9690(s32, s32, s32, s32, s32, s32, f32, s32, s32,
                    s32, s32, s32, s32, s32, s32, s32, s32);
 extern s32 D_800BE9E4;

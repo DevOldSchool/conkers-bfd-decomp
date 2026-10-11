@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_F3270.c
@@ -58,7 +59,6 @@ s32 func_150C5E0C(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C5E0C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F3270/func_150C5E0C.s")
-extern void func_1513F6C0(void *arg0, s32 arg1, s32 arg2);
 
 s32 func_150C5EFC(void *arg0) {
     void *temp_v0;
@@ -104,7 +104,6 @@ extern f32 D_800A0410;
 extern f32 D_800A0414;
 extern f32 D_800A0418;
 s32 func_15045800(f32 *, u16, f32, void *);
-void *func_1513418C(s32, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
 
 typedef struct GameF3270SpawnPacket {
@@ -186,23 +185,21 @@ s32 func_150C63EC(void *arg0) {
     *(u8 *)((u8 *)arg0 + 0x5C) = 0U;
     return var_v1;
 }
-void func_151346EC(void);
 
 void func_150C6410(u8 *arg0) {
     u8 *temp_v0;
 
     temp_v0 = *(u8 **)(arg0 + 0x58) + 0x58;
     *(s32 *)(temp_v0 + 4) = 0;
-    func_151346EC();
+    func_151346EC(arg0);
 }
-void func_1513470C(void);
 
 void func_150C6438(u8 *arg0) {
     u8 *temp_v0;
 
     temp_v0 = *(u8 **)(arg0 + 0x58) + 0x58;
     *(s32 *)(temp_v0 + 4) = 0;
-    func_1513470C();
+    func_1513470C(arg0);
 }
 typedef struct GameF3270Vector {
     f32 coordinates[3];

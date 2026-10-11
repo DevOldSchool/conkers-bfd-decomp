@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_13F9D0.c
@@ -27,7 +28,7 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15112520.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15112A80.s")
 extern s32 D_800DBEF0;
-extern s32 D_800DBEF4;
+extern u8 *D_800DBEF4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15113180 CURRENT (185) */
 void func_15113180(void) {
@@ -292,7 +293,6 @@ void *func_151135C4(Game13F9D0Command *arg0, s32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151137D4.s")
 s32 func_15022B08(s32, s32);
 s32 func_150859AC(s32, s32);
-void func_1516972C(u8 *);
 void *func_1510D970(s32, s32, s32, s32, s32);
 extern s32 D_80082FA0;
 extern u8 D_800C35EA;
@@ -642,12 +642,12 @@ void func_1511490C(Game13F9D0Transform *transform,
  * Return the first matching object address; zero ID or no match returns zero.
  * See docs/evidence/assets/naming/placed_object_helper_semantics.md.
  */
-s32 func_151149AC(u8 objectId) {
+void *func_151149AC(u8 objectId) {
     s32 requestedObjectId;
     s32 objectOffset;
-    s32 objectAddress;
+    u8 *objectAddress;
     s32 objectIndex;
-    s32 objectPoolBase;
+    u8 *objectPoolBase;
 
     requestedObjectId = objectId;
     if (requestedObjectId == 0) {
@@ -660,7 +660,7 @@ s32 func_151149AC(u8 objectId) {
         objectAddress = objectPoolBase;
         do {
             objectIndex += 1;
-            if (requestedObjectId == *(u8 *)((u8 *)objectAddress + 0x72)) {
+            if (requestedObjectId == objectAddress[0x72]) {
                 return objectOffset + objectPoolBase;
             }
             objectOffset += 0xA0;
@@ -723,7 +723,6 @@ void func_15114A1C(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15114A1C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114A1C.s")
-void func_1516972C(u8 *);
 extern s32 D_800DBF98;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15114B94 CURRENT (503) */

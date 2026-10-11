@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_121A20.c
@@ -26,9 +27,7 @@ typedef struct Game121A20State {
     Game121A20NestedState nested170;
 } Game121A20State;
 
-void func_1516972C(u8 *);
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
-void func_10022EC0(s32, s32 *, s32);
+void *func_10022EC0(void *, const void *, u32);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_121A20/func_150F4570.s")
 /* Call context: func_1514373C: unique active project prototype */
@@ -77,7 +76,6 @@ typedef struct GameF4A38Actor {
 } GameF4A38Actor;
 
 s32 func_15144B34(s32);
-f32 func_15143E64(void *);
 void func_1000F9D4(s32, s32, s32, s32);
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 func_150ADA20(void);
@@ -155,7 +153,7 @@ void func_150F4D5C(s32 arg0, s8 arg1, u8 arg2, u8 arg3, s32 arg4) {
         u8 field_9;
         u8 padA[2];
     } packet;
-    s32 temp_v0;
+    u8 *temp_v0;
 
     packet.field_0 = arg0;
     packet.field_4 = 0.0f;

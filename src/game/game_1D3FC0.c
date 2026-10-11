@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1D3FC0.c
@@ -10,9 +11,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_151A6AB8(s32 arg0);
-void func_1513CA6C(s32 arg0);
-void func_1513CAA0(s32 arg0);
+void func_151A6AB8(void *arg0);
 
 typedef struct Game1D3FC0Actor {
     u8 pad0[0x7A];
@@ -29,11 +28,11 @@ void func_1505D024(s32, s32, s32, s32);
 Game1D3FC0Node *func_151A6BD8(s32);
 extern Game1D3FC0Actor D_800CC2D0[];
 
-void func_151A6B10(s32 arg0) {
+void func_151A6B10(void *arg0) {
     func_151A6AB8(arg0);
     func_1513CA6C(arg0);
 }
-void func_151A6B3C(s32 arg0) {
+void func_151A6B3C(void *arg0) {
     func_151A6AB8(arg0);
     func_1513CAA0(arg0);
 }

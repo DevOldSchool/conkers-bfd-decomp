@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_EF410.c
@@ -14,7 +15,6 @@
  * - func_150C2C00
  * - func_150C3230
  * - func_150C3574
- * - func_150C3994
  * - func_150C3D5C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -405,7 +405,6 @@ s32 func_150C2700(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C2700 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2700.s")
-void func_15134908(s32 *, s32, u8, s32);
 extern f32 D_800A0280;
 extern f32 D_800A0284;
 
@@ -435,7 +434,7 @@ void func_150C2804(s32 arg0, s32 arg1, s32 arg2, s16 arg3, u8 arg4, s32 arg5) {
     sp1C.field_17 = 6;
     sp1C.field_18 = 3;
     sp1C.field_19 = -1;
-    func_15134908((s32 *)&sp1C, 0, arg4, arg5);
+    func_15134908(&sp1C, 0, arg4, arg5);
 }
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32, f32,
                    s32, s32, s32, s32, s32, s32);
@@ -508,7 +507,6 @@ typedef struct GameEF410Emitter {
     f32 field28[4];
 } GameEF410Emitter;
 
-f32 func_151423D8(u8);
 void func_15149550(f32 *, s32, s32, s32, s32, s32);
 extern f32 D_800A02A0;
 extern f32 D_800A02A4;
@@ -663,7 +661,64 @@ Gfx *func_150C3160(Gfx *gdl, s8 *arg1)
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3230.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3574.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3994.s")
+void func_15059140(u8 *);
+void func_15060F28(u8 *, s32);
+void func_1506AC8C(void *, s32, void *);
+void func_150C1660(f32, f32, f32, u8);
+void func_150C3D5C(u8 *);
+void func_15188810(u8 *, s32, s32);
+void func_151B9BF0(s32, s32, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s32, u8, s32);
+s32 func_10010344(s32, void *, u32, s16, s32);
+void func_10010630(u16, void *, s32, s32, s32);
+extern f32 D_800A0334;
+
+void func_150C3994(u8 *arg0) {
+    if (*(s32 *)arg0 == 0x14) {
+        if (*(s32 *)(arg0 + 0x2E4) == 0) {
+            func_151B9BF0(0x2F, 1, *(f32 *)(arg0 + 0x14), *(f32 *)(arg0 + 0x18) + 30.0f,
+                          *(f32 *)(arg0 + 0x1C), 0x7D0, 0x3E8, 0x190, 0xC8, 0xC00, 0xC00, 1, 1, 0,
+                          0xFF, 0);
+        } else {
+            func_15188810(arg0, 0x64, 0);
+        }
+    }
+    if (*(f32 *)(arg0 + 0x20) < 0.0f && *(f32 *)(arg0 + 0x28) > 20.0f && arg0[0x136] == 0 &&
+        -20.0f * *(f32 *)(arg0 + 0x20) > *(f32 *)(arg0 + 0x28)) {
+        func_10010630(0x92, arg0, 0x7D00, 0xC8, 0x9C4);
+        arg0[0x136] = 1;
+    }
+    if (arg0[0x83] == 0) {
+        *(f32 *)(arg0 + 0x148) = 70.0f;
+        if (*(s32 *)(arg0 + 0x2E4) == 0) {
+            func_151B9BF0(0x2F, 1, *(f32 *)(arg0 + 0x14), *(f32 *)(arg0 + 0x18) + 30.0f,
+                          *(f32 *)(arg0 + 0x1C), 0x898, 0x500, 0x320, 0x2BC, 0xC00, 0xC00, 0x14, 1,
+                          0, 0xFF, 0);
+            func_150C1660(*(f32 *)(arg0 + 0x14), *(f32 *)(arg0 + 0x18) + 30.0f,
+                          *(f32 *)(arg0 + 0x1C), 0xFF);
+            func_1506AC8C(arg0, 6, NULL);
+        } else {
+            func_15188810(arg0, 0x64, 0);
+        }
+        func_10010344(0x1A9, arg0, 0x7FFF, 0x3E8, 0x7D0);
+        arg0[0xD0] = 1;
+        *(f32 *)(arg0 + 0x114) = 500.0f;
+        *(s32 *)(arg0 + 0xF8) |= 0x01008000;
+    }
+    arg0[0x125] = 0xFF;
+    if (++arg0[0x83] >= 11) {
+        *(s32 *)(arg0 + 0xF8) &= ~0x8000;
+    }
+    *(f32 *)(arg0 + 0x40) = (*(u16 *)(arg0 + 0x7A) + 0x4000) * 0.005493164f;
+    func_15059140(arg0);
+    *(f32 *)(arg0 + 0xB8) += *(f32 *)(arg0 + 0x148);
+    *(f32 *)(arg0 + 0x148) *= D_800A0334;
+    if ((*(f32 *)(arg0 + 0x28) == 0.0f && arg0[0x83] >= 21 && *(s16 *)(arg0 + 0xCC) == 0) ||
+        arg0[0x107] != 0 || arg0[0x1CA] == 0) {
+        func_150C3D5C(arg0);
+        func_10010630(0x93, arg0, 0x7D00, 0xC8, 0x9C4);
+        func_15060F28(arg0, 1);
+    }
+}
 s32 func_150C3D48(s32 arg0) {
     return arg0 + 0xEDCBA988;
 }

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1DBD40.c
@@ -67,7 +68,6 @@ void func_151AE984(f32 *arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151AE984 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DBD40/func_151AE984.s")
-f32 func_151423D8(u8);
 void func_151DA6F8(f32 *, f32 *, f32, s16, s32, f32, s32, s32,
                    f32, f32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A9D98;

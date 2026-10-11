@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1D6E80.c
@@ -298,7 +299,6 @@ typedef struct {
 } Game1D6E80State;
 
 void func_15147D64(void *, u8);
-void func_151494E0(s32 *, s32);
 void func_1519F3B8(void *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151AA17C CURRENT (413) */
@@ -339,7 +339,6 @@ void func_151AA210(Game1D6E80State *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151AA210 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA210.s")
-u32 func_1513418C(void *, s32, u8, s32);
 extern f32 D_800A8F94;
 
 void func_151AA264(void *arg0, void *arg1) {
@@ -379,7 +378,6 @@ void func_151AA264(void *arg0, void *arg1) {
     }
 }
 void func_1515A238(f32 *, f32 *, f32, s32, s32, f32, s32, s32, s32, s32, s32);
-s32 func_1515A920(void *, s32 *);
 u32 func_150ADA20();
 f32 func_150ADA68();
 extern f32 D_800A8F98;
@@ -534,7 +532,6 @@ s32 func_151AA5A4(void *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA6D8.s")
 /* Call context: func_151423D8: unique active project prototype */
-f32 func_151423D8(u8);
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151AAA4C CURRENT (20) */
@@ -583,23 +580,21 @@ void func_151AAABC(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151AAABC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AAABC.s")
-void func_151352EC(void);
 
 void func_151AAB50(u8 *arg0) {
     u8 *temp_v0;
 
     temp_v0 = *(u8 **)(arg0 + 0x80) + 0x58;
     *(s32 *)(temp_v0 + 0x14) = 0;
-    func_151352EC();
+    func_151352EC(arg0);
 }
-void func_1513530C(void);
 
 void func_151AAB78(u8 *arg0) {
     u8 *temp_v0;
 
     temp_v0 = *(u8 **)(arg0 + 0x80) + 0x58;
     *(s32 *)(temp_v0 + 0x14) = 0;
-    func_1513530C();
+    func_1513530C(arg0);
 }
 s32 func_151AABA0(void *arg0) {
     s32 var_v1;
@@ -644,7 +639,6 @@ typedef struct Game1D6E80ImpactHit {
     u8 geometry[0x20];
 } Game1D6E80ImpactHit;
 
-void func_15142314(s32, s32, void *);
 void func_15153F18(s16 *, void *, s32, s32, s32);
 u8 func_151D8E20(void);
 s32 func_1504697C(void *, u16, f32, void *);
@@ -753,7 +747,6 @@ s8 func_151AB090(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151AB090 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AB090.s")
-extern void func_1513F6C0(void *arg0, s32 arg1, s32 arg2);
 
 s32 func_151AB180(void *arg0) {
     u8 (*temp_v0)[0x58];
@@ -890,7 +883,6 @@ u8 func_151AB6B8(void *arg0) {
 /* Call context: func_100111C8: unique active project prototype */
 /* Call context: func_151346EC: unique active project prototype */
 void func_100111C8(s32, void *);
-void func_151346EC(void *);
 
 void func_151AB788(void *arg0) {
     u8 *state;
@@ -906,7 +898,6 @@ void func_151AB788(void *arg0) {
 }
 /* Call context: func_100111C8: unique active project prototype */
 /* Call context: func_1513470C: unique active project prototype */
-void func_1513470C(void *);
 
 void func_151AB7D8(void *arg0) {
     u8 *state;
@@ -934,8 +925,6 @@ typedef struct Game1D6E80Event {
     s8 value9;
     s8 valueA;
 } Game1D6E80Event;
-
-void func_15190770(Game1D6E80Event *, s32, u8, u8);
 
 void func_151AB854(u8 *arg0) {
     u8 *object;

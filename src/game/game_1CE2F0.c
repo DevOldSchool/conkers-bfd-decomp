@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1CE2F0.c
@@ -135,11 +136,10 @@ void func_151A175C(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A175C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CE2F0/func_151A175C.s")
 void *func_10022EC0(void *, const void *, u32);
-s32 func_151491F4(s16, s32, s32, s32, s32, s32, s32, s32);
 
 void func_151A18DC(void *arg0) {
     typedef struct { s32 words[3]; } Copy3;
-    s32 result;
+    u8 *result;
     struct {
         Copy3 header;
         f32 value40;
@@ -213,7 +213,7 @@ typedef union Game1CE2F0CopyParams {
 
 void func_151A1EE8(u8 *arg0) {
     Game1CE2F0CopyParams params;
-    s32 result;
+    u8 *result;
 
     params.fields.header = *(Game1CE2F0CopyHeader *)(arg0 + 0x28);
     params.fields.valueC = *(f32 *)(arg0 + 0x34);

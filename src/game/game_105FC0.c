@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_105FC0.c
@@ -18,7 +19,6 @@
 
 void func_150DA484(void *arg0);
 void func_100111C8(s32 arg0, u16 arg1);
-void func_15147928(s32 arg0);
 void func_15145740(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4);
 extern f32 D_800A0B40;
 extern f32 D_800A0B44;
@@ -247,15 +247,14 @@ void func_150DA484(void *arg0) {
         func_100111C8(temp_a1 & 0xFFFF, temp_a1);
     }
 }
-void func_150DA4B4(s32 arg0) {
-    func_150DA484((void *)arg0);
+void func_150DA4B4(void *arg0) {
+    func_150DA484(arg0);
     func_151478F4(arg0);
 }
-void func_150DA4E0(s32 arg0) {
-    func_150DA484((void *)arg0);
+void func_150DA4E0(void *arg0) {
+    func_150DA484(arg0);
     func_15147928(arg0);
 }
-void func_1516972C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150DA50C CURRENT (280) */
 void func_150DA50C(u8 *arg0, u8 *arg1, u8 arg2) {

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_AB760.c
@@ -186,7 +187,6 @@ void func_1507E5C8(u8 *actor, s32 morphDurationOverride) {
         actor[0x69] = *((u8 *)D_800D1C90[actor[4]] + 0x3C);
     }
 }
-s32 func_150849A0();                                /* extern */
 
 /* Descriptive role: actor_can_update_blink.
  * Evidence: docs/evidence/assets/naming/character_expression_semantics.md.
@@ -201,7 +201,7 @@ s32 func_1507E6B8(void *actor) {
     if (*(u8 *)((u8 *)actor + 0x70) == *(u8 *)((u8 *)actor + 0x6F)) {
         return 1;
     }
-    representationModelIndex = func_150849A0();
+    representationModelIndex = func_150849A0(actor);
     expressionIndex = *(u8 *)((u8 *)actor + 0x6F);
     if (representationModelIndex == 0) {
         if (expressionIndex == 0x15) {
@@ -230,7 +230,6 @@ typedef struct GameAB760State {
 } GameAB760State;
 
 void func_1507E2B0(GameAB760State *);
-void func_1507EABC(GameAB760State *);
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E73C CURRENT (220) */

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_200930.c
@@ -33,7 +34,7 @@ typedef struct Game200930ResourceSlots {
 void func_100043B4(s32, s32);
 
 u16 func_10010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-void * func_10022EC0(void *, const void *, u32);
+void *func_10022EC0(void *, const void *, u32);
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *, f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
@@ -478,7 +479,7 @@ void func_151D3F14(void *arg0, u8 arg1, s32 arg2) {
                    (func_150ADA20() % 13U) + 0x14,
                    0xFF, 0xE8, 0xAB, 0xFF, 0, 0, arg1, arg2);
 }
-void func_151D3FF4(s32 arg0, u8 arg1, s32 arg2) {
+void func_151D3FF4(f32 *arg0, u8 arg1, s32 arg2) {
     Game200930Particle particle;
     Game200930Position position;
 
@@ -486,9 +487,9 @@ void func_151D3FF4(s32 arg0, u8 arg1, s32 arg2) {
     particle.subtype = -1;
     particle.duration = (func_150ADA20() % 11U) + 0x14;
     particle.flags = 0;
-    position.x = (s32)*(f32 *)(arg0 + 0);
-    position.y = (s32)*(f32 *)(arg0 + 4);
-    position.z = (s32)*(f32 *)(arg0 + 8);
+    position.x = (s32)arg0[0];
+    position.y = (s32)arg0[1];
+    position.z = (s32)arg0[2];
     func_151602C0((u8 *)&particle, &position.x,
                    (func_150ADA20() % 24U) + 0x22,
                    0xFF, 0xA1, 0xA2, 0xFF, 0, 0, arg1, arg2);
@@ -661,8 +662,6 @@ void func_151D4408(void *arg0, void *arg1, s32 arg2, void *arg3,
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D4408 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D4408.s")
 
-void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
-
 void func_151D4668(void *arg0) {
     struct {
         void *sp18;
@@ -671,10 +670,9 @@ void func_151D4668(void *arg0) {
 
     sp.sp18 = arg0;
     sp.sp1C = *(u8 *)((u8 *)arg0 + 0x3B);
-    func_151494E0((s32 *)&sp, 0x3C, (s32)arg0);
+    func_151494E0(&sp, 0x3C);
 }
 void *func_10022EC0(void *, const void *, u32);
-u8 *func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 extern void (*D_8008FC70[])(u8 *, s16, void *);
 
 typedef struct Game200930SpawnPacket {
@@ -713,8 +711,6 @@ void func_151D469C(u8 *arg0, u8 arg1, s16 arg2, u8 arg3, s32 arg4) {
         func_10022EC0(result + 0x28, &packet, 0x20U);
     }
 }
-f32 func_15143E64(void *);
-void *func_15130280(void *, u8, void *, s32, u8, s32);
 extern f32 D_800AB1FC;
 extern f32 D_800AB200;
 extern f32 D_800AB204;
@@ -886,7 +882,6 @@ void func_151D4794(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D4794.s")
 
 void func_15149514(s32, u8, s32, s32, s32);
-void func_1516972C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D4C38 CURRENT (1130) */
 void func_151D4C38(u8 *arg0, void *arg1, u8 arg2) {
@@ -1116,7 +1111,7 @@ typedef struct {
 } Game200930EventPayload;
 
 void func_151D5404(void *arg0, f32 arg1, f32 arg2, f32 arg3, s16 arg4,
-                   s16 arg5) {
+                   s16 arg5, s32 arg6, s32 arg7) {
     struct {
         Game200930EventDescriptor descriptor;
         Game200930EventPayload payload;
@@ -1220,13 +1215,12 @@ void func_151D5514(s32 arg0, u8 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D5514 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5514.s")
-void func_151541B8(s32, f32, s32, f32, f32, u8, s32);
+void func_151541B8(f32 *, f32, f32, f32, f32, u8, s32);
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
-void func_151D3FF4(s32, u8, s32);
-void func_151D5514(s32, u8, s32);
+void func_151D5514(f32 *, u8, s32);
 
-void func_151D5648(s32 arg0, u8 arg1, s32 arg2) {
+void func_151D5648(f32 *arg0, u8 arg1, s32 arg2) {
     u32 random;
     f32 random_float;
     u32 random_value;
@@ -1236,7 +1230,7 @@ void func_151D5648(s32 arg0, u8 arg1, s32 arg2) {
     random_float = func_150ADA68();
     random = func_150ADA20();
     random_value = (random % 56U) + 0xC8;
-    func_151541B8(arg0, (random_float * 4.0f) + 12.0f, 0x3FD20C49,
+    func_151541B8(arg0, (random_float * 4.0f) + 12.0f, 1.6409999f,
                   (f32)random_value, 0.0f, arg1, arg2);
 }
 void func_15145EA4(s32 *, s32 *, s32, s32);
@@ -1284,7 +1278,6 @@ void func_151D5714(void *arg0, s32 arg1, s32 arg2, u8 arg3,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5714.s")
 void func_151D5174(void *, void *, void *, void *, void *, void *, void *, void **, void **, void *);
 void func_151D5A18(void *, s32, void *, void *, void *, s32, u8);
-void func_150636A4(void *);
 void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
 extern s32 D_8008FC8C[];

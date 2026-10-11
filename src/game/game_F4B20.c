@@ -22,7 +22,7 @@ s32 func_150C7670(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C7670 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F4B20/func_150C7670.s")
-void func_10022EC0(void *arg0, void *arg1, s32 arg2);
+void *func_10022EC0(void *, const void *, u32);
 extern u8 D_80089470;
 
 s32 func_150C773C(void *arg0, s32 arg1) {

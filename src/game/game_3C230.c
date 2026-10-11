@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_3C230.c
@@ -20,7 +21,7 @@ void func_1500ED80(void) {
     func_150124A0();
 }
 
-typedef struct {
+typedef struct Game3C230Actor {
     u8 pad0[0x3B];
     u8 type;
 } Game3C230Actor;
@@ -38,8 +39,7 @@ typedef struct {
     u8 pad9[3];
 } Game3C230PacketWithValue;
 
-void func_10022EC0(void *, void *, s32);
-u8 *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 
 void func_1500EE18(Game3C230Actor *arg0, s32 arg1, s32 arg2) {
     Game3C230Packet packet;

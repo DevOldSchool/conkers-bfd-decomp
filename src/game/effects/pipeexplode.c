@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/effects/pipeexplode.c
@@ -43,7 +44,6 @@ typedef struct {
 } PipeExplodePacket;
 
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-f32 func_151423D8(u8);
 f32 func_150ADA68(void);
 extern f32 D_8009FB8C, D_8009FB90, D_8009FB94, D_8009FB98;
 
@@ -197,7 +197,6 @@ typedef struct {
 typedef struct { s16 kind[3]; } PipeExplodeKinds;
 
 void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
-void *func_15147DA0(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, void *, s32, u8, s32);
 u32 func_150ADA20(void);
 extern PipeExplodeKinds D_80088700;
 

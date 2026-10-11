@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_15D730.c
@@ -40,7 +41,6 @@ typedef struct Game15D730CopyBlock {
 } Game15D730CopyBlock;
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 
 void *func_15130280(void *arg0, u8 arg1, Game15D730CopyBlock *arg2,
                    s32 arg3, u8 arg4, s32 arg5) {
@@ -73,8 +73,6 @@ void *func_15130280(void *arg0, u8 arg1, Game15D730CopyBlock *arg2,
     }
     return sp24;
 }
-
-void *func_15130280(void *, u8, Game15D730CopyBlock *, s32, u8, s32);
 
 void *func_15130374(s32 arg0, u8 arg1, s32 arg2, u8 arg3, s32 arg4) {
     return func_15130280((void *)arg0, arg1, 0, arg2, arg3, arg4);
@@ -236,11 +234,11 @@ s32 func_1513170C(u8 *arg0, s32 arg1) {
     func_15131958(arg0 + 0x58, *(f32 *)((u8 *)arg0 + 0xA8));
     return 1;
 }
-void func_1513173C(void) {
-    func_15169804();
+void func_1513173C(void *arg0) {
+    func_15169804(arg0);
 }
-void func_1513175C(void) {
-    func_15169824();
+void func_1513175C(void *arg0) {
+    func_15169824(arg0);
 }
 extern void (*D_80089814[])(void);
 
@@ -270,7 +268,6 @@ s32 func_15131814(s32 arg0, s32 arg1) {
     return 0;
 }
 /* Call context: func_151423D8: unique active project prototype */
-f32 func_151423D8(u8);
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15131828 CURRENT (950) */

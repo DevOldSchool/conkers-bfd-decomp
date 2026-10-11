@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1BF090.c
@@ -45,7 +46,6 @@ typedef struct Game1BF090Payload {
 
 void func_1504715C(void *, void *, s32, void *);
 void *func_10022EC0(void *, const void *, u32);
-void *func_15149130(s16, s8, s8, s8, u8, u8, s32, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15191BE0 CURRENT (3280) */
 s32 func_15191BE0(u8 *arg0, Game1BF090Vector *arg1, s32 arg2,
@@ -338,7 +338,6 @@ void func_151DA6F8(f32 *, f32 *, f32, s16, s32, f32, s32, s32, f32, f32,
                   s32, s32, s32, s32, s32, s32, s32, s32);
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
-void func_151436B4(f32, f32, f32, void *);
 extern f32 D_800A80FC;
 extern f32 D_800A8100;
 extern f32 D_800A8104;

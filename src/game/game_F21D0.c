@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_F21D0.c
@@ -26,7 +27,6 @@ typedef struct GameF21D0Mover {
 } GameF21D0Mover;
 
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-f32 func_15048A40(u8);
 extern f32 D_800A03F0;
 extern f32 D_800A03F4;
 extern f32 D_800A03F8;
@@ -73,14 +73,13 @@ void func_150C4D20(GameF21D0Mover *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C4D20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F21D0/func_150C4D20.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F21D0/func_150C4E9C.s")
-void func_1516972C(s32);
-extern s32 D_800D98D0;
-extern s32 D_800D98E0;
+extern void *D_800D98D0;
+extern void *D_800D98E0;
 
 void func_150C522C(void) {
-    s32 *var_s0;
-    s32 *var_s1;
-    s32 temp_a0;
+    void **var_s0;
+    void **var_s1;
+    void *temp_a0;
 
     var_s1 = (var_s0 = &D_800D98D0, &D_800D98E0);
     do {

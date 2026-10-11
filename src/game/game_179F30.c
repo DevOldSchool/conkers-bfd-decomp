@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_179F30.c
@@ -25,8 +26,6 @@ enum {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514CA80.s")
 void *func_15155FD4(s32);
-void func_1516972C(void *);
-void *func_15155780(s32, s32);
 s32 func_1514CA80(void *, s32 *, s32 *, s32 *);
 extern void (*D_8008AACC)(void *);
 extern void (*D_8008AA70[])(void *);
@@ -104,7 +103,6 @@ typedef struct {
 
 extern void (*D_8008AB58[])(s32);
 extern Game179F30DispatchEntry *D_8008ABE8[];
-void func_1516972C(void *arg0);
 
 s32 func_1514D310(void *arg0) {
     Game179F30Node *node;
@@ -183,8 +181,7 @@ s32 func_1514D4B8(s16 arg0, s16 arg1) {
     }
     return 0;
 }
-void func_10022EC0(void *, void *, s32);
-s32 func_1514EC1C(s32, s32, s16);
+void *func_10022EC0(void *, const void *, u32);
 s32 func_150C5370(f32 *, s32);
 extern f32 D_800A5DE4;
 extern f32 D_800A5DE8;
@@ -249,7 +246,6 @@ extern u8 D_800A58E4[];
 extern u8 D_800A58F8[];
 extern u8 D_800A590C[];
 
-s32 func_1514EC1C(s32, s32, s16);
 void *func_15160A58(void *, s32, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A5DF4;
 extern f32 D_800A5DF8;
@@ -419,9 +415,8 @@ typedef struct {
     s32 field_1C;
 } Game179F30LargePacket;
 
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 extern s32 func_15158BD0(s32, s32, s32);
-extern s32 func_1514EC1C(s32 arg0, s32 arg1, s16 arg2);
 
 void func_1514D978(s32 arg0) {
     Game179F30LargePacket packet;
@@ -513,13 +508,12 @@ void func_1514DB18(s32 arg0) {
 void func_1514DB58(s32 arg0) {
 
 }
-void func_151B2060(void);
 void func_1514F194();
 extern s32 D_800BE9F0;
 
-void func_1514DB64(void) {
+void func_1514DB64(void *arg0) {
     if (D_800BE9F0 == 0x14) {
-        func_151B2060();
+        func_151B2060(arg0);
     }
 }
 void func_1514DB98(void) {
@@ -531,13 +525,10 @@ void *func_15160A58(void *, s32, void *, s32, s32, s32, s32, s32, s32, s32, s32,
 void func_1514DBB8(void *arg0) {
     func_15160A58(arg0, 2, D_800A58A0, 2, 0x12C, 0x28, 0xFF, 0xFF, 0xFF, 0xFF, 0, -1, 0, 0, 0xFF, 1);
 }
-/* Call context: func_1500EE18: raw o32 argument homes in asm/nonmatchings/game_3C230/func_1500EE18.s; pointer uses in entry block; caller discards result */
-void func_1500EE18(void *, s32, s32); /* CONKER_ABI_DISCARDED_RETURN */
 
 void func_1514DC38(void *arg0) {
     func_1500EE18(arg0, 0xFF, 1);
 }
-void func_151D0F60(void *, s32, s32, s32); /* CONKER_ABI_DISCARDED_RETURN */
 
 void func_1514DC5C(void *arg0) {
     func_151D0F60(arg0, 0, 0xFF, 1);
@@ -637,13 +628,11 @@ void func_1514DE94(s32 arg0) {
     func_1514EC1C((s32)effect, arg0, 0x19);
 }
 /* Call context: func_15083FB0: unique active project prototype */
-u8 func_15083FB0(u8);
 
 void func_1514DFD0(void *arg0) {
     *(s8 *)((u8 *)arg0 + 0x65) = (s8) (func_15083FB0(9U) + 1);
     *(u8 *)((u8 *)arg0 + 0x101) = (u8) (*(u8 *)((u8 *)arg0 + 0x101) | 0x34);
 }
-void func_151D74B0(s32, s32, s32, s32, s32);
 extern f32 D_800A5E08;
 extern f32 D_800A5E0C;
 
@@ -744,10 +733,9 @@ void func_1514E00C(void *arg0) {
     setup.sp40 = D_800A5E0C;
     setup.spEC = 1.0f;
     func_1514EC1C(func_15189FF0(&setup.sp4C, &setup.spA4, &setup.sp2C, 2, 0U, 0U, 0U), (s32) arg0, 6);
-    func_151D74B0((s32) arg0, 5, -1, 0xFF, 1);
+    func_151D74B0(arg0, 5, -1, 0xFF, 1);
 }
 
-void func_151D74B0(s32, s32, s32, s32, s32);
 extern f32 D_800A5E10;
 extern f32 D_800A5E14;
 
@@ -848,7 +836,7 @@ void func_1514E194(void *arg0) {
     setup.sp40 = D_800A5E14;
     setup.spEC = 1.0f;
     func_1514EC1C(func_15189FF0(&setup.sp4C, &setup.spA4, &setup.sp2C, 2, 0U, 0U, 0U), (s32) arg0, 6);
-    func_151D74B0((s32) arg0, 5, -1, 0xFF, 1);
+    func_151D74B0(arg0, 5, -1, 0xFF, 1);
 }
 
 extern f32 D_800A5E18;
@@ -1017,21 +1005,18 @@ void func_1514E7C8(s32 arg0) {
 void func_1514E824(s32 arg0) {
 
 }
-void func_1516972C(void *arg0);
 
 void func_1514E830(void *arg0) {
     func_1516972C(arg0);
 }
-void func_1518E308(void *arg0);
 
 void func_1514E850(void *arg0) {
     func_1518E308(arg0);
     func_1516972C(arg0);
 }
-void func_1515F10C(void);
 
-void func_1514E87C(void) {
-    func_1515F10C();
+void func_1514E87C(void *arg0) {
+    func_1515F10C(arg0);
 }
 s32 func_1514E89C(void *arg0, s32 arg1, s32 arg2) {
     s32 temp_v0;
@@ -1168,8 +1153,6 @@ typedef struct {
     u8 pad1E[2];
 } Game179F30Effect;
 
-Game179F30Effect *func_15167A68(s32, s32, s32, s32, u8, u8);
-
 Game179F30Effect *func_1514EBA4(void *arg0, s16 arg1, s32 arg2) {
     Game179F30Effect *effect;
 
@@ -1228,7 +1211,7 @@ s32 func_1514ECE0(void *arg0, s16 arg1, void **arg2) {
     }
     return var_v1;
 }
-s32 func_1514ED3C(void *arg0, s32 arg1, void **arg2) {
+s32 func_1514ED3C(void *arg0, void *arg1, void **arg2) {
     s32 var_v1;
     void *var_v0;
     void *next;
@@ -1237,7 +1220,7 @@ s32 func_1514ED3C(void *arg0, s32 arg1, void **arg2) {
     var_v0 = arg0;
     while ((var_v0 != 0) && (var_v1 == 0)) {
         next = *(void **)((u8 *)var_v0 + 0x14);
-        if (arg1 == *(s32 *)((u8 *)var_v0 + 0x10)) {
+        if (arg1 == *(void **)((u8 *)var_v0 + 0x10)) {
             var_v1 = 1;
         } else {
             var_v0 = next;
@@ -1270,7 +1253,7 @@ s32 func_1514ED8C(void *arg0, void *arg1) {
 }
 /* Call context: func_1514ED8C: unique active project prototype */
 
-void func_1514EDF0(s32 arg0, void *arg1) {
+void func_1514EDF0(void *arg0, void *arg1) {
     s32 temp_v0;
     void *var_s1;
 
@@ -1481,8 +1464,6 @@ typedef struct Game179F30F3CCPacket {
     f32 value;
 } Game179F30F3CCPacket;
 
-void *func_15149130(s16, s8, s8, s8, u8, u8, s32, u8, s32);
-
 void func_1514F3CC(void *arg0) {
     Game179F30F3CCPacket packet;
     void *temp_v0;
@@ -1503,18 +1484,16 @@ void func_1514F44C(s32 arg0) {
     temp_v0 = func_1518D1C0(arg0, 5, 0, 1, 0xFF, 1, &D_800A5988);
     func_1514EC1C((s32)temp_v0, arg0, 0xD);
 }
-void func_151D74B0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-
-void func_1514F4A8(s32 arg0) {
+void func_1514F4A8(void *arg0) {
     func_151D74B0(arg0, 1, -1, 0xFF, 1);
 }
-void func_1514F4D8(s32 arg0) {
+void func_1514F4D8(void *arg0) {
     func_151D74B0(arg0, 2, 1, 0xFF, 1);
 }
-void func_1514F508(s32 arg0) {
+void func_1514F508(void *arg0) {
     func_151D74B0(arg0, 3, 0, 0xFF, 1);
 }
-void func_1514F538(s32 arg0) {
+void func_1514F538(void *arg0) {
     func_151D74B0(arg0, 4, -1, 0xFF, 1);
 }
 void func_150C4120(void *, s32, s32, s32); /* CONKER_ABI_DISCARDED_RETURN */
@@ -1522,10 +1501,9 @@ void func_150C4120(void *, s32, s32, s32); /* CONKER_ABI_DISCARDED_RETURN */
 void func_1514F568(void *arg0) {
     func_150C4120(arg0, -1, 0xFF, 1);
 }
-void func_1501175C(s32, s32, s32);
-void func_15011A78(s32, s32, s32);
+void func_1501175C(void *, s32, s32);
 
-void func_1514F590(s32 arg0) {
+void func_1514F590(void *arg0) {
     func_1501175C(arg0, 0xFF, 1);
     func_15011A78(arg0, 0xFF, 1);
 }

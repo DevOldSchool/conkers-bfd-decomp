@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_117940.c
@@ -22,7 +23,6 @@ typedef struct Game117940State {
     Game117940Phase phase;
 } Game117940State;
 
-f32 func_151423D8(u8);
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150EA490 CURRENT (20) */

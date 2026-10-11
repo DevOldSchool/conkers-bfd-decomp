@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1E58B0.c
@@ -133,13 +134,10 @@ s32 func_151B85AC(void *arg0) {
     }
     return 1;
 }
-void func_1513FA70(s32 arg0, s16 arg1);
 
-void func_151B863C(s32 arg0, s16 arg1) {
+void func_151B863C(void *arg0, s16 arg1) {
     func_1513FA70(arg0, arg1);
 }
-/* Call context: func_15134908: unique active project prototype */
-void func_15134908(s32 *, s32, u8, s32);
 extern f32 D_800AA4C8;
 extern f32 D_800DCA24;
 
@@ -166,7 +164,7 @@ void func_151B8668(s32 arg0, u8 arg1, s32 arg2) {
     packet.flag = 0;
     packet.kind = 3;
     packet.extra = 0;
-    func_15134908((s32 *)&packet, 0, arg1, arg2);
+    func_15134908(&packet, 0, arg1, arg2);
 }
 void func_15143794(s16, s16, f32, void *);
 void func_151A26EC(f32 *, f32 *, f32 *, f32, f32, f32, s32, s32, s32,
@@ -248,7 +246,6 @@ typedef struct Game1E58B0ChoiceTable {
 } Game1E58B0ChoiceTable;
 
 struct Game15D730CopyBlock;
-void *func_15130280(void *, u8, struct Game15D730CopyBlock *, s32, u8, s32);
 extern Game1E58B0ChoiceTable D_800AA4B8;
 extern Game1E58B0Vec3 D_800A5480;
 

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_EB020.c
@@ -55,8 +56,6 @@ typedef struct GameEB020Actor {
     u8 pad320[0xC];
 } GameEB020Actor;
 
-/* The matched definition of func_15052590 takes one owner pointer. */
-void func_15052590(void *);
 void func_15052F9C(u8 *, f32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_1505327C(u8 *, f32, f32, s32, s32);
 void *func_15072208(void *, s32);

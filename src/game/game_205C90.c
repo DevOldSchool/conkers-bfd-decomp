@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_205C90.c
@@ -49,7 +50,6 @@ loop_1:
 s32 func_151D87E0(u8);
 s32 func_15181CC8(s32);
 s32 func_1517EF00(s32);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void *func_10022EC0(void *, const void *, u32);
 void func_1501C010(u8, u8);
 extern s32 D_80082FA0;
@@ -109,7 +109,6 @@ void *func_151D8868(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D8868 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_205C90/func_151D8868.s")
 void func_1501C17C(u8);
-void func_1516972C(void *);
 extern void (*D_8008FCC0[])(void *);
 extern s32 D_800BE9E4;
 
@@ -155,10 +154,9 @@ void func_151D8A24(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_205C90/func_151D8A24.s")
 /* Call context: func_1501C17C: unique active project prototype */
 void func_1501C17C(u8);
-void func_151D8B24(s32);
-void func_1516972C(void *arg0);
+void func_151D8B24(u8 *);
 
-void func_151D8B24(s32 arg0) {
+void func_151D8B24(u8 *arg0) {
     u8 i;
 
     for (i = 0; i < 4; i++) {
@@ -167,15 +165,13 @@ void func_151D8B24(s32 arg0) {
         }
     }
 }
-void func_151D8B24(s32 arg0);
-void func_15169804(s32 arg0);
-void func_15169824(s32 arg0);
+void func_151D8B24(u8 *arg0);
 
-void func_151D8B88(s32 arg0) {
+void func_151D8B88(void *arg0) {
     func_151D8B24(arg0);
     func_15169804(arg0);
 }
-void func_151D8BB4(s32 arg0) {
+void func_151D8BB4(void *arg0) {
     func_151D8B24(arg0);
     func_15169824(arg0);
 }
@@ -183,7 +179,6 @@ void func_151D8C00(void *, u8 *);
 void func_151D8BE0(s32 arg0) {
     func_151D8C00((void *)arg0, (u8 *)(arg0 + 0x18));
 }
-f32 func_15143E64(void *);
 s32 func_15144B34(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D8C00 CURRENT (25) */

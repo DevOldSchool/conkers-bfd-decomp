@@ -1,12 +1,11 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1DBC60.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_call_singletons.md
  */
 
-u32 func_1513418C(void *, s32, u8, s32);
-void func_1516962C(s32, void *, s32);
 extern f32 D_800A9D80;
 
 typedef struct Game1DBC60Packet {
@@ -29,8 +28,8 @@ typedef struct Game1DBC60Packet {
     s8 field_2D;
 } Game1DBC60Packet;
 
-u32 func_151AE7B0(void *arg0, f32 arg1, s16 arg2, u8 arg3, s32 arg4) {
-    u32 result;
+void *func_151AE7B0(void *arg0, f32 arg1, s16 arg2, u8 arg3, s32 arg4) {
+    void *result;
     Game1DBC60Packet packet;
     s16 temp_v0;
 

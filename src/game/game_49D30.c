@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_49D30.c
@@ -447,7 +448,6 @@ s32 func_100127D0(void);
 void func_151F2BA8(void);
 void *func_15072208(void *, s32);
 void func_15060F28(u8 *, s32);
-void func_1517EE40(s32, s32, s32, s32, s8, s32);
 void func_1000E17C(void);
 extern u8 D_800C35A9;
 extern u8 D_800C35C4;
@@ -532,7 +532,6 @@ s32 func_1501E05C(s32 arg0) {
     }
     return 0;
 }
-void func_1517EE40(s32, s32, s32, s32, s8, s32);
 void func_1000E17C(void);
 void func_1501DF04(s32);
 s32 func_1501E05C(s32);
@@ -689,7 +688,6 @@ void func_1501E540(s32 arg0) {
     }
 }
 void *func_15083E90(u8);
-void func_1507EABC(void *);
 extern void *D_800C35F0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1501E73C CURRENT (70) */
@@ -1359,7 +1357,6 @@ append:
 #endif /* CONKER_DEFERRED_CANDIDATE func_15022640 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15022640.s")
 
-void *func_151149AC(u8);
 void func_15022640(s32, s32);
 
 void func_150226BC(s32 arg0, s32 arg1) {
@@ -1626,7 +1623,6 @@ extern u8 D_800C3CA0;
 void func_150233BC(void) {
     func_100226F0(&D_800C3CA0, 0xA8);
 }
-void func_1516D2E0(Game49D30Resource *);
 extern u8 D_800C3D48;
 
 void func_150233E4(void) {

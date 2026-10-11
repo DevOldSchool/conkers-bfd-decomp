@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_E1280.c
@@ -22,9 +23,7 @@ typedef struct GameE1280State {
 } GameE1280State;
 
 void func_1000FC18(s32, s16, s16, s16, s32);
-void func_151478F4(s32);
 void func_15147D64(s32, s32);
-void func_151494E0(s8 *, s32);
 
 void func_150B3DD0(void) {
     struct {
@@ -50,14 +49,12 @@ void func_150B3DD0(void) {
 void func_150B3E74(GameE1280State *arg0) {
     func_1000FC18(0x221, (s16)(s32)arg0->x, (s16)(s32)arg0->y,
                   (s16)(s32)arg0->z, 0xFA0);
-    func_151478F4((s32)arg0);
+    func_151478F4(arg0);
 }
-void func_15147928(s32);
-
 void func_150B3EE8(GameE1280State *arg0) {
     func_1000FC18(0x221, (s16)(s32)arg0->x, (s16)(s32)arg0->y,
                   (s16)(s32)arg0->z, 0xFA0);
-    func_15147928((s32)arg0);
+    func_15147928(arg0);
 }
 void *func_10022EC0(void *, const void *, u32);
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
@@ -225,9 +222,6 @@ void func_150B5060(void *arg0) {
     *(u8 *)((u8 *)temp_v0 + 0x1C) = (u8) (*(u8 *)((u8 *)temp_v0 + 0x1C) | 1);
 }
 f32 func_150ADA68(void);
-f32 func_151423D8(u8);
-void *func_15147DA0(void *, void *, s32, s32, s32, s32, s32, s32, s32,
-                   s32, s32, void *, s32, u8, s32);
 extern u8 D_8009FBF0[];
 
 typedef struct GameE1280TrailHeader {

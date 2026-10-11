@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_83300.c
@@ -1203,6 +1204,93 @@ void func_1505A770(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A770.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A9AC.s")
+void func_1506E5FC(void);
+void func_15174690(u8, s32, s32, s32, s32, s32, s32, s32, s32);
+extern f32 D_8009950C;
+extern f32 D_80099510;
+extern f32 D_80099514;
+extern void *D_800B0DF0;
+extern s32 D_800D1580;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505B5F8 CURRENT (619) */
+void func_1505B5F8(u8 *arg0, f32 arg1) {
+    f32 previousSpeed;
+    f32 height;
+    f32 vertical;
+    s32 count;
+    s32 remaining;
+    s32 step;
+    s32 sound;
+    u8 *owner;
+
+    previousSpeed = *(f32 *)(arg0 + 0x28);
+    if (!(*(s32 *)(arg0 + 0xF8) & 0x8000)) {
+        count = arg0[0x252];
+        if (count != 0 && (f32)(arg0[0x253] * 8) < *(f32 *)(arg0 + 0x1CC) - *(f32 *)(arg0 + 0x18) &&
+            arg0[0x104] == 0) {
+            arg0[0x104] = 0xFE;
+            arg0[0x105] = 0;
+            arg0[0x106] = func_1505E7CC(count, arg0);
+            *(s16 *)(arg0 + 0x84) = 0xFF;
+            func_1505E874(D_800C3E78, arg0);
+            *(f32 *)(arg0 + 0x18) = *(f32 *)(arg0 + 0x30);
+        }
+        height = *(f32 *)(arg0 + 0x18);
+        *(f32 *)(arg0 + 0x28) = height - arg1;
+        if (height <= arg1) {
+            *(s32 *)(arg0 + 0xF4) |= 0x8000;
+            step = ((u8 *)D_800B0DF0)[0x13];
+            if (step != 0 && previousSpeed != 0.0f) {
+                func_15174690(D_800C3E78, 0, 0x1000 / step, 0, 0x199, 4, 0xAA, 0xFF, 0);
+            }
+            *(f32 *)(arg0 + 0x18) = arg1;
+            *(f32 *)(arg0 + 0x28) = 0.0f;
+            if (arg0[0x104] != 0 || !(*(s32 *)(arg0 + 0xF8) & 0x10000)) {
+                if (*(s32 *)arg0 == 1) {
+                    if (*(f32 *)(arg0 + 0x20) < -6.0f) {
+                        *(f32 *)(arg0 + 0x20) = -6.0f;
+                    }
+                } else {
+                    if (*(f32 *)(arg0 + 0x1CC) - *(f32 *)(arg0 + 0x18) > 450.0f) {
+                        remaining = arg0[0x1CA];
+                        if (remaining > 0) {
+                            owner = *(u8 **)(arg0 + 0x144);
+                            if (owner != NULL && !(owner[0xE] & 0x80)) {
+                                arg0[0x1CA] = remaining - 1;
+                            }
+                        }
+                    }
+                    *(f32 *)(arg0 + 0x1CC) = arg1;
+                    if (arg0[0x104] == 0 && *(f32 *)(arg0 + 0x24) > 0.5f) {
+                        if ((*(s32 *)(arg0 + 0xF8) & 0x800) && previousSpeed != 0.0f &&
+                            (vertical = *(f32 *)(arg0 + 0x20)) < -4.0f * *(f32 *)(arg0 + 0x24) * D_800D1550) {
+                            sound = *(s32 *)(arg0 + 0x2CC);
+                            *(f32 *)(arg0 + 0x20) = (0.0f - vertical) * ((f32)(s8)arg0[0x2CB] * D_8009950C);
+                            if (sound != 0 && *(f32 *)(arg0 + 0x20) > 5.0f) {
+                                D_800D1580 = sound;
+                                func_1506E5FC();
+                            }
+                        } else if (*(s32 *)arg0 != 7) {
+                            *(f32 *)(arg0 + 0x20) = -4.0f * D_800D1550;
+                        }
+                    } else {
+                        if (*(s32 *)(arg0 + 0xF4) & 0x80) {
+                            *(f32 *)(arg0 + 0x20) = -4.0f;
+                        } else if (previousSpeed == 0.0f ||
+                                   -1.5f * *(f32 *)(arg0 + 0x24) * D_800D1550 < *(f32 *)(arg0 + 0x20)) {
+                            *(f32 *)(arg0 + 0x20) = 0.0f;
+                        } else {
+                            *(f32 *)(arg0 + 0x20) =
+                                (0.0f - *(f32 *)(arg0 + 0x20)) * ((f32)(s8)arg0[0x2CB] * D_80099510);
+                        }
+                        *(f32 *)(arg0 + 0x3C) *= D_80099514;
+                    }
+                }
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1505B5F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505B5F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505B9C4.s")
 typedef struct {
@@ -1677,7 +1765,6 @@ void func_1505E060(u8 *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505E0C4.s")
 s32 func_150229E4(void *);
-void func_1505DFDC(Game83300Actor *);
 void func_1505E0C4(f32, Game83300Actor *, u16 *, Game83300Inner *, s32, s32, s32, s32, f32, f32, f32, f32, s32);
 extern u8 D_800C3638;
 extern u8 D_800C3654;
@@ -2283,7 +2370,6 @@ typedef struct Game83300CleanupActor {
 
 s32 func_1514D310(void *);
 void func_151695F0(void *, u8);
-void func_1516972C(u8 *);
 void func_15084558(void *);
 void func_150626EC(s32, s32);
 void func_1504AF10(void *, s32, s32);

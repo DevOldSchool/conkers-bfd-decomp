@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_185560.c
@@ -16,15 +17,11 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_15158A20(s32 arg0);
-void func_15169804(s32 arg0);
-void func_15169824(s32 arg0);
+void func_15158A20(u8 *arg0);
 void *func_151580B0(void *arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4, u8 arg5, s32 arg6);
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_1515D440(void);
 s32 func_1515D480(s32);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 extern s32 D_80082FA0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151580B0 CURRENT (20) */
@@ -81,7 +78,6 @@ typedef s32 (*Game185560Callback)(void *);
 
 extern Game185560Callback D_8008AE00[];
 extern s32 D_800BE9E4;
-void func_1516972C(void *arg0);
 
 void func_15158224(void *arg0) {
     u8 *p = (u8 *)arg0;
@@ -338,7 +334,7 @@ void func_100043B4(s32, s32);
 extern s32 D_80082FA0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15158A20 CURRENT (890) */
-void func_15158A20(s32 arg0) {
+void func_15158A20(u8 *arg0) {
     s32 temp_v0;
     s32 temp_v0_2;
     s32 var_s0;
@@ -363,11 +359,11 @@ void func_15158A20(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15158A20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_185560/func_15158A20.s")
-void func_15158AA4(s32 arg0) {
+void func_15158AA4(void *arg0) {
     func_15158A20(arg0);
     func_15169804(arg0);
 }
-void func_15158AD0(s32 arg0) {
+void func_15158AD0(void *arg0) {
     func_15158A20(arg0);
     func_15169824(arg0);
 }

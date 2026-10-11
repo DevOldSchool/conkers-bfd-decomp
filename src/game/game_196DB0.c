@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_196DB0.c
@@ -15,7 +16,6 @@ typedef struct Game196DB0Effect {
     u8 payload[0x3C];
 } Game196DB0Effect;
 
-Game196DB0Effect *func_15167A68(s32, s32, s32, s32, s32, s32);
 void func_10023A10(void *, void *, s32);
 
 Game196DB0Effect *func_15169900(void *arg0, s32 arg1) {
@@ -28,10 +28,9 @@ Game196DB0Effect *func_15169900(void *arg0, s32 arg1) {
     return effect;
 }
 
-void func_15169968(void *arg0) {
-    func_15169900(arg0, 0xFF);
+void *func_15169968(void *arg0) {
+    return func_15169900(arg0, 0xFF);
 }
-void func_1516972C(u8 *);
 extern void (*D_8008CA20[])(void);
 extern s32 D_800BE9E4;
 

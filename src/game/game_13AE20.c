@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_13AE20.c
@@ -13,8 +14,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1510D970 CURRENT (890) */
 void *func_1510D970(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
@@ -85,7 +84,6 @@ typedef struct {
 } Game13AE20RenderState;
 
 void func_150A7D00(volatile s64 *, f32, f32, f32);
-s32 func_1506196C(u8 *, s32);
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 extern s32 D_80091770[];
 extern u8 D_800BE9C0;

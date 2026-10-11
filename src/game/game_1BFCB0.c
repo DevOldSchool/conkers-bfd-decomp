@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1BFCB0.c
@@ -22,7 +23,7 @@ extern s32 func_1510F8CC(s32 arg0);
 extern Game1BFCB0Handler *D_8008F860[];
 extern s32 D_800BE9F0;
 
-void func_15192800(void *arg0, void *arg1) {
+void func_15192800(void *arg0, s32 arg1) {
     s32 sp2C;
     Game1BFCB0Handler callback;
     s32 temp_v0;

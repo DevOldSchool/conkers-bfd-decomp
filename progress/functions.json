@@ -2071,6 +2071,12 @@
       "symbol": "func_151619A0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 300,
+        "reason": "Register-exact clamp/byte-conversion body at CURRENT (300); only scheduling remains: retail hoists the 0.0f mtc1 and one FCSR li 1 above the record index load. Explicit casts, typed param, early return, index local and a 0x44 record struct did not move them.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -9921,6 +9927,12 @@
       "symbol": "func_1505A9AC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 619,
+        "reason": "Control flow and operations match at CURRENT (619); remaining rows are register allocation (retail keeps the 0x252 count in v0 and previous speed in f16, swapping two spill stores). Field re-reads, u8 locals, declaration order and permute --budget 32 did not improve.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -31786,8 +31798,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 948,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C3994",
           "vram": "0x150C3994"
         }
@@ -44075,6 +44092,12 @@
       "symbol": "func_15064A14"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2155,
+        "reason": "Full control flow, switch and every branch recovered at CURRENT (2155); remaining rows are float-constant materialization order and register choice in the later inner-state branches. Statement-order sweeps across four branches plateaued.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -73620,8 +73643,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1160,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15118F24",
           "vram": "0x15118F24"
         }

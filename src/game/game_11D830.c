@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_11D830.c
@@ -47,8 +48,6 @@ Game11D830Inner *func_150F0380(Game11D830Object *arg0) {
     return inner;
 }
 Game11D830AltInner *func_150F03E8(Game11D830AltObject *arg0);
-void func_151617C4(Game11D830AltObject *arg0);
-void func_151617E4(Game11D830AltObject *arg0);
 
 void func_150F0390(Game11D830AltObject *arg0) {
     func_150F03E8(arg0);
@@ -66,7 +65,6 @@ Game11D830AltInner *func_150F03E8(Game11D830AltObject *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F03F8.s")
 /* Call context: func_1516972C: unique active declaration in the allowed source */
-void func_1516972C(u8 *);
 
 void func_150F07E4(void *arg0, void *arg1, u8 arg2) {
     s32 temp_a0;
@@ -277,19 +275,18 @@ typedef struct Game11D830SpawnTail {
 
 s32 func_150ADA20(void *);
 f32 func_150ADA68(void);
-s32 func_15130280(void *, s32, s32, s32, s32, s32);
 extern f32 D_800A1860;
 extern f32 D_800A1864;
 extern f32 D_800A1868;
 extern f32 D_800A186C;
 extern Game11D830Position D_800A5480;
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F0BEC CURRENT (135) */
 void func_150F0BEC(u8 *arg0) {
     Game11D830EffectInitPacket packet;
     Game11D830SpawnTail tail;
-    s32 result;
+    void *result;
     s32 flags2;
     s32 flags1;
 
@@ -387,7 +384,6 @@ s32 func_150F0E48(u8 *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F0E48 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F0E48.s")
-void func_1516972C(u8 *);           /* extern */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1020 CURRENT (1290) */
 void func_150F1020(u8 *arg0, u8 *arg1, u8 arg2) {
@@ -421,8 +417,7 @@ void func_150F1020(u8 *arg0, u8 *arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F1020 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1020.s")
-void func_10022EC0(void *, void *, s32);
-s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 
 typedef struct Game11D830SpawnPacket {
     void *field_0;
@@ -436,7 +431,7 @@ typedef struct Game11D830SpawnPacket {
 
 void func_150F10D4(void *arg0) {
     Game11D830SpawnPacket packet;
-    s32 temp_v0;
+    u8 *temp_v0;
 
     packet.field_0 = arg0;
     packet.field_4 = *(u8 *)((u8 *)arg0 + 0x3B);

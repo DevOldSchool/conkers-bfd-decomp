@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1861B0.c
@@ -12,14 +13,11 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_1514EDF0(s32 arg0, s32 arg1);
-void func_15169824(s32 arg0);
-void func_1516972C(void *arg0);
 void func_1519F400(void *arg0);
 
 void func_15158D00(void *arg0) {
-    func_1514EDF0((s32) arg0, *(s32 *)((u8 *)arg0 + 0x18));
-    func_15169824((s32) arg0);
+    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x18));
+    func_15169824(arg0);
 }
 typedef struct Game58D2CState {
     u8 pad0[0x18];

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1DD500.c
@@ -147,8 +148,6 @@ void func_151B01B8(void *arg0, void *arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B03B8.s")
 void *func_10022EC0(void *, const void *, u32);
 /* The independent wrapper preserves the allocator result in v0. */
-void *func_151491F4(s16, s8, s8, u8, u8, s32, u8, s32);
-void func_151494E0(s32, u8);
 s32 func_15134070(void *);
 extern u8 D_800A3FE6[];
 
@@ -244,7 +243,6 @@ void *func_151B09BC(Game1DD500Owner *arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B0B88.s")
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
-void func_151DAB58(u8, f32, u8, f32 *, s32, u8, s32);
 extern f32 D_800AA2F0;
 extern f32 D_800AA2F4;
 extern f32 D_800AA2F8;
@@ -341,7 +339,6 @@ s32 func_151B1478(void *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B14AC.s")
 /* Call context: func_151423D8: unique active project prototype */
-f32 func_151423D8(u8);
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B1828 CURRENT (303) */
@@ -368,10 +365,9 @@ s32 func_151B1828(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B1828 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B1828.s")
-void func_1516972C(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B1918 CURRENT (520) */
-void func_151B1918(s32 arg0) {
+void func_151B1918(u8 *arg0) {
     s32 var_s3;
     u8 *var_s0;
     u8 *var_s1;
@@ -404,7 +400,7 @@ void func_151B19A4(void *arg0, void *arg1, u8 arg2) {
     if ((arg2 == 0) || (arg2 == 0x13)) {
         if ((temp_v1 == *(s32 *)arg1) ||
             (*(u8 *)((u8 *)arg0 + 0x2C) == *(u8 *)((u8 *)arg1 + 4))) {
-            func_1516972C((s32)arg0);
+            func_1516972C(arg0);
         }
     } else {
         temp_v0 = (u8 *)arg0 + 0x28;
@@ -421,15 +417,13 @@ void func_151B19A4(void *arg0, void *arg1, u8 arg2) {
         }
     }
 }
-void func_151B1918(s32 arg0);
-void func_1514933C(s32 arg0);
-void func_15149368(s32 arg0);
+void func_151B1918(u8 *arg0);
 
-void func_151B1A58(s32 arg0) {
+void func_151B1A58(void *arg0) {
     func_151B1918(arg0);
     func_1514933C(arg0);
 }
-void func_151B1A84(s32 arg0) {
+void func_151B1A84(void *arg0) {
     func_151B1918(arg0);
     func_15149368(arg0);
 }

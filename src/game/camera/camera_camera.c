@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/camera/camera_camera.c
@@ -26,8 +27,6 @@
  */
 
 s32 func_150859AC(s32, s32);
-s32 func_15123934(void *, s32, s32, s32, s32);
-s32 func_151239CC(void *, s32);
 void func_15122C5C(void *);
 void func_1512C490(void *);
 extern s32 D_80082FA0;
@@ -61,7 +60,6 @@ void func_15122AE0(void) {
 }
 void func_15097798(s32);
 void func_1510B128(s32, f32, f32, f32, f32);
-void func_15123070(struct108 *);
 void func_15123508(void *);
 void func_15125394(void *);
 void func_15125594(void *);
@@ -219,9 +217,6 @@ void func_15122C5C(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15122C5C */
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15122C5C.s")
 
-void func_15048F90(void *, void *, void *);
-f32 func_15048FC8();
-
 void func_15123070(struct108 *arg0) {
     f32 temp_f0;
     struct17 tmp;
@@ -229,7 +224,7 @@ void func_15123070(struct108 *arg0) {
     if ((arg0->unk6C8 != 0) && ((arg0->unk6FC == 10) || (arg0->unk6FC == 14))) {
         f32 hi = 360.0f;
         func_15048F90(&arg0->unk618, &arg0->unk2A4, &tmp);
-        arg0->unk390 = arg0->unk37C - func_15048FC8(&tmp);
+        arg0->unk390 = arg0->unk37C - func_15048FC8(&tmp.unk0);
     } else {
         temp_f0 = (arg0->unk3D0->unk40 - arg0->unk37C) - 180.0f;
         if (temp_f0 < 0.0f) {
@@ -1147,7 +1142,6 @@ void func_1512523C(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x388) = (f32) (*(f32 *)((u8 *)arg0 + 0x38C) + *(f32 *)((u8 *)arg0 + 0x388));
     *(f32 *)((u8 *)arg0 + 0x398) = (f32) (*(f32 *)((u8 *)arg0 + 0x388) * D_800A3520);
 }
-f32 func_15048FC8(f32 *, void *);                   /* extern */
 extern f32 D_800A3524;
 
 void func_15125330(void *arg0) {
@@ -1157,7 +1151,7 @@ void func_15125330(void *arg0) {
     vector[0] = *(f32 *)((u8 *)arg0 + 0x2BC) - *(f32 *)((u8 *)arg0 + 0x2F8);
     vector[1] = 0.0f;
     vector[2] = *(f32 *)((u8 *)arg0 + 0x2C4) - *(f32 *)((u8 *)arg0 + 0x300);
-    temp_fv0 = func_15048FC8(vector, arg0);
+    temp_fv0 = func_15048FC8(vector);
     *(f32 *)((u8 *)arg0 + 0x37C) = temp_fv0;
     *(f32 *)((u8 *)arg0 + 0x39C) = (f32) (temp_fv0 * D_800A3524);
 }
@@ -1416,8 +1410,6 @@ void func_151256BC(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151256BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151256BC.s")
-s32 func_15123934(void *, s32, s32, s32, s32);
-s32 func_151239CC(void *, s32);
 
 void func_15125924(u8 *arg0) {
     s32 type;
@@ -2577,7 +2569,6 @@ s32 func_15128030(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15128030 */
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15128030.s")
 void func_15120158();
-void func_15121C80(void *, f32);
 void func_15122170();
 void func_15122440();
 void func_15129934();

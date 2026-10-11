@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_215960.c
@@ -39,7 +40,6 @@ typedef struct {
 
 void *func_151ED1E0(void *);
 void func_15042D94(s32, s32, s32, s32);
-void func_1504332C(s32, s32, s32, s32);
 extern s32 D_8003C8E0;
 extern s32 D_80000300;
 extern s8 D_8008FD90;
@@ -377,7 +377,6 @@ s32 func_151EB96C(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EBB50.s")
 
 void func_15042D94(s32, s32, s32, s32);
-void func_1504332C(s32, s32, s32, s32);
 extern s32 D_800E0A90;
 extern Game215960State *D_800E0BD8;
 
@@ -390,7 +389,7 @@ s32 func_151EC178(s32 arg0) {
         if (alpha >= 0x100) {
             alpha = 0xFF;
         }
-        func_1504332C(0xFF, 0xFF, 0xFF, alpha & 0xFF);
+        func_1504332C(0xFF, 0xFF, 0xFF, alpha);
         func_15042D94(0xDC, 0x130, 1, D_800E0BD8->field_1D0);
     }
     return arg0;
@@ -718,7 +717,6 @@ s32 func_10003C40(s32, s32, s32, s32);
 void func_10004074(s32);
 s32 func_1503F62C(s32, s32, Game215960Command ***, u8 *, void **, void **, Game1ED90CActor **);
 void func_150A7BC0(void *);
-void func_1503F5B8(Game1ED90CActor *, s32, s32, f32, f32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151ED90C CURRENT (370) */
 Game1ED90CObject *func_151ED90C(s32 arg0, s32 arg1, s32 arg2, f32 arg3) {
@@ -818,7 +816,6 @@ Game1ED90CObject *func_151ED90C(s32 arg0, s32 arg1, s32 arg2, f32 arg3) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151ED90C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151ED90C.s")
 void func_100043B4(void *, s32);
-void func_1503F7B8(s32);
 
 /* Descriptive role: ui_release_model_resources.
  * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
@@ -828,7 +825,7 @@ void func_151EDB58(void *uiModel) {
     void *displayListCursor;
 
     if (uiModel != 0) {
-        func_1503F7B8(*(s32 *)((u8 *)uiModel + 0x24));
+        func_1503F7B8(*(void **)((u8 *)uiModel + 0x24));
         func_100043B4(uiModel, 4);
         displayListIndex = 0;
         displayListCursor = uiModel;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_139FC0.c
@@ -24,7 +25,6 @@ extern s32 D_800BE9E4;
 extern u16 D_800D9E70[][3];
 extern u8 D_800D9E88[], D_800D9E98[], D_800D9EA8[], D_800D9EB4[], D_800D9EB8[];
 extern u8 D_800D9B68[], D_800D9B78[];
-f32 func_150489B0(u8);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1510CB10 CURRENT (6625) */
 void func_1510CB10(s32 arg0) {

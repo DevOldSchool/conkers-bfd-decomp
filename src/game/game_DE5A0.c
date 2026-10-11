@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_DE5A0.c
@@ -20,7 +21,6 @@
 void func_1505A184(u16, f32, f32, f32 *, f32 *, f32 *);
 s32 func_1505A630(f32, f32, s32);
 void func_1505E650(u8 *, s32, s32, s32, f32, f32, s32);
-f32 func_1505A6F8(u8 *, u8 *);                      /* extern */
 extern f32 D_8009F8A0;
 extern f32 D_8009F8A4;
 extern f32 D_8009F8A8;
@@ -125,7 +125,6 @@ s32 func_1505A630(f32, f32, s32);
 f32 func_150AD78C(f32);
 
 void func_1505A770(void *);
-s32 *func_1505EEB0(s32, s32 *);
 extern f32 D_8009F8C4;
 extern f32 D_8009F8C8;
 extern u8 D_800BE9A0;

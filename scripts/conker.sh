@@ -396,6 +396,20 @@ ensure_host_mips_to_c() {
     mkdir -p "$temporary_cache"
     docker cp "$warm_container_name:/opt/tools/mips_to_c/." "$temporary_cache"
     [[ -f "$temporary_cache/m2c.py" && -d "$temporary_cache/m2c" ]] || die "pinned mips_to_c cache is incomplete"
+    # Until a pin update's image is published, the locked image still carries
+    # the previous m2c; cache it under its own revision, never the pinned one.
+    local copied_revision
+    copied_revision="$(git -C "$temporary_cache" rev-parse HEAD 2>/dev/null || true)"
+    if [[ "$copied_revision" != "$mips_to_c_revision" ]]; then
+        [[ "$copied_revision" =~ ^[0-9a-f]{40}$ ]] || die "toolchain image mips_to_c has no recorded revision"
+        printf 'warning: toolchain image provides mips_to_c %s, not pinned %s; using it until the image digest is updated\n' \
+            "$copied_revision" "$mips_to_c_revision" >&2
+        host_mips_to_c="$cache_parent/mips_to_c-$copied_revision"
+        if [[ -f "$host_mips_to_c/m2c.py" && -d "$host_mips_to_c/m2c" ]]; then
+            rm -rf "$temporary_cache"
+            return
+        fi
+    fi
     rm -rf "$host_mips_to_c"
     mv "$temporary_cache" "$host_mips_to_c"
 }

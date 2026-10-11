@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_97AA0.c
@@ -83,9 +84,8 @@ void func_1506A5F0(void *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1506A5F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_97AA0/func_1506A5F0.s")
-void func_150E0348(s32 arg0, s32 arg1, s32 arg2);
 
-void func_1506A6FC(s32 arg0, u8 arg1) {
+void func_1506A6FC(void *arg0, u8 arg1) {
     func_150E0348(arg0, 0xFF, 1);
 }
 void func_151BB61C(void *, void *, void *, s32, s32);
@@ -134,7 +134,7 @@ typedef struct {
     u8 tailPad[4];
 } Game97AA0Spawn;
 
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32,
                    s32, s32);
 extern f32 D_80099A28;
@@ -176,15 +176,13 @@ void func_1506A968(void *arg0, s32 arg1) {
     sp20[2] = D_800D1570[2] - D_800D1560[2];
     func_151D3480(sp2C, sp20, 0, 1, 0xFF, 1);
 }
-extern void func_151B6320(s32 arg0, s32 arg1, s32 arg2);
-extern void func_151B7144(s32 arg0, s32 arg1, s32 arg2);
+extern void func_151B7144(void *arg0, s32 arg1, s32 arg2);
 
-void func_1506AA08(s32 arg0, s32 arg1) {
+void func_1506AA08(void *arg0, s32 arg1) {
     func_151B7144(arg0, 0xFF, 1);
     func_151B6320(arg0, 0xFF, 1);
 }
-void func_10022EC0(void *, void *, s32);
-void *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 typedef struct Game97AA0Packet {
     void *arg0;
     u8 byte;

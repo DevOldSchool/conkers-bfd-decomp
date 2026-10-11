@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_2062D0.c
@@ -128,10 +129,7 @@ s32 func_151D8FE0(void) {
     return ((u8 *)&sp1C)[func_150ADA20() & 3];
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9014.s")
-s32 func_151D9450(void *, void *);
 s32 func_151D9534(s32, s32);                        /* extern */
-
-f32 func_151423D8(u8);
 
 s32 func_151D93F4(s32 arg0, s32 arg1) {
     s32 var_v1;
@@ -183,7 +181,6 @@ s32 func_1514672C(f32 *);
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
 void func_151D9FC0(u8, f32, u8, s32, f32 *, u8, s32);
-void func_151DAB58(u8, f32, u8, f32 *, s32, u8, s32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 extern f32 D_800AB44C, D_800AB450, D_800AB454, D_800AB458, D_800AB45C, D_800AB460;
@@ -495,8 +492,6 @@ typedef struct {
 } Game1DA6F8Object;
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_15147DA0(void *, void *, s32, s32, s32, s32, s32, s32,
-                   s32, s32, s32, void *, void *, u8, s32);
 extern u8 D_800AB3F4[], D_800AB404[], D_800AB330[];
 extern f32 D_800AB498;
 
@@ -579,7 +574,6 @@ void *func_151DA6F8(Game2062D0Vector3 *arg0, Game2062D0Vector3 *arg1,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DA6F8.s")
 
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
-void func_151DAB58(u8, f32, u8, f32 *, s32, u8, s32);
 extern f32 D_800AB49C;
 typedef struct {
     f32 x;
@@ -743,7 +737,6 @@ void func_151DAB58(u8 arg0, f32 arg1, u8 arg2, f32 *arg3, s32 arg4, u8 arg5, s32
     }
 }
 /* Call context: func_151423D8: unique active project prototype */
-f32 func_151423D8(u8);
 
 s32 func_151DADA0(void *arg0) {
     typedef struct {
@@ -1107,9 +1100,6 @@ typedef struct Game1DBE80Packet {
     s16 field56;
 } Game1DBE80Packet;
 
-void func_1513D668(s32, s32, s32, s32, u8, u8, s16, f32, f32,
-                   s32, s32, u8, s32, u8, s32);
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151DBE80 CURRENT (898) */
 void func_151DBE80(s32 arg0, f32 arg1, f32 arg2, s16 arg3, s32 *arg4,
                     s32 arg5, u8 arg6, u8 arg7, u8 arg8, s32 arg9) {
@@ -1182,7 +1172,6 @@ typedef struct {
     f32 field6C;
 } Game1DC034Packet;
 
-void *func_15130280(void *, u8, void *, s32, u8, s32);
 extern u8 D_800AB320[];
 extern u8 D_800AB330[];
 
