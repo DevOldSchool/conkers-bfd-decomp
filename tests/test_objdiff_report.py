@@ -90,6 +90,7 @@ class CoveragePlanTests(unittest.TestCase):
                     patch.object(report, 'prepare_models', return_value=(
                         [{'size': 5, 'report_code_bytes': 0, 'report_data_bytes': 5}],
                         [{'name': 'assets/models/bank03/0003', 'metadata': {'complete': False}}])), \
+                    patch.object(report, 'prepare_adpcm', return_value=([], [])), \
                     patch.object(report, 'prepare_sound_bank', return_value=([], [])), \
                     patch.object(report, 'prepare_sequences', return_value=([], [])), \
                     patch.object(report, 'prepare_storage', return_value=(

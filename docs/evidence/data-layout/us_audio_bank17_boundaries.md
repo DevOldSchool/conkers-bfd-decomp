@@ -6,7 +6,9 @@ Verified on 2026-10-08 against US ROM SHA-1
 The original boundary pass defined bank `0x17` as a byte-aligned group with
 272 explicit subsegments in `config/profiles/us.yaml`. The later
 [sound-bank reconstruction](us_sound_bank_reconstruction.md) expands this to
-322 splits by separating typed external records from unexplained spans. The group covers ROM `[0x29AE9E8, 0x3F82170)`:
+322 splits by separating typed external records from unexplained spans. The
+[ADPCM reconstruction](us_adpcm_reconstruction.md) expands the sample entry into
+5,104 complete-frame and raw regions, for 5,425 splits overall. The group covers ROM `[0x29AE9E8, 0x3F82170)`:
 22,886,280 stored bytes. These are actual splat extraction boundaries and
 individual linker inputs under `build/us/assets/audio/bank17/`.
 
@@ -66,3 +68,8 @@ The later [B1 reconstruction](us_sound_bank_reconstruction.md) supplies fresh
 candidates for the 4,885-byte control and 429,952 external bytes. The other 656
 external bytes remain raw. This preserves the complete bank extent and its
 original entry order.
+
+The PCM16 encoder supplies 2,690 complete-frame candidates totaling 21,691,971
+sample bytes. Ambiguous frames, incomplete tails and storage gaps occupy the
+remaining 13,549 raw bytes. The native sample graph and explicit frame exclusions
+derive this partition; only reconstructed complete frames receive Data credit.

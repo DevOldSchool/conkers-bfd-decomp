@@ -5,10 +5,11 @@ import sys
 
 try:
     from scripts.profile_config import load_profile
-    from scripts import audio_assets, mp3_assets, sound_bank_codec
+    from scripts import audio_assets, mp3_assets, sound_bank_codec, adpcm_layout
 except ModuleNotFoundError:
     from profile_config import load_profile
     import sound_bank_codec
+    import adpcm_layout
     import audio_assets
     import mp3_assets
 
@@ -33,7 +34,7 @@ def bank_layout(profile: Path, *, configuration: dict | None = None) -> tuple[in
     return bank['start'], segments[index + 1]['start'], splits
 
 
-def proven_ranges(rom: bytes, family, mp3, *, sound_regions=None) -> list[tuple[int, int, str]]:
+def proven_ranges(rom: bytes, family, mp3, *, sound_regions=None, adpcm_contract=None) -> list[tuple[int, int, str]]:
     start, end = family.bank_start, family.bank_end
     index_size = struct.unpack_from('>I', rom, start)[0]
     if index_size != 7 * 8:
@@ -58,6 +59,10 @@ def proven_ranges(rom: bytes, family, mp3, *, sound_regions=None) -> list[tuple[
         if index == 1 and sound_regions is not None:
             ranges.extend((begin, finish, name.removeprefix('audio/bank17/'))
                           for begin, finish, name in sound_bank_codec.external_partition(asset, sound_regions))
+        elif index == 2 and adpcm_contract is not None:
+            ranges.extend((begin, finish, name.removeprefix('audio/bank17/'))
+                          for begin, finish, name in adpcm_layout.partition(
+                              asset, family.sound_graph.manifest['samples'], adpcm_contract))
         elif index == 3:
             if asset.compressed or rom[asset.rom_start:asset.rom_end] != asset.data:
                 raise ValueError('sequence storage must be raw ROM bytes')
@@ -97,7 +102,11 @@ def verify(profile: Path = ROOT / 'config/profiles/us.yaml') -> tuple[bytes, lis
     if any(name.startswith('audio/bank17/sound-bank/') for _, name in splits):
         sound_bank_codec.verify_consumers(rom)
         sound_regions = sound_bank_codec.typed_regions(*(asset.data for asset in family.assets[:3]))
-    ranges = proven_ranges(rom, family, mp3, sound_regions=sound_regions)
+    adpcm_contract = None
+    if any(name.startswith('audio/bank17/samples/') for _, name in splits):
+        sound_bank_codec.verify_consumers(rom)
+        adpcm_contract = adpcm_layout.load_contract(ROOT)
+    ranges = proven_ranges(rom, family, mp3, sound_regions=sound_regions, adpcm_contract=adpcm_contract)
     if (start != family.bank_start or end != family.bank_end
             or splits != [(begin, name) for begin, _, name in ranges]):
         raise ValueError('US YAML audio splits differ from loader-proven boundaries')
