@@ -40034,6 +40034,12 @@
       "symbol": "func_15023BB0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4633,
+        "reason": "Initial full-span CURRENT (4633), frame28 versus20. Two bounded probe batches did not improve: byte cursors4633, wide count/step5242, signed16 time and byte storage5228. Best full-width time candidate retained; register allocation, loop-tail shape and count merges remain. Existing types reused; no shared dependency edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -79251,6 +79257,12 @@
       "symbol": "func_15109410"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1575,
+        "reason": "Three focused finishes, two bounded probe batches: CURRENT (1575), frame C8 exact. FP expression sequence and vector stack offsets now match, but weight-table base promoted s6 displaces vector pointers; reused source and index register lifetimes differ, plus one saved-source stack offset. Concrete normalization contract verified; no shared changes. Budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
