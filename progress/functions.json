@@ -53811,6 +53811,12 @@
       "symbol": "func_150E4550"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3705,
+        "reason": "Two focused finishes and two bounded probe batches improved CURRENT 4288 to 3705. Real scalar and cursor lifetimes reduce the frame from 0x130 to 0x128, versus reference 0x120; register allocation, saved snapshots and scheduling remain. Rejected probes are excluded; original assembly retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -63056,6 +63062,12 @@
       "symbol": "func_150BA4C0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1332,
+        "reason": "Two focused finishes and two bounded probe batches improved CURRENT 1517 to 1332. The 0x108 frame and addressed local offsets match; integer and floating-point allocation, cached addresses and intermediate store scheduling remain. Original assembly retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

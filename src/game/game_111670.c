@@ -109,7 +109,137 @@ void func_150E4514(s32 arg0) {
     func_150E42F8(arg0 / 30);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_111670/func_150E4550.s")
+typedef struct GameE4928State {
+    u8 pad00[0x10];
+    s16 x;
+    u8 pad12[2];
+    s16 z;
+    u8 pad16[0xA];
+    u8 *buffers[2];
+    u8 pad28[0x18];
+    s32 material;
+    s32 *materials;
+    u8 pad48[8];
+    u16 radius;
+    u8 pad52[6];
+    u16 firstSurface;
+} GameE4928State;
+
+typedef struct GameE4928Vertex {
+    s16 x, y, z;
+    u8 other[10];
+} GameE4928Vertex;
+
+s32 func_150A43E0(s32, s32, s32, void *);
+void func_150A44F0(s32, void *, s32);
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+void func_1510F800(s32);
+s32 func_151EF610(void);
+void func_1511490C(void *, void *);
+extern f32 D_800A1128;
+extern u8 D_800BE9C0;
+extern u8 D_800D3300[];
+extern s32 D_800DBEF0, D_800DBEF4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E4928 CURRENT (3705) */
+void func_150E4928(GameE4928State *arg0) {
+    s16 selectedIndex;
+    s32 attempts;
+    volatile s32 queryState;
+    s32 bestHeight;
+    GameE4928Vertex *vertices[3];
+    u32 *selected;
+    s32 x;
+    s32 hits;
+    s32 z;
+    u32 scan;
+    volatile s32 material;
+    s32 recordHeight;
+    GameE4928Vertex transformed[3];
+    f32 outX, outY, outZ;
+    f32 matrix[16];
+    GameE4928Vertex *output;
+    GameE4928Vertex **vertex;
+    f32 height;
+
+    height = D_800A1128;
+    hits = (s32)((u32)arg0 - (u32)D_800DBEF4) / 160;
+    attempts = 5;
+    if (hits < D_800DBEF0 && hits >= 0) {
+        selectedIndex = hits;
+        queryState = 0;
+        func_1510F800(2);
+        func_150A44F0(1, &selectedIndex, 0);
+        do {
+            x = arg0->x;
+            z = arg0->z;
+            if (arg0->radius != 0) {
+                hits = func_151EF610();
+                bestHeight = arg0->radius;
+                x = (hits % bestHeight) * 2 + x - bestHeight;
+                hits = func_151EF610();
+                bestHeight = arg0->radius;
+                z = (hits % bestHeight) * 2 + z - bestHeight;
+            }
+            hits = func_150A43E0(x, z, 1, &selectedIndex);
+            if (hits != 0) {
+                bestHeight = -0x800000;
+                hits--;
+                attempts = 0;
+                if (hits + 1 != 0) {
+                    scan = hits * 0x10 + (u32)D_800D3300;
+                    do {
+                        recordHeight = *(s32 *)scan;
+                        if (bestHeight < recordHeight) {
+                            bestHeight = recordHeight;
+                            selected = *(u32 **)(scan + 4);
+                            height = (f32)bestHeight * 0.00390625f;
+                        }
+                        scan -= 0x10;
+                        recordHeight = hits;
+                        hits--;
+                    } while (recordHeight != 0);
+                }
+                hits = 1;
+            } else {
+                attempts--;
+            }
+        } while (attempts != 0);
+        if (hits != 0) {
+            if (arg0->materials != NULL) {
+                material = *(s32 *)((u32)arg0->materials +
+                    ((s32)((u32)selected - (u32)D_800DBE3C) / 12) * 4 -
+                    arg0->firstSurface * 4);
+            } else {
+                material = arg0->material;
+            }
+            func_1511490C(matrix, arg0);
+            if (selected != NULL) {
+                vertex = vertices;
+                output = transformed;
+                scan = (u32)(transformed + 3);
+                vertices[0] = (GameE4928Vertex *)(selected[0] + (u32)arg0->buffers[D_800BE9C0]);
+                vertices[1] = (GameE4928Vertex *)(selected[1] + (u32)arg0->buffers[D_800BE9C0]);
+                vertices[2] = (GameE4928Vertex *)(selected[2] + (u32)arg0->buffers[D_800BE9C0]);
+                do {
+                    func_150A7960(matrix, (f32)(*vertex)->x, (f32)(*vertex)->y,
+                                  (f32)(*vertex)->z, &outX, &outY, &outZ);
+                    vertex++;
+                    output->x = (s32)outX;
+                    output->y = (s32)outY;
+                    vertex[-1] = output;
+                    output++;
+                    output[-1].z = (s32)outZ;
+                } while ((u32)output != scan);
+                selected = (u32 *)vertices;
+            }
+            func_150E4550((f32)x, height, (f32)z, 1, func_1510F8CC(material), (s32)selected, 0);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E4928 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_111670/func_150E4928.s")
+
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150E4CBC CURRENT (175) */
