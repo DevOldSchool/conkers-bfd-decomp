@@ -47,7 +47,7 @@ class AssetMakeTests(unittest.TestCase):
                      'scripts/texture_assets.py', 'scripts/texture_catalog.py',
                      'scripts/texture_ci8.py', 'scripts/texture_rgba16.py',
                      'scripts/texture_native.py', 'scripts/rzip_pack.py', 'scripts/model_assets.py',
-                     'scripts/model_attachment_format.py', 'scripts/model_bundle_build.py',
+                     'scripts/model_attachment_format.py', 'scripts/model_bundle_build.py', 'scripts/model_color_build.py', 'scripts/model_aux_build.py', 'scripts/model_effect_format.py', 'scripts/model_emission_points.py',
                      'scripts/hud_assets.py', 'scripts/hud_additional_artwork.py',
                      'scripts/texture_model_catalog.py', 'scripts/texture_model_storage.py'):
             path = self.root / name
@@ -337,7 +337,7 @@ if __name__ == '__main__':
         os.utime(unrelated, ns=(future, future))
         self.assertEqual(run().returncode, 0)
         self.assertEqual(calls.read_text(), before)
-        for name in ('model_build', 'model_assets', 'model_attachment_format', 'model_bundle_build', 'texture_build', 'rzip_pack'):
+        for name in ('model_build', 'model_assets', 'model_attachment_format', 'model_bundle_build', 'model_color_build', 'model_aux_build', 'model_effect_format', 'model_emission_points', 'texture_build', 'rzip_pack'):
             dependency = self.root / f'scripts/{name}.py'
             original = dependency.stat()
             newer = pack_stamp.stat().st_mtime_ns + 10_000_000_000

@@ -407,7 +407,7 @@ endif
 
 ifneq ($(MODEL_PARTS),)
 # A model target validates only its own bank; receipts and stamps cannot race.
-MODEL_CODEC_DEPS := scripts/model_build.py scripts/model_assets.py scripts/model_attachment_format.py scripts/model_bundle_build.py scripts/texture_build.py scripts/rzip_pack.py
+MODEL_CODEC_DEPS := scripts/model_build.py scripts/model_assets.py scripts/model_attachment_format.py scripts/model_bundle_build.py scripts/model_color_build.py scripts/model_aux_build.py scripts/model_effect_format.py scripts/model_emission_points.py scripts/texture_build.py scripts/rzip_pack.py
 define MODEL_BANK_RULES
 MODEL_PARTS_$(1) := $(patsubst assets/%,$(BUILD_DIR)/models/parts/%,$(filter assets/models/bank$(1)/%.bin,$(MODEL_BINS)))
 MODEL_INPUTS_$(1) := $(wildcard build/assets/model-build/us/$(1) build/assets/model-build/us/$(1)/* build/assets/model-build/us/$(1)/*/*)

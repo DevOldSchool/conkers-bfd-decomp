@@ -71,8 +71,8 @@ This builds the mapped SDK archives and active C implementations, prepares
 independent splat targets for every range in `config/overlays.json`, and
 invokes the pinned native `objdiff-cli report generate`. It covers tracked
 main/game/debugger US CPU code and initialized data, including raw/unassigned ranges,
-plus all bounded asset storage. The font, 6,865 reviewed textures and 525 reviewed
-model containers have reconstructed candidates; remaining asset storage stays unmatched.
+plus all bounded asset storage. The font, 6,865 reviewed textures and 557 reviewed
+assets in model banks have reconstructed candidates; remaining asset storage stays unmatched.
 The command uses four object-preparation workers and validates cached base object hashes before
 reuse. The first run requires the pinned `lib/ultralib` submodule (`git
 submodule update --init lib/ultralib`).
@@ -256,11 +256,12 @@ palette, metadata or compressed output fail this exact-reconstruction pilot.
 The 8,284,692 reconstructed stored bytes enter Data once; decoded bytes do not
 add storage, and adjacent raw storage remains in the denominator without credit. Native matching and source/link-input verification gate completion.
 
-[The 525 selected bank-03, bank-04 and bank-09 model containers](evidence/data-layout/us_model_reconstruction.md)
+[The 557 selected assets in banks 03, 04 and 09](evidence/data-layout/us_model_reconstruction.md)
 reconstruct native headers, vertices, display commands, normal records, attachment
-part/joint tables, bundle descriptors and primary surface tables through fresh
-RZIP compression. The selection contains 506 standalone models and 19 bundles
-with 182 nonempty parts, totaling 859,635 stored bytes. Their actual ROM linker inputs and independent stored-byte targets
+part/joint tables, bundle descriptors, primary surface tables, vertex-color
+animation, effect command lists and emission points through fresh RZIP
+compression. The selection contains 517 standalone models, 20 bundles with
+217 nonempty parts, and 20 emission-point arrays, totaling 940,332 stored bytes. Their actual ROM linker inputs and independent stored-byte targets
 use the same native matching and source-stability gates. Raw bank index, gaps
 and unselected records remain in the Data denominator without credit.
 

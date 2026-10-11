@@ -578,3 +578,70 @@ Source fingerprint:
 `6e55427a3aceedb52171b74ba6beb1443f4220f7ef19d45fe5c004899d327e05`.
 Native report SHA-256:
 `41984725734a5d9c820a8390106c0c2e595f74881f40df187570882f49ce42b6`.
+
+## Effect meshes, emission points and vertex-color animation
+
+The next selection adds 32 assets, totaling 80,697 stored bytes and 175,584
+decoded bytes. Eleven bank-09 effect meshes use native four-pair headers, one
+or two vertex buffers, separate material and geometry command lists, and an
+explicit zero suffix. Their shared geometry and material sources are resolved
+against the pinned selector and dispatch tables before admission. Every byte
+is rebuilt from typed fields; display-list regions are paired native commands.
+
+Twenty bank-09 skeletal emission arrays contain 1,963 points. Each 16-byte
+record has one matrix-slot byte, three verified zero reserved bytes and three
+finite native float coordinates. These arrays contain no meshes and are counted
+as asset units, not additional models. The full loader/consumer functions and
+twenty-entry selector table are checked. All 31 effect/emission assets reproduce
+28,134 stored bytes; their inventory is `us_model_aux_reconstruction.json`.
+
+Bank-04 entry 28 adds a bundle containing 35 nonempty parts. Its primary model
+has six color-animation descriptors covering 202 vertex references. Each
+12-byte descriptor names an RGB-triplet array, a big-endian u16 vertex-index
+array and their common count; an explicit all-zero descriptor terminates the
+list. One- and two-byte observed zero gaps are regenerated. The existing surface
+table follows the descriptor table. Full registered ROM spans at `15003120`
+(204 bytes) and `151739B0` (688 bytes) prove relocation, strides, counts and
+indexed RGB writes; both are pinned before building this format.
+
+The color bundle reconstructs 136,448 decoded bytes and freshly encodes to its
+52,563 original stored bytes using GNU gzip 1.12 level six. Twelve color/index
+field mutations change the decoded bytes, and four consumer endpoint mutations
+are rejected. The effect/emission consumers and selectors reject another 46
+endpoint mutations. `us_model_color_reconstruction.json` records the complete
+bundle extent, hashes and consumer proof.
+
+The combined selection is 557 asset units: 517 standalone models, 20 bundles
+containing 217 nonempty parts, and 20 emission-point arrays. This represents
+940,332 stored bytes and 2,138,176 decoded bytes. All earlier source formats
+and compressor choices remain unchanged. Native report credit is gated on the
+actual link objects and independent original-ROM targets for the entire stored
+container; decoded arrays do not add to the denominator.
+
+
+### Effect, emission and color acceptance, 11 October 2026
+
+The production build reconstructs all 557 selected assets exactly: 940,332
+stored bytes and 2,138,176 decoded bytes. All 1,050 prior source input files
+retain their hashes. Independent audits also reproduce complete banks 03, 04
+and 09, including their unreconstructed index, gaps and remaining storage.
+
+All 88 focused tests pass. After the final CLI and import changes, all 51 codec
+tests pass; the full Docker suite runs 2,378 tests with eight skips and no
+failures. `./conker build --assets` passes, and all 67,108,864 output bytes equal
+the original US ROM, SHA-1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`.
+Canonical progress and whitespace checks pass.
+
+The fresh native report validates 8,434 units without compile errors. All 557
+units from model banks are fully matched and complete, totaling 940,332 bytes.
+Matched Data is 9,231,568 / 65,120,512 bytes (14.176128%); complete Data is
+9,230,800 bytes (14.174950%). Both counts gain exactly 80,697 bytes. The
+unreconstructed bank-04 and bank-09 spans shrink by 52,563 and 28,134 bytes,
+respectively. Every other prior unit retains its measures; code measures and
+the Data denominator remain unchanged. The snapshot is `current`.
+
+Source fingerprint:
+`d9e4b5cfc7fa1527156b36d394584c2b45b85062afdabc601f545c94d5aebbbb`.
+Native report SHA-256:
+`07d8f13b9645d9e7d7814d71e02cca966dc219b5e57089a4722bf1c76d013a68`.
+Private logs and byte/accounting audits are `build/model-aux-color-*`.

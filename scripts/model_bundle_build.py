@@ -5,14 +5,16 @@ import hashlib
 import struct
 
 try:
-    from scripts import model_assets
+    from scripts import model_assets, model_color_build
 except ModuleNotFoundError:
-    import model_assets
+    import model_assets, model_color_build
 
 
 def surface_records(payload: bytes) -> dict:
     geometry = model_assets.parse_model_geometry(payload)
     header = list(geometry.header_words)
+    if header[8]:
+        return model_color_build.color_records(payload)
     if (any(header[2:4] + header[6:9]) or header[9] != 0x80000000
             or header[4] != header[0] + header[1]):
         raise ValueError('unsupported primary surface-model regions')
@@ -34,6 +36,8 @@ def surface_records(payload: bytes) -> dict:
 
 
 def encode_surface_records(records: dict) -> bytes:
+    if isinstance(records, dict) and records.get('format') == 'primary-color-surface-direct':
+        return model_color_build.encode_color_records(records)
     fields = {'format', 'header_words', 'vertices', 'display_commands',
               'surface_header', 'surface_words', 'zero_suffix_bytes'}
     if (not isinstance(records, dict) or set(records) != fields

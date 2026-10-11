@@ -10,11 +10,14 @@ import zlib
 from pathlib import Path
 
 try:
-    from scripts import model_assets, model_bundle_build, rzip_archive, rzip_pack, texture_build
+    from scripts import (model_assets, model_bundle_build, model_color_build, model_aux_build,
+                         model_effect_format, model_emission_points, rzip_archive, rzip_pack, texture_build)
     from scripts.build_files import write_if_changed
     from scripts.profile_config import load_profile
 except ModuleNotFoundError:
-    import model_assets, model_bundle_build, rzip_archive, rzip_pack, texture_build
+    import model_assets, model_bundle_build, model_color_build
+    import model_aux_build, model_effect_format, model_emission_points
+    import rzip_archive, rzip_pack, texture_build
     from build_files import write_if_changed
     from profile_config import load_profile
 
@@ -149,11 +152,15 @@ def verify_attachment_consumers(code: bytes, base: int) -> None:
             raise ValueError(f'ROM attachment consumer changed at 0x{address:08X}')
 
 
-def model_records(payload: bytes, *, bank: int) -> dict:
+def model_records(payload: bytes, *, bank: int, entry: int | None = None) -> dict:
     if bank not in BANKS:
         raise ValueError('unsupported direct-model bank')
     if bank == 4:
         return model_bundle_build.bundle_records(payload, lambda raw: model_records(raw, bank=3))
+    if bank == 9 and entry in model_emission_points.ENTRIES:
+        return model_aux_build.point_records(payload)
+    if bank == 9 and entry in range(173, 184):
+        return model_aux_build.effect_records(payload)
     if bank == 9 and model_assets.is_attachment_model(payload):
         return attachment_records(payload)
     geometry = model_assets.parse_model_geometry(payload, model_relative_vertices=bank == 9)
@@ -188,6 +195,12 @@ def encode_records(records: dict, *, bank: int) -> bytes:
     if bank == 4:
         return model_bundle_build.encode_bundle_records(records,
             lambda rows: encode_records(rows, bank=3), lambda raw: model_records(raw, bank=3))
+    if isinstance(records, dict) and records.get('format') in ('effect-four-pair', 'emission-points'):
+        if bank != 9:
+            raise ValueError('effect and emission records require bank 09')
+        if records['format'] == 'effect-four-pair':
+            return model_aux_build.encode_effect_records(records)
+        return model_aux_build.encode_point_records(records)
     if isinstance(records, dict) and records.get('format') == 'attachment-three-pair':
         if bank != 9:
             raise ValueError('attachment records require bank 09')
@@ -311,6 +324,18 @@ def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
             else:
                 model_assets.verify_direct_model_consumers(game.code, int(layout['game_vram']))
         entries = [e for e in rzip_archive.parse_asset_entries(rom, bank) if e.index in selected]
+        if bank_id == 9 and set(selected) & set(range(173, 184)):
+            types = model_effect_format.verify_effect_consumers(
+                game.code, int(layout['game_vram']), game.data, int(layout['game_data_vram']))
+            payloads = {e.index: rzip_archive.decode_rzip_chunk(rom[e.start:e.end]).data
+                        for e in entries if e.index in range(173, 184)}
+            sources = model_effect_format.resolve_effect_sources(payloads, types)
+            for index, source in sources.items():
+                model_effect_format.parse_effect_model(
+                    payloads[index], model_assets.parse_model_geometry, source)
+        if bank_id == 9 and set(selected) & set(model_emission_points.ENTRIES):
+            model_emission_points.verify_consumers(
+                game.code, int(layout['game_vram']), game.data, int(layout['game_data_vram']))
         rows, end = layout_bins(root / 'config/profiles/us.yaml', bank=bank_id)
         if ([e.index for e in entries] != selected or rows != partition(bank, entries) or end != bank.end):
             raise ValueError(f'model YAML splits differ from reviewed bank-{bank_id:02d} boundaries')
@@ -322,7 +347,9 @@ def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
             chunk = rzip_archive.decode_rzip_chunk(stored)
             if chunk.consumed != len(stored):
                 raise ValueError('model stored extent includes unowned trailing bytes')
-            records = model_records(chunk.data, bank=bank_id)
+            records = model_records(chunk.data, bank=bank_id, entry=entry.index)
+            if bank_id == 4 and records['segments'][0]['format'] == 'primary-color-surface-direct':
+                model_color_build.verify_consumers(game.code, int(layout['game_vram']))
             if records.get('format') == 'attachment-three-pair' and not attachment_consumers_checked:
                 verify_attachment_consumers(game.code, int(layout['game_vram']))
                 attachment_consumers_checked = True
@@ -447,7 +474,7 @@ def main(argv=None):
             print(json.dumps(recover_inputs(args.entry, bank=args.bank), indent=2))
         else:
             proof = build_parts(bank=args.bank)
-            print(f"Verified {proof['model_count']} models: {proof['stored_bytes']} RZIP bytes; "
+            print(f"Verified {proof['model_count']} assets in model banks: {proof['stored_bytes']} RZIP bytes; "
                   'decoded/stored hashes and original ROM bytes agree')
     except (ValueError, OSError) as error:
         parser.exit(2, f'error: {error}\n')

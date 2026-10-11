@@ -1,0 +1,534 @@
+{
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "assets": [
+    {
+      "entry": 173,
+      "format": "effect-four-pair",
+      "rom_start": 19048176,
+      "rom_end": 19048516,
+      "stored_bytes": 340,
+      "decoded_bytes": 880,
+      "stored_sha256": "c78d2012d9b076db16a1d1d8e93104374d4e8ee980089321e1a84f65c68aa2de",
+      "decoded_sha256": "831cacd4c683f93b85611a7137e3b766b9edb6a555222f85d6b967af9b4c180c",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 9,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 174,
+      "format": "effect-four-pair",
+      "rom_start": 19048520,
+      "rom_end": 19048706,
+      "stored_bytes": 186,
+      "decoded_bytes": 640,
+      "stored_sha256": "0c5052bf82d8670ff0042a39e9ff7a8006fd18e481f412bf27694af22ebf3071",
+      "decoded_sha256": "32e9aa9f5423403cfc573ea136f0d4e834b657b34b7689f82f1abdeb6812b404",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 9,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 175,
+      "format": "effect-four-pair",
+      "rom_start": 19048712,
+      "rom_end": 19048874,
+      "stored_bytes": 162,
+      "decoded_bytes": 304,
+      "stored_sha256": "925e8c32e09d2ee0f137e270e73f63bd72ba80ac9e181e9b738ed91263ff316f",
+      "decoded_sha256": "3d406dc69dd23bf120609b270762b11c4fb9fbb1e5c94da24e696c309937933f",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 9,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 176,
+      "format": "effect-four-pair",
+      "rom_start": 19048880,
+      "rom_end": 19049042,
+      "stored_bytes": 162,
+      "decoded_bytes": 304,
+      "stored_sha256": "dd55dbace442c56fefd4bb8ea022fa5409c7ea9aa2952ec9dcbcfe21138a5f31",
+      "decoded_sha256": "c4a7a143307ed786a26ad4ae0a432c086b19a82550d3314f62d9a3713f37516d",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 9,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 177,
+      "format": "effect-four-pair",
+      "rom_start": 19049048,
+      "rom_end": 19049210,
+      "stored_bytes": 162,
+      "decoded_bytes": 304,
+      "stored_sha256": "d464db32a3131cda1429b9a40531be4f79de98df82606a1f7324db24a9fb19fa",
+      "decoded_sha256": "310a980b4c28f41d2104c89460069857aa8ebab5541c3fe484828225da8b47ce",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 9,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 178,
+      "format": "effect-four-pair",
+      "rom_start": 19049216,
+      "rom_end": 19049378,
+      "stored_bytes": 162,
+      "decoded_bytes": 304,
+      "stored_sha256": "428c3655a5591f18f1971d1e22f0d7adfa782f537ae8ccd391aa8ef0a43ff926",
+      "decoded_sha256": "e6cae01ffaa16927126ed13f568da2af7933c6b64311ef16d175f6b73e61d320",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 9,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 179,
+      "format": "effect-four-pair",
+      "rom_start": 19049384,
+      "rom_end": 19049845,
+      "stored_bytes": 461,
+      "decoded_bytes": 1408,
+      "stored_sha256": "8a3b6f7a7ca2915088145213e2e766584b2162a0793aa4df5f43f45f0a4d2040",
+      "decoded_sha256": "24e922d5fb32958066bd296c10cbf5b54a968ddf73b2dc8242aa871f83f57528",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 9,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 180,
+      "format": "effect-four-pair",
+      "rom_start": 19049848,
+      "rom_end": 19050242,
+      "stored_bytes": 394,
+      "decoded_bytes": 1040,
+      "stored_sha256": "2d6e38f9eeb0f82670055c3720100ff57df174a5cdaaa3fbb6378f3c38affde8",
+      "decoded_sha256": "4d4d030e41cfbe262c64b3bb0f51f35be8a801c3889bb9119ab6e78816100936",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 9,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 181,
+      "format": "effect-four-pair",
+      "rom_start": 19050248,
+      "rom_end": 19050624,
+      "stored_bytes": 376,
+      "decoded_bytes": 992,
+      "stored_sha256": "8322f596bf26195474c79796346a450bfb87d96836430f86a940757b354eb67f",
+      "decoded_sha256": "e1cd33f0b5467e79ef3b0573753eada477445d15791f1a740888c7191d0801a7",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 9,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 182,
+      "format": "effect-four-pair",
+      "rom_start": 19050624,
+      "rom_end": 19050934,
+      "stored_bytes": 310,
+      "decoded_bytes": 816,
+      "stored_sha256": "f91e0b93ab39b546a61ce2d044614c5428bd19142c8b66b89833153c8d7ba68c",
+      "decoded_sha256": "9e64ff3bb27eeaa2cf0eab7d69cb7a9ca4f18ed3ce1ac1261bd4a74e036025b4",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 9,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 183,
+      "format": "effect-four-pair",
+      "rom_start": 19050936,
+      "rom_end": 19051267,
+      "stored_bytes": 331,
+      "decoded_bytes": 736,
+      "stored_sha256": "4fc2a88a6a94e0beff7d7f6ba30e397406c1cfb2dcdd8240b816bb0a8d1b6777",
+      "decoded_sha256": "9d785017ab45dbb7381bd39d4a656c20af8511feaa2e38196503de9d3f9039ec",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 9,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 432,
+      "format": "emission-points",
+      "rom_start": 19221704,
+      "rom_end": 19222029,
+      "stored_bytes": 325,
+      "decoded_bytes": 832,
+      "stored_sha256": "9199e43fbaebc08a0fc10e59ddea14dd8486e826a8c48b7a026db241188f6d1f",
+      "decoded_sha256": "42c3f5a54e00b46f0b4935831b5d757319145ccc5f42b489bbcd58363d5d685e",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 433,
+      "format": "emission-points",
+      "rom_start": 19222032,
+      "rom_end": 19222279,
+      "stored_bytes": 247,
+      "decoded_bytes": 608,
+      "stored_sha256": "93a03607a6a335b1e54ce4d6ef6dde8322c58eef174019a166a59958efabc109",
+      "decoded_sha256": "e0036150362c1da3713f69f1c54b7b6e6993cbf452bcf62b0d224b72b66bf2e6",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 434,
+      "format": "emission-points",
+      "rom_start": 19222280,
+      "rom_end": 19223300,
+      "stored_bytes": 1020,
+      "decoded_bytes": 1200,
+      "stored_sha256": "0fd480c2b3706ee10f3a7d2f96b1e2e59957d920f63f8d556039839755804bda",
+      "decoded_sha256": "db8fc2ad38e33a3935ad0cc277991784a5f2d9f8951ff793d913631f4f293da8",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 435,
+      "format": "emission-points",
+      "rom_start": 19223304,
+      "rom_end": 19225017,
+      "stored_bytes": 1713,
+      "decoded_bytes": 2096,
+      "stored_sha256": "34b49444ecded86c8923e382f7fd38f99fe5211d649725015a849c6a45715e74",
+      "decoded_sha256": "78f878530d58f1831b546a150d1e5115c64c7a77bfa6623c6e1d4c76d7a30323",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 436,
+      "format": "emission-points",
+      "rom_start": 19225024,
+      "rom_end": 19226846,
+      "stored_bytes": 1822,
+      "decoded_bytes": 2240,
+      "stored_sha256": "2d8cc92b5badbeff35d15959a03e95787327fe67cdb3b8ebbfda1bab2ac23ece",
+      "decoded_sha256": "842dce3ff89d9da11bab00f76ef4d200fa541bfe07297f8b761d5f5334838810",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 437,
+      "format": "emission-points",
+      "rom_start": 19226848,
+      "rom_end": 19228381,
+      "stored_bytes": 1533,
+      "decoded_bytes": 1904,
+      "stored_sha256": "20dde16acc1496df949c5fb280f841a2132064e4bebeb9bb2cddc15657b7f1c6",
+      "decoded_sha256": "7013041ee63af381d17ae9163bf13aff685eaa164573e54dab5c6c6124fd63f6",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 438,
+      "format": "emission-points",
+      "rom_start": 19228384,
+      "rom_end": 19230098,
+      "stored_bytes": 1714,
+      "decoded_bytes": 2192,
+      "stored_sha256": "ee13f76517a589c582b83345f270345756aa9ee7e6085560e2b7d38b8749a9cc",
+      "decoded_sha256": "6f9679986b76468240996643438ee720c78476b7fa0f1e5271603bd718d7fe6f",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 439,
+      "format": "emission-points",
+      "rom_start": 19230104,
+      "rom_end": 19231817,
+      "stored_bytes": 1713,
+      "decoded_bytes": 2160,
+      "stored_sha256": "d23b42d4d2ed773caf2393ad3419acb68a14daccf057bd2354d3e7a68ffd82a7",
+      "decoded_sha256": "f3d8081eec9d429786271da083f123f1944cc49913dcc67c91e561bd54f17688",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 440,
+      "format": "emission-points",
+      "rom_start": 19231824,
+      "rom_end": 19233134,
+      "stored_bytes": 1310,
+      "decoded_bytes": 1584,
+      "stored_sha256": "8c9cc1bb536a0b39e4700ec969a792c2fe3effb365182a60ade8dbaa89f71c61",
+      "decoded_sha256": "2d847678a00260ef8c5a720a3f5248a88cfa06ff672cb10ee8ea96517bf71f39",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 441,
+      "format": "emission-points",
+      "rom_start": 19233136,
+      "rom_end": 19234453,
+      "stored_bytes": 1317,
+      "decoded_bytes": 1600,
+      "stored_sha256": "042bcb6b61fba95c56837e765585476d8e6b4ce5a9053053374263fa35fa8260",
+      "decoded_sha256": "f3ecea4938c195497d9b1498ac3750c2eeb1f47784766a1fe14540ea8354f1d7",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 442,
+      "format": "emission-points",
+      "rom_start": 19234456,
+      "rom_end": 19235510,
+      "stored_bytes": 1054,
+      "decoded_bytes": 1264,
+      "stored_sha256": "13a486f204ff70e94711d507e4948710039c88cf79ee3c1726c420e0ff01d8e5",
+      "decoded_sha256": "a185b1bfe90463576725c93ab6b227dd03438e9231abf9974845b5509996ecb0",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 443,
+      "format": "emission-points",
+      "rom_start": 19235512,
+      "rom_end": 19236680,
+      "stored_bytes": 1168,
+      "decoded_bytes": 1408,
+      "stored_sha256": "30765dc78a0d4e57c13405366d04fee24002a279fe9342628dbfeafca5f62a7a",
+      "decoded_sha256": "d59e56e1057819c1c7302e1ec84877ad36f967110e265d229976fdb7765cca80",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 444,
+      "format": "emission-points",
+      "rom_start": 19236680,
+      "rom_end": 19237854,
+      "stored_bytes": 1174,
+      "decoded_bytes": 1408,
+      "stored_sha256": "588fdc6e756c72182329e88fd601937f0eb87fc1e0600f5c007595bc64c39571",
+      "decoded_sha256": "95f6826d14fdf2078592e80daa577ec554f903bad27e5ee0a34711262f9385b0",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 445,
+      "format": "emission-points",
+      "rom_start": 19237856,
+      "rom_end": 19238912,
+      "stored_bytes": 1056,
+      "decoded_bytes": 1248,
+      "stored_sha256": "ebcd58a8d136dac95f7a063cf7a0f7b16c06e8bf101efadcc157109268e5f0af",
+      "decoded_sha256": "31a843b691baaf9e263db79f8e22ee87f05f2583a9f96e6cfcec1920266fd077",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 446,
+      "format": "emission-points",
+      "rom_start": 19238912,
+      "rom_end": 19240020,
+      "stored_bytes": 1108,
+      "decoded_bytes": 1328,
+      "stored_sha256": "98edea9c11a4ac375842f4d1c9ab7385eb4e82f701b4d5326525a654050e871f",
+      "decoded_sha256": "f37b069b4bd0474ed5d8ce90f4269eb9cf57e09b283df14ebcb7a8e086db7055",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 448,
+      "format": "emission-points",
+      "rom_start": 19240768,
+      "rom_end": 19241936,
+      "stored_bytes": 1168,
+      "decoded_bytes": 1408,
+      "stored_sha256": "0befc1a7339fe5dbc8da6c1c8063f6d48f63c3beed9a5d2810a67e00a3c6550c",
+      "decoded_sha256": "ef3ad04b4a279cbab7e529e5c5a94d2c84aad36bafa61b5d71887de3706ab275",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 449,
+      "format": "emission-points",
+      "rom_start": 19241936,
+      "rom_end": 19242947,
+      "stored_bytes": 1011,
+      "decoded_bytes": 1200,
+      "stored_sha256": "6a9ce663a463986f734df66ded059b22de05e607afe3260f3a8b33c4bc1ba252",
+      "decoded_sha256": "76a533f711e2b97bbda82191ab5b85ce82f31e5f387c3ecfb122abf9bbd4545c",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 450,
+      "format": "emission-points",
+      "rom_start": 19242952,
+      "rom_end": 19244055,
+      "stored_bytes": 1103,
+      "decoded_bytes": 1328,
+      "stored_sha256": "be8565ba8a1d5eae83e39d95890b6b1afdfe74e17bab9f715356a55874e2ba0f",
+      "decoded_sha256": "b54eb490649b068e904bc45334a9efc31d61c1f14b93334f9c2be95e948fe2c4",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 451,
+      "format": "emission-points",
+      "rom_start": 19244056,
+      "rom_end": 19245347,
+      "stored_bytes": 1291,
+      "decoded_bytes": 1568,
+      "stored_sha256": "b66411b330f36e8409910de73c2f01395ba90d821cbe9f7153cbf0f4b5016e2c",
+      "decoded_sha256": "4c3008103f63fec3be4ecd3c38783031429efb51bf822a8c4f8406eb4dda1dd3",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    },
+    {
+      "entry": 452,
+      "format": "emission-points",
+      "rom_start": 19245352,
+      "rom_end": 19247593,
+      "stored_bytes": 2241,
+      "decoded_bytes": 2832,
+      "stored_sha256": "daa78cf400549429af26fde0b2eaff42e8d3dacaa8118247fd0a1adf1511db12",
+      "decoded_sha256": "1daaaef6f10758d8b261c30ff8a1310c1d21b40eb15d6661db38a623e18f3808",
+      "encoder": {
+        "format": "rzip-raw-deflate",
+        "level": 6,
+        "window_bits": -15,
+        "memory_level": 8,
+        "strategy": 0
+      }
+    }
+  ],
+  "stored_bytes": 28134,
+  "decoded_bytes": 39136
+}
