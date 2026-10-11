@@ -52881,8 +52881,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 896,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15153634",
           "vram": "0x15153634"
         }
@@ -86148,6 +86153,12 @@
       "symbol": "func_150E8B1C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6055,
+        "reason": "CURRENT 6055 after two focused comparisons and two bounded probe batches. Full 0x70 descriptor and raw helper contracts preserved; ternary flags and shorter scalar lifetimes improve 8653. Frame 0x120 versus 0x108, hoisted global addresses, floating-point allocation and store scheduling remain. Explicit address lifetimes did not improve. No shared dependency changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

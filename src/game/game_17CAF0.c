@@ -22,7 +22,6 @@
  * - func_15152520
  * - func_15152B38
  * - func_15153298
- * - func_15153634
  * - func_151539B4
  * - func_15153CCC
  * - func_15153F18
@@ -921,7 +920,113 @@ void func_15152F70(Game152F70Config *arg0, u8 arg1) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153298.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153634.s")
+typedef struct {
+    s16 countBase, countRange;
+    u8 kind, pad05;
+    u16 variant;
+    s32 flags, field0C;
+    s16 lifeBase, lifeRange;
+    s32 field14, field18;
+    u8 colors[7], alphaBase, alphaRange, field25;
+    s16 field26, field28, field2A;
+    f32 size, sizeBase, sizeRange;
+    Game17CAF0Vec3f position;
+    s16 yawBase, pitchBase, yawRange, pitchRange;
+    f32 speedBase, speedRange, growthBase, growthRange;
+    s32 flags5C;
+    s8 modes[2];
+    u8 mode62, mode63, spawnKind, pad65[3];
+    f32 extra;
+} Game153634Config;
+
+/* The spawn helper copies the full 0x70-byte packet. */
+typedef struct {
+    s32 flags, field04;
+    u16 variant;
+    s16 life;
+    s32 field0C, field10;
+    u8 colors[8], field1C, kind;
+    s16 field1E, field20, field22;
+    f32 size, width, height;
+    Game17CAF0Vec3f position;
+    u8 pad3C[0xC];
+    Game17CAF0Vec3f velocity;
+    f32 growth;
+    s32 flags58, field5C;
+    u8 mode60, mode61;
+    s8 modes[2];
+    u8 pad64[2], priority, pad67[9];
+} Game153634Packet;
+
+void *func_10022EC0(void *, const void *, u32);
+
+void func_15153634(Game153634Config *arg0, u8 arg1, u8 arg2, s32 arg3) {
+    Game153634Packet packet;
+    f32 extra;
+    f32 speed;
+    f32 cosineYaw;
+    f32 sinePitch;
+    f32 cosinePitch;
+    f32 sineYaw;
+    f32 horizontal;
+    s16 yaw;
+    s16 pitch;
+    s32 count;
+    u8 *result;
+
+    count = func_150ADA20() % (u32)(arg0->countRange + 1) + arg0->countBase;
+    extra = arg0->extra;
+    packet.kind = arg0->kind;
+    packet.variant = arg0->variant;
+    packet.field04 = arg0->field0C;
+    packet.flags = arg0->flags;
+    packet.field0C = 0;
+    packet.colors[0] = arg0->colors[0];
+    packet.colors[1] = arg0->colors[1];
+    packet.colors[2] = arg0->colors[2];
+    packet.colors[3] = arg0->colors[3];
+    packet.colors[4] = arg0->colors[4];
+    packet.colors[5] = arg0->colors[5];
+    packet.colors[6] = arg0->colors[6];
+    packet.position = arg0->position;
+    packet.flags58 = arg0->flags5C;
+    packet.field1C = arg0->field25;
+    packet.modes[0] = arg0->modes[0];
+    packet.modes[1] = arg0->modes[1];
+    packet.field1E = arg0->field26;
+    packet.field20 = arg0->field28;
+    packet.mode60 = arg0->mode62;
+    packet.mode61 = arg0->mode63;
+    packet.field22 = arg0->field2A;
+    packet.size = arg0->size;
+    packet.priority = arg1;
+    if (count != 0) {
+        do {
+            yaw = (func_150ADA20() % (u32) (arg0->yawRange + 1)) + arg0->yawBase;
+            pitch = (func_150ADA20() % (u32) (arg0->pitchRange + 1)) + arg0->pitchBase;
+            sinePitch = func_151423D8(pitch);
+            cosinePitch = func_151423D8(pitch - 0x40);
+            sineYaw = func_151423D8(yaw);
+            cosineYaw = func_151423D8(yaw - 0x40);
+            speed = (func_150ADA68() * arg0->speedRange) + arg0->speedBase;
+            packet.life = (func_150ADA20() % (u32) (arg0->lifeRange + 1)) + arg0->lifeBase;
+            packet.field10 = (func_150ADA20() % (u32) (arg0->field18 + 1)) + arg0->field14;
+            packet.height = (func_150ADA68() * arg0->sizeRange) + arg0->sizeBase;
+            horizontal = speed * sinePitch;
+            packet.width = packet.height;
+            packet.velocity.x = horizontal * cosineYaw;
+            packet.velocity.y = -speed * cosinePitch;
+            packet.velocity.z = horizontal * sineYaw;
+            packet.growth = (func_150ADA68() * arg0->growthRange) + arg0->growthBase;
+            packet.colors[7] = (func_150ADA20() % (u32) (arg0->alphaRange + 1)) + arg0->alphaBase;
+            result = func_15130280(&packet, arg0->spawnKind, NULL, 4, arg2, arg3);
+            if (result != NULL) {
+                func_10022EC0((u8 *) result + 0xA8, &extra, 4U);
+            }
+            count -= 1;
+        } while (count != 0);
+    }
+}
 typedef struct {
     s16 countBase, countRange;
     Game17CAF0Vec3f position;
