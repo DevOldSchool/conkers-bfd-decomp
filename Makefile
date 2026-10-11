@@ -8,6 +8,15 @@
 %: RCS/%
 %: s.%
 %: SCCS/s.%
+define NEWLINE
+
+
+endef
+# $(call WRITE_WORDS,file,words) in a recipe writes a long word list as one
+# short shell command per chunk: one command would exceed the kernel's
+# argument limit, and macOS Make 3.81 lacks $(file ...).
+WRITE_WORDS = @: >$(1)$(call WRITE_WORD_CHUNKS,$(1),$(2))
+WRITE_WORD_CHUNKS = $(if $(2),$(NEWLINE)@printf '%s\n' $(wordlist 1,500,$(2)) >>$(1)$(call WRITE_WORD_CHUNKS,$(1),$(wordlist 501,$(words $(2)),$(2))))
 PROFILE ?= us
 ASSETS ?= 0
 REFRESH ?= 0
@@ -354,7 +363,7 @@ build/us/main-private-data.ld: config/main/private-data.json scripts/main_privat
 	python3 scripts/main_private_data.py linker --output $@ $(MAIN_PRIVATE_DATA_SOURCES)
 
 $(ROM_BUILD_DIR)/conker.$(PROFILE).elf: $(ROM_BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_DEPS) $(PROFILE_RODATA_SCRIPT) $(PROFILE_MAIN_RODATA_SCRIPT) $(PROFILE_MAIN_VI_BSS_SCRIPT) $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT) scripts/link_groups.py
-	$(file >$(ROM_BUILD_DIR)/link-inputs.txt,$(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS))
+	$(call WRITE_WORDS,$(ROM_BUILD_DIR)/link-inputs.txt,$(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS))
 	python3 scripts/link_groups.py $(ROM_BUILD_DIR)/conker.$(PROFILE).ld \
 		--output $(ROM_BUILD_DIR)/conker.$(PROFILE).grouped.ld --group-dir $(ROM_BUILD_DIR)/link-groups \
 		--inputs $(ROM_BUILD_DIR)/link-inputs.txt --responses $(ROM_BUILD_DIR)/link-inputs.rsp --linker "$(LD)"
@@ -522,7 +531,7 @@ define BINARY_OBJECT_RULES
 ifneq ($(strip $(3)),)
 $(1): $(patsubst $(BUILD_DIR)/assets/%.o,$(2)/%.bin,$(3)) $(BINARY_OBJECT_DEPS) $$(if $$(filter-out $$(wildcard $(3)),$(3)),asset-parts-missing) $(if $(4),| $(4))
 	@mkdir -p "$$(@D)"
-	$$(file >$$@.names,$(patsubst $(BUILD_DIR)/assets/%.o,%.bin,$(3)))
+	$$(call WRITE_WORDS,$$@.names,$(patsubst $(BUILD_DIR)/assets/%.o,%.bin,$(3)))
 	python3 scripts/binary_object.py --root $(2) --output-root $(BUILD_DIR)/assets --names-from $$@.names
 	@touch $$@
 $(3): $(1) ;
