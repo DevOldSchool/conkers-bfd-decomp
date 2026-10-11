@@ -79126,6 +79126,12 @@
       "symbol": "func_150E7994"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1845,
+        "reason": "CURRENT 1845 after two finishes and two bounded probe batches. Frame A8 now exact and flag branches/accumulator reload agree; D_800A1350 address remains promoted into an extra saved register, point stack slot is four bytes high, and argument/temporary registers differ. Retained unsigned float conversions and existing call contracts. No shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -83971,6 +83977,12 @@
       "symbol": "func_151B7144"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 135,
+        "reason": "CURRENT 135 with corrected 0x70-byte packet storage; frame, stack offsets, instruction sequence and operands agree, with 25 register-only rows remaining. Two finishes (initial 0x68-byte packet invalidated) and two bounded probe batches. Payload-lifetime probe unchanged; signed tail worsened to 140. Canonical assembly retained; no shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
