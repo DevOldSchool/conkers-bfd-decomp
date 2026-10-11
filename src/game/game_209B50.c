@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_209B50.c
@@ -35,7 +36,6 @@ typedef struct Game209B50Packet {
 void func_15103254(s32, s32, f32, void *, s32, s32, s32);
 void func_15150178(s16 *, f32 *, s32, u8, s32);
 void func_15182670(s32, s32, s32, s32, s32, s32, s32, s32);
-void func_151D3F14(void *, u8, s32);
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800AB518, D_800AB51C, D_800AB520, D_800AB524;
@@ -86,7 +86,6 @@ void func_151DC6A0(void *arg0, s32 arg1, s32 arg2) {
 
 void func_151DC6A0(void *, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
-s32 func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 
 void func_151DC8BC(void *arg0, s16 arg1, u8 arg2, u8 arg3, u8 arg4, s32 arg5) {
     typedef struct { s32 words[3]; } Copy3;
@@ -95,7 +94,7 @@ void func_151DC8BC(void *arg0, s16 arg1, u8 arg2, u8 arg3, u8 arg4, s32 arg5) {
         f32 value;
         u8 byte;
     } packet;
-    s32 temp_v0;
+    u8 *temp_v0;
 
     if (arg2 != 0) {
         func_151DC6A0(arg0, arg4, arg5);

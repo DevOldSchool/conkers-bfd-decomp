@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_FE850.c
@@ -40,11 +41,10 @@ void func_150D13A0(GameFE850State *arg0) {
     func_15059C84(arg0);
 }
 /* Call context: func_151149AC: unique active project prototype */
-s32 func_151149AC(u8);
 extern u8 D_800CC2D0;
 
 void func_150D1410(s32 arg0) {
-    s32 temp_v0;
+    u8 *temp_v0;
 
     temp_v0 = func_151149AC(0xF9U);
     if (temp_v0 != 0) {
@@ -57,7 +57,7 @@ void func_150D1410(s32 arg0) {
 }
 
 void func_150D146C(s32 arg0) {
-    s32 temp_v0;
+    u8 *temp_v0;
 
     temp_v0 = func_151149AC(0xF9U);
     if (temp_v0 != 0) {

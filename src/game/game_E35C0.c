@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_E35C0.c
@@ -47,7 +48,6 @@ typedef struct GameE35C0Descriptor {
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_1514373C(f32, f32, f32 *, f32 *);
-void func_151494E0(s32, u8);
 s32 func_15106F98(void *, void *, s32, void *, f32, u8, u8, s32);
 extern f32 D_8009FCBC, D_8009FCC0, D_8009FCC4, D_8009FCC8, D_800BE9A4;
 

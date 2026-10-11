@@ -12,8 +12,7 @@
  */
 
 u8 func_151D8E20(void);
-void func_10022EC0(void *, void *, s32);
-s32 func_151491F4(s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
 extern f32 D_800A9014;
 
 typedef struct {
@@ -28,7 +27,7 @@ typedef struct {
 } Game1D8DE0Packet;
 
 void func_151AB930(void *arg0) {
-    s32 temp_v0;
+    u8 *temp_v0;
     Game1D8DE0Packet packet;
 
     packet.field_0 = arg0;
@@ -44,7 +43,6 @@ void func_151AB930(void *arg0) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D8DE0/func_151AB9C8.s")
-extern void func_1516972C(void *arg0);
 
 void func_151ABD54(void *arg0, u8 *arg1, u8 arg2) {
     u8 *temp_v0;

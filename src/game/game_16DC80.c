@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_16DC80.c
@@ -63,11 +64,11 @@ copy_done:
     return result;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151408A4.s")
-void func_151411A4(void) {
-    func_1513CA6C();
+void func_151411A4(void *arg0) {
+    func_1513CA6C(arg0);
 }
-void func_151411C4(void) {
-    func_1513CAA0();
+void func_151411C4(void *arg0) {
+    func_1513CAA0(arg0);
 }
 typedef struct Game1411E4State {
     u8 pad_0[0x154];
@@ -282,7 +283,6 @@ s32 func_151415D4(void *arg0) {
 }
 typedef void (*Game16DC80Callback)(u8 *, u8 *, u8);
 extern Game16DC80Callback D_8008A02C;
-void func_1516972C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151416E8 CURRENT (1995) */
 void func_151416E8(u8 *arg0, u8 *arg1, u8 arg2) {

@@ -185,12 +185,10 @@ s32 func_1513416C(void *arg0) {
     }
     return 1;
 }
-void *func_15167A68(s32, s32, s32, s32, s32, s32);
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 void func_15143134(f32 *, f32 *, s32);
-void func_1516972C(void *);
 
-void *func_1513418C(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
+void *func_1513418C(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
     void *temp_v0;
     void *sp24;
     u8 *temp_v1;
@@ -205,7 +203,7 @@ void *func_1513418C(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
         return (void *)0;
     }
     sp24 = temp_v0;
-    func_10022EC0((u8 *)sp24 + 0x10, (void *)arg0, 0x30);
+    func_10022EC0((u8 *)sp24 + 0x10, arg0, 0x30);
     temp_a0 = *(u8 *)((u8 *)sp24 + 0x3A);
     if (temp_a0 & 2) {
         temp_v0_2 = *(void **)((u8 *)sp24 + 0x1C);
@@ -235,11 +233,11 @@ s32 func_151346D0(s32 arg0, void *arg1, s32 arg2) {
         (unsigned char)(*((unsigned char *)arg1 + 0x3A) & 0xFFEF);
     return arg0;
 }
-void func_151346EC(void) {
-    func_15169804();
+void func_151346EC(void *arg0) {
+    func_15169804(arg0);
 }
-void func_1513470C(void) {
-    func_15169824();
+void func_1513470C(void *arg0) {
+    func_15169824(arg0);
 }
 extern void (*D_80089AAC[])(void);
 
@@ -288,8 +286,6 @@ typedef struct {
     u8 field09;
 } Blood347CCEvent;
 
-void func_1516972C(void *);
-
 void func_151347CC(Blood347CCState *arg0, Blood347CCEvent *arg1, u8 arg2) {
     s32 temp_v0;
 
@@ -326,9 +322,6 @@ void func_151347CC(Blood347CCState *arg0, Blood347CCEvent *arg1, u8 arg2) {
 void func_151348F0(f32 arg0, f32 arg1, s32 arg2, s32 arg3) {
 
 }
-/* Call context: func_10022EC0: unique active declaration in the allowed source */
-/* Call context: func_15167A68: unique active declaration in the allowed source */
-void *func_15134908(void *, s32, u8, s32);
 
 void *func_15134908(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
     void *v0;
@@ -479,7 +472,6 @@ s32 func_15134CEC(void *arg0) {
 }
 /* Call context: func_10022EC0: unique active declaration in the allowed source */
 /* Call context: func_15167A68: unique active declaration in the allowed source */
-void * func_15167A68(s32, s32, s32, s32, s32, s32);
 void *func_15134DAC(void *arg0, s32 arg1) {
     void *v1;
     void *v0;
@@ -505,11 +497,11 @@ void *func_15134DAC(void *arg0, s32 arg1) {
     return v0;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134E48.s")
-void func_151352EC(void) {
-    func_15169804();
+void func_151352EC(void *arg0) {
+    func_15169804(arg0);
 }
-void func_1513530C(void) {
-    func_15169824();
+void func_1513530C(void *arg0) {
+    func_15169824(arg0);
 }
 /* extern */
 extern void (*D_80089B70[])(BloodState *);
@@ -603,7 +595,6 @@ void func_15135480(void *arg0, void *arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15135480 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135480.s")
-void func_1516972C(void *);
 
 void func_1513555C(void *arg0, void *arg1, u8 arg2) {
     if (((arg2 == 0) || (arg2 == 0x12)) &&
@@ -947,8 +938,6 @@ s32 func_15136A1C(BloodState *arg0) {
     }
     return 1;
 }
-/* Call context: func_15134908: unique active project prototype */
-void *func_15134908(void *, s32, u8, s32);
 extern f32 D_800A461C;
 extern f32 D_800A4620;
 
@@ -1055,7 +1044,6 @@ typedef struct Blood36C3CSpray {
 } Blood36C3CSpray;
 
 s32 func_15134070();
-void func_1515C244(void *, void *, f32 *, f32 *);
 void func_1513A24C(BloodVec3 *, s32 *, f32 *, s32, f32, u8, u8, u8 *, void *,
                    u8, s32);
 void func_15150D1C(Blood36C3CSpray *, u8, s32);
@@ -1159,7 +1147,6 @@ typedef struct BloodImpactActor {
     void *transforms;
 } BloodImpactActor;
 
-void func_151036B4(void *, u8, s32);
 void func_15136F50(BloodVec3 *, BloodVec3 *, BloodVec3 *, u8, u8, s32);
 void func_151C329C(void *, u8, s32);
 void func_151C577C(BloodVec3 *, BloodVec3 *, BloodVec3 *, u8, u8, u8, u8, s32);
@@ -1641,7 +1628,6 @@ typedef struct {
 } BloodHitRecord;
 
 void func_1504715C(void *, void *);
-void func_151036B4(void *, u8, s32);
 void func_151382E0(f32 *, s32, void *, u8, s32);
 void func_15138E98(Blood1380B4State *, f32 *, s32, void *, s32, s32);
 void func_15139768(Blood1380B4State *, f32 *, f32, void *, s32, s32);

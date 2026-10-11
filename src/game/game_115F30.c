@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_115F30.c
@@ -14,9 +15,8 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_10022EC0(s32, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 u32 func_150ADA20(void);
-s32 func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A137C;
 extern f32 D_800A1380;
 extern f32 D_800A13B0;
@@ -29,7 +29,7 @@ typedef struct Game115F30Packet {
 } Game115F30Packet;
 
 void func_150E8A80(void) {
-    s32 temp_v0;
+    u8 *temp_v0;
     Game115F30Packet packet;
 
     packet.field_0 = D_800A137C;
@@ -113,7 +113,7 @@ void func_150E8B1C(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_115F30/func_150E8B1C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_115F30/func_150E8D5C.s")
 void func_150E90DC(void) {
-    s32 temp_v0;
+    u8 *temp_v0;
     Game115F30Packet packet;
 
     packet.field_0 = D_800A13B0;

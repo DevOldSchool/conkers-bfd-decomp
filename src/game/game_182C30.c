@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_182C30.c
@@ -13,7 +14,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct {
+typedef struct Game182C30Effect {
     u8 pad0[0xE];
     s16 fieldE;
     s8 field10;
@@ -25,7 +26,6 @@ typedef struct {
 } Game182C30Effect;
 
 s32 func_1518C900(s32); /* extern */
-Game182C30Effect *func_15167A68(s32, s32, s32, s32, s32, s32); /* extern */
 
 Game182C30Effect *func_15155780(s32 arg0, s32 arg1) {
     Game182C30Effect *effect;
@@ -41,7 +41,6 @@ Game182C30Effect *func_15155780(s32 arg0, s32 arg1) {
     func_1518C900(0xA6);
     return effect;
 }
-Game182C30Effect *func_15155780(s32, s32);
 void *func_15155FD4(s32);
 extern u8 D_800CC37D[];
 
@@ -64,7 +63,6 @@ void func_151557FC(s32 arg0, s32 arg1, f32 arg2) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_1515589C.s")
-f32 func_15048A40(u8);
 void *func_15096934(void *);
 void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 extern u8 D_800BE9C0;
@@ -131,8 +129,6 @@ void *func_15155CFC(void *arg0, Game182C30Effect *arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15155CFC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_15155CFC.s")
-extern void func_1515F10C(void *arg0);
-extern void func_15169804(s32 arg0);
 extern void func_1518CA04(s32 arg0);
 
 void func_15155EF8(void *arg0) {
@@ -142,7 +138,7 @@ void func_15155EF8(void *arg0) {
     if (*(void **)((u8 *)temp_a1 + 0x14) != 0) {
         func_1515F10C(*(void **)((u8 *)temp_a1 + 0x14));
     }
-    func_15169804((s32) temp_a1);
+    func_15169804(temp_a1);
     func_1518CA04(0xA6);
 }
 /* Call context: func_15155FD4: unique active project prototype */
@@ -211,7 +207,6 @@ void *func_15155FD4(s32 arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15155FD4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_15155FD4.s")
 extern u8 D_800CC2D0[];
-void func_1516972C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15156028 CURRENT (1225) */
 void func_15156028(u8 *arg0, s32 *arg1, u8 arg2) {

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1A0E60.c
@@ -30,7 +31,7 @@ extern Game1A0E60Color *D_800BE510;
 extern Game1A0E60Color ***D_800BE520;
 extern u16 *D_800BE524;
 extern u8 D_800BE9C0;
-extern s32 D_800DBEF4;
+extern u8 *D_800DBEF4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151739B0 CURRENT (2332) */
 void func_151739B0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
@@ -110,11 +111,10 @@ void func_15173C60(s32 arg0, s32 arg1) {
 }
 /* Call context: func_151149AC: unique active project prototype */
 /* Call context: func_151739B0: unique active project prototype */
-s32 func_151149AC(u8);
-extern s32 D_800DBEF4;
+extern u8 *D_800DBEF4;
 
 void func_15173C90(s32 arg0, s32 arg1, s32 arg2) {
-    s32 temp_v0;
+    u8 *temp_v0;
     s32 temp_a0;
 
     temp_v0 = func_151149AC(arg2);

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_BC510.c
@@ -134,7 +135,6 @@ typedef struct GameBC510Sprite {
     void *texture;
 } GameBC510Sprite;
 
-f32 func_15048A40(u8);
 s32 func_15095A48(s32, void *, f32, f32);
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 s32 func_15094F70(s32, void *, s32, void *, s32, s32, s32, s32, s32);

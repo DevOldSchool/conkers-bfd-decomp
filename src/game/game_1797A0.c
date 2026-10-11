@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1797A0.c
@@ -15,7 +16,6 @@
 
 typedef s32 (*Game1797A0Callback)(s32, s16, f32, f32, f32, f32,
                                   f32, f32, s32, s32, f32, s32, f32, s32, s32);
-f32 func_151423D8(u8);
 extern Game1797A0Callback D_8008AA00[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1514C2F0 CURRENT (2223) */

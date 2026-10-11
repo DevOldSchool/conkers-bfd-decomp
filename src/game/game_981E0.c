@@ -318,7 +318,6 @@ void func_1506B4EC(void) {
 }
 extern s32 D_800D1580;
 void func_15141A7C(u8 *arg0, s32 arg1);
-void func_15192800(u8 *arg0, s32 arg1);
 void func_1507C8E0(u8 *arg0, s32 arg1);
 void func_1507F640(void);
 void func_1512D748(void *arg0, s32 arg1, s32 arg2);
@@ -1560,7 +1559,6 @@ void func_150BCBBC(u8 *arg0);
 void func_1506F004(s32 arg0) {
     func_150BCBBC(D_800D154C);
 }
-void func_150BA4C0(u8 *arg0, s32 arg1, s32 arg2);
 
 void func_1506F02C(s32 arg0) {
     func_150BA4C0(D_800D154C, 0xFF, 0);
@@ -1896,8 +1894,6 @@ void func_1506F8C0(s32 arg0) {
     func_1519EF70((s32) D_800D154C, 0, 0);
 }
 f32 func_150ADA68(void);
-void func_150E2EA4(s32, u8, u8, s32, f32, f32, f32, f32, f32, f32,
-                   s32, s32, s32, f32, f32, s32, f32);
 extern f32 D_80099E98;
 
 void func_1506F8F0(s32 arg0) {
@@ -1972,8 +1968,6 @@ void func_1506FCC8(s32 arg0) {
 void func_1506FCFC(s32 arg0) {
     func_15196438(D_800D154C, 5, 0xFF, 0);
 }
-void func_150E2EA4(s32, u8, u8, s32, f32, f32, f32, f32, f32, f32,
-                   s32, s32, s32, f32, f32, s32, f32);
 f32 func_150ADA68(void);
 extern f32 D_80099EA0;
 
@@ -2066,7 +2060,6 @@ void func_15193660(u8 *arg0, s32 arg1, s32 arg2);
 void func_150700E4(s32 arg0) {
     func_15193660(D_800D154C, 0xFF, 1);
 }
-void func_151937F4(u8 *arg0, s32 arg1, s32 arg2);
 
 void func_15070114(s32 arg0) {
     func_151937F4(D_800D154C, 0xFF, 1);
@@ -2166,22 +2159,18 @@ void func_15070760(s32 arg0) {
 void func_15070794(s32 arg0) {
     func_150EBEC0(D_800D154C, 1, 0xFF, 1);
 }
-void func_150FDDA0(u8 *arg0, s32 arg1, s32 arg2);
 
 void func_150707C8(s32 arg0) {
     func_150FDDA0(D_800D154C, 0xFF, 1);
 }
-void func_150FDF38(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_150707F8(s32 arg0) {
     func_150FDF38(D_800D154C, 0xFF, 1, 0, 0);
 }
-void func_150FE320(u8 *arg0, s32 arg1, s32 arg2);
 
 void func_15070830(s32 arg0) {
     func_150FE320(D_800D154C, 0xFF, 1);
 }
-void func_150FE49C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_15070860(s32 arg0) {
     func_150FE49C(D_800D154C, 0xFF, 1, 0, 0);
@@ -2266,8 +2255,7 @@ typedef struct {
 } Game981E0Position;
 
 extern Game981E0CopiedVector D_80099BA0, D_80099BAC;
-void func_151D5404(Game981E0Position *, s32, s32, s32, s32, s32, s32, s32);
-void func_151D5334(s32, s32, s32, s32, s32, s32, s32);
+void func_151D5334(f32 *, f32, f32, f32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15070F60 CURRENT (828) */
 void func_15070F60(s32 arg0) {
@@ -2318,10 +2306,10 @@ void func_15070F60(s32 arg0) {
         func_151602C0((u8 *)&descriptor, position,
                       func_150ADA20() % 201U + 55,
                       0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0xFF, 0);
-        func_151D5404(&transformed, 0x43FD0000, 0x447D4000,
-                      0x3A8163D3, 0xF, 0x14, 0xFF, 0);
-        func_151D5334((s32)&transformed, 0x43FD0000, 0x447D4000,
-                      0x3A8163D3, 5, 0xFF, 0);
+        func_151D5404(&transformed, 506.0f, 1013.0f,
+                      0.0009871669f, 0xF, 0x14, 0xFF, 0);
+        func_151D5334((f32 *)&transformed, 506.0f, 1013.0f,
+                      0.0009871669f, 5, 0xFF, 0);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15070F60 */
@@ -2425,10 +2413,9 @@ void func_150715D4(s32 arg0) {
 void func_1507161C(s32 arg0) {
 
 }
-extern void func_151D0058(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 
 void func_15071628(s32 arg0) {
-    func_151D0058(D_800D154C, (arg0 - 0x55) & 0xFF, 0xFF, 1);
+    func_151D0058(D_800D154C, arg0 - 0x55, 0xFF, 1);
 }
 
 void func_15071668(s32 arg0) {
@@ -2451,7 +2438,6 @@ typedef struct {
     Game981E0Position position;
 } Game981E0PositionSource;
 
-void func_151D5404(Game981E0Position *, s32, s32, s32, s32, s32, s32, s32);
 
 void func_150716EC(s32 arg0) {
     Game981E0Position position;
@@ -2461,12 +2447,11 @@ void func_150716EC(s32 arg0) {
     position.x = source->position.x;
     position.y = source->position.y;
     position.z = source->position.z;
-    func_151D5404(&position, 0x44BBC000, 0x453B8000, 0x39AEC33E, 0xC, 0xF, 0xFF, 0);
+    func_151D5404(&position, 1502.0f, 3000.0f, 0.00033333333f, 0xC, 0xF, 0xFF, 0);
 }
 void *func_15083E90(u8);
 void func_150F0BEC(void *);
 void func_150F10D4(void *);
-void func_15161E24(void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 void func_15071764(s32 arg0) {
     void *object;
@@ -2485,7 +2470,6 @@ typedef struct {
 } Game981E0MenuInput;
 
 void func_15131D4C(Game981E0MenuInput *, s32);
-void func_151494E0(Game981E0MenuInput *, s32);
 
 void func_150717E0(s32 arg0) {
     struct {
@@ -2655,7 +2639,6 @@ void func_15071B18(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15071B18 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15071B18.s")
-void func_150F2230(u8 *arg0, s32 arg1, s32 arg2);
 
 void func_15071D08(s32 arg0) {
     func_150F2230(D_800D154C, 0xFF, 1);
@@ -3684,7 +3667,6 @@ void func_1507490C(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507490C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1507490C.s")
-f32 func_1505A72C(struct127 *, struct127 *);
 extern s8 D_8008FD8C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15074980 CURRENT (30) */
@@ -3823,7 +3805,6 @@ typedef struct Game981E0BeamEvent {
 } Game981E0BeamEvent;
 
 void func_151942E8(s32, s32, s32);
-void func_150335C8(void *, void *, s32, s32, s32, s32);
 f32 func_150484A0(f32, f32);
 void func_15166118(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern f32 D_8009A104;

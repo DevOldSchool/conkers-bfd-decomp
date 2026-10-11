@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_FDB00.c
@@ -6,8 +7,6 @@
  */
 
 s32 func_1509BE40(s32, s32, s32);
-s32 func_15123934(void *, s32, s32, s32, s32);
-s32 func_151239CC(void *, s32);
 void func_151254F4(void *, s32);
 extern u8 D_800CC335;
 extern u8 *D_800D2E4C;

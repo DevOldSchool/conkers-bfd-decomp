@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_175250.c
@@ -355,7 +356,6 @@ s32 func_15148EF8(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     *(u8 *)((u8 *)temp_v1 + 0x20) = 4;
     return 1;
 }
-f32 func_151423D8(u8);
 
 typedef struct Game175250PrimaryPacket {
     f32 x;
@@ -453,6 +453,6 @@ s32 func_151490C8(void *arg0) {
     }
     return 1;
 }
-void func_15149104(void) {
-    func_151478F4();
+void func_15149104(void *arg0) {
+    func_151478F4(arg0);
 }

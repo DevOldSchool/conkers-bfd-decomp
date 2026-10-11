@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_AEB40.c
@@ -57,7 +58,6 @@ typedef struct GameAEB40State {
 } GameAEB40State;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15081690.s")
-f32 func_15143E64(void *);
 s32 func_151452C4(void *, void *, s32, f32, s32, s32, f32 *, f32 *);
 s32 func_15145128(void *, void *, f32 *, f32 *);
 
@@ -178,7 +178,6 @@ void func_150829D8(GameAEB40State *arg0) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15082A44.s")
-s32 func_1515D440();                                /* extern */
 void *func_1515D480(s32);                              /* extern */
 extern s32 D_80082FA0;
 
@@ -383,7 +382,6 @@ void func_150836CC(void *arg0, s32 arg1) {
 extern u8 *D_800D1C90[];
 extern u16 D_800C5A90[];
 s32 func_1502B020(s32, s32, s32, s32);
-void func_15062BDC(void *, s32, s32, s32);
 s8 func_15084D00(void *);
 
 /* Semantic role: actor_assign_model.
@@ -453,7 +451,6 @@ s32 func_150838EC(u8 *arg0, u16 arg1, s32 arg2, s32 arg3) {
 }
 extern u8 *D_80086CAC[];
 extern u8 *D_800D1C90[];
-void func_15036C70(void *);
 
 /* Semantic role: actor_apply_character_defaults (shared, not character-specific).
  * See docs/evidence/assets/naming/character_semantic_naming.md; keep the linked symbol stable.
@@ -936,7 +933,7 @@ void func_15084488(u8 *spawnRecord, s32 arg1, s32 arg2) {
  * Nonzero selectors are one-based; no sentinel or bounds normalization occurs.
  * See docs/evidence/assets/naming/actor_representation_selection_semantics.md.
  */
-u8 func_150849A0(void *actor) {
+s32 func_150849A0(void *actor) {
     u8 representationOverrideSelector;
 
     representationOverrideSelector = *(u8 *)((u8 *)actor + 0x1C9);

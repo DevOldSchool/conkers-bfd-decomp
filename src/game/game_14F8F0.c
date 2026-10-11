@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_14F8F0.c
@@ -39,10 +40,8 @@ typedef struct Game14F8F0Actor {
 } Game14F8F0Actor;
 
 f32 func_15048A70(f32, f32);
-void func_15048F90(f32 *, f32 *, f32 *);
 void func_15123A54(void *);
 void func_1512A390(void *);
-f32 func_15048FC8(f32 *);
 void func_150495B0(f32 *, f32, f32 *, f32, f32, f32);
 void func_1512E140(void *);
 extern f32 D_800A34A0;

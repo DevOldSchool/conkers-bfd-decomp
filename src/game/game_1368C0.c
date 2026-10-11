@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1368C0.c
@@ -16,7 +17,6 @@
  */
 
 void *func_10022EC0(void *, const void *, u32);
-s32 func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 
 typedef struct Game1368C0Spawn9410 {
     void *source;
@@ -29,9 +29,9 @@ typedef struct Game1368C0Spawn9410 {
     u8 pad12[2];
 } Game1368C0Spawn9410;
 
-s32 func_15109410(void *arg0, s16 arg1, s8 arg2, s8 arg3,
+void *func_15109410(void *arg0, s16 arg1, s8 arg2, s8 arg3,
                    f32 arg4, s32 arg5, u8 arg6, s32 arg7) {
-    s32 result;
+    u8 *result;
     Game1368C0Spawn9410 spawn;
     s16 type;
     s32 enabled;
@@ -334,7 +334,6 @@ void func_15109C20(Game1368C0BurstOwner *arg0, Game1368C0EmitterVector *arg1,
 #endif /* CONKER_DEFERRED_CANDIDATE func_15109C20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1368C0/func_15109C20.s")
 void *func_10022EC0(void *, const void *, u32);
-s32 func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 
 typedef struct Game1368C0Spawn {
     void *source;
@@ -390,8 +389,8 @@ typedef struct Game1368C0Locals {
     s32 saved;
 } Game1368C0Locals;
 
-s32 func_1510A344(void *arg0, s16 arg1, u8 arg2, s32 arg3) {
-    s32 value;
+void *func_1510A344(void *arg0, s16 arg1, u8 arg2, s32 arg3) {
+    u8 *value;
     struct {
         void *source;
         u8 type;

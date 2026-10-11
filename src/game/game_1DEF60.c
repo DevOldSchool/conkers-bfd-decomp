@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1DEF60.c
@@ -11,8 +12,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_10022EC0(void *, void *, s32);
-s32 func_151491F4(s16, s8, s8, u8, u8, s32, u8, s32);
+void *func_10022EC0(void *, const void *, u32);
 typedef struct Game1DEF60B1AB0Packet {
     void *owner;
     u8 type;
@@ -21,7 +21,7 @@ typedef struct Game1DEF60B1AB0Packet {
 } Game1DEF60B1AB0Packet;
 
 void func_151B1AB0(void *arg0) {
-    s32 temp_v0;
+    u8 *temp_v0;
     Game1DEF60B1AB0Packet packet;
 
     if ((s32)arg0 != 0) {
@@ -35,7 +35,6 @@ void func_151B1AB0(void *arg0) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DEF60/func_151B1B34.s")
-void func_1516972C(void *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B1FAC CURRENT (275) */
 void func_151B1FAC(void *arg0, void *arg1, u8 arg2) {

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_3D780.c
@@ -6,7 +7,6 @@
  */
 
 void func_15195AA8(s32, s32, s32, s32, s32, s32, s32, s32);
-void *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern s32 D_800902E8;
 extern s32 D_800902EC;
 extern s32 D_800B0E00;

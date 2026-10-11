@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_EDE60.c
@@ -12,19 +13,18 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_150C0A48(s32 arg0);
-void func_15169824(s32 arg0);
+void func_150C0A48(u8 *arg0);
 
 extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_150C09B0(s32 arg0, s32 arg1, u8 arg2) {
     func_15169850(arg1, (s32) arg2, arg0 + 0x20, arg0 + 0x24, arg0);
 }
-void func_150C09F0(s32 arg0) {
+void func_150C09F0(void *arg0) {
     func_150C0A48(arg0);
     func_15169804(arg0);
 }
-void func_150C0A1C(s32 arg0) {
+void func_150C0A1C(void *arg0) {
     func_150C0A48(arg0);
     func_15169824(arg0);
 }
@@ -41,9 +41,7 @@ typedef struct {
     s16 last_index;
 } GameEDE60ResourceList;
 
-void func_1516972C(void *);
-
-void func_150C0A48(s32 arg0) {
+void func_150C0A48(u8 *arg0) {
     GameEDE60ResourceList *list;
     GameEDE60ResourceEntry *entries;
     s32 index;
@@ -63,7 +61,6 @@ void func_150C0A48(s32 arg0) {
 }
 /* SDK memcpy alias and the matched allocator declaration. */
 void *func_10022EC0(void *, const void *, u32);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150C0AC0 CURRENT (815) */
 void *func_150C0AC0(u8 *arg0, u8 arg1, s32 arg2) {

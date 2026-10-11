@@ -12,7 +12,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 s32 func_151407D0(void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15189FF0 CURRENT (1164) */

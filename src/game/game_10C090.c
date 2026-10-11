@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_10C090.c
@@ -26,7 +27,6 @@ typedef struct Game10C090LookupRecord {
 
 extern Game10C090LookupRecord D_800A0D0B[];
 extern Game10C090LookupRecord D_800A0D2B[];
-void func_151616D0(s32, u8, s32);
 void func_151417C4(s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150DEC28 CURRENT (200) */

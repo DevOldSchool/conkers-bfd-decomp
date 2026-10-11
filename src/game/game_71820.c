@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_71820.c
@@ -47,8 +48,6 @@ extern s32 (*D_80085E80[])(Game71820Node *);
 extern void (*D_80085E8C[])(void);
 void *func_10003C40(s32, s32, s32, s32);
 void func_100043B4(void *, s32);
-f32 func_15048A40(s32);
-f32 func_150489B0(u8, void *);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 

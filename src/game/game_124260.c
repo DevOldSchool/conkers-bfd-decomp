@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_124260.c
@@ -12,11 +13,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_150F739C(s32 arg0);
-void func_1516972C(void *arg0);
-void func_15149368(s32 arg0);
-
-void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
+void func_150F739C(u8 *arg0);
 
 void func_150F6DB0(void *arg0) {
     struct {
@@ -26,7 +23,7 @@ void func_150F6DB0(void *arg0) {
 
     sp.sp18 = arg0;
     sp.sp1C = *(u8 *)((u8 *)arg0 + 0x3B);
-    func_151494E0((s32 *)&sp, 0x3E, (s32)arg0);
+    func_151494E0(&sp, 0x3E);
 }
 typedef struct Game124260Copy3 {
     s32 words[3];
@@ -79,8 +76,6 @@ typedef struct Game124260Descriptor {
 } Game124260Descriptor;
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_15130280(void *, u8, void *, s32, u8, s32);
-void *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A1BB0;
 extern Game124260Copy3 D_800A5480;
 
@@ -183,8 +178,6 @@ typedef struct Game124260Root {
 void func_15145740(void *, void *, void *, void *, f32);
 void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *,
                   f32, s32, s32, s32, s32, s32, s32);
-s32 func_1506196C(u8 *, s32);
-void func_1502EA98(void *, s32, s32, s32, s32, s32, s32);
 extern f32 D_800D9A50[3];
 extern f32 D_800A1BB4, D_800A1BB8;
 extern u8 D_800C35EA;
@@ -267,9 +260,8 @@ void func_150F7310(void *arg0, void *arg1, u8 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F7310 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_124260/func_150F7310.s")
 /* Call context: func_1514EDF0: unique active project prototype */
-void func_1514EDF0(s32, s32);
 
-void func_150F739C(s32 arg0) {
+void func_150F739C(u8 *arg0) {
     s32 var_s0;
     void *temp_a0;
     u8 *state;
@@ -285,13 +277,13 @@ void func_150F739C(s32 arg0) {
         var_s0++;
         var_s0 &= 0xFF;
     } while (var_s0 < 2);
-    func_1514EDF0(arg0, *(s32 *)state);
+    func_1514EDF0(arg0, *(void **)state);
 }
-void func_150F740C(s32 arg0) {
+void func_150F740C(void *arg0) {
     func_150F739C(arg0);
     func_1514933C(arg0);
 }
-void func_150F7438(s32 arg0) {
+void func_150F7438(void *arg0) {
     func_150F739C(arg0);
     func_15149368(arg0);
 }

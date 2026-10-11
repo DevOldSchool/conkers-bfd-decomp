@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_50D80.c
@@ -278,7 +279,6 @@ extern u8 D_800C35E8[];
 extern Game50D80DispatchEntry *D_800C35F0[];
 extern Game50D80DispatchState *D_800C3958[];
 extern u8 D_800C3C88;
-s32 func_151149AC(u8);
 void *func_15083E90(u8);
 s32 func_1502460C(void *, s32, s32, s32, s32, void *, void *, void *, s32);
 s32 func_150265CC(void *, s32, s32, s32, s32, void *, void *, void *, s32);

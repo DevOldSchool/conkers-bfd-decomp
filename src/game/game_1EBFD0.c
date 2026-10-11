@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1EBFD0.c
@@ -92,7 +93,6 @@ typedef struct Game1EBFD0Owner {
     Game1EBFD0Event event;
 } Game1EBFD0Owner;
 
-f32 func_15143E64(void *);
 void func_1515C1A0(void *, void *, f32 *, f32 *);
 s32 func_151BEE94(void *);
 void func_15085710(s16, s32, u8);

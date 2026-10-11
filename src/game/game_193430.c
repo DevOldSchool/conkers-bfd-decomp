@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_193430.c
@@ -14,7 +15,6 @@
 
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_1517E05C(s32, s32, s32);
 extern f32 D_800A6C94;
 
@@ -78,7 +78,6 @@ void func_15165F80(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
     func_1517E05C(arg1, arg2, arg3);
     }
 }
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_1517E05C(s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15166118 CURRENT (200) */
@@ -130,7 +129,6 @@ typedef struct {
 } Game193430State;
 
 extern s32 D_800BE9E4;
-void func_1516972C(void *);
 
 void func_15166204(Game193430State *arg0) {
     s32 temp_v0;

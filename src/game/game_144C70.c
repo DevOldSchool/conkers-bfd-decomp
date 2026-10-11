@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_144C70.c
@@ -11,7 +12,6 @@
  * - func_15117DA4
  * - func_15117F3C
  * - func_151189AC
- * - func_15118F24
  * - func_151193F4
  * - func_151194D4
  * - func_151196D4
@@ -280,8 +280,6 @@ void func_15117D3C(Game144C70MotionState *arg0, Game144C70EventState *arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_15117D3C.s")
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
-void *func_151149AC(u8);
-void func_1511F31C(void *);
 extern f32 D_800A2FF4;
 extern f32 D_800A2FF8;
 extern f32 D_800A2FFC;
@@ -332,7 +330,116 @@ void func_1511898C(void *arg0) {
     func_151189AC(arg0, 3);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_151189AC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_15118F24.s")
+s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+f32 func_15048A70(f32, f32);
+void func_15173C60(s32, s32);
+void func_1518804C(s32, f32);
+void func_1511F990(void *, s32);
+extern f32 D_800A3148;
+extern f32 D_800A314C;
+extern f32 D_800A3150;
+extern f32 D_800A3154;
+extern f32 D_800A3158;
+extern u8 D_800BE9B4;
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+
+void func_15118F24(u8 *arg0) {
+    f32 speed;
+    f32 target;
+    f32 angle;
+    f32 remaining;
+    f32 damping;
+    f32 accel;
+    s32 mode;
+    s32 index;
+    s32 openAngle;
+    f32 scale;
+
+    func_1511F990(arg0, 1);
+    mode = arg0[0x73] & 3;
+    openAngle = *(s16 *)(arg0 + 0x3E);
+    target = openAngle;
+    angle = *(f32 *)(arg0 + 8);
+    speed = *(f32 *)(arg0 + 0x84);
+    if (mode == 0 || mode == 1) {
+        target = 0.0f;
+    }
+    if (mode == 0 || mode == 3) {
+        speed = 0.0f;
+        angle = target;
+    }
+    if (angle != target || speed != 0.0f) {
+        if (*(f32 *)(arg0 + 0x7C) == 0.0f) {
+            *(f32 *)(arg0 + 0x7C) = D_800A3148;
+        }
+        damping = *(f32 *)(arg0 + 0x7C);
+        if (*(f32 *)(arg0 + 0x80) == 0.0f) {
+            *(f32 *)(arg0 + 0x80) = D_800A314C;
+        }
+        if (angle > 90.0f) {
+            accel = *(f32 *)(arg0 + 0x80) * (180.0f - angle);
+        } else {
+            accel = *(f32 *)(arg0 + 0x80) * angle;
+        }
+        if (speed == 0.0f) {
+            if (target == 0.0f) {
+                accel += D_800A3150;
+            } else {
+                func_10010F88(0x4BA, 0x5DC0, 0, 0, 0, *(s16 *)(arg0 + 0x10), *(s16 *)(arg0 + 0x12),
+                              *(s16 *)(arg0 + 0x14), 0xC8, 0x9C4);
+                accel += D_800A3154;
+            }
+        }
+        angle += speed;
+        remaining = func_15048A70(angle, target);
+        if (fabsf(remaining) < fabsf(speed)) {
+            speed = -speed * damping;
+            if (fabsf(speed) < *(f32 *)(arg0 + 0x80) * D_800A3158) {
+                speed = 0.0f;
+                angle = target;
+                if (target == 0.0f) {
+                    mode = 0;
+                } else {
+                    mode = 3;
+                    func_10010F88(0x4BB, 0x5DC0, 0, 0, 0, *(s16 *)(arg0 + 0x10),
+                                  *(s16 *)(arg0 + 0x12), *(s16 *)(arg0 + 0x14), 0xC8, 0x9C4);
+                }
+            } else {
+                *(f32 *)(arg0 + 0x80) *= 0.5f;
+            }
+            func_151669A0(*(s16 *)(arg0 + 0x10), *(s16 *)(arg0 + 0x12), *(s16 *)(arg0 + 0x14), 0.15f,
+                          0xFF, 0);
+        } else if (remaining > 0.0f) {
+            speed += accel;
+            if (speed > 10.0f) {
+                speed = 10.0f;
+            }
+        } else {
+            speed -= accel;
+            if (speed < -10.0f) {
+                speed = -10.0f;
+            }
+        }
+        if (angle < 0.0f) {
+            angle += 360.0f;
+        } else if (angle >= 360.0f) {
+            angle -= 360.0f;
+        }
+        arg0[0x73] &= ~3;
+        arg0[0x73] |= mode;
+    }
+    *(f32 *)(arg0 + 0x84) = speed;
+    if (D_800BE9B4 != 0 || angle != *(f32 *)(arg0 + 8)) {
+        *(f32 *)(arg0 + 8) = angle;
+        index = (*(s32 *)(arg0 + 0x3C) >> 24) & 0xFF;
+        if (index != 0 && openAngle != 0) {
+            scale = 1.0f - fabsf((angle - (f32)openAngle) / (f32)openAngle);
+            func_1518804C(index - 1, scale);
+            func_15173C60(scale * 255.0f, index - 1);
+        }
+    }
+}
 void func_151193AC(void *arg0, void *arg1) {
     s32 temp_v0;
 
@@ -470,8 +577,6 @@ typedef struct {
 
 void func_151194D4(void *, void *, s32, s32);
 f32 func_150484A0(f32, f32);
-f32 func_150489B0(u8);
-f32 func_15048A40(u8);
 extern f32 D_800A315C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151196D4 CURRENT (970) */

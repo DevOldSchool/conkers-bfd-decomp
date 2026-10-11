@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_FC550.c
@@ -6,7 +7,6 @@
  */
 
 void func_15117798(u8 *);
-void *func_151149AC(u8);
 extern void *D_800CC5EC;
 
 void func_150CF0A0(u8 *arg0) {

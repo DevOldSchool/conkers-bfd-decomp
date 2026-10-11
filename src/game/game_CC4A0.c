@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_CC4A0.c
@@ -86,13 +87,12 @@ u32 func_1509F354(s32 arg0, s32 arg1, u32 arg2, u32 arg3, s32 arg4, s16 arg5, s3
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509F354 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CC4A0/func_1509F354.s")
 s32 func_1000F568(s32, s32);
-s32 func_151149AC();
-void func_15114D24(s32, s32, s32, s16, s32, s32);
+void func_15114D24(void *, s32, s32, s16, s32, s32);
 
 void func_1509F47C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s32 arg5) {
-    s32 sp24;
+    void *sp24;
 
-    sp24 = func_151149AC(arg3 & 0xFF);
+    sp24 = func_151149AC(arg3);
     func_15114D24(sp24, func_1000F568(arg0, ((arg1 - arg0) + 1) & 0xFF),
                   arg2, arg4, arg5, 0);
 }

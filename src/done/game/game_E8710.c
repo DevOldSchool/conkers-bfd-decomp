@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_E8710.c
@@ -28,8 +29,6 @@ typedef struct {
     s16 fieldB0;
     s16 fieldB2;
 } Func150BB408State;
-
-extern void func_1513F6C0(void *arg0, s32 arg1, s32 arg2);
 
 void func_150BB408(Func150BB408State *arg0) {
     arg0->field18 |= 1;
@@ -100,7 +99,6 @@ typedef struct GameE8710Packet {
 
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
-f32 func_151423D8(s32);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 
 extern const f32 D_8009FE7C;
@@ -121,7 +119,7 @@ s32 func_150BB498(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     GameE8710Packet packet;
     f32 temp_fv1;
 
-    spB8 = func_151423D8((arg8 - 0x40) & 0xFF);
+    spB8 = func_151423D8((u8)(arg8 - 0x40));
     spB4 = func_151423D8((u8) arg8);
     packet.field50 = 0x9E8;
     packet.field18 = packet.field14 = packet.field10 = 0.0f;
@@ -131,7 +129,7 @@ s32 func_150BB498(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     packet.field30 = arg4;
     packet.field4 = D_8009FE7C;
     spBE = (func_150ADA20() % 13U) - 0x34;
-    spB0 = func_151423D8((spBE - 0x40) & 0xFF);
+    spB0 = func_151423D8((u8)(spBE - 0x40));
     spAC = func_151423D8((u8) spBE);
     temp_fv1 = (func_150ADA68() * 9.0f) + 3.0f;
     temp_fa0 = temp_fv1 * spAC;

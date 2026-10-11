@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_100810.c
@@ -16,13 +17,10 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_150D4C2C(s32 arg0);
-void func_15147928(s32 arg0);
+void func_150D4C2C(void *arg0);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D3360.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D3A68.s")
-f32 func_15143E64(void *);                             /* extern */
-s32 func_1515C0F8(void *, u8 **);              /* extern */
 extern f32 D_800A0A10;
 extern u8 D_800C35EA;
 extern void *D_800DBFF0;
@@ -151,7 +149,6 @@ s32 func_150D3FD4(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150D3FD4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D3FD4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D4300.s")
-void func_1516972C(s32);
 void *func_1503195C(void *, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150D49C0 CURRENT (1441) */
@@ -224,20 +221,19 @@ s32 func_150D4AE0(f32 *arg0, f32 *arg1, void *arg2, s32 arg3) {
     arg1[2] = *(f32 *)((u8 *)arg2 + 0x1C);
     return 2;
 }
-void func_150D4BD4(s32 arg0) {
+void func_150D4BD4(void *arg0) {
     func_150D4C2C(arg0);
     func_151478F4(arg0);
 }
-void func_150D4C00(s32 arg0) {
+void func_150D4C00(void *arg0) {
     func_150D4C2C(arg0);
     func_15147928(arg0);
 }
 void func_1000FD38(void *, void *, s32);
-void func_1516972C(s32);
 extern s8 D_8008FD8C;
 void func_150D5124(void);
 
-void func_150D4C2C(s32 arg0) {
+void func_150D4C2C(void *arg0) {
     void *temp_s0;
 
     temp_s0 = *(void **)((u8 *)arg0 + 0x98);
@@ -246,11 +242,11 @@ void func_150D4C2C(s32 arg0) {
     }
     func_1000FD38((void *)&func_150D5124, temp_s0, 0x5B4);
     func_1000FD38((void *)&func_150D5124, temp_s0, 0x5BC);
-    if (*(s32 *)((u8 *)temp_s0 + 0xC) != 0) {
-        func_1516972C(*(s32 *)((u8 *)temp_s0 + 0xC));
+    if (*(void **)((u8 *)temp_s0 + 0xC) != 0) {
+        func_1516972C(*(void **)((u8 *)temp_s0 + 0xC));
     }
-    if (*(s32 *)((u8 *)temp_s0 + 0x10) != 0) {
-        func_1516972C(*(s32 *)((u8 *)temp_s0 + 0x10));
+    if (*(void **)((u8 *)temp_s0 + 0x10) != 0) {
+        func_1516972C(*(void **)((u8 *)temp_s0 + 0x10));
     }
 }
 extern s32 D_800BE9E4;

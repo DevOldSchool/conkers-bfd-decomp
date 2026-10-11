@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1CC440.c
@@ -51,12 +52,9 @@ typedef struct Game1CC440AttachmentOwner {
     Game1CC440Attachments attachments;
 } Game1CC440AttachmentOwner;
 
-void func_151478F4(s32);
-void func_15147928(s32);
 
 /* Call context: func_151423D8: unique active project prototype */
 /* Call context: func_15143E08: unique active project prototype */
-f32 func_151423D8(u8);
 s32 func_15143E08(u16 *);
 extern f32 D_800A8CE0;
 extern f32 D_800A8CE4;
@@ -132,7 +130,7 @@ void func_1519F108(Game1CC440State *arg0) {
             data->field8 = 0;
         }
     }
-    func_151478F4((s32) arg0);
+    func_151478F4(arg0);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1519F108 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F108.s")
@@ -150,7 +148,7 @@ void func_1519F168(Game1CC440State *arg0) {
             ((Game1CC440NodeData *)arg0)->field8 = 0;
         }
     }
-    func_15147928((s32) owner);
+    func_15147928(owner);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1519F168 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F168.s")
@@ -280,7 +278,6 @@ void func_1519F3B8(void *arg0) {
 }
 void func_1519F48C(Game1CC440State *);
 void func_151A0928(void *);
-void func_1516972C(void *);
 
 void func_1519F400(void *arg0) {
     Game1CC440State *temp_a0;
@@ -485,7 +482,6 @@ void func_151A0950(Game1CC440State *arg0, Game1CC440Lookup *arg1, u8 arg2) {
         }
     }
 }
-void func_1516972C(void *);
 
 void func_151A09B4(void *arg0, void *arg1, u8 arg2) {
     void *temp_v0;

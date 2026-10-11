@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1B1600.c
@@ -39,7 +40,6 @@ typedef struct Game184DF0Actor {
 extern Game184DF0Actor D_800CC2D0[];
 extern u8 D_800C3E90;
 extern u8 *D_800D1C90[];
-s32 func_1502DB20(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15184150 CURRENT (1794) */
 void func_15184150(s32 arg0, f32 *arg1, f32 *arg2, f32 *arg3) {

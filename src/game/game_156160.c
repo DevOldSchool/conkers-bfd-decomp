@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_156160.c
@@ -37,7 +38,6 @@ void func_151298C0(Game156160State *arg0, s32 arg1) {
         D_800DC028[arg0->field_23D].field_8 = D_800A3610;
     }
 }
-void func_15048F90(void *, void *, void *);
 void func_15049148(void *, f32, void *);
 void func_1504917C(void *, void *);
 void func_150495B0(f32 *, f32, f32 *, f32, f32, f32);

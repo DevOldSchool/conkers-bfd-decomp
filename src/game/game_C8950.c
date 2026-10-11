@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 #include "../lib/ultralib/include/compiler/ido/stdarg.h"
 
 /*
@@ -559,7 +560,6 @@ s32 func_1509C2A4(void) {
     }
     return 1;
 }
-void func_15007718(s8);
 extern s8 D_8008FDA8;
 extern s8 D_800BE3DF;
 extern s32 D_800BE9F4;

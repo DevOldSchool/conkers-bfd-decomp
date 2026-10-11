@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_3D9A0.c
@@ -11,7 +12,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern s32 func_151149AC(u8 arg0);
 extern u8 D_800D9950[];
 extern s8 D_80088980;
 
@@ -22,13 +22,11 @@ void func_150104F0(void) {
     Col *c = (Col *)&D_800D9950;
 
     c->unk[0] = c->unk[1] = c->unk[2] = 0;
-    *(f32 *)(func_151149AC(0xF6) + 0x7C) = 2.0f;
+    *(f32 *)((u8 *)func_151149AC(0xF6) + 0x7C) = 2.0f;
     D_80088980 = 0;
 }
 
-void func_10022EC0(void *arg0, void *arg1, s32 arg2);
-u8 *func_15149130(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8);
-void func_15161E24(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9);
+void *func_10022EC0(void *, const void *, u32);
 
 typedef struct Game3D9A0Packet {
     void *owner;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1F2730.c
@@ -206,7 +207,6 @@ typedef struct {
 } Game1F2730SpawnExtra;
 
 void *func_10022EC0(void *, const void *, u32);
-s32 func_15130280(void *, s32, s32, s32, s32, s32);
 extern f32 D_800AAAF0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C5F44 CURRENT (1597) */

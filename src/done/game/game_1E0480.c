@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1E0480.c
@@ -26,7 +27,6 @@ void func_151B2FE8(Game1E0480Object *arg0) {
     func_151B2FD0(arg0);
     func_1514933C(arg0);
 }
-void func_15149368(Game1E0480Object *arg0);
 
 void func_151B3014(Game1E0480Object *arg0) {
     func_151B2FD0(arg0);

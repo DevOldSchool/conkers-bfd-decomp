@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_168A90.c
@@ -25,7 +26,6 @@ typedef struct Game168A90Allocated {
 
 extern s32 D_80082FA0;
 s32 *func_1502B6BC(s32 *, s32, s32 *, s32, s32, s32);
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_1510CE60(s32, s32, s32, s32, void *);
 void *func_10022EC0(void *, const void *, u32);
 
@@ -93,7 +93,6 @@ typedef s32 (*Game168A90Callback)(void);
 
 extern Game168A90Callback D_80089C18[];
 extern s32 D_800BE9E4;
-void func_1516972C(void *arg0);
 
 void func_1513B798(void *arg0) {
     typedef struct {
@@ -178,16 +177,14 @@ s32 func_1513B968(s32 arg0, s32 arg1) {
     return 1;
 }
 void func_100043B4(void *arg0, s32 arg1);
-void func_15169804(s32 arg0);
-void func_15169824(s32 arg0);
 
 void func_1513B9A8(void *arg0) {
     func_100043B4(((Game168A90Allocated *)arg0)->source, 4);
-    func_15169804((s32)arg0);
+    func_15169804(arg0);
 }
 void func_1513B9DC(void *arg0) {
     func_100043B4(((Game168A90Allocated *)arg0)->source, 4);
-    func_15169824((s32)arg0);
+    func_15169824(arg0);
 }
 typedef void (*Func_1513BA10)(void *);
 extern Func_1513BA10 D_80089C44[];

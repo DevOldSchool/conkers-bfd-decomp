@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1DC720.c
@@ -33,11 +34,9 @@ typedef struct Game1DC720Actor {
 
 extern f32 D_800A9DCC;
 extern f32 D_800A9DD0;
-void func_1516962C(s32, void *, s32);
-u32 func_1513418C(void *, s32, u8, s32);
 
-u32 func_151AF270(Game1DC720Actor *arg0, u8 arg1, s32 arg2) {
-    u32 result;
+void *func_151AF270(Game1DC720Actor *arg0, u8 arg1, s32 arg2) {
+    void *result;
     Game1DC720EffectPacket packet;
 
     if (arg0 == 0) {

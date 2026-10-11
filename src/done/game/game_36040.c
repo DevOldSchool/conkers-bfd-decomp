@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_36040.c
@@ -6,8 +7,7 @@
  */
 
 void func_15008BB0(void);
-s32 func_1518AADC(s32 arg0, s32 arg1, s32 arg2);
-extern s32 D_800D98E0;
+extern void *D_800D98E0;
 
 void func_15008B90(void) {
     func_15008BB0();

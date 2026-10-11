@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_113D60.c
@@ -36,7 +37,6 @@ typedef struct Game113D60Effect {
 f32 func_15047D60(f32);
 f32 func_150ADA68();
 s32 func_150ADA20(void);
-void func_151436B4(f32, f32, f32, void *);
 f32 func_15144528(f32, f32, f32);
 void *func_150E5FD0(void *, void *, f32, f32, f32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A1304, D_800A1308, D_800BE9A4;
@@ -162,7 +162,6 @@ void func_150E6F18(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150E6F18 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E6F18.s")
 s32 func_1514ECE0();
-f32 func_151423D8(u8);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150E6FAC CURRENT (1025) */
 void func_150E6FAC(f32 *arg0, u8 *arg1) {

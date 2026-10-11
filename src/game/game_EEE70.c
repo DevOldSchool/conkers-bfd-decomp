@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_EEE70.c
@@ -13,10 +14,8 @@
 
 typedef struct GameEEE70State {
     u8 pad0[0x1D4];
-    s32 field_1D4;
+    void *field_1D4;
 } GameEEE70State;
-
-void func_15142314(s32, s32, void *);
 
 s32 func_150C19C0(void *arg0, GameEEE70State *arg1, u8 arg2) {
     s32 index;

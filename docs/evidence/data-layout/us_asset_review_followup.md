@@ -40,9 +40,9 @@ malformed model boundary regression.
 
 ## Acceptance
 
-Validated against the inputs of this follow-up, with commit `30ff4115` as the
-comparison baseline. The PR records the final tested commit; committing the
-validated files does not change the report input fingerprint.
+The following local results validate review-fix commit
+`747996a69101367ab367a5a6fa0f521f5c171bb6`, with commit `30ff4115` as the comparison
+baseline. Committing those validated files preserved the report fingerprint.
 
 - `./conker test`: **2,448 tests, eight skips, no failures** in the pinned Docker runner.
 - `./conker build --assets`: **all 67,108,864 US ROM bytes identical**, SHA-1
@@ -66,3 +66,12 @@ Report SHA-256:
 
 Build-input fingerprint:
 `5b219b0b596926d129dc42cd11b3b9903d2923b7ee2e9eb06170a401ab9838c1`.
+
+## Integration scope
+
+The final branch also incorporates remote merge `e4922c1b`, which brings in newer
+`main` C declarations, two function matches and an m2c update. That merge changes
+none of the 26 review-fix files. The local results above belong to `747996a6`;
+they are not a claim of a new whole-checkout ROM or report validation after the
+upstream merge. Public CI checks the combined PR head. Its local report snapshot
+is consequently historical until a fresh whole-checkout report is requested.

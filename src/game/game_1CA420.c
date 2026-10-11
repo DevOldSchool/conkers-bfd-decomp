@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1CA420.c
@@ -48,28 +49,21 @@ void func_1519CFA0(Game1CA420Actor *arg0) {
     arg0->flags &= ~2;
     packet->flags = (packet->flags |= 1) | 4;
 }
-/* Call context: func_151478F4: unique active project prototype */
 /* Call context: func_1514EDF0: unique active project prototype */
-void func_151478F4(s32);
-void func_1514EDF0(s32, s32);
-
 void func_1519CFD0(void *arg0) {
-    s32 *temp_v0;
+    void **temp_v0;
 
-    temp_v0 = *(s32 **)((u8 *)arg0 + 0x98);
-    func_1514EDF0((s32) arg0, *temp_v0);
-    func_151478F4((s32) arg0);
+    temp_v0 = *(void ***)((u8 *)arg0 + 0x98);
+    func_1514EDF0(arg0, *temp_v0);
+    func_151478F4(arg0);
 }
-/* Call context: func_15147928: unique active project prototype */
 /* Call context: func_1514EDF0: unique active project prototype */
-void func_15147928(s32);
-
 void func_1519D000(void *arg0) {
-    s32 *temp_v0;
+    void **temp_v0;
 
-    temp_v0 = *(s32 **)((u8 *)arg0 + 0x98);
-    func_1514EDF0((s32) arg0, *temp_v0);
-    func_15147928((s32) arg0);
+    temp_v0 = *(void ***)((u8 *)arg0 + 0x98);
+    func_1514EDF0(arg0, *temp_v0);
+    func_15147928(arg0);
 }
 typedef struct Game1CA420Vector {
     f32 x;
@@ -313,9 +307,6 @@ s32 func_1519D240(Game1CA420Trail *arg0) {
     }
     return 1;
 }
-s32 func_151491F4(s16, s8, s8, u8, u8, s32, u8, s32);
-void func_1514EC1C(s32, s32, s32);
-s32 func_1514ED3C(void *, s32, void **);
 u32 func_150ADA20(void);
 extern f32 D_800BE9A8;
 
@@ -796,7 +787,6 @@ s32 func_1519E304(Game1CA420Transform *arg0, f32 *arg1,
 }
 void func_1519E688(void);
 s32 func_1519D030(void *, s32, s16, u8, u8, s32);
-s32 func_151491F4(s16, s8, s8, u8, u8, s32, u8, s32);
 
 void func_1519E3BC(void *arg0, s16 arg1, u8 arg2, s32 arg3) {
     func_1519E688();
@@ -834,8 +824,6 @@ typedef struct Game1CA420Effect {
     Game1CA420OwnerLink link;
 } Game1CA420Effect;
 
-s32 func_1514ED3C(void *, s32, void **);
-void func_1514EC1C(s32, s32, s32);
 
 void func_1519E464(Game1CA420Effect *arg0) {
     struct {
@@ -858,7 +846,7 @@ void func_1519E464(Game1CA420Effect *arg0) {
         locals.result = func_1519D030(locals.link->actor, locals.link->value, arg0->timer,
                                arg0->flags & 1, arg0->strength, arg0->mode);
         if (locals.result != 0) {
-            if (func_1514ED3C(locals.link->actor->links, (s32)arg0, 0) != 0) {
+            if (func_1514ED3C(locals.link->actor->links, arg0, 0) != 0) {
                 func_1514EC1C(locals.result, (s32)locals.link->actor, 0x10);
             }
         }
@@ -868,7 +856,6 @@ void func_1519E464(Game1CA420Effect *arg0) {
         arg0->flags |= 1;
     }
 }
-void func_1516972C(s32);
 
 typedef struct Game1CA420Link {
     u8 *actor;
@@ -891,8 +878,6 @@ typedef union Game1CA420Event {
         u8 secondGeneration;
     } swapped;
 } Game1CA420Event;
-
-void func_1516972C(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1519E570 CURRENT (250) */
 void func_1519E570(u8 *arg0, Game1CA420Event *arg1, u8 arg2) {
@@ -927,9 +912,7 @@ void func_1519E570(u8 *arg0, Game1CA420Event *arg1, u8 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1519E570 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519E570.s")
 
-extern void func_1516972C(s32 arg0);
-
-void func_1519E61C(s32 arg0, s32 arg1, u8 arg2) {
+void func_1519E61C(void *arg0, s32 arg1, u8 arg2) {
     if ((arg2 == 0) || (arg2 == 9)) {
         func_1516972C(arg0);
     }
@@ -945,12 +928,11 @@ void func_1519E688(void) {
 }
 void func_1519E688(void);
 void *func_10022EC0(void *, const void *, u32);
-s32 func_151491F4(s16, s8, s8, u8, u8, s32, u8, s32);
-extern s32 D_800E0920[1];
+extern void *D_800E0920[1];
 
 void func_1519E6BC(u8 *arg0) {
     Game1CA420Link link;
-    s32 result;
+    u8 *result;
 
     func_1519E688();
     if (D_800E0920[0] == 0) {
@@ -1025,27 +1007,23 @@ void func_1519E818(u8 *arg0, Game1CA420Event *arg1, u8 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519E818.s")
 /* Call context: func_1514933C: unique active project prototype */
 /* Call context: func_1514EDF0: unique active project prototype */
-void func_1514933C(s32);
-void func_1514EDF0(s32, s32);
-void func_15149368();
 
 void func_1519E8CC(void *arg0) {
-    func_1514EDF0((s32) arg0, *(s32 *)((u8 *)arg0 + 0x28));
-    func_1514933C((s32) arg0);
+    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x28));
+    func_1514933C(arg0);
 }
 void func_1519E8F8(void *arg0) {
-    func_1514EDF0((s32) arg0, *(s32 *)((u8 *)arg0 + 0x28));
-    func_15149368((s32) arg0);
+    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x28));
+    func_15149368(arg0);
 }
 /* Call context: func_1514933C: unique active project prototype */
-void func_1514933C(s32);
-extern s32 D_800E0920[1];
+extern void *D_800E0920[1];
 
-void func_1519E924(s32 arg0) {
+void func_1519E924(void *arg0) {
     D_800E0920[0] = 0;
     func_1514933C(arg0);
 }
-void func_1519E948(void) {
+void func_1519E948(void *arg0) {
     D_800E0920[0] = 0;
-    func_15149368();
+    func_15149368(arg0);
 }

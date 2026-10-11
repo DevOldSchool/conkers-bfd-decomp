@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_E8C10.c
@@ -107,7 +108,6 @@ void func_150BD740(u8 *arg0, s32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E8C10/func_150BD740.s")
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
-void *func_15147DA0(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, void *, s32, u8, s32);
 extern f32 D_8009FFD0, D_8009FFD4, D_8009FFD8, D_8009FFDC, D_8009FFE0, D_8009FFE4;
 
 typedef struct GameE8C10Emission {

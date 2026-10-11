@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_183640.c
@@ -16,7 +17,6 @@
  */
 
 typedef struct Game183640Copy3 { s32 words[3]; } Game183640Copy3;
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_100226F0(void *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15156190 CURRENT (933) */
@@ -85,7 +85,6 @@ void *func_15156190(s32 arg0, u8 arg1, s32 arg2, u8 arg3, s32 arg4);
 void func_15156388(s32 arg0, u8 arg1, s32 arg2) {
     func_15156190(arg0, arg1, arg2, 0xFF, 0);
 }
-void func_1516972C(u8 *);
 extern f32 D_800BE9A4;
 extern s32 D_800BE9E4;
 
@@ -412,18 +411,16 @@ void func_15156D24(void *arg0, u8 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15156D24 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_183640/func_15156D24.s")
-void func_15156F94(s32 arg0) {
+void func_15156F94(u8 *arg0) {
     func_151D5E30(arg0 + 0x88, arg0);
 }
-void func_15169804(s32);
 
-void func_15156FB8(s32 arg0) {
+void func_15156FB8(void *arg0) {
     func_15156F94(arg0);
     func_15169804(arg0);
 }
-void func_15169824(s32 arg0);
 
-void func_15156FE4(s32 arg0) {
+void func_15156FE4(void *arg0) {
     func_15156F94(arg0);
     func_15169824(arg0);
 }

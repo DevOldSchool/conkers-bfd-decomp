@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_177480.c
@@ -124,7 +125,6 @@ s32 func_1514A19C(Game177480InterpolationOwner *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514A19C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177480/func_1514A19C.s")
 
-void func_1513F680(void *, s32, s32, s32, u8);
 extern f32 D_800A57A0;
 extern f32 D_800A57A4;
 extern f32 D_800A57A8;

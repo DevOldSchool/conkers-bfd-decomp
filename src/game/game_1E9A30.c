@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1E9A30.c
@@ -28,7 +29,6 @@ s32 func_151BC580(void *arg0) {
     }
     return result;
 }
-void func_1516972C(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151BC5A4 CURRENT (10) */
 void func_151BC5A4(void *arg0, void *arg1, u8 arg2) {
@@ -125,7 +125,6 @@ s32 func_151BC64C(u8 *actor) {
     }
     return 1;
 }
-f32 func_15143E64(void *);
 extern f32 D_800AA848;
 extern f32 D_800AA84C;
 extern f32 D_800BE9A4;
@@ -372,7 +371,6 @@ void func_151BD79C(u8 *arg0, s32 arg1) {
     }
     func_1513170C(arg0, arg1);
 }
-void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
 
 void func_151BD7F4(void *arg0) {
     struct {
@@ -382,11 +380,10 @@ void func_151BD7F4(void *arg0) {
 
     sp.sp18 = arg0;
     sp.sp1C = *(u8 *)((u8 *)arg0 + 0x3B);
-    func_151494E0((s32 *)&sp, 0x3B, (s32)arg0);
+    func_151494E0(&sp, 0x3B);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BD828.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BDD8C.s")
-void func_1516972C(s32);
 void func_15169850(s32, u8, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151BE0AC CURRENT (260) */
@@ -406,10 +403,9 @@ void func_151BE0AC(void *arg0, void *arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151BE0AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BE0AC.s")
-void func_1516972C(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151BE138 CURRENT (421) */
-void func_151BE138(s32 arg0) {
+void func_151BE138(u8 *arg0) {
     void *var_v0;
     s32 temp_a0;
 
@@ -432,15 +428,13 @@ void func_151BE138(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151BE138 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BE138.s")
-void func_151BE138(s32 arg0);
-void func_1514933C(s32 arg0);
-void func_15149368(s32 arg0);
+void func_151BE138(u8 *arg0);
 
-void func_151BE1B8(s32 arg0) {
+void func_151BE1B8(void *arg0) {
     func_151BE138(arg0);
     func_1514933C(arg0);
 }
-void func_151BE1E4(s32 arg0) {
+void func_151BE1E4(void *arg0) {
     func_151BE138(arg0);
     func_15149368(arg0);
 }

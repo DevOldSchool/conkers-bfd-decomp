@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1BA670.c
@@ -38,7 +39,6 @@ typedef struct Game1BA670State {
     Game1BA670Slot slots[100];
 } Game1BA670State;
 
-void func_1516972C(void *);
 void func_100226F0(void *, s32);
 
 void func_1518E308(Game1BA670State *arg0) {
@@ -55,8 +55,6 @@ void func_1518E308(Game1BA670State *arg0) {
     }
     func_100226F0(arg0->slots, sizeof(arg0->slots));
 }
-/* Call context: func_1518E308: unique active project prototype */
-void func_1518E308(Game1BA670State *);
 
 void func_1518E37C(void *arg0, u8 arg1) {
     if (arg1 != *(u8 *)((u8 *)arg0 + 0x22)) {
@@ -64,7 +62,6 @@ void func_1518E37C(void *arg0, u8 arg1) {
         *(u8 *)((u8 *)arg0 + 0x22) = arg1;
     }
 }
-void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void *func_10022EC0(void *, const void *, u32);
 
 void *func_1518E3C4(void **arg0, u8 arg1) {

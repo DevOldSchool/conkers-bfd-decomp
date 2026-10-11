@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_122B60.c
@@ -14,12 +15,8 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_150F631C(s32 arg0);
-void func_1516972C(void *arg0);
-void func_1514933C(s32 arg0);
-void func_15149368(s32 arg0);
-void func_10022EC0(s32, void **, s32);
-s32 func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_150F631C(u8 *arg0);
+void *func_10022EC0(void *, const void *, u32);
 
 typedef struct Game122B60TextureAttachment {
     u8 unknown00[0x18];
@@ -177,7 +174,7 @@ void func_150F5C08(void *arg0, s16 arg1, u8 arg2, s32 arg3) {
         u8 pad5[3];
         f32 field_8;
     } packet;
-    s32 temp_v0;
+    u8 *temp_v0;
 
     packet.field_0 = arg0;
     packet.field_4 = *(u8 *)((u8 *)arg0 + 0x3B);
@@ -268,7 +265,7 @@ void func_150F6178(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F6178 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_122B60/func_150F6178.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F631C CURRENT (505) */
-void func_150F631C(s32 arg0) {
+void func_150F631C(u8 *arg0) {
     s32 temp_a1;
     void *temp_a0;
 
@@ -283,11 +280,11 @@ void func_150F631C(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F631C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_122B60/func_150F631C.s")
-void func_150F6368(s32 arg0) {
+void func_150F6368(void *arg0) {
     func_150F631C(arg0);
     func_1514933C(arg0);
 }
-void func_150F6394(s32 arg0) {
+void func_150F6394(void *arg0) {
     func_150F631C(arg0);
     func_15149368(arg0);
 }
