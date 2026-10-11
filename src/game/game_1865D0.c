@@ -11,7 +11,6 @@
  * - func_1515942C
  * - func_15159594
  * - func_151596BC
- * - func_15159890
  * - func_15159C08
  * - func_1515A11C
  * - func_1515A238
@@ -291,8 +290,103 @@ u8 func_151596BC(u8 *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151596BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_151596BC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_15159890.s")
-void func_15159890(f32 *, f32 *, u8, u8);
+typedef struct { f32 x, y, z; } Game1865D0Vector;
+
+typedef struct {
+    s32 flags, zero4;
+    s16 texture, lifetime;
+    s32 zeroC, zero10;
+    u8 zero14, zero15, zero16, zero17, zero18, zero19, zero1A;
+    u8 alpha, maximum, kind;
+    s16 duration, period, zero22;
+    f32 zero24, width, height;
+    Game1865D0Vector position;
+    f32 zero3C, zero40, zero44;
+    Game1865D0Vector velocity;
+    f32 rotation;
+    s32 mode, unused5C;
+    s8 field60, field61, field62, field63;
+    u8 pad64[0xC];
+} Game1865D0Particle;
+
+typedef struct {
+    f32 size;
+    u8 phase0, phase1, step0, step1;
+    f32 amount0, amount1, speed, damping;
+    u8 phase2, phase3, step2, step3;
+    f32 amount2, amount3, limit;
+} Game1865D0ParticleMotion;
+
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+void *func_151303BC(s32, u8, s32);
+void *func_10022EC0(void *, const void *, u32);
+extern f32 D_800A63A8, D_800A63AC, D_800A63B0, D_800A63B4;
+extern f32 D_800A63B8, D_800A63BC, D_800A63C0;
+
+void *func_15159890(f32 *arg0, f32 *arg1, u8 arg2, u8 arg3) {
+    Game1865D0Particle particle;
+    void *result;
+    Game1865D0ParticleMotion motion;
+
+    particle.kind = 0x2F;
+    particle.texture = 0xC01;
+    particle.flags = 0x200005;
+    particle.zero4 = 0;
+    particle.zero1A = 0;
+    particle.zero19 = 0;
+    particle.zero18 = 0;
+    particle.zero17 = 0;
+    particle.zero16 = 0;
+    particle.zero15 = 0;
+    particle.zero14 = 0;
+    particle.zero10 = 0;
+    particle.zeroC = 0;
+    particle.maximum = 0xFF;
+    particle.zero22 = 0;
+    particle.zero24 = 0.0f;
+    particle.mode = 0x3207;
+    particle.field60 = 5;
+    particle.field61 = 5;
+    particle.field62 = 4;
+    particle.field63 = -1;
+    particle.position = *(Game1865D0Vector *)arg0;
+    particle.zero3C = 0.0f;
+    particle.zero40 = 0.0f;
+    particle.zero44 = 0.0f;
+    motion.phase0 = 0;
+    motion.phase1 = 0;
+    motion.phase2 = 0;
+    motion.phase3 = 0;
+    motion.limit = 1000.0f;
+    motion.speed = 4.0f;
+    motion.damping = 0.25f;
+    particle.velocity = *(Game1865D0Vector *)arg1;
+    if (func_150ADA20() & 1) particle.mode |= 0x40;
+    if (func_150ADA20() & 1) particle.mode |= 0x80;
+    particle.lifetime = (func_150ADA20() % 25U) + 0x1E;
+    particle.duration = 0x1E;
+    particle.period = 8;
+    particle.alpha = (func_150ADA20() % 101U) + 0x64;
+    particle.height = func_150ADA68() * 20.0f + 49.0f;
+    particle.width = particle.height;
+    motion.size = particle.height;
+    motion.step0 = (func_150ADA20() % 5U) + 4;
+    motion.step1 = (func_150ADA20() % 5U) + 4;
+    motion.amount0 = (func_150ADA68() * 0.25f + D_800A63A8) * motion.size;
+    motion.amount1 = (func_150ADA68() * 0.25f + D_800A63AC) * motion.size;
+    motion.step2 = (func_150ADA20() % 5U) + 4;
+    motion.step3 = (func_150ADA20() % 5U) + 4;
+    motion.amount2 = (func_150ADA68() * D_800A63B0 + D_800A63B4) * motion.size;
+    motion.amount3 = (func_150ADA68() * D_800A63B8 + D_800A63BC) * motion.size;
+    particle.rotation = (func_150ADA68() * 254.0f + 108.0f) * D_800A63C0;
+    result = func_151303BC((s32)&particle, 2, 0x28);
+    if (result != NULL) {
+        func_10022EC0((u8 *)result + 0xA8, &motion, 0x28);
+    }
+    return result;
+}
+void *func_15159890(f32 *, f32 *, u8, u8);
 
 void func_15159BB0(f32 arg0, f32 arg1, f32 arg2, s32 arg3, s32 arg4, s32 arg5, void *arg6) {
     f32 position[3];
