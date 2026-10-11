@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1515D480
  * - func_1515D4D4
  * - func_1515D520
  * - func_1515D6D0
@@ -58,18 +57,13 @@ void *func_1515D440(void) {
 /* Call context: func_10003C40: unique active project prototype */
 void * func_10003C40(s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515D480 CURRENT (42) */
 void *func_1515D480(s32 arg0) {
-    s32 sp18;
     void *sp1C;
 
-    sp18 = arg0 * 0x60;
-    sp1C = func_10003C40(sp18, 1, 2, 0);
-    func_100226F0(sp1C, sp18);
+    sp1C = func_10003C40((arg0 * 0x60), 1, 2, 0);
+    func_100226F0(sp1C, (arg0 * 0x60));
     return sp1C;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515D480 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515D480.s")
 extern s8 D_800DCD20[];
 extern u8 D_800DCD27;
 extern s32 D_800DCD7C;

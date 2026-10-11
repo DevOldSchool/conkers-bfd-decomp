@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150FCBC0
- * - func_150FCF1C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -56,17 +55,16 @@ typedef struct Game129EE0Values {
     f32 value2;
 } Game129EE0Values;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FCF1C CURRENT (17) */
 f32 func_150FCF1C(void *arg0) {
+    void *values;
     Game129EE0Values sp20;
 
-    if (D_800D9AA0 == 0) {
+    values = D_800D9AA0;
+    if (!values) {
         return 1.0f;
     }
-    sp20.value0 = (f32)*(s16 *)((u8 *)D_800D9AA0 + 0);
-    sp20.value1 = (f32)*(s16 *)((u8 *)D_800D9AA0 + 2);
-    sp20.value2 = (f32)*(s16 *)((u8 *)D_800D9AA0 + 4);
+    sp20.value0 = *(s16 *)((u8 *)values + 0);
+    sp20.value1 = *(s16 *)((u8 *)values + 2);
+    sp20.value2 = (f32)*(s16 *)((u8 *)values + 4);
     return func_15165BB0(arg0, &sp20, 2007.0f, 9005.0f, D_800A1F2C);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FCF1C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_129EE0/func_150FCF1C.s")

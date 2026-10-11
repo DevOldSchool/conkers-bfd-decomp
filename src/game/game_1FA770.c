@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151CD2C0
  * - func_151CD3CC
  * - func_151CD4C0
  * - func_151CD674
@@ -29,25 +28,20 @@ typedef struct Game1FA770Packet {
     u8 padD[3];
 } Game1FA770Packet;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD2C0 CURRENT (120) */
 s32 func_151CD2C0(void *arg0, u8 arg1, s32 arg2) {
-    struct { Game1FA770Packet packet; s32 saved; } allocation;
     s32 result;
+    Game1FA770Packet packet;
 
-    allocation.packet.field_0 = arg0;
-    allocation.packet.field_4 = *(s32 *)((u8 *)arg0 + 0x18);
-    allocation.packet.field_8 = 0;
-    allocation.packet.field_C = (s8) *(s32 *)((u8 *)arg0 + 0x1C);
+    packet.field_0 = arg0;
+    packet.field_4 = *(s32 *)((u8 *)arg0 + 0x18);
+    packet.field_8 = 0;
+    packet.field_C = (s8) *(s32 *)((u8 *)arg0 + 0x1C);
     result = func_15149130(0x12C, -1, -1, -1, 0, 0x1E, 0x10, (s32) arg1, arg2);
     if (result != 0) {
-        allocation.saved = result;
-        func_10022EC0((void *)(result + 0x28), &allocation.packet, 0x10);
-        result = allocation.saved;
+        func_10022EC0((void *)(result + 0x28), &packet, 0x10);
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CD2C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CD2C0.s")
 void func_151CD35C(s32 arg0) {
     s32 sp1C;
 

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_particle_emitter_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150D8B3C
  * - func_150D8E4C
  * - func_150D8FAC
  * - func_150D942C
@@ -35,21 +34,12 @@ typedef struct {
     f32 z;
 } Game105FC0Vec3;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D8B3C CURRENT (270) */
 void func_150D8B3C(void *arg0, void *arg1) {
     Game105FC0Vec3 first;
     Game105FC0Vec3 second;
-    f32 var_fv0;
-
-    if (D_800BE616 != 0) {
-        var_fv0 = D_800A0B40;
-    } else {
-        var_fv0 = D_800A0B44;
-    }
-    func_15145740(arg0, &first, &second, arg1, var_fv0);
+    func_15145740(arg0, &first, &second, arg1,
+                  (D_800BE616 != 0) ? D_800A0B40 : D_800A0B44);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D8B3C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D8B3C.s")
 
 typedef struct Game105FC0Spawn {
     Game105FC0Vec3 position;

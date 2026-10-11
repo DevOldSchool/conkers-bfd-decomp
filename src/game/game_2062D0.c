@@ -9,8 +9,6 @@
  * - func_151D8F30
  * - func_151D9014
  * - func_151D9534
- * - func_151D98D0
- * - func_151D9918
  * - func_151D9A20
  * - func_151D9B8C
  * - func_151D9FC0
@@ -300,27 +298,25 @@ typedef struct Game2062D0Pair {
 
 extern Game2062D0Pair D_800AB384;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D98D0 CURRENT (20) */
 u8 func_151D98D0(void) {
     Game2062D0Pair sp20;
+    s32 roll;
 
     sp20 = D_800AB384;
-    return ((u8 *)sp20.values)[(func_150ADA20() & 1) * 4 + 3];
+    roll = func_150ADA20();
+    return ((u8 *)sp20.values)[(roll & 1) * 4 + 3];
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D98D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D98D0.s")
 extern s32 func_150ADA20();
 extern Game2062D0Pair D_800AB38C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D9918 CURRENT (20) */
 u8 func_151D9918(void) {
     Game2062D0Pair sp20;
+    s32 roll;
 
     sp20 = D_800AB38C;
-    return ((u8 *)sp20.values)[(func_150ADA20() & 1) * 4 + 3];
+    roll = func_150ADA20();
+    return ((u8 *)sp20.values)[(roll & 1) * 4 + 3];
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D9918 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9918.s")
 typedef struct Game2062D0Quint {
     u32 field_0;
     u32 field_4;

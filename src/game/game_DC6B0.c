@@ -10,7 +10,6 @@
  * - func_150AF328
  * - func_150AF6E4
  * - func_150AF7C4
- * - func_150AFBF4
  * - func_150AFDB0
  * - func_150AFE64
  * - func_150B0094
@@ -112,27 +111,15 @@ f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AFBF4 CURRENT (220) */
 s32 func_150AFBF4(u8 *arg0) {
-    volatile struct {
-        u8 *ptr;
-        u8 pad[4];
-    } saved;
-    register f32 temp_fv0;
-    volatile f32 *temp_v1;
+    f32 *temp_v1;
 
-    *(f32 *)((u8 *)arg0 + 0x78) += *(f32 *)((u8 *)arg0 + 0x7C) * D_800BE9A4;
-    temp_fv0 = func_15144B68(*(f32 *)((u8 *)arg0 + 0x78));
-    temp_v1 = (volatile f32 *)((s32)arg0 + 0x70);
-    temp_v1[2] = temp_fv0;
-    saved.ptr = (u8 *)temp_v1;
-    temp_fv0 = func_15047D60(temp_fv0);
-    temp_v1 = (volatile f32 *)saved.ptr;
-    *(f32 *)((u8 *)arg0 + 0x10) = (f32) (temp_v1[0] + (temp_v1[1] * temp_fv0));
+    *(f32 *)((u8 *)arg0 + 0x78) = (f32) ((*(f32 *)((u8 *)arg0 + 0x7C) * D_800BE9A4) + *(f32 *)((u8 *)arg0 + 0x78));
+    temp_v1 = (f32 *)arg0 + 0x1C;
+    temp_v1[2] = func_15144B68(temp_v1[2]);
+    *(f32 *)((u8 *)arg0 + 0x10) = (f32) (temp_v1[0] + (temp_v1[1] * func_15047D60(temp_v1[2])));
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150AFBF4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AFBF4.s")
 void func_1516D99C(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 
 void func_150AFC68(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {

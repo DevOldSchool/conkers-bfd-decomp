@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_slot_view_controller_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151D87E0
  * - func_151D8868
  * - func_151D8A24
  * - func_151D8C00
@@ -17,36 +16,22 @@
 extern u8 D_80084060[4];
 extern u8 D_800BE944[4];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D87E0 CURRENT (280) */
 s32 func_151D87E0(u8 arg0) {
-    s32 var_a1;
-    s32 var_v1;
-    s32 var_v0;
-    u8 temp_a0;
+    u8 i;
 
-    var_v0 = 0;
-    var_v1 = arg0;
-    var_a1 = 0;
-loop_1:
-    if (var_v1 & (1 << var_a1)) {
-        temp_a0 = D_80084060[var_v0];
-        if ((s32)temp_a0 >= 4) {
-            return 0;
+    for (i = 0; i < 4; i++) {
+        if (arg0 & (1 << i)) {
+            u8 temp_a0 = D_80084060[i];
+            if (temp_a0 >= 4) {
+                return 0;
+            }
+            if (D_800BE944[temp_a0] != 0) {
+                return 1;
+            }
         }
-        if (D_800BE944[temp_a0] != 0) {
-            return 1;
-        }
-    }
-    var_v0 += 1;
-    var_a1 = var_v0 & 0xFF;
-    var_v0 = var_a1;
-    if (var_a1 < 4) {
-        goto loop_1;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D87E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_205C90/func_151D87E0.s")
 s32 func_151D87E0(u8);
 s32 func_15181CC8(s32);
 s32 func_1517EF00(s32);
