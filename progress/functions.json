@@ -39495,8 +39495,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 928,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501FFE8",
           "vram": "0x1501FFE8"
         }
@@ -83910,6 +83915,12 @@
       "symbol": "func_151C229C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1884,
+        "reason": "CURRENT1884 after three finishes and two bounded probe batches; E0 frame versus D8, integer and floating-point register allocation, global-address caching and scheduling remain. Canonical sound contracts and six vector snapshots recovered.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

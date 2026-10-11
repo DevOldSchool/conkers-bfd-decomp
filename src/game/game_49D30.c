@@ -25,7 +25,6 @@
  * - func_1501F72C
  * - func_1501FC8C
  * - func_1501FE68
- * - func_1501FFE8
  * - func_15020388
  * - func_15020878
  * - func_15020EC4
@@ -1019,7 +1018,7 @@ void func_1501FC8C(s32 arg0, f32 arg1, f32 *arg2, f32 *arg3, f32 *arg4, s32 arg5
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501FC8C.s")
 f32 func_150484A0(f32, f32);
 s32 func_1501F72C(s32, f32, f32 *, s32, s32 *);
-void func_1501FFE8(void *, void *, s32, u16);
+void func_1501FFE8(void *, void *, s32, s32);
 extern f32 D_800969D8;
 extern f32 D_800969DC;
 extern void *D_800C35C8[];
@@ -1062,7 +1061,54 @@ void func_1501FE68(s32 arg0, f32 arg1, f32 *arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1501FE68 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501FE68.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501FFE8.s")
+typedef struct {
+    f32 x, y, z;
+} Game1FFE8Point;
+
+typedef struct {
+    s16 x, y, z;
+    u16 flags;
+} Game1FFE8Key;
+
+void func_1501FFE8(void *arg0, void *arg1, s32 arg2, s32 arg3) {
+    s32 flags;
+    s32 index;
+    s32 first;
+    s32 count;
+    s32 output;
+
+    flags = 6;
+    if (arg2 - 1 >= 0) {
+        flags = 7;
+        first = arg2 - 1;
+        count = 3;
+        output = 0;
+    } else {
+        first = arg2;
+        count = 2;
+        output = 1;
+    }
+    if (arg2 + 2 < arg3) {
+        flags |= 8;
+        count++;
+    }
+    for (index = first; index < first + count; index++) {
+        ((Game1FFE8Point *)arg0)[output].x = ((Game1FFE8Key *)arg1)[index].x;
+        ((Game1FFE8Point *)arg0)[output].y = ((Game1FFE8Key *)arg1)[index].y;
+        ((Game1FFE8Point *)arg0)[output].z = ((Game1FFE8Key *)arg1)[index].z;
+        output++;
+    }
+    if (!(flags & 1)) {
+        ((Game1FFE8Point *)arg0)[0].x = ((Game1FFE8Point *)arg0)[1].x;
+        ((Game1FFE8Point *)arg0)[0].y = ((Game1FFE8Point *)arg0)[1].y;
+        ((Game1FFE8Point *)arg0)[0].z = ((Game1FFE8Point *)arg0)[1].z;
+    }
+    if (!(flags & 8)) {
+        ((Game1FFE8Point *)arg0)[3].x = ((Game1FFE8Point *)arg0)[2].x;
+        ((Game1FFE8Point *)arg0)[3].y = ((Game1FFE8Point *)arg0)[2].y;
+        ((Game1FFE8Point *)arg0)[3].z = ((Game1FFE8Point *)arg0)[2].z;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15020388.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15020878.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15020EC4.s")

@@ -82,6 +82,143 @@ void func_151C2050(Game1C2050Owner *arg0, Game1EF500EmitterVector *arg1,
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C229C.s")
+typedef struct {
+    u8 pad00[0x60];
+    Game1EF500EmitterVector direction;
+    u8 pad6C[0x20];
+    f32 lifetime;
+    u8 pad90[8];
+    f32 scale;
+    s8 field9C;
+    u8 pad9D;
+    u16 sound;
+    u8 enabled, listener;
+} Game1C2734State;
+
+typedef struct {
+    u8 pad00[0x34];
+    Game1EF500EmitterVector position;
+} Game1C2734Owner;
+
+typedef struct {
+    u8 pad00[0x2F8];
+    Game1EF500EmitterVector position;
+    u8 pad304[0x7C];
+    f32 rotation;
+    u8 pad384[0x61C];
+} Game1C2734Listener;
+
+typedef struct {
+    u16 sound, range;
+} Game1C2734Sound;
+
+void func_151C436C(s32, void *, s32);
+u8 func_151C43E0(void *, u8 *, f32);
+void func_151C4510(void *, void *, f32);
+s32 func_151C455C(s32, u8 *, f32);
+u32 func_150ADA20(void);
+s32 func_1000A420(s32, s32, s32, f32, s32, s32, s32, s32, s32,
+                  s32 *, s32 *, s32 *);
+s32 func_1000F3D0(u16);
+void func_1000F85C(u16, s16, s32);
+s32 func_10010F30(s32, u16, u8, s16, s32);
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+extern s32 D_80082FA0, D_800BE9E4;
+extern Game1C2734Sound D_8008FBE8[];
+extern f32 D_800AAA38, D_800BE9A4;
+extern Game1C2734Listener *D_800DBFF0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C2734 CURRENT (1884) */
+s8 func_151C2734(Game1C2734Owner *arg0) {
+    s8 success;
+    Game1C2734State *state;
+    Game1C2734Listener *selected;
+    s32 sound;
+    u32 random;
+    s32 index;
+    Game1C2734Listener *cursor;
+    Game1C2734Sound *entry;
+    s32 range;
+    f32 originX, originY, originZ;
+    f32 directionX, directionY, directionZ;
+    s32 pan;
+    s32 attenuation;
+    f32 dx, dy, dz;
+    f32 dot;
+    f32 distance;
+    f32 maximum;
+
+    state = (Game1C2734State *)((u8 *)arg0 + 0x110);
+    success = 1;
+    func_151C436C((s32)arg0, state, D_800BE9E4);
+    if (func_151C43E0(arg0, (u8 *)state, D_800BE9A4) == 0) {
+        success = 0;
+    }
+    func_151C4510(arg0, state, D_800BE9A4);
+    if (func_151C455C((s32)arg0, (u8 *)state, D_800BE9A4) == 0) {
+        success = 0;
+    }
+    if (state->enabled != 0 && success == 1) {
+        sound = 0;
+        selected = NULL;
+        if (state->sound == 0) {
+            random = func_150ADA20();
+            index = 0;
+            if (D_80082FA0 >= 0) {
+                entry = &D_8008FBE8[random & 7];
+                range = entry->range;
+                cursor = D_800DBFF0;
+                originX = arg0->position.x;
+                originY = arg0->position.y;
+                originZ = arg0->position.z;
+                directionX = state->direction.x;
+                directionY = state->direction.y;
+                directionZ = state->direction.z;
+                maximum = (f32)(u32)range * state->scale;
+                do {
+                    dx = cursor->position.x - originX;
+                    dy = cursor->position.y - originY;
+                    dz = cursor->position.z - originZ;
+                    selected = cursor;
+                    cursor++;
+                    dot = directionX * dx + dy * directionY + dz * directionZ;
+                    if (dot < maximum && (f32)(range - 10) * state->scale < dot &&
+                        (distance = sqrtf(dx * dx + dy * dy + dz * dz)) != 0.0f &&
+                        distance < state->lifetime * state->scale && D_800AAA38 < dot / distance) {
+                        sound = entry->sound;
+                        state->listener = index;
+                        break;
+                    }
+                    index++;
+                    selected = NULL;
+                } while (index <= D_80082FA0);
+            }
+        } else {
+            if (func_1000F3D0(state->sound) != 0) {
+                selected = &D_800DBFF0[state->listener];
+            } else {
+                state->enabled = 0;
+            }
+        }
+        if (selected != NULL) {
+            pan = 0x40;
+            range = (s32)(arg0->position.x - selected->position.x);
+            index = (s32)(arg0->position.y - selected->position.y);
+            random = (s32)(arg0->position.z - selected->position.z);
+            func_1000A420(range, index, (s32)random, selected->rotation, range, index, (s32)random, 10000, 9999,
+                          &pan, &attenuation, NULL);
+            if (sound != 0) {
+                state->sound = func_10010F30(sound, 0x6590, pan & 0x7F, 0, pan & 0x80);
+            } else {
+                func_1000F85C(state->sound, 4, pan & 0x7F);
+                func_1000F85C(state->sound, 0x100, pan & 0x80);
+            }
+        }
+    }
+    return success;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C2734 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C2734.s")
 void *func_10022EC0(void *, const void *, u32);
 s32 func_15144B34(s32);
