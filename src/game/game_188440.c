@@ -32,6 +32,99 @@ void func_1515B62C(void *arg0, s16 *arg1, u8 arg2) {
         func_1516972C(arg0);
     }
 }
+void *func_10022EC0(void *, const void *, u32);
+u8 func_151D8E20(void);
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+void *func_1515548C(void *, u8, s32, s32, s32, u8, s32);
+extern s32 (*D_8008FD04[])(void);
+extern f32 D_800A6458, D_800A645C, D_800A6460, D_800A6464, D_800A6468;
+
+typedef struct {
+    f32 x, y, width, height;
+    u8 texture;
+    u8 pad11;
+    s16 lifetime;
+    u16 flags;
+    s16 duration, period;
+    u8 mode, red, green, blue, alpha, maximum;
+    u8 endRed, endGreen, endBlue, endAlpha;
+    s32 zero24, zero28, zero2C;
+    s32 field30, field34, field38, field3C;
+    u8 field40, field41;
+    u8 pad42[2];
+    s8 owner;
+    u8 pad45[0x13];
+} Game188440Particle;
+
+typedef struct {
+    s16 owner;
+    s16 pad2;
+    f32 acceleration, velocity, base, scale;
+    f32 pad14;
+} Game188440Motion;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515B674 CURRENT (5500) */
+void func_1515B674(s16 arg0) {
+    s16 count;
+    Game188440Particle particle;
+    void *result;
+    Game188440Motion motion;
+    register f32 speedScale;
+    register f32 sizeScale;
+    register f32 motionScale;
+
+    func_150ADA20();
+    count = 10;
+    particle.flags = 0x19;
+    particle.mode = 1;
+    particle.duration = 20;
+    particle.period = 12;
+    particle.red = 255;
+    particle.green = 255;
+    particle.blue = 255;
+    particle.maximum = 255;
+    motion.owner = arg0;
+    particle.owner = arg0;
+    particle.endRed = 255;
+    particle.endGreen = 255;
+    particle.endBlue = 255;
+    particle.endAlpha = 255;
+    particle.zero24 = 0;
+    particle.zero28 = 0;
+    particle.zero2C = 0;
+    particle.field40 = 0;
+    particle.field41 = 9;
+    particle.field30 = 7;
+    particle.field34 = 60;
+    particle.field38 = 128;
+    particle.field3C = 32;
+    if (count--) {
+        speedScale = D_800A6458;
+        sizeScale = D_800A645C;
+        motionScale = D_800A6460;
+        do {
+            motion.acceleration = (func_150ADA68() * 105.0f + 105.0f) * motionScale;
+            motion.velocity = func_150ADA68() * 3008.0f * motionScale;
+            motion.base = (func_150ADA68() * speedScale + D_800A6464) * sizeScale;
+            particle.width = motion.base;
+            particle.height = motion.base;
+            motion.scale = (func_150ADA68() * D_800A6468 + 94.0f) * sizeScale;
+            particle.x = func_150ADA68() * 200.0f + -100.0f;
+            particle.y = func_150ADA68() * 148.0f + -100.0f;
+            particle.texture = D_8008FD04[func_151D8E20()]();
+            particle.lifetime = (func_150ADA20() % 51U) + 50;
+            particle.alpha = (func_150ADA20() % 101U) + 100;
+            if (func_150ADA20() & 1) particle.flags |= 2;
+            if (func_150ADA20() & 1) particle.flags |= 4;
+            result = func_1515548C(&particle, 2, 0, 0, 0x18, 255, 1);
+            if (result != 0) {
+                func_10022EC0((u8 *)result + 0x70, &motion, 0x18);
+            }
+        } while (count--);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1515B674 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_188440/func_1515B674.s")
 extern f32 D_800BE9A4;
 

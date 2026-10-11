@@ -215,6 +215,111 @@ s32 func_1514B8B0(void *arg0) {
     }
     return 1;
 }
+void *func_10022EC0(void *, const void *, u32);
+void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
+extern u8 D_800A4AA0[];
+extern f32 D_800A5860, D_800A5864, D_800A5868, D_800A586C;
+extern f32 D_800A5870, D_800A5874, D_800A5878, D_800A587C, D_800A5880, D_800A5884;
+
+typedef struct {
+    s8 kind, mode;
+    u16 texture;
+    s16 lifetime;
+    u8 pad6[2];
+    s32 field8, fieldC;
+    u8 color[4];
+    f32 field14, field18;
+    Game177B50Vector position, origin, scale;
+    s32 flags;
+    u8 field44, field45, field46, field47;
+    s32 field48;
+    u8 pad4C[8];
+    s16 field54, field56;
+} Game177B50Descriptor;
+
+typedef struct {
+    f32 values[14];
+    Game177B50Vector direction;
+    Game177B50Vector velocity;
+} Game177B50Motion;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514B8E4 CURRENT (460) */
+void *func_1514B8E4(Game177B50Vector *arg0, f32 *arg1, s16 arg2, u8 arg3,
+                     Game177B50Vector *arg4, f32 arg5, f32 arg6, f32 arg7,
+                     u8 arg8, u8 arg9, u8 arg10, s32 arg11, u8 arg12,
+                     s16 arg13, s16 arg14, s32 arg15, u8 arg16, s32 arg17) {
+    void *result;
+    Game177B50Descriptor particle;
+    Game177B50Motion motion;
+    s32 flag1;
+    s32 timed;
+    s32 flag2;
+
+    if (arg4 != NULL) {
+        motion.direction = *arg4;
+    } else {
+        motion.direction.x = 0.0f;
+        motion.direction.y = 0.0f;
+        motion.direction.z = 0.0f;
+    }
+    motion.velocity.x = arg5;
+    motion.values[7] = 0.0f;
+    motion.values[8] = 0.0f;
+    motion.values[12] = 0.0f;
+    particle.fieldC = 0x3E3F;
+    motion.values[13] = D_800A5860;
+    motion.values[11] = D_800A5860;
+    motion.values[9] = D_800A5864;
+    motion.velocity.y = arg6;
+    motion.velocity.z = arg7;
+    motion.values[10] = D_800A5868;
+    motion.values[0] = arg1[0] * D_800A586C;
+    motion.values[2] = arg1[0] * D_800A5870;
+    motion.values[4] = arg1[0] * D_800A5874;
+    particle.field14 = 0.0f;
+    motion.values[1] = arg1[1] * D_800A5878;
+    motion.values[3] = arg1[1] * D_800A587C;
+    motion.values[6] = arg1[1] * D_800A5880;
+    motion.values[5] = arg1[1] * D_800A5884;
+    particle.field18 = 0.0f;
+    particle.mode = 0;
+    particle.texture = 0x2203;
+    particle.kind = arg11;
+    if (arg2 == -1) particle.lifetime = 300;
+    else particle.lifetime = arg2;
+    particle.field8 = 0;
+    particle.color[0] = 255;
+    particle.color[1] = 255;
+    particle.color[2] = 255;
+    particle.color[3] = 255;
+    particle.position = *arg0;
+    particle.origin.x = arg0->x;
+    particle.origin.y = arg0->y + 100.0f;
+    particle.origin.z = arg0->z;
+    particle.scale.x = 1.0f;
+    particle.scale.y = 1.0f;
+    particle.scale.z = 1.0f;
+    flag1 = (arg12 & 1) ? 0x800000 : 0;
+    timed = (arg2 == -1) ? 0 : 1;
+    flag2 = (arg12 & 2) ? 0x2000000 : 0;
+    particle.flags = flag2 | timed | 0x40000 | 0x80000 | 0x200000 | 0x400000 | flag1 | 0x40000000;
+    particle.field45 = 255;
+    particle.field46 = 0;
+    particle.field47 = 7;
+    particle.field48 = 0;
+    particle.field44 = arg3;
+    particle.field54 = arg13;
+    particle.field56 = arg14;
+    if (func_150ADA20() & 1) flag2 = 1;
+    else flag2 = 0;
+    result = func_1513D2F0((s32)&particle, (s32)D_800A4AA0, arg8, arg9, arg10,
+                           0x1C, flag2 | 2, 0, 0, arg15 + 0x50, arg16, arg17);
+    if (result != NULL) {
+        func_10022EC0((u8 *)result + 0x110, &motion, 0x50);
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514B8E4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514B8E4.s")
 extern f32 D_800A5888;
 extern f32 D_800A588C;

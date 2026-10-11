@@ -1192,6 +1192,46 @@ void *func_15162FAC(s32 arg0, u8 arg1, u8 arg2, u8 arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15162FAC */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15162FAC.s")
+s32 func_1000E770(s32 *, s32 *, ...);
+s32 func_151EF610(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151630F4 CURRENT (1000) */
+s32 func_151630F4(void *arg0) {
+    struct { s32 volume, pitch; } sound;
+    Light62FACPayload *state;
+    u8 *light;
+    s32 ticks;
+
+    light = *(u8 **)((u8 *)arg0 + 0x14);
+    state = (Light62FACPayload *)((u8 *)arg0 + 0x18);
+    if (light[9] == 1) {
+        return 1;
+    }
+    *(s8 *)(light + 0x2F) = (u32)state->field_0;
+    for (ticks = D_800BE9E4; ticks != 0; ticks--) {
+        state->field_0 -= state->field_0 * state->field_4;
+    }
+    if (state->field_14 > 0) {
+        state->field_20 -= D_800BE9A4;
+        if (state->field_20 < 0.0f) {
+            state->field_0 = func_150ADA68() * state->field_30 + state->field_2C;
+            state->field_20 = func_150ADA68() * state->field_28 + state->field_24;
+            sound.pitch = func_151EF610() % 1200 + state->field_14 * 800 - 2400;
+            sound.volume = 60 - state->field_14 * 10;
+            func_1000E770(0, 0, sound.volume, sound.pitch);
+            state->field_14--;
+        }
+    } else {
+        state->field_8 -= D_800BE9A4;
+        if (state->field_8 < 0.0f) {
+            state->field_14 = func_150ADA20() % (u32)(state->field_1C + 1) + state->field_18;
+            state->field_20 = 0.0f;
+            state->field_8 = func_150ADA68() * state->field_10 + state->field_C;
+        }
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151630F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151630F4.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15163414 CURRENT (283) */
 s32 func_15163414(u8 *arg0, f32 *arg1, f32 *arg2, f32 *arg3, s8 arg4,

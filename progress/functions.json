@@ -2352,6 +2352,12 @@
       "symbol": "func_15162FAC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1000,
+        "reason": "CURRENT 1000; decay loop exact, remaining frame 0x20 versus 0x30, missing helper-argument stores at sp20/sp24, and FCSR restore scheduling. Two finish calls and four bounded probe batches; helper arity, scalar/aggregate homes and signed conversion variants exhausted. Extra caller arguments retained; raw main helper consumes two pointer arguments.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -3609,6 +3615,12 @@
       "symbol": "func_15198D7C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1065,
+        "reason": "CURRENT 1065, exact frame 0x128 and stack rows zero; formal angle conversion improved from 1820, but raw RNG copy/mask sequencing and F2/F12 radius-scale allocation remain. Four total probe batches; final explicit local conversions and register-scale variants unchanged. Preserve improved candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -33442,6 +33454,12 @@
       "symbol": "func_151D9B34"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4763,
+        "reason": "CURRENT4763 with established local ABI, frameD8; parameter5/7 caching and narrow loads remain. Three finishes including1compile repair,2hypothesis probe batches plus layout. Narrow-ABI probe1941/frameD0 saved separately; requires complete caller audit before live declaration changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -52683,8 +52701,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 808,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15152F70",
           "vram": "0x15152F70"
         }
@@ -56725,6 +56748,12 @@
       "symbol": "func_1515B62C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5500,
+        "reason": "CURRENT 5500 with callee-required 0x58-byte descriptor; frame 0x108 versus 0xF8, excess s6/s7 globals and floating-register allocation plus counter scheduling differ. Three finish attempts and three bounded probe batches exhausted; earlier 4131 candidate invalid due to undersized descriptor.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -60028,6 +60057,12 @@
       "symbol": "func_15175958"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 700,
+        "reason": "CURRENT 700, exact frame 0x20, zero stack rows; corrected wide distance-helper ABI and signed RNG conversions. Three finishes/three probe batches; final scalar-type and branch-join probes regressed. Residual shared constant1, float-zero comparison/scheduling, branch joins and register allocation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -79381,6 +79416,12 @@
       "symbol": "func_1514B8B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 460,
+        "reason": "CURRENT460 after 3 finishes and 4 bounded probe batches; exact F8 frame, residual FP register allocation, flag branch and constant scheduling. Cached global snapshot regressed1141; preserve best store-order candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -81017,6 +81058,12 @@
       "symbol": "func_151BD828"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1840,
+        "reason": "CURRENT 1840; reference frame 0xA8 and all stack rows now match. Remaining register allocation, folded effect offsets and input-pointer store scheduling; three finish calls and three serial probe batches exhausted masked counters, distinct lifetimes, typed views and address expressions.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -81705,6 +81752,12 @@
       "symbol": "func_1518F89C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4621,
+        "reason": "CURRENT4621 after2finishes/2probe batches plus layout; frameF8 vsE8, global table hoisting, float operand scheduling and saved-register allocation remain. Union/table snapshots regressed; preserve ordinary shared-word candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -82110,6 +82163,12 @@
       "symbol": "func_150F1684"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 9645,
+        "reason": "CURRENT 9645, frame 0x90 recovered with aligned flag aggregate; parameter/variant lifetime and final call evaluation still differ. Two finishes and two bounded probe batches exhausted ordinary and volatile parameter variants. Corrected no-argument RNG declaration has no active same-source prior callers.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -89000,6 +89059,12 @@
       "symbol": "func_1516C878"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4466,
+        "reason": "CURRENT4466, frame128 vs120. Two finishes and two hypothesis probe batches (two compile repairs); cursor ownership improved but scalar/buffer offsets, byte value lifetime and saved-register allocation remain. Preserve pre-reset count argument semantics.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

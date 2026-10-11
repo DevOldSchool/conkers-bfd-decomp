@@ -391,6 +391,99 @@ u8 func_151D9B34(void) {
     sp20 = D_800AB3D8;
     return *((u8 *)&sp20 + ((func_150ADA20() & 3) * 4) + 3);
 }
+typedef struct { f32 x, y, z; } Game2062D0Vector;
+typedef struct {
+    s32 flags;
+    s16 lifetime;
+    u8 kind, field7;
+    s32 field8, fieldC;
+    u8 color, alpha, r, g, b, field15, field16, field17;
+    s32 mode, field1C;
+    u8 field20, pad21;
+    s16 field22, field24;
+    u8 pad26[2];
+} Game2062D0Particle;
+typedef struct {
+    s16 timer;
+    u8 pad2[2];
+    f32 size;
+    Game2062D0Vector direction;
+    u8 color, mode, kind, pad17;
+} Game2062D0Secondary;
+extern s32 (*D_8008FD04[])(void);
+extern u8 D_800AB330[];
+extern Game2062D0Vector D_800AB3E8;
+void *func_10022EC0(void *, const void *, u32);
+void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, s32, s32, u8, s32);
+f32 func_15144A74(void *, void *);
+s32 func_15144E80(void *, void *, void *, void *);
+s32 func_15145128(Game2062D0Vector *, Game2062D0Vector *, f32 *, f32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D9B8C CURRENT (4763) */
+void func_151D9B8C(u8 arg0, f32 arg1, s32 arg2, s32 arg3, f32 *arg4,
+                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
+    Game2062D0Particle particle;
+    s32 timed;
+    Game2062D0Vector first, second, normal, up;
+    s32 mode;
+    Game2062D0Secondary secondary;
+    s32 random2;
+    s32 random1;
+    s32 random3;
+    void *object;
+
+    particle.field22 = 32;
+    particle.field24 = 7;
+    particle.kind = D_8008FD04[arg0]();
+    timed = (s16)arg5 == -1 ? 0 : 1;
+    mode = D_800AB330[arg0] != 0 ? 0x20000 : 0;
+    particle.flags = mode | timed | 0xF700;
+    if ((s16)arg5 == -1) particle.lifetime = 300;
+    else particle.lifetime = (s16)arg5;
+    particle.field8 = 0;
+    particle.fieldC = 0;
+    particle.alpha = 255;
+    particle.b = 0;
+    particle.g = 0;
+    particle.r = 0;
+    particle.field15 = 255;
+    particle.color = (u8)arg2;
+    timed = (u8)arg6 ? 2 : 3;
+    mode = 0x22;
+    if ((u8)arg7) mode = 0x3B;
+    particle.mode = (mode << 16) + timed;
+    particle.field7 = 0;
+    particle.field16 = 0;
+    particle.field17 = 7;
+    particle.field20 = 255;
+    particle.field1C = 0;
+    random1 = func_150ADA20();
+    random2 = func_150ADA20();
+    random3 = func_150ADA20();
+    timed = (u8)arg7 ? 3 : 0;
+    mode = (u8)arg7 ? 255 : 0;
+    if (func_1513C650((s32)&particle, 0, 0, arg3, arg4[0], arg4[1], arg4[2],
+                     arg1, arg1, random1 & 255, ((random3 & 1) * 2) + (random2 & 1),
+                     timed, mode, 0, (u8)arg9, arg10) != NULL && (u8)arg8 &&
+        func_15144E80((void *)arg3, &first, &second, &normal) != 0) {
+        up = D_800AB3E8;
+        func_15145128(&normal, &normal, NULL, NULL);
+        if (func_15144A74(&normal, &up) < -0.5f) {
+            secondary.timer = 0;
+            timed = (s16)arg5;
+            secondary.size = arg1 * 4.5f;
+            secondary.direction = *(Game2062D0Vector *)arg4;
+            secondary.color = (u8)arg2;
+            secondary.mode = (u8)arg7;
+            secondary.kind = arg0;
+            if ((s16)arg5 == -1) timed = 300;
+            mode = (s16)arg5 == -1 ? 0 : 1;
+            object = func_15149130((s16)timed, -1, 0x4A, -1, mode, 0, 0x18, (u8)arg9, arg10);
+            if (object != NULL) func_10022EC0((u8 *)object + 0x28, &secondary, 0x18);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D9B8C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9B8C.s")
 f32 func_150ADA68(void);
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32,

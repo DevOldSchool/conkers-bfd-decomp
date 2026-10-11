@@ -474,6 +474,113 @@ void func_151BD7F4(void *arg0) {
     func_151494E0(&sp, 0x3B);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BD828.s")
+void func_15145EA4(s32 *, s32 *, s32, s32);
+extern Game1E9A30Position D_800AA778, D_800AA784, D_800AA790, D_800AA79C;
+extern u16 **D_800BE728;
+extern u8 D_800CC2D0[];
+
+typedef struct { u8 pad0[0x48]; f32 width, height; u8 pad50[8]; u8 flags; } Game1E9A30TrailEffect;
+typedef struct { u8 pad0[4]; f32 scale; } Game1E9A30SparkEffect;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BDD8C CURRENT (1840) */
+void func_151BDD8C(void *arg0) {
+    s32 i;
+    u8 *owner;
+    Game1E9A30Position starts[2];
+    Game1E9A30Position ends[2];
+    s32 player;
+    Game1E9A30Position *inputs[4];
+    Game1E9A30Position *outputs[4];
+    u8 *payload;
+    u8 *entry;
+    u8 *hiddenEntry;
+    u8 *scaleEntry;
+    u8 *object;
+    u8 *secondObject;
+    Game1E9A30TrailEffect *hiddenEffect;
+    Game1E9A30TrailEffect *trailEffect;
+    Game1E9A30SparkEffect *sparkEffect;
+
+    owner = *(u8 **)((u8 *)arg0 + 0x28);
+    payload = (u8 *)arg0 + 0x28;
+    if ((*(s32 *)owner == 0) || (payload[4] != owner[0x3B])) {
+        *(s16 *)((u8 *)arg0 + 0xE) = -1;
+        return;
+    }
+    if ((*(s32 *)(owner + 0x1D4) != 0) && ((owner[0x74] & 0xF) != 0xF)) {
+        inputs[0] = &D_800AA778;
+        inputs[1] = &D_800AA784;
+        inputs[2] = &D_800AA790;
+        inputs[3] = &D_800AA79C;
+        outputs[0] = &starts[0];
+        outputs[1] = &starts[1];
+        outputs[2] = &ends[0];
+        outputs[3] = &ends[1];
+        func_15145EA4((s32 *)inputs, (s32 *)outputs, *(s32 *)(owner + 0x1D4) + 0x40, 4);
+        i = 0;
+        do {
+            entry = payload + i * 4;
+            object = *(u8 **)(entry + 8);
+            if (object != NULL) {
+                object[0x168] |= 1;
+                *(Game1E9A30Position *)(object + 0x34) = starts[i];
+                *(Game1E9A30Position *)(object + 0x40) = ends[i];
+            }
+            object = *(u8 **)(entry + 0x10);
+            if (object != NULL) {
+                *(s32 *)(object + 0x58) |= 2;
+                *(s32 *)(object + 0x58) &= ~4;
+                *(Game1E9A30Position *)(object + 0x34) = starts[i];
+                *(Game1E9A30Position *)(object + 0x40) = ends[i];
+            }
+            i = (i + 1) & 0xFF;
+        } while (i < 2);
+    } else {
+        i = 0;
+        do {
+            hiddenEntry = payload + i * 4;
+            object = *(u8 **)(hiddenEntry + 8);
+            if (object != NULL) {
+                hiddenEffect = (Game1E9A30TrailEffect *)(object + 0x110);
+                hiddenEffect->flags &= ~1;
+            }
+            object = *(u8 **)(hiddenEntry + 0x10);
+            if (object != NULL) {
+                *(s32 *)(object + 0x58) &= ~2;
+            }
+            i = (i + 1) & 0xFF;
+        } while (i < 2);
+    }
+    player = (s32)(owner - D_800CC2D0) / 812;
+    if (player < 4) {
+        i = 0;
+        do {
+            scaleEntry = payload + i * 4;
+            object = *(u8 **)(scaleEntry + 8);
+            if (object != NULL) {
+                trailEffect = (Game1E9A30TrailEffect *)(object + 0x110);
+                if (*D_800BE728[(u8)player] & 0x8000) {
+                    trailEffect->width = 6.0f;
+                    trailEffect->height = 21.0f;
+                } else {
+                    trailEffect->width = 3.0f;
+                    trailEffect->height = 8.0f;
+                }
+            }
+            secondObject = *(u8 **)(scaleEntry + 0x10);
+            if (secondObject != NULL) {
+                sparkEffect = (Game1E9A30SparkEffect *)(secondObject + 0x170);
+                if (*D_800BE728[(u8)player] & 0x8000) {
+                    sparkEffect->scale = 1.5f;
+                } else {
+                    sparkEffect->scale = 1.0f;
+                }
+            }
+            i = (i + 1) & 0xFF;
+        } while (i < 2);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151BDD8C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BDD8C.s")
 void func_15169850(s32, u8, s32, s32, s32);
 

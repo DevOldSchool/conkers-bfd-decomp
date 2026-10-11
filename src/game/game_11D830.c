@@ -273,7 +273,7 @@ typedef struct Game11D830SpawnTail {
     f32 z;
 } Game11D830SpawnTail;
 
-s32 func_150ADA20(void *);
+u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800A1860;
 extern f32 D_800A1864;
@@ -472,6 +472,68 @@ void func_150F1684(u8 *arg0, u8 *arg1, u8 arg2) {
         func_1516972C(arg0);
     }
 }
+void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32, s32, s32, s32, s32, s32);
+void func_15145EA4(s32 *, s32 *, s32, s32);
+s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+extern u8 D_800A168C[], D_800A174C[], D_800A180C[];
+typedef union { u16 word; u8 bytes[2]; } Game11D830Flags;
+extern Game11D830Flags D_800A1810;
+extern f32 D_800A1898, D_800A189C, D_800A18A0, D_800A18A4;
+extern f32 D_800A18A8, D_800A18AC, D_800A18B0, D_800A18B4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F16DC CURRENT (9645) */
+void func_150F16DC(void *volatile arg0, u8 volatile arg1, u8 volatile arg2, u8 volatile arg3, s32 arg4) {
+    f32 position[3];
+    volatile u8 variant;
+    Game11D830Flags flags;
+    u8 *input;
+    f32 *output;
+    struct { u8 kind; s8 mode; s16 lifetime; u8 field4; } light;
+    s32 lightPosition[3];
+    struct { u32 seed; f32 values[2]; } motion;
+    u32 lifetime;
+    u8 *row;
+    u8 *bone;
+
+    if ((arg0 != NULL) && (arg2 < 4) && (arg1 < 2)) {
+        if (*(u8 *)((u8 *)arg0 + 4) == 0x23) {
+            variant = 1;
+        } else {
+            flags = D_800A1810;
+            if (flags.bytes[arg1] & *(s32 *)((u8 *)arg0 + 0x94)) {
+                return;
+            }
+            variant = 0;
+        }
+        if (*(s32 *)((u8 *)arg0 + 0x1D4) != 0) {
+            row = variant * 0x60 + arg2 * 0x18 + D_800A168C;
+            bone = variant * 2 + arg1 + D_800A180C;
+            input = row + arg1 * 12;
+            output = position;
+            func_15145EA4((s32 *)&input, (s32 *)&output,
+                          (*bone << 6) + *(s32 *)((u8 *)arg0 + 0x1D4), 1);
+            light.kind = 3;
+            light.mode = -1;
+            light.lifetime = func_150ADA20() % 5U + 4;
+            light.field4 = 0;
+            lightPosition[0] = position[0];
+            lightPosition[1] = position[1];
+            lightPosition[2] = position[2];
+            func_151602C0((u8 *)&light, lightPosition, func_150ADA20() % 51U + 0x50,
+                          255, 255, 255, 255, 0, 0, arg3, arg4);
+            motion.values[1] = (func_150ADA68() * D_800A1898 + D_800A189C) * D_800A18A0;
+            motion.values[0] = (func_150ADA68() * D_800A18A4 + D_800A18A8) * D_800A18AC;
+            lifetime = func_150ADA20();
+            motion.seed = func_150ADA20();
+            func_15102B38((s32)arg0, *bone, (s32)(row + arg1 * 12),
+                          (s32)(variant * 0x60 + arg2 * 0x18 + arg1 * 12 + D_800A174C),
+                          motion.values, lifetime % 6U + 8, 255,
+                          func_150ADA68() * D_800A18B0 + D_800A18B4,
+                          (s32)position, 255, 0, -1, arg3, arg4);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150F16DC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F16DC.s")
 typedef struct Game11D830Weights {
     u16 value[3];

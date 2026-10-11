@@ -1157,6 +1157,89 @@ void func_15198D7C(s32 arg0) {
 
 }
 
+typedef struct {
+    f32 radius, speed, speedRange, size, sizeRange, growth, growthRange;
+    s16 life, lifeRange, fade, fadeRange;
+} CharacterFlamethrowerBurstPreset;
+typedef struct {
+    s32 words[7];
+    s8 callback, endCallback;
+    u8 pad1E[2];
+} CharacterFlamethrowerBurstFlags;
+typedef struct {
+    f32 size;
+    CharacterFlamethrowerVec3 velocity;
+    f32 growth;
+    u8 pad14[4];
+    u8 red, green, blue, alpha;
+    u8 pad1C[4];
+} CharacterFlamethrowerBurstMotion;
+extern CharacterFlamethrowerBurstPreset D_800A8728[];
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15198D88 CURRENT (1065) */
+void func_15198D88(CharacterFlamethrowerActor *arg0, CharacterFlamethrowerVec3 *arg1) {
+    CharacterFlamethrowerBurstFlags flags;
+    f32 speed;
+    f32 cosine1;
+    CharacterFlamethrowerJetSpawn spawn;
+    CharacterFlamethrowerBurstMotion motion;
+    f32 sine1;
+    f32 cosine2;
+    f32 z;
+    f32 scale;
+    f32 x;
+    f32 y;
+    s32 angle1;
+    s32 angle2;
+    CharacterFlamethrowerBurstPreset *preset;
+    CharacterFlamethrowerJet *state;
+
+    state = (CharacterFlamethrowerJet *)arg0->state;
+    preset = &D_800A8728[state->unk74];
+    spawn.unkE = 1;
+    motion.green = 10;
+    motion.blue = 255;
+    motion.red = 40;
+    motion.alpha = 130;
+    *(CharacterFlamethrowerVec3 *)spawn.position = *(CharacterFlamethrowerVec3 *)arg0->position;
+    flags.words[0] = 0;
+    flags.words[1] = 1;
+    flags.words[2] = 0x160600;
+    flags.words[3] = 3;
+    flags.words[4] = 16;
+    flags.words[5] = 128;
+    flags.words[6] = 32;
+    flags.callback = 0;
+    flags.endCallback = 9;
+    do {
+        speed = func_150ADA68() * preset->speedRange + preset->speed;
+        angle1 = func_150ADA20();
+        angle1 &= 255;
+        angle2 = func_150ADA20();
+        angle2 &= 255;
+        cosine1 = func_151423D8(angle1 - 64);
+        sine1 = func_151423D8(angle1);
+        cosine2 = func_151423D8(angle2 - 64);
+        scale = func_151423D8(angle2);
+        scale = preset->radius * scale;
+        x = arg1->x + scale * cosine1;
+        y = arg1->y - preset->radius * cosine2;
+        z = arg1->z + scale * sine1;
+        spawn.unk15 = func_150ADA20() % (u32)(preset->fadeRange + 1) + preset->fade;
+        spawn.unkC = func_150ADA20() % (u32)(preset->lifeRange + 1) + preset->life;
+        motion.size = func_150ADA68() * preset->sizeRange + preset->size;
+        motion.growth = func_150ADA68() * preset->growthRange + preset->growth;
+        motion.velocity.x = (x - arg0->position[0]) * speed;
+        motion.velocity.y = (y - arg0->position[1]) * speed;
+        motion.velocity.z = (z - arg0->position[2]) * speed;
+        func_15147DA0(&spawn, &motion, 0, 1, 0, 0, 0, 0, 0, 0, 0, &flags, 0,
+                     *((u8 *)arg0 + 0xC), *((u8 *)arg0 + 1));
+        state->unk7C -= 1.0f;
+    } while (state->unk7C > 1.0f);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15198D88 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15198D88.s")
 typedef struct CharacterFlamethrowerEmissionPreset {
     f32 radius;

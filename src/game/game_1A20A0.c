@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1A20A0.c
@@ -22,6 +23,104 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_15174FA4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_15175390.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_15175958.s")
+typedef struct {
+    u8 pad0[0x90];
+    u8 group, phase;
+    s16 flags;
+    u8 pad94[4];
+    f32 x, y, z;
+    u8 padA4[4];
+    f32 angle, yaw;
+    u8 padB0[4];
+    f32 velocity, yawStep;
+    u8 padBC[0xC];
+    f32 baseHeight, angleStep;
+    u8 padD0[0x14];
+    f32 targetHeight;
+    u8 padE8[5];
+    u8 model;
+} Game17685CActor;
+typedef struct {
+    u8 pad0[0x14];
+    f32 x, y, z;
+} Game17685CPosition;
+extern Game17685CPosition D_800CC2D0;
+extern u8 D_800DDF5C[], D_800DDF68[];
+s32 func_150AD960(s32, s32, s32, s32);
+u32 func_150ADA20(void);
+void func_15175958(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517685C CURRENT (700) */
+void func_1517685C(Game17685CActor *arg0) {
+    f32 temp_ft3;
+    f32 temp_fv0;
+    s32 temp_v1;
+
+    if (D_800DDF5C[arg0->group] != 0) {
+        temp_v1 = 1;
+        D_800DDF68[arg0->model] = temp_v1;
+        switch (arg0->phase) {                          /* irregular */
+        case 0:
+            if (func_150AD960((s32) D_800CC2D0.x, (s32) D_800CC2D0.z, (s32) arg0->x, (s32) arg0->z) < 0x190) {
+                arg0->phase = 1U;
+                temp_ft3 = (f32) (-1 - (s32)(func_150ADA20() & 3));
+                arg0->velocity = temp_ft3;
+                arg0->angle = -8.0f;
+                return;
+            }
+            temp_fv0 = arg0->angleStep;
+            if (0.0f != temp_fv0) {
+                arg0->angle = (f32) (arg0->angle + temp_fv0);
+                if (temp_fv0 < 0.0f) {
+                    arg0->yaw = (f32) (arg0->yaw + arg0->yawStep);
+                }
+                temp_fv0 = arg0->angle;
+                if (temp_fv0 > 45.0f) {
+                    arg0->angleStep = -5.0f;
+                } else if ((arg0->angleStep < 0) && (temp_fv0 > 25.0f) && ((s32)(func_150ADA20() & 0xFF) < 0x33)) {
+                    arg0->angleStep = 5.0f;
+                }
+                if (arg0->angle <= 10.0f) {
+                    arg0->angleStep = 0.0f;
+                    return;
+                }
+            } else {
+                temp_v1 = func_150ADA20() & 0xFF;
+                if (temp_v1 < 0x19) {
+                    arg0->angleStep = 5.0f;
+                    if (temp_v1 < 0xD) {
+                        arg0->yawStep = (f32) ((s32)(func_150ADA20() % 6U) - 3);
+                        return;
+                    }
+                    arg0->yawStep = 0.0f;
+                }
+            }
+            break;
+        case 1:
+            if ((300.0f + arg0->baseHeight) <= arg0->y) {
+                arg0->phase = 2U;
+                arg0->flags = (s16) (arg0->flags & 0xFFFE);
+                arg0->flags = (s16) (arg0->flags | 4);
+                arg0->targetHeight = (f32) ((f32) (s32)(func_150ADA20() & 0x7F) + (300.0f + arg0->baseHeight));
+            }
+            func_15175958(arg0);
+            return;
+        default:
+        case 2:
+        case 3:
+            if (arg0->y < arg0->targetHeight) {
+                arg0->velocity = -1.5f;
+            } else if (arg0->angle < 0) {
+                arg0->velocity = 1.5f;
+            }
+            func_15175958(arg0);
+            return;
+        }
+    } else {
+        func_1516972C(arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1517685C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_1517685C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_15176B84.s")
 void func_150A7790(void *, s32);

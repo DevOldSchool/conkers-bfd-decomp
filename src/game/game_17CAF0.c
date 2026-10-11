@@ -22,7 +22,6 @@
  * - func_15152190
  * - func_15152520
  * - func_15152B38
- * - func_15152F70
  * - func_15153298
  * - func_15153634
  * - func_151539B4
@@ -651,7 +650,89 @@ void func_15152ABC(Game17CAF0Color *arg0) {
     arg0->blue = locals.color[2];
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152B38.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152F70.s")
+typedef struct {
+    Game17CAF0Vec3f position;
+    f32 sizeBase, sizeRange, growthBase, growthRange, speedBase, speedRange;
+    s16 countBase, countRange, yawBase, yawRange, pitchBase, pitchRange;
+    s16 fadeBase, fadeRange, lifeBase, lifeRange;
+    u8 green, red, pad3A[2];
+    s32 callbacks[6];
+    u8 blue, alpha;
+} Game152F70Config;
+typedef struct {
+    Game17CAF0Vec3f position;
+    s16 life, enabled;
+    s32 active;
+    u8 field14, fade, pad16[2];
+} Game152F70Spawn;
+typedef struct {
+    f32 size;
+    Game17CAF0Vec3f velocity;
+    f32 growth;
+    u8 pad14[4];
+    Game17CAF0Color color;
+    u8 pad1C[4];
+} Game152F70Motion;
+typedef struct {
+    s32 words[7];
+    u8 callback, endCallback, pad1E[2];
+} Game152F70Flags;
+
+void func_15152F70(Game152F70Config *arg0, u8 arg1) {
+    f32 speed;
+    Game152F70Spawn spawn;
+    Game152F70Motion motion;
+    f32 horizontal;
+    Game152F70Flags flags;
+    f32 sinePitch;
+    f32 cosinePitch;
+    f32 sineYaw;
+    f32 cosineYaw;
+    s16 yaw;
+    s16 pitch;
+    s32 count;
+
+    spawn.active = 1;
+    spawn.enabled = 1;
+    motion.color.green = arg0->green;
+    motion.color.blue = arg0->blue;
+    motion.color.red = arg0->red;
+    motion.color.alpha = arg0->alpha;
+    spawn.position = arg0->position;
+    flags.words[0] = 0;
+    flags.words[1] = 1;
+    flags.words[2] = 0x160600;
+    flags.words[3] = 3;
+    flags.words[4] = 16;
+    flags.words[5] = 128;
+    flags.words[6] = 32;
+    flags.callback = 0;
+    flags.endCallback = 9;
+    count = func_150ADA20() % (u32)(arg0->countRange + 1) + arg0->countBase;
+    if (count != 0) {
+        do {
+            yaw = func_150ADA20() % (u32)(arg0->yawRange + 1) + arg0->yawBase;
+            pitch = func_150ADA20() % (u32)(arg0->pitchRange + 1) + arg0->pitchBase;
+            sinePitch = func_151423D8(pitch);
+            cosinePitch = func_151423D8(pitch - 64);
+            sineYaw = func_151423D8(yaw);
+            cosineYaw = func_151423D8(yaw - 64);
+            speed = func_150ADA68() * arg0->speedRange + arg0->speedBase;
+            spawn.fade = func_150ADA20() % (u32)(arg0->fadeRange + 1) + arg0->fadeBase;
+            spawn.life = func_150ADA20() % (u32)(arg0->lifeRange + 1) + arg0->lifeBase;
+            motion.size = func_150ADA68() * arg0->sizeRange + arg0->sizeBase;
+            horizontal = speed * sinePitch;
+            motion.growth = func_150ADA68() * arg0->growthRange + arg0->growthBase;
+            motion.velocity.x = horizontal * cosineYaw;
+            motion.velocity.y = -speed * cosinePitch;
+            motion.velocity.z = horizontal * sineYaw;
+            func_15147DA0(&spawn, &motion, 0, arg0->callbacks[0], arg0->callbacks[1],
+                         arg0->callbacks[2], arg0->callbacks[3], arg0->callbacks[4],
+                         arg0->callbacks[5], 0, 0, &flags, 0, (u8)arg1, 1);
+            count--;
+        } while (count != 0);
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153298.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153634.s")
 typedef struct {
