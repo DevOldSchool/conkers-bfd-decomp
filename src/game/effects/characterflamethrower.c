@@ -531,7 +531,103 @@ CharacterFlamethrowerPanel *func_15195FB0(
     return func_15195DD4(arg0->unk1C, arg1, arg2, arg3, arg4, arg5, arg6);
 }
 
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15195FF0 CURRENT (2081) */
+void func_15195FF0(u8 *arg0, u8 *arg1) {
+    s32 index;
+    u32 commands[8];
+    CharacterFlamethrowerPanel *panel;
+    s32 width;
+    s32 height;
+    s32 x;
+    s32 y;
+    s32 tileX;
+    s32 tileY;
+    s32 count;
+    s32 slot;
+    s32 offset;
+    u32 *destination;
+    CharacterFlamethrowerBinding *binding;
+    CharacterFlamethrowerBinding *next;
+
+    panel = (CharacterFlamethrowerPanel *)D_800E08E8;
+    if (panel != 0) {
+        do {
+            x = panel->position[0];
+            y = panel->position[1];
+            width = panel->width;
+            height = panel->height;
+            tileX = x / 8 + 2;
+            tileY = y / 8 + 2;
+            if (tileX >= width) {
+                tileX -= width;
+            }
+            if (tileY >= height) {
+                tileY -= height;
+            }
+            for (count = 0; count < 8 && count < panel->active;) {
+                commands[count++] = ((tileX & 0xFFF) << 12) | 0xF2000000 | (tileY & 0xFFF);
+                tileX /= 2;
+                tileY /= 2;
+            }
+            width *= 8;
+            height *= 8;
+            if (D_800BEAC0 == 0) {
+                x += (s8)panel->control12 * D_800BE9E4;
+                y += (s8)panel->control13 * D_800BE9E4;
+            }
+            if (x < 0) x += width;
+            else if (x >= width) x -= width;
+            if (y < 0) y += height;
+            else if (y >= height) y -= height;
+            panel->position[0] = x;
+            panel->position[1] = y;
+            for (slot = 0; slot < 5 && panel->first[slot] != -1; slot++) {
+                index = panel->first[slot];
+                count = 0;
+                if (panel->pad30[slot] > 0) {
+                    destination = (u32 *)(arg0 + index * 8);
+                    do {
+                        *destination = commands[count];
+                        count++;
+                        destination += 4;
+                    } while (count < panel->pad30[slot]);
+                }
+            }
+            for (slot = 0; slot < 5 && panel->second[slot] != -1; slot++) {
+                index = panel->second[slot];
+                count = 0;
+                if (panel->pad30[slot + 5] > 0) {
+                    destination = (u32 *)(arg1 + index * 8);
+                    do {
+                        *destination = commands[count];
+                        count++;
+                        destination += 4;
+                    } while (count < panel->pad30[slot + 5]);
+                }
+            }
+            binding = panel->bindings;
+            if (binding != 0) {
+                do {
+                    index = binding->kind;
+                    offset = index * 8;
+                    for (count = 0; count < binding->flags; count++) {
+                        *(u32 *)(binding->identity + offset) = commands[count];
+                        offset += 16;
+                    }
+                    next = binding->next;
+                    binding = 0;
+                    if (next != 0) binding = next;
+                } while (binding != 0);
+            }
+            panel = (CharacterFlamethrowerPanel *)panel->links.previous;
+        } while (panel != 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15195FF0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15195FF0.s")
+
 void func_15196318(CharacterFlamethrowerControl *arg0, s32 arg1, s32 arg2) {
     if (arg0 != 0) {
         arg0->unk12 = arg1;

@@ -3232,6 +3232,12 @@
       "symbol": "func_15195FB0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2081,
+        "reason": "CURRENT2081, frame88 versus80; indexed command reads and guarded destination loops improved5135. Three finishes, two bounded probe batches plus layout. Remaining argument ownership, frame/command-buffer offsets, loop joins and saved-register allocation; preserve wide signed coordinate wrap semantics.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -47958,6 +47964,12 @@
       "symbol": "func_150FF6E0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1550,
+        "reason": "CURRENT1550: exact frame and local offsets; float constant load scheduling, branch shape and volatile argument load order remain after two bounded probe batches.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -52600,8 +52612,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 820,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15151A38",
           "vram": "0x15151A38"
         }
@@ -79336,6 +79353,12 @@
       "symbol": "func_1514AF74"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5799,
+        "reason": "CURRENT5799: frameD8 versusD0; hoisted global scale addresses displace modulo constants and particle cursors, with float scheduling and stack offsets unresolved after two bounded probe batches.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -79578,6 +79601,12 @@
       "symbol": "func_1507C324"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 9193,
+        "reason": "CURRENT9193: frame128 versus120; hoisted table base and float constant7 spill origins/flags, with packet-offset and loop scheduling differences after two bounded probe batches.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

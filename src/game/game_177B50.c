@@ -175,7 +175,63 @@ s32 func_1514AF74(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514AF74 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514AF74.s")
+extern f32 D_800A5808, D_800A580C, D_800A5810, D_800A5814;
+extern f32 D_800A5818, D_800A581C, D_800A5820, D_800A5824;
+extern f32 D_800A5828, D_800A582C, D_800A5830;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514B034 CURRENT (5799) */
+void func_1514B034(Game177B50Vector *arg0, u8 arg1, s32 arg2) {
+    f32 count;
+    Game177B50Particle particle;
+    f32 xScale;
+    f32 scale;
+    f32 yScale;
+    u32 angle;
+
+    count = (func_150ADA68() * 20.0f + 29.0f) * D_800A5808 * D_800A580C;
+    if (count > 1.0f) {
+        particle.field20 = 0x6231;
+        particle.field22 = 0x1A4D;
+        particle.color26[0] = 0;
+        particle.color26[1] = 0;
+        particle.color26[2] = 0;
+        particle.color26[3] = 0xFF;
+        particle.field2D = 0xFF;
+        particle.field2E = 0;
+        particle.field2F = 1;
+        particle.field30 = 0;
+        particle.field2A = 1;
+        particle.field34 = 0x1C;
+        scale = D_800A5810;
+        particle.position.y = arg0->y;
+        particle.field3C = 0.0f;
+        do {
+            angle = func_150ADA20();
+            func_15143874((s16)(angle & 0xFF), func_150ADA68() * 42.0f,
+                          &particle.position.x, &particle.position.z);
+            particle.position.x += arg0->x;
+            particle.position.z += arg0->z;
+            particle.field40 = (func_150ADA68() * 16.0f + 29.0f) * scale;
+            particle.field44 = (func_150ADA68() * 600.0f + 400.0f) * scale;
+            xScale = (func_150ADA68() * D_800A5814 + 304.0f) * scale;
+            yScale = func_150ADA68();
+            particle.field0C = D_800A5818 * xScale;
+            particle.field14 = D_800A581C * xScale;
+            yScale = (yScale * D_800A5820 + 504.0f) * scale;
+            particle.field10 = D_800A5824 * yScale;
+            particle.field18 = D_800A5828 * yScale;
+            particle.field1C = D_800A582C * yScale;
+            particle.field24 = func_150ADA20() % 31U + 0x14;
+            particle.field38 = func_150ADA68() * D_800A5830 * scale;
+            particle.field2C = func_150ADA20() % 156U + 0x64;
+            func_15149550(&particle.position.x, 10, 0, 0, arg1, arg2);
+            count -= 1.0f;
+        } while (count > 1.0f);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514B034 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514B034.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514B364.s")
 s32 func_1514B844(void *arg0) {
     s16 temp_v1;
