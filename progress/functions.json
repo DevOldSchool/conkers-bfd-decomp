@@ -29700,11 +29700,15 @@
       "symbol": "func_15019464"
     },
     {
+      "blocked": {
+        "reason": "Raw 15019664 forwards v0 from func_1510B7B4, while its emitted project prototype is void(s32,s32). Raw 15019808 and 15019864 consume v0 from func_15018E88, whose existing matched C definition in game_45B80.c returns void and calls void func_15174AA4. Requires a separate raw callee/caller return-contract audit and matched-definition repair outside the selected pragma; no candidate attempted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 860,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150195A0",
           "vram": "0x150195A0"
         }
@@ -70899,6 +70903,12 @@
       "symbol": "func_1514A594"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5261,
+        "reason": "CURRENT (5261), frame 0x130 vs raw 0x120. Payload extents 0x1C/0x20/0x20 are verified from raw helpers. Loop counter duplication, float register order, payload offsets, and motion setup scheduling remain. Two finishes and two bounded probe batches; final union variants reduced frame to 0x128 but worsened scores (best 6423), so retained the simpler lifetime candidate. No shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -73606,6 +73616,12 @@
       "symbol": "func_150FCA30"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2166,
+        "reason": "CURRENT (2166), frame 0xD0 vs raw 0xC8; direct incoming byte cast eliminates unwanted home reloads and restores index promotion, but parameter prologue, packet offsets, setup scheduling and float registers differ. Frame-correct alternative CURRENT2759 is retained in attempt history. Canonical seven-argument effect ABI and full 0x5C particle layout are preserved. Three finishes and two bounded probe batches exhausted; no shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
