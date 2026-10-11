@@ -4151,6 +4151,12 @@
       "symbol": "func_1519C998"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2652,
+        "reason": "CURRENT (2652), improved from 5809; exact 0x148 frame and descriptor offsets. Repeated rodata values still load late with different FP allocation; integer initialization scheduling differs. Two bounded probe batches exhausted; original assembly remains active.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -78013,6 +78019,12 @@
       "symbol": "func_15192920"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1190,
+        "reason": "CURRENT (1190), improved from 1932, exact 0x108 frame and all addressed local offsets. FP load placement, promoted descriptor pointer and RNG integer register scheduling remain different after two bounded probe batches; original assembly remains active.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -78229,6 +78241,12 @@
       "symbol": "func_151938E4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1409,
+        "reason": "CURRENT (1409), improved from 4053; exact 0xE0 frame and addressed descriptor/motion/velocity offsets. Vector FP allocation, operand ordering and later RNG-store scheduling remain different after two bounded probe batches. Original assembly remains active.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
