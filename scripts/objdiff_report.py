@@ -190,8 +190,13 @@ def prepare_textures() -> tuple[list[dict], list[dict]]:
 def prepare_models() -> tuple[list[dict], list[dict]]:
     return objdiff_data_targets.prepare_models(main_private_data.validated_rom(ROOT), output=OUTPUT)
 
+
 def prepare_sequences() -> tuple[list[dict], list[dict]]:
     return objdiff_data_targets.prepare_sequences(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_sound_bank() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_sound_bank(main_private_data.validated_rom(ROOT), output=OUTPUT)
 
 
 def prepare_storage(rebuilt: list[dict], configs: list[dict]) -> tuple[list[dict], list[dict], dict]:
@@ -330,8 +335,9 @@ def prepare() -> None:
     textures, texture_configs = prepare_textures()
     models, model_configs = prepare_models()
     sequences, sequence_configs = prepare_sequences()
-    rebuilt = [font, *textures, *models, *sequences]
-    rebuilt_configs = [font_config, *texture_configs, *model_configs, *sequence_configs]
+    sound_parts, sound_configs = prepare_sound_bank()
+    rebuilt = [font, *textures, *models, *sequences, *sound_parts]
+    rebuilt_configs = [font_config, *texture_configs, *model_configs, *sequence_configs, *sound_configs]
     storage, storage_configs, storage_proof = prepare_storage(rebuilt, rebuilt_configs)
     data_built.extend([*rebuilt, *storage])
     data_config.extend([*rebuilt_configs, *storage_configs])

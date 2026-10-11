@@ -5,9 +5,10 @@ import sys
 
 try:
     from scripts.profile_config import load_profile
-    from scripts import audio_assets, mp3_assets
+    from scripts import audio_assets, mp3_assets, sound_bank_codec
 except ModuleNotFoundError:
     from profile_config import load_profile
+    import sound_bank_codec
     import audio_assets
     import mp3_assets
 
@@ -32,7 +33,7 @@ def bank_layout(profile: Path, *, configuration: dict | None = None) -> tuple[in
     return bank['start'], segments[index + 1]['start'], splits
 
 
-def proven_ranges(rom: bytes, family, mp3) -> list[tuple[int, int, str]]:
+def proven_ranges(rom: bytes, family, mp3, *, sound_regions=None) -> list[tuple[int, int, str]]:
     start, end = family.bank_start, family.bank_end
     index_size = struct.unpack_from('>I', rom, start)[0]
     if index_size != 7 * 8:
@@ -54,7 +55,10 @@ def proven_ranges(rom: bytes, family, mp3) -> list[tuple[int, int, str]]:
             if any(padding) or len(padding) != (-cursor) % 8:
                 raise ValueError('audio entry alignment padding is not proven')
             ranges.append((cursor, asset.rom_start, f'padding/{cursor - start:08X}'))
-        if index == 3:
+        if index == 1 and sound_regions is not None:
+            ranges.extend((begin, finish, name.removeprefix('audio/bank17/'))
+                          for begin, finish, name in sound_bank_codec.external_partition(asset, sound_regions))
+        elif index == 3:
             if asset.compressed or rom[asset.rom_start:asset.rom_end] != asset.data:
                 raise ValueError('sequence storage must be raw ROM bytes')
             if audio_assets.rebuild_compact_sequence_bank(family.sequences) != asset.data:
@@ -88,8 +92,12 @@ def verify(profile: Path = ROOT / 'config/profiles/us.yaml') -> tuple[bytes, lis
     _, checked_rom, _, mp3 = mp3_assets.load_profile_mp3_assets('us', None)
     if checked_rom != rom:
         raise ValueError('audio ROM changed during boundary verification')
-    ranges = proven_ranges(rom, family, mp3)
     start, end, splits = bank_layout(profile)
+    sound_regions = None
+    if any(name.startswith('audio/bank17/sound-bank/') for _, name in splits):
+        sound_bank_codec.verify_consumers(rom)
+        sound_regions = sound_bank_codec.typed_regions(*(asset.data for asset in family.assets[:3]))
+    ranges = proven_ranges(rom, family, mp3, sound_regions=sound_regions)
     if (start != family.bank_start or end != family.bank_end
             or splits != [(begin, name) for begin, _, name in ranges]):
         raise ValueError('US YAML audio splits differ from loader-proven boundaries')

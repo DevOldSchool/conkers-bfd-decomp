@@ -20,6 +20,7 @@ import font_splits
 import texture_build
 import model_build
 import sequence_build
+import sound_bank_build
 import normalize_asm
 import objdiff
 import objdiff_targets
@@ -573,6 +574,70 @@ def prepare_sequences(rom: bytes, *, output: Path) -> tuple[list[dict], list[dic
     # all per-object checks; the report also rechecks every source hash at end.
     with ThreadPoolExecutor(max_workers=job_count()) as workers:
         pairs = list(workers.map(partial(prepare_sequence, rom, output=output),
+                                 (expected for expected, _ in selected)))
+    return [unit for unit, _ in pairs], [item for _, item in pairs]
+
+
+def prepare_sound_part(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    """Compare an actual record-built ROM link object with independent stored bytes."""
+    part = expected['part']
+    key = f'sound-bank-{part}'
+    name = sound_bank_build.part_name(part)
+    directory = output / key
+    directory.mkdir(parents=True, exist_ok=True)
+    linked = ROOT / ('build/us/assets/' + name + '.o')
+    inputs = ROOT / sound_bank_build.input_directory(part)
+    packed, hashes = sound_bank_build.packed_part(inputs, expected)
+    start, end = expected['rom_start'], expected['rom_end']
+    original = rom[start:end]
+    base, target = directory / 'base.o', directory / 'target.o'
+    linked_bytes = linked.read_bytes()
+    base.write_bytes(linked_bytes)
+    relative = name + '.bin'
+    reference = directory / relative
+    reference.parent.mkdir(parents=True, exist_ok=True)
+    reference.write_bytes(original)
+    subprocess.run(['mips-linux-gnu-ld', '-r', '-b', 'binary', '-m', 'elf32btsmip',
+                    '-o', 'target.o', relative], cwd=directory, check=True)
+    for path in (base, target):
+        target_extent(path, '.data', end - start)
+    candidate = sections(base.read_bytes(), 1)['.data'][1]
+    if (candidate != packed or hashes != sound_bank_build.input_hashes(inputs, expected)
+            or linked.read_bytes() != linked_bytes):
+        raise ValueError(f'sound-bank part {part} candidate differs from current editable inputs')
+    proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
+                                              original, f'sound-bank part {part} sound-bank storage')
+    unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data',
+            'size': end - start, 'rom_start': start, 'rom_end': end,
+            'source_inputs': {(sound_bank_build.input_directory(part) / p).as_posix(): h for p, h in hashes.items()},
+            'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
+            'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
+            'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
+            'literal_payload_matches_rom': candidate == original, 'target_verification': proof,
+            'report_code_bytes': 0, 'report_data_bytes': end - start, 'complete': candidate == original}
+    item = {'name': 'assets/' + name, 'target_path': unit['target_path'],
+            'base_path': unit['base_path'],
+            'metadata': {'complete': unit['complete'], 'progress_categories': ['data']}}
+    return unit, item
+
+
+def prepare_sound_bank(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    """Validate selection once and rebuild all selected linker inputs in one Make call."""
+    checked_rom, selected = sound_bank_build.reviewed_parts(ROOT)
+    if checked_rom != rom:
+        raise ValueError('sound-bank reference ROM differs from the validated report ROM')
+    paths = ['build/us/assets/' + sound_bank_build.part_name(e['part']) + '.o' for e, _ in selected]
+    log_path = output / 'sound-bank-build.log'
+    with log_path.open('w') as log:
+        try:
+            subprocess.run(['make', '--silent', '--jobs', str(job_count()), *paths, 'PROFILE=us', 'ASSETS=1'],
+                           cwd=ROOT, stdout=log, stderr=log, check=True)
+        except subprocess.CalledProcessError as error:
+            raise ValueError(f'sound-bank linker-input build failed (exit {error.returncode}); see {log_path}') from error
+    # Each reference has its own directory. Preserve catalog order and retain
+    # all per-object checks; the report also rechecks every source hash at end.
+    with ThreadPoolExecutor(max_workers=job_count()) as workers:
+        pairs = list(workers.map(partial(prepare_sound_part, rom, output=output),
                                  (expected for expected, _ in selected)))
     return [unit for unit, _ in pairs], [item for _, item in pairs]
 

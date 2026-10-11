@@ -79,3 +79,32 @@ class AudioBoundariesTests(unittest.TestCase):
                 profile.write_text(yaml.safe_dump(config))
                 with self.assertRaisesRegex(ValueError, 'YAML audio splits differ'):
                     boundaries.verify(profile)
+
+    def test_typed_sound_regions_keep_unknown_bytes_raw_and_require_matching_yaml(self):
+        rom, family, mp3 = fixture()
+        regions = {'external': [{'start': 0, 'end': 2}, {'start': 4, 'end': 8}],
+                   'external_unknown_ranges': [(2, 4)]}
+        ranges = boundaries.proven_ranges(rom, family, mp3, sound_regions=regions)
+        self.assertEqual(b''.join(rom[a:b] for a, b, _ in ranges), rom[16:])
+        graph = [(a, b, n) for a, b, n in ranges if '/sound-bank/' in n]
+        self.assertEqual(len(graph), 3)
+        self.assertIn('/unreconstructed/', graph[1][2])
+        self.assertEqual(rom[graph[1][0]:graph[1][1]], b'nk')
+        config = {'segments': [{'name': 'asset_bank_17', 'type': 'group', 'start': 16,
+                               'align': 1, 'subalign': 1,
+                               'subsegments': [[a, 'bin', n] for a, _, n in ranges]},
+                              {'name': 'next', 'start': family.bank_end}]}
+        with tempfile.TemporaryDirectory() as directory:
+            profile = Path(directory) / 'us.yaml'
+            profile.write_text(yaml.safe_dump(config))
+            with patch.object(boundaries.audio_assets, 'load_profile_audio_assets', return_value=(None, rom, 'big', family)), \
+                    patch.object(boundaries.mp3_assets, 'load_profile_mp3_assets', return_value=(None, rom, 'big', mp3)), \
+                    patch.object(boundaries.sound_bank_codec, 'verify_consumers') as consumers, \
+                    patch.object(boundaries.sound_bank_codec, 'typed_regions', return_value=regions):
+                self.assertEqual(boundaries.verify(profile), (rom, ranges))
+                consumers.assert_called_once_with(rom)
+                target = next(row for row in config['segments'][0]['subsegments'] if '/unreconstructed/' in row[2])
+                target[0] += 1
+                profile.write_text(yaml.safe_dump(config))
+                with self.assertRaisesRegex(ValueError, 'YAML audio splits differ'):
+                    boundaries.verify(profile)

@@ -3,8 +3,10 @@
 Verified on 2026-10-08 against US ROM SHA-1
 `4cbadd3c4e0729dec46af64ad018050eada4f47a`.
 
-`config/profiles/us.yaml` now defines bank `0x17` as a byte-aligned group with
-272 explicit subsegments. The group covers ROM `[0x29AE9E8, 0x3F82170)`:
+The original boundary pass defined bank `0x17` as a byte-aligned group with
+272 explicit subsegments in `config/profiles/us.yaml`. The later
+[sound-bank reconstruction](us_sound_bank_reconstruction.md) expands this to
+322 splits by separating typed external records from unexplained spans. The group covers ROM `[0x29AE9E8, 0x3F82170)`:
 22,886,280 stored bytes. These are actual splat extraction boundaries and
 individual linker inputs under `build/us/assets/audio/bank17/`.
 
@@ -58,3 +60,9 @@ Validation:
   disagreement, false padding and YAML drift.
 
 See [the published report scope](../../objdiff.md#scope).
+
+
+The later [B1 reconstruction](us_sound_bank_reconstruction.md) supplies fresh
+candidates for the 4,885-byte control and 429,952 external bytes. The other 656
+external bytes remain raw. This preserves the complete bank extent and its
+original entry order.

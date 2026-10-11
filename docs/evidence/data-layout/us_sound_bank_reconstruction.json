@@ -1,0 +1,509 @@
+{
+  "profile": "us",
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "part_count": 27,
+  "stored_bytes": 434837,
+  "decoded_bytes": 437720,
+  "native_field_mutations_change_bytes": 136,
+  "consumer_endpoint_mutations_rejected": 6,
+  "external_unknown_ranges": [
+    [
+      167944,
+      167968
+    ],
+    [
+      168184,
+      168208
+    ],
+    [
+      168536,
+      168560
+    ],
+    [
+      169000,
+      169024
+    ],
+    [
+      169240,
+      169264
+    ],
+    [
+      169368,
+      169392
+    ],
+    [
+      169720,
+      169744
+    ],
+    [
+      169848,
+      169872
+    ],
+    [
+      169976,
+      170000
+    ],
+    [
+      170216,
+      170240
+    ],
+    [
+      170680,
+      170704
+    ],
+    [
+      170808,
+      170832
+    ],
+    [
+      171720,
+      171768
+    ],
+    [
+      171872,
+      171912
+    ],
+    [
+      172912,
+      172936
+    ],
+    [
+      173824,
+      173848
+    ],
+    [
+      174736,
+      174760
+    ],
+    [
+      176320,
+      176344
+    ],
+    [
+      176672,
+      176696
+    ],
+    [
+      176800,
+      176824
+    ],
+    [
+      176928,
+      176952
+    ],
+    [
+      179184,
+      179208
+    ],
+    [
+      200704,
+      200744
+    ],
+    [
+      203424,
+      203448
+    ],
+    [
+      203552,
+      203576
+    ]
+  ],
+  "external_unknown_bytes": 656,
+  "consumer_spans": [
+    {
+      "rom_start": 33152,
+      "size": 856,
+      "sha1": "48d344a7a4e395907f0693a79c226514804a82e5"
+    },
+    {
+      "rom_start": 75984,
+      "size": 1200,
+      "sha1": "4aa9fcb168fff33dbb3fb5e0e2ac8fa0363d4c41"
+    },
+    {
+      "rom_start": 136432,
+      "size": 2896,
+      "sha1": "4d737ccdfc2ab189bcb5306fb866b9091b446f80"
+    }
+  ],
+  "parts": [
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "control",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43706912,
+      "rom_end": 43711797,
+      "decoded_size": 7768,
+      "original_decoded_sha256": "a3b7b5c9d1f103bd81521af99b568a38059df0db7b87d9b29f5fbe7094d02089",
+      "original_stored_sha256": "07b373aae63d7a5ef120138d76412ad64ee60183d03d94521e54ab85eed15ac0",
+      "encoder": "rzip-zlib9",
+      "stored_sha256": "07b373aae63d7a5ef120138d76412ad64ee60183d03d94521e54ab85eed15ac0",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "00000000",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43711800,
+      "rom_end": 43879744,
+      "decoded_size": 167944,
+      "original_decoded_sha256": "c7c8f0c88f147c0c70c9d0e153f748cd9ac7b784a897b52e2d17afbd70613077",
+      "original_stored_sha256": "c7c8f0c88f147c0c70c9d0e153f748cd9ac7b784a897b52e2d17afbd70613077",
+      "encoder": "native-records",
+      "stored_sha256": "c7c8f0c88f147c0c70c9d0e153f748cd9ac7b784a897b52e2d17afbd70613077",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "00029020",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43879768,
+      "rom_end": 43879984,
+      "decoded_size": 216,
+      "original_decoded_sha256": "17654e4041cc6a416c2d71e07ca8d41101df1aa0aaed634ccc026d4c2be1a3e5",
+      "original_stored_sha256": "17654e4041cc6a416c2d71e07ca8d41101df1aa0aaed634ccc026d4c2be1a3e5",
+      "encoder": "native-records",
+      "stored_sha256": "17654e4041cc6a416c2d71e07ca8d41101df1aa0aaed634ccc026d4c2be1a3e5",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "00029110",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43880008,
+      "rom_end": 43880336,
+      "decoded_size": 328,
+      "original_decoded_sha256": "d242cb5c8c76ce81b572a05e52e96b8d4af8c907d6cd6c2329c57ad7de60502b",
+      "original_stored_sha256": "d242cb5c8c76ce81b572a05e52e96b8d4af8c907d6cd6c2329c57ad7de60502b",
+      "encoder": "native-records",
+      "stored_sha256": "d242cb5c8c76ce81b572a05e52e96b8d4af8c907d6cd6c2329c57ad7de60502b",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "00029270",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43880360,
+      "rom_end": 43880800,
+      "decoded_size": 440,
+      "original_decoded_sha256": "a8587c89900dae113e3279a40882f06ecbf3ff2ec34f980cfb5baa75257b8566",
+      "original_stored_sha256": "a8587c89900dae113e3279a40882f06ecbf3ff2ec34f980cfb5baa75257b8566",
+      "encoder": "native-records",
+      "stored_sha256": "a8587c89900dae113e3279a40882f06ecbf3ff2ec34f980cfb5baa75257b8566",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "00029440",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43880824,
+      "rom_end": 43881040,
+      "decoded_size": 216,
+      "original_decoded_sha256": "78f99ff1d3973bdec23139569ad1a27be1a77b6bb7e293030595ee5a71fa1ea8",
+      "original_stored_sha256": "78f99ff1d3973bdec23139569ad1a27be1a77b6bb7e293030595ee5a71fa1ea8",
+      "encoder": "native-records",
+      "stored_sha256": "78f99ff1d3973bdec23139569ad1a27be1a77b6bb7e293030595ee5a71fa1ea8",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "00029530",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43881064,
+      "rom_end": 43881168,
+      "decoded_size": 104,
+      "original_decoded_sha256": "2017ccd0d9c4c92de4b50debfbe1c7c576dfecaa8ac58d5326575a0fdbaa4715",
+      "original_stored_sha256": "2017ccd0d9c4c92de4b50debfbe1c7c576dfecaa8ac58d5326575a0fdbaa4715",
+      "encoder": "native-records",
+      "stored_sha256": "2017ccd0d9c4c92de4b50debfbe1c7c576dfecaa8ac58d5326575a0fdbaa4715",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "000295B0",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43881192,
+      "rom_end": 43881520,
+      "decoded_size": 328,
+      "original_decoded_sha256": "738eefcad779909db47c89fc748f24e69b528a32618595f43315740350ed5eb1",
+      "original_stored_sha256": "738eefcad779909db47c89fc748f24e69b528a32618595f43315740350ed5eb1",
+      "encoder": "native-records",
+      "stored_sha256": "738eefcad779909db47c89fc748f24e69b528a32618595f43315740350ed5eb1",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "00029710",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43881544,
+      "rom_end": 43881648,
+      "decoded_size": 104,
+      "original_decoded_sha256": "b5f593307d8a67cf3dcd267d31365dcb09dafce5625284198775bddded4c6187",
+      "original_stored_sha256": "b5f593307d8a67cf3dcd267d31365dcb09dafce5625284198775bddded4c6187",
+      "encoder": "native-records",
+      "stored_sha256": "b5f593307d8a67cf3dcd267d31365dcb09dafce5625284198775bddded4c6187",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "00029790",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43881672,
+      "rom_end": 43881776,
+      "decoded_size": 104,
+      "original_decoded_sha256": "01431dcaefb9baa95887fe4ff92c3a01b87e16bb562c2fb0aac358c63bd37263",
+      "original_stored_sha256": "01431dcaefb9baa95887fe4ff92c3a01b87e16bb562c2fb0aac358c63bd37263",
+      "encoder": "native-records",
+      "stored_sha256": "01431dcaefb9baa95887fe4ff92c3a01b87e16bb562c2fb0aac358c63bd37263",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "00029810",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43881800,
+      "rom_end": 43882016,
+      "decoded_size": 216,
+      "original_decoded_sha256": "5e749b2865f63d2d1af415232a5f6a4863d763fff267c2a3585a63a18b47abf9",
+      "original_stored_sha256": "5e749b2865f63d2d1af415232a5f6a4863d763fff267c2a3585a63a18b47abf9",
+      "encoder": "native-records",
+      "stored_sha256": "5e749b2865f63d2d1af415232a5f6a4863d763fff267c2a3585a63a18b47abf9",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "00029900",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43882040,
+      "rom_end": 43882480,
+      "decoded_size": 440,
+      "original_decoded_sha256": "069ffbffc869b8ba07f82de62d867c3a522ce87f50171523b78f1fbaeb0ffdee",
+      "original_stored_sha256": "069ffbffc869b8ba07f82de62d867c3a522ce87f50171523b78f1fbaeb0ffdee",
+      "encoder": "native-records",
+      "stored_sha256": "069ffbffc869b8ba07f82de62d867c3a522ce87f50171523b78f1fbaeb0ffdee",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "00029AD0",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43882504,
+      "rom_end": 43882608,
+      "decoded_size": 104,
+      "original_decoded_sha256": "2b41f757019aef873fa9b403fb16462446db3c17294bff19fd648eb9d8f6a3aa",
+      "original_stored_sha256": "2b41f757019aef873fa9b403fb16462446db3c17294bff19fd648eb9d8f6a3aa",
+      "encoder": "native-records",
+      "stored_sha256": "2b41f757019aef873fa9b403fb16462446db3c17294bff19fd648eb9d8f6a3aa",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "00029B50",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43882632,
+      "rom_end": 43883520,
+      "decoded_size": 888,
+      "original_decoded_sha256": "edda8a6da1dbb5bb50843253fe768ff6d1c95968829c4d782ccfb0db6992354a",
+      "original_stored_sha256": "edda8a6da1dbb5bb50843253fe768ff6d1c95968829c4d782ccfb0db6992354a",
+      "encoder": "native-records",
+      "stored_sha256": "edda8a6da1dbb5bb50843253fe768ff6d1c95968829c4d782ccfb0db6992354a",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "00029EF8",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43883568,
+      "rom_end": 43883672,
+      "decoded_size": 104,
+      "original_decoded_sha256": "bb462ef8a8d365dacb00e22674847dfb9ff6f2cffb78f5faa7e985e6b4ffb80d",
+      "original_stored_sha256": "bb462ef8a8d365dacb00e22674847dfb9ff6f2cffb78f5faa7e985e6b4ffb80d",
+      "encoder": "native-records",
+      "stored_sha256": "bb462ef8a8d365dacb00e22674847dfb9ff6f2cffb78f5faa7e985e6b4ffb80d",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "00029F88",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43883712,
+      "rom_end": 43884712,
+      "decoded_size": 1000,
+      "original_decoded_sha256": "5d3fecbe0a76470fbbf50f2c7a831b305c7b0476e5647a43d006f23125a728e8",
+      "original_stored_sha256": "5d3fecbe0a76470fbbf50f2c7a831b305c7b0476e5647a43d006f23125a728e8",
+      "encoder": "native-records",
+      "stored_sha256": "5d3fecbe0a76470fbbf50f2c7a831b305c7b0476e5647a43d006f23125a728e8",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "0002A388",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43884736,
+      "rom_end": 43885624,
+      "decoded_size": 888,
+      "original_decoded_sha256": "e89600500afa6265cb70a6daa7af41a9265b053060938ff2cdece295ca25f738",
+      "original_stored_sha256": "e89600500afa6265cb70a6daa7af41a9265b053060938ff2cdece295ca25f738",
+      "encoder": "native-records",
+      "stored_sha256": "e89600500afa6265cb70a6daa7af41a9265b053060938ff2cdece295ca25f738",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "0002A718",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43885648,
+      "rom_end": 43886536,
+      "decoded_size": 888,
+      "original_decoded_sha256": "897a132eb09d8132a75c76fc79108934e1ebbd3f0bbcc478f4af08d7e5000fe5",
+      "original_stored_sha256": "897a132eb09d8132a75c76fc79108934e1ebbd3f0bbcc478f4af08d7e5000fe5",
+      "encoder": "native-records",
+      "stored_sha256": "897a132eb09d8132a75c76fc79108934e1ebbd3f0bbcc478f4af08d7e5000fe5",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "0002AAA8",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43886560,
+      "rom_end": 43888120,
+      "decoded_size": 1560,
+      "original_decoded_sha256": "967f348d1b900a177b9471a498e9a3edce8c6bad322243c804fc315cdc59df10",
+      "original_stored_sha256": "967f348d1b900a177b9471a498e9a3edce8c6bad322243c804fc315cdc59df10",
+      "encoder": "native-records",
+      "stored_sha256": "967f348d1b900a177b9471a498e9a3edce8c6bad322243c804fc315cdc59df10",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "0002B0D8",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43888144,
+      "rom_end": 43888472,
+      "decoded_size": 328,
+      "original_decoded_sha256": "9c3b9410966bde0f18e6c48dc93c09437193196fd2b57c64890b1ce5cdda3b8d",
+      "original_stored_sha256": "9c3b9410966bde0f18e6c48dc93c09437193196fd2b57c64890b1ce5cdda3b8d",
+      "encoder": "native-records",
+      "stored_sha256": "9c3b9410966bde0f18e6c48dc93c09437193196fd2b57c64890b1ce5cdda3b8d",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "0002B238",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43888496,
+      "rom_end": 43888600,
+      "decoded_size": 104,
+      "original_decoded_sha256": "4e426877c7ac99821531c6dede6025808cef0273eefa39e4e4437e16db9c868c",
+      "original_stored_sha256": "4e426877c7ac99821531c6dede6025808cef0273eefa39e4e4437e16db9c868c",
+      "encoder": "native-records",
+      "stored_sha256": "4e426877c7ac99821531c6dede6025808cef0273eefa39e4e4437e16db9c868c",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "0002B2B8",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43888624,
+      "rom_end": 43888728,
+      "decoded_size": 104,
+      "original_decoded_sha256": "a94f74eb777f3b9e2b8a93a84f35e2d8e02abc27564ef5efd91ee8bed1def936",
+      "original_stored_sha256": "a94f74eb777f3b9e2b8a93a84f35e2d8e02abc27564ef5efd91ee8bed1def936",
+      "encoder": "native-records",
+      "stored_sha256": "a94f74eb777f3b9e2b8a93a84f35e2d8e02abc27564ef5efd91ee8bed1def936",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "0002B338",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43888752,
+      "rom_end": 43890984,
+      "decoded_size": 2232,
+      "original_decoded_sha256": "3733ce697955a8680f463988cdc190e20a77fc688bc0ccdb199f53779dc83808",
+      "original_stored_sha256": "3733ce697955a8680f463988cdc190e20a77fc688bc0ccdb199f53779dc83808",
+      "encoder": "native-records",
+      "stored_sha256": "3733ce697955a8680f463988cdc190e20a77fc688bc0ccdb199f53779dc83808",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "0002BC08",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43891008,
+      "rom_end": 43912504,
+      "decoded_size": 21496,
+      "original_decoded_sha256": "4fe0b3c112d6beea097e80fb3c2649f1eba5eb0a1d0515b4288321b25be7b06d",
+      "original_stored_sha256": "4fe0b3c112d6beea097e80fb3c2649f1eba5eb0a1d0515b4288321b25be7b06d",
+      "encoder": "native-records",
+      "stored_sha256": "4fe0b3c112d6beea097e80fb3c2649f1eba5eb0a1d0515b4288321b25be7b06d",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "00031028",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43912544,
+      "rom_end": 43915224,
+      "decoded_size": 2680,
+      "original_decoded_sha256": "a2dcc35d74910e7635acfa5413c85e59fcf27d403709154d787e35a87a5d27f7",
+      "original_stored_sha256": "a2dcc35d74910e7635acfa5413c85e59fcf27d403709154d787e35a87a5d27f7",
+      "encoder": "native-records",
+      "stored_sha256": "a2dcc35d74910e7635acfa5413c85e59fcf27d403709154d787e35a87a5d27f7",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "00031AB8",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43915248,
+      "rom_end": 43915352,
+      "decoded_size": 104,
+      "original_decoded_sha256": "cf705439b73c814bc11f0fbf2f9a92606a39fae70fb36e70c22f58c9adb86b38",
+      "original_stored_sha256": "cf705439b73c814bc11f0fbf2f9a92606a39fae70fb36e70c22f58c9adb86b38",
+      "encoder": "native-records",
+      "stored_sha256": "cf705439b73c814bc11f0fbf2f9a92606a39fae70fb36e70c22f58c9adb86b38",
+      "matches_original": true
+    },
+    {
+      "schema_version": 1,
+      "profile": "us",
+      "part": "00031B38",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "rom_start": 43915376,
+      "rom_end": 44142408,
+      "decoded_size": 227032,
+      "original_decoded_sha256": "615634c5c8ed4d51e32da1c3b76c76f80f785a6907614b41d618b4e4aff79bb2",
+      "original_stored_sha256": "615634c5c8ed4d51e32da1c3b76c76f80f785a6907614b41d618b4e4aff79bb2",
+      "encoder": "native-records",
+      "stored_sha256": "615634c5c8ed4d51e32da1c3b76c76f80f785a6907614b41d618b4e4aff79bb2",
+      "matches_original": true
+    }
+  ]
+}

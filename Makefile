@@ -57,6 +57,7 @@ endif
 PROFILE_INPUTS := $(patsubst dep=%,%,$(filter dep=%,$(PROFILE_ASSETS)))
 FONT_BINS := $(patsubst font=%,%,$(filter font=%,$(PROFILE_ASSETS)))
 AUDIO_BANK_BINS := $(patsubst audio=%,%,$(filter audio=%,$(PROFILE_ASSETS)))
+SOUND_BANK_BINS := $(filter assets/audio/bank17/sound_bank_control_rzip.bin assets/audio/bank17/sound-bank/regions/%.bin,$(AUDIO_BANK_BINS))
 SEQUENCE_BINS := $(filter-out assets/audio/bank17/sequences/index.bin assets/audio/bank17/sequences/padding/%.bin,$(filter assets/audio/bank17/sequences/%.bin,$(AUDIO_BANK_BINS)))
 MP3_BANK_BINS := $(patsubst mp3=%,%,$(filter mp3=%,$(PROFILE_ASSETS)))
 FLAT_BINS := $(patsubst flat=%,%,$(filter flat=%,$(PROFILE_ASSETS)))
@@ -95,6 +96,7 @@ BOOTSTRAP_SYMBOLS := $(BUILD_DIR)/bootstrap-symbols.ld
 ifeq ($(PROFILE),us)
 FONT_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(FONT_BINS))
 AUDIO_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(AUDIO_BANK_BINS))
+SOUND_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(SOUND_BANK_BINS))
 SEQUENCE_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(SEQUENCE_BINS))
 MP3_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(MP3_BANK_BINS))
 TEXTURE_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(TEXTURE_BINS))
@@ -390,6 +392,7 @@ ASSET_PACK_DEPS := Makefile $(PROFILE_INPUTS) scripts/profile_config.py config/r
 	toolchain/python-requirements.txt $(ROM_PATH)
 FONT_PARTS := $(patsubst assets/%,$(BUILD_DIR)/fonts/parts/%,$(FONT_BINS))
 MP3_BANK_PARTS := $(patsubst assets/%,$(BUILD_DIR)/audio/parts/%,$(MP3_BANK_BINS))
+SOUND_BANK_PARTS := $(patsubst assets/%,$(BUILD_DIR)/sound-bank/parts/%,$(SOUND_BANK_BINS))
 SEQUENCE_PARTS := $(patsubst assets/%,$(BUILD_DIR)/sequences/parts/%,$(SEQUENCE_BINS))
 MODEL_PARTS := $(patsubst assets/%,$(BUILD_DIR)/models/parts/%,$(MODEL_BINS))
 TEXTURE_PARTS := $(patsubst assets/%,$(BUILD_DIR)/textures/parts/%,$(TEXTURE_BINS))
@@ -439,6 +442,18 @@ $(BUILD_DIR)/textures/parts.stamp: $(ASSET_PACK_DEPS) scripts/texture_build.py $
 $(TEXTURE_PARTS): $(BUILD_DIR)/textures/parts.stamp ;
 endif
 
+ifneq ($(SOUND_BANK_PARTS),)
+SOUND_BANK_INPUTS := $(wildcard build/assets/sound-bank-build/us build/assets/sound-bank-build/us/* build/assets/sound-bank-build/us/*/*)
+SOUND_BANK_MANIFESTS := $(if $(filter assets/audio/bank17/sound_bank_control_rzip.bin,$(SOUND_BANK_BINS)),build/assets/sound-bank-build/us/control/manifest.json) $(patsubst assets/audio/bank17/sound-bank/regions/%.bin,build/assets/sound-bank-build/us/%/manifest.json,$(filter assets/audio/bank17/sound-bank/regions/%.bin,$(SOUND_BANK_BINS)))
+SOUND_BANK_REQUIRED_INPUTS := $(SOUND_BANK_MANIFESTS) $(patsubst %/manifest.json,%/records.json,$(SOUND_BANK_MANIFESTS))
+SOUND_BANK_MISSING := $(filter-out $(wildcard $(SOUND_BANK_PARTS) $(SOUND_BANK_REQUIRED_INPUTS)),$(SOUND_BANK_PARTS) $(SOUND_BANK_REQUIRED_INPUTS))
+SOUND_BANK_CODEC_DEPS := scripts/sound_bank_build.py scripts/sound_bank_codec.py scripts/audio_assets.py scripts/audio_boundaries.py scripts/texture_build.py scripts/rzip_pack.py
+$(BUILD_DIR)/sound-bank/parts.stamp: $(ASSET_PACK_DEPS) $(SOUND_BANK_CODEC_DEPS) $(SOUND_BANK_INPUTS) $(if $(SOUND_BANK_MISSING),asset-parts-missing)
+	$(TIMING) --stage sound-bank -- python3 scripts/sound_bank_build.py build-parts
+	@touch $@
+$(SOUND_BANK_PARTS): $(BUILD_DIR)/sound-bank/parts.stamp ;
+endif
+
 ifneq ($(SEQUENCE_PARTS),)
 SEQUENCE_INPUTS := $(wildcard build/assets/sequence-build/us build/assets/sequence-build/us/* build/assets/sequence-build/us/*/*)
 SEQUENCE_MANIFESTS := $(patsubst assets/audio/bank17/sequences/%.bin,build/assets/sequence-build/us/%/manifest.json,$(SEQUENCE_BINS))
@@ -467,6 +482,12 @@ endif
 $(FONT_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/fonts/parts/%.bin
 	@if test ! -f "$@" || test "$<" -nt "$@"; then \
 		mkdir -p "$(@D)" && cd $(BUILD_DIR)/fonts/parts && \
+		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
+	fi
+
+$(SOUND_BANK_OBJS): $(BUILD_DIR)/assets/%.o: $(BUILD_DIR)/sound-bank/parts/%.bin
+	@if test ! -f "$@" || test "$<" -nt "$@"; then \
+		mkdir -p "$(@D)" && cd $(BUILD_DIR)/sound-bank/parts && \
 		set -x && $(LD) -r -b binary -m elf32btsmip -o $(abspath $@) $*.bin; \
 	fi
 

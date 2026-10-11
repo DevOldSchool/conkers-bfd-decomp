@@ -72,7 +72,7 @@ independent splat targets for every range in `config/overlays.json`, and
 invokes the pinned native `objdiff-cli report generate`. It covers tracked
 main/game/debugger US CPU code and initialized data, including raw/unassigned ranges,
 plus all bounded asset storage. The font, 6,865 reviewed textures and 557 reviewed
-assets in model banks plus 149 compact audio sequences have reconstructed candidates; remaining asset storage stays unmatched.
+assets in model banks, 149 compact audio sequences and 27 sound-bank parts have reconstructed candidates; remaining asset storage stays unmatched.
 The command uses four object-preparation workers and validates cached base object hashes before
 reuse. The first run requires the pinned `lib/ultralib` submodule (`git
 submodule update --init lib/ultralib`).
@@ -355,3 +355,13 @@ fields, and explicit back-reference plans. Actual ROM linker objects and
 independent original-ROM targets enter native Data through the same source
 and object stability checks. Descriptor tables, sequence padding, ADPCM samples
 and MP3 streams retain their existing reconstruction status.
+
+
+### B1 sound-bank records
+
+[Typed control and 26 external sound-bank regions](evidence/data-layout/us_sound_bank_reconstruction.md)
+reconstruct 434,837 stored bytes from native bank, instrument, sound, envelope,
+key-map, wavetable, predictor-book and loop fields. Fresh control compression,
+actual linker objects and independent targets gate native Data credit. The
+656 unexplained external bytes stay raw and unmatched; ADPCM sample payloads
+retain their existing status.

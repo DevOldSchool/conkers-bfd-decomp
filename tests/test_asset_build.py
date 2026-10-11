@@ -200,6 +200,63 @@ with Path('sequence.calls').open('a') as log:
         self.assertEqual(listing.returncode, 0, listing.stderr)
         self.assertEqual(listing.stdout.split(), [f'assets/audio/bank17/sequences/{i:04d}.bin' for i in range(2)])
 
+    def test_sound_bank_parts_exclude_raw_holes_and_recheck_missing_manifests(self):
+        shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
+        for name in ('sound_bank_codec', 'audio_assets'):
+            (self.root / f'scripts/{name}.py').touch()
+        profile = self.root / 'config/profiles/us.yaml'
+        profile.write_text(profile.read_text() + '  - name: asset_bank_17\n    type: group\n')
+        (self.root / 'scripts/audio_boundaries.py').write_text("""def bank_layout(profile, *, configuration=None):
+    return 0, 100, [(0, 'audio/bank17/index'),
+                    (8, 'audio/bank17/sound_bank_control_rzip'),
+                    (40, 'audio/bank17/sound-bank/regions/00000000'),
+                    (48, 'audio/bank17/sound-bank/unreconstructed/00000008')]
+""")
+        (self.root / 'scripts/sound_bank_build.py').write_text("""from pathlib import Path
+from build_files import write_if_changed
+for part, name in [('control', 'sound_bank_control_rzip'), ('00000000', 'sound-bank/regions/00000000')]:
+    source = Path('build/assets/sound-bank-build/us') / part
+    assert (source / 'manifest.json').read_text() == '{}'
+    payload = (source / 'records.json').read_bytes()
+    write_if_changed(Path('build/us/sound-bank/parts/audio/bank17') / (name + '.bin'), payload)
+with Path('sound-bank.calls').open('a') as log:
+    log.write('packed\\n')
+""")
+        for part in ('control', '00000000'):
+            source = self.root / 'build/assets/sound-bank-build/us' / part
+            source.mkdir(parents=True)
+            (source / 'manifest.json').write_text('{}')
+            (source / 'records.json').write_text(part)
+        hole = self.root / 'assets/audio/bank17/sound-bank/unreconstructed/00000008.bin'
+        hole.parent.mkdir(parents=True)
+        hole.write_text('unexplained original bytes')
+        names = ['build/us/assets/audio/bank17/' + name + '.o' for name in (
+            'sound_bank_control_rzip', 'sound-bank/regions/00000000', 'sound-bank/unreconstructed/00000008')]
+        def run():
+            return subprocess.run([MAKE, 'ASSETS=1', '-j4', f'LD={sys.executable} {self.ld}', *names],
+                                  cwd=self.root, text=True, capture_output=True)
+        result = run()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        objects = [self.root / name for name in names]
+        self.assertEqual([p.read_text() for p in objects], ['control', '00000000', 'unexplained original bytes'])
+        before = [p.stat().st_mtime_ns for p in objects]
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual([p.stat().st_mtime_ns for p in objects], before)
+        self.assertEqual((self.root / 'sound-bank.calls').read_text(), 'packed\n')
+        time.sleep(1.05)
+        source = self.root / 'build/assets/sound-bank-build/us/00000000/records.json'
+        source.write_text('changed native records')
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(objects[1].read_text(), 'changed native records')
+        self.assertEqual([objects[i].stat().st_mtime_ns for i in (0, 2)], [before[i] for i in (0, 2)])
+        part = self.root / 'build/us/sound-bank/parts/audio/bank17/sound-bank/regions/00000000.bin'
+        part.unlink()
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(part.read_text(), 'changed native records')
+        (source.parent / 'manifest.json').unlink()
+        self.assertNotEqual(run().returncode, 0)
+        self.assertEqual(objects[1].read_text(), 'changed native records')
+
     def test_bank03_model_parts_recover_and_preserve_unchanged_linker_objects(self):
         self.check_model_parts('03')
 
