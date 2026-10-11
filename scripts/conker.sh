@@ -7,15 +7,21 @@ state_tool="$repo_root/scripts/project_state.py"
 toolchain_lock="$repo_root/toolchain/tools.lock.json"
 locked_image="$(python3 -c 'import json, sys; lock = json.load(open(sys.argv[1], encoding="utf-8")); image = lock["container_image"]; print(f"{image['"'"'repository'"'"']}@{image['"'"'digest'"'"']}")' "$toolchain_lock")"
 image_name="${CONKER_IMAGE:-$locked_image}"
-local_image_name="conkers-bfd-decomp-toolchain:local-amd64"
+# Apple Silicon can opt into a native image with CONKER_PLATFORM=linux/arm64.
+conker_platform="${CONKER_PLATFORM:-linux/amd64}"
+case "$conker_platform" in
+    linux/amd64|linux/arm64) ;;
+    *) printf 'error: CONKER_PLATFORM must be linux/amd64 or linux/arm64\n' >&2; exit 2 ;;
+esac
+local_image_name="conkers-bfd-decomp-toolchain:local-${conker_platform#linux/}"
 workspace_id="$(python3 -c 'import hashlib, sys; print(hashlib.sha256(sys.argv[1].encode()).hexdigest()[:12])' "$repo_root")"
-warm_container_name="conker-toolchain-$workspace_id"
+warm_container_name="conker-toolchain-$workspace_id$([[ "$conker_platform" == linux/amd64 ]] || printf -- '-%s' "${conker_platform#linux/}")"
 warm_container_schema="1"
 mips_to_c_revision="$(python3 -c 'import json, sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["tools"]["mips_to_c"]["revision"])' "$toolchain_lock")"
 host_mips_to_c="$repo_root/build/host-tools/mips_to_c-$mips_to_c_revision"
 
 container_run_args=(
-    --platform linux/amd64
+    --platform "$conker_platform"
     --network none
     --read-only
     --cap-drop ALL
@@ -184,7 +190,8 @@ After the raw base split map is available
   rsp                          Assemble and byte-verify the configured US RSP payloads.
   libultrare                    Build and verify the pinned Rare-modified archive.
 
-All build commands run inside the pinned linux/amd64 Docker environment.
+All build commands run inside the pinned linux/amd64 Docker environment
+(CONKER_PLATFORM=linux/arm64 selects a native image on Apple Silicon).
 US is the default profile; pass --profile explicitly only to override it.
 EOF
 }
@@ -223,14 +230,14 @@ ensure_cpu_image() {
     fi
     require_docker_access || return 1
     printf 'Fetching the published toolchain image (%s)...\n' "$image_name"
-    if ! docker pull --platform linux/amd64 "$image_name"; then
+    if ! docker pull --platform "$conker_platform" "$image_name"; then
         printf 'Published image unavailable; building it locally...\n'
-        docker build --platform linux/amd64 --tag "$local_image_name" "$repo_root"
+        docker build --platform "$conker_platform" --tag "$local_image_name" "$repo_root"
         image_name="$local_image_name"
     fi
     if ! image_is_healthy; then
         printf 'Toolchain image is missing a required pinned dependency; rebuilding it locally...\n'
-        docker build --platform linux/amd64 --tag "$local_image_name" "$repo_root"
+        docker build --platform "$conker_platform" --tag "$local_image_name" "$repo_root"
         image_name="$local_image_name"
         image_is_healthy || die "toolchain image failed the IDO compilation smoke test"
     fi
@@ -247,7 +254,7 @@ ensure_image() {
     rsp_key="$(python3 -c 'import hashlib, pathlib, sys; print(hashlib.sha256(pathlib.Path(sys.argv[1]).read_bytes() + sys.argv[2].encode() + sys.argv[3].encode()).hexdigest()[:16])' "$repo_root/toolchain/rsp.Dockerfile" "$(docker image inspect --format '{{.Id}}' "$image_name")" "$armips_revision")"
     rsp_image="conkers-bfd-rsp:$rsp_key"
     if ! docker image inspect "$rsp_image" >/dev/null 2>&1; then
-        docker build --platform linux/amd64 --tag "$rsp_image" \
+        docker build --platform "$conker_platform" --tag "$rsp_image" \
             --build-arg "BASE_IMAGE=$image_name" --build-arg "ARMIPS_REV=$armips_revision" \
             -f "$repo_root/toolchain/rsp.Dockerfile" "$repo_root/toolchain"
     fi
@@ -256,7 +263,7 @@ ensure_image() {
 }
 
 image_has_mupen_software_renderer() {
-    docker run --rm --platform linux/amd64 --network none --entrypoint /bin/sh "$image_name" -c \
+    docker run --rm --platform "$conker_platform" --network none --entrypoint /bin/sh "$image_name" -c \
         'test -f /opt/mupen64plus/lib/mupen64plus/mupen64plus-rsp-cxd4-sse2.so && test -f /opt/mupen64plus/lib/mupen64plus/mupen64plus-video-angrylion-plus.so && command -v xvfb-run >/dev/null'
 }
 
@@ -274,7 +281,7 @@ ensure_mupen_image() {
         fi
     fi
     printf 'Toolchain image predates pinned Mupen tracing; rebuilding it locally...\n'
-    docker build --platform linux/amd64 --tag "$local_image_name" "$repo_root"
+    docker build --platform "$conker_platform" --tag "$local_image_name" "$repo_root"
     image_name="$local_image_name"
     rsp_image_ready=0
     ensure_image
@@ -293,7 +300,7 @@ ensure_mupen_software_image() {
         fi
     fi
     printf 'Building the optional software graphics tracing image...\n'
-    docker build --platform linux/amd64 --file toolchain/Dockerfile.mupen-software \
+    docker build --platform "$conker_platform" --file toolchain/Dockerfile.mupen-software \
         --build-arg "CONKER_BASE_IMAGE=$software_base_image" \
         --tag "$software_image_name" "$repo_root"
     image_name="$software_image_name"
@@ -557,7 +564,7 @@ run_in_container_interactive() {
     ensure_image
     if ! watch_image_is_compatible; then
         printf 'Toolchain image predates diff-watch support; rebuilding it locally...\n'
-        docker build --platform linux/amd64 --tag "$local_image_name" "$repo_root"
+        docker build --platform "$conker_platform" --tag "$local_image_name" "$repo_root"
         image_name="$local_image_name"
         image_is_healthy || die "toolchain image failed the diff-watch smoke test"
     fi
@@ -715,12 +722,12 @@ case "$command" in
         ensure_image
         if ! image_is_healthy; then
             printf 'Toolchain image failed its smoke tests; rebuilding it locally...\n'
-            docker build --platform linux/amd64 --tag "$local_image_name" "$repo_root"
+            docker build --platform "$conker_platform" --tag "$local_image_name" "$repo_root"
             image_name="$local_image_name"
             image_is_healthy || die "toolchain image failed its smoke tests"
         fi
         docker version --format 'Docker client: {{.Client.Version}}'
-        printf 'Required container platform: linux/amd64\n'
+        printf 'Required container platform: %s\n' "$conker_platform"
         printf 'IDO compilation smoke test: OK\n'
         printf 'Mupen64Plus debugger smoke test: OK\n'
         python3 "$state_tool" validate
