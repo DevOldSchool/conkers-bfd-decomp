@@ -7,13 +7,20 @@ state_tool="$repo_root/scripts/project_state.py"
 toolchain_lock="$repo_root/toolchain/tools.lock.json"
 locked_image="$(python3 -c 'import json, sys; lock = json.load(open(sys.argv[1], encoding="utf-8")); image = lock["container_image"]; print(f"{image['"'"'repository'"'"']}@{image['"'"'digest'"'"']}")' "$toolchain_lock")"
 image_name="${CONKER_IMAGE:-$locked_image}"
-# Apple Silicon can opt into a native image with CONKER_PLATFORM=linux/arm64.
-conker_platform="${CONKER_PLATFORM:-linux/amd64}"
+# Run the image natively on ARM hosts (Apple Silicon, ARM Linux, Windows on
+# ARM); both architectures build identical ROMs. CONKER_PLATFORM overrides.
+case "$(uname -m)" in
+    arm64|aarch64) default_platform=linux/arm64 ;;
+    *) default_platform=linux/amd64 ;;
+esac
+conker_platform="${CONKER_PLATFORM:-$default_platform}"
 case "$conker_platform" in
     linux/amd64|linux/arm64) ;;
     *) printf 'error: CONKER_PLATFORM must be linux/amd64 or linux/arm64\n' >&2; exit 2 ;;
 esac
-local_image_name="conkers-bfd-decomp-toolchain:local-${conker_platform#linux/}"
+# A local build stands in for the locked image only while that lock is current.
+locked_digest="${locked_image##*sha256:}"
+local_image_name="conkers-bfd-decomp-toolchain:local-${conker_platform#linux/}-${locked_digest:0:12}"
 workspace_id="$(python3 -c 'import hashlib, sys; print(hashlib.sha256(sys.argv[1].encode()).hexdigest()[:12])' "$repo_root")"
 warm_container_name="conker-toolchain-$workspace_id$([[ "$conker_platform" == linux/amd64 ]] || printf -- '-%s' "${conker_platform#linux/}")"
 warm_container_schema="1"
@@ -190,8 +197,8 @@ After the raw base split map is available
   rsp                          Assemble and byte-verify the configured US RSP payloads.
   libultrare                    Build and verify the pinned Rare-modified archive.
 
-All build commands run inside the pinned linux/amd64 Docker environment
-(CONKER_PLATFORM=linux/arm64 selects a native image on Apple Silicon).
+All build commands run inside the pinned Docker environment, natively on
+amd64 and arm64 hosts (CONKER_PLATFORM=linux/amd64|linux/arm64 overrides).
 US is the default profile; pass --profile explicitly only to override it.
 EOF
 }
@@ -223,9 +230,19 @@ watch_image_is_compatible() {
     [[ "$(docker image inspect --format '{{ index .Config.Labels "org.devoldschool.conker.diff-watch" }}' "$image_name" 2>/dev/null)" == "1" ]]
 }
 
+image_has_platform() {
+    [[ "$(docker image inspect --format '{{.Os}}/{{.Architecture}}' "$1" 2>/dev/null)" == "$conker_platform" ]]
+}
+
 ensure_cpu_image() {
     require_docker || return 1
-    if docker image inspect "$image_name" >/dev/null 2>&1; then
+    if image_has_platform "$image_name"; then
+        return
+    fi
+    # The locked digest may not publish this platform; reuse this checkout's
+    # local build of it instead of pulling and rebuilding on every command.
+    if [[ "$image_name" == "$locked_image" ]] && image_has_platform "$local_image_name"; then
+        image_name="$local_image_name"
         return
     fi
     require_docker_access || return 1

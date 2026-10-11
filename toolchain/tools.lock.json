@@ -5,8 +5,16 @@
   },
   "ido_static_recomp": {
     "version": "v1.2",
-    "asset": "ido-5.3-recomp-linux.tar.gz",
-    "sha256": "ab5c741561f80913d58c8b074771f23941a3edd312505a8ebed6d1dfeb65e506",
+    "assets": {
+      "linux/amd64": {
+        "asset": "ido-5.3-recomp-linux.tar.gz",
+        "sha256": "ab5c741561f80913d58c8b074771f23941a3edd312505a8ebed6d1dfeb65e506"
+      },
+      "linux/arm64": {
+        "asset": "ido-5.3-recomp-linux-arm.tar.gz",
+        "sha256": "b6844c986fa65d7de4ce10b27583769a5ec7a88ae37a151f6dc66c929d3e1c92"
+      }
+    },
     "source": "https://github.com/decompals/ido-static-recomp"
   },
   "schema_version": 1,
