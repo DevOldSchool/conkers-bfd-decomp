@@ -57,17 +57,38 @@ class StorageTests(unittest.TestCase):
         self.assertEqual(regions[2]['rom_end'] - regions[2]['rom_start'], 2)
         self.assertEqual(regions[3]['rom_end'] - regions[3]['rom_start'], 240)
 
-    def test_layout_categories_are_applied_and_must_cover_every_bank(self):
+    def test_optional_evidence_labels_do_not_change_storage_extents(self):
         rom, layout = fixture()
-        categories = layout['asset_bank_categories']
-        categories['03'] = 'assets-audio'
-        region = next(r for r in storage.regions(rom, layout) if r['key'] == 'bank03')
-        self.assertEqual(region['category'], 'assets-audio')
-        for invalid in (None, {}, {**categories, '03': 'typo'},
-                        {**categories, '1E': 'assets-other'},
-                        {k: v for k, v in categories.items() if k != '03'}):
-            with self.subTest(categories=invalid), self.assertRaisesRegex(ValueError, 'classify every ROM bank'):
-                storage.regions(rom, {**layout, 'asset_bank_categories': invalid})
+        expected = [(r['key'], r['rom_start'], r['rom_end'])
+                    for r in storage.regions(rom, layout)]
+        for labels in (None, {}, {'03': 'custom-family', '1E': 'unused'}):
+            with self.subTest(labels=labels):
+                regions = storage.regions(rom, {**layout, 'asset_bank_categories': labels})
+                self.assertEqual([(r['key'], r['rom_start'], r['rom_end']) for r in regions],
+                                 expected)
+                banks = {r['key']: r['category'] for r in regions if r['key'].startswith('bank')}
+                self.assertEqual(banks['bank03'], (labels or {}).get('03', 'unclassified'))
+                self.assertEqual(banks['bank01'], 'unclassified')
+        del layout['asset_bank_categories']
+        self.assertEqual([(r['key'], r['rom_start'], r['rom_end'])
+                          for r in storage.regions(rom, layout)], expected)
+
+    def test_malformed_evidence_labels_are_rejected(self):
+        rom, layout = fixture()
+        for labels in ([], {'03': 1}, {'03': ''}, {'03': ' '}):
+            with self.subTest(labels=labels), self.assertRaisesRegex(ValueError, 'evidence labels'):
+                storage.regions(rom, {**layout, 'asset_bank_categories': labels})
+
+    def test_config_count_mismatch_fails_before_mutation(self):
+        rom, layout = fixture()
+        selected = [rebuilt(4, 8)]
+        for configs in ([], [{'metadata': {}}, {'metadata': {}}]):
+            with self.subTest(configs=configs), tempfile.TemporaryDirectory() as tmp:
+                with patch.object(storage, 'prepare_remainder') as prepare_remainder:
+                    with self.assertRaisesRegex(ValueError, 'same length'):
+                        storage.prepare(rom, layout, selected, configs, output=Path(tmp))
+                    prepare_remainder.assert_not_called()
+                self.assertTrue(all(config['metadata'] == {} for config in configs))
 
     def test_changed_rom_or_unconsumed_flat_tail_is_rejected(self):
         rom, layout = fixture()
@@ -112,16 +133,24 @@ class StorageTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             output = Path(tmp)
             units, items, proof = storage.prepare(rom, layout, selected, configs, output=output)
+            families = {r['key']: r['category'] for r in proof['regions']}
+            self.assertEqual(families, {
+                'font': 'assets-other', 'flat': 'assets-flat',
+                'flat-alignment': 'assets-other', 'bank-index': 'assets-other',
+                **{'bank' + bank: family for bank, family in layout['asset_bank_categories'].items()},
+            })
             self.assertEqual(proof['stored_asset_bytes'], len(rom) - 16 + 4)
             self.assertEqual(proof['rebuilt_asset_bytes'], sum(u['size'] for u in selected))
             self.assertEqual(sum(u['report_data_bytes'] for u in units), proof['unreconstructed_asset_bytes'])
-            self.assertEqual(configs[1]['metadata']['progress_categories'], ['data', 'assets', 'assets-flat'])
+            for config in configs:
+                self.assertEqual(config['metadata']['progress_categories'], ['data'])
             self.assertTrue(configs[1]['metadata']['complete'])
             observed = []
             for unit, item in zip(units, items, strict=True):
                 self.assertNotIn('base_path', unit)
                 self.assertNotIn('base_path', item)
                 self.assertFalse(item['metadata']['complete'])
+                self.assertEqual(item['metadata']['progress_categories'], ['data'])
                 self.assertEqual(unit['report_code_bytes'], 0)
                 expected = b''.join(rom[a:b] for a, b in unit['rom_ranges'])
                 self.assertEqual(sections((output / unit['target_path']).read_bytes(), 1)['.data'][1], expected)

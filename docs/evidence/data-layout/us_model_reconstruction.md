@@ -480,3 +480,27 @@ Native report SHA-256:
 
 Validation ran before committing the same source inputs. Private logs and audits
 are `build/model-level6-*`; generated records, ROMs and reports remain ignored.
+
+### Revalidation with the Data report consolidation, 11 October 2026
+
+The level-six batch was validated before merging the newer main changes from
+`9bc0f1f27b70a060ca67685462f33be53da9583b`. Those changes consolidate asset
+storage filters into Data and preserve family names as optional evidence labels.
+The preceding report fingerprint and hash identify the premerge snapshot.
+
+On the combined tree, the full Docker suite runs 2,359 tests with eight skips
+and no failures. `./conker build --assets` passes; an independent comparison
+again confirms all 67,108,864 bytes equal the original US ROM, SHA-1
+`4cbadd3c4e0729dec46af64ad018050eada4f47a`. Logs and independent audits are
+`build/model-level6-merged-*`.
+
+The fresh merged report validates all 8,383 units with no compile errors. Every
+unit's measures and all aggregate measures equal the premerge report. All 506
+model units remain fully matched and complete (370,270 bytes); matched Data
+remains 8,661,506 / 65,120,512 bytes (13.300734%). Source snapshot status is
+`current`; canonical progress and whitespace checks pass.
+
+Merged source fingerprint:
+`d1094fd8360bac4927e15831c8f6ef575c398dab7eeb06fd14e336bbf1679c95`.
+Merged report SHA-256:
+`c46ec50a6890454517281de78ff03b56fc4a3c7490adfaa62f1d126d31f22223`.

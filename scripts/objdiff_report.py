@@ -351,7 +351,7 @@ def prepare() -> None:
     objdiff.write_json(OUTPUT / 'objdiff.json', {'build_target': False, 'build_base': False,
         'units': grouped_config, 'progress_categories': [{'id': k, 'name': n} for k,n in
             [('main','Main executable'),('game','Game overlay'),('debugger','Debugger overlay'),
-             ('project','Project code'),('sdk','SDK libraries'),('data','Data'), *objdiff_storage.CATEGORIES]]})
+             ('project','Project code'),('sdk','SDK libraries'),('data','Data')]]})
 
 
 def validate_report(report: dict, coverage: dict, config: dict, *,
