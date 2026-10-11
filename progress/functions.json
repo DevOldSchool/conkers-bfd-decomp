@@ -28752,6 +28752,12 @@
       "symbol": "func_1513CBA4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3410,
+        "reason": "CURRENT (3410), exact 0x80 frame and addressed local offsets; viewport branch, mode-byte and texture promotion, GPR allocation and packet scheduling still differ. Two bounded probe batches exhausted; final variants worsened score and frame.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -34169,6 +34175,12 @@
       "symbol": "func_151DC484"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5420,
+        "reason": "CURRENT5420 after three finishes and two bounded probe batches. Original0xD8 frame and descriptor0x58 recovered; count/product promotion, register allocation and descriptor/loop scheduling remain. Preserve best; original assembly stays active.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -85762,11 +85774,15 @@
       "symbol": "func_1512ABF8"
     },
     {
+      "blocked": {
+        "reason": "Existing matched func_1512B100 declares func_1512AD54(void) and calls it with no arguments, but raw1512AD54 saves and dereferences incominga0 and raw1512B100 forwards its actor througha0. A typed C implementation conflicts with that active declaration. Requires scoped caller-contract correction and independent caller recheck beyond target-only replacement; no candidate or source edit made.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 940,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_1512AD54",
           "vram": "0x1512AD54"
         }

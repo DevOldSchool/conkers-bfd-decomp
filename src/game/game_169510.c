@@ -418,6 +418,132 @@ void func_1513CBA4(void *arg0) {
     }
     D_80089F2C[var_v0]();
 }
+typedef struct {
+    u32 w0;
+    u32 w1;
+} Game169510Gwords;
+
+typedef union {
+    Game169510Gwords words;
+} Gfx;
+
+typedef struct {
+    u8 pad0[6];
+    u16 width;
+    u16 height;
+    u8 padA[2];
+} Game169510TextureInfo;
+
+extern Game169510TextureInfo D_80090B60[];
+
+typedef struct Game169510DrawOwner {
+    u8 pad0[0x10];
+    s32 active;
+    s32 state;
+    s32 flags;
+    s16 lifetime;
+    u8 texture;
+    u8 pad1F;
+    s32 frame;
+    s32 speed;
+    u8 alpha;
+    u8 blend;
+    u8 red;
+    u8 green;
+    u8 blue;
+    u8 intensity;
+    u8 colorMode;
+    u8 alphaMode;
+    s32 renderMode;
+    s32 transformMode;
+    u8 viewportMask;
+    u8 pad39[7];
+    u8 vertices[0x40];
+    u8 pad80[4];
+    u8 transform[0x20];
+    u8 auxiliary[1];
+} Game169510DrawOwner;
+
+Gfx *func_1513F4E4(Gfx *, u8, u8 *);
+Gfx *func_15142B7C(Gfx *, s32, s32);
+Gfx *func_15142C10(Gfx *, s32, s32, s32, s32, u8 *);
+Gfx *func_15142CF0(Gfx *, s32, s32, s32, s32, s32, s32, u8 *);
+s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
+Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
+void func_151441A4(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, s32, u8, u8, u8, u8, u8, u8);
+void func_151442FC(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8);
+s32 func_151462C8(s32, void *, s32, s32, s32, s32, void *, s32, s32);
+extern s32 D_800A4AC8[][2];
+extern s32 D_800D2C9C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513CBF0 CURRENT (3410) */
+Gfx *func_1513CBF0(Gfx *gdl, Game169510DrawOwner *owner, s16 viewport) {
+    Gfx *packet;
+    u8 changed;
+    volatile u8 renderMode;
+    volatile u8 combineMode;
+    s16 savedFlags;
+    s32 packedMode;
+    s16 red, green, blue, alpha;
+    s16 red2, green2, blue2, alpha2;
+    s32 mode;
+    s32 geometry;
+    s32 texture;
+    s32 *blendMode;
+
+    if (owner->active & 1) {
+        if ((owner->flags & 0x2000) && !(owner->viewportMask & (1 << viewport))) {
+        } else {
+            changed = 1;
+            packedMode = owner->renderMode;
+            combineMode = (u32)(packedMode & 0xFFFF0000) >> 16;
+            renderMode = packedMode;
+            savedFlags = owner->flags & 0x30;
+            mode = (owner->flags & 0x4000) ? owner->transformMode : 0;
+            gdl = (Gfx *)func_151462C8((s32)gdl, owner->transform, 0, 0, 0,
+                                      viewport, owner->auxiliary, 2, mode);
+            mode = (owner->flags & 0x100) ? owner->colorMode : 3;
+            func_151441A4(&red, &green, &blue, &alpha, owner->red, owner->green,
+                         owner->blue, owner->intensity, 255, 255, 255,
+                         owner->alpha, owner->blend, mode);
+            mode = (owner->flags & 0x200) ? owner->alphaMode : 4;
+            func_151442FC(&red2, &green2, &blue2, &alpha2, owner->red, owner->green,
+                         owner->blue, owner->intensity, 255, 255, 255,
+                         owner->alpha, owner->blend, mode);
+            geometry = 0;
+            if (savedFlags & 0x10) geometry = 0x200;
+            if (savedFlags & 0x20) geometry |= 0x400;
+            if (owner->flags & 0x400) mode = 0x20000;
+            else mode = 0;
+            gdl = func_15142B7C(gdl, mode | geometry | 1, 0x600);
+            texture = owner->texture;
+            if (texture != 255) {
+                mode = (owner->flags & 0x20000) ? 0x3E : 3;
+                gdl = (Gfx *)func_15142E24((s32)gdl, (s32)&D_80090B60[texture],
+                                         owner->frame, 2, 0, 0, texture, 0, 0,
+                                         &changed, mode);
+            }
+            gdl = func_15142C10(gdl, red2, green2, blue2, alpha2, &changed);
+            gdl = func_15142CF0(gdl, 0, 0, red, green, blue, alpha, &changed);
+            gdl = func_1513F4E4(gdl, combineMode, &changed);
+            mode = (owner->texture == 255) ? 0 : D_800D2C9C;
+            blendMode = D_800A4AC8[renderMode];
+            gdl = func_15142FBC(gdl, mode | 0x80000 | 0x2CA0,
+                               blendMode[1] | blendMode[0], &changed);
+            packet = gdl++;
+            packet->words.w0 = 0x01004008;
+            packet->words.w1 = (u32)owner->vertices;
+            packet = gdl++;
+            packet->words.w0 = 0x05000204;
+            packet->words.w1 = 0;
+            packet = gdl++;
+            packet->words.w0 = 0x05000406;
+            packet->words.w1 = 0;
+        }
+    }
+    return gdl;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513CBF0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513CBF0.s")
 extern void (*D_80089F60)(s32, s32, u8);
 
@@ -1156,15 +1282,6 @@ s16 func_15143044(u8, s32);
 extern u8 D_800A4BA8[];
 extern s16 D_800DD1BE;
 
-typedef struct {
-    u32 w0;
-    u32 w1;
-} Game169510Gwords;
-
-typedef union {
-    Game169510Gwords words;
-} Gfx;
-
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 #define G_SETCOMBINE 0xfc
 #define G_RDPPIPESYNC 0xe7
@@ -1296,15 +1413,6 @@ void func_1513FA70(void *arg0, s16 arg1) {
     func_1513FAB4(arg0, 1, sp18, arg1);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513FAB4.s")
-typedef struct {
-    u8 pad0[6];
-    u16 width;
-    u16 height;
-    u8 padA[2];
-} Game169510TextureInfo;
-
-extern Game169510TextureInfo D_80090B60[];
-
 void func_1513FFF4(void *arg0, u8 arg1, u8 arg2) {
     typedef struct {
         s16 ob[3];
