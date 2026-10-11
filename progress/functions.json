@@ -22061,6 +22061,12 @@
       "symbol": "func_15070860"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2825,
+        "reason": "CURRENT 2825 after two focused comparisons and two probe batches. ROM-verified literals recover the exact 0x138 frame and descriptor offsets; literal relocations and repeated-5.0 constant promotion/scheduling remain. Existing reviewed literal pool explicitly excludes this constructor, so ownership/placement recovery is still required. Signed-char sentinel stores preserve FF bits without changing the shared descriptor. No mapping or shared dependency changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -83811,6 +83817,12 @@
       "symbol": "func_151C2734"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2998,
+        "reason": "CURRENT 2998 after two focused comparisons and two bounded probe batches. Typed motion subobject and cached third-vertex cursor preserve raw geometry and improve 5787; frame 0xC0 versus 0xB0, float register allocation, spill placement and scheduling remain. No shared dependency changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

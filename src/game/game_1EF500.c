@@ -83,6 +83,114 @@ void func_151C2050(Game1C2050Owner *arg0, Game1EF500EmitterVector *arg1,
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C229C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C2734.s")
+void *func_10022EC0(void *, const void *, u32);
+s32 func_15144B34(s32);
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+
+typedef struct {
+    u8 pad0[0x10];
+    Game1EF500EmitterVector displacement;
+} Game1C2AD0Motion;
+
+typedef struct {
+    u8 pad0[0x2C];
+    f32 width;
+    u8 pad30[4];
+    Game1EF500EmitterVector position;
+    u8 pad40[0x1C];
+    u8 alpha;
+    u8 pad5D[0x63];
+    u8 vertexTemplate[0x40];
+    void *buffers[4];
+    Game1C2AD0Motion motion;
+} Game1C2AD0Strip;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C2AD0 CURRENT (2998) */
+void *func_151C2AD0(Game1C2AD0Strip *arg0, s16 arg1) {
+    Game1EF500EmitterVector start;
+    Game1EF500EmitterVector end;
+    Game1EF500EmitterVector delta;
+    Game1EF500EmitterVector normal;
+    Game1EF500EmitterVector midpoint;
+    Game1EF500EmitterVector offset;
+    f32 lengthSquared;
+    f32 scale;
+    void *vertices;
+    void *base;
+    u8 *cursor;
+    u8 fresh;
+    Game1EF500EmitterVector *camera;
+    u8 *buffers;
+    void *vertexTemplate;
+    Game1C2AD0Motion *motion;
+
+    func_151D5D60(arg0->buffers, arg1, 0x40, &vertices, &fresh);
+    base = vertices;
+    if (vertices != NULL) {
+        if (fresh != 0) {
+            buffers = (u8 *)arg0 + arg1 * 4;
+            vertexTemplate = arg0->vertexTemplate;
+            func_10022EC0(*(void **)(buffers + 0x100), vertexTemplate, 0x40);
+            func_10022EC0(*(u8 **)(buffers + 0x100) + 0x40, vertexTemplate, 0x40);
+        }
+    } else {
+        return NULL;
+    }
+    camera = (Game1EF500EmitterVector *)func_15144B34(arg1);
+    motion = (Game1C2AD0Motion *)((u8 *)arg0 + 0x110);
+    start = arg0->position;
+    end.x = arg0->position.x - motion->displacement.x;
+    end.y = arg0->position.y - motion->displacement.y;
+    end.z = arg0->position.z - motion->displacement.z;
+    delta.x = end.x - start.x;
+    delta.y = end.y - start.y;
+    delta.z = end.z - start.z;
+    midpoint.x = delta.x * 0.5f + start.x - camera->x;
+    midpoint.y = delta.y * 0.5f + start.y - camera->y;
+    midpoint.z = delta.z * 0.5f + start.z - camera->z;
+    normal.x = delta.y * midpoint.z - midpoint.y * delta.z;
+    normal.y = delta.z * midpoint.x - midpoint.z * delta.x;
+    normal.z = delta.x * midpoint.y - midpoint.x * delta.y;
+    lengthSquared = normal.x * normal.x + normal.y * normal.y + normal.z * normal.z;
+    if (lengthSquared == 0.0f) {
+        offset.z = 0.0f;
+        offset.x = 0.0f;
+        offset.y = 0.0f;
+    } else {
+        scale = arg0->width / sqrtf(lengthSquared);
+        offset.x = normal.x * scale;
+        offset.y = normal.y * scale;
+        offset.z = normal.z * scale;
+    }
+    *(s16 *)vertices = (s32)(start.x - offset.x);
+    *(s16 *)((u8 *)vertices + 2) = (s32)(start.y - offset.y);
+    *(s16 *)((u8 *)vertices + 4) = (s32)(start.z - offset.z);
+    *((u8 *)vertices + 0xF) = arg0->alpha;
+    *(s16 *)((u8 *)vertices + 6) = 0;
+    vertices = (u8 *)vertices + 0x10;
+    *(s16 *)vertices = (s32)(end.x - offset.x);
+    *(s16 *)((u8 *)vertices + 2) = (s32)(end.y - offset.y);
+    *(s16 *)((u8 *)vertices + 4) = (s32)(end.z - offset.z);
+    *((u8 *)vertices + 0xF) = 0;
+    *(s16 *)((u8 *)vertices + 6) = 0;
+    cursor = (u8 *)vertices + 0x10;
+    vertices = cursor;
+    cursor[0xF] = 0;
+    *(s16 *)(cursor + 6) = 0;
+    *(s16 *)cursor = (s32)(end.x + offset.x);
+    *(s16 *)(cursor + 2) = (s32)(end.y + offset.y);
+    *(s16 *)(cursor + 4) = (s32)(end.z + offset.z);
+    vertices = cursor + 0x10;
+    *(s16 *)vertices = (s32)(start.x + offset.x);
+    *(s16 *)((u8 *)vertices + 2) = (s32)(start.y + offset.y);
+    *(s16 *)((u8 *)vertices + 4) = (s32)(start.z + offset.z);
+    *((u8 *)vertices + 0xF) = arg0->alpha;
+    *(s16 *)((u8 *)vertices + 6) = 0;
+    return base;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C2AD0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C2AD0.s")
 s32 func_151C2E4C(void *arg0, void *arg1) {
     if (arg0 == arg1) {
