@@ -42490,6 +42490,12 @@
       "symbol": "func_15081E78"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1876,
+        "reason": "Best full-span US CURRENT 1876 after three finishes and two bounded probe batches. The 0x50 frame and local homes match; global address caching, integer allocation and masked-shift scheduling remain. Raw zero/object-ID return behavior and unsigned timer loads are preserved; original assembly remains active.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -51503,6 +51509,12 @@
       "symbol": "func_151873E4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1980,
+        "reason": "Initial focused CURRENT 1980 remained best after two bounded probe batches. The 0x50 frame matches; angle-base expressions are reassociated across RNG calls and integer allocation/final store scheduling differ. Original unsigned-to-float behavior is preserved and original assembly remains active.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
