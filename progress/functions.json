@@ -14122,6 +14122,12 @@
       "symbol": "func_15005290"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 615,
+        "reason": "CURRENT 615 after initial and two bounded probe revisions; frame and parameter homes match, but initialization/store scheduling and FP temporary register allocation differ. Best attempt 9c4dcbdb666847b794b30d9c55615b0a; no shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -63488,6 +63494,12 @@
       "symbol": "func_15015A38"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 7700,
+        "reason": "CURRENT 7700; correct 0x60 frame after reusing disjoint locals, but FP allocation, early actor load order and ordered halfword conversions differ. Two finishes and two bounded probe batches; rejected volatile-output probe because helper casts discard volatile qualification. Best valid attempt 3575359898914e70816f4e0b577a2d64.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
