@@ -864,7 +864,109 @@ void func_151CAB78(u8 *arg0, u8 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CAB78 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAB78.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAD28.s")
+typedef struct SightWarpState {
+    s32 field0;
+    u8 *center;
+    u16 *pixels;
+    s32 rowOffset;
+    s32 columnOffset;
+} SightWarpState;
+
+f32 func_15145A0C(f32, f32, f32);
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+extern f32 D_800AAE9C, D_800AAEA0, D_800AAEA4;
+extern s32 D_800BE620;
+extern u8 D_800BEAC0, D_800BEAC1, D_800BEAC2;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CB110 CURRENT (8774) */
+void func_151CB110(u8 *arg0, u16 *arg1) {
+    SightWarpState *state;
+    u8 *center;
+    s32 copyRow;
+    s32 copyDestination;
+    s32 copySource;
+    volatile f32 savedY;
+    register f32 radius;
+    f32 scale;
+    f32 offset;
+    volatile s32 savedBottom;
+    volatile s32 savedRight;
+    volatile s32 savedTop;
+    volatile s32 savedLeft;
+    f32 blend;
+    volatile s32 savedSourceBottom;
+    volatile s32 savedSourceRight;
+    volatile s32 savedSourceTop;
+    volatile s32 savedSourceLeft;
+    f32 y;
+    f32 x;
+    f32 sampleX;
+    f32 sampleY;
+    s32 bottom;
+    s32 right;
+    s32 top;
+    s32 left;
+    s32 sourceBottom;
+    s32 sourceRight;
+    s32 sourceTop;
+    s32 sourceLeft;
+
+    if ((D_800BEAC0 == 0) && (D_800BEAC1 == 0)) {
+        copyRow = 0;
+        copyDestination = 0;
+        state = (SightWarpState *)(arg0 + 0x18);
+        if (D_800BEAC2 == 0) {
+            center = state->center;
+            copySource = state->rowOffset + state->columnOffset;
+            do {
+                func_10022EC0(state->pixels + copyDestination, arg1 + copySource, 0x30U);
+                copyRow++;
+                copyDestination += 0x18;
+                copySource += D_800BE620;
+            } while (copyRow != 0x18);
+            for (y = -1.0f; y < 0.0f; y += D_800AAEA4) {
+                savedY = y;
+                radius = func_15145A0C(fabsf(y), 1.0f, 1.0f);
+                y = savedY;
+                if (radius != 0.0f) {
+                    offset = y * 12.0f;
+                    x = -radius;
+                    savedTop = top = (s32)(*(f32 *)(center + 0x38) + offset) * D_800BE620;
+                    savedBottom = bottom = (s32)(*(f32 *)(center + 0x38) - offset) * D_800BE620;
+                    if (x < 0.0f) {
+                        scale = 1.0f - (1.0f - radius * D_800AAE9C);
+                        do {
+                            savedY = y;
+                            blend = func_15145A0C(fabsf(x), radius, 1.0f / radius) * scale;
+                            y = savedY;
+                            offset = x * 12.0f;
+                            savedLeft = left = (s32)(*(f32 *)(center + 0x34) + offset);
+                            savedRight = right = (s32)(*(f32 *)(center + 0x34) - offset);
+                            blend = 1.0f - blend;
+                            sampleX = x * blend * 12.0f;
+                            sampleY = y * blend * 12.0f;
+                            savedSourceLeft = sourceLeft = (s32)(sampleX + 12.0f);
+                            savedSourceRight = sourceRight = (s32)(12.0f - sampleX);
+                            savedSourceTop = sourceTop = (s32)(sampleY + 12.0f) * 0x18;
+                            savedSourceBottom = sourceBottom = (s32)(12.0f - sampleY) * 0x18;
+                            top = savedTop;
+                            bottom = savedBottom;
+                            *(arg1 + top + left) = *(state->pixels + sourceLeft + sourceTop);
+                            *(arg1 + top + right) = *(state->pixels + sourceRight + sourceTop);
+                            *(arg1 + bottom + right) = *(state->pixels + sourceRight + sourceBottom);
+                            *(arg1 + bottom + left) = *(state->pixels + sourceLeft + sourceBottom);
+                            x += D_800AAEA0;
+                        } while (x < 0.0f);
+                    }
+                }
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CB110 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB110.s")
+
 typedef struct SightActor {
     u8 pad0[0x318];
     void *field_318;

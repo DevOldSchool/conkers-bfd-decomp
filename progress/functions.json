@@ -9128,6 +9128,12 @@
       "symbol": "func_151CAD28"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 8774,
+        "reason": "Three focused finishes and two bounded probe batches reduced CURRENT 13952 to 8774. Real coordinate snapshots and copy counters improve code generation, but the frame remains 0xB8 versus 0xB0 with integer/FP allocation and address scheduling differences; original assembly retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -56298,6 +56304,12 @@
       "symbol": "func_151AB930"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4390,
+        "reason": "Two focused finishes and two bounded probe batches reduced CURRENT 6553 to 4390 with the exact 0x118 frame and addressed local offsets. Global-address promotion, cached modulo divisors, integer/FP allocation and call scheduling still differ; original assembly retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
