@@ -1063,7 +1063,90 @@ void *func_1513EE14(void *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513EE14 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513EE14.s")
+f32 func_15047C00(f32);
+f32 func_15047D60(f32);
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+extern f32 D_800A51BC, D_800A51C0;
+extern f32 D_800BE9A8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513F114 CURRENT (5472) */
+void *func_1513F114(Game169510ScaledOwner *owner, s16 arg1) {
+    Game169510ScaledVertex *vertices;
+    void *result;
+    f32 directionZ, directionX;
+    f32 lower, upper;
+    f32 sine, cosine;
+    f32 width, widthCosine, widthSine;
+    f32 lowerSine, lowerCosine, offset;
+    f32 upperSine, upperCosine, angle;
+    u8 fresh;
+    u8 *slot;
+    void *template;
+
+    func_151D5D60((u8 *)owner + 0x100, arg1, 0x40, (void **)&vertices, &fresh);
+    result = vertices;
+    if (vertices != NULL) {
+        if (fresh != 0) {
+            slot = (u8 *)owner + arg1 * 4;
+            template = (u8 *)owner + 0xC0;
+            func_10022EC0(*(void **)(slot + 0x100), template, 0x40);
+            func_10022EC0(*(u8 **)(slot + 0x100) + 0x40, template, 0x40);
+        }
+    } else {
+        return NULL;
+    }
+    width = owner->height;
+    directionZ = D_800DD1D8[arg1];
+    directionX = D_800DD1E8[arg1];
+    lower = -(owner->sy * width);
+    upper = width + lower;
+    cosine = -1.0f;
+    angle = ((owner->rx - owner->x) * directionX -
+             directionZ * (owner->rz - owner->z)) * D_800BE9A8;
+    if (angle < 0.0f) {
+        cosine = 1.0f;
+        angle = -angle;
+    }
+    angle = sqrtf(angle) * owner->sx;
+    if (D_800A51BC < angle) {
+        angle = D_800A51C0;
+    }
+    angle *= cosine;
+    sine = func_15047D60(angle);
+    cosine = func_15047C00(angle);
+    width = owner->width;
+    widthCosine = width * cosine;
+    widthSine = width * sine;
+    lowerSine = lower * sine;
+    offset = widthCosine - lowerSine;
+    vertices[0].x = (s32)(owner->x + offset * directionX);
+    lowerCosine = lower * cosine;
+    vertices[0].y = (s32)(owner->y + lowerCosine + widthSine);
+    vertices[0].z = (s32)(owner->z - offset * directionZ);
+    vertices[0].flag = 0;
+    offset = -(widthCosine + lowerSine);
+    vertices[1].x = (s32)(owner->x + offset * directionX);
+    vertices[1].y = (s32)((owner->y + lowerCosine) - widthSine);
+    vertices[1].z = (s32)(owner->z - offset * directionZ);
+    vertices[1].flag = 0;
+    upperSine = upper * sine;
+    offset = -(widthCosine + upperSine);
+    vertices[2].x = (s32)(owner->x + offset * directionX);
+    upperCosine = upper * cosine;
+    vertices[2].y = (s32)((owner->y + upperCosine) - widthSine);
+    vertices[2].z = (s32)(owner->z - offset * directionZ);
+    vertices[2].flag = 0;
+    offset = widthCosine - upperSine;
+    vertices[3].x = (s32)(owner->x + offset * directionX);
+    vertices[3].y = (s32)(owner->y + upperCosine + widthSine);
+    vertices[3].z = (s32)(owner->z - offset * directionZ);
+    vertices[3].flag = 0;
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513F114 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513F114.s")
+
 s32 func_15140410(s32, s32, s32, s16);
 
 void func_1513F4B0(s32 arg0, s16 arg1) {

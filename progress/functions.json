@@ -29137,6 +29137,12 @@
       "symbol": "func_1513EE14"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5472,
+        "reason": "Initial full-span US CURRENT 5472 remained best after two bounded probe batches. Raw signed projection, clamp, trig inputs and four vertex writes are preserved. Frame 0xA8 versus 0x90, extra saved FP register and scalar snapshot/scheduling differences remain. Original assembly remains active.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -78245,6 +78251,12 @@
       "symbol": "func_15102D90"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1810,
+        "reason": "Best full-span US CURRENT 1810, improved from 3969; two implementation finishes, two bounded probe batches and one formatting-only recheck. Four 16-byte vertex writes preserve the raw offsets. Frame 0xA0 versus 0x98, address caching and floating-point lifetime/scheduling differences remain; original assembly stays active.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
