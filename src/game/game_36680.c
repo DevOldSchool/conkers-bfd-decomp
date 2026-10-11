@@ -935,6 +935,77 @@ u32 func_1500B1F4(s16 arg0, s32 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) 
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1500B1F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500B1F4.s")
+typedef struct {
+    f32 x, y, z;
+} Game36680FloatPoint;
+
+typedef struct {
+    Game36680FloatPoint points[3];
+} Game36680Triangle;
+
+void func_15049350(Game36680Triangle);
+extern u8 D_80082D80[];
+extern u16 D_800BE430;
+extern f32 D_800CC210, D_800CC214, D_800CC218, D_800CC21C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500B3B0 CURRENT (3082) */
+u32 func_1500B3B0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {
+    Game36680Triangle triangle;
+    f32 centerX;
+    f32 centerY;
+    f32 centerZ;
+    Game36680FloatPoint *point;
+    s16 **input;
+    f32 **table;
+    f32 *pattern;
+    s32 offset;
+    u32 index;
+    f32 x;
+    f32 y;
+    f32 z;
+
+    arg0 = (s16)arg0;
+    centerX = 0.0f;
+    centerY = 0.0f;
+    centerZ = 0.0f;
+    point = triangle.points;
+    input = arg5;
+    do {
+        point->x = (f32)(*input)[0];
+        point->y = (f32)(*input)[1];
+        point->z = (f32)(*input)[2];
+        centerX += point->x / 3.0f;
+        centerY += point->y / 3.0f;
+        centerZ += point->z / 3.0f;
+        point++;
+        input++;
+    } while (point < triangle.points + 3);
+    func_15049350(triangle);
+    table = (f32 **)(D_80082D80 + arg0 * 4);
+    pattern = *table;
+    offset = 4;
+    index = 1;
+    if (pattern[0] * (f32)2 >= 1.0f) {
+        do {
+            x = *(f32 *)((u8 *)pattern + offset) + centerX;
+            offset += 4;
+            z = *(f32 *)((u8 *)pattern + offset) + centerZ;
+            offset += 4;
+            index += 2;
+            if (D_800CC214 != 0.0f) {
+                y = (D_800CC21C - D_800CC210 * x - D_800CC218 * z) / D_800CC214;
+            } else {
+                y = centerY;
+            }
+            arg4 = func_1500AF08(arg4, arg2, arg3, (s16)(s32)x, (s32)y, (s32)z,
+                                0x80, ((u8 *)&arg1)[3], (s32)D_800BE430 >> arg2);
+            pattern = *table;
+        } while ((f32)index <= pattern[0] * (f32)2);
+    }
+    D_800BE430 ^= 1 << arg2;
+    return arg4;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1500B3B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500B3B0.s")
 void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
 

@@ -15945,6 +15945,12 @@
       "symbol": "func_1500B1F4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3082,
+        "reason": "Two finishes and two bounded probe batches; best cce3710948dc4b7fb957336e07372c6c CURRENT3082, frame0xE0 versus raw0xD0. Explicit float cast of integer2 restores raw multiply and fifth saved FPregister. Triangle-by-value0x24 ABI verified against raw caller and callee. Final cursor/height lifetime variants attain frame0xD0 but regress to3320; not applied. Remaining parameter promotion, aggregate address placement, GPR allocation and scheduling differ. No shared declarations changed; manual budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -17482,11 +17488,15 @@
       "symbol": "func_15040350"
     },
     {
+      "blocked": {
+        "reason": "next --ready exits1 before starter/declarations: m2c cannot resolve jr at function ASM line60 because jtbl_80098960_game is not provided. No existing mapping in config/game/us-rodata.ld or data-layout evidence. Requires separate raw jump-table recovery, reviewed ownership/integration, and matching-context tooling input before manual C work. No candidate or source edit attempted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 868,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150403C8",
           "vram": "0x150403C8"
         }
@@ -85855,6 +85865,12 @@
       "symbol": "func_150C04C0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2699,
+        "reason": "CURRENT (2699), frame 0x118 and packet/spawn offsets exact after two finishes and two targeted probe batches. Remaining zero/height FP allocation, spill location, incoming arg5 scheduling and instruction ordering differ. Final zero lifetime/cast probes 2842 and 2892 did not improve. Best verified candidate retained; manual budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -88148,6 +88164,12 @@
       "symbol": "func_150DF334"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 7325,
+        "reason": "CURRENT (7325), frame 0xE8 versus raw 0xD0. Two finishes and one targeted probe batch: byte channel and explicit range/random lifetimes do not resolve early channel promotion, hoisted constant addresses, divisor-register checks or initial FP scheduling. Full 0x48 descriptor and six-argument pointer-return helper contract verified from raw reads through +0x44. Stop plateau; preserve candidate without further unsupported reshaping.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
