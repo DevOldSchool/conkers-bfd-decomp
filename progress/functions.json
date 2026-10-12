@@ -29026,7 +29026,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 2081,
-        "reason": "Manual existing ABI repair, observed volatile coordinate snapshots, proven angle-call pattern give2081; duplicate-alias elimination regressed3036. Frame60vs50 and FP allocation/snapshot slots remain; best recorded deferred-manual-20260928.",
+        "reason": "CURRENT (2081) baseline retained. Two probe batches tested ordinary float snapshots, observed local ordering, duplicate-copy removal and register qualifiers. Removing duplicate locals recovers frame0x50 but worsens score to3828; removing volatile alone is4265. Remaining float allocation, spill placement and store scheduling differ. One refreshed finish and one layout inspection; no applied revision or eligible register-only permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -29075,8 +29075,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1290,
-        "reason": "CURRENT (1290), improved saved1465/latest1665 using compound FP updates and unsignedFF store. Shared interior-pointer lifetime is neutral; remaining first two pointer folds, alias-load scheduling, V0/V1 and early return LI. Two revisions; ledger deferred-manual-20260928.",
+        "current_score": 1090,
+        "reason": "Fresh baseline CURRENT (1090), unchanged C body. Three probe batches tested distinct/register pointers, aligned float/typed motion fields and integer-derived motion addresses; all remained probe1290. First two motion bases are folded into owner offsets, flag reload is hoisted across the first store, and later pointer/flag registers and return scheduling differ. Structural alias/address residual; no eligible register-only permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -29094,8 +29094,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2230,
-        "reason": "Best CURRENT 2230 after three manual candidates; frame, buffer homes, initial sign extension and loop scheduling remain. Shared dependencies unchanged.",
+        "current_score": 1509,
+        "reason": "Renewed best CURRENT (1509), frame 0xD8 and all addressed local homes now exact. Removing duplicate index/matrix address locals and placing the real short index between matrix and output pointer restores layout. Signed parameter setup, matrix-base load scheduling and loop narrowing/branch delay still differ. Three revision probe batches and two finishes; narrow-index reuse and matrix-pointer/increment families plateaued, no eligible register-only permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

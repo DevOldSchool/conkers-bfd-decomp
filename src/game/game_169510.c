@@ -929,7 +929,7 @@ void func_1513E2A4(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513E2AC.s")
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E6E8 CURRENT (1290) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E6E8 CURRENT (1090) */
 s32 func_1513E6E8(u8 *arg0) {
     u8 *temp_v0;
 
@@ -980,29 +980,27 @@ void func_151D5D60(void *, s16, s32, void **, u8 *);
 void func_150A8050(void *, f32, f32, f32);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E83C CURRENT (2230) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E83C CURRENT (1509) */
 void *func_1513E83C(Game169510ScaledOwner *owner, s32 arg1) {
     f32 matrix[4][4];
+    s16 index;
     Game169510ScaledVertex *vertices;
     void *result;
     f32 coords[4][3];
     u8 fresh;
     f32 *point;
-    s16 index;
-    register s32 bufferIndex = (s16)arg1;
-    register f32 (*transform)[4];
 
-    func_151D5D60(owner->buffers, bufferIndex, 0x40, (void **)&vertices, &fresh);
+    arg1 = (s16)arg1;
+    func_151D5D60(owner->buffers, arg1, 0x40, (void **)&vertices, &fresh);
     result = vertices;
     if (vertices != 0) {
         if (fresh != 0) {
-            func_10022EC0(owner->buffers[bufferIndex], owner->templateData, 0x40);
-            func_10022EC0(owner->buffers[bufferIndex] + 0x40, owner->templateData, 0x40);
+            func_10022EC0(owner->buffers[arg1], owner->templateData, 0x40);
+            func_10022EC0(owner->buffers[arg1] + 0x40, owner->templateData, 0x40);
         }
     } else {
         return 0;
     }
-    transform = matrix;
     coords[0][0] = owner->width;
     coords[0][1] = owner->height;
     coords[1][0] = -owner->width;
@@ -1011,7 +1009,7 @@ void *func_1513E83C(Game169510ScaledOwner *owner, s32 arg1) {
     coords[2][1] = -owner->height;
     coords[3][0] = owner->width;
     coords[3][1] = -owner->height;
-    func_150A8050(transform, owner->rx, owner->ry, owner->rz);
+    func_150A8050(matrix, owner->rx, owner->ry, owner->rz);
     matrix[3][0] = owner->x;
     index = 0;
     matrix[3][1] = owner->y;
@@ -1027,7 +1025,7 @@ void *func_1513E83C(Game169510ScaledOwner *owner, s32 arg1) {
     matrix[2][2] *= owner->sz;
     do {
         point = coords[index];
-        func_150A7960(transform, point[0], point[1], 0.0f, &point[0], &point[1], &point[2]);
+        func_150A7960(matrix, point[0], point[1], 0.0f, &point[0], &point[1], &point[2]);
         vertices->x = (s32)point[0];
         vertices->y = (s32)point[1];
         index++;
