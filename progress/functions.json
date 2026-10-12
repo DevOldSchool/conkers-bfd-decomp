@@ -53925,6 +53925,12 @@
       "symbol": "func_150E4514"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1457,
+        "reason": "Manual revision budget exhausted: 3139 to 2931 to 1457; reference 0x118 frame and packet/position offsets recovered. Entry/index spill offsets, float register allocation and packet conversion/store scheduling remain nonexact. Unchanged header-ownership repair recheck also scores 1457.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -80821,6 +80827,12 @@
       "symbol": "func_1515A11C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1421,
+        "reason": "Manual revision budget exhausted: 2552 to 1658 to 1421; reference 0xE8 frame and descriptor/motion/collision buffers recovered. Remaining register allocation, zero-store scheduling and result spill differences prevent exact matching.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

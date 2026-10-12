@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_111670.c
@@ -108,6 +109,99 @@ void func_150E4514(s32 arg0) {
     func_150E41C0();
     func_150E42F8(arg0 / 30);
 }
+typedef struct {
+    u16 object, particle;
+    u8 chance, secondary, minimum, range;
+} GameE4550Material;
+
+typedef struct {
+    u8 pad00[0x84];
+    u16 width, height;
+    u8 pad88[4];
+    s16 x, y, z, scaleX, scaleY;
+    u8 pad96[2];
+    s16 flags;
+    u8 pad9A[6];
+    u8 kind, padA1, type, padA3, alpha, padA5[3];
+} GameE4550Packet;
+
+void func_100226F0(void *, s32);
+s32 func_151EF610(void);
+void func_1516865C(void *, s32, s32, s32, s32);
+void func_151C329C(f32 *, u8, s32);
+void func_150E4E04(f32, f32, f32, s32, s32, s32, s32);
+void func_15171D4C(f32, f32, f32, s32, s32, s32, f32, s32, s32, s32, s32, s32, s32, s32);
+void func_15171F04(f32, f32, f32, s32, s16, u16, u8, s32, s32, s32, s32, u8, s32);
+extern GameE4550Material D_800A1070[];
+extern u16 D_800A1110[][2];
+extern f32 D_800A111C[];
+extern u8 D_800D9963[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E4550 CURRENT (1457) */
+void func_150E4550(f32 arg0, f32 arg1, f32 arg2, s32 arg3,
+                   s32 arg4, s32 arg5, s32 arg6) {
+    s32 count;
+    s32 lifetime;
+    s32 special;
+    s32 type;
+    GameE4550Packet packet;
+    f32 position[3];
+    GameE4550Material *entry;
+    s32 index;
+
+    special = 0;
+    lifetime = 120;
+    if (arg4 & 0x8000) {
+        arg4 ^= 0x8000;
+        special = 0x8000;
+    }
+    entry = &D_800A1070[arg4];
+    if (entry->particle != 0) {
+        count = func_151EF610() % entry->range + entry->minimum + 1;
+        if (arg3 != 1) lifetime = 30;
+        type = entry->particle;
+        count = (s32)(D_800A111C[arg3] * (f32)count);
+        if (type == 0x13) {
+            func_15171D4C(arg0, arg1, arg2, 30, 0, 0x13, 0.0f,
+                          0, count, 0xF, 0x55, 0, 0xFF, 0);
+        } else if (arg5 != 0) {
+            func_15171F04(arg0, arg1, arg2, arg5, (s16)lifetime,
+                          0xB5AD, (u8)type, count, 0, 0, 0, 0xFF, 0);
+        } else {
+            func_15171D4C(arg0, arg1, arg2, (s16)lifetime, 0xB5AD,
+                          type, 0.0f, 0, count, 0, 0, 0, 0xFF, 0);
+        }
+    }
+    type = entry->secondary;
+    if (type != 0) {
+        func_150E4E04(arg0, arg1, arg2, type | special, arg3, arg5, arg6);
+    }
+    if (arg3 != 0 && func_151EF610() % 100 < entry->chance) {
+        position[0] = arg0;
+        position[2] = arg2;
+        position[1] = arg1 + 20.0f;
+        func_151C329C(position, 0xFF, 1);
+        if (arg6 != 0xFF) D_800D9963[arg6 * 0x1C] = 100;
+    } else if (arg6 != 0xFF) D_800D9963[arg6 * 0x1C] = 0;
+    if (entry->object != 0) {
+        index = arg3 * 4;
+        func_100226F0(&packet, 0xA8);
+        packet.x = (s32)arg0;
+        packet.type = 0xD;
+        packet.y = (s32)arg1;
+        packet.kind = entry->object;
+        packet.z = (s32)arg2;
+        packet.flags = 0x2A00;
+        packet.scaleX = 1;
+        packet.scaleY = 1;
+        packet.alpha = 0xFF;
+        packet.width = *(u16 *)((u8 *)D_800A1110 + index);
+        packet.height = *(u16 *)((u8 *)D_800A1110 + index + 2);
+        func_1516865C(&packet, 0xB4, 0xB4, 0xB4, 0xFF);
+        func_15168800(&packet, 0xFF, 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E4550 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_111670/func_150E4550.s")
 typedef struct GameE4928State {
     u8 pad00[0x10];

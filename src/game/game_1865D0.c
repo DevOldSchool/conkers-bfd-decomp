@@ -435,6 +435,101 @@ s32 func_1515A11C(u8 *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515A11C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_1515A11C.s")
+typedef struct {
+    f32 size;
+    u8 phase0, phase1, step0, step1;
+    f32 amount0, amount1;
+    u8 phase2, phase3, step2, step3;
+    f32 amount2, amount3, speed, limit;
+} Game1865D0A238Motion;
+
+typedef struct { u32 words[9]; } Game1865D0A238Collision;
+
+extern f32 D_800A63E4, D_800A63E8, D_800A63EC, D_800A63F0;
+extern f32 D_800A63F4, D_800A63F8, D_800A63FC, D_800A6400, D_800A6404;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515A238 CURRENT (1421) */
+void *func_1515A238(f32 *arg0, f32 *arg1, f32 arg2, f32 arg3,
+                    Game1865D0A238Collision *arg4, f32 arg5,
+                    s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
+    void *result;
+    Game1865D0Particle particle;
+    Game1865D0A238Motion motion;
+    Game1865D0A238Collision collision;
+    f32 amount;
+    s32 first;
+
+    particle.kind = 0x2F;
+    particle.texture = 0x2203;
+    particle.flags = 0x200005;
+    particle.zero4 = 0;
+    particle.zero1A = 0;
+    particle.zero19 = 0;
+    particle.zero18 = 0;
+    particle.zero17 = 0;
+    particle.zero16 = 0;
+    particle.zero15 = 0;
+    particle.zero14 = 0;
+    particle.zero10 = 0;
+    particle.zeroC = 0;
+    particle.maximum = 0xFF;
+    particle.zero22 = 0;
+    particle.zero24 = 0.0;
+    if (func_150ADA20() & 1) first = 0x40;
+    else first = 0;
+    particle.mode = ((func_150ADA20() & 1) ? 0x80 : 0) | 0x1007 | first | 0xC000;
+    particle.field60 = 6;
+    particle.field61 = 8;
+    if (((u8 *)&arg8)[3] != 0) particle.field62 = 0x15;
+    else particle.field62 = 0x14;
+    particle.field63 = -1;
+    ((s8 *)particle.pad64)[0] = -1;
+    particle.position = *(Game1865D0Vector *)arg0;
+    particle.zero44 = particle.zero40 = particle.zero3C = 0.0;
+    particle.duration = 1;
+    particle.period = 0xFF;
+    motion.size = arg5;
+    particle.width = arg5;
+    particle.height = arg5;
+    motion.phase0 = func_150ADA20();
+    motion.phase1 = func_150ADA20();
+    motion.step0 = func_150ADA20() % 5U + 4;
+    motion.step1 = func_150ADA20() % 5U + 4;
+    motion.amount0 = (func_150ADA68() * 0.25f + D_800A63E4) * motion.size;
+    amount = func_150ADA68() * 0.25f;
+    motion.phase2 = 0;
+    motion.phase3 = 0;
+    motion.amount1 = (amount + D_800A63E8) * motion.size;
+    motion.step2 = func_150ADA20() % 5U + 4;
+    motion.step3 = func_150ADA20() % 5U + 4;
+    motion.amount2 = (func_150ADA68() * D_800A63EC + D_800A63F0) * motion.size;
+    motion.amount3 = (func_150ADA68() * D_800A63F4 + D_800A63F8) * motion.size;
+    particle.velocity = *(Game1865D0Vector *)arg1;
+    particle.pad64[1] = 0;
+    particle.lifetime = ((s16 *)&arg6)[1];
+    particle.alpha = ((u8 *)&arg7)[3];
+    particle.rotation = arg2;
+    motion.speed = arg3;
+    if (arg1[0] != 0.0 || arg1[2] != 0.0) {
+        motion.limit = D_800A63FC;
+    } else {
+        if (arg4 != 0) collision = *arg4;
+        else ((u8 *)&collision)[0x1C] = 0;
+        if (func_1514672C(arg0) != 0) {
+            if (func_15046C00(arg0, 0, 19500.0, (u8 *)&collision) != 0) {
+                arg4 = &collision;
+                motion.limit = *(f32 *)&collision;
+            } else motion.limit = D_800A6400;
+        } else motion.limit = D_800A6404;
+    }
+    result = func_15130280(&particle, 2, (struct Game15D730CopyBlock *)arg4,
+                           0x24, ((u8 *)&arg9)[3], arg10);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0xA8, &motion, 0x24);
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1515A238 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_1515A238.s")
 /* Call context: func_151423D8: unique active project prototype */
 
