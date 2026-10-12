@@ -2288,6 +2288,12 @@
       "symbol": "func_1516295C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 628,
+        "reason": "Manual revisions exhausted: full-span 1685 to 640 to 628; recovered reference 0x38 frame. Phase register allocation, pointer-relative accesses, blend FP allocation and state-pointer stack slot remain different. Callback owner argument and unsigned float conversions verified against raw code.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -60840,6 +60846,12 @@
       "symbol": "func_150B0CE0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 774,
+        "reason": "Manual revisions exhausted: 6013 to 1075 to 774; recovered reference frame 0x108 and instruction/control-flow shape, remaining GPR/FP allocation and player snapshot stack offset differ. Full spawn ABI restored from raw assembly.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

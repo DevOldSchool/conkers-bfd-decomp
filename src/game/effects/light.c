@@ -1100,6 +1100,63 @@ void *func_1516295C(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1516295C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516295C.s")
+extern void (*D_8008B364[])(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15162B28 CURRENT (628) */
+s32 func_15162B28(u8 *arg0) {
+    f32 time, boundary, period;
+    s32 selector, phase;
+    Light6295CPayload *state;
+
+    selector = arg0[0x3C];
+    state = (Light6295CPayload *)(arg0 + 0x18);
+    if (*(f32 *)(arg0 + 0x24) < *(f32 *)(arg0 + 0x28)) {
+        state = (Light6295CPayload *)(arg0 + 0x18);
+        (*(u8 **)(arg0 + 0x14))[0x2F] = (u32)state->values[1];
+        state->phase = 0;
+    } else {
+        time = state->values[3];
+        if (time < state->values[5]) {
+            (*(u8 **)(arg0 + 0x14))[0x2F] =
+                (u32)(state->values[1] + state->values[2] *
+                      ((time - state->values[4]) * state->values[8]));
+            state->phase = 1;
+        } else {
+            boundary = state->values[6];
+            if (time < boundary) {
+                (*(u8 **)(arg0 + 0x14))[0x2F] = (u32)state->values[0];
+                state->phase = 2;
+            } else {
+                (*(u8 **)(arg0 + 0x14))[0x2F] =
+                    (u32)(state->values[1] + state->values[2] *
+                          (1.0f - (time - boundary) * state->values[8]));
+                state->phase = 3;
+            }
+        }
+    }
+    phase = (u8)state->phase;
+    if (phase != selector) {
+        switch (phase) {
+        default: selector = -1; break;
+        case 0: selector = state->color[0]; break;
+        case 1: selector = state->color[1]; break;
+        case 2: selector = state->color[2]; break;
+        case 3: selector = state->color[3]; break;
+        }
+        if (selector != -1) {
+            D_8008B364[selector](arg0);
+        }
+    }
+    period = state->values[7];
+    state->values[3] += D_800BE9A4;
+    if (period < state->values[3]) {
+        do {
+            state->values[3] -= period;
+        } while (period < state->values[3]);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15162B28 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15162B28.s")
 void func_151403A8(s8 *, s32);
 
