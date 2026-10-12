@@ -71,8 +71,8 @@ This builds the mapped SDK archives and active C implementations, prepares
 independent splat targets for every range in `config/overlays.json`, and
 invokes the pinned native `objdiff-cli report generate`. It covers tracked
 main/game/debugger US CPU code and initialized data, including raw/unassigned ranges,
-plus all bounded asset storage. The font, 6,865 reviewed textures and 557 reviewed
-assets in model banks, 149 compact audio sequences, 27 sound-bank parts and 2,258 complete ADPCM samples have reconstructed candidates; remaining asset storage stays unmatched.
+plus all bounded asset storage. The font, 6,892 reviewed textures and 914 reviewed
+assets in model banks, 149 compact audio sequences, 27 sound-bank parts, three MP3 decoder tables, the complete character morph and event banks, reviewed frames from 453 MP3 streams, 56 sprite entries, 20 visibility codebooks, 16 visibility bitmaps, 69 actor path tables, 31 navigation graphs, bounded scene fields and volumes, 29 native-format bank-0A animation bundles, the complete 483-script bank, 82 animation-control entries and 2,258 complete ADPCM samples have reconstructed candidates; remaining asset storage stays unmatched.
 The command uses four object-preparation workers and validates cached base object hashes before
 reuse. The first run requires the pinned `lib/ultralib` submodule (`git
 submodule update --init lib/ultralib`).
@@ -174,7 +174,7 @@ archive, its alignment gap, the outer bank index, all 30 bank ranges (including
 inner indices and gaps), and font storage. See the
 [storage accounting evidence](evidence/data-layout/us_asset_storage_accounting.md).
 
-The rebuilt font, 6,865 reviewed textures and 79 reviewed models retain their
+The rebuilt font, reviewed textures, models, animations and audio retain their
 independent comparison and completion gates. All remaining bounded asset bytes
 have independent ROM targets **without candidates or completion credit**. In
 particular, identifying a model bank or repacking original encoded MP3 streams
@@ -256,12 +256,14 @@ palette, metadata or compressed output fail this exact-reconstruction pilot.
 The 8,284,692 reconstructed stored bytes enter Data once; decoded bytes do not
 add storage, and adjacent raw storage remains in the denominator without credit. Native matching and source/link-input verification gate completion.
 
-[The 557 selected assets in banks 03, 04 and 09](evidence/data-layout/us_model_reconstruction.md)
+[The 914 selected assets in banks 01, 02, 03, 04 and 09](evidence/data-layout/us_model_reconstruction.md)
 reconstruct native headers, vertices, display commands, normal records, attachment
 part/joint tables, bundle descriptors, primary surface tables, vertex-color
 animation, effect command lists and emission points through fresh RZIP
-compression. The selection contains 517 standalone models, 20 bundles with
-217 nonempty parts, and 20 emission-point arrays, totaling 940,332 stored bytes. Their actual ROM linker inputs and independent stored-byte targets
+compression, plus uncompressed native animation channels. The selection contains
+183 native characters, 517 standalone models, 53 bundles,
+20 emission-point arrays and 141 native animation containers, totaling 6,726,278
+stored bytes. Their actual ROM linker inputs and independent stored-byte targets
 use the same native matching and source-stability gates. Raw bank index, gaps
 and unselected records remain in the Data denominator without credit.
 
@@ -381,3 +383,119 @@ by `CONKER_JOBS` (default four). Build batches reuse verified unchanged sample
 outputs, while reports always encode current sources independently of those
 build receipts. See the [review follow-up](evidence/data-layout/us_asset_review_followup.md)
 for cache invalidation, recovery and regression-test details.
+
+### Native characters
+
+[The 183 selected bank-01 characters](evidence/data-layout/us_bounded_compression.md)
+rebuild native headers, vertices, both display passes, joint pivots, texture
+descriptors, signed normal pairs and procedural indices through fresh pinned
+compression. Their 772,691 stored bytes are reconstructed; index and gaps
+remain unmatched. Decoded bytes do not add another allocation.
+
+
+### Native character animation
+
+[The 119 selected bank-02 animation containers](evidence/data-layout/us_animation_reconstruction.md)
+reconstruct 3,752,256 uncompressed bytes from typed descriptors and 54,355
+source frames. Native masks, bases, bit widths, translations and root/rotation/
+scale offsets reproduce each full stored extent. Duration and channel bounds
+exclude unresolved tails and duration cases without native evidence. Independent native pose
+comparisons and actual linker objects gate the same bounded Data credit.
+
+[The single-pair extension](evidence/data-layout/us_single_pair_animations.md)
+adds 22 containers and 30,712 bytes, for 141 containers and 3,782,968 bytes.
+Three entries use the verified 641-frame duration constant; 19 use their
+descriptor/default durations. The bank-04 scene contract remains unchanged.
+
+[Partial animation clip reconstruction](evidence/data-layout/us_partial_animation_clips.md)
+rebuilds another 117 complete clips (219,664 bytes) inside entries 82, 83,
+124 and 146. It uses the actual three linker objects but grants credit only
+to the independently verified descriptor/frame ranges. The four unexplained
+sibling clips and all container directory bytes remain uncredited.
+
+
+### MP3 decoder tables
+
+[Three bank-17 decoder tables](evidence/data-layout/us_mp3_table_reconstruction.md)
+reconstruct 59,552 stored bytes from canonical C Huffman seed records. Typed
+codebooks generate the relative trees, their offset table and eight-bit fast
+lookup entries. The asset build and native report freshly encode editable
+records and compare actual linked objects against independent ROM targets.
+Stream reconstruction is separately gated by the coefficient sources below.
+
+
+### Character morph endpoints
+
+[The complete bank-13 morph storage](evidence/data-layout/us_morph_reconstruction.md)
+reconstructs 19,832 bytes from 6,882 signed XYZ positions. Fresh RZIP encoding
+and generated nested pair tables reproduce the original bank, including all
+indices and alignment. The actual ROM linker object is independently checked
+against both editable endpoints and original ROM bytes; whole-bank credit
+replaces its previous unreconstructed storage unit.
+
+
+### MPEG-2 spectral coefficients
+
+[Reviewed complete frames from 453 streams](evidence/data-layout/us_mp3_spectral_reconstruction.md)
+reconstruct 23,165,336 stored bytes from native header fields, scalefactors and
+signed quantized coefficients. Actual whole-stream ROM objects are checked
+against fresh encoding, then only proved frame slices enter native candidates.
+Explicit physical ranges preserve provenance and subtract those same bytes
+from unmatched storage. Opaque cues, reservoir tails and trailing storage stay
+unmatched; repacking their original encoded bytes grants no credit.
+
+
+### Event programs
+
+[The complete bank-14 event storage](evidence/data-layout/us_event_reconstruction.md)
+reconstructs 169,880 bytes from 203 programs, 62,491 instructions and 272
+constant strings. Instruction and string labels generate native offsets; fresh
+level-6 compression and generated bank tables reproduce the entire allocation.
+Actual linker objects, current editable sources and independent ROM targets
+gate native Data credit, replacing the same-sized raw-storage unit.
+
+### Sprite PNG sources
+
+[Reviewed bank-00 sprites](evidence/data-layout/us_sprite_reconstruction.md)
+rebuild 56 entries from RGBA5551 and I4 PNG planes with the native upload and
+sampling layout. Native credit includes only their 273,397 exact stored
+bytes. The actual whole-bank linker object must agree with fresh PNG
+encoding and preserved backing inputs; its index and padding remain in the
+unmatched raw remainder. [Bounded compression](evidence/data-layout/us_bounded_compression.md)
+resolves the five previous compression mismatches.
+
+
+### Visibility codebooks
+
+[Reviewed bank-05 visibility codebooks](evidence/data-layout/us_visibility_reconstruction.md)
+rebuild 12,545 stored bytes from explicit byte-symbol Huffman codes. Tree
+allocation is derived from unique prefixes, and fresh compression must match.
+Sixteen paired bitmaps also rebuild from [visible-node sets](evidence/data-layout/us_visibility_bitmaps.md),
+adding 151,949 bytes. Three bitmaps with unexplained node bits, the bank index
+and padding remain unmatched.
+
+[Actor paths and navigation graphs](evidence/data-layout/us_route_reconstruction.md)
+rebuild 43,813 stored bytes across banks 10 and 19. Editable path indices retain
+shared pointers; graph records retain ordered neighbor links and native controls.
+Full native consumers and independent actor-placement counts gate the sources.
+Only selected entry ranges receive credit; two unproved graph variants and all
+bank index/gap bytes remain unmatched.
+
+
+### Scene trigger volumes and spheres
+
+`./conker scene-volumes build` reconstructs 3,204 trigger volumes and 177
+collision spheres from typed records. The actual bank-0C linker object is
+verified in full, but only 170,856 regenerated child bytes enter the bounded
+`assets/scenes/volumes` unit. Directories and other scene children remain
+unreconstructed. See [native scene evidence](evidence/data-layout/us_scene_volumes.md).
+
+[Additional scene fields](evidence/data-layout/us_scene_fields.md) reconstruct
+34,702 bytes of model transforms, group references, spawn/view fields and sprite
+choices. `./conker scene-fields build` composes these with the volume sources
+into the same actual bank object. Separate bounded report units prevent credit
+for unproved fields or directory/padding bytes.
+
+[MPEG partial-frame fields](evidence/data-layout/us_mp3_partial_frames.md) extend
+the spectral units to final typed headers and complete coefficient bytes.
+Incomplete reservoir bytes, cues and arbitrary stream tails stay uncredited.

@@ -1,0 +1,1093 @@
+{
+  "entries": [
+    {
+      "bank": 16,
+      "entry": 0,
+      "stored_bytes": 342,
+      "actors": 8,
+      "paths": 8,
+      "points": 62,
+      "aliases": 0,
+      "mutations": 64
+    },
+    {
+      "bank": 16,
+      "entry": 1,
+      "stored_bytes": 627,
+      "actors": 21,
+      "paths": 17,
+      "points": 106,
+      "aliases": 0,
+      "mutations": 136
+    },
+    {
+      "bank": 16,
+      "entry": 2,
+      "stored_bytes": 681,
+      "actors": 41,
+      "paths": 32,
+      "points": 99,
+      "aliases": 0,
+      "mutations": 256
+    },
+    {
+      "bank": 16,
+      "entry": 3,
+      "stored_bytes": 94,
+      "actors": 6,
+      "paths": 2,
+      "points": 10,
+      "aliases": 4,
+      "mutations": 16
+    },
+    {
+      "bank": 16,
+      "entry": 4,
+      "stored_bytes": 990,
+      "actors": 41,
+      "paths": 40,
+      "points": 162,
+      "aliases": 0,
+      "mutations": 320
+    },
+    {
+      "bank": 16,
+      "entry": 5,
+      "stored_bytes": 6,
+      "actors": 0,
+      "paths": 0,
+      "points": 0,
+      "aliases": 0,
+      "mutations": 0
+    },
+    {
+      "bank": 16,
+      "entry": 6,
+      "stored_bytes": 1390,
+      "actors": 47,
+      "paths": 46,
+      "points": 226,
+      "aliases": 0,
+      "mutations": 368
+    },
+    {
+      "bank": 16,
+      "entry": 7,
+      "stored_bytes": 362,
+      "actors": 20,
+      "paths": 14,
+      "points": 49,
+      "aliases": 0,
+      "mutations": 112
+    },
+    {
+      "bank": 16,
+      "entry": 8,
+      "stored_bytes": 6,
+      "actors": 0,
+      "paths": 0,
+      "points": 0,
+      "aliases": 0,
+      "mutations": 0
+    },
+    {
+      "bank": 16,
+      "entry": 9,
+      "stored_bytes": 6,
+      "actors": 0,
+      "paths": 0,
+      "points": 0,
+      "aliases": 0,
+      "mutations": 0
+    },
+    {
+      "bank": 16,
+      "entry": 10,
+      "stored_bytes": 282,
+      "actors": 13,
+      "paths": 11,
+      "points": 45,
+      "aliases": 0,
+      "mutations": 88
+    },
+    {
+      "bank": 16,
+      "entry": 11,
+      "stored_bytes": 737,
+      "actors": 14,
+      "paths": 14,
+      "points": 119,
+      "aliases": 0,
+      "mutations": 112
+    },
+    {
+      "bank": 16,
+      "entry": 12,
+      "stored_bytes": 1217,
+      "actors": 36,
+      "paths": 34,
+      "points": 186,
+      "aliases": 0,
+      "mutations": 268
+    },
+    {
+      "bank": 16,
+      "entry": 13,
+      "stored_bytes": 216,
+      "actors": 1,
+      "paths": 1,
+      "points": 32,
+      "aliases": 0,
+      "mutations": 8
+    },
+    {
+      "bank": 16,
+      "entry": 14,
+      "stored_bytes": 350,
+      "actors": 24,
+      "paths": 23,
+      "points": 58,
+      "aliases": 0,
+      "mutations": 184
+    },
+    {
+      "bank": 16,
+      "entry": 15,
+      "stored_bytes": 106,
+      "actors": 14,
+      "paths": 11,
+      "points": 22,
+      "aliases": 0,
+      "mutations": 88
+    },
+    {
+      "bank": 16,
+      "entry": 16,
+      "stored_bytes": 218,
+      "actors": 13,
+      "paths": 12,
+      "points": 34,
+      "aliases": 0,
+      "mutations": 96
+    },
+    {
+      "bank": 16,
+      "entry": 17,
+      "stored_bytes": 106,
+      "actors": 5,
+      "paths": 5,
+      "points": 17,
+      "aliases": 0,
+      "mutations": 40
+    },
+    {
+      "bank": 16,
+      "entry": 18,
+      "stored_bytes": 70,
+      "actors": 4,
+      "paths": 4,
+      "points": 11,
+      "aliases": 0,
+      "mutations": 32
+    },
+    {
+      "bank": 16,
+      "entry": 19,
+      "stored_bytes": 810,
+      "actors": 31,
+      "paths": 31,
+      "points": 137,
+      "aliases": 0,
+      "mutations": 248
+    },
+    {
+      "bank": 16,
+      "entry": 20,
+      "stored_bytes": 293,
+      "actors": 25,
+      "paths": 25,
+      "points": 110,
+      "aliases": 0,
+      "mutations": 200
+    },
+    {
+      "bank": 16,
+      "entry": 21,
+      "stored_bytes": 6,
+      "actors": 0,
+      "paths": 0,
+      "points": 0,
+      "aliases": 0,
+      "mutations": 0
+    },
+    {
+      "bank": 16,
+      "entry": 22,
+      "stored_bytes": 16,
+      "actors": 1,
+      "paths": 1,
+      "points": 2,
+      "aliases": 0,
+      "mutations": 8
+    },
+    {
+      "bank": 16,
+      "entry": 23,
+      "stored_bytes": 442,
+      "actors": 7,
+      "paths": 7,
+      "points": 61,
+      "aliases": 0,
+      "mutations": 56
+    },
+    {
+      "bank": 16,
+      "entry": 24,
+      "stored_bytes": 122,
+      "actors": 20,
+      "paths": 20,
+      "points": 40,
+      "aliases": 0,
+      "mutations": 160
+    },
+    {
+      "bank": 16,
+      "entry": 25,
+      "stored_bytes": 185,
+      "actors": 5,
+      "paths": 5,
+      "points": 23,
+      "aliases": 0,
+      "mutations": 40
+    },
+    {
+      "bank": 16,
+      "entry": 26,
+      "stored_bytes": 55,
+      "actors": 7,
+      "paths": 6,
+      "points": 12,
+      "aliases": 0,
+      "mutations": 48
+    },
+    {
+      "bank": 16,
+      "entry": 27,
+      "stored_bytes": 472,
+      "actors": 28,
+      "paths": 28,
+      "points": 71,
+      "aliases": 0,
+      "mutations": 224
+    },
+    {
+      "bank": 16,
+      "entry": 28,
+      "stored_bytes": 682,
+      "actors": 32,
+      "paths": 29,
+      "points": 117,
+      "aliases": 0,
+      "mutations": 232
+    },
+    {
+      "bank": 16,
+      "entry": 29,
+      "stored_bytes": 214,
+      "actors": 26,
+      "paths": 22,
+      "points": 44,
+      "aliases": 0,
+      "mutations": 176
+    },
+    {
+      "bank": 16,
+      "entry": 30,
+      "stored_bytes": 381,
+      "actors": 28,
+      "paths": 27,
+      "points": 54,
+      "aliases": 0,
+      "mutations": 216
+    },
+    {
+      "bank": 16,
+      "entry": 31,
+      "stored_bytes": 6,
+      "actors": 0,
+      "paths": 0,
+      "points": 0,
+      "aliases": 0,
+      "mutations": 0
+    },
+    {
+      "bank": 16,
+      "entry": 32,
+      "stored_bytes": 6,
+      "actors": 0,
+      "paths": 0,
+      "points": 0,
+      "aliases": 0,
+      "mutations": 0
+    },
+    {
+      "bank": 16,
+      "entry": 33,
+      "stored_bytes": 28,
+      "actors": 5,
+      "paths": 5,
+      "points": 10,
+      "aliases": 0,
+      "mutations": 40
+    },
+    {
+      "bank": 16,
+      "entry": 34,
+      "stored_bytes": 27,
+      "actors": 3,
+      "paths": 3,
+      "points": 6,
+      "aliases": 0,
+      "mutations": 24
+    },
+    {
+      "bank": 16,
+      "entry": 35,
+      "stored_bytes": 191,
+      "actors": 18,
+      "paths": 18,
+      "points": 37,
+      "aliases": 0,
+      "mutations": 144
+    },
+    {
+      "bank": 16,
+      "entry": 36,
+      "stored_bytes": 52,
+      "actors": 7,
+      "paths": 7,
+      "points": 14,
+      "aliases": 0,
+      "mutations": 56
+    },
+    {
+      "bank": 16,
+      "entry": 37,
+      "stored_bytes": 16,
+      "actors": 1,
+      "paths": 1,
+      "points": 2,
+      "aliases": 0,
+      "mutations": 8
+    },
+    {
+      "bank": 16,
+      "entry": 38,
+      "stored_bytes": 811,
+      "actors": 19,
+      "paths": 19,
+      "points": 136,
+      "aliases": 0,
+      "mutations": 152
+    },
+    {
+      "bank": 16,
+      "entry": 39,
+      "stored_bytes": 695,
+      "actors": 25,
+      "paths": 25,
+      "points": 104,
+      "aliases": 0,
+      "mutations": 200
+    },
+    {
+      "bank": 16,
+      "entry": 40,
+      "stored_bytes": 48,
+      "actors": 3,
+      "paths": 3,
+      "points": 6,
+      "aliases": 0,
+      "mutations": 24
+    },
+    {
+      "bank": 16,
+      "entry": 41,
+      "stored_bytes": 359,
+      "actors": 9,
+      "paths": 9,
+      "points": 51,
+      "aliases": 0,
+      "mutations": 68
+    },
+    {
+      "bank": 16,
+      "entry": 42,
+      "stored_bytes": 450,
+      "actors": 8,
+      "paths": 8,
+      "points": 78,
+      "aliases": 0,
+      "mutations": 64
+    },
+    {
+      "bank": 16,
+      "entry": 43,
+      "stored_bytes": 105,
+      "actors": 13,
+      "paths": 13,
+      "points": 28,
+      "aliases": 0,
+      "mutations": 104
+    },
+    {
+      "bank": 16,
+      "entry": 44,
+      "stored_bytes": 52,
+      "actors": 3,
+      "paths": 3,
+      "points": 7,
+      "aliases": 0,
+      "mutations": 24
+    },
+    {
+      "bank": 16,
+      "entry": 45,
+      "stored_bytes": 48,
+      "actors": 12,
+      "paths": 12,
+      "points": 24,
+      "aliases": 0,
+      "mutations": 96
+    },
+    {
+      "bank": 16,
+      "entry": 46,
+      "stored_bytes": 83,
+      "actors": 1,
+      "paths": 1,
+      "points": 12,
+      "aliases": 0,
+      "mutations": 8
+    },
+    {
+      "bank": 16,
+      "entry": 47,
+      "stored_bytes": 1119,
+      "actors": 16,
+      "paths": 16,
+      "points": 256,
+      "aliases": 0,
+      "mutations": 128
+    },
+    {
+      "bank": 16,
+      "entry": 48,
+      "stored_bytes": 134,
+      "actors": 26,
+      "paths": 26,
+      "points": 52,
+      "aliases": 0,
+      "mutations": 208
+    },
+    {
+      "bank": 16,
+      "entry": 49,
+      "stored_bytes": 356,
+      "actors": 22,
+      "paths": 21,
+      "points": 62,
+      "aliases": 0,
+      "mutations": 168
+    },
+    {
+      "bank": 16,
+      "entry": 50,
+      "stored_bytes": 150,
+      "actors": 17,
+      "paths": 17,
+      "points": 36,
+      "aliases": 0,
+      "mutations": 136
+    },
+    {
+      "bank": 16,
+      "entry": 51,
+      "stored_bytes": 27,
+      "actors": 2,
+      "paths": 2,
+      "points": 4,
+      "aliases": 0,
+      "mutations": 16
+    },
+    {
+      "bank": 16,
+      "entry": 52,
+      "stored_bytes": 22,
+      "actors": 3,
+      "paths": 3,
+      "points": 6,
+      "aliases": 0,
+      "mutations": 24
+    },
+    {
+      "bank": 16,
+      "entry": 53,
+      "stored_bytes": 1029,
+      "actors": 32,
+      "paths": 31,
+      "points": 176,
+      "aliases": 0,
+      "mutations": 248
+    },
+    {
+      "bank": 16,
+      "entry": 54,
+      "stored_bytes": 438,
+      "actors": 13,
+      "paths": 13,
+      "points": 75,
+      "aliases": 0,
+      "mutations": 104
+    },
+    {
+      "bank": 16,
+      "entry": 55,
+      "stored_bytes": 208,
+      "actors": 14,
+      "paths": 14,
+      "points": 29,
+      "aliases": 0,
+      "mutations": 112
+    },
+    {
+      "bank": 16,
+      "entry": 56,
+      "stored_bytes": 61,
+      "actors": 9,
+      "paths": 9,
+      "points": 18,
+      "aliases": 0,
+      "mutations": 72
+    },
+    {
+      "bank": 16,
+      "entry": 57,
+      "stored_bytes": 70,
+      "actors": 3,
+      "paths": 3,
+      "points": 10,
+      "aliases": 0,
+      "mutations": 24
+    },
+    {
+      "bank": 16,
+      "entry": 58,
+      "stored_bytes": 84,
+      "actors": 2,
+      "paths": 2,
+      "points": 11,
+      "aliases": 0,
+      "mutations": 16
+    },
+    {
+      "bank": 16,
+      "entry": 59,
+      "stored_bytes": 170,
+      "actors": 6,
+      "paths": 6,
+      "points": 22,
+      "aliases": 0,
+      "mutations": 48
+    },
+    {
+      "bank": 16,
+      "entry": 60,
+      "stored_bytes": 2387,
+      "actors": 67,
+      "paths": 67,
+      "points": 416,
+      "aliases": 0,
+      "mutations": 536
+    },
+    {
+      "bank": 16,
+      "entry": 61,
+      "stored_bytes": 92,
+      "actors": 8,
+      "paths": 8,
+      "points": 16,
+      "aliases": 0,
+      "mutations": 64
+    },
+    {
+      "bank": 16,
+      "entry": 62,
+      "stored_bytes": 20,
+      "actors": 2,
+      "paths": 2,
+      "points": 4,
+      "aliases": 0,
+      "mutations": 16
+    },
+    {
+      "bank": 16,
+      "entry": 63,
+      "stored_bytes": 89,
+      "actors": 12,
+      "paths": 12,
+      "points": 24,
+      "aliases": 0,
+      "mutations": 96
+    },
+    {
+      "bank": 16,
+      "entry": 64,
+      "stored_bytes": 571,
+      "actors": 24,
+      "paths": 24,
+      "points": 120,
+      "aliases": 0,
+      "mutations": 192
+    },
+    {
+      "bank": 16,
+      "entry": 65,
+      "stored_bytes": 1412,
+      "actors": 23,
+      "paths": 23,
+      "points": 211,
+      "aliases": 0,
+      "mutations": 184
+    },
+    {
+      "bank": 16,
+      "entry": 66,
+      "stored_bytes": 55,
+      "actors": 5,
+      "paths": 5,
+      "points": 10,
+      "aliases": 0,
+      "mutations": 40
+    },
+    {
+      "bank": 16,
+      "entry": 67,
+      "stored_bytes": 233,
+      "actors": 11,
+      "paths": 11,
+      "points": 30,
+      "aliases": 0,
+      "mutations": 88
+    },
+    {
+      "bank": 16,
+      "entry": 68,
+      "stored_bytes": 6,
+      "actors": 0,
+      "paths": 0,
+      "points": 0,
+      "aliases": 0,
+      "mutations": 0
+    },
+    {
+      "bank": 25,
+      "entry": 2,
+      "stored_bytes": 86,
+      "nodes": 6,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 11,
+      "stored_bytes": 188,
+      "nodes": 15,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 17,
+      "stored_bytes": 223,
+      "nodes": 18,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 23,
+      "stored_bytes": 498,
+      "nodes": 46,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 28,
+      "stored_bytes": 345,
+      "nodes": 28,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 29,
+      "stored_bytes": 441,
+      "nodes": 39,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 36,
+      "stored_bytes": 1603,
+      "nodes": 132,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 39,
+      "stored_bytes": 158,
+      "nodes": 12,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 40,
+      "stored_bytes": 371,
+      "nodes": 32,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 42,
+      "stored_bytes": 129,
+      "nodes": 9,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 43,
+      "stored_bytes": 1026,
+      "nodes": 81,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 44,
+      "stored_bytes": 128,
+      "nodes": 10,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 45,
+      "stored_bytes": 1778,
+      "nodes": 143,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 48,
+      "stored_bytes": 2217,
+      "nodes": 176,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 50,
+      "stored_bytes": 2365,
+      "nodes": 199,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 51,
+      "stored_bytes": 1448,
+      "nodes": 120,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 52,
+      "stored_bytes": 1447,
+      "nodes": 114,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 55,
+      "stored_bytes": 173,
+      "nodes": 13,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 56,
+      "stored_bytes": 9,
+      "nodes": 0,
+      "mutations": 0
+    },
+    {
+      "bank": 25,
+      "entry": 57,
+      "stored_bytes": 9,
+      "nodes": 0,
+      "mutations": 0
+    },
+    {
+      "bank": 25,
+      "entry": 58,
+      "stored_bytes": 9,
+      "nodes": 0,
+      "mutations": 0
+    },
+    {
+      "bank": 25,
+      "entry": 59,
+      "stored_bytes": 9,
+      "nodes": 0,
+      "mutations": 0
+    },
+    {
+      "bank": 25,
+      "entry": 60,
+      "stored_bytes": 659,
+      "nodes": 55,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 61,
+      "stored_bytes": 9,
+      "nodes": 0,
+      "mutations": 0
+    },
+    {
+      "bank": 25,
+      "entry": 62,
+      "stored_bytes": 2238,
+      "nodes": 186,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 63,
+      "stored_bytes": 2345,
+      "nodes": 198,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 64,
+      "stored_bytes": 9,
+      "nodes": 0,
+      "mutations": 0
+    },
+    {
+      "bank": 25,
+      "entry": 65,
+      "stored_bytes": 181,
+      "nodes": 14,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 66,
+      "stored_bytes": 278,
+      "nodes": 23,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 67,
+      "stored_bytes": 231,
+      "nodes": 17,
+      "mutations": 26
+    },
+    {
+      "bank": 25,
+      "entry": 68,
+      "stored_bytes": 9,
+      "nodes": 0,
+      "mutations": 0
+    }
+  ],
+  "new_bytes": 43813,
+  "actors": 962,
+  "paths": 917,
+  "points": 4012,
+  "aliases": 4,
+  "nodes": 1686,
+  "path_mutations": 7328,
+  "graph_mutations": 624,
+  "consumer_endpoint_mutations": 34,
+  "excluded_graphs": [
+    26,
+    38
+  ],
+  "prior_source_hashes_preserved": 25987,
+  "banks": [
+    {
+      "bank": 16,
+      "whole_bank_bytes": 23984,
+      "whole_bank_sha256": "0ba28af69b1c09336271ec5901e0d267b4caf7cb6f7217c51f3044871c408ed5",
+      "selected_bytes": 23194,
+      "source_inputs": {
+        "manifest.json": "37abc61a416f3824985b75202310df856f7c55b7e505d3c244e9fac507d60a00",
+        "backing.bin": "0ba28af69b1c09336271ec5901e0d267b4caf7cb6f7217c51f3044871c408ed5",
+        "routes.json": "a311ff96f68d16a846fd1225498526a8e6f86509618ef5f40de427f6680e4695"
+      }
+    },
+    {
+      "bank": 25,
+      "whole_bank_bytes": 23256,
+      "whole_bank_sha256": "ade039efeb91c0caa3347b1a1e03e58c0494127a25f34b127be2430cb280cce0",
+      "selected_bytes": 20619,
+      "source_inputs": {
+        "manifest.json": "63fcae996b2d3d546c319a9fc18f787211dcf152f450aaab7f474411df635ffa",
+        "backing.bin": "ade039efeb91c0caa3347b1a1e03e58c0494127a25f34b127be2430cb280cce0",
+        "routes.json": "1a93eb2a4449b8451ad6eed1d8627a869c62dd580f062bf700df83052edacfae"
+      }
+    }
+  ],
+  "consumers": {
+    "code": [
+      {
+        "address": "0x15016850",
+        "bytes": 2736,
+        "sha1": "63f239818f87b8a1dec1ea0e9fbb7a743c34b0c4"
+      },
+      {
+        "address": "0x15077DBC",
+        "bytes": 224,
+        "sha1": "a208f2d466ef764b84e212ee7cec490172eee669"
+      },
+      {
+        "address": "0x1507B974",
+        "bytes": 212,
+        "sha1": "f4e49c5ea97773c24d5c5cc2d96876a6e402da64"
+      },
+      {
+        "address": "0x150611E8",
+        "bytes": 1012,
+        "sha1": "939f23fb852ce69ee5654609675d77395e8fc2c8"
+      },
+      {
+        "address": "0x1502B7F0",
+        "bytes": 240,
+        "sha1": "8f37332e9c2598c7a996b8d1e0c5d9ea82f44cfd"
+      },
+      {
+        "address": "0x1502B8E0",
+        "bytes": 212,
+        "sha1": "2aea02ea13f93c5c25772d23323e71f576b8e0de"
+      },
+      {
+        "address": "0x1502B9B4",
+        "bytes": 284,
+        "sha1": "accc93aa31acfbf75c5e1115f51de09fd9a22b48"
+      },
+      {
+        "address": "0x15085B70",
+        "bytes": 120,
+        "sha1": "83c1be07442824609b2ec549d16fec9431e551e9"
+      },
+      {
+        "address": "0x15085BE8",
+        "bytes": 448,
+        "sha1": "058c1c93e9c9dfb151f404bb64f05b174f444574"
+      },
+      {
+        "address": "0x15085DF8",
+        "bytes": 672,
+        "sha1": "1063907ca86203a445bbc8d76f0880ee885d16f4"
+      },
+      {
+        "address": "0x15086098",
+        "bytes": 716,
+        "sha1": "f646bbf58e968acdf86cad35cfa983d84c05b4ba"
+      },
+      {
+        "address": "0x15086364",
+        "bytes": 2156,
+        "sha1": "402c0aaef5970cea35f9bc0124eac4d475be88b6"
+      },
+      {
+        "address": "0x15086D48",
+        "bytes": 76,
+        "sha1": "c67431410646c4fb8cd54ecec6d39f46dfbf56e9"
+      },
+      {
+        "address": "0x15088A08",
+        "bytes": 848,
+        "sha1": "d84d374ddda6e8dfc76ca2f4835b9e90c04e4dae"
+      },
+      {
+        "address": "0x1508B2A8",
+        "bytes": 336,
+        "sha1": "d526c4c8169fa772f02d4b39b563dc5f90ad18cf"
+      },
+      {
+        "address": "0x1502B5C8",
+        "bytes": 244,
+        "sha1": "9c411ce6bf78e69583215fa8484bfd0f137edc72"
+      },
+      {
+        "address": "0x1502AC88",
+        "bytes": 636,
+        "sha1": "24f02469c9605e212ed65a4c75b216d50ef8577e"
+      }
+    ]
+  },
+  "excluded_graph_inventory": [
+    {
+      "entry": 26,
+      "stored_bytes": 1757,
+      "nodes": 141,
+      "encoders": [],
+      "error": "('secondary_header', 61)"
+    },
+    {
+      "entry": 38,
+      "stored_bytes": 183,
+      "nodes": 19,
+      "encoders": [],
+      "error": "(38, 0, (-2558, 15, 4385, 0, 2, 26, 253, 253, 253, 253, 253, 2, 0))"
+    }
+  ],
+  "acceptance": {
+    "base_commit": "094102644c4c2f5aefaa0fc4b609416918f66f58",
+    "source_fingerprint": "78e3fb80d8d28179670186fb44a514ff204f473ccf5c76de0cf89773cb7163e6",
+    "report_sha256": "fb88a11f48c9f03d45d5c19d0d9cd28a61a220a8ffe2c97c04adb1adde109dcd",
+    "measures": {
+      "fuzzy_match_percent": 25.06301,
+      "total_code": "2246328",
+      "matched_code": "555524",
+      "matched_code_percent": 24.730316,
+      "total_data": "65120512",
+      "matched_data": "61707691",
+      "matched_data_percent": 94.759224,
+      "total_functions": 5904,
+      "matched_functions": 3485,
+      "matched_functions_percent": 59.02778,
+      "complete_code": "129488",
+      "complete_code_percent": 5.7644296,
+      "complete_data": "61706923",
+      "complete_data_percent": 94.75805,
+      "total_units": 11668,
+      "complete_units": 10978
+    },
+    "new_bytes": 43813,
+    "prior_measure_changes": [
+      "assets/storage/bank10/unreconstructed",
+      "assets/storage/bank19/unreconstructed"
+    ],
+    "prior_asset_proofs_unchanged": 10652,
+    "prior_source_files_preserved": 25987,
+    "rom_bytes": 67108864,
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "snapshot": "current",
+    "compile_errors": [],
+    "tests": {
+      "run": 2560,
+      "skipped": 8,
+      "failures": 0
+    }
+  }
+}

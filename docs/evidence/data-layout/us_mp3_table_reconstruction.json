@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "profile": "us",
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "encoder": "conker-mp3-huffman-seeds-v1",
+  "seed_source": "lib/libultrare/src/libultrare/mp3/decoder.c",
+  "seed_source_sha256": "2511b52d497e0658a46500d6c8db1fbc5f43fd02e0ca520f10092210f710c205",
+  "parts": [
+    {
+      "name": "mp3_huffman_offsets",
+      "entry": 4,
+      "rom_start": 66533584,
+      "rom_end": 66533728,
+      "original_sha256": "a8201bbc8ba01bb3008aa89f73914ee676ae01134d45fdf26ce454b2563f8d12"
+    },
+    {
+      "name": "mp3_lookup",
+      "entry": 5,
+      "rom_start": 66533728,
+      "rom_end": 66551136,
+      "original_sha256": "809d401abc1d09c4a82c2f95608449d36a2d3bd21abfa5bf2b911d08c8f99e37"
+    },
+    {
+      "name": "mp3_huffman",
+      "entry": 6,
+      "rom_start": 66551136,
+      "rom_end": 66593136,
+      "original_sha256": "966e0ffb6945fce6348d127af40683b279dcc67664da89473371a32422574582"
+    }
+  ],
+  "stored_bytes": 59552,
+  "canonical_codebooks": 17,
+  "canonical_seed_rows": 1410,
+  "generated_trees": 33,
+  "independently_walked_leaves": 5266,
+  "independently_walked_fast_lookups": 8448,
+  "codebook_symbol_swap_mutations": 17,
+  "consumer_endpoint_mutations": 8,
+  "source_inputs": {
+    "manifest.json": "12e7567a05838bc9b97c33519cd7c1744152263972704c3d2e04da4f6e22bfad",
+    "tables.json": "8d495703fee130fd0b142a7fc092d60021bcb96a9c377764387788b526a9512c"
+  },
+  "fresh_encoding_exact": true,
+  "acceptance": {
+    "base_commit": "094102644c4c2f5aefaa0fc4b609416918f66f58",
+    "source_fingerprint": "1b2f3abde46d68d311f55be71dff61a3cb599a03fa2a2415135c161d736f97b4",
+    "report_sha256": "2c4ccba4679560c26e7c2ef2e1cc0785baba5892e22d930613b0fae1f809c449",
+    "measures": {
+      "fuzzy_match_percent": 25.06301,
+      "total_code": "2246328",
+      "matched_code": "555524",
+      "matched_code_percent": 24.730316,
+      "total_data": "65120512",
+      "matched_data": "37079042",
+      "matched_data_percent": 56.939106,
+      "total_functions": 5904,
+      "matched_functions": 3485,
+      "matched_functions_percent": 59.02778,
+      "complete_code": "129488",
+      "complete_code_percent": 5.7644296,
+      "complete_data": "37078274",
+      "complete_data_percent": 56.937935,
+      "total_units": 11184,
+      "complete_units": 10492
+    },
+    "new_units": [
+      "assets/audio/bank17/mp3_huffman",
+      "assets/audio/bank17/mp3_huffman_offsets",
+      "assets/audio/bank17/mp3_lookup"
+    ],
+    "new_bytes": 59552,
+    "prior_measure_changes": [
+      "assets/storage/bank17/unreconstructed"
+    ],
+    "prior_assets_preserved": 10165,
+    "prior_source_files_preserved": 24138,
+    "rom_bytes": 67108864,
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "snapshot": "current",
+    "compile_errors": [],
+    "tests": {
+      "run": 2493,
+      "skipped": 8,
+      "failures": 0
+    }
+  }
+}

@@ -178,13 +178,33 @@ After the raw base split map is available
                                  Rebuild the fixed US flat RZIP region into a ROM.
   font-assets <extract|pack|build|preview|verify> [options]
                                  Extract, rebuild, preview, or byte-verify the RLE font table.
-  mp3-assets <extract|pack|build-bank|verify|cue-extract|cue-verify> [options]
+  sprite-assets <build|recover>
+      Reconstruct reviewed sprite PNG ranges or recover their editable inputs.
+  animation-clips <build|recover> [--part ID]
+      Rebuild reviewed clip ranges within partial animation objects or recover inputs.
+  scene-fields <build|recover>
+                     Rebuild reviewed model, group, spawn, view and sprite fields.
+  scene-volumes <build|recover>
+      Reconstruct reviewed scene trigger volumes and collision spheres.
+  animation-bank <build|recover> [--bank 0A]
+    Rebuild the native-format animation bundles in bank 0A.
+  animation-control <build|recover --bank 0F>
+    Rebuild reviewed animation routes, events and behavior programs.
+  route-assets <build|recover> [--bank 10|19]
+      Rebuild reviewed actor paths and navigation graphs or recover their inputs.
+  visibility-assets <build|recover>
+      Rebuild reviewed visibility codes and node sets or recover their inputs.
+  script-assets <build|recover>
+    Rebuild native script tracks, bindings, commands and text.
+  event-assets <build|recover>
+                                 Rebuild the complete US event bank from typed instructions and strings.
+  mp3-assets <build-spectral|recover-spectral|build-tables|recover-tables|extract|pack|build-bank|verify|cue-extract|cue-verify> [options]
                                  Extract or verify US MP3 streams, tables, and embedded cues.
   audio-assets <build-adpcm|recover-adpcm|build-sound-bank|recover-sound-bank|build-sequences|recover-sequence|survey|extract|preview|sample-preview|soundtrack-preview|verify> [options]
                                  Survey, extract, preview, or byte-verify US non-MP3 audio assets.
   texture-assets <extract|pack|build|verify|survey> [options]
                                  Survey, extract, rebuild, or verify proven US textures.
-  model-assets <build|recover|appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]
+  model-assets <build-morphs|recover-morphs|build|recover|appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]
                                  Export model banks or run cached ROM, glTF, Blender and image checks.
   hud-assets <survey|extract|preview|verify> [options]
                                  Extract, preview, or verify US HUD/menu metadata and sprites.
@@ -1350,9 +1370,63 @@ case "$command" in
         [[ $# -ge 1 ]] || die "usage: ./conker font-assets <extract|pack|build|preview|verify> [options]"
         python3 scripts/font_assets.py "$@"
         ;;
+    sprite-assets)
+        [[ $# -ge 1 ]] || die "usage: ./conker sprite-assets <build|recover>"
+        run_in_container python3 scripts/sprite_build.py "$@"
+        ;;
+    animation-clips)
+        [[ $# -ge 1 ]] || die "usage: ./conker animation-clips <build|recover> [--part ID]"
+        run_in_container python3 scripts/animation_clips_build.py "$@"
+        ;;
+    scene-volumes)
+        [[ $# -ge 1 ]] || die "usage: ./conker scene-volumes <build|recover>"
+        run_in_container python3 scripts/scene_volume_build.py "$@"
+        ;;
+    scene-fields)
+        [[ $# -ge 1 ]] || die "usage: ./conker scene-fields <build|recover>"
+        run_in_container python3 scripts/scene_field_build.py "$@"
+        ;;
+    animation-bank)
+        [[ $# -ge 1 ]] || die "usage: ./conker animation-bank <build|recover> [--bank 0A]"
+        run_in_container python3 scripts/animation_bank_build.py "$@"
+        ;;
+    animation-control)
+        [[ $# -ge 1 ]] || die "usage: ./conker animation-control <build|recover --bank 0F>"
+        run_in_container python3 scripts/animation_control_build.py "$@"
+        ;;
+    route-assets)
+        [[ $# -ge 1 ]] || die "usage: ./conker route-assets <build|recover> [--bank 10|19]"
+        run_in_container python3 scripts/route_build.py "$@"
+        ;;
+    visibility-assets)
+        [[ $# -ge 1 ]] || die "usage: ./conker visibility-assets <build|recover>"
+        run_in_container python3 scripts/visibility_build.py "$@"
+        ;;
+    script-assets)
+        [[ $# -ge 1 ]] || die "usage: ./conker script-assets <build|recover>"
+        run_in_container python3 scripts/script_build.py "$@"
+        ;;
+    event-assets)
+        [[ $# -ge 1 ]] || die "usage: ./conker event-assets <build|recover>"
+        run_in_container python3 scripts/event_build.py "$@"
+        ;;
     mp3-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker mp3-assets <extract|pack|build-bank|verify|cue-extract|cue-verify> [options]"
-        python3 scripts/mp3_assets.py "$@"
+        [[ $# -ge 1 ]] || die "usage: ./conker mp3-assets <build-spectral|recover-spectral|build-tables|recover-tables|extract|pack|build-bank|verify|cue-extract|cue-verify> [options]"
+        if [[ "$1" == "build-tables" ]]; then
+            shift
+            run_in_container python3 scripts/mp3_table_build.py build-parts "$@"
+        elif [[ "$1" == "build-spectral" ]]; then
+            shift
+            run_in_container python3 scripts/mp3_spectral_build.py build-parts "$@"
+        elif [[ "$1" == "recover-spectral" ]]; then
+            shift
+            run_in_container python3 scripts/mp3_spectral_build.py recover "$@"
+        elif [[ "$1" == "recover-tables" ]]; then
+            shift
+            run_in_container python3 scripts/mp3_table_build.py recover "$@"
+        else
+            python3 scripts/mp3_assets.py "$@"
+        fi
         ;;
     audio-assets)
         [[ $# -ge 1 ]] || die "usage: ./conker audio-assets <build-adpcm|recover-adpcm|build-sound-bank|recover-sound-bank|build-sequences|recover-sequence|survey|extract|preview|sample-preview|soundtrack-preview|verify> [options]"
@@ -1394,6 +1468,12 @@ case "$command" in
         elif [[ "$1" == "recover" ]]; then
             shift
             run_in_container python3 scripts/model_build.py recover "$@"
+        elif [[ "$1" == "build-morphs" ]]; then
+            shift
+            run_in_container python3 scripts/model_morph_build.py build-parts "$@"
+        elif [[ "$1" == "recover-morphs" ]]; then
+            shift
+            run_in_container python3 scripts/model_morph_build.py recover "$@"
         elif [[ "$1" == "alpha-frontier" ]]; then
             shift
             python3 scripts/model_character_alpha.py "$@"

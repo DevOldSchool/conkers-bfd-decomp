@@ -56,6 +56,31 @@ def regions(rom: bytes, layout: dict) -> list[dict]:
     return result
 
 
+def rebuilt_ranges(unit: dict) -> list[list[int]]:
+    """Normalize one candidate's explicit physical allocation without its holes."""
+    if 'rom_ranges' in unit:
+        if 'rom_start' in unit or 'rom_end' in unit:
+            raise ValueError('rebuilt storage cannot mix an envelope with explicit ranges')
+        ranges = unit['rom_ranges']
+    else:
+        ranges = [[unit.get('rom_start'), unit.get('rom_end')]]
+    if not isinstance(ranges, list) or not ranges:
+        raise ValueError('rebuilt storage has no physical ranges')
+    previous, size = -1, 0
+    for row in ranges:
+        if (not isinstance(row, list) or len(row) != 2
+                or any(type(value) is not int for value in row)):
+            raise ValueError('invalid rebuilt physical range')
+        start, end = row
+        if start < 0 or start < previous or start >= end:
+            raise ValueError('invalid or overlapping rebuilt storage ranges')
+        previous = end
+        size += end - start
+    if type(unit.get('size')) is not int or unit['size'] != size:
+        raise ValueError('rebuilt storage size differs from its physical ranges')
+    return ranges
+
+
 def partition(regions: list[dict], rebuilt: list[dict]) -> list[dict]:
     """Subtract proved candidate extents exactly once and retain every remainder."""
     ordered = sorted(regions, key=lambda r: r['rom_start'])
@@ -65,19 +90,22 @@ def partition(regions: list[dict], rebuilt: list[dict]) -> list[dict]:
         if start < 0 or start >= end or start < previous:
             raise ValueError('invalid or overlapping storage regions')
         previous = end
-    selected = sorted(rebuilt, key=lambda u: u['rom_start'])
-    previous = -1
     by_region = {r['key']: [] for r in ordered}
     if len(by_region) != len(ordered):
         raise ValueError('duplicate storage region keys')
-    for unit in selected:
-        start, end = unit['rom_start'], unit['rom_end']
-        if start < previous or start >= end or unit['size'] != end - start:
-            raise ValueError('invalid or overlapping rebuilt storage ranges')
-        owners = [r for r in ordered if r['rom_start'] <= start < end <= r['rom_end']]
+    selected = []
+    for unit in rebuilt:
+        ranges = rebuilt_ranges(unit)
+        owners = [r for r in ordered if all(r['rom_start'] <= start < end <= r['rom_end']
+                                            for start, end in ranges)]
         if len(owners) != 1:
             raise ValueError('rebuilt storage must belong to exactly one bounded region')
-        by_region[owners[0]['key']].append(unit)
+        selected.extend((start, end, owners[0]['key']) for start, end in ranges)
+    previous = -1
+    for start, end, owner in sorted(selected):
+        if start < previous:
+            raise ValueError('invalid or overlapping rebuilt storage ranges')
+        by_region[owner].append({'rom_start': start, 'rom_end': end, 'size': end - start})
         previous = end
     result = []
     for region in ordered:

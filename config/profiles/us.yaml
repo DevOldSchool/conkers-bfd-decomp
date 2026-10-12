@@ -382,17 +382,21 @@ segments:
     align: 1
     subalign: 1
   - name: asset_bank_01
-    type: bin
+    type: group
     start: 0xAF4918
     follows_vram: asset_bank_00
     align: 1
     subalign: 1
+    subsegments:
+      include: us/assets/models01.yaml
   - name: asset_bank_02
-    type: bin
+    type: group
     start: 0xBB1BA0
     follows_vram: asset_bank_01
     align: 1
     subalign: 1
+    subsegments:
+      include: us/assets/models02.yaml
   - name: asset_bank_03
     type: group
     start: 0xF8F278

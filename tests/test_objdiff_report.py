@@ -7,7 +7,7 @@ import tempfile
 from pathlib import Path
 import unittest
 from unittest.mock import patch
-from contextlib import redirect_stdout
+from contextlib import ExitStack, redirect_stdout
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / 'scripts'))
@@ -73,33 +73,50 @@ class CoveragePlanTests(unittest.TestCase):
                 targets[key] = {'path': f'targets/{overlay}/target.o', 'source': 'target.s',
                                 'sha256': 'checked', 'text_bytes': 4}
             symbols = {'f': {'address': 0, 'size': 4, 'hidden': False}}
-            with patch.object(report, 'ROOT', Path(tmp)), patch.object(report, 'OUTPUT', output), \
-                    patch.object(report, 'plan', return_value=specs), \
-                    patch.object(report.objdiff_targets, 'prepare', return_value=(targets, {})), \
-                    patch.object(report, 'digest_files', return_value='inputs'), \
-                    patch.object(report.objdiff_ownership, 'verify_grouped_images'), \
-                    patch.object(report, 'prepare_data', return_value=([], [], {})), \
+            with ExitStack() as stack:
+                for context in (
+                    patch.object(report, 'ROOT', Path(tmp)), patch.object(report, 'OUTPUT', output),
+                    patch.object(report, 'plan', return_value=specs),
+                    patch.object(report.objdiff_targets, 'prepare', return_value=(targets, {})),
+                    patch.object(report, 'digest_files', return_value='inputs'),
+                    patch.object(report.objdiff_ownership, 'verify_grouped_images'),
+                    patch.object(report, 'prepare_data', return_value=([], [], {})),
                     patch.object(report, 'prepare_font', return_value=(
                         {'size': 8, 'report_code_bytes': 0, 'report_data_bytes': 8},
-                        {'name': 'assets/font', 'metadata': {'complete': False}})), \
+                        {'name': 'assets/font', 'metadata': {'complete': False}})),
                     patch.object(report, 'prepare_textures', return_value=(
                         [{'size': 4, 'report_code_bytes': 0, 'report_data_bytes': 4},
                          {'size': 6, 'report_code_bytes': 0, 'report_data_bytes': 6}],
                         [{'name': 'assets/flat/textures/1063', 'metadata': {'complete': False}},
-                         {'name': 'assets/flat/textures/1064', 'metadata': {'complete': False}}])), \
+                         {'name': 'assets/flat/textures/1064', 'metadata': {'complete': False}}])),
                     patch.object(report, 'prepare_models', return_value=(
                         [{'size': 5, 'report_code_bytes': 0, 'report_data_bytes': 5}],
-                        [{'name': 'assets/models/bank03/0003', 'metadata': {'complete': False}}])), \
-                    patch.object(report, 'prepare_adpcm', return_value=([], [])), \
-                    patch.object(report, 'prepare_sound_bank', return_value=([], [])), \
-                    patch.object(report, 'prepare_sequences', return_value=([], [])), \
+                        [{'name': 'assets/models/bank03/0003', 'metadata': {'complete': False}}])),
+                    patch.object(report, 'prepare_adpcm', return_value=([], [])),
+                    patch.object(report, 'prepare_sound_bank', return_value=([], [])),
+                    patch.object(report, 'prepare_animation_controls', return_value=([], [])),
+                    patch.object(report, 'prepare_scripts', return_value=([], [])),
+                    patch.object(report, 'prepare_events', return_value=([], [])),
+                    patch.object(report, 'prepare_sprites', return_value=([], [])),
+                    patch.object(report, 'prepare_visibility', return_value=([], [])),
+                    patch.object(report, 'prepare_animation_clips', return_value=([], [])),
+                    patch.object(report, 'prepare_scene_fields', return_value=([], [])),
+                    patch.object(report, 'prepare_scene_volumes', return_value=([], [])),
+                    patch.object(report, 'prepare_animation_bank', return_value=([], [])),
+                    patch.object(report, 'prepare_routes', return_value=([], [])),
+                    patch.object(report, 'prepare_morphs', return_value=([], [])),
+                    patch.object(report, 'prepare_mp3_spectral', return_value=([], [])),
+                    patch.object(report, 'prepare_mp3_tables', return_value=([], [])),
+                    patch.object(report, 'prepare_sequences', return_value=([], [])),
                     patch.object(report, 'prepare_storage', return_value=(
                         [{'kind': 'unreconstructed_asset', 'size': 7, 'report_code_bytes': 0,
                           'report_data_bytes': 7, 'complete': False}],
                         [{'name': 'assets/storage/flat/unreconstructed', 'metadata': {'complete': False}}],
-                        {'stored_asset_bytes': 30})), \
-                    patch.object(report, 'elf_text_symbols', return_value=symbols), \
-                    patch.object(report.subprocess, 'run') as run:
+                        {'stored_asset_bytes': 30})),
+                    patch.object(report, 'elf_text_symbols', return_value=symbols),
+                ):
+                    stack.enter_context(context)
+                run = stack.enter_context(patch.object(report.subprocess, 'run'))
                 report.prepare()
             run.assert_not_called()
             config = json.loads((output / 'objdiff.json').read_text())

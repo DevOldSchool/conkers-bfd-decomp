@@ -1,4 +1,4 @@
-"""Reconstruct reviewed bank-03, bank-04 and bank-09 model storage from structured native records."""
+"""Reconstruct reviewed bank-01/02/03/04/09 model and animation storage from structured native records."""
 from __future__ import annotations
 
 import hashlib
@@ -9,27 +9,28 @@ import zlib
 from pathlib import Path
 
 try:
-    from scripts import (model_assets, model_bundle_build, model_color_build, model_aux_build,
+    from scripts import (model_assets, model_bundle_build, model_color_build, model_aux_build, model_character_build, model_animation_build,
                          model_effect_format, model_emission_points, rzip_archive, rzip_pack, texture_build)
-    from scripts import rzip_gzip
+    from scripts import rzip_gzip, rzip_bounded
     from scripts.build_files import write_if_changed
     from scripts.profile_config import load_profile
 except ModuleNotFoundError:
-    import model_assets, model_bundle_build, model_color_build
+    import model_assets, model_bundle_build, model_color_build, model_character_build, model_animation_build
     import model_aux_build, model_effect_format, model_emission_points
     import rzip_archive, rzip_pack, texture_build
-    import rzip_gzip
+    import rzip_gzip, rzip_bounded
     from build_files import write_if_changed
     from profile_config import load_profile
 
 ROOT = Path(__file__).resolve().parent.parent
 INPUT_DIRECTORY = Path('build/assets/model-build/us')
-BANKS = (3, 4, 9)
+BANKS = (1, 2, 3, 4, 9)
 EFFECT_ENTRIES = range(173, 184)
 CONTRACT = Path('config/model_build.us.json')
 sha256 = texture_build.sha256
 LEVEL6_ENCODER = dict(texture_build.ENCODERS['zlib'], level=6)
 GZIP6_ENCODER = dict(texture_build.ENCODERS['gzip'], level=6)
+NATIVE_ENCODER = {'format': 'native-character-animation'}
 
 
 def part_name(index: int, bank: int) -> str:
@@ -158,9 +159,14 @@ def verify_attachment_consumers(code: bytes, base: int) -> None:
             raise ValueError(f'ROM attachment consumer changed at 0x{address:08X}')
 
 
-def model_records(payload: bytes, *, bank: int, entry: int | None = None) -> dict:
+def model_records(payload: bytes, *, bank: int, entry: int | None = None,
+                  animation_duration: int | None = None) -> dict:
     if bank not in BANKS:
         raise ValueError('unsupported direct-model bank')
+    if bank == 1:
+        return model_character_build.character_records(payload)
+    if bank == 2:
+        return model_animation_build.animation_records(payload, entry=entry, runtime_duration=animation_duration)
     if bank == 4:
         return model_bundle_build.bundle_records(payload, lambda raw: model_records(raw, bank=3))
     if bank == 9 and entry in model_emission_points.ENTRIES:
@@ -198,6 +204,10 @@ def model_records(payload: bytes, *, bank: int, entry: int | None = None) -> dic
 
 
 def encode_records(records: dict, *, bank: int) -> bytes:
+    if bank == 1:
+        return model_character_build.encode_character_records(records)
+    if bank == 2:
+        return model_animation_build.encode_animation_records(records)
     if bank == 4:
         return model_bundle_build.encode_bundle_records(records,
             lambda rows: encode_records(rows, bank=3), lambda raw: model_records(raw, bank=3))
@@ -261,7 +271,25 @@ def gzip6_selections(contract: dict) -> dict:
     return choices
 
 
+def bounded_selections(contract: dict) -> dict:
+    choices = contract.get('bounded_entries', {b: [] for b in contract['banks']})
+    if not isinstance(choices, dict) or set(choices) != set(contract['banks']):
+        raise ValueError('invalid bounded model encoder selection')
+    level6, gzip6 = level6_selections(contract), gzip6_selections(contract)
+    for bank, entries in choices.items():
+        if (not isinstance(entries, list) or any(type(i) is not int for i in entries)
+                or entries != sorted(set(entries))
+                or not set(entries) <= set(contract['banks'][bank])
+                or set(entries) & (set(level6[bank]) | set(gzip6[bank]))):
+            raise ValueError('invalid bounded model encoder selection')
+    return choices
+
+
 def encode_model_payload(payload: bytes, encoder: dict) -> bytes:
+    if encoder == rzip_bounded.ENCODER:
+        return rzip_bounded.encode_payload(payload)
+    if encoder == NATIVE_ENCODER:
+        return payload
     if encoder == texture_build.ENCODERS['zlib']:
         return rzip_pack.encode_rzip_chunk(payload)
     if encoder == GZIP6_ENCODER:
@@ -295,7 +323,7 @@ def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
     if (contract.get('schema_version') != 2 or contract.get('profile') != 'us'
             or contract.get('rom_sha1') != digest
             or contract.get('encoder') != texture_build.ENCODERS['zlib']
-            or not isinstance(selections, dict) or set(selections) not in ({'03', '09'}, {'03', '04', '09'})):
+            or not isinstance(selections, dict) or set(selections) not in ({'03', '09'}, {'03', '04', '09'}, {'01', '03', '04', '09'}, {'01', '02', '03', '04', '09'})):
         raise ValueError('invalid committed US model reconstruction contract')
     if bank is not None and f'{bank:02d}' not in selections:
         raise ValueError('requested model bank has no reviewed selection')
@@ -308,6 +336,9 @@ def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
             raise ValueError('invalid committed US model reconstruction selection')
     level6 = level6_selections(contract)
     gzip6 = gzip6_selections(contract)
+    bounded = bounded_selections(contract)
+    if level6.get('02') or gzip6.get('02') or bounded.get('02'):
+        raise ValueError('native animation bank cannot select compression encoders')
     banks = rzip_archive.parse_asset_banks(rom, layout['asset_table'])
     result = []
     for bank_id in requested:
@@ -315,11 +346,15 @@ def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
         bank = next((b for b in banks if b.index == bank_id), None)
         if bank is None or bank.flags:
             raise ValueError(f'reviewed model bank {bank_id:02d} is missing or not an indexed ROM bank')
-        if bank_id in (4, 9):
+        if bank_id in (1, 2, 4, 9):
             if layout.get('game_format') != 'rzip':
                 raise ValueError(f'bank-{bank_id:02d} consumer proof requires the RZIP game archive')
             game = rzip_archive.parse_game_archive(rom[layout['game_start']:layout['game_end']])
-            if bank_id == 4:
+            if bank_id == 1:
+                model_character_build.verify_consumers(game.code, int(layout['game_vram']))
+            elif bank_id == 2:
+                model_animation_build.verify_consumers(game.code, int(layout['game_vram']))
+            elif bank_id == 4:
                 model_bundle_build.verify_consumers(game.code, int(layout['game_vram']))
             else:
                 model_assets.verify_direct_model_consumers(game.code, int(layout['game_vram']))
@@ -341,27 +376,41 @@ def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
             raise ValueError(f'model YAML splits differ from reviewed bank-{bank_id:02d} boundaries')
         attachment_consumers_checked = False
         for entry in entries:
-            if not entry.compressed:
-                raise ValueError('reviewed model must use RZIP storage')
+            if entry.compressed != (bank_id != 2):
+                raise ValueError('reviewed model or animation has unexpected storage encoding')
             stored = rom[entry.start:entry.end]
-            chunk = rzip_archive.decode_rzip_chunk(stored)
-            if chunk.consumed != len(stored):
-                raise ValueError('model stored extent includes unowned trailing bytes')
-            records = model_records(chunk.data, bank=bank_id, entry=entry.index)
-            if bank_id == 4 and records['segments'][0]['format'] == 'primary-color-surface-direct':
-                model_color_build.verify_consumers(game.code, int(layout['game_vram']))
+            payload = stored
+            if entry.compressed:
+                chunk = rzip_archive.decode_rzip_chunk(stored)
+                if chunk.consumed != len(stored):
+                    raise ValueError('model stored extent includes unowned trailing bytes')
+                payload = chunk.data
+            animation_duration = None
+            if bank_id == 2 and entry.index in model_animation_build.FIXED_DURATION_ENTRIES:
+                animation_duration = model_animation_build.verify_fixed_duration(game.data, int(layout['game_data_vram']))
+            records = model_records(payload, bank=bank_id, entry=entry.index, animation_duration=animation_duration)
+            if bank_id == 4:
+                parts = [part for part in records['segments'] if part is not None]
+                if any(part.get('format') == 'primary-color-surface-direct' or part.get('color_descriptors') for part in parts):
+                    model_color_build.verify_consumers(game.code, int(layout['game_vram']))
+                if any(part.get('format') == 'extended-model' and part['normal_xy_s8'] for part in parts):
+                    model_bundle_build.model_extended_build.verify_normal_consumers(game.code, int(layout['game_vram']))
             if records.get('format') == 'attachment-three-pair' and not attachment_consumers_checked:
                 verify_attachment_consumers(game.code, int(layout['game_vram']))
                 attachment_consumers_checked = True
-            if encode_records(records, bank=bank_id) != chunk.data:
+            if encode_records(records, bank=bank_id) != payload:
                 raise ValueError('model records failed independent decoded comparison')
             expected = {'schema_version': 1, 'profile': 'us', 'bank': bank_id, 'entry': entry.index,
                         'rom_sha1': digest, 'rom_start': entry.start, 'rom_end': entry.end,
-                        'decoded_size': len(chunk.data), 'original_decoded_sha256': sha256(chunk.data),
+                        'decoded_size': len(payload), 'original_decoded_sha256': sha256(payload),
                         'original_stored_sha256': sha256(stored),
-                        'encoder': (dict(GZIP6_ENCODER) if entry.index in gzip6[f'{bank_id:02d}']
+                        'encoder': (dict(NATIVE_ENCODER) if bank_id == 2 else dict(rzip_bounded.ENCODER) if entry.index in bounded[f'{bank_id:02d}']
+                                    else dict(GZIP6_ENCODER) if entry.index in gzip6[f'{bank_id:02d}']
                                     else dict(LEVEL6_ENCODER) if entry.index in level6[f'{bank_id:02d}']
                                     else contract['encoder'])}
+            if animation_duration is not None:
+                expected['animation_runtime'] = {'character_entry': entry.index, 'duration': animation_duration,
+                                                'data_address': model_assets.CHARACTER_ANIMATION_SPECIAL_DURATION_ADDRESS}
             result.append((expected, records))
     return rom, result
 
@@ -415,7 +464,18 @@ def recover_inputs(entry: int, root: Path = ROOT, *, bank: int) -> dict:
 def packed_model(directory: Path, expected: dict):
     before = input_hashes(directory, expected)
     try:
-        payload = encode_records(json.loads((directory / 'model.json').read_text()), bank=expected['bank'])
+        records = json.loads((directory / 'model.json').read_text())
+        if not isinstance(records, dict):
+            raise ValueError('invalid model source schema')
+        if expected.get('animation_runtime') is not None:
+            context = expected['animation_runtime']
+            if (records.get('format') != 'character-animation-fixed-duration'
+                    or records.get('character_entry') != context['character_entry']
+                    or records.get('runtime_duration') != context['duration']):
+                raise ValueError('animation source duration differs from native runtime evidence')
+        elif records.get('format') == 'character-animation-fixed-duration':
+            raise ValueError('animation source has no reviewed runtime duration evidence')
+        payload = encode_records(records, bank=expected['bank'])
     except (OSError, ValueError) as error:
         raise input_error(directory, expected, str(error)) from error
     if len(payload) != expected['decoded_size'] or sha256(payload) != expected['original_decoded_sha256']:
@@ -423,7 +483,7 @@ def packed_model(directory: Path, expected: dict):
     packed = encode_model_payload(payload, expected['encoder'])
     if (len(packed) != expected['rom_end'] - expected['rom_start']
             or sha256(packed) != expected['original_stored_sha256']):
-        raise ValueError('reviewed model encoder differs from original RZIP storage')
+        raise ValueError('reviewed model encoder differs from original storage')
     if input_hashes(directory, expected) != before:
         raise ValueError('model inputs changed during packing')
     return packed, before
@@ -474,7 +534,7 @@ def main(argv=None):
             print(json.dumps(recover_inputs(args.entry, bank=args.bank), indent=2))
         else:
             proof = build_parts(bank=args.bank)
-            print(f"Verified {proof['model_count']} assets in model banks: {proof['stored_bytes']} RZIP bytes; "
+            print(f"Verified {proof['model_count']} assets in model banks: {proof['stored_bytes']} stored bytes; "
                   'decoded/stored hashes and original ROM bytes agree')
     except (ValueError, OSError) as error:
         parser.exit(2, f'error: {error}\n')

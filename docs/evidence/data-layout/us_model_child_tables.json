@@ -1,0 +1,528 @@
+{
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "encoder": {
+    "format": "gzip-raw-deflate",
+    "level": 6,
+    "implementation": "GNU gzip 1.12"
+  },
+  "bundles": [
+    {
+      "entry": 0,
+      "rom_start": "0xf9e888",
+      "rom_end": "0xfa4f7d",
+      "stored_bytes": 26357,
+      "decoded_bytes": 68056,
+      "decoded_sha256": "249350ce5319aaccee83c2d0657a43e450893a8c23008918ecdcab35af353167",
+      "stored_sha256": "5a168997f39a2dade1da81d829ba7de2c396093de06d9aefbc0ea537552a0e70",
+      "child_tables": [
+        {
+          "part": 8,
+          "table_offset": "0x308",
+          "word_count": 20,
+          "zero_suffix": 0
+        },
+        {
+          "part": 13,
+          "table_offset": "0x5d0",
+          "word_count": 41,
+          "zero_suffix": 4
+        },
+        {
+          "part": 14,
+          "table_offset": "0xf8",
+          "word_count": 2,
+          "zero_suffix": 8
+        }
+      ]
+    },
+    {
+      "entry": 11,
+      "rom_start": "0xfe53e8",
+      "rom_end": "0xfedce4",
+      "stored_bytes": 35068,
+      "decoded_bytes": 89440,
+      "decoded_sha256": "d7486643e35dfb494366527545e78dfc42fb375b819cb359a4b2efc201a6800b",
+      "stored_sha256": "7cae83f96cc5cb2b590ec73351986a11020f37ac19073f76485550f160848fcf",
+      "child_tables": [
+        {
+          "part": 6,
+          "table_offset": "0x608",
+          "word_count": 48,
+          "zero_suffix": 0
+        },
+        {
+          "part": 7,
+          "table_offset": "0x1f0",
+          "word_count": 16,
+          "zero_suffix": 8
+        },
+        {
+          "part": 9,
+          "table_offset": "0x1c8",
+          "word_count": 10,
+          "zero_suffix": 8
+        }
+      ]
+    },
+    {
+      "entry": 25,
+      "rom_start": "0x103dcb8",
+      "rom_end": "0x1046e60",
+      "stored_bytes": 37288,
+      "decoded_bytes": 97864,
+      "decoded_sha256": "0e199e8e37761ee8acf2919fef9fbeef8b5648bbacc39b390b913c608972e41d",
+      "stored_sha256": "28d22b94c5462a19606deb5352c1d6dfebc9406a3b2c3a38d49f11d1fc586316",
+      "child_tables": [
+        {
+          "part": 6,
+          "table_offset": "0x498",
+          "word_count": 44,
+          "zero_suffix": 0
+        },
+        {
+          "part": 7,
+          "table_offset": "0x158",
+          "word_count": 9,
+          "zero_suffix": 12
+        },
+        {
+          "part": 8,
+          "table_offset": "0x158",
+          "word_count": 9,
+          "zero_suffix": 12
+        },
+        {
+          "part": 9,
+          "table_offset": "0x6b8",
+          "word_count": 66,
+          "zero_suffix": 8
+        },
+        {
+          "part": 10,
+          "table_offset": "0x4f8",
+          "word_count": 54,
+          "zero_suffix": 8
+        },
+        {
+          "part": 11,
+          "table_offset": "0x4a8",
+          "word_count": 42,
+          "zero_suffix": 8
+        },
+        {
+          "part": 12,
+          "table_offset": "0x630",
+          "word_count": 89,
+          "zero_suffix": 4
+        }
+      ]
+    },
+    {
+      "entry": 35,
+      "rom_start": "0x1076a50",
+      "rom_end": "0x107f4a6",
+      "stored_bytes": 35414,
+      "decoded_bytes": 114056,
+      "decoded_sha256": "4cd01d78043b689d201bd0d2be84d146fda1f80934913160e12a223a931f6224",
+      "stored_sha256": "a9a547b2e6e3258e49caa7929008adf314d9a6904b15b040ce65c24151a61903",
+      "child_tables": [
+        {
+          "part": 14,
+          "table_offset": "0x2930",
+          "word_count": 339,
+          "zero_suffix": 12
+        },
+        {
+          "part": 15,
+          "table_offset": "0x2590",
+          "word_count": 287,
+          "zero_suffix": 12
+        },
+        {
+          "part": 16,
+          "table_offset": "0x2468",
+          "word_count": 284,
+          "zero_suffix": 0
+        }
+      ]
+    },
+    {
+      "entry": 41,
+      "rom_start": "0x108dba8",
+      "rom_end": "0x1098451",
+      "stored_bytes": 43177,
+      "decoded_bytes": 111968,
+      "decoded_sha256": "114d8ae5f94a17133a793367f0f7fffdd70c331102d88b31a6ad96c98c8239fa",
+      "stored_sha256": "55bec5b3743e8f55dc2433eab62c012791a3d0d39cef29d3d5d548e9097b73a6",
+      "child_tables": [
+        {
+          "part": 10,
+          "table_offset": "0x478",
+          "word_count": 54,
+          "zero_suffix": 8
+        },
+        {
+          "part": 11,
+          "table_offset": "0x658",
+          "word_count": 67,
+          "zero_suffix": 4
+        },
+        {
+          "part": 12,
+          "table_offset": "0x208",
+          "word_count": 18,
+          "zero_suffix": 8
+        },
+        {
+          "part": 13,
+          "table_offset": "0x660",
+          "word_count": 46,
+          "zero_suffix": 0
+        },
+        {
+          "part": 14,
+          "table_offset": "0x400",
+          "word_count": 41,
+          "zero_suffix": 4
+        },
+        {
+          "part": 21,
+          "table_offset": "0x1a0",
+          "word_count": 7,
+          "zero_suffix": 12
+        },
+        {
+          "part": 22,
+          "table_offset": "0xf8",
+          "word_count": 4,
+          "zero_suffix": 0
+        }
+      ]
+    },
+    {
+      "entry": 44,
+      "rom_start": "0x109d360",
+      "rom_end": "0x10a57b8",
+      "stored_bytes": 33880,
+      "decoded_bytes": 87376,
+      "decoded_sha256": "06689eaca2349a0901620bf5c1daad5be81664aee5524bdc329d9a533cfd8d2d",
+      "stored_sha256": "1b2fd82d364cb50e3b725016d949d68fda598ac377fd64d0d64a03863f21f762",
+      "child_tables": [
+        {
+          "part": 6,
+          "table_offset": "0x1e8",
+          "word_count": 10,
+          "zero_suffix": 8
+        },
+        {
+          "part": 7,
+          "table_offset": "0x1e8",
+          "word_count": 10,
+          "zero_suffix": 8
+        },
+        {
+          "part": 8,
+          "table_offset": "0x138",
+          "word_count": 2,
+          "zero_suffix": 8
+        },
+        {
+          "part": 9,
+          "table_offset": "0x180",
+          "word_count": 6,
+          "zero_suffix": 0
+        },
+        {
+          "part": 10,
+          "table_offset": "0x660",
+          "word_count": 89,
+          "zero_suffix": 4
+        },
+        {
+          "part": 11,
+          "table_offset": "0x308",
+          "word_count": 39,
+          "zero_suffix": 4
+        },
+        {
+          "part": 12,
+          "table_offset": "0x188",
+          "word_count": 6,
+          "zero_suffix": 8
+        },
+        {
+          "part": 13,
+          "table_offset": "0xd0",
+          "word_count": 4,
+          "zero_suffix": 8
+        }
+      ]
+    },
+    {
+      "entry": 45,
+      "rom_start": "0x10a57b8",
+      "rom_end": "0x10abaa2",
+      "stored_bytes": 25322,
+      "decoded_bytes": 75304,
+      "decoded_sha256": "c1c177a90344916ae787cce58c440cea815042885a2a81068f948ac1521b9ffc",
+      "stored_sha256": "fb34895b2cada9918ba7d56bc957a1ce0485114d01344474f5d7cc892a3192f4",
+      "child_tables": [
+        {
+          "part": 4,
+          "table_offset": "0x238",
+          "word_count": 8,
+          "zero_suffix": 0
+        },
+        {
+          "part": 5,
+          "table_offset": "0x1f0",
+          "word_count": 8,
+          "zero_suffix": 8
+        },
+        {
+          "part": 6,
+          "table_offset": "0x100",
+          "word_count": 2,
+          "zero_suffix": 0
+        },
+        {
+          "part": 7,
+          "table_offset": "0x100",
+          "word_count": 2,
+          "zero_suffix": 0
+        },
+        {
+          "part": 8,
+          "table_offset": "0x100",
+          "word_count": 2,
+          "zero_suffix": 0
+        },
+        {
+          "part": 9,
+          "table_offset": "0x100",
+          "word_count": 2,
+          "zero_suffix": 0
+        },
+        {
+          "part": 10,
+          "table_offset": "0x100",
+          "word_count": 2,
+          "zero_suffix": 0
+        },
+        {
+          "part": 11,
+          "table_offset": "0x100",
+          "word_count": 2,
+          "zero_suffix": 0
+        }
+      ]
+    },
+    {
+      "entry": 49,
+      "rom_start": "0x10b7ed8",
+      "rom_end": "0x10bbfd6",
+      "stored_bytes": 16638,
+      "decoded_bytes": 44264,
+      "decoded_sha256": "5f295ef04645e1cb96b3ed7ad82bdbeac6ee6ce0a81d276e55fd87487b8a786a",
+      "stored_sha256": "63946939724a351b174fa8f21d3f51889cdd23c471d92507cc0786c7e5c9d7f5",
+      "child_tables": [
+        {
+          "part": 4,
+          "table_offset": "0x158",
+          "word_count": 7,
+          "zero_suffix": 4
+        },
+        {
+          "part": 5,
+          "table_offset": "0x158",
+          "word_count": 7,
+          "zero_suffix": 4
+        },
+        {
+          "part": 6,
+          "table_offset": "0x158",
+          "word_count": 7,
+          "zero_suffix": 4
+        },
+        {
+          "part": 7,
+          "table_offset": "0x168",
+          "word_count": 10,
+          "zero_suffix": 8
+        },
+        {
+          "part": 8,
+          "table_offset": "0x178",
+          "word_count": 10,
+          "zero_suffix": 8
+        },
+        {
+          "part": 9,
+          "table_offset": "0x178",
+          "word_count": 10,
+          "zero_suffix": 8
+        },
+        {
+          "part": 10,
+          "table_offset": "0xf8",
+          "word_count": 2,
+          "zero_suffix": 8
+        },
+        {
+          "part": 11,
+          "table_offset": "0x150",
+          "word_count": 16,
+          "zero_suffix": 8
+        },
+        {
+          "part": 12,
+          "table_offset": "0x100",
+          "word_count": 8,
+          "zero_suffix": 8
+        },
+        {
+          "part": 13,
+          "table_offset": "0x138",
+          "word_count": 6,
+          "zero_suffix": 8
+        },
+        {
+          "part": 14,
+          "table_offset": "0x228",
+          "word_count": 12,
+          "zero_suffix": 0
+        },
+        {
+          "part": 15,
+          "table_offset": "0x228",
+          "word_count": 12,
+          "zero_suffix": 0
+        },
+        {
+          "part": 16,
+          "table_offset": "0x228",
+          "word_count": 12,
+          "zero_suffix": 0
+        }
+      ]
+    },
+    {
+      "entry": 67,
+      "rom_start": "0x1148b70",
+      "rom_end": "0x11511e7",
+      "stored_bytes": 34423,
+      "decoded_bytes": 80224,
+      "decoded_sha256": "c6a9a9a1da3d0a56a2a1b6097ef3f22ea86807344aa40d3aa429ae749dff3500",
+      "stored_sha256": "19163f6571cf647233330943f841fd2e580b44ab5b4cb2326dbc6620a0192308",
+      "child_tables": [
+        {
+          "part": 4,
+          "table_offset": "0x158",
+          "word_count": 7,
+          "zero_suffix": 4
+        },
+        {
+          "part": 5,
+          "table_offset": "0x158",
+          "word_count": 7,
+          "zero_suffix": 4
+        },
+        {
+          "part": 6,
+          "table_offset": "0x940",
+          "word_count": 94,
+          "zero_suffix": 0
+        },
+        {
+          "part": 7,
+          "table_offset": "0x6a8",
+          "word_count": 62,
+          "zero_suffix": 8
+        },
+        {
+          "part": 8,
+          "table_offset": "0x6e0",
+          "word_count": 91,
+          "zero_suffix": 12
+        },
+        {
+          "part": 9,
+          "table_offset": "0x820",
+          "word_count": 76,
+          "zero_suffix": 8
+        },
+        {
+          "part": 10,
+          "table_offset": "0x850",
+          "word_count": 100,
+          "zero_suffix": 8
+        },
+        {
+          "part": 11,
+          "table_offset": "0xf8",
+          "word_count": 8,
+          "zero_suffix": 0
+        }
+      ]
+    },
+    {
+      "entry": 68,
+      "rom_start": "0x11511e8",
+      "rom_end": "0x11542a3",
+      "stored_bytes": 12475,
+      "decoded_bytes": 28776,
+      "decoded_sha256": "e752cfe423ba5b74b5dcdffc2856c97f25c0d0870babca94b441098b18509f09",
+      "stored_sha256": "8d574cb31c7b004158658cb9ed852e5d97f263e2c410dca86d75ca85a6784b4e",
+      "child_tables": [
+        {
+          "part": 4,
+          "table_offset": "0x158",
+          "word_count": 7,
+          "zero_suffix": 4
+        },
+        {
+          "part": 5,
+          "table_offset": "0x158",
+          "word_count": 7,
+          "zero_suffix": 4
+        },
+        {
+          "part": 6,
+          "table_offset": "0x6a8",
+          "word_count": 62,
+          "zero_suffix": 8
+        },
+        {
+          "part": 7,
+          "table_offset": "0x408",
+          "word_count": 33,
+          "zero_suffix": 12
+        },
+        {
+          "part": 8,
+          "table_offset": "0x340",
+          "word_count": 33,
+          "zero_suffix": 4
+        },
+        {
+          "part": 9,
+          "table_offset": "0x340",
+          "word_count": 33,
+          "zero_suffix": 4
+        },
+        {
+          "part": 10,
+          "table_offset": "0x340",
+          "word_count": 33,
+          "zero_suffix": 4
+        },
+        {
+          "part": 11,
+          "table_offset": "0x8b0",
+          "word_count": 107,
+          "zero_suffix": 12
+        }
+      ]
+    }
+  ]
+}
