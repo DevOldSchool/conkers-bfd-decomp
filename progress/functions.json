@@ -93877,8 +93877,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 668,
-        "reason": "Full476 CURRENT668 independently restored857a0710. Two new manual hypotheses rejected: actual u16 merge flag1105 replaces raw SW/LW with SH/LHU22 and leaves maskA3/flagA2; consumed arg0 for actual final tagged-size902 loses entrycopy and assigns final sizeA0/rawV0. Original fullword merge-flag formal reuse retained with exact entryMOVE/frame30/span, remaining original1C/raw18, flag30/raw20, maskA3/rawspill1C and tail temporaries. Existing s32 caller contract retained; no ABI/shared/ASM changes. Prior pointer/width/scope/value-reuse families remain exhausted; ledger build/us/manual-attempts/manual-init-20261007/ledger.md.",
+        "current_score": 35,
+        "reason": "Full476 CURRENT35 (improved from668): -g3 homes give six locals block/neighbor/nextFree/merged/mask/cursor; merged flag is a real local (0x20); mask is memory-resident (volatile s32, home 0x1C); cursor holds the original header and later the list cursor. Remaining: original computed in v0 vs raw v1 (raw has no CSE temp for arg0-0xC) and tail temps t9/t0 vs raw t1/t2 (raw keeps &D_800380B8 in v0 before the nextFree fix-up, so its two block->nextFree reads are not CSE'd). Statement orders, expression shapes, labels, do-while, assignment-in-condition, register class and a 486-variant role enumeration exhausted; permuters only fake. Ledger build/us/manual-attempts/main-matching-3-20261012/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -96324,8 +96324,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3775,
-        "reason": "Full364 CURRENT3775 independently restored8a47dc17. New signed byte-offset handle-table multiply3775 produces identical full instruction mismatch to baseline; typed-array, unsigned stride, and signed offset all canonicalize. Prior scalar/scope/count/address forms exhausted; preserve simplest candidate. No further supported arithmetic-domain retry, artificial pressure, ABI/shared/ASM/flag changes.",
+        "current_score": 2322,
+        "reason": "Full364 CURRENT2322 (improved from3775): loop bound read directly from the promoted global D_80041F50 (reloaded after func_80017594), byte-pointer destination arithmetic and copy; this recovers raw's li s8,0xC + multu handle index and per-iteration destination rematerialisation. Remaining: raw allocates nine s-registers (separate D_80041F10 constant in s6 used only by the copy, frame 0x40) and computes the loop end before the operation decrement store with rematerialised base; ours frame 0x38 with copy CSE'd into destination and an end reload after the store. Typed-constant enumerations (pointer/s32/u32/u8*) over init/dest/end/copy, 1100+ variants. Ledger build/us/manual-attempts/main-matching-3-20261012/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

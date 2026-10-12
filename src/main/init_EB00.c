@@ -1215,30 +1215,26 @@ s32 func_800112BC(s32 arg0, s32 arg1) {
     }
     return 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011310 CURRENT (3775) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011310 CURRENT (2322) */
 void func_80011310(void) {
     SoundHandleEntry *entry;
     SoundQueueEntry *cursor;
-    SoundQueueEntry *end;
     SoundQueueEntry *destination;
-    s32 count;
     s32 index;
     s32 flag;
     s32 remaining;
     struct sndstate *state;
     s32 operation;
 
-    count = D_80041F50;
     flag = 0;
     index = 0;
-    remaining = count;
-    if (count > 0) {
+    remaining = D_80041F50;
+    if (D_80041F50 > 0) {
         cursor = D_80041F10;
         do {
             operation = (u8)cursor->operation;
-            destination = (SoundQueueEntry *)((index << 2) + (s32)D_80041F10);
+            destination = (SoundQueueEntry *)((u8 *)D_80041F10 + (index << 2));
             if (operation > 0) {
-                end = &D_80041F10[count];
                 cursor->operation = operation - 1;
             } else {
                 flag = 1;
@@ -1249,15 +1245,13 @@ void func_80011310(void) {
                     entry->value = 0;
                     if (state != 0) {
                         func_80017594(state);
-                        count = D_80041F50;
                     }
                     entry->state = 0;
                 }
                 remaining--;
-                end = &D_80041F10[count];
             }
             if (destination != cursor) {
-                D_80041F10[index] = *cursor;
+                *(SoundQueueEntry *)((u8 *)D_80041F10 + (index << 2)) = *cursor;
             }
             cursor++;
             if (flag != 0) {
@@ -1265,7 +1259,7 @@ void func_80011310(void) {
             } else {
                 flag = 0;
             }
-        } while ((u32)cursor < (u32)end);
+        } while ((u32)cursor < (u32)&D_80041F10[D_80041F50]);
     }
     D_80041F50 = remaining;
 }
