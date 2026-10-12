@@ -279,3 +279,80 @@ code-label helper, reproducible experiment script, objects, native JSON diffs an
 mutation results. The ROM-free assembly fixtures and their focused test are the
 only new executable repository files from this experiment. No fresh function
 batch or asset reconstruction is claimed.
+
+
+## Reviewed relocation trial (2026-10-12)
+
+**The isolated trial reaches 100% native matching and linked debugger code and
+data with unmodified objdiff v3.8.1.** Production reporting is unchanged: its
+accepted report remains 100% matching code / 92.54237% matching data and 100%
+linked code/data. PR #102 remains a draft. Integration requires separate approval.
+
+The [saved evidence](us_debugger_relocation_trial.json) records the tested source
+revision, official binary checksum, input/output hashes, mutation results,
+independent linker proofs and full-report comparison. The
+[prototype](relocation_trial/objdiff_candidate.py) and test drivers are preserved
+as experimental evidence only; production scripts do not import them.
+
+### Transformation and independence
+
+The transform first annotates the anonymous double, table and destination labels
+using candidate instructions, relocation runs and section bounds. Actual section
+placements come from consistent existing candidate symbol anchors in the runtime
+ELF. It does not consult the reference object, ROM bytes, comparison score or a
+hardcoded table count to derive the annotations.
+
+It then canonicalizes only the table's 52 `R_MIPS_32` records: section-symbol plus
+in-place offset becomes an exact destination symbol plus zero in-place addend.
+The effective `S + A` destination is unchanged. This is a comparison-copy
+transformation, not a change to the compiler output used by the runtime linker.
+
+The verifier independently derives the allowed sites from the original candidate
+and checks all 106 relocations. Existing symbols, code, section sizes, unrelated
+relocations and all other bytes must remain identical. Only the newly added symbol
+metadata and approved relocation words/indices may differ. Derivation runs with
+file reads and subprocess access disabled; idempotence and a no-op case also pass.
+
+### Checks and mutation results
+
+| Candidate | Native code | Native formatter rodata |
+| --- | --- | --- |
+| Canonical comparison copy | 100% | 100% |
+| Double changed from 1e8 to 1e9 | 100% | 99.12791% |
+| First two table destinations reordered | 100% | 98.49487% |
+| 51 cases with corresponding bound | 99.99943% | 98.78664% |
+| Table shifted four bytes | 99.99431% | 36.904762% |
+
+The transformation preserves each mutant's original code score. A separate
+anonymous-double reproducer reports 81.25% data matching for different constants,
+with 100% code. The verifier rejects tampered code, literal bytes, addends,
+relocation type/destination and section size. Discovery rejects inconsistent
+bounds, an interior table pointer and an out-of-range destination.
+
+GNU ld independently links the raw and transformed copies. Their complete text,
+rodata and data payloads are identical at the actual placement and at two other
+legal placements. At the actual placement both match the unmodified runtime ELF.
+A fresh allocated-byte verifier also confirms 14,064 debugger code bytes and
+4,720 initialized data bytes match the checked US ROM. No new C function batch
+or asset reconstruction is claimed.
+
+The isolated full report changes only `done/debugger/debugger_1AD0.c` data matching;
+all other 10,865 units are identical. It adds exactly 352 matched data bytes,
+reaching 4,720/4,720 debugger data bytes and 14,040/14,040 report code bytes. Linked
+completion stays 100%. The allocated-byte verifier additionally covers padding;
+its code byte count is therefore larger than the report's symbol-based count.
+
+### Reproduction scope and disposition
+
+The saved drivers run from the repository root against the existing ignored trial
+artifacts under `build/us/manual-attempts/debugger-completion/`. They document the
+actual local experiment, including its macOS ARM64 release binary and previously
+prepared mutation objects; they are not yet a portable CI test suite. No ROM or
+compiled candidate bytes are committed. `check_trial.py` runs the native mutation
+and semantic checks; `run_link_trial.py` and `check_alternate_links.py` require the
+pinned MIPS binutils environment and `scripts` on the Python import path.
+
+Automatic approval review rejected production wiring pending completion of these
+checks and explicit integration approval. The checks now pass. The prototype
+remains isolated and the production report hash remains
+`cee8d436182b00f17e649e144b16de4c0447b51793f58d5934ec730266e5eece`.
