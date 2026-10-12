@@ -72870,6 +72870,12 @@
       "symbol": "func_1515BAE0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1430,
+        "reason": "Manual revision budget exhausted: 4915 to 3355 to 1430. Reference 0x50 frame and stack offsets recovered; vector assignment restores integer position copies. Allocation-path control flow, float/GPR assignment and radius/store scheduling remain nonexact.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
