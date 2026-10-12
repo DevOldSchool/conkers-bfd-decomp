@@ -8671,6 +8671,12 @@
       "symbol": "func_150BE438"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3231,
+        "reason": "CURRENT (3231) after two finish calls and two bounded probes. Original 0x160 frame and addressed descriptor offsets recovered; incoming flag promotion, saved GPRs, primary FP setup and particle-pointer reuse remain. Manual budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -84573,6 +84579,12 @@
       "symbol": "func_150AF2E0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2136,
+        "reason": "CURRENT (2136) after two finish calls and two bounded probes. Required 0x70-byte descriptor and 16-byte extension preserved; frame 0x118 versus 0x110, addressed locals eight bytes high, captured FP registers and setup scheduling remain. Manual budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
