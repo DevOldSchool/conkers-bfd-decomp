@@ -58239,6 +58239,12 @@
       "symbol": "func_150807F4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 740,
+        "reason": "CURRENT740 after3 finishes/2 bounded probes, down from772. Full48-byte frame and all stack offsets now agree. 54 register-only rows and four scheduling rows remain; no missing/extra instructions. Preserve captured resource byte count and descriptor/call order. Manual budget exhausted; no permutation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -77030,6 +77036,12 @@
       "symbol": "func_150EB614"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1813,
+        "reason": "CURRENT1813 after two bounded probe batches: full 0x7C constructor descriptor retained; frame120 versus110, packet16 bytes high, float snapshot allocation and initialization scheduling unresolved. Register locals and pointer indexing did not improve; direct globals lost raw snapshots and worsened to6241. Warning-only pointer repair rechecked.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
