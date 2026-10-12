@@ -19,6 +19,14 @@ MATCH = re.search(r'GNU Make (\d+)\.(\d+)', MAKE_VERSION)
 GNU_MAKE = MATCH is not None
 
 
+def linked_payload(path: Path) -> bytes:
+    """Return the .data payload of a big-endian ELF32 asset link object."""
+    data = path.read_bytes()
+    sections = int.from_bytes(data[0x20:0x24], 'big')
+    offset, size = (int.from_bytes(data[sections + 40 + field:sections + 44 + field], 'big') for field in (16, 20))
+    return data[offset:offset + size]
+
+
 class GeneratedFileTests(unittest.TestCase):
     def test_unchanged_contents_preserve_timestamp_and_changes_replace_atomically(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -42,11 +50,13 @@ class AssetMakeTests(unittest.TestCase):
         for name in ('config/profiles/us.yaml', 'config/rzip_layouts.json',
                      'toolchain/python-requirements.txt', 'roms/baserom.us.z64',
                      'config/texture_encoders.us.json',
+                     'scripts/asset_inputs.py', 'scripts/audio_consumers.py', 'scripts/build_jobs.py', 'scripts/rzip_gzip.py',
                      'scripts/build_files.py', 'scripts/font_assets.py', 'scripts/mp3_assets.py',
                      'scripts/rzip_archive.py', 'scripts/rzip_extract.py',
                      'scripts/texture_assets.py', 'scripts/texture_catalog.py',
                      'scripts/texture_ci8.py', 'scripts/texture_rgba16.py',
                      'scripts/texture_native.py', 'scripts/rzip_pack.py', 'scripts/model_assets.py',
+                     'scripts/model_attachment_format.py', 'scripts/model_bundle_build.py', 'scripts/model_color_build.py', 'scripts/model_aux_build.py', 'scripts/model_effect_format.py', 'scripts/model_emission_points.py',
                      'scripts/hud_assets.py', 'scripts/hud_additional_artwork.py',
                      'scripts/texture_model_catalog.py', 'scripts/texture_model_storage.py'):
             path = self.root / name
@@ -54,6 +64,7 @@ class AssetMakeTests(unittest.TestCase):
             path.touch()
         shutil.copy(ROOT / 'scripts/profile_config.py', self.root / 'scripts/profile_config.py')
         shutil.copy(ROOT / 'scripts/build_timing.py', self.root / 'scripts/build_timing.py')
+        shutil.copy(ROOT / 'scripts/binary_object.py', self.root / 'scripts/binary_object.py')
         (self.root / 'config/profiles/us.yaml').write_text(
             'segments:\n  - name: font\n    type: group\n'
             '    subsegments:\n      include: us/assets/font.yaml\n')
@@ -94,7 +105,7 @@ if __name__ == '__main__':
             'def profile_sources(profile, segment):\n    return []\n')
         for name in ('font_splits', 'mp3_bank', 'audio_boundaries', 'texture_build'):
             (self.root / f'scripts/{name}.py').write_text(script)
-        (self.root / 'scripts/model_build.py').write_text('BANKS = (3, 9)\n')
+        (self.root / 'scripts/model_build.py').write_text('BANKS = (3, 4, 9)\n')
         self.ld = self.root / 'scripts/fake_ld.py'
         self.ld.write_text('''from pathlib import Path
 import sys
@@ -137,12 +148,189 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
                 (self.root / source).write_bytes(b'changed')
                 result, _ = self.run_make(kind)
                 self.assertEqual(result.returncode, 0, result.stderr)
-                self.assertEqual(objects[0].read_bytes(), b'changed')
+                self.assertEqual(linked_payload(objects[0]), b'changed')
                 self.assertGreater(objects[0].stat().st_mtime_ns, before[0])
                 self.assertEqual(objects[1].stat().st_mtime_ns, before[1])
 
+    def test_complete_adpcm_samples_use_inputs_and_keep_unchanged_objects(self):
+        shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
+        for name in ('adpcm_codec','adpcm_headroom','adpcm_layout','audio_assets','sound_bank_codec'):
+            (self.root / f'scripts/{name}.py').write_text('# dependency\n')
+        (self.root / 'config/adpcm_reconstruction.us.json').write_text('{}')
+        (self.root / 'scripts/audio_boundaries.py').write_text("""def bank_layout(profile, *, configuration=None):
+    assert configuration is not None
+    return 0, 32, [(0, 'audio/bank17/samples/0000/00000000'),
+                   (16, 'audio/bank17/samples/0001/00000000')]
+""")
+        (self.root / 'scripts/adpcm_build.py').write_text("""from pathlib import Path
+from build_files import write_if_changed
+for sample, frames in [(0,[0]),(1,[0])]:
+    directory=Path(f'build/assets/adpcm-build/us/{sample:04d}')
+    assert (directory/'manifest.json').read_text()=='{}'
+    (directory/'encoding.json').read_bytes()
+    pcm=(directory/'sample.wav').read_bytes()
+    for first in frames:
+        write_if_changed(Path(f'build/us/adpcm/parts/audio/bank17/samples/{sample:04d}/{first:08X}.bin'),pcm)
+with Path('adpcm.calls').open('a') as log:log.write('packed\\n')
+""")
+        for sample in range(2):
+            directory=self.root/f'build/assets/adpcm-build/us/{sample:04d}'
+            directory.mkdir(parents=True)
+            for name in ('manifest.json','encoding.json'):(directory/name).write_text('{}')
+            (directory/'sample.wav').write_text(f'pcm{sample}')
+        paths=['0000/00000000','0001/00000000']
+        names=['build/us/assets/audio/bank17/samples/'+p+'.o' for p in paths]
+        def run():
+            return subprocess.run([MAKE,'ASSETS=1','-j4',f'LD={sys.executable} {self.ld}',*names],cwd=self.root,text=True,capture_output=True)
+        first=run();self.assertEqual(first.returncode,0,first.stderr)
+        objects=[self.root/n for n in names];before=[p.stat().st_mtime_ns for p in objects]
+        self.assertEqual(run().returncode,0)
+        self.assertEqual([p.stat().st_mtime_ns for p in objects],before)
+        self.assertEqual((self.root/'adpcm.calls').read_text(),'packed\n')
+        time.sleep(1.05)
+        source=self.root/'build/assets/adpcm-build/us/0000/sample.wav';source.write_text('edited pcm')
+        self.assertEqual(run().returncode,0)
+        self.assertEqual([linked_payload(p).decode() for p in objects],['edited pcm','pcm1'])
+        self.assertEqual([p.stat().st_mtime_ns for p in objects[1:]],before[1:])
+        part=self.root/'build/us/adpcm/parts/audio/bank17/samples/0000/00000000.bin';part.unlink()
+        self.assertEqual(run().returncode,0);self.assertEqual(part.read_text(),'edited pcm')
+        for name in ('manifest.json','encoding.json','sample.wav'):
+            path=source.parent/name;raw=path.read_bytes();path.unlink()
+            os.utime(source.parent,ns=(1000000000,1000000000))
+            self.assertNotEqual(run().returncode,0)
+            self.assertEqual(linked_payload(objects[0]).decode(),'edited pcm')
+            path.write_bytes(raw)
+        for name in ('adpcm_build','adpcm_codec','adpcm_headroom','adpcm_layout','sound_bank_codec'):
+            path=self.root/f'scripts/{name}.py';old=path.stat()
+            stamp=self.root/'build/us/adpcm/parts.stamp';newer=stamp.stat().st_mtime_ns+10_000_000_000
+            calls=(self.root/'adpcm.calls').read_text()
+            os.utime(path,ns=(newer,newer))
+            try:self.assertEqual(run().returncode,0)
+            finally:os.utime(path,ns=(old.st_atime_ns,old.st_mtime_ns))
+            self.assertEqual((self.root/'adpcm.calls').read_text(),calls+'packed\n')
+
+    def test_sequences_rebuild_from_records_and_missing_inputs_cannot_reuse_objects(self):
+        shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
+        for name in ('sequence_codec', 'audio_assets'):
+            (self.root / f'scripts/{name}.py').touch()
+        profile = self.root / 'config/profiles/us.yaml'
+        profile.write_text(profile.read_text() + '  - name: asset_bank_17\n    type: group\n')
+        (self.root / 'scripts/audio_boundaries.py').write_text("""def bank_layout(profile, *, configuration=None):
+    return 0, 100, [(0, 'audio/bank17/sequences/index'),
+                    (8, 'audio/bank17/sequences/0000'),
+                    (40, 'audio/bank17/sequences/padding/00000028'),
+                    (48, 'audio/bank17/sequences/0001')]
+""")
+        (self.root / 'scripts/sequence_build.py').write_text("""from pathlib import Path
+from build_files import write_if_changed
+for index in range(2):
+    source = Path(f'build/assets/sequence-build/us/{index:04d}')
+    assert (source / 'manifest.json').read_text() == '{}'
+    payload = (source / 'sequence.json').read_bytes()
+    write_if_changed(Path(f'build/us/sequences/parts/audio/bank17/sequences/{index:04d}.bin'), payload)
+with Path('sequence.calls').open('a') as log:
+    log.write('packed\\n')
+""")
+        for index in range(2):
+            source = self.root / f'build/assets/sequence-build/us/{index:04d}'
+            source.mkdir(parents=True)
+            (source / 'manifest.json').write_text('{}')
+            (source / 'sequence.json').write_text(f'sequence{index}')
+        names = [f'build/us/assets/audio/bank17/sequences/{i:04d}.o' for i in range(2)]
+        def run():
+            return subprocess.run([MAKE, 'ASSETS=1', '-j4', f'LD={sys.executable} {self.ld}', *names],
+                                  cwd=self.root, text=True, capture_output=True)
+        result = run()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        objects = [self.root / name for name in names]
+        before = [p.stat().st_mtime_ns for p in objects]
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual([p.stat().st_mtime_ns for p in objects], before)
+        self.assertEqual((self.root / 'sequence.calls').read_text(), 'packed\n')
+        time.sleep(1.05)
+        source = self.root / 'build/assets/sequence-build/us/0000/sequence.json'
+        source.write_text('edited sequence')
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(linked_payload(objects[0]).decode(), 'edited sequence')
+        self.assertEqual(objects[1].stat().st_mtime_ns, before[1])
+        part = self.root / 'build/us/sequences/parts/audio/bank17/sequences/0000.bin'
+        part.unlink()
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(part.read_text(), 'edited sequence')
+        source.unlink()
+        self.assertNotEqual(run().returncode, 0)
+        self.assertEqual(linked_payload(objects[0]).decode(), 'edited sequence')
+        with (self.root / 'Makefile').open('a') as file:
+            file.write('\nshow-sequences:\n\t@echo $(SEQUENCE_BINS)\n')
+        listing = subprocess.run([MAKE, 'ASSETS=1', '--no-print-directory', 'show-sequences'],
+                                 cwd=self.root, text=True, capture_output=True)
+        self.assertEqual(listing.returncode, 0, listing.stderr)
+        self.assertEqual(listing.stdout.split(), [f'assets/audio/bank17/sequences/{i:04d}.bin' for i in range(2)])
+
+    def test_sound_bank_parts_exclude_raw_holes_and_recheck_missing_manifests(self):
+        shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
+        for name in ('sound_bank_codec', 'audio_assets'):
+            (self.root / f'scripts/{name}.py').touch()
+        profile = self.root / 'config/profiles/us.yaml'
+        profile.write_text(profile.read_text() + '  - name: asset_bank_17\n    type: group\n')
+        (self.root / 'scripts/audio_boundaries.py').write_text("""def bank_layout(profile, *, configuration=None):
+    return 0, 100, [(0, 'audio/bank17/index'),
+                    (8, 'audio/bank17/sound_bank_control_rzip'),
+                    (40, 'audio/bank17/sound-bank/regions/00000000'),
+                    (48, 'audio/bank17/sound-bank/unreconstructed/00000008')]
+""")
+        (self.root / 'scripts/sound_bank_build.py').write_text("""from pathlib import Path
+from build_files import write_if_changed
+for part, name in [('control', 'sound_bank_control_rzip'), ('00000000', 'sound-bank/regions/00000000')]:
+    source = Path('build/assets/sound-bank-build/us') / part
+    assert (source / 'manifest.json').read_text() == '{}'
+    payload = (source / 'records.json').read_bytes()
+    write_if_changed(Path('build/us/sound-bank/parts/audio/bank17') / (name + '.bin'), payload)
+with Path('sound-bank.calls').open('a') as log:
+    log.write('packed\\n')
+""")
+        for part in ('control', '00000000'):
+            source = self.root / 'build/assets/sound-bank-build/us' / part
+            source.mkdir(parents=True)
+            (source / 'manifest.json').write_text('{}')
+            (source / 'records.json').write_text(part)
+        hole = self.root / 'assets/audio/bank17/sound-bank/unreconstructed/00000008.bin'
+        hole.parent.mkdir(parents=True)
+        hole.write_text('unexplained original bytes')
+        names = ['build/us/assets/audio/bank17/' + name + '.o' for name in (
+            'sound_bank_control_rzip', 'sound-bank/regions/00000000', 'sound-bank/unreconstructed/00000008')]
+        def run():
+            return subprocess.run([MAKE, 'ASSETS=1', '-j4', f'LD={sys.executable} {self.ld}', *names],
+                                  cwd=self.root, text=True, capture_output=True)
+        result = run()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        objects = [self.root / name for name in names]
+        # The unreconstructed hole is an extracted original, still linked by LD.
+        self.assertEqual([linked_payload(p).decode() for p in objects[:2]] + [objects[2].read_text()],
+                         ['control', '00000000', 'unexplained original bytes'])
+        before = [p.stat().st_mtime_ns for p in objects]
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual([p.stat().st_mtime_ns for p in objects], before)
+        self.assertEqual((self.root / 'sound-bank.calls').read_text(), 'packed\n')
+        time.sleep(1.05)
+        source = self.root / 'build/assets/sound-bank-build/us/00000000/records.json'
+        source.write_text('changed native records')
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(linked_payload(objects[1]).decode(), 'changed native records')
+        self.assertEqual([objects[i].stat().st_mtime_ns for i in (0, 2)], [before[i] for i in (0, 2)])
+        part = self.root / 'build/us/sound-bank/parts/audio/bank17/sound-bank/regions/00000000.bin'
+        part.unlink()
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(part.read_text(), 'changed native records')
+        (source.parent / 'manifest.json').unlink()
+        self.assertNotEqual(run().returncode, 0)
+        self.assertEqual(linked_payload(objects[1]).decode(), 'changed native records')
+
     def test_bank03_model_parts_recover_and_preserve_unchanged_linker_objects(self):
         self.check_model_parts('03')
+
+    def test_bank04_model_parts_recover_and_preserve_unchanged_linker_objects(self):
+        self.check_model_parts('04')
 
     def test_bank09_model_parts_recover_and_preserve_unchanged_linker_objects(self):
         self.check_model_parts('09')
@@ -156,7 +344,7 @@ output.write_bytes(Path(sys.argv[-1]).read_bytes())
         (self.root / 'scripts/model_build.py').write_text("""from pathlib import Path
 import argparse
 from build_files import write_if_changed
-BANKS = (3, 9)
+BANKS = (3, 4, 9)
 def layout_bins(profile, *, bank, configuration=None):
     assert configuration is not None
     assert any(isinstance(s, dict) and s.get('name') == f'asset_bank_{bank:02d}' for s in configuration['segments'])
@@ -191,7 +379,7 @@ if __name__ == '__main__':
         self.assertEqual(result.returncode, 0, result.stderr)
         objects = [self.root / f'build/us/assets/models/bank{bank}/0003.o' for bank in banks]
         before = [p.stat().st_mtime_ns for p in objects]
-        self.assertEqual([p.read_text() for p in objects], ['model03', 'model09'])
+        self.assertEqual([linked_payload(p).decode() for p in objects], ['model03', 'model09'])
         for bank in banks:
             self.assertTrue((self.root / f'build/us/models/bank{bank}/parts.stamp').is_file())
         self.assertEqual(self.run_model_banks(banks).returncode, 0)
@@ -204,7 +392,7 @@ if __name__ == '__main__':
         source09 = self.root / 'build/assets/model-build/us/09/0003/model.json'
         source09.write_text('changed09')
         self.assertEqual(self.run_model_banks(banks).returncode, 0)
-        self.assertEqual(objects[1].read_text(), 'changed09')
+        self.assertEqual(linked_payload(objects[1]).decode(), 'changed09')
         self.assertEqual(objects[0].stat().st_mtime_ns, before[0])
         self.assertEqual((self.root / 'model_build_03.calls').read_text(), 'packed\n')
         self.assertEqual((self.root / 'model_build_09.calls').read_text(), 'packed\npacked\n')
@@ -220,11 +408,11 @@ if __name__ == '__main__':
         (self.root / 'fail-model-09').touch()
         (self.root / 'build/us/models/parts/models/bank03/0003.bin').unlink()
         self.assertEqual(self.run_model_banks(('03',)).returncode, 0)
-        self.assertEqual(objects[0].read_text(), 'model03')
+        self.assertEqual(linked_payload(objects[0]).decode(), 'model03')
         failed = self.run_model_banks(banks)
         self.assertNotEqual(failed.returncode, 0)
         self.assertIn('intentional bank-09 failure', failed.stderr)
-        self.assertEqual(objects[1].read_text(), 'changed09')
+        self.assertEqual(linked_payload(objects[1]).decode(), 'changed09')
 
         # The full asset sequence retains the storage-map positions of both banks.
         with (self.root / 'Makefile').open('a') as stream:
@@ -277,6 +465,32 @@ if __name__ == '__main__':
         self.assertFalse((self.root / 'model_build_03.calls').exists())
         self.assertFalse((self.root / 'model_build_09.calls').exists())
 
+    def test_raw_bank04_keeps_its_slot_without_reconstruction(self):
+        self.setup_model_banks(('04',))
+        profile = self.root / 'config/profiles/us.yaml'
+        profile.write_text(profile.read_text().replace(
+            '  - name: asset_bank_04\n    type: group\n',
+            '  - [0x0400, bin, asset_bank_04]\n'))
+        source = self.root / 'assets/asset_bank_04.bin'
+        source.parent.mkdir(parents=True, exist_ok=True)
+        source.write_bytes(b'original bank 04')
+        with (self.root / 'Makefile').open('a') as stream:
+            stream.write('\n.PHONY: show-assets\nshow-assets:\n\t@echo $(ASSET_BINS_us)\n')
+        result = subprocess.run([MAKE, 'ASSETS=1', '--no-print-directory', 'show-assets'],
+                                cwd=self.root, text=True, capture_output=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        names = result.stdout.split()
+        position = names.index('assets/asset_bank_04.bin')
+        self.assertEqual(names[position - 1:position + 2], [
+            'assets/asset_bank_03.bin', 'assets/asset_bank_04.bin', 'assets/asset_bank_05.bin'])
+        self.assertNotIn('assets/models/bank04/0003.bin', names)
+        target = 'build/us/assets/asset_bank_04.o'
+        linked = subprocess.run([MAKE, 'ASSETS=1', f'LD={sys.executable} {self.ld}', target],
+                                cwd=self.root, text=True, capture_output=True)
+        self.assertEqual(linked.returncode, 0, linked.stderr)
+        self.assertEqual((self.root / target).read_bytes(), source.read_bytes())
+        self.assertFalse((self.root / 'model_build_04.calls').exists())
+
     def check_model_parts(self, bank):
         self.setup_model_banks((bank,))
         inputs = self.root / f'build/assets/model-build/us/{bank}/0003'
@@ -297,7 +511,7 @@ if __name__ == '__main__':
         self.assertEqual(target.stat().st_mtime_ns, stamp)
         part.unlink()
         self.assertEqual(run().returncode, 0)
-        self.assertEqual(target.read_bytes(), b'model')
+        self.assertEqual(linked_payload(target), b'model')
         pack_stamp = self.root / f'build/us/models/bank{bank}/parts.stamp'
         calls = self.root / f'model_build_{bank}.calls'
         before = calls.read_text()
@@ -307,7 +521,7 @@ if __name__ == '__main__':
         os.utime(unrelated, ns=(future, future))
         self.assertEqual(run().returncode, 0)
         self.assertEqual(calls.read_text(), before)
-        for name in ('model_build', 'model_assets', 'texture_build', 'rzip_pack'):
+        for name in ('model_build', 'model_assets', 'model_attachment_format', 'model_bundle_build', 'model_color_build', 'model_aux_build', 'model_effect_format', 'model_emission_points', 'texture_build', 'rzip_pack'):
             dependency = self.root / f'scripts/{name}.py'
             original = dependency.stat()
             newer = pack_stamp.stat().st_mtime_ns + 10_000_000_000
@@ -323,7 +537,7 @@ if __name__ == '__main__':
         source.unlink()
         os.utime(inputs, ns=(1_000_000_000, 1_000_000_000))
         self.assertNotEqual(run().returncode, 0)
-        self.assertEqual(target.read_bytes(), b'model')
+        self.assertEqual(linked_payload(target), b'model')
 
     def test_every_texture_module_and_encoder_contract_invalidates_packing(self):
         dependencies = sorted(path.relative_to(ROOT) for path in (ROOT / 'scripts').glob('texture_*.py'))
@@ -351,29 +565,30 @@ if __name__ == '__main__':
                 self.assertEqual(calls.read_text().count('packed'), number)
                 self.assertEqual([path.stat().st_mtime_ns for path in objects], before)
 
-    def test_asset_link_commands_are_logged_on_success_and_failure(self):
-        # Shell xtrace writes can interleave under parallel Make. This test
-        # checks complete command logging; other tests retain parallel builds.
+    @unittest.skipIf(hasattr(os, 'geteuid') and os.geteuid() == 0, 'root ignores directory permissions')
+    def test_asset_link_objects_are_logged_on_success_and_failure(self):
         for kind in ('font', 'mp3'):
             with self.subTest(kind=kind):
                 result, objects = self.run_make(kind, jobs=1)
                 self.assertEqual(result.returncode, 0, result.stderr)
                 for path in objects:
-                    self.assertIn(str(path), result.stderr)
-                self.assertIn('fake_ld.py -r -b binary', result.stderr)
+                    self.assertIn(f'-> {path.relative_to(self.root)}', result.stderr)
                 unchanged, _ = self.run_make(kind, jobs=1)
                 self.assertEqual(unchanged.returncode, 0, unchanged.stderr)
-                self.assertNotIn('fake_ld.py -r -b binary', unchanged.stderr)
-        self.ld.write_text('raise SystemExit(7)\n')
+                self.assertNotIn('binary_object ', unchanged.stderr)
         for kind in ('font', 'mp3'):
             with self.subTest(failed_kind=kind):
                 prefix = 'font/glyphs' if kind == 'font' else 'audio/mp3/streams'
                 path = self.root / f'build/us/assets/{prefix}/0000.o'
                 path.unlink()
+                # An object that cannot be written must stop the build.
+                path.parent.chmod(0o555)
+                self.addCleanup(path.parent.chmod, 0o755)
                 result, _ = self.run_make(kind, jobs=1)
+                path.parent.chmod(0o755)
                 self.assertNotEqual(result.returncode, 0)
-                self.assertIn('fake_ld.py -r -b binary', result.stderr)
-                self.assertIn(str(path), result.stderr)
+                self.assertIn(f'cannot write {path.relative_to(self.root)}', result.stderr)
+                self.assertNotIn('Traceback', result.stderr)
 
     def test_missing_part_is_recovered_and_missing_editable_input_fails(self):
         result, objects = self.run_make('font')
@@ -381,7 +596,7 @@ if __name__ == '__main__':
         (self.root / 'build/us/fonts/parts/font/glyphs/0000.bin').unlink()
         result, _ = self.run_make('font')
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(objects[0].read_bytes(), b'\0')
+        self.assertEqual(linked_payload(objects[0]), b'\0')
         before = [p.stat().st_mtime_ns for p in objects]
         time.sleep(1.05)  # GNU make 3.81 compares timestamps at second resolution.
         (self.root / 'build/fonts/us/0000.pgm').unlink()
@@ -518,9 +733,11 @@ if __name__ == '__main__':
         for prefix in ('font/glyphs', 'audio/mp3/streams'):
             for index in range(2):
                 path = self.root / f'build/us/assets/{prefix}/{index:04d}.o'
-                self.assertEqual(path.read_bytes(), bytes([index]))
+                self.assertEqual(linked_payload(path), bytes([index]))
+        objects = [self.root / f'build/us/assets/{prefix}/{index:04d}.o'
+                   for prefix in ('font/glyphs', 'audio/mp3/streams') for index in range(2)]
         combined = self.root / 'build/combined.bin'
-        self.assertEqual(combined.read_bytes(), bytes([0, 1, 0, 1]))
+        self.assertEqual(combined.read_bytes(), b''.join(path.read_bytes() for path in objects))
         before = combined.stat().st_mtime_ns
         unchanged = subprocess.run([MAKE, 'ASSETS=1', '-j4', f'LD={sys.executable} {self.ld}', 'all'],
                                    cwd=self.root, text=True, capture_output=True)
@@ -531,7 +748,8 @@ if __name__ == '__main__':
         changed = subprocess.run([MAKE, 'ASSETS=1', '-j4', f'LD={sys.executable} {self.ld}', 'all'],
                                  cwd=self.root, text=True, capture_output=True)
         self.assertEqual(changed.returncode, 0, changed.stderr)
-        self.assertEqual(combined.read_bytes(), b'changed' + bytes([1, 0, 1]))
+        self.assertEqual(linked_payload(objects[0]), b'changed')
+        self.assertEqual(combined.read_bytes(), b''.join(path.read_bytes() for path in objects))
         self.fragment.unlink()
         failed = subprocess.run([MAKE, 'ASSETS=1', 'all'], cwd=self.root, text=True, capture_output=True)
         self.assertIn('profile_config.py make-assets failed', failed.stderr)

@@ -27,7 +27,9 @@ The repository contains no ROMs or extracted game assets. Read
 
 Local builds use Docker for the pinned IDO-compatible toolchain on Linux,
 Intel macOS and Apple Silicon. Managed Linux executors can use the supported
-[cloud setup](docs/cloud-matching.md).
+[cloud setup](docs/cloud-matching.md). `./conker` runs the image natively on
+amd64 and arm64 hosts (Apple Silicon, ARM Linux, Windows on ARM); both build the
+same ROMs. Set `CONKER_PLATFORM=linux/amd64` or `linux/arm64` to override.
 
 ```sh
 git clone https://github.com/DevOldSchool/conkers-bfd-decomp.git

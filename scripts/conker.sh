@@ -7,15 +7,28 @@ state_tool="$repo_root/scripts/project_state.py"
 toolchain_lock="$repo_root/toolchain/tools.lock.json"
 locked_image="$(python3 -c 'import json, sys; lock = json.load(open(sys.argv[1], encoding="utf-8")); image = lock["container_image"]; print(f"{image['"'"'repository'"'"']}@{image['"'"'digest'"'"']}")' "$toolchain_lock")"
 image_name="${CONKER_IMAGE:-$locked_image}"
-local_image_name="conkers-bfd-decomp-toolchain:local-amd64"
+# Run the image natively on ARM hosts (Apple Silicon, ARM Linux, Windows on
+# ARM); both architectures build identical ROMs. CONKER_PLATFORM overrides.
+case "$(uname -m)" in
+    arm64|aarch64) default_platform=linux/arm64 ;;
+    *) default_platform=linux/amd64 ;;
+esac
+conker_platform="${CONKER_PLATFORM:-$default_platform}"
+case "$conker_platform" in
+    linux/amd64|linux/arm64) ;;
+    *) printf 'error: CONKER_PLATFORM must be linux/amd64 or linux/arm64\n' >&2; exit 2 ;;
+esac
+# A local build stands in for the locked image only while that lock is current.
+locked_digest="${locked_image##*sha256:}"
+local_image_name="conkers-bfd-decomp-toolchain:local-${conker_platform#linux/}-${locked_digest:0:12}"
 workspace_id="$(python3 -c 'import hashlib, sys; print(hashlib.sha256(sys.argv[1].encode()).hexdigest()[:12])' "$repo_root")"
-warm_container_name="conker-toolchain-$workspace_id"
+warm_container_name="conker-toolchain-$workspace_id$([[ "$conker_platform" == linux/amd64 ]] || printf -- '-%s' "${conker_platform#linux/}")"
 warm_container_schema="1"
 mips_to_c_revision="$(python3 -c 'import json, sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["tools"]["mips_to_c"]["revision"])' "$toolchain_lock")"
 host_mips_to_c="$repo_root/build/host-tools/mips_to_c-$mips_to_c_revision"
 
 container_run_args=(
-    --platform linux/amd64
+    --platform "$conker_platform"
     --network none
     --read-only
     --cap-drop ALL
@@ -167,7 +180,7 @@ After the raw base split map is available
                                  Extract, rebuild, preview, or byte-verify the RLE font table.
   mp3-assets <extract|pack|build-bank|verify|cue-extract|cue-verify> [options]
                                  Extract or verify US MP3 streams, tables, and embedded cues.
-  audio-assets <survey|extract|preview|sample-preview|soundtrack-preview|verify> [options]
+  audio-assets <build-adpcm|recover-adpcm|build-sound-bank|recover-sound-bank|build-sequences|recover-sequence|survey|extract|preview|sample-preview|soundtrack-preview|verify> [options]
                                  Survey, extract, preview, or byte-verify US non-MP3 audio assets.
   texture-assets <extract|pack|build|verify|survey> [options]
                                  Survey, extract, rebuild, or verify proven US textures.
@@ -184,7 +197,8 @@ After the raw base split map is available
   rsp                          Assemble and byte-verify the configured US RSP payloads.
   libultrare                    Build and verify the pinned Rare-modified archive.
 
-All build commands run inside the pinned linux/amd64 Docker environment.
+All build commands run inside the pinned Docker environment, natively on
+amd64 and arm64 hosts (CONKER_PLATFORM=linux/amd64|linux/arm64 overrides).
 US is the default profile; pass --profile explicitly only to override it.
 EOF
 }
@@ -216,21 +230,38 @@ watch_image_is_compatible() {
     [[ "$(docker image inspect --format '{{ index .Config.Labels "org.devoldschool.conker.diff-watch" }}' "$image_name" 2>/dev/null)" == "1" ]]
 }
 
+image_has_platform() {
+    local platform
+    if platform="$(docker image inspect --format '{{.Os}}/{{.Architecture}}' "$1" 2>/dev/null)"; then
+        [[ "$platform" == "$conker_platform" ]]
+        return
+    fi
+    # Docker-compatible adapters installed before platform reporting (such as
+    # an older cloud runtime) serve only amd64; accept an image they hold.
+    [[ "$conker_platform" == linux/amd64 ]] && docker image inspect "$1" >/dev/null 2>&1
+}
+
 ensure_cpu_image() {
     require_docker || return 1
-    if docker image inspect "$image_name" >/dev/null 2>&1; then
+    if image_has_platform "$image_name"; then
+        return
+    fi
+    # The locked digest may not publish this platform; reuse this checkout's
+    # local build of it instead of pulling and rebuilding on every command.
+    if [[ "$image_name" == "$locked_image" ]] && image_has_platform "$local_image_name"; then
+        image_name="$local_image_name"
         return
     fi
     require_docker_access || return 1
     printf 'Fetching the published toolchain image (%s)...\n' "$image_name"
-    if ! docker pull --platform linux/amd64 "$image_name"; then
+    if ! docker pull --platform "$conker_platform" "$image_name"; then
         printf 'Published image unavailable; building it locally...\n'
-        docker build --platform linux/amd64 --tag "$local_image_name" "$repo_root"
+        docker build --platform "$conker_platform" --tag "$local_image_name" "$repo_root"
         image_name="$local_image_name"
     fi
     if ! image_is_healthy; then
         printf 'Toolchain image is missing a required pinned dependency; rebuilding it locally...\n'
-        docker build --platform linux/amd64 --tag "$local_image_name" "$repo_root"
+        docker build --platform "$conker_platform" --tag "$local_image_name" "$repo_root"
         image_name="$local_image_name"
         image_is_healthy || die "toolchain image failed the IDO compilation smoke test"
     fi
@@ -247,7 +278,7 @@ ensure_image() {
     rsp_key="$(python3 -c 'import hashlib, pathlib, sys; print(hashlib.sha256(pathlib.Path(sys.argv[1]).read_bytes() + sys.argv[2].encode() + sys.argv[3].encode()).hexdigest()[:16])' "$repo_root/toolchain/rsp.Dockerfile" "$(docker image inspect --format '{{.Id}}' "$image_name")" "$armips_revision")"
     rsp_image="conkers-bfd-rsp:$rsp_key"
     if ! docker image inspect "$rsp_image" >/dev/null 2>&1; then
-        docker build --platform linux/amd64 --tag "$rsp_image" \
+        docker build --platform "$conker_platform" --tag "$rsp_image" \
             --build-arg "BASE_IMAGE=$image_name" --build-arg "ARMIPS_REV=$armips_revision" \
             -f "$repo_root/toolchain/rsp.Dockerfile" "$repo_root/toolchain"
     fi
@@ -256,7 +287,7 @@ ensure_image() {
 }
 
 image_has_mupen_software_renderer() {
-    docker run --rm --platform linux/amd64 --network none --entrypoint /bin/sh "$image_name" -c \
+    docker run --rm --platform "$conker_platform" --network none --entrypoint /bin/sh "$image_name" -c \
         'test -f /opt/mupen64plus/lib/mupen64plus/mupen64plus-rsp-cxd4-sse2.so && test -f /opt/mupen64plus/lib/mupen64plus/mupen64plus-video-angrylion-plus.so && command -v xvfb-run >/dev/null'
 }
 
@@ -274,7 +305,7 @@ ensure_mupen_image() {
         fi
     fi
     printf 'Toolchain image predates pinned Mupen tracing; rebuilding it locally...\n'
-    docker build --platform linux/amd64 --tag "$local_image_name" "$repo_root"
+    docker build --platform "$conker_platform" --tag "$local_image_name" "$repo_root"
     image_name="$local_image_name"
     rsp_image_ready=0
     ensure_image
@@ -293,7 +324,7 @@ ensure_mupen_software_image() {
         fi
     fi
     printf 'Building the optional software graphics tracing image...\n'
-    docker build --platform linux/amd64 --file toolchain/Dockerfile.mupen-software \
+    docker build --platform "$conker_platform" --file toolchain/Dockerfile.mupen-software \
         --build-arg "CONKER_BASE_IMAGE=$software_base_image" \
         --tag "$software_image_name" "$repo_root"
     image_name="$software_image_name"
@@ -396,6 +427,20 @@ ensure_host_mips_to_c() {
     mkdir -p "$temporary_cache"
     docker cp "$warm_container_name:/opt/tools/mips_to_c/." "$temporary_cache"
     [[ -f "$temporary_cache/m2c.py" && -d "$temporary_cache/m2c" ]] || die "pinned mips_to_c cache is incomplete"
+    # Until a pin update's image is published, the locked image still carries
+    # the previous m2c; cache it under its own revision, never the pinned one.
+    local copied_revision
+    copied_revision="$(git -C "$temporary_cache" rev-parse HEAD 2>/dev/null || true)"
+    if [[ "$copied_revision" != "$mips_to_c_revision" ]]; then
+        [[ "$copied_revision" =~ ^[0-9a-f]{40}$ ]] || die "toolchain image mips_to_c has no recorded revision"
+        printf 'warning: toolchain image provides mips_to_c %s, not pinned %s; using it until the image digest is updated\n' \
+            "$copied_revision" "$mips_to_c_revision" >&2
+        host_mips_to_c="$cache_parent/mips_to_c-$copied_revision"
+        if [[ -f "$host_mips_to_c/m2c.py" && -d "$host_mips_to_c/m2c" ]]; then
+            rm -rf "$temporary_cache"
+            return
+        fi
+    fi
     rm -rf "$host_mips_to_c"
     mv "$temporary_cache" "$host_mips_to_c"
 }
@@ -543,7 +588,7 @@ run_in_container_interactive() {
     ensure_image
     if ! watch_image_is_compatible; then
         printf 'Toolchain image predates diff-watch support; rebuilding it locally...\n'
-        docker build --platform linux/amd64 --tag "$local_image_name" "$repo_root"
+        docker build --platform "$conker_platform" --tag "$local_image_name" "$repo_root"
         image_name="$local_image_name"
         image_is_healthy || die "toolchain image failed the diff-watch smoke test"
     fi
@@ -701,12 +746,12 @@ case "$command" in
         ensure_image
         if ! image_is_healthy; then
             printf 'Toolchain image failed its smoke tests; rebuilding it locally...\n'
-            docker build --platform linux/amd64 --tag "$local_image_name" "$repo_root"
+            docker build --platform "$conker_platform" --tag "$local_image_name" "$repo_root"
             image_name="$local_image_name"
             image_is_healthy || die "toolchain image failed its smoke tests"
         fi
         docker version --format 'Docker client: {{.Client.Version}}'
-        printf 'Required container platform: linux/amd64\n'
+        printf 'Required container platform: %s\n' "$conker_platform"
         printf 'IDO compilation smoke test: OK\n'
         printf 'Mupen64Plus debugger smoke test: OK\n'
         python3 "$state_tool" validate
@@ -1284,8 +1329,28 @@ case "$command" in
         python3 scripts/mp3_assets.py "$@"
         ;;
     audio-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker audio-assets <survey|extract|preview|sample-preview|soundtrack-preview|verify> [options]"
-        python3 scripts/audio_assets.py "$@"
+        [[ $# -ge 1 ]] || die "usage: ./conker audio-assets <build-adpcm|recover-adpcm|build-sound-bank|recover-sound-bank|build-sequences|recover-sequence|survey|extract|preview|sample-preview|soundtrack-preview|verify> [options]"
+        if [[ "$1" == "build-adpcm" ]]; then
+            shift
+            run_in_container python3 scripts/adpcm_build.py build-parts "$@"
+        elif [[ "$1" == "recover-adpcm" ]]; then
+            shift
+            run_in_container python3 scripts/adpcm_build.py recover "$@"
+        elif [[ "$1" == "build-sound-bank" ]]; then
+            shift
+            run_in_container python3 scripts/sound_bank_build.py build-parts "$@"
+        elif [[ "$1" == "recover-sound-bank" ]]; then
+            shift
+            run_in_container python3 scripts/sound_bank_build.py recover "$@"
+        elif [[ "$1" == "build-sequences" ]]; then
+            shift
+            run_in_container python3 scripts/sequence_build.py build-parts "$@"
+        elif [[ "$1" == "recover-sequence" ]]; then
+            shift
+            run_in_container python3 scripts/sequence_build.py recover "$@"
+        else
+            python3 scripts/audio_assets.py "$@"
+        fi
         ;;
     texture-assets)
         [[ $# -ge 1 ]] || die "usage: ./conker texture-assets <extract|pack|build|verify|survey> [options]"

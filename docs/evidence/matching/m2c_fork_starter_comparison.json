@@ -1,0 +1,3411 @@
+{
+  "schema_version": 1,
+  "recorded": "2026-10-11",
+  "profile": "us",
+  "selection": "every third function of `./conker next` (raw_asm, no deferred record) on main 074c18eb",
+  "generators": {
+    "pinned": "matt-kempster/mips_to_c 09e0e72337804a713e2c3b8d522abe85838470ea",
+    "old": "DevOldSchool/m2c 3b8f39a",
+    "new": "DevOldSchool/m2c a03c6f296e4673728b9b2da67fd3f00949688bdc"
+  },
+  "scoring": "`./conker probe` on each unedited starter with the m2c_macros.h definitions prepended",
+  "functions": [
+    {
+      "id": "func_1513CFE4",
+      "source": "src/game/game_169510.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Non-function name referenced in function call."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Non-function name referenced in function call."
+      },
+      "new": {
+        "compiled": true,
+        "current": 8855,
+        "frame": "0x60"
+      }
+    },
+    {
+      "id": "func_150E7290",
+      "source": "src/game/game_114740.c",
+      "pinned": {
+        "compiled": true,
+        "current": 6959,
+        "frame": "0x70"
+      },
+      "old": {
+        "compiled": true,
+        "current": 6959,
+        "frame": "0x70"
+      },
+      "new": {
+        "compiled": true,
+        "current": 6959,
+        "frame": "0x70"
+      }
+    },
+    {
+      "id": "func_150242F8",
+      "source": "src/game/game_50D80.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 6701,
+        "frame": "0xc0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 6161,
+        "frame": "0xc0"
+      }
+    },
+    {
+      "id": "func_150C6A08",
+      "source": "src/game/game_F3BA0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 20429,
+        "frame": "0xa8"
+      },
+      "new": {
+        "compiled": true,
+        "current": 20429,
+        "frame": "0xa8"
+      }
+    },
+    {
+      "id": "func_151AB3A4",
+      "source": "src/game/game_1D6E80.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 32646,
+        "frame": "0xa8"
+      },
+      "new": {
+        "compiled": true,
+        "current": 32646,
+        "frame": "0xa8"
+      }
+    },
+    {
+      "id": "func_1501175C",
+      "source": "src/game/game_3E890.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 20812,
+        "frame": "0x118"
+      },
+      "new": {
+        "compiled": true,
+        "current": 20812,
+        "frame": "0x118"
+      }
+    },
+    {
+      "id": "func_150BF760",
+      "source": "src/game/game_EC420.c",
+      "pinned": {
+        "compiled": true,
+        "current": 3483,
+        "frame": "0x50"
+      },
+      "old": {
+        "compiled": true,
+        "current": 3618,
+        "frame": "0x50"
+      },
+      "new": {
+        "compiled": true,
+        "current": 3618,
+        "frame": "0x50"
+      }
+    },
+    {
+      "id": "func_1500BEC0",
+      "source": "src/game/game_36680.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Dereferenced a non-pointer."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Non-function name referenced in function call."
+      },
+      "new": {
+        "compiled": true,
+        "current": 3840,
+        "frame": "0x48"
+      }
+    },
+    {
+      "id": "func_1515B674",
+      "source": "src/game/game_188440.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Non-function name referenced in function call."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Non-function name referenced in function call."
+      },
+      "new": {
+        "compiled": true,
+        "current": 23911,
+        "frame": "0xc8"
+      }
+    },
+    {
+      "id": "func_150F16DC",
+      "source": "src/game/game_11D830.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp88' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp88' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1518F8E0",
+      "source": "src/game/game_1BC650.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 7733,
+        "frame": "0xe8"
+      },
+      "new": {
+        "compiled": true,
+        "current": 7363,
+        "frame": "0xe8"
+      }
+    },
+    {
+      "id": "func_15152F70",
+      "source": "src/game/game_17CAF0.c",
+      "pinned": {
+        "compiled": true,
+        "current": 20787,
+        "frame": "0xe0"
+      },
+      "old": {
+        "compiled": true,
+        "current": 20787,
+        "frame": "0xe0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 20787,
+        "frame": "0xe0"
+      }
+    },
+    {
+      "id": "func_150FF840",
+      "source": "src/game/game_12CCF0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      }
+    },
+    {
+      "id": "func_15170B90",
+      "source": "src/game/game_19E040.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      }
+    },
+    {
+      "id": "func_150911F4",
+      "source": "src/game/game_BC510.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 13735,
+        "frame": "0xa0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 13735,
+        "frame": "0xa0"
+      }
+    },
+    {
+      "id": "func_1508F9F4",
+      "source": "src/game/game_BC510.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'func_1508F9F4'; previous declaration at line 44 in file '/workspace/build/us/probe/func_1508F9F4/variant001.c'"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'func_1508F9F4'; previous declaration at line 44 in file '/workspace/build/us/probe/func_1508F9F4/variant002.c'"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'func_1508F9F4'; previous declaration at line 44 in file '/workspace/build/us/probe/func_1508F9F4/variant003.c'"
+      }
+    },
+    {
+      "id": "func_150CF140",
+      "source": "src/game/game_FC5F0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp108' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp108' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_150EFB80",
+      "source": "src/game/game_11D030.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 14000,
+        "frame": "0xc8"
+      },
+      "new": {
+        "compiled": true,
+        "current": 14000,
+        "frame": "0xc8"
+      }
+    },
+    {
+      "id": "func_151951E0",
+      "source": "src/game/game_1C1150.c",
+      "pinned": {
+        "compiled": true,
+        "current": 6820,
+        "frame": "0x20"
+      },
+      "old": {
+        "compiled": true,
+        "current": 6800,
+        "frame": "0x20"
+      },
+      "new": {
+        "compiled": true,
+        "current": 6800,
+        "frame": "0x20"
+      }
+    },
+    {
+      "id": "func_151094FC",
+      "source": "src/game/game_1368C0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp94' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp94' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_150C8A68",
+      "source": "src/game/game_F5D80.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9E4' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9E4' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9E4' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_150054C4",
+      "source": "src/game/game_32740.c",
+      "pinned": {
+        "compiled": true,
+        "current": 11808,
+        "frame": "0x30"
+      },
+      "old": {
+        "compiled": true,
+        "current": 10773,
+        "frame": "0x30"
+      },
+      "new": {
+        "compiled": true,
+        "current": 10373,
+        "frame": "0x30"
+      }
+    },
+    {
+      "id": "func_151AC078",
+      "source": "src/game/game_1D92F0.c",
+      "pinned": {
+        "compiled": true,
+        "current": 14185,
+        "frame": "0xe0"
+      },
+      "old": {
+        "compiled": true,
+        "current": 13830,
+        "frame": "0xe0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 13630,
+        "frame": "0xe0"
+      }
+    },
+    {
+      "id": "func_150195A0",
+      "source": "src/game/game_45B80.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_80089470' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_80089470' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_80089470' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_15191520",
+      "source": "src/game/game_1BDC20.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 10822,
+        "frame": "0xa8"
+      },
+      "new": {
+        "compiled": true,
+        "current": 10822,
+        "frame": "0xa8"
+      }
+    },
+    {
+      "id": "func_150403C8",
+      "source": "src/game/game_6D800.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      }
+    },
+    {
+      "id": "func_150FE860",
+      "source": "src/game/game_12BD10.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spD8' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spD8' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spD8' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_150428D4",
+      "source": "src/game/game_6EA90.c",
+      "pinned": {
+        "compiled": true,
+        "current": 4655,
+        "frame": "0xa0"
+      },
+      "old": {
+        "compiled": true,
+        "current": 4655,
+        "frame": "0xa0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 4655,
+        "frame": "0xa0"
+      }
+    },
+    {
+      "id": "func_150FAE18",
+      "source": "src/game/game_127060.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp54' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'sp54'"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'sp54'"
+      }
+    },
+    {
+      "id": "func_150EA11C",
+      "source": "src/game/game_117490.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      }
+    },
+    {
+      "id": "func_151AA6D8",
+      "source": "src/game/game_1D6E80.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 34913,
+        "frame": "0xb0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 34913,
+        "frame": "0xb0"
+      }
+    },
+    {
+      "id": "func_1511650C",
+      "source": "src/game/game_143870.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 7996,
+        "frame": "0x40"
+      },
+      "new": {
+        "compiled": true,
+        "current": 6511,
+        "frame": "0x38"
+      }
+    },
+    {
+      "id": "func_151C2AD0",
+      "source": "src/game/game_1EF500.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spA8' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spA8' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_15153634",
+      "source": "src/game/game_17CAF0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 24705,
+        "frame": "0xf0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 24705,
+        "frame": "0xf0"
+      }
+    },
+    {
+      "id": "func_1512B1B8",
+      "source": "src/game/game_157840.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE628' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'sp74'"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'sp74'"
+      }
+    },
+    {
+      "id": "func_15109FB8",
+      "source": "src/game/game_1368C0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Non-function name referenced in function call."
+      },
+      "new": {
+        "compiled": true,
+        "current": 8057,
+        "frame": "0xe0"
+      }
+    },
+    {
+      "id": "func_15070300",
+      "source": "src/game/game_981E0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '-'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '-'."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '-'."
+      }
+    },
+    {
+      "id": "func_15152190",
+      "source": "src/game/game_17CAF0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Dereferenced a non-pointer."
+      },
+      "old": {
+        "compiled": true,
+        "current": 21177,
+        "frame": "0x100"
+      },
+      "new": {
+        "compiled": true,
+        "current": 21177,
+        "frame": "0x100"
+      }
+    },
+    {
+      "id": "func_151875E0",
+      "source": "src/game/game_1B4A90.c",
+      "pinned": {
+        "compiled": true,
+        "current": 10048,
+        "frame": "0x48"
+      },
+      "old": {
+        "compiled": true,
+        "current": 10048,
+        "frame": "0x48"
+      },
+      "new": {
+        "compiled": true,
+        "current": 10048,
+        "frame": "0x48"
+      }
+    },
+    {
+      "id": "func_1513F114",
+      "source": "src/game/game_169510.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9A8' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9A8' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1501FFE8",
+      "source": "src/game/game_49D30.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 11645,
+        "frame": "0x60"
+      },
+      "new": {
+        "compiled": true,
+        "current": 11645,
+        "frame": "0x60"
+      }
+    },
+    {
+      "id": "func_151938FC",
+      "source": "src/game/game_1C0B10.c",
+      "pinned": {
+        "compiled": true,
+        "current": 18434,
+        "frame": "0xe8"
+      },
+      "old": {
+        "compiled": true,
+        "current": 18502,
+        "frame": "0xf0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 18502,
+        "frame": "0xf0"
+      }
+    },
+    {
+      "id": "func_150368C4",
+      "source": "src/game/game_63A20.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 7873,
+        "frame": "0x90"
+      },
+      "new": {
+        "compiled": true,
+        "current": 7873,
+        "frame": "0x90"
+      }
+    },
+    {
+      "id": "func_1513CBF0",
+      "source": "src/game/game_169510.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      }
+    },
+    {
+      "id": "func_150A5708",
+      "source": "src/game/game_D2570.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      }
+    },
+    {
+      "id": "func_150C3994",
+      "source": "src/game/game_EF410.c",
+      "pinned": {
+        "compiled": true,
+        "current": 530,
+        "frame": "0x50"
+      },
+      "old": {
+        "compiled": true,
+        "current": 915,
+        "frame": "0x50"
+      },
+      "new": {
+        "compiled": true,
+        "current": 915,
+        "frame": "0x50"
+      }
+    },
+    {
+      "id": "func_15104C44",
+      "source": "src/game/game_131F30.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_1000EF40' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_1000EF40' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_150EC6B0",
+      "source": "src/game/game_1199D0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 29299,
+        "frame": "0xd8"
+      },
+      "new": {
+        "compiled": true,
+        "current": 29299,
+        "frame": "0xd8"
+      }
+    },
+    {
+      "id": "func_150AF328",
+      "source": "src/game/game_DC6B0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9A4' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9A4' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_15161A68",
+      "source": "src/game/effects/light.c",
+      "pinned": {
+        "compiled": true,
+        "current": 945,
+        "frame": "leaf"
+      },
+      "old": {
+        "compiled": true,
+        "current": 945,
+        "frame": "leaf"
+      },
+      "new": {
+        "compiled": true,
+        "current": 945,
+        "frame": "leaf"
+      }
+    },
+    {
+      "id": "func_150DFEFC",
+      "source": "src/game/game_10D280.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 5966,
+        "frame": "0xc0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 5966,
+        "frame": "0xc0"
+      }
+    },
+    {
+      "id": "func_1505B5F8",
+      "source": "src/game/game_83300.c",
+      "pinned": {
+        "compiled": true,
+        "current": 1490,
+        "frame": "0x58"
+      },
+      "old": {
+        "compiled": true,
+        "current": 1050,
+        "frame": "0x58"
+      },
+      "new": {
+        "compiled": true,
+        "current": 1050,
+        "frame": "0x58"
+      }
+    },
+    {
+      "id": "func_151C71A0",
+      "source": "src/game/effects/effects_sight.c",
+      "pinned": {
+        "compiled": true,
+        "current": 28111,
+        "frame": "0x110"
+      },
+      "old": {
+        "compiled": true,
+        "current": 28111,
+        "frame": "0x110"
+      },
+      "new": {
+        "compiled": true,
+        "current": 28111,
+        "frame": "0x110"
+      }
+    },
+    {
+      "id": "func_150B19E0",
+      "source": "src/game/game_DE5A0.c",
+      "pinned": {
+        "compiled": true,
+        "current": 8787,
+        "frame": "0xa0"
+      },
+      "old": {
+        "compiled": true,
+        "current": 9716,
+        "frame": "0xa8"
+      },
+      "new": {
+        "compiled": true,
+        "current": 9716,
+        "frame": "0xa8"
+      }
+    },
+    {
+      "id": "func_150E4550",
+      "source": "src/game/game_111670.c",
+      "pinned": {
+        "compiled": true,
+        "current": 14278,
+        "frame": "0xa0"
+      },
+      "old": {
+        "compiled": true,
+        "current": 13936,
+        "frame": "0xa0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 12261,
+        "frame": "0xa0"
+      }
+    },
+    {
+      "id": "func_1511EF40",
+      "source": "src/game/game_14C3F0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9E4' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9E4' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9E4' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1512B730",
+      "source": "src/game/game_157840.c",
+      "pinned": {
+        "compiled": true,
+        "current": 6823,
+        "frame": "0x8"
+      },
+      "old": {
+        "compiled": true,
+        "current": 6865,
+        "frame": "leaf"
+      },
+      "new": {
+        "compiled": true,
+        "current": 6865,
+        "frame": "leaf"
+      }
+    },
+    {
+      "id": "func_151BA084",
+      "source": "src/game/game_1E73B0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 7920,
+        "frame": "0x108"
+      },
+      "new": {
+        "compiled": true,
+        "current": 7920,
+        "frame": "0x108"
+      }
+    },
+    {
+      "id": "func_150CF800",
+      "source": "src/game/game_FC9E0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 18574,
+        "frame": "0x100"
+      },
+      "new": {
+        "compiled": true,
+        "current": 18574,
+        "frame": "0x100"
+      }
+    },
+    {
+      "id": "func_1507D754",
+      "source": "src/game/game_A9D90.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9F0' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9F0' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9F0' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_151C196C",
+      "source": "src/game/game_1ED0F0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      }
+    },
+    {
+      "id": "func_15114348",
+      "source": "src/game/game_13F9D0.c",
+      "pinned": {
+        "compiled": true,
+        "current": 6106,
+        "frame": "0xb0"
+      },
+      "old": {
+        "compiled": true,
+        "current": 6106,
+        "frame": "0xb0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 6106,
+        "frame": "0xb0"
+      }
+    },
+    {
+      "id": "func_151432BC",
+      "source": "src/game/game_16EE20.c",
+      "pinned": {
+        "compiled": true,
+        "current": 11057,
+        "frame": "0x70"
+      },
+      "old": {
+        "compiled": true,
+        "current": 11897,
+        "frame": "0x70"
+      },
+      "new": {
+        "compiled": true,
+        "current": 11897,
+        "frame": "0x70"
+      }
+    },
+    {
+      "id": "func_150E63A0",
+      "source": "src/game/game_1136E0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp98' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp98' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1513264C",
+      "source": "src/game/game_15F680.c",
+      "pinned": {
+        "compiled": true,
+        "current": 11915,
+        "frame": "0x68"
+      },
+      "old": {
+        "compiled": true,
+        "current": 12315,
+        "frame": "0x68"
+      },
+      "new": {
+        "compiled": true,
+        "current": 12315,
+        "frame": "0x68"
+      }
+    },
+    {
+      "id": "func_1513D6FC",
+      "source": "src/game/game_169510.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp70' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp70' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp70' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_15160E30",
+      "source": "src/game/effects/light.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spEC' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spEC' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_15014B60",
+      "source": "src/game/game_40490.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 36099,
+        "frame": "0xf0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 36099,
+        "frame": "0xf0"
+      }
+    },
+    {
+      "id": "func_150BABE0",
+      "source": "src/game/game_E8090.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spCC' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spCC' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spCC' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1507C8FC",
+      "source": "src/game/game_A9D90.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800CC2D0' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800CC2D0' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800CC2D0' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1508C1A4",
+      "source": "src/game/game_B4080.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800E0BD0' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800E0BD0' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800E0BD0' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1509DFC4",
+      "source": "src/game/game_CB3D0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_8008FDBC' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_8008FDBC' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_8008FDBC' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_150CD17C",
+      "source": "src/game/game_FA360.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 23028,
+        "frame": "0xa0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 23028,
+        "frame": "0xa0"
+      }
+    },
+    {
+      "id": "func_1508114C",
+      "source": "src/game/game_AE1D0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Bad operand type for += or -="
+      },
+      "old": {
+        "compiled": true,
+        "current": 11265,
+        "frame": "0xd0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 10880,
+        "frame": "0xd0"
+      }
+    },
+    {
+      "id": "func_151700D8",
+      "source": "src/game/game_19A8B0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp120' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'sp120'"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'sp120'"
+      }
+    },
+    {
+      "id": "func_151CA6A0",
+      "source": "src/game/effects/effects_sight.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_80082FA0' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_80082FA0' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_80082FA0' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_15116EA4",
+      "source": "src/game/game_143DE0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 12029,
+        "frame": "0xa8"
+      },
+      "new": {
+        "compiled": true,
+        "current": 12029,
+        "frame": "0xa8"
+      }
+    },
+    {
+      "id": "func_151C7E98",
+      "source": "src/game/effects/effects_sight.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp68' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp68' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_150F7470",
+      "source": "src/game/game_124920.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp138' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp138' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp138' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_15197C10",
+      "source": "src/game/effects/characterflamethrower.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Type f32  of rhs of assignment expression is incompatible with type void *  of lhs"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: Type f32  of rhs of assignment expression is incompatible with type void *  of lhs"
+      }
+    },
+    {
+      "id": "func_15084558",
+      "source": "src/game/game_AEB40.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '-'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '-'."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '-'."
+      }
+    },
+    {
+      "id": "func_150AAD98",
+      "source": "src/game/game_D7980.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      }
+    },
+    {
+      "id": "func_15198110",
+      "source": "src/game/effects/characterflamethrower.c",
+      "pinned": {
+        "compiled": true,
+        "current": 41999,
+        "frame": "0x140"
+      },
+      "old": {
+        "compiled": true,
+        "current": 42144,
+        "frame": "0x140"
+      },
+      "new": {
+        "compiled": true,
+        "current": 42144,
+        "frame": "0x140"
+      }
+    },
+    {
+      "id": "func_151B8DB0",
+      "source": "src/game/game_1E6260.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp170' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp170' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp170' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_151511FC",
+      "source": "src/game/game_17CAF0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp13C' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp13C' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1506CE6C",
+      "source": "src/game/game_981E0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      }
+    },
+    {
+      "id": "func_150D8FAC",
+      "source": "src/game/game_105FC0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp100' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp100' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_15017B20",
+      "source": "src/game/game_44C40.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 16205,
+        "frame": "0x58"
+      },
+      "new": {
+        "compiled": true,
+        "current": 16205,
+        "frame": "0x58"
+      }
+    },
+    {
+      "id": "func_15118F24",
+      "source": "src/game/game_144C70.c",
+      "pinned": {
+        "compiled": true,
+        "current": 9952,
+        "frame": "0xa8"
+      },
+      "old": {
+        "compiled": true,
+        "current": 9295,
+        "frame": "0xa8"
+      },
+      "new": {
+        "compiled": true,
+        "current": 3330,
+        "frame": "0xa8"
+      }
+    },
+    {
+      "id": "func_15189118",
+      "source": "src/game/game_1B5CC0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Bad operand type for += or -="
+      },
+      "old": {
+        "compiled": true,
+        "current": 18500,
+        "frame": "0x108"
+      },
+      "new": {
+        "compiled": true,
+        "current": 18500,
+        "frame": "0x108"
+      }
+    },
+    {
+      "id": "func_151C229C",
+      "source": "src/game/game_1EF500.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spF4' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spF4' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spF4' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_151A1998",
+      "source": "src/game/game_1CE2F0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      }
+    },
+    {
+      "id": "func_150D54C8",
+      "source": "src/game/game_1028F0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'func_150ADA68'; previous declaration at line 191 in file '/workspace/build/us/probe/func_150D54C8/variant002.c'"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'func_150ADA68'; previous declaration at line 191 in file '/workspace/build/us/probe/func_150D54C8/variant003.c'"
+      }
+    },
+    {
+      "id": "func_15184FA4",
+      "source": "src/game/game_1B1600.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 30587,
+        "frame": "0xe0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 30387,
+        "frame": "0xe0"
+      }
+    },
+    {
+      "id": "func_151A6600",
+      "source": "src/game/game_1D3AB0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 16197,
+        "frame": "0xf0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 16197,
+        "frame": "0xf0"
+      }
+    },
+    {
+      "id": "func_15189A00",
+      "source": "src/game/game_1B6DB0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 19451,
+        "frame": "0x130"
+      },
+      "new": {
+        "compiled": true,
+        "current": 19451,
+        "frame": "0x130"
+      }
+    },
+    {
+      "id": "func_150896EC",
+      "source": "src/game/game_B4080.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 7111,
+        "frame": "0xf0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 7111,
+        "frame": "0xf0"
+      }
+    },
+    {
+      "id": "func_151CEC54",
+      "source": "src/game/game_1FC0C0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp9C' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp9C' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_15139D74",
+      "source": "src/game/effects/blood.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 23926,
+        "frame": "0x1c0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 23926,
+        "frame": "0x1c0"
+      }
+    },
+    {
+      "id": "func_151CC840",
+      "source": "src/game/effects/effects_sight.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 20035,
+        "frame": "0xb0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 20035,
+        "frame": "0xb0"
+      }
+    },
+    {
+      "id": "func_1514B364",
+      "source": "src/game/game_177B50.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp198' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp198' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp198' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1513B0F8",
+      "source": "src/game/effects/blood.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 22423,
+        "frame": "0x1c8"
+      },
+      "new": {
+        "compiled": true,
+        "current": 22423,
+        "frame": "0x1c8"
+      }
+    },
+    {
+      "id": "func_151DFF38",
+      "source": "src/game/game_20BDA0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_8008FDD4' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_8008FDD4' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_8008FDD4' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_151A1FB4",
+      "source": "src/game/game_1CE2F0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      }
+    },
+    {
+      "id": "func_15177A94",
+      "source": "src/game/game_1A48C0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 7856,
+        "frame": "0xb8"
+      },
+      "new": {
+        "compiled": true,
+        "current": 7856,
+        "frame": "0xb8"
+      }
+    },
+    {
+      "id": "func_15132DDC",
+      "source": "src/game/game_15F680.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9A4' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9A4' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_150891E8",
+      "source": "src/game/game_B4080.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 15323,
+        "frame": "0x100"
+      },
+      "new": {
+        "compiled": true,
+        "current": 15323,
+        "frame": "0x100"
+      }
+    },
+    {
+      "id": "func_1515080C",
+      "source": "src/game/game_17CAF0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Type s32  of this argument  is incompatible with type void  of function prototype description"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Type s32  of this argument  is incompatible with type void  of function prototype description"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: Type s32  of this argument  is incompatible with type void  of function prototype description"
+      }
+    },
+    {
+      "id": "func_1500D3AC",
+      "source": "src/game/game_39750.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      }
+    },
+    {
+      "id": "func_150B3188",
+      "source": "src/game/effects/pipeexplode.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      }
+    },
+    {
+      "id": "func_151D09A8",
+      "source": "src/game/game_1FC830.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp1E0' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp1E0' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp1E0' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1502E4C4",
+      "source": "src/game/game_58F80.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800D1C90' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800D1C90' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800D1C90' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_151BB0E0",
+      "source": "src/game/game_1E73B0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'func_151BB0E0'; previous declaration at line 159 in file '/workspace/build/us/probe/func_151BB0E0/variant001.c'"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'func_151BB0E0'; previous declaration at line 159 in file '/workspace/build/us/probe/func_151BB0E0/variant002.c'"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'func_151BB0E0'; previous declaration at line 159 in file '/workspace/build/us/probe/func_151BB0E0/variant003.c'"
+      }
+    },
+    {
+      "id": "func_150FCFD4",
+      "source": "src/game/game_12A460.c",
+      "pinned": {
+        "compiled": true,
+        "current": 25437,
+        "frame": "0x180"
+      },
+      "old": {
+        "compiled": true,
+        "current": 25437,
+        "frame": "0x180"
+      },
+      "new": {
+        "compiled": true,
+        "current": 25437,
+        "frame": "0x180"
+      }
+    },
+    {
+      "id": "func_150BF21C",
+      "source": "src/game/game_EC420.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      }
+    },
+    {
+      "id": "func_151B2974",
+      "source": "src/game/game_1DFE00.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp78' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp78' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1500CE4C",
+      "source": "src/game/game_39750.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      }
+    },
+    {
+      "id": "func_150ECC70",
+      "source": "src/game/game_1199D0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      }
+    },
+    {
+      "id": "func_150B89E0",
+      "source": "src/game/game_E5E90.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      }
+    },
+    {
+      "id": "func_150950D4",
+      "source": "src/game/game_C2350.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 16149,
+        "frame": "0x100"
+      },
+      "new": {
+        "compiled": true,
+        "current": 16149,
+        "frame": "0x100"
+      }
+    },
+    {
+      "id": "func_150D3A68",
+      "source": "src/game/game_100810.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9E4' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9E4' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_151189AC",
+      "source": "src/game/game_144C70.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '-'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 24874,
+        "frame": "0xc8"
+      },
+      "new": {
+        "compiled": true,
+        "current": 17805,
+        "frame": "0xc8"
+      }
+    },
+    {
+      "id": "func_1503A08C",
+      "source": "src/game/game_64120.c",
+      "pinned": {
+        "compiled": true,
+        "current": 20555,
+        "frame": "0xf0"
+      },
+      "old": {
+        "compiled": true,
+        "current": 21205,
+        "frame": "0x108"
+      },
+      "new": {
+        "compiled": true,
+        "current": 20625,
+        "frame": "0x108"
+      }
+    },
+    {
+      "id": "func_151019C4",
+      "source": "src/game/game_12E540.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp7C' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp7C' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_151ACBD4",
+      "source": "src/game/game_1D9F10.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      }
+    },
+    {
+      "id": "func_151D1C98",
+      "source": "src/game/game_1FEA80.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spD0' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spD0' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1500D8C8",
+      "source": "src/game/game_39750.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp8C' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'sp8C'"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'sp8C'"
+      }
+    },
+    {
+      "id": "func_15175390",
+      "source": "src/game/game_1A20A0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      }
+    },
+    {
+      "id": "func_151A7D6C",
+      "source": "src/game/game_1D4E00.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spAC' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spAC' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1500C2F0",
+      "source": "src/game/game_39750.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp74' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'sp74'"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'sp74'"
+      }
+    },
+    {
+      "id": "func_15173D00",
+      "source": "src/game/game_1A11B0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 20145,
+        "frame": "0x100"
+      },
+      "new": {
+        "compiled": true,
+        "current": 19945,
+        "frame": "0x100"
+      }
+    },
+    {
+      "id": "func_15196B4C",
+      "source": "src/game/effects/characterflamethrower.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'CharacterFlamethrowerState'; previous declaration at line 86 in file '/workspace/build/us/probe/func_15196B4C/variant001.c'"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9A4' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9A4' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_151B0B88",
+      "source": "src/game/game_1DD500.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9E4' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9E4' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_15058898",
+      "source": "src/game/game_83300.c",
+      "pinned": {
+        "compiled": true,
+        "current": 16567,
+        "frame": "0xc8"
+      },
+      "old": {
+        "compiled": true,
+        "current": 16042,
+        "frame": "0xd8"
+      },
+      "new": {
+        "compiled": true,
+        "current": 15662,
+        "frame": "0xd8"
+      }
+    },
+    {
+      "id": "func_150A44F0",
+      "source": "src/game/game_D0F20.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      }
+    },
+    {
+      "id": "func_150528C8",
+      "source": "src/game/game_7FC10.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Dereferenced a non-pointer."
+      },
+      "old": {
+        "compiled": true,
+        "current": 11753,
+        "frame": "0x98"
+      },
+      "new": {
+        "compiled": true,
+        "current": 11753,
+        "frame": "0x98"
+      }
+    },
+    {
+      "id": "func_150000B0",
+      "source": "src/game/game_2D540.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'func_1000DEC4'; previous declaration at line 15 in file '/workspace/build/us/probe/func_150000B0/variant001.c'"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'func_1000DEC4'; previous declaration at line 15 in file '/workspace/build/us/probe/func_150000B0/variant002.c'"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'func_1000DEC4'; previous declaration at line 15 in file '/workspace/build/us/probe/func_150000B0/variant003.c'"
+      }
+    },
+    {
+      "id": "func_15135DD0",
+      "source": "src/game/effects/blood.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'func_150ADA20'; previous declaration at line 840 in file '/workspace/build/us/probe/func_15135DD0/variant001.c'"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'func_150ADA20'; previous declaration at line 840 in file '/workspace/build/us/probe/func_15135DD0/variant002.c'"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'func_150ADA20'; previous declaration at line 840 in file '/workspace/build/us/probe/func_15135DD0/variant003.c'"
+      }
+    },
+    {
+      "id": "func_1516489C",
+      "source": "src/game/game_191C30.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Non-function name referenced in function call."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Non-function name referenced in function call."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9A4' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_151A5660",
+      "source": "src/game/game_1D2B10.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 26853,
+        "frame": "0x170"
+      },
+      "new": {
+        "compiled": true,
+        "current": 26853,
+        "frame": "0x170"
+      }
+    },
+    {
+      "id": "func_151D80C4",
+      "source": "src/game/game_204660.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spB8' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spB8' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_151CDE20",
+      "source": "src/game/game_1FA770.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp94' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp94' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1519F7F0",
+      "source": "src/game/game_1CC440.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 18628,
+        "frame": "0x138"
+      },
+      "new": {
+        "compiled": true,
+        "current": 18628,
+        "frame": "0x138"
+      }
+    },
+    {
+      "id": "func_15177410",
+      "source": "src/game/game_1A48C0.c",
+      "pinned": {
+        "compiled": true,
+        "current": 23579,
+        "frame": "0x128"
+      },
+      "old": {
+        "compiled": true,
+        "current": 23455,
+        "frame": "0x130"
+      },
+      "new": {
+        "compiled": true,
+        "current": 23455,
+        "frame": "0x130"
+      }
+    },
+    {
+      "id": "func_151B7C38",
+      "source": "src/game/game_1E37D0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spD4' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'spD4' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1504A730",
+      "source": "src/game/game_77BE0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9A0' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9A0' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9A0' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_151C62D0",
+      "source": "src/game/game_1F3780.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800AAB00' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1517D7B0",
+      "source": "src/game/game_1A89B0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800DDD20' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800DDD20' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800DDD20' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_151303EC",
+      "source": "src/game/game_15D730.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9E4' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9E4' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9E4' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_150D4300",
+      "source": "src/game/game_100810.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp128' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp128' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_150BD070",
+      "source": "src/game/game_E8C10.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'unksp185' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'unksp185' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'unksp185' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_15138E98",
+      "source": "src/game/effects/blood.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 33964,
+        "frame": "0x220"
+      },
+      "new": {
+        "compiled": true,
+        "current": 33964,
+        "frame": "0x220"
+      }
+    },
+    {
+      "id": "func_150642AC",
+      "source": "src/game/game_90840.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 11805,
+        "frame": "0x90"
+      },
+      "new": {
+        "compiled": true,
+        "current": 11805,
+        "frame": "0x90"
+      }
+    },
+    {
+      "id": "func_15112A80",
+      "source": "src/game/game_13F9D0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_80082FA0' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'spA0'"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'spA0'"
+      }
+    },
+    {
+      "id": "func_15154D80",
+      "source": "src/game/game_182140.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 20105,
+        "frame": "0x150"
+      },
+      "new": {
+        "compiled": true,
+        "current": 20105,
+        "frame": "0x150"
+      }
+    },
+    {
+      "id": "func_151AD92C",
+      "source": "src/game/game_1D9F10.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Cast a non-integral type into a pointer."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Cast a non-integral type into a pointer."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: Cast a non-integral type into a pointer."
+      }
+    },
+    {
+      "id": "func_150E4E04",
+      "source": "src/game/game_111670.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Bad operand type for += or -="
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_150311C4",
+      "source": "src/game/game_5D2C0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 26381,
+        "frame": "0x110"
+      },
+      "new": {
+        "compiled": true,
+        "current": 26191,
+        "frame": "0x110"
+      }
+    },
+    {
+      "id": "func_151B32C8",
+      "source": "src/game/effects/holtenrope.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Non-function name referenced in function call."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp138' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_151B5328",
+      "source": "src/game/game_1E26F0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp100' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp100' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_15169C70",
+      "source": "src/game/game_197120.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9E4' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9E4' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9E4' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_150ADAF0",
+      "source": "src/game/game_DAFA0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      }
+    },
+    {
+      "id": "func_15034F30",
+      "source": "src/game/game_623D0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 15418,
+        "frame": "0xd0"
+      },
+      "new": {
+        "compiled": true,
+        "current": 15418,
+        "frame": "0xd0"
+      }
+    },
+    {
+      "id": "func_151D014C",
+      "source": "src/game/game_1FC830.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp104' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp104' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_150CA150",
+      "source": "src/game/game_F5D80.c",
+      "pinned": {
+        "compiled": true,
+        "current": 65457,
+        "frame": "0x148"
+      },
+      "old": {
+        "compiled": true,
+        "current": 65452,
+        "frame": "0x148"
+      },
+      "new": {
+        "compiled": true,
+        "current": 65452,
+        "frame": "0x148"
+      }
+    },
+    {
+      "id": "func_151E43DC",
+      "source": "src/game/game_20F9A0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800AB7BC' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800AB7BC' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800AB7BC' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1503FB40",
+      "source": "src/game/game_6CEA0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 18433,
+        "frame": "0x120"
+      },
+      "new": {
+        "compiled": true,
+        "current": 14583,
+        "frame": "0x120"
+      }
+    },
+    {
+      "id": "func_1505C7D8",
+      "source": "src/game/game_83300.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800C35EA' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800C35EA' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800C35EA' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1511CB44",
+      "source": "src/game/game_1483E0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      }
+    },
+    {
+      "id": "func_1512A390",
+      "source": "src/game/game_157840.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9F0' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9F0' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800BE9F0' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_150DD640",
+      "source": "src/game/game_10A350.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp98' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp98' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1515C6F4",
+      "source": "src/game/game_1897A0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp120' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp120' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_151EB06C",
+      "source": "src/game/game_215960.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      }
+    },
+    {
+      "id": "func_150E3738",
+      "source": "src/game/game_1104D0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp1CC' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp1CC' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp1CC' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_151E565C",
+      "source": "src/game/game_20F9A0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp5C' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'sp5C'"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'sp5C'"
+      }
+    },
+    {
+      "id": "func_151C756C",
+      "source": "src/game/effects/effects_sight.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      }
+    },
+    {
+      "id": "func_150B4710",
+      "source": "src/game/game_E1280.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp104' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp104' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_15087350",
+      "source": "src/game/game_B4080.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800CC2D0' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'sp70'"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'sp70'"
+      }
+    },
+    {
+      "id": "func_15000AD0",
+      "source": "src/game/game_2DF70.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800B0DF0' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800B0DF0' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800B0DF0' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_151DF574",
+      "source": "src/game/game_20BDA0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800E0A96' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800E0A96' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800E0A96' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1506C460",
+      "source": "src/game/game_981E0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      }
+    },
+    {
+      "id": "func_15117F3C",
+      "source": "src/game/game_144C70.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      }
+    },
+    {
+      "id": "func_151C0698",
+      "source": "src/game/game_1ED0F0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      }
+    },
+    {
+      "id": "func_1508DC24",
+      "source": "src/game/game_B4080.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Dereferenced a non-pointer."
+      },
+      "old": {
+        "compiled": true,
+        "current": 24448,
+        "frame": "0x1a8"
+      },
+      "new": {
+        "compiled": true,
+        "current": 24448,
+        "frame": "0x1a8"
+      }
+    },
+    {
+      "id": "func_1501EC38",
+      "source": "src/game/game_49D30.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'sp268'"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'sp268'"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: missing size for array 'sp268'"
+      }
+    },
+    {
+      "id": "func_151BA518",
+      "source": "src/game/game_1E73B0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp108' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp108' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp108' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_15051558",
+      "source": "src/game/game_79F10.c",
+      "pinned": {
+        "compiled": true,
+        "current": 25208,
+        "frame": "0xd8"
+      },
+      "old": {
+        "compiled": true,
+        "current": 31129,
+        "frame": "0x118"
+      },
+      "new": {
+        "compiled": true,
+        "current": 30401,
+        "frame": "0x118"
+      }
+    },
+    {
+      "id": "func_150A11C4",
+      "source": "src/game/game_CDE80.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800D3270' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800D3270' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800D3270' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_150C8DB8",
+      "source": "src/game/game_F5D80.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": true,
+        "current": 43370,
+        "frame": "0x1d8"
+      },
+      "new": {
+        "compiled": true,
+        "current": 43370,
+        "frame": "0x1d8"
+      }
+    },
+    {
+      "id": "func_1516AA70",
+      "source": "src/game/game_197F20.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: The number of arguments doesn't agree with the number in the declaration."
+      }
+    },
+    {
+      "id": "func_15029BB8",
+      "source": "src/game/game_50D80.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'func_150238D8' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'func_150238D8' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'func_150238D8' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_15199C34",
+      "source": "src/game/effects/characterflamethrower.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp24C' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'sp24C' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_15064B94",
+      "source": "src/game/game_90840.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Reference of an expression of void type or an incomplete type."
+      },
+      "old": {
+        "compiled": true,
+        "current": 8346,
+        "frame": "0x68"
+      },
+      "new": {
+        "compiled": true,
+        "current": 8346,
+        "frame": "0x68"
+      }
+    },
+    {
+      "id": "func_151E3344",
+      "source": "src/game/game_20F9A0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      }
+    },
+    {
+      "id": "func_150417AC",
+      "source": "src/game/game_6EA90.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Unacceptable operand of '+'."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'unksp14F' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'unksp14F' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_1505F298",
+      "source": "src/game/game_83300.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: Syntax Error"
+      }
+    },
+    {
+      "id": "func_150AB1F0",
+      "source": "src/game/game_D86A0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      }
+    },
+    {
+      "id": "func_1517BBAC",
+      "source": "src/game/game_1A89B0.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800DDD20' undefined; reoccurrences will not be reported."
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800DDD20' undefined; reoccurrences will not be reported."
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: 'D_800DDD20' undefined; reoccurrences will not be reported."
+      }
+    },
+    {
+      "id": "func_150ED748",
+      "source": "src/game/game_11A680.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'func_1504C854'; previous declaration at line 161 in file 'include/game_functions.h'"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'func_1504C854'; previous declaration at line 161 in file 'include/game_functions.h'"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: redeclaration of 'func_1504C854'; previous declaration at line 161 in file 'include/game_functions.h'"
+      }
+    },
+    {
+      "id": "func_150918EC",
+      "source": "src/game/game_BC510.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "m2c decompilation failure"
+      }
+    },
+    {
+      "id": "func_150265CC",
+      "source": "src/game/game_50D80.c",
+      "pinned": {
+        "compiled": false,
+        "first_error": "cfe: Error: storage size for 'D_800AAA90' isn't known"
+      },
+      "old": {
+        "compiled": false,
+        "first_error": "cfe: Error: storage size for 'D_800AAA90' isn't known"
+      },
+      "new": {
+        "compiled": false,
+        "first_error": "cfe: Error: storage size for 'D_800AAA90' isn't known"
+      }
+    }
+  ]
+}

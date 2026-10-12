@@ -91,7 +91,7 @@ class ModelBuildTests(unittest.TestCase):
                 records['display_commands'][0][1] = address
                 build.encode_records(records, bank=9)
         with self.assertRaisesRegex(ValueError, 'unsupported direct-model bank'):
-            build.model_records(self.payload, bank=4)
+            build.model_records(self.payload, bank=5)
 
     def test_same_entry_id_in_two_banks_has_separate_inputs_outputs_and_recovery(self):
         expected09 = dict(self.expected, bank=9)
@@ -111,11 +111,129 @@ class ModelBuildTests(unittest.TestCase):
         self.assertEqual(json.loads((self.inputs / 'manifest.json').read_text()), self.expected)
 
     def test_bank09_rejects_auxiliary_or_uncovered_storage(self):
-        for payload in (self.payload + bytes(8),
+        for payload in (self.payload + bytes(16),
                         struct.pack('>10I', 88, 24, 112, 8, 0, 0, 0, 0, 0, 0x80000000)
                         + self.payload[40:] + bytes(8)):
             with self.assertRaisesRegex(ValueError, 'auxiliary|trailing'):
                 build.model_records(payload, bank=9)
+
+    def test_normal_tables_and_observed_zero_suffix_rebuild_exactly(self):
+        for bank in (3, 9):
+            for suffix in (b'', bytes(8)):
+                header = [88, 32, 0, 0, 0, 0, 0, 0, 0, 0x80000000]
+                normals = b''.join(struct.pack('>bb', i - 16, 127 - i) for i in range(32))
+                payload = (struct.pack('>10I', *header) + self.payload[40:88]
+                           + struct.pack('>II', 0xDC38000E, 120) + self.payload[88:]
+                           + normals + suffix)
+                with self.subTest(bank=bank, suffix=len(suffix)):
+                    records = build.model_records(payload, bank=bank)
+                    self.assertEqual(records['normal_xy_s8'][0][0], [-16, 127])
+                    self.assertEqual(records.get('zero_suffix_bytes', 0), len(suffix))
+                    self.assertEqual(build.encode_records(records, bank=bank), payload)
+                    altered = copy.deepcopy(records)
+                    altered['normal_xy_s8'][0][0][0] = -17
+                    self.assertNotEqual(build.encode_records(altered, bank=bank), payload)
+                    altered['normal_xy_s8'][0].pop()
+                    with self.assertRaisesRegex(ValueError, 'normal table'):
+                        build.encode_records(altered, bank=bank)
+
+    def test_normal_pointer_ranges_do_not_admit_gaps_overlap_or_truncation(self):
+        for pointer in (88, 112, 121, 128, 184):
+            payload = (struct.pack('>10I', 88, 32, 0, 0, 0, 0, 0, 0, 0, 0x80000000)
+                       + self.payload[40:88] + struct.pack('>II', 0xDC38000E, pointer)
+                       + self.payload[88:] + bytes(64))
+            with self.subTest(pointer=pointer), self.assertRaises(ValueError):
+                build.model_records(payload, bank=9)
+        payload = (struct.pack('>10I', 88, 32, 0, 0, 0, 0, 0, 0, 0, 0x80000000)
+                   + self.payload[40:88] + struct.pack('>II', 0xDC38000E, 120)
+                   + self.payload[88:] + bytes(63))
+        with self.assertRaisesRegex(ValueError, 'incomplete'):
+            build.model_records(payload, bank=9)
+
+    def test_zero_suffix_is_explicit_and_cannot_encode_opaque_bytes(self):
+        records = dict(self.records, zero_suffix_bytes=8)
+        self.assertEqual(build.encode_records(records, bank=3), self.payload + bytes(8))
+        for suffix in (bytes(7), bytes(16), bytes(7) + b'X'):
+            with self.subTest(suffix=suffix), self.assertRaisesRegex(ValueError, 'trailing'):
+                build.model_records(self.payload + suffix, bank=3)
+        for size in (True, -1, 1, 16, 8.0):
+            with self.subTest(size=size), self.assertRaises(ValueError):
+                build.encode_records(dict(self.records, zero_suffix_bytes=size), bank=3)
+
+    def test_attachment_records_rebuild_rigid_jointed_and_multiple_parts(self):
+        from test_model_attachment_format import payload
+        for jointed in (False, True):
+            for parts in (1, 2):
+                for suffix in (b'', bytes(8)):
+                    raw = payload(jointed=jointed, parts=parts) + suffix
+                    with self.subTest(jointed=jointed, parts=parts, suffix=len(suffix)):
+                        records = build.model_records(raw, bank=9)
+                        self.assertEqual(records['format'], 'attachment-three-pair')
+                        self.assertEqual(len(records['part_pointers']), parts)
+                        self.assertEqual(len(records['joints']), int(jointed))
+                        self.assertEqual(records['normal_xy_s8'][0], [1, -2])
+                        self.assertEqual(build.encode_records(records, bank=9), raw)
+                        with self.assertRaisesRegex(ValueError, 'require bank 09'):
+                            build.encode_records(records, bank=3)
+
+    def test_attachment_boundaries_and_joint_fields_are_not_opaque(self):
+        from test_model_attachment_format import payload
+        raw = payload(jointed=True, parts=2)
+        records = build.model_records(raw, bank=9)
+        for field in ('vertices', 'normal_xy_s8', 'joints'):
+            changed = copy.deepcopy(records)
+            changed[field][0][0 if field == 'vertices' else -1] += 1
+            with self.subTest(field=field):
+                self.assertNotEqual(build.encode_records(changed, bank=9), raw)
+        invalid = []
+        changed = copy.deepcopy(records)
+        changed['part_pointers'][1] = changed['part_pointers'][0]
+        invalid.append(changed)
+        changed = copy.deepcopy(records)
+        changed['normal_xy_s8'].pop()
+        invalid.append(changed)
+        changed = copy.deepcopy(records)
+        changed['joints'][0][0] = 0  # A cycle is invalid even if byte encoding succeeds.
+        invalid.append(changed)
+        changed = copy.deepcopy(records)
+        changed['joints'][0][-1] = float('nan')
+        invalid.append(changed)
+        changed = copy.deepcopy(records)
+        changed['header_words'][4] += 8
+        invalid.append(changed)
+        for changed in invalid:
+            with self.subTest(records=changed), self.assertRaises(ValueError):
+                build.encode_records(changed, bank=9)
+
+    def test_bad_model_row_sizes_show_recovery_hint_and_preserve_edits(self):
+        from test_model_attachment_format import payload
+        from test_model_aux_build import effect_payload
+        for entry, raw, field in ((0, payload(jointed=True), 3), (173, effect_payload(), 1)):
+            records = build.model_records(raw, bank=9, entry=entry)
+            records['header_words'][field] -= 1
+            expected = dict(self.expected, bank=9, entry=entry)
+            directory = self.root / build.input_directory(entry, 9)
+            build.texture_build.publish_inputs(directory, build.input_files(expected, records))
+            before = (directory / 'model.json').read_bytes()
+            with self.subTest(entry=entry), self.assertRaisesRegex(ValueError, 'Inputs were preserved.*recover'):
+                build.packed_model(directory, expected)
+            self.assertEqual((directory / 'model.json').read_bytes(), before)
+
+    def test_attachment_zero_regions_cannot_hide_gaps_or_nonzero_source(self):
+        from test_model_attachment_format import payload
+        raw = payload(jointed=True) + bytes(8)
+        records = build.model_records(raw, bank=9)
+        offset, size = records['zero_regions'][0]
+        poisoned = bytearray(raw)
+        poisoned[offset] = 1
+        with self.assertRaisesRegex(ValueError, 'nonzero'):
+            build.model_records(bytes(poisoned), bank=9)
+        for zero_regions in ([], [[offset, size + 4]], [[offset + 1, size]],
+                             [[offset, True]], [[offset, 0x10000000]]):
+            with self.subTest(zero_regions=zero_regions), self.assertRaises(ValueError):
+                build.encode_records(dict(records, zero_regions=zero_regions), bank=9)
+        with self.assertRaisesRegex(ValueError, 'schema'):
+            build.encode_records(dict(records, opaque_tail='00'), bank=9)
 
     def test_bank09_source_changes_preserve_existing_linker_parts(self):
         expected = dict(self.expected, bank=9)
@@ -134,7 +252,7 @@ class ModelBuildTests(unittest.TestCase):
 
     def test_auxiliary_regions_and_trailing_bytes_are_not_admitted(self):
         with self.assertRaisesRegex(ValueError, 'auxiliary|trailing'):
-            build.model_records(self.payload + bytes(8), bank=3)
+            build.model_records(self.payload + bytes(16), bank=3)
         altered = dict(self.records, header_words=[88, 24, 112, 8, 0, 0, 0, 0, 0, 0x80000000])
         data = struct.pack('>10I', *altered['header_words']) + self.payload[40:] + bytes(8)
         with self.assertRaisesRegex(ValueError, 'auxiliary|trailing'):
@@ -255,6 +373,77 @@ class ModelBuildTests(unittest.TestCase):
                 targets.prepare_models(self.rom, output=output)
         self.assertEqual((output / 'model-build.log').read_text(), 'model compiler details')
 
+    def test_reviewed_level6_choices_reject_unselected_or_ambiguous_entries(self):
+        contract = {'banks': {'03': [1, 3], '09': [3]}}
+        self.assertEqual(build.level6_selections(contract), {'03': [], '09': []})
+        choices = {'03': [1], '09': [3]}
+        self.assertEqual(build.level6_selections(dict(contract, level6_entries=choices)), choices)
+        for choices in (None, {}, {'03': [1]}, {'03': [1], '04': []},
+                        {'03': [True], '09': []}, {'03': [2], '09': []},
+                        {'03': [1, 1], '09': []}, {'03': [3, 1], '09': []},
+                        {'03': '1', '09': []}, {'03': [[]], '09': []}):
+            with self.subTest(choices=choices), self.assertRaisesRegex(ValueError, 'encoder selection'):
+                build.level6_selections(dict(contract, level6_entries=choices))
+
+    def test_level6_build_uses_exact_declared_encoder_without_fallback(self):
+        expected = dict(self.expected, encoder=dict(build.LEVEL6_ENCODER))
+        packed = build.encode_model_payload(self.payload, expected['encoder'])
+        expected.update(rom_end=6 + len(packed), original_stored_sha256=build.sha256(packed))
+        (self.inputs / 'manifest.json').write_text(json.dumps(expected))
+        with patch.object(build.zlib, 'compressobj', wraps=build.zlib.compressobj) as compress, \
+                patch.object(build.rzip_pack, 'encode_rzip_chunk') as legacy:
+            actual, _ = build.packed_model(self.inputs, expected)
+        self.assertEqual(actual, packed)
+        self.assertEqual(build.rzip_archive.decode_rzip_chunk(packed).data, self.payload)
+        compress.assert_called_once_with(level=6, wbits=-15, memLevel=8, strategy=0)
+        legacy.assert_not_called()
+        for encoder in (dict(build.LEVEL6_ENCODER, level=5),
+                        dict(build.LEVEL6_ENCODER, memory_level=9),
+                        dict(build.LEVEL6_ENCODER, window_bits=15)):
+            with self.subTest(encoder=encoder), self.assertRaisesRegex(ValueError, 'unsupported'):
+                build.encode_model_payload(self.payload, encoder)
+        with patch.object(build, 'encode_model_payload', return_value=b'changed') as encode:
+            with self.assertRaisesRegex(ValueError, 'encoder differs'):
+                build.packed_model(self.inputs, expected)
+        encode.assert_called_once_with(self.payload, build.LEVEL6_ENCODER)
+
+    def test_gzip6_selection_requires_disjoint_reviewed_entries(self):
+        contract = {'banks': {'03': [1], '04': [6, 10], '09': [3]},
+                    'level6_entries': {'03': [], '04': [6], '09': []}}
+        choices = {'03': [], '04': [10], '09': []}
+        self.assertEqual(build.gzip6_selections(contract), {'03': [], '04': [], '09': []})
+        self.assertEqual(build.gzip6_selections(dict(contract, gzip6_entries=choices)), choices)
+        for invalid in (None, {}, {'03': [], '04': [6], '09': []},
+                        {'03': [], '04': [11], '09': []},
+                        {'03': [], '04': [10, 10], '09': []},
+                        {'03': [True], '04': [], '09': []}):
+            with self.subTest(invalid=invalid), self.assertRaisesRegex(ValueError, 'encoder selection'):
+                build.gzip6_selections(dict(contract, gzip6_entries=invalid))
+
+    def test_gzip6_checks_wrapper_roundtrip_version_and_never_falls_back(self):
+        import gzip
+        gz = gzip.compress(self.payload, compresslevel=6, mtime=0)
+        with patch.object(build.rzip_gzip, 'require_gnu_gzip') as version, \
+                patch.object(build.rzip_gzip.subprocess, 'run', return_value=SimpleNamespace(stdout=gz)) as run, \
+                patch.object(build.rzip_pack, 'encode_rzip_chunk') as legacy:
+            packed = build.encode_model_payload(self.payload, build.GZIP6_ENCODER)
+            self.assertEqual(build.rzip_archive.decode_rzip_chunk(packed).data, self.payload)
+            run.assert_called_once_with(['gzip', '-n', '-6', '-c'], input=self.payload,
+                                        stdout=subprocess.PIPE, check=True)
+            version.assert_called_once()
+            legacy.assert_not_called()
+            for invalid in (b'', b'badheader!' + gz[10:], gz[:-1] + bytes([gz[-1] ^ 1]),
+                            gz[:10] + bytes(len(gz) - 18) + gz[-8:]):
+                run.return_value.stdout = invalid
+                with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                    build.encode_model_payload(self.payload, build.GZIP6_ENCODER)
+            version.side_effect = ValueError('requires GNU gzip 1.12')
+            run.reset_mock()
+            with self.assertRaisesRegex(ValueError, 'requires GNU gzip'):
+                build.encode_model_payload(self.payload, build.GZIP6_ENCODER)
+            run.assert_not_called()
+            legacy.assert_not_called()
+
     def test_encoder_drift_is_not_accepted_or_retried(self):
         with patch.object(build.rzip_pack, 'encode_rzip_chunk', return_value=bytes(len(self.packed))) as encode:
             with self.assertRaisesRegex(ValueError, 'encoder differs'):
@@ -352,6 +541,17 @@ class ModelBuildTests(unittest.TestCase):
             _, selected = build.reviewed_models(self.root)
             self.assertEqual([e['bank'] for e, _ in selected], [3, 9])
             self.assertEqual(selected[0][0], self.expected)
+            choices = json.loads(contract.read_text())
+            choices['level6_entries'] = {'03': [], '09': [3]}
+            contract.write_text(json.dumps(choices))
+            _, override = build.reviewed_models(self.root)
+            self.assertEqual(override[0][0], self.expected)
+            self.assertEqual(override[1][0]['encoder'], build.LEVEL6_ENCODER)
+            del choices['level6_entries']
+            contract.write_text(json.dumps(choices))
+            consumers.reset_mock()
+            partitions.reset_mock()
+            build.reviewed_models(self.root)
             self.assertEqual([call.kwargs['bank'] for call in partitions.call_args_list], [3, 9])
             consumers.assert_called_once_with(b'code', 0x15000000)
             consumers.side_effect = ValueError('ROM direct-model consumer changed')

@@ -1,12 +1,20 @@
 {
   "container_image": {
-    "digest": "sha256:8da82ea0fc3ea2ca84987f521040732a7bc8b0e9595469a5363b90d3f306ae11",
+    "digest": "sha256:67de4f788e404fbe1794725192801956abdae4cecf1db43c01988df058f9b429",
     "repository": "ghcr.io/devoldschool/conkers-bfd-decomp-toolchain"
   },
   "ido_static_recomp": {
     "version": "v1.2",
-    "asset": "ido-5.3-recomp-linux.tar.gz",
-    "sha256": "ab5c741561f80913d58c8b074771f23941a3edd312505a8ebed6d1dfeb65e506",
+    "assets": {
+      "linux/amd64": {
+        "asset": "ido-5.3-recomp-linux.tar.gz",
+        "sha256": "ab5c741561f80913d58c8b074771f23941a3edd312505a8ebed6d1dfeb65e506"
+      },
+      "linux/arm64": {
+        "asset": "ido-5.3-recomp-linux-arm.tar.gz",
+        "sha256": "b6844c986fa65d7de4ce10b27583769a5ec7a88ae37a151f6dc66c929d3e1c92"
+      }
+    },
     "source": "https://github.com/decompals/ido-static-recomp"
   },
   "schema_version": 1,
@@ -20,8 +28,8 @@
       "revision": "f3b2f85a5bc7e8ae2030ea5a83ea8aa0bcbede03"
     },
     "mips_to_c": {
-      "repository": "https://github.com/matt-kempster/mips_to_c.git",
-      "revision": "09e0e72337804a713e2c3b8d522abe85838470ea"
+      "repository": "https://github.com/DevOldSchool/m2c.git",
+      "revision": "a03c6f296e4673728b9b2da67fd3f00949688bdc"
     },
     "mupen64plus-core": {
       "repository": "https://github.com/mupen64plus/mupen64plus-core.git",

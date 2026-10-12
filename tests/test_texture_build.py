@@ -70,7 +70,7 @@ class TextureBuildTests(unittest.TestCase):
         manifest = (self.inputs / 'manifest.json').read_bytes()
         changed = self.packed[:-1] + bytes([self.packed[-1] ^ 1])
         with patch.object(rzip_pack, 'encode_rzip_chunk', return_value=changed) as encode, \
-                patch.object(build.subprocess, 'run', side_effect=AssertionError('no fallback')), \
+                patch.object(build.rzip_gzip.subprocess, 'run', side_effect=AssertionError('no fallback')), \
                 self.assertRaisesRegex(ValueError, 'reviewed encoder output differs'):
             build.build_parts(self.root)
         self.assertEqual(encode.call_count, 1)
@@ -421,8 +421,8 @@ class TextureBuildTests(unittest.TestCase):
                                                'implementation': 'GNU gzip 1.12'})
         compressor = zlib.compressobj(9, wbits=31)
         gz = compressor.compress(self.payload) + compressor.flush()
-        with patch.object(build, 'require_gnu_gzip'), \
-                patch.object(build.subprocess, 'run', return_value=SimpleNamespace(stdout=gz)) as run:
+        with patch.object(build.rzip_gzip, 'require_gnu_gzip'), \
+                patch.object(build.rzip_gzip.subprocess, 'run', return_value=SimpleNamespace(stdout=gz)) as run:
             packed = build.encode_payload(self.payload, expected)
             self.assertEqual(packed, self.packed)
             self.assertEqual(run.call_args.args[0], ['gzip', '-n', '-9', '-c'])
@@ -433,11 +433,11 @@ class TextureBuildTests(unittest.TestCase):
                     build.encode_payload(self.payload, expected)
 
     def test_wrong_gzip_implementation_is_rejected(self):
-        build.require_gnu_gzip.cache_clear()
-        self.addCleanup(build.require_gnu_gzip.cache_clear)
-        with patch.object(build.subprocess, 'check_output', return_value='Apple gzip\n'), \
+        build.rzip_gzip.require_gnu_gzip.cache_clear()
+        self.addCleanup(build.rzip_gzip.require_gnu_gzip.cache_clear)
+        with patch.object(build.rzip_gzip.subprocess, 'check_output', return_value='Apple gzip\n'), \
                 self.assertRaisesRegex(ValueError, 'GNU gzip 1.12'):
-            build.require_gnu_gzip()
+            build.rzip_gzip.require_gnu_gzip()
 
     def test_concurrent_input_change_is_rejected(self):
         self.initialize()

@@ -1,0 +1,34 @@
+{
+  "entry": 28,
+  "rom_start": 17121088,
+  "rom_end": 17173651,
+  "stored_bytes": 52563,
+  "decoded_bytes": 136448,
+  "stored_sha256": "27d17c624b28564dc5f1ce6eb8285dbab961ad07879d5810a012f5ba0235f935",
+  "decoded_sha256": "c4891dac29e40d8cdc64c0a0c70e6eb0432271ccc8a9439f350f978542b66e13",
+  "encoder": {
+    "format": "gzip-raw-deflate",
+    "level": 6,
+    "implementation": "GNU gzip 1.12"
+  },
+  "nonempty_parts": 35,
+  "color_descriptors": 6,
+  "vertex_references": 202,
+  "consumer_mutations_rejected": 4,
+  "typed_compressed_exact": true,
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "consumer_spans": [
+    {
+      "address": "15003120",
+      "size": 204,
+      "sha1": "3d917f11eef25bd8cf376178f84c6b2fed203180",
+      "meaning": "twelve-byte descriptors, rebases RGB and vertex-index pointers until sentinel"
+    },
+    {
+      "address": "151739B0",
+      "size": 688,
+      "sha1": "9b41bacec4b3981885419cc7d5185700cae3a273",
+      "meaning": "count at+8, RGB triplets at pointer+0, u16 vertex indices at pointer+4"
+    }
+  ]
+}

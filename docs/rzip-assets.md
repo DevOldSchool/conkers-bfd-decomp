@@ -157,8 +157,9 @@ bytes, unlike the rebuilt glyph records and the packed bank-16 MP3 container.
 
 Bank `0x16` is also a reconstructed ROM build input. See the
 [MP3 bank build workflow and evidence](evidence/data-layout/us_mp3_bank_build.md)
-for its editable stream bundle and preserved index/gaps. MP3 storage is excluded
-from the published objdiff report.
+for its editable stream bundle and preserved index/gaps. All MP3-bank storage
+is included in the native objdiff Data denominator as unmatched targets; copying
+encoded streams does not earn reconstruction credit.
 
 The exact US caller loads a selected entry from bank `0x16`, receives both its
 ROM address and byte length, and passes those values to `mp3_play_file`. All 453

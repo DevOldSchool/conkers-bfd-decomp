@@ -708,6 +708,44 @@ s32 func_151619A0(s32 arg0, s16 arg1, u8 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151619A0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151619A0.s")
+extern u8 D_800C35EA;
+extern u8 *D_800C3958[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15161A68 CURRENT (300) */
+s32 func_15161A68(void *arg0) {
+    u8 *object = arg0;
+    f32 *light;
+    f32 red;
+    f32 green;
+    f32 blue;
+    f32 alpha;
+    f32 value;
+
+    if (D_800C35EA == 1) {
+        light = (f32 *)(*(s32 *)(object + 0x18) * 0x44 + D_800C3958[0]);
+        *(s16 *)(*(u8 **)(object + 0x14) + 0xE) = light[0];
+        *(s16 *)(*(u8 **)(object + 0x14) + 0x10) = light[1];
+        *(s16 *)(*(u8 **)(object + 0x14) + 0x12) = light[2];
+        red = light[9];
+        value = (red < 0.0f) ? 0.0f : (red > 255.0f) ? 255.0f : red;
+        light[9] = value;
+        (*(u8 **)(object + 0x14))[5] = value;
+        green = light[10];
+        value = (green < 0.0f) ? 0.0f : (green > 255.0f) ? 255.0f : green;
+        light[10] = value;
+        (*(u8 **)(object + 0x14))[6] = value;
+        blue = light[11];
+        value = (blue < 0.0f) ? 0.0f : (blue > 255.0f) ? 255.0f : blue;
+        light[11] = value;
+        (*(u8 **)(object + 0x14))[7] = value;
+        alpha = light[6];
+        value = (alpha < 0.0f) ? 0.0f : (alpha > 255.0f) ? 255.0f : alpha;
+        light[6] = value;
+        (*(u8 **)(object + 0x14))[0x2F] = value;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15161A68 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161A68.s")
 typedef struct LightEffectActor {
     u8 pad0[0x14];

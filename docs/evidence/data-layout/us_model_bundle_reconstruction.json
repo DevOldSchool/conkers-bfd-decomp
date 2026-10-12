@@ -1,0 +1,268 @@
+{
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "encoders": {
+    "zlib-level6": {
+      "format": "rzip-raw-deflate",
+      "level": 6,
+      "window_bits": -15,
+      "memory_level": 8,
+      "strategy": 0
+    },
+    "gzip-level6": {
+      "format": "gzip-raw-deflate",
+      "level": 6,
+      "implementation": "GNU gzip 1.12"
+    }
+  },
+  "bundles": [
+    {
+      "entry": 6,
+      "rom_start": 16522608,
+      "rom_end": 16611595,
+      "stored_bytes": 88987,
+      "decoded_bytes": 183912,
+      "stored_sha256": "c9d0fc5c7411fe04a9d2e4c46724166a48c2c5f86af486146041e324d8718304",
+      "decoded_sha256": "0ddf5b97a7c1a94bb6764c312ce31a7d657f8e5d6cdf91ee55fc7afbe58da631",
+      "encoder": "zlib-level6",
+      "descriptors": 31,
+      "nonempty_parts": 30
+    },
+    {
+      "entry": 10,
+      "rom_start": 16636248,
+      "rom_end": 16667618,
+      "stored_bytes": 31370,
+      "decoded_bytes": 88720,
+      "stored_sha256": "7d5ea46282e8f428f1bda80ee3bd6bb9016f1a0b0f2e46aece24edaadbe1231a",
+      "decoded_sha256": "1589507796970c68608f05aa0e6a40b0a077b71b5e5d8be868d6468b471be37d",
+      "encoder": "gzip-level6",
+      "descriptors": 23,
+      "nonempty_parts": 21
+    },
+    {
+      "entry": 14,
+      "rom_start": 16760656,
+      "rom_end": 16794194,
+      "stored_bytes": 33538,
+      "decoded_bytes": 88184,
+      "stored_sha256": "68e81287a7f503dfbc8da145410f9ee5a9fab955b715943ca6e6134e0b50e2c6",
+      "decoded_sha256": "a87db317bd528d3819adbe905ca96f7cdf7fad87497a7b17ce2f9316f11d195d",
+      "encoder": "gzip-level6",
+      "descriptors": 16,
+      "nonempty_parts": 15
+    },
+    {
+      "entry": 16,
+      "rom_start": 16794200,
+      "rom_end": 16825466,
+      "stored_bytes": 31266,
+      "decoded_bytes": 79944,
+      "stored_sha256": "e3ff4122b949bc1a651f13d0a6f071bcdc5e12bca3c1ba0eb2444a469bcfaeda",
+      "decoded_sha256": "e6bcdbccb462a06a7be52b7913c00fa83d3996e892fc9abae1c49de0d263b8f9",
+      "encoder": "gzip-level6",
+      "descriptors": 21,
+      "nonempty_parts": 20
+    },
+    {
+      "entry": 20,
+      "rom_start": 16894840,
+      "rom_end": 16919087,
+      "stored_bytes": 24247,
+      "decoded_bytes": 53592,
+      "stored_sha256": "c5f4de605585593ec30a7599efb941392e38343a6e7e44f9764cfc01caddbb97",
+      "decoded_sha256": "1f39ce2adcf952fa8323dacb9b1531e1b954fb73d4099f8da76cea4bdfe1bbd3",
+      "encoder": "zlib-level6",
+      "descriptors": 10,
+      "nonempty_parts": 9
+    },
+    {
+      "entry": 26,
+      "rom_start": 17067616,
+      "rom_end": 17094447,
+      "stored_bytes": 26831,
+      "decoded_bytes": 72040,
+      "stored_sha256": "83d7f96694f28f75aed1446e1f744ebebac6b8179c640e5b43463c21aea03f4c",
+      "decoded_sha256": "10de8c9829da76d8ade20a070c5c6db1416ffe0e30eebaf0275860a4bc3cfe84",
+      "encoder": "gzip-level6",
+      "descriptors": 5,
+      "nonempty_parts": 4
+    },
+    {
+      "entry": 27,
+      "rom_start": 17094448,
+      "rom_end": 17121087,
+      "stored_bytes": 26639,
+      "decoded_bytes": 86008,
+      "stored_sha256": "17e73d2131715da95f2cc48ddd5dba54d192444ab61c70b88c11cb13764fd5f5",
+      "decoded_sha256": "9421219e6640e27b8adad769bd50075f76ef96bcc2c230cb3b2451de3eeaa3c8",
+      "encoder": "zlib-level6",
+      "descriptors": 12,
+      "nonempty_parts": 11
+    },
+    {
+      "entry": 30,
+      "rom_start": 17235392,
+      "rom_end": 17247282,
+      "stored_bytes": 11890,
+      "decoded_bytes": 42304,
+      "stored_sha256": "71c981bdf8ef7ea7e6e57df8ff053b0c161e6ba927a531cf949ee2318ae7db65",
+      "decoded_sha256": "94bcc11df2e11aeaf7030535767d211669463a40cd497886bf2cba6f73ed4c27",
+      "encoder": "zlib-level6",
+      "descriptors": 10,
+      "nonempty_parts": 8
+    },
+    {
+      "entry": 38,
+      "rom_start": 17319736,
+      "rom_end": 17337696,
+      "stored_bytes": 17960,
+      "decoded_bytes": 57928,
+      "stored_sha256": "13f5a49ac96cd0d9919907ba8264ab9adf52349a1fbcea3c671af2df8b37c884",
+      "decoded_sha256": "729d3424a19835f1312b2a78782aab1c6c5ce0eb0f224ec1a05753fdb25f93cd",
+      "encoder": "zlib-level6",
+      "descriptors": 5,
+      "nonempty_parts": 4
+    },
+    {
+      "entry": 39,
+      "rom_start": 17337696,
+      "rom_end": 17349337,
+      "stored_bytes": 11641,
+      "decoded_bytes": 28688,
+      "stored_sha256": "4cb6158e3a9da1276aeebf258ac5313d28ec630a6821703f3b174c33ef041973",
+      "decoded_sha256": "5908878eff4a4edec02324a388f07517e2b0092d912c2d574855a301f125760b",
+      "encoder": "gzip-level6",
+      "descriptors": 4,
+      "nonempty_parts": 2
+    },
+    {
+      "entry": 40,
+      "rom_start": 17349344,
+      "rom_end": 17357729,
+      "stored_bytes": 8385,
+      "decoded_bytes": 22568,
+      "stored_sha256": "816e589288660fa99ab4c8a9268eb9e6420843d07b8124f716e536c845440d2e",
+      "decoded_sha256": "ee218cdb0ea188c9fdcab0449906d5f8f8019a48c1cdcb80c29425916ac3cf5b",
+      "encoder": "gzip-level6",
+      "descriptors": 9,
+      "nonempty_parts": 6
+    },
+    {
+      "entry": 43,
+      "rom_start": 17400920,
+      "rom_end": 17421148,
+      "stored_bytes": 20228,
+      "decoded_bytes": 49696,
+      "stored_sha256": "46d42b9c58014cdf47b1a3014d4984b8bfdab71fd4c5514a670c1a18c569842b",
+      "decoded_sha256": "8bac23557882f1ea2b93c1af54708f75278c57384729d7e4f4ba117d2b70c3ce",
+      "encoder": "zlib-level6",
+      "descriptors": 10,
+      "nonempty_parts": 8
+    },
+    {
+      "entry": 46,
+      "rom_start": 17480360,
+      "rom_end": 17488197,
+      "stored_bytes": 7837,
+      "decoded_bytes": 21024,
+      "stored_sha256": "a7d962a3cc4cd9b3484280ef0fb836382dca29a41e0e0c3cc3e7096d4da68d5b",
+      "decoded_sha256": "693f71ab667e2108742ac1fcc7a9bfa3135306922014bf6856843efc3203915c",
+      "encoder": "gzip-level6",
+      "descriptors": 6,
+      "nonempty_parts": 4
+    },
+    {
+      "entry": 48,
+      "rom_start": 17500896,
+      "rom_end": 17530582,
+      "stored_bytes": 29686,
+      "decoded_bytes": 80728,
+      "stored_sha256": "ff78862cca36b228dd0bcb4477dcdafc56e05946c93670fce4ad028049082183",
+      "decoded_sha256": "5d516a75229cab7614cec03d0e2c094a90287e46d3f1b5c5a5634ec8feccc936",
+      "encoder": "gzip-level6",
+      "descriptors": 6,
+      "nonempty_parts": 5
+    },
+    {
+      "entry": 56,
+      "rom_start": 17751800,
+      "rom_end": 17764074,
+      "stored_bytes": 12274,
+      "decoded_bytes": 48792,
+      "stored_sha256": "253548ff535d6ab3ea833b0989b8a8a47aef51b751ec9b4f1b8612bb6c15dfe8",
+      "decoded_sha256": "b21a79fb741e5292aec813dc8b138c59b9deb60321caffc3f26620c601e2d61e",
+      "encoder": "gzip-level6",
+      "descriptors": 11,
+      "nonempty_parts": 8
+    },
+    {
+      "entry": 61,
+      "rom_start": 17979816,
+      "rom_end": 18002197,
+      "stored_bytes": 22381,
+      "decoded_bytes": 51496,
+      "stored_sha256": "5a226f2419fecaa1e8ebf8ed2d4d48ef30dd0fe71a309c8af2107c1faca5f4e9",
+      "decoded_sha256": "500c3432cfd69de21cb9a026d41a7f9360b0b82a04e35fbc55cc297023d840cc",
+      "encoder": "zlib-level6",
+      "descriptors": 4,
+      "nonempty_parts": 3
+    },
+    {
+      "entry": 63,
+      "rom_start": 18002200,
+      "rom_end": 18028541,
+      "stored_bytes": 26341,
+      "decoded_bytes": 67776,
+      "stored_sha256": "5e5aa05595d9990e3f624661fd48ff07729163e5a842032096142a3f2220730c",
+      "decoded_sha256": "3ad4cc86fcad3abf29521f40e69d1a1b6fc0569d3feb41341747e44be8aa5eb9",
+      "encoder": "gzip-level6",
+      "descriptors": 5,
+      "nonempty_parts": 3
+    },
+    {
+      "entry": 65,
+      "rom_start": 18065760,
+      "rom_end": 18118153,
+      "stored_bytes": 52393,
+      "decoded_bytes": 116968,
+      "stored_sha256": "5a03e9a202518a4055a44951eec445aac765273903144ca1cf7868d664d2d522",
+      "decoded_sha256": "49f6e54d72f6356480686792087774f1a82a86c4e416f597f11c59199090e68f",
+      "encoder": "zlib-level6",
+      "descriptors": 20,
+      "nonempty_parts": 19
+    },
+    {
+      "entry": 66,
+      "rom_start": 18118160,
+      "rom_end": 18123631,
+      "stored_bytes": 5471,
+      "decoded_bytes": 12624,
+      "stored_sha256": "4769e995b8de78e8880d83f0439fb5fdcf7bd1bd807db7d06c1d4f1064a0743c",
+      "decoded_sha256": "0e57577538b0c717cf7b7308cf9d22e3a01f024b5073f25a0dacec3bd25a814e",
+      "encoder": "gzip-level6",
+      "descriptors": 4,
+      "nonempty_parts": 2
+    }
+  ],
+  "stored_bytes": 489365,
+  "decoded_bytes": 1252992,
+  "nonempty_parts": 182,
+  "field_mutations": 201,
+  "consumer_spans": [
+    {
+      "address": "150031EC",
+      "size": 712,
+      "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a"
+    },
+    {
+      "address": "150039BC",
+      "size": 36,
+      "sha1": "3158e418c38cbfc95446c9535ecc73bed4bc28ea"
+    },
+    {
+      "address": "150450CC",
+      "size": 576,
+      "sha1": "e6792bb72b55c4d4ff70be77513bc6dd9fc789be"
+    }
+  ]
+}

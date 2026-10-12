@@ -71,8 +71,8 @@ This builds the mapped SDK archives and active C implementations, prepares
 independent splat targets for every range in `config/overlays.json`, and
 invokes the pinned native `objdiff-cli report generate`. It covers tracked
 main/game/debugger US CPU code and initialized data, including raw/unassigned ranges,
-plus all bounded asset storage. The font, 6,865 reviewed textures and 79 reviewed
-models have reconstructed candidates; remaining asset storage stays unmatched.
+plus all bounded asset storage. The font, 6,865 reviewed textures and 557 reviewed
+assets in model banks, 149 compact audio sequences, 27 sound-bank parts and 2,258 complete ADPCM samples have reconstructed candidates; remaining asset storage stays unmatched.
 The command uses four object-preparation workers and validates cached base object hashes before
 reuse. The first run requires the pinned `lib/ultralib` submodule (`git
 submodule update --init lib/ultralib`).
@@ -256,11 +256,14 @@ palette, metadata or compressed output fail this exact-reconstruction pilot.
 The 8,284,692 reconstructed stored bytes enter Data once; decoded bytes do not
 add storage, and adjacent raw storage remains in the denominator without credit. Native matching and source/link-input verification gate completion.
 
-[The 79 selected bank-03 and bank-09 models](evidence/data-layout/us_model_reconstruction.md)
-reconstruct native header, vertex and display-command records through fresh RZIP
-compression. Their actual ROM linker inputs and independent stored-byte targets
+[The 557 selected assets in banks 03, 04 and 09](evidence/data-layout/us_model_reconstruction.md)
+reconstruct native headers, vertices, display commands, normal records, attachment
+part/joint tables, bundle descriptors, primary surface tables, vertex-color
+animation, effect command lists and emission points through fresh RZIP
+compression. The selection contains 517 standalone models, 20 bundles with
+217 nonempty parts, and 20 emission-point arrays, totaling 940,332 stored bytes. Their actual ROM linker inputs and independent stored-byte targets
 use the same native matching and source-stability gates. Raw bank index, gaps
-and unselected records remain in the Model banks denominator without credit.
+and unselected records remain in the Data denominator without credit.
 
 Generation validates code and data counts per unit, aggregate data coverage,
 unassigned ranges, target/base hashes, and asset source/build-input hashes.
@@ -342,3 +345,39 @@ not general diff performance or end-to-end matching throughput.
 `comparison.json` times each differ invocation separately, excluding compilation,
 Docker setup and downloads. The host-native/container comparison is not
 architecture-neutral, and first binary launch can add substantial overhead.
+
+
+### Compact audio sequences
+
+[All 149 bank-17 compact sequences](evidence/data-layout/us_sequence_reconstruction.md)
+reconstruct 684,228 bytes from native headers, MIDI events, tempo and loop
+fields, and explicit back-reference plans. Actual ROM linker objects and
+independent original-ROM targets enter native Data through the same source
+and object stability checks. Descriptor tables, sequence padding and MP3 streams retain their existing
+reconstruction status.
+
+
+### B1 sound-bank records
+
+[Typed control and 26 external sound-bank regions](evidence/data-layout/us_sound_bank_reconstruction.md)
+reconstruct 434,837 stored bytes from native bank, instrument, sound, envelope,
+key-map, wavetable, predictor-book and loop fields. Fresh control compression,
+actual linker objects and independent targets gate native Data credit. The
+656 unexplained external bytes stay raw and unmatched.
+
+
+### Complete ADPCM samples
+
+[Complete PCM sample reconstruction](evidence/data-layout/us_adpcm_complete_reconstruction.md)
+produces 2,258 sample units totaling 21,705,520 bytes, covering the entire native
+sample-storage entry. PCM16 sources and 115 Float32 sources with retained
+pre-saturation headroom derive fresh residual nibbles. Native lengths determine
+8,131 bytes of zero alignment. Actual linker objects and independent targets
+gate native Data credit. Recovery can back up one sample or the complete source
+tree before restoring reviewed inputs.
+
+ADPCM source decoding and fresh report encoding use process workers, controlled
+by `CONKER_JOBS` (default four). Build batches reuse verified unchanged sample
+outputs, while reports always encode current sources independently of those
+build receipts. See the [review follow-up](evidence/data-layout/us_asset_review_followup.md)
+for cache invalidation, recovery and regression-test details.

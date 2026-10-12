@@ -2,17 +2,15 @@
 from __future__ import annotations
 
 import hashlib
-import functools
 import json
 import re
 import struct
-import subprocess
 import tempfile
-import zlib
 from pathlib import Path
 
 try:
     from scripts import texture_assets, texture_catalog, texture_rgba16, texture_native, rzip_pack
+    from scripts import rzip_gzip
     from scripts.build_files import write_if_changed
     from scripts.profile_config import load_profile
 except ModuleNotFoundError:
@@ -21,6 +19,7 @@ except ModuleNotFoundError:
     import texture_rgba16
     import texture_native
     import rzip_pack
+    import rzip_gzip
     from build_files import write_if_changed
     from profile_config import load_profile
 
@@ -107,31 +106,12 @@ def describe_texture(rom: bytes, texture: texture_assets.TextureAsset, *, encode
     return expected
 
 
-@functools.lru_cache(maxsize=1)
-def require_gnu_gzip() -> None:
-    version = subprocess.check_output(['gzip', '--version'], text=True).splitlines()[0]
-    if version != 'gzip 1.12':
-        raise ValueError('texture reconstruction requires GNU gzip 1.12; use ./conker texture-assets build')
-
-
 def encode_payload(payload: bytes, expected: dict) -> bytes:
     if expected['encoder'] == ENCODERS['zlib']:
         return rzip_pack.encode_rzip_chunk(payload)
     if expected['encoder'] != ENCODERS['gzip']:
         raise ValueError('unsupported texture encoder contract')
-    require_gnu_gzip()
-    gz = subprocess.run(['gzip', '-n', '-9', '-c'], input=payload,
-                        stdout=subprocess.PIPE, check=True).stdout
-    # GNU -n emits a fixed ten-byte header with no optional fields. Retain only
-    # freshly encoded DEFLATE, not the gzip wrapper or any original ROM bytes.
-    if (len(gz) < 18 or gz[:8] != bytes.fromhex('1f8b080000000000')
-            or struct.unpack('<II', gz[-8:]) != (zlib.crc32(payload), len(payload) & 0xffffffff)):
-        raise ValueError('unexpected GNU gzip wrapper or checksum')
-    packed = struct.pack('>I', len(payload)) + gz[10:-8]
-    decoded = rzip_pack.decode_rzip_chunk(packed)
-    if decoded.data != payload or decoded.consumed != len(packed):
-        raise ValueError('GNU gzip texture output did not round-trip')
-    return packed
+    return rzip_gzip.encode_payload(payload, 9)
 
 
 def source_png(data: bytes, expected: dict, *, decode: bool = False) -> bytes:
