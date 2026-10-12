@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1179B0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150EA5CC
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct {
@@ -95,14 +90,13 @@ void *func_151303BC(s32, u8, s32);
 extern f32 D_800A143C, D_800A1440, D_800A1444, D_800A1448;
 extern f32 D_800A144C, D_800A1450, D_800A1454, D_800A1458;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EA5CC CURRENT (596) */
 void func_150EA5CC(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
                   f32 arg4, f32 arg5) {
     Game1179B0Burst burst;
     void *spawned;
     Game1179B0BurstMotion motion;
-    motion.sourceScale = 1000.0f;
     burst.z = arg2;
+    motion.sourceScale = 1000.0f;
     motion.speed = 4.0f;
     motion.damping = 0.25f;
     burst.kind = 0x2F;
@@ -137,9 +131,9 @@ void func_150EA5CC(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
     motion.mode1 = 0;
     motion.mode2 = 0;
     motion.mode3 = 0;
-    burst.vx = -arg3 * D_800A143C;
+    burst.vx = -arg3 * 0.2f;
     burst.vy = 0.0f;
-    burst.vz = -arg5 * D_800A143C;
+    burst.vz = -arg5 * 0.2f;
     if (func_150ADA20() & 1) burst.mode |= 0x40;
     if (func_150ADA20() & 1) burst.mode |= 0x80;
     burst.lifetime = func_150ADA20() % 51U + 106;
@@ -157,5 +151,3 @@ void func_150EA5CC(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
     spawned = func_151303BC((s32)&burst, 2, 0x28);
     if (spawned != NULL) func_10022EC0((u8 *)spawned + 0xA8, &motion, 0x28);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150EA5CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1179B0/func_150EA5CC.s")

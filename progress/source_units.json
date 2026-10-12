@@ -15013,15 +15013,15 @@
         "func_150EA500",
         "func_150EA5CC"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xEA8E0",
           "start": "0xEA500",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1179B0.c"
+      "source": "src/done/game/game_1179B0.c"
     },
     {
       "boundary_evidence": {

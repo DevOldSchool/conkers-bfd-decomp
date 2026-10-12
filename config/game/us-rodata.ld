@@ -34,6 +34,10 @@ SECTIONS
     {
         *game_F3BA0.o(.rodata)
     }
+    .game_rodata_1179b0 0x800A143C (INFO) : SUBALIGN(4)
+    {
+        *game_1179B0.o(.rodata)
+    }
     .game_rodata_1d6e80 0x800A8FF4 (INFO) : SUBALIGN(4)
     {
         *game_1D6E80.o(.rodata)
@@ -207,3 +211,7 @@ __game_rodata_f3ba0_payload_size = 0x4;
 ASSERT(SIZEOF(.game_rodata_1d6e80) == 0x10,
        "game_1D6E80 velocity literal extent changed")
 __game_rodata_1d6e80_payload_size = 0x4;
+
+ASSERT(SIZEOF(.game_rodata_1179b0) == 0x10,
+       "game_1179B0 velocity literal extent changed")
+__game_rodata_1179b0_payload_size = 0x4;

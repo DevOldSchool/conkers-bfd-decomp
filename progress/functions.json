@@ -78062,26 +78062,25 @@
           "vram": "0x150EA500"
         }
       },
-      "source": "src/game/game_1179B0.c",
+      "source": "src/done/game/game_1179B0.c",
       "symbol": "func_150EA500"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 596,
-        "reason": "CURRENT 596 after two finishes and two probe batches; correct B8 frame and packet offsets, unresolved opening multiplier promotion and float initialization scheduling. Global snapshot and initialization-order hypotheses exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 788,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150EA5CC",
           "vram": "0x150EA5CC"
         }
       },
-      "source": "src/game/game_1179B0.c",
+      "source": "src/done/game/game_1179B0.c",
       "symbol": "func_150EA5CC"
     },
     {

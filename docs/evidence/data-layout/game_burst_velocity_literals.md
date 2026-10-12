@@ -1,15 +1,18 @@
 # US burst velocity literals
 
-Three previously deferred burst constructors share the same instruction pattern
+Four previously deferred burst constructors share the same velocity calculation
 and use a single-precision velocity multiplier of `0.2f`. The independent US
 assembly loads the constant into `$f2` in the prologue. A named snapshot of an
 extern float placed the load later; direct literal expressions reproduce the
-original scheduling. No compiler flags, assembly or comparison rules changed.
+original scheduling. `func_150EA5CC` also initializes `burst.z` before its
+1000.0 source-scale field to reproduce the original temporary allocation.
+No compiler flags, assembly or comparison rules changed.
 
 | Function | Source object | Registered text span | Constant address | Game-data offset |
 | --- | --- | --- | --- | --- |
 | `func_150C60D8` | `game_F3270.o` | `[0x150C60D8, 0x150C63EC)` | `0x800A041C` | `0x1D8FC` |
 | `func_150C6A08` | `game_F3BA0.o` | `[0x150C6A08, 0x150C6D1C)` | `0x800A045C` | `0x1D93C` |
+| `func_150EA5CC` | `game_1179B0.o` | `[0x150EA5CC, 0x150EA8E0)` | `0x800A143C` | `0x1E91C` |
 | `func_151AB3A4` | `game_1D6E80.o` | `[0x151AB3A4, 0x151AB6B8)` | `0x800A8FF4` | `0x264D4` |
 
 `rom_game_data()` from `scripts/verify_game_rodata.py` normalizes and validates
@@ -21,7 +24,8 @@ Each compiled object has the complete `.rodata` input
 `3e4ccccd000000000000000000000000`: a four-byte payload followed by twelve zero
 alignment bytes. The sole literal HI16/LO16 relocation pair is at object text
 offsets `0x48`/`0x50` for `game_F3270.o` and `game_F3BA0.o`, and
-`0x320`/`0x328` for `game_1D6E80.o`. These are function-relative offsets
+`0xD0`/`0xD8` for `game_1179B0.o`, and `0x320`/`0x328` for
+`game_1D6E80.o`. These are function-relative offsets
 `0x4`/`0xC`, matching the raw prologue loads.
 
 The INFO sections in `config/game/us-rodata.ld` place each input at its original
