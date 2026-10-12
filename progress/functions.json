@@ -86071,6 +86071,12 @@
       "symbol": "func_1512B630"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5433,
+        "reason": "Manual budget exhausted: 6865 -> 5568 -> 5433 across three finishes and two bounded revision probe batches. Branch-local float stores recovered; constant 2 hoisting adds an 8-byte saved-register frame versus reference leaf. Table base/row GPR allocation, branch scheduling, repeated constant loads and final float register lifetimes remain nonexact.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
