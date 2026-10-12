@@ -45,3 +45,31 @@ The [UI data reconstruction](us_debugger_data_reconstruction.md) supplies the
 other 4,256 bytes. The [TLB routine](us_debugger_tlb.md) remains verified original
 assembly. Its maintained source can earn native matching and linked completion
 without changing C-only inventory credit.
+
+## Remaining native comparison blocker
+
+The official objdiff v3.8.1 data comparison bounds the displayed/compared byte
+range by the last non-hidden, non-section symbol. See upstream
+[`diff_data_section`](https://github.com/encounter/objdiff/blob/v3.8.1/objdiff-core/src/diff/data.rs).
+The actual formatter candidate has 352 `.rodata` bytes, but its last ELF data
+symbol ends at offset `0x7A` (the string at `0x16004878`). The independently
+assembled reference's last payload ends at `0x158` (the double at `0x16004950`).
+IDO emits the intervening switch table and double without ELF object symbols.
+They remain in the actual candidate section and in the verified runtime image.
+The stock comparison therefore treats their reference bytes as unmatched; this
+is not evidence that those allocated runtime bytes differ.
+
+Two bounded, ignored source experiments tested an explicit C definition for the
+existing `1e8` literal. A named scalar moved storage into `.data`; a one-element
+constant array moved the double before the switch table and changed instruction
+scheduling. Both failed exact object comparison and were discarded. The canonical
+formatter source and compiler settings remain unchanged. No hand-written switch
+assembly, invented comparison symbol, shortened section or relaxed completion
+rule was adopted. The native 100% linked goal remains unmet until the formatter
+can satisfy the stock comparison without compromising its independent match.
+
+The same saved formatter objects were also compared with the official v3.8.2
+macOS ARM64 release, downloaded separately and checked against its published
+SHA-256 `767c67e13b7b5e6ca545e7d2235e47c7bceac07d47a52776f74a52914cb4085a`.
+It produced the same 34.52381% section comparison for `.rodata`. The repository
+pin remains v3.8.1; upgrading to the tested release does not resolve this blocker.

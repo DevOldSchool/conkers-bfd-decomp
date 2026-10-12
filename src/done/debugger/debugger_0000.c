@@ -905,7 +905,11 @@ s32 func_16001A6C(f32 value) {
 void func_16001AB0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 
-/* Initialized state layout: docs/evidence/debugger/us_debugger_source_units.md. */
+/* Initialized state layout: docs/evidence/debugger/us_debugger_source_units.md.
+ * Reconstructed storage has named definitions, including unresolved reserved
+ * words. Global visibility preserves their symbols in IDO ELF output; it does
+ * not establish the original source linkage or assign meaning to reserved data.
+ */
 DebuggerControllerPad D_160036F0[4] = {{0, 0, 0, 0}};
 extern const u8 D_16003FE0[];
 extern const u8 D_16003FE4[];
@@ -1017,7 +1021,7 @@ extern const u8 D_160047E8[];
 extern const u8 D_160047F0[];
 extern const u8 D_160047F4[];
 const u8 * D_16003708[57] = {D_16003FE0, D_16003FE4, D_16003FF4, D_16004000, D_16004010, D_1600401C, D_16004024, D_16004030, D_16004038, D_16004048, D_16004058, D_16004070, D_1600407C, D_1600408C, D_160040A4, D_160040B0, D_160040BC, D_160040D4, D_160040F0, D_1600411C, D_16004154, D_16004170, D_16004190, D_160041B0, D_160041D4, D_160041EC, D_16004218, D_16004244, D_16004274, D_16004298, D_160042C4, D_160042E8, D_16004304, D_1600431C, D_16004330, D_16004340, D_1600434C, D_16004364, D_16004378, D_16004398, D_160043C8, D_160043EC, D_16004410, D_16004428, D_16004440, D_16004454, D_16004474, D_16004494, D_160044B4, D_160044D0, D_160044F0, D_16004514, D_16004534, D_16004554, D_16004570, D_16004588, D_160045A0};
-static u32 debuggerReserved37EC = 0;
+u32 debuggerReserved37EC = 0;
 u8 D_160037F0[85] = {
     118, 48, 10, 118, 49, 12, 97, 48, 14, 97, 49, 16, 97, 50, 18, 97, 51, 20, 116, 48, 22, 116, 49, 24, 116, 50, 26, 116, 51, 28, 116, 52, 30, 116, 53, 32, 116, 54, 34, 116, 55, 36, 116, 56, 54, 116, 57, 56, 115, 48, 38, 115, 49, 40, 115, 50, 42, 115, 51, 44, 115, 52, 46, 115, 53, 48, 115, 54, 50, 115, 55, 52, 115, 56, 62, 115, 112, 60, 103, 112, 58, 114, 97, 64, 0
 };
@@ -1035,16 +1039,16 @@ u32 D_160038AC[32] = {0};
 u32 D_1600392C[32] = {0};
 u32 D_160039AC[32] = {0};
 u32 D_16003A2C[32] = {0};
-static u32 debuggerReserved3AAC[17] = {0};
+u32 debuggerReserved3AAC[17] = {0};
 s32 D_16003AF0 = 1;
 u8 D_16003AF4 = 0;
 void (*D_16003AF8[4])(void) = {func_16000000, func_16000058, func_16000314, func_1600078C};
 s32 (*D_16003B08[4])(void) = {func_16000028, func_16000224, func_16000384, func_16000A5C};
-static u32 debuggerReserved3B18 = 0x80500000;
+u32 debuggerReserved3B18 = 0x80500000;
 s8 D_16003B1C = 0;
 const u8 * D_16003B20[2] = {D_160046BC, D_160046C8};
 s8 D_16003B28 = 0;
-static u32 debuggerReserved3B2C = 0;
+u32 debuggerReserved3B2C = 0;
 const u8 * D_16003B30[6] = {D_16004754, D_16004760, D_1600476C, D_16004778, D_16004784, D_16004790};
 DebuggerLabel D_16003B48 = {{0, 0, 0x20, 0}};
 s32 D_16003B4C = 0;
@@ -1056,12 +1060,12 @@ typedef struct {
     u32 coefficients[18];
     u32 reserved;
 } DebuggerVideoRecord;
-static DebuggerVideoRecord debuggerVideoRecords[3] = {
+DebuggerVideoRecord debuggerVideoRecords[3] = {
     {30, {0x00000140, 0x0404233A, 0x00000271, 0x00150C69, 0x0C6F0C6E, 0x00800300, 0x00000200, 0x00000000, 0x00000280, 0x00000400, 0x005F0239, 0x0009026B, 0x00000002, 0x00000280, 0x00000400, 0x005F0239, 0x0009026B, 0x00000002}, 0},
     {30, {0x00000140, 0x04651E39, 0x0000020D, 0x00040C11, 0x0C190C1A, 0x006C02EC, 0x00000200, 0x00000000, 0x00000280, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x00000280, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002}, 0},
     {62, {0x00000124, 0x03E52239, 0x0000020D, 0x00000C15, 0x0C150C15, 0x008C02D5, 0x00000200, 0x00000000, 0x00000248, 0x00000400, 0x003D01E8, 0x000E0204, 0x00000002, 0x00000248, 0x00000400, 0x003D01E8, 0x000E0204, 0x00000002}, 0},
 };
-static u32 debuggerReserved3C68[2] = {0};
+u32 debuggerReserved3C68[2] = {0};
 
 /* Locally extracted, editable glyph pixels and text stay ignored. */
 #include "debugger-assets/ui.inc.c"

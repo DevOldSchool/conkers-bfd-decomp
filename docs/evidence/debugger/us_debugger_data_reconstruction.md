@@ -48,7 +48,7 @@ The independent allocated-image check establishes byte equality separately from
 objdiff's symbol-based data matching. TLB completion is separately proved as
 [maintained original assembly](us_debugger_tlb.md), excluded from C-only statistics.
 
-## Stock objdiff validation after review
+## Stock objdiff validation after review at `49dfab93`
 
 The locally patched objdiff implementation and its 100% data/completion claims
 have been withdrawn. The repository uses the checksum-pinned official v3.8.1
@@ -127,10 +127,66 @@ Temporarily removing its generated TLB reference left the real saved snapshot
 `current`; the reference was restored afterward. Its hash remains checked
 during report generation. Removing `build/` itself also removes the local report.
 
-Current source fingerprint:
+Source fingerprint for that review:
 `684f55ea7b05ee0843899da4895dd45187e8f8639ec588ca7f7f8554a975ef2f`.
 Native report SHA-256:
 `aec19065a12749ad0b555ee9856209456ef4e6244028cfa4652074c5bd894aec`.
 Preparation took 302.00 seconds and report/validation
 13.88 seconds. Logs: `review2-tests.log`,
 `review2-assets.log`, and `review2-report.log` in the local evidence directory.
+
+## UI symbol-boundary matching continuation
+
+The next pass corrects the UI's reference payload boundaries using the existing
+ROM/access map: 109 strings end at their first NUL, and the glyph array contains
+96 eight-byte glyphs. The state scalars, arrays and pointer tables use the
+reviewed reconstruction's extents. This prevents inferred symbols from absorbing
+neighbors or compiler alignment. No section bytes are removed.
+
+Six existing C definitions (five reserved-storage objects and the three-element
+video-record array) now have global visibility so IDO retains their names in the
+ELF symbol table. Their initializers, placement and bytes are unchanged. This is
+a choice for the maintained reconstruction, not evidence of original source
+linkage. Reserved words remain unresolved; their names do not assert their
+original purpose or allocation. No symbol is injected into a compiled object.
+
+Stock objdiff compares both complete UI sections at 100% after these changes.
+An independent temporary reference link still reproduces all 4,720 original data
+bytes. Comparing the old and new UI objects confirms identical `.text`, `.data`
+and `.rodata` contents. Runtime verification additionally resolves all pointers
+and checks the full allocated image against the US ROM.
+
+The formatter remains a separate blocker; see the [bounded source experiments
+and native comparison limits](debugger_printf_rodata.md#remaining-native-comparison-blocker).
+PR #102 remains a draft until the requested native linked completion is achieved.
+
+### Verified continuation result
+
+Tested `49dfab93c011bc624fbae080398a763958f69963` plus the UI definitions and
+canonical symbol metadata described above:
+
+| Debugger measure | Official v3.8.1 result |
+| --- | ---: |
+| Matching code | 14,040 / 14,040 bytes (100%) |
+| Matching initialized data | 4,368 / 4,720 bytes (92.54237%) |
+| Linked code | 7,008 / 14,040 bytes (49.91453%) |
+| Linked initialized data | 4,256 / 4,720 bytes (90.16949%) |
+| Complete units | 2 / 3 |
+
+The UI unit independently reaches 100% matching and linked code/data. The
+formatter is the only debugger completion downgrade; TLB remains 100% matching
+and linked in its Original assembly category. The completion policy is unchanged.
+
+All 38 registered C functions passed fresh full-span `CURRENT (0)` checks.
+The clean 39-item debugger batch returned `BATCH_COMPLETE`, including the full
+TLB span proof, layout, progress and whitespace gates, a byte-identical ordinary
+US ROM and 2,502 tests run with eight skips. The additional `./conker build
+--assets` returned a byte-identical US ROM in 105 seconds. No formatter C body,
+TLB instruction, compiler flag, shared header or objdiff implementation changed.
+
+The final report passed native round-trip, coverage and source/object hash
+validation, with no compile errors; the snapshot reader returned `current`.
+Its source fingerprint is `bb0f1b2901608b808703ba65a540d403b32969785fd482d4dc07b0ce913a4693`;
+native report SHA-256 is `0d982015254daae703b8347c1812fd7f7aa85c3d8c11afdd216a053060a7ae8f`.
+Logs and rejected experiments remain ignored under
+`build/us/manual-attempts/debugger-completion/linked-*`.
