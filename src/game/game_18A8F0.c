@@ -15,7 +15,6 @@
  * - func_1515E43C
  * - func_1515E544
  * - func_1515E888
- * - func_1515EB84
  * - func_1515EC78
  * - func_1515F040
  * - func_1515F0AC
@@ -480,16 +479,15 @@ typedef struct Game18A8F0SearchNode {
 
 s32 func_150A1DA0(Game18A8F0SearchActor *, Game18A8F0SearchEntry *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515EB84 CURRENT (20) */
-void *func_1515EB84(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
+Game18A8F0ColorResult *func_1515EB84(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
                     Game18A8F0SearchNode *arg4) {
     Game18A8F0SearchActor actor;
     Game18A8F0SearchEntry *entry;
 
+    actor.x = (f32)arg0;
     actor.y = (f32)arg1;
     actor.field_180 = (f32)arg1;
     actor.field_30 = (f32)arg1;
-    actor.x = (f32)arg0;
     actor.field_2C = (f32)arg0;
     actor.z = (f32)arg2;
     actor.field_34 = (f32)arg2;
@@ -501,15 +499,13 @@ void *func_1515EB84(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
                 (((entry->field_15 >> 2) == 0x18) ||
                  ((entry->flags_18 >> 31) == 0)) &&
                 (func_150A1DA0(&actor, entry, 0) == 0)) {
-                return arg4->entry;
+                return (Game18A8F0ColorResult *)arg4->entry;
             }
             arg4 = arg4->next;
         } while (arg4 != 0);
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515EB84 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515EB84.s")
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 f32 sqrtf(f32);
 #pragma intrinsic (sqrtf)

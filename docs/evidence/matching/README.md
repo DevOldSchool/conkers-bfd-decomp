@@ -6,6 +6,8 @@ Start with the [conversion audit](matching_conversion_audit.md) for the distinct
 
 ## Records
 
+- [Five deferred matches and tooling timing, 2026-10-12](deferred_five_timing_20261012.md)
+
 - [Actor playback-rate update (US)](actor_rate_matching.md)
 - [Actor update and related manual follow-ups (US)](actor_update_matching.md)
 - [Blocked-function recovery evidence (US)](blocked_function_recovery.md)

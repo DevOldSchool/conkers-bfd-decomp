@@ -12,7 +12,6 @@
  * - func_1513CAD4
  * - func_1513CBF0
  * - func_1513CFE4
- * - func_1513D2F0
  * - func_1513D6FC
  * - func_1513DB00
  * - func_1513E084
@@ -671,7 +670,6 @@ typedef struct Game169510Effect {
 void func_100226F0(void *, s32);
 extern f32 D_800A5184;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513D2F0 CURRENT (10) */
 void *func_1513D2F0(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4,
     u8 arg5, u8 arg6, s32 arg7, s32 arg8, s32 arg9, u8 arg10, s32 arg11) {
     Game169510Effect *effect;
@@ -680,7 +678,7 @@ void *func_1513D2F0(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4,
     s32 kind;
     s32 flags;
     s32 count;
-    f32 scale;
+    void *allocation;
 
     flags = *(s32 *)(arg0 + 0x40);
     if (flags & 0x800000) {
@@ -695,7 +693,8 @@ void *func_1513D2F0(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4,
     } else {
         count = 1;
     }
-    effect = func_15167A68(kind, arg11, arg9 + 0x110, 1, arg10, count);
+    allocation = func_15167A68(kind, arg11, arg9 + 0x110, 1, arg10, count);
+    effect = allocation;
     if (effect == 0) {
         return 0;
     }
@@ -711,13 +710,12 @@ void *func_1513D2F0(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4,
     func_151400D0(cursor, (void *)arg1);
     effect->active = 1;
     effect->state = 0;
-    scale = D_800A5184;
+    effect->scale = D_800A5184;
     effect->field98 = 0;
     effect->flag95 = 0;
     effect->flag94 = 0;
     effect->field90 = 0;
     effect->resource = arg7;
-    effect->scale = scale;
     effect->fieldB8 = arg8;
     effect->flagA0 = 0;
     index = 0;
@@ -742,8 +740,6 @@ void *func_1513D2F0(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4,
     }
     return effect;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513D2F0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513D2F0.s")
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 
 void func_1513D4B8(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u8 arg6, s32 arg7, u8 arg8, s32 arg9) {

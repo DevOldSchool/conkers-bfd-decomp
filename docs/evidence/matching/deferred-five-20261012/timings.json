@@ -1,0 +1,431 @@
+{
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "platform": "Linux-7.0.14-linuxkit-aarch64-with-glibc2.39",
+  "records": [
+    {
+      "identifier": "func_151D3354",
+      "size_bytes": 100,
+      "generated": 7,
+      "generation_s": 0.003197291999981644,
+      "samples": [
+        {
+          "compile_s": 0.01524195799993322,
+          "score_s": 0.2329677500000571,
+          "score": 5
+        },
+        {
+          "compile_s": 0.01314866699999584,
+          "score_s": 0.22029837500008398,
+          "score": 5
+        },
+        {
+          "compile_s": 0.012459625000019514,
+          "score_s": 0.23676737599998887,
+          "score": 5
+        },
+        {
+          "compile_s": 0.015750207999985832,
+          "score_s": 0.22536091699998906,
+          "score": 5
+        },
+        {
+          "compile_s": 0.011723749999987376,
+          "score_s": 0.21518700000001445,
+          "score": 5
+        }
+      ],
+      "compile_command": [
+        "/opt/ido/cc",
+        "-c",
+        "-32",
+        "-G",
+        "0",
+        "-Xfullwarn",
+        "-Xcpluscomm",
+        "-signed",
+        "-nostdinc",
+        "-non_shared",
+        "-Wab,-r4300_mul",
+        "-D_LANGUAGE_C",
+        "-D_FINALROM",
+        "-D_MIPS_SZLONG=32",
+        "-DPROFILE_US=1",
+        "-I",
+        "include",
+        "-I",
+        "lib/ultralib/include",
+        "-O2",
+        "-g3",
+        "-mips2",
+        "-o",
+        "/workspace/build/us/manual-attempts/deferred-five-timings/benchmark/func_151D3354/candidate.o",
+        "/workspace/build/us/manual-attempts/deferred-five-timings/benchmark/func_151D3354/candidate.c"
+      ],
+      "score_command": [
+        "python3",
+        "/workspace/scripts/diff.py",
+        "--asm-differ",
+        "-o",
+        "-f",
+        "/workspace/build/us/manual-attempts/deferred-five-timings/benchmark/func_151D3354/candidate.o",
+        "-F",
+        "/workspace/build/us/reference-objects/build/m2c/asm/func_151D3354.o",
+        "--max-lines",
+        "25",
+        "--no-pager",
+        "--format",
+        "json",
+        "func_151D3354"
+      ]
+    },
+    {
+      "identifier": "func_15002754",
+      "size_bytes": 164,
+      "generated": 9,
+      "generation_s": 0.0026727919999984806,
+      "samples": [
+        {
+          "compile_s": 0.012531250000051841,
+          "score_s": 0.22414112500007377,
+          "score": 200
+        },
+        {
+          "compile_s": 0.010933083000054467,
+          "score_s": 0.21573129099999733,
+          "score": 200
+        },
+        {
+          "compile_s": 0.012289084000030925,
+          "score_s": 0.21311850000006416,
+          "score": 200
+        },
+        {
+          "compile_s": 0.010556917000030808,
+          "score_s": 0.21312829200007855,
+          "score": 200
+        },
+        {
+          "compile_s": 0.012267083999972783,
+          "score_s": 0.22262000000000626,
+          "score": 200
+        }
+      ],
+      "compile_command": [
+        "/opt/ido/cc",
+        "-c",
+        "-32",
+        "-G",
+        "0",
+        "-Xfullwarn",
+        "-Xcpluscomm",
+        "-signed",
+        "-nostdinc",
+        "-non_shared",
+        "-Wab,-r4300_mul",
+        "-D_LANGUAGE_C",
+        "-D_FINALROM",
+        "-D_MIPS_SZLONG=32",
+        "-DPROFILE_US=1",
+        "-I",
+        "include",
+        "-I",
+        "lib/ultralib/include",
+        "-O2",
+        "-g3",
+        "-mips2",
+        "-o",
+        "/workspace/build/us/manual-attempts/deferred-five-timings/benchmark/func_15002754/candidate.o",
+        "/workspace/build/us/manual-attempts/deferred-five-timings/benchmark/func_15002754/candidate.c"
+      ],
+      "score_command": [
+        "python3",
+        "/workspace/scripts/diff.py",
+        "--asm-differ",
+        "-o",
+        "-f",
+        "/workspace/build/us/manual-attempts/deferred-five-timings/benchmark/func_15002754/candidate.o",
+        "-F",
+        "/workspace/build/us/reference-objects/build/m2c/asm/func_15002754.o",
+        "--max-lines",
+        "41",
+        "--no-pager",
+        "--format",
+        "json",
+        "func_15002754"
+      ]
+    },
+    {
+      "identifier": "func_1514401C",
+      "size_bytes": 392,
+      "generated": 32,
+      "generation_s": 0.026681250000024193,
+      "samples": [
+        {
+          "compile_s": 0.0237390829998958,
+          "score_s": 0.22907912499999838,
+          "score": 320
+        },
+        {
+          "compile_s": 0.022749290999968252,
+          "score_s": 0.22839637599997786,
+          "score": 320
+        },
+        {
+          "compile_s": 0.020148167000002104,
+          "score_s": 0.21815304199992624,
+          "score": 320
+        },
+        {
+          "compile_s": 0.020155208000005587,
+          "score_s": 0.22086445800005094,
+          "score": 320
+        },
+        {
+          "compile_s": 0.022039999999947213,
+          "score_s": 0.21761312600006022,
+          "score": 320
+        }
+      ],
+      "compile_command": [
+        "/opt/ido/cc",
+        "-c",
+        "-32",
+        "-G",
+        "0",
+        "-Xfullwarn",
+        "-Xcpluscomm",
+        "-signed",
+        "-nostdinc",
+        "-non_shared",
+        "-Wab,-r4300_mul",
+        "-D_LANGUAGE_C",
+        "-D_FINALROM",
+        "-D_MIPS_SZLONG=32",
+        "-DPROFILE_US=1",
+        "-I",
+        "include",
+        "-I",
+        "lib/ultralib/include",
+        "-O2",
+        "-g3",
+        "-mips2",
+        "-o",
+        "/workspace/build/us/manual-attempts/deferred-five-timings/benchmark/func_1514401C/candidate.o",
+        "/workspace/build/us/manual-attempts/deferred-five-timings/benchmark/func_1514401C/candidate.c"
+      ],
+      "score_command": [
+        "python3",
+        "/workspace/scripts/diff.py",
+        "--asm-differ",
+        "-o",
+        "-f",
+        "/workspace/build/us/manual-attempts/deferred-five-timings/benchmark/func_1514401C/candidate.o",
+        "-F",
+        "/workspace/build/us/reference-objects/build/m2c/asm/func_1514401C.o",
+        "--max-lines",
+        "98",
+        "--no-pager",
+        "--format",
+        "json",
+        "func_1514401C"
+      ]
+    }
+  ],
+  "cached_scoring": [
+    {
+      "identifier": "func_151D3354",
+      "cache_fill_s": 0.5893377090001195,
+      "warm_samples": [
+        {
+          "seconds": 0.10798379099992417,
+          "score": 5
+        },
+        {
+          "seconds": 0.10621387499986668,
+          "score": 5
+        },
+        {
+          "seconds": 0.10877879199983909,
+          "score": 5
+        },
+        {
+          "seconds": 0.12025166600005832,
+          "score": 5
+        },
+        {
+          "seconds": 0.11566500000003543,
+          "score": 5
+        }
+      ]
+    },
+    {
+      "identifier": "func_15002754",
+      "cache_fill_s": 0.11836041700007627,
+      "warm_samples": [
+        {
+          "seconds": 0.10990895800000544,
+          "score": 200
+        },
+        {
+          "seconds": 0.10724387499999466,
+          "score": 200
+        },
+        {
+          "seconds": 0.10645420799983185,
+          "score": 200
+        },
+        {
+          "seconds": 0.11136708399999407,
+          "score": 200
+        },
+        {
+          "seconds": 0.10658041600004253,
+          "score": 200
+        }
+      ]
+    },
+    {
+      "identifier": "func_1514401C",
+      "cache_fill_s": 0.1216347089998635,
+      "warm_samples": [
+        {
+          "seconds": 0.1226987499999268,
+          "score": 320
+        },
+        {
+          "seconds": 0.11468954200017834,
+          "score": 320
+        },
+        {
+          "seconds": 0.13208895799994025,
+          "score": 320
+        },
+        {
+          "seconds": 0.1240104999999403,
+          "score": 320
+        },
+        {
+          "seconds": 0.12329120800018245,
+          "score": 320
+        }
+      ]
+    }
+  ],
+  "base_revision": "094102644c4c2f5aefaa0fc4b609416918f66f58",
+  "permuter_searches": [
+    {
+      "fingerprint": "23b10da6b27a054087780725d4500abfd78ea28fbd301d8e153a452f8a57c057",
+      "best_sha256": "49a8c471c5062cd333b44c22546117244d9039310fd88278b3fe8128ba0549ed",
+      "budget": 32,
+      "exhaustive": false,
+      "strategy": "general",
+      "generated": 32,
+      "compiled": 32,
+      "invalid": 0,
+      "improvements": 0,
+      "best_score": 320,
+      "stop_reason": "variants_exhausted",
+      "elapsed_seconds": 7.631125961999999,
+      "identifier": "func_1514401C",
+      "command_time_s": {
+        "real": 9.29,
+        "user": 0.94,
+        "sys": 0.17
+      }
+    },
+    {
+      "fingerprint": "6556e04deaade4fc3c67392cb04dd9f414993711524e1f5cbebfb1f578145f07",
+      "best_sha256": "ec28b5d266ad6e31cbb23e9408ff5a95702e8d71fa8f0aac4d4e13946d70fcd9",
+      "budget": 32,
+      "exhaustive": false,
+      "strategy": "general",
+      "generated": 9,
+      "compiled": 9,
+      "invalid": 0,
+      "improvements": 0,
+      "best_score": 200,
+      "stop_reason": "variants_exhausted",
+      "elapsed_seconds": 2.5611774180000566,
+      "identifier": "func_15002754",
+      "command_time_s": {
+        "real": 4.74,
+        "user": 1.01,
+        "sys": 0.22
+      }
+    },
+    {
+      "fingerprint": "138ee5c2cabd687ef3377c3657d355b3e350d5920ee264f34f454c6931179c87",
+      "best_sha256": "4114bfaccb47d538f25c994dd04d8640b292cf6df75e4773c7dc4af0449333fb",
+      "budget": 32,
+      "exhaustive": false,
+      "strategy": "general",
+      "generated": 7,
+      "compiled": 7,
+      "invalid": 0,
+      "improvements": 0,
+      "best_score": 5,
+      "stop_reason": "variants_exhausted",
+      "elapsed_seconds": 1.7691663760000438,
+      "identifier": "func_151D3354",
+      "command_time_s": {
+        "real": 3.86,
+        "user": 0.98,
+        "sys": 0.22
+      }
+    },
+    {
+      "fingerprint": "e8937b35ee07a4963eee80c5837c350fa62be73dd7e51f2b1059e1bf1004119e",
+      "best_sha256": "d6b77eedecac6ff5d5547cebebf818c6ece05bc2d53bc8d83a788b8a71399d2e",
+      "budget": 32,
+      "exhaustive": false,
+      "strategy": "general",
+      "generated": 8,
+      "compiled": 8,
+      "invalid": 0,
+      "improvements": 0,
+      "best_score": 30,
+      "stop_reason": "variants_exhausted",
+      "elapsed_seconds": 1.8007870419999108,
+      "identifier": "func_1515BE50",
+      "command_time_s": {
+        "real": 3.44,
+        "user": 0.95,
+        "sys": 0.17
+      }
+    }
+  ],
+  "acceptance": {
+    "status": "BATCH_COMPLETE",
+    "batch_real_s": 162.82,
+    "test_count": 2464,
+    "test_skips": 8,
+    "test_s": 115.292,
+    "matched_sources": [
+      {
+        "identifier": "func_1513D2F0",
+        "source": "src/game/game_169510.c",
+        "sha256": "ecc7d119c32a9e964edc45d55c6d34e0da20658273a054b66cbc2cef4c4f12ab"
+      },
+      {
+        "identifier": "func_1515EB84",
+        "source": "src/game/game_18A8F0.c",
+        "sha256": "261c7b8ddd5b48fa1d3a308f4256d61e90cbb12ba970c9efb3e66e89fc052d7d"
+      },
+      {
+        "identifier": "func_150A32B4",
+        "source": "src/game/game_CDE80.c",
+        "sha256": "f2aa6ba6bd44376a84a9361e818dc0487695de1a5801afb16377c66c90226c9c"
+      },
+      {
+        "identifier": "func_150BE850",
+        "source": "src/done/game/game_EBD00.c",
+        "sha256": "fbf5efedca9c7809467af80b346eb46abefe8f7faef6375891e77cf27607a8bb"
+      },
+      {
+        "identifier": "func_1515BE50",
+        "source": "src/game/game_1890A0.c",
+        "sha256": "2647829e950851c97a89ad680f548c8088df6fc3ed36550d6db76ab0ebcd739b"
+      }
+    ]
+  }
+}

@@ -23,7 +23,6 @@
  * - func_150A2FA4
  * - func_150A3058
  * - func_150A3194
- * - func_150A32B4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -828,28 +827,21 @@ s32 func_150A3194(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 
 s32 func_150A1DA0(GameCDE80Actor *, s32, s32); /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A32B4 CURRENT (70) */
 s32 func_150A32B4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     GameCDE80Actor actor;
-    f32 temp;
 
-    temp = (f32) arg3;
-    actor.z = temp;
-    actor.field34 = temp;
-    temp = (f32) arg2;
-    actor.y = temp;
-    actor.field180 = temp;
-    actor.field30 = temp;
-    temp = (f32) arg1;
-    actor.x = temp;
-    actor.field2C = temp;
+    actor.x = (f32)arg1;
+    actor.y = (f32)arg2;
+    actor.z = (f32)arg3;
+    actor.field34 = (f32)arg3;
+    actor.field180 = (f32)arg2;
+    actor.field30 = (f32)arg2;
+    actor.field2C = (f32)arg1;
     if (func_150A1DA0(&actor, arg0, 0) == 0) {
         return 1;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150A32B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A32B4.s")
 extern s32 D_800D3098;
 
 void func_150A3330(s32 arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4) {

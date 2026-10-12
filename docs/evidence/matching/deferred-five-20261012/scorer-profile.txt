@@ -1,0 +1,49 @@
+Mon Oct 12 10:41:36 2026    build/us/manual-attempts/deferred-five-timings/benchmark/func_1514401C/asm-diff.prof
+
+         196733 function calls (191367 primitive calls) in 0.237 seconds
+
+   Ordered by: cumulative time
+   List reduced from 1229 to 24 due to restriction <24>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    251/1    0.008    0.000    0.239    0.239 {built-in method builtins.exec}
+        1    0.000    0.000    0.239    0.239 /workspace/scripts/diff.py:1(<module>)
+   108/15    0.000    0.000    0.202    0.013 <frozen importlib._bootstrap_external>:989(exec_module)
+   332/36    0.000    0.000    0.198    0.005 <frozen importlib._bootstrap>:480(_call_with_frames_removed)
+   147/22    0.000    0.000    0.158    0.007 <frozen importlib._bootstrap>:1349(_find_and_load)
+   147/22    0.000    0.000    0.158    0.007 <frozen importlib._bootstrap>:1304(_find_and_load_unlocked)
+   134/21    0.000    0.000    0.155    0.007 <frozen importlib._bootstrap>:911(_load_unlocked)
+      108    0.000    0.000    0.135    0.001 <frozen importlib._bootstrap_external>:1062(get_code)
+       16    0.000    0.000    0.121    0.008 <frozen importlib._bootstrap_external>:1054(source_to_code)
+       27    0.121    0.004    0.121    0.004 {built-in method builtins.compile}
+        1    0.000    0.000    0.094    0.094 /workspace/scripts/diff.py:576(run_pinned_asm_differ)
+        1    0.000    0.000    0.068    0.068 /workspace/scripts/prepare_nonmatching_asm.py:1(<module>)
+        1    0.000    0.000    0.041    0.041 /opt/tools/asm-differ/diff.py:4566(main)
+        1    0.000    0.000    0.039    0.039 /opt/tools/asm-differ/diff.py:4446(main_late)
+     3139    0.002    0.000    0.032    0.000 /usr/lib/python3.12/re/__init__.py:280(_compile)
+      115    0.000    0.000    0.028    0.000 /usr/lib/python3.12/re/_compiler.py:740(compile)
+      246    0.000    0.000    0.028    0.000 /usr/lib/python3.12/re/__init__.py:226(compile)
+        1    0.000    0.000    0.025    0.025 /workspace/scripts/m2c.py:1(<module>)
+        1    0.000    0.000    0.024    0.024 /opt/tools/asm-differ/diff.py:1(<module>)
+        1    0.000    0.000    0.018    0.018 /workspace/scripts/candidate_tables.py:1(<module>)
+        1    0.000    0.000    0.017    0.017 /opt/tools/asm-differ/diff.py:4329(run_diff)
+       32    0.000    0.000    0.016    0.000 /usr/lib/python3.12/dataclasses.py:1257(wrap)
+       32    0.001    0.000    0.016    0.000 /usr/lib/python3.12/dataclasses.py:921(_process_class)
+      115    0.000    0.000    0.015    0.000 /usr/lib/python3.12/re/_parser.py:969(parse)
+
+
+Mon Oct 12 10:41:36 2026    build/us/manual-attempts/deferred-five-timings/benchmark/func_1514401C/asm-diff.prof
+
+         196733 function calls (191367 primitive calls) in 0.237 seconds
+
+   Ordered by: cumulative time
+   List reduced from 1229 to 7 due to restriction <'do_diff|diff_sequences|objdump'>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        2    0.000    0.000    0.009    0.005 /opt/tools/asm-differ/diff.py:1170(run_objdump)
+        1    0.001    0.001    0.008    0.008 /opt/tools/asm-differ/diff.py:3796(do_diff)
+        2    0.000    0.000    0.002    0.001 /opt/tools/asm-differ/diff.py:1199(preprocess_objdump_out)
+        1    0.000    0.000    0.000    0.000 /opt/tools/asm-differ/diff.py:3571(diff_sequences)
+        1    0.000    0.000    0.000    0.000 /opt/tools/asm-differ/diff.py:1152(maybe_get_objdump_source_flags)
+        2    0.000    0.000    0.000    0.000 /opt/tools/asm-differ/diff.py:1621(preprocess_objdump)
+        1    0.000    0.000    0.000    0.000 /opt/tools/asm-differ/diff.py:613(get_objdump_executable)
