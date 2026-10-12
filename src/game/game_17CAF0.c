@@ -1028,6 +1028,7 @@ typedef struct {
     s16 life, enabled;
     s32 active;
     u8 field14, fade, pad16[2];
+    u8 unknown18[4]; /* func_15147A80 copies the complete 0x1C-byte descriptor. */
 } Game152F70Spawn;
 typedef struct {
     f32 size;
@@ -1043,10 +1044,9 @@ typedef struct {
 } Game152F70Flags;
 
 void func_15152F70(Game152F70Config *arg0, u8 arg1) {
-    f32 speed;
     Game152F70Spawn spawn;
     Game152F70Motion motion;
-    f32 horizontal;
+    f32 speed;
     Game152F70Flags flags;
     f32 sinePitch;
     f32 cosinePitch;
@@ -1085,11 +1085,10 @@ void func_15152F70(Game152F70Config *arg0, u8 arg1) {
             spawn.fade = func_150ADA20() % (u32)(arg0->fadeRange + 1) + arg0->fadeBase;
             spawn.life = func_150ADA20() % (u32)(arg0->lifeRange + 1) + arg0->lifeBase;
             motion.size = func_150ADA68() * arg0->sizeRange + arg0->sizeBase;
-            horizontal = speed * sinePitch;
             motion.growth = func_150ADA68() * arg0->growthRange + arg0->growthBase;
-            motion.velocity.x = horizontal * cosineYaw;
+            motion.velocity.x = (speed * sinePitch) * cosineYaw;
             motion.velocity.y = -speed * cosinePitch;
-            motion.velocity.z = horizontal * sineYaw;
+            motion.velocity.z = (speed * sinePitch) * sineYaw;
             func_15147DA0(&spawn, &motion, 0, arg0->callbacks[0], arg0->callbacks[1],
                          arg0->callbacks[2], arg0->callbacks[3], arg0->callbacks[4],
                          arg0->callbacks[5], 0, 0, &flags, 0, (u8)arg1, 1);
