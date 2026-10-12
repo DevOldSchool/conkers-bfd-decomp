@@ -4165,8 +4165,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2652,
-        "reason": "CURRENT (2652), improved from 5809; exact 0x148 frame and descriptor offsets. Repeated rodata values still load late with different FP allocation; integer initialization scheduling differs. Two bounded probe batches exhausted; original assembly remains active.",
+        "current_score": 749,
+        "reason": "Improved2652 to749 with ROM-backed0.1f/0.05f reused locals; exact148 frame/preset28 and FP promotion. Remaining byte053/half0BA integer store ordering and GPR rotations. Three renewed probe batches/two finishes; adjacent float-store reordering unchanged. Literal mapping required when matched; no ABI/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -78195,17 +78195,16 @@
       "symbol": "func_150EA11C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 507,
-        "reason": "bounded packet/local variants exhausted; 12-byte packet stack base and call scheduling remain mismatched",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 132,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15192920",
           "vram": "0x15192920"
         }
@@ -78216,8 +78215,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1190,
-        "reason": "CURRENT (1190), improved from 1932, exact 0x108 frame and all addressed local offsets. FP load placement, promoted descriptor pointer and RNG integer register scheduling remain different after two bounded probe batches; original assembly remains active.",
+        "current_score": 550,
+        "reason": "Improved1190 to550 with ROM-backed -1.516f and zero before descriptor float initialization. Exact108 frame and FP sequence. Remaining RNG side snapshot moves and saved/GPR allocation. Three renewed probes/two finishes; register, unsigned and combined side variants unchanged. No ABI changes; literal mapping needed if matched.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -78233,17 +78232,16 @@
       "symbol": "func_151929A4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 146,
-        "reason": "Best candidate reached CURRENT (146); remaining mismatch is primarily an 8-byte frame/layout shift and related stack/register placement.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 168,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15192D48",
           "vram": "0x15192D48"
         }
@@ -79686,8 +79684,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1120,
-        "reason": "CURRENT (1120) after one finish call and two bounded probe batches. Exact0x110 frame and all addressed locals; speedScale is spilled instead of80.0f, with setup, FP and OR-register scheduling differences. Final scale-field variants did not improve; original ASM active.",
+        "current_score": 230,
+        "reason": "Improved 1120 to 230 with ROM-backed 0.001f (D_800A1374 bytes3a83126f); exact 0x110 frame and FP loop registers. Remaining zero materialization/packet address scheduling and two flags GPR rows. Three renewed probe batches and one finish; zero store ordering, chained/named zero, compound/left flags plateaued. Literal mapping required if later matched.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

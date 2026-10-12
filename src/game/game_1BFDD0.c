@@ -6,9 +6,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15192920
  * - func_151929A4
- * - func_15192D48
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -21,23 +19,21 @@ typedef struct Game1BFDD0Packet {
     f32 value;
 } Game1BFDD0Packet;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15192920 CURRENT (507) */
 void func_15192920(void *arg0) {
+    void *result;
     Game1BFDD0Packet packet;
-    s32 temp_v0;
 
-    if (arg0 != 0) {
-        packet.owner = arg0;
-        packet.type = *(u8 *)((u8 *)arg0 + 0x3B);
-        packet.value = 0.0f;
-        temp_v0 = func_151491F4(0x23, -1, 0x14, 1, 0x10, 0xC, 0xFF, 1);
-        if (temp_v0 != 0) {
-            func_10022EC0((void *)(temp_v0 + 0x28), &packet, 0xC);
-        }
+    if (arg0 == 0) {
+        return;
+    }
+    packet.owner = arg0;
+    packet.type = *(u8 *)((u8 *)arg0 + 0x3B);
+    packet.value = 0.0f;
+    result = func_151491F4(0x23, -1, 0x14, 1, 0x10, 0xC, 0xFF, 1);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x28, &packet, 0xC);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15192920 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BFDD0/func_15192920.s")
 typedef struct Game1BFDD0Emitter {
     s32 flags;
     s32 field04;
@@ -70,7 +66,7 @@ extern f32 D_800A818C;
 extern f32 D_800A8190;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151929A4 CURRENT (1190) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151929A4 CURRENT (550) */
 void func_151929A4(void *arg0) {
     void *result;
     s32 side;
@@ -106,10 +102,10 @@ void func_151929A4(void *arg0) {
         emitter.field1E = 0x14;
         emitter.field20 = 0xC;
         emitter.field22 = 0x23;
+        emitter.field54 = 0.0f;
         emitter.field24 = D_800A8188;
         extra = D_800A818C;
-        emitter.field54 = 0.0f;
-        scale = D_800A8190;
+        scale = -1.516f;
         do {
             side = func_150ADA20();
             side &= 1;
@@ -148,11 +144,9 @@ void func_151929A4(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151929A4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BFDD0/func_151929A4.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15192D48 CURRENT (146) */
 s32 func_15192D48(void *arg0, s16 arg1, u8 arg2, s32 arg3) {
+    void *result;
     Game1BFDD0Packet packet;
-    s32 temp_v0;
-    s32 var_v1;
 
     if (arg0 == 0) {
         return 0;
@@ -160,13 +154,9 @@ s32 func_15192D48(void *arg0, s16 arg1, u8 arg2, s32 arg3) {
     packet.owner = arg0;
     packet.type = *(u8 *)((u8 *)arg0 + 0x3B);
     packet.value = 0.0f;
-    temp_v0 = func_151491F4(arg1, -1, 0x18, 1, 0x16, 0xC, (s32)arg2, arg3);
-    var_v1 = temp_v0;
-    if (temp_v0 != 0) {
-        func_10022EC0((u8 *)temp_v0 + 0x28, &packet, 0xC);
-        var_v1 = temp_v0;
+    result = func_151491F4(arg1, -1, 0x18, 1, 0x16, 0xC, (s32)arg2, arg3);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x28, &packet, 0xC);
     }
-    return var_v1;
+    return (s32)result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15192D48 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BFDD0/func_15192D48.s")

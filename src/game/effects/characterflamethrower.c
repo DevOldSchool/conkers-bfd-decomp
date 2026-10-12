@@ -2280,13 +2280,17 @@ extern f32 D_800A8B68;
 extern f32 D_800A8B6C;
 extern f32 D_800A8B70;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519C9C4 CURRENT (2652) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519C9C4 CURRENT (749) */
 void func_1519C9C4(void *arg0) {
     void *result;
     CharacterFlamethrowerPreset preset;
     CharacterFlamethrowerIdentity *owner;
     CharacterFlamethrowerState *state;
+    f32 firstScale;
+    f32 secondScale;
 
+    firstScale = 0.1f;
+    secondScale = 0.05f;
     owner = *(CharacterFlamethrowerIdentity **)((u8 *)arg0 + 0x28);
     preset.values.field004 = owner;
     preset.values.field008 = owner->unk3B;
@@ -2356,20 +2360,20 @@ void func_1519C9C4(void *arg0) {
     preset.values.field09C = 7.0f;
     preset.values.field0A0 = -218.0f;
     preset.values.field0A4 = 150.0f;
-    preset.values.field0C4 = D_800A8AFC;
-    preset.values.field0C8 = D_800A8AFC;
+    preset.values.field0C4 = firstScale;
+    preset.values.field0C8 = firstScale;
     preset.values.field0DA = 0xAF;
     preset.values.field0DC = 0x16;
     preset.values.field0DE = 0xB;
     preset.values.field0E0 = 7.0f;
     preset.values.field0E4 = -218.0f;
     preset.values.field0E8 = 150.0f;
-    preset.values.field0EC = D_800A8B00;
+    preset.values.field0EC = secondScale;
     preset.values.field0F4 = 0x3C;
     preset.values.field0F6 = 0x14;
     preset.values.field0F8 = 0x9B;
     preset.values.field0FA = 0x64;
-    preset.values.field104 = D_800A8B00;
+    preset.values.field104 = secondScale;
     preset.values.field118 = 0x17;
     preset.values.field11A = 0xB;
     preset.values.field100 = 120.0f;

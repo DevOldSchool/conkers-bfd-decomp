@@ -378,7 +378,7 @@ typedef struct GameE8470State {
 
 extern f32 D_800A1368, D_800A136C, D_800A1370, D_800A1374;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E8470 CURRENT (1120) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E8470 CURRENT (230) */
 void func_150E8470(void *arg0) {
     void *result;
     GameE8470Descriptor packet;
@@ -418,7 +418,7 @@ void func_150E8470(void *arg0) {
         packet.field1C = 0xFF;
         packet.field24 = D_800A1370;
         packet.position = *(GameE81A8Position *)state;
-        speedScale = D_800A1374;
+        speedScale = 0.001f;
         packet.x3C = 0.0f;
         packet.y40 = 0.0f;
         packet.z44 = 0.0f;

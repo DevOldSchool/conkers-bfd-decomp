@@ -15087,7 +15087,7 @@
         "us": {
           "end": "0x192DF0",
           "start": "0x192920",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1BFDD0.c"
