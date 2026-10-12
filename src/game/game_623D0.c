@@ -157,47 +157,43 @@ typedef struct Game623D0Entry {
 
 void *func_1502CCFC(void *, u8, void *, s32, s32, s32 *, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15035FE8 CURRENT (7949) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15035FE8 CURRENT (4183) */
 void *func_15035FE8(void *arg0, void *arg1) {
-    u8 *cursor;
     Game623D0Entry *entry;
-    Game623D0Entry *end;
     s32 colors[4];
-    u8 count;
+    s32 red, green, blue, opacity;
 
-    cursor = arg0;
-    if ((u8)D_800C3F00 != 0) {
-        *(u32 *)(cursor + 4) = 0x200004;
-        *(u32 *)cursor = 0xD9FFFFFF;
-        cursor += 8;
-        *(u32 *)cursor = 0xD9EEFFFF;
-        *(u32 *)(cursor + 4) = 0;
-        cursor += 8;
-        *(u32 *)cursor = 0xE2001E01;
-        *(u32 *)(cursor + 4) = 0;
-        cursor += 8;
-        count = (u8)D_800C3F00;
+    if ((u8)D_800C3F00 == 0) return arg0;
+    {
+        { register Game35D6CCommand *command = arg0; arg0 = (u8 *)arg0 + 8;
+          command->word0 = 0xD9FFFFFF;
+          command->word1 = 0x200004; }
+        { register Game35D6CCommand *command = arg0; arg0 = (u8 *)arg0 + 8;
+          command->word0 = 0xD9EEFFFF;
+          command->word1 = 0; }
+        { register Game35D6CCommand *command = arg0; arg0 = (u8 *)arg0 + 8;
+          command->word0 = 0xE2001E01;
+          command->word1 = 0; }
         entry = (Game623D0Entry *)D_800C3F08;
-        if (count > 0) {
+        if ((s32)(u8)D_800C3F00 > 0) {
             do {
-                if (entry->fieldB != 0) {
-                    end = (Game623D0Entry *)(D_800C3F08 + count * 0xC);
-                } else {
+                if (entry->fieldB == 0) {
+                    red = entry->field5;
+                    green = entry->field6;
+                    blue = entry->field7;
+                    opacity = entry->field4;
                     colors[3] = 0xFF;
-                    colors[0] = entry->field5;
-                    colors[1] = entry->field6;
-                    colors[2] = entry->field7;
-                    cursor = func_1502CCFC(cursor, entry->field8, arg1,
-                                           entry->word, entry->field4,
-                                           colors, 0, 1);
-                    count = (u8)D_800C3F00;
-                    end = (Game623D0Entry *)(D_800C3F08 + count * 0xC);
+                    colors[0] = red;
+                    colors[1] = green;
+                    colors[2] = blue;
+                    arg0 = func_1502CCFC(arg0, entry->field8, arg1,
+                                        entry->word, opacity, colors, 0, 1);
                 }
                 entry++;
-            } while (entry < end);
+            } while (entry < (Game623D0Entry *)(D_800C3F08 + ((((s32)(u8)D_800C3F00 << 2) - (s32)(u8)D_800C3F00) << 2)));
         }
     }
-    return cursor;
+    return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15035FE8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_623D0/func_15035FE8.s")

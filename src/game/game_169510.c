@@ -21,7 +21,6 @@
  * - func_1513E2AC
  * - func_1513E6E8
  * - func_1513E83C
- * - func_1513EAD8
  * - func_1513EE14
  * - func_1513F114
  * - func_1513F728
@@ -1043,46 +1042,37 @@ void *func_1513E83C(Game169510ScaledOwner *owner, s32 arg1) {
 
 extern f32 D_800DD1D8[], D_800DD1E8[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513EAD8 CURRENT (3745) */
 void *func_1513EAD8(void *arg0, s32 arg1, s16 arg2) {
     Game169510ScaledVertex *vertices;
+    Game169510ScaledVertex *result;
     s16 coords[4][3];
+    f32 heightDelta, heightScale, directionZ, directionX;
     u8 fresh;
-    Game169510ScaledOwner *owner;
-    u8 **slot;
-    u8 *templateData;
-    register f32 width, height, heightScale, directionZ, directionX;
 
-    owner = arg0;
     func_151D5D60((u8 *)arg0 + 0x100, arg2, 0x40, (void **)&vertices, &fresh);
-    if (vertices == 0) {
+    result = vertices;
+    if (vertices != 0) {
+        if (fresh != 0) {
+            func_10022EC0(*(u8 **)((u8 *)arg0 + arg2 * 4 + 0x100), (u8 *)arg0 + 0xC0, 0x40);
+            func_10022EC0(*(u8 **)((u8 *)arg0 + arg2 * 4 + 0x100) + 0x40, (u8 *)arg0 + 0xC0, 0x40);
+        }
+    } else {
         return 0;
     }
-    if (fresh != 0) {
-        slot = (u8 **)((u8 *)arg0 + arg2 * 4 + 0x100);
-        templateData = (u8 *)arg0 + 0xC0;
-        func_10022EC0(*slot, templateData, 0x40);
-        func_10022EC0(*slot + 0x40, templateData, 0x40);
-    }
-    directionZ = D_800DD1D8[arg2];
-    directionX = D_800DD1E8[arg2];
-    width = owner->width;
-    height = owner->height;
-    heightScale = owner->sy;
+    directionZ = D_800DD1D8[arg2] * ((Game169510ScaledOwner *)arg0)->width;
+    directionX = D_800DD1E8[arg2] * ((Game169510ScaledOwner *)arg0)->width;
+    heightScale = ((Game169510ScaledOwner *)arg0)->sy * ((Game169510ScaledOwner *)arg0)->height;
+    heightDelta = ((Game169510ScaledOwner *)arg0)->height - heightScale;
     vertices[0].flag = 0;
-    directionZ *= width;
     vertices[1].flag = 0;
-    directionX *= width;
     vertices[2].flag = 0;
-    heightScale *= height;
     vertices[3].flag = 0;
-    height -= heightScale;
-    coords[3][0] = coords[0][0] = (s16)(s32)(owner->x + directionX);
-    coords[1][1] = coords[0][1] = (s16)(s32)(owner->y - heightScale);
-    coords[3][2] = coords[0][2] = (s16)(s32)(owner->z - directionZ);
-    coords[2][0] = coords[1][0] = (s16)(s32)(owner->x - directionX);
-    coords[3][1] = coords[2][1] = (s16)(s32)(owner->y + height);
-    coords[2][2] = coords[1][2] = (s16)(s32)(owner->z + directionZ);
+    coords[3][0] = coords[0][0] = (s16)(s32)(((Game169510ScaledOwner *)arg0)->x + directionX);
+    coords[1][1] = coords[0][1] = (s16)(s32)(((Game169510ScaledOwner *)arg0)->y - heightScale);
+    coords[3][2] = coords[0][2] = (s16)(s32)(((Game169510ScaledOwner *)arg0)->z - directionZ);
+    coords[2][0] = coords[1][0] = (s16)(s32)(((Game169510ScaledOwner *)arg0)->x - directionX);
+    coords[3][1] = coords[2][1] = (s16)(s32)(((Game169510ScaledOwner *)arg0)->y + heightDelta);
+    coords[2][2] = coords[1][2] = (s16)(s32)(((Game169510ScaledOwner *)arg0)->z + directionZ);
     if (*(u8 *)((u8 *)&arg1 + 3) != 0) {
         vertices[0].x = coords[1][0];
         vertices[0].y = coords[1][1];
@@ -1110,10 +1100,8 @@ void *func_1513EAD8(void *arg0, s32 arg1, s16 arg2) {
         vertices[3].y = coords[3][1];
         vertices[3].z = coords[3][2];
     }
-    return vertices;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513EAD8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513EAD8.s")
 void *func_1513EAD8(void *arg0, s32 arg1, s16 arg2);
 
 void func_1513EDB4(void *arg0, s16 arg1) {

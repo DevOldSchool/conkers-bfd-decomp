@@ -29111,17 +29111,16 @@
       "symbol": "func_1513E83C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3745,
-        "reason": "Best CURRENT 3745 after three bounded comparisons; float phase reuse improves frame 88 to 78 and product order, but coordinate homes and existing void return contract prevent exact match; no shared ABI edits.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 732,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1513EAD8",
           "vram": "0x1513EAD8"
         }
@@ -60242,8 +60241,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 7949,
-        "reason": "Best manual candidate CURRENT (7949): command emitter semantics and source-local record layout established, but compiler keeps three extra saved registers and uses multu/early stack stores instead of target shifts and delayed stores. Signed count regressed; needs new loop/lifetime structure.",
+        "current_score": 4183,
+        "reason": "Renewed best CURRENT (4183), frame 0x78 vs 0x68: natural guarded traversal, actual color snapshots and shifted stride improve the old 7949 candidate. Remaining command setup/saved base, branch-tail placement, color home +0x10 and call-store scheduling differ. Seven probe batches and four finishes exhausted these structural hypotheses; no eligible register-only permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
