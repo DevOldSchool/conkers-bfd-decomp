@@ -9,7 +9,6 @@
  * - func_1507C8FC
  * - func_1507CD0C
  * - func_1507CD64
- * - func_1507D1D8
  * - func_1507D4F8
  * - func_1507D754
  * - func_1507DB6C
@@ -36,7 +35,7 @@ void func_1507C8E0(GameA9D90Object *arg0, s32 arg1) {
     arg0->field_31C->field_124 = arg1;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507C8FC.s")
-void func_15181D70(s32, s32);
+void func_15181D70(s32);
 extern s32 D_80082FA0;
 extern u8 D_800CC2D0;
 
@@ -49,7 +48,7 @@ void func_1507CD0C(void *arg0) {
     temp_lo = temp_a1 / 812;
     *(s8 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x120) = 3;
     if (temp_lo <= D_80082FA0) {
-        func_15181D70(temp_lo, temp_a1);
+        func_15181D70(temp_lo);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507CD0C */
@@ -69,7 +68,98 @@ void func_1507D158(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     temp_v0 = D_800CC40F[arg0].field_0;
     func_1509BFB0(3, temp_v0 | 0x2000, arg1, arg2, arg3, arg4);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D1D8.s")
+void func_150054C4(u8 *, u32, s32, s32);
+void func_15060F28(u8 *, s32);
+void func_15085430(void *, s32, s32);
+void func_15085710(s32, s32, s32);
+s32 func_150859AC(s32, s32);
+void func_15181DC8(s32);
+void func_15082A44(s32, s32, s32, s32, s32);
+void func_15088D58(GameA9D90Object *);
+u32 func_150ADA20(void);
+extern s16 D_800BE9F2;
+extern s32 D_800BE9F0;
+extern s32 D_800D20FC;
+extern u8 *D_800DBFF0;
+extern u8 D_800BE616;
+extern u8 D_800D18A8;
+extern s8 D_8008726C;
+
+void func_1507D1D8(GameA9D90Object *arg0) {
+    s32 value;
+    s32 saved;
+    s8 player;
+    s8 state;
+    s8 actorState;
+    s8 mode;
+    s32 choice;
+    GameA9D90Inner *inner;
+    s32 slot;
+    union { s32 word; s16 halves[2]; } index;
+
+    inner = arg0->field_31C;
+    saved = *(s16 *)((u8 *)inner + 0x1AA);
+    state = *(s8 *)((u8 *)inner + 0x1B0);
+    actorState = *(s8 *)((u8 *)arg0 + 0x328);
+    mode = *(s8 *)((u8 *)inner + 0x1AF);
+    if (D_800BE616 != 0) {
+        player = inner->pad0[0x11B];
+    } else {
+        player = -1;
+    }
+    if (D_800BE9F0 == 0x2B) {
+        slot = ((u8 *)arg0 - &D_800CC2D0) / 812;
+        index.word = (s16)slot;
+        value = func_150859AC(index.word, 1);
+        if (value >= 0x11 && value < 0x21) {
+            choice = (func_150ADA20() & 0xF) + 0x11;
+            func_15085710(index.halves[1], 0, choice);
+            if (choice < 0x1D) {
+                *(u8 *)(D_800D20FC + slot * 0x30 + 4) = 0x9C;
+            } else {
+                *(u8 *)(D_800D20FC + slot * 0x30 + 4) = 0x9D;
+            }
+        }
+    }
+    slot = ((u8 *)arg0 - &D_800CC2D0) / 812;
+    index.word = slot * 0x30;
+    func_15060F28((u8 *)arg0, 0);
+    D_800D18A8 = 1;
+    func_15082A44(index.word + D_800D20FC, slot, 0, 0, 0);
+    *(s8 *)((u8 *)arg0->field_31C + 0x1B0) = state;
+    *(s8 *)((u8 *)arg0->field_31C + 0x1AF) = mode;
+    *(s8 *)((u8 *)arg0 + 0x328) = actorState;
+    if (D_80082FA0 >= slot) {
+        func_150054C4(slot * 0x9A0 + D_800DBFF0, slot, D_800BE9F2, (s8)player);
+        func_15181DC8(slot);
+        func_1517EE40(0, 0, 0, 0, 1, slot);
+        func_1517EE40(0, 0, 0, 0x1E, 0, slot);
+    } else {
+        func_15085430(arg0, (s8)player, 0);
+    }
+    D_800D18A8 = 0;
+    arg0->field_31C->field_120 = 0;
+    arg0->field_31C->pad121[1] = 0;
+    arg0->field_31C->field_124 = 0;
+    *(s16 *)((u8 *)arg0->field_31C + 0x1AA) = saved;
+    arg0->pad0[0x1CA] = D_8008726C;
+    *(u16 *)((u8 *)arg0 + 0x22C) = *(u16 *)((u8 *)arg0 + 0x22C) | 0x100;
+    arg0->field_31C->pad0[0x75] = 0;
+    arg0->pad0[0x20F] = 0xFF;
+    arg0->pad0[0x210] = 0xFF;
+    arg0->pad0[0x211] = 0xFF;
+    arg0->pad0[0x232] = 1;
+    *(s32 *)((u8 *)arg0 + 0x218) = 0;
+    arg0->field_31C->pad0[0x11B] = (s8)player;
+    if (D_800BE616 != 0) {
+        arg0->pad0[0x125] = 0x96;
+        *(u8 *)((u8 *)arg0->field_31C + 0x1B1) = arg0->pad0[0x125];
+        if (D_800BE9F0 == 0x33) {
+            func_1507D158(slot, 0x78, 0, 0, 0);
+            func_15088D58(arg0);
+        }
+    }
+}
 void func_1501C730(s32, s32, s32, s32, s32);
 s32 func_150859AC(s32, s32);
 void func_1509C3A0(void);

@@ -440,6 +440,127 @@ void *func_15167D84(void *arg0, s32 arg1, s32 arg2, s8 arg3, u8 arg4, s32 arg5) 
     ((s8 *)v0)[0x48] = arg3;
     return v0;
 }
+extern Game1944C0EffectCallback D_8008C9C8[];
+extern s32 D_800BE9E4;
+
+typedef struct Game1944C0MovingEffect {
+    u8 pad00[0x10];
+    u8 *data;
+    u8 pad14[8];
+    s16 frame, step;
+    s16 x, y, z;
+    s16 vx, vz;
+    u8 pad2A[2];
+    u8 fx, fz, fy;
+    s8 callback;
+    s16 vy, gravity;
+    u8 pad34[4];
+    s16 lifetime;
+    s8 fade;
+    u8 pad3B[4];
+    u8 alpha;
+    u8 pad40[4];
+    u16 flags;
+    u8 pad46[2];
+    s8 endCallback;
+} Game1944C0MovingEffect;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15167E0C CURRENT (985) */
+void func_15167E0C(Game1944C0MovingEffect *arg0) {
+    s32 value;
+    u8 expired;
+    s32 packedX;
+    s32 delta;
+    s32 yValue, xValue, zValue;
+    s32 maximum;
+    s32 speed;
+    s32 flags;
+    Game1944C0EffectCallback callback;
+
+    expired = 0;
+    if (arg0->lifetime != 0x7FFF) {
+        arg0->lifetime -= D_800BE9E4;
+        if (arg0->lifetime < 0) {
+            arg0->lifetime = 0;
+            expired = 1;
+        }
+    }
+    if (arg0->fade > 0) {
+        if (arg0->fade < arg0->alpha) {
+            arg0->alpha -= arg0->fade;
+        } else {
+            arg0->lifetime = 0;
+            expired = 1;
+        }
+    }
+    if (arg0->callback != -1) {
+        callback = D_8008C9C8[arg0->callback];
+        if (callback != 0) callback();
+    }
+    if (arg0->lifetime != 0) {
+        arg0->vy += arg0->gravity;
+        value = arg0->y;
+        value = (value << 8) | arg0->fy;
+        delta = arg0->vy * D_800BE9E4;
+        yValue = value + delta;
+        arg0->y = yValue >> 8;
+        arg0->fy = yValue;
+        packedX = arg0->x;
+        packedX = (packedX << 8) | arg0->fx;
+        delta = arg0->vx * D_800BE9E4;
+        xValue = packedX + delta;
+        arg0->x = xValue >> 8;
+        arg0->fx = xValue;
+        value = arg0->z;
+        value = (value << 8) | arg0->fz;
+        delta = arg0->vz * D_800BE9E4;
+        zValue = value + delta;
+        arg0->z = zValue >> 8;
+        arg0->fz = zValue;
+        speed = arg0->step;
+        if (speed != 0) {
+            maximum = (arg0->data[4] << 8) - 1;
+            arg0->frame += speed * D_800BE9E4;
+            if (maximum < arg0->frame) {
+                flags = arg0->flags;
+                if (flags & 0x20) {
+                    arg0->lifetime = 0;
+                    expired = 1;
+                } else {
+                    arg0->flags = flags | 0x80;
+                    if (arg0->flags & 2) {
+                        arg0->frame = maximum - arg0->frame % maximum;
+                        arg0->step = -arg0->step;
+                    } else {
+                        do {
+                            arg0->frame -= maximum;
+                        } while (maximum < arg0->frame);
+                    }
+                }
+            } else if (arg0->frame < 0) {
+                flags = arg0->flags;
+                if (flags & 0x40) {
+                    arg0->lifetime = 0;
+                    expired = 1;
+                } else if (flags & 2) {
+                    arg0->frame = -arg0->frame % maximum;
+                    arg0->step = -speed;
+                } else {
+                    do {
+                        arg0->frame += maximum;
+                    } while (arg0->frame < 0);
+                }
+            }
+        }
+    } else {
+        expired = 1;
+    }
+    if (expired != 0) {
+        if (arg0->endCallback != -1) D_8008CA20[arg0->endCallback]();
+        func_1516972C(arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15167E0C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15167E0C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168118.s")
 extern u8 *D_8008CA4C[];

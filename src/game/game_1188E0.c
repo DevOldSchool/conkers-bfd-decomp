@@ -14,7 +14,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct {
+typedef struct Game1188E0Vector {
     f32 x;
     f32 y;
     f32 z;
@@ -33,7 +33,7 @@ void func_150EB430(Game1188E0Vector *arg0, Game1188E0Vector *arg1, void *arg2) {
 }
 void func_150A2864(s32, s32);
 void *func_15083E90(s32);
-s32 func_150A34B0(void *, Game1188E0Vector *, f32 *, void *);
+s32 func_150A34B0();
 void func_150EBC80(void *, u8, s32);
 extern s32 D_80088AA0[];
 extern s32 D_80088AB0[];
@@ -190,7 +190,102 @@ void func_150EB614(f32 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150EB614 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1188E0/func_150EB614.s")
+/* The constructor copies the full 0x7C-byte descriptor. */
+typedef struct Game1188E0Particle {
+    f32 field0, field4, field8, fieldC;
+    Game1188E0Vector angles, scale, position, velocity, field40;
+    f32 field4C;
+    s32 field50;
+    s16 field54, field56;
+    u8 field58, pad59[3];
+    s32 field5C;
+    u8 field60, field61, field62, field63;
+    u8 field64, field65, field66, field67;
+    u8 field68, pad69, field6A, pad6B;
+    s32 field6C;
+    u8 field70, pad71;
+    s16 field72, field74;
+    u8 pad76[2];
+    s32 field78;
+} Game1188E0Particle;
+
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+void func_150E83AC(void *, s16, u8, s32);
+void *func_15164F0C(u8, u8, void *, u8, s32);
+void func_151D5514(void *, u8, s32);
+void *func_151541B8(void *, f32, f32, f32, f32, u8, s32);
+void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
+void func_15143794(s16, s16, f32, void *);
+extern Game1188E0Vector D_800A1490, D_800A149C;
+extern Game1188E0Vector D_800A14A8[], D_800A5480;
+extern u8 D_800A14D8[], D_800BE9EB;
+extern f32 D_800A14E8, D_800A14EC, D_800A14F0, D_800A14F4, D_800A14F8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EB8C4 CURRENT (1813) */
+void func_150EB8C4(void) {
+    Game1188E0Particle packet;
+    f32 range40, base40, range4C, base4C;
+    u32 yaw, pitch;
+    u8 index;
+
+    func_15164F0C(2, D_800BE9EB, NULL, 255, 1);
+    func_150E83AC(&D_800A149C, (s16)(func_150ADA20() % 62U + 120), 255, 1);
+    func_151D5514(&D_800A1490, 255, 1);
+    func_151D3FF4(&D_800A1490.x, 255, 1);
+    range40 = func_150ADA68();
+    func_151541B8(&D_800A1490, range40 * 4.0f + 12.0f, 1.6409999f,
+                 (f32)(func_150ADA20() % 56U + 200), 0.0f, 255, 1);
+    packet.fieldC = 1.0f;
+    packet.field8 = 1.0f;
+    packet.field0 = 9.0f;
+    packet.field4 = D_800A14E8;
+    packet.angles = D_800A5480;
+    base4C = D_800A14EC;
+    range4C = D_800A14F0;
+    packet.field40.y = 0.0f;
+    base40 = D_800A14F4;
+    packet.scale.x = 1.0f;
+    packet.scale.y = 1.0f;
+    packet.scale.z = 1.0f;
+    packet.field50 = 0x29E9;
+    packet.field58 = 0;
+    packet.field5C = 0;
+    packet.field60 = 255;
+    packet.field61 = 13;
+    packet.field62 = 0;
+    packet.field63 = 12;
+    packet.field64 = 0;
+    packet.field65 = 0;
+    packet.field66 = 0;
+    packet.field67 = 0;
+    packet.field68 = 2;
+    packet.field6A = 2;
+    packet.field6C = 0;
+    packet.field70 = 0;
+    packet.field72 = 25;
+    packet.field74 = 10;
+    packet.field78 = 0;
+    range40 = D_800A14F8;
+    index = 0;
+    do {
+        packet.position = D_800A14A8[index];
+        yaw = func_150ADA20();
+        pitch = func_150ADA20();
+        func_15143794((s16)(yaw % 26U + 45), (s16)((pitch & 15) - 25),
+                     func_150ADA68() * 30.0f + 15.0f, &packet.velocity);
+        packet.field40.x = func_150ADA68() * range40 + base40;
+        packet.field40.z = func_150ADA68() * range40 + base40;
+        packet.field4C = func_150ADA68() * range4C + base4C;
+        packet.field54 = func_150ADA20() % 51U + 50;
+        packet.field56 = D_800A14D8[index];
+        func_1513264C(&packet, 3, 255, 0, 0, 255, 1);
+        index++;
+    } while (index < 4);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150EB8C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1188E0/func_150EB8C4.s")
+
 typedef struct Game1188E0Event {
     u8 type;
     u8 pad1;
@@ -201,13 +296,7 @@ typedef struct Game1188E0Event {
     u8 pad7;
 } Game1188E0Event;
 
-u32 func_150ADA20(void);
-f32 func_150ADA68(void);
-void func_150E83AC(void *, s16, u8, s32);
 void *func_151D8868(void *, s32, u8, s32);
-void *func_15164F0C(u8, u8, void *, u8, s32);
-void func_151D5514(void *, u8, s32);
-void *func_151541B8(void *, f32, f32, f32, f32, u8, s32);
 extern f32 D_800A14FC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150EBC80 CURRENT (130) */

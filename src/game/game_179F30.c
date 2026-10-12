@@ -246,7 +246,7 @@ extern u8 D_800A58E4[];
 extern u8 D_800A58F8[];
 extern u8 D_800A590C[];
 
-void *func_15160A58(void *, s32, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+struct225 *func_15160A58();
 extern f32 D_800A5DF4;
 extern f32 D_800A5DF8;
 extern f32 D_800A5DFC;
@@ -416,7 +416,7 @@ typedef struct {
 } Game179F30LargePacket;
 
 void *func_10022EC0(void *, const void *, u32);
-extern s32 func_15158BD0(s32, s32, s32);
+u8 *func_15158BD0();
 
 void func_1514D978(s32 arg0) {
     Game179F30LargePacket packet;
@@ -430,17 +430,16 @@ void func_1514D978(s32 arg0) {
     packet.field_14 = 0;
     packet.field_18 = 0;
     packet.field_1C = 0;
-    object = func_15158BD0(arg0, 1, sizeof(packet));
+    object = (s32) func_15158BD0(arg0, 1, sizeof(packet));
     if (object != 0) {
         func_10022EC0((void *)(object + 0x58), &packet, sizeof(packet));
         func_1514EC1C(object, arg0, 0x13);
     }
 }
-extern s32 func_151ACA60(s32 arg0, s32 arg1, s32 arg2);
 
 void func_1514D9F4(s32 arg0) {
     func_1514D978(arg0);
-    func_1514EC1C(func_151ACA60(arg0, 0x41A00000, 0), arg0, 0x14);
+    func_1514EC1C((s32) func_151ACA60((void *) arg0, 20.0f, 0), arg0, 0x14);
 }
 
 typedef struct Game179F30Packet {
@@ -463,7 +462,7 @@ void func_1514DA38(s32 arg0) {
     packet.field_4 = 0;
     packet.field_8 = 0;
     packet.field_C = 0;
-    object = func_15158BD0(arg0, 1, sizeof(packet));
+    object = (s32) func_15158BD0(arg0, 1, sizeof(packet));
     if (object != 0) {
         func_10022EC0((void *)(object + 0x58), &packet, sizeof(packet));
         func_1514EC1C(object, arg0, 0x13);
@@ -488,19 +487,18 @@ void func_1514DAA4(s32 arg0) {
         Game179F30SmallPacket packet;
         packet.field_0 = 0;
         packet.field_4 = 0;
-        object = func_15158BD0(arg0, 1, sizeof(packet));
+        object = (s32) func_15158BD0(arg0, 1, sizeof(packet));
         if (object != 0) {
             func_10022EC0((void *)(object + 0x58), &packet, sizeof(packet));
             func_1514EC1C(object, arg0, 0x13);
         }
     }
 }
-extern s32 func_15158BD0(s32 arg0, s32 arg1, s32 arg2);
 
 void func_1514DB18(s32 arg0) {
     s32 temp_v0;
 
-    temp_v0 = func_15158BD0(arg0, 1, 0);
+    temp_v0 = (s32) func_15158BD0(arg0, 1, 0);
     if (temp_v0 != 0) {
         func_1514EC1C(temp_v0, arg0, 0x13);
     }
@@ -520,7 +518,7 @@ void func_1514DB98(void) {
     func_1514F194();
 }
 extern u8 D_800A58A0[];
-void *func_15160A58(void *, s32, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+struct225 *func_15160A58();
 
 void func_1514DBB8(void *arg0) {
     func_15160A58(arg0, 2, D_800A58A0, 2, 0x12C, 0x28, 0xFF, 0xFF, 0xFF, 0xFF, 0, -1, 0, 0, 0xFF, 1);

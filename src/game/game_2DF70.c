@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_2DF70.c
@@ -364,6 +365,91 @@ void func_15002008(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 *arg4) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15002008 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15002008.s")
 
+extern s32 D_80082FA0;
+extern s16 *D_800DBE44;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15002248 CURRENT (3769) */
+s32 func_15002248(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
+                 s32 *arg4, s32 *arg5, s16 *arg6, s16 **arg7) {
+    s32 i;
+    f32 *end;
+    s32 count;
+    s32 total;
+    u16 index;
+    s16 *output;
+    s32 lowMask;
+    s32 highMask;
+    s32 initialized;
+    s32 minimum;
+    s32 maximum;
+    s16 *bounds;
+    Game76710CallArgs triangle;
+    s16 *cursor;
+    f32 *position;
+    s16 **source;
+    s16 *point;
+
+    highMask = 1 << (D_80082FA0 + 1);
+    lowMask = highMask - 1;
+    highMask = -highMask;
+    func_150492CC((f32)(arg1 - arg0), 32000.0f, (f32)(arg3 - arg2));
+    count = 0;
+    total = (u16)*arg6 + 1;
+    output = (s16 *)func_10003C40(total * 2, 1, 0, 0);
+    *arg7 = output;
+    *arg4 = 0;
+    *arg5 = 0;
+    initialized = 0;
+    i = 1;
+    cursor = arg6 + 1;
+    end = (f32 *)(&triangle + 1);
+    if (total >= 2) {
+        do {
+            index = (u16)*cursor;
+            position = (f32 *)triangle.words;
+            source = (s16 **)((u8 *)D_800DBE3C + index * 12);
+            do {
+                point = *source;
+                if ((u32)point >= 0x80000001U) {
+                    position[0] = (f32)(point[0] - ((arg0 + arg1) >> 1));
+                    position[1] = (f32)(*source)[1];
+                    position[2] = (f32)((*source)[2] - ((arg2 + arg3) >> 1));
+                } else {
+                    position[0] = 0.0f;
+                    position[1] = 0.0f;
+                    position[2] = 0.0f;
+                }
+                position += 3;
+                source++;
+            } while (position != end);
+            if (func_15049260(triangle) == 0) {
+                count++;
+                output[count] = index;
+                if (initialized != 0) {
+                    bounds = D_800DBE44 + index * 2;
+                    minimum = (bounds[0] - lowMask) & highMask;
+                    if (minimum < *arg4) {
+                        *arg4 = minimum;
+                        bounds = D_800DBE44 + index * 2;
+                    }
+                    maximum = ((bounds[1] + lowMask) & highMask) + lowMask;
+                    if (*arg5 < maximum) {
+                        *arg5 = maximum;
+                    }
+                } else {
+                    initialized = 1;
+                    *arg4 = (D_800DBE44[index * 2] - lowMask) & highMask;
+                    *arg5 = ((D_800DBE44[index * 2 + 1] + lowMask) & highMask) + lowMask;
+                }
+            }
+            i++;
+            cursor++;
+        } while (i != total);
+    }
+    output[0] = count;
+    return count;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15002248 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15002248.s")
 void func_15002560(void *arg0, void *arg1) {
     s32 var_v0;
@@ -423,17 +509,17 @@ extern s32 D_800DBE18[];
 extern s32 D_800DBE1C[3];
 extern s32 D_800DBE4C;
 
-void func_150026C4(void) {
+void func_150026C4(s32 arg0) {
     D_800DBE38 = 0;
-    func_1510F800();
+    func_1510F800(arg0);
 }
 void func_150026E8(s32 arg0) {
     D_800DBE18[arg0] = D_800DBE38;
     D_800DBE4C = D_800DBE38;
     D_800B0DE4 += D_800DBE38;
 }
-void func_15002724(void) {
-    D_800DBE38 += func_150027F8();
+void func_15002724(s32 arg0) {
+    D_800DBE38 += func_150027F8(arg0);
 }
 extern s32 D_800DBDD8[];
 extern s32 D_800DBDE8[];

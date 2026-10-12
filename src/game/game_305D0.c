@@ -287,9 +287,7 @@ typedef struct {
     u8 pad5A[0x46];
 } Game305D0Record;
 
-void func_150026C4(s32);
 void func_150026E8(s32);
-void func_15002724(s32);
 s32 func_15002878(void);
 extern s32 D_8003809C;
 extern s32 D_800D2C2C;

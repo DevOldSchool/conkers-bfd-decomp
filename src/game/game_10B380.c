@@ -44,7 +44,7 @@ extern void func_150DBD70(u8, void *);
 void func_150DDF88(void *arg0) {
     func_150DBD70(*(u8 *)((u8 *)arg0 + 0x28), arg0);
 }
-void *func_1513C73C(s32 *, s32, s32, void *, f32, f32, f32, f32, f32, s32, s32, s32, s32, s32);
+void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
 s32 func_150ADA20();
 f32 func_150ADA68();
 

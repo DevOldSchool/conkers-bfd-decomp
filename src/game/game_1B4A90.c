@@ -14,7 +14,83 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game1B4A90Child {
+    u32 fixed[2][16];
+    f32 rotationX, rotationY, rotationZ, speed;
+    f32 translation;
+    s16 elapsed, duration;
+    u8 mode;
+    u8 pad99[7];
+} Game1B4A90Child;
+typedef struct Game1B4A90Owner {
+    u8 pad0[0x10];
+    u32 fixed[2][16];
+    f32 x, y, z;
+    f32 scaleYZ, scaleX;
+    Game1B4A90Child *children;
+    s16 timer, duration;
+} Game1B4A90Owner;
+
+void *func_10003C40(s32, s32, s32, s32);
+u32 func_150ADA20(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151875E0 CURRENT (1980) */
+void func_151875E0(f32 arg0, f32 arg1, f32 arg2, s32 arg3,
+                   s32 arg4, s32 arg5, f32 arg6, f32 arg7) {
+    Game1B4A90Owner *owner;
+    s32 offset;
+    s32 angle;
+
+    owner = func_15167A68(6, 0, 0xB0, 1, 0xFF, 1);
+    if (owner != NULL) {
+        owner->children = func_10003C40(0x780, 1, 2, 1);
+        if (owner->children == NULL) {
+            func_1516972C(owner);
+            return;
+        }
+        owner->x = arg0;
+        owner->y = arg1;
+        owner->z = arg2;
+        owner->timer = 0;
+        owner->duration = arg4;
+        owner->scaleYZ = arg6;
+        owner->scaleX = arg7;
+        arg0 = 0.0f;
+        offset = 0;
+        angle = 0;
+        do {
+            if (angle < 360) {
+                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationX = 7U - (func_150ADA20() & 15U);
+                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationY = arg0;
+                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationZ = (func_150ADA20() & 63U) + (angle - 30);
+                ((Game1B4A90Child *)((u8 *)owner->children + offset))->mode = 0;
+            } else if (angle < 720) {
+                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationX = arg0;
+                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationY = (func_150ADA20() & 63U) + (angle - 570);
+                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationZ = 7U - (func_150ADA20() & 15U);
+                ((Game1B4A90Child *)((u8 *)owner->children + offset))->mode = 0;
+            } else {
+                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationX = (func_150ADA20() & 63U) + (angle - 30);
+                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationY = 97U - (func_150ADA20() & 15U);
+                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationZ = arg0;
+                ((Game1B4A90Child *)((u8 *)owner->children + offset))->mode = 1;
+            }
+            if (arg3 >= 4) {
+                ((Game1B4A90Child *)((u8 *)owner->children + offset))->speed = func_150ADA20() % (u32)(arg3 >> 2) + arg3;
+            } else {
+                ((Game1B4A90Child *)((u8 *)owner->children + offset))->speed = (f32)arg3;
+            }
+            ((Game1B4A90Child *)((u8 *)owner->children + offset))->translation = func_150ADA20() & 15U;
+            ((Game1B4A90Child *)((u8 *)owner->children + offset))->elapsed = 0;
+            ((Game1B4A90Child *)((u8 *)owner->children + offset))->duration = arg4 - (func_150ADA20() & arg5);
+            angle += 90;
+            offset += 0xA0;
+        } while (angle != 1080);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151875E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B4A90/func_151875E0.s")
+
 void func_10004074(s32);
 extern s32 D_800BE9E4;
 
@@ -72,22 +148,6 @@ void func_15187978(s32 arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15187978 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B4A90/func_15187978.s")
 typedef struct Game1B4A90Command { u32 opcode, value; } Game1B4A90Command;
-typedef struct Game1B4A90Child {
-    u32 fixed[2][16];
-    f32 rotationX, rotationY, rotationZ, speed;
-    f32 translation;
-    s16 elapsed, duration;
-    u8 mode;
-    u8 pad99[7];
-} Game1B4A90Child;
-typedef struct Game1B4A90Owner {
-    u8 pad0[0x10];
-    u32 fixed[2][16];
-    f32 x, y, z;
-    f32 scaleYZ, scaleX;
-    Game1B4A90Child *children;
-    s16 timer;
-} Game1B4A90Owner;
 void func_150A7790(void *, s32);
 void func_150A7A48(void *, void *, void *);
 void func_150A7DA0(void *, f32, f32, f32);

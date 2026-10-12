@@ -337,6 +337,89 @@ s32 func_151B1478(void *arg0) {
     }
     return 1;
 }
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+f32 func_15047C00(f32);
+f32 func_15047D60(f32);
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+extern f32 D_800AA2FC;
+extern f32 D_800BE9A8;
+extern u8 D_800DD1D8[];
+extern u8 D_800DD1E8[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B14AC CURRENT (1699) */
+void *func_151B14AC(u8 *arg0, s16 arg1) {
+    void *vertices;
+    void *base;
+    f32 sine;
+    f32 cosine;
+    volatile f32 heightCos;
+    volatile f32 heightSin;
+    f32 widthCos;
+    f32 widthSin;
+    f32 negativeWidth;
+    f32 sign;
+    f32 angle;
+    u8 fresh;
+    u8 *buffers;
+    f32 *axisZ;
+    f32 *axisX;
+    s32 offset;
+
+    func_151D5D60(arg0 + 0x100, arg1, 0x40, &vertices, &fresh);
+    base = vertices;
+    if (vertices != 0) {
+        if (fresh != 0) {
+            buffers = arg0 + arg1 * 4;
+            axisZ = (f32 *)(arg0 + 0xC0);
+            func_10022EC0(*(void **)(buffers + 0x100), axisZ, 0x40U);
+            func_10022EC0(*(u8 **)(buffers + 0x100) + 0x40, axisZ, 0x40U);
+        }
+    } else {
+        return 0;
+    }
+    offset = arg1 * 4;
+    axisZ = (f32 *)(D_800DD1E8 + offset);
+    axisX = (f32 *)(D_800DD1D8 + offset);
+    sign = -1.0f;
+    negativeWidth = (*axisZ * (*(f32 *)(arg0 + 0x40) - *(f32 *)(arg0 + 0x34)) -
+             *axisX * (*(f32 *)(arg0 + 0x48) - *(f32 *)(arg0 + 0x3C))) * D_800BE9A8;
+    if (negativeWidth < 0.0f) {
+        sign = 1.0f;
+        negativeWidth = -negativeWidth;
+    }
+    angle = sqrtf(negativeWidth) * 0.25f;
+    if (D_800AA2FC < angle) angle = D_800AA2FC;
+    angle *= sign;
+    sine = func_15047D60(angle);
+    cosine = func_15047C00(angle);
+    negativeWidth = *(f32 *)(arg0 + 0x30);
+    widthCos = *(f32 *)(arg0 + 0x2C) * cosine;
+    widthSin = *(f32 *)(arg0 + 0x2C) * sine;
+    heightCos = negativeWidth * cosine;
+    heightSin = negativeWidth * sine;
+    negativeWidth = -widthCos;
+    *(s16 *)vertices = (s32)(*axisZ * negativeWidth + *(f32 *)(arg0 + 0x34));
+    *(s16 *)((u8 *)vertices + 2) = (s32)(*(f32 *)(arg0 + 0x38) + widthSin);
+    *(s16 *)((u8 *)vertices + 4) = (s32)(*(f32 *)(arg0 + 0x3C) - *axisX * negativeWidth);
+    *(s16 *)((u8 *)vertices + 6) = 0;
+    *(s16 *)((u8 *)vertices + 0x10) = (s32)(*axisZ * widthCos + *(f32 *)(arg0 + 0x34));
+    *(s16 *)((u8 *)vertices + 0x12) = (s32)(*(f32 *)(arg0 + 0x38) - widthSin);
+    *(s16 *)((u8 *)vertices + 0x14) = (s32)(*(f32 *)(arg0 + 0x3C) - *axisX * widthCos);
+    *(s16 *)((u8 *)vertices + 0x16) = 0;
+    cosine = widthCos - heightSin;
+    *(s16 *)((u8 *)vertices + 0x20) = (s32)(*axisZ * cosine + *(f32 *)(arg0 + 0x34));
+    *(s16 *)((u8 *)vertices + 0x22) = (s32)(*(f32 *)(arg0 + 0x38) - widthSin - heightCos);
+    *(s16 *)((u8 *)vertices + 0x24) = (s32)(*(f32 *)(arg0 + 0x3C) - *axisX * cosine);
+    *(s16 *)((u8 *)vertices + 0x26) = 0;
+    cosine = -(widthCos + heightSin);
+    *(s16 *)((u8 *)vertices + 0x30) = (s32)(*axisZ * cosine + *(f32 *)(arg0 + 0x34));
+    *(s16 *)((u8 *)vertices + 0x32) = (s32)(*(f32 *)(arg0 + 0x38) + widthSin - heightCos);
+    *(s16 *)((u8 *)vertices + 0x34) = (s32)(*(f32 *)(arg0 + 0x3C) - *axisX * cosine);
+    *(s16 *)((u8 *)vertices + 0x36) = 0;
+    return base;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B14AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B14AC.s")
 /* Call context: func_151423D8: unique active project prototype */
 extern s32 D_800BE9E4;

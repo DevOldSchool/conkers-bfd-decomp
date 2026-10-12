@@ -37,7 +37,7 @@ typedef struct {
     s8 field39;
 } Game123D40Packet;
 
-void func_15134DAC(u8 *, s32, void *, s16);
+void *func_15134DAC();
 extern f32 D_800A1B70;
 
 void func_150F6890(void *arg0, s16 arg1, s32 arg2, s32 arg3) {

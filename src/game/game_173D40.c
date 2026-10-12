@@ -45,7 +45,7 @@ s32 func_15146890(f32 *arg0, void *arg1, s32 arg2, u8 arg3) {
     func_1504715C((void *)arg2, arg1);
     return func_15046C80(position, 0, arg0[1] - 50.0f, (void *)arg2);
 }
-s32 func_151420F8(void *);
+s32 func_151420F8();
 s32 func_150A2AEC(s32, s32, s32 *, s32);
 extern s32 D_800BE9F0;
 extern s32 D_800A56D0[5];

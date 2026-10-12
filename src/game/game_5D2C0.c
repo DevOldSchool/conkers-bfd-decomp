@@ -651,7 +651,7 @@ void *func_150319CC(s32 arg0, void *arg1) {
 s32 func_150859AC(s32, s32);
 void func_150D5440(void *, u8, s32);
 void func_150D3360(void *, u8, s32);
-void func_151001B4(void *);
+void func_151001B4();
 void func_15163BE8(void *, u8, s32);
 void func_151BD828(void *, u8, s32);
 extern s32 D_80090228;

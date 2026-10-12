@@ -28,6 +28,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [Glyph helper switch and floating constants (US)](game_6ea90_glyph_rodata.md)
 - [Pending actor action table](game_90840_jump_table.md)
 - [Constructor literal pool in game_981E0](game_981e0_constructor_literal_pool.md)
+- [Burst velocity literals](game_burst_velocity_literals.md)
 - [US switch table for game_A9D90](game_a9d90_jump_table.md)
 - [US callback switch table](game_c98f0_jump_table.md)
 - [Effect helper floating constants (US)](game_effect_constant_pools.md)

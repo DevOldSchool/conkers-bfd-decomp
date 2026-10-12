@@ -38,7 +38,7 @@ void *func_10022EC0(void *, const void *, u32);
 u32 func_10024770(void);
 u32 func_150ADA20(void);
 void func_150E8854(void);
-void func_1510F800(void);
+void func_1510F800();
 void *func_1510FD20(s32, s32);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 void *func_1513B5E0(s8 *, u8, s32, u8, s32);

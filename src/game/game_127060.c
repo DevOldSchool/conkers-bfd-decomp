@@ -294,6 +294,128 @@ void func_150FADC8(void *arg0, s32 arg1, u8 arg2) {
         *(s32 *)((u8 *)arg0 + 0x58) = (s32) (*(s32 *)((u8 *)arg0 + 0x58) & ~2);
     }
 }
+typedef struct {
+    u8 flags, mode, type, extra, field04, pad05;
+    s16 id;
+    s32 field08, field0C, field10, field14, field18;
+    s32 field1C, field20, field24, field28;
+    u8 field2C, field2D, pad2E[2];
+    u8 colors[8];
+    u8 field38, pad39[3];
+    s32 field3C;
+    u8 field40, field41, pad42[2];
+    Game127060Vector position;
+    s32 field50;
+    s16 field54, field56;
+} Game127060Model;
+
+typedef struct {
+    f32 x, y, width, height;
+    u8 kind, pad11;
+    s16 id, flags, field16, field18;
+    u8 field1A, colors[9];
+    s32 field24, field28, field2C, field30, field34, field38, field3C;
+    u8 field40, field41, pad42[2];
+    u8 field44, pad45[3];
+    f32 field48, field4C, field50, field54;
+} Game127060Sprite;
+
+typedef struct { s16 values[8]; } Game127060Kinds;
+extern Game127060Vector D_800A5480;
+extern Game127060Kinds D_800A1D20;
+s32 func_15157010(s32, s32, f32, s32, s32, s32, s32, s32);
+void *func_1515548C(void *, s32, s32, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FAE18 CURRENT (2229) */
+void func_150FAE18(s16 arg0, u8 arg1, s32 arg2) {
+    struct { s16 value; } id;
+    Game127060Model model;
+    u8 *object;
+    Game127060Sprite sprite;
+    s32 index;
+    Game127060Kinds kinds;
+
+    *(volatile s16 *)&id.value = arg0;
+    model.flags = 0x61;
+    model.mode = 3;
+    model.type = 4;
+    model.extra = 2;
+    model.field08 = 0xA5;
+    model.field0C = 0x17;
+    model.field14 = 0x200405;
+    model.field18 = 0x60200;
+    model.field2D = 8;
+    model.field1C = 1;
+    model.field20 = 0x38;
+    model.field24 = 0x80;
+    model.field38 = 0;
+    model.field04 = 0;
+    model.id = arg0;
+    model.field10 = 0;
+    model.field2C = 0;
+    model.field28 = 0x20;
+    model.colors[0] = 0xFF;
+    model.colors[1] = 0xFF;
+    model.colors[2] = 0xFF;
+    model.colors[3] = 0xFF;
+    model.colors[4] = 0xFF;
+    model.colors[5] = 0xFF;
+    model.colors[6] = 0xFF;
+    model.colors[7] = 0xFF;
+    model.field3C = 0;
+    model.field40 = 0;
+    model.field41 = 1;
+    model.position = D_800A5480;
+    model.field54 = 10;
+    model.field56 = 25;
+    object = (u8 *)func_15157010((s32)&model, 0, (f32)(s32)1, 0, 0, 2, arg1, arg2);
+    if (object != 0) {
+        func_10022EC0(object + 0x120, &id, 2);
+    }
+    kinds = D_800A1D20;
+    sprite.flags = 0x29;
+    sprite.field16 = 10;
+    sprite.field18 = 25;
+    sprite.colors[0] = 0xFF;
+    sprite.colors[1] = 0xFF;
+    sprite.colors[2] = 0xFF;
+    sprite.colors[3] = 0xFF;
+    sprite.colors[4] = 0xFF;
+    sprite.colors[5] = 0xFF;
+    sprite.id = arg0;
+    sprite.width = 16.0f;
+    sprite.height = 16.0f;
+    sprite.field1A = 0;
+    sprite.colors[6] = 0xFF;
+    sprite.colors[7] = 0xFF;
+    sprite.colors[8] = 0xFF;
+    sprite.field24 = 0;
+    sprite.field28 = 0x200405;
+    sprite.field2C = 0x60200;
+    sprite.field40 = 0;
+    sprite.field41 = 7;
+    sprite.field30 = 25;
+    sprite.field34 = 0x22;
+    sprite.field38 = 0x80;
+    sprite.field3C = 0x20;
+    sprite.field44 = 0;
+    sprite.field48 = 1.0f;
+    sprite.field4C = 1.0f;
+    sprite.field50 = 0.0f;
+    sprite.field54 = 0.0f;
+    index = 0;
+    sprite.y = 62.0f;
+    do {
+        sprite.x = (f32)(u32)index * 24.75f + -65.0f;
+        sprite.kind = kinds.values[index];
+        object = func_1515548C(&sprite, 14, 0, 0, 2, arg1, arg2);
+        if (object != 0) {
+            func_10022EC0(object + 0x70, &id, 2);
+        }
+        index = (index + 1) & 0xFF;
+    } while (index < 8);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150FAE18 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAE18.s")
 extern f32 D_800A1DC0;
 

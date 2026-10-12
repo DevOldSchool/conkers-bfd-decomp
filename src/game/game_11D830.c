@@ -123,8 +123,7 @@ void func_150F088C(u8 *arg0, u8 *arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F088C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F088C.s")
-void func_15160A58(s32, s32, void *, s32, s32, s32, s32, s32,
-                   s32, s32, s32, s32, s32, s32, s32, s32);
+struct225 *func_15160A58();
 extern u8 D_800A1674;
 extern u8 D_800A1680;
 
@@ -273,7 +272,7 @@ typedef struct Game11D830SpawnTail {
     f32 z;
 } Game11D830SpawnTail;
 
-s32 func_150ADA20(void *);
+u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800A1860;
 extern f32 D_800A1864;
@@ -472,6 +471,68 @@ void func_150F1684(u8 *arg0, u8 *arg1, u8 arg2) {
         func_1516972C(arg0);
     }
 }
+void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32, s32, s32, s32, s32, s32);
+void func_15145EA4(s32 *, s32 *, s32, s32);
+s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+extern u8 D_800A168C[], D_800A174C[], D_800A180C[];
+typedef union { u16 word; u8 bytes[2]; } Game11D830Flags;
+extern Game11D830Flags D_800A1810;
+extern f32 D_800A1898, D_800A189C, D_800A18A0, D_800A18A4;
+extern f32 D_800A18A8, D_800A18AC, D_800A18B0, D_800A18B4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F16DC CURRENT (9645) */
+void func_150F16DC(void *volatile arg0, u8 volatile arg1, u8 volatile arg2, u8 volatile arg3, s32 arg4) {
+    f32 position[3];
+    volatile u8 variant;
+    Game11D830Flags flags;
+    u8 *input;
+    f32 *output;
+    struct { u8 kind; s8 mode; s16 lifetime; u8 field4; } light;
+    s32 lightPosition[3];
+    struct { u32 seed; f32 values[2]; } motion;
+    u32 lifetime;
+    u8 *row;
+    u8 *bone;
+
+    if ((arg0 != NULL) && (arg2 < 4) && (arg1 < 2)) {
+        if (*(u8 *)((u8 *)arg0 + 4) == 0x23) {
+            variant = 1;
+        } else {
+            flags = D_800A1810;
+            if (flags.bytes[arg1] & *(s32 *)((u8 *)arg0 + 0x94)) {
+                return;
+            }
+            variant = 0;
+        }
+        if (*(s32 *)((u8 *)arg0 + 0x1D4) != 0) {
+            row = variant * 0x60 + arg2 * 0x18 + D_800A168C;
+            bone = variant * 2 + arg1 + D_800A180C;
+            input = row + arg1 * 12;
+            output = position;
+            func_15145EA4((s32 *)&input, (s32 *)&output,
+                          (*bone << 6) + *(s32 *)((u8 *)arg0 + 0x1D4), 1);
+            light.kind = 3;
+            light.mode = -1;
+            light.lifetime = func_150ADA20() % 5U + 4;
+            light.field4 = 0;
+            lightPosition[0] = position[0];
+            lightPosition[1] = position[1];
+            lightPosition[2] = position[2];
+            func_151602C0((u8 *)&light, lightPosition, func_150ADA20() % 51U + 0x50,
+                          255, 255, 255, 255, 0, 0, arg3, arg4);
+            motion.values[1] = (func_150ADA68() * D_800A1898 + D_800A189C) * D_800A18A0;
+            motion.values[0] = (func_150ADA68() * D_800A18A4 + D_800A18A8) * D_800A18AC;
+            lifetime = func_150ADA20();
+            motion.seed = func_150ADA20();
+            func_15102B38((s32)arg0, *bone, (s32)(row + arg1 * 12),
+                          (s32)(variant * 0x60 + arg2 * 0x18 + arg1 * 12 + D_800A174C),
+                          motion.values, lifetime % 6U + 8, 255,
+                          func_150ADA68() * D_800A18B0 + D_800A18B4,
+                          (s32)position, 255, 0, -1, arg3, arg4);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150F16DC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F16DC.s")
 typedef struct Game11D830Weights {
     u16 value[3];
@@ -588,4 +649,95 @@ void func_150F1CB0(void *arg0) {
         *(u8 *)((u8 *)arg0 + 0x69) = 0x17;
     }
 }
+typedef struct GameF1D10Burst {
+    s32 count, countRange;
+    Game11D830Position position;
+    s16 yaw, yawRange, pitch, pitchRange;
+    f32 field1C, field20, field24, field28;
+    s16 lifetime, lifetimeRange;
+    f32 field30, field34, field38;
+} GameF1D10Burst;
+
+typedef struct GameF1D10ExtendedBurst {
+    GameF1D10Burst base;
+    f32 field3C;
+    u8 field40;
+    u8 pad41[3];
+} GameF1D10ExtendedBurst;
+
+s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+void func_1515080C(void *, s32 *, f32 *, s32, void *, s32, u8, u8, s8, void *, f32, u8, u8, u8, s32);
+void *func_151541B8(void *, f32, f32, f32, f32, u8, s32);
+void func_151D5334(void *, f32, f32, f32, u8, u8, s32);
+void func_151D5514(void *, u8, s32);
+extern s32 D_800A18C0[];
+extern f32 D_800A18CC[];
+extern u8 D_800A18D8[], D_800A18E0[];
+extern f32 D_800A18FC, D_800A1900, D_800A1904, D_800A1908;
+extern f32 D_800A190C, D_800A1910, D_800A1914, D_800A1918;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1D10 CURRENT (4890) */
+void func_150F1D10(u8 *arg0, u8 arg1, s32 arg2) {
+    Game11D830Position position;
+    f32 scale;
+    GameF1D10ExtendedBurst first;
+    GameF1D10Burst second;
+    f32 random;
+    u32 value;
+
+    if (arg0 != NULL) {
+        position.x = *(f32 *)(arg0 + 0x14);
+        position.y = *(f32 *)(arg0 + 0x18) + 20.0f;
+        position.z = *(f32 *)(arg0 + 0x1C);
+        scale = (*(f32 *)(arg0 + 0x14C) + *(f32 *)(arg0 + 0x150)) * 0.5f;
+        func_151D5404(&position, 506.0f, 1013.0f, 0.0009871669f, 15, 20, arg1, arg2);
+        func_151D5334(&position, 506.0f, 1013.0f, 0.0009871669f, 5, arg1, arg2);
+        func_151D5514(&position, arg1, arg2);
+        func_10010F88((func_150ADA20() & 8) + 0x2B6, 0x7FFF, 0, 0, 0,
+                     (s32)position.x, (s32)position.y, (s32)position.z, 4000, 6000);
+        func_151D3FF4(&position.x, arg1, arg2);
+        random = func_150ADA68();
+        value = func_150ADA20();
+        func_151541B8(&position, random * 4.0f + 12.0f, 1.6409999f,
+                     (f32)(value % 56U + 200), 0.0f, arg1, arg2);
+        first.base.count = 3;
+        first.base.countRange = 0;
+        first.base.position = position;
+        first.base.field1C = 30.0f;
+        first.base.field20 = 20.0f;
+        first.base.field24 = D_800A18FC;
+        first.base.yaw = 0;
+        first.base.yawRange = 255;
+        first.base.pitch = -0x40;
+        first.base.pitchRange = 0x2C;
+        first.base.lifetime = 60;
+        first.base.lifetimeRange = 20;
+        first.base.field30 = 1.0f * scale;
+        first.base.field34 = 0.0f * scale;
+        first.field3C = 0.0f;
+        first.field40 = 12;
+        first.base.field28 = D_800A1900;
+        first.base.field38 = D_800A1904;
+        func_1515080C(&first, D_800A18C0, D_800A18CC, 3, NULL, 0, 0, 1, -1, NULL, 0.0f, 0, 0, arg1, arg2);
+        second.count = 5;
+        second.countRange = 3;
+        second.position = position;
+        second.field1C = 25.0f;
+        second.field20 = 15.0f;
+        second.yaw = 0;
+        second.yawRange = 255;
+        second.pitch = -0x40;
+        second.pitchRange = 30;
+        second.lifetime = 70;
+        second.lifetimeRange = 20;
+        second.field24 = D_800A1908;
+        second.field28 = D_800A190C;
+        second.field30 = D_800A1910;
+        second.field34 = D_800A1914;
+        second.field38 = D_800A1918;
+        func_15152190(&second, D_800A18D8, D_800A18E0, 2, 0.0f, 0, arg1, arg2);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150F1D10 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1D10.s")

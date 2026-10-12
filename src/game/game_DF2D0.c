@@ -53,7 +53,109 @@ void func_150B1EE0(void *arg0, GameDF2D0Packet *arg1, s32 arg2, s32 arg3) {
         func_10022EC0((u8 *)temp_v0 + 0x28, &packet, 0x10);
     }
 }
+typedef struct GameDF2D0Vector {
+    s32 x, y, z;
+} GameDF2D0Vector;
+
+typedef struct GameDF2D0Descriptor {
+    s32 field00, field04;
+    s16 field08, field0A;
+    s32 field0C, field10;
+    u8 field14, field15, field16, field17;
+    u8 field18, field19, field1A, field1B, field1C, field1D;
+    s16 field1E, field20, field22;
+    f32 field24, scaleY, scaleX;
+    GameDF2D0Vector position;
+    f32 x3C, y40, z44, x48, y4C, z50, field54;
+    s32 flags, field5C;
+    s8 field60, field61, field62, field63, field64, field65;
+    u8 pad66[10];
+} GameDF2D0Descriptor;
+
+typedef struct GameDF2D0Extension {
+    s8 field0, field1, field2, field3;
+    f32 field4, field8, fieldC;
+} GameDF2D0Extension;
+
+f32 func_150ADA68(void);
+extern f32 D_8009F8E0, D_8009F8E4, D_8009F8E8, D_8009F8EC;
+extern f32 D_8009F8F0, D_8009F8F4, D_8009F8F8, D_8009F8FC;
+extern f32 D_800BE9A4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B1F90 CURRENT (1136) */
+void func_150B1F90(void *arg0) {
+    s32 firstFlip, secondFlip;
+    void *result;
+    GameDF2D0Descriptor packet;
+    GameDF2D0Extension extension;
+    f32 speedRange, speedBase, scaleRange, scaleBase;
+    GameDF2D0Packet *state;
+
+    state = (GameDF2D0Packet *)((u8 *)arg0 + 0x28);
+    state->field_C += (D_8009F8E0 + func_150ADA68() * D_8009F8E4) * D_800BE9A4;
+    if (state->field_C > 1.0f) {
+        packet.field1D = 0x6C;
+        packet.field08 = 0x5103;
+        packet.field00 = 0x200005;
+        packet.field1E = 0x50;
+        packet.field20 = 3;
+        packet.flags = 0x90DE07;
+        packet.field60 = 8;
+        packet.field61 = 6;
+        packet.field62 = 0x16;
+        extension.field0 = 0;
+        extension.field1 = 0;
+        packet.field04 = 0;
+        packet.field0C = 0;
+        packet.field10 = 0;
+        packet.field63 = -1;
+        packet.field64 = -1;
+        packet.field65 = 0;
+        packet.field22 = 0x50;
+        packet.field14 = 0x67;
+        packet.field15 = 0x6C;
+        packet.field16 = 0x6C;
+        packet.field17 = 0xFF;
+        packet.field18 = 0x16;
+        packet.field19 = 0xB;
+        packet.field1A = 0;
+        packet.field1C = 0xFF;
+        extension.fieldC = D_8009F8E8;
+        packet.field24 = D_8009F8EC;
+        packet.position = *(GameDF2D0Vector *)state;
+        scaleBase = D_8009F8F0;
+        scaleRange = D_8009F8F4;
+        speedBase = D_8009F8F8;
+        speedRange = D_8009F8FC;
+        packet.x3C = 0.0f;
+        packet.y40 = 0.0f;
+        packet.z44 = 0.0f;
+        packet.x48 = 0.0f;
+        packet.y4C = 0.0f;
+        packet.z50 = 0.0f;
+        do {
+            extension.field2 = func_150ADA20() % 5U + 4;
+            extension.field3 = func_150ADA20() % 5U + 4;
+            extension.field4 = func_150ADA68() * 27.0f;
+            extension.field8 = func_150ADA68() * 27.0f;
+            packet.field54 = func_150ADA68() * speedRange + speedBase;
+            packet.flags &= ~0xC0;
+            firstFlip = (func_150ADA20() & 1) ? 0x80 : 0;
+            if (func_150ADA20() & 1) secondFlip = 0x40;
+            else secondFlip = 0;
+            packet.flags = (secondFlip | firstFlip) | packet.flags;
+            packet.field1B = func_150ADA20() % 101U + 0x64;
+            packet.field0A = func_150ADA20() % 78U + 0x7E;
+            packet.scaleY = packet.scaleX = func_150ADA68() * scaleRange + scaleBase;
+            result = func_15130280(&packet, 1, NULL, 0x10, *((u8 *)arg0 + 0xC), *((u8 *)arg0 + 1));
+            if (result != NULL) func_10022EC0((u8 *)result + 0xA8, &extension, 0x10);
+            state->field_C -= 1.0f;
+        } while (state->field_C > 1.0f);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150B1F90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DF2D0/func_150B1F90.s")
+
 void func_150B2340(void *arg0) {
     s32 sp24;
     s32 sp20;

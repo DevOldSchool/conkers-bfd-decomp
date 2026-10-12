@@ -11,7 +11,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void *func_1513EDE4(void *, s16);                   /* extern */
+void *func_1513EDE4(void *, s16);
 void func_150FDC2C(u8 *arg0);
 
 void *func_150FDBA0(void *arg0, s16 arg1) {

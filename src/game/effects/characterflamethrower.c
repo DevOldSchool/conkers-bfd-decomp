@@ -531,7 +531,103 @@ CharacterFlamethrowerPanel *func_15195FB0(
     return func_15195DD4(arg0->unk1C, arg1, arg2, arg3, arg4, arg5, arg6);
 }
 
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15195FF0 CURRENT (2081) */
+void func_15195FF0(u8 *arg0, u8 *arg1) {
+    s32 index;
+    u32 commands[8];
+    CharacterFlamethrowerPanel *panel;
+    s32 width;
+    s32 height;
+    s32 x;
+    s32 y;
+    s32 tileX;
+    s32 tileY;
+    s32 count;
+    s32 slot;
+    s32 offset;
+    u32 *destination;
+    CharacterFlamethrowerBinding *binding;
+    CharacterFlamethrowerBinding *next;
+
+    panel = (CharacterFlamethrowerPanel *)D_800E08E8;
+    if (panel != 0) {
+        do {
+            x = panel->position[0];
+            y = panel->position[1];
+            width = panel->width;
+            height = panel->height;
+            tileX = x / 8 + 2;
+            tileY = y / 8 + 2;
+            if (tileX >= width) {
+                tileX -= width;
+            }
+            if (tileY >= height) {
+                tileY -= height;
+            }
+            for (count = 0; count < 8 && count < panel->active;) {
+                commands[count++] = ((tileX & 0xFFF) << 12) | 0xF2000000 | (tileY & 0xFFF);
+                tileX /= 2;
+                tileY /= 2;
+            }
+            width *= 8;
+            height *= 8;
+            if (D_800BEAC0 == 0) {
+                x += (s8)panel->control12 * D_800BE9E4;
+                y += (s8)panel->control13 * D_800BE9E4;
+            }
+            if (x < 0) x += width;
+            else if (x >= width) x -= width;
+            if (y < 0) y += height;
+            else if (y >= height) y -= height;
+            panel->position[0] = x;
+            panel->position[1] = y;
+            for (slot = 0; slot < 5 && panel->first[slot] != -1; slot++) {
+                index = panel->first[slot];
+                count = 0;
+                if (panel->pad30[slot] > 0) {
+                    destination = (u32 *)(arg0 + index * 8);
+                    do {
+                        *destination = commands[count];
+                        count++;
+                        destination += 4;
+                    } while (count < panel->pad30[slot]);
+                }
+            }
+            for (slot = 0; slot < 5 && panel->second[slot] != -1; slot++) {
+                index = panel->second[slot];
+                count = 0;
+                if (panel->pad30[slot + 5] > 0) {
+                    destination = (u32 *)(arg1 + index * 8);
+                    do {
+                        *destination = commands[count];
+                        count++;
+                        destination += 4;
+                    } while (count < panel->pad30[slot + 5]);
+                }
+            }
+            binding = panel->bindings;
+            if (binding != 0) {
+                do {
+                    index = binding->kind;
+                    offset = index * 8;
+                    for (count = 0; count < binding->flags; count++) {
+                        *(u32 *)(binding->identity + offset) = commands[count];
+                        offset += 16;
+                    }
+                    next = binding->next;
+                    binding = 0;
+                    if (next != 0) binding = next;
+                } while (binding != 0);
+            }
+            panel = (CharacterFlamethrowerPanel *)panel->links.previous;
+        } while (panel != 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15195FF0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15195FF0.s")
+
 void func_15196318(CharacterFlamethrowerControl *arg0, s32 arg1, s32 arg2) {
     if (arg0 != 0) {
         arg0->unk12 = arg1;
@@ -767,13 +863,12 @@ void *func_15196438(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
 f32 func_151979F8(s32 arg0) {
     return D_800A8AA4;
 }
-s32 func_151422C0(s32, s32, s32, s32, s32, s32);
 extern s32 D_800A8A40;
 extern s32 D_800A8A48;
 extern f32 D_800A8AA8;
 
 f32 func_15197A0C(s32 arg0) {
-    return (f32)func_151422C0(0xA, (s32)&D_800A8A40, 1, 0x1F4, (s32)&D_800A8A48, 0x8CC) * D_800A8AA8;
+    return (f32)func_151422C0(0xA, &D_800A8A40, 1, 0x1F4, &D_800A8A48, 0x8CC) * D_800A8AA8;
 }
 
 extern f32 D_800A8AAC;
@@ -1157,6 +1252,89 @@ void func_15198D7C(s32 arg0) {
 
 }
 
+typedef struct {
+    f32 radius, speed, speedRange, size, sizeRange, growth, growthRange;
+    s16 life, lifeRange, fade, fadeRange;
+} CharacterFlamethrowerBurstPreset;
+typedef struct {
+    s32 words[7];
+    s8 callback, endCallback;
+    u8 pad1E[2];
+} CharacterFlamethrowerBurstFlags;
+typedef struct {
+    f32 size;
+    CharacterFlamethrowerVec3 velocity;
+    f32 growth;
+    u8 pad14[4];
+    u8 red, green, blue, alpha;
+    u8 pad1C[4];
+} CharacterFlamethrowerBurstMotion;
+extern CharacterFlamethrowerBurstPreset D_800A8728[];
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15198D88 CURRENT (1065) */
+void func_15198D88(CharacterFlamethrowerActor *arg0, CharacterFlamethrowerVec3 *arg1) {
+    CharacterFlamethrowerBurstFlags flags;
+    f32 speed;
+    f32 cosine1;
+    CharacterFlamethrowerJetSpawn spawn;
+    CharacterFlamethrowerBurstMotion motion;
+    f32 sine1;
+    f32 cosine2;
+    f32 z;
+    f32 scale;
+    f32 x;
+    f32 y;
+    s32 angle1;
+    s32 angle2;
+    CharacterFlamethrowerBurstPreset *preset;
+    CharacterFlamethrowerJet *state;
+
+    state = (CharacterFlamethrowerJet *)arg0->state;
+    preset = &D_800A8728[state->unk74];
+    spawn.unkE = 1;
+    motion.green = 10;
+    motion.blue = 255;
+    motion.red = 40;
+    motion.alpha = 130;
+    *(CharacterFlamethrowerVec3 *)spawn.position = *(CharacterFlamethrowerVec3 *)arg0->position;
+    flags.words[0] = 0;
+    flags.words[1] = 1;
+    flags.words[2] = 0x160600;
+    flags.words[3] = 3;
+    flags.words[4] = 16;
+    flags.words[5] = 128;
+    flags.words[6] = 32;
+    flags.callback = 0;
+    flags.endCallback = 9;
+    do {
+        speed = func_150ADA68() * preset->speedRange + preset->speed;
+        angle1 = func_150ADA20();
+        angle1 &= 255;
+        angle2 = func_150ADA20();
+        angle2 &= 255;
+        cosine1 = func_151423D8(angle1 - 64);
+        sine1 = func_151423D8(angle1);
+        cosine2 = func_151423D8(angle2 - 64);
+        scale = func_151423D8(angle2);
+        scale = preset->radius * scale;
+        x = arg1->x + scale * cosine1;
+        y = arg1->y - preset->radius * cosine2;
+        z = arg1->z + scale * sine1;
+        spawn.unk15 = func_150ADA20() % (u32)(preset->fadeRange + 1) + preset->fade;
+        spawn.unkC = func_150ADA20() % (u32)(preset->lifeRange + 1) + preset->life;
+        motion.size = func_150ADA68() * preset->sizeRange + preset->size;
+        motion.growth = func_150ADA68() * preset->growthRange + preset->growth;
+        motion.velocity.x = (x - arg0->position[0]) * speed;
+        motion.velocity.y = (y - arg0->position[1]) * speed;
+        motion.velocity.z = (z - arg0->position[2]) * speed;
+        func_15147DA0(&spawn, &motion, 0, 1, 0, 0, 0, 0, 0, 0, 0, &flags, 0,
+                     *((u8 *)arg0 + 0xC), *((u8 *)arg0 + 1));
+        state->unk7C -= 1.0f;
+    } while (state->unk7C > 1.0f);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15198D88 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15198D88.s")
 typedef struct CharacterFlamethrowerEmissionPreset {
     f32 radius;
@@ -1337,6 +1515,130 @@ void func_1519944C(CharacterFlamethrowerActor *arg0) {
         D_800E0900[var_a1]->active = 1;
     }
 }
+typedef struct {
+    CharacterFlamethrowerIdentity *owner;
+    u8 generation, joint, flags, pad07;
+    CharacterFlamethrowerVec3 first, second;
+    u8 pad20[0x14];
+    s8 initialize, field35, field36, sound;
+    u8 field38, field39, size;
+    u8 pad3B[0x11];
+} CharacterFlamethrowerSeed;
+typedef struct { s32 words[17]; } CharacterFlamethrowerRecord44;
+typedef struct { s32 words[15]; } CharacterFlamethrowerRecord3C;
+typedef struct {
+    s32 kind;
+    CharacterFlamethrowerSeed seed;
+    u8 red, green, blue, alpha, flags;
+    u8 pad55[3];
+    CharacterFlamethrowerRecord44 first, second;
+    CharacterFlamethrowerRecord3C third;
+} CharacterFlamethrowerSetup;
+typedef struct {
+    CharacterFlamethrowerSeed seed;
+    CharacterFlamethrowerRecord44 first, second;
+    CharacterFlamethrowerRecord3C third;
+    CharacterFlamethrowerVec3 firstPosition, secondPosition;
+    f32 field128, field12C;
+    u8 pad130[4];
+    f32 field134, field138, field13C, size, minimum;
+    void *light;
+    f32 field14C;
+    u8 flags, field151;
+    s16 field152;
+} CharacterFlamethrowerInitialState;
+typedef struct {
+    union {
+        CharacterFlamethrowerVec3 vector;
+        f32 values[3];
+    } position;
+    s16 lifetime;
+    u16 kind;
+    s32 flags;
+    u8 mode, id;
+    u8 pad16[6];
+} CharacterFlamethrowerFullSpawn;
+
+void func_15145EA4(s32 *, s32 *, s32, s32);
+s32 func_1519C09C(s32, f32 *, u8, u8, u8, u8, u8, s32);
+extern void (*D_8008F8A4[])(void *);
+extern s16 (*D_8008F8B8[])(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151994B8 CURRENT (80) */
+void *func_151994B8(s32 arg0, CharacterFlamethrowerSetup *arg1, u8 arg2, s32 arg3) {
+    CharacterFlamethrowerActor *result;
+    CharacterFlamethrowerFullSpawn spawn;
+    CharacterFlamethrowerInitialState initial;
+    CharacterFlamethrowerIdentity *owner;
+    CharacterFlamethrowerVec3 *inputs[2];
+    CharacterFlamethrowerVec3 *outputs[2];
+    CharacterFlamethrowerState *state;
+    s32 flag8;
+    s32 flag4;
+    s32 flag2;
+    s32 flag32;
+    s32 flags;
+
+    owner = arg1->seed.owner;
+    if (*(s32 *)((u8 *)owner + 0x1D4) == 0) {
+        return NULL;
+    }
+    spawn.id = arg1->kind;
+    spawn.lifetime = 0x12C;
+    spawn.kind = 0x12;
+    spawn.flags = 0xE;
+    spawn.mode = 0;
+    initial.seed = arg1->seed;
+    inputs[0] = &initial.seed.first;
+    inputs[1] = &initial.seed.second;
+    outputs[0] = &initial.firstPosition;
+    outputs[1] = &initial.secondPosition;
+    func_15145EA4((s32 *)inputs, (s32 *)outputs,
+                   *(s32 *)((u8 *)owner + 0x1D4) + (initial.seed.joint << 6), 2);
+    initial.field128 = 0.0f;
+    spawn.position.vector = initial.firstPosition;
+    initial.field12C = 0.0f;
+    initial.size = (f32)(u32)initial.seed.size;
+    initial.minimum = -16384.0f;
+    initial.first = arg1->first;
+    initial.field134 = 0.0f;
+    initial.second = arg1->second;
+    initial.field138 = 0.0f;
+    initial.third = arg1->third;
+    initial.field13C = 0.0f;
+    initial.field14C = 0.0f;
+    flags = arg1->flags;
+    flag8 = (flags & 8) ? 8 : 0;
+    flag4 = (flags & 4) ? 4 : 0;
+    flag2 = (flags & 2) ? 2 : 0;
+    flag32 = (flags & 0x10) ? 0x20 : 0;
+    initial.flags = flag32 | flag2 | flag4 | flag8;
+    initial.field152 = 0;
+    initial.field151 = 0;
+    result = func_15147A80(&spawn, (void *)(arg0 + 0x158), 0x28,
+                           0xC, 0xC, 0xC, 0, 0, 0, arg2, arg3);
+    if (result != NULL) {
+        state = result->state;
+        func_10022EC0(state, &initial, 0x154);
+        if (initial.seed.sound != -1) {
+            state->unk130 = D_8008F8B8[initial.seed.sound]();
+        } else {
+            state->unk130 = 0;
+        }
+        if (initial.seed.initialize != -1) {
+            D_8008F8A4[initial.seed.initialize](result);
+        }
+        if (arg1->flags & 1) {
+            state->unk148 = (void *)func_1519C09C((s32)result, spawn.position.values,
+                               arg1->red, arg1->green, arg1->blue, arg1->alpha,
+                               arg2, arg3);
+        } else {
+            state->unk148 = NULL;
+        }
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151994B8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151994B8.s")
 void func_15199834(CharacterFlamethrowerActor *arg0) {
     CharacterFlamethrowerLocal sp18;
@@ -1686,15 +1988,16 @@ s32 func_1519C26C(CharacterFlamethrowerMotion *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C26C.s")
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519C4E4 CURRENT (540) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519C4E4 CURRENT (435) */
 s32 func_1519C4E4(u8 *arg0) {
+    typedef struct Damping { u8 pad0[0x24]; f32 factor; s16 threshold, multiplier; } Damping;
     f32 temp_fv0;
     f32 temp_fv1;
     s16 temp_v1;
     s32 temp_lo;
     s32 var_v1;
-    u8 *temp_v0;
-    u8 *temp_v0_2;
+    Damping *temp_v0;
+    Damping *temp_v0_2;
 
     var_v1 = D_800BE9E4;
     temp_v0 = (void *)(arg0 + 0x110);
@@ -1703,14 +2006,14 @@ s32 func_1519C4E4(u8 *arg0) {
             temp_fv0 = *(f32 *)((u8 *)arg0 + 0x2C);
             temp_fv1 = *(f32 *)((u8 *)arg0 + 0x30);
             var_v1 -= 1;
-            *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (temp_fv0 - (temp_fv0 * *(f32 *)((u8 *)temp_v0 + 0x24)));
-            *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fv1 - (temp_fv1 * *(f32 *)((u8 *)temp_v0 + 0x24)));
+            *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (temp_fv0 - (temp_fv0 * temp_v0->factor));
+            *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fv1 - (temp_fv1 * temp_v0->factor));
         } while (var_v1 > 0);
     }
     temp_v0_2 = (void *)(arg0 + 0x110);
     temp_v1 = *(s16 *)((u8 *)arg0 + 0x1C);
-    if (temp_v1 < *(s16 *)((u8 *)temp_v0_2 + 0x28)) {
-        temp_lo = temp_v1 * *(s16 *)((u8 *)temp_v0_2 + 0x2A);
+    if (temp_v1 < temp_v0_2->threshold) {
+        temp_lo = temp_v1 * temp_v0_2->multiplier;
         if (temp_lo < (s32) *(u8 *)((u8 *)arg0 + 0x5C)) {
             *(u8 *)((u8 *)arg0 + 0x5C) = (u8) temp_lo;
         }
@@ -1719,6 +2022,109 @@ s32 func_1519C4E4(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1519C4E4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C4E4.s")
+typedef struct CharacterFlamethrowerRibbon {
+    u8 pad00[0x2C];
+    f32 width;
+    f32 fraction;
+    CharacterFlamethrowerVec3 start;
+    CharacterFlamethrowerVec3 end;
+} CharacterFlamethrowerRibbon;
+
+typedef struct CharacterFlamethrowerVertex {
+    s16 x, y, z;
+    u16 flags;
+    u8 attributes[8];
+} CharacterFlamethrowerVertex;
+
+s32 func_15144B34(s32);
+void func_15145548(void *, void *, void *, void *, f32 *);
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519C56C CURRENT (2597) */
+void *func_1519C56C(CharacterFlamethrowerRibbon *arg0, s16 arg1) {
+    CharacterFlamethrowerVertex *output;
+    void *result;
+    s32 camera;
+    CharacterFlamethrowerVec3 direction;
+    CharacterFlamethrowerVec3 endpoint;
+    f32 x, y, z;
+    CharacterFlamethrowerVec3 cross;
+    CharacterFlamethrowerVec3 closest;
+    f32 parameter;
+    f32 lengthSquared;
+    u8 fresh;
+    u8 *slot;
+    void *template;
+    f32 fraction;
+
+    func_151D5D60((u8 *)arg0 + 0x100, arg1, 0x40, (void **)&output, &fresh);
+    result = output;
+    if (output != NULL) {
+        if (fresh != 0) {
+            slot = (u8 *)arg0 + arg1 * 4;
+            template = (u8 *)arg0 + 0xC0;
+            func_10022EC0(*(void **)(slot + 0x100), template, 0x40);
+            func_10022EC0(*(u8 **)(slot + 0x100) + 0x40, template, 0x40);
+        }
+    } else {
+        return NULL;
+    }
+    camera = func_15144B34(arg1);
+    direction.x = arg0->end.x - arg0->start.x;
+    direction.y = arg0->end.y - arg0->start.y;
+    direction.z = arg0->end.z - arg0->start.z;
+    fraction = arg0->fraction;
+    x = arg0->start.x + direction.x * fraction;
+    y = arg0->start.y + direction.y * fraction;
+    z = arg0->start.z + direction.z * fraction;
+    direction.x = x - arg0->start.x;
+    direction.y = y - arg0->start.y;
+    endpoint.z = z;
+    endpoint.y = y;
+    endpoint.x = x;
+    direction.z = z - arg0->start.z;
+    func_15145548(&arg0->start, &direction, (void *)camera, &closest, &parameter);
+    x = closest.x - ((f32 *)camera)[0];
+    y = closest.y - ((f32 *)camera)[1];
+    z = closest.z - ((f32 *)camera)[2];
+    cross.x = direction.y * z - y * direction.z;
+    cross.y = direction.z * x - z * direction.x;
+    cross.z = direction.x * y - x * direction.y;
+    lengthSquared = cross.x * cross.x + cross.y * cross.y + cross.z * cross.z;
+    if (lengthSquared != 0.0f) {
+        fraction = arg0->width / sqrtf(lengthSquared);
+        x = cross.x * fraction;
+        y = cross.y * fraction;
+        z = cross.z * fraction;
+    } else {
+        z = 0.0f;
+        x = 0.0f;
+        y = 0.0f;
+    }
+    output->x = (s16)(s32)(arg0->start.x + x);
+    output->y = (s16)(s32)(arg0->start.y + y);
+    output->z = (s16)(s32)(arg0->start.z + z);
+    output->flags = 0;
+    output++;
+    output->x = (s16)(s32)(arg0->start.x - x);
+    output->y = (s16)(s32)(arg0->start.y - y);
+    output->z = (s16)(s32)(arg0->start.z - z);
+    output->flags = 0;
+    output++;
+    output->x = (s16)(s32)(endpoint.x - x);
+    output->y = (s16)(s32)(endpoint.y - y);
+    output->z = (s16)(s32)(endpoint.z - z);
+    output->flags = 0;
+    output++;
+    output->x = (s16)(s32)(endpoint.x + x);
+    output->y = (s16)(s32)(endpoint.y + y);
+    output->z = (s16)(s32)(endpoint.z + z);
+    output->flags = 0;
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1519C56C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C56C.s")
 s32 func_1519C910(CharacterFlamethrowerActor *arg0) {
     register CharacterFlamethrowerState *temp_v0 = arg0->state;
@@ -1742,6 +2148,246 @@ s32 func_1519C998(s32 arg0) {
     func_1519CDB0((CharacterFlamethrowerActor *)arg0, 0.2f, 0x1D);
     return 0;
 }
+typedef union {
+    CharacterFlamethrowerSetup setup;
+    struct {
+        s32 field000;
+        CharacterFlamethrowerIdentity * field004;
+        u8 field008;
+        s8 field009;
+        u8 pad00A[0x2];
+        f32 field00C;
+        f32 field010;
+        f32 field014;
+        f32 field018;
+        f32 field01C;
+        f32 field020;
+        f32 field024;
+        f32 field028;
+        f32 field02C;
+        f32 field030;
+        f32 field034;
+        s8 field038;
+        s8 field039;
+        s8 field03A;
+        s8 field03B;
+        s8 field03C;
+        s8 field03D;
+        u8 field03E;
+        u8 pad03F[0x1];
+        f32 field040;
+        f32 field044;
+        f32 field048;
+        s8 field04C;
+        u8 pad04D[0x3];
+        s8 field050;
+        u8 field051;
+        u8 field052;
+        s8 field053;
+        s8 field054;
+        u8 pad055[0x3];
+        f32 field058;
+        f32 field05C;
+        s16 field060;
+        s16 field062;
+        f32 field064;
+        f32 field068;
+        f32 field06C;
+        f32 field070;
+        f32 field074;
+        f32 field078;
+        f32 field07C;
+        f32 field080;
+        f32 field084;
+        f32 field088;
+        s16 field08C;
+        s16 field08E;
+        f32 field090;
+        s8 field094;
+        s8 field095;
+        u8 pad096[0x2];
+        f32 field098;
+        f32 field09C;
+        f32 field0A0;
+        f32 field0A4;
+        f32 field0A8;
+        f32 field0AC;
+        s32 field0B0;
+        s32 field0B4;
+        s16 field0B8;
+        s16 field0BA;
+        f32 field0BC;
+        f32 field0C0;
+        f32 field0C4;
+        f32 field0C8;
+        f32 field0CC;
+        f32 field0D0;
+        f32 field0D4;
+        s16 field0D8;
+        s16 field0DA;
+        s16 field0DC;
+        s16 field0DE;
+        f32 field0E0;
+        f32 field0E4;
+        f32 field0E8;
+        f32 field0EC;
+        f32 field0F0;
+        s16 field0F4;
+        s16 field0F6;
+        s16 field0F8;
+        s16 field0FA;
+        f32 field0FC;
+        f32 field100;
+        f32 field104;
+        f32 field108;
+        f32 field10C;
+        f32 field110;
+        f32 field114;
+        s16 field118;
+        s16 field11A;
+    } values;
+} CharacterFlamethrowerPreset;
+
+void *func_151994B8(s32, CharacterFlamethrowerSetup *, u8, s32);
+extern f32 D_800A8AFC;
+extern f32 D_800A8B00;
+extern f32 D_800A8B04;
+extern f32 D_800A8B08;
+extern f32 D_800A8B0C;
+extern f32 D_800A8B10;
+extern f32 D_800A8B14;
+extern f32 D_800A8B18;
+extern f32 D_800A8B1C;
+extern f32 D_800A8B20;
+extern f32 D_800A8B24;
+extern f32 D_800A8B28;
+extern f32 D_800A8B2C;
+extern f32 D_800A8B30;
+extern f32 D_800A8B34;
+extern f32 D_800A8B38;
+extern f32 D_800A8B3C;
+extern f32 D_800A8B40;
+extern f32 D_800A8B44;
+extern f32 D_800A8B48;
+extern f32 D_800A8B4C;
+extern f32 D_800A8B50;
+extern f32 D_800A8B54;
+extern f32 D_800A8B58;
+extern f32 D_800A8B5C;
+extern f32 D_800A8B60;
+extern f32 D_800A8B64;
+extern f32 D_800A8B68;
+extern f32 D_800A8B6C;
+extern f32 D_800A8B70;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519C9C4 CURRENT (749) */
+void func_1519C9C4(void *arg0) {
+    void *result;
+    CharacterFlamethrowerPreset preset;
+    CharacterFlamethrowerIdentity *owner;
+    CharacterFlamethrowerState *state;
+    f32 firstScale;
+    f32 secondScale;
+
+    firstScale = 0.1f;
+    secondScale = 0.05f;
+    owner = *(CharacterFlamethrowerIdentity **)((u8 *)arg0 + 0x28);
+    preset.values.field004 = owner;
+    preset.values.field008 = owner->unk3B;
+    preset.values.field010 = -147.0f;
+    preset.values.field014 = 54.0f;
+    preset.values.field01C = -228.0f;
+    preset.values.field020 = 80.0f;
+    preset.values.field024 = D_800A8B04;
+    preset.values.field028 = D_800A8B08;
+    preset.values.field02C = D_800A8B0C;
+    preset.values.field040 = D_800A8B10;
+    preset.values.field030 = D_800A8B14;
+    preset.values.field034 = D_800A8B18;
+    preset.values.field044 = -234.0f;
+    preset.values.field048 = D_800A8B1C;
+    preset.values.field058 = D_800A8B20;
+    preset.values.field05C = D_800A8B24;
+    preset.values.field064 = D_800A8B28;
+    preset.values.field06C = D_800A8B2C;
+    preset.values.field068 = D_800A8B30;
+    preset.values.field070 = D_800A8B34;
+    preset.values.field074 = D_800A8B38;
+    preset.values.field078 = D_800A8B3C;
+    preset.values.field07C = D_800A8B40;
+    preset.values.field080 = D_800A8B44;
+    preset.values.field084 = D_800A8B48;
+    preset.values.field088 = D_800A8B4C;
+    preset.values.field090 = D_800A8B50;
+    preset.values.field098 = D_800A8B54;
+    preset.values.field0A8 = D_800A8B58;
+    preset.values.field0AC = D_800A8B5C;
+    preset.values.field0BC = 4.0f;
+    preset.values.field0C0 = 6.0f;
+    preset.values.field0CC = 50.0f;
+    preset.values.field0D0 = D_800A8B60;
+    preset.values.field0D4 = D_800A8B64;
+    preset.values.field009 = 9;
+    preset.values.field0F0 = D_800A8B68;
+    preset.values.field060 = 0x14;
+    preset.values.field03E = 0xC8;
+    preset.values.field038 = -1;
+    preset.values.field03A = -1;
+    preset.values.field000 = 0xF;
+    preset.values.field054 = 0xF;
+    preset.values.field050 = 0x3C;
+    preset.values.field051 = 0xFF;
+    preset.values.field052 = 0xEB;
+    preset.values.field053 = 0x52;
+    preset.values.field0FC = 134.0f;
+    preset.values.field0D8 = 0x50;
+    preset.values.field062 = 0xD;
+    preset.values.field08C = 0xC;
+    preset.values.field08E = 0x15;
+    preset.values.field094 = 0x64;
+    preset.values.field095 = 0x50;
+    preset.values.field0B0 = 4;
+    preset.values.field0B4 = 3;
+    preset.values.field0B8 = 0x32;
+    preset.values.field0BA = 0x15;
+    preset.values.field00C = 7.0f;
+    preset.values.field018 = 7.0f;
+    preset.values.field039 = 0;
+    preset.values.field03B = 0;
+    preset.values.field03C = 0;
+    preset.values.field03D = 0;
+    preset.values.field04C = 0;
+    preset.values.field09C = 7.0f;
+    preset.values.field0A0 = -218.0f;
+    preset.values.field0A4 = 150.0f;
+    preset.values.field0C4 = firstScale;
+    preset.values.field0C8 = firstScale;
+    preset.values.field0DA = 0xAF;
+    preset.values.field0DC = 0x16;
+    preset.values.field0DE = 0xB;
+    preset.values.field0E0 = 7.0f;
+    preset.values.field0E4 = -218.0f;
+    preset.values.field0E8 = 150.0f;
+    preset.values.field0EC = secondScale;
+    preset.values.field0F4 = 0x3C;
+    preset.values.field0F6 = 0x14;
+    preset.values.field0F8 = 0x9B;
+    preset.values.field0FA = 0x64;
+    preset.values.field104 = secondScale;
+    preset.values.field118 = 0x17;
+    preset.values.field11A = 0xB;
+    preset.values.field100 = 120.0f;
+    preset.values.field108 = D_800A8B6C;
+    preset.values.field10C = 43.0f;
+    preset.values.field110 = -0.25f;
+    preset.values.field114 = D_800A8B70;
+    result = func_151994B8(8, &preset.setup, ((u8 *)arg0)[0xC], ((u8 *)arg0)[1]);
+    if (result != NULL) {
+        state = ((CharacterFlamethrowerActor *)result)->state;
+        func_10022EC0((u8 *)state + 0x158, (u8 *) arg0 + 0x30, 8U);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1519C9C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C9C4.s")
 void func_1519CD64(void *arg0) {
     void *temp_v0;

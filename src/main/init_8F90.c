@@ -9,11 +9,6 @@
  * TODO: Implement these source-unit functions:
  * - func_80008F90
  * - func_800095A0
- * - func_800097CC
- * - func_800099BC
- * - func_80009BE4
- * - func_80009CBC
- * - func_8000A03C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -443,44 +438,43 @@ s32 func_80024920(TransferIoMessage *, s32, s32, u32, void *, u32,
                  OSMesgQueue *);
 extern TransferIoMessage D_80040F98[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800097CC CURRENT (180) */
 s32 func_800097CC(s32 addr, s32 len, void *state) {
-    u8 *buffer;
-    s32 offset;
-    s32 request;
-    AudioDmaNode *record;
-    AudioDmaNode *previous;
-    AudioDmaNode *head;
+    u8 *foundBuffer;
+    s32 delta;
+    s32 addrEnd;
+    s32 buffEnd;
+    AudioDmaNode *dmaPtr;
+    AudioDmaNode *lastDmaPtr;
 
-    request = addr;
-    record = (AudioDmaNode *)D_80040F78.field4;
-    previous = 0;
-    while (record != 0) {
-        if ((u32)request < record->address) {
+    lastDmaPtr = 0;
+    dmaPtr = (AudioDmaNode *)D_80040F78.field4;
+    addrEnd = addr + len;
+    while (dmaPtr != 0) {
+        buffEnd = dmaPtr->address + 0x800;
+        if (dmaPtr->address > addr) {
             break;
+        } else if (addrEnd <= buffEnd) {
+            dmaPtr->frame = D_8002AE44;
+            foundBuffer = dmaPtr->buffer + addr - dmaPtr->address;
+            return (s32)func_800233C0(foundBuffer);
         }
-        previous = record;
-        addr = (s32)(record->address + 0x800U);
-        if (addr >= (s32)((u32)request + (u32)len)) {
-            record->frame = D_8002AE44;
-            return (s32)func_800233C0(record->buffer + ((u32)request - record->address));
-        }
-        record = record->next;
+        lastDmaPtr = dmaPtr;
+        dmaPtr = dmaPtr->next;
     }
-    record = D_80040F78.base;
-    if (record == 0 || D_8002AE48 >= 0x20) {
+    dmaPtr = D_80040F78.base;
+    if (dmaPtr == 0 || D_8002AE48 >= 0x20) {
         return 0;
     }
-    D_80040F78.base = record->next;
-    if (record->next != 0) {
-        record->next->prev = record->prev;
+    D_80040F78.base = dmaPtr->next;
+    if (dmaPtr->next != 0) {
+        dmaPtr->next->prev = dmaPtr->prev;
     }
-    if (record->prev != 0) {
-        record->prev->next = record->next;
+    if (dmaPtr->prev != 0) {
+        dmaPtr->prev->next = dmaPtr->next;
     }
-    if (previous != 0) {
-        AudioDmaNode *linkNode = record;
-        AudioDmaNode *linkAfter = previous;
+    if (lastDmaPtr != 0) {
+        AudioDmaNode *linkNode = dmaPtr;
+        AudioDmaNode *linkAfter = lastDmaPtr;
 
         linkNode->next = linkAfter->next;
         linkNode->prev = linkAfter;
@@ -488,30 +482,26 @@ s32 func_800097CC(s32 addr, s32 len, void *state) {
             linkAfter->next->prev = linkNode;
         }
         linkAfter->next = linkNode;
+    } else if (D_80040F78.field4 != 0) {
+        lastDmaPtr = (AudioDmaNode *)D_80040F78.field4;
+        D_80040F78.field4 = (s32)dmaPtr;
+        dmaPtr->next = lastDmaPtr;
+        dmaPtr->prev = 0;
+        lastDmaPtr->prev = dmaPtr;
     } else {
-        head = (AudioDmaNode *)D_80040F78.field4;
-        if (head != 0) {
-            D_80040F78.field4 = (s32)record;
-            record->next = head;
-            record->prev = 0;
-            head->prev = record;
-        } else {
-            D_80040F78.field4 = (s32)record;
-            record->next = 0;
-            record->prev = 0;
-        }
+        D_80040F78.field4 = (s32)dmaPtr;
+        dmaPtr->next = 0;
+        dmaPtr->prev = 0;
     }
-    buffer = record->buffer;
-    offset = request & 1;
-    request -= offset;
-    record->address = request;
-    record->frame = D_8002AE44;
-    func_80024920(&D_80040F98[D_8002AE48++], 1, 0, request, buffer,
-                 0x800, &D_80041298);
-    return (s32)(func_800233C0(buffer) + (u32)offset);
+    foundBuffer = dmaPtr->buffer;
+    delta = addr & 1;
+    addr -= delta;
+    dmaPtr->address = addr;
+    dmaPtr->frame = D_8002AE44;
+    func_80024920(&D_80040F98[D_8002AE48++], 1, 0, addr, foundBuffer, 0x800,
+                  &D_80041298);
+    return (s32)(func_800233C0(foundBuffer) + delta);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_800097CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_800097CC.s")
 
 ALDMAproc func_80009980(void *state) {
     if (D_80040F78.initialized == 0) {
@@ -522,13 +512,11 @@ ALDMAproc func_80009980(void *state) {
     *(void **)state = 0;
     return D_100097CC;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800099BC CURRENT (50) */
 void func_800099BC(void) {
     u32 i;
     void *message;
     AudioDmaNode *record;
     AudioDmaNode *next;
-    AudioDmaNode *anchor;
 
     message = 0;
     i = 0;
@@ -558,15 +546,12 @@ void func_800099BC(void) {
                         element->prev->next = element->next;
                     }
                 }
-                anchor = D_80040F78.base;
-                if (anchor != 0) {
+                if (D_80040F78.base != 0) {
                     AudioDmaNode *linkNode = record;
-                    AudioDmaNode *linkAfter;
+                    AudioDmaNode *linkAfter = D_80040F78.base;
 
-                    record->next = anchor->next;
-                    record->prev = anchor;
-                    linkAfter = anchor;
-                    anchor = linkAfter->next;
+                    linkNode->next = linkAfter->next;
+                    linkNode->prev = linkAfter;
                     if (linkAfter->next != 0) {
                         linkAfter->next->prev = linkNode;
                     }
@@ -583,8 +568,6 @@ void func_800099BC(void) {
     D_8002AE48 = 0;
     D_8002AE44++;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_800099BC */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_800099BC.s")
 void func_80009B2C(void *arg0) {
     if (((u32)arg0 & 1) == 0) {
         ((AudioBufferState *)arg0)->count--;
@@ -615,10 +598,8 @@ void func_80009B90(void *arg0) {
 void func_850AD770(void);
 extern s32 D_8003C8E0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009BE4 CURRENT (80) */
 void func_80009BE4(void *arg0) {
     AudioBufferState *record = arg0;
-    AudioBufferState *anchor;
     extern AudioBufferState *D_800406A4;
     extern AudioBufferState *D_800406B0;
 
@@ -641,29 +622,22 @@ void func_80009BE4(void *arg0) {
     if (record->prev != 0) {
         record->prev->next = record->next;
     }
-    anchor = D_800406A0.freeAnchor;
-    if (anchor != 0) {
-        {
-            AudioBufferState *linkNode = record;
-            AudioBufferState *linkAfter;
+    if (D_800406A0.freeAnchor != 0) {
+        AudioBufferState *linkNode = record;
+        AudioBufferState *linkAfter = D_800406A0.freeAnchor;
 
-            linkNode->next = anchor->next;
-            linkNode->prev = anchor;
-            linkAfter = anchor;
-            anchor = linkAfter->next;
-            if (linkAfter->next != 0) {
-                linkAfter->next->prev = linkNode;
-            }
-            linkAfter->next = linkNode;
+        linkNode->next = linkAfter->next;
+        linkNode->prev = linkAfter;
+        if (linkAfter->next != 0) {
+            linkAfter->next->prev = linkNode;
         }
-        return;
+        linkAfter->next = linkNode;
+    } else {
+        D_800406B0 = record;
+        record->next = 0;
+        record->prev = 0;
     }
-    D_800406B0 = record;
-    record->next = 0;
-    record->prev = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80009BE4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_80009BE4.s")
 s32 func_80003C40(s32, s32, s32, s32);
 void func_800043B4(void *, s32);
 void func_80022D10(void *, s32);
@@ -671,7 +645,6 @@ void func_80023D20(void *, s32);
 extern u32 D_8002AE50;
 extern TransferIoMessage D_80041330[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009CBC CURRENT (330) */
 void *func_80009CBC(void *arg0, s32 mode) {
     AudioBufferState *record;
     AudioBufferState *reuse;
@@ -736,17 +709,14 @@ void *func_80009CBC(void *arg0, s32 mode) {
         if (record != 0) {
             record->next = 0;
             record->prev = 0;
-            anchor = D_800406A0.pending;
-            if (anchor != 0) {
+            if (D_800406A0.pending != 0) {
                 AudioBufferState *linkNode = record;
-                AudioBufferState *linkAfter;
+                AudioBufferState *linkAfter = D_800406A0.pending;
 
-                linkNode->next = anchor->next;
-                linkNode->prev = anchor;
-                linkAfter = anchor;
-                anchor = linkAfter->next;
-                if (anchor != 0) {
-                    anchor->prev = linkNode;
+                linkNode->next = linkAfter->next;
+                linkNode->prev = linkAfter;
+                if (linkAfter->next != 0) {
+                    linkAfter->next->prev = linkNode;
                 }
                 linkAfter->next = linkNode;
             } else {
@@ -791,8 +761,6 @@ void *func_80009CBC(void *arg0, s32 mode) {
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80009CBC */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_80009CBC.s")
 
 void *D_10009CBC(void *, s32);
 
@@ -826,7 +794,6 @@ void func_80004074(s32);
 void func_8000A348(void);
 extern s32 D_8003E384;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A03C CURRENT (685) */
 void func_8000A03C(void) {
     u32 i;
     u32 sound;
@@ -835,7 +802,6 @@ void func_8000A03C(void) {
     void *message;
     AudioBufferState *record;
     AudioBufferState *next;
-    AudioBufferState *anchor;
     AudioInstrument *instrument;
     AudioWaveState *wave;
     s32 busy;
@@ -849,7 +815,6 @@ void func_8000A03C(void) {
             found = 0;
             while (record != 0 && found == 0) {
                 if (record->buffer == ((TransferIoMessage *)message)->dramAddress) {
-                    found = 1;
                     if (record == D_800406A0.pending) {
                         D_800406A0.pending = record->next;
                     }
@@ -865,10 +830,9 @@ void func_8000A03C(void) {
                     }
                     record->next = 0;
                     record->prev = 0;
-                    anchor = D_800406A0.active;
-                    if (anchor != 0) {
+                    if (D_800406A0.active != 0) {
                         AudioBufferState *linkNode = record;
-                        AudioBufferState *linkAfter = anchor;
+                        AudioBufferState *linkAfter = D_800406A0.active;
 
                         linkNode->next = linkAfter->next;
                         linkNode->prev = linkAfter;
@@ -890,6 +854,7 @@ void func_8000A03C(void) {
                     }
                     record->state = 1;
                     record->count++;
+                    found = 1;
                 } else {
                     record = record->next;
                 }
@@ -930,26 +895,25 @@ void func_8000A03C(void) {
                         element->prev->next = element->next;
                     }
                 }
-                anchor = D_800406A0.base;
-                if (anchor != 0) {
+                if (D_800406A0.base != 0) {
                     AudioBufferState *linkNode = record;
-                    AudioBufferState *linkAfter = anchor;
+                    AudioBufferState *linkAfter = D_800406A0.base;
 
                     linkNode->next = linkAfter->next;
                     linkNode->prev = linkAfter;
                     if (linkAfter->next != 0) {
-                        linkAfter->next->prev = linkNode;
+                        linkAfter->next->prev = record;
                     }
-                    linkAfter->next = linkNode;
+                    linkAfter->next = record;
+                    record = next;
+                    continue;
                 } else {
                     D_800406A0.base = record;
                     record->next = 0;
                     record->prev = 0;
                 }
-                record = next;
-            } else {
-                record = next;
             }
+            record = next;
         } while (next != 0);
     }
     if (D_8003E384 != 0) {
@@ -957,8 +921,6 @@ void func_8000A03C(void) {
         D_8003E384 = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000A03C */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_8000A03C.s")
 void func_8000A348(void) {
     AudioBufferState *record;
     AudioBufferState *next;

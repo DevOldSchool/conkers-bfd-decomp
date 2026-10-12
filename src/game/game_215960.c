@@ -1,4 +1,5 @@
 #include "types.h"
+#include <PR/gbi.h>
 #include "game_functions.h"
 
 /*
@@ -39,7 +40,6 @@ typedef struct {
 } Game215960State;
 
 void *func_151ED1E0(void *);
-void func_15042D94(s32, s32, s32, s32);
 extern s32 D_8003C8E0;
 extern s32 D_80000300;
 extern s8 D_8008FD90;
@@ -376,7 +376,6 @@ s32 func_151EB96C(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EB96C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EBB50.s")
 
-void func_15042D94(s32, s32, s32, s32);
 extern s32 D_800E0A90;
 extern Game215960State *D_800E0BD8;
 
@@ -838,6 +837,138 @@ void func_151EDB58(void *uiModel) {
         }
     }
 }
+void func_1503F4B0(void *);
+u32 func_150ADA20(void);
+extern u8 D_507[], D_508[], D_80089470[], D_80090110[], D_80090128[], D_800E0C38[];
+extern s16 D_800E0C30;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151EDBDC CURRENT (1303) */
+Gfx *func_151EDBDC(Gfx *arg0, Game1ED90CObject *arg1,
+                                f32 arg2, f32 arg3, f32 arg4) {
+    Gfx *original;
+
+    original = arg0;
+    if (D_8008FE1C != 1.0f) {
+        arg2 *= D_8008FE1C;
+        arg3 *= D_8008FE20;
+        arg4 *= D_8008FE1C;
+    }
+    func_150A7BC0((u8 *)arg1 + (D_800BE9C0 << 6) + 0x28);
+    *(f32 *)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x58) = arg2;
+    *(f32 *)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x5C) = arg3;
+    *(f32 *)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x60) = -100.0f;
+    *(f32 *)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x28) = arg4;
+    *(f32 *)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x3C) = arg4;
+    *(f32 *)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x50) = arg4;
+    func_1503F4B0(arg1->actor);
+    {
+        Gfx *command = arg0++;
+        command->words.w0 = 0xDA380003;
+        command->words.w1 = (u32)D_80089470;
+    }
+    {
+        Gfx *command = arg0++;
+        command->words.w0 = 0xDA380007;
+        command->words.w1 = (u32)D_800E0C38;
+    }
+    {
+        Gfx *command = arg0++;
+        command->words.w0 = 0xDE000000;
+        command->words.w1 = (u32)D_80090110;
+    }
+    {
+        Gfx *command = arg0++;
+        command->words.w0 = 0xFC12FE25;
+        command->words.w1 = 0xFFFFFBFD;
+    }
+    {
+        Gfx *command = arg0++;
+        command->words.w0 = 0xD9000000;
+        command->words.w1 = 0;
+    }
+    {
+        Gfx *command = arg0++;
+        command->words.w0 = 0xD9FFFFFF;
+        command->words.w1 = 0x200404;
+    }
+    {
+        Gfx *command = arg0++;
+        command->words.w0 = 0xFA000000;
+        command->words.w1 = 0xFFFFFFFF;
+    }
+    {
+        Gfx *command = arg0++;
+        command->words.w0 = 0xFB000000;
+        command->words.w1 = (D_800E0C30 & 0xFF) | 0xFFFFFF00;
+    }
+    {
+        Gfx *command = arg0++;
+        command->words.w0 = 0xF8000000;
+        command->words.w1 = 0xFF;
+    }
+    {
+        Gfx *command = arg0++;
+        command->words.w0 = 0xDB06000C;
+        command->words.w1 = *(u32 *)((u8 *)arg1->actor + D_800BE9C0 * 4 + 0x3E8);
+    }
+    {
+        Gfx *command = arg0++;
+        command->words.w0 = 0xDB060004;
+        command->words.w1 = (u32)arg1->field1C;
+    }
+    if ((s32)arg1 == D_80090058) {
+        u8 firstByte;
+        u8 secondByte;
+        s32 timer;
+        s32 resource;
+        s32 texture;
+
+        firstByte = arg1->flags - 1;
+        timer = firstByte;
+        arg1->flags = firstByte;
+        if (timer == 0) {
+            secondByte = (func_150ADA20() & 0x7F) + 15;
+            arg1->flags = secondByte;
+            timer = secondByte;
+        }
+        if (timer < 7) resource = (s32)D_507;
+        else resource = (s32)D_508;
+        texture = func_1510D0EC(resource, 0, 3, 0);
+        if (texture == (s32)0x80000000) return original;
+        {
+            Gfx *command = arg0++;
+            command->words.w0 = 0xDB060018;
+            command->words.w1 = texture;
+        }
+        {
+            Gfx *command = arg0++;
+            command->words.w0 = 0xDB06001C;
+            command->words.w1 = texture;
+        }
+    }
+    {
+        s32 index = 0;
+        Game1ED90CObject *cursor;
+
+        if ((s32)arg1->count > 0) {
+            cursor = arg1;
+            do {
+                Gfx *command = arg0++;
+                command->words.w0 = 0xDE000000;
+                command->words.w1 = (u32)cursor->copies[0];
+                index++;
+                cursor = (Game1ED90CObject *)((u8 *)cursor + 4);
+            } while (index < (s32)arg1->count);
+        }
+    }
+    {
+        Gfx *command = arg0++;
+        command->words.w0 = 0xDE000000;
+        command->words.w1 = (u32)D_80090128;
+    }
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151EDBDC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EDBDC.s")
 /* The 0x1A8 owner contains two text banks and thirty 12-byte resources. */
 typedef struct {

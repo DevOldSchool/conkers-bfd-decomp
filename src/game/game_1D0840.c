@@ -49,8 +49,7 @@ void *func_151A3504(void *, u8);
 void func_151A4590(void *, u8);
 void func_151A499C(void *, u8);
 void func_10010154(s32, void *, s32, s32, s32);
-void *func_15160A58(void *, s32, void *, s32, s32, s32, s32, s32,
-                    s32, s32, s32, s32, s32, s32, s32, s32);
+struct225 *func_15160A58();
 extern f32 D_800A8D50;
 extern f32 D_800A8D54;
 

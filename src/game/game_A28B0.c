@@ -592,7 +592,7 @@ typedef struct GameA28B0Position {
 
 void func_1504715C(void *, GameA28B0State *);
 void func_1514B364(f32 *, void *, s32, s32);
-void func_15197A7C(GameA28B0State *);
+void func_15197A7C();
 void func_15076768(void) {
     f32 pos[3];
     f32 sp20[9];
@@ -1085,7 +1085,7 @@ void func_15077B14(void) {
     D_800D154C->pad24B[1] = D_800D1890;
     D_800D154C->pad24B[2] = D_800D1891;
 }
-void func_15060A30(s32, GameA28B0State *);
+void func_15060A30();
 
 void func_15077B44(void) {
     func_15060A30((D_800D1890 << 8) + D_800D1891, D_800D154C);
@@ -1750,7 +1750,7 @@ void func_15079928(void) {
     func_1507E7E4(D_800D154C, D_800D1890, D_800D1893, value, 0);
 }
 /* Call context: func_1507EB4C: unique active project prototype */
-void func_1507EB4C(void *, s32);
+void func_1507EB4C();
 
 void func_15079988(void) {
     func_1507EB4C(D_800D154C, (s32) D_800D1890);
@@ -2546,7 +2546,7 @@ void func_1507B974(void) {
         func_15075400((s32) D_800D1890);
     }
 }
-void func_15060A9C(s32, GameA28B0State *);
+void func_15060A9C();
 
 void func_1507BA48(void) {
     u16 value;

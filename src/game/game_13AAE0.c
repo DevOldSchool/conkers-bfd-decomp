@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_13AAE0.c
@@ -10,7 +11,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct {
+typedef struct Game13AAE0ValueList {
     s16 count;
     s16 values[1];
 } Game13AAE0ValueList;
