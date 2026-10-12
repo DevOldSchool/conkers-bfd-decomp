@@ -30942,7 +30942,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 193,
-        "reason": "Best full-span CURRENT (193) after three finish calls and two bounded probe batches. Loop, overflow checks and call sequence reproduced; frame remains 0x98 instead of 0x90, addressed locals are eight bytes high, and second display-list packet setup scheduling differs. Register qualifier preserves the existing one-pointer ABI.",
+        "reason": "Retain best CURRENT193. Renewed deferred pass: one layout diagnostic and two bounded probe batches; delayed cursor/direct-pointer variants scored553/613/2180, anonymous post-increment variants1420. Removing both named packet pointers recovers0x90 frame but changes register allocation and scheduling. Original best still frame0x98 versus0x90 with second packet setup residual; no regressed probe applied. Prior three finishes/two revision batches retained; renewed hypotheses exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -61074,17 +61074,16 @@
       "symbol": "func_150B53D0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 47,
-        "reason": "CURRENT47; seven stack rows only: frame A8 instead of A0 and color packet 9C instead of 94. Color struct and guarded do loops unchanged; inline random arguments worse. Bounded manual stack hypotheses exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 796,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150B54A8",
           "vram": "0x150B54A8"
         }
@@ -81314,17 +81313,16 @@
       "symbol": "func_1511DF6C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 40,
-        "reason": "Three finishes and two bounded probe batches: CURRENT 4049 -> 794 -> 40. Final frame 0x58 and all stack offsets/control flow match; seven register-only rows remain: raw addu v1,s0,t9 versus candidate v1,t9,s0 at 0x4c and swapped f8/f16 loads for three positive-positive vertex coordinates at 0x1c4/1c8, 0x1ec/1f0, 0x214/218. Explicit s32 parameter home retained; no shared declarations changed. Manual revision budget exhausted; permutation not authorized.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 860,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15101F50",
           "vram": "0x15101F50"
         }

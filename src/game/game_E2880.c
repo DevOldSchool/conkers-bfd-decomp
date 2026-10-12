@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_audio_owner_emitters.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150B54A8
  * - func_150B5840
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -68,12 +67,10 @@ void func_15107B78(void *, s16, s16, u8, s32);
 extern f32 D_8009FC20, D_8009FC24, D_8009FC28, D_8009FC2C;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B54A8 CURRENT (47) */
 void func_150B54A8(u8 *arg0) {
     u32 first;
     u32 second;
     u8 color[4];
-    u32 third;
     GameE2880Emitter *state;
     u8 *owner;
 
@@ -92,9 +89,8 @@ void func_150B54A8(u8 *arg0) {
         color[3] = func_150ADA20() % 126U + 0x82;
         first = func_150ADA20();
         second = func_150ADA20();
-        third = func_150ADA20();
         func_15107700(owner, (s16)(first & 0xFF), (s16)(second % 101U - 0x3F),
-                      (s16)((third & 0xF) + 0xF), 4, 129.0f,
+                      (s16)((func_150ADA20() & 0xF) + 0xF), 4, 129.0f,
                       func_150ADA68() * 75.0f + 35.0f, 0, 1, color, arg0[0xC], arg0[1]);
         state->first -= 1.0f;
     }
@@ -105,8 +101,6 @@ void func_150B54A8(u8 *arg0) {
         state->second -= 1.0f;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B54A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E2880/func_150B54A8.s")
 void func_150B57C4(u8 *arg0) {
     func_151D2B4C(6);
 }

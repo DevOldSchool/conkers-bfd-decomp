@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15101F50
  * - func_151022AC
  * - func_151025F4
  * - func_151026BC
@@ -19,7 +18,6 @@ s32 func_15144E80(void *, void *, void *, void *);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15101F50 CURRENT (40) */
 void *func_15101F50(u8 *arg0, s32 arg1) {
     u8 *source;
     void *vertices;
@@ -33,7 +31,8 @@ void *func_15101F50(u8 *arg0, s32 arg1) {
     result = vertices;
     if (vertices != NULL) {
         if (fresh != 0) {
-            slot = (u8 *)((u32)arg0 + ((s16 *)&arg1)[1] * 4);
+            slot = arg0;
+            slot += ((s16 *)&arg1)[1] * 4;
             source = arg0 + 0xC0;
             func_10022EC0(*(void **)(slot + 0x100), source, 0x40U);
             func_10022EC0(*(u8 **)(slot + 0x100) + 0x40, source, 0x40U);
@@ -60,9 +59,9 @@ void *func_15101F50(u8 *arg0, s32 arg1) {
         ((s16 *)vertices)[1] = (s32)(second[1] + (*(f32 *)(arg0 + 0x38) - first[1]));
         ((s16 *)vertices)[2] = (s32)(second[2] + (*(f32 *)(arg0 + 0x3C) - first[2]));
         ((s16 *)vertices)[3] = 0;
-        ((s16 *)vertices)[8] = (s32)(second[0] + (*(f32 *)(arg0 + 0x34) + first[0]));
-        ((s16 *)vertices)[9] = (s32)(second[1] + (*(f32 *)(arg0 + 0x38) + first[1]));
-        ((s16 *)vertices)[10] = (s32)(second[2] + (*(f32 *)(arg0 + 0x3C) + first[2]));
+        ((s16 *)vertices)[8] = (s32)(second[0] + (first[0] + *(f32 *)(arg0 + 0x34)));
+        ((s16 *)vertices)[9] = (s32)(second[1] + (first[1] + *(f32 *)(arg0 + 0x38)));
+        ((s16 *)vertices)[10] = (s32)(second[2] + (first[2] + *(f32 *)(arg0 + 0x3C)));
         ((s16 *)vertices)[11] = 0;
         ((s16 *)vertices)[16] = (s32)((*(f32 *)(arg0 + 0x34) + first[0]) - second[0]);
         ((s16 *)vertices)[17] = (s32)((*(f32 *)(arg0 + 0x38) + first[1]) - second[1]);
@@ -75,8 +74,6 @@ void *func_15101F50(u8 *arg0, s32 arg1) {
         return result;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15101F50 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_15101F50.s")
 typedef struct Game12F400Animation {
     u8 pad0[0x24];
     u8 *linked24, *linked28, *linked2C;
