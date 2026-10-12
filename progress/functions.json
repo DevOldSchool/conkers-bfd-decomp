@@ -94122,17 +94122,16 @@
       "symbol": "func_8000D758"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 678,
-        "reason": "Unchanged after pass 3 permuter/manual work (decomp-permuter 45-60 min where run; only fake-copy or semantic-changing results). See build/us/manual-attempts/main-permuter-20261010/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1200,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000D96C",
           "vram": "0x8000D96C"
         }
@@ -94991,8 +94990,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2065,
-        "reason": "Checkpoint123 full496 CURRENT2065 independently restored32933658. Two new manual hypotheses: existing mixer snapshot hoisted to function scope2330 62128a24 retains frame58 and loses duplicated SH; positive owner-state guard2065 8a66a301 instruction-identical baseline. Both exhausted; original source retained. Raw frame50, early V0zero, callback A0 and late spill reload unresolved. Existing void contract retained; no shared/ABI/ASM changes or permutation.",
+        "current_score": 1352,
+        "reason": "Improved 2065->1352 (2026-10-12): s32 return with early return 0 and fall-off end (raw b; move v0,zero), no callback local, D_1000EE70 function alias passed directly, mixFlags scoped in field318 arm (frame 0x50). Remaining: raw promotes constant 5 into a0 across field0==5/field4==5 (ours li at,5 twice), which also stops the D_1000EE70 lui hoist. Reorders/switch/state-var forms worse. Ledger build/us/manual-attempts/main-matching-2-20261012/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

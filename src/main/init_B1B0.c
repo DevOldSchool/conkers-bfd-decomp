@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_8000CEAC
  * - func_8000D2F8
- * - func_8000D96C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -120,7 +119,7 @@ typedef struct {
 } SequenceVolumeEntry;
 
 extern SequenceVolumeEntry D_8002B074[];
-extern u8 D_8002B9D4[];
+extern u8 __osRdbWriteOK[];
 extern u8 D_8002B9F4[];
 extern SequenceRecordState D_800419A8[];
 extern u8 D_80041E58[];
@@ -143,7 +142,7 @@ SequenceRecordState *func_8000B2F4(s32 arg0) {
             D_800419A8[index].value = D_800419A8[index].current4C = D_800419A8[index].current52 =
                 D_800419A8[index].target54 = D_800419A8[index].current58 = D_800419A8[index].target5A = 0x8000;
             D_800419A8[index].id = arg0;
-            D_800419A8[index].field8 = D_8002B9D4;
+            D_800419A8[index].field8 = __osRdbWriteOK;
             D_800419A8[index].fieldC = D_8002B9F4;
             D_800419A8[index].owner = &D_800419A8[index];
             return &D_800419A8[index];
@@ -1230,7 +1229,6 @@ void func_8000D758(f32 arg0, f32 arg1, f32 arg2) {
 }
 void *func_8000B1FC(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000D96C CURRENT (678) */
 void func_8000D96C(s32 arg0, s32 arg1, s32 arg2) {
     SequenceRecordState *outgoing;
     SequenceRecordState *incoming;
@@ -1262,6 +1260,7 @@ void func_8000D96C(s32 arg0, s32 arg1, s32 arg2) {
             if (arg1 == 0) {
                 return;
             }
+            goto lookup_outgoing;
         } else if (record->pauseMode != 0 || record->target54 == 0) {
             record->target54 = 0x8000;
             record->current52 = 0;
@@ -1270,6 +1269,8 @@ void func_8000D96C(s32 arg0, s32 arg1, s32 arg2) {
             if (arg1 == 0) {
                 return;
             }
+lookup_outgoing:
+            ;
         } else {
             return;
         }
@@ -1363,7 +1364,7 @@ fallback_lookup:
                 outgoing->value = outgoing->current4C = outgoing->current52 =
                     outgoing->target54 = outgoing->current58 =
                     outgoing->target5A = 0x8000;
-                outgoing->field8 = D_8002B9D4;
+                outgoing->field8 = __osRdbWriteOK;
                 outgoing->fieldC = D_8002B9F4;
                 outgoing->owner = outgoing;
             } else {
@@ -1399,8 +1400,6 @@ simple_transition:
         func_8000B3D4(incoming, outgoing);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000D96C */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000D96C.s")
 s32 func_8000B548(s32 (*)[]);
 void func_8000DEC4(void);
 void func_8000D96C(s32, s32, s32);

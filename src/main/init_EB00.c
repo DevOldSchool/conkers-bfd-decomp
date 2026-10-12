@@ -775,15 +775,14 @@ void func_8000FD38(void *, void *, s32);
 u16 func_80010BE8(u16, s32, u16, u8, s16, u8, u8);
 s32 D_1000EE70(SoundArrayRecord *, s32, s32 *, s32, s32, s32 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010154 CURRENT (2065) */
-void func_80010154(u16 sound, SoundOwnerState *owner, s32 volume,
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010154 CURRENT (1352) */
+s32 func_80010154(u16 sound, SoundOwnerState *owner, s32 volume,
                    s16 arg3, u16 farDistance) {
     s32 result = 0;
     s32 flags = 0;
-    u32 callback;
 
     if ((owner->field0 == 0) || (owner->field0 == 5)) {
-        return;
+        return 0;
     }
     if (owner->field318 != 0) {
         u32 mixFlags = owner->field184;
@@ -804,14 +803,13 @@ void func_80010154(u16 sound, SoundOwnerState *owner, s32 volume,
                    ((owner->field4 == 0x8A) || (owner->field4 == 0x23))) {
             flags = 0x100;
         }
-        callback = (u32)D_1000EE70;
-        func_8000FD38((void *)callback, owner, owner->field3B | 0x10000);
+        func_8000FD38(D_1000EE70, owner, owner->field3B | 0x10000);
         if (owner->field0 != 0) {
             result = func_8000FA64(sound, (s16)(s32)owner->field14,
                                   (s16)(s32)owner->field18,
                                   (s16)(s32)owner->field1C, volume,
                                   farDistance, arg3,
-                                  (void *)callback, (s32)owner,
+                                  D_1000EE70, (s32)owner,
                                   owner->field3B | 0x10000, flags, 0);
         }
     }
