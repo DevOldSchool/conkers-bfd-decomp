@@ -9586,15 +9586,15 @@
         "func_1500F9D0",
         "func_1500FA64"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xFE30",
           "start": "0xF9D0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_3CE80.c"
+      "source": "src/done/game/game_3CE80.c"
     },
     {
       "boundary_evidence": {

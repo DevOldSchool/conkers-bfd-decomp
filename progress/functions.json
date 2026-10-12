@@ -63284,20 +63284,25 @@
           "vram": "0x1500F9D0"
         }
       },
-      "source": "src/game/game_3CE80.c",
+      "source": "src/done/game/game_3CE80.c",
       "symbol": "func_1500F9D0"
     },
     {
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 972,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500FA64",
           "vram": "0x1500FA64"
         }
       },
-      "source": "src/game/game_3CE80.c",
+      "source": "src/done/game/game_3CE80.c",
       "symbol": "func_1500FA64"
     },
     {

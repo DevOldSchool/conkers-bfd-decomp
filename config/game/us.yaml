@@ -93,7 +93,7 @@ segments:
       - [0xEF20, c, game/game_3C3D0]
       - [0xF210, c, done/game/game_3C6C0]
       - [0xF290, c, game/game_3C740]
-      - [0xF9D0, c, game/game_3CE80]
+      - [0xF9D0, c, done/game/game_3CE80]
       - [0xFE30, c, game/game_3D2E0]
       - [0x10110, c, game/game_3D5C0]
       - [0x10240, c, done/game/game_3D6F0]
