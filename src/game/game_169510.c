@@ -15,7 +15,6 @@
  * - func_1513D2F0
  * - func_1513D6FC
  * - func_1513DB00
- * - func_1513DF9C
  * - func_1513E084
  * - func_1513E13C
  * - func_1513E2AC
@@ -787,17 +786,14 @@ void func_1513D668(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, s16 a
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513DB00.s")
 extern void (*D_80089F64[])(void *, s32, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513DF9C CURRENT (20) */
 void func_1513DF9C(void *arg0, s32 arg1, u8 arg2) {
     s32 index;
-    u8 type;
 
     if (!(*(s32 *)((u8 *)arg0 + 0x58) & 0x400000)) {
         index = 0;
         goto dispatch;
     }
-    type = *(u8 *)((u8 *)arg0 + 0x19);
-    switch (type) {
+    switch (*(u8 *)((u8 *)arg0 + 0x19)) {
     case 12:
         index = 10;
         break;
@@ -806,7 +802,6 @@ void func_1513DF9C(void *arg0, s32 arg1, u8 arg2) {
         break;
     case 0:
     case 2:
-    case 10:
         index = 0;
         break;
     case 1:
@@ -834,18 +829,18 @@ void func_1513DF9C(void *arg0, s32 arg1, u8 arg2) {
         index = 8;
         break;
     default:
-        index = 0;
-        break;
+        goto unknown_type;
     }
+    goto dispatch;
+unknown_type:
+    index = 0;
 dispatch:
     D_80089F64[index](arg0, arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513DF9C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513DF9C.s")
 void func_1513E070(s32 arg0, s32 arg1, s32 arg2) {
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E084 CURRENT (20) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E084 CURRENT (220) */
 void func_1513E084(void *arg0, void *arg1, u8 arg2) {
     u8 *state;
     s32 current;

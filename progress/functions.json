@@ -23702,7 +23702,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 510,
-        "reason": "Initial CURRENT510 remains best; correct frame and stack layout, residual constant sharing and call argument/register scheduling. Two bounded revision batches (unsigned constant, union bits, raw-verified float contract, signed byte stores) did not improve; preserve initial candidate.",
+        "reason": "Retain CURRENT (510), unchanged baseline after current-main refresh. Declaration remains the legacy integer third parameter. Renewed combined shared-FF scalar/literal plus call-expression float-contract probes both1560 and did not improve; earlier unsigned, union, signed-byte and float-contract families remain exhausted. No shared declarations changed, no applied revision, no eligible register-only permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -28967,17 +28967,16 @@
       "symbol": "func_1513DB00"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Improved1075 to20 via explicit zero-based cases, early noflag dispatch bypass, and separate final out-of-range default. Full212B control/length matches; only named selector V0 versus raw T9 across four rows remains. Inlining selector70 regresses by hoisting default zero, best20 restored/reverified. Four targeted revisions; deferred-manual-20260929-resume2.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 212,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1513DF9C",
           "vram": "0x1513DF9C"
         }
@@ -29006,8 +29005,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "US CURRENT (20): two register-only branch operand swaps at offsets 0x6C and 0x8C; raw bnel v1,a0 and bnel t3,a0, candidate bnel a0,v1 and bnel a0,t3. Corrected u8 formal and one-pointer cleanup ABI, then direct arg1 field access aligned all load/store registers and layout. Reversing source comparisons and declaration order did not improve; manual-only pilot forbids permutation.",
+        "current_score": 220,
+        "reason": "Refreshed full-span CURRENT (220): previous two branch-operand swaps remain, plus missing jr ra/nop at offsets0xB0/0xB4 of the registered184-byte span (candidate176bytes). Prior score20 omitted this tail difference. No C change or permutation: requires independent boundary/unreachable-tail evidence; do not append an unexplained stub or narrow comparison.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
