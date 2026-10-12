@@ -68348,6 +68348,12 @@
       "symbol": "func_150EC520"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2136,
+        "reason": "Best full-span CURRENT (2136), retained initial candidate after one finish and two non-improving bounded probe batches (each probe scored 2236). Frame remains 0x118 versus 0x110, all addressed locals eight bytes high, captured float registers and descriptor setup scheduling differ. The constructor copies the full 0x70-byte descriptor; no shared contract or assembly change.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -75869,6 +75875,12 @@
       "symbol": "func_151DE8F0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4070,
+        "reason": "Best full-span CURRENT (4070), improved from 5838 after two finish calls and two bounded probe batches. Explicit actor-home store and fullword button temporary recover some lifetimes, but enlarge frame from original 0x30 to 0x40; actor reloads, global address materialization and GPR/setup scheduling remain different. Raw helper review proves func_1000EA94 takes a fullword argument and returns u16; no shared contracts changed.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
