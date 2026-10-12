@@ -39095,6 +39095,12 @@
       "symbol": "func_1519E948"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 435,
+        "reason": "CURRENT (435) after three finish calls and two bounded probe batches. Original 0x28 frame and instruction ordering recovered; task base v0/v1 allocation, packet v1/a1 versus v0 and one clipping-store address materialization remain. Manual revision budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

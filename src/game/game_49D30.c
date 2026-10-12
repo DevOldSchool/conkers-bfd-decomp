@@ -1,5 +1,8 @@
 #include "types.h"
 #include "game_functions.h"
+#include <PR/gbi.h>
+#include <PR/sptask.h>
+#include <PR/os_message.h>
 
 /*
  * Reviewed source unit: src/game/game_49D30.c
@@ -63,6 +66,117 @@ extern s32 D_800C3960[];
 extern u8 D_800C363A[];
 extern s32 D_800C3640[];
 
+typedef struct Game1C880Task {
+    struct Game1C880Task *next;
+    u8 pad4[8];
+    u32 flags;
+    void *framebuffer;
+    u8 pad14[4];
+    OSTask task;
+    OSMesgQueue *queue;
+    OSMesg message;
+} Game1C880Task;
+void func_10024F10(void);
+s32 func_1501A39C(void);
+s32 func_10023580(OSMesgQueue *, OSMesg, s32);
+extern u8 D_100290D0[], D_100291A0[];
+extern void *D_8002AAE8[];
+extern u64 *D_80038090, *D_80038094;
+extern u8 D_8003A5E8[];
+extern OSMesgQueue D_8003B1E8;
+extern s32 D_80082FA0;
+extern u8 D_800BE617, D_800BE9C0, D_800BEBA0;
+extern Gfx *D_800BE9C8[], *D_800BE9D8[];
+extern Gfx *D_800BE9D0;
+extern OSMesgQueue D_800BEA10;
+extern u8 D_800BEA68[][0x20];
+extern s16 D_800BEAA8;
+extern Game1C880Task *D_800BEAD4, D_800BEAD8[];
+extern u8 D_800CBE10[];
+extern u8 *D_800BEB9C;
+extern u8 *D_800BEAD0;
+extern u8 D_800BEBB0[];
+extern u8 D_800C1060[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501C880 CURRENT (435) */
+void func_1501C880(s32 arg0, s32 arg1) {
+    s32 capacity;
+    s32 used;
+    Gfx *base;
+
+    capacity = D_800BE9C8[1] - D_800BE9C8[0];
+    D_800BEAD4 = D_800BEAD8 + D_800BE9C0;
+    D_800BEAD4->next = NULL;
+    base = *(D_800BE9C8 + D_800BE9C0);
+    used = D_800BE9D0 - base;
+    if (used < 0 || capacity < used) {
+        func_1501A39C();
+        D_800BE9D0 = *(D_800BE9D8 + D_800BE9C0);
+        {
+            Gfx *packet = *(Gfx *volatile *)&D_800BE9D0;
+            D_800BE9D0 = packet + 1;
+            packet->words.w1 = 0;
+            packet->words.w0 = 0xE9000000;
+        }
+        {
+            Gfx *packet = D_800BE9D0++;
+            packet->words.w1 = 0;
+            packet->words.w0 = 0xDF000000;
+        }
+        base = *(D_800BE9C8 + D_800BE9C0);
+        used = D_800BE9D0 - base;
+    }
+    if (used < 0 || capacity - 0x190 < used) {
+        D_800BE9D0 = (Gfx *)((s32)base + ((capacity - 0x190) << 3));
+        {
+            Gfx *packet = *(Gfx *volatile *)&D_800BE9D0;
+            D_800BE9D0 = packet + 1;
+            packet->words.w1 = 0;
+            packet->words.w0 = 0xE9000000;
+        }
+        {
+            Gfx *packet = D_800BE9D0++;
+            packet->words.w1 = 0;
+            packet->words.w0 = 0xDF000000;
+        }
+        base = *(D_800BE9C8 + D_800BE9C0);
+    }
+    D_800BEAD4->task.t.data_ptr = (u64 *)base;
+    D_800BEAD4->task.t.data_size = (D_800BE9D0 - *(D_800BE9C8 + D_800BE9C0)) * 8;
+    func_1501CC3C();
+    D_800BEAD4->task.t.type = 1;
+    D_800BEAD4->task.t.flags = 4;
+    D_800BEAD4->task.t.ucode_boot = (u64 *)D_100290D0;
+    D_800BEAD4->task.t.ucode_boot_size = D_100291A0 - D_100290D0;
+    if (D_800BEBA0 != 0) {
+        D_800BEAD4->task.t.ucode = (u64 *)D_800C1060;
+        D_800BEAD4->task.t.ucode_data = (u64 *)D_800BEB9C;
+    } else {
+        D_800BEAD4->task.t.ucode = (u64 *)D_800BEBB0;
+        D_800BEAD4->task.t.ucode_data = (u64 *)D_800BEAD0;
+    }
+    D_800BEAD4->task.t.ucode_data_size = 0x800;
+    D_800BEAD4->task.t.dram_stack = (u64 *)D_800CBE10;
+    D_800BEAD4->task.t.dram_stack_size = 0x400;
+    D_800BEAD4->task.t.output_buff = D_80038090;
+    D_800BEAD4->task.t.output_buff_size = D_80038094;
+    D_800BEAD4->task.t.yield_data_ptr = (u64 *)D_8003A5E8;
+    D_800BEAD4->task.t.yield_data_size = 0xC00;
+    D_800BEAD4->flags = 0x23;
+    if (arg1 != 0) D_800BEAD4->flags |= 0x40;
+    if (D_800BE617 != 0) {
+        D_800BEAD4->flags |= (D_80082FA0 + 1) << 16;
+        D_800BE617 = 0;
+    }
+    D_800BEAD4->queue = &D_800BEA10;
+    D_800BEAD4->message = *(D_800BEA68 + D_800BE9C0);
+    D_800BEAD4->framebuffer = *(D_8002AAE8 + D_800BE9C0);
+    func_10024F10();
+    func_10023580(&D_8003B1E8, D_800BEAD4, 1);
+    if (arg1 != 0) D_800BE9C0 ^= 1;
+    D_800BEAA8++;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1501C880 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501C880.s")
 typedef struct Game1CC3CEntry {
     s32 start0;
@@ -78,10 +192,6 @@ extern s8 D_80084074;
 extern Game1CC3CEntry D_80084078[];
 extern u8 *D_800B0DF0;
 extern s32 D_800BEB98;
-extern u8 *D_800BEB9C;
-extern u8 *D_800BEAD0;
-extern u8 D_800BEBB0[];
-extern u8 D_800C1060[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1501CC3C CURRENT (2001) */
 void func_1501CC3C(void) {
