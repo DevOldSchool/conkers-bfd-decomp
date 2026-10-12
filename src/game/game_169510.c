@@ -830,7 +830,7 @@ void *func_1513E83C(Game169510ScaledOwner *owner, s32 arg1) {
 extern f32 D_800DD1D8[], D_800DD1E8[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1513EAD8 CURRENT (3745) */
-void func_1513EAD8(void *arg0, s32 arg1, s16 arg2) {
+void *func_1513EAD8(void *arg0, s32 arg1, s16 arg2) {
     Game169510ScaledVertex *vertices;
     s16 coords[4][3];
     u8 fresh;
@@ -842,7 +842,7 @@ void func_1513EAD8(void *arg0, s32 arg1, s16 arg2) {
     owner = arg0;
     func_151D5D60((u8 *)arg0 + 0x100, arg2, 0x40, (void **)&vertices, &fresh);
     if (vertices == 0) {
-        return;
+        return 0;
     }
     if (fresh != 0) {
         slot = (u8 **)((u8 *)arg0 + arg2 * 4 + 0x100);
@@ -896,6 +896,7 @@ void func_1513EAD8(void *arg0, s32 arg1, s16 arg2) {
         vertices[3].y = coords[3][1];
         vertices[3].z = coords[3][2];
     }
+    return vertices;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513EAD8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513EAD8.s")
