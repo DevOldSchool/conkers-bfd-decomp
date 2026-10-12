@@ -4061,8 +4061,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 540,
-        "reason": "Retained original manual candidate after source-only variants; register allocation, duplicate pointer setup and multiply operand ordering remain.",
+        "current_score": 435,
+        "reason": "CURRENT (435), historical 540 refreshed to440 and typed payload improved440 to435. Payload factor/threshold/multiplier at offsets24/28/2A verified. Remaining folded tail pointer, pointer/counter allocation and FP operand order. Two probe batches/two finishes; register-pointer, pointer reuse and reversed operand probes plateaued. Original assembly remains active.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -60264,7 +60264,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 328,
-        "reason": "Manual initial823 to best328 across four improving revisions: scalar/output stack98 now exact, ROM literal restores FP allocation. Remaining call argument scheduling/constant-store order and two registered trailing NOPs; no padding. New rodata mapping requires review before integration.",
+        "reason": "CURRENT (328), refreshed full-span baseline 77d0f6662b71481bb6fad048ffac214a. Exact 0x98 frame, all locals and loop. Remaining func_15035808 stack-float argument store order/a2 load scheduling plus focused terminal padding. ROM sentinel at 80097D74 confirmed -10000.0f. No declaration changes justified; preserve candidate pending evidence-backed call-order hypothesis and literal mapping.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -61235,17 +61235,16 @@
       "symbol": "func_150C0A48"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 815,
-        "reason": "CURRENT (815): stack frame and stack rows align, but early-return layout and later loop/register scheduling differ after two manual revisions",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 376,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C0AC0",
           "vram": "0x150C0AC0"
         }
@@ -61267,17 +61266,16 @@
       "symbol": "func_150C0C38"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 265,
-        "reason": "CURRENT265 improved from440 by actual found/previous/index initialization order; 11 T0/T1 pointer-register rows and two terminal registered-span NOPs remain. Explicit entries snapshots710 and consistent byteoffset views695 introduce duplicate T2 address/MOVE. Restored best265; next needs concrete pointer-lifetime and layout evidence. Three new hypotheses/four finish calls; ledger deferred-exact-20261005.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 200,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C1198",
           "vram": "0x150C1198"
         }
@@ -63357,17 +63355,16 @@
       "symbol": "func_1500FA64"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1370,
-        "reason": "CURRENT (1370): bounded signed16 counter recovers raw frame0x30 and SLTI guard; increment SLL/SRA/MOVE and second-loop registers remain. Byte counter regressed1596/frame38; prior offset reuse/<=9 regressed. Two fresh revisions exhausted; valid best retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 364,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500FE30",
           "vram": "0x1500FE30"
         }
@@ -63397,7 +63394,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 565,
-        "reason": "CURRENT (565): typed padded stack packet aligns 0x48 frame and local addresses, but second allocation call schedules zero stores after call (seven missing/extra) and global store addressing differs; volatile variant worsened. Best candidate preserved.",
+        "reason": "CURRENT (565), exact 0x48 frame and real first/object/second/global-pointer locals at 44/40/38/34; removed unsupported padding record. Remaining second-constructor zero/argument scheduling and folded global address. One finish, three probes this pass; register global, pair fields and pointer-global type did not improve. Original assembly remains active.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

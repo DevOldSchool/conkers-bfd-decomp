@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_scene_setup_emission_controller.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1500FE30
  * - func_1500FFCC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -18,45 +17,30 @@ u32 func_150ADA20(void);
 void func_150C851C(s32);
 extern u8 *D_800BE4E0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500FE30 CURRENT (1370) */
 void func_1500FE30(void) {
-    s16 index;
-    s32 offset;
-    s32 copy_offset;
-    u8 *entry;
-    u32 random_value;
+    typedef struct Entry {
+        s8 group;
+        u8 pad1;
+        s8 mode;
+        u8 pad3;
+        s16 choice;
+        s16 current;
+        s16 target;
+    } Entry;
+    s32 index;
 
     D_800BE4E0 = func_10003C40(0x64, 1, 0, 0);
     func_100226F0(D_800BE4E0, 0x64);
-    index = 0;
-    offset = 0;
-    do {
-        D_800BE4E0[offset] = (s8)(index / 5);
-        *(s8 *)(D_800BE4E0 + offset + 2) = -1;
-        random_value = func_150ADA20();
-        index++;
-        entry = D_800BE4E0 + offset;
-        offset += 0xA;
-        *(s16 *)(entry + 4) = (s16)(random_value % 5U);
-    } while (index < 0xA);
+    for (index = 0; index < 10; index++) {
+        ((Entry *)D_800BE4E0)[index].group = index / 5;
+        ((Entry *)D_800BE4E0)[index].mode = -1;
+        ((Entry *)D_800BE4E0)[index].choice = func_150ADA20() % 5U;
+    }
     func_150C851C(0x64);
-    copy_offset = 0x14;
-    *(s16 *)(D_800BE4E0 + 6) = *(s16 *)(D_800BE4E0 + 8);
-    *(s16 *)(D_800BE4E0 + 0x10) = *(s16 *)(D_800BE4E0 + 0x12);
-    do {
-        entry = D_800BE4E0 + copy_offset;
-        *(s16 *)(entry + 6) = *(s16 *)(entry + 8);
-        entry = D_800BE4E0 + copy_offset;
-        *(s16 *)(entry + 0x10) = *(s16 *)(entry + 0x12);
-        entry = D_800BE4E0 + copy_offset;
-        *(s16 *)(entry + 0x1A) = *(s16 *)(entry + 0x1C);
-        entry = D_800BE4E0 + copy_offset;
-        copy_offset += 0x28;
-        *(s16 *)(entry + 0x24) = *(s16 *)(entry + 0x26);
-    } while (copy_offset != 0x64);
+    for (index = 0; index < 10; index++) {
+        ((Entry *)D_800BE4E0)[index].current = ((Entry *)D_800BE4E0)[index].target;
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1500FE30 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_3D2E0/func_1500FE30.s")
 extern s32 D_800917B8;
 void func_1510C4AC(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 
@@ -73,30 +57,27 @@ extern s32 D_800B0E04;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1500FFCC CURRENT (565) */
 void func_1500FFCC(void) {
-    struct {
-        f32 second[2];
-        f32 padding;
-        f32 first;
-    } values;
+    f32 first;
     u8 *object;
+    f32 second[2];
     s32 *global_object;
 
     func_15195AA8(D_800B0E00, D_800902DC, 1, -1, 0, 0, 0, -4);
     func_15195AA8(D_800B0E04, D_800902DC, 1, -1, 0, 1, 0, -4);
     func_1500FE30();
     func_1500FF9C();
-    values.first = 0.0f;
+    first = 0.0f;
     object = func_151491F4(0x12C, -1, 0x12, 0, 0xE, 4, 0xFF, 0);
     if (object != 0) {
-        func_10022EC0(object + 0x28, &values.first, 4);
+        func_10022EC0(object + 0x28, &first, 4);
     }
-    values.second[0] = 0.0f;
-    values.second[1] = 0.0f;
+    second[0] = 0.0f;
+    second[1] = 0.0f;
     object = func_15149130(0x12C, -1, 0x17, -1, 0, 0x14, 8, 0xFF, 1);
     global_object = &D_80088870;
     *global_object = (s32)object;
     if (object != 0) {
-        func_10022EC0(object + 0x28, values.second, 8);
+        func_10022EC0(object + 0x28, second, 8);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1500FFCC */

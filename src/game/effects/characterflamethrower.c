@@ -1989,15 +1989,16 @@ s32 func_1519C26C(CharacterFlamethrowerMotion *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C26C.s")
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519C4E4 CURRENT (540) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519C4E4 CURRENT (435) */
 s32 func_1519C4E4(u8 *arg0) {
+    typedef struct Damping { u8 pad0[0x24]; f32 factor; s16 threshold, multiplier; } Damping;
     f32 temp_fv0;
     f32 temp_fv1;
     s16 temp_v1;
     s32 temp_lo;
     s32 var_v1;
-    u8 *temp_v0;
-    u8 *temp_v0_2;
+    Damping *temp_v0;
+    Damping *temp_v0_2;
 
     var_v1 = D_800BE9E4;
     temp_v0 = (void *)(arg0 + 0x110);
@@ -2006,14 +2007,14 @@ s32 func_1519C4E4(u8 *arg0) {
             temp_fv0 = *(f32 *)((u8 *)arg0 + 0x2C);
             temp_fv1 = *(f32 *)((u8 *)arg0 + 0x30);
             var_v1 -= 1;
-            *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (temp_fv0 - (temp_fv0 * *(f32 *)((u8 *)temp_v0 + 0x24)));
-            *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fv1 - (temp_fv1 * *(f32 *)((u8 *)temp_v0 + 0x24)));
+            *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (temp_fv0 - (temp_fv0 * temp_v0->factor));
+            *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fv1 - (temp_fv1 * temp_v0->factor));
         } while (var_v1 > 0);
     }
     temp_v0_2 = (void *)(arg0 + 0x110);
     temp_v1 = *(s16 *)((u8 *)arg0 + 0x1C);
-    if (temp_v1 < *(s16 *)((u8 *)temp_v0_2 + 0x28)) {
-        temp_lo = temp_v1 * *(s16 *)((u8 *)temp_v0_2 + 0x2A);
+    if (temp_v1 < temp_v0_2->threshold) {
+        temp_lo = temp_v1 * temp_v0_2->multiplier;
         if (temp_lo < (s32) *(u8 *)((u8 *)arg0 + 0x5C)) {
             *(u8 *)((u8 *)arg0 + 0x5C) = (u8) temp_lo;
         }
