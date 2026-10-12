@@ -1196,7 +1196,69 @@ extern s32 D_800D23B0;
 void func_15089BB0(void) {
     D_800D23B0 = 0;
 }
+void *func_1509B570(s32);
+void func_1508BC20(void);
+extern f32 D_800872B0[], D_800872F8[];
+extern s8 D_800872F0[], D_800E0BD0;
+extern s32 D_800D2E48;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15089BC0 CURRENT (10) */
+s32 func_15089BC0(void) {
+    s32 id;
+    s32 i;
+    void *resource;
+
+    id = D_800D2E48;
+    resource = func_1509B570(id);
+    if (resource == NULL) return 0;
+    switch (id) {
+    case 0xB9:
+        D_800D23B0 = (s32)resource;
+        break;
+    case 0xB8:
+        D_800D23B0 = (s32)resource;
+        break;
+    case 0xBB:
+        D_800D23B0 = (s32)resource;
+        break;
+    case 0xBA:
+        D_800D23B0 = (s32)resource;
+        break;
+    case 0xB7:
+        D_800D23B0 = (s32)resource;
+        break;
+    case 0xBD:
+        D_800D23B0 = (s32)resource;
+        break;
+    case 0xBE:
+        D_800D23B0 = (s32)resource;
+        break;
+    default:
+        D_800D23B0 = 0;
+        return 0;
+    }
+        func_1508BC20();
+        *(s8 *)((u8 *)D_800D23B0 + 0x1700) = 0;
+        *(s8 *)((u8 *)D_800D23B0 + 0x1701) = 0;
+        *(s8 *)((u8 *)D_800D23B0 + 0x1703) = 0;
+        *(s8 *)((u8 *)D_800D23B0 + 0x1702) = 0;
+        *(s8 *)((u8 *)D_800D23B0 + 0x1704) = 0;
+        *(s16 *)((u8 *)D_800D23B0 + 0x16BC) = id;
+        *(f32 *)((u8 *)D_800D23B0 + 0x16B8) = D_800872B0[D_800E0BD0];
+        *(s8 *)((u8 *)D_800D23B0 + 0x1745) = 0;
+        for (i = 0; i < 16; i++) {
+            *(s32 *)((u8 *)D_800D23B0 + i * 4 + 0x16C0) = 0;
+            *(f32 *)((u8 *)D_800D23B0 + i * 4 + 0x1868) = D_800872F8[D_800E0BD0];
+            *(f32 *)((u8 *)D_800D23B0 + i * 4 + 0x17A8) = 0.0f;
+            *(f32 *)((u8 *)D_800D23B0 + i * 4 + 0x17E8) = 0.0f;
+            *(f32 *)((u8 *)D_800D23B0 + i * 4 + 0x1828) = 0.0f;
+        }
+        *(s32 *)((u8 *)D_800D23B0 + 0xC) = D_800872F0[D_800E0BD0];
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15089BC0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15089BC0.s")
+
 f32 func_15047D60(f32);
 extern f32 D_8009DA44;
 extern f32 D_8009DA48;

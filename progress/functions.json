@@ -57034,6 +57034,12 @@
       "symbol": "func_1515AF90"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5086,
+        "reason": "Manual revision budget exhausted: 5442 to 5086. Explicit quarter-register lifetime regressed to 5776; retained result-first candidate. Frame remains 0x128 versus 0x108; extra saved global-address registers, floating-register assignment and zero-store scheduling differ.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90559,6 +90565,12 @@
       "symbol": "func_15089BB0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 10,
+        "reason": "Manual revision budget exhausted: 2475 to 10; all instruction ordering and registers match except the 0x20 versus 0x28 frame. Named loop-bound probe recovers the frame but changes unrolling and regresses to 21635. Retained switch-exit candidate; jump-table data integration remains unverified.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
