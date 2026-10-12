@@ -27,6 +27,7 @@ import diff
 import font_assets
 import main_private_data
 import objdiff
+import objdiff_candidate
 import objdiff_data_targets
 import objdiff_storage
 import objdiff_snapshot
@@ -225,6 +226,41 @@ def debugger_runtime_from_data(units: list[dict]) -> dict[str, str]:
     return {path: proofs.pop()}
 
 
+def canonical_debugger_candidates(units: list[dict], configs: list[dict]) -> None:
+    """Expose anonymous IDO switch tables and literals on comparison copies.
+
+    Only completed debugger source owners qualify. Names and table destinations
+    come from candidate instructions/relocations and runtime anchors, never the
+    reference. The actual linker input stays unchanged; both copies must link to
+    the runtime ELF bytes. Owners without anonymous references keep their base.
+    """
+    runtime_path = 'build/us/original-assets/conker.us.elf'
+    for unit, config in zip(units, configs, strict=True):
+        if not (unit.get('overlay') == 'debugger' and unit.get('source') and unit.get('data_ranges')
+                and unit.get('complete') and unit.get('data_completion_verified')
+                and unit.get('base_path')):
+            continue
+        runtime = (ROOT / runtime_path).read_bytes()
+        if unit.get('linked_inputs', {}).get(runtime_path) != hashlib.sha256(runtime).hexdigest():
+            raise ValueError('debugger comparison copy requires the fresh runtime ELF proof')
+        raw_path = OUTPUT / unit['base_path']
+        raw = raw_path.read_bytes()
+        bases = objdiff_candidate.linked_section_bases(raw, runtime)
+        canonical, proof = objdiff_candidate.canonicalize(raw, bases)
+        if canonical == raw:
+            continue
+        directory = OUTPUT / 'owned' / unit['key']
+        directory.mkdir(parents=True, exist_ok=True)
+        path = directory / 'base.o'
+        path.write_bytes(canonical)
+        proof['linked_bytes'] = objdiff_candidate.verify_linked_copies(
+            raw_path, path, runtime, bases, directory / 'link-proof')
+        unit['comparison_copy'] = {'raw_base_path': unit['base_path'],
+                                   'raw_base_sha256': hashlib.sha256(raw).hexdigest(), **proof}
+        unit['base_path'] = config['base_path'] = path.relative_to(OUTPUT).as_posix()
+        unit['base_sha256'] = objdiff_targets.sha256(path)
+
+
 def prepare() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     for name in ('objdiff.json', 'coverage.json'):
@@ -381,6 +417,7 @@ def prepare() -> None:
     data_coverage['mapped_data_bytes'] = data_coverage.get('mapped_data_bytes', 0) + stored_bytes
     data_coverage['stored_asset_bytes'] = stored_bytes
     grouped, grouped_config = objdiff_ownership.group_units(built + data_built, units + data_config, ROOT, OUTPUT)
+    canonical_debugger_candidates(grouped, grouped_config)
     coverage = {'scope': 'US main/game/debugger CPU code, initialized data and all bounded font/flat/indexed asset storage; unassigned ROM regions, CPU archive backing, BSS and RSP excluded',
                 'mapped_code_bytes': sum(u['code_bytes'] for u in built),
                 'expected_code_bytes': sum(u['report_code_bytes'] for u in built),
@@ -562,6 +599,8 @@ def generate(binary: Path) -> int:
                   'report_sha256': hashlib.sha256((OUTPUT/'report.json').read_bytes()).hexdigest(),
                   'preparation_seconds': prepared-started, 'report_and_validation_seconds': time.perf_counter()-prepared,
                   'completion_notes': completion_notes,
+                  'comparison_copies': {u['key']: u['comparison_copy'] for u in coverage['units']
+                                        if 'comparison_copy' in u},
                   'compile_errors': coverage['compile_errors'],
                   'existing_progress': state.summary(state.validate_project()[1])['code_bytes']['regions']['us'],
                   'measures': report['measures']}

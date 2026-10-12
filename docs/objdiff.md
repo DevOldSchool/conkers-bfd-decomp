@@ -230,11 +230,23 @@ that object's bytes. Source-owned INFO/NOLOAD placements retain raw ROM or
 original GAME-data archive backing, which must be replaced and verified before
 completion. Both debugger C units have allocated `.data` and `.rodata` placements in the
 canonical profile, with actual runtime-input and whole-image verification.
-Native percentages come directly from the unmodified release. Its treatment of
-anonymous data can leave native data matching below 100% despite a successful
-independent full-image ROM comparison. These are reported as separate facts;
-no symbols or percentages are fabricated to bridge that difference. The independent
-reference disassembly includes original rodata context for switch destinations.
+Native percentages come directly from the unmodified release. Stock objdiff
+bounds a data comparison by the last named symbol and compares REL words byte
+for byte, so IDO's anonymous switch tables and literals would otherwise leave
+the formatter's `.rodata` unmatched. For completed debugger source owners only,
+generation compares a copy of the actual linker input (`owned/<key>/base.o`,
+built by [`objdiff_candidate.py`](../scripts/objdiff_candidate.py)). The copy
+names anonymous tables and doubles found from the candidate's own dispatch
+instructions and relocations, and moves each table entry's REL addend into a
+destination label. Names come from runtime-ELF anchors, never the reference or
+ROM. An independent verifier re-derives every permitted change and checks all
+relocation destinations; both copies must link to the runtime ELF bytes.
+`validation.json` records each proof under `comparison_copies`. Objects without
+anonymous references keep the actual input. Changed literals, table order, case
+counts or placement still lower native matching; see the
+[formatter evidence](evidence/debugger/debugger_printf_rodata.md#integrated-comparison-copy-2026-10-12).
+The independent reference disassembly includes original rodata context for
+switch destinations.
 The maintained TLB source `src/debugger/tlb.s` supplies an assembled candidate.
 Its `Original assembly` unit earns native matching and linked completion only
 after full-span candidate and runtime-image verification. Native matched code
@@ -251,7 +263,7 @@ Native comparisons determine perfect-match credit. Every final unit must satisfy
 `complete_data <= matched_data`; category or aggregate totals cannot hide a
 violation. Units whose data is still ROM-backed need actual build integration
 before they can become complete. This includes preserved GAME data. All debugger initialized data is now allocated
-source storage and remains subject to complete native data matching.
+source storage and is compared natively as described above.
 
 When this report is first published, fully-linked code can decrease for two
 reasons: a grouped unit owns data still supplied by ROM, or its linked data fails

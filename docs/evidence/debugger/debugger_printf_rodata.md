@@ -290,9 +290,10 @@ linked code/data. PR #102 remains a draft. Integration requires separate approva
 
 The [saved evidence](us_debugger_relocation_trial.json) records the tested source
 revision, official binary checksum, input/output hashes, mutation results,
-independent linker proofs and full-report comparison. The
-[prototype](relocation_trial/objdiff_candidate.py) and test drivers are preserved
-as experimental evidence only; production scripts do not import them.
+independent linker proofs and full-report comparison. The prototype now lives
+in [`scripts/objdiff_candidate.py`](../../../scripts/objdiff_candidate.py); see
+[integration](#integrated-comparison-copy-2026-10-12) below. The ad hoc drivers
+that depended on ignored local artifacts were replaced by portable tests.
 
 ### Transformation and independence
 
@@ -344,15 +345,77 @@ its code byte count is therefore larger than the report's symbol-based count.
 
 ### Reproduction scope and disposition
 
-The saved drivers run from the repository root against the existing ignored trial
-artifacts under `build/us/manual-attempts/debugger-completion/`. They document the
-actual local experiment, including its macOS ARM64 release binary and previously
-prepared mutation objects; they are not yet a portable CI test suite. No ROM or
-compiled candidate bytes are committed. `check_trial.py` runs the native mutation
-and semantic checks; `run_link_trial.py` and `check_alternate_links.py` require the
-pinned MIPS binutils environment and `scripts` on the Python import path.
-
-Automatic approval review rejected production wiring pending completion of these
-checks and explicit integration approval. The checks now pass. The prototype
-remains isolated and the production report hash remains
+The trial drivers ran against ignored artifacts under
+`build/us/manual-attempts/debugger-completion/`, including a macOS ARM64 release
+binary and previously prepared mutation objects. Their results are recorded in
+the saved evidence above. No ROM or compiled candidate bytes are committed.
+The trial's production report hash was
 `cee8d436182b00f17e649e144b16de4c0447b51793f58d5934ec730266e5eece`.
+The production integration is described next.
+
+
+## Integrated comparison copy (2026-10-12)
+
+The trial transform now runs in production report preparation. The prototype
+moved to [`scripts/objdiff_candidate.py`](../../../scripts/objdiff_candidate.py) with
+its derivation, canonicalization and verification logic unchanged. The module also
+gains the trial's GNU ld proof as `verify_linked_copies()`.
+`objdiff_report.canonical_debugger_candidates()` runs after ownership grouping.
+It accepts only debugger source owners that are complete, carry
+`data_completion_verified` and record the current runtime ELF hash in
+`linked_inputs`. For each owner it:
+
+1. derives section bases from candidate symbol anchors in the fresh runtime ELF;
+2. canonicalizes a copy of the actual linker input, including the semantic
+   re-derivation and verification of every permitted change;
+3. links the raw and canonical copies at those bases and requires both to equal
+   the runtime ELF's `.text`, `.rodata` and `.data` bytes;
+4. writes the copy to `owned/<key>/base.o` and points the objdiff unit at it.
+
+If no change is needed, the copy is discarded and the owner keeps the actual
+object. `debugger_0000.c` takes this path. The raw path and hash, discovered
+symbols, destination labels, semantic proof and link proof appear under
+`comparison_copies` in `validation.json`. The build object, reference objects,
+objdiff binary and runtime link are unchanged.
+
+### Fresh report result
+
+`./conker objdiff report` with stock objdiff v3.8.1, no compile errors:
+
+| Debugger metric | Result |
+| --- | ---: |
+| Matching code | 14,040 / 14,040 bytes (100%) |
+| Matching initialized data | 4,720 / 4,720 bytes (100%) |
+| Linked code / data | 100% / 100% |
+| Matched functions / complete units | 42 / 42; 3 / 3 |
+
+All 10,866 units were compared with the earlier production report. Only
+`done/debugger/debugger_1AD0.c` changed. Its `.rodata` rose from 34.52381% to
+100%, adding exactly 352 matched data bytes. `.text`, `.data` and every function
+comparison stayed identical, and the formatter left `completion_notes`. Report
+SHA-256: `73c27de7dbbdd673c20d6bf32688646242e7168c274fcff6241bcc09d679bbff`
+(uncommitted working tree; preparation took 391 seconds).
+
+Production-path spot checks with the same binary scored the canonical copy at
+100% `.rodata`. Perturbing the `1e8` double scored 99.709305%, and exchanging the
+first two table destinations scored 98.49487%. Code stayed 100% in each case.
+
+### Portable tests
+
+[`tests/test_objdiff_candidate.py`](../../../tests/test_objdiff_candidate.py)
+assembles an original IDO-shaped fixture with the pinned binutils. It checks the
+runtime-anchor bases, discovered names/extents/labels, zeroed table words,
+idempotence, and that canonicalization makes no file or subprocess access. It also
+checks that raw/canonical links equal the runtime bytes and that an object with
+no anonymous references is unchanged. Rejection cases cover code, literal, table
+addend, relocation target, section size, dispatch bound and out-of-range
+destinations. `tests/test_objdiff_report.py` covers owner eligibility, the
+unchanged-object path and stale runtime proofs.
+
+### Fresh-checkout fix
+
+A fresh Docker checkout extracted the editable debugger inputs into the
+container's temporary `/workspace`, because `.conker/debugger-assets` was not
+mounted. Final input-hash validation then failed on the host. `scripts/conker.sh`
+now mounts that directory read-write and bumps the warm-container schema so
+existing containers are recreated.

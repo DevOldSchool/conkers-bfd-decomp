@@ -468,3 +468,57 @@ class ReportInputFreshnessTests(unittest.TestCase):
                 input_file.write_bytes(b'changed')
                 with self.assertRaisesRegex(ValueError, 'input changed'):
                     report.verify_input_files(unit)
+
+
+class DebuggerComparisonCopyTests(unittest.TestCase):
+    RUNTIME = 'build/us/original-assets/conker.us.elf'
+
+    def run_hook(self, unit, canonical=b'canonical'):
+        import hashlib
+        with tempfile.TemporaryDirectory() as tmp, patch.object(report, 'ROOT', Path(tmp)), \
+                patch.object(report, 'OUTPUT', Path(tmp) / 'out'), \
+                patch.object(report.objdiff_candidate, 'linked_section_bases', return_value={'.text': 0}), \
+                patch.object(report.objdiff_candidate, 'canonicalize',
+                             side_effect=lambda raw, _: (canonical or raw, {'symbols': []})), \
+                patch.object(report.objdiff_candidate, 'verify_linked_copies',
+                             return_value={'.text': {'raw_and_canonical_match_runtime': True}}) as link:
+            root = Path(tmp)
+            (root / self.RUNTIME).parent.mkdir(parents=True)
+            (root / self.RUNTIME).write_bytes(b'runtime')
+            (root / 'out/code').mkdir(parents=True)
+            (root / 'out/code/base.o').write_bytes(b'raw')
+            unit.setdefault('linked_inputs', {self.RUNTIME: hashlib.sha256(b'runtime').hexdigest()})
+            config = {'base_path': unit.get('base_path')}
+            report.canonical_debugger_candidates([unit], [config])
+            written = (root / 'out' / unit['base_path']).read_bytes() if unit.get('base_path') else None
+            return unit, config, written, link.call_count
+
+    def owner(self, **fields):
+        return {'key': 'formatter', 'overlay': 'debugger', 'source': 'src/formatter.c',
+                'data_ranges': [{}], 'complete': True, 'data_completion_verified': True,
+                'base_path': 'code/base.o', **fields}
+
+    def test_verified_debugger_owner_uses_linked_comparison_copy(self):
+        unit, config, written, links = self.run_hook(self.owner())
+        self.assertEqual(unit['base_path'], 'owned/formatter/base.o')
+        self.assertEqual(config['base_path'], unit['base_path'])
+        self.assertEqual(written, b'canonical')
+        self.assertEqual(unit['comparison_copy']['raw_base_path'], 'code/base.o')
+        self.assertEqual(links, 1)
+
+    def test_owner_without_anonymous_data_keeps_actual_base(self):
+        unit, config, written, links = self.run_hook(self.owner(), canonical=None)
+        self.assertEqual((unit['base_path'], config['base_path'], written, links),
+                         ('code/base.o', 'code/base.o', b'raw', 0))
+        self.assertNotIn('comparison_copy', unit)
+
+    def test_other_or_unverified_units_are_not_rewritten(self):
+        for change in ({'overlay': 'main'}, {'complete': False}, {'data_completion_verified': False},
+                       {'data_ranges': []}, {'source': None}):
+            with self.subTest(change=change):
+                unit, _, written, links = self.run_hook(self.owner(**change))
+                self.assertEqual((unit['base_path'], written, links), ('code/base.o', b'raw', 0))
+
+    def test_stale_runtime_proof_is_rejected(self):
+        with self.assertRaisesRegex(ValueError, 'fresh runtime ELF'):
+            self.run_hook(self.owner(linked_inputs={self.RUNTIME: 'stale'}))

@@ -16,7 +16,8 @@ Definitions and compiler alignment reproduce the complete original section.
 
 `scripts/debugger_assets.py` extracts 96 eight-by-eight monochrome glyphs into
 an editable 128-by-48 PGM atlas, and 109 strings into JSON. These local inputs
-live under ignored `.conker/debugger-assets/us/`, outside `make clean`. Only the
+live under ignored `.conker/debugger-assets/us/`, outside `make clean`; Docker
+commands mount that directory read-write so the files persist on the host. Only the
 generated C include lives in `build/us/debugger-assets/`. Existing input pairs
 from the old build directory are copied without overwrite on first preparation
 or before `make clean` deletes generated files. Partial input sets stop preparation
