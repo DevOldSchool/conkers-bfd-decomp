@@ -204,6 +204,27 @@ class CheckedManifestTests(unittest.TestCase):
                     with self.subTest(address=record['address'], source=raw):
                         self.assertEqual(sources, [raw, raw.replace('src/', 'src/done/', 1)])
 
+    def test_real_external_placements_have_matching_source_owners(self):
+        # Run without a ROM in public CI and GAME-only verify-batch. A new
+        # linker placement must not silently omit its ownership record.
+        document = json.loads((ROOT / 'config/data/us.json').read_text())
+        for overlay in ('main', 'game', 'debugger'):
+            path = f'config/{overlay}/us-rodata.ld'
+            owners = {(int(record['address'], 16), record['section']): record['owner']
+                      for record in document['owners'][overlay]}
+            for mapping in data.external_mappings((ROOT / path).read_text(), path):
+                if mapping['input'] in ('.bss', '.sbss'):
+                    continue
+                key = (mapping['start'], mapping['input'])
+                with self.subTest(path=path, address=hex(key[0]), section=key[1]):
+                    self.assertIn(key, owners, 'external placement needs a data owner')
+                    sources = owners[key]['sources']
+                    self.assertTrue(sources)
+                    for source in sources:
+                        self.assertEqual('*' + Path(source).stem + '.o(' + key[1] + ')',
+                                         mapping['input_selector'])
+                    data.active_source(ROOT, sources)
+
     def test_active_source_rejects_missing_and_ambiguous_alternatives(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
