@@ -25,6 +25,19 @@ SECTIONS
     {
         *game_11D830.o(.rodata)
     }
+    /* Burst velocity literals: docs/evidence/data-layout/game_burst_velocity_literals.md. */
+    .game_rodata_f3270 0x800A041C (INFO) : SUBALIGN(4)
+    {
+        *game_F3270.o(.rodata)
+    }
+    .game_rodata_f3ba0 0x800A045C (INFO) : SUBALIGN(4)
+    {
+        *game_F3BA0.o(.rodata)
+    }
+    .game_rodata_1d6e80 0x800A8FF4 (INFO) : SUBALIGN(4)
+    {
+        *game_1D6E80.o(.rodata)
+    }
     /* Reviewed tables: docs/evidence/data-layout/game_1bc650_jump_tables.md. */
     .game_rodata_1bc650 0x800A7B7C (INFO) : SUBALIGN(4)
     {
@@ -183,3 +196,14 @@ __game_rodata_c98f0_payload_size = 0x18;
 
 ASSERT(SIZEOF(.game_rodata_90840) == 0xC0, "game_90840 table extent changed")
 __game_rodata_90840_payload_size = 0xB8;
+
+/* Burst velocity literals own one word; remaining input bytes are zero alignment. */
+ASSERT(SIZEOF(.game_rodata_f3270) == 0x10,
+       "game_F3270 velocity literal extent changed")
+__game_rodata_f3270_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_f3ba0) == 0x10,
+       "game_F3BA0 velocity literal extent changed")
+__game_rodata_f3ba0_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_1d6e80) == 0x10,
+       "game_1D6E80 velocity literal extent changed")
+__game_rodata_1d6e80_payload_size = 0x4;

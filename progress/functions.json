@@ -13441,7 +13441,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 985,
-        "reason": "Bounded manual pass: CURRENT 985, correct frame and status stack offset; 95 register rows plus instruction scheduling residual. Explicit packed coordinates and split output lifetimes tested; two probe revisions exhausted, no permutation.",
+        "reason": "Retain CURRENT (985). Renewed sum expression/storage/scopes and speed allocation priority probes did not improve. Three new probe batches (one equivalent historical variant counted as recheck), no applied variants or finish; prior packed/delta/register histories retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -36527,7 +36527,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 180,
-        "reason": "Best full-span CURRENT 180: exact frame/registers/operands; three instruction scheduling pairs differ (initial cursor increment, loop command snapshot, special-command ori). Two bounded probe batches exhausted; SDK Gfx representation previously unchanged.",
+        "reason": "Retain CURRENT (180), three scheduling pairs only. Renewed cursor/store probe batch scored 400, 965, 1025 and 1450; no regressed variant applied. Prior three finishes and two revision batches retained. User now permits additional manual attempts and bounded permutation; next revisit needs a new scheduling hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -59411,17 +59411,16 @@
       "symbol": "func_150C5F94"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "Best CURRENT120: all instructions, registers and stack offsets agree except the D_800A041C lui/lwc1 pair is scheduled after initial stores instead of the prologue. Five bounded manual revision batches exhausted; const/register qualifiers unchanged, narrower multiplier scope worse. Preserve best, no permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 788,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C60D8",
           "vram": "0x150C60D8"
         }
@@ -59597,17 +59596,16 @@
       "symbol": "func_150C68C4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "CURRENT120, exactly the same prologue-versus-later multiplier load scheduling residual as raw-identical sibling150C60D8. Reused best inspected pattern; do not repeat its five exhausted revision batches without new evidence.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 788,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C6A08",
           "vram": "0x150C6A08"
         }
@@ -66625,7 +66623,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 152,
-        "reason": "Best CURRENT152; exact frame and control flow, eleven first-call flag temporary and constant-argument scheduling rows remain. Six manual revision hypotheses exhausted; no permutation.",
+        "reason": "Retain CURRENT (152), first-call OR temporary and argument scheduling residual. Renewed inner narrowing/inline choice probes and local signedness/ternary merge probes did not improve; two new probe batches, no applied variants. Prior ABI/mask/combined-flag histories retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -67607,17 +67605,16 @@
       "symbol": "func_151AB2C4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "CURRENT 120 after one finish; identical raw sibling of150C60D8 and150C6A08. Only multiplier load pair is scheduled late instead of prologue; reuse best candidate and do not repeat exhausted snapshot/const/register/scope hypotheses.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 788,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151AB3A4",
           "vram": "0x151AB3A4"
         }
@@ -69577,7 +69574,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 110,
-        "reason": "CURRENT110 from331; frameB0 and all object/stack offsets recovered by inlining the third particle RNG result. Only end-of-particle-timer pointer reload differs (t6 plus move to v0 versus direct v0), shifting two branches. Two finishes/two bounded revision probes; an extra unchanged layout diagnostic identified slots. Final named-RNG-lifetime probes did not improve. Budget exhausted.",
+        "reason": "Retain CURRENT (110), exact frame/offsets with missing pointer move after particle timer store. Renewed pointer-store/register/snapshot probes did not improve; remainder lifetime and halfword narrowing also plateaued. Two new probe batches, no applied variants; prior two finishes/two probes retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -78183,7 +78180,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 360,
-        "reason": "CURRENT360 after two finishes/two bounded probe batches. Frame B8, stack offsets and instruction sequence agree; 52 floating-point register rows remain. Operand reversal and typed emitter-field hypotheses did not resolve allocation.",
+        "reason": "Retain CURRENT (360), exact frame/offsets/instruction sequence; FP register residual starts at velocity multiply. First authorized32-variant permutation did not improve. Prior operand, typed field, compound and sibling volatile/difference-lifetime probes retained; no equivalent sibling permutation warranted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -84513,7 +84510,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 135,
-        "reason": "Retain corrected0x70-byte packet candidate CURRENT135. Renewed deferred pass: two bounded probe batches; destination assignment and integer-address forms remained135, combined flag constant783, compound packet flags2073, merged existing flag lifetimes528. No regressed probe applied. Frame, offsets and instruction sequence remain exact; early state-pointer and final flag/tail GPR allocation still differ. Prior two finishes/two batches retained; renewed hypotheses exhausted.",
+        "reason": "Retain CURRENT (135), exact frame/offsets/instruction sequence with GPR allocation residual. First authorized permutation compiled32 variants without improvement. Explicit first/second/both RNG flag control-flow probes955/135/955 did not improve. Prior manual hypotheses retained; require new allocator evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -90602,7 +90599,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Retain original best CURRENT10, frame0x20 versus0x28 only. Renewed pass: two bounded probe batches and one structural finish. Explicit runtime scale/mode snapshots recover0x28 frame and correct idspill1C but score230 because values promote to f0/a0 and shift scheduling; aggregate-field forms remain230. Restored original best; no artificial padding or shared changes. Prior two finishes/two batches retained, renewed hypotheses exhausted; jump-table data integration remains unverified.",
+        "reason": "Retain CURRENT (10), frame20 versus28 only. Renewed indexed-address forms (first/all/base-word) all remain10/frame20. Saved structural230 fixes frame but changes scheduling and register allocation, so no eligible permutation. Prior named-value and aggregate-shape hypotheses retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

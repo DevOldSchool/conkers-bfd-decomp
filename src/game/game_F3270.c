@@ -10,7 +10,6 @@
  * - func_150C5E0C
  * - func_150C5F40
  * - func_150C5F94
- * - func_150C60D8
  * - func_150C6460
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -202,13 +201,11 @@ void *func_151303BC(s32, u8, s32);
 extern f32 D_800A041C, D_800A0420, D_800A0424, D_800A0428;
 extern f32 D_800A042C, D_800A0430, D_800A0434, D_800A0438;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C60D8 CURRENT (120) */
 void func_150C60D8(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
                   f32 arg4, f32 arg5, void *arg6) {
     GameF3270Burst burst;
     void *spawned;
     GameF3270BurstMotion motion;
-    f32 scale = D_800A041C;
     burst.kind = 0x2F;
     burst.texture = 0xC01;
     burst.flags = 0x200005;
@@ -245,9 +242,9 @@ void func_150C60D8(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
     motion.mode1 = 0;
     motion.mode2 = 0;
     motion.mode3 = 0;
-    burst.vx = -arg3 * scale;
+    burst.vx = -arg3 * 0.2f;
     burst.vy = 0.0f;
-    burst.vz = -arg5 * scale;
+    burst.vz = -arg5 * 0.2f;
     if (func_150ADA20() & 1) burst.mode |= 0x40;
     if (func_150ADA20() & 1) burst.mode |= 0x80;
     burst.lifetime = func_150ADA20() % 51U + 106;
@@ -265,8 +262,6 @@ void func_150C60D8(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
     spawned = func_151303BC((s32)&burst, 2, 0x28);
     if (spawned != NULL) func_10022EC0((u8 *)spawned + 0xA8, &motion, 0x28);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C60D8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F3270/func_150C60D8.s")
 s32 func_150C63EC(void *arg0) {
     s32 var_v1;
 
