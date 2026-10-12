@@ -296,7 +296,7 @@ typedef struct {
 } Game1E9A30Spawn;
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_15134DAC(u8 *, s32);
+void *func_15134DAC(void *, s32);
 extern f32 D_800AA850;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151BD2F8 CURRENT (120) */

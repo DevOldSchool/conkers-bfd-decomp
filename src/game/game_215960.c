@@ -40,7 +40,6 @@ typedef struct {
 } Game215960State;
 
 void *func_151ED1E0(void *);
-void func_15042D94(s32, s32, s32, s32);
 extern s32 D_8003C8E0;
 extern s32 D_80000300;
 extern s8 D_8008FD90;
@@ -377,7 +376,6 @@ s32 func_151EB96C(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EB96C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EBB50.s")
 
-void func_15042D94(s32, s32, s32, s32);
 extern s32 D_800E0A90;
 extern Game215960State *D_800E0BD8;
 

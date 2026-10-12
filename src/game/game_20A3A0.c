@@ -23,7 +23,7 @@ extern u8 D_800E0A24;
 extern s32 D_800E0A28;
 extern s32 D_800E0A2C;
 
-void func_151DCEF0(s32 arg0, u8 arg1, s32 arg2, s32 arg3) {
+s32 func_151DCEF0(s32 arg0, u8 arg1, s32 arg2, s32 arg3) {
     u64 value;
 
     if (func_151DCFD8(1) != 0) {
@@ -36,7 +36,7 @@ void func_151DCEF0(s32 arg0, u8 arg1, s32 arg2, s32 arg3) {
     D_800E0A2C = arg3;
     value = func_10026968(12000ULL, D_8002BD10);
     value = func_10026868(value, 1000000ULL);
-    func_10024A40(&D_80042A58, value, 0ULL, &D_80042A78, &D_80042A90);
+    return func_10024A40(&D_80042A58, value, 0ULL, &D_80042A78, &D_80042A90);
 }
 s32 func_10023440(u8 *, s32, s32);
 s32 func_151DD4E0(u8 *, s32, u8 *);

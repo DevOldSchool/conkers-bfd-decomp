@@ -87,8 +87,9 @@ void func_15018DFC(void) {
     func_1507C8FC();
 }
 s32 func_151674F8(s32, s32, s16, s32);
-s32 func_15174B48(s32, s32, s16);
-void func_15174AA4(s32, s32, s16);
+union Game1A1E50DisplayCommand;
+union Game1A1E50DisplayCommand *func_15174B48();
+union Game1A1E50DisplayCommand *func_15174AA4();
 void func_1517D7B0(s32 *, s32);
 extern u8 D_800BE616;
 extern s32 D_800BE9F0;
@@ -106,7 +107,7 @@ void func_15018E88(s32 arg0, s16 arg1) {
 s32 func_15018F08(s32 arg0, s16 arg1) {
     s32 value;
 
-    value = func_15174B48(arg0, D_800BE9F0, arg1);
+    value = (s32) func_15174B48(arg0, D_800BE9F0, arg1);
     arg0 = value;
     value = func_151674F8(value, 1, arg1, 0);
     arg0 = value;

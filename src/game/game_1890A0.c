@@ -23,7 +23,7 @@ typedef struct Game1890A0Node {
     u8 *field10;
 } Game1890A0Node;
 
-s32 func_1514ECE0(s32, s32, void **, void *);
+s32 func_1514ECE0();
 
 s32 *func_15142B7C(s32 *, s32, s32);
 void *func_15142C10(void *, s32, s32, s32, s32, u8 *);

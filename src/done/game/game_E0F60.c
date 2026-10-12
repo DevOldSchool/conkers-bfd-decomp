@@ -79,7 +79,7 @@ typedef struct GameE0F60Particle {
 
 void func_151429E0(u8, u8 *, u8 *, u8 *);
 void func_15156190(void *, u8, s32, u8, s32);
-void func_15156388(void *, u8, s32);
+void func_15156388();
 f32 func_150ADA68(void);
 extern f32 D_8009FBCC;
 extern f32 D_8009FBD0;

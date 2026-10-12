@@ -233,7 +233,7 @@ s32 func_151C82D0(void *volatile arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151C82D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C82D0.s")
-void func_151403A8(void **arg0, s32 arg1, void *arg2);
+void func_151403A8();
 
 void func_151C8674(void *arg0, s32 arg1) {
     struct {
@@ -371,7 +371,7 @@ void *func_10022EC0(void *, const void *, u32);
 extern f32 D_800AAC70;
 extern f32 D_800AAC74;
 extern f32 D_800AAC78;
-s32 func_151407D0(void *, u32, void *, s32, s32, s32, s32, s32, s32, s32);
+s32 func_151407D0();
 
 typedef struct Sight8FCCVector { s32 words[3]; } Sight8FCCVector;
 typedef struct Sight8FCCDescriptor {

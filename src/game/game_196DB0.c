@@ -85,7 +85,7 @@ typedef struct Game196DB0RenderEffect {
 
 s32 *func_1513F4E4(s32 *, u8, u8 *);
 void *func_15142FBC(void *, s32, s32, u8 *);
-s32 func_15094F70(s32, void *, s32, void *, s32, s32, s32, s32, s32);
+s32 func_15094F70();
 s32 *func_1509629C(void *, void *, f32, f32, f32, f32, s32, s32, s32, s32, s32, s32);
 extern s32 D_800A4AC8[][2];
 extern s32 D_800D2C9C;

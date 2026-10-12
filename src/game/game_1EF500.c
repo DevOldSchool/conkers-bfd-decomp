@@ -30,7 +30,7 @@ typedef struct {
     f32 angle;
 } Game1C2050Player;
 
-typedef struct {
+typedef struct Game1C2050Owner {
     u8 pad0[0x318];
     Game1C2050Player *player;
 } Game1C2050Owner;

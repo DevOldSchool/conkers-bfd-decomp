@@ -55,7 +55,7 @@ void func_150EEE00(void *arg0, u8 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150EEE00 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11C2B0/func_150EEE00.s")
-extern void func_151403A8(void *arg0, s32 arg1, void *arg2);
+void func_151403A8();
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150EEF40 CURRENT (440) */
 void func_150EEF40(void *arg0, s32 arg1) {

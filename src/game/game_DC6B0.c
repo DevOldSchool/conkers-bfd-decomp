@@ -189,7 +189,8 @@ s32 func_150AF6E4(s32 arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150AF6E4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF6E4.s")
-void func_1515FF74(s8 *, s32, u8, void *);
+struct ColourFramebufferEffect;
+struct ColourFramebufferEffect *func_1515FF74(void *, s32, u8, s32);
 
 void func_150AF738(s16 arg0, u8 arg1, void *arg2) {
     struct {
@@ -206,7 +207,7 @@ void func_150AF738(s16 arg0, u8 arg1, void *arg2) {
     locals.sp1A = 2;
     locals.sp1E = 0;
     locals.sp1C = arg0;
-    func_1515FF74(&locals.sp18, 0, arg1, arg2);
+    func_1515FF74(&locals.sp18, 0, arg1, (s32) arg2);
 }
 void func_150B1DB0(s32 arg0, s32 arg1, s32 arg2);
 

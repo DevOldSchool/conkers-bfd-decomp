@@ -53,7 +53,6 @@ extern u8 D_800E0A94, D_800E0A97;
 extern s8 D_800E0BE9;
 extern s32 D_800E9D00;
 extern u8 *D_8008FDD4;
-void func_15042D94(s32, s32, s32, void *, s32);
 void func_151E3344(s32, s32, s32, s32, s32);
 extern s32 D_800BE9E4;
 extern u8 D_800E0A95;
@@ -122,7 +121,7 @@ void func_151DF1BC(void) {
         *(u16 *)(D_8008FDD4 + 0x20) &= 0xFFDF;
         if (D_8008FEF8 != 0) {
             func_1504332C(0xFF, 0, 0, (u8)alpha);
-            func_15042D94(0x94, 0x14, 0x81, D_800AB800, 0x10);
+            func_15042D94(0x94, 0x14, 0x81, (s32)D_800AB800, 0x10);
         }
         D_800BE9EC = 0;
         if (D_800E9D00 & 0x400000) D_800BE9EC = 1;
@@ -148,7 +147,7 @@ void func_151E09DC(void) {
     s32 var_v1;
 
     func_1504332C(0xFF, 0xFF, 0xFF, 0xFF);
-    func_15042D94(0x94, 0x7E, 1, D_800AB850, 0x1A);
+    func_15042D94(0x94, 0x7E, 1, (s32)D_800AB850, 0x1A);
     func_15042D78(0x81);
     sp24 = D_800AB754[D_800AB690[*(s8 *)(D_8008FDD4 + 0x42) * 10]];
     if (D_800E0A96 == 0) {

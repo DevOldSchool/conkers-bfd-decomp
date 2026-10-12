@@ -107,7 +107,7 @@ s32 func_15081C20(void *arg0, void *arg1, GameAEB40State *arg2,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15081C20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15081C20.s")
-void func_1507DF10(GameAEB40State *, u16, u8);
+void func_1507DF10(void *, s32);
 extern u8 D_800BE616;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15081E0C CURRENT (742) */
@@ -117,7 +117,7 @@ void func_15081E0C(GameAEB40State *arg0, u16 arg1, u8 arg2) {
             arg0->field_1CA = 7;
         }
         if ((arg2 == 0) || (arg1 != 0xA)) {
-            func_1507DF10(arg0, arg1, arg2);
+            func_1507DF10(arg0, arg1);
         }
     }
 }

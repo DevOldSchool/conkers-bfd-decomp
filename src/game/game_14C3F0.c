@@ -107,7 +107,7 @@ void func_1511EF40(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_14C3F0/func_1511EF40.s")
 
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
-void func_1511490C(void *, void *);
+void func_1511490C();
 extern s32 D_800BE9F0;
 
 void func_1511F31C(u8 *arg0) {

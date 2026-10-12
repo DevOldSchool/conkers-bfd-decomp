@@ -303,7 +303,7 @@ void func_15055BF8(u8 *arg0) {
 }
 void func_1506160C(u8 *, s32, s32, s32, u8);
 s32 func_1506E46C(u8 *, s32 *, s32);
-void func_15060A30(s32, u8 *);
+void func_15060A30();
 void func_1507CD64(u8 *, s32);
 extern f32 D_80099418;
 

@@ -238,7 +238,7 @@ s32 func_151026BC(Game12F400Object *arg0, s16 arg1, u8 arg2, u8 arg3, u8 arg4, s
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151026BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_151026BC.s")
-void func_151403A8(void **arg0, s32 arg1, void *arg2);
+void func_151403A8();
 
 void func_151027E8(void *arg0) {
     struct {

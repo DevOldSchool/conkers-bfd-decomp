@@ -112,7 +112,7 @@ s32 func_1510F8CC(s32);
 s32 func_15141C0C(void *);
 s32 func_15141CC0(u32);
 void func_15141E38(void *, s32);
-s32 func_1514ECE0(void *, s32, void **);
+s32 func_1514ECE0(void *, s16, void **);
 extern u8 D_800BE616;
 extern s32 D_8008A084[];
 extern s32 D_8008A0B4[];
@@ -268,7 +268,7 @@ void func_15141DA4(s32 actorAddress, s32 selectorCallbackIndex, s32 effectHandle
         }
     }
 }
-s32 func_1514ECE0(void *, s32, void **);
+s32 func_1514ECE0(void *, s16, void **);
 void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15141E38 CURRENT (1418) */
@@ -448,10 +448,10 @@ void func_15142180(u8 arg0, s32 *arg1, s32 arg2, f32 arg3, f32 arg4) {
     packet.field3C = arg0;
     func_15153F18(&packet.field00, &packet.position, 0, 0xFF, 1);
 }
-s32 func_151422C0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+s32 func_151422C0(s32 arg0, void *arg1, s32 arg2, s32 arg3, void *arg4, s32 arg5) {
     return (arg3 + arg2) >> 1;
 }
-s32 func_151422DC(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+s32 func_151422DC(s32 arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, void *arg5, s32 arg6) {
     return arg4;
 }
 s32 func_151422F8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
@@ -824,7 +824,7 @@ Gfx *func_15142CF0(Gfx *gdl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s
     }
     return gdl;
 }
-s32 func_15094FE8(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
+s32 func_15094FE8();
 s32 func_1514306C(s32, s32, s32, u8);               /* extern */
 extern s32 D_800BE9F0;
 extern s32 D_800DD1B0;
@@ -1574,7 +1574,7 @@ f32 func_15144598(void *arg0) {
 extern f32 D_800A5698;
 extern f32 D_800A569C;
 
-f32 func_1514462C(s32 arg0) {
+f32 func_1514462C(void *arg0) {
     typedef struct {
         u8 pad0[6];
         s16 unk6;

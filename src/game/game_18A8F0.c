@@ -694,9 +694,8 @@ void func_1515F170(s32 arg0, u8 arg1) {
         } while (var_v0 != 0);
     }
 }
-extern f32 func_15144598(s32 arg0);
+f32 func_15144598(void *);
 extern Game18A8F0ValueNode *func_10003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-extern f32 func_1514462C(s32 arg0);
 
 Game18A8F0ValueNode *func_1515F1B0(s32 arg0) {
     Game18A8F0ValueNode *var_v1;
@@ -707,12 +706,12 @@ Game18A8F0ValueNode *func_1515F1B0(s32 arg0) {
     }
     var_v1->value = arg0;
     if (arg0 != 0) {
-        var_v1->field_4 = func_1514462C(arg0);
+        var_v1->field_4 = func_1514462C((void *) arg0);
     } else {
         var_v1->field_4 = 0.0f;
     }
     if (arg0 != 0) {
-        var_v1->field_8 = func_15144598(arg0);
+        var_v1->field_8 = func_15144598((void *) arg0);
     } else {
         var_v1->field_8 = 0.0f;
     }
@@ -904,7 +903,8 @@ void func_1505D024(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 void func_1515FC34(s32 arg0, s32 arg1) {
     func_1505D024(arg0, 0x33, 0xC000, -1);
 }
-void func_15136C3C(void *, s32, s32, s32, s32, s32, s32, s32);
+struct Blood36C3CActor;
+void func_15136C3C(struct Blood36C3CActor *, u8, u8, u8, u8, u8, u8, s32);
 void func_15145A50(u8 *);
 void func_1507CD64(u8 *, s32);
 s32 func_150AD960(s16, s16, s32, s32);

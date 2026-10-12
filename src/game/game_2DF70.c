@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_2DF70.c
@@ -508,17 +509,17 @@ extern s32 D_800DBE18[];
 extern s32 D_800DBE1C[3];
 extern s32 D_800DBE4C;
 
-void func_150026C4(void) {
+void func_150026C4(s32 arg0) {
     D_800DBE38 = 0;
-    func_1510F800();
+    func_1510F800(arg0);
 }
 void func_150026E8(s32 arg0) {
     D_800DBE18[arg0] = D_800DBE38;
     D_800DBE4C = D_800DBE38;
     D_800B0DE4 += D_800DBE38;
 }
-void func_15002724(void) {
-    D_800DBE38 += func_150027F8();
+void func_15002724(s32 arg0) {
+    D_800DBE38 += func_150027F8(arg0);
 }
 extern s32 D_800DBDD8[];
 extern s32 D_800DBDE8[];

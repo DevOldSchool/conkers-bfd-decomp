@@ -308,7 +308,7 @@ typedef struct GameBC510Sprite {
 
 s32 func_15095A48(s32, void *, f32, f32);
 s32 func_1510D0EC(s32, s32 *, s32, s32);
-s32 func_15094F70(s32, void *, s32, void *, s32, s32, s32, s32, s32);
+s32 func_15094F70();
 extern s32 D_800903D4;
 extern s32 D_80091840;
 extern f32 D_8009DD20;
@@ -603,7 +603,6 @@ void *func_15091534(void *arg0, s32 arg1, s8 *arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15091534 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_15091534.s")
-void func_15042D94(s32, s32, u8, s32, ...);
 extern char D_8009DCC0[];
 extern char D_8009DCC4[];
 extern char D_8009DCCC[];

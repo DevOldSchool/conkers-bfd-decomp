@@ -123,8 +123,7 @@ void func_150F088C(u8 *arg0, u8 *arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F088C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F088C.s")
-void func_15160A58(s32, s32, void *, s32, s32, s32, s32, s32,
-                   s32, s32, s32, s32, s32, s32, s32, s32);
+struct225 *func_15160A58();
 extern u8 D_800A1674;
 extern u8 D_800A1680;
 

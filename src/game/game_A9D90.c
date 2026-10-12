@@ -35,7 +35,7 @@ void func_1507C8E0(GameA9D90Object *arg0, s32 arg1) {
     arg0->field_31C->field_124 = arg1;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507C8FC.s")
-void func_15181D70(s32, s32);
+void func_15181D70(s32);
 extern s32 D_80082FA0;
 extern u8 D_800CC2D0;
 
@@ -48,7 +48,7 @@ void func_1507CD0C(void *arg0) {
     temp_lo = temp_a1 / 812;
     *(s8 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x120) = 3;
     if (temp_lo <= D_80082FA0) {
-        func_15181D70(temp_lo, temp_a1);
+        func_15181D70(temp_lo);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507CD0C */

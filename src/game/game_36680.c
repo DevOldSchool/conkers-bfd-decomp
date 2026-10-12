@@ -217,7 +217,7 @@ typedef struct {
     u8 bytes[4];
 } Game36680PackedLightIndices;
 
-void *func_1516037C(Game36680LightDescriptor *, s32, s32, u8, s32);
+void *func_1516037C();
 extern Game36680PackedLightIndices D_80082BE0;
 
 void func_15009628(s32 arg0, s32 arg1) {
@@ -255,7 +255,7 @@ void func_150096C4(s32 arg0, s32 arg1) {
 void func_15009740(s32 arg0, u8 arg1) {
     func_15161494(arg0, 0xFF, 1);
 }
-s32 func_151615F8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
+void *func_151615F8();
 
 void func_15009768(s32 arg0, u8 arg1) {
     func_151615F8(arg0, 0, 0, 0xE, 0xFF, 1);
@@ -269,7 +269,7 @@ void func_150121C0(s32 arg0);
 void func_150097CC(s32 arg0, s32 arg1) {
     s32 temp_v0;
 
-    temp_v0 = func_151615F8(arg0, 0, 2, 0xE, 0xFF, 1);
+    temp_v0 = (s32) func_151615F8(arg0, 0, 2, 0xE, 0xFF, 1);
     if (temp_v0 != 0) {
         func_150121C0(temp_v0);
     }
@@ -400,10 +400,10 @@ void func_15009E48(s32 arg0, u8 arg1) {
 void func_15009E84(s32 arg0, u8 arg1) {
     func_15163604(arg0, 3, 5, 0x12C, 0, 0, 0xFF, 1);
 }
-void func_1516381C(void *arg0, s32 arg1, s32 arg2, s32 arg3);
+void func_1516381C(s32, u8, u8, s32);
 
 void func_15009EC8(void *arg0, u8 arg1) {
-    func_1516381C(arg0, 0x20, 0xFF, 1);
+    func_1516381C((s32) arg0, 0x20, 0xFF, 1);
 }
 void func_15009EF4(s32 arg0, u8 arg1) {
     func_151615F8(arg0, 1, 3, 0x23, 0xFF, 1);

@@ -27,7 +27,7 @@ void func_151906E0(u8 *arg0, u8 *arg1, u8 arg2) {
         }
     }
 }
-extern void func_151D343C(void **arg0, s32 arg1, void *arg2);
+void func_151D343C();
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1519072C CURRENT (300) */
 void func_1519072C(void *arg0) {

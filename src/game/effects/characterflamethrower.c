@@ -863,13 +863,12 @@ void *func_15196438(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
 f32 func_151979F8(s32 arg0) {
     return D_800A8AA4;
 }
-s32 func_151422C0(s32, s32, s32, s32, s32, s32);
 extern s32 D_800A8A40;
 extern s32 D_800A8A48;
 extern f32 D_800A8AA8;
 
 f32 func_15197A0C(s32 arg0) {
-    return (f32)func_151422C0(0xA, (s32)&D_800A8A40, 1, 0x1F4, (s32)&D_800A8A48, 0x8CC) * D_800A8AA8;
+    return (f32)func_151422C0(0xA, &D_800A8A40, 1, 0x1F4, &D_800A8A48, 0x8CC) * D_800A8AA8;
 }
 
 extern f32 D_800A8AAC;
