@@ -522,3 +522,35 @@ class DebuggerComparisonCopyTests(unittest.TestCase):
     def test_stale_runtime_proof_is_rejected(self):
         with self.assertRaisesRegex(ValueError, 'fresh runtime ELF'):
             self.run_hook(self.owner(linked_inputs={self.RUNTIME: 'stale'}))
+
+
+class DebuggerReferencePreparationTests(unittest.TestCase):
+    SPLIT = 'reference/us/asm/debugger/debugger.s'
+
+    def run_ensure(self, present_before, produced):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(report, 'ROOT', Path(tmp)), \
+                patch.object(report, 'OUTPUT', Path(tmp) / 'out'), \
+                patch.object(report.subprocess, 'run') as run:
+            split = Path(tmp) / self.SPLIT
+            if present_before:
+                split.parent.mkdir(parents=True)
+                split.write_text('glabel x\n')
+
+            def prepare(*args, **kwargs):
+                if produced:
+                    split.parent.mkdir(parents=True, exist_ok=True)
+                    split.write_text('glabel x\n')
+            run.side_effect = prepare
+            report.ensure_debugger_reference()
+            return run.call_args_list
+
+    def test_existing_reference_is_reused(self):
+        self.assertEqual(self.run_ensure(True, False), [])
+
+    def test_missing_reference_is_prepared_once(self):
+        calls = self.run_ensure(False, True)
+        self.assertEqual([c.args[0] for c in calls], [['make', 'prepare-reference', 'PROFILE=us']])
+
+    def test_failed_preparation_is_reported(self):
+        with self.assertRaisesRegex(ValueError, 'debugger split'):
+            self.run_ensure(False, False)

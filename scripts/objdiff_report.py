@@ -226,6 +226,22 @@ def debugger_runtime_from_data(units: list[dict]) -> dict[str, str]:
     return {path: proofs.pop()}
 
 
+def ensure_debugger_reference() -> None:
+    """Original-assembly proofs materialize snippets from the raw reference split.
+
+    A fresh or cleaned checkout has none; the report's own targets live elsewhere.
+    Prepare it once, before worker threads read it, as the registration commands do.
+    """
+    if (ROOT / 'reference/us/asm/debugger/debugger.s').is_file():
+        return
+    OUTPUT.mkdir(parents=True, exist_ok=True)
+    with (OUTPUT / 'reference-prepare.log').open('w') as log:
+        subprocess.run(['make', 'prepare-reference', 'PROFILE=us'],
+                       cwd=ROOT, stdout=log, stderr=log, check=True)
+    if not (ROOT / 'reference/us/asm/debugger/debugger.s').is_file():
+        raise ValueError('reference preparation did not produce the debugger split')
+
+
 def canonical_debugger_candidates(units: list[dict], configs: list[dict]) -> None:
     """Expose anonymous IDO switch tables and literals on comparison copies.
 
@@ -273,6 +289,7 @@ def prepare() -> None:
     original_runtime = {}
     if any(s['kind'] == 'original_asm' for s in specs):
         original_runtime = debugger_runtime_from_data(data_built)
+        ensure_debugger_reference()
     linked = {overlay: (OUTPUT / 'targets' / overlay / 'targets.bin').read_bytes()
               for overlay in state.OVERLAYS}
     origins = {overlay: min(s['start'] for s in specs if s['overlay'] == overlay)
