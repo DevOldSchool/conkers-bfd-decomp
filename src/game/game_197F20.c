@@ -57,6 +57,111 @@ u8 *func_1516C878(void *arg0, s32 arg1, s16 arg2) {
     }
     return cursor;
 }
+void *func_150417AC(void *, f32, f32, void *, s32, s32, s32, s32, f32, f32, s32);
+void func_150428D4(void *, s32 *, s32 *, s32 *);
+extern u8 D_800859A0[];
+extern u8 D_800BE9C0;
+extern u8 *D_800BE9C8[];
+extern s32 D_800BEBA4;
+
+typedef struct {
+    u8 pad0[0x10];
+    s32 *flags;
+    u8 pad14[0x10];
+    u8 *text;
+    u8 pad28[8];
+    f32 x, y;
+    u8 pad38[0x18];
+    f32 targetX, targetY;
+} Game197F20Text;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516C934 CURRENT (4466) */
+void *func_1516C934(u8 *arg0, Game197F20Text *arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5) {
+    u8 *original;
+    u8 line[80];
+    s32 width;
+    s32 height;
+    s32 spacing;
+    f32 x;
+    f32 y;
+    f32 offset;
+    s32 flags;
+    s32 count;
+    s32 index;
+    s32 first;
+    s32 full;
+    u8 value;
+    u8 *out;
+    u8 *scan;
+    u8 next;
+    u8 ch;
+    u8 last;
+
+    index = 0;
+    count = 0;
+    original = arg0;
+    x = arg1->targetX - arg1->x;
+    y = arg1->targetY - arg1->y;
+    out = arg0;
+    arg0 += 8;
+    *(s32 *)out = 0xDE000000;
+    *(u8 **)(out + 4) = D_800859A0;
+    first = 1;
+    if (*arg1->text == 10) {
+        scan = arg1->text + index;
+        do {
+            next = scan[1];
+            index += 1;
+            scan += 1;
+        } while (next == 10);
+    }
+    do {
+        full = (D_800BEBA4 < ((s32)(arg0 - D_800BE9C8[D_800BE9C0]) >> 3)) ? 1 : 0;
+        if (full != 0) {
+            return original;
+        }
+        ch = arg1->text[index];
+        out = line + count;
+        value = ch & 255;
+        *out = ch;
+        if (value == 10) {
+            *out = 0;
+            value = 0 & 255;
+        }
+        if (value == 0) {
+            func_150428D4(line, &width, &height, &spacing);
+            if (first == 0) {
+                y += (f32)height;
+            } else {
+                first = 0;
+            }
+            flags = *arg1->flags;
+            if (flags & 0x20000) {
+                offset = (arg1->x - (f32)(width >> 1)) - 1.0f;
+            } else {
+                offset = 0.0f;
+            }
+            if (flags & 0x40000) {
+                arg0 = func_150417AC(arg0, x + offset + 1.0f, y, line,
+                                      255, 255, 255, arg5, 4096.0f, 4096.0f, count);
+            } else if (!(flags & 4)) {
+                arg0 = func_150417AC(arg0, x + offset + 1.0f, y, line,
+                                      0, 0, 0, arg5, 4096.0f, 4096.0f, count);
+            } else {
+                arg0 = func_150417AC(arg0, x + offset, y, line,
+                                      arg2, arg3, arg4, arg5, 4096.0f, 4096.0f, count);
+            }
+            count = 0;
+            y += (f32)spacing;
+        } else {
+            count += 1;
+        }
+        last = arg1->text[index];
+        index += 1;
+    } while (last != 0);
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1516C934 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_197F20/func_1516C934.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_197F20/func_1516CC58.s")
 f32 func_15047C00(f32);                             /* extern */

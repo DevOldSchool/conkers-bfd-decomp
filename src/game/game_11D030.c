@@ -12,7 +12,101 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game11D030Vector { f32 x, y, z; } Game11D030Vector;
+typedef struct Game11D030Emission {
+    Game11D030Vector position;
+    s16 life, fieldE;
+    s32 field10;
+    u8 field14, mode;
+    u8 pad16[6];
+} Game11D030Emission;
+typedef struct Game11D030Motion {
+    f32 speed;
+    Game11D030Vector direction;
+    f32 size;
+    u8 kind, mode, flags, red, green, blue, alpha, field1B;
+    u8 field1C, field1D, field1E, field1F, field20, field21;
+    u8 pad22[2];
+    s32 field24, field28;
+    s16 field2C, field2E, field30;
+    u8 field32, pad33;
+    f32 field34;
+    s8 field38, field39;
+    u8 pad3A[2];
+} Game11D030Motion;
+typedef struct Game11D030EmitterState {
+    u8 *actor;
+    f32 accumulator;
+} Game11D030EmitterState;
+
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+void func_15143794(s16, s16, f32, void *);
+void *func_1515C2F0(void *, void *, s32, s32, u8, s32);
+extern f32 D_800A1824, D_800A1828, D_800A182C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EFB80 CURRENT (1288) */
+void func_150EFB80(u8 *arg0) {
+    Game11D030Emission spawn;
+    Game11D030Motion motion;
+    u32 randomA;
+    u32 randomB;
+    Game11D030EmitterState *state;
+    u8 *actor;
+
+    state = (Game11D030EmitterState *)(arg0 + 0x28);
+    state->accumulator += (364.0f + func_150ADA68() * 300.0f) * D_800A1824;
+    if (state->accumulator > 1.0f) {
+        actor = state->actor;
+        if (actor[0x128] & 1) {
+            spawn.position = *(Game11D030Vector *)(actor + 0x40);
+            spawn.fieldE = 5;
+            spawn.field10 = 10;
+            motion.kind = 4;
+            motion.mode = 2;
+            motion.flags = 3;
+            motion.red = 0x9D;
+            motion.green = 0x72;
+            motion.blue = 0x2E;
+            motion.field1B = 0;
+            motion.field1C = 0;
+            motion.field1D = 0;
+            motion.field1E = 0;
+            motion.field1F = 0xFF;
+            motion.field20 = 3;
+            motion.field21 = 0x24;
+            motion.field24 = 0x200005;
+            motion.field28 = 0x60600;
+            motion.field2C = 12;
+            motion.field2E = 21;
+            motion.field30 = 1;
+            motion.field32 = 0;
+            motion.field34 = 1.0f;
+            motion.field38 = -1;
+            motion.field39 = 0;
+            do {
+                spawn.mode = func_150ADA20() % 3U + 3;
+                spawn.life = (func_150ADA20() & 0xF) + 0x28;
+                motion.speed = func_150ADA68() * 10.0f + 22.0f;
+                randomA = func_150ADA20();
+                randomB = func_150ADA20();
+                func_15143794((s16)(randomA & 0xFF), (s16)(randomB % 31U - 0x37),
+                              func_150ADA68() * 15.0f + 25.0f, &motion.direction);
+                motion.size = (func_150ADA68() * 740.0f + D_800A1828) * D_800A182C;
+                motion.alpha = func_150ADA20() % 101U + 0x9B;
+                func_1515C2F0(&spawn, NULL, (s32)&motion.speed, 0, arg0[0xC], arg0[1]);
+                state->accumulator -= 1.0f;
+            } while (state->accumulator > 1.0f);
+            return;
+        }
+        do {
+            state->accumulator -= 1.0f;
+        } while (state->accumulator > 1.0f);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150EFB80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D030/func_150EFB80.s")
+
 typedef struct Game11D030SpawnDescriptor {
     u8 kind, mode;
     u16 flags;

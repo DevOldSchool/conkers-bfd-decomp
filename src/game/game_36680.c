@@ -935,6 +935,77 @@ u32 func_1500B1F4(s16 arg0, s32 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) 
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1500B1F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500B1F4.s")
+typedef struct {
+    f32 x, y, z;
+} Game36680FloatPoint;
+
+typedef struct {
+    Game36680FloatPoint points[3];
+} Game36680Triangle;
+
+void func_15049350(Game36680Triangle);
+extern u8 D_80082D80[];
+extern u16 D_800BE430;
+extern f32 D_800CC210, D_800CC214, D_800CC218, D_800CC21C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500B3B0 CURRENT (3082) */
+u32 func_1500B3B0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {
+    Game36680Triangle triangle;
+    f32 centerX;
+    f32 centerY;
+    f32 centerZ;
+    Game36680FloatPoint *point;
+    s16 **input;
+    f32 **table;
+    f32 *pattern;
+    s32 offset;
+    u32 index;
+    f32 x;
+    f32 y;
+    f32 z;
+
+    arg0 = (s16)arg0;
+    centerX = 0.0f;
+    centerY = 0.0f;
+    centerZ = 0.0f;
+    point = triangle.points;
+    input = arg5;
+    do {
+        point->x = (f32)(*input)[0];
+        point->y = (f32)(*input)[1];
+        point->z = (f32)(*input)[2];
+        centerX += point->x / 3.0f;
+        centerY += point->y / 3.0f;
+        centerZ += point->z / 3.0f;
+        point++;
+        input++;
+    } while (point < triangle.points + 3);
+    func_15049350(triangle);
+    table = (f32 **)(D_80082D80 + arg0 * 4);
+    pattern = *table;
+    offset = 4;
+    index = 1;
+    if (pattern[0] * (f32)2 >= 1.0f) {
+        do {
+            x = *(f32 *)((u8 *)pattern + offset) + centerX;
+            offset += 4;
+            z = *(f32 *)((u8 *)pattern + offset) + centerZ;
+            offset += 4;
+            index += 2;
+            if (D_800CC214 != 0.0f) {
+                y = (D_800CC21C - D_800CC210 * x - D_800CC218 * z) / D_800CC214;
+            } else {
+                y = centerY;
+            }
+            arg4 = func_1500AF08(arg4, arg2, arg3, (s16)(s32)x, (s32)y, (s32)z,
+                                0x80, ((u8 *)&arg1)[3], (s32)D_800BE430 >> arg2);
+            pattern = *table;
+        } while ((f32)index <= pattern[0] * (f32)2);
+    }
+    D_800BE430 ^= 1 << arg2;
+    return arg4;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1500B3B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500B3B0.s")
 void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
 
@@ -1120,4 +1191,82 @@ void func_1500BE68(void) {
     D_800DDD20 = 0;
     func_1500BE40(0);
 }
+typedef struct {
+    s32 (*create)(s32, s32, s32, s32, s32, s16 **);
+    u8 pad04[8];
+} Game36680Creator;
+
+typedef struct {
+    s16 creator;
+    s16 count;
+} Game36680CreationChoice;
+
+void func_1500AD84(s32, s32, s32);
+void func_1510F800(s32);
+void func_1517B89C(s32, s32);
+extern u8 D_80038080;
+extern s32 D_8008CEB4;
+extern Game36680Creator D_8008CEB8[];
+extern Game36680CreationChoice D_8008CF00[][8];
+extern s16 **D_800DBE3C;
+extern s32 D_800DBE4C;
+extern u32 *D_800DBE5C;
+extern u8 D_800DDC10[];
+extern s16 D_800DDC90[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500BEC0 CURRENT (1285) */
+void func_1500BEC0(void) {
+    s32 i;
+    s32 resource;
+    s32 variant;
+    u32 packed;
+    Game36680ResourceChoice *choice;
+    Game36680CreationChoice *creation;
+    s16 *phase;
+    u8 *frames;
+
+    func_1500BE68();
+    if (D_800B0DF0->count != 0 && (D_800BE9F0 != 6 || D_80038080 != 0) && D_800BE9F0 != 0x1D) {
+        i = 0;
+        choice = (Game36680ResourceChoice *)D_800BE4A0;
+        for (; i < 15; i++) {
+            func_1500AD84(i, choice->id, choice->flags);
+            choice++;
+        }
+        *(Game36680Record **)&D_800DDD18 = func_10003C40(D_800B0DF0->count * 14, 1, 2, 0);
+        func_1510F800(0);
+        if (D_800DBE5C != 0) {
+            for (i = 0; i < D_800DBE4C; i++) {
+                packed = D_800DBE5C[i];
+                if (packed & 0xF0000) {
+                    resource = ((packed >> 16) & 15) - 1;
+                    variant = (packed >> 20) & 7;
+                    creation = &D_8008CF00[D_800DDC80[resource]][variant];
+                    D_800DDD20 = D_8008CEB8[creation->creator].create(
+                        creation->count, (u8)variant, resource, ((packed >> 5) & 3) ^ 3,
+                        D_800DDD20, (s16 **)((u8 *)D_800DBE3C + i * 12));
+                    D_800BE478[resource]++;
+                }
+            }
+        }
+        for (i = 0; i < D_800DDD20; i++) {
+            D_800DDD18[i].padB = 0;
+        }
+        D_8008CEB4 = 0;
+        func_1517B89C(0, D_800DDD20 - 1);
+        phase = D_800DDC90;
+        for (i = 0; i != 60; i++) {
+            resource = i >> 2;
+            frames = &D_800DDBD0[resource];
+            if (*frames != 0) {
+                *phase = (func_151EF610() % *frames) << 8;
+            } else {
+                *phase = 0;
+            }
+            D_800DDC10[resource] = func_151EF610();
+            phase++;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1500BEC0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500BEC0.s")

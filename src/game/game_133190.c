@@ -52,6 +52,160 @@ void func_15106214(s32);
 void func_15106610(void *);
 u32 func_150ADA20(void);
 
+typedef struct Game133190Vector {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game133190Vector;
+
+typedef struct Game133190Color {
+    u8 bytes[4];
+} Game133190Color;
+
+typedef struct Game133190Beam {
+    s16 life;
+    s8 enabled;
+    u8 pad3;
+    Game133190Vector position;
+    Game133190Vector axis0;
+    Game133190Vector axis1;
+    Game133190Vector contact;
+    s8 flag;
+    u8 pad35[3];
+    s32 count;
+    f32 width;
+    f32 scale;
+    s16 lower;
+    s16 upper;
+    Game133190Color color;
+    s8 mode;
+    u8 pad4D[3];
+} Game133190Beam;
+
+typedef struct Game133190BeamInstance {
+    Game133190Object base;
+    f32 step;
+    s16 timer;
+    u8 pad6A[2];
+    void *ends[2];
+    u8 cleared[0x10];
+    s32 vertexBytes;
+} Game133190BeamInstance;
+
+typedef struct Game133190EndpointDescriptor {
+    u32 flags;
+    s32 field04;
+    u16 options;
+    s16 lifetime;
+    s32 callback0, callback1;
+    u8 primary[4], secondary[4];
+    u8 channel, kind;
+    s16 field1E, field20, field22;
+    f32 scale, width, height;
+    Game133190Triple position, axis0, axis1;
+    f32 field54;
+    u32 flips;
+    s32 field5C;
+    u8 mode0, mode1;
+    s8 field62, field63, field64;
+    u8 field65, field66, pad67;
+    s16 field68;
+    u8 pad6A[2];
+    f32 field6C;
+} Game133190EndpointDescriptor;
+
+void *func_10022EC0(void *, const void *, u32);
+void func_100226F0(void *, s32);
+extern Game133190Triple D_800A5480;
+extern f32 D_800A2410, D_800A2414;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15105CE0 CURRENT (5420) */
+Game133190Object *func_15105CE0(Game133190Beam *arg0, s32 arg1, u8 arg2, s32 arg3) {
+    register s32 count;
+    register u32 vectorBytes;
+    u8 generation;
+    register u8 index;
+    Game133190BeamInstance *result;
+    Game133190EndpointDescriptor descriptor;
+    s32 secondFlip;
+
+    generation = arg2;
+    count = arg0->count;
+    vectorBytes = (count + 2) * sizeof(Game133190Triple);
+    result = func_15167A68(0x40, arg3, count * (u32)0x34 + vectorBytes + arg1 + 0x88, 1, generation, 1);
+    if (result == NULL) {
+        return NULL;
+    }
+    func_10022EC0((u8 *)result + 0x10, arg0, 0x50);
+    result->base.holder = (Game133190Holder *)((u8 *)result + count * (u32)0x34 + vectorBytes + 0x88);
+    result->step = 1.0f / (f32)(arg0->count + 1);
+    result->timer = func_150ADA20() % (u32)(arg0->upper + 1) + arg0->lower;
+    func_15106214((s32)result);
+    func_15106610(result);
+    result->ends[0] = NULL;
+    result->ends[1] = NULL;
+    func_100226F0(result->cleared, 0x10);
+    result->vertexBytes = *(s32 *)((u8 *)result + 0x48) * 0x30 + 0x60;
+    descriptor.kind = 0x2B;
+    descriptor.options = 0x4404;
+    descriptor.flags = 0x200005;
+    descriptor.field04 = 0;
+    descriptor.lifetime = 0x12C;
+    descriptor.callback0 = 0;
+    descriptor.callback1 = 0;
+    descriptor.primary[0] = 0xFF;
+    descriptor.primary[1] = 0xFF;
+    descriptor.primary[2] = 0xFF;
+    descriptor.primary[3] = 0xFF;
+    descriptor.secondary[0] = arg0->color.bytes[0];
+    descriptor.secondary[1] = arg0->color.bytes[1];
+    descriptor.secondary[2] = arg0->color.bytes[2];
+    descriptor.channel = 0xFF;
+    descriptor.secondary[3] = arg0->color.bytes[3];
+    descriptor.axis0 = D_800A5480;
+    descriptor.axis1 = D_800A5480;
+    descriptor.field1E = 1;
+    descriptor.field20 = 0xFF;
+    descriptor.field22 = 1;
+    descriptor.flips = 0xC000;
+    descriptor.mode0 = 6;
+    descriptor.mode1 = 6;
+    descriptor.field62 = -1;
+    descriptor.field63 = -1;
+    descriptor.field64 = -1;
+    descriptor.field65 = 0;
+    descriptor.field5C = 0;
+    descriptor.field66 = 0xFF;
+    descriptor.field68 = 0;
+    descriptor.field54 = 0.0f;
+    descriptor.scale = 1.0f;
+    descriptor.field6C = D_800A2410;
+    descriptor.height = arg0->scale * D_800A2414 * 200.0f;
+    descriptor.width = descriptor.height;
+    index = 0;
+    do {
+        secondFlip = 3;
+        if (index == 0) {
+            secondFlip = 0;
+        }
+        descriptor.position = *(Game133190Triple *)((u8 *)arg0 + secondFlip * 12 + 4);
+        if (func_150ADA20() != 0) {
+            vectorBytes = 0x40;
+        } else {
+            vectorBytes = 0;
+        }
+        if (func_150ADA20() != 0) {
+            secondFlip = 0x80;
+        } else {
+            secondFlip = 0;
+        }
+        descriptor.flips = secondFlip | vectorBytes;
+        *(result->ends + index) = func_15130280(&descriptor, 0, NULL, 0, generation, arg3);
+        index++;
+    } while (index < 2);
+    return &result->base;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15105CE0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15105CE0.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1510608C CURRENT (91) */
 void func_1510608C(void *arg0) {
@@ -365,7 +519,90 @@ s32 func_15106F98(Game133190Triple *arg0, Game133190Triple *arg1,
 #endif /* CONKER_DEFERRED_CANDIDATE func_15106F98 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15106F98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151070F8.s")
+
+
+typedef struct Game133190Contact {
+    u8 pad0[8];
+    Game133190Vector point;
+    u8 pad14[0x45];
+    u8 hit;
+    u8 pad5A[0xA];
+} Game133190Contact;
+
+
+typedef struct Game133190BeamConfig {
+    f32 scaleBase, scaleRange, width, speedBase, speedRange;
+    s16 spread, lower, upper, lifeBase, lifeRange;
+    u8 pad1E[2];
+    s32 countBase, countRange;
+    u8 red, green, blue, alphaBase, alphaRange;
+} Game133190BeamConfig;
+typedef struct Game133190BeamChain {
+    s32 count, index;
+    Game133190Object *child;
+    Game133190Vector *points;
+    Game133190BeamConfig config;
+} Game133190BeamChain;
+
+Game133190Object *func_15105CE0(Game133190Beam *, s32, u8, s32);
+void func_15143794(s16, s16, f32, void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151072BC CURRENT (348) */
+void func_151072BC(u8 *arg0) {
+    Game133190Object *child;
+    Game133190Beam beam;
+    u8 *owner;
+    Game133190Vector direction;
+    Game133190BeamConfig *config;
+    Game133190BeamChain *chain;
+
+    chain = (Game133190BeamChain *)(arg0 + 0x28);
+    if (*(s32 *)(arg0 + 0x30) == 0) {
+        if (chain->index >= chain->count - 1) {
+            *(s16 *)(arg0 + 0xE) = -1;
+            arg0[0xD] |= 1;
+            return;
+        }
+        owner = arg0;
+        beam.enabled = 1;
+        beam.flag = -1;
+        config = &chain->config;
+        beam.scale = func_150ADA68() * config->scaleRange + config->scaleBase;
+        beam.width = config->width;
+        beam.lower = config->lower;
+        beam.upper = config->upper;
+        beam.position = chain->points[chain->index];
+        beam.contact = chain->points[chain->index + 1];
+        func_15143794((s16)(func_150ADA20() & 0xFF),
+            (s16)(func_150ADA20() % (u32)(config->spread + 1) - (config->spread >> 1) - 0x40),
+            func_150ADA68() * config->speedRange + config->speedBase, &direction);
+        beam.axis0.x = beam.position.x + direction.x;
+        beam.axis0.y = beam.position.y + direction.y;
+        beam.axis0.z = beam.position.z + direction.z;
+        func_15143794((s16)(func_150ADA20() & 0xFF),
+            (s16)(func_150ADA20() % (u32)(config->spread + 1) - (config->spread >> 1) - 0x40),
+            func_150ADA68() * config->speedRange + config->speedBase, &direction);
+        beam.axis1.x = beam.contact.x + direction.x;
+        beam.axis1.y = beam.contact.y + direction.y;
+        beam.axis1.z = beam.contact.z + direction.z;
+        beam.color.bytes[0] = config->red;
+        beam.color.bytes[1] = config->green;
+        beam.color.bytes[2] = config->blue;
+        beam.life = func_150ADA20() % (u32)(config->lifeRange + 1) + config->lifeBase;
+        beam.color.bytes[3] = func_150ADA20() % (u32)(config->alphaRange + 1) + config->alphaBase;
+        beam.mode = 1;
+        beam.count = func_150ADA20() % (u32)(config->countRange + 1) + config->countBase;
+        child = func_15105CE0(&beam, 4, arg0[0xC], arg0[1]);
+        chain->child = child;
+        if (child != NULL) {
+            func_10022EC0(child->holder, &owner, 4U);
+        }
+        chain->index++;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151072BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151072BC.s")
+
 Game133190Holder *func_15107604(Game133190Object *arg0) {
     Game133190Holder *holder;
     Game133190Subobject *subobject = &arg0->holder->target->subobject;
@@ -400,44 +637,6 @@ void func_151076A4(void *arg0, s32 arg1, u8 arg2) {
         (*(void (**)(void *, s32, u8))(((u8 (*)[4])&D_80088C38)[*handler]))(arg0, arg1, arg2);
     }
 }
-typedef struct Game133190Vector {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game133190Vector;
-
-typedef struct Game133190Color {
-    u8 bytes[4];
-} Game133190Color;
-
-typedef struct Game133190Contact {
-    u8 pad0[8];
-    Game133190Vector point;
-    u8 pad14[0x45];
-    u8 hit;
-    u8 pad5A[0xA];
-} Game133190Contact;
-
-typedef struct Game133190Beam {
-    s16 life;
-    s8 enabled;
-    u8 pad3;
-    Game133190Vector position;
-    Game133190Vector axis0;
-    Game133190Vector axis1;
-    Game133190Vector contact;
-    s8 flag;
-    u8 pad35[3];
-    s32 count;
-    f32 width;
-    f32 scale;
-    s16 lower;
-    s16 upper;
-    Game133190Color color;
-    s8 mode;
-    u8 pad4D[3];
-} Game133190Beam;
-
 typedef struct Game133190Owner {
     void *owner;
     u8 kind;

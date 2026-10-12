@@ -115,6 +115,58 @@ void func_150E76D0(f32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E76D0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E7994.s")
+typedef struct Game114B80PointQueue {
+    f32 rate, pending;
+    s16 count, index;
+    u8 padC[4];
+    f32 points[1][2];
+} Game114B80PointQueue;
+
+typedef struct Game114B80PointEffect {
+    u8 pad0, group;
+    u8 pad2[0xA];
+    u8 mode;
+    u8 padD;
+    s16 lifetime;
+    u8 pad10[0x18];
+    Game114B80PointQueue queue;
+} Game114B80PointEffect;
+
+void func_150E75A0(void *, f32, s16, u8, u8, u8, s16, s16, s32, s32, u8, s32);
+void func_10010F30(s32, s32, s32, s32, s32);
+extern f32 D_800A1350, D_800BE9A4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E7C9C CURRENT (1845) */
+void func_150E7C9C(Game114B80PointEffect *arg0) {
+    f32 fraction;
+    f32 point[2];
+    s32 flip1;
+    s32 flip2;
+    Game114B80PointQueue *queue;
+
+    queue = &arg0->queue;
+    arg0->queue.pending += arg0->queue.rate * D_800BE9A4;
+    while ((queue->pending > 1.0f) && (queue->index != queue->count)) {
+        {
+            point[0] = queue->points[queue->index][0];
+            point[1] = queue->points[queue->index][1];
+            fraction = func_150ADA68();
+            flip2 = (func_150ADA20() & 1) ? 4 : 0;
+            flip1 = (func_150ADA20() & 1) ? 2 : 0;
+            func_150E75A0(point, fraction * 12.0f + 30.0f, 0x12C,
+                          (flip1 | flip2) & 0xFF,
+                          (u8)(u32)(func_150ADA68() * 25.0f + 100.0f),
+                          0xFF, 1, 0xFF, 0, 0, arg0->mode, arg0->group);
+            func_10010F30(0x360, 0x7FFF, (u32)(point[0] * D_800A1350 + 64.0f) & 0xFF, 0, 0);
+            queue->pending -= 1.0f;
+            queue->index++;
+        }
+    }
+    if (queue->index >= queue->count) {
+        arg0->lifetime = -1;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E7C9C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E7C9C.s")
 typedef struct GameE7FECLocals {
     s32 command;
@@ -299,7 +351,103 @@ void func_150E83AC(void *arg0, s16 arg1, u8 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150E83AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E83AC.s")
+typedef struct GameE8470Descriptor {
+    s32 field00, field04;
+    s16 field08, field0A;
+    s32 field0C, field10;
+    u8 field14, field15, field16, field17;
+    u8 field18, field19, field1A, field1B, field1C, field1D;
+    s16 field1E, field20, field22;
+    f32 field24, scaleY, scaleX;
+    GameE81A8Position position;
+    f32 x3C, y40, z44, x48, y4C, z50, field54;
+    s32 flags, field5C;
+    s8 field60, field61, field62, field63, field64, field65;
+    u8 pad66[10];
+} GameE8470Descriptor;
+
+typedef struct GameE8470Extension {
+    s8 field0, field1, field2, field3;
+    f32 field4, field8;
+} GameE8470Extension;
+
+typedef struct GameE8470State {
+    GameE81A8Position position;
+    f32 pending;
+} GameE8470State;
+
+extern f32 D_800A1368, D_800A136C, D_800A1370, D_800A1374;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E8470 CURRENT (230) */
+void func_150E8470(void *arg0) {
+    void *result;
+    GameE8470Descriptor packet;
+    GameE8470Extension extension;
+    f32 speedScale;
+    s32 firstFlip, secondFlip;
+    GameE8470State *state;
+
+    state = (GameE8470State *)((u8 *)arg0 + 0x28);
+    state->pending += (D_800A1368 + func_150ADA68() * D_800A136C) * D_800BE9A4;
+    if (state->pending > 1.0f) {
+        packet.field1D = 0x6C;
+        packet.field08 = 0x5103;
+        packet.field00 = 0x200005;
+        packet.field1E = 0x73;
+        packet.field20 = 2;
+        packet.flags = 0x80DE07;
+        packet.field60 = 8;
+        packet.field61 = 6;
+        packet.field62 = 0x19;
+        packet.field63 = -1;
+        extension.field0 = 0;
+        extension.field1 = 0;
+        packet.field04 = 0;
+        packet.field0C = 0;
+        packet.field10 = 0;
+        packet.field64 = -1;
+        packet.field65 = 0;
+        packet.field22 = 0x73;
+        packet.field14 = 0x24;
+        packet.field15 = 0x22;
+        packet.field16 = 0x11;
+        packet.field17 = 0xFF;
+        packet.field18 = 0x7B;
+        packet.field19 = 0x93;
+        packet.field1A = 0xAA;
+        packet.field1C = 0xFF;
+        packet.field24 = D_800A1370;
+        packet.position = *(GameE81A8Position *)state;
+        speedScale = 0.001f;
+        packet.x3C = 0.0f;
+        packet.y40 = 0.0f;
+        packet.z44 = 0.0f;
+        packet.x48 = 0.0f;
+        packet.y4C = 0.0f;
+        packet.z50 = 0.0f;
+        do {
+            extension.field2 = (u32)func_150ADA20() % 5U + 4;
+            extension.field3 = (u32)func_150ADA20() % 5U + 4;
+            extension.field4 = func_150ADA68() * 13.0f;
+            extension.field8 = func_150ADA68() * 13.0f;
+            packet.field54 = (func_150ADA68() * 40.0f + 68.0f) * speedScale;
+            packet.flags &= ~0xC0;
+            firstFlip = (func_150ADA20() & 1) ? 0x80 : 0;
+            if (func_150ADA20() & 1) secondFlip = 0x40;
+            else secondFlip = 0;
+            packet.flags = (secondFlip | firstFlip) | packet.flags;
+            packet.field1B = (u32)func_150ADA20() % 156U + 0x64;
+            packet.field0A = (u32)func_150ADA20() % 34U + 0x8D;
+            packet.scaleY = packet.scaleX = func_150ADA68() * 71.0f + 80.0f;
+            result = func_15130280(&packet, 1, NULL, 0xC, *((u8 *)arg0 + 0xC), *((u8 *)arg0 + 1));
+            if (result != NULL) func_10022EC0((u8 *)result + 0xA8, &extension, 0xC);
+            state->pending -= 1.0f;
+        } while (state->pending > 1.0f);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E8470 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E8470.s")
+
 void func_15131828(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 
 s32 func_150E8824(s32 arg0, s32 arg1) {

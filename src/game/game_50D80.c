@@ -188,7 +188,116 @@ block_38:
 #endif /* CONKER_DEFERRED_CANDIDATE func_15023BB0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_50D80/func_15023BB0.s")
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15023DE0 CURRENT (4633) */
+void func_15023DE0(void **arg0, void **arg1, s32 *arg2, s32 *arg3,
+                   s32 arg4, s32 arg5, s32 arg6, s32 arg7,
+                   s32 arg8, s32 arg9, s32 arg10, s32 arg11) {
+    s32 time;
+    s32 currentTime;
+    s32 offset;
+    u16 **counts;
+    u16 count;
+    Game50D80Record **slot;
+    u8 step;
+    Game50D80Record *base;
+    Game50D80Record *record;
+
+    if (arg0 != NULL) {
+        *arg0 = NULL;
+    }
+    *arg1 = NULL;
+    if (arg2 != NULL) {
+        *arg2 = 0;
+    }
+    *arg3 = D_800C3640[arg11];
+    slot = (Game50D80Record **)(D_800C3688 + arg11 * 0x78 + arg4 * 4);
+    base = *slot;
+    counts = &D_800C35D8[arg11];
+    if (base != NULL) {
+        record = base + 4;
+        count = (*counts)[arg4];
+        offset = (u8 *)record - (u8 *)base;
+        time = base->value;
+        if ((u32)(offset >> 3) < count) {
+next_record:
+            if ((record->step == 0) && (record->kind == 0)) {
+                time = record->value;
+                goto advance;
+            }
+            if ((arg10 >= time) && (arg5 == record->kind) &&
+                ((arg6 == 0) || ((arg6 == 1) && (arg7 == record->value))) &&
+                ((arg8 == 0) || ((arg8 == 1) && (arg9 == record->field4)))) {
+                if (arg0 != NULL) {
+                    *arg0 = record;
+                }
+                if (arg2 != NULL) {
+                    *arg2 = time;
+                }
+            }
+            if ((arg10 < time) && (arg5 == record->kind) &&
+                ((arg6 == 0) || ((arg6 == 1) && (arg7 == record->value))) &&
+                ((arg8 == 0) || ((arg8 == 1) && (arg9 == record->field4)))) {
+                *arg1 = record;
+                *arg3 = time;
+                return;
+            }
+            step = record->step;
+            count = (*counts)[arg4];
+            offset = (u8 *)record - (u8 *)*slot;
+            if (step == 0) {
+next_group_record:
+                if (record->kind == 0) {
+                    time = record->value;
+                    goto add_step;
+                }
+                offset += 8;
+                record++;
+                if ((u32)(offset >> 3) >= count) {
+                    step = record->step;
+                    goto add_step;
+                }
+                currentTime = D_800C35B0[arg11];
+                if ((currentTime >= time) && (arg5 == record->kind) &&
+                    ((arg6 == 0) || ((arg6 == 1) && (arg7 == record->value))) &&
+                    ((arg8 == 0) || ((arg8 == 1) && (arg9 == record->field4)))) {
+                    if (arg0 != NULL) {
+                        *arg0 = record;
+                    }
+                    if (arg2 != NULL) {
+                        *arg2 = time;
+                    }
+                    count = (*counts)[arg4];
+                    offset = (u8 *)record - (u8 *)*slot;
+                    goto check_step;
+                }
+                if ((currentTime < time) && (arg5 == record->kind) &&
+                    ((arg6 == 0) || ((arg6 == 1) && (arg7 == record->value))) &&
+                    ((arg8 == 0) || ((arg8 == 1) && (arg9 == record->field4)))) {
+                    *arg1 = record;
+                    *arg3 = time;
+                    return;
+                }
+check_step:
+                step = record->step;
+                if (step != 0) {
+                    goto add_step;
+                }
+                goto next_group_record;
+            }
+add_step:
+            time += step;
+advance:
+            offset += 8;
+            record++;
+            if ((u32)(offset >> 3) < count) {
+                goto next_record;
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15023DE0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_50D80/func_15023DE0.s")
+
 void func_1502A8A0(void *, s32, s32, s32, s32);
 extern s32 D_800C3D50;
 
@@ -264,6 +373,63 @@ loop_4:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150241B4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_50D80/func_150241B4.s")
+void func_15024130(s32, s32);
+void func_150241B4(u8 *, s32 *, s32, s32, s32, s32, s32);
+extern s32 D_800C35B8[];
+extern u8 D_800C35C0[], D_800C35EA[], D_800C363A[], D_800C3C8C;
+extern s8 D_800C3638;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150242F8 CURRENT (4995) */
+void func_150242F8(s32 mode, s32 owner) {
+    u8 *record;
+    s32 time;
+    s32 track;
+    s32 queued;
+
+    if (D_800C3C8C != 2 && D_800C35EA[owner] == 1 && D_800C3C9A != 0) {
+        D_800C3638 = 0;
+        queued = 0;
+        for (track = 0; track < D_800C363A[owner]; track++) {
+            if (*(u8 **)(D_800C3688 + owner * 0x78 + track * 4) != NULL &&
+                D_800C35B8[owner] != D_800C35B0[owner]) {
+                record = *(u8 **)(D_800C3688 + owner * 0x78 + track * 4) + 0x20;
+                time = ((Game50D80Record *)*(u8 **)(D_800C3688 + owner * 0x78 + track * 4))->value;
+                while ((u32)(((s32)(record - *(u8 **)(D_800C3688 + owner * 0x78 + track * 4)) >> 3)) < D_800C35D8[owner][track]) {
+                    if (((Game50D80Record *)record)->step == 0 && ((Game50D80Record *)record)->kind == 0) {
+                        time = ((Game50D80Record *)record)->value;
+                    } else {
+                        if (D_800C35B0[owner] >= time && D_800C35B8[owner] < time) {
+                            while (1) {
+                                if ((u32)(((s32)(record - *(u8 **)(D_800C3688 + owner * 0x78 + track * 4)) >> 3)) >= D_800C35D8[owner][track]) break;
+                                if ((mode == 0 && ((Game50D80Record *)record)->kind != 0x11) || (mode == 1 && ((Game50D80Record *)record)->kind == 0x11)) {
+                                    func_150241B4((u8 *)D_800C3D50, &queued, (s32)record, track,
+                                        ((s32)(record - *(u8 **)(D_800C3688 + owner * 0x78 + track * 4)) >> 3), time, owner);
+                                }
+                                if (((Game50D80Record *)record)->step != 0 || (((Game50D80Record *)record)->step == 0 && ((Game50D80Record *)record)->kind == 0)) break;
+                                record += 8;
+                            }
+                        }
+                        if (D_800C35B0[owner] < time) break;
+                        while (((Game50D80Record *)record)->step == 0) {
+                            if (((Game50D80Record *)record)->kind == 0) {
+                                time = ((Game50D80Record *)record)->value;
+                                break;
+                            }
+                            record += 8;
+                            if ((u32)(((s32)(record - *(u8 **)(D_800C3688 + owner * 0x78 + track * 4)) >> 3)) >= D_800C35D8[owner][track]) break;
+                        }
+                        time += ((Game50D80Record *)record)->step;
+                    }
+                    record += 8;
+                }
+            }
+        }
+        func_15024130(queued, owner);
+        D_800C3638 = 1;
+        if (mode == 0) D_800C35C0[owner] = 1;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150242F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_50D80/func_150242F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_50D80/func_1502460C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_50D80/func_150265CC.s")

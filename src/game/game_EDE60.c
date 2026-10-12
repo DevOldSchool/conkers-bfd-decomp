@@ -6,9 +6,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_owner_chain_resource_emitters.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150C0AC0
  * - func_150C0C38
- * - func_150C1198
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -62,12 +60,10 @@ void func_150C0A48(u8 *arg0) {
 /* SDK memcpy alias and the matched allocator declaration. */
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C0AC0 CURRENT (815) */
 void *func_150C0AC0(u8 *arg0, u8 arg1, s32 arg2) {
     u8 *allocated;
     s32 size;
     s16 index;
-    s16 next;
 
     size = (*(s16 *)(arg0 + 0x14) * 8) + 0x48;
     if (!(arg0[0x18] & 2)) {
@@ -94,25 +90,16 @@ void *func_150C0AC0(u8 *arg0, u8 arg1, s32 arg2) {
     *(f32 *)(allocated + 0x3C) = 0.0f;
     *(s16 *)(allocated + 0x44) = -1;
     *(s16 *)(allocated + 0x46) = 0;
-    index = 0;
-    if (*(s16 *)(arg0 + 0x14) - 1 > 0) {
-        do {
-            next = index + 1;
-            *(s16 *)(*(u8 **)(allocated + 0x40) + (index * 8) + 4) = next;
-            index = next;
-        } while (next < *(s16 *)(arg0 + 0x14) - 1);
+    for (index = 0; index < *(s16 *)(arg0 + 0x14) - 1; index++) {
+        *(s16 *)(*(u8 **)(allocated + 0x40) + (index * 8) + 4) = index + 1;
     }
     *(s16 *)(*(u8 **)(allocated + 0x40) + (*(s16 *)(arg0 + 0x14) * 8) - 4) = -1;
     *(s32 *)(allocated + 0x10) = 1;
     *(s32 *)(allocated + 0x14) = 0;
     return allocated;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C0AC0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EDE60/func_150C0AC0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EDE60/func_150C0C38.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C1198 CURRENT (265) */
 void func_150C1198(u8 *arg0) {
-    GameEDE60ResourceEntry *entry;
     GameEDE60ResourceList *list;
     s16 index;
     s16 previous;
@@ -124,26 +111,21 @@ void func_150C1198(u8 *arg0) {
     index = list->first_index;
     if (index != -1) {
         do {
-            entry = &list->entries[index];
-            if (arg0 == entry->resource) {
+            if (arg0 == list->entries[index].resource) {
                 found = 1;
             } else {
                 previous = index;
-                index = entry->next_index;
+                index = list->entries[index].next_index;
             }
         } while ((index != -1) && (found == 0));
     }
     if (found != 0) {
-        entry = &list->entries[index];
         if (index == list->first_index) {
-            list->first_index = entry->next_index;
+            list->first_index = list->entries[index].next_index;
         } else {
-            list->entries[previous].next_index = entry->next_index;
-            entry = &list->entries[index];
+            list->entries[previous].next_index = list->entries[index].next_index;
         }
-        entry->next_index = list->last_index;
+        list->entries[index].next_index = list->last_index;
         list->last_index = index;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C1198 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EDE60/func_150C1198.s")

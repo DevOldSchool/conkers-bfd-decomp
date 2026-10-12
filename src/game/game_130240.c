@@ -60,10 +60,113 @@ block_12:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15102D90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_130240/func_15102D90.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_130240/func_15102EB8.s")
 typedef struct Game130240Vector {
     f32 x, y, z;
 } Game130240Vector;
+
+typedef struct Game130240Vertex {
+    s16 x, y, z, flags;
+    u8 attributes[8];
+} Game130240Vertex;
+
+typedef struct Game130240Ribbon {
+    u8 pad0[0x18];
+    Game130240Vector start, end;
+} Game130240Ribbon;
+
+void *func_10022EC0(void *, const void *, u32);
+s32 func_15144B34(s32);
+void func_15145548(void *, void *, void *, void *, f32 *);
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15102EB8 CURRENT (1810) */
+void *func_15102EB8(u8 *arg0, s16 arg1) {
+    s32 camera;
+    Game130240Vector endpoint;
+    Game130240Vector direction;
+    f32 fraction;
+    Game130240Vector closest;
+    f32 startX, startY, startZ;
+    f32 x, y, z;
+    Game130240Vertex *output;
+    void *result;
+    f32 parameter;
+    f32 lengthSquared;
+    u8 fresh;
+    u8 *state;
+    void *template;
+    f32 crossX, crossY, crossZ;
+
+    camera = func_15144B34(arg1);
+    if (!(arg0[0x124] & 1)) {
+        return NULL;
+    }
+    func_151D5D60(arg0 + 0x100, arg1, 0x40, (void **)&output, &fresh);
+    result = output;
+    if (output != NULL) {
+        if (fresh != 0) {
+            state = arg1 * 4 + arg0;
+            template = arg0 + 0xC0;
+            func_10022EC0(*(void **)(state + 0x100), template, 0x40);
+            func_10022EC0(*(u8 **)(state + 0x100) + 0x40, template, 0x40);
+        }
+        state = arg0 + 0x110;
+        startX = ((Game130240Ribbon *)state)->start.x;
+        fraction = *(f32 *)(arg0 + 0x30);
+        startY = ((Game130240Ribbon *)state)->start.y;
+        startZ = ((Game130240Ribbon *)state)->start.z;
+        endpoint.x = startX + (((Game130240Ribbon *)state)->end.x - startX) * fraction;
+        endpoint.y = startY + (((Game130240Ribbon *)state)->end.y - startY) * fraction;
+        endpoint.z = startZ + (((Game130240Ribbon *)state)->end.z - startZ) * fraction;
+        direction.x = endpoint.x - startX;
+        direction.y = endpoint.y - ((Game130240Ribbon *)state)->start.y;
+        direction.z = endpoint.z - ((Game130240Ribbon *)state)->start.z;
+        func_15145548(&((Game130240Ribbon *)state)->start, &direction, (void *)camera, &closest, &parameter);
+        x = closest.x - ((f32 *)camera)[0];
+        y = closest.y - ((f32 *)camera)[1];
+        z = closest.z - ((f32 *)camera)[2];
+        crossX = direction.y * z - y * direction.z;
+        crossY = direction.z * x - z * direction.x;
+        crossZ = direction.x * y - x * direction.y;
+        lengthSquared = crossX * crossX + crossY * crossY + crossZ * crossZ;
+        if (lengthSquared == 0.0f) {
+            startZ = 0.0f;
+            startX = 0.0f;
+            startY = 0.0f;
+        } else {
+            fraction = *(f32 *)(arg0 + 0x2C) / sqrtf(lengthSquared);
+            startX = crossX * fraction;
+            startY = crossY * fraction;
+            startZ = crossZ * fraction;
+        }
+        output->x = (s16)(s32)(((Game130240Ribbon *)state)->start.x + startX);
+        output->y = (s16)(s32)(((Game130240Ribbon *)state)->start.y + startY);
+        output->z = (s16)(s32)(((Game130240Ribbon *)state)->start.z + startZ);
+        output->flags = 0;
+        output++;
+        output->x = (s16)(s32)(endpoint.x + startX);
+        output->y = (s16)(s32)(endpoint.y + startY);
+        output->z = (s16)(s32)(endpoint.z + startZ);
+        output->flags = 0;
+        output++;
+        output->x = (s16)(s32)(endpoint.x - startX);
+        output->y = (s16)(s32)(endpoint.y - startY);
+        output->z = (s16)(s32)(endpoint.z - startZ);
+        output->flags = 0;
+        output++;
+        output->x = (s16)(s32)(((Game130240Ribbon *)state)->start.x - startX);
+        output->y = (s16)(s32)(((Game130240Ribbon *)state)->start.y - startY);
+        output->z = (s16)(s32)(((Game130240Ribbon *)state)->start.z - startZ);
+        output->flags = 0;
+        return result;
+    }
+    return NULL;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15102EB8 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_130240/func_15102EB8.s")
+
 
 typedef struct Game130240Descriptor {
     s32 flags;

@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15101F50
  * - func_151022AC
  * - func_151025F4
  * - func_151026BC
@@ -14,8 +13,148 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_15101F50.s")
+void *func_10022EC0(void *, const void *, u32);
+s32 func_15144E80(void *, void *, void *, void *);
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
+
+void *func_15101F50(u8 *arg0, s32 arg1) {
+    u8 *source;
+    void *vertices;
+    void *result;
+    f32 first[3];
+    f32 second[3];
+    u8 fresh;
+    u8 *slot;
+
+    func_151D5D60(arg0 + 0x100, ((s16 *)&arg1)[1], 0x40, &vertices, &fresh);
+    result = vertices;
+    if (vertices != NULL) {
+        if (fresh != 0) {
+            slot = arg0;
+            slot += ((s16 *)&arg1)[1] * 4;
+            source = arg0 + 0xC0;
+            func_10022EC0(*(void **)(slot + 0x100), source, 0x40U);
+            func_10022EC0(*(u8 **)(slot + 0x100) + 0x40, source, 0x40U);
+        }
+    } else {
+        return NULL;
+    }
+    {
+        if (!(arg0[0x110] & 1)) {
+            return NULL;
+        }
+        if (func_15144E80(arg0 + 0x112, first, second, NULL) == 0) {
+            return NULL;
+        }
+        func_15145128(first, first, NULL, NULL);
+        func_15145128(second, second, NULL, NULL);
+        first[0] *= *(f32 *)(arg0 + 0x2C);
+        first[1] *= *(f32 *)(arg0 + 0x2C);
+        first[2] *= *(f32 *)(arg0 + 0x2C);
+        second[0] *= *(f32 *)(arg0 + 0x30);
+        second[1] *= *(f32 *)(arg0 + 0x30);
+        second[2] *= *(f32 *)(arg0 + 0x30);
+        ((s16 *)vertices)[0] = (s32)(second[0] + (*(f32 *)(arg0 + 0x34) - first[0]));
+        ((s16 *)vertices)[1] = (s32)(second[1] + (*(f32 *)(arg0 + 0x38) - first[1]));
+        ((s16 *)vertices)[2] = (s32)(second[2] + (*(f32 *)(arg0 + 0x3C) - first[2]));
+        ((s16 *)vertices)[3] = 0;
+        ((s16 *)vertices)[8] = (s32)(second[0] + (first[0] + *(f32 *)(arg0 + 0x34)));
+        ((s16 *)vertices)[9] = (s32)(second[1] + (first[1] + *(f32 *)(arg0 + 0x38)));
+        ((s16 *)vertices)[10] = (s32)(second[2] + (first[2] + *(f32 *)(arg0 + 0x3C)));
+        ((s16 *)vertices)[11] = 0;
+        ((s16 *)vertices)[16] = (s32)((*(f32 *)(arg0 + 0x34) + first[0]) - second[0]);
+        ((s16 *)vertices)[17] = (s32)((*(f32 *)(arg0 + 0x38) + first[1]) - second[1]);
+        ((s16 *)vertices)[18] = (s32)((*(f32 *)(arg0 + 0x3C) + first[2]) - second[2]);
+        ((s16 *)vertices)[19] = 0;
+        ((s16 *)vertices)[24] = (s32)((*(f32 *)(arg0 + 0x34) - first[0]) - second[0]);
+        ((s16 *)vertices)[25] = (s32)((*(f32 *)(arg0 + 0x38) - first[1]) - second[1]);
+        ((s16 *)vertices)[26] = (s32)((*(f32 *)(arg0 + 0x3C) - first[2]) - second[2]);
+        ((s16 *)vertices)[27] = 0;
+        return result;
+    }
+}
+typedef struct Game12F400Animation {
+    u8 pad0[0x24];
+    u8 *linked24, *linked28, *linked2C;
+    u8 pad30[4];
+    u8 *linked34;
+    f32 field38, field3C, field40;
+    u8 pad44[0xC];
+    f32 angle, rate, rotation, velocity, targetVelocity, velocityRange;
+    f32 timer, timerRange, velocityBlend;
+    f32 alpha, targetAlpha, alphaBase, alphaRange, alphaTimer, alphaTimerRange, alphaBlend;
+} Game12F400Animation;
+
+f32 func_15144B68(f32);
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+extern f32 D_800BE9A4, D_800A228C, D_800A2290, D_800A2294;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151022AC CURRENT (1982) */
+s32 func_151022AC(u8 *arg0) {
+    u8 *scaleLink;
+    u8 *particleLink;
+    Game12F400Animation *state;
+    u8 *link;
+    u32 alpha;
+    f32 upperBound;
+
+    state = (Game12F400Animation *)(arg0 + 0x110);
+    *(f32 *)(arg0 + 0x160) += *(f32 *)(arg0 + 0x164) * D_800BE9A4;
+    state->angle = func_15144B68(*(f32 *)(arg0 + 0x160));
+    upperBound = D_800A228C;
+    state->rotation += state->velocity * D_800BE9A4;
+    while (upperBound < state->rotation) {
+        state->rotation -= 65536.0f;
+    }
+    while (state->rotation < -32768.0f) {
+        state->rotation += 65536.0f;
+    }
+    state->timer -= D_800BE9A4;
+    if (state->timer < 0.0f) {
+        state->timer = func_150ADA68() * state->timerRange;
+        state->targetVelocity = func_150ADA68() * (2.0f * state->velocityRange) - state->velocityRange;
+    }
+    state->velocity += (state->targetVelocity - state->velocity) * state->velocityBlend;
+    state->field38 += (state->field3C - state->field38) * state->field40;
+    link = state->linked28;
+    if (link != NULL) {
+        scaleLink = link;
+        *(f32 *)(scaleLink + 0x2C) = *(f32 *)(scaleLink + 0x30) =
+            (func_150ADA68() * D_800A2290 + D_800A2294) * state->field38;
+    }
+    state->alphaTimer -= D_800BE9A4;
+    if (state->alphaTimer < 0.0f) {
+        state->alphaTimer = func_150ADA68() * state->alphaTimerRange;
+        state->targetAlpha = func_150ADA68() * state->alphaRange + state->alphaBase;
+    }
+    state->alpha += (state->targetAlpha - state->alpha) * state->alphaBlend;
+    alpha = (u32)state->alpha;
+    arg0[0x5C] = alpha;
+    link = state->linked28;
+    if (link != NULL) {
+        link[0x5C] = alpha;
+    }
+    link = state->linked24;
+    if (link != NULL) {
+        link[0x2B] = arg0[0x5C];
+    }
+    link = state->linked2C;
+    if (link != NULL) {
+        particleLink = link;
+        (*(u8 **)(particleLink + 0x14))[0x2F] = (func_150ADA20() & 3) + 2;
+    }
+    link = state->linked34;
+    if (link != NULL) {
+        state = (Game12F400Animation *)link;
+        state->field38 = state->field3C = func_150ADA68() * 10.0f + 120.0f;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151022AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_151022AC.s")
+
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */

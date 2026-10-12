@@ -216,4 +216,141 @@ void *func_150BE438(void *arg0, s32 arg1) {
     *(s16 *)((u8 *)arg0 + 6) = *(s32 *)((u8 *)temp_v1 + 0x2E4);
     return (u8 *)arg0 + 8;
 }
+typedef struct BeeCavernBounds {
+    u8 pad0[0x14C];
+    f32 lower, upper;
+} BeeCavernBounds;
+typedef struct BeeCavernWords { s32 x, y, z; } BeeCavernWords;
+typedef struct BeeCavernHit {
+    f32 height;
+    s16 vertices[9];
+    u8 pad16[2];
+    s32 field18;
+    u8 field1C, field1D, pad1E[2];
+    void *field20;
+} BeeCavernHit;
+typedef struct BeeCavernPrimary {
+    s32 count, countRange;
+    BeeCavernWords position;
+    s16 yaw, yawRange, pitch, pitchRange;
+    f32 speed, speedRange, field24, field28;
+    s16 timer, timerRange;
+    f32 radius, field34, field38, field3C;
+    s8 kind;
+    u8 pad41[3];
+} BeeCavernPrimary;
+typedef struct BeeCavernSecondary {
+    s32 count, countRange;
+    BeeCavernWords position;
+    s16 yaw, yawRange, pitch, pitchRange;
+    f32 speed, speedRange, field24, field28;
+    s16 timer, timerRange;
+    f32 field30, field34, field38;
+} BeeCavernSecondary;
+typedef struct BeeCavernParticles {
+    BeeCavernWords position;
+    f32 fieldC, field10, field14, field18, field1C, field20;
+    s16 count, countRange, timer, timerRange;
+    s16 field2C, field2E, field30, field32;
+    s8 kind;
+    u8 pad35[3];
+    f32 field38;
+    s16 field3C, field3E;
+    s32 field40;
+} BeeCavernParticles;
+void func_1504715C(void *, void *);
+void func_1515080C(void *, s32 *, f32 *, s32, void *, s32, u8, u8, s8, void *, f32, u8, u8, u8, s32);
+void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+void func_15153F18(s16 *, void *, void *, s32, s32);
+extern s32 D_800A0010[], D_800A0060[];
+extern f32 D_800A0038[], D_800A0064[];
+extern f32 D_800A006C, D_800A0070, D_800A0074, D_800A0078;
+extern f32 D_800A007C, D_800A0080, D_800A0084, D_800A0088;
+extern f32 D_800A008C, D_800A0090, D_800A0094, D_800A0098;
+extern f32 D_800A009C, D_800A00A0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BE494 CURRENT (3231) */
+void func_150BE494(void *arg0, u8 arg1, s32 arg2) {
+    BeeCavernWords position;
+    f32 upper;
+    f32 lower;
+    f32 radius;
+    BeeCavernHit hit;
+    BeeCavernPrimary primary;
+    BeeCavernSecondary secondary;
+    BeeCavernParticles particles;
+    struct { s16 yaw, yawRange, pitch, pitchRange; } angles;
+
+    if (arg0 != NULL) {
+        radius = (((BeeCavernBounds *)arg0)->lower + ((BeeCavernBounds *)arg0)->upper) * 0.5f;
+        func_1515C244(arg0, &position, &upper, &lower);
+        func_1504715C(&hit, arg0);
+        primary.count = 10;
+        primary.countRange = 0;
+        primary.position = position;
+        primary.speed = 13.0f;
+        primary.speedRange = 9.0f;
+        primary.field24 = D_800A006C;
+        primary.yaw = 0;
+        primary.yawRange = 0xFF;
+        primary.pitch = -0x40;
+        primary.pitchRange = 0x32;
+        primary.timer = 0x4B;
+        primary.timerRange = 0x28;
+        primary.kind = 0xB;
+        primary.field34 = 0.0f;
+        primary.field28 = D_800A0070;
+        primary.field38 = D_800A0074;
+        primary.field3C = 1.0f;
+        primary.radius = radius;
+        func_1515080C(&primary, D_800A0010, D_800A0038, 10, NULL, 0, 0, 1, -1, &hit, 55.0f, 0, 0, arg1, arg2);
+        secondary.count = 0x11;
+        secondary.countRange = 9;
+        secondary.position = position;
+        secondary.speed = 14.0f;
+        secondary.speedRange = 11.0f;
+        secondary.yaw = 0;
+        secondary.yawRange = 0xFF;
+        secondary.pitch = -0x3F;
+        secondary.pitchRange = 0x4B;
+        secondary.timer = 0x28;
+        secondary.timerRange = 0x14;
+        secondary.field24 = D_800A0078;
+        secondary.field28 = D_800A007C;
+        secondary.field30 = D_800A0080;
+        secondary.field34 = D_800A0084;
+        secondary.field38 = D_800A0088;
+        func_15152190(&secondary, D_800A0060, D_800A0064, 1, 10.0f, 0, arg1, arg2);
+        particles.position = position;
+        particles.fieldC = D_800A008C;
+        particles.count = 4;
+        particles.countRange = 3;
+        angles.yawRange = 0xFF;
+        angles.yaw = 0;
+        angles.pitch = -0x2B;
+        angles.pitchRange = 0x1A;
+        particles.timer = 3;
+        particles.timerRange = 3;
+        particles.field2C = 0x1E;
+        particles.field2E = 0x14;
+        particles.field30 = 0x9B;
+        particles.field32 = 0x64;
+        particles.field3C = 0x10;
+        particles.field3E = 0xF;
+        particles.field40 = 0;
+        particles.kind = 0;
+        particles.field10 = D_800A0090;
+        particles.field14 = D_800A0094;
+        particles.field18 = D_800A0098;
+        particles.field1C = D_800A009C;
+        particles.field20 = D_800A00A0;
+        particles.field38 = 0.5f;
+        func_15153F18(&angles.yaw, &particles, &hit, (u8)arg1, arg2);
+        particles.kind = 2;
+        func_15153F18(&angles.yaw, &particles, &hit, (u8)arg1, arg2);
+        particles.kind = 0xA;
+        func_15153F18(&angles.yaw, &particles, &hit, (u8)arg1, arg2);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150BE494 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sfx_w1_bee_cavern/func_150BE494.s")
