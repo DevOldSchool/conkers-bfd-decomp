@@ -25,6 +25,23 @@ SECTIONS
     {
         *game_11D830.o(.rodata)
     }
+    /* Burst velocity literals: docs/evidence/data-layout/game_burst_velocity_literals.md. */
+    .game_rodata_f3270 0x800A041C (INFO) : SUBALIGN(4)
+    {
+        *game_F3270.o(.rodata)
+    }
+    .game_rodata_f3ba0 0x800A045C (INFO) : SUBALIGN(4)
+    {
+        *game_F3BA0.o(.rodata)
+    }
+    .game_rodata_1179b0 0x800A143C (INFO) : SUBALIGN(4)
+    {
+        *game_1179B0.o(.rodata)
+    }
+    .game_rodata_1d6e80 0x800A8FF4 (INFO) : SUBALIGN(4)
+    {
+        *game_1D6E80.o(.rodata)
+    }
     /* Reviewed tables: docs/evidence/data-layout/game_1bc650_jump_tables.md. */
     .game_rodata_1bc650 0x800A7B7C (INFO) : SUBALIGN(4)
     {
@@ -94,6 +111,8 @@ SECTIONS
     .game_rodata_90840 0x800996D8 (INFO) : SUBALIGN(4) { *game_90840.o(.rodata) }
     /* Sound-event switch: docs/evidence/data-layout/game_1483e0_jump_table.md. */
     .game_rodata_1483e0 0x800A3218 (INFO) : SUBALIGN(4) { *game_1483E0.o(.rodata) }
+    /* Actor callback dispatcher: docs/evidence/data-layout/game_169510_jump_table.md. */
+    .game_rodata_169510 0x800A5188 (INFO) : SUBALIGN(4) { *game_169510.o(.rodata) }
     /* Six ROM-proven targets: docs/evidence/data-layout/game_c98f0_jump_table.md. */
     .game_rodata_c98f0 0x8009E458 (INFO) : SUBALIGN(4) { *game_C98F0.o(.rodata) }
 }
@@ -183,3 +202,21 @@ __game_rodata_c98f0_payload_size = 0x18;
 
 ASSERT(SIZEOF(.game_rodata_90840) == 0xC0, "game_90840 table extent changed")
 __game_rodata_90840_payload_size = 0xB8;
+
+/* Burst velocity literals own one word; remaining input bytes are zero alignment. */
+ASSERT(SIZEOF(.game_rodata_f3270) == 0x10,
+       "game_F3270 velocity literal extent changed")
+__game_rodata_f3270_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_f3ba0) == 0x10,
+       "game_F3BA0 velocity literal extent changed")
+__game_rodata_f3ba0_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_1d6e80) == 0x10,
+       "game_1D6E80 velocity literal extent changed")
+__game_rodata_1d6e80_payload_size = 0x4;
+
+ASSERT(SIZEOF(.game_rodata_1179b0) == 0x10,
+       "game_1179B0 velocity literal extent changed")
+__game_rodata_1179b0_payload_size = 0x4;
+
+ASSERT(SIZEOF(.game_rodata_169510) == 0x40, "game_169510 table extent changed")
+__game_rodata_169510_payload_size = 0x34;

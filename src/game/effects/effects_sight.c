@@ -40,9 +40,198 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Sight71Parameters {
+    s16 position[3];
+    u8 pad06[2];
+    s16 length;
+    u8 pad0A[2];
+    f32 rotationX, rotationY;
+    u8 disabled;
+    u8 pad15[3];
+    u32 flags, colors, widths;
+} Sight71Parameters;
+
+void func_150A8050(void *, f32, f32, f32);
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *,
+                  f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
+s32 func_151C756C(f32 *, s16 *, f32 *, s16 *, void *, void *,
+                  s32, s32, s32, s32, s32, s32, s32, s32, s32, s32,
+                  s32, s32, s32, f32, f32, s32, s32, s32);
+extern f32 D_800AAC38, D_800AAC3C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C71A0 CURRENT (15665) */
+s32 func_151C71A0(Sight71Parameters *arg0) {
+    f32 origin[3];
+    f32 end[3];
+    f32 direction[3];
+    f32 middle[3];
+    f32 matrix[16];
+    s32 hit;
+    s16 triangle1[9], triangle2[9];
+    f32 point1[3], point2[3];
+    f32 distance1, distance2;
+    s32 object1, object2;
+    u32 flags, colors, widths;
+    s32 secondHit;
+
+    if (arg0->disabled == 1) {
+        return 1;
+    }
+    origin[0] = arg0->position[0];
+    origin[1] = arg0->position[1];
+    origin[2] = arg0->position[2];
+    func_150A8050(matrix, arg0->rotationX, arg0->rotationY, 0.0f);
+    func_150A7960(matrix, 0.0f, (f32)arg0->length, 0.0f,
+                  &end[0], &end[1], &end[2]);
+    end[0] += origin[0];
+    end[1] += origin[1];
+    end[2] += origin[2];
+    direction[0] = end[0] - origin[0];
+    direction[1] = end[1] - origin[1];
+    direction[2] = end[2] - origin[2];
+    middle[0] = direction[0] * 0.5f + origin[0];
+    middle[1] = direction[1] * 0.5f + origin[1];
+    middle[2] = direction[2] * 0.5f + origin[2];
+    hit = func_150AC9C0(middle[0], middle[1], middle[2],
+                         -direction[0], -direction[1], -direction[2], 0,
+                         triangle1, &point1[0], &point1[1], &point1[2],
+                         &distance1, &object1, 0, 0.0f);
+    secondHit = func_150AC9C0(middle[0], middle[1], middle[2],
+                       direction[0], direction[1], direction[2], 0,
+                       triangle2, &point2[0], &point2[1], &point2[2],
+                       &distance2, &object2, 0, 0.0f);
+    if ((hit == 0) || (secondHit == 0)) {
+        return 1;
+    }
+    flags = arg0->flags;
+    colors = arg0->colors;
+    widths = arg0->widths;
+    func_151C756C(point1, triangle1, point2, triangle2, arg0, arg0,
+                  colors & 0xFF, (colors & 0xFF00) >> 8, (colors & 0xFF0000) >> 16,
+                  (flags & 0x01000000) >> 24,
+                  flags & 0xFF, (flags & 0xFF00) >> 8, (flags & 0xFF0000) >> 16,
+                  (flags & 0x02000000) >> 25, (flags & 0x04000000) >> 26,
+                  ((flags & 0x08000000) >> 27) == 0,
+                  ((flags & 0x20000000) >> 29) == 0,
+                  ((flags & 0x40000000) >> 30) ? 1 : 0,
+                  (flags & 0x10000000) >> 28,
+                  (f32)(widths & 0xFF) * D_800AAC38,
+                  (f32)((widths & 0xFF00) >> 8) * D_800AAC3C,
+                  ((flags & 0x80000000) >> 31) == 0, 255, 1);
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C71A0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C71A0.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C756C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C7E98.s")
+typedef struct SightOscillation {
+    f32 x, y, centerX, centerY, radiusX, radiusY;
+    f32 angleX, angleY, speedX, speedY;
+    u8 pad28[4];
+    void *animation;
+    u8 pad30[0x10];
+    void *objects[5];
+    f32 phase;
+    u8 alternate;
+    u8 pad59[0x25];
+    s16 activeTime;
+    u8 pad80[2];
+    s16 timer, period;
+    u8 flags;
+    u8 pad87;
+    void *secondary;
+    u8 pad8C[0xC];
+    f32 brightnessAngle, brightnessSpeed;
+} SightOscillation;
+
+f32 func_150AD78C(f32);
+f32 func_15144B68(f32);
+extern f32 D_800BE9A4, D_800AAC50, D_800AAC54;
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C82D0 CURRENT (970) */
+s32 func_151C82D0(void *volatile arg0) {
+    register SightOscillation *state;
+    register s16 period;
+    register void *object;
+    register void *object1;
+    register void *object2;
+    register void *object3;
+
+    state = (SightOscillation *)((u8 *)arg0 + 0x110);
+    if (state->flags & 1) {
+        period = state->period;
+        state->timer += D_800BE9E4;
+        while (state->timer >= period) {
+            state->timer -= period;
+        }
+        if (state->timer < state->activeTime) {
+            state->flags |= 2;
+        } else {
+            state->flags &= 0xFFFD;
+        }
+    }
+    state = (SightOscillation *)((u8 *)arg0 + 0x110);
+    if (state->flags & 2) {
+        state->angleX += state->speedX * D_800BE9A4;
+        state->angleY += state->speedY * D_800BE9A4;
+        state->angleX = func_15144B68(state->angleX);
+        state->angleY = func_15144B68(state->angleY);
+        state->x = func_150AD78C(state->angleX) * state->radiusX + state->centerX;
+        state->y = func_150AD78C(state->angleY) * state->radiusY + state->centerY;
+        object = state->animation;
+        if (object != NULL) {
+            *((u8 *)*(void **)((u8 *)object + 0x14) + 9) = 0;
+        }
+        object = state->secondary;
+        if (object != NULL && (state->flags & 0x10)) {
+            *((u8 *)object + 0x14) = 0;
+        }
+    } else {
+        object = state->animation;
+        if (object != NULL) {
+            *((u8 *)*(void **)((u8 *)object + 0x14) + 9) = 1;
+        }
+        object = state->secondary;
+        if (object != NULL) {
+            *((u8 *)object + 0x14) = 1;
+        }
+    }
+    state->phase += D_800AAC50 * D_800BE9A4;
+    while (state->phase > 1.0f) {
+        if (state->flags & 2) {
+            state->alternate ^= 1;
+        }
+        state->phase -= 1.0f;
+    }
+    if (state->alternate != 0) {
+        object = state->objects[0];
+        *(u32 *)((u8 *)object + 0x60) &= 0xFFFDFFFF;
+        object1 = state->objects[1];
+        *(u32 *)((u8 *)object1 + 0x60) |= 0x20000;
+        object2 = state->objects[3];
+        *(u32 *)((u8 *)object2 + 0x60) &= 0xFFFDFFFF;
+        object3 = state->objects[4];
+        *(u32 *)((u8 *)object3 + 0x60) |= 0x20000;
+    } else {
+        object = state->objects[0];
+        *(u32 *)((u8 *)object + 0x60) |= 0x20000;
+        object1 = state->objects[1];
+        *(u32 *)((u8 *)object1 + 0x60) &= 0xFFFDFFFF;
+        object2 = state->objects[3];
+        *(u32 *)((u8 *)object2 + 0x60) |= 0x20000;
+        object3 = state->objects[4];
+        *(u32 *)((u8 *)object3 + 0x60) &= 0xFFFDFFFF;
+    }
+    if (state->flags & 8) {
+        *((u8 *)arg0 + 0x5C) = (u32)(func_150AD78C(state->brightnessAngle) * 112.5f + D_800AAC54);
+        state->brightnessAngle = func_15144B68(state->brightnessAngle + state->brightnessSpeed * D_800BE9A4);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C82D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C82D0.s")
 void func_151403A8();
 
@@ -273,6 +462,159 @@ s32 func_151C8FCC(s32 arg0, Sight8FCCVector *arg1, Sight8FCCVector *arg2,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151C8FCC */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C8FCC.s")
+void *func_15132A4C(void *, s32, s32, s32, u8, s32);
+s32 func_15144E80(void *, void *, void *, void *);
+void func_15145974(void *, f32 *, f32 *);
+extern f32 D_800AAC7C;
+
+/* func_1513264C copies all 0x7C bytes into the spawned effect. */
+typedef struct SightSpawnDescriptor {
+    f32 scale0, scale1, field08, field0C;
+    f32 pitch, yaw, roll;
+    f32 scale[3];
+    Sight8FCCVector position;
+    f32 motion[7];
+    s32 flags;
+    s16 lifetime, kind;
+    s8 field58;
+    u8 pad59[3];
+    s32 owner;
+    u8 channels[8];
+    s8 field68, field69, field6A;
+    u8 pad6B;
+    s32 field6C;
+    s8 field70;
+    u8 pad71;
+    s16 field72, field74;
+    u8 pad76[6];
+} SightSpawnDescriptor;
+
+typedef struct SightSpawnCommand {
+    s16 id;
+    s8 mode;
+    u8 pad3;
+    s32 value;
+} SightSpawnCommand;
+
+typedef struct SightSpawnCommands {
+    s8 count;
+    u8 pad1[3];
+    SightSpawnCommand entries[2];
+} SightSpawnCommands;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9198 CURRENT (1147) */
+void func_151C9198(struct Game15F680TransformState **arg0, Sight8FCCVector *arg1,
+                   void *arg2, s32 arg3, s32 arg4, volatile u8 arg5, u8 arg6, u8 arg7, s32 arg8) {
+    Sight8FCCVector vector0, vector1, vector2;
+    SightSpawnDescriptor descriptor;
+    struct Game15F680TransformState *result;
+    SightSpawnCommands commands;
+    s32 offset;
+    s32 flags;
+    struct Game15F680TransformState *effect;
+
+    if (func_15144E80(arg2, &vector0, &vector1, &vector2) != 0) {
+        func_15145974(&vector2, &descriptor.yaw, &descriptor.pitch);
+        descriptor.scale0 = 1.0f;
+        descriptor.scale1 = 1.0f;
+        descriptor.scale[0] = 1.0f;
+        descriptor.scale[1] = 1.0f;
+        descriptor.pitch += 90.0f;
+        descriptor.scale[2] = 1.0f;
+        descriptor.field0C = D_800AAC7C;
+        descriptor.field08 = D_800AAC7C;
+        descriptor.roll = 0.0f;
+        descriptor.position = *arg1;
+        descriptor.motion[0] = 0.0f;
+        descriptor.motion[1] = 0.0f;
+        descriptor.motion[2] = 0.0f;
+        descriptor.motion[3] = 0.0f;
+        descriptor.motion[4] = 0.0f;
+        descriptor.motion[5] = 0.0f;
+        descriptor.motion[6] = 0.0f;
+        if (arg6 != 0) {
+            flags = 0x400;
+        } else {
+            flags = 0;
+        }
+        descriptor.flags = flags | 0x900 | 0x10000 | 0x4000 | 0x40000 | 0x80000;
+        descriptor.lifetime = 0x12C;
+        descriptor.kind = 0x36;
+        descriptor.field58 = 0;
+        descriptor.channels[0] = 0xFF;
+        descriptor.channels[1] = 0;
+        descriptor.channels[2] = 0;
+        descriptor.channels[3] = 0;
+        descriptor.channels[4] = 0;
+        descriptor.channels[5] = 0;
+        descriptor.channels[6] = 0;
+        descriptor.channels[7] = 0;
+        descriptor.field68 = 2;
+        descriptor.field6A = 0;
+        descriptor.field6C = 0;
+        descriptor.field70 = 0;
+        descriptor.field72 = 1;
+        descriptor.field74 = 0xFF;
+        descriptor.field69 = -1;
+        descriptor.owner = arg4;
+        result = func_15132A4C(&descriptor, 3, 0xFF, 0, arg7, arg8);
+        arg0[0] = result;
+        if (result != 0) {
+            offset = 0;
+            do {
+                effect = arg0[0];
+                func_15133760((s32)((u8 *)effect + offset + 0x90), effect);
+                offset += 0x40;
+            } while (offset != 0x80);
+        }
+        descriptor.field69 = 2;
+        commands.count = 2;
+        commands.entries[0].mode = 4;
+        commands.entries[1].mode = 6;
+        commands.entries[0].value = 0x3E;
+        commands.entries[1].value = 0x3E;
+        if (arg5 != 0) {
+            commands.entries[0].id = 0x87;
+            commands.entries[1].id = 0x88;
+        } else {
+            commands.entries[0].id = 0x8B;
+            commands.entries[1].id = 0x8C;
+        }
+        descriptor.kind = 0x37;
+        descriptor.field68 = 0;
+        result = func_15132A4C(&descriptor, 3, 0xFF, 0x14, arg7, arg8);
+        arg0[1] = result;
+        if (result != 0) {
+            offset = 0;
+            do {
+                effect = arg0[1];
+                func_15133760((s32)((u8 *)effect + offset + 0x90), effect);
+                offset += 0x40;
+            } while (offset != 0x80);
+            func_10022EC0((u8 *)arg0[1] + 0x170, &commands, 0x14);
+        }
+        descriptor.kind = 0x38;
+        if (arg5 != 0) {
+            commands.entries[0].id = 0x89;
+            commands.entries[1].id = 0x8A;
+        } else {
+            commands.entries[0].id = 0x8D;
+            commands.entries[1].id = 0x8E;
+        }
+        result = func_15132A4C(&descriptor, 3, 0xFF, 0x14, arg7, arg8);
+        arg0[2] = result;
+        if (result != 0) {
+            offset = 0;
+            do {
+                effect = arg0[2];
+                func_15133760((s32)((u8 *)effect + offset + 0x90), effect);
+                offset += 0x40;
+            } while (offset != 0x80);
+            func_10022EC0((u8 *)arg0[2] + 0x170, &commands, 0x14);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C9198 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9198.s")
 void func_1000FD38(void *, void *, s32);
 
@@ -408,8 +750,6 @@ void func_151C970C(s32 arg0, void *arg1) {
     sp.sp1C = (s8)arg0;
     func_151403A8(&sp.sp18, 0x3A, arg1);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9740.s")
-
 typedef struct EffectsSightVec3f {
     f32 x;
     f32 y;
@@ -428,6 +768,83 @@ typedef struct EffectsSightActor {
     u8 pad20[0x160];
     f32 y;
 } EffectsSightActor;
+
+s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_150E7FEC(f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+s32 func_15046C80(f32 *, u16, f32, void *);
+void func_1504715C(EffectsSightTransform *, EffectsSightActor *);
+void func_150E83AC(void *, s16, u8, s32);
+void func_15136C3C(void *, s32, s32, s32, s32, s32, s32, s32);
+void *func_151541B8(void *, f32, f32, f32, f32, s32, s32);
+void func_151D5334(void *, f32, f32, f32, u8, u8, s32);
+void func_151D5514(void *, u8, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9740 CURRENT (3809) */
+void func_151C9740(EffectsSightActor *arg0, u8 arg1, s32 arg2) {
+    EffectsSightVec3f origin;
+    EffectsSightVec3f impact;
+    u8 hit;
+    u8 airborne;
+    EffectsSightVec3f query;
+    union {
+        EffectsSightTransform transform;
+        f32 values[9];
+    } collision;
+    f32 *point;
+    u32 randomWord;
+    f32 randomFloat;
+    register s32 priority;
+
+    priority = arg1;
+    if (arg0 != NULL) {
+        origin.x = arg0->x;
+        origin.y = *(f32 *)((u8 *)arg0 + 0x18) + 135.0f;
+        origin.z = arg0->z;
+        hit = 0;
+        airborne = *(f32 *)((u8 *)arg0 + 0x2D8) != 0.0f;
+        if (!airborne) {
+            query.x = origin.x;
+            query.y = origin.y;
+            query.z = origin.z;
+            func_1504715C(&collision.transform, arg0);
+            if (func_15046C80(&query.x, 0, origin.y - 200.0f, &collision.transform) != 0 &&
+                (collision.transform.bytes[0x1C] & 1)) {
+                impact.x = query.x;
+                hit = 1;
+                impact.y = collision.values[0];
+                impact.z = query.z;
+                randomFloat = func_150ADA68();
+                randomWord = func_150ADA20();
+                func_150E7FEC(randomFloat * 125.0f + 204.0f,
+                    (randomWord % 101U + 0x9B) & 0xFF,
+                    (s32)&collision.values[1], (s32)&impact,
+                    func_150ADA20() % 302U + 0x1F4, 0, 1, 0, 0, 0, priority, 0);
+            }
+        }
+        func_151D5404(&origin, 506.0f, 1013.0f, 0.000987166888f, 0xF, 0x14, priority, arg2);
+        func_151D5334(&origin, 506.0f, 1013.0f, 0.000987166888f, 5, priority, arg2);
+        func_151D5514(&origin, priority, arg2);
+        func_151D3FF4(&origin.x, priority, arg2);
+        point = hit ? &impact.x : &origin.x;
+        func_150E83AC(point, (s16)(func_150ADA20() % 62U + 0x78), priority, arg2);
+        randomFloat = func_150ADA68();
+        func_151541B8(&origin, 2.0f * randomFloat + 8.0f, 2.4641099f,
+            (f32)(func_150ADA20() % 56U + 0xC8), 0.0f, priority, arg2);
+        if (!airborne) {
+            func_15136C3C(arg0, 0, 0, 1, 0, 0, priority, arg2);
+        }
+        func_10010F88(0x60D, 0x7D00, 0, 0, 0, (s32)origin.x,
+            (s32)origin.y, (s32)origin.z, 0x1F4, 0x3E8);
+        if (airborne) {
+            func_151C9AC0(arg0, priority, arg2);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C9740 */
+#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9740.s")
+
 
 void func_1504715C(EffectsSightTransform *, EffectsSightActor *);
 void func_151ABE40(EffectsSightVec3f *, EffectsSightTransform *, s32, u8, s32);
@@ -636,7 +1053,109 @@ void func_151CAB78(u8 *arg0, u8 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CAB78 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAB78.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAD28.s")
+typedef struct SightWarpState {
+    s32 field0;
+    u8 *center;
+    u16 *pixels;
+    s32 rowOffset;
+    s32 columnOffset;
+} SightWarpState;
+
+f32 func_15145A0C(f32, f32, f32);
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+extern f32 D_800AAE9C, D_800AAEA0, D_800AAEA4;
+extern s32 D_800BE620;
+extern u8 D_800BEAC0, D_800BEAC1, D_800BEAC2;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CB110 CURRENT (8774) */
+void func_151CB110(u8 *arg0, u16 *arg1) {
+    SightWarpState *state;
+    u8 *center;
+    s32 copyRow;
+    s32 copyDestination;
+    s32 copySource;
+    volatile f32 savedY;
+    register f32 radius;
+    f32 scale;
+    f32 offset;
+    volatile s32 savedBottom;
+    volatile s32 savedRight;
+    volatile s32 savedTop;
+    volatile s32 savedLeft;
+    f32 blend;
+    volatile s32 savedSourceBottom;
+    volatile s32 savedSourceRight;
+    volatile s32 savedSourceTop;
+    volatile s32 savedSourceLeft;
+    f32 y;
+    f32 x;
+    f32 sampleX;
+    f32 sampleY;
+    s32 bottom;
+    s32 right;
+    s32 top;
+    s32 left;
+    s32 sourceBottom;
+    s32 sourceRight;
+    s32 sourceTop;
+    s32 sourceLeft;
+
+    if ((D_800BEAC0 == 0) && (D_800BEAC1 == 0)) {
+        copyRow = 0;
+        copyDestination = 0;
+        state = (SightWarpState *)(arg0 + 0x18);
+        if (D_800BEAC2 == 0) {
+            center = state->center;
+            copySource = state->rowOffset + state->columnOffset;
+            do {
+                func_10022EC0(state->pixels + copyDestination, arg1 + copySource, 0x30U);
+                copyRow++;
+                copyDestination += 0x18;
+                copySource += D_800BE620;
+            } while (copyRow != 0x18);
+            for (y = -1.0f; y < 0.0f; y += D_800AAEA4) {
+                savedY = y;
+                radius = func_15145A0C(fabsf(y), 1.0f, 1.0f);
+                y = savedY;
+                if (radius != 0.0f) {
+                    offset = y * 12.0f;
+                    x = -radius;
+                    savedTop = top = (s32)(*(f32 *)(center + 0x38) + offset) * D_800BE620;
+                    savedBottom = bottom = (s32)(*(f32 *)(center + 0x38) - offset) * D_800BE620;
+                    if (x < 0.0f) {
+                        scale = 1.0f - (1.0f - radius * D_800AAE9C);
+                        do {
+                            savedY = y;
+                            blend = func_15145A0C(fabsf(x), radius, 1.0f / radius) * scale;
+                            y = savedY;
+                            offset = x * 12.0f;
+                            savedLeft = left = (s32)(*(f32 *)(center + 0x34) + offset);
+                            savedRight = right = (s32)(*(f32 *)(center + 0x34) - offset);
+                            blend = 1.0f - blend;
+                            sampleX = x * blend * 12.0f;
+                            sampleY = y * blend * 12.0f;
+                            savedSourceLeft = sourceLeft = (s32)(sampleX + 12.0f);
+                            savedSourceRight = sourceRight = (s32)(12.0f - sampleX);
+                            savedSourceTop = sourceTop = (s32)(sampleY + 12.0f) * 0x18;
+                            savedSourceBottom = sourceBottom = (s32)(12.0f - sampleY) * 0x18;
+                            top = savedTop;
+                            bottom = savedBottom;
+                            *(arg1 + top + left) = *(state->pixels + sourceLeft + sourceTop);
+                            *(arg1 + top + right) = *(state->pixels + sourceRight + sourceTop);
+                            *(arg1 + bottom + right) = *(state->pixels + sourceRight + sourceBottom);
+                            *(arg1 + bottom + left) = *(state->pixels + sourceLeft + sourceBottom);
+                            x += D_800AAEA0;
+                        } while (x < 0.0f);
+                    }
+                }
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CB110 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB110.s")
+
 typedef struct SightActor {
     u8 pad0[0x318];
     void *field_318;

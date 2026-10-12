@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_EC420.c
@@ -6,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150BF21C
- * - func_150BF760
  * - func_150BFA7C
  * - func_150C01DC
  * - func_150C0648
@@ -92,7 +92,79 @@ s32 func_150BF0F4(void *arg0) {
     return 0;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EC420/func_150BF21C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EC420/func_150BF760.s")
+f32 func_15047D60(f32);
+void func_15060F28(u8 *, s32);
+void func_150825C0(s32, s32);
+s32 func_15083E0C(s32);
+void *func_15083E90(u8);
+void func_1511B51C(void *);
+extern s32 D_800902B8;
+extern f32 D_800A0124, D_800A0128, D_800A012C, D_800A0130;
+extern u8 D_800C35E8, D_800C35EA;
+extern u8 *D_800D20FC;
+
+void func_150BF760(u8 *arg0) {
+    u8 *actor;
+    f32 *motion;
+    s32 mode;
+    s32 index;
+    f32 ratio = 0.0f;
+
+    if (D_800C35EA != 1 || D_800C35E8 == 1) {
+        func_1511B51C(arg0);
+        if (*(void **)(arg0 + 0x124) == 0) {
+            *(void **)(arg0 + 0x124) = func_15195FB0((struct CharacterFlamethrowerDispatch *)arg0, D_800902B8, 1, -1, 0, 0, -8);
+        }
+        actor = func_15083E90(0x14);
+        mode = arg0[0x73] & 3;
+        if (actor != 0) {
+            motion = *(f32 **)(actor + 0x2D0);
+            ratio = motion[2] / (motion[6] - 2.0f);
+        }
+        *(f32 *)(arg0 + 0xA8) = 0.0f;
+        if (mode == 2) {
+            if (ratio <= 0.75f) {
+                *(f32 *)(arg0 + 0xA8) = -func_15047D60(ratio * D_800A0124 * D_800A0128) * 10.0f;
+            }
+            if (actor == 0) {
+                index = func_15083E0C(0x14);
+                D_800D20FC[index * 0x30 + 2] = 0;
+                func_150825C0(index, 0);
+                actor = func_15083E90(0x14);
+            }
+            if (actor[0x232] != 2) {
+                actor[0x232] = 2;
+                *(s32 *)(actor + 0x218) = 0;
+            }
+        } else if (mode == 3) {
+            if (actor != 0 && ratio >= 1.0f) {
+                func_15060F28(actor, 0);
+            }
+        } else if (mode == 0) {
+            if (ratio >= 0.25f) {
+                *(f32 *)(arg0 + 0xA8) = func_15047D60(ratio * D_800A012C - D_800A012C) * 10.0f;
+            }
+            if (actor != 0 && ratio >= 1.0f) {
+                func_15060F28(actor, 0);
+            }
+        } else if (mode == 1) {
+            if (ratio >= 0.25f) {
+                *(f32 *)(arg0 + 0xA8) = func_15047D60(ratio * D_800A0130 - D_800A0130) * 10.0f;
+            }
+            if (actor == 0) {
+                index = func_15083E0C(0x14);
+                D_800D20FC[index * 0x30 + 2] = 0;
+                func_150825C0(index, 0);
+                actor = func_15083E90(0x14);
+            }
+            /* Preserve the null test in the original US routine. */
+            if (actor == 0 && actor[0x232] != 3) {
+                actor[0x232] = 3;
+                *(s32 *)(actor + 0x218) = 0;
+            }
+        }
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EC420/func_150BFA7C.s")
 typedef struct GameEC420Spawn {
     s16 field00;
@@ -413,4 +485,147 @@ void func_150C04C0(void *arg0, s32 arg1, s32 arg2, u8 arg3, u8 arg4, s32 arg5) {
     packet.config[3] = 0x23;
     func_15150400(&packet.count, packet.config, arg4, arg5);
 }
+typedef struct GameEC420CollisionPacket {
+    GameEC420Head head;
+    s32 arg2;
+    s16 config[4];
+    s32 count;
+    s32 mode;
+    GameEC420Position position;
+    f32 value4;
+    f32 value7;
+    f32 value2C;
+    f32 value30;
+    s16 value50;
+    s16 value3C;
+    f32 value38;
+    f32 value3CFloat;
+    f32 value40;
+    s32 arg1;
+    f32 value48;
+    f32 value4C;
+    f32 value50Float;
+    f32 value10;
+    s32 *arg2Pointer;
+    s32 *headPointer;
+    s32 one;
+    f32 value78;
+    s8 enabled;
+    s8 value14;
+    u8 pad6A[2];
+    s32 four;
+    f32 *basePointer;
+} GameEC420CollisionPacket;
+
+f32 func_150ADA68(void);
+s32 func_15133B98(void *, f32, f32, f32, f32, s32);
+extern GameEC420Head D_800A010C;
+extern f32 D_800A0194;
+extern f32 D_800A0198;
+extern f32 D_800A019C;
+extern f32 D_800A01A0;
+extern f32 D_800A01A4;
+extern f32 D_800A01A8;
+extern f32 D_800A01AC;
+extern f32 D_800A01B0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C0648 CURRENT (2699) */
+s32 func_150C0648(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) {
+    f32 height;
+    GameEC420CollisionPacket packet;
+    GameEC420Spawn spawn;
+    f32 zero;
+
+    if (func_150ADA68() < *(f32 *)((u8 *)arg0 + 0x170)) {
+        zero = 0.0f;
+        packet.head = D_800A010C;
+        packet.arg2 = *(u16 *)((u8 *)arg0 + 0x66);
+        packet.count = 2;
+        packet.mode = 0;
+        height = arg4 + 20.0f;
+        packet.position.x = *(f32 *)((u8 *)arg0 + 0x38);
+        packet.position.y = height;
+        packet.position.z = *(f32 *)((u8 *)arg0 + 0x40);
+        packet.value50 = 0x28;
+        packet.value3C = 0x1E;
+        packet.value4 = 5.0f;
+        packet.value7 = 4.0f;
+        packet.value2C = D_800A0194;
+        packet.value30 = D_800A0198;
+        packet.value38 = *(f32 *)((u8 *)arg0 + 0x18) * D_800A019C;
+        packet.value3CFloat = *(f32 *)((u8 *)arg0 + 0x18) * D_800A01A0;
+        packet.arg1 = (s32)((u8 *)arg0 + 0x110);
+        packet.value4C = zero;
+        packet.value50Float = zero;
+        packet.arg2Pointer = &packet.arg2;
+        packet.headPointer = &packet.head.value;
+        packet.one = 1;
+        packet.value78 = zero;
+        packet.value40 = D_800A01A4;
+        packet.value48 = 1.0f;
+        packet.value10 = 10.0f;
+        if (*(s32 *)((u8 *)arg0 + 0x60) & 0x800) {
+            arg5 = 1;
+        } else {
+            arg5 = 0;
+        }
+        packet.enabled = (s8)arg5;
+        packet.value14 = 10;
+        packet.four = 0;
+        packet.basePointer = 0;
+        packet.config[0] = 0;
+        packet.config[1] = 0xFF;
+        packet.config[2] = -0x2A;
+        packet.config[3] = 0x19;
+        func_15150400(&packet.count, packet.config, *((u8 *)arg0 + 0xC), *((u8 *)arg0 + 1));
+        spawn.field00 = 1;
+        spawn.field02 = 2;
+        spawn.field04 = 0x6C;
+        spawn.field06 = 0x5103;
+        spawn.field08 = 0x200005;
+        spawn.field10 = 0x1E;
+        spawn.field12 = 0x10;
+        spawn.field1F = 0xFF;
+        spawn.field1C = 0x4E;
+        spawn.field1D = 0x54;
+        spawn.field0C = 0;
+        spawn.field14 = 0;
+        spawn.field18 = 0;
+        spawn.field1E = 0x7B;
+        spawn.field20 = 0xA4;
+        spawn.field21 = 0xA1;
+        spawn.field22 = 0xC8;
+        spawn.field23 = 0xC8;
+        spawn.field24 = 0x37;
+        spawn.field25 = 0xFF;
+        spawn.field26 = 0x14;
+        spawn.field28 = 0xC;
+        spawn.field2A = 0x14;
+        spawn.field2C = D_800A01A8;
+        spawn.field30 = 178.0f;
+        spawn.field34 = 91.0f;
+        spawn.field38 = *(f32 *)((u8 *)arg0 + 0x38);
+        spawn.field3C = height;
+        spawn.field40 = *(f32 *)((u8 *)arg0 + 0x40);
+        spawn.field44 = 0;
+        spawn.field46 = -0x12;
+        spawn.field48 = 0xFF;
+        spawn.field4A = 0xB;
+        spawn.field5C = 0x40040E07;
+        spawn.field60 = 0x10;
+        spawn.field61 = -1;
+        spawn.field62 = 8;
+        spawn.field63 = 6;
+        spawn.field64 = 1;
+        spawn.field4C = 4.0f;
+        spawn.field50 = 6.0f;
+        spawn.field54 = D_800A01AC;
+        spawn.field58 = 0.0f;
+        spawn.field68 = D_800A01B0;
+        func_15153634(&spawn, 0xFF, *((u8 *)arg0 + 0xC), *((u8 *)arg0 + 1));
+        return 0;
+    }
+    return func_15133B98(arg0, arg1, arg2, arg3, arg4, arg5);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C0648 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EC420/func_150C0648.s")

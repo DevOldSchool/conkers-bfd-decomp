@@ -11,6 +11,71 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game114740Pair { s32 words[2]; } Game114740Pair;
+typedef struct Game114740Event {
+    s8 type;
+    u8 pad1;
+    s16 duration;
+    s8 field4, field5, field6;
+    u8 pad7;
+} Game114740Event;
+
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+void func_10010F30(s32, s32, s32, s32, s32);
+void func_150E75A0(void *, f32, s16, u8, u8, u8, s16, s16, s32, s32, u8, s32);
+void func_150E76D0(f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_15164F0C(u8, u8, void *, u8, s32);
+void *func_151D8868(void *, s32, u8, s32);
+extern Game114740Pair D_80088A5C;
+extern f32 D_800A1340, D_800A1344, D_800A1348, D_800A134C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E7290 CURRENT (152) */
+void func_150E7290(s32 arg0, s32 arg1, s32 arg2) {
+    Game114740Pair pair;
+    f32 position[2];
+    Game114740Event event;
+    s32 choice;
+    u32 flags4;
+    s32 flags2;
+    u32 random;
+    f32 scale;
+
+    if (func_150ADA68() < D_800A1340) {
+        pair = D_80088A5C;
+        if (func_150ADA68() < D_800A1344) {
+            position[0] = func_150ADA68() * 300.0f + -150.0f;
+            position[1] = func_150ADA68() * 200.0f + -100.0f;
+            scale = func_150ADA68();
+            random = func_150ADA20();
+            choice = func_150ADA20() & 1;
+            if (choice) flags2 = 2;
+            else flags2 = 0;
+            if (func_150ADA20() & 1) flags4 = 4;
+            else flags4 = 0;
+            func_150E75A0(position, (scale * 150.0f + 200.0f) * D_800A1348,
+                (s16)(random % 201U + 0x1F4), ((s32)flags4 | flags2 | 9) & 0xFF,
+                (func_150ADA20() % 26U + 0x64), 0xFF, 0x40, 3,
+                (s32)&pair, 2, *((u8 *)&arg1 + 3), arg2);
+        } else {
+            scale = func_150ADA68();
+            flags4 = func_150ADA20();
+            func_150E76D0((scale * 100.0f + 150.0f) * D_800A134C,
+                (s16)(flags4 % 201U + 0x1F4), 9,
+                (u8)(func_150ADA20() % 26U + 0x64), 0xFF, 0x40, 3,
+                (s32)&pair, 2, *((u8 *)&arg1 + 3), arg2);
+        }
+        func_10010F30(0x360, 0x7FFF, 0, 0, 0);
+        func_15164F0C(1, *((u8 *)&arg0 + 3), 0, *((u8 *)&arg1 + 3), arg2);
+        event.type = 1;
+        event.duration = func_150ADA20() % 26U + 0x19;
+        event.field5 = 1;
+        event.field4 = func_150ADA20() % 6U + 3;
+        event.field6 = -1;
+        func_151D8868(&event, 0, 0xFF, 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E7290 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_114740/func_150E7290.s")
 typedef struct {
     u8 sp28;

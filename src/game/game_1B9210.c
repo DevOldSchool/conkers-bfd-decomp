@@ -15,6 +15,107 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+extern f32 D_800A7440;
+extern s32 D_800BE9E4;
+
+typedef struct {
+    u8 unknown00[12];
+    s16 lifetime;
+    s16 flags;
+    s32 kind;
+    u8 unknown14;
+    u8 count;
+    u8 unknown16[6];
+} Game1B9210Spawn;
+
+typedef struct {
+    f32 vertical;
+    f32 x;
+    f32 zero;
+    f32 z;
+    f32 scale;
+    u8 unknown14[4];
+    u8 flags, color, alpha, opacity;
+    u8 unknown1C[4];
+} Game1B9210Motion;
+
+typedef struct {
+    s32 field00, field04, field08, field0C, field10, field14, field18;
+    u8 field1C, field1D;
+    u8 unknown1E[2];
+} Game1B9210Setup;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518BD60 CURRENT (5261) */
+void func_1518BD60(u8 *arg0) {
+    Game1B9210Spawn spawn;
+    Game1B9210Motion motion;
+    Game1B9210Setup setup;
+    f32 speed;
+    f32 sine;
+    f32 cosine;
+    f32 scale;
+    f32 randomFloat;
+    u32 angle;
+    s32 positionOffset;
+    u8 index;
+    u8 *slot;
+    u8 *actor;
+
+    scale = D_800A7440;
+    index = 0;
+    do {
+        slot = arg0 + index * 4;
+        positionOffset = *(s32 *)(slot + 0x2C) - D_800BE9E4;
+        *(s32 *)(slot + 0x2C) = positionOffset;
+        actor = *(u8 **)(arg0 + 0x24);
+        if (actor != 0 && *(s32 *)actor != 0 && *(s32 *)(actor + 0x1D4) != 0 && arg0[0x28] == actor[0x3B]) {
+            if (positionOffset < 0) {
+                angle = func_150ADA20() % (u32)(*(s16 *)(arg0 + 0x22) + 1);
+                sine = func_151423D8((u8)angle);
+                cosine = func_151423D8((u8)(angle - 0x40));
+                speed = func_150ADA68() * *(f32 *)(arg0 + 0x14) + *(f32 *)(arg0 + 0x10);
+                *(s32 *)(slot + 0x2C) = func_150ADA20() % 23U + 5;
+                setup.field00 = 0;
+                setup.field04 = 1;
+                setup.field08 = 0x160600;
+                setup.field0C = 3;
+                setup.field10 = 0x10;
+                setup.field14 = 0x80;
+                setup.field18 = 0x20;
+                setup.field1C = 0;
+                setup.field1D = 9;
+                spawn.count = func_150ADA20() % (u32)(*(s16 *)(arg0 + 0x20) + 1) + 3;
+                spawn.kind = 1;
+                spawn.flags = 1;
+                spawn.lifetime = func_150ADA20() % 21U + 0x50;
+                motion.color = arg0[0x29];
+                randomFloat = func_150ADA68();
+                motion.zero = 0.0f;
+                motion.scale = scale;
+                motion.x = speed * cosine;
+                motion.vertical = randomFloat * *(f32 *)(arg0 + 0x1C) + *(f32 *)(arg0 + 0x18);
+                motion.z = speed * sine;
+                motion.flags = arg0[0x2A] | 8;
+                motion.opacity = 0xFF;
+                motion.alpha = 0xFF - ((*(u32 *)(*(u8 **)(arg0 + 0x24) + 0x184) >> 5) << 6);
+                actor = func_15147DA0(&spawn, &motion, spawn.count * 12 + 8, 5, 1, 0, 2, 1, 0, 0, 0, &setup, 0, arg0[0xC], arg0[1]);
+                if (actor != 0) {
+                    actor = *(u8 **)(actor + 0x98) + 0x48;
+                    *(u8 **)actor = arg0;
+                    actor[4] = index;
+                }
+                actor = *(u8 **)(arg0 + 0x24);
+            }
+            positionOffset = index * 6;
+            *(f32 *)(slot + 0x34) = (f32)*(s16 *)(actor + positionOffset + 0x1AC);
+            *(f32 *)(slot + 0x3C) = (f32)*(s16 *)(*(u8 **)(arg0 + 0x24) + positionOffset + 0x1B0);
+        }
+        index++;
+    } while (index < 2);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1518BD60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B9210/func_1518BD60.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B9210/func_1518C0B8.s")
 s32 func_1518C540(void *arg0) {

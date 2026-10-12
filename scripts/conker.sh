@@ -378,18 +378,43 @@ remove_warm_container() {
     fi
 }
 
+warm_file_mount_fingerprint() {
+    # A Git checkout can replace a file's inode while its bind mount still
+    # exposes the old file (or stale size metadata). Directory mounts follow
+    # their children; these two individually mounted files need a refresh.
+    python3 - "$repo_root" <<'PYTHON'
+import hashlib
+from pathlib import Path
+import sys
+
+root = Path(sys.argv[1])
+digest = hashlib.sha256()
+for name in ("Makefile", "Dockerfile"):
+    path = root / name
+    stat = path.stat()
+    digest.update(f"{name}:{stat.st_dev}:{stat.st_ino}:".encode())
+    digest.update(hashlib.sha256(path.read_bytes()).digest())
+print(digest.hexdigest())
+PYTHON
+}
+
 ensure_warm_container() {
     local desired_image_id
+    local desired_file_mounts
+    local current_file_mounts
     local current_image_id
     local current_schema
     local running
 
     ensure_image
+    desired_file_mounts="$(warm_file_mount_fingerprint)" || return
     desired_image_id="$(docker image inspect --format '{{.Id}}' "$image_name")"
     if docker container inspect "$warm_container_name" >/dev/null 2>&1; then
         current_image_id="$(docker container inspect --format '{{.Image}}' "$warm_container_name")"
         current_schema="$(docker container inspect --format '{{index .Config.Labels "org.devoldschool.conker.warm-schema"}}' "$warm_container_name")"
-        if [[ "$current_image_id" != "$desired_image_id" || "$current_schema" != "$warm_container_schema" ]]; then
+        current_file_mounts="$(docker container inspect --format '{{index .Config.Labels "org.devoldschool.conker.file-mounts"}}' "$warm_container_name")"
+        if [[ "$current_image_id" != "$desired_image_id" || "$current_schema" != "$warm_container_schema" ||
+              "$current_file_mounts" != "$desired_file_mounts" ]]; then
             remove_warm_container
         fi
     fi
@@ -399,6 +424,7 @@ ensure_warm_container() {
         docker run --detach \
             --name "$warm_container_name" \
             --label "org.devoldschool.conker.warm-schema=$warm_container_schema" \
+            --label "org.devoldschool.conker.file-mounts=$desired_file_mounts" \
             "${container_run_args[@]}" \
             "${workspace_mounts[@]}" \
             --workdir /workspace \

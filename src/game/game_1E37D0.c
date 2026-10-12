@@ -393,6 +393,136 @@ void func_151B7144(u8 *arg0, s32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B7144 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B7144.s")
+typedef struct Game1E37D0Vec3 {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game1E37D0Vec3;
+
+typedef struct Game1E37D0RingEntry {
+    Game1E37D0Vec3 position;
+    f32 distance;
+    u8 state;
+    u8 pad11[3];
+} Game1E37D0RingEntry;
+
+typedef struct Game1E37D0RingState {
+    u8 *linked;
+    u8 pad4[4];
+    u8 selector;
+} Game1E37D0RingState;
+
+typedef struct Game1E37D0RingObject {
+    u8 pad0[0x10];
+    Game1E37D0Vec3 position;
+    u8 pad1C[9];
+    u8 capacity;
+    u8 pad26[6];
+    s8 count;
+    s8 tail;
+    s8 head;
+    u8 pad2F[0x65];
+    Game1E37D0RingEntry *entries;
+    Game1E37D0RingState *state;
+} Game1E37D0RingObject;
+
+extern s32 D_800BE9E4;
+extern s32 (*D_8008FB90[])(Game1E37D0RingObject *, Game1E37D0Vec3 *);
+
+
+typedef struct Game1E37D0RingConfig {
+    Game1E37D0Vec3 position;
+    s16 lifetime, count;
+    s32 flags;
+    s8 mode, kind;
+} Game1E37D0RingConfig;
+
+typedef struct Game1E37D0FourChoices {
+    s32 values[4];
+} Game1E37D0FourChoices;
+
+extern Game1E37D0Vec3 D_800A5480;
+extern Game1E37D0FourChoices D_800AA460;
+extern f32 D_800AA480;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B7328 CURRENT (135) */
+Game1E37D0RingObject *func_151B7328(void *arg0, s32 arg1, u32 arg2, s32 arg3, s32 arg4) {
+    s32 secondFlag;
+    Game1E37D0RingConfig config;
+    f32 size;
+    Game1E37D0RingState initial;
+    Game1E37D0RingState *state;
+    struct {
+        Game1E37D0ParticleSpawn fields;
+        u8 tail68[8];
+    } packet;
+    Game1E37D0FourChoices choices;
+    Game1E37D0RingObject *result;
+    s32 firstFlag;
+
+    initial.linked = 0;
+    *(s32 *)initial.pad4 = 0;
+    initial.selector = ((u8 *)&arg1)[3];
+    config.kind = 0x14;
+    config.position = D_800A5480;
+    config.lifetime = 0x12C;
+    config.count = 0x14;
+    config.flags = 0x10;
+    config.mode = 2;
+    result = func_15147A80(&config, (void *)(arg2 + 0x10), 0x14, 0, 0xE, 0xE,
+                           0, 0, 0, ((u8 *)&arg3)[3], arg4);
+    if (result != 0) {
+        state = result->state;
+        func_10022EC0(state, &initial, 0xC);
+        *(void **)state->pad4 = (u8 *)state + 0x10;
+        func_10022EC0((u8 *)state + 0x10, arg0, arg2);
+        if (D_8008FB90[((u8 *)&arg1)[3]](result, &result->position) == 0) {
+            func_1516972C(result);
+            return 0;
+        }
+        choices = D_800AA460;
+        packet.fields.kind = choices.values[func_150ADA20() & 3];
+        packet.fields.texture = 0x1303;
+        packet.fields.code = 0x200005;
+        packet.fields.zero4 = 0;
+        packet.fields.lifetime = 0x12C;
+        packet.fields.zeroC = 0;
+        packet.fields.zero10 = 0;
+        packet.fields.colors[0] = 0xFF;
+        packet.fields.colors[1] = 0xFF;
+        packet.fields.colors[2] = 0xFF;
+        packet.fields.colors[3] = 0xFF;
+        packet.fields.colors[4] = 0xFF;
+        packet.fields.colors[5] = 0xFF;
+        packet.fields.colors[6] = 0xFF;
+        packet.fields.colors[7] = 0xFF;
+        packet.fields.alpha = 0xFF;
+        size = func_150ADA68();
+        packet.fields.sizeX = packet.fields.sizeY = size * 800.0f + D_800AA480;
+        *(Game1E37D0Vec3 *)packet.fields.position = config.position;
+        *(Game1E37D0Vec3 *)packet.fields.velocity = D_800A5480;
+        *(Game1E37D0Vec3 *)packet.fields.acceleration = D_800A5480;
+        packet.fields.width = 1;
+        packet.fields.height = 0xFF;
+        packet.fields.duration = 1;
+        packet.fields.zero54 = 0.0f;
+        packet.fields.scale = 1.0f;
+        firstFlag = (func_150ADA20() & 1) ? 0x40 : 0;
+        secondFlag = (func_150ADA20() & 1) ? 0x80 : 0;
+        packet.fields.flags = secondFlag | firstFlag | 0xC000 | 0x40000;
+        packet.fields.mode0 = 6;
+        packet.fields.mode1 = 5;
+        packet.fields.negative0 = -1;
+        packet.fields.negative1 = -1;
+        packet.fields.negative2 = -1;
+        packet.fields.zero65 = 0;
+        packet.fields.field5C = 0;
+        ((u8 *)&packet)[0x66] = 0xFF;
+        state->linked = func_15130280(&packet, 1, 0, 0, ((u8 *)&arg3)[3], arg4);
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B7328 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B7328.s")
 typedef struct {
     s32 field_0;
@@ -472,41 +602,6 @@ s32 func_151B76CC(void *arg0, f32 *arg1) {
                   (f32 *)((u8 *)arg1 + 4), (f32 *)((u8 *)arg1 + 8));
     return 1;
 }
-typedef struct Game1E37D0Vec3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1E37D0Vec3;
-
-typedef struct Game1E37D0RingEntry {
-    Game1E37D0Vec3 position;
-    f32 distance;
-    u8 state;
-    u8 pad11[3];
-} Game1E37D0RingEntry;
-
-typedef struct Game1E37D0RingState {
-    u8 *linked;
-    u8 pad4[4];
-    u8 selector;
-} Game1E37D0RingState;
-
-typedef struct Game1E37D0RingObject {
-    u8 pad0[0x10];
-    Game1E37D0Vec3 position;
-    u8 pad1C[9];
-    u8 capacity;
-    u8 pad26[6];
-    s8 count;
-    s8 tail;
-    s8 head;
-    u8 pad2F[0x65];
-    Game1E37D0RingEntry *entries;
-    Game1E37D0RingState *state;
-} Game1E37D0RingObject;
-
-extern s32 D_800BE9E4;
-extern s32 (*D_8008FB90[])(Game1E37D0RingObject *, Game1E37D0Vec3 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B77F4 CURRENT (757) */
 s32 func_151B77F4(Game1E37D0RingObject *arg0) {

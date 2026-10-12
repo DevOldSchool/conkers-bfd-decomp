@@ -17,14 +17,10 @@
  * - func_15150F90
  * - func_151511FC
  * - func_15151670
- * - func_15151A38
  * - func_15151D6C
  * - func_15152190
  * - func_15152520
  * - func_15152B38
- * - func_15152F70
- * - func_15153298
- * - func_15153634
  * - func_151539B4
  * - func_15153CCC
  * - func_15153F18
@@ -559,17 +555,384 @@ void func_15150F90(Game150F90Config *arg0, s32 arg1, s32 arg2, s32 arg3) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15150F90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15150F90.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_151511FC.s")
+typedef struct {
+    Game17CAF0Vec3f position;
+    s16 life, enabled;
+    s32 active;
+    u8 field14, fade, pad16[2];
+    s32 field18;
+} Game151A38Spawn;
+
+typedef struct {
+    f32 size;
+    Game17CAF0Vec3f velocity;
+    f32 growth;
+    u8 pad14[4];
+    u8 red, green, blue, alpha;
+    s16 field1C, field1E;
+} Game151A38Motion;
+
+typedef struct {
+    Game17CAF0Vec3f position;
+    Game17CAF0Vec3f normal;
+    s16 triangle[9];
+    u8 pad2A[2];
+    f32 spread;
+    f32 sizeBase, sizeRange, growthBase, growthRange, speedBase, speedRange;
+    s16 countBase, countRange, fadeBase, fadeRange, lifeBase, lifeRange;
+    u8 green, enabled, red, pad57;
+    s32 callbacks[6];
+    u8 blue, alphaBase, alphaRange, pad73;
+    s32 field74, field78;
+    s32 flags[8];
+    s16 field9C, field9E;
+    s32 fieldA0;
+} Game151670Config;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15151670 CURRENT (1114) */
+void func_15151670(Game151670Config *arg0, s32 arg1, s32 arg2) {
+    Game151A38Spawn spawn;
+    Game151A38Motion motion;
+    u8 kind;
+    Game17CAF0Vec3f basis1;
+    f32 magnitude1, inverse1;
+    Game17CAF0Vec3f basis2;
+    f32 magnitude2, inverse2;
+    Game17CAF0Vec3f basis3;
+    f32 magnitude3, inverse3;
+    f32 speed;
+    f32 second;
+    f32 first;
+    s32 count;
+    u32 random;
+
+    kind = arg1;
+    if (func_15144E80(arg0->triangle, &basis1, &basis2, &basis3) != 0) {
+        func_15145128(&basis1.x, &basis1.x, &magnitude1, &inverse1);
+        func_15145128(&basis2.x, &basis2.x, &magnitude2, &inverse2);
+        func_15145128(&basis3.x, &basis3.x, &magnitude3, &inverse3);
+        if (func_15144A74(&basis3, &arg0->normal) < 0.0f) {
+            basis3.x = -basis3.x;
+            basis3.y = -basis3.y;
+            basis3.z = -basis3.z;
+        }
+        basis3.x *= 1000.0f;
+        basis3.y *= 1000.0f;
+        basis3.z *= 1000.0f;
+        spawn.active = 1;
+        spawn.enabled = arg0->enabled;
+        motion.green = arg0->green;
+        motion.blue = arg0->blue;
+        motion.red = arg0->red;
+        motion.field1C = arg0->field9C;
+        motion.field1E = arg0->field9E;
+        spawn.position = arg0->position;
+        spawn.field18 = arg0->fieldA0;
+        count = func_150ADA20() % (u32)(arg0->countRange + 1) + arg0->countBase;
+        if (count != 0) {
+            do {
+                random = func_150ADA20();
+                func_15143874((s16)(random & 0xFF), func_150ADA68() * arg0->spread,
+                              &first, &second);
+                speed = func_150ADA68() * arg0->speedRange + arg0->speedBase;
+                motion.alpha = func_150ADA20() % (u32)(arg0->alphaRange + 1) + arg0->alphaBase;
+                spawn.fade = func_150ADA20() % (u32)(arg0->fadeRange + 1) + arg0->fadeBase;
+                spawn.life = func_150ADA20() % (u32)(arg0->lifeRange + 1) + arg0->lifeBase;
+                motion.size = func_150ADA68() * arg0->sizeRange + arg0->sizeBase;
+                motion.growth = func_150ADA68() * arg0->growthRange + arg0->growthBase;
+                motion.velocity.x = (basis1.x * first + basis2.x * second + basis3.x) * speed;
+                motion.velocity.y = (basis1.y * first + basis2.y * second + basis3.y) * speed;
+                motion.velocity.z = (basis1.z * first + basis2.z * second + basis3.z) * speed;
+                func_15147DA0(&spawn, &motion, 0, arg0->callbacks[0], arg0->callbacks[1],
+                             arg0->callbacks[2], arg0->callbacks[3], arg0->callbacks[4],
+                             arg0->callbacks[5], arg0->field74, arg0->field78,
+                             arg0->flags, 0, kind, arg2);
+                count--;
+            } while (count != 0);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15151670 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15151670.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15151A38.s")
+
+typedef struct {
+    Game17CAF0Vec3f position;
+    f32 sizeBase, sizeRange, growthBase, growthRange, speedBase, speedRange;
+    s16 countBase, countRange, yawBase, yawRange, pitchBase, pitchRange;
+    s16 fadeBase, fadeRange, lifeBase, lifeRange;
+    u8 green, enabled, red, pad3B;
+    s32 callbacks[6];
+    u8 blue, alphaBase, alphaRange, pad57;
+    s32 field58, field5C;
+    s32 flags[8];
+    s16 field80, field82;
+    s32 field84;
+} Game151A38Config;
+
+void func_15151A38(Game151A38Config *arg0, u8 arg1, s32 arg2) {
+    Game151A38Spawn spawn;
+    Game151A38Motion motion;
+    f32 speed;
+    f32 cosinePitch;
+    f32 sineYaw;
+    f32 cosineYaw;
+    f32 sinePitch;
+    f32 horizontal;
+    s16 yaw;
+    s16 pitch;
+    s32 count;
+
+    spawn.active = 1;
+    spawn.enabled = arg0->enabled;
+    motion.green = arg0->green;
+    motion.blue = arg0->blue;
+    motion.red = arg0->red;
+    spawn.position = arg0->position;
+    motion.field1C = arg0->field80;
+    motion.field1E = arg0->field82;
+    spawn.field18 = arg0->field84;
+    count = func_150ADA20() % (u32)(arg0->countRange + 1) + arg0->countBase;
+    if (count != 0) {
+        do {
+            yaw = func_150ADA20() % (u32)(arg0->yawRange + 1) + arg0->yawBase;
+            pitch = func_150ADA20() % (u32)(arg0->pitchRange + 1) + arg0->pitchBase;
+            sinePitch = func_151423D8(pitch);
+            cosinePitch = func_151423D8(pitch - 64);
+            sineYaw = func_151423D8(yaw);
+            cosineYaw = func_151423D8(yaw - 64);
+            speed = func_150ADA68() * arg0->speedRange + arg0->speedBase;
+            motion.alpha = func_150ADA20() % (u32)(arg0->alphaRange + 1) + arg0->alphaBase;
+            spawn.fade = func_150ADA20() % (u32)(arg0->fadeRange + 1) + arg0->fadeBase;
+            spawn.life = func_150ADA20() % (u32)(arg0->lifeRange + 1) + arg0->lifeBase;
+            motion.size = func_150ADA68() * arg0->sizeRange + arg0->sizeBase;
+            horizontal = speed * sinePitch;
+            motion.growth = func_150ADA68() * arg0->growthRange + arg0->growthBase;
+            motion.velocity.x = horizontal * cosineYaw;
+            motion.velocity.y = -speed * cosinePitch;
+            motion.velocity.z = horizontal * sineYaw;
+            func_15147DA0(&spawn, &motion, 0, arg0->callbacks[0], arg0->callbacks[1],
+                         arg0->callbacks[2], arg0->callbacks[3], arg0->callbacks[4],
+                         arg0->callbacks[5], arg0->field58, arg0->field5C,
+                         arg0->flags, 0, arg1, arg2);
+            count--;
+        } while (count != 0);
+    }
+}
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15151D6C.s")
+typedef struct Game154884Descriptor {
+    f32 field00, field04, field08, field0C;
+    Game17CAF0Vec3f angles;
+    Game17CAF0Vec3f scale;
+    Game17CAF0Vec3f position;
+    Game17CAF0Vec3f velocity;
+    f32 field40, field44, field48, field4C;
+    s32 field50;
+    s16 field54, field56;
+    u8 field58;
+    s32 field5C;
+    u8 field60, field61, field62, field63;
+    u8 field64, field65, field66, field67;
+    u8 field68, pad69, field6A, pad6B;
+    s32 field6C;
+    u8 field70;
+    s16 field72, field74;
+    u8 unknown76[6];
+} Game154884Descriptor;
+
+typedef struct Game152190Config {
+    s32 countBase, countRange;
+    Game17CAF0Vec3f position;
+    s16 yawBase, yawRange, pitchBase, pitchRange;
+    f32 speedBase, speedRange, durationBase, durationRange;
+    s16 lifeBase, lifeRange;
+    f32 sizeBase, sizeRange, jitter;
+} Game152190Config;
+
+void *func_15132A4C(void *, s32, s32, s32, u8, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15152190 CURRENT (1380) */
+void func_15152190(Game152190Config *arg0, s32 *arg1, f32 *arg2, u32 arg3,
+                   f32 arg4, s32 arg5, s32 arg6, s32 arg7) {
+    u32 flags;
+    Game154884Descriptor packet;
+    s16 yaw;
+    s16 pitch;
+    s32 count;
+
+    packet.field00 = 1.0f;
+    packet.field04 = 1.0f;
+    packet.scale.x = 1.0f;
+    packet.scale.y = 1.0f;
+    packet.scale.z = 1.0f;
+    packet.field44 = 0.0f;
+    if (((u8 *)&arg5)[3] != 0) {
+        flags = 0x100000;
+    } else {
+        flags = 0;
+    }
+    packet.field50 = flags | 0x29E8;
+    packet.field58 = 0;
+    packet.field5C = 0;
+    packet.field60 = 0xFF;
+    packet.field61 = 8;
+    packet.field62 = 0;
+    packet.field63 = 0;
+    packet.field64 = 0;
+    packet.field65 = 0;
+    packet.field66 = 0;
+    packet.field67 = 0;
+    packet.field68 = 2;
+    packet.field6A = 0;
+    packet.field6C = 0;
+    packet.field70 = 0;
+    packet.field72 = 12;
+    packet.field74 = 21;
+    count = func_150ADA20() % (u32)(arg0->countRange + 1) + arg0->countBase;
+    if (count != 0) {
+        do {
+            yaw = func_150ADA20() % (u32)(arg0->yawRange + 1) + arg0->yawBase;
+            pitch = func_150ADA20() % (u32)(arg0->pitchRange + 1) + arg0->pitchBase;
+            packet.angles.x = func_150ADA68() * 360.0f;
+            packet.angles.y = func_150ADA68() * 360.0f;
+            packet.angles.z = func_150ADA68() * 360.0f;
+            func_15143794(yaw, pitch, func_150ADA68() * arg0->speedRange + arg0->speedBase,
+                          &packet.velocity);
+            packet.field40 = func_150ADA68() * (2.0f * arg0->jitter) - arg0->jitter;
+            packet.field48 = func_150ADA68() * (2.0f * arg0->jitter) - arg0->jitter;
+            packet.field4C = func_150ADA68() * arg0->durationRange + arg0->durationBase;
+            packet.field54 = func_150ADA20() % (u32)(arg0->lifeRange + 1) + arg0->lifeBase;
+            func_15143794(yaw, pitch, arg4, &packet.position);
+            packet.position.x += arg0->position.x;
+            packet.position.y += arg0->position.y;
+            packet.position.z += arg0->position.z;
+            flags = func_150ADA20() % arg3;
+            packet.field56 = arg1[flags];
+            packet.field0C = arg2[flags] * (arg0->sizeBase + func_150ADA68() * arg0->sizeRange);
+            packet.field08 = *(volatile f32 *)&packet.field0C;
+            func_15132A4C(&packet, 3, 0xFF, 0, (u8)arg6, arg7);
+            count--;
+        } while (count != 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15152190 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152190.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152520.s")
+
 typedef struct {
     u8 red;
     u8 green;
     u8 blue;
     u8 alpha;
 } Game17CAF0Color;
+
+typedef struct {
+    s32 countBase, countRange;
+    Game17CAF0Vec3f position;
+    s16 yawBase, yawRange, pitchBase, pitchRange;
+    f32 speedBase, speedRange, jitter, sizeBase, sizeRange;
+    s16 lifeBase, lifeRange;
+    s32 field34, field38, field3C;
+    f32 field40, field44, scaleBase, scaleRange;
+    Game17CAF0Vec3f velocityBase, velocityRange;
+    Game17CAF0Color firstColor, secondColor;
+    u8 flags, mode;
+    s16 field72, field74;
+} Game152520Config;
+
+typedef struct {
+    u8 flags, field01, field02;
+    s8 field03, field04;
+    u8 pad05;
+    s16 life;
+    s32 field08, field0C, field10, field14, field18;
+    s32 field1C, field20, field24, field28;
+    u8 field2C, field2D, pad2E[2];
+    Game17CAF0Color firstColor, secondColor;
+    u8 field38, pad39[3];
+    s32 field3C;
+    u8 field40, field41, pad42[2];
+    Game17CAF0Vec3f position;
+    u8 pad50[4];
+    s16 field54, field56;
+} Game152520Descriptor;
+
+typedef struct {
+    Game17CAF0Vec3f angles;
+    f32 scale;
+    Game17CAF0Vec3f direction, velocity;
+    f32 size, jitter;
+    u8 mode, pad31[3];
+} Game152520Motion;
+
+s32 func_15157898(s32, s32, s32, f32, s32, s32, s32, u8, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15152520 CURRENT (1067) */
+void func_15152520(Game152520Config *arg0, s32 arg1, s32 arg2) {
+    u8 priority;
+    /* The 0x38-byte motion copy includes the descriptor's first four bytes. */
+    struct {
+        Game152520Motion motion;
+        Game152520Descriptor descriptor;
+    } packet;
+    s32 count;
+    u32 randomPitch;
+
+    priority = arg1;
+    packet.descriptor.field38 = 0;
+    packet.descriptor.flags = arg0->flags | 2;
+    packet.descriptor.field01 = 0;
+    packet.descriptor.field02 = 1;
+    packet.descriptor.field03 = -1;
+    packet.descriptor.field04 = -1;
+    packet.descriptor.field08 = arg0->field34;
+    packet.descriptor.field0C = arg0->field38;
+    packet.descriptor.field24 = 0x80;
+    packet.descriptor.field28 = 0x20;
+    packet.descriptor.field10 = 0;
+    packet.descriptor.field14 = 0x220405;
+    packet.descriptor.field18 = 0x40200;
+    packet.descriptor.field2C = 0;
+    packet.descriptor.field2D = 8;
+    packet.descriptor.field1C = 1;
+    packet.descriptor.field20 = 0x38;
+    packet.descriptor.field3C = 0;
+    packet.descriptor.field40 = 0;
+    packet.descriptor.field41 = 2;
+    packet.descriptor.position = arg0->position;
+    packet.motion.jitter = arg0->jitter;
+    packet.descriptor.firstColor = arg0->firstColor;
+    packet.descriptor.secondColor = arg0->secondColor;
+    packet.descriptor.field54 = arg0->field72;
+    packet.descriptor.field56 = arg0->field74;
+    packet.motion.mode = arg0->mode;
+    count = func_150ADA20() % (u32)(arg0->countRange + 1) + arg0->countBase;
+    if (count != 0) {
+        do {
+            packet.descriptor.life = func_150ADA20() % (u32)(arg0->lifeRange + 1) + arg0->lifeBase;
+            packet.motion.angles.x = func_150ADA68() * 360.0f;
+            packet.motion.angles.y = func_150ADA68() * 360.0f;
+            packet.motion.angles.z = func_150ADA68() * 360.0f;
+            packet.motion.scale = func_150ADA68() * arg0->scaleRange + arg0->scaleBase;
+            arg1 = func_150ADA20();
+            randomPitch = func_150ADA20();
+            func_15143794(
+                (s16)((u32)arg1 % (u32)(arg0->yawRange + 1) + arg0->yawBase),
+                (s16)(randomPitch % (u32)(arg0->pitchRange + 1) + arg0->pitchBase),
+                func_150ADA68() * arg0->speedRange + arg0->speedBase,
+                &packet.motion.direction);
+            packet.motion.velocity.x = func_150ADA68() * arg0->velocityRange.x + arg0->velocityBase.x;
+            packet.motion.velocity.y = func_150ADA68() * arg0->velocityRange.y + arg0->velocityBase.y;
+            packet.motion.velocity.z = func_150ADA68() * arg0->velocityRange.z + arg0->velocityBase.z;
+            packet.motion.size = func_150ADA68() * arg0->sizeRange + arg0->sizeBase;
+            func_15157898((s32)&packet.descriptor, (s32)&packet, arg0->field3C,
+                func_150ADA68() * arg0->field44 + arg0->field40,
+                0, 0, 0, priority, arg2);
+            count--;
+        } while (count != 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15152520 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152520.s")
 
 typedef struct {
     s32 countBase, countRange;
@@ -651,9 +1014,278 @@ void func_15152ABC(Game17CAF0Color *arg0) {
     arg0->blue = locals.color[2];
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152B38.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152F70.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153298.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153634.s")
+typedef struct {
+    Game17CAF0Vec3f position;
+    f32 sizeBase, sizeRange, growthBase, growthRange, speedBase, speedRange;
+    s16 countBase, countRange, yawBase, yawRange, pitchBase, pitchRange;
+    s16 fadeBase, fadeRange, lifeBase, lifeRange;
+    u8 green, red, pad3A[2];
+    s32 callbacks[6];
+    u8 blue, alpha;
+} Game152F70Config;
+typedef struct {
+    Game17CAF0Vec3f position;
+    s16 life, enabled;
+    s32 active;
+    u8 field14, fade, pad16[2];
+    u8 unknown18[4]; /* func_15147A80 copies the complete 0x1C-byte descriptor. */
+} Game152F70Spawn;
+typedef struct {
+    f32 size;
+    Game17CAF0Vec3f velocity;
+    f32 growth;
+    u8 pad14[4];
+    Game17CAF0Color color;
+    u8 pad1C[4];
+} Game152F70Motion;
+typedef struct {
+    s32 words[7];
+    u8 callback, endCallback, pad1E[2];
+} Game152F70Flags;
+
+void func_15152F70(Game152F70Config *arg0, u8 arg1) {
+    Game152F70Spawn spawn;
+    Game152F70Motion motion;
+    f32 speed;
+    Game152F70Flags flags;
+    f32 sinePitch;
+    f32 cosinePitch;
+    f32 sineYaw;
+    f32 cosineYaw;
+    s16 yaw;
+    s16 pitch;
+    s32 count;
+
+    spawn.active = 1;
+    spawn.enabled = 1;
+    motion.color.green = arg0->green;
+    motion.color.blue = arg0->blue;
+    motion.color.red = arg0->red;
+    motion.color.alpha = arg0->alpha;
+    spawn.position = arg0->position;
+    flags.words[0] = 0;
+    flags.words[1] = 1;
+    flags.words[2] = 0x160600;
+    flags.words[3] = 3;
+    flags.words[4] = 16;
+    flags.words[5] = 128;
+    flags.words[6] = 32;
+    flags.callback = 0;
+    flags.endCallback = 9;
+    count = func_150ADA20() % (u32)(arg0->countRange + 1) + arg0->countBase;
+    if (count != 0) {
+        do {
+            yaw = func_150ADA20() % (u32)(arg0->yawRange + 1) + arg0->yawBase;
+            pitch = func_150ADA20() % (u32)(arg0->pitchRange + 1) + arg0->pitchBase;
+            sinePitch = func_151423D8(pitch);
+            cosinePitch = func_151423D8(pitch - 64);
+            sineYaw = func_151423D8(yaw);
+            cosineYaw = func_151423D8(yaw - 64);
+            speed = func_150ADA68() * arg0->speedRange + arg0->speedBase;
+            spawn.fade = func_150ADA20() % (u32)(arg0->fadeRange + 1) + arg0->fadeBase;
+            spawn.life = func_150ADA20() % (u32)(arg0->lifeRange + 1) + arg0->lifeBase;
+            motion.size = func_150ADA68() * arg0->sizeRange + arg0->sizeBase;
+            motion.growth = func_150ADA68() * arg0->growthRange + arg0->growthBase;
+            motion.velocity.x = (speed * sinePitch) * cosineYaw;
+            motion.velocity.y = -speed * cosinePitch;
+            motion.velocity.z = (speed * sinePitch) * sineYaw;
+            func_15147DA0(&spawn, &motion, 0, arg0->callbacks[0], arg0->callbacks[1],
+                         arg0->callbacks[2], arg0->callbacks[3], arg0->callbacks[4],
+                         arg0->callbacks[5], 0, 0, &flags, 0, (u8)arg1, 1);
+            count--;
+        } while (count != 0);
+    }
+}
+typedef struct {
+    Game17CAF0Vec3f position;
+    s16 countBase, countRange, yawBase, yawRange, pitchBase, pitchRange;
+    f32 speedBase, speedRange;
+    s16 lifeBase, lifeRange, sizeBase, sizeRange;
+    s8 mode;
+    u8 kind;
+    s16 fadeBase, fadeRange, field2E;
+    s16 field30, field32, field34, field36;
+    s32 flags;
+    u8 color, alpha;
+} Game153298Config;
+
+typedef struct {
+    s32 flags;
+    u8 pad04[8];
+    s16 field0C, field0E;
+    s16 x, y, z, velocityX, velocityZ;
+    u8 pad1A[2];
+    s8 fractionX, fractionY, fractionZ, mode;
+    s16 velocityY, size, field24, field26, life;
+    s8 fade;
+    u8 pad2B;
+    Game17CAF0Color color;
+    s8 field30, field31, field32;
+    u8 pad33;
+    s16 kind;
+} Game153298Packet;
+
+void func_15153298(Game153298Config *arg0, u8 arg1, s32 arg2) {
+    Game153298Packet packet;
+    f32 speed;
+    f32 cosinePitch;
+    f32 sineYaw;
+    f32 cosineYaw;
+    f32 sinePitch;
+    f32 horizontal;
+    s16 yaw;
+    s16 pitch;
+    s32 count;
+
+    packet.x = (s32)arg0->position.x;
+    packet.y = (s32)arg0->position.y;
+    packet.z = (s32)arg0->position.z;
+    packet.fractionX = (u16)(s32)(arg0->position.x * 256.0f);
+    packet.fractionY = (u16)(s32)(arg0->position.y * 256.0f);
+    packet.fractionZ = (u16)(s32)(arg0->position.z * 256.0f);
+    packet.color.red = arg0->color;
+    packet.color.green = arg0->color;
+    packet.color.blue = arg0->color;
+    packet.field30 = 0;
+    packet.field31 = 0;
+    packet.field32 = 0;
+    packet.color.alpha = arg0->alpha;
+    packet.mode = arg0->mode;
+    packet.kind = arg0->kind;
+    packet.field0C = 0;
+    packet.field0E = arg0->field2E;
+    packet.flags = arg0->flags;
+    count = func_150ADA20() % (u32)(arg0->countRange + 1) + arg0->countBase;
+    if (count != 0) {
+        do {
+            yaw = func_150ADA20() % (u32)(arg0->yawRange + 1) + arg0->yawBase;
+            pitch = func_150ADA20() % (u32)(arg0->pitchRange + 1) + arg0->pitchBase;
+            sinePitch = func_151423D8(pitch);
+            cosinePitch = func_151423D8(pitch - 64);
+            sineYaw = func_151423D8(yaw);
+            cosineYaw = func_151423D8(yaw - 64);
+            speed = func_150ADA68() * arg0->speedRange + arg0->speedBase;
+            packet.life = func_150ADA20() % (u32)(arg0->lifeRange + 1) + arg0->lifeBase;
+            horizontal = speed * sinePitch;
+            packet.velocityX = (s32)(horizontal * cosineYaw);
+            packet.velocityY = (s32)(-speed * cosinePitch);
+            packet.velocityZ = (s32)(horizontal * sineYaw);
+            packet.size = func_150ADA20() % (u32)(arg0->sizeRange + 1) + arg0->sizeBase;
+            packet.fade = func_150ADA20() % (u32)(arg0->fadeRange + 1) + arg0->fadeBase;
+            packet.field24 = func_150ADA20() % (u32)(arg0->field32 + 1) + arg0->field30;
+            packet.field26 = func_150ADA20() % (u32)(arg0->field36 + 1) + arg0->field34;
+            func_15167D84(&packet, 0, 0, -1, arg1, arg2);
+            count--;
+        } while (count != 0);
+    }
+}
+typedef struct {
+    s16 countBase, countRange;
+    u8 kind, pad05;
+    u16 variant;
+    s32 flags, field0C;
+    s16 lifeBase, lifeRange;
+    s32 field14, field18;
+    u8 colors[7], alphaBase, alphaRange, field25;
+    s16 field26, field28, field2A;
+    f32 size, sizeBase, sizeRange;
+    Game17CAF0Vec3f position;
+    s16 yawBase, pitchBase, yawRange, pitchRange;
+    f32 speedBase, speedRange, growthBase, growthRange;
+    s32 flags5C;
+    s8 modes[2];
+    u8 mode62, mode63, spawnKind, pad65[3];
+    f32 extra;
+} Game153634Config;
+
+/* The spawn helper copies the full 0x70-byte packet. */
+typedef struct {
+    s32 flags, field04;
+    u16 variant;
+    s16 life;
+    s32 field0C, field10;
+    u8 colors[8], field1C, kind;
+    s16 field1E, field20, field22;
+    f32 size, width, height;
+    Game17CAF0Vec3f position;
+    u8 pad3C[0xC];
+    Game17CAF0Vec3f velocity;
+    f32 growth;
+    s32 flags58, field5C;
+    u8 mode60, mode61;
+    s8 modes[2];
+    u8 pad64[2], priority, pad67[9];
+} Game153634Packet;
+
+void *func_10022EC0(void *, const void *, u32);
+
+void func_15153634(Game153634Config *arg0, u8 arg1, u8 arg2, s32 arg3) {
+    Game153634Packet packet;
+    f32 extra;
+    f32 speed;
+    f32 cosineYaw;
+    f32 sinePitch;
+    f32 cosinePitch;
+    f32 sineYaw;
+    f32 horizontal;
+    s16 yaw;
+    s16 pitch;
+    s32 count;
+    u8 *result;
+
+    count = func_150ADA20() % (u32)(arg0->countRange + 1) + arg0->countBase;
+    extra = arg0->extra;
+    packet.kind = arg0->kind;
+    packet.variant = arg0->variant;
+    packet.field04 = arg0->field0C;
+    packet.flags = arg0->flags;
+    packet.field0C = 0;
+    packet.colors[0] = arg0->colors[0];
+    packet.colors[1] = arg0->colors[1];
+    packet.colors[2] = arg0->colors[2];
+    packet.colors[3] = arg0->colors[3];
+    packet.colors[4] = arg0->colors[4];
+    packet.colors[5] = arg0->colors[5];
+    packet.colors[6] = arg0->colors[6];
+    packet.position = arg0->position;
+    packet.flags58 = arg0->flags5C;
+    packet.field1C = arg0->field25;
+    packet.modes[0] = arg0->modes[0];
+    packet.modes[1] = arg0->modes[1];
+    packet.field1E = arg0->field26;
+    packet.field20 = arg0->field28;
+    packet.mode60 = arg0->mode62;
+    packet.mode61 = arg0->mode63;
+    packet.field22 = arg0->field2A;
+    packet.size = arg0->size;
+    packet.priority = arg1;
+    if (count != 0) {
+        do {
+            yaw = (func_150ADA20() % (u32) (arg0->yawRange + 1)) + arg0->yawBase;
+            pitch = (func_150ADA20() % (u32) (arg0->pitchRange + 1)) + arg0->pitchBase;
+            sinePitch = func_151423D8(pitch);
+            cosinePitch = func_151423D8(pitch - 0x40);
+            sineYaw = func_151423D8(yaw);
+            cosineYaw = func_151423D8(yaw - 0x40);
+            speed = (func_150ADA68() * arg0->speedRange) + arg0->speedBase;
+            packet.life = (func_150ADA20() % (u32) (arg0->lifeRange + 1)) + arg0->lifeBase;
+            packet.field10 = (func_150ADA20() % (u32) (arg0->field18 + 1)) + arg0->field14;
+            packet.height = (func_150ADA68() * arg0->sizeRange) + arg0->sizeBase;
+            horizontal = speed * sinePitch;
+            packet.width = packet.height;
+            packet.velocity.x = horizontal * cosineYaw;
+            packet.velocity.y = -speed * cosinePitch;
+            packet.velocity.z = horizontal * sineYaw;
+            packet.growth = (func_150ADA68() * arg0->growthRange) + arg0->growthBase;
+            packet.colors[7] = (func_150ADA20() % (u32) (arg0->alphaRange + 1)) + arg0->alphaBase;
+            result = func_15130280(&packet, arg0->spawnKind, NULL, 4, arg2, arg3);
+            if (result != NULL) {
+                func_10022EC0((u8 *) result + 0xA8, &extra, 4U);
+            }
+            count -= 1;
+        } while (count != 0);
+    }
+}
 typedef struct {
     s16 countBase, countRange;
     Game17CAF0Vec3f position;
@@ -849,6 +1481,83 @@ void func_15153F18(Game17CAF0AngleRanges *arg0, f32 *arg1, void *arg2,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15153F18 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153F18.s")
+typedef struct {
+    f32 elapsed, duration, size, alpha, decay;
+    u8 mode;
+    u8 pad15[3];
+} Game1541B8Extra;
+
+void *func_10022EC0(void *, const void *, u32);
+void *func_15132A4C(void *, s32, s32, s32, u8, s32);
+extern f32 D_800A6004, D_800A6008, D_800A600C;
+extern f32 D_800A6010, D_800A6014, D_800A6018;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151541B8 CURRENT (2369) */
+void *func_151541B8(void *arg0, f32 arg1, f32 arg2, f32 arg3,
+                    f32 arg4, s32 arg5, s32 arg6) {
+    void *result;
+    Game154884Descriptor descriptor;
+    Game1541B8Extra extra;
+    s8 mode;
+
+    if (arg1 <= 0.0f) return 0;
+    extra.elapsed = 0.0f;
+    extra.duration = arg1;
+    extra.size = arg2;
+    extra.alpha = arg3;
+    extra.decay = arg3 / (arg1 * arg1);
+    if (arg4 != 0.0f) mode = 1;
+    else mode = 0;
+    extra.mode = mode;
+    descriptor.field08 = 0.0f;
+    descriptor.field0C = arg4;
+    descriptor.field00 = 1.0f;
+    descriptor.field04 = 1.0f;
+    if (arg4 != 0.0f) descriptor.angles.x = 0.0f;
+    else descriptor.angles.x = func_150ADA68() * 360.0f;
+    descriptor.angles.y = func_150ADA68() * 360.0f;
+    if (arg4 != 0.0f) descriptor.angles.z = 0.0f;
+    else descriptor.angles.z = func_150ADA68() * 360.0f;
+    descriptor.scale.x = 1.0f;
+    descriptor.scale.y = 1.0f;
+    descriptor.scale.z = 1.0f;
+    descriptor.position = *(Game17CAF0Vec3f *)arg0;
+    descriptor.velocity.x = 0.0f;
+    descriptor.velocity.y = 0.0f;
+    descriptor.velocity.z = 0.0f;
+    if (arg4 != 0.0f) descriptor.field40 = 0.0f;
+    else descriptor.field40 = func_150ADA68() * D_800A6004 + D_800A6008;
+    if (arg4 != 0.0f) descriptor.field44 = func_150ADA68() * D_800A600C + D_800A6010;
+    else descriptor.field44 = 0.0f;
+    if (arg4 != 0.0f) descriptor.field48 = 0.0f;
+    else descriptor.field48 = func_150ADA68() * D_800A6014 + D_800A6018;
+    descriptor.field4C = 0.0f;
+    descriptor.field50 = 0x100140;
+    descriptor.field56 = 0x54;
+    descriptor.field58 = 0;
+    descriptor.field5C = 0;
+    descriptor.field60 = (u32)arg3;
+    descriptor.field61 = 0xF;
+    descriptor.field62 = 0;
+    descriptor.field63 = 0;
+    descriptor.field64 = 0;
+    descriptor.field65 = 0;
+    descriptor.field66 = 0;
+    descriptor.field67 = 0;
+    descriptor.field68 = 2;
+    descriptor.field6A = 0;
+    descriptor.field6C = 0;
+    descriptor.field70 = 0;
+    descriptor.field72 = 1;
+    descriptor.field74 = 0xFF;
+    descriptor.field54 = 0x12C;
+    result = func_15132A4C(&descriptor, 0, 0, 0x18, ((u8 *)&arg5)[3], arg6);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x170, &extra, 0x18U);
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151541B8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_151541B8.s")
 extern f32 D_800BE9A4;
 f32 sqrtf(f32);
@@ -941,25 +1650,6 @@ void func_15154684(s16 *arg0, u8 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15154684 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15154684.s")
-typedef struct Game154884Descriptor {
-    f32 field00, field04, field08, field0C;
-    Game17CAF0Vec3f angles;
-    Game17CAF0Vec3f scale;
-    Game17CAF0Vec3f position;
-    Game17CAF0Vec3f velocity;
-    f32 field40, field44, field48, field4C;
-    s32 field50;
-    s16 field54, field56;
-    u8 field58;
-    s32 field5C;
-    u8 field60, field61, field62, field63;
-    u8 field64, field65, field66, field67;
-    u8 field68, pad69, field6A, pad6B;
-    s32 field6C;
-    u8 field70;
-    s16 field72, field74;
-    u8 unknown76[6];
-} Game154884Descriptor;
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);

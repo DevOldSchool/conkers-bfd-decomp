@@ -15,13 +15,11 @@
  * - func_1513D2F0
  * - func_1513D6FC
  * - func_1513DB00
- * - func_1513DF9C
  * - func_1513E084
  * - func_1513E13C
  * - func_1513E2AC
  * - func_1513E6E8
  * - func_1513E83C
- * - func_1513EAD8
  * - func_1513EE14
  * - func_1513F114
  * - func_1513F728
@@ -418,6 +416,132 @@ void func_1513CBA4(void *arg0) {
     }
     D_80089F2C[var_v0]();
 }
+typedef struct {
+    u32 w0;
+    u32 w1;
+} Game169510Gwords;
+
+typedef union {
+    Game169510Gwords words;
+} Gfx;
+
+typedef struct {
+    u8 pad0[6];
+    u16 width;
+    u16 height;
+    u8 padA[2];
+} Game169510TextureInfo;
+
+extern Game169510TextureInfo D_80090B60[];
+
+typedef struct Game169510DrawOwner {
+    u8 pad0[0x10];
+    s32 active;
+    s32 state;
+    s32 flags;
+    s16 lifetime;
+    u8 texture;
+    u8 pad1F;
+    s32 frame;
+    s32 speed;
+    u8 alpha;
+    u8 blend;
+    u8 red;
+    u8 green;
+    u8 blue;
+    u8 intensity;
+    u8 colorMode;
+    u8 alphaMode;
+    s32 renderMode;
+    s32 transformMode;
+    u8 viewportMask;
+    u8 pad39[7];
+    u8 vertices[0x40];
+    u8 pad80[4];
+    u8 transform[0x20];
+    u8 auxiliary[1];
+} Game169510DrawOwner;
+
+Gfx *func_1513F4E4(Gfx *, u8, u8 *);
+Gfx *func_15142B7C(Gfx *, s32, s32);
+Gfx *func_15142C10(Gfx *, s32, s32, s32, s32, u8 *);
+Gfx *func_15142CF0(Gfx *, s32, s32, s32, s32, s32, s32, u8 *);
+s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
+Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
+void func_151441A4(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, s32, u8, u8, u8, u8, u8, u8);
+void func_151442FC(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8);
+s32 func_151462C8(s32, void *, s32, s32, s32, s32, void *, s32, s32);
+extern s32 D_800A4AC8[][2];
+extern s32 D_800D2C9C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513CBF0 CURRENT (3410) */
+Gfx *func_1513CBF0(Gfx *gdl, Game169510DrawOwner *owner, s16 viewport) {
+    Gfx *packet;
+    u8 changed;
+    volatile u8 renderMode;
+    volatile u8 combineMode;
+    s16 savedFlags;
+    s32 packedMode;
+    s16 red, green, blue, alpha;
+    s16 red2, green2, blue2, alpha2;
+    s32 mode;
+    s32 geometry;
+    s32 texture;
+    s32 *blendMode;
+
+    if (owner->active & 1) {
+        if ((owner->flags & 0x2000) && !(owner->viewportMask & (1 << viewport))) {
+        } else {
+            changed = 1;
+            packedMode = owner->renderMode;
+            combineMode = (u32)(packedMode & 0xFFFF0000) >> 16;
+            renderMode = packedMode;
+            savedFlags = owner->flags & 0x30;
+            mode = (owner->flags & 0x4000) ? owner->transformMode : 0;
+            gdl = (Gfx *)func_151462C8((s32)gdl, owner->transform, 0, 0, 0,
+                                      viewport, owner->auxiliary, 2, mode);
+            mode = (owner->flags & 0x100) ? owner->colorMode : 3;
+            func_151441A4(&red, &green, &blue, &alpha, owner->red, owner->green,
+                         owner->blue, owner->intensity, 255, 255, 255,
+                         owner->alpha, owner->blend, mode);
+            mode = (owner->flags & 0x200) ? owner->alphaMode : 4;
+            func_151442FC(&red2, &green2, &blue2, &alpha2, owner->red, owner->green,
+                         owner->blue, owner->intensity, 255, 255, 255,
+                         owner->alpha, owner->blend, mode);
+            geometry = 0;
+            if (savedFlags & 0x10) geometry = 0x200;
+            if (savedFlags & 0x20) geometry |= 0x400;
+            if (owner->flags & 0x400) mode = 0x20000;
+            else mode = 0;
+            gdl = func_15142B7C(gdl, mode | geometry | 1, 0x600);
+            texture = owner->texture;
+            if (texture != 255) {
+                mode = (owner->flags & 0x20000) ? 0x3E : 3;
+                gdl = (Gfx *)func_15142E24((s32)gdl, (s32)&D_80090B60[texture],
+                                         owner->frame, 2, 0, 0, texture, 0, 0,
+                                         &changed, mode);
+            }
+            gdl = func_15142C10(gdl, red2, green2, blue2, alpha2, &changed);
+            gdl = func_15142CF0(gdl, 0, 0, red, green, blue, alpha, &changed);
+            gdl = func_1513F4E4(gdl, combineMode, &changed);
+            mode = (owner->texture == 255) ? 0 : D_800D2C9C;
+            blendMode = D_800A4AC8[renderMode];
+            gdl = func_15142FBC(gdl, mode | 0x80000 | 0x2CA0,
+                               blendMode[1] | blendMode[0], &changed);
+            packet = gdl++;
+            packet->words.w0 = 0x01004008;
+            packet->words.w1 = (u32)owner->vertices;
+            packet = gdl++;
+            packet->words.w0 = 0x05000204;
+            packet->words.w1 = 0;
+            packet = gdl++;
+            packet->words.w0 = 0x05000406;
+            packet->words.w1 = 0;
+        }
+    }
+    return gdl;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513CBF0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513CBF0.s")
 extern void (*D_80089F60)(s32, s32, u8);
 
@@ -426,6 +550,94 @@ void func_1513CF9C(s32 arg0, s32 arg1, u8 arg2) {
 }
 void func_1513CFD0(s32 arg0, s32 arg1, s32 arg2) {
 }
+extern s32 (*D_80089CB8[])(void *);
+extern s32 (*D_80089D60[])(void *);
+extern s32 (*D_80089E10[])(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513CFE4 CURRENT (1570) */
+void func_1513CFE4(void *arg0) {
+    s32 flags;
+    s8 expired;
+    s32 lifetime, product, speed, boundary, value;
+    u8 callback;
+
+    if (*(s32 *)((u8 *)arg0 + 0x10) & 1) {
+        expired = 0;
+        if (*(s32 *)((u8 *)arg0 + 0x58) & 1) {
+            *(s16 *)((u8 *)arg0 + 0x1C) -= D_800BE9E4;
+            if (*(s16 *)((u8 *)arg0 + 0x1C) < 0) expired = 1;
+        }
+        callback = *((u8 *)arg0 + 0x70);
+        if (callback != 0) {
+            if (D_80089CB8[callback](arg0) == 0) expired = 1;
+        }
+        callback = *((u8 *)arg0 + 0x71);
+        if (callback != 0) {
+            if (D_80089D60[callback](arg0) == 0) expired = 1;
+        }
+        flags = *(s32 *)((u8 *)arg0 + 0x58);
+        if ((flags & 0x08000000) && expired == 0) {
+            lifetime = *(s16 *)((u8 *)arg0 + 0x1C);
+            if (lifetime < *(s16 *)((u8 *)arg0 + 0x6C)) {
+                product = *(s16 *)((u8 *)arg0 + 0x6E) * lifetime;
+                if (product < *((u8 *)arg0 + 0x5C)) {
+                    *((u8 *)arg0 + 0x5C) = product;
+                    flags = *(s32 *)((u8 *)arg0 + 0x58);
+                }
+            }
+        }
+        if ((flags & 0x10000000) && expired == 0) {
+            lifetime = *(s16 *)((u8 *)arg0 + 0x1C);
+            if (lifetime < *(s16 *)((u8 *)arg0 + 0x6C)) {
+                product = *(s16 *)((u8 *)arg0 + 0x6E) * lifetime;
+                if (product < *((u8 *)arg0 + 0x5C)) {
+                    *((u8 *)arg0 + 0x2B) = product;
+                }
+            }
+        }
+        if (expired == 0) {
+            speed = *(s32 *)((u8 *)arg0 + 0x24);
+            if (speed != 0) {
+                boundary = (D_80090B64[*((u8 *)arg0 + 0x18) * 12] << 16) - 1;
+                value = *(s32 *)((u8 *)arg0 + 0x20) + speed * D_800BE9E4;
+                *(s32 *)((u8 *)arg0 + 0x20) = value;
+                if (boundary < value) {
+                    flags = *(s32 *)((u8 *)arg0 + 0x58);
+                    if (flags & 0x800) expired = 1;
+                    else if (flags & 0x400) {
+                        *(s32 *)((u8 *)arg0 + 0x20) = boundary - value % boundary;
+                        *(s32 *)((u8 *)arg0 + 0x24) = -speed;
+                    } else {
+                        do {
+                            value -= boundary;
+                            *(s32 *)((u8 *)arg0 + 0x20) = value;
+                        } while (boundary < value);
+                    }
+                } else if (value < 0) {
+                    flags = *(s32 *)((u8 *)arg0 + 0x58);
+                    if (flags & 0x1000) expired = 1;
+                    else if (flags & 0x400) {
+                        *(s32 *)((u8 *)arg0 + 0x20) = -value % boundary;
+                        *(s32 *)((u8 *)arg0 + 0x24) = -speed;
+                    } else {
+                        do {
+                            value += boundary;
+                            *(s32 *)((u8 *)arg0 + 0x20) = value;
+                        } while (value < 0);
+                    }
+                }
+            }
+        }
+        if (expired != 0) {
+            callback = *((u8 *)arg0 + 0x72);
+            if (callback != 0) {
+                if (D_80089E10[callback](arg0) != 0) expired = 0;
+            }
+        }
+        if (expired != 0) func_1516972C(arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513CFE4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513CFE4.s")
 typedef struct Game169510Effect {
     u8 pad0[0x10];
@@ -574,17 +786,14 @@ void func_1513D668(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, s16 a
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513DB00.s")
 extern void (*D_80089F64[])(void *, s32, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513DF9C CURRENT (20) */
 void func_1513DF9C(void *arg0, s32 arg1, u8 arg2) {
     s32 index;
-    u8 type;
 
     if (!(*(s32 *)((u8 *)arg0 + 0x58) & 0x400000)) {
         index = 0;
         goto dispatch;
     }
-    type = *(u8 *)((u8 *)arg0 + 0x19);
-    switch (type) {
+    switch (*(u8 *)((u8 *)arg0 + 0x19)) {
     case 12:
         index = 10;
         break;
@@ -593,7 +802,6 @@ void func_1513DF9C(void *arg0, s32 arg1, u8 arg2) {
         break;
     case 0:
     case 2:
-    case 10:
         index = 0;
         break;
     case 1:
@@ -621,18 +829,18 @@ void func_1513DF9C(void *arg0, s32 arg1, u8 arg2) {
         index = 8;
         break;
     default:
-        index = 0;
-        break;
+        goto unknown_type;
     }
+    goto dispatch;
+unknown_type:
+    index = 0;
 dispatch:
     D_80089F64[index](arg0, arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513DF9C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513DF9C.s")
 void func_1513E070(s32 arg0, s32 arg1, s32 arg2) {
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E084 CURRENT (20) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E084 CURRENT (220) */
 void func_1513E084(void *arg0, void *arg1, u8 arg2) {
     u8 *state;
     s32 current;
@@ -716,7 +924,7 @@ void func_1513E2A4(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513E2AC.s")
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E6E8 CURRENT (1290) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E6E8 CURRENT (1090) */
 s32 func_1513E6E8(u8 *arg0) {
     u8 *temp_v0;
 
@@ -767,29 +975,27 @@ void func_151D5D60(void *, s16, s32, void **, u8 *);
 void func_150A8050(void *, f32, f32, f32);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E83C CURRENT (2230) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E83C CURRENT (1509) */
 void *func_1513E83C(Game169510ScaledOwner *owner, s32 arg1) {
     f32 matrix[4][4];
+    s16 index;
     Game169510ScaledVertex *vertices;
     void *result;
     f32 coords[4][3];
     u8 fresh;
     f32 *point;
-    s16 index;
-    register s32 bufferIndex = (s16)arg1;
-    register f32 (*transform)[4];
 
-    func_151D5D60(owner->buffers, bufferIndex, 0x40, (void **)&vertices, &fresh);
+    arg1 = (s16)arg1;
+    func_151D5D60(owner->buffers, arg1, 0x40, (void **)&vertices, &fresh);
     result = vertices;
     if (vertices != 0) {
         if (fresh != 0) {
-            func_10022EC0(owner->buffers[bufferIndex], owner->templateData, 0x40);
-            func_10022EC0(owner->buffers[bufferIndex] + 0x40, owner->templateData, 0x40);
+            func_10022EC0(owner->buffers[arg1], owner->templateData, 0x40);
+            func_10022EC0(owner->buffers[arg1] + 0x40, owner->templateData, 0x40);
         }
     } else {
         return 0;
     }
-    transform = matrix;
     coords[0][0] = owner->width;
     coords[0][1] = owner->height;
     coords[1][0] = -owner->width;
@@ -798,7 +1004,7 @@ void *func_1513E83C(Game169510ScaledOwner *owner, s32 arg1) {
     coords[2][1] = -owner->height;
     coords[3][0] = owner->width;
     coords[3][1] = -owner->height;
-    func_150A8050(transform, owner->rx, owner->ry, owner->rz);
+    func_150A8050(matrix, owner->rx, owner->ry, owner->rz);
     matrix[3][0] = owner->x;
     index = 0;
     matrix[3][1] = owner->y;
@@ -814,7 +1020,7 @@ void *func_1513E83C(Game169510ScaledOwner *owner, s32 arg1) {
     matrix[2][2] *= owner->sz;
     do {
         point = coords[index];
-        func_150A7960(transform, point[0], point[1], 0.0f, &point[0], &point[1], &point[2]);
+        func_150A7960(matrix, point[0], point[1], 0.0f, &point[0], &point[1], &point[2]);
         vertices->x = (s32)point[0];
         vertices->y = (s32)point[1];
         index++;
@@ -829,46 +1035,37 @@ void *func_1513E83C(Game169510ScaledOwner *owner, s32 arg1) {
 
 extern f32 D_800DD1D8[], D_800DD1E8[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513EAD8 CURRENT (3745) */
 void *func_1513EAD8(void *arg0, s32 arg1, s16 arg2) {
     Game169510ScaledVertex *vertices;
+    Game169510ScaledVertex *result;
     s16 coords[4][3];
+    f32 heightDelta, heightScale, directionZ, directionX;
     u8 fresh;
-    Game169510ScaledOwner *owner;
-    u8 **slot;
-    u8 *templateData;
-    register f32 width, height, heightScale, directionZ, directionX;
 
-    owner = arg0;
     func_151D5D60((u8 *)arg0 + 0x100, arg2, 0x40, (void **)&vertices, &fresh);
-    if (vertices == 0) {
+    result = vertices;
+    if (vertices != 0) {
+        if (fresh != 0) {
+            func_10022EC0(*(u8 **)((u8 *)arg0 + arg2 * 4 + 0x100), (u8 *)arg0 + 0xC0, 0x40);
+            func_10022EC0(*(u8 **)((u8 *)arg0 + arg2 * 4 + 0x100) + 0x40, (u8 *)arg0 + 0xC0, 0x40);
+        }
+    } else {
         return 0;
     }
-    if (fresh != 0) {
-        slot = (u8 **)((u8 *)arg0 + arg2 * 4 + 0x100);
-        templateData = (u8 *)arg0 + 0xC0;
-        func_10022EC0(*slot, templateData, 0x40);
-        func_10022EC0(*slot + 0x40, templateData, 0x40);
-    }
-    directionZ = D_800DD1D8[arg2];
-    directionX = D_800DD1E8[arg2];
-    width = owner->width;
-    height = owner->height;
-    heightScale = owner->sy;
+    directionZ = D_800DD1D8[arg2] * ((Game169510ScaledOwner *)arg0)->width;
+    directionX = D_800DD1E8[arg2] * ((Game169510ScaledOwner *)arg0)->width;
+    heightScale = ((Game169510ScaledOwner *)arg0)->sy * ((Game169510ScaledOwner *)arg0)->height;
+    heightDelta = ((Game169510ScaledOwner *)arg0)->height - heightScale;
     vertices[0].flag = 0;
-    directionZ *= width;
     vertices[1].flag = 0;
-    directionX *= width;
     vertices[2].flag = 0;
-    heightScale *= height;
     vertices[3].flag = 0;
-    height -= heightScale;
-    coords[3][0] = coords[0][0] = (s16)(s32)(owner->x + directionX);
-    coords[1][1] = coords[0][1] = (s16)(s32)(owner->y - heightScale);
-    coords[3][2] = coords[0][2] = (s16)(s32)(owner->z - directionZ);
-    coords[2][0] = coords[1][0] = (s16)(s32)(owner->x - directionX);
-    coords[3][1] = coords[2][1] = (s16)(s32)(owner->y + height);
-    coords[2][2] = coords[1][2] = (s16)(s32)(owner->z + directionZ);
+    coords[3][0] = coords[0][0] = (s16)(s32)(((Game169510ScaledOwner *)arg0)->x + directionX);
+    coords[1][1] = coords[0][1] = (s16)(s32)(((Game169510ScaledOwner *)arg0)->y - heightScale);
+    coords[3][2] = coords[0][2] = (s16)(s32)(((Game169510ScaledOwner *)arg0)->z - directionZ);
+    coords[2][0] = coords[1][0] = (s16)(s32)(((Game169510ScaledOwner *)arg0)->x - directionX);
+    coords[3][1] = coords[2][1] = (s16)(s32)(((Game169510ScaledOwner *)arg0)->y + heightDelta);
+    coords[2][2] = coords[1][2] = (s16)(s32)(((Game169510ScaledOwner *)arg0)->z + directionZ);
     if (*(u8 *)((u8 *)&arg1 + 3) != 0) {
         vertices[0].x = coords[1][0];
         vertices[0].y = coords[1][1];
@@ -896,10 +1093,8 @@ void *func_1513EAD8(void *arg0, s32 arg1, s16 arg2) {
         vertices[3].y = coords[3][1];
         vertices[3].z = coords[3][2];
     }
-    return vertices;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513EAD8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513EAD8.s")
 void *func_1513EAD8(void *arg0, s32 arg1, s16 arg2);
 
 void func_1513EDB4(void *arg0, s16 arg1) {
@@ -976,7 +1171,90 @@ void *func_1513EE14(void *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513EE14 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513EE14.s")
+f32 func_15047C00(f32);
+f32 func_15047D60(f32);
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+extern f32 D_800A51BC, D_800A51C0;
+extern f32 D_800BE9A8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513F114 CURRENT (5472) */
+void *func_1513F114(Game169510ScaledOwner *owner, s16 arg1) {
+    Game169510ScaledVertex *vertices;
+    void *result;
+    f32 directionZ, directionX;
+    f32 lower, upper;
+    f32 sine, cosine;
+    f32 width, widthCosine, widthSine;
+    f32 lowerSine, lowerCosine, offset;
+    f32 upperSine, upperCosine, angle;
+    u8 fresh;
+    u8 *slot;
+    void *template;
+
+    func_151D5D60((u8 *)owner + 0x100, arg1, 0x40, (void **)&vertices, &fresh);
+    result = vertices;
+    if (vertices != NULL) {
+        if (fresh != 0) {
+            slot = (u8 *)owner + arg1 * 4;
+            template = (u8 *)owner + 0xC0;
+            func_10022EC0(*(void **)(slot + 0x100), template, 0x40);
+            func_10022EC0(*(u8 **)(slot + 0x100) + 0x40, template, 0x40);
+        }
+    } else {
+        return NULL;
+    }
+    width = owner->height;
+    directionZ = D_800DD1D8[arg1];
+    directionX = D_800DD1E8[arg1];
+    lower = -(owner->sy * width);
+    upper = width + lower;
+    cosine = -1.0f;
+    angle = ((owner->rx - owner->x) * directionX -
+             directionZ * (owner->rz - owner->z)) * D_800BE9A8;
+    if (angle < 0.0f) {
+        cosine = 1.0f;
+        angle = -angle;
+    }
+    angle = sqrtf(angle) * owner->sx;
+    if (D_800A51BC < angle) {
+        angle = D_800A51C0;
+    }
+    angle *= cosine;
+    sine = func_15047D60(angle);
+    cosine = func_15047C00(angle);
+    width = owner->width;
+    widthCosine = width * cosine;
+    widthSine = width * sine;
+    lowerSine = lower * sine;
+    offset = widthCosine - lowerSine;
+    vertices[0].x = (s32)(owner->x + offset * directionX);
+    lowerCosine = lower * cosine;
+    vertices[0].y = (s32)(owner->y + lowerCosine + widthSine);
+    vertices[0].z = (s32)(owner->z - offset * directionZ);
+    vertices[0].flag = 0;
+    offset = -(widthCosine + lowerSine);
+    vertices[1].x = (s32)(owner->x + offset * directionX);
+    vertices[1].y = (s32)((owner->y + lowerCosine) - widthSine);
+    vertices[1].z = (s32)(owner->z - offset * directionZ);
+    vertices[1].flag = 0;
+    upperSine = upper * sine;
+    offset = -(widthCosine + upperSine);
+    vertices[2].x = (s32)(owner->x + offset * directionX);
+    upperCosine = upper * cosine;
+    vertices[2].y = (s32)((owner->y + upperCosine) - widthSine);
+    vertices[2].z = (s32)(owner->z - offset * directionZ);
+    vertices[2].flag = 0;
+    offset = widthCosine - upperSine;
+    vertices[3].x = (s32)(owner->x + offset * directionX);
+    vertices[3].y = (s32)(owner->y + upperCosine + widthSine);
+    vertices[3].z = (s32)(owner->z - offset * directionZ);
+    vertices[3].flag = 0;
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513F114 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513F114.s")
+
 s32 func_15140410(s32, s32, s32, s16);
 
 void func_1513F4B0(s32 arg0, s16 arg1) {
@@ -985,15 +1263,6 @@ void func_1513F4B0(s32 arg0, s16 arg1) {
 s16 func_15143044(u8, s32);
 extern u8 D_800A4BA8[];
 extern s16 D_800DD1BE;
-
-typedef struct {
-    u32 w0;
-    u32 w1;
-} Game169510Gwords;
-
-typedef union {
-    Game169510Gwords words;
-} Gfx;
 
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 #define G_SETCOMBINE 0xfc
@@ -1126,15 +1395,6 @@ void func_1513FA70(void *arg0, s16 arg1) {
     func_1513FAB4(arg0, 1, sp18, arg1);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513FAB4.s")
-typedef struct {
-    u8 pad0[6];
-    u16 width;
-    u16 height;
-    u8 padA[2];
-} Game169510TextureInfo;
-
-extern Game169510TextureInfo D_80090B60[];
-
 void func_1513FFF4(void *arg0, u8 arg1, u8 arg2) {
     typedef struct {
         s16 ob[3];
