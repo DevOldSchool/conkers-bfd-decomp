@@ -31888,6 +31888,12 @@
       "symbol": "func_150C29F0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5739,
+        "reason": "CURRENT5739: frameF8 versusE8, packet/angle16high, one extra saved GPR, four constant addresses promoted instead of reference modulus/angle registers, captured float allocation and initialization scheduling differ. Initial finish plus unchanged layout diagnostic; one bounded direct-global probe worsened to8556/frameD0 and was rejected in favor of explicit captured values. Raw15149550 returns allocated pointer at149820, correcting the source-local void declaration; matching-callers has no registered matched direct callers. No stronger untried layout hypothesis; preserve initial candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -59814,6 +59820,12 @@
       "symbol": "func_150D4CC4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2653,
+        "reason": "Best CURRENT (2653) after three finish calls and two bounded revision probes; frame 0x110 versus 0x108, initial modulo scheduling, captured floating-register allocation and control-flow residuals. Full 0x70-byte descriptor and word argument ABI preserved; manual revision ceiling exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

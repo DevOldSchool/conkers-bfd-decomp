@@ -506,7 +506,7 @@ typedef struct GameEF410Emitter {
     f32 field28[4];
 } GameEF410Emitter;
 
-void func_15149550(f32 *, s32, s32, s32, s32, s32);
+void *func_15149550(f32 *, s32, s32, s32, s32, s32);
 extern f32 D_800A02A0;
 extern f32 D_800A02A4;
 extern f32 D_800A02A8;
@@ -565,8 +565,106 @@ void func_150C29F0(GameEF410Emitter *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C29F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C29F0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2C00.s")
 extern f32 D_800BE9A4;
+f32 func_150484A0(f32, f32);
+s32 func_15144B34(s32);
+f32 func_15144C8C(f32, f32);
+extern s32 D_80082FA4;
+void *func_10022EC0(void *, const void *, u32);
+void func_1514373C(f32, f32, f32 *, f32 *);
+extern f32 D_800A02C0;
+extern f32 D_800A02C4;
+extern f32 D_800A02C8;
+extern f32 D_800A02CC;
+extern f32 D_800A02D0;
+extern f32 D_800A02D4;
+extern f32 D_800A02D8;
+extern f32 D_800A02DC;
+extern f32 D_800A02E0;
+extern f32 D_800A02E4;
+extern f32 D_800A02E8;
+extern f32 D_800A02EC;
+extern f32 D_800A02F0;
+extern f32 D_800A02F4;
+extern f32 D_800A02F8;
+extern f32 D_800A02FC;
+extern f32 D_800A0300;
+extern f32 D_800A0304;
+extern f32 D_800A0308;
+extern f32 D_800A030C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C2C00 CURRENT (5739) */
+void func_150C2C00(GameEF410Emitter *arg0) {
+    f32 *timer;
+    GameEF410Vector *vector;
+    u8 *created;
+    GameEF410Particle packet;
+    f32 firstScale;
+    f32 angle;
+    f32 secondScale;
+    f32 threshold;
+    f32 angleBase;
+    f32 angleRange;
+    f32 factor;
+
+    timer = &arg0->field28[0];
+    *timer += func_150ADA68() * 20.0f * D_800A02C0 * D_800BE9A4 * D_800A02C4;
+    if (*timer > 1.0f) {
+        vector = (GameEF410Vector *)func_15144B34(D_80082FA4);
+        if (D_800A02C8 < vector->x * vector->x + vector->z * vector->z) {
+            threshold = D_800A02D4;
+            angleBase = D_800A02D8;
+            angleRange = D_800A02DC;
+            packet.field20 = 0x6231;
+            packet.field22 = 0x1A4D;
+            packet.color26[0] = 0;
+            packet.color26[1] = 0;
+            packet.color26[2] = 0;
+            packet.color26[3] = 255;
+            packet.field2D = 255;
+            packet.field2E = 20;
+            packet.field2F = 1;
+            packet.field30 = 4;
+            packet.field2A = 1;
+            packet.field34 = 25;
+            factor = D_800A02E0;
+            packet.position[1] = -390.0f;
+            packet.field40 = D_800A02CC;
+            packet.field44 = D_800A02D0;
+            packet.field3C = 0.0f;
+            do {
+                angle = func_150ADA68() * angleRange + angleBase;
+                if (func_15144C8C(func_150484A0(vector->x, vector->z), angle) < threshold) {
+                    func_1514373C(angle, func_150ADA68() * D_800A02E4 + D_800A02E8,
+                                  &packet.position[0], &packet.position[2]);
+                    firstScale = (func_150ADA68() * D_800A02EC + D_800A02F0) * factor;
+                    secondScale = func_150ADA68();
+                    packet.field0C = D_800A02F4 * firstScale;
+                    packet.field14 = D_800A02F8 * firstScale;
+                    secondScale = (secondScale * D_800A02FC + D_800A0300) * factor;
+                    packet.field10 = D_800A0304 * secondScale;
+                    packet.field18 = D_800A0308 * secondScale;
+                    packet.field1C = D_800A030C * secondScale;
+                    packet.field24 = func_150ADA20() % 151U + 50;
+                    packet.field38 = func_150ADA68() * 500.0f * factor;
+                    packet.field2C = func_150ADA20() % 156U + 100;
+                    created = func_15149550(packet.position, 10, 1, 0, arg0->fieldC, arg0->field1);
+                    if (created != 0) {
+                        func_10022EC0(created + 0x160, &angle, 4U);
+                    }
+                }
+                *timer -= 1.0f;
+            } while (*timer > 1.0f);
+            return;
+        }
+        do {
+            *timer -= 1.0f;
+        } while (*timer > 1.0f);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C2C00 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2C00.s")
+
 
 typedef struct T150C { u8 pad0[0x2C]; f32 unk2C, unk30, unk34, unk38; u8 pad3C[0x10]; f32 unk4C, unk50; u8 pad54[0xFC]; f32 unk150; } T150C;
 
@@ -582,10 +680,6 @@ s32 func_150C2FCC(T150C *arg0) {
     }
     return 1;
 }
-f32 func_150484A0(f32, f32);
-s32 func_15144B34(s32);
-f32 func_15144C8C(f32, f32);
-extern s32 D_80082FA4;
 extern f32 D_800A0310;
 extern f32 D_800A0314;
 
