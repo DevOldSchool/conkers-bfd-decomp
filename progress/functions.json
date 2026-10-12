@@ -32137,6 +32137,12 @@
       "symbol": "func_15104A80"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2390,
+        "reason": "Best full-span CURRENT (2390), original 0xE0 frame and addressed stack offsets; descriptor setup scheduling and floating-point temporary allocation differ. Two bounded probe batches exhausted; flat state/beam layouts did not improve the result.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -61583,6 +61589,12 @@
       "symbol": "func_150F4D5C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 961,
+        "reason": "Best full-span CURRENT (961), exact 0xD8 frame and vector/swap offsets; state GPR lifetime, second-angle spill 0x94 versus 0x8C, setup scheduling and final multiply operand order remain after two bounded probe batches.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

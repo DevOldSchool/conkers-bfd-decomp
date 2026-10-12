@@ -87,10 +87,105 @@ void func_15104A80(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15104A80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_131F30/func_15104A80.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_131F30/func_15104C44.s")
-u16 func_1000FA64(u16, s16, s16, s16, s32, u16, s16, s32, void *, s32, s32, s32);
+typedef struct Game131F30Vector { f32 x, y, z; } Game131F30Vector;
+typedef struct Game104C44Beam {
+    s16 life;
+    s8 enabled;
+    u8 pad3;
+    Game131F30Vector position, axis0, axis1, contact;
+    s8 flag;
+    u8 pad35[3];
+    s32 count;
+    f32 width, scale;
+    s16 lower, upper;
+    u8 color[4];
+    s8 mode;
+    u8 pad4D[3];
+} Game104C44Beam;
+typedef struct Game104C44State {
+    void *owner;
+    f32 pending;
+    s16 timer;
+    u8 padA[2];
+    Game131F30Vector position;
+    f32 radius, height, contactHeight;
+    u8 pad24[0x20];
+    s16 *shape;
+} Game104C44State;
+typedef struct Game104C44Pair { f32 x, z; } Game104C44Pair;
+struct Game133190Object;
+struct Game133190Object *func_15105CE0(Game104C44Beam *, s32, u8, s32);
+s32 func_15046C80(f32 *, u16, f32, void *);
 s32 func_1000FD38();
 s32 D_1000EF40();
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+extern f32 D_800A23AC, D_800A23B0, D_800BE9A4;
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15104C44 CURRENT (2390) */
+void func_15104C44(u8 *arg0) {
+    u32 random;
+    Game104C44Beam beam;
+    Game131F30Vector point;
+    Game104C44Pair first;
+    Game104C44Pair second;
+    Game104C44State *state;
+
+    state = (Game104C44State *)(arg0 + 0x28);
+    if (*(volatile s16 *)(arg0 + 0x30) >= 0) {
+        state->timer -= D_800BE9E4;
+        if (state->timer < 0) func_1000FD38(D_1000EF40, state->owner, 0);
+        if (func_151464B8(state->shape) == 0) {
+            state->pending += (D_800A23AC + func_150ADA68() * D_800A23B0) * D_800BE9A4;
+            if (state->pending > 1.0f) {
+                beam.enabled = 1;
+                beam.flag = -1;
+                point.y = state->position.y + state->height;
+                beam.lower = 3;
+                beam.upper = 4;
+                beam.mode = 0;
+                beam.scale = 45.0f;
+                beam.width = 25.0f;
+                beam.position.x = state->position.x;
+                beam.position.y = state->position.y + state->height;
+                beam.position.z = state->position.z;
+                beam.color[0] = 0x61;
+                beam.color[1] = 0xF2;
+                beam.color[2] = 0xFF;
+                beam.axis0.y = state->position.y + state->height - 180.0f;
+                do {
+                    random = func_150ADA20();
+                    func_15143874((s16)(random & 0xFF), (func_150ADA68() * 0.5f + 0.5f) * state->radius, &point.x, &point.z);
+                    point.x += state->position.x;
+                    point.z += state->position.z;
+                    if (func_15046C80(&point.x, 0, state->position.y, &state->contactHeight) != 0) {
+                        random = func_150ADA20();
+                        func_15143874((s16)(random & 0xFF), func_150ADA68() * 220.0f, &first.x, &first.z);
+                        random = func_150ADA20();
+                        func_15143874((s16)(random & 0xFF), func_150ADA68() * 220.0f, &second.x, &second.z);
+                        beam.axis0.x = state->position.x + first.x;
+                        beam.contact.x = point.x;
+                        beam.axis0.z = state->position.z + first.z;
+                        beam.contact.y = state->contactHeight;
+                        beam.axis1.x = point.x + second.x;
+                        beam.contact.z = point.z;
+                        beam.axis1.z = point.z + second.z;
+                        beam.axis1.y = beam.contact.y + 180.0f;
+                        beam.life = func_150ADA20() % 13U + 8;
+                        beam.color[3] = func_150ADA20() % 156U + 0x64;
+                        beam.count = func_150ADA20() % 3U + 5;
+                        func_15105CE0(&beam, 0, arg0[0xC], arg0[1]);
+                    }
+                    state->pending -= 1.0f;
+                } while (state->pending > 1.0f);
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15104C44 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_131F30/func_15104C44.s")
+u16 func_1000FA64(u16, s16, s16, s16, s32, u16, s16, s32, void *, s32, s32, s32);
 
 typedef struct struct205 { u8 pad0[0x14]; u8 unk14; } struct205;
 typedef struct struct206 { struct205 *unk0; u16 unk4; u8 pad6[0x6]; u8 unkC; u8 padD[0x63]; s32 *unk70; } struct206;
@@ -132,7 +227,6 @@ void func_15105548(void *arg0, s32 *arg1, u8 arg2) {
         *(s16 *)((u8 *)temp_v0 + 4) = 0x12C;
     }
 }
-typedef struct Game131F30Vector { f32 x, y, z; } Game131F30Vector;
 typedef struct Game131F30Surface { s16 values[9]; } Game131F30Surface;
 typedef struct Game131F30Color { s32 value; } Game131F30Color;
 typedef struct Game131F30Factor { f32 value; } Game131F30Factor;
