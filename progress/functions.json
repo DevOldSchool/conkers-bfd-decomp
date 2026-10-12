@@ -60172,17 +60172,16 @@
       "symbol": "func_15034F30"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 115,
-        "reason": "live CURRENT (115), stale marker CURRENT (30): 13 register-only rows across counter/base-address lifetimes; 16 permutations, explicit pointer locals, and array-shaped counter declaration exhausted, with pointer form regressing",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150356C8",
           "vram": "0x150356C8"
         }
@@ -60191,17 +60190,16 @@
       "symbol": "func_150356C8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1106,
-        "reason": "Valid1106 retained after fresh full-span check. Unsigned halfword FP correction already exact, so proposed wider conversion lacks a residual target. Prior early-product/register-forcing work preserved; arg3 spill/frame30 versusrawF14/frame40 and product schedule remain. One finish/zero fresh revisions, no new justified hypothesis or shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 244,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15035714",
           "vram": "0x15035714"
         }
