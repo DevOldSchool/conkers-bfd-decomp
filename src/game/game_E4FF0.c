@@ -18,8 +18,8 @@
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_15143794(s16, s16, f32, void *);
-void func_1518A3C0(f32 *, f32 *, f32, f32 *, f32 *, f32, f32,
-                   s32, s32, s32, s32, s32, s32);
+struct Game1B7870Vector;
+void *func_1518A3C0(struct Game1B7870Vector *, struct Game1B7870Vector *, f32, struct Game1B7870Vector *, struct Game1B7870Vector *, f32, f32, u8, s16, u8, s32, u8, s32);
 extern f32 D_8009FD68;
 extern f32 D_8009FD6C;
 extern f32 D_8009FD70;

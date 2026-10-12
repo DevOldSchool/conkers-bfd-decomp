@@ -144,7 +144,7 @@ void func_15166204(Game193430State *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_193430/func_15166268.s")
 void *func_15142FBC(void *, s32, s32, u8 *);
-s32 func_15094F70(void *, void *, s32, void *, s32, s32, s32, s32, s32);
+s32 func_15094F70();
 extern s32 D_800903F4;
 extern s32 D_800A4AC8;
 extern s32 D_800D2C9C;

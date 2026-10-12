@@ -13,7 +13,7 @@
 
 typedef struct Game118400Record Game118400Record;
 
-s32 func_151420F8(Game118400Record *);
+s32 func_151420F8();
 extern s32 D_800BE9F0;
 
 s32 func_15046C80(f32 *, u16, f32, void *);

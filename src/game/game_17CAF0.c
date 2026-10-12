@@ -507,8 +507,8 @@ typedef struct {
 } Game150F90Config;
 
 void func_15143794(s16, s16, f32, void *);
-void *func_1518A3C0(void *, f32 *, f32, f32 *, f32 *, f32, f32,
-                    s32, s32, s32, s32, s32, s32);
+struct Game1B7870Vector;
+void *func_1518A3C0(struct Game1B7870Vector *, struct Game1B7870Vector *, f32, struct Game1B7870Vector *, struct Game1B7870Vector *, f32, f32, u8, s16, u8, s32, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15150F90 CURRENT (1579) */
 void func_15150F90(Game150F90Config *arg0, s32 arg1, s32 arg2, s32 arg3) {

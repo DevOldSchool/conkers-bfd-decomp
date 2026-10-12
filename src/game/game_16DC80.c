@@ -36,7 +36,7 @@ typedef struct Game16DC80Object {
 } Game16DC80Object;
 
 void *func_10022EC0(void *, const void *, u32);
-s32 func_1513D524(Game16DC80Descriptor *, u8, u8, u8, s32, s32, u32, s32, s32);
+void *func_1513D524();
 extern s32 D_800DC9F0;
 
 s32 func_151407D0(void *arg0, u32 arg1, Game16DC80Descriptor *arg2,
@@ -47,7 +47,7 @@ s32 func_151407D0(void *arg0, u32 arg1, Game16DC80Descriptor *arg2,
 
     arg2->field1 = 3;
     arg2->flags40 |= 0x40400000;
-    result = func_1513D524(arg2, arg3, arg4, arg5, 1, arg6, arg1, arg8, arg9);
+    result = (s32) func_1513D524(arg2, arg3, arg4, arg5, 1, arg6, arg1, arg8, arg9);
     inner = (Game16DC80Inner *)(result + 0x110);
     if (result != 0) {
         func_10022EC0(inner, arg0, arg1);

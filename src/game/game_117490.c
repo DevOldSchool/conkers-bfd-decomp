@@ -12,7 +12,7 @@
  */
 
 void *func_10022EC0(void *, const void *, u32);
-s32 func_15134DAC(u8 *, s32, void *, s16);
+void *func_15134DAC(void *, s32);
 extern f32 D_800A1410;
 extern f32 D_800A1414;
 
@@ -74,7 +74,7 @@ s32 func_150E9FE0(void *arg0, s16 arg1, s32 arg2, s32 arg3) {
     descriptor.scale = 0.5f;
     *(f32 *) (copy + 0x8) = D_800A1410;
     *(f32 *) (copy + 0xC) = D_800A1414;
-    temp_v0 = func_15134DAC((u8 *) &descriptor, 0x10, arg0, arg1);
+    temp_v0 = (s32) func_15134DAC(&descriptor, 0x10);
     var_v1 = temp_v0;
     if (temp_v0 != 0) {
         saved = temp_v0;

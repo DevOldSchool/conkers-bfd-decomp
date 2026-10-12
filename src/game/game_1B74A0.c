@@ -13,7 +13,7 @@
  */
 
 void *func_10022EC0(void *, const void *, u32);
-s32 func_151407D0(void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+s32 func_151407D0();
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15189FF0 CURRENT (1164) */
 s32 func_15189FF0(s32 arg0, void *arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5, u8 arg6) {

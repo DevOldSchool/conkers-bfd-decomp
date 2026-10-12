@@ -134,7 +134,7 @@ loop:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1500727C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_33990/func_1500727C.s")
-s32 func_151DCEF0(u8 *, s32, s16 *, s32);
+s32 func_151DCEF0();
 extern u8 D_8002AC5C;
 extern s16 D_800BE2F0;
 extern u8 D_800BE2F2;

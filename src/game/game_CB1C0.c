@@ -56,7 +56,7 @@ s32 func_1509DDC4(s32 arg0, s32 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509DDC4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CB1C0/func_1509DDC4.s")
 void func_15178BE4(u8, void *, s16);
-void func_15178C34(u8, s32, s32, s32, s32);
+void func_15178C34(u8, s32, s32, s32, s16);
 s32 func_15084000(s32);
 extern u8 D_800CC2D0;
 

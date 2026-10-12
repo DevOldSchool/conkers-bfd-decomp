@@ -251,7 +251,7 @@ typedef struct {
 
 void func_151429E0(u8, u8 *, u8 *, u8 *);
 u32 func_150ADA20(void);
-void func_1518CA80(void *, s32);
+void func_1518CA80();
 
 s32 func_15149EC4(void *arg0) {
     u8 effect_storage[sizeof(Game176A00Effect)];

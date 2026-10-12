@@ -107,8 +107,9 @@ typedef struct GameCA630ColorRequest {
     s8 index, red, green, blue;
 } GameCA630ColorRequest;
 
-void func_15197A7C(void *);
-void func_151403A8(s32, u8);
+struct CharacterFlamethrowerActor;
+void func_15197A7C(struct CharacterFlamethrowerActor *);
+void func_151403A8(void *, u8);
 void func_151645C4(s32);
 void func_1516944C(s32, s8 *, u8);
 void func_150DEC28(u8, s32);
@@ -158,7 +159,7 @@ void func_1509D8FC(s32 arg0, s32 arg1, GameCA630Input *arg2) {
     case 0x1F:
         if (arg1 == 5) {
             work.first[0] = arg2->value;
-            func_151403A8((s32)work.first, 0x36);
+            func_151403A8(work.first, 0x36);
         }
         /* fallthrough */
     case 0x1E:

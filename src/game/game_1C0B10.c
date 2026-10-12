@@ -111,7 +111,7 @@ typedef struct {
     s8 field39;
 } Game1C0B10Packet;
 
-void func_15134DAC(u8 *, s32, void *);
+void *func_15134DAC();
 extern f32 D_800A81E4;
 
 void func_151937F4(void *arg0, s32 arg1, s32 arg2) {

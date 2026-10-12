@@ -629,7 +629,6 @@ s32 func_15135658(f32 *arg0) {
     arg0[0x1D] = 1.0f;
     return 1;
 }
-s32 func_151422DC(s32, void *, s32, s32, s32, void *, s32);
 extern u8 D_800A3FB4;
 extern u8 D_800A3FBC;
 extern f32 D_800A45B4;
@@ -894,8 +893,7 @@ typedef struct {
     u8 tailPad[0xC];
 } Blood6918Packet;
 
-void *func_1513C73C(s32 *, s32, s32, void *, f32, f32, f32, f32,
-                     f32, s32, s32, s32, s32, s32);
+void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
 
 void func_15136918(f32 arg0, u8 arg1, u8 arg2, s16 arg3, s16 arg4,
                    void *arg5, f32 *arg6, u8 arg7, s32 arg8) {
@@ -924,7 +922,7 @@ void func_15136918(f32 arg0, u8 arg1, u8 arg2, s16 arg3, s16 arg4,
         packet.field00 = 0x301;
         packet.field04 = arg3 + 0x20;
     }
-    func_1513C73C(&packet.field00, 0xD, 0, arg5, position[0], position[1],
+    func_1513C73C((s32) &packet.field00, 0xD, 0, (s32) arg5, position[0], position[1],
                   position[2], scale, scale, arg4, 0, 0, arg7, arg8);
 }
 s32 func_15136A1C(BloodState *arg0) {

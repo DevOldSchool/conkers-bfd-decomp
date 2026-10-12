@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1319D0.c
@@ -10,7 +11,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_15128774(void *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15104520 CURRENT (15) */
 void func_15104520(void *arg0) {
@@ -27,7 +27,7 @@ void func_15104520(void *arg0) {
     if ((*(f32 *)(temp_a1 + 0x3C) < 50.0f) && (*(u8 *)((u8 *)arg0 + 0x3E8) == 0)) {
         temp_fv0 = *(f32 *)((u8 *)arg0 + 0x374);
         if ((0.5f * temp_fv0) < (*(f32 *)((u8 *)arg0 + 0x370) - temp_fv0)) {
-            func_15128774(arg0);
+            func_15128774(arg0, (struct CameraCameraTarget *) temp_a1);
         }
     }
 }

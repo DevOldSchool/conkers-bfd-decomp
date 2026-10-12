@@ -237,7 +237,7 @@ typedef struct Game115F30Effect {
 } Game115F30Effect;
 
 s32 func_151337C0(void *);
-void *func_1513C73C(s32 *, s32, s32, void *, f32, f32, f32, f32, f32, s32, s32, s32, s32, s32);
+void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
 f32 func_150ADA68(void);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150E971C CURRENT (2812) */

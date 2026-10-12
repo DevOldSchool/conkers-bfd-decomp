@@ -462,7 +462,7 @@ typedef struct {
 } Game1D6E80SpawnLocals;
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_15134DAC(u8 *, s32, void *, void *);
+void *func_15134DAC(void *, s32);
 extern f32 D_800A8FA4;
 extern f32 D_800A8FA8;
 
@@ -496,7 +496,7 @@ void *func_151AA48C(u8 *arg0, void *arg1) {
     locals.field50 = 0.5f;
     locals.field10 = D_800A8FA4;
     locals.field14 = D_800A8FA8;
-    result = func_15134DAC(&locals.id, 0x18, arg0, arg1);
+    result = func_15134DAC(&locals.id, 0x18);
     if (result != 0) {
         locals.saved = result;
         func_10022EC0((u8 *)result + 0x80, &locals.link, 0x18);
@@ -911,7 +911,7 @@ void func_151AB7D8(void *arg0) {
     *(s32 *)((u8 *)data + 0x1C) = 0;
     func_1513470C(arg0);
 }
-void func_15141DA4(s32 arg0, s32 arg1, s32 arg2, void *arg3);
+void func_15141DA4();
 
 void func_151AB828(void *arg0) {
     func_15141DA4(*(s32 *)((u8 *)arg0 + 0x18), 0, 4, arg0);

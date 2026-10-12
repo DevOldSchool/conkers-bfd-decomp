@@ -224,12 +224,12 @@ void func_151945CC(void *arg0, u8 *arg1, s32 volatile arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151945CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_151945CC.s")
-void func_151B01B8(u8 *, s32); /* extern */
+void func_151B01B8(void *, void *);
 void func_151B09BC(u8 *, s32, s32, s32, s32); /* extern */
-void *func_151AF270(void *, u8, s32);
+void *func_151AF270();
 
 void func_15194794(u8 *arg0, Game1C1150Event *arg1, s8 *arg2) {
-    func_151B01B8(arg0, (s32)arg1);
+    func_151B01B8(arg0, arg1);
     func_151B09BC(arg0, (s32)arg1, 0x3E8, 0xFF, 0);
     switch (arg1->type) {
         case 0:
@@ -338,11 +338,11 @@ void func_151949F4(s32 arg0, Game1C1150ActorState *arg1, s32 arg2) {
         arg1->timer_state->timer = 0x4B0;
     }
 }
-void func_1507DE4C(s32 arg0);
+void func_1507DE4C(void *);
 void func_151949F4(s32 arg0, Game1C1150ActorState *arg1, s32 arg2);
 
 void func_15194A68(s32 arg0, s32 arg1, s32 arg2) {
-    func_1507DE4C(arg1);
+    func_1507DE4C((void *) arg1);
     func_15138BC0(arg1, 0xFF, 1);
     func_151949F4(0, (Game1C1150ActorState *)arg0, arg1);
 }
@@ -369,7 +369,7 @@ void func_15194AB4(void *arg0) {
     }
 }
 void func_15138120(void *, s32, s32);
-void func_15136C3C(void *, s32, s32, s32, s32, s32, s32, s32);
+void func_15136C3C();
 
 /*
  * The shared effect-profile index is used by the guarded func_15138120 call.
@@ -533,7 +533,7 @@ typedef struct Game1C1150Position {
     f32 z;
 } Game1C1150Position;
 
-extern void func_151C0098(f32 *arg0, Game1C1150Position *arg1, s32 arg2, s32 arg3, s32 arg4);
+void func_151C0098();
 
 void func_15194F48(s32 arg0, Game1C1150Position *arg1, s32 arg2) {
     f32 position[3];
@@ -685,11 +685,11 @@ void func_15195528(void *arg0, Game1C1150Position *arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15195528.s")
 /* Call context: func_151B01B8: unique active project prototype */
 /* Call context: func_151B09BC: unique active project prototype */
-void func_151B01B8(u8 *, s32);
+void func_151B01B8(void *, void *);
 void func_151B09BC(u8 *, s32, s32, s32, s32);
 
 void func_15195650(u8 *arg0, s32 arg1, s32 arg2) {
-    func_151B01B8(arg0, arg1);
+    func_151B01B8(arg0, (void *) arg1);
     func_151B09BC(arg0, arg1, 0x3E8, 0xFF, 0);
 }
 void func_15195698(void *arg0, u8 *arg1, s32 arg2) {

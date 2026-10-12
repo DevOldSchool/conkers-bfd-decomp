@@ -153,7 +153,7 @@ f32 func_1506AD30(Game6AD30Actor *arg0, f32 arg1, u8 arg2) {
 /* Call context: func_1505E650: unique active project prototype */
 void func_1505E650(u8 *, s32, f32, f32, f32, f32, s32);
 extern u8 * D_800D154C;
-s32 func_15060A9C();
+void func_15060A9C();
 s32 func_150ADA20(void);
 extern f32 D_80099D50;
 extern f32 D_80099C3C;
@@ -318,7 +318,7 @@ void func_1506B4EC(void) {
 }
 extern s32 D_800D1580;
 void func_15141A7C(u8 *arg0, s32 arg1);
-void func_1507C8E0(u8 *arg0, s32 arg1);
+void func_1507C8E0();
 void func_1507F640(void);
 void func_1512D748(void *arg0, s32 arg1, s32 arg2);
 
@@ -1563,7 +1563,7 @@ void func_1506F004(s32 arg0) {
 void func_1506F02C(s32 arg0) {
     func_150BA4C0(D_800D154C, 0xFF, 0);
 }
-void func_151925C4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
+s32 func_151925C4(u8 *, s16, u8, s32);
 
 void func_1506F05C(s32 arg0) {
     func_151925C4(D_800D154C, 0x32, 0xFF, 1);
@@ -1788,7 +1788,7 @@ void func_1506F1A8(s32 arg0) {
     descriptor.field_11A = 12;
     func_151994B8(0, &descriptor, 0xFF, 0);
 }
-void func_15197A7C(void *arg0);
+void func_15197A7C();
 
 void func_1506F524(s32 arg0) {
     func_15197A7C(D_800D154C);
@@ -1939,7 +1939,7 @@ void func_1506FB60(s32 arg0) {
     }
     func_151C62D0(D_800D154C, (arg0 - 0x13) & 0xFF, 0, 0, -1, 0xFF, 0);
 }
-void func_151A0A10(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
+void func_151A0A10(u8 *, s16, u8, s32);
 
 void func_1506FBE8(s32 arg0) {
     func_151A0A10(D_800D154C, 0x46, 0xFF, 0);
@@ -1955,7 +1955,7 @@ void func_1519E6BC(u8 *arg0);
 void func_1506FC74(s32 arg0) {
     func_1519E6BC(D_800D154C);
 }
-void func_150B3AB0(u8 *arg0, s32 arg1);
+void func_150B3AB0();
 
 void func_1506FC9C(s32 arg0) {
     func_150B3AB0(D_800D154C, 0xFF);
@@ -2038,7 +2038,7 @@ void func_150CA150(u8 *arg0);
 void func_15070014(s32 arg0) {
     func_150CA150(D_800D154C);
 }
-extern void func_151B01B8(u8 *arg0, s32 arg1);
+void func_151B01B8(void *, void *);
 extern void func_151B09BC(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_1507003C(s32 arg0) {
@@ -2176,7 +2176,7 @@ void func_15070860(s32 arg0) {
     func_150FE49C(D_800D154C, 0xFF, 1, 0, 0);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15070898.s")
-void func_15199834(void *arg0);
+void func_15199834();
 
 void func_15070C18(s32 arg0) {
     func_15199834(D_800D154C);
@@ -2396,7 +2396,7 @@ void func_150714E8(s32 arg0) {
     func_151D5714(D_800D154C, &D_800A2148, &D_800A2154, D_80088BB0, 1.0f, 0xFF, 1);
 }
 extern void func_151D4668(void *arg0);
-extern void func_151D469C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+void func_151D469C(u8 *, u8, s16, u8, s32);
 
 void func_15071544(s32 arg0) {
     func_151D4668(D_800D154C);
@@ -2422,7 +2422,7 @@ void func_15071668(s32 arg0) {
     func_151D0024(D_800D154C);
 }
 void func_150B60E0(void *, f32 *);
-void func_150B5C38(f32 *, s32, s32);
+void func_150B5C38();
 
 void func_15071690(s32 arg0) {
     f32 sp1C[3];
@@ -2998,7 +2998,8 @@ void func_15072420(void) {
         }
     }
 }
-void func_151B5BA0(void *, void *, s32, s32 *);
+struct Game1E3050Data;
+void func_151B5BA0(struct Game1E3050Data *, struct Game1E3050Data *);
 extern u8 D_800BE616;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507266C CURRENT (775) */
@@ -3031,7 +3032,7 @@ void func_1507266C(void) {
     *(f32 *)(actor + 0xF0) = 1.0f;
     *(f32 *)(actor + 0xDC) = 1.0f;
     *(f32 *)(actor + 0xE0) = 1.0f;
-    func_151B5BA0(slots[D_800C3E78].bytes, actor, high_value, &D_800CC2D0);
+    func_151B5BA0((struct Game1E3050Data *) slots[D_800C3E78].bytes, (struct Game1E3050Data *) actor);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507266C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1507266C.s")
@@ -3106,7 +3107,7 @@ void func_15072968(void) {
 void func_150729B4(void) {
     *(s32 *)(D_800D154C + 0x2E4) = D_800D1580;
 }
-extern void func_1507EB4C(void *arg0, s32 arg1);
+void func_1507EB4C();
 
 void func_150729D0(void) {
     *(s16 *)(*(u8 **)(D_800D154C + 0x31C) + 8) = 1;
@@ -3765,7 +3766,7 @@ typedef struct Game981E0SightActor {
 } Game981E0SightActor;
 
 void func_1504715C(void *, void *);
-void func_150C04C0(f32 *, void *, s32, s32, s32, s32);
+void func_150C04C0(void *, s32, s32, u8, u8, s32);
 extern f32 D_800CC2C0;
 extern f32 D_800CC2C4;
 extern f32 D_800CC2C8;
@@ -3779,7 +3780,7 @@ void func_15074C00(s32 arg0, Game981E0SightActor *arg1, s32 arg2) {
         sp44[0] = D_800CC2C0;
         sp44[1] = D_800CC2C4;
         sp44[2] = D_800CC2C8;
-        func_150C04C0(sp44, sp20, 0x16, 1, 0xFF, 0);
+        func_150C04C0(sp44, (s32) sp20, 0x16, 1, 0xFF, 0);
     }
 }
 typedef struct Game981E0BeamActor {
@@ -3852,7 +3853,7 @@ typedef struct Game981E0EventObject {
     u8 field125;
 } Game981E0EventObject;
 
-void func_15194794(Game981E0EventObject *, Game981E0EventObject *, s8 *);
+void func_15194794();
 
 void func_15074E80(Game981E0EventObject *arg0, Game981E0EventObject *arg1, s32 arg2) {
     s8 sp1F = 0;

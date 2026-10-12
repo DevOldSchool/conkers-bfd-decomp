@@ -12,7 +12,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_15134DAC(void *, s32);
+void *func_15134DAC(void *, s32);
 u32 func_150ADA20(void);
 extern f32 D_800A0490;
 

@@ -331,7 +331,7 @@ typedef struct {
     void *output;
 } Game1A7490Owner;
 
-s32 func_15094F70(s32, Game1A7490Input *, s32, Game1A7490Owner *, s32, s32, s32, s32, s32);
+s32 func_15094F70();
 extern Game1A7490Input D_80090614;
 extern s32 D_800DD1B0;
 
