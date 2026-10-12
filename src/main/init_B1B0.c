@@ -9,7 +9,6 @@
  * - func_8000CEAC
  * - func_8000D2F8
  * - func_8000D96C
- * - func_8000DF68
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1448,10 +1447,8 @@ void func_8000DEC4(void) {
 }
 void *func_8000B1FC(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000DF68 CURRENT (605) */
 void func_8000DF68(s32 arg0, s32 arg1, s32 arg2) {
     SequenceRecordState *record;
-    s32 step;
 
     record = func_8000B1FC(arg0);
     if (record != 0) {
@@ -1463,6 +1460,8 @@ void func_8000DF68(s32 arg0, s32 arg1, s32 arg2) {
             }
         }
         if (arg2 >= 2) {
+            s32 step;
+
             step = record->current4C - arg1;
             if (step < 0) {
                 step = -step;
@@ -1470,21 +1469,15 @@ void func_8000DF68(s32 arg0, s32 arg1, s32 arg2) {
             step /= arg2;
             if (step <= 0) {
                 step = 2;
-            } else if (step < 0x8000) {
-                record->duration = step;
-                goto interpolation_done;
-            } else {
+            } else if (step >= 0x8000) {
                 step = 0x7FFF;
             }
             record->duration = step;
-interpolation_done:
-            return;
+        } else {
+            record->duration = 0x200;
         }
-        record->duration = 0x200;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000DF68 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000DF68.s")
 s32 *func_8000B1B0(s32);
 void func_800084D8(u8);
 void func_80008F58(u8);

@@ -92764,7 +92764,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Full16 CURRENT60: SB before JR vs raw delay-slot SB; u8 decl, explicit return, same-line brace all neutral; no flag-independent C form found",
+        "reason": "Full16 CURRENT60 rechecked 2026-10-12: only difference is SB scheduled before JR (project -O2 -g3) vs raw delay-slot SB; requires per-unit flag evidence, not a C form. No source change.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93562,17 +93562,16 @@
       "symbol": "func_80009FFC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 600,
-        "reason": "Full780 CURRENT600 (improved from685): both alLink blocks now use SDK audiomgr shape (test and linkAfter read D_800406A0.field directly), fixing all register rows. Remaining: freeAnchor loop tail emits an extra record=next block vs reference shared move s0,s2 + bnezl s2. Probed single tail record=next (1205), per-branch inner record=next (1085), while-loop plain (1205) and while-loop sdk (605); none improved. Ledger build/us/manual-attempts/main-matching-20261012/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 780,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000A03C",
           "vram": "0x8000A03C"
         }
@@ -94178,17 +94177,16 @@
       "symbol": "func_8000DEC4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 605,
-        "reason": "Full236 CURRENT605 independently restored7c8cb236. Two new explicit false-arm goto hypotheses at positive record guard and interpolation guard are instruction-identical605; no gain. Prior clamp/store/return/outer-exit forms remain exhausted. Original candidate preserved with no ABI/shared/ASM changes. Ledger build/us/manual-attempts/manual-init-20261007/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 236,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000DF68",
           "vram": "0x8000DF68"
         }
