@@ -77562,6 +77562,12 @@
       "symbol": "func_151B9F00"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5050,
+        "reason": "Manual candidate improved 5824 to 5050 (4516dd0f5b7f4948b9e404745b8d8cc4). Two finish calls, two bounded revision probe batches and one layout diagnostic; final probes regressed to 5140 and 5252 and were not applied. Remaining frame 0x158 versus 0x150, stack placement, quantization constant allocation, GPR/float allocation and loop induction/control flow differ. Manual budget exhausted; retain best candidate with original ASM active.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -86467,6 +86473,12 @@
       "symbol": "func_150F802C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5790,
+        "reason": "Manual budget exhausted after three finishes and two bounded revision probe batches: 7572 -> 7452 -> 5790. Concrete 0x58 object descriptor and 0x2C motion extension recovered. Scoped input pointer and hoisted X-step reduce register pressure, but frame remains 0x160 versus 0x150 with stack offsets, initial store scheduling and floating register lifetimes nonexact.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
