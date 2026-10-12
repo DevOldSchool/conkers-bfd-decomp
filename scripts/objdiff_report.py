@@ -491,6 +491,15 @@ def input_fingerprint() -> str:
     return objdiff_snapshot.input_fingerprint(ROOT)
 
 
+def verify_input_files(unit: dict) -> None:
+    # Generated references are checked for changes during generation, but are
+    # deliberately absent from the persistent editable-source freshness check.
+    for path, digest in (unit.get('source_inputs', {}) | unit.get('linked_inputs', {})
+                         | unit.get('reference_inputs', {})).items():
+        if objdiff_targets.sha256(ROOT / path) != digest:
+            raise ValueError('source or ROM build input changed during report generation: ' + path)
+
+
 def generate(binary: Path) -> int:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     for name in ('report.json', 'us_report.zip', 'validation.json'):
@@ -525,9 +534,7 @@ def generate(binary: Path) -> int:
     expected = coverage['expected_code_bytes']
     validate_report(report, coverage, config)
     for unit in coverage['units']:
-        for path, digest in (unit.get('source_inputs', {}) | unit.get('linked_inputs', {})).items():
-            if objdiff_targets.sha256(ROOT / path) != digest:
-                raise ValueError('source or ROM build input changed during report generation: ' + path)
+        verify_input_files(unit)
         if objdiff_targets.sha256(OUTPUT / unit['target_path']) != unit['target_sha256']:
             raise ValueError(f'validated target changed during report generation: {unit["key"]}')
         if unit.get('base_path'):

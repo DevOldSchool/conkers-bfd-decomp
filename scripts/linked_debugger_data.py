@@ -42,7 +42,7 @@ def relocation_addends_fit(obj, private: set[int]) -> bool:
         for addend in addends:
             if section in private:
                 signed = addend - (0x100000000 if addend & 0x80000000 else 0)
-                if not 0 <= value + signed < obj.sections[section][5]:
+                if not 0 <= value + signed <= obj.sections[section][5]:
                     return False
             elif addend and name.startswith('func_'):
                 return False
@@ -99,7 +99,7 @@ def context(root: Path, obj, symbol: str, start: int) -> dict | None:
     for _, (kind, target) in obj.relocations.items():
         name, value, size, section = target
         if section in private:
-            if kind not in (2, 5, 6) or not 0 <= value < obj.sections[section][5] or value + size > obj.sections[section][5]:
+            if kind not in (2, 5, 6) or not 0 <= value <= obj.sections[section][5] or value + size > obj.sections[section][5]:
                 raise CandidateMismatch('invalid debugger data relocation')
         elif section == text:
             if kind not in (2, 4) or not re.fullmatch(r'func_[0-9A-Fa-f]{8}', name) or text_start + value != int(name[5:], 16):

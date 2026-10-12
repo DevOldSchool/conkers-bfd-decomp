@@ -18,10 +18,13 @@ import normalize_asm
 import rom_span
 
 ROOT = Path(__file__).resolve().parent.parent
-_debugger_layout = debugger_layout.load(ROOT)
-DEBUGGER_ROM_START = _debugger_layout['rom_start']
-ORIGINS = {'main': 0x80000000, 'game': 0x15000000,
-           'debugger': _debugger_layout['origin']}
+OVERLAYS = ('main', 'game', 'debugger')
+
+
+def origin(overlay: str) -> int:
+    if overlay == 'debugger':
+        return debugger_layout.load(ROOT)['origin']
+    return {'main': 0x80000000, 'game': 0x15000000}[overlay]
 
 
 def sha256(path: Path) -> str:
@@ -54,7 +57,7 @@ def config_document(specs: list[dict], directory: Path, binary: Path, sha1: str)
         segments.append([0, 'bin', 'prefix'])
     segments.append({
         'name': overlay, 'type': 'code', 'start': specs[0]['start'],
-        'vram': ORIGINS[overlay] + specs[0]['start'],
+        'vram': origin(overlay) + specs[0]['start'],
         **({'align': 8} if overlay == 'debugger' else {}),
         'subsegments': [[s['start'], 'c' if s['kind'] == 'source' else 'asm', f"{s['start']:06X}"]
                         for s in specs],
@@ -107,7 +110,7 @@ def text_extent(data: bytes) -> int:
 def linker_script(specs: list[dict], objects: list[Path], externals: str) -> str:
     lines = ['SECTIONS {']
     for i, (spec, path) in enumerate(zip(specs, objects, strict=True)):
-        address = ORIGINS[spec['overlay']] + spec['start']
+        address = origin(spec['overlay']) + spec['start']
         lines += [f'.unit{i} 0x{address:X} : SUBALIGN(4) {{ "{path}"(.text) }}',
                   f'ASSERT(SIZEOF(.unit{i}) == {spec["end"] - spec["start"]}, "target extent {spec["key"]}")']
     lines += ['/DISCARD/ : { *(.reginfo) *(.MIPS.abiflags) *(.pdr) *(.gnu.attributes) *(.comment) }', '}']
@@ -149,9 +152,9 @@ def debugger_target_bytes(specs: list[dict], rom: bytes, digest: str) -> bytes:
     """Keep the complete checked debugger text, including its raw TLB tail."""
     code, base, checked_digest = rom_span.debugger_code(ROOT)
     units = [s for s in specs if s['overlay'] == 'debugger']
-    start = DEBUGGER_ROM_START
+    start = debugger_layout.load(ROOT)['rom_start']
     end = start + len(code)
-    if (base != ORIGINS['debugger'] + start or checked_digest != digest
+    if (base != origin('debugger') + start or checked_digest != digest
             or rom[start:end] != code):
         raise ValueError('debugger target input differs from the checked ROM image')
     if (not units or units[0]['start'] != start or units[-1]['end'] != end
@@ -188,7 +191,7 @@ def debugger_context_objects(directory: Path) -> tuple[list[Path], list[str]]:
 
 def prepare(specs: list[dict], output: Path) -> tuple[dict, dict]:
     """Fresh split, independent assembly, and whole-overlay link validation."""
-    if {s['overlay'] for s in specs} != set(ORIGINS):
+    if {s['overlay'] for s in specs} != set(OVERLAYS):
         raise ValueError('target plan must include every US CPU overlay')
     directory = output / 'targets'
     directory.mkdir(parents=True, exist_ok=True)
@@ -208,7 +211,7 @@ def prepare(specs: list[dict], output: Path) -> tuple[dict, dict]:
     for overlay, binary, original, origin, digest in (
         ('main', rom, rom_bytes, 0, profile['sha1']),
         ('game', game, game_bytes, 0, game_sha1),
-        ('debugger', rom, debugger_bytes, DEBUGGER_ROM_START, profile['sha1'])
+        ('debugger', rom, debugger_bytes, debugger_layout.load(ROOT)['rom_start'], profile['sha1'])
     ):
         units = [s for s in specs if s['overlay'] == overlay]
         dest = directory / overlay

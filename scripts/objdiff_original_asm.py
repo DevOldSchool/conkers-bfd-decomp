@@ -25,8 +25,9 @@ def prepare_candidate(spec: dict, root: Path, output: Path) -> dict:
     directory.mkdir(parents=True, exist_ok=True)
     candidate = directory / 'base.o'
     with (directory / 'maintained-assembly.log').open('w') as log:
-        subprocess.run(['mips-linux-gnu-as', '-W', '-EB', '-march=vr4300', '-mabi=32',
-                        '-I', 'include', '-o', str(candidate), str(source)],
+        subprocess.run(['make', '--no-print-directory', 'assemble-maintained', 'PROFILE=us',
+                        'MAINTAINED_SOURCE=' + str(source),
+                        'MAINTAINED_OBJECT=' + str(candidate)],
                        cwd=root, stdout=log, stderr=log, check=True)
     size = spec['end'] - spec['start']
     if objdiff_targets.text_extent(candidate.read_bytes()) != size:
@@ -36,7 +37,7 @@ def prepare_candidate(spec: dict, root: Path, output: Path) -> dict:
         raise ValueError('maintained assembly differs from the actual runtime linker input')
     obj = Object32(candidate.read_bytes())
     code, base, rom_hash = rom_span.debugger_code(root)
-    start = spec['start'] + objdiff_targets.ORIGINS['debugger']
+    start = spec['start'] + objdiff_targets.origin('debugger')
     declared = original_asm.declared_symbols(root, False)
     undefined = {name for symbols in obj.symbols.values()
                  for name, _, _, section in symbols if name and section == 0}
@@ -70,7 +71,7 @@ def qualify(spec: dict, runtime_inputs: dict, root: Path, *, output: Path | None
     by_id = {f['symbol']: f for f in functions}
     members = [by_id[name] for name in spec['original_asm_members']]
     start, end = spec['start'], spec['end']
-    cursor = start + objdiff_targets.ORIGINS['debugger']
+    cursor = start + objdiff_targets.origin('debugger')
     for member in members:
         original_asm.validate_metadata(member)
         region = member['regions']['us']
@@ -78,7 +79,7 @@ def qualify(spec: dict, runtime_inputs: dict, root: Path, *, output: Path | None
                 or region['state'] != 'original_asm' or int(region['vram'], 0) != cursor):
             raise ValueError('original assembly members do not cover the complete unit')
         cursor += region['size_bytes']
-    if cursor != end + objdiff_targets.ORIGINS['debugger']:
+    if cursor != end + objdiff_targets.origin('debugger'):
         raise ValueError('original assembly members do not cover the complete unit')
     entries = state.mapped_subsegments('us', 'debugger')
     position = next((i for i, (offset, _, _) in enumerate(entries) if offset == start), None)
@@ -89,13 +90,14 @@ def qualify(spec: dict, runtime_inputs: dict, root: Path, *, output: Path | None
         raise ValueError('original assembly completion needs its exact canonical ASM placement')
     prepare_nonmatching_asm.materialize('us', spec['source'])
     proofs = {}
+    reference_inputs = {}
     source_inputs = {spec['source']: objdiff_targets.sha256(root / spec['source'])}
     for member in members:
         proof = original_asm.verify(root, member)
         original_asm.require_unchanged_span(member, proof)
         proofs[member['symbol']] = proof
         path = state.nonmatching_asm_path(member['source'], member['regions']['us']['symbol'])
-        source_inputs[Path(path).as_posix()] = objdiff_targets.sha256(root / path)
+        reference_inputs[Path(path).as_posix()] = objdiff_targets.sha256(root / path)
     candidate = prepare_candidate(spec, root, output or root / 'build/us/objdiff-report')
     source_inputs.update(candidate.pop('maintained_source_inputs'))
     linked_inputs = candidate.pop('maintained_linked_inputs')
@@ -103,4 +105,5 @@ def qualify(spec: dict, runtime_inputs: dict, root: Path, *, output: Path | None
             'original_asm_proofs': proofs,
             'completion_reason': 'Maintained original assembly matches the full ROM span and actual runtime input',
             'source_inputs': source_inputs,
+            'reference_inputs': reference_inputs,
             'linked_inputs': {**runtime_inputs, **linked_inputs}}

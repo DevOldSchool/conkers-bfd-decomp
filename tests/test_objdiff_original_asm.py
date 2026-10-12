@@ -65,6 +65,9 @@ class OriginalAssemblyCompletionTests(unittest.TestCase):
         self.assertTrue(result['original_asm_completion_verified'])
         self.assertEqual(result['base_path'], 'debugger/tlb/base.o')
         self.assertEqual(result['source_inputs']['src/debugger/tlb.s'], 'hash')
+        self.assertTrue(result['reference_inputs'])
+        self.assertTrue(all(p.startswith('asm/') for p in result['reference_inputs']))
+        self.assertFalse(any(p.startswith('asm/') for p in result['source_inputs']))
         json.dumps(result)
 
 
@@ -83,6 +86,7 @@ class MaintainedAssemblyProofTests(unittest.TestCase):
         ):
             with self.subTest(error=error), tempfile.TemporaryDirectory() as tmp:
                 root = Path(tmp)
+                shutil.copy(ROOT / 'Makefile', root / 'Makefile')
                 source = root / 'src/debugger/tlb.s'
                 source.parent.mkdir(parents=True)
                 (root / 'config/symbols').mkdir(parents=True)
@@ -115,6 +119,7 @@ class MaintainedAssemblyProofTests(unittest.TestCase):
         for name, matches in [('D_160038AC', True), ('D_160038B0', False)]:
             with self.subTest(name=name), tempfile.TemporaryDirectory() as tmp:
                 root = Path(tmp)
+                shutil.copy(ROOT / 'Makefile', root / 'Makefile')
                 source = root / 'src/debugger/tlb.s'
                 source.parent.mkdir(parents=True)
                 source.write_text(source_text.replace('D_160038AC', name))
@@ -140,3 +145,16 @@ class MaintainedAssemblyProofTests(unittest.TestCase):
     def test_missing_maintained_source_cannot_use_generated_fallback(self):
         with tempfile.TemporaryDirectory() as tmp, self.assertRaisesRegex(ValueError, 'missing'):
             original.prepare_candidate({'source': 'src/debugger/tlb.c'}, Path(tmp), Path(tmp) / 'report')
+
+class SharedAssemblerSettingsTests(unittest.TestCase):
+    def test_report_target_obeys_make_assembler_and_flags(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            fake = root / 'assembler.py'
+            fake.write_text('import sys\nfrom pathlib import Path\nPath("args").write_text(" ".join(sys.argv[1:]))\n')
+            result = subprocess.run(['make', '-f', str(ROOT / 'Makefile'), 'assemble-maintained',
+                                     'AS=' + sys.executable + ' ' + str(fake), 'ASFLAGS=--changed-flag',
+                                     'MAINTAINED_SOURCE=source.s', 'MAINTAINED_OBJECT=candidate.o'],
+                                    cwd=root, text=True, capture_output=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual((root / 'args').read_text(), '--changed-flag -o candidate.o source.s')

@@ -43,7 +43,8 @@ For every report, `objdiff_original_asm.py` requires all of these checks:
 
 - Fresh independent original-span proof and unchanged registered ROM hash.
 - Exact canonical ASM placement and full registered member coverage.
-- A maintained `.s` source, freshly assembled into a separate candidate object.
+- A maintained `.s` source, freshly assembled into a separate candidate object
+  through Make's `assemble-maintained` target and the runtime `AS`/`ASFLAGS`.
 - An exact object comparison with the actual runtime linker input.
 - A separate link of the candidate at its original address, comparing all 160
   bytes, including padding, against the checked US ROM.
@@ -55,7 +56,9 @@ The report displays `debugger/tlb.s`, sets its source path to the maintained
 assembly, and assigns the `Original assembly` category alongside `Debugger
 overlay` and `Project code`. Both matching and linked completion require the
 proofs above. The final source/object hash checks prevent stale inputs from
-receiving credit. Missing source, changed instructions, changed padding, a
+receiving credit. Generated reference assembly is rechecked during generation,
+but is not an editable source required to keep a saved snapshot current.
+Missing source, changed instructions, changed padding, a
 different runtime object, absent proofs or missing category labels are rejected.
 
 This policy applies to this explicitly reviewed maintained unit. Generated

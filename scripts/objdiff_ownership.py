@@ -139,7 +139,7 @@ def verify_grouped_images(units: list[dict], output: Path) -> dict:
                 raise ValueError('original pointer definition conflicts: ' + name)
             definitions[name] = value
         paths = list(dict.fromkeys([u['target_path'] for u in code] + [p for _, p in data]))
-        code_start = objdiff_targets.ORIGINS[overlay] + code[0]['start']
+        code_start = objdiff_targets.origin(overlay) + code[0]['start']
         lines = ['SECTIONS {', f'.codeimage 0x{code_start:X} : SUBALIGN(1) {{']
         lines += [f'"{output / u["target_path"]}"(.text)' for u in code]
         lines += ['}', f'.dataimage 0x{data[0][0]["start"]:X} (INFO) : SUBALIGN(1) {{']

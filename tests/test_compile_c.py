@@ -82,3 +82,10 @@ class CompileCTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+class SourceReadTests(unittest.TestCase):
+    def test_execution_reads_source_once_and_shares_it_with_command_builder(self):
+        with patch.object(Path, 'read_text', return_value='void f(void) {}') as read, \
+             patch.object(compile_c.subprocess, 'run'):
+            compile_c.run_compile('us', Path('candidate.c'), Path('candidate.o'))
+        read.assert_called_once_with(encoding='utf-8')

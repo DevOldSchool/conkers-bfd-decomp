@@ -438,3 +438,18 @@ class DataCompletionQualificationTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+class GeneratedReferenceInputTests(unittest.TestCase):
+    def test_reference_is_checked_during_generation(self):
+        import hashlib
+        with tempfile.TemporaryDirectory() as tmp, patch.object(report, 'ROOT', Path(tmp)):
+            root = Path(tmp)
+            reference = root / 'asm/nonmatchings/tlb.s'
+            reference.parent.mkdir(parents=True)
+            reference.write_bytes(b'original')
+            unit = {'reference_inputs': {reference.relative_to(root).as_posix():
+                    hashlib.sha256(reference.read_bytes()).hexdigest()}}
+            report.verify_input_files(unit)
+            reference.write_bytes(b'changed')
+            with self.assertRaisesRegex(ValueError, 'input changed'):
+                report.verify_input_files(unit)

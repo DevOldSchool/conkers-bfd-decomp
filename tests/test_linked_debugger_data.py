@@ -39,10 +39,16 @@ class RelocationAddendTests(unittest.TestCase):
                                relocations=relocations, word=lambda section, offset: words[offset])
 
     def test_absolute_addend_cannot_escape_private_section(self):
-        for addend, expected in [(0, True), (12, True), (16, False), (0xFFFFFFFC, False)]:
+        for addend, expected in [(0, True), (12, True), (16, True), (20, False), (0xFFFFFFFC, False)]:
             with self.subTest(addend=addend):
                 obj = self.object({(0, 0): (2, ('.data', 0, 0, 1))}, {0: addend})
                 self.assertEqual(linked.relocation_addends_fit(obj, {1}), expected)
+
+    def test_zero_sized_end_label_is_a_legal_pointer(self):
+        obj = self.object({(0, 0): (2, ('end', 16, 0, 1))}, {0: 0})
+        self.assertTrue(linked.relocation_addends_fit(obj, {1}))
+        obj = self.object({(0, 0): (2, ('end', 16, 0, 1))}, {0: 4})
+        self.assertFalse(linked.relocation_addends_fit(obj, {1}))
 
     def test_negative_offset_can_stay_within_its_private_section(self):
         obj = self.object({(0, 0): (2, ('data', 8, 4, 1))}, {0: 0xFFFFFFFC})
@@ -51,7 +57,7 @@ class RelocationAddendTests(unittest.TestCase):
     def test_instruction_hi_lo_addends_are_checked(self):
         target = ('.data', 0, 0, 1)
         relocations = {(0, 0): (5, target), (0, 4): (6, target)}
-        for low, expected in [(0, True), (12, True), (16, False), (0xFFFC, False)]:
+        for low, expected in [(0, True), (12, True), (16, True), (20, False), (0xFFFC, False)]:
             with self.subTest(low=low):
                 obj = self.object(relocations, {0: 0x3C080000, 4: 0x25080000 | low})
                 self.assertEqual(linked.relocation_addends_fit(obj, {1}), expected)
@@ -108,3 +114,22 @@ class CandidateMismatchTests(unittest.TestCase):
                     with self.subTest(parsed=list(parsed)), patch.object(linked, 'sections', return_value=parsed):
                         with self.assertRaises(linked.CandidateMismatch):
                             linked.context(root, obj, 'f', 16)
+                data[5] = 8
+                obj.relocations = {(0, 0): (2, ('end', 8, 0, 1))}
+                obj.word = lambda section, offset: 0
+                with patch.object(linked, 'sections', return_value={'.text': (text, b'0' * 8), '.data': (data, b'0' * 8)}):
+                    self.assertIsNotNone(linked.context(root, obj, 'f', 16))
+
+class CandidateFallbackTests(unittest.TestCase):
+    def test_legacy_si_candidate_error_falls_back_to_symbolic_diff(self):
+        import linked_aliases
+        with patch.object(Path, 'read_bytes', return_value=b'elf'), \
+             patch.object(linked_aliases, 'Object32'), \
+             patch.object(linked_aliases, 'address_alias_present', return_value=True), \
+             patch.object(linked, 'context', return_value=None), \
+             patch.object(linked_aliases, 'si_definitions', side_effect=[{}, ValueError('candidate extent')]), \
+             patch.object(linked_aliases.rom_span, 'code_image') as image:
+            result = linked_aliases.prepare(ROOT, Path('candidate'), Path('reference'), Path('asm'),
+                                             'func_16000000', 0x16000000, 8, overlay='debugger')
+        self.assertIsNone(result)
+        image.assert_not_called()

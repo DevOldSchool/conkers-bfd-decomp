@@ -178,7 +178,7 @@ class TargetValidationTests(unittest.TestCase):
 
     def test_debugger_plan_must_cover_checked_text_including_raw_tail(self):
         code = bytes.fromhex('03e0000800000000')
-        start = targets.DEBUGGER_ROM_START
+        start = targets.debugger_layout.load(ROOT)['rom_start']
         rom = bytes(start) + code
         units = [{'overlay': 'debugger', 'start': start, 'end': start + len(code)}]
         with patch.object(targets.rom_span, 'debugger_code', return_value=(code, 0x16000000, 'sha1')):
@@ -206,7 +206,7 @@ class TargetValidationTests(unittest.TestCase):
         for corrupt in (False, True):
             with self.subTest(corrupt=corrupt), tempfile.TemporaryDirectory() as tmp, \
                     patch.object(targets, 'ROOT', Path(tmp)):
-                root, start = Path(tmp), targets.DEBUGGER_ROM_START
+                root, start = Path(tmp), targets.debugger_layout.load(ROOT)['rom_start']
                 code = bytes.fromhex('03e0000800000000')
                 game = bytes.fromhex('0800000400000000')
                 rom = code + bytes(start - len(code)) + code
@@ -244,7 +244,7 @@ class TargetValidationTests(unittest.TestCase):
                     return subprocess.CompletedProcess(command, 0)
                 with patch.object(targets.extract_game_code, 'extract_code', return_value=game), \
                         patch.object(targets.rom_span, 'debugger_code', return_value=(code, 0x16000000, digest)), \
-                        patch.object(targets.debugger_layout, 'load', return_value={'code_end': start + len(code), 'rom_end': start + len(code), 'context': []}), \
+                        patch.object(targets.debugger_layout, 'load', return_value={'rom_start': start, 'origin': 0x16000000 - start, 'code_end': start + len(code), 'rom_end': start + len(code), 'context': []}), \
                         patch.object(targets, 'text_extent', return_value=8), \
                         patch.object(targets.subprocess, 'run', side_effect=run):
                     if corrupt:
@@ -262,3 +262,16 @@ class TargetValidationTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+class LazyLayoutTests(unittest.TestCase):
+    def test_import_and_other_overlay_do_not_read_debugger_metadata(self):
+        import importlib.util
+        with patch.object(targets.debugger_layout, 'load', side_effect=ValueError('drift')) as load:
+            spec = importlib.util.spec_from_file_location('isolated_targets', ROOT / 'scripts/objdiff_targets.py')
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            self.assertEqual(module.origin('main'), 0x80000000)
+            self.assertEqual(module.origin('game'), 0x15000000)
+            load.assert_not_called()
+            with self.assertRaisesRegex(ValueError, 'drift'):
+                module.origin('debugger')

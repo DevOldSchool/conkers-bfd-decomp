@@ -7,6 +7,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import hashlib
+import threading
 from pathlib import Path
 
 from build_files import write_if_changed
@@ -17,6 +19,8 @@ ROOT = Path(__file__).resolve().parent.parent
 from debugger_asset_inputs import DIRECTORY, LEGACY_DIRECTORY, INPUTS, migrate
 
 GENERATED = Path('build/us/debugger-assets/ui.inc.c')
+_PREPARED = {}
+_PREPARE_LOCK = threading.Lock()
 
 
 def encode_atlas(pixels: bytes) -> bytes:
@@ -60,11 +64,11 @@ def extract(root: Path = ROOT) -> None:
             items.append({'address': address, 'text': raw[:-1].decode('ascii')})
     atlas = directory / 'glyphs.pgm'
     strings = directory / 'strings.json'
-    # Never silently overwrite user edits or a partially existing input set.
-    if not atlas.exists():
-        atlas.write_bytes(b'P5\n128 48\n255\n' + decode_atlas(rom[layout['start'] - origin:layout['strings_start'] - origin]))
-    if not strings.exists():
-        strings.write_text(json.dumps(items, indent=2) + '\n')
+    # Exclusive creation also rejects another process creating inputs after the guard.
+    with atlas.open('xb') as stream:
+        stream.write(b'P5\n128 48\n255\n' + decode_atlas(rom[layout['start'] - origin:layout['strings_start'] - origin]))
+    with strings.open('x') as stream:
+        stream.write(json.dumps(items, indent=2) + '\n')
 
 
 def pack(root: Path = ROOT) -> tuple[bytes, list[tuple[int, bytes]]]:
@@ -102,7 +106,26 @@ def ensure_inputs(root: Path) -> None:
 
 
 def prepare(root: Path = ROOT, *, output: Path | None = None) -> Path:
-    ensure_inputs(root)
+    """Reuse unchanged inputs during probe/permutation loops; hash contents, not mtimes."""
+    path = output if output is not None else root / GENERATED
+    with _PREPARE_LOCK:
+        ensure_inputs(root)
+        inputs = [root / DIRECTORY / name for name in INPUTS]
+        inputs += sorted((root / 'config/profiles').rglob('*.yaml'))
+        inputs += [root / 'config/reference/us.yaml',
+                   root / 'docs/evidence/debugger/us_debugger_data_objects.json']
+        fingerprint = tuple((str(p), hashlib.sha256(p.read_bytes()).digest()
+                             if p.is_file() else None) for p in inputs)
+        key = (root.resolve(), path.resolve())
+        previous = _PREPARED.get(key)
+        if previous and previous[0] == fingerprint and path.is_file() and path.read_bytes() == previous[1]:
+            return path
+        result = _generate(root, output=path)
+        _PREPARED[key] = (fingerprint, result.read_bytes())
+        return result
+
+
+def _generate(root: Path, *, output: Path) -> Path:
     layout = debugger_layout.ui(root)
     payload, strings = pack(root)
     lines = ['/* Generated from local editable debugger assets. Do not commit. */',

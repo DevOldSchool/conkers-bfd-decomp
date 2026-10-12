@@ -91,3 +91,12 @@ class DebuggerAllocatedDataTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+class DerivedImageBoundsTests(unittest.TestCase):
+    def test_image_extent_comes_from_reviewed_layout(self):
+        layout = {'vram': 0x17000000, 'rom_start': 0x100, 'rom_end': 0x120}
+        with patch.object(verifier.debugger_layout, 'load', return_value=layout):
+            payload = bytes(32)
+            self.assertEqual(verifier.allocated_image(elf_fixture([(NAME, payload, layout['vram'], 7, 1)])), payload)
+            with self.assertRaisesRegex(ValueError, 'extent'):
+                verifier.allocated_image(elf_fixture())

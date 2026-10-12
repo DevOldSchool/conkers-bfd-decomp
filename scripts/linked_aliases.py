@@ -330,8 +330,14 @@ def prepare(root: Path, candidate: Path, reference: Path, assembly: Path,
             data_layout = linked_debugger_data.context(root, current, symbol, start)
         except linked_debugger_data.CandidateMismatch:
             return None
-        current_symbols = (data_layout['definitions'] if data_layout else
-                           si_definitions(current, symbol, start, size, empty_companion=empty_companion))
+        if data_layout:
+            current_symbols = data_layout['definitions']
+        else:
+            try:
+                current_symbols = si_definitions(
+                    current, symbol, start, size, empty_companion=empty_companion)
+            except ValueError:
+                return None
     if current_symbols is None or raw_symbols is None:
         return None
     code, base, _ = rom_span.code_image(root, overlay)

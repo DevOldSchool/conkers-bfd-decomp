@@ -6,21 +6,22 @@ from pathlib import Path
 
 from elf_sections import sections
 import rom_span
+import debugger_layout
 
 ROOT = Path(__file__).resolve().parent.parent
-IMAGE_VRAM = 0x16000000
-IMAGE_SIZE = 0x4960
 
 
 def allocated_image(elf: bytes) -> bytes:
     """Require runtime bytes, not a non-allocated verification-only copy."""
+    layout = debugger_layout.load(ROOT)
+    extent = layout['rom_end'] - layout['rom_start']
     parsed = sections(elf, 2)
     if any(name.startswith('.debugger_rodata') for name in parsed):
         raise ValueError('obsolete external debugger rodata section')
     if '.debugger' not in parsed:
         raise ValueError('missing allocated debugger image')
     header, image = parsed['.debugger']
-    if header[1] != 1 or header[2] != 7 or (header[3], header[5]) != (IMAGE_VRAM, IMAGE_SIZE):
+    if header[1] != 1 or header[2] != 7 or (header[3], header[5]) != (layout['vram'], extent):
         raise ValueError('incorrect allocated debugger image extent/type/flags')
     return image
 
@@ -28,7 +29,7 @@ def allocated_image(elf: bytes) -> bytes:
 def verify(elf: Path) -> None:
     image = allocated_image(elf.read_bytes())
     code, data, code_base, data_base, _ = rom_span.debugger_image(ROOT)
-    if code_base != IMAGE_VRAM or data_base != code_base + len(code):
+    if code_base != debugger_layout.load(ROOT)['vram'] or data_base != code_base + len(code):
         raise ValueError('debugger loader boundaries changed')
     expected = code + data
     if image != expected:

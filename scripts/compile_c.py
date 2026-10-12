@@ -14,6 +14,7 @@ IDO_CC = Path("/opt/ido/cc")
 ASM_PROCESSOR = Path("/opt/tools/asm-processor/build.py")
 ASM_PROCESSOR_PRELUDE = Path("/opt/tools/asm-processor/prelude.inc")
 ASSEMBLER = "mips-linux-gnu-as"
+DEBUGGER_UI_INCLUDE = '#include "debugger-assets/ui.inc.c"'
 GLOBAL_ASM_PRAGMA = re.compile(r"^[ \t]*#pragma[ \t]+GLOBAL_ASM\(", re.MULTILINE)
 
 
@@ -44,11 +45,13 @@ def compiler_flags(profile: str) -> list[str]:
 
 
 def compile_command(profile: str, source: Path, output: Path, *,
-                    generated_dir: Path | None = None) -> list[str]:
+                    generated_dir: Path | None = None, source_text: str | None = None) -> list[str]:
+    if source_text is None:
+        source_text = source.read_text(encoding="utf-8")
     flags = compiler_flags(profile)
-    if '#include "debugger-assets/ui.inc.c"' in source.read_text():
+    if DEBUGGER_UI_INCLUDE in source_text:
         flags += ['-I', str(generated_dir or ROOT / 'build' / profile)]
-    if not GLOBAL_ASM_PRAGMA.search(source.read_text(encoding="utf-8")):
+    if not GLOBAL_ASM_PRAGMA.search(source_text):
         return [str(IDO_CC), *flags, "-o", str(output), str(source)]
     return [
         "python3",
@@ -77,14 +80,15 @@ def compile_command(profile: str, source: Path, output: Path, *,
 def run_compile(profile: str, source: Path, output: Path, *,
                 inputs_prepared: bool = False, generated_dir: Path | None = None, **kwargs):
     """Prepare local generated inputs explicitly, then execute the compiler."""
-    if not inputs_prepared and '#include "debugger-assets/ui.inc.c"' in source.read_text():
+    source_text = source.read_text(encoding="utf-8")
+    if not inputs_prepared and DEBUGGER_UI_INCLUDE in source_text:
         if profile != 'us':
             raise ValueError('debugger assets currently support US only')
         import debugger_assets
         debugger_assets.prepare(ROOT, output=(generated_dir or ROOT / 'build' / profile)
                                 / 'debugger-assets/ui.inc.c')
     options = {'generated_dir': generated_dir} if generated_dir is not None else {}
-    return subprocess.run(compile_command(profile, source, output, **options), **kwargs)
+    return subprocess.run(compile_command(profile, source, output, source_text=source_text, **options), **kwargs)
 
 
 def main() -> int:

@@ -135,3 +135,40 @@ class DebuggerAssetTests(unittest.TestCase):
                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             self.assertNotEqual(result.returncode, 0)
             self.assertEqual((legacy / 'strings.json').read_bytes(), b'user edits')
+
+class PreparationCacheTests(unittest.TestCase):
+    def test_cache_detects_content_edits_output_loss_and_metadata_changes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            inputs = root / assets.DIRECTORY
+            inputs.mkdir(parents=True)
+            for name in assets.INPUTS:
+                (inputs / name).write_bytes(b'original')
+            output = root / assets.GENERATED
+            def generate(root, *, output):
+                output.parent.mkdir(parents=True, exist_ok=True)
+                output.write_bytes((inputs / 'strings.json').read_bytes())
+                return output
+            with patch.object(assets, '_generate', side_effect=generate) as rebuild:
+                assets.prepare(root)
+                assets.prepare(root)
+                self.assertEqual(rebuild.call_count, 1)
+                # Same size and unchanged mtime must not conceal an edit.
+                import os
+                source = inputs / 'strings.json'
+                st = source.stat()
+                source.write_bytes(b'modified')
+                os.utime(source, ns=(st.st_atime_ns, st.st_mtime_ns))
+                assets.prepare(root)
+                self.assertEqual(rebuild.call_count, 2)
+                output.unlink()
+                assets.prepare(root)
+                self.assertEqual(rebuild.call_count, 3)
+                config = root / 'config/profiles/us.yaml'
+                config.parent.mkdir(parents=True)
+                config.write_text('changed metadata')
+                assets.prepare(root)
+                self.assertEqual(rebuild.call_count, 4)
+                (inputs / 'glyphs.pgm').unlink()
+                with self.assertRaisesRegex(ValueError, 'partial'):
+                    assets.prepare(root)

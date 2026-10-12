@@ -61,7 +61,7 @@ endif
 endif
 # Load the US layout by default, including aliases and future aggregate goals.
 # Only goals known not to link the ROM may bypass broken asset fragments.
-NON_ROM_GOALS := clean help prepare-reference libultra libultrare profile-libs game-libs \
+NON_ROM_GOALS := clean help assemble-maintained prepare-reference libultra libultrare profile-libs game-libs \
 	game-asm game-asm-prepare game-integrated game-integrated-refresh \
 	game-integrated-prepare game-integrated-raw diff \
 	build/game-reference/% build/game-integrated/% build/game-libs/%
@@ -376,6 +376,13 @@ $(NORMALIZED_ASM_DIR)/%.s: asm/%.s scripts/normalize_asm.py
 $(BUILD_DIR)/asm/%.o: $(NORMALIZED_ASM_DIR)/%.s
 	@mkdir -p "$(@D)"
 	$(AS) $(ASFLAGS) -o $@ $<
+
+# Report candidates use the same assembler settings as the runtime rule.
+.PHONY: assemble-maintained
+assemble-maintained:
+	@test -n "$(MAINTAINED_SOURCE)" && test -n "$(MAINTAINED_OBJECT)"
+	@mkdir -p "$(dir $(MAINTAINED_OBJECT))"
+	$(AS) $(ASFLAGS) -o "$(MAINTAINED_OBJECT)" "$(MAINTAINED_SOURCE)"
 
 ifeq ($(PROFILE),us)
 # Canonical placement stays fixed; generated disassembly is only a reference.

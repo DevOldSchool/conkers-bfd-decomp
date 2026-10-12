@@ -27,7 +27,10 @@ are not overwritten. A changed pixel or string reaches the actual C object and
 is rejected by ROM verification if it differs from the original. No extracted
 asset or generated include belongs in a commit.
 
-`compile_c.py` prepares the include for focused compiles; the Make dependency
+`compile_c.py` reads each compile source once and prepares the include for focused
+compiles. In-process probe/permutation loops reuse unchanged preparation after
+checking input and output contents; edits, metadata changes and deleted outputs
+invalidate that cache; the Make dependency
 also refreshes the actual linker object after input changes. Native report
 provenance records both editable inputs and checks they stay unchanged through
 generation. Candidate storage, relocations and symbols must equal the actual
@@ -103,3 +106,31 @@ Preparation took 268.18 seconds and native report/validation
 took 9.63 seconds. These are tool timings, not
 total interactive work time. The log is `review-stock-report-final.log`; the
 asset and test logs are `review-main-assets.log` and `review-main-tests2.log`.
+
+## Follow-up review validation on 2026-10-12
+
+The second review tightened the remaining legacy SI mismatch fallback, moved
+reference assembly hashes out of editable-source provenance, made debugger
+layout loading lazy, and shared Make's runtime assembler settings with the
+maintained-assembly candidate. Legal one-past-end pointer values still require
+the full linked-ROM proof. Allocated image bounds now come from the shared
+layout, and compile preparation reads source once and caches unchanged inputs
+by content. Extraction uses exclusive creation to preserve concurrent edits.
+
+Verified on `426b28349df232e8a83beaed62e6750e4e3467c5` with these review fixes. The full
+Docker suite passed 2,501 tests (eight skips); the final nine-test relocation
+suite also passed, including the added section-end-label case. A fresh
+`./conker build --assets` returned a byte-identical US ROM in 125 seconds.
+The stock report passed all coverage, source/object hash and native round-trip
+checks, with no compile errors and the unchanged debugger metrics above.
+Temporarily removing its generated TLB reference left the real saved snapshot
+`current`; the reference was restored afterward. Its hash remains checked
+during report generation. Removing `build/` itself also removes the local report.
+
+Current source fingerprint:
+`684f55ea7b05ee0843899da4895dd45187e8f8639ec588ca7f7f8554a975ef2f`.
+Native report SHA-256:
+`aec19065a12749ad0b555ee9856209456ef4e6244028cfa4652074c5bd894aec`.
+Preparation took 302.00 seconds and report/validation
+13.88 seconds. Logs: `review2-tests.log`,
+`review2-assets.log`, and `review2-report.log` in the local evidence directory.

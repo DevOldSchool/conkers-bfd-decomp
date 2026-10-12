@@ -731,7 +731,7 @@ class DiffReferenceTests(unittest.TestCase):
             ):
                 self.assertEqual(output, diff_helper.compile_candidate("us", source))
 
-            command.assert_called_once_with("us", focused, output)
+            command.assert_called_once_with("us", focused, output, source_text=focused.read_text())
             run.assert_called_once_with(["true"], cwd=temporary_root, check=True)
 
     def test_rejects_a_target_still_supplied_by_global_asm(self) -> None:
