@@ -95008,17 +95008,16 @@
       "symbol": "func_80010154"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 745,
-        "reason": "Full532 CURRENT745 independently restored910e5e32 after typed assignment-result chains940 and805; first keeps V1 but stores V0 before MOVE, reversed chain repeats old T0 flags/result drift. Both exhausted; callback store remains early and final SH merged.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 532,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80010344",
           "vram": "0x80010344"
         }
@@ -95390,17 +95389,16 @@
       "symbol": "func_800114D0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 298,
-        "reason": "Full1428 CURRENT298 unchanged; re-deferred so sibling func_8000F6B8 layout can be verified. Permuter pass 3 in progress; see main-permuter-20261010 ledger.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1428,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80011624",
           "vram": "0x80011624"
         }
