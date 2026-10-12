@@ -29523,6 +29523,12 @@
       "symbol": "func_15004574"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2577,
+        "reason": "Manual budget exhausted after three finishes and two revision probe batches: 3682 to 2592 to 2577. Frame E0 and scratch offsets recovered; callback spill 68 versus 6C, buffer index/GPR allocation, vertex-loop initialization scheduling and second-pass global-address hoisting/control flow remain nonexact.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -82878,6 +82884,12 @@
       "symbol": "func_150F1CB0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4890,
+        "reason": "Manual budget exhausted: initial CURRENT 4890 remains best after two non-improving revision probe batches. Packet layouts and call order recovered; frame F8 versus F0, mixed-width flag lifetime/spill, folded identity and zero multiplications, and packet float-store scheduling remain nonexact.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

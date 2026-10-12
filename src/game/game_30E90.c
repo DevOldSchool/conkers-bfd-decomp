@@ -32,7 +32,115 @@ void func_15004574(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15004574 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_30E90/func_15004574.s")
+void func_10023A10(void *, void *, s32);
+void func_15004A4C(void);
+void func_150A44F0(s32, void *, s32);
+void func_150A7790(void *, s32);
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+void func_150A7BC0(void *);
+void func_1511490C(void *, void *);
+void func_1510E7A4(s32, s32, s32, s32, s32, s32, f32, f32, f32, f32, u16, s32, f32, f32);
+void func_1510F800(s32);
+void func_151150B0(s32);
+void func_15116058(void *);
+void func_15116110(void *);
+extern s32 *D_80089250[];
+extern f32 D_800959D0, D_800959D4;
+extern u8 D_800BE9C0;
+extern s16 D_800D37E0;
+extern u8 D_800DBF08[], D_800DBF48[];
+extern s32 D_800DBEF0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150045C4 CURRENT (2577) */
+void func_150045C4(s32 arg0) {
+    s32 index;
+    s32 count;
+    f32 matrix[16];
+    s32 offset;
+    s32 flags;
+    f32 height;
+    s32 hit;
+    f32 x, y, z;
+    s32 vertexIndex;
+    s32 vertexOffset;
+    u8 *object;
+
+    func_15004A4C();
+    func_150A7BC0(D_800DBF08);
+    func_150A7BC0(D_800DBF48);
+    count = D_800DBEF0;
+    index = 0;
+    offset = 0;
+    if (count > 0) {
+        do {
+            object = (u8 *)(offset + D_800DBEF4);
+            if (*(s32 *)(object + 0x38) == 0 ||
+                (s32)func_15116058 == *(s32 *)(object + 0x38) ||
+                (s32)func_15116110 == *(s32 *)(object + 0x38)) {
+                object[0x4E] = 3;
+            }
+            if (!(object[0x70] & 1)) {
+                func_1511490C(matrix, object);
+                vertexOffset = index << 6;
+                func_150A7790(matrix, *D_80089250[D_800BE9C0] + vertexOffset);
+                vertexIndex = D_800BE9C0;
+                count = vertexIndex == 0;
+                func_10023A10((void *)(*D_80089250[vertexIndex] + vertexOffset),
+                             (void *)(*D_80089250[count] + vertexOffset), 0x40);
+            }
+            if ((s32)func_151150B0 == *(s32 *)(object + 0x38)) {
+                *(s32 *)(object + 0x38) = 0;
+            }
+            if ((object[0x70] & 1) == 1) {
+                vertexIndex = 0;
+                func_1511490C(matrix, object);
+                vertexOffset = 0;
+                if (*(u16 *)(object + 0x16) > 0) {
+                    do {
+                        func_150A7960(matrix, *(s16 *)(*(u8 **)(object + 0x28) + vertexOffset + 0), *(s16 *)(*(u8 **)(object + 0x28) + vertexOffset + 2), *(s16 *)(*(u8 **)(object + 0x28) + vertexOffset + 4), &x, &y, &z);
+                        vertexIndex++;
+                        *(s16 *)(*(u8 **)(object + 0x20) + vertexOffset) = (s32)x;
+                        *(s16 *)(*(u8 **)(object + 0x20) + vertexOffset + 2) = (s32)y;
+                        *(s16 *)(*(u8 **)(object + 0x20) + vertexOffset + 4) = (s32)z;
+                        vertexOffset += 0x10;
+                    } while (vertexIndex < *(u16 *)(object + 0x16));
+                }
+                func_10023A10(*(void **)(object + 0x20), *(void **)(object + 0x24),
+                             *(u16 *)(object + 0x16) * 0x10);
+            }
+            func_1510F800(2);
+            if ((object[0x6F] & 0x80) == 0x80 && (object[0x4F] & 0x60) != 0x20) {
+                D_800D37E0 = index;
+                func_150A44F0(1, &D_800D37E0, 1);
+            }
+            count = D_800DBEF0;
+            index++;
+            offset += 0xA0;
+        } while (index < count);
+        index = 0;
+    }
+    offset = 0;
+    if (count > 0) {
+        do {
+            object = (u8 *)(offset + D_800DBEF4);
+            if (object[0x6E] == 1) {
+            } else if ((object[0x6F] & 0x20) == 0x20) {
+                func_1510E7A4((s32)&hit, 0, (s32)&height, 0, (s32)&flags, 0,
+                             *(s16 *)(object + 0x10), (f32)*(s16 *)(object + 0x12), *(s16 *)(object + 0x14),
+                             (f32)*(s16 *)(object + 0x12), (u16)(index + 1), 0, D_800959D0, D_800959D4);
+                *(s32 *)(object + 0x80) = hit;
+                *(f32 *)(object + 0x84) = height;
+                count = D_800DBEF0;
+            }
+            vertexIndex = index + 1;
+            index = vertexIndex;
+            offset += 0xA0;
+        } while (vertexIndex < count);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150045C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_30E90/func_150045C4.s")
+
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150049A4 CURRENT (1375) */
 void func_150049A4(s8 *arg0, s32 arg1, s32 arg2) {
     s32 offset1;
