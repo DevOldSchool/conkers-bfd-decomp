@@ -15,7 +15,6 @@
  * - func_150C2C00
  * - func_150C3230
  * - func_150C3574
- * - func_150C3D5C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -832,4 +831,60 @@ void func_150C3994(u8 *arg0) {
 s32 func_150C3D48(s32 arg0) {
     return arg0 + 0xEDCBA988;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3D5C.s")
+typedef struct GameEF410Light {
+    u8 type;
+    s8 mode;
+    s16 duration;
+    u8 flags;
+} GameEF410Light;
+
+void func_10004074(void *);
+void func_151EF040(s32, s32 *);
+void func_151709B4(s32, s32, s32, s32, f32, u8, s32);
+void func_15171200(s32, s32, f32, f32, f32, f32, f32, f32, f32,
+                   s32, s32, f32, s32, s32);
+s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_1516D99C(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, u8, s32);
+extern f32 D_800A0338;
+
+void func_150C3D5C(u8 *arg0) {
+    s32 check;
+    void (*readCode)(s32, s32 *);
+    u32 *code;
+    GameEF410Light light;
+    s32 position[3];
+
+    func_151B9BF0(0x2F, 1, (s16)(s32)*(f32 *)(arg0 + 0x14),
+                  (s16)(s32)*(f32 *)(arg0 + 0x18),
+                  (s16)(s32)*(f32 *)(arg0 + 0x1C), 0x578, 0x500, 0x320,
+                  0x4B0, 0x200, 0x200, 0x1E, 1, 0, 255, 0);
+    check = 0xC23459B8;
+    readCode = func_151EF040;
+    readCode(func_150C3D48(0xC23459B8), &check);
+    if (check != 0x0330C820) {
+        code = (u32 *)func_10004074;
+        code[0] = 0x03E00008;
+        code[1] = 0;
+    }
+    func_15171200(3, 0xCB, *(f32 *)(arg0 + 0x14), *(f32 *)(arg0 + 0x18),
+                   *(f32 *)(arg0 + 0x1C), 10.0f, 1.0f, 2.0f, 60.0f, 3,
+                   60, D_800A0338, 255, 0);
+    func_151709B4((s32)*(f32 *)(arg0 + 0x14),
+                   (s32)(*(f32 *)(arg0 + 0x18) + 20.0f),
+                   (s32)*(f32 *)(arg0 + 0x1C), 10, 2000.0f, 255, 0);
+    func_1516D99C((s16)(s32)*(f32 *)(arg0 + 0x14),
+                   (s16)(s32)*(f32 *)(arg0 + 0x18),
+                   (s16)(s32)*(f32 *)(arg0 + 0x1C),
+                   0xD, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 255, 0, 0, 0,
+                   20, 20, 2, 0, 0, 0, 0, 0x51, 0x51, 0x51, 0x51, 10, 1,
+                   0, 255, 10, 0x578, 0x190, 1, 1, 0, 1, 0, 0, 0, 0, 0, 255, 0);
+    light.type = 3;
+    light.mode = -1;
+    light.duration = func_150ADA20() % 11U + 10;
+    light.flags = 0;
+    position[0] = *(f32 *)(arg0 + 0x14);
+    position[1] = *(f32 *)(arg0 + 0x18);
+    position[2] = *(f32 *)(arg0 + 0x1C);
+    func_151602C0(&light.type, position, func_150ADA20() % 52U + 40,
+                   255, 255, 90, 255, 0, 0, 255, 1);
+}

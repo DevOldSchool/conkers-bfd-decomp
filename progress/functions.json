@@ -32026,8 +32026,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 964,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C3D5C",
           "vram": "0x150C3D5C"
         }
@@ -52827,6 +52832,12 @@
       "symbol": "func_151511FC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1114,
+        "reason": "CURRENT1114 from1649. Local byte snapshot improves masking and register allocation but frame118 versus110 leaves stack objects8high; entry masking and saved-register allocation still differ. Two finishes and two bounded revision probes plus one unchanged layout diagnostic. Inlining integer RNG did not improve; preserve named RNG call order. Budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -69505,6 +69516,12 @@
       "symbol": "func_150DFDD0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 110,
+        "reason": "CURRENT110 from331; frameB0 and all object/stack offsets recovered by inlining the third particle RNG result. Only end-of-particle-timer pointer reload differs (t6 plus move to v0 versus direct v0), shifting two branches. Two finishes/two bounded revision probes; an extra unchanged layout diagnostic identified slots. Final named-RNG-lifetime probes did not improve. Budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
