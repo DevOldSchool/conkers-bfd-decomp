@@ -547,7 +547,7 @@ typedef struct Game133190BeamChain {
 Game133190Object *func_15105CE0(Game133190Beam *, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151072BC CURRENT (380) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151072BC CURRENT (348) */
 void func_151072BC(u8 *arg0) {
     Game133190Object *child;
     Game133190Beam beam;
@@ -555,8 +555,6 @@ void func_151072BC(u8 *arg0) {
     Game133190Vector direction;
     Game133190BeamConfig *config;
     Game133190BeamChain *chain;
-    u32 randomB;
-    u32 randomA;
 
     chain = (Game133190BeamChain *)(arg0 + 0x28);
     if (*(s32 *)(arg0 + 0x30) == 0) {
@@ -575,18 +573,14 @@ void func_151072BC(u8 *arg0) {
         beam.upper = config->upper;
         beam.position = chain->points[chain->index];
         beam.contact = chain->points[chain->index + 1];
-        randomA = func_150ADA20();
-        randomB = func_150ADA20();
-        func_15143794((s16)(randomA & 0xFF),
-            (s16)(randomB % (u32)(config->spread + 1) - (config->spread >> 1) - 0x40),
+        func_15143794((s16)(func_150ADA20() & 0xFF),
+            (s16)(func_150ADA20() % (u32)(config->spread + 1) - (config->spread >> 1) - 0x40),
             func_150ADA68() * config->speedRange + config->speedBase, &direction);
         beam.axis0.x = beam.position.x + direction.x;
         beam.axis0.y = beam.position.y + direction.y;
         beam.axis0.z = beam.position.z + direction.z;
-        randomA = func_150ADA20();
-        randomB = func_150ADA20();
-        func_15143794((s16)(randomA & 0xFF),
-            (s16)(randomB % (u32)(config->spread + 1) - (config->spread >> 1) - 0x40),
+        func_15143794((s16)(func_150ADA20() & 0xFF),
+            (s16)(func_150ADA20() % (u32)(config->spread + 1) - (config->spread >> 1) - 0x40),
             func_150ADA68() * config->speedRange + config->speedBase, &direction);
         beam.axis1.x = beam.contact.x + direction.x;
         beam.axis1.y = beam.contact.y + direction.y;

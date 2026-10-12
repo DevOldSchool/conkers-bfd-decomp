@@ -3717,7 +3717,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 80,
-        "reason": "CURRENT 80 after three focused comparisons and two manual probe batches: exact frame, offsets, registers and branches; two address setup instructions are swapped and one zero store is scheduled before the vector copy. Initialization-order hypotheses exhausted; no shared dependency changes.",
+        "reason": "Retain CURRENT80. Renewed deferred pass: two bounded probe batches. Explicit destination cursor, union view and record view remain80; moving zero store after copy or comma-copy regresses550. No probe applied. Frame, offsets, operands and control flow match; destination/source address setup order and one zero-store placement remain different. Prior three finishes/two batches retained; renewed hypotheses exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -34613,8 +34613,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 380,
-        "reason": "CURRENT380: instruction sequence identical; frame0xB0 versus0xA8 and all addressed locals eight bytes high, plus three final counter-register rows. Two finishes/two bounded probe batches exhausted. Typed and explicit byte-pointer arithmetic did not alter hidden stack reservations.",
+        "current_score": 348,
+        "reason": "Improved380 to364 to348 in renewed deferred pass. Two authoritative finishes and two bounded probe batches plus one layout diagnostic. Inlining both RNG arguments recovers raw temporary spill offsets and preserves generated call order; frame remains0xB0 versus0xA8, addressed locals eight bytes high, and three final counter GPR rows differ. Explicit vector cursor regressed1270. No shared changes; renewed and prior hypotheses exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -84513,7 +84513,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 135,
-        "reason": "CURRENT 135 with corrected 0x70-byte packet storage; frame, stack offsets, instruction sequence and operands agree, with 25 register-only rows remaining. Two finishes (initial 0x68-byte packet invalidated) and two bounded probe batches. Payload-lifetime probe unchanged; signed tail worsened to 140. Canonical assembly retained; no shared changes.",
+        "reason": "Retain corrected0x70-byte packet candidate CURRENT135. Renewed deferred pass: two bounded probe batches; destination assignment and integer-address forms remained135, combined flag constant783, compound packet flags2073, merged existing flag lifetimes528. No regressed probe applied. Frame, offsets and instruction sequence remain exact; early state-pointer and final flag/tail GPR allocation still differ. Prior two finishes/two batches retained; renewed hypotheses exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -90602,7 +90602,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Manual revision budget exhausted: 2475 to 10; all instruction ordering and registers match except the 0x20 versus 0x28 frame. Named loop-bound probe recovers the frame but changes unrolling and regresses to 21635. Retained switch-exit candidate; jump-table data integration remains unverified.",
+        "reason": "Retain original best CURRENT10, frame0x20 versus0x28 only. Renewed pass: two bounded probe batches and one structural finish. Explicit runtime scale/mode snapshots recover0x28 frame and correct idspill1C but score230 because values promote to f0/a0 and shift scheduling; aggregate-field forms remain230. Restored original best; no artificial padding or shared changes. Prior two finishes/two batches retained, renewed hypotheses exhausted; jump-table data integration remains unverified.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
