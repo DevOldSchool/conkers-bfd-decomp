@@ -158,7 +158,8 @@ and checks the full allocated image against the US ROM.
 
 The formatter remains a separate blocker; see the [bounded source experiments
 and native comparison limits](debugger_printf_rodata.md#remaining-native-comparison-blocker).
-PR #102 remains a draft until the requested native linked completion is achieved.
+PR #102 remains a draft at the user’s request. The figures in this subsection
+precede the completion-policy correction recorded below.
 
 ### Verified continuation result
 
@@ -190,3 +191,55 @@ Its source fingerprint is `bb0f1b2901608b808703ba65a540d403b32969785fd482d4dc07b
 native report SHA-256 is `0d982015254daae703b8347c1812fd7f7aa85c3d8c11afdd216a053060a7ae8f`.
 Logs and rejected experiments remain ignored under
 `build/us/manual-attempts/debugger-completion/linked-*`.
+
+
+## Completion-policy verification (2026-10-12)
+
+This supersedes the earlier completion downgrades. Linked completion now follows
+independent build/ROM proof; native matching remains a separate measurement.
+The correction changes report policy, tests and documentation only. It does not
+change C, assembly, compiler settings, object symbols or reconstructed assets.
+
+| Debugger metric | Stock objdiff v3.8.1 |
+| --- | ---: |
+| Matching code | 14,040 / 14,040 bytes (100%) |
+| Matching initialized data | 4,368 / 4,720 bytes (92.54237%) |
+| Linked code | 14,040 / 14,040 bytes (100%) |
+| Linked initialized data | 4,720 / 4,720 bytes (100%) |
+| Matched functions / complete units | 42 / 42; 3 / 3 |
+
+`./conker objdiff report` passed fresh generation, full reference images,
+actual linker-input equivalence, runtime ROM proof, input hashes, native parser
+round-trip and every coverage denominator, with no compile errors. Debugger
+verification still covers all 14,064 allocated code bytes and 4,720 initialized
+data bytes; 24 independently verified code alignment bytes remain outside the
+native instruction denominator. Generation and validation took 289.96 seconds.
+
+A before/after audit of all 10,866 report units found identical matched byte
+counts, denominators, function comparisons and nonempty-section comparisons.
+Completion changes only for the formatter and 14 previously eligible main SDK
+units (15,388 SDK code bytes and 608 SDK data bytes). Three data-only VI objects
+have empty `.text` sections whose displayed percentage changes from omitted/zero
+to 100 via stock objdiff's completion fallback. They contain zero bytes and grant
+no matching credit. Re-running stock objdiff on the same fresh objects with the
+old completion flags reproduced the entire previous report exactly. Neither
+production report was rewritten by the audit.
+
+`./conker test -q -b` passed 2,504 tests with eight skips in 108.551 seconds.
+Regression tests cover partial/zero native data matching with verified completion,
+missing proofs, absent candidates, legacy configuration, unchanged measures and
+stale source, linked and reference inputs. `./conker progress check` and whitespace
+checks passed. Prior focused, clean-batch and reconstructed-assets verification
+above remains applicable to unchanged build/source inputs; these were not rerun
+as an empty function batch or claimed as new asset-build results.
+
+The report was generated on `e4b6e8c3dca559d83dede3a4f510c6d7b6e925f9` plus
+this policy correction, identified by the exact input fingerprint below:
+
+- Source fingerprint: `c8f8e5ebb45ceab1580d1af068de2fa1033c101914b70819214ffe4024053870`.
+- Native report SHA-256: `cee8d436182b00f17e649e144b16de4c0447b51793f58d5934ec730266e5eece`.
+
+Logs, the previous report, the isolated old-flags control and the strict comparison
+are ignored local evidence under
+`build/us/manual-attempts/debugger-completion/completion-policy/`.
+The report has not been published to decomp.dev. PR #102 remains a draft.

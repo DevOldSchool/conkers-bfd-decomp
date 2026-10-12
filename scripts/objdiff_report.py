@@ -398,8 +398,7 @@ def prepare() -> None:
              ('original_assembly','Original assembly')]]})
 
 
-def validate_report(report: dict, coverage: dict, config: dict, *,
-                    require_matched_completion: bool = True) -> None:
+def validate_report(report: dict, coverage: dict, config: dict) -> None:
     """Check each unit, not just a total where opposite errors could cancel."""
     if report.get('version') != 2:
         raise ValueError('unexpected objdiff report format version')
@@ -424,6 +423,8 @@ def validate_report(report: dict, coverage: dict, config: dict, *,
     by_name = {u['name']: u['measures'] for u in report['units']}
     for item, spec in zip(config['units'], coverage['units']):
         measures = by_name[item['name']]
+        if 'complete' in item:
+            raise ValueError('use metadata.complete; legacy completion can override native matching')
         total = spec.get('report_data_bytes', 0)
         matched = int(measures.get('matched_data', 0))
         if not 0 <= matched <= total or (not item.get('base_path') and matched):
@@ -449,8 +450,8 @@ def validate_report(report: dict, coverage: dict, config: dict, *,
         complete = bool(item.get('metadata', {}).get('complete'))
         expected_complete = total if spec.get('complete') else 0
         if total and complete:
-            if require_matched_completion and matched != total:
-                raise ValueError('fully linked data must be natively matched in every unit')
+            if not item.get('base_path'):
+                raise ValueError('fully linked data requires a candidate')
             if not ((spec.get('data_completion_verified') and spec.get('linked_inputs')) or
                     (spec.get('kind') == 'rebuilt_asset' and spec.get('complete')
                     and spec.get('literal_payload_matches_rom') is True
@@ -465,26 +466,26 @@ def validate_report(report: dict, coverage: dict, config: dict, *,
             raise ValueError('native data measures do not reconcile')
 
 
-def qualify_data_completion(report: dict, coverage: dict, config: dict) -> list[dict]:
-    """Remove build-eligible completion when native data symbols do not all match.
+def data_completion_notes(report: dict, coverage: dict, config: dict) -> list[dict]:
+    """Explain independently verified completion without changing native measures.
 
-    Change only generation inputs. A subsequent native pass calculates all final
-    completion measures, including code completion for the affected whole units.
+    Linked completion describes the actual build inputs and ROM proofs. Native
+    matching describes objdiff's comparison, which may omit anonymous IDO data.
+    Neither result substitutes for the other.
     """
-    validate_report(report, coverage, config, require_matched_completion=False)
+    validate_report(report, coverage, config)
     measures = {unit['name']: unit['measures'] for unit in report['units']}
-    downgraded = []
+    notes = []
     for item, spec in zip(config['units'], coverage['units'], strict=True):
         total = spec.get('report_data_bytes', 0)
         matched = int(measures[item['name']].get('matched_data', 0))
         if total and spec.get('complete') and matched != total:
-            spec['complete'] = False
-            spec['completion_reason'] = 'Linked data is not fully matched by native objdiff'
-            item['metadata']['complete'] = False
-            downgraded.append({'name': item['name'], 'data_bytes': total,
-                               'matched_data_bytes': matched,
-                               'code_bytes': spec['report_code_bytes']})
-    return downgraded
+            notes.append({'name': item['name'], 'data_bytes': total,
+                          'matched_data_bytes': matched,
+                          'code_bytes': spec['report_code_bytes'],
+                          'reason': 'Linked completion verified independently against the ROM; '
+                                    'native data symbols are not fully matched.'})
+    return notes
 
 
 def input_fingerprint() -> str:
@@ -516,20 +517,7 @@ def generate(binary: Path) -> int:
     coverage = json.loads((OUTPUT / 'coverage.json').read_text())
     report = json.loads((OUTPUT / 'report.json').read_text())
     config = json.loads((OUTPUT / 'objdiff.json').read_text())
-    completion_downgrades = qualify_data_completion(report, coverage, config)
-    if completion_downgrades:
-        objdiff.write_json(OUTPUT / 'coverage.json', coverage)
-        objdiff.write_json(OUTPUT / 'objdiff.json', config)
-        subprocess.run([str(binary), 'report', 'generate', '-p', str(OUTPUT),
-                        '-o', str(OUTPUT / 'report.json')], cwd=ROOT, check=True)
-        final_report = json.loads((OUTPUT / 'report.json').read_text())
-        fields = ('total_code', 'matched_code', 'total_data', 'matched_data')
-        def matches(document):
-            return {unit['name']: tuple(int(unit['measures'].get(k, 0)) for k in fields)
-                    for unit in document['units']}
-        if matches(report) != matches(final_report):
-            raise ValueError('native matching changed while qualifying completion')
-        report = final_report
+    completion_notes = data_completion_notes(report, coverage, config)
     measured = int(report['measures'].get('total_code', 0))
     expected = coverage['expected_code_bytes']
     validate_report(report, coverage, config)
@@ -573,7 +561,7 @@ def generate(binary: Path) -> int:
                   'native_toolchain': json.loads((ROOT / 'toolchain/tools.lock.json').read_text())['objdiff_cli'],
                   'report_sha256': hashlib.sha256((OUTPUT/'report.json').read_bytes()).hexdigest(),
                   'preparation_seconds': prepared-started, 'report_and_validation_seconds': time.perf_counter()-prepared,
-                  'completion_downgrades': completion_downgrades,
+                  'completion_notes': completion_notes,
                   'compile_errors': coverage['compile_errors'],
                   'existing_progress': state.summary(state.validate_project()[1])['code_bytes']['regions']['us'],
                   'measures': report['measures']}

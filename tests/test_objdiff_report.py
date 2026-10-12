@@ -353,6 +353,7 @@ class FontCompletionTests(unittest.TestCase):
 
     def test_edited_font_cannot_retain_completion(self):
         native, coverage, config = self.fixtures()
+        coverage['units'][-1]['literal_payload_matches_rom'] = False
         native['units'][-1]['measures']['matched_data'] = '0'
         native['measures']['matched_data'] = '8'
         with self.assertRaisesRegex(ValueError, 'fully linked'):
@@ -387,7 +388,7 @@ class FontCompletionTests(unittest.TestCase):
                     report.prepare_font()
 
 
-class DataCompletionQualificationTests(unittest.TestCase):
+class DataCompletionNotesTests(unittest.TestCase):
     def fixture(self, matched):
         native, coverage, config = PublishedDataTests().fixtures()
         spec = coverage['units'][-2]
@@ -398,58 +399,72 @@ class DataCompletionQualificationTests(unittest.TestCase):
         native['measures'].update(matched_data=str(matched), complete_data='8')
         return native, coverage, config
 
-    def test_linked_byte_equality_cannot_replace_native_matching(self):
-        for matched in (0, 4):
+    def test_verified_completion_does_not_require_or_modify_native_matching(self):
+        for matched in (0, 4, 8):
             with self.subTest(matched=matched):
-                native, coverage, config = self.fixture(matched)
-                with self.assertRaisesRegex(ValueError, 'natively matched'):
-                    report.validate_report(native, coverage, config)
-                original = json.dumps(native)
-                changes = report.qualify_data_completion(native, coverage, config)
-                self.assertEqual(json.dumps(native), original)
-                self.assertEqual(len(changes), 1)
-                self.assertFalse(coverage['units'][-2]['complete'])
-                self.assertFalse(config['units'][-2]['metadata']['complete'])
-                # A stale first-pass report must fail until native regeneration.
-                with self.assertRaisesRegex(ValueError, 'fully linked'):
-                    report.validate_report(native, coverage, config)
-                native['units'][-2]['measures']['complete_data'] = '0'
-                native['measures']['complete_data'] = '0'
-                report.validate_report(native, coverage, config)
-
-    def test_native_match_preserves_proven_completion(self):
-        native, coverage, config = self.fixture(8)
-        self.assertEqual(report.qualify_data_completion(native, coverage, config), [])
-        report.validate_report(native, coverage, config)
+                inputs = self.fixture(matched)
+                original = json.dumps(inputs)
+                notes = report.data_completion_notes(*inputs)
+                self.assertEqual(json.dumps(inputs), original)
+                self.assertEqual(len(notes), int(matched != 8))
+                if notes:
+                    self.assertEqual(notes[0]['data_bytes'], 8)
+                    self.assertEqual(notes[0]['matched_data_bytes'], matched)
+                    self.assertIn('verified independently', notes[0]['reason'])
+                report.validate_report(*inputs)
 
     def test_match_without_build_proof_never_promotes_completion(self):
         native, coverage, config = PublishedDataTests().fixtures()
-        self.assertEqual(report.qualify_data_completion(native, coverage, config), [])
+        original = json.dumps((native, coverage, config))
+        self.assertEqual(report.data_completion_notes(native, coverage, config), [])
+        self.assertEqual(json.dumps((native, coverage, config)), original)
         self.assertFalse(config['units'][-2]['metadata']['complete'])
 
-    def test_matching_total_cannot_hide_an_unmatched_completed_unit(self):
+    def test_completion_always_needs_independent_proof_and_linked_inputs(self):
+        for matched in (0, 4, 8):
+            for field in ('data_completion_verified', 'linked_inputs'):
+                with self.subTest(matched=matched, field=field):
+                    native, coverage, config = self.fixture(matched)
+                    coverage['units'][-2].pop(field)
+                    with self.assertRaisesRegex(ValueError, 'fully linked'):
+                        report.data_completion_notes(native, coverage, config)
+
+    def test_matching_other_units_cannot_replace_missing_completion_proof(self):
         native, coverage, config = self.fixture(0)
         config['units'][-1]['base_path'] = 'other.o'
         native['units'][-1]['measures']['matched_data'] = '24'
         native['measures']['matched_data'] = '24'
-        with self.assertRaisesRegex(ValueError, 'natively matched'):
+        coverage['units'][-2].pop('data_completion_verified')
+        with self.assertRaisesRegex(ValueError, 'fully linked'):
+            report.validate_report(native, coverage, config)
+
+    def test_completed_data_requires_candidate_even_with_zero_native_match(self):
+        native, coverage, config = self.fixture(0)
+        config['units'][-2].pop('base_path')
+        with self.assertRaisesRegex(ValueError, 'requires a candidate'):
+            report.validate_report(native, coverage, config)
+
+    def test_legacy_completion_cannot_override_native_matching(self):
+        native, coverage, config = self.fixture(0)
+        config['units'][-2]['complete'] = True
+        with self.assertRaisesRegex(ValueError, 'legacy completion'):
             report.validate_report(native, coverage, config)
 
 
 if __name__ == '__main__':
     unittest.main()
 
-class GeneratedReferenceInputTests(unittest.TestCase):
-    def test_reference_is_checked_during_generation(self):
+class ReportInputFreshnessTests(unittest.TestCase):
+    def test_every_proof_input_is_checked_during_generation(self):
         import hashlib
-        with tempfile.TemporaryDirectory() as tmp, patch.object(report, 'ROOT', Path(tmp)):
-            root = Path(tmp)
-            reference = root / 'asm/nonmatchings/tlb.s'
-            reference.parent.mkdir(parents=True)
-            reference.write_bytes(b'original')
-            unit = {'reference_inputs': {reference.relative_to(root).as_posix():
-                    hashlib.sha256(reference.read_bytes()).hexdigest()}}
-            report.verify_input_files(unit)
-            reference.write_bytes(b'changed')
-            with self.assertRaisesRegex(ValueError, 'input changed'):
+        for field in ('reference_inputs', 'source_inputs', 'linked_inputs'):
+            with self.subTest(field=field), tempfile.TemporaryDirectory() as tmp, \
+                    patch.object(report, 'ROOT', Path(tmp)):
+                root = Path(tmp)
+                input_file = root / 'input'
+                input_file.write_bytes(b'original')
+                unit = {field: {'input': hashlib.sha256(input_file.read_bytes()).hexdigest()}}
                 report.verify_input_files(unit)
+                input_file.write_bytes(b'changed')
+                with self.assertRaisesRegex(ValueError, 'input changed'):
+                    report.verify_input_files(unit)

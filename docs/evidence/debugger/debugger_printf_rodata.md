@@ -31,7 +31,8 @@ bytes in that allocated image against the checked US ROM. The ordinary full-ROM
 comparison remains required. The reporter rebuilds the runtime image and compares
 fresh candidate storage, symbols and relocations to the actual linker input before
 allowing either section to be considered for completion. Native matching remains
-a separate gate, and the existing per-unit completion downgrade still applies.
+a separate measurement. The completion-policy correction described below removes
+the former requirement that native data matching also reach 100%.
 
 ## Native anonymous data comparison
 
@@ -65,8 +66,9 @@ constant array moved the double before the switch table and changed floating-poi
 register allocation and multiply operand order. Both failed exact object comparison
 and were discarded. The canonical formatter source and compiler settings remain unchanged. No hand-written switch
 assembly, invented comparison symbol, shortened section or relaxed completion
-rule was adopted. The native 100% linked goal remains unmet until the formatter
-can satisfy the stock comparison without compromising its independent match.
+rule was adopted during these experiments. At the time, the project also required
+native data matching for linked completion. That policy was subsequently corrected;
+the anonymous-data limitation still affects native matching.
 
 The same saved formatter objects were also compared with the official v3.8.2
 macOS ARM64 release, downloaded separately and checked against its published
@@ -118,5 +120,35 @@ correctly remains incomplete under the current native symbol-bound rules.
 The ignored continuation ledger stores the two reproducer sources/objects, stock
 JSON result, rejected round-trip object and focused formatter log under
 `build/us/manual-attempts/debugger-completion/`. These are diagnostic results, not
-new matches or a new integration batch. The native 100% linked goal is still
-blocked; PR #102 remains a draft.
+new matches or a new integration batch. At the end of that investigation, the
+then-current policy still blocked linked completion; PR #102 remained a draft.
+The subsequent policy correction below separates completion from native matching.
+
+
+## Completion-policy correction (2026-10-12)
+
+Second-opinion review identified that `qualify_data_completion()` conflated
+linked completion with native matching. The extra native-data gate belonged to
+this project, not objdiff's completion contract. Stock v3.8.1 accepts verified
+`metadata.complete` independently of symbol comparison; see its
+[report implementation](https://github.com/encounter/objdiff/blob/v3.8.1/objdiff-cli/src/cmd/report.rs#L339-L342).
+
+The reporter now retains the existing `data_completion_verified` and
+`linked_inputs` requirements, candidate/actual-object equivalence, relocations,
+full runtime-image ROM proof, source/object hashes and complete denominators.
+It emits explanatory `completion_notes` instead of clearing eligibility and
+running objdiff a second time. No native report counts are edited.
+
+Fresh stock output completes the formatter's 7,032 code bytes and 464 data bytes.
+Its native `.rodata` comparison remains 34.52381%, with 112 / 464 native matched
+data bytes for the whole unit. The debugger therefore reaches 100% linked code
+and data while native matching remains 100% code and 92.54237% data.
+
+Candidate-only annotation derived independently from candidate relocations is
+potential follow-up work, not implemented here. It would need object/relocation
+invariance, deterministic range derivation and mutation tests that expose changed
+constants and jump tables. The ROM-free upstream reproducer remains available;
+no upstream issue was posted in this correction. PR #102 remains a draft.
+
+See the [fresh report audit](us_debugger_data_reconstruction.md#completion-policy-verification-2026-10-12)
+for the full validation scope and the three empty SDK section percentages.

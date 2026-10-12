@@ -205,15 +205,26 @@ The native report provides `total_data`, `matched_data` and
 `complete_data` as “fully linked” and matching beyond that as “perfect match”;
 see its [rendering implementation](https://github.com/encounter/decomp.dev/blob/main/crates/web/src/handlers/common.rs).
 Data placement alone grants no fully linked completion. A grouped unit is complete
-only when its code and every owned data range qualify. ROM-identical,
-relocation-free main SDK data linked through canonical archive placements is
-eligible, but completion also requires every data byte in its grouped unit to
-match in native objdiff. Generation first measures candidates, removes completion
-from eligible units with incomplete native data matching, then regenerates the
-native report. It never patches the report counts. `completion_downgrades` in
-validation records affected units and their code/data bytes. Private/INFO/NOLOAD data still supplied by preserved ROM streams remains
-incomplete, even when its C owner has integrated code. This can reduce a file's
-fully-linked code measure while retaining its native matching credit.
+only when its code and every owned data range qualify through the actual build
+inputs and independent ROM checks. ROM-identical, relocation-free main SDK data
+linked through canonical archive placements is eligible. Debugger source data
+requires candidate/linked-object equivalence and a full runtime-image ROM proof.
+
+Completion and native matching are independent measures. Generation passes the
+verified eligibility through `metadata.complete` to stock objdiff, which computes
+`complete_code` and `complete_data` without changing `matched_code` or
+`matched_data`; see the pinned release’s
+[report implementation](https://github.com/encounter/objdiff/blob/v3.8.1/objdiff-cli/src/cmd/report.rs#L339-L342).
+It does not patch the report or require native data matching to
+approve independently proved completion. `completion_notes` in validation lists
+complete units with lower native data matching and explains the distinction.
+The legacy top-level `complete` option is rejected, and completed data must have
+a candidate. Source, linked-object and reference hashes, relocation checks and
+complete denominators remain mandatory. Stock objdiff also uses completion as a
+fallback percentage when a section has no comparison; the verified report changes
+three zero-byte SDK `.text` percentages, without changing any matched byte count
+or nonempty-section comparison. Private/INFO/NOLOAD data still supplied by preserved
+ROM streams remains incomplete, even when its C owner has integrated code.
 A selector such as `*foo.o(.rodata)` alone does not establish that the ROM uses
 that object's bytes. Source-owned INFO/NOLOAD placements retain raw ROM or
 original GAME-data archive backing, which must be replaced and verified before

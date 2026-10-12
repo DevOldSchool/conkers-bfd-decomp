@@ -244,8 +244,9 @@ enabled, has these data measures. Its validated source fingerprint is
 
 All 201,632 loaded initialized-data bytes are represented: 171,988 unassigned
 and 29,644 mapped. Font adds 5,440 stored bytes to the ordinary Data category.
-Completion requires both real build integration and complete native data matching
-within each unit. Matching preserved GAME data still does not qualify because it
+The policy in this historical snapshot required both real build integration and
+complete native data matching within each unit. The 2026-10-12 policy correction
+below supersedes that requirement. Matching preserved GAME data still does not qualify because it
 is not rebuilt into the compressed stream. SDK data with different native symbol
 metadata also remains incomplete even when its linked bytes match the ROM.
 
@@ -271,3 +272,39 @@ reconciles native per-unit and aggregate denominators, rechecks all inputs and
 records whole-image proofs. The completed font additionally requires verified
 editable source inputs and all 96 actual ROM link objects. Generated reports and
 proofs remain ignored; CI uploads only the validated native report.
+
+
+## Linked-completion policy correction (2026-10-12)
+
+The native-matching requirement in the historical snapshot above was a project
+policy, not an objdiff restriction. Verified linked completion now passes through
+`metadata.complete`; native matching and its symbol-extent limitations remain
+unchanged. `completion_notes` replaces `completion_downgrades` in validation.
+All real-link, candidate, ROM, relocation, freshness and denominator checks remain.
+
+A fresh full report restores completion for the debugger formatter (7,032 code
+bytes, 464 data bytes) and these 14 previously verified main SDK units:
+
+- `main/sdk/libultrare/xldtob.o`: 2,844 code bytes, 96 data bytes.
+- `main/sdk/libultrare/osc.o`: 1,436 code bytes, 16 data bytes.
+- `main/sdk/libultrare/n_synthesizer.o`: 3,140 code bytes, 16 data bytes.
+- `main/sdk/libultra_2_0G_d/cents2ratio.o`: 148 code bytes, 16 data bytes.
+- `main/sdk/libultrare/n_drvrNew.o`: 3,340 code bytes, 32 data bytes.
+- `main/sdk/libultrare/n_synfx.o`: 668 code bytes, 16 data bytes.
+- `main/sdk/libultrare/n_auxbus.o`: 1,068 code bytes, 16 data bytes.
+- `main/sdk/libultrare/n_resample2.o`: 1,052 code bytes, 16 data bytes.
+- `main/sdk/libultrare/n_resample.o`: 580 code bytes, 16 data bytes.
+- `main/sdk/libultra_2_0G/xlitob.o`: 664 code bytes, 48 data bytes.
+- `main/sdk/libultra_2_0G/sinf.o`: 448 code bytes, 80 data bytes.
+- `main/sdk/libultra_2_0G/vimodepallan1.o`: 0 code bytes, 80 data bytes.
+- `main/sdk/libultra_2_0G/vimodempallan1.o`: 0 code bytes, 80 data bytes.
+- `main/sdk/libultra_2_0G/vimodentsclan1.o`: 0 code bytes, 80 data bytes.
+
+The SDK subtotal is 15,388 code bytes and 608 data bytes. All 10,866 units retain
+their native matched byte counts and denominators. Nonempty-section and function
+comparisons are identical. The three VI objects' zero-byte `.text` percentages
+change through stock objdiff's completion fallback; they add no matching credit.
+The old completion flags on the same fresh objects reproduce the entire old
+report exactly. See the
+[debugger verification record](../debugger/us_debugger_data_reconstruction.md#completion-policy-verification-2026-10-12)
+for report hashes and tests. These results do not assert improved native matching.
