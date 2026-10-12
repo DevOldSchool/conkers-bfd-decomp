@@ -19,6 +19,107 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game17725CEntry {
+    u8 *model;
+    u8 pad[0x10];
+} Game17725CEntry;
+extern Game17725CEntry D_800DDE88[];
+typedef struct Game174BF0Actor {
+    u8 pad0[0x90];
+    s8 group, phase;
+    s16 flags;
+    u8 *model;
+    f32 x, y, z;
+    s16 timer, enabled;
+    f32 pitch, yaw, roll, velocity, yawStep, fieldBC, scale;
+    u8 padC4[4];
+    f32 baseHeight;
+    u8 padCC[0x1C];
+    u32 surfaceFlags;
+    u8 brightness;
+    s8 modelIndex;
+    u16 sound;
+    s8 opacity, fieldF1;
+} Game174BF0Actor;
+u16 func_10010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+u32 func_150ADA20(void);
+s32 func_1510F8D8(s32, s32, s32, s32 *);
+extern f32 D_800A7174;
+extern s32 D_800DBE3C, D_800DBE5C;
+extern u8 *D_800DBFF0;
+extern u8 D_800A7170[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15174BF0 CURRENT (2285) */
+void func_15174BF0(volatile s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, f32 arg6, f32 arg7, volatile s32 arg8) {
+    f32 height;
+    f32 jitterScale;
+    s32 baseAngle;
+    s32 pitch;
+    s32 x, z;
+    s32 angleValue;
+    s32 angle;
+    s32 index;
+    u32 flags;
+    f32 delta[3];
+    u8 *position;
+    s32 surface;
+    Game174BF0Actor *actor;
+
+    position = D_800DBFF0 + arg5 * 0x9A0;
+    height = (f32)arg3;
+    delta[0] = (f32)arg2 - *(f32 *)(position + 0x2f8);
+    delta[1] = height - *(f32 *)(position + 0x2fc);
+    delta[2] = (f32)arg4 - *(f32 *)(position + 0x300);
+    baseAngle = (s32)func_15048FC8(delta);
+    index = 0;
+    if (arg0 > 0) {
+        jitterScale = D_800A7174;
+        do {
+            actor = func_15167A68(0xA, 0, 0xF8, 1, 0xFF, 1);
+            if (actor == NULL) return;
+            arg5 = arg8 & 1;
+            x = (s32)(func_150ADA20() & 0x7F) + arg2 - 0x3F;
+            z = (s32)(func_150ADA20() & 0x7F) + arg4 - 0x3F;
+            actor->flags = 3;
+            actor->y = height;
+            actor->x = (f32)x;
+            actor->group = arg1;
+            actor->z = (f32)z;
+            actor->timer = func_150ADA20() % 15U + 0xA;
+            actor->enabled = 1;
+            angleValue = (s32)(func_150ADA20() & 0x1F) + baseAngle - 0xF;
+            angle = angleValue;
+            if (angleValue < 0) angle = angleValue + 0x168;
+            else if (angleValue >= 0x168) angle = angleValue - 0x168;
+            pitch = (s32)(func_150ADA20() & 0x1F) - 0xF;
+            actor->roll = 0.0f;
+            actor->velocity = -1.0f;
+            actor->pitch = (f32)pitch;
+            actor->yaw = (f32)angle;
+            pitch = (s32)(func_150ADA20() & 0xFF) - 0x80;
+            actor->fieldBC = 0.0f;
+            actor->yawStep = (f32)pitch * jitterScale;
+            actor->scale = (f32)(s32)(func_150ADA20() & 0xFFFF) * 0.000030517578125f * arg7 + arg6;
+            angleValue = func_150ADA20() & 1;
+            actor->modelIndex = angleValue;
+            actor->model = D_800DDE88[angleValue].model;
+            if (index == 0) actor->sound = func_10010E78(0, 0xA2, 0x7D00, 0, 0, 0, x, arg3, z, 0x3E8, 0xFA0);
+            else actor->sound = 0;
+            actor->surfaceFlags = 0;
+            if (arg5) {
+                actor->flags |= 0x80;
+                actor->baseHeight = (f32)func_1510F8D8(x, arg3, z, &surface);
+                flags = surface != 0 ? *(u32 *)(D_800DBE5C + ((surface - D_800DBE3C) / 12) * 4) : 0;
+                actor->surfaceFlags = flags;
+                actor->brightness = D_800A7170[(flags >> 5) & 3];
+            } else actor->brightness = 0;
+            actor->opacity = 0;
+            actor->fieldF1 = 0;
+            index++;
+        } while (index != arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15174BF0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_15174BF0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_15174FA4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_15175390.s")
@@ -277,10 +378,6 @@ typedef struct Game17725CState {
     f32 secondRadius;
 } Game17725CState;
 
-typedef struct Game17725CEntry {
-    u8 *model;
-    u8 pad[0x10];
-} Game17725CEntry;
 
 f32 func_150AD780(f32);
 f32 func_150AD78C(f32);
@@ -289,7 +386,6 @@ extern f32 D_800A71AC;
 extern f32 D_800A71B0;
 extern f32 D_800A71B4;
 extern f32 D_800A71B8;
-extern Game17725CEntry D_800DDE88[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1517725C CURRENT (1884) */
 void func_1517725C(u8 arg0) {

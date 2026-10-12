@@ -30909,6 +30909,12 @@
       "symbol": "func_1508F9F4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 193,
+        "reason": "Best full-span CURRENT (193) after three finish calls and two bounded probe batches. Loop, overflow checks and call sequence reproduced; frame remains 0x98 instead of 0x90, addressed locals are eight bytes high, and second display-list packet setup scheduling differs. Register qualifier preserves the existing one-pointer ABI.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -60305,6 +60311,12 @@
       "symbol": "func_150F695C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2285,
+        "reason": "Best full-span CURRENT (2285), original 0xD8 frame and addressed locals restored after three finish calls/two probe batches. Argument-index lifetime, captured-float register allocation, field-store scheduling and surface-result register remain different; top-level volatile parameter qualifiers do not change the nine-argument ABI.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
