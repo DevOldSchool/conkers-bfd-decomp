@@ -145,10 +145,137 @@ data bytes for the whole unit. The debugger therefore reaches 100% linked code
 and data while native matching remains 100% code and 92.54237% data.
 
 Candidate-only annotation derived independently from candidate relocations is
-potential follow-up work, not implemented here. It would need object/relocation
+potential follow-up work, not enabled in the production report. The candidate-only
+experiment below subsequently tested this approach. It would need object/relocation
 invariance, deterministic range derivation and mutation tests that expose changed
 constants and jump tables. The ROM-free upstream reproducer remains available;
 no upstream issue was posted in this correction. PR #102 remains a draft.
 
 See the [fresh report audit](us_debugger_data_reconstruction.md#completion-policy-verification-2026-10-12)
 for the full validation scope and the three empty SDK section percentages.
+
+
+## Candidate-only annotation experiment (2026-10-12)
+
+The requested annotation was prototyped on copies of the formatter object, with
+stock objdiff v3.8.1 unchanged. The prototype derives a 208-byte table from 52
+contiguous `R_MIPS_32` relocations and checks that count against the candidate's
+`sltiu`/branch/shift/load/jump dispatch. An adjacent relocated `lui`/`ldc1` pair
+establishes the double's eight-byte extent. Neither range comes from the reference,
+ROM, splat output, a hardcoded formatter offset or the desired match result.
+
+Names use actual linked placement: existing candidate-owned symbols in the runtime
+ELF must agree on their section base. This gives `jtbl_1600487C` and `D_16004950`.
+The annotation function takes candidate bytes and section bases; a test forbids
+file reads and subprocess calls while it runs. All non-symbol/string section
+bytes, section headers, existing symbols, relocation records and implicit addends
+remain unchanged. Only appended symbol/string entries and their table offsets
+and sizes differ. A second pass is byte-identical. A candidate with no anonymous
+references is unchanged. Deliberately overlapping named storage, a wrong dispatch
+bound, an interior table pointer and changes to code/data during annotation are
+rejected.
+
+Both `.rodata` sections retain 352 bytes, and the comparison payload ends at
+`0x158` on both sides after annotation. The final eight alignment bytes remain
+subject to the independent whole-image ROM proof. No range is shortened.
+
+### A second comparison limitation
+
+The two data symbols alone raise the formatter section score from 34.52381% to
+52.677143%, not 100%. The newly exposed switch table has equivalent but differently
+encoded relocations. IDO uses a `.text` section target with offsets stored in the
+REL words (for example `00000AAC`). The independently assembled reference uses a
+named label such as `.L1600257C`, with a zero encoded word. Both resolve to the
+same final address.
+
+A second diagnostic adds the eight destination labels, deriving their offsets
+only from candidate table relocations and their names from actual code placement.
+All 52 relocation comparisons then match. The section still scores only
+83.9243% because stock objdiff compares the raw REL words as well as the resolved
+relocations. Its
+[data-symbol comparison](https://github.com/encounter/objdiff/blob/v3.8.1/objdiff-core/src/diff/data.rs#L365)
+explicitly counts relocation bytes once as raw data and again as relocations;
+the section-wide fallback also compares the raw bytes. Symbol additions cannot
+remove this difference while preserving the required section bytes.
+
+The reference's inferred table symbol also includes four alignment bytes (212
+versus the independently derived 208). This experiment did not resize either
+symbol or change the reference to improve the score. The smaller reproducer below
+has equal symbol sizes and independently demonstrates the REL-byte limitation.
+
+### Mutation results
+
+Every formatter variant keeps the 352-byte data denominator. Annotation preserves
+that variant's code comparison; changing the switch count or placement itself
+changes instructions and therefore can lower code matching independently.
+
+| Candidate mutation | Two data symbols | Data symbols plus destination labels |
+| --- | ---: | ---: |
+| None | 52.677143% | 83.9243% |
+| `1e8` changed to `1e9` | 51.784283% | 83.03145% |
+| First two table destinations exchanged | 52.677143% | 82.722496% |
+| 51 cases and matching bound instead of 52 | 52.522564% | 83.16883% |
+| Table shifted by four bytes | 36.904762% | 36.904762% |
+
+Thus the two-symbol-only version also fails the requested reordering exposure
+test: its already-unmatched relocations conceal the additional error in the score.
+With the candidate-derived code labels, all four mutations lower the baseline.
+The separate ROM-free anonymous-double reproducer changes from a false 100%
+before annotation to 81.25% after annotation; code remains 100% in both comparisons.
+These are diagnostic comparisons, not accepted function matches or report credit.
+
+### ROM-free REL-addend reproducer
+
+[`named.s`](../../../tests/fixtures/objdiff_rel_addends/named.s) and
+[`section.s`](../../../tests/fixtures/objdiff_rel_addends/section.s) contain the same
+12-byte function and four-byte table. Both already expose the same labels. The
+only meaningful difference is `.word entry` versus `.word .text + 4`:
+
+| Input | Encoded table word | Resolved destination |
+| --- | --- | --- |
+| Named label | `00000000` | `.text + 4` |
+| Section plus addend | `00000004` | `.text + 4` |
+
+The focused test assembles both with the pinned MIPS binutils, checks the relocation
+type and destination, links at fixed addresses, and proves identical code and table
+bytes. The linked table word is `80000004` in both cases:
+
+```sh
+./conker test -p test_objdiff_rel_addends.py -v
+```
+
+To reproduce the native comparison in an environment with those binutils and the
+unmodified objdiff CLI available:
+
+```sh
+mips-linux-gnu-as -EB -march=vr4300 -mabi=32 -no-pad-sections \
+  -o /tmp/named.o tests/fixtures/objdiff_rel_addends/named.s
+mips-linux-gnu-as -EB -march=vr4300 -mabi=32 -no-pad-sections \
+  -o /tmp/section.o tests/fixtures/objdiff_rel_addends/section.s
+objdiff-cli diff -1 /tmp/named.o -2 /tmp/section.o -o /tmp/rel-addends.json
+```
+
+Observed with the official checksum-verified v3.8.1 macOS ARM64 release:
+`.text` is 100%, the relocation matches, and `.rodata` is 87.5%.
+
+### Disposition
+
+**Blocked under the candidate-symbol-only constraint.** The prototype is not
+connected to report generation or runtime linking. No reference, objdiff binary,
+compiler setting, production object or report was changed. Linked completion stays
+100% and native matching remains 100% code / 92.54237% data. The saved production
+report remains current with SHA-256
+`cee8d436182b00f17e649e144b16de4c0447b51793f58d5934ec730266e5eece`.
+
+The next investigation must address equivalent REL encodings and reference table
+extent independently. An upstream comparison fix or a separately reviewed
+relocation-canonicalization method would go beyond symbol-only annotation;
+changing raw words without proving relocation semantics is not acceptable.
+No upstream issue has been posted. PR #102 remains a draft.
+
+The ignored local directory
+`build/us/manual-attempts/debugger-completion/annotation/` retains the prototype,
+code-label helper, reproducible experiment script, objects, native JSON diffs and
+mutation results. The ROM-free assembly fixtures and their focused test are the
+only new executable repository files from this experiment. No fresh function
+batch or asset reconstruction is claimed.
