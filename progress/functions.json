@@ -8690,6 +8690,12 @@
       "symbol": "func_150BE494"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 15665,
+        "reason": "Best CURRENT (15665), two finish calls and two bounded revision probes. Full 24-argument sight-helper contract recovered; reference frame0x180 versus candidate0x148, arithmetic spills and argument scheduling remain. Manual revision ceiling exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -19655,6 +19661,12 @@
       "symbol": "func_1506BF1C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5100,
+        "reason": "Best CURRENT (5100), two finish calls and two bounded revision probes; original frame0x50 and sound/volume/type offsets match, no stack-row residual. Remaining register allocation, branch selection, volume scheduling and argument reloads; manual revision ceiling exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

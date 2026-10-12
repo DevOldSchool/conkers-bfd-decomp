@@ -615,9 +615,119 @@ void func_1506BF1C(void) {
         func_1506BF5C();
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506BF5C.s")
 s32 func_1000F568(s32, s32);
 extern s32 D_800D187C;
+extern s32 D_80082FA0;
+void func_10010630(u16, void *, s32, s32, s32);
+s32 func_10011EB8(s32, u16 *, s32);
+s32 func_1001147C(u16);
+s32 func_1510F8CC(s32);
+extern u8 *D_80086CAC[], *D_800D1C90[];
+extern f32 D_80099C48;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506BF5C CURRENT (5100) */
+void func_1506BF5C(void) {
+    s32 sound;
+    u32 requestedKind;
+    u16 volume;
+    f32 speed;
+    f32 limit;
+    u8 kind;
+    s32 type;
+    u8 *actor;
+    u8 *definition;
+
+    actor = D_800D154C;
+    sound = D_800D1580 & 0x7FF;
+    type = actor[4];
+    definition = D_800D1C90[type];
+    requestedKind = (u32)D_800D1580 >> 24;
+    kind = type;
+    if (definition[4] != 0) {
+        kind = D_80086CAC[definition[5]][0];
+    }
+    D_800D187C = 0;
+    switch (D_800D1580 & 0xC000) {
+    case 0x4000:
+        if (kind != requestedKind) {
+            return;
+        }
+        break;
+    case 0x8000:
+        if (kind == requestedKind) {
+            return;
+        }
+        break;
+    }
+    if (D_800D1580 & 0x10000) {
+        D_800D187C = D_800D1580 + 1;
+        return;
+    }
+    volume = 32000;
+    switch (D_800D1580 & 0x3800) {
+    case 0x2000:
+        if (D_80082FA0 >= 2) {
+            return;
+        }
+        type = func_1510F8CC(*(s32 *)(actor + 0x184));
+        if (type == 12 && (f32)*(s16 *)(D_800D154C + 0xCC) > -17.0f) {
+            sound = func_1000F568(156, 2);
+        } else if (D_80099C48 != *(f32 *)(D_800D154C + 0x118) &&
+                   *(f32 *)(D_800D154C + 0x18) <= *(f32 *)(D_800D154C + 0x118)) {
+            sound = func_10011EB8(8, 0, sound);
+            type = 8;
+        } else {
+            sound = func_10011EB8(type, &volume, sound);
+        }
+        if (sound != 0) {
+            actor = D_800D154C;
+            if (*(f32 **)(actor + 0x31C) != 0) {
+                speed = **(f32 **)(actor + 0x31C);
+            } else {
+                speed = *(f32 *)(actor + 0x20);
+            }
+            if (type == 12) {
+                limit = 10.0f;
+            } else {
+                limit = 30.0f;
+            }
+            if (limit < speed) {
+                speed = limit;
+            }
+            if (speed < 0.0f) {
+                speed = 0.0f;
+            }
+            speed *= 0.5f / limit;
+            speed += 0.5f;
+            volume = (u32)((f32)(u32)volume * speed);
+            if (type == 8) {
+                func_10010630(((u16 *)&sound)[1], actor, volume, 500, 2500);
+                return;
+            }
+            goto play;
+        }
+        break;
+    case 0:
+play:
+        func_10010154(((u16 *)&sound)[1], actor, volume, 500, 2500);
+        return;
+    case 0x1000:
+        func_10010344(((u16 *)&sound)[1], actor, 32000U, 500, 2500);
+        return;
+    case 0x3800:
+        if (func_1001147C(*(u16 *)(actor + 0x8E)) != sound) {
+            func_10010154(sound & 0xFFFF, D_800D154C, volume, 500, 2500);
+            return;
+        }
+        break;
+    case 0x3000:
+        func_10010630(((u16 *)&sound)[1], actor, 32000, 500, 2500);
+        break;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1506BF5C */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506BF5C.s")
+
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1506C32C CURRENT (632) */
 void func_1506C32C(void) {
@@ -3549,7 +3659,6 @@ u8 *func_1505ED34(void);
 void func_151EFEB8(void *, s32);
 s32 func_1515D480(s32);
 u8 *func_15158BD0(void *, u8, s32);
-extern s32 D_80082FA0;
 extern f32 D_8009A098;
 extern u8 D_800C3E90;
 

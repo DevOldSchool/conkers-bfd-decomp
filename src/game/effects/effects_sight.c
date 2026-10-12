@@ -40,7 +40,90 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Sight71Parameters {
+    s16 position[3];
+    u8 pad06[2];
+    s16 length;
+    u8 pad0A[2];
+    f32 rotationX, rotationY;
+    u8 disabled;
+    u8 pad15[3];
+    u32 flags, colors, widths;
+} Sight71Parameters;
+
+void func_150A8050(void *, f32, f32, f32);
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *,
+                  f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
+s32 func_151C756C(f32 *, s16 *, f32 *, s16 *, void *, void *,
+                  s32, s32, s32, s32, s32, s32, s32, s32, s32, s32,
+                  s32, s32, s32, f32, f32, s32, s32, s32);
+extern f32 D_800AAC38, D_800AAC3C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C71A0 CURRENT (15665) */
+s32 func_151C71A0(Sight71Parameters *arg0) {
+    f32 origin[3];
+    f32 end[3];
+    f32 direction[3];
+    f32 middle[3];
+    f32 matrix[16];
+    s32 hit;
+    s16 triangle1[9], triangle2[9];
+    f32 point1[3], point2[3];
+    f32 distance1, distance2;
+    s32 object1, object2;
+    u32 flags, colors, widths;
+    s32 secondHit;
+
+    if (arg0->disabled == 1) {
+        return 1;
+    }
+    origin[0] = arg0->position[0];
+    origin[1] = arg0->position[1];
+    origin[2] = arg0->position[2];
+    func_150A8050(matrix, arg0->rotationX, arg0->rotationY, 0.0f);
+    func_150A7960(matrix, 0.0f, (f32)arg0->length, 0.0f,
+                  &end[0], &end[1], &end[2]);
+    end[0] += origin[0];
+    end[1] += origin[1];
+    end[2] += origin[2];
+    direction[0] = end[0] - origin[0];
+    direction[1] = end[1] - origin[1];
+    direction[2] = end[2] - origin[2];
+    middle[0] = direction[0] * 0.5f + origin[0];
+    middle[1] = direction[1] * 0.5f + origin[1];
+    middle[2] = direction[2] * 0.5f + origin[2];
+    hit = func_150AC9C0(middle[0], middle[1], middle[2],
+                         -direction[0], -direction[1], -direction[2], 0,
+                         triangle1, &point1[0], &point1[1], &point1[2],
+                         &distance1, &object1, 0, 0.0f);
+    secondHit = func_150AC9C0(middle[0], middle[1], middle[2],
+                       direction[0], direction[1], direction[2], 0,
+                       triangle2, &point2[0], &point2[1], &point2[2],
+                       &distance2, &object2, 0, 0.0f);
+    if ((hit == 0) || (secondHit == 0)) {
+        return 1;
+    }
+    flags = arg0->flags;
+    colors = arg0->colors;
+    widths = arg0->widths;
+    func_151C756C(point1, triangle1, point2, triangle2, arg0, arg0,
+                  colors & 0xFF, (colors & 0xFF00) >> 8, (colors & 0xFF0000) >> 16,
+                  (flags & 0x01000000) >> 24,
+                  flags & 0xFF, (flags & 0xFF00) >> 8, (flags & 0xFF0000) >> 16,
+                  (flags & 0x02000000) >> 25, (flags & 0x04000000) >> 26,
+                  ((flags & 0x08000000) >> 27) == 0,
+                  ((flags & 0x20000000) >> 29) == 0,
+                  ((flags & 0x40000000) >> 30) ? 1 : 0,
+                  (flags & 0x10000000) >> 28,
+                  (f32)(widths & 0xFF) * D_800AAC38,
+                  (f32)((widths & 0xFF00) >> 8) * D_800AAC3C,
+                  ((flags & 0x80000000) >> 31) == 0, 255, 1);
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C71A0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C71A0.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C756C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C7E98.s")
 typedef struct SightOscillation {
