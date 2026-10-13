@@ -474,16 +474,15 @@
       "symbol": "func_15002FB4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2310,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2310)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15134070",
           "vram": "0x15134070"
         }
@@ -859,8 +858,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1387,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1387)",
+        "current_score": 20,
+        "reason": "Manual 1387->20 (2026-10-13 game-matching-3): u8 arg2, s32 *arg1, named current/first locals, current reloaded in default; frame/flow/all loads exact. Residual: else-if and default branch compares emit var-first (v0,t9 / v0,t1) vs raw load-first (t9,v0 / t1,v0). IDO keeps source order only when both operands are named locals, but naming second/first shifts allocation (a2 steal, 957); expression-only current gives first=v0/current=v1 swap (65-85). ~35 probed variants plus exhaustive 250-variant permute stayed >=20.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -957,8 +956,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 6876,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (6876)",
+        "current_score": 1110,
+        "reason": "Manual 6876->1110 (2026-10-13 game-matching-3): source-local motion record (s16 timer, spin, Vec2 velocity, gravity, spinScale) at +0x70, Vec2 struct-copy average, fabsf intrinsic, motion pointer assigned before the timer test; declaration order inBounds/spin/average/motion fixes the 0x18 frame and average at sp+8. Residual is scheduling only: raw hoists lui %hi(D_800BE9A4) before blez with lui 0x3F00 in the delay slot and recomputes arg0+0x70 per branch (candidate fills slot with addiu v0); raw loads dt after the average stack stores. Per-branch pointer assignment folds offsets (frame 0x20); statement reordering, address-taken/volatile average, and 32-variant permute did not improve.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -2922,16 +2921,15 @@
       "symbol": "func_150B3188"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2535,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2535)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_150B36AC",
           "vram": "0x150B36AC"
         }
@@ -3429,16 +3427,15 @@
       "symbol": "func_15197A7C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 990,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (990)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15197AB4",
           "vram": "0x15197AB4"
         }
@@ -14153,7 +14150,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Improved 25->10 with a reassigned local copy (v = arg0; D = v; if (v) { v += 8; D = v; }): global address now v1 as raw; only the arg0+8 temp is v0 vs raw t6. 2026-10-13 rounds: s32 return type, pointer/array/struct-address forms, separate w temp, arg0 reassignment, u8* cursor, compound assignment and permute32 all 10 or worse.",
+        "reason": "Improved 25->10 with a reassigned local copy (v = arg0; D = v; if (v) { v += 8; D = v; }); global address hoisted to v1 but v+8 lands in v0 vs raw t6. 2026-10-13 game-matching-3: 14 probed variants (pointer local, assignment-in-condition, separate temps, += on global, byte-pointer cast) scored 10-235; permute found 6 variants, none better.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -23028,8 +23025,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 260,
-        "reason": "register allocation differs in the packed D_800D1580 byte extraction after three source-only variants; preserve candidate for later review",
+        "current_score": 460,
+        "reason": "Live CURRENT 460 (recorded 260 stale). 2026-10-13 game-matching-3: raw func_1506160C prologue masks a1-a3 with andi 0xFF, so its true ABI is (u8 *, u8, u8, u8, u8); u8 source-local prototype plus temps reached 705, s32 prototype 460. Residual: raw evaluates v>>8 into t6 then v>>16 into t7 and andi straight into a1/a3 with value in v1; IDO emits sra into a1/a3, andi into temps plus moves. 15 probed variants (locals, casts, u8 locals, pointer alias, u32).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -43007,17 +43004,16 @@
       "symbol": "func_150849A0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 235,
-        "reason": "CURRENT (235) after three bounded output-pointer and index-lifetime variants; remaining mismatch is output argument versus index register allocation",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150849CC",
           "vram": "0x150849CC"
         }
@@ -62087,7 +62083,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 485,
-        "reason": "Display-transition packet construction is semantically correct; three source-only variants retain the target's redundant v1 alias and constant scheduling differently.",
+        "reason": "Display-transition packet construction is semantically correct; three source-only variants retain the target's redundant v1 alias and constant scheduling differently. 2026-10-13 game-matching-3: gSPMatrix(gdl++) block-scoped struct/union forms reach 100-120 (only addiu a0 scheduled before the two stores vs raw after); post-increment/return-expression forms 485.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -91326,17 +91322,16 @@
       "symbol": "func_1510D864"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 505,
-        "reason": "Best bounded candidate CURRENT (505) after correcting arg3 to the 32-bit ABI; remaining differences are load ordering and register scheduling around the counter and fifth argument.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510D874",
           "vram": "0x1510D874"
         }

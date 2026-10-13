@@ -656,6 +656,16 @@
         }
       },
       {
+        "address": "0x800A4350",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/effects/blood.c",
+            "src/done/game/effects/blood.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A5188",
         "section": ".rodata",
         "owner": {

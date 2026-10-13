@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/effects/effects_blood.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15134070
  * - func_151342BC
  * - func_151349D0
  * - func_15134E48
@@ -106,12 +105,8 @@ enum {
  * D_80089A20 and D_800A3F14; it is not a bank or model ID.
  */
 extern f32 D_800BE9A4;
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15134070 CURRENT (2310) */
 s32 func_15134070(void *arg0) {
-    u8 temp_v0;
-
-    temp_v0 = *(u8 *)((u8 *)arg0 + 4);
-    switch ((s32) temp_v0) {                        /* irregular */
+    switch (*((u8 *)arg0 + 4)) {
     case MODEL_SHC_SOLDIER_DECORATED_UNIFORM:
     case MODEL_SHC_SOLDIER_DECORATED_UNIFORM_VARIANT:
         return 0xE;
@@ -174,8 +169,6 @@ s32 func_15134070(void *arg0) {
         return 0x63;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15134070 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134070.s")
 s32 func_1513416C(void *arg0) {
     short temp_v0;
 
@@ -555,42 +548,41 @@ void func_15135424(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     sp18[1] = arg4;
     func_15145EA4(sp20, sp18, arg0, 2);
 }
-/* Call context: func_1513555C: unique active declaration in the allowed source */
-/* Call context: func_1516972C: unique active declaration in the allowed source */
 void func_1513555C(void *, void *, u8);
+void func_151355B8(struct102 *, s32 *, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15135480 CURRENT (1387) */
-void func_15135480(void *arg0, void *arg1, s32 arg2) {
-    s32 temp_v0;
-    s32 temp_v1;
-    u8 temp_t6;
-    u8 temp_v0_2;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15135480 CURRENT (20) */
+void func_15135480(void *arg0, s32 *arg1, u8 arg2) {
+    s32 current;
+    s32 first;
 
-    temp_t6 = arg2 & 0xFF;
-    if (temp_t6 == 0x2D) {
-        temp_v1 = *(s32 *)((u8 *)arg1 + 0);
-        temp_v0 = *(s32 *)((u8 *)arg0 + 0x1C);
-        if (temp_v1 == temp_v0) {
-            *(s32 *)((u8 *)arg0 + 0x1C) = (s32) *(s32 *)((u8 *)arg1 + 4);
-            *(u8 *)((u8 *)arg0 + 0x18) = (u8) *(u8 *)((u8 *)arg1 + 9);
-        } else if (*(s32 *)((u8 *)arg1 + 4) == temp_v0) {
-            *(s32 *)((u8 *)arg0 + 0x1C) = temp_v1;
-            *(u8 *)((u8 *)arg0 + 0x18) = (u8) *(u8 *)((u8 *)arg1 + 8);
+    if (arg2 == 0x2D) {
+        first = arg1[0];
+        current = *(s32 *)((u8 *)arg0 + 0x1C);
+        if (first == current) {
+            *(s32 *)((u8 *)arg0 + 0x1C) = arg1[1];
+            *((u8 *)arg0 + 0x18) = *((u8 *)arg1 + 9);
+        } else if (arg1[1] == current) {
+            *(s32 *)((u8 *)arg0 + 0x1C) = first;
+            *((u8 *)arg0 + 0x18) = *((u8 *)arg1 + 8);
         }
     }
-    temp_v0_2 = *(u8 *)((u8 *)arg0 + 0x50);
-    switch (temp_v0_2) {                            /* irregular */
+    switch (*((u8 *)arg0 + 0x50)) {
     case 1:
-        func_151355B8(arg0, arg1, (s32) temp_t6);
-        return;
+        func_151355B8(arg0, arg1, arg2);
+        break;
     case 2:
-        func_1513555C(arg0, arg1, temp_t6);
-        return;
+        func_1513555C(arg0, arg1, arg2);
+        break;
     default:
-        if ((temp_t6 == 0) && ((*(s32 *)((u8 *)arg1 + 0) == *(s32 *)((u8 *)arg0 + 0x1C)) || ((u8) *(s32 *)((u8 *)arg1 + 4) == *(u8 *)((u8 *)arg0 + 0x18)))) {
-            func_1516972C(arg0);
+        if (arg2 == 0) {
+            current = *(s32 *)((u8 *)arg0 + 0x1C);
+            if ((arg1[0] == current) ||
+                (*((u8 *)arg1 + 4) == *((u8 *)arg0 + 0x18))) {
+                func_1516972C(arg0);
+            }
         }
-        return;
+        break;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15135480 */
@@ -638,52 +630,54 @@ f32 func_15135670(s32 arg0) {
                              &D_800A3FBC, 0xB7A) * D_800A45B4;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151356D4.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15135BF8 CURRENT (6876) */
-s32 func_15135BF8(u8 *arg0) {
-    f32 spC;
-    f32 sp8;
-    f32 temp_fa0;
-    f32 temp_ft1;
-    f32 temp_ft2;
-    f32 temp_ft3;
-    f32 temp_fv0;
-    f32 temp_fv0_2;
-    f32 var_ft0;
-    s32 var_v1;
-    u8 *temp_v0;
-    u8 *temp_v0_2;
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
 
-    var_v1 = 1;
-    if (*(s16 *)((u8 *)arg0 + 0x70) > 0) {
-        temp_v0 = (void *)(arg0 + 0x70);
-        *(s16 *)((u8 *)arg0 + 0x70) = (s16) (*(s16 *)((u8 *)arg0 + 0x70) - D_800BE9E4);
-        *(f32 *)((u8 *)arg0 + 0x10) = (f32) (*(f32 *)((u8 *)arg0 + 0x10) + (*(f32 *)((u8 *)temp_v0 + 8) * D_800BE9A4));
-        *(f32 *)((u8 *)arg0 + 0x14) = (f32) (*(f32 *)((u8 *)arg0 + 0x14) + (*(f32 *)((u8 *)temp_v0 + 0xC) * D_800BE9A4));
-        *(f32 *)((u8 *)arg0 + 0x18) = (f32) (*(f32 *)((u8 *)arg0 + 0x18) + (*(f32 *)((u8 *)temp_v0 + 4) * D_800BE9A4));
-        var_ft0 = *(f32 *)((u8 *)arg0 + 0x1C) + (*(f32 *)((u8 *)temp_v0 + 4) * D_800BE9A4);
+typedef struct {
+    f32 x;
+    f32 y;
+} Blood135BF8Vec2;
+
+typedef struct {
+    s16 timer;
+    f32 spin;
+    Blood135BF8Vec2 velocity;
+    f32 gravity;
+    f32 spinScale;
+} Blood135BF8Motion;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15135BF8 CURRENT (1110) */
+s32 func_15135BF8(u8 *arg0) {
+    s32 inBounds = 1;
+    f32 spin;
+    Blood135BF8Vec2 average;
+    Blood135BF8Motion *motion;
+
+    motion = (Blood135BF8Motion *)(arg0 + 0x70);
+    if (motion->timer > 0) {
+        motion->timer -= D_800BE9E4;
+        *(f32 *)(arg0 + 0x10) += motion->velocity.x * D_800BE9A4;
+        *(f32 *)(arg0 + 0x14) += motion->velocity.y * D_800BE9A4;
+        *(f32 *)(arg0 + 0x18) += motion->spin * D_800BE9A4;
+        *(f32 *)(arg0 + 0x1C) += motion->spin * D_800BE9A4;
     } else {
-        temp_v0_2 = (void *)(arg0 + 0x70);
-        *(f32 *)((u8 *)&sp8 + 0) = *(f32 *)((u8 *)temp_v0_2 + 8);
-        *(f32 *)((u8 *)&sp8 + 4) = (f32) *(f32 *)((u8 *)temp_v0_2 + 0xC);
-        *(f32 *)((u8 *)arg0 + 0x14) = (f32) (*(f32 *)((u8 *)arg0 + 0x14) + ((*(f32 *)((u8 *)temp_v0_2 + 0xC) * D_800BE9A4) + (*(f32 *)((u8 *)temp_v0_2 + 0x10) * D_800BE9A4 * D_800BE9A4 * 0.5f)));
-        *(f32 *)((u8 *)temp_v0_2 + 0xC) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0xC) + (*(f32 *)((u8 *)temp_v0_2 + 0x10) * D_800BE9A4));
-        temp_ft2 = sp8 + *(f32 *)((u8 *)temp_v0_2 + 8);
-        sp8 = temp_ft2;
-        temp_ft3 = temp_ft2 * 0.5f;
-        temp_ft1 = spC + *(f32 *)((u8 *)temp_v0_2 + 0xC);
-        spC = temp_ft1;
-        sp8 = temp_ft3;
-        spC = temp_ft1 * 0.5f;
-        temp_fa0 = fabsf(temp_ft3) * *(f32 *)((u8 *)temp_v0_2 + 0x14);
-        *(f32 *)((u8 *)arg0 + 0x18) = (f32) (*(f32 *)((u8 *)arg0 + 0x18) + (temp_fa0 * D_800BE9A4));
-        var_ft0 = *(f32 *)((u8 *)arg0 + 0x1C) + (temp_fa0 * D_800BE9A4);
+        average = motion->velocity;
+        *(f32 *)(arg0 + 0x14) += motion->velocity.y * D_800BE9A4 +
+                                 motion->gravity * D_800BE9A4 * D_800BE9A4 * 0.5f;
+        motion->velocity.y += motion->gravity * D_800BE9A4;
+        average.x += motion->velocity.x;
+        average.y += motion->velocity.y;
+        average.x *= 0.5f;
+        average.y *= 0.5f;
+        spin = fabsf(average.x) * motion->spinScale;
+        *(f32 *)(arg0 + 0x18) += spin * D_800BE9A4;
+        *(f32 *)(arg0 + 0x1C) += spin * D_800BE9A4;
     }
-    *(f32 *)((u8 *)arg0 + 0x1C) = var_ft0;
-    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x10);
-    if ((temp_fv0 > 200.0f) || (temp_fv0 < -200.0f) || (temp_fv0_2 = *(f32 *)((u8 *)arg0 + 0x14), (temp_fv0_2 > 200.0f)) || (temp_fv0_2 < -200.0f)) {
-        var_v1 = 0;
+    if (*(f32 *)(arg0 + 0x10) > 200.0f || *(f32 *)(arg0 + 0x10) < -200.0f ||
+        *(f32 *)(arg0 + 0x14) > 200.0f || *(f32 *)(arg0 + 0x14) < -200.0f) {
+        inBounds = 0;
     }
-    return var_v1;
+    return inBounds;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15135BF8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135BF8.s")
@@ -1599,7 +1593,7 @@ s32 func_151389A8(Blood39578Particle *arg0, s32 arg1, s32 arg2,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151389A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151389A8.s")
-s32 func_15134070(Blood1380B4State *);
+s32 func_15134070(void *);
 void func_15138120(Blood1380B4State *, s32, s32);
 void func_151382E0(f32 *, s32, void *, u8, s32);
 void func_15138424(Blood1380B4State *, f32 *, s32, void *, s32, s32);

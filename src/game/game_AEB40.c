@@ -23,7 +23,6 @@
  * - func_15084044
  * - func_150843AC
  * - func_15084558
- * - func_150849CC
  * - func_15084A18
  * - func_15084CB0
  *
@@ -1075,33 +1074,21 @@ s32 func_150849A0(void *actor) {
  * Optionally output that ordinal; no sentinel or bounds normalization occurs.
  * See docs/evidence/assets/naming/actor_representation_selection_semantics.md.
  */
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150849CC CURRENT (235) */
-u8 func_150849CC(void *arg0, s32 *arg1) {
-    s32 var_v1;
-    s32 temp_v1;
-    u8 temp_v0;
-    u8 temp_v0_2;
+u8 func_150849CC(u8 *arg0, s32 *arg1) {
+    s32 index;
 
-    temp_v0 = *(u8 *)((u8 *)arg0 + 0x1C9);
-    if (temp_v0 != 0) {
-        var_v1 = temp_v0 - 1;
+    if (arg0[0x1C9]) {
+        index = arg0[0x1C9] - 1;
+    } else if (arg0[0x2C8]) {
+        index = arg0[0x2C8] - 1;
     } else {
-        temp_v0_2 = *(u8 *)((u8 *)arg0 + 0x2C8);
-        var_v1 = 0;
-        if (temp_v0_2 != 0) {
-            var_v1 = temp_v0_2 - 1;
-        }
+        index = 0;
     }
-    if (arg1 != 0) {
-        temp_v1 = var_v1;
-        *arg1 = temp_v1;
-    } else {
-        temp_v1 = var_v1;
+    if (arg1) {
+        *arg1 = index;
     }
-    return *(u8 *)((u8 *)*(void **)((u8 *)arg0 + 0x2C4) + temp_v1);
+    return *(*(u8 **)(arg0 + 0x2C4) + index);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150849CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_150849CC.s")
 void func_10004074(s32);
 void func_1510D720(s32);
 extern u8 *D_800C5338[];
