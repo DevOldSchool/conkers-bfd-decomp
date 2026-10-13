@@ -1,0 +1,42 @@
+{
+  "base_commit": "a82c3f9d411acc5b0abe437d57426df33b283966",
+  "implementation": "scripts/deflate_encoder.py",
+  "encoder_sha256": {
+    "scripts/deflate_encoder.py": "1da941ba73144abda25e4278390ddf29f1f7657e417b05abc6348099c71ebcc9",
+    "scripts/rzip_bounded.py": "bdf2de249c0aecf4abbba7e0e83289ccd22f72cb78ce6a47b81668d1d012e1bd"
+  },
+  "rom_verified_before_vendor_removal": true,
+  "rom_verified_after_vendor_removal": true,
+  "rom_bytes": 67108864,
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "compatibility": {
+    "model_payloads": 27,
+    "model_stored_bytes": 791897,
+    "sprite_payloads": 5,
+    "sprite_stored_bytes": 36940,
+    "visibility_payloads": 16,
+    "visibility_stored_bytes": 151949,
+    "synthetic_cases": 244,
+    "additional_window_cases": 5,
+    "additional_golden_cases": 3
+  },
+  "tests": {
+    "run": 2689,
+    "skipped": 8,
+    "failures": 0
+  },
+  "unchanged_asset_units": 10714,
+  "identical_asset_verification_records": 10684,
+  "matched_data": 63031912,
+  "total_data": 65120512,
+  "matched_data_percent": 96.79272,
+  "compile_errors": [],
+  "source_fingerprint": "f492ef10fd430de8e2a057db9107b963e5a6b9014213bca618c15666e0cb0818",
+  "report_sha256": "414c05b9342a7aee5d0477c71fa2e04b7790bb12ab350fe81da12b7c1637eb73",
+  "commands": [
+    "./conker build --assets (before removal)",
+    "./conker build --assets (after removal)",
+    "./conker test",
+    "./conker objdiff report"
+  ]
+}

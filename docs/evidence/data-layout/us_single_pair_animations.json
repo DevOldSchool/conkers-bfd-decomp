@@ -1,0 +1,341 @@
+{
+  "new_entries": [
+    {
+      "entry": 7,
+      "rom_start": "0xc8ff80",
+      "rom_end": "0xc900e8",
+      "stored_bytes": 360,
+      "sha256": "90adad66c97fff4cfb0b8377ab532b7d3df2cb669a76f0f92c1ee520e24352bf",
+      "clips": 1,
+      "frames": 36,
+      "descriptor_zero_bytes": 6,
+      "stream_zero_bytes": 4
+    },
+    {
+      "entry": 19,
+      "rom_start": "0xcb0c50",
+      "rom_end": "0xcb0c90",
+      "stored_bytes": 64,
+      "sha256": "0b11f68d71907ddb171bec93bae55f74b762d54c8f5b1934e5afb95f589a7553",
+      "clips": 1,
+      "frames": 6,
+      "descriptor_zero_bytes": 4,
+      "stream_zero_bytes": 2
+    },
+    {
+      "entry": 26,
+      "rom_start": "0xcc0b70",
+      "rom_end": "0xcc0c70",
+      "stored_bytes": 256,
+      "sha256": "0ab9a4abe3db1e98a03bb289aad4ff1710cb893c1e5059cd377da786f4807a8e",
+      "clips": 1,
+      "frames": 11,
+      "descriptor_zero_bytes": 2,
+      "stream_zero_bytes": 1
+    },
+    {
+      "entry": 36,
+      "rom_start": "0xcd88f0",
+      "rom_end": "0xcd8d50",
+      "stored_bytes": 1120,
+      "sha256": "41e093ae471abe6955bc17a561a1dc603a311b881fa9e03b0d5122146d2659f0",
+      "clips": 1,
+      "frames": 26,
+      "descriptor_zero_bytes": 4,
+      "stream_zero_bytes": 2
+    },
+    {
+      "entry": 38,
+      "rom_start": "0xcd9578",
+      "rom_end": "0xcd9698",
+      "stored_bytes": 288,
+      "sha256": "e1699dcabd9ae56675222885b4b4e1e8273a1b62f2c983ab45e2971e92282fca",
+      "clips": 1,
+      "frames": 29,
+      "descriptor_zero_bytes": 0,
+      "stream_zero_bytes": 0
+    },
+    {
+      "entry": 67,
+      "rom_start": "0xd018b8",
+      "rom_end": "0xd01950",
+      "stored_bytes": 152,
+      "sha256": "a39274138fb8f82ad743c6d1b66c87dd379e0bd25a4b690bee1968804cdd4db8",
+      "clips": 1,
+      "frames": 7,
+      "descriptor_zero_bytes": 4,
+      "stream_zero_bytes": 3
+    },
+    {
+      "entry": 77,
+      "rom_start": "0xd2c400",
+      "rom_end": "0xd2c480",
+      "stored_bytes": 128,
+      "sha256": "b2ad060a041aebf0fb15d3f979aac29d2222124ed4b570cc5d8eb3f492fbbe35",
+      "clips": 1,
+      "frames": 6,
+      "descriptor_zero_bytes": 6,
+      "stream_zero_bytes": 6
+    },
+    {
+      "entry": 78,
+      "rom_start": "0xd2c480",
+      "rom_end": "0xd2c4d0",
+      "stored_bytes": 80,
+      "sha256": "564441950e506ec8716a4c39619d7b3c7581d4ca802972fdfe86bdccd366df35",
+      "clips": 1,
+      "frames": 9,
+      "descriptor_zero_bytes": 0,
+      "stream_zero_bytes": 5
+    },
+    {
+      "entry": 79,
+      "rom_start": "0xd2c4d0",
+      "rom_end": "0xd2c510",
+      "stored_bytes": 64,
+      "sha256": "7229fcb100ace55daa8abd3e3617dbccc4018d7d24210aec672276ba42393ee9",
+      "clips": 1,
+      "frames": 0,
+      "descriptor_zero_bytes": 2,
+      "stream_zero_bytes": 0
+    },
+    {
+      "entry": 97,
+      "rom_start": "0xda0968",
+      "rom_end": "0xda0988",
+      "stored_bytes": 32,
+      "sha256": "e4775cdd69f2a0c9cce0f7ef72438d2d6a10a23d5aca52132e7f389c12d7a91e",
+      "clips": 1,
+      "frames": 0,
+      "descriptor_zero_bytes": 0,
+      "stream_zero_bytes": 0
+    },
+    {
+      "entry": 99,
+      "rom_start": "0xda0988",
+      "rom_end": "0xda0ab8",
+      "stored_bytes": 304,
+      "sha256": "14d448a62a2bf4a44626315e5362a5dbbfa409f861268ba538b03355cae21c36",
+      "clips": 1,
+      "frames": 20,
+      "descriptor_zero_bytes": 6,
+      "stream_zero_bytes": 0
+    },
+    {
+      "entry": 103,
+      "rom_start": "0xda1568",
+      "rom_end": "0xda15d8",
+      "stored_bytes": 112,
+      "sha256": "8d168c5bb6dfe5479eb9bcac58f6154f6dd407d88fda30228e9f2c6d9f7a4b62",
+      "clips": 1,
+      "frames": 11,
+      "descriptor_zero_bytes": 4,
+      "stream_zero_bytes": 7
+    },
+    {
+      "entry": 106,
+      "rom_start": "0xda8148",
+      "rom_end": "0xda8178",
+      "stored_bytes": 48,
+      "sha256": "d44304184c68daece5f1ba26d8fe0d9849904bf709375e7b5ed759d35cdff8ab",
+      "clips": 1,
+      "frames": 0,
+      "descriptor_zero_bytes": 4,
+      "stream_zero_bytes": 0
+    },
+    {
+      "entry": 115,
+      "rom_start": "0xdf9d20",
+      "rom_end": "0xdf9d60",
+      "stored_bytes": 64,
+      "sha256": "4ff0788dcc7d08b2fac5b2d1ce1c325fad5ecd5fe9f51f108bec70e5d7d4c0f1",
+      "clips": 1,
+      "frames": 8,
+      "descriptor_zero_bytes": 2,
+      "stream_zero_bytes": 0
+    },
+    {
+      "entry": 131,
+      "rom_start": "0xe924c0",
+      "rom_end": "0xe92500",
+      "stored_bytes": 64,
+      "sha256": "7229fcb100ace55daa8abd3e3617dbccc4018d7d24210aec672276ba42393ee9",
+      "clips": 1,
+      "frames": 0,
+      "descriptor_zero_bytes": 2,
+      "stream_zero_bytes": 0
+    },
+    {
+      "entry": 143,
+      "rom_start": "0xeeabb0",
+      "rom_end": "0xeeb488",
+      "stored_bytes": 2264,
+      "sha256": "9aec27a9cb844ccb8ad61a079982350d6b65a6b17fb78a585809043dada8389b",
+      "clips": 1,
+      "frames": 26,
+      "descriptor_zero_bytes": 2,
+      "stream_zero_bytes": 0
+    },
+    {
+      "entry": 167,
+      "rom_start": "0xf66a10",
+      "rom_end": "0xf66b18",
+      "stored_bytes": 264,
+      "sha256": "02176b53704cb4bdde2f4bb14fa1fa5cac4256636940247ee638d77df1ecbeaa",
+      "clips": 1,
+      "frames": 9,
+      "descriptor_zero_bytes": 0,
+      "stream_zero_bytes": 5
+    },
+    {
+      "entry": 170,
+      "rom_start": "0xf67148",
+      "rom_end": "0xf671b0",
+      "stored_bytes": 104,
+      "sha256": "8e02d687e6444edc990d72e0da5c49c879a1c449ae93c2021d57de7ec7d588d8",
+      "clips": 1,
+      "frames": 6,
+      "descriptor_zero_bytes": 0,
+      "stream_zero_bytes": 0
+    },
+    {
+      "entry": 171,
+      "rom_start": "0xf671b0",
+      "rom_end": "0xf671d0",
+      "stored_bytes": 32,
+      "sha256": "24e48d6f7e06f23ba852fd9a59435f2bc3fe16b9fc5f03608bee4cbd0931304b",
+      "clips": 1,
+      "frames": 0,
+      "descriptor_zero_bytes": 0,
+      "stream_zero_bytes": 0
+    },
+    {
+      "entry": 183,
+      "rom_start": "0xf88ae0",
+      "rom_end": "0xf89f98",
+      "stored_bytes": 5304,
+      "sha256": "05f38db27af0032e425a2e54e19d71111f4d0dbeb437dcd5a2dd1280878fc362",
+      "clips": 1,
+      "frames": 161,
+      "descriptor_zero_bytes": 0,
+      "stream_zero_bytes": 0
+    },
+    {
+      "entry": 184,
+      "rom_start": "0xf89f98",
+      "rom_end": "0xf8b598",
+      "stored_bytes": 5632,
+      "sha256": "f2dcbf0b87c5e526e86aee50827b15416549d39b466356693cc0dbe415a1efe3",
+      "clips": 1,
+      "frames": 161,
+      "descriptor_zero_bytes": 0,
+      "stream_zero_bytes": 6
+    },
+    {
+      "entry": 185,
+      "rom_start": "0xf8b598",
+      "rom_end": "0xf8ec30",
+      "stored_bytes": 13976,
+      "sha256": "e0f8d25cd60bf6eef50610af1b394ed279305c9e16b9ec5ef4e8604aa96e12d2",
+      "clips": 1,
+      "frames": 321,
+      "descriptor_zero_bytes": 4,
+      "stream_zero_bytes": 5
+    }
+  ],
+  "new_bytes": 30712,
+  "rejected_scalar_mutations": 4,
+  "entries": 141,
+  "stored_bytes": 3782968,
+  "clips": 2561,
+  "independent_decoded_frames": 55208,
+  "field_mutations": {
+    "rotation_offsets": 424,
+    "root_offsets": 208,
+    "scale_offsets": 174,
+    "joint_translations": 191
+  },
+  "rejected_consumer_mutations": 12,
+  "bank_bytes": 4052696,
+  "bank_sha256": "1cefc77132fdf0815c0a3ed57f66fcdc9a8035f9fefa6b70ca28364b0b4f0bb7",
+  "prior_source_hashes_preserved": 25997,
+  "prior_unique_source_hashes_preserved": 25993,
+  "consumer_spans": [
+    [
+      352497412,
+      284,
+      "b8f786b34a0b0f6db12c039c68a860a08bd52d1b"
+    ],
+    [
+      352497936,
+      276,
+      "34a60e9d42e7e0e2a914bc3a2f37c13d0aba4f8a"
+    ]
+  ],
+  "fixed_duration": {
+    "address": "0x8009953C",
+    "bytes": "44204000",
+    "value": 641,
+    "entries": [
+      183,
+      184,
+      185
+    ]
+  },
+  "excluded": [
+    {
+      "entry": 82,
+      "reason": "pair 0 truncated rotation descriptor"
+    },
+    {
+      "entry": 83,
+      "reason": "pair 18 unresolved per-frame storage"
+    },
+    {
+      "entry": 124,
+      "reason": "pair 36 unexplained 590-byte duration tail"
+    },
+    {
+      "entry": 146,
+      "reason": "pair 21 unexplained 145-byte duration tail"
+    }
+  ],
+  "acceptance": {
+    "base_commit": "094102644c4c2f5aefaa0fc4b609416918f66f58",
+    "source_fingerprint": "b587cc9dfb7934acaf387649423a84aade204ce17abb9af25ec9d38fc47eea97",
+    "report_sha256": "eceab33d3a91783e0f5c0c28c605dd4b121aac1cc32be13be0cd6be0df2c6f1a",
+    "measures": {
+      "fuzzy_match_percent": 25.06301,
+      "total_code": "2246328",
+      "matched_code": "555524",
+      "matched_code_percent": 24.730316,
+      "total_data": "65120512",
+      "matched_data": "61738403",
+      "matched_data_percent": 94.80638,
+      "total_functions": 5904,
+      "matched_functions": 3485,
+      "matched_functions_percent": 59.02778,
+      "complete_code": "129488",
+      "complete_code_percent": 5.7644296,
+      "complete_data": "61737635",
+      "complete_data_percent": 94.80521,
+      "total_units": 11690,
+      "complete_units": 11000
+    },
+    "new_bytes": 30712,
+    "prior_measure_changes": [
+      "assets/storage/bank02/unreconstructed"
+    ],
+    "prior_asset_proofs_unchanged": 10654,
+    "prior_source_files_preserved": 25993,
+    "rom_bytes": 67108864,
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "snapshot": "current",
+    "compile_errors": [],
+    "tests": {
+      "run": 2565,
+      "skipped": 8,
+      "failures": 0
+    }
+  }
+}

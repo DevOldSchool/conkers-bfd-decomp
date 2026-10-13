@@ -1,0 +1,247 @@
+{
+  "entries": 20,
+  "symbol_walks": 3293,
+  "symbol_swap_mutations": 3293,
+  "consumer_endpoint_mutations": 12,
+  "rebuilt_bytes": 12545,
+  "original_bank_sha256": "253bd943ce56dcfb5a73ad4f3ea0571b2477fc1b70973904dc4663974c18aa08",
+  "consumers": {
+    "code": [
+      {
+        "address": "0x150025FC",
+        "bytes": 200,
+        "sha1": "f0c6709831a249d31ec728521c808de4320272a5"
+      },
+      {
+        "address": "0x150183D0",
+        "bytes": 304,
+        "sha1": "d81697ea28726ad4979ab992e6a85ff54e4a98b0"
+      },
+      {
+        "address": "0x15018500",
+        "bytes": 464,
+        "sha1": "b21668751b16dee2de164e058895ce0935b01d3a"
+      },
+      {
+        "address": "0x1502B5C8",
+        "bytes": 244,
+        "sha1": "9c411ce6bf78e69583215fa8484bfd0f137edc72"
+      },
+      {
+        "address": "0x1502AC88",
+        "bytes": 636,
+        "sha1": "24f02469c9605e212ed65a4c75b216d50ef8577e"
+      },
+      {
+        "address": "0x150A6760",
+        "bytes": 256,
+        "sha1": "8962df8ba492ec8ddb19a9460ec1e8961284374e"
+      }
+    ]
+  },
+  "source_hashes_unchanged": true,
+  "entries_proof": [
+    {
+      "entry": 5,
+      "rom_start": 18177280,
+      "rom_end": 18178013,
+      "decoded_sha256": "ef3056d64816fdc5ded3831414d63508c87450c51a46f3b9c4a6614307c2cca3",
+      "encoder": 6,
+      "symbol_count": 198
+    },
+    {
+      "entry": 13,
+      "rom_start": 18209560,
+      "rom_end": 18210360,
+      "decoded_sha256": "8dfb4bc08e2cad633ecd2fa99937b4d5ab29127d9aa4d4f1f5a381b8d4496f4a",
+      "encoder": 6,
+      "symbol_count": 244
+    },
+    {
+      "entry": 15,
+      "rom_start": 18212248,
+      "rom_end": 18212805,
+      "decoded_sha256": "7f9b48093424744a4b87545a9d8cf1fb4a13d2de2b59abe119242e54bc308d8e",
+      "encoder": 6,
+      "symbol_count": 125
+    },
+    {
+      "entry": 23,
+      "rom_start": 18213528,
+      "rom_end": 18213871,
+      "decoded_sha256": "40120babc1872c15ae4fad244b34fc937ddac078f45355db82349e05742ab2de",
+      "encoder": 6,
+      "symbol_count": 75
+    },
+    {
+      "entry": 25,
+      "rom_start": 18225296,
+      "rom_end": 18226098,
+      "decoded_sha256": "8d94d7c1b35a74fef083251c69cd9bd523bf88ff6d88b1497d1f2f08d582ac96",
+      "encoder": 6,
+      "symbol_count": 234
+    },
+    {
+      "entry": 39,
+      "rom_start": 18232744,
+      "rom_end": 18233531,
+      "decoded_sha256": "2e8439a19efd796205d632842992562eb9a4f9e7f6bba4eb0bf7a40a56007b27",
+      "encoder": 6,
+      "symbol_count": 204
+    },
+    {
+      "entry": 47,
+      "rom_start": 18235320,
+      "rom_end": 18235770,
+      "decoded_sha256": "175361c061c49b460ee272b4919fb6172dc2073d19c068d621637bf3a0c9389d",
+      "encoder": 6,
+      "symbol_count": 113
+    },
+    {
+      "entry": 53,
+      "rom_start": 18245680,
+      "rom_end": 18246507,
+      "decoded_sha256": "e58e1897d49a956f71ac91e2b25d67e477452b6ba487785e808d35f0bd611a38",
+      "encoder": 6,
+      "symbol_count": 232
+    },
+    {
+      "entry": 55,
+      "rom_start": 18247288,
+      "rom_end": 18247589,
+      "decoded_sha256": "64791adbd37d6a0755601accb0a281380fdb58e937bebb8df42440e9bfed0b4d",
+      "encoder": 6,
+      "symbol_count": 58
+    },
+    {
+      "entry": 57,
+      "rom_start": 18247592,
+      "rom_end": 18248282,
+      "decoded_sha256": "278816ade65bc8da576dab68496f1127aa159c594c9cc7b2d9296e1af1745894",
+      "encoder": 6,
+      "symbol_count": 167
+    },
+    {
+      "entry": 59,
+      "rom_start": 18248464,
+      "rom_end": 18248624,
+      "decoded_sha256": "7a83f6d112d1e6bb72d2b79856c05faa3224ff2541eb4819111fb4f5e636cbb7",
+      "encoder": 6,
+      "symbol_count": 29
+    },
+    {
+      "entry": 61,
+      "rom_start": 18249272,
+      "rom_end": 18249607,
+      "decoded_sha256": "92af7db588ca097325c06d71bc309a6d1a66d174a4848973db9b42efd180fd80",
+      "encoder": 6,
+      "symbol_count": 67
+    },
+    {
+      "entry": 73,
+      "rom_start": 18280800,
+      "rom_end": 18281599,
+      "decoded_sha256": "ba105d904936e19d1a9e6b024502b550c84dcb3f0326cc250e985d26cdd11f30",
+      "encoder": 6,
+      "symbol_count": 247
+    },
+    {
+      "entry": 87,
+      "rom_start": 18291520,
+      "rom_end": 18292301,
+      "decoded_sha256": "b8284c4fa74e0eb7203bfd70214086960693628516fa30c63c3e27a04780f20d",
+      "encoder": 6,
+      "symbol_count": 211
+    },
+    {
+      "entry": 89,
+      "rom_start": 18292784,
+      "rom_end": 18293054,
+      "decoded_sha256": "5ded1575c201a46b2e06856bc42ef4fb64c7fdb83126a40fb494d462cb57c085",
+      "encoder": 6,
+      "symbol_count": 54
+    },
+    {
+      "entry": 91,
+      "rom_start": 18302288,
+      "rom_end": 18303087,
+      "decoded_sha256": "fb37dc385753f949971ba4cee750f6ac0409c186838097c1365b29414884a900",
+      "encoder": 6,
+      "symbol_count": 211
+    },
+    {
+      "entry": 97,
+      "rom_start": 18316936,
+      "rom_end": 18317751,
+      "decoded_sha256": "4adf09ace5596bae00d347191a8d64f00a3f5a43887ed377c6f8e3c667a35fca",
+      "encoder": 6,
+      "symbol_count": 221
+    },
+    {
+      "entry": 105,
+      "rom_start": 18323192,
+      "rom_end": 18323978,
+      "decoded_sha256": "d55b9c6dbcaea71c7e4c99dc73a27e777f23ecfcbce3a74c6153e4861f69b654",
+      "encoder": 6,
+      "symbol_count": 205
+    },
+    {
+      "entry": 111,
+      "rom_start": 18327152,
+      "rom_end": 18327803,
+      "decoded_sha256": "4211d418acb97a0eaaf33670f86eccc666ab5c533cd4d8e99970159163315b09",
+      "encoder": 6,
+      "symbol_count": 169
+    },
+    {
+      "entry": 121,
+      "rom_start": 18348784,
+      "rom_end": 18349643,
+      "decoded_sha256": "c33c015b94d3310522520328a18fae74d2858a67e8bf16ae8a2152b8c1145e9b",
+      "encoder": 6,
+      "symbol_count": 229
+    }
+  ],
+  "acceptance": {
+    "base_commit": "094102644c4c2f5aefaa0fc4b609416918f66f58",
+    "source_fingerprint": "518e1c9e3889271567de2479159207d60b03547d26c9e19f73119ffb48b2a1ce",
+    "report_sha256": "33f0dc698b82e11e4f863e5664e1a445563d9bc50721abe268f6bf2fcf2f416b",
+    "measures": {
+      "fuzzy_match_percent": 25.06301,
+      "total_code": "2246328",
+      "matched_code": "555524",
+      "matched_code_percent": 24.730316,
+      "total_data": "65120512",
+      "matched_data": "60683092",
+      "matched_data_percent": 93.18584,
+      "total_functions": 5904,
+      "matched_functions": 3485,
+      "matched_functions_percent": 59.02778,
+      "complete_code": "129488",
+      "complete_code_percent": 5.7644296,
+      "complete_data": "60682324",
+      "complete_data_percent": 93.184654,
+      "total_units": 11639,
+      "complete_units": 10949
+    },
+    "new_units": [
+      "assets/visibility/bank05"
+    ],
+    "removed_raw_units": [],
+    "new_bytes": 12545,
+    "prior_measure_changes": [
+      "assets/storage/bank05/unreconstructed"
+    ],
+    "prior_assets_preserved": 10624,
+    "prior_source_files_preserved": 25871,
+    "rom_bytes": 67108864,
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "snapshot": "current",
+    "compile_errors": [],
+    "tests": {
+      "run": 2537,
+      "skipped": 8,
+      "failures": 0
+    }
+  }
+}

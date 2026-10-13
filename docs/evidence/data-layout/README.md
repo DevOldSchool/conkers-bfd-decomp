@@ -6,6 +6,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 
 ## Records
 
+- [Independent bounded DEFLATE replacement](us_independent_deflate.md)
 - [US complete bounded asset storage accounting](us_asset_storage_accounting.md)
 
 - [US bank-03 and bank-09 model reconstruction](us_model_reconstruction.md)
@@ -47,3 +48,24 @@ Keep new evidence with its topic and link it from this index; amend an existing
 record when extending the same claim.
 
 - [Continuing US texture reconstruction](us_texture_reconstruction.md)
+
+- [US native character reconstruction](us_character_reconstruction.md) · [JSON](us_character_reconstruction.json)
+
+- [US native character animation reconstruction](us_animation_reconstruction.md)
+
+- [Extended US scene-model reconstruction](us_model_extended_reconstruction.md)
+
+- [US MP3 decoder table reconstruction](us_mp3_table_reconstruction.md)
+
+- [Complete US character morph bank reconstruction](us_morph_reconstruction.md)
+
+- [US MPEG-2 spectral reconstruction](us_mp3_spectral_reconstruction.md): semantic coefficient sources, exact physical frame spans and exclusion of opaque cues and tails.
+
+- [US event-program reconstruction](us_event_reconstruction.md): complete bank-14 instructions, labels, constant strings, fresh compression and generated index.
+
+- [US sprite PNG reconstruction](us_sprite_reconstruction.md): RGBA5551 and I4 planes, exact compression and native credit for 51 entries.
+
+- [Bank 0A native-format animations](us_animation_bank_0a.md): 29 typed bundles; runtime owner unconfirmed.
+- [Script bank reconstruction](us_script_reconstruction.md): tracks, bindings, commands, text and fresh nested archive storage.
+
+- [US animation-control records](us_animation_control_reconstruction.md): 82 bank-0F entries with typed routes, events, action phases and behavior instructions.

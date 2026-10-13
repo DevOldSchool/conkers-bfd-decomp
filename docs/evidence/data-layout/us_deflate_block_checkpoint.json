@@ -1,0 +1,57 @@
+{
+  "base_commit": "001c5b046b35f3510b700f5f11a10a6adedf8eeb",
+  "integrated_main": "a0bbc43db6528c4e5dd22632cdbaa551d15d1a8d",
+  "input_sha256": {
+    "scripts/deflate_encoder.py": "306ca3ef542a2361b7e816790bc3db1c8e61c12b99c84ec70c977457fe6f8256",
+    "scripts/rzip_bounded.py": "bdf2de249c0aecf4abbba7e0e83289ccd22f72cb78ce6a47b81668d1d012e1bd",
+    "tests/test_rzip_bounded.py": "9c25cd56bec0d766b9fcca348b3ff1c5c8f74a3847c708850d0352103e25ff27"
+  },
+  "regression": {
+    "seed": 215,
+    "input_bytes": 30232,
+    "input_sha256": "e6e6e7cd9960dcf5df430448886befcdd289d5901d0b1db5ebc4377713e6a303",
+    "previous_output_bytes": 14410,
+    "previous_output_sha256": "e99d3c463025217396ac433c602c3ad7b9cc44beadf1e56456c1f90f8ab09b0c",
+    "fixed_and_reference_output_bytes": 14343,
+    "fixed_and_reference_output_sha256": "a914382a565ab3c562059709b2c27f9bdf14d1e94ad93b4ff7e1b89785d45b75",
+    "fails_on_previous_implementation": true,
+    "fixed_matches_reference_bytes": true,
+    "independent_zlib_decode": true
+  },
+  "rom_byte_identical": true,
+  "rom_bytes": 67108864,
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "tests": {
+    "run": 2690,
+    "skipped": 8,
+    "failures": 0
+  },
+  "unchanged_asset_units": 10714,
+  "identical_asset_verification_records": 10684,
+  "measures": {
+    "fuzzy_match_percent": 25.438538,
+    "total_code": "2246328",
+    "matched_code": "563404",
+    "matched_code_percent": 25.08111,
+    "total_data": "65120512",
+    "matched_data": "63031912",
+    "matched_data_percent": 96.79272,
+    "total_functions": 5904,
+    "matched_functions": 3505,
+    "matched_functions_percent": 59.36653,
+    "complete_code": "157660",
+    "complete_code_percent": 7.018565,
+    "complete_data": "63031752",
+    "complete_data_percent": 96.79247,
+    "total_units": 11695,
+    "complete_units": 11026
+  },
+  "compile_errors": [],
+  "source_fingerprint": "6c0f6c96b119f39722a78e3e396c846337c5bd6ba4e3e6b78b937f1ee59d6e40",
+  "report_sha256": "d6f4f7971ff4caa07c94fb8c46930d84fb1207ca6569016267fe3359a181113f",
+  "commands": [
+    "./conker build --assets",
+    "./conker test",
+    "./conker objdiff report"
+  ]
+}

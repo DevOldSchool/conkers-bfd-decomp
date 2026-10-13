@@ -4,6 +4,10 @@
 from __future__ import annotations
 
 import struct
+import hashlib
+from contextlib import contextmanager
+from contextvars import ContextVar
+from pathlib import Path
 import zlib
 from dataclasses import dataclass
 from typing import Iterator
@@ -244,3 +248,61 @@ def parse_asset_entries(rom: bytes, bank: AssetBank) -> list[AssetEntry]:
         )
         previous_end = end
     return entries
+
+
+_REFERENCE_SESSION = ContextVar('rom_reference_session', default=None)
+
+
+@contextmanager
+def reference_session():
+    """Share immutable ROM references within one report, never across reports."""
+    token = _REFERENCE_SESSION.set({'files': {}, 'sha1': {}, 'games': {}})
+    try:
+        yield
+        for path, (identity, _) in _REFERENCE_SESSION.get()['files'].items():
+            stamp = path.stat()
+            if (stamp.st_dev, stamp.st_ino, stamp.st_size, stamp.st_mtime_ns, stamp.st_ctime_ns) != identity:
+                raise ValueError('reference ROM changed during report preparation')
+    finally:
+        _REFERENCE_SESSION.reset(token)
+
+
+def read_rom(path):
+    path = Path(path).resolve()
+    session = _REFERENCE_SESSION.get()
+    if session is None:
+        return normalize_rom(path.read_bytes())
+    stamp = path.stat()
+    identity = (stamp.st_dev, stamp.st_ino, stamp.st_size, stamp.st_mtime_ns, stamp.st_ctime_ns)
+    previous = session['files'].get(path)
+    if previous is not None:
+        if previous[0] != identity:
+            raise ValueError('reference ROM changed during report preparation')
+        return previous[1]
+    result = normalize_rom(path.read_bytes())
+    after = path.stat()
+    if (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns, after.st_ctime_ns) != identity:
+        raise ValueError('reference ROM changed while reading')
+    session['files'][path] = (identity, result)
+    return result
+
+
+def rom_sha1(rom):
+    session = _REFERENCE_SESSION.get()
+    if session is None:
+        return hashlib.sha1(rom).hexdigest()
+    # Retain the immutable bytes alongside id so identity cannot be recycled.
+    key = id(rom)
+    if key not in session['sha1']:
+        session['sha1'][key] = (rom, hashlib.sha1(rom).hexdigest())
+    return session['sha1'][key][1]
+
+
+def game_archive(rom, start, end):
+    session = _REFERENCE_SESSION.get()
+    if session is None:
+        return parse_game_archive(rom[start:end])
+    key = (id(rom), start, end)
+    if key not in session['games']:
+        session['games'][key] = (rom, parse_game_archive(rom[start:end]))
+    return session['games'][key][1]

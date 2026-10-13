@@ -51,6 +51,44 @@ class ModelBundleBuildTests(unittest.TestCase):
                 self.assertEqual(records['segments'][0]['surface_words'][0], 0x00010002)
                 self.assertEqual(self.encode(records), raw)
 
+    def test_child_tertiary_tables_round_trip_and_remain_editable(self):
+        for suffix in (0, 4, 8, 12):
+            primary = surface_payload(suffix)
+            header = list(struct.unpack_from('>10I', primary))
+            header[5] -= 8
+            child = (struct.pack('>10I', *header) + primary[40:header[4]]
+                     + primary[header[4] + 8:])
+            end = 32 + len(primary) + len(child)
+            raw = (struct.pack('>8I', 32, len(primary), 32 + len(primary), len(child),
+                               end, 0, end, 0x80000000) + primary + child)
+            with self.subTest(suffix=suffix):
+                records = self.decode(raw)
+                part = records['segments'][1]
+                self.assertEqual(part['format'], 'part-tertiary-direct')
+                self.assertNotIn('surface_header', part)
+                self.assertEqual(self.encode(records), raw)
+                part['tertiary_words'][0] ^= 0x1234
+                changed = self.encode(records)
+                self.assertNotEqual(changed, raw)
+                self.assertEqual(self.decode(changed), records)
+                part['tertiary_words'].append(0)
+                with self.assertRaises(ValueError):
+                    self.encode(records)
+                poisoned = bytearray(child)
+                if suffix:
+                    poisoned[-1] = 1
+                    with self.assertRaisesRegex(ValueError, 'suffix'):
+                        bundle.surface_records(bytes(poisoned), primary=False)
+
+    def test_child_table_cannot_claim_primary_header_or_unknown_regions(self):
+        primary = surface_payload()
+        with self.assertRaisesRegex(ValueError, 'cover every face'):
+            bundle.surface_records(primary, primary=False)
+        records = self.decode(bundle_payload())
+        records['segments'][1] = ['opaque']
+        with self.assertRaisesRegex(ValueError, 'part record'):
+            self.encode(records)
+
     def test_scoped_bank04_build_requires_its_consumers_and_preserves_other_inputs(self):
         import hashlib
         import json

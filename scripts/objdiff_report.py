@@ -26,6 +26,10 @@ import data_boundaries
 import diff
 import font_assets
 import main_private_data
+try:
+    from scripts import rzip_archive
+except ModuleNotFoundError:
+    import rzip_archive
 import objdiff
 import objdiff_candidate
 import objdiff_data_targets
@@ -196,6 +200,58 @@ def prepare_models() -> tuple[list[dict], list[dict]]:
     return objdiff_data_targets.prepare_models(main_private_data.validated_rom(ROOT), output=OUTPUT)
 
 
+def prepare_sprites() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_sprites(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_animation_clips() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_animation_clips(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_scene_fields() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_scene_fields(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_scene_volumes() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_scene_volumes(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_animation_bank() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_animation_bank(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_routes() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_routes(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_visibility() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_visibility(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_animation_controls() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_animation_controls(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_scripts() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_scripts(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_events() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_events(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_morphs() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_morphs(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_mp3_spectral() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_mp3_spectral(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_mp3_tables() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_mp3_tables(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
 def prepare_sequences() -> tuple[list[dict], list[dict]]:
     return objdiff_data_targets.prepare_sequences(main_private_data.validated_rom(ROOT), output=OUTPUT)
 
@@ -277,6 +333,7 @@ def canonical_debugger_candidates(units: list[dict], configs: list[dict]) -> Non
         unit['base_sha256'] = objdiff_targets.sha256(path)
 
 
+@rzip_archive.reference_session()
 def prepare() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     for name in ('objdiff.json', 'coverage.json'):
@@ -422,8 +479,21 @@ def prepare() -> None:
     sequences, sequence_configs = prepare_sequences()
     sound_parts, sound_configs = prepare_sound_bank()
     adpcm_parts, adpcm_configs = prepare_adpcm()
-    rebuilt = [font, *textures, *models, *sequences, *sound_parts, *adpcm_parts]
-    rebuilt_configs = [font_config, *texture_configs, *model_configs, *sequence_configs, *sound_configs, *adpcm_configs]
+    mp3_tables, mp3_table_configs = prepare_mp3_tables()
+    animation_clips, animation_clip_configs = prepare_animation_clips()
+    scene_fields, scene_field_configs = prepare_scene_fields()
+    scene_volumes, scene_volume_configs = prepare_scene_volumes()
+    animation_bank, animation_bank_configs = prepare_animation_bank()
+    routes, route_configs = prepare_routes()
+    visibility, visibility_configs = prepare_visibility()
+    sprites, sprite_configs = prepare_sprites()
+    animation_controls, animation_control_configs = prepare_animation_controls()
+    scripts, script_configs = prepare_scripts()
+    events, event_configs = prepare_events()
+    morphs, morph_configs = prepare_morphs()
+    spectral, spectral_configs = prepare_mp3_spectral()
+    rebuilt = [*animation_controls, *scripts, *animation_bank, *scene_fields, *scene_volumes, *animation_clips, *routes, *visibility, *sprites, *events, *spectral, *morphs, font, *textures, *models, *sequences, *sound_parts, *adpcm_parts, *mp3_tables]
+    rebuilt_configs = [*animation_control_configs, *script_configs, *animation_bank_configs, *scene_field_configs, *scene_volume_configs, *animation_clip_configs, *route_configs, *visibility_configs, *sprite_configs, *event_configs, *spectral_configs, *morph_configs, font_config, *texture_configs, *model_configs, *sequence_configs, *sound_configs, *adpcm_configs, *mp3_table_configs]
     storage, storage_configs, storage_proof = prepare_storage(rebuilt, rebuilt_configs)
     data_built.extend([*rebuilt, *storage])
     data_config.extend([*rebuilt_configs, *storage_configs])

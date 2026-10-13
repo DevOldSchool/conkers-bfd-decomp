@@ -601,3 +601,47 @@ class ModelBuildTests(unittest.TestCase):
                     contract.write_text(json.dumps(dict(base, banks=banks)))
                     with self.assertRaisesRegex(ValueError, 'reconstruction contract|reconstruction selection'):
                         build.reviewed_models(self.root)
+
+    def test_animation_runtime_evidence_cannot_be_changed_without_changing_bytes(self):
+        animation = build.model_animation_build
+        descriptor = bytearray(16)
+        descriptor[1], descriptor[3], descriptor[5], descriptor[8] = 2, 255, 1, 3
+        struct.pack_into('>3H', descriptor, 10, 1, 1, 1)
+        clip = animation.clip_records(bytes(descriptor), bytes([0xE0] * 161) + bytes(7), runtime_duration=641)
+        records = {'format': 'character-animation-fixed-duration', 'character_entry': 183,
+                   'runtime_duration': 641, 'clips': [clip]}
+        payload = animation.encode_animation_records(records)
+        expected = dict(self.expected, bank=2, entry=183, rom_start=0, rom_end=len(payload),
+                        decoded_size=len(payload), original_decoded_sha256=build.sha256(payload),
+                        original_stored_sha256=build.sha256(payload), encoder=build.NATIVE_ENCODER,
+                        animation_runtime={'character_entry': 183, 'duration': 641,
+                                           'data_address': 0x8009953C})
+        directory = self.root / build.input_directory(183, 2)
+        build.texture_build.publish_inputs(directory, build.input_files(expected, records))
+        self.assertEqual(build.packed_model(directory, expected)[0], payload)
+        changed = copy.deepcopy(records)
+        changed['character_entry'] = 184
+        self.assertEqual(animation.encode_animation_records(changed), payload)
+        (directory / 'model.json').write_text(json.dumps(changed))
+        with self.assertRaisesRegex(ValueError, 'runtime evidence'):
+            build.packed_model(directory, expected)
+        self.assertEqual(json.loads((directory / 'model.json').read_text()), changed)
+        changed['character_entry'] = 183
+        changed['runtime_duration'] = 640
+        self.assertEqual(animation.encode_animation_records(changed), payload)
+        (directory / 'model.json').write_text(json.dumps(changed))
+        with self.assertRaisesRegex(ValueError, 'runtime evidence'):
+            build.packed_model(directory, expected)
+        (directory / 'model.json').write_text(json.dumps(records))
+        del expected['animation_runtime']
+        (directory / 'manifest.json').write_text(json.dumps(expected))
+        with self.assertRaisesRegex(ValueError, 'no reviewed runtime duration evidence'):
+            build.packed_model(directory, expected)
+
+    def test_model_source_schema_failure_preserves_the_input(self):
+        for records in ([], None, 1):
+            source = self.inputs / 'model.json'
+            source.write_text(json.dumps(records))
+            with self.subTest(records=records), self.assertRaisesRegex(ValueError, 'source schema'):
+                build.packed_model(self.inputs, self.expected)
+            self.assertEqual(json.loads(source.read_text()), records)
