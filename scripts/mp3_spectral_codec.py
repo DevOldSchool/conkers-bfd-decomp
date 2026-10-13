@@ -79,9 +79,15 @@ class Reader:
         return value
 
     def symbol(self, book):
-        cursor = huffman_tables()[0][book]
+        tables = huffman_tables()[0]
+        if type(book) is not int or not 0 <= book < len(tables) or book in (4, 14) or not tables[book]:
+            raise ValueError('invalid or empty MPEG Huffman codebook')
+        cursor = tables[book]
         while 'leaf' not in cursor:
-            cursor = cursor[self.read(1)]
+            bit = self.read(1)
+            if bit not in cursor:
+                raise ValueError('invalid MPEG Huffman code')
+            cursor = cursor[bit]
         return cursor['leaf']
 
 

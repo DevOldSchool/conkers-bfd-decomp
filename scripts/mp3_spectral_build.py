@@ -3,18 +3,19 @@ from __future__ import annotations
 
 from concurrent.futures import ProcessPoolExecutor
 import hashlib
+import tempfile
 import json
 from pathlib import Path
 
 try:
     from scripts import asset_inputs, mp3_assets, mp3_bank, mp3_spectral_codec as codec
     from scripts import mp3_table_build, texture_build
-    from scripts.build_files import write_if_changed
+    from scripts.build_files import write_if_changed, cached_sha256
     from scripts.build_jobs import job_count
 except ModuleNotFoundError:
     import asset_inputs, mp3_assets, mp3_bank, mp3_spectral_codec as codec
     import mp3_table_build, texture_build
-    from build_files import write_if_changed
+    from build_files import write_if_changed, cached_sha256
     from build_jobs import job_count
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -94,11 +95,49 @@ def input_hashes(directory, expected):
         raise input_error(directory, expected, str(error)) from error
 
 
-def packed_stream(directory, expected, *, include_partial=False):
+def encoded_spans(records, expected, hashes, include_partial, cache_directory=None):
+    """Reuse typed encoding only for identical sources, codec and output hashes."""
+    def encode():
+        return codec.encode_stream(records, include_partial=True) if include_partial else codec.encode_stream(records)
+    if cache_directory is None:
+        return encode()
+    implementation = {p: cached_sha256(ROOT / 'scripts' / p) for p in
+                      ('mp3_spectral_build.py', 'mp3_spectral_codec.py', 'mp3_table_codec.py',
+                       'mp3_assets.py', 'build_files.py')}
+    identity = {'sources': hashes, 'expected': expected, 'partial': include_partial,
+                'implementation': implementation}
+    key = sha256(json.dumps(identity, sort_keys=True).encode())
+    path = cache_directory / (key + '.json')
+    try:
+        receipt = json.loads(path.read_text())
+        payload = bytes.fromhex(receipt['payload'])
+        if receipt['identity'] == identity and sha256(payload) == receipt['sha256']:
+            spans, cursor = [], 0
+            for start, size in receipt['spans']:
+                if type(start) is not int or type(size) is not int or start < 0 or size <= 0:
+                    raise ValueError('invalid cached spectral span')
+                spans.append((start, payload[cursor:cursor + size])); cursor += size
+            if cursor == len(payload):
+                return spans
+    except (OSError, ValueError, KeyError, TypeError):
+        pass
+    spans = encode()
+    payload = b''.join(data for _, data in spans)
+    receipt = {'identity': identity, 'spans': [[start, len(data)] for start, data in spans],
+               'payload': payload.hex(), 'sha256': sha256(payload)}
+    cache_directory.mkdir(parents=True, exist_ok=True)
+    # Independent builders/report workers may publish the same deterministic key.
+    with tempfile.NamedTemporaryFile(mode='w', dir=cache_directory, delete=False) as temporary:
+        json.dump(receipt, temporary, separators=(',', ':'))
+    Path(temporary.name).replace(path)
+    return spans
+
+
+def packed_stream(directory, expected, *, include_partial=False, cache_directory=None):
     before = input_hashes(directory, expected)
     try:
         records = json.loads((directory / 'stream.json').read_text())
-        spans = codec.encode_stream(records, include_partial=True) if include_partial else codec.encode_stream(records)
+        spans = encoded_spans(records, expected, before, include_partial, cache_directory)
         if len(records['frames']) != expected['frame_count']:
             raise ValueError('MPEG frame count differs from original stream')
         ranges = [[expected['rom_start'] + start, expected['rom_start'] + start + len(data)] for start, data in spans]
@@ -146,7 +185,8 @@ def prepare_candidate(task):
     if not directory.exists():
         records = codec.decode_stream(original)
         texture_build.publish_inputs(directory, input_files(expected, records))
-    packed, spans, hashes = packed_stream(directory, expected, include_partial=True)
+    packed, spans, hashes = packed_stream(directory, expected, include_partial=True,
+                                          cache_directory=root / 'build/us/mp3-spectral/cache')
     if packed != original:
         raise ValueError('MPEG candidate differs from independent original stream')
     return expected, directory, packed, hashes

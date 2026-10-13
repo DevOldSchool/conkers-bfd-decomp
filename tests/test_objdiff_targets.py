@@ -36,6 +36,12 @@ def elf_fixture(extra_name=b'.data', extra_size=0):
 
 
 class TargetValidationTests(unittest.TestCase):
+    def setUp(self):
+        layout = targets.debugger_layout.load(ROOT)
+        mocked = patch.object(targets.debugger_layout, 'load', return_value=layout)
+        mocked.start()
+        self.addCleanup(mocked.stop)
+
     def test_full_linked_bytes_include_padding(self):
         expected = bytes.fromhex('03e000080000000000000000')
         result = targets.verify_linked_bytes(expected, expected, 'game')
@@ -127,15 +133,52 @@ class TargetValidationTests(unittest.TestCase):
             self.assertEqual(config['segments'][0], [0, 'bin', 'prefix'])
             self.assertEqual(config['segments'][1]['vram'], 0x16000000)
             self.assertEqual(config['segments'][1]['align'], 8)
-            self.assertEqual(config['segments'][1]['subsegments'], [[0x19EA88, 'asm', '19EA88']])
-            self.assertEqual(config['segments'][2], [0x1A2178, 'bin', 'suffix'])
+            self.assertEqual(config['segments'][1]['subsegments'], [[0x19EA88, 'asm', '19EA88'],
+                [0x1A2178, 'data', 'context_data'], [0x1A2768, 'rodata', 'context_rodata']])
+            self.assertEqual(config['options']['asm_jtbl_label_macro'], 'glabel')
+            self.assertEqual(config['segments'][2], [0x1A33E8])
             script = targets.linker_script(units, [Path('debugger.o')], '')
             self.assertIn('.unit0 0x16000000', script)
             self.assertIn('ASSERT(SIZEOF(.unit0) == 14064', script)
 
+    def test_debugger_layout_drift_never_silently_drops_context(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(targets, 'ROOT', Path(tmp)):
+            root = Path(tmp)
+            binary = root / 'rom.bin'
+            binary.write_bytes(bytes(0x1A33E8))
+            unit = {'start': 0x19EA88, 'end': 0x1A217C, 'kind': 'unassigned',
+                    'overlay': 'debugger', 'key': 'debugger/test'}
+            with self.assertRaisesRegex(ValueError, 'complete reference context'):
+                targets.config_document([unit], root / 'report', binary, 'hash')
+            unit['end'] = 0x1A2178
+            binary.write_bytes(bytes(0x1A33E7))
+            with self.assertRaisesRegex(ValueError, 'complete reference context'):
+                targets.config_document([unit], root / 'report', binary, 'hash')
+
+    def test_debugger_context_uses_same_object_paths_as_linker_inputs(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(targets, 'ROOT', Path(tmp)):
+            root = Path(tmp)
+            directory = root / 'report/targets/debugger'
+            sources = directory / 'asm/data'
+            sources.mkdir(parents=True)
+            for name, section in [('context_data', '.data'), ('context_rodata', '.rodata')]:
+                (sources / (name + section + '.s')).write_text(section + '\n.word 0\n')
+            with patch.object(targets.subprocess, 'run') as run:
+                objects, placements = targets.debugger_context_objects(directory)
+            self.assertEqual(run.call_count, 2)
+            script = '\n'.join(placements)
+            for obj in objects:
+                self.assertFalse(obj.is_absolute())
+                self.assertIn('"' + str(obj) + '"', script)
+            self.assertNotIn(str(root), script)
+            self.assertIn('.context_data 0x160036F0', script)
+            self.assertIn('.context_rodata 0x16003CE0', script)
+            self.assertIn('SIZEOF(.context_data) == 1520', script)
+            self.assertIn('SIZEOF(.context_rodata) == 3200', script)
+
     def test_debugger_plan_must_cover_checked_text_including_raw_tail(self):
         code = bytes.fromhex('03e0000800000000')
-        start = targets.DEBUGGER_ROM_START
+        start = targets.debugger_layout.load(ROOT)['rom_start']
         rom = bytes(start) + code
         units = [{'overlay': 'debugger', 'start': start, 'end': start + len(code)}]
         with patch.object(targets.rom_span, 'debugger_code', return_value=(code, 0x16000000, 'sha1')):
@@ -163,7 +206,7 @@ class TargetValidationTests(unittest.TestCase):
         for corrupt in (False, True):
             with self.subTest(corrupt=corrupt), tempfile.TemporaryDirectory() as tmp, \
                     patch.object(targets, 'ROOT', Path(tmp)):
-                root, start = Path(tmp), targets.DEBUGGER_ROM_START
+                root, start = Path(tmp), targets.debugger_layout.load(ROOT)['rom_start']
                 code = bytes.fromhex('03e0000800000000')
                 game = bytes.fromhex('0800000400000000')
                 rom = code + bytes(start - len(code)) + code
@@ -201,6 +244,7 @@ class TargetValidationTests(unittest.TestCase):
                     return subprocess.CompletedProcess(command, 0)
                 with patch.object(targets.extract_game_code, 'extract_code', return_value=game), \
                         patch.object(targets.rom_span, 'debugger_code', return_value=(code, 0x16000000, digest)), \
+                        patch.object(targets.debugger_layout, 'load', return_value={'rom_start': start, 'origin': 0x16000000 - start, 'code_end': start + len(code), 'rom_end': start + len(code), 'context': []}), \
                         patch.object(targets, 'text_extent', return_value=8), \
                         patch.object(targets.subprocess, 'run', side_effect=run):
                     if corrupt:
@@ -218,3 +262,16 @@ class TargetValidationTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+class LazyLayoutTests(unittest.TestCase):
+    def test_import_and_other_overlay_do_not_read_debugger_metadata(self):
+        import importlib.util
+        with patch.object(targets.debugger_layout, 'load', side_effect=ValueError('drift')) as load:
+            spec = importlib.util.spec_from_file_location('isolated_targets', ROOT / 'scripts/objdiff_targets.py')
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            self.assertEqual(module.origin('main'), 0x80000000)
+            self.assertEqual(module.origin('game'), 0x15000000)
+            load.assert_not_called()
+            with self.assertRaisesRegex(ValueError, 'drift'):
+                module.origin('debugger')

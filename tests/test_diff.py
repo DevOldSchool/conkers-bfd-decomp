@@ -717,6 +717,8 @@ class DiffReferenceTests(unittest.TestCase):
             temporary_root = Path(temporary_directory)
             source = temporary_root / "src" / "game" / "test.c"
             focused = temporary_root / "build" / "us" / "diff-source" / "test.c"
+            focused.parent.mkdir(parents=True)
+            focused.write_text("void func_test(void) {}\n", encoding="utf-8")
             output = temporary_root / "build" / "us" / "src" / "game" / "test.o"
             source.parent.mkdir(parents=True)
             source.write_text("void func_test(void) {}\n", encoding="utf-8")
@@ -729,7 +731,7 @@ class DiffReferenceTests(unittest.TestCase):
             ):
                 self.assertEqual(output, diff_helper.compile_candidate("us", source))
 
-            command.assert_called_once_with("us", focused, output)
+            command.assert_called_once_with("us", focused, output, source_text=focused.read_text())
             run.assert_called_once_with(["true"], cwd=temporary_root, check=True)
 
     def test_rejects_a_target_still_supplied_by_global_asm(self) -> None:

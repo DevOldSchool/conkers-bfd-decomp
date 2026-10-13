@@ -68,6 +68,7 @@ class AssetMakeTests(unittest.TestCase):
             (vendor / name).touch()
         shutil.copy(ROOT / 'scripts/profile_config.py', self.root / 'scripts/profile_config.py')
         shutil.copy(ROOT / 'scripts/build_timing.py', self.root / 'scripts/build_timing.py')
+        shutil.copy(ROOT / 'scripts/debugger_asset_inputs.py', self.root / 'scripts/debugger_asset_inputs.py')
         shutil.copy(ROOT / 'scripts/binary_object.py', self.root / 'scripts/binary_object.py')
         (self.root / 'config/profiles/us.yaml').write_text(
             'segments:\n  - name: font\n    type: group\n'
@@ -323,6 +324,14 @@ with Path('sprite.calls').open('a') as log:log.write('packed\\n')
         part.unlink()
         self.assertEqual(run().returncode, 0)
         self.assertEqual(part.read_bytes(), b'changed pixels')
+        manifest = source / 'manifest.json'
+        saved = manifest.read_bytes()
+        for broken in ('{broken', '{}'):
+            manifest.write_text(broken)
+            failed = run()
+            self.assertNotEqual(failed.returncode, 0)
+            self.assertIn('Invalid sprite manifest', failed.stderr)
+        manifest.write_bytes(saved)
         for name in ('manifest.json', 'backing.bin', '40-00.rgba16.png', '40-00.i4.png'):
             file = source / name
             data = file.read_bytes()

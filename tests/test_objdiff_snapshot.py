@@ -86,6 +86,33 @@ class ObjdiffSnapshotTests(unittest.TestCase):
         glyph.unlink()
         self.assertEqual('stale', snapshot.read_status(self.root)['status'])
 
+    def test_debugger_editable_source_changes_invalidate_snapshot(self):
+        source = self.root / '.conker/debugger-assets/us/strings.json'
+        source.parent.mkdir(parents=True)
+        source.write_bytes(b'original text')
+        self.proof['editable_source_inputs'] = {
+            source.relative_to(self.root).as_posix(): hashlib.sha256(source.read_bytes()).hexdigest()}
+        self.save()
+        self.assertEqual('current', snapshot.read_status(self.root)['status'])
+        source.write_bytes(b'edited text')
+        self.assertEqual(self.proof['source_fingerprint'], snapshot.input_fingerprint(self.root))
+        self.assertEqual('stale', snapshot.read_status(self.root)['status'])
+
+    def test_removed_generated_reference_does_not_stale_saved_report(self):
+        generated = self.root / 'asm/nonmatchings/tlb.s'
+        generated.parent.mkdir(parents=True)
+        generated.write_bytes(b'independent reference')
+        source = self.root / 'src/tlb.s'
+        source.write_bytes(b'maintained source')
+        self.proof['source_fingerprint'] = snapshot.input_fingerprint(self.root)
+        self.proof['editable_source_inputs'] = {
+            'src/tlb.s': hashlib.sha256(source.read_bytes()).hexdigest()}
+        self.save()
+        generated.unlink()
+        self.assertEqual('current', snapshot.read_status(self.root)['status'])
+        source.write_bytes(b'edited source')
+        self.assertEqual('stale', snapshot.read_status(self.root)['status'])
+
     def test_added_and_deleted_input_invalidate_fingerprint(self):
         before = snapshot.input_fingerprint(self.root)
         source = self.root / 'src/new.c'

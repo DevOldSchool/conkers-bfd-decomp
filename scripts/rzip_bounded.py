@@ -12,6 +12,11 @@ import subprocess
 import tempfile
 import zlib
 
+try:
+    from scripts.build_files import cached_sha256
+except ModuleNotFoundError:
+    from build_files import cached_sha256
+
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE = Path('scripts/vendor/bounded_deflate')
 FILES = ('main.c', 'deflate.c', 'trees.c', 'bits.c', 'gzip.h', 'tailor.h', 'lzw.h', 'crypt.h')
@@ -22,7 +27,7 @@ ENCODER = {'format': 'rzip-bounded-deflate-v1', 'level': 6,
 
 
 def source_hashes(root=ROOT):
-    return {name: hashlib.sha256((root / SOURCE / name).read_bytes()).hexdigest() for name in FILES}
+    return {name: cached_sha256(root / SOURCE / name) for name in FILES}
 
 
 def executable(root=ROOT):
@@ -36,7 +41,7 @@ def executable(root=ROOT):
         try:
             proof = json.loads(receipt.read_text())
             if (proof['identity'] == json.loads(json.dumps(identity))
-                    and proof['sha256'] == hashlib.sha256(binary.read_bytes()).hexdigest()
+                    and proof['sha256'] == cached_sha256(binary)
                     and os.access(binary, os.X_OK)):
                 return binary
         except (OSError, ValueError, KeyError, TypeError):

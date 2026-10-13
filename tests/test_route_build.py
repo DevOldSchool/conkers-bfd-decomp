@@ -172,3 +172,27 @@ class RouteBuildTests(unittest.TestCase):
                 self.assertEqual(native, rom[14:14 + size])
                 linked.write_bytes(object_file([('.data', 1, 3, bytes(len(payload)))]))
                 with self.assertRaisesRegex(ValueError, 'candidate differs'): targets.prepare_route_bank(rom, expected, output=output)
+
+
+class RouteReferenceErrors(unittest.TestCase):
+    def test_missing_actor_entry_is_recoverable_value_error(self):
+        from contextlib import ExitStack
+        from types import SimpleNamespace
+        with ExitStack() as stack:
+            temp = stack.enter_context(tempfile.TemporaryDirectory())
+            root = Path(temp); path = root / 'rom.z64'; path.write_bytes(b'fixture')
+            mocks = (
+                patch.object(build.model_assets, 'resolve_rom', return_value=(path, {'game_start': 0, 'game_end': 7, 'asset_table': 0})),
+                patch.object(build.rzip_archive, 'read_rom', return_value=(b'fixture', 'z64')),
+                patch.object(build.rzip_archive, 'rom_sha1', return_value=build.ROM_SHA1),
+                patch.object(build.rzip_archive, 'game_archive', return_value=None),
+                patch.object(build, 'verify_consumers', return_value={}),
+                patch.object(build.rzip_archive, 'parse_asset_banks', return_value=[
+                    SimpleNamespace(index=0x10, flags=0), SimpleNamespace(index=0x0E)]),
+                patch.object(build.rzip_archive, 'parse_asset_entries', side_effect=[[], [
+                    SimpleNamespace(index=0, type_flags=0, compressed=True, start=0, end=7)]]),
+                patch.object(build.rzip_archive, 'decode_rzip_chunk', return_value=SimpleNamespace(data=b'', consumed=7)),
+            )
+            for context in mocks: stack.enter_context(context)
+            with self.assertRaisesRegex(ValueError, 'missing bank 0E actor entry 0.*restore.*recover'):
+                build.reviewed_bank(0x10, root)

@@ -314,8 +314,8 @@ def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
         raise ValueError('unsupported direct-model bank')
     requested = BANKS if bank is None else (bank,)
     path, layout = model_assets.resolve_rom('us', root / 'roms/baserom.us.z64')
-    rom, _ = rzip_archive.normalize_rom(path.read_bytes())
-    digest = hashlib.sha1(rom).hexdigest()
+    rom, _ = rzip_archive.read_rom(path)
+    digest = rzip_archive.rom_sha1(rom)
     if digest not in layout['normalized_sha1']:
         raise ValueError('US model ROM checksum mismatch')
     contract = json.loads((root / CONTRACT).read_text())
@@ -349,7 +349,7 @@ def reviewed_models(root: Path = ROOT, *, bank: int | None = None):
         if bank_id in (1, 2, 4, 9):
             if layout.get('game_format') != 'rzip':
                 raise ValueError(f'bank-{bank_id:02d} consumer proof requires the RZIP game archive')
-            game = rzip_archive.parse_game_archive(rom[layout['game_start']:layout['game_end']])
+            game = rzip_archive.game_archive(rom, layout['game_start'], layout['game_end'])
             if bank_id == 1:
                 model_character_build.verify_consumers(game.code, int(layout['game_vram']))
             elif bank_id == 2:

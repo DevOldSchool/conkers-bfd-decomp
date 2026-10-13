@@ -96,8 +96,8 @@ def encode_records(records):
 
 def reviewed_bank(root=ROOT):
     path, layout = model_assets.resolve_rom('us', root / 'roms/baserom.us.z64')
-    rom, _ = rzip_archive.normalize_rom(path.read_bytes())
-    if hashlib.sha1(rom).hexdigest() != ROM_SHA1:
+    rom, _ = rzip_archive.read_rom(path)
+    if rzip_archive.rom_sha1(rom) != ROM_SHA1:
         raise ValueError('US morph ROM checksum mismatch')
     banks = {b.index: b for b in rzip_archive.parse_asset_banks(rom, layout['asset_table'])}
     if any(index not in banks or banks[index].flags for index in (1, 0x13)):

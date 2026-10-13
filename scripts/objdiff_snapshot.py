@@ -90,8 +90,9 @@ def read_status(root: Path) -> dict:
         # and SDK submodules, so a commit that changes no inputs stays current.
         assets_current = all(
             (root / path).is_file() and hashlib.sha256((root / path).read_bytes()).hexdigest() == digest
-            for asset in proof.get('asset_verification', {}).values()
-            for path, digest in asset.get('source_inputs', {}).items())
+            for inputs in ([asset.get('source_inputs', {}) for asset in proof.get('asset_verification', {}).values()]
+                           + [proof.get('editable_source_inputs', {})])
+            for path, digest in inputs.items())
         current = fingerprint == proof['source_fingerprint'] and assets_current
         reason = ('Report inputs match this checkout.' if current
                   else 'Report inputs have changed since generation.')

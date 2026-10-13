@@ -225,7 +225,7 @@ class SpectralBuildTests(unittest.TestCase):
         linked.write_bytes(object_file([('.data', 1, 3, self.original)]))
         output = self.root / 'report'
         with patch.object(targets, 'ROOT', self.root):
-            unit, item = targets.prepare_mp3_spectral_stream(self.rom, self.expected, output=output)
+            unit, item = targets.prepare_mp3_spectral_stream(self.original, self.expected, output=output)
             self.assertEqual(unit['rom_ranges'], [[6, 84], [93, 248]])
             self.assertEqual(unit['report_data_bytes'], 233)
             self.assertTrue(unit['complete'])
@@ -241,4 +241,33 @@ class SpectralBuildTests(unittest.TestCase):
             altered = self.original[:80] + b'X' + self.original[81:]
             linked.write_bytes(object_file([('.data', 1, 3, altered)]))
             with self.assertRaisesRegex(ValueError, 'linked candidate differs'):
-                targets.prepare_mp3_spectral_stream(self.rom, self.expected, output=output)
+                targets.prepare_mp3_spectral_stream(self.original, self.expected, output=output)
+
+
+class SpectralReviewTests(unittest.TestCase):
+    def test_invalid_huffman_selection_and_code_have_useful_errors(self):
+        for book in (4, 14, -1, 100, True):
+            with self.subTest(book=book), self.assertRaisesRegex(ValueError, 'codebook'):
+                codec.Reader(b'\x00').symbol(book)
+        with patch.object(codec, 'huffman_tables', return_value=([{0: {'leaf': (1, 1)}}], [])):
+            with self.assertRaisesRegex(ValueError, 'invalid MPEG Huffman code'):
+                codec.Reader(b'\x80').symbol(0)
+        with self.assertRaisesRegex(ValueError, 'reservoir'):
+            codec.Reader(b'').symbol(1)
+
+    def test_encoding_cache_reuses_build_and_rejects_stale_or_corrupt_entries(self):
+        records, _ = fixture()
+        with tempfile.TemporaryDirectory() as temporary:
+            cache = Path(temporary)
+            with patch.object(build.codec, 'encode_stream', wraps=build.codec.encode_stream) as encoder:
+                expected = build.encoded_spans(records, {}, {'source': 'a'}, True, cache)
+                self.assertEqual(build.encoded_spans(records, {}, {'source': 'a'}, True, cache), expected)
+                self.assertEqual(encoder.call_count, 1)
+                receipt = next(cache.glob('*.json')); receipt.write_text('{}')
+                self.assertEqual(build.encoded_spans(records, {}, {'source': 'a'}, True, cache), expected)
+                self.assertEqual(encoder.call_count, 2)
+                build.encoded_spans(records, {}, {'source': 'b'}, True, cache)
+                self.assertEqual(encoder.call_count, 3)
+                with patch.object(build, 'cached_sha256', return_value='changed codec'):
+                    build.encoded_spans(records, {}, {'source': 'b'}, True, cache)
+                self.assertEqual(encoder.call_count, 4)

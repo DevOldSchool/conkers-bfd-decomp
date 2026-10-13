@@ -65,10 +65,10 @@ def checked_payload(rom, entry):
 
 def reviewed_objects(root=ROOT):
     path, layout = model_assets.resolve_rom('us', root / 'roms/baserom.us.z64')
-    rom, _ = rzip_archive.normalize_rom(path.read_bytes())
-    if hashlib.sha1(rom).hexdigest() != ROM_SHA1:
+    rom, _ = rzip_archive.read_rom(path)
+    if rzip_archive.rom_sha1(rom) != ROM_SHA1:
         raise ValueError('US partial animation ROM checksum mismatch')
-    game = rzip_archive.parse_game_archive(rom[layout['game_start']:layout['game_end']])
+    game = rzip_archive.game_archive(rom, layout['game_start'], layout['game_end'])
     codec.verify_consumers(game.code, int(layout['game_vram']))
     consumers = checked_spans(game.code, int(layout['game_vram']), (*codec.CONSUMER_SPANS, *CODE_SPANS))
     tables = checked_spans(game.data, int(layout['game_data_vram']), DATA_SPANS)

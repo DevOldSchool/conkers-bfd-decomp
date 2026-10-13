@@ -7,6 +7,19 @@
  * Evidence: docs/evidence/debugger/us_debugger_source_units.md
  */
 
+/* Reviewed formatter data: docs/evidence/debugger/us_debugger_source_units.md. */
+u8 D_16003C70[33] = "                                ";
+u8 D_16003C94[33] = "00000000000000000000000000000000";
+u8 D_16003CB8[17] = "0123456789abcdef";
+u8 D_16003CCC[17] = "0123456789ABCDEF";
+const u8 D_16004800[4] = "hlL";
+const u8 D_16004804[6] = " +-#0";
+const u32 D_1600480C[6] = {1, 2, 4, 8, 16, 0};
+const f64 D_16004828[9] = {10.0, 100.0, 10000.0, 1e8, 1e16, 1e32, 1e64, 1e128, 1e256};
+const u8 D_16004870[4] = "NaN";
+const u8 D_16004874[4] = "Inf";
+const u8 D_16004878[2] = "0";
+
 void *func_16001AD0(void *dst, const void *src, u32 count) {
     u8 *out = dst;
     const u8 *in = src;
@@ -326,7 +339,6 @@ ConkerLdiv func_10023060(s32 numerator, s32 denominator);
 extern const f64 D_16004828[9];
 extern const u8 D_16004870[4];
 extern const u8 D_16004874[4];
-extern const f64 D_16004950;
 s16 func_16002D2C(s16 *exponent, f64 *value);
 void func_16002DE4(ConkerPft *px, u8 code, u8 *digits, s16 count, s16 exponent);
 
@@ -409,7 +421,7 @@ void func_1600288C(ConkerPft *args, u8 type)
 				s32 lo = ldval;
 
 				if ((gen -= 8) > 0) {
-					ldval = (ldval - lo) * D_16004950;
+					ldval = (ldval - lo) * 1e8;
 				}
 
 				p += 8;

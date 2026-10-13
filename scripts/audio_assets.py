@@ -6,6 +6,10 @@ from __future__ import annotations
 from collections import Counter
 
 import argparse
+try:
+    from scripts import rzip_archive
+except ModuleNotFoundError:
+    import rzip_archive
 import copy
 import hashlib
 import json
@@ -1074,8 +1078,8 @@ def load_profile_audio_assets(
     profile: str, rom_argument: Path | None
 ) -> tuple[Path, bytes, str, NonMp3AudioFamily]:
     rom_path, layout = resolve_rom(profile, rom_argument)
-    normalized, source_order = normalize_rom(rom_path.read_bytes())
-    digest = hashlib.sha1(normalized).hexdigest()
+    normalized, source_order = rzip_archive.read_rom(rom_path)
+    digest = rzip_archive.rom_sha1(normalized)
     if digest not in layout["normalized_sha1"]:
         raise ValueError(
             f"{profile} normalized ROM SHA-1 mismatch: got {digest}; expected one of "
@@ -1251,7 +1255,7 @@ def extract_audio_assets(
         "profile": profile,
         "source_rom": manifest_source(rom_path),
         "source_byte_order": source_order,
-        "normalized_sha1": hashlib.sha1(normalized).hexdigest(),
+        "normalized_sha1": rzip_archive.rom_sha1(normalized),
         "family": "non-mp3-audio",
         "bank_index": AUDIO_BANK_INDEX,
         "bank_start": f"0x{family.bank_start:X}",

@@ -17,7 +17,7 @@ the [source-unit boundaries](us_debugger_source_units.md).
 | [28 debugger/UI functions](../../../src/done/debugger/debugger_0000.c) | `0x19EA88–0x1A0558` | `0x16000000–0x16001AD0` |
 | [10 library helpers](../../../src/done/debugger/debugger_1AD0.c) | `0x1A0558–0x1A20D8` | `0x16001AD0–0x16003650` |
 | Raw TLB capture and alignment | `0x1A20D8–0x1A2178` | `0x16003650–0x160036F0` |
-| Raw loaded data | `0x1A2178–0x1A33E8` | `0x160036F0–0x16004960` |
+| Loaded data (both C units rebuilt) | `0x1A2178–0x1A33E8` | `0x160036F0–0x16004960` |
 
 Loader instructions at ROM `0x7F20–0x7F40` form both ROM endpoints and DMA
 `0x4960` bytes. JAL `0x0D8002C5` at `0x8070` targets `0x16000B14` through
@@ -30,7 +30,9 @@ alignment bytes. Data begins with writable controller storage, passed at
 by main's count initialization at ROM `0x25498/0x254A0` and the debugger's
 six-byte stride at `0x160018B0`. `align: 8` preserves the image endpoints.
 
-Keep privileged TLB instructions and loaded data in raw assembly. The
+Privileged TLB instructions remain [verified original assembly](us_debugger_tlb.md).
+The formatter [reconstructs 464 initialized bytes](debugger_printf_rodata.md) and
+the [UI source reconstructs the remaining 4,256 bytes](us_debugger_data_reconstruction.md). The
 independent reference remains wholly raw. The matching workflow now supports
 individual debugger registration and explicitly reviewed debugger source units;
 see the [workflow](../../decompilation-workflow.md#source-unit-boundaries-and-integration).

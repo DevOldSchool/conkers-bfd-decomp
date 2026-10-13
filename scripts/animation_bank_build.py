@@ -54,10 +54,10 @@ def encode_record(bank, record):
 def reviewed_bank(bank, root=ROOT):
     input_directory(bank)
     path, layout = model_assets.resolve_rom('us', root / 'roms/baserom.us.z64')
-    rom, _ = rzip_archive.normalize_rom(path.read_bytes())
-    if hashlib.sha1(rom).hexdigest() != ROM_SHA1:
+    rom, _ = rzip_archive.read_rom(path)
+    if rzip_archive.rom_sha1(rom) != ROM_SHA1:
         raise ValueError('US animation ROM checksum mismatch')
-    game = rzip_archive.parse_game_archive(rom[layout['game_start']:layout['game_end']])
+    game = rzip_archive.game_archive(rom, layout['game_start'], layout['game_end'])
     consumers = verify_consumers(game, layout)
     banks = {b.index: b for b in rzip_archive.parse_asset_banks(rom, layout['asset_table'])}
     target = banks[bank]

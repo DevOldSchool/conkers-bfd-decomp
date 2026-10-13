@@ -341,9 +341,39 @@ def candidate_section(unit: dict, base: Path) -> tuple[bytes, int]:
     return payload[:size], sum(section == index for section, _ in obj.relocations)
 
 
+def allocated_debugger_inputs(units: list[dict], output: Path) -> dict[str, str]:
+    """Refresh the actual runtime link before considering source-data completion."""
+    mapped = [u for u in units if u['kind'] == 'source_placement']
+    if not mapped:
+        return {}
+    if any(u.get('overlay') != 'debugger' for u in mapped):
+        raise ValueError('unsupported allocated source-data overlay')
+    with (output / 'debugger-runtime-build.log').open('w') as log:
+        subprocess.run(['make', '--silent', '--jobs', str(job_count()), 'build',
+                        'PROFILE=us', 'ASSETS=0'], cwd=ROOT, stdout=log, stderr=log, check=True)
+    import verify_debugger_rodata
+    elf = ROOT / 'build/us/original-assets/conker.us.elf'
+    verify_debugger_rodata.verify(elf)
+    return {elf.relative_to(ROOT).as_posix(): objdiff_targets.sha256(elf)}
+
+
+def same_source_object(candidate: Path, linked: Path) -> bool:
+    """Compare actual storage and relocations, ignoring only debug/file metadata."""
+    left, right = Object32(candidate.read_bytes()), Object32(linked.read_bytes())
+    def storage(obj):
+        parsed = sections(obj.data, 1)
+        return {name: (header[1:4], header[5], header[8], payload)
+                for name, (header, payload) in parsed.items()
+                if header[2] & 2 and name not in ('.reginfo', '.MIPS.abiflags')}
+    return (storage(left) == storage(right)
+            and left.relocations == right.relocations
+            and sorted(left.non_section_symbols) == sorted(right.non_section_symbols))
+
+
 def prepare_candidates(units: list[dict], *, output: Path | None = None) -> list[dict]:
     output = OUTPUT if output is None else output
     config = []
+    runtime_inputs = allocated_debugger_inputs(units, output)
     for unit in units:
         directory = output / unit['key']
         directory.mkdir(parents=True, exist_ok=True)
@@ -361,7 +391,7 @@ def prepare_candidates(units: list[dict], *, output: Path | None = None) -> list
             if source:
                 focused = directory / 'base.c'
                 focused.write_text(diff.GLOBAL_ASM_LINE.sub('', source.read_text()))
-                result = subprocess.run(compile_c.compile_command('us', focused, base),
+                result = compile_c.run_compile('us', focused, base,
                                         cwd=ROOT, stdout=log, stderr=log)
                 unit['source'] = source.relative_to(ROOT).as_posix()
                 if result.returncode:
@@ -394,6 +424,20 @@ def prepare_candidates(units: list[dict], *, output: Path | None = None) -> list
                     archive_path, _ = candidate_archive(unit)
                     unit.update(complete=True, data_completion_verified=True,
                                 linked_inputs={archive_path.relative_to(ROOT).as_posix(): objdiff_targets.sha256(archive_path)})
+                    item['metadata']['complete'] = True
+                elif unit['kind'] == 'source_placement':
+                    linked = ROOT / ('build/us/' + unit['source'].removesuffix('.c') + '.o')
+                    if not same_source_object(base, linked):
+                        raise ValueError('debugger data candidate differs from actual linker input')
+                    if unit['source'] == 'src/done/debugger/debugger_0000.c':
+                        import debugger_assets
+                        unit['source_inputs'] = {
+                            (debugger_assets.DIRECTORY / name).as_posix():
+                            objdiff_targets.sha256(ROOT / debugger_assets.DIRECTORY / name)
+                            for name in ('glyphs.pgm', 'strings.json')}
+                    unit.update(complete=True, data_completion_verified=True,
+                                linked_inputs={**runtime_inputs,
+                                    linked.relative_to(ROOT).as_posix(): objdiff_targets.sha256(linked)})
                     item['metadata']['complete'] = True
         config.append(item)
     return config
@@ -719,34 +763,31 @@ def prepare_morphs(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]
     unit, item = prepare_morph_bank(rom, expected, output=output)
     return [unit], [item]
 
-def prepare_visibility_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
-    """Report only regenerated physical ranges of the actual linked object."""
-    source = visibility_build.INPUT_DIRECTORY
-    packed, fresh_spans, hashes = visibility_build.packed_bank(ROOT / source, expected)
-    key = 'visibility-bank'
-    name = 'visibility/bank05'
+def prepare_rebuilt_ranges(original_bank, expected, *, source, packed, fresh_spans, hashes,
+                           key, name, linked, ranges, read_hashes, output):
+    """Credit only disjoint regenerated slices of an independently checked linked object."""
+    if len(original_bank) != expected['rom_end'] - expected['rom_start']:
+        raise ValueError('asset reference extent differs from reviewed object')
     directory = output / key
     directory.mkdir(parents=True, exist_ok=True)
-    linked = ROOT / ('build/us/assets/' + visibility_build.PART_NAME + '.o')
     linked_bytes = linked.read_bytes()
     target_extent(linked, '.data', expected['rom_end'] - expected['rom_start'])
     actual = sections(linked_bytes, 1)['.data'][1]
     if actual != packed:
-        raise ValueError('visibility linked candidate differs from current semantic and backing inputs')
-    ranges = expected['rom_ranges']
+        raise ValueError('asset linked candidate differs from current semantic and backing inputs')
     fresh_ranges = [[expected['rom_start'] + start, expected['rom_start'] + start + len(payload)]
                     for start, payload in fresh_spans]
     size = sum(end - start for start, end in ranges)
     objdiff_storage.rebuilt_ranges({'rom_ranges': ranges, 'size': size})
     if (ranges != fresh_ranges
             or any(not expected['rom_start'] <= start < end <= expected['rom_end'] for start, end in ranges)):
-        raise ValueError('visibility report ranges differ from the generated bank')
+        raise ValueError('asset report ranges differ from the generated bank')
     candidate = b''.join(actual[start - expected['rom_start']:end - expected['rom_start']]
                          for start, end in ranges)
     fresh = b''.join(payload for _, payload in fresh_spans)
-    original = b''.join(rom[start:end] for start, end in ranges)
+    original = b''.join(original_bank[start - expected['rom_start']:end - expected['rom_start']] for start, end in ranges)
     if candidate != fresh or candidate != original:
-        raise ValueError('visibility ranges differ from fresh semantic sources or original ROM')
+        raise ValueError('asset ranges differ from fresh semantic sources or original ROM')
     # Native objects contain only the proved slices, in physical ROM order.
     # Index, padding and nonmatching entries remain in the raw-storage target.
     relative = name + '.bin'
@@ -756,10 +797,10 @@ def prepare_visibility_bank(rom: bytes, expected: dict, *, output: Path) -> tupl
     for path in (base, target):
         target_extent(path, '.data', size)
     proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
-                                              original, 'visibility bank semantic ranges')
-    if (hashes != visibility_build.input_hashes(ROOT / source, expected)
+                                              original, 'asset semantic ranges')
+    if (hashes != read_hashes()
             or linked.read_bytes() != linked_bytes):
-        raise ValueError('visibility source or ROM linker object changed during report preparation')
+        raise ValueError('asset source or ROM linker object changed during report preparation')
     sources = {(ROOT / source / path).resolve().relative_to(ROOT.resolve()).as_posix(): digest
                for path, digest in hashes.items()}
     unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data', 'size': size,
@@ -772,6 +813,20 @@ def prepare_visibility_bank(rom: bytes, expected: dict, *, output: Path) -> tupl
     item = {'name': 'assets/' + name, 'target_path': unit['target_path'], 'base_path': unit['base_path'],
             'metadata': {'complete': True, 'progress_categories': ['data']}}
     return unit, item
+
+
+
+def prepare_visibility_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    """Report only regenerated physical ranges of the actual linked object."""
+    source = visibility_build.INPUT_DIRECTORY
+    packed, fresh_spans, hashes = visibility_build.packed_bank(ROOT / source, expected)
+    key = 'visibility-bank'
+    name = 'visibility/bank05'
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
+        linked=ROOT / ('build/us/assets/' + visibility_build.PART_NAME + '.o'), ranges=expected['rom_ranges'],
+        read_hashes=lambda: visibility_build.input_hashes(ROOT / source, expected), output=output)
 
 
 
@@ -790,53 +845,11 @@ def prepare_sprite_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[di
     packed, fresh_spans, hashes = sprite_build.packed_bank(ROOT / source, expected)
     key = 'sprite-bank'
     name = 'sprites/bank00'
-    directory = output / key
-    directory.mkdir(parents=True, exist_ok=True)
-    linked = ROOT / ('build/us/assets/' + sprite_build.PART_NAME + '.o')
-    linked_bytes = linked.read_bytes()
-    target_extent(linked, '.data', expected['rom_end'] - expected['rom_start'])
-    actual = sections(linked_bytes, 1)['.data'][1]
-    if actual != packed:
-        raise ValueError('sprite linked candidate differs from current PNG and backing inputs')
-    ranges = expected['rom_ranges']
-    fresh_ranges = [[expected['rom_start'] + start, expected['rom_start'] + start + len(payload)]
-                    for start, payload in fresh_spans]
-    size = sum(end - start for start, end in ranges)
-    objdiff_storage.rebuilt_ranges({'rom_ranges': ranges, 'size': size})
-    if (ranges != fresh_ranges
-            or any(not expected['rom_start'] <= start < end <= expected['rom_end'] for start, end in ranges)):
-        raise ValueError('sprite report ranges differ from the generated bank')
-    candidate = b''.join(actual[start - expected['rom_start']:end - expected['rom_start']]
-                         for start, end in ranges)
-    fresh = b''.join(payload for _, payload in fresh_spans)
-    original = b''.join(rom[start:end] for start, end in ranges)
-    if candidate != fresh or candidate != original:
-        raise ValueError('sprite frame ranges differ from fresh PNGs or original ROM')
-    # Native objects contain only the proved slices, in physical ROM order.
-    # Index, padding and nonmatching entries remain in the raw-storage target.
-    relative = name + '.bin'
-    base, target = directory / 'base.o', directory / 'target.o'
-    base.write_bytes(binary_object.binary_object(candidate, relative))
-    target.write_bytes(binary_object.binary_object(original, relative))
-    for path in (base, target):
-        target_extent(path, '.data', size)
-    proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
-                                              original, 'sprite bank image ranges')
-    if (hashes != sprite_build.input_hashes(ROOT / source, expected)
-            or linked.read_bytes() != linked_bytes):
-        raise ValueError('sprite source or ROM linker object changed during report preparation')
-    sources = {(ROOT / source / path).resolve().relative_to(ROOT.resolve()).as_posix(): digest
-               for path, digest in hashes.items()}
-    unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data', 'size': size,
-            'rom_ranges': ranges, 'linked_rom_start': expected['rom_start'], 'linked_rom_end': expected['rom_end'],
-            'source_inputs': sources, 'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
-            'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
-            'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
-            'literal_payload_matches_rom': True, 'target_verification': proof,
-            'report_code_bytes': 0, 'report_data_bytes': size, 'complete': True}
-    item = {'name': 'assets/' + name, 'target_path': unit['target_path'], 'base_path': unit['base_path'],
-            'metadata': {'complete': True, 'progress_categories': ['data']}}
-    return unit, item
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
+        linked=ROOT / ('build/us/assets/' + sprite_build.PART_NAME + '.o'), ranges=expected['rom_ranges'],
+        read_hashes=lambda: sprite_build.input_hashes(ROOT / source, expected), output=output)
 
 
 
@@ -849,71 +862,29 @@ def prepare_sprites(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]
     return [unit], [item]
 
 
-def prepare_mp3_spectral_stream(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
-    """Report only regenerated physical ranges of an actual whole-stream object."""
+def prepare_mp3_spectral_stream(original: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
     index = expected['entry']
     source = mp3_spectral_build.input_directory(index)
-    packed, fresh_spans, hashes = mp3_spectral_build.packed_stream(ROOT / source, expected, include_partial=True)
-    key = f'mp3-spectral-{index:04d}'
-    name = f'audio/mp3/spectral/{index:04d}'
-    directory = output / key
-    directory.mkdir(parents=True, exist_ok=True)
-    linked = ROOT / ('build/us/assets/' + mp3_spectral_build.part_name(index) + '.o')
-    linked_bytes = linked.read_bytes()
-    target_extent(linked, '.data', expected['rom_end'] - expected['rom_start'])
-    actual = sections(linked_bytes, 1)['.data'][1]
-    if actual != packed:
-        raise ValueError('MPEG linked candidate differs from current coefficient and backing inputs')
-    partial_ranges, _, _ = mp3_spectral_build.codec.reviewed_ranges(
-        rom[expected['rom_start']:expected['rom_end']], include_partial=True)
-    ranges = [[expected['rom_start'] + a, expected['rom_start'] + z] for a, z in partial_ranges]
-    fresh_ranges = [[expected['rom_start'] + start, expected['rom_start'] + start + len(payload)]
-                    for start, payload in fresh_spans]
-    size = sum(end - start for start, end in ranges)
-    objdiff_storage.rebuilt_ranges({'rom_ranges': ranges, 'size': size})
-    if (ranges != fresh_ranges
-            or any(not expected['rom_start'] <= start < end <= expected['rom_end'] for start, end in ranges)):
-        raise ValueError('MPEG report ranges differ from the generated stream')
-    candidate = b''.join(actual[start - expected['rom_start']:end - expected['rom_start']]
-                         for start, end in ranges)
-    fresh = b''.join(payload for _, payload in fresh_spans)
-    original = b''.join(rom[start:end] for start, end in ranges)
-    if candidate != fresh or candidate != original:
-        raise ValueError('MPEG frame ranges differ from fresh coefficients or original ROM')
-    # Native objects contain only the proved slices, in physical ROM order.
-    # Cue bytes and incomplete reservoir bytes stay in the raw-storage target.
-    relative = name + '.bin'
-    base, target = directory / 'base.o', directory / 'target.o'
-    base.write_bytes(binary_object.binary_object(candidate, relative))
-    target.write_bytes(binary_object.binary_object(original, relative))
-    for path in (base, target):
-        target_extent(path, '.data', size)
-    proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
-                                              original, f'MPEG stream {index} frame ranges')
-    if (hashes != mp3_spectral_build.input_hashes(ROOT / source, expected)
-            or linked.read_bytes() != linked_bytes):
-        raise ValueError('MPEG source or ROM linker object changed during report preparation')
-    sources = {(ROOT / source / path).resolve().relative_to(ROOT.resolve()).as_posix(): digest
-               for path, digest in hashes.items()}
-    unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data', 'size': size,
-            'rom_ranges': ranges, 'linked_rom_start': expected['rom_start'], 'linked_rom_end': expected['rom_end'],
-            'source_inputs': sources, 'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
-            'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
-            'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
-            'literal_payload_matches_rom': True, 'target_verification': proof,
-            'report_code_bytes': 0, 'report_data_bytes': size, 'complete': True}
-    item = {'name': 'assets/' + name, 'target_path': unit['target_path'], 'base_path': unit['base_path'],
-            'metadata': {'complete': True, 'progress_categories': ['data']}}
-    return unit, item
+    packed, fresh_spans, hashes = mp3_spectral_build.packed_stream(
+        ROOT / source, expected, include_partial=True,
+        cache_directory=ROOT / 'build/us/mp3-spectral/cache')
+    ranges, _, _ = mp3_spectral_build.codec.reviewed_ranges(original, include_partial=True)
+    return prepare_rebuilt_ranges(
+        original, expected, source=source, packed=packed, fresh_spans=fresh_spans, hashes=hashes,
+        key=f'mp3-spectral-{index:04d}', name=f'audio/mp3/spectral/{index:04d}',
+        linked=ROOT / ('build/us/assets/' + mp3_spectral_build.part_name(index) + '.o'),
+        ranges=[[expected['rom_start'] + a, expected['rom_start'] + z] for a, z in ranges],
+        read_hashes=lambda: mp3_spectral_build.input_hashes(ROOT / source, expected), output=output)
 
 
-def initialize_mp3_spectral_report_worker(root, rom, output):
-    global ROOT, _SPECTRAL_ROM, _SPECTRAL_OUTPUT
-    ROOT, _SPECTRAL_ROM, _SPECTRAL_OUTPUT = root, rom, output
+def initialize_mp3_spectral_report_worker(root, output):
+    global ROOT, _SPECTRAL_OUTPUT
+    ROOT, _SPECTRAL_OUTPUT = root, output
 
 
-def prepare_mp3_spectral_report_worker(expected):
-    return prepare_mp3_spectral_stream(_SPECTRAL_ROM, expected, output=_SPECTRAL_OUTPUT)
+def prepare_mp3_spectral_report_worker(task):
+    expected, original = task
+    return prepare_mp3_spectral_stream(original, expected, output=_SPECTRAL_OUTPUT)
 
 
 def prepare_mp3_spectral(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -923,10 +894,10 @@ def prepare_mp3_spectral(rom: bytes, *, output: Path) -> tuple[list[dict], list[
     paths = ['build/us/assets/' + mp3_spectral_build.part_name(e['entry']) + '.o' for e, _ in selected]
     build_rebuilt_objects(paths, 'mp3-spectral', output)
     with ProcessPoolExecutor(max_workers=job_count(), initializer=initialize_mp3_spectral_report_worker,
-                             initargs=(ROOT, rom, output)) as workers:
-        pairs = list(workers.map(prepare_mp3_spectral_report_worker,
-                                 (expected for expected, _ in selected), chunksize=4))
+                             initargs=(ROOT, output)) as workers:
+        pairs = list(workers.map(prepare_mp3_spectral_report_worker, selected, chunksize=4))
     return [unit for unit, _ in pairs], [item for _, item in pairs]
+
 
 
 def prepare_script_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
@@ -971,53 +942,11 @@ def prepare_scene_volume_bank(rom: bytes, expected: dict, *, output: Path) -> tu
     packed, fresh_spans, hashes = scene_volume_build.packed_bank(ROOT / source, expected)
     key = 'scene-volumes'
     name = 'scenes/volumes'
-    directory = output / key
-    directory.mkdir(parents=True, exist_ok=True)
-    linked = ROOT / ('build/us/assets/' + scene_volume_build.PART + '.o')
-    linked_bytes = linked.read_bytes()
-    target_extent(linked, '.data', expected['rom_end'] - expected['rom_start'])
-    actual = sections(linked_bytes, 1)['.data'][1]
-    if actual != packed:
-        raise ValueError('scene linked candidate differs from current semantic and backing inputs')
-    ranges = expected['rom_ranges']
-    fresh_ranges = [[expected['rom_start'] + start, expected['rom_start'] + start + len(payload)]
-                    for start, payload in fresh_spans]
-    size = sum(end - start for start, end in ranges)
-    objdiff_storage.rebuilt_ranges({'rom_ranges': ranges, 'size': size})
-    if (ranges != fresh_ranges
-            or any(not expected['rom_start'] <= start < end <= expected['rom_end'] for start, end in ranges)):
-        raise ValueError('scene report ranges differ from the generated bank')
-    candidate = b''.join(actual[start - expected['rom_start']:end - expected['rom_start']]
-                         for start, end in ranges)
-    fresh = b''.join(payload for _, payload in fresh_spans)
-    original = b''.join(rom[start:end] for start, end in ranges)
-    if candidate != fresh or candidate != original:
-        raise ValueError('scene ranges differ from fresh semantic sources or original ROM')
-    # Native objects contain only the proved slices, in physical ROM order.
-    # Index, padding and nonmatching entries remain in the raw-storage target.
-    relative = name + '.bin'
-    base, target = directory / 'base.o', directory / 'target.o'
-    base.write_bytes(binary_object.binary_object(candidate, relative))
-    target.write_bytes(binary_object.binary_object(original, relative))
-    for path in (base, target):
-        target_extent(path, '.data', size)
-    proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
-                                              original, 'scene bank semantic ranges')
-    if (hashes != scene_volume_build.input_hashes(ROOT / source, expected)
-            or linked.read_bytes() != linked_bytes):
-        raise ValueError('scene source or ROM linker object changed during report preparation')
-    sources = {(ROOT / source / path).resolve().relative_to(ROOT.resolve()).as_posix(): digest
-               for path, digest in hashes.items()}
-    unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data', 'size': size,
-            'rom_ranges': ranges, 'linked_rom_start': expected['rom_start'], 'linked_rom_end': expected['rom_end'],
-            'source_inputs': sources, 'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
-            'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
-            'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
-            'literal_payload_matches_rom': True, 'target_verification': proof,
-            'report_code_bytes': 0, 'report_data_bytes': size, 'complete': True}
-    item = {'name': 'assets/' + name, 'target_path': unit['target_path'], 'base_path': unit['base_path'],
-            'metadata': {'complete': True, 'progress_categories': ['data']}}
-    return unit, item
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
+        linked=ROOT / ('build/us/assets/' + scene_volume_build.PART + '.o'), ranges=expected['rom_ranges'],
+        read_hashes=lambda: scene_volume_build.input_hashes(ROOT / source, expected), output=output)
 
 
 def prepare_scene_volumes(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -1034,53 +963,11 @@ def prepare_scene_field_bank(rom: bytes, expected: dict, *, output: Path) -> tup
     packed, fresh_spans, hashes = scene_field_build.packed_bank(ROOT / source, expected)
     key = 'scene-fields'
     name = 'scenes/fields'
-    directory = output / key
-    directory.mkdir(parents=True, exist_ok=True)
-    linked = ROOT / ('build/us/assets/' + scene_field_build.PART + '.o')
-    linked_bytes = linked.read_bytes()
-    target_extent(linked, '.data', expected['rom_end'] - expected['rom_start'])
-    actual = sections(linked_bytes, 1)['.data'][1]
-    if actual != packed:
-        raise ValueError('scene linked candidate differs from current semantic and backing inputs')
-    ranges = expected['rom_ranges']
-    fresh_ranges = [[expected['rom_start'] + start, expected['rom_start'] + start + len(payload)]
-                    for start, payload in fresh_spans]
-    size = sum(end - start for start, end in ranges)
-    objdiff_storage.rebuilt_ranges({'rom_ranges': ranges, 'size': size})
-    if (ranges != fresh_ranges
-            or any(not expected['rom_start'] <= start < end <= expected['rom_end'] for start, end in ranges)):
-        raise ValueError('scene report ranges differ from the generated bank')
-    candidate = b''.join(actual[start - expected['rom_start']:end - expected['rom_start']]
-                         for start, end in ranges)
-    fresh = b''.join(payload for _, payload in fresh_spans)
-    original = b''.join(rom[start:end] for start, end in ranges)
-    if candidate != fresh or candidate != original:
-        raise ValueError('scene ranges differ from fresh semantic sources or original ROM')
-    # Native objects contain only the proved slices, in physical ROM order.
-    # Index, padding and nonmatching entries remain in the raw-storage target.
-    relative = name + '.bin'
-    base, target = directory / 'base.o', directory / 'target.o'
-    base.write_bytes(binary_object.binary_object(candidate, relative))
-    target.write_bytes(binary_object.binary_object(original, relative))
-    for path in (base, target):
-        target_extent(path, '.data', size)
-    proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
-                                              original, 'scene bank semantic ranges')
-    if (hashes != scene_field_build.input_hashes(ROOT / source, expected)
-            or linked.read_bytes() != linked_bytes):
-        raise ValueError('scene source or ROM linker object changed during report preparation')
-    sources = {(ROOT / source / path).resolve().relative_to(ROOT.resolve()).as_posix(): digest
-               for path, digest in hashes.items()}
-    unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data', 'size': size,
-            'rom_ranges': ranges, 'linked_rom_start': expected['rom_start'], 'linked_rom_end': expected['rom_end'],
-            'source_inputs': sources, 'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
-            'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
-            'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
-            'literal_payload_matches_rom': True, 'target_verification': proof,
-            'report_code_bytes': 0, 'report_data_bytes': size, 'complete': True}
-    item = {'name': 'assets/' + name, 'target_path': unit['target_path'], 'base_path': unit['base_path'],
-            'metadata': {'complete': True, 'progress_categories': ['data']}}
-    return unit, item
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
+        linked=ROOT / ('build/us/assets/' + scene_field_build.PART + '.o'), ranges=expected['rom_ranges'],
+        read_hashes=lambda: scene_field_build.input_hashes(ROOT / source, expected), output=output)
 
 
 def prepare_scene_fields(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -1098,53 +985,11 @@ def prepare_animation_bank_object(rom: bytes, expected: dict, *, output: Path) -
     packed, fresh_spans, hashes = animation_bank_build.packed_bank(ROOT / source, expected)
     key = f'animation-bank{expected["bank"]:02X}'
     name = f'animations/bank{expected["bank"]:02X}'
-    directory = output / key
-    directory.mkdir(parents=True, exist_ok=True)
-    linked = ROOT / ('build/us/assets/' + animation_bank_build.part_name(expected['bank']) + '.o')
-    linked_bytes = linked.read_bytes()
-    target_extent(linked, '.data', expected['rom_end'] - expected['rom_start'])
-    actual = sections(linked_bytes, 1)['.data'][1]
-    if actual != packed:
-        raise ValueError('animation linked candidate differs from current semantic and backing inputs')
-    ranges = expected['rom_ranges']
-    fresh_ranges = [[expected['rom_start'] + start, expected['rom_start'] + start + len(payload)]
-                    for start, payload in fresh_spans]
-    size = sum(end - start for start, end in ranges)
-    objdiff_storage.rebuilt_ranges({'rom_ranges': ranges, 'size': size})
-    if (ranges != fresh_ranges
-            or any(not expected['rom_start'] <= start < end <= expected['rom_end'] for start, end in ranges)):
-        raise ValueError('animation report ranges differ from the generated bank')
-    candidate = b''.join(actual[start - expected['rom_start']:end - expected['rom_start']]
-                         for start, end in ranges)
-    fresh = b''.join(payload for _, payload in fresh_spans)
-    original = b''.join(rom[start:end] for start, end in ranges)
-    if candidate != fresh or candidate != original:
-        raise ValueError('animation ranges differ from fresh semantic sources or original ROM')
-    # Native objects contain only the proved slices, in physical ROM order.
-    # Index, padding and nonmatching entries remain in the raw-storage target.
-    relative = name + '.bin'
-    base, target = directory / 'base.o', directory / 'target.o'
-    base.write_bytes(binary_object.binary_object(candidate, relative))
-    target.write_bytes(binary_object.binary_object(original, relative))
-    for path in (base, target):
-        target_extent(path, '.data', size)
-    proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
-                                              original, 'animation bank semantic ranges')
-    if (hashes != animation_bank_build.input_hashes(ROOT / source, expected)
-            or linked.read_bytes() != linked_bytes):
-        raise ValueError('animation source or ROM linker object changed during report preparation')
-    sources = {(ROOT / source / path).resolve().relative_to(ROOT.resolve()).as_posix(): digest
-               for path, digest in hashes.items()}
-    unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data', 'size': size,
-            'rom_ranges': ranges, 'linked_rom_start': expected['rom_start'], 'linked_rom_end': expected['rom_end'],
-            'source_inputs': sources, 'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
-            'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
-            'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
-            'literal_payload_matches_rom': True, 'target_verification': proof,
-            'report_code_bytes': 0, 'report_data_bytes': size, 'complete': True}
-    item = {'name': 'assets/' + name, 'target_path': unit['target_path'], 'base_path': unit['base_path'],
-            'metadata': {'complete': True, 'progress_categories': ['data']}}
-    return unit, item
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
+        linked=ROOT / ('build/us/assets/' + animation_bank_build.part_name(expected['bank']) + '.o'), ranges=expected['rom_ranges'],
+        read_hashes=lambda: animation_bank_build.input_hashes(ROOT / source, expected), output=output)
 
 
 
@@ -1166,53 +1011,11 @@ def prepare_animation_control_bank(rom: bytes, expected: dict, *, output: Path) 
     packed, fresh_spans, hashes = animation_control_build.packed_bank(ROOT / source, expected)
     key = f'animation-control-bank{expected["bank"]:02X}'
     name = f'animation-controls/bank{expected["bank"]:02X}'
-    directory = output / key
-    directory.mkdir(parents=True, exist_ok=True)
-    linked = ROOT / ('build/us/assets/' + animation_control_build.part_name(expected['bank']) + '.o')
-    linked_bytes = linked.read_bytes()
-    target_extent(linked, '.data', expected['rom_end'] - expected['rom_start'])
-    actual = sections(linked_bytes, 1)['.data'][1]
-    if actual != packed:
-        raise ValueError('animation control linked candidate differs from current semantic and backing inputs')
-    ranges = expected['rom_ranges']
-    fresh_ranges = [[expected['rom_start'] + start, expected['rom_start'] + start + len(payload)]
-                    for start, payload in fresh_spans]
-    size = sum(end - start for start, end in ranges)
-    objdiff_storage.rebuilt_ranges({'rom_ranges': ranges, 'size': size})
-    if (ranges != fresh_ranges
-            or any(not expected['rom_start'] <= start < end <= expected['rom_end'] for start, end in ranges)):
-        raise ValueError('animation control report ranges differ from the generated bank')
-    candidate = b''.join(actual[start - expected['rom_start']:end - expected['rom_start']]
-                         for start, end in ranges)
-    fresh = b''.join(payload for _, payload in fresh_spans)
-    original = b''.join(rom[start:end] for start, end in ranges)
-    if candidate != fresh or candidate != original:
-        raise ValueError('animation control ranges differ from fresh semantic sources or original ROM')
-    # Native objects contain only the proved slices, in physical ROM order.
-    # Index, padding and nonmatching entries remain in the raw-storage target.
-    relative = name + '.bin'
-    base, target = directory / 'base.o', directory / 'target.o'
-    base.write_bytes(binary_object.binary_object(candidate, relative))
-    target.write_bytes(binary_object.binary_object(original, relative))
-    for path in (base, target):
-        target_extent(path, '.data', size)
-    proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
-                                              original, 'animation control bank semantic ranges')
-    if (hashes != animation_control_build.input_hashes(ROOT / source, expected)
-            or linked.read_bytes() != linked_bytes):
-        raise ValueError('animation control source or ROM linker object changed during report preparation')
-    sources = {(ROOT / source / path).resolve().relative_to(ROOT.resolve()).as_posix(): digest
-               for path, digest in hashes.items()}
-    unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data', 'size': size,
-            'rom_ranges': ranges, 'linked_rom_start': expected['rom_start'], 'linked_rom_end': expected['rom_end'],
-            'source_inputs': sources, 'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
-            'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
-            'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
-            'literal_payload_matches_rom': True, 'target_verification': proof,
-            'report_code_bytes': 0, 'report_data_bytes': size, 'complete': True}
-    item = {'name': 'assets/' + name, 'target_path': unit['target_path'], 'base_path': unit['base_path'],
-            'metadata': {'complete': True, 'progress_categories': ['data']}}
-    return unit, item
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
+        linked=ROOT / ('build/us/assets/' + animation_control_build.part_name(expected['bank']) + '.o'), ranges=expected['rom_ranges'],
+        read_hashes=lambda: animation_control_build.input_hashes(ROOT / source, expected), output=output)
 
 
 
@@ -1234,53 +1037,11 @@ def prepare_route_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dic
     packed, fresh_spans, hashes = route_build.packed_bank(ROOT / source, expected)
     key = f'route-bank{expected["bank"]:02X}'
     name = f'routes/bank{expected["bank"]:02X}'
-    directory = output / key
-    directory.mkdir(parents=True, exist_ok=True)
-    linked = ROOT / ('build/us/assets/' + route_build.part_name(expected['bank']) + '.o')
-    linked_bytes = linked.read_bytes()
-    target_extent(linked, '.data', expected['rom_end'] - expected['rom_start'])
-    actual = sections(linked_bytes, 1)['.data'][1]
-    if actual != packed:
-        raise ValueError('route linked candidate differs from current semantic and backing inputs')
-    ranges = expected['rom_ranges']
-    fresh_ranges = [[expected['rom_start'] + start, expected['rom_start'] + start + len(payload)]
-                    for start, payload in fresh_spans]
-    size = sum(end - start for start, end in ranges)
-    objdiff_storage.rebuilt_ranges({'rom_ranges': ranges, 'size': size})
-    if (ranges != fresh_ranges
-            or any(not expected['rom_start'] <= start < end <= expected['rom_end'] for start, end in ranges)):
-        raise ValueError('route report ranges differ from the generated bank')
-    candidate = b''.join(actual[start - expected['rom_start']:end - expected['rom_start']]
-                         for start, end in ranges)
-    fresh = b''.join(payload for _, payload in fresh_spans)
-    original = b''.join(rom[start:end] for start, end in ranges)
-    if candidate != fresh or candidate != original:
-        raise ValueError('route ranges differ from fresh semantic sources or original ROM')
-    # Native objects contain only the proved slices, in physical ROM order.
-    # Index, padding and nonmatching entries remain in the raw-storage target.
-    relative = name + '.bin'
-    base, target = directory / 'base.o', directory / 'target.o'
-    base.write_bytes(binary_object.binary_object(candidate, relative))
-    target.write_bytes(binary_object.binary_object(original, relative))
-    for path in (base, target):
-        target_extent(path, '.data', size)
-    proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
-                                              original, 'route bank semantic ranges')
-    if (hashes != route_build.input_hashes(ROOT / source, expected)
-            or linked.read_bytes() != linked_bytes):
-        raise ValueError('route source or ROM linker object changed during report preparation')
-    sources = {(ROOT / source / path).resolve().relative_to(ROOT.resolve()).as_posix(): digest
-               for path, digest in hashes.items()}
-    unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data', 'size': size,
-            'rom_ranges': ranges, 'linked_rom_start': expected['rom_start'], 'linked_rom_end': expected['rom_end'],
-            'source_inputs': sources, 'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
-            'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
-            'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
-            'literal_payload_matches_rom': True, 'target_verification': proof,
-            'report_code_bytes': 0, 'report_data_bytes': size, 'complete': True}
-    item = {'name': 'assets/' + name, 'target_path': unit['target_path'], 'base_path': unit['base_path'],
-            'metadata': {'complete': True, 'progress_categories': ['data']}}
-    return unit, item
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
+        linked=ROOT / ('build/us/assets/' + route_build.part_name(expected['bank']) + '.o'), ranges=expected['rom_ranges'],
+        read_hashes=lambda: route_build.input_hashes(ROOT / source, expected), output=output)
 
 
 
@@ -1302,53 +1063,11 @@ def prepare_animation_clips_object(rom: bytes, expected: dict, *, output: Path) 
     packed, fresh_spans, hashes = animation_clips_build.packed_object(ROOT / source, expected)
     key = f'animation-clips-{expected["part"]}'
     name = f'animations/partial/{expected["part"]}'
-    directory = output / key
-    directory.mkdir(parents=True, exist_ok=True)
-    linked = ROOT / ('build/us/assets/' + animation_clips_build.part_name(expected['part']) + '.o')
-    linked_bytes = linked.read_bytes()
-    target_extent(linked, '.data', expected['rom_end'] - expected['rom_start'])
-    actual = sections(linked_bytes, 1)['.data'][1]
-    if actual != packed:
-        raise ValueError('partial animation linked candidate differs from current semantic and backing inputs')
-    ranges = expected['rom_ranges']
-    fresh_ranges = [[expected['rom_start'] + start, expected['rom_start'] + start + len(payload)]
-                    for start, payload in fresh_spans]
-    size = sum(end - start for start, end in ranges)
-    objdiff_storage.rebuilt_ranges({'rom_ranges': ranges, 'size': size})
-    if (ranges != fresh_ranges
-            or any(not expected['rom_start'] <= start < end <= expected['rom_end'] for start, end in ranges)):
-        raise ValueError('partial animation report ranges differ from the generated object')
-    candidate = b''.join(actual[start - expected['rom_start']:end - expected['rom_start']]
-                         for start, end in ranges)
-    fresh = b''.join(payload for _, payload in fresh_spans)
-    original = b''.join(rom[start:end] for start, end in ranges)
-    if candidate != fresh or candidate != original:
-        raise ValueError('partial animation ranges differ from fresh semantic sources or original ROM')
-    # Native objects contain only the proved slices, in physical ROM order.
-    # Directories and unexplained sibling clips remain in the raw-storage target.
-    relative = name + '.bin'
-    base, target = directory / 'base.o', directory / 'target.o'
-    base.write_bytes(binary_object.binary_object(candidate, relative))
-    target.write_bytes(binary_object.binary_object(original, relative))
-    for path in (base, target):
-        target_extent(path, '.data', size)
-    proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
-                                              original, 'partial animation bank semantic ranges')
-    if (hashes != animation_clips_build.input_hashes(ROOT / source, expected)
-            or linked.read_bytes() != linked_bytes):
-        raise ValueError('partial animation source or ROM linker object changed during report preparation')
-    sources = {(ROOT / source / path).resolve().relative_to(ROOT.resolve()).as_posix(): digest
-               for path, digest in hashes.items()}
-    unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data', 'size': size,
-            'rom_ranges': ranges, 'linked_rom_start': expected['rom_start'], 'linked_rom_end': expected['rom_end'],
-            'source_inputs': sources, 'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
-            'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
-            'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
-            'literal_payload_matches_rom': True, 'target_verification': proof,
-            'report_code_bytes': 0, 'report_data_bytes': size, 'complete': True}
-    item = {'name': 'assets/' + name, 'target_path': unit['target_path'], 'base_path': unit['base_path'],
-            'metadata': {'complete': True, 'progress_categories': ['data']}}
-    return unit, item
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
+        linked=ROOT / ('build/us/assets/' + animation_clips_build.part_name(expected['part']) + '.o'), ranges=expected['rom_ranges'],
+        read_hashes=lambda: animation_clips_build.input_hashes(ROOT / source, expected), output=output)
 
 
 def prepare_animation_clips(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:

@@ -74,10 +74,10 @@ def encode_record(bank, record):
 def reviewed_bank(bank, root=ROOT):
     input_directory(bank)
     path, layout = model_assets.resolve_rom('us', root / 'roms/baserom.us.z64')
-    rom, _ = rzip_archive.normalize_rom(path.read_bytes())
-    if hashlib.sha1(rom).hexdigest() != ROM_SHA1:
+    rom, _ = rzip_archive.read_rom(path)
+    if rzip_archive.rom_sha1(rom) != ROM_SHA1:
         raise ValueError('US route ROM checksum mismatch')
-    game = rzip_archive.parse_game_archive(rom[layout['game_start']:layout['game_end']])
+    game = rzip_archive.game_archive(rom, layout['game_start'], layout['game_end'])
     consumers = verify_consumers(game, layout)
     banks = {b.index: b for b in rzip_archive.parse_asset_banks(rom, layout['asset_table'])}
     target = banks[bank]
@@ -98,6 +98,9 @@ def reviewed_bank(bank, root=ROOT):
         row = {'entry': entry.index, 'rom_start': entry.start, 'rom_end': entry.end,
                'decoded_sha256': sha256(data), 'encoder': {'level': 6, 'window_bits': -15}}
         if bank == 0x10:
+            if entry.index not in actors:
+                raise input_error(root / input_directory(bank), {'bank': bank},
+                                  f'missing bank 0E actor entry {entry.index}')
             actor = actors[entry.index]
             source = rom[actor.start:actor.end]
             actor_chunk = rzip_archive.decode_rzip_chunk(source) if actor.compressed else None

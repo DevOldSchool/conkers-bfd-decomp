@@ -90,3 +90,15 @@ class BoundedContractTests(unittest.TestCase):
             result = subprocess.CompletedProcess([], 0, b'bad', b'')
             with patch.object(codec.subprocess, 'run', return_value=result):
                 with self.assertRaises(ValueError): codec.encode_payload(b'data')
+
+
+class HashReuseTests(unittest.TestCase):
+    def test_unchanged_tool_files_are_not_read_again_and_edits_invalidate(self):
+        from scripts import build_files
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / 'source.c'; path.write_bytes(b'first')
+            self.assertEqual(build_files.cached_sha256(path), hashlib.sha256(b'first').hexdigest())
+            with patch.object(Path, 'read_bytes', side_effect=AssertionError('redundant read')):
+                self.assertEqual(build_files.cached_sha256(path), hashlib.sha256(b'first').hexdigest())
+            path.write_bytes(b'other')
+            self.assertEqual(build_files.cached_sha256(path), hashlib.sha256(b'other').hexdigest())

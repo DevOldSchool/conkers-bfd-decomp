@@ -834,7 +834,37 @@
     ],
     "debugger": [
       {
-        "address": "0x1600487C",
+        "address": "0x160036f0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/debugger/debugger_0000.c",
+            "src/done/debugger/debugger_0000.c"
+          ]
+        }
+      },
+      {
+        "address": "0x16003C70",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/debugger/debugger_1AD0.c",
+            "src/done/debugger/debugger_1AD0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x16003ce0",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/debugger/debugger_0000.c",
+            "src/done/debugger/debugger_0000.c"
+          ]
+        }
+      },
+      {
+        "address": "0x16004800",
         "section": ".rodata",
         "owner": {
           "sources": [

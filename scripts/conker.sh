@@ -23,7 +23,7 @@ locked_digest="${locked_image##*sha256:}"
 local_image_name="conkers-bfd-decomp-toolchain:local-${conker_platform#linux/}-${locked_digest:0:12}"
 workspace_id="$(python3 -c 'import hashlib, sys; print(hashlib.sha256(sys.argv[1].encode()).hexdigest()[:12])' "$repo_root")"
 warm_container_name="conker-toolchain-$workspace_id$([[ "$conker_platform" == linux/amd64 ]] || printf -- '-%s' "${conker_platform#linux/}")"
-warm_container_schema="1"
+warm_container_schema="2"
 mips_to_c_revision="$(python3 -c 'import json, sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["tools"]["mips_to_c"]["revision"])' "$toolchain_lock")"
 host_mips_to_c="$repo_root/build/host-tools/mips_to_c-$mips_to_c_revision"
 
@@ -369,7 +369,8 @@ workspace_mount_args() {
     local path
     local access
 
-    mkdir -p "$repo_root/asm" "$repo_root/assets" "$repo_root/build" "$repo_root/reference"
+    mkdir -p "$repo_root/asm" "$repo_root/assets" "$repo_root/build" "$repo_root/reference" \
+        "$repo_root/.conker/debugger-assets"
     workspace_mounts=(--tmpfs /workspace:rw,nosuid,nodev,size=256m,mode=1777)
 
     add_workspace_mount Makefile
@@ -390,6 +391,8 @@ workspace_mount_args() {
     done
     add_workspace_mount roms
     add_workspace_mount .private-rom-assets
+    # Editable debugger inputs are untracked and must persist on the host.
+    add_workspace_mount .conker/debugger-assets readwrite
 }
 
 remove_warm_container() {
@@ -1461,7 +1464,7 @@ case "$command" in
         fi
         ;;
     model-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker model-assets <build|recover|appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]"
+        [[ $# -ge 1 ]] || die "usage: ./conker model-assets <build-morphs|recover-morphs|build|recover|appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]"
         if [[ "$1" == "build" ]]; then
             shift
             run_in_container python3 scripts/model_build.py build-parts "$@"

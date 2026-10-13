@@ -29,10 +29,10 @@ def part_name(name):
 
 def reviewed_tables(root=ROOT):
     _, rom, _, family = mp3_assets.load_profile_mp3_assets('us', root / 'roms/baserom.us.z64')
-    if hashlib.sha1(rom).hexdigest() != ROM_SHA1:
+    if rzip_archive.rom_sha1(rom) != ROM_SHA1:
         raise ValueError('US MP3 table ROM checksum mismatch')
     _, layout = model_assets.resolve_rom('us', root / 'roms/baserom.us.z64')
-    game = rzip_archive.parse_game_archive(rom[layout['game_start']:layout['game_end']])
+    game = rzip_archive.game_archive(rom, layout['game_start'], layout['game_end'])
     mp3_table_codec.verify_consumers(game.code)
     start, end, splits = audio_boundaries.bank_layout(root / 'config/profiles/us.yaml')
     if (start, end) != (family.decoder_bank_start, family.decoder_bank_end):
