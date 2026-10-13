@@ -150,7 +150,7 @@ extern volatile u8 D_8003A573;
 extern volatile u8 D_8003A575;
 void func_80022A60(TransferThread *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000480C CURRENT (1154) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000480C CURRENT (1354) */
 void func_8000480C(u32 source, void *destination, u32 size) {
     u32 count;
     TransferWord data;

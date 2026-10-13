@@ -110,7 +110,7 @@ void func_800010F8(s32 arg0) {
     }
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80001194 CURRENT (90) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80001194 CURRENT (60) */
 void func_80001194(s32 arg0) {
     u32 sp28;
     u32 block_count;
