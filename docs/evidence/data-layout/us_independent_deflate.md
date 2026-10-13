@@ -6,6 +6,9 @@ GNU gzip-derived utility. It was authored from [RFC 1951](https://www.rfc-editor
 the recorded [EOF/block diagnostics](us_bounded_compression.md), and black-box
 compression comparisons, without copying or translating the vendored C code.
 The historical JSON evidence for the previous encoder remains historical.
+RFC 1951 specifies the format; the tuning and tie-breaking behavior are
+compatibility choices from the recorded diagnostics. Output comparisons verify
+compatibility, not the authorship of an implementation.
 
 The input is immutable decoded bytes. There are no original compressed bytes,
 ROM offsets, asset identities, per-asset recipes, token streams or patch masks
@@ -25,8 +28,10 @@ The implementation provides only the reviewed level-six profile:
   candidate. The initial history position is reserved, matching the measured
   parser behavior. Block boundaries do not reset the history.
 - A block holds at most 16,383 tokens. At 4,096-token intervals, the distance
-  histogram estimates the compressed size and may end a block early. The
-  literal byte pending in the lazy parser belongs to the following block.
+  histogram estimates the compressed size and may end a block early. Its input
+  extent is measured before consuming the checkpoint token, while the emitted
+  block includes the complete token. The literal byte pending in the lazy parser
+  belongs to the following block.
 - Huffman trees rank by frequency and subtree height with deterministic heap
   ties. Literal/distance code lengths are limited to 15 bits and code-length
   codes to seven. Run-length descriptions restart at each alphabet.
@@ -68,3 +73,25 @@ The acceptance record in [JSON](us_independent_deflate.json) records full-ROM
 and matching-report verification. The full reconstructed ROM must be proven
 byte-identical with the independent implementation before the vendored files
 are removed; the final build and native report then verify the removal itself.
+
+## Match checkpoint regression
+
+A subsequent review found a counterexample to the early-block heuristic: when
+its checkpoint token was a match, the estimate used the input position after
+consuming that match. The compatibility profile requires the position before
+consuming it. The fix preserves that position for the estimate without changing
+the actual emitted block boundary.
+
+`test_match_at_early_block_checkpoint` generates the reported seed-215 input:
+a 600-byte random prefix followed by random gaps and 258-byte copies into that
+prefix, stopping once the input reaches 30,000 bytes. The resulting 30,232-byte
+input has SHA-256 `e6e6e7cd9960dcf5df430448886befcdd289d5901d0b1db5ebc4377713e6a303`.
+The previous Python implementation produced 14,410 compressed bytes. The fixed
+implementation and retained reference executable both produce the same 14,343
+bytes, SHA-256 `a914382a565ab3c562059709b2c27f9bdf14d1e94ad93b4ff7e1b89785d45b75`.
+The test also independently decodes the output with zlib. Running it against the
+previous Python implementation fails, confirming that it detects this bug.
+
+The [follow-up acceptance record](us_deflate_block_checkpoint.json) records the
+full-ROM and matching checks after this fix and integration of current `main`.
+The original replacement's before/after-removal evidence above remains unchanged.

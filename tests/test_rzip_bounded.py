@@ -47,6 +47,26 @@ class BoundedEncoderTests(unittest.TestCase):
             self.assertEqual(hashlib.sha256(encoded).hexdigest(), digest)
             self.assertEqual(zlib.decompress(encoded, -15), data)
 
+    def test_match_at_early_block_checkpoint(self):
+        # Synthetic regression: the 4,096-token estimate must use the position
+        # before consuming a match, while the emitted block includes its bytes.
+        rng = random.Random(215)
+        gap = rng.randrange(200, 280)
+        data = bytearray(rng.randrange(256) for _ in range(600))
+        while len(data) < 30000:
+            data += bytes(rng.randrange(256) for _ in range(gap + rng.randrange(-3, 4)))
+            source = rng.randrange(0, 300)
+            data += data[source:source + 258]
+        data = bytes(data)
+        self.assertEqual(len(data), 30232)
+        self.assertEqual(hashlib.sha256(data).hexdigest(),
+                         'e6e6e7cd9960dcf5df430448886befcdd289d5901d0b1db5ebc4377713e6a303')
+        encoded = codec.encode_payload(data)[4:]
+        self.assertEqual(len(encoded), 14343)
+        self.assertEqual(hashlib.sha256(encoded).hexdigest(),
+                         'a914382a565ab3c562059709b2c27f9bdf14d1e94ad93b4ff7e1b89785d45b75')
+        self.assertEqual(zlib.decompress(encoded, -15), data)
+
     def test_window_and_block_boundaries_with_varied_inputs(self):
         rng = random.Random(715)
         for size in (4095, 4096, 16382, 16383, 16384, 32506, 32768, 65273, 65274, 65536):

@@ -215,6 +215,9 @@ def blocks(data):
                 found = new_found
             if best == 3 and at - found > 4096:
                 best = 2
+        # The heuristic measures input before consuming this token.
+        # The emitted block boundary below still includes the complete match.
+        estimate_at = at
         if last_length >= 3 and best <= last_length:
             distance = at - 1 - last_found
             tokens.append((last_length, distance))
@@ -235,7 +238,7 @@ def blocks(data):
         flush = len(tokens) == 16383
         if len(tokens) % 4096 == 0:
             estimate = (len(tokens) * 8 + sum(n * (5 + DISTANCE_EXTRA[i]) for i, n in enumerate(distances))) >> 3
-            flush |= matches < len(tokens) // 2 and estimate < (boundary - start) // 2
+            flush |= matches < len(tokens) // 2 and estimate < (estimate_at - start) // 2
         if flush:
             yield tokens, start, boundary, start >= slide
             tokens, start, distances, matches = [], boundary, [0] * 30, 0

@@ -27,7 +27,6 @@ are not used. With both changes, level six reproduces all 27 reviewed model
 candidates and the five sprites.
 
 The initial standalone encoder derived its compression core from GNU gzip 1.2.4.
-Its provenance and GPL notices remain in Git history at commit `235c91d0`.
 That utility has been replaced; the current encoder is described in the
 [independent implementation evidence](us_independent_deflate.md).
 
