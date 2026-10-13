@@ -1,6 +1,7 @@
 """Native semantic round trips and strict exclusion of cue/tail storage."""
 import copy
 import json
+import struct
 from pathlib import Path
 import tempfile
 import unittest
@@ -260,14 +261,56 @@ class SpectralReviewTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             cache = Path(temporary)
             with patch.object(build.codec, 'encode_stream', wraps=build.codec.encode_stream) as encoder:
-                expected = build.encoded_spans(records, {}, {'source': 'a'}, True, cache)
-                self.assertEqual(build.encoded_spans(records, {}, {'source': 'a'}, True, cache), expected)
+                expected = build.encoded_spans(records, {'entry': 0}, {'source': 'a'}, True, cache)
+                self.assertEqual(build.encoded_spans(records, {'entry': 0}, {'source': 'a'}, True, cache), expected)
                 self.assertEqual(encoder.call_count, 1)
-                receipt = next(cache.glob('*.json')); receipt.write_text('{}')
-                self.assertEqual(build.encoded_spans(records, {}, {'source': 'a'}, True, cache), expected)
+                receipt = next(cache.glob('*.cache')); receipt.write_bytes(b'corrupt')
+                self.assertEqual(build.encoded_spans(records, {'entry': 0}, {'source': 'a'}, True, cache), expected)
                 self.assertEqual(encoder.call_count, 2)
-                build.encoded_spans(records, {}, {'source': 'b'}, True, cache)
+                build.encoded_spans(records, {'entry': 0}, {'source': 'b'}, True, cache)
                 self.assertEqual(encoder.call_count, 3)
                 with patch.object(build, 'cached_sha256', return_value='changed codec'):
-                    build.encoded_spans(records, {}, {'source': 'b'}, True, cache)
+                    build.encoded_spans(records, {'entry': 0}, {'source': 'b'}, True, cache)
                 self.assertEqual(encoder.call_count, 4)
+
+    def test_cache_replaces_revisions_and_stores_binary_payload(self):
+        records, _ = fixture()
+        with tempfile.TemporaryDirectory() as temporary:
+            cache = Path(temporary)
+            for revision in range(3):
+                spans = build.encoded_spans(records, {'entry': 0}, {'source': str(revision)}, True, cache)
+                self.assertEqual([p.name for p in cache.iterdir()], ['0000-partial.cache'])
+            raw = (cache / '0000-partial.cache').read_bytes()
+            start = len(build.CACHE_MAGIC) + 4
+            length = struct.unpack('>I', raw[len(build.CACHE_MAGIC):start])[0]
+            self.assertNotIn('payload', json.loads(raw[start:start + length]))
+            self.assertEqual(raw[start + length:], b''.join(data for _, data in spans))
+            build.encoded_spans(records, {'entry': 1}, {}, False, cache)
+            self.assertEqual(len(list(cache.iterdir())), 2)
+
+    def test_failed_write_or_replace_preserves_previous_entry_and_removes_temp(self):
+        records, _ = fixture()
+        with tempfile.TemporaryDirectory() as temporary:
+            cache = Path(temporary)
+            build.encoded_spans(records, {'entry': 0}, {'source': 'old'}, True, cache)
+            path = cache / '0000-partial.cache'; before = path.read_bytes()
+            original = build.tempfile.NamedTemporaryFile
+            def failing_writer(*args, **kwargs):
+                handle = original(*args, **kwargs)
+                handle.write = lambda data: (_ for _ in ()).throw(OSError('disk full'))
+                return handle
+            for context in (patch.object(build.tempfile, 'NamedTemporaryFile', side_effect=failing_writer),
+                            patch.object(Path, 'replace', side_effect=OSError('replace failed'))):
+                with context, self.assertRaises(OSError):
+                    build.encoded_spans(records, {'entry': 0}, {'source': 'new'}, True, cache)
+                self.assertEqual(path.read_bytes(), before)
+                self.assertEqual(list(cache.iterdir()), [path])
+
+    def test_legacy_cache_cleanup_leaves_current_and_in_flight_files_alone(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            cache = Path(temporary)
+            old = ('a' * 64 + '.json', 'tmpabcd1234')
+            keep = ('0000-partial.cache', '.spectral-active.tmp', 'notes.json')
+            for name in old + keep: (cache / name).write_bytes(b'fixture')
+            build.prune_legacy_cache(cache)
+            self.assertEqual({p.name for p in cache.iterdir()}, set(keep))

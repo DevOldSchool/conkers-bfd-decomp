@@ -175,7 +175,7 @@ class RouteBuildTests(unittest.TestCase):
 
 
 class RouteReferenceErrors(unittest.TestCase):
-    def test_missing_actor_entry_is_recoverable_value_error(self):
+    def test_missing_actor_entry_reports_inventory_mismatch(self):
         from contextlib import ExitStack
         from types import SimpleNamespace
         with ExitStack() as stack:
@@ -194,5 +194,6 @@ class RouteReferenceErrors(unittest.TestCase):
                 patch.object(build.rzip_archive, 'decode_rzip_chunk', return_value=SimpleNamespace(data=b'', consumed=7)),
             )
             for context in mocks: stack.enter_context(context)
-            with self.assertRaisesRegex(ValueError, 'missing bank 0E actor entry 0.*restore.*recover'):
+            with self.assertRaisesRegex(ValueError, 'inventory mismatch: missing bank 0E actor entry 0') as raised:
                 build.reviewed_bank(0x10, root)
+            self.assertNotIn('recover', str(raised.exception))

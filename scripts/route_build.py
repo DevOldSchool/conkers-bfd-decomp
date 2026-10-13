@@ -99,8 +99,7 @@ def reviewed_bank(bank, root=ROOT):
                'decoded_sha256': sha256(data), 'encoder': {'level': 6, 'window_bits': -15}}
         if bank == 0x10:
             if entry.index not in actors:
-                raise input_error(root / input_directory(bank), {'bank': bank},
-                                  f'missing bank 0E actor entry {entry.index}')
+                raise ValueError(f'route inventory mismatch: missing bank 0E actor entry {entry.index}')
             actor = actors[entry.index]
             source = rom[actor.start:actor.end]
             actor_chunk = rzip_archive.decode_rzip_chunk(source) if actor.compressed else None

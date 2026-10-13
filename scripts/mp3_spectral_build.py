@@ -3,8 +3,10 @@ from __future__ import annotations
 
 from concurrent.futures import ProcessPoolExecutor
 import hashlib
-import tempfile
 import json
+import re
+import struct
+import tempfile
 from pathlib import Path
 
 try:
@@ -95,41 +97,73 @@ def input_hashes(directory, expected):
         raise input_error(directory, expected, str(error)) from error
 
 
+CACHE_MAGIC = b'MP3SPANS\x01'
+
+
+def prune_legacy_cache(directory):
+    """Remove only receipts and abandoned temp files from the old cache format.
+
+    Run before starting workers. New writers use a different temporary prefix,
+    so another current builder's in-flight writes are never swept here.
+    """
+    if directory.exists():
+        for path in directory.iterdir():
+            if path.is_file() and (re.fullmatch(r'[0-9a-f]{64}\.json', path.name)
+                                   or re.fullmatch(r'tmp[a-z0-9_]{8}', path.name)):
+                path.unlink(missing_ok=True)
+
+
 def encoded_spans(records, expected, hashes, include_partial, cache_directory=None):
-    """Reuse typed encoding only for identical sources, codec and output hashes."""
+    """Keep one atomic binary cache entry per stream/mode, replacing old revisions."""
     def encode():
         return codec.encode_stream(records, include_partial=True) if include_partial else codec.encode_stream(records)
     if cache_directory is None:
         return encode()
+    entry = expected['entry']
+    if type(entry) is not int or entry < 0:
+        raise ValueError('invalid spectral cache stream index')
     implementation = {p: cached_sha256(ROOT / 'scripts' / p) for p in
                       ('mp3_spectral_build.py', 'mp3_spectral_codec.py', 'mp3_table_codec.py',
                        'mp3_assets.py', 'build_files.py')}
     identity = {'sources': hashes, 'expected': expected, 'partial': include_partial,
                 'implementation': implementation}
-    key = sha256(json.dumps(identity, sort_keys=True).encode())
-    path = cache_directory / (key + '.json')
+    path = cache_directory / f'{entry:04d}-{"partial" if include_partial else "full"}.cache'
     try:
-        receipt = json.loads(path.read_text())
-        payload = bytes.fromhex(receipt['payload'])
+        raw = path.read_bytes()
+        if not raw.startswith(CACHE_MAGIC):
+            raise ValueError('invalid spectral cache format')
+        start = len(CACHE_MAGIC) + 4
+        length = struct.unpack('>I', raw[len(CACHE_MAGIC):start])[0]
+        receipt = json.loads(raw[start:start + length])
+        payload = raw[start + length:]
         if receipt['identity'] == identity and sha256(payload) == receipt['sha256']:
             spans, cursor = [], 0
-            for start, size in receipt['spans']:
-                if type(start) is not int or type(size) is not int or start < 0 or size <= 0:
+            for offset, size in receipt['spans']:
+                if type(offset) is not int or type(size) is not int or offset < 0 or size <= 0:
                     raise ValueError('invalid cached spectral span')
-                spans.append((start, payload[cursor:cursor + size])); cursor += size
+                spans.append((offset, payload[cursor:cursor + size])); cursor += size
             if cursor == len(payload):
                 return spans
-    except (OSError, ValueError, KeyError, TypeError):
+    except (OSError, ValueError, KeyError, TypeError, struct.error):
         pass
     spans = encode()
     payload = b''.join(data for _, data in spans)
-    receipt = {'identity': identity, 'spans': [[start, len(data)] for start, data in spans],
-               'payload': payload.hex(), 'sha256': sha256(payload)}
+    receipt = {'identity': identity, 'spans': [[offset, len(data)] for offset, data in spans],
+               'sha256': sha256(payload)}
+    header = json.dumps(receipt, separators=(',', ':')).encode()
     cache_directory.mkdir(parents=True, exist_ok=True)
-    # Independent builders/report workers may publish the same deterministic key.
-    with tempfile.NamedTemporaryFile(mode='w', dir=cache_directory, delete=False) as temporary:
-        json.dump(receipt, temporary, separators=(',', ':'))
-    Path(temporary.name).replace(path)
+    temporary_path = None
+    try:
+        with tempfile.NamedTemporaryFile(mode='wb', prefix='.spectral-', suffix='.tmp',
+                                         dir=cache_directory, delete=False) as temporary:
+            temporary_path = Path(temporary.name)
+            temporary.write(CACHE_MAGIC + struct.pack('>I', len(header)) + header)
+            temporary.write(payload)
+        # One file keeps metadata and bytes consistent even with concurrent readers.
+        temporary_path.replace(path)
+    finally:
+        if temporary_path is not None:
+            temporary_path.unlink(missing_ok=True)
     return spans
 
 
@@ -193,6 +227,7 @@ def prepare_candidate(task):
 
 
 def build_parts(root=ROOT, entries=None):
+    prune_legacy_cache(root / 'build/us/mp3-spectral/cache')
     _, selected = reviewed_streams(root)
     if entries is not None:
         requested = set(entries)

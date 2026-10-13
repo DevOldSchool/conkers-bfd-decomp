@@ -84,6 +84,10 @@ actual linked bytes, and equality with the independently supplied ROM.
 The MP3 build saves encoded typed spans under ignored
 `build/us/mp3-spectral/cache/`. The report can reuse them only when editable-input
 hashes, the reviewed contract, codec source hashes, and cached output hashes agree.
+Each stream/mode has one atomically replaced file containing JSON metadata and
+raw binary payload, so source/codec revisions do not accumulate or double the
+payload size through hex encoding. Failed writes remove their temporary files;
+startup removes receipts and abandoned temporary files from the old format.
 Missing, corrupt, or stale entries are regenerated. Whole-stream and credited-range
 checks against the original ROM still run. Workers receive only their stream,
 not a copy of the full ROM. Bounded-DEFLATE source and executable hashes are

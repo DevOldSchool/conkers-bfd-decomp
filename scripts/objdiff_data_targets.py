@@ -888,6 +888,7 @@ def prepare_mp3_spectral_report_worker(task):
 
 
 def prepare_mp3_spectral(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    mp3_spectral_build.prune_legacy_cache(ROOT / 'build/us/mp3-spectral/cache')
     checked_rom, selected = mp3_spectral_build.reviewed_streams(ROOT)
     if checked_rom != rom:
         raise ValueError('spectral reference ROM differs from validated report ROM')
