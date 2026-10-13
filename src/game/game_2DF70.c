@@ -531,7 +531,6 @@ void func_15002754(void) {
     s32 temp_t0;
     s32 temp_t2;
     s32 temp_t8;
-    void func_1510F800(s32);
 
     temp_t8 = (*D_800B0DC0 + 3) & ~3;
     *(volatile s32 *)D_800B0DC0 = temp_t8;

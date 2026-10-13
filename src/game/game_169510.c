@@ -740,7 +740,6 @@ void *func_1513D2F0(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4,
     }
     return effect;
 }
-void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 
 void func_1513D4B8(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u8 arg6, s32 arg7, u8 arg8, s32 arg9) {
     func_1513D2F0(arg0, arg1, arg2, arg3, arg4, arg5, arg6, 0, 0, arg7, arg8, arg9);

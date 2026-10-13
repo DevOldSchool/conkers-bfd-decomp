@@ -480,7 +480,7 @@ typedef struct Game18A8F0SearchNode {
 s32 func_150A1DA0(Game18A8F0SearchActor *, Game18A8F0SearchEntry *, s32);
 
 Game18A8F0ColorResult *func_1515EB84(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
-                    Game18A8F0SearchNode *arg4) {
+                                     Game18A8F0SearchNode *arg4) {
     Game18A8F0SearchActor actor;
     Game18A8F0SearchEntry *entry;
 

@@ -1,8 +1,14 @@
-import sys,time,json,subprocess,statistics,platform
+import argparse,sys,time,json,subprocess,statistics,platform
 from pathlib import Path
-root=Path('/workspace');sys.path.insert(0,str(root/'scripts'))
+parser=argparse.ArgumentParser(description='Run in the pinned toolchain against a prepared US checkout.')
+parser.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[4],help='Repository root; defaults to the checkout containing this script.')
+parser.add_argument('--output',type=Path,help='Output directory; relative paths are resolved under the repository root.')
+args=parser.parse_args()
+root=args.root.resolve();sys.path.insert(0,str(root/'scripts'))
 import permute,diff,compile_c
-out=root/'build/us/manual-attempts/deferred-five-timings/benchmark';out.mkdir(exist_ok=True)
+out=args.output or Path('build/us/manual-attempts/deferred-five-timings/benchmark')
+if not out.is_absolute():out=root/out
+out.mkdir(parents=True,exist_ok=True)
 records=[]
 for identifier in ['func_151D3354','func_15002754','func_1514401C']:
  entry,symbol=permute.work_item(identifier,'us');source,content=permute.active_candidate_content(entry,identifier)
