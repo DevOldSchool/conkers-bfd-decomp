@@ -93872,8 +93872,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 668,
-        "reason": "Full476 CURRENT668 independently restored857a0710. Two new manual hypotheses rejected: actual u16 merge flag1105 replaces raw SW/LW with SH/LHU22 and leaves maskA3/flagA2; consumed arg0 for actual final tagged-size902 loses entrycopy and assigns final sizeA0/rawV0. Original fullword merge-flag formal reuse retained with exact entryMOVE/frame30/span, remaining original1C/raw18, flag30/raw20, maskA3/rawspill1C and tail temporaries. Existing s32 caller contract retained; no ABI/shared/ASM changes. Prior pointer/width/scope/value-reuse families remain exhausted; ledger build/us/manual-attempts/manual-init-20261007/ledger.md.",
+        "current_score": 35,
+        "reason": "Full476 CURRENT35 (improved from668): -g3 homes give six locals block/neighbor/nextFree/merged/mask/cursor; merged flag is a real local (0x20); mask is memory-resident (volatile s32, home 0x1C); cursor holds the original header and later the list cursor. Remaining: original computed in v0 vs raw v1 (raw has no CSE temp for arg0-0xC) and tail temps t9/t0 vs raw t1/t2 (raw keeps &D_800380B8 in v0 before the nextFree fix-up, so its two block->nextFree reads are not CSE'd). Statement orders, expression shapes, labels, do-while, assignment-in-condition, register class and a 486-variant role enumeration exhausted; permuters only fake. Ledger build/us/manual-attempts/main-matching-3-20261012/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94306,22 +94306,21 @@
       "symbol": "func_80012020"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1811,
-        "reason": "Unchanged after pass 3 permuter/manual work (decomp-permuter 45-60 min where run; only fake-copy or semantic-changing results). See build/us/manual-attempts/main-permuter-20261010/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1084,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80008F90",
           "vram": "0x80008F90"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80008F90"
     },
     {
@@ -94339,7 +94338,7 @@
           "vram": "0x800093CC"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_800093CC"
     },
     {
@@ -94357,26 +94356,25 @@
           "vram": "0x80009400"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80009400"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1380,
-        "reason": "Manual full556 improved1400to1380: unusedword reservation plus anonymous unsigned byte arithmetic keeps exact frame40/allhomes and recovers samplesT4/bytesT5/endV0. One ADDU operand order remains plus prior MMIO extraADDIU and boot-address CSE/register/scheduling differences. Supported alias evidence unavailable; prior MMIO/arithmetic/scope forms exhausted. Preserve new best; no shared/ABI/ASM/flags changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 556,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800095A0",
           "vram": "0x800095A0"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_800095A0"
     },
     {
@@ -94394,7 +94392,7 @@
           "vram": "0x800097CC"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_800097CC"
     },
     {
@@ -94412,7 +94410,7 @@
           "vram": "0x80009980"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80009980"
     },
     {
@@ -94430,7 +94428,7 @@
           "vram": "0x800099BC"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_800099BC"
     },
     {
@@ -94448,7 +94446,7 @@
           "vram": "0x80009B2C"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80009B2C"
     },
     {
@@ -94466,7 +94464,7 @@
           "vram": "0x80009B4C"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80009B4C"
     },
     {
@@ -94484,7 +94482,7 @@
           "vram": "0x80009B90"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80009B90"
     },
     {
@@ -94502,7 +94500,7 @@
           "vram": "0x80009BE4"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80009BE4"
     },
     {
@@ -94520,7 +94518,7 @@
           "vram": "0x80009CBC"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80009CBC"
     },
     {
@@ -94538,7 +94536,7 @@
           "vram": "0x80009FFC"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80009FFC"
     },
     {
@@ -94556,7 +94554,7 @@
           "vram": "0x8000A03C"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_8000A03C"
     },
     {
@@ -94574,7 +94572,7 @@
           "vram": "0x8000A348"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_8000A348"
     },
     {
@@ -95895,17 +95893,16 @@
       "symbol": "func_8000FE88"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 500,
-        "reason": "Full160 CURRENT500 independently restored de91fc85. New actual entry-count/index phase reuse produced instruction-identical500; no added local or backedge bound snapshot. Prior separate guard-count740, narrow-handle scopes, comparison and indexed forms exhausted. Preserve simpler candidate; no equivalent definition-order retries justified.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 160,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000FEF0",
           "vram": "0x8000FEF0"
         }
@@ -96313,17 +96310,16 @@
       "symbol": "func_800112BC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3775,
-        "reason": "Full364 CURRENT3775 independently restored8a47dc17. New signed byte-offset handle-table multiply3775 produces identical full instruction mismatch to baseline; typed-array, unsigned stride, and signed offset all canonicalize. Prior scalar/scope/count/address forms exhausted; preserve simplest candidate. No further supported arithmetic-domain retry, artificial pressure, ABI/shared/ASM/flag changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 364,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80011310",
           "vram": "0x80011310"
         }
