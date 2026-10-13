@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1515BBF0
- * - func_1515BE50
  * - func_1515C158
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -111,15 +110,15 @@ typedef struct {
     s32 field48;
 } Game1890A0Effect;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515BE50 CURRENT (30) */
 void *func_1515BE50(void **arg0, s32 arg1, u8 arg2, s32 arg3) {
     Game1890A0Effect *result;
-    f32 final_value;
+    void *allocation;
 
     if (*arg0 == 0) {
         return 0;
     }
-    result = func_15167A68(0x32, arg3, arg1 + 0x50, 1, arg2, 1);
+    allocation = func_15167A68(0x32, arg3, arg1 + 0x50, 1, arg2, 1);
+    result = allocation;
     if (result == 0) {
         return 0;
     }
@@ -129,7 +128,7 @@ void *func_1515BE50(void **arg0, s32 arg1, u8 arg2, s32 arg3) {
     result->field28 = *(f32 *)((u8 *)*arg0 + 0x1C);
     result->field2C = *(f32 *)((u8 *)*arg0 + 0x14);
     result->field30 = *(f32 *)((u8 *)*arg0 + 0x18);
-    final_value = *(f32 *)((u8 *)*arg0 + 0x1C);
+    result->field34 = *(f32 *)((u8 *)*arg0 + 0x1C);
     result->field44 = 0;
     result->field48 = -1;
     result->field10 = 1;
@@ -137,11 +136,8 @@ void *func_1515BE50(void **arg0, s32 arg1, u8 arg2, s32 arg3) {
     result->field38 = 0.0f;
     result->field3C = 0.0f;
     result->field40 = 0.0f;
-    result->field34 = final_value;
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515BE50 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1890A0/func_1515BE50.s")
 /* Call context: func_1514EDF0: unique active project prototype */
 /* Call context: func_15169804: unique active project prototype */
 

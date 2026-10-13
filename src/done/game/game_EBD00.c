@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_EBD00.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_singletons_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150BE850
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct GameEBD00Actor {
@@ -38,7 +33,6 @@ extern f32 D_800A00B0;
 extern f32 D_800A00B4;
 extern u8 D_800CC335;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BE850 CURRENT (30) */
 void func_150BE850(GameEBD00Actor *arg0) {
     struct {
         s32 sp28;
@@ -46,11 +40,10 @@ void func_150BE850(GameEBD00Actor *arg0) {
     } state;
     s32 temp_v0;
     f32 value;
-    f32 other;
+    s32 group;
 
-    state.sp28 = func_1509BE40(0,
-                               func_1509BE40(0, 0x2006, 0xB7) | 0x2000,
-                               0xBC);
+    group = func_1509BE40(0, 0x2006, 0xB7);
+    state.sp28 = func_1509BE40(0, group | 0x2000, 0xBC);
     temp_v0 = func_1509BE40(0, 0x2000, 0xBB);
     if (state.sp28 != 0 && temp_v0 != -1) {
         func_1509BFB0(0, 0x400E, 1);
@@ -65,10 +58,9 @@ void func_150BE850(GameEBD00Actor *arg0) {
             arg0->field674 = 0.0f;
         }
         value = D_800A00B0;
-        other = D_800A00B4;
+        arg0->field374 = D_800A00B4;
         arg0->field348 = value;
         arg0->field34C = value;
-        arg0->field374 = other;
         arg0->field190 = 0.0f;
         func_15123070(arg0);
         return;
@@ -79,5 +71,3 @@ void func_150BE850(GameEBD00Actor *arg0) {
         func_1509BFB0(0, 0x400E, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150BE850 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EBD00/func_150BE850.s")
