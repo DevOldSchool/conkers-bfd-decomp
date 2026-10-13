@@ -11,7 +11,6 @@
  * - func_151D2F90
  * - func_151D3130
  * - func_151D324C
- * - func_151D3354
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -365,32 +364,24 @@ struct Game1FFF60Node {
     Game1FFF60Node *prev;
 };
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3354 CURRENT (5) */
 void func_151D3354(Game1FFF60Node *arg0) {
-    Game1FFF60Node *temp_a1;
-    void *cursor;
     Game1FFF60List *list;
 
-    cursor = arg0->list;
-    if (cursor != 0) {
-        list = cursor;
-        temp_a1 = arg0->prev;
-        if (temp_a1 != 0) {
-            temp_a1->next = arg0->next;
+    if (arg0->list != NULL) {
+        list = arg0->list;
+        if (arg0->prev != NULL) {
+            arg0->prev->next = arg0->next;
         } else {
             list->head = arg0->next;
         }
-        cursor = arg0->next;
-        if (cursor != 0) {
-            ((Game1FFF60Node *)cursor)->prev = arg0->prev;
+        if (arg0->next != NULL) {
+            arg0->next->prev = arg0->prev;
         } else {
             list->tail = arg0->prev;
         }
         list->count--;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D3354 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D3354.s")
 
 void func_151D33B8(void *arg0) {
     if (*(s16 *)((u8 *)arg0 + 0x20) > 0) {

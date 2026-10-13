@@ -5012,7 +5012,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 30,
-        "reason": "Improved45 to30 with u32 endpoint and castcursor comparison; allregisters exact, only two initial ADDIU instructions reversed. Naturaldo with integerbound1820 stillunrolls; restored goto30. No freshschedulehypothesis; deferred-manual-20260930.",
+        "reason": "CURRENT30 unchanged 2026-10-13: 36-variant goto grid (end/current types s32/u32/ptr, decl order, init style), for(;;)/while(1) break forms (30/45), scoped body (700); structured != loops unroll (1630/1820). Residual remains the two initial address ADDIU rows swapped.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -14152,8 +14152,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 25,
-        "reason": "CURRENT (25): four global-address register rows only (candidate v0, target v1); two generated variants, explicit pointer lifetime, and source-local volatile declaration exhausted, with pointer form regressing",
+        "current_score": 10,
+        "reason": "Improved 25->10 with a reassigned local copy (v = arg0; D = v; if (v) { v += 8; D = v; }): global address now v1 as raw; only the arg0+8 temp is v0 vs raw t6. 2026-10-13 rounds: s32 return type, pointer/array/struct-address forms, separate w temp, arg0 reassignment, u8* cursor, compound assignment and permute32 all 10 or worse.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -31157,17 +31157,16 @@
       "symbol": "func_1509B4A0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Full60B CURRENT10 retained with unsigned32 address arithmetic. Prior typed-pointer10/in-place400 exhausted. New unsigned address10; named u32 offset fixes ADDU orientation but moves LHU toV1 (10); u16 offset15 regresses orientation. Simpler unsigned10 restored and finished. Sole raw ADDU v0,v0,t7 vs candidate v0,t7,v0 remains; no further concrete lifetime hypothesis. See deferred-exact-20261005 ledger.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 60,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509B570",
           "vram": "0x1509B570"
         }
@@ -33031,17 +33030,16 @@
       "symbol": "func_151D3308"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 5,
-        "reason": "CURRENT (5). An authorized search of seven declaration-order and cursor-lifetime variants made no improvement (1.769 seconds in the loop, 3.86 seconds for the command). Prior pointer reuse and moving the copy after the previous-node load, which scored 40, remain exhausted. The sole mismatch is the head store using V0 instead of V1. No new supported hypothesis remains.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 100,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D3354",
           "vram": "0x151D3354"
         }
@@ -33461,17 +33459,16 @@
       "symbol": "func_151D9878"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Aggregate copy corrects all instructions; CURRENT20 retains frame0x20 vs0x28 and local0x18 vs0x20. Declaration initializer neutral; no padding workaround.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 72,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D98D0",
           "vram": "0x151D98D0"
         }
@@ -33480,17 +33477,16 @@
       "symbol": "func_151D98D0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Aggregate copy corrects all instructions; CURRENT20 retains frame/local eight-byte differences identical to 151D98D0. No useful new hypothesis; no padding workaround.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 72,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D9918",
           "vram": "0x151D9918"
         }
@@ -45201,17 +45197,16 @@
       "symbol": "func_151EEFF0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 15,
-        "reason": "CURRENT15 unchanged: constant0xBD in a1 versus rawv1. Named terminator and shared byte snapshot both neutral; original candidate retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 60,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150CFD20",
           "vram": "0x150CFD20"
         }
@@ -45297,7 +45292,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Manual20260927: in-place field update remains10; block-local register pointer gives38, correct registers but enlarged frame28 vs20 and text home1C vs18. Restored best10; two new shapes exhausted.",
+        "reason": "CURRENT10 unchanged 2026-10-13: -g3 frame admits one named local (text); any extra cursor local (block, register, nested-assignment) fixes the a0 load register but grows frame to 0x28 (38). Arg-expression forms (cast sum, &cursor[1], 1+cursor, field_C++, u32 arg, recomputed sum) all 10 or worse.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -54146,17 +54141,16 @@
       "symbol": "func_1510B51C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 8,
-        "reason": "US CURRENT (8): only scaled-offset spill/reload at sp+0x28 instead of raw sp+0x2C in correct 0x30 frame; padded offset record shifts frame to 0x38 and arg/home stack rows by 8 (CURRENT 50), so aggregate stack-shape approach regresses",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 152,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510B5F8",
           "vram": "0x1510B5F8"
         }
