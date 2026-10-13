@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_text_view_descriptor_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150CFD20
  * - func_150CFDB8
  * - func_150CFE3C
  * - func_150CFE98
@@ -19,26 +18,12 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CFD20 CURRENT (15) */
 u8 *func_150CFD20(u8 *arg0) {
-    u8 temp_v0;
-    u8 temp_v0_2;
-
-    temp_v0 = *arg0;
-    if ((temp_v0 != 0xBD) && (temp_v0 != 0)) {
-loop_2:
-        temp_v0_2 = arg0[1];
-        arg0 += 1;
-        if (temp_v0_2 != 0xBD) {
-            if (temp_v0_2 != 0) {
-                goto loop_2;
-            }
-        }
+    while (*arg0 != 0xBD && *arg0 != 0) {
+        arg0++;
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150CFD20 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFD20.s")
 u8 *func_150CFD5C(u8 *arg0) {
     if (*arg0 != 0) {
         do {
