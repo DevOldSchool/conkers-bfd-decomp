@@ -94325,7 +94325,7 @@
           "vram": "0x80008F90"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80008F90"
     },
     {
@@ -94343,7 +94343,7 @@
           "vram": "0x800093CC"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_800093CC"
     },
     {
@@ -94361,7 +94361,7 @@
           "vram": "0x80009400"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80009400"
     },
     {
@@ -94379,7 +94379,7 @@
           "vram": "0x800095A0"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_800095A0"
     },
     {
@@ -94397,7 +94397,7 @@
           "vram": "0x800097CC"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_800097CC"
     },
     {
@@ -94415,7 +94415,7 @@
           "vram": "0x80009980"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80009980"
     },
     {
@@ -94433,7 +94433,7 @@
           "vram": "0x800099BC"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_800099BC"
     },
     {
@@ -94451,7 +94451,7 @@
           "vram": "0x80009B2C"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80009B2C"
     },
     {
@@ -94469,7 +94469,7 @@
           "vram": "0x80009B4C"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80009B4C"
     },
     {
@@ -94487,7 +94487,7 @@
           "vram": "0x80009B90"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80009B90"
     },
     {
@@ -94505,7 +94505,7 @@
           "vram": "0x80009BE4"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80009BE4"
     },
     {
@@ -94523,7 +94523,7 @@
           "vram": "0x80009CBC"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80009CBC"
     },
     {
@@ -94541,7 +94541,7 @@
           "vram": "0x80009FFC"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_80009FFC"
     },
     {
@@ -94559,7 +94559,7 @@
           "vram": "0x8000A03C"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_8000A03C"
     },
     {
@@ -94577,7 +94577,7 @@
           "vram": "0x8000A348"
         }
       },
-      "source": "src/main/init_8F90.c",
+      "source": "src/done/main/init_8F90.c",
       "symbol": "func_8000A348"
     },
     {
