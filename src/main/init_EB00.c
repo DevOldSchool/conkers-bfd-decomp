@@ -866,15 +866,16 @@ void func_80010558(u16 sound, SoundOwnerState *owner, s32 volume,
 }
 s32 D_1000EE70(SoundArrayRecord *, s32, s32 *, s32, s32, s32 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010630 CURRENT (1779) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010630 CURRENT (1732) */
 void func_80010630(u16 sound, SoundOwnerState *owner, s32 volume,
                   s16 arg3, u16 arg4) {
     u32 mixFlags;
 
     if (owner->field0 != 0) {
         if (owner->field318 != 0) {
+            volume = (u16)volume;
             mixFlags = owner->field184;
-            func_80010F30(sound, (u16)volume, 0x40, 0,
+            func_80010F30(sound, volume, 0x40, 0,
                           ((mixFlags >> 3) & 0x30) * 2);
             return;
         }

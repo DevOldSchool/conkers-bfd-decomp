@@ -93509,7 +93509,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Fresh full652 CURRENT60 baseline vs recorded90; not a new match. Actual residual is first framebuffer SW before rather than after second LUI. New natural full-size/no-goto/result-lifetime probes340, direct stores640, ordered-argument stores430-730 with frame58. Preserved original candidate; immediate-goto scheduling barrier remains a source-quality concern, not acceptance evidence.",
+        "reason": "Continuation 2026-10-13 full652 CURRENT60 unchanged. Seven natural framebuffer pointer/comma/result assignments all340; four two-buffer loop hypotheses compile as loops (6674/6864, frame40), not the raw unrolled calls. Existing baseline retained only as candidate; scheduling goto remains a source-quality concern.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93799,7 +93799,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 265,
-        "reason": "Fresh full260 CURRENT265 preserved after additional integer-promotion probe prompted by exact10154. Signed bounded channel casts, signed color result and bytecount all265; unsigned blue665; unsigned counter2085. Earlier two loop/lifetime batches also plateau. Signed-shift probe is not adopted because unrestricted negative inputs lack a defined signed-shift contract. No exact result.",
+        "reason": "Continuation 2026-10-13 full260 CURRENT265 unchanged. Named packed-color u16/s32/u32 at two placements265; signed color1140, signed first pointer800, same pointer reused760, bound-inside reuse2575, count phase1070. Manual inspection isolates T2 color versus raw V0 and initial count scheduling. Baseline retained; no incorrect signed shifts adopted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93873,7 +93873,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 35,
-        "reason": "Fresh full-span35 register-only, frame30. Three additional typed signed/unsigned header subtraction and cursor assignment probes did not improve; unsigned-to-signed address intermediate grows frame38. Earlier two probe batches and permute32 also plateaued35. Seven register rows remain; baseline preserved.",
+        "reason": "Continuation 2026-10-13 full476 CURRENT35 unchanged: typed header cursor45, in-place pointer steps35, const cursor35, unsigned merged35; mask unsigned35, inner mask51, plain unsigned mask652. Initial V0 vs V1 and tail T9/T0 vs T1/T2 remain. No supported improvement; baseline retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94055,7 +94055,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 790,
-        "reason": "Fresh full976 CURRENT790. New scoped-delay, nested audio guard and continue-event variants remain790; unsigned flag980 changes LB; scoped client1727 expands frame70. Probe layout confirms locals64/60/58 and frame68 exact. Residual remains global-address caching AC6C instead of graphics AC50. No source improvement; preserve baseline.",
+        "reason": "Continuation 2026-10-13 full976 CURRENT790 unchanged. Manual case2 flatten/early-continue probes790; explicit graphics-slot local877 grows frame70 and still caches AC6C; audio guard1878. Disassembly confirms the wrong global-address promotion persists; preserve baseline.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95066,7 +95066,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 580,
-        "reason": "Fresh baseline1510. Recovered frame40 using real slot/record homes instead of unused stackPadding; byte casts and direct argument byte read yield580 register-only over full1120 bytes. Four probe batches plus bounded permute96 (2 unique) did not reach zero; clean improved candidate retained. Residual starts at slot base t9 vs t8 and paired halfword constant t5 vs v0.",
+        "reason": "Continuation 2026-10-13 full1120 CURRENT580 unchanged. Manual fixed-volume lifetime with real s32/u32/u16 local825; explicit signed-halfword stores825. Slot arithmetic reversed pointer and unsigned offset cast580, reversed integer1390, index-offset985, direct-index-plus-shift2492. Exact frame and opcodes remain at baseline; first slot-base temporary and constant-promotion residual unresolved.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95805,7 +95805,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1483,
-        "reason": "Fresh full-span1483 with27 differing rows. Two probe batches tested unsigned index, concrete record-pointer lifetimes, direct height update, plain Y access and K&R narrow ABI; best unchanged1483. Reference spills index A2 to20 across calls; compiler uses S1. All other body operations largely align; baseline preserved.",
+        "reason": "Fresh raw continuation: index uses A2 with spills at sp20 around two calls, candidate uses S1 despite correct frame28. Real queue-record fields, pointer-index access and register hint remain1483; nested success/common return worsens2970/3570. Seven new manual probes, no exact or better candidate; preserve baseline, no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -96021,8 +96021,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1779,
-        "reason": "Full240 CURRENT1779 improved from1802 with simpler one-local mixFlags and explicit u16 volume conversion. Three new probe batches: separated lifetimes, narrow-before-guard, direct casts, inner/top flags, register hints and else forms; best1779. Saved S1 volume allocation and call scheduling still differ; preserve simpler measured improvement.",
+        "current_score": 1732,
+        "reason": "Continuation 2026-10-13: full240 CURRENT1732 from1779 by narrowing volume in place before loading flags. Unsigned-mask/promotion, real split copies and early guard probes did not recover S1; saved-register choice and call scheduling still differ. Preserve measured improvement; no ABI/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -97490,7 +97490,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1275,
-        "reason": "Typed SDK queue insertion CURRENT1275 in both guarded-do and simpler while forms. Exact fields and behavior retained; handwritten t9/t8/t7 allocation and nop-filled branches differ from compiler v0/v1/a2 and branch-likely schedule. No artificial lifetime or compiler scheduling workaround.",
+        "reason": "Fresh manual inspection 2026-10-13 confirms 76-byte helper uses T9/T8/T7/T6 throughout, preserves normal return registers, and sits among handwritten scheduler entry points. Natural C cursor body retained; no fake register-pressure variables or ABI change introduced.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -97624,7 +97624,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 230,
-        "reason": "Fresh full816 CURRENT230 confirmed. Four new bounded probe batches: explicit denominator local and placement246, signedness/register hints230, conditional distance246, six declaration orders preserving real spill homes230. Raw distance t2 and denominator t1 remain exchanged; spill order follows register assignment although actual homes are correct. No opcode/control changes; preserve original.",
+        "reason": "Continuation 2026-10-13 full816 CURRENT230 unchanged. Manual numerator/denominator signedness boundary analysis: signed subtraction before unsigned shift, unsigned modular denominator and explicit signed delta view all230. Dist T1 vs raw T2 and denominator T2 vs raw T1 persist; no source change retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -97642,8 +97642,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2275,
-        "reason": "Fresh full2320 CURRENT2275 retained. Three new probe batches tested real base snapshot, explicit signed/unsigned byte offsets, split initializers, comparison operands, and local path-state aggregate. Baseline frameD8 vs rawD0 persists; snapshots2436, split init2335, aggregates did not improve. Residual includes shifted homes, initial constant scheduling, pointer/temp allocation and final FP order. No fake storage or shared changes.",
+        "current_score": 1816,
+        "reason": "Continuation manual vector representation improves full-span CURRENT 2275 to 1816, finish 62c76396b5184e50a986033ccfe07421. Raw frame D0 versus candidate D8 remains; pointer count lookup unchanged; actual base snapshot 1977; reusing table index reaches D0 but worsens 3768 and segment reuse 3163. Preserve structured vector candidate; no exact match, no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
