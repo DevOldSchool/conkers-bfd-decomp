@@ -5,11 +5,6 @@
 /*
  * Reviewed source unit: src/main/init_8F90.c
  * Boundary evidence: docs/evidence/boundaries/main/main_audio_driver_sequence_boundaries.md
- *
- * TODO: Implement these source-unit functions:
- * - func_8000A03C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct AudioBufferState {
@@ -771,7 +766,6 @@ void func_80004074(s32);
 void func_8000A348(void);
 extern s32 D_8003E384;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A03C CURRENT (600) */
 void func_8000A03C(void) {
     u32 i;
     u32 sound;
@@ -793,7 +787,6 @@ void func_8000A03C(void) {
             found = 0;
             while (record != 0 && found == 0) {
                 if (record->buffer == ((TransferIoMessage *)message)->dramAddress) {
-                    found = 1;
                     if (record == D_800406A0.pending) {
                         D_800406A0.pending = record->next;
                     }
@@ -833,6 +826,7 @@ void func_8000A03C(void) {
                     }
                     record->state = 1;
                     record->count++;
+                    found = 1;
                 } else {
                     record = record->next;
                 }
@@ -880,18 +874,18 @@ void func_8000A03C(void) {
                     linkNode->next = linkAfter->next;
                     linkNode->prev = linkAfter;
                     if (linkAfter->next != 0) {
-                        linkAfter->next->prev = linkNode;
+                        linkAfter->next->prev = record;
                     }
-                    linkAfter->next = linkNode;
+                    linkAfter->next = record;
+                    record = next;
+                    continue;
                 } else {
                     D_800406A0.base = record;
                     record->next = 0;
                     record->prev = 0;
                 }
-                record = next;
-            } else {
-                record = next;
             }
+            record = next;
         } while (next != 0);
     }
     if (D_8003E384 != 0) {
@@ -899,8 +893,6 @@ void func_8000A03C(void) {
         D_8003E384 = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000A03C */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_8000A03C.s")
 void func_8000A348(void) {
     AudioBufferState *record;
     AudioBufferState *next;

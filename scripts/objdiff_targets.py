@@ -13,13 +13,18 @@ import subprocess
 
 from build_jobs import job_count
 import extract_game_code
+import debugger_layout
 import normalize_asm
 import rom_span
 
 ROOT = Path(__file__).resolve().parent.parent
-DEBUGGER_ROM_START = 0x19EA88
-ORIGINS = {'main': 0x80000000, 'game': 0x15000000,
-           'debugger': 0x16000000 - DEBUGGER_ROM_START}
+OVERLAYS = ('main', 'game', 'debugger')
+
+
+def origin(overlay: str) -> int:
+    if overlay == 'debugger':
+        return debugger_layout.load(ROOT)['origin']
+    return {'main': 0x80000000, 'game': 0x15000000}[overlay]
 
 
 def sha256(path: Path) -> str:
@@ -42,7 +47,7 @@ def config_document(specs: list[dict], directory: Path, binary: Path, sha1: str)
         'create_c_files': False, 'make_full_disasm_for_code': True,
         'disassemble_all': True, 'asm_emit_size_directive': True,
         'asm_function_macro': 'glabel', 'asm_data_macro': 'glabel',
-        'asm_jtbl_label_macro': 'jlabel', 'mips_abi_float_regs': 'o32',
+        'asm_jtbl_label_macro': 'glabel' if overlay == 'debugger' else 'jlabel', 'mips_abi_float_regs': 'o32',
         'symbol_addrs_path': ['config/symbols/' + ('game-us' if overlay == 'game' else 'us') + '.txt'],
         # Match the canonical US profiles' relocation overrides.
         'reloc_addrs_path': ['config/relocs/' + ('game-us' if overlay == 'game' else 'us') + '.txt'],
@@ -52,13 +57,23 @@ def config_document(specs: list[dict], directory: Path, binary: Path, sha1: str)
         segments.append([0, 'bin', 'prefix'])
     segments.append({
         'name': overlay, 'type': 'code', 'start': specs[0]['start'],
-        'vram': ORIGINS[overlay] + specs[0]['start'],
+        'vram': origin(overlay) + specs[0]['start'],
         **({'align': 8} if overlay == 'debugger' else {}),
         'subsegments': [[s['start'], 'c' if s['kind'] == 'source' else 'asm', f"{s['start']:06X}"]
                         for s in specs],
     })
-    if specs[-1]['end'] < binary.stat().st_size:
-        segments.append([specs[-1]['end'], 'bin', 'suffix'])
+    suffix = specs[-1]['end']
+    if overlay == 'debugger':
+        layout = debugger_layout.load(ROOT)
+        if specs[-1]['end'] != layout['code_end'] or binary.stat().st_size < layout['rom_end']:
+            raise ValueError('debugger target layout differs from complete reference context')
+        # Original data context identifies switch destinations in the independent
+        # text disassembly. It is not assembled into the text target objects.
+        segments[-1]['subsegments'] += [[part['rom_start'], part['section'][1:], part['name']]
+                                        for part in layout['context']]
+        suffix = layout['rom_end']
+    if suffix < binary.stat().st_size:
+        segments.append([suffix, 'bin', 'suffix'])
     segments.append([binary.stat().st_size])
     return {'name': overlay + ' objdiff targets', 'sha1': sha1, 'options': options, 'segments': segments}
 
@@ -95,7 +110,7 @@ def text_extent(data: bytes) -> int:
 def linker_script(specs: list[dict], objects: list[Path], externals: str) -> str:
     lines = ['SECTIONS {']
     for i, (spec, path) in enumerate(zip(specs, objects, strict=True)):
-        address = ORIGINS[spec['overlay']] + spec['start']
+        address = origin(spec['overlay']) + spec['start']
         lines += [f'.unit{i} 0x{address:X} : SUBALIGN(4) {{ "{path}"(.text) }}',
                   f'ASSERT(SIZEOF(.unit{i}) == {spec["end"] - spec["start"]}, "target extent {spec["key"]}")']
     lines += ['/DISCARD/ : { *(.reginfo) *(.MIPS.abiflags) *(.pdr) *(.gnu.attributes) *(.comment) }', '}']
@@ -137,9 +152,9 @@ def debugger_target_bytes(specs: list[dict], rom: bytes, digest: str) -> bytes:
     """Keep the complete checked debugger text, including its raw TLB tail."""
     code, base, checked_digest = rom_span.debugger_code(ROOT)
     units = [s for s in specs if s['overlay'] == 'debugger']
-    start = DEBUGGER_ROM_START
+    start = debugger_layout.load(ROOT)['rom_start']
     end = start + len(code)
-    if (base != ORIGINS['debugger'] + start or checked_digest != digest
+    if (base != origin('debugger') + start or checked_digest != digest
             or rom[start:end] != code):
         raise ValueError('debugger target input differs from the checked ROM image')
     if (not units or units[0]['start'] != start or units[-1]['end'] != end
@@ -149,9 +164,34 @@ def debugger_target_bytes(specs: list[dict], rom: bytes, digest: str) -> bytes:
     return code
 
 
+def debugger_context_objects(directory: Path) -> tuple[list[Path], list[str]]:
+    """Assemble original analysis context for reference linking only.
+
+    Context establishes symbols that no longer appear in splat's undefined list.
+    It is never copied into candidate objects or counted as another report unit.
+    """
+    objects, placements = [], []
+    for part in debugger_layout.load(ROOT)['context']:
+        name, section, start = part['name'], part['section'], part['start']
+        size = part['end'] - start
+        source = directory / 'asm/data' / (name + section + '.s')
+        normalized = directory / (name + '.s')
+        obj = directory / (name + '.o')
+        normalized.write_text(normalize_asm.normalize(source.read_text()))
+        with (directory / (name + '.log')).open('w') as log:
+            subprocess.run(['mips-linux-gnu-as', '-W', '-EB', '-march=vr4300', '-mabi=32',
+                            '-I', 'include', '-o', str(obj), str(normalized)],
+                           cwd=ROOT, stdout=log, stderr=log, check=True)
+        output = '.' + name
+        placements += [f'{output} 0x{start:X} : SUBALIGN(1) {{ "{obj.relative_to(ROOT)}"({section}) }}',
+                       f'ASSERT(SIZEOF({output}) == {size}, "original data context extent")']
+        objects.append(obj.relative_to(ROOT))
+    return objects, placements
+
+
 def prepare(specs: list[dict], output: Path) -> tuple[dict, dict]:
     """Fresh split, independent assembly, and whole-overlay link validation."""
-    if {s['overlay'] for s in specs} != set(ORIGINS):
+    if {s['overlay'] for s in specs} != set(OVERLAYS):
         raise ValueError('target plan must include every US CPU overlay')
     directory = output / 'targets'
     directory.mkdir(parents=True, exist_ok=True)
@@ -171,7 +211,7 @@ def prepare(specs: list[dict], output: Path) -> tuple[dict, dict]:
     for overlay, binary, original, origin, digest in (
         ('main', rom, rom_bytes, 0, profile['sha1']),
         ('game', game, game_bytes, 0, game_sha1),
-        ('debugger', rom, debugger_bytes, DEBUGGER_ROM_START, profile['sha1'])
+        ('debugger', rom, debugger_bytes, debugger_layout.load(ROOT)['rom_start'], profile['sha1'])
     ):
         units = [s for s in specs if s['overlay'] == overlay]
         dest = directory / overlay
@@ -206,15 +246,30 @@ def prepare(specs: list[dict], output: Path) -> tuple[dict, dict]:
         objects = [(output / prepared[s['key']]['path']).relative_to(ROOT) for s in units]
         externals = '\n'.join((dest / name).read_text() for name in ('undefined_funcs.txt', 'undefined_syms.txt'))
         script = dest / 'targets.ld'
-        script.write_text(linker_script(units, objects, externals))
+        content = linker_script(units, objects, externals)
+        context_objects = []
+        if overlay == 'debugger':
+            layout = debugger_layout.load(ROOT)
+            if units[-1]['end'] != layout['code_end'] or len(rom_bytes) < layout['rom_end']:
+                raise ValueError('debugger target layout differs from complete reference context')
+            context_objects, placements = debugger_context_objects(dest)
+            content = content.replace('/DISCARD/', '\n'.join(placements) + '\n/DISCARD/', 1)
+        script.write_text(content)
         elf, linked = dest / 'targets.elf', dest / 'targets.bin'
         with (dest / 'link.log').open('w') as log:
             subprocess.run(['mips-linux-gnu-ld', '-m', 'elf32btsmip', '-T', str(script), '-o', str(elf),
-                            *map(str, objects)], cwd=ROOT, stdout=log, stderr=log, check=True)
-            subprocess.run(['mips-linux-gnu-objcopy', '-O', 'binary', str(elf), str(linked)],
+                            *map(str, objects + context_objects)], cwd=ROOT, stdout=log, stderr=log, check=True)
+            selected = ['--only-section=.unit*'] if context_objects else []
+            subprocess.run(['mips-linux-gnu-objcopy', '-O', 'binary', *selected, str(elf), str(linked)],
                            cwd=ROOT, stdout=log, stderr=log, check=True)
         verification[overlay] = verify_linked_bytes(linked.read_bytes(),
             original[units[0]['start'] - origin:units[-1]['end'] - origin], overlay)
+        if context_objects:
+            from elf_sections import sections
+            parsed = sections(elf.read_bytes(), 2)
+            context_data = parsed['.context_data'][1] + parsed['.context_rodata'][1]
+            verification[overlay]['data_context'] = verify_linked_bytes(
+                context_data, rom_bytes[layout['code_end']:layout['rom_end']], 'debugger original data context')
         verification[overlay].update({'unit_count': len(units), 'input_sha1': digest,
                                       'config_sha256': sha256(config)})
         targets.update(prepared)

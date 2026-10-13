@@ -31,6 +31,13 @@ class OwnershipTests(unittest.TestCase):
             self.assertFalse(configs[0]['metadata']['complete'])
             self.assertEqual(units[0]['data_ranges'],[data])
 
+    def test_debugger_preserves_existing_stock_objdiff_options(self):
+        unit = {'kind': 'unassigned', 'overlay': 'debugger', 'key': 'tlb'}
+        config = {'name': 'tlb', 'metadata': {'complete': False},
+                  'options': {'function_reloc_diffs': 'none'}}
+        _, settings = ownership.group_units([unit], [config], Path('/unused'), Path('/unused'), verify=False)
+        self.assertEqual(settings[0]['options'], config['options'])
+
     def test_unowned_ranges_never_merge_or_gain_source_credit(self):
         parts=[{'kind':'unassigned','key':str(i),'report_code_bytes':0,'report_data_bytes':8} for i in range(2)]
         cfg=[{'name':str(i),'metadata':{'complete':False}} for i in range(2)]

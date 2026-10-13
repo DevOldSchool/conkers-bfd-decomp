@@ -143,3 +143,23 @@ class InstallerTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class StockInstallerTests(unittest.TestCase):
+    def test_official_cached_release_needs_no_source_build(self):
+        from unittest.mock import patch
+        import hashlib, json
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'toolchain').mkdir()
+            payload = b'official binary fixture'
+            lock = {'objdiff_cli': {'version': 'vtest', 'assets': {
+                'objdiff-cli-linux-x86_64': hashlib.sha256(payload).hexdigest()}}}
+            (root / 'toolchain/tools.lock.json').write_text(json.dumps(lock))
+            binary = root / 'build/host-tools/objdiff-vtest/objdiff-cli-linux-x86_64'
+            binary.parent.mkdir(parents=True)
+            binary.write_bytes(payload)
+            with patch.object(helper, 'ROOT', root), patch.object(helper.platform, 'system', return_value='Linux'), \
+                 patch.object(helper.platform, 'machine', return_value='x86_64'), \
+                 patch.object(helper.subprocess, 'run', side_effect=AssertionError('source build or network')):
+                self.assertEqual(helper.install(), binary)

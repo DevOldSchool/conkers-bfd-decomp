@@ -517,6 +517,11 @@ span including embedded data, and records proof transactionally. The `original_a
 state excludes the item from C-candidate selection and reports it separately. It
 contributes no C matches/matched bytes and cannot complete a C source unit.
 `verify-batch` accepts these items alongside C matches and revalidates their proofs.
+A fully covered debugger ASM unit with reviewed maintained `.s` source may earn
+native matching and linked completion after fresh candidate, full-span ROM and
+allocated runtime-image verification. The report labels it `Original assembly`.
+It still earns no C-only inventory credit and does not complete a C source unit;
+see [TLB evidence](evidence/debugger/us_debugger_tlb.md).
 
 Use `--refresh` when regenerated assembly text changes but the routine's recorded
 ROM bytes remain identical. It reassembles the complete span and updates the text
