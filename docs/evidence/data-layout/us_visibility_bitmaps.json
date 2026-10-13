@@ -1,0 +1,850 @@
+{
+  "entries": [
+    {
+      "entry": 4,
+      "stored_bytes": 5634,
+      "node_count": 549,
+      "row_count": 412,
+      "stride": 80,
+      "native_decoded_bytes": 32960,
+      "alignment_bits": 60,
+      "geometry": {
+        "scene": 2,
+        "node_count": 549,
+        "row_count": 412,
+        "stride": 80,
+        "triangles": 2012,
+        "vertex_loads": 85,
+        "primary_sha256": "f7110bd588023c8b474b8d2ef6a07bb171f42dd6267d06b35a632e0f6059b75e"
+      },
+      "visible_nodes": 64625
+    },
+    {
+      "entry": 12,
+      "stored_bytes": 31544,
+      "node_count": 813,
+      "row_count": 610,
+      "stride": 112,
+      "native_decoded_bytes": 68320,
+      "alignment_bits": 13,
+      "geometry": {
+        "scene": 6,
+        "node_count": 813,
+        "row_count": 610,
+        "stride": 112,
+        "triangles": 4154,
+        "vertex_loads": 183,
+        "primary_sha256": "c396452871d06de646d3d055d44b1509c39fbd8ca074767e8c8c8caa47137f36"
+      },
+      "visible_nodes": 241082
+    },
+    {
+      "entry": 14,
+      "stored_bytes": 1881,
+      "node_count": 249,
+      "row_count": 187,
+      "stride": 32,
+      "native_decoded_bytes": 5984,
+      "alignment_bits": 15,
+      "geometry": {
+        "scene": 7,
+        "node_count": 249,
+        "row_count": 187,
+        "stride": 32,
+        "triangles": 888,
+        "vertex_loads": 40,
+        "primary_sha256": "b9749c0e9f49703436d9f752e1bd41566902b909b604223561ee4350ede1a0ed"
+      },
+      "visible_nodes": 13202
+    },
+    {
+      "entry": 22,
+      "stored_bytes": 714,
+      "node_count": 157,
+      "row_count": 118,
+      "stride": 32,
+      "native_decoded_bytes": 3776,
+      "alignment_bits": 61,
+      "geometry": {
+        "scene": 11,
+        "node_count": 157,
+        "row_count": 118,
+        "stride": 32,
+        "triangles": 1822,
+        "vertex_loads": 92,
+        "primary_sha256": "78fedda5625b2470111dcc7a9ab77c9876f6f1c19dc5950329e2ee3ba480c018"
+      },
+      "visible_nodes": 6661
+    },
+    {
+      "entry": 38,
+      "stored_bytes": 6637,
+      "node_count": 477,
+      "row_count": 358,
+      "stride": 64,
+      "native_decoded_bytes": 22912,
+      "alignment_bits": 53,
+      "geometry": {
+        "scene": 19,
+        "node_count": 477,
+        "row_count": 358,
+        "stride": 64,
+        "triangles": 3659,
+        "vertex_loads": 150,
+        "primary_sha256": "f811ecf2abdf76f6cc9b52f7a19465cfe97a6386e527a45ff92aed0bf402b609"
+      },
+      "visible_nodes": 46172
+    },
+    {
+      "entry": 52,
+      "stored_bytes": 9902,
+      "node_count": 569,
+      "row_count": 427,
+      "stride": 80,
+      "native_decoded_bytes": 34160,
+      "alignment_bits": 31,
+      "geometry": {
+        "scene": 26,
+        "node_count": 569,
+        "row_count": 427,
+        "stride": 80,
+        "triangles": 1822,
+        "vertex_loads": 99,
+        "primary_sha256": "dd1c99e77b2a18f642fc9940d049e1a04e37e9783f51db73cb6432770f82c444"
+      },
+      "visible_nodes": 126349
+    },
+    {
+      "entry": 54,
+      "stored_bytes": 769,
+      "node_count": 217,
+      "row_count": 163,
+      "stride": 32,
+      "native_decoded_bytes": 5216,
+      "alignment_bits": 62,
+      "geometry": {
+        "scene": 27,
+        "node_count": 217,
+        "row_count": 163,
+        "stride": 32,
+        "triangles": 2318,
+        "vertex_loads": 117,
+        "primary_sha256": "91b37a197630d3765a2ef51b715dd1aebf3b0cb4f5f4d43e20c2219d1b6083ad"
+      },
+      "visible_nodes": 11102
+    },
+    {
+      "entry": 60,
+      "stored_bytes": 647,
+      "node_count": 185,
+      "row_count": 139,
+      "stride": 32,
+      "native_decoded_bytes": 4448,
+      "alignment_bits": 23,
+      "geometry": {
+        "scene": 30,
+        "node_count": 185,
+        "row_count": 139,
+        "stride": 32,
+        "triangles": 1088,
+        "vertex_loads": 58,
+        "primary_sha256": "3d859db878e7f6f3754a602b6937f6f8973709c5a5f44eb4e21dca66657fb60c"
+      },
+      "visible_nodes": 9963
+    },
+    {
+      "entry": 72,
+      "stored_bytes": 31188,
+      "node_count": 921,
+      "row_count": 691,
+      "stride": 128,
+      "native_decoded_bytes": 88448,
+      "alignment_bits": 22,
+      "geometry": {
+        "scene": 36,
+        "node_count": 921,
+        "row_count": 691,
+        "stride": 128,
+        "triangles": 1646,
+        "vertex_loads": 82,
+        "primary_sha256": "ac09585fe06727d2000437e27ff4efd99ec0378b938926e0069da75a491f3863"
+      },
+      "visible_nodes": 367209
+    },
+    {
+      "entry": 86,
+      "stored_bytes": 9917,
+      "node_count": 493,
+      "row_count": 370,
+      "stride": 64,
+      "native_decoded_bytes": 23680,
+      "alignment_bits": 24,
+      "geometry": {
+        "scene": 43,
+        "node_count": 493,
+        "row_count": 370,
+        "stride": 64,
+        "triangles": 1244,
+        "vertex_loads": 57,
+        "primary_sha256": "92bf03f1703d02011c888fb9bc9930aa572e3db8a52b723a461b926fac561a9d"
+      },
+      "visible_nodes": 58762
+    },
+    {
+      "entry": 88,
+      "stored_bytes": 476,
+      "node_count": 165,
+      "row_count": 124,
+      "stride": 32,
+      "native_decoded_bytes": 3968,
+      "alignment_bits": 42,
+      "geometry": {
+        "scene": 44,
+        "node_count": 165,
+        "row_count": 124,
+        "stride": 32,
+        "triangles": 3136,
+        "vertex_loads": 99,
+        "primary_sha256": "6ea9af5254c056c0c4bd8d0adaa4fb2a0694ef77de403f63d47a22d7dd2e4324"
+      },
+      "visible_nodes": 4764
+    },
+    {
+      "entry": 90,
+      "stored_bytes": 9226,
+      "node_count": 545,
+      "row_count": 409,
+      "stride": 80,
+      "native_decoded_bytes": 32720,
+      "alignment_bits": 37,
+      "geometry": {
+        "scene": 45,
+        "node_count": 545,
+        "row_count": 409,
+        "stride": 80,
+        "triangles": 1751,
+        "vertex_loads": 118,
+        "primary_sha256": "15a99dcc7c5ca36f50ecc7b8d185317c75dfe0c883325a48363982f20fdba7f5"
+      },
+      "visible_nodes": 109641
+    },
+    {
+      "entry": 96,
+      "stored_bytes": 13845,
+      "node_count": 597,
+      "row_count": 448,
+      "stride": 80,
+      "native_decoded_bytes": 35840,
+      "alignment_bits": 28,
+      "geometry": {
+        "scene": 48,
+        "node_count": 597,
+        "row_count": 448,
+        "stride": 80,
+        "triangles": 2241,
+        "vertex_loads": 106,
+        "primary_sha256": "180f270d323a8a8995cf891376090c2e0abbf834d7b983031aecd3cbd3693c83"
+      },
+      "visible_nodes": 106894
+    },
+    {
+      "entry": 104,
+      "stored_bytes": 5438,
+      "node_count": 441,
+      "row_count": 331,
+      "stride": 64,
+      "native_decoded_bytes": 21184,
+      "alignment_bits": 6,
+      "geometry": {
+        "scene": 52,
+        "node_count": 441,
+        "row_count": 331,
+        "stride": 64,
+        "triangles": 3170,
+        "vertex_loads": 165,
+        "primary_sha256": "641e36be3c37c11db3b297472eaf8fc4037c2c8bf43d25dedf5bb0cb77df57c2"
+      },
+      "visible_nodes": 74562
+    },
+    {
+      "entry": 110,
+      "stored_bytes": 3161,
+      "node_count": 281,
+      "row_count": 211,
+      "stride": 48,
+      "native_decoded_bytes": 10128,
+      "alignment_bits": 39,
+      "geometry": {
+        "scene": 55,
+        "node_count": 281,
+        "row_count": 211,
+        "stride": 48,
+        "triangles": 2540,
+        "vertex_loads": 125,
+        "primary_sha256": "30d7344841b0bab43bc1b26ea2fc75a3db720b4c7253cd9a6deb628a9b7babab"
+      },
+      "visible_nodes": 13607
+    },
+    {
+      "entry": 120,
+      "stored_bytes": 20970,
+      "node_count": 913,
+      "row_count": 685,
+      "stride": 128,
+      "native_decoded_bytes": 87680,
+      "alignment_bits": 47,
+      "geometry": {
+        "scene": 60,
+        "node_count": 913,
+        "row_count": 685,
+        "stride": 128,
+        "triangles": 5530,
+        "vertex_loads": 252,
+        "primary_sha256": "db7edd7d6a8164ed9e40ece4da6925a11083347d5d310f8180e5eec6ea37f97d"
+      },
+      "visible_nodes": 361693
+    }
+  ],
+  "new_bytes": 151949,
+  "native_decoded_bytes": 481424,
+  "visible_nodes": 1616288,
+  "node_mutations": 32,
+  "consumer_endpoint_mutations": 28,
+  "excluded_unexplained_node_bits": [
+    24,
+    46,
+    58
+  ],
+  "whole_bank_sha256": "253bd943ce56dcfb5a73ad4f3ea0571b2477fc1b70973904dc4663974c18aa08",
+  "prior_source_hashes_preserved": 25986,
+  "prior_manifest_preserved_in_backup": true,
+  "source_inputs": {
+    "manifest.json": "9e2e103312781c6928fb2c4de6aaf84ccc674a0ae50d8ac801fb9583e1641d89",
+    "backing.bin": "253bd943ce56dcfb5a73ad4f3ea0571b2477fc1b70973904dc4663974c18aa08",
+    "codebooks.json": "a87581b16edcee3ebf87f19400bc3817d256b718c452f9bbe0c1d4506a495674",
+    "bitmaps.json": "d217b73a17a01fa72f0b171e23563afd4b12bdf50c5d1565ce06c5fc3173d131"
+  },
+  "consumers": {
+    "code": [
+      {
+        "address": "0x150025FC",
+        "bytes": 200,
+        "sha1": "f0c6709831a249d31ec728521c808de4320272a5"
+      },
+      {
+        "address": "0x150183D0",
+        "bytes": 304,
+        "sha1": "d81697ea28726ad4979ab992e6a85ff54e4a98b0"
+      },
+      {
+        "address": "0x15018500",
+        "bytes": 464,
+        "sha1": "b21668751b16dee2de164e058895ce0935b01d3a"
+      },
+      {
+        "address": "0x1502B5C8",
+        "bytes": 244,
+        "sha1": "9c411ce6bf78e69583215fa8484bfd0f137edc72"
+      },
+      {
+        "address": "0x1502AC88",
+        "bytes": 636,
+        "sha1": "24f02469c9605e212ed65a4c75b216d50ef8577e"
+      },
+      {
+        "address": "0x150A6760",
+        "bytes": 256,
+        "sha1": "8962df8ba492ec8ddb19a9460ec1e8961284374e"
+      }
+    ],
+    "geometry": [
+      {
+        "address": "0x1510F800",
+        "bytes": 32,
+        "sha1": "e60ff68750b9704132b657981b121501e0de60fd"
+      },
+      {
+        "address": "0x15000AC0",
+        "bytes": 9824,
+        "sha1": "3dbe9e48ed8af17da2d8a93df12637424371907f"
+      },
+      {
+        "address": "0x15003120",
+        "bytes": 2240,
+        "sha1": "3429310d5307bde6707c50d8f0da3b21068f58ce"
+      },
+      {
+        "address": "0x15049260",
+        "bytes": 480,
+        "sha1": "ddde9dde51fc497075c87be01d5ac0588c2e77a2"
+      },
+      {
+        "address": "0x150A3A70",
+        "bytes": 5712,
+        "sha1": "641320ba2d94f38db169d6fda3ffd81e5c4c4c08"
+      },
+      {
+        "address": "0x150AA470",
+        "bytes": 96,
+        "sha1": "ce75edb015630fc8fa967fc2732d8a80d236ae6f"
+      },
+      {
+        "address": "0x150AA4D0",
+        "bytes": 3360,
+        "sha1": "91a485731964fd42fc1d855b7500ec17ce5d26a5"
+      },
+      {
+        "address": "0x150A6210",
+        "bytes": 1616,
+        "sha1": "8d8279b398bc812d165d48d7c15b1e85f6987a2e"
+      }
+    ]
+  },
+  "all_scene_native_geometry_replay": [
+    {
+      "scene": 2,
+      "triangles": 2012,
+      "vertex_loads": 85,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 6,
+      "triangles": 4154,
+      "vertex_loads": 183,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 7,
+      "triangles": 888,
+      "vertex_loads": 40,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 11,
+      "triangles": 1822,
+      "vertex_loads": 92,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 12,
+      "triangles": 2959,
+      "vertex_loads": 140,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 19,
+      "triangles": 3659,
+      "vertex_loads": 150,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 23,
+      "triangles": 3786,
+      "vertex_loads": 167,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 26,
+      "triangles": 1822,
+      "vertex_loads": 99,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 27,
+      "triangles": 2318,
+      "vertex_loads": 117,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 29,
+      "triangles": 234,
+      "vertex_loads": 11,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 30,
+      "triangles": 1088,
+      "vertex_loads": 58,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 36,
+      "triangles": 1646,
+      "vertex_loads": 82,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 43,
+      "triangles": 1244,
+      "vertex_loads": 57,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 44,
+      "triangles": 3136,
+      "vertex_loads": 99,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 45,
+      "triangles": 1751,
+      "vertex_loads": 118,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 48,
+      "triangles": 2241,
+      "vertex_loads": 106,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 52,
+      "triangles": 3170,
+      "vertex_loads": 165,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 55,
+      "triangles": 2540,
+      "vertex_loads": 125,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    },
+    {
+      "scene": 60,
+      "triangles": 5530,
+      "vertex_loads": 252,
+      "all_cpu_cache_starts_zero": true,
+      "geometry_faces_match_native_cpu_replay": true
+    }
+  ],
+  "all_bitmap_pilot": [
+    {
+      "entry": 4,
+      "nodes": 549,
+      "rows": 412,
+      "stride": 80,
+      "stored_bytes": 5634,
+      "visible_bits": 64625,
+      "nonzero_padding_bits": 0,
+      "encoders": [
+        "gzip6",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 12,
+      "nodes": 813,
+      "rows": 610,
+      "stride": 112,
+      "stored_bytes": 31544,
+      "visible_bits": 241082,
+      "nonzero_padding_bits": 0,
+      "encoders": [
+        "zlib6",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 14,
+      "nodes": 249,
+      "rows": 187,
+      "stride": 32,
+      "stored_bytes": 1881,
+      "visible_bits": 13202,
+      "nonzero_padding_bits": 0,
+      "encoders": [
+        "zlib6",
+        "gzip6",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 22,
+      "nodes": 157,
+      "rows": 118,
+      "stride": 32,
+      "stored_bytes": 714,
+      "visible_bits": 6661,
+      "nonzero_padding_bits": 0,
+      "encoders": [
+        "zlib6",
+        "gzip6",
+        "zlib9",
+        "gzip9",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 24,
+      "nodes": 469,
+      "rows": 352,
+      "stride": 64,
+      "stored_bytes": 11417,
+      "visible_bits": 56477,
+      "nonzero_padding_bits": 34,
+      "encoders": [
+        "zlib6",
+        "gzip6",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 38,
+      "nodes": 477,
+      "rows": 358,
+      "stride": 64,
+      "stored_bytes": 6637,
+      "visible_bits": 46172,
+      "nonzero_padding_bits": 0,
+      "encoders": [
+        "zlib6",
+        "gzip6",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 46,
+      "nodes": 345,
+      "rows": 259,
+      "stride": 48,
+      "stored_bytes": 1780,
+      "visible_bits": 38775,
+      "nonzero_padding_bits": 245,
+      "encoders": [
+        "zlib6",
+        "gzip6",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 52,
+      "nodes": 569,
+      "rows": 427,
+      "stride": 80,
+      "stored_bytes": 9902,
+      "visible_bits": 126349,
+      "nonzero_padding_bits": 0,
+      "encoders": [
+        "zlib6",
+        "gzip6",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 54,
+      "nodes": 217,
+      "rows": 163,
+      "stride": 32,
+      "stored_bytes": 769,
+      "visible_bits": 11102,
+      "nonzero_padding_bits": 0,
+      "encoders": [
+        "zlib6",
+        "gzip6",
+        "zlib9",
+        "gzip9",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 58,
+      "nodes": 109,
+      "rows": 82,
+      "stride": 16,
+      "stored_bytes": 175,
+      "visible_bits": 1717,
+      "nonzero_padding_bits": 90,
+      "encoders": [
+        "zlib6",
+        "gzip6",
+        "zlib9",
+        "gzip9",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 60,
+      "nodes": 185,
+      "rows": 139,
+      "stride": 32,
+      "stored_bytes": 647,
+      "visible_bits": 9963,
+      "nonzero_padding_bits": 0,
+      "encoders": [
+        "zlib6",
+        "gzip6",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 72,
+      "nodes": 921,
+      "rows": 691,
+      "stride": 128,
+      "stored_bytes": 31188,
+      "visible_bits": 367209,
+      "nonzero_padding_bits": 0,
+      "encoders": [
+        "zlib6",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 86,
+      "nodes": 493,
+      "rows": 370,
+      "stride": 64,
+      "stored_bytes": 9917,
+      "visible_bits": 58762,
+      "nonzero_padding_bits": 0,
+      "encoders": [
+        "zlib6",
+        "gzip6",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 88,
+      "nodes": 165,
+      "rows": 124,
+      "stride": 32,
+      "stored_bytes": 476,
+      "visible_bits": 4764,
+      "nonzero_padding_bits": 0,
+      "encoders": [
+        "zlib6",
+        "gzip6",
+        "zlib9",
+        "gzip9",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 90,
+      "nodes": 545,
+      "rows": 409,
+      "stride": 80,
+      "stored_bytes": 9226,
+      "visible_bits": 109641,
+      "nonzero_padding_bits": 0,
+      "encoders": [
+        "zlib6",
+        "gzip6",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 96,
+      "nodes": 597,
+      "rows": 448,
+      "stride": 80,
+      "stored_bytes": 13845,
+      "visible_bits": 106894,
+      "nonzero_padding_bits": 0,
+      "encoders": [
+        "zlib6",
+        "gzip6",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 104,
+      "nodes": 441,
+      "rows": 331,
+      "stride": 64,
+      "stored_bytes": 5438,
+      "visible_bits": 74562,
+      "nonzero_padding_bits": 0,
+      "encoders": [
+        "zlib6",
+        "gzip6",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 110,
+      "nodes": 281,
+      "rows": 211,
+      "stride": 48,
+      "stored_bytes": 3161,
+      "visible_bits": 13607,
+      "nonzero_padding_bits": 0,
+      "encoders": [
+        "zlib6",
+        "gzip6",
+        "bounded6"
+      ]
+    },
+    {
+      "entry": 120,
+      "nodes": 913,
+      "rows": 685,
+      "stride": 128,
+      "stored_bytes": 20970,
+      "visible_bits": 361693,
+      "nonzero_padding_bits": 0,
+      "encoders": [
+        "zlib6",
+        "bounded6"
+      ]
+    }
+  ],
+  "acceptance": {
+    "base_commit": "094102644c4c2f5aefaa0fc4b609416918f66f58",
+    "source_fingerprint": "23b9ae6683232c63151cff96cb3f0fd9cb191a50a781c97a3cd1fc1c074604b2",
+    "report_sha256": "c109d1502a9f9f022e09ffaed05b49f0a01432cb8efed29665d5f1ac76ccf646",
+    "measures": {
+      "fuzzy_match_percent": 25.06301,
+      "total_code": "2246328",
+      "matched_code": "555524",
+      "matched_code_percent": 24.730316,
+      "total_data": "65120512",
+      "matched_data": "61663878",
+      "matched_data_percent": 94.69194,
+      "total_functions": 5904,
+      "matched_functions": 3485,
+      "matched_functions_percent": 59.02778,
+      "complete_code": "129488",
+      "complete_code_percent": 5.7644296,
+      "complete_data": "61663110",
+      "complete_data_percent": 94.690765,
+      "total_units": 11666,
+      "complete_units": 10976
+    },
+    "new_bytes": 151949,
+    "prior_measure_changes": [
+      "assets/storage/bank05/unreconstructed",
+      "assets/visibility/bank05"
+    ],
+    "prior_asset_proofs_unchanged": 10651,
+    "prior_source_files_preserved": 25986,
+    "visibility_prior_manifest_preserved_in_backup": true,
+    "rom_bytes": 67108864,
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "snapshot": "current",
+    "compile_errors": [],
+    "tests": {
+      "run": 2550,
+      "skipped": 8,
+      "failures": 0
+    }
+  }
+}

@@ -1,5 +1,8 @@
 # US model reconstruction
 
+Follow-up: [EOF-bounded compression](us_bounded_compression.md) extends the
+selection while preserving the historical validation recorded below.
+
 The current selection reconstructs **506 models**, totaling **370,270 stored
 RZIP bytes**: 55 bank-03 direct models, 296 bank-09 direct models and 155 bank-09
 three-pair attachment models. The expansions below retain complete native records
@@ -645,3 +648,90 @@ Source fingerprint:
 Native report SHA-256:
 `07d8f13b9645d9e7d7814d71e02cca966dc219b5e57089a4722bf1c76d013a68`.
 Private logs and byte/accounting audits are `build/model-aux-color-*`.
+
+## Child tertiary tables, 12 October 2026
+
+This batch extends native bank-04 reconstruction to ten complete scene bundles:
+0, 11, 25, 35, 41, 44, 45, 49, 67 and 68. They add **300,042 stored bytes**
+and **797,328 decoded bytes**, with 68 child tertiary tables. The combined
+selection is 567 asset units and 1,240,374 stored bytes. Per-bundle ROM extents,
+SHA-256 hashes and child table offsets/counts are recorded in
+[the companion inventory](us_model_child_tables.json).
+
+The full loader at `150031EC` already pinned by `verify_consumers` walks every
+eight-byte bundle descriptor and relocates model header offsets `0x00`, `0x08`
+and `0x10`. The [consumer graph](../assets/models/us_model_scene_consumers.md)
+and [native inventory](../assets/models/us_asset_inventory.md) distinguish
+later-slot tertiary storage from the primary collision-surface allocation.
+
+For the selected child parts, header words 4/5 delimit a contiguous array
+immediately after the display list. Its size is exactly four times the decoded
+face count. Unlike the primary surface table, these child arrays have **no
+eight-byte table header**. Each editable `tertiary_words` item serializes one
+big-endian native u32. Their runtime meaning remains unresolved; this codec
+does not label them as collision surfaces or infer material identities.
+
+The codec requires empty secondary, reserved and color-animation regions,
+the existing native header marker, no custom normal-table commands, and only
+an explicitly observed all-zero suffix of 0, 4, 8 or 12 bytes. It reparses the
+encoded fields and checks all boundaries. Primary surface/color schemas and
+previous direct-part records retain their existing representations.
+
+Every new bundle reproduces its full decoded bytes and fresh GNU gzip 1.12
+level-six RZIP bytes against the checksum-validated US ROM. No compressed
+payload or opaque remainder is retained in the candidate. Thirteen additional
+fully parsed candidates failed the checked compressors and remain unselected;
+bundles with unsupported regions also remain raw.
+
+Independent validation rebuilt the complete 1,793,096-byte bank 04 from
+reconstructed parts plus the preserved index, gaps and unselected ranges.
+It equals the original bank with SHA-256
+`3b964924c1e014d5f28e70b1ee89b602a88fd03cc1d89397690ff05756ea6ce2`.
+All 136 first/last child-table word mutations changed the decoded output and
+reparsed to the edited records. The focused bundle suite passes eight tests.
+
+The first full build exposed five missing ownership entries already required
+by main's linker placements. `config/data/us.json` now records their existing
+raw/done source aliases: four [burst literals](game_burst_velocity_literals.md)
+and the [actor dispatcher table](game_169510_jump_table.md). Addresses, payload
+sizes and INFO backing are unchanged. The independent data audit passes with
+26,352 mapped GAME data bytes. This fixes manifest consistency; it grants no
+completion credit by itself.
+
+Validation runs against the uncommitted working tree based on main
+`094102644c4c2f5aefaa0fc4b609416918f66f58`. The full reconstructed-ROM build, Docker suite and native
+report results follow. Private logs use the
+`build/model-child-` prefix; generated asset records and reports stay ignored.
+
+`./conker build --assets` passes after the ownership repair. Independent
+comparison confirms all 67,108,864 bytes equal the original US ROM, SHA-1
+`4cbadd3c4e0729dec46af64ad018050eada4f47a`. Canonical progress and whitespace
+checks pass. The initial complete suite exposed one asset-plan count assertion
+that still expected 20 bank-04 bundles; it now expects the reviewed 30. This
+correction changes only the test expectation, not build inputs.
+
+The final complete Docker suite passes: 2,466 tests, eight skips, no failures.
+
+The fresh native report validates 10,883 units with no compile errors and a
+current source snapshot. All ten new bundles have identical total, matched and
+complete byte counts, totaling 300,042 bytes. Data is now **32,356,195 /
+65,120,512 matched bytes (49.68664%)**; complete Data is 32,355,427 bytes
+(49.685463%). Compared with the previous complete-sample snapshot, both counts
+increase by exactly 300,042 bytes, with the same denominator. The gain is about
+0.46075 percentage points. This is local report evidence; nothing is uploaded
+to decomp.dev by these commands.
+
+Source fingerprint:
+`9057a86617cdb9c58f67163c661b590dc1b58e20a6812516832f11aa077e01b7`.
+Native report SHA-256:
+`e47891a1225d5705d9949176ff1344147bed33a531b0b95ac2ecffd667a71d58`.
+
+
+## Extended normal and color combinations
+
+[Eight more complete scene bundles](us_model_extended_reconstruction.md)
+reconstruct 243,901 stored bytes through referenced normal tables, typed
+primary/child color descriptors and bounded zero intervals. The bank-04
+selection now contains 38 bundles and 499 nonempty parts. Existing input
+schemas and source hashes are preserved; independent and full-batch evidence
+is recorded in that dedicated document and its inventory.

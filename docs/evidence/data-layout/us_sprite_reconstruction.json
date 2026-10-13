@@ -1,0 +1,678 @@
+{
+  "entries": 51,
+  "frames": 183,
+  "sampled_bytes": 610240,
+  "pixel_mutations": 732,
+  "consumer_endpoint_mutations": 20,
+  "rebuilt_bytes": 236457,
+  "excluded_entries": [
+    4,
+    5,
+    19,
+    47,
+    63
+  ],
+  "original_bank_sha256": "443f0277a260b8e93389860404d68a25f0103691d83136568bb9a7483bb64247",
+  "consumers": {
+    "code": [
+      {
+        "address": "0x1500AC14",
+        "bytes": 368,
+        "sha1": "e2d376dd1513f6db8a3f2f446a357f38fc5aa7fe"
+      },
+      {
+        "address": "0x1500AD84",
+        "bytes": 388,
+        "sha1": "11e8ef10442d2438eb832885eacc4cb7da488a81"
+      },
+      {
+        "address": "0x1502AC88",
+        "bytes": 636,
+        "sha1": "24f02469c9605e212ed65a4c75b216d50ef8577e"
+      },
+      {
+        "address": "0x1502B020",
+        "bytes": 240,
+        "sha1": "cf808816ca9e3df778eb77490c317e7eb4b57c02"
+      },
+      {
+        "address": "0x1517BBAC",
+        "bytes": 5144,
+        "sha1": "1b0cf7e0210f000e00e10d946f61767eadc59aea"
+      },
+      {
+        "address": "0x1517CFC4",
+        "bytes": 176,
+        "sha1": "796ec079b8936ea7c9a5e31de22a9362f51316d8"
+      },
+      {
+        "address": "0x1517D7B0",
+        "bytes": 1708,
+        "sha1": "3410f75e0ce79d74db75ace5f6ce5380a9e2a389"
+      },
+      {
+        "address": "0x1510CDB8",
+        "bytes": 168,
+        "sha1": "282363991e81e8426bba40fac6a6d38fe7dc2b54"
+      }
+    ],
+    "tables": [
+      {
+        "address": "0x80095CE0",
+        "bytes": 690,
+        "sha1": "da3f9d6a21bb81210a02c7cf334baa8676275456"
+      },
+      {
+        "address": "0x8008CFA0",
+        "bytes": 72,
+        "sha1": "248788b65bccc0794f12d56ae36df18196792c29"
+      }
+    ]
+  },
+  "source_hashes_unchanged": true,
+  "entries_proof": [
+    {
+      "entry": 0,
+      "rom_start": 11213928,
+      "rom_end": 11219633,
+      "frames": 6,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "06199f6ccec734a8961539f9d95b09ece7910d4360922c209a1b727e260e69ab",
+      "encoder": "gzip6"
+    },
+    {
+      "entry": 1,
+      "rom_start": 11219640,
+      "rom_end": 11224255,
+      "frames": 5,
+      "width": 32,
+      "height": 32,
+      "frame_bytes": 2560,
+      "decoded_sha256": "5d13b762c2b2878ec373db80b717b37472d6324fcecabd82557bc86cca6221ae",
+      "encoder": 6
+    },
+    {
+      "entry": 2,
+      "rom_start": 11224256,
+      "rom_end": 11229481,
+      "frames": 5,
+      "width": 32,
+      "height": 32,
+      "frame_bytes": 2560,
+      "decoded_sha256": "9a64f0bfc1d1e49f24a02df3f8e97d71a6867675db6f2ceb285a7cbbc46f8e55",
+      "encoder": 6
+    },
+    {
+      "entry": 3,
+      "rom_start": 11229488,
+      "rom_end": 11234480,
+      "frames": 5,
+      "width": 32,
+      "height": 32,
+      "frame_bytes": 2560,
+      "decoded_sha256": "989b5f43a3844de6ec225253ebb341d592a174db9f6d191ecebb5a7d57da9d99",
+      "encoder": 6
+    },
+    {
+      "entry": 6,
+      "rom_start": 11250064,
+      "rom_end": 11256572,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "8f00c14ac9d71ae82eebad4be84e170ea9815615a9809dc3918513d03ab3c168",
+      "encoder": "gzip6"
+    },
+    {
+      "entry": 12,
+      "rom_start": 11256576,
+      "rom_end": 11263856,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "86c94b36e7332c4e81e0a35636ea68cf1a4a22a4c4f6bc81cdde85b9db3aabc5",
+      "encoder": "gzip6"
+    },
+    {
+      "entry": 13,
+      "rom_start": 11263856,
+      "rom_end": 11271842,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "ba72586c6675c6feb7969c216cf33d1031c5decaeb250448c0fde8b0ae615d9e",
+      "encoder": "gzip6"
+    },
+    {
+      "entry": 14,
+      "rom_start": 11271848,
+      "rom_end": 11277419,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "d3dba8b1b2f0b70f205af6fd1d222ce5a3ca26e8c9f79c983cea65abbd123770",
+      "encoder": "gzip6"
+    },
+    {
+      "entry": 15,
+      "rom_start": 11277424,
+      "rom_end": 11282312,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "8d5609865dd83d9a931ee30ac86bd5e91650a449128b7d9c336ea93755e67ae2",
+      "encoder": 6
+    },
+    {
+      "entry": 16,
+      "rom_start": 11282312,
+      "rom_end": 11287427,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "464dd8aaad018ba9d7ff68985d8cdfdc31b6e56bb7db0ec777b7b6cf726d014f",
+      "encoder": 6
+    },
+    {
+      "entry": 17,
+      "rom_start": 11287432,
+      "rom_end": 11292552,
+      "frames": 6,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "0ad24fe9b2091c9224de9cc358bd106baa0761d529fc02c15805a56de98a4a41",
+      "encoder": 6
+    },
+    {
+      "entry": 18,
+      "rom_start": 11292552,
+      "rom_end": 11297969,
+      "frames": 8,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "2657d7d4c3be84b51a8250f1734fd43d3ec9e15a1fe698e038c7bdeb5eddcc95",
+      "encoder": 6
+    },
+    {
+      "entry": 21,
+      "rom_start": 11306448,
+      "rom_end": 11307429,
+      "frames": 1,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "8b111736b633111d63f459cf5038b9bdf3b82f8b57d9b02d060247a3a66624f4",
+      "encoder": 6
+    },
+    {
+      "entry": 22,
+      "rom_start": 11307432,
+      "rom_end": 11308618,
+      "frames": 1,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "41ec3ec924072183812ff833e1714033d62df1813b695338d615e5111c73c44a",
+      "encoder": 6
+    },
+    {
+      "entry": 23,
+      "rom_start": 11308624,
+      "rom_end": 11309301,
+      "frames": 1,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "bc041e22912fc1033626a1beafe23518f3e1a88ef25d4075b7d2ea51f057e663",
+      "encoder": 6
+    },
+    {
+      "entry": 24,
+      "rom_start": 11309304,
+      "rom_end": 11310370,
+      "frames": 1,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "9197b811634294964cbf367f1848960cdc4217ccdf6d444a49c792b1a9f96d38",
+      "encoder": 6
+    },
+    {
+      "entry": 25,
+      "rom_start": 11310376,
+      "rom_end": 11311280,
+      "frames": 1,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "87a35bf954cd5a4d03e68bead2c4e4cf675ee75863af057a3bd2d31b0724890e",
+      "encoder": 6
+    },
+    {
+      "entry": 26,
+      "rom_start": 11311280,
+      "rom_end": 11313083,
+      "frames": 1,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "8e315fd3abdb2641f942779c308c117624114e11c29f502bd1a6d2b39a22aa4c",
+      "encoder": 6
+    },
+    {
+      "entry": 27,
+      "rom_start": 11313088,
+      "rom_end": 11314426,
+      "frames": 1,
+      "width": 32,
+      "height": 32,
+      "frame_bytes": 2560,
+      "decoded_sha256": "442c53992c1bd197a5ff11afc5e624e0448c62f4ae82dc06185d6879647ac4eb",
+      "encoder": 6
+    },
+    {
+      "entry": 28,
+      "rom_start": 11314432,
+      "rom_end": 11315554,
+      "frames": 1,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "a2c54a00a6eb8bbf1b281881eb9e06b3f9ad9783d917350e759b5f7fd91378fe",
+      "encoder": 6
+    },
+    {
+      "entry": 29,
+      "rom_start": 11315560,
+      "rom_end": 11320312,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "167ef14c70b67d411235339558c30e9dd897252c8456e02f1f4c3f56222c7607",
+      "encoder": 6
+    },
+    {
+      "entry": 30,
+      "rom_start": 11320312,
+      "rom_end": 11321304,
+      "frames": 1,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "ac054a5a386e781a37a2022e9440dce1b4d7ef911d4bfd1bc1f5ee524a318137",
+      "encoder": 6
+    },
+    {
+      "entry": 31,
+      "rom_start": 11321304,
+      "rom_end": 11328621,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "aefa2443a1a80e7468ff62029516e5aaf24d2acf3331ca5e51605ab411fa19a2",
+      "encoder": 6
+    },
+    {
+      "entry": 32,
+      "rom_start": 11328624,
+      "rom_end": 11335941,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "aefa2443a1a80e7468ff62029516e5aaf24d2acf3331ca5e51605ab411fa19a2",
+      "encoder": 6
+    },
+    {
+      "entry": 33,
+      "rom_start": 11335944,
+      "rom_end": 11343819,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "aa39c3ac4dfed38ae8cc56ccd1902a5e453145aae5c41419e54144a55e8b5fce",
+      "encoder": "gzip6"
+    },
+    {
+      "entry": 34,
+      "rom_start": 11343824,
+      "rom_end": 11350843,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "55e7b64fc27828bcf9f2076f7c85d25eb2bdbee51579956182028baa4310a6a0",
+      "encoder": "gzip6"
+    },
+    {
+      "entry": 35,
+      "rom_start": 11350848,
+      "rom_end": 11357135,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "53b1642a466f7816e6c0a6f571b8f0436b96af6bc497df03c54c3fcea15bf520",
+      "encoder": "gzip6"
+    },
+    {
+      "entry": 36,
+      "rom_start": 11357136,
+      "rom_end": 11364385,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "3c650b9defea3ec1766c14eab57c715517570d096170d3261d710675031c40e1",
+      "encoder": "gzip6"
+    },
+    {
+      "entry": 37,
+      "rom_start": 11364392,
+      "rom_end": 11373686,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "3295f3317d81e361e4bf6197e488ecb49649bd1f7b87a23f37bb2f6d883dd022",
+      "encoder": 6
+    },
+    {
+      "entry": 38,
+      "rom_start": 11373688,
+      "rom_end": 11382743,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "a2733ce90d929d8276cab926c2c32dc6863154115121b89d0f6481cba5ff0592",
+      "encoder": 6
+    },
+    {
+      "entry": 40,
+      "rom_start": 11382744,
+      "rom_end": 11385304,
+      "frames": 1,
+      "width": 32,
+      "height": 32,
+      "frame_bytes": 2560,
+      "decoded_sha256": "004d1eb161f42fe129d52aa5a8715366ab636e08b04e81dba5781c30e8134af6",
+      "encoder": "raw"
+    },
+    {
+      "entry": 41,
+      "rom_start": 11385304,
+      "rom_end": 11388824,
+      "frames": 1,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "d0e171902213f692094041b6a4bb0593db236bb291e06d96bf994a553908ddd1",
+      "encoder": "raw"
+    },
+    {
+      "entry": 42,
+      "rom_start": 11388824,
+      "rom_end": 11392344,
+      "frames": 1,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "b87c4143f18ce0368132f71bf1f852cafbb10da26c81c5143513ae5d6ce9a9e5",
+      "encoder": "raw"
+    },
+    {
+      "entry": 43,
+      "rom_start": 11392344,
+      "rom_end": 11394904,
+      "frames": 1,
+      "width": 32,
+      "height": 32,
+      "frame_bytes": 2560,
+      "decoded_sha256": "91bf0451b446e55e352b509fbc3818831ce9572dedf01db4f30037ac898810f1",
+      "encoder": "raw"
+    },
+    {
+      "entry": 44,
+      "rom_start": 11394904,
+      "rom_end": 11397464,
+      "frames": 1,
+      "width": 32,
+      "height": 32,
+      "frame_bytes": 2560,
+      "decoded_sha256": "049b4e6a4019bcd0f5839256794d6796a8ec072a7335085666bd040c8e09795a",
+      "encoder": "raw"
+    },
+    {
+      "entry": 45,
+      "rom_start": 11397464,
+      "rom_end": 11400984,
+      "frames": 1,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "de28dc0e4eaf18b03fd5c6e6c5ff7951049ea495c3a0fe2d4e60660ab9134d94",
+      "encoder": "raw"
+    },
+    {
+      "entry": 46,
+      "rom_start": 11400984,
+      "rom_end": 11406139,
+      "frames": 5,
+      "width": 16,
+      "height": 64,
+      "frame_bytes": 2560,
+      "decoded_sha256": "b71e42b6fb60e433e91ab2f11b4eec09a91155a5aca854d3abc946472b1c74af",
+      "encoder": 6
+    },
+    {
+      "entry": 48,
+      "rom_start": 11411648,
+      "rom_end": 11416639,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "69f2e278c4aee91f27eca9bb4777b2e427733d3a52762b38836041d29121a568",
+      "encoder": 6
+    },
+    {
+      "entry": 49,
+      "rom_start": 11416640,
+      "rom_end": 11421410,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "fb9cd9a1ac7796dd4b44895bc12b343f313fd9a5548c8e939e65b629b85f8a80",
+      "encoder": 6
+    },
+    {
+      "entry": 50,
+      "rom_start": 11421416,
+      "rom_end": 11427722,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "2fec426c39fc61ed12e0f8760e39292efd0125a30d5998526098d11f45a40768",
+      "encoder": "gzip6"
+    },
+    {
+      "entry": 51,
+      "rom_start": 11427728,
+      "rom_end": 11433227,
+      "frames": 5,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "4d06538f8a643e8a1e9e596b511371d87240e34b0881c5c8b9467e192d9ca7cc",
+      "encoder": 6
+    },
+    {
+      "entry": 54,
+      "rom_start": 11433232,
+      "rom_end": 11434489,
+      "frames": 1,
+      "width": 32,
+      "height": 32,
+      "frame_bytes": 2560,
+      "decoded_sha256": "4ce639d5dd96fc2e959623369681e2430bcbe93fc0b49cd7f9ad78cf8fe8e3f9",
+      "encoder": 6
+    },
+    {
+      "entry": 55,
+      "rom_start": 11434496,
+      "rom_end": 11435747,
+      "frames": 1,
+      "width": 32,
+      "height": 32,
+      "frame_bytes": 2560,
+      "decoded_sha256": "972895dca7b825b56f51239ba39987ac4d72a673359b2a19a73f3301e0a4ede0",
+      "encoder": 6
+    },
+    {
+      "entry": 56,
+      "rom_start": 11435752,
+      "rom_end": 11437507,
+      "frames": 1,
+      "width": 64,
+      "height": 22,
+      "frame_bytes": 3520,
+      "decoded_sha256": "ab4ed72b8856984c7fc9ab1f4170065bec514ba3eab4b5912758d065530a9291",
+      "encoder": 6
+    },
+    {
+      "entry": 57,
+      "rom_start": 11437512,
+      "rom_end": 11439542,
+      "frames": 1,
+      "width": 64,
+      "height": 22,
+      "frame_bytes": 3520,
+      "decoded_sha256": "68fde01d430186cd19c86599db545cde85e3cd65dd0089d20bb7613082a31baa",
+      "encoder": 6
+    },
+    {
+      "entry": 58,
+      "rom_start": 11439544,
+      "rom_end": 11441868,
+      "frames": 1,
+      "width": 64,
+      "height": 22,
+      "frame_bytes": 3520,
+      "decoded_sha256": "7cecb26601c636a0522cccdf5c496f082260f02b14801a3db2ca1deb118d655e",
+      "encoder": 6
+    },
+    {
+      "entry": 62,
+      "rom_start": 11441872,
+      "rom_end": 11451107,
+      "frames": 5,
+      "width": 48,
+      "height": 32,
+      "frame_bytes": 3840,
+      "decoded_sha256": "f8711e500232f1fd00b5fc343d3109632c9fce380952ef6c90fd7d964d165076",
+      "encoder": 6
+    },
+    {
+      "entry": 65,
+      "rom_start": 11458512,
+      "rom_end": 11464679,
+      "frames": 6,
+      "width": 32,
+      "height": 32,
+      "frame_bytes": 2560,
+      "decoded_sha256": "cfd992acb9fa1142ea4473e23031e30aaeced99240b0211b292fdb30874d0ace",
+      "encoder": "gzip6"
+    },
+    {
+      "entry": 66,
+      "rom_start": 11464680,
+      "rom_end": 11473077,
+      "frames": 6,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "3e3b082e46d7da6cf8a66a11abd67db11eae144dfce30ad1140420c7c3bc866a",
+      "encoder": "gzip6"
+    },
+    {
+      "entry": 67,
+      "rom_start": 11473080,
+      "rom_end": 11480642,
+      "frames": 6,
+      "width": 32,
+      "height": 44,
+      "frame_bytes": 3520,
+      "decoded_sha256": "3fa3fb7ac4f5627789d272ce5466590efeae89788b5ce52e1113aff69c8d13b2",
+      "encoder": "gzip6"
+    },
+    {
+      "entry": 68,
+      "rom_start": 11480648,
+      "rom_end": 11487510,
+      "frames": 5,
+      "width": 32,
+      "height": 32,
+      "frame_bytes": 2560,
+      "decoded_sha256": "4b90ae6051ca88b4e0510b96000fcd231670c8c556b5bd9a5c7f1d7ef17feea0",
+      "encoder": 6
+    }
+  ],
+  "acceptance": {
+    "base_commit": "094102644c4c2f5aefaa0fc4b609416918f66f58",
+    "source_fingerprint": "e25753fbf2dce10e99aab28fb7ae24985dde1f05e3e5c64fcbbd198885d2ba06",
+    "report_sha256": "7bbb7d0d3a40b703a654b92cf5296c54e1d20e1f9b5bbc4c923da66cbe2e4fba",
+    "measures": {
+      "fuzzy_match_percent": 25.06301,
+      "total_code": "2246328",
+      "matched_code": "555524",
+      "matched_code_percent": 24.730316,
+      "total_data": "65120512",
+      "matched_data": "60670547",
+      "matched_data_percent": 93.16657,
+      "total_functions": 5904,
+      "matched_functions": 3485,
+      "matched_functions_percent": 59.02778,
+      "complete_code": "129488",
+      "complete_code_percent": 5.7644296,
+      "complete_data": "60669779",
+      "complete_data_percent": 93.16539,
+      "total_units": 11638,
+      "complete_units": 10948
+    },
+    "new_units": [
+      "assets/sprites/bank00"
+    ],
+    "removed_raw_units": [],
+    "new_bytes": 236457,
+    "prior_measure_changes": [
+      "assets/storage/bank00/unreconstructed"
+    ],
+    "prior_assets_preserved": 10623,
+    "prior_source_files_preserved": 25503,
+    "rom_bytes": 67108864,
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "snapshot": "current",
+    "compile_errors": [],
+    "tests": {
+      "run": 2529,
+      "skipped": 8,
+      "failures": 0
+    }
+  }
+}

@@ -1,0 +1,3662 @@
+{
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "consumer_spans": [
+    {
+      "vram": "0x1503cf20",
+      "size": 1096,
+      "sha1": "2335fa3855313510f1f46512cfa704ab301814d1"
+    },
+    {
+      "vram": "0x1503dc3c",
+      "size": 224,
+      "sha1": "4d0a13f114d5f3ecad9c56068bdde74a052935af"
+    },
+    {
+      "vram": "0x150a81d0",
+      "size": 4876,
+      "sha1": "56cae2497377b0bc66714a4175a2a27a0d78de0a"
+    },
+    {
+      "vram": "0x1503d368",
+      "size": 208,
+      "sha1": "abef1711e0dda14ca8b45eb3689aa144f101bb5f"
+    },
+    {
+      "vram": "0x1503d438",
+      "size": 36,
+      "sha1": "add9aec5cb5ff6df58ba80704156c1463b4a2071"
+    },
+    {
+      "vram": "0x1503da3c",
+      "size": 96,
+      "sha1": "809ec0d6fed4c0983c19fc045f2433761c16cd46"
+    },
+    {
+      "vram": "0x15034860",
+      "size": 1620,
+      "sha1": "a02ca6ff2ab888c064e26fb70c42b3cc32f5e08c"
+    }
+  ],
+  "verification": {
+    "field_mutations": 851,
+    "consumer_endpoint_mutations": 14,
+    "whole_bank_bytes": 774792,
+    "bank_sha256": "75a654d86e8ce5b8c0df6f13a1814a95423a28d5cc44e5e769cc1eb4a3aff61d",
+    "new_stored_bytes": 667138,
+    "new_decoded_bytes": 1496952
+  },
+  "characters": [
+    {
+      "entry": 0,
+      "encoder": "gzip6",
+      "rom_start": "0xaf4ef0",
+      "rom_end": "0xaf7b76",
+      "stored_bytes": 11398,
+      "decoded_bytes": 24184,
+      "stored_sha256": "cc6fa1e7d1337f3a07fbbd763535cddd61dda391f6fc603bb9b80285ee71224c",
+      "decoded_sha256": "904f48cd49d5929df81f881ef68a865c6ffa64d7c22c828cef5ca72bb9a92e3f",
+      "vertices": 913,
+      "joints": 28,
+      "normals": 1056,
+      "zero_regions": [
+        [
+          24178,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 1,
+      "encoder": "gzip6",
+      "rom_start": "0xaf7b78",
+      "rom_end": "0xaf9b0e",
+      "stored_bytes": 8086,
+      "decoded_bytes": 21608,
+      "stored_sha256": "f7d6aaa8aab02caa41b023010da63fa69b23029fdc5076c5c89ad17472a5cc65",
+      "decoded_sha256": "505e636d49fa8a426e466eebb42c41165bcf4bfa6ccdff4d9275a0fca5103937",
+      "vertices": 701,
+      "joints": 28,
+      "normals": 752,
+      "zero_regions": [
+        [
+          12252,
+          4
+        ],
+        [
+          21594,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 2,
+      "encoder": "gzip6",
+      "rom_start": "0xaf9b10",
+      "rom_end": "0xafb109",
+      "stored_bytes": 5625,
+      "decoded_bytes": 14264,
+      "stored_sha256": "bab3c673a6ef21255840ecf7c92bbc20429c24a00dc1b9233b512755078a2e68",
+      "decoded_sha256": "619df50957651d33c25629446ad7dc1d834d9a58757eb560451f77ae15886e08",
+      "vertices": 411,
+      "joints": 28,
+      "normals": 480,
+      "zero_regions": [
+        [
+          7612,
+          4
+        ],
+        [
+          14258,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 3,
+      "encoder": "zlib6",
+      "rom_start": "0xafb110",
+      "rom_end": "0xafc3e2",
+      "stored_bytes": 4818,
+      "decoded_bytes": 12200,
+      "stored_sha256": "dc76cda492f84a51e121b9de35cebe65865894c519ac92ad0832b7a83a58df3f",
+      "decoded_sha256": "e4049c34b4a2dd7e2a584bf14a8a7981bf3118ddfef5c94a28529fd95e556f60",
+      "vertices": 343,
+      "joints": 28,
+      "normals": 416,
+      "zero_regions": [
+        [
+          6524,
+          4
+        ],
+        [
+          12194,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 4,
+      "encoder": "zlib6",
+      "rom_start": "0xafc3e8",
+      "rom_end": "0xafd069",
+      "stored_bytes": 3201,
+      "decoded_bytes": 9592,
+      "stored_sha256": "b516727a565f46e499a42a92e0fb00b2aff8ee6f1c436cf0c0012bdee357a306",
+      "decoded_sha256": "065b27fac659612de561cf62ea98e816f81fc8ed61166b4edcaba1d14f778eae",
+      "vertices": 174,
+      "joints": 28,
+      "normals": 433,
+      "zero_regions": [
+        [
+          9578,
+          2
+        ],
+        [
+          9582,
+          10
+        ]
+      ]
+    },
+    {
+      "entry": 5,
+      "encoder": "zlib6",
+      "rom_start": "0xafd070",
+      "rom_end": "0xafdd32",
+      "stored_bytes": 3266,
+      "decoded_bytes": 7544,
+      "stored_sha256": "ba8637c67166269fbfc028400f88404b98dc454e47ee0a7b6e3cdd635ded9a70",
+      "decoded_sha256": "8d26604ee4ec6ccf1ba15956d180d61a4855db5a2d9aa1f84812dddcaecd7d03",
+      "vertices": 238,
+      "joints": 27,
+      "normals": 320,
+      "zero_regions": [
+        [
+          4372,
+          4
+        ],
+        [
+          7530,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 6,
+      "encoder": "zlib6",
+      "rom_start": "0xafdd38",
+      "rom_end": "0xafe518",
+      "stored_bytes": 2016,
+      "decoded_bytes": 5544,
+      "stored_sha256": "074a2163fbbbf653ce5ccd7afb59eb989913ec43b6e9e46c29401c86150e964b",
+      "decoded_sha256": "7846e817073d06d62497bd99a33add74021a81f42cd2e04c867169387c7e4090",
+      "vertices": 179,
+      "joints": 1,
+      "normals": 431,
+      "zero_regions": [
+        [
+          5542,
+          2
+        ]
+      ]
+    },
+    {
+      "entry": 7,
+      "encoder": "zlib6",
+      "rom_start": "0xafe518",
+      "rom_end": "0xaff04b",
+      "stored_bytes": 2867,
+      "decoded_bytes": 7048,
+      "stored_sha256": "304103fe7366a8558053628f71e6b8c970aea928f52f89fcd5ac56d246556eda",
+      "decoded_sha256": "e73e3c4715a977830c510238445b5713858b3acee56099dfbb6960d97dba6c2e",
+      "vertices": 204,
+      "joints": 12,
+      "normals": 545,
+      "zero_regions": [
+        [
+          7042,
+          2
+        ],
+        [
+          7046,
+          2
+        ]
+      ]
+    },
+    {
+      "entry": 8,
+      "encoder": "zlib6",
+      "rom_start": "0xaff050",
+      "rom_end": "0xb00cbb",
+      "stored_bytes": 7275,
+      "decoded_bytes": 14568,
+      "stored_sha256": "03ef504c6a1e2a978132e743c9a466ae3ca4db358410b4bf74a801e3d65f3c37",
+      "decoded_sha256": "93be068f124a6f883e9ecaef8315b81abf2fd5ebd2967b3494725a58e0212b9c",
+      "vertices": 479,
+      "joints": 26,
+      "normals": 736,
+      "zero_regions": [
+        [
+          8332,
+          4
+        ],
+        [
+          14554,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 9,
+      "encoder": "zlib6",
+      "rom_start": "0xb00cc0",
+      "rom_end": "0xb016f4",
+      "stored_bytes": 2612,
+      "decoded_bytes": 6040,
+      "stored_sha256": "b0fff7e4ff93216e5a3d97a0f8fa888f9eb3ef49d2e31a3c46aefa74fc9d20dc",
+      "decoded_sha256": "8c21413a573c0cb8794bada2c45e5b3309cefb2d47b22a8da2f66432ad73aca7",
+      "vertices": 254,
+      "joints": 2,
+      "normals": 288,
+      "zero_regions": [
+        [
+          4228,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 10,
+      "encoder": "zlib6",
+      "rom_start": "0xb016f8",
+      "rom_end": "0xb028af",
+      "stored_bytes": 4535,
+      "decoded_bytes": 8968,
+      "stored_sha256": "b066967e880a5a6d044f04db29d9c7299afbf58a4c65b51cd34703b6a045dc32",
+      "decoded_sha256": "640180f31c90beb47b916daaaaa0187cdfdbbfbdd70ee83cbfadaca8c0d860ff",
+      "vertices": 280,
+      "joints": 22,
+      "normals": 448,
+      "zero_regions": [
+        [
+          8954,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 11,
+      "encoder": "zlib6",
+      "rom_start": "0xb028b0",
+      "rom_end": "0xb028d7",
+      "stored_bytes": 39,
+      "decoded_bytes": 120,
+      "stored_sha256": "a2196f0b54233a75f73e8021b9892555305f6d7eb9aebcd718dff0af58774400",
+      "decoded_sha256": "45471308ef49a3842c28364cc9e08c4fc44cf4227d53fba425317f496e0ffef7",
+      "vertices": 1,
+      "joints": 1,
+      "normals": 0,
+      "zero_regions": [
+        [
+          112,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 12,
+      "encoder": "zlib6",
+      "rom_start": "0xb028d8",
+      "rom_end": "0xb03170",
+      "stored_bytes": 2200,
+      "decoded_bytes": 5608,
+      "stored_sha256": "fb7ed7dbce7bf94fccf9ef800e47f86d0b5bb09a5dcfd8f98a7c9f5a6d211a30",
+      "decoded_sha256": "38cd4b2959c985658c23c0c493e1996d0ff6ea315a6ef55ae13365dfc951e828",
+      "vertices": 143,
+      "joints": 13,
+      "normals": 416,
+      "zero_regions": [
+        [
+          5594,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 13,
+      "encoder": "zlib6",
+      "rom_start": "0xb03170",
+      "rom_end": "0xb03974",
+      "stored_bytes": 2052,
+      "decoded_bytes": 3944,
+      "stored_sha256": "4b798c44129f055387b46f00346793f5c9b501864d97a6b5aea5ef3deb66ec9e",
+      "decoded_sha256": "a37536e20f70eaec2afef9735d09979e6a07c173671a6dcea63e5d192fde119c",
+      "vertices": 152,
+      "joints": 7,
+      "normals": 160,
+      "zero_regions": [
+        [
+          3930,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 14,
+      "encoder": "zlib6",
+      "rom_start": "0xb03978",
+      "rom_end": "0xb04169",
+      "stored_bytes": 2033,
+      "decoded_bytes": 4280,
+      "stored_sha256": "0f610fa4af6647e5db181ce56600b5a2cfcdb9c9b022885ecd5f67e8d622d76b",
+      "decoded_sha256": "6d8a4bea6c305a7a1c87c05d2ffef48280f3f1f6cc23c36a9061df6884a71075",
+      "vertices": 154,
+      "joints": 11,
+      "normals": 192,
+      "zero_regions": [
+        [
+          4272,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 15,
+      "encoder": "zlib6",
+      "rom_start": "0xb04170",
+      "rom_end": "0xb04e9e",
+      "stored_bytes": 3374,
+      "decoded_bytes": 8152,
+      "stored_sha256": "157a07f6de19fd92b027f9f5cc8ebd956f2612ce9276a9aa37a332b02f5263a9",
+      "decoded_sha256": "d2fb14628eecacbfe40c28ff6db0c3302e6dd496b186f905d3067c73bf8a2e6a",
+      "vertices": 280,
+      "joints": 8,
+      "normals": 480,
+      "zero_regions": []
+    },
+    {
+      "entry": 16,
+      "encoder": "zlib6",
+      "rom_start": "0xb04ea0",
+      "rom_end": "0xb06045",
+      "stored_bytes": 4517,
+      "decoded_bytes": 7960,
+      "stored_sha256": "d8cd75b78d040aa6bd28c99e6f181d87608f314fd8769853a123fb0202f1a651",
+      "decoded_sha256": "27de24e3adb7a41a2e39eaafa03999669153a7a554d5f2c9ed419fc88bbd579e",
+      "vertices": 314,
+      "joints": 25,
+      "normals": 384,
+      "zero_regions": [
+        [
+          5532,
+          4
+        ],
+        [
+          7954,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 17,
+      "encoder": "zlib6",
+      "rom_start": "0xb06048",
+      "rom_end": "0xb078ab",
+      "stored_bytes": 6243,
+      "decoded_bytes": 13144,
+      "stored_sha256": "8b9970d94c3ff469e85ba81d3f44744307e4acb708814f4e90ad5bda28c3c76d",
+      "decoded_sha256": "f59aace3fb3aa7bdcbf2b0e166bee65a521d404d197a4c72f78651b87eb77d1f",
+      "vertices": 377,
+      "joints": 37,
+      "normals": 608,
+      "zero_regions": [
+        [
+          6860,
+          4
+        ],
+        [
+          13130,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 18,
+      "encoder": "zlib6",
+      "rom_start": "0xb078b0",
+      "rom_end": "0xb08251",
+      "stored_bytes": 2465,
+      "decoded_bytes": 6024,
+      "stored_sha256": "d26e942ac42b57ef21c3422c6d163a148647cca76d062a39572b223b83ad2220",
+      "decoded_sha256": "2cbc341492bb50ee3d57cd1eb2189054b1c23636ceaf35f3338401ab525fb434",
+      "vertices": 208,
+      "joints": 6,
+      "normals": 288,
+      "zero_regions": [
+        [
+          3604,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 19,
+      "encoder": "zlib9",
+      "rom_start": "0xb08258",
+      "rom_end": "0xb086f0",
+      "stored_bytes": 1176,
+      "decoded_bytes": 2312,
+      "stored_sha256": "316949b7fc63c7d809298a43bbfb43189039b3c7d0a0e0a0b46a7ec2126e7646",
+      "decoded_sha256": "d086d0d49bb72a4e6359d7b6c4be438cbdfa04584ab12cfe0138d16bb98cdeb4",
+      "vertices": 71,
+      "joints": 1,
+      "normals": 96,
+      "zero_regions": [
+        [
+          2304,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 20,
+      "encoder": "zlib6",
+      "rom_start": "0xb086f0",
+      "rom_end": "0xb09f02",
+      "stored_bytes": 6162,
+      "decoded_bytes": 13080,
+      "stored_sha256": "eb072cf3429501130e65afa954f3e52835429db3f45c94e1b850ebcec6aed169",
+      "decoded_sha256": "9ffb0d663f5c07ea3c8fff1bc89971e4dec5cea5cd08da9a029eaa5a01e3e506",
+      "vertices": 368,
+      "joints": 37,
+      "normals": 608,
+      "zero_regions": [
+        [
+          6748,
+          4
+        ],
+        [
+          13074,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 21,
+      "encoder": "zlib6",
+      "rom_start": "0xb09f08",
+      "rom_end": "0xb0a49a",
+      "stored_bytes": 1426,
+      "decoded_bytes": 3640,
+      "stored_sha256": "28e003a56e3640cc66756bc48c912820c299e93c81d80c3e057c4d9762f604ed",
+      "decoded_sha256": "aca9f6556aa95796450314470273fa1a10e300db6bc3a4c690a77e388c594d19",
+      "vertices": 134,
+      "joints": 5,
+      "normals": 160,
+      "zero_regions": [
+        [
+          3632,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 22,
+      "encoder": "zlib6",
+      "rom_start": "0xb0a4a0",
+      "rom_end": "0xb0b7b3",
+      "stored_bytes": 4883,
+      "decoded_bytes": 9352,
+      "stored_sha256": "0a3b67fd5b71aea95014a9ba59e8cb6c8c9c23b0a839462db224ced8e52a5db4",
+      "decoded_sha256": "2b3622e5a0aaf1a5ce71b8245ba55973ac3264c446b85f7d260c7df294cd1a97",
+      "vertices": 303,
+      "joints": 31,
+      "normals": 352,
+      "zero_regions": [
+        [
+          5564,
+          4
+        ],
+        [
+          9346,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 23,
+      "encoder": "zlib6",
+      "rom_start": "0xb0b7b8",
+      "rom_end": "0xb0c31d",
+      "stored_bytes": 2917,
+      "decoded_bytes": 6792,
+      "stored_sha256": "c58af54be489bbf6762672752c8a0b381a64c19163793df8127539d7332c9d99",
+      "decoded_sha256": "fa0e5bfddc41fccda0170eba8c462800719beb64aba70fbe9d5e441cda1125f2",
+      "vertices": 271,
+      "joints": 5,
+      "normals": 384,
+      "zero_regions": [
+        [
+          4548,
+          4
+        ],
+        [
+          6784,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 24,
+      "encoder": "zlib6",
+      "rom_start": "0xb0c320",
+      "rom_end": "0xb0ca49",
+      "stored_bytes": 1833,
+      "decoded_bytes": 4952,
+      "stored_sha256": "41004f9095c54178b0c4818eb2bd105d77e3b8e27e945ca94c9ddaf13dba2833",
+      "decoded_sha256": "81a96f78ea9e889813f5272154fbf55323ff41111bdcd732a8669bb97108d2d6",
+      "vertices": 194,
+      "joints": 5,
+      "normals": 224,
+      "zero_regions": [
+        [
+          4946,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 25,
+      "encoder": "zlib6",
+      "rom_start": "0xb0ca50",
+      "rom_end": "0xb0cdca",
+      "stored_bytes": 890,
+      "decoded_bytes": 2840,
+      "stored_sha256": "427c5387875c256f6164d2de15a2616eb2e3be3e761a7fb275695b726d2f0c60",
+      "decoded_sha256": "78c03a2fa24f475be8a999d32c7718008b065f223c008b1c66b0c08f7eca7aa2",
+      "vertices": 88,
+      "joints": 7,
+      "normals": 224,
+      "zero_regions": [
+        [
+          1604,
+          4
+        ],
+        [
+          2832,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 27,
+      "encoder": "zlib6",
+      "rom_start": "0xb0e2e8",
+      "rom_end": "0xb0e481",
+      "stored_bytes": 409,
+      "decoded_bytes": 680,
+      "stored_sha256": "5a7fb5b9ca1199b69d7cf264adaa30106127c059b932737bd642d280df312637",
+      "decoded_sha256": "630214ef2aad1054f0ccf2eb7418722e0724e4f32e303f7cf9aa03acc992b26a",
+      "vertices": 16,
+      "joints": 1,
+      "normals": 32,
+      "zero_regions": [
+        [
+          672,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 28,
+      "encoder": "zlib6",
+      "rom_start": "0xb0e488",
+      "rom_end": "0xb0ea56",
+      "stored_bytes": 1486,
+      "decoded_bytes": 3640,
+      "stored_sha256": "563a5e86f4e5dd36d585fc7681eb1f115e0664433a767c74f8db8cdb0dc98c19",
+      "decoded_sha256": "3da70f912030cba4e396d94ac82442d8fae34dead6177300a9d979b86b713624",
+      "vertices": 131,
+      "joints": 11,
+      "normals": 160,
+      "zero_regions": [
+        [
+          2356,
+          4
+        ],
+        [
+          3632,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 29,
+      "encoder": "zlib6",
+      "rom_start": "0xb0ea58",
+      "rom_end": "0xb0f251",
+      "stored_bytes": 2041,
+      "decoded_bytes": 4504,
+      "stored_sha256": "24f963292e3eed0b0efe0bd4e1d86ceb40cdd9fd14bcbb9f2854aff627224303",
+      "decoded_sha256": "81e05144951b56a59badf2543a3d0864695735704d66ded9395f51421ff42773",
+      "vertices": 165,
+      "joints": 3,
+      "normals": 224,
+      "zero_regions": [
+        [
+          2820,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 30,
+      "encoder": "zlib6",
+      "rom_start": "0xb0f258",
+      "rom_end": "0xb0f799",
+      "stored_bytes": 1345,
+      "decoded_bytes": 3304,
+      "stored_sha256": "da51f6694150cb3890c058229a860f3cc74383457f0db0a73c144b525d70b414",
+      "decoded_sha256": "2b5d95807415b655edb1f96ca3b960077ecb8a273971447a6601a9b583aef3f2",
+      "vertices": 116,
+      "joints": 5,
+      "normals": 128,
+      "zero_regions": [
+        [
+          2092,
+          4
+        ],
+        [
+          3298,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 31,
+      "encoder": "zlib6",
+      "rom_start": "0xb0f7a0",
+      "rom_end": "0xb0fb76",
+      "stored_bytes": 982,
+      "decoded_bytes": 8616,
+      "stored_sha256": "266a72789efad60ee9c8cf2b5426bb6d3b3ca97fb0cbcf4db9ec39ad77e66d36",
+      "decoded_sha256": "ac4362ca754ba8a106383ae34b5bf79fed504e90e9af85d032c791fdbb1de254",
+      "vertices": 352,
+      "joints": 17,
+      "normals": 512,
+      "zero_regions": []
+    },
+    {
+      "entry": 32,
+      "encoder": "zlib9",
+      "rom_start": "0xb0fb78",
+      "rom_end": "0xb10048",
+      "stored_bytes": 1232,
+      "decoded_bytes": 2120,
+      "stored_sha256": "7fbe9b4faf4edf8f2c59aaeb923c34f6d1873f3095fce36b45b305265e363496",
+      "decoded_sha256": "64fd9c9630eeebc935f62b1f09f09b4d743ed1b809d3d23afc172a4395f6c3ee",
+      "vertices": 76,
+      "joints": 5,
+      "normals": 96,
+      "zero_regions": [
+        [
+          1380,
+          4
+        ],
+        [
+          2112,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 34,
+      "encoder": "zlib6",
+      "rom_start": "0xb11688",
+      "rom_end": "0xb12a3a",
+      "stored_bytes": 5042,
+      "decoded_bytes": 9736,
+      "stored_sha256": "98b24b682654d8eab537fb8e3db6af7dea5a5db342c342d8784d046f0dd77111",
+      "decoded_sha256": "a79eb431bf9cacc39b6d40a4e0ac654f66b136c9efb162541a06386400e93166",
+      "vertices": 316,
+      "joints": 31,
+      "normals": 384,
+      "zero_regions": [
+        [
+          5764,
+          4
+        ],
+        [
+          9730,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 35,
+      "encoder": "gzip6",
+      "rom_start": "0xb12a40",
+      "rom_end": "0xb1488e",
+      "stored_bytes": 7758,
+      "decoded_bytes": 19192,
+      "stored_sha256": "c572e5428e02e129675af2df2405a214ad97e708046107cc7c1863ced0d73d9f",
+      "decoded_sha256": "e1b827d6822891889093df8538056b1a9aafa967767331118c9cccb4eda21743",
+      "vertices": 767,
+      "joints": 11,
+      "normals": 960,
+      "zero_regions": [
+        [
+          12692,
+          4
+        ],
+        [
+          19184,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 36,
+      "encoder": "zlib6",
+      "rom_start": "0xb14890",
+      "rom_end": "0xb157db",
+      "stored_bytes": 3915,
+      "decoded_bytes": 8456,
+      "stored_sha256": "18738a15f6c123145d732fafead7d226dd06073d1faca77fbf330954a34040d9",
+      "decoded_sha256": "979102f3d7cca56e328f820b3400f2faa2f1e750679a97d503f63aca2789ea5b",
+      "vertices": 339,
+      "joints": 11,
+      "normals": 416,
+      "zero_regions": [
+        [
+          5716,
+          4
+        ],
+        [
+          8442,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 37,
+      "encoder": "zlib6",
+      "rom_start": "0xb157e0",
+      "rom_end": "0xb15b8a",
+      "stored_bytes": 938,
+      "decoded_bytes": 2056,
+      "stored_sha256": "0490f6edcaf35c5bea57fca5099cf38209b5f124a2851a887265d4df52e6cdb9",
+      "decoded_sha256": "bf35a115e89bbc4b862d9a68440b5f914d91a308e200a572797cca7ca1f64956",
+      "vertices": 68,
+      "joints": 7,
+      "normals": 160,
+      "zero_regions": [
+        [
+          2048,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 38,
+      "encoder": "zlib6",
+      "rom_start": "0xb15b90",
+      "rom_end": "0xb16337",
+      "stored_bytes": 1959,
+      "decoded_bytes": 3544,
+      "stored_sha256": "c2800c10c6d6fae0214e24a0ecc35a0dff0fc9192359ed8e5f9c29af9cd4f262",
+      "decoded_sha256": "834c83d2cb13067a71064be342de3d48a32124b05f1d6d7c1a0c9504203a3523",
+      "vertices": 143,
+      "joints": 5,
+      "normals": 160,
+      "zero_regions": [
+        [
+          3536,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 39,
+      "encoder": "zlib9",
+      "rom_start": "0xb16338",
+      "rom_end": "0xb166ee",
+      "stored_bytes": 950,
+      "decoded_bytes": 1592,
+      "stored_sha256": "acd00f76def29c3455cb41d2b5df5a4f1f3b3d2ef4461d17a4c3fd3d94728604",
+      "decoded_sha256": "c7f88020b8e44727596840dbfe5a41680a26324c42fa8269332cf840d4b7f8a5",
+      "vertices": 58,
+      "joints": 2,
+      "normals": 64,
+      "zero_regions": [
+        [
+          1044,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 40,
+      "encoder": "gzip6",
+      "rom_start": "0xb166f0",
+      "rom_end": "0xb17f40",
+      "stored_bytes": 6224,
+      "decoded_bytes": 14488,
+      "stored_sha256": "9d4c1f52c80fa171a72064c4d4fd2e606e9008cfe54226535e1f8466965168bf",
+      "decoded_sha256": "9108d94e17268780ebbc06f0d8bd732a90e00b90275128a2ec7ab081421d1560",
+      "vertices": 552,
+      "joints": 14,
+      "normals": 640,
+      "zero_regions": [
+        [
+          9380,
+          4
+        ],
+        [
+          14480,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 41,
+      "encoder": "zlib6",
+      "rom_start": "0xb17f40",
+      "rom_end": "0xb19249",
+      "stored_bytes": 4873,
+      "decoded_bytes": 9784,
+      "stored_sha256": "54ed18f31be7e848df9e7ddf97409bd58e71b9daf1a347c238c90c6886426711",
+      "decoded_sha256": "fcc4b8c6a0febe0b6367302a91e43d4043556a8bd91829c320686aad6d47ca05",
+      "vertices": 338,
+      "joints": 24,
+      "normals": 512,
+      "zero_regions": [
+        [
+          9778,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 43,
+      "encoder": "gzip6",
+      "rom_start": "0xb19250",
+      "rom_end": "0xb1aa56",
+      "stored_bytes": 6150,
+      "decoded_bytes": 18040,
+      "stored_sha256": "67ccdba519181a890b7a5005a5bc87c87da624fd18c4b12fdfe6e43f72ddcc12",
+      "decoded_sha256": "a362110fe771780930b0c5fbaafb8aca3f19695a15d9cfc763005c07eb39c52f",
+      "vertices": 487,
+      "joints": 26,
+      "normals": 1272,
+      "zero_regions": [
+        [
+          8476,
+          4
+        ],
+        [
+          18026,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 44,
+      "encoder": "zlib6",
+      "rom_start": "0xb1aa58",
+      "rom_end": "0xb1b35d",
+      "stored_bytes": 2309,
+      "decoded_bytes": 5976,
+      "stored_sha256": "c5cb641e37b5e9799a995f345f44d94ef1035ae69bd5653cda1e520db473d8cc",
+      "decoded_sha256": "60e62be5755f58d2c2942273a0ca82b7cae5a44ea9522d08a4a89fce021eeb81",
+      "vertices": 163,
+      "joints": 9,
+      "normals": 432,
+      "zero_regions": [
+        [
+          5968,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 45,
+      "encoder": "zlib6",
+      "rom_start": "0xb1b360",
+      "rom_end": "0xb1bbd5",
+      "stored_bytes": 2165,
+      "decoded_bytes": 4776,
+      "stored_sha256": "d896b3ecbe816e11cf87592bf09744378c956353a00e3af57a5416a56afc9db6",
+      "decoded_sha256": "45c2350c1248a4ed62a1abf47ab5f9d4659bcf20909fe6fce699a05929aea655",
+      "vertices": 132,
+      "joints": 10,
+      "normals": 319,
+      "zero_regions": [
+        [
+          2396,
+          4
+        ],
+        [
+          4758,
+          2
+        ],
+        [
+          4762,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 46,
+      "encoder": "zlib6",
+      "rom_start": "0xb1bbd8",
+      "rom_end": "0xb1befe",
+      "stored_bytes": 806,
+      "decoded_bytes": 1208,
+      "stored_sha256": "260e8e3e76df8e9f7dbe4aec33ef8d83cbcbb746578b6b8c3071793d4ba34290",
+      "decoded_sha256": "58eb3da8dae3b87b1a419db0a6af3d8eb46a962b20eb9b6155f143d74784c12e",
+      "vertices": 36,
+      "joints": 1,
+      "normals": 64,
+      "zero_regions": [
+        [
+          676,
+          4
+        ],
+        [
+          1200,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 47,
+      "encoder": "zlib6",
+      "rom_start": "0xb1bf00",
+      "rom_end": "0xb1c7f9",
+      "stored_bytes": 2297,
+      "decoded_bytes": 4280,
+      "stored_sha256": "86d63f45af37cf85c74ec137c4f19322826c3aba1ed2426f83c6d0278cfce95f",
+      "decoded_sha256": "528a2787271cd909fd0e211531684be2c01d312ad9f7a8d4f678390fb7a0c715",
+      "vertices": 160,
+      "joints": 3,
+      "normals": 224,
+      "zero_regions": [
+        [
+          2716,
+          4
+        ],
+        [
+          4272,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 48,
+      "encoder": "zlib9",
+      "rom_start": "0xb1c800",
+      "rom_end": "0xb1ca65",
+      "stored_bytes": 613,
+      "decoded_bytes": 1016,
+      "stored_sha256": "b6bb62194c7f258b1b3b124fa3647fae21b17b56c753c3eb59f336e4328c9f58",
+      "decoded_sha256": "bdf24d1612b203aafe7cb919395316360fa1c16009f36012a00f8cd33b0ab62c",
+      "vertices": 28,
+      "joints": 1,
+      "normals": 32,
+      "zero_regions": []
+    },
+    {
+      "entry": 49,
+      "encoder": "zlib6",
+      "rom_start": "0xb1ca68",
+      "rom_end": "0xb1dc44",
+      "stored_bytes": 4572,
+      "decoded_bytes": 9656,
+      "stored_sha256": "ee09d5b1d4e72aa0b0f1be7c07f8e746f7a8944107582dc503ec8849e478bd33",
+      "decoded_sha256": "277163cca152e0403b45ff10b216bae47c09717bd6cabc3a32aa122bad78aca2",
+      "vertices": 311,
+      "joints": 22,
+      "normals": 448,
+      "zero_regions": [
+        [
+          5556,
+          4
+        ],
+        [
+          9650,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 50,
+      "encoder": "zlib9",
+      "rom_start": "0xb1dc48",
+      "rom_end": "0xb1e34f",
+      "stored_bytes": 1799,
+      "decoded_bytes": 3064,
+      "stored_sha256": "17a86ebd409a127591bd347102115ea549b6ed8910f501dc0d20a29ee23be7fb",
+      "decoded_sha256": "ec514fad26c6693a103bb96c5cb521207094c3230da98fc6f78218897cf9620d",
+      "vertices": 104,
+      "joints": 11,
+      "normals": 128,
+      "zero_regions": [
+        [
+          1924,
+          4
+        ],
+        [
+          3056,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 51,
+      "encoder": "zlib9",
+      "rom_start": "0xb1e350",
+      "rom_end": "0xb1e568",
+      "stored_bytes": 536,
+      "decoded_bytes": 1416,
+      "stored_sha256": "b8bdb5d9d3554469cce0a21cd2b9a501acd32f0d26311c9e61aa1ed69c816994",
+      "decoded_sha256": "88375b583e7f7ea01b203dc474c126d74ad9d95f091dd1b7232c1941a0e85e08",
+      "vertices": 60,
+      "joints": 1,
+      "normals": 64,
+      "zero_regions": [
+        [
+          1408,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 52,
+      "encoder": "zlib6",
+      "rom_start": "0xb1e568",
+      "rom_end": "0xb1fc34",
+      "stored_bytes": 5836,
+      "decoded_bytes": 11896,
+      "stored_sha256": "04b4ec8ea9b6a58fdcc158b26e6d61a52aa7687dfcdde15440072cd076f3b681",
+      "decoded_sha256": "9ecc1d5c12aa39af4ff3a833bbebdab1da3f5f54f8372b6d3537fd7a66d801b3",
+      "vertices": 415,
+      "joints": 30,
+      "normals": 544,
+      "zero_regions": [
+        [
+          11890,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 53,
+      "encoder": "zlib6",
+      "rom_start": "0xb1fc38",
+      "rom_end": "0xb20bea",
+      "stored_bytes": 4018,
+      "decoded_bytes": 6984,
+      "stored_sha256": "0ec9b12f30b8eda26c4dace44e8e72dff0e4cdad8975f8eb210b91f65cd49987",
+      "decoded_sha256": "2e4f2ebb56ac0bf5950771598277c4d31ea110cdd62a2c2c82b08a9710597dad",
+      "vertices": 270,
+      "joints": 14,
+      "normals": 480,
+      "zero_regions": [
+        [
+          6976,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 54,
+      "encoder": "zlib6",
+      "rom_start": "0xb20bf0",
+      "rom_end": "0xb22516",
+      "stored_bytes": 6438,
+      "decoded_bytes": 13272,
+      "stored_sha256": "4743a56699b76b41beddfe86ea3113a873a28eb03a1a6e85158da041f872ac88",
+      "decoded_sha256": "0933293725bb83a7b235e204bdca6ebaf51439d03dc3a12ebc8c9b436d46f78b",
+      "vertices": 438,
+      "joints": 43,
+      "normals": 544,
+      "zero_regions": [
+        [
+          13258,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 55,
+      "encoder": "zlib6",
+      "rom_start": "0xb22518",
+      "rom_end": "0xb2316e",
+      "stored_bytes": 3158,
+      "decoded_bytes": 8344,
+      "stored_sha256": "1dfb6dcfe6ed376daa725cf7ff9893a422e86f8a26e6cee1588a94b486b95350",
+      "decoded_sha256": "bb0f96be042e17c07ac281acb67673ac48379910f17ce0e0d97e8aaff10f6441",
+      "vertices": 194,
+      "joints": 20,
+      "normals": 800,
+      "zero_regions": [
+        [
+          8338,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 56,
+      "encoder": "zlib6",
+      "rom_start": "0xb23170",
+      "rom_end": "0xb2447e",
+      "stored_bytes": 4878,
+      "decoded_bytes": 8664,
+      "stored_sha256": "d3f0f664c35fa3ac5663ec16d3d353f89da4bf863d9fcd790230d1d1913da76e",
+      "decoded_sha256": "701abe99c8a36786ea7d440f0d75d2ec7fe7c49d603bb773dd953d47daf60dd9",
+      "vertices": 342,
+      "joints": 25,
+      "normals": 448,
+      "zero_regions": [
+        [
+          5980,
+          4
+        ],
+        [
+          8650,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 57,
+      "encoder": "gzip6",
+      "rom_start": "0xb24480",
+      "rom_end": "0xb25c7d",
+      "stored_bytes": 6141,
+      "decoded_bytes": 17672,
+      "stored_sha256": "ab9432ec2ca9ae9fbb7dd68011a4beb06909943f3c032153e60bb27ea206274a",
+      "decoded_sha256": "39aa0c243ddf21bb44c9ee57ff5083290f3153bdb29d56c3352659efd0532449",
+      "vertices": 710,
+      "joints": 14,
+      "normals": 928,
+      "zero_regions": [
+        [
+          11748,
+          4
+        ],
+        [
+          17664,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 59,
+      "encoder": "zlib6",
+      "rom_start": "0xb27878",
+      "rom_end": "0xb28334",
+      "stored_bytes": 2748,
+      "decoded_bytes": 5560,
+      "stored_sha256": "5ed621638bfe1fa512563f17a24c7391a93bdc53e1c982c1989f0048b6b509e6",
+      "decoded_sha256": "892eea2d01a49bb1a706950005a92ea63ca322a943770511704e78147de949d9",
+      "vertices": 142,
+      "joints": 28,
+      "normals": 288,
+      "zero_regions": [
+        [
+          2852,
+          4
+        ],
+        [
+          5554,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 60,
+      "encoder": "zlib6",
+      "rom_start": "0xb28338",
+      "rom_end": "0xb28c09",
+      "stored_bytes": 2257,
+      "decoded_bytes": 5672,
+      "stored_sha256": "8a5822264833805e58a153423daf836b019218849d766e42ccbc66df12a95d66",
+      "decoded_sha256": "203892fddc2ed2102e94974694f989eae23cd78137bb45090843bb3b0305907e",
+      "vertices": 138,
+      "joints": 9,
+      "normals": 357,
+      "zero_regions": [
+        [
+          2548,
+          4
+        ],
+        [
+          5658,
+          2
+        ],
+        [
+          5662,
+          10
+        ]
+      ]
+    },
+    {
+      "entry": 61,
+      "encoder": "gzip6",
+      "rom_start": "0xb28c10",
+      "rom_end": "0xb2a867",
+      "stored_bytes": 7255,
+      "decoded_bytes": 18072,
+      "stored_sha256": "402039f57344539922204ef3a843877baf0903ba3a7c2a2fbb676ba7a8d4bf1b",
+      "decoded_sha256": "d56e847e89d95a4bea15bcead00d3500b5b432ee7b30a33c0d48ec15de3778d0",
+      "vertices": 562,
+      "joints": 46,
+      "normals": 1270,
+      "zero_regions": [
+        [
+          18062,
+          10
+        ]
+      ]
+    },
+    {
+      "entry": 62,
+      "encoder": "zlib6",
+      "rom_start": "0xb2a868",
+      "rom_end": "0xb2ba32",
+      "stored_bytes": 4554,
+      "decoded_bytes": 11816,
+      "stored_sha256": "7581e7d9796c1355f21d5db9a62f54aba1faae2151149036304d7b40ed3ae402",
+      "decoded_sha256": "59484308c3556278054318bff4799a89056ffe1d1fbc72c75668e511ec0bd8b8",
+      "vertices": 469,
+      "joints": 18,
+      "normals": 576,
+      "zero_regions": [
+        [
+          7948,
+          4
+        ],
+        [
+          11802,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 63,
+      "encoder": "zlib6",
+      "rom_start": "0xb2ba38",
+      "rom_end": "0xb2bdf8",
+      "stored_bytes": 960,
+      "decoded_bytes": 1512,
+      "stored_sha256": "f605574fe3a7bf20e700d85e99072070946d6216ea88a60b2b698d31d62b3aed",
+      "decoded_sha256": "4c268195e1abb1ddcd790a02fcbaea6857d8b698c8daeebc0f284ff1ea1f12ca",
+      "vertices": 50,
+      "joints": 6,
+      "normals": 64,
+      "zero_regions": []
+    },
+    {
+      "entry": 64,
+      "encoder": "zlib6",
+      "rom_start": "0xb2bdf8",
+      "rom_end": "0xb2c62f",
+      "stored_bytes": 2103,
+      "decoded_bytes": 4632,
+      "stored_sha256": "9d821ff8bdc94cb00ffafea45180cf2f95cc74fd67f6617d3a9cfe2add741f4e",
+      "decoded_sha256": "4a1eb6783ac50f62df647070e8c661244787bec2a05175c2d53dd5ea4cabb241",
+      "vertices": 138,
+      "joints": 9,
+      "normals": 192,
+      "zero_regions": [
+        [
+          4618,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 65,
+      "encoder": "zlib6",
+      "rom_start": "0xb2c630",
+      "rom_end": "0xb2cf7d",
+      "stored_bytes": 2381,
+      "decoded_bytes": 6248,
+      "stored_sha256": "f253b5b13c4979ec0bcb114dfe6cc55afaa70c815ad3e75e4ea0aeaa1876ca13",
+      "decoded_sha256": "4e04053481484377c3faa27425f382c90ce2d346e2634dc108e78f50c57b6c06",
+      "vertices": 197,
+      "joints": 9,
+      "normals": 443,
+      "zero_regions": [
+        [
+          6238,
+          10
+        ]
+      ]
+    },
+    {
+      "entry": 66,
+      "encoder": "zlib6",
+      "rom_start": "0xb2cf80",
+      "rom_end": "0xb2e99f",
+      "stored_bytes": 6687,
+      "decoded_bytes": 13640,
+      "stored_sha256": "3980355f88b067114499214a67b55b3e5eca0d0fce33f10d28dbb9d112c775df",
+      "decoded_sha256": "57c4a724b2302de7f9515e058fad86c600bcc709991009e0410c361b3b0d1c17",
+      "vertices": 421,
+      "joints": 28,
+      "normals": 608,
+      "zero_regions": [
+        [
+          13634,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 67,
+      "encoder": "zlib6",
+      "rom_start": "0xb2e9a0",
+      "rom_end": "0xb2ed1c",
+      "stored_bytes": 892,
+      "decoded_bytes": 2568,
+      "stored_sha256": "0a919d2a4c3d0a3b4e8795b581c6096179596813510f81827fbdcfd9725f66c4",
+      "decoded_sha256": "4b7e972e4f6336cb3e5ebab5f712ec09be715fa8595800fed508fce9a75b4121",
+      "vertices": 100,
+      "joints": 7,
+      "normals": 128,
+      "zero_regions": [
+        [
+          2560,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 68,
+      "encoder": "zlib6",
+      "rom_start": "0xb2ed20",
+      "rom_end": "0xb2fe15",
+      "stored_bytes": 4341,
+      "decoded_bytes": 8328,
+      "stored_sha256": "844cdef37012b8ff292a8209125c42fc6184fc26da0d711e9232f23c2b05cf38",
+      "decoded_sha256": "c450956db882daf1b89bca9b499d9f2172d53628090bba533bb1fa70dd0cbd28",
+      "vertices": 262,
+      "joints": 29,
+      "normals": 352,
+      "zero_regions": [
+        [
+          4836,
+          4
+        ],
+        [
+          8314,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 69,
+      "encoder": "zlib6",
+      "rom_start": "0xb2fe18",
+      "rom_end": "0xb31ca9",
+      "stored_bytes": 7825,
+      "decoded_bytes": 15960,
+      "stored_sha256": "e6fe62dba0ba95d9d3539a156911f2c2d5d0529ab873bb798141235e447ec0ee",
+      "decoded_sha256": "7f391789ab7a262d005d2a4d5e899bfa828d5f6df7d16a3d628ce1d391f5f90b",
+      "vertices": 576,
+      "joints": 30,
+      "normals": 736,
+      "zero_regions": [
+        [
+          9932,
+          4
+        ],
+        [
+          15954,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 70,
+      "encoder": "zlib6",
+      "rom_start": "0xb31cb0",
+      "rom_end": "0xb329e0",
+      "stored_bytes": 3376,
+      "decoded_bytes": 8152,
+      "stored_sha256": "e2ec42e05aba83ab045301e87b1f601287ce17049bead5ca63583ab720ecacd5",
+      "decoded_sha256": "253a8f2ee41be65d74c7c08545ab72c9d21971f6d843b6e385663a6278395b02",
+      "vertices": 280,
+      "joints": 8,
+      "normals": 480,
+      "zero_regions": []
+    },
+    {
+      "entry": 71,
+      "encoder": "zlib6",
+      "rom_start": "0xb329e0",
+      "rom_end": "0xb3388f",
+      "stored_bytes": 3759,
+      "decoded_bytes": 12568,
+      "stored_sha256": "b6d5b2011329b10727a4fd22b21d1cb9f444706cb6b415de65e05afbc338cf12",
+      "decoded_sha256": "7f5c09991bc5b6dd58c34d20e7681c8882d6a022556dfa86bf73d4bd74bf55d1",
+      "vertices": 324,
+      "joints": 36,
+      "normals": 938,
+      "zero_regions": [
+        [
+          5932,
+          4
+        ],
+        [
+          12564,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 72,
+      "encoder": "zlib6",
+      "rom_start": "0xb33890",
+      "rom_end": "0xb338b7",
+      "stored_bytes": 39,
+      "decoded_bytes": 120,
+      "stored_sha256": "a2196f0b54233a75f73e8021b9892555305f6d7eb9aebcd718dff0af58774400",
+      "decoded_sha256": "45471308ef49a3842c28364cc9e08c4fc44cf4227d53fba425317f496e0ffef7",
+      "vertices": 1,
+      "joints": 1,
+      "normals": 0,
+      "zero_regions": [
+        [
+          112,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 73,
+      "encoder": "zlib6",
+      "rom_start": "0xb338b8",
+      "rom_end": "0xb3423c",
+      "stored_bytes": 2436,
+      "decoded_bytes": 5944,
+      "stored_sha256": "489a704d5c45820c5e32f680b46ee5353e31f1d264508987c7f80272cb845429",
+      "decoded_sha256": "42d37201089479db493953f3805dc988d52d5715b8db610fe54c0bbcd905f5bd",
+      "vertices": 223,
+      "joints": 8,
+      "normals": 256,
+      "zero_regions": []
+    },
+    {
+      "entry": 74,
+      "encoder": "zlib6",
+      "rom_start": "0xb34240",
+      "rom_end": "0xb34f9d",
+      "stored_bytes": 3421,
+      "decoded_bytes": 7432,
+      "stored_sha256": "060fe2f447022966765411ae5ce5242113bf26eac5cb65482beb8128df71f6e5",
+      "decoded_sha256": "63d950aea250beb1de17b27cea3b52b9052b1d93a57e77d7f9c495d7b2e1499e",
+      "vertices": 264,
+      "joints": 6,
+      "normals": 352,
+      "zero_regions": [
+        [
+          4500,
+          4
+        ],
+        [
+          7424,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 75,
+      "encoder": "gzip6",
+      "rom_start": "0xb34fa0",
+      "rom_end": "0xb393e7",
+      "stored_bytes": 17479,
+      "decoded_bytes": 42488,
+      "stored_sha256": "05e313ce424886ae469027ee8f8ac0d57857fa07021ac7b8842b4aaf16fb80c0",
+      "decoded_sha256": "09f6c4551ca0d12b46109a45f01703fb21ba7f10d15764aa807a4c9701936e81",
+      "vertices": 1625,
+      "joints": 45,
+      "normals": 1856,
+      "zero_regions": [
+        [
+          27132,
+          4
+        ],
+        [
+          42482,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 76,
+      "encoder": "zlib6",
+      "rom_start": "0xb393e8",
+      "rom_end": "0xb3a118",
+      "stored_bytes": 3376,
+      "decoded_bytes": 8168,
+      "stored_sha256": "e1fc36eb4e6498146b1d3df19c7ea48b3a0152bba48b5b4e5362b1476c735eb4",
+      "decoded_sha256": "99f1a77aa90421a3aa5870fea40820a68d1b59d31616ce8fc061f8cf34ade5d8",
+      "vertices": 280,
+      "joints": 8,
+      "normals": 480,
+      "zero_regions": [
+        [
+          8160,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 77,
+      "encoder": "zlib9",
+      "rom_start": "0xb3a118",
+      "rom_end": "0xb3a748",
+      "stored_bytes": 1584,
+      "decoded_bytes": 3096,
+      "stored_sha256": "cc6760b31e22e1972ed2e7f34dde194d453de42f561268454b5491f6dd8e9989",
+      "decoded_sha256": "37c34d35d582ff7368b1ec8486435cdb97e79030eac28eb6000c6e5b30a16f85",
+      "vertices": 118,
+      "joints": 1,
+      "normals": 128,
+      "zero_regions": [
+        [
+          2012,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 78,
+      "encoder": "zlib9",
+      "rom_start": "0xb3a748",
+      "rom_end": "0xb3a941",
+      "stored_bytes": 505,
+      "decoded_bytes": 1288,
+      "stored_sha256": "47b7ab76d95d212e0e5cb0a0e279ffe3310a3f1360350cf39efa3d61e5578e3f",
+      "decoded_sha256": "4f3d081a8ae02ee5ce9491e6f7c59b5e331c113dfce687e601c4df983a8c6dc6",
+      "vertices": 28,
+      "joints": 3,
+      "normals": 64,
+      "zero_regions": [
+        [
+          580,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 79,
+      "encoder": "zlib6",
+      "rom_start": "0xb3a948",
+      "rom_end": "0xb3b2f5",
+      "stored_bytes": 2477,
+      "decoded_bytes": 6424,
+      "stored_sha256": "5fc7ee1500d31b7242d5ee5a07a0dc3f9755547d25f567959e4c92c07b1981b5",
+      "decoded_sha256": "3f1757a6ca825b14fab8b45203d35ddaa290edb8c1daeace807e0d25d2133981",
+      "vertices": 260,
+      "joints": 6,
+      "normals": 320,
+      "zero_regions": [
+        [
+          6416,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 80,
+      "encoder": "zlib6",
+      "rom_start": "0xb3b2f8",
+      "rom_end": "0xb3c7e0",
+      "stored_bytes": 5352,
+      "decoded_bytes": 11192,
+      "stored_sha256": "2a36a01895564bc9ee3c190543492e35cc49e2c011e0dc9fa7c6100508bb2645",
+      "decoded_sha256": "2821887d2d2f92f8ca690709bc0406ba730626f14b8df534c7b6e77ec2c8ce81",
+      "vertices": 335,
+      "joints": 36,
+      "normals": 480,
+      "zero_regions": [
+        [
+          6140,
+          4
+        ],
+        [
+          11178,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 81,
+      "encoder": "zlib6",
+      "rom_start": "0xb3c7e0",
+      "rom_end": "0xb3d363",
+      "stored_bytes": 2947,
+      "decoded_bytes": 6312,
+      "stored_sha256": "1a0db056e690d53511d64089ff2cf21ea89b656058acf292ac2c7c33ba89947f",
+      "decoded_sha256": "00844ef308d8cb4b557d52429f1fb09c002bb40275e8911da5380d4c84d729c4",
+      "vertices": 165,
+      "joints": 45,
+      "normals": 352,
+      "zero_regions": [
+        [
+          3492,
+          4
+        ],
+        [
+          6306,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 82,
+      "encoder": "zlib6",
+      "rom_start": "0xb3d368",
+      "rom_end": "0xb3e34c",
+      "stored_bytes": 4068,
+      "decoded_bytes": 8776,
+      "stored_sha256": "07def4f013874ed6a6cecf529eecc44438309dd821e19f03656befe227b1e349",
+      "decoded_sha256": "649a9e055e93f8e10d225bed8f01a8f80343cf645e5cc26828d62fde9b4a5706",
+      "vertices": 323,
+      "joints": 8,
+      "normals": 448,
+      "zero_regions": [
+        [
+          8762,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 86,
+      "encoder": "zlib6",
+      "rom_start": "0xb43e70",
+      "rom_end": "0xb44748",
+      "stored_bytes": 2264,
+      "decoded_bytes": 6088,
+      "stored_sha256": "cdff7194a48f78c0f35ace65a97ccfd37518259176a10c41a738e7eb0bbb0682",
+      "decoded_sha256": "bcc8ce1cb1d218dfb4cd7935b574a6a1f7855b218af83d05db8fa6698055c04c",
+      "vertices": 193,
+      "joints": 4,
+      "normals": 431,
+      "zero_regions": [
+        [
+          3276,
+          4
+        ],
+        [
+          6078,
+          10
+        ]
+      ]
+    },
+    {
+      "entry": 87,
+      "encoder": "zlib6",
+      "rom_start": "0xb44748",
+      "rom_end": "0xb44a60",
+      "stored_bytes": 792,
+      "decoded_bytes": 1624,
+      "stored_sha256": "bbc109adf5dd3fcf517cdaba9b4adf4729c22793f9215e03b57caa5d8b9e27f4",
+      "decoded_sha256": "ab56f292e08ad98295fe8ba93fe15f4284ffed58f1c2e2c4ae4654b774c973d6",
+      "vertices": 30,
+      "joints": 5,
+      "normals": 60,
+      "zero_regions": []
+    },
+    {
+      "entry": 88,
+      "encoder": "zlib6",
+      "rom_start": "0xb44a60",
+      "rom_end": "0xb46801",
+      "stored_bytes": 7585,
+      "decoded_bytes": 15672,
+      "stored_sha256": "a4d8765a67ceb8962c340f1d02e036d81677deb8fa0a4cc276ca287831ce0086",
+      "decoded_sha256": "21cb81a9500f255dfa3e2ffb90a870fe6b899e960a0143c756f68ae5124ca2d6",
+      "vertices": 510,
+      "joints": 40,
+      "normals": 672,
+      "zero_regions": [
+        [
+          15658,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 89,
+      "encoder": "zlib6",
+      "rom_start": "0xb46808",
+      "rom_end": "0xb46e79",
+      "stored_bytes": 1649,
+      "decoded_bytes": 3016,
+      "stored_sha256": "cfc12cb482109a03cd80908cd9fe48ef2f55be9ee3021e313533830324c0ab09",
+      "decoded_sha256": "722505de79ccb23f5635ea6556cac21890affd070f42610f166abb78b1eeb0b3",
+      "vertices": 108,
+      "joints": 13,
+      "normals": 128,
+      "zero_regions": []
+    },
+    {
+      "entry": 90,
+      "encoder": "zlib6",
+      "rom_start": "0xb46e80",
+      "rom_end": "0xb48349",
+      "stored_bytes": 5321,
+      "decoded_bytes": 11080,
+      "stored_sha256": "fc2c4f0405752ac1d9b185f49cc9f8c6b4d1c324aca0293d07cb409226fcba29",
+      "decoded_sha256": "0295b0baee36cf3c89f348a337e1c76d7da4489b8ec8cd7e309cda9d0b04b8df",
+      "vertices": 349,
+      "joints": 28,
+      "normals": 512,
+      "zero_regions": [
+        [
+          6188,
+          4
+        ],
+        [
+          11066,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 91,
+      "encoder": "gzip6",
+      "rom_start": "0xb48350",
+      "rom_end": "0xb4a624",
+      "stored_bytes": 8916,
+      "decoded_bytes": 19032,
+      "stored_sha256": "3a9333ce10b59deaaf993b1e90cf84514dfc885131aea23d8830a755b35b4967",
+      "decoded_sha256": "c392cb247000d6ac5018b43ae27de56819aa084d24e5a5244eb3e4a1b0a1017f",
+      "vertices": 648,
+      "joints": 40,
+      "normals": 864,
+      "zero_regions": [
+        [
+          11356,
+          4
+        ],
+        [
+          19018,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 92,
+      "encoder": "zlib9",
+      "rom_start": "0xb4a628",
+      "rom_end": "0xb4a93f",
+      "stored_bytes": 791,
+      "decoded_bytes": 1416,
+      "stored_sha256": "8ec5520fae1085f880752b4d70116403c149278c51d6269e6ccda4490c27aa8a",
+      "decoded_sha256": "fbe4ba7bf1dae3f7913f6f85058854fa441284a7c5e9ddeacb1bfddd30dfa421",
+      "vertices": 44,
+      "joints": 5,
+      "normals": 64,
+      "zero_regions": [
+        [
+          868,
+          4
+        ],
+        [
+          1408,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 94,
+      "encoder": "gzip6",
+      "rom_start": "0xb4bd30",
+      "rom_end": "0xb4e054",
+      "stored_bytes": 8996,
+      "decoded_bytes": 18872,
+      "stored_sha256": "39c1743036eabb3edca89243e885b622723f3008a727bd80a08c85e562be034c",
+      "decoded_sha256": "773c2dd57258806a973fe4e05726ac238fb5fc6c0ed69c9524a6da69c5b31b0e",
+      "vertices": 668,
+      "joints": 52,
+      "normals": 864,
+      "zero_regions": [
+        [
+          18858,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 95,
+      "encoder": "zlib6",
+      "rom_start": "0xb4e058",
+      "rom_end": "0xb4f898",
+      "stored_bytes": 6208,
+      "decoded_bytes": 12936,
+      "stored_sha256": "438731b4cea0cf5c3496138c2618f1f1ca81ddeb39cb9f9a3d74ed301789cbab",
+      "decoded_sha256": "2a9e1a90c76461a9c4a3cf7d5178e27f0e18740d92effb1dc49cffb9372d9237",
+      "vertices": 422,
+      "joints": 28,
+      "normals": 608,
+      "zero_regions": [
+        [
+          7380,
+          4
+        ],
+        [
+          12930,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 96,
+      "encoder": "zlib6",
+      "rom_start": "0xb4f898",
+      "rom_end": "0xb4fb84",
+      "stored_bytes": 748,
+      "decoded_bytes": 1864,
+      "stored_sha256": "8eca04e5d97d803cd8bdba795a292ece6bcc84d320516778b2b78e83150df208",
+      "decoded_sha256": "fa90c4d3d1a3c8571f44370a2a53ae79ee91b87b8754000b93a2c6cdc7698b20",
+      "vertices": 60,
+      "joints": 2,
+      "normals": 96,
+      "zero_regions": [
+        [
+          1856,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 97,
+      "encoder": "zlib6",
+      "rom_start": "0xb4fb88",
+      "rom_end": "0xb4fd69",
+      "stored_bytes": 481,
+      "decoded_bytes": 1416,
+      "stored_sha256": "ad4c3a51d6695f7ae54ac536429d1b2a3b2568051b79affc0de5911d2bc29ed8",
+      "decoded_sha256": "7be7f45ea29073f9833abda389bf536b584270b458c18c8adbbb00b3b7661d0d",
+      "vertices": 54,
+      "joints": 1,
+      "normals": 64,
+      "zero_regions": [
+        [
+          964,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 99,
+      "encoder": "zlib6",
+      "rom_start": "0xb4fd70",
+      "rom_end": "0xb50f67",
+      "stored_bytes": 4599,
+      "decoded_bytes": 9672,
+      "stored_sha256": "013763cdbf9bfe723d549a0bf3d4164ad646f4d300d4b73a3387c9363bafd327",
+      "decoded_sha256": "951cfbd34dae1fee0544f19b03654ea751ed489ee41976600f5841195178727e",
+      "vertices": 376,
+      "joints": 12,
+      "normals": 416,
+      "zero_regions": [
+        [
+          6364,
+          4
+        ],
+        [
+          9664,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 100,
+      "encoder": "zlib6",
+      "rom_start": "0xb50f68",
+      "rom_end": "0xb51f4a",
+      "stored_bytes": 4066,
+      "decoded_bytes": 7640,
+      "stored_sha256": "70ef2430b986360596219ec9d90438ef029764d0ed49d9d03fbe4faac05222e9",
+      "decoded_sha256": "88d1813f0e85a042eefeb577939da92b4caf9af6598611ebd6cb5cdebe342828",
+      "vertices": 271,
+      "joints": 9,
+      "normals": 352,
+      "zero_regions": [
+        [
+          4716,
+          4
+        ],
+        [
+          7626,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 101,
+      "encoder": "zlib6",
+      "rom_start": "0xb51f50",
+      "rom_end": "0xb5262c",
+      "stored_bytes": 1756,
+      "decoded_bytes": 3560,
+      "stored_sha256": "ed70cb323ea27e68f0b6b7e3e37afa503048268815e06a6feef128a313be6c45",
+      "decoded_sha256": "181be7839149ca8e28d5a2e12bc06bb87cb49ddb0939c49e5424230e532ed3b2",
+      "vertices": 101,
+      "joints": 9,
+      "normals": 128,
+      "zero_regions": [
+        [
+          1988,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 102,
+      "encoder": "zlib6",
+      "rom_start": "0xb52630",
+      "rom_end": "0xb52b68",
+      "stored_bytes": 1336,
+      "decoded_bytes": 3272,
+      "stored_sha256": "c68d834315c3ec304f85b30e0bc7930ff5a1f160481e7a31474a529cf1f412db",
+      "decoded_sha256": "e725221e3cbebea70d5d7b94db5a4e7823105175970cfc8960e2374bf2d5bfc1",
+      "vertices": 118,
+      "joints": 4,
+      "normals": 128,
+      "zero_regions": [
+        [
+          3264,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 103,
+      "encoder": "gzip6",
+      "rom_start": "0xb52b68",
+      "rom_end": "0xb54186",
+      "stored_bytes": 5662,
+      "decoded_bytes": 14216,
+      "stored_sha256": "345444032a336a6a366ff4295237f7a7989702e42f8ac6de4f0a0b9b89885c69",
+      "decoded_sha256": "a534bf7f5353b4c78e4bd17826273242779db1c026db408e51a6c655118a6859",
+      "vertices": 529,
+      "joints": 7,
+      "normals": 832,
+      "zero_regions": [
+        [
+          8828,
+          4
+        ],
+        [
+          14208,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 105,
+      "encoder": "zlib6",
+      "rom_start": "0xb54188",
+      "rom_end": "0xb563ed",
+      "stored_bytes": 8805,
+      "decoded_bytes": 17320,
+      "stored_sha256": "1194c51d1771489f7ebaff9d4b1ea1770f7178f35552845b558b39505af3bc80",
+      "decoded_sha256": "0fe460f445533a96c67b0321a7a5c4db735c54042dc407c140479a2528eb6649",
+      "vertices": 621,
+      "joints": 36,
+      "normals": 800,
+      "zero_regions": [
+        [
+          10716,
+          4
+        ],
+        [
+          17314,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 106,
+      "encoder": "zlib9",
+      "rom_start": "0xb563f0",
+      "rom_end": "0xb56945",
+      "stored_bytes": 1365,
+      "decoded_bytes": 2312,
+      "stored_sha256": "b703ac89c9a7bd6bcfd6f54e80a434471a76950dd13c793ada422b69631310a5",
+      "decoded_sha256": "6b225ba2aa2b9dd3cee5ef136cc199ebb026dc226cd32de0eeec5db6b94f22b3",
+      "vertices": 92,
+      "joints": 3,
+      "normals": 96,
+      "zero_regions": [
+        [
+          2304,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 107,
+      "encoder": "zlib6",
+      "rom_start": "0xb56948",
+      "rom_end": "0xb5763f",
+      "stored_bytes": 3319,
+      "decoded_bytes": 8056,
+      "stored_sha256": "88ea012aca2357eb2810f159369a0b76dba9e7982af7428de8518550e944b7a0",
+      "decoded_sha256": "f90a53354de0af1c26bb84a4928cd3dbb62ce43580c59c792fdb38c2aa5022b2",
+      "vertices": 213,
+      "joints": 18,
+      "normals": 486,
+      "zero_regions": [
+        [
+          3820,
+          4
+        ],
+        [
+          8046,
+          10
+        ]
+      ]
+    },
+    {
+      "entry": 108,
+      "encoder": "zlib6",
+      "rom_start": "0xb57640",
+      "rom_end": "0xb58715",
+      "stored_bytes": 4309,
+      "decoded_bytes": 8616,
+      "stored_sha256": "e1111eb3b3da25915f906a65a82e6424cee16e5a4d715d9e3459e4e000ae268e",
+      "decoded_sha256": "ab90a591aff775af6a4fe31c1e4319ae4892d1d7bd951ffb68d06f5d4322d5df",
+      "vertices": 298,
+      "joints": 24,
+      "normals": 448,
+      "zero_regions": [
+        [
+          5308,
+          4
+        ],
+        [
+          8610,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 109,
+      "encoder": "zlib6",
+      "rom_start": "0xb58718",
+      "rom_end": "0xb593f8",
+      "stored_bytes": 3296,
+      "decoded_bytes": 6632,
+      "stored_sha256": "87a20ff71d6d9ef8a07efae718c005877e786a3afe15ec796fff2bd493fe4c49",
+      "decoded_sha256": "1b318244144a81df01340ed622f8d04ab145a80172413561ef10e79731df4fc4",
+      "vertices": 186,
+      "joints": 26,
+      "normals": 384,
+      "zero_regions": [
+        [
+          6626,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 110,
+      "encoder": "zlib6",
+      "rom_start": "0xb593f8",
+      "rom_end": "0xb59cd7",
+      "stored_bytes": 2271,
+      "decoded_bytes": 5160,
+      "stored_sha256": "cda24f659d588b5cd93afedbfb339aecf678bad26d3156a0b3b7347ffc6a5285",
+      "decoded_sha256": "71ca117f4f61ed826d405a8b7fb78d98ec28851d81a665e2bcff7f0555834989",
+      "vertices": 189,
+      "joints": 3,
+      "normals": 256,
+      "zero_regions": [
+        [
+          3204,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 111,
+      "encoder": "zlib6",
+      "rom_start": "0xb59cd8",
+      "rom_end": "0xb5a629",
+      "stored_bytes": 2385,
+      "decoded_bytes": 6520,
+      "stored_sha256": "a9e0bbb43c43519c5aad5c1c5904de9ed80a07a6658ab30a810902596084af65",
+      "decoded_sha256": "126924dfaad2191257ce86bf27903f285a39bd44e3a1794b65df1716aad8fec3",
+      "vertices": 214,
+      "joints": 5,
+      "normals": 498,
+      "zero_regions": [
+        [
+          3636,
+          4
+        ],
+        [
+          6516,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 112,
+      "encoder": "gzip6",
+      "rom_start": "0xb5a630",
+      "rom_end": "0xb5cebf",
+      "stored_bytes": 10383,
+      "decoded_bytes": 24728,
+      "stored_sha256": "1e95c73239499b195e22332f224fc003f35b70786f68889f4b5e7cd203b0bd8a",
+      "decoded_sha256": "a71ee26dcc0b3b234994c1cb8a7a56fe5037e635df846a533cc61b1ef628de47",
+      "vertices": 704,
+      "joints": 59,
+      "normals": 1660,
+      "zero_regions": [
+        [
+          24714,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 113,
+      "encoder": "zlib9",
+      "rom_start": "0xb5cec0",
+      "rom_end": "0xb5d16f",
+      "stored_bytes": 687,
+      "decoded_bytes": 1384,
+      "stored_sha256": "cc328eb4e809e0300f96958f15f208b957d8b1707a3813c4e02810fd955447b5",
+      "decoded_sha256": "28a88afe50dcb136571b7c5726a8047522253eda190b57d7f2f4016a7e03120b",
+      "vertices": 21,
+      "joints": 5,
+      "normals": 42,
+      "zero_regions": [
+        [
+          516,
+          4
+        ],
+        [
+          1372,
+          12
+        ]
+      ]
+    },
+    {
+      "entry": 114,
+      "encoder": "gzip6",
+      "rom_start": "0xb5d170",
+      "rom_end": "0xb5f9bc",
+      "stored_bytes": 10316,
+      "decoded_bytes": 24376,
+      "stored_sha256": "0493ea79b8cdde4370fb119135da4f48c10e0b2b1ee268d9541a19c135118cfe",
+      "decoded_sha256": "8d0692a4f0663ce18da927a6b92eac7798e74c7c6b75a7d09b4738e2347c3777",
+      "vertices": 683,
+      "joints": 45,
+      "normals": 1647,
+      "zero_regions": [
+        [
+          11868,
+          4
+        ],
+        [
+          24366,
+          2
+        ],
+        [
+          24370,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 115,
+      "encoder": "zlib9",
+      "rom_start": "0xb5f9c0",
+      "rom_end": "0xb5fbbf",
+      "stored_bytes": 511,
+      "decoded_bytes": 1112,
+      "stored_sha256": "18905c6e0aaae7cdfc6cb62b80f22900a1910fec0e5e676d4bc77e47522bf0ab",
+      "decoded_sha256": "a63fa46cb785421565ccd1de6c144191e8d0b93870d84250931becaef1888082",
+      "vertices": 34,
+      "joints": 2,
+      "normals": 64,
+      "zero_regions": [
+        [
+          660,
+          4
+        ],
+        [
+          1104,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 116,
+      "encoder": "zlib6",
+      "rom_start": "0xb5fbc0",
+      "rom_end": "0xb6085a",
+      "stored_bytes": 3226,
+      "decoded_bytes": 6152,
+      "stored_sha256": "a1e8f477fbec9903827fff9ecf3060a59a43b5877d73103c0f2ed4f0109a4eb3",
+      "decoded_sha256": "5149e7b9aa1f54bbbb208bad2bc89566f64f4fdcfdef5ceb641b8db25474c4ee",
+      "vertices": 168,
+      "joints": 28,
+      "normals": 256,
+      "zero_regions": [
+        [
+          6138,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 117,
+      "encoder": "zlib6",
+      "rom_start": "0xb60860",
+      "rom_end": "0xb61344",
+      "stored_bytes": 2788,
+      "decoded_bytes": 5512,
+      "stored_sha256": "a2bcdfb63950cb197df4dfc17e6d7353c48a603233caab0df904d7584e7a9588",
+      "decoded_sha256": "c93eac95475e43d85dd7d4cdf8abfc271b2751a082752fa25086fae10c170772",
+      "vertices": 141,
+      "joints": 28,
+      "normals": 256,
+      "zero_regions": [
+        [
+          2812,
+          4
+        ],
+        [
+          5498,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 119,
+      "encoder": "zlib6",
+      "rom_start": "0xb65080",
+      "rom_end": "0xb65e47",
+      "stored_bytes": 3527,
+      "decoded_bytes": 7800,
+      "stored_sha256": "c30e4ad348777ae169c07ef596e47585d96f971aae4d7fa06dd11c38564974ca",
+      "decoded_sha256": "2b2927986a099d36165578318d7f14439fa34c83cb68a46e07bcbe0b331d4291",
+      "vertices": 249,
+      "joints": 14,
+      "normals": 448,
+      "zero_regions": [
+        [
+          4516,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 120,
+      "encoder": "zlib6",
+      "rom_start": "0xb65e48",
+      "rom_end": "0xb66bd3",
+      "stored_bytes": 3467,
+      "decoded_bytes": 6616,
+      "stored_sha256": "815faae2344f8b395ed470d8ed994c5c3c4c8392b725e3156ff955853fb71ff0",
+      "decoded_sha256": "768c17aa31c78320911a8c09d5db9453481887f145d929bf6d5d464749c6d64f",
+      "vertices": 225,
+      "joints": 14,
+      "normals": 288,
+      "zero_regions": [
+        [
+          6602,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 121,
+      "encoder": "gzip6",
+      "rom_start": "0xb66bd8",
+      "rom_end": "0xb683b0",
+      "stored_bytes": 6104,
+      "decoded_bytes": 13016,
+      "stored_sha256": "c348a80665711e6f37a0d49cfa6b67194fbe4b724c5a04dde4e6f9a8a4ceb5eb",
+      "decoded_sha256": "497999a684188660c5408a0d80cec69e7904f3126e6a931cf970f1aeccbf7270",
+      "vertices": 447,
+      "joints": 33,
+      "normals": 576,
+      "zero_regions": [
+        [
+          13010,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 122,
+      "encoder": "zlib6",
+      "rom_start": "0xb683b0",
+      "rom_end": "0xb68c9c",
+      "stored_bytes": 2284,
+      "decoded_bytes": 4664,
+      "stored_sha256": "9e56dc6d19918194c34d0eef18f56045665240fc80ecaef874401cc7976badca",
+      "decoded_sha256": "ba46038d985c068968035ea2e1a901d84fbf761faca0e2943928bab0bc2a7d4e",
+      "vertices": 100,
+      "joints": 28,
+      "normals": 256,
+      "zero_regions": [
+        [
+          2156,
+          4
+        ],
+        [
+          4650,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 123,
+      "encoder": "gzip6",
+      "rom_start": "0xb68ca0",
+      "rom_end": "0xb6d4d5",
+      "stored_bytes": 18485,
+      "decoded_bytes": 50840,
+      "stored_sha256": "40eef594c1371d3cca105520e07f30bd539b566398ff6f38c60ee0c40c5afda3",
+      "decoded_sha256": "efe2a55e78ea0f9a625dcff554718dcd5b602cde2fb32fb5371a47fbfb3f446d",
+      "vertices": 1885,
+      "joints": 63,
+      "normals": 2368,
+      "zero_regions": [
+        [
+          50826,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 124,
+      "encoder": "zlib6",
+      "rom_start": "0xb6d4d8",
+      "rom_end": "0xb6df20",
+      "stored_bytes": 2632,
+      "decoded_bytes": 5464,
+      "stored_sha256": "cb3037bd9a277bd6d3776756dc85c3f3a78d92319176292c20542e9e221cebcb",
+      "decoded_sha256": "672834a75a2078cc46dad46e753845407151f560e6ce8be60116890452c94c65",
+      "vertices": 188,
+      "joints": 13,
+      "normals": 224,
+      "zero_regions": [
+        [
+          3396,
+          4
+        ],
+        [
+          5450,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 125,
+      "encoder": "zlib6",
+      "rom_start": "0xb6df20",
+      "rom_end": "0xb6e50b",
+      "stored_bytes": 1515,
+      "decoded_bytes": 3160,
+      "stored_sha256": "88e38d2ea3196258a96b9ac9140da4baa7ea875ef00ca23e069a9597c8dfe721",
+      "decoded_sha256": "51b229b874047281cb4eedd03940d86361fd7c97bb7b330a9f8a45dc3a92bf06",
+      "vertices": 99,
+      "joints": 7,
+      "normals": 160,
+      "zero_regions": [
+        [
+          3146,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 126,
+      "encoder": "zlib6",
+      "rom_start": "0xb6e510",
+      "rom_end": "0xb6e6c8",
+      "stored_bytes": 440,
+      "decoded_bytes": 1016,
+      "stored_sha256": "9c7c7341f43312eb0354dc2a227a5cb46d6ef696371613ed3bfbab73b9015768",
+      "decoded_sha256": "050c333b7be2baf01d1d1e8120739450873c62428725e01df8d3ce4ba05bff21",
+      "vertices": 28,
+      "joints": 1,
+      "normals": 96,
+      "zero_regions": [
+        [
+          1008,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 127,
+      "encoder": "zlib6",
+      "rom_start": "0xb6e6c8",
+      "rom_end": "0xb6eeb1",
+      "stored_bytes": 2025,
+      "decoded_bytes": 4456,
+      "stored_sha256": "44315e270ff700a3de214ca4052a3f27b4a6cf0ff39a45a98d893b383346e1af",
+      "decoded_sha256": "b1ddbe9ccb208e684b3facaddbbff24149b1ef4f8904ff797ccabd29cd86dea8",
+      "vertices": 147,
+      "joints": 11,
+      "normals": 192,
+      "zero_regions": [
+        [
+          2660,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 128,
+      "encoder": "zlib6",
+      "rom_start": "0xb6eeb8",
+      "rom_end": "0xb6fcaa",
+      "stored_bytes": 3570,
+      "decoded_bytes": 7480,
+      "stored_sha256": "9ecb7da678842122e18fa79a52b411069a0a2699d79892a3c96522e34e90d741",
+      "decoded_sha256": "6a16b1d1e515af687b2ed15826faf7979ecf7de7465d8ff212942d3366426e03",
+      "vertices": 182,
+      "joints": 28,
+      "normals": 320,
+      "zero_regions": [
+        [
+          7474,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 129,
+      "encoder": "zlib6",
+      "rom_start": "0xb6fcb0",
+      "rom_end": "0xb7086f",
+      "stored_bytes": 3007,
+      "decoded_bytes": 13000,
+      "stored_sha256": "931ca9055c29f1751b7029f7cde2bcd4698548ce56286e7f3a4a9d2dc8a56059",
+      "decoded_sha256": "3bc65ab320bbffadca13c126266f7a4380968b10e711de5f2f07d4923e044d11",
+      "vertices": 474,
+      "joints": 7,
+      "normals": 576,
+      "zero_regions": [
+        [
+          12992,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 130,
+      "encoder": "gzip6",
+      "rom_start": "0xb70870",
+      "rom_end": "0xb735f7",
+      "stored_bytes": 11655,
+      "decoded_bytes": 32968,
+      "stored_sha256": "b1b1e819852f1ae348d9052503ebc53fec6d66f490aba84fcc7c7a9986856c7c",
+      "decoded_sha256": "fd0208f62835aff6a1f0ffb3724e87429465e4c5f8bbc5113813da91a8327849",
+      "vertices": 1015,
+      "joints": 28,
+      "normals": 2426,
+      "zero_regions": [
+        [
+          32958,
+          10
+        ]
+      ]
+    },
+    {
+      "entry": 131,
+      "encoder": "zlib6",
+      "rom_start": "0xb735f8",
+      "rom_end": "0xb738bf",
+      "stored_bytes": 711,
+      "decoded_bytes": 1560,
+      "stored_sha256": "1795b8e2d9e034a4d72769ea27e480585d78aeab0c55ee7540b56eecb07c4d66",
+      "decoded_sha256": "295c4953f7e41f03f2fbd8194d74075c1d5c974f86415939ad25977d47cc6a8f",
+      "vertices": 51,
+      "joints": 1,
+      "normals": 64,
+      "zero_regions": []
+    },
+    {
+      "entry": 132,
+      "encoder": "zlib6",
+      "rom_start": "0xb738c0",
+      "rom_end": "0xb73b1f",
+      "stored_bytes": 607,
+      "decoded_bytes": 1288,
+      "stored_sha256": "260d5ac01093cbfcf129567f684ee18a7f56a7fa96850407d47ba5bde435de82",
+      "decoded_sha256": "9e660cd424536767862128369460be08d83aac0f3c1ca9ca21fdab072b4f19ca",
+      "vertices": 32,
+      "joints": 2,
+      "normals": 64,
+      "zero_regions": [
+        [
+          1280,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 133,
+      "encoder": "zlib6",
+      "rom_start": "0xb73b20",
+      "rom_end": "0xb74084",
+      "stored_bytes": 1380,
+      "decoded_bytes": 4344,
+      "stored_sha256": "86d96c27bfe6b3ab7034f446a3ee54b20b4dd7c6c989d9ddb9f4dc7c09312f24",
+      "decoded_sha256": "06f33bcf2cce450a70cc29af5d539ec00f7c8af68b3c138bd486e18ec4e3fa72",
+      "vertices": 140,
+      "joints": 2,
+      "normals": 320,
+      "zero_regions": [
+        [
+          4336,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 134,
+      "encoder": "zlib6",
+      "rom_start": "0xb74088",
+      "rom_end": "0xb75949",
+      "stored_bytes": 6337,
+      "decoded_bytes": 13384,
+      "stored_sha256": "bf409aab5233d1071fceb98a06705ca4a610a3ef230332943bf6f41ccf81bdd7",
+      "decoded_sha256": "310711c01b6b00c6642c8813c9cdf2c8741729fbe366434594970d4d1799fd07",
+      "vertices": 392,
+      "joints": 33,
+      "normals": 736,
+      "zero_regions": [
+        [
+          13378,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 135,
+      "encoder": "zlib6",
+      "rom_start": "0xb75950",
+      "rom_end": "0xb7741d",
+      "stored_bytes": 6861,
+      "decoded_bytes": 13224,
+      "stored_sha256": "6ad30d35905d434149951fa03582090fb8a2b96951cce3562c54c6d70e22cfe9",
+      "decoded_sha256": "5139ce89617085773642b4b78d8e65af89d5f3bf4059bb2519de45c68922855b",
+      "vertices": 410,
+      "joints": 40,
+      "normals": 544,
+      "zero_regions": [
+        [
+          7476,
+          4
+        ],
+        [
+          13210,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 136,
+      "encoder": "zlib6",
+      "rom_start": "0xb77420",
+      "rom_end": "0xb77fa4",
+      "stored_bytes": 2948,
+      "decoded_bytes": 5496,
+      "stored_sha256": "df16d597bb76774844bbd4443e02651ef623a2f5b0ffbad2570c8a2717d549aa",
+      "decoded_sha256": "d29ccd75c27f6cc19331b00e58cd65c3574fa974e5ae4aace0b69c79fbb5d0dc",
+      "vertices": 160,
+      "joints": 28,
+      "normals": 224,
+      "zero_regions": [
+        [
+          3140,
+          4
+        ],
+        [
+          5482,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 137,
+      "encoder": "zlib6",
+      "rom_start": "0xb77fa8",
+      "rom_end": "0xb7833a",
+      "stored_bytes": 914,
+      "decoded_bytes": 1576,
+      "stored_sha256": "e8050d4873d1381f5ed8b80ff67a359331931628f30a4ce1c04f267c08b27d49",
+      "decoded_sha256": "b32edf8d11522324bc26b735f8c1ff57a783ce98299a37965d28f24c9f0d7b8d",
+      "vertices": 46,
+      "joints": 4,
+      "normals": 64,
+      "zero_regions": [
+        [
+          884,
+          4
+        ],
+        [
+          1568,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 138,
+      "encoder": "zlib6",
+      "rom_start": "0xb78340",
+      "rom_end": "0xb796bd",
+      "stored_bytes": 4989,
+      "decoded_bytes": 13000,
+      "stored_sha256": "8b4fc74c76edcd08d47b32564f37f38968ce0dcb87fbf0ccb6c0b7b0a6b0fbc8",
+      "decoded_sha256": "0e25d62ddcbe002f80f6a4429930c6cc8cad48c81e2b77364919e5b8512ddaed",
+      "vertices": 405,
+      "joints": 12,
+      "normals": 576,
+      "zero_regions": [
+        [
+          12992,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 139,
+      "encoder": "zlib6",
+      "rom_start": "0xb796c0",
+      "rom_end": "0xb7af8b",
+      "stored_bytes": 6347,
+      "decoded_bytes": 15144,
+      "stored_sha256": "1d26b1dba3f3a578f8d6dd2d75181740a98ef70adf65f3809a5efe1b0fbe83d3",
+      "decoded_sha256": "2c26b333fb19721cb3619dfef8d758909cacb9604800457ba477c7a0757c5298",
+      "vertices": 371,
+      "joints": 38,
+      "normals": 1440,
+      "zero_regions": [
+        [
+          6724,
+          4
+        ],
+        [
+          15130,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 140,
+      "encoder": "zlib6",
+      "rom_start": "0xb7af90",
+      "rom_end": "0xb7b8c1",
+      "stored_bytes": 2353,
+      "decoded_bytes": 4008,
+      "stored_sha256": "6ab3323124b8fa964bd20dbe7a4a51de7435c3a6c4e5514ce5e3520549c2686e",
+      "decoded_sha256": "fdb37c5b3196012bfb038a16eea0cf1d90f26c8ee7c21d8c4aad2c3d5bebe2be",
+      "vertices": 157,
+      "joints": 5,
+      "normals": 192,
+      "zero_regions": [
+        [
+          2676,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 141,
+      "encoder": "zlib6",
+      "rom_start": "0xb7b8c8",
+      "rom_end": "0xb7c4b7",
+      "stored_bytes": 3055,
+      "decoded_bytes": 6376,
+      "stored_sha256": "e6b5b0135c6a3e287e1ff46f32d9b47d1837a03b40c755e0c90305db8c8a5bd3",
+      "decoded_sha256": "62dc3157360ee626fcba1fe246056b6193faf0b280a67a0738e007cff8400abe",
+      "vertices": 156,
+      "joints": 28,
+      "normals": 288,
+      "zero_regions": [
+        [
+          6370,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 142,
+      "encoder": "zlib6",
+      "rom_start": "0xb7c4b8",
+      "rom_end": "0xb7dfbd",
+      "stored_bytes": 6917,
+      "decoded_bytes": 12952,
+      "stored_sha256": "5e501d13f876c0889fe32de30ece60f615d8239ccbf67632f3dddd6dd73b4cda",
+      "decoded_sha256": "9fbb0d52d603de131041e09f17b4abba6fc26503a02f816de5fef2c0842d4109",
+      "vertices": 433,
+      "joints": 45,
+      "normals": 608,
+      "zero_regions": [
+        [
+          7780,
+          4
+        ],
+        [
+          12938,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 143,
+      "encoder": "gzip6",
+      "rom_start": "0xb7dfc0",
+      "rom_end": "0xb7f54f",
+      "stored_bytes": 5519,
+      "decoded_bytes": 12440,
+      "stored_sha256": "a3723e7c4b3894702424b7b16af5ebba8a002aafbe387d86051b237793f6d5bb",
+      "decoded_sha256": "94ab2a3112a2d438bda1a607b74f8d70d592bcd21fa817823630a0604c7801d7",
+      "vertices": 416,
+      "joints": 25,
+      "normals": 544,
+      "zero_regions": [
+        [
+          12434,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 144,
+      "encoder": "zlib6",
+      "rom_start": "0xb7f550",
+      "rom_end": "0xb802a8",
+      "stored_bytes": 3416,
+      "decoded_bytes": 6840,
+      "stored_sha256": "39dd7da304f8789fc3cfe9a22722381d8345d8f32f393b4e7f870b5dfc2fa49c",
+      "decoded_sha256": "ce49022d7a93d18b66f0a9090c5ab8d470eaabd1d28b32de069747abfdc536aa",
+      "vertices": 176,
+      "joints": 28,
+      "normals": 288,
+      "zero_regions": [
+        [
+          3436,
+          4
+        ],
+        [
+          6834,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 145,
+      "encoder": "zlib6",
+      "rom_start": "0xb802a8",
+      "rom_end": "0xb818d3",
+      "stored_bytes": 5675,
+      "decoded_bytes": 11816,
+      "stored_sha256": "3ebda42aaed76582673824b5012a7e87194f7d059d64699a0d9402e24cc26a9c",
+      "decoded_sha256": "8c6fd008e2058232837a9b5158446d1191fb8f60727c39c818fe02afff7c4836",
+      "vertices": 354,
+      "joints": 20,
+      "normals": 480,
+      "zero_regions": [
+        [
+          11802,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 147,
+      "encoder": "zlib6",
+      "rom_start": "0xb83f80",
+      "rom_end": "0xb84554",
+      "stored_bytes": 1492,
+      "decoded_bytes": 2744,
+      "stored_sha256": "4b5c2932be1e8a5ae3f80bf2e1103f96b555fafb6085127c0997272e4aa10579",
+      "decoded_sha256": "82ef6f6853b02d5161ce49516daed713df3a165f0e7e7cc656997b09cc1c06be",
+      "vertices": 108,
+      "joints": 5,
+      "normals": 128,
+      "zero_regions": [
+        [
+          1892,
+          4
+        ],
+        [
+          2736,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 148,
+      "encoder": "zlib6",
+      "rom_start": "0xb84558",
+      "rom_end": "0xb84d42",
+      "stored_bytes": 2026,
+      "decoded_bytes": 3976,
+      "stored_sha256": "dc56b158e74a0531ed1d9ec611f75b8b107327ce941fcf2c29f94ac7864edd9c",
+      "decoded_sha256": "d60aa5a6e018ef46cfe6a3a6d1f304cc1efb5dbdeb65accf7f46ed83456a179f",
+      "vertices": 121,
+      "joints": 6,
+      "normals": 160,
+      "zero_regions": [
+        [
+          2140,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 149,
+      "encoder": "zlib6",
+      "rom_start": "0xb84d48",
+      "rom_end": "0xb8542e",
+      "stored_bytes": 1766,
+      "decoded_bytes": 3064,
+      "stored_sha256": "8b998a28136a57c1b51a834142b15702b8e975e0c7476d0f23b904953148a28e",
+      "decoded_sha256": "7d091637461fc1f8f810f38180de441b6477942dbdaa1e82e8fb1b088301f36c",
+      "vertices": 111,
+      "joints": 11,
+      "normals": 128,
+      "zero_regions": []
+    },
+    {
+      "entry": 152,
+      "encoder": "zlib6",
+      "rom_start": "0xb8a8e8",
+      "rom_end": "0xb8b62f",
+      "stored_bytes": 3399,
+      "decoded_bytes": 6808,
+      "stored_sha256": "5239c5543b8f858cb10198c28e3c18782b097a57f7b49b8e0b46405ad649df03",
+      "decoded_sha256": "634f54d0e8a794fcec93bd3c0cf7dc7c9799ffe5706b7a52d079cb2aacc0adc7",
+      "vertices": 179,
+      "joints": 28,
+      "normals": 416,
+      "zero_regions": [
+        [
+          3444,
+          4
+        ],
+        [
+          6794,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 153,
+      "encoder": "zlib6",
+      "rom_start": "0xb8b630",
+      "rom_end": "0xb8d841",
+      "stored_bytes": 8721,
+      "decoded_bytes": 18472,
+      "stored_sha256": "f6e7d945228dc4a4aa394a364ed5a515a4c9b3fa888b6d8d7f9bba562aa21a65",
+      "decoded_sha256": "15d4a7b63b36cdcbcd98f205ad641862e085af4ab5989615d94b6c3d192a25d5",
+      "vertices": 569,
+      "joints": 32,
+      "normals": 896,
+      "zero_regions": [
+        [
+          18458,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 154,
+      "encoder": "zlib6",
+      "rom_start": "0xb8d848",
+      "rom_end": "0xb8f37d",
+      "stored_bytes": 6965,
+      "decoded_bytes": 17080,
+      "stored_sha256": "67f10ecfc81f06995c9358ffb8d54d8b6402f69ee8f01b2d5bf06fc623c2cc00",
+      "decoded_sha256": "213af78e2785ced050d5369838c8a57748fa20b11c1bd05360d9827388aa0db0",
+      "vertices": 408,
+      "joints": 36,
+      "normals": 1123,
+      "zero_regions": [
+        [
+          7396,
+          4
+        ],
+        [
+          17070,
+          2
+        ],
+        [
+          17074,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 155,
+      "encoder": "zlib6",
+      "rom_start": "0xb8f380",
+      "rom_end": "0xb909a1",
+      "stored_bytes": 5665,
+      "decoded_bytes": 11400,
+      "stored_sha256": "34bebae75cd99eaebf7c73289856263f500f2080a14604956c353b061f72cd17",
+      "decoded_sha256": "7c13d0045a2847d661066b4633729e1dfd0e8c46c4dd06853d8ccf1f035791d1",
+      "vertices": 335,
+      "joints": 36,
+      "normals": 480,
+      "zero_regions": [
+        [
+          6140,
+          4
+        ],
+        [
+          11386,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 156,
+      "encoder": "zlib6",
+      "rom_start": "0xb909a8",
+      "rom_end": "0xb91815",
+      "stored_bytes": 3693,
+      "decoded_bytes": 8280,
+      "stored_sha256": "21c93c34221e4ce08d0b3cb888b0804bd48606bee81a0baf303bd93ebd965345",
+      "decoded_sha256": "b0b9703362830fee8152937f8de4a2f7c279bceb7848be1c5509628beba6fa10",
+      "vertices": 201,
+      "joints": 28,
+      "normals": 416,
+      "zero_regions": [
+        [
+          8266,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 157,
+      "encoder": "zlib6",
+      "rom_start": "0xb91818",
+      "rom_end": "0xb9272d",
+      "stored_bytes": 3861,
+      "decoded_bytes": 8520,
+      "stored_sha256": "23cc4a9eb16c959f39776bbd99b7ddda0bacdc0581f3873d00e052b91653073b",
+      "decoded_sha256": "bba4bcc906e4fe7047d7119809fd8cb1e87b81130486c949f69a1792f4f68396",
+      "vertices": 218,
+      "joints": 28,
+      "normals": 416,
+      "zero_regions": [
+        [
+          4156,
+          4
+        ],
+        [
+          8514,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 158,
+      "encoder": "zlib6",
+      "rom_start": "0xb92730",
+      "rom_end": "0xb93731",
+      "stored_bytes": 4097,
+      "decoded_bytes": 8440,
+      "stored_sha256": "8667d418fe684f406d04e6675a2bfd552b6d0ea96068e9a6343a02afd991b0ba",
+      "decoded_sha256": "93b39a4ebbaae2f17cb3a92c46d5df2abdd99f1af39e7107dcbab887f8876135",
+      "vertices": 308,
+      "joints": 7,
+      "normals": 384,
+      "zero_regions": [
+        [
+          8434,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 160,
+      "encoder": "zlib6",
+      "rom_start": "0xb94e50",
+      "rom_end": "0xb96859",
+      "stored_bytes": 6665,
+      "decoded_bytes": 15512,
+      "stored_sha256": "d49ee09377f52c9f21b05234d903f0fb8c8829a7fb1e6a4e123840675ac9975a",
+      "decoded_sha256": "637e63f0393e659296b3aecee9dc16fa1c52a7c25c7106cc21a80768bf39f647",
+      "vertices": 403,
+      "joints": 28,
+      "normals": 608,
+      "zero_regions": [
+        [
+          15506,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 161,
+      "encoder": "zlib6",
+      "rom_start": "0xb96860",
+      "rom_end": "0xb96fd2",
+      "stored_bytes": 1906,
+      "decoded_bytes": 3448,
+      "stored_sha256": "fafa6d17c9e3d70adce364a22cb01d05714adeacb832ef39fcee0dd1dd284412",
+      "decoded_sha256": "2756df2c2ae9b8b5d464528478a5701223a03628c46f8833c60e6750a6e4987e",
+      "vertices": 110,
+      "joints": 4,
+      "normals": 160,
+      "zero_regions": [
+        [
+          1956,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 162,
+      "encoder": "zlib6",
+      "rom_start": "0xb96fd8",
+      "rom_end": "0xb98f07",
+      "stored_bytes": 7983,
+      "decoded_bytes": 19304,
+      "stored_sha256": "094e1b5f4c065dd34a2620869f13f4a763294187991e81b4cede3fdaf24d6db8",
+      "decoded_sha256": "31279085fef01c074510ad8c93836cb16cccdb8842641b476d19e5251740ebe1",
+      "vertices": 486,
+      "joints": 39,
+      "normals": 1388,
+      "zero_regions": [
+        [
+          8644,
+          4
+        ],
+        [
+          19298,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 163,
+      "encoder": "zlib6",
+      "rom_start": "0xb98f08",
+      "rom_end": "0xb9984a",
+      "stored_bytes": 2370,
+      "decoded_bytes": 5752,
+      "stored_sha256": "7bfc13bbcc12cf838c799a143a3fa8175fd0d1393941c0697998d7c1ed4f3f52",
+      "decoded_sha256": "98135aad5a926cdecc0f8f9934fa964a3eaf602ae274eb446b541b3ec8f9c65c",
+      "vertices": 195,
+      "joints": 15,
+      "normals": 256,
+      "zero_regions": [
+        [
+          3468,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 164,
+      "encoder": "zlib6",
+      "rom_start": "0xb99850",
+      "rom_end": "0xb9bc0d",
+      "stored_bytes": 9149,
+      "decoded_bytes": 21160,
+      "stored_sha256": "54483777f6017280ef6c9f4e07faf9ed67f694320823b6003e0a5c12a9833c25",
+      "decoded_sha256": "dd47e1a2211916c05eb560c6a8e24275b0736babb2ceb9921fd8e2d361c8f96e",
+      "vertices": 613,
+      "joints": 44,
+      "normals": 1440,
+      "zero_regions": [
+        [
+          10732,
+          4
+        ],
+        [
+          21154,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 165,
+      "encoder": "zlib6",
+      "rom_start": "0xb9bc10",
+      "rom_end": "0xb9d731",
+      "stored_bytes": 6945,
+      "decoded_bytes": 17352,
+      "stored_sha256": "8ef4179a2c048d6158d518afaad39e3f3c11cbf17b2c010ed26fd59c8f8b4f59",
+      "decoded_sha256": "26ef2eb68549c53fd483a0de5694ffa93b844b8d2105cceba9549737719f5558",
+      "vertices": 443,
+      "joints": 39,
+      "normals": 1071,
+      "zero_regions": [
+        [
+          7908,
+          4
+        ],
+        [
+          17334,
+          2
+        ],
+        [
+          17338,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 166,
+      "encoder": "zlib6",
+      "rom_start": "0xb9d738",
+      "rom_end": "0xb9e6ff",
+      "stored_bytes": 4039,
+      "decoded_bytes": 7864,
+      "stored_sha256": "dc7d802e013f2df466a610694848d939c96c40e40e9d94d5d65d895bccab7b01",
+      "decoded_sha256": "3d0035fd7b9d32c79abb3f34725ab861b84e2a21dd7f66dd587a74ba6217406a",
+      "vertices": 262,
+      "joints": 18,
+      "normals": 352,
+      "zero_regions": [
+        [
+          7858,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 167,
+      "encoder": "zlib6",
+      "rom_start": "0xb9e700",
+      "rom_end": "0xb9fe2c",
+      "stored_bytes": 5932,
+      "decoded_bytes": 10728,
+      "stored_sha256": "302802eb5f482bac469c69e50ace9c2adf943f3e80e24a901afec30eca1f1108",
+      "decoded_sha256": "96d2e976d967690c63ca2e65fd8a8ca1b9792f2c441e0ef2524df732a6580ae7",
+      "vertices": 421,
+      "joints": 10,
+      "normals": 480,
+      "zero_regions": [
+        [
+          7028,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 168,
+      "encoder": "zlib6",
+      "rom_start": "0xb9fe30",
+      "rom_end": "0xba0165",
+      "stored_bytes": 821,
+      "decoded_bytes": 2280,
+      "stored_sha256": "149d1e4228c0adfe5f20fdce17b46df8f9a7a9414482fbea341f9cafb4b104ba",
+      "decoded_sha256": "798fd694b850a8765c5e5ff2d7be70848260677e77cd4398e67019b5818ec603",
+      "vertices": 34,
+      "joints": 9,
+      "normals": 224,
+      "zero_regions": [
+        [
+          2272,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 169,
+      "encoder": "zlib6",
+      "rom_start": "0xba0168",
+      "rom_end": "0xba04bb",
+      "stored_bytes": 851,
+      "decoded_bytes": 2552,
+      "stored_sha256": "b7d791b2e6530e35bdd66437b0d8e90524d1783fa606de5986d041ef36713e69",
+      "decoded_sha256": "3946cd540cf350d75d3bd09df0301133dcedc14c8c477aa77b45a7550b639fab",
+      "vertices": 40,
+      "joints": 9,
+      "normals": 288,
+      "zero_regions": [
+        [
+          940,
+          4
+        ],
+        [
+          2544,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 170,
+      "encoder": "zlib6",
+      "rom_start": "0xba04c0",
+      "rom_end": "0xba0770",
+      "stored_bytes": 688,
+      "decoded_bytes": 1336,
+      "stored_sha256": "2d6340e35ba42ebd7b9bd61fd9ea53b2b02bcd4a2362ba7143c9c36f0bfcfb7f",
+      "decoded_sha256": "9f01236a7e2bd88111e42bedb4e844b738584a21805788c4d5f45ac9d7febecf",
+      "vertices": 29,
+      "joints": 5,
+      "normals": 58,
+      "zero_regions": [
+        [
+          620,
+          4
+        ],
+        [
+          1332,
+          4
+        ]
+      ]
+    },
+    {
+      "entry": 171,
+      "encoder": "zlib9",
+      "rom_start": "0xba0770",
+      "rom_end": "0xba09a4",
+      "stored_bytes": 564,
+      "decoded_bytes": 792,
+      "stored_sha256": "acdfe2034dd82819336408f93ce0740147d8fdf428507a1e647fbc094187c8f1",
+      "decoded_sha256": "c0d73cedcce0650951becf1744074175eb40604cd35e48cb9369d9dc54c41ba3",
+      "vertices": 24,
+      "joints": 1,
+      "normals": 32,
+      "zero_regions": []
+    },
+    {
+      "entry": 172,
+      "encoder": "zlib6",
+      "rom_start": "0xba09a8",
+      "rom_end": "0xba0c7e",
+      "stored_bytes": 726,
+      "decoded_bytes": 1368,
+      "stored_sha256": "65715e580fac2bfa9736e146b61fb30d3a90301eea5ed6caa2db307722cbd3a4",
+      "decoded_sha256": "ab07eb57abdebed97d4ca6f71a25aa5c082c9f979afe53f3a8dae5f0d2252896",
+      "vertices": 50,
+      "joints": 1,
+      "normals": 64,
+      "zero_regions": [
+        [
+          900,
+          4
+        ],
+        [
+          1360,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 173,
+      "encoder": "zlib6",
+      "rom_start": "0xba0c80",
+      "rom_end": "0xba1a32",
+      "stored_bytes": 3506,
+      "decoded_bytes": 7528,
+      "stored_sha256": "8f36f21c6e9d61cc2b1ca6e486e2973ef8454944ecd9c9f252b31e24b0901b61",
+      "decoded_sha256": "b58572d8146b7919778aa8bebb5b0dde434b6f03ce0501645763eb66e406b628",
+      "vertices": 228,
+      "joints": 27,
+      "normals": 352,
+      "zero_regions": [
+        [
+          7522,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 174,
+      "encoder": "zlib6",
+      "rom_start": "0xba1a38",
+      "rom_end": "0xba272d",
+      "stored_bytes": 3317,
+      "decoded_bytes": 7032,
+      "stored_sha256": "e9c2bf7805829a74cc61b7af51c5fb8e4d290b53bf3600a0f705fc08c998abb6",
+      "decoded_sha256": "8ff14a073c7aeda451890f6afdc674b774af47fc25b760f879b850d20ef1d3fa",
+      "vertices": 212,
+      "joints": 27,
+      "normals": 320,
+      "zero_regions": [
+        [
+          3956,
+          4
+        ],
+        [
+          7026,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 175,
+      "encoder": "zlib6",
+      "rom_start": "0xba2730",
+      "rom_end": "0xba387d",
+      "stored_bytes": 4429,
+      "decoded_bytes": 9944,
+      "stored_sha256": "dd30a70e2e8c7859e871d50781c3368fa5113e324e540f7be2b15370db740eeb",
+      "decoded_sha256": "afd7809390f4361a5861bc4e4f14ec9b79434ff617b12a1663adc83e5f350622",
+      "vertices": 361,
+      "joints": 27,
+      "normals": 480,
+      "zero_regions": [
+        [
+          6340,
+          4
+        ],
+        [
+          9930,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 176,
+      "encoder": "zlib6",
+      "rom_start": "0xba3880",
+      "rom_end": "0xba51a8",
+      "stored_bytes": 6440,
+      "decoded_bytes": 12344,
+      "stored_sha256": "d1fba576e79fb42b21699c0608baac8b33682ccc2ac3efa3a6786607981e722e",
+      "decoded_sha256": "dc0893109cb87a60ef133c0061d44b9ae7b2d99e40fa2b1d39342745fa943cec",
+      "vertices": 387,
+      "joints": 28,
+      "normals": 512,
+      "zero_regions": [
+        [
+          6892,
+          4
+        ],
+        [
+          12338,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 177,
+      "encoder": "zlib6",
+      "rom_start": "0xba51a8",
+      "rom_end": "0xba6814",
+      "stored_bytes": 5740,
+      "decoded_bytes": 11560,
+      "stored_sha256": "f3b37cf841fd4ebc85d9bab3884779ea4c3ad66944d3a638075ac7e6a71b025d",
+      "decoded_sha256": "036092f785b9ad3c559cd444eff882c31c6efd50422a123028cd2ca28fe1511a",
+      "vertices": 393,
+      "joints": 28,
+      "normals": 544,
+      "zero_regions": [
+        [
+          6892,
+          4
+        ],
+        [
+          11554,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 178,
+      "encoder": "zlib6",
+      "rom_start": "0xba6818",
+      "rom_end": "0xba7da5",
+      "stored_bytes": 5517,
+      "decoded_bytes": 10296,
+      "stored_sha256": "71792b45dad3f6408ee8078b78503b24759f66689ecc4b1055751573a6299ef6",
+      "decoded_sha256": "2a32494c1209d040e5af4d7278c9bbe06c2c251360e8af7550890394718e68b2",
+      "vertices": 356,
+      "joints": 28,
+      "normals": 480,
+      "zero_regions": [
+        [
+          6348,
+          4
+        ],
+        [
+          10290,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 179,
+      "encoder": "zlib6",
+      "rom_start": "0xba7da8",
+      "rom_end": "0xba94cf",
+      "stored_bytes": 5927,
+      "decoded_bytes": 11400,
+      "stored_sha256": "d6402fb9f33880c900c7323d5590a0e27086f958dcaee28e411fc5500392e076",
+      "decoded_sha256": "bd0ef3d9e3e303b5350d5653abe1141c10db2792bfd34630fc92a390fc723991",
+      "vertices": 385,
+      "joints": 31,
+      "normals": 480,
+      "zero_regions": [
+        [
+          11386,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 181,
+      "encoder": "zlib6",
+      "rom_start": "0xbaab30",
+      "rom_end": "0xbac7a7",
+      "stored_bytes": 7287,
+      "decoded_bytes": 13976,
+      "stored_sha256": "7bb5826d9d1deb5b633559cdad6c4545d7a641d4b6c26347664b735a8d826298",
+      "decoded_sha256": "7fc6ca30e42d6de5734e830f9d910ae69d21beefd7bf8f4f1580652e79e2bb56",
+      "vertices": 465,
+      "joints": 40,
+      "normals": 672,
+      "zero_regions": [
+        [
+          8284,
+          4
+        ],
+        [
+          13970,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 182,
+      "encoder": "zlib6",
+      "rom_start": "0xbac7a8",
+      "rom_end": "0xbad0b6",
+      "stored_bytes": 2318,
+      "decoded_bytes": 4136,
+      "stored_sha256": "4397c65322757498b877b05c8ec8fea360f769afc881134ec62ed3291ae35d9f",
+      "decoded_sha256": "ea1695585b0d95509e1ee4b41248bd3f62df9d8544ba5f316da939883e5ad278",
+      "vertices": 166,
+      "joints": 6,
+      "normals": 192,
+      "zero_regions": [
+        [
+          4128,
+          8
+        ]
+      ]
+    },
+    {
+      "entry": 183,
+      "encoder": "zlib6",
+      "rom_start": "0xbad0b8",
+      "rom_end": "0xbae80b",
+      "stored_bytes": 5971,
+      "decoded_bytes": 12120,
+      "stored_sha256": "11f60cde6de12784dc1f770393dc880ccd5841f1411a6945726ceef02639dd59",
+      "decoded_sha256": "df08a31da768d0486533b2d4e08dfa7429293e426f73f3010e9c39c825ccf6f2",
+      "vertices": 375,
+      "joints": 21,
+      "normals": 640,
+      "zero_regions": [
+        [
+          6612,
+          4
+        ],
+        [
+          12114,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 184,
+      "encoder": "zlib6",
+      "rom_start": "0xbae810",
+      "rom_end": "0xbaff33",
+      "stored_bytes": 5923,
+      "decoded_bytes": 12392,
+      "stored_sha256": "3f4e8c39308b3638c66da5612f35063d21d7366655758dcd0ec2defbc0d59a5d",
+      "decoded_sha256": "52984cbf4621ed0728491c3fe91f6cc1d2f99609882dd0d74c5959361ba16588",
+      "vertices": 374,
+      "joints": 21,
+      "normals": 672,
+      "zero_regions": [
+        [
+          12386,
+          6
+        ]
+      ]
+    },
+    {
+      "entry": 185,
+      "encoder": "zlib6",
+      "rom_start": "0xbaff38",
+      "rom_end": "0xbb17bb",
+      "stored_bytes": 6275,
+      "decoded_bytes": 13544,
+      "stored_sha256": "8bd357d745b407ebc41e77dd88d578cd4f3c109269cd1fe3a6779f179b0ea76d",
+      "decoded_sha256": "cffda9734ba2f0aad500acf180d037dc9170d7711d243644e71da7106289686e",
+      "vertices": 396,
+      "joints": 23,
+      "normals": 768,
+      "zero_regions": [
+        [
+          13530,
+          14
+        ]
+      ]
+    },
+    {
+      "entry": 186,
+      "encoder": "zlib6",
+      "rom_start": "0xbb17c0",
+      "rom_end": "0xbb1ba0",
+      "stored_bytes": 992,
+      "decoded_bytes": 1560,
+      "stored_sha256": "8d2446e1869eb2065bf9074d88f3a4c0b8a291108a5a7aac23de55afe34bee14",
+      "decoded_sha256": "531ce1987653675980924bd6be0423a2f20ae4aed25084fcb5008f6e59c2823c",
+      "vertices": 46,
+      "joints": 4,
+      "normals": 64,
+      "zero_regions": [
+        [
+          884,
+          4
+        ]
+      ]
+    }
+  ],
+  "acceptance": {
+    "base_commit": "094102644c4c2f5aefaa0fc4b609416918f66f58",
+    "source_fingerprint": "deadf310224f503e43ba0285b92bfb9d512b23bc35231b7635d73ec5885e1f60",
+    "report_sha256": "1d115604dbf2af013715d80fd809d3cbabe5de405e3be9e0882225eef21cd472",
+    "measures": {
+      "fuzzy_match_percent": 25.06301,
+      "total_code": "2246328",
+      "matched_code": "555524",
+      "matched_code_percent": 24.730316,
+      "total_data": "65120512",
+      "matched_data": "33023333",
+      "matched_data_percent": 50.711105,
+      "total_functions": 5904,
+      "matched_functions": 3485,
+      "matched_functions_percent": 59.02778,
+      "complete_code": "129488",
+      "complete_code_percent": 5.7644296,
+      "complete_data": "33022565",
+      "complete_data_percent": 50.709927,
+      "total_units": 11054,
+      "complete_units": 10362
+    },
+    "new_units": 171,
+    "new_bytes": 667138,
+    "rom_size": 67108864,
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "snapshot": "current"
+  },
+  "gzip9_remaining_trials": [
+    {
+      "entry": 26,
+      "gzip9_exact": false
+    },
+    {
+      "entry": 33,
+      "gzip9_exact": false
+    },
+    {
+      "entry": 58,
+      "gzip9_exact": false
+    },
+    {
+      "entry": 83,
+      "gzip9_exact": false
+    },
+    {
+      "entry": 84,
+      "gzip9_exact": false
+    },
+    {
+      "entry": 93,
+      "gzip9_exact": false
+    },
+    {
+      "entry": 118,
+      "gzip9_exact": false
+    },
+    {
+      "entry": 146,
+      "gzip9_exact": false
+    },
+    {
+      "entry": 150,
+      "gzip9_exact": false
+    },
+    {
+      "entry": 151,
+      "gzip9_exact": false
+    },
+    {
+      "entry": 159,
+      "gzip9_exact": false
+    },
+    {
+      "entry": 180,
+      "gzip9_exact": false
+    }
+  ]
+}

@@ -4,6 +4,10 @@
 from __future__ import annotations
 
 import argparse
+try:
+    from scripts import rzip_archive
+except ModuleNotFoundError:
+    import rzip_archive
 from collections import Counter
 import hashlib
 import json
@@ -321,8 +325,8 @@ def load_profile_mp3_assets(
     profile: str, rom_argument: Path | None
 ) -> tuple[Path, bytes, str, Mp3AssetFamily]:
     rom_path, layout = resolve_rom(profile, rom_argument)
-    normalized, source_order = normalize_rom(rom_path.read_bytes())
-    digest = hashlib.sha1(normalized).hexdigest()
+    normalized, source_order = rzip_archive.read_rom(rom_path)
+    digest = rzip_archive.rom_sha1(normalized)
     if digest not in layout["normalized_sha1"]:
         raise ValueError(
             f"{profile} normalized ROM SHA-1 mismatch: got {digest}; expected one of "
@@ -458,7 +462,7 @@ def extract_mp3_assets(
         "profile": profile,
         "source_rom": manifest_source(rom_path),
         "source_byte_order": source_order,
-        "normalized_sha1": hashlib.sha1(normalized).hexdigest(),
+        "normalized_sha1": rzip_archive.rom_sha1(normalized),
         "asset_count": len(stream_records) + len(decoder_records),
         "stream_bank": {
             "bank_index": MP3_STREAM_BANK_INDEX,
@@ -721,7 +725,7 @@ def extract_mp3_cues(
         "profile": profile,
         "source_rom": manifest_source(rom_path),
         "source_byte_order": source_order,
-        "normalized_sha1": hashlib.sha1(normalized).hexdigest(),
+        "normalized_sha1": rzip_archive.rom_sha1(normalized),
         "semantic_status": {
             "record_marker": "L:",
             "runtime_transport": "MPEG Layer III copyright-bit post-frame callback",

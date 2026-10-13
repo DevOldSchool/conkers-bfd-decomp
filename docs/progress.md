@@ -2,10 +2,14 @@
 
 [Public US objdiff report](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us?category=all)
 
-The project has one progress percentage: native objdiff `matched_code_percent`
+The headline code progress measure is native objdiff `matched_code_percent`
 for version **us**, **all** categories. It covers the tracked main/game/debugger
 CPU code, including SDK code. It does not cover data, assets, other boot code,
 RSP or EU/PAL.
+
+The README also shows **US Data**, using `matched_data_percent` from the same
+published report. It covers tracked data and stored assets; see the
+[data matching rules](objdiff.md#published-code-and-data-report).
 
 Local and public numbers come from the same generator. The approved-main workflow
 runs `./conker build --all` and `./conker objdiff report`, then uploads the

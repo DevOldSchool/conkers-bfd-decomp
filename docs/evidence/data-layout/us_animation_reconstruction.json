@@ -1,0 +1,1525 @@
+{
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "base_commit": "094102644c4c2f5aefaa0fc4b609416918f66f58",
+  "format": "native-character-animation",
+  "consumer_spans": [
+    {
+      "address": "0x150a81d0",
+      "bytes": 4876,
+      "sha1": "56cae2497377b0bc66714a4175a2a27a0d78de0a"
+    },
+    {
+      "address": "0x1502d824",
+      "bytes": 764,
+      "sha1": "e4854df5924f1d8f104a242c76187da4401a88b2"
+    },
+    {
+      "address": "0x1505e0c4",
+      "bytes": 1420,
+      "sha1": "3e17bb649f54edb53a448676e71fbea0adce0e10"
+    },
+    {
+      "address": "0x1503d484",
+      "bytes": 140,
+      "sha1": "40f757370bbf19e10e675591d24421010455453d"
+    }
+  ],
+  "independent_proof": {
+    "entries": 119,
+    "stored_bytes": 3752256,
+    "clips": 2539,
+    "independent_decoded_frames": 54355,
+    "field_mutations": {
+      "rotation_offsets": 396,
+      "root_offsets": 202,
+      "scale_offsets": 168,
+      "joint_translations": 185
+    },
+    "rejected_consumer_mutations": 8,
+    "bank_bytes": 4052696,
+    "bank_sha256": "1cefc77132fdf0815c0a3ed57f66fcdc9a8035f9fefa6b70ca28364b0b4f0bb7",
+    "prior_source_hashes_preserved": 23884
+  },
+  "entries": [
+    {
+      "entry": 0,
+      "rom_start": "0xbb2178",
+      "rom_end": "0xc8e128",
+      "stored_bytes": 901040,
+      "sha256": "f4676e760db8622bffd9d8ee57050f8789790ace16cdda79cc1bdb56076b50d2",
+      "clips": 766,
+      "frames": 15228,
+      "descriptor_zero_bytes": 3748,
+      "stream_zero_bytes": 2060
+    },
+    {
+      "entry": 5,
+      "rom_start": "0xc8e128",
+      "rom_end": "0xc8fda0",
+      "stored_bytes": 7288,
+      "sha256": "31c55970ed3b8f33438693705e1692bebb61b28c112cd57569521c9114624033",
+      "clips": 4,
+      "frames": 161,
+      "descriptor_zero_bytes": 16,
+      "stream_zero_bytes": 6
+    },
+    {
+      "entry": 6,
+      "rom_start": "0xc8fda0",
+      "rom_end": "0xc8ff80",
+      "stored_bytes": 480,
+      "sha256": "d4187062448a7b30d88cf4f082971b6ccaf8f13103f55f12e7d11ba8dc8024b5",
+      "clips": 2,
+      "frames": 31,
+      "descriptor_zero_bytes": 0,
+      "stream_zero_bytes": 5
+    },
+    {
+      "entry": 8,
+      "rom_start": "0xc900e8",
+      "rom_end": "0xc920f8",
+      "stored_bytes": 8208,
+      "sha256": "366c64679e8b535d00ef22330029be5a83e653f756fea4c656cacf03aee96257",
+      "clips": 12,
+      "frames": 150,
+      "descriptor_zero_bytes": 24,
+      "stream_zero_bytes": 34
+    },
+    {
+      "entry": 9,
+      "rom_start": "0xc920f8",
+      "rom_end": "0xc92158",
+      "stored_bytes": 96,
+      "sha256": "8d1a315bae37c21a7cb06c58b05b99171dffece7e1ee8403bb9bff2643ba2233",
+      "clips": 2,
+      "frames": 6,
+      "descriptor_zero_bytes": 4,
+      "stream_zero_bytes": 4
+    },
+    {
+      "entry": 10,
+      "rom_start": "0xc92158",
+      "rom_end": "0xc93da8",
+      "stored_bytes": 7248,
+      "sha256": "b70075a1c133ec55074b1ade5c17687a97a906a8631b047cf470b512dcbda851",
+      "clips": 13,
+      "frames": 136,
+      "descriptor_zero_bytes": 30,
+      "stream_zero_bytes": 43
+    },
+    {
+      "entry": 12,
+      "rom_start": "0xc93da8",
+      "rom_end": "0xc95d40",
+      "stored_bytes": 8088,
+      "sha256": "38331c2e017d44d4b0ed63f106800f3dab9927170b205520c29e9395beeaaba2",
+      "clips": 16,
+      "frames": 258,
+      "descriptor_zero_bytes": 28,
+      "stream_zero_bytes": 23
+    },
+    {
+      "entry": 13,
+      "rom_start": "0xc95d40",
+      "rom_end": "0xc95fc0",
+      "stored_bytes": 640,
+      "sha256": "66f49938b98997962f38c7074cfc5b3b6a00971249de77326cb0cb070a17a763",
+      "clips": 3,
+      "frames": 34,
+      "descriptor_zero_bytes": 16,
+      "stream_zero_bytes": 6
+    },
+    {
+      "entry": 14,
+      "rom_start": "0xc95fc0",
+      "rom_end": "0xc96680",
+      "stored_bytes": 1728,
+      "sha256": "93cd227d0982b2ad64c317a484279362484b77db315e787e77d5116dadd3319e",
+      "clips": 6,
+      "frames": 65,
+      "descriptor_zero_bytes": 28,
+      "stream_zero_bytes": 5
+    },
+    {
+      "entry": 15,
+      "rom_start": "0xc96680",
+      "rom_end": "0xc97018",
+      "stored_bytes": 2456,
+      "sha256": "544872a8ec86c7b700a11ab754e5c28842c5cd7bb57458bb3bc48a97ded8264c",
+      "clips": 18,
+      "frames": 122,
+      "descriptor_zero_bytes": 40,
+      "stream_zero_bytes": 47
+    },
+    {
+      "entry": 16,
+      "rom_start": "0xc97018",
+      "rom_end": "0xc9ea30",
+      "stored_bytes": 31256,
+      "sha256": "f2b7ee2b63e3f2c813b5988c3ad42d777842f79b5cdb5c9bbb8295867722c0ad",
+      "clips": 39,
+      "frames": 636,
+      "descriptor_zero_bytes": 132,
+      "stream_zero_bytes": 121
+    },
+    {
+      "entry": 17,
+      "rom_start": "0xc9ea30",
+      "rom_end": "0xcb0b78",
+      "stored_bytes": 74056,
+      "sha256": "5e64834531ab366ecc3e896ea72f6496834db336ebc2e99187f70d17fe0f6e8b",
+      "clips": 38,
+      "frames": 1058,
+      "descriptor_zero_bytes": 26,
+      "stream_zero_bytes": 98
+    },
+    {
+      "entry": 18,
+      "rom_start": "0xcb0b78",
+      "rom_end": "0xcb0c50",
+      "stored_bytes": 216,
+      "sha256": "f394b339939b97454f061eabcc1a6353d3357d078c6315bf8a9668eee9ce110f",
+      "clips": 3,
+      "frames": 8,
+      "descriptor_zero_bytes": 10,
+      "stream_zero_bytes": 0
+    },
+    {
+      "entry": 20,
+      "rom_start": "0xcb0c90",
+      "rom_end": "0xcb6de0",
+      "stored_bytes": 24912,
+      "sha256": "c366a71d9cb18779f83553e37e2a6cd7e0f2badbecc3cb45dcb2d1645749a013",
+      "clips": 22,
+      "frames": 391,
+      "descriptor_zero_bytes": 30,
+      "stream_zero_bytes": 87
+    },
+    {
+      "entry": 21,
+      "rom_start": "0xcb6de0",
+      "rom_end": "0xcb70c8",
+      "stored_bytes": 744,
+      "sha256": "d8fe77f6e15645295747873aaba485846c302e70784b35c28748b2334727b49a",
+      "clips": 6,
+      "frames": 68,
+      "descriptor_zero_bytes": 30,
+      "stream_zero_bytes": 20
+    },
+    {
+      "entry": 22,
+      "rom_start": "0xcb70c8",
+      "rom_end": "0xcc06b8",
+      "stored_bytes": 38384,
+      "sha256": "8e710f044c12b1aee2b71c4781a06ab6e16fe2b5c6fd837b799c7087fd8bc67e",
+      "clips": 32,
+      "frames": 576,
+      "descriptor_zero_bytes": 106,
+      "stream_zero_bytes": 110
+    },
+    {
+      "entry": 23,
+      "rom_start": "0xcc06b8",
+      "rom_end": "0xcc0760",
+      "stored_bytes": 168,
+      "sha256": "321b011b4fb50e0f0eb075ba1c52fe44d89198dc9bf0d9f5b33142fc54e43f2e",
+      "clips": 2,
+      "frames": 9,
+      "descriptor_zero_bytes": 4,
+      "stream_zero_bytes": 7
+    },
+    {
+      "entry": 24,
+      "rom_start": "0xcc0760",
+      "rom_end": "0xcc0a48",
+      "stored_bytes": 744,
+      "sha256": "d8fe77f6e15645295747873aaba485846c302e70784b35c28748b2334727b49a",
+      "clips": 6,
+      "frames": 68,
+      "descriptor_zero_bytes": 30,
+      "stream_zero_bytes": 20
+    },
+    {
+      "entry": 25,
+      "rom_start": "0xcc0a48",
+      "rom_end": "0xcc0b70",
+      "stored_bytes": 296,
+      "sha256": "719b6dd72519ee53d4367091799c5ce8b868c1bf13981541b2b8831b2496e691",
+      "clips": 2,
+      "frames": 8,
+      "descriptor_zero_bytes": 4,
+      "stream_zero_bytes": 0
+    },
+    {
+      "entry": 27,
+      "rom_start": "0xcc0c70",
+      "rom_end": "0xcc0db8",
+      "stored_bytes": 328,
+      "sha256": "d038adfb1b4a17aa9da2d079b89b6999a0bf46110b15e8a545abd5d2619ae80e",
+      "clips": 3,
+      "frames": 36,
+      "descriptor_zero_bytes": 12,
+      "stream_zero_bytes": 2
+    },
+    {
+      "entry": 28,
+      "rom_start": "0xcc0db8",
+      "rom_end": "0xcc10e0",
+      "stored_bytes": 808,
+      "sha256": "8df2f8ec869cc5e2254a462c0e0c24d3c2f8e91274e507c14873d99fda707a69",
+      "clips": 4,
+      "frames": 33,
+      "descriptor_zero_bytes": 10,
+      "stream_zero_bytes": 7
+    },
+    {
+      "entry": 29,
+      "rom_start": "0xcc10e0",
+      "rom_end": "0xcc1318",
+      "stored_bytes": 568,
+      "sha256": "628964ad3f1b911f23723d5188e7770c506dcfc3e341a5a304be947d02afbf62",
+      "clips": 4,
+      "frames": 20,
+      "descriptor_zero_bytes": 16,
+      "stream_zero_bytes": 2
+    },
+    {
+      "entry": 30,
+      "rom_start": "0xcc1318",
+      "rom_end": "0xcc1600",
+      "stored_bytes": 744,
+      "sha256": "d8fe77f6e15645295747873aaba485846c302e70784b35c28748b2334727b49a",
+      "clips": 6,
+      "frames": 68,
+      "descriptor_zero_bytes": 30,
+      "stream_zero_bytes": 20
+    },
+    {
+      "entry": 31,
+      "rom_start": "0xcc1600",
+      "rom_end": "0xcc1cd8",
+      "stored_bytes": 1752,
+      "sha256": "f5c09f8f3615488e0707a21c38964634772589d62b73192462082ecd3f4b132d",
+      "clips": 2,
+      "frames": 11,
+      "descriptor_zero_bytes": 8,
+      "stream_zero_bytes": 4
+    },
+    {
+      "entry": 32,
+      "rom_start": "0xcc1cd8",
+      "rom_end": "0xcc2620",
+      "stored_bytes": 2376,
+      "sha256": "cae57d9a7d2783106c3390b59a9eef0eb0440a6edb5cd5ad104f960df0689599",
+      "clips": 14,
+      "frames": 169,
+      "descriptor_zero_bytes": 50,
+      "stream_zero_bytes": 46
+    },
+    {
+      "entry": 33,
+      "rom_start": "0xcc2620",
+      "rom_end": "0xcd4950",
+      "stored_bytes": 74544,
+      "sha256": "5d911eb6a678da9da10b5a35f57c98c299bf8550486060431fc070bb102b4e24",
+      "clips": 24,
+      "frames": 934,
+      "descriptor_zero_bytes": 54,
+      "stream_zero_bytes": 52
+    },
+    {
+      "entry": 34,
+      "rom_start": "0xcd4950",
+      "rom_end": "0xcd7948",
+      "stored_bytes": 12280,
+      "sha256": "7a416797d3970a3ca1c3df2e912b42b6cfcc626c8e1aa6c8ba8627161378b7a2",
+      "clips": 15,
+      "frames": 230,
+      "descriptor_zero_bytes": 46,
+      "stream_zero_bytes": 46
+    },
+    {
+      "entry": 35,
+      "rom_start": "0xcd7948",
+      "rom_end": "0xcd88f0",
+      "stored_bytes": 4008,
+      "sha256": "9498d133a0481a988ced07be4564ba7f81ee9526976558065b2b9ad403530051",
+      "clips": 13,
+      "frames": 152,
+      "descriptor_zero_bytes": 48,
+      "stream_zero_bytes": 42
+    },
+    {
+      "entry": 37,
+      "rom_start": "0xcd8d50",
+      "rom_end": "0xcd9578",
+      "stored_bytes": 2088,
+      "sha256": "b1ec35b140b90e4b576d114dcafb9be7060eaff08ebb1b149d8a1b5977b9704a",
+      "clips": 10,
+      "frames": 47,
+      "descriptor_zero_bytes": 28,
+      "stream_zero_bytes": 28
+    },
+    {
+      "entry": 39,
+      "rom_start": "0xcd9698",
+      "rom_end": "0xcd98e0",
+      "stored_bytes": 584,
+      "sha256": "c7d6ae82de1a8038b1a33698d20336fb78f9d1cf8941131ee929e1caaa8621e7",
+      "clips": 2,
+      "frames": 45,
+      "descriptor_zero_bytes": 4,
+      "stream_zero_bytes": 1
+    },
+    {
+      "entry": 40,
+      "rom_start": "0xcd98e0",
+      "rom_end": "0xcda3c0",
+      "stored_bytes": 2784,
+      "sha256": "7dddedbf70e3c1b471ca74dad8cfe4e86a858bd83c1fa4b106dec20f63613015",
+      "clips": 8,
+      "frames": 98,
+      "descriptor_zero_bytes": 8,
+      "stream_zero_bytes": 18
+    },
+    {
+      "entry": 41,
+      "rom_start": "0xcda3c0",
+      "rom_end": "0xcde2e8",
+      "stored_bytes": 16168,
+      "sha256": "3b6c82c2b58e4b313f3d66845b65f52495dbf02e70d28a987fbe5f439adde2d1",
+      "clips": 18,
+      "frames": 178,
+      "descriptor_zero_bytes": 56,
+      "stream_zero_bytes": 56
+    },
+    {
+      "entry": 43,
+      "rom_start": "0xcde2e8",
+      "rom_end": "0xce4098",
+      "stored_bytes": 23984,
+      "sha256": "23b5bf9f8db57819b9fa347240a2c76f4ff47aa02368428da09111e4381ff680",
+      "clips": 29,
+      "frames": 388,
+      "descriptor_zero_bytes": 134,
+      "stream_zero_bytes": 79
+    },
+    {
+      "entry": 44,
+      "rom_start": "0xce4098",
+      "rom_end": "0xce4998",
+      "stored_bytes": 2304,
+      "sha256": "e8e4ebe755a174b220ba46ef081b7bf31030c56d4b366da6462337eca4c5ca71",
+      "clips": 9,
+      "frames": 94,
+      "descriptor_zero_bytes": 34,
+      "stream_zero_bytes": 30
+    },
+    {
+      "entry": 45,
+      "rom_start": "0xce4998",
+      "rom_end": "0xce4d08",
+      "stored_bytes": 880,
+      "sha256": "72abe296f8535b858e8b1c06b7452b5b29faf0436d2065f6738a276b1c409f63",
+      "clips": 3,
+      "frames": 35,
+      "descriptor_zero_bytes": 0,
+      "stream_zero_bytes": 1
+    },
+    {
+      "entry": 47,
+      "rom_start": "0xce4d08",
+      "rom_end": "0xce4f40",
+      "stored_bytes": 568,
+      "sha256": "628964ad3f1b911f23723d5188e7770c506dcfc3e341a5a304be947d02afbf62",
+      "clips": 4,
+      "frames": 20,
+      "descriptor_zero_bytes": 16,
+      "stream_zero_bytes": 2
+    },
+    {
+      "entry": 49,
+      "rom_start": "0xce4f40",
+      "rom_end": "0xce6f28",
+      "stored_bytes": 8168,
+      "sha256": "554cf3ce434d189b58f789b7d91c6792e5ec065cdcb02e45b9b4406488ffa5d0",
+      "clips": 13,
+      "frames": 250,
+      "descriptor_zero_bytes": 32,
+      "stream_zero_bytes": 34
+    },
+    {
+      "entry": 50,
+      "rom_start": "0xce6f28",
+      "rom_end": "0xce7288",
+      "stored_bytes": 864,
+      "sha256": "5b194d8f54df697f101d517ea58c285cc10984a9bce6f094b27ef88db4825451",
+      "clips": 3,
+      "frames": 52,
+      "descriptor_zero_bytes": 12,
+      "stream_zero_bytes": 4
+    },
+    {
+      "entry": 52,
+      "rom_start": "0xce7288",
+      "rom_end": "0xcea360",
+      "stored_bytes": 12504,
+      "sha256": "1164c9c14aff19c0bd125eb8f4de97d059d23ee81c5988d4fcf6acf1004af4b9",
+      "clips": 15,
+      "frames": 181,
+      "descriptor_zero_bytes": 66,
+      "stream_zero_bytes": 47
+    },
+    {
+      "entry": 53,
+      "rom_start": "0xcea360",
+      "rom_end": "0xcea8c8",
+      "stored_bytes": 1384,
+      "sha256": "b0225900dfbd8284c8d982d4363425cee2859cf4ab9f603c9d209dbc9b8d8690",
+      "clips": 3,
+      "frames": 38,
+      "descriptor_zero_bytes": 2,
+      "stream_zero_bytes": 4
+    },
+    {
+      "entry": 54,
+      "rom_start": "0xcea8c8",
+      "rom_end": "0xceed70",
+      "stored_bytes": 17576,
+      "sha256": "4f44f84cc54cafc103f1c8cb55bc4bae19fb19a457411883988d7cd3c2d043ee",
+      "clips": 10,
+      "frames": 188,
+      "descriptor_zero_bytes": 26,
+      "stream_zero_bytes": 41
+    },
+    {
+      "entry": 55,
+      "rom_start": "0xceed70",
+      "rom_end": "0xcef620",
+      "stored_bytes": 2224,
+      "sha256": "abf7ef44bbfd3ace7e116b944716062886fea136a6ec12ccb3d53a02f4d0a144",
+      "clips": 4,
+      "frames": 58,
+      "descriptor_zero_bytes": 20,
+      "stream_zero_bytes": 15
+    },
+    {
+      "entry": 57,
+      "rom_start": "0xcef620",
+      "rom_end": "0xcefb20",
+      "stored_bytes": 1280,
+      "sha256": "a6e96b3d63ca6a9c105e9741c2e030111f187786c83c5883d97eeeb630d62b63",
+      "clips": 3,
+      "frames": 43,
+      "descriptor_zero_bytes": 2,
+      "stream_zero_bytes": 7
+    },
+    {
+      "entry": 58,
+      "rom_start": "0xcefb20",
+      "rom_end": "0xcfec78",
+      "stored_bytes": 61784,
+      "sha256": "c1bb9ec1680a1d408f3ce98579c0fe695a87eabefa8f9421067109765b4c4bf9",
+      "clips": 37,
+      "frames": 616,
+      "descriptor_zero_bytes": 104,
+      "stream_zero_bytes": 113
+    },
+    {
+      "entry": 60,
+      "rom_start": "0xcfec78",
+      "rom_end": "0xcff0d0",
+      "stored_bytes": 1112,
+      "sha256": "d74c00021fb28d93c802ed39b00e1c752987bcd551f68e051b273e9cca369edc",
+      "clips": 6,
+      "frames": 44,
+      "descriptor_zero_bytes": 12,
+      "stream_zero_bytes": 9
+    },
+    {
+      "entry": 62,
+      "rom_start": "0xcff0d0",
+      "rom_end": "0xcfffc8",
+      "stored_bytes": 3832,
+      "sha256": "c5d28287788cfe3900f42ee9815101119c4c3dc77a46cdec836ab6cdd53919c0",
+      "clips": 9,
+      "frames": 134,
+      "descriptor_zero_bytes": 12,
+      "stream_zero_bytes": 26
+    },
+    {
+      "entry": 63,
+      "rom_start": "0xcfffc8",
+      "rom_end": "0xd00198",
+      "stored_bytes": 464,
+      "sha256": "f623a6449b51fdd735eebd437d09ac074bc23f5f353fb19e7163ca0101bc22f6",
+      "clips": 2,
+      "frames": 62,
+      "descriptor_zero_bytes": 4,
+      "stream_zero_bytes": 5
+    },
+    {
+      "entry": 64,
+      "rom_start": "0xd00198",
+      "rom_end": "0xd00970",
+      "stored_bytes": 2008,
+      "sha256": "37b150d73bb967a7ed47ad05b9d6ba9e3f15b912d15a50ef4028cf10cbf7e533",
+      "clips": 8,
+      "frames": 118,
+      "descriptor_zero_bytes": 40,
+      "stream_zero_bytes": 20
+    },
+    {
+      "entry": 65,
+      "rom_start": "0xd00970",
+      "rom_end": "0xd00a80",
+      "stored_bytes": 272,
+      "sha256": "2b28b1ca789b5cb5912fbbf12883cb78683f31c618ee7617e869c78edae2fb92",
+      "clips": 2,
+      "frames": 14,
+      "descriptor_zero_bytes": 0,
+      "stream_zero_bytes": 8
+    },
+    {
+      "entry": 66,
+      "rom_start": "0xd00a80",
+      "rom_end": "0xd018b8",
+      "stored_bytes": 3640,
+      "sha256": "f7c6904e2cf6a17df7fc2913f73d27b6f9a59be4c6563883191cb41bd9f65b72",
+      "clips": 3,
+      "frames": 51,
+      "descriptor_zero_bytes": 6,
+      "stream_zero_bytes": 14
+    },
+    {
+      "entry": 68,
+      "rom_start": "0xd01950",
+      "rom_end": "0xd1ede8",
+      "stored_bytes": 119960,
+      "sha256": "726642b44d81f13a72963bdc58266e1598fbf1353bfc48a9878e103734798d03",
+      "clips": 49,
+      "frames": 1494,
+      "descriptor_zero_bytes": 134,
+      "stream_zero_bytes": 99
+    },
+    {
+      "entry": 69,
+      "rom_start": "0xd1ede8",
+      "rom_end": "0xd231c0",
+      "stored_bytes": 17368,
+      "sha256": "688088d93e22279515ec31a1ea77fd48cf5d395779a7580f3cd1ecca9c59c6e7",
+      "clips": 14,
+      "frames": 237,
+      "descriptor_zero_bytes": 44,
+      "stream_zero_bytes": 31
+    },
+    {
+      "entry": 70,
+      "rom_start": "0xd231c0",
+      "rom_end": "0xd23b58",
+      "stored_bytes": 2456,
+      "sha256": "544872a8ec86c7b700a11ab754e5c28842c5cd7bb57458bb3bc48a97ded8264c",
+      "clips": 18,
+      "frames": 122,
+      "descriptor_zero_bytes": 40,
+      "stream_zero_bytes": 47
+    },
+    {
+      "entry": 71,
+      "rom_start": "0xd23b58",
+      "rom_end": "0xd26228",
+      "stored_bytes": 9936,
+      "sha256": "7fd771f94203bb2e1ea623f9ea200378cf2dc14093e7e9ec657d7a9f8119f035",
+      "clips": 16,
+      "frames": 154,
+      "descriptor_zero_bytes": 80,
+      "stream_zero_bytes": 59
+    },
+    {
+      "entry": 73,
+      "rom_start": "0xd26228",
+      "rom_end": "0xd263d8",
+      "stored_bytes": 432,
+      "sha256": "cff92600a9c13afc1d833968f7a680ccbfe1daf9cc2772825ce65b604dca2c3b",
+      "clips": 5,
+      "frames": 15,
+      "descriptor_zero_bytes": 30,
+      "stream_zero_bytes": 2
+    },
+    {
+      "entry": 74,
+      "rom_start": "0xd263d8",
+      "rom_end": "0xd26580",
+      "stored_bytes": 424,
+      "sha256": "3fd924ba9ef8ec85faa294600fc6c093b62e4f132612515989a914fb2c611299",
+      "clips": 2,
+      "frames": 19,
+      "descriptor_zero_bytes": 4,
+      "stream_zero_bytes": 4
+    },
+    {
+      "entry": 75,
+      "rom_start": "0xd26580",
+      "rom_end": "0xd2ba68",
+      "stored_bytes": 21736,
+      "sha256": "a0a31a0624ac1594b1714adcec391b1ee77a590cb0fc8de446615bfad723c59e",
+      "clips": 15,
+      "frames": 291,
+      "descriptor_zero_bytes": 54,
+      "stream_zero_bytes": 49
+    },
+    {
+      "entry": 76,
+      "rom_start": "0xd2ba68",
+      "rom_end": "0xd2c400",
+      "stored_bytes": 2456,
+      "sha256": "544872a8ec86c7b700a11ab754e5c28842c5cd7bb57458bb3bc48a97ded8264c",
+      "clips": 18,
+      "frames": 122,
+      "descriptor_zero_bytes": 40,
+      "stream_zero_bytes": 47
+    },
+    {
+      "entry": 80,
+      "rom_start": "0xd2c510",
+      "rom_end": "0xd376b8",
+      "stored_bytes": 45480,
+      "sha256": "85346f5756f8786ea0ca2c6db4e2aff1a847996c72c19f12c3da9ccbb36bdaa3",
+      "clips": 25,
+      "frames": 530,
+      "descriptor_zero_bytes": 108,
+      "stream_zero_bytes": 47
+    },
+    {
+      "entry": 81,
+      "rom_start": "0xd376b8",
+      "rom_end": "0xd3cba0",
+      "stored_bytes": 21736,
+      "sha256": "a0a31a0624ac1594b1714adcec391b1ee77a590cb0fc8de446615bfad723c59e",
+      "clips": 15,
+      "frames": 291,
+      "descriptor_zero_bytes": 54,
+      "stream_zero_bytes": 49
+    },
+    {
+      "entry": 84,
+      "rom_start": "0xd49930",
+      "rom_end": "0xd58580",
+      "stored_bytes": 60496,
+      "sha256": "cc96b16c3a41c26b63299a7f61d4748e2147c5abf3bc3292c3bdce46feae13c8",
+      "clips": 34,
+      "frames": 499,
+      "descriptor_zero_bytes": 176,
+      "stream_zero_bytes": 104
+    },
+    {
+      "entry": 86,
+      "rom_start": "0xd58580",
+      "rom_end": "0xd58950",
+      "stored_bytes": 976,
+      "sha256": "c47f4bf98df72a0bb8bf16e2c2f8b419ccbbe3fdac2d268de0a7efb1c39e1752",
+      "clips": 2,
+      "frames": 32,
+      "descriptor_zero_bytes": 6,
+      "stream_zero_bytes": 6
+    },
+    {
+      "entry": 87,
+      "rom_start": "0xd58950",
+      "rom_end": "0xd59428",
+      "stored_bytes": 2776,
+      "sha256": "5c8577b805a2481d154a78d8fc80d5e6433b737f129bc2c226f9e4249741e7d8",
+      "clips": 12,
+      "frames": 180,
+      "descriptor_zero_bytes": 52,
+      "stream_zero_bytes": 21
+    },
+    {
+      "entry": 88,
+      "rom_start": "0xd59428",
+      "rom_end": "0xd6cf88",
+      "stored_bytes": 80736,
+      "sha256": "f1ecd5c577bf7f97aac01587abaf4de9123b1561e99be105f09c63a4363efbfe",
+      "clips": 67,
+      "frames": 1277,
+      "descriptor_zero_bytes": 280,
+      "stream_zero_bytes": 214
+    },
+    {
+      "entry": 89,
+      "rom_start": "0xd6cf88",
+      "rom_end": "0xd6db10",
+      "stored_bytes": 2952,
+      "sha256": "3ab343d691c4cfa7ea68140507f4f7199240200fb9ffd172e5bf0536a014792f",
+      "clips": 5,
+      "frames": 50,
+      "descriptor_zero_bytes": 16,
+      "stream_zero_bytes": 6
+    },
+    {
+      "entry": 90,
+      "rom_start": "0xd6db10",
+      "rom_end": "0xd7ea78",
+      "stored_bytes": 69480,
+      "sha256": "26d1b30b4a804a7bf4cebd7c8791a1bfd4e163488e05e7e09f2b44a445cb4b1d",
+      "clips": 70,
+      "frames": 1073,
+      "descriptor_zero_bytes": 310,
+      "stream_zero_bytes": 182
+    },
+    {
+      "entry": 91,
+      "rom_start": "0xd7ea78",
+      "rom_end": "0xd89e60",
+      "stored_bytes": 46056,
+      "sha256": "ea3cb4e9770911dd9d1071c2ccaa6c7dea9520dc55890e546ba92e89eb6f2af8",
+      "clips": 33,
+      "frames": 489,
+      "descriptor_zero_bytes": 68,
+      "stream_zero_bytes": 98
+    },
+    {
+      "entry": 92,
+      "rom_start": "0xd89e60",
+      "rom_end": "0xd8a160",
+      "stored_bytes": 768,
+      "sha256": "95950c64c329eff379357eb0582bab65fa6914b09de124edc809c2fe6285dbd4",
+      "clips": 3,
+      "frames": 23,
+      "descriptor_zero_bytes": 0,
+      "stream_zero_bytes": 10
+    },
+    {
+      "entry": 93,
+      "rom_start": "0xd8a160",
+      "rom_end": "0xd8a410",
+      "stored_bytes": 688,
+      "sha256": "a82f40f9a761cd6372d00883dc17f891a493dff496dc3e45acb7312c07045774",
+      "clips": 5,
+      "frames": 18,
+      "descriptor_zero_bytes": 10,
+      "stream_zero_bytes": 6
+    },
+    {
+      "entry": 94,
+      "rom_start": "0xd8a410",
+      "rom_end": "0xda08f0",
+      "stored_bytes": 91360,
+      "sha256": "d0fd0805135521dca5f2eea177ef73c608331978b3a0215e4c69447556a0f0b5",
+      "clips": 43,
+      "frames": 742,
+      "descriptor_zero_bytes": 240,
+      "stream_zero_bytes": 128
+    },
+    {
+      "entry": 96,
+      "rom_start": "0xda08f0",
+      "rom_end": "0xda0968",
+      "stored_bytes": 120,
+      "sha256": "d57b7f2da8bd8184f6a49ec1bc8ddcd856c1c29e3b14d3a25420c2fdcd7e3f16",
+      "clips": 2,
+      "frames": 20,
+      "descriptor_zero_bytes": 4,
+      "stream_zero_bytes": 0
+    },
+    {
+      "entry": 100,
+      "rom_start": "0xda0ab8",
+      "rom_end": "0xda0df0",
+      "stored_bytes": 824,
+      "sha256": "f6ca9a65548c8e353a8de15115b940a1309254c047e432f4fe7d6bf49b2bd73f",
+      "clips": 3,
+      "frames": 24,
+      "descriptor_zero_bytes": 6,
+      "stream_zero_bytes": 6
+    },
+    {
+      "entry": 101,
+      "rom_start": "0xda0df0",
+      "rom_end": "0xda12a8",
+      "stored_bytes": 1208,
+      "sha256": "2e683c12d6dedc97d8a172812737f476c8c295acf4ca06585b0d4944eae185e7",
+      "clips": 4,
+      "frames": 32,
+      "descriptor_zero_bytes": 6,
+      "stream_zero_bytes": 11
+    },
+    {
+      "entry": 102,
+      "rom_start": "0xda12a8",
+      "rom_end": "0xda1568",
+      "stored_bytes": 704,
+      "sha256": "10b41263559a06b8d12d89f3a524d441bffcadf13013c8b5b87830c62e9bf087",
+      "clips": 2,
+      "frames": 49,
+      "descriptor_zero_bytes": 4,
+      "stream_zero_bytes": 9
+    },
+    {
+      "entry": 105,
+      "rom_start": "0xda15d8",
+      "rom_end": "0xda8148",
+      "stored_bytes": 27504,
+      "sha256": "4f88b4d8cd809da6776a3601ea7d7d91b80ac904f2d560df29b516451f4cff0c",
+      "clips": 24,
+      "frames": 524,
+      "descriptor_zero_bytes": 108,
+      "stream_zero_bytes": 62
+    },
+    {
+      "entry": 107,
+      "rom_start": "0xda8178",
+      "rom_end": "0xda8640",
+      "stored_bytes": 1224,
+      "sha256": "0db719b67d056c8f44e10a4c94a07278db298ad326e0674b88ca42d564d431af",
+      "clips": 2,
+      "frames": 30,
+      "descriptor_zero_bytes": 10,
+      "stream_zero_bytes": 7
+    },
+    {
+      "entry": 108,
+      "rom_start": "0xda8640",
+      "rom_end": "0xdaffc8",
+      "stored_bytes": 31112,
+      "sha256": "cd249e98134c6e6732a71f645726808395fffdd70db6a8ae17f381605abd4b92",
+      "clips": 13,
+      "frames": 518,
+      "descriptor_zero_bytes": 44,
+      "stream_zero_bytes": 19
+    },
+    {
+      "entry": 109,
+      "rom_start": "0xdaffc8",
+      "rom_end": "0xdb9fe0",
+      "stored_bytes": 40984,
+      "sha256": "bdb7d484d4564ddd0b64ef274af839b6a40e98686fa57e876b90fd25c3f41a26",
+      "clips": 16,
+      "frames": 851,
+      "descriptor_zero_bytes": 32,
+      "stream_zero_bytes": 25
+    },
+    {
+      "entry": 110,
+      "rom_start": "0xdb9fe0",
+      "rom_end": "0xdba218",
+      "stored_bytes": 568,
+      "sha256": "628964ad3f1b911f23723d5188e7770c506dcfc3e341a5a304be947d02afbf62",
+      "clips": 4,
+      "frames": 20,
+      "descriptor_zero_bytes": 16,
+      "stream_zero_bytes": 2
+    },
+    {
+      "entry": 111,
+      "rom_start": "0xdba218",
+      "rom_end": "0xdba958",
+      "stored_bytes": 1856,
+      "sha256": "fc500a73927cac895d427f6c044a13064b163dd8492270eaf59c6a017c55cb14",
+      "clips": 7,
+      "frames": 110,
+      "descriptor_zero_bytes": 42,
+      "stream_zero_bytes": 3
+    },
+    {
+      "entry": 112,
+      "rom_start": "0xdba958",
+      "rom_end": "0xde8330",
+      "stored_bytes": 186840,
+      "sha256": "944f320e75d966cfb94e209f7f56321b3179c5b5bc66f30f69a37ecc530c689d",
+      "clips": 45,
+      "frames": 2018,
+      "descriptor_zero_bytes": 144,
+      "stream_zero_bytes": 135
+    },
+    {
+      "entry": 113,
+      "rom_start": "0xde8330",
+      "rom_end": "0xde8e08",
+      "stored_bytes": 2776,
+      "sha256": "5c8577b805a2481d154a78d8fc80d5e6433b737f129bc2c226f9e4249741e7d8",
+      "clips": 12,
+      "frames": 180,
+      "descriptor_zero_bytes": 52,
+      "stream_zero_bytes": 21
+    },
+    {
+      "entry": 114,
+      "rom_start": "0xde8e08",
+      "rom_end": "0xdf9d20",
+      "stored_bytes": 69400,
+      "sha256": "f9de076a2403a86420fc516d83bb3b9d5cb7decae54e2c95bb70629d6c071100",
+      "clips": 41,
+      "frames": 798,
+      "descriptor_zero_bytes": 60,
+      "stream_zero_bytes": 77
+    },
+    {
+      "entry": 118,
+      "rom_start": "0xdf9d60",
+      "rom_end": "0xe54ef8",
+      "stored_bytes": 373144,
+      "sha256": "c82819d2a265280128e6a711e60d2dcad9b04725b234aeffbf4073ce819cf216",
+      "clips": 74,
+      "frames": 3569,
+      "descriptor_zero_bytes": 272,
+      "stream_zero_bytes": 199
+    },
+    {
+      "entry": 119,
+      "rom_start": "0xe54ef8",
+      "rom_end": "0xe559d8",
+      "stored_bytes": 2784,
+      "sha256": "7dddedbf70e3c1b471ca74dad8cfe4e86a858bd83c1fa4b106dec20f63613015",
+      "clips": 8,
+      "frames": 98,
+      "descriptor_zero_bytes": 8,
+      "stream_zero_bytes": 18
+    },
+    {
+      "entry": 120,
+      "rom_start": "0xe559d8",
+      "rom_end": "0xe55ea0",
+      "stored_bytes": 1224,
+      "sha256": "9c9dfe87fb2af1ba394139a2f21e8545695b6e2a8531e734480a4f34f9b2e4e8",
+      "clips": 4,
+      "frames": 40,
+      "descriptor_zero_bytes": 16,
+      "stream_zero_bytes": 12
+    },
+    {
+      "entry": 121,
+      "rom_start": "0xe55ea0",
+      "rom_end": "0xe70450",
+      "stored_bytes": 107952,
+      "sha256": "89e5c1cd40ed47a7c6826986742370aae167523a84313aefe77e33a6c700748f",
+      "clips": 32,
+      "frames": 1181,
+      "descriptor_zero_bytes": 60,
+      "stream_zero_bytes": 87
+    },
+    {
+      "entry": 123,
+      "rom_start": "0xe70450",
+      "rom_end": "0xe86cf8",
+      "stored_bytes": 92328,
+      "sha256": "19d68752232c98b1fe1d7768a3278bfb663d0dac52796b7ddc65b3333ccb3760",
+      "clips": 44,
+      "frames": 1032,
+      "descriptor_zero_bytes": 82,
+      "stream_zero_bytes": 143
+    },
+    {
+      "entry": 125,
+      "rom_start": "0xe91a60",
+      "rom_end": "0xe92100",
+      "stored_bytes": 1696,
+      "sha256": "032aa636a4a571919e38f52a3d28c0a302c90d5f7e524da95037eb9f97470f7d",
+      "clips": 6,
+      "frames": 121,
+      "descriptor_zero_bytes": 34,
+      "stream_zero_bytes": 15
+    },
+    {
+      "entry": 126,
+      "rom_start": "0xe92100",
+      "rom_end": "0xe92268",
+      "stored_bytes": 360,
+      "sha256": "7123d287520b761de65a7b07f47021bfe68caabac7d48cb0cfa348f2992e9dfe",
+      "clips": 3,
+      "frames": 40,
+      "descriptor_zero_bytes": 12,
+      "stream_zero_bytes": 2
+    },
+    {
+      "entry": 127,
+      "rom_start": "0xe92268",
+      "rom_end": "0xe923b0",
+      "stored_bytes": 328,
+      "sha256": "c49b1a5c377814bbc8e272e6572d618ee6401c5afa7fef9ba1055564f0137ae0",
+      "clips": 2,
+      "frames": 11,
+      "descriptor_zero_bytes": 10,
+      "stream_zero_bytes": 7
+    },
+    {
+      "entry": 129,
+      "rom_start": "0xe923b0",
+      "rom_end": "0xe924c0",
+      "stored_bytes": 272,
+      "sha256": "ac0ecf6a984e37f756d2e9b8c4a956014c6dc2ab5b93679212cb15bfe9ce7ddd",
+      "clips": 3,
+      "frames": 8,
+      "descriptor_zero_bytes": 12,
+      "stream_zero_bytes": 0
+    },
+    {
+      "entry": 132,
+      "rom_start": "0xe92500",
+      "rom_end": "0xe92590",
+      "stored_bytes": 144,
+      "sha256": "a41330cb392644bac710d23671ddb34b0174db60a72b976660d83789d351846e",
+      "clips": 3,
+      "frames": 11,
+      "descriptor_zero_bytes": 2,
+      "stream_zero_bytes": 2
+    },
+    {
+      "entry": 133,
+      "rom_start": "0xe92590",
+      "rom_end": "0xe92650",
+      "stored_bytes": 192,
+      "sha256": "fa762812f7625e72d6e15f071a6481df780d860534ee0eb92ded9a7bb3d744e4",
+      "clips": 4,
+      "frames": 16,
+      "descriptor_zero_bytes": 8,
+      "stream_zero_bytes": 0
+    },
+    {
+      "entry": 134,
+      "rom_start": "0xe92650",
+      "rom_end": "0xe9dba8",
+      "stored_bytes": 46424,
+      "sha256": "6ee4253b739105eb5ceff9471b677117f5b114349373a759e960ccd81efe9855",
+      "clips": 38,
+      "frames": 762,
+      "descriptor_zero_bytes": 20,
+      "stream_zero_bytes": 107
+    },
+    {
+      "entry": 135,
+      "rom_start": "0xe9dba8",
+      "rom_end": "0xebc338",
+      "stored_bytes": 124816,
+      "sha256": "bd019a5d67ba464930ea092276b04b2fe660cb85f04cdb39de7042cd93c8b134",
+      "clips": 56,
+      "frames": 1730,
+      "descriptor_zero_bytes": 242,
+      "stream_zero_bytes": 156
+    },
+    {
+      "entry": 137,
+      "rom_start": "0xebc338",
+      "rom_end": "0xebc980",
+      "stored_bytes": 1608,
+      "sha256": "2ff8f0933a86d2523680f4e4f5bea152afac5084dab95ee3c8df765cf4d51a94",
+      "clips": 4,
+      "frames": 84,
+      "descriptor_zero_bytes": 20,
+      "stream_zero_bytes": 8
+    },
+    {
+      "entry": 138,
+      "rom_start": "0xebc980",
+      "rom_end": "0xebcbe0",
+      "stored_bytes": 608,
+      "sha256": "3d6cd412395fc2e005346e026b9e31842061ca6aad0883047fc27432e5ccf959",
+      "clips": 2,
+      "frames": 12,
+      "descriptor_zero_bytes": 10,
+      "stream_zero_bytes": 4
+    },
+    {
+      "entry": 139,
+      "rom_start": "0xebcbe0",
+      "rom_end": "0xed7dc0",
+      "stored_bytes": 111072,
+      "sha256": "cbcb52e3ebf610700a6634ce4d28ce734a39027b49398977a68a1e40e7905974",
+      "clips": 47,
+      "frames": 1420,
+      "descriptor_zero_bytes": 118,
+      "stream_zero_bytes": 123
+    },
+    {
+      "entry": 140,
+      "rom_start": "0xed7dc0",
+      "rom_end": "0xed8708",
+      "stored_bytes": 2376,
+      "sha256": "cae57d9a7d2783106c3390b59a9eef0eb0440a6edb5cd5ad104f960df0689599",
+      "clips": 14,
+      "frames": 169,
+      "descriptor_zero_bytes": 50,
+      "stream_zero_bytes": 46
+    },
+    {
+      "entry": 142,
+      "rom_start": "0xed8708",
+      "rom_end": "0xeeabb0",
+      "stored_bytes": 74920,
+      "sha256": "3d7fb5a8fc837cf8a9a4a01f88086b5be3f69711983ef83014fc1ce014830ada",
+      "clips": 20,
+      "frames": 726,
+      "descriptor_zero_bytes": 26,
+      "stream_zero_bytes": 49
+    },
+    {
+      "entry": 145,
+      "rom_start": "0xeeb488",
+      "rom_end": "0xeec120",
+      "stored_bytes": 3224,
+      "sha256": "fd931846bb0292d453fbbab3daef73fbe56516c10e035d83ea51ce0e2dec4974",
+      "clips": 6,
+      "frames": 75,
+      "descriptor_zero_bytes": 20,
+      "stream_zero_bytes": 19
+    },
+    {
+      "entry": 147,
+      "rom_start": "0xf15df0",
+      "rom_end": "0xf16738",
+      "stored_bytes": 2376,
+      "sha256": "cae57d9a7d2783106c3390b59a9eef0eb0440a6edb5cd5ad104f960df0689599",
+      "clips": 14,
+      "frames": 169,
+      "descriptor_zero_bytes": 50,
+      "stream_zero_bytes": 46
+    },
+    {
+      "entry": 148,
+      "rom_start": "0xf16738",
+      "rom_end": "0xf169f0",
+      "stored_bytes": 696,
+      "sha256": "aa8ca4568c1aa337945a908f1d7225674ec16ca8d4465405c23bf970857ba890",
+      "clips": 2,
+      "frames": 81,
+      "descriptor_zero_bytes": 4,
+      "stream_zero_bytes": 1
+    },
+    {
+      "entry": 149,
+      "rom_start": "0xf169f0",
+      "rom_end": "0xf1a3e8",
+      "stored_bytes": 14840,
+      "sha256": "dee5fd9e8927564a91ef20a409106c2472da421ae105797aee10149b2c18f42a",
+      "clips": 7,
+      "frames": 415,
+      "descriptor_zero_bytes": 24,
+      "stream_zero_bytes": 17
+    },
+    {
+      "entry": 151,
+      "rom_start": "0xf1a3e8",
+      "rom_end": "0xf2f400",
+      "stored_bytes": 86040,
+      "sha256": "ca0cf7b032172b42b680621c22108fd61d6248c5635afeaeca6f3374be486014",
+      "clips": 36,
+      "frames": 908,
+      "descriptor_zero_bytes": 144,
+      "stream_zero_bytes": 94
+    },
+    {
+      "entry": 153,
+      "rom_start": "0xf2f400",
+      "rom_end": "0xf56fe8",
+      "stored_bytes": 162792,
+      "sha256": "3b6ff9189d4a835c291e427b79ac909a84bd8f6e54f1657b5b262ea641fba9f6",
+      "clips": 58,
+      "frames": 2209,
+      "descriptor_zero_bytes": 242,
+      "stream_zero_bytes": 169
+    },
+    {
+      "entry": 158,
+      "rom_start": "0xf56fe8",
+      "rom_end": "0xf57550",
+      "stored_bytes": 1384,
+      "sha256": "990f40261aa9862cf12c8d93529caa54f71ac2271b9d28f0b9f5feef44eca75c",
+      "clips": 5,
+      "frames": 120,
+      "descriptor_zero_bytes": 12,
+      "stream_zero_bytes": 17
+    },
+    {
+      "entry": 161,
+      "rom_start": "0xf57550",
+      "rom_end": "0xf577c0",
+      "stored_bytes": 624,
+      "sha256": "d94c2f93920ca0fb89908f54b350c8e3df5bd34d82783849ca25c3feeeb4f2c5",
+      "clips": 3,
+      "frames": 20,
+      "descriptor_zero_bytes": 12,
+      "stream_zero_bytes": 13
+    },
+    {
+      "entry": 162,
+      "rom_start": "0xf577c0",
+      "rom_end": "0xf5b380",
+      "stored_bytes": 15296,
+      "sha256": "43342bc3294b8bf9979eba904fad3eb4c26ea566cfd62a5024ff7ff1bc0faba3",
+      "clips": 16,
+      "frames": 244,
+      "descriptor_zero_bytes": 54,
+      "stream_zero_bytes": 62
+    },
+    {
+      "entry": 163,
+      "rom_start": "0xf5b380",
+      "rom_end": "0xf5b930",
+      "stored_bytes": 1456,
+      "sha256": "bca29da1601a1e4f3286a664b3d21c2a0ca0ccc17c8f082b26accee0f2195d66",
+      "clips": 7,
+      "frames": 94,
+      "descriptor_zero_bytes": 22,
+      "stream_zero_bytes": 18
+    },
+    {
+      "entry": 164,
+      "rom_start": "0xf5b930",
+      "rom_end": "0xf65b18",
+      "stored_bytes": 41448,
+      "sha256": "d6a35d5b8099b417a5c5eee52fc8e19735e3f0b3c7f19d0d245763b8d68acec4",
+      "clips": 22,
+      "frames": 475,
+      "descriptor_zero_bytes": 114,
+      "stream_zero_bytes": 81
+    },
+    {
+      "entry": 166,
+      "rom_start": "0xf65b18",
+      "rom_end": "0xf66a10",
+      "stored_bytes": 3832,
+      "sha256": "c5d28287788cfe3900f42ee9815101119c4c3dc77a46cdec836ab6cdd53919c0",
+      "clips": 9,
+      "frames": 134,
+      "descriptor_zero_bytes": 12,
+      "stream_zero_bytes": 26
+    },
+    {
+      "entry": 168,
+      "rom_start": "0xf66b18",
+      "rom_end": "0xf66e38",
+      "stored_bytes": 800,
+      "sha256": "40d8ed81e0a89271d85c21e0643b98362ce2c44895520e479b14a73e738eca7a",
+      "clips": 4,
+      "frames": 35,
+      "descriptor_zero_bytes": 0,
+      "stream_zero_bytes": 13
+    },
+    {
+      "entry": 169,
+      "rom_start": "0xf66e38",
+      "rom_end": "0xf67148",
+      "stored_bytes": 784,
+      "sha256": "6c040d4d10932bf331a45c693e55342bc67dd8f952948ad7b88c6d41756c591d",
+      "clips": 4,
+      "frames": 36,
+      "descriptor_zero_bytes": 0,
+      "stream_zero_bytes": 16
+    },
+    {
+      "entry": 179,
+      "rom_start": "0xf671d0",
+      "rom_end": "0xf6a1c8",
+      "stored_bytes": 12280,
+      "sha256": "7a416797d3970a3ca1c3df2e912b42b6cfcc626c8e1aa6c8ba8627161378b7a2",
+      "clips": 15,
+      "frames": 230,
+      "descriptor_zero_bytes": 46,
+      "stream_zero_bytes": 46
+    },
+    {
+      "entry": 181,
+      "rom_start": "0xf6a1c8",
+      "rom_end": "0xf88958",
+      "stored_bytes": 124816,
+      "sha256": "bd019a5d67ba464930ea092276b04b2fe660cb85f04cdb39de7042cd93c8b134",
+      "clips": 56,
+      "frames": 1730,
+      "descriptor_zero_bytes": 242,
+      "stream_zero_bytes": 156
+    },
+    {
+      "entry": 182,
+      "rom_start": "0xf88958",
+      "rom_end": "0xf88ae0",
+      "stored_bytes": 392,
+      "sha256": "d4262f87b16e3ccb26b7bf5f21efee9a73951e198079054a8c4bf6d89a967d3f",
+      "clips": 3,
+      "frames": 14,
+      "descriptor_zero_bytes": 6,
+      "stream_zero_bytes": 2
+    },
+    {
+      "entry": 186,
+      "rom_start": "0xf8ec30",
+      "rom_end": "0xf8f278",
+      "stored_bytes": 1608,
+      "sha256": "2ff8f0933a86d2523680f4e4f5bea152afac5084dab95ee3c8df765cf4d51a94",
+      "clips": 4,
+      "frames": 84,
+      "descriptor_zero_bytes": 20,
+      "stream_zero_bytes": 8
+    }
+  ],
+  "unselected": [
+    {
+      "entry": 7,
+      "stored_size": 360,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 19,
+      "stored_size": 64,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 26,
+      "stored_size": 256,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 36,
+      "stored_size": 1120,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 38,
+      "stored_size": 288,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 67,
+      "stored_size": 152,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 77,
+      "stored_size": 128,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 78,
+      "stored_size": 80,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 79,
+      "stored_size": 64,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 82,
+      "stored_size": 3376,
+      "error": "character animation rotation table is truncated"
+    },
+    {
+      "entry": 83,
+      "stored_size": 49248,
+      "error": "unresolved frame tail"
+    },
+    {
+      "entry": 97,
+      "stored_size": 32,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 99,
+      "stored_size": 304,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 103,
+      "stored_size": 112,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 106,
+      "stored_size": 48,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 115,
+      "stored_size": 64,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 124,
+      "stored_size": 44392,
+      "error": "unresolved post-duration companion tail"
+    },
+    {
+      "entry": 131,
+      "stored_size": 64,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 143,
+      "stored_size": 2264,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 146,
+      "stored_size": 171216,
+      "error": "character-specific runtime duration requires route evidence"
+    },
+    {
+      "entry": 167,
+      "stored_size": 264,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 170,
+      "stored_size": 104,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 171,
+      "stored_size": 32,
+      "error": "bank-04 bundle has an invalid descriptor-table size"
+    },
+    {
+      "entry": 183,
+      "stored_size": 5304,
+      "error": "character-specific runtime duration requires route evidence"
+    },
+    {
+      "entry": 184,
+      "stored_size": 5632,
+      "error": "character-specific runtime duration requires route evidence"
+    },
+    {
+      "entry": 185,
+      "stored_size": 13976,
+      "error": "character-specific runtime duration requires route evidence"
+    }
+  ],
+  "acceptance": {
+    "base_commit": "094102644c4c2f5aefaa0fc4b609416918f66f58",
+    "source_fingerprint": "1b0b3ce27b1f15aa634011db9e34fecd6aee0b2514fe85ec4b397439b4caab5f",
+    "report_sha256": "e53ea2e4871b14994427fdf662e4e4e11e222e255a4fa1204d564218b7407dee",
+    "measures": {
+      "fuzzy_match_percent": 25.06301,
+      "total_code": "2246328",
+      "matched_code": "555524",
+      "matched_code_percent": 24.730316,
+      "total_data": "65120512",
+      "matched_data": "36775589",
+      "matched_data_percent": 56.473125,
+      "total_functions": 5904,
+      "matched_functions": 3485,
+      "matched_functions_percent": 59.02778,
+      "complete_code": "129488",
+      "complete_code_percent": 5.7644296,
+      "complete_data": "36774821",
+      "complete_data_percent": 56.471943,
+      "total_units": 11173,
+      "complete_units": 10481
+    },
+    "new_units": 119,
+    "new_bytes": 3752256,
+    "prior_measure_changes": [
+      "assets/storage/bank02/unreconstructed"
+    ],
+    "rom_bytes": 67108864,
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "snapshot": "current",
+    "compile_errors": [],
+    "tests": {
+      "run": 2477,
+      "skipped": 8,
+      "failures": 0
+    },
+    "report_preparation_seconds": 328.7044198340009,
+    "report_and_validation_seconds": 8.592158790997928
+  }
+}

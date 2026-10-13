@@ -20,7 +20,21 @@ import font_assets
 import font_splits
 import texture_build
 import model_build
+import model_morph_build
+import event_build
+import script_build
+import sprite_build
+import visibility_build
+import route_build
+import animation_control_build
+import animation_bank_build
+import scene_volume_build
+import scene_field_build
+import animation_clips_build
 import sequence_build
+import mp3_table_build
+import mp3_spectral_build
+import objdiff_storage
 import sound_bank_build
 import adpcm_build
 import adpcm_layout
@@ -709,3 +723,359 @@ def prepare_font(rom: bytes, *, output: Path | None = None) -> tuple[dict, dict]
     item = {'name': 'assets/font_rle', 'target_path': unit['target_path'], 'base_path': unit['base_path'],
             'metadata': {'complete': False, 'progress_categories': ['data']}}
     return unit, item
+
+
+def prepare_mp3_table(rom: bytes, expected: dict, part: dict, *, output: Path) -> tuple[dict, dict]:
+    source = mp3_table_build.INPUT_DIRECTORY
+    packed, hashes = mp3_table_build.packed_tables(ROOT / source, expected)
+    return prepare_rebuilt_asset(
+        rom, key=part['name'], name=mp3_table_build.part_name(part['name']),
+        extent=part, packed=packed[part['name']], hashes=hashes, source_directory=source,
+        read_hashes=partial(mp3_table_build.input_hashes, ROOT / source, expected),
+        label=f"MP3 decoder {part['name']} storage", output=output)
+
+
+def prepare_mp3_tables(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, expected, _ = mp3_table_build.reviewed_tables(ROOT)
+    if checked_rom != rom:
+        raise ValueError('MP3 table reference ROM differs from the validated report ROM')
+    paths = ['build/us/assets/' + mp3_table_build.part_name(p['name']) + '.o' for p in expected['parts']]
+    build_rebuilt_objects(paths, 'mp3-tables', output)
+    pairs = [prepare_mp3_table(rom, expected, part, output=output) for part in expected['parts']]
+    return [unit for unit, _ in pairs], [item for _, item in pairs]
+
+
+def prepare_morph_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    source = model_morph_build.INPUT_DIRECTORY
+    packed, hashes = model_morph_build.packed_bank(ROOT / source, expected)
+    return prepare_rebuilt_asset(
+        rom, key='morph-bank', name=model_morph_build.PART_NAME,
+        extent=expected, packed=packed, hashes=hashes, source_directory=source,
+        read_hashes=partial(model_morph_build.input_hashes, ROOT / source, expected),
+        label='character morph bank storage', output=output)
+
+
+def prepare_morphs(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, expected, _ = model_morph_build.reviewed_bank(ROOT)
+    if checked_rom != rom:
+        raise ValueError('morph reference ROM differs from validated report ROM')
+    build_rebuilt_objects(['build/us/assets/' + model_morph_build.PART_NAME + '.o'], 'morph', output)
+    unit, item = prepare_morph_bank(rom, expected, output=output)
+    return [unit], [item]
+
+def prepare_rebuilt_ranges(original_bank, expected, *, source, packed, fresh_spans, hashes,
+                           key, name, linked, ranges, read_hashes, output):
+    """Credit only disjoint regenerated slices of an independently checked linked object."""
+    if len(original_bank) != expected['rom_end'] - expected['rom_start']:
+        raise ValueError('asset reference extent differs from reviewed object')
+    directory = output / key
+    directory.mkdir(parents=True, exist_ok=True)
+    linked_bytes = linked.read_bytes()
+    target_extent(linked, '.data', expected['rom_end'] - expected['rom_start'])
+    actual = sections(linked_bytes, 1)['.data'][1]
+    if actual != packed:
+        raise ValueError('asset linked candidate differs from current semantic and backing inputs')
+    fresh_ranges = [[expected['rom_start'] + start, expected['rom_start'] + start + len(payload)]
+                    for start, payload in fresh_spans]
+    size = sum(end - start for start, end in ranges)
+    objdiff_storage.rebuilt_ranges({'rom_ranges': ranges, 'size': size})
+    if (ranges != fresh_ranges
+            or any(not expected['rom_start'] <= start < end <= expected['rom_end'] for start, end in ranges)):
+        raise ValueError('asset report ranges differ from the generated bank')
+    candidate = b''.join(actual[start - expected['rom_start']:end - expected['rom_start']]
+                         for start, end in ranges)
+    fresh = b''.join(payload for _, payload in fresh_spans)
+    original = b''.join(original_bank[start - expected['rom_start']:end - expected['rom_start']] for start, end in ranges)
+    if candidate != fresh or candidate != original:
+        raise ValueError('asset ranges differ from fresh semantic sources or original ROM')
+    # Native objects contain only the proved slices, in physical ROM order.
+    # Index, padding and nonmatching entries remain in the raw-storage target.
+    relative = name + '.bin'
+    base, target = directory / 'base.o', directory / 'target.o'
+    base.write_bytes(binary_object.binary_object(candidate, relative))
+    target.write_bytes(binary_object.binary_object(original, relative))
+    for path in (base, target):
+        target_extent(path, '.data', size)
+    proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
+                                              original, 'asset semantic ranges')
+    if (hashes != read_hashes()
+            or linked.read_bytes() != linked_bytes):
+        raise ValueError('asset source or ROM linker object changed during report preparation')
+    sources = {(ROOT / source / path).resolve().relative_to(ROOT.resolve()).as_posix(): digest
+               for path, digest in hashes.items()}
+    unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data', 'size': size,
+            'rom_ranges': ranges, 'linked_rom_start': expected['rom_start'], 'linked_rom_end': expected['rom_end'],
+            'source_inputs': sources, 'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
+            'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
+            'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
+            'literal_payload_matches_rom': True, 'target_verification': proof,
+            'report_code_bytes': 0, 'report_data_bytes': size, 'complete': True}
+    item = {'name': 'assets/' + name, 'target_path': unit['target_path'], 'base_path': unit['base_path'],
+            'metadata': {'complete': True, 'progress_categories': ['data']}}
+    return unit, item
+
+
+
+def prepare_visibility_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    """Report only regenerated physical ranges of the actual linked object."""
+    source = visibility_build.INPUT_DIRECTORY
+    packed, fresh_spans, hashes = visibility_build.packed_bank(ROOT / source, expected)
+    key = 'visibility-bank'
+    name = 'visibility/bank05'
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
+        linked=ROOT / ('build/us/assets/' + visibility_build.PART_NAME + '.o'), ranges=expected['rom_ranges'],
+        read_hashes=lambda: visibility_build.input_hashes(ROOT / source, expected), output=output)
+
+
+
+def prepare_visibility(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, expected, _ = visibility_build.reviewed_bank(ROOT)
+    if checked_rom != rom:
+        raise ValueError('visibility reference ROM differs from validated report ROM')
+    build_rebuilt_objects(['build/us/assets/' + visibility_build.PART_NAME + '.o'], 'visibility', output)
+    unit, item = prepare_visibility_bank(rom, expected, output=output)
+    return [unit], [item]
+
+
+def prepare_sprite_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    """Report only regenerated physical ranges of the actual linked object."""
+    source = sprite_build.INPUT_DIRECTORY
+    packed, fresh_spans, hashes = sprite_build.packed_bank(ROOT / source, expected)
+    key = 'sprite-bank'
+    name = 'sprites/bank00'
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
+        linked=ROOT / ('build/us/assets/' + sprite_build.PART_NAME + '.o'), ranges=expected['rom_ranges'],
+        read_hashes=lambda: sprite_build.input_hashes(ROOT / source, expected), output=output)
+
+
+
+def prepare_sprites(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, expected, _ = sprite_build.reviewed_bank(ROOT)
+    if checked_rom != rom:
+        raise ValueError('sprite reference ROM differs from validated report ROM')
+    build_rebuilt_objects(['build/us/assets/' + sprite_build.PART_NAME + '.o'], 'sprites', output)
+    unit, item = prepare_sprite_bank(rom, expected, output=output)
+    return [unit], [item]
+
+
+def prepare_mp3_spectral_stream(original: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    index = expected['entry']
+    source = mp3_spectral_build.input_directory(index)
+    packed, fresh_spans, hashes = mp3_spectral_build.packed_stream(
+        ROOT / source, expected, include_partial=True,
+        cache_directory=ROOT / 'build/us/mp3-spectral/cache')
+    ranges, _, _ = mp3_spectral_build.codec.reviewed_ranges(original, include_partial=True)
+    return prepare_rebuilt_ranges(
+        original, expected, source=source, packed=packed, fresh_spans=fresh_spans, hashes=hashes,
+        key=f'mp3-spectral-{index:04d}', name=f'audio/mp3/spectral/{index:04d}',
+        linked=ROOT / ('build/us/assets/' + mp3_spectral_build.part_name(index) + '.o'),
+        ranges=[[expected['rom_start'] + a, expected['rom_start'] + z] for a, z in ranges],
+        read_hashes=lambda: mp3_spectral_build.input_hashes(ROOT / source, expected), output=output)
+
+
+def initialize_mp3_spectral_report_worker(root, output):
+    global ROOT, _SPECTRAL_OUTPUT
+    ROOT, _SPECTRAL_OUTPUT = root, output
+
+
+def prepare_mp3_spectral_report_worker(task):
+    expected, original = task
+    return prepare_mp3_spectral_stream(original, expected, output=_SPECTRAL_OUTPUT)
+
+
+def prepare_mp3_spectral(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    mp3_spectral_build.prune_legacy_cache(ROOT / 'build/us/mp3-spectral/cache')
+    checked_rom, selected = mp3_spectral_build.reviewed_streams(ROOT)
+    if checked_rom != rom:
+        raise ValueError('spectral reference ROM differs from validated report ROM')
+    paths = ['build/us/assets/' + mp3_spectral_build.part_name(e['entry']) + '.o' for e, _ in selected]
+    build_rebuilt_objects(paths, 'mp3-spectral', output)
+    with ProcessPoolExecutor(max_workers=job_count(), initializer=initialize_mp3_spectral_report_worker,
+                             initargs=(ROOT, output)) as workers:
+        pairs = list(workers.map(prepare_mp3_spectral_report_worker, selected, chunksize=4))
+    return [unit for unit, _ in pairs], [item for _, item in pairs]
+
+
+
+def prepare_script_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    source = script_build.INPUT_DIRECTORY
+    packed, hashes = script_build.packed_bank(ROOT / source, expected)
+    return prepare_rebuilt_asset(
+        rom, key='script-bank', name=script_build.PART_NAME,
+        extent=expected, packed=packed, hashes=hashes, source_directory=source,
+        read_hashes=partial(script_build.input_hashes, ROOT / source, expected),
+        label='script program bank storage', output=output)
+
+
+def prepare_scripts(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, expected, _ = script_build.reviewed_bank(ROOT)
+    if checked_rom != rom:
+        raise ValueError('script reference ROM differs from validated report ROM')
+    build_rebuilt_objects(['build/us/assets/' + script_build.PART_NAME + '.o'], 'scripts', output)
+    unit, item = prepare_script_bank(rom, expected, output=output)
+    return [unit], [item]
+
+def prepare_event_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    source = event_build.INPUT_DIRECTORY
+    packed, hashes = event_build.packed_bank(ROOT / source, expected)
+    return prepare_rebuilt_asset(
+        rom, key='event-bank', name=event_build.PART_NAME,
+        extent=expected, packed=packed, hashes=hashes, source_directory=source,
+        read_hashes=partial(event_build.input_hashes, ROOT / source, expected),
+        label='event program bank storage', output=output)
+
+
+def prepare_events(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, expected, _ = event_build.reviewed_bank(ROOT)
+    if checked_rom != rom:
+        raise ValueError('event reference ROM differs from validated report ROM')
+    build_rebuilt_objects(['build/us/assets/' + event_build.PART_NAME + '.o'], 'events', output)
+    unit, item = prepare_event_bank(rom, expected, output=output)
+    return [unit], [item]
+
+def prepare_scene_volume_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    """Report only regenerated physical ranges of the actual linked object."""
+    source = scene_volume_build.INPUT_DIRECTORY
+    packed, fresh_spans, hashes = scene_volume_build.packed_bank(ROOT / source, expected)
+    key = 'scene-volumes'
+    name = 'scenes/volumes'
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
+        linked=ROOT / ('build/us/assets/' + scene_volume_build.PART + '.o'), ranges=expected['rom_ranges'],
+        read_hashes=lambda: scene_volume_build.input_hashes(ROOT / source, expected), output=output)
+
+
+def prepare_scene_volumes(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, expected, _ = scene_volume_build.reviewed_bank(ROOT)
+    if checked_rom != rom:
+        raise ValueError('scene reference ROM differs from validated report ROM')
+    build_rebuilt_objects(['build/us/assets/' + scene_volume_build.PART + '.o'], 'scene volumes', output)
+    unit, item = prepare_scene_volume_bank(rom, expected, output=output)
+    return [unit], [item]
+
+def prepare_scene_field_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    """Report only regenerated physical ranges of the actual linked object."""
+    source = scene_field_build.INPUT_DIRECTORY
+    packed, fresh_spans, hashes = scene_field_build.packed_bank(ROOT / source, expected)
+    key = 'scene-fields'
+    name = 'scenes/fields'
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
+        linked=ROOT / ('build/us/assets/' + scene_field_build.PART + '.o'), ranges=expected['rom_ranges'],
+        read_hashes=lambda: scene_field_build.input_hashes(ROOT / source, expected), output=output)
+
+
+def prepare_scene_fields(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, expected, _ = scene_field_build.reviewed_bank(ROOT)
+    if checked_rom != rom:
+        raise ValueError('scene reference ROM differs from validated report ROM')
+    build_rebuilt_objects(['build/us/assets/' + scene_field_build.PART + '.o'], 'scene fields', output)
+    unit, item = prepare_scene_field_bank(rom, expected, output=output)
+    return [unit], [item]
+
+
+def prepare_animation_bank_object(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    """Report only regenerated physical ranges of the actual linked object."""
+    source = animation_bank_build.input_directory(expected['bank'])
+    packed, fresh_spans, hashes = animation_bank_build.packed_bank(ROOT / source, expected)
+    key = f'animation-bank{expected["bank"]:02X}'
+    name = f'animations/bank{expected["bank"]:02X}'
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
+        linked=ROOT / ('build/us/assets/' + animation_bank_build.part_name(expected['bank']) + '.o'), ranges=expected['rom_ranges'],
+        read_hashes=lambda: animation_bank_build.input_hashes(ROOT / source, expected), output=output)
+
+
+
+def prepare_animation_bank(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    units, configs = [], []
+    for bank in animation_bank_build.BANKS:
+        checked_rom, expected, _ = animation_bank_build.reviewed_bank(bank, ROOT)
+        if checked_rom != rom:
+            raise ValueError('animation reference ROM differs from validated report ROM')
+        build_rebuilt_objects(['build/us/assets/' + animation_bank_build.part_name(bank) + '.o'], 'animation bank', output)
+        unit, item = prepare_animation_bank_object(rom, expected, output=output)
+        units.append(unit); configs.append(item)
+    return units, configs
+
+
+def prepare_animation_control_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    """Report only regenerated physical ranges of the actual linked object."""
+    source = animation_control_build.input_directory(expected['bank'])
+    packed, fresh_spans, hashes = animation_control_build.packed_bank(ROOT / source, expected)
+    key = f'animation-control-bank{expected["bank"]:02X}'
+    name = f'animation-controls/bank{expected["bank"]:02X}'
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
+        linked=ROOT / ('build/us/assets/' + animation_control_build.part_name(expected['bank']) + '.o'), ranges=expected['rom_ranges'],
+        read_hashes=lambda: animation_control_build.input_hashes(ROOT / source, expected), output=output)
+
+
+
+def prepare_animation_controls(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    units, configs = [], []
+    for bank in animation_control_build.BANKS:
+        checked_rom, expected, _ = animation_control_build.reviewed_bank(bank, ROOT)
+        if checked_rom != rom:
+            raise ValueError('animation control reference ROM differs from validated report ROM')
+        build_rebuilt_objects(['build/us/assets/' + animation_control_build.part_name(bank) + '.o'], 'animation controls', output)
+        unit, item = prepare_animation_control_bank(rom, expected, output=output)
+        units.append(unit); configs.append(item)
+    return units, configs
+
+
+def prepare_route_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    """Report only regenerated physical ranges of the actual linked object."""
+    source = route_build.input_directory(expected['bank'])
+    packed, fresh_spans, hashes = route_build.packed_bank(ROOT / source, expected)
+    key = f'route-bank{expected["bank"]:02X}'
+    name = f'routes/bank{expected["bank"]:02X}'
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
+        linked=ROOT / ('build/us/assets/' + route_build.part_name(expected['bank']) + '.o'), ranges=expected['rom_ranges'],
+        read_hashes=lambda: route_build.input_hashes(ROOT / source, expected), output=output)
+
+
+
+def prepare_routes(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    units, configs = [], []
+    for bank in route_build.BANKS:
+        checked_rom, expected, _ = route_build.reviewed_bank(bank, ROOT)
+        if checked_rom != rom:
+            raise ValueError('route reference ROM differs from validated report ROM')
+        build_rebuilt_objects(['build/us/assets/' + route_build.part_name(bank) + '.o'], 'routes', output)
+        unit, item = prepare_route_bank(rom, expected, output=output)
+        units.append(unit); configs.append(item)
+    return units, configs
+
+
+def prepare_animation_clips_object(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    """Report only regenerated physical ranges of the actual linked object."""
+    source = animation_clips_build.input_directory(expected['part'])
+    packed, fresh_spans, hashes = animation_clips_build.packed_object(ROOT / source, expected)
+    key = f'animation-clips-{expected["part"]}'
+    name = f'animations/partial/{expected["part"]}'
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
+        linked=ROOT / ('build/us/assets/' + animation_clips_build.part_name(expected['part']) + '.o'), ranges=expected['rom_ranges'],
+        read_hashes=lambda: animation_clips_build.input_hashes(ROOT / source, expected), output=output)
+
+
+def prepare_animation_clips(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, selected = animation_clips_build.reviewed_objects(ROOT)
+    if checked_rom != rom:
+        raise ValueError('partial animation reference ROM differs from validated report ROM')
+    paths = ['build/us/assets/' + animation_clips_build.part_name(e['part']) + '.o' for e, _ in selected]
+    build_rebuilt_objects(paths, 'animation clips', output)
+    pairs = [prepare_animation_clips_object(rom, expected, output=output) for expected, _ in selected]
+    return [unit for unit, _ in pairs], [item for _, item in pairs]

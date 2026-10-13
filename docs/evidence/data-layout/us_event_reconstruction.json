@@ -1,0 +1,3210 @@
+{
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "rom_start": 19943168,
+  "rom_end": 20113048,
+  "bank_sha256": "2631ced03442a73dbfc23149508d47f24ab9df7335265c3c9000621a8e92b10b",
+  "bank_bytes": 169880,
+  "program_count": 203,
+  "instruction_count": 62491,
+  "string_count": 272,
+  "decoded_bytes": 337192,
+  "mutation_count": 1153,
+  "consumer_endpoint_mutations": [
+    {
+      "field": "code",
+      "address": 352333748
+    },
+    {
+      "field": "code",
+      "address": 352334091
+    },
+    {
+      "field": "code",
+      "address": 352499144
+    },
+    {
+      "field": "code",
+      "address": 352499387
+    },
+    {
+      "field": "code",
+      "address": 352957600
+    },
+    {
+      "field": "code",
+      "address": 352957807
+    },
+    {
+      "field": "code",
+      "address": 352957868
+    },
+    {
+      "field": "code",
+      "address": 352958211
+    },
+    {
+      "field": "code",
+      "address": 352958716
+    },
+    {
+      "field": "code",
+      "address": 352958799
+    },
+    {
+      "field": "code",
+      "address": 352958800
+    },
+    {
+      "field": "code",
+      "address": 352958979
+    },
+    {
+      "field": "code",
+      "address": 352959392
+    },
+    {
+      "field": "code",
+      "address": 352960063
+    },
+    {
+      "field": "code",
+      "address": 352963540
+    },
+    {
+      "field": "code",
+      "address": 352963731
+    },
+    {
+      "field": "code",
+      "address": 353032944
+    },
+    {
+      "field": "code",
+      "address": 353034879
+    },
+    {
+      "field": "code",
+      "address": 352961600
+    },
+    {
+      "field": "code",
+      "address": 352962503
+    },
+    {
+      "field": "code",
+      "address": 352967968
+    },
+    {
+      "field": "code",
+      "address": 352967983
+    },
+    {
+      "field": "code",
+      "address": 352967984
+    },
+    {
+      "field": "code",
+      "address": 352967999
+    },
+    {
+      "field": "data",
+      "address": 2148037464
+    },
+    {
+      "field": "data",
+      "address": 2148037494
+    },
+    {
+      "field": "data",
+      "address": 2148042176
+    },
+    {
+      "field": "data",
+      "address": 2148042403
+    },
+    {
+      "field": "data",
+      "address": 2148042404
+    },
+    {
+      "field": "data",
+      "address": 2148042459
+    },
+    {
+      "field": "data",
+      "address": 2148041940
+    },
+    {
+      "field": "data",
+      "address": 2148041999
+    },
+    {
+      "field": "data",
+      "address": 2148131904
+    },
+    {
+      "field": "data",
+      "address": 2148131927
+    }
+  ],
+  "source_inputs": {
+    "manifest.json": "2783846e05920a546361f587c28e0fa650c360bb6fd8e4ddd639681048af40cb",
+    "programs.json": "118b00b27acc3a00328b5e5928f995f93dadcdf629fd8fcdfa0683cc6e5b34ad"
+  },
+  "programs": [
+    {
+      "entry": 0,
+      "decoded_bytes": 948,
+      "decoded_sha256": "eba64a27a83d233eafe35ebed7802667b53662a51cbf2db33b8a3786846705ed",
+      "instructions": 206,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 1,
+      "decoded_bytes": 372,
+      "decoded_sha256": "feadb1a8b490d7a3b96d5d8600046033f4d354d82e8347954fb98f654a69c0aa",
+      "instructions": 84,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 2,
+      "decoded_bytes": 454,
+      "decoded_sha256": "d40fac2ead988d047d2edaf6af89ab4da3ef293fbc32b4ef87bd1f6af3bc353b",
+      "instructions": 95,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 3,
+      "decoded_bytes": 632,
+      "decoded_sha256": "ffbc24498044cb9350df45b89155801983e8d60d62a6929fb026b0345a78276f",
+      "instructions": 137,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 4,
+      "decoded_bytes": 162,
+      "decoded_sha256": "d34e43a566822314e71c92651bf8b523303e8f582bc54031832565ea84a6a191",
+      "instructions": 34,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 5,
+      "decoded_bytes": 1062,
+      "decoded_sha256": "61dd8cf5b3229bf5eb26eb2084d4b174854964653986b1081995a000832c3df0",
+      "instructions": 215,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 6,
+      "decoded_bytes": 214,
+      "decoded_sha256": "a68aa7ccb452ae2ecbab4699a5df0d36e8ef7e9f9ae184b26a4639d7ede74a91",
+      "instructions": 45,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 7,
+      "decoded_bytes": 788,
+      "decoded_sha256": "b2df20b116a856b0658272e34bfc05156a1459c99687dd6db8630c8fc3c48162",
+      "instructions": 170,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 8,
+      "decoded_bytes": 646,
+      "decoded_sha256": "5813d9f5a370244762a4be045b75abbf42d0f6df72d6de72fe29087081f221e9",
+      "instructions": 140,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 9,
+      "decoded_bytes": 532,
+      "decoded_sha256": "6cff3f27065cacb76e580b1703b9e41cfa1ef65078b57d67e0a18426f30ec8d9",
+      "instructions": 106,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 10,
+      "decoded_bytes": 3412,
+      "decoded_sha256": "8a389815ada655d3571f2453310054e36477b9a049694b87252fba69a77bb26f",
+      "instructions": 709,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 11,
+      "decoded_bytes": 408,
+      "decoded_sha256": "ed2fda5e1653b48efb0fbafa5ef8e44df65b234365fdb9da3173fbaac23ce66b",
+      "instructions": 83,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 12,
+      "decoded_bytes": 174,
+      "decoded_sha256": "272d730e1531b3aa36a37bed77d6fd7b4f1df74f181ddbd890f711289c65d2ff",
+      "instructions": 35,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 13,
+      "decoded_bytes": 622,
+      "decoded_sha256": "344b19d56507d566562a3b7ea5246a5a2fa4aa2b480ef0b3f7ce2c7406db3288",
+      "instructions": 125,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 14,
+      "decoded_bytes": 150,
+      "decoded_sha256": "4ee154f330a7ada16696ade2d3fed493776823104c0d57b7fda18d9af360a099",
+      "instructions": 30,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 15,
+      "decoded_bytes": 468,
+      "decoded_sha256": "6ed8914f7106589c76168fc840f2966f5deb0b4e1d832a3daf0aa069625646fd",
+      "instructions": 98,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 16,
+      "decoded_bytes": 712,
+      "decoded_sha256": "d0f7c4f70e30443b46175fbd047d0a5243b5fc1526961b81bb8cf232ea75da05",
+      "instructions": 148,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 17,
+      "decoded_bytes": 324,
+      "decoded_sha256": "2c0b4f64d6c2e12bef8d079671cbe5fab62654a7080b894712b8dcbcebf49020",
+      "instructions": 68,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 18,
+      "decoded_bytes": 436,
+      "decoded_sha256": "2908e131b349ba4b046728faf16acca8960964c4ad7d96c1200294043676ed0a",
+      "instructions": 89,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 19,
+      "decoded_bytes": 766,
+      "decoded_sha256": "f1f012ca6708e30d342958c533fb2d89a523d2e80909a96876a990d61bd4e762",
+      "instructions": 159,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 20,
+      "decoded_bytes": 436,
+      "decoded_sha256": "1a25d892ed5dbfc67585795618f2be1ff4144a8799b5397540f8c700e3bee123",
+      "instructions": 80,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 21,
+      "decoded_bytes": 556,
+      "decoded_sha256": "d862d60080f6f0f81297d6bfb03bcdfaa27525372a726d35270e9492f4710379",
+      "instructions": 109,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 22,
+      "decoded_bytes": 276,
+      "decoded_sha256": "d2fc62af8f347b863014d006e083811edb803dacc92320f4c09c9753f2edca5e",
+      "instructions": 54,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 23,
+      "decoded_bytes": 234,
+      "decoded_sha256": "49f49e8daf1da5f9a8d450cc0377028e001a4bb757c3267f158c05e3883ace2d",
+      "instructions": 49,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 24,
+      "decoded_bytes": 812,
+      "decoded_sha256": "44dd03e23c8518fc2545b918a93829d08d28a1350d0b2b8559363118060ed00d",
+      "instructions": 152,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 25,
+      "decoded_bytes": 194,
+      "decoded_sha256": "cde77f21038873ee18a9cd2dcc18563c99906a454ac809f24d320f5c0bec38c4",
+      "instructions": 41,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 26,
+      "decoded_bytes": 86,
+      "decoded_sha256": "7b6673122d693a0bc8146d890562edd7893dfad16f16ca3c304a2be94a6f6dbd",
+      "instructions": 16,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "entrypoint_label"
+      ]
+    },
+    {
+      "entry": 27,
+      "decoded_bytes": 1276,
+      "decoded_sha256": "ae590728f8391e3124ac1ef59ff659ece97c3235d776c5919877167f2a22b516",
+      "instructions": 247,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 28,
+      "decoded_bytes": 412,
+      "decoded_sha256": "d79d1dc9ee0bec3fca3edfbe4b479c6ec934be2a02cc8cf015ce2110f541ecfc",
+      "instructions": 88,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 29,
+      "decoded_bytes": 338,
+      "decoded_sha256": "d2d0ace09816aeccfbd3a4fe38237bc750d267c52f8548361ced778d9c6d18c4",
+      "instructions": 72,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 30,
+      "decoded_bytes": 618,
+      "decoded_sha256": "5cb9e932eaef9fcd487b7658907e9192e2d905f26b34900a530ae6d71aa17091",
+      "instructions": 120,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 31,
+      "decoded_bytes": 610,
+      "decoded_sha256": "1cb75e640ee65996291fbe64841ceb9110cbda5a1a123402ef2b8c5226822e2a",
+      "instructions": 129,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 32,
+      "decoded_bytes": 934,
+      "decoded_sha256": "c25281992f4e8a1161b8b854b19f00720e53252e371fb29b7580100a49e132a6",
+      "instructions": 207,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 33,
+      "decoded_bytes": 190,
+      "decoded_sha256": "ebcf044d9cf870711a7a93cdf8880747c5f0c0fced8e07d508588f4a071a9bfa",
+      "instructions": 38,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 34,
+      "decoded_bytes": 618,
+      "decoded_sha256": "14c80791e62bab166b68b46bbd8f7646c23eeddfde441c19f90fc2b334210a5d",
+      "instructions": 123,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 35,
+      "decoded_bytes": 328,
+      "decoded_sha256": "58bf531317a5e8bf4641004f32bf651746ce4055f8a836222ca51ba2ec98e544",
+      "instructions": 69,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 36,
+      "decoded_bytes": 364,
+      "decoded_sha256": "b934a9f30f0e92ccd5c6b2598ec77cf96e410b244b645c656b3c713edcbd7622",
+      "instructions": 77,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 37,
+      "decoded_bytes": 364,
+      "decoded_sha256": "fad2dcab59fa97f0445bd9b33c2e272d76659874e60574cd2a96b04d0966bb78",
+      "instructions": 77,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 38,
+      "decoded_bytes": 254,
+      "decoded_sha256": "8c60c58302230e9f8541a495f73c1a4f18442122889a13d0e856670a7f661e7e",
+      "instructions": 53,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 39,
+      "decoded_bytes": 678,
+      "decoded_sha256": "fdfbb87a78dd92d0cb7a4351d1a7e08b0f2709df4916b0b9369ca1a447aabf33",
+      "instructions": 147,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 40,
+      "decoded_bytes": 1532,
+      "decoded_sha256": "bac4f54930d1651f16f06129f9ac1f14ce128f8ec7a80e4babd3a434c47c28ca",
+      "instructions": 269,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 41,
+      "decoded_bytes": 266,
+      "decoded_sha256": "5fae17dc73d778b63bec41ebd6ccd79a062acc3f68e0359770516f78e63b7907",
+      "instructions": 54,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 42,
+      "decoded_bytes": 494,
+      "decoded_sha256": "8fd2d428489366970fc495a4aabc9f768001fc75cb8cc269ccadc8055094f0f1",
+      "instructions": 108,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 43,
+      "decoded_bytes": 2010,
+      "decoded_sha256": "72d504ca6803a93c540e011fd0ba3e69301c81eb6b089dffbe4edbe92d3bcd4d",
+      "instructions": 358,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 44,
+      "decoded_bytes": 3588,
+      "decoded_sha256": "5a5fa51ca0c9e780358916cc42ec91adb3c7b25445e3d7f8d90611117e090eab",
+      "instructions": 732,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 45,
+      "decoded_bytes": 3560,
+      "decoded_sha256": "99c3eb80050db2bc7bb39f455ce8a5e9acbfac652e5acde1eb2ac848cacc0dba",
+      "instructions": 712,
+      "strings": 1,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_120"
+      ]
+    },
+    {
+      "entry": 46,
+      "decoded_bytes": 654,
+      "decoded_sha256": "a6e987344350798c1f06dd021459e6bc008a1f6829d46f7cfd573cc746dbd7c6",
+      "instructions": 107,
+      "strings": 5,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_6",
+        "string_1_character_0",
+        "string_1_character_0",
+        "string_2_character_0",
+        "string_2_character_24",
+        "string_3_character_0",
+        "string_3_character_8",
+        "string_4_character_0",
+        "string_4_character_31"
+      ]
+    },
+    {
+      "entry": 47,
+      "decoded_bytes": 88,
+      "decoded_sha256": "7a5019beb82bda0c79f55a8000f2fd472b92b5c2ece6bf98cdb209b77055545a",
+      "instructions": 15,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "entrypoint_label"
+      ]
+    },
+    {
+      "entry": 48,
+      "decoded_bytes": 1788,
+      "decoded_sha256": "07e1e39d6c393cc3e4a986d8a37786fb3a9870bdb297c7180a0981e4e873fdac",
+      "instructions": 367,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 49,
+      "decoded_bytes": 782,
+      "decoded_sha256": "408c020c5ed1b259dbc97a0d82bd3dc8de638aec48b7b291e1b779bbeb41a8eb",
+      "instructions": 163,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 50,
+      "decoded_bytes": 214,
+      "decoded_sha256": "739abdea7fd2b4bd7f39249a3ef21ea9a465daf585789823aa0db9924810cd2d",
+      "instructions": 44,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 51,
+      "decoded_bytes": 122,
+      "decoded_sha256": "2c2130a15717a3e75e6541c6b0a0133ec38ecc59bdac96e98327644acf513e5a",
+      "instructions": 24,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 52,
+      "decoded_bytes": 526,
+      "decoded_sha256": "d598f9f5dadbb70cf7c3da3eb5912fb8a8b5c3baf0ade4daefebcfe4aed17e6b",
+      "instructions": 100,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 53,
+      "decoded_bytes": 154,
+      "decoded_sha256": "d26a82cadaa31f1fcf99c5b1039d03e1655a24642b8f5a1de28104a0d55ce225",
+      "instructions": 32,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 54,
+      "decoded_bytes": 158,
+      "decoded_sha256": "409e5a65fec78f4825d490b7048d41e6c9613e10ae3929d0d60826343aa8f8eb",
+      "instructions": 32,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 55,
+      "decoded_bytes": 2170,
+      "decoded_sha256": "ba4a893cd9aa86e3f686269dd9ac3770e7869f9f4c1c7aa9bc5fcf5566ea6a9d",
+      "instructions": 386,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 56,
+      "decoded_bytes": 922,
+      "decoded_sha256": "e3c1043b678f1bc5b41bb399beee3b65dc878ed5754fc770145d5d3cd6485c90",
+      "instructions": 190,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 57,
+      "decoded_bytes": 280,
+      "decoded_sha256": "001ed70e55eb52883366ef01dbbf826117e70d2eae8d29fb4e0e06fdf1a8ead7",
+      "instructions": 58,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 58,
+      "decoded_bytes": 532,
+      "decoded_sha256": "0a97eae242e984923fc2bbc3c772c0a221f3cc7d71c3d942321f254d67b8d9c5",
+      "instructions": 115,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 59,
+      "decoded_bytes": 470,
+      "decoded_sha256": "cfdcee3e37429c6bfe93c13a570b9dd6c6fc3b9bd77f8b74c9fac96b2858389f",
+      "instructions": 97,
+      "strings": 1,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_3"
+      ]
+    },
+    {
+      "entry": 60,
+      "decoded_bytes": 1898,
+      "decoded_sha256": "728c1e48b7cd9727646453b860b8637f1e661926350ff7e5d3420287aee76f88",
+      "instructions": 378,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 61,
+      "decoded_bytes": 120,
+      "decoded_sha256": "c5780856352bd4a12e1f7a6b4849f0e65d427e3b7bbd81f2c3b4e5c77bcb88f5",
+      "instructions": 22,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 62,
+      "decoded_bytes": 1768,
+      "decoded_sha256": "3f57bf515a2dbaebaa35734f07d89b6154c140776dee6c69a80627947df620c8",
+      "instructions": 338,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 63,
+      "decoded_bytes": 614,
+      "decoded_sha256": "9a286fcf30664e883878d8222d4d4de61cebe2ecc912720967eb9963220c43dc",
+      "instructions": 124,
+      "strings": 3,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_7",
+        "string_1_character_0",
+        "string_1_character_7",
+        "string_2_character_0",
+        "string_2_character_7"
+      ]
+    },
+    {
+      "entry": 64,
+      "decoded_bytes": 288,
+      "decoded_sha256": "a79b2b1e3e543f74f67ea9c970868693f7e46ee7707e1d3042c9187f235c4f80",
+      "instructions": 60,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 65,
+      "decoded_bytes": 1692,
+      "decoded_sha256": "9ad69b6dcae94c6a652649f3a8255e37e0c973b9e3c44b69046fa2f9bc09b748",
+      "instructions": 331,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 66,
+      "decoded_bytes": 440,
+      "decoded_sha256": "e6430215c31c03428c8517114dd149606118a57d1ff0d7ad62738f6677057643",
+      "instructions": 92,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 67,
+      "decoded_bytes": 3578,
+      "decoded_sha256": "71885edc5d019fc3a7b4fbf62740990c33694d73bbc210961ae8fd7b26502524",
+      "instructions": 730,
+      "strings": 2,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_1",
+        "string_0_character_4",
+        "string_1_character_1",
+        "string_1_character_3"
+      ]
+    },
+    {
+      "entry": 68,
+      "decoded_bytes": 3024,
+      "decoded_sha256": "0a7befcf6bb252ac5127156838854819d4a1100046f15702e7a6da578a97869b",
+      "instructions": 556,
+      "strings": 5,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_15",
+        "string_1_character_0",
+        "string_1_character_26",
+        "string_2_character_0",
+        "string_2_character_5",
+        "string_3_character_0",
+        "string_3_character_0",
+        "string_4_character_0",
+        "string_4_character_34"
+      ]
+    },
+    {
+      "entry": 69,
+      "decoded_bytes": 1250,
+      "decoded_sha256": "e91e1ab4590726c552c7533df01edc6acebd30b5987624735b1ba0e55c4dfc91",
+      "instructions": 251,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 70,
+      "decoded_bytes": 488,
+      "decoded_sha256": "7e330a5b50755264a6c93465700a6a257cda0c3bf32c22b42c7ddf73dbda6c45",
+      "instructions": 97,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 71,
+      "decoded_bytes": 1082,
+      "decoded_sha256": "c57e85b9837b8c215303a99187dcc05e01642310eb664b169b70b320387360af",
+      "instructions": 224,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 72,
+      "decoded_bytes": 104,
+      "decoded_sha256": "5250e3573fee0e7d48175b829b3579a49dec9f3d7c26b42daae54412c45b9aaf",
+      "instructions": 20,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "entrypoint_label"
+      ]
+    },
+    {
+      "entry": 73,
+      "decoded_bytes": 3228,
+      "decoded_sha256": "e12baaa964b42cc554acdfc153f3b9034d9a67794db6b3f4f69742adcd48155e",
+      "instructions": 657,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 74,
+      "decoded_bytes": 442,
+      "decoded_sha256": "c262a6bb191e92dd015f29aeb9ad61e0c253413824a146f103bbb65c7e9b361b",
+      "instructions": 89,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 75,
+      "decoded_bytes": 498,
+      "decoded_sha256": "03c5786130189af6cb6c55275f14f2b89e2b6538d86ef0cf345c8d734463c71c",
+      "instructions": 112,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 76,
+      "decoded_bytes": 2458,
+      "decoded_sha256": "e8667ad71cf9acecefcb81e60021bf85f8506c43faa31f805ed873ed185519b3",
+      "instructions": 452,
+      "strings": 20,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_6",
+        "string_1_character_0",
+        "string_1_character_0",
+        "string_2_character_0",
+        "string_2_character_0",
+        "string_3_character_0",
+        "string_3_character_6",
+        "string_4_character_0",
+        "string_4_character_0",
+        "string_5_character_0",
+        "string_5_character_6",
+        "string_6_character_0",
+        "string_6_character_0",
+        "string_7_character_0",
+        "string_7_character_1",
+        "string_8_character_0",
+        "string_8_character_1",
+        "string_9_character_0",
+        "string_9_character_1",
+        "string_10_character_0",
+        "string_10_character_1",
+        "string_11_character_0",
+        "string_11_character_1",
+        "string_12_character_0",
+        "string_12_character_1",
+        "string_13_character_0",
+        "string_13_character_1",
+        "string_14_character_0",
+        "string_14_character_1",
+        "string_15_character_0",
+        "string_15_character_10",
+        "string_16_character_0",
+        "string_16_character_0",
+        "string_17_character_0",
+        "string_17_character_39",
+        "string_18_character_0",
+        "string_18_character_0",
+        "string_19_character_0",
+        "string_19_character_24"
+      ]
+    },
+    {
+      "entry": 77,
+      "decoded_bytes": 428,
+      "decoded_sha256": "e4b453b3bd809616bae985dd27b837871f394a3e9f321e69b72f9b3904c2d610",
+      "instructions": 89,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 78,
+      "decoded_bytes": 62,
+      "decoded_sha256": "b66e0606ccc69743e9e1b7135854432b2628f01180bfa67d15bd963c425d4778",
+      "instructions": 10,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "entrypoint_label"
+      ]
+    },
+    {
+      "entry": 79,
+      "decoded_bytes": 610,
+      "decoded_sha256": "1a118fdcd342ababd61f06c2359593d1569969229f49aa4c5111fa9e94370269",
+      "instructions": 127,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 80,
+      "decoded_bytes": 1076,
+      "decoded_sha256": "ffa59744dafa28cc82320e69fdb981340bc340fdba424990a56cb374d6b42cb2",
+      "instructions": 235,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 81,
+      "decoded_bytes": 2526,
+      "decoded_sha256": "00e55a786541019b82ec3d6b24d9a0e262c1936e7914c0249b00b52cc0865084",
+      "instructions": 491,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 82,
+      "decoded_bytes": 802,
+      "decoded_sha256": "eb8acf6be7640982791cd33dbd20e06fdcab3261381487e93aba7abc637c51e3",
+      "instructions": 141,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 83,
+      "decoded_bytes": 2096,
+      "decoded_sha256": "ae12e23aa424e54d277dae9e80237d852dcd30f575e06f96c834be56f638c9e4",
+      "instructions": 419,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 84,
+      "decoded_bytes": 638,
+      "decoded_sha256": "c3a7b79a970c570c1eaa137446ca827e9f2e2743b5b07020f97a2b8bbbd5a2c8",
+      "instructions": 123,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 85,
+      "decoded_bytes": 1488,
+      "decoded_sha256": "fe3b6a38028656aee0e42e3971f707c9cc1ec21b1824c7e986b55e8c1b1dd82c",
+      "instructions": 298,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 86,
+      "decoded_bytes": 328,
+      "decoded_sha256": "8f2e7268d90a10103b01b2ff7d159ae568759fc83574f471808f3fcfd9d2fcb9",
+      "instructions": 68,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 87,
+      "decoded_bytes": 1102,
+      "decoded_sha256": "416206c93920de9c4d568b57a7309fda988bae1f6bb270ef37523f88c3e71270",
+      "instructions": 239,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 88,
+      "decoded_bytes": 250,
+      "decoded_sha256": "b14b515efaea39f30789ce59cd1ea5871ec0e65bee92f9b3587627b90b9658f0",
+      "instructions": 51,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 89,
+      "decoded_bytes": 2512,
+      "decoded_sha256": "02267227145956799e85556fead244ec37713b3d4f5658744f77f07d26a20a63",
+      "instructions": 414,
+      "strings": 6,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_80",
+        "string_1_character_0",
+        "string_1_character_76",
+        "string_2_character_0",
+        "string_2_character_106",
+        "string_3_character_0",
+        "string_3_character_73",
+        "string_4_character_0",
+        "string_4_character_107",
+        "string_5_character_0",
+        "string_5_character_47"
+      ]
+    },
+    {
+      "entry": 90,
+      "decoded_bytes": 62,
+      "decoded_sha256": "b66e0606ccc69743e9e1b7135854432b2628f01180bfa67d15bd963c425d4778",
+      "instructions": 10,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "entrypoint_label"
+      ]
+    },
+    {
+      "entry": 91,
+      "decoded_bytes": 1756,
+      "decoded_sha256": "1902a5966c88ac18e5df90886447aef97a72886d8cbd105005f783c0baa20653",
+      "instructions": 342,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 92,
+      "decoded_bytes": 240,
+      "decoded_sha256": "434f877fdfab53d6988a52201d3ca36a187cf766831d3bc6d47bb36c34eef222",
+      "instructions": 46,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 93,
+      "decoded_bytes": 2446,
+      "decoded_sha256": "462769e9a78b7a2042cf67b0462c8798b14a5a4747a67304811ac49c7b83d567",
+      "instructions": 452,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 94,
+      "decoded_bytes": 1362,
+      "decoded_sha256": "5831c9b3b2b07a5b41ea7b73676ed861f2bd849127614f05555fad47e8380327",
+      "instructions": 281,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 95,
+      "decoded_bytes": 398,
+      "decoded_sha256": "8340742054ac1f01df0bfd30330798e85fa900245146ab11ab5e692d8473eac4",
+      "instructions": 75,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 96,
+      "decoded_bytes": 310,
+      "decoded_sha256": "fd9a0e0250727b25fb9a0062e9f53c91002f4f5990a10f04d9c0983dee896301",
+      "instructions": 63,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 97,
+      "decoded_bytes": 372,
+      "decoded_sha256": "857fbfd63541a48eff71b9d1ddb08bf28337dbcb74fd01102a3ef2b649a748e8",
+      "instructions": 72,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 98,
+      "decoded_bytes": 928,
+      "decoded_sha256": "e9acfccfcc145a92f6e99066c8f7218717178bba13982d3326d0c263648034e9",
+      "instructions": 191,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 99,
+      "decoded_bytes": 884,
+      "decoded_sha256": "fd82f921eca46ef6f5efd3df9ec14cb79c21f870a8c861637b8beb796b09eb85",
+      "instructions": 186,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 100,
+      "decoded_bytes": 168,
+      "decoded_sha256": "689760b4eff720e93d818c905b23b378d60f4f0b1ef7074fe74b85aca061d134",
+      "instructions": 33,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 101,
+      "decoded_bytes": 462,
+      "decoded_sha256": "c04e22b824d0551060abb61875535fc9a7d788b90584c74d84e1c91e065542cd",
+      "instructions": 91,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 102,
+      "decoded_bytes": 326,
+      "decoded_sha256": "cbed7caeb1e1fd5bb6a774756108ad6941dd1ff3634740d7efe197a83538d2d2",
+      "instructions": 70,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 103,
+      "decoded_bytes": 420,
+      "decoded_sha256": "77dec6c0d6a2cd52b9036804855d68d95d73e59cf48dcdc4eece63c4ce4850d0",
+      "instructions": 88,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 104,
+      "decoded_bytes": 366,
+      "decoded_sha256": "1c25558c2520c17715d21ef3a0289f919809a1d909a17e48850480b80bfcea79",
+      "instructions": 78,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 105,
+      "decoded_bytes": 340,
+      "decoded_sha256": "55894cdec78c3f51d3602cda35e1683054bfda2fcf80e4d64b589c69c32736b3",
+      "instructions": 74,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 107,
+      "decoded_bytes": 3668,
+      "decoded_sha256": "84b6778bcbf0cd2d8109d7f2ccb1b4856a138608dbc87afe6c04d38edbdc3533",
+      "instructions": 741,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 108,
+      "decoded_bytes": 952,
+      "decoded_sha256": "4dbdbb1bffccfade35fe82cc0a8261e7832dd11807b118c99722ec6bba1a1a5b",
+      "instructions": 196,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 109,
+      "decoded_bytes": 698,
+      "decoded_sha256": "d8be363f4622563d5f159c1db092de3f823f0b2238170e0a931b94d70c041ba9",
+      "instructions": 142,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 110,
+      "decoded_bytes": 424,
+      "decoded_sha256": "553e3c7941bc302f9f5896de31c0de266ad4b9d11883843ee8dad695b7c91e2c",
+      "instructions": 81,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 111,
+      "decoded_bytes": 1030,
+      "decoded_sha256": "43eee68934c2e8dfbab4673e540fac138aded6569b3787dcf58b0f99512c9b29",
+      "instructions": 190,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 112,
+      "decoded_bytes": 264,
+      "decoded_sha256": "e2d8b5535686cae6dc4a46ac666b99093d4c8c5351473d51046e3c8fe15e419f",
+      "instructions": 54,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 113,
+      "decoded_bytes": 6882,
+      "decoded_sha256": "58dbfa1ffc775173355658a54d0267943905354a338bf2608cc54ac43a95f12a",
+      "instructions": 1360,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 114,
+      "decoded_bytes": 3746,
+      "decoded_sha256": "e3063cbd8a3950e1187d8457c17506cbed8adedd51b007be4600407fec0e1ddc",
+      "instructions": 759,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 115,
+      "decoded_bytes": 322,
+      "decoded_sha256": "5a2a6a00da3c28e3f2fd368deaeb7aab073c03ed40a949e3eb0f5976f5e419b0",
+      "instructions": 71,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 116,
+      "decoded_bytes": 402,
+      "decoded_sha256": "7f555eda7bae309d145a02bffb260d2a461ee1a494b735b24e1ba98e1cb00e05",
+      "instructions": 75,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 117,
+      "decoded_bytes": 178,
+      "decoded_sha256": "1c7fcca8ef2a1db8394fa4ac018fcbd0d589d5be4e35d0a17a6c5df69a222ab0",
+      "instructions": 39,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "entrypoint_label"
+      ]
+    },
+    {
+      "entry": 118,
+      "decoded_bytes": 330,
+      "decoded_sha256": "51ed348c9f1b5f8542c32e0696b64d6c6251336ce16761191161409a89990439",
+      "instructions": 72,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 119,
+      "decoded_bytes": 704,
+      "decoded_sha256": "475154ab7f99d0d70d0116801e403370e05c48fca2a667cf8d7152693e82f4dc",
+      "instructions": 128,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 120,
+      "decoded_bytes": 1280,
+      "decoded_sha256": "ea75be70dc3079a1bd089e59a26f6d8191a571643ddcaf296fb9859948b28ef2",
+      "instructions": 298,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 121,
+      "decoded_bytes": 268,
+      "decoded_sha256": "ded53b1d4f1bb4133f08c1666220cea2da0272bf4d184b90a7ec7c671d850b2d",
+      "instructions": 58,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 122,
+      "decoded_bytes": 1874,
+      "decoded_sha256": "cb48e20a1af974d0b79d6cdb0a4dbac73225cbb96907df44c4758d383c04dc2b",
+      "instructions": 378,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 123,
+      "decoded_bytes": 1928,
+      "decoded_sha256": "7a6b033c68b76f242c7c2a48a67fa336ff8489e8f80e850eb3a03fc17fbab294",
+      "instructions": 415,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 124,
+      "decoded_bytes": 668,
+      "decoded_sha256": "befd4a3d9e62cc5aea321e232189f8a6f06cf0e654d6447c49ca8bb7b06a55f8",
+      "instructions": 142,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 125,
+      "decoded_bytes": 396,
+      "decoded_sha256": "096d20388ea9d9d48f42ef03836967c9244f4c3864f1ccf25670789463ba216f",
+      "instructions": 75,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 126,
+      "decoded_bytes": 498,
+      "decoded_sha256": "744279af5e0036045a790e9cd8e0ccffa2ce347ca501542ee4a185fd3f4c4404",
+      "instructions": 106,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 127,
+      "decoded_bytes": 402,
+      "decoded_sha256": "f00acaedfc6ac5ce64ad47f1357f1d490f64b7f6ab0d185b48d9d10a11e747a9",
+      "instructions": 75,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 128,
+      "decoded_bytes": 630,
+      "decoded_sha256": "ba4847b0a56b76879ce62f1b772d017c398dfa44d29a8f06ae053e4c503663f5",
+      "instructions": 119,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 129,
+      "decoded_bytes": 220,
+      "decoded_sha256": "affb9341ab1f4d3a4623ca7a40e60368d786fd6956aba849f7c52180d00c4f3a",
+      "instructions": 39,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 130,
+      "decoded_bytes": 118,
+      "decoded_sha256": "7155c9b67119dc0cba720d608927132e760f816abfc5f0e8d7d9631ffd6c5ca8",
+      "instructions": 23,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 131,
+      "decoded_bytes": 4632,
+      "decoded_sha256": "226a992f01746ec2bc4f6e771d74cb840255b7e1a81a7a5e9cefc2ea92a1fc76",
+      "instructions": 856,
+      "strings": 3,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_23",
+        "string_1_character_0",
+        "string_1_character_43",
+        "string_2_character_0",
+        "string_2_character_32"
+      ]
+    },
+    {
+      "entry": 132,
+      "decoded_bytes": 526,
+      "decoded_sha256": "50386133363a07f209bb078aa90b888acb02332afe926342951adb77002e39d2",
+      "instructions": 98,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 133,
+      "decoded_bytes": 4720,
+      "decoded_sha256": "ab1f50a738ff28b046c098b8604818b8e60065070a6e741dd307e0b3b736cc6b",
+      "instructions": 918,
+      "strings": 3,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_15",
+        "string_1_character_0",
+        "string_1_character_2",
+        "string_2_character_0",
+        "string_2_character_0"
+      ]
+    },
+    {
+      "entry": 134,
+      "decoded_bytes": 2092,
+      "decoded_sha256": "2d2c74881032633d1ba0637ae1b6d95573d1300ae80e17f68e129f2eec75fd15",
+      "instructions": 427,
+      "strings": 1,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_10"
+      ]
+    },
+    {
+      "entry": 135,
+      "decoded_bytes": 3870,
+      "decoded_sha256": "fb6ea828d8874bef729f125b6a40510884e1e29d93c17adc1156fe2a33584741",
+      "instructions": 816,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 136,
+      "decoded_bytes": 1090,
+      "decoded_sha256": "99420fc2edf247200fd08a5d53a88602800d68956e511630e5db6851f0adb40b",
+      "instructions": 232,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 137,
+      "decoded_bytes": 862,
+      "decoded_sha256": "d882ca7c137c5739330838731343191d73d02dab62cca34e8565539f70657bf8",
+      "instructions": 182,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 138,
+      "decoded_bytes": 3682,
+      "decoded_sha256": "d2f878b6adb1a2cfadf2405dc395e09ff6582798788b2be050d48f7f38e58a3b",
+      "instructions": 677,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 139,
+      "decoded_bytes": 776,
+      "decoded_sha256": "3413f8d7b17999feb0d6ac0ba872477daf990d88397ee1cd9c64893b7aa4b8df",
+      "instructions": 169,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 140,
+      "decoded_bytes": 1876,
+      "decoded_sha256": "48aab24fde7d887cdb4568a1988a045b7a7acc415db7e4648274438f51dc2c6f",
+      "instructions": 376,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 141,
+      "decoded_bytes": 144,
+      "decoded_sha256": "e0fd13b930fc653fe543de142e0666d02177680377135dd787862526586a1305",
+      "instructions": 29,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "entrypoint_label"
+      ]
+    },
+    {
+      "entry": 142,
+      "decoded_bytes": 4358,
+      "decoded_sha256": "ad99d25b2913ccfe51aec549235c64912c6b8850fd77a2e8a1ca9b431013e783",
+      "instructions": 886,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 143,
+      "decoded_bytes": 2772,
+      "decoded_sha256": "c2c4152621de929373eef3e3bd97040161516dde139145807c05a6378c30403d",
+      "instructions": 579,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 144,
+      "decoded_bytes": 3390,
+      "decoded_sha256": "947236f9d506dd1dd43e6345d831a4d46ad41475b74be0e46e3da341e63950e7",
+      "instructions": 709,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 145,
+      "decoded_bytes": 1862,
+      "decoded_sha256": "151b472a7c371376efab078ee4593a4ae63ac2e6641b77d6ff2b22dd39873d63",
+      "instructions": 353,
+      "strings": 2,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_12",
+        "string_1_character_0",
+        "string_1_character_0"
+      ]
+    },
+    {
+      "entry": 146,
+      "decoded_bytes": 1318,
+      "decoded_sha256": "bedccdd690bea4b8f0b87d311fbbca99ccedbf7da79a475e159e5f5d5edc3d30",
+      "instructions": 241,
+      "strings": 2,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_6",
+        "string_1_character_0",
+        "string_1_character_0"
+      ]
+    },
+    {
+      "entry": 147,
+      "decoded_bytes": 986,
+      "decoded_sha256": "071893037cbd4c232b122e278487887df6e2324eda4c11b9f7984e1d5d17baa5",
+      "instructions": 187,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 148,
+      "decoded_bytes": 162,
+      "decoded_sha256": "aa36db64c5865ad8bd6297c683875c888b7d5487951250f5db6f4ae34f0f7f37",
+      "instructions": 33,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 149,
+      "decoded_bytes": 3858,
+      "decoded_sha256": "f0cf31bbe735cbe8ad8e899bc3c6daf8e7b9c66386bd4df99d97872738cc3942",
+      "instructions": 707,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 150,
+      "decoded_bytes": 2642,
+      "decoded_sha256": "b343180b2b48767a7fc952e04f4881a3a20e1fc80e3cc6f1fc09d27dd3391db0",
+      "instructions": 482,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 151,
+      "decoded_bytes": 1028,
+      "decoded_sha256": "7c31ebe0d010effcf9600ac178982fa9b07ed83e5cbf3b77922b201b7046f0f2",
+      "instructions": 188,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 152,
+      "decoded_bytes": 110,
+      "decoded_sha256": "3fcc5cfa2cb0a9b07a52a4c804ceedea534c3239431f8b97f672afc96e2a7c40",
+      "instructions": 21,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 153,
+      "decoded_bytes": 1304,
+      "decoded_sha256": "46bf4793425f47a05c2fb42641d6b6d6858391eb4f405317ab41e89434223c6d",
+      "instructions": 284,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 154,
+      "decoded_bytes": 250,
+      "decoded_sha256": "23ec5c009d260f3d33329a28f85e62b8eef291e9f5fa4b03d0194764d213954b",
+      "instructions": 51,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 155,
+      "decoded_bytes": 2426,
+      "decoded_sha256": "abac16f94064f090700125288678421db1682291f4d1fae076a52c0ff87ac7b9",
+      "instructions": 486,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 156,
+      "decoded_bytes": 1940,
+      "decoded_sha256": "0a2a77629c09d469ab2137795ebd67ef171a595311291a2dfd4b932670b3b638",
+      "instructions": 389,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 157,
+      "decoded_bytes": 222,
+      "decoded_sha256": "9bb9bb63f91c8c1aaa0a53693bb4410f8b654ecb2ab7645191026b798d2ada72",
+      "instructions": 40,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 158,
+      "decoded_bytes": 1904,
+      "decoded_sha256": "d213ab9f8d7ad3cc633508a08d75183fe75a534c57fed7ea0b45e59bf86ee499",
+      "instructions": 398,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 159,
+      "decoded_bytes": 4356,
+      "decoded_sha256": "6292a45933c51e885c889b0da3e16ca21e7e0985c7e738c6879130ff479503ed",
+      "instructions": 853,
+      "strings": 1,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_18"
+      ]
+    },
+    {
+      "entry": 160,
+      "decoded_bytes": 642,
+      "decoded_sha256": "5e9200f87a29744dab606efaeda026e3f1124eb12133f1d4fe34c5dcc383b09c",
+      "instructions": 131,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 161,
+      "decoded_bytes": 2362,
+      "decoded_sha256": "cc1c65d92956307ffc9496893b71661d23f5590f5507fd9eda3cb4404df24e7f",
+      "instructions": 412,
+      "strings": 9,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_16",
+        "string_1_character_0",
+        "string_1_character_29",
+        "string_2_character_0",
+        "string_2_character_0",
+        "string_3_character_0",
+        "string_3_character_10",
+        "string_4_character_0",
+        "string_4_character_18",
+        "string_5_character_0",
+        "string_5_character_10",
+        "string_6_character_0",
+        "string_6_character_10",
+        "string_7_character_0",
+        "string_7_character_10",
+        "string_8_character_0",
+        "string_8_character_0"
+      ]
+    },
+    {
+      "entry": 162,
+      "decoded_bytes": 3196,
+      "decoded_sha256": "3c05d2008592c9b3c6642bc1dc1b1bd12e285fb5804086bbc5d09d867818a631",
+      "instructions": 629,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 163,
+      "decoded_bytes": 1334,
+      "decoded_sha256": "2022b978f8f38278274ec52197abdde4b8ef778d52bf7c4cc6400b3a19d445a7",
+      "instructions": 246,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 164,
+      "decoded_bytes": 1944,
+      "decoded_sha256": "9063ed0feb352943a0a311a13c91501ae98551174d08a59e1dc2628c0ebe7709",
+      "instructions": 370,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 165,
+      "decoded_bytes": 1032,
+      "decoded_sha256": "a6e0c04f7615c4d15d5f210ff54147e1a9ba017ffd6af9ac5929238eacc112dc",
+      "instructions": 223,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 166,
+      "decoded_bytes": 1338,
+      "decoded_sha256": "f64a25cb03150fc4d1bc741cb810bf7637795e6ebda9cae1c140c8ae82932637",
+      "instructions": 299,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 167,
+      "decoded_bytes": 1806,
+      "decoded_sha256": "8e9e8d7cbb1dc8da186cc3c3ce458ceaf9e607b23e843e4845a5c4cf70ee17e5",
+      "instructions": 351,
+      "strings": 1,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_16"
+      ]
+    },
+    {
+      "entry": 168,
+      "decoded_bytes": 850,
+      "decoded_sha256": "0840a957fde2e3b8c1dbd9a1c485c87e5968721b4c32029b231c4a77ce524f49",
+      "instructions": 145,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 169,
+      "decoded_bytes": 410,
+      "decoded_sha256": "0ceeb45c81aa3b0a4cfd856b61af8c741ee2d7d8c405464b2f09c66d027c0f69",
+      "instructions": 93,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 170,
+      "decoded_bytes": 2280,
+      "decoded_sha256": "9f0caa676ea0bb220bacc3bc8cc11366040b8e627c682d2f43180d4e90979671",
+      "instructions": 455,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 171,
+      "decoded_bytes": 5316,
+      "decoded_sha256": "7fd8791f1eeed6b78b83388a6fb8d54acbdf1c1c09a80b0e24026bb54e55d5c3",
+      "instructions": 986,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 172,
+      "decoded_bytes": 1530,
+      "decoded_sha256": "c37a120504c93161b3dd7edcf021db7f6b1379d69d41535f09ca9590e7afdc7c",
+      "instructions": 251,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 173,
+      "decoded_bytes": 1660,
+      "decoded_sha256": "dd7045e208ffaeeb27d08119242dd83633116c2bd38dafdb9dc49e1024dcd7be",
+      "instructions": 344,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 174,
+      "decoded_bytes": 490,
+      "decoded_sha256": "1183ed2686afce89ea4dcfab764d3a1cb1c82eac28d0972d6910e4385f45cafb",
+      "instructions": 109,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 175,
+      "decoded_bytes": 606,
+      "decoded_sha256": "fd8b30c6f35ec34e29dee1b4385032fdd39f903c26cb40eae5cdfc52f7186f01",
+      "instructions": 134,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 176,
+      "decoded_bytes": 412,
+      "decoded_sha256": "af87043c33b5dc0db6789994552019ea8c1c12126c873a5693b655a205d7923a",
+      "instructions": 94,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 177,
+      "decoded_bytes": 4074,
+      "decoded_sha256": "140ce079168e134482c0e10c182113581e215bd84954fecfd0d5288ef236cd00",
+      "instructions": 761,
+      "strings": 4,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_15",
+        "string_1_character_0",
+        "string_1_character_16",
+        "string_2_character_0",
+        "string_2_character_0",
+        "string_3_character_0",
+        "string_3_character_3"
+      ]
+    },
+    {
+      "entry": 178,
+      "decoded_bytes": 464,
+      "decoded_sha256": "27c56c15ba2e7ad9dc8091613afb86983248bb78f003e574a83e0fef4d9562ff",
+      "instructions": 106,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 179,
+      "decoded_bytes": 236,
+      "decoded_sha256": "e4c57492832dcd6a489fc76ef4295f47edf0b64adbf0e156159688a52047a5bb",
+      "instructions": 49,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 180,
+      "decoded_bytes": 846,
+      "decoded_sha256": "a8a73b5edf3bffe603a73f79cdd367ea1ae8292acbd713484b7beaff9a473dfe",
+      "instructions": 168,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 181,
+      "decoded_bytes": 1020,
+      "decoded_sha256": "e308e204855f88356a7109a696e27c41538cc68f95c3bc08aad0c7f0417b7c94",
+      "instructions": 220,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 182,
+      "decoded_bytes": 2850,
+      "decoded_sha256": "cdb821f06122d6fe3dc27aaf5cdfb829d86b3ab557b8989ab747219013b09c9d",
+      "instructions": 549,
+      "strings": 5,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_13",
+        "string_1_character_0",
+        "string_1_character_28",
+        "string_2_character_0",
+        "string_2_character_22",
+        "string_3_character_0",
+        "string_3_character_12",
+        "string_4_character_0",
+        "string_4_character_16"
+      ]
+    },
+    {
+      "entry": 183,
+      "decoded_bytes": 17424,
+      "decoded_sha256": "bc64cf584472afacf4ca7f8f134974a2134eb5fa61fe196384080a4519730b6e",
+      "instructions": 2800,
+      "strings": 37,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_26",
+        "string_1_character_0",
+        "string_1_character_29",
+        "string_2_character_0",
+        "string_2_character_16",
+        "string_3_character_0",
+        "string_3_character_0",
+        "string_4_character_0",
+        "string_4_character_0",
+        "string_5_character_0",
+        "string_5_character_29",
+        "string_6_character_0",
+        "string_6_character_33",
+        "string_7_character_0",
+        "string_7_character_0",
+        "string_8_character_0",
+        "string_8_character_0",
+        "string_9_character_0",
+        "string_9_character_13",
+        "string_10_character_0",
+        "string_10_character_17",
+        "string_11_character_0",
+        "string_11_character_0",
+        "string_12_character_0",
+        "string_12_character_5",
+        "string_13_character_0",
+        "string_13_character_3",
+        "string_14_character_0",
+        "string_14_character_0",
+        "string_15_character_2",
+        "string_15_character_6",
+        "string_16_character_0",
+        "string_16_character_14",
+        "string_17_character_0",
+        "string_17_character_0",
+        "string_18_character_0",
+        "string_18_character_4",
+        "string_19_character_0",
+        "string_19_character_1",
+        "string_20_character_0",
+        "string_20_character_11",
+        "string_21_character_0",
+        "string_21_character_4",
+        "string_22_character_0",
+        "string_22_character_1",
+        "string_23_character_0",
+        "string_23_character_10",
+        "string_24_character_0",
+        "string_24_character_4",
+        "string_25_character_0",
+        "string_25_character_1",
+        "string_26_character_0",
+        "string_26_character_8",
+        "string_27_character_0",
+        "string_27_character_4",
+        "string_28_character_0",
+        "string_28_character_1",
+        "string_29_character_0",
+        "string_29_character_7",
+        "string_30_character_0",
+        "string_30_character_0",
+        "string_31_character_0",
+        "string_31_character_14",
+        "string_32_character_0",
+        "string_32_character_20",
+        "string_33_character_0",
+        "string_33_character_6",
+        "string_34_character_1",
+        "string_34_character_43",
+        "string_35_character_0",
+        "string_35_character_30",
+        "string_36_character_0",
+        "string_36_character_0"
+      ]
+    },
+    {
+      "entry": 184,
+      "decoded_bytes": 8530,
+      "decoded_sha256": "06db473752d6e32c16d3d63c24287211e3898f7604f7b7473c3dcd33713aa769",
+      "instructions": 1387,
+      "strings": 26,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_16",
+        "string_1_character_0",
+        "string_1_character_0",
+        "string_2_character_0",
+        "string_2_character_29",
+        "string_3_character_2",
+        "string_3_character_6",
+        "string_4_character_0",
+        "string_4_character_14",
+        "string_5_character_0",
+        "string_5_character_0",
+        "string_6_character_0",
+        "string_6_character_4",
+        "string_7_character_0",
+        "string_7_character_1",
+        "string_8_character_0",
+        "string_8_character_11",
+        "string_9_character_0",
+        "string_9_character_4",
+        "string_10_character_0",
+        "string_10_character_1",
+        "string_11_character_0",
+        "string_11_character_11",
+        "string_12_character_0",
+        "string_12_character_4",
+        "string_13_character_0",
+        "string_13_character_1",
+        "string_14_character_0",
+        "string_14_character_11",
+        "string_15_character_0",
+        "string_15_character_4",
+        "string_16_character_0",
+        "string_16_character_1",
+        "string_17_character_0",
+        "string_17_character_8",
+        "string_18_character_0",
+        "string_18_character_0",
+        "string_19_character_0",
+        "string_19_character_21",
+        "string_20_character_0",
+        "string_20_character_11",
+        "string_21_character_0",
+        "string_21_character_20",
+        "string_22_character_0",
+        "string_22_character_37",
+        "string_23_character_0",
+        "string_23_character_0",
+        "string_24_character_0",
+        "string_24_character_30",
+        "string_25_character_0",
+        "string_25_character_0"
+      ]
+    },
+    {
+      "entry": 185,
+      "decoded_bytes": 8518,
+      "decoded_sha256": "1d2408ceddffb544c04d27438964b1a9358441ec0981c38b34de6f55f11d0792",
+      "instructions": 1434,
+      "strings": 9,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_9",
+        "string_1_character_0",
+        "string_1_character_0",
+        "string_2_character_0",
+        "string_2_character_9",
+        "string_3_character_0",
+        "string_3_character_0",
+        "string_4_character_3",
+        "string_4_character_9",
+        "string_5_character_0",
+        "string_5_character_16",
+        "string_6_character_0",
+        "string_6_character_0",
+        "string_7_character_0",
+        "string_7_character_13",
+        "string_8_character_0",
+        "string_8_character_0"
+      ]
+    },
+    {
+      "entry": 186,
+      "decoded_bytes": 20138,
+      "decoded_sha256": "5b7267962632f7dfd97f0388fd54f8088073b141941eded5a0d84a8e385821f1",
+      "instructions": 3221,
+      "strings": 27,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_16",
+        "string_1_character_0",
+        "string_1_character_0",
+        "string_2_character_0",
+        "string_2_character_16",
+        "string_3_character_0",
+        "string_3_character_13",
+        "string_4_character_0",
+        "string_4_character_17",
+        "string_5_character_0",
+        "string_5_character_0",
+        "string_6_character_0",
+        "string_6_character_5",
+        "string_7_character_0",
+        "string_7_character_3",
+        "string_8_character_0",
+        "string_8_character_0",
+        "string_9_character_0",
+        "string_9_character_14",
+        "string_10_character_0",
+        "string_10_character_4",
+        "string_11_character_0",
+        "string_11_character_1",
+        "string_12_character_0",
+        "string_12_character_11",
+        "string_13_character_0",
+        "string_13_character_4",
+        "string_14_character_0",
+        "string_14_character_1",
+        "string_15_character_0",
+        "string_15_character_10",
+        "string_16_character_0",
+        "string_16_character_4",
+        "string_17_character_0",
+        "string_17_character_1",
+        "string_18_character_0",
+        "string_18_character_8",
+        "string_19_character_0",
+        "string_19_character_4",
+        "string_20_character_0",
+        "string_20_character_1",
+        "string_21_character_0",
+        "string_21_character_7",
+        "string_22_character_0",
+        "string_22_character_0",
+        "string_23_character_0",
+        "string_23_character_18",
+        "string_24_character_0",
+        "string_24_character_0",
+        "string_25_character_0",
+        "string_25_character_30",
+        "string_26_character_0",
+        "string_26_character_0"
+      ]
+    },
+    {
+      "entry": 187,
+      "decoded_bytes": 22202,
+      "decoded_sha256": "e8ea9c5a311ae74d3b75b9aa25b685fe65f21a198a1cad11d85d4d150f758ece",
+      "instructions": 3515,
+      "strings": 48,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_7",
+        "string_0_character_30",
+        "string_1_character_7",
+        "string_1_character_33",
+        "string_2_character_0",
+        "string_2_character_16",
+        "string_3_character_0",
+        "string_3_character_0",
+        "string_4_character_0",
+        "string_4_character_40",
+        "string_5_character_0",
+        "string_5_character_13",
+        "string_6_character_0",
+        "string_6_character_0",
+        "string_7_character_0",
+        "string_7_character_31",
+        "string_8_character_0",
+        "string_8_character_13",
+        "string_9_character_0",
+        "string_9_character_17",
+        "string_10_character_0",
+        "string_10_character_0",
+        "string_11_character_0",
+        "string_11_character_5",
+        "string_12_character_0",
+        "string_12_character_3",
+        "string_13_character_0",
+        "string_13_character_0",
+        "string_14_character_0",
+        "string_14_character_14",
+        "string_15_character_1",
+        "string_15_character_5",
+        "string_16_character_0",
+        "string_16_character_14",
+        "string_17_character_0",
+        "string_17_character_0",
+        "string_18_character_0",
+        "string_18_character_4",
+        "string_19_character_0",
+        "string_19_character_1",
+        "string_20_character_0",
+        "string_20_character_11",
+        "string_21_character_0",
+        "string_21_character_4",
+        "string_22_character_0",
+        "string_22_character_1",
+        "string_23_character_0",
+        "string_23_character_10",
+        "string_24_character_0",
+        "string_24_character_4",
+        "string_25_character_0",
+        "string_25_character_1",
+        "string_26_character_0",
+        "string_26_character_8",
+        "string_27_character_0",
+        "string_27_character_4",
+        "string_28_character_0",
+        "string_28_character_1",
+        "string_29_character_0",
+        "string_29_character_7",
+        "string_30_character_0",
+        "string_30_character_4",
+        "string_31_character_0",
+        "string_31_character_1",
+        "string_32_character_0",
+        "string_32_character_8",
+        "string_33_character_0",
+        "string_33_character_0",
+        "string_34_character_0",
+        "string_34_character_13",
+        "string_35_character_0",
+        "string_35_character_14",
+        "string_36_character_0",
+        "string_36_character_13",
+        "string_37_character_0",
+        "string_37_character_12",
+        "string_38_character_0",
+        "string_38_character_7",
+        "string_39_character_0",
+        "string_39_character_0",
+        "string_40_character_0",
+        "string_40_character_0",
+        "string_41_character_0",
+        "string_41_character_17",
+        "string_42_character_1",
+        "string_42_character_43",
+        "string_43_character_0",
+        "string_43_character_14",
+        "string_44_character_0",
+        "string_44_character_0",
+        "string_45_character_0",
+        "string_45_character_0",
+        "string_46_character_0",
+        "string_46_character_30",
+        "string_47_character_0",
+        "string_47_character_0"
+      ]
+    },
+    {
+      "entry": 188,
+      "decoded_bytes": 6484,
+      "decoded_sha256": "b950c3bf370b2220550bfc81a119db77a353bf9469339750364c4f047a19e253",
+      "instructions": 1078,
+      "strings": 1,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_6"
+      ]
+    },
+    {
+      "entry": 189,
+      "decoded_bytes": 13570,
+      "decoded_sha256": "846bbd765d53fb35599116084e8ee2ed8d4bc780be10501f98a832e1370bda74",
+      "instructions": 2192,
+      "strings": 12,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_16",
+        "string_1_character_0",
+        "string_1_character_0",
+        "string_2_character_0",
+        "string_2_character_13",
+        "string_3_character_0",
+        "string_3_character_0",
+        "string_4_character_0",
+        "string_4_character_33",
+        "string_5_character_0",
+        "string_5_character_0",
+        "string_6_character_0",
+        "string_6_character_13",
+        "string_7_character_0",
+        "string_7_character_17",
+        "string_8_character_0",
+        "string_8_character_0",
+        "string_9_character_0",
+        "string_9_character_5",
+        "string_10_character_0",
+        "string_10_character_3",
+        "string_11_character_0",
+        "string_11_character_0"
+      ]
+    },
+    {
+      "entry": 190,
+      "decoded_bytes": 19162,
+      "decoded_sha256": "40a2309074c250ca4503d87595e90fa37c23d12459c3aa9c5cf55c0c252d0a90",
+      "instructions": 3074,
+      "strings": 33,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_16",
+        "string_1_character_0",
+        "string_1_character_0",
+        "string_2_character_0",
+        "string_2_character_13",
+        "string_3_character_0",
+        "string_3_character_0",
+        "string_4_character_0",
+        "string_4_character_33",
+        "string_5_character_0",
+        "string_5_character_0",
+        "string_6_character_0",
+        "string_6_character_0",
+        "string_7_character_0",
+        "string_7_character_13",
+        "string_8_character_0",
+        "string_8_character_17",
+        "string_9_character_0",
+        "string_9_character_0",
+        "string_10_character_0",
+        "string_10_character_5",
+        "string_11_character_0",
+        "string_11_character_3",
+        "string_12_character_0",
+        "string_12_character_0",
+        "string_13_character_1",
+        "string_13_character_5",
+        "string_14_character_0",
+        "string_14_character_14",
+        "string_15_character_0",
+        "string_15_character_0",
+        "string_16_character_0",
+        "string_16_character_4",
+        "string_17_character_0",
+        "string_17_character_1",
+        "string_18_character_0",
+        "string_18_character_11",
+        "string_19_character_0",
+        "string_19_character_4",
+        "string_20_character_0",
+        "string_20_character_1",
+        "string_21_character_0",
+        "string_21_character_10",
+        "string_22_character_0",
+        "string_22_character_4",
+        "string_23_character_0",
+        "string_23_character_1",
+        "string_24_character_0",
+        "string_24_character_8",
+        "string_25_character_0",
+        "string_25_character_4",
+        "string_26_character_0",
+        "string_26_character_1",
+        "string_27_character_0",
+        "string_27_character_7",
+        "string_28_character_0",
+        "string_28_character_0",
+        "string_29_character_0",
+        "string_29_character_16",
+        "string_30_character_0",
+        "string_30_character_8",
+        "string_31_character_0",
+        "string_31_character_13",
+        "string_32_character_0",
+        "string_32_character_0"
+      ]
+    },
+    {
+      "entry": 191,
+      "decoded_bytes": 582,
+      "decoded_sha256": "4ffcb84d7fbf21dc4bfae271ce5194a1c2b7ebdaf8c78139758c438e80c0536f",
+      "instructions": 116,
+      "strings": 1,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_21"
+      ]
+    },
+    {
+      "entry": 192,
+      "decoded_bytes": 634,
+      "decoded_sha256": "db72d77236865e30e927a28661f9b69175087841e5cdb29e0b8ee2f1b2f318cb",
+      "instructions": 127,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 193,
+      "decoded_bytes": 532,
+      "decoded_sha256": "73286b70d89b29d4edbbd1a40ed3b292b61c3d893c213831f6c0654d488f5b73",
+      "instructions": 104,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 194,
+      "decoded_bytes": 418,
+      "decoded_sha256": "032e1f8d00b8319b80e420f5f27aebdb72f5916675a74a1e5e0f718902e24f49",
+      "instructions": 83,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 195,
+      "decoded_bytes": 710,
+      "decoded_sha256": "ef71fcb000a67304c8b2803b8240a5b9a3dd506f0c21c0d56d3ade00ee2d521d",
+      "instructions": 153,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 196,
+      "decoded_bytes": 422,
+      "decoded_sha256": "a7a971019b8716b58f439e4083b0fac9294a6a2429c229c7811cb5c148c0ec90",
+      "instructions": 81,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 197,
+      "decoded_bytes": 236,
+      "decoded_sha256": "603609b8155f60ad64236bbbb554e0e78bdbfeaf904318ed5e0ff6d77f04d9dd",
+      "instructions": 49,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 198,
+      "decoded_bytes": 222,
+      "decoded_sha256": "1dcd1c89c0b958cc7d4de75158dce439b1692b5499d9517bba69dac91d15e41d",
+      "instructions": 42,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 199,
+      "decoded_bytes": 430,
+      "decoded_sha256": "9d398bad739ee49b0d85445eaf0c51f79aa4c1c16ece51277eed1a8f0aa924d9",
+      "instructions": 83,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 200,
+      "decoded_bytes": 1118,
+      "decoded_sha256": "3f7d10bf1a0a68560d17b2b64c9dce269338dddfe7a342fd2c82091447fbc12b",
+      "instructions": 238,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label"
+      ]
+    },
+    {
+      "entry": 201,
+      "decoded_bytes": 74,
+      "decoded_sha256": "ab163182cd40b47cdc9446834083c0b1c4a1bf9c86ef6696002b4ac390a1c103",
+      "instructions": 13,
+      "strings": 0,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "entrypoint_label"
+      ]
+    },
+    {
+      "entry": 202,
+      "decoded_bytes": 586,
+      "decoded_sha256": "88d92f6c5893d052c7b1bc6482fc245319108b151b4b2bbe0808d49b83b114d0",
+      "instructions": 98,
+      "strings": 3,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_10",
+        "string_0_character_23",
+        "string_1_character_10",
+        "string_1_character_24",
+        "string_2_character_0",
+        "string_2_character_42"
+      ]
+    },
+    {
+      "entry": 203,
+      "decoded_bytes": 562,
+      "decoded_sha256": "995ece9f9544935d17debd738b76e7344d7a7f0362511a2a02cf438e06864217",
+      "instructions": 98,
+      "strings": 1,
+      "mutations": [
+        "native_flags",
+        "literal_operand",
+        "instruction_label",
+        "string_0_character_0",
+        "string_0_character_72"
+      ]
+    }
+  ],
+  "opcode_counts": {
+    "27": 1443,
+    "28": 1443,
+    "24": 22675,
+    "25": 9252,
+    "14": 7550,
+    "1": 1338,
+    "7": 511,
+    "16": 4587,
+    "15": 1984,
+    "22": 1812,
+    "3": 627,
+    "17": 235,
+    "23": 499,
+    "9": 462,
+    "13": 73,
+    "10": 292,
+    "2": 234,
+    "18": 633,
+    "26": 316,
+    "19": 339,
+    "11": 21,
+    "21": 62,
+    "30": 3262,
+    "29": 2552,
+    "20": 68,
+    "12": 173,
+    "4": 16,
+    "6": 19,
+    "8": 12,
+    "5": 1
+  },
+  "acceptance": {
+    "base_commit": "094102644c4c2f5aefaa0fc4b609416918f66f58",
+    "source_fingerprint": "6fab955d13893bc983f7c530090a66947b8b5b345589aef290e62d5f86ba708b",
+    "report_sha256": "63591c5c612c87078ce5274c4630a21b7ed14c93f036fdacc2b886e245bf75f1",
+    "measures": {
+      "fuzzy_match_percent": 25.06301,
+      "total_code": "2246328",
+      "matched_code": "555524",
+      "matched_code_percent": 24.730316,
+      "total_data": "65120512",
+      "matched_data": "60434090",
+      "matched_data_percent": 92.80346,
+      "total_functions": 5904,
+      "matched_functions": 3485,
+      "matched_functions_percent": 59.02778,
+      "complete_code": "129488",
+      "complete_code_percent": 5.7644296,
+      "complete_data": "60433322",
+      "complete_data_percent": 92.80228,
+      "total_units": 11637,
+      "complete_units": 10947
+    },
+    "new_units": [
+      "assets/asset_bank_14"
+    ],
+    "removed_raw_units": [
+      "assets/storage/bank14/unreconstructed"
+    ],
+    "new_bytes": 169880,
+    "prior_measure_changes": [],
+    "prior_assets_preserved": 10622,
+    "prior_source_files_preserved": 25501,
+    "rom_bytes": 67108864,
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "snapshot": "current",
+    "compile_errors": [],
+    "tests": {
+      "run": 2521,
+      "skipped": 8,
+      "failures": 0
+    }
+  }
+}
