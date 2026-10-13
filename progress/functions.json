@@ -93509,7 +93509,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Continuation 2026-10-13 full652 CURRENT60 unchanged. Seven natural framebuffer pointer/comma/result assignments all340; four two-buffer loop hypotheses compile as loops (6674/6864, frame40), not the raw unrolled calls. Existing baseline retained only as candidate; scheduling goto remains a source-quality concern.",
+        "reason": "Closest-candidate pass: refreshed full652 CURRENT60, only first framebuffer SW versus following LUI ordering differs. Consumer proves table elements are u16 pointers; typed-table/local-pointer probes preserve60, natural no-goto340, direct typed globals640. Type correction did not recover scheduling; baseline retained, immediate goto remains source-quality concern.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93744,7 +93744,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Fresh raw16-byte span has SB in JR delay slot. Explicit return and typed byte store probe60 unchanged; void-return-expression rejected by IDO. Normal statement schedules SB before JR. No assembly or compiler-option workaround used.",
+        "reason": "Closest-candidate raw full16 inspection confirms only store scheduling differs: raw LUI/JR/SB/NOP versus candidate LUI/SB/JR/NOP, CURRENT60. Fresh signed-byte store60; volatile-byte store275. No padding workaround or compiler option change; preserve baseline.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93799,7 +93799,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 265,
-        "reason": "Continuation 2026-10-13 full260 CURRENT265 unchanged. Named packed-color u16/s32/u32 at two placements265; signed color1140, signed first pointer800, same pointer reused760, bound-inside reuse2575, count phase1070. Manual inspection isolates T2 color versus raw V0 and initial count scheduling. Baseline retained; no incorrect signed shifts adopted.",
+        "reason": "Closest-candidate pass full260 CURRENT265. New signed halfword lvalue probes first800, second690, both265; two-byte pixel record265. Volatile front-buffer stores/pointee265, signed volatile800, reversed comparisons265. Raw still differs in initial SRA scheduling and counter/color/second-pointer register allocation; preserve baseline.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93873,7 +93873,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 35,
-        "reason": "Continuation 2026-10-13 full476 CURRENT35 unchanged: typed header cursor45, in-place pointer steps35, const cursor35, unsigned merged35; mask unsigned35, inner mask51, plain unsigned mask652. Initial V0 vs V1 and tail T9/T0 vs T1/T2 remain. No supported improvement; baseline retained.",
+        "reason": "Closest-candidate pass: seven register operands remain at full-span CURRENT35; frame30 and all opcodes agree. Natural loop-backedge, explicit register qualification of three real pointers, and individual/both pointer comparisons (eight new probes) do not change allocation. Initial V0 versus V1 and final T9/T0 versus T1/T2 remain; preserve baseline.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95065,8 +95065,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 580,
-        "reason": "Continuation 2026-10-13 full1120 CURRENT580 unchanged. Manual fixed-volume lifetime with real s32/u32/u16 local825; explicit signed-halfword stores825. Slot arithmetic reversed pointer and unsigned offset cast580, reversed integer1390, index-offset985, direct-index-plus-shift2492. Exact frame and opcodes remain at baseline; first slot-base temporary and constant-promotion residual unresolved.",
+        "current_score": 540,
+        "reason": "Manual unsigned override read and split halfword stores improve full-span CURRENT580 to540 (finish05e4bb53abde460496e8bbda21e195a9):98 register-only rows, exact frame40 and opcodes. Signed base address resolves temp rotation but reorders two instruction clusters (690; delayed status630); real snapshots/scopes worsen or grow frame58. Bounded32 permutation stays540. Detailed current-pass candidates and full diffs retained in build/us/manual-attempts/main-five-close-20261013/D2F8. Candidate only; no match credit.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -97624,7 +97624,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 230,
-        "reason": "Continuation 2026-10-13 full816 CURRENT230 unchanged. Manual numerator/denominator signedness boundary analysis: signed subtraction before unsigned shift, unsigned modular denominator and explicit signed delta view all230. Dist T1 vs raw T2 and denominator T2 vs raw T1 persist; no source change retained.",
+        "reason": "Closest-candidate pass: named denominator layout has correct frame38 but compiler spills the expression at18 instead of raw1C and still exchanges distance T1 with denominator T2. Fresh fixed-point multiplication (first/second/both), unsigned rounded value and unsigned mode probes remain230. Prior range/order families not repeated; preserve baseline.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
