@@ -311,7 +311,7 @@ segments:
       - [0xBB760, c, game/game_E8C10]
       - [0xBDB70, c, game/game_EB020]
       - [0xBDE90, c, game/effects/effects_sfx_w1_bee_cavern]
-      - [0xBE850, c, game/game_EBD00]
+      - [0xBE850, c, done/game/game_EBD00]
       - [0xBE9B0, c, game/game_EBE60]
       - [0xBEC30, c, game/game_EC0E0]
       - [0xBEEB0, c, done/game/game_EC360]

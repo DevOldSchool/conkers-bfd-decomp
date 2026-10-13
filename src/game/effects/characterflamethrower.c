@@ -161,7 +161,7 @@ typedef struct CharacterFlamethrowerListNode {
 
 void *func_10003C40(s32, s32, s32, s32); /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151957B0 CURRENT (400) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151957B0 CURRENT (200) */
 CharacterFlamethrowerListNode *func_151957B0(
     s32 arg0,
     CharacterFlamethrowerListNode **arg1,
