@@ -7,8 +7,6 @@
  * Boundary evidence: docs/evidence/boundaries/main/main_audio_driver_sequence_boundaries.md
  *
  * TODO: Implement these source-unit functions:
- * - func_80008F90
- * - func_800095A0
  * - func_8000A03C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -153,117 +151,99 @@ extern u8 D_8003E640[];
 extern Acmd *D_8003E388[];
 extern u8 D_80040F84;
 extern s32 D_80040F88;
-extern s32 D_80040F8C;
-extern u8 D_800406B8[];
-extern u8 D_800406CC[];
-extern u8 D_80040AC8[];
-extern u8 D_80040AE0[];
+extern u32 D_80040F8C;
+extern AudioDmaNode D_800406B8[];
+extern AudioBufferState D_80040AC8[];
 extern OSMesgQueue D_80041298;
 extern OSMesgQueue D_800416F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80008F90 CURRENT (1811) */
-void func_80008F90(AudioDriverConfig *config, s32 priority, AudioDeviceConfig *device) {
-    typedef struct {
-        Acmd *commands[2];
-        AudioTaskRecord *tasks[3];
-    } AudioWorkSlots;
-    u32 rounded;
-    AudioEffectParameters effects;
-    AudioDmaNode *dma;
-    AudioDmaNode *dmaNext;
-    AudioBufferState *buffer;
-    AudioBufferState *bufferNext;
-    f32 samples;
-    s32 rate;
+#define AUDIO_LINK(ln, to)                      \
+    {                                           \
+        (ln)->next = (to)->next;                \
+        (ln)->prev = (to);                      \
+        if ((to)->next != NULL) {               \
+            (to)->next->prev = (ln);            \
+        }                                       \
+        (to)->next = (ln);                      \
+    }
+
+typedef struct {
+    Acmd *commands[2];
+    AudioTaskRecord *tasks[3];
+} AudioWorkSlots;
+
+void func_80008F90(AudioDriverConfig *c, s32 pri, AudioDeviceConfig *amc) {
     u32 i;
+    f32 fsize;
 
     func_80012588((s32)&D_8003E370);
-    config->dma = D_10009980;
-    rate = func_800263D0(device->frequency);
-    config->outputRate = rate;
-    config->fetch = D_10009FFC;
-    config->release = D_10009B2C;
-    config->retain = D_10009B90;
-    config->releaseNow = D_10009B4C;
-    samples = ((f32)device->frames * (f32)rate) / 30.0f;
-    D_80040F8C = (s32)samples;
-    rounded = D_80040F8C;
-    if ((f32)rounded < samples) {
-        D_80040F8C = rounded + 1;
-        rounded = D_80040F8C;
+    c->dma = D_10009980;
+    c->outputRate = func_800263D0(amc->frequency);
+    c->fetch = D_10009FFC;
+    c->release = D_10009B2C;
+    c->retain = D_10009B90;
+    c->releaseNow = D_10009B4C;
+    fsize = (f32)amc->frames * c->outputRate / 30.0f;
+    D_80040F8C = (s32)fsize;
+    if (D_80040F8C < fsize) {
+        D_80040F8C++;
     }
-    rate = 184;
-    D_80040F8C = ((rounded / rate) * rate) + rate;
-    rounded = D_80040F8C;
-    D_80040F88 = rounded - 184;
-    D_80040F90 = rounded + 0x54;
+    D_80040F8C = (D_80040F8C / 184) * 184 + 184;
+    D_80040F88 = D_80040F8C - 184;
+    D_80040F90 = D_80040F8C + 0x54;
     D_80040F84 = 0;
-    effects = D_8002AE54;
-    config->params[0] = effects.values[0];
-    config->params[1] = effects.values[1];
-    func_80018DA0(D_8003E640, config);
+    {
+        AudioEffectParameters effects = D_8002AE54;
+
+        c->params[0] = effects.values[0];
+        c->params[1] = effects.values[1];
+        func_80018DA0(D_8003E640, c);
+    }
     D_8003E380 = D_8003E640;
-    dma = (AudioDmaNode *)D_800406B8;
-    dma->prev = 0;
-    dma->next = 0;
-    dmaNext = (AudioDmaNode *)D_800406CC;
-    do {
-        dma[1].next = dma->next;
-        dma[1].prev = dma;
-        if (dma->next != 0) {
-            dma->next->prev = dmaNext;
+    D_800406B8[0].prev = NULL;
+    D_800406B8[0].next = NULL;
+    for (i = 0; i < 51; i++) {
+        {
+            AudioDmaNode *ln = &D_800406B8[i + 1];
+            AudioDmaNode *to = &D_800406B8[i];
+
+            AUDIO_LINK(ln, to);
         }
-        dma->next = dmaNext;
-        rounded = (u32)func_80012844(0, 0, config->heap, 1, 0x800);
-        dmaNext++;
-        dma++;
-        dma[-1].buffer = (u8 *)rounded;
-    } while ((u32)dmaNext < (u32)D_80040AC8);
-    dma->buffer = func_80012844(0, 0, config->heap, 1, 0x800);
+        D_800406B8[i].buffer = func_80012844(0, 0, c->heap, 1, 0x800);
+    }
+    D_800406B8[i].buffer = func_80012844(0, 0, c->heap, 1, 0x800);
     func_800226F0(D_80040AC8, 0x4B0);
-    buffer = (AudioBufferState *)D_80040AC8;
-    buffer->prev = 0;
-    buffer->next = 0;
-    bufferNext = (AudioBufferState *)D_80040AE0;
+    D_80040AC8[0].prev = NULL;
+    D_80040AC8[0].next = NULL;
     for (i = 0; i < 49; i++) {
         {
-            AudioBufferState *linkNode = bufferNext;
-            AudioBufferState *linkAfter = buffer;
+            AudioBufferState *ln = &D_80040AC8[i + 1];
+            AudioBufferState *to = &D_80040AC8[i];
 
-            buffer[1].next = linkAfter->next;
-            buffer[1].prev = linkAfter;
-            if (linkAfter->next != 0) {
-                linkAfter->next->prev = linkNode;
-            }
-            linkAfter->next = linkNode;
+            AUDIO_LINK(ln, to);
         }
-        buffer++;
-        bufferNext++;
-        buffer[-1].buffer = 0;
+        D_80040AC8[i].buffer = NULL;
     }
-    buffer->buffer = 0;
-    i = 0;
-    do {
-        D_8003E388[i] = func_80012844(0, 0, config->heap, 1, device->maxCommands * 8);
-        i++;
-    } while (&D_8003E388[i] < (Acmd **)D_8003E390);
-    D_80040F94 = device->maxCommands;
+    D_80040AC8[i].buffer = NULL;
+    for (i = 0; i < 2; i++) {
+        ((AudioWorkSlots *)D_8003E388)->commands[i] =
+            func_80012844(0, 0, c->heap, 1, amc->maxCommands * sizeof(Acmd));
+    }
+    D_80040F94 = amc->maxCommands;
     for (i = 0; i < 3; i++) {
-        ((AudioWorkSlots *)D_8003E388)->tasks[i] = func_80012844(0, 0, config->heap, 1, 0x90);
+        ((AudioWorkSlots *)D_8003E388)->tasks[i] = func_80012844(0, 0, c->heap, 1, 0x90);
         ((AudioWorkSlots *)D_8003E388)->tasks[i]->completion.type = 2;
         ((AudioWorkSlots *)D_8003E388)->tasks[i]->completion.record = ((AudioWorkSlots *)D_8003E388)->tasks[i];
-        ((AudioWorkSlots *)D_8003E388)->tasks[i]->buffer = func_80012844(0, 0, config->heap, 1, D_80040F90 * 4);
+        ((AudioWorkSlots *)D_8003E388)->tasks[i]->buffer = func_80012844(0, 0, c->heap, 1, D_80040F90 * 4);
     }
     func_80023790(&D_8003E608, D_8003E620, 8);
     func_80023790(&D_8003E5D0, D_8003E5E8, 8);
     func_80023790(&D_80041298, D_800412B0, 0x20);
     func_80023790(&D_800416F0, D_80041708, 0x28);
-    func_800037F0((ThreadState *)D_8003E3A0, 4, D_10009400, 0, &D_800406A0, priority);
+    func_800037F0((ThreadState *)D_8003E3A0, 4, D_10009400, 0, &D_800406A0, pri);
     D_8002AE40 = 1;
     func_80022A60((ThreadState *)D_8003E3A0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80008F90 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_80008F90.s")
 void func_80022E00(void *);
 
 void func_800093CC(void) {
@@ -346,69 +326,65 @@ extern u8 D_100291A0[];
 extern u8 D_8002C960[];
 extern s32 D_8002AE4C;
 extern OSMesgQueue D_8003B200;
-extern volatile u32 D_A4500004;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800095A0 CURRENT (1380) */
-s32 func_800095A0(AudioTaskRecord *record, AudioTaskRecord *previous) {
-    u32 physical;
-    Acmd *commandEnd;
-    s32 commandCount;
-    s32 remaining;
-    u32 bufferEnd;
-    u32 stackPadding[1];
+s32 func_800095A0(AudioTaskRecord *info, AudioTaskRecord *lastInfo) {
+    s16 *audioPtr;
+    Acmd *cmdp;
+    s32 cmdLen;
+    s32 samplesLeft;
+    AudioSchedulerTask *t;
+    u32 end;
 
-    physical = func_800233C0(record->buffer);
+    audioPtr = (s16 *)func_800233C0(info->buffer);
     func_800099BC();
     func_8000A03C();
-    remaining = (s32)(D_A4500004 >> 2);
-    if (previous != 0) {
-        func_80002DB0(previous->adjustedBuffer, previous->samples * 4);
+    samplesLeft = *(volatile u32 *)0xA4500004 >> 2;
+    if (lastInfo != NULL) {
+        func_80002DB0(lastInfo->adjustedBuffer, lastInfo->samples << 2);
     }
-    if (remaining >= 0xF9 && D_80040F84 == 0) {
-        record->samples = D_80040F88;
+    if (samplesLeft >= 0xF9 && D_80040F84 == 0) {
+        info->samples = D_80040F88;
         D_80040F84 = 2;
     } else {
-        record->samples = D_80040F8C;
+        info->samples = D_80040F8C;
         if (D_80040F84 != 0) {
             D_80040F84--;
         }
     }
-    bufferEnd = physical + ((u32)record->samples << 2);
-    if ((bufferEnd & 0x1FFF) == 0) {
-        physical += 0x10;
-        record->adjustedBuffer = record->buffer + 0x10;
+    end = (u32)audioPtr + (info->samples << 2);
+    if ((end & 0x1FFF) == 0) {
+        audioPtr += 8;
+        info->adjustedBuffer = info->buffer + 0x10;
     } else {
-        record->adjustedBuffer = record->buffer;
+        info->adjustedBuffer = info->buffer;
     }
-    commandEnd = func_80019498(D_8003E388[D_8002AE4C], &commandCount,
-                             (s16 *)physical, record->samples);
-    if (commandCount == 0) {
+    cmdp = func_80019498(D_8003E388[D_8002AE4C], &cmdLen, audioPtr, info->samples);
+    if (cmdLen == 0) {
         return 0;
     }
-    record->scheduler.next = 0;
-    record->scheduler.completionQueue = &D_8003E608;
-    record->scheduler.completionMessage = &record->completion;
-    record->scheduler.flags = 2;
-    record->scheduler.framebuffer = 0;
-    record->scheduler.task.commands = D_8003E388[D_8002AE4C];
-    record->scheduler.task.commandSize =
-        (u32)((s32)((u32)commandEnd - (u32)D_8003E388[D_8002AE4C]) >> 3) << 3;
-    record->scheduler.task.type = 2;
-    record->scheduler.task.boot = D_100290D0;
-    record->scheduler.task.bootSize = (u32)D_100291A0 - (u32)D_100290D0;
-    record->scheduler.task.flags = 0;
-    record->scheduler.task.microcode = D_100291A0;
-    record->scheduler.task.microcodeData = D_8002C960;
-    record->scheduler.task.microcodeDataSize = 0x800;
-    record->scheduler.task.yieldData = 0;
-    record->scheduler.task.yieldSize = 0x400;
+    t = &info->scheduler;
+    t->next = NULL;
+    t->completionQueue = &D_8003E608;
+    t->completionMessage = &info->completion;
+    t->flags = 2;
+    t->framebuffer = NULL;
+    t->task.commands = D_8003E388[D_8002AE4C];
+    t->task.commandSize = (cmdp - D_8003E388[D_8002AE4C]) * sizeof(Acmd);
+    t->task.type = 2;
+    t->task.boot = D_100290D0;
+    t->task.bootSize = (s32)D_100291A0 - (s32)D_100290D0;
+    t->task.flags = 0;
+    /* aspMain text begins where the 0xD0-byte rspboot text ends. */
+    t->task.microcode = D_100290D0 + 0xD0;
+    t->task.microcodeData = D_8002C960;
+    t->task.microcodeDataSize = 0x800;
+    t->task.yieldData = NULL;
+    t->task.yieldSize = 0x400;
     func_80024F10();
-    func_80023580(&D_8003B200, &record->scheduler, 1);
+    func_80023580(&D_8003B200, t, 1);
     D_8002AE4C ^= 1;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_800095A0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_800095A0.s")
 /* SDK ALDMAproc contract, using the project scalar aliases. */
 
 typedef struct {

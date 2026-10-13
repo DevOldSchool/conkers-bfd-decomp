@@ -94311,17 +94311,16 @@
       "symbol": "func_80012020"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1811,
-        "reason": "Unchanged after pass 3 permuter/manual work (decomp-permuter 45-60 min where run; only fake-copy or semantic-changing results). See build/us/manual-attempts/main-permuter-20261010/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1084,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80008F90",
           "vram": "0x80008F90"
         }
@@ -94366,17 +94365,16 @@
       "symbol": "func_80009400"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1380,
-        "reason": "Manual full556 improved1400to1380: unusedword reservation plus anonymous unsigned byte arithmetic keeps exact frame40/allhomes and recovers samplesT4/bytesT5/endV0. One ADDU operand order remains plus prior MMIO extraADDIU and boot-address CSE/register/scheduling differences. Supported alias evidence unavailable; prior MMIO/arithmetic/scope forms exhausted. Preserve new best; no shared/ABI/ASM/flags changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 556,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800095A0",
           "vram": "0x800095A0"
         }
@@ -95903,17 +95901,16 @@
       "symbol": "func_8000FE88"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 500,
-        "reason": "Full160 CURRENT500 independently restored de91fc85. New actual entry-count/index phase reuse produced instruction-identical500; no added local or backedge bound snapshot. Prior separate guard-count740, narrow-handle scopes, comparison and indexed forms exhausted. Preserve simpler candidate; no equivalent definition-order retries justified.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 160,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000FEF0",
           "vram": "0x8000FEF0"
         }
@@ -96322,17 +96319,16 @@
       "symbol": "func_800112BC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2322,
-        "reason": "Full364 CURRENT2322 (improved from3775): loop bound read directly from the promoted global D_80041F50 (reloaded after func_80017594), byte-pointer destination arithmetic and copy; this recovers raw's li s8,0xC + multu handle index and per-iteration destination rematerialisation. Remaining: raw allocates nine s-registers (separate D_80041F10 constant in s6 used only by the copy, frame 0x40) and computes the loop end before the operation decrement store with rematerialised base; ours frame 0x38 with copy CSE'd into destination and an end reload after the store. Typed-constant enumerations (pointer/s32/u32/u8*) over init/dest/end/copy, 1100+ variants. Ledger build/us/manual-attempts/main-matching-3-20261012/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 364,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80011310",
           "vram": "0x80011310"
         }
