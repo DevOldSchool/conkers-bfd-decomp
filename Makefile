@@ -480,7 +480,7 @@ $(BUILD_DIR)/fonts/parts.stamp: $(ASSET_PACK_DEPS) scripts/font_splits.py script
 $(FONT_PARTS): $(BUILD_DIR)/fonts/parts.stamp ;
 endif
 
-BOUNDED_DEFLATE_DEPS := scripts/build_files.py scripts/rzip_bounded.py $(addprefix scripts/vendor/bounded_deflate/,main.c deflate.c trees.c bits.c gzip.h tailor.h lzw.h crypt.h)
+BOUNDED_DEFLATE_DEPS := scripts/rzip_bounded.py scripts/deflate_encoder.py
 
 ifneq ($(ANIMATION_CLIP_PARTS),)
 ANIMATION_CLIP_DIRS := $(patsubst assets/models/raw/%.bin,build/assets/animation-clips/us/%,$(ANIMATION_CLIP_BINS))

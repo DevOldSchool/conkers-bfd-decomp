@@ -90,9 +90,8 @@ payload size through hex encoding. Failed writes remove their temporary files;
 startup removes receipts and abandoned temporary files from the old format.
 Missing, corrupt, or stale entries are regenerated. Whole-stream and credited-range
 checks against the original ROM still run. Workers receive only their stream,
-not a copy of the full ROM. Bounded-DEFLATE source and executable hashes are
-reused within a process while file identity, size, timestamps and mode remain
-unchanged; changes trigger rehashing and the existing executable-repair checks.
+not a copy of the full ROM. The [independent bounded-DEFLATE encoder](evidence/data-layout/us_independent_deflate.md)
+runs directly in Python; it needs no compiled executable or compressor cache.
 
 Completed C units without GLOBAL_ASM use freshly built objects from the actual
 build. Mixed units use generated C-only copies, leaving deferred code disabled,

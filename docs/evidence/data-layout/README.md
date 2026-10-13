@@ -6,6 +6,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 
 ## Records
 
+- [Independent bounded DEFLATE replacement](us_independent_deflate.md)
 - [US complete bounded asset storage accounting](us_asset_storage_accounting.md)
 
 - [US bank-03 and bank-09 model reconstruction](us_model_reconstruction.md)

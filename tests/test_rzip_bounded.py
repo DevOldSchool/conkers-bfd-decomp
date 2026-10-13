@@ -1,10 +1,8 @@
-"""EOF decisions, 16K block boundaries and reproducible native encoder builds."""
+"""Exact compression vectors, boundary cases and independent decode rejection."""
 import hashlib
 from pathlib import Path
 import random
-import shutil
 import struct
-import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -18,7 +16,6 @@ EOF_VECTOR = bytes.fromhex(
     '000706030301020603040006030707020303010202050000000007040302030507000000')
 
 
-@unittest.skipUnless(shutil.which('cc'), 'requires a host C compiler')
 class BoundedEncoderTests(unittest.TestCase):
     def test_eof_and_16k_block_vectors_and_independent_decode(self):
         rng = random.Random(531)
@@ -34,35 +31,54 @@ class BoundedEncoderTests(unittest.TestCase):
             data = (bytes(range(251)) * ((size + 250) // 251))[:size]
             self.assertEqual(zlib.decompress(codec.encode_payload(data)[4:], -15), data)
 
-    def test_cache_repairs_corruption_and_changes_with_sources(self):
-        with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
-            shutil.copytree(codec.ROOT / codec.SOURCE, root / codec.SOURCE)
-            binary = codec.executable(root)
-            before = binary.read_bytes(), binary.stat().st_mtime_ns
-            self.assertEqual(codec.executable(root), binary)
-            self.assertEqual((binary.read_bytes(), binary.stat().st_mtime_ns), before)
-            binary.write_bytes(b'corrupt')
-            self.assertEqual(codec.executable(root).read_bytes(), before[0])
-            source = root / codec.SOURCE / 'main.c'
-            source.write_text(source.read_text() + '\n/* distinct source revision */\n')
-            other = codec.executable(root)
-            self.assertNotEqual(other, binary)
-            output = subprocess.check_output([str(other), '6'], input=EOF_VECTOR)
-            self.assertEqual(zlib.decompress(output, -15), EOF_VECTOR)
+    def test_exact_dynamic_blocks_heuristic_boundaries_and_long_history(self):
+        rng = random.Random(715)
+        cases = [
+            (bytes(rng.randrange(16) for _ in range(70000)),
+             '04f9f2d0870f6be87e48ddb2f94992b613c9dcaf15b0d478d00bc2669143448f'),
+            (bytes(rng.randrange(256) for _ in range(10000)) + b'a' * 50000
+             + bytes(rng.randrange(256) for _ in range(10000)),
+             '8a06924f917a45f6454dbfe21881fb736f3a7bb2a1ecbd54f9469a3242d024fd'),
+            ((bytes(range(251)) + b'end') * 600,
+             'd139ea59f98f7175c3d9d9e2156ad9aad4cfc9750709ec0aeefa041e93f64f70'),
+        ]
+        for data, digest in cases:
+            encoded = codec.encode_payload(data)[4:]
+            self.assertEqual(hashlib.sha256(encoded).hexdigest(), digest)
+            self.assertEqual(zlib.decompress(encoded, -15), data)
 
-    def test_missing_compiler_and_source_race_fail_without_cached_success(self):
-        with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
-            shutil.copytree(codec.ROOT / codec.SOURCE, root / codec.SOURCE)
-            with patch.object(codec.shutil, 'which', return_value=None):
-                with self.assertRaisesRegex(ValueError, 'requires a C compiler'):
-                    codec.executable(root)
-            before = codec.source_hashes(root)
-            with patch.object(codec, 'source_hashes', side_effect=[before, dict(before, changed='yes')]):
-                with self.assertRaisesRegex(ValueError, 'changed during compilation'):
-                    codec.executable(root)
-            self.assertEqual(list((root / 'build/tools/bounded-deflate').glob('*/encoder')), [])
+    def test_window_and_block_boundaries_with_varied_inputs(self):
+        rng = random.Random(715)
+        for size in (4095, 4096, 16382, 16383, 16384, 32506, 32768, 65273, 65274, 65536):
+            for alphabet in (2, 256):
+                data = bytes(rng.randrange(alphabet) for _ in range(size))
+                with self.subTest(size=size, alphabet=alphabet):
+                    encoded = codec.encode_payload(data)
+                    self.assertEqual(zlib.decompress(encoded[4:], -15), data)
+
+    def test_length_limited_huffman_tree_remains_complete(self):
+        # A Fibonacci distribution needs more than 15 levels without limiting.
+        from scripts.deflate_encoder import tree_lengths
+        for limit, count in ((7, 19), (15, 30)):
+            weights = [1, 1]
+            while len(weights) < count:
+                weights.append(sum(weights[-2:]))
+            widths = tree_lengths(weights, limit)
+            self.assertEqual(len(widths), count)
+            self.assertTrue(all(0 < width <= limit for width in widths))
+            self.assertEqual(sum(1 << (limit - width) for width in widths), 1 << limit)
+
+    def test_dynamic_block_with_limited_tree_round_trips(self):
+        from scripts.deflate_encoder import Bits, emit_block
+        frequencies = [1, 1]
+        while len(frequencies) < 20:
+            frequencies.append(sum(frequencies[-2:]))
+        data = bytes(symbol for symbol, count in enumerate(frequencies) for _ in range(count))
+        writer = Bits()
+        emit_block(writer, data, list(data), 0, len(data), False, True)
+        writer.align()
+        self.assertEqual((writer.output[0] >> 1) & 3, 2)
+        self.assertEqual(zlib.decompress(bytes(writer.output), -15), data)
 
 
 class BoundedContractTests(unittest.TestCase):
@@ -86,10 +102,13 @@ class BoundedContractTests(unittest.TestCase):
     def test_unsupported_levels_and_failed_independent_decode_rejected(self):
         for level in (True, 0, 9, '6'):
             with self.assertRaises(ValueError): codec.encode_payload(b'data', level)
-        with patch.object(codec, 'executable', return_value=Path('fake')):
-            result = subprocess.CompletedProcess([], 0, b'bad', b'')
-            with patch.object(codec.subprocess, 'run', return_value=result):
+        for payload in (bytearray(b'data'), 'data', None):
+            with self.assertRaises(ValueError): codec.encode_payload(payload)
+        valid = zlib.compress(b'data', wbits=-15)
+        for packed in (b'bad', valid[:-1], valid + b'trailer', zlib.compress(b'other', wbits=-15)):
+            with self.subTest(packed=packed), patch.object(codec.deflate_encoder, 'encode', return_value=packed):
                 with self.assertRaises(ValueError): codec.encode_payload(b'data')
+
 
 
 class HashReuseTests(unittest.TestCase):

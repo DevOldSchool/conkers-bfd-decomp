@@ -51,7 +51,7 @@ class AssetMakeTests(unittest.TestCase):
                      'toolchain/python-requirements.txt', 'roms/baserom.us.z64',
                      'config/texture_encoders.us.json',
                      'scripts/asset_inputs.py', 'scripts/audio_consumers.py', 'scripts/build_jobs.py', 'scripts/rzip_gzip.py',
-                     'scripts/build_files.py', 'scripts/rzip_bounded.py', 'scripts/font_assets.py', 'scripts/mp3_assets.py',
+                     'scripts/build_files.py', 'scripts/rzip_bounded.py', 'scripts/deflate_encoder.py', 'scripts/font_assets.py', 'scripts/mp3_assets.py',
                      'scripts/rzip_archive.py', 'scripts/rzip_extract.py',
                      'scripts/texture_assets.py', 'scripts/texture_catalog.py',
                      'scripts/texture_ci8.py', 'scripts/texture_rgba16.py',
@@ -62,10 +62,6 @@ class AssetMakeTests(unittest.TestCase):
             path = self.root / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.touch()
-        vendor = self.root / 'scripts/vendor/bounded_deflate'
-        vendor.mkdir(parents=True)
-        for name in ('main.c', 'deflate.c', 'trees.c', 'bits.c', 'gzip.h', 'tailor.h', 'lzw.h', 'crypt.h'):
-            (vendor / name).touch()
         shutil.copy(ROOT / 'scripts/profile_config.py', self.root / 'scripts/profile_config.py')
         shutil.copy(ROOT / 'scripts/build_timing.py', self.root / 'scripts/build_timing.py')
         shutil.copy(ROOT / 'scripts/debugger_asset_inputs.py', self.root / 'scripts/debugger_asset_inputs.py')
@@ -311,8 +307,8 @@ with Path('sprite.calls').open('a') as log:log.write('packed\\n')
         self.assertEqual(obj.stat().st_mtime_ns, before)
         self.assertEqual((self.root / 'sprite.calls').read_text(), 'packed\n')
         time.sleep(1.05)
-        native_source = self.root / 'scripts/vendor/bounded_deflate/deflate.c'
-        native_source.write_text('changed native encoder')
+        native_source = self.root / 'scripts/deflate_encoder.py'
+        native_source.write_text('changed independent encoder')
         self.assertEqual(run().returncode, 0)
         self.assertEqual((self.root / 'sprite.calls').read_text(), 'packed\npacked\n')
         self.assertEqual(obj.stat().st_mtime_ns, before)

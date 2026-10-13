@@ -1,5 +1,9 @@
 # EOF-bounded compression and 16K token blocks
 
+This is historical evidence for the initial encoder. The
+[independently authored replacement](us_independent_deflate.md) preserves its
+compression contract and matching credit without the vendored GNU gzip code.
+
 This follow-up reconstructs another **828,837 stored bytes** through fresh
 compression: 12 native characters (105,553 bytes), 15 complete scene bundles
 (686,344 bytes), and five sprite entries (36,940 bytes). The decoded formats
@@ -22,11 +26,10 @@ A 16,384-token buffer reproduces those boundaries. The hash table remains
 are not used. With both changes, level six reproduces all 27 reviewed model
 candidates and the five sprites.
 
-The standalone encoder derives its compression core from GNU gzip 1.2.4.
-[Source provenance and licensing](../../../scripts/vendor/bounded_deflate/PROVENANCE.md)
-record the official archive and checksum, retained copyright and GPL terms,
-and exact local changes. The build needs no network download. A small driver
-reads semantic asset bytes on stdin and emits raw DEFLATE on stdout.
+The initial standalone encoder derived its compression core from GNU gzip 1.2.4.
+Its provenance and GPL notices remain in Git history at commit `235c91d0`.
+That utility has been replaced; the current encoder is described in the
+[independent implementation evidence](us_independent_deflate.md).
 
 The prototype passed 102 synthetic cases under address and undefined-behavior
 sanitizers, including empty inputs, EOF boundaries, window boundaries and
