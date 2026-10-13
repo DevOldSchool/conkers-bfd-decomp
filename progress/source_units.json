@@ -12989,15 +12989,15 @@
       "functions": [
         "func_150BE850"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xBE9B0",
           "start": "0xBE850",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_EBD00.c"
+      "source": "src/done/game/game_EBD00.c"
     },
     {
       "boundary_evidence": {
