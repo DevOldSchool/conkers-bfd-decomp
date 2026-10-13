@@ -327,9 +327,39 @@ def candidate_section(unit: dict, base: Path) -> tuple[bytes, int]:
     return payload[:size], sum(section == index for section, _ in obj.relocations)
 
 
+def allocated_debugger_inputs(units: list[dict], output: Path) -> dict[str, str]:
+    """Refresh the actual runtime link before considering source-data completion."""
+    mapped = [u for u in units if u['kind'] == 'source_placement']
+    if not mapped:
+        return {}
+    if any(u.get('overlay') != 'debugger' for u in mapped):
+        raise ValueError('unsupported allocated source-data overlay')
+    with (output / 'debugger-runtime-build.log').open('w') as log:
+        subprocess.run(['make', '--silent', '--jobs', str(job_count()), 'build',
+                        'PROFILE=us', 'ASSETS=0'], cwd=ROOT, stdout=log, stderr=log, check=True)
+    import verify_debugger_rodata
+    elf = ROOT / 'build/us/original-assets/conker.us.elf'
+    verify_debugger_rodata.verify(elf)
+    return {elf.relative_to(ROOT).as_posix(): objdiff_targets.sha256(elf)}
+
+
+def same_source_object(candidate: Path, linked: Path) -> bool:
+    """Compare actual storage and relocations, ignoring only debug/file metadata."""
+    left, right = Object32(candidate.read_bytes()), Object32(linked.read_bytes())
+    def storage(obj):
+        parsed = sections(obj.data, 1)
+        return {name: (header[1:4], header[5], header[8], payload)
+                for name, (header, payload) in parsed.items()
+                if header[2] & 2 and name not in ('.reginfo', '.MIPS.abiflags')}
+    return (storage(left) == storage(right)
+            and left.relocations == right.relocations
+            and sorted(left.non_section_symbols) == sorted(right.non_section_symbols))
+
+
 def prepare_candidates(units: list[dict], *, output: Path | None = None) -> list[dict]:
     output = OUTPUT if output is None else output
     config = []
+    runtime_inputs = allocated_debugger_inputs(units, output)
     for unit in units:
         directory = output / unit['key']
         directory.mkdir(parents=True, exist_ok=True)
@@ -347,7 +377,7 @@ def prepare_candidates(units: list[dict], *, output: Path | None = None) -> list
             if source:
                 focused = directory / 'base.c'
                 focused.write_text(diff.GLOBAL_ASM_LINE.sub('', source.read_text()))
-                result = subprocess.run(compile_c.compile_command('us', focused, base),
+                result = compile_c.run_compile('us', focused, base,
                                         cwd=ROOT, stdout=log, stderr=log)
                 unit['source'] = source.relative_to(ROOT).as_posix()
                 if result.returncode:
@@ -380,6 +410,20 @@ def prepare_candidates(units: list[dict], *, output: Path | None = None) -> list
                     archive_path, _ = candidate_archive(unit)
                     unit.update(complete=True, data_completion_verified=True,
                                 linked_inputs={archive_path.relative_to(ROOT).as_posix(): objdiff_targets.sha256(archive_path)})
+                    item['metadata']['complete'] = True
+                elif unit['kind'] == 'source_placement':
+                    linked = ROOT / ('build/us/' + unit['source'].removesuffix('.c') + '.o')
+                    if not same_source_object(base, linked):
+                        raise ValueError('debugger data candidate differs from actual linker input')
+                    if unit['source'] == 'src/done/debugger/debugger_0000.c':
+                        import debugger_assets
+                        unit['source_inputs'] = {
+                            (debugger_assets.DIRECTORY / name).as_posix():
+                            objdiff_targets.sha256(ROOT / debugger_assets.DIRECTORY / name)
+                            for name in ('glyphs.pgm', 'strings.json')}
+                    unit.update(complete=True, data_completion_verified=True,
+                                linked_inputs={**runtime_inputs,
+                                    linked.relative_to(ROOT).as_posix(): objdiff_targets.sha256(linked)})
                     item['metadata']['complete'] = True
         config.append(item)
     return config

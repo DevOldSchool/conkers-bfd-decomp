@@ -346,7 +346,10 @@ segments:
       - [0x19EA88, c, done/debugger/debugger_0000]
       - [0x1A0558, c, done/debugger/debugger_1AD0]
       - [0x1A20D8, asm, debugger/tlb]
-      - [0x1A2178, data, debugger/data]
+      - {start: 0x1A2178, type: .data, name: done/debugger/debugger_0000}
+      - {start: 0x1A26F8, type: .data, name: done/debugger/debugger_1AD0}
+      - {start: 0x1A2768, type: .rodata, name: done/debugger/debugger_0000, linker_section_order: .data}
+      - {start: 0x1A3288, type: .rodata, name: done/debugger/debugger_1AD0, linker_section_order: .data}
   # Outer asset-table records bound each bank; child entries remain in their bank.
   # Byte alignment preserves unaligned compressed ends and explicit gaps.
   - name: unassigned_after_debugger

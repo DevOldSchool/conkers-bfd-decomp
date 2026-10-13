@@ -98405,6 +98405,30 @@
       },
       "source": "src/done/debugger/debugger_1AD0.c",
       "symbol": "func_160021FC"
+    },
+    {
+      "original_asm": {
+        "reason": "Privileged CP0 TLB capture with explicit hazard scheduling and original register convention",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/debugger/us_debugger_tlb.md"
+      },
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "6f3b8fd75ed171a2e3366a2b43e6b381d0c34aa7ffa998756e158e79a0676cb3",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "5201835912090f8134a1a7f602a1c197c0d013d71d77e255544b3e89095552d4",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 160,
+          "state": "original_asm",
+          "symbol": "func_16003650",
+          "vram": "0x16003650"
+        }
+      },
+      "source": "src/debugger/tlb.c",
+      "symbol": "func_16003650"
     }
   ],
   "schema_version": 1

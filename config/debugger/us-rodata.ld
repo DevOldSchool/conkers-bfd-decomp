@@ -1,15 +1,3 @@
-/* Reviewed external debugger table; see docs/evidence/debugger/debugger_printf_rodata.md.
- * Consume this input before the generated full-ROM script. INFO retains linked
- * bytes for verification; the unchanged raw debugger data supplies runtime bytes.
+/* Formatter .data and .rodata are allocated source placements in
+ * config/profiles/us.yaml. No INFO copy may consume their runtime inputs.
  */
-SECTIONS
-{
-    __debugger_rodata_saved_dot = ABSOLUTE(.);
-    .debugger_rodata_1ad0 0x1600487C (INFO) : SUBALIGN(4)
-    {
-        *debugger_1AD0.o(.rodata)
-    }
-    . = __debugger_rodata_saved_dot;
-}
-ASSERT(SIZEOF(.debugger_rodata_1ad0) == 0xD0,
-       "debugger formatter rodata extent changed")
