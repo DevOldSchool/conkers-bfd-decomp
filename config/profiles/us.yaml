@@ -80,7 +80,7 @@ segments:
       - [0x71D0, asm]
       - [0x8120, asm]
       - [0x8180, c, done/main/init_8180]
-      - [0x8F90, asm]
+      - [0x8F90, c, done/main/init_8F90]
       - [0xA420, asm]
       - [0xB1B0, asm]
       - [0xEB00, asm]

@@ -19917,15 +19917,15 @@
         "func_8000A03C",
         "func_8000A348"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xA420",
           "start": "0x8F90",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_8F90.c"
+      "source": "src/done/main/init_8F90.c"
     },
     {
       "boundary_evidence": {

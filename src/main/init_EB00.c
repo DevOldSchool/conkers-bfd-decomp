@@ -6,11 +6,9 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_8000FA64
- * - func_8000FEF0
  * - func_80010154
  * - func_80010630
  * - func_80010FFC
- * - func_80011310
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -704,32 +702,24 @@ s32 func_8000FE88(SoundArrayRecord *records, s32 index, s32 *count) {
     }
     return 1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FEF0 CURRENT (500) */
-s32 func_8000FEF0(u16 arg0, void *owner, s32 key) {
-    SoundArrayRecord *record;
-    s32 index;
-    u16 handle;
+s32 func_8000FEF0(arg0, owner, key)
+u16 arg0;
+void *owner;
+s32 key;
+{
+    s32 i;
 
-    if (arg0 == 0) {
+    if (!arg0) {
         return -1;
     }
-    handle = arg0;
-    index = 0;
-    if (D_80042760 > 0) {
-        record = D_80041FE0;
-        do {
-            if ((record->handle == handle) && (owner == record->owner) &&
-                (key == record->key) && !(record->flags & 0x80)) {
-                return index;
-            }
-            index++;
-            record++;
-        } while (index < D_80042760);
+    for (i = 0; i < D_80042760; i++) {
+        if ((D_80041FE0[i].handle == arg0) && (D_80041FE0[i].owner == owner) &&
+            (D_80041FE0[i].key == key) && !(D_80041FE0[i].flags & 0x80)) {
+            return i;
+        }
     }
     return -1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000FEF0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000FEF0.s")
 s32 func_8000FF90(void *callback, void *owner, s32 key) {
     s32 index;
 
@@ -1186,9 +1176,9 @@ void func_8001123C(u16 arg0) {
     }
 }
 typedef struct {
-    s16 value;
-    s8 operation;
-    s8 index;
+    u16 value;
+    u8 operation;
+    u8 index;
 } SoundQueueEntry;
 
 extern SoundQueueEntry D_80041F10[16];
@@ -1207,62 +1197,45 @@ s32 func_800112BC(s32 arg0, s32 arg1) {
     }
     return 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011310 CURRENT (3775) */
 void func_80011310(void) {
-    SoundHandleEntry *entry;
-    SoundQueueEntry *cursor;
-    SoundQueueEntry *end;
-    SoundQueueEntry *destination;
-    s32 count;
-    s32 index;
+    s32 i;
+    s32 j;
     s32 flag;
     s32 remaining;
+    s32 idx;
     struct sndstate *state;
-    s32 operation;
 
-    count = D_80041F50;
     flag = 0;
-    index = 0;
-    remaining = count;
-    if (count > 0) {
-        cursor = D_80041F10;
-        do {
-            operation = (u8)cursor->operation;
-            destination = (SoundQueueEntry *)((index << 2) + (s32)D_80041F10);
-            if (operation > 0) {
-                end = &D_80041F10[count];
-                cursor->operation = operation - 1;
-            } else {
-                flag = 1;
-                entry = &D_800425E0[(u8)cursor->index];
-                if (entry->id == (u16)cursor->value) {
-                    state = entry->state;
-                    entry->id = 0;
-                    entry->value = 0;
-                    if (state != 0) {
-                        func_80017594(state);
-                        count = D_80041F50;
-                    }
-                    entry->state = 0;
+    j = 0;
+    remaining = D_80041F50;
+    for (i = 0; i < D_80041F50; i++) {
+        if (D_80041F10[i].operation > 0) {
+            D_80041F10[i].operation--;
+        } else {
+            idx = D_80041F10[i].index;
+            if (D_800425E0[idx].id == D_80041F10[i].value) {
+                state = D_800425E0[idx].state;
+                D_800425E0[idx].id = 0;
+                D_800425E0[idx].value = 0;
+                if (state != NULL) {
+                    func_80017594(state);
                 }
-                remaining--;
-                end = &D_80041F10[count];
+                D_800425E0[idx].state = NULL;
             }
-            if (destination != cursor) {
-                D_80041F10[index] = *cursor;
-            }
-            cursor++;
-            if (flag != 0) {
-                index++;
-            } else {
-                flag = 0;
-            }
-        } while ((u32)cursor < (u32)end);
+            remaining--;
+            flag = 1;
+        }
+        if (j != i) {
+            D_80041F10[j] = D_80041F10[i];
+        }
+        if (flag) {
+            j++;
+        } else {
+            flag = 0;
+        }
     }
     D_80041F50 = remaining;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80011310 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80011310.s")
 s32 func_8001147C(u16 arg0) {
     SoundHandleEntry *entry;
 
