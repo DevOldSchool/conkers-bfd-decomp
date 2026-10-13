@@ -48,7 +48,9 @@ class DataTargetTests(unittest.TestCase):
                          and shutil.which('mips-linux-gnu-as'), 'requires owned ROM and toolchain')
     def test_canonical_sdk_payload_extents_survive_splat_and_full_image_link(self):
         audit = targets.data_boundaries.audit(ROOT)
-        declared = targets.declared_data_symbols(ROOT / 'config/symbols/us.txt')
+        declared = {name: span for name, span in
+                    targets.declared_data_symbols(ROOT / 'config/symbols/us.txt').items()
+                    if audit['images']['main']['vram_start'] <= span[0] < audit['images']['main']['vram_end']}
         self.assertTrue(declared)
         with tempfile.TemporaryDirectory(dir=ROOT / 'build', prefix='sdk-symbol-test-') as tmp:
             output = Path(tmp)
@@ -173,6 +175,26 @@ class DataTargetTests(unittest.TestCase):
                     with self.assertRaises(ValueError):
                         targets.prepare_targets(image, rom, overlay='debugger')
                     run.assert_not_called()
+
+    def test_allocated_source_proof_rejects_changed_storage_or_relocations(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            left, right = root / 'left.o', root / 'right.o'
+            blob = object_file([('.text', 1, 6, bytes(16)), ('.data', 1, 3, bytes(16))])
+            left.write_bytes(blob); right.write_bytes(blob)
+            self.assertTrue(targets.same_source_object(left, right))
+            right.write_bytes(object_file([('.text', 1, 6, bytes(16)),
+                                           ('.data', 1, 3, bytes(15) + b'x')]))
+            self.assertFalse(targets.same_source_object(left, right))
+            right.write_bytes(blob)
+            first, second = targets.Object32(blob), targets.Object32(blob)
+            second.relocations[(1, 0)] = (2, ('different', 0, 0, 0))
+            with patch.object(targets, 'Object32', side_effect=[first, second]):
+                self.assertFalse(targets.same_source_object(left, right))
+
+    def test_allocated_source_runtime_proof_rejects_other_overlays(self):
+        with self.assertRaisesRegex(ValueError, 'overlay'):
+            targets.allocated_debugger_inputs([{'kind': 'source_placement', 'overlay': 'game'}], ROOT)
 
     def test_debugger_candidate_uses_debugger_source_and_category(self):
         import hashlib

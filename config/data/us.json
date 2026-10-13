@@ -576,12 +576,42 @@
         }
       },
       {
+        "address": "0x800A041C",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_F3270.c",
+            "src/done/game/game_F3270.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A045C",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_F3BA0.c",
+            "src/done/game/game_F3BA0.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A0D5C",
         "section": ".rodata",
         "owner": {
           "sources": [
             "src/game/game_10BC70.c",
             "src/done/game/game_10BC70.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A143C",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1179B0.c",
+            "src/done/game/game_1179B0.c"
           ]
         }
       },
@@ -622,6 +652,16 @@
           "sources": [
             "src/game/game_15D730.c",
             "src/done/game/game_15D730.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A5188",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_169510.c",
+            "src/done/game/game_169510.c"
           ]
         }
       },
@@ -736,6 +776,16 @@
         }
       },
       {
+        "address": "0x800A8FF4",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1D6E80.c",
+            "src/done/game/game_1D6E80.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A9DD4",
         "section": ".rodata",
         "owner": {
@@ -784,7 +834,37 @@
     ],
     "debugger": [
       {
-        "address": "0x1600487C",
+        "address": "0x160036f0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/debugger/debugger_0000.c",
+            "src/done/debugger/debugger_0000.c"
+          ]
+        }
+      },
+      {
+        "address": "0x16003C70",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/debugger/debugger_1AD0.c",
+            "src/done/debugger/debugger_1AD0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x16003ce0",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/debugger/debugger_0000.c",
+            "src/done/debugger/debugger_0000.c"
+          ]
+        }
+      },
+      {
+        "address": "0x16004800",
         "section": ".rodata",
         "owner": {
           "sources": [

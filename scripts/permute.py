@@ -216,8 +216,7 @@ def score_candidate(
     candidate_source.write_text(
         diff.GLOBAL_ASM_LINE.sub("", source_content), encoding="utf-8"
     )
-    subprocess.run(
-        compile_c.compile_command(profile, candidate_source, candidate_object),
+    compile_c.run_compile(profile, candidate_source, candidate_object,
         cwd=ROOT,
         check=True,
         stdout=subprocess.DEVNULL,

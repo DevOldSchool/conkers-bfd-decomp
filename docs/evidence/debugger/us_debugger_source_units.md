@@ -66,9 +66,9 @@ later evidence for one of these splits as grounds to re-register narrower units.
 
 ## Scope
 
-This adopted the existing exact C mappings; both units are integrated under
-`src/done/debugger/`. The raw TLB routine
-(`0x16003650:0x160036F0`) and all loaded data stay raw. The
-[Putfld table mapping](debugger_printf_rodata.md) and the
-[SI span composition](debugger_si_span.md) are unchanged. No compiler option,
-assembly, linker script or shared header changes.
+Both C units are integrated under `src/done/debugger/`, including their allocated
+initialized data. See the [formatter mapping](debugger_printf_rodata.md) and
+[UI reconstruction](us_debugger_data_reconstruction.md). The independently bounded
+[TLB unit](us_debugger_tlb.md) remains original assembly. The
+[SI span composition](debugger_si_span.md) is unchanged. No compiler optimization,
+assembly instruction or shared-header change is required.

@@ -202,12 +202,10 @@ def compile_candidate(
     compile_source = focused_candidate_source(
         profile, source, deferred_symbol=deferred_symbol
     )
-    subprocess.run(
-        compile_c.compile_command(
-            profile,
-            compile_source,
-            output,
-        ),
+    compile_c.run_compile(
+        profile,
+        compile_source,
+        output,
         cwd=ROOT,
         check=True,
     )
@@ -247,7 +245,7 @@ def prepare_main_comparison(source: Path, candidate: Path, reference: Path, asse
     directory.mkdir(parents=True, exist_ok=True)
     mixed_source, mixed_object = directory / "source.c", directory / "mixed.o"
     mixed_source.write_text(content, encoding="utf-8")
-    subprocess.run(compile_c.compile_command("us", mixed_source, mixed_object), cwd=ROOT, check=True)
+    compile_c.run_compile("us", mixed_source, mixed_object, cwd=ROOT, check=True)
     try:
         pair = linked_aliases.prepare_main(ROOT, relative, mixed_object, reference, assembly,
                                            symbol, start, size)
@@ -315,7 +313,7 @@ def prepare_game_comparison(source: Path, candidate: Path, reference: Path, asse
     mixed_source.write_text(content, encoding="utf-8")
     mixed_object.unlink(missing_ok=True)
     fresh_reference = reference_object("us", symbol, game_reference=True, assembly=assembly, force=True)
-    subprocess.run(compile_c.compile_command("us", mixed_source, mixed_object), cwd=ROOT, check=True)
+    compile_c.run_compile("us", mixed_source, mixed_object, cwd=ROOT, check=True)
     short = None
     try:
         pair = linked_aliases.prepare_game(ROOT, relative, mixed_object, fresh_reference, assembly,

@@ -10,13 +10,11 @@ Use objdiff alongside the existing registered-span asm-differ adapter:
 ./conker objdiff view func_15001970
 ```
 
-`compare` and `view` install the CLI automatically if necessary. The official
-[v3.8.1 release](https://github.com/encounter/objdiff/releases/tag/v3.8.1) is
-pinned by version and per-platform SHA-256 in `toolchain/tools.lock.json`. The
-binary runs natively from ignored `build/host-tools/` on Linux or macOS, on
-x86_64 or ARM64. First use needs HTTPS access and host `curl`; subsequent uses
-verify the cached binary and can run offline. Compilation and reference
-assembly still use the existing pinned Docker image.
+`compare` and `view` install the official v3.8.1 CLI release automatically if
+necessary. Platform release checksums are pinned in `toolchain/tools.lock.json`;
+installation downloads the executable to ignored `build/host-tools/` and verifies
+its checksum on every use. No Rust/Cargo or locally modified objdiff is required.
+Game compilation and reference assembly still use the pinned Docker image.
 
 The command accepts registered US work-item IDs with either active C or a
 preserved deferred candidate. Deferred C is activated in a generated copy;
@@ -79,8 +77,10 @@ submodule update --init lib/ultralib`).
 
 Completed C units without GLOBAL_ASM use freshly built objects from the actual
 build. Mixed units use generated C-only copies, leaving deferred code disabled,
-so preserved assembly cannot earn source credit. Coverage records the candidate
-origin. SDK candidates come from the canonical archives.
+so generated assembly fallbacks cannot earn source credit. Reviewed maintained
+assembly units are assembled separately, require full-span/runtime proof, and
+are labelled `Original assembly`. Coverage records the candidate origin. SDK
+candidates come from the canonical archives.
 
 Owned code and data references are combined into one source/SDK object unit.
 The YAML, private-data configuration and reviewed linker placements own the
@@ -205,20 +205,53 @@ The native report provides `total_data`, `matched_data` and
 `complete_data` as “fully linked” and matching beyond that as “perfect match”;
 see its [rendering implementation](https://github.com/encounter/decomp.dev/blob/main/crates/web/src/handlers/common.rs).
 Data placement alone grants no fully linked completion. A grouped unit is complete
-only when its code and every owned data range qualify. ROM-identical,
-relocation-free main SDK data linked through canonical archive placements is
-eligible, but completion also requires every data byte in its grouped unit to
-match in native objdiff. Generation first measures candidates, removes completion
-from eligible units with incomplete native data matching, then regenerates the
-native report. It never patches the report counts. `completion_downgrades` in
-validation records affected units and their code/data bytes. Private/INFO/NOLOAD data still supplied by preserved ROM streams remains
-incomplete, even when its C owner has integrated code. This can reduce a file's
-fully-linked code measure while retaining its native matching credit.
+only when its code and every owned data range qualify through the actual build
+inputs and independent ROM checks. ROM-identical, relocation-free main SDK data
+linked through canonical archive placements is eligible. Debugger source data
+requires candidate/linked-object equivalence and a full runtime-image ROM proof.
+
+Completion and native matching are independent measures. Generation passes the
+verified eligibility through `metadata.complete` to stock objdiff, which computes
+`complete_code` and `complete_data` without changing `matched_code` or
+`matched_data`; see the pinned release’s
+[report implementation](https://github.com/encounter/objdiff/blob/v3.8.1/objdiff-cli/src/cmd/report.rs#L339-L342).
+It does not patch the report or require native data matching to
+approve independently proved completion. `completion_notes` in validation lists
+complete units with lower native data matching and explains the distinction.
+The legacy top-level `complete` option is rejected, and completed data must have
+a candidate. Source, linked-object and reference hashes, relocation checks and
+complete denominators remain mandatory. Stock objdiff also uses completion as a
+fallback percentage when a section has no comparison; the verified report changes
+three zero-byte SDK `.text` percentages, without changing any matched byte count
+or nonempty-section comparison. Private/INFO/NOLOAD data still supplied by preserved
+ROM streams remains incomplete, even when its C owner has integrated code.
 A selector such as `*foo.o(.rodata)` alone does not establish that the ROM uses
-that object's bytes: all current source-owned external placements are INFO/NOLOAD
-verification sections. The raw ROM or original GAME-data archive still supplies
-the final bytes. A future source-data integration must replace that backing and
-add verification of the actual linked input before it can receive completion.
+that object's bytes. Source-owned INFO/NOLOAD placements retain raw ROM or
+original GAME-data archive backing, which must be replaced and verified before
+completion. Both debugger C units have allocated `.data` and `.rodata` placements in the
+canonical profile, with actual runtime-input and whole-image verification.
+Native percentages come directly from the unmodified release. Stock objdiff
+bounds a data comparison by the last named symbol and compares REL words byte
+for byte, so IDO's anonymous switch tables and literals would otherwise leave
+the formatter's `.rodata` unmatched. For completed debugger source owners only,
+generation compares a copy of the actual linker input (`owned/<key>/base.o`,
+built by [`objdiff_candidate.py`](../scripts/objdiff_candidate.py)). The copy
+names anonymous tables and doubles found from the candidate's own dispatch
+instructions and relocations, and moves each table entry's REL addend into a
+destination label. Names come from runtime-ELF anchors, never the reference or
+ROM. An independent verifier re-derives every permitted change and checks all
+relocation destinations; both copies must link to the runtime ELF bytes.
+`validation.json` records each proof under `comparison_copies`. Objects without
+anonymous references keep the actual input. Changed literals, table order, case
+counts or placement still lower native matching; see the
+[formatter evidence](evidence/debugger/debugger_printf_rodata.md#integrated-comparison-copy-2026-10-12).
+The independent reference disassembly includes original rodata context for
+switch destinations.
+The maintained TLB source `src/debugger/tlb.s` supplies an assembled candidate.
+Its `Original assembly` unit earns native matching and linked completion only
+after full-span candidate and runtime-image verification. Native matched code
+includes assembly source; the separate C-only inventory still excludes TLB.
+Generated fallback assembly remains ineligible for native source credit.
 
 Known SDK data names and payload sizes come from `config/symbols/us.txt`.
 Declaration-backed zero alignment padding stays anonymous in the reference,
@@ -229,7 +262,8 @@ anonymous pools and incorrect SDK symbol extents.
 Native comparisons determine perfect-match credit. Every final unit must satisfy
 `complete_data <= matched_data`; category or aggregate totals cannot hide a
 violation. Units whose data is still ROM-backed need actual build integration
-before they can become complete. This currently includes GAME and debugger data.
+before they can become complete. This includes preserved GAME data. All debugger initialized data is now allocated
+source storage and is compared natively as described above.
 
 When this report is first published, fully-linked code can decrease for two
 reasons: a grouped unit owns data still supplied by ROM, or its linked data fails

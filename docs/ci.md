@@ -23,6 +23,12 @@ The compilation job checks out the pinned public ultralib submodule and mounts
 only its headers read-only alongside the project sources. It does not require
 ROM inputs or private credentials.
 
+The debugger UI's local glyph/string definitions are omitted only from its
+temporary compile copy, using the source's existing typed `extern` declarations.
+The allowlist names that exact source and include; other includes remain required.
+Runtime builds still require the real generated asset definitions. Public CI
+checks the C users, while the local ROM build and asset tests verify the data.
+
 Disabled deferred candidates remain disabled. Compilation and metadata checks
 are not instruction-match evidence. File hygiene catches common paths,
 extensions and N64 signatures, not deliberately obfuscated data.

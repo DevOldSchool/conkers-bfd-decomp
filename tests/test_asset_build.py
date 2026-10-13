@@ -64,6 +64,7 @@ class AssetMakeTests(unittest.TestCase):
             path.touch()
         shutil.copy(ROOT / 'scripts/profile_config.py', self.root / 'scripts/profile_config.py')
         shutil.copy(ROOT / 'scripts/build_timing.py', self.root / 'scripts/build_timing.py')
+        shutil.copy(ROOT / 'scripts/debugger_asset_inputs.py', self.root / 'scripts/debugger_asset_inputs.py')
         shutil.copy(ROOT / 'scripts/binary_object.py', self.root / 'scripts/binary_object.py')
         (self.root / 'config/profiles/us.yaml').write_text(
             'segments:\n  - name: font\n    type: group\n'

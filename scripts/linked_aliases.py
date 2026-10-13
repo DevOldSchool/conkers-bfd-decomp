@@ -307,6 +307,7 @@ def prepare(root: Path, candidate: Path, reference: Path, assembly: Path,
     raw = Object32(reference.read_bytes())
     # This is an explicit reviewed debugger composition, never a generic smaller
     # function extent exception. The canonical start and full size cannot change.
+    data_layout = None
     empty_companion = (overlay, symbol, start, size) == (
         "debugger", "func_160019A8", 0x160019A8, 0xC4)
     # Ordinary size mismatches remain useful symbolic diagnostics, not tooling failures.
@@ -317,12 +318,26 @@ def prepare(root: Path, candidate: Path, reference: Path, assembly: Path,
             current_symbols, raw_symbols = definitions(current), definitions(raw)
         elif overlay == "debugger" and (eligible or si_literal_equivalent(
                 current, raw, symbol, size, empty_companion=empty_companion)):
-            current_symbols = si_definitions(current, symbol, start, size, empty_companion=empty_companion)
+            import linked_debugger_data
+            current_symbols = None
             raw_symbols = si_definitions(raw, symbol, start, size, reference=True)
         else:
             return None
     except ValueError:
         return None
+    if overlay == 'debugger':
+        try:
+            data_layout = linked_debugger_data.context(root, current, symbol, start)
+        except linked_debugger_data.CandidateMismatch:
+            return None
+        if data_layout:
+            current_symbols = data_layout['definitions']
+        else:
+            try:
+                current_symbols = si_definitions(
+                    current, symbol, start, size, empty_companion=empty_companion)
+            except ValueError:
+                return None
     if current_symbols is None or raw_symbols is None:
         return None
     code, base, _ = rom_span.code_image(root, overlay)
@@ -334,7 +349,10 @@ def prepare(root: Path, candidate: Path, reference: Path, assembly: Path,
     if raw_bytes != expected:
         raise ValueError("linked raw-reference span differs from the US ROM")
     current_bytes = linked_span(candidate, current, symbol, start, size, current_symbols,
-                                output / "candidate", reference=False, empty_companion=empty_companion)
+                                output / "candidate", reference=False, empty_companion=empty_companion,
+                                section_placements=data_layout['placements'] if data_layout else None)
+    if data_layout and not linked_debugger_data.verify(root, output / "candidate.elf", data_layout):
+        return None
     if current_bytes != raw_bytes:
         return None
     paths = output / "candidate.o", output / "reference.o"

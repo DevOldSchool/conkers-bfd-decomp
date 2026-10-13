@@ -61,7 +61,7 @@ endif
 endif
 # Load the US layout by default, including aliases and future aggregate goals.
 # Only goals known not to link the ROM may bypass broken asset fragments.
-NON_ROM_GOALS := clean help prepare-reference libultra libultrare profile-libs game-libs \
+NON_ROM_GOALS := clean help assemble-maintained prepare-reference libultra libultrare profile-libs game-libs \
 	game-asm game-asm-prepare game-integrated game-integrated-refresh \
 	game-integrated-prepare game-integrated-raw diff \
 	build/game-reference/% build/game-integrated/% build/game-libs/%
@@ -377,6 +377,31 @@ $(BUILD_DIR)/asm/%.o: $(NORMALIZED_ASM_DIR)/%.s
 	@mkdir -p "$(@D)"
 	$(AS) $(ASFLAGS) -o $@ $<
 
+# Report candidates use the same assembler settings as the runtime rule.
+.PHONY: assemble-maintained
+assemble-maintained:
+	@test -n "$(MAINTAINED_SOURCE)" && test -n "$(MAINTAINED_OBJECT)"
+	@mkdir -p "$(dir $(MAINTAINED_OBJECT))"
+	$(AS) $(ASFLAGS) -o "$(MAINTAINED_OBJECT)" "$(MAINTAINED_SOURCE)"
+
+ifeq ($(PROFILE),us)
+# Canonical placement stays fixed; generated disassembly is only a reference.
+$(BUILD_DIR)/asm/$(PROFILE)/debugger/tlb.o: src/debugger/tlb.s include/macro.inc Makefile
+	@mkdir -p "$(@D)"
+	$(AS) $(ASFLAGS) -o $@ $<
+
+# Only the include is disposable. Editable inputs live under .conker/.
+.PHONY: debugger-assets-refresh
+debugger-assets-refresh:
+
+$(BUILD_DIR)/debugger-assets/ui.inc.c: debugger-assets-refresh scripts/debugger_assets.py scripts/debugger_asset_inputs.py scripts/debugger_layout.py
+	python3 scripts/debugger_assets.py --output "$@"
+
+$(BUILD_DIR)/src/done/debugger/debugger_0000.o: src/done/debugger/debugger_0000.c $(BUILD_DIR)/debugger-assets/ui.inc.c scripts/compile_c.py Makefile
+	@mkdir -p "$(@D)"
+	python3 scripts/compile_c.py --profile $(PROFILE) --generated-dir $(BUILD_DIR) --inputs-prepared --output $@ $<
+endif
+
 $(BUILD_DIR)/asm/$(PROFILE)/header.o: src/header.c
 	@mkdir -p "$(@D)"
 	python3 scripts/compile_c.py --profile $(PROFILE) --output $@ $<
@@ -566,6 +591,7 @@ $(BUILD_DIR)/assets/%.o: assets/%.bin
 	$(LD) -r -b binary -m elf32btsmip -o $@ $<
 
 clean:
+	python3 "$(dir $(firstword $(MAKEFILE_LIST)))scripts/debugger_asset_inputs.py"
 	rm -rf build asm assets reference .splache undefined_funcs_auto.txt undefined_syms_auto.txt
 
 diff:

@@ -93744,7 +93744,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Full16 CURRENT60: SB before JR vs raw delay-slot SB; u8 decl, explicit return, same-line brace all neutral; no flag-independent C form found",
+        "reason": "Full16 CURRENT60 rechecked 2026-10-12: only difference is SB scheduled before JR (project -O2 -g3) vs raw delay-slot SB; requires per-unit flag evidence, not a C form. No source change.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94542,17 +94542,16 @@
       "symbol": "func_80009FFC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 600,
-        "reason": "Full780 CURRENT600 (improved from685): both alLink blocks now use SDK audiomgr shape (test and linkAfter read D_800406A0.field directly), fixing all register rows. Remaining: freeAnchor loop tail emits an extra record=next block vs reference shared move s0,s2 + bnezl s2. Probed single tail record=next (1205), per-branch inner record=next (1085), while-loop plain (1205) and while-loop sdk (605); none improved. Ledger build/us/manual-attempts/main-matching-20261012/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 780,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000A03C",
           "vram": "0x8000A03C"
         }
@@ -95103,17 +95102,16 @@
       "symbol": "func_8000D758"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 678,
-        "reason": "Unchanged after pass 3 permuter/manual work (decomp-permuter 45-60 min where run; only fake-copy or semantic-changing results). See build/us/manual-attempts/main-permuter-20261010/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1200,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000D96C",
           "vram": "0x8000D96C"
         }
@@ -95158,17 +95156,16 @@
       "symbol": "func_8000DEC4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 605,
-        "reason": "Full236 CURRENT605 independently restored7c8cb236. Two new explicit false-arm goto hypotheses at positive record guard and interpolation guard are instruction-identical605; no gain. Prior clamp/store/return/outer-exit forms remain exhausted. Original candidate preserved with no ABI/shared/ASM changes. Ledger build/us/manual-attempts/manual-init-20261007/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 236,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000DF68",
           "vram": "0x8000DF68"
         }
@@ -95973,8 +95970,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2065,
-        "reason": "Checkpoint123 full496 CURRENT2065 independently restored32933658. Two new manual hypotheses: existing mixer snapshot hoisted to function scope2330 62128a24 retains frame58 and loses duplicated SH; positive owner-state guard2065 8a66a301 instruction-identical baseline. Both exhausted; original source retained. Raw frame50, early V0zero, callback A0 and late spill reload unresolved. Existing void contract retained; no shared/ABI/ASM changes or permutation.",
+        "current_score": 1352,
+        "reason": "Improved 2065->1352 (2026-10-12): s32 return with early return 0 and fall-off end (raw b; move v0,zero), no callback local, D_1000EE70 function alias passed directly, mixFlags scoped in field318 arm (frame 0x50). Remaining: raw promotes constant 5 into a0 across field0==5/field4==5 (ours li at,5 twice), which also stops the D_1000EE70 lui hoist. Reorders/switch/state-var forms worse. Ledger build/us/manual-attempts/main-matching-2-20261012/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95990,17 +95987,16 @@
       "symbol": "func_80010154"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 745,
-        "reason": "Full532 CURRENT745 independently restored910e5e32 after typed assignment-result chains940 and805; first keeps V1 but stores V0 before MOVE, reversed chain repeats old T0 flags/result drift. Both exhausted; callback store remains early and final SH merged.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 532,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80010344",
           "vram": "0x80010344"
         }
@@ -96372,17 +96368,16 @@
       "symbol": "func_800114D0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 298,
-        "reason": "Full1428 CURRENT298 unchanged; re-deferred so sibling func_8000F6B8 layout can be verified. Permuter pass 3 in progress; see main-permuter-20261010 ledger.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1428,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80011624",
           "vram": "0x80011624"
         }
@@ -98405,6 +98400,30 @@
       },
       "source": "src/done/debugger/debugger_1AD0.c",
       "symbol": "func_160021FC"
+    },
+    {
+      "original_asm": {
+        "reason": "Privileged CP0 TLB capture with explicit hazard scheduling and original register convention",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/debugger/us_debugger_tlb.md"
+      },
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "6f3b8fd75ed171a2e3366a2b43e6b381d0c34aa7ffa998756e158e79a0676cb3",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "5201835912090f8134a1a7f602a1c197c0d013d71d77e255544b3e89095552d4",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 160,
+          "state": "original_asm",
+          "symbol": "func_16003650",
+          "vram": "0x16003650"
+        }
+      },
+      "source": "src/debugger/tlb.c",
+      "symbol": "func_16003650"
     }
   ],
   "schema_version": 1
