@@ -396,20 +396,20 @@
   ],
   "acceptance": {
     "status": "BATCH_COMPLETE",
-    "batch_real_s": 162.82,
-    "test_count": 2464,
-    "test_skips": 8,
-    "test_s": 115.292,
+    "batch_real_s": 234.64,
+    "test_count": 2525,
+    "test_skips": 9,
+    "test_s": 167.184,
     "matched_sources": [
       {
         "identifier": "func_1513D2F0",
         "source": "src/game/game_169510.c",
-        "sha256": "ecc7d119c32a9e964edc45d55c6d34e0da20658273a054b66cbc2cef4c4f12ab"
+        "sha256": "4a50d4a29214ba19d71ac4499256c015f56d16067333ef5c56ff64e6315987af"
       },
       {
         "identifier": "func_1515EB84",
         "source": "src/game/game_18A8F0.c",
-        "sha256": "261c7b8ddd5b48fa1d3a308f4256d61e90cbb12ba970c9efb3e66e89fc052d7d"
+        "sha256": "752cb92d2a4b6f1083418a0a6cef7a33a113344f1b96b5cb3aa5fa3d306add1f"
       },
       {
         "identifier": "func_150A32B4",
@@ -426,6 +426,10 @@
         "source": "src/game/game_1890A0.c",
         "sha256": "2647829e950851c97a89ad680f548c8088df6fc3ed36550d6db76ab0ebcd739b"
       }
-    ]
+    ],
+    "verified_revision": "b8f842cc039d5b3fa60cfec27b47f141143a64d8",
+    "merged_parent": "d11166209aafdf7369350e662637962fe2f01ab7",
+    "batch_host_user_s": 5.32,
+    "batch_host_sys_s": 1.63
   }
 }

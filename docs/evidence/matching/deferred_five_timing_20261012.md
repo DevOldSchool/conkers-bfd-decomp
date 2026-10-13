@@ -28,28 +28,28 @@ inherited deferral reasons, and were not reset by this worktree.
 source to `src/done/game/`, updated `config/game/us.yaml` and the canonical
 inventories, and verified byte-identical US GAME output. Progress and
 whitespace checks passed immediately afterwards. Other units remain mixed.
-The clean five-ID `verify-batch` completed with `BATCH_COMPLETE`:
-byte-identical integrated US GAME, 2,464 tests in 115.292 seconds
-(`OK`, eight skips), canonical metadata/progress and whitespace passed.
-The complete batch command took 162.82 seconds real, 5.07 seconds host user,
-and 1.52 seconds host sys. This verifies C/GAME integration, not reconstructed
+After merging #107 and #102 and applying the review corrections, all five
+functions again passed independent full-span `finish` checks (`CURRENT (0)`,
+`STOP_MATCHED`). The clean five-ID `verify-batch` completed with
+`BATCH_COMPLETE`: byte-identical integrated US GAME, including the merged
+GAME data-owner and linker-consistency checks, 2,525 tests in 167.184 seconds
+(`OK`, nine skips), canonical metadata/progress and whitespace passed.
+The complete batch command took 234.64 seconds real, 5.32 seconds host user,
+and 1.63 seconds host sys. This verifies C/GAME integration, not reconstructed
 assets; no asset reconstruction changed.
 
-After the batch, a restored disabled flamethrower candidate was rechecked
-and transactionally deferred again to refresh its stale historical score:
-CURRENT 200, with only the two trailing registered rows missing. This left
-its compiled `GLOBAL_ASM` unchanged. Final progress/whitespace checks cover
-that metadata correction and this report.
+Before that final batch, the disabled `func_15002754` candidate was resumed,
+compiled without its redundant block-local prototype, and transactionally
+deferred again at `CURRENT (200)`. Its canonical `GLOBAL_ASM` is unchanged.
+Seven deferred reasons were rewritten through the supported transactions;
+candidate bodies and scores were preserved apart from the requested
+prototype removal. Both benchmark scripts completed using a fresh nested
+output directory, with equal baseline/cache scores; the cache script also
+reported its missing-results prerequisite correctly. This was a portability
+smoke test, not a replacement for the historical performance samples below.
 
-The final zero attempts are, in table order:
-`ba1d5f685df747aaa0002c5cd2f13741`,
-`d1cc6ab1ca6a44a7b1a0544a947763a2`,
-`b337afbf2d5447c8a8fbd830d88ff22a`,
-`86c6f45e7ccc49868e2c90d28cc21c51`, and
-`07818031141c41828315df6c4e9ff774`.
-Local history and rejected probes remain under
-`build/us/matching-attempts/` and
-`build/us/manual-attempts/deferred-five-timings/`.
+Detailed attempt identifiers and session notes are retained in the local
+attempt ledgers under `build/us/manual-attempts/`.
 
 ## Other candidates
 
@@ -59,9 +59,9 @@ The pass also examined `func_1514401C`, `func_15002754`, `func_151957B0`,
 in the inventory and local ledger. They contribute no matches.
 
 The useful retained C change is the disabled `func_15002754` candidate:
-raw calls show `func_1510F800` consumes the table index in a0. A block-local
-one-argument declaration and the actual argument repair the inherited
-no-argument call without changing other callers. Explicit allocator writes
+raw calls show `func_1510F800` consumes the table index in a0. Passing the
+actual argument repairs the inherited no-argument call using the existing
+file-scope declaration, without changing other callers. Explicit allocator writes
 retain the raw store sequence. Its valid score is 200; the earlier 2,110
 attempt with the omitted argument was marked invalid. No shared dependency
 changed. `func_151957B0` retains a registered trailing JR/NOP span that the
@@ -142,26 +142,44 @@ can be assessed generally. No language-to-language benchmark was performed.
 [Raw samples and search reports](deferred-five-20261012/timings.json) include
 exact compiler/scorer commands, fingerprints, scores and individual wall
 times. [Compile/scorer pilot](deferred-five-20261012/benchmark.py) and
-[cache comparison](deferred-five-20261012/cache_benchmark.py) are snapshots
-of the executed scripts. From this prepared worktree, run them in the warm
-container with working directory `/workspace`; the cache comparison follows
-the first pilot. They write only ignored task artifacts. Current source and
-tool revisions must be recorded for any later comparison.
+[cache comparison](deferred-five-20261012/cache_benchmark.py) preserve the
+measurement procedure, with output-directory creation and CLI root/output
+options added during review. Both scripts derive the repository root from
+their own location, rather than requiring a literal `/workspace` path. Run
+inside the pinned toolchain with a prepared US checkout and its ROM/reference
+inputs. The first script creates missing output parents; run it before the
+cache comparison, which consumes its `results.json` and recorded commands.
+
+```sh
+python3 docs/evidence/matching/deferred-five-20261012/benchmark.py
+python3 docs/evidence/matching/deferred-five-20261012/cache_benchmark.py
+```
+
+Both accept `--root /path/to/checkout` and `--output path/to/results` (relative
+outputs are resolved under the repository root). Use the same options for
+both scripts and keep generated outputs ignored. A clean output directory
+does not remove the requirement to prepare the checkout/toolchain first.
+Historical timing samples remain tied to the original benchmark inputs;
+record the current revision for any new measurements.
 
 - Platform: Apple Silicon Docker, Linux aarch64, Python 3.12.3; host Python 3.14.
 - Toolchain digest: `sha256:67de4f788e404fbe1794725192801956abdae4cecf1db43c01988df058f9b429`.
 - asm-differ revision: `c80ea4e3d16ecc8f4c21923633f3f9b1fb534c53`.
 - US ROM SHA-1: `4cbadd3c4e0729dec46af64ad018050eada4f47a`.
-- Workflow started at 2026-10-12 10:24:38 UTC. The worktree required initial
-  host dependency/reference recovery and a first integration SDK build.
-- The five-function batch started at approximately 11:09 UTC. Workflow wall
-  time includes setup, reasoning, rejected work and validation, unlike the
-  subprocess measurements above.
 
-The tested tree is the base commit plus these uncommitted changes. No commit
-or push was made. Final inventory audit confirmed exactly five new US C
-matches; all other examined candidates remain deferred.
+## Acceptance provenance
 
-Final inventory/diff audit at 11:15:17 UTC was 50 minutes 39 seconds after
-workflow start. This wall time includes initial setup, matching and rejected
-hypotheses, profiling, integration, batch tests and evidence preparation.
+The independent `CURRENT (0)` results, clean `BATCH_COMPLETE` and source
+SHA-256 hashes in [the acceptance manifest](deferred-five-20261012/timings.json)
+apply to committed revision `b8f842cc039d5b3fa60cfec27b47f141143a64d8`, which includes merged head
+`d11166209aafdf7369350e662637962fe2f01ab7` plus the review corrections.
+Verification ran immediately before committing those fixes, on identical
+source and tooling inputs; the recorded hashes were checked against that
+commit. The following evidence-only commit updates this report and the
+manifest without changing verified code or tooling. Session timestamps and
+attempt identifiers remain in the local attempt ledger.
+
+The original performance samples retain their original base revision and
+input fingerprints. They were not re-labelled as measurements of the merged
+revision. Public CI passed all eight checks on `d1116620`; CI for the review
+commits is reported separately in the PR, and does not establish ROM matching.
