@@ -8,7 +8,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1509B4A0
- * - func_1509B570
  * - func_1509B5AC
  * - func_1509B704
  * - func_1509B950
@@ -23,7 +22,9 @@
 
 typedef struct GameC8950Node {
     u16 key;
-    u8 pad2[0x16];
+    u8 pad2[8];
+    u16 data_offset;
+    u8 padC[0xC];
     struct GameC8950Node *next;
     struct GameC8950Node *prev;
 } GameC8950Node;
@@ -76,18 +77,15 @@ void func_1509B4A0(s32 arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B4A0.s")
 GameC8950Node *func_1509B704(s16);                  /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509B570 CURRENT (10) */
 void *func_1509B570(s32 arg0) {
-    u32 temp_v0;
+    GameC8950Node *node;
 
-    temp_v0 = (u32) func_1509B704((s16)arg0);
-    if (temp_v0 != 0) {
-        return (void *)(temp_v0 + *(u16 *)(temp_v0 + 0xA));
+    node = func_1509B704((s16)arg0);
+    if (node != NULL) {
+        return (u8 *)node + node->data_offset;
     }
-    return 0;
+    return NULL;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509B570 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B570.s")
 void func_1509B8FC(s16);
 void func_1509B810(GameC8950Node *);
 void func_150ADAF0(u16 *, s32);
