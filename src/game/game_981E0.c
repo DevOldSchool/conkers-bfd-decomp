@@ -3091,7 +3091,7 @@ block_13:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15071FDC.s")
 extern void func_1506160C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150721A4 CURRENT (260) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150721A4 CURRENT (460) */
 void func_150721A4(void) {
     s32 *temp_v0;
     s32 temp_v1;
