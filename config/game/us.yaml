@@ -400,7 +400,7 @@ segments:
       - [0xE1060, c, game/game_10E510]
       - [0xE1570, c, game/game_10EA20]
       - [0xE1800, c, done/game/game_10ECB0]
-      - [0xE1860, c, game/game_10ED10]
+      - [0xE1860, c, done/game/game_10ED10]
       - [0xE1AB0, c, game/game_10EF60]
       - [0xE3020, c, game/game_1104D0]
       - [0xE4010, c, done/game/game_1114C0]

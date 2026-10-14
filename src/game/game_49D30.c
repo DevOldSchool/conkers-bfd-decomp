@@ -45,7 +45,6 @@
  * - func_15022BA4
  * - func_15023264
  * - func_150234A4
- * - func_150235DC
  * - func_1502378C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -2004,11 +2003,9 @@ extern u8 D_800C35AA;
 extern s8 D_800C3E78;
 extern void *D_800D154C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150235DC CURRENT (10) */
 void func_150235DC(s32 arg0) {
     Game49D30Actor235DC *temp_v0;
     Game49D30Inner235DC *temp_a0;
-    f32 temp_fv0;
     f32 temp_fv0_2;
     s8 temp_v0_2;
 
@@ -2025,11 +2022,11 @@ void func_150235DC(s32 arg0) {
             temp_v0->field54 = 0.0f;
             temp_v0->fieldCC = 0;
             temp_v0->fieldD0 = 0;
-            if ((D_80096A1C != (temp_fv0 = temp_v0->field118)) && (temp_v0->field18 < temp_fv0)) {
+            if ((D_80096A1C != temp_v0->field118) && (temp_v0->field18 < temp_v0->field118)) {
                 temp_v0->fieldAD = 1;
                 temp_v0->field20 = 0.0f;
                 temp_v0->field24 = 0.0f;
-                if (((temp_fv0 - 50.0f) < (f32)temp_v0->field1A6) || (temp_v0->field31C->field20 & 1)) {
+                if (((temp_v0->field118 - 50.0f) < (f32)temp_v0->field1A6) || (temp_v0->field31C->field20 & 1)) {
                     temp_v0->fieldB2 = 0;
                     func_1508F060(temp_a0, &D_800CC2D0);
                 }
@@ -2062,8 +2059,6 @@ void func_150235DC(s32 arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150235DC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_150235DC.s")
 void func_1504A730(void);
 void func_15061B4C(void);
 void func_1507E73C(s32 *);

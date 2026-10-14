@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_10ED10.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_singletons_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150E1860
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct {
@@ -23,7 +18,6 @@ void func_1509BFB0(s32, ...);
 extern f32 D_80088990[], D_800889A0[], D_800889B0[];
 extern s32 D_800889C0[], D_800889D0[], D_800889E0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E1860 CURRENT (10) */
 void func_150E1860(Game10ED10Actor *arg0) {
     s32 index;
     s32 active;
@@ -50,5 +44,3 @@ void func_150E1860(Game10ED10Actor *arg0) {
     }
     arg0->flags |= 0x80000000;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E1860 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10ED10/func_150E1860.s")
