@@ -48,10 +48,9 @@ extern u8 D_800D2F3C;
 extern u16 *D_800D2F40;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509B4A0 CURRENT (10) */
-void func_1509B4A0(s32 arg0, s32 arg1) {
+void func_1509B4A0(s16 arg0, s32 arg1) {
     u8 *count_ptr;
     s32 context;
-    s32 offset;
     s32 index;
 
     context = arg1;
@@ -59,16 +58,10 @@ void func_1509B4A0(s32 arg0, s32 arg1) {
     func_1509C120();
     func_15096970();
     count_ptr = &D_800D2F3C;
-    index = 0;
-    offset = 0;
-    if ((s32)*count_ptr > 0) {
-        do {
-            if (func_1509CBD4(*(u16 *)((u8 *)D_800D2F40 + offset)) != 0) {
-                func_1509B5AC(*(u16 *)((u8 *)D_800D2F40 + offset), context);
-            }
-            index++;
-            offset += 2;
-        } while (index < (s32)*count_ptr);
+    for (index = 0; index < *count_ptr; index++) {
+        if (func_1509CBD4(D_800D2F40[index]) != 0) {
+            func_1509B5AC(D_800D2F40[index], context);
+        }
     }
     func_1509C3A0();
     D_8003C8E0 = 0;
