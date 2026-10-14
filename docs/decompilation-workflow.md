@@ -222,8 +222,12 @@ remain required.
 US game candidates with different address-bearing data aliases may use linked comparison.
 Both original objects are linked independently at the registered address; their
 entire registered spans must equal each other and the checksum-validated ROM before
-those bytes enter the same bounded asm-differ gate. Unsupported relocations retain
-symbolic comparison; original objects still supply switch-table evidence. Watch
+those bytes enter the same bounded asm-differ gate. HI16/LO16 references to
+external original tables (`jtbl_<address>_game`, typically from sibling
+`GLOBAL_ASM`) resolve to their named addresses and are covered by the same
+complete-unit ROM check. Unsupported relocations, and member spans that cannot
+be proven (such as an unregistered symbol inside one), retain symbolic
+comparison; original objects still supply switch-table evidence. Watch
 mode remains symbolic and requires a fresh `finish` afterward.
 
 Reviewed GAME units also support terminal alignment padding when a focused

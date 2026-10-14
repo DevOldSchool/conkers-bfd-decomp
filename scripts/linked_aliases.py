@@ -22,6 +22,9 @@ import rom_span
 
 ADDRESS = re.compile(r"(?:D|func)_([0-9A-Fa-f]{8})")
 DATA_ADDRESS = re.compile(r"D_([0-9A-Fa-f]{8})")
+# Raw GAME switch dispatches name external original tables by address; the
+# integrated build provides each at exactly that address.
+GAME_TABLE = re.compile(r"jtbl_([0-9A-Fa-f]{8})_game")
 
 
 def reviewed_empty_companion(obj: Object32, symbol: str, size: int) -> bool:
@@ -122,7 +125,8 @@ def address_alias_present(candidate: Object32, reference: Object32, symbol: str,
 
 def definitions(obj: Object32, *, text_addresses: dict[str, int] | None = None,
                 text_section: int | None = None, text_base: int = 0,
-                private_sections: frozenset[int] = frozenset()) -> dict[str, int] | None:
+                private_sections: frozenset[int] = frozenset(),
+                game_tables: bool = False) -> dict[str, int] | None:
     result = {}
     for kind, (name, value, extent, section) in obj.relocations.values():
         if section in private_sections:
@@ -134,6 +138,8 @@ def definitions(obj: Object32, *, text_addresses: dict[str, int] | None = None,
                 return None
             continue
         match = ADDRESS.fullmatch(name)
+        if match is None and game_tables and kind in (5, 6) and not section:
+            match = GAME_TABLE.fullmatch(name)
         if kind not in (2, 4, 5, 6) or match is None:
             return None
         if section:
@@ -563,7 +569,8 @@ def game_definitions(obj: Object32, addresses: dict[str, int], section: int,
     if any(index != section and header[1] in (1, 8) and header[2] & 6 and header[5]
            for index, header in enumerate(obj.sections)):
         return None
-    return definitions(obj, text_addresses=addresses, text_section=section, text_base=base)
+    return definitions(obj, text_addresses=addresses, text_section=section, text_base=base,
+                       game_tables=True)
 
 
 def prepare_game(root: Path, source: str, candidate: Path, reference: Path, assembly: Path,
@@ -589,7 +596,13 @@ def prepare_game(root: Path, source: str, candidate: Path, reference: Path, asse
         return None
     for member in members:
         region = member["regions"]["us"]
-        position, member_section = function(current, region["symbol"], spans[region["symbol"]], padding=True)
+        try:
+            position, member_section = function(current, region["symbol"], spans[region["symbol"]],
+                                                padding=True)
+        except ValueError:
+            # A member span that cannot be proven (for example an unregistered
+            # symbol inside it) leaves the conservative symbolic comparison.
+            return None
         if member_section != section or position != addresses[region["symbol"]] - unit_start:
             raise layout_check.LayoutMismatch("game comparison member has an incorrect text position")
     code, base, _ = rom_span.game_code(root)
