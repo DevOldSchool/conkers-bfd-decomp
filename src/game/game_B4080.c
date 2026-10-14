@@ -10,7 +10,6 @@
  * - func_150870D0
  * - func_15087350
  * - func_15087CC0
- * - func_15087E54
  * - func_150881CC
  * - func_15088270
  * - func_150882B0
@@ -378,10 +377,8 @@ void func_15087DCC(s32 arg0, s32 arg1) {
 /* Call context: func_1505A630: unique active project prototype */
 s32 func_1505A630(f32, f32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15087E54 CURRENT (10) */
 void func_15087E54(s32 arg0, u8 *arg1) {
     s32 angle;
-    s32 delta;
     u16 temp_t7;
     u16 temp_t9;
     u8 *temp_v0;
@@ -390,8 +387,7 @@ void func_15087E54(s32 arg0, u8 *arg1) {
         temp_v0 = (void *)((arg0 * 0x84) + D_800872A0);
         angle = (func_1505A630(*(f32 *)((u8 *)temp_v0 + 0x10), *(f32 *)((u8 *)temp_v0 + 0xC), 0) + 0x4000);
         temp_t7 = angle;
-        delta = temp_t7 - *(u16 *)((u8 *)arg1 + 0x76);
-        temp_t9 = delta & 0xFFFF;
+        temp_t9 = temp_t7 - *(u16 *)((u8 *)arg1 + 0x76);
         if (temp_t9 & 0x8000) {
             if (temp_t9 < 0xDBFF) {
                 *(u16 *)((u8 *)arg1 + 0x76) = (u16) (temp_t7 + 0x2400);
@@ -401,8 +397,6 @@ void func_15087E54(s32 arg0, u8 *arg1) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15087E54 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15087E54.s")
 /* Call context: func_1505A630: unique active declaration in the allowed source */
 extern s8 D_800D23A8;
 

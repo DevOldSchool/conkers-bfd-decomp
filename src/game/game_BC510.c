@@ -15,7 +15,6 @@
  * - func_1509093C
  * - func_150911F4
  * - func_15091534
- * - func_150916B4
  * - func_150918EC
  * - func_150938BC
  * - func_15093B58
@@ -610,12 +609,12 @@ extern char D_8009DCD4[];
 extern char D_8009DCD8[];
 extern char D_8009DCE0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150916B4 CURRENT (8) */
 void func_150916B4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 seconds;
     s32 minutes;
     s32 shift;
     s32 hundredths;
+    s32 rem;
 
     if (arg2 >= 0x57030) {
         arg2 = 0x57030;
@@ -634,7 +633,8 @@ void func_150916B4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
             shift = 0;
         }
         func_15042D94(arg0 - shift - 8, arg1, arg3, (s32)D_8009DCC0, minutes);
-        func_15042D94(arg0, arg1, arg3, (s32)D_8009DCC4, seconds % 60);
+        rem = seconds % 60;
+        func_15042D94(arg0, arg1, arg3, (s32)D_8009DCC4, rem);
         func_15042D94(arg0 + 0x10, arg1, arg3, (s32)D_8009DCCC, hundredths);
     } else {
         func_15042D94(arg0 - 8, arg1, arg3, (s32)D_8009DCD4);
@@ -642,8 +642,6 @@ void func_150916B4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
         func_15042D94(arg0 + 0x10, arg1, arg3, (s32)D_8009DCE0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150916B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_150916B4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_150918EC.s")
 /* Call context: func_15093878: unique active project prototype */
 void func_15093878(void);
