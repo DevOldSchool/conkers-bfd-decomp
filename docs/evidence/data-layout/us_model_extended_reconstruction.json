@@ -1,0 +1,1426 @@
+{
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "base_commit": "094102644c4c2f5aefaa0fc4b609416918f66f58",
+  "independent_proof": {
+    "entries": 8,
+    "stored_bytes": 243901,
+    "decoded_bytes": 683040,
+    "nonempty_parts": 134,
+    "extended_parts": 26,
+    "mutations": {
+      "color_endpoint": 14,
+      "face_word_endpoint": 42,
+      "normal_endpoint": 202
+    },
+    "consumer_mutations_rejected": 8,
+    "prior_source_hashes_preserved": 24122,
+    "bank_bytes": 1793096,
+    "bank_sha256": "3b964924c1e014d5f28e70b1ee89b602a88fd03cc1d89397690ff05756ea6ce2",
+    "total_selected_nonempty_parts": 499
+  },
+  "entries": [
+    {
+      "entry": 1,
+      "rom_start": "0xfa4f80",
+      "rom_end": "0xfac622",
+      "stored_bytes": 30370,
+      "decoded_bytes": 80784,
+      "encoder": {
+        "format": "gzip-raw-deflate",
+        "level": 6,
+        "implementation": "GNU gzip 1.12"
+      },
+      "stored_sha256": "b886b0b77e47f6468c3194960180860b91d97f90fd984cdf3b48365c06c0ab82",
+      "decoded_sha256": "3f00a0cc2c4d1f03eace64a6978d693d4a0abfa4c8cd92f74785d439c043fd6a",
+      "nonempty_parts": 23,
+      "extended_parts": [
+        {
+          "segment": 0,
+          "normal_tables": 0,
+          "color_descriptors": 2,
+          "face_words": 1538,
+          "primary": true,
+          "zero_regions": [
+            [
+              48906,
+              2
+            ],
+            [
+              48935,
+              1
+            ],
+            [
+              48966,
+              2
+            ],
+            [
+              55164,
+              12
+            ]
+          ]
+        },
+        {
+          "segment": 11,
+          "normal_tables": 0,
+          "color_descriptors": 1,
+          "face_words": 64,
+          "primary": false,
+          "zero_regions": [
+            [
+              1518,
+              2
+            ],
+            [
+              1820,
+              12
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "entry": 4,
+      "rom_start": "0xfba240",
+      "rom_end": "0xfc1bf3",
+      "stored_bytes": 31155,
+      "decoded_bytes": 79664,
+      "encoder": {
+        "format": "gzip-raw-deflate",
+        "level": 6,
+        "implementation": "GNU gzip 1.12"
+      },
+      "stored_sha256": "ce90e5c56d00394f0e832a2a23c3f8ac975fba468eacf1cc65d448cff54d2ecd",
+      "decoded_sha256": "cc9d5de7fea3d11f2610da3933e9b777288fb804022a7b8433acc006860976b9",
+      "nonempty_parts": 28,
+      "extended_parts": [
+        {
+          "segment": 0,
+          "normal_tables": 0,
+          "color_descriptors": 4,
+          "face_words": 1057,
+          "primary": true,
+          "zero_regions": [
+            [
+              32254,
+              2
+            ],
+            [
+              32301,
+              3
+            ],
+            [
+              32355,
+              1
+            ],
+            [
+              32407,
+              1
+            ],
+            [
+              32474,
+              2
+            ],
+            [
+              32510,
+              2
+            ],
+            [
+              32546,
+              2
+            ],
+            [
+              36844,
+              12
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "entry": 24,
+      "rom_start": "0x1030008",
+      "rom_end": "0x103dcb7",
+      "stored_bytes": 56495,
+      "decoded_bytes": 155184,
+      "encoder": {
+        "format": "gzip-raw-deflate",
+        "level": 6,
+        "implementation": "GNU gzip 1.12"
+      },
+      "stored_sha256": "6283400f6e17d94a887a5b31b9769cf656b8b24a3d2395fba38bee582c0d7a04",
+      "decoded_sha256": "c8cfe26efa7a938f6f845ae9fb60c5727947a0dc4636dab4ed3478ae27855dda",
+      "nonempty_parts": 14,
+      "extended_parts": [
+        {
+          "segment": 0,
+          "normal_tables": 12,
+          "color_descriptors": 0,
+          "face_words": 208,
+          "primary": true,
+          "zero_regions": []
+        },
+        {
+          "segment": 4,
+          "normal_tables": 5,
+          "color_descriptors": 0,
+          "face_words": 104,
+          "primary": false,
+          "zero_regions": [
+            [
+              3824,
+              8
+            ]
+          ]
+        },
+        {
+          "segment": 5,
+          "normal_tables": 7,
+          "color_descriptors": 0,
+          "face_words": 148,
+          "primary": false,
+          "zero_regions": []
+        },
+        {
+          "segment": 6,
+          "normal_tables": 7,
+          "color_descriptors": 0,
+          "face_words": 148,
+          "primary": false,
+          "zero_regions": []
+        },
+        {
+          "segment": 11,
+          "normal_tables": 2,
+          "color_descriptors": 0,
+          "face_words": 20,
+          "primary": false,
+          "zero_regions": []
+        },
+        {
+          "segment": 12,
+          "normal_tables": 3,
+          "color_descriptors": 0,
+          "face_words": 60,
+          "primary": false,
+          "zero_regions": [
+            [
+              1632,
+              8
+            ]
+          ]
+        },
+        {
+          "segment": 13,
+          "normal_tables": 4,
+          "color_descriptors": 0,
+          "face_words": 74,
+          "primary": false,
+          "zero_regions": []
+        },
+        {
+          "segment": 14,
+          "normal_tables": 4,
+          "color_descriptors": 0,
+          "face_words": 74,
+          "primary": false,
+          "zero_regions": []
+        }
+      ]
+    },
+    {
+      "entry": 33,
+      "rom_start": "0x1072db0",
+      "rom_end": "0x107437e",
+      "stored_bytes": 5582,
+      "decoded_bytes": 14904,
+      "encoder": {
+        "format": "gzip-raw-deflate",
+        "level": 6,
+        "implementation": "GNU gzip 1.12"
+      },
+      "stored_sha256": "b4b142c2c18286664f0bd4658937bdc9be973990aaaa5177f82d32ea1c9c01b5",
+      "decoded_sha256": "154c34ffa70ae17a7eddb08549ef92f2c968d424973f41fafa035d08faad5506",
+      "nonempty_parts": 4,
+      "extended_parts": [
+        {
+          "segment": 4,
+          "normal_tables": 4,
+          "color_descriptors": 0,
+          "face_words": 0,
+          "primary": false,
+          "zero_regions": [
+            [
+              2480,
+              8
+            ]
+          ]
+        },
+        {
+          "segment": 5,
+          "normal_tables": 4,
+          "color_descriptors": 0,
+          "face_words": 0,
+          "primary": false,
+          "zero_regions": []
+        },
+        {
+          "segment": 6,
+          "normal_tables": 5,
+          "color_descriptors": 0,
+          "face_words": 0,
+          "primary": false,
+          "zero_regions": []
+        }
+      ]
+    },
+    {
+      "entry": 36,
+      "rom_start": "0x107f4a8",
+      "rom_end": "0x10845bf",
+      "stored_bytes": 20759,
+      "decoded_bytes": 55496,
+      "encoder": {
+        "format": "gzip-raw-deflate",
+        "level": 6,
+        "implementation": "GNU gzip 1.12"
+      },
+      "stored_sha256": "a3d4f85d6d940de6f4458201d9a4f71fd3d94b39f3db7c19ca0ca61cba47cfb0",
+      "decoded_sha256": "3fafd3380648a0dffddbd9045fea5c90d5bae0cf22ecda1bfef8a0160f6b8401",
+      "nonempty_parts": 2,
+      "extended_parts": [
+        {
+          "segment": 4,
+          "normal_tables": 1,
+          "color_descriptors": 0,
+          "face_words": 0,
+          "primary": false,
+          "zero_regions": []
+        }
+      ]
+    },
+    {
+      "entry": 53,
+      "rom_start": "0x10d3b08",
+      "rom_end": "0x10ddc8a",
+      "stored_bytes": 41346,
+      "decoded_bytes": 103584,
+      "encoder": {
+        "format": "gzip-raw-deflate",
+        "level": 6,
+        "implementation": "GNU gzip 1.12"
+      },
+      "stored_sha256": "1acba7bec8c5190421b73bc9155968abec667df68d7dcf7283ccbb49a6e39be9",
+      "decoded_sha256": "316a0383946b481f04b493512422291327d250c36fb2c2ddb61452ba1078290d",
+      "nonempty_parts": 20,
+      "extended_parts": [
+        {
+          "segment": 4,
+          "normal_tables": 3,
+          "color_descriptors": 0,
+          "face_words": 0,
+          "primary": false,
+          "zero_regions": [
+            [
+              1488,
+              8
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "entry": 54,
+      "rom_start": "0x10ddc90",
+      "rom_end": "0x10e2e86",
+      "stored_bytes": 20982,
+      "decoded_bytes": 72880,
+      "encoder": {
+        "format": "gzip-raw-deflate",
+        "level": 6,
+        "implementation": "GNU gzip 1.12"
+      },
+      "stored_sha256": "e3a83231453ed629af01679524cc3fb10add511fb55582b9d6520ee249fcda2e",
+      "decoded_sha256": "30c9957ff7645186206d8cd6dc6743ad489f6bbef6e5af94b96a73a1974ecdd3",
+      "nonempty_parts": 20,
+      "extended_parts": [
+        {
+          "segment": 4,
+          "normal_tables": 11,
+          "color_descriptors": 0,
+          "face_words": 229,
+          "primary": false,
+          "zero_regions": [
+            [
+              7756,
+              12
+            ]
+          ]
+        },
+        {
+          "segment": 14,
+          "normal_tables": 1,
+          "color_descriptors": 0,
+          "face_words": 16,
+          "primary": false,
+          "zero_regions": []
+        },
+        {
+          "segment": 15,
+          "normal_tables": 1,
+          "color_descriptors": 0,
+          "face_words": 16,
+          "primary": false,
+          "zero_regions": []
+        },
+        {
+          "segment": 16,
+          "normal_tables": 1,
+          "color_descriptors": 0,
+          "face_words": 16,
+          "primary": false,
+          "zero_regions": []
+        },
+        {
+          "segment": 17,
+          "normal_tables": 1,
+          "color_descriptors": 0,
+          "face_words": 16,
+          "primary": false,
+          "zero_regions": []
+        },
+        {
+          "segment": 18,
+          "normal_tables": 1,
+          "color_descriptors": 0,
+          "face_words": 16,
+          "primary": false,
+          "zero_regions": []
+        },
+        {
+          "segment": 19,
+          "normal_tables": 1,
+          "color_descriptors": 0,
+          "face_words": 16,
+          "primary": false,
+          "zero_regions": []
+        },
+        {
+          "segment": 20,
+          "normal_tables": 1,
+          "color_descriptors": 0,
+          "face_words": 16,
+          "primary": false,
+          "zero_regions": []
+        },
+        {
+          "segment": 21,
+          "normal_tables": 3,
+          "color_descriptors": 0,
+          "face_words": 60,
+          "primary": false,
+          "zero_regions": [
+            [
+              2192,
+              8
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "entry": 64,
+      "rom_start": "0x1131800",
+      "rom_end": "0x113a95c",
+      "stored_bytes": 37212,
+      "decoded_bytes": 120544,
+      "encoder": {
+        "format": "gzip-raw-deflate",
+        "level": 6,
+        "implementation": "GNU gzip 1.12"
+      },
+      "stored_sha256": "a9f30d5c6ce765cbf6e3ec4000e9d1076c370a1e47d72d012b41adaa2a800153",
+      "decoded_sha256": "b3d4ea401ff8f517296fccf7425253051d04ff4eacf538e4e5e4d8babfbe0fa1",
+      "nonempty_parts": 23,
+      "extended_parts": [
+        {
+          "segment": 21,
+          "normal_tables": 19,
+          "color_descriptors": 0,
+          "face_words": 417,
+          "primary": false,
+          "zero_regions": [
+            [
+              14340,
+              4
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "compression_trials": [
+    {
+      "entry": 1,
+      "stored_bytes": 30370,
+      "decoded_bytes": 80784,
+      "exact_encoders": [
+        "gzip6"
+      ],
+      "new_parts": [
+        {
+          "segment": 0,
+          "normals": 0,
+          "colors": 2,
+          "face_words": 1538,
+          "zero_regions": [
+            [
+              48906,
+              2
+            ],
+            [
+              48935,
+              1
+            ],
+            [
+              48966,
+              2
+            ],
+            [
+              55164,
+              12
+            ]
+          ]
+        },
+        {
+          "segment": 11,
+          "normals": 0,
+          "colors": 1,
+          "face_words": 64,
+          "zero_regions": [
+            [
+              1518,
+              2
+            ],
+            [
+              1820,
+              12
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "entry": 4,
+      "stored_bytes": 31155,
+      "decoded_bytes": 79664,
+      "exact_encoders": [
+        "gzip6"
+      ],
+      "new_parts": [
+        {
+          "segment": 0,
+          "normals": 0,
+          "colors": 4,
+          "face_words": 1057,
+          "zero_regions": [
+            [
+              32254,
+              2
+            ],
+            [
+              32301,
+              3
+            ],
+            [
+              32355,
+              1
+            ],
+            [
+              32407,
+              1
+            ],
+            [
+              32474,
+              2
+            ],
+            [
+              32510,
+              2
+            ],
+            [
+              32546,
+              2
+            ],
+            [
+              36844,
+              12
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "entry": 7,
+      "stored_bytes": 24268,
+      "decoded_bytes": 55488,
+      "exact_encoders": [],
+      "new_parts": [
+        {
+          "segment": 9,
+          "normals": 0,
+          "colors": 1,
+          "face_words": 0,
+          "zero_regions": [
+            [
+              736,
+              8
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "entry": 24,
+      "stored_bytes": 56495,
+      "decoded_bytes": 155184,
+      "exact_encoders": [
+        "gzip6"
+      ],
+      "new_parts": [
+        {
+          "segment": 0,
+          "normals": 12,
+          "colors": 0,
+          "face_words": 208,
+          "zero_regions": []
+        },
+        {
+          "segment": 4,
+          "normals": 5,
+          "colors": 0,
+          "face_words": 104,
+          "zero_regions": [
+            [
+              3824,
+              8
+            ]
+          ]
+        },
+        {
+          "segment": 5,
+          "normals": 7,
+          "colors": 0,
+          "face_words": 148,
+          "zero_regions": []
+        },
+        {
+          "segment": 6,
+          "normals": 7,
+          "colors": 0,
+          "face_words": 148,
+          "zero_regions": []
+        },
+        {
+          "segment": 11,
+          "normals": 2,
+          "colors": 0,
+          "face_words": 20,
+          "zero_regions": []
+        },
+        {
+          "segment": 12,
+          "normals": 3,
+          "colors": 0,
+          "face_words": 60,
+          "zero_regions": [
+            [
+              1632,
+              8
+            ]
+          ]
+        },
+        {
+          "segment": 13,
+          "normals": 4,
+          "colors": 0,
+          "face_words": 74,
+          "zero_regions": []
+        },
+        {
+          "segment": 14,
+          "normals": 4,
+          "colors": 0,
+          "face_words": 74,
+          "zero_regions": []
+        }
+      ]
+    },
+    {
+      "entry": 29,
+      "stored_bytes": 61734,
+      "decoded_bytes": 139176,
+      "exact_encoders": [],
+      "new_parts": [
+        {
+          "segment": 0,
+          "normals": 0,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": [
+            [
+              6464,
+              8
+            ]
+          ]
+        },
+        {
+          "segment": 4,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": []
+        },
+        {
+          "segment": 5,
+          "normals": 2,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": []
+        },
+        {
+          "segment": 6,
+          "normals": 2,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": []
+        },
+        {
+          "segment": 7,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": []
+        },
+        {
+          "segment": 8,
+          "normals": 7,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": [
+            [
+              5152,
+              8
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "entry": 33,
+      "stored_bytes": 5582,
+      "decoded_bytes": 14904,
+      "exact_encoders": [
+        "gzip6"
+      ],
+      "new_parts": [
+        {
+          "segment": 4,
+          "normals": 4,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": [
+            [
+              2480,
+              8
+            ]
+          ]
+        },
+        {
+          "segment": 5,
+          "normals": 4,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": []
+        },
+        {
+          "segment": 6,
+          "normals": 5,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": []
+        }
+      ]
+    },
+    {
+      "entry": 36,
+      "stored_bytes": 20759,
+      "decoded_bytes": 55496,
+      "exact_encoders": [
+        "gzip6"
+      ],
+      "new_parts": [
+        {
+          "segment": 4,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": []
+        }
+      ]
+    },
+    {
+      "entry": 53,
+      "stored_bytes": 41346,
+      "decoded_bytes": 103584,
+      "exact_encoders": [
+        "gzip6"
+      ],
+      "new_parts": [
+        {
+          "segment": 4,
+          "normals": 3,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": [
+            [
+              1488,
+              8
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "entry": 54,
+      "stored_bytes": 20982,
+      "decoded_bytes": 72880,
+      "exact_encoders": [
+        "gzip6"
+      ],
+      "new_parts": [
+        {
+          "segment": 4,
+          "normals": 11,
+          "colors": 0,
+          "face_words": 229,
+          "zero_regions": [
+            [
+              7756,
+              12
+            ]
+          ]
+        },
+        {
+          "segment": 14,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 16,
+          "zero_regions": []
+        },
+        {
+          "segment": 15,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 16,
+          "zero_regions": []
+        },
+        {
+          "segment": 16,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 16,
+          "zero_regions": []
+        },
+        {
+          "segment": 17,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 16,
+          "zero_regions": []
+        },
+        {
+          "segment": 18,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 16,
+          "zero_regions": []
+        },
+        {
+          "segment": 19,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 16,
+          "zero_regions": []
+        },
+        {
+          "segment": 20,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 16,
+          "zero_regions": []
+        },
+        {
+          "segment": 21,
+          "normals": 3,
+          "colors": 0,
+          "face_words": 60,
+          "zero_regions": [
+            [
+              2192,
+              8
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "entry": 64,
+      "stored_bytes": 37212,
+      "decoded_bytes": 120544,
+      "exact_encoders": [
+        "gzip6"
+      ],
+      "new_parts": [
+        {
+          "segment": 21,
+          "normals": 19,
+          "colors": 0,
+          "face_words": 417,
+          "zero_regions": [
+            [
+              14340,
+              4
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "format_frontier": [
+    {
+      "entry": 1,
+      "stored_bytes": 30370,
+      "new_parts": [
+        {
+          "segment": 0,
+          "normals": 0,
+          "colors": 2,
+          "face_words": 1538,
+          "zero_regions": [
+            [
+              48906,
+              2
+            ],
+            [
+              48935,
+              1
+            ],
+            [
+              48966,
+              2
+            ],
+            [
+              55164,
+              12
+            ]
+          ]
+        },
+        {
+          "segment": 11,
+          "normals": 0,
+          "colors": 1,
+          "face_words": 64,
+          "zero_regions": [
+            [
+              1518,
+              2
+            ],
+            [
+              1820,
+              12
+            ]
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "entry": 4,
+      "stored_bytes": 31155,
+      "new_parts": [
+        {
+          "segment": 0,
+          "normals": 0,
+          "colors": 4,
+          "face_words": 1057,
+          "zero_regions": [
+            [
+              32254,
+              2
+            ],
+            [
+              32301,
+              3
+            ],
+            [
+              32355,
+              1
+            ],
+            [
+              32407,
+              1
+            ],
+            [
+              32474,
+              2
+            ],
+            [
+              32510,
+              2
+            ],
+            [
+              32546,
+              2
+            ],
+            [
+              36844,
+              12
+            ]
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "entry": 5,
+      "stored_bytes": 374,
+      "new_parts": [],
+      "failures": [
+        {
+          "segment": 0,
+          "error": "extended header secondary region lacks normal references"
+        }
+      ]
+    },
+    {
+      "entry": 7,
+      "stored_bytes": 24268,
+      "new_parts": [
+        {
+          "segment": 9,
+          "normals": 0,
+          "colors": 1,
+          "face_words": 0,
+          "zero_regions": [
+            [
+              736,
+              8
+            ]
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "entry": 8,
+      "stored_bytes": 374,
+      "new_parts": [],
+      "failures": [
+        {
+          "segment": 0,
+          "error": "extended header secondary region lacks normal references"
+        }
+      ]
+    },
+    {
+      "entry": 24,
+      "stored_bytes": 56495,
+      "new_parts": [
+        {
+          "segment": 0,
+          "normals": 12,
+          "colors": 0,
+          "face_words": 208,
+          "zero_regions": []
+        },
+        {
+          "segment": 4,
+          "normals": 5,
+          "colors": 0,
+          "face_words": 104,
+          "zero_regions": [
+            [
+              3824,
+              8
+            ]
+          ]
+        },
+        {
+          "segment": 5,
+          "normals": 7,
+          "colors": 0,
+          "face_words": 148,
+          "zero_regions": []
+        },
+        {
+          "segment": 6,
+          "normals": 7,
+          "colors": 0,
+          "face_words": 148,
+          "zero_regions": []
+        },
+        {
+          "segment": 11,
+          "normals": 2,
+          "colors": 0,
+          "face_words": 20,
+          "zero_regions": []
+        },
+        {
+          "segment": 12,
+          "normals": 3,
+          "colors": 0,
+          "face_words": 60,
+          "zero_regions": [
+            [
+              1632,
+              8
+            ]
+          ]
+        },
+        {
+          "segment": 13,
+          "normals": 4,
+          "colors": 0,
+          "face_words": 74,
+          "zero_regions": []
+        },
+        {
+          "segment": 14,
+          "normals": 4,
+          "colors": 0,
+          "face_words": 74,
+          "zero_regions": []
+        }
+      ],
+      "failures": []
+    },
+    {
+      "entry": 29,
+      "stored_bytes": 61734,
+      "new_parts": [
+        {
+          "segment": 0,
+          "normals": 0,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": [
+            [
+              6464,
+              8
+            ]
+          ]
+        },
+        {
+          "segment": 4,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": []
+        },
+        {
+          "segment": 5,
+          "normals": 2,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": []
+        },
+        {
+          "segment": 6,
+          "normals": 2,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": []
+        },
+        {
+          "segment": 7,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": []
+        },
+        {
+          "segment": 8,
+          "normals": 7,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": [
+            [
+              5152,
+              8
+            ]
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "entry": 32,
+      "stored_bytes": 374,
+      "new_parts": [],
+      "failures": [
+        {
+          "segment": 0,
+          "error": "extended header secondary region lacks normal references"
+        }
+      ]
+    },
+    {
+      "entry": 33,
+      "stored_bytes": 5582,
+      "new_parts": [
+        {
+          "segment": 4,
+          "normals": 4,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": [
+            [
+              2480,
+              8
+            ]
+          ]
+        },
+        {
+          "segment": 5,
+          "normals": 4,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": []
+        },
+        {
+          "segment": 6,
+          "normals": 5,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": []
+        }
+      ],
+      "failures": []
+    },
+    {
+      "entry": 34,
+      "stored_bytes": 9933,
+      "new_parts": [],
+      "failures": [
+        {
+          "segment": 4,
+          "error": "extended header secondary region lacks normal references"
+        },
+        {
+          "segment": 5,
+          "error": "extended header secondary region lacks normal references"
+        }
+      ]
+    },
+    {
+      "entry": 36,
+      "stored_bytes": 20759,
+      "new_parts": [
+        {
+          "segment": 4,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": []
+        }
+      ],
+      "failures": []
+    },
+    {
+      "entry": 37,
+      "stored_bytes": 374,
+      "new_parts": [],
+      "failures": [
+        {
+          "segment": 0,
+          "error": "extended header secondary region lacks normal references"
+        }
+      ]
+    },
+    {
+      "entry": 53,
+      "stored_bytes": 41346,
+      "new_parts": [
+        {
+          "segment": 4,
+          "normals": 3,
+          "colors": 0,
+          "face_words": 0,
+          "zero_regions": [
+            [
+              1488,
+              8
+            ]
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "entry": 54,
+      "stored_bytes": 20982,
+      "new_parts": [
+        {
+          "segment": 4,
+          "normals": 11,
+          "colors": 0,
+          "face_words": 229,
+          "zero_regions": [
+            [
+              7756,
+              12
+            ]
+          ]
+        },
+        {
+          "segment": 14,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 16,
+          "zero_regions": []
+        },
+        {
+          "segment": 15,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 16,
+          "zero_regions": []
+        },
+        {
+          "segment": 16,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 16,
+          "zero_regions": []
+        },
+        {
+          "segment": 17,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 16,
+          "zero_regions": []
+        },
+        {
+          "segment": 18,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 16,
+          "zero_regions": []
+        },
+        {
+          "segment": 19,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 16,
+          "zero_regions": []
+        },
+        {
+          "segment": 20,
+          "normals": 1,
+          "colors": 0,
+          "face_words": 16,
+          "zero_regions": []
+        },
+        {
+          "segment": 21,
+          "normals": 3,
+          "colors": 0,
+          "face_words": 60,
+          "zero_regions": [
+            [
+              2192,
+              8
+            ]
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "entry": 58,
+      "stored_bytes": 8703,
+      "new_parts": [
+        {
+          "segment": 0,
+          "normals": 28,
+          "colors": 0,
+          "face_words": 560,
+          "zero_regions": []
+        }
+      ],
+      "failures": [
+        {
+          "segment": 1,
+          "error": "extended normals are not contiguous and completely referenced"
+        }
+      ]
+    },
+    {
+      "entry": 64,
+      "stored_bytes": 37212,
+      "new_parts": [
+        {
+          "segment": 21,
+          "normals": 19,
+          "colors": 0,
+          "face_words": 417,
+          "zero_regions": [
+            [
+              14340,
+              4
+            ]
+          ]
+        }
+      ],
+      "failures": []
+    }
+  ],
+  "acceptance": {
+    "base_commit": "094102644c4c2f5aefaa0fc4b609416918f66f58",
+    "source_fingerprint": "88205f89016bdc8688cf24642e05d87efdddd001c9ba8f19d92b1de5a877685a",
+    "report_sha256": "572735d0bdd60f26c7715a22ecf8b1f16f6b668408397e28e489790cdc6fb5da",
+    "measures": {
+      "fuzzy_match_percent": 25.06301,
+      "total_code": "2246328",
+      "matched_code": "555524",
+      "matched_code_percent": 24.730316,
+      "total_data": "65120512",
+      "matched_data": "37019490",
+      "matched_data_percent": 56.84766,
+      "total_functions": 5904,
+      "matched_functions": 3485,
+      "matched_functions_percent": 59.02778,
+      "complete_code": "129488",
+      "complete_code_percent": 5.7644296,
+      "complete_data": "37018722",
+      "complete_data_percent": 56.84648,
+      "total_units": 11181,
+      "complete_units": 10489
+    },
+    "new_units": 8,
+    "new_bytes": 243901,
+    "prior_measure_changes": [
+      "assets/storage/bank04/unreconstructed"
+    ],
+    "rom_bytes": 67108864,
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "snapshot": "current",
+    "compile_errors": [],
+    "tests": {
+      "run": 2482,
+      "skipped": 8,
+      "failures": 0
+    }
+  }
+}

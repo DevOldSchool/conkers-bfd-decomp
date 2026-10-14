@@ -13136,15 +13136,15 @@
       "functions": [
         "func_150E1860"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xE1AB0",
           "start": "0xE1860",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_10ED10.c"
+      "source": "src/done/game/game_10ED10.c"
     },
     {
       "boundary_evidence": {

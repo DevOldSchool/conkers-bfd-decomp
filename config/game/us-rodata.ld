@@ -113,6 +113,8 @@ SECTIONS
     .game_rodata_1483e0 0x800A3218 (INFO) : SUBALIGN(4) { *game_1483E0.o(.rodata) }
     /* Actor callback dispatcher: docs/evidence/data-layout/game_169510_jump_table.md. */
     .game_rodata_169510 0x800A5188 (INFO) : SUBALIGN(4) { *game_169510.o(.rodata) }
+    /* Character blood-profile switch: docs/evidence/data-layout/game_blood_jump_tables.md. */
+    .game_rodata_blood 0x800A4350 (INFO) : SUBALIGN(4) { *blood.o(.rodata) }
     /* Six ROM-proven targets: docs/evidence/data-layout/game_c98f0_jump_table.md. */
     .game_rodata_c98f0 0x8009E458 (INFO) : SUBALIGN(4) { *game_C98F0.o(.rodata) }
 }
@@ -220,3 +222,6 @@ __game_rodata_1179b0_payload_size = 0x4;
 
 ASSERT(SIZEOF(.game_rodata_169510) == 0x40, "game_169510 table extent changed")
 __game_rodata_169510_payload_size = 0x34;
+
+ASSERT(SIZEOF(.game_rodata_blood) == 0x260, "effects/blood tables extent changed")
+__game_rodata_blood_payload_size = 0x260;

@@ -403,11 +403,15 @@ void func_150039B0(s32 arg0) {
 }
 extern s32 D_800DBE5C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150039BC CURRENT (25) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150039BC CURRENT (10) */
 void func_150039BC(s32 arg0) {
-    D_800DBE5C = arg0;
-    if (arg0 != 0) {
-        D_800DBE5C = arg0 + 8;
+    s32 v;
+
+    v = arg0;
+    D_800DBE5C = v;
+    if (v != 0) {
+        v += 8;
+        D_800DBE5C = v;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150039BC */

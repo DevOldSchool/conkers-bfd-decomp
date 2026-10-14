@@ -116,7 +116,7 @@ class GameComparisonTests(unittest.TestCase):
 
     def test_full_object_unsupported_dependencies_are_not_hidden_by_target(self):
         cases = [("jal unknown_function\nnop\njr $ra\nnop", ""),
-                 ("lui $v0,%hi(jtbl_80091A50_game)\naddiu $v0,$v0,%lo(jtbl_80091A50_game)\njr $ra\nnop", ""),
+                 ("lui $v0,%hi(jtbl_80091A50)\naddiu $v0,$v0,%lo(jtbl_80091A50)\njr $ra\nnop", ""),
                  ("lui $v0,%hi(D_800E8000)\naddiu $v0,$v0,%lo(D_800E8000)\njr $ra\nnop",
                   ".data\n.globl D_800E8000\nD_800E8000: .word 0\n"),
                  ("lw $v0,%gp_rel(D_800E8000)($gp)\nnop\njr $ra\nnop", ""),
@@ -127,6 +127,35 @@ class GameComparisonTests(unittest.TestCase):
                 self.metadata(root)
                 candidate, reference = self.objects(root, neighbor=neighbor, tail=tail)
                 self.assertIsNone(self.prove(root, candidate, reference))
+
+    def test_neighbor_game_table_resolves_to_its_rom_verified_address(self):
+        neighbor = ("lui $v0,%hi(jtbl_80091A50_game)\naddiu $v0,$v0,%lo(jtbl_80091A50_game)\n"
+                    "jr $ra\nnop")
+        for low, expected in ((0x1A50, True), (0x1A54, False)):
+            with self.subTest(low=low), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                self.metadata(root)
+                candidate, reference = self.objects(root, neighbor=neighbor)
+                self.assertIsNone(linked_aliases.definitions(Object32(candidate.read_bytes())))
+                unit_words = [0x03E00008, 0, 0, 0, *self.words, 0x3C028009, 0x24420000 | low,
+                              0x03E00008, 0]
+                pair = self.prove(root, candidate, reference, unit_words=unit_words)
+                self.assertEqual(expected, pair is not None)
+                if pair is not None:
+                    self.assertEqual(pair[0].read_bytes(), pair[1].read_bytes())
+
+    def test_unregistered_symbol_inside_member_span_falls_back_to_symbolic_diff(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.metadata(root)
+            candidate, reference = self.objects(
+                root, neighbor="jr $ra\nnop",
+                tail=".globl D_15001028\nD_15001028:\njr $ra\nnop\n")
+            unit_words = [0x03E00008, 0, 0, 0, *self.words, 0x03E00008, 0, 0x03E00008, 0]
+            with self.assertRaisesRegex(ValueError, "padding overlaps"):
+                linked_aliases.function(Object32(candidate.read_bytes()), "func_15001020", 16,
+                                        padding=True)
+            self.assertIsNone(self.prove(root, candidate, reference, unit_words=unit_words))
 
     def test_duplicate_foreign_and_incorrectly_defined_callees_are_rejected(self):
         with tempfile.TemporaryDirectory() as temporary:

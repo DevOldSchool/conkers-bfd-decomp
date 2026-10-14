@@ -9,7 +9,6 @@
  * - func_1518F1A0
  * - func_1518F384
  * - func_1518F5D0
- * - func_1518F7C4
  * - func_1518F8E0
  * - func_1518FC84
  *
@@ -261,22 +260,16 @@ s32 func_1518F5D0(void *arg0, s32 arg1, s16 arg2, s8 arg3,
 extern s32 (*D_8008D67C[])(void *);
 extern void func_1518F8E0(void *arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F7C4 CURRENT (8) */
 s32 func_1518F7C4(void *arg0) {
-    struct { void *ptr; } sp18;
-    s8 temp_v1;
+    f32 *p = (f32 *)((u8 *)arg0 + 0x30);
 
-    sp18.ptr = (u8 *)arg0 + 0x30;
-    *(f32 *)sp18.ptr += (*(f32 *)((u8 *)sp18.ptr + 4) + (func_150ADA68() * *(f32 *)((u8 *)sp18.ptr + 8))) * D_800BE9A4;
+    p[0] += (p[1] + (func_150ADA68() * p[2])) * D_800BE9A4;
     func_1518F8E0(arg0);
-    temp_v1 = *(s8 *)((u8 *)sp18.ptr + 0x58);
-    if (temp_v1 != -1) {
-        return D_8008D67C[temp_v1](arg0);
+    if (((s8 *)p)[0x58] != -1) {
+        return D_8008D67C[((s8 *)p)[0x58]](arg0);
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518F7C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518F7C4.s")
 extern void (*D_8008D680[])(void);
 
 void func_1518F858(void *arg0) {

@@ -14,11 +14,14 @@ future goal and does not currently gate progress.
 ## Project progress
 
 [![US Code](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us.svg?mode=shield&category=all&measure=matched_code_percent&label=US%20Code)](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us?category=all)
+[![US Data](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us.svg?mode=shield&category=all&measure=matched_data_percent&label=US%20Data)](https://decomp.dev/DevOldSchool/conkers-bfd-decomp/us?category=all)
 
-The badge is native objdiff matching for tracked US CPU code, including SDK code;
-it excludes data, assets and EU/PAL. `./conker progress` shows the same metric from
-your local `./conker objdiff report`, plus source-unit and function counts. See
-[progress reports](docs/progress.md).
+The badges show native objdiff matching from the latest published US report.
+**US Code** covers tracked CPU code, including SDK code; **US Data** covers
+tracked data and stored assets. Both exclude EU/PAL. Public results can lag local
+work until a verified report is published. `./conker progress` shows the code
+metric from your local `./conker objdiff report`, plus source-unit and function
+counts. See [progress reports](docs/progress.md).
 
 The repository contains no ROMs or extracted game assets. Read
 [LEGAL.md](LEGAL.md) before contributing.

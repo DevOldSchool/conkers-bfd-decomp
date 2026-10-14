@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1510D720
  * - func_1510D7AC
- * - func_1510D874
  * - func_1510D8C0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -79,8 +78,17 @@ void func_1510D7AC(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510D7AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13ABD0/func_1510D7AC.s")
-extern s8 D_800D9ED0;
-extern u8 D_800D9ED8[];
+typedef struct {
+    s32 object;
+    s32 pixelBase;
+    s32 paletteBase;
+    u8 pixelSegment;
+    u8 paletteSegment;
+    u8 pad[2];
+} Game13ABD0Binding;
+
+extern u8 D_800D9ED0;
+extern Game13ABD0Binding D_800D9ED8[];
 
 /* Semantic role: placed_object_reset_texture_binding_count.
  * Clear only the binding count; stored records and texture payloads remain.
@@ -89,22 +97,15 @@ extern u8 D_800D9ED8[];
 void func_1510D864(void) {
     D_800D9ED0 = 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510D874 CURRENT (505) */
 void func_1510D874(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    u8 *temp_v1;
-
-    if ((u8)D_800D9ED0 < 8) {
-        temp_v1 = &D_800D9ED8[(u8)D_800D9ED0 * 0x10];
-        *(s32 *)(temp_v1 + 0) = arg0;
-        *(s32 *)(temp_v1 + 4) = arg1;
-        *(s32 *)(temp_v1 + 8) = arg2;
-        *(s8 *)(temp_v1 + 0xC) = arg3;
-        D_800D9ED0 = (u8)D_800D9ED0 + 1;
-        *(s8 *)(temp_v1 + 0xD) = (s8)arg4;
+    if (D_800D9ED0 < 8) {
+        D_800D9ED8[D_800D9ED0].object = arg0;
+        D_800D9ED8[D_800D9ED0].pixelBase = arg1;
+        D_800D9ED8[D_800D9ED0].paletteBase = arg2;
+        D_800D9ED8[D_800D9ED0].pixelSegment = arg3;
+        D_800D9ED8[D_800D9ED0++].paletteSegment = arg4;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510D874 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13ABD0/func_1510D874.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1510D8C0 CURRENT (1090) */
 void *func_1510D8C0(void *arg0, s32 arg1) {
     s32 var_v0;
