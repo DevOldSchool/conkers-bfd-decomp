@@ -94036,7 +94036,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1354,
-        "reason": "Fresh raw full-span1354 frame40. Two probe batches tested named uncached-segment relocation, signed arithmetic intermediates, halfword destination casts, signed status, direct destination and split branch cursor lifetimes; no improvement. Core mismatch remains size in A3 instead of preserved S0, source S0 instead of S1; original candidate retained.",
+        "reason": "Fresh raw full-span1354 frame40; candidate source is unchanged from the record previously listed as 1154, which no longer reproduces on this tree (stale score, not a regression). Two probe batches tested named uncached-segment relocation, signed arithmetic intermediates, halfword destination casts, signed status, direct destination and split branch cursor lifetimes; no improvement. Core mismatch remains size in A3 instead of preserved S0, source S0 instead of S1; original candidate retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -96022,7 +96022,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1732,
-        "reason": "Continuation 2026-10-13: full240 CURRENT1732 from1779 by narrowing volume in place before loading flags. Unsigned-mask/promotion, real split copies and early guard probes did not recover S1; saved-register choice and call scheduling still differ. Preserve measured improvement; no ABI/shared changes.",
+        "reason": "Continuation 2026-10-13: full240 CURRENT1732 from1802 (previous candidate reprobed on this tree) by narrowing volume in place before loading flags. Unsigned-mask/promotion, real split copies and early guard probes did not recover S1; saved-register choice and call scheduling still differ. Preserve measured improvement; no ABI/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

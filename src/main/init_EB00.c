@@ -784,7 +784,8 @@ s32 func_80010154(u16 sound, SoundOwnerState *owner, s32 volume,
             if (farDistance < arg3) {
                 arg3 = farDistance - 0xC8;
             }
-        } else if ((owner->field4 == 5U) || (owner->field4 == 0x4F) ||
+        } else if ((owner->field4 == 5U) || /* 5U reuses the earlier field0 == 5 register. */
+                   (owner->field4 == 0x4F) ||
                    (owner->field4 == 0x83)) {
             flags = 4;
         } else if ((owner->field13C != 0) &&
@@ -802,6 +803,7 @@ s32 func_80010154(u16 sound, SoundOwnerState *owner, s32 volume,
         }
     }
     owner->handle8E = result;
+    /* The original falls off the end here without returning result. */
 }
 s32 func_80010344(u16 sound, void *arg1, u32 volume,
                   s16 nearDistance, u16 farDistance) {
