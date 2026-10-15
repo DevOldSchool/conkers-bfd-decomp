@@ -93482,8 +93482,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 90,
-        "reason": "Large-search pilot inspected full652 raw/source and latest diagnosis: CURRENT90 includes two missing/extra rows from first framebuffer-store scheduling, not a purely register-only mismatch. Existing artificial immediate goto remains a seed review concern. Although generator has5000 variants, skip general permutation under current eligibility rules; retain original90 unchanged. Ledger build/us/manual-attempts/init-large-permute-20261007/ledger.md.",
+        "current_score": 60,
+        "reason": "Closest-candidate pass: refreshed full652 CURRENT60, only first framebuffer SW versus following LUI ordering differs. Consumer proves table elements are u16 pointers; typed-table/local-pointer probes preserve60, natural no-goto340, direct typed globals640. Type correction did not recover scheduling; baseline retained, immediate goto remains source-quality concern.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93718,7 +93718,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Full16 CURRENT60 rechecked 2026-10-12: only difference is SB scheduled before JR (project -O2 -g3) vs raw delay-slot SB; requires per-unit flag evidence, not a C form. No source change.",
+        "reason": "Closest-candidate raw full16 inspection confirms only store scheduling differs: raw LUI/JR/SB/NOP versus candidate LUI/SB/JR/NOP, CURRENT60. Fresh signed-byte store60; volatile-byte store275. No padding workaround or compiler option change; preserve baseline.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93773,7 +93773,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 265,
-        "reason": "Unchanged after pass 3 permuter/manual work (decomp-permuter 45-60 min where run; only fake-copy or semantic-changing results). See build/us/manual-attempts/main-permuter-20261010/ledger.md.",
+        "reason": "Closest-candidate pass full260 CURRENT265. New signed halfword lvalue probes first800, second690, both265; two-byte pixel record265. Volatile front-buffer stores/pointee265, signed volatile800, reversed comparisons265. Raw still differs in initial SRA scheduling and counter/color/second-pointer register allocation; preserve baseline.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93828,7 +93828,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1375,
-        "reason": "Unchanged after pass 3 permuter/manual work (decomp-permuter 45-60 min where run; only fake-copy or semantic-changing results). See build/us/manual-attempts/main-permuter-20261010/ledger.md.",
+        "reason": "Fresh full-span1375 frame70; two probe batches tested endpoint pointer/integer arithmetic, explicit tail pointer/register lifetime, and separate real size/link locals. No improvement; pointer integer and explicit tail shapes grew frame78. Raw caches D800380BC in RA while candidate retains distinct endpoint base, leaving operand/register drift. Baseline preserved.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93847,7 +93847,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 35,
-        "reason": "Full476 CURRENT35 (improved from668): -g3 homes give six locals block/neighbor/nextFree/merged/mask/cursor; merged flag is a real local (0x20); mask is memory-resident (volatile s32, home 0x1C); cursor holds the original header and later the list cursor. Remaining: original computed in v0 vs raw v1 (raw has no CSE temp for arg0-0xC) and tail temps t9/t0 vs raw t1/t2 (raw keeps &D_800380B8 in v0 before the nextFree fix-up, so its two block->nextFree reads are not CSE'd). Statement orders, expression shapes, labels, do-while, assignment-in-condition, register class and a 486-variant role enumeration exhausted; permuters only fake. Ledger build/us/manual-attempts/main-matching-3-20261012/ledger.md.",
+        "reason": "Closest-candidate pass: seven register operands remain at full-span CURRENT35; frame30 and all opcodes agree. Natural loop-backedge, explicit register qualification of three real pointers, and individual/both pointer comparisons (eight new probes) do not change allocation. Initial V0 versus V1 and final T9/T0 versus T1/T2 remain; preserve baseline.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94009,8 +94009,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1154,
-        "reason": "Full468 CURRENT1154 independently restoredee870e93. Four new manual hypotheses rejected: signed low-half store1154 and old-style size-first parameter declarations1154 instruction-identical; status reused as unaligned remaining2812 forces size48 stack home and wrong polling registers; existing local for rounded bytes with consumed size formal as loop limit2193 recovers countA2 but loses saved registers, frame38/raw40 and data30/raw38. Original scoped aligned-count improvement retained. No ABI/shared/compiler/ASM or MMIO changes. Prior type/count/cursor/KSEG families remain exhausted; ledger build/us/manual-attempts/manual-init-20261007/ledger.md.",
+        "current_score": 1354,
+        "reason": "Fresh raw full-span1354 frame40; candidate source is unchanged from the record previously listed as 1154, which no longer reproduces on this tree (stale score, not a regression). Two probe batches tested named uncached-segment relocation, signed arithmetic intermediates, halfword destination casts, signed status, direct destination and split branch cursor lifetimes; no improvement. Core mismatch remains size in A3 instead of preserved S0, source S0 instead of S1; original candidate retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94029,7 +94029,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 790,
-        "reason": "Full976 CURRENT790 independently rechecked a2ead85c: reuse dead formal for actual audio state recovers frame68 and every stack home while preserving all temporaries and fresh flag reload. Remaining FP caches AC6C vs rawAC50; graphics-address formal phase neutral. No exact match.",
+        "reason": "Continuation 2026-10-13 full976 CURRENT790 unchanged. Manual case2 flatten/early-continue probes790; explicit graphics-slot local877 grows frame70 and still caches AC6C; audio guard1878. Disassembly confirms the wrong global-address promotion persists; preserve baseline.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95021,7 +95021,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1608,
-        "reason": "Unchanged after pass 3 permuter/manual work (decomp-permuter 45-60 min where run; only fake-copy or semantic-changing results). See build/us/manual-attempts/main-permuter-20261010/ledger.md.",
+        "reason": "Fresh raw full-span diagnosis1608; ten mask width, signedness, snapshot, scope and real step-pointer probe variants did not improve. Frame98 exact; missing mask preservation move, hidden spill70/58 vs6c/50 and switch scheduling remain. Original candidate preserved.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95039,8 +95039,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 580,
-        "reason": "Unchanged after pass 3 permuter/manual work (decomp-permuter 45-60 min where run; only fake-copy or semantic-changing results). See build/us/manual-attempts/main-permuter-20261010/ledger.md.",
+        "current_score": 540,
+        "reason": "Manual unsigned override read and split halfword stores improve full-span CURRENT580 to540 (finish05e4bb53abde460496e8bbda21e195a9):98 register-only rows, exact frame40 and opcodes. Signed base address resolves temp rotation but reorders two instruction clusters (690; delayed status630); real snapshots/scopes worsen or grow frame58. Bounded32 permutation stays540. Detailed current-pass candidates and full diffs retained in build/us/manual-attempts/main-five-close-20261013/D2F8. Candidate only; no match credit.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95779,7 +95779,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1483,
-        "reason": "Full436 CURRENT1483 restored223ef36c. Anonymousheight assignment-result H1 3b8d8c04 normalizedfull diff identicalbaseline9ae64e86; preserves old extra indexS1/savedS0home14 vs18, missingA2caller spills20, height/epilogue scheduling. Frame28/count24 exact. Prior pointer/indexscope/addressedindex/typedinputs/heightwidth and fullrecordalias families exhausted; no ABI/shared changes. Known10F30K&Rstarter limitation unrelated to manual verification.",
+        "reason": "Fresh raw continuation: index uses A2 with spills at sp20 around two calls, candidate uses S1 despite correct frame28. Real queue-record fields, pointer-index access and register hint remain1483; nested success/common return worsens2970/3570. Seven new manual probes, no exact or better candidate; preserve baseline, no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95939,17 +95939,16 @@
       "symbol": "func_800100E0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1352,
-        "reason": "Improved 2065->1352 (2026-10-12): s32 return with early return 0 and fall-off end (raw b; move v0,zero), no callback local, D_1000EE70 function alias passed directly, mixFlags scoped in field318 arm (frame 0x50). Remaining: raw promotes constant 5 into a0 across field0==5/field4==5 (ours li at,5 twice), which also stops the D_1000EE70 lui hoist. Reorders/switch/state-var forms worse. Ledger build/us/manual-attempts/main-matching-2-20261012/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 496,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80010154",
           "vram": "0x80010154"
         }
@@ -95996,8 +95995,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1802,
-        "reason": "Full240 CURRENT1802 independently restored1daee2b4. New actual5.3 trace shows u16 localVolume consumesV0/flagsV1; fullword masked local2114 recovered flagsV0 but adds volume LW/ANDI/MOVE and breaks extent, rejected. Preserve improved real two-phase local1802 from1984. Parameter reuse1858 adds unwanted flags homeSW; previous1930 alternative has exact first-arm chain but wrong extent. S1 volume allocation/call scheduling remain. No further equivalent width/copy/register trials justified; no ABI/shared/ASM/artificial-storage changes.",
+        "current_score": 1732,
+        "reason": "Continuation 2026-10-13: full240 CURRENT1732 from1802 (previous candidate reprobed on this tree) by narrowing volume in place before loading flags. Unsigned-mask/promotion, real split copies and early guard probes did not recover S1; saved-register choice and call scheduling still differ. Preserve measured improvement; no ABI/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -96214,7 +96213,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 935,
-        "reason": "Checkpoint64 full460 CURRENT935 independently restored0356f81c. Actual immutable u16 input handle instead of s32 snapshot neutral935; defining it after owner guard also neutral935. Narrow-local mechanism from FEF0 doesnottransfer. Prior directformal935, delayedresulttransfer935, splitinput/outputformal1408, mutablehandle and registerhint families exhausted. Raw early A0 normalization still replaced by lateLHU; resultregister and downstreamtemporary sequence differ. No own/helper ABI/shared/ASM changes.",
+        "reason": "Fresh full460 CURRENT935 retained. New old-style narrow-parameter definitions (via complete-source probe) score935; reuse formal for output1408. Real mutable u16 handle plus owner-type snapshot935; fullword1335; explicit record snapshot1480-1880. No early A0 normalization recovery. Preserve original candidate, no ABI/helper/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -97465,7 +97464,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1275,
-        "reason": "Typed SDK queue insertion CURRENT1275 in both guarded-do and simpler while forms. Exact fields and behavior retained; handwritten t9/t8/t7 allocation and nop-filled branches differ from compiler v0/v1/a2 and branch-likely schedule. No artificial lifetime or compiler scheduling workaround.",
+        "reason": "Fresh manual inspection 2026-10-13 confirms 76-byte helper uses T9/T8/T7/T6 throughout, preserves normal return registers, and sits among handwritten scheduler entry points. Natural C cursor body retained; no fake register-pressure variables or ABI change introduced.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -97599,7 +97598,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 230,
-        "reason": "Unchanged after pass 3 permuter/manual work (decomp-permuter 45-60 min where run; only fake-copy or semantic-changing results). See build/us/manual-attempts/main-permuter-20261010/ledger.md.",
+        "reason": "Closest-candidate pass: named denominator layout has correct frame38 but compiler spills the expression at18 instead of raw1C and still exchanges distance T1 with denominator T2. Fresh fixed-point multiplication (first/second/both), unsigned rounded value and unsigned mode probes remain230. Prior range/order families not repeated; preserve baseline.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -97617,8 +97616,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2275,
-        "reason": "Unchanged after pass 3 permuter/manual work (decomp-permuter 45-60 min where run; only fake-copy or semantic-changing results). See build/us/manual-attempts/main-permuter-20261010/ledger.md.",
+        "current_score": 1816,
+        "reason": "Continuation manual vector representation improves full-span CURRENT 2275 to 1816, finish 62c76396b5184e50a986033ccfe07421. Raw frame D0 versus candidate D8 remains; pointer count lookup unchanged; actual base snapshot 1977; reusing table index reaches D0 but worsens 3768 and segment reuse 3163. Preserve structured vector candidate; no exact match, no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

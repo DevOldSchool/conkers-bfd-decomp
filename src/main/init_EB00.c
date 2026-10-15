@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_8000FA64
- * - func_80010154
  * - func_80010630
  * - func_80010FFC
  *
@@ -765,7 +764,6 @@ void func_8000FD38(void *, void *, s32);
 u16 func_80010BE8(u16, s32, u16, u8, s16, u8, u8);
 s32 D_1000EE70(SoundArrayRecord *, s32, s32 *, s32, s32, s32 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010154 CURRENT (1352) */
 s32 func_80010154(u16 sound, SoundOwnerState *owner, s32 volume,
                    s16 arg3, u16 farDistance) {
     s32 result = 0;
@@ -786,7 +784,8 @@ s32 func_80010154(u16 sound, SoundOwnerState *owner, s32 volume,
             if (farDistance < arg3) {
                 arg3 = farDistance - 0xC8;
             }
-        } else if ((owner->field4 == 5) || (owner->field4 == 0x4F) ||
+        } else if ((owner->field4 == 5U) || /* 5U reuses the earlier field0 == 5 register. */
+                   (owner->field4 == 0x4F) ||
                    (owner->field4 == 0x83)) {
             flags = 4;
         } else if ((owner->field13C != 0) &&
@@ -804,9 +803,8 @@ s32 func_80010154(u16 sound, SoundOwnerState *owner, s32 volume,
         }
     }
     owner->handle8E = result;
+    /* The original falls off the end here without returning result. */
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80010154 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80010154.s")
 s32 func_80010344(u16 sound, void *arg1, u32 volume,
                   s16 nearDistance, u16 farDistance) {
     SoundOwnerState *owner = arg1;
@@ -870,23 +868,22 @@ void func_80010558(u16 sound, SoundOwnerState *owner, s32 volume,
 }
 s32 D_1000EE70(SoundArrayRecord *, s32, s32 *, s32, s32, s32 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010630 CURRENT (1802) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010630 CURRENT (1732) */
 void func_80010630(u16 sound, SoundOwnerState *owner, s32 volume,
                   s16 arg3, u16 arg4) {
-    u16 localVolume;
-    u32 currentValue = volume;
+    u32 mixFlags;
 
     if (owner->field0 != 0) {
         if (owner->field318 != 0) {
-            localVolume = currentValue;
-            currentValue = owner->field184;
-            func_80010F30(sound, localVolume, 0x40, 0,
-                          ((currentValue >> 3) & 0x30) * 2);
+            volume = (u16)volume;
+            mixFlags = owner->field184;
+            func_80010F30(sound, volume, 0x40, 0,
+                          ((mixFlags >> 3) & 0x30) * 2);
             return;
         }
         func_8000FA64(sound, (s16)(s32)owner->field14,
                       (s16)(s32)owner->field18, (s16)(s32)owner->field1C,
-                      (s32)currentValue, arg4, arg3, D_1000EE70,
+                      volume, arg4, arg3, D_1000EE70,
                       (s32)owner, owner->field3B, 0, 0);
     }
 }
