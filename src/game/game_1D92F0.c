@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151ABE40
  * - func_151AC078
- * - func_151AC408
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -237,17 +236,16 @@ typedef struct Game1D92F0Entry {
     u8 pad_C[8];
 } Game1D92F0Entry;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AC408 CURRENT (128) */
 s32 func_151AC408(void *arg0, s32 arg1, s32 arg2, s32 arg3,
                   f32 arg4, s32 arg5) {
-    f32 position[3];
-    u8 effect;
     Game1D92F0Entry *source;
     u8 *state;
+    f32 position[3];
+    u8 effect;
 
     source = *(Game1D92F0Entry **)((u8 *)arg0 + 0x94);
-    position[0] = source[*(s8 *)((u8 *)arg0 + 0x2D)].field_0;
     state = *(u8 **)((u8 *)arg0 + 0x98);
+    position[0] = source[*(s8 *)((u8 *)arg0 + 0x2D)].field_0;
     position[1] = arg4;
     position[2] = source[*(s8 *)((u8 *)arg0 + 0x2D)].field_8;
     effect = func_151D8E20();
@@ -263,5 +261,3 @@ s32 func_151AC408(void *arg0, s32 arg1, s32 arg2, s32 arg3,
     state[0x20] = 4;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AC408 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D92F0/func_151AC408.s")
