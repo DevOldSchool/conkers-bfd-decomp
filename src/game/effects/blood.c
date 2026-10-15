@@ -15,7 +15,6 @@
  * - func_15135DD0
  * - func_15136404
  * - func_15136698
- * - func_15136AE4
  * - func_15136F50
  * - func_15137610
  * - func_1513783C
@@ -968,15 +967,15 @@ extern f32 D_800A4624;
 extern f32 D_800A4628;
 extern f32 D_800A462C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15136AE4 CURRENT (48) */
 void func_15136AE4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    f32 arg5, void *arg6) {
     f32 sp6C[3];
     f32 sp60[3];
+    f32 temp_fv1;
+    f32 random_float;
     u32 sp54;
     u32 sp50;
     f32 sp4C;
-    f32 temp_fv1;
 
     sp6C[0] = arg0;
     sp6C[1] = arg1;
@@ -988,14 +987,13 @@ void func_15136AE4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
     sp4C = func_150ADA68();
     sp50 = func_150ADA20();
     sp54 = func_150ADA20();
+    random_float = func_150ADA68();
     func_151D9014(sp6C, sp60, 0, (sp4C * D_800A4628) + D_800A462C,
                    (sp50 & 0xF) + 0x19, (sp54 % 101U) + 0x9B,
-                   (func_150ADA68() * 119.0f) + 129.0f, 0, 1.0f, 1.0f,
+                   (random_float * 119.0f) + 129.0f, 0, 1.0f, 1.0f,
                    1, 0, 1, 0, *(u8 *)((u8 *)arg6 + 0xC),
                    *(u8 *)((u8 *)arg6 + 1));
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15136AE4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136AE4.s")
 typedef struct Blood36C3CActor {
     u8 pad0[4];
     u8 unk4;

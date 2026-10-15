@@ -10,7 +10,6 @@
  * - func_150C2290
  * - func_150C2558
  * - func_150C2700
- * - func_150C2898
  * - func_150C29F0
  * - func_150C2C00
  * - func_150C3230
@@ -442,15 +441,15 @@ extern f32 D_800A0288;
 extern f32 D_800A028C;
 extern f32 D_800A0290;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C2898 CURRENT (48) */
 void func_150C2898(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    f32 arg5, void *arg6) {
     f32 sp6C[3];
     f32 sp60[3];
+    f32 temp_fv1;
+    f32 random_float;
     u32 sp54;
     u32 sp50;
     f32 sp4C;
-    f32 temp_fv1;
 
     sp6C[0] = arg0;
     sp6C[1] = arg1;
@@ -462,14 +461,13 @@ void func_150C2898(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
     sp4C = func_150ADA68();
     sp50 = func_150ADA20();
     sp54 = func_150ADA20();
+    random_float = func_150ADA68();
     func_151D9014(sp6C, sp60, 6, (sp4C * D_800A028C) + D_800A0290,
                    (sp50 & 0xF) + 0x19, (sp54 % 101U) + 0x9B,
-                   (func_150ADA68() * 119.0f) + 129.0f, 0, 1.0f, 1.0f,
+                   (random_float * 119.0f) + 129.0f, 0, 1.0f, 1.0f,
                    1, 0, 1, 0, *(u8 *)((u8 *)arg6 + 0xC),
                    *(u8 *)((u8 *)arg6 + 1));
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C2898 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2898.s")
 typedef struct GameEF410Particle {
     f32 position[3];
     f32 field0C;

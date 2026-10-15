@@ -1088,16 +1088,15 @@
       "symbol": "func_15136A50"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 48,
-        "reason": "Fresh full-span recheck remains48: exact frame and two provider-proved twelve-byte vectors, six real sample spill offsets differ by eight. One transient multiplier does not justify the two-word gap; no invented locals or padded vectors.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15136AE4",
           "vram": "0x15136AE4"
         }
@@ -1650,16 +1649,15 @@
       "symbol": "func_15160684"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 73,
-        "reason": "CURRENT (73): eleven matrix/output local stack offsets are eight bytes above raw while frame and opcodes match. Separate array declarations scattered or preserved offsets; trailing aggregate padding increased frame. Baseline restored.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_151606A8",
           "vram": "0x151606A8"
         }
@@ -2058,16 +2056,15 @@
       "symbol": "func_151618BC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 115,
-        "reason": "CURRENT (115): best verified typed-descriptor candidate; remaining differences are local-block offsets and two register choices after bounded layout/scheduling revisions",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_151619A0",
           "vram": "0x151619A0"
         }
@@ -31866,17 +31863,16 @@
       "symbol": "func_150C2804"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 48,
-        "reason": "CURRENT (48): only three scalar spill slots at +8 versus raw; array slots exact; separate and grouped local declaration-order variants did not improve stack layout",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 344,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C2898",
           "vram": "0x150C2898"
         }
@@ -34242,17 +34238,16 @@
       "symbol": "func_15105CE0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 91,
-        "reason": "CURRENT (91): 0x38 frame vs raw 0x30, callback byte at sp+0x34 vs +0x2B, seven register-only rows. Scalar byte and enlarged indexed byte array worsen stack placement; best three-word aggregate copy restored",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 340,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510608C",
           "vram": "0x1510608C"
         }
@@ -69014,17 +69009,16 @@
       "symbol": "func_15193390"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 17,
-        "reason": "Valid wrapping tick arithmetic; CURRENT17, outgoing three-float vector remains at sp3C versus raw38. Existing Vec3 structure neutral; earlier 8-byte union grows frame. Two fresh revisions exhausted without dummy storage.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 428,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151934B4",
           "vram": "0x151934B4"
         }
@@ -72482,22 +72476,21 @@
       "symbol": "func_150C7350"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 64,
-        "reason": "Manual origins preserve runtime SUBs: 1805 to64, all instructions/registers exact except four stack offsets. Scalar cleanup106 and meaningful aggregate1174 exhausted; best64 restored. No new padding.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 224,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150CEF60",
           "vram": "0x150CEF60"
         }
       },
-      "source": "src/game/game_FC410.c",
+      "source": "src/done/game/game_FC410.c",
       "symbol": "func_150CEF60"
     },
     {
@@ -73976,17 +73969,16 @@
       "symbol": "func_150FCBC0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 17,
-        "reason": "CURRENT (17): array storage unchanged. Corrected call declaration from matched callee game_191C30.c to void*, void*, f32, f32, f32, using exact 2007.0f/9005.0f literals and whole-vector address; offsets still 24/28/2C instead of 20/24/28, frame 30. Prior vector/result and vector/owner records and suffix scope exhausted. No padding/search.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 148,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150FCF1C",
           "vram": "0x150FCF1C"
         }
@@ -87772,17 +87764,16 @@
       "symbol": "func_151AC3CC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 128,
-        "reason": "CURRENT (128): typed 20-byte source entry fixes multiply and full instruction/control span, but local float triple is placed at sp+0x54 rather than raw +0x4c and effect byte +0x53 rather than +0x4b; padded aggregates enlarge frame. Preserve best candidate.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 328,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151AC408",
           "vram": "0x151AC408"
         }
@@ -92242,22 +92233,21 @@
       "symbol": "func_15108120"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 108,
-        "reason": "Improved219 to108 with real signed-halfword angle reused across negation and float conversion; frame28 and all GPRs now exact. Operand reversal neutral; later angle declaration shrinks frame20 and regresses134. Remaining FPR operand allocation and radians stack1Cvs18; no further evidenced hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 320,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1512E4B0",
           "vram": "0x1512E4B0"
         }
       },
-      "source": "src/game/game_15B960.c",
+      "source": "src/done/game/game_15B960.c",
       "symbol": "func_1512E4B0"
     },
     {

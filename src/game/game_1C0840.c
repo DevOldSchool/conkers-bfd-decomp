@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15193390
- * - func_151934B4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -77,17 +76,10 @@ void func_15193390(void *volatile arg0) {
 void func_151DBCBC(s32, f32, u8, s32, f32 *, s32, s32);
 extern s32 D_800BE9E4;
 
-typedef struct Game1C0840Vec3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1C0840Vec3;
-
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151934B4 CURRENT (17) */
 void func_151934B4(u8 *actor) {
+    s32 quarter;
     f32 position[3];
     s16 timer;
-    s32 quarter;
 
     if (*(s16 *)(actor + 0xA4) < *(s16 *)(actor + 0x96)) {
         timer = *(s16 *)(actor + 0xAA);
@@ -113,5 +105,3 @@ void func_151934B4(u8 *actor) {
         *(s16 *)(actor + 0x98) = -1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151934B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1C0840/func_151934B4.s")

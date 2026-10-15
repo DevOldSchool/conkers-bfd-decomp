@@ -7,13 +7,11 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151604A0
- * - func_151606A8
  * - func_151607A4
  * - func_15160954
  * - func_15160B74
  * - func_15160CDC
  * - func_15160E30
- * - func_151619A0
  * - func_15161A68
  * - func_15161F4C
  * - func_15162034
@@ -199,14 +197,13 @@ void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_150A8050(void *, f32, f32, f32);
 extern f32 D_800A66B4[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151606A8 CURRENT (73) */
 s32 func_151606A8(void *arg0) {
+    void **source;
+    void *temp_v0;
     struct {
         f32 output[3];
         f32 matrix[16];
     } locals;
-    void **source;
-    void *temp_v0;
 
     source = (void **)((u8 *)arg0 + 0x18);
     temp_v0 = *source;
@@ -227,8 +224,6 @@ s32 func_151606A8(void *arg0) {
         (s16)(s32)locals.output[2];
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151606A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151606A8.s")
 void func_15160954(f32 *, f32 *, f32 *, f32 *, void *);
 u32 func_150ADA20(void);
 extern f32 D_800BE9A4;
@@ -683,21 +678,20 @@ void func_151618BC(u16 arg0, s16 arg1, u8 arg2, s32 arg3,
 }
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151619A0 CURRENT (115) */
 s32 func_151619A0(s32 arg0, s16 arg1, u8 arg2, s32 arg3) {
+    s32 result;
     GameLightDescriptor descriptor;
     s32 payload;
     s32 position[3];
-    s32 result;
 
     payload = arg0;
     descriptor.field0 = 3;
     descriptor.field1 = 9;
+    descriptor.field2 = arg1;
     descriptor.field4 = 0x14;
     position[0] = 0;
     position[1] = 0;
     position[2] = 0;
-    descriptor.field2 = arg1;
     result = func_151602C0((u8 *)&descriptor, position, 0xFF, 0xFF, 0xFF, 0xFF,
                            0xFF, 0, 4, arg2, arg3);
     if (result != 0) {
@@ -705,8 +699,6 @@ s32 func_151619A0(s32 arg0, s16 arg1, u8 arg2, s32 arg3) {
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151619A0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151619A0.s")
 extern u8 D_800C35EA;
 extern u8 *D_800C3958[];
 
