@@ -166,21 +166,19 @@ s32 func_1503E1F4(s32 arg0, s32 arg1) {
 extern u8 *D_80084460[];
 void func_10004074(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503E260 CURRENT (93) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503E260 CURRENT (30) */
 void func_1503E260(s32 arg0) {
     Game6B320Slot *slot = &D_800C6660[arg0];
     s32 i;
     u8 *list;
     u8 *mask;
     u8 *actor;
-    u8 count;
-    u8 selector;
+    s32 count;
 
     if (slot->pad_E[1] != 0) {
-        selector = slot->pad_E[0];
-        list = D_80084460[selector];
+        list = D_80084460[slot->pad_E[0]];
         if (list != 0) {
-            count = D_80098914[selector];
+            count = D_80098914[slot->pad_E[0]];
             i = 0;
             mask = list;
             if ((s32)count > 0) {

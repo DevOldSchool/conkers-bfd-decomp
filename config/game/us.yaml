@@ -385,7 +385,7 @@ segments:
       - [0xDDED0, c, game/game_10B380]
       - [0xDE310, c, done/game/game_10B7C0]
       - [0xDE320, c, game/game_10B7D0]
-      - [0xDE7C0, c, game/game_10BC70]
+      - [0xDE7C0, c, done/game/game_10BC70]
       - [0xDEBE0, c, game/game_10C090]
       - [0xDEC90, c, done/game/game_10C140]
       - [0xDECC0, c, game/game_10C170]

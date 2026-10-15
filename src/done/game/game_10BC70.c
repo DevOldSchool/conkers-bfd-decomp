@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_10BC70.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_table_runs.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150DEB58
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game10BC70Vec3 {
@@ -171,14 +166,11 @@ s32 func_150DEACC(void *arg0) {
 }
 s32 func_15140410(s32, s32, s32, s16);
 extern s32 D_80082FA0;
-extern s32 D_800DBFF0;
+extern void *D_800DBFF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DEB58 CURRENT (120) */
 s32 func_150DEB58(s32 arg0, s16 arg1) {
-    if (*(f32 *)((u8 *)(D_800DBFF0 + (D_80082FA0 * 0x9A0)) + 0x388) < 5.0f) {
+    if (*(f32 *)(((u8 *)D_800DBFF0 + (D_80082FA0 * 0x9A0)) + 0x388) < 5.0f) {
         return 0;
     }
     return func_15140410(arg0, arg0 + 0x120, arg0 + 0x12C, arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150DEB58 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10BC70/func_150DEB58.s")

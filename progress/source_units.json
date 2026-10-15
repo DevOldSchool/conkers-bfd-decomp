@@ -12254,15 +12254,15 @@
         "func_150DEACC",
         "func_150DEB58"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xDEBE0",
           "start": "0xDE7C0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_10BC70.c"
+      "source": "src/done/game/game_10BC70.c"
     },
     {
       "boundary_evidence": {

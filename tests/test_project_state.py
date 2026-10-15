@@ -2438,6 +2438,79 @@ class GameInventoryTests(unittest.TestCase):
         project_state.write_json(project_state.SOURCE_UNITS_FILE, units)
         self.assert_recheck_rejected_without_writes(symbols[0], "boundary evidence is not reviewed")
 
+    def test_reopen_completed_unit_moves_source_and_preserves_sibling_match(self) -> None:
+        source, symbols = self.prepare_matched_unit_for_recheck()
+        before = project_state.load_json(project_state.FUNCTIONS_FILE)["functions"]
+        sibling = next(item for item in before if item["symbol"] == symbols[1])
+        project_state.reopen_match(SimpleNamespace(
+            profile="us", symbol=symbols[0], reason="unsupported declaration"))
+
+        destination = "src/game/reviewed_unit.c"
+        self.assertFalse((self.root / source).exists())
+        content = (self.root / destination).read_text()
+        self.assertIn(project_state.global_asm_pragma(destination, symbols[0]), content)
+        self.assertIn(f"CONKER_DEFERRED_CANDIDATE {symbols[0]}", content)
+        self.assertIn(f" * - {symbols[0]}\n", content)
+        self.assertNotIn(project_state.global_asm_pragma(destination, symbols[1]), content)
+        functions = project_state.load_json(project_state.FUNCTIONS_FILE)["functions"]
+        self.assertTrue(all(item["source"] == destination for item in functions))
+        reopened = next(item for item in functions if item["symbol"] == symbols[0])
+        self.assertEqual("raw_asm", reopened["regions"]["us"]["state"])
+        self.assertNotIn("evidence", reopened["regions"]["us"])
+        self.assertEqual("unsupported declaration", reopened["deferred"]["reason"])
+        sibling["source"] = destination
+        self.assertEqual(sibling, next(item for item in functions if item["symbol"] == symbols[1]))
+        unit = project_state.load_json(project_state.SOURCE_UNITS_FILE)["source_units"][0]
+        self.assertEqual(destination, unit["source"])
+        self.assertEqual("mixed", unit["integration"])
+        self.assertEqual("in_progress", unit["regions"]["us"]["state"])
+        self.assertIn("[0x0, c, game/reviewed_unit]", (self.root / "config/game/us.yaml").read_text())
+        project_state.validate_source_units({"schema_version": 1, "source_units": [unit]}, functions)
+        project_state.validate_deferred_candidate_sources(functions)
+
+    def test_reopen_completed_unit_rejects_destination_collision(self) -> None:
+        _, symbols = self.prepare_matched_unit_for_recheck()
+        destination = self.root / "src/game/reviewed_unit.c"
+        destination.write_text("/* unrelated work */\n")
+        before = {p: p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
+        with self.assertRaisesRegex(project_state.ProjectStateError, "destination already exists"):
+            project_state.reopen_match(SimpleNamespace(
+                profile="us", symbol=symbols[0], reason="unsupported declaration"))
+        self.assertEqual(before, {p: p.read_bytes() for p in self.root.rglob("*") if p.is_file()})
+
+    def test_reopen_completed_unit_rolls_back_on_render_failure(self) -> None:
+        source, symbols = self.prepare_matched_unit_for_recheck()
+        (self.root / source).chmod(0o640)
+        # Reopening may need to recreate the original source directory.
+        (self.root / "src/game").rmdir()
+        before = {p: p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
+        def fail_after_partial_render(functions):
+            project_state.SUMMARY_FILE.write_text("partial summary")
+            project_state.DOCUMENT_FILE.write_text("partial report")
+            raise KeyboardInterrupt("render interrupted")
+        with patch.object(project_state, "render_progress", side_effect=fail_after_partial_render):
+            with self.assertRaises(KeyboardInterrupt):
+                project_state.reopen_match(SimpleNamespace(
+                    profile="us", symbol=symbols[0], reason="unsupported declaration"))
+        self.assertEqual(before, {p: p.read_bytes() for p in self.root.rglob("*") if p.is_file()})
+        self.assertTrue((self.root / source).exists())
+        self.assertEqual(0o640, (self.root / source).stat().st_mode & 0o777)
+        self.assertFalse((self.root / "src/game").exists())
+
+    def test_reopen_completed_unit_rolls_back_partial_inventory_write(self) -> None:
+        _, symbols = self.prepare_matched_unit_for_recheck()
+        before = {p: p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
+        write_json = project_state.write_json
+        def fail_second_write(path, data):
+            if path == project_state.SOURCE_UNITS_FILE:
+                raise OSError("inventory write failed")
+            write_json(path, data)
+        with patch.object(project_state, "write_json", side_effect=fail_second_write):
+            with self.assertRaisesRegex(OSError, "inventory write failed"):
+                project_state.reopen_match(SimpleNamespace(
+                    profile="us", symbol=symbols[0], reason="unsupported declaration"))
+        self.assertEqual(before, {p: p.read_bytes() for p in self.root.rglob("*") if p.is_file()})
+
     def test_reopen_match_restores_pragma_and_preserves_candidate(self) -> None:
         project_state.register_game(
             SimpleNamespace(

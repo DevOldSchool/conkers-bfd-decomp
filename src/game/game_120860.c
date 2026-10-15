@@ -12,10 +12,10 @@
 
 extern void *D_800DBFF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F33B0 CURRENT (25) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F33B0 CURRENT (10) */
 void func_150F33B0(void *arg0) {
     if (*(f32 *)((u8 *)D_800DBFF0 + 0x300) < -2000.0f) {
-        *(u8 *)((u8 *)arg0 + 0x4F) = (u8) (*(u8 *)((u8 *)arg0 + 0x4F) & 0xFFFE);
+        *(u8 *)((u8 *)arg0 + 0x4F) = (u16) (*(u8 *)((u8 *)arg0 + 0x4F) & ~1);
         return;
     }
     *(u8 *)((u8 *)arg0 + 0x4F) = (u8) (*(u8 *)((u8 *)arg0 + 0x4F) | 1);

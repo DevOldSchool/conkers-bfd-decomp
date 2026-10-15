@@ -211,12 +211,13 @@ s32 func_1515C0F8(Game1890A0State *arg0, u8 **arg1) {
 extern u8 D_800DCE50[];
 extern u8 D_800DD190[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515C158 CURRENT (105) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515C158 CURRENT (30) */
 void func_1515C158(void) {
     u8 *var_v1;
     void *var_v0;
 
-    var_v1 = D_800DCE50;
+    var_v0 = D_800DCE50;
+    var_v1 = var_v0;
     do {
         var_v0 = *(void **)(var_v1 + 0xC8);
         var_v1 += 0x1A0;

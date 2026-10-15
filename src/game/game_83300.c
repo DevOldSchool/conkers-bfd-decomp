@@ -65,7 +65,6 @@
  * - func_15062B84
  * - func_15062D10
  * - func_15062E24
- * - func_15062FC0
  * - func_15063168
  * - func_15063254
  *
@@ -3342,7 +3341,6 @@ typedef struct Game83300MorphObject {
 
 extern s32 *D_800C4020[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15062FC0 CURRENT (315) */
 void func_15062FC0(Game83300MorphObject *arg0, s32 arg1, u8 arg2,
                    s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7) {
     u8 *channelBase;
@@ -3352,8 +3350,8 @@ void func_15062FC0(Game83300MorphObject *arg0, s32 arg1, u8 arg2,
     s32 i;
 
     channelBase = (u8 *)arg0 + (arg0->channel * 8);
-    target = *(Game83300MorphVertex **)(channelBase + 0x28C + D_800BE9C0 * 4);
-    source = *(Game83300MorphVertex **)(channelBase + 0x28C + (D_800BE9C0 == 0) * 4);
+    target = ((Game83300MorphVertex **)(channelBase + 0x28C))[D_800BE9C0];
+    source = ((Game83300MorphVertex **)(channelBase + 0x28C))[!D_800BE9C0];
     if (target == 0) {
         return;
     }
@@ -3381,8 +3379,6 @@ void func_15062FC0(Game83300MorphObject *arg0, s32 arg1, u8 arg2,
         target[i].y = source[i].y + arg7;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15062FC0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15062FC0.s")
 typedef struct Game83300Nested63168 {
     u8 pad0[0x1AC];
     u8 active;

@@ -382,7 +382,11 @@ not edit progress JSON. Reopen it transactionally:
 
 The command preserves the old C body as a deferred candidate, restores its
 canonical `GLOBAL_ASM` pragma and TODO entry, removes invalid match evidence,
-and regenerates progress.
+and regenerates progress. For a completed unit, it also moves the source back
+out of `src/done/`, updates every member's source path and the active C mapping,
+and changes integration to mixed C/ASM while preserving sibling matches.
+Source, mappings, inventories and progress reports roll back together if the
+transaction fails. Run a clean `verify-batch` before handoff.
 
 ## Automation
 
