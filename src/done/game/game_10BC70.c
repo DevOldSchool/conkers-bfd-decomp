@@ -166,7 +166,7 @@ s32 func_150DEACC(void *arg0) {
 }
 s32 func_15140410(s32, s32, s32, s16);
 extern s32 D_80082FA0;
-extern s32 D_800DBFF0;
+extern void *D_800DBFF0;
 
 s32 func_150DEB58(s32 arg0, s16 arg1) {
     if (*(f32 *)(((u8 *)D_800DBFF0 + (D_80082FA0 * 0x9A0)) + 0x388) < 5.0f) {

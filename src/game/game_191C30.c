@@ -22,6 +22,7 @@ void *func_15164780(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
     void *temp_v0;
     void *temp_v1;
 
+    /* Reuse v0 for the owner base and linked object, matching their disjoint lifetimes. */
     temp_v0 = (void *)(D_800DBFF0 + (arg0[6] * 0x9A0));
     temp_v1 = *(void **)((u8 *)temp_v0 + 0x3D0);
     if (temp_v1 != 0) {

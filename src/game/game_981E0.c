@@ -1653,7 +1653,6 @@ void func_1506EF5C(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1506EF5C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506EF5C.s")
-
 void func_1506EFB4(void) {
     *(s16 *)(D_800D154C + 0x282) = 0;
 }

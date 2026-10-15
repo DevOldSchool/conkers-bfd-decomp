@@ -5290,7 +5290,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 145,
-        "reason": "Refreshed full-span145 (saved420 stale). Two probe batches: named diagonal constant145, chained diagonal assignments670/675, integer/double/cast literals145. Constant still F0 instead of raw F4 with extra NOP and return scheduling; no qualifier or padding workaround.",
+        "reason": "Refreshed full-span 145 (saved 420 stale). Two probe batches: named diagonal constant 145, chained diagonal assignments 670/675, integer/double/cast literals 145. Constant still F0 instead of raw F4 with extra NOP and return scheduling; no qualifier or padding workaround.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -21027,7 +21027,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 160,
-        "reason": "Best CURRENT160 retained. Fresh range-backed doubled-index u16/s16 probes360/380, byte-index combination565; cannot recover raw scratch allocation. Prior field-extraction/typed-pair and permute24 variants exhausted. Second pass adds one probe batch, no source revision.",
+        "reason": "Best CURRENT 160 retained. Fresh range-backed doubled-index u16/s16 probes 360/380, byte-index combination 565; cannot recover raw scratch allocation. Prior field-extraction/typed-pair and permute 24 variants exhausted. Second pass adds one probe batch, no source revision.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -32637,7 +32637,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 50,
-        "reason": "Improved58->50 by declaring settings before owner alias; raw frame20/spill1C now exact. Noalias65, real time snapshot70/short65, flags mutable snapshot800; supported permuter generated only baseline. Residual10 register rows flags v0/time a0 versus raw a0/v0. Best50 preserved.",
+        "reason": "Improved 58 to 50 by declaring settings before owner alias; raw frame 0x20/spill 0x1C now exact. Noalias 65, real time snapshot 70/short 65, flags mutable snapshot 800; supported permuter generated only baseline. Residual 10 register rows flags v0/time a0 versus raw a0/v0. Best 50 preserved.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -37162,7 +37162,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 30,
-        "reason": "CURRENT30 retained. New real countdown snapshot s32 probe30, u16 probe105; raw still uses a1 for halfword address versus candidate a0. Prior explicit pointer hypothesis exhausted; no evidence for ABI changes or reserved-register padding.",
+        "reason": "CURRENT 30 retained. New real countdown snapshot s32 probe 30, u16 probe 105; raw still uses a1 for halfword address versus candidate a0. Prior explicit pointer hypothesis exhausted; no evidence for ABI changes or reserved-register padding.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -40535,7 +40535,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 135,
-        "reason": "CURRENT135 retained: direct third-component store/read probe400; supported decl/first-assignment permute3 variants no improvement; explicitly named shared white constant135. Third dividend still promoted to v1, displacing white to a0 and rotating trailing registers. No fresh lifetime hypothesis.",
+        "reason": "CURRENT 135 retained: direct third-component store/read probe 400; supported decl/first-assignment permute 3 variants no improvement; explicitly named shared white constant 135. Third dividend still promoted to v1, displacing white to a0 and rotating trailing registers. No fresh lifetime hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -40818,7 +40818,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 265,
-        "reason": "Current full diff 265 (old metadata450 stale). Two probe batches tested result width, explicit exit jumps and branch-local returns; best265 remained. Inner <4 branch folds subtraction into delay slot instead of raw separate branch/nop. Original candidate retained.",
+        "reason": "Current full diff 265 (old metadata 450 stale). Two probe batches tested result width, explicit exit jumps and branch-local returns; best 265 remained. Inner <4 branch folds subtraction into delay slot instead of raw separate branch/nop. Original candidate retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -46282,7 +46282,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 30,
-        "reason": "Improved93->30 using s32 count and inline selector: loop/global registers and final spill3C exact. 4 probe batches: alias/flags removal regressed; width/selector edits improve; separate loop scopes neutral30. Remaining frame60 vs50 and named tail flags v1 versus raw t9. Best30 preserved, no fabricated storage.",
+        "reason": "Improved 93 to 30 using s32 count and inline selector: loop/global registers and final spill 0x3C exact. 4 probe batches: alias/flags removal regressed; width/selector edits improve; separate loop scopes neutral 30. Remaining frame 0x60 versus 0x50 and named tail flags v1 versus raw t9. Best 30 preserved, no fabricated storage.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -48410,7 +48410,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 135,
-        "reason": "CURRENT135 retained: permute32 no improvement; radius snapshot135, direct sum140, split bound/child lifetimes140. Frame10 and full control flow exact, input x remains saved s0 instead of raw radius arg2; no further concrete allocator hypothesis.",
+        "reason": "CURRENT 135 retained: permute 32 no improvement; radius snapshot 135, direct sum 140, split bound/child lifetimes 140. Frame 0x10 and full control flow exact, input x remains saved s0 instead of raw radius arg2; no further concrete allocator hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -49811,7 +49811,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 35,
-        "reason": "CURRENT35 retained. Fresh typed-node/subrecord, word-pointer, integer-address, array-member decay and copy-then-adjust probes all CURRENT240: IDO folds the +58 base. Original keeps adjusted v1 but raw uses a1 and mode a2. No further supported lifetime hypothesis.",
+        "reason": "CURRENT 35 retained. Fresh typed-node/subrecord, word-pointer, integer-address, array-member decay and copy then adjust probes all CURRENT 240: IDO folds the +58 base. Original keeps adjusted v1 but raw uses a1 and mode a2. No further supported lifetime hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -50847,7 +50847,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 16,
-        "reason": "CURRENT16 retained: two new probe batches (copy-then-adjust/link last; real two-pointer context first/last) all16. Raw link spill20 versus generated18 persists while packet1C/frame30 exact; prior volatile/extra-alias family exhausted. No supported new storage hypothesis.",
+        "reason": "CURRENT 16 retained: two new probe batches (copy then adjust/link last; real two-pointer context first/last) all 16. Raw link spill 0x20 versus generated 0x18 persists while packet 0x1C/frame 0x30 exact; prior volatile/extra-alias family exhausted. No supported new storage hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -50939,7 +50939,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "CURRENT10 retained. Two new probe batches: existing result/source reuse10; separate real spawn/link/result storage128 (frame88), direct call home130. Prior extra reload local/volatile/integer field family not repeated. Only post-memcpy reload/store t1 versus raw v1 remains.",
+        "reason": "CURRENT 10 retained. Two new probe batches: existing result/source reuse 10; separate real spawn/link/result storage 128 (frame 0x88), direct call-home variant scored 130. Prior extra reload local/volatile/integer field family not repeated. Only post-memcpy reload/store t1 versus raw v1 remains.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -53219,7 +53219,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "CURRENT20 retained. One new probe batch: signed flag field225, u16 OR result20, explicit promoted OR20. Prior pointer/integer-address/direct-record families exhausted. Tail byte reload/OR remains t2/t3 versusrawt1/t2.",
+        "reason": "CURRENT 20 retained. One new probe batch: signed flag field 225, u16 OR result 20, explicit promoted OR 20. Prior pointer/integer-address/direct-record families exhausted. Tail byte reload/OR remains t2/t3 versus raw t1/t2.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -58693,7 +58693,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 220,
-        "reason": "CURRENT220 retained. One probe batch tested typed allocation pointer with explicit boundary cast and explicit integer-address cast, both220. No authoritative helper definition found locally in bounded source search; do not guess ABI. Loaded value remains a0 rather than raw v0 with call-delay move.",
+        "reason": "CURRENT 220 retained. One probe batch tested typed allocation pointer with explicit boundary cast and explicit integer-address cast, both 220. No authoritative helper definition found locally in bounded source search; do not guess ABI. Loaded value remains a0 rather than raw v0 with call-delay move.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -71335,7 +71335,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "CURRENT20 retained. One new probe batch: compound base updates140, named interpolation delta265, reversed delta275. Prior outer reversal20 and direct field2410 not repeated. Two final ADD.S pairs remain commuted; no improving lifetime evidence.",
+        "reason": "CURRENT 20 retained. One new probe batch: compound base updates 140, named interpolation delta 265, reversed delta 275. Prior outer reversal 20 and direct field 2410 not repeated. Two final ADD.S pairs remain commuted; no improving lifetime evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -71354,7 +71354,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 85,
-        "reason": "CURRENT85 retained. Two probe batches: explicit timestep snapshot85, raw store-order source variants985, named return constant85, timestep address115. Raw early v0 return constant and v1 global base remain; no ABI guessing.",
+        "reason": "CURRENT 85 retained. Two probe batches: explicit timestep snapshot 85, raw store-order source variants 985, named return constant 85, timestep address 115. Raw early v0 return constant and v1 global base remain; no ABI guessing.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -79372,16 +79372,17 @@
       "symbol": "func_150F6178"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 505,
+        "reason": "PR review rejected the unsupported volatile read. Nonvolatile candidate preserves behavior but folds the duplicate field load, leaving register and instruction differences. Await a source-supported hypothesis.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 76,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_150F631C",
           "vram": "0x150F631C"
         }
@@ -84249,7 +84250,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 110,
-        "reason": "CURRENT110 unchanged: 32 declaration/first-assignment permutations no improvement. Natural invariant promotion and component-expression probes scored120/125/490/1956. Raw interleaves current/target FPRs; explicit target snapshots allocate invariants first. No further supported allocation hypothesis.",
+        "reason": "CURRENT 110 unchanged: 32 declaration/first-assignment permutations no improvement. Natural invariant promotion and component-expression probes scored 120/125/490/1956. Raw interleaves current/target FPRs; explicit target snapshots allocate invariants first. No further supported allocation hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -86821,7 +86822,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 12,
-        "reason": "CURRENT12 retained. One new probe batch compared separate real float pair/random pair groups (208/245) and real random scalars208, all frame58. Original aggregate preserves complete instruction stream except RNG homes48/4C versusraw44/48. No invented storage or padding.",
+        "reason": "CURRENT 12 retained. One new probe batch compared separate real float pair/random pair groups (208/245) and real random scalars 208, all frame 0x58. Original aggregate preserves complete instruction stream except RNG homes 0x48/0x4C versus raw 0x44/0x48. No invented storage or padding.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -87184,7 +87185,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 30,
-        "reason": "CURRENT30 retained: anonymous raw pointer reload t7 versus named v1 cascades into shift scratch registers. One probe batch tested register pointer (30), direct volatile formal (120, reload schedule), actual one-pointer array (270/frame28 vs20). Prior one-field record neutral. No untried storage hypothesis.",
+        "reason": "CURRENT 30 retained: anonymous raw pointer reload t7 versus named v1 cascades into shift scratch registers. One probe batch tested register pointer (30), direct volatile formal (120, reload schedule), actual one-pointer array (270/frame 0x28 versus 0x20). Prior one-field record neutral. No untried storage hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -89644,7 +89645,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 30,
-        "reason": "Improved105 to30 by seeding traversal pointer before table cursor. Bounded permute32 on original had no improvement. Two probe batches/four variants: seed head1275, record cursor30, explicit invariants75. Remaining only two ADDIU setup instructions swapped; exact loop body. Best30 preserved.",
+        "reason": "Improved 105 to 30 by seeding traversal pointer before table cursor. Bounded permute 32 on original had no improvement. Two probe batches/four variants: seed head 1275, record cursor 30, explicit invariants 75. Remaining only two ADDIU setup instructions swapped; exact loop body. Best 30 preserved.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
