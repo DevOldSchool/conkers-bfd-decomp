@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15189900
  * - func_15189A00
- * - func_15189EBC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -102,18 +101,17 @@ f32 func_150ADA68(void);
 extern f64 D_800A73A8;
 extern f32 D_800A73B0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15189EBC CURRENT (49) */
 s32 func_15189EBC(Game1B6DB0RouteObject *arg0) {
-    Game1B6DB0RoutePoint *sp40;
-    f32 position[3];
-    Game1B6DB0RoutePoint *point;
+    f64 chance;
     Game1B6DB0Emitter *emitter;
+    Game1B6DB0RoutePoint *point;
+    f32 position[3];
 
     point = arg0->route;
     emitter = arg0->emitter;
     if (point[arg0->route_index].y < emitter->height) {
-        sp40 = point;
-        if ((f64)func_150ADA68() < D_800A73A8) {
+        chance = (f64)func_150ADA68();
+        if (chance < D_800A73A8) {
             position[0] = point[arg0->route_index].x;
             position[1] = emitter->height;
             position[2] = point[arg0->route_index].z;
@@ -126,5 +124,3 @@ s32 func_15189EBC(Game1B6DB0RouteObject *arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15189EBC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B6DB0/func_15189EBC.s")

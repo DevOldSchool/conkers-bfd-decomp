@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151CEA20
- * - func_151CEAAC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -62,15 +61,13 @@ void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32,
 void *func_10022EC0(void *, const void *, u32);
 extern f32 D_800AB008;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CEAAC CURRENT (268) */
 void *func_151CEAAC(void *arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4) {
+    f32 random;
     struct {
         Game1FBED0Link link;
         Game1FBED0Spawn spawn;
-        void *saved_result;
     } locals;
     void *result;
-    f32 random;
     s8 mode;
 
     locals.spawn.field15 = 0x19;
@@ -106,11 +103,7 @@ void *func_151CEAAC(void *arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4) {
     result = func_15147A80(locals.spawn.position, (void *)0x28, 0x28,
                            0, 0xF, 0xF, 0, 0, 0, arg3, arg4);
     if (result != 0) {
-        locals.saved_result = result;
         func_10022EC0(*(void **)((u8 *)result + 0x98), &locals.link, 0x28);
-        result = locals.saved_result;
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CEAAC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FBED0/func_151CEAAC.s")

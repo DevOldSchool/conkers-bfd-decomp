@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150E9FE0
  * - func_150EA11C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -43,13 +42,10 @@ typedef struct {
     s8 end;
 } Game117490Descriptor;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E9FE0 CURRENT (283) */
 s32 func_150E9FE0(void *arg0, s16 arg1, s32 arg2, s32 arg3) {
     Game117490Descriptor descriptor;
-    s32 saved;
+    s32 result;
     u8 copy[0x10];
-    s32 temp_v0;
-    s32 var_v1;
 
     descriptor.type = *((u8 *) arg0 + 0x3B);
     descriptor.value0C = -9.0f;
@@ -74,17 +70,12 @@ s32 func_150E9FE0(void *arg0, s16 arg1, s32 arg2, s32 arg3) {
     descriptor.scale = 0.5f;
     *(f32 *) (copy + 0x8) = D_800A1410;
     *(f32 *) (copy + 0xC) = D_800A1414;
-    temp_v0 = (s32) func_15134DAC(&descriptor, 0x10);
-    var_v1 = temp_v0;
-    if (temp_v0 != 0) {
-        saved = temp_v0;
-        func_10022EC0((void *) (temp_v0 + 0x80), copy, 0x10U);
-        var_v1 = saved;
+    result = (s32) func_15134DAC(&descriptor, 0x10);
+    if (result != 0) {
+        func_10022EC0((void *) (result + 0x80), copy, 0x10U);
     }
-    return var_v1;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E9FE0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_117490/func_150E9FE0.s")
 s32 func_150EA10C(u8 *arg0) {
     *(s32 *)(arg0 + 0x80) = 0;
     return 1;

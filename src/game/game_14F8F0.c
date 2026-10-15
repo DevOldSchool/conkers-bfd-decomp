@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15122440
- * - func_15122980
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -46,26 +45,22 @@ void func_150495B0(f32 *, f32, f32 *, f32, f32, f32);
 void func_1512E140(void *);
 extern f32 D_800A34A0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15122980 CURRENT (62) */
 void func_15122980(Game14F8F0Actor *arg0) {
     f32 sp44[3];
     f32 sp38[3];
     f32 sp34;
     f32 sp30;
-    f32 *sp28;
-    f32 temp_fv0;
 
-    sp28 = arg0->origin;
     if (arg0->state != 4) {
-        func_15048F90(sp28, arg0->second, sp44);
-        func_15048F90(sp28, arg0->first, sp38);
+        func_15048F90(arg0->origin, arg0->second, sp44);
+        func_15048F90(arg0->origin, arg0->first, sp38);
         sp34 = func_15048FC8(sp44);
         sp30 = func_15048FC8(sp38);
         if (arg0->enabled == 0) {
             arg0->field8D4 = 0.0f;
         } else if ((arg0->flags & 0x100000) ||
-                   ((temp_fv0 = arg0->field390, temp_fv0 > 180.0f) &&
-                    (temp_fv0 < 270.0f))) {
+                   ((arg0->field390 > 180.0f) &&
+                    (arg0->field390 < 270.0f))) {
             arg0->field8D4 = 0.75f;
         } else {
             arg0->field8D4 = 0.5f;
@@ -79,5 +74,3 @@ void func_15122980(Game14F8F0Actor *arg0) {
     func_1512E140(arg0);
     func_1512A390(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15122980 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_14F8F0/func_15122980.s")

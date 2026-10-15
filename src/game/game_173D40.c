@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15146970
  * - func_15146A98
- * - func_15146BF8
  * - func_15146D60
  * - func_15146E84
  * - func_15147040
@@ -168,30 +167,25 @@ void func_15141F78(s32, void *, f32, s32, f32 *, s32);
 extern f32 D_800A5720;
 extern f32 D_800A5724;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15146BF8 CURRENT (135) */
 void func_15146BF8(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    s32 saved_arg1;
     struct {
         s32 work[9];
         f32 position[3];
     } locals;
 
     if (*(s32 *)((u32)arg0 + 0x1D4U) != 0) {
-        saved_arg1 = (u8)arg1;
         if (func_15146890(locals.position, (void *)arg0,
                           (s32)locals.work, (u8)arg1) != 0) {
             func_15141F78((u8)((u8)arg3 != 0 ? 0xC : 0xB), locals.work,
                           (f32)arg2 * D_800A5720,
                           (u32)(*(f32 *)((u32)arg0 + 0x40U) * D_800A5724) & 0xFF,
-                          locals.position, saved_arg1);
+                          locals.position, (u8)arg1);
             if (arg2 >= 0x73) {
                 func_15142180(2, locals.position, locals.work[6], 1.0f, 1.0f);
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15146BF8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_173D40/func_15146BF8.s")
 void func_15141F78(s32, void *, f32, s32, f32 *, s32);
 extern f32 D_800A5728;
 extern f32 D_800A572C;
