@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_B4080.c
@@ -731,7 +732,8 @@ void func_150885EC(s32 arg0, s32 arg1) {
 void func_15088824(void *);
 extern s32 D_800D2394;
 
-s32 func_1508868C(s32 arg0) {
+/* Keep slot addresses inline: a named offset local changes IDO stack layout. */
+s32 func_1508868C(u8 *arg0) {
     s32 var_v1;
     s32 var_v0;
 
@@ -748,7 +750,7 @@ s32 func_1508868C(s32 arg0) {
                 func_15088824((void *)((var_v1 * 0x84) + D_800872A0));
                 *(s8 *)(D_800872A0 + (var_v1 * 0x84) + 0x30) = 1;
                 *(s8 *)(D_800872A0 + (var_v1 * 0x84) + 0x31) =
-                    (s8)((arg0 - (s32)&D_800CC2D0) / 812);
+                    (s8)(((s32)arg0 - (s32)&D_800CC2D0) / 812);
                 return var_v1;
             }
             var_v1++;

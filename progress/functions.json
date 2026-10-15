@@ -2146,7 +2146,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 409,
-        "reason": "Improved648 to409: natural float initializer order recovers all float loads/registers/stores. Remaining delayed selector mask and extra arg1 reload; early incoming normalization840, named selector409. Two probe batches and one finish; preserve409 without ABI changes.",
+        "reason": "Improved 648 to 409: natural float initializer order recovers all float loads/registers/stores. Remaining delayed selector mask and extra arg1 reload; early incoming normalization 840, named selector 409. Two probe batches and one finish; preserve 409 without ABI changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -2422,7 +2422,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 388,
-        "reason": "Improved984 to388 full finish (probe588 before linked-alias handling): remove duplicate result/aggregate and recomputable offset. Exact frame40, all local homes and tail; remaining selector prologue raw argument-home store and early mask versus s32 parameter expression. Active caller declaration is s32; no unsupported narrowing/shared ABI edits. One probe batch/two variants/one finish.",
+        "reason": "Improved 984 to 388 in full finish (probe 588 before linked-alias handling): remove duplicate result/aggregate and recomputable offset. Exact frame 0x40, all local homes and tail; remaining selector prologue raw argument-home store and early mask versus s32 parameter expression. Active caller declaration is s32; no unsupported narrowing/shared ABI edits. One probe batch/two variants/one finish.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -21030,7 +21030,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 190,
-        "reason": "CURRENT190 retained;20 register-only rows. New permitted declaration/first-assignment permute exhausted3 unique variants with no improvement. Prior address-local hypothesis already exhausted.",
+        "reason": "CURRENT (190) retained; 20 register-only rows. New permitted declaration/first-assignment permute exhausted 3 unique variants with no improvement. Prior address-local hypothesis already exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -38004,7 +38004,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 317,
-        "reason": "CURRENT317 retained. New duplicate-slot elimination, home ordering, unused incoming result rebinding and late-slot lifetime all414 despite correcting frame30: slot20 vs24, extra return move a0 and reload scheduling. Two probe batches and one finish; original317 restored.",
+        "reason": "CURRENT (317) retained. New duplicate-slot elimination, home ordering, unused incoming result rebinding and late-slot lifetime all score 414 despite correcting frame 0x30: slot 0x20 vs 0x24, extra return move a0 and reload scheduling. Two probe batches and one finish; original 317 restored.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -38023,7 +38023,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 26,
-        "reason": "CURRENT26 retained. New invariant slot elimination42/50 still frame40; removing destination snapshot fixesframe38 but changes loop4016; pointer-dereference slot form50/frame40. All probes unapplied; original retained. Three probe batches plus layout diagnostics; named-pointer elimination family exhausted.",
+        "reason": "CURRENT (26) retained. New invariant slot elimination scores 42/50, still frame 0x40; removing destination snapshot fixes frame 0x38 but changes loop, score 4016; pointer-dereference slot form scores 50 with frame 0x40. All probes unapplied; original retained. Three probe batches plus layout diagnostics; named-pointer elimination family exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -41997,7 +41997,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 65,
-        "reason": "CURRENT65; ten final flag-register rows. Removed four unused declarations with neutral codegen. Byte scalar/actual byte record/union neutral65; nonvolatile field expression1210. Untried lifetime permute exhausted16 variants65. Preserve cleaner candidate.",
+        "reason": "CURRENT (65); ten final flag-register rows. Removed four unused declarations with neutral codegen. Byte scalar/actual byte record/union neutral at 65; nonvolatile field expression 1210. Untried lifetime permute exhausted 16 variants at 65. Preserve cleaner candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -42813,7 +42813,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 30,
-        "reason": "CURRENT30 retained. Fresh register-only diagnosis confirms six byte/predicate/return-address rows. Newly authorized bounded permute searched32 declaration/lifetime variants, best30. Prior loop-control variants exhausted.",
+        "reason": "CURRENT (30) retained. Fresh register-only diagnosis confirms six byte/predicate/return-address rows. Newly authorized bounded permute searched 32 declaration/lifetime variants, best 30. Prior loop-control variants exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -54490,7 +54490,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "CURRENT10 retained. New direct equality reversal neutral10; reuse of existing call local for second signed comparison operand grows frame20 to28 (s32 score624, s16 score619). Named-comparison hypothesis exhausted; original preserved.",
+        "reason": "CURRENT (10) retained. New direct equality reversal neutral at 10; reuse of existing call local for second signed comparison operand grows frame 0x20 to 0x28 (s32 score 624, s16 score 619). Named-comparison hypothesis exhausted; original preserved.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -63590,7 +63590,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 40,
-        "reason": "CURRENT40 original retained. New derived-state home elimination561/frame90; scale home elimination1656/frame98. Complete buffer storage retained; prior12byte/struct/layout hypotheses exhausted. One fresh two-variant probe batch, no source variant applied.",
+        "reason": "CURRENT (40), original retained. New derived-state home elimination scores 561 with frame 0x90; scale home elimination scores 1656 with frame 0x98. Complete buffer storage retained; prior 12-byte/struct/layout hypotheses exhausted. One fresh two-variant probe batch, no source variant applied.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -72356,7 +72356,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Improved75 to60 with indexed table accesses: all registers/body exact, counter zero scheduled at20 before two ADDIU rather than28. Register/u32/for forms75; initial order90; indexed60; explicit bases60; hybrid cursor/index80/295. 32 earlier permutations75. Preserve valid indexed60; initialization scheduling plateau.",
+        "reason": "Improved 75 to 60 with indexed table accesses: all registers/body exact, counter zero scheduled at 0x20 before two ADDIU rather than 0x28. Register/u32/for forms score 75; initial order 90; indexed 60; explicit bases 60; hybrid cursor/index 80/295. 32 earlier permutations scored 75. Preserve valid indexed candidate at 60; initialization scheduling plateau.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -87443,7 +87443,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "CURRENT10 retained: sole commuted addu s0,t9 versus t9,s0. New unsigned reversal, byte/word pointers, indexing, and two-stage base initialization all10; two-stage offset pointer300. Address-expression family exhausted; original preserved.",
+        "reason": "CURRENT (10) retained: sole commuted addu s0,t9 versus t9,s0. New unsigned reversal, byte/word pointers, indexing, and two-stage base initialization all score 10; two-stage offset pointer 300. Address-expression family exhausted; original preserved.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

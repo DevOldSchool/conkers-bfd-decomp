@@ -934,12 +934,6 @@ extern f32 D_800A67C0[];
 extern f32 D_800A6820[];
 extern f32 D_800A6AF8;
 
-typedef struct {
-    f32 values[8];
-    GameLightDescriptor descriptor;
-    void *saved;
-} Light62740Locals;
-
 void *func_15162740(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4,
                     s8 arg5, u8 arg6, s32 arg7) {
     void *result;
@@ -1308,14 +1302,6 @@ extern u8 D_800A6964[];
 extern u8 D_800A699C[];
 extern u8 D_800A69D4[];
 extern f32 D_800A6B00;
-
-typedef struct {
-    s32 offset;
-    f32 values[4];
-    GameLightDescriptor descriptor;
-    u8 pad3A[2];
-    void *saved;
-} Light63604Locals;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15163604 CURRENT (388) */
 void *func_15163604(s32 arg0, s32 arg1, u8 arg2, s16 arg3, u8 arg4,

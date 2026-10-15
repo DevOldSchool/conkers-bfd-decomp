@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_104AE0.c
@@ -62,7 +63,6 @@ void func_10010154(s32, void *, s32, s32, s32);
 u8 *func_1506C460(f32, f32, f32, f32, s32, s32, f32, f32, s32, s32, s32);
 s32 func_1508855C(s32);
 void func_150885EC(s32, s32);
-s32 func_1508868C(u8 *);
 extern u8 D_800C3E78;
 
 void func_150D7790(u8 *arg0, s32 arg1) {
@@ -71,6 +71,7 @@ void func_150D7790(u8 *arg0, s32 arg1) {
     s32 variant;
     u8 *created;
 
+    /* Keep field reads inline: named pointer/value locals change IDO stack layout. */
     variant = 0;
     if ((*(u8 **)(arg0 + 0x31C)) != 0 && *(s8 *)((*(u8 **)(arg0 + 0x31C)) + 0x1AE) <= 0) {
         return;

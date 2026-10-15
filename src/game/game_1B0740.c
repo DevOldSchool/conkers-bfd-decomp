@@ -27,6 +27,7 @@ void func_15183ACC(s32); /* extern */
 void *func_1502B6BC(s32, s32, s32, s32, s32, s32);
 extern u8 D_800DDF69[];
 
+/* Keep slot reads inline: a named pointer local changes IDO stack layout. */
 void func_151838B0(s32 arg0) {
     void *temp_v0;
 
@@ -84,13 +85,13 @@ extern s32 D_800DDF78[];
 void func_15183ACC(s32 arg0) {
     u8 *allocated;
 
-    if ((&D_800DDE80[arg0])->field0 == 0) {
+    if (D_800DDE80[arg0].field0 == 0) {
         allocated = func_1502B6BC(0, 0, 0, 2, 9, arg0 + 0xAD);
         if (allocated != 0) {
-            (&D_800DDE80[arg0])->field0 = allocated;
+            D_800DDE80[arg0].field0 = allocated;
             *(s32 *)((u8 *)(&D_800DDE80[arg0]) + 4) = *(s32 *)allocated;
             *(s32 *)((u8 *)(&D_800DDE80[arg0]) + 8) = *(s32 *)(allocated + 8);
-            (&D_800DDE80[arg0])->fieldC = *(s32 *)(allocated + 0x18);
+            D_800DDE80[arg0].fieldC = *(s32 *)(allocated + 0x18);
             D_800DDF78[arg0] = *(s32 *)(allocated + 0x10);
             func_1510CE60(D_800DDF78[arg0], 0, 1, 0x3E, (u8 *)(&D_800DDE80[arg0]) + 0x10);
             D_800DDF68[arg0] = 1;
