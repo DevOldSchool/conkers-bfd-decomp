@@ -210,6 +210,7 @@ void func_1510608C(void *arg0) {
     Game133190EventCallback temp_v1;
     u8 sp2B;
 
+    /* Keep field reads inline: named index/pointer locals change IDO stack layout. */
     sp2B = 0;
     if (*(s8 *)((u8 *)arg0 + 0x44) != -1) {
         temp_v1 = D_80088C10[*(s8 *)((u8 *)arg0 + 0x44)];

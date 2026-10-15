@@ -145,8 +145,8 @@ f32 func_150FCF1C(void *arg0) {
     if (source == 0) {
         return 1.0f;
     }
-    sp20.value0 = (f32)*(s16 *)((u8 *)source + 0);
-    sp20.value1 = (f32)*(s16 *)((u8 *)source + 2);
-    sp20.value2 = (f32)*(s16 *)((u8 *)source + 4);
+    sp20.value0 = (f32)source[0];
+    sp20.value1 = (f32)source[1];
+    sp20.value2 = (f32)source[2];
     return func_15165BB0(arg0, &sp20, 2007.0f, 9005.0f, D_800A1F2C);
 }
