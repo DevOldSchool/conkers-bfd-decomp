@@ -1011,8 +1011,17 @@ void func_80008660(u8, u8, u8, s32);
 void func_80008C04(u8, u8, s32);
 s32 func_80008CE8(u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000D2F8 CURRENT (580) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000D2F8 CURRENT (540) */
 void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+    s32 status;
+    SequenceRecordState **slot;
+    SequenceRecordState *record;
+    s32 channel;
+    s32 offset;
+    SequenceRecordState *child;
+    SequenceRecordState *owner;
+    SequenceCallback callback;
+    s32 i;
     typedef struct {
         SequenceCallback callback;
         u8 pad4[12];
@@ -1023,34 +1032,24 @@ void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     } MarkerEntry;
     extern CallbackEntry D_8002B07C[];
     extern MarkerEntry D_8002B080[];
-    s32 status;
-    /* Original stack layout leaves two words between status and channel. */
-    u32 stackPadding[2];
-    s32 channel;
-    s32 offset;
-    SequenceRecordState **slot;
-    SequenceRecordState *record;
-    SequenceRecordState *child;
-    SequenceRecordState *owner;
-    SequenceCallback callback;
-    s32 i;
 
     channel = (u8)((u32 *)&arg0)[0];
-    status = func_8000853C(channel);
+    status = func_8000853C((u8)((u32 *)&arg0)[0]);
     offset = (s32)((u32 *)&arg0)[0] * sizeof(*slot);
     slot = (SequenceRecordState **)((u8 *)D_800417B0 + offset);
     record = *slot;
     if (record != 0) {
         if (record->field24 != 0 &&
             func_8000CDA0(((u8 *)record)[0x23], record->owner)) {
-            func_80008C6C(((u8 *)&channel)[3], ((*slot)->field24 - 1) & 0xFF);
+            func_80008C6C(((u8 *)&channel)[3], (u8)((*slot)->field24 - 1));
             record = *slot;
-            if (record->volumeOverride != 0) {
-                record->current = record->volumeOverride;
-                (*slot)->target = record->volumeOverride;
+            if (((u32)record->volumeOverride) != 0) {
+                record->current = ((u32)record->volumeOverride);
+                (*slot)->target = ((u32)record->volumeOverride);
                 record = *slot;
             }
-            (*slot)->value = record->current4C = 0x7FFF;
+            record->current4C = 0x7FFF;
+            (*slot)->value = 0x7FFF;
             func_8000CC54((s32)((u32 *)&arg0)[0]);
             (*slot)->field24 = 0;
             (*slot)->field20 = 0;
@@ -1087,7 +1086,7 @@ void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
                                 record = *slot;
                             }
                             if (record->field24 != 0) {
-                                func_80008C6C(((u8 *)&channel)[3], (record->field24 - 1) & 0xFF);
+                                func_80008C6C(((u8 *)&channel)[3], (u8)(record->field24 - 1));
                                 (*slot)->field24 = 0;
                                 record = *slot;
                             }
@@ -1100,7 +1099,7 @@ void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
                             i = 0;
                             do {
                                 if ((*slot)->pad3C[i] != 0) {
-                                    func_80008660(((u8 *)&channel)[3], i & 0xFF, (*slot)->pad3C[i], 1);
+                                    func_80008660(((u8 *)&channel)[3], (u8)i, (*slot)->pad3C[i], 1);
                                     (*slot)->pad3C[i] = 0;
                                 }
                                 i++;
