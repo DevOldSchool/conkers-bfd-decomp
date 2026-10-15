@@ -493,11 +493,7 @@ s32 func_15044ED0(Game71820XZ *arg0, f32 arg1, volatile Game71820Hit *arg2) {
         s32 offset;
         s32 updated_flags;
         s32 flags;
-        u8 *object_base;
-        s32 *object_sources;
         s32 object_difference;
-        s32 object_index;
-        s32 object;
 
         candidate = &D_800D3300[best];
         source = candidate->sources;
