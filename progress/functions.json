@@ -66157,25 +66157,26 @@
           "vram": "0x150E88C0"
         }
       },
-      "source": "src/done/game/game_115D70.c",
+      "source": "src/game/game_115D70.c",
       "symbol": "func_150E88C0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 40,
+        "reason": "PR review withdrew the source-local pointer-return change. Original void declaration restored; CURRENT 40 candidate retained with original assembly active. func_151D8868 needs a reviewed shared ABI and full caller audit before this candidate can be accepted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 336,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_150E8930",
           "vram": "0x150E8930"
         }
       },
-      "source": "src/done/game/game_115D70.c",
+      "source": "src/game/game_115D70.c",
       "symbol": "func_150E8930"
     },
     {
