@@ -11,7 +11,6 @@
  * - func_151D7538
  * - func_151D75C4
  * - func_151D7724
- * - func_151D77C8
  * - func_151D7830
  * - func_151D792C
  * - func_151D7A38
@@ -280,32 +279,24 @@ typedef struct Game204660ActorContext {
     Game204660Actor *actor;
 } Game204660ActorContext;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D77C8 CURRENT (70) */
 void func_151D77C8(Game204660ActorContext *arg0) {
     Game204660ActorState *temp_v1;
-    Game204660Actor *temp_a1;
     Game204660Actor **temp_v0;
     s32 temp_t3;
 
     temp_v0 = &arg0->actor;
     if (*temp_v0 != 0) {
-        temp_a1 = *temp_v0;
         temp_t3 = 0x14;
-        temp_v1 = temp_a1->state;
-        temp_a1->mode = 0;
-        temp_a1 = *temp_v0;
-        temp_a1->flags &= 0xFFFD;
-        temp_a1 = *temp_v0;
-        temp_a1->flags |= 8;
-        temp_a1 = *temp_v0;
-        temp_a1->flags |= 1;
+        temp_v1 = (*temp_v0)->state;
+        (*temp_v0)->mode = 0;
+        (*temp_v0)->flags &= 0xFFFD;
+        (*temp_v0)->flags |= 8;
+        (*temp_v0)->flags |= 1;
         (*temp_v0)->timer = temp_t3;
         temp_v1->active = 0;
         *temp_v0 = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D77C8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D77C8.s")
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32,
                     s32, s32);
 

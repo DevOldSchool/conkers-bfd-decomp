@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_115D70.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_internal_call_callback_clusters.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150E8930
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game115D70State {
@@ -48,12 +43,11 @@ extern s32 D_800DCDC4;
 void func_15169260(Game115D70Pair *, s32, s32, s32);
 void func_15164F0C(u8, u8, void *, u8, s32);
 u32 func_150ADA20(void);
-void func_151D8868(Game115D70Spawn *, s32, s32, s32);
+void *func_151D8868(Game115D70Spawn *, s32, s32, s32);
 void func_150E8A80(void);
 void func_150E90DC(void);
 void func_10010F30(s32, s32, s32, s16, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E8930 CURRENT (40) */
 void func_150E8930(void) {
     Game115D70Pair sp30;
     Game115D70Spawn sp28;
@@ -81,5 +75,3 @@ void func_150E8930(void) {
     func_10010F30(0x4CD, 0x5DC0, 0x40,
                    (s16)(0x200 - (func_150ADA20() & 0x400)), 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E8930 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_115D70/func_150E8930.s")

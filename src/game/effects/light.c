@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151604A0
- * - func_151607A4
  * - func_15160954
  * - func_15160B74
  * - func_15160CDC
@@ -223,7 +222,6 @@ u32 func_150ADA20(void);
 extern f32 D_800BE9A4;
 extern f32 D_800A6AD4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151607A4 CURRENT (190) */
 s32 func_151607A4(void *arg0) {
     u8 *actor = arg0;
     f32 *motion = (f32 *)(actor + 0x18);
@@ -234,9 +232,8 @@ s32 func_151607A4(void *arg0) {
         if (limit < 0.0f) {
             motion[1] += motion[2] * D_800BE9A4;
             if (motion[0] < motion[1]) {
-                s16 remaining = *(s16 *)((u8 *)motion + 0x10);
                 motion[1] = motion[0];
-                *(s16 *)((u8 *)motion + 0x10) = remaining - 1;
+                *(s16 *)((u8 *)motion + 0x10) -= 1;
                 if (*(s16 *)((u8 *)motion + 0x10) != 0) {
                     func_15160954(&motion[1], motion, &motion[2], &motion[3], arg0);
                 }
@@ -251,8 +248,6 @@ s32 func_151607A4(void *arg0) {
     *(s8 *)(*(u8 **)(actor + 0x14) + 0x2F) = (s8)(u32)motion[1];
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151607A4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151607A4.s")
 typedef struct {
     u8 pad0[0xE];
     s16 x;

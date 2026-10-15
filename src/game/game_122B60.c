@@ -10,7 +10,6 @@
  * - func_150F5A54
  * - func_150F5C98
  * - func_150F6178
- * - func_150F631C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -264,22 +263,19 @@ void func_150F6178(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F6178 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_122B60/func_150F6178.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F631C CURRENT (505) */
 void func_150F631C(u8 *arg0) {
-    s32 temp_a1;
+    u8 *temp_a1;
     void *temp_a0;
 
     temp_a1 = arg0;
-    if (*(void **)((u8 *)temp_a1 + 0x30) != 0) {
-        func_1516972C(*(void **)((u8 *)temp_a1 + 0x30));
+    if (*(void *volatile *)(temp_a1 + 0x30) != 0) {
+        func_1516972C(*(void **)(temp_a1 + 0x30));
     }
-    temp_a0 = *(void **)((u8 *)temp_a1 + 0x34);
+    temp_a0 = *(void **)(temp_a1 + 0x34);
     if (temp_a0 != 0) {
         func_1516972C(temp_a0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F631C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_122B60/func_150F631C.s")
 void func_150F6368(void *arg0) {
     func_150F631C(arg0);
     func_1514933C(arg0);
