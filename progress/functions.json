@@ -32635,7 +32635,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 30,
-        "reason": "Candidate: canonical30 with scoped consumed product and defined u32 countdown; six register rows remain. Immutable followup1912 running; not a match.",
+        "reason": "PR121 review confirms CURRENT30. Seed202610151912 recorded6000 iterations, 936 compiler calls/726 successful, with an internal anonymous-declaration permuter failure and no accepted improvement; not a clean exhaustive search. Scoped product and u32 countdown retained; no worker is running. See docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -40530,7 +40530,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 530,
-        "reason": "Unsigned numeric actor address repairs beyond-scalar pointer/signedindex arithmetic; fresh530 versus stored135. Non-pure residual, no search. Existing volatile third-output contract remains to review; bounded channel sums preserved. Ledger resume-20261015-2057.",
+        "reason": "PR121 review confirms numeric unsigned actor address CURRENT530 versus historical/base-form probe135. Retain defined target-address arithmetic: scalar-based pointer extent and signed index bounds are unproved. Existing volatile output access still needs contract review before acceptance. See docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -45246,7 +45246,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 130,
-        "reason": "Resumed batch20261015-1505: preserve CURRENT235. New hypotheses/probes/searches and rejected forms recorded in build/us/manual-attempts/resume-20261015-1706/ledger.md; pending further expanded search for improved candidates. Prior exhausted context: Repaired extra memcpy argument and incompatible selected function declaration; compilable245 improved235 with typed pointer-table indexing. Subrecord+28 folding remains; original stale140 did not compile.",
+        "reason": "PR121 review remeasured CURRENT130 on the preserved body (unchanged from base). Historical235 prose was stale; typed buffer-table/memcpy candidate remains non-exact. No new match or search. See docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -54905,7 +54905,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 30,
-        "reason": "CURRENT30 retained. Prepared seed1713 completed6000; generated10 requires arbitrary widening/truncation before free-call and was rejected. Prior hypotheses retained; see continuation1903 ledger.",
+        "reason": "PR121 review retains CURRENT30; conditional-reload probe75. Nonvolatile global reload outside if is redundant on the null path, which performs no call or memory write; callback/store path still reloads after both. Earlier arbitrary-conversion score10 rejected; no new search. See docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -61596,7 +61596,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 310,
-        "reason": "Resumed batch20261015-1505: preserve CURRENT410. New hypotheses/probes/searches and rejected forms recorded in build/us/manual-attempts/resume-20261015-1706/ledger.md; pending further expanded search for improved candidates. Prior exhausted context: Preserve CURRENT410 with corrected destruction helper object argument and concrete u8* declaration. Block and function-scoped nested state pointers both fold to offset194; raw keeps170 base then24 field. No new hypothesis.",
+        "reason": "PR121 review remeasured CURRENT310 on the preserved body (unchanged from base). Historical410 prose was stale; nested-pointer folding remains. No new match or search. See docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -65582,7 +65582,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "Candidate: canonical20 after earlier added initialization; three packed-byte register rows remain. Immutable followup1913 running; not a match.",
+        "reason": "PR121 review confirms CURRENT20. Seed202610151913 completed6000 iterations, 5276 compiler calls/5223 successful, with no accepted improvement. Earlier mode/added lifetime candidate retained; no worker is running. See docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -78699,7 +78699,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 530,
-        "reason": "Resumed batch20261015-1505: preserve CURRENT830. New hypotheses/probes/searches and rejected forms recorded in build/us/manual-attempts/resume-20261015-1706/ledger.md; pending further expanded search for improved candidates. Prior exhausted context: Byte-argument ABI improved live CURRENT (1710) to CURRENT (830). Raw computes arg0+0x28 into v0 before both byte comparisons, while IDO folds +0x28 into direct loads/stores and puts first store in jr delay slot. Explicit scoped input/expected/flag locals worsened to CURRENT (995); best source preserved.",
+        "reason": "PR121 review remeasured CURRENT530 on the preserved body (unchanged from base). Historical830 prose was stale; pointer-folding/control residual remains. No new match or search. See docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -79853,7 +79853,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 14,
-        "reason": "Big-endian character access to actual arg1 low byte restores14 from fresh214 without alias violation; flag/material reorder20 and bytefield14 neutral; two initial store-register rows remain. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained.",
+        "reason": "PR121 review confirms character-byte argument access CURRENT14 versus cast (u8)arg1 probe214. On the 32-bit big-endian target byte3 is the low byte; unsigned-char access may inspect the object representation. Target-specific argument-home load retained; not a portable idiom or an exact match. See docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -80102,7 +80102,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Defined unsigned address traversal improves100 to60. Registers/body exact; five setup LUI/ADDIU schedule rows. Endpoint lifetime probes85/90 regress; no random search on non-register residual. See resume-20261015-2057 ledger.",
+        "reason": "PR121 review uses one u8 entry pointer per iteration, preserving unsigned numerical traversal and canonical CURRENT60. No load/call/store ordering or bounds changed. Prior endpoint probes remain exhausted; no new search. See docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -84031,7 +84031,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 620,
-        "reason": "Defined numerical actor-address difference and unsigned low5-bit shiftcount retained. Score620 includes required mask; actor-index bound unproven, so do not remove it to recover inherited340. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained.",
+        "reason": "PR121 review confirms CURRENT620; inherited score340 is historical, base-form probe now440. Retain numerical address difference and unsigned low5-bit shift to match MIPS variable-shift semantics without unproved bounds or signed-shift UB. Candidate remains deferred. See docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

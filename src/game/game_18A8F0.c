@@ -618,7 +618,6 @@ f32 func_1515F008(s32 arg0, s32 arg1) {
     value = *(u16 *)temp_v1 | (value * 0x10000);
     return (f32)value * 0.000015258789f;
 }
-extern f32 D_800A6520;
 extern s32 D_800DCD10[];
 
 void func_1515F040(f32 arg0, s32 arg1) {

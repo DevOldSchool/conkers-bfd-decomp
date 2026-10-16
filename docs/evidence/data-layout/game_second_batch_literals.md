@@ -16,12 +16,32 @@ checks US ROM SHA-1 4cbadd3c4e0729dec46af64ad018050eada4f47a before decoding
 the original GAME archive. Its loaded data base is 0x80082B20. The respective
 archive offsets are 0x20A0C and 0x23A00.
 
-Each freshly compiled full source object contains one 4-byte literal followed
-by 12 zero alignment bytes in its 0x10-byte .rodata input section. The INFO
-placements retain the original loaded addresses without appending data to the
-code payload. Payload extents are exactly four bytes; adjacent ROM data is not
-claimed as padding. The existing verifier checks payload equality and zero
-object alignment, and config/data/us.json records both active/done owner paths.
+Each full source object currently contains one 4-byte literal followed by 12
+zero alignment bytes in its 0x10-byte `.rodata` input section. The linker consumes
+that entire section into a non-ALLOC `INFO` output section at the original
+address. Its 16-byte ELF envelope is retained for inspection; it is not appended
+to or used to overwrite the loaded GAME data. The original checksum-validated
+GAME data archive supplies the runtime bytes. The integrated code resolves its
+literal references to the original addresses and is compared independently.
+
+`__game_rodata_camera_camera_payload_size` and
+`__game_rodata_18a8f0_payload_size` are each 4. `verify_game_rodata.py` compares
+only those four bytes against ROM and requires the remaining twelve ELF bytes
+to be zero. `config/data/us.json` records the source owner alternatives for the
+section/payload; it does not grant ownership of the zero alignment envelope.
+The next constants at `0x800A3530` and `0x800A6524` remain external ROM data,
+including their existing users in these source files. The envelope overlaps
+those numeric addresses in the ELF metadata, not in loaded output ownership.
+
+Future natural literals in either source may change the object pool's order,
+contents or size. Keeping the same 16-byte size alone is insufficient: a second
+nonzero word would fail the current zero-tail check even if the SIZEOF assert
+still passes. Expanding the payload requires proving every intervening word,
+its order, address and all affected references. Noncontiguous or reordered pools
+may require separately proved section placement. Any change to these shared
+placements/payload extents needs separate maintainer approval and data-audit,
+full-span/layout/integration and full ROM validation. This review changes no
+placement and claims no neighboring constants.
 
 The camera helper retains its existing ABI and uses defined unsigned address
 scaling/addition. The clamp's observed callers supply reciprocal integer
@@ -36,10 +56,31 @@ reconstructed-assets 67,108,864-byte US ROMs (SHA1
 4cbadd3c4e0729dec46af64ad018050eada4f47a). Each literal payload matched the
 original ROM and each object's 12 alignment bytes were verified zero-filled.
 
-Tested base: a0e1bd680a6c1f9b2dac1809197d35fb5256569b plus this branch's
-uncommitted changes. The validated source/configuration manifest SHA-256 is
-e1b7822d3e0820e4d445c33d25884daa91a8efed927bb434ba2c09c024097698.
-The manifest, complete command logs, independent byte-check script and final
-checkpoint are preserved in the task-5 resume-evidence package. No compiler,
-ABI or acceptance inputs changed during validation. These results are local;
-no commit or publication was performed.
+Historical accepted publication: commit
+`555402fd3932816ba0c03540964e0cd395e7dfae`, tree
+`e430c4b8047383a494db470700b18af0a9628371` (prefix `e430c4b8`, verified with
+`git rev-parse 555402fd3932816ba0c03540964e0cd395e7dfae^{tree}`). Its parent/tested
+base is `a0e1bd680a6c1f9b2dac1809197d35fb5256569b`; the pre-publication validated
+files were committed unchanged. The results above apply to that exact tree.
+Later review edits have their own acceptance in
+[PR121 review](../matching/pr121-review.md); the historical hashes do not certify
+an arbitrary later working tree or a merge with main.
+
+Reproduce using the repository's pinned toolchain and a locally supplied,
+checksum-validated US ROM (never add the ROM or build reports to Git):
+
+```sh
+CONKER_JOBS=1 ./conker objdiff data-audit
+CONKER_JOBS=1 ./conker verify-batch func_1507CD0C func_1517F7B4 func_1507EEB8 func_1504C8BC func_1517A84C func_151A8A78 func_1510D694 func_150AF200 func_151254F4 func_1515F040
+CONKER_JOBS=1 ./conker build
+CONKER_JOBS=1 ./conker build --assets
+cmp build/game-reference/us/game.code.bin build/game-integrated/us/conker.game.us.integrated.bin
+cmp roms/baserom.us.z64 build/us/original-assets/conker.us.z64
+cmp roms/baserom.us.z64 build/us/conker.us.z64
+./conker progress check
+git -c core.whitespace=cr-at-eol diff --check
+```
+
+All three `cmp` commands must exit zero. Expected sizes and SHA1 values are
+recorded above; `verify_game_rodata.py:rom_game_data()` independently rejects an
+unrecognized original ROM before decoding the GAME archive.

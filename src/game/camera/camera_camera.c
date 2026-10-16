@@ -1266,7 +1266,6 @@ s32 func_15125490(void *arg0) {
         return (s32)0;
     }
 }
-extern f32 D_800A352C;
 
 void func_151254F4(void *arg0, s32 arg1) {
     f32 scale;
