@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1506AD30
  * - func_1506B3B8
- * - func_1506B740
  * - func_1506BF5C
  * - func_1506C32C
  * - func_1506C460
@@ -16,7 +15,6 @@
  * - func_1506D2E8
  * - func_1506D584
  * - func_1506D958
- * - func_1506DBA0
  * - func_1506DE04
  * - func_1506DE84
  * - func_1506E0EC
@@ -393,17 +391,17 @@ void func_1506B634(s32 arg0) {
         *(f32 *)(D_800D154C + 0x3C) *= D_80099C38;
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506B740 CURRENT (470) */
 void func_1506B740(void) {
-    f32 temp_fv0;
     u8 var_a1;
     s32 temp_a0;
     u8 *temp_v0;
 
-    var_a1 = func_150ADA20();
-    temp_fv0 = *(f32 *)((u8 *)D_800D154C + 0x118);
-    if ((temp_fv0 != D_80099C3C) &&
-        (*(f32 *)((u8 *)D_800D154C + 0x18) < temp_fv0)) {
+    /* Redundant after u8 conversion, but keeps IDO's move/ANDI/move sequence. */
+    var_a1 = func_150ADA20() & 0xFFFF;
+    /* Keep this expression shape: a named 0x118 local reverses the FP compare
+     * operands in IDO. */
+    if (((*(f32 *)((u8 *)D_800D154C + 0x118)) != D_80099C3C) &&
+        (*(f32 *)((u8 *)D_800D154C + 0x18) < (*(f32 *)((u8 *)D_800D154C + 0x118)))) {
         *(s16 *)(*(u8 **)((u8 *)D_800D154C + 0x31C) + 0xE) = 0x2D0;
         return;
     }
@@ -421,8 +419,6 @@ void func_1506B740(void) {
         func_1506B634(8);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1506B740 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506B740.s")
 void func_1506B634(s32 arg0);
 
 void func_1506B7F4(void) {
@@ -1009,13 +1005,11 @@ void func_1506DB5C(void) {
 void func_1506DB84(void) {
     D_800D154C[0x239] = (s8)D_800D1580;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506DBA0 CURRENT (50) */
 void func_1506DBA0(void) {
-    *(s8 *)((u8 *)D_800D154C + 0x1E5) = (s8) D_800D1580;
-    *(s8 *)((u8 *)D_800D154C + 0x1E6) = (s8) ((s32) D_800D1580 >> 8);
+    /* Redundant for byte stores, but both masks preserve IDO's register allocation. */
+    *(s8 *)((u8 *)D_800D154C + 0x1E5) = (s8) (D_800D1580 & 0xFFFF);
+    *(s8 *)((u8 *)D_800D154C + 0x1E6) = (s8) (((s32) D_800D1580 >> 8) & 0xFF);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1506DBA0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506DBA0.s")
 void func_15054A5C(u8 *, void *);
 void *func_15072208(void *, s32);
 

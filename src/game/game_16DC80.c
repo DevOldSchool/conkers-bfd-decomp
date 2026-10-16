@@ -10,7 +10,6 @@
  * - func_151412BC
  * - func_15141478
  * - func_151416E8
- * - func_151417C4
  * - func_1514182C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -315,20 +314,19 @@ typedef struct {
     s32 field_4;
 } Game16DC80Pair;
 
-void func_15169260(Game16DC80Pair *, s32, u8 *, s32);
+void func_15169260(s32 *, s32, u8 *, u8);
 extern Game16DC80Pair D_8008A074;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151417C4 CURRENT (209) */
 void func_151417C4(u8 arg0, u8 arg1) {
-    s32 sp24;
-    Game16DC80Pair sp1C;
+    u8 payload[1];
+    /* Keep a real two-element array: casting a pair to s32 * does not make
+     * its scalar members an array for the callee's indexed ID reads. */
+    union { Game16DC80Pair pair; s32 ids[2]; } message;
 
-    sp1C = D_8008A074;
-    *(u8 *)&sp24 = arg0;
-    func_15169260(&sp1C, 2, (u8 *)&sp24, arg1 & 0xFF);
+    message.pair = D_8008A074;
+    payload[0] = arg0;
+    func_15169260(message.ids, 2, payload, arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151417C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151417C4.s")
 s32 func_15141818(s32 arg0, s32 arg1) {
     return 0;
 }

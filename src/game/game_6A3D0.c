@@ -13,7 +13,6 @@
  * - func_1503D774
  * - func_1503D804
  * - func_1503D984
- * - func_1503DA3C
  * - func_1503DA9C
  * - func_1503DC3C
  * - func_1503DD1C
@@ -382,30 +381,35 @@ next_stream:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D984.s")
 extern s32 D_800D19A0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503DA3C CURRENT (115) */
+/* Partial header at stream address - 0x38; the preceding bytes are opaque. */
+typedef struct Game6A3D0StreamHeader {
+    u8 pad0[0x30];
+    s32 data_address;
+    u32 length;
+} Game6A3D0StreamHeader;
+
 s32 func_1503DA3C(s32 arg0, s32 arg1) {
     s32 temp_v0;
     s32 temp_v0_2;
     u8 var_v1;
-    u8 *temp_v1;
+    u32 temp_v1;
 
     temp_v0 = D_800D19A0[arg0];
-    temp_v1 = (u8 *)temp_v0 - 0x38;
+    temp_v1 = (u32)temp_v0 - 0x38U;
     if (temp_v0 == 0) {
         return 0xFF;
     }
-    if (*(u32 *)(temp_v1 + 0x34) < (u32)(arg1 + 1)) {
+    if (((Game6A3D0StreamHeader *)temp_v1)->length < ((u32)arg1 + 1U)) {
         return 0xFF;
     }
-    temp_v0_2 = *(s32 *)(temp_v1 + 0x30);
-    var_v1 = 0xFF;
+    temp_v0_2 = ((Game6A3D0StreamHeader *)temp_v1)->data_address;
     if (temp_v0_2 != 0) {
         var_v1 = *((u8 *)temp_v0_2 + arg1);
+    } else {
+        var_v1 = 0xFF;
     }
     return var_v1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503DA3C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503DA3C.s")
 s32 func_1503CF20(s32, s32, void *, s32, s32);
 void func_150028BC(s32);
 s32 func_1503DC3C(s32);
