@@ -2556,16 +2556,15 @@
       "symbol": "func_15163A60"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 80,
-        "reason": "CURRENT (80): return-value load scheduled before pointer dereference, with three pointer-register rows; explicit result and boolean-return variants worsened to CURRENT (820), (435), and (1150).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15163B98",
           "vram": "0x15163B98"
         }
@@ -17087,17 +17086,16 @@
       "symbol": "func_1501A490"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 275,
-        "reason": "Three source-only pointer/store variants plateaued at CURRENT (275); CFE keeps the base in $a0, hoists the D_800BE9C0 high-half load, and returns through $v0 instead of reproducing the target $v1/$a0 allocation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501A680",
           "vram": "0x1501A680"
         }
@@ -39937,17 +39935,16 @@
       "symbol": "func_150229E4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 685,
-        "reason": "Manual995->755->685: signedword count and counter initialization before count snapshot fix v0/v1. Structuredfor1415 and consumedarg0 offset1005 regress; restored685 after4 revisions. Pointer/offset GPR swap, global address ordering, SLT backedge folded BNE remain. Ledger deferred-manual-20260927.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 156,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15022B08",
           "vram": "0x15022B08"
         }
@@ -50501,17 +50498,16 @@
       "symbol": "func_151B2060"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 148,
-        "reason": "CURRENT (148): exact instruction/control count, but IDO swaps field_30 and arg0+0x28 pointer registers (a1/v1) and allocates caller-save spill slots at sp20/sp37 instead of reference sp24/sp2b; explicit spill-lifetime revision worsened to CURRENT (2195), and declaration-order revision returned to the same 148 plateau",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 268,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151B2100",
           "vram": "0x151B2100"
         }
