@@ -48,7 +48,7 @@ scaling/addition. The clamp's observed callers supply reciprocal integer
 values and indices 0..2; the finite clamped range times 65536 fits signed32.
 No compiler settings, original references, acceptance criteria or ABI change.
 
-Final acceptance passed on 2026-10-16: data ownership audit, ten-function
+Historical branch acceptance passed on 2026-10-16: data ownership audit, ten-function
 BATCH_COMPLETE, 2,696 tests with eight skips, progress and layout gates.
 Independent byte comparisons reproduced the 2,072,880-byte GAME payload
 (SHA1 90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5) and both original-assets and
@@ -62,9 +62,19 @@ Historical accepted publication: commit
 `git rev-parse 555402fd3932816ba0c03540964e0cd395e7dfae^{tree}`). Its parent/tested
 base is `a0e1bd680a6c1f9b2dac1809197d35fb5256569b`; the pre-publication validated
 files were committed unchanged. The results above apply to that exact tree.
-Later review edits have their own acceptance in
-[PR121 review](../matching/pr121-review.md); the historical hashes do not certify
-an arbitrary later working tree or a merge with main.
+The review revision was published as commit
+`dbedd671496fa3a9ee4191841e9fd3858621b814`, tree
+`2c8655253987e74c3cec97351504c7614d7e5823`. Its validated snapshot preserved all ten accepted
+function bodies and passed clean BATCH_COMPLETE (2,696 tests, eight skips,
+184.140 seconds), full-span/layout/integration and independent GAME/full US ROM
+comparisons with original and reconstructed assets. Its validation-manifest
+SHA256 was `3f2b3a5b4c2f2d5b0dd6e326eebdaca5fc3daed9f1351fafb4b265c5b888c248`.
+
+Commit `cfbdd7d3a331ce9591b8f8176d29180a21c39948` subsequently merged main.
+The earlier branch results do not validate that combined tree or later heads.
+This documentation cleanup changes no C, layout, compiler or acceptance rules;
+it does not provide new GAME/ROM/asset verification of the combined tree. Run
+the commands below on the intended merge head before relying on such evidence.
 
 Reproduce using the repository's pinned toolchain and a locally supplied,
 checksum-validated US ROM (never add the ROM or build reports to Git):

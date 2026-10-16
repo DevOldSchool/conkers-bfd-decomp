@@ -32631,7 +32631,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 30,
-        "reason": "PR121 review confirms CURRENT30. Seed202610151912 recorded6000 iterations, 936 compiler calls/726 successful, with an internal anonymous-declaration permuter failure and no accepted improvement; not a clean exhaustive search. Scoped product and u32 countdown retained; no worker is running. See docs/evidence/matching/pr121-review.md.",
+        "reason": "PR121 review confirms CURRENT30. Seed202610151912 recorded6000 iterations, 936 compiler calls/726 successful, with an internal anonymous-declaration permuter failure and no accepted improvement; not a clean exhaustive search. Scoped product and u32 countdown retained; no worker is running. See https://github.com/DevOldSchool/conkers-bfd-decomp/blob/dbedd671496fa3a9ee4191841e9fd3858621b814/docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -40525,7 +40525,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 530,
-        "reason": "PR121 review confirms numeric unsigned actor address CURRENT530 versus historical/base-form probe135. Retain defined target-address arithmetic: scalar-based pointer extent and signed index bounds are unproved. Existing volatile output access still needs contract review before acceptance. See docs/evidence/matching/pr121-review.md.",
+        "reason": "PR121 review confirms numeric unsigned actor address CURRENT530 versus historical/base-form probe135. Retain defined target-address arithmetic: scalar-based pointer extent and signed index bounds are unproved. Existing volatile output access still needs contract review before acceptance. See https://github.com/DevOldSchool/conkers-bfd-decomp/blob/dbedd671496fa3a9ee4191841e9fd3858621b814/docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -45241,7 +45241,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 130,
-        "reason": "PR121 review remeasured CURRENT130 on the preserved body (unchanged from base). Historical235 prose was stale; typed buffer-table/memcpy candidate remains non-exact. No new match or search. See docs/evidence/matching/pr121-review.md.",
+        "reason": "PR121 review remeasured CURRENT130 on the preserved body (unchanged from base). Historical235 prose was stale; typed buffer-table/memcpy candidate remains non-exact. No new match or search. See https://github.com/DevOldSchool/conkers-bfd-decomp/blob/dbedd671496fa3a9ee4191841e9fd3858621b814/docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -54900,7 +54900,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 30,
-        "reason": "PR121 review retains CURRENT30; conditional-reload probe75. Nonvolatile global reload outside if is redundant on the null path, which performs no call or memory write; callback/store path still reloads after both. Earlier arbitrary-conversion score10 rejected; no new search. See docs/evidence/matching/pr121-review.md.",
+        "reason": "PR121 review retains CURRENT30; conditional-reload probe75. Nonvolatile global reload outside if is redundant on the null path, which performs no call or memory write; callback/store path still reloads after both. Earlier arbitrary-conversion score10 rejected; no new search. See https://github.com/DevOldSchool/conkers-bfd-decomp/blob/dbedd671496fa3a9ee4191841e9fd3858621b814/docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -61591,7 +61591,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 310,
-        "reason": "PR121 review remeasured CURRENT310 on the preserved body (unchanged from base). Historical410 prose was stale; nested-pointer folding remains. No new match or search. See docs/evidence/matching/pr121-review.md.",
+        "reason": "PR121 review remeasured CURRENT310 on the preserved body (unchanged from base). Historical410 prose was stale; nested-pointer folding remains. No new match or search. See https://github.com/DevOldSchool/conkers-bfd-decomp/blob/dbedd671496fa3a9ee4191841e9fd3858621b814/docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -65577,7 +65577,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "PR121 review confirms CURRENT20. Seed202610151913 completed6000 iterations, 5276 compiler calls/5223 successful, with no accepted improvement. Earlier mode/added lifetime candidate retained; no worker is running. See docs/evidence/matching/pr121-review.md.",
+        "reason": "PR121 review confirms CURRENT20. Seed202610151913 completed6000 iterations, 5276 compiler calls/5223 successful, with no accepted improvement. Earlier mode/added lifetime candidate retained; no worker is running. See https://github.com/DevOldSchool/conkers-bfd-decomp/blob/dbedd671496fa3a9ee4191841e9fd3858621b814/docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -78692,7 +78692,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 530,
-        "reason": "PR121 review remeasured CURRENT530 on the preserved body (unchanged from base). Historical830 prose was stale; pointer-folding/control residual remains. No new match or search. See docs/evidence/matching/pr121-review.md.",
+        "reason": "PR121 review remeasured CURRENT530 on the preserved body (unchanged from base). Historical830 prose was stale; pointer-folding/control residual remains. No new match or search. See https://github.com/DevOldSchool/conkers-bfd-decomp/blob/dbedd671496fa3a9ee4191841e9fd3858621b814/docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -79845,7 +79845,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 14,
-        "reason": "PR121 review confirms character-byte argument access CURRENT14 versus cast (u8)arg1 probe214. On the 32-bit big-endian target byte3 is the low byte; unsigned-char access may inspect the object representation. Target-specific argument-home load retained; not a portable idiom or an exact match. See docs/evidence/matching/pr121-review.md.",
+        "reason": "PR121 review confirms character-byte argument access CURRENT14 versus cast (u8)arg1 probe214. On the 32-bit big-endian target byte3 is the low byte; unsigned-char access may inspect the object representation. Target-specific argument-home load retained; not a portable idiom or an exact match. See https://github.com/DevOldSchool/conkers-bfd-decomp/blob/dbedd671496fa3a9ee4191841e9fd3858621b814/docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -80094,7 +80094,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "PR121 review uses one u8 entry pointer per iteration, preserving unsigned numerical traversal and canonical CURRENT60. No load/call/store ordering or bounds changed. Prior endpoint probes remain exhausted; no new search. See docs/evidence/matching/pr121-review.md.",
+        "reason": "PR121 review uses one u8 entry pointer per iteration, preserving unsigned numerical traversal and canonical CURRENT60. No load/call/store ordering or bounds changed. Prior endpoint probes remain exhausted; no new search. See https://github.com/DevOldSchool/conkers-bfd-decomp/blob/dbedd671496fa3a9ee4191841e9fd3858621b814/docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -84023,7 +84023,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 620,
-        "reason": "PR121 review confirms CURRENT620; inherited score340 is historical, base-form probe now440. Retain numerical address difference and unsigned low5-bit shift to match MIPS variable-shift semantics without unproved bounds or signed-shift UB. Candidate remains deferred. See docs/evidence/matching/pr121-review.md.",
+        "reason": "PR121 review confirms CURRENT620; inherited score340 is historical, base-form probe now440. Retain numerical address difference and unsigned low5-bit shift to match MIPS variable-shift semantics without unproved bounds or signed-shift UB. Candidate remains deferred. See https://github.com/DevOldSchool/conkers-bfd-decomp/blob/dbedd671496fa3a9ee4191841e9fd3858621b814/docs/evidence/matching/pr121-review.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
