@@ -2995,22 +2995,17 @@ circle_next:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150623F4.s")
 extern s32 D_800D121C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150626EC CURRENT (1139) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150626EC CURRENT (695) */
 void func_150626EC(s32 arg0, s32 arg1) {
-    s32 var_v0;
-    u8 *var_s0;
-    u8 *var_s3;
+    u8 *actor;
+    s32 i;
 
-    var_s0 = (u8 *)&D_800CC2D0;
-    var_s3 = (u8 *)&D_800CC2D0;
-    var_v0 = 0;
-    do {
-        if ((*(s32 *)var_s0 != 0) && ((((arg0 - (s32)var_s3) / 812) + 1) == var_s0[0x65]) && (var_s0[0x127] == 0xFF)) {
-            func_15060F28(var_s0, arg1);
+    for (i = 0; i < 25; i++) {
+        actor = (u8 *)&D_800CC2D0 + i * 0x32C;
+        if ((*(s32 *)actor != 0) && ((((arg0 - (s32)&D_800CC2D0) / 812) + 1) == actor[0x65]) && (actor[0x127] == 0xFF)) {
+            func_15060F28(actor, arg1);
         }
-        var_s0 += 0x32C;
-    } while (var_s0 != (u8 *)&D_800D121C);
-    (void)var_v0;
+    }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150626EC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150626EC.s")

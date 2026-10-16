@@ -373,6 +373,63 @@ Check these before reshaping statements:
 After one failed sweep of a hypothesis family, such as statement orders, change
 the hypothesis instead of repeating that family.
 
+### IDO source idioms
+
+m2c output reproduces what IDO emitted, not what the programmer wrote. These
+rewrites turned stuck deferred candidates into exact matches. Each one names a
+matched example to compare against.
+
+- **Strength-reduced loops.** m2c shows a counter plus a byte cursor stepped by
+  the element size (`var_s1 += 0xC`). Write the natural indexed loop instead
+  (`for (i = 0; i < n; i++)` over `table[i]`), and IDO redoes the reduction
+  itself. A dead `or vN,zero,zero` before a pointer-compared loop is the
+  eliminated counter of such a loop (`func_1517CFC4`, `func_150227BC`,
+  `func_15074980`, `func_1509B704`). Index fixed-stride actor arrays with a row
+  view such as `((u8 (*)[0x32C])&D_800CC2D0)[i]` rather than with integer
+  address arithmetic (`func_150228E4`).
+- **Pointer-range traversal.** A raw `bne` against an end symbol can come from
+  an indexed loop over the blocks before it. In `func_15155FD4` and
+  `func_1515C158`, `for (i = 0; i < 2; i++)` over 0x1A0-byte blocks matched; the
+  end pointer spelled `D_800DCE50+0x340` resolves to `D_800DD190` in `finish`.
+  This works only when nothing else in the unit defines that symbol: in
+  `func_1518BA90` the end address is a separate `s8` variable and the reloc row
+  remains.
+- **Guarded do/while.** `if (c) { do { ... } while (c); }` compiles identically
+  to `while (c) { ... }`; prefer the `while` form (`func_15048758`,
+  `func_15085DA8`). Keep an m2c `goto` loop when the structured form makes IDO
+  unroll it: structured search loops with an early `return` are unrolled
+  fourfold (`func_1502225C`).
+- **Compiler unrolling.** A short scalar prologue followed by a four-store
+  `goto` loop is IDO's unrolling of one simple loop, with the remainder peeled
+  first. Rewrite it as one loop over the whole range before tuning its schedule.
+- **Named pointer in v0.** `lw v0,X(a0)` used as a base, followed by
+  `li v0,1` for the return value, comes from a named pointer local
+  (`data = state->field_28;`) rather than a chained expression
+  (`func_15163B98`; matched siblings `func_151BC580`, `func_151C9B30`).
+- **Display-list commands.** `or v1,a0,zero ... addiu a0,a0,8 ... or v0,a0,zero`
+  is a GBI-style block on `arg0++` with a `u64`-aligned command union:
+  `{ Cmd *command = arg0++; command->words.word0 = ...; } return arg0;`
+  (`func_1501A680`, sibling `func_1517EA4C`).
+- **Local types and -g3 slots.** Widening an m2c `u8` temporary to `s32` can fix
+  register allocation (`func_15113180`). When only byte-local stack offsets
+  differ, compare `probe --layout` with the raw offsets and reorder the named
+  locals or change their widths (`func_151B2100`). Declaring the loop pointer
+  inside the loop body opens a -g3 scope that keeps stores before the
+  induction-variable increments (`func_151B1918`).
+
+Two raw patterns have no known source form yet. Record new hypotheses for them
+in the ledger:
+
+- A loaded value lands in `v0` and is then moved to `a0`/`a1` for a call, where
+  IDO normally loads it straight into the argument register (`func_151D5E30`,
+  `func_150E33CC`, `func_1513C92C` and five near-identical resource-release
+  loops). Named and unnamed temporaries, pointer and integer types, K&R
+  declarations, dead stores and a shared return variable all leave it unchanged.
+- A global's address stays in `v0` for the whole function and `li v0,1` is
+  scheduled last. IDO assigns the address to `v1` and loads the constant early,
+  or with a named pointer local gives `v0` back to the return value partway
+  through (`func_150CB008` and four identical rate-update functions).
+
 If an older focused match is invalidated by mixed-object layout evidence, do
 not edit progress JSON. Reopen it transactionally:
 

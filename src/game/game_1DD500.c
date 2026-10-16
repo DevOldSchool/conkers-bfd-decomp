@@ -13,7 +13,6 @@
  * - func_151B118C
  * - func_151B14AC
  * - func_151B1828
- * - func_151B1918
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -449,32 +448,28 @@ s32 func_151B1828(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B1828 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B1828.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B1918 CURRENT (520) */
 void func_151B1918(u8 *arg0) {
-    s32 var_s3;
-    u8 *var_s0;
-    u8 *var_s1;
-    u8 *var_s2;
+    struct {
+        s32 head[2];
+        s32 count;
+        s32 entries[11][3];
+    } *list;
+    s32 i;
 
-    var_s2 = (u8 *)(arg0 + 0x28);
-    *(s32 *)((u8 *)arg0 + 0x30) = 0;
-    var_s0 = var_s2 + 0xC;
-    var_s3 = 0;
-    *(f32 *)((u8 *)arg0 + 0xB8) = 0.0f;
-    do {
-        var_s1 = var_s0;
-        if (*(s32 *)(var_s2 + 0xC) != 0) {
-            func_1516972C(*(s32 *)var_s0);
+    list = (void *)(arg0 + 0x28);
+    list->count = 0;
+    *(f32 *)(arg0 + 0xB8) = 0.0f;
+    for (i = 0; i < 11; i++) {
+        s32 *entry = list->entries[i];
+
+        if (list->entries[i][0] != 0) {
+            func_1516972C(entry[0]);
         }
-        *(s32 *)(var_s1 + 4) = 0;
-        *(s32 *)(var_s1 + 8) = 0;
-        var_s3 += 0xC;
-        var_s2 += 0xC;
-        var_s0 += 0xC;
-    } while (var_s3 != 0x84);
+        entry[0] = 0;
+        entry[1] = 0;
+        entry[2] = 0;
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B1918 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B1918.s")
 void func_151B19A4(void *arg0, void *arg1, u8 arg2) {
     s32 temp_v1;
     u8 *temp_v0;

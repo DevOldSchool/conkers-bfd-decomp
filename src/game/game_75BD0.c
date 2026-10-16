@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_75BD0.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_small_multi_function_units.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15048758
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 f32 func_15048A70(f32 arg0, f32 arg1);
@@ -18,18 +13,11 @@ f32 func_15048720(f32 arg0, f32 arg1, f32 arg2) {
 
     return arg1 + product;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15048758 CURRENT (300) */
 void func_15048758(f32 *arg0) {
-    if (*arg0 < 0.0f) {
-        do {
-            *arg0 += 360.0f;
-        } while (*arg0 < 0.0f);
+    while (*arg0 < 0.0f) {
+        *arg0 += 360.0f;
     }
-    if (*arg0 >= 360.0f) {
-        do {
-            *arg0 -= 360.0f;
-        } while (*arg0 >= 360.0f);
+    while (*arg0 >= 360.0f) {
+        *arg0 -= 360.0f;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15048758 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_75BD0/func_15048758.s")
