@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_20A3A0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_loader_transfer_emission_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151DCFD8
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 u64 func_10026968(u64, u64);
@@ -41,7 +36,6 @@ s32 func_151DCEF0(s32 arg0, u8 arg1, s32 arg2, s32 arg3) {
 s32 func_10023440(u8 *, s32, s32);
 s32 func_151DD4E0(u8 *, s32, u8 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DCFD8 CURRENT (10) */
 s32 func_151DCFD8(s32 arg0) {
     u64 value;
 
@@ -69,5 +63,3 @@ s32 func_151DCFD8(s32 arg0) {
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DCFD8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20A3A0/func_151DCFD8.s")

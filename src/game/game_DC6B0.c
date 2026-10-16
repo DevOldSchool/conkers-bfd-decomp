@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150AF328
- * - func_150AF6E4
  * - func_150AF7C4
  * - func_150AFBF4
  * - func_150AFDB0
@@ -168,9 +167,8 @@ void func_150AF328(u8 *arg0) {
 /* Call context: func_15131828: unique active project prototype */
 /* Call context: func_15131958: unique active project prototype */
 void func_15131828(s32, s32, s32, s32);
-void func_15131958(void *, f32);
+void func_15131958(void *, f32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AF6E4 CURRENT (10) */
 s32 func_150AF6E4(s32 arg0, s32 arg1) {
     s32 sp20;
     s32 temp_a2;
@@ -178,11 +176,9 @@ s32 func_150AF6E4(s32 arg0, s32 arg1) {
     temp_a2 = arg0 + 0xA8;
     sp20 = temp_a2;
     func_15131828(arg0, arg0 + 0xAC, temp_a2, arg0 + 0xAA);
-    func_15131958((void *)(arg0 + 0x58), *(f32 *)((u8 *)temp_a2 + 0xC));
+    func_15131958((void *)(arg0 + 0x58), *(f32 *)((u8 *)temp_a2 + 0xC), temp_a2);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150AF6E4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF6E4.s")
 struct ColourFramebufferEffect;
 struct ColourFramebufferEffect *func_1515FF74(void *, s32, u8, s32);
 

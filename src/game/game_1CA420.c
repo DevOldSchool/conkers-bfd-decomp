@@ -9,7 +9,6 @@
  * - func_1519CF70
  * - func_1519D454
  * - func_1519D9F4
- * - func_1519E570
  * - func_1519E818
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -879,38 +878,25 @@ typedef union Game1CA420Event {
     } swapped;
 } Game1CA420Event;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519E570 CURRENT (250) */
 void func_1519E570(u8 *arg0, Game1CA420Event *arg1, u8 arg2) {
     Game1CA420Link *link;
-    u8 *first;
-    s32 actor;
 
+    link = (Game1CA420Link *)(arg0 + 0x28);
     if (arg2 == 0) {
-        link = (Game1CA420Link *)(arg0 + 0x28);
         if (arg1->removed.actor == link->actor ||
             arg1->removed.generation == link->generation) {
             func_1516972C((s32)arg0);
         }
-    } else {
-        link = (Game1CA420Link *)(arg0 + 0x28);
-        if (arg2 == 0x2D) {
-            actor = (s32)link->actor;
-            first = arg1->swapped.first;
-            if ((s32)first == actor) {
-                link->actor = arg1->swapped.second;
-                link->generation = arg1->swapped.secondGeneration;
-            } else {
-                actor = (s32)arg1->swapped.second ^ actor;
-                if (actor == 0) {
-                    link->actor = first;
-                    link->generation = arg1->swapped.firstGeneration;
-                }
-            }
+    } else if (arg2 == 0x2D) {
+        if (link->actor == arg1->swapped.first) {
+            link->actor = arg1->swapped.second;
+            link->generation = arg1->swapped.secondGeneration;
+        } else if (link->actor == arg1->swapped.second) {
+            link->actor = arg1->swapped.first;
+            link->generation = arg1->swapped.firstGeneration;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519E570 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519E570.s")
 
 void func_1519E61C(void *arg0, s32 arg1, u8 arg2) {
     if ((arg2 == 0) || (arg2 == 9)) {

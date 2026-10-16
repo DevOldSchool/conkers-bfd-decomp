@@ -747,7 +747,7 @@ segments:
       - [0x1D8E20, c, game/game_2062D0]
       - [0x1DC6A0, c, game/game_209B50]
       - [0x1DCDE0, c, game/game_20A290]
-      - [0x1DCEF0, c, game/game_20A3A0]
+      - [0x1DCEF0, c, done/game/game_20A3A0]
       # Exact Rare EEPROM overrides; complete reconstruction evidence is in
       # docs/evidence/libraries/game_libultrare_eeprom_variant_boundaries.md.
       - [0x1DD140, lib, libultrare, conteepread, .text]

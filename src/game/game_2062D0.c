@@ -9,7 +9,6 @@
  * - func_151D8F30
  * - func_151D9014
  * - func_151D9534
- * - func_151D9A20
  * - func_151D9B8C
  * - func_151D9FC0
  * - func_151DA08C
@@ -340,21 +339,16 @@ u8 func_151D99C8(void) {
     return *((u8 *)&sp1C + ((func_150ADA20() % 3U) * 4) + 3);
 }
 extern s32 func_150ADA20();
-extern s32 D_800AB3B4[2];
+extern Game2062D0Pair D_800AB3B4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D9A20 CURRENT (245) */
 u8 func_151D9A20(void) {
-    struct {
-        u8 pad[8];
-        s32 values[2];
-    } sp20;
+    Game2062D0Pair sp20;
+    u32 index;
 
-    sp20.values[0] = D_800AB3B4[0];
-    sp20.values[1] = D_800AB3B4[1];
-    return ((u8 *)sp20.values)[(func_150ADA20() & 1) * 4 + 3];
+    sp20 = D_800AB3B4;
+    index = func_150ADA20() % 2U;
+    return *((u8 *)&sp20 + (index * 4) + 3);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D9A20 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9A20.s")
 u8 func_151D9A68(void) {
     Game2062D0Triple sp1C;
 

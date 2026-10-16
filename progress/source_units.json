@@ -9770,15 +9770,15 @@
         "func_151DCEF0",
         "func_151DCFD8"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x1DD140",
           "start": "0x1DCEF0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_20A3A0.c"
+      "source": "src/done/game/game_20A3A0.c"
     },
     {
       "boundary_evidence": {
