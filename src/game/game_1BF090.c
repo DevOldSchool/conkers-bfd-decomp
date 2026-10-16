@@ -257,7 +257,7 @@ void *func_1519203C(Game1BF090Vector *position, Game1BF090Vector *direction,
         second = 0;
     }
     spawn.flags = second | 0xC207 | first | 0x10000;
-    spawn.lifetime = ((s16 *)&lifetime)[1] + 0x12;
+    spawn.lifetime = (s16)lifetime + 0x12;
     spawn.field1E = 0x12;
     spawn.field20 = 0xE;
     spawn.channel0 = 6;

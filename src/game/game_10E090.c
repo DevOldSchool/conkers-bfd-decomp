@@ -23,10 +23,10 @@ extern u16 D_800CC346;
 extern u8 *D_800D154C;
 extern s32 D_800D1580;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E0BE0 CURRENT (205) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E0BE0 CURRENT (45) */
 void func_150E0BE0(u8 *actor) {
     s32 counter;
-    s32 updated;
+    s16 updated;
     u16 *current_frame;
     u16 frame;
 

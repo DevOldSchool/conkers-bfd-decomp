@@ -37,7 +37,7 @@ void func_1509BFB0(s32, ...);
 void func_15124B18(void *);
 extern s32 D_800BE9F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E0D90 CURRENT (110) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E0D90 CURRENT (10) */
 void func_150E0D90(void *arg0) {
     Game10E240Camera *camera = arg0;
     s32 result;
@@ -71,7 +71,7 @@ void func_150E0D90(void *arg0) {
             camera->height = 300.0f;
         }
         stage = D_800BE9F0;
-        if (stage == 0x1E) {
+        if (D_800BE9F0 == 0x1E) {
             func_1509BFB0(0, 0x4044, 0);
             stage = D_800BE9F0;
         }

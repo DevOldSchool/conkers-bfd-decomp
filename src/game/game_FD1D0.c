@@ -68,7 +68,7 @@ void *func_10022EC0(void *, const void *, u32);
 
 struct GameFD1D0State;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CFE3C CURRENT (235) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CFE3C CURRENT (130) */
 void func_150CFE3C(struct GameFD1D0State *arg0) {
     struct Text { u8 beforeWidth[0x14]; u8 width; u8 page; u8 pad16[2]; u8 *buffers[2]; } *temp_v0;
 

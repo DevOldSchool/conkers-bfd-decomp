@@ -268,17 +268,19 @@ typedef s32 (*Game15F680Callback)(void *, void *);
 extern Game15F680Callback D_8008998C[];
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15132A88 CURRENT (165) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15132A88 CURRENT (40) */
 void func_15132A88(Game15F680TransformState *arg0) {
     s32 temp_a0;
+    u16 check_attachment;
     s32 temp_t7;
     s32 temp_v0;
     s32 temp_v0_2;
 
     temp_t7 = arg0->flags60 & 0xFFDFFFFF;
     arg0->flags60 = temp_t7;
-    if (!(temp_t7 & 0x20000) && (!(temp_t7 & 0x400) ||
-        ((temp_a0 = arg0->field6C) == 0) || (func_151464B8(temp_a0, arg0) == 0))) {
+    check_attachment = temp_t7 & 0x400;
+    if (!(temp_t7 & 0x20000) && (!check_attachment ||
+        ((temp_a0 = arg0->field6C) == 0) || (func_151464B8((s16 *)temp_a0) == 0))) {
         temp_v0 = arg0->flags60;
         if (temp_v0 & 0x80000) {
             arg0->flags60 = temp_v0 | 0x200000;

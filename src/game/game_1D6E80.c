@@ -641,7 +641,7 @@ f32 func_151AAA4C(u8 * volatile arg0) {
     state = arg0;
     state += 0x80;
     temp_fv1 = *(f32 *)(state + 0x10) + (*(f32 *)(state + 0x14) * temp_fv1);
-    *(s32 *)(state + 0x08) = (s32) ((*(s32 *)(state + 0x0C) * D_800BE9E4) + *(u32 *)(state + 0x08));
+    *(s32 *)(state + 0x08) = (s32) ((*(u32 *)(state + 0x0C) * (u32) D_800BE9E4) + *(u32 *)(state + 0x08));
     return temp_fv1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151AAA4C */

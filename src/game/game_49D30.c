@@ -886,10 +886,11 @@ void func_1501E540(s32 arg0) {
 void *func_15083E90(u8);
 extern void *D_800C35F0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501E73C CURRENT (70) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501E73C CURRENT (50) */
 void func_1501E73C(s32 arg0) {
     s32 var_s0;
     s32 count;
+    u16 entryKind;
     u8 *temp_s1;
     void *temp_v0;
     void *temp_v0_2;
@@ -898,7 +899,8 @@ void func_1501E73C(s32 arg0) {
     count = *temp_s1;
     for (var_s0 = 0; var_s0 < count; var_s0++) {
         temp_v0 = (u8 *)D_800C35F0[arg0] + var_s0 * 8;
-        if (*(u16 *)temp_v0 == 2) {
+        entryKind = *(u16 *)temp_v0;
+        if (entryKind == 2) {
             temp_v0_2 = func_15083E90(*(u8 *)((u8 *)temp_v0 + 2));
             if (temp_v0_2 == 0) {
                 count = *temp_s1;

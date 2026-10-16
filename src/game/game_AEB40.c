@@ -744,28 +744,26 @@ s32 func_15083DA0(void) {
     }
     return var_v1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15083E0C CURRENT (30) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15083E0C CURRENT (10) */
 s32 func_15083E0C(u8 arg0) {
     s32 var_a2;
-    s32 var_a3;
+    u8 *var_a3;
     s32 var_v1;
-    s32 base;
+    u8 *base;
     s32 has_more;
-    u8 current;
 
     if (arg0 == 0) {
         return -1;
     }
     var_v1 = 0;
     if ((s32) D_800D2100 > 0) {
-        base = (s32)D_800D20FC;
+        base = D_800D20FC;
         var_a2 = 0;
         var_a3 = base;
 loop_4:
-        current = *(u8 *)((u8 *)var_a3 + 0x28);
         var_v1 += 1;
         has_more = var_v1 < (s32)D_800D2100;
-        if (current == arg0) {
+        if (var_a3[0x28] == arg0) {
             return (s32) ((var_a2 + base) - base) / 48;
         }
         var_a3 += 0x30;

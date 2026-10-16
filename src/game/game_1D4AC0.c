@@ -77,7 +77,7 @@ void func_151A77C0(u8 *arg0) {
         *(s8 *)((u8 *)arg0 + 0x3F) = (s8) (*(s16 *)((u8 *)arg0 + 0x56) * temp_v1);
     }
     if (temp_v1 < *(s16 *)((u8 *)temp_v0 + 8)) {
-        temp_lo = *(s16 *)((u8 *)temp_v0 + 0xA) * D_800BE9E4;
+        temp_lo = (s16) ((u32) *(s16 *)((u8 *)temp_v0 + 0xA) * (u32) D_800BE9E4);
         *(s16 *)((u8 *)arg0 + 0x34) = (s16) (*(s16 *)((u8 *)arg0 + 0x34) + temp_lo);
         *(s16 *)((u8 *)arg0 + 0x36) = (s16) (*(s16 *)((u8 *)arg0 + 0x36) + temp_lo);
         temp_v1 = *(s16 *)((u8 *)arg0 + 0x38);
@@ -109,7 +109,7 @@ void func_151A787C(u8 *arg0) {
         *(s8 *)((u8 *)arg0 + 0x3F) = (s8) (temp_v1 * *(s16 *)((u8 *)arg0 + 0x56));
     }
     if (temp_v1 < *(s16 *)((u8 *)temp_v0 + 8)) {
-        temp_lo = *(s16 *)((u8 *)temp_v0 + 0xA) * D_800BE9E4;
+        temp_lo = (u32)*(s16 *)((u8 *)temp_v0 + 0xA) * (u32)D_800BE9E4;
         *(s16 *)((u8 *)arg0 + 0x34) = (s16) (*(s16 *)((u8 *)arg0 + 0x34) + temp_lo);
         *(s16 *)((u8 *)arg0 + 0x36) = (s16) (*(s16 *)((u8 *)arg0 + 0x36) + temp_lo);
     }

@@ -11,7 +11,6 @@
  * - func_1517F488
  * - func_1517F564
  * - func_1517F75C
- * - func_1517F7B4
  * - func_1517F814
  * - func_1517F9F4
  * - func_1517FB9C
@@ -309,19 +308,21 @@ void func_1517F75C(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517F75C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F75C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517F7B4 CURRENT (30) */
 void func_1517F7B4(void) {
+    u32 remaining;
+    s32 elapsed;
+
     if ((u16) D_800DDE08 != 0) {
-        if (D_800BE9E4 < (s32) (u16) D_800DDE08) {
-            D_800DDE08 = (u16) D_800DDE08 - D_800BE9E4;
+        elapsed = D_800BE9E4;
+        remaining = (u16)D_800DDE08;
+        if (elapsed < (s32)remaining) {
+            D_800DDE08 = (u32)(u16) D_800DDE08 - (u32)elapsed;
         } else {
             D_800DDE08 = 0;
         }
-        D_800DDD89 = (u8) D_800DDD89 + ((u8) D_800DDD88 * D_800BE9E4);
+        D_800DDD89 = (u32)(u8) D_800DDD89 + ((u32)(u8) D_800DDD88 * (u32)elapsed);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517F7B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F7B4.s")
 typedef struct Game1AC2F0Viewport {
     u8 pad00[0xC];
     f32 halfWidth, halfHeight;

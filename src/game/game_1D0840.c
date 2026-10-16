@@ -775,7 +775,7 @@ void func_151A4D88(void *arg0, u8 *arg1, u8 arg2) {
 
     temp_v0 = (u8 *)arg0 + 0x28;
     if (arg2 == 0) {
-        if ((*(s32 *)temp_v0 == *(s32 *)arg1) || (temp_v0[4] == arg1[4])) {
+        if ((*(void **)temp_v0 == *(void **)arg1) || (temp_v0[4] == arg1[4])) {
             func_1516972C(arg0);
         }
     } else if (arg2 == 0x2D) {

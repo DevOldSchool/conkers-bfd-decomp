@@ -508,7 +508,7 @@ segments:
       - [0x10B690, c, game/game_138B40]
       - [0x10BF60, c, game/game_139410]
       - [0x10CB10, c, game/game_139FC0]
-      - [0x10D630, c, game/game_13AAE0]
+      - [0x10D630, c, done/game/game_13AAE0]
       - [0x10D720, c, game/game_13ABD0]
       - [0x10D970, c, game/game_13AE20]
       - [0x10E670, c, game/game_13BB20]

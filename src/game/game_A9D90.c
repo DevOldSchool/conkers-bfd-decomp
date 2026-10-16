@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1507C8FC
- * - func_1507CD0C
  * - func_1507CD64
  * - func_1507D4F8
  * - func_1507D754
@@ -39,20 +38,17 @@ void func_15181D70(s32);
 extern s32 D_80082FA0;
 extern u8 D_800CC2D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507CD0C CURRENT (35) */
 void func_1507CD0C(void *arg0) {
     s32 temp_a1;
     s32 temp_lo;
 
-    temp_a1 = (u8 *)arg0 - &D_800CC2D0;
+    temp_a1 = (s32)((u32)arg0 - (u32)&D_800CC2D0);
     temp_lo = temp_a1 / 812;
     *(s8 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x120) = 3;
     if (temp_lo <= D_80082FA0) {
         func_15181D70(temp_lo);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507CD0C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507CD0C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507CD64.s")
 typedef struct GameA9D90EntityIdRecord {
     u8 field_0;

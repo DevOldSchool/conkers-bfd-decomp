@@ -147,7 +147,7 @@ void func_151A91AC(Game1D6570ParticleOwner *arg0, f32 *arg1, s32 arg2, s32 arg3)
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A91AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A91AC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A931C CURRENT (830) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A931C CURRENT (530) */
 void func_151A931C(void *arg0, u8 *arg1, u8 arg2) {
     if (arg2 == 0x17) {
         if (*arg1 == *(u8 *)((u8 *)arg0 + 0x80)) {

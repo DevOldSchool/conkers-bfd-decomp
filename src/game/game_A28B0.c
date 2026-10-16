@@ -108,7 +108,7 @@ void func_15075400(s32 arg0) {
     u8 value;
 
     if (arg0 < 0xF7) {
-        *(u8 **) ((u8 *) D_800D154C + 0x218) += arg0 * 5;
+        *(u8 **)((u8 *)D_800D154C + 0x218) = (u8 *)((u32)*(u8 **)((u8 *)D_800D154C + 0x218) + (u32)arg0 * 5U);
         return;
     }
     for (count = 0; count < 100; count++) {

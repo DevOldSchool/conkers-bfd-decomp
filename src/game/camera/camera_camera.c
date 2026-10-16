@@ -14,7 +14,6 @@
  * - func_151247C0
  * - func_15124B18
  * - func_15124C38
- * - func_151254F4
  * - func_151256BC
  * - func_15125DB4
  * - func_15126378
@@ -1269,22 +1268,19 @@ s32 func_15125490(void *arg0) {
 }
 extern f32 D_800A352C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151254F4 CURRENT (120) */
 void func_151254F4(void *arg0, s32 arg1) {
     f32 scale;
 
-    scale = D_800A352C;
+    scale = 0.01745329238474369f;
     *(f32 *)((u8 *)arg0 + 0x3A0) = *(f32 *)((u8 *)arg0 + 0x380) * scale;
     *(f32 *)((u8 *)arg0 + 0x398) = *(f32 *)((u8 *)arg0 + 0x388) * scale;
     func_15124AB4(arg0);
     func_151239CC(arg0, 1);
     *((u8 *)*(void **)((u8 *)arg0 + 0x3D4) + 0x198) = 0;
     *(s16 *)((u8 *)arg0 + 0x73C) = 0;
-    *(void **)((u8 *)arg0 + 0x3D0) = (void *)(D_800CC2D0 + (arg1 * 0x32C));
+    *(void **)((u8 *)arg0 + 0x3D0) = (void *)((u32)D_800CC2D0 + (u32)arg1 * 0x32CU);
     *(f32 *)((u8 *)arg0 + 0x670) = 0.0f;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151254F4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151254F4.s")
 extern f32 D_800A3530;
 
 void func_15125594(void *arg0) {

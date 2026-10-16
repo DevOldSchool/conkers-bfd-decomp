@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150AF200
  * - func_150AF328
  * - func_150AF6E4
  * - func_150AF7C4
@@ -34,27 +33,23 @@ extern u8 D_800CC3D4;
 extern s32 D_800DBEF4;
 extern s32 D_800DBF94;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AF200 CURRENT (80) */
 void func_150AF200(s32 arg0, s32 arg1) {
     s32 delta;
-    s32 index;
 
     if (D_800CC3D4 == 0) {
-        delta = func_151149AC((u8)arg0) - D_800DBEF4;
-        index = delta / 160;
-        if (*(s32 *)(((u8 (*)[4])D_800DBF94)[index]) & 1) {
+        delta = (s32)((u32)func_151149AC((u8)arg0) - (u32)D_800DBEF4);
+        delta /= 160;
+        if (*(s32 *)((u32)D_800DBF94 + (u32)delta * 4U) & 1) {
             func_1505D024((s32)&D_800CC2D0, 0x3F, 0x6E00, -1);
             return;
         }
-        delta = func_151149AC((u8)arg1) - D_800DBEF4;
-        index = delta / 160;
-        if (*(s32 *)(((u8 (*)[4])D_800DBF94)[index]) & 1) {
+        delta = (s32)((u32)func_151149AC((u8)arg1) - (u32)D_800DBEF4);
+        delta /= 160;
+        if (*(s32 *)((u32)D_800DBF94 + (u32)delta * 4U) & 1) {
             func_1505D024((s32)&D_800CC2D0, 0x3F, 0xEE00, -1);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150AF200 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF200.s")
 extern void func_151CF898(void *arg0, f32 arg1, f32 arg2);
 
 void func_150AF2E0(void *arg0, void *arg1) {
