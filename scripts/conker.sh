@@ -84,6 +84,9 @@ Getting started
   declaration-conflicts [--out DIR] [--limit N] [--json]
                                  Report symbols declared differently across compiled C files
                                  (read-only; writes build/reports/declaration-conflicts.*).
+  struct-layouts [--out DIR] [--min-copies N] [--limit N] [--json]
+                                 Cluster recurring struct layouts across game C and include/
+                                 (read-only; writes build/reports/struct-layouts.*).
   automate [--limit N | --all | --function ID] [--max-attempts N] [--rewrite-budget N]
            [--exhaustive] [--stack-shapes] (opt-in storage-shape pilot)
            [--defer-best] [--skip-final-build] [--report PATH] [--restart] [--verbose] [--model-tokens N]
@@ -873,6 +876,9 @@ case "$command" in
         ;;
     declaration-conflicts)
         python3 scripts/declaration_conflicts.py "$@"
+        ;;
+    struct-layouts)
+        python3 scripts/struct_layouts.py "$@"
         ;;
     automate)
         python3 scripts/automate.py "$@"

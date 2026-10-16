@@ -1,0 +1,10 @@
+{
+ "schema_version": 1,
+ "functions": [
+  {"symbol": "func_alpha_use", "source": "alpha.c", "regions": {"us": {"state": "matched", "symbol": "func_80000000"}}},
+  {"symbol": "func_alpha_cast", "source": "alpha.c", "regions": {"us": {"state": "matched", "symbol": "func_80000010"}}},
+  {"symbol": "func_alpha_shared", "source": "alpha.c", "regions": {"us": {"state": "matched", "symbol": "func_80000020"}}},
+  {"symbol": "func_alpha_unmatched", "source": "alpha.c", "regions": {"us": {"state": "raw_asm", "symbol": "func_80000030"}}},
+  {"symbol": "func_beta_local", "source": "beta.c", "regions": {"us": {"state": "matched", "symbol": "func_80000040"}}}
+ ]
+}
