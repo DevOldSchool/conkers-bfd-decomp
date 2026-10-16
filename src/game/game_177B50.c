@@ -9,7 +9,6 @@
  * - func_1514A6A0
  * - func_1514AB5C
  * - func_1514AD9C
- * - func_1514AF74
  * - func_1514B034
  * - func_1514B364
  * - func_1514B8E4
@@ -149,32 +148,27 @@ void func_1514AD9C(Game177B50Vector *arg0, s32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514AD9C.s")
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514AF74 CURRENT (630) */
-s32 func_1514AF74(void *arg0) {
-    f32 temp_fa0;
-    f32 temp_fa1;
-    f32 rate;
-    f32 temp_ft5;
-    f32 temp_fv0;
-    f32 temp_fv1;
+typedef struct Game177B50Decay {
+    u8 pad0[0x2C];
+    f32 width, height, unk34, offset;
+    u8 pad3C[0x10];
+    f32 acceleration, velocity;
+    u8 pad54[0xFC];
+    f32 decay;
+} Game177B50Decay;
 
-    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x2C);
-    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x150);
-    temp_fa0 = *(f32 *)((u8 *)arg0 + 0x30);
-    temp_fa1 = *(f32 *)((u8 *)arg0 + 0x50);
-    *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (temp_fv0 - (temp_fv0 * temp_fv1));
-    *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fa0 - (temp_fa0 * temp_fv1));
-    rate = D_800BE9A4;
-    temp_ft5 = *(f32 *)((u8 *)arg0 + 0x4C);
-    *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(f32 *)((u8 *)arg0 + 0x38) + ((temp_fa1 * rate) + (0.5f * temp_ft5 * rate * rate)));
-    *(f32 *)((u8 *)arg0 + 0x50) = (f32) (temp_fa1 + (temp_ft5 * D_800BE9A4));
-    if ((*(f32 *)((u8 *)arg0 + 0x2C) < 10.0f) || (*(f32 *)((u8 *)arg0 + 0x30) < 10.0f)) {
+s32 func_1514AF74(Game177B50Decay *arg0) {
+    f32 *dt = &D_800BE9A4;
+
+    arg0->width = arg0->width - (arg0->width * arg0->decay);
+    arg0->height = arg0->height - (arg0->height * arg0->decay);
+    arg0->offset += (arg0->velocity * *dt) + (((0.5f * arg0->acceleration) * *dt) * *dt);
+    arg0->velocity += arg0->acceleration * *dt;
+    if ((arg0->width < 10.0f) || (arg0->height < 10.0f)) {
         return 0;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514AF74 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514AF74.s")
 extern f32 D_800A5808, D_800A580C, D_800A5810, D_800A5814;
 extern f32 D_800A5818, D_800A581C, D_800A5820, D_800A5824;
 extern f32 D_800A5828, D_800A582C, D_800A5830;

@@ -19,7 +19,6 @@
  * - func_150461D0
  * - func_15046460
  * - func_150466F8
- * - func_1504697C
  * - func_1504715C
  * - func_150472C0
  * - func_15047390
@@ -1243,10 +1242,9 @@ s32 func_150466F8(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150466F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_150466F8.s")
-s32 func_15046460(Game71820XZ *, s32, f32, Game71820Hit *);
+s32 func_15046460(Game71820XZ *, u16, f32, Game71820Hit *);
 s32 func_150450CC(Game71820XZ *, f32, Game71820Hit *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504697C CURRENT (953) */
 s32 func_1504697C(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     Game71820Hit first_hit;
     Game71820Hit second_hit;
@@ -1259,7 +1257,7 @@ s32 func_1504697C(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     }
     first_hit = *arg3;
     second_hit = *arg3;
-    first_result = func_15046460(arg0, arg1 & 0xFFFF, arg2, &first_hit);
+    first_result = func_15046460(arg0, arg1, arg2, &first_hit);
     second_result = func_150450CC(arg0, arg2, &second_hit);
     if (first_result != 0 && second_result != 0) {
         if (second_hit.height < first_hit.height) {
@@ -1285,8 +1283,6 @@ s32 func_1504697C(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     arg3->flags &= ~2;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1504697C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_1504697C.s")
 s32 func_150466F8(Game71820XZ *, u16, f32, Game71820Hit *);              /* extern */
 
 s32 func_15046C00(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {

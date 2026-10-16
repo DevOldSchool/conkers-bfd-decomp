@@ -14,7 +14,6 @@
  * - func_151A483C
  * - func_151A4900
  * - func_151A4A38
- * - func_151A4D88
  * - func_151A4ECC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -767,33 +766,24 @@ void func_151A4CE0(void *arg0, void *arg1, u8 arg2) {
     }
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4D88 CURRENT (30) */
 void func_151A4D88(void *arg0, u8 *arg1, u8 arg2) {
     u8 *temp_v0;
-    void *temp_a0;
-    void *temp_v1;
 
     temp_v0 = (u8 *)arg0 + 0x28;
     if (arg2 == 0) {
-        if ((*(void **)temp_v0 == *(void **)arg1) || (temp_v0[4] == arg1[4])) {
+        if ((*(s32 *)temp_v0 == *(s32 *)arg1) || (temp_v0[4] == arg1[4])) {
             func_1516972C(arg0);
         }
     } else if (arg2 == 0x2D) {
-        temp_v1 = *(void **)arg1;
-        temp_a0 = *(void **)temp_v0;
-        if (temp_v1 == temp_a0) {
-            *(void **)temp_v0 = *(void **)(arg1 + 4);
+        if (*(s32 *)arg1 == *(s32 *)temp_v0) {
+            *(s32 *)temp_v0 = *(s32 *)(arg1 + 4);
             temp_v0[4] = arg1[9];
-            return;
-        }
-        if (*(void **)(arg1 + 4) == temp_a0) {
-            *(void **)temp_v0 = temp_v1;
+        } else if (*(s32 *)(arg1 + 4) == *(s32 *)temp_v0) {
+            *(s32 *)temp_v0 = *(s32 *)arg1;
             temp_v0[4] = arg1[8];
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A4D88 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4D88.s")
 typedef struct Game1D0840TransformSource {
     u8 pad0[0x74];
     u8 flags;

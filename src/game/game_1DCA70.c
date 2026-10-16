@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151AF6D4
- * - func_151AFC08
  * - func_151AFEA4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -65,28 +64,27 @@ s32 func_151AFBD4(void *arg0) {
 }
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AFC08 CURRENT (670) */
 s32 func_151AFC08(u8 *arg0) {
     f32 temp_fv0;
+    u8 *subrecord;
     s32 temp_v0;
 
     if (*(s32 *)((u8 *)arg0 + 0x58) & 1) {
-        if (*(s16 *)((u8 *)arg0 + 0x1C) < 0x20) {
-            temp_v0 = *(s16 *)((u8 *)arg0 + 0x1C) * 8;
+        subrecord = arg0 + 0x128;
+        if (*(s16 *)(arg0 + 0x1C) < 0x20) {
+            temp_v0 = *(s16 *)(arg0 + 0x1C) * 8;
             if (temp_v0 < (s32) *(u8 *)((u8 *)arg0 + 0x5C)) {
                 *(u8 *)((u8 *)arg0 + 0x5C) = (u8) temp_v0;
             }
         }
-        if (*(s16 *)((u8 *)arg0 + 0x128) < *(s16 *)((u8 *)arg0 + 0x1C)) {
-            temp_fv0 = *(f32 *)((u8 *)(arg0 + 0x128) + 4) * D_800BE9A4;
+        if (*(s16 *)subrecord < *(s16 *)((u8 *)arg0 + 0x1C)) {
+            temp_fv0 = *(f32 *)(subrecord + 4) * D_800BE9A4;
             *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (*(f32 *)((u8 *)arg0 + 0x2C) + temp_fv0);
             *(f32 *)((u8 *)arg0 + 0x30) = (f32) (*(f32 *)((u8 *)arg0 + 0x30) + temp_fv0);
         }
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AFC08 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1DCA70/func_151AFC08.s")
 typedef struct Game1DCA70Particle {
     s32 flags, field4;
     s16 kind, duration;
