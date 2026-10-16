@@ -32,7 +32,7 @@ typedef struct Game14CE30CacheEntry {
 extern Game14CE30CacheEntry D_800DBFC8[4];
 extern void *D_800CC5EC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511F990 CURRENT (370) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511F990 CURRENT (20) */
 void func_1511F990(Game14CE30Actor *actor, s32 initial_mode) {
     s32 group;
     s32 mode;
@@ -43,9 +43,10 @@ void func_1511F990(Game14CE30Actor *actor, s32 initial_mode) {
     s32 other_mode;
 
     group = (s8)(actor->packed3C >> 16);
-    mode = actor->flags73 & 3;
-    flag = actor->flags73 & 4;
     added = 0;
+    mode = actor->flags73;
+    mode = mode & 3;
+    flag = actor->flags73 & 4;
     for (index = 0; index < D_800DBFC0; index++) {
         if (D_800DBFC8[index].actor == actor) {
             break;

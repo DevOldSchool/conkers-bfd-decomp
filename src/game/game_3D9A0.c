@@ -37,7 +37,7 @@ typedef struct Game3D9A0Packet {
     s16 z;
 } Game3D9A0Packet;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15010538 CURRENT (135) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15010538 CURRENT (120) */
 void func_15010538(void *arg0) {
     Game3D9A0Packet packet;
     u8 *object;

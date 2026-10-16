@@ -96,11 +96,11 @@ void func_151152A8(void *arg0) {
     temp_v1 = *(s16 *)((u8 *)arg0 + 0x12);
     if (*(u8 *)((u8 *)arg0 + 0x4F) & 4) {
         temp_a1 = *(s32 *)((u8 *)arg0 + 0x3C);
-        if ((var_v0 - temp_v1) < (s16) temp_a1) {
-            *(s16 *)((u8 *)arg0 + 0x12) = (s16) (temp_v1 - ((s16) (temp_a1 >> 0x10) * D_800BE9E4));
+        if ((s32)((u32)var_v0 - (u32)(s32)temp_v1) < (s16) temp_a1) {
+            *(s16 *)((u8 *)arg0 + 0x12) = (s16) ((u32)(s32)temp_v1 - ((u32)(s32)(s16)(temp_a1 >> 0x10) * (u32)D_800BE9E4));
         }
     } else {
-        *(s16 *)((u8 *)arg0 + 0x12) = (s16) (s32) ((f32) temp_v1 + ((f32) (var_v0 - temp_v1) * D_800A2F8C * (f32) D_800BE9E4));
+        *(s16 *)((u8 *)arg0 + 0x12) = (s16) (s32) ((f32) temp_v1 + ((f32) (s32)((u32)var_v0 - (u32)(s32)temp_v1) * D_800A2F8C * (f32) D_800BE9E4));
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151152A8 */

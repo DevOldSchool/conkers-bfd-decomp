@@ -330,7 +330,7 @@ extern f32 D_8009941C;
 extern u8 D_800CC2D0;
 extern u16 D_800D18A0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15055D48 CURRENT (340) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15055D48 CURRENT (620) */
 void func_15055D48(void *arg0) {
     u16 temp_t7;
     void *temp_v0;
@@ -345,7 +345,7 @@ void func_15055D48(void *arg0) {
     if ((s32)*(u8 *)((u8 *)*(void **)((u8 *)arg0 + 0x31C) + 0x36) >= 0x8D) {
         temp_v0 = &D_800D18A0;
         temp_t7 = *(u16 *)temp_v0 |
-                  (1 << ((s32)((u8 *)arg0 - &D_800CC2D0) / 812));
+                  (1U << ((u32)((s32)((u32)arg0 - (u32)&D_800CC2D0) / 812) & 31U));
         *(u16 *)temp_v0 = temp_t7;
         if (temp_t7 & 0xFFFF) {
             *(u8 *)((u8 *)arg0 + 0x125) = 0xFF;

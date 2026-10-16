@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_resource_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1507EEB8
  * - func_1507EFD0
  * - func_1507F54C
  * - func_1507F640
@@ -129,27 +128,14 @@ void func_1507EE58(u8 arg0, u8 *arg1) {
         func_1507EEB8(0x11, arg1);
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507EEB8 CURRENT (330) */
 void func_1507EEB8(u8 arg0, u8 *arg1) {
-    u8 temp_t7;
-    u8 temp_t8;
-    u8 temp_t9;
-    u8 temp_t0;
-    u8 *temp_v0;
+    s32 index;
 
-    temp_v0 = (void *)(arg1 + 4);
-    temp_t8 = *(u8 *)((u8 *)temp_v0 + -2);
-    temp_t9 = *(u8 *)((u8 *)temp_v0 + -3);
-    temp_t0 = *(u8 *)((u8 *)temp_v0 + -4);
-    temp_t7 = *(u8 *)((u8 *)temp_v0 + -1);
-    *(u8 *)((u8 *)temp_v0 + -1) = temp_t8;
-    *(u8 *)((u8 *)temp_v0 + -2) = temp_t9;
-    *(u8 *)((u8 *)temp_v0 + -3) = temp_t0;
-    *(u8 *)((u8 *)arg1 + 4) = temp_t7;
-    *(s8 *)((u8 *)arg1 + 0) = (s8) arg0;
+    for (index = 4; index != 0; index--) {
+        arg1[index] = arg1[index - 1];
+    }
+    arg1[0] = arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507EEB8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EEB8.s")
 extern void *D_800D154C;
 
 void func_1507EEF4(u32 arg0) {

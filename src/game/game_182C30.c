@@ -189,19 +189,19 @@ extern Game182C30Block D_800DD190;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15155FD4 CURRENT (50) */
 void *func_15155FD4(s32 arg0) {
     Game182C30Node *var_v1;
-    Game182C30Block *var_a1;
+    u32 var_a1;
 
-    var_a1 = &D_800DCE50;
+    var_a1 = (u32)&D_800DCE50;
     do {
-        var_v1 = var_a1->field_140;
-        var_a1++;
+        var_v1 = ((Game182C30Block *)var_a1)->field_140;
+        var_a1 += sizeof(Game182C30Block);
         while (var_v1 != 0) {
             if (arg0 == var_v1->field_10) {
                 return var_v1;
             }
             var_v1 = var_v1->next;
         }
-    } while (var_a1 != &D_800DD190);
+    } while (var_a1 != (u32)&D_800DD190);
     return 0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15155FD4 */

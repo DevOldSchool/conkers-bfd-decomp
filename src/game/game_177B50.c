@@ -143,7 +143,7 @@ void func_1514AD9C(Game177B50Vector *arg0, s32 arg1, s32 arg2) {
     particle.field24 = func_150ADA20() % 17U + 0x10;
     particle.field38 = (func_150ADA68() * D_800A5800 + 50.0f) * D_800A5804;
     particle.field2C = func_150ADA20() % 156U + 0x64;
-    func_15149550(&particle.position.x, 10, 0, 0, (u8)arg1, arg2);
+    func_15149550(&particle.position.x, 10, 0, 0, ((u8 *)&arg1)[3], arg2);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514AD9C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514AD9C.s")

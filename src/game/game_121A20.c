@@ -245,7 +245,7 @@ s32 func_150F4A38(GameF4A38Actor *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_121A20/func_150F4A38.s")
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F4CFC CURRENT (410) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F4CFC CURRENT (310) */
 void func_150F4CFC(Game121A20State *arg0, s32 arg1, u8 arg2) {
     if (arg2 == 0x4E) {
         arg0->field71 = 0;

@@ -37,7 +37,7 @@ void *func_151580B0(void *arg0, s32 arg1, s32 arg2, u8 arg3,
     } else {
         var_a0 = 0x37;
     }
-    temp_v0 = func_15167A68(var_a0, arg6, arg4 + 0xF8, 1, arg5, 1);
+    temp_v0 = func_15167A68(var_a0, arg6, (s32)((u32)arg4 + 0xF8U), 1, arg5, 1);
     if (temp_v0 == 0) {
         return 0;
     }

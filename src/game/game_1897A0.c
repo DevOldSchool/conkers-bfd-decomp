@@ -98,7 +98,7 @@ extern s32 D_800BE9E4;
 typedef s32 (*Game1897A0ActionCallback)(void *, void *);
 extern Game1897A0ActionCallback D_8008B084[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515C534 CURRENT (50) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515C534 CURRENT (30) */
 s32 func_1515C534(void *arg0) {
     struct Actor {
         u8 pad00[0x1C];
@@ -124,8 +124,7 @@ s32 func_1515C534(void *arg0) {
     } *settings;
     struct Actor *actor = arg0;
     s32 callbackFailed;
-    s32 newValue;
-    s32 count;
+    u32 count;
 
     settings = actor->settings;
     callbackFailed = 0;
@@ -134,6 +133,7 @@ s32 func_1515C534(void *arg0) {
     }
     if (callbackFailed == 0) {
         if (settings->flags & 4) {
+            s32 newValue;
             if (actor->time < settings->start) {
                 newValue = actor->time * settings->slope;
                 if (newValue < settings->intensity) {

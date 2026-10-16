@@ -410,7 +410,7 @@ void func_150039BC(s32 arg0) {
     v = arg0;
     D_800DBE5C = v;
     if (v != 0) {
-        v += 8;
+        v = (s32)((u32)v + 8U);
         D_800DBE5C = v;
     }
 }

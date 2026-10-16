@@ -5,6 +5,15 @@
  */
 SECTIONS
 {
+    /* ROM-backed scalar literals: docs/evidence/data-layout/game_second_batch_literals.md. */
+    .game_rodata_camera_camera 0x800A352C (INFO) : SUBALIGN(4)
+    {
+        *camera_camera.o(.rodata)
+    }
+    .game_rodata_18a8f0 0x800A6520 (INFO) : SUBALIGN(4)
+    {
+        *game_18A8F0.o(.rodata)
+    }
     /* Entrypoint dispatch: docs/evidence/data-layout/entrypoint_jump_table.md. */
     .game_rodata_entrypoint 0x80095A30 (INFO) : SUBALIGN(4)
     {
@@ -225,3 +234,10 @@ __game_rodata_169510_payload_size = 0x34;
 
 ASSERT(SIZEOF(.game_rodata_blood) == 0x260, "effects/blood tables extent changed")
 __game_rodata_blood_payload_size = 0x260;
+
+ASSERT(SIZEOF(.game_rodata_camera_camera) == 0x10,
+       "camera_camera angle literal extent changed")
+__game_rodata_camera_camera_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_18a8f0) == 0x10,
+       "game_18A8F0 clamp literal extent changed")
+__game_rodata_18a8f0_payload_size = 0x4;

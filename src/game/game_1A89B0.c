@@ -89,15 +89,13 @@ s32 func_1517B500(Game1A89B0Position *arg0, Game1A89B0Position *arg1, s32 *arg2,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517B500 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A89B0/func_1517B500.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517B6E8 CURRENT (40) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517B6E8 CURRENT (30) */
 s32 func_1517B6E8(void *arg0, void *arg1, s32 *arg2, u8 *arg3) {
     s32 temp_t0;
     s32 temp_t1;
-    s32 temp_v0;
 
-    temp_v0 = *arg2;
-    if (temp_v0 >= 0x600) {
-        *(s16 *)((u8 *)arg1 + 2) = (s16) ((*(s16 *)((u8 *)arg0 + 2) + (temp_v0 >> 6)) - 0x18);
+    if ((*arg2) >= 0x600) {
+        *(s16 *)((u8 *)arg1 + 2) = (s16) ((*(s16 *)((u8 *)arg0 + 2) + ((*arg2) >> 6)) - 0x18);
         *(s16 *)((u8 *)arg1 + 0) = (s16) ((*(s16 *)((u8 *)arg0 + 0) + ((s32) *arg2 >> 8)) - 6);
         temp_t0 = *arg3;
         temp_t1 = (s32) ((s32) (temp_t0 << 7) / (s32) (((s32) *arg2 >> 6) - 0x17)) >> 4;

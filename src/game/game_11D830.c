@@ -281,7 +281,7 @@ extern f32 D_800A186C;
 extern Game11D830Position D_800A5480;
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F0BEC CURRENT (135) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F0BEC CURRENT (130) */
 void func_150F0BEC(u8 *arg0) {
     Game11D830EffectInitPacket packet;
     Game11D830SpawnTail tail;
@@ -317,12 +317,12 @@ void func_150F0BEC(u8 *arg0) {
     packet.field_22 = 1;
     packet.field_54 = 0.0f;
     packet.scale = 1.0f;
-    if (func_150ADA20(arg0) & 1) {
+    if (func_150ADA20() & 1) {
         flags1 = 0x40;
     } else {
         flags1 = 0;
     }
-    if (func_150ADA20(arg0) & 1) {
+    if (func_150ADA20() & 1) {
         flags2 = 0x80;
     } else {
         flags2 = 0;
@@ -335,7 +335,7 @@ void func_150F0BEC(u8 *arg0) {
     packet.bytes[4] = -1;
     packet.bytes[5] = 0xA;
     packet.field_5C = 0;
-    packet.bytes[6] = 0xFF;
+    ((u8 *)packet.bytes)[6] = 0xFF;
     packet.field_68 = 0;
     tail.actor = arg0;
     packet.field_6C = D_800A1860;

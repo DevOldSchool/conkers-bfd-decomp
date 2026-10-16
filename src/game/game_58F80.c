@@ -738,12 +738,12 @@ void func_1502CC34(u8 *arg0, s32 arg1, s32 arg2, s32 *arg3, s32 *arg4, s32 *arg5
  * See docs/evidence/assets/naming/actor_model_display_list_semantics.md.
  */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502CCFC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502D54C CURRENT (135) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502D54C CURRENT (530) */
 void func_1502D54C(s32 arg0, void *arg1) {
     s32 temp_t1;
     void *temp_v0;
 
-    temp_v0 = (u8 *)&D_800CC2D0 + (arg0 * 0x32C);
+    temp_v0 = (void *) ((u32) &D_800CC2D0 + ((u32) arg0 * 0x32CU));
     if ((*(u8 *)((u8 *)temp_v0 + 0x66) & 0xC) == 4) {
         *(s32 *)((u8 *)arg1 + 0) =
             (s32)(*(u8 *)((u8 *)temp_v0 + 0x1E0) + *(u8 *)((u8 *)temp_v0 + 0x1DD)) / 2;
