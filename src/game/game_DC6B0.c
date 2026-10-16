@@ -211,8 +211,8 @@ f32 func_15144B68(f32);                             /* extern */
 s32 func_150AFBF4(u8 *arg0) {
     f32 *temp_v1;
 
-    *(f32 *)((u8 *)arg0 + 0x78) = (f32) ((*(f32 *)((u8 *)arg0 + 0x7C) * D_800BE9A4) + *(f32 *)((u8 *)arg0 + 0x78));
-    temp_v1 = (f32 *)arg0 + 0x1C;
+    temp_v1 = (f32 *)(arg0 + 0x70);
+    temp_v1[2] = (temp_v1[3] * D_800BE9A4) + temp_v1[2];
     temp_v1[2] = func_15144B68(temp_v1[2]);
     *(f32 *)((u8 *)arg0 + 0x10) = (f32) (temp_v1[0] + (temp_v1[1] * func_15047D60(temp_v1[2])));
     return 1;

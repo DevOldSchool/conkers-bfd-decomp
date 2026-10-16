@@ -311,7 +311,7 @@ extern u8 *D_800D2FB0;
 
 void func_1509D054(void) {
     if (D_800D2FB0 != 0) {
-        func_10004074(D_800D2FB0);
+        func_10004074((s32)D_800D2FB0);
         D_800D2FB0 = 0;
     }
 }

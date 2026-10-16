@@ -22,6 +22,7 @@
  * - func_15152520
  * - func_15152B38
  * - func_151539B4
+ * - func_15153CCC
  * - func_15153F18
  * - func_151541B8
  * - func_15154684
@@ -1389,25 +1390,34 @@ void *func_151DA6F8(f32 *, f32 *, f32, s16, s32, f32, s32, s32,
                     f32, f32, s32, s32, void *, s32, s32, s32, s32, s32);
 extern f32 D_800A5FFC;
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15153CCC CURRENT (54) */
 void func_15153CCC(void *arg0, Game153CCCConfig *arg1, void *arg2, s32 arg3, s32 arg4) {
+    f32 randomMagnitude;
+    f32 randomScale;
     f32 constant;
-    u32 roll;
+    f32 direction[3];
     s32 count;
-    f32 direction;
+    u32 randomLife;
+    u32 randomMode;
+    u32 randomVariant;
 
     if (func_1514F6E8(arg0) != 0) {
-        roll = func_150ADA20();
-        count = roll % (u32)(arg1->countRange + 1) + arg1->countBase;
+        count = (func_150ADA20() % (u32)(arg1->countRange + 1)) + arg1->countBase;
         if (count != 0) {
             constant = D_800A5FFC;
             do {
-                func_1514F808(arg0, func_150ADA68() * arg1->directionRange + arg1->directionBase, &direction);
-                func_151DA6F8(&arg1->position.x, &direction,
-                    func_150ADA68() * arg1->scaleRange + arg1->scaleBase,
-                    (func_150ADA20() % (u32)(arg1->lifeRange + 1)) + arg1->lifeBase,
-                    (func_150ADA20() % (u32)(arg1->modeRange + 1)) + arg1->modeBase,
-                    func_150ADA68() * arg1->magnitudeRange + arg1->magnitudeBase,
-                    (func_150ADA20() % (u32)(arg1->variantRange + 1)) + arg1->variantBase,
+                func_1514F808(arg0, func_150ADA68() * arg1->directionRange + arg1->directionBase, direction);
+                randomScale = func_150ADA68();
+                randomLife = func_150ADA20();
+                randomMode = func_150ADA20();
+                randomMagnitude = func_150ADA68();
+                randomVariant = func_150ADA20();
+                func_151DA6F8(&arg1->position.x, direction,
+                    randomScale * arg1->scaleRange + arg1->scaleBase,
+                    (randomLife % (u32)(arg1->lifeRange + 1)) + arg1->lifeBase,
+                    (randomMode % (u32)(arg1->modeRange + 1)) + arg1->modeBase,
+                    randomMagnitude * arg1->magnitudeRange + arg1->magnitudeBase,
+                    (randomVariant % (u32)(arg1->variantRange + 1)) + arg1->variantBase,
                     func_150ADA68() < arg1->chance, constant, constant, 1,
                     arg1->kind, arg2, arg1->field3C, arg1->field3E,
                     arg1->field40, ((u8 *)&arg3)[3], arg4);
@@ -1416,6 +1426,8 @@ void func_15153CCC(void *arg0, Game153CCCConfig *arg1, void *arg2, s32 arg3, s32
         }
     }
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_15153CCC */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153CCC.s")
 
 void func_15143794(s16, s16, f32, void *);
 extern f32 D_800A6000;

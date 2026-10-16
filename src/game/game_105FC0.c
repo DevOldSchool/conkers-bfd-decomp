@@ -40,7 +40,6 @@ void func_150D8B3C(void *arg0, void *arg1) {
     func_15145740(arg0, &first, &second, arg1,
                   (D_800BE616 != 0) ? D_800A0B40 : D_800A0B44);
 }
-
 typedef struct Game105FC0Spawn {
     Game105FC0Vec3 position;
     s16 life;

@@ -89,7 +89,7 @@ void func_150D6388(f32 *arg0, u8 arg1, s32 arg2) {
     func_151541B8(arg0, (locals.value * 4.0f) + 15.0f, 1.37457f,
                  (f32)((locals.random % 56U) + 0xC8), 0.0f, arg1, arg2);
 }
-void func_15154884(s32, f32, f32, f32, s32, s32);
+void *func_15154884(void *, f32, f32, f32, u8, s32);
 extern f32 D_800A0AB0;
 extern f32 D_800A0AB4;
 
@@ -103,10 +103,10 @@ void func_150D6434(s32 arg0, u8 arg1, s32 arg2) {
 
     locals.first = func_150ADA68();
     locals.second = func_150ADA68();
-    func_15154884(arg0, (locals.first * 3.0f) + 8.0f,
+    func_15154884((void *)arg0, (locals.first * 3.0f) + 8.0f,
                   (locals.second * D_800A0AB0) + D_800A0AB4,
                   (func_150ADA68() * 50.0f) + 100.0f,
-                  (s32)arg1, arg2);
+                  arg1, arg2);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150D6434 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1028F0/func_150D6434.s")

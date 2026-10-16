@@ -106,17 +106,19 @@ extern f32 D_800A130C;
 
 void func_150E6E34(Game113D60Vector *arg0) {
     Game113D60Segment *segment;
-    f32 t;
 
     if (func_150ADA68() < D_800A130C) {
         segment = D_80088A3C;
     } else {
         segment = D_80088A40;
     }
-    t = func_150ADA68();
-    arg0->x = segment->start.x + (segment->end.x - segment->start.x) * t;
-    arg0->y = segment->start.y + (segment->end.y - segment->start.y) * t;
-    arg0->z = segment->start.z + (segment->end.z - segment->start.z) * t;
+    {
+        f32 r = func_150ADA68();
+
+        arg0->x = (segment->end.x - segment->start.x) * r + segment->start.x;
+        arg0->y = (segment->end.y - segment->start.y) * r + segment->start.y;
+        arg0->z = (segment->end.z - segment->start.z) * r + segment->start.z;
+    }
 }
 extern s32 func_150ADA20(void);
 extern s32 D_800D9A20[];
