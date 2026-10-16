@@ -9,7 +9,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1509B4A0
  * - func_1509B5AC
- * - func_1509B704
  * - func_1509B950
  * - func_1509BA04
  * - func_1509BBA0
@@ -124,7 +123,6 @@ GameC8950Node *func_1509B5AC(u16 arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509B5AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B5AC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509B704 CURRENT (220) */
 GameC8950Node *func_1509B704(s16 arg0) {
     s32 index;
     s32 mask;
@@ -132,20 +130,14 @@ GameC8950Node *func_1509B704(s16 arg0) {
 
     node = D_800D2F48.head;
     mask = 0xFFFF03FF;
-    index = 0;
-    if ((s32) D_800D2F48.count > 0) {
-        do {
-            index += 1;
-            if (arg0 == (node->key & mask)) {
-                return node;
-            }
-            node = node->next;
-        } while (index < (s32) D_800D2F48.count);
+    for (index = 0; index < (s32) D_800D2F48.count; index++) {
+        if (arg0 == (node->key & mask)) {
+            return node;
+        }
+        node = node->next;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509B704 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B704.s")
 void func_10004074(s32);
 
 void func_1509B764(GameC8950Node *arg0) {

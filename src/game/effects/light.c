@@ -19,7 +19,6 @@
  * - func_15163604
  * - func_15163704
  * - func_15163A60
- * - func_15163B98
  * - func_15163FEC
  * - func_151640C0
  * - func_15164134
@@ -1451,18 +1450,18 @@ typedef struct {
 
 s32 func_1516065C(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15163B98 CURRENT (80) */
 s32 func_15163B98(s32 arg0) {
+    LightStateData *data;
+
     if (func_1516065C(arg0) == 0) {
         return 0;
     }
-    if (((LightState *)arg0)->field_28->field_6E == 1) {
+    data = ((LightState *)arg0)->field_28;
+    if (data->field_6E == 1) {
         return 0;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15163B98 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163B98.s")
 extern u8 D_800A6A0C;
 extern f32 D_800A6B0C;
 

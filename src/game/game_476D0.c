@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1501A39C
  * - func_1501A490
- * - func_1501A680
  * - func_1501A6CC
  * - func_1501A764
  * - func_1501A8C0
@@ -184,14 +183,23 @@ void *func_1501A490(u8 *arg0, s16 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) 
 extern s32 D_8002AAE8[];
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501A680 CURRENT (275) */
-void *func_1501A680(void *arg0) {
-    *(s32 *)((u8 *)arg0 + 0) = ((D_800BE620 - 1) & 0xFFF) | 0xFF100000;
-    *(s32 *)((u8 *)arg0 + 4) = D_8002AAE8[D_800BE9C0];
-    return (u8 *)arg0 + 8;
+typedef union Game476D0DisplayCommand {
+    struct {
+        u32 word0;
+        u32 word1;
+    } words;
+    u64 alignment;
+} Game476D0DisplayCommand;
+
+Game476D0DisplayCommand *func_1501A680(Game476D0DisplayCommand *arg0) {
+    {
+        Game476D0DisplayCommand *command = arg0++;
+
+        command->words.word0 = ((D_800BE620 - 1) & 0xFFF) | 0xFF100000;
+        command->words.word1 = D_8002AAE8[D_800BE9C0];
+    }
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501A680 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_476D0/func_1501A680.s")
 extern s32 D_800BE620;
 extern s32 D_800BE624;
 
