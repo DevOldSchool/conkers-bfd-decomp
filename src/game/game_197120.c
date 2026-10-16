@@ -9,7 +9,6 @@
  * - func_15169C70
  * - func_1516A3F4
  * - func_1516A538
- * - func_1516A648
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -107,7 +106,6 @@ void func_1516F94C(s32, s32);
 s32 func_1510F8D8(s16, s16, s16, s32);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516A648 CURRENT (30) */
 s32 func_1516A648(u8 *arg0) {
     s32 value;
     s32 height;
@@ -115,14 +113,14 @@ s32 func_1516A648(u8 *arg0) {
     value = arg0[0x1F];
     if (arg0[0x24] != 0) {
         if (value != 0xFF) {
-            value += D_800BE9E4 * 0x10;
+            value = (s32)((u32)value + (u32)D_800BE9E4 * 0x10U);
             if (value >= 0x100) {
                 value = 0xFF;
             }
             arg0[0x1F] = value;
         }
     } else if (value != 0) {
-        value -= D_800BE9E4 * 4;
+        value = (s32)((u32)value - (u32)D_800BE9E4 * 4U);
         if (value < 0) {
             value = 0;
         }
@@ -132,11 +130,12 @@ s32 func_1516A648(u8 *arg0) {
         return 1;
     }
     *(s16 *)(arg0 + 0x18) -= 0x12C;
-    func_1516F864(arg0);
-    height = func_1510F8D8(*(s16 *)(arg0 + 0xE), *(s16 *)(arg0 + 0x10),
-                           *(s16 *)(arg0 + 0x12), 0) + 0xA;
+    func_1516F864((struct Game19A8B0Motion *)arg0);
+    height = (s32)((u32)func_1510F8D8(*(s16 *)(arg0 + 0xE), *(s16 *)(arg0 + 0x10),
+                           *(s16 *)(arg0 + 0x12), 0) + 0xAU);
     arg0[0x2C] = height >> 8;
-    arg0[0x2D] = height;
+    /* Redundant for u8 storage; omitting it shifts IDO's later scratch registers. */
+    arg0[0x2D] = height & 0xFFFF;
     if (*(s16 *)(arg0 + 0x10) < height) {
         *(s16 *)(arg0 + 0x10) = height;
         *(s16 *)(arg0 + 0x18) = (s32)((f32)*(s16 *)(arg0 + 0x18) * -0.5f);
@@ -144,5 +143,3 @@ s32 func_1516A648(u8 *arg0) {
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1516A648 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_197120/func_1516A648.s")
