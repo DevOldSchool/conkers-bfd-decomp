@@ -26,7 +26,6 @@
  * - func_15153F18
  * - func_151541B8
  * - func_15154684
- * - func_15154884
  * - func_15154A88
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -1655,9 +1654,8 @@ void *func_10022EC0(void *, const void *, u32);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 extern f32 D_800A601C, D_800A6020, D_800A6024, D_800A6028, D_800A602C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15154884 CURRENT (200) */
 void *func_15154884(Game17CAF0Vec3f *arg0, f32 arg1, f32 arg2,
-                    f32 arg3, s32 arg4, s32 arg5) {
+                    f32 arg3, u8 arg4, s32 arg5) {
     u8 *result;
     Game154884Descriptor descriptor;
     f32 payload[5];
@@ -1710,14 +1708,12 @@ void *func_15154884(Game17CAF0Vec3f *arg0, f32 arg1, f32 arg2,
     descriptor.field72 = 1;
     descriptor.field74 = 0xFF;
     descriptor.field54 = 0x12C;
-    result = func_15132A4C(&descriptor, 0, 0, 0x14, (u8)arg4, arg5);
+    result = func_15132A4C(&descriptor, 0, 0, 0x14, arg4, arg5);
     if (result != 0) {
-        func_10022EC0(result + 0x170, payload, 0x14);
+        func_10022EC0((u8 *) result + 0x170, payload, 0x14);
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15154884 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15154884.s")
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 

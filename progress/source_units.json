@@ -10729,7 +10729,7 @@
         "us": {
           "end": "0x52EF0",
           "start": "0x52760",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_7FC10.c"

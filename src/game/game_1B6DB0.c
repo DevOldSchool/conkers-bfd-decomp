@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_loader_transfer_emission_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15189900
  * - func_15189A00
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -34,7 +33,6 @@ void *func_10022EC0(void *, const void *, u32);
 void func_1510F800(s32);
 s32 func_1510FD20(s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15189900 CURRENT (320) */
 void func_15189900(void *arg0, u8 arg1) {
     f32 temp_fv0;
     s32 var_v0;
@@ -47,10 +45,10 @@ void func_15189900(void *arg0, u8 arg1) {
         effect->field6C = func_1510FD20(
             (s32)(effect->field18 + (effect->field24 * 0.5f)),
             (s32)(effect->field20 + (effect->field2C * 0.5f)));
-        if (arg1 == 0) {
-            var_v0 = 0;
-        } else {
+        if (arg1 != 0) {
             var_v0 = 1;
+        } else {
+            var_v0 = 0;
         }
         temp_fv0 = effect->field28;
         effect->field70 = var_v0;
@@ -63,8 +61,6 @@ void func_15189900(void *arg0, u8 arg1) {
         effect->field68 = effect->field1C;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15189900 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B6DB0/func_15189900.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B6DB0/func_15189A00.s")
 typedef struct Game1B6DB0RoutePoint {
     f32 x;

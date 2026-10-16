@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1510B128
  * - func_1510B3B0
- * - func_1510B458
  * - func_1510B51C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -131,7 +130,6 @@ void func_1510B5F8(s32, void *, f32, f32, f32, f32, f32);
 extern f32 D_800D9AF8[];
 extern s8 D_800D9B18;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B458 CURRENT (60) */
 void func_1510B458(s32 arg0, f32 arg1, f32 arg2) {
     s32 temp_v1;
     u8 *temp_v0;
@@ -143,16 +141,13 @@ void func_1510B458(s32 arg0, f32 arg1, f32 arg2) {
         arg2 = D_800D9B1C;
     }
     temp_v1 = arg0 * 0x180;
-    temp_v0 = (u8 *)D_800BE628 + temp_v1;
-    func_1510B5F8(arg0, (void *)((u32)temp_v1 + (u32)D_800BE628 + 0xB8), *(f32 *)(temp_v0 + 0x78),
-        *(f32 *)(temp_v0 + 0x74), arg1, arg2, *(f32 *)(temp_v0 + 0x84));
+    func_1510B5F8(arg0, (void *)((u32)temp_v1 + (u32)D_800BE628 + 0xB8), *(f32 *)((u8 *)D_800BE628 + temp_v1 + 0x78),
+        *(f32 *)((u8 *)D_800BE628 + temp_v1 + 0x74), arg1, arg2, *(f32 *)((u8 *)D_800BE628 + temp_v1 + 0x84));
     temp_v0 = (u8 *)D_800D9AF8 + arg0 * 8;
     *(f32 *)(temp_v0 + 0) = arg1;
     *(f32 *)(temp_v0 + 4) = arg2;
     D_800D9B18 = 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510B458 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_138520/func_1510B458.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B51C CURRENT (65) */
 void func_1510B51C(void) {
     f32 *entry;
