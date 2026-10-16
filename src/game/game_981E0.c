@@ -396,7 +396,10 @@ void func_1506B740(void) {
     s32 temp_a0;
     u8 *temp_v0;
 
+    /* Redundant after u8 conversion, but keeps IDO's move/ANDI/move sequence. */
     var_a1 = func_150ADA20() & 0xFFFF;
+    /* Keep this expression shape: a named 0x118 local reverses the FP compare
+     * operands in IDO. */
     if (((*(f32 *)((u8 *)D_800D154C + 0x118)) != D_80099C3C) &&
         (*(f32 *)((u8 *)D_800D154C + 0x18) < (*(f32 *)((u8 *)D_800D154C + 0x118)))) {
         *(s16 *)(*(u8 **)((u8 *)D_800D154C + 0x31C) + 0xE) = 0x2D0;
@@ -1003,6 +1006,7 @@ void func_1506DB84(void) {
     D_800D154C[0x239] = (s8)D_800D1580;
 }
 void func_1506DBA0(void) {
+    /* Redundant for byte stores, but both masks preserve IDO's register allocation. */
     *(s8 *)((u8 *)D_800D154C + 0x1E5) = (s8) (D_800D1580 & 0xFFFF);
     *(s8 *)((u8 *)D_800D154C + 0x1E6) = (s8) (((s32) D_800D1580 >> 8) & 0xFF);
 }

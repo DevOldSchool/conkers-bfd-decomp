@@ -1122,6 +1122,7 @@ f32 func_1505A5CC(void *arg0) {
 
     temp_fv1 = (f32) *(s8 *)((u8 *)arg0 + 2);
     temp_fa0 = (f32) *(s8 *)((u8 *)arg0 + 3);
+    /* The result-to-clamp handoff keeps IDO's scale and clamp FP registers. */
     result = sqrtf((temp_fv1 * temp_fv1) + (temp_fa0 * temp_fa0)) * D_800994D4;
     temp_fv1 = result;
     if (temp_fv1 > 35.0f) {

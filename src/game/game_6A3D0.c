@@ -381,6 +381,13 @@ next_stream:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D984.s")
 extern s32 D_800D19A0[];
 
+/* Partial header at stream address - 0x38; the preceding bytes are opaque. */
+typedef struct Game6A3D0StreamHeader {
+    u8 pad0[0x30];
+    s32 data_address;
+    u32 length;
+} Game6A3D0StreamHeader;
+
 s32 func_1503DA3C(s32 arg0, s32 arg1) {
     s32 temp_v0;
     s32 temp_v0_2;
@@ -392,10 +399,10 @@ s32 func_1503DA3C(s32 arg0, s32 arg1) {
     if (temp_v0 == 0) {
         return 0xFF;
     }
-    if (*(u32 *)(temp_v1 + 0x34U) < ((u32)arg1 + 1U)) {
+    if (((Game6A3D0StreamHeader *)temp_v1)->length < ((u32)arg1 + 1U)) {
         return 0xFF;
     }
-    temp_v0_2 = *(s32 *)(temp_v1 + 0x30U);
+    temp_v0_2 = ((Game6A3D0StreamHeader *)temp_v1)->data_address;
     if (temp_v0_2 != 0) {
         var_v1 = *((u8 *)temp_v0_2 + arg1);
     } else {

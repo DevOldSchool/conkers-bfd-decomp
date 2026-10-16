@@ -425,7 +425,7 @@ typedef struct Game1368C0Spawn {
 
 s32 func_15109ED4(s32 arg0, s16 arg1, s8 arg2, s8 arg3,
                    f32 arg4, s32 arg5, u8 arg6, s32 arg7) {
-    s32 value;
+    void *value;
     Game1368C0Spawn spawn;
     s16 var_a0;
     u8 enabled;
@@ -445,12 +445,14 @@ s32 func_15109ED4(s32 arg0, s16 arg1, s8 arg2, s8 arg3,
     spawn.field_C = arg2;
     spawn.field_D = arg3;
     spawn.source = (void *)arg0;
-    value = (s32)func_15149130(var_a0, -1, 0x1B, -1, enabled,
+    /* The size addition wraps in the 32-bit target; signed overflow is not valid C. */
+    value = func_15149130(var_a0, -1, 0x1B, -1, enabled,
                              0x1B, (s32)((u32)arg5 + 0x10U), arg6, arg7);
     if (value != 0) {
         func_10022EC0((u8 *)value + 0x28, &spawn, 0x10);
     }
-    return value;
+    /* Preserve the existing s32 return ABI for the target pointer bits. */
+    return (s32)value;
 }
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_1511490C(void *, void *);

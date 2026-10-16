@@ -319,6 +319,8 @@ extern Game16DC80Pair D_8008A074;
 
 void func_151417C4(u8 arg0, u8 arg1) {
     u8 payload[1];
+    /* Keep a real two-element array: casting a pair to s32 * does not make
+     * its scalar members an array for the callee's indexed ID reads. */
     union { Game16DC80Pair pair; s32 ids[2]; } message;
 
     message.pair = D_8008A074;

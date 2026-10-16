@@ -134,6 +134,7 @@ s32 func_1516A648(u8 *arg0) {
     height = (s32)((u32)func_1510F8D8(*(s16 *)(arg0 + 0xE), *(s16 *)(arg0 + 0x10),
                            *(s16 *)(arg0 + 0x12), 0) + 0xAU);
     arg0[0x2C] = height >> 8;
+    /* Redundant for u8 storage; omitting it shifts IDO's later scratch registers. */
     arg0[0x2D] = height & 0xFFFF;
     if (*(s16 *)(arg0 + 0x10) < height) {
         *(s16 *)(arg0 + 0x10) = height;
