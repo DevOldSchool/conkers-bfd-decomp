@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_state_callback_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151419D0
  * - func_15141A7C
  * - func_15141E38
  * - func_15141F78
@@ -74,40 +73,26 @@ extern f32 D_800A56A4;
 extern s32  D_80082FA0;
 extern f32 D_800A56C4;
 extern f32 D_800A56C8;
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151419D0 CURRENT (430) */
-void func_151419D0(s32 arg0, void *arg1, u8 arg2) {
-    void *temp_a3;
-    s32 temp_v1;
-    void *temp_v0;
-    void *temp_v0_2;
+void func_151419D0(void *arg0, u8 *arg1, u8 arg2) {
+    u8 *temp_v0;
+    s32 first;
 
-    temp_a3 = (void *)arg0;
+    temp_v0 = (u8 *)arg0 + 0x28;
     if (arg2 == 0) {
-        temp_v0 = (u8 *)temp_a3 + 0x28;
-        temp_v1 = *(s32 *)arg1;
-        if ((temp_v1 == *(s32 *)((u8 *)temp_v0 + 4)) ||
-            (*(u8 *)((u8 *)temp_v0 + 8) == *(u8 *)((u8 *)arg1 + 4))) {
-            func_1516972C(temp_a3);
+        first = *(s32 *)arg1;
+        if ((first == *(s32 *)(temp_v0 + 4)) || (temp_v0[8] == arg1[4])) {
+            func_1516972C(arg0);
         }
-    } else {
-        temp_v0_2 = (u8 *)temp_a3 + 0x28;
-        if (arg2 == 0x2D) {
-            arg0 = *(s32 *)((u8 *)temp_v0_2 + 4);
-            temp_v1 = *(s32 *)arg1;
-            if (temp_v1 == arg0) {
-                *(s32 *)((u8 *)temp_v0_2 + 4) = *(s32 *)((u8 *)arg1 + 4);
-                *(u8 *)((u8 *)temp_v0_2 + 8) = *(u8 *)((u8 *)arg1 + 9);
-                return;
-            }
-            if (*(s32 *)((u8 *)arg1 + 4) == arg0) {
-                *(s32 *)((u8 *)temp_v0_2 + 4) = temp_v1;
-                *(u8 *)((u8 *)temp_v0_2 + 8) = *(u8 *)((u8 *)arg1 + 8);
-            }
+    } else if (arg2 == 0x2D) {
+        if (*(s32 *)arg1 == *(s32 *)(temp_v0 + 4)) {
+            *(s32 *)(temp_v0 + 4) = *(s32 *)(arg1 + 4);
+            temp_v0[8] = arg1[9];
+        } else if (*(s32 *)(arg1 + 4) == *(s32 *)(temp_v0 + 4)) {
+            *(s32 *)(temp_v0 + 4) = *(s32 *)arg1;
+            temp_v0[8] = arg1[8];
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151419D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151419D0.s")
 s32 func_1510F8CC(s32);
 s32 func_15141C0C(void *);
 s32 func_15141CC0(u32);
