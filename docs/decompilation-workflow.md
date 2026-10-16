@@ -222,8 +222,12 @@ remain required.
 US game candidates with different address-bearing data aliases may use linked comparison.
 Both original objects are linked independently at the registered address; their
 entire registered spans must equal each other and the checksum-validated ROM before
-those bytes enter the same bounded asm-differ gate. Unsupported relocations retain
-symbolic comparison; original objects still supply switch-table evidence. Watch
+those bytes enter the same bounded asm-differ gate. HI16/LO16 references to
+external original tables (`jtbl_<address>_game`, typically from sibling
+`GLOBAL_ASM`) resolve to their named addresses and are covered by the same
+complete-unit ROM check. Unsupported relocations, and member spans that cannot
+be proven (such as an unregistered symbol inside one), retain symbolic
+comparison; original objects still supply switch-table evidence. Watch
 mode remains symbolic and requires a fresh `finish` afterward.
 
 Reviewed GAME units also support terminal alignment padding when a focused
@@ -378,7 +382,11 @@ not edit progress JSON. Reopen it transactionally:
 
 The command preserves the old C body as a deferred candidate, restores its
 canonical `GLOBAL_ASM` pragma and TODO entry, removes invalid match evidence,
-and regenerates progress.
+and regenerates progress. For a completed unit, it also moves the source back
+out of `src/done/`, updates every member's source path and the active C mapping,
+and changes integration to mixed C/ASM while preserving sibling matches.
+Source, mappings, inventories and progress reports roll back together if the
+transaction fails. Run a clean `verify-batch` before handoff.
 
 ## Automation
 
@@ -517,6 +525,11 @@ span including embedded data, and records proof transactionally. The `original_a
 state excludes the item from C-candidate selection and reports it separately. It
 contributes no C matches/matched bytes and cannot complete a C source unit.
 `verify-batch` accepts these items alongside C matches and revalidates their proofs.
+A fully covered debugger ASM unit with reviewed maintained `.s` source may earn
+native matching and linked completion after fresh candidate, full-span ROM and
+allocated runtime-image verification. The report labels it `Original assembly`.
+It still earns no C-only inventory credit and does not complete a C source unit;
+see [TLB evidence](evidence/debugger/us_debugger_tlb.md).
 
 Use `--refresh` when regenerated assembly text changes but the routine's recorded
 ROM bytes remain identical. It reassembles the complete span and updates the text

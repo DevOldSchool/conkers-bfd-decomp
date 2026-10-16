@@ -17,21 +17,15 @@ void func_100085A4(s32, s32, s32);
 extern u8 D_80041E58[];
 extern u8 D_80041EA0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15000000 CURRENT (75) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15000000 CURRENT (60) */
 void func_15000000(void) {
-    u8 *var_s1;
-    u8 *var_s2;
     s32 var_s0;
 
-    var_s2 = D_80041EA0;
-    var_s1 = D_80041E58;
     var_s0 = 0;
     do {
-        func_10023790(var_s1, var_s2, 8);
-        func_10008570(var_s0 & 0xFF, var_s1);
+        func_10023790((D_80041E58 + var_s0 * 0x18), (D_80041EA0 + var_s0 * 0x20), 8);
+        func_10008570(var_s0 & 0xFF, (D_80041E58 + var_s0 * 0x18));
         var_s0 += 1;
-        var_s1 += 0x18;
-        var_s2 += 0x20;
     } while (var_s0 != 3);
     func_100085A4(0, 6, 1);
     func_1000E934();

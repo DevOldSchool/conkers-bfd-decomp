@@ -38,7 +38,7 @@ f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 extern f32 D_800A3470, D_800A3474, D_800A3478, D_800A347C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15122170 CURRENT (285) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15122170 CURRENT (80) */
 void func_15122170(void *arg0) {
     f32 deltaZ;
     f32 deltaX;
@@ -55,7 +55,7 @@ void func_15122170(void *arg0) {
     }
     angle = *(f32 *)((u8 *)arg0 + 0x5DC);
     decay = angle * D_800A3470;
-    *(f32 *)((u8 *)arg0 + 0x6C4) = 0.0f;
+    *(f32 *)((u8 *)arg0 + 0x6C4) = 0;
     *(f32 *)((u8 *)arg0 + 0x5DC) = angle - decay;
     func_15125330(arg0);
     point = *(f32 **)((u8 *)arg0 + 0x614);

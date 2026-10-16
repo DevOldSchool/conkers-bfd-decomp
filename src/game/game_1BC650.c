@@ -9,7 +9,6 @@
  * - func_1518F1A0
  * - func_1518F384
  * - func_1518F5D0
- * - func_1518F7C4
  * - func_1518F8E0
  * - func_1518FC84
  *
@@ -261,22 +260,16 @@ s32 func_1518F5D0(void *arg0, s32 arg1, s16 arg2, s8 arg3,
 extern s32 (*D_8008D67C[])(void *);
 extern void func_1518F8E0(void *arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F7C4 CURRENT (8) */
 s32 func_1518F7C4(void *arg0) {
-    struct { void *ptr; } sp18;
-    s8 temp_v1;
+    f32 *p = (f32 *)((u8 *)arg0 + 0x30);
 
-    sp18.ptr = (u8 *)arg0 + 0x30;
-    *(f32 *)sp18.ptr += (*(f32 *)((u8 *)sp18.ptr + 4) + (func_150ADA68() * *(f32 *)((u8 *)sp18.ptr + 8))) * D_800BE9A4;
+    p[0] += (p[1] + (func_150ADA68() * p[2])) * D_800BE9A4;
     func_1518F8E0(arg0);
-    temp_v1 = *(s8 *)((u8 *)sp18.ptr + 0x58);
-    if (temp_v1 != -1) {
-        return D_8008D67C[temp_v1](arg0);
+    if (((s8 *)p)[0x58] != -1) {
+        return D_8008D67C[((s8 *)p)[0x58]](arg0);
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518F7C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518F7C4.s")
 extern void (*D_8008D680[])(void);
 
 void func_1518F858(void *arg0) {
@@ -294,6 +287,85 @@ void func_1518F89C(void *arg0) {
     *temp_v0 = temp_v0[3] + (temp_v0[4] * func_150ADA68());
     func_1518F8E0(arg0);
 }
+void func_15143134(f32 *, f32 *, s32);
+s32 func_1514B8E4(s32, f32 *, s16, s32, s32, f32, f32, f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_151D2BA4(s32, void *, s32, u8, s32);
+extern u8 D_800A5480[];
+extern s16 D_800E0968[];
+extern s32 D_800E0990[];
+
+typedef struct { f32 x, y, z; } Game1BC650Vector;
+typedef struct {
+    void *source;
+    u8 owner;
+    u8 pad5[3];
+    Game1BC650Vector position;
+    u8 frame;
+    u8 pad15;
+    s16 duration;
+    u8 enabled, callback, endCallback, pad1B;
+    s32 effect;
+    void *parent;
+} Game1BC650Motion;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F8E0 CURRENT (4621) */
+void func_1518F8E0(void *arg0) {
+    Game1BC650Vector *localPosition;
+    s32 model;
+    f32 sizes[2];
+    Game1BC650Vector position;
+    s32 kind;
+    u32 random;
+    u8 *state;
+    Game1BC650Motion motion;
+    u8 *entry;
+    u8 *source;
+
+    source = *(u8 **)((u8 *)arg0 + 0x10);
+    if (*(f32 *)((u8 *)arg0 + 0x30) > 1.0f) {
+        if ((*(s32 *)(source + 0x1D4) != 0) && ((source[0x74] & 15) != 15)) {
+            state = (u8 *)arg0 + 0x30;
+            do {
+                if (*(s16 *)((u8 *)arg0 + 0x20) < *(s32 *)(state + 0x2C)) {
+                    model = *(s32 *)(state + 0x48);
+                    entry = (u8 *)D_800E0990[model] + (func_150ADA20() % (u16)D_800E0968[model]) * 16;
+                    sizes[0] = func_150ADA68() * *(f32 *)(state + 0x1C) + *(f32 *)(state + 0x14);
+                    localPosition = (Game1BC650Vector *)(entry + 4);
+                    sizes[1] = func_150ADA68() * *(f32 *)(state + 0x20) + *(f32 *)(state + 0x18);
+                    func_15143134((f32 *)localPosition, (f32 *)&position, *(s32 *)(source + 0x1D4) + (entry[0] << 6));
+                    random = func_150ADA20();
+                    if (func_150ADA20() & 1) kind = 0x13;
+                    else kind = 0x14;
+                    random = func_1514B8E4((s32)&position, sizes, -1,
+                        (random % (u32)(state[0x25] + 1) + state[0x24]) & 255,
+                        (s32)D_800A5480, 0.0f, 1.0f, *(f32 *)(state + 0x50),
+                        0, 0x23, 0, kind, 1, 1, 255, 0,
+                        *((u8 *)arg0 + 0xC), *((u8 *)arg0 + 1));
+                    if (random != 0) {
+                        motion.source = source;
+                        motion.owner = source[0x3B];
+                        motion.position = *localPosition;
+                        motion.frame = entry[0];
+                        motion.duration = func_150ADA20() % (u32)(*(s16 *)(state + 0x28) + 1) + *(s16 *)(state + 0x26);
+                        motion.enabled = 1;
+                        if (state[0x4C] & 1) motion.callback = 1;
+                        else motion.callback = 0;
+                        motion.endCallback = 0;
+                        motion.parent = arg0;
+                        motion.effect = random;
+                        func_151D2BA4((s32)&motion, &position, 0, *((u8 *)arg0 + 0xC), *((u8 *)arg0 + 1));
+                    }
+                }
+                *(f32 *)((u8 *)arg0 + 0x30) -= 1.0f;
+            } while (*(f32 *)((u8 *)arg0 + 0x30) > 1.0f);
+            return;
+        }
+        do {
+            *(f32 *)((u8 *)arg0 + 0x30) -= 1.0f;
+        } while (*(f32 *)((u8 *)arg0 + 0x30) > 1.0f);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1518F8E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518F8E0.s")
 extern void func_1514BE20(s32 arg0);
 

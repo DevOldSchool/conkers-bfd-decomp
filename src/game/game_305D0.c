@@ -287,9 +287,7 @@ typedef struct {
     u8 pad5A[0x46];
 } Game305D0Record;
 
-void func_150026C4(s32);
 void func_150026E8(s32);
-void func_15002724(s32);
 s32 func_15002878(void);
 extern s32 D_8003809C;
 extern s32 D_800D2C2C;
@@ -405,11 +403,15 @@ void func_150039B0(s32 arg0) {
 }
 extern s32 D_800DBE5C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150039BC CURRENT (25) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150039BC CURRENT (10) */
 void func_150039BC(s32 arg0) {
-    D_800DBE5C = arg0;
-    if (arg0 != 0) {
-        D_800DBE5C = arg0 + 8;
+    s32 v;
+
+    v = arg0;
+    D_800DBE5C = v;
+    if (v != 0) {
+        v = (s32)((u32)v + 8U);
+        D_800DBE5C = v;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150039BC */

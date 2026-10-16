@@ -25,7 +25,6 @@
  * - func_1505A184
  * - func_1505A250
  * - func_1505A3A8
- * - func_1505A5CC
  * - func_1505A630
  * - func_1505A770
  * - func_1505A9AC
@@ -50,7 +49,6 @@
  * - func_1505F0AC
  * - func_1505F188
  * - func_1505F298
- * - func_1506045C
  * - func_15060778
  * - func_15060D54
  * - func_15060F28
@@ -66,7 +64,6 @@
  * - func_15062B84
  * - func_15062D10
  * - func_15062E24
- * - func_15062FC0
  * - func_15063168
  * - func_15063254
  *
@@ -1118,21 +1115,21 @@ block_32:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A3A8.s")
 extern f32 D_800994D4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505A5CC CURRENT (25) */
 f32 func_1505A5CC(void *arg0) {
     f32 temp_fa0;
     f32 temp_fv1;
+    f32 result;
 
     temp_fv1 = (f32) *(s8 *)((u8 *)arg0 + 2);
     temp_fa0 = (f32) *(s8 *)((u8 *)arg0 + 3);
-    temp_fv1 = sqrtf((temp_fv1 * temp_fv1) + (temp_fa0 * temp_fa0)) * D_800994D4;
+    /* The result-to-clamp handoff keeps IDO's scale and clamp FP registers. */
+    result = sqrtf((temp_fv1 * temp_fv1) + (temp_fa0 * temp_fa0)) * D_800994D4;
+    temp_fv1 = result;
     if (temp_fv1 > 35.0f) {
         temp_fv1 = 35.0f;
     }
     return temp_fv1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505A5CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A5CC.s")
 f32 func_150484A0(f32, f32);
 extern f32 D_800994D8;
 
@@ -2109,7 +2106,90 @@ void func_1505F188(u32 arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1505F188 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505F188.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505F298.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1506045C.s")
+extern s32 D_800BE9E4;
+extern u16 *D_800CC284;
+extern u8 D_800CBFA8[];
+s32 func_15080738(s32);
+s32 func_15065A5C(void *, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_150642AC(void *, s32, s32, s32, s32);
+
+void func_1506045C(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    s32 flag;
+    s32 desired;
+    s32 expired;
+    s32 special;
+    s32 result = 0;
+    s32 saved;
+
+    if (D_800C35EA != 1) {
+        special = 0;
+        flag = 0;
+        expired = 0;
+        if (*(u16 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x72) != 0 && arg4 == 0) {
+            if (D_800BE9E4 < *(u16 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x72)) {
+                *(u16 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x72) -= D_800BE9E4;
+            } else {
+                expired = 1;
+                *(u16 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x72) = 0;
+            }
+        }
+        desired = (*(u8 **)((u8 *)arg0 + 0x31C))[0x75];
+        desired &= ~0x80;
+        if ((*(u8 **)((u8 *)arg0 + 0x31C))[0x7C] != 0 && desired == 0) {
+            desired = (*(u8 **)((u8 *)arg0 + 0x31C))[0x7C];
+        }
+        if (D_800BE9F0 != 0x29 && D_800BE9F0 != 0x2E &&
+            (*(u8 **)((u8 *)arg0 + 0x31C))[0x78] == 0 && (*D_800CC284 & 0x20)) {
+            if (func_15080738(desired)) {
+                desired = 0x1A;
+            }
+        }
+        if ((*(u8 **)((u8 *)arg0 + 0x31C))[0x78] == 0x1A) {
+            desired = 0x1A;
+        }
+        if ((*(u8 **)((u8 *)arg0 + 0x31C))[0x78] == 0x2A) {
+            desired = 0x2A;
+        }
+        if (((u8 *)arg0)[0x13C] != 0 || ((u8 *)arg0)[0x137] != 0) {
+            if (arg4 == 0) {
+                desired = 0;
+            } else {
+                special = 1;
+            }
+        }
+        if (((u8 *)arg0)[0x65] != 0 && arg4 == 0) {
+            switch (D_800CBFA8[((u8 *)arg0)[0x65] * 0x32C]) {
+            case 0x23:
+            case 0x8A: desired = 0x1B; break;
+            case 0xC: desired = 8; break;
+            case 0x28: desired = 0; break;
+            default: desired = 0xE; break;
+            }
+        }
+        if ((*(u8 **)((u8 *)arg0 + 0x31C))[0x17] != 0) {
+            desired = 0x3C;
+        }
+        if (arg4 == 0 && *(u8 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x78) &&
+            desired != ((*(u8 **)((u8 *)arg0 + 0x31C))[0x78] & ~0x80)) {
+            saved = (*(u8 **)((u8 *)arg0 + 0x31C))[0x75];
+            (*(u8 **)((u8 *)arg0 + 0x31C))[0x75] = (*(u8 **)((u8 *)arg0 + 0x31C))[0x78];
+            func_1506045C(arg0, arg1, arg2, arg3, 1);
+            (*(u8 **)((u8 *)arg0 + 0x31C))[0x75] = saved;
+            (*(u8 **)((u8 *)arg0 + 0x31C))[0x78] = 0;
+        }
+        if (((u8 *)arg0)[0x104] != 0) {
+            flag = 1;
+            arg2 = 0;
+            arg1 = 0;
+        }
+        if (desired != 0 && (*(u8 **)((u8 *)arg0 + 0x31C))[0x4E] == 0) {
+            result = func_15065A5C(arg0, arg1, arg2, arg3, arg4, desired, flag, expired, special);
+        }
+        if ((*(u8 **)((u8 *)arg0 + 0x31C))[0x7B] != 0 || (arg2 & 0x4000)) {
+            func_150642AC(arg0, arg2, arg3, special, result);
+        }
+    }
+}
 typedef struct {
     u8 pad_0[0x318];
     void *field_318;
@@ -3260,7 +3340,6 @@ typedef struct Game83300MorphObject {
 
 extern s32 *D_800C4020[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15062FC0 CURRENT (315) */
 void func_15062FC0(Game83300MorphObject *arg0, s32 arg1, u8 arg2,
                    s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7) {
     u8 *channelBase;
@@ -3270,8 +3349,8 @@ void func_15062FC0(Game83300MorphObject *arg0, s32 arg1, u8 arg2,
     s32 i;
 
     channelBase = (u8 *)arg0 + (arg0->channel * 8);
-    target = *(Game83300MorphVertex **)(channelBase + 0x28C + D_800BE9C0 * 4);
-    source = *(Game83300MorphVertex **)(channelBase + 0x28C + (D_800BE9C0 == 0) * 4);
+    target = ((Game83300MorphVertex **)(channelBase + 0x28C))[D_800BE9C0];
+    source = ((Game83300MorphVertex **)(channelBase + 0x28C))[!D_800BE9C0];
     if (target == 0) {
         return;
     }
@@ -3299,8 +3378,6 @@ void func_15062FC0(Game83300MorphObject *arg0, s32 arg1, u8 arg2,
         target[i].y = source[i].y + arg7;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15062FC0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15062FC0.s")
 typedef struct Game83300Nested63168 {
     u8 pad0[0x1AC];
     u8 active;

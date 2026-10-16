@@ -13,9 +13,101 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct {
+    f32 x, y, z, radius, angle, dx, dz;
+    s16 timer;
+    u8 pad1E[6];
+} Game11EF40Motion;
+
+s32 func_10003C40(s32, s32, s32, s32);
+void func_100226F0(void *, s32);
+f32 func_15047C00(f32);
+f32 func_15047D60(f32);
+s32 func_15086CBC(s32, f32 *, f32 *, f32 *);
+s32 func_15086D48(s32);
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+extern s32 D_80082FA0, D_800BE9E4;
+extern f32 D_800A3378;
+extern u8 D_800CC2D0[];
+extern s32 D_800DBFF0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511EF40 CURRENT (1430) */
+void func_1511EF40(u8 *arg0) {
+    typedef struct { f32 x, y, z; } Vector;
+    u8 *player;
+    f32 x, y, z, angle;
+    Game11EF40Motion *motion;
+    u8 *actor;
+    f32 dx;
+
+    player = *(u8 **)(arg0 + 0x7C);
+    motion = (Game11EF40Motion *)player;
+    if (player == NULL) {
+        player = (u8 *)func_10003C40(0x24, 1, 0, 0);
+        *(u8 **)(arg0 + 0x7C) = player;
+        motion = (Game11EF40Motion *)player;
+        func_100226F0(player, 0x24);
+    }
+    if (motion->timer > 0) {
+        motion->timer -= D_800BE9E4;
+        if (motion->timer <= 0) {
+            actor = (u8 *)D_800DBFF0 + *(s32 *)(arg0 + 0x84) * 0x9A0;
+            func_151239CC(actor, 0xA);
+        }
+    }
+    if (*(s32 *)(arg0 + 0x80) == 1) {
+        player = D_800CC2D0 + *(s32 *)(arg0 + 0x84) * 0x32C;
+        *(s16 *)(arg0 + 0x10) = (s32)*(f32 *)(player + 0x14);
+        *(s16 *)(arg0 + 0x12) = (s32)*(f32 *)(player + 0x18) + 100;
+        *(s16 *)(arg0 + 0x14) = (s32)*(f32 *)(player + 0x1C);
+        func_15086CBC(func_15086D48(0x28), &x, &y, &z);
+        motion->dx = (x - *(f32 *)(player + 0x14)) * 0.5f;
+        dx = motion->dx;
+        motion->dz = (z - *(f32 *)(player + 0x1C)) * 0.5f;
+        angle = motion->dz;
+        motion->x = *(f32 *)(player + 0x14) + dx;
+        motion->y = *(f32 *)(player + 0x18) + 100.0f;
+        motion->angle = -90.0f;
+        motion->radius = sqrtf(dx * dx + angle * angle);
+        motion->z = *(f32 *)(player + 0x1C) + angle;
+        *(s32 *)(arg0 + 0x80) = 2;
+        return;
+    }
+    if (*(s32 *)(arg0 + 0x80) == 2) {
+        if (D_80082FA0 >= *(s32 *)(arg0 + 0x84)) {
+            actor = (u8 *)D_800DBFF0 + *(s32 *)(arg0 + 0x84) * 0x9A0;
+            if (*(s32 *)(actor + 0x2C) != 0x400000) {
+                func_15123934(actor, 0x400000, 0, *(s32 *)(actor + 0x134), 0xA);
+            }
+            *(f32 *)(actor + 0x2BC) = *(s16 *)(arg0 + 0x10);
+            *(f32 *)(actor + 0x2C0) = *(s16 *)(arg0 + 0x12);
+            *(f32 *)(actor + 0x2C4) = *(s16 *)(arg0 + 0x14);
+            *(Vector *)(actor + 0x2A4) = *(Vector *)(actor + 0x2BC);
+            *(f32 *)(actor + 0x2F8) = 0.0f;
+            *(f32 *)(actor + 0x300) = 0.0f;
+            *(f32 *)(actor + 0x2FC) = 300.0f;
+            motion->timer = 60;
+        }
+        angle = (motion->angle * D_800A3378) / 180.0f;
+        *(s16 *)(arg0 + 0x12) = (s32)(func_15047C00(angle) * motion->radius + motion->y);
+        dx = func_15047D60(angle);
+        *(s16 *)(arg0 + 0x10) = (s32)(motion->x + motion->dx * dx);
+        *(s16 *)(arg0 + 0x14) = (s32)(motion->z + motion->dz * dx);
+        motion->angle += (f32)D_800BE9E4;
+        if (motion->angle > 90.0f) {
+            motion->angle = 90.0f;
+            *(s32 *)(arg0 + 0x80) = 0;
+            *(s8 *)(arg0 + 0x6E) = 1;
+            if (D_80082FA0 >= *(s32 *)(arg0 + 0x84)) func_151239CC(actor, 0xA);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1511EF40 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_14C3F0/func_1511EF40.s")
+
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
-void func_1511490C(void *, void *);
+void func_1511490C();
 extern s32 D_800BE9F0;
 
 void func_1511F31C(u8 *arg0) {

@@ -126,4 +126,121 @@ void func_150F802C(f32 *arg0, s16 arg1, u8 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F802C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_124920/func_150F802C.s")
+typedef struct GameF81BCVector { f32 x, y, z; } GameF81BCVector;
+typedef struct GameF81BCPacket {
+    u8 kind, field1;
+    u16 mode;
+    s16 lifetime;
+    u8 pad6[2];
+    s32 field8, fieldC;
+    u8 r, g, b, a;
+    f32 field14, field18;
+    GameF81BCVector position, velocity;
+    f32 scaleX, scaleY, scaleZ;
+    u32 flags;
+    u8 alpha, field45, field46, field47;
+    s32 field48;
+    u8 field4C, pad4D[3];
+    s32 field50, field54;
+} GameF81BCPacket;
+typedef struct GameF81BCMotion {
+    GameF81BCVector first, second;
+    f32 phase, rate, amplitude, offset, scale;
+} GameF81BCMotion;
+
+s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
+s32 func_15146078(void *, void *, void *);
+void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
+extern f32 D_800A1BE0, D_800A1BE4, D_800A1BE8, D_800A1BEC;
+extern f32 D_800A1BF0, D_800A1BF4;
+extern u8 D_800A4AA0[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F81BC CURRENT (5790) */
+s32 func_150F81BC(void *arg0) {
+    GameF81BCVector delta;
+    f32 length;
+    f32 inverseLength;
+    GameF81BCVector normal;
+    f32 stepZ;
+    f32 stepY;
+    GameF81BCPacket packet;
+    GameF81BCMotion motion;
+    f32 interval;
+    f32 temp_fs2;
+    f32 temp_fs4;
+    f32 var_fs0;
+    void *temp_v0_2;
+    void *temp_s0;
+
+    {
+        f32 *temp_v0;
+
+        temp_v0 = *(f32 * *)((u8 *)(arg0) + 0x170);
+        *(f32 *)((u8 *)(arg0) + 0x38) = (f32) *(f32 *)((u8 *)(temp_v0) + 0);
+        *(f32 *)((u8 *)(arg0) + 0x3C) = (f32) *(f32 *)((u8 *)(temp_v0) + 4);
+        *(f32 *)((u8 *)(arg0) + 0x40) = (f32) *(f32 *)((u8 *)(temp_v0) + 8);
+        *(f32 *)((u8 *)(arg0) + 0x20) = (f32) *(f32 *)((u8 *)(temp_v0) + 0xC);
+        *(f32 *)((u8 *)(arg0) + 0x24) = (f32) *(f32 *)((u8 *)(temp_v0) + 0x10);
+        *(f32 *)((u8 *)(arg0) + 0x28) = (f32) *(f32 *)((u8 *)(temp_v0) + 0x14);
+    }
+    delta.x = *(f32 *)((u8 *)(arg0) + 0x38) - *(f32 *)((u8 *)(arg0) + 0x174);
+    delta.y = *(f32 *)((u8 *)(arg0) + 0x3C) - *(f32 *)((u8 *)(arg0) + 0x178);
+    delta.z = *(f32 *)((u8 *)(arg0) + 0x40) - *(f32 *)((u8 *)(arg0) + 0x17C);
+    *(f32 *)((u8 *)(arg0) + 0x180) = (f32) (*(f32 *)((u8 *)(arg0) + 0x180) + D_800BE9A4);
+    if (func_15145128(&delta.x, &normal.x, &length, &inverseLength) != 0) {
+        temp_s0 = (u8 *) arg0 + 0x170;
+        stepY = normal.y * 20.0f;
+        stepZ = normal.z * 20.0f;
+        var_fs0 = length * D_800A1BE0;
+        if (var_fs0 > 1.0f) {
+            interval = *(f32 *)((u8 *)(temp_s0) + 0x10) / var_fs0;
+            func_15146078(&delta.x, &motion.first, &motion.second);
+            packet.kind = 0x7A;
+            packet.field1 = 0;
+            packet.mode = 0x4404;
+            packet.lifetime = 0xA;
+            packet.field8 = 0;
+            packet.fieldC = 0;
+            packet.r = 0xFF;
+            packet.g = 0xFF;
+            packet.b = 0xFF;
+            packet.a = 0xFF;
+            motion.amplitude = D_800A1BE4;
+            motion.offset = D_800A1BE8;
+            packet.field18 = 0.0f;
+            packet.field14 = 0.0f;
+            motion.scale = D_800A1BEC;
+            packet.velocity = *(GameF81BCVector *)D_800A5480;
+            temp_fs4 = D_800A1BF0;
+            packet.scaleX = 1.0f;
+            packet.scaleY = 1.0f;
+            packet.scaleZ = 1.0f;
+            packet.flags = 0xCC0008;
+            packet.field45 = 0xFF;
+            packet.field46 = 0;
+            packet.field47 = 6;
+            packet.field48 = 0;
+            packet.field4C = 0xFF;
+            packet.field50 = 0;
+            temp_fs2 = D_800A1BF4;
+            do {
+                motion.rate = temp_fs2;
+                motion.phase = 27.0f - *(f32 *)((u8 *)(temp_s0) + 0x10);
+                packet.position = *(GameF81BCVector *)((u8 *)temp_s0 + 4);
+                packet.alpha = (s8) (u32) (motion.phase * temp_fs4);
+                temp_v0_2 = func_1513D2F0((s32)&packet, (s32)D_800A4AA0, 0x24, 0, 0, 0x21, 0, 0, 0, 0x2C, (s32) *(u8 *)((u8 *)(arg0) + 0xC), (s32) *(u8 *)((u8 *)(arg0) + 1));
+                if (temp_v0_2 != 0) {
+                    func_10022EC0((u8 *)temp_v0_2 + 0x110, &motion, 0x2CU);
+                }
+                var_fs0 -= 1.0f;
+                *(f32 *)((u8 *)(temp_s0) + 4) = (f32) (*(f32 *)((u8 *)(temp_s0) + 4) + (normal.x * 20.0f));
+                *(f32 *)((u8 *)(temp_s0) + 8) = (f32) (*(f32 *)((u8 *)(temp_s0) + 8) + stepY);
+                *(f32 *)((u8 *)(temp_s0) + 0xC) = (f32) (*(f32 *)((u8 *)(temp_s0) + 0xC) + stepZ);
+                *(f32 *)((u8 *)(temp_s0) + 0x10) = (f32) (*(f32 *)((u8 *)(temp_s0) + 0x10) - interval);
+            } while (var_fs0 > 1.0f);
+        }
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150F81BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_124920/func_150F81BC.s")

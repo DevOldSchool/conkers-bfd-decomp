@@ -6,15 +6,12 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150AF200
  * - func_150AF328
- * - func_150AF6E4
  * - func_150AF7C4
  * - func_150AFDB0
  * - func_150AFE64
  * - func_150B0094
  * - func_150B0348
- * - func_150B060C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -33,27 +30,23 @@ extern u8 D_800CC3D4;
 extern s32 D_800DBEF4;
 extern s32 D_800DBF94;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AF200 CURRENT (80) */
 void func_150AF200(s32 arg0, s32 arg1) {
     s32 delta;
-    s32 index;
 
     if (D_800CC3D4 == 0) {
-        delta = func_151149AC((u8)arg0) - D_800DBEF4;
-        index = delta / 160;
-        if (*(s32 *)(((u8 (*)[4])D_800DBF94)[index]) & 1) {
+        delta = (s32)((u32)func_151149AC((u8)arg0) - (u32)D_800DBEF4);
+        delta /= 160;
+        if (*(s32 *)((u32)D_800DBF94 + (u32)delta * 4U) & 1) {
             func_1505D024((s32)&D_800CC2D0, 0x3F, 0x6E00, -1);
             return;
         }
-        delta = func_151149AC((u8)arg1) - D_800DBEF4;
-        index = delta / 160;
-        if (*(s32 *)(((u8 (*)[4])D_800DBF94)[index]) & 1) {
+        delta = (s32)((u32)func_151149AC((u8)arg1) - (u32)D_800DBEF4);
+        delta /= 160;
+        if (*(s32 *)((u32)D_800DBF94 + (u32)delta * 4U) & 1) {
             func_1505D024((s32)&D_800CC2D0, 0x3F, 0xEE00, -1);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150AF200 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF200.s")
 extern void func_151CF898(void *arg0, f32 arg1, f32 arg2);
 
 void func_150AF2E0(void *arg0, void *arg1) {
@@ -62,13 +55,119 @@ void func_150AF2E0(void *arg0, void *arg1) {
     temp_v0 = *(s16 *)((u8 *)arg1 + 2);
     func_151CF898(arg0, (f32)(*(s16 *)((u8 *)arg1 + 8) + *(s16 *)((u8 *)arg1 + 2)), (f32)temp_v0);
 }
+typedef struct GameAF328Position { s32 x, y, z; } GameAF328Position;
+typedef struct GameAF328State {
+    GameAF328Position position;
+    f32 counter;
+} GameAF328State;
+typedef struct GameAF328Packet {
+    u32 flags;
+    s32 field4;
+    s16 field8, fieldA;
+    s32 fieldC, field10;
+    u8 field14, field15, field16, field17, field18, field19;
+    u8 field1A, field1B, field1C, kind;
+    s16 field1E, field20, field22;
+    f32 field24, scaleX, scaleY;
+    GameAF328Position position;
+    f32 field3C, field40, field44, field48, field4C, field50;
+    f32 speed;
+    u32 spriteFlags;
+    u8 pad5C[4];
+    u8 field60, field61, field62;
+    s8 field63, field64;
+    u8 field65;
+    u8 pad66[0xA];
+} GameAF328Packet;
+typedef struct GameAF328Extension {
+    u8 field0, field1, field2, field3;
+    f32 x, y, scale;
+} GameAF328Extension;
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+extern f32 D_8009F7B8, D_8009F7BC, D_8009F7C0;
+extern f32 D_8009F7C4, D_8009F7C8, D_8009F7CC;
+extern f32 D_800BE9A4;
+void *func_10022EC0(void *, const void *, u32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AF328 CURRENT (2136) */
+void func_150AF328(u8 *arg0) {
+    f32 baseSpeed;
+    struct {
+        GameAF328Extension extension;
+        GameAF328Packet packet;
+    } emission;
+    f32 speedRange;
+    s32 firstFlip;
+    GameAF328State *state;
+    u8 *result;
+
+    state = (GameAF328State *)(arg0 + 0x28);
+    state->counter += (1352.0f + func_150ADA68() * D_8009F7B8) * D_8009F7BC * D_800BE9A4;
+    if (state->counter > 1.0f) {
+        emission.packet.kind = 0x6C;
+        emission.packet.field8 = 0x5103;
+        emission.packet.flags = 0x200005;
+        emission.packet.field1E = 0x46;
+        emission.packet.field20 = 3;
+        emission.packet.spriteFlags = 0x80DE07;
+        emission.packet.field60 = 8;
+        emission.packet.field61 = 6;
+        emission.packet.field62 = 0x16;
+        emission.extension.field0 = 0;
+        emission.extension.field1 = 0;
+        emission.packet.field4 = 0;
+        emission.packet.fieldC = 0;
+        emission.packet.field10 = 0;
+        emission.packet.field63 = -1;
+        emission.packet.field64 = -1;
+        emission.packet.field65 = 0;
+        emission.packet.field22 = 0x46;
+        emission.packet.field14 = 0xC7;
+        emission.packet.field15 = 0x78;
+        emission.packet.field16 = 8;
+        emission.packet.field17 = 0xFF;
+        emission.packet.field18 = 0x30;
+        emission.packet.field19 = 0xE;
+        emission.packet.field1A = 0;
+        emission.packet.field1C = 0xFF;
+        emission.extension.scale = D_8009F7C0;
+        emission.packet.field24 = D_8009F7C4;
+        emission.packet.position = state->position;
+        baseSpeed = D_8009F7C8;
+        speedRange = D_8009F7CC;
+        emission.packet.field3C = 0.0f;
+        emission.packet.field40 = 0.0f;
+        emission.packet.field44 = 0.0f;
+        emission.packet.field48 = 0.0f;
+        emission.packet.field4C = 0.0f;
+        emission.packet.field50 = 0.0f;
+        do {
+            emission.extension.field2 = func_150ADA20() % 5U + 4;
+            emission.extension.field3 = func_150ADA20() % 5U + 4;
+            emission.extension.x = func_150ADA68() * 11.0f;
+            emission.extension.y = func_150ADA68() * 11.0f;
+            emission.packet.speed = func_150ADA68() * speedRange + baseSpeed;
+            emission.packet.spriteFlags &= ~0xC0;
+            firstFlip = func_150ADA20() & 1 ? 0x80 : 0;
+            emission.packet.spriteFlags |= (func_150ADA20() & 1 ? 0x40 : 0) | firstFlip;
+            emission.packet.field1B = func_150ADA20() % 101U + 0x64;
+            emission.packet.fieldA = func_150ADA20() % 51U + 0x50;
+            emission.packet.scaleX = emission.packet.scaleY = func_150ADA68() * 71.0f + 80.0f;
+            result = func_15130280(&emission.packet, 0, NULL, 0x10, arg0[0xC], arg0[1]);
+            if (result != NULL) func_10022EC0(result + 0xA8, &emission.extension, 0x10);
+            state->counter -= 1.0f;
+        } while (state->counter > 1.0f);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150AF328 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF328.s")
+
 /* Call context: func_15131828: unique active project prototype */
 /* Call context: func_15131958: unique active project prototype */
 void func_15131828(s32, s32, s32, s32);
-void func_15131958(void *, f32);
+void func_15131958(void *, f32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AF6E4 CURRENT (10) */
 s32 func_150AF6E4(s32 arg0, s32 arg1) {
     s32 sp20;
     s32 temp_a2;
@@ -76,12 +175,11 @@ s32 func_150AF6E4(s32 arg0, s32 arg1) {
     temp_a2 = arg0 + 0xA8;
     sp20 = temp_a2;
     func_15131828(arg0, arg0 + 0xAC, temp_a2, arg0 + 0xAA);
-    func_15131958((void *)(arg0 + 0x58), *(f32 *)((u8 *)temp_a2 + 0xC));
+    func_15131958((void *)(arg0 + 0x58), *(f32 *)((u8 *)temp_a2 + 0xC), temp_a2);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150AF6E4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF6E4.s")
-void func_1515FF74(s8 *, s32, u8, void *);
+struct ColourFramebufferEffect;
+struct ColourFramebufferEffect *func_1515FF74(void *, s32, u8, s32);
 
 void func_150AF738(s16 arg0, u8 arg1, void *arg2) {
     struct {
@@ -98,7 +196,7 @@ void func_150AF738(s16 arg0, u8 arg1, void *arg2) {
     locals.sp1A = 2;
     locals.sp1E = 0;
     locals.sp1C = arg0;
-    func_1515FF74(&locals.sp18, 0, arg1, arg2);
+    func_1515FF74(&locals.sp18, 0, arg1, (s32) arg2);
 }
 void func_150B1DB0(s32 arg0, s32 arg1, s32 arg2);
 
@@ -109,7 +207,6 @@ void func_150AF790(s32 arg0, s32 arg1) {
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */
-extern f32 D_800BE9A4;
 
 s32 func_150AFBF4(u8 *arg0) {
     f32 *temp_v1;
@@ -245,7 +342,6 @@ typedef struct GameDC6B0Link {
     s32 zero;
 } GameDC6B0Link;
 
-void *func_10022EC0(void *, const void *, u32);
 void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
 void func_15145974(void *, f32 *, f32 *);
 void *func_151B7328(void *, s32, s32, s32, s32);
@@ -441,17 +537,16 @@ void func_150B0348(void *arg0, s32 arg1, s32 arg2) {
 
 /* Call context: func_151149AC: unique active project prototype */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B060C CURRENT (200) */
 s32 func_150B060C(u8 arg0, void *arg1) {
-    s32 temp_v0;
-    s32 temp_v1;
+    void *temp_v0;
+    void *temp_v1;
 
     temp_v0 = func_151149AC(arg0);
-    *(s32 *)((u8 *)arg1 + 8) = temp_v0;
+    *(void **)((u8 *)arg1 + 8) = temp_v0;
     if (temp_v0 == 0) {
         return 0;
     }
-    temp_v1 = *(s32 *)((u8 *)arg1 + 8);
+    temp_v1 = *(void **)((u8 *)arg1 + 8);
     *(f32 *)((u8 *)arg1 + 0) = -150.0f;
     *(f32 *)((u8 *)arg1 + 4) = 4.5f;
     *(f32 *)((u8 *)arg1 + 0xC) = (f32) *(s16 *)((u8 *)temp_v1 + 0x10);
@@ -459,5 +554,3 @@ s32 func_150B060C(u8 arg0, void *arg1) {
     *(f32 *)((u8 *)arg1 + 0x14) = (f32) *(s16 *)((u8 *)temp_v1 + 0x14);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B060C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150B060C.s")

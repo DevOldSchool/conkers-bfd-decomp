@@ -26,7 +26,6 @@
  * - func_151AB090
  * - func_151AB1C4
  * - func_151AB2C4
- * - func_151AB3A4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -462,7 +461,7 @@ typedef struct {
 } Game1D6E80SpawnLocals;
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_15134DAC(u8 *, s32, void *, void *);
+void *func_15134DAC(void *, s32);
 extern f32 D_800A8FA4;
 extern f32 D_800A8FA8;
 
@@ -496,7 +495,7 @@ void *func_151AA48C(u8 *arg0, void *arg1) {
     locals.field50 = 0.5f;
     locals.field10 = D_800A8FA4;
     locals.field14 = D_800A8FA8;
-    result = func_15134DAC(&locals.id, 0x18, arg0, arg1);
+    result = func_15134DAC(&locals.id, 0x18);
     if (result != 0) {
         locals.saved = result;
         func_10022EC0((u8 *)result + 0x80, &locals.link, 0x18);
@@ -530,6 +529,102 @@ s32 func_151AA5A4(void *arg0) {
     }
     return 1;
 }
+typedef struct {
+    s32 flags, field04;
+    s16 kind, life;
+    s32 field0C, field10;
+    u8 bytes14[9];
+    u8 mode;
+    s16 size0, size1, field22;
+    f32 field24, scale0, scale1;
+    Game1D6E80Vec3 position, rotation, velocity;
+    f32 field54;
+    s32 flags58;
+    u8 pad5C[4];
+    s8 modes[4];
+    u8 pad64[0xC];
+} Game1D6E80Particle;
+typedef struct {
+    f32 scale;
+    u8 modes0[4];
+    f32 values0[4];
+    u8 modes1[4];
+    f32 values1[2];
+    u8 pad24[4];
+} Game1D6E80Extra;
+
+void *func_151303BC(s32, u8, s32);
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+extern f32 D_800A8FAC, D_800A8FB0, D_800A8FB4, D_800A8FB8;
+extern f32 D_800A8FBC, D_800A8FC0, D_800A8FC4, D_800A8FC8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AA6D8 CURRENT (360) */
+void func_151AA6D8(Game1D6E80Vec3 *arg0, Game1D6E80Vec3 *arg1,
+                   s32 arg2, s32 arg3, f32 arg4, u8 *arg5) {
+    Game1D6E80Particle particle;
+    void *result;
+    Game1D6E80Extra extra;
+
+    particle.mode = 0x2F;
+    particle.kind = 0xC01;
+    particle.flags = 0x200005;
+    particle.field04 = 0;
+    particle.bytes14[6] = 0;
+    particle.bytes14[5] = 0;
+    particle.bytes14[4] = 0;
+    particle.bytes14[3] = 0;
+    particle.bytes14[2] = 0;
+    particle.bytes14[1] = 0;
+    particle.bytes14[0] = 0;
+    particle.field10 = 0;
+    particle.field0C = 0;
+    particle.bytes14[8] = 0xFF;
+    particle.field22 = 0;
+    particle.field24 = 0.0f;
+    particle.flags58 = 0x1207;
+    particle.modes[0] = 5;
+    particle.modes[1] = 5;
+    particle.modes[2] = 4;
+    particle.modes[3] = -1;
+    particle.rotation.x = 0.0f;
+    particle.rotation.y = 0.0f;
+    particle.rotation.z = 0.0f;
+    particle.size0 = 0x14;
+    particle.size1 = 0xC;
+    extra.modes0[0] = 0;
+    extra.modes0[1] = 0;
+    extra.modes1[0] = 0;
+    extra.modes1[1] = 0;
+    extra.values0[2] = 3.5f;
+    extra.values0[3] = D_800A8FAC;
+    particle.velocity.x = *(f32 *)(arg5 + 0x74) * (arg1->x - arg0->x);
+    particle.velocity.y = *(f32 *)(arg5 + 0x74) * (arg1->y - arg0->y);
+    particle.velocity.z = *(f32 *)(arg5 + 0x74) * (arg1->z - arg0->z);
+    particle.position = *arg0;
+    particle.position.x += particle.velocity.x * arg4;
+    particle.position.y += particle.velocity.y * arg4;
+    particle.position.z += particle.velocity.z * arg4;
+    if (func_150ADA20() & 1) particle.flags58 |= 0x40;
+    if (func_150ADA20() & 1) particle.flags58 |= 0x80;
+    particle.life = (func_150ADA20() % 51U) + 0x32;
+    particle.bytes14[7] = (func_150ADA20() % 101U) + 0x64;
+    extra.scale = particle.scale0 = particle.scale1 = func_150ADA68() * 39.0f + 31.0f;
+    extra.modes0[2] = (func_150ADA20() % 5U) + 4;
+    extra.modes0[3] = (func_150ADA20() % 5U) + 4;
+    extra.values0[0] = (func_150ADA68() * 0.25f + D_800A8FB0) * extra.scale;
+    extra.values0[1] = (func_150ADA68() * 0.25f + D_800A8FB4) * extra.scale;
+    extra.modes1[2] = (func_150ADA20() % 5U) + 4;
+    extra.modes1[3] = (func_150ADA20() % 5U) + 4;
+    extra.values1[0] = (func_150ADA68() * D_800A8FB8 + D_800A8FBC) * extra.scale;
+    extra.values1[1] = (func_150ADA68() * D_800A8FC0 + D_800A8FC4) * extra.scale;
+    particle.field54 = (func_150ADA68() * 70.0f + 73.0f) * D_800A8FC8;
+    result = func_151303BC((s32)&particle, 2U, 0x28);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0xA8, &extra, 0x28U);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151AA6D8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA6D8.s")
 /* Call context: func_151423D8: unique active project prototype */
 extern s32 D_800BE9E4;
@@ -546,7 +641,7 @@ f32 func_151AAA4C(u8 * volatile arg0) {
     state = arg0;
     state += 0x80;
     temp_fv1 = *(f32 *)(state + 0x10) + (*(f32 *)(state + 0x14) * temp_fv1);
-    *(s32 *)(state + 0x08) = (s32) ((*(s32 *)(state + 0x0C) * D_800BE9E4) + *(u32 *)(state + 0x08));
+    *(s32 *)(state + 0x08) = (s32) ((*(u32 *)(state + 0x0C) * (u32) D_800BE9E4) + *(u32 *)(state + 0x08));
     return temp_fv1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151AAA4C */
@@ -855,7 +950,95 @@ s32 func_151AB2C4(s32 arg0, void *arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151AB2C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AB2C4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AB3A4.s")
+typedef struct Game1D6E80Burst {
+    s32 flags, zero4;
+    s16 texture, lifetime;
+    s32 zeroC, zero10;
+    u8 zero14, zero15, zero16, zero17, zero18, zero19, zero1A;
+    u8 alpha, maximum, kind;
+    s16 duration, period, zero22;
+    f32 zero24, width, height;
+    f32 x, y, z;
+    f32 zero3C, zero40, zero44;
+    f32 vx, vy, vz, rotation;
+    s32 mode, unused5C;
+    s8 field60, field61, field62, field63;
+    u8 pad64[0xC];
+} Game1D6E80Burst;
+
+typedef struct Game1D6E80BurstMotion {
+    f32 size;
+    u8 mode0, mode1, count0, count1;
+    f32 amount0, amount1, speed, damping;
+    u8 mode2, mode3, count2, count3;
+    f32 amount2, amount3, sourceScale;
+} Game1D6E80BurstMotion;
+
+void *func_151303BC(s32, u8, s32);
+extern f32 D_800A8FF4, D_800A8FF8, D_800A8FFC, D_800A9000;
+extern f32 D_800A9004, D_800A9008, D_800A900C, D_800A9010;
+
+void func_151AB3A4(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
+                  f32 arg4, f32 arg5, void *arg6) {
+    Game1D6E80Burst burst;
+    void *spawned;
+    Game1D6E80BurstMotion motion;
+    burst.kind = 0x2F;
+    burst.texture = 0xC01;
+    burst.flags = 0x200005;
+    burst.zero4 = 0;
+    burst.zero1A = 0;
+    burst.zero19 = 0;
+    burst.zero18 = 0;
+    burst.zero17 = 0;
+    burst.zero16 = 0;
+    burst.zero15 = 0;
+    burst.zero14 = 0;
+    burst.zero10 = 0;
+    burst.zeroC = 0;
+    burst.maximum = 0xFF;
+    burst.zero22 = 0;
+    burst.zero24 = 0.0f;
+    burst.mode = 0x3207;
+    burst.field60 = 5;
+    burst.field61 = 5;
+    burst.field62 = 4;
+    burst.field63 = -1;
+    burst.x = arg0;
+    burst.y = arg1;
+    burst.zero3C = 0.0f;
+    burst.zero40 = 0.0f;
+    burst.zero44 = 0.0f;
+    burst.duration = 30;
+    burst.period = 8;
+    burst.z = arg2;
+    motion.sourceScale = *(f32 *)((u8 *)arg6 + 0x60);
+    motion.speed = 4.0f;
+    motion.damping = 0.25f;
+    motion.mode0 = 0;
+    motion.mode1 = 0;
+    motion.mode2 = 0;
+    motion.mode3 = 0;
+    burst.vx = -arg3 * 0.2f;
+    burst.vy = 0.0f;
+    burst.vz = -arg5 * 0.2f;
+    if (func_150ADA20() & 1) burst.mode |= 0x40;
+    if (func_150ADA20() & 1) burst.mode |= 0x80;
+    burst.lifetime = func_150ADA20() % 51U + 106;
+    burst.alpha = func_150ADA20() % 101U + 100;
+    motion.size = burst.width = burst.height = func_150ADA68() * 62.0f + 41.0f;
+    motion.count0 = func_150ADA20() % 5U + 4;
+    motion.count1 = func_150ADA20() % 5U + 4;
+    motion.amount0 = (func_150ADA68() * 0.25f + D_800A8FF8) * motion.size;
+    motion.amount1 = (func_150ADA68() * 0.25f + D_800A8FFC) * motion.size;
+    motion.count2 = func_150ADA20() % 5U + 4;
+    motion.count3 = func_150ADA20() % 5U + 4;
+    motion.amount2 = (func_150ADA68() * D_800A9000 + D_800A9004) * motion.size;
+    motion.amount3 = (func_150ADA68() * D_800A9008 + D_800A900C) * motion.size;
+    burst.rotation = (func_150ADA68() * 60.0f + 21.0f) * D_800A9010;
+    spawned = func_151303BC((s32)&burst, 2, 0x28);
+    if (spawned != NULL) func_10022EC0((u8 *)spawned + 0xA8, &motion, 0x28);
+}
 s32 func_10010F30(s32, s32, s32, s32, s32);
 void func_100111C8(s32, void *);
 extern void *D_800DBFF0;
@@ -911,7 +1094,7 @@ void func_151AB7D8(void *arg0) {
     *(s32 *)((u8 *)data + 0x1C) = 0;
     func_1513470C(arg0);
 }
-void func_15141DA4(s32 arg0, s32 arg1, s32 arg2, void *arg3);
+void func_15141DA4();
 
 void func_151AB828(void *arg0) {
     func_15141DA4(*(s32 *)((u8 *)arg0 + 0x18), 0, 4, arg0);

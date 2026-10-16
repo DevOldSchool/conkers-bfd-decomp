@@ -37,7 +37,7 @@ void func_10004074(s32);
 void func_100111C8(u16);
 extern u16 D_800DD430;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15178EFC CURRENT (75) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15178EFC CURRENT (30) */
 void func_15178EFC(s32 arg0) {
     s32 temp_v0;
     s32 var_s0;
@@ -53,9 +53,9 @@ void func_15178EFC(s32 arg0) {
                 temp_a0 = *(u8 **)((u8 *)temp_v0 + var_s0);
                 if (temp_a0 != 0) {
                     func_1516972C(temp_a0);
-                    *(s32 *)((u8 *)(s32)D_800DD440 + var_s0) = 0;
-                    temp_v0 = D_800DD440;
+                    *(u8 **)((u8 *)(s32)D_800DD440 + var_s0) = 0;
                 }
+                temp_v0 = D_800DD440;
                 var_s0 += 4;
             } while (var_s0 != 0x4B0);
             func_10004074(temp_v0);

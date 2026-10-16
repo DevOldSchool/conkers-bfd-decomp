@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_104AE0.c
@@ -6,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150D765C
- * - func_150D7790
  * - func_150D7928
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -63,30 +63,25 @@ void func_10010154(s32, void *, s32, s32, s32);
 u8 *func_1506C460(f32, f32, f32, f32, s32, s32, f32, f32, s32, s32, s32);
 s32 func_1508855C(s32);
 void func_150885EC(s32, s32);
-s32 func_1508868C(u8 *);
 extern u8 D_800C3E78;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D7790 CURRENT (98) */
 void func_150D7790(u8 *arg0, s32 arg1) {
-    u8 *existing;
-    u8 *created;
-    s32 type;
-    s32 old_id;
     s32 new_id;
+    s32 old_id;
     s32 variant;
+    u8 *created;
 
+    /* Keep field reads inline: named pointer/value locals change IDO stack layout. */
     variant = 0;
-    existing = *(u8 **)(arg0 + 0x31C);
-    if (existing != 0 && *(s8 *)(existing + 0x1AE) <= 0) {
+    if ((*(u8 **)(arg0 + 0x31C)) != 0 && *(s8 *)((*(u8 **)(arg0 + 0x31C)) + 0x1AE) <= 0) {
         return;
     }
     switch (arg1) {
     case 0x30:
     case 0x31:
-        if (existing != 0) {
-            *(s16 *)(existing + 0x12C) = 0x78;
-            existing = *(u8 **)(arg0 + 0x31C);
-            *(s8 *)(existing + 0x1AE) -= 1;
+        if ((*(u8 **)(arg0 + 0x31C)) != 0) {
+            *(s16 *)((*(u8 **)(arg0 + 0x31C)) + 0x12C) = 0x78;
+            *(s8 *)((*(u8 **)(arg0 + 0x31C)) + 0x1AE) -= 1;
             func_10010154(0x628, arg0, 0x7FFF, 0x1F4, 0x3E8);
         }
         return;
@@ -97,13 +92,12 @@ void func_150D7790(u8 *arg0, s32 arg1) {
     default:
         return;
     }
-    type = (variant * 0x1E) + 0x1E;
     created = func_1506C460(*(f32 *)(arg0 + 0x40), 310.0f, 0.0f, 0.0f,
-                             type, 0xD, 0.0f, 1.0f, 0, 1, variant == 0);
+                             ((variant * 0x1E) + 0x1E), 0xD, 0.0f, 1.0f, 0, 1, variant == 0);
     if (created != 0) {
         *(s8 *)(created + 0x124) = D_800C3E78 + 1;
     }
-    if (created != 0 && type != 0x1E) {
+    if (created != 0 && ((variant * 0x1E) + 0x1E) != 0x1E) {
         *(s8 *)(created + 0x221) = -1;
         old_id = func_1508855C((s32)arg0);
         if (old_id != -1) {
@@ -113,11 +107,8 @@ void func_150D7790(u8 *arg0, s32 arg1) {
             }
         }
     }
-    existing = *(u8 **)(arg0 + 0x31C);
-    if (existing != 0) {
-        *(s8 *)(existing + 0x1AE) -= 1;
+    if ((*(u8 **)(arg0 + 0x31C)) != 0) {
+        *(s8 *)((*(u8 **)(arg0 + 0x31C)) + 0x1AE) -= 1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D7790 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_104AE0/func_150D7790.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_104AE0/func_150D7928.s")

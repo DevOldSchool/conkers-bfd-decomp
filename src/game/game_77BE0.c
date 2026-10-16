@@ -13,7 +13,6 @@
  * - func_1504BA38
  * - func_1504BE2C
  * - func_1504C0E8
- * - func_1504C8BC
  * - func_1504C9E4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -404,12 +403,10 @@ extern s32 D_800BE9E4;
 extern u8 D_800CC2B8;
 extern s16 D_800CC2BA;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504C8BC CURRENT (90) */
 s32 func_1504C8BC(void *arg0) {
     void *temp_v1;
-    s32 temp_t6;
 
-    temp_v1 = *(void **)((u8 *)arg0 + 0x31C);
+    temp_v1 = ((Game77BE0State *)arg0)->field_31C;
     if (temp_v1 == 0) {
         return 1;
     }
@@ -420,41 +417,36 @@ s32 func_1504C8BC(void *arg0) {
     if (D_800CC2B8 == (*((u8 *)arg0 + 0x127) & 1)) {
         if (*((u8 *)temp_v1 + 0x1A8) != 0) {
             D_800CC2BA = (s16)D_800BE9E4;
-            temp_t6 = D_800BE9E4 + *((u8 *)*(void **)((u8 *)arg0 + 0x31C) + 0x1A8);
-            D_800BE9E4 = temp_t6;
-            D_800BE9A4 = (f32)temp_t6 * 0.5f;
+            D_800BE9E4 += (u32)*((u8 *)((Game77BE0State *)arg0)->field_31C + 0x1A8);
+            D_800BE9A4 = (f32)D_800BE9E4 * 0.5f;
             if (D_800BE9A4 != 0.0f) {
                 D_800BE9A8 = 1.0f / D_800BE9A4;
             } else {
                 D_800BE9A8 = 0.0f;
             }
-            *((u8 *)*(void **)((u8 *)arg0 + 0x31C) + 0x1A8) = 0;
+            *((u8 *)((Game77BE0State *)arg0)->field_31C + 0x1A8) = 0;
             return 2;
         }
         return 1;
     }
-    *((u8 *)temp_v1 + 0x1A8) += D_800BE9E4;
+    *((u8 *)temp_v1 + 0x1A8) += (u32)D_800BE9E4;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1504C8BC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504C8BC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504C9E4 CURRENT (450) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504C9E4 CURRENT (175) */
 void func_1504C9E4(void *arg0, s8 arg1, u8 arg2) {
     s32 temp_t8;
     s32 var_a2;
-    s8 temp_v1;
 
-    temp_v1 = *(s8 *)((u8 *)arg0 + 0x1D1);
-    temp_t8 = (temp_v1 - arg1) & 0xFF;
+    temp_t8 = (*(s8 *)((u8 *)arg0 + 0x1D1) - arg1) & 0xFF;
     if (temp_t8 != 0) {
         var_a2 = 3;
         if (arg2 == 0x10) {
             var_a2 = 6;
         }
         if (temp_t8 >= 0x80) {
-            *(s8 *)((u8 *)arg0 + 0x1D1) = (s8) (temp_v1 + var_a2);
+            *(s8 *)((u8 *)arg0 + 0x1D1) += var_a2;
         } else {
-            *(s8 *)((u8 *)arg0 + 0x1D1) = (s8) (temp_v1 - var_a2);
+            *(s8 *)((u8 *)arg0 + 0x1D1) -= var_a2;
         }
         if ((temp_t8 ^ (*(s8 *)((u8 *)arg0 + 0x1D1) - arg1)) & 0x80) {
             *(s8 *)((u8 *)arg0 + 0x1D1) = arg1;

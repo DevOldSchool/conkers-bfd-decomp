@@ -1,0 +1,11982 @@
+{
+  "streams": 453,
+  "bytes": 36479,
+  "header_mutations": 2078,
+  "prior_unique_source_hashes_preserved": 26052,
+  "rows": [
+    {
+      "entry": 0,
+      "bytes": 116,
+      "native_ranges": [
+        [
+          93069,
+          93133
+        ],
+        [
+          93147,
+          93160
+        ],
+        [
+          93225,
+          93238
+        ],
+        [
+          93304,
+          93317
+        ],
+        [
+          93382,
+          93395
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 1,
+      "bytes": 90,
+      "native_ranges": [
+        [
+          19514,
+          19565
+        ],
+        [
+          19592,
+          19605
+        ],
+        [
+          19670,
+          19683
+        ],
+        [
+          19749,
+          19762
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 6
+    },
+    {
+      "entry": 2,
+      "bytes": 107,
+      "native_ranges": [
+        [
+          22962,
+          23030
+        ],
+        [
+          23040,
+          23053
+        ],
+        [
+          23118,
+          23131
+        ],
+        [
+          23197,
+          23210
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 7
+    },
+    {
+      "entry": 3,
+      "bytes": 72,
+      "native_ranges": [
+        [
+          4846,
+          4866
+        ],
+        [
+          4925,
+          4938
+        ],
+        [
+          5003,
+          5016
+        ],
+        [
+          5081,
+          5094
+        ],
+        [
+          5160,
+          5173
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 4,
+      "bytes": 62,
+      "native_ranges": [
+        [
+          5739,
+          5762
+        ],
+        [
+          5817,
+          5830
+        ],
+        [
+          5896,
+          5909
+        ],
+        [
+          5974,
+          5987
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 5,
+      "bytes": 109,
+      "native_ranges": [
+        [
+          113163,
+          113220
+        ],
+        [
+          113241,
+          113254
+        ],
+        [
+          113319,
+          113332
+        ],
+        [
+          113398,
+          113411
+        ],
+        [
+          113476,
+          113489
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 6,
+      "bytes": 60,
+      "native_ranges": [
+        [
+          7680,
+          7701
+        ],
+        [
+          7758,
+          7771
+        ],
+        [
+          7837,
+          7850
+        ],
+        [
+          7915,
+          7928
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 6
+    },
+    {
+      "entry": 7,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          92454,
+          92472
+        ],
+        [
+          92532,
+          92545
+        ],
+        [
+          92610,
+          92623
+        ],
+        [
+          92688,
+          92701
+        ],
+        [
+          92766,
+          92779
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 8,
+      "bytes": 62,
+      "native_ranges": [
+        [
+          10686,
+          10709
+        ],
+        [
+          10764,
+          10777
+        ],
+        [
+          10842,
+          10855
+        ],
+        [
+          10920,
+          10933
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 9,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          12432,
+          12450
+        ],
+        [
+          12510,
+          12523
+        ],
+        [
+          12588,
+          12601
+        ],
+        [
+          12666,
+          12679
+        ],
+        [
+          12744,
+          12757
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 10,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          14571,
+          14589
+        ],
+        [
+          14649,
+          14662
+        ],
+        [
+          14727,
+          14740
+        ],
+        [
+          14805,
+          14818
+        ],
+        [
+          14883,
+          14896
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 11,
+      "bytes": 123,
+      "native_ranges": [
+        [
+          14040,
+          14111
+        ],
+        [
+          14118,
+          14131
+        ],
+        [
+          14196,
+          14209
+        ],
+        [
+          14274,
+          14287
+        ],
+        [
+          14352,
+          14365
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 12,
+      "bytes": 111,
+      "native_ranges": [
+        [
+          36360,
+          36419
+        ],
+        [
+          36438,
+          36451
+        ],
+        [
+          36516,
+          36529
+        ],
+        [
+          36594,
+          36607
+        ],
+        [
+          36672,
+          36685
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 13,
+      "bytes": 110,
+      "native_ranges": [
+        [
+          95958,
+          96016
+        ],
+        [
+          96036,
+          96049
+        ],
+        [
+          96114,
+          96127
+        ],
+        [
+          96192,
+          96205
+        ],
+        [
+          96270,
+          96283
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 14,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          19968,
+          19986
+        ],
+        [
+          20046,
+          20059
+        ],
+        [
+          20124,
+          20137
+        ],
+        [
+          20202,
+          20215
+        ],
+        [
+          20280,
+          20293
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 15,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          35958,
+          35976
+        ],
+        [
+          36036,
+          36049
+        ],
+        [
+          36114,
+          36127
+        ],
+        [
+          36192,
+          36205
+        ],
+        [
+          36270,
+          36283
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 16,
+      "bytes": 108,
+      "native_ranges": [
+        [
+          27540,
+          27596
+        ],
+        [
+          27618,
+          27631
+        ],
+        [
+          27696,
+          27709
+        ],
+        [
+          27774,
+          27787
+        ],
+        [
+          27852,
+          27865
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 17,
+      "bytes": 71,
+      "native_ranges": [
+        [
+          5853,
+          5872
+        ],
+        [
+          5940,
+          5953
+        ],
+        [
+          6018,
+          6031
+        ],
+        [
+          6096,
+          6109
+        ],
+        [
+          6174,
+          6187
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 18,
+      "bytes": 71,
+      "native_ranges": [
+        [
+          55548,
+          55580
+        ],
+        [
+          55626,
+          55639
+        ],
+        [
+          55704,
+          55717
+        ],
+        [
+          55782,
+          55795
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 19,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          109512,
+          109530
+        ],
+        [
+          109590,
+          109603
+        ],
+        [
+          109668,
+          109681
+        ],
+        [
+          109746,
+          109759
+        ],
+        [
+          109824,
+          109837
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 20,
+      "bytes": 73,
+      "native_ranges": [
+        [
+          118248,
+          118282
+        ],
+        [
+          118326,
+          118339
+        ],
+        [
+          118404,
+          118417
+        ],
+        [
+          118482,
+          118495
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 2
+    },
+    {
+      "entry": 21,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          86190,
+          86208
+        ],
+        [
+          86268,
+          86281
+        ],
+        [
+          86346,
+          86359
+        ],
+        [
+          86424,
+          86437
+        ],
+        [
+          86502,
+          86515
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 22,
+      "bytes": 72,
+      "native_ranges": [
+        [
+          94511,
+          94531
+        ],
+        [
+          94590,
+          94603
+        ],
+        [
+          94668,
+          94681
+        ],
+        [
+          94746,
+          94759
+        ],
+        [
+          94825,
+          94838
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 23,
+      "bytes": 104,
+      "native_ranges": [
+        [
+          120790,
+          120855
+        ],
+        [
+          120868,
+          120881
+        ],
+        [
+          120947,
+          120960
+        ],
+        [
+          121025,
+          121038
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 24,
+      "bytes": 90,
+      "native_ranges": [
+        [
+          94224,
+          94262
+        ],
+        [
+          94302,
+          94315
+        ],
+        [
+          94380,
+          94393
+        ],
+        [
+          94458,
+          94471
+        ],
+        [
+          94536,
+          94549
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 25,
+      "bytes": 56,
+      "native_ranges": [
+        [
+          6501,
+          6518
+        ],
+        [
+          6579,
+          6592
+        ],
+        [
+          6658,
+          6671
+        ],
+        [
+          6736,
+          6749
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 26,
+      "bytes": 93,
+      "native_ranges": [
+        [
+          7893,
+          7947
+        ],
+        [
+          7972,
+          7985
+        ],
+        [
+          8050,
+          8063
+        ],
+        [
+          8129,
+          8142
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 2
+    },
+    {
+      "entry": 27,
+      "bytes": 116,
+      "native_ranges": [
+        [
+          43807,
+          43884
+        ],
+        [
+          43886,
+          43899
+        ],
+        [
+          43964,
+          43977
+        ],
+        [
+          44043,
+          44056
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 7
+    },
+    {
+      "entry": 28,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          26676,
+          26694
+        ],
+        [
+          26754,
+          26767
+        ],
+        [
+          26832,
+          26845
+        ],
+        [
+          26910,
+          26923
+        ],
+        [
+          26988,
+          27001
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 29,
+      "bytes": 100,
+      "native_ranges": [
+        [
+          127962,
+          128023
+        ],
+        [
+          128040,
+          128053
+        ],
+        [
+          128118,
+          128131
+        ],
+        [
+          128197,
+          128210
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 7
+    },
+    {
+      "entry": 30,
+      "bytes": 77,
+      "native_ranges": [
+        [
+          49532,
+          49570
+        ],
+        [
+          49611,
+          49624
+        ],
+        [
+          49689,
+          49702
+        ],
+        [
+          49768,
+          49781
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 1
+    },
+    {
+      "entry": 31,
+      "bytes": 79,
+      "native_ranges": [
+        [
+          18573,
+          18613
+        ],
+        [
+          18652,
+          18665
+        ],
+        [
+          18730,
+          18743
+        ],
+        [
+          18808,
+          18821
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 3
+    },
+    {
+      "entry": 32,
+      "bytes": 94,
+      "native_ranges": [
+        [
+          60421,
+          60476
+        ],
+        [
+          60500,
+          60513
+        ],
+        [
+          60578,
+          60591
+        ],
+        [
+          60656,
+          60669
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 4
+    },
+    {
+      "entry": 33,
+      "bytes": 94,
+      "native_ranges": [
+        [
+          309638,
+          309693
+        ],
+        [
+          309716,
+          309729
+        ],
+        [
+          309795,
+          309808
+        ],
+        [
+          309873,
+          309886
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 1
+    },
+    {
+      "entry": 34,
+      "bytes": 28,
+      "native_ranges": [
+        [
+          48137,
+          48152
+        ],
+        [
+          48216,
+          48229
+        ]
+      ],
+      "header_mutations": 2,
+      "excluded_incomplete_bits": 4
+    },
+    {
+      "entry": 35,
+      "bytes": 47,
+      "native_ranges": [
+        [
+          111401,
+          111422
+        ],
+        [
+          111480,
+          111493
+        ],
+        [
+          111558,
+          111571
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 4
+    },
+    {
+      "entry": 36,
+      "bytes": 96,
+      "native_ranges": [
+        [
+          62229,
+          62299
+        ],
+        [
+          62307,
+          62320
+        ],
+        [
+          62386,
+          62399
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 7
+    },
+    {
+      "entry": 37,
+      "bytes": 81,
+      "native_ranges": [
+        [
+          102347,
+          102389
+        ],
+        [
+          102425,
+          102438
+        ],
+        [
+          102504,
+          102517
+        ],
+        [
+          102582,
+          102595
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 38,
+      "bytes": 113,
+      "native_ranges": [
+        [
+          34138,
+          34212
+        ],
+        [
+          34216,
+          34229
+        ],
+        [
+          34294,
+          34307
+        ],
+        [
+          34373,
+          34386
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 6
+    },
+    {
+      "entry": 39,
+      "bytes": 111,
+      "native_ranges": [
+        [
+          18103,
+          18175
+        ],
+        [
+          18181,
+          18194
+        ],
+        [
+          18260,
+          18273
+        ],
+        [
+          18338,
+          18351
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 6
+    },
+    {
+      "entry": 40,
+      "bytes": 71,
+      "native_ranges": [
+        [
+          36441,
+          36460
+        ],
+        [
+          36519,
+          36532
+        ],
+        [
+          36598,
+          36611
+        ],
+        [
+          36676,
+          36689
+        ],
+        [
+          36754,
+          36767
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 41,
+      "bytes": 66,
+      "native_ranges": [
+        [
+          49157,
+          49197
+        ],
+        [
+          49235,
+          49248
+        ],
+        [
+          49314,
+          49327
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 6
+    },
+    {
+      "entry": 42,
+      "bytes": 73,
+      "native_ranges": [
+        [
+          37699,
+          37733
+        ],
+        [
+          37777,
+          37790
+        ],
+        [
+          37856,
+          37869
+        ],
+        [
+          37934,
+          37947
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 43,
+      "bytes": 86,
+      "native_ranges": [
+        [
+          41935,
+          41969
+        ],
+        [
+          42013,
+          42026
+        ],
+        [
+          42091,
+          42104
+        ],
+        [
+          42170,
+          42183
+        ],
+        [
+          42248,
+          42261
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 44,
+      "bytes": 65,
+      "native_ranges": [
+        [
+          21238,
+          21264
+        ],
+        [
+          21316,
+          21329
+        ],
+        [
+          21394,
+          21407
+        ],
+        [
+          21473,
+          21486
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 7
+    },
+    {
+      "entry": 45,
+      "bytes": 85,
+      "native_ranges": [
+        [
+          66234,
+          66280
+        ],
+        [
+          66312,
+          66325
+        ],
+        [
+          66390,
+          66403
+        ],
+        [
+          66469,
+          66482
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 46,
+      "bytes": 67,
+      "native_ranges": [
+        [
+          11206,
+          11234
+        ],
+        [
+          11284,
+          11297
+        ],
+        [
+          11362,
+          11375
+        ],
+        [
+          11441,
+          11454
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 47,
+      "bytes": 71,
+      "native_ranges": [
+        [
+          69277,
+          69296
+        ],
+        [
+          69355,
+          69368
+        ],
+        [
+          69434,
+          69447
+        ],
+        [
+          69512,
+          69525
+        ],
+        [
+          69590,
+          69603
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 48,
+      "bytes": 31,
+      "native_ranges": [
+        [
+          86761,
+          86779
+        ],
+        [
+          86839,
+          86852
+        ]
+      ],
+      "header_mutations": 2,
+      "excluded_incomplete_bits": 3
+    },
+    {
+      "entry": 49,
+      "bytes": 41,
+      "native_ranges": [
+        [
+          31190,
+          31205
+        ],
+        [
+          31269,
+          31282
+        ],
+        [
+          31347,
+          31360
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 50,
+      "bytes": 148,
+      "native_ranges": [
+        [
+          192270,
+          192379
+        ],
+        [
+          192400,
+          192413
+        ],
+        [
+          192530,
+          192543
+        ],
+        [
+          192660,
+          192673
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 51,
+      "bytes": 97,
+      "native_ranges": [
+        [
+          34589,
+          34647
+        ],
+        [
+          34667,
+          34680
+        ],
+        [
+          34745,
+          34758
+        ],
+        [
+          34824,
+          34837
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 52,
+      "bytes": 97,
+      "native_ranges": [
+        [
+          16215,
+          16273
+        ],
+        [
+          16293,
+          16306
+        ],
+        [
+          16371,
+          16384
+        ],
+        [
+          16450,
+          16463
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 7
+    },
+    {
+      "entry": 53,
+      "bytes": 81,
+      "native_ranges": [
+        [
+          7276,
+          7331
+        ],
+        [
+          7354,
+          7367
+        ],
+        [
+          7432,
+          7445
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 54,
+      "bytes": 68,
+      "native_ranges": [
+        [
+          18103,
+          18145
+        ],
+        [
+          18181,
+          18194
+        ],
+        [
+          18260,
+          18273
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 3
+    },
+    {
+      "entry": 55,
+      "bytes": 96,
+      "native_ranges": [
+        [
+          8617,
+          8687
+        ],
+        [
+          8695,
+          8708
+        ],
+        [
+          8774,
+          8787
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 3
+    },
+    {
+      "entry": 56,
+      "bytes": 124,
+      "native_ranges": [
+        [
+          121261,
+          121333
+        ],
+        [
+          121339,
+          121352
+        ],
+        [
+          121417,
+          121430
+        ],
+        [
+          121496,
+          121509
+        ],
+        [
+          121574,
+          121587
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 57,
+      "bytes": 95,
+      "native_ranges": [
+        [
+          38729,
+          38785
+        ],
+        [
+          38808,
+          38821
+        ],
+        [
+          38886,
+          38899
+        ],
+        [
+          38964,
+          38977
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 2
+    },
+    {
+      "entry": 58,
+      "bytes": 87,
+      "native_ranges": [
+        [
+          6441,
+          6502
+        ],
+        [
+          6519,
+          6532
+        ],
+        [
+          6597,
+          6610
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 1
+    },
+    {
+      "entry": 59,
+      "bytes": 98,
+      "native_ranges": [
+        [
+          17711,
+          17770
+        ],
+        [
+          17790,
+          17803
+        ],
+        [
+          17868,
+          17881
+        ],
+        [
+          17946,
+          17959
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 60,
+      "bytes": 115,
+      "native_ranges": [
+        [
+          6034,
+          6097
+        ],
+        [
+          6113,
+          6126
+        ],
+        [
+          6191,
+          6204
+        ],
+        [
+          6270,
+          6283
+        ],
+        [
+          6348,
+          6361
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 61,
+      "bytes": 78,
+      "native_ranges": [
+        [
+          23040,
+          23066
+        ],
+        [
+          23118,
+          23131
+        ],
+        [
+          23197,
+          23210
+        ],
+        [
+          23275,
+          23288
+        ],
+        [
+          23354,
+          23367
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 62,
+      "bytes": 57,
+      "native_ranges": [
+        [
+          14420,
+          14438
+        ],
+        [
+          14498,
+          14511
+        ],
+        [
+          14576,
+          14589
+        ],
+        [
+          14655,
+          14668
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 4
+    },
+    {
+      "entry": 63,
+      "bytes": 112,
+      "native_ranges": [
+        [
+          37068,
+          37128
+        ],
+        [
+          37146,
+          37159
+        ],
+        [
+          37225,
+          37238
+        ],
+        [
+          37303,
+          37316
+        ],
+        [
+          37381,
+          37394
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 64,
+      "bytes": 67,
+      "native_ranges": [
+        [
+          9639,
+          9680
+        ],
+        [
+          9718,
+          9731
+        ],
+        [
+          9796,
+          9809
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 65,
+      "bytes": 48,
+      "native_ranges": [
+        [
+          9326,
+          9348
+        ],
+        [
+          9404,
+          9417
+        ],
+        [
+          9483,
+          9496
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 66,
+      "bytes": 66,
+      "native_ranges": [
+        [
+          15047,
+          15087
+        ],
+        [
+          15125,
+          15138
+        ],
+        [
+          15203,
+          15216
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 3
+    },
+    {
+      "entry": 67,
+      "bytes": 106,
+      "native_ranges": [
+        [
+          32679,
+          32733
+        ],
+        [
+          32758,
+          32771
+        ],
+        [
+          32836,
+          32849
+        ],
+        [
+          32914,
+          32927
+        ],
+        [
+          32993,
+          33006
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 68,
+      "bytes": 80,
+      "native_ranges": [
+        [
+          27429,
+          27470
+        ],
+        [
+          27507,
+          27520
+        ],
+        [
+          27585,
+          27598
+        ],
+        [
+          27664,
+          27677
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 1
+    },
+    {
+      "entry": 69,
+      "bytes": 73,
+      "native_ranges": [
+        [
+          7523,
+          7557
+        ],
+        [
+          7602,
+          7615
+        ],
+        [
+          7680,
+          7693
+        ],
+        [
+          7758,
+          7771
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 3
+    },
+    {
+      "entry": 70,
+      "bytes": 87,
+      "native_ranges": [
+        [
+          9796,
+          9844
+        ],
+        [
+          9874,
+          9887
+        ],
+        [
+          9953,
+          9966
+        ],
+        [
+          10031,
+          10044
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 71,
+      "bytes": 106,
+      "native_ranges": [
+        [
+          94903,
+          94957
+        ],
+        [
+          94981,
+          94994
+        ],
+        [
+          95060,
+          95073
+        ],
+        [
+          95138,
+          95151
+        ],
+        [
+          95216,
+          95229
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 72,
+      "bytes": 99,
+      "native_ranges": [
+        [
+          19827,
+          19887
+        ],
+        [
+          19905,
+          19918
+        ],
+        [
+          19984,
+          19997
+        ],
+        [
+          20062,
+          20075
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 5
+    },
+    {
+      "entry": 73,
+      "bytes": 41,
+      "native_ranges": [
+        [
+          37773,
+          37788
+        ],
+        [
+          37852,
+          37865
+        ],
+        [
+          37930,
+          37943
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 74,
+      "bytes": 48,
+      "native_ranges": [
+        [
+          76330,
+          76352
+        ],
+        [
+          76408,
+          76421
+        ],
+        [
+          76487,
+          76500
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 3
+    },
+    {
+      "entry": 75,
+      "bytes": 105,
+      "native_ranges": [
+        [
+          38858,
+          38924
+        ],
+        [
+          38936,
+          38949
+        ],
+        [
+          39015,
+          39028
+        ],
+        [
+          39093,
+          39106
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 5
+    },
+    {
+      "entry": 76,
+      "bytes": 74,
+      "native_ranges": [
+        [
+          31022,
+          31057
+        ],
+        [
+          31101,
+          31114
+        ],
+        [
+          31179,
+          31192
+        ],
+        [
+          31257,
+          31270
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 77,
+      "bytes": 86,
+      "native_ranges": [
+        [
+          18680,
+          18727
+        ],
+        [
+          18758,
+          18771
+        ],
+        [
+          18837,
+          18850
+        ],
+        [
+          18915,
+          18928
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 78,
+      "bytes": 97,
+      "native_ranges": [
+        [
+          13258,
+          13316
+        ],
+        [
+          13337,
+          13350
+        ],
+        [
+          13415,
+          13428
+        ],
+        [
+          13494,
+          13507
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 2
+    },
+    {
+      "entry": 79,
+      "bytes": 46,
+      "native_ranges": [
+        [
+          9340,
+          9360
+        ],
+        [
+          9418,
+          9431
+        ],
+        [
+          9497,
+          9510
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 80,
+      "bytes": 72,
+      "native_ranges": [
+        [
+          8777,
+          8823
+        ],
+        [
+          8856,
+          8869
+        ],
+        [
+          8934,
+          8947
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 6
+    },
+    {
+      "entry": 82,
+      "bytes": 82,
+      "native_ranges": [
+        [
+          10892,
+          10935
+        ],
+        [
+          10970,
+          10983
+        ],
+        [
+          11049,
+          11062
+        ],
+        [
+          11127,
+          11140
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 1
+    },
+    {
+      "entry": 83,
+      "bytes": 54,
+      "native_ranges": [
+        [
+          10455,
+          10483
+        ],
+        [
+          10534,
+          10547
+        ],
+        [
+          10612,
+          10625
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 1
+    },
+    {
+      "entry": 84,
+      "bytes": 86,
+      "native_ranges": [
+        [
+          252186,
+          252246
+        ],
+        [
+          252265,
+          252278
+        ],
+        [
+          252343,
+          252356
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 6
+    },
+    {
+      "entry": 85,
+      "bytes": 107,
+      "native_ranges": [
+        [
+          12652,
+          12720
+        ],
+        [
+          12731,
+          12744
+        ],
+        [
+          12809,
+          12822
+        ],
+        [
+          12887,
+          12900
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 4
+    },
+    {
+      "entry": 86,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          3900,
+          3918
+        ],
+        [
+          3978,
+          3991
+        ],
+        [
+          4056,
+          4069
+        ],
+        [
+          4134,
+          4147
+        ],
+        [
+          4212,
+          4225
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 87,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          13614,
+          13632
+        ],
+        [
+          13692,
+          13705
+        ],
+        [
+          13770,
+          13783
+        ],
+        [
+          13848,
+          13861
+        ],
+        [
+          13926,
+          13939
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 88,
+      "bytes": 129,
+      "native_ranges": [
+        [
+          20790,
+          20867
+        ],
+        [
+          20868,
+          20881
+        ],
+        [
+          20946,
+          20959
+        ],
+        [
+          21025,
+          21038
+        ],
+        [
+          21103,
+          21116
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 89,
+      "bytes": 97,
+      "native_ranges": [
+        [
+          15780,
+          15838
+        ],
+        [
+          15859,
+          15872
+        ],
+        [
+          15937,
+          15950
+        ],
+        [
+          16016,
+          16029
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 4
+    },
+    {
+      "entry": 90,
+      "bytes": 53,
+      "native_ranges": [
+        [
+          48829,
+          48856
+        ],
+        [
+          48907,
+          48920
+        ],
+        [
+          48985,
+          48998
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 7
+    },
+    {
+      "entry": 91,
+      "bytes": 108,
+      "native_ranges": [
+        [
+          47557,
+          47626
+        ],
+        [
+          47635,
+          47648
+        ],
+        [
+          47714,
+          47727
+        ],
+        [
+          47792,
+          47805
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 6
+    },
+    {
+      "entry": 92,
+      "bytes": 68,
+      "native_ranges": [
+        [
+          39184,
+          39226
+        ],
+        [
+          39263,
+          39276
+        ],
+        [
+          39341,
+          39354
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 93,
+      "bytes": 62,
+      "native_ranges": [
+        [
+          20136,
+          20172
+        ],
+        [
+          20214,
+          20227
+        ],
+        [
+          20292,
+          20305
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 94,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          11128,
+          11159
+        ],
+        [
+          11207,
+          11220
+        ],
+        [
+          11285,
+          11298
+        ],
+        [
+          11363,
+          11376
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 95,
+      "bytes": 110,
+      "native_ranges": [
+        [
+          16614,
+          16685
+        ],
+        [
+          16692,
+          16705
+        ],
+        [
+          16771,
+          16784
+        ],
+        [
+          16849,
+          16862
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 4
+    },
+    {
+      "entry": 96,
+      "bytes": 101,
+      "native_ranges": [
+        [
+          11912,
+          11974
+        ],
+        [
+          11990,
+          12003
+        ],
+        [
+          12069,
+          12082
+        ],
+        [
+          12147,
+          12160
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 97,
+      "bytes": 75,
+      "native_ranges": [
+        [
+          9326,
+          9349
+        ],
+        [
+          9404,
+          9417
+        ],
+        [
+          9483,
+          9496
+        ],
+        [
+          9561,
+          9574
+        ],
+        [
+          9639,
+          9652
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 98,
+      "bytes": 127,
+      "native_ranges": [
+        [
+          13557,
+          13632
+        ],
+        [
+          13635,
+          13648
+        ],
+        [
+          13713,
+          13726
+        ],
+        [
+          13792,
+          13805
+        ],
+        [
+          13870,
+          13883
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 99,
+      "bytes": 100,
+      "native_ranges": [
+        [
+          55563,
+          55624
+        ],
+        [
+          55641,
+          55654
+        ],
+        [
+          55720,
+          55733
+        ],
+        [
+          55798,
+          55811
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 100,
+      "bytes": 41,
+      "native_ranges": [
+        [
+          92709,
+          92724
+        ],
+        [
+          92787,
+          92800
+        ],
+        [
+          92866,
+          92879
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 7
+    },
+    {
+      "entry": 101,
+      "bytes": 90,
+      "native_ranges": [
+        [
+          67771,
+          67822
+        ],
+        [
+          67850,
+          67863
+        ],
+        [
+          67928,
+          67941
+        ],
+        [
+          68007,
+          68020
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 102,
+      "bytes": 40,
+      "native_ranges": [
+        [
+          29920,
+          29934
+        ],
+        [
+          29998,
+          30011
+        ],
+        [
+          30077,
+          30090
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 103,
+      "bytes": 92,
+      "native_ranges": [
+        [
+          17463,
+          17516
+        ],
+        [
+          17542,
+          17555
+        ],
+        [
+          17620,
+          17633
+        ],
+        [
+          17698,
+          17711
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 5
+    },
+    {
+      "entry": 104,
+      "bytes": 67,
+      "native_ranges": [
+        [
+          5878,
+          5919
+        ],
+        [
+          5956,
+          5969
+        ],
+        [
+          6034,
+          6047
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 5
+    },
+    {
+      "entry": 105,
+      "bytes": 96,
+      "native_ranges": [
+        [
+          2511,
+          2568
+        ],
+        [
+          2589,
+          2602
+        ],
+        [
+          2667,
+          2680
+        ],
+        [
+          2746,
+          2759
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 1
+    },
+    {
+      "entry": 106,
+      "bytes": 72,
+      "native_ranges": [
+        [
+          2170,
+          2190
+        ],
+        [
+          2248,
+          2261
+        ],
+        [
+          2327,
+          2340
+        ],
+        [
+          2405,
+          2418
+        ],
+        [
+          2484,
+          2497
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 107,
+      "bytes": 68,
+      "native_ranges": [
+        [
+          3921,
+          3950
+        ],
+        [
+          3999,
+          4012
+        ],
+        [
+          4078,
+          4091
+        ],
+        [
+          4156,
+          4169
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 3
+    },
+    {
+      "entry": 108,
+      "bytes": 64,
+      "native_ranges": [
+        [
+          4154,
+          4179
+        ],
+        [
+          4232,
+          4245
+        ],
+        [
+          4310,
+          4323
+        ],
+        [
+          4389,
+          4402
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 110,
+      "bytes": 127,
+      "native_ranges": [
+        [
+          5486,
+          5561
+        ],
+        [
+          5564,
+          5577
+        ],
+        [
+          5643,
+          5656
+        ],
+        [
+          5721,
+          5734
+        ],
+        [
+          5799,
+          5812
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 111,
+      "bytes": 59,
+      "native_ranges": [
+        [
+          6133,
+          6153
+        ],
+        [
+          6212,
+          6225
+        ],
+        [
+          6290,
+          6303
+        ],
+        [
+          6369,
+          6382
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 112,
+      "bytes": 67,
+      "native_ranges": [
+        [
+          862,
+          890
+        ],
+        [
+          941,
+          954
+        ],
+        [
+          1019,
+          1032
+        ],
+        [
+          1097,
+          1110
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 113,
+      "bytes": 118,
+      "native_ranges": [
+        [
+          1019,
+          1085
+        ],
+        [
+          1097,
+          1110
+        ],
+        [
+          1176,
+          1189
+        ],
+        [
+          1254,
+          1267
+        ],
+        [
+          1332,
+          1345
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 114,
+      "bytes": 76,
+      "native_ranges": [
+        [
+          5094,
+          5131
+        ],
+        [
+          5172,
+          5185
+        ],
+        [
+          5251,
+          5264
+        ],
+        [
+          5329,
+          5342
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 115,
+      "bytes": 48,
+      "native_ranges": [
+        [
+          6113,
+          6135
+        ],
+        [
+          6191,
+          6204
+        ],
+        [
+          6270,
+          6283
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 116,
+      "bytes": 75,
+      "native_ranges": [
+        [
+          3762,
+          3798
+        ],
+        [
+          3840,
+          3853
+        ],
+        [
+          3918,
+          3931
+        ],
+        [
+          3997,
+          4010
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 3
+    },
+    {
+      "entry": 117,
+      "bytes": 71,
+      "native_ranges": [
+        [
+          3527,
+          3546
+        ],
+        [
+          3605,
+          3618
+        ],
+        [
+          3683,
+          3696
+        ],
+        [
+          3762,
+          3775
+        ],
+        [
+          3840,
+          3853
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 118,
+      "bytes": 85,
+      "native_ranges": [
+        [
+          66222,
+          66255
+        ],
+        [
+          66300,
+          66313
+        ],
+        [
+          66378,
+          66391
+        ],
+        [
+          66456,
+          66469
+        ],
+        [
+          66534,
+          66547
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 119,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          358764,
+          358782
+        ],
+        [
+          358842,
+          358855
+        ],
+        [
+          358920,
+          358933
+        ],
+        [
+          358998,
+          359011
+        ],
+        [
+          359076,
+          359089
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 121,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          26676,
+          26694
+        ],
+        [
+          26754,
+          26767
+        ],
+        [
+          26832,
+          26845
+        ],
+        [
+          26910,
+          26923
+        ],
+        [
+          26988,
+          27001
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 122,
+      "bytes": 96,
+      "native_ranges": [
+        [
+          91803,
+          91847
+        ],
+        [
+          91881,
+          91894
+        ],
+        [
+          91959,
+          91972
+        ],
+        [
+          92037,
+          92050
+        ],
+        [
+          92115,
+          92128
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 123,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          19686,
+          19704
+        ],
+        [
+          19764,
+          19777
+        ],
+        [
+          19842,
+          19855
+        ],
+        [
+          19920,
+          19933
+        ],
+        [
+          19998,
+          20011
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 124,
+      "bytes": 86,
+      "native_ranges": [
+        [
+          57969,
+          58003
+        ],
+        [
+          58047,
+          58060
+        ],
+        [
+          58125,
+          58138
+        ],
+        [
+          58203,
+          58216
+        ],
+        [
+          58281,
+          58294
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 125,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          2808,
+          2826
+        ],
+        [
+          2886,
+          2899
+        ],
+        [
+          2964,
+          2977
+        ],
+        [
+          3042,
+          3055
+        ],
+        [
+          3120,
+          3133
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 126,
+      "bytes": 68,
+      "native_ranges": [
+        [
+          5460,
+          5489
+        ],
+        [
+          5538,
+          5551
+        ],
+        [
+          5616,
+          5629
+        ],
+        [
+          5694,
+          5707
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 127,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          8346,
+          8364
+        ],
+        [
+          8424,
+          8437
+        ],
+        [
+          8502,
+          8515
+        ],
+        [
+          8580,
+          8593
+        ],
+        [
+          8658,
+          8671
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 128,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          3354,
+          3372
+        ],
+        [
+          3432,
+          3445
+        ],
+        [
+          3510,
+          3523
+        ],
+        [
+          3588,
+          3601
+        ],
+        [
+          3666,
+          3679
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 129,
+      "bytes": 88,
+      "native_ranges": [
+        [
+          193839,
+          193875
+        ],
+        [
+          193917,
+          193930
+        ],
+        [
+          193995,
+          194008
+        ],
+        [
+          194073,
+          194086
+        ],
+        [
+          194151,
+          194164
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 130,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          92409,
+          92427
+        ],
+        [
+          92487,
+          92500
+        ],
+        [
+          92565,
+          92578
+        ],
+        [
+          92643,
+          92656
+        ],
+        [
+          92721,
+          92734
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 131,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          77829,
+          77847
+        ],
+        [
+          77907,
+          77920
+        ],
+        [
+          77985,
+          77998
+        ],
+        [
+          78063,
+          78076
+        ],
+        [
+          78141,
+          78154
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 132,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          82398,
+          82416
+        ],
+        [
+          82476,
+          82489
+        ],
+        [
+          82554,
+          82567
+        ],
+        [
+          82632,
+          82645
+        ],
+        [
+          82710,
+          82723
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 133,
+      "bytes": 60,
+      "native_ranges": [
+        [
+          17154,
+          17175
+        ],
+        [
+          17232,
+          17245
+        ],
+        [
+          17310,
+          17323
+        ],
+        [
+          17388,
+          17401
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 134,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          68193,
+          68211
+        ],
+        [
+          68271,
+          68284
+        ],
+        [
+          68349,
+          68362
+        ],
+        [
+          68427,
+          68440
+        ],
+        [
+          68505,
+          68518
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 135,
+      "bytes": 83,
+      "native_ranges": [
+        [
+          15444,
+          15475
+        ],
+        [
+          15522,
+          15535
+        ],
+        [
+          15600,
+          15613
+        ],
+        [
+          15678,
+          15691
+        ],
+        [
+          15756,
+          15769
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 136,
+      "bytes": 110,
+      "native_ranges": [
+        [
+          17814,
+          17872
+        ],
+        [
+          17892,
+          17905
+        ],
+        [
+          17970,
+          17983
+        ],
+        [
+          18048,
+          18061
+        ],
+        [
+          18126,
+          18139
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 137,
+      "bytes": 72,
+      "native_ranges": [
+        [
+          6090,
+          6110
+        ],
+        [
+          6168,
+          6181
+        ],
+        [
+          6246,
+          6259
+        ],
+        [
+          6324,
+          6337
+        ],
+        [
+          6402,
+          6415
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 138,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          45864,
+          45882
+        ],
+        [
+          45942,
+          45955
+        ],
+        [
+          46020,
+          46033
+        ],
+        [
+          46098,
+          46111
+        ],
+        [
+          46176,
+          46189
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 139,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          21468,
+          21486
+        ],
+        [
+          21546,
+          21559
+        ],
+        [
+          21624,
+          21637
+        ],
+        [
+          21702,
+          21715
+        ],
+        [
+          21780,
+          21793
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 140,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          167337,
+          167355
+        ],
+        [
+          167415,
+          167428
+        ],
+        [
+          167493,
+          167506
+        ],
+        [
+          167571,
+          167584
+        ],
+        [
+          167649,
+          167662
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 141,
+      "bytes": 79,
+      "native_ranges": [
+        [
+          32472,
+          32499
+        ],
+        [
+          32550,
+          32563
+        ],
+        [
+          32628,
+          32641
+        ],
+        [
+          32706,
+          32719
+        ],
+        [
+          32784,
+          32797
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 142,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          27756,
+          27774
+        ],
+        [
+          27834,
+          27847
+        ],
+        [
+          27912,
+          27925
+        ],
+        [
+          27990,
+          28003
+        ],
+        [
+          28068,
+          28081
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 143,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          26364,
+          26382
+        ],
+        [
+          26442,
+          26455
+        ],
+        [
+          26520,
+          26533
+        ],
+        [
+          26598,
+          26611
+        ],
+        [
+          26676,
+          26689
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 144,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          7953,
+          7971
+        ],
+        [
+          8031,
+          8044
+        ],
+        [
+          8109,
+          8122
+        ],
+        [
+          8187,
+          8200
+        ],
+        [
+          8265,
+          8278
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 145,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          5460,
+          5478
+        ],
+        [
+          5538,
+          5551
+        ],
+        [
+          5616,
+          5629
+        ],
+        [
+          5694,
+          5707
+        ],
+        [
+          5772,
+          5785
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 146,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          33228,
+          33246
+        ],
+        [
+          33306,
+          33319
+        ],
+        [
+          33384,
+          33397
+        ],
+        [
+          33462,
+          33475
+        ],
+        [
+          33540,
+          33553
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 147,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          7215,
+          7233
+        ],
+        [
+          7293,
+          7306
+        ],
+        [
+          7371,
+          7384
+        ],
+        [
+          7449,
+          7462
+        ],
+        [
+          7527,
+          7540
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 148,
+      "bytes": 95,
+      "native_ranges": [
+        [
+          28002,
+          28045
+        ],
+        [
+          28080,
+          28093
+        ],
+        [
+          28158,
+          28171
+        ],
+        [
+          28236,
+          28249
+        ],
+        [
+          28314,
+          28327
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 149,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          41574,
+          41592
+        ],
+        [
+          41652,
+          41665
+        ],
+        [
+          41730,
+          41743
+        ],
+        [
+          41808,
+          41821
+        ],
+        [
+          41886,
+          41899
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 150,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          8898,
+          8916
+        ],
+        [
+          8976,
+          8989
+        ],
+        [
+          9054,
+          9067
+        ],
+        [
+          9132,
+          9145
+        ],
+        [
+          9210,
+          9223
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 151,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          13416,
+          13434
+        ],
+        [
+          13494,
+          13507
+        ],
+        [
+          13572,
+          13585
+        ],
+        [
+          13650,
+          13663
+        ],
+        [
+          13728,
+          13741
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 152,
+      "bytes": 87,
+      "native_ranges": [
+        [
+          25506,
+          25554
+        ],
+        [
+          25584,
+          25597
+        ],
+        [
+          25662,
+          25675
+        ],
+        [
+          25740,
+          25753
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 6
+    },
+    {
+      "entry": 153,
+      "bytes": 93,
+      "native_ranges": [
+        [
+          14976,
+          15017
+        ],
+        [
+          15054,
+          15067
+        ],
+        [
+          15132,
+          15145
+        ],
+        [
+          15210,
+          15223
+        ],
+        [
+          15288,
+          15301
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 154,
+      "bytes": 86,
+      "native_ranges": [
+        [
+          49452,
+          49486
+        ],
+        [
+          49530,
+          49543
+        ],
+        [
+          49608,
+          49621
+        ],
+        [
+          49686,
+          49699
+        ],
+        [
+          49764,
+          49777
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 155,
+      "bytes": 99,
+      "native_ranges": [
+        [
+          25740,
+          25787
+        ],
+        [
+          25818,
+          25831
+        ],
+        [
+          25896,
+          25909
+        ],
+        [
+          25974,
+          25987
+        ],
+        [
+          26052,
+          26065
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 156,
+      "bytes": 69,
+      "native_ranges": [
+        [
+          39312,
+          39342
+        ],
+        [
+          39390,
+          39403
+        ],
+        [
+          39468,
+          39481
+        ],
+        [
+          39546,
+          39559
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 158,
+      "bytes": 82,
+      "native_ranges": [
+        [
+          50778,
+          50821
+        ],
+        [
+          50856,
+          50869
+        ],
+        [
+          50934,
+          50947
+        ],
+        [
+          51012,
+          51025
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 160,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          32001,
+          32019
+        ],
+        [
+          32079,
+          32092
+        ],
+        [
+          32157,
+          32170
+        ],
+        [
+          32235,
+          32248
+        ],
+        [
+          32313,
+          32326
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 161,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          52074,
+          52092
+        ],
+        [
+          52152,
+          52165
+        ],
+        [
+          52230,
+          52243
+        ],
+        [
+          52308,
+          52321
+        ],
+        [
+          52386,
+          52399
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 162,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          13041,
+          13059
+        ],
+        [
+          13119,
+          13132
+        ],
+        [
+          13197,
+          13210
+        ],
+        [
+          13275,
+          13288
+        ],
+        [
+          13353,
+          13366
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 163,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          49608,
+          49626
+        ],
+        [
+          49686,
+          49699
+        ],
+        [
+          49764,
+          49777
+        ],
+        [
+          49842,
+          49855
+        ],
+        [
+          49920,
+          49933
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 164,
+      "bytes": 114,
+      "native_ranges": [
+        [
+          56862,
+          56924
+        ],
+        [
+          56940,
+          56953
+        ],
+        [
+          57018,
+          57031
+        ],
+        [
+          57096,
+          57109
+        ],
+        [
+          57174,
+          57187
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 165,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          23520,
+          23538
+        ],
+        [
+          23598,
+          23611
+        ],
+        [
+          23676,
+          23689
+        ],
+        [
+          23754,
+          23767
+        ],
+        [
+          23832,
+          23845
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 166,
+      "bytes": 109,
+      "native_ranges": [
+        [
+          10608,
+          10665
+        ],
+        [
+          10686,
+          10699
+        ],
+        [
+          10764,
+          10777
+        ],
+        [
+          10842,
+          10855
+        ],
+        [
+          10920,
+          10933
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 167,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          11934,
+          11952
+        ],
+        [
+          12012,
+          12025
+        ],
+        [
+          12090,
+          12103
+        ],
+        [
+          12168,
+          12181
+        ],
+        [
+          12246,
+          12259
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 168,
+      "bytes": 79,
+      "native_ranges": [
+        [
+          11934,
+          11961
+        ],
+        [
+          12012,
+          12025
+        ],
+        [
+          12090,
+          12103
+        ],
+        [
+          12168,
+          12181
+        ],
+        [
+          12246,
+          12259
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 169,
+      "bytes": 72,
+      "native_ranges": [
+        [
+          15834,
+          15854
+        ],
+        [
+          15912,
+          15925
+        ],
+        [
+          15990,
+          16003
+        ],
+        [
+          16068,
+          16081
+        ],
+        [
+          16146,
+          16159
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 170,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          8190,
+          8208
+        ],
+        [
+          8268,
+          8281
+        ],
+        [
+          8346,
+          8359
+        ],
+        [
+          8424,
+          8437
+        ],
+        [
+          8502,
+          8515
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 171,
+      "bytes": 76,
+      "native_ranges": [
+        [
+          4056,
+          4080
+        ],
+        [
+          4134,
+          4147
+        ],
+        [
+          4212,
+          4225
+        ],
+        [
+          4290,
+          4303
+        ],
+        [
+          4368,
+          4381
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 172,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          11388,
+          11406
+        ],
+        [
+          11466,
+          11479
+        ],
+        [
+          11544,
+          11557
+        ],
+        [
+          11622,
+          11635
+        ],
+        [
+          11700,
+          11713
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 173,
+      "bytes": 91,
+      "native_ranges": [
+        [
+          8580,
+          8619
+        ],
+        [
+          8658,
+          8671
+        ],
+        [
+          8736,
+          8749
+        ],
+        [
+          8814,
+          8827
+        ],
+        [
+          8892,
+          8905
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 174,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          9282,
+          9300
+        ],
+        [
+          9360,
+          9373
+        ],
+        [
+          9438,
+          9451
+        ],
+        [
+          9516,
+          9529
+        ],
+        [
+          9594,
+          9607
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 175,
+      "bytes": 78,
+      "native_ranges": [
+        [
+          111384,
+          111423
+        ],
+        [
+          111488,
+          111501
+        ],
+        [
+          111592,
+          111605
+        ],
+        [
+          111696,
+          111709
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 176,
+      "bytes": 59,
+      "native_ranges": [
+        [
+          107874,
+          107907
+        ],
+        [
+          107952,
+          107965
+        ],
+        [
+          108030,
+          108043
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 3
+    },
+    {
+      "entry": 177,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          25896,
+          25914
+        ],
+        [
+          25974,
+          25987
+        ],
+        [
+          26052,
+          26065
+        ],
+        [
+          26130,
+          26143
+        ],
+        [
+          26208,
+          26221
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 178,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          55380,
+          55398
+        ],
+        [
+          55458,
+          55471
+        ],
+        [
+          55536,
+          55549
+        ],
+        [
+          55614,
+          55627
+        ],
+        [
+          55692,
+          55705
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 179,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          36192,
+          36210
+        ],
+        [
+          36270,
+          36283
+        ],
+        [
+          36348,
+          36361
+        ],
+        [
+          36426,
+          36439
+        ],
+        [
+          36504,
+          36517
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 180,
+      "bytes": 74,
+      "native_ranges": [
+        [
+          160602,
+          160637
+        ],
+        [
+          160680,
+          160693
+        ],
+        [
+          160758,
+          160771
+        ],
+        [
+          160836,
+          160849
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 181,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          18798,
+          18816
+        ],
+        [
+          18876,
+          18889
+        ],
+        [
+          18954,
+          18967
+        ],
+        [
+          19032,
+          19045
+        ],
+        [
+          19110,
+          19123
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 182,
+      "bytes": 91,
+      "native_ranges": [
+        [
+          119886,
+          119938
+        ],
+        [
+          119964,
+          119977
+        ],
+        [
+          120042,
+          120055
+        ],
+        [
+          120120,
+          120133
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 183,
+      "bytes": 104,
+      "native_ranges": [
+        [
+          47346,
+          47398
+        ],
+        [
+          47424,
+          47437
+        ],
+        [
+          47502,
+          47515
+        ],
+        [
+          47580,
+          47593
+        ],
+        [
+          47658,
+          47671
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 184,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          14523,
+          14541
+        ],
+        [
+          14601,
+          14614
+        ],
+        [
+          14679,
+          14692
+        ],
+        [
+          14757,
+          14770
+        ],
+        [
+          14835,
+          14848
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 185,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          10608,
+          10626
+        ],
+        [
+          10686,
+          10699
+        ],
+        [
+          10764,
+          10777
+        ],
+        [
+          10842,
+          10855
+        ],
+        [
+          10920,
+          10933
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 186,
+      "bytes": 112,
+      "native_ranges": [
+        [
+          4524,
+          4584
+        ],
+        [
+          4602,
+          4615
+        ],
+        [
+          4680,
+          4693
+        ],
+        [
+          4758,
+          4771
+        ],
+        [
+          4836,
+          4849
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 187,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          39273,
+          39291
+        ],
+        [
+          39351,
+          39364
+        ],
+        [
+          39429,
+          39442
+        ],
+        [
+          39507,
+          39520
+        ],
+        [
+          39585,
+          39598
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 188,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          18642,
+          18660
+        ],
+        [
+          18720,
+          18733
+        ],
+        [
+          18798,
+          18811
+        ],
+        [
+          18876,
+          18889
+        ],
+        [
+          18954,
+          18967
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 189,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          36348,
+          36366
+        ],
+        [
+          36426,
+          36439
+        ],
+        [
+          36504,
+          36517
+        ],
+        [
+          36582,
+          36595
+        ],
+        [
+          36660,
+          36673
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 190,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          5772,
+          5790
+        ],
+        [
+          5850,
+          5863
+        ],
+        [
+          5928,
+          5941
+        ],
+        [
+          6006,
+          6019
+        ],
+        [
+          6084,
+          6097
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 191,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          4290,
+          4308
+        ],
+        [
+          4368,
+          4381
+        ],
+        [
+          4446,
+          4459
+        ],
+        [
+          4524,
+          4537
+        ],
+        [
+          4602,
+          4615
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 192,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          3900,
+          3918
+        ],
+        [
+          3978,
+          3991
+        ],
+        [
+          4056,
+          4069
+        ],
+        [
+          4134,
+          4147
+        ],
+        [
+          4212,
+          4225
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 193,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          4992,
+          5010
+        ],
+        [
+          5070,
+          5083
+        ],
+        [
+          5148,
+          5161
+        ],
+        [
+          5226,
+          5239
+        ],
+        [
+          5304,
+          5317
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 194,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          6708,
+          6726
+        ],
+        [
+          6786,
+          6799
+        ],
+        [
+          6864,
+          6877
+        ],
+        [
+          6942,
+          6955
+        ],
+        [
+          7020,
+          7033
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 195,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          3510,
+          3528
+        ],
+        [
+          3588,
+          3601
+        ],
+        [
+          3666,
+          3679
+        ],
+        [
+          3744,
+          3757
+        ],
+        [
+          3822,
+          3835
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 196,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          2028,
+          2046
+        ],
+        [
+          2106,
+          2119
+        ],
+        [
+          2184,
+          2197
+        ],
+        [
+          2262,
+          2275
+        ],
+        [
+          2340,
+          2353
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 197,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          936,
+          954
+        ],
+        [
+          1014,
+          1027
+        ],
+        [
+          1092,
+          1105
+        ],
+        [
+          1170,
+          1183
+        ],
+        [
+          1248,
+          1261
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 198,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          5460,
+          5478
+        ],
+        [
+          5538,
+          5551
+        ],
+        [
+          5616,
+          5629
+        ],
+        [
+          5694,
+          5707
+        ],
+        [
+          5772,
+          5785
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 199,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          9126,
+          9144
+        ],
+        [
+          9204,
+          9217
+        ],
+        [
+          9282,
+          9295
+        ],
+        [
+          9360,
+          9373
+        ],
+        [
+          9438,
+          9451
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 200,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          2418,
+          2436
+        ],
+        [
+          2496,
+          2509
+        ],
+        [
+          2574,
+          2587
+        ],
+        [
+          2652,
+          2665
+        ],
+        [
+          2730,
+          2743
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 201,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          4290,
+          4308
+        ],
+        [
+          4368,
+          4381
+        ],
+        [
+          4446,
+          4459
+        ],
+        [
+          4524,
+          4537
+        ],
+        [
+          4602,
+          4615
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 202,
+      "bytes": 89,
+      "native_ranges": [
+        [
+          7488,
+          7538
+        ],
+        [
+          7566,
+          7579
+        ],
+        [
+          7644,
+          7657
+        ],
+        [
+          7722,
+          7735
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 203,
+      "bytes": 82,
+      "native_ranges": [
+        [
+          12252,
+          12282
+        ],
+        [
+          12330,
+          12343
+        ],
+        [
+          12408,
+          12421
+        ],
+        [
+          12486,
+          12499
+        ],
+        [
+          12564,
+          12577
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 204,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          21216,
+          21260
+        ],
+        [
+          21372,
+          21385
+        ],
+        [
+          21528,
+          21541
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 205,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          75894,
+          75912
+        ],
+        [
+          75972,
+          75985
+        ],
+        [
+          76050,
+          76063
+        ],
+        [
+          76128,
+          76141
+        ],
+        [
+          76206,
+          76219
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 206,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          72774,
+          72792
+        ],
+        [
+          72852,
+          72865
+        ],
+        [
+          72930,
+          72943
+        ],
+        [
+          73008,
+          73021
+        ],
+        [
+          73086,
+          73099
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 208,
+      "bytes": 82,
+      "native_ranges": [
+        [
+          33228,
+          33258
+        ],
+        [
+          33306,
+          33319
+        ],
+        [
+          33384,
+          33397
+        ],
+        [
+          33462,
+          33475
+        ],
+        [
+          33540,
+          33553
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 209,
+      "bytes": 98,
+      "native_ranges": [
+        [
+          28782,
+          28828
+        ],
+        [
+          28860,
+          28873
+        ],
+        [
+          28938,
+          28951
+        ],
+        [
+          29016,
+          29029
+        ],
+        [
+          29094,
+          29107
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 210,
+      "bytes": 148,
+      "native_ranges": [
+        [
+          231140,
+          231249
+        ],
+        [
+          231270,
+          231283
+        ],
+        [
+          231400,
+          231413
+        ],
+        [
+          231530,
+          231543
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 211,
+      "bytes": 45,
+      "native_ranges": [
+        [
+          243750,
+          243769
+        ],
+        [
+          243880,
+          243893
+        ],
+        [
+          244010,
+          244023
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 212,
+      "bytes": 148,
+      "native_ranges": [
+        [
+          107415,
+          107524
+        ],
+        [
+          107545,
+          107558
+        ],
+        [
+          107675,
+          107688
+        ],
+        [
+          107805,
+          107818
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 213,
+      "bytes": 148,
+      "native_ranges": [
+        [
+          124654,
+          124763
+        ],
+        [
+          124784,
+          124797
+        ],
+        [
+          124914,
+          124927
+        ],
+        [
+          125044,
+          125057
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 214,
+      "bytes": 148,
+      "native_ranges": [
+        [
+          87779,
+          87888
+        ],
+        [
+          87909,
+          87922
+        ],
+        [
+          88039,
+          88052
+        ],
+        [
+          88169,
+          88182
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 215,
+      "bytes": 163,
+      "native_ranges": [
+        [
+          89769,
+          89893
+        ],
+        [
+          89899,
+          89912
+        ],
+        [
+          90029,
+          90042
+        ],
+        [
+          90159,
+          90172
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 216,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          159525,
+          159543
+        ],
+        [
+          159603,
+          159616
+        ],
+        [
+          159681,
+          159694
+        ],
+        [
+          159759,
+          159772
+        ],
+        [
+          159837,
+          159850
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 217,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          88668,
+          88686
+        ],
+        [
+          88746,
+          88759
+        ],
+        [
+          88824,
+          88837
+        ],
+        [
+          88902,
+          88915
+        ],
+        [
+          88980,
+          88993
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 218,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          71229,
+          71247
+        ],
+        [
+          71307,
+          71320
+        ],
+        [
+          71385,
+          71398
+        ],
+        [
+          71463,
+          71476
+        ],
+        [
+          71541,
+          71554
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 219,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          15834,
+          15852
+        ],
+        [
+          15912,
+          15925
+        ],
+        [
+          15990,
+          16003
+        ],
+        [
+          16068,
+          16081
+        ],
+        [
+          16146,
+          16159
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 220,
+      "bytes": 92,
+      "native_ranges": [
+        [
+          27846,
+          27899
+        ],
+        [
+          27924,
+          27937
+        ],
+        [
+          28002,
+          28015
+        ],
+        [
+          28080,
+          28093
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 221,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          58560,
+          58578
+        ],
+        [
+          58638,
+          58651
+        ],
+        [
+          58716,
+          58729
+        ],
+        [
+          58794,
+          58807
+        ],
+        [
+          58872,
+          58885
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 222,
+      "bytes": 83,
+      "native_ranges": [
+        [
+          107574,
+          107605
+        ],
+        [
+          107652,
+          107665
+        ],
+        [
+          107730,
+          107743
+        ],
+        [
+          107808,
+          107821
+        ],
+        [
+          107886,
+          107899
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 223,
+      "bytes": 92,
+      "native_ranges": [
+        [
+          20040,
+          20080
+        ],
+        [
+          20118,
+          20131
+        ],
+        [
+          20196,
+          20209
+        ],
+        [
+          20274,
+          20287
+        ],
+        [
+          20352,
+          20365
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 224,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          38772,
+          38790
+        ],
+        [
+          38850,
+          38863
+        ],
+        [
+          38928,
+          38941
+        ],
+        [
+          39006,
+          39019
+        ],
+        [
+          39084,
+          39097
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 225,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          20202,
+          20220
+        ],
+        [
+          20280,
+          20293
+        ],
+        [
+          20358,
+          20371
+        ],
+        [
+          20436,
+          20449
+        ],
+        [
+          20514,
+          20527
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 226,
+      "bytes": 78,
+      "native_ranges": [
+        [
+          18642,
+          18668
+        ],
+        [
+          18720,
+          18733
+        ],
+        [
+          18798,
+          18811
+        ],
+        [
+          18876,
+          18889
+        ],
+        [
+          18954,
+          18967
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 227,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          20514,
+          20532
+        ],
+        [
+          20592,
+          20605
+        ],
+        [
+          20670,
+          20683
+        ],
+        [
+          20748,
+          20761
+        ],
+        [
+          20826,
+          20839
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 228,
+      "bytes": 62,
+      "native_ranges": [
+        [
+          28860,
+          28883
+        ],
+        [
+          28938,
+          28951
+        ],
+        [
+          29016,
+          29029
+        ],
+        [
+          29094,
+          29107
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 229,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          8190,
+          8208
+        ],
+        [
+          8268,
+          8281
+        ],
+        [
+          8346,
+          8359
+        ],
+        [
+          8424,
+          8437
+        ],
+        [
+          8502,
+          8515
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 230,
+      "bytes": 88,
+      "native_ranges": [
+        [
+          33228,
+          33264
+        ],
+        [
+          33306,
+          33319
+        ],
+        [
+          33384,
+          33397
+        ],
+        [
+          33462,
+          33475
+        ],
+        [
+          33540,
+          33553
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 231,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          13224,
+          13242
+        ],
+        [
+          13302,
+          13315
+        ],
+        [
+          13380,
+          13393
+        ],
+        [
+          13458,
+          13471
+        ],
+        [
+          13536,
+          13549
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 232,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          3417,
+          3435
+        ],
+        [
+          3495,
+          3508
+        ],
+        [
+          3573,
+          3586
+        ],
+        [
+          3651,
+          3664
+        ],
+        [
+          3729,
+          3742
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 233,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          107832,
+          107850
+        ],
+        [
+          107910,
+          107923
+        ],
+        [
+          107988,
+          108001
+        ],
+        [
+          108066,
+          108079
+        ],
+        [
+          108144,
+          108157
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 234,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          76644,
+          76662
+        ],
+        [
+          76722,
+          76735
+        ],
+        [
+          76800,
+          76813
+        ],
+        [
+          76878,
+          76891
+        ],
+        [
+          76956,
+          76969
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 235,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          9159,
+          9177
+        ],
+        [
+          9237,
+          9250
+        ],
+        [
+          9315,
+          9328
+        ],
+        [
+          9393,
+          9406
+        ],
+        [
+          9471,
+          9484
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 236,
+      "bytes": 77,
+      "native_ranges": [
+        [
+          161885,
+          161949
+        ],
+        [
+          162015,
+          162028
+        ]
+      ],
+      "header_mutations": 2,
+      "excluded_incomplete_bits": 4
+    },
+    {
+      "entry": 237,
+      "bytes": 148,
+      "native_ranges": [
+        [
+          11570,
+          11679
+        ],
+        [
+          11700,
+          11713
+        ],
+        [
+          11830,
+          11843
+        ],
+        [
+          11960,
+          11973
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 238,
+      "bytes": 148,
+      "native_ranges": [
+        [
+          60450,
+          60559
+        ],
+        [
+          60580,
+          60593
+        ],
+        [
+          60710,
+          60723
+        ],
+        [
+          60840,
+          60853
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 239,
+      "bytes": 148,
+      "native_ranges": [
+        [
+          93990,
+          94099
+        ],
+        [
+          94120,
+          94133
+        ],
+        [
+          94250,
+          94263
+        ],
+        [
+          94380,
+          94393
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 240,
+      "bytes": 148,
+      "native_ranges": [
+        [
+          46800,
+          46909
+        ],
+        [
+          46930,
+          46943
+        ],
+        [
+          47060,
+          47073
+        ],
+        [
+          47190,
+          47203
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 241,
+      "bytes": 148,
+      "native_ranges": [
+        [
+          47060,
+          47169
+        ],
+        [
+          47190,
+          47203
+        ],
+        [
+          47320,
+          47333
+        ],
+        [
+          47450,
+          47463
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 242,
+      "bytes": 148,
+      "native_ranges": [
+        [
+          101311,
+          101420
+        ],
+        [
+          101441,
+          101454
+        ],
+        [
+          101571,
+          101584
+        ],
+        [
+          101701,
+          101714
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 243,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          55767,
+          55785
+        ],
+        [
+          55845,
+          55858
+        ],
+        [
+          55923,
+          55936
+        ],
+        [
+          56001,
+          56014
+        ],
+        [
+          56079,
+          56092
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 244,
+      "bytes": 104,
+      "native_ranges": [
+        [
+          21333,
+          21385
+        ],
+        [
+          21411,
+          21424
+        ],
+        [
+          21489,
+          21502
+        ],
+        [
+          21567,
+          21580
+        ],
+        [
+          21645,
+          21658
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 245,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          29934,
+          29952
+        ],
+        [
+          30012,
+          30025
+        ],
+        [
+          30090,
+          30103
+        ],
+        [
+          30168,
+          30181
+        ],
+        [
+          30246,
+          30259
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 246,
+      "bytes": 115,
+      "native_ranges": [
+        [
+          24249,
+          24312
+        ],
+        [
+          24327,
+          24340
+        ],
+        [
+          24405,
+          24418
+        ],
+        [
+          24483,
+          24496
+        ],
+        [
+          24561,
+          24574
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 247,
+      "bytes": 63,
+      "native_ranges": [
+        [
+          18390,
+          18414
+        ],
+        [
+          18468,
+          18481
+        ],
+        [
+          18546,
+          18559
+        ],
+        [
+          18624,
+          18637
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 248,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          23901,
+          23919
+        ],
+        [
+          23979,
+          23992
+        ],
+        [
+          24057,
+          24070
+        ],
+        [
+          24135,
+          24148
+        ],
+        [
+          24213,
+          24226
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 249,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          17439,
+          17457
+        ],
+        [
+          17517,
+          17530
+        ],
+        [
+          17595,
+          17608
+        ],
+        [
+          17673,
+          17686
+        ],
+        [
+          17751,
+          17764
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 250,
+      "bytes": 96,
+      "native_ranges": [
+        [
+          11778,
+          11835
+        ],
+        [
+          11856,
+          11869
+        ],
+        [
+          11934,
+          11947
+        ],
+        [
+          12012,
+          12025
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 251,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          47994,
+          48012
+        ],
+        [
+          48072,
+          48085
+        ],
+        [
+          48150,
+          48163
+        ],
+        [
+          48228,
+          48241
+        ],
+        [
+          48306,
+          48319
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 252,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          164649,
+          164667
+        ],
+        [
+          164727,
+          164740
+        ],
+        [
+          164805,
+          164818
+        ],
+        [
+          164883,
+          164896
+        ],
+        [
+          164961,
+          164974
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 253,
+      "bytes": 63,
+      "native_ranges": [
+        [
+          17754,
+          17778
+        ],
+        [
+          17832,
+          17845
+        ],
+        [
+          17910,
+          17923
+        ],
+        [
+          17988,
+          18001
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 254,
+      "bytes": 62,
+      "native_ranges": [
+        [
+          4701,
+          4724
+        ],
+        [
+          4779,
+          4792
+        ],
+        [
+          4857,
+          4870
+        ],
+        [
+          4935,
+          4948
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 5
+    },
+    {
+      "entry": 255,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          22065,
+          22083
+        ],
+        [
+          22143,
+          22156
+        ],
+        [
+          22221,
+          22234
+        ],
+        [
+          22299,
+          22312
+        ],
+        [
+          22377,
+          22390
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 256,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          114042,
+          114060
+        ],
+        [
+          114120,
+          114133
+        ],
+        [
+          114198,
+          114211
+        ],
+        [
+          114276,
+          114289
+        ],
+        [
+          114354,
+          114367
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 257,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          196833,
+          196851
+        ],
+        [
+          196911,
+          196924
+        ],
+        [
+          196989,
+          197002
+        ],
+        [
+          197067,
+          197080
+        ],
+        [
+          197145,
+          197158
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 258,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          11154,
+          11172
+        ],
+        [
+          11232,
+          11245
+        ],
+        [
+          11310,
+          11323
+        ],
+        [
+          11388,
+          11401
+        ],
+        [
+          11466,
+          11479
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 259,
+      "bytes": 103,
+      "native_ranges": [
+        [
+          12870,
+          12921
+        ],
+        [
+          12948,
+          12961
+        ],
+        [
+          13026,
+          13039
+        ],
+        [
+          13104,
+          13117
+        ],
+        [
+          13182,
+          13195
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 260,
+      "bytes": 93,
+      "native_ranges": [
+        [
+          29178,
+          29232
+        ],
+        [
+          29256,
+          29269
+        ],
+        [
+          29334,
+          29347
+        ],
+        [
+          29412,
+          29425
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 261,
+      "bytes": 85,
+      "native_ranges": [
+        [
+          82878,
+          82911
+        ],
+        [
+          82956,
+          82969
+        ],
+        [
+          83034,
+          83047
+        ],
+        [
+          83112,
+          83125
+        ],
+        [
+          83190,
+          83203
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 262,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          42354,
+          42372
+        ],
+        [
+          42432,
+          42445
+        ],
+        [
+          42510,
+          42523
+        ],
+        [
+          42588,
+          42601
+        ],
+        [
+          42666,
+          42679
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 263,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          54804,
+          54822
+        ],
+        [
+          54882,
+          54895
+        ],
+        [
+          54960,
+          54973
+        ],
+        [
+          55038,
+          55051
+        ],
+        [
+          55116,
+          55129
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 264,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          22485,
+          22503
+        ],
+        [
+          22563,
+          22576
+        ],
+        [
+          22641,
+          22654
+        ],
+        [
+          22719,
+          22732
+        ],
+        [
+          22797,
+          22810
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 265,
+      "bytes": 93,
+      "native_ranges": [
+        [
+          25728,
+          25769
+        ],
+        [
+          25806,
+          25819
+        ],
+        [
+          25884,
+          25897
+        ],
+        [
+          25962,
+          25975
+        ],
+        [
+          26040,
+          26053
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 266,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          123969,
+          123987
+        ],
+        [
+          124047,
+          124060
+        ],
+        [
+          124125,
+          124138
+        ],
+        [
+          124203,
+          124216
+        ],
+        [
+          124281,
+          124294
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 267,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          39936,
+          39954
+        ],
+        [
+          40014,
+          40027
+        ],
+        [
+          40092,
+          40105
+        ],
+        [
+          40170,
+          40183
+        ],
+        [
+          40248,
+          40261
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 268,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          10323,
+          10341
+        ],
+        [
+          10401,
+          10414
+        ],
+        [
+          10479,
+          10492
+        ],
+        [
+          10557,
+          10570
+        ],
+        [
+          10635,
+          10648
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 269,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          17022,
+          17040
+        ],
+        [
+          17100,
+          17113
+        ],
+        [
+          17178,
+          17191
+        ],
+        [
+          17256,
+          17269
+        ],
+        [
+          17334,
+          17347
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 270,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          23601,
+          23619
+        ],
+        [
+          23679,
+          23692
+        ],
+        [
+          23757,
+          23770
+        ],
+        [
+          23835,
+          23848
+        ],
+        [
+          23913,
+          23926
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 271,
+      "bytes": 126,
+      "native_ranges": [
+        [
+          76284,
+          76358
+        ],
+        [
+          76362,
+          76375
+        ],
+        [
+          76440,
+          76453
+        ],
+        [
+          76518,
+          76531
+        ],
+        [
+          76596,
+          76609
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 272,
+      "bytes": 123,
+      "native_ranges": [
+        [
+          9723,
+          9794
+        ],
+        [
+          9801,
+          9814
+        ],
+        [
+          9879,
+          9892
+        ],
+        [
+          9957,
+          9970
+        ],
+        [
+          10035,
+          10048
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 273,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          18486,
+          18504
+        ],
+        [
+          18564,
+          18577
+        ],
+        [
+          18642,
+          18655
+        ],
+        [
+          18720,
+          18733
+        ],
+        [
+          18798,
+          18811
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 274,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          10998,
+          11016
+        ],
+        [
+          11076,
+          11089
+        ],
+        [
+          11154,
+          11167
+        ],
+        [
+          11232,
+          11245
+        ],
+        [
+          11310,
+          11323
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 275,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          14976,
+          14994
+        ],
+        [
+          15054,
+          15067
+        ],
+        [
+          15132,
+          15145
+        ],
+        [
+          15210,
+          15223
+        ],
+        [
+          15288,
+          15301
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 276,
+      "bytes": 104,
+      "native_ranges": [
+        [
+          6864,
+          6916
+        ],
+        [
+          6942,
+          6955
+        ],
+        [
+          7020,
+          7033
+        ],
+        [
+          7098,
+          7111
+        ],
+        [
+          7176,
+          7189
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 277,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          129423,
+          129441
+        ],
+        [
+          129501,
+          129514
+        ],
+        [
+          129579,
+          129592
+        ],
+        [
+          129657,
+          129670
+        ],
+        [
+          129735,
+          129748
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 278,
+      "bytes": 42,
+      "native_ranges": [
+        [
+          114114,
+          114130
+        ],
+        [
+          114192,
+          114205
+        ],
+        [
+          114270,
+          114283
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 279,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          168096,
+          168114
+        ],
+        [
+          168174,
+          168187
+        ],
+        [
+          168252,
+          168265
+        ],
+        [
+          168330,
+          168343
+        ],
+        [
+          168408,
+          168421
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 280,
+      "bytes": 115,
+      "native_ranges": [
+        [
+          75300,
+          75363
+        ],
+        [
+          75378,
+          75391
+        ],
+        [
+          75456,
+          75469
+        ],
+        [
+          75534,
+          75547
+        ],
+        [
+          75612,
+          75625
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 281,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          55770,
+          55788
+        ],
+        [
+          55848,
+          55861
+        ],
+        [
+          55926,
+          55939
+        ],
+        [
+          56004,
+          56017
+        ],
+        [
+          56082,
+          56095
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 282,
+      "bytes": 119,
+      "native_ranges": [
+        [
+          34866,
+          34933
+        ],
+        [
+          34944,
+          34957
+        ],
+        [
+          35022,
+          35035
+        ],
+        [
+          35100,
+          35113
+        ],
+        [
+          35178,
+          35191
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 283,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          29484,
+          29502
+        ],
+        [
+          29562,
+          29575
+        ],
+        [
+          29640,
+          29653
+        ],
+        [
+          29718,
+          29731
+        ],
+        [
+          29796,
+          29809
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 284,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          4446,
+          4464
+        ],
+        [
+          4524,
+          4537
+        ],
+        [
+          4602,
+          4615
+        ],
+        [
+          4680,
+          4693
+        ],
+        [
+          4758,
+          4771
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 285,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          4446,
+          4464
+        ],
+        [
+          4524,
+          4537
+        ],
+        [
+          4602,
+          4615
+        ],
+        [
+          4680,
+          4693
+        ],
+        [
+          4758,
+          4771
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 286,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          6864,
+          6882
+        ],
+        [
+          6942,
+          6955
+        ],
+        [
+          7020,
+          7033
+        ],
+        [
+          7098,
+          7111
+        ],
+        [
+          7176,
+          7189
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 287,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          39936,
+          39954
+        ],
+        [
+          40014,
+          40027
+        ],
+        [
+          40092,
+          40105
+        ],
+        [
+          40170,
+          40183
+        ],
+        [
+          40248,
+          40261
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 288,
+      "bytes": 75,
+      "native_ranges": [
+        [
+          41860,
+          41909
+        ],
+        [
+          41990,
+          42003
+        ],
+        [
+          42120,
+          42133
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 289,
+      "bytes": 148,
+      "native_ranges": [
+        [
+          17550,
+          17659
+        ],
+        [
+          17680,
+          17693
+        ],
+        [
+          17810,
+          17823
+        ],
+        [
+          17940,
+          17953
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 290,
+      "bytes": 148,
+      "native_ranges": [
+        [
+          332280,
+          332389
+        ],
+        [
+          332410,
+          332423
+        ],
+        [
+          332540,
+          332553
+        ],
+        [
+          332670,
+          332683
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 291,
+      "bytes": 148,
+      "native_ranges": [
+        [
+          108680,
+          108789
+        ],
+        [
+          108810,
+          108823
+        ],
+        [
+          108940,
+          108953
+        ],
+        [
+          109070,
+          109083
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 292,
+      "bytes": 148,
+      "native_ranges": [
+        [
+          636220,
+          636329
+        ],
+        [
+          636350,
+          636363
+        ],
+        [
+          636480,
+          636493
+        ],
+        [
+          636610,
+          636623
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 293,
+      "bytes": 49,
+      "native_ranges": [
+        [
+          132340,
+          132363
+        ],
+        [
+          132470,
+          132483
+        ],
+        [
+          132600,
+          132613
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 294,
+      "bytes": 148,
+      "native_ranges": [
+        [
+          185770,
+          185879
+        ],
+        [
+          185900,
+          185913
+        ],
+        [
+          186030,
+          186043
+        ],
+        [
+          186160,
+          186173
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 295,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          343812,
+          343830
+        ],
+        [
+          343890,
+          343903
+        ],
+        [
+          343968,
+          343981
+        ],
+        [
+          344046,
+          344059
+        ],
+        [
+          344124,
+          344137
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 296,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          23982,
+          24000
+        ],
+        [
+          24060,
+          24073
+        ],
+        [
+          24138,
+          24151
+        ],
+        [
+          24216,
+          24229
+        ],
+        [
+          24294,
+          24307
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 297,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          65919,
+          65937
+        ],
+        [
+          65997,
+          66010
+        ],
+        [
+          66075,
+          66088
+        ],
+        [
+          66153,
+          66166
+        ],
+        [
+          66231,
+          66244
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 298,
+      "bytes": 108,
+      "native_ranges": [
+        [
+          9714,
+          9770
+        ],
+        [
+          9792,
+          9805
+        ],
+        [
+          9870,
+          9883
+        ],
+        [
+          9948,
+          9961
+        ],
+        [
+          10026,
+          10039
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 299,
+      "bytes": 83,
+      "native_ranges": [
+        [
+          37026,
+          37057
+        ],
+        [
+          37104,
+          37117
+        ],
+        [
+          37182,
+          37195
+        ],
+        [
+          37260,
+          37273
+        ],
+        [
+          37338,
+          37351
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 300,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          164754,
+          164772
+        ],
+        [
+          164832,
+          164845
+        ],
+        [
+          164910,
+          164923
+        ],
+        [
+          164988,
+          165001
+        ],
+        [
+          165066,
+          165079
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 301,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          15222,
+          15240
+        ],
+        [
+          15300,
+          15313
+        ],
+        [
+          15378,
+          15391
+        ],
+        [
+          15456,
+          15469
+        ],
+        [
+          15534,
+          15547
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 302,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          46716,
+          46734
+        ],
+        [
+          46794,
+          46807
+        ],
+        [
+          46872,
+          46885
+        ],
+        [
+          46950,
+          46963
+        ],
+        [
+          47028,
+          47041
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 303,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          50544,
+          50562
+        ],
+        [
+          50622,
+          50635
+        ],
+        [
+          50700,
+          50713
+        ],
+        [
+          50778,
+          50791
+        ],
+        [
+          50856,
+          50869
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 305,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          100308,
+          100326
+        ],
+        [
+          100386,
+          100399
+        ],
+        [
+          100464,
+          100477
+        ],
+        [
+          100542,
+          100555
+        ],
+        [
+          100620,
+          100633
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 306,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          32058,
+          32076
+        ],
+        [
+          32136,
+          32149
+        ],
+        [
+          32214,
+          32227
+        ],
+        [
+          32292,
+          32305
+        ],
+        [
+          32370,
+          32383
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 307,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          14169,
+          14187
+        ],
+        [
+          14247,
+          14260
+        ],
+        [
+          14325,
+          14338
+        ],
+        [
+          14403,
+          14416
+        ],
+        [
+          14481,
+          14494
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 308,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          29484,
+          29502
+        ],
+        [
+          29562,
+          29575
+        ],
+        [
+          29640,
+          29653
+        ],
+        [
+          29718,
+          29731
+        ],
+        [
+          29796,
+          29809
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 309,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          251508,
+          251526
+        ],
+        [
+          251586,
+          251599
+        ],
+        [
+          251664,
+          251677
+        ],
+        [
+          251742,
+          251755
+        ],
+        [
+          251820,
+          251833
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 310,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          45816,
+          45834
+        ],
+        [
+          45894,
+          45907
+        ],
+        [
+          45972,
+          45985
+        ],
+        [
+          46050,
+          46063
+        ],
+        [
+          46128,
+          46141
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 311,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          43359,
+          43377
+        ],
+        [
+          43437,
+          43450
+        ],
+        [
+          43515,
+          43528
+        ],
+        [
+          43593,
+          43606
+        ],
+        [
+          43671,
+          43684
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 312,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          72801,
+          72819
+        ],
+        [
+          72879,
+          72892
+        ],
+        [
+          72957,
+          72970
+        ],
+        [
+          73035,
+          73048
+        ],
+        [
+          73113,
+          73126
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 313,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          31122,
+          31140
+        ],
+        [
+          31200,
+          31213
+        ],
+        [
+          31278,
+          31291
+        ],
+        [
+          31356,
+          31369
+        ],
+        [
+          31434,
+          31447
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 314,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          20553,
+          20571
+        ],
+        [
+          20631,
+          20644
+        ],
+        [
+          20709,
+          20722
+        ],
+        [
+          20787,
+          20800
+        ],
+        [
+          20865,
+          20878
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 315,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          24237,
+          24255
+        ],
+        [
+          24315,
+          24328
+        ],
+        [
+          24393,
+          24406
+        ],
+        [
+          24471,
+          24484
+        ],
+        [
+          24549,
+          24562
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 316,
+      "bytes": 117,
+      "native_ranges": [
+        [
+          51867,
+          51932
+        ],
+        [
+          51945,
+          51958
+        ],
+        [
+          52023,
+          52036
+        ],
+        [
+          52101,
+          52114
+        ],
+        [
+          52179,
+          52192
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 317,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          21450,
+          21468
+        ],
+        [
+          21528,
+          21541
+        ],
+        [
+          21606,
+          21619
+        ],
+        [
+          21684,
+          21697
+        ],
+        [
+          21762,
+          21775
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 318,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          17316,
+          17334
+        ],
+        [
+          17394,
+          17407
+        ],
+        [
+          17472,
+          17485
+        ],
+        [
+          17550,
+          17563
+        ],
+        [
+          17628,
+          17641
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 319,
+      "bytes": 112,
+      "native_ranges": [
+        [
+          147543,
+          147616
+        ],
+        [
+          147621,
+          147634
+        ],
+        [
+          147699,
+          147712
+        ],
+        [
+          147777,
+          147790
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 320,
+      "bytes": 55,
+      "native_ranges": [
+        [
+          46878,
+          46894
+        ],
+        [
+          46956,
+          46969
+        ],
+        [
+          47034,
+          47047
+        ],
+        [
+          47112,
+          47125
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 321,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          56295,
+          56313
+        ],
+        [
+          56373,
+          56386
+        ],
+        [
+          56451,
+          56464
+        ],
+        [
+          56529,
+          56542
+        ],
+        [
+          56607,
+          56620
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 322,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          286425,
+          286443
+        ],
+        [
+          286503,
+          286516
+        ],
+        [
+          286581,
+          286594
+        ],
+        [
+          286659,
+          286672
+        ],
+        [
+          286737,
+          286750
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 323,
+      "bytes": 113,
+      "native_ranges": [
+        [
+          113706,
+          113767
+        ],
+        [
+          113784,
+          113797
+        ],
+        [
+          113862,
+          113875
+        ],
+        [
+          113940,
+          113953
+        ],
+        [
+          114018,
+          114031
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 324,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          158916,
+          158934
+        ],
+        [
+          158994,
+          159007
+        ],
+        [
+          159072,
+          159085
+        ],
+        [
+          159150,
+          159163
+        ],
+        [
+          159228,
+          159241
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 325,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          9426,
+          9444
+        ],
+        [
+          9504,
+          9517
+        ],
+        [
+          9582,
+          9595
+        ],
+        [
+          9660,
+          9673
+        ],
+        [
+          9738,
+          9751
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 326,
+      "bytes": 84,
+      "native_ranges": [
+        [
+          41262,
+          41307
+        ],
+        [
+          41340,
+          41353
+        ],
+        [
+          41418,
+          41431
+        ],
+        [
+          41496,
+          41509
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 327,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          7254,
+          7272
+        ],
+        [
+          7332,
+          7345
+        ],
+        [
+          7410,
+          7423
+        ],
+        [
+          7488,
+          7501
+        ],
+        [
+          7566,
+          7579
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 328,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          5382,
+          5400
+        ],
+        [
+          5460,
+          5473
+        ],
+        [
+          5538,
+          5551
+        ],
+        [
+          5616,
+          5629
+        ],
+        [
+          5694,
+          5707
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 329,
+      "bytes": 91,
+      "native_ranges": [
+        [
+          18798,
+          18837
+        ],
+        [
+          18876,
+          18889
+        ],
+        [
+          18954,
+          18967
+        ],
+        [
+          19032,
+          19045
+        ],
+        [
+          19110,
+          19123
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 330,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          40092,
+          40110
+        ],
+        [
+          40170,
+          40183
+        ],
+        [
+          40248,
+          40261
+        ],
+        [
+          40326,
+          40339
+        ],
+        [
+          40404,
+          40417
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 331,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          22386,
+          22404
+        ],
+        [
+          22464,
+          22477
+        ],
+        [
+          22542,
+          22555
+        ],
+        [
+          22620,
+          22633
+        ],
+        [
+          22698,
+          22711
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 332,
+      "bytes": 62,
+      "native_ranges": [
+        [
+          54522,
+          54545
+        ],
+        [
+          54600,
+          54613
+        ],
+        [
+          54678,
+          54691
+        ],
+        [
+          54756,
+          54769
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 333,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          62478,
+          62496
+        ],
+        [
+          62556,
+          62569
+        ],
+        [
+          62634,
+          62647
+        ],
+        [
+          62712,
+          62725
+        ],
+        [
+          62790,
+          62803
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 334,
+      "bytes": 58,
+      "native_ranges": [
+        [
+          48360,
+          48379
+        ],
+        [
+          48438,
+          48451
+        ],
+        [
+          48516,
+          48529
+        ],
+        [
+          48594,
+          48607
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 335,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          92454,
+          92472
+        ],
+        [
+          92532,
+          92545
+        ],
+        [
+          92610,
+          92623
+        ],
+        [
+          92688,
+          92701
+        ],
+        [
+          92766,
+          92779
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 336,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          5100,
+          5118
+        ],
+        [
+          5178,
+          5191
+        ],
+        [
+          5256,
+          5269
+        ],
+        [
+          5334,
+          5347
+        ],
+        [
+          5412,
+          5425
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 337,
+      "bytes": 53,
+      "native_ranges": [
+        [
+          66300,
+          66314
+        ],
+        [
+          66378,
+          66391
+        ],
+        [
+          66456,
+          66469
+        ],
+        [
+          66534,
+          66547
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 338,
+      "bytes": 48,
+      "native_ranges": [
+        [
+          55536,
+          55558
+        ],
+        [
+          55614,
+          55627
+        ],
+        [
+          55692,
+          55705
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 339,
+      "bytes": 62,
+      "native_ranges": [
+        [
+          100854,
+          100877
+        ],
+        [
+          100932,
+          100945
+        ],
+        [
+          101010,
+          101023
+        ],
+        [
+          101088,
+          101101
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 340,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          9288,
+          9306
+        ],
+        [
+          9366,
+          9379
+        ],
+        [
+          9444,
+          9457
+        ],
+        [
+          9522,
+          9535
+        ],
+        [
+          9600,
+          9613
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 341,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          29250,
+          29268
+        ],
+        [
+          29328,
+          29341
+        ],
+        [
+          29406,
+          29419
+        ],
+        [
+          29484,
+          29497
+        ],
+        [
+          29562,
+          29575
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 342,
+      "bytes": 65,
+      "native_ranges": [
+        [
+          26910,
+          26936
+        ],
+        [
+          26988,
+          27001
+        ],
+        [
+          27066,
+          27079
+        ],
+        [
+          27144,
+          27157
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 343,
+      "bytes": 57,
+      "native_ranges": [
+        [
+          5646,
+          5664
+        ],
+        [
+          5724,
+          5737
+        ],
+        [
+          5802,
+          5815
+        ],
+        [
+          5880,
+          5893
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 344,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          190998,
+          191016
+        ],
+        [
+          191076,
+          191089
+        ],
+        [
+          191154,
+          191167
+        ],
+        [
+          191232,
+          191245
+        ],
+        [
+          191310,
+          191323
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 345,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          225186,
+          225204
+        ],
+        [
+          225264,
+          225277
+        ],
+        [
+          225342,
+          225355
+        ],
+        [
+          225420,
+          225433
+        ],
+        [
+          225498,
+          225511
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 346,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          126192,
+          126210
+        ],
+        [
+          126270,
+          126283
+        ],
+        [
+          126348,
+          126361
+        ],
+        [
+          126426,
+          126439
+        ],
+        [
+          126504,
+          126517
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 347,
+      "bytes": 44,
+      "native_ranges": [
+        [
+          68406,
+          68424
+        ],
+        [
+          68484,
+          68497
+        ],
+        [
+          68562,
+          68575
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 6
+    },
+    {
+      "entry": 348,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          29640,
+          29658
+        ],
+        [
+          29718,
+          29731
+        ],
+        [
+          29796,
+          29809
+        ],
+        [
+          29874,
+          29887
+        ],
+        [
+          29952,
+          29965
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 349,
+      "bytes": 78,
+      "native_ranges": [
+        [
+          72540,
+          72566
+        ],
+        [
+          72618,
+          72631
+        ],
+        [
+          72696,
+          72709
+        ],
+        [
+          72774,
+          72787
+        ],
+        [
+          72852,
+          72865
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 350,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          284544,
+          284562
+        ],
+        [
+          284622,
+          284635
+        ],
+        [
+          284700,
+          284713
+        ],
+        [
+          284778,
+          284791
+        ],
+        [
+          284856,
+          284869
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 351,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          188277,
+          188295
+        ],
+        [
+          188355,
+          188368
+        ],
+        [
+          188433,
+          188446
+        ],
+        [
+          188511,
+          188524
+        ],
+        [
+          188589,
+          188602
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 352,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          29484,
+          29502
+        ],
+        [
+          29562,
+          29575
+        ],
+        [
+          29640,
+          29653
+        ],
+        [
+          29718,
+          29731
+        ],
+        [
+          29796,
+          29809
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 353,
+      "bytes": 90,
+      "native_ranges": [
+        [
+          51324,
+          51362
+        ],
+        [
+          51402,
+          51415
+        ],
+        [
+          51480,
+          51493
+        ],
+        [
+          51558,
+          51571
+        ],
+        [
+          51636,
+          51649
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 354,
+      "bytes": 109,
+      "native_ranges": [
+        [
+          147030,
+          147087
+        ],
+        [
+          147108,
+          147121
+        ],
+        [
+          147186,
+          147199
+        ],
+        [
+          147264,
+          147277
+        ],
+        [
+          147342,
+          147355
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 355,
+      "bytes": 101,
+      "native_ranges": [
+        [
+          16848,
+          16910
+        ],
+        [
+          16926,
+          16939
+        ],
+        [
+          17004,
+          17017
+        ],
+        [
+          17082,
+          17095
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 356,
+      "bytes": 129,
+      "native_ranges": [
+        [
+          83928,
+          84005
+        ],
+        [
+          84006,
+          84019
+        ],
+        [
+          84084,
+          84097
+        ],
+        [
+          84162,
+          84175
+        ],
+        [
+          84240,
+          84253
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 357,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          54834,
+          54852
+        ],
+        [
+          54912,
+          54925
+        ],
+        [
+          54990,
+          55003
+        ],
+        [
+          55068,
+          55081
+        ],
+        [
+          55146,
+          55159
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 358,
+      "bytes": 129,
+      "native_ranges": [
+        [
+          41043,
+          41120
+        ],
+        [
+          41121,
+          41134
+        ],
+        [
+          41199,
+          41212
+        ],
+        [
+          41277,
+          41290
+        ],
+        [
+          41355,
+          41368
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 359,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          31653,
+          31671
+        ],
+        [
+          31731,
+          31744
+        ],
+        [
+          31809,
+          31822
+        ],
+        [
+          31887,
+          31900
+        ],
+        [
+          31965,
+          31978
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 360,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          110655,
+          110673
+        ],
+        [
+          110733,
+          110746
+        ],
+        [
+          110811,
+          110824
+        ],
+        [
+          110889,
+          110902
+        ],
+        [
+          110967,
+          110980
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 361,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          43230,
+          43248
+        ],
+        [
+          43308,
+          43321
+        ],
+        [
+          43386,
+          43399
+        ],
+        [
+          43464,
+          43477
+        ],
+        [
+          43542,
+          43555
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 362,
+      "bytes": 106,
+      "native_ranges": [
+        [
+          36972,
+          37039
+        ],
+        [
+          37050,
+          37063
+        ],
+        [
+          37128,
+          37141
+        ],
+        [
+          37206,
+          37219
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 363,
+      "bytes": 78,
+      "native_ranges": [
+        [
+          32652,
+          32678
+        ],
+        [
+          32730,
+          32743
+        ],
+        [
+          32808,
+          32821
+        ],
+        [
+          32886,
+          32899
+        ],
+        [
+          32964,
+          32977
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 364,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          49608,
+          49626
+        ],
+        [
+          49686,
+          49699
+        ],
+        [
+          49764,
+          49777
+        ],
+        [
+          49842,
+          49855
+        ],
+        [
+          49920,
+          49933
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 365,
+      "bytes": 112,
+      "native_ranges": [
+        [
+          43446,
+          43506
+        ],
+        [
+          43524,
+          43537
+        ],
+        [
+          43602,
+          43615
+        ],
+        [
+          43680,
+          43693
+        ],
+        [
+          43758,
+          43771
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 366,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          35958,
+          35976
+        ],
+        [
+          36036,
+          36049
+        ],
+        [
+          36114,
+          36127
+        ],
+        [
+          36192,
+          36205
+        ],
+        [
+          36270,
+          36283
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 367,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          60606,
+          60624
+        ],
+        [
+          60684,
+          60697
+        ],
+        [
+          60762,
+          60775
+        ],
+        [
+          60840,
+          60853
+        ],
+        [
+          60918,
+          60931
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 368,
+      "bytes": 80,
+      "native_ranges": [
+        [
+          16380,
+          16408
+        ],
+        [
+          16458,
+          16471
+        ],
+        [
+          16536,
+          16549
+        ],
+        [
+          16614,
+          16627
+        ],
+        [
+          16692,
+          16705
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 369,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          28314,
+          28332
+        ],
+        [
+          28392,
+          28405
+        ],
+        [
+          28470,
+          28483
+        ],
+        [
+          28548,
+          28561
+        ],
+        [
+          28626,
+          28639
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 370,
+      "bytes": 95,
+      "native_ranges": [
+        [
+          9672,
+          9715
+        ],
+        [
+          9750,
+          9763
+        ],
+        [
+          9828,
+          9841
+        ],
+        [
+          9906,
+          9919
+        ],
+        [
+          9984,
+          9997
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 371,
+      "bytes": 78,
+      "native_ranges": [
+        [
+          12324,
+          12350
+        ],
+        [
+          12402,
+          12415
+        ],
+        [
+          12480,
+          12493
+        ],
+        [
+          12558,
+          12571
+        ],
+        [
+          12636,
+          12649
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 372,
+      "bytes": 57,
+      "native_ranges": [
+        [
+          16182,
+          16200
+        ],
+        [
+          16260,
+          16273
+        ],
+        [
+          16338,
+          16351
+        ],
+        [
+          16416,
+          16429
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 373,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          38541,
+          38559
+        ],
+        [
+          38619,
+          38632
+        ],
+        [
+          38697,
+          38710
+        ],
+        [
+          38775,
+          38788
+        ],
+        [
+          38853,
+          38866
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 374,
+      "bytes": 118,
+      "native_ranges": [
+        [
+          48339,
+          48405
+        ],
+        [
+          48417,
+          48430
+        ],
+        [
+          48495,
+          48508
+        ],
+        [
+          48573,
+          48586
+        ],
+        [
+          48651,
+          48664
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 375,
+      "bytes": 88,
+      "native_ranges": [
+        [
+          28998,
+          29047
+        ],
+        [
+          29076,
+          29089
+        ],
+        [
+          29154,
+          29167
+        ],
+        [
+          29232,
+          29245
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 376,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          52185,
+          52203
+        ],
+        [
+          52263,
+          52276
+        ],
+        [
+          52341,
+          52354
+        ],
+        [
+          52419,
+          52432
+        ],
+        [
+          52497,
+          52510
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 377,
+      "bytes": 116,
+      "native_ranges": [
+        [
+          19287,
+          19351
+        ],
+        [
+          19365,
+          19378
+        ],
+        [
+          19443,
+          19456
+        ],
+        [
+          19521,
+          19534
+        ],
+        [
+          19599,
+          19612
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 378,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          14724,
+          14742
+        ],
+        [
+          14802,
+          14815
+        ],
+        [
+          14880,
+          14893
+        ],
+        [
+          14958,
+          14971
+        ],
+        [
+          15036,
+          15049
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 379,
+      "bytes": 72,
+      "native_ranges": [
+        [
+          42813,
+          42833
+        ],
+        [
+          42891,
+          42904
+        ],
+        [
+          42969,
+          42982
+        ],
+        [
+          43047,
+          43060
+        ],
+        [
+          43125,
+          43138
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 380,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          79128,
+          79146
+        ],
+        [
+          79206,
+          79219
+        ],
+        [
+          79284,
+          79297
+        ],
+        [
+          79362,
+          79375
+        ],
+        [
+          79440,
+          79453
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 381,
+      "bytes": 29,
+      "native_ranges": [
+        [
+          63915,
+          63931
+        ],
+        [
+          63993,
+          64006
+        ]
+      ],
+      "header_mutations": 2,
+      "excluded_incomplete_bits": 2
+    },
+    {
+      "entry": 382,
+      "bytes": 59,
+      "native_ranges": [
+        [
+          164199,
+          164219
+        ],
+        [
+          164277,
+          164290
+        ],
+        [
+          164355,
+          164368
+        ],
+        [
+          164433,
+          164446
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 383,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          65832,
+          65850
+        ],
+        [
+          65910,
+          65923
+        ],
+        [
+          65988,
+          66001
+        ],
+        [
+          66066,
+          66079
+        ],
+        [
+          66144,
+          66157
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 384,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          77220,
+          77238
+        ],
+        [
+          77298,
+          77311
+        ],
+        [
+          77376,
+          77389
+        ],
+        [
+          77454,
+          77467
+        ],
+        [
+          77532,
+          77545
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 385,
+      "bytes": 109,
+      "native_ranges": [
+        [
+          65544,
+          65601
+        ],
+        [
+          65622,
+          65635
+        ],
+        [
+          65700,
+          65713
+        ],
+        [
+          65778,
+          65791
+        ],
+        [
+          65856,
+          65869
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 386,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          197574,
+          197592
+        ],
+        [
+          197652,
+          197665
+        ],
+        [
+          197730,
+          197743
+        ],
+        [
+          197808,
+          197821
+        ],
+        [
+          197886,
+          197899
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 387,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          216732,
+          216750
+        ],
+        [
+          216810,
+          216823
+        ],
+        [
+          216888,
+          216901
+        ],
+        [
+          216966,
+          216979
+        ],
+        [
+          217044,
+          217057
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 388,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          20733,
+          20751
+        ],
+        [
+          20811,
+          20824
+        ],
+        [
+          20889,
+          20902
+        ],
+        [
+          20967,
+          20980
+        ],
+        [
+          21045,
+          21058
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 389,
+      "bytes": 117,
+      "native_ranges": [
+        [
+          156522,
+          156587
+        ],
+        [
+          156600,
+          156613
+        ],
+        [
+          156678,
+          156691
+        ],
+        [
+          156756,
+          156769
+        ],
+        [
+          156834,
+          156847
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 390,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          152478,
+          152496
+        ],
+        [
+          152556,
+          152569
+        ],
+        [
+          152634,
+          152647
+        ],
+        [
+          152712,
+          152725
+        ],
+        [
+          152790,
+          152803
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 391,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          101031,
+          101049
+        ],
+        [
+          101109,
+          101122
+        ],
+        [
+          101187,
+          101200
+        ],
+        [
+          101265,
+          101278
+        ],
+        [
+          101343,
+          101356
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 392,
+      "bytes": 106,
+      "native_ranges": [
+        [
+          12636,
+          12690
+        ],
+        [
+          12714,
+          12727
+        ],
+        [
+          12792,
+          12805
+        ],
+        [
+          12870,
+          12883
+        ],
+        [
+          12948,
+          12961
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 393,
+      "bytes": 118,
+      "native_ranges": [
+        [
+          45972,
+          46038
+        ],
+        [
+          46050,
+          46063
+        ],
+        [
+          46128,
+          46141
+        ],
+        [
+          46206,
+          46219
+        ],
+        [
+          46284,
+          46297
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 395,
+      "bytes": 67,
+      "native_ranges": [
+        [
+          75270,
+          75298
+        ],
+        [
+          75348,
+          75361
+        ],
+        [
+          75426,
+          75439
+        ],
+        [
+          75504,
+          75517
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 397,
+      "bytes": 112,
+      "native_ranges": [
+        [
+          62712,
+          62772
+        ],
+        [
+          62790,
+          62803
+        ],
+        [
+          62868,
+          62881
+        ],
+        [
+          62946,
+          62959
+        ],
+        [
+          63024,
+          63037
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 398,
+      "bytes": 93,
+      "native_ranges": [
+        [
+          42948,
+          42989
+        ],
+        [
+          43026,
+          43039
+        ],
+        [
+          43104,
+          43117
+        ],
+        [
+          43182,
+          43195
+        ],
+        [
+          43260,
+          43273
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 399,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          21456,
+          21474
+        ],
+        [
+          21534,
+          21547
+        ],
+        [
+          21612,
+          21625
+        ],
+        [
+          21690,
+          21703
+        ],
+        [
+          21768,
+          21781
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 400,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          6426,
+          6444
+        ],
+        [
+          6504,
+          6517
+        ],
+        [
+          6582,
+          6595
+        ],
+        [
+          6660,
+          6673
+        ],
+        [
+          6738,
+          6751
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 401,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          49371,
+          49389
+        ],
+        [
+          49449,
+          49462
+        ],
+        [
+          49527,
+          49540
+        ],
+        [
+          49605,
+          49618
+        ],
+        [
+          49683,
+          49696
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 402,
+      "bytes": 86,
+      "native_ranges": [
+        [
+          16035,
+          16082
+        ],
+        [
+          16113,
+          16126
+        ],
+        [
+          16191,
+          16204
+        ],
+        [
+          16269,
+          16282
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 403,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          119043,
+          119061
+        ],
+        [
+          119121,
+          119134
+        ],
+        [
+          119199,
+          119212
+        ],
+        [
+          119277,
+          119290
+        ],
+        [
+          119355,
+          119368
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 404,
+      "bytes": 86,
+      "native_ranges": [
+        [
+          78216,
+          78263
+        ],
+        [
+          78294,
+          78307
+        ],
+        [
+          78372,
+          78385
+        ],
+        [
+          78450,
+          78463
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 405,
+      "bytes": 34,
+      "native_ranges": [
+        [
+          152007,
+          152028
+        ],
+        [
+          152085,
+          152098
+        ]
+      ],
+      "header_mutations": 2,
+      "excluded_incomplete_bits": 6
+    },
+    {
+      "entry": 406,
+      "bytes": 125,
+      "native_ranges": [
+        [
+          168372,
+          168445
+        ],
+        [
+          168450,
+          168463
+        ],
+        [
+          168528,
+          168541
+        ],
+        [
+          168606,
+          168619
+        ],
+        [
+          168684,
+          168697
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 407,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          68973,
+          68991
+        ],
+        [
+          69051,
+          69064
+        ],
+        [
+          69129,
+          69142
+        ],
+        [
+          69207,
+          69220
+        ],
+        [
+          69285,
+          69298
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 408,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          375492,
+          375510
+        ],
+        [
+          375570,
+          375583
+        ],
+        [
+          375648,
+          375661
+        ],
+        [
+          375726,
+          375739
+        ],
+        [
+          375804,
+          375817
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 409,
+      "bytes": 59,
+      "native_ranges": [
+        [
+          8958,
+          8978
+        ],
+        [
+          9036,
+          9049
+        ],
+        [
+          9114,
+          9127
+        ],
+        [
+          9192,
+          9205
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 410,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          11604,
+          11622
+        ],
+        [
+          11682,
+          11695
+        ],
+        [
+          11760,
+          11773
+        ],
+        [
+          11838,
+          11851
+        ],
+        [
+          11916,
+          11929
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 411,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          12843,
+          12861
+        ],
+        [
+          12921,
+          12934
+        ],
+        [
+          12999,
+          13012
+        ],
+        [
+          13077,
+          13090
+        ],
+        [
+          13155,
+          13168
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 412,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          20013,
+          20031
+        ],
+        [
+          20091,
+          20104
+        ],
+        [
+          20169,
+          20182
+        ],
+        [
+          20247,
+          20260
+        ],
+        [
+          20325,
+          20338
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 413,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          10770,
+          10788
+        ],
+        [
+          10848,
+          10861
+        ],
+        [
+          10926,
+          10939
+        ],
+        [
+          11004,
+          11017
+        ],
+        [
+          11082,
+          11095
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 414,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          10797,
+          10815
+        ],
+        [
+          10875,
+          10888
+        ],
+        [
+          10953,
+          10966
+        ],
+        [
+          11031,
+          11044
+        ],
+        [
+          11109,
+          11122
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 415,
+      "bytes": 63,
+      "native_ranges": [
+        [
+          5637,
+          5661
+        ],
+        [
+          5715,
+          5728
+        ],
+        [
+          5793,
+          5806
+        ],
+        [
+          5871,
+          5884
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 416,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          20412,
+          20430
+        ],
+        [
+          20490,
+          20503
+        ],
+        [
+          20568,
+          20581
+        ],
+        [
+          20646,
+          20659
+        ],
+        [
+          20724,
+          20737
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 417,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          10251,
+          10269
+        ],
+        [
+          10329,
+          10342
+        ],
+        [
+          10407,
+          10420
+        ],
+        [
+          10485,
+          10498
+        ],
+        [
+          10563,
+          10576
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 418,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          5226,
+          5244
+        ],
+        [
+          5304,
+          5317
+        ],
+        [
+          5382,
+          5395
+        ],
+        [
+          5460,
+          5473
+        ],
+        [
+          5538,
+          5551
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 419,
+      "bytes": 81,
+      "native_ranges": [
+        [
+          102648,
+          102703
+        ],
+        [
+          102726,
+          102739
+        ],
+        [
+          102804,
+          102817
+        ]
+      ],
+      "header_mutations": 3,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 420,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          18642,
+          18660
+        ],
+        [
+          18720,
+          18733
+        ],
+        [
+          18798,
+          18811
+        ],
+        [
+          18876,
+          18889
+        ],
+        [
+          18954,
+          18967
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 421,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          52962,
+          52980
+        ],
+        [
+          53040,
+          53053
+        ],
+        [
+          53118,
+          53131
+        ],
+        [
+          53196,
+          53209
+        ],
+        [
+          53274,
+          53287
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 422,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          73710,
+          73728
+        ],
+        [
+          73788,
+          73801
+        ],
+        [
+          73866,
+          73879
+        ],
+        [
+          73944,
+          73957
+        ],
+        [
+          74022,
+          74035
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 423,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          19032,
+          19050
+        ],
+        [
+          19110,
+          19123
+        ],
+        [
+          19188,
+          19201
+        ],
+        [
+          19266,
+          19279
+        ],
+        [
+          19344,
+          19357
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 424,
+      "bytes": 110,
+      "native_ranges": [
+        [
+          21606,
+          21664
+        ],
+        [
+          21684,
+          21697
+        ],
+        [
+          21762,
+          21775
+        ],
+        [
+          21840,
+          21853
+        ],
+        [
+          21918,
+          21931
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 425,
+      "bytes": 122,
+      "native_ranges": [
+        [
+          166548,
+          166618
+        ],
+        [
+          166626,
+          166639
+        ],
+        [
+          166704,
+          166717
+        ],
+        [
+          166782,
+          166795
+        ],
+        [
+          166860,
+          166873
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 426,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          10623,
+          10641
+        ],
+        [
+          10701,
+          10714
+        ],
+        [
+          10779,
+          10792
+        ],
+        [
+          10857,
+          10870
+        ],
+        [
+          10935,
+          10948
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 427,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          9126,
+          9144
+        ],
+        [
+          9204,
+          9217
+        ],
+        [
+          9282,
+          9295
+        ],
+        [
+          9360,
+          9373
+        ],
+        [
+          9438,
+          9451
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 428,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          47634,
+          47652
+        ],
+        [
+          47712,
+          47725
+        ],
+        [
+          47790,
+          47803
+        ],
+        [
+          47868,
+          47881
+        ],
+        [
+          47946,
+          47959
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 429,
+      "bytes": 119,
+      "native_ranges": [
+        [
+          20355,
+          20422
+        ],
+        [
+          20433,
+          20446
+        ],
+        [
+          20511,
+          20524
+        ],
+        [
+          20589,
+          20602
+        ],
+        [
+          20667,
+          20680
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 430,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          59001,
+          59019
+        ],
+        [
+          59079,
+          59092
+        ],
+        [
+          59157,
+          59170
+        ],
+        [
+          59235,
+          59248
+        ],
+        [
+          59313,
+          59326
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 431,
+      "bytes": 92,
+      "native_ranges": [
+        [
+          11523,
+          11563
+        ],
+        [
+          11601,
+          11614
+        ],
+        [
+          11679,
+          11692
+        ],
+        [
+          11757,
+          11770
+        ],
+        [
+          11835,
+          11848
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 432,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          9516,
+          9534
+        ],
+        [
+          9594,
+          9607
+        ],
+        [
+          9672,
+          9685
+        ],
+        [
+          9750,
+          9763
+        ],
+        [
+          9828,
+          9841
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 433,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          8346,
+          8364
+        ],
+        [
+          8424,
+          8437
+        ],
+        [
+          8502,
+          8515
+        ],
+        [
+          8580,
+          8593
+        ],
+        [
+          8658,
+          8671
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 434,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          9126,
+          9144
+        ],
+        [
+          9204,
+          9217
+        ],
+        [
+          9282,
+          9295
+        ],
+        [
+          9360,
+          9373
+        ],
+        [
+          9438,
+          9451
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 435,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          8190,
+          8208
+        ],
+        [
+          8268,
+          8281
+        ],
+        [
+          8346,
+          8359
+        ],
+        [
+          8424,
+          8437
+        ],
+        [
+          8502,
+          8515
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 436,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          8334,
+          8352
+        ],
+        [
+          8412,
+          8425
+        ],
+        [
+          8490,
+          8503
+        ],
+        [
+          8568,
+          8581
+        ],
+        [
+          8646,
+          8659
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 437,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          5907,
+          5925
+        ],
+        [
+          5985,
+          5998
+        ],
+        [
+          6063,
+          6076
+        ],
+        [
+          6141,
+          6154
+        ],
+        [
+          6219,
+          6232
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 438,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          23478,
+          23496
+        ],
+        [
+          23556,
+          23569
+        ],
+        [
+          23634,
+          23647
+        ],
+        [
+          23712,
+          23725
+        ],
+        [
+          23790,
+          23803
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 439,
+      "bytes": 125,
+      "native_ranges": [
+        [
+          13572,
+          13645
+        ],
+        [
+          13650,
+          13663
+        ],
+        [
+          13728,
+          13741
+        ],
+        [
+          13806,
+          13819
+        ],
+        [
+          13884,
+          13897
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 440,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          12870,
+          12888
+        ],
+        [
+          12948,
+          12961
+        ],
+        [
+          13026,
+          13039
+        ],
+        [
+          13104,
+          13117
+        ],
+        [
+          13182,
+          13195
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 441,
+      "bytes": 89,
+      "native_ranges": [
+        [
+          13416,
+          13453
+        ],
+        [
+          13494,
+          13507
+        ],
+        [
+          13572,
+          13585
+        ],
+        [
+          13650,
+          13663
+        ],
+        [
+          13728,
+          13741
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 442,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          20514,
+          20532
+        ],
+        [
+          20592,
+          20605
+        ],
+        [
+          20670,
+          20683
+        ],
+        [
+          20748,
+          20761
+        ],
+        [
+          20826,
+          20839
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 443,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          27222,
+          27240
+        ],
+        [
+          27300,
+          27313
+        ],
+        [
+          27378,
+          27391
+        ],
+        [
+          27456,
+          27469
+        ],
+        [
+          27534,
+          27547
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 444,
+      "bytes": 108,
+      "native_ranges": [
+        [
+          27612,
+          27668
+        ],
+        [
+          27690,
+          27703
+        ],
+        [
+          27768,
+          27781
+        ],
+        [
+          27846,
+          27859
+        ],
+        [
+          27924,
+          27937
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 445,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          10062,
+          10080
+        ],
+        [
+          10140,
+          10153
+        ],
+        [
+          10218,
+          10231
+        ],
+        [
+          10296,
+          10309
+        ],
+        [
+          10374,
+          10387
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 446,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          5226,
+          5244
+        ],
+        [
+          5304,
+          5317
+        ],
+        [
+          5382,
+          5395
+        ],
+        [
+          5460,
+          5473
+        ],
+        [
+          5538,
+          5551
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 447,
+      "bytes": 122,
+      "native_ranges": [
+        [
+          2964,
+          3034
+        ],
+        [
+          3042,
+          3055
+        ],
+        [
+          3120,
+          3133
+        ],
+        [
+          3198,
+          3211
+        ],
+        [
+          3276,
+          3289
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 448,
+      "bytes": 98,
+      "native_ranges": [
+        [
+          6708,
+          6754
+        ],
+        [
+          6786,
+          6799
+        ],
+        [
+          6864,
+          6877
+        ],
+        [
+          6942,
+          6955
+        ],
+        [
+          7020,
+          7033
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 449,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          14742,
+          14760
+        ],
+        [
+          14820,
+          14833
+        ],
+        [
+          14898,
+          14911
+        ],
+        [
+          14976,
+          14989
+        ],
+        [
+          15054,
+          15067
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 450,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          29943,
+          29961
+        ],
+        [
+          30021,
+          30034
+        ],
+        [
+          30099,
+          30112
+        ],
+        [
+          30177,
+          30190
+        ],
+        [
+          30255,
+          30268
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 451,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          13260,
+          13278
+        ],
+        [
+          13338,
+          13351
+        ],
+        [
+          13416,
+          13429
+        ],
+        [
+          13494,
+          13507
+        ],
+        [
+          13572,
+          13585
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 452,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          88452,
+          88470
+        ],
+        [
+          88530,
+          88543
+        ],
+        [
+          88608,
+          88621
+        ],
+        [
+          88686,
+          88699
+        ],
+        [
+          88764,
+          88777
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 453,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          70902,
+          70920
+        ],
+        [
+          70980,
+          70993
+        ],
+        [
+          71058,
+          71071
+        ],
+        [
+          71136,
+          71149
+        ],
+        [
+          71214,
+          71227
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 454,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          45051,
+          45069
+        ],
+        [
+          45129,
+          45142
+        ],
+        [
+          45207,
+          45220
+        ],
+        [
+          45285,
+          45298
+        ],
+        [
+          45363,
+          45376
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 455,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          26100,
+          26118
+        ],
+        [
+          26178,
+          26191
+        ],
+        [
+          26256,
+          26269
+        ],
+        [
+          26334,
+          26347
+        ],
+        [
+          26412,
+          26425
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 456,
+      "bytes": 82,
+      "native_ranges": [
+        [
+          25866,
+          25896
+        ],
+        [
+          25944,
+          25957
+        ],
+        [
+          26022,
+          26035
+        ],
+        [
+          26100,
+          26113
+        ],
+        [
+          26178,
+          26191
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 457,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          22776,
+          22794
+        ],
+        [
+          22854,
+          22867
+        ],
+        [
+          22932,
+          22945
+        ],
+        [
+          23010,
+          23023
+        ],
+        [
+          23088,
+          23101
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 458,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          17160,
+          17178
+        ],
+        [
+          17238,
+          17251
+        ],
+        [
+          17316,
+          17329
+        ],
+        [
+          17394,
+          17407
+        ],
+        [
+          17472,
+          17485
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 459,
+      "bytes": 72,
+      "native_ranges": [
+        [
+          11466,
+          11499
+        ],
+        [
+          11544,
+          11557
+        ],
+        [
+          11622,
+          11635
+        ],
+        [
+          11700,
+          11713
+        ]
+      ],
+      "header_mutations": 4,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 460,
+      "bytes": 94,
+      "native_ranges": [
+        [
+          25194,
+          25236
+        ],
+        [
+          25272,
+          25285
+        ],
+        [
+          25350,
+          25363
+        ],
+        [
+          25428,
+          25441
+        ],
+        [
+          25506,
+          25519
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    },
+    {
+      "entry": 461,
+      "bytes": 70,
+      "native_ranges": [
+        [
+          18096,
+          18114
+        ],
+        [
+          18174,
+          18187
+        ],
+        [
+          18252,
+          18265
+        ],
+        [
+          18330,
+          18343
+        ],
+        [
+          18408,
+          18421
+        ]
+      ],
+      "header_mutations": 5,
+      "excluded_incomplete_bits": 0
+    }
+  ],
+  "base_commit": "094102644c4c2f5aefaa0fc4b609416918f66f58",
+  "acceptance": {
+    "base_commit": "094102644c4c2f5aefaa0fc4b609416918f66f58",
+    "source_fingerprint": "6485676297f4a790d71472f5ec2c42218a83fcba7f9b2120feb257379151538e",
+    "report_sha256": "cbcbbb38a51952edd0e134536848b16584f8d114ffd1dd775683ad851a130f2f",
+    "measures": {
+      "fuzzy_match_percent": 25.06301,
+      "total_code": "2246328",
+      "matched_code": "555524",
+      "matched_code_percent": 24.730316,
+      "total_data": "65120512",
+      "matched_data": "62200104",
+      "matched_data_percent": 95.51537,
+      "total_functions": 5904,
+      "matched_functions": 3485,
+      "matched_functions_percent": 59.02778,
+      "complete_code": "129488",
+      "complete_code_percent": 5.7644296,
+      "complete_data": "62199336",
+      "complete_data_percent": 95.514206,
+      "total_units": 11695,
+      "complete_units": 11005
+    },
+    "new_bytes": 36479,
+    "expanded_spectral_units": 453,
+    "all_previous_ranges_preserved": true,
+    "other_prior_asset_proofs_unchanged": 10228,
+    "prior_source_files_preserved": 26052,
+    "rom_bytes": 67108864,
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "snapshot": "current",
+    "compile_errors": [],
+    "tests": {
+      "run": 2591,
+      "skipped": 8,
+      "failures": 0
+    }
+  }
+}

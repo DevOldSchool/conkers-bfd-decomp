@@ -133,7 +133,6 @@ void func_15160090(void *arg0, s32 arg1, u8 arg2) {
         temp_v0(arg0, arg1, arg2);
     }
 }
-s32 func_151422DC(s32, s32, s32, s32, s32, s32, s32);
 extern s32 D_800A6540;
 extern s32 D_800A6548;
 extern s32 D_800A657C;
@@ -157,23 +156,23 @@ s32 func_151600D8(u8 *arg0) {
 
     selector = 2;
     values = (f32 *)(arg0 + 0x18);
-    index = func_151422DC(0, (s32)&D_800A6540, -0x7D0, 0x7D0,
-                          0, (s32)&D_800A6548, 0x1C4);
+    index = func_151422DC(0, &D_800A6540, -0x7D0, 0x7D0,
+                          0, &D_800A6548, 0x1C4);
     values[0] = (f32)index * D_800A6674;
-    index = func_151422DC(1, (s32)&D_800A657C, -0x7D0, 0x7D0,
-                          0, (s32)&D_800A6584, 0x1C9);
+    index = func_151422DC(1, &D_800A657C, -0x7D0, 0x7D0,
+                          0, &D_800A6584, 0x1C9);
     values[1] = (f32)index * D_800A6678;
-    index = func_151422DC(selector, (s32)&D_800A65B8, 0, 0x7D0,
-                          0x1F4, (s32)&D_800A65C0, 0x1CE);
+    index = func_151422DC(selector, &D_800A65B8, 0, 0x7D0,
+                          0x1F4, &D_800A65C0, 0x1CE);
     values[2] = (f32)index * D_800A667C;
     selector++;
-    index = func_151422DC(selector, (s32)&D_800A65F4, 0, 0x7D0,
-                          0x1F4, (s32)&D_800A65FC, 0x1D3);
+    index = func_151422DC(selector, &D_800A65F4, 0, 0x7D0,
+                          0x1F4, &D_800A65FC, 0x1D3);
     values[3] = (f32)index * D_800A6680;
     selector++;
-    *(s32 *)(values + 4) = func_151422DC(selector, (s32)&D_800A6630,
+    *(s32 *)(values + 4) = func_151422DC(selector, &D_800A6630,
                                           0, 0x10000, 0x10000,
-                                          (s32)&D_800A663C, 0x1D9);
+                                          &D_800A663C, 0x1D9);
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151600D8 */

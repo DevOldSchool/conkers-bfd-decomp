@@ -160,7 +160,6 @@ s32 func_151B22F4(Game1DF510State *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B22F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B22F4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B2348.s")
 typedef struct Game1DF510Vector {
     f32 x, y, z;
 } Game1DF510Vector;
@@ -222,6 +221,99 @@ extern Game1DF510Vector D_800AA368;
 extern Game1DF510Vector D_800AA374;
 extern f32 D_800AA388;
 extern f32 D_800AA38C;
+
+extern Game1DF510Vector D_800AA338, D_800AA344, D_800AA350, D_800AA35C;
+extern f32 D_800AA380, D_800AA384;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B2348 CURRENT (2022) */
+void func_151B2348(void *arg0) {
+    Game1DF510Actor *actor;
+    Game1DF510Actor *other;
+    struct HoltenRopeEffect *effect;
+    Game1DF510Request request;
+    Game1DF510Pair pair;
+
+    actor = *(Game1DF510Actor **)((u8 *)arg0 + 0x30);
+    other = *(Game1DF510Actor **)((u8 *)arg0 + 0x28);
+    pair.active = 2;
+    pair.owner = arg0;
+    pair.first.actor = actor;
+    pair.first.generation = actor->generation;
+    pair.first.mode = 5;
+    pair.first.offset = D_800AA350;
+    pair.second.actor = actor;
+    pair.second.generation = actor->generation;
+    pair.second.mode = 10;
+    pair.second.offset = D_800AA35C;
+    request.state = 0;
+    request.flags = 0;
+    request.timer = 1000;
+    request.start.x = actor->position.x;
+    request.start.y = actor->position.y;
+    request.start.z = actor->position.z;
+    request.end.x = actor->position.x;
+    request.end.y = actor->position.y;
+    request.end.z = actor->position.z;
+    request.firstIndex = 1;
+    request.secondIndex = 1;
+    request.drawIndex = 0;
+    request.callback = 3;
+    request.radius = 5.0f;
+    request.angle = 80.0f;
+    request.field2C = D_800AA380;
+    request.field30 = D_800AA384;
+    effect = func_151B30B0(&request, 0.0015f, 0x30, 0xFF, 0);
+    arg0 = (u8 *)arg0 + 0x28;
+    ((Game1DF510EffectSlots *)arg0)->effects[2] = effect;
+    if (effect != NULL) {
+        func_10022EC0((u8 *)effect + 0x150, &pair, 0x30U);
+    }
+    pair.active = 1;
+    pair.first.actor = other;
+    pair.first.generation = other->generation;
+    pair.first.mode = 5;
+    pair.first.offset = D_800AA320;
+    pair.second.actor = actor;
+    pair.second.generation = actor->generation;
+    pair.second.mode = 5;
+    pair.second.offset = D_800AA338;
+    request.start.x = other->position.x;
+    request.start.y = other->position.y;
+    request.start.z = other->position.z;
+    request.end.x = actor->position.x;
+    request.end.y = actor->position.y;
+    request.end.z = actor->position.z;
+    request.drawIndex = 0;
+    request.angle = 170.0f;
+    effect = func_151B30B0(&request, 0.0015f, 0x30, 0xFF, 0);
+    ((Game1DF510EffectSlots *)arg0)->effects[1] = effect;
+    if (effect != NULL) {
+        func_10022EC0((u8 *)effect + 0x150, &pair, 0x30U);
+    }
+    pair.active = 0;
+    pair.first.actor = other;
+    pair.first.generation = other->generation;
+    pair.first.mode = 5;
+    pair.first.offset = D_800AA32C;
+    pair.second.actor = actor;
+    pair.second.generation = actor->generation;
+    pair.second.mode = 10;
+    pair.second.offset = D_800AA344;
+    request.start.x = other->position.x;
+    request.start.y = other->position.y;
+    request.start.z = other->position.z;
+    request.end.x = actor->position.x;
+    request.end.y = actor->position.y;
+    request.end.z = actor->position.z;
+    request.drawIndex = 0;
+    effect = func_151B30B0(&request, 0.0015f, 0x30, 0xFF, 0);
+    ((Game1DF510EffectSlots *)arg0)->effects[0] = effect;
+    if (effect != NULL) {
+        func_10022EC0((u8 *)effect + 0x150, &pair, 0x30U);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B2348 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B2348.s")
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B2690 CURRENT (4223) */
 void func_151B2690(Game1DF510EffectOwner *arg0) {

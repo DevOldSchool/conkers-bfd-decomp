@@ -1,0 +1,193 @@
+{
+  "scope": "Isolated comparison-copy trial; production reporter unchanged",
+  "objdiff_version": "v3.8.1",
+  "objdiff_binary_sha256": "98f8275c27900c4fe2248fce3af37617658be49648fa7dbb5b376371f046dfdb",
+  "trial_report_sha256": "73c27de7dbbdd673c20d6bf32688646242e7168c274fcff6241bcc09d679bbff",
+  "production_report_sha256": "cee8d436182b00f17e649e144b16de4c0447b51793f58d5934ec730266e5eece",
+  "source_revision": "436ad9f5a4776c974b4106cbeb780afe9b5ed364",
+  "mutation_and_verifier_tests": {
+    "baseline": {
+      "text": 100.0,
+      "rodata": 34.52381,
+      "rodata_bytes": 352,
+      "relocations_matched": 0
+    },
+    "canonical": {
+      "text": 100.0,
+      "rodata": 100.0,
+      "rodata_bytes": 352,
+      "relocations_matched": 52
+    },
+    "double": {
+      "text": 100.0,
+      "rodata": 99.12791,
+      "rodata_bytes": 352,
+      "relocations_matched": 52
+    },
+    "reorder": {
+      "text": 100.0,
+      "rodata": 98.49487,
+      "rodata_bytes": 352,
+      "relocations_matched": 50
+    },
+    "case_count": {
+      "text": 99.99943,
+      "rodata": 98.78664,
+      "rodata_bytes": 352,
+      "relocations_matched": 51
+    },
+    "alignment": {
+      "text": 99.99431,
+      "rodata": 36.904762,
+      "rodata_bytes": 352,
+      "relocations_matched": 31
+    },
+    "literal": {
+      "text": 100.0,
+      "rodata": 81.25,
+      "rodata_bytes": 16,
+      "relocations_matched": 0
+    },
+    "proof": {
+      "method": "candidate-only-ido-symbols-and-R_MIPS_32",
+      "symbols": [
+        {
+          "section": ".rodata",
+          "offset": 124,
+          "size": 208,
+          "name": "jtbl_1600487C",
+          "kind": "jump_table"
+        },
+        {
+          "section": ".rodata",
+          "offset": 336,
+          "size": 8,
+          "name": "D_16004950",
+          "kind": "double"
+        }
+      ],
+      "added_symbols": 2,
+      "input_sha256": "bf1c211234514cbf707dcb7af3566dd9f9ceef530a808fce32660d405649b909",
+      "output_sha256": "a0d46969e38a131c28d41e3a8b5046c5ad7c66f0233882d223b9dabf6a316a23",
+      "annotation_invariance_verified": true,
+      "section_bases": {
+        ".text": 369105616,
+        ".rodata": 369117184,
+        ".data": 369114224
+      },
+      "destination_labels": [
+        ".L1600227C",
+        ".L160022B4",
+        ".L16002428",
+        ".L1600257C",
+        ".L160026E4",
+        ".L160027B4",
+        ".L160027FC",
+        ".L16002860"
+      ],
+      "semantic_verification": {
+        "relocations_verified": 106,
+        "canonical_table_words": 52,
+        "effective_destinations_identical": true,
+        "other_sections_identical": true,
+        "existing_symbols_identical": true
+      }
+    },
+    "negative_tests": {
+      "code": "unapproved section/header byte change",
+      "literal": "unapproved section/header byte change",
+      "table_addend": "R_MIPS_32 destination changed",
+      "relocation_type": "R_MIPS_32 destination changed",
+      "relocation_destination": "R_MIPS_32 destination changed",
+      "section_size": "unapproved section/header byte change",
+      "wrong_bound": "switch relocation count differs from dispatch bound",
+      "interior_table": "switch relocation count differs from dispatch bound",
+      "out_of_range": "switch destination outside candidate text"
+    },
+    "independence": true,
+    "idempotence": true,
+    "no_op": true,
+    "protected_file_hashes": {
+      "build/us/objdiff-report/debugger/1A0558/base.o": "bf1c211234514cbf707dcb7af3566dd9f9ceef530a808fce32660d405649b909",
+      "build/us/objdiff-report/owned/debugger/1A0558/target.o": "e4a25fbe07b3873d0e7dec704d027a6d97f9aa892e24f61b9f134aa59395b633",
+      "build/us/original-assets/conker.us.elf": "456fb561371ec642462479108904ffe4ab3cc52654de21273ea11686d85be096",
+      "build/us/src/done/debugger/debugger_1AD0.o": "bf1c211234514cbf707dcb7af3566dd9f9ceef530a808fce32660d405649b909",
+      "build/us/objdiff-report/report.json": "cee8d436182b00f17e649e144b16de4c0447b51793f58d5934ec730266e5eece",
+      "build/us/objdiff-report/validation.json": "f078ea09f809ee3a39d61d217a7b12f3046e6ec291104c771ee8fcb95dba1d70",
+      "build/host-tools/objdiff-v3.8.1/objdiff-cli-macos-arm64": "98f8275c27900c4fe2248fce3af37617658be49648fa7dbb5b376371f046dfdb"
+    }
+  },
+  "independent_link_proof": {
+    ".text": {
+      "bytes": 7040,
+      "sha256": "e504bbfb9f5ce4483baf7379290e5fd5ca092e64e6ddade678350a90077e3623",
+      "raw_and_canonical_match_runtime": true
+    },
+    ".rodata": {
+      "bytes": 352,
+      "sha256": "d96208f4fd30d85dbda09c1506b46536da44f489b7913d0e3355848f7a608c28",
+      "raw_and_canonical_match_runtime": true
+    },
+    ".data": {
+      "bytes": 112,
+      "sha256": "5c37e424c4116c55eb901da5b25d00120325eca2f2b6f62b7c3fae95413bff86",
+      "raw_and_canonical_match_runtime": true
+    }
+  },
+  "alternate_placements": [
+    {
+      "placements": {
+        ".text": 268435456,
+        ".rodata": 268500992,
+        ".data": 268468224
+      },
+      "all_code_and_data_identical": true
+    },
+    {
+      "placements": {
+        ".text": 402669568,
+        ".rodata": 1073745920,
+        ".data": 805314560
+      },
+      "all_code_and_data_identical": true
+    }
+  ],
+  "report_comparison": {
+    "units_compared": 10866,
+    "only_changed_unit": "done/debugger/debugger_1AD0.c",
+    "matching_data_gain": 352,
+    "function_and_code_measures_unchanged": true,
+    "debugger": {
+      "fuzzy_match_percent": 100.0,
+      "total_code": "14040",
+      "matched_code": "14040",
+      "matched_code_percent": 100.0,
+      "total_data": "4720",
+      "matched_data": "4720",
+      "matched_data_percent": 100.0,
+      "total_functions": 42,
+      "matched_functions": 42,
+      "matched_functions_percent": 100.0,
+      "complete_code": "14040",
+      "complete_code_percent": 100.0,
+      "complete_data": "4720",
+      "complete_data_percent": 100.0,
+      "total_units": 3,
+      "complete_units": 3
+    },
+    "production_report_unchanged": true
+  },
+  "prototype_sha256": {
+    "objdiff_candidate.py": "236acc45ea97d9e24303318f4a37250a4b309c0e20506d159cc7ffbe6c22aaab",
+    "link_copies.py": "4e14d040828119bbe1d019bc0b05cfaff677a8364c0898ac4dd7165cbf3e544e",
+    "check_trial.py": "2b6053b5698aec7a487aa2592c7d5046a5fc9857d776e81248efdef0d5c635de",
+    "check_alternate_links.py": "356fd20a1c34349bd865db869facdc075904a8397ae72ca633149299542842aa",
+    "run_link_trial.py": "12dfcc44692cb329343afd9069dd62351cfca86dba905bd0097e723f85d66fa3"
+  },
+  "integration_status": "Not integrated; automatic approval review requires explicit user approval",
+  "runtime_rom_proof": {
+    "code_bytes": 14064,
+    "initialized_data_bytes": 4720,
+    "matches_original": true
+  }
+}

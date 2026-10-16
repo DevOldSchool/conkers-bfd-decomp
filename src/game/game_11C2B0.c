@@ -27,7 +27,7 @@ void func_150EEE00(void *arg0, u8 arg1) {
     typedef struct { u8 beforeFlags[0x94]; s32 flags; } ActorFlags;
     struct {
         s32 position[3];
-        u8 descriptor[8];
+        struct { u8 kind; s8 index; s16 life; u8 flags; } descriptor;
         f32 transformed[3];
     } work;
     u8 *state;
@@ -39,15 +39,15 @@ void func_150EEE00(void *arg0, u8 arg1) {
         transform = *(s32 *)(state + 0x1D4);
         if (transform != 0) {
             func_15143134((f32 *)&D_800A15F0[arg1 * 0xC], work.transformed,
-                           transform + (D_800A1638[arg1] << 6));
-            work.descriptor[0] = 3;
-            *(s8 *)&work.descriptor[1] = -1;
-            *(s16 *)&work.descriptor[2] = (func_150ADA20() % 3U) + 4;
-            work.descriptor[4] = 0;
+                           (u32)transform + (D_800A1638[arg1] << 6));
+            work.descriptor.kind = 3;
+            work.descriptor.index = -1;
+            work.descriptor.life = (func_150ADA20() % 3U) + 4;
+            work.descriptor.flags = 0;
             work.position[0] = (s32)work.transformed[0];
             work.position[1] = (s32)work.transformed[1];
             work.position[2] = (s32)work.transformed[2];
-            func_151602C0(work.descriptor, work.position, 0xFF, 0xFF,
+            func_151602C0((u8 *)&work.descriptor, work.position, 0xFF, 0xFF,
                            0xFF, 0xFF, 0xFF, 0, 0, 0xFF, 1);
             func_150F0A24(work.transformed);
         }
@@ -55,7 +55,7 @@ void func_150EEE00(void *arg0, u8 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150EEE00 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11C2B0/func_150EEE00.s")
-extern void func_151403A8(void *arg0, s32 arg1, void *arg2);
+void func_151403A8();
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150EEF40 CURRENT (440) */
 void func_150EEF40(void *arg0, s32 arg1) {

@@ -23,27 +23,10 @@
  * - func_150A2FA4
  * - func_150A3058
  * - func_150A3194
- * - func_150A32B4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A09D0.s")
-f32 func_150AD780(f32);                             /* extern */
-f32 func_150AD78C(f32);                             /* extern */
-extern f32 D_8009F5A0;
-extern f32 D_8009F5A4;
-
-void func_150A0D14(void *arg0) {
-    f32 temp_fs0;
-
-    temp_fs0 = *(f32 *)((u8 *)arg0 + 0xC) * D_8009F5A0;
-    *(f32 *)((u8 *)arg0 + 0x24) = func_150AD78C(temp_fs0);
-    *(f32 *)((u8 *)arg0 + 0x28) = func_150AD780(temp_fs0);
-    temp_fs0 = *(f32 *)((u8 *)arg0 + 0x10) * D_8009F5A4;
-    *(f32 *)((u8 *)arg0 + 0x2C) = func_150AD78C(temp_fs0);
-    *(f32 *)((u8 *)arg0 + 0x30) = func_150AD780(temp_fs0);
-}
 typedef struct {
     u8 pad0[0x14];
     f32 x;
@@ -64,8 +47,134 @@ typedef struct {
     u8 pad8[8];
     f32 strength;
     u8 disabled, flags, pad16, mode;
-    u8 pad18[0x1C];
+    s32 value;
+    u32 packed;
+    s32 state;
+    u8 pad24[0x10];
 } GameCDE80Zone;
+extern u32 D_800D3094;
+extern s32 D_800D3098;
+extern s32 D_800DBFF0;
+extern s32 D_80082FA0;
+extern u8 D_800CC2D0;
+extern u8 D_800C35EA;
+extern u8 D_800DDF5C[];
+s32 func_1000E46C(s32, s32, s32, s32);
+void func_1000FC18(s32, s16, s16, s16, s32);
+void func_150A23E4(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A09D0 CURRENT (1885) */
+void func_150A09D0(s32 arg0) {
+    u32 count, index;
+    s32 offset, flags, state, remaining, actorIndex, actorOffset;
+    u32 packed;
+    GameCDE80Zone *zone;
+    u8 *actor;
+
+    count = D_800D3094;
+    index = 0;
+    offset = 0;
+    if (count != 0) {
+        do {
+            zone = (GameCDE80Zone *)(D_800D3098 + offset);
+            flags = zone->flags;
+            switch (flags >> 2) {
+            case 2:
+                state = zone->state;
+                if (1 == state) {
+                    zone->state = state ^ 3;
+                } else if (2 == state) {
+                    func_1000FC18((zone->packed >> 16) & 0xFFFF,
+                                   zone->x, zone->y, zone->z, zone->value);
+                    ((GameCDE80Zone *)(D_800D3098 + offset))->state = 0;
+                }
+                if (D_800C35EA == 1 &&
+                    func_150A1DA0((GameCDE80Actor *)&D_800CC2D0,
+                                   offset + D_800D3098, 0) == 0) {
+                    func_150A23E4((void *)(offset + D_800D3098));
+                }
+reload_count:
+                count = D_800D3094;
+                break;
+            case 7:
+                if ((flags & 3) == 3) {
+                    zone->state = 0;
+                } else {
+                    state = zone->state;
+                    if (1 == state) {
+                        zone->state = 2;
+                    } else if (2 == state &&
+                               func_1000E46C(zone->mode, 0, zone->value, 0) != 0) {
+                        zone = (GameCDE80Zone *)(D_800D3098 + offset);
+                        if (func_1000E46C(zone->mode, 100, zone->packed, 0) != 0) {
+                            ((GameCDE80Zone *)(D_800D3098 + offset))->state = 0;
+                        }
+                    }
+                }
+                goto reload_count;
+            case 4:
+                if (zone->mode != 9) {
+                    packed = zone->packed;
+                    remaining = packed & 0xFF;
+                    if (remaining != 0) {
+                        if (zone->disabled == 0) {
+                            remaining--;
+                        } else {
+                            remaining = 0;
+                        }
+                        zone->packed = (packed & ~0xFF) | remaining;
+                        if (remaining == 0) {
+                            zone = (GameCDE80Zone *)(D_800D3098 + offset);
+                            D_800DDF5C[(zone->packed >> 8) & 0xFF] = 0;
+                            zone->packed &= 0xFFFF0000;
+                        }
+                    }
+                }
+                zone = (GameCDE80Zone *)(D_800D3098 + offset);
+                /* fallthrough */
+            case 0:
+                if (zone->mode == 12 && zone->disabled == 0) {
+                    actorIndex = 0;
+                    actorOffset = 0;
+                    if (D_80082FA0 >= 0) {
+                        do {
+                            actor = (u8 *)(actorOffset + D_800DBFF0);
+                            *(f32 *)(actor + 0x93C) = ((GameCDE80Zone *)(D_800D3098 + offset))->x;
+                            *(f32 *)(actor + 0x940) = ((GameCDE80Zone *)(D_800D3098 + offset))->y;
+                            *(f32 *)(actor + 0x944) = ((GameCDE80Zone *)(D_800D3098 + offset))->z;
+                            *(f32 *)(actor + 0x938) = ((GameCDE80Zone *)(D_800D3098 + offset))->radius;
+                            *(s8 *)(actor + 0x948) = 1;
+                            *(s8 *)(actor + 0x949) = ((GameCDE80Zone *)(D_800D3098 + offset))->value;
+                            actorIndex++;
+                            actorOffset += 0x9A0;
+                        } while (D_80082FA0 >= actorIndex);
+                    }
+                }
+                goto reload_count;
+            }
+            index++;
+            offset += 0x34;
+        } while (index < count);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150A09D0 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A09D0.s")
+
+f32 func_150AD780(f32);                             /* extern */
+f32 func_150AD78C(f32);                             /* extern */
+extern f32 D_8009F5A0;
+extern f32 D_8009F5A4;
+
+void func_150A0D14(void *arg0) {
+    f32 temp_fs0;
+
+    temp_fs0 = *(f32 *)((u8 *)arg0 + 0xC) * D_8009F5A0;
+    *(f32 *)((u8 *)arg0 + 0x24) = func_150AD78C(temp_fs0);
+    *(f32 *)((u8 *)arg0 + 0x28) = func_150AD780(temp_fs0);
+    temp_fs0 = *(f32 *)((u8 *)arg0 + 0x10) * D_8009F5A4;
+    *(f32 *)((u8 *)arg0 + 0x2C) = func_150AD78C(temp_fs0);
+    *(f32 *)((u8 *)arg0 + 0x30) = func_150AD780(temp_fs0);
+}
 typedef struct { s32 active; u8 model, kind; } GameCDE80ActorHeader;
 extern u8 D_800CC2D0;
 extern u32 D_800D3094;
@@ -718,28 +827,21 @@ s32 func_150A3194(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 
 s32 func_150A1DA0(GameCDE80Actor *, s32, s32); /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A32B4 CURRENT (70) */
 s32 func_150A32B4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     GameCDE80Actor actor;
-    f32 temp;
 
-    temp = (f32) arg3;
-    actor.z = temp;
-    actor.field34 = temp;
-    temp = (f32) arg2;
-    actor.y = temp;
-    actor.field180 = temp;
-    actor.field30 = temp;
-    temp = (f32) arg1;
-    actor.x = temp;
-    actor.field2C = temp;
+    actor.x = (f32)arg1;
+    actor.y = (f32)arg2;
+    actor.z = (f32)arg3;
+    actor.field34 = (f32)arg3;
+    actor.field180 = (f32)arg2;
+    actor.field30 = (f32)arg2;
+    actor.field2C = (f32)arg1;
     if (func_150A1DA0(&actor, arg0, 0) == 0) {
         return 1;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150A32B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A32B4.s")
 extern s32 D_800D3098;
 
 void func_150A3330(s32 arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4) {

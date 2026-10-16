@@ -29,7 +29,7 @@ typedef struct {
     f32 field_3C;
 } GameD5250Transform;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A7DA0 CURRENT (420) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A7DA0 CURRENT (145) */
 void func_150A7DA0(GameD5250Transform *arg0, s32 arg1, s32 arg2, s32 arg3) {
     arg0->field_4 = 0;
     arg0->field_0 = 1.0f;

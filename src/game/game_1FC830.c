@@ -13,7 +13,6 @@
  * - func_151D09A8
  * - func_151D10E4
  * - func_151D1138
- * - func_151D13E0
  * - func_151D1448
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -354,32 +353,24 @@ typedef struct Game1FC830ActorContext {
     Game1FC830ActorLink link;
 } Game1FC830ActorContext;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D13E0 CURRENT (70) */
 void func_151D13E0(Game1FC830ActorContext *arg0) {
     Game1FC830ActorState *temp_v1;
-    Game1FC830Actor *temp_a1;
     Game1FC830ActorLink *temp_v0;
     s32 temp_t3;
 
     temp_v0 = &arg0->link;
     if (temp_v0->actor != 0) {
-        temp_a1 = temp_v0->actor;
         temp_t3 = 0x28;
-        temp_v1 = temp_a1->state;
-        temp_a1->mode = 0;
-        temp_a1 = temp_v0->actor;
-        temp_a1->flags &= 0xFFFD;
-        temp_a1 = temp_v0->actor;
-        temp_a1->flags |= 8;
-        temp_a1 = temp_v0->actor;
-        temp_a1->flags |= 1;
+        temp_v1 = temp_v0->actor->state;
+        temp_v0->actor->mode = 0;
+        temp_v0->actor->flags &= 0xFFFD;
+        temp_v0->actor->flags |= 8;
+        temp_v0->actor->flags |= 1;
         temp_v0->actor->timer = temp_t3;
         temp_v1->active = 0;
         temp_v0->actor = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D13E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D13E0.s")
 extern s32 D_80082FA0;
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 

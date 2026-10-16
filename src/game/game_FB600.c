@@ -14,7 +14,8 @@
  */
 
 void *func_10022EC0(void *, const void *, u32);
-extern void *func_1515FF74(s8 *arg0, s32 arg1, s32 arg2);
+struct ColourFramebufferEffect;
+struct ColourFramebufferEffect *func_1515FF74();
 extern f32 D_800A07FC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150CE150 CURRENT (10315) */
@@ -46,7 +47,7 @@ void *func_150CE150(void *arg0, s16 arg1, s32 arg2) {
     sp914 = arg1;
     sp20 = arg0;
     sp24 = *(u8 *)((u8 *)arg0 + 0x3B);
-    var_v0 = func_1515FF74(&sp910, 0x8F0, arg2 & 0xFF);
+    var_v0 = (void *) func_1515FF74(&sp910, 0x8F0, arg2 & 0xFF);
     if (var_v0 != 0) {
         var_v0 = func_10022EC0((u8 *)var_v0 + 0x18, &sp20, 0x8F0);
     }

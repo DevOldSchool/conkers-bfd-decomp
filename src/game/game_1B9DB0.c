@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1B9DB0.c
@@ -52,7 +53,6 @@ block_5:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1518C900 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B9DB0/func_1518C900.s")
-void func_1510D630(s32); /* extern */
 void func_100043B4(s32, s32); /* extern */
 
 void func_1518CA04(s32 arg0) {
@@ -60,7 +60,7 @@ void func_1518CA04(s32 arg0) {
         if (D_800DF7D0[arg0] != 0) {
             D_800DF7D0[arg0] -= 1;
             if (D_800DF7D0[arg0] == 0) {
-                func_1510D630(*(s32 *)((u8 *)&D_800DF9B8 + arg0 * 4));
+                func_1510D630(*(struct Game13AAE0ValueList **)((u8 *)&D_800DF9B8 + arg0 * 4));
                 func_100043B4(*(s32 *)((u8 *)&D_800E0148 + arg0 * 4), 4);
             }
         }

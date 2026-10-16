@@ -10,13 +10,11 @@ Use objdiff alongside the existing registered-span asm-differ adapter:
 ./conker objdiff view func_15001970
 ```
 
-`compare` and `view` install the CLI automatically if necessary. The official
-[v3.8.1 release](https://github.com/encounter/objdiff/releases/tag/v3.8.1) is
-pinned by version and per-platform SHA-256 in `toolchain/tools.lock.json`. The
-binary runs natively from ignored `build/host-tools/` on Linux or macOS, on
-x86_64 or ARM64. First use needs HTTPS access and host `curl`; subsequent uses
-verify the cached binary and can run offline. Compilation and reference
-assembly still use the existing pinned Docker image.
+`compare` and `view` install the official v3.8.1 CLI release automatically if
+necessary. Platform release checksums are pinned in `toolchain/tools.lock.json`;
+installation downloads the executable to ignored `build/host-tools/` and verifies
+its checksum on every use. No Rust/Cargo or locally modified objdiff is required.
+Game compilation and reference assembly still use the pinned Docker image.
 
 The command accepts registered US work-item IDs with either active C or a
 preserved deferred candidate. Deferred C is activated in a generated copy;
@@ -71,16 +69,36 @@ This builds the mapped SDK archives and active C implementations, prepares
 independent splat targets for every range in `config/overlays.json`, and
 invokes the pinned native `objdiff-cli report generate`. It covers tracked
 main/game/debugger US CPU code and initialized data, including raw/unassigned ranges,
-plus all bounded asset storage. The font, 6,865 reviewed textures and 557 reviewed
-assets in model banks, 149 compact audio sequences, 27 sound-bank parts and 2,258 complete ADPCM samples have reconstructed candidates; remaining asset storage stays unmatched.
+plus all bounded asset storage. The font, 6,892 reviewed textures and 914 reviewed
+assets in model banks, 149 compact audio sequences, 27 sound-bank parts, three MP3 decoder tables, the complete character morph and event banks, reviewed frames from 453 MP3 streams, 56 sprite entries, 20 visibility codebooks, 16 visibility bitmaps, 69 actor path tables, 31 navigation graphs, bounded scene fields and volumes, 29 native-format bank-0A animation bundles, the complete 483-script bank, 82 animation-control entries and 2,258 complete ADPCM samples have reconstructed candidates; remaining asset storage stays unmatched.
 The command uses four object-preparation workers and validates cached base object hashes before
 reuse. The first run requires the pinned `lib/ultralib` submodule (`git
 submodule update --init lib/ultralib`).
 
+Report preparation shares normalized ROM bytes, their checksum, and decoded game
+archives across asset families within one invocation. File changes invalidate the
+reference session; a subsequent report starts a fresh session. Bounded asset
+families use one common check for disjoint regenerated ranges, source stability,
+actual linked bytes, and equality with the independently supplied ROM.
+
+The MP3 build saves encoded typed spans under ignored
+`build/us/mp3-spectral/cache/`. The report can reuse them only when editable-input
+hashes, the reviewed contract, codec source hashes, and cached output hashes agree.
+Each stream/mode has one atomically replaced file containing JSON metadata and
+raw binary payload, so source/codec revisions do not accumulate or double the
+payload size through hex encoding. Failed writes remove their temporary files;
+startup removes receipts and abandoned temporary files from the old format.
+Missing, corrupt, or stale entries are regenerated. Whole-stream and credited-range
+checks against the original ROM still run. Workers receive only their stream,
+not a copy of the full ROM. The [independent bounded-DEFLATE encoder](evidence/data-layout/us_independent_deflate.md)
+runs directly in Python; it needs no compiled executable or compressor cache.
+
 Completed C units without GLOBAL_ASM use freshly built objects from the actual
 build. Mixed units use generated C-only copies, leaving deferred code disabled,
-so preserved assembly cannot earn source credit. Coverage records the candidate
-origin. SDK candidates come from the canonical archives.
+so generated assembly fallbacks cannot earn source credit. Reviewed maintained
+assembly units are assembled separately, require full-span/runtime proof, and
+are labelled `Original assembly`. Coverage records the candidate origin. SDK
+candidates come from the canonical archives.
 
 Owned code and data references are combined into one source/SDK object unit.
 The YAML, private-data configuration and reviewed linker placements own the
@@ -174,7 +192,7 @@ archive, its alignment gap, the outer bank index, all 30 bank ranges (including
 inner indices and gaps), and font storage. See the
 [storage accounting evidence](evidence/data-layout/us_asset_storage_accounting.md).
 
-The rebuilt font, 6,865 reviewed textures and 79 reviewed models retain their
+The rebuilt font, reviewed textures, models, animations and audio retain their
 independent comparison and completion gates. All remaining bounded asset bytes
 have independent ROM targets **without candidates or completion credit**. In
 particular, identifying a model bank or repacking original encoded MP3 streams
@@ -205,20 +223,53 @@ The native report provides `total_data`, `matched_data` and
 `complete_data` as “fully linked” and matching beyond that as “perfect match”;
 see its [rendering implementation](https://github.com/encounter/decomp.dev/blob/main/crates/web/src/handlers/common.rs).
 Data placement alone grants no fully linked completion. A grouped unit is complete
-only when its code and every owned data range qualify. ROM-identical,
-relocation-free main SDK data linked through canonical archive placements is
-eligible, but completion also requires every data byte in its grouped unit to
-match in native objdiff. Generation first measures candidates, removes completion
-from eligible units with incomplete native data matching, then regenerates the
-native report. It never patches the report counts. `completion_downgrades` in
-validation records affected units and their code/data bytes. Private/INFO/NOLOAD data still supplied by preserved ROM streams remains
-incomplete, even when its C owner has integrated code. This can reduce a file's
-fully-linked code measure while retaining its native matching credit.
+only when its code and every owned data range qualify through the actual build
+inputs and independent ROM checks. ROM-identical, relocation-free main SDK data
+linked through canonical archive placements is eligible. Debugger source data
+requires candidate/linked-object equivalence and a full runtime-image ROM proof.
+
+Completion and native matching are independent measures. Generation passes the
+verified eligibility through `metadata.complete` to stock objdiff, which computes
+`complete_code` and `complete_data` without changing `matched_code` or
+`matched_data`; see the pinned release’s
+[report implementation](https://github.com/encounter/objdiff/blob/v3.8.1/objdiff-cli/src/cmd/report.rs#L339-L342).
+It does not patch the report or require native data matching to
+approve independently proved completion. `completion_notes` in validation lists
+complete units with lower native data matching and explains the distinction.
+The legacy top-level `complete` option is rejected, and completed data must have
+a candidate. Source, linked-object and reference hashes, relocation checks and
+complete denominators remain mandatory. Stock objdiff also uses completion as a
+fallback percentage when a section has no comparison; the verified report changes
+three zero-byte SDK `.text` percentages, without changing any matched byte count
+or nonempty-section comparison. Private/INFO/NOLOAD data still supplied by preserved
+ROM streams remains incomplete, even when its C owner has integrated code.
 A selector such as `*foo.o(.rodata)` alone does not establish that the ROM uses
-that object's bytes: all current source-owned external placements are INFO/NOLOAD
-verification sections. The raw ROM or original GAME-data archive still supplies
-the final bytes. A future source-data integration must replace that backing and
-add verification of the actual linked input before it can receive completion.
+that object's bytes. Source-owned INFO/NOLOAD placements retain raw ROM or
+original GAME-data archive backing, which must be replaced and verified before
+completion. Both debugger C units have allocated `.data` and `.rodata` placements in the
+canonical profile, with actual runtime-input and whole-image verification.
+Native percentages come directly from the unmodified release. Stock objdiff
+bounds a data comparison by the last named symbol and compares REL words byte
+for byte, so IDO's anonymous switch tables and literals would otherwise leave
+the formatter's `.rodata` unmatched. For completed debugger source owners only,
+generation compares a copy of the actual linker input (`owned/<key>/base.o`,
+built by [`objdiff_candidate.py`](../scripts/objdiff_candidate.py)). The copy
+names anonymous tables and doubles found from the candidate's own dispatch
+instructions and relocations, and moves each table entry's REL addend into a
+destination label. Names come from runtime-ELF anchors, never the reference or
+ROM. An independent verifier re-derives every permitted change and checks all
+relocation destinations; both copies must link to the runtime ELF bytes.
+`validation.json` records each proof under `comparison_copies`. Objects without
+anonymous references keep the actual input. Changed literals, table order, case
+counts or placement still lower native matching; see the
+[formatter evidence](evidence/debugger/debugger_printf_rodata.md#integrated-comparison-copy-2026-10-12).
+The independent reference disassembly includes original rodata context for
+switch destinations.
+The maintained TLB source `src/debugger/tlb.s` supplies an assembled candidate.
+Its `Original assembly` unit earns native matching and linked completion only
+after full-span candidate and runtime-image verification. Native matched code
+includes assembly source; the separate C-only inventory still excludes TLB.
+Generated fallback assembly remains ineligible for native source credit.
 
 Known SDK data names and payload sizes come from `config/symbols/us.txt`.
 Declaration-backed zero alignment padding stays anonymous in the reference,
@@ -229,7 +280,8 @@ anonymous pools and incorrect SDK symbol extents.
 Native comparisons determine perfect-match credit. Every final unit must satisfy
 `complete_data <= matched_data`; category or aggregate totals cannot hide a
 violation. Units whose data is still ROM-backed need actual build integration
-before they can become complete. This currently includes GAME and debugger data.
+before they can become complete. This includes preserved GAME data. All debugger initialized data is now allocated
+source storage and is compared natively as described above.
 
 When this report is first published, fully-linked code can decrease for two
 reasons: a grouped unit owns data still supplied by ROM, or its linked data fails
@@ -256,12 +308,14 @@ palette, metadata or compressed output fail this exact-reconstruction pilot.
 The 8,284,692 reconstructed stored bytes enter Data once; decoded bytes do not
 add storage, and adjacent raw storage remains in the denominator without credit. Native matching and source/link-input verification gate completion.
 
-[The 557 selected assets in banks 03, 04 and 09](evidence/data-layout/us_model_reconstruction.md)
+[The 914 selected assets in banks 01, 02, 03, 04 and 09](evidence/data-layout/us_model_reconstruction.md)
 reconstruct native headers, vertices, display commands, normal records, attachment
 part/joint tables, bundle descriptors, primary surface tables, vertex-color
 animation, effect command lists and emission points through fresh RZIP
-compression. The selection contains 517 standalone models, 20 bundles with
-217 nonempty parts, and 20 emission-point arrays, totaling 940,332 stored bytes. Their actual ROM linker inputs and independent stored-byte targets
+compression, plus uncompressed native animation channels. The selection contains
+183 native characters, 517 standalone models, 53 bundles,
+20 emission-point arrays and 141 native animation containers, totaling 6,726,278
+stored bytes. Their actual ROM linker inputs and independent stored-byte targets
 use the same native matching and source-stability gates. Raw bank index, gaps
 and unselected records remain in the Data denominator without credit.
 
@@ -381,3 +435,119 @@ by `CONKER_JOBS` (default four). Build batches reuse verified unchanged sample
 outputs, while reports always encode current sources independently of those
 build receipts. See the [review follow-up](evidence/data-layout/us_asset_review_followup.md)
 for cache invalidation, recovery and regression-test details.
+
+### Native characters
+
+[The 183 selected bank-01 characters](evidence/data-layout/us_bounded_compression.md)
+rebuild native headers, vertices, both display passes, joint pivots, texture
+descriptors, signed normal pairs and procedural indices through fresh pinned
+compression. Their 772,691 stored bytes are reconstructed; index and gaps
+remain unmatched. Decoded bytes do not add another allocation.
+
+
+### Native character animation
+
+[The 119 selected bank-02 animation containers](evidence/data-layout/us_animation_reconstruction.md)
+reconstruct 3,752,256 uncompressed bytes from typed descriptors and 54,355
+source frames. Native masks, bases, bit widths, translations and root/rotation/
+scale offsets reproduce each full stored extent. Duration and channel bounds
+exclude unresolved tails and duration cases without native evidence. Independent native pose
+comparisons and actual linker objects gate the same bounded Data credit.
+
+[The single-pair extension](evidence/data-layout/us_single_pair_animations.md)
+adds 22 containers and 30,712 bytes, for 141 containers and 3,782,968 bytes.
+Three entries use the verified 641-frame duration constant; 19 use their
+descriptor/default durations. The bank-04 scene contract remains unchanged.
+
+[Partial animation clip reconstruction](evidence/data-layout/us_partial_animation_clips.md)
+rebuilds another 117 complete clips (219,664 bytes) inside entries 82, 83,
+124 and 146. It uses the actual three linker objects but grants credit only
+to the independently verified descriptor/frame ranges. The four unexplained
+sibling clips and all container directory bytes remain uncredited.
+
+
+### MP3 decoder tables
+
+[Three bank-17 decoder tables](evidence/data-layout/us_mp3_table_reconstruction.md)
+reconstruct 59,552 stored bytes from canonical C Huffman seed records. Typed
+codebooks generate the relative trees, their offset table and eight-bit fast
+lookup entries. The asset build and native report freshly encode editable
+records and compare actual linked objects against independent ROM targets.
+Stream reconstruction is separately gated by the coefficient sources below.
+
+
+### Character morph endpoints
+
+[The complete bank-13 morph storage](evidence/data-layout/us_morph_reconstruction.md)
+reconstructs 19,832 bytes from 6,882 signed XYZ positions. Fresh RZIP encoding
+and generated nested pair tables reproduce the original bank, including all
+indices and alignment. The actual ROM linker object is independently checked
+against both editable endpoints and original ROM bytes; whole-bank credit
+replaces its previous unreconstructed storage unit.
+
+
+### MPEG-2 spectral coefficients
+
+[Reviewed complete frames from 453 streams](evidence/data-layout/us_mp3_spectral_reconstruction.md)
+reconstruct 23,165,336 stored bytes from native header fields, scalefactors and
+signed quantized coefficients. Actual whole-stream ROM objects are checked
+against fresh encoding, then only proved frame slices enter native candidates.
+Explicit physical ranges preserve provenance and subtract those same bytes
+from unmatched storage. Opaque cues, reservoir tails and trailing storage stay
+unmatched; repacking their original encoded bytes grants no credit.
+
+
+### Event programs
+
+[The complete bank-14 event storage](evidence/data-layout/us_event_reconstruction.md)
+reconstructs 169,880 bytes from 203 programs, 62,491 instructions and 272
+constant strings. Instruction and string labels generate native offsets; fresh
+level-6 compression and generated bank tables reproduce the entire allocation.
+Actual linker objects, current editable sources and independent ROM targets
+gate native Data credit, replacing the same-sized raw-storage unit.
+
+### Sprite PNG sources
+
+[Reviewed bank-00 sprites](evidence/data-layout/us_sprite_reconstruction.md)
+rebuild 56 entries from RGBA5551 and I4 PNG planes with the native upload and
+sampling layout. Native credit includes only their 273,397 exact stored
+bytes. The actual whole-bank linker object must agree with fresh PNG
+encoding and preserved backing inputs; its index and padding remain in the
+unmatched raw remainder. [Bounded compression](evidence/data-layout/us_bounded_compression.md)
+resolves the five previous compression mismatches.
+
+
+### Visibility codebooks
+
+[Reviewed bank-05 visibility codebooks](evidence/data-layout/us_visibility_reconstruction.md)
+rebuild 12,545 stored bytes from explicit byte-symbol Huffman codes. Tree
+allocation is derived from unique prefixes, and fresh compression must match.
+Sixteen paired bitmaps also rebuild from [visible-node sets](evidence/data-layout/us_visibility_bitmaps.md),
+adding 151,949 bytes. Three bitmaps with unexplained node bits, the bank index
+and padding remain unmatched.
+
+[Actor paths and navigation graphs](evidence/data-layout/us_route_reconstruction.md)
+rebuild 43,813 stored bytes across banks 10 and 19. Editable path indices retain
+shared pointers; graph records retain ordered neighbor links and native controls.
+Full native consumers and independent actor-placement counts gate the sources.
+Only selected entry ranges receive credit; two unproved graph variants and all
+bank index/gap bytes remain unmatched.
+
+
+### Scene trigger volumes and spheres
+
+`./conker scene-volumes build` reconstructs 3,204 trigger volumes and 177
+collision spheres from typed records. The actual bank-0C linker object is
+verified in full, but only 170,856 regenerated child bytes enter the bounded
+`assets/scenes/volumes` unit. Directories and other scene children remain
+unreconstructed. See [native scene evidence](evidence/data-layout/us_scene_volumes.md).
+
+[Additional scene fields](evidence/data-layout/us_scene_fields.md) reconstruct
+34,702 bytes of model transforms, group references, spawn/view fields and sprite
+choices. `./conker scene-fields build` composes these with the volume sources
+into the same actual bank object. Separate bounded report units prevent credit
+for unproved fields or directory/padding bytes.
+
+[MPEG partial-frame fields](evidence/data-layout/us_mp3_partial_frames.md) extend
+the spectral units to final typed headers and complete coefficient bytes.
+Incomplete reservoir bytes, cues and arbitrary stream tails stay uncredited.

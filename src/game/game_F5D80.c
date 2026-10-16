@@ -68,6 +68,100 @@ void *func_150C88D0(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C88D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150C88D0.s")
+typedef struct GameF5D80RadialEffect {
+    u8 pad0[0x10];
+    f32 x, y, z;
+    u8 flags;
+    s8 checkCallback;
+    u8 pad1E[2];
+    f32 speed;
+    u8 pad24[4];
+    s16 remaining, growUntil;
+    f32 growRate;
+    s16 shrinkFrom;
+    u8 pad32[2];
+    f32 shrinkRate, emissionRate;
+    s8 emitCallback, updateCallback;
+    u8 pad3E[2];
+    f32 size, radius, spacing;
+    s16 duration;
+    u8 pad4E[2];
+    f32 pending;
+} GameF5D80RadialEffect;
+
+u32 func_150ADA20(void);
+extern f32 D_800BE9A4;
+extern s32 D_800BE9E4;
+extern s32 D_80082FA4;
+extern s32 D_800DBFF0;
+extern f32 D_800A052C, D_800A0530, D_800A0534;
+extern void (*D_80088858[])(void *, f32 *, s32, f32, f32);
+extern s32 (*D_80088860[])(void *);
+extern void (*D_80088864[])(void *, f32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C8A68 CURRENT (2804) */
+void func_150C8A68(GameF5D80RadialEffect *arg0) {
+    volatile u8 expired;
+    f32 oldRadius;
+    f32 position[3];
+    f32 cosine;
+    register f32 angleScale;
+    f32 maxDistance;
+    f32 sine;
+    register s32 heading;
+    s32 bias;
+    s32 angle;
+
+    expired = 0;
+    if (arg0->flags & 1) {
+        arg0->remaining -= D_800BE9E4;
+        if (arg0->remaining < 0) {
+            expired = 1;
+        }
+    }
+    if (expired == 0) {
+        oldRadius = arg0->radius;
+        angle = arg0->remaining;
+        arg0->radius += arg0->speed * D_800BE9A4;
+        if (arg0->growUntil < angle) {
+            arg0->size = (s16)(arg0->duration - angle) * arg0->growRate;
+        }
+        if (angle < arg0->shrinkFrom) {
+            arg0->size = angle * arg0->shrinkRate;
+        }
+        if (arg0->emitCallback != -1) {
+            arg0->pending += arg0->emissionRate * D_800BE9A4 * (D_800A052C * arg0->radius);
+            if (arg0->pending > 1.0f) {
+                maxDistance = D_800A0530;
+                angleScale = D_800A0534;
+                do {
+                    bias = (s32)(((f32 *)(D_800DBFF0 + (D_80082FA4 * 0x9A0)))[0xE0] * angleScale);
+                    angle = (func_150ADA20() % 81U + bias) - 0x28;
+                    heading = angle & 0xFF;
+                    cosine = func_151423D8((angle - 0x40) & 0xFF);
+                    sine = func_151423D8(heading);
+                    position[0] = arg0->x + cosine * arg0->radius;
+                    position[1] = arg0->y;
+                    position[2] = arg0->z + sine * arg0->radius;
+                    if (position[0] * position[0] + position[2] * position[2] < maxDistance) {
+                        D_80088858[arg0->emitCallback](arg0, position, heading & 0xFF, cosine, sine);
+                    }
+                    arg0->pending -= 1.0f;
+                } while (arg0->pending > 1.0f);
+            }
+        }
+        if (arg0->updateCallback != -1) {
+            D_80088864[arg0->updateCallback](arg0, oldRadius);
+        }
+        if ((arg0->checkCallback != -1) && (D_80088860[arg0->checkCallback](arg0) == 0)) {
+            expired = 1;
+        }
+    }
+    if (expired != 0) {
+        func_1516972C(arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C8A68 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150C8A68.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150C8DB8.s")
 typedef struct GameF5D80Vector {

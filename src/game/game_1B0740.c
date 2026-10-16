@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1B0740.c
@@ -6,8 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15183290
- * - func_151838B0
- * - func_15183ACC
  * - func_15183BA4
  * - func_15183C28
  * - func_15183D28
@@ -28,29 +27,25 @@ void func_15183ACC(s32); /* extern */
 void *func_1502B6BC(s32, s32, s32, s32, s32, s32);
 extern u8 D_800DDF69[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151838B0 CURRENT (58) */
+/* Keep slot reads inline: a named pointer local changes IDO stack layout. */
 void func_151838B0(s32 arg0) {
-    u8 *temp_v1;
     void *temp_v0;
 
-    temp_v1 = (u8 *)&D_800DDE80[arg0];
-    if (*(void **)temp_v1 == 0) {
+    if (*(void **)((u8 *)&D_800DDE80[arg0]) == 0) {
         func_15183ACC(arg0);
     }
-    if (*(void **)(temp_v1 + 0x14) == 0) {
+    if (*(void **)(((u8 *)&D_800DDE80[arg0]) + 0x14) == 0) {
         temp_v0 = func_1502B6BC(0, 0, 0, 2, 9, arg0 + 0xAE);
         if (temp_v0 != 0) {
-            *(void **)(temp_v1 + 0x14) = temp_v0;
-            *(s32 *)(temp_v1 + 0x18) = *(s32 *)temp_v0;
-            *(s32 *)(temp_v1 + 0x1C) = *(s32 *)((u8 *)temp_v0 + 8);
-            *(s32 *)(temp_v1 + 0x24) = 0;
-            *(s32 *)(temp_v1 + 0x20) = *(s32 *)(temp_v1 + 0xC);
+            *(void **)(((u8 *)&D_800DDE80[arg0]) + 0x14) = temp_v0;
+            *(s32 *)(((u8 *)&D_800DDE80[arg0]) + 0x18) = *(s32 *)temp_v0;
+            *(s32 *)(((u8 *)&D_800DDE80[arg0]) + 0x1C) = *(s32 *)((u8 *)temp_v0 + 8);
+            *(s32 *)(((u8 *)&D_800DDE80[arg0]) + 0x24) = 0;
+            *(s32 *)(((u8 *)&D_800DDE80[arg0]) + 0x20) = *(s32 *)(((u8 *)&D_800DDE80[arg0]) + 0xC);
             D_800DDF69[arg0] = 1;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151838B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_151838B0.s")
 
 void func_15183974(s32 arg0) {
     if (D_800DDE80[arg0].field0 == 0) {
@@ -87,29 +82,22 @@ void func_151839F0(s32 arg0, s32 arg1) {
 void func_1510CE60(s32, s32, s32, s32, void *);
 extern s32 D_800DDF78[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15183ACC CURRENT (42) */
 void func_15183ACC(s32 arg0) {
-    register Game1B0740Slot *slot;
     u8 *allocated;
-    s32 *handle_slot;
 
-    slot = &D_800DDE80[arg0];
-    if (slot->field0 == 0) {
+    if (D_800DDE80[arg0].field0 == 0) {
         allocated = func_1502B6BC(0, 0, 0, 2, 9, arg0 + 0xAD);
         if (allocated != 0) {
-            slot->field0 = allocated;
-            *(s32 *)((u8 *)slot + 4) = *(s32 *)allocated;
-            *(s32 *)((u8 *)slot + 8) = *(s32 *)(allocated + 8);
-            slot->fieldC = *(s32 *)(allocated + 0x18);
-            handle_slot = &D_800DDF78[arg0];
-            *handle_slot = *(s32 *)(allocated + 0x10);
-            func_1510CE60(*handle_slot, 0, 1, 0x3E, (u8 *)slot + 0x10);
+            D_800DDE80[arg0].field0 = allocated;
+            *(s32 *)((u8 *)(&D_800DDE80[arg0]) + 4) = *(s32 *)allocated;
+            *(s32 *)((u8 *)(&D_800DDE80[arg0]) + 8) = *(s32 *)(allocated + 8);
+            D_800DDE80[arg0].fieldC = *(s32 *)(allocated + 0x18);
+            D_800DDF78[arg0] = *(s32 *)(allocated + 0x10);
+            func_1510CE60(D_800DDF78[arg0], 0, 1, 0x3E, (u8 *)(&D_800DDE80[arg0]) + 0x10);
             D_800DDF68[arg0] = 1;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15183ACC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_15183ACC.s")
 extern u8 D_800A72D0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15183BA4 CURRENT (305) */
@@ -148,7 +136,6 @@ loop_1:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15183BA4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_15183BA4.s")
-void func_1510D630(void *);
 void func_10004074(s32);
 extern s32 D_800DDF20;
 extern s8 D_800DDF70;

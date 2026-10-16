@@ -53,7 +53,8 @@ typedef struct {
 } Game135D00LightWork;
 
 void *func_1513B5E0(s8 *, u8, s32, u8, s32);
-void *func_1516037C(void *, s32, s32, u8, s32);
+struct GameLightDescriptor;
+void *func_1516037C(struct GameLightDescriptor *, s32, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15108850 CURRENT (886) */
@@ -179,7 +180,7 @@ void func_15108B80(u8 *arg0) {
     temp_v0 = (void *)(arg0 + *(s32 *)((u8 *)arg0 + 0x50));
     temp_v0_2 = (void *)(temp_v0 + 0xF8);
     if (*(s32 *)((u8 *)temp_v0 + 0x10C) != 0x3E7) {
-        temp_t0 = *(s32 *)((u8 *)temp_v0_2 + 0x1C) - D_800BE9E4;
+        temp_t0 = (s32) (*(u32 *)((u8 *)temp_v0_2 + 0x1C) - (u32) D_800BE9E4);
         *(s32 *)((u8 *)temp_v0_2 + 0x1C) = temp_t0;
         if (temp_t0 < 0) {
             *(s32 *)((u8 *)temp_v0_2 + 0x14) = 0x3E7;
@@ -254,23 +255,23 @@ extern u8 D_800BE9C0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15108D24 CURRENT (50) */
 s32 func_15108D24(u8 *arg0, s32 arg1) {
-    Game135D00MatrixWork work;
+    f32 matrix[16];
     u8 *source;
 
     source = arg0 + *(s32 *)(arg0 + 0x50) + 0xF8;
-    func_150A8050(work.values, *(f32 *)(source + 0), 0.0f,
+    func_150A8050(matrix, *(f32 *)(source + 0), 0.0f,
                   *(f32 *)(source + 4));
-    work.saved = *(f32 *)(source + 0x10);
-    work.values[0] *= D_800A2490;
-    work.values[1] *= D_800A2490;
-    work.values[2] *= D_800A2490;
-    work.values[4] *= D_800A2490;
-    work.values[5] *= D_800A2490;
-    work.values[6] *= D_800A2490;
-    work.values[8] *= D_800A2490;
-    work.values[9] *= D_800A2490;
-    work.values[10] *= D_800A2490;
-    func_150A7790(work.values, (s32)(arg0 + (D_800BE9C0 << 6) + 0x78));
+    matrix[13] = *(f32 *)(source + 0x10);
+    matrix[0] *= D_800A2490;
+    matrix[1] *= D_800A2490;
+    matrix[2] *= D_800A2490;
+    matrix[4] *= D_800A2490;
+    matrix[5] *= D_800A2490;
+    matrix[6] *= D_800A2490;
+    matrix[8] *= D_800A2490;
+    matrix[9] *= D_800A2490;
+    matrix[10] *= D_800A2490;
+    func_150A7790(matrix, (s32)(arg0 + (D_800BE9C0 << 6) + 0x78));
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15108D24 */

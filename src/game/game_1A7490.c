@@ -10,7 +10,6 @@
  * - func_1517A1EC
  * - func_1517A3A0
  * - func_1517A644
- * - func_1517A84C
  * - func_1517A9A8
  * - func_1517AA20
  *
@@ -265,15 +264,14 @@ void func_1517A644(f32 arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_1517A644.s")
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517A84C CURRENT (200) */
 void func_1517A84C(u8 *arg0) {
     s16 temp_v0_2;
+    s32 height_delta;
     s16 temp_v1;
-    s32 temp_v0_3;
-    u16 temp_v0;
+    s32 remaining_time;
 
-    temp_v0 = *(u16 *)(arg0 + 0xA6);
-    if (temp_v0 == 0) {
+    remaining_time = *(u16 *)(arg0 + 0xA6);
+    if (remaining_time == 0) {
         *(s16 *)(arg0 + 0x90) += *(s16 *)(arg0 + 0xA0);
         temp_v0_2 = *(s16 *)(arg0 + 0xA2);
         *(s16 *)(arg0 + 0x92) += temp_v0_2;
@@ -285,7 +283,8 @@ void func_1517A84C(u8 *arg0) {
             }
         }
         temp_v1 = *(s16 *)(arg0 + 0xB0);
-        if ((*(s16 *)(arg0 + 0x92) - temp_v1) <= 0) {
+        height_delta = *(s16 *)(arg0 + 0x92) - temp_v1;
+        if (height_delta <= 0) {
             *(s16 *)(arg0 + 0x96) = 0x5A;
             *(s16 *)(arg0 + 0x9A) = 0;
             *(u16 *)(arg0 + 0xA6) = 0x3C;
@@ -297,16 +296,14 @@ void func_1517A84C(u8 *arg0) {
         *(s16 *)(arg0 + 0x9A) += *(s8 *)(arg0 + 0x9E);
         return;
     }
-    temp_v0_3 = temp_v0 - D_800BE9E4;
-    if (temp_v0_3 > 0) {
-        *(u16 *)(arg0 + 0xA6) = temp_v0_3;
-        *(s8 *)(arg0 + 0xB3) = (temp_v0_3 << 8) / 60;
+    remaining_time = (u32)remaining_time - (u32)D_800BE9E4;
+    if (remaining_time > 0) {
+        *(u16 *)(arg0 + 0xA6) = remaining_time;
+        *(s8 *)(arg0 + 0xB3) = (s32)((u32)remaining_time << 8) / 60;
         return;
     }
     func_1516972C(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517A84C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_1517A84C.s")
 extern s16 D_800DD450;
 
 s32 func_1517A958(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
@@ -331,7 +328,7 @@ typedef struct {
     void *output;
 } Game1A7490Owner;
 
-s32 func_15094F70(s32, Game1A7490Input *, s32, Game1A7490Owner *, s32, s32, s32, s32, s32);
+s32 func_15094F70();
 extern Game1A7490Input D_80090614;
 extern s32 D_800DD1B0;
 

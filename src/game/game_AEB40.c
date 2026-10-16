@@ -23,7 +23,6 @@
  * - func_15084044
  * - func_150843AC
  * - func_15084558
- * - func_150849CC
  * - func_15084A18
  * - func_15084CB0
  *
@@ -107,7 +106,7 @@ s32 func_15081C20(void *arg0, void *arg1, GameAEB40State *arg2,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15081C20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15081C20.s")
-void func_1507DF10(GameAEB40State *, u16, u8);
+void func_1507DF10(void *, s32);
 extern u8 D_800BE616;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15081E0C CURRENT (742) */
@@ -117,15 +116,142 @@ void func_15081E0C(GameAEB40State *arg0, u16 arg1, u8 arg2) {
             arg0->field_1CA = 7;
         }
         if ((arg2 == 0) || (arg1 != 0xA)) {
-            func_1507DF10(arg0, arg1, arg2);
+            func_1507DF10(arg0, arg1);
         }
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15081E0C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15081E0C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15081E78.s")
+s32 func_150A6360(void *, void *, f32, f32, f32, f32, f32, f32);
+s32 func_15082A44(void *, s32, s32, s32, s32);
+extern s8 D_8008FD8C;
+extern f32 D_8009CC30, D_8009CC34, D_8009CC38, D_8009CC3C;
+extern s32 D_800BE628;
+extern u8 D_800BE9A0;
+extern u8 *D_800D210C;
+extern s16 *D_800D2110;
+extern u8 D_800D2138[];
+extern u8 D_800D9C10[];
+extern u8 *D_800D20FC;
+extern s32 D_800CC2D0;
+extern s32 D_80082FA0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150825C0 CURRENT (1876) */
+s32 func_150825C0(s32 arg0, s32 arg1) {
+    s32 objectOffset;
+    s32 index;
+    u8 flags;
+    u8 mode;
+    u8 allowed;
+    u8 *matrix;
+    f32 dx, dz, radius;
+    GameAEB40State *actor;
+    u32 end;
+    s32 count, x, offset, id;
+    s32 rejected;
+    u16 *timer;
+    u16 remaining;
+    s32 decrement;
+    u8 *record;
+
+    if (D_800D210C[arg0] != 0) {
+        return 0;
+    }
+    offset = arg0 * 0x30;
+    record = D_800D20FC + offset;
+    if (record[2] == 1) {
+        return 0;
+    }
+    x = *(s16 *)(record + 6);
+    if (x == 0x7FFF) {
+        return 0;
+    }
+    timer = (u16 *)D_800D2110 + arg0;
+    remaining = *timer;
+    if (remaining != 0) {
+        decrement = D_800BE9A0;
+        if (decrement >= remaining) {
+            *timer = 0;
+            return 0;
+        }
+        *timer = remaining - decrement;
+        return 0;
+    }
+    flags = record[1];
+    if (arg0 >= 5) {
+        mode = flags & 6;
+        if (mode != 0) {
+            if (mode == 2) {
+                radius = D_8009CC30;
+            } else if (mode == 4) {
+                radius = D_8009CC34;
+            } else {
+                radius = D_8009CC38;
+            }
+            count = D_8008FD8C;
+            rejected = 1;
+            actor = (GameAEB40State *)&D_800CC2D0;
+            if (count > 0) {
+scan_actor:
+                if (*(s32 *)actor == 0) {
+                    end = count * 0x32C + (u32)&D_800CC2D0;
+                    goto advance_actor;
+                }
+                id = *(u8 *)((u32)actor + 0x127);
+                if (id == 0xFF) {
+                    end = count * 0x32C + (u32)&D_800CC2D0;
+                    goto advance_actor;
+                }
+                if (((1U << (id & 31)) & *(u16 *)(D_800D2138 + 0x208)) &&
+                    (dx = actor->x - (f32)x,
+                     dz = actor->z - (f32)*(s16 *)(record + 0xA),
+                     (dx *= dx, dz *= dz, dx + dz <= radius))) {
+                    rejected = 0;
+                } else {
+                    end = count * 0x32C + (u32)&D_800CC2D0;
+advance_actor:
+                    actor = (GameAEB40State *)((u32)actor + 0x32C);
+                    if ((u32)actor < end) {
+                        goto scan_actor;
+                    }
+                }
+            }
+            if (rejected != 0) {
+                return 0;
+            }
+        }
+    }
+    if (flags & 8) {
+        allowed = 1;
+        index = 0;
+        objectOffset = 0;
+        if (D_80082FA0 >= 0) {
+            matrix = D_800D9C10;
+            do {
+                record = D_800D20FC + offset;
+                if (func_150A6360((void *)(objectOffset + D_800BE628), matrix,
+                        (f32)*(s16 *)(record + 6),
+                        (f32)(*(s16 *)(record + 8) + 150),
+                        (f32)*(s16 *)(record + 0xA),
+                        150.0f, 150.0f, D_8009CC3C) != 0) {
+                    allowed = 0;
+                }
+                index++;
+                objectOffset += 0x180;
+                matrix += 0x40;
+            } while (D_80082FA0 >= index);
+        }
+        if (allowed == 0) {
+            return 0;
+        }
+    }
+    return func_15082A44(offset + D_800D20FC, arg0, 0, 0, 0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150825C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_150825C0.s")
-void func_150825C0(s32, s32);
+s32 func_150825C0(s32, s32);
+
 extern u8 D_800D2100;
 extern u8 D_800D2101;
 
@@ -618,28 +744,26 @@ s32 func_15083DA0(void) {
     }
     return var_v1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15083E0C CURRENT (30) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15083E0C CURRENT (10) */
 s32 func_15083E0C(u8 arg0) {
     s32 var_a2;
-    s32 var_a3;
+    u8 *var_a3;
     s32 var_v1;
-    s32 base;
+    u8 *base;
     s32 has_more;
-    u8 current;
 
     if (arg0 == 0) {
         return -1;
     }
     var_v1 = 0;
     if ((s32) D_800D2100 > 0) {
-        base = (s32)D_800D20FC;
+        base = D_800D20FC;
         var_a2 = 0;
         var_a3 = base;
 loop_4:
-        current = *(u8 *)((u8 *)var_a3 + 0x28);
         var_v1 += 1;
         has_more = var_v1 < (s32)D_800D2100;
-        if (current == arg0) {
+        if (var_a3[0x28] == arg0) {
             return (s32) ((var_a2 + base) - base) / 48;
         }
         var_a3 += 0x30;
@@ -948,33 +1072,21 @@ s32 func_150849A0(void *actor) {
  * Optionally output that ordinal; no sentinel or bounds normalization occurs.
  * See docs/evidence/assets/naming/actor_representation_selection_semantics.md.
  */
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150849CC CURRENT (235) */
-u8 func_150849CC(void *arg0, s32 *arg1) {
-    s32 var_v1;
-    s32 temp_v1;
-    u8 temp_v0;
-    u8 temp_v0_2;
+u8 func_150849CC(u8 *arg0, s32 *arg1) {
+    s32 index;
 
-    temp_v0 = *(u8 *)((u8 *)arg0 + 0x1C9);
-    if (temp_v0 != 0) {
-        var_v1 = temp_v0 - 1;
+    if (arg0[0x1C9]) {
+        index = arg0[0x1C9] - 1;
+    } else if (arg0[0x2C8]) {
+        index = arg0[0x2C8] - 1;
     } else {
-        temp_v0_2 = *(u8 *)((u8 *)arg0 + 0x2C8);
-        var_v1 = 0;
-        if (temp_v0_2 != 0) {
-            var_v1 = temp_v0_2 - 1;
-        }
+        index = 0;
     }
-    if (arg1 != 0) {
-        temp_v1 = var_v1;
-        *arg1 = temp_v1;
-    } else {
-        temp_v1 = var_v1;
+    if (arg1) {
+        *arg1 = index;
     }
-    return *(u8 *)((u8 *)*(void **)((u8 *)arg0 + 0x2C4) + temp_v1);
+    return *(*(u8 **)(arg0 + 0x2C4) + index);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150849CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_150849CC.s")
 void func_10004074(s32);
 void func_1510D720(s32);
 extern u8 *D_800C5338[];

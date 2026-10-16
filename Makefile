@@ -61,7 +61,7 @@ endif
 endif
 # Load the US layout by default, including aliases and future aggregate goals.
 # Only goals known not to link the ROM may bypass broken asset fragments.
-NON_ROM_GOALS := clean help prepare-reference libultra libultrare profile-libs game-libs \
+NON_ROM_GOALS := clean help assemble-maintained prepare-reference libultra libultrare profile-libs game-libs \
 	game-asm game-asm-prepare game-integrated game-integrated-refresh \
 	game-integrated-prepare game-integrated-raw diff \
 	build/game-reference/% build/game-integrated/% build/game-libs/%
@@ -78,6 +78,8 @@ AUDIO_BANK_BINS := $(patsubst audio=%,%,$(filter audio=%,$(PROFILE_ASSETS)))
 SOUND_BANK_BINS := $(filter assets/audio/bank17/sound_bank_control_rzip.bin assets/audio/bank17/sound-bank/regions/%.bin,$(AUDIO_BANK_BINS))
 ADPCM_BINS := $(filter assets/audio/bank17/samples/%.bin,$(AUDIO_BANK_BINS))
 SEQUENCE_BINS := $(filter-out assets/audio/bank17/sequences/index.bin assets/audio/bank17/sequences/padding/%.bin,$(filter assets/audio/bank17/sequences/%.bin,$(AUDIO_BANK_BINS)))
+MP3_TABLE_BINS := $(filter assets/audio/bank17/mp3_huffman_offsets.bin assets/audio/bank17/mp3_lookup.bin assets/audio/bank17/mp3_huffman.bin,$(AUDIO_BANK_BINS))
+MP3_SPECTRAL_BINS := $(filter assets/audio/mp3/streams/%.bin,$(patsubst mp3=%,%,$(filter mp3=%,$(PROFILE_ASSETS))))
 MP3_BANK_BINS := $(patsubst mp3=%,%,$(filter mp3=%,$(PROFILE_ASSETS)))
 FLAT_BINS := $(patsubst flat=%,%,$(filter flat=%,$(PROFILE_ASSETS)))
 TEXTURE_BINS := $(filter assets/flat/textures/%.bin,$(FLAT_BINS))
@@ -85,6 +87,7 @@ MODEL_BANKS := $(patsubst model-bank=%,%,$(filter model-bank=%,$(PROFILE_ASSETS)
 $(foreach bank,$(MODEL_BANKS),$(eval MODEL_BANK_BINS_$(bank) := $(patsubst model$(bank)=%,%,$(filter model$(bank)=%,$(PROFILE_ASSETS)))))
 MODEL_BANK_BINS := $(foreach bank,$(MODEL_BANKS),$(MODEL_BANK_BINS_$(bank)))
 MODEL_BINS := $(filter $(foreach bank,$(MODEL_BANKS),assets/models/bank$(bank)/%.bin),$(MODEL_BANK_BINS))
+ANIMATION_CLIP_BINS := $(filter assets/models/raw/00D3CBA0.bin assets/models/raw/00E86CF8.bin assets/models/raw/00EEC120.bin,$(MODEL_BANK_BINS_02))
 endif
 endif
 ifneq ($(PROFILE_ASSETS),)
@@ -118,9 +121,21 @@ AUDIO_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(AUDIO_BANK_
 SOUND_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(SOUND_BANK_BINS))
 ADPCM_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(ADPCM_BINS))
 SEQUENCE_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(SEQUENCE_BINS))
+SPRITE_OBJS := $(if $(filter 1,$(ASSETS)),$(BUILD_DIR)/assets/asset_bank_00.o)
+SCENE_VOLUME_OBJS := $(if $(filter 1,$(ASSETS)),$(BUILD_DIR)/assets/asset_bank_0c.o)
+ANIMATION_BANK_OBJS := $(if $(filter 1,$(ASSETS)),$(BUILD_DIR)/assets/asset_bank_0a.o)
+ANIMATION_CONTROL_OBJS := $(if $(filter 1,$(ASSETS)),$(BUILD_DIR)/assets/asset_bank_0f.o)
+ROUTE_OBJS := $(if $(filter 1,$(ASSETS)),$(BUILD_DIR)/assets/asset_bank_10.o $(BUILD_DIR)/assets/asset_bank_19.o)
+VISIBILITY_OBJS := $(if $(filter 1,$(ASSETS)),$(BUILD_DIR)/assets/asset_bank_05.o)
+SCRIPT_OBJS := $(if $(filter 1,$(ASSETS)),$(BUILD_DIR)/assets/asset_bank_06.o)
+EVENT_OBJS := $(if $(filter 1,$(ASSETS)),$(BUILD_DIR)/assets/asset_bank_14.o)
+MORPH_OBJS := $(if $(filter 1,$(ASSETS)),$(BUILD_DIR)/assets/asset_bank_13.o)
+MP3_TABLE_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(MP3_TABLE_BINS))
+MP3_SPECTRAL_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(MP3_SPECTRAL_BINS))
 MP3_BANK_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(MP3_BANK_BINS))
 TEXTURE_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(TEXTURE_BINS))
 MODEL_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(MODEL_BINS))
+ANIMATION_CLIP_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(ANIMATION_CLIP_BINS))
 endif
 
 # US bin segments mirror the reviewed storage map in config/profiles/us.yaml.
@@ -129,7 +144,7 @@ ASSET_BINS_us := \
 	assets/game_archive_index.bin assets/game_code_rzip.bin assets/game_code_gap.bin \
 	assets/game_data_rzip.bin assets/game_data_gap.bin assets/unassigned_after_debugger.bin \
 	$(FLAT_BINS) assets/assets_flat_gap.bin assets/asset_bank_index.bin \
-	assets/asset_bank_00.bin assets/asset_bank_01.bin assets/asset_bank_02.bin \
+	assets/asset_bank_00.bin $(or $(MODEL_BANK_BINS_01),assets/asset_bank_01.bin) $(or $(MODEL_BANK_BINS_02),assets/asset_bank_02.bin) \
 	$(or $(MODEL_BANK_BINS_03),assets/asset_bank_03.bin) $(or $(MODEL_BANK_BINS_04),assets/asset_bank_04.bin) assets/asset_bank_05.bin \
 	assets/asset_bank_06.bin assets/asset_bank_07.bin assets/asset_bank_08.bin \
 	$(or $(MODEL_BANK_BINS_09),assets/asset_bank_09.bin) assets/asset_bank_0a.bin assets/asset_bank_0b.bin \
@@ -377,6 +392,31 @@ $(BUILD_DIR)/asm/%.o: $(NORMALIZED_ASM_DIR)/%.s
 	@mkdir -p "$(@D)"
 	$(AS) $(ASFLAGS) -o $@ $<
 
+# Report candidates use the same assembler settings as the runtime rule.
+.PHONY: assemble-maintained
+assemble-maintained:
+	@test -n "$(MAINTAINED_SOURCE)" && test -n "$(MAINTAINED_OBJECT)"
+	@mkdir -p "$(dir $(MAINTAINED_OBJECT))"
+	$(AS) $(ASFLAGS) -o "$(MAINTAINED_OBJECT)" "$(MAINTAINED_SOURCE)"
+
+ifeq ($(PROFILE),us)
+# Canonical placement stays fixed; generated disassembly is only a reference.
+$(BUILD_DIR)/asm/$(PROFILE)/debugger/tlb.o: src/debugger/tlb.s include/macro.inc Makefile
+	@mkdir -p "$(@D)"
+	$(AS) $(ASFLAGS) -o $@ $<
+
+# Only the include is disposable. Editable inputs live under .conker/.
+.PHONY: debugger-assets-refresh
+debugger-assets-refresh:
+
+$(BUILD_DIR)/debugger-assets/ui.inc.c: debugger-assets-refresh scripts/debugger_assets.py scripts/debugger_asset_inputs.py scripts/debugger_layout.py
+	python3 scripts/debugger_assets.py --output "$@"
+
+$(BUILD_DIR)/src/done/debugger/debugger_0000.o: src/done/debugger/debugger_0000.c $(BUILD_DIR)/debugger-assets/ui.inc.c scripts/compile_c.py Makefile
+	@mkdir -p "$(@D)"
+	python3 scripts/compile_c.py --profile $(PROFILE) --generated-dir $(BUILD_DIR) --inputs-prepared --output $@ $<
+endif
+
 $(BUILD_DIR)/asm/$(PROFILE)/header.o: src/header.c
 	@mkdir -p "$(@D)"
 	python3 scripts/compile_c.py --profile $(PROFILE) --output $@ $<
@@ -416,11 +456,14 @@ ASSET_PACK_DEPS := Makefile $(PROFILE_INPUTS) scripts/profile_config.py config/r
 	scripts/build_files.py scripts/rzip_archive.py scripts/rzip_extract.py \
 	toolchain/python-requirements.txt $(ROM_PATH)
 FONT_PARTS := $(patsubst assets/%,$(BUILD_DIR)/fonts/parts/%,$(FONT_BINS))
+MP3_TABLE_PARTS := $(patsubst assets/%,$(BUILD_DIR)/mp3-tables/parts/%,$(MP3_TABLE_BINS))
+MP3_SPECTRAL_PARTS := $(patsubst assets/%,$(BUILD_DIR)/mp3-spectral/parts/%,$(MP3_SPECTRAL_BINS))
 MP3_BANK_PARTS := $(patsubst assets/%,$(BUILD_DIR)/audio/parts/%,$(MP3_BANK_BINS))
 SOUND_BANK_PARTS := $(patsubst assets/%,$(BUILD_DIR)/sound-bank/parts/%,$(SOUND_BANK_BINS))
 ADPCM_PARTS := $(patsubst assets/%,$(BUILD_DIR)/adpcm/parts/%,$(ADPCM_BINS))
 SEQUENCE_PARTS := $(patsubst assets/%,$(BUILD_DIR)/sequences/parts/%,$(SEQUENCE_BINS))
 MODEL_PARTS := $(patsubst assets/%,$(BUILD_DIR)/models/parts/%,$(MODEL_BINS))
+ANIMATION_CLIP_PARTS := $(patsubst assets/%,$(BUILD_DIR)/animation-clips/parts/%,$(ANIMATION_CLIP_BINS))
 TEXTURE_PARTS := $(patsubst assets/%,$(BUILD_DIR)/textures/parts/%,$(TEXTURE_BINS))
 .PHONY: asset-parts-missing
 asset-parts-missing:
@@ -437,9 +480,23 @@ $(BUILD_DIR)/fonts/parts.stamp: $(ASSET_PACK_DEPS) scripts/font_splits.py script
 $(FONT_PARTS): $(BUILD_DIR)/fonts/parts.stamp ;
 endif
 
+BOUNDED_DEFLATE_DEPS := scripts/rzip_bounded.py scripts/deflate_encoder.py
+
+ifneq ($(ANIMATION_CLIP_PARTS),)
+ANIMATION_CLIP_DIRS := $(patsubst assets/models/raw/%.bin,build/assets/animation-clips/us/%,$(ANIMATION_CLIP_BINS))
+ANIMATION_CLIP_INPUTS := $(wildcard $(ANIMATION_CLIP_DIRS) $(addsuffix /*,$(ANIMATION_CLIP_DIRS)))
+ANIMATION_CLIP_REQUIRED := $(foreach dir,$(ANIMATION_CLIP_DIRS),$(addprefix $(dir)/,manifest.json backing.bin clips.json))
+ANIMATION_CLIP_MISSING := $(filter-out $(wildcard $(ANIMATION_CLIP_PARTS) $(ANIMATION_CLIP_REQUIRED)),$(ANIMATION_CLIP_PARTS) $(ANIMATION_CLIP_REQUIRED))
+ANIMATION_CLIP_DEPS := scripts/animation_clips_build.py scripts/asset_inputs.py scripts/model_animation_build.py scripts/model_assets.py scripts/model_build.py scripts/model_character_alpha.py scripts/texture_build.py scripts/profile_config.py
+$(BUILD_DIR)/animation-clips/parts.stamp: $(ASSET_PACK_DEPS) $(ANIMATION_CLIP_DEPS) $(ANIMATION_CLIP_INPUTS) $(if $(ANIMATION_CLIP_MISSING),asset-parts-missing)
+	$(TIMING) --stage animation-clips -- python3 scripts/animation_clips_build.py build
+	@touch $@
+$(ANIMATION_CLIP_PARTS): $(BUILD_DIR)/animation-clips/parts.stamp ;
+endif
+
 ifneq ($(MODEL_PARTS),)
 # A model target validates only its own bank; receipts and stamps cannot race.
-MODEL_CODEC_DEPS := scripts/rzip_gzip.py scripts/model_build.py scripts/model_assets.py scripts/model_attachment_format.py scripts/model_bundle_build.py scripts/model_color_build.py scripts/model_aux_build.py scripts/model_effect_format.py scripts/model_emission_points.py scripts/texture_build.py scripts/rzip_pack.py
+MODEL_CODEC_DEPS := $(BOUNDED_DEFLATE_DEPS) scripts/model_extended_build.py scripts/model_animation_build.py scripts/model_character_build.py scripts/rzip_gzip.py scripts/model_build.py scripts/model_assets.py scripts/model_attachment_format.py scripts/model_bundle_build.py scripts/model_color_build.py scripts/model_aux_build.py scripts/model_effect_format.py scripts/model_emission_points.py scripts/texture_build.py scripts/rzip_pack.py
 define MODEL_BANK_RULES
 MODEL_PARTS_$(1) := $(patsubst assets/%,$(BUILD_DIR)/models/parts/%,$(filter assets/models/bank$(1)/%.bin,$(MODEL_BINS)))
 MODEL_INPUTS_$(1) := $(wildcard build/assets/model-build/us/$(1) build/assets/model-build/us/$(1)/* build/assets/model-build/us/$(1)/*/*)
@@ -506,6 +563,108 @@ $(BUILD_DIR)/sequences/parts.stamp: $(ASSET_PACK_DEPS) $(SEQUENCE_CODEC_DEPS) $(
 $(SEQUENCE_PARTS): $(BUILD_DIR)/sequences/parts.stamp ;
 endif
 
+# Family variables retain explicit inputs/dependencies; stamp behavior is shared.
+# $(1): variable prefix, $(2): output family, $(3): dependency variable,
+# $(4): builder command, $(5): additional prerequisites.
+define ASSET_FAMILY_RULES
+$(BUILD_DIR)/$(2)/parts.stamp: $(ASSET_PACK_DEPS) $($(3)) $($(1)_INPUTS) $(5) $(if $(filter-out $(wildcard $($(1)_PARTS) $($(1)_REQUIRED_INPUTS)),$($(1)_PARTS) $($(1)_REQUIRED_INPUTS)),asset-parts-missing)
+	$(TIMING) --stage $(2) -- python3 $(4)
+	@touch $$@
+$($(1)_PARTS): $(BUILD_DIR)/$(2)/parts.stamp ;
+endef
+
+ifneq ($(SPRITE_OBJS),)
+SPRITE_PARTS := $(BUILD_DIR)/sprites/parts/asset_bank_00.bin
+SPRITE_INPUTS := $(wildcard build/assets/sprites/us build/assets/sprites/us/*)
+SPRITE_REQUIRED_INPUTS := build/assets/sprites/us/manifest.json build/assets/sprites/us/backing.bin
+SPRITE_MANIFEST_IMAGES := $(shell test ! -f build/assets/sprites/us/manifest.json || python3 -c 'import json; m=json.load(open("build/assets/sprites/us/manifest.json")); print(" ".join("build/assets/sprites/us/%02d-%02d.%s.png" % (r["entry"], f, fmt) for r in m["entries"] for f in range(r["frames"]) for fmt in ("rgba16", "i4")))' || printf '__INVALID_SPRITE_MANIFEST__')
+ifneq ($(filter __INVALID_SPRITE_MANIFEST__,$(SPRITE_MANIFEST_IMAGES)),)
+$(error Invalid sprite manifest; restore it or run ./conker sprite-assets recover)
+endif
+SPRITE_REQUIRED_INPUTS += $(SPRITE_MANIFEST_IMAGES)
+SPRITE_CODEC_DEPS := $(BOUNDED_DEFLATE_DEPS) scripts/texture_assets.py scripts/asset_inputs.py scripts/sprite_build.py scripts/sprite_codec.py scripts/texture_rgba16.py scripts/texture_native.py scripts/rzip_gzip.py scripts/model_character_alpha.py scripts/model_assets.py scripts/texture_build.py
+$(eval $(call ASSET_FAMILY_RULES,SPRITE,sprites,SPRITE_CODEC_DEPS,scripts/sprite_build.py build,))
+endif
+
+ifneq ($(SCENE_VOLUME_OBJS),)
+SCENE_VOLUME_PARTS := $(BUILD_DIR)/scene-fields/parts/asset_bank_0c.bin
+SCENE_VOLUME_INPUTS := $(wildcard build/assets/scene-volumes/us build/assets/scene-volumes/us/* build/assets/scene-fields/us build/assets/scene-fields/us/*)
+SCENE_VOLUME_REQUIRED_INPUTS := $(foreach family,scene-volumes scene-fields,$(addprefix build/assets/$(family)/us/,manifest.json backing.bin records.json))
+SCENE_VOLUME_DEPS := scripts/scene_field_build.py scripts/scene_field_codec.py scripts/scene_volume_build.py scripts/scene_volume_codec.py scripts/asset_inputs.py scripts/model_character_alpha.py scripts/model_assets.py scripts/texture_build.py
+$(eval $(call ASSET_FAMILY_RULES,SCENE_VOLUME,scene-fields,SCENE_VOLUME_DEPS,scripts/scene_field_build.py build,))
+endif
+
+ifneq ($(ANIMATION_BANK_OBJS),)
+ANIMATION_BANK_PARTS := $(BUILD_DIR)/animation-bank/parts/asset_bank_0a.bin
+ANIMATION_BANK_INPUTS := $(wildcard build/assets/animation-bank/us/bank0A build/assets/animation-bank/us/bank0A/*)
+ANIMATION_BANK_REQUIRED_INPUTS := $(addprefix build/assets/animation-bank/us/bank0A/,manifest.json backing.bin animations.json)
+ANIMATION_BANK_DEPS := scripts/asset_inputs.py scripts/animation_bank_build.py scripts/model_animation_build.py scripts/model_character_alpha.py scripts/model_assets.py scripts/texture_build.py
+$(eval $(call ASSET_FAMILY_RULES,ANIMATION_BANK,animation-bank,ANIMATION_BANK_DEPS,scripts/animation_bank_build.py build,))
+endif
+
+ifneq ($(ANIMATION_CONTROL_OBJS),)
+ANIMATION_CONTROL_PARTS := $(BUILD_DIR)/animation-control/parts/asset_bank_0f.bin
+ANIMATION_CONTROL_INPUTS := $(wildcard build/assets/animation-control/us/bank0F build/assets/animation-control/us/bank0F/*)
+ANIMATION_CONTROL_REQUIRED_INPUTS := $(addprefix build/assets/animation-control/us/bank0F/,manifest.json backing.bin controls.json)
+ANIMATION_CONTROL_DEPS := scripts/asset_inputs.py scripts/animation_control_build.py scripts/animation_control_codec.py scripts/model_character_alpha.py scripts/model_assets.py scripts/texture_build.py
+$(eval $(call ASSET_FAMILY_RULES,ANIMATION_CONTROL,animation-control,ANIMATION_CONTROL_DEPS,scripts/animation_control_build.py build,))
+endif
+
+ifneq ($(ROUTE_OBJS),)
+ROUTE_PARTS := $(BUILD_DIR)/routes/parts/asset_bank_10.bin $(BUILD_DIR)/routes/parts/asset_bank_19.bin
+ROUTE_INPUTS := $(wildcard build/assets/routes/us/bank10 build/assets/routes/us/bank10/* build/assets/routes/us/bank19 build/assets/routes/us/bank19/*)
+ROUTE_REQUIRED_INPUTS := $(foreach bank,10 19,$(addprefix build/assets/routes/us/bank$(bank)/,manifest.json backing.bin routes.json))
+ROUTE_CODEC_DEPS := scripts/asset_inputs.py scripts/route_build.py scripts/route_codec.py scripts/model_character_alpha.py scripts/model_assets.py scripts/texture_build.py
+$(eval $(call ASSET_FAMILY_RULES,ROUTE,routes,ROUTE_CODEC_DEPS,scripts/route_build.py build,))
+endif
+
+ifneq ($(VISIBILITY_OBJS),)
+VISIBILITY_PARTS := $(BUILD_DIR)/visibility/parts/asset_bank_05.bin
+VISIBILITY_INPUTS := $(wildcard build/assets/visibility/us build/assets/visibility/us/*)
+VISIBILITY_REQUIRED_INPUTS := build/assets/visibility/us/backing.bin build/assets/visibility/us/manifest.json build/assets/visibility/us/codebooks.json build/assets/visibility/us/bitmaps.json
+VISIBILITY_CODEC_DEPS := $(BOUNDED_DEFLATE_DEPS) scripts/visibility_geometry.py scripts/asset_inputs.py scripts/visibility_build.py scripts/visibility_codec.py scripts/model_character_alpha.py scripts/model_assets.py scripts/texture_build.py
+$(eval $(call ASSET_FAMILY_RULES,VISIBILITY,visibility,VISIBILITY_CODEC_DEPS,scripts/visibility_build.py build,))
+endif
+
+ifneq ($(SCRIPT_OBJS),)
+SCRIPT_PARTS := $(BUILD_DIR)/scripts/parts/asset_bank_06.bin
+SCRIPT_INPUTS := $(wildcard build/assets/script-build/us build/assets/script-build/us/*)
+SCRIPT_REQUIRED_INPUTS := $(addprefix build/assets/script-build/us/,manifest.json scripts.json)
+SCRIPT_DEPS := scripts/asset_inputs.py scripts/script_build.py scripts/script_codec.py scripts/model_character_alpha.py scripts/model_assets.py scripts/texture_build.py
+$(eval $(call ASSET_FAMILY_RULES,SCRIPT,scripts,SCRIPT_DEPS,scripts/script_build.py build,))
+endif
+
+ifneq ($(EVENT_OBJS),)
+EVENT_PARTS := $(BUILD_DIR)/events/parts/asset_bank_14.bin
+EVENT_INPUTS := $(wildcard build/assets/event-build/us build/assets/event-build/us/*)
+EVENT_REQUIRED_INPUTS := build/assets/event-build/us/manifest.json build/assets/event-build/us/programs.json
+EVENT_CODEC_DEPS := scripts/asset_inputs.py scripts/event_build.py scripts/event_codec.py scripts/model_event_activation.py scripts/model_character_alpha.py scripts/model_assets.py scripts/texture_build.py
+$(eval $(call ASSET_FAMILY_RULES,EVENT,events,EVENT_CODEC_DEPS,scripts/event_build.py build,))
+endif
+
+ifneq ($(MORPH_OBJS),)
+MORPH_PARTS := $(BUILD_DIR)/morphs/parts/asset_bank_13.bin
+MORPH_INPUTS := $(wildcard build/assets/morph-build/us build/assets/morph-build/us/*)
+MORPH_REQUIRED_INPUTS := build/assets/morph-build/us/manifest.json build/assets/morph-build/us/morphs.json
+MORPH_CODEC_DEPS := scripts/asset_inputs.py scripts/model_morph_build.py scripts/model_morphs.py scripts/model_assets.py scripts/texture_build.py scripts/rzip_pack.py
+$(eval $(call ASSET_FAMILY_RULES,MORPH,morphs,MORPH_CODEC_DEPS,scripts/model_morph_build.py build-parts,))
+endif
+
+ifneq ($(MP3_TABLE_PARTS),)
+MP3_TABLE_INPUTS := $(wildcard build/assets/mp3-tables/us build/assets/mp3-tables/us/*)
+MP3_TABLE_REQUIRED_INPUTS := build/assets/mp3-tables/us/manifest.json build/assets/mp3-tables/us/tables.json
+MP3_TABLE_CODEC_DEPS := scripts/asset_inputs.py scripts/mp3_table_build.py scripts/mp3_table_codec.py scripts/mp3_assets.py scripts/audio_boundaries.py scripts/model_assets.py scripts/texture_build.py lib/libultrare/src/libultrare/mp3/decoder.c
+$(eval $(call ASSET_FAMILY_RULES,MP3_TABLE,mp3-tables,MP3_TABLE_CODEC_DEPS,scripts/mp3_table_build.py build-parts,))
+endif
+
+ifneq ($(MP3_SPECTRAL_PARTS),)
+MP3_SPECTRAL_INPUTS := $(wildcard build/assets/mp3-spectral/us build/assets/mp3-spectral/us/* build/assets/mp3-spectral/us/*/*)
+MP3_SPECTRAL_MANIFESTS := $(patsubst assets/audio/mp3/streams/%.bin,build/assets/mp3-spectral/us/%/manifest.json,$(MP3_SPECTRAL_BINS))
+MP3_SPECTRAL_REQUIRED_INPUTS := $(MP3_SPECTRAL_MANIFESTS) $(patsubst %/manifest.json,%/stream.json,$(MP3_SPECTRAL_MANIFESTS))
+MP3_SPECTRAL_CODEC_DEPS := scripts/asset_inputs.py scripts/build_jobs.py scripts/mp3_spectral_build.py scripts/mp3_spectral_codec.py scripts/mp3_table_build.py scripts/mp3_table_codec.py scripts/mp3_assets.py scripts/mp3_bank.py scripts/audio_boundaries.py scripts/model_assets.py scripts/texture_build.py lib/libultrare/src/libultrare/mp3/decoder.c
+$(eval $(call ASSET_FAMILY_RULES,MP3_SPECTRAL,mp3-spectral,MP3_SPECTRAL_CODEC_DEPS,scripts/mp3_spectral_build.py build-parts,$(BUILD_DIR)/audio/parts.stamp))
+endif
+
 ifneq ($(MP3_BANK_PARTS),)
 MP3_PART_INPUTS := $(wildcard build/assets/mp3-bank/us build/assets/mp3-bank/us/* build/assets/mp3-bank/us/streams/* build/assets/mp3-bank/us/padding/*)
 MP3_PARTS_MISSING := $(filter-out $(wildcard $(MP3_BANK_PARTS)),$(MP3_BANK_PARTS))
@@ -541,7 +700,19 @@ $(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/fonts/objects.stamp,$(BUILD_DIR)/
 $(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/sound-bank/objects.stamp,$(BUILD_DIR)/sound-bank/parts,$(SOUND_BANK_OBJS),$(AUDIO_OBJECT_ORDER)))
 $(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/adpcm/objects.stamp,$(BUILD_DIR)/adpcm/parts,$(ADPCM_OBJS),$(AUDIO_OBJECT_ORDER)))
 $(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/sequences/objects.stamp,$(BUILD_DIR)/sequences/parts,$(SEQUENCE_OBJS),$(AUDIO_OBJECT_ORDER)))
-$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/audio/objects.stamp,$(BUILD_DIR)/audio/parts,$(MP3_BANK_OBJS)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/sprites/objects.stamp,$(BUILD_DIR)/sprites/parts,$(SPRITE_OBJS)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/scene-fields/objects.stamp,$(BUILD_DIR)/scene-fields/parts,$(SCENE_VOLUME_OBJS)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/animation-bank/objects.stamp,$(BUILD_DIR)/animation-bank/parts,$(ANIMATION_BANK_OBJS)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/animation-control/objects.stamp,$(BUILD_DIR)/animation-control/parts,$(ANIMATION_CONTROL_OBJS)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/routes/objects.stamp,$(BUILD_DIR)/routes/parts,$(ROUTE_OBJS)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/animation-clips/objects.stamp,$(BUILD_DIR)/animation-clips/parts,$(ANIMATION_CLIP_OBJS)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/visibility/objects.stamp,$(BUILD_DIR)/visibility/parts,$(VISIBILITY_OBJS)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/scripts/objects.stamp,$(BUILD_DIR)/scripts/parts,$(SCRIPT_OBJS)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/events/objects.stamp,$(BUILD_DIR)/events/parts,$(EVENT_OBJS)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/morphs/objects.stamp,$(BUILD_DIR)/morphs/parts,$(MORPH_OBJS)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/mp3-spectral/objects.stamp,$(BUILD_DIR)/mp3-spectral/parts,$(MP3_SPECTRAL_OBJS)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/mp3-tables/objects.stamp,$(BUILD_DIR)/mp3-tables/parts,$(MP3_TABLE_OBJS),$(AUDIO_OBJECT_ORDER)))
+$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/audio/objects.stamp,$(BUILD_DIR)/audio/parts,$(filter-out $(MP3_SPECTRAL_OBJS),$(MP3_BANK_OBJS))))
 $(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/textures/objects.stamp,$(BUILD_DIR)/textures/parts,$(TEXTURE_OBJS)))
 # Each model bank packs and fails independently, so its objects do too.
 $(foreach bank,$(MODEL_BANKS),$(eval $(call BINARY_OBJECT_RULES,$(BUILD_DIR)/models/bank$(bank)/objects.stamp,$(BUILD_DIR)/models/parts,$(filter $(BUILD_DIR)/assets/models/bank$(bank)/%.o,$(MODEL_OBJS)))))
@@ -566,6 +737,7 @@ $(BUILD_DIR)/assets/%.o: assets/%.bin
 	$(LD) -r -b binary -m elf32btsmip -o $@ $<
 
 clean:
+	python3 "$(dir $(firstword $(MAKEFILE_LIST)))scripts/debugger_asset_inputs.py"
 	rm -rf build asm assets reference .splache undefined_funcs_auto.txt undefined_syms_auto.txt
 
 diff:

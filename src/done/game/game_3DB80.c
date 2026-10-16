@@ -23,7 +23,7 @@ typedef struct Game3DB80Payload {
 void *func_10022EC0(void *, const void *, u32);
 void func_1510F800(s32);
 s32 func_1510FD20(s16, s16, Game3DB80Object *);
-f32 func_15144598(Game3DB80Object *);
+f32 func_15144598(void *);
 
 s32 func_150106D0(Game3DB80Object *arg0) {
     Game3DB80Payload payload;

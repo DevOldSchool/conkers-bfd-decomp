@@ -351,7 +351,7 @@ s32 func_1501407C(s32 arg0) {
     D_800D987C = 0;
     return 1;
 }
-extern f32 func_15144598(void *arg0, void *arg1);
+f32 func_15144598();
 extern void func_1510F800(s32 arg0);
 extern s32 func_1510FD20(s16 arg0, s16 arg1, void *arg2);
 void *func_10022EC0(void *, const void *, u32);
@@ -367,7 +367,7 @@ void func_15014094(void *arg0) {
 
     *(u8 *)((u8 *)arg0 + 0x16) |= 4;
     sp34 = arg0;
-    sp38 = func_15144598(arg0, arg0);
+    sp38 = func_15144598(arg0);
     sp3C = 0.0f;
     func_1510F800(0);
     sp40 = func_1510FD20(*(s16 *)((u8 *)arg0 + 0), *(s16 *)((u8 *)arg0 + 4), arg0);
@@ -444,7 +444,6 @@ typedef struct Game40490ScaledPacket {
     f32 zero;
 } Game40490ScaledPacket;
 
-f32 func_1514462C(void *);
 extern s32 D_80082FA0;
 extern f32 D_80096680;
 extern f32 D_80096684;
@@ -600,7 +599,7 @@ s32 func_15014F6C(struct134 *arg0) {
     }
     return 1;
 }
-void func_1515F25C(void **, void *);
+void func_1515F25C();
 
 s32 func_150150A4(s32 arg0) {
     void *temp_v0;
@@ -797,7 +796,6 @@ void func_15015354(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15015354 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15015354.s")
 
-extern f32 func_15144598(void *arg0, void *arg1);
 
 s32 func_15015644(void *arg0, void *arg1) {
     struct { void *owner; f32 value; s32 index; s8 flag; } packet;

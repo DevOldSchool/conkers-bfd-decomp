@@ -72,7 +72,7 @@ typedef struct {
 
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 void func_151429E0(u8, u8 *, u8 *, u8 *);
-void func_1518CA80(RingSpawn *, u8);
+void func_1518CA80();
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800A7400, D_800A7404, D_800A7408, D_800A740C;

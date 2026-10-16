@@ -11,7 +11,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct {
+typedef struct Game1B7870Vector {
     f32 x;
     f32 y;
     f32 z;

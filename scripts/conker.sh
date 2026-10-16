@@ -23,7 +23,7 @@ locked_digest="${locked_image##*sha256:}"
 local_image_name="conkers-bfd-decomp-toolchain:local-${conker_platform#linux/}-${locked_digest:0:12}"
 workspace_id="$(python3 -c 'import hashlib, sys; print(hashlib.sha256(sys.argv[1].encode()).hexdigest()[:12])' "$repo_root")"
 warm_container_name="conker-toolchain-$workspace_id$([[ "$conker_platform" == linux/amd64 ]] || printf -- '-%s' "${conker_platform#linux/}")"
-warm_container_schema="1"
+warm_container_schema="2"
 mips_to_c_revision="$(python3 -c 'import json, sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["tools"]["mips_to_c"]["revision"])' "$toolchain_lock")"
 host_mips_to_c="$repo_root/build/host-tools/mips_to_c-$mips_to_c_revision"
 
@@ -178,13 +178,33 @@ After the raw base split map is available
                                  Rebuild the fixed US flat RZIP region into a ROM.
   font-assets <extract|pack|build|preview|verify> [options]
                                  Extract, rebuild, preview, or byte-verify the RLE font table.
-  mp3-assets <extract|pack|build-bank|verify|cue-extract|cue-verify> [options]
+  sprite-assets <build|recover>
+      Reconstruct reviewed sprite PNG ranges or recover their editable inputs.
+  animation-clips <build|recover> [--part ID]
+      Rebuild reviewed clip ranges within partial animation objects or recover inputs.
+  scene-fields <build|recover>
+                     Rebuild reviewed model, group, spawn, view and sprite fields.
+  scene-volumes <build|recover>
+      Reconstruct reviewed scene trigger volumes and collision spheres.
+  animation-bank <build|recover> [--bank 0A]
+    Rebuild the native-format animation bundles in bank 0A.
+  animation-control <build|recover --bank 0F>
+    Rebuild reviewed animation routes, events and behavior programs.
+  route-assets <build|recover> [--bank 10|19]
+      Rebuild reviewed actor paths and navigation graphs or recover their inputs.
+  visibility-assets <build|recover>
+      Rebuild reviewed visibility codes and node sets or recover their inputs.
+  script-assets <build|recover>
+    Rebuild native script tracks, bindings, commands and text.
+  event-assets <build|recover>
+                                 Rebuild the complete US event bank from typed instructions and strings.
+  mp3-assets <build-spectral|recover-spectral|build-tables|recover-tables|extract|pack|build-bank|verify|cue-extract|cue-verify> [options]
                                  Extract or verify US MP3 streams, tables, and embedded cues.
   audio-assets <build-adpcm|recover-adpcm|build-sound-bank|recover-sound-bank|build-sequences|recover-sequence|survey|extract|preview|sample-preview|soundtrack-preview|verify> [options]
                                  Survey, extract, preview, or byte-verify US non-MP3 audio assets.
   texture-assets <extract|pack|build|verify|survey> [options]
                                  Survey, extract, rebuild, or verify proven US textures.
-  model-assets <build|recover|appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]
+  model-assets <build-morphs|recover-morphs|build|recover|appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]
                                  Export model banks or run cached ROM, glTF, Blender and image checks.
   hud-assets <survey|extract|preview|verify> [options]
                                  Extract, preview, or verify US HUD/menu metadata and sprites.
@@ -349,7 +369,8 @@ workspace_mount_args() {
     local path
     local access
 
-    mkdir -p "$repo_root/asm" "$repo_root/assets" "$repo_root/build" "$repo_root/reference"
+    mkdir -p "$repo_root/asm" "$repo_root/assets" "$repo_root/build" "$repo_root/reference" \
+        "$repo_root/.conker/debugger-assets"
     workspace_mounts=(--tmpfs /workspace:rw,nosuid,nodev,size=256m,mode=1777)
 
     add_workspace_mount Makefile
@@ -370,6 +391,8 @@ workspace_mount_args() {
     done
     add_workspace_mount roms
     add_workspace_mount .private-rom-assets
+    # Editable debugger inputs are untracked and must persist on the host.
+    add_workspace_mount .conker/debugger-assets readwrite
 }
 
 remove_warm_container() {
@@ -378,18 +401,43 @@ remove_warm_container() {
     fi
 }
 
+warm_file_mount_fingerprint() {
+    # A Git checkout can replace a file's inode while its bind mount still
+    # exposes the old file (or stale size metadata). Directory mounts follow
+    # their children; these two individually mounted files need a refresh.
+    python3 - "$repo_root" <<'PYTHON'
+import hashlib
+from pathlib import Path
+import sys
+
+root = Path(sys.argv[1])
+digest = hashlib.sha256()
+for name in ("Makefile", "Dockerfile"):
+    path = root / name
+    stat = path.stat()
+    digest.update(f"{name}:{stat.st_dev}:{stat.st_ino}:".encode())
+    digest.update(hashlib.sha256(path.read_bytes()).digest())
+print(digest.hexdigest())
+PYTHON
+}
+
 ensure_warm_container() {
     local desired_image_id
+    local desired_file_mounts
+    local current_file_mounts
     local current_image_id
     local current_schema
     local running
 
     ensure_image
+    desired_file_mounts="$(warm_file_mount_fingerprint)" || return
     desired_image_id="$(docker image inspect --format '{{.Id}}' "$image_name")"
     if docker container inspect "$warm_container_name" >/dev/null 2>&1; then
         current_image_id="$(docker container inspect --format '{{.Image}}' "$warm_container_name")"
         current_schema="$(docker container inspect --format '{{index .Config.Labels "org.devoldschool.conker.warm-schema"}}' "$warm_container_name")"
-        if [[ "$current_image_id" != "$desired_image_id" || "$current_schema" != "$warm_container_schema" ]]; then
+        current_file_mounts="$(docker container inspect --format '{{index .Config.Labels "org.devoldschool.conker.file-mounts"}}' "$warm_container_name")"
+        if [[ "$current_image_id" != "$desired_image_id" || "$current_schema" != "$warm_container_schema" ||
+              "$current_file_mounts" != "$desired_file_mounts" ]]; then
             remove_warm_container
         fi
     fi
@@ -399,6 +447,7 @@ ensure_warm_container() {
         docker run --detach \
             --name "$warm_container_name" \
             --label "org.devoldschool.conker.warm-schema=$warm_container_schema" \
+            --label "org.devoldschool.conker.file-mounts=$desired_file_mounts" \
             "${container_run_args[@]}" \
             "${workspace_mounts[@]}" \
             --workdir /workspace \
@@ -1324,9 +1373,63 @@ case "$command" in
         [[ $# -ge 1 ]] || die "usage: ./conker font-assets <extract|pack|build|preview|verify> [options]"
         python3 scripts/font_assets.py "$@"
         ;;
+    sprite-assets)
+        [[ $# -ge 1 ]] || die "usage: ./conker sprite-assets <build|recover>"
+        run_in_container python3 scripts/sprite_build.py "$@"
+        ;;
+    animation-clips)
+        [[ $# -ge 1 ]] || die "usage: ./conker animation-clips <build|recover> [--part ID]"
+        run_in_container python3 scripts/animation_clips_build.py "$@"
+        ;;
+    scene-volumes)
+        [[ $# -ge 1 ]] || die "usage: ./conker scene-volumes <build|recover>"
+        run_in_container python3 scripts/scene_volume_build.py "$@"
+        ;;
+    scene-fields)
+        [[ $# -ge 1 ]] || die "usage: ./conker scene-fields <build|recover>"
+        run_in_container python3 scripts/scene_field_build.py "$@"
+        ;;
+    animation-bank)
+        [[ $# -ge 1 ]] || die "usage: ./conker animation-bank <build|recover> [--bank 0A]"
+        run_in_container python3 scripts/animation_bank_build.py "$@"
+        ;;
+    animation-control)
+        [[ $# -ge 1 ]] || die "usage: ./conker animation-control <build|recover --bank 0F>"
+        run_in_container python3 scripts/animation_control_build.py "$@"
+        ;;
+    route-assets)
+        [[ $# -ge 1 ]] || die "usage: ./conker route-assets <build|recover> [--bank 10|19]"
+        run_in_container python3 scripts/route_build.py "$@"
+        ;;
+    visibility-assets)
+        [[ $# -ge 1 ]] || die "usage: ./conker visibility-assets <build|recover>"
+        run_in_container python3 scripts/visibility_build.py "$@"
+        ;;
+    script-assets)
+        [[ $# -ge 1 ]] || die "usage: ./conker script-assets <build|recover>"
+        run_in_container python3 scripts/script_build.py "$@"
+        ;;
+    event-assets)
+        [[ $# -ge 1 ]] || die "usage: ./conker event-assets <build|recover>"
+        run_in_container python3 scripts/event_build.py "$@"
+        ;;
     mp3-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker mp3-assets <extract|pack|build-bank|verify|cue-extract|cue-verify> [options]"
-        python3 scripts/mp3_assets.py "$@"
+        [[ $# -ge 1 ]] || die "usage: ./conker mp3-assets <build-spectral|recover-spectral|build-tables|recover-tables|extract|pack|build-bank|verify|cue-extract|cue-verify> [options]"
+        if [[ "$1" == "build-tables" ]]; then
+            shift
+            run_in_container python3 scripts/mp3_table_build.py build-parts "$@"
+        elif [[ "$1" == "build-spectral" ]]; then
+            shift
+            run_in_container python3 scripts/mp3_spectral_build.py build-parts "$@"
+        elif [[ "$1" == "recover-spectral" ]]; then
+            shift
+            run_in_container python3 scripts/mp3_spectral_build.py recover "$@"
+        elif [[ "$1" == "recover-tables" ]]; then
+            shift
+            run_in_container python3 scripts/mp3_table_build.py recover "$@"
+        else
+            python3 scripts/mp3_assets.py "$@"
+        fi
         ;;
     audio-assets)
         [[ $# -ge 1 ]] || die "usage: ./conker audio-assets <build-adpcm|recover-adpcm|build-sound-bank|recover-sound-bank|build-sequences|recover-sequence|survey|extract|preview|sample-preview|soundtrack-preview|verify> [options]"
@@ -1361,13 +1464,19 @@ case "$command" in
         fi
         ;;
     model-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker model-assets <build|recover|appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]"
+        [[ $# -ge 1 ]] || die "usage: ./conker model-assets <build-morphs|recover-morphs|build|recover|appearance|event-activation|alpha-frontier|batch|embedded-geometry|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]"
         if [[ "$1" == "build" ]]; then
             shift
             run_in_container python3 scripts/model_build.py build-parts "$@"
         elif [[ "$1" == "recover" ]]; then
             shift
             run_in_container python3 scripts/model_build.py recover "$@"
+        elif [[ "$1" == "build-morphs" ]]; then
+            shift
+            run_in_container python3 scripts/model_morph_build.py build-parts "$@"
+        elif [[ "$1" == "recover-morphs" ]]; then
+            shift
+            run_in_container python3 scripts/model_morph_build.py recover "$@"
         elif [[ "$1" == "alpha-frontier" ]]; then
             shift
             python3 scripts/model_character_alpha.py "$@"

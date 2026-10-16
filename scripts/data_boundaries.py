@@ -124,6 +124,35 @@ def main_image(root: Path, rom: bytes) -> tuple[bytes, int, list[dict]]:
     return rom[start:end], 0x80000000 + start, owned
 
 
+def debugger_source_mappings(root: Path) -> list[dict]:
+    """Read allocated debugger data ownership from the canonical ROM profile."""
+    profile = original_asset_profile(root / 'config/profiles/us.yaml')
+    segment = next(s for s in profile['segments']
+                   if isinstance(s, dict) and s.get('name') == 'debugger')
+    origin = segment['vram'] - segment['start']
+    rows = segment['subsegments']
+    result = []
+    for index, row in enumerate(rows):
+        if not isinstance(row, dict) or row.get('type') not in ('.data', '.rodata'):
+            continue
+        following = rows[index + 1] if index + 1 < len(rows) else None
+        if following is None:
+            position = profile['segments'].index(segment)
+            following = profile['segments'][position + 1]
+        stop = following['start'] if isinstance(following, dict) else following[0]
+        name, section = row['name'], row['type']
+        if not re.fullmatch(r'done/debugger/\w+', name):
+            raise ValueError('unsupported debugger source data owner')
+        result.append({'start': origin + row['start'], 'end': origin + stop,
+                       'kind': 'source_placement', 'input': section,
+                       'input_selector': '*' + Path(name).name + '.o(' + section + ')',
+                       'source': 'src/' + name + '.c', 'output': '.debugger',
+                       'linker_mode': 'allocated', 'emitted_size': stop - row['start'],
+                       'compiler_padding_bytes': 0,
+                       'evidence_reference': 'config/profiles/us.yaml'})
+    return result
+
+
 def active_source(root: Path, sources: list[str]) -> str:
     """Resolve raw/done alternatives consistently for auditing and reporting."""
     active = [source for source in sources if (root / source).is_file()]
@@ -175,7 +204,7 @@ def checked_manifest(root: Path, images: dict, digest: str) -> dict:
                 if span['kind'] == 'private_section':
                     if sources != span['sources']:
                         raise ValueError('data owner disagrees with private placement')
-                elif span['kind'] != 'external_payload' or any(
+                elif span['kind'] not in ('external_payload', 'source_placement') or any(
                         '*' + Path(p).stem + '.o(' + span['input'] + ')' != span['input_selector']
                         for p in sources):
                     raise ValueError('data owner disagrees with linker selector')
@@ -208,7 +237,7 @@ def audit(root: Path = ROOT) -> dict:
         raise ValueError('debugger ROM changed during audit')
     images = {'main': (main, main_base, main_owned),
               'game': (game.data, int(layout['game_data_vram'], 0), []),
-              'debugger': (debugger, debugger_base, [])}
+              'debugger': (debugger, debugger_base, debugger_source_mappings(root))}
     excluded = []
     for overlay in images:
         paths = [f'config/{overlay}/us-rodata.ld']

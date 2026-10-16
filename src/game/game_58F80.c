@@ -410,7 +410,7 @@ typedef struct Game58F80Sprite {
     u8 alpha, green, blue, mode;
     void *output;
 } Game58F80Sprite;
-s32 func_15094F70(void *, void *, s32, void *, s32, s32, s32, s32, s32);
+s32 func_15094F70();
 void *func_15095760(void *, s16 *);
 extern u8 D_800873D0[];
 extern u8 D_80087408[];
@@ -738,12 +738,12 @@ void func_1502CC34(u8 *arg0, s32 arg1, s32 arg2, s32 *arg3, s32 *arg4, s32 *arg5
  * See docs/evidence/assets/naming/actor_model_display_list_semantics.md.
  */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502CCFC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502D54C CURRENT (135) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502D54C CURRENT (530) */
 void func_1502D54C(s32 arg0, void *arg1) {
     s32 temp_t1;
     void *temp_v0;
 
-    temp_v0 = (u8 *)&D_800CC2D0 + (arg0 * 0x32C);
+    temp_v0 = (void *) ((u32) &D_800CC2D0 + ((u32) arg0 * 0x32CU));
     if ((*(u8 *)((u8 *)temp_v0 + 0x66) & 0xC) == 4) {
         *(s32 *)((u8 *)arg1 + 0) =
             (s32)(*(u8 *)((u8 *)temp_v0 + 0x1E0) + *(u8 *)((u8 *)temp_v0 + 0x1DD)) / 2;
@@ -1108,7 +1108,7 @@ void func_1502EC34(u8 *arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502EC34.s")
 extern u8 D_800CC33A[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502EE8C CURRENT (450) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502EE8C CURRENT (265) */
 s32 func_1502EE8C(s32 arg0, s32 arg1) {
     s32 temp_v0;
     s32 var_v1;

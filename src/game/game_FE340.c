@@ -11,7 +11,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_15136C3C(void *, s32, s32, s32, s32, s32, s32, s32);
+void func_15136C3C();
 void func_15145A50(u8 *);
 void func_10010154(s32, void *, s32, s32, s32);
 void func_1507CD64(void *, s32);
@@ -80,7 +80,7 @@ typedef struct GameFE340Packet {
     u8 pad3A[2];
 } GameFE340Packet;
 
-void func_15134DAC(u8 *, s32, void *, s32);
+void *func_15134DAC();
 extern f32 D_800A0890;
 
 void func_150D10E4(u8 *arg0, u8 arg1, void *arg2, s32 arg3) {

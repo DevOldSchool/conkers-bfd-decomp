@@ -2055,7 +2055,7 @@ def recover_deferred_function(args: argparse.Namespace) -> None:
 
 
 def reopen_match(args: argparse.Namespace) -> None:
-    """Return a layout-invalidated focused match to raw ASM without losing its C."""
+    """Withdraw a match, demoting a completed unit without losing its C."""
 
     functions_data = load_json(FUNCTIONS_FILE)
     source_units_data = load_json(SOURCE_UNITS_FILE)
@@ -2084,7 +2084,10 @@ def reopen_match(args: argparse.Namespace) -> None:
         ),
         None,
     )
-    source_path, old_source, deferred_source = preserve_deferred_candidate(
+    source_path = ROOT / source
+    if source_path.is_symlink():
+        raise ProjectStateError(f"refusing to reopen symlinked source: {source}")
+    source_path, _, deferred_source = preserve_deferred_candidate(
         source, args.symbol, None
     )
     deferred_source = add_source_todo(
@@ -2099,26 +2102,77 @@ def reopen_match(args: argparse.Namespace) -> None:
         "recorded_revision": "working-tree",
         "candidate_preserved": True,
     }
+    destination = source
+    maps: dict[Path, str] = {}
     if source_unit is not None:
         members = [
             entry for entry in functions if entry["symbol"] in source_unit["functions"]
         ]
         source_unit["regions"][args.profile]["state"] = source_unit_work_state(members)
+        if source_unit["integration"] == "c":
+            destination = "src/" + source.removeprefix("src/done/")
+            overlay = function.get("overlay", "main")
+            validate_registration_source(destination, overlay)
+            destination_path = ROOT / destination
+            if destination_path.exists() or destination_path.is_symlink():
+                raise ProjectStateError(f"reopened source destination already exists: {destination}")
+            for profile in TARGET_REGIONS:
+                path = profile_map_path(profile, overlay)
+                content = path.read_text(encoding="utf-8")
+                start = int(source_unit["regions"][profile]["start"], 0)
+                old_name = source.removeprefix("src/").removesuffix(".c")
+                new_name = destination.removeprefix("src/").removesuffix(".c")
+                pattern = rf"(?m)^(\s*-\s*\[0x{start:X},\s*c,\s*){re.escape(old_name)}(\]\s*)$"
+                content, count = re.subn(
+                    pattern, lambda match: match[1] + new_name + match[2], content,
+                    flags=re.IGNORECASE,
+                )
+                if count != 1:
+                    raise ProjectStateError(f"could not identify one exact C mapping for {source}")
+                maps[path] = content
+            source_unit["integration"] = "mixed"
+            source_unit["source"] = destination
+            for member in members:
+                member["source"] = destination
 
-    validated_functions = validate_functions(functions_data)
-    validate_source_units(source_units_data, validated_functions)
-    source_path.write_text(deferred_source, encoding="utf-8")
+    destination_path = ROOT / destination
+    tracked = (source_path, destination_path, FUNCTIONS_FILE, SOURCE_UNITS_FILE,
+               SUMMARY_FILE, DOCUMENT_FILE, *maps)
+    snapshots = {path: path.read_bytes() if path.exists() else None for path in tracked}
+    created_directories: list[Path] = []
+    moved = False
     try:
+        parent = destination_path.parent
+        while not parent.exists():
+            created_directories.append(parent)
+            parent = parent.parent
+        destination_path.parent.mkdir(parents=True, exist_ok=True)
+        if destination_path != source_path:
+            source_path.rename(destination_path)
+            moved = True
+        destination_path.write_text(deferred_source, encoding="utf-8")
+        for path, content in maps.items():
+            path.write_text(content, encoding="utf-8")
+        validated_functions = validate_functions(functions_data)
+        validate_source_units(source_units_data, validated_functions)
         write_json(FUNCTIONS_FILE, functions_data)
         if source_unit is not None:
             write_json(SOURCE_UNITS_FILE, source_units_data)
         render_progress(validated_functions)
-    except Exception:
-        source_path.write_text(old_source, encoding="utf-8")
+    except BaseException:
+        if moved:
+            destination_path.rename(source_path)
+        for path, content in snapshots.items():
+            if content is None:
+                path.unlink(missing_ok=True)
+            else:
+                path.write_bytes(content)
+        for directory in created_directories:
+            directory.rmdir()
         raise
     print(
         f"Reopened {args.symbol}/{args.profile}; preserved its C candidate, restored "
-        f"GLOBAL_ASM in {source}, and regenerated progress: {reason}"
+        f"GLOBAL_ASM in {destination}, and regenerated progress: {reason}"
     )
 
 

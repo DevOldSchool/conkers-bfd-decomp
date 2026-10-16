@@ -7,7 +7,7 @@
  */
 
 void func_160012B0(s32 position, const u8 *text);
-extern u8 D_160046AC[];
+extern const u8 D_160046AC[];
 
 void func_16000000(void) {
     func_160012B0(0x116, D_160046AC);
@@ -28,14 +28,14 @@ extern u8 D_160038A4;
 extern s32 D_16003AF0;
 extern s8 D_16003B1C;
 extern const u8 *D_16003B20[2];
-extern u8 D_160046D0[];
-extern u8 D_160046DC[];
-extern u8 D_160046E8[];
-extern u8 D_160046F4[];
-extern u8 D_16004700[];
-extern u8 D_16004708[];
-extern u8 D_16004710[];
-extern u8 D_1600471C[];
+extern const u8 D_160046D0[];
+extern const u8 D_160046DC[];
+extern const u8 D_160046E8[];
+extern const u8 D_160046F4[];
+extern const u8 D_16004700[];
+extern const u8 D_16004708[];
+extern const u8 D_16004710[];
+extern const u8 D_1600471C[];
 void func_16001338(u8 red, u8 green, u8 blue);
 void func_16001044(s32 position, s32 mode, u32 value);
 
@@ -163,12 +163,12 @@ s32 func_16000384(void) {
 }
 extern const u8 *D_16003848[16];
 extern u8 D_160038A4;
-extern u8 D_16004728[];
-extern u8 D_1600472C[];
-extern u8 D_16004734[];
-extern u8 D_16004738[];
-extern u8 D_16004740[];
-extern u8 D_16004748[];
+extern const u8 D_16004728[];
+extern const u8 D_1600472C[];
+extern const u8 D_16004734[];
+extern const u8 D_16004738[];
+extern const u8 D_16004740[];
+extern const u8 D_16004748[];
 void func_16001338(u8 red, u8 green, u8 blue);
 void func_16001044(s32 position, s32 mode, u32 value);
 
@@ -202,8 +202,8 @@ void func_16000424(struct OSThread_s *thread) {
     }
 }
 extern const u8 *D_16003B30[6];
-extern u8 D_160047A4[];
-extern u8 D_160047AC[];
+extern const u8 D_160047A4[];
+extern const u8 D_160047AC[];
 void func_16001044(s32 position, s32 mode, u32 value);
 
 void func_16000590(struct OSThread_s *thread) {
@@ -270,9 +270,9 @@ void func_160006CC(struct OSThread_s *thread) {
     } while (descriptor[0] != 0);
 }
 extern s32 D_16003B4C;
-extern u8 D_160047B0[];
-extern u8 D_160047BC[];
-extern u8 D_160047C0[];
+extern const u8 D_160047B0[];
+extern const u8 D_160047BC[];
+extern const u8 D_160047C0[];
 extern u8 D_8002D4B0[];
 extern u8 D_8002D8B0[];
 
@@ -405,7 +405,7 @@ extern s32 D_16003894;
 extern s32 D_16003898;
 extern void (*D_16003AF8[4])(void);
 extern s32 (*D_16003B08[4])(void);
-extern DebuggerControllerPad D_160036F0;
+extern DebuggerControllerPad D_160036F0[4];
 void func_16003650(void);
 void func_16001678(void);
 void func_10024F10(void);
@@ -491,19 +491,19 @@ s32 func_16000B14(struct OSThread_s *thread) {
             state = 0;
             D_16003898 = D_16003894;
             func_16001700();
-            func_16001830(&D_160036F0);
+            func_16001830(D_160036F0);
             if (first != 0) {
                 D_16003898 = D_16003894;
             }
-            D_16003894 = D_160036F0.button;
-            stick = D_160036F0.stick_x;
+            D_16003894 = D_160036F0[0].button;
+            stick = D_160036F0[0].stick_x;
             if (stick >= 0x33) {
                 D_16003894 |= 0x20000;
             }
             if (stick < -0x32) {
                 D_16003894 |= 0x10000;
             }
-            stick = D_160036F0.stick_y;
+            stick = D_160036F0[0].stick_y;
             if (stick >= 0x33) {
                 D_16003894 |= 0x40000;
             }
@@ -530,10 +530,10 @@ s32 func_16000B14(struct OSThread_s *thread) {
     return 0;
 }
 extern s32 D_160038A0;
-extern u8 D_160047D0[];
-extern u8 D_160047D4[];
-extern u8 D_160047DC[];
-extern u8 D_160047E0[];
+extern const u8 D_160047D0[];
+extern const u8 D_160047D4[];
+extern const u8 D_160047DC[];
+extern const u8 D_160047E0[];
 s32 func_16001B34(u8 *buffer, const u8 *format, ...);
 
 void func_16000F8C(s32 position, f32 value) {
@@ -561,10 +561,10 @@ typedef struct DebuggerDecimalPowers {
     s32 power[10];
 } DebuggerDecimalPowers;
 extern DebuggerDecimalPowers D_16003B50;
-extern u8 D_160047E4[];
-extern u8 D_160047E8[];
-extern u8 D_160047F0[];
-extern u8 D_160047F4[];
+extern const u8 D_160047E4[];
+extern const u8 D_160047E8[];
+extern const u8 D_160047F0[];
+extern const u8 D_160047F4[];
 
 void func_16001044(s32 position, s32 mode, u32 value) {
     s32 index;
@@ -680,7 +680,7 @@ void func_16001390(s16 left, s16 top, s16 right, s16 bottom) {
         pixel += D_160038A8 - right;
     }
 }
-extern u8 D_16003CE0[];
+extern const u8 D_16003CE0[];
 extern s32 D_160038A8;
 
 u8 *func_160014F0(u8 *destination, u8 character) {
@@ -689,7 +689,7 @@ u8 *func_160014F0(u8 *destination, u8 character) {
     u32 column;
     u16 bits;
     u32 row;
-    u8 *glyph;
+    const u8 *glyph;
     s32 code;
     u16 value;
 
@@ -904,3 +904,168 @@ s32 func_16001A6C(f32 value) {
 }
 void func_16001AB0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
+
+/* Initialized state layout: docs/evidence/debugger/us_debugger_source_units.md.
+ * Reconstructed storage has named definitions, including unresolved reserved
+ * words. Global visibility preserves their symbols in IDO ELF output; it does
+ * not establish the original source linkage or assign meaning to reserved data.
+ */
+DebuggerControllerPad D_160036F0[4] = {{0, 0, 0, 0}};
+extern const u8 D_16003FE0[];
+extern const u8 D_16003FE4[];
+extern const u8 D_16003FF4[];
+extern const u8 D_16004000[];
+extern const u8 D_16004010[];
+extern const u8 D_1600401C[];
+extern const u8 D_16004024[];
+extern const u8 D_16004030[];
+extern const u8 D_16004038[];
+extern const u8 D_16004048[];
+extern const u8 D_16004058[];
+extern const u8 D_16004070[];
+extern const u8 D_1600407C[];
+extern const u8 D_1600408C[];
+extern const u8 D_160040A4[];
+extern const u8 D_160040B0[];
+extern const u8 D_160040BC[];
+extern const u8 D_160040D4[];
+extern const u8 D_160040F0[];
+extern const u8 D_1600411C[];
+extern const u8 D_16004154[];
+extern const u8 D_16004170[];
+extern const u8 D_16004190[];
+extern const u8 D_160041B0[];
+extern const u8 D_160041D4[];
+extern const u8 D_160041EC[];
+extern const u8 D_16004218[];
+extern const u8 D_16004244[];
+extern const u8 D_16004274[];
+extern const u8 D_16004298[];
+extern const u8 D_160042C4[];
+extern const u8 D_160042E8[];
+extern const u8 D_16004304[];
+extern const u8 D_1600431C[];
+extern const u8 D_16004330[];
+extern const u8 D_16004340[];
+extern const u8 D_1600434C[];
+extern const u8 D_16004364[];
+extern const u8 D_16004378[];
+extern const u8 D_16004398[];
+extern const u8 D_160043C8[];
+extern const u8 D_160043EC[];
+extern const u8 D_16004410[];
+extern const u8 D_16004428[];
+extern const u8 D_16004440[];
+extern const u8 D_16004454[];
+extern const u8 D_16004474[];
+extern const u8 D_16004494[];
+extern const u8 D_160044B4[];
+extern const u8 D_160044D0[];
+extern const u8 D_160044F0[];
+extern const u8 D_16004514[];
+extern const u8 D_16004534[];
+extern const u8 D_16004554[];
+extern const u8 D_16004570[];
+extern const u8 D_16004588[];
+extern const u8 D_160045A0[];
+extern const u8 D_160045B8[];
+extern const u8 D_160045C4[];
+extern const u8 D_160045D8[];
+extern const u8 D_160045EC[];
+extern const u8 D_160045FC[];
+extern const u8 D_16004610[];
+extern const u8 D_16004620[];
+extern const u8 D_16004630[];
+extern const u8 D_16004644[];
+extern const u8 D_1600464C[];
+extern const u8 D_16004658[];
+extern const u8 D_16004668[];
+extern const u8 D_1600467C[];
+extern const u8 D_16004690[];
+extern const u8 D_16004698[];
+extern const u8 D_1600469C[];
+extern const u8 D_160046AC[];
+extern const u8 D_160046BC[];
+extern const u8 D_160046C8[];
+extern const u8 D_160046D0[];
+extern const u8 D_160046DC[];
+extern const u8 D_160046E8[];
+extern const u8 D_160046F4[];
+extern const u8 D_16004700[];
+extern const u8 D_16004708[];
+extern const u8 D_16004710[];
+extern const u8 D_1600471C[];
+extern const u8 D_16004728[];
+extern const u8 D_1600472C[];
+extern const u8 D_16004734[];
+extern const u8 D_16004738[];
+extern const u8 D_16004740[];
+extern const u8 D_16004748[];
+extern const u8 D_16004754[];
+extern const u8 D_16004760[];
+extern const u8 D_1600476C[];
+extern const u8 D_16004778[];
+extern const u8 D_16004784[];
+extern const u8 D_16004790[];
+extern const u8 D_160047A4[];
+extern const u8 D_160047AC[];
+extern const u8 D_160047B0[];
+extern const u8 D_160047BC[];
+extern const u8 D_160047C0[];
+extern const u8 D_160047D0[];
+extern const u8 D_160047D4[];
+extern const u8 D_160047DC[];
+extern const u8 D_160047E0[];
+extern const u8 D_160047E4[];
+extern const u8 D_160047E8[];
+extern const u8 D_160047F0[];
+extern const u8 D_160047F4[];
+const u8 * D_16003708[57] = {D_16003FE0, D_16003FE4, D_16003FF4, D_16004000, D_16004010, D_1600401C, D_16004024, D_16004030, D_16004038, D_16004048, D_16004058, D_16004070, D_1600407C, D_1600408C, D_160040A4, D_160040B0, D_160040BC, D_160040D4, D_160040F0, D_1600411C, D_16004154, D_16004170, D_16004190, D_160041B0, D_160041D4, D_160041EC, D_16004218, D_16004244, D_16004274, D_16004298, D_160042C4, D_160042E8, D_16004304, D_1600431C, D_16004330, D_16004340, D_1600434C, D_16004364, D_16004378, D_16004398, D_160043C8, D_160043EC, D_16004410, D_16004428, D_16004440, D_16004454, D_16004474, D_16004494, D_160044B4, D_160044D0, D_160044F0, D_16004514, D_16004534, D_16004554, D_16004570, D_16004588, D_160045A0};
+u32 debuggerReserved37EC = 0;
+u8 D_160037F0[85] = {
+    118, 48, 10, 118, 49, 12, 97, 48, 14, 97, 49, 16, 97, 50, 18, 97, 51, 20, 116, 48, 22, 116, 49, 24, 116, 50, 26, 116, 51, 28, 116, 52, 30, 116, 53, 32, 116, 54, 34, 116, 55, 36, 116, 56, 54, 116, 57, 56, 115, 48, 38, 115, 49, 40, 115, 50, 42, 115, 51, 44, 115, 52, 46, 115, 53, 48, 115, 54, 50, 115, 55, 52, 115, 56, 62, 115, 112, 60, 103, 112, 58, 114, 97, 64, 0
+};
+const u8 * D_16003848[16] = {D_160045B8, D_160045C4, D_160045D8, D_160045EC, D_160045FC, D_16004610, D_16004620, D_16004630, D_16004644, D_1600464C, D_16004658, D_16004668, D_1600467C, D_16004690, D_16004698, D_1600469C};
+u8 D_16003888 = 0;
+u16 D_1600388C = 0xFFFF;
+s32 D_16003890 = 0;
+s32 D_16003894 = 0;
+s32 D_16003898 = 0;
+struct OSThread_s *D_1600389C = 0;
+s32 D_160038A0 = 0;
+u8 D_160038A4 = 0;
+s32 D_160038A8 = 292;
+u32 D_160038AC[32] = {0};
+u32 D_1600392C[32] = {0};
+u32 D_160039AC[32] = {0};
+u32 D_16003A2C[32] = {0};
+u32 debuggerReserved3AAC[17] = {0};
+s32 D_16003AF0 = 1;
+u8 D_16003AF4 = 0;
+void (*D_16003AF8[4])(void) = {func_16000000, func_16000058, func_16000314, func_1600078C};
+s32 (*D_16003B08[4])(void) = {func_16000028, func_16000224, func_16000384, func_16000A5C};
+u32 debuggerReserved3B18 = 0x80500000;
+s8 D_16003B1C = 0;
+const u8 * D_16003B20[2] = {D_160046BC, D_160046C8};
+s8 D_16003B28 = 0;
+u32 debuggerReserved3B2C = 0;
+const u8 * D_16003B30[6] = {D_16004754, D_16004760, D_1600476C, D_16004778, D_16004784, D_16004790};
+DebuggerLabel D_16003B48 = {{0, 0, 0x20, 0}};
+s32 D_16003B4C = 0;
+DebuggerDecimalPowers D_16003B50 = {{1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000}};
+/* Three 80-byte records. The 72 coefficient bytes are independently compared
+ * with the reviewed VI records; no OSViMode ABI is inferred from that equality. */
+typedef struct {
+    u8 type;
+    u32 coefficients[18];
+    u32 reserved;
+} DebuggerVideoRecord;
+DebuggerVideoRecord debuggerVideoRecords[3] = {
+    {30, {0x00000140, 0x0404233A, 0x00000271, 0x00150C69, 0x0C6F0C6E, 0x00800300, 0x00000200, 0x00000000, 0x00000280, 0x00000400, 0x005F0239, 0x0009026B, 0x00000002, 0x00000280, 0x00000400, 0x005F0239, 0x0009026B, 0x00000002}, 0},
+    {30, {0x00000140, 0x04651E39, 0x0000020D, 0x00040C11, 0x0C190C1A, 0x006C02EC, 0x00000200, 0x00000000, 0x00000280, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x00000280, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002}, 0},
+    {62, {0x00000124, 0x03E52239, 0x0000020D, 0x00000C15, 0x0C150C15, 0x008C02D5, 0x00000200, 0x00000000, 0x00000248, 0x00000400, 0x003D01E8, 0x000E0204, 0x00000002, 0x00000248, 0x00000400, 0x003D01E8, 0x000E0204, 0x00000002}, 0},
+};
+u32 debuggerReserved3C68[2] = {0};
+
+/* Locally extracted, editable glyph pixels and text stay ignored. */
+#include "debugger-assets/ui.inc.c"

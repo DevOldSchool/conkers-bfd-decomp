@@ -72,6 +72,23 @@ class DataBoundaryTests(unittest.TestCase):
         self.assertEqual(pool['emitted_size'], 240)
         self.assertEqual(pool['compiler_padding_bytes'], 4)
 
+    def test_allocated_debugger_ranges_follow_canonical_profile(self):
+        mapped = data.debugger_source_mappings(ROOT)
+        self.assertEqual([(r['start'], r['end'], r['input']) for r in mapped], [
+            (0x160036F0, 0x16003C70, '.data'), (0x16003C70, 0x16003CE0, '.data'),
+            (0x16003CE0, 0x16004800, '.rodata'), (0x16004800, 0x16004960, '.rodata')])
+        self.assertTrue(all(r['kind'] == 'source_placement' and r['linker_mode'] == 'allocated'
+                            for r in mapped))
+        self.assertEqual([r['emitted_size'] for r in mapped], [1408, 112, 2848, 352])
+
+    def test_allocated_debugger_rejects_unreviewed_source_path(self):
+        profile = {'segments': [{'name': 'debugger', 'start': 0, 'vram': 0x16000000,
+                                 'subsegments': [{'start': 0, 'type': '.data', 'name': '../other'},
+                                                 [16, 'data', 'raw']]}]}
+        with patch.object(data, 'original_asset_profile', return_value=profile):
+            with self.assertRaisesRegex(ValueError, 'owner'):
+                data.debugger_source_mappings(ROOT)
+
     def test_shared_backing_counted_once_and_bss_excluded(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -87,7 +104,8 @@ class DataBoundaryTests(unittest.TestCase):
             (root / 'config/rzip_layouts.json').write_text(json.dumps({'profiles': {'us': {
                 'normalized_sha1': [digest], 'game_format': 'rzip', 'game_start': '0x0',
                 'game_end': '0x20', 'game_data_vram': '0x2000'}}}))
-            with patch.object(data, 'checked_manifest', side_effect=lambda root, images, digest: images), \
+            with patch.object(data, 'debugger_source_mappings', return_value=[]), \
+                    patch.object(data, 'checked_manifest', side_effect=lambda root, images, digest: images), \
                     patch.object(data.main_private_data, 'validated_rom', return_value=bytes(32)), \
                     patch.object(data, 'main_image', return_value=(bytes(32), 0x1000,
                         [{'start': 0x1000, 'end': 0x1010, 'kind': 'sdk_placement'}])), \
@@ -203,6 +221,27 @@ class CheckedManifestTests(unittest.TestCase):
                     raw = sources[0].replace('src/done/', 'src/')
                     with self.subTest(address=record['address'], source=raw):
                         self.assertEqual(sources, [raw, raw.replace('src/', 'src/done/', 1)])
+
+    def test_real_external_placements_have_matching_source_owners(self):
+        # Run without a ROM in public CI and GAME-only verify-batch. A new
+        # linker placement must not silently omit its ownership record.
+        document = json.loads((ROOT / 'config/data/us.json').read_text())
+        for overlay in ('main', 'game', 'debugger'):
+            path = f'config/{overlay}/us-rodata.ld'
+            owners = {(int(record['address'], 16), record['section']): record['owner']
+                      for record in document['owners'][overlay]}
+            for mapping in data.external_mappings((ROOT / path).read_text(), path):
+                if mapping['input'] in ('.bss', '.sbss'):
+                    continue
+                key = (mapping['start'], mapping['input'])
+                with self.subTest(path=path, address=hex(key[0]), section=key[1]):
+                    self.assertIn(key, owners, 'external placement needs a data owner')
+                    sources = owners[key]['sources']
+                    self.assertTrue(sources)
+                    for source in sources:
+                        self.assertEqual('*' + Path(source).stem + '.o(' + key[1] + ')',
+                                         mapping['input_selector'])
+                    data.active_source(ROOT, sources)
 
     def test_active_source_rejects_missing_and_ambiguous_alternatives(self):
         with tempfile.TemporaryDirectory() as tmp:

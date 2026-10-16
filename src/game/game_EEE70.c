@@ -36,7 +36,7 @@ s32 func_150C1A2C(s32 arg0, s32 arg1) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EEE70/func_150C1A40.s")
 void func_151429E0(u8, u8 *, u8 *, u8 *);
-void func_1518CA80(void *, s32);
+void func_1518CA80();
 u32 func_150ADA20(void);
 extern f64 D_800A0228;
 

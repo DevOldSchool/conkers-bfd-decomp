@@ -34,9 +34,9 @@ f32 func_150EA490(Game117940State *volatile arg0) {
 
     angle = (s32)(arg0->phase.phase_80 >> 16) - 0x40;
     sine = func_151423D8(angle & 0xFF);
-    phase = (Game117940Phase *)((u8 (*)[1])arg0)[0x80];
+    phase = (Game117940Phase *)((u32)arg0 + 0x80U);
     result = (sine * phase->amplitude_8C) + phase->base_88;
-    phase->phase_80 += phase->phase_step_84 * D_800BE9E4;
+    phase->phase_80 += (u32)phase->phase_step_84 * (u32)D_800BE9E4;
     return result;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150EA490 */

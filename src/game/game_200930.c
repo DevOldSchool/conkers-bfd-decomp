@@ -925,11 +925,13 @@ void func_151D4D58(u8 *arg0) {
     func_151D469C(arg0, 0, 0x50, 0xFF, 1);
     func_151D469C(arg0, 1, 0x50, 0xFF, 1);
 }
-void func_1507DE4C(s32);
+void func_1507DE4C(void *);
 void func_15137610(void *, void *, void *, s32, s32, s32);
 s32 func_1505D024(void *, s32, s32, s32);
 void func_15138C80(void *, s32, s32);
-void func_151C2050(s32, void *, s32, s32, f32);
+struct Game1C2050Owner;
+struct Game1EF500EmitterVector;
+void func_151C2050(struct Game1C2050Owner *, struct Game1EF500EmitterVector *, struct Game1EF500EmitterVector *, s32, f32);
 extern f32 D_800AB218;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D4DAC CURRENT (650) */
@@ -952,7 +954,7 @@ void func_151D4DAC(void *arg0, s32 arg1, void *arg2, void *arg3, void *arg4, s32
             *(u8 *)((u8 *)arg0 + 0x1CA) = (u8) (*(u8 *)((u8 *)arg0 + 0x1CA) - 1);
         } else {
             *(u8 *)((u8 *)arg0 + 0x1CA) = 0U;
-            func_1507DE4C((s32) arg0);
+            func_1507DE4C(arg0);
             func_15138C80(arg0, 0xFF, 1);
             arg5 = 0x100020;
         }

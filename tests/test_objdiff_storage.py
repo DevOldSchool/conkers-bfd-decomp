@@ -110,6 +110,29 @@ class StorageTests(unittest.TestCase):
         self.assertEqual(sum(r['rebuilt_bytes'] for r in plan), 20)
         self.assertEqual(sum(r['unreconstructed_bytes'] for r in plan), 18)
 
+    def test_disjoint_rebuilt_spans_preserve_opaque_holes_and_denominator(self):
+        regions = [{'key': 'mp3', 'rom_start': 100, 'rom_end': 180}]
+        selected = [{'rom_ranges': [[104, 124], [133, 153]], 'size': 40},
+                    rebuilt(160, 170)]
+        plan = storage.partition(regions, selected)[0]
+        self.assertEqual(plan['unreconstructed_ranges'], [[100, 104], [124, 133], [153, 160], [170, 180]])
+        self.assertEqual(plan['rebuilt_bytes'], 50)
+        self.assertEqual(plan['unreconstructed_bytes'], 30)
+        for unit in ({'rom_ranges': [], 'size': 0},
+                     {'rom_ranges': [[104, 124], [120, 140]], 'size': 40},
+                     {'rom_ranges': [[133, 153], [104, 124]], 'size': 40},
+                     {'rom_ranges': [[104, 124]], 'size': 21},
+                     {'rom_ranges': [[104, 124]], 'size': 20, 'rom_start': 104, 'rom_end': 124},
+                     {'rom_ranges': [[True, 124]], 'size': 123},
+                     {'rom_ranges': [[104, 124], [178, 190]], 'size': 32}):
+            with self.subTest(unit=unit), self.assertRaises(ValueError):
+                storage.partition(regions, [unit])
+        with self.assertRaisesRegex(ValueError, 'overlapping'):
+            storage.partition(regions, [selected[0], rebuilt(120, 135)])
+        with self.assertRaisesRegex(ValueError, 'exactly one'):
+            storage.partition([{'key': 'a', 'rom_start': 100, 'rom_end': 130},
+                               {'key': 'b', 'rom_start': 130, 'rom_end': 180}], [selected[0]])
+
     def test_overlap_cross_region_outside_and_incorrect_extent_are_rejected(self):
         regions = [{'key': 'a', 'rom_start': 0, 'rom_end': 20},
                    {'key': 'b', 'rom_start': 20, 'rom_end': 30}]

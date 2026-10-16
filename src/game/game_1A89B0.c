@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1517B500
  * - func_1517B6E8
- * - func_1517B89C
  * - func_1517BBAC
  * - func_1517CFC4
  * - func_1517D074
@@ -90,15 +89,13 @@ s32 func_1517B500(Game1A89B0Position *arg0, Game1A89B0Position *arg1, s32 *arg2,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517B500 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A89B0/func_1517B500.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517B6E8 CURRENT (40) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517B6E8 CURRENT (30) */
 s32 func_1517B6E8(void *arg0, void *arg1, s32 *arg2, u8 *arg3) {
     s32 temp_t0;
     s32 temp_t1;
-    s32 temp_v0;
 
-    temp_v0 = *arg2;
-    if (temp_v0 >= 0x600) {
-        *(s16 *)((u8 *)arg1 + 2) = (s16) ((*(s16 *)((u8 *)arg0 + 2) + (temp_v0 >> 6)) - 0x18);
+    if ((*arg2) >= 0x600) {
+        *(s16 *)((u8 *)arg1 + 2) = (s16) ((*(s16 *)((u8 *)arg0 + 2) + ((*arg2) >> 6)) - 0x18);
         *(s16 *)((u8 *)arg1 + 0) = (s16) ((*(s16 *)((u8 *)arg0 + 0) + ((s32) *arg2 >> 8)) - 6);
         temp_t0 = *arg3;
         temp_t1 = (s32) ((s32) (temp_t0 << 7) / (s32) (((s32) *arg2 >> 6) - 0x17)) >> 4;
@@ -158,7 +155,48 @@ s32 func_1517B7F8(void *arg0, void *arg1, s32 *arg2, s32 arg3) {
     *(s16 *)((u8 *)arg1 + 4) = (s16) *(s16 *)((u8 *)arg0 + 4);
     return 0;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A89B0/func_1517B89C.s")
+extern s32 D_8008CEB4;
+extern Game1A89B0Position *D_800DDD18;
+
+void func_1517B89C(s32 first, s32 last) {
+    s32 left;
+    s32 right;
+    s32 pivot;
+
+    left = first;
+    if (first < last) {
+        right = last;
+        while (1) {
+            if (D_8008CEB4 == 0) {
+                pivot = D_800DDD18[last].unk0;
+                while (D_800DDD18[left].unk0 < pivot && left < last) left++;
+                while (pivot < D_800DDD18[right].unk0 && first < right) right--;
+            } else {
+                pivot = D_800DDD18[last].unk4;
+                while (D_800DDD18[left].unk4 < pivot && left < last) left++;
+                while (pivot < D_800DDD18[right].unk4 && first < right) right--;
+            }
+            if (left < right) {
+                {
+                    Game1A89B0Position swap = D_800DDD18[left];
+                    D_800DDD18[left] = D_800DDD18[right];
+                    D_800DDD18[right] = swap;
+                }
+                left++;
+                right--;
+            } else {
+                break;
+            }
+        }
+        {
+            Game1A89B0Position pivotSwap = D_800DDD18[left];
+            D_800DDD18[left] = D_800DDD18[last];
+            D_800DDD18[last] = pivotSwap;
+            func_1517B89C(first, left - 1);
+            func_1517B89C(left + 1, last);
+        }
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A89B0/func_1517BBAC.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1517CFC4 CURRENT (105) */
 void func_1517CFC4(void) {

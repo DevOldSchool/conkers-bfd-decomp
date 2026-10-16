@@ -6,9 +6,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_resource_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1507EEB8
  * - func_1507EFD0
- * - func_1507F454
  * - func_1507F54C
  * - func_1507F640
  * - func_1507FC2C
@@ -130,27 +128,14 @@ void func_1507EE58(u8 arg0, u8 *arg1) {
         func_1507EEB8(0x11, arg1);
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507EEB8 CURRENT (330) */
 void func_1507EEB8(u8 arg0, u8 *arg1) {
-    u8 temp_t7;
-    u8 temp_t8;
-    u8 temp_t9;
-    u8 temp_t0;
-    u8 *temp_v0;
+    s32 index;
 
-    temp_v0 = (void *)(arg1 + 4);
-    temp_t8 = *(u8 *)((u8 *)temp_v0 + -2);
-    temp_t9 = *(u8 *)((u8 *)temp_v0 + -3);
-    temp_t0 = *(u8 *)((u8 *)temp_v0 + -4);
-    temp_t7 = *(u8 *)((u8 *)temp_v0 + -1);
-    *(u8 *)((u8 *)temp_v0 + -1) = temp_t8;
-    *(u8 *)((u8 *)temp_v0 + -2) = temp_t9;
-    *(u8 *)((u8 *)temp_v0 + -3) = temp_t0;
-    *(u8 *)((u8 *)arg1 + 4) = temp_t7;
-    *(s8 *)((u8 *)arg1 + 0) = (s8) arg0;
+    for (index = 4; index != 0; index--) {
+        arg1[index] = arg1[index - 1];
+    }
+    arg1[0] = arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507EEB8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EEB8.s")
 extern void *D_800D154C;
 
 void func_1507EEF4(u32 arg0) {
@@ -208,28 +193,25 @@ typedef struct GameAC030RootState {
 
 extern u8 *D_80086BA0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507F454 CURRENT (95) */
 s32 func_1507F454(void) {
     GameAC030AnimationState *animation;
     u8 sequence;
-    s32 frame;
+    s32 next;
 
     animation = &((GameAC030RootState *)D_800D154C)->nested->animation;
     sequence = animation->sequence;
     if (sequence == 0) {
         return 1;
     }
-    frame = animation->frame + 1;
-    animation->frame = (u8)frame;
-    if (D_80086BA0[sequence][frame & 0xFF] == 0) {
+    animation->frame++;
+    next = D_80086BA0[sequence][animation->frame];
+    if (next == 0) {
         animation->sequence = 0;
         animation->frame = 0;
         return 1;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507F454 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507F454.s")
 s32 func_1507F4C0(s32 arg0) {
     u32 random;
     s32 base;
@@ -405,7 +387,7 @@ void func_1507FEA0(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507FEA0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507FEA0.s")
-extern void func_15191B8C(u8 *arg0, s32 arg1, void *arg2);
+void func_15191B8C();
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507FF94 CURRENT (300) */
 void func_1507FF94(void *arg0) {

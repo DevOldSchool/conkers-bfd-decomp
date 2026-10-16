@@ -232,30 +232,30 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_80003C6C */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_3C40/func_80003C6C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80004074 CURRENT (668) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80004074 CURRENT (35) */
 void func_80004074(s32 arg0) {
     AllocatorFreeBlock *block;
     AllocatorFreeBlock *neighbor;
-    AllocatorFreeBlock *cursor;
-    s32 mask;
-    AllocatorFreeBlock *original;
     AllocatorFreeBlock *nextFree;
+    s32 merged;
+    volatile s32 mask;
+    AllocatorFreeBlock *cursor;
 
-    original = (AllocatorFreeBlock *)(arg0 - 0xC);
     if (arg0 != 0) {
-        block = original;
-        arg0 = 0;
+        cursor = (AllocatorFreeBlock *)(arg0 - 0xC);
+        block = cursor;
+        merged = 0;
         mask = func_80024880(1);
-        neighbor = (AllocatorFreeBlock *)original->header.prev;
-        ((u8 *)&original->header.taggedSize)[0] = 0;
+        neighbor = (AllocatorFreeBlock *)cursor->header.prev;
+        ((u8 *)&cursor->header.taggedSize)[0] = 0;
         if ((neighbor != 0) && ((neighbor->header.taggedSize >> 24) == 0)) {
-            neighbor->header.next = original->header.next;
-            neighbor->header.taggedSize += original->header.taggedSize + 0xC;
+            neighbor->header.next = cursor->header.next;
+            neighbor->header.taggedSize += cursor->header.taggedSize + 0xC;
             if (neighbor->header.next != 0) {
                 neighbor->header.next->prev = &neighbor->header;
             }
             block = neighbor;
-            arg0 = 1;
+            merged = 1;
         }
         neighbor = (AllocatorFreeBlock *)block->header.next;
         if ((neighbor != 0) && ((neighbor->header.taggedSize >> 24) == 0)) {
@@ -278,9 +278,9 @@ void func_80004074(s32 arg0) {
                     cursor->nextFree = block;
                 }
             }
-            arg0 = 1;
+            merged = 1;
         }
-        if (arg0 == 0) {
+        if (merged == 0) {
             cursor = D_800380B8;
             if (cursor == 0) {
                 block->nextFree = 0;

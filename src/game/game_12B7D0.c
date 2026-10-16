@@ -136,12 +136,12 @@ void func_150FE604(void *arg0, Game12B7D0Vec3 *arg1, u8 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150FE604 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12B7D0/func_150FE604.s")
-extern void func_151D3E04(s32 arg0, s32 arg1, s32 *arg2, u8 arg3, f32 arg4);
+void func_151D3E04(void *, f32 *, f32 *, u8, f32);
 extern u8 D_80088B94;
 extern s32 D_800A1FC8;
 
 void func_150FE794(s32 arg0, s32 arg1, s32 arg2) {
-    func_151D3E04(arg0, arg2, &D_800A1FC8, D_80088B94, 0.0f);
+    func_151D3E04((void *) arg0, (f32 *) arg2, (f32 *) &D_800A1FC8, D_80088B94, 0.0f);
 }
 u32 func_150ADA20(void *);
 void func_151D8868(s8 *, s32, s32, s32);

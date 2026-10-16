@@ -201,8 +201,7 @@ def compile_mixed_object(profile: str, source: Path) -> Path:
     relative = source.relative_to(ROOT)
     output = ROOT / "build" / profile / "layout-check" / relative.with_suffix(".o")
     output.parent.mkdir(parents=True, exist_ok=True)
-    subprocess.run(
-        compile_c.compile_command(profile, source, output),
+    compile_c.run_compile(profile, source, output,
         cwd=ROOT,
         check=True,
     )

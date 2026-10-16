@@ -5,6 +5,10 @@
 #include "game_command.h"
 
 struct Game15D730CopyBlock;
+struct Game13AAE0ValueList;
+struct CameraCameraTarget;
+struct CameraCameraTargetState;
+struct Game1D9F10Record;
 struct EffectsSightActor;
 struct CharacterFlamethrowerControl;
 struct CharacterFlamethrowerDispatch;
@@ -53,6 +57,7 @@ struct LightEffectActor;
  * Include this header in both definitions and callers; do not redeclare locally.
  * See docs/decompilation-workflow.md, Shared function declarations.
  */
+s32 func_1508868C(u8 *);
 GameCommand *func_150D8590(GameCommand *, s32);
 void func_15143874(s16, f32, f32 *, f32 *);
 void func_151AB930(void *);
@@ -226,5 +231,15 @@ s32 func_151CEC10(void *, void *, void *);
 void func_151D0058(void *, u8, u8, s32);
 void func_151D0F60(void *, u8, u8, s32);
 s32 func_151D9450(void *, void *);
+void func_15042D94(s32, s32, u8, s32, ...);
+void func_15042E3C(s32, ...);
+f32 func_1514462C(void *);
+void func_1510D630(struct Game13AAE0ValueList *);
+void func_15128774(struct CameraCameraTargetState *, struct CameraCameraTarget *);
+s32 func_151422C0(s32, void *, s32, s32, void *, s32);
+s32 func_151422DC(s32, void *, s32, s32, s32, void *, s32);
+void func_150026C4(s32);
+void func_15002724(s32);
+struct Game1D9F10Record *func_151ACA60(void *, f32, s32);
 
 #endif

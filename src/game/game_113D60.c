@@ -95,28 +95,28 @@ void func_150E6B84(Game113D60Effect *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E6B84.s")
 f32 func_150ADA68();                                /* extern */
 extern s32 func_150ADA20(void);
-extern void *D_80088A44[];
-extern void *D_80088A3C;
-extern void *D_80088A40;
+typedef struct Game113D60Segment {
+    Game113D60Vector start;
+    Game113D60Vector end;
+} Game113D60Segment;
+extern Game113D60Segment *D_80088A44[];
+extern Game113D60Segment *D_80088A3C;
+extern Game113D60Segment *D_80088A40;
 extern f32 D_800A130C;
 
-void func_150E6E34(void *arg0) {
-    void *var_v0;
+void func_150E6E34(Game113D60Vector *arg0) {
+    Game113D60Segment *segment;
+    f32 t;
 
     if (func_150ADA68() < D_800A130C) {
-        var_v0 = D_80088A3C;
+        segment = D_80088A3C;
     } else {
-        var_v0 = D_80088A40;
+        segment = D_80088A40;
     }
-    {
-        f32 r = func_150ADA68();
-        f32 *src = (f32 *)var_v0;
-        f32 *dst = (f32 *)arg0;
-
-        dst[0] = src[0] + (src[3] - src[0]) * r;
-        dst[1] = src[1] + (src[4] - src[1]) * r;
-        dst[2] = src[2] + (src[5] - src[2]) * r;
-    }
+    t = func_150ADA68();
+    arg0->x = segment->start.x + (segment->end.x - segment->start.x) * t;
+    arg0->y = segment->start.y + (segment->end.y - segment->start.y) * t;
+    arg0->z = segment->start.z + (segment->end.z - segment->start.z) * t;
 }
 extern s32 func_150ADA20(void);
 extern s32 D_800D9A20[];
@@ -125,26 +125,13 @@ extern void func_1514470C(s32 arg0, s32 arg1);
 void func_150E6ED8(s32 arg0) {
     func_1514470C(D_800D9A20[func_150ADA20() & 1], arg0);
 }
-void func_150E6F18(void *arg0) {
-    typedef struct {
-        f32 f0;
-        f32 f4;
-        f32 f8;
-        f32 fC;
-        f32 f10;
-        f32 f14;
-    } Entry;
-    typedef struct {
-        f32 f0;
-        f32 f4;
-        f32 f8;
-    } Out;
-    Entry *e = (Entry *)D_80088A44[func_150ADA20() % 6U];
-    Out *o = (Out *)arg0;
+void func_150E6F18(Game113D60Vector *arg0) {
+    Game113D60Segment *segment = D_80088A44[func_150ADA20() % 6U];
     f32 t = func_150ADA68();
-    o->f0 = (e->fC - e->f0) * t + e->f0;
-    o->f4 = (e->f10 - e->f4) * t + e->f4;
-    o->f8 = (e->f14 - e->f8) * t + e->f8;
+
+    arg0->x = (segment->end.x - segment->start.x) * t + segment->start.x;
+    arg0->y = (segment->end.y - segment->start.y) * t + segment->start.y;
+    arg0->z = (segment->end.z - segment->start.z) * t + segment->start.z;
 }
 s32 func_1514ECE0();
 

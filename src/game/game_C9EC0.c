@@ -165,17 +165,16 @@ void func_1509CCB4(s32 arg0) {
 extern s32 D_80087440;
 extern u8 D_800D2E70;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509CCF4 CURRENT (35) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509CCF4 CURRENT (10) */
 s32 func_1509CCF4(s32 arg0) {
     s32 var_s1;
     u16 *var_s0;
     u8 *var_s4;
     s32 var_s3;
     u16 var_v1;
-    u8 *temp_a1;
     u8 *temp_v0;
 
-    var_s0 = *(u16 **)((u8 *)&D_80087440 + (arg0 * 0x14));
+    var_s0 = *(u16 **)((u32)&D_80087440 + ((u32)arg0 * 0x14U));
     var_s1 = 0;
     var_v1 = *var_s0;
     var_s4 = &D_800D2E70;
@@ -184,9 +183,8 @@ s32 func_1509CCF4(s32 arg0) {
         do {
             temp_v0 = ((s32)var_v1 >> 3) + (u8 *)D_800D2E4C;
             *temp_v0 |= 1 << (var_v1 & 7);
-            temp_a1 = var_s4 + *var_s0;
-            if (*temp_a1 != var_s3) {
-                *temp_a1 = 3;
+            if (*(u8 *)((u32)var_s4 + *var_s0) != var_s3) {
+                *(u8 *)((u32)var_s4 + *var_s0) = 3;
                 func_1509CCB4(*var_s0);
                 var_s1 += 1;
             }

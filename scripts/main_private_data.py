@@ -16,7 +16,10 @@ from candidate_tables import Object32
 from elf_sections import sections
 import layout_check
 import rom_span
-import rzip_archive
+try:
+    from scripts import rzip_archive
+except ModuleNotFoundError:
+    import rzip_archive
 
 ROOT = Path(__file__).resolve().parent.parent
 MANIFEST = "config/main/private-data.json"
@@ -82,8 +85,8 @@ def mapping(root: Path, source: str) -> dict | None:
 
 def validated_rom(root: Path) -> bytes:
     metadata = json.loads((root / "config/roms.json").read_text())["profiles"]["us"]
-    rom, _ = rzip_archive.normalize_rom((root / "roms/baserom.us.z64").read_bytes())
-    if len(rom) != metadata["size_bytes"] or hashlib.sha1(rom).hexdigest() != metadata["sha1"]:
+    rom, _ = rzip_archive.read_rom(root / "roms/baserom.us.z64")
+    if len(rom) != metadata["size_bytes"] or rzip_archive.rom_sha1(rom) != metadata["sha1"]:
         raise ValueError("private data requires a checksum-validated US ROM")
     return rom
 
