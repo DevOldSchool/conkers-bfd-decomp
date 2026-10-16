@@ -14,7 +14,6 @@
  * - func_1503D804
  * - func_1503D984
  * - func_1503DA9C
- * - func_1503DC3C
  * - func_1503DD1C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -474,67 +473,59 @@ extern u16 D_800C5628[];
  * Twelve-byte descriptors supply flat IDs at +4 and receive loaded bases at +0.
  * See docs/evidence/assets/naming/actor_representation_asset_semantics.md.
  */
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503DC3C CURRENT (573) */
+typedef struct Game6A3D0Entry {
+    s32 value;
+    s32 key;
+    s32 extra;
+} Game6A3D0Entry;
+
 s32 func_1503DC3C(s32 arg0) {
-    s32 *temp_s0;
-    s32 var_s1;
-    s32 var_s3;
-    s32 var_s4;
-    u16 *temp_s6;
-    void **temp_s2;
-    register void *var_s0;
+    Game6A3D0Entry *entry;
+    u16 *count;
+    u8 **table;
+    s32 flags;
+    s32 i;
 
-    temp_s6 = &D_800C5628[arg0];
-    var_s4 = 0;
-    var_s3 = 0;
-    if ((s32)*temp_s6 > 0) {
-        temp_s2 = (void **)&D_800C5338[arg0];
-        var_s0 = *temp_s2;
-        var_s1 = 0;
+    count = &D_800C5628[arg0];
+    flags = 0;
+    i = 0;
+    if (*count > 0) {
+        table = &D_800C5338[arg0];
+        entry = (Game6A3D0Entry *)*table;
         do {
-            *(s32 *)((u8 *)*temp_s2 + var_s1) = func_1510D0EC(*(s32 *)((u8 *)var_s0 + 4), 0, 0x3E, 1);
-            temp_s0 = (s32 *)((u8 *)*temp_s2 + var_s1);
-            if (*temp_s0 == (s32)0x80000000) {
-                var_s4 |= 0x10;
+            ((Game6A3D0Entry *)*table)[i].value = func_1510D0EC(entry->key, 0, 0x3E, 1);
+            entry = &((Game6A3D0Entry *)*table)[i];
+            if (entry->value == (s32)0x80000000) {
+                flags |= 0x10;
             }
-            var_s3 += 1;
-            var_s1 += 0xC;
-            var_s0 = (u8 *)temp_s0 + 0xC;
-        } while (var_s3 < (s32)*temp_s6);
+            i++;
+            entry++;
+        } while (i < *count);
     }
-    return var_s4;
+    return flags;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503DC3C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503DC3C.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503DD1C CURRENT (360) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503DD1C CURRENT (235) */
 void func_1503DD1C(s32 arg0) {
-    u16 *temp_s3;
-    u8 *temp_v0;
-    s32 temp_a1;
-    s32 temp_v1;
-    s32 var_s0;
-    s32 var_s1;
+    Game6A3D0Entry *entry;
+    u16 *countp;
+    u8 **table;
     s32 count;
+    s32 key;
+    s32 i;
 
-    temp_s3 = &D_800C5628[arg0];
-    count = *temp_s3;
-    var_s0 = 0;
-    if (count > 0) {
-        var_s1 = 0;
-        do {
-            temp_v0 = D_800C5338[arg0] + var_s1;
-            temp_v1 = *(s32 *)temp_v0;
-            if (temp_v1 != (s32)0x80000000) {
-                temp_a1 = *(s32 *)(temp_v0 + 4);
-                if (temp_v1 != temp_a1) {
-                    func_1510D7AC(temp_a1);
-                    count = *temp_s3;
-                }
+    countp = &D_800C5628[arg0];
+    count = *countp;
+    for (i = 0; i < count; i++) {
+        table = &D_800C5338[arg0];
+        entry = &((Game6A3D0Entry *)*table)[i];
+        if (entry->value != (s32)0x80000000) {
+            key = entry->key;
+            if (entry->value != key) {
+                func_1510D7AC(key);
+                count = *countp;
             }
-            var_s0 += 1;
-            var_s1 += 0xC;
-        } while (var_s0 < count);
+        }
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1503DD1C */

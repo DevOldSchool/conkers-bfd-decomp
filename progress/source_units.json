@@ -1607,7 +1607,7 @@
         "us": {
           "end": "0x163D0",
           "start": "0x16370",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_43820.c"
@@ -13393,7 +13393,7 @@
         "us": {
           "end": "0x90",
           "start": "0x0",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_2D4B0.c"

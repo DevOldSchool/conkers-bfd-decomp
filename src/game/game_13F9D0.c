@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15112520
  * - func_15112A80
- * - func_15113180
  * - func_15113218
  * - func_151135C4
  * - func_151137D4
@@ -30,31 +29,28 @@
 extern s32 D_800DBEF0;
 extern u8 *D_800DBEF4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15113180 CURRENT (185) */
 void func_15113180(void) {
-    s32 var_v0;
-    s32 var_v1;
-    u8 temp_a1;
-    u8 *temp_a0;
+    s32 index;
+    s32 offset;
+    s32 flags;
+    u8 *entry;
 
-    var_v0 = 0;
-    var_v1 = 0;
+    index = 0;
+    offset = 0;
     if (D_800DBEF0 > 0) {
         do {
-            temp_a0 = (u8 *)D_800DBEF4 + var_v1;
-            temp_a0[0x6F] = (u8) (temp_a0[0x6F] & ~0x40);
-            temp_a0 = (u8 *)D_800DBEF4 + var_v1;
-            temp_a1 = temp_a0[0x6F];
-            if (((temp_a1 & 0xF) || ((temp_a0[0x70] & 4) == 4)) && (*(s32 *)(temp_a0 + 0x38) != 0)) {
-                temp_a0[0x6F] = (u8) (temp_a1 | 0x40);
+            entry = (u8 *)D_800DBEF4 + offset;
+            entry[0x6F] = (u8) (entry[0x6F] & ~0x40);
+            entry = (u8 *)D_800DBEF4 + offset;
+            flags = entry[0x6F];
+            if (((flags & 0xF) || ((entry[0x70] & 4) == 4)) && (*(s32 *)(entry + 0x38) != 0)) {
+                entry[0x6F] = (u8) (flags | 0x40);
             }
-            var_v0 += 1;
-            var_v1 += 0xA0;
-        } while (var_v0 < D_800DBEF0);
+            index += 1;
+            offset += 0xA0;
+        } while (index < D_800DBEF0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15113180 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15113180.s")
 typedef struct {
     u8 transform[0x30];
     f32 position_x;
