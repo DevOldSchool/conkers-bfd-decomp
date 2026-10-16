@@ -10,7 +10,6 @@
  * - func_150B4294
  * - func_150B4710
  * - func_150B5088
- * - func_150B538C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -340,11 +339,8 @@ void func_150B5088(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B5088 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B5088.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B538C CURRENT (200) */
 void func_150B538C(void *arg0, s32 arg1, u8 arg2) {
     if (arg2 == 5) {
         func_150B5060(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B538C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B538C.s")

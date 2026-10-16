@@ -12214,7 +12214,7 @@
         "us": {
           "end": "0xCF530",
           "start": "0xCF140",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_FC5F0.c"

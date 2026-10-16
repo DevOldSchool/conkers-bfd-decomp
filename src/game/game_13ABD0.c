@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_directly_called_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1510D720
  * - func_1510D7AC
  * - func_1510D8C0
  *
@@ -18,32 +17,25 @@ extern s32 D_800D9F58;
 extern s32 D_800D9F5C;
 extern u8 D_800D9F68[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510D720 CURRENT (30) */
 void func_1510D720(s32 arg0) {
-    void *temp_v0;
-    u8 temp_t8;
-    u8 temp_v1;
+    u8 *temp_v0;
 
     temp_v0 = &D_800D9F68[arg0];
     if (D_800BC448[arg0] != 0) {
-        temp_v1 = *(u8 *)temp_v0;
-        temp_t8 = temp_v1 - 1;
-        if (temp_v1 != 0) {
-            *(u8 *)temp_v0 = temp_t8;
-            if ((temp_t8 & 0xFF) == 0) {
+        if (*temp_v0 != 0) {
+            *temp_v0 -= 1;
+            if (*temp_v0 == 0) {
                 if (arg0 < D_800D9F58) {
-                    D_800D9F58 = arg0;
+                    D_800D9F58 = (s32) arg0;
                 }
                 if (D_800D9F5C < arg0) {
-                    D_800D9F5C = arg0;
+                    D_800D9F5C = (s32) arg0;
                 }
-                func_1510D608(arg0, 2);
+                func_1510D608((s32) arg0, 2);
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510D720 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13ABD0/func_1510D720.s")
 void func_10004074(s32);
 extern u32 D_800B0E58[];
 

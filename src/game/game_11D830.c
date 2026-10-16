@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150F03F8
- * - func_150F088C
  * - func_150F0BEC
  * - func_150F0E48
  * - func_150F1020
@@ -92,37 +91,26 @@ void func_150F07E4(void *arg0, void *arg1, u8 arg2) {
 }
 /* Call context: func_1516972C: unique active declaration in the allowed source */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F088C CURRENT (230) */
-void func_150F088C(u8 *arg0, u8 *arg1, u8 arg2) {
-    s32 temp_a0;
-    s32 temp_v1;
-    struct { s32 object; u8 index; } *temp_v0;
+void func_150F088C(void *arg0, u8 *arg1, u8 arg2) {
+    u8 *temp_v0;
+    s32 first;
 
+    temp_v0 = (u8 *)arg0 + 0x170;
     if (arg2 == 0) {
-        temp_v0 = (void *)(arg0 + 0x170);
-        temp_v1 = *(s32 *)arg1;
-        if ((temp_v1 == temp_v0->object) || (temp_v0->index == *(u8 *)((u8 *)arg1 + 4))) {
+        first = *(s32 *)arg1;
+        if ((first == *(s32 *)temp_v0) || (temp_v0[4] == arg1[4])) {
             func_1516972C(arg0);
         }
-    } else {
-        temp_v0 = (void *)(arg0 + 0x170);
-        if (arg2 == 0x2D) {
-            temp_a0 = temp_v0->object;
-            temp_v1 = *(s32 *)((u8 *)arg1 + 0);
-            if (temp_v1 == temp_a0) {
-                temp_v0->object = *(s32 *)((u8 *)arg1 + 4);
-                temp_v0->index = (u8) *(u8 *)((u8 *)arg1 + 9);
-                return;
-            }
-            if (*(s32 *)((u8 *)arg1 + 4) == temp_a0) {
-                temp_v0->object = temp_v1;
-                temp_v0->index = (u8) *(u8 *)((u8 *)arg1 + 8);
-            }
+    } else if (arg2 == 0x2D) {
+        if (*(s32 *)arg1 == *(s32 *)temp_v0) {
+            *(s32 *)temp_v0 = *(s32 *)(arg1 + 4);
+            temp_v0[4] = arg1[9];
+        } else if (*(s32 *)(arg1 + 4) == *(s32 *)temp_v0) {
+            *(s32 *)temp_v0 = *(s32 *)arg1;
+            temp_v0[4] = arg1[8];
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F088C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F088C.s")
 struct225 *func_15160A58();
 extern u8 D_800A1674;
 extern u8 D_800A1680;
