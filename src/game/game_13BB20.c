@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1510E670
  * - func_1510E950
- * - func_1510F648
  * - func_1510F720
  * - func_1510F820
  * - func_1510F8D8
@@ -113,26 +112,23 @@ extern f32 D_800A2D98;
 extern u8 D_800D3830;
 extern s32 D_800D3300;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510F648 CURRENT (16) */
+void func_1510F800(s32);
+
 f32 func_1510F648(f32 arg0, f32 arg1, f32 arg2) {
     struct { s32 output; f32 result; } query;
     s32 x;
-    s32 z;
 
     func_1510F800(2);
     x = (s32)arg0;
-    z = (s32)arg2;
-    func_150A64C8((s16)x, (s16)z, &query.output, (s32)arg1);
+    func_150A64C8((s16)x, (s16)((s32)arg2), &query.output, (s32)arg1);
     func_150A44F0(query.output, &D_800D3830, 0);
-    if (func_150A43E0(x, z, query.output, &D_800D3830) != 0) {
+    if (func_150A43E0(x, ((s32)arg2), query.output, &D_800D3830) != 0) {
         query.result = (f32)D_800D3300 * 0.00390625f;
     } else {
         query.result = D_800A2D98;
     }
     return query.result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510F648 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510F648.s")
 typedef struct Game13BB20Node {
     u8 pad0[4];
     s16 sibling_offset_4;

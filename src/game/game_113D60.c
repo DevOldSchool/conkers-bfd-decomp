@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150E68B0
  * - func_150E6B84
- * - func_150E6E34
  * - func_150E6FAC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -96,41 +95,31 @@ void func_150E6B84(Game113D60Effect *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E6B84.s")
 f32 func_150ADA68();                                /* extern */
 extern s32 func_150ADA20(void);
-extern void *D_80088A44[];
-extern void *D_80088A3C;
-extern void *D_80088A40;
+typedef struct Game113D60Segment {
+    Game113D60Vector start;
+    Game113D60Vector end;
+} Game113D60Segment;
+extern Game113D60Segment *D_80088A44[];
+extern Game113D60Segment *D_80088A3C;
+extern Game113D60Segment *D_80088A40;
 extern f32 D_800A130C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E6E34 CURRENT (40) */
-void func_150E6E34(void *arg0) {
-    void *var_v0;
+void func_150E6E34(Game113D60Vector *arg0) {
+    Game113D60Segment *segment;
 
     if (func_150ADA68() < D_800A130C) {
-        var_v0 = D_80088A3C;
+        segment = D_80088A3C;
     } else {
-        var_v0 = D_80088A40;
+        segment = D_80088A40;
     }
     {
-        void * sp1C = var_v0;
-    {
-        f32 temp_fv0 = func_150ADA68();
-    {
-        f32 temp_fv1 = *(f32 *)((u8 *)var_v0 + 0);
-    *(f32 *)((u8 *)arg0 + 0) = (f32) (((*(f32 *)((u8 *)var_v0 + 0xC) - temp_fv1) * temp_fv0) + temp_fv1);
-    {
-        f32 temp_fa0 = *(f32 *)((u8 *)var_v0 + 4);
-    *(f32 *)((u8 *)arg0 + 4) = (f32) (((*(f32 *)((u8 *)var_v0 + 0x10) - temp_fa0) * temp_fv0) + temp_fa0);
-    {
-        f32 temp_fa1 = *(f32 *)((u8 *)var_v0 + 8);
-    *(f32 *)((u8 *)arg0 + 8) = (f32) (((*(f32 *)((u8 *)var_v0 + 0x14) - temp_fa1) * temp_fv0) + temp_fa1);
-    }
-    }
-    }
-    }
+        f32 r = func_150ADA68();
+
+        arg0->x = (segment->end.x - segment->start.x) * r + segment->start.x;
+        arg0->y = (segment->end.y - segment->start.y) * r + segment->start.y;
+        arg0->z = (segment->end.z - segment->start.z) * r + segment->start.z;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E6E34 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E6E34.s")
 extern s32 func_150ADA20(void);
 extern s32 D_800D9A20[];
 extern void func_1514470C(s32 arg0, s32 arg1);
@@ -138,18 +127,13 @@ extern void func_1514470C(s32 arg0, s32 arg1);
 void func_150E6ED8(s32 arg0) {
     func_1514470C(D_800D9A20[func_150ADA20() & 1], arg0);
 }
-void func_150E6F18(void *arg0) {
-    s32 temp_v1;
-    f32 temp_fv0;
+void func_150E6F18(Game113D60Vector *arg0) {
+    Game113D60Segment *segment = D_80088A44[func_150ADA20() % 6U];
+    f32 t = func_150ADA68();
 
-    temp_v1 = (s32)D_80088A44[func_150ADA20() % 6U];
-    temp_fv0 = func_150ADA68();
-    *(f32 *)((u8 *)arg0 + 0) =
-        (f32)((*(f32 *)((u8 *)temp_v1 + 0)) + ((*(f32 *)((u8 *)temp_v1 + 0xC) - (*(f32 *)((u8 *)temp_v1 + 0))) * temp_fv0));
-    *(f32 *)((u8 *)arg0 + 4) =
-        (f32)((*(f32 *)((u8 *)temp_v1 + 4)) + ((*(f32 *)((u8 *)temp_v1 + 0x10) - (*(f32 *)((u8 *)temp_v1 + 4))) * temp_fv0));
-    *(f32 *)((u8 *)arg0 + 8) =
-        (f32)((*(f32 *)((u8 *)temp_v1 + 8)) + ((*(f32 *)((u8 *)temp_v1 + 0x14) - (*(f32 *)((u8 *)temp_v1 + 8))) * temp_fv0));
+    arg0->x = (segment->end.x - segment->start.x) * t + segment->start.x;
+    arg0->y = (segment->end.y - segment->start.y) * t + segment->start.y;
+    arg0->z = (segment->end.z - segment->start.z) * t + segment->start.z;
 }
 s32 func_1514ECE0();
 

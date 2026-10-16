@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151A6C90
  * - func_151A6F00
- * - func_151A743C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -60,18 +59,16 @@ s32 func_151A73EC(Game1D4140State *arg0) {
 u32 func_150ADA20(void);
 void func_1514AB5C(f32, f32, f32, f32, s32, f32, f32, f32, f32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A743C CURRENT (90) */
 s32 func_151A743C(Game1D4140State *arg0, f32 arg1, s32 arg2, f32 arg3, f32 arg4) {
     Game1D4140Entry *state;
     u8 alternate;
 
-    state = (Game1D4140Entry *)((u8 *)arg0 + 0x170);
+    state = &arg0->field_170;
     arg0->height = arg0->base_height + arg4;
     if (arg0->field_170.field_4 != 0) {
         func_1516972C(state->field_4);
         state->field_4 = 0;
     }
-    state = (Game1D4140Entry *)((u8 *)arg0 + 0x170);
     if (state->field_0 < arg0->velocity_y) {
         arg0->flags &= ~7;
         arg0->flags &= ~8;
@@ -104,5 +101,3 @@ s32 func_151A743C(Game1D4140State *arg0, f32 arg1, s32 arg2, f32 arg3, f32 arg4)
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A743C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D4140/func_151A743C.s")

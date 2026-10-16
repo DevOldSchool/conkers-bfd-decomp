@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_internal_call_callback_clusters.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15052760
  * - func_150528C8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -15,7 +14,6 @@ extern f32 D_80099348;
 extern f32 D_8009934C;
 extern s16 D_800CC264;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15052760 CURRENT (240) */
 void func_15052760(void *arg0, s16 arg1) {
     f32 temp_fv1;
     f32 var_fv0;
@@ -35,9 +33,8 @@ void func_15052760(void *arg0, s16 arg1) {
             var_a1 = 0x28;
         }
         if (*(u8 *)((u8 *)arg0 + 0x226) == 0xFF) {
-            var_a1 = var_v0 >> 8;
-            direction = var_a1;
-            if ((*(u8 *)((u8 *)arg0 + 0x87) ^ (s8) var_a1) & 0x80) {
+            direction = (s8) (var_v0 >> 8);
+            if ((*(u8 *)((u8 *)arg0 + 0x87) ^ direction) & 0x80) {
                 var_v0 = 0;
             }
             var_fv0 = D_8009934C;
@@ -47,10 +44,8 @@ void func_15052760(void *arg0, s16 arg1) {
         temp_v1_2 = *(u8 *)((u8 *)arg0 + 0x1E5);
         if (temp_v1_2 != 0) {
             temp_fv1 = *(f32 *)((u8 *)arg0 + 0xC4);
-            *(f32 *)((u8 *)arg0 + 0xC4) = (f32) (temp_fv1 + (((f32) (var_v0 / (s32) (temp_v1_2 * var_a1)) - temp_fv1) * var_fv0));
+            *(f32 *)((u8 *)arg0 + 0xC4) = (f32) ((f32) temp_fv1 + ((f32) (var_v0 / (s32) (temp_v1_2 * var_a1)) - temp_fv1) * var_fv0);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15052760 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_7FC10/func_15052760.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_7FC10/func_150528C8.s")

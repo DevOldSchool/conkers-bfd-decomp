@@ -10,7 +10,6 @@
  * - func_15104C44
  * - func_151050B0
  * - func_1510558C
- * - func_15105848
  * - func_151058B4
  * - func_15105C24
  *
@@ -324,23 +323,18 @@ void func_1510558C(Game131F30Emitter *arg0) {
 
 void func_151058B4(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15105848 CURRENT (210) */
 void func_15105848(void *arg0, s32 arg1, u8 arg2) {
-    void *part;
+    u8 *part = (u8 *)arg0 + 0x28;
 
-    if (arg2 == 0x38) {
+    if ((s32)arg2 == 0x38) {
         func_151058B4(arg0);
-        arg0 = (u8 *)arg0 + 0x28;
-        *(u8 *)((u8 *)arg0 + 0xC) = *(u8 *)((u8 *)arg0 + 0xC) | 1;
+        part[0xC] = part[0xC] | 1;
         return;
     }
-    part = (u8 *)arg0 + 0x28;
-    if (arg2 == 0x39) {
-        *(u8 *)((u8 *)part + 0xC) = *(u8 *)((u8 *)part + 0xC) & ~1;
+    if ((s32)arg2 == 0x39) {
+        part[0xC] = part[0xC] & ~1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15105848 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_131F30/func_15105848.s")
 typedef struct Game131F30Handle { s16 *shape; f32 scale; } Game131F30Handle;
 
 typedef struct Game131F30Spawn {

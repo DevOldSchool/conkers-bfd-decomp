@@ -13,7 +13,6 @@
  * - func_1509CDDC
  * - func_1509CE64
  * - func_1509CF28
- * - func_1509D054
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -310,17 +309,12 @@ s32 func_1509CF28(s32 arg0, s32 *arg1) {
 void func_10004074(s32 arg0);
 extern u8 *D_800D2FB0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509D054 CURRENT (220) */
 void func_1509D054(void) {
-    s32 temp_v0;
-
-    if ((temp_v0 = D_800D2FB0) != 0) {
-        func_10004074(temp_v0);
+    if (D_800D2FB0 != 0) {
+        func_10004074((s32)D_800D2FB0);
         D_800D2FB0 = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509D054 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509D054.s")
 s32 func_1509D08C(s32 arg0, s32 arg1, s32 *arg2, s32 *arg3) {
     u8 *base;
     u8 *entry;
