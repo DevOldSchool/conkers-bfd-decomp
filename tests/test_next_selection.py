@@ -248,6 +248,7 @@ run_host_mips_to_c() { printf 'starter:' >&2; printf ' <%s>' "$@" >&2; printf '\
                 self.assertEqual([
                     "state: </fixture/scripts/host_environment.py> <check> <--core>",
                     "state: <state-tool> <next> <--one> <--details>" + suffix,
+                    "state: <scripts/siblings.py> <func_b> <--hint>",
                     "state: <scripts/matching_history.py> <prepare> <func_b>",
                     "state: <state-tool> <setup-check> <--profile> <us>",
                     "state: </fixture/scripts/matching_prerequisites.py>",
