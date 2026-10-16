@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15169C70
  * - func_1516A3F4
- * - func_1516A538
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -82,26 +81,23 @@ u32 func_150ADA20(void *);
 void func_15171D4C(f32, f32, f32, s32, s32, s32, f32, s32, s32,
                    s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516A538 CURRENT (50) */
 void func_1516A538(u8 *arg0) {
-    u32 sp48;
-    s32 sp44;
-    volatile s32 pad40;
+    u32 angle;
+    u32 type;
+    s32 alpha;
 
     if (*(s16 *)(arg0 + 0x14) >= 0x300) {
-        sp48 = func_150ADA20(arg0) % 3U;
-        sp44 = arg0[0x25];
+        type = func_150ADA20(arg0) % 3U;
+        alpha = arg0[0x25];
+        angle = func_150ADA20(arg0) % 360U;
         func_15171D4C((f32)*(s16 *)(arg0 + 0x18),
                       (f32)(*(s16 *)(arg0 + 0x1A) - 0xA),
                       (f32)*(s16 *)(arg0 + 0x1C), 0x64, 0,
-                      sp48 + 0x20,
-                      (f32)(func_150ADA20(arg0) % 360U), 0,
-                      ((sp44 * 0x19) / 0xFF) + 0x19, 0, 0x100, 0,
+                      type + 0x20, (f32)angle, 0,
+                      ((alpha * 0x19) / 0xFF) + 0x19, 0, 0x100, 0,
                       arg0[0xC], arg0[1]);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1516A538 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_197120/func_1516A538.s")
 void func_1516F94C(s32, s32);
 s32 func_1510F8D8(s16, s16, s16, s32);
 extern s32 D_800BE9E4;

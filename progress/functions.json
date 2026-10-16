@@ -1683,16 +1683,15 @@
       "symbol": "func_151607A4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 83,
-        "reason": "CURRENT 83 after two targeted revisions; body/control flow exact, but compiler keeps a 0x38 frame and local array at sp+0x2C instead of reference 0x40 frame/sp+0x30; padding aggregate plateaued unchanged",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15160954",
           "vram": "0x15160954"
         }
@@ -48372,17 +48371,16 @@
       "symbol": "func_1510E950"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 16,
-        "reason": "Manual output/result aggregate plus removal of redundant x/z copies103->16. All instructions/registers/frame/output exact, only x/z spills four bytes low. Named y79 growsframe; full used queryrecord293 fixesstack but changes conversion schedule/stores. Best16 preserved after4attempts.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 216,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510F648",
           "vram": "0x1510F648"
         }
@@ -54162,8 +54160,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 96,
-        "reason": "Best candidate CURRENT 96 after two targeted revisions; all instructions and registers match, with only six automatic target-pointer spill accesses at sp+0x34 instead of sp+0x24. The explicit-spill alternative regressed frame size.",
+        "current_score": 1999,
+        "reason": "Stored 3-arg second func_150B5A3C call no longer compiled against the file prototype (4 params; matched callee forwards a3), so the candidate now passes target. Raw leaves a3 stale after func_150B60E0, implying an original 3-arg call through an unprototyped declaration; the 4-arg form keeps target live in s0. Plain f32 position[3] without pad gives 2183/frame 0x30. Needs a reviewed declaration decision (oct16c).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -63206,17 +63204,16 @@
       "symbol": "func_150BA8F0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 159,
-        "reason": "CURRENT (159): instruction stream exact; aggregate remains four bytes low with frame 0x60 instead of 0x70 after bounded layout revisions",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 232,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500F290",
           "vram": "0x1500F290"
         }
@@ -68830,17 +68827,16 @@
       "symbol": "func_1516A3F4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 50,
-        "reason": "CURRENT (50): instruction stream is otherwise exact, but compiler emits a 0x48 frame with locals at sp+0x40/0x44 instead of the reference 0x50 frame and sp+0x44/0x48; aggregate and unused-slot lifetime variants plateau identically",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 272,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1516A538",
           "vram": "0x1516A538"
         }
@@ -85764,17 +85760,16 @@
       "symbol": "func_150D6388"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 74,
-        "reason": "CURRENT (74): instruction/register shape is exact but frame and all local/argument stack offsets remain uniformly 4-8 bytes low; larger dead padding and volatile aggregate layout were both scalarized with no codegen change",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 180,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D6434",
           "vram": "0x150D6434"
         }
@@ -86626,17 +86621,16 @@
       "symbol": "func_150BD740"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 242,
-        "reason": "Initial typed emission record242. Every payload offset and arithmetic instruction matches; frame is8bytes shorter and final full-width argument is loaded asword versus raw byte. Existing primary packet confirms24byte extent; no invented padding or unsupported narrowed arg14. Stop early on formal-width lead.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 488,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150BD954",
           "vram": "0x150BD954"
         }

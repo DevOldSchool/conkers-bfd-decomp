@@ -40,7 +40,7 @@ void func_150B60E0(void *, f32 *);
 extern f32 D_8009FC98;
 extern f32 D_8009FC9C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B5950 CURRENT (96) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B5950 CURRENT (1999) */
 void func_150B5950(GameE2E00Owner5950 *arg0) {
     GameE2E00Target5950 *target;
     struct {
@@ -62,7 +62,7 @@ void func_150B5950(GameE2E00Owner5950 *arg0) {
         }
         if (func_150ADA68() < D_8009FC9C) {
             func_150B60E0(target, local.position);
-            func_150B5A3C(local.position, arg0->field_C, arg0->field_1);
+            func_150B5A3C(local.position, arg0->field_C, arg0->field_1, target);
         }
     }
 }
