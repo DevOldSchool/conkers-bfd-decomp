@@ -11657,17 +11657,16 @@
       "symbol": "func_151419B0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 430,
-        "reason": "Manual1187 to430 after2 revisions: one-arg cleanup declaration/call, u8 selector formal, consumed arg0 reuse and named word snapshot. Remaining first interior28 folded into owner offsets and missing call-arg move; final BNEL operand order. Ledger deferred-manual-20260927.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 172,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151419D0",
           "vram": "0x151419D0"
         }
@@ -42238,17 +42237,16 @@
       "symbol": "func_15046460"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 953,
-        "reason": "Existing matched owning-hit record pattern with independently declared target ABI and fullword callee contract. Direct/mask/cast sequence CURRENT 1378 -> 953 -> 1378; preserve numeric-mask best. Early-mask versus late parameter-home load scheduling remains; no unsupported callee narrowing or storage tricks.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 644,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150466F8",
           "vram": "0x150466F8"
         }
@@ -60976,17 +60974,16 @@
       "symbol": "func_150B5088"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "Live CURRENT (200) after u8 third-argument ABI correction: every semantic instruction and operand matches raw US, but final source-unit function compiles to 60 bytes against 68-byte registered span with two trailing nop words; requires layout padding recovery, no inline assembly",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 68,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150B538C",
           "vram": "0x150B538C"
         }
@@ -70172,17 +70169,16 @@
       "symbol": "func_150CF140"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1010,
-        "reason": "CURRENT (1010); u8 arg2 and explicit owner-pointer shaping improved the ABI and reduced the mismatch, but branch-path register allocation and scheduling remain nonzero after three bounded source-only variants; preserved the best candidate.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 172,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150CF484",
           "vram": "0x150CF484"
         }
@@ -82546,17 +82542,16 @@
       "symbol": "func_150F07E4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 230,
-        "reason": "Preserved CURRENT230 from2192: corrected byte ABI, callee arity, word loads and shared local/pointer view. First-arm interior address folded and equality branch operands reversed; sibling reversal/guard exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 172,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150F088C",
           "vram": "0x150F088C"
         }
@@ -91196,17 +91191,16 @@
       "symbol": "func_150AE36C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "Canonical nonzero retained; no accepted exact C after the recorded source/lifetime hypotheses. Upstream single-worker runs 202610151504:5000:budget_complete. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 140,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510D720",
           "vram": "0x1510D720"
         }
