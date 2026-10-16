@@ -4,15 +4,9 @@
 /*
  * Reviewed source unit: src/game/game_1319D0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_singletons_final.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15104520
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15104520 CURRENT (15) */
 void func_15104520(void *arg0) {
     f32 temp_fv0;
     u8 *temp_a1;
@@ -31,5 +25,3 @@ void func_15104520(void *arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15104520 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1319D0/func_15104520.s")

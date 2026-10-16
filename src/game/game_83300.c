@@ -25,7 +25,6 @@
  * - func_1505A184
  * - func_1505A250
  * - func_1505A3A8
- * - func_1505A5CC
  * - func_1505A630
  * - func_1505A770
  * - func_1505A9AC
@@ -1116,21 +1115,20 @@ block_32:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A3A8.s")
 extern f32 D_800994D4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505A5CC CURRENT (25) */
 f32 func_1505A5CC(void *arg0) {
     f32 temp_fa0;
     f32 temp_fv1;
+    f32 result;
 
     temp_fv1 = (f32) *(s8 *)((u8 *)arg0 + 2);
     temp_fa0 = (f32) *(s8 *)((u8 *)arg0 + 3);
-    temp_fv1 = sqrtf((temp_fv1 * temp_fv1) + (temp_fa0 * temp_fa0)) * D_800994D4;
+    result = sqrtf((temp_fv1 * temp_fv1) + (temp_fa0 * temp_fa0)) * D_800994D4;
+    temp_fv1 = result;
     if (temp_fv1 > 35.0f) {
         temp_fv1 = 35.0f;
     }
     return temp_fv1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505A5CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A5CC.s")
 f32 func_150484A0(f32, f32);
 extern f32 D_800994D8;
 

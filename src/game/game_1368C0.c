@@ -9,7 +9,6 @@
  * - func_151094FC
  * - func_15109848
  * - func_15109C20
- * - func_15109ED4
  * - func_15109FB8
  * - func_1510A40C
  *
@@ -424,21 +423,21 @@ typedef struct Game1368C0Spawn {
     u8 padE[2];
 } Game1368C0Spawn;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15109ED4 CURRENT (15) */
 s32 func_15109ED4(s32 arg0, s16 arg1, s8 arg2, s8 arg3,
                    f32 arg4, s32 arg5, u8 arg6, s32 arg7) {
     s32 value;
     Game1368C0Spawn spawn;
     s16 var_a0;
+    u8 enabled;
 
     if (arg0 == 0) {
         return 0;
     }
-    value = 0;
+    enabled = 0;
     if (arg1 < 0) {
         var_a0 = 0x12C;
     } else {
-        value = 1;
+        enabled = 1;
         var_a0 = arg1;
     }
     spawn.zero = 0.0f;
@@ -446,15 +445,13 @@ s32 func_15109ED4(s32 arg0, s16 arg1, s8 arg2, s8 arg3,
     spawn.field_C = arg2;
     spawn.field_D = arg3;
     spawn.source = (void *)arg0;
-    value = func_15149130(var_a0, -1, 0x1B, -1, value,
-                             0x1B, arg5 + 0x10, arg6, arg7);
+    value = (s32)func_15149130(var_a0, -1, 0x1B, -1, enabled,
+                             0x1B, (s32)((u32)arg5 + 0x10U), arg6, arg7);
     if (value != 0) {
         func_10022EC0((u8 *)value + 0x28, &spawn, 0x10);
     }
     return value;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15109ED4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1368C0/func_15109ED4.s")
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_1511490C(void *, void *);
 extern Game1368C0EmitterVector D_800A2568[], D_800A25BC[];
