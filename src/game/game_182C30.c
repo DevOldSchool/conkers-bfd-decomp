@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1515589C
  * - func_15155CFC
- * - func_15155FD4
  * - func_15156028
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -186,26 +185,19 @@ typedef struct {
 extern Game182C30Block D_800DCE50;
 extern Game182C30Block D_800DD190;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15155FD4 CURRENT (50) */
 void *func_15155FD4(s32 arg0) {
-    Game182C30Node *var_v1;
-    u32 var_a1;
+    Game182C30Node *node;
+    s32 i;
 
-    var_a1 = (u32)&D_800DCE50;
-    do {
-        var_v1 = ((Game182C30Block *)var_a1)->field_140;
-        var_a1 += sizeof(Game182C30Block);
-        while (var_v1 != 0) {
-            if (arg0 == var_v1->field_10) {
-                return var_v1;
+    for (i = 0; i < 2; i++) {
+        for (node = (&D_800DCE50)[i].field_140; node != 0; node = node->next) {
+            if (arg0 == node->field_10) {
+                return node;
             }
-            var_v1 = var_v1->next;
         }
-    } while (var_a1 != (u32)&D_800DD190);
+    }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15155FD4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_15155FD4.s")
 extern u8 D_800CC2D0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15156028 CURRENT (1225) */

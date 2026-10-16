@@ -611,28 +611,23 @@ extern s32 D_800C35B0[];
 extern s8 D_800C3E78;
 extern u8 D_800CC2D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501DE18 CURRENT (110) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501DE18 CURRENT (30) */
 void func_1501DE18(s32 arg0) {
-    u8 *actor;
-    s32 index;
+    s32 i;
 
     D_800C35B0[arg0] = D_800C3640[arg0] + D_800BEA08;
     func_150242F8(1, 0);
     func_1501EC38(0);
     func_150242F8(0, 0);
     func_15020EC4(0);
-    actor = &D_800CC2D0;
-    index = 0;
-    do {
-        if (*(s32 *)actor != 0) {
-            D_800C3E78 = index;
-            if (func_150229E4(actor) != 0) {
-                func_1502178C(actor, arg0, -1);
+    for (i = 0; i < 25; i++) {
+        if (*(s32 *)((u8 (*)[0x32C])&D_800CC2D0)[i] != 0) {
+            D_800C3E78 = i;
+            if (func_150229E4(((u8 (*)[0x32C])&D_800CC2D0)[i]) != 0) {
+                func_1502178C(((u8 (*)[0x32C])&D_800CC2D0)[i], arg0, -1);
             }
         }
-        index++;
-        actor += 0x32C;
-    } while (index != 0x19);
+    }
     func_1501E81C(1, arg0);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1501DE18 */

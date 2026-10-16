@@ -5703,17 +5703,16 @@
       "symbol": "func_15048720"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 300,
-        "reason": "Manual angle-normalization C matches the target instruction sequence through the live body, but the registered span includes trailing padding and the focused diff retains shifted branch targets; diagnose reports CURRENT (300) with 3 control-flow rows and 8 register-only rows, with no justified semantic variant.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 136,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15048758",
           "vram": "0x15048758"
         }
@@ -10836,8 +10835,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1139,
-        "reason": "CURRENT (1139): loop body/control flow exact; compiler CSEs duplicate D_800CC2D0 base materialization and omits historical dead initialization",
+        "current_score": 695,
+        "reason": "CURRENT (695) improved from 1139 (deferred-game-oct16d): natural 25-actor for loop reproduces the dead counter init and in-loop signed div. Remaining: raw materializes &D_800CC2D0 twice (s0 cursor, s3 subtraction base) while IDO CSEs one address; pointer/int/row-view/u32 variants neutral or worse.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -31165,17 +31164,16 @@
       "symbol": "func_1509B5AC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 220,
-        "reason": "Manual linked-list search recovered in two bounded mask/initialization variants; best CURRENT (220) retains only mask/index scheduling and register-allocation differences, so defer pending source-shape evidence.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509B704",
           "vram": "0x1509B704"
         }
@@ -39291,8 +39289,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 110,
-        "reason": "Best candidate CURRENT 110 after two manual revisions; executable logic matches, with only persistent-global versus loop-limit saved-register assignment and initialization ordering remaining. Explicit locals regressed the frame and row count.",
+        "current_score": 30,
+        "reason": "CURRENT (30) improved from 110 (deferred-game-oct16d): natural for loop over 0x32C actor rows. Only s2/s3 swap remains: raw allocates constant 25 to s2 before D_800C3E78 address (same as sibling func_1502378C); decl/condition/actor-local variants and permute neutral.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -56583,17 +56581,16 @@
       "symbol": "func_15155F90"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 50,
-        "reason": "Resumed batch20261015-1505: preserve CURRENT50. New hypotheses/probes/searches and rejected forms recorded in build/us/manual-attempts/resume-20261015-1706/ledger.md; pending further expanded search for improved candidates. Prior exhausted context: CURRENT 50 retained: source/end pointers remain v0/a1 versus raw a1/v0. End-first lifetime/declaration variants scored 315; byte cursor remained 50. One bounded probe batch, no improving concrete hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 84,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15155FD4",
           "vram": "0x15155FD4"
         }
@@ -63096,8 +63093,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 130,
-        "reason": "Best valid130 via consumed incoming-argument reuse for S1 result (baseline255). Zero-init placement recovered; transient registers and arithmetic interleaving remain. Frame30/stack exact. Two finishes/one fresh revision exhausted alongside prior explicit base/range work; no shared changes.",
+        "current_score": 100,
+        "reason": "CURRENT (100) improved from 130 (deferred-game-oct16d): natural for loop over ten 10-byte records with base/range locals. Remaining rows: multiply-chain interleave and SRA order (raw shifts range before base). 12 declaration/statement orders, u32 range, inline forms and permute --exhaustive 32 neutral.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -75543,17 +75540,16 @@
       "symbol": "func_15085BE8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 540,
-        "reason": "Manual scalar table-loop candidate remains CURRENT (540); only global-address materialization and floating-register allocation differ after three bounded source variants.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 80,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15085DA8",
           "vram": "0x15085DA8"
         }
@@ -88963,8 +88959,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 145,
-        "reason": "CURRENT (145): switch and instruction flow match, but 22 local stack rows are 4 bytes low, frame is 8 bytes short, and source jump table relocates to .rodata instead of jtbl_800A7410_game; scalar-locals attempt regressed",
+        "current_score": 10,
+        "reason": "CURRENT (10) improved from 145 (deferred-game-oct16d): indexed two-block for loop, named block cursor restores frame 0x48/spawn slot, Game1B8F40Owner view fixes byte-load order. All instructions/registers/stack match; remaining rows are relocation spelling only: end pointer D_800DCE50+0x340 vs reference D_800DD190 (a distinct s8 counter symbol in this unit) and jtbl_800A7410_game vs .rodata. Needs linked-alias/rodata tooling, not C changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -89579,17 +89575,16 @@
       "symbol": "func_1515C0F8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "Improved 105 to 30 by seeding traversal pointer before table cursor. Bounded permute 32 on original had no improvement. Two probe batches/four variants: seed head 1275, record cursor 30, explicit invariants 75. Remaining only two ADDIU setup instructions swapped; exact loop body. Best 30 preserved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 72,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515C158",
           "vram": "0x1515C158"
         }

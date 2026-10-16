@@ -48,27 +48,32 @@ typedef struct Game1B8F40Spawn {
     s8 field1A;
 } Game1B8F40Spawn;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518BA90 CURRENT (145) */
+typedef struct Game1B8F40Owner {
+    u8 pad0[4];
+    u8 kind;
+    u8 pad5[0x36];
+    u8 type;
+} Game1B8F40Owner;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518BA90 CURRENT (10) */
 Game1B8F40Effect *func_1518BA90(void *arg0, u8 arg1, s32 arg2) {
+    u8 *block;
     Game1B8F40Spawn spawn;
     Game1B8F40Node *node;
-    u8 *block;
+    s32 i;
 
     if (arg0 == 0) {
         return 0;
     }
-    block = D_800DCE50;
-    do {
-        node = *(Game1B8F40Node **)(block + 0x7C);
-        block += 0x1A0;
-        while (node != 0) {
+    for (i = 0; i < 2; i++) {
+        block = D_800DCE50 + i * 0x1A0;
+        for (node = *(Game1B8F40Node **)(block + 0x7C); node != 0; node = node->next) {
             if (node->owner == arg0 ||
-                node->type == *(u8 *)((u8 *)arg0 + 0x3B)) {
+                node->type == ((Game1B8F40Owner *)arg0)->type) {
                 return (Game1B8F40Effect *)node;
             }
-            node = node->next;
         }
-    } while (block != (u8 *)&D_800DD190);
+    }
 
     switch (*(u8 *)((u8 *)arg0 + 4) + 1) {
     case 0:
