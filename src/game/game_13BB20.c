@@ -108,26 +108,26 @@ void func_1510E8BC(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, f
 s32 func_150A43E0(s32, s32, s32, void *);
 void func_150A44F0(s32, void *, s32);
 void func_150A64C8(s16, s16, void *, s32);
+void func_1510F800(s32);
 extern f32 D_800A2D98;
 extern u8 D_800D3830;
 extern s32 D_800D3300;
 
-void func_1510F800(s32);
-
 f32 func_1510F648(f32 arg0, f32 arg1, f32 arg2) {
-    struct { s32 output; f32 result; } query;
-    s32 x;
+    f32 result;
+    s32 output;
+    s32 found;
 
     func_1510F800(2);
-    x = (s32)arg0;
-    func_150A64C8((s16)x, (s16)((s32)arg2), &query.output, (s32)arg1);
-    func_150A44F0(query.output, &D_800D3830, 0);
-    if (func_150A43E0(x, ((s32)arg2), query.output, &D_800D3830) != 0) {
-        query.result = (f32)D_800D3300 * 0.00390625f;
+    func_150A64C8((s32)arg0, (s32)arg2, &output, (s32)arg1);
+    func_150A44F0(output, &D_800D3830, 0);
+    found = func_150A43E0((s32)arg0, (s32)arg2, output, &D_800D3830);
+    if (found != 0) {
+        result = (f32)D_800D3300 * 0.00390625f;
     } else {
-        query.result = D_800A2D98;
+        result = D_800A2D98;
     }
-    return query.result;
+    return result;
 }
 typedef struct Game13BB20Node {
     u8 pad0[4];

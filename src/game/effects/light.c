@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151604A0
- * - func_15160954
  * - func_15160B74
  * - func_15160CDC
  * - func_15160E30
@@ -262,26 +261,25 @@ typedef struct {
     u8 active;
 } Light60954State;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15160954 CURRENT (83) */
 void func_15160954(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3,
-                   Light60954State *arg4) {
-    struct {
-        s32 pad;
-        f32 position[3];
-    } locals;
+                   void *arg4) {
+    Light60954State *state;
+    f32 position[3];
+    f32 rand;
 
+    state = arg4;
     *arg0 = 0.0f;
-    *arg2 = *arg1 / ((func_150ADA68() * 12.0f) + 8.0f);
-    *arg3 = (func_150ADA68() * 28.0f) + 1.0f;
-    locals.position[0] = (f32) arg4->position->x;
-    locals.position[1] = (f32) arg4->position->y;
-    locals.position[2] = (f32) arg4->position->z;
-    if (arg4->active != 0) {
-        func_151618BC(0x61A8U, 0, 0U, 0, locals.position, 0x1F4, 0x5DC);
+    rand = func_150ADA68();
+    *arg2 = *arg1 / ((rand * 12.0f) + 8.0f);
+    rand = func_150ADA68();
+    *arg3 = (rand * 28.0f) + 1.0f;
+    position[0] = (f32) state->position->x;
+    position[1] = (f32) state->position->y;
+    position[2] = (f32) state->position->z;
+    if (state->active != 0) {
+        func_151618BC(0x61A8U, 0, 0U, 0, position, 0x1F4, 0x5DC);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15160954 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15160954.s")
 typedef struct LightHeader2 { s32 unk0; s32 unk4; s32 unk8; } Header2;
 typedef struct LightHeader { s8 unk0; s8 unk1; s16 unk2; s8 unk4; u8 pad5; } Header;
 
