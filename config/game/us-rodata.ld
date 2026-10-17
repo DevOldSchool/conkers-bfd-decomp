@@ -56,6 +56,11 @@ SECTIONS
     {
         *game_111670.o(.rodata)
     }
+    /* ROM-verified constants: docs/evidence/data-layout/game_1fa770_float_constants.md. */
+    .game_rodata_1fa770 0x800AAFC0 (INFO) : SUBALIGN(4)
+    {
+        *game_1FA770.o(.rodata)
+    }
     /* ROM-verified constant: docs/evidence/data-layout/game_20a290_float_constant.md. */
     .game_rodata_20a290 0x800AB558 (INFO) : SUBALIGN(4)
     {
@@ -245,6 +250,9 @@ __game_rodata_1cbe20_payload_size = 0x8;
 ASSERT(SIZEOF(.game_rodata_20a290) == 0x10,
        "game_20A290 spawn literal pool extent changed")
 __game_rodata_20a290_payload_size = 0x10;
+ASSERT(SIZEOF(.game_rodata_1fa770) == 0x10,
+       "game_1FA770 particle gravity literal extent changed")
+__game_rodata_1fa770_payload_size = 0x8;
 ASSERT(SIZEOF(.game_rodata_111670) == 0x20,
        "game_111670 effect literal pool extent changed")
 __game_rodata_111670_payload_size = 0x20;

@@ -21,6 +21,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [US game_111670 effect literal pool](game_111670_float_constants.md)
 - [US game_11D830 float constant](game_11d830_float_constant.md)
 - [US game_1CBE20 float constants](game_1cbe20_float_constant.md)
+- [US game_1FA770 particle gravity constants](game_1fa770_float_constants.md)
 - [US game_20A290 spawn literal pool](game_20a290_float_constant.md)
 - [US switch table for game_11F780](game_11f780_jump_table.md)
 - [US sound-event selector table](game_1483e0_jump_table.md)

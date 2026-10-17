@@ -84886,17 +84886,16 @@
       "symbol": "func_151CD4C0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "CURRENT200 restored. Two new compound-field revisions450/450: velocity orientation corrected but velocity CSE lifetime delays Y load and shifts scratch FP chain; original position expression did not recover it. Thirteen original FP rows and global ADDIU/LUI schedule remain. Earlier float-lifetime/expression experiments recorded but detailed history unavailable; do not repeat without recovered evidence. Task ledger build/us/manual-attempts/deferred-exact-20261005/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 328,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151CD674",
           "vram": "0x151CD674"
         }
