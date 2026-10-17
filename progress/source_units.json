@@ -8166,15 +8166,15 @@
         "func_150F26A0",
         "func_150F2994"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xF2A60",
           "start": "0xF26A0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_11FB50.c"
+      "source": "src/done/game/game_11FB50.c"
     },
     {
       "boundary_evidence": {
@@ -11929,7 +11929,7 @@
         "us": {
           "end": "0xC19C0",
           "start": "0xC16C0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_EEB70.c"

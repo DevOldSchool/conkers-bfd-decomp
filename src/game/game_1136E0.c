@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150E6230
  * - func_150E63A0
- * - func_150E67D0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -102,7 +101,6 @@ typedef struct Game1136E0Descriptor {
     u8 pad1C[0x14];
 } Game1136E0Descriptor;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E67D0 CURRENT (100) */
 s32 func_150E67D0(u8 *arg0) {
     Game1136E0Descriptor descriptor;
     u8 *temp_v1;
@@ -126,5 +124,3 @@ s32 func_150E67D0(u8 *arg0) {
                   func_150ADA20() & 0xFF, 0, 0, arg0[0xC], arg0[1]);
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E67D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1136E0/func_150E67D0.s")

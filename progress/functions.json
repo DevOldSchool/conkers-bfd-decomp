@@ -2849,16 +2849,15 @@
       "symbol": "func_151644F4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "CURRENT (100): all executable instructions, registers, operands, control flow and stack match; sole missing raw trailing alignment nop at full registered span offset 0x1B8; C-only source-unit layout recovery needed",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_151645C4",
           "vram": "0x151645C4"
         }
@@ -13958,17 +13957,16 @@
       "symbol": "func_15169824"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 235,
-        "reason": "CURRENT (235): after byte ABI and 32-bit +4 field fixes, executable instruction order/opcodes/stack align except raw old ID v1 and current ID v0 versus candidate swapped v0/v1 (five register/branch-operand rows); raw full 176-byte span also has two trailing nop words at +0xA8/+0xAC absent from candidate 168-byte extent. No justified C lifetime change fixes both, and padding cannot be manufactured.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 176,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15169850",
           "vram": "0x15169850"
         }
@@ -53231,17 +53229,16 @@
       "symbol": "func_151555AC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 300,
-        "reason": "Live CURRENT (300): u8 callee declaration makes every generated C-body instruction match raw, but full 84-byte registered span contains three trailing nop words after jr-ra delay slot; requires source-unit layout recovery",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 84,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515572C",
           "vram": "0x1515572C"
         }
@@ -56426,26 +56423,25 @@
           "vram": "0x150F26A0"
         }
       },
-      "source": "src/game/game_11FB50.c",
+      "source": "src/done/game/game_11FB50.c",
       "symbol": "func_150F26A0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 300,
-        "reason": "CURRENT (300): executable body is exact; only three trailing registered-span padding nops are absent, with no safe source-local layout recovery symbol",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 204,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150F2994",
           "vram": "0x150F2994"
         }
       },
-      "source": "src/game/game_11FB50.c",
+      "source": "src/done/game/game_11FB50.c",
       "symbol": "func_150F2994"
     },
     {
@@ -57572,17 +57568,16 @@
       "symbol": "func_15147D1C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "CURRENT (200): semantic body matches every raw instruction and operand, but full registered span has two trailing nop words after jr-ra delay slot; source unit ends at this function and IDO emits only 52 of 60 bytes, so layout padding recovery is needed before exact match",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 60,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15147D64",
           "vram": "0x15147D64"
         }
@@ -69041,17 +69036,16 @@
       "symbol": "func_151AFC88"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "CURRENT100: proven natural loop matches every body instruction; one registered trailing NOP missing. Full-span gate retained, no padding; layout boundary unresolved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 428,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151AFEA4",
           "vram": "0x151AFEA4"
         }
@@ -69322,17 +69316,16 @@
       "symbol": "func_150C16C0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "Improved latestfull680/stalemarker480 to200 with proven sharedclampvariable and earlypointer. Every executable row exact, but full72B span still lacks raw trailing NOPs+40/+44. Not matched; no padding or weakened verifier. Preserve pending legitimate sourceunit layout evidence; one revision, deferred-manual-20260929-resume2.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 72,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C1978",
           "vram": "0x150C1978"
         }
@@ -69540,17 +69533,16 @@
       "symbol": "func_150E679C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "CURRENT (100): executable body, registers, operands, control flow, frame, and descriptor layout are exact; only one trailing registered-span NOP remains after two bounded layout revisions",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 224,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150E67D0",
           "vram": "0x150E67D0"
         }
@@ -81337,17 +81329,16 @@
       "symbol": "func_151BC580"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Manual ABI and field-lifetime corrections improve to10; only BNE operand pair t2,a0 is commuted. Equality reversal neutral10, explicit replacement local regresses455. Restored r4 best after6 attempts; manual only.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 168,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151BC5A4",
           "vram": "0x151BC5A4"
         }
@@ -87862,17 +87853,16 @@
       "symbol": "func_150BA37C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "Improved live430/stalemarker330 to100 using proven shared halfword/product/clamp variable. All executable instructions exact; sole full156B-span mismatch is missing trailing NOP at+98. No padding or weakened verifier. One revision, best preserved; deferred-manual-20260929-resume2.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 156,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150BA424",
           "vram": "0x150BA424"
         }

@@ -10,7 +10,6 @@
  * - func_15154D80
  * - func_1515548C
  * - func_151555AC
- * - func_1515572C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -170,12 +169,9 @@ typedef struct {
 void func_15169260(Game182140Pair *, s32, s32, u8);
 extern Game182140Pair D_800A6038;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515572C CURRENT (300) */
 void func_1515572C(s32 arg0, u8 arg1) {
     Game182140Pair sp18;
 
     sp18 = D_800A6038;
     func_15169260(&sp18, 2, arg0, arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515572C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_182140/func_1515572C.s")

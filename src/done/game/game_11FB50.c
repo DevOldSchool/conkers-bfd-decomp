@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_11FB50.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_model_owner_mode_cores.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150F2994
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 s32 func_1509BE40(s32, ...);
@@ -89,7 +84,6 @@ void func_150F26A0(u8 *actor) {
 void func_1509BFB0(s32, s32, s32);
 extern void *D_800D2E4C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F2994 CURRENT (300) */
 void func_150F2994(s32 arg0, s32 arg1) {
     register s32 index;
     register s32 limit;
@@ -110,5 +104,3 @@ void func_150F2994(s32 arg0, s32 arg1) {
         func_1509BFB0(0, 0x4065, saved_arg1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F2994 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11FB50/func_150F2994.s")

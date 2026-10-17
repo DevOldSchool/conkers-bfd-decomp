@@ -23,7 +23,6 @@
  * - func_151640C0
  * - func_15164134
  * - func_151643A8
- * - func_151645C4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1827,7 +1826,6 @@ extern u8 D_800DCD20[3];
 extern s8 D_800DCDD0;
 void func_1511172C(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151645C4 CURRENT (100) */
 void func_151645C4(u8 arg0) {
     D_800DCDD0 = arg0;
     if (arg0 != 0) {
@@ -1876,5 +1874,3 @@ void func_151645C4(u8 arg0) {
         return;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151645C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151645C4.s")
