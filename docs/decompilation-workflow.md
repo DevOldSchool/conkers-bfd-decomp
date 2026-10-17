@@ -531,6 +531,21 @@ Use `./conker register-main` for a reviewed main-executable function.
 a work item but does not claim that one function equals one original source
 file.
 
+When a registered game span is found to contain a second routine that the
+accepted C already defines separately (typically an unreferenced `jr $ra; nop`
+stub after the parent's own epilogue), add the canonical `func_<vram>` label to
+`config/symbols/game-us.txt`, regenerate the reference, and split the span:
+
+```sh
+./conker split-game-function --parent <parent-id> --id <new-id> --us <new-symbol>
+```
+
+The regenerated reference must partition the parent span exactly at the new
+symbol. The new member joins the parent's source unit as raw ASM, the parent
+span shrinks to the split point and a matched parent loses its evidence; rerun
+`finish` for both. Record the reasoning in an evidence note, as in
+[the return-stub splits](evidence/boundaries/game/mapping/game_unreferenced_return_stub_splits.md).
+
 After a default build, locate the first differing word with (add `--assets`
 for the reconstructed-assets output):
 
