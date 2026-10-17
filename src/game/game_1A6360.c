@@ -56,6 +56,7 @@ void func_15178EFC(s32 arg0) {
                 temp_v0 = D_800DD440;
                 var_s0 += 4;
             } while (var_s0 != 0x4B0);
+            /* The ^ 0 is required for IDO register allocation (permuter). */
             func_10004074(temp_v0 ^ 0);
             D_800DD440 = 0;
         }

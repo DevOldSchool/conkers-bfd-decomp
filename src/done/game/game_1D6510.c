@@ -23,6 +23,10 @@ s32 func_151A9060(Game1D6510State *arg0) {
     if ((index < 0) || (index >= 8)) {
         return 1;
     }
+    /*
+     * The empty blocks and the table re-read in the test below are required
+     * for IDO codegen (permuter); callback holds the same table entry.
+     */
     if (1) {
     }
     if (1) {

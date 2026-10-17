@@ -859,7 +859,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "Round3 2026-10-18: CURRENT (20) unchanged; bnel t9,v0 (arg1[1] vs current) and beq t1,v0 (default arm) operand order. Source swaps of either compare neutral (20); twin-style memory expressions with a dst block local flip the v0/v1 roles (60).",
+        "reason": "Round3 2026-10-18: CURRENT (20) unchanged; bnel t9,v0 (arg1[1] vs current) and beq t1,v0 (default arm) operand order. Source swaps of either compare neutral (20); twin-style memory expressions with a dst block local flip the v0/v1 roles (60). Prior: canonical nonzero retained; no accepted exact C after the recorded source/lifetime hypotheses. Upstream single-worker runs 202610151514:5000:budget_complete. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -51928,7 +51928,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Round3 2026-10-18: body of func_150CBE88 (unreferenced end: label keeps the D_800BE9A4 address in v0, (f32) cast on temp_fv1 flips the add.s): see measured score, down from 120. Left: li v0,1 placement (documented no-known-form pattern).",
+        "reason": "Round3 2026-10-18: body of twin func_150CBE88 (unreferenced end: label keeps the D_800BE9A4 address in v0, (f32) cast on temp_fv1 flips the add.s) improves 120 -> CURRENT (60). Left: li v0,1 placement (documented no-known-form pattern). Prior: manual 325->120 via compound field adds and cached rate; sibling pointer/volatile probes exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -59896,7 +59896,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Round3 2026-10-18: body of func_150CBE88 (unreferenced end: label keeps the D_800BE9A4 address in v0, (f32) cast on temp_fv1 flips the add.s): see measured score, down from 120. Left: li v0,1 placement (documented no-known-form pattern).",
+        "reason": "Round3 2026-10-18: body of twin func_150CBE88 (unreferenced end: label keeps the D_800BE9A4 address in v0, (f32) cast on temp_fv1 flips the add.s) improves 120 -> CURRENT (60). Left: li v0,1 placement (documented no-known-form pattern). Prior: manual compound updates, cached rate and velocity reuse improved 325 to 120; pointer and volatile-pointee probes regressed 300/130.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -72661,7 +72661,7 @@
           "vram": "0x151A9060"
         }
       },
-      "source": "src/game/game_1D6510.c",
+      "source": "src/done/game/game_1D6510.c",
       "symbol": "func_151A9060"
     },
     {
@@ -78676,7 +78676,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 25,
-        "reason": "Round3 2026-10-18: unnamed transform read improves 35 -> CURRENT (25) (named transform took v0; raw keeps it in v1). Left: raw reloads arg0 from its home into a0 and keeps the state pointer unnamed; dropping the named state copy regresses to 35, a u8 copy of arg1 to 175.",
+        "reason": "Round3 2026-10-18: unnamed transform read improves 35 -> CURRENT (25) (named transform took v0; raw keeps it in v1). Left: raw reloads arg0 from its home into a0 and keeps the state pointer unnamed; dropping the named state copy regresses to 35, a u8 copy of arg1 to 175. Prior: resumed batch20261015-1505 hypotheses/probes in build/us/manual-attempts/resume-20261015-1706/ledger.md; concrete source-local flags field improved 65 to 35; explicit byte selector 1846 and vector-table typing neutral 35.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -82605,7 +82605,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 160,
-        "reason": "Round3 2026-10-17: a K&R definition (void *arg0; void *arg1; u8 arg2;) reproduces the sw a0-a2 argument homes and the lbu 0x2B(sp) reload, 260 -> 160, but defer/probe cannot parse K&R so the ANSI 260 body is preserved. Left at 160: raw reloads arg1 twice in the 0x43 arm (lw t7/lw t0 from 0x24(sp), not CSE'd) and recomputes arg0+0x28 inside the arm. Volatile formals 768; K&R + per-arm temp + owner local 1442 (owner -> s0). Twins func_150F7310/func_15100230/func_151BE0AC/func_151D7538 share the shape.",
+        "reason": "Round3 2026-10-18: preserved ANSI candidate re-measured by defer at CURRENT (160) on the merged tree (previously recorded 260). A K&R definition (void *arg0; void *arg1; u8 arg2;) also reproduces the sw a0-a2 argument homes and the lbu 0x2B(sp) reload, but defer/probe cannot parse K&R. Left: raw reloads arg1 twice in the 0x43 arm (lw t7/lw t0 from 0x24(sp), not CSE'd) and recomputes arg0+0x28 inside the arm. Volatile formals 768; K&R + per-arm temp + owner local 1442 (owner -> s0). Twins func_150F7310/func_15100230/func_151BE0AC/func_151D7538 share the shape. Prior: one-pointer helper call and named input word kept; raw has a second arg1 home load missing; volatile-home probe regressed 430.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

@@ -133,6 +133,7 @@ void func_1516D4E8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s
         result->velocityXHigh = ((u8 *)&arg13)[3];
         result->velocityXLow = ((u8 *)&arg14)[3];
         result->velocityZHigh = ((u8 *)&arg15)[3];
+        /* Empty block is required for IDO store scheduling (permuter). */
         do {
         } while (0);
         result->velocityZLow = ((u8 *)&arg16)[3];

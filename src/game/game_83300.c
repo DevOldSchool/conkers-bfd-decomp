@@ -1415,6 +1415,7 @@ void func_1505D1C4(f32 arg0, f32 arg1, f32 arg2, s32 arg3, s32 arg4,
     D_800C3E78 = 0x19;
     D_800D1510 = arg7;
     D_800D1330 = 100.0f;
+    /* The redundant byte mask is required for IDO codegen (permuter). */
     D_800D12EC = (arg3 & 0xFF) + 1;
     D_800D1368 = 0.5f;
     D_800D136C = 0.5f;

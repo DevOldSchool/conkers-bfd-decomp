@@ -948,6 +948,7 @@ void func_15124B18(u8 *arg0) {
         return;
     }
     temp_t7 = *(s16 *)(arg0 + 0x1B4);
+    /* Empty test is required for IDO register allocation (permuter). */
     if (!temp_t8) {
     }
     temp_v0 = &D_800A34B0[temp_t7 * 2];
