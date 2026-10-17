@@ -859,7 +859,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "Canonical nonzero retained; no accepted exact C after the recorded source/lifetime hypotheses. Upstream single-worker runs 202610151514:5000:budget_complete. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained.",
+        "reason": "Round3 2026-10-18: CURRENT (20) unchanged; bnel t9,v0 (arg1[1] vs current) and beq t1,v0 (default arm) operand order. Source swaps of either compare neutral (20); twin-style memory expressions with a dst block local flip the v0/v1 roles (60).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -31706,17 +31706,16 @@
       "symbol": "func_150AEDD8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 175,
-        "reason": "Manual deferred-exact-20261005:fresh1095(stored1195)to175 in one revision. Shared actual statepointer and inputword snapshot across bothbranches recovers all GPR/frame and missing addresses; distinct from Sept24 failedfirstarm-only1485. Remaining second SB/B/RA delay scheduling and branchoperand reversal identical exhausted151B1FAC/15193234 family, not repeated. Valid175 preserved; full diff and attemptledger exported.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 184,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150AEDF8",
           "vram": "0x150AEDF8"
         }
@@ -54337,17 +54336,16 @@
       "symbol": "func_150D6F0C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 475,
-        "reason": "Manual masked u8 selector and event-word snapshot1087->475; all registers exact. Remaining final SB/B/RA schedule, BNEL operands and registered-span tail. Sibling150D6E60 explicit return/volatile store exhausted; not repeated.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 184,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D7068",
           "vram": "0x150D7068"
         }
@@ -55175,17 +55173,16 @@
       "symbol": "func_1517B500"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "Clean inlined scale input improves40to30/full192. Six input/quotient register rows remain. Named quotient375 and real input-to-quotient handoff410 regress; neither applied. Upstream single-worker runs 202610151515:5000:budget_complete. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 192,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1517B6E8",
           "vram": "0x1517B6E8"
         }
@@ -71575,17 +71572,16 @@
       "symbol": "func_151B1B34"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 275,
-        "reason": "Manual deferred-exact-20261005: fresh1127 (saved1087) to275, four hypotheses plus restore. u8 formal restores raw SW/ANDI/MOVE argument normalization; actual input snapshot fixes all GPRs. First-swap early return and reversing second equality operands both neutral275, closed. Remaining second swap SB is branch delay instead raw SB before branch with LW RA delay, one missing word and reversed equality operands. No actionable new local hypothesis; best valid candidate preserved. See build/us/manual-attempts/deferred-exact-20261005/ledger.md; no old detailed history recovered.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 180,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151B1FAC",
           "vram": "0x151B1FAC"
         }
@@ -87076,7 +87072,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 30,
-        "reason": "CURRENT 30 retained: anonymous raw pointer reload t7 versus named v1 cascades into shift scratch registers. One probe batch tested register pointer (30), direct volatile formal (120, reload schedule), actual one-pointer array (270/frame 0x28 versus 0x20). Prior one-field record neutral. No untried storage hypothesis.",
+        "reason": "Round3 2026-10-18: volatile pointer formal + named copy stays CURRENT (30) (named v1 vs raw temp t7 reload). K&R definition (s16 arg2) without volatile drops the a1 home store (234); K&R + volatile arg1 used directly also worse. No untried storage hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -87154,17 +87150,16 @@
       "symbol": "func_150FD514"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "Canonical30 retained. Upstream10 depended on same-line formatting; cleaned source30, no improvement applied. Source-format mutation disabled in future searches. Upstream single-worker runs 202610151511:5000:budget_complete. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 148,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150FDB0C",
           "vram": "0x150FDB0C"
         }
