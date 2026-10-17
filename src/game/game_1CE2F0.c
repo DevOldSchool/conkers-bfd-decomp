@@ -6,8 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_call_connected_beta_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151A0E40
- * - func_151A0F28
  * - func_151A1010
  * - func_151A11E4
  * - func_151A175C
@@ -23,32 +21,24 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_151A11CC(f32, f32, s32, f32, f32, s32, s32, s32,
+void func_151A11CC(f32, f32, f32, f32, f32, s32, s32, s32,
                    s32, s32, f32, s32, s32, s32, s32, s32,
                    s32, f32, s32, s32, s32, s32, s32, s32,
                    s32, s32, s32, s32);
-extern f32 D_800A8D20;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A0E40 CURRENT (1662) */
-void func_151A0E40(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+void func_151A0E40(f32 arg0, f32 arg1, f32 arg2, u8 arg3, s32 arg4) {
     func_151A11CC(
-        arg0, arg1, arg2, 163.0f, D_800A8D20, 0xA0, 0x4B, 0x41F, 0x4F6,
-        1, D_800A8D20, 0x87, 0x44, 0x41F, 0x4F6, 2, 1, D_800A8D20, 0x46,
-        0x42, 0x41F, 0x4F6, 7, 0x41, 4, 1, arg3 & 0xFF, arg4);
+        arg0, arg1, arg2, 163.0f, 2.019f, 0xA0, 0x4B, 0x41F, 0x4F6,
+        1, 2.019f, 0x87, 0x44, 0x41F, 0x4F6, 2, 1, 2.019f, 0x46,
+        0x42, 0x41F, 0x4F6, 7, 0x41, 4, 1, arg3, arg4);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A0E40 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CE2F0/func_151A0E40.s")
-extern f32 D_800A8D24;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A0F28 CURRENT (1662) */
-void func_151A0F28(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+void func_151A0F28(f32 arg0, f32 arg1, f32 arg2, u8 arg3, s32 arg4) {
     func_151A11CC(
-        arg0, arg1, arg2, 163.0f, D_800A8D24, 0xA0, 0x4B, 0x41F, 0x4F6,
-        1, D_800A8D24, 0x87, 0x44, 0x41F, 0x4F6, 2, 1, D_800A8D24, 0x46,
-        0x42, 0x41F, 0x4F6, 7, 0x41, 4, 1, arg3 & 0xFF, arg4);
+        arg0, arg1, arg2, 163.0f, 2.019f, 0xA0, 0x4B, 0x41F, 0x4F6,
+        1, 2.019f, 0x87, 0x44, 0x41F, 0x4F6, 2, 1, 2.019f, 0x46,
+        0x42, 0x41F, 0x4F6, 7, 0x41, 4, 1, arg3, arg4);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A0F28 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CE2F0/func_151A0F28.s")
 extern f32 D_800A8D28;
 typedef void (*Game1CE2F0ScaledSetupFn)(f32, f32, s32, f32, f32, s32, s32, s32,
                                         s32, s32, f32, s32, s32, s32, s32, s32,
@@ -82,7 +72,7 @@ void func_151A1010(f32 arg0, f32 arg1, s32 arg2, s16 arg3, f32 arg4, f32 arg5, u
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A1010 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CE2F0/func_151A1010.s")
-void func_151A11CC(f32 arg0, f32 arg1, s32 arg2, f32 arg3,
+void func_151A11CC(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
                   f32 arg4, s32 arg5, s32 arg6, s32 arg7,
                   s32 arg8, s32 arg9, f32 arg10, s32 arg11,
                   s32 arg12, s32 arg13, s32 arg14, s32 arg15,

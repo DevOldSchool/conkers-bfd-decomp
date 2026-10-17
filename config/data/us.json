@@ -846,6 +846,16 @@
         }
       },
       {
+        "address": "0x800A8D20",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1CE2F0.c",
+            "src/done/game/game_1CE2F0.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A8FF4",
         "section": ".rodata",
         "owner": {

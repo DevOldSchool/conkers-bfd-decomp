@@ -12,11 +12,9 @@
  * - func_15160E30
  * - func_15161A68
  * - func_15161F4C
- * - func_15162034
  * - func_1516295C
  * - func_15162B28
  * - func_151630F4
- * - func_15163604
  * - func_15163704
  * - func_15163A60
  * - func_151640C0
@@ -809,8 +807,7 @@ void func_15161F4C(u8 *arg0, u8 *arg1, u8 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161F4C.s")
 extern f32 D_800A6AF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15162034 CURRENT (409) */
-void *func_15162034(s32 arg0, s32 arg1, s32 arg2) {
+void *func_15162034(s32 arg0, u8 arg1, s32 arg2) {
     void *result;
     GameLightDescriptor descriptor;
     f32 values[8];
@@ -827,15 +824,12 @@ void *func_15162034(s32 arg0, s32 arg1, s32 arg2) {
     values[5] = 10.0f;
     values[6] = D_800A6AF0;
     values[7] = 127.0f;
-    result = func_1516037C(&descriptor, arg0, 0x20,
-                           arg1 & 0xFF, arg2);
+    result = func_1516037C(&descriptor, arg0, 0x20, arg1, arg2);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0x18, values, 0x20);
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15162034 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15162034.s")
 extern f32 D_800A6AF4;
 
 void func_15162110(s32 arg0) {
@@ -1287,29 +1281,27 @@ void func_151635A8(void *arg0, void *arg1, u8 arg2) {
         D_8008B370[*handler](arg0, arg1, arg2);
     }
 }
-extern u8 D_800A6964[];
-extern u8 D_800A699C[];
-extern u8 D_800A69D4[];
+extern f32 D_800A6964[];
+extern f32 D_800A699C[];
+extern f32 D_800A69D4[];
 extern f32 D_800A6B00;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15163604 CURRENT (388) */
-void *func_15163604(s32 arg0, s32 arg1, u8 arg2, s16 arg3, u8 arg4,
+void *func_15163604(s32 arg0, u8 arg1, u8 arg2, s16 arg3, u8 arg4,
                     s32 arg5, u8 arg6, s32 arg7) {
     void *result;
     GameLightDescriptor descriptor;
     f32 values[4];
 
-    arg1 &= 0xFF;
     if (arg1 < 0) {
         return 0;
     }
     if (arg1 >= 0xE) {
         return 0;
     }
-    values[0] = *(f32 *)(D_800A6964 + (arg1 * 4));
-    values[1] = *(f32 *)(D_800A699C + (arg1 * 4));
+    values[0] = D_800A6964[arg1];
+    values[1] = D_800A699C[arg1];
     values[2] = func_150ADA68() * D_800A6B00;
-    values[3] = *(f32 *)(D_800A69D4 + (arg1 * 4));
+    values[3] = D_800A69D4[arg1];
     descriptor.field0 = arg4;
     descriptor.field1 = 1;
     descriptor.field2 = arg3;
@@ -1320,8 +1312,6 @@ void *func_15163604(s32 arg0, s32 arg1, u8 arg2, s16 arg3, u8 arg4,
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15163604 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163604.s")
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);
 extern f32 D_800BE9A4;

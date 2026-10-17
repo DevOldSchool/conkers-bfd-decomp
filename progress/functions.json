@@ -2141,16 +2141,15 @@
       "symbol": "func_15161F4C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 409,
-        "reason": "Improved 648 to 409: natural float initializer order recovers all float loads/registers/stores. Remaining delayed selector mask and extra arg1 reload; early incoming normalization 840, named selector 409. Two probe batches and one finish; preserve 409 without ABI changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15162034",
           "vram": "0x15162034"
         }
@@ -2417,16 +2416,15 @@
       "symbol": "func_151635A8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 388,
-        "reason": "Improved 984 to 388 in full finish (probe 588 before linked-alias handling): remove duplicate result/aggregate and recomputable offset. Exact frame 0x40, all local homes and tail; remaining selector prologue raw argument-home store and early mask versus s32 parameter expression. Active caller declaration is s32; no unsupported narrowing/shared ABI edits. One probe batch/two variants/one finish.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15163604",
           "vram": "0x15163604"
         }
@@ -31528,8 +31526,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 480,
-        "reason": "Preserve CURRENT480 with concrete matched callee15178E14(u8) declaration and sole argument. Incoming u8 formal regressed898. Remaining raw redundant MOVE/ANDI/MOVE sequence, no useful new hypothesis.",
+        "current_score": 270,
+        "reason": "Round4 2026-10-18: CURRENT (480) unchanged. Width probes (s32,u8)/(s32,s16) 480, (u8,u8) 488, (u8,s32)/(s16,u8) 898: raw homes a1, copies a0->a1, homes a0, then moves back and narrows via t6 (u8-param prologue shape on the copy); no prototype reproduces it. Prior: concrete func_15178E14(u8) declaration retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -36312,17 +36310,16 @@
       "symbol": "func_1515D480"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 450,
-        "reason": "Best bounded candidate CURRENT (450); remaining differences are compiler ordering/register allocation around the fourth-argument mask and global address materialization.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515D4D4",
           "vram": "0x1515D4D4"
         }
@@ -38675,17 +38672,16 @@
       "symbol": "func_1507FFD8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 400,
-        "reason": "No new supported ABI evidence: existing source-local declaration is s32 and raw sw a0 home plus andi a2,a0,0xff remain absent from preserved CURRENT (400); changing sb-fed parameter width without declaration proof violates workflow. Retain candidate pending source-local ABI evidence.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 48,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1519CF70",
           "vram": "0x1519CF70"
         }
@@ -58707,17 +58703,16 @@
       "symbol": "func_1501BBB8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1149,
-        "reason": "CURRENT (1149): branch/math structure is close, but compiler omits reference parameter homes and differs in byte-normalization/register and float temporary scheduling after two bounded source revisions",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 224,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501C010",
           "vram": "0x1501C010"
         }
@@ -58744,17 +58739,16 @@
       "symbol": "func_1501C0F0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "Round2 2026-10-17: s32 candidate now CURRENT (100), only the a0 argument-home store missing. K&R u8 definition gives sll/sra (compiler -signed promotion) CURRENT 400; prototyped u8 conflicts with the in-file s32 declaration before matched caller func_1501C53C. Needs a coupled caller declaration change.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 52,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501C17C",
           "vram": "0x1501C17C"
         }
@@ -65569,8 +65563,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 626,
-        "reason": "Best candidate CURRENT 626 after two targeted revisions; correcting func_151149AC to one explicit argument improved the call sequence, but the compiler still places the 16-byte payload at sp+0x40 with a 0x50 frame instead of sp+0x34 with a 0x48 frame. Individual locals regressed.",
+        "current_score": 5,
+        "reason": "Round4 2026-10-18: CURRENT 626 -> 5. u8 arg0 (raw homes a0-a2 and narrows a0 into a3), arg0 used directly, result declared before payload (raw result 0x44 above payload 0x34). Left: one row, payload.index sb uses the v0 compare copy instead of raw a3. Named index local after payload grows frame 0x50 (116/652); randomized permute 120 s seed 20261018 no improvement.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -75563,17 +75557,16 @@
       "symbol": "func_15086364"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1662,
-        "reason": "All-caller 28-slot helper contract restores direct JAL and removes incompatible cast; CURRENT 2309 to 1662. Actual scale/selector locals scored 1666; used u8 selector scored 1662. Argument homes and constant/store scheduling remain different. Full-word wrapper formals and the simplest direct-call candidate are preserved; no forced storage or unsupported narrowing.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 232,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A0E40",
           "vram": "0x151A0E40"
         }
@@ -75582,17 +75575,16 @@
       "symbol": "func_151A0E40"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1662,
-        "reason": "All-caller 28-slot helper contract and floating slot 4 recover direct JAL; CURRENT 2309 to 1662. Argument homes and constant/store scheduling differ exactly as in independently inspected sibling 151A0E40. Its two non-improving real-dataflow revisions were not repeated here. Direct-call candidate preserved without narrowing or forced storage.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 232,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A0F28",
           "vram": "0x151A0F28"
         }
@@ -78527,17 +78519,16 @@
       "symbol": "func_151A5CEC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 419,
-        "reason": "CURRENT (319) preserved original: raw homes/normalizes a0 before ra and calls func_100111C8 with a pointer second argument, while original candidate normalizes a1 and adds argument moves; caller/callee declaration correction to u16/void* regressed live score to 474 because IDO delayed a0 normalization into call delay slot, explicit mask unchanged",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 44,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A5D2C",
           "vram": "0x151A5D2C"
         }
@@ -78681,7 +78672,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 25,
-        "reason": "Round3 2026-10-18: unnamed transform read improves 35 -> CURRENT (25) (named transform took v0; raw keeps it in v1). Left: raw reloads arg0 from its home into a0 and keeps the state pointer unnamed; dropping the named state copy regresses to 35, a u8 copy of arg1 to 175. Prior: resumed batch20261015-1505 hypotheses/probes in build/us/manual-attempts/resume-20261015-1706/ledger.md; concrete source-local flags field improved 65 to 35; explicit byte selector 1846 and vector-table typing neutral 35.",
+        "reason": "Round4 2026-10-18: CURRENT (25) unchanged. Using arg0 directly (no state copy) gets raw's a0 reload but arg1 reload lands in v1 and the 0x1D4 field in v0 (raw a3/v1): 35 for plain, named s32/u8* field local, field assignment before the test, u8 index copy; s32 index copy after the call 170. Prior: unnamed transform 35->25.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -78697,17 +78688,16 @@
       "symbol": "func_150EEE00"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 440,
-        "reason": "Packed stack buffer is semantically recovered; three source-only variants exhausted, with target spill ordering and temporary-register scheduling remaining.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 64,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150EEF40",
           "vram": "0x150EEF40"
         }
