@@ -244,22 +244,18 @@ s32 func_1515858C(s32 arg0, Game185560TransformArgs *arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515858C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_185560/func_1515858C.s")
 
-typedef struct Game185560Vec3f {
-    f32 x, y, z;
-} Game185560Vec3f;
-
 typedef struct Game185560Motion {
-    Game185560Vec3f angle;
+    Vec3f angle;
     f32 scale;
-    Game185560Vec3f velocity;
-    Game185560Vec3f angularVelocity;
+    Vec3f velocity;
+    Vec3f angularVelocity;
     f32 acceleration;
     f32 damping;
 } Game185560Motion;
 
 typedef struct Game185560MovingActor {
     u8 unknown0[0x48];
-    Game185560Vec3f position;
+    Vec3f position;
     u8 unknown54[0xA4];
     Game185560Motion motion;
 } Game185560MovingActor;
@@ -270,7 +266,7 @@ extern f32 D_800BE9A8;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15158684 CURRENT (2965) */
 s32 func_15158684(void *actor) {
     f32 acceleration;
-    Game185560Vec3f previous;
+    Vec3f previous;
     s32 remaining;
     Game185560Motion *motion;
     f32 deltaX;

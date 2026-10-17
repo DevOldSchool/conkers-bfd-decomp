@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_3F560.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_small_multi_function_units.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1501214C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game3F560Actor {
@@ -49,7 +44,6 @@ void func_150120B0(s32 arg0) {
     }
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501214C CURRENT (400) */
 void func_1501214C(Game3F560Actor *arg0) {
     Game3F560Descriptor descriptor;
 
@@ -63,5 +57,3 @@ void func_1501214C(Game3F560Actor *arg0) {
         func_15190770(&descriptor, 0, 0xFF, 1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501214C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_3F560/func_1501214C.s")

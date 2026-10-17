@@ -11,7 +11,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct { f32 x, y, z; } Game1DC150Vec;
 typedef struct {
     f32 height;
     s16 vertices[3][3];
@@ -20,7 +19,7 @@ typedef struct {
     void *record;
 } Game1DC150Hit;
 typedef struct {
-    Game1DC150Vec position;
+    Vec3f position;
     f32 values[6];
     s16 ranges[8];
     u8 flags, pad35[3];
@@ -28,7 +27,7 @@ typedef struct {
     s16 mode, count;
     s32 word40;
 } Game1DC150Params;
-typedef struct { u8 pad00[0x14]; Game1DC150Vec position; } Game1DC150Actor;
+typedef struct { u8 pad00[0x14]; Vec3f position; } Game1DC150Actor;
 void func_1504715C(void *, void *);
 s32 func_15046C80(void *, u16, f32, void *);
 u32 func_150ADA20(void);
@@ -44,10 +43,10 @@ void func_151AECA0(Game1DC150Actor *arg0, s32 arg1, s32 arg2) {
     Game1DC150Hit hit;
     Game1DC150Params params;
     s16 angles[4];
-    Game1DC150Vec top;
-    Game1DC150Vec point;
-    Game1DC150Vec center;
-    Game1DC150Vec centerTop;
+    Vec3f top;
+    Vec3f point;
+    Vec3f center;
+    Vec3f centerTop;
     f32 randomB;
     u32 angle;
     f32 randomA;

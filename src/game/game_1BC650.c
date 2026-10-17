@@ -294,12 +294,11 @@ extern u8 D_800A5480[];
 extern s16 D_800E0968[];
 extern s32 D_800E0990[];
 
-typedef struct { f32 x, y, z; } Game1BC650Vector;
 typedef struct {
     void *source;
     u8 owner;
     u8 pad5[3];
-    Game1BC650Vector position;
+    Vec3f position;
     u8 frame;
     u8 pad15;
     s16 duration;
@@ -310,10 +309,10 @@ typedef struct {
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F8E0 CURRENT (4621) */
 void func_1518F8E0(void *arg0) {
-    Game1BC650Vector *localPosition;
+    Vec3f *localPosition;
     s32 model;
     f32 sizes[2];
-    Game1BC650Vector position;
+    Vec3f position;
     s32 kind;
     u32 random;
     u8 *state;
@@ -330,7 +329,7 @@ void func_1518F8E0(void *arg0) {
                     model = *(s32 *)(state + 0x48);
                     entry = (u8 *)D_800E0990[model] + (func_150ADA20() % (u16)D_800E0968[model]) * 16;
                     sizes[0] = func_150ADA68() * *(f32 *)(state + 0x1C) + *(f32 *)(state + 0x14);
-                    localPosition = (Game1BC650Vector *)(entry + 4);
+                    localPosition = (Vec3f *)(entry + 4);
                     sizes[1] = func_150ADA68() * *(f32 *)(state + 0x20) + *(f32 *)(state + 0x18);
                     func_15143134((f32 *)localPosition, (f32 *)&position, *(s32 *)(source + 0x1D4) + (entry[0] << 6));
                     random = func_150ADA20();

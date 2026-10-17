@@ -14,17 +14,11 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct Game1188E0Vector {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1188E0Vector;
+s32 func_150EB484(Vec3f *, f32 *, void *);
 
-s32 func_150EB484(Game1188E0Vector *, f32 *, void *);
-
-void func_150EB430(Game1188E0Vector *arg0, Game1188E0Vector *arg1, void *arg2) {
+void func_150EB430(Vec3f *arg0, Vec3f *arg1, void *arg2) {
     f32 sp1C[3];
-    Game1188E0Vector *temp_a3 = arg1;
+    Vec3f *temp_a3 = arg1;
 
     sp1C[0] = arg0->x + temp_a3->x;
     sp1C[1] = arg0->y + temp_a3->y;
@@ -41,7 +35,7 @@ extern s32 D_80088AD0;
 extern u8 *D_800D3098;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150EB484 CURRENT (550) */
-s32 func_150EB484(Game1188E0Vector *arg0, f32 *arg1, void *arg2) {
+s32 func_150EB484(Vec3f *arg0, f32 *arg1, void *arg2) {
     u8 *spawned;
     s32 *index_ptr;
     s32 *alternate_ptr;
@@ -88,7 +82,7 @@ typedef struct Game1188E0ChildB614 {
 } Game1188E0ChildB614;
 typedef struct Game1188E0OwnerB614 {
     u8 pad0[0x14];
-    Game1188E0Vector position;
+    Vec3f position;
     u8 pad20[0x2FC];
     Game1188E0ChildB614 *child;
 } Game1188E0OwnerB614;
@@ -193,7 +187,7 @@ void func_150EB614(f32 *arg0) {
 /* The constructor copies the full 0x7C-byte descriptor. */
 typedef struct Game1188E0Particle {
     f32 field0, field4, field8, fieldC;
-    Game1188E0Vector angles, scale, position, velocity, field40;
+    Vec3f angles, scale, position, velocity, field40;
     f32 field4C;
     s32 field50;
     s16 field54, field56;
@@ -217,8 +211,8 @@ void func_151D5514(void *, u8, s32);
 void *func_151541B8(void *, f32, f32, f32, f32, u8, s32);
 void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);
-extern Game1188E0Vector D_800A1490, D_800A149C;
-extern Game1188E0Vector D_800A14A8[], D_800A5480;
+extern Vec3f D_800A1490, D_800A149C;
+extern Vec3f D_800A14A8[], D_800A5480;
 extern u8 D_800A14D8[], D_800BE9EB;
 extern f32 D_800A14E8, D_800A14EC, D_800A14F0, D_800A14F4, D_800A14F8;
 
@@ -301,7 +295,7 @@ extern f32 D_800A14FC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150EBC80 CURRENT (130) */
 void func_150EBC80(void *arg0, u8 arg1, s32 arg2) {
-    Game1188E0Vector position;
+    Vec3f position;
     f32 random;
     f32 step;
     Game1188E0Event event;

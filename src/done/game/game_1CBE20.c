@@ -4,12 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1CBE20.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1519EB8C
- * - func_1519ED24
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void *func_1519E970(s16 arg0, s32 arg1, u8 arg2, s32 arg3, s32 arg4, u8 arg5, s32 arg6) {
@@ -126,9 +120,7 @@ void func_1519EA78(Game1CBE20WordVector *arg0, u16 arg1, f32 arg2, u8 arg3,
 void *func_10022EC0(void *, const void *, u32);
 void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
 extern s32 D_800A5480[3];
-extern f32 D_800A8CD4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519EB8C CURRENT (390) */
 void func_1519EB8C(f32 *arg0, u16 arg1, s16 arg2, u8 arg3, s32 arg4) {
     typedef struct { s32 words[3]; } Copy3;
     struct {
@@ -160,8 +152,8 @@ void func_1519EB8C(f32 *arg0, u16 arg1, s16 arg2, u8 arg3, s32 arg4) {
     packet.owner = arg0;
     packet.values[0] = 1.0f;
     packet.values[1] = 1.0f;
-    packet.values[2] = arg0[6] * D_800A8CD4;
-    packet.values[3] = arg0[7] * D_800A8CD4;
+    packet.values[2] = arg0[6] * 0.1f;
+    packet.values[3] = arg0[7] * 0.1f;
     packet.values[4] = arg0[3];
     packet.values[5] = arg0[4];
     packet.values[6] = arg0[5];
@@ -199,16 +191,12 @@ void func_1519EB8C(f32 *arg0, u16 arg1, s16 arg2, u8 arg3, s32 arg4) {
         func_10022EC0((u8 *)result + 0x170, &packet.owner, 4);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519EB8C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CBE20/func_1519EB8C.s")
-extern f32 D_800A8CD8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519ED24 CURRENT (120) */
 s32 func_1519ED24(void *arg0) {
     f32 scale;
     void *temp_v1;
 
-    scale = D_800A8CD8;
+    scale = 0.1f;
     temp_v1 = *(void **)((u8 *)arg0 + 0x170);
     *(f32 *)((u8 *)arg0 + 0x18) = (f32) (*(f32 *)((u8 *)temp_v1 + 0x18) * scale);
     *(f32 *)((u8 *)arg0 + 0x1C) = (f32) (*(f32 *)((u8 *)temp_v1 + 0x1C) * scale);
@@ -220,8 +208,6 @@ s32 func_1519ED24(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x40) = (f32) *(f32 *)((u8 *)temp_v1 + 8);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519ED24 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CBE20/func_1519ED24.s")
 typedef struct Game1CBE20SpawnPacket {
     s8 field0;
     s8 field1;

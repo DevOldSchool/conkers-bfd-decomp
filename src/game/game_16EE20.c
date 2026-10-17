@@ -1847,11 +1847,6 @@ s32 func_15144CEC(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15144CEC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15144CEC.s")
-typedef struct {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game16EE20Vector3;
 
 void func_151450B4(void *, void *, void *);
 void *memcpy(void *, const void *, u32);
@@ -1913,7 +1908,7 @@ void func_151450B4(void *arg0, void *arg1, void *arg2) {
     *(f32 *)((u8 *)arg2 + 4) = (f32) ((*(f32 *)((u8 *)arg0 + 8) * *(f32 *)((u8 *)arg1 + 0)) - (*(f32 *)((u8 *)arg1 + 8) * *(f32 *)((u8 *)arg0 + 0)));
     *(f32 *)((u8 *)arg2 + 8) = (f32) ((*(f32 *)((u8 *)arg0 + 0) * *(f32 *)((u8 *)arg1 + 4)) - (*(f32 *)((u8 *)arg1 + 0) * *(f32 *)((u8 *)arg0 + 4)));
 }
-s32 func_15145128(Game16EE20Vector3 *arg0, Game16EE20Vector3 *arg1,
+s32 func_15145128(Vec3f *arg0, Vec3f *arg1,
     f32 *arg2, f32 *arg3) {
     f32 magnitude_squared;
     f32 inverse;
@@ -1964,9 +1959,9 @@ f32 func_15144A74(void *, void *);
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151452C4 CURRENT (2576) */
 s32 func_151452C4(void *arg0, void *arg1, s32 arg2, f32 arg3,
                   s32 arg4, s32 arg5, f32 *arg6, f32 *arg7) {
-    Game16EE20Vector3 direction;
-    Game16EE20Vector3 origin;
-    Game16EE20Vector3 delta;
+    Vec3f direction;
+    Vec3f origin;
+    Vec3f delta;
     f32 perpendicular;
     f32 dx;
     f32 dy;
@@ -1979,11 +1974,11 @@ s32 func_151452C4(void *arg0, void *arg1, s32 arg2, f32 arg3,
     f32 farDistance;
     s32 result;
 
-    dx = ((Game16EE20Vector3 *)arg2)->x - ((Game16EE20Vector3 *)arg0)->x;
-    dy = ((Game16EE20Vector3 *)arg2)->y - ((Game16EE20Vector3 *)arg0)->y;
-    dz = ((Game16EE20Vector3 *)arg2)->z - ((Game16EE20Vector3 *)arg0)->z;
-    direction = *(Game16EE20Vector3 *)arg1;
-    origin = *(Game16EE20Vector3 *)arg0;
+    dx = ((Vec3f *)arg2)->x - ((Vec3f *)arg0)->x;
+    dy = ((Vec3f *)arg2)->y - ((Vec3f *)arg0)->y;
+    dz = ((Vec3f *)arg2)->z - ((Vec3f *)arg0)->z;
+    direction = *(Vec3f *)arg1;
+    origin = *(Vec3f *)arg0;
     radiusSquared = arg3 * arg3;
     projection = dx * direction.x + dy * direction.y + dz * direction.z;
     discriminant = dx * dx + dy * dy + dz * dz - projection * projection;
@@ -1993,17 +1988,17 @@ s32 func_151452C4(void *arg0, void *arg1, s32 arg2, f32 arg3,
     if (projection < root) root = -root;
     nearDistance = projection - root;
     farDistance = projection + root;
-    ((Game16EE20Vector3 *)arg4)->x = nearDistance * direction.x + origin.x;
-    ((Game16EE20Vector3 *)arg4)->y = nearDistance * direction.y + origin.y;
-    ((Game16EE20Vector3 *)arg4)->z = nearDistance * direction.z + origin.z;
+    ((Vec3f *)arg4)->x = nearDistance * direction.x + origin.x;
+    ((Vec3f *)arg4)->y = nearDistance * direction.y + origin.y;
+    ((Vec3f *)arg4)->z = nearDistance * direction.z + origin.z;
     *arg6 = nearDistance;
-    ((Game16EE20Vector3 *)arg5)->x = farDistance * direction.x + origin.x;
-    ((Game16EE20Vector3 *)arg5)->y = farDistance * direction.y + origin.y;
-    ((Game16EE20Vector3 *)arg5)->z = farDistance * direction.z + origin.z;
+    ((Vec3f *)arg5)->x = farDistance * direction.x + origin.x;
+    ((Vec3f *)arg5)->y = farDistance * direction.y + origin.y;
+    ((Vec3f *)arg5)->z = farDistance * direction.z + origin.z;
     *arg7 = farDistance;
-    delta.x = ((Game16EE20Vector3 *)arg4)->x - ((Game16EE20Vector3 *)arg0)->x;
-    delta.y = ((Game16EE20Vector3 *)arg4)->y - ((Game16EE20Vector3 *)arg0)->y;
-    delta.z = ((Game16EE20Vector3 *)arg4)->z - ((Game16EE20Vector3 *)arg0)->z;
+    delta.x = ((Vec3f *)arg4)->x - ((Vec3f *)arg0)->x;
+    delta.y = ((Vec3f *)arg4)->y - ((Vec3f *)arg0)->y;
+    delta.z = ((Vec3f *)arg4)->z - ((Vec3f *)arg0)->z;
     discriminant = func_15144A74(&delta, arg1);
     result = 1;
     if (discriminant < 0.0f) result = 0;
@@ -2111,8 +2106,8 @@ extern f32 D_800A56B4;
 extern f32 D_800A56B8;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15145740 CURRENT (1849) */
-void func_15145740(Game145740Actor *arg0, Game16EE20Vector3 *arg1,
-                   Game16EE20Vector3 *arg2, Game16EE20Vector3 *arg3, f32 arg4) {
+void func_15145740(Game145740Actor *arg0, Vec3f *arg1,
+                   Vec3f *arg2, Vec3f *arg3, f32 arg4) {
     s16 yaw;
     f32 pitch;
     volatile f32 shiftedPitch;
@@ -2207,9 +2202,9 @@ typedef struct Game145AD8Locals {
     f32 sp44;
     f32 sp48;
     f32 sp4C;
-    Game16EE20Vector3 third;
-    Game16EE20Vector3 second;
-    Game16EE20Vector3 first;
+    Vec3f third;
+    Vec3f second;
+    Vec3f first;
     f32 sp74;
     f32 sp78;
 } Game145AD8Locals;
@@ -2217,15 +2212,15 @@ typedef struct Game145AD8Locals {
 void func_1515C1A0(void *, void *, f32 *, f32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15145AD8 CURRENT (787) */
-s32 func_15145AD8(Game16EE20Vector3 *arg0, Game16EE20Vector3 *arg1,
+s32 func_15145AD8(Vec3f *arg0, Vec3f *arg1,
                    u8 *arg2, f32 *arg3, f32 *arg4, f32 *arg5,
-                   f32 *arg6, Game16EE20Vector3 *arg7) {
-    Game16EE20Vector3 sp7C;
+                   f32 *arg6, Vec3f *arg7) {
+    Vec3f sp7C;
     f32 sp78;
     f32 sp74;
-    Game16EE20Vector3 first;
-    Game16EE20Vector3 second;
-    Game16EE20Vector3 thirdVector;
+    Vec3f first;
+    Vec3f second;
+    Vec3f thirdVector;
     f32 sp4C;
     f32 sp48;
     f32 sp44;
@@ -2409,8 +2404,8 @@ void func_15145EA4(f32 **arg0, f32 **arg1, s32 arg2, s32 arg3) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15145EA4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15145EA4.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15146078 CURRENT (1755) */
-s32 func_15146078(f32 *direction, Game16EE20Vector3 *first,
-                   Game16EE20Vector3 *second) {
+s32 func_15146078(f32 *direction, Vec3f *first,
+                   Vec3f *second) {
     u8 zero_count;
     u8 nonzero_axis;
     u8 zero_axis;

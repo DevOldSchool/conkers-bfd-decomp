@@ -29,11 +29,6 @@ void func_151CF844(void *arg0, s32 arg1, u8 arg2) {
         func_15169850(arg1, (s32) arg2, (s32) temp_v0, (s32) temp_v0 + 4, (s32) arg0);
     }
 }
-typedef struct Game71820XZ {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game71820XZ;
 
 typedef struct Game71820Hit {
     f32 height;
@@ -49,7 +44,7 @@ f32 func_150ADA68(void);
 u32 func_150ADA20(void);
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
-s32 func_15046C80(Game71820XZ *, u16, f32, Game71820Hit *);
+s32 func_15046C80(Vec3f *, u16, f32, Game71820Hit *);
 f32 func_15144AA8(s32);
 s32 func_15144B34(s32);
 void *func_10022EC0(void *, const void *, u32);
@@ -60,14 +55,14 @@ extern Game71820Hit D_800D9860;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CF898 CURRENT (432) */
 void func_151CF898(void *arg0, f32 arg1, f32 arg2) {
     struct {
-        Game71820XZ position;
+        Vec3f position;
         f32 extra;
     } effect;
     f32 distance;
     f32 angle;
     f32 yaw;
     f32 *camera;
-    Game71820XZ position;
+    Vec3f position;
     void *entity;
     void *result;
     s32 choice;

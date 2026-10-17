@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1B7870.c
@@ -10,12 +11,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-typedef struct Game1B7870Vector {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1B7870Vector;
 
 typedef struct {
     u8 kind;
@@ -47,14 +42,14 @@ typedef struct {
     u8 field34;
     u8 field35;
     u8 pad36[2];
-    Game1B7870Vector position;
+    Vec3f position;
 } Game1B7870Descriptor;
 
 typedef struct {
-    Game1B7870Vector first;
+    Vec3f first;
     f32 scale;
-    Game1B7870Vector second;
-    Game1B7870Vector third;
+    Vec3f second;
+    Vec3f third;
     f32 field28;
     f32 field2C;
 } Game1B7870Payload;
@@ -71,8 +66,8 @@ void *func_10022EC0(void *, const void *, u32);
 extern s32 D_8008D5B0[];
 extern s32 D_8008D5B8[];
 
-void *func_1518A3C0(Game1B7870Vector *arg0, Game1B7870Vector *arg1,
-                       f32 arg2, Game1B7870Vector *arg3, Game1B7870Vector *arg4,
+void *func_1518A3C0(Vec3f *arg0, Vec3f *arg1,
+                       f32 arg2, Vec3f *arg3, Vec3f *arg4,
                        f32 arg5, f32 arg6, u8 arg7, s16 arg8, u8 arg9,
                        s32 arg10, u8 arg11, s32 arg12) {
     u8 *result;
@@ -130,7 +125,7 @@ void *func_1518A3C0(Game1B7870Vector *arg0, Game1B7870Vector *arg1,
 }
 typedef struct {
     u8 pad0[0x48];
-    Game1B7870Vector position;
+    Vec3f position;
     u8 pad54[0xAC];
     Game1B7870Payload payload;
 } Game1B7870Object;
@@ -143,7 +138,7 @@ extern s32 D_800BE9E4;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1518A5F4 CURRENT (1505) */
 s32 func_1518A5F4(Game1B7870Object *arg0) {
     f32 changeX;
-    Game1B7870Vector previous;
+    Vec3f previous;
     f32 changeY;
     f32 changeZ;
     register Game1B7870Payload *payload;

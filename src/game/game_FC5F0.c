@@ -11,7 +11,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct GameFC5F0Vector { f32 x, y, z; } GameFC5F0Vector;
 typedef struct GameFC5F0Surface {
     f32 height;
     s16 vertices[9];
@@ -34,11 +33,11 @@ extern f32 D_800A0850, D_800A0854, D_800BE9A4;
 void func_150CF140(u8 *arg0) {
     s16 angle;
     u8 *owner;
-    GameFC5F0Vector origin;
+    Vec3f origin;
     f32 radius;
     GameFC5F0Surface surface;
     f32 upper, lower;
-    GameFC5F0Vector position, direction;
+    Vec3f position, direction;
     f32 randomSize, speedRange, speedBase, sizeRange, sizeBase;
     u32 random1, random2;
     u8 *state;

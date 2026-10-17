@@ -507,19 +507,14 @@ s32 func_1507E114(s32 arg0) {
     func_15084D70(0, D_800BE3E0, 1, &sp54, &sp48, &sp43, &sp42, &sp44, &sp3C, 1, &sp5C);
     return sp5C + 1;
 }
-typedef struct GameA9D90Vec3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} GameA9D90Vec3;
 
 void func_15143134(f32 *, f32 *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E1D0 CURRENT (975) */
 void func_1507E1D0(u8 *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
     struct {
-        GameA9D90Vec3 output;
-        GameA9D90Vec3 input;
+        Vec3f output;
+        Vec3f input;
     } local;
     s32 temp_v0;
     s32 var_a2;

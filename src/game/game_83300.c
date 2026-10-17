@@ -16,13 +16,11 @@
  * - func_150585F0
  * - func_15058898
  * - func_15058F24
- * - func_150593C4
  * - func_15059444
  * - func_1505959C
  * - func_150599C8
  * - func_15059B54
  * - func_15059C84
- * - func_1505A184
  * - func_1505A250
  * - func_1505A3A8
  * - func_1505A630
@@ -636,24 +634,17 @@ void func_15059140(u8 *arg0) {
         }
     }
 }
-void func_1505A184(u16, f32, s32, f32 *, f32 *, s32 *);
+void func_1505A184(u16, f32, f32, f32 *, f32 *, s32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150593C4 CURRENT (309) */
 void func_150593C4(s32 arg0, u16 arg1, f32 arg2, f32 arg3) {
     f32 sp2C;
     f32 sp28;
     s32 sp24;
-    f32 temp_fv0;
-    f32 temp_fv1;
 
-    func_1505A184(arg1, arg2, 0, &sp2C, &sp28, &sp24);
-    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x16C);
-    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x170);
-    *(f32 *)((u8 *)arg0 + 0x16C) = temp_fv0 + ((sp2C - temp_fv0) * arg3);
-    *(f32 *)((u8 *)arg0 + 0x170) = temp_fv1 + ((sp28 - temp_fv1) * arg3);
+    func_1505A184(arg1, arg2, 0.0, &sp2C, &sp28, &sp24);
+    *(f32 *)((u8 *)arg0 + 0x16C) += (sp2C - *(f32 *)((u8 *)arg0 + 0x16C)) * arg3;
+    *(f32 *)((u8 *)arg0 + 0x170) += (sp28 - *(f32 *)((u8 *)arg0 + 0x170)) * arg3;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150593C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150593C4.s")
 void func_150593C4(s32, u16, f32, f32);
 s32 func_15083E0C(s32);
 s32 func_150A29C8(s32, s32);
@@ -965,31 +956,24 @@ f32 func_150AD78C(f32);
 extern f32 D_800994B8;
 extern f32 D_800994BC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505A184 CURRENT (589) */
-void func_1505A184(u16 arg0, register f32 arg1, s32 arg2, f32 *arg3,
+void func_1505A184(u16 arg0, register f32 arg1, f32 arg2, f32 *arg3,
     f32 *arg4, s32 *arg5) {
-    union {
-        s32 word;
-        f32 value;
-    } angle_bits;
-    f32 first_angle;
-    f32 second_angle;
     f32 sine;
     f32 cosine;
+    f32 height;
+    register f32 angle;
 
     arg1 *= 0.5f;
-    angle_bits.word = arg2;
-    first_angle = angle_bits.value * D_800994B8;
-    *(f32 *)arg5 = func_150AD78C(first_angle) * -arg1;
-    arg1 = func_150AD780(first_angle) * arg1;
-    second_angle = (f32)arg0 * D_800994BC;
-    sine = func_150AD780(second_angle);
-    cosine = -func_150AD78C(second_angle);
+    arg2 *= D_800994B8;
+    height = func_150AD78C(arg2) * -arg1;
+    *(f32 *)arg5 = height;
+    arg1 = func_150AD780(arg2) * arg1;
+    angle = (f32)arg0 * D_800994BC;
+    sine = func_150AD780(angle);
+    cosine = -func_150AD78C(angle);
     *arg3 = sine * arg1;
     *arg4 = cosine * arg1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505A184 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A184.s")
 extern f32 D_800D1550;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1505A250 CURRENT (3520) */

@@ -28,20 +28,15 @@ void func_150D8B10(void *arg0, void *arg1) {
     *(f32 *)((u8 *)arg1 + 4) = (f32) (*(f32 *)((u8 *)arg0 + 0x18) + 20.0f);
     *(f32 *)((u8 *)arg1 + 8) = (f32) *(f32 *)((u8 *)arg0 + 0x1C);
 }
-typedef struct {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game105FC0Vec3;
 
 void func_150D8B3C(void *arg0, void *arg1) {
-    Game105FC0Vec3 first;
-    Game105FC0Vec3 second;
+    Vec3f first;
+    Vec3f second;
     func_15145740(arg0, &first, &second, arg1,
                   (D_800BE616 != 0) ? D_800A0B40 : D_800A0B44);
 }
 typedef struct Game105FC0Spawn {
-    Game105FC0Vec3 position;
+    Vec3f position;
     s16 life;
     s16 count;
     s32 mode;
@@ -52,15 +47,15 @@ typedef struct Game105FC0Spawn {
 typedef struct Game105FC0Payload {
     void *owner;
     u8 kind;
-    Game105FC0Vec3 first;
-    Game105FC0Vec3 second;
-    Game105FC0Vec3 velocity;
+    Vec3f first;
+    Vec3f second;
+    Vec3f velocity;
     f32 value2C;
     s16 sound;
     f32 value34;
     f32 value38;
     f32 value3C;
-    Game105FC0Vec3 offset;
+    Vec3f offset;
     u8 flags;
     s8 timer;
 } Game105FC0Payload;
@@ -77,7 +72,7 @@ void func_150D8B88(void *arg0) {
     Game105FC0Spawn spawn;
     void *object;
     Game105FC0Payload payload;
-    Game105FC0Vec3 position;
+    Vec3f position;
     void *entity;
 
     if (*(void **)((u8 *)arg0 + 0x31C) != 0) {
@@ -121,8 +116,8 @@ extern f32 D_800A0B4C;
 extern f32 D_800A0B50;
 
 
-void func_150D8D84(Game105FC0Vec3 *arg0, Game105FC0Vec3 *arg1, f32 arg2) {
-    Game105FC0Vec3 sp4;
+void func_150D8D84(Vec3f *arg0, Vec3f *arg1, f32 arg2) {
+    Vec3f sp4;
 
     sp4 = *arg1;
     arg1->y += D_800A0B4C * arg2;
@@ -163,7 +158,7 @@ typedef struct Game105FC0State {
     s8 stop;
     s8 current;
     u8 pad2F[0x25];
-    Game105FC0Vec3 position;
+    Vec3f position;
     u8 pad60[0x34];
     u8 *samples;
     Game105FC0Timer *timer;
@@ -177,8 +172,8 @@ s32 func_150D8E4C(Game105FC0State *arg0) {
     s32 temp_s4;
     s32 var_s0;
     Game105FC0Timer *temp_s5;
-    Game105FC0Vec3 *temp_a0;
-    Game105FC0Vec3 *temp_t0;
+    Vec3f *temp_a0;
+    Vec3f *temp_t0;
     Game105FC0Owner *temp_v1;
     Game105FC0Sub *temp_v0;
     s32 stride;
@@ -195,13 +190,13 @@ s32 func_150D8E4C(Game105FC0State *arg0) {
             if (var_s0 < 0) {
                 var_s0 = arg0->capacity - 1;
             }
-            temp_a0 = (Game105FC0Vec3 *)(temp_s4 + var_s0 * 0x24);
+            temp_a0 = (Vec3f *)(temp_s4 + var_s0 * 0x24);
             func_150D8D84(temp_a0, temp_a0 + 1, D_800BE9A4);
         } while (var_s0 != arg0->stop);
     }
     stride = 0x24;
     if (arg0->mode > 0) {
-        temp_t0 = (Game105FC0Vec3 *)(temp_s4 + arg0->stop * stride);
+        temp_t0 = (Vec3f *)(temp_s4 + arg0->stop * stride);
         arg0->position = *temp_t0;
     } else {
         arg0->position.x = 0.0f;

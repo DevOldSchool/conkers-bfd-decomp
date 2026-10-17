@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_44A90.c
@@ -27,17 +28,12 @@ void func_100226F0(void *arg0, s32 arg1, void *arg2);
 void func_15048134(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6);
 
 extern f32 D_800968B0;
-typedef struct Game44A90Vec {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game44A90Vec;
 
 extern s16 D_8009DCB4[3];
 extern u8 D_800D23D0;
 extern f32 D_800D2410;
-extern Game44A90Vec D_800D2428;
-extern Game44A90Vec D_800D2438;
+extern Vec3f D_800D2428;
+extern Vec3f D_800D2438;
 extern s32 D_800D2444;
 extern u8 D_800D2454;
 extern u8 D_800D2458;

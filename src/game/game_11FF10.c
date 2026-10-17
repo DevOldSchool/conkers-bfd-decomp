@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150F2A60
  * - func_150F2D14
- * - func_150F3214
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -121,32 +120,29 @@ f32 sqrtf(f32);
 extern f32 D_800A1950;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F3214 CURRENT (36) */
-s32 func_150F3214(void *arg0) {
-    u8 *owner = (u8 *)arg0;
+s32 func_150F3214(u8 *owner) {
     u8 *link;
     u8 *slot;
-    s32 transform;
+    f32 scale;
 
     link = *(u8 **)(owner + 0x110);
     slot = owner + 0x110;
     if (*(s32 *)link == 0 || slot[4] != link[0x3B] ||
-        (transform = *(s32 *)(link + 0x1D4)) == 0) {
+        *(s32 *)(link + 0x1D4) == 0) {
         return 0;
     }
-    func_15143134(&D_800A1950, (f32 *)(owner + 0x34), (s32)((u32)transform + 0x3C0U));
-    *(f32 *)(owner + 0x2C) = *(f32 *)(owner + 0x30) =
-        *(f32 *)(slot + 0x10) * sqrtf(*(f32 *)(slot + 8));
+    func_15143134(&D_800A1950, (f32 *)(owner + 0x34), (s32)((u32)*(s32 *)(link + 0x1D4) + 0x3C0U));
+    scale = *(f32 *)(slot + 0x10) * sqrtf(*(f32 *)(slot + 8));
+    *(f32 *)(owner + 0x30) = scale;
+    *(f32 *)(owner + 0x2C) = scale;
     *(s8 *)(owner + 0x5C) = (s8)(u32)(*(f32 *)(slot + 0x14) -
-        (*(f32 *)(slot + 8) * (*(f32 *)(slot + 0x18) * *(f32 *)(slot + 8))));
+        (*(f32 *)(slot + 8) * (*(f32 *)(slot + 8) * *(f32 *)(slot + 0x18))));
     *(f32 *)(slot + 8) += D_800BE9A4;
     if (*(f32 *)(slot + 0xC) < *(f32 *)(slot + 8)) {
         return 0;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F3214 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11FF10/func_150F3214.s")
 s32 func_15140410(s32, s32, s32, s16);
 
 void func_150F337C(s32 arg0, s16 arg1) {

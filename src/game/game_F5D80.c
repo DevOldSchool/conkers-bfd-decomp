@@ -9,7 +9,6 @@
  * - func_150C88D0
  * - func_150C8A68
  * - func_150C8DB8
- * - func_150C99B4
  * - func_150C9BDC
  * - func_150C9DC4
  * - func_150CA07C
@@ -202,7 +201,6 @@ void *func_15130374(s32, u8, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);
 extern f32 D_800A0570, D_800A0574, D_800A0578, D_800A057C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C99B4 CURRENT (10) */
 void func_150C99B4(GameF5D80Emitter *arg0, GameF5D80Vector *arg1, u8 arg2, s32 arg3) {
     GameF5D80Particle packet;
     f32 fraction;
@@ -246,12 +244,10 @@ void func_150C99B4(GameF5D80Emitter *arg0, GameF5D80Vector *arg1, u8 arg2, s32 a
     packet.field63 = -1;
     angle = func_150ADA20() % 11U - 18;
     fraction = func_150ADA68();
-    magnitude = (arg0->scale * D_800A0578) * fraction + arg0->scale * D_800A057C;
+    magnitude = (f32)fraction * (arg0->scale * D_800A0578) + arg0->scale * D_800A057C;
     func_15143794(arg2, angle, magnitude, &packet.direction);
     func_15130374((s32)&packet, 1, 0, arg0->mode, arg0->group);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C99B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150C99B4.s")
 typedef struct GameF5D80Actor {
     s32 active;
     u8 kind;

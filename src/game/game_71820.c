@@ -415,11 +415,6 @@ void func_15044E88(void) {
         func_1505D024(D_800CC2D0, 1, *(u16 *)(D_800CC2D0 + 0x7A), -1);
     }
 }
-typedef struct Game71820XZ {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game71820XZ;
 
 typedef struct Game71820Hit {
     f32 height;
@@ -454,7 +449,7 @@ extern f32 D_800DBE74;
 s32 func_150A4FA0(s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15044ED0 CURRENT (65) */
-s32 func_15044ED0(Game71820XZ *arg0, f32 arg1, volatile Game71820Hit *arg2) {
+s32 func_15044ED0(Vec3f *arg0, f32 arg1, volatile Game71820Hit *arg2) {
     s32 count;
     s32 best;
     s32 scan_index;
@@ -529,7 +524,7 @@ s32 func_15044ED0(Game71820XZ *arg0, f32 arg1, volatile Game71820Hit *arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15044ED0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044ED0.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150450CC CURRENT (100) */
-s32 func_150450CC(Game71820XZ *arg0, f32 arg1, Game71820Hit *arg2) {
+s32 func_150450CC(Vec3f *arg0, f32 arg1, Game71820Hit *arg2) {
     s32 count;
     s32 best;
     s32 scan_index;
@@ -609,10 +604,10 @@ s32 func_150450CC(Game71820XZ *arg0, f32 arg1, Game71820Hit *arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150450CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_150450CC.s")
-s32 func_15044ED0(Game71820XZ *, f32, volatile Game71820Hit *); /* extern */
+s32 func_15044ED0(Vec3f *, f32, volatile Game71820Hit *); /* extern */
 s32 func_150470B0(void *, f32, void *);             /* extern */
 
-s32 func_1504530C(Game71820XZ *arg0, f32 arg1, Game71820Hit *arg2) {
+s32 func_1504530C(Vec3f *arg0, f32 arg1, Game71820Hit *arg2) {
     /* func_150470B0 returns only 0, 1, or 2. */
     switch (func_150470B0(arg0, arg1, arg2)) {
     case 0:
@@ -623,7 +618,7 @@ s32 func_1504530C(Game71820XZ *arg0, f32 arg1, Game71820Hit *arg2) {
         return 1;
     }
 }
-s32 func_15045384(Game71820XZ *arg0, f32 arg1, Game71820Hit *arg2) {
+s32 func_15045384(Vec3f *arg0, f32 arg1, Game71820Hit *arg2) {
     s32 count;
     s32 best;
     s32 scan_index;
@@ -685,7 +680,7 @@ s32 func_15045384(Game71820XZ *arg0, f32 arg1, Game71820Hit *arg2) {
     arg2->flags &= ~2;
     return 0;
 }
-s32 func_1504554C(Game71820XZ *arg0, f32 arg1, Game71820Hit *arg2) {
+s32 func_1504554C(Vec3f *arg0, f32 arg1, Game71820Hit *arg2) {
     s32 count;
     s32 best;
     s32 scan_index;
@@ -750,13 +745,13 @@ s32 func_1504554C(Game71820XZ *arg0, f32 arg1, Game71820Hit *arg2) {
 s32 func_150A6500(s16, s16, s32, u16);
 void func_1510F800(s32);
 
-void func_15045714(Game71820XZ *arg0, u16 arg1, s32 *arg2, s32 arg3) {
+void func_15045714(Vec3f *arg0, u16 arg1, s32 *arg2, s32 arg3) {
     func_1510F800(2);
     *arg2 = func_150A6500((s16)(s32)arg0->x, (s16)(s32)arg0->z, arg3, arg1);
 }
-s32 func_15045F8C(Game71820XZ *, f32, void *, Game71820Hit *); /* extern */
+s32 func_15045F8C(Vec3f *, f32, void *, Game71820Hit *); /* extern */
 
-s32 func_15045780(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
+s32 func_15045780(Vec3f *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     s32 sp1C;
     s32 sp18;
 
@@ -767,10 +762,10 @@ s32 func_15045780(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     func_15045714(arg0, arg1, &sp1C, (s32) &sp18);
     return func_15045F8C(arg0, arg2, &sp18, arg3);
 }
-s32 func_15045780(Game71820XZ *, u16, f32, Game71820Hit *); /* extern */
+s32 func_15045780(Vec3f *, u16, f32, Game71820Hit *); /* extern */
 s32 func_15047004(void *, f32, void *);             /* extern */
 
-s32 func_15045800(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
+s32 func_15045800(Vec3f *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     /* func_15047004 returns only 0, 1, or 2. */
     switch (func_15047004(arg0, arg2, arg3)) {
     case 0:
@@ -802,7 +797,7 @@ extern f32 D_80098D50;
 extern u8 D_800D37E0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15045880 CURRENT (1300) */
-u8 func_15045880(Game71820XZ *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
+u8 func_15045880(Vec3f *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
     s32 count;
     s32 best;
     s32 scan_index;
@@ -880,7 +875,7 @@ u8 func_15045880(Game71820XZ *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
 extern f32 D_80098D54;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15045AE4 CURRENT (1065) */
-u8 func_15045AE4(Game71820XZ *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
+u8 func_15045AE4(Vec3f *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
     s32 count;
     s32 best;
     s32 scan_index;
@@ -956,7 +951,7 @@ u8 func_15045AE4(Game71820XZ *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15045AE4.s")
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15045D48 CURRENT (335) */
-s32 func_15045D48(Game71820XZ *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
+s32 func_15045D48(Vec3f *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
     s32 count;
     s32 best;
     s32 scan_index;
@@ -1031,7 +1026,7 @@ s32 func_15045D48(Game71820XZ *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
 extern f32 D_80098D5C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15045F8C CURRENT (335) */
-s32 func_15045F8C(Game71820XZ *arg0, f32 arg1, void *arg2, Game71820Hit *arg3) {
+s32 func_15045F8C(Vec3f *arg0, f32 arg1, void *arg2, Game71820Hit *arg3) {
     s32 count;
     s32 best;
     s32 scan_index;
@@ -1103,11 +1098,11 @@ s32 func_15045F8C(Game71820XZ *arg0, f32 arg1, void *arg2, Game71820Hit *arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15045F8C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15045F8C.s")
-u8 func_15045880(Game71820XZ *, f32, s32 *, Game71820Hit *);
-s32 func_15045D48(Game71820XZ *, f32, s32 *, Game71820Hit *);
+u8 func_15045880(Vec3f *, f32, s32 *, Game71820Hit *);
+s32 func_15045D48(Vec3f *, f32, s32 *, Game71820Hit *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150461D0 CURRENT (120) */
-s32 func_150461D0(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
+s32 func_150461D0(Vec3f *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     s32 first_set;
     s32 second_set;
     Game71820Hit first_hit;
@@ -1150,10 +1145,10 @@ s32 func_150461D0(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150461D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_150461D0.s")
-u8 func_15045AE4(Game71820XZ *, f32, s32 *, Game71820Hit *);
+u8 func_15045AE4(Vec3f *, f32, s32 *, Game71820Hit *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15046460 CURRENT (120) */
-s32 func_15046460(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
+s32 func_15046460(Vec3f *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     s32 first_set;
     s32 second_set;
     Game71820Hit first_hit;
@@ -1198,9 +1193,9 @@ s32 func_15046460(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15046460 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15046460.s")
-s32 func_150461D0(Game71820XZ *, u16, f32, Game71820Hit *);
+s32 func_150461D0(Vec3f *, u16, f32, Game71820Hit *);
 
-s32 func_150466F8(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
+s32 func_150466F8(Vec3f *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     Game71820Hit first_hit;
     Game71820Hit second_hit;
     u8 first_result;
@@ -1238,10 +1233,10 @@ s32 func_150466F8(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     arg3->flags &= ~2;
     return 0;
 }
-s32 func_15046460(Game71820XZ *, u16, f32, Game71820Hit *);
-s32 func_150450CC(Game71820XZ *, f32, Game71820Hit *);
+s32 func_15046460(Vec3f *, u16, f32, Game71820Hit *);
+s32 func_150450CC(Vec3f *, f32, Game71820Hit *);
 
-s32 func_1504697C(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
+s32 func_1504697C(Vec3f *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     Game71820Hit first_hit;
     Game71820Hit second_hit;
     u8 first_result;
@@ -1279,9 +1274,9 @@ s32 func_1504697C(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     arg3->flags &= ~2;
     return 0;
 }
-s32 func_150466F8(Game71820XZ *, u16, f32, Game71820Hit *);              /* extern */
+s32 func_150466F8(Vec3f *, u16, f32, Game71820Hit *);              /* extern */
 
-s32 func_15046C00(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
+s32 func_15046C00(Vec3f *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     /* func_150470B0 returns only 0, 1, or 2. */
     switch (func_150470B0(arg0, arg2, arg3)) {
     case 0:
@@ -1292,9 +1287,9 @@ s32 func_15046C00(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
         return 1;
     }
 }
-s32 func_1504697C(Game71820XZ *, u16, f32, Game71820Hit *);              /* extern */
+s32 func_1504697C(Vec3f *, u16, f32, Game71820Hit *);              /* extern */
 
-s32 func_15046C80(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
+s32 func_15046C80(Vec3f *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     /* func_15047004 returns only 0, 1, or 2. */
     switch (func_15047004(arg0, arg2, arg3)) {
     case 0:
@@ -1305,7 +1300,7 @@ s32 func_15046C80(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
         return 1;
     }
 }
-s32 func_15046D00(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
+s32 func_15046D00(Vec3f *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     Game71820Hit first_hit;
     Game71820Hit second_hit;
     u8 first_result;
@@ -1343,9 +1338,9 @@ s32 func_15046D00(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     arg3->flags &= ~2;
     return 0;
 }
-s32 func_15046D00(Game71820XZ *, u16, f32, Game71820Hit *);              /* extern */
+s32 func_15046D00(Vec3f *, u16, f32, Game71820Hit *);              /* extern */
 
-s32 func_15046F84(Game71820XZ *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
+s32 func_15046F84(Vec3f *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     /* func_15047004 returns only 0, 1, or 2. */
     switch (func_15047004(arg0, arg2, arg3)) {
     case 0:

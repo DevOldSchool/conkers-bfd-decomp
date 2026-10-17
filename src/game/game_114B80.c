@@ -244,14 +244,11 @@ void func_150E7FEC(f32 arg0, u8 arg1, s32 arg2, f32 *arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150E7FEC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E7FEC.s")
-typedef struct GameE81A8Position {
-    f32 x, y, z;
-} GameE81A8Position;
 
 typedef struct GameE81A8Effect {
     s16 field00, field02, field04, field06;
     s32 field08, field0C;
-    GameE81A8Position position;
+    Vec3f position;
     f32 field1C, field20, field24, field28, field2C, field30;
     s32 field34, field38;
     f32 field3C, field40, field44, field48;
@@ -267,12 +264,12 @@ typedef struct GameE81A8Event {
 
 void func_1514FCE8(s16 *, s32, s32);
 void *func_151D8868(s8 *, s32, s32, s32);
-extern GameE81A8Position D_800A1290[];
+extern Vec3f D_800A1290[];
 extern f32 D_800A1354, D_800A1358, D_800A135C, D_800A1360, D_800A1364;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150E81A8 CURRENT (1696) */
 void func_150E81A8(s32 arg0, s32 arg1, s32 arg2) {
-    GameE81A8Position position;
+    Vec3f position;
     GameE81A8Effect effect;
     GameE81A8Event event;
     s32 selector;
@@ -359,7 +356,7 @@ typedef struct GameE8470Descriptor {
     u8 field18, field19, field1A, field1B, field1C, field1D;
     s16 field1E, field20, field22;
     f32 field24, scaleY, scaleX;
-    GameE81A8Position position;
+    Vec3f position;
     f32 x3C, y40, z44, x48, y4C, z50, field54;
     s32 flags, field5C;
     s8 field60, field61, field62, field63, field64, field65;
@@ -372,7 +369,7 @@ typedef struct GameE8470Extension {
 } GameE8470Extension;
 
 typedef struct GameE8470State {
-    GameE81A8Position position;
+    Vec3f position;
     f32 pending;
 } GameE8470State;
 
@@ -417,7 +414,7 @@ void func_150E8470(void *arg0) {
         packet.field1A = 0xAA;
         packet.field1C = 0xFF;
         packet.field24 = D_800A1370;
-        packet.position = *(GameE81A8Position *)state;
+        packet.position = *(Vec3f *)state;
         speedScale = 0.001f;
         packet.x3C = 0.0f;
         packet.y40 = 0.0f;

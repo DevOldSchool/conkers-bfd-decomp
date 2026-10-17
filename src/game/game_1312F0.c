@@ -11,7 +11,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct Game1312F0Position { f32 x, y, z; } Game1312F0Position;
 /* 0x24-byte result: func_1504715C initializes through the pointer at 0x20. */
 typedef struct Game1312F0Hit {
     f32 height;
@@ -36,14 +35,14 @@ void func_151D5334(s32, s32, s32, s32, s32, s32, s32);
 void func_151D5514(s32, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15103E40 CURRENT (2996) */
-void func_15103E40(s32 arg0, s32 arg1, Game1312F0Position *arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
-    Game1312F0Position impact;
+void func_15103E40(s32 arg0, s32 arg1, Vec3f *arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
+    Vec3f impact;
     u8 hit_valid;
-    Game1312F0Position top;
+    Vec3f top;
     Game1312F0Hit hit;
     u32 random_value;
     f32 random_float;
-    Game1312F0Position *position;
+    Vec3f *position;
     s32 effect0;
     s32 effect1;
 

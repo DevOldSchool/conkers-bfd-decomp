@@ -1238,19 +1238,13 @@ void func_151D5648(f32 *arg0, u8 arg1, s32 arg2) {
 void func_15145EA4(s32 *, s32 *, s32, s32);
 void func_151D4408(void *, void *, s32, void *, f32, s32, s32);
 
-typedef struct Game200930Vec3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game200930Vec3;
-
 typedef struct Game200930RayLocals {
-    Game200930Vec3 *second_ptr;
-    Game200930Vec3 *first_ptr;
+    Vec3f *second_ptr;
+    Vec3f *first_ptr;
     s32 input[2];
     s32 transform;
-    Game200930Vec3 first;
-    Game200930Vec3 second;
+    Vec3f first;
+    Vec3f second;
 } Game200930RayLocals;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5714 CURRENT (2337) */
@@ -1289,15 +1283,15 @@ extern f32 D_800AB23C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D57F8 CURRENT (180) */
 void func_151D57F8(void *arg0, s32 arg1) {
-    Game200930Vec3 position;
-    Game200930Vec3 direction;
-    Game200930Vec3 first;
-    Game200930Vec3 second;
-    Game200930Vec3 result_position;
-    Game200930Vec3 result_direction;
-    Game200930Vec3 *position_ptr;
-    Game200930Vec3 *direction_ptr;
-    Game200930Vec3 delta;
+    Vec3f position;
+    Vec3f direction;
+    Vec3f first;
+    Vec3f second;
+    Vec3f result_position;
+    Vec3f result_direction;
+    Vec3f *position_ptr;
+    Vec3f *direction_ptr;
+    Vec3f delta;
     f32 length;
     f32 scale;
 
@@ -1384,9 +1378,9 @@ extern s32 D_800BE9F0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5B6C CURRENT (4088) */
 s32 func_151D5B6C(void *arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4) {
-    Game200930Vec3 position;
-    Game200930Vec3 first;
-    Game200930Vec3 second;
+    Vec3f position;
+    Vec3f first;
+    Vec3f second;
     f32 near_distance;
     f32 far_distance;
     f32 radius;
