@@ -23,6 +23,10 @@ The compilation job checks out the pinned public ultralib submodule and mounts
 only its headers read-only alongside the project sources. It does not require
 ROM inputs or private credentials.
 
+The two test jobs always run the full Python suite (`./conker test --host -v`
+on the host and `./conker test -v` in the built image). The matching-relevant
+subset that a local C-only `verify-batch` runs never replaces them.
+
 The debugger UI's local glyph/string definitions are omitted only from its
 temporary compile copy, using the source's existing typed `extern` declarations.
 The allowlist names that exact source and include; other includes remain required.
@@ -48,6 +52,10 @@ For function changes, use the normal [contribution workflow](../CONTRIBUTING.md)
 2. Run one `./conker verify-batch <function-ids...>` for the finished group.
    This checks clean integration, tests, metadata and progress; require
    `BATCH_COMPLETE`. It does not replace the individual focused checks.
+   A batch whose only changes are C sources, headers, inventories, the game
+   source map, docs or nonmatching assembly runs the matching-relevant test
+   subset locally (see the [batch test scope](decompilation-workflow.md#test-scope-for-a-batch));
+   tooling, asset or build-input changes and `--full-tests` run the full suite.
 3. Record the tested commit, commands and concise results in the PR. Recheck
    relevant evidence after source, header, build-input or base changes.
 

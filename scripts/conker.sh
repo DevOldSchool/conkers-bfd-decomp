@@ -53,9 +53,13 @@ Getting started
   host-setup                     Install pinned host dependencies in build/host-python:
                                  PyYAML for host helpers, the rest for host-mode tests.
   host-check                     Check host Python package pins and imports.
-  test [--host] [unittest options]
+  test [--host] [--matching] [unittest options]
                                  Run the Python test suite in the toolchain container;
                                  --host or CONKER_TEST_RUNNER=host runs it on the host.
+                                 --matching runs only the matching-relevant modules.
+  test-selection [classify|modules --explain]
+                                 Show how verify-batch classifies this checkout's changes
+                                 and which test modules a C-only batch runs.
   doctor                         Check Docker and local prerequisites.
   rom-info <path>                Print a ROM's SHA-1 and file size.
   setup --us <path> [--eu <path>]
@@ -125,9 +129,11 @@ Getting started
                                  --layout prints frame size and named-local stack offsets.
   finish [--profile us] <work-item-id>
                                  Record CURRENT (0), then check progress and whitespace.
-  verify-batch [--incremental] [--host-tests] <work-item-id> [<work-item-id>...]
+  verify-batch [--incremental] [--host-tests] [--full-tests] <work-item-id> [<work-item-id>...]
                                  Run end-of-batch gates; incremental is for local iteration only.
                                  --host-tests (or CONKER_TEST_RUNNER=host) runs tests on the host.
+                                 C-only batches run the matching test subset; --full-tests
+                                 (or a tooling/asset/build-input change) runs the full suite.
   stop                           Stop and remove this checkout's warm toolchain container.
 
 After the raw base split map is available
@@ -581,6 +587,43 @@ select_test_runner() {
     esac
 }
 
+# Matching-relevant test modules for run_python_tests; empty means the full
+# suite. Bash 3.2 cannot expand an empty array under set -u, so callers and the
+# runner always check the count first.
+python_test_modules=()
+python_test_scope="full suite"
+
+# Fill python_test_modules from scripts/test_selection.py. Prints the module
+# count; returns non-zero when the selector fails.
+select_matching_test_modules() {
+    local selected_modules
+    local module
+    selected_modules="$(python3 "$repo_root/scripts/test_selection.py" modules)" || return 1
+    python_test_modules=()
+    while IFS= read -r module; do
+        [[ -n "$module" ]] && python_test_modules+=("$module")
+    done <<< "$selected_modules"
+    [[ ${#python_test_modules[@]} -gt 0 ]] || return 1
+    python_test_scope="matching subset (${#python_test_modules[@]} modules)"
+}
+
+# Classify the checkout's changes for verify-batch: C-only batches (sources,
+# headers, inventories, game source map, docs, nonmatching assembly) run the
+# matching subset; any other change runs the full suite. Prints the decision.
+classify_batch_tests() {
+    local classification
+    local test_scope_kind
+    local test_scope_reason
+    classification="$(python3 "$repo_root/scripts/test_selection.py" classify)" || return 1
+    { IFS= read -r test_scope_kind; IFS= read -r test_scope_reason; } <<< "$classification"
+    if [[ "$test_scope_kind" == "c-only" ]]; then
+        select_matching_test_modules || return 1
+        printf 'tests: C-only batch -> %s (%s)\n' "$python_test_scope" "$test_scope_reason"
+    else
+        printf 'tests: full suite (%s)\n' "$test_scope_reason"
+    fi
+}
+
 # Docker is the default and never falls back to the host silently. Tests read
 # the whole checkout (wrapper, workflows, docs), so mount it read-only with only
 # build/ writable. Tests run fixture scripts from temporary directories, and some
@@ -597,7 +640,11 @@ run_python_tests() {
         printf 'tests: host runner (%s); CI runs the full suite in Docker\n' "$(python3 --version 2>&1)"
         # macOS /var and /tmp aliases must agree with resolved fixture paths.
         host_test_tmpdir="$(python3 -c 'import os, tempfile; print(os.path.realpath(tempfile.gettempdir()))')"
-        TMPDIR="$host_test_tmpdir" python3 -m unittest discover -s tests "$@" || status=$?
+        if [[ ${#python_test_modules[@]} -eq 0 ]]; then
+            TMPDIR="$host_test_tmpdir" python3 -m unittest discover -s tests "$@" || status=$?
+        else
+            TMPDIR="$host_test_tmpdir" python3 "$repo_root/scripts/test_selection.py" run "$@" "${python_test_modules[@]}" || status=$?
+        fi
         return "$status"
     fi
     if ! require_docker_access; then
@@ -633,13 +680,23 @@ run_python_tests() {
         test_run_args+=(--env "CONKER_ROM_TESTS=$CONKER_ROM_TESTS")
     fi
     printf 'tests: docker runner (%s)\n' "$image_name"
-    docker run --rm "${test_run_args[@]}" \
-        "${test_mount_args[@]}" \
-        --env CONKER_IN_CONTAINER=1 \
-        --env HOME=/tmp \
-        --env PYTHONDONTWRITEBYTECODE=1 \
-        --workdir /workspace \
-        "$image_name" python3 -m unittest discover -s tests "$@" || status=$?
+    if [[ ${#python_test_modules[@]} -eq 0 ]]; then
+        docker run --rm "${test_run_args[@]}" \
+            "${test_mount_args[@]}" \
+            --env CONKER_IN_CONTAINER=1 \
+            --env HOME=/tmp \
+            --env PYTHONDONTWRITEBYTECODE=1 \
+            --workdir /workspace \
+            "$image_name" python3 -m unittest discover -s tests "$@" || status=$?
+    else
+        docker run --rm "${test_run_args[@]}" \
+            "${test_mount_args[@]}" \
+            --env CONKER_IN_CONTAINER=1 \
+            --env HOME=/tmp \
+            --env PYTHONDONTWRITEBYTECODE=1 \
+            --workdir /workspace \
+            "$image_name" python3 scripts/test_selection.py run "$@" "${python_test_modules[@]}" || status=$?
+    fi
     return "$status"
 }
 
@@ -785,11 +842,20 @@ case "$command" in
         ;;
     test)
         select_test_runner
-        if [[ "${1:-}" == "--host" ]]; then
-            test_runner=host
+        while [[ $# -gt 0 ]]; do
+            case "$1" in
+                --host) test_runner=host ;;
+                --matching)
+                    select_matching_test_modules || die "scripts/test_selection.py selected no test modules"
+                    printf 'tests: %s\n' "$python_test_scope" ;;
+                *) break ;;
+            esac
             shift
-        fi
+        done
         run_python_tests "$@"
+        ;;
+    test-selection)
+        python3 "$repo_root/scripts/test_selection.py" "$@"
         ;;
     help|-h|--help)
         usage
@@ -1049,21 +1115,31 @@ case "$command" in
     verify-batch)
         configure_build_jobs || exit $?
         batch_mode="clean"
+        batch_full_tests=0
         select_test_runner
         while [[ $# -gt 0 ]]; do
             case "$1" in
                 --incremental) batch_mode="incremental" ;;
                 --host-tests) test_runner=host ;;
+                --full-tests) batch_full_tests=1 ;;
                 *) break ;;
             esac
             shift
         done
-        [[ $# -gt 0 ]] || die "usage: ./conker verify-batch [--incremental] [--host-tests] <work-item-id> [<work-item-id>...]"
+        [[ $# -gt 0 ]] || die "usage: ./conker verify-batch [--incremental] [--host-tests] [--full-tests] <work-item-id> [<work-item-id>...]"
         # Host helpers always need the core pins; host-mode tests need them all.
         # Fail before the long build when either is missing.
         host_check_scope=--core
         [[ "$test_runner" == "host" ]] && host_check_scope=--all
         if ! python3 "$repo_root/scripts/host_environment.py" check "$host_check_scope"; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 2
+        fi
+        # Decide the test scope before the long build so the decision is visible
+        # early; --full-tests and CI always run everything.
+        if [[ "$batch_full_tests" == 1 ]]; then
+            printf 'tests: full suite (--full-tests)\n'
+        elif ! classify_batch_tests; then
             printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
             exit 2
         fi
@@ -1129,10 +1205,12 @@ case "$command" in
                 exit 1
             fi
         done <<< "$original_asm_items"
+        batch_tests_started=$SECONDS
         if ! run_python_tests -q -b; then
             printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
             exit 1
         fi
+        printf 'tests: %s passed in %ds\n' "${python_test_scope:-full suite}" "$((SECONDS - batch_tests_started))"
         if ! python3 "$state_tool" validate; then
             printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
             exit 1

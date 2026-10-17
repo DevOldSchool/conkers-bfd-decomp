@@ -37,6 +37,7 @@ git() { return 0; }
 ensure_warm_container() { return 0; }
 select_test_runner() { test_runner="${CONKER_TEST_RUNNER:-docker}"; }
 run_python_tests() { return 0; }
+classify_batch_tests() { printf 'tests: full suite (fixture)\n'; }
 run_in_container_libultra() {
     printf 'libraries: %s\n' "$*" >&2
     [[ "$failure" != libraries ]]
