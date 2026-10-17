@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_E2880.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_audio_owner_emitters.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150B5840
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void *func_10022EC0(void *, const void *, u32);
@@ -115,35 +110,25 @@ void func_150B5814(void *arg0) {
 }
 /* Call context: func_1516972C: unique active declaration in the allowed source */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B5840 CURRENT (110) */
 void func_150B5840(u8 *arg0, u8 *arg1, u8 arg2) {
-    s32 temp_a0;
     s32 temp_t6;
-    s32 temp_v1;
     u8 *temp_v0;
 
     temp_t6 = arg2;
     temp_v0 = arg0 + 0x28;
     if (temp_t6 == 0) {
-        temp_v1 = *(s32 *)arg1;
+        s32 temp_v1 = *(s32 *)arg1;
+
         if ((temp_v1 == *(s32 *)temp_v0) || (temp_v0[4] == *(u8 *)((u8 *)arg1 + 4))) {
             func_1516972C(arg0);
         }
-    } else {
-        if (temp_t6 == 0x2D) {
-            temp_a0 = *(s32 *)temp_v0;
-            temp_v1 = *(s32 *)((u8 *)arg1 + 0);
-            if (temp_v1 == temp_a0) {
-                *(s32 *)temp_v0 = *(s32 *)(arg1 + 4);
-                *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 9);
-                return;
-            }
-            if (*(s32 *)(arg1 + 4) == temp_a0) {
-                *(s32 *)temp_v0 = temp_v1;
-                *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 8);
-            }
+    } else if (temp_t6 == 0x2D) {
+        if (*(s32 *)arg1 == *(s32 *)temp_v0) {
+            *(s32 *)temp_v0 = *(s32 *)(arg1 + 4);
+            *(u8 *)(temp_v0 + 4) = *(u8 *)(arg1 + 9);
+        } else if (*(s32 *)(arg1 + 4) == *(s32 *)temp_v0) {
+            *(s32 *)temp_v0 = *(s32 *)arg1;
+            *(u8 *)(temp_v0 + 4) = *(u8 *)(arg1 + 8);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B5840 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E2880/func_150B5840.s")

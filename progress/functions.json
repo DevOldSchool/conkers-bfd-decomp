@@ -32953,17 +32953,16 @@
       "symbol": "func_151D3220"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 230,
-        "reason": "Direct u8 formal instead redundant mode copy plus incoming-first load order improve1460 to230 in1revision. Raw frame18 and argument homes fixed; A2 reload occupies branch delay instead of raw type-byte load, one BNEL operand reversal remains. Helper already canonical two-arg matched source; no fresh hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 188,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D324C",
           "vram": "0x151D324C"
         }
@@ -37369,17 +37368,16 @@
       "symbol": "func_15182748"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "Live CURRENT (100): after fixing the six-argument call, reusing incoming arg0 as result cursor, and loading the third byte through temp_v0, every executable instruction/operand matches raw US. Full registered 104-byte span has one trailing nop at +0x64 absent from 100-byte C output; source unit ends here. Requires layout/padding recovery, not a claimed match. Best candidate preserved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 104,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15182768",
           "vram": "0x15182768"
         }
@@ -60963,7 +60961,7 @@
           "vram": "0x150B53D0"
         }
       },
-      "source": "src/game/game_E2880.c",
+      "source": "src/done/game/game_E2880.c",
       "symbol": "func_150B53D0"
     },
     {
@@ -60981,7 +60979,7 @@
           "vram": "0x150B54A8"
         }
       },
-      "source": "src/game/game_E2880.c",
+      "source": "src/done/game/game_E2880.c",
       "symbol": "func_150B54A8"
     },
     {
@@ -60999,7 +60997,7 @@
           "vram": "0x150B57C4"
         }
       },
-      "source": "src/game/game_E2880.c",
+      "source": "src/done/game/game_E2880.c",
       "symbol": "func_150B57C4"
     },
     {
@@ -61017,7 +61015,7 @@
           "vram": "0x150B57E8"
         }
       },
-      "source": "src/game/game_E2880.c",
+      "source": "src/done/game/game_E2880.c",
       "symbol": "func_150B57E8"
     },
     {
@@ -61035,26 +61033,25 @@
           "vram": "0x150B5814"
         }
       },
-      "source": "src/game/game_E2880.c",
+      "source": "src/done/game/game_E2880.c",
       "symbol": "func_150B5814"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 110,
-        "reason": "Manual word-field correction and u8 selector/common base/named event improve1887 to110. One final BNEL operand order and one missing full-span trailing NOP remain; reversed comparison neutral. Best110 preserved; historical padding evidence consulted, no verifier workaround.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 176,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150B5840",
           "vram": "0x150B5840"
         }
       },
-      "source": "src/game/game_E2880.c",
+      "source": "src/done/game/game_E2880.c",
       "symbol": "func_150B5840"
     },
     {
@@ -65393,8 +65390,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "User-approved exact declaration/call correction: func1505EEF4 s32*(s32), remove spurious extra argument. CURRENT531 to100; every executable instruction and rows through10C exact, sole registered trailing NOP at110 absent from focused object. Full276-byte gate not zero; no padding or weakened verification. One revision; deferred-focused-20260930 span evidence.",
+        "current_score": 200,
+        "reason": "CURRENT (200) on 2026-10-17 recheck: every executable instruction exact; only the two registered trailing span nops at +0x10C/+0x110 are missing (unit-end padding not produced here, unlike other last-in-file items). Source unchanged.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -66015,26 +66012,25 @@
           "vram": "0x150DEBE0"
         }
       },
-      "source": "src/game/game_10C090.c",
+      "source": "src/done/game/game_10C090.c",
       "symbol": "func_150DEBE0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "CURRENT (200): u8 selector, concrete three-argument helper, and removal of redundant selector local recover exact executable body and stack layout. Only two registered trailing NOPs remain absent. Three improving manual revisions; full-span padding blocker, no workaround.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 104,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150DEC28",
           "vram": "0x150DEC28"
         }
       },
-      "source": "src/game/game_10C090.c",
+      "source": "src/done/game/game_10C090.c",
       "symbol": "func_150DEC28"
     },
     {
@@ -66858,26 +66854,25 @@
           "vram": "0x1510A870"
         }
       },
-      "source": "src/game/game_137D20.c",
+      "source": "src/done/game/game_137D20.c",
       "symbol": "func_1510A870"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 110,
-        "reason": "Proven sibling byte-ABI/shared-subrecord source shape improves full-span US to CURRENT (110). Residual at offset 0x40: raw bne t9,a2 versus candidate bne a2,t9; registered span also has one raw trailing nop at offset 0x60 absent in candidate. Source comparison orientation was neutral in identical sibling; no concrete manual C hypothesis for padding, and assembly edits are disallowed.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 100,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510A8CC",
           "vram": "0x1510A8CC"
         }
       },
-      "source": "src/game/game_137D20.c",
+      "source": "src/done/game/game_137D20.c",
       "symbol": "func_1510A8CC"
     },
     {
@@ -71220,17 +71215,16 @@
       "symbol": "func_1518C69C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 475,
-        "reason": "Manual shared zero-arm event-word lifetime improves515 to475. Remaining known swap-store exit delay, branch operand order, and registered trailing NOP differences. Similar return/volatile control-flow probes already exhausted in family; best475 preserved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 176,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1518C850",
           "vram": "0x1518C850"
         }
@@ -73375,17 +73369,16 @@
       "symbol": "func_15158D2C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 275,
-        "reason": "CURRENT 275 plateau after two targeted control-flow revisions; substantive body matches, but second ID compare operand order, store/return delay-slot scheduling, and trailing span NOP remain",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 224,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15158FA4",
           "vram": "0x15158FA4"
         }
@@ -77721,7 +77714,7 @@
           "vram": "0x1506AAE0"
         }
       },
-      "source": "src/game/game_97F90.c",
+      "source": "src/done/game/game_97F90.c",
       "symbol": "func_1506AAE0"
     },
     {
@@ -77739,7 +77732,7 @@
           "vram": "0x1506AB7C"
         }
       },
-      "source": "src/game/game_97F90.c",
+      "source": "src/done/game/game_97F90.c",
       "symbol": "func_1506AB7C"
     },
     {
@@ -77757,7 +77750,7 @@
           "vram": "0x1506ABC4"
         }
       },
-      "source": "src/game/game_97F90.c",
+      "source": "src/done/game/game_97F90.c",
       "symbol": "func_1506ABC4"
     },
     {
@@ -77775,7 +77768,7 @@
           "vram": "0x1506AC0C"
         }
       },
-      "source": "src/game/game_97F90.c",
+      "source": "src/done/game/game_97F90.c",
       "symbol": "func_1506AC0C"
     },
     {
@@ -77793,26 +77786,25 @@
           "vram": "0x1506AC58"
         }
       },
-      "source": "src/game/game_97F90.c",
+      "source": "src/done/game/game_97F90.c",
       "symbol": "func_1506AC58"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 400,
-        "reason": "Recovered the complete bounded callback dispatcher and its global vector initialization; focused diff is exact through the return NOP, with only the three trailing raw padding NOPs in the 0xA4-byte registered span remaining after one source candidate.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 164,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1506AC8C",
           "vram": "0x1506AC8C"
         }
       },
-      "source": "src/game/game_97F90.c",
+      "source": "src/done/game/game_97F90.c",
       "symbol": "func_1506AC8C"
     },
     {
