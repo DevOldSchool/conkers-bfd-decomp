@@ -61,6 +61,10 @@ Getting started
                                  Show how verify-batch classifies this checkout's changes
                                  and which test modules a C-only batch runs.
   doctor                         Check Docker and local prerequisites.
+  toolchain-inputs-check [--quiet]
+                                 Exit 0 when toolchain/tools.lock.json records the published
+                                 image as built from this checkout's toolchain inputs, 1 when
+                                 they changed (post-merge CI then rebuilds instead of pulling).
   rom-info <path>                Print a ROM's SHA-1 and file size.
   setup --us <path> [--eu <path>]
                                  Validate the active US ROM; EU/PAL is optional future setup.
@@ -839,6 +843,11 @@ case "$command" in
     host-setup|host-check)
         [[ $# -eq 0 ]] || die "usage: ./conker $command"
         python3 "$repo_root/scripts/host_environment.py" "${command#host-}"
+        ;;
+    toolchain-inputs-check)
+        # Exit 0 when the published image was built from this checkout's
+        # toolchain inputs, 1 when they changed (CI then builds locally).
+        python3 "$repo_root/scripts/toolchain_inputs.py" check "$@"
         ;;
     test)
         select_test_runner
