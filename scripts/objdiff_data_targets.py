@@ -990,7 +990,9 @@ def prepare_mp3_spectral_stream(original: bytes, expected: dict, *, output: Path
         extent={'rom_start': expected['rom_start'], 'rom_end': expected['rom_end']},
         encode=lambda: mp3_spectral_build.packed_stream(
             ROOT / source, expected, include_partial=True,
-            cache_directory=ROOT / 'build/us/mp3-spectral/cache'), ranged=True)
+            # The audit mode re-encodes from coefficients; the span cache is
+            # another receipt-like shortcut it must not take.
+            cache_directory=None if FRESH_ENCODE else ROOT / 'build/us/mp3-spectral/cache'), ranged=True)
     ranges, _, _ = mp3_spectral_build.codec.reviewed_ranges(original, include_partial=True)
     return prepare_rebuilt_ranges(
         original, expected, source=source, packed=packed, fresh_spans=fresh_spans, hashes=hashes,

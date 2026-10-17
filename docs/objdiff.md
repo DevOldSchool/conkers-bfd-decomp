@@ -101,7 +101,8 @@ the built output file still hashes as recorded. It then takes the built bytes as
 the candidate and compares them against the independently supplied ROM exactly as
 a fresh encode would, so credit still rests on bytes the report checked. Any part
 without such a receipt (missing, stale, written by another encoder revision,
-edited inputs, changed output) is encoded afresh. Receipts from a build in another
+edited inputs, changed output) is encoded afresh. `--fresh` also bypasses the MP3
+spectral span cache described below. Receipts from a build in another
 checkout cannot satisfy the report: the encoder fingerprint is derived from the
 checkout that runs.
 
