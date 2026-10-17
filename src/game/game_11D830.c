@@ -9,7 +9,6 @@
  * - func_150F03F8
  * - func_150F0BEC
  * - func_150F0E48
- * - func_150F1020
  * - func_150F1170
  * - func_150F15F8
  * - func_150F16DC
@@ -367,38 +366,31 @@ s32 func_150F0E48(u8 *arg0, s32 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F0E48 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F0E48.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1020 CURRENT (1290) */
-void func_150F1020(u8 *arg0, u8 *arg1, u8 arg2) {
-    s32 temp_a0;
-    s32 temp_v1;
-    struct { s32 object; u8 index; } *var_v0;
+void func_150F1020(void *arg0, void *arg1, u8 arg2) {
+    s32 temp_t6;
+    u8 *temp_v0;
 
-    if (arg2 == 0x2D) {
-        var_v0 = (void *)(arg0 + 0xA8);
-        temp_a0 = var_v0->object;
-        temp_v1 = *(s32 *)arg1;
-        if (temp_v1 == temp_a0) {
-            var_v0->object = *(s32 *)(arg1 + 4);
-            var_v0->index = arg1[9];
-            return;
+    temp_t6 = arg2;
+    temp_v0 = (u8 *)arg0 + 0xA8;
+    if (temp_t6 == 0x2D) {
+        if (*(s32 *)arg1 == *(s32 *)temp_v0) {
+            *(s32 *)temp_v0 = *(s32 *)((u8 *)arg1 + 4);
+            *(u8 *)(temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 9);
+        } else if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)temp_v0) {
+            u8 *dst = temp_v0;
+
+            *(s32 *)dst = *(s32 *)arg1;
+            *(u8 *)(dst + 4) = *(u8 *)((u8 *)arg1 + 8);
         }
-        if (*(s32 *)(arg1 + 4) == temp_a0) {
-            var_v0->object = temp_v1;
-            var_v0->index = arg1[8];
-        }
-    } else {
-        var_v0 = (void *)(arg0 + 0xA8);
-        if ((arg2 != 0) && (arg2 != 0x43)) {
-            return;
-        }
-        temp_v1 = *(s32 *)arg1;
-        if ((temp_v1 == var_v0->object) || (var_v0->index == arg1[4])) {
+    } else if ((temp_t6 == 0) || (temp_t6 == 0x43)) {
+        s32 temp_v1 = *(s32 *)arg1;
+
+        if ((temp_v1 == *(s32 *)temp_v0) ||
+            (temp_v0[4] == *(u8 *)((u8 *)arg1 + 4))) {
             func_1516972C(arg0);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F1020 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1020.s")
 void *func_10022EC0(void *, const void *, u32);
 
 typedef struct Game11D830SpawnPacket {
@@ -429,7 +421,7 @@ void func_150F10D4(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1170.s")
 void func_15149514(s32, u8, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F15F8 CURRENT (260) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F15F8 CURRENT (160) */
 void func_150F15F8(void *arg0, void *arg1, u8 arg2) {
     u8 *temp_a2;
     s32 word;

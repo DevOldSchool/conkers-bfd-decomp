@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_resource_dependency_core.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1509CA98
  * - func_1509CB68
  * - func_1509CBD4
  * - func_1509CDDC
@@ -56,35 +55,16 @@ s32 func_1509CA50(s32 arg0) {
 s32 func_1509CA78(s32 arg0) {
     return D_80087434[arg0].packed_id;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509CA98 CURRENT (60) */
 s32 func_1509CA98(s32 arg0) {
-    ResourceDescriptor *var_v0;
-    s32 var_v1;
+    s32 i = 0;
 
-    var_v1 = 0;
-    var_v0 = D_80087430;
-loop_1:
-    if ((var_v0->name != 0) && (arg0 == ((*(s32 *)((u8 *)var_v0 + 4) & 0x1FFFFFFF) + 1))) {
-        return var_v1;
+    for (; i < 204; i++) {
+        if ((D_80087430[i].name != 0) && (arg0 == ((D_80087430[i].packed_id & 0x1FFFFFFF) + 1))) {
+            return i;
+        }
     }
-    if ((*(s32 *)((u8 *)var_v0 + 0x14) != 0) && (arg0 == ((*(s32 *)((u8 *)var_v0 + 0x18) & 0x1FFFFFFF) + 1))) {
-        return var_v1 + 1;
-    }
-    if ((*(s32 *)((u8 *)var_v0 + 0x28) != 0) && (arg0 == ((*(s32 *)((u8 *)var_v0 + 0x2C) & 0x1FFFFFFF) + 1))) {
-        return var_v1 + 2;
-    }
-    if ((*(s32 *)((u8 *)var_v0 + 0x3C) != 0) && (arg0 == ((*(s32 *)((u8 *)var_v0 + 0x40) & 0x1FFFFFFF) + 1))) {
-        return var_v1 + 3;
-    }
-    var_v1 += 4;
-    var_v0 = (ResourceDescriptor *)((u8 *)var_v0 + 0x50);
-    if (var_v1 == 0xCC) {
-        return 0xCC;
-    }
-    goto loop_1;
+    return 204;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509CA98 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CA98.s")
 extern u8 D_80088420[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509CB68 CURRENT (10) */

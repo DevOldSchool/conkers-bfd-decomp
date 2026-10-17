@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150AE790
  * - func_150AEB9C
- * - func_150AEDF8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -177,32 +176,28 @@ s32 func_150AEDD8(GameDBA60Object *arg0) {
 }
 /* Call context: func_1516972C: unique active declaration in the allowed source */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AEDF8 CURRENT (175) */
-void func_150AEDF8(u8 *arg0, u8 *arg1, u8 arg2) {
-    s32 temp_a0;
-    s32 temp_v1;
+void func_150AEDF8(void *arg0, void *arg1, u8 arg2) {
+    s32 temp_t6;
     u8 *temp_v0;
 
-    temp_v0 = arg0 + 0x28;
-    if (arg2 == 0x2D) {
-        temp_a0 = *(s32 *)temp_v0;
-        temp_v1 = *(s32 *)((u8 *)arg1 + 0);
-        if (temp_v1 == temp_a0) {
-            *(s32 *)temp_v0 = (s32) *(s32 *)((u8 *)arg1 + 4);
-            *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 9);
-            return;
+    temp_t6 = arg2;
+    temp_v0 = (u8 *)arg0 + 0x28;
+    if (temp_t6 == 0x2D) {
+        if (*(s32 *)arg1 == *(s32 *)temp_v0) {
+            *(s32 *)temp_v0 = *(s32 *)((u8 *)arg1 + 4);
+            *(u8 *)(temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 9);
+        } else if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)temp_v0) {
+            u8 *dst = temp_v0;
+
+            *(s32 *)dst = *(s32 *)arg1;
+            *(u8 *)(dst + 4) = *(u8 *)((u8 *)arg1 + 8);
         }
-        if (*(s32 *)((u8 *)arg1 + 4) == temp_a0) {
-            *(s32 *)temp_v0 = temp_v1;
-            *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 8);
-        }
-    } else if (arg2 == 0) {
-        temp_v1 = *(s32 *)arg1;
+    } else if (temp_t6 == 0) {
+        s32 temp_v1 = *(s32 *)arg1;
+
         if ((temp_v1 == *(s32 *)temp_v0) ||
-            (temp_v0[4] == arg1[4])) {
+            (temp_v0[4] == *(u8 *)((u8 *)arg1 + 4))) {
             func_1516972C(arg0);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150AEDF8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AEDF8.s")
