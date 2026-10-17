@@ -64,16 +64,11 @@ void func_1519D000(void *arg0) {
     func_1514EDF0(arg0, *temp_v0);
     func_15147928(arg0);
 }
-typedef struct Game1CA420Vector {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1CA420Vector;
 
 typedef struct Game1CA420TrailOwner {
     s32 active;
     u8 pad4[0x10];
-    Game1CA420Vector position;
+    Vec3f position;
     u8 pad20[0x1B];
     u8 generation;
     u8 pad3C[0x2B8];
@@ -88,7 +83,7 @@ typedef struct Game1CA420TrailSpec {
     s32 fieldC;
     u8 field10;
     u8 pad11[3];
-    Game1CA420Vector position;
+    Vec3f position;
     s16 field20;
     s16 field22;
     s16 field24;
@@ -111,8 +106,8 @@ typedef struct Game1CA420TrailData {
     u8 index;
     u8 flags;
     u8 pad7;
-    Game1CA420Vector position;
-    Game1CA420Vector transformed;
+    Vec3f position;
+    Vec3f transformed;
     f32 field20;
     f32 field24;
     f32 field28;
@@ -130,7 +125,7 @@ typedef struct Game1CA420TrailData {
     s16 field4A;
     u8 field4C;
     u8 pad4D[3];
-    Game1CA420Vector origin;
+    Vec3f origin;
     u8 field5C;
     u8 field5D;
     u8 field5E;
@@ -138,7 +133,7 @@ typedef struct Game1CA420TrailData {
 } Game1CA420TrailData;
 
 typedef struct Game1CA420TrailSpawn {
-    Game1CA420Vector position;
+    Vec3f position;
     s16 lifetime;
     u16 flags;
     s32 kind;
@@ -213,8 +208,8 @@ s32 func_1519D030(void *arg0, s32 arg1, s16 arg2, u8 arg3, u8 arg4, s32 arg5) {
     return (s32)result;
 }
 typedef struct Game1CA420Particle {
-    Game1CA420Vector position;
-    Game1CA420Vector velocity;
+    Vec3f position;
+    Vec3f velocity;
     f32 angle;
     s16 fade;
     s16 delay;
@@ -225,7 +220,7 @@ typedef struct Game1CA420Particle {
 
 typedef struct Game1CA420Trail {
     u8 pad0[0x10];
-    Game1CA420Vector current;
+    Vec3f current;
     s16 lifetime;
     u16 flags;
     u8 pad20[5];
@@ -235,7 +230,7 @@ typedef struct Game1CA420Trail {
     s8 head;
     s8 tail;
     u8 pad2F[0x25];
-    Game1CA420Vector position;
+    Vec3f position;
     u8 pad60[0x34];
     Game1CA420Particle *particles;
     Game1CA420TrailData *data;
@@ -321,16 +316,16 @@ s32 func_1519D454(Game1CA420Trail *arg0) {
     } link;
     f32 time;
     f32 stepTime;
-    Game1CA420Vector delta;
+    Vec3f delta;
     f32 angleDelta;
-    Game1CA420Vector position;
+    Vec3f position;
     f32 inverse;
     f32 currentX;
     f32 currentZ;
     f32 previousAngle;
     f32 differenceX;
-    Game1CA420Vector velocity;
-    Game1CA420Vector *previous;
+    Vec3f velocity;
+    Vec3f *previous;
     f32 stepX;
     f32 stepY;
     f32 stepZ;
@@ -341,7 +336,7 @@ s32 func_1519D454(Game1CA420Trail *arg0) {
     Game1CA420TrailData *data;
     s32 base;
     Game1CA420TrailOwner *actor;
-    Game1CA420Vector *current;
+    Vec3f *current;
     Game1CA420Particle *particle;
     s32 initialized;
     s32 spawnFlags;
@@ -507,8 +502,8 @@ extern f32 D_800DD1E8[];
 void *func_1519D9F4(Game1CA420Trail *arg0, s32 arg1, s16 arg2) {
     Game1CA420Vertex *vertex;
     Game1CA420TrailData *data;
-    Game1CA420Vector nextPosition;
-    Game1CA420Vector position;
+    Vec3f nextPosition;
+    Vec3f position;
     s32 index;
     u8 shade;
     u8 previousShade;

@@ -28,3 +28,9 @@ func_1515BE48 = 0x1515BE48; // type:func size:0x8
 func_1516D2D8 = 0x1516D2D8; // type:func size:0x8
 func_151B5E8C = 0x151B5E8C; // type:func size:0x8
 func_151DE6CC = 0x151DE6CC; // type:func size:0x8
+
+// Unreferenced return-only stubs split from matched parent spans.
+// Evidence: docs/evidence/boundaries/game/mapping/game_unreferenced_return_stub_splits.md
+// Their bodies are already separate empty C definitions; no callback identity is claimed.
+func_15073070 = 0x15073070; // type:func size:0x8
+func_1507DB64 = 0x1507DB64; // type:func size:0x8

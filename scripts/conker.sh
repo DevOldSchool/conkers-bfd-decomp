@@ -177,6 +177,8 @@ After the raw base split map is available
                                  Register one US debugger function for matching work.
   record-region-size <id> --profile <region> --size <bytes>
                                  Preserve a reviewed legacy function span as function metadata.
+  split-game-function --parent <id> --id <id> --us <symbol>
+                                 Register an interior US game symbol as its own function and shorten its parent span.
   register-source-unit [--overlay main|game|debugger] --source <path> (--function <id>...|--register-members) --us-start <offset>
                        [--replace-unreviewed-source <path>]
       --us-end <offset> --evidence-kind <kind> --evidence-reference <reference>
@@ -1398,6 +1400,12 @@ case "$command" in
             run_in_container make prepare-reference PROFILE=us >&2
         fi
         python3 "$state_tool" register-debugger "$@"
+        ;;
+    split-game-function)
+        [[ $# -eq 6 ]] || die "usage: ./conker split-game-function --parent <id> --id <id> --us <symbol>"
+        python3 "$state_tool" setup-check --all
+        run_in_container make game-asm GAME_REFERENCE_PROFILE=us >&2
+        python3 "$state_tool" split-game-function "$@"
         ;;
     record-region-size)
         [[ $# -eq 5 ]] || die "usage: ./conker record-region-size <id> --profile <region> --size <bytes>"

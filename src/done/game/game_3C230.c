@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_3C230.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_compact_multi_function_units.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1500EE94
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_15177410(s32, s32, s32, s32, s32, f32, s32, f32,
@@ -53,7 +48,6 @@ void func_1500EE18(Game3C230Actor *arg0, s32 arg1, s32 arg2) {
     }
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500EE94 CURRENT (400) */
 void func_1500EE94(void *arg0) {
     Game3C230PacketWithValue packet;
     u8 *temp_v0;
@@ -66,5 +60,3 @@ void func_1500EE94(void *arg0) {
         func_10022EC0(temp_v0 + 0x28, &packet, 0xC);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1500EE94 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_3C230/func_1500EE94.s")

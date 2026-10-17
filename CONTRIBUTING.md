@@ -59,8 +59,13 @@ separately from new hypotheses.
 
 Use `types.h` aliases (the pinned SDK's `PR/ultratypes.h`) and existing structures;
 stock SDK types come from `lib/ultralib` headers such as `PR/os_message.h`, not
-local copies. For incomplete local evidence, use
-a typed pointer or source-local partial structure. Resolve unknown types from
+local copies. Use reviewed shared game types such as `Vec3f` from
+`include/game_vec.h` (included by `game_functions.h`) where they apply. For
+incomplete local evidence, use a typed pointer or source-local partial
+structure; a local structure is promoted to a shared header only under the
+[shared type rules](docs/decompilation-workflow.md#shared-type-definitions)
+(identical layout and field names, three or more copies, consistent use), and
+promotion never edits a matched body beyond the type name. Resolve unknown types from
 project evidence and add concrete required declarations before `finish`. Keep
 `sb`/`sh` parameters as `s32` unless existing declarations prove otherwise. Never
 copy `M2C_FIELD`/`M2C_UNK`, invent an ABI, add inline or handwritten assembly, or

@@ -119,11 +119,6 @@ s32 func_150D11B4(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x74) = (f32) (((func_150ADA68() * 150.0f) + 350.0f) * D_800A0894);
     return 1;
 }
-typedef struct GameFE340Vec3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} GameFE340Vec3;
 
 void func_151DB5D0(s32, void *, void *, f32, f32, f32, f32, s32, s32, s32, s32, s32, s32, s32);
 u32 func_150ADA20(void);
@@ -133,10 +128,10 @@ extern f32 D_800A08A0;
 extern f32 D_800A08A4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150D1204 CURRENT (891) */
-void func_150D1204(GameFE340Vec3 *arg0, GameFE340Vec3 *arg1,
-                    GameFE340Vec3 *arg2, GameFE340Vec3 *arg3,
+void func_150D1204(Vec3f *arg0, Vec3f *arg1,
+                    Vec3f *arg2, Vec3f *arg3,
                     f32 arg4, u8 *arg5) {
-    GameFE340Vec3 start;
+    Vec3f start;
     f32 delta[3];
     f32 endX;
     f32 endY;

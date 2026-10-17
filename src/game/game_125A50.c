@@ -13,16 +13,10 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct Game125A50Vector {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game125A50Vector;
-
 typedef struct Game125A50Particle {
     s32 field0;
     s32 field4;
-    Game125A50Vector position8;
+    Vec3f position8;
     f32 field14;
     f32 field18;
     f32 field1C;
@@ -58,7 +52,7 @@ typedef struct Game125A50Light {
 
 typedef struct Game125A50Position {
     u8 pad0[0x14];
-    Game125A50Vector position14;
+    Vec3f position14;
 } Game125A50Position;
 
 /* The raw callee consumes only a0-a2; incoming a3 is not saved before its call. */
@@ -72,7 +66,7 @@ extern f32 D_800A1C6C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F85A0 CURRENT (266) */
 void func_150F85A0(s32 arg0, Game125A50Position *arg1, s32 arg2) {
-    Game125A50Vector position;
+    Vec3f position;
     Game125A50Light light;
     s32 coordinates[3];
     Game125A50Particle descriptor;

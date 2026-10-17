@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150CBF80
- * - func_150CC6B8
  * - func_150CCCB4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -60,9 +59,8 @@ void *func_15130374(s32, u8, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
-extern f32 D_800A06CC, D_800A06D0, D_800A06D4, D_800A06D8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CC6B8 CURRENT (400) */
+extern f32 D_800A06CC;
 s32 func_150CC6B8(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
                    s32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14) {
@@ -98,7 +96,7 @@ s32 func_150CC6B8(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     packet.size0 = size;
     packet.size1 = size;
     sp24 = func_150ADA20();
-    magnitude = ((func_150ADA68() * 200.0f) + 350.0f) * D_800A06D0;
+    magnitude = ((func_150ADA68() * 200.0f) + 350.0f) * 0.1f;
     func_15143794(((s16 *)&arg8)[1], (s16) ((sp24 % 21U) - 0x19), magnitude, &packet.direction);
     packet.flags58 = 0xE05;
     packet.field54 = 0.0f;
@@ -113,16 +111,14 @@ s32 func_150CC6B8(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     packet.field1E = 0xA;
     packet.field20 = 0x19;
     packet.field22 = 0x1B;
-    packet.field24 = D_800A06D4;
-    sp2C = D_800A06D8;
+    packet.field24 = 1.04f;
+    sp2C = 0.901f;
     temp_v0 = func_15130374((s32) &packet, 1U, 4, ((u8 *)&arg14)[3], 1);
     if (temp_v0 != 0) {
         func_10022EC0((u8 *)temp_v0 + 0xA8, &sp2C, 4U);
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150CC6B8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F9430/func_150CC6B8.s")
 extern s32 D_800BE9E4;
 
 s32 func_150CC8D4(void *arg0, s32 arg1) {

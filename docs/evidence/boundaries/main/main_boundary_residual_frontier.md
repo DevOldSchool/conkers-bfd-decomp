@@ -196,6 +196,9 @@ raw function span is already a complete C-rewrite target. The existing
 [dispatcher evidence](../game/mapping/game_dispatcher_callback_groups.md#resolving-the-function-index-disagreements)
 explicitly retains the unproven interior entry proposals `0x15040A4C`,
 `0x15073070` and `0x1513E134` inside preceding raw spans.
+(`0x15073070` was later split from its matched parent because the accepted C
+already defined it as a separate empty function; see
+[the return-stub splits](../game/mapping/game_unreferenced_return_stub_splits.md).)
 
 The current deferred record for `func_15040A40` is a concrete consequence:
 its 20-byte span includes the twelve-byte `sw/jr/nop` stub followed by an

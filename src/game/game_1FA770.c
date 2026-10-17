@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151CD3CC
  * - func_151CD4C0
- * - func_151CD674
  * - func_151CD7BC
  * - func_151CDB94
  * - func_151CDE20
@@ -197,11 +196,8 @@ typedef struct Game1FA770Position {
     s32 z;
 } Game1FA770Position;
 
-extern f32 D_800AAFC0;
-extern f32 D_800AAFC4;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD674 CURRENT (200) */
 s32 func_151CD674(u8 *actor) {
     u8 *owner;
     Game1FA770Particle *particles;
@@ -221,8 +217,8 @@ s32 func_151CD674(u8 *actor) {
     }
     cursor = *(s8 *)(actor + 0x2E);
     if (cursor != *(s8 *)(actor + 0x2D)) {
-        gravity = D_800AAFC0;
-        acceleration = D_800AAFC4;
+        gravity = -0.25500003f;
+        acceleration = -0.12750001f;
         do {
             cursor--;
             if (cursor < 0) {
@@ -234,7 +230,7 @@ s32 func_151CD674(u8 *actor) {
             travel = velocity * step;
             squared = step * step;
             particle->y = particle->y + (travel + acceleration * squared);
-            particle->velocity = gravity * D_800BE9A4 + velocity;
+            particle->velocity = (f32)velocity + gravity * D_800BE9A4;
             if (particle->y < *(f32 *)(owner + 0x44)) {
                 if (cursor != *(s8 *)(actor + 0x2D)) {
                     do {
@@ -252,8 +248,6 @@ s32 func_151CD674(u8 *actor) {
     *(Game1FA770Position *)(actor + 0x54) = *(Game1FA770Position *)(actor + 0x10);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CD674 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CD674.s")
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_150ADA68();                                /* extern */

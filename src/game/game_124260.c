@@ -149,14 +149,11 @@ void *func_150F6DE4(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F6DE4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_124260/func_150F6DE4.s")
-typedef struct Game124260Vector {
-    f32 x, y, z;
-} Game124260Vector;
 
 typedef struct Game124260Owner {
     s32 live;
     u8 pad4[0x10];
-    Game124260Vector position;
+    Vec3f position;
     u8 pad20[0x1B];
     u8 channel;
 } Game124260Owner;
@@ -186,7 +183,7 @@ extern u8 D_800C35EA;
 void func_150F706C(Game124260Root *arg0) {
     struct {
         Game124260Copy3 copied;
-        Game124260Vector position;
+        Vec3f position;
     } work;
     Game124260Spawn *state;
     Game124260Owner *owner;

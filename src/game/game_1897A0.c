@@ -235,16 +235,11 @@ s32 func_1515D088(void *arg0) {
     }
     return temp_v0;
 }
-typedef struct Game1897A0EmitterVector {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1897A0EmitterVector;
 
 typedef struct Game1897A0EmitterParticle {
     s32 field0;
     s32 field4;
-    Game1897A0EmitterVector position8;
+    Vec3f position8;
     f32 field14;
     f32 field18;
     f32 field1C;

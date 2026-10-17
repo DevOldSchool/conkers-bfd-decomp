@@ -110,11 +110,6 @@ void func_1514F808(u8 *arg0, f32 arg1, f32 *arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514F808 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_1514F808.s")
-typedef struct {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game17CAF0Vec3f;
 
 typedef struct {
     u8 pad_0[0xC];
@@ -124,7 +119,7 @@ typedef struct {
 
 typedef struct Game17CAF0SpreadConfig {
     s32 countBase, countRange;
-    Game17CAF0Vec3f position;
+    Vec3f position;
     f32 speedBase, speedRange;
     f32 sizeBase, sizeRange;
     f32 durationBase, durationRange;
@@ -139,12 +134,12 @@ void func_151A2AD4(s32, s32, f32, f32, s32, f32, f32, f32, f32,
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1514F8F8 CURRENT (2199) */
 void func_1514F8F8(void *arg0, Game17CAF0Emitter *arg1,
-                   Game17CAF0Vec3f *axis0, Game17CAF0Vec3f *axis1,
+                   Vec3f *axis0, Vec3f *axis1,
                    f32 spread, s32 arg5, s32 arg6) {
-    Game17CAF0Vec3f velocity;
+    Vec3f velocity;
     struct { f32 first, second; } cone;
     register Game17CAF0SpreadConfig *config;
-    register Game17CAF0Vec3f *base;
+    register Vec3f *base;
     register f32 speed;
     register f32 randomSize;
     register u32 randomAngle;
@@ -153,7 +148,7 @@ void func_1514F8F8(void *arg0, Game17CAF0Emitter *arg1,
     void *volatile position;
 
     config = arg0;
-    base = (Game17CAF0Vec3f *)arg1;
+    base = (Vec3f *)arg1;
     base->x *= 1000.0f;
     base->y *= 1000.0f;
     base->z *= 1000.0f;
@@ -184,12 +179,12 @@ void func_1514F8F8(void *arg0, Game17CAF0Emitter *arg1,
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514F8F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_1514F8F8.s")
 
-void func_1514F8F8(void *, Game17CAF0Emitter *, Game17CAF0Vec3f *,
-                   Game17CAF0Vec3f *, f32, s32, s32);
+void func_1514F8F8(void *, Game17CAF0Emitter *, Vec3f *,
+                   Vec3f *, f32, s32, s32);
 
 void func_1514FB98(void *arg0, u8 arg1, s32 arg2) {
-    Game17CAF0Vec3f sp34;
-    Game17CAF0Vec3f sp28;
+    Vec3f sp34;
+    Vec3f sp28;
 
     if (func_15146078(arg0, &sp34, &sp28) != 0) {
         func_1514F8F8(&((Game17CAF0Emitter *)arg0)->field_10, arg0, &sp34, &sp28,
@@ -201,13 +196,13 @@ void func_1514FBFC(void *arg0, u8 arg1, s32 arg2) {
     struct {
         f32 out_2C;
         f32 out_30;
-        Game17CAF0Vec3f third;
+        Vec3f third;
         f32 out_40;
         f32 out_44;
-        Game17CAF0Vec3f second;
+        Vec3f second;
         f32 out_54;
         f32 out_58;
-        Game17CAF0Vec3f first;
+        Vec3f first;
     } locals;
 
     if (func_15144E80((u8 *) arg0 + 0xC, &locals.first, &locals.second, &locals.third)) {
@@ -236,7 +231,7 @@ typedef struct {
     s16 secondRange;
     s32 countBase;
     s32 countRange;
-    Game17CAF0Vec3f position;
+    Vec3f position;
     f32 field1C;
     f32 field20;
     f32 field24;
@@ -309,7 +304,7 @@ void func_1514FEFC(s32 arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4) {
     func_1514FF44(sp24 + 4, arg1, arg2, arg3, arg4);
 }
 typedef struct {
-    Game17CAF0Vec3f position;
+    Vec3f position;
     s16 countBase;
     s16 countRange;
     f32 directionBase;
@@ -386,7 +381,7 @@ extern f32 D_800A5FF4;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15150178 CURRENT (1119) */
 void func_15150178(s16 *arg0, f32 *arg1, s32 arg2, u8 arg3, s32 arg4) {
     Game17CAF0ParticleConfig *config;
-    Game17CAF0Vec3f direction;
+    Vec3f direction;
     f32 randomSize;
     f32 randomVariant;
     f32 randomSpeed;
@@ -433,7 +428,7 @@ void func_15150178(s16 *arg0, f32 *arg1, s32 arg2, u8 arg3, s32 arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_1515080C.s")
 typedef struct Game150D1CConfig {
     s32 countBase, countRange;
-    Game17CAF0Vec3f origin;
+    Vec3f origin;
     s16 angleBase, angleRange, pitchBase, pitchRange;
     f32 maxDistance;
     f32 sizeBase, sizeRange;
@@ -447,7 +442,7 @@ void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15150D1C CURRENT (979) */
 void func_15150D1C(Game150D1CConfig *arg0, s32 arg1, s32 arg2) {
-    Game17CAF0Vec3f direction;
+    Vec3f direction;
     s16 triangle[3];
     f32 point[3];
     f32 distance;
@@ -555,7 +550,7 @@ void func_15150F90(Game150F90Config *arg0, s32 arg1, s32 arg2, s32 arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15150F90.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_151511FC.s")
 typedef struct {
-    Game17CAF0Vec3f position;
+    Vec3f position;
     s16 life, enabled;
     s32 active;
     u8 field14, fade, pad16[2];
@@ -564,7 +559,7 @@ typedef struct {
 
 typedef struct {
     f32 size;
-    Game17CAF0Vec3f velocity;
+    Vec3f velocity;
     f32 growth;
     u8 pad14[4];
     u8 red, green, blue, alpha;
@@ -572,8 +567,8 @@ typedef struct {
 } Game151A38Motion;
 
 typedef struct {
-    Game17CAF0Vec3f position;
-    Game17CAF0Vec3f normal;
+    Vec3f position;
+    Vec3f normal;
     s16 triangle[9];
     u8 pad2A[2];
     f32 spread;
@@ -593,11 +588,11 @@ void func_15151670(Game151670Config *arg0, s32 arg1, s32 arg2) {
     Game151A38Spawn spawn;
     Game151A38Motion motion;
     u8 kind;
-    Game17CAF0Vec3f basis1;
+    Vec3f basis1;
     f32 magnitude1, inverse1;
-    Game17CAF0Vec3f basis2;
+    Vec3f basis2;
     f32 magnitude2, inverse2;
-    Game17CAF0Vec3f basis3;
+    Vec3f basis3;
     f32 magnitude3, inverse3;
     f32 speed;
     f32 second;
@@ -655,7 +650,7 @@ void func_15151670(Game151670Config *arg0, s32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15151670.s")
 
 typedef struct {
-    Game17CAF0Vec3f position;
+    Vec3f position;
     f32 sizeBase, sizeRange, growthBase, growthRange, speedBase, speedRange;
     s16 countBase, countRange, yawBase, yawRange, pitchBase, pitchRange;
     s16 fadeBase, fadeRange, lifeBase, lifeRange;
@@ -721,10 +716,10 @@ void func_15151A38(Game151A38Config *arg0, u8 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15151D6C.s")
 typedef struct Game154884Descriptor {
     f32 field00, field04, field08, field0C;
-    Game17CAF0Vec3f angles;
-    Game17CAF0Vec3f scale;
-    Game17CAF0Vec3f position;
-    Game17CAF0Vec3f velocity;
+    Vec3f angles;
+    Vec3f scale;
+    Vec3f position;
+    Vec3f velocity;
     f32 field40, field44, field48, field4C;
     s32 field50;
     s16 field54, field56;
@@ -741,7 +736,7 @@ typedef struct Game154884Descriptor {
 
 typedef struct Game152190Config {
     s32 countBase, countRange;
-    Game17CAF0Vec3f position;
+    Vec3f position;
     s16 yawBase, yawRange, pitchBase, pitchRange;
     f32 speedBase, speedRange, durationBase, durationRange;
     s16 lifeBase, lifeRange;
@@ -826,13 +821,13 @@ typedef struct {
 
 typedef struct {
     s32 countBase, countRange;
-    Game17CAF0Vec3f position;
+    Vec3f position;
     s16 yawBase, yawRange, pitchBase, pitchRange;
     f32 speedBase, speedRange, jitter, sizeBase, sizeRange;
     s16 lifeBase, lifeRange;
     s32 field34, field38, field3C;
     f32 field40, field44, scaleBase, scaleRange;
-    Game17CAF0Vec3f velocityBase, velocityRange;
+    Vec3f velocityBase, velocityRange;
     Game17CAF0Color firstColor, secondColor;
     u8 flags, mode;
     s16 field72, field74;
@@ -850,15 +845,15 @@ typedef struct {
     u8 field38, pad39[3];
     s32 field3C;
     u8 field40, field41, pad42[2];
-    Game17CAF0Vec3f position;
+    Vec3f position;
     u8 pad50[4];
     s16 field54, field56;
 } Game152520Descriptor;
 
 typedef struct {
-    Game17CAF0Vec3f angles;
+    Vec3f angles;
     f32 scale;
-    Game17CAF0Vec3f direction, velocity;
+    Vec3f direction, velocity;
     f32 size, jitter;
     u8 mode, pad31[3];
 } Game152520Motion;
@@ -935,7 +930,7 @@ void func_15152520(Game152520Config *arg0, s32 arg1, s32 arg2) {
 
 typedef struct {
     s32 countBase, countRange;
-    Game17CAF0Vec3f position;
+    Vec3f position;
     s16 angleBase, angleRange, pitchBase, pitchRange;
     f32 speedBase, speedRange, field24;
     f32 scaleBase, scaleRange;
@@ -947,7 +942,7 @@ typedef struct {
 } Game152874Config;
 
 typedef struct {
-    Game17CAF0Vec3f position, direction;
+    Vec3f position, direction;
     f32 field18, field1C;
     Game17CAF0Color color;
     s32 lifetime;
@@ -1014,7 +1009,7 @@ void func_15152ABC(Game17CAF0Color *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152B38.s")
 typedef struct {
-    Game17CAF0Vec3f position;
+    Vec3f position;
     f32 sizeBase, sizeRange, growthBase, growthRange, speedBase, speedRange;
     s16 countBase, countRange, yawBase, yawRange, pitchBase, pitchRange;
     s16 fadeBase, fadeRange, lifeBase, lifeRange;
@@ -1023,7 +1018,7 @@ typedef struct {
     u8 blue, alpha;
 } Game152F70Config;
 typedef struct {
-    Game17CAF0Vec3f position;
+    Vec3f position;
     s16 life, enabled;
     s32 active;
     u8 field14, fade, pad16[2];
@@ -1031,7 +1026,7 @@ typedef struct {
 } Game152F70Spawn;
 typedef struct {
     f32 size;
-    Game17CAF0Vec3f velocity;
+    Vec3f velocity;
     f32 growth;
     u8 pad14[4];
     Game17CAF0Color color;
@@ -1096,7 +1091,7 @@ void func_15152F70(Game152F70Config *arg0, u8 arg1) {
     }
 }
 typedef struct {
-    Game17CAF0Vec3f position;
+    Vec3f position;
     s16 countBase, countRange, yawBase, yawRange, pitchBase, pitchRange;
     f32 speedBase, speedRange;
     s16 lifeBase, lifeRange, sizeBase, sizeRange;
@@ -1188,7 +1183,7 @@ typedef struct {
     u8 colors[7], alphaBase, alphaRange, field25;
     s16 field26, field28, field2A;
     f32 size, sizeBase, sizeRange;
-    Game17CAF0Vec3f position;
+    Vec3f position;
     s16 yawBase, pitchBase, yawRange, pitchRange;
     f32 speedBase, speedRange, growthBase, growthRange;
     s32 flags5C;
@@ -1206,9 +1201,9 @@ typedef struct {
     u8 colors[8], field1C, kind;
     s16 field1E, field20, field22;
     f32 size, width, height;
-    Game17CAF0Vec3f position;
+    Vec3f position;
     u8 pad3C[0xC];
-    Game17CAF0Vec3f velocity;
+    Vec3f velocity;
     f32 growth;
     s32 flags58, field5C;
     u8 mode60, mode61;
@@ -1287,7 +1282,7 @@ void func_15153634(Game153634Config *arg0, u8 arg1, u8 arg2, s32 arg3) {
 }
 typedef struct {
     s16 countBase, countRange;
-    Game17CAF0Vec3f position;
+    Vec3f position;
     s16 yawBase, pitchBase, yawRange, pitchRange;
     f32 speedBase, speedRange, sizeBase, sizeRange;
     Game17CAF0Color firstColor, secondColor;
@@ -1301,7 +1296,7 @@ typedef struct {
 } Game1539B4Config;
 
 typedef struct {
-    Game17CAF0Vec3f position, direction;
+    Vec3f position, direction;
     f32 speed, size;
     Game17CAF0Color firstColor, secondColor;
     u8 flags;
@@ -1362,7 +1357,7 @@ void func_151539B4(void *arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_151539B4.s")
 void func_1514F640(s32, u8 *);
 typedef struct {
-    Game17CAF0Vec3f position;
+    Vec3f position;
     f32 magnitudeBase, magnitudeRange;
     f32 scaleBase, scaleRange;
     f32 directionBase, directionRange;
@@ -1520,7 +1515,7 @@ void *func_151541B8(void *arg0, f32 arg1, f32 arg2, f32 arg3,
     descriptor.scale.x = 1.0f;
     descriptor.scale.y = 1.0f;
     descriptor.scale.z = 1.0f;
-    descriptor.position = *(Game17CAF0Vec3f *)arg0;
+    descriptor.position = *(Vec3f *)arg0;
     descriptor.velocity.x = 0.0f;
     descriptor.velocity.y = 0.0f;
     descriptor.velocity.z = 0.0f;
@@ -1654,7 +1649,7 @@ void *func_10022EC0(void *, const void *, u32);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 extern f32 D_800A601C, D_800A6020, D_800A6024, D_800A6028, D_800A602C;
 
-void *func_15154884(Game17CAF0Vec3f *arg0, f32 arg1, f32 arg2,
+void *func_15154884(Vec3f *arg0, f32 arg1, f32 arg2,
                     f32 arg3, u8 arg4, s32 arg5) {
     u8 *result;
     Game154884Descriptor descriptor;

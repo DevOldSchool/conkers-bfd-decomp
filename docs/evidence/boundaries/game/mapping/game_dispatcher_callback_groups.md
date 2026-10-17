@@ -121,7 +121,10 @@ files are not edited or checked in.
 Three further index proposals inside these four ranges have no independently
 established entry reference: `15040A4C`, `15073070`, and `1513E134`.
 Their return/nop words remain intact in the preceding raw span and receive no
-separate work item. The membership table gives each recovered raw span,
+separate work item. (`15073070` was later split from its parent span
+because the accepted C defines it as a separate empty function; see
+[the return-stub splits](game_unreferenced_return_stub_splits.md). It still
+has no entry reference.) The membership table gives each recovered raw span,
 including such retained instructions and final padding. It does not silently
 claim those bytes are implemented C or identify an original function name.
 
@@ -497,7 +500,8 @@ Range SHA-1: `2b1ae34c7f7ad79a75155abbb40f4d964a236298`.
 | `func_15072EF4` | `0x1c` |
 | `func_15072F10` | `0x13c` |
 | `func_1507304C` | `0x8` |
-| `func_15073054` | `0x24` |
+| `func_15073054` | `0x1C` |
+| `func_15073070` | `0x8` |
 | `func_15073078` | `0x2c` |
 | `func_150730A4` | `0x2c` |
 | `func_150730D0` | `0x48` |

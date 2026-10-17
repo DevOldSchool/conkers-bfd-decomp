@@ -138,6 +138,26 @@ which the overlay header includes as needed. Private or partial structures stay
 in their owning C file. These headers are maintained source, not generated m2c
 output, and are seeded incrementally as interfaces are reviewed.
 
+### Shared type definitions
+
+A source-local structure may be promoted into a focused shared header (for
+example `include/game_vec.h`, which `game_functions.h` includes) only when
+`./conker struct-layouts` shows at least three copies with an identical MIPS
+o32 layout, every promoted copy spells the same field names in the same order,
+and the matched functions that name a copy use it consistently (the same
+pointer, parameter and member roles; no copy is a partial or padded view of a
+larger owner). Copies with the same layout but different field names are not
+promoted; renaming fields in a matched body is separate review work. Promotion
+only deletes the local definition and spells the shared name; every matched
+body in the file stays otherwise unchanged. Sources that do not yet include the
+overlay header receive `#include "game_functions.h"` directly after
+`#include "types.h"`, because the m2c context only inlines `*_functions.h`
+headers from the initial include block. Afterwards recheck every matched
+function in the edited files with full-span US `finish`, confirm a sample of
+`#if 0` deferred candidates still compiles with `diagnose-diff`, and finish
+with a clean `verify-batch`; a match that changes is reported, not repaired by
+editing its body. Record the batches and rechecked counts in the pull request.
+
 Use the registered matched C definition as the starting evidence, then audit
 all declaration sites and callers before adopting its signature. A matched body
 can omit unused parameters, so a self-contained signature alone is insufficient
@@ -530,6 +550,21 @@ Use `./conker register-main` for a reviewed main-executable function.
 `game-index` is a shortlist, not match evidence. Function registration creates
 a work item but does not claim that one function equals one original source
 file.
+
+When a registered game span is found to contain a second routine that the
+accepted C already defines separately (typically an unreferenced `jr $ra; nop`
+stub after the parent's own epilogue), add the canonical `func_<vram>` label to
+`config/symbols/game-us.txt`, regenerate the reference, and split the span:
+
+```sh
+./conker split-game-function --parent <parent-id> --id <new-id> --us <new-symbol>
+```
+
+The regenerated reference must partition the parent span exactly at the new
+symbol. The new member joins the parent's source unit as raw ASM, the parent
+span shrinks to the split point and a matched parent loses its evidence; rerun
+`finish` for both. Record the reasoning in an evidence note, as in
+[the return-stub splits](evidence/boundaries/game/mapping/game_unreferenced_return_stub_splits.md).
 
 After a default build, locate the first differing word with (add `--assets`
 for the reconstructed-assets output):

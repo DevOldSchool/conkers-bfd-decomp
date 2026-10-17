@@ -1339,20 +1339,16 @@ typedef struct Game169510Velocity {
     f32 rx, ry, rz;
 } Game169510Velocity;
 
-typedef struct Game169510VelocitySnapshot {
-    f32 x, y, z;
-} Game169510VelocitySnapshot;
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1513F728 CURRENT (870) */
 s32 func_1513F728(void *arg0) {
-    Game169510VelocitySnapshot previous;
+    Vec3f previous;
     Game169510Velocity *velocity;
     Game169510ScaledOwner *owner = arg0;
     u32 count;
     f32 dx, dy, dz;
 
     velocity = (Game169510Velocity *)((u8 *)arg0 + 0x110);
-    previous = *(Game169510VelocitySnapshot *)velocity;
+    previous = *(Vec3f *)velocity;
     for (count = D_800BE9E4; count != 0; count--) {
         velocity->x *= velocity->damping;
         velocity->y *= velocity->damping;

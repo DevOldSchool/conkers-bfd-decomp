@@ -32,10 +32,6 @@ typedef struct {
     u8 pad20[8];
 } Game1FEA80TrailPoint;
 
-typedef struct Game1FEA80Vec3 {
-    f32 x, y, z;
-} Game1FEA80Vec3;
-
 typedef struct Game1FEA80Vec2 {
     f32 x, z;
 } Game1FEA80Vec2;
@@ -72,10 +68,10 @@ s32 func_151D15D0(u8 *arg0) {
     ownerBase = state->owner;
     if (D_800BE9E4 > 0) {
         owner = ownerBase + 0x28;
-        *(Game1FEA80Vec3 *)(arg0 + 0x10) = *(Game1FEA80Vec3 *)(owner + 0x18);
+        *(Vec3f *)(arg0 + 0x10) = *(Vec3f *)(owner + 0x18);
         *(u16 *)(arg0 + 0x1E) |= 4;
         current = points + *(s8 *)(arg0 + 0x2E);
-        *(Game1FEA80Vec3 *)&current->x = *(Game1FEA80Vec3 *)(arg0 + 0x10);
+        *(Vec3f *)&current->x = *(Vec3f *)(arg0 + 0x10);
         current->length = *(f32 *)(owner + 0x30);
         x = *(f32 *)(owner + 0x24);
         z = *(f32 *)(owner + 0x2C);

@@ -29,13 +29,9 @@ typedef struct Game121A20State {
 
 void *func_10022EC0(void *, const void *, u32);
 
-typedef struct GameF4A38Vector {
-    f32 x, y, z;
-} GameF4A38Vector;
-
 typedef struct {
     f32 field00, field04, field08, field0C;
-    GameF4A38Vector angles, scale, position, velocity;
+    Vec3f angles, scale, position, velocity;
     f32 field40, field44, field48, field4C;
     s32 flags;
     s16 lifetime, kind;
@@ -53,7 +49,7 @@ typedef struct {
 
 typedef struct {
     f32 duration;
-    GameF4A38Vector position;
+    Vec3f position;
     f32 angle, rate, cosine, sine, radius;
     u8 flags;
 } Game121A20Motion;
@@ -68,11 +64,11 @@ extern f32 D_800A1A64, D_800A1A68, D_800A1A6C, D_800A1A70;
 extern f32 D_800A1A74, D_800A1A78, D_800A1A7C, D_800A1A80;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F4570 CURRENT (300) */
-void func_150F4570(GameF4A38Vector *arg0, GameF4A38Vector *arg1, s32 arg2,
+void func_150F4570(Vec3f *arg0, Vec3f *arg1, s32 arg2,
                    f32 arg3, f32 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
     Game121A20Descriptor descriptor;
-    GameF4A38Vector direction;
-    GameF4A38Vector delta;
+    Vec3f direction;
+    Vec3f delta;
     f32 length;
     f32 inverse;
     Game121A20Motion motion;
@@ -180,7 +176,7 @@ void *func_150F48D0(u8 *arg0) {
 
 typedef struct GameF4A38Actor {
     u8 pad0[0x38];
-    GameF4A38Vector position;
+    Vec3f position;
     u8 pad44[0x2C];
     u8 opacity;
     u8 pad71[0x17];
@@ -198,17 +194,17 @@ extern f64 D_800A1A88, D_800A1A90;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F4A38 CURRENT (1667) */
 s32 func_150F4A38(GameF4A38Actor *arg0) {
     f32 distance;
-    GameF4A38Vector delta;
+    Vec3f delta;
     u8 *saved;
     u8 *nested;
-    GameF4A38Vector *camera;
+    Vec3f *camera;
     u32 handle;
     s32 flags;
 
     nested = (u8 *) &arg0->nested;
     if ((arg0->nested.flags & 1) || ((flags = nested[0x24]) & 2)) {
         saved = (u8 *) &arg0->nested;
-        camera = (GameF4A38Vector *) func_15144B34(0);
+        camera = (Vec3f *) func_15144B34(0);
         delta.x = arg0->position.x - camera->x;
         delta.y = arg0->position.y - camera->y;
         delta.z = arg0->position.z - camera->z;
@@ -293,7 +289,7 @@ typedef struct GameF4DECChoices {
     f32 *scales;
 } GameF4DECChoices;
 
-void func_150F4570(GameF4A38Vector *, GameF4A38Vector *, s32, f32, f32, f32, s32, s32, s32, s32);
+void func_150F4570(Vec3f *, Vec3f *, s32, f32, f32, f32, s32, s32, s32, s32);
 extern GameF4DECChoices D_80088B20[];
 extern s32 (*D_80088B38[])(void);
 extern f32 D_800A1A98, D_800A1A9C, D_800A1AA0, D_800A1AA4, D_800A1AA8;
@@ -302,13 +298,13 @@ extern f32 D_800A1A98, D_800A1A9C, D_800A1AA0, D_800A1AA4, D_800A1AA8;
 void func_150F4DEC(u8 *arg0) {
     GameF4DECChoices *choices;
     register GameF4DECState *state;
-    GameF4A38Vector *camera;
-    GameF4A38Vector first;
-    GameF4A38Vector second;
+    Vec3f *camera;
+    Vec3f first;
+    Vec3f second;
     f32 radiusRange;
     f32 duration;
     s32 index;
-    GameF4A38Vector swap;
+    Vec3f swap;
     s16 firstAngle;
     s32 secondAngle;
 
@@ -316,7 +312,7 @@ void func_150F4DEC(u8 *arg0) {
     state = (GameF4DECState *)(arg0 + 0x28);
     state->pending += (D_800A1A98 + func_150ADA68() * D_800A1A9C) * D_800BE9A4;
     if (state->pending > 1.0f) {
-        camera = (GameF4A38Vector *)func_15144B34(state->owner[0x23D]);
+        camera = (Vec3f *)func_15144B34(state->owner[0x23D]);
         index = (s32)((*(f32 *)(state->owner + 0x380) + 180.0f) * D_800A1AA0);
         radiusRange = D_800A1AA4;
         secondAngle = (s16)(index - 0x15);

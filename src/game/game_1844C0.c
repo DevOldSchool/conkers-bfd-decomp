@@ -246,11 +246,6 @@ s32 func_15157918(u8 *arg0) {
  * live owner remain stable apart from these writes during normal execution,
  * with matching nontrapping binary32 operations.
  */
-typedef struct Game1844C0MotionVector {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1844C0MotionVector;
 
 typedef struct Game1844C0MotionOwnerPrefix {
     u8 unknown00[0x54];
@@ -264,7 +259,7 @@ typedef struct Game1844C0MotionExtension {
     f32 value04;
     f32 value08;
     u8 unknown0C[4];
-    Game1844C0MotionVector velocity10;
+    Vec3f velocity10;
     f32 rate1C;
     f32 rate20;
     f32 rate24;
@@ -280,7 +275,7 @@ extern f32 D_800BE9A8;
 s32 func_15157AA8(u8 *arg0) {
     Game1844C0MotionOwnerPrefix *owner;
     Game1844C0MotionExtension *motion;
-    Game1844C0MotionVector initialVelocity;
+    Vec3f initialVelocity;
     u32 remaining;
     f32 accelerationX;
     f32 accelerationY;

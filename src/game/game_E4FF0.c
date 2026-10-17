@@ -74,9 +74,6 @@ void func_150B82D0(f32 *arg0, s32 arg1, f32 *arg2, f32 *arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B82D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4FF0/func_150B82D0.s")
-typedef struct GameE4FF0Vector {
-    f32 x, y, z;
-} GameE4FF0Vector;
 
 typedef struct GameE4FF0Descriptor {
     s32 flags;
@@ -95,9 +92,9 @@ typedef struct GameE4FF0Descriptor {
     f32 field24;
     f32 field28;
     f32 field2C;
-    GameE4FF0Vector position;
-    GameE4FF0Vector velocity;
-    GameE4FF0Vector acceleration;
+    Vec3f position;
+    Vec3f velocity;
+    Vec3f acceleration;
     f32 field54;
     s32 field58;
     s32 field5C;
@@ -115,7 +112,7 @@ void *func_15130374(s32, u8, s32, u8, s32);
 extern f32 D_8009FD88;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B85C0 CURRENT (285) */
-void func_150B85C0(GameE4FF0Vector *arg0, f32 *arg1, f32 *arg2, s32 arg3, s32 arg4) {
+void func_150B85C0(Vec3f *arg0, f32 *arg1, f32 *arg2, s32 arg3, s32 arg4) {
     GameE4FF0Descriptor descriptor;
     s32 second;
     s32 first;

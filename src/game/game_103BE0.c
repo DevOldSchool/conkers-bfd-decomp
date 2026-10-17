@@ -20,11 +20,6 @@ void func_150D6C98(void *arg0, void *arg1) {
     *(f32 *)((u8 *)arg1 + 4) = (f32) (*(f32 *)((u8 *)arg0 + 0x18) + 60.0f);
     *(f32 *)((u8 *)arg1 + 8) = (f32) *(f32 *)((u8 *)arg0 + 0x1C);
 }
-typedef struct Game103BE0Vec3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game103BE0Vec3;
 
 void func_15131958(void *, f32);
 extern f32 D_800BE9A4;
@@ -34,7 +29,7 @@ extern f32 D_800BE9A8;
 s32 func_150D6CC4(u8 *arg0, s32 arg1) {
     u8 *state;
     u8 *object;
-    Game103BE0Vec3 previous;
+    Vec3f previous;
     f32 changeX;
     f32 changeY;
     f32 changeZ;
@@ -45,7 +40,7 @@ s32 func_150D6CC4(u8 *arg0, s32 arg1) {
         return 0;
     }
     func_150D6C98(object, arg0 + 0x40);
-    previous = *(Game103BE0Vec3 *)(arg0 + 0x58);
+    previous = *(Vec3f *)(arg0 + 0x58);
     *(f32 *)(arg0 + 0x5C) += *(f32 *)(arg0 + 0x64) * D_800BE9A4;
     func_15131958(arg0 + 0x58, *(f32 *)(state + 8));
     changeX = (*(f32 *)(arg0 + 0x58) - previous.x) * D_800BE9A8;

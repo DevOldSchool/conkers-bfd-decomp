@@ -152,12 +152,9 @@ void func_1519F168(Game1CC440State *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1519F168 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F168.s")
-typedef struct Game1CC440Vector {
-    f32 x, y, z;
-} Game1CC440Vector;
 
 typedef struct Game1CC440Spawn {
-    Game1CC440Vector position;
+    Vec3f position;
     s16 duration;
     u16 flags;
     s32 mode;
@@ -172,7 +169,7 @@ typedef struct Game1CC440Config {
     u8 pad5[3];
     f32 field8;
     f32 fieldC;
-    Game1CC440Vector position;
+    Vec3f position;
     f32 field1C;
     f32 field20;
     f32 field24;
@@ -334,7 +331,7 @@ typedef struct Game1CC440TrailPoint {
     f32 velocityX, velocityZ;
 } Game1CC440TrailPoint;
 
-s32 func_15045800(Game1CC440Vector *, u16, f32, void *);
+s32 func_15045800(Vec3f *, u16, f32, void *);
 extern f32 D_800A8CF0, D_800BE9A4;
 extern s32 D_800BE9E4;
 
@@ -372,7 +369,7 @@ s32 func_1519F4F0(u8 *arg0) {
             probe[1] = point->y + offset;
             probe[2] = point->z;
             if (bound < fabsf(probe[0]) || bound < fabsf(probe[2])) expired = 1;
-            else if (func_15045800((Game1CC440Vector *)probe, 0, point->y - offset, arg0 + 0x60) != 0) {
+            else if (func_15045800((Vec3f *)probe, 0, point->y - offset, arg0 + 0x60) != 0) {
                 point->y = *(f32 *)(arg0 + 0x60);
             } else expired = 1;
             if (point->size < 0) expired = 1;

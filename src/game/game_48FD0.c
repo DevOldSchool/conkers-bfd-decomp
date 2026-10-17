@@ -254,7 +254,7 @@ void func_1501C0F0(u8 arg0, f32 arg1, f32 arg2) {
     }
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501C17C CURRENT (200) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501C17C CURRENT (100) */
 void func_1501C17C(s32 arg0) {
 
     arg0 = arg0 & 0xFF;
