@@ -16,6 +16,7 @@ from typing import Callable
 
 import candidate_tables
 import compile_c
+import frame_plan
 import linked_aliases
 import layout_check
 import prepare_nonmatching_asm
@@ -848,7 +849,36 @@ def print_diagnosis(symbol: str, score: int, counts: dict[str, int], stack_rows:
         print("recommendation: run finish")
 
 
-def print_compact_mismatch(output: str, symbol: str, directory: Path) -> None:
+def frame_plan_lines(reference_assembly: Path, candidate: Path, symbol: str, expected_size: int,
+                     stack_rows: int) -> list[str]:
+    """``frame-plan:`` block when the diagnosis has stack rows or the frames differ.
+
+    The reference plan comes from the raw listing's instruction words and the
+    candidate's from its object's ``.text``; a failure on either side is reported
+    inside the block instead of failing the diagnosis.
+    """
+
+    try:
+        reference = frame_plan.reference_plan(reference_assembly, symbol, expected_size)
+    except (frame_plan.FramePlanError, OSError, ValueError) as error:
+        return [f"frame-plan: unavailable ({error})"] if stack_rows else []
+    candidate_plan = None
+    candidate_error = None
+    try:
+        candidate_plan = frame_plan.object_plan(candidate, symbol)
+    except (frame_plan.FramePlanError, OSError, ValueError) as error:
+        candidate_error = str(error)
+    frames_differ = candidate_plan is not None and candidate_plan.frame_size != reference.frame_size
+    if not stack_rows and not frames_differ:
+        return []
+    lines = frame_plan.render_block(reference, candidate_plan)
+    if candidate_error:
+        lines.insert(1, f"  candidate plan unavailable ({candidate_error})")
+    return lines
+
+
+def print_compact_mismatch(output: str, symbol: str, directory: Path, *,
+                           frame_plan_inputs: tuple[Path, Path, int] | None = None) -> None:
     rows = diagnostic_rows(output)
     score = current_difference_count(output)
     counts = classify_diff_rows(rows)
@@ -867,7 +897,12 @@ def print_compact_mismatch(output: str, symbol: str, directory: Path) -> None:
         temporary = path.with_suffix(path.suffix + ".tmp")
         temporary.write_text(content, encoding="utf-8")
         temporary.replace(path)
-    print_diagnosis(symbol, score, counts, sum(is_stack_difference(row) for row in rows))
+    stack_rows = sum(is_stack_difference(row) for row in rows)
+    print_diagnosis(symbol, score, counts, stack_rows)
+    if frame_plan_inputs is not None:
+        reference_assembly, candidate, expected_size = frame_plan_inputs
+        for line in frame_plan_lines(reference_assembly, candidate, symbol, expected_size, stack_rows):
+            print(line)
     differing = [line for row, line in zip(rows, lines) if diff_row_category(row) is not None]
     print(f"diff-excerpt: first {min(5, len(differing))} of {len(differing)} differing rows (reference | candidate)")
     for line in differing[:5]:
@@ -884,6 +919,8 @@ def run_diagnose_diff(
     expected_size: int,
     *, table_check: Callable[[], None] | None = None,
     candidate_extent: int | None = None,
+    reference_assembly: Path | None = None,
+    plan_candidate: Path | None = None,
 ) -> int:
     try:
         result = subprocess.run(
@@ -910,7 +947,10 @@ def run_diagnose_diff(
         if not score and candidate_extent is not None:
             raise ValueError(f"{symbol} short candidate extent {candidate_extent:#x} scored zero")
         if score:
-            print_compact_mismatch(result.stdout, symbol, directory)
+            frame_plan_inputs = None
+            if reference_assembly is not None:
+                frame_plan_inputs = (reference_assembly, plan_candidate or candidate, expected_size)
+            print_compact_mismatch(result.stdout, symbol, directory, frame_plan_inputs=frame_plan_inputs)
         else:
             if table_check is not None:
                 table_check()
@@ -977,6 +1017,9 @@ def main() -> int:
         candidate = compile_candidate(
             arguments.profile, source, deferred_symbol=deferred_symbol
         )
+        # The plain compiled object keeps its own symbols for the frame plan even
+        # when the comparison below switches to a linked alias pair.
+        compiled_candidate = candidate
     except (ValueError, subprocess.CalledProcessError, OSError) as error:
         print(f"error: {error}", file=sys.stderr)
         return EXIT_FIX_COMPILE
@@ -1063,7 +1106,9 @@ def main() -> int:
                                    candidate_extent=table_options.get("candidate_extent"))
     if arguments.diagnose:
         return run_diagnose_diff(
-            candidate, reference, symbol, directory, expected_size, **table_options
+            candidate, reference, symbol, directory, expected_size,
+            reference_assembly=reference_assembly, plan_candidate=compiled_candidate,
+            **table_options
         )
     if arguments.require_match:
         return run_required_asm_diff(

@@ -19,6 +19,7 @@ from pathlib import Path
 
 import compile_c
 import diff
+import frame_plan
 import project_state
 
 ROOT = diff.ROOT
@@ -268,21 +269,66 @@ def score(target: Target, candidate: Path) -> int:
         raise ToolingError(f"asm-differ returned an invalid score: {error}") from error
 
 
+def layout_lines(frame: int | None, reference_frame: int | None, locals_: list[Local],
+                 reference: frame_plan.FramePlan | None, reference_error: str | None = None) -> list[str]:
+    """Candidate .mdebug homes beside the reference frame plan, aligned by frame-top offset.
+
+    Named locals are allocated from the frame top on both sides, so rows are keyed
+    by the offset from each side's own frame top; each side's sp offset is shown too.
+    """
+
+    lines = [f"frame: candidate {hex(frame) if frame is not None else 'leaf'}"
+             f", reference {hex(reference_frame) if reference_frame is not None else 'leaf'}"]
+    candidate_frame = frame or 0
+    candidate_rows: dict[int, list[str]] = {}
+    for entry in locals_:
+        candidate_rows.setdefault(entry.frame_offset, []).append(f"{entry.kind} {entry.name}")
+    reference_rows: dict[int, str] = {}
+    if reference is not None:
+        for slot in reference.slots:
+            reference_rows[slot.offset - reference.frame_size] = f"{slot.area} {slot.summary()}"
+        if reference.local_area is not None:
+            low, high = reference.local_area
+            for word in range(low, high, 4):
+                reference_rows.setdefault(word - reference.frame_size, "local unused")
+    keys = sorted(set(candidate_rows) | set(reference_rows), reverse=True)
+    if keys:
+        lines.append(f"{'top-rel':>8} {'cand sp':>8}  {'candidate (.mdebug)':28} {'ref sp':>7}  reference")
+    for key in keys:
+        relative = f"{'+' if key >= 0 else '-'}{abs(key):#x}"
+        candidate_sp = hex(candidate_frame + key) if key in candidate_rows else ""
+        candidate_text = ", ".join(candidate_rows.get(key, [])) or "-"
+        reference_sp = hex((reference.frame_size if reference else 0) + key) if key in reference_rows else ""
+        reference_text = reference_rows.get(key, "-")
+        lines.append(f"{relative:>8} {candidate_sp:>8}  {candidate_text:28} {reference_sp:>7}  {reference_text}")
+    named = [entry for entry in locals_ if entry.kind == "local"]
+    if named and candidate_frame:
+        floor = min(candidate_frame + entry.frame_offset for entry in named)
+        lines.append(f"lowest candidate local: {hex(floor)} ({len(named)} named homes;"
+                     " outgoing args, saved registers and reserved spill words lie below)")
+    if reference is not None:
+        areas = reference.render(label="reference", indent="")[1:2]
+        lines.extend(f"reference {line}" for line in areas)
+        inference = reference.infer()
+        if inference is not None:
+            lines.extend(f"reference {line}" for line in frame_plan.render_inference(inference))
+    elif reference_error:
+        lines.append(f"reference frame-plan: unavailable ({reference_error})")
+    return lines
+
+
 def print_layout(target: Target, candidate: Path) -> None:
     frame = object_frame_size(candidate, target.symbol)
     reference_frame = reference_frame_size(target.assembly, target.symbol)
-    print(f"frame: candidate {hex(frame) if frame is not None else 'leaf'}"
-          f", reference {hex(reference_frame) if reference_frame is not None else 'leaf'}")
     locals_ = mdebug_locals(candidate, target.symbol)
-    if frame is None:
-        frame = 0
-    print(f"{'kind':6} {'sp offset':>9}  name")
-    for entry in sorted(locals_, key=lambda item: -item.frame_offset):
-        print(f"{entry.kind:6} {hex(frame + entry.frame_offset):>9}  {entry.name}")
-    named = [entry for entry in locals_ if entry.kind == "local"]
-    if named and frame:
-        floor = min(frame + entry.frame_offset for entry in named)
-        print(f"lowest local: {hex(floor)} (outgoing args, saved registers and reserved spill words lie below)")
+    reference = None
+    reference_error = None
+    try:
+        reference = frame_plan.reference_plan(target.assembly, target.symbol, target.expected_size)
+    except (frame_plan.FramePlanError, OSError, ValueError) as error:
+        reference_error = str(error)
+    for line in layout_lines(frame, reference_frame, locals_, reference, reference_error):
+        print(line)
 
 
 def main() -> int:

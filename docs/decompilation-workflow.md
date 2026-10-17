@@ -342,7 +342,9 @@ macro alias; a differing work-item ID would not emit the scored symbol. Variants
 `build/us/probe/<symbol>/`, and scored with the same focused asm-differ
 comparison as `diff`, in one warm-container pass. The table also reports each
 frame size against the reference. `--layout` prints the frame size and every
-named local's stack offset read from IDO's `.mdebug` symbols. A probe score is
+named local's stack offset read from IDO's `.mdebug` symbols beside the
+reference [frame plan](#diagnosis-checklist), aligned by offset from each
+side's frame top. A probe score is
 search evidence only: apply the chosen body and run `finish`. One probe batch
 counts as one manual revision for the attempt limits; record its hypothesis and
 best score in the ledger.
@@ -359,6 +361,25 @@ Check these before reshaping statements:
   outgoing arguments, saved registers and reserved spill words. Some constructs
   reserve an extra word; in `func_150DE7C0`, a variable array index
   (`array[i]`) did and pointer arithmetic (`*(array + i)`) did not.
+- **Frame plan.** `diagnose-diff` prints a `frame-plan:` block whenever the
+  diagnosis has stack rows or the frames differ, and `probe --layout` prints the
+  same reference plan beside the candidate's `.mdebug` homes. Both come from
+  `scripts/frame_plan.py`, which decodes the raw reference words: the prologue
+  frame size, the saved registers and their slots, and every sp-relative slot
+  classified as incoming-argument home (`arg-in`, at or above the frame size),
+  `local`, `saved` or outgoing argument (`arg-out`, below the saved area), with
+  its accesses (`&->` address taken, `(delay)` stored in a call's delay slot,
+  `call-crossing` reloaded only after a call, `sub-word` byte/halfword access).
+  The `inferred:` line applies the IDO -O2 -g3 convention: named locals take
+  homes in declaration order from the frame top, unused and register-allocated
+  ones included, and call-crossing temporaries are spilled below the lowest
+  named home, with one unused alignment word allowed at the bottom. Every word
+  at or above an address-taken anchor is a named home. A named local that lives
+  across a call is stored exactly like a spilled temporary, so the named count
+  is a lower bound: compare the reference's local-area words with the
+  candidate's named homes, add real locals (or remove padding) until the
+  counts agree, then probe declaration orders. Standalone:
+  `python3 scripts/frame_plan.py <work-item-id> [--candidate build/us/.../unit.o]`.
 - A float register differs on a rodata constant load: IDO's FP temporaries
   rotate through `$f4`, `$f6`, `$f8`, `$f10`, `$f16` and `$f18`, never `$f12`
   or `$f14`, so `$f12`/`$f14` mean a register-allocated value. An `extern f32`
