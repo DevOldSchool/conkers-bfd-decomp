@@ -9,6 +9,7 @@ try:
     from scripts import audio_assets, audio_boundaries, sequence_codec, texture_build
     from scripts import asset_inputs
     from scripts.build_files import write_if_changed
+    from scripts import asset_receipts
 except ModuleNotFoundError:
     import audio_assets
     import audio_boundaries
@@ -16,6 +17,7 @@ except ModuleNotFoundError:
     import texture_build
     import asset_inputs
     from build_files import write_if_changed
+    import asset_receipts
 
 ROOT = Path(__file__).resolve().parent.parent
 ROM_SHA1 = '4cbadd3c4e0729dec46af64ad018050eada4f47a'
@@ -125,11 +127,16 @@ def build_parts(root=ROOT):
             raise ValueError('sequence differs from independent original ROM bytes')
         candidates.append((expected, directory, packed, hashes))
     asset_inputs.check_batch_sources(candidates, input_hashes, 'sequence')
-    proofs = []
+    proofs, receipts = [], {}
     for expected, directory, packed, hashes in candidates:
-        write_if_changed(root / 'build/us/sequences/parts' / (part_name(expected['entry']) + '.bin'), packed)
+        name = part_name(expected['entry'])
+        write_if_changed(root / 'build/us/sequences/parts' / (name + '.bin'), packed)
         proofs.append({**expected, 'source_inputs': hashes, 'stored_sha256': sha256(packed),
                        'matches_original': True})
+        receipts[name] = asset_receipts.part_record(
+            output=f'build/us/sequences/parts/{name}.bin', payload=packed, source_inputs=hashes,
+            input_directory=input_directory(expected['entry']), extent=expected)
+    asset_receipts.write(root, 'sequences', __file__, receipts)
     result = {'sequence_count': len(proofs), 'stored_bytes': sum(len(p) for _, _, p, _ in candidates),
               'sequences': proofs, 'verification': 'typed_events_and_independent_rom_bytes', 'matches_original': True}
     write_if_changed(root / 'build/us/sequences/batch.json', (json.dumps(result, indent=2) + '\n').encode())

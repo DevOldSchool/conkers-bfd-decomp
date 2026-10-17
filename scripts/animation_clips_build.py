@@ -6,10 +6,12 @@ from pathlib import Path
 try:
     from scripts import asset_inputs, model_animation_build as codec, model_assets, model_build, rzip_archive, texture_build
     from scripts.build_files import write_if_changed
+    from scripts import asset_receipts
     from scripts.model_character_alpha import checked_spans
 except ModuleNotFoundError:
     import asset_inputs, model_animation_build as codec, model_assets, model_build, rzip_archive, texture_build
     from build_files import write_if_changed
+    import asset_receipts
     from model_character_alpha import checked_spans
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -222,11 +224,16 @@ def build_parts(root=ROOT):
             raise ValueError('partial animation differs from independent original ROM')
         candidates.append((expected, directory, (packed, spans), hashes))
     asset_inputs.check_batch_sources(candidates, input_hashes, 'partial animation')
-    proofs = []
+    proofs, receipts = [], {}
     for expected, directory, (packed, spans), hashes in candidates:
-        write_if_changed(root / 'build/us/animation-clips/parts' / (part_name(expected['part']) + '.bin'), packed)
+        name = part_name(expected['part'])
+        write_if_changed(root / 'build/us/animation-clips/parts' / (name + '.bin'), packed)
         proofs.append({**expected, 'source_inputs': hashes, 'rebuilt_bytes': sum(len(data) for _, data in spans),
                        'matches_original': True})
+        receipts[name] = asset_receipts.part_record(
+            output=f'build/us/animation-clips/parts/{name}.bin', payload=packed, source_inputs=hashes,
+            input_directory=input_directory(expected['part']), extent=expected, spans=spans)
+    asset_receipts.write(root, 'animation-clips', __file__, receipts)
     write_if_changed(root / 'build/us/animation-clips/batch.json', (json.dumps(proofs, indent=2) + '\n').encode())
     return proofs
 

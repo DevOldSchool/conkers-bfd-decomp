@@ -127,7 +127,8 @@ checkout as before. The step log states which path it took. The job then checks
 out only the US ROM without persisting credentials, and runs `./conker build --all --assets`
 and `./conker objdiff report`. Report preparation validates linked targets for
 the tracked main/game/debugger US CPU-code and initialized-data ranges, plus the
-rebuilt font asset. Only
+rebuilt assets; it reuses the build's verified asset receipts instead of encoding
+every asset a second time (see [rebuilt asset receipts](objdiff.md#rebuilt-asset-receipts)). Only
 `build/us/objdiff-report/report.json` is
 uploaded as `us_report`, retained for 90 days. No ROM, assembly or object file is
 an artifact. Cleanup stops the toolchain and removes the private checkout and
