@@ -13836,7 +13836,7 @@
         "us": {
           "end": "0x1A90C0",
           "start": "0x1A9060",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1D6510.c"
