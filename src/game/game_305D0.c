@@ -11,7 +11,6 @@
  * - func_150034B4
  * - func_15003570
  * - func_15003668
- * - func_150039BC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -403,16 +402,13 @@ void func_150039B0(s32 arg0) {
 }
 extern s32 D_800DBE5C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150039BC CURRENT (10) */
 void func_150039BC(s32 arg0) {
     s32 v;
 
     v = arg0;
     D_800DBE5C = v;
     if (v != 0) {
-        v = (s32)((u32)v + 8U);
+        v = (s32)(((u32)v + 8U) & 0xFFFFFFFFFFFFFFFFu);
         D_800DBE5C = v;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150039BC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_305D0/func_150039BC.s")

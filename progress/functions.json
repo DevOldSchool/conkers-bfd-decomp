@@ -14121,17 +14121,16 @@
       "symbol": "func_150039B0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Valid unsigned address arithmetic retained CURRENT10/full36. New upstream seed202610151501:1383iterations975unique; redundant widening/narrowing zero rejected. Genuine wide-add and consumed-offset probes both10. No padding/ABI changes or acceptance credit.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 36,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150039BC",
           "vram": "0x150039BC"
         }
@@ -53164,17 +53163,16 @@
       "symbol": "func_15154D80"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "CURRENT 20 retained. One new probe batch: signed flag field 225, u16 OR result 20, explicit promoted OR 20. Prior pointer/integer-address/direct-record families exhausted. Tail byte reload/OR remains t2/t3 versus raw t1/t2.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 216,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515548C",
           "vram": "0x1515548C"
         }
@@ -58551,17 +58549,16 @@
       "symbol": "func_1509CCB4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Clean source improved35 to10 by inlining the consumed status address. Defined numeric table/status addresses; one commuted ADDU remains. Real statusIndex20 regresses; see extended search evidence. Upstream single-worker runs 202610151519:5000:budget_complete, 202610151507:5000:budget_complete. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 232,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509CCF4",
           "vram": "0x1509CCF4"
         }
