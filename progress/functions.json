@@ -59829,17 +59829,16 @@
       "symbol": "func_150C8DB8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT 10: only commuted mul.s inputs at +0x1dc. Inlining func_150ADA68() matches only with fraction left unused (dummy -g3 home; rejected) and the dead-store form (fraction = call) inside the expression is likewise a dummy. Source operand swaps of the natural form stay 10. Randomized permute blocked: pycparser rejects the preprocessed __pragma(1, sqrtf) intrinsic line in base.c (tooling).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 552,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C99B4",
           "vram": "0x150C99B4"
         }
@@ -72407,22 +72406,21 @@
       "symbol": "func_150CF0A0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 70,
-        "reason": "CURRENT70 restored after two new manual revisions: compound velocity field225 fixes ADD orientation but reallocates F2/F12 to F12/F14; compound scalar velocity345 changes tail registers/schedule. Prior four revisions including explicit timestep250 and ADD reversal neutral remain exhausted. Best valid candidate retains one ADD.S operand swap and MTC1/LWC1 scheduling pair; needs evidence for scratch-result lifetime without changing snapshot allocation. Task ledger build/us/manual-attempts/deferred-exact-20261005/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 192,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150CFC60",
           "vram": "0x150CFC60"
         }
       },
-      "source": "src/game/game_FD110.c",
+      "source": "src/done/game/game_FD110.c",
       "symbol": "func_150CFC60"
     },
     {

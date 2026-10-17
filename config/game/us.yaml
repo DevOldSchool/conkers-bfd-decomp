@@ -353,7 +353,7 @@ segments:
       - [0xCF0A0, c, done/game/game_FC550]
       - [0xCF140, c, game/game_FC5F0]
       - [0xCF530, c, game/game_FC9E0]
-      - [0xCFC60, c, game/game_FD110]
+      - [0xCFC60, c, done/game/game_FD110]
       - [0xCFD20, c, game/game_FD1D0]
       - [0xD0650, c, done/game/game_FDB00]
       - [0xD0730, c, done/game/game_FDBE0]

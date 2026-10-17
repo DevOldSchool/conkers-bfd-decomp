@@ -13556,15 +13556,15 @@
       "functions": [
         "func_150CFC60"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xCFD20",
           "start": "0xCFC60",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_FD110.c"
+      "source": "src/done/game/game_FD110.c"
     },
     {
       "boundary_evidence": {
