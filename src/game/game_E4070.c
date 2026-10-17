@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150B6BC0
  * - func_150B6C90
- * - func_150B6D34
  * - func_150B6E3C
  * - func_150B7220
  * - func_150B76BC
@@ -102,26 +101,23 @@ extern void *D_800D9898;
 extern void *D_800D98A4;
 extern s8 D_800D9890;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6D34 CURRENT (70) */
-void func_150B6D34(void) {
-    u32 var_v1;
-    void *temp_v0;
-    u32 end = (u32)&D_800D98A4;
+typedef struct GameE4070Slots {
+    u8 pad0[0x14];
+    void *entries[3];
+} GameE4070Slots;
 
-    var_v1 = (u32)&D_800D9898;
-loop:
-        temp_v0 = *(void **)(var_v1 + 0x14);
-        var_v1 += 4;
+void func_150B6D34(void) {
+    s32 i;
+    void *temp_v0;
+
+    for (i = 0; i < 3; i++) {
+        temp_v0 = ((GameE4070Slots *)&D_800D9898)->entries[i];
         if (temp_v0 != 0) {
             *(s32 *)((u8 *)temp_v0 + 0x20) = 1;
         }
-    if ((u32)var_v1 != end) {
-        goto loop;
     }
     D_800D9890 = 3;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B6D34 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B6D34.s")
 extern void *D_800D9894;
 extern void *D_800D98C0;
 extern s8 D_800D9890;

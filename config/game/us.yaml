@@ -39,7 +39,7 @@ segments:
       - [0x3120, c, game/game_305D0]
       - [0x39E0, c, game/game_30E90]
       - [0x4D50, c, done/game/game_32200]
-      - [0x4E00, c, game/game_322B0]
+      - [0x4E00, c, done/game/game_322B0]
       - [0x4F00, c, done/game/game_323B0]
       - [0x4F30, c, done/game/game_323E0]
       - [0x4FE0, c, game/game_32490]
