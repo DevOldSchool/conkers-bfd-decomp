@@ -1371,7 +1371,7 @@ void func_1508B20C(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1508B20C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508B20C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508B2A8 CURRENT (230) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508B2A8 CURRENT (15) */
 void func_1508B2A8(u8 arg0, u8 *state) {
     u8 *entry;
     s32 i;
@@ -1381,7 +1381,7 @@ void func_1508B2A8(u8 arg0, u8 *state) {
     f32 dx;
     f32 dz;
 
-    mark = state + (arg0 >> 3);
+    mark = (u8 *)state + (arg0 >> 3);
     mark[0x36] |= 1 << (arg0 & 3);
     entry = D_800D2350 + arg0 * 0x10;
     dx = (f32)*(s16 *)entry - *(f32 *)state;
@@ -1396,9 +1396,9 @@ void func_1508B2A8(u8 arg0, u8 *state) {
     } else {
         for (i = 0; i < 5; i++) {
             neighbor = entry[9 + i];
-            neighborIndex = (u8)neighbor;
+            neighborIndex = neighbor & 0xFF;
             if (neighbor != 0xFF &&
-                !(state[0x36 + (neighborIndex >> 3)] & (1 << (neighborIndex & 3)))) {
+                !(((u8 *)state + (neighborIndex >> 3))[0x36] & (1 << (neighborIndex & 3)))) {
                 func_1508B2A8(neighbor, state);
             }
         }

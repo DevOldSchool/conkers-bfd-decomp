@@ -33,6 +33,14 @@ The next constants at `0x800A3530` and `0x800A6524` remain external ROM data,
 including their existing users in these source files. The envelope overlaps
 those numeric addresses in the ELF metadata, not in loaded output ownership.
 
+Maintainer-approved extension (2026-10-17): `func_1515F0AC` loads the next
+constant, `32767.0f` at `0x800A6524` (big-endian `46FFFE00`), and only a literal
+reproduces its raw schedule. Because it follows `func_1515F040` in the unit, the
+`game_18A8F0.o` pool is now `46fffe0046fffe00` plus eight zero alignment bytes,
+and `__game_rodata_18a8f0_payload_size` is 8; the section size stays 0x10. The
+camera placement is unchanged. The paragraphs below describe the original
+review.
+
 Future natural literals in either source may change the object pool's order,
 contents or size. Keeping the same 16-byte size alone is insufficient: a second
 nonzero word would fail the current zero-tail check even if the SIZEOF assert
