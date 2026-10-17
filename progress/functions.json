@@ -36594,8 +36594,7 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 220,
-        "reason": "CURRENT 220 after three source-only variants; recovered D_800DCD10 as an s32 table and the float clamp-to-range behavior before truncation; best natural if/else candidate differs only in lower-bound constant scheduling and one extra pipeline nop",
+        "reason": "Round2 2026-10-17: exact with ROM literal 32767.0f at 0x800A6524, but that extends the reviewed game_18A8F0 rodata payload from 4 to 8 bytes, which game_second_batch_literals.md reserves for separate maintainer approval. Object pool 46fffe0046fffe00 matches ROM 0x800A6520..0x800A6527.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -43818,17 +43817,16 @@
       "symbol": "func_150380C0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 475,
-        "reason": "Best CURRENT475 restored: independent switch stores, one scale snapshot, reused tail value recover body/registers; remaining constant scheduling, explicit threshold neutral.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 440,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15038468",
           "vram": "0x15038468"
         }
@@ -56067,8 +56065,7 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 130,
-        "reason": "CURRENT 130 after 6 manual candidates. Exact frame, stack offsets, call ABI and registers; four differing rows swap D_800A8114 load with 1.0f setup. Preserved fully backed vectors. Tested array/struct form, explicit RNG calls, factor lifetime, integer/local ordering and angle reuse; new scheduling hypothesis required.",
+        "reason": "Round2 2026-10-17: exact with eight ROM literals at 0x800A80FC..0x800A8118, but that moves the reviewed game_1BF090 switch-table placement start from 0x800A811C to 0x800A80FC (payload 0x44 -> 0x64, size 0x50 -> 0x70); needs maintainer approval of the shared placement change. Object pool literals match ROM byte for byte, table follows at +0x20.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -62255,17 +62252,16 @@
       "symbol": "func_150CC638"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 400,
-        "reason": "CURRENT 400 after three manual candidates (561,381,400). Preserved final candidate with exact stack frame/field offsets and all differences localized to random direction argument scheduling/FPU allocation; earlier 381 version had 50 stack mismatches. Packet 0x70-byte size proven by callee memcpy. Attempt budget exhausted; no permutes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 540,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150CC6B8",
           "vram": "0x150CC6B8"
         }

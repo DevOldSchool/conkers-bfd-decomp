@@ -632,14 +632,13 @@ void func_1515F040(f32 arg0, s32 arg1) {
     arg0 *= 65536.0f;
     D_800DCD10[arg1] = (s32) arg0;
 }
-extern f32 D_800A6524;
 extern s32 D_800DCD10[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515F0AC CURRENT (220) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515F0AC */
 void func_1515F0AC(f32 arg0, s32 arg1) {
     f32 var_fv0;
 
-    var_fv0 = D_800A6524;
+    var_fv0 = 32767.0f;
     if (arg0 >= var_fv0) {
         arg0 = var_fv0;
     } else if (arg0 < -32768.0f) {
