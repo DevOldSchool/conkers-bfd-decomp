@@ -10,7 +10,6 @@
  * - func_15130A9C
  * - func_15131828
  * - func_15131C84
- * - func_15131D4C
  * - func_15131EE4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -428,20 +427,14 @@ typedef struct {
 } Game15D730Args;
 
 extern Game15D730Args D_800A37F0;
-void func_15169260(Game15D730Args *, s32, s32, s32);
+void func_15169260(Game15D730Args *, s32, s32, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15131D4C CURRENT (260) */
-void func_15131D4C(s32 arg0, s32 arg1) {
+void func_15131D4C(s32 arg0, u8 arg1) {
     Game15D730Args sp1C;
-    u8 temp_a3;
-
-    temp_a3 = arg1;
 
     sp1C = D_800A37F0;
-    func_15169260(&sp1C, 3, arg0, temp_a3);
+    func_15169260(&sp1C, 3, arg0, arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15131D4C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15131D4C.s")
 typedef struct {
     u8 pad_0[0x38];
     s32 field_38;

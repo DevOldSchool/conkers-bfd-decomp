@@ -186,37 +186,54 @@ extern s32 (*D_8008FCA8[])(void *);
 extern f32 D_800AB280[];
 extern u8 D_800AB2D4[];
 
+typedef struct {
+    u8 *object;
+    u8 unk4;
+    u8 unk5;
+    s8 unk6;
+    u8 pad7;
+} Game204660LinkPacket;
+
+typedef struct {
+    u8 pad0[5];
+    u8 flags;
+    u8 pad6[2];
+    f32 vector[3];
+} Game204660FlagLink;
+
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D75C4 CURRENT (16) */
 s32 func_151D75C4(void *arg0) {
-    u8 *link;
-    u8 *packet = (u8 *)arg0 + 0x40;
-    u8 *object = *(u8 **)packet;
+    Game204660LinkPacket *packet;
+    u8 *object;
     s32 transform;
+    Game204660FlagLink *link;
 
-    if (*(s32 *)object == 0 || packet[4] != object[0x3B]) {
+    packet = (Game204660LinkPacket *)((u8 *)arg0 + 0x40);
+    object = packet->object;
+    if (*(s32 *)object == 0 || packet->unk4 != object[0x3B]) {
         return 0;
     }
     transform = *(s32 *)(object + 0x1D4);
-    link = (u8 *)arg0 + 0x28;
+    link = (Game204660FlagLink *)((u8 *)arg0 + 0x28);
     if (transform == 0) {
-        link[5] &= ~1;
+        link->flags &= ~1;
         return 1;
     }
     if (*(u8 **)(object + 0x31C) != 0 &&
         (*(u8 **)(object + 0x31C))[0x197] != 0 &&
         *(s32 *)(object + 0x318) != 0) {
-        link[5] &= ~1;
+        link->flags &= ~1;
         return 1;
     }
     if (object[7] != 0xFF) {
-        link[5] &= ~1;
+        link->flags &= ~1;
         return 1;
     }
-    func_15143134((f32 *)((u8 *)D_800AB280 + packet[5] * 0xC), (f32 *)(link + 8),
-                  (D_800AB2D4[packet[5]] << 6) + transform);
-    link[5] |= 1;
-    if ((s8)packet[6] != -1) {
-        return D_8008FCA8[(s8)packet[6]](arg0);
+    func_15143134((f32 *)((u8 *)D_800AB280 + packet->unk5 * 0xC), link->vector,
+                  (D_800AB2D4[packet->unk5] << 6) + transform);
+    link->flags |= 1;
+    if (packet->unk6 != -1) {
+        return D_8008FCA8[packet->unk6](arg0);
     }
     return 1;
 }

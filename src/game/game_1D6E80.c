@@ -9,7 +9,6 @@
  * - func_151A99D0
  * - func_151A9AA4
  * - func_151A9BA0
- * - func_151A9CA0
  * - func_151A9DC0
  * - func_151A9EC0
  * - func_151A9FC8
@@ -132,42 +131,30 @@ void func_151A9BA0(void *arg0) {
 void func_151AA264(void *, void *);
 extern f32 D_800A8F80;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A9CA0 CURRENT (10) */
 void func_151A9CA0(void *arg0) {
-    void *sp2C;
-    register f32 temp_fv0;
-    register void *temp_a3;
-    register u8 *object;
-    register u8 *temp_v0;
+    u8 *object;
     Game1D6E80Vec3 position;
 
     object = *(u8 **)((u8 *)arg0 + 0x18);
-    temp_v0 = *(u8 **)(object + 0x31C);
-    if ((temp_v0 == 0) || (*(u8 *)(temp_v0 + 0x95) == 0)) {
+    if ((*(u8 **)(object + 0x31C) == 0) || (*(u8 *)(*(u8 **)(object + 0x31C) + 0x95) == 0)) {
         position.x = *(f32 *)(object + 0x14);
-        temp_fv0 = *(f32 *)(object + 0x118);
-        if (D_800A8F80 < temp_fv0) {
-            position.y = temp_fv0 + 100.0f;
+        if (D_800A8F80 < *(f32 *)(object + 0x118)) {
+            position.y = *(f32 *)(object + 0x118) + 100.0f;
         } else {
             position.y = *(f32 *)(object + 0x18) + 150.0f;
         }
-        temp_a3 = (u8 *)arg0 + 0x34;
-        sp2C = temp_a3;
         position.z = *(f32 *)(object + 0x1C);
-        if (func_15045800(&position, 0, position.y - 300.0f,
-                          temp_a3) != 0) {
+        if (func_15045800(&position, 0, position.y - 300.0f, (u8 *)arg0 + 0x34) != 0) {
             position.y = *(f32 *)((u8 *)arg0 + 0x34);
-            func_151ABE40(&position, sp2C, 1,
+            func_151ABE40(&position, (u8 *)arg0 + 0x34, 1,
                           *(u8 *)((u8 *)arg0 + 0xC),
                           *(u8 *)((u8 *)arg0 + 1));
             func_10010FFC(0, 8, 0x6978, 0, 0, object);
         }
-        func_151AA264(object, sp2C);
+        func_151AA264(object, (u8 *)arg0 + 0x34);
         func_151ABE00(object);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A9CA0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151A9CA0.s")
 extern f32 D_800A8F84;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A9DC0 CURRENT (502) */
