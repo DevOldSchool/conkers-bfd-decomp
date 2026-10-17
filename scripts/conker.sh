@@ -77,6 +77,11 @@ Getting started
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
     [--function ID]              With --ready or --one, select one known eligible item; no fallback.
     [--exclude-source PATH]      With --ready or --one, skip exact source paths (repeatable).
+  siblings <work-item-id> [--level 0|1|2] [--limit N]
+                                 Show matched twins whose normalised US reference assembly is
+                                 identical (0: symbols/labels, 1: +registers, 2: +immediates).
+  siblings --all-deferred [--unmatched] [--level 0|1|2] [--limit N]
+                                 Queue every raw/deferred item with a matched twin (read-only).
   matching-history <command>     Show, annotate, export or import saved finish attempts.
   matching-context <id>          Retrieve bounded contract/storage matching hypotheses.
   matching-callers <callee>...   List possible matched direct callers needing review.
@@ -84,6 +89,9 @@ Getting started
   declaration-conflicts [--out DIR] [--limit N] [--json]
                                  Report symbols declared differently across compiled C files
                                  (read-only; writes build/reports/declaration-conflicts.*).
+  struct-layouts [--out DIR] [--min-copies N] [--limit N] [--json]
+                                 Cluster recurring struct layouts across game C and include/
+                                 (read-only; writes build/reports/struct-layouts.*).
   automate [--limit N | --all | --function ID] [--max-attempts N] [--rewrite-budget N]
            [--exhaustive] [--stack-shapes] (opt-in storage-shape pilot)
            [--defer-best] [--skip-final-build] [--report PATH] [--restart] [--verbose] [--model-tokens N]
@@ -750,6 +758,8 @@ prepare_next_work() {
     [[ "$first_line" == "work-item: "* ]] || die "next --one --details did not emit a work-item"
     identifier="${first_line#work-item: }"
     printf '%s\n' "$details"
+    # Read-only lead; prints none quickly when reference assembly is absent.
+    python3 scripts/siblings.py "$identifier" --hint || printf 'sibling-twin: unavailable\n'
     python3 scripts/matching_history.py prepare "$identifier"
     python3 "$state_tool" setup-check --profile us
     python3 "$repo_root/scripts/matching_prerequisites.py"
@@ -789,6 +799,10 @@ case "$command" in
         ;;
     matching-callers)
         python3 scripts/matching_callers.py "$@"
+        ;;
+    siblings)
+        [[ $# -ge 1 ]] || die "usage: ./conker siblings <work-item-id> [--level 0|1|2] [--limit N] | --all-deferred [--unmatched] [--level 0|1|2] [--limit N]"
+        python3 scripts/siblings.py "$@"
         ;;
     doctor)
         python3 "$repo_root/scripts/host_environment.py" check --core
@@ -873,6 +887,9 @@ case "$command" in
         ;;
     declaration-conflicts)
         python3 scripts/declaration_conflicts.py "$@"
+        ;;
+    struct-layouts)
+        python3 scripts/struct_layouts.py "$@"
         ;;
     automate)
         python3 scripts/automate.py "$@"
