@@ -116,6 +116,27 @@ definition is the strongest signature evidence; other conflicts need caller or
 assembly evidence before a shared declaration is chosen. The report is read-only
 and does not gate matching.
 
+```sh
+./conker struct-layouts
+./conker struct-layouts --json --min-copies 5
+```
+
+The struct layout report clusters live `struct`/`union` definitions under
+`src/game`, `src/done/game` and `include/` by identical MIPS o32 layout, using
+the same member rules as the declaration conflict report, and writes
+`build/reports/struct-layouts.{md,json}`. Field names never affect clustering;
+each cluster lists its copies, the names that agree or conflict at each offset,
+the matched functions whose parameters or locals spell a copy's type name (plus
+a looser count that includes casts), pad-only variants and layouts that begin
+with the cluster's shape. `--min-copies` (default 3) selects the clusters
+detailed in Markdown; the JSON keeps every cluster. Limits: `#if 0` deferred
+candidates are skipped, so counts differ from a raw grep; definitions with
+bitfields or member types the file cannot resolve have no layout and are listed
+separately; a type used only through another struct's member or by pointer
+arithmetic is not counted as a use; and a recurring layout (three floats,
+three words) is evidence for a shared header, not proof that the copies name
+the same game concept. The report is read-only and does not gate matching.
+
 ## Full scans and analysis
 
 A full execution scan is an explicit, long-running operation:
