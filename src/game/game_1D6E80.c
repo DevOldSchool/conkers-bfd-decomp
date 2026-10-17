@@ -275,17 +275,15 @@ typedef struct {
 void func_15147D64(void *, u8);
 void func_1519F3B8(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AA17C CURRENT (413) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AA17C CURRENT (33) */
 void func_151AA17C(Game1D6E80State *arg0) {
     struct { s32 value; u8 selector; } message;
     s32 *sp18;
-    s32 word;
 
-    word = arg0->field_18;
-    message.value = word;
-    sp18 = &message.value;
+    message.value = arg0->field_18;
+    sp18 = (s32 *)(s32)&message.value;
     message.selector = arg0->field_1C;
-    func_15147D64(&message.value, 0xA);
+    func_15147D64(sp18, 0xA);
     func_151494E0(sp18, 0xA);
     func_1519F3B8(arg0);
 }
@@ -297,17 +295,15 @@ void func_151AA1D0(void) {
 void func_151AA1F0(void) {
     func_1519F400();
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AA210 CURRENT (413) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AA210 CURRENT (33) */
 void func_151AA210(Game1D6E80State *arg0) {
     struct { s32 value; u8 selector; } message;
     s32 *sp18;
-    s32 word;
 
-    word = arg0->field_18;
-    message.value = word;
-    sp18 = &message.value;
+    message.value = arg0->field_18;
+    sp18 = (s32 *)(s32)&message.value;
     message.selector = arg0->field_1C;
-    func_15147D64(&message.value, 0xA);
+    func_15147D64(sp18, 0xA);
     func_151494E0(sp18, 0xA);
     func_1519F3B8(arg0);
 }

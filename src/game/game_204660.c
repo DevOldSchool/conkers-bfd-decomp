@@ -11,7 +11,6 @@
  * - func_151D7538
  * - func_151D75C4
  * - func_151D7724
- * - func_151D7830
  * - func_151D792C
  * - func_151D7A38
  * - func_151D7CD0
@@ -335,15 +334,13 @@ typedef struct Game204660Link {
     f32 offset[3];
 } Game204660Link;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7830 CURRENT (10) */
 void func_151D7830(void *arg0) {
+    void *result;
     struct {
         Game204660Spawn spawn;
         Game204660Link link;
-        void *result;
     } locals;
     Game204660VecWords *source;
-    void *result;
 
     locals.link.owner = arg0;
     source = (Game204660VecWords *)((u8 *)arg0 + 0x30);
@@ -364,13 +361,10 @@ void func_151D7830(void *arg0) {
                            *(u8 *)((u8 *)arg0 + 1));
     if (result != 0) {
         source = *(Game204660VecWords **)((u8 *)result + 0x98);
-        locals.result = result;
         func_10022EC0(source, &locals.link, 0x1C);
-        *(void **)((u8 *)arg0 + 0x28) = locals.result;
+        *(void **)((u8 *)arg0 + 0x28) = result;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D7830 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7830.s")
 extern f32 D_800BE9A4;
 void func_151D8718(void *, f32 *, f32);
 

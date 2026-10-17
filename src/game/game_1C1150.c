@@ -688,7 +688,7 @@ void func_15195698(void *arg0, u8 *arg1, s32 arg2) {
 u32 func_150ADA20(void);
 void func_151D8868(Game1C1150EventPacket *, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15195738 CURRENT (300) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15195738 CURRENT (100) */
 void func_15195738(s32 arg0, s32 arg1, s32 arg2) {
     Game1C1150EventPacket packet;
 

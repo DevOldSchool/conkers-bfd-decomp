@@ -23,7 +23,6 @@
  * - func_151C9ED4
  * - func_151C9F38
  * - func_151CA6A0
- * - func_151CAACC
  * - func_151CAB78
  * - func_151CAD28
  * - func_151CB110
@@ -925,7 +924,6 @@ void func_151C9ED4(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CA6A0.s")
 extern void (*D_8008FC10[])(void *, void **, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CAACC CURRENT (265) */
 void func_151CAACC(void *arg0, void **arg1, volatile u8 arg2) {
     s32 type;
     void *other;
@@ -934,7 +932,9 @@ void func_151CAACC(void *arg0, void **arg1, volatile u8 arg2) {
     type = arg2;
     if (type == 0x21) {
         if (*(void **)((u8 *)arg0 + 0x70) == *arg1) {
-            func_1516972C(arg0);
+            void *owner = arg0;
+
+            func_1516972C(owner);
         }
     } else if (type == 0) {
         other = *arg1;
@@ -947,8 +947,6 @@ void func_151CAACC(void *arg0, void **arg1, volatile u8 arg2) {
         callback(arg0, arg1, arg2);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CAACC */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAACC.s")
 extern s32 D_80082FA0;
 void *func_1515548C(void *, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);

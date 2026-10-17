@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1515C388
- * - func_1515C534
  * - func_1515C6F4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -98,7 +97,6 @@ extern s32 D_800BE9E4;
 typedef s32 (*Game1897A0ActionCallback)(void *, void *);
 extern Game1897A0ActionCallback D_8008B084[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515C534 CURRENT (30) */
 s32 func_1515C534(void *arg0) {
     struct Actor {
         u8 pad00[0x1C];
@@ -133,9 +131,11 @@ s32 func_1515C534(void *arg0) {
     }
     if (callbackFailed == 0) {
         if (settings->flags & 4) {
+            s16 time = actor->time;
             s32 newValue;
-            if (actor->time < settings->start) {
-                newValue = actor->time * settings->slope;
+
+            if (time < settings->start) {
+                newValue = time * settings->slope;
                 if (newValue < settings->intensity) {
                     settings->intensity = newValue;
                 }
@@ -156,8 +156,6 @@ s32 func_1515C534(void *arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515C534 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1897A0/func_1515C534.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1897A0/func_1515C6F4.s")
 typedef struct Game1897A0Vec3i {
     s32 x, y, z;

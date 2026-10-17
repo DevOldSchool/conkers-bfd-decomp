@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1517B500
- * - func_1517B6E8
  * - func_1517BBAC
  * - func_1517D074
  * - func_1517D690
@@ -88,17 +87,14 @@ s32 func_1517B500(Game1A89B0Position *arg0, Game1A89B0Position *arg1, s32 *arg2,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517B500 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A89B0/func_1517B500.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517B6E8 CURRENT (30) */
 s32 func_1517B6E8(void *arg0, void *arg1, s32 *arg2, u8 *arg3) {
-    s32 temp_t0;
     s32 temp_t1;
 
     if ((*arg2) >= 0x600) {
         *(s16 *)((u8 *)arg1 + 2) = (s16) ((*(s16 *)((u8 *)arg0 + 2) + ((*arg2) >> 6)) - 0x18);
         *(s16 *)((u8 *)arg1 + 0) = (s16) ((*(s16 *)((u8 *)arg0 + 0) + ((s32) *arg2 >> 8)) - 6);
-        temp_t0 = *arg3;
-        temp_t1 = (s32) ((s32) (temp_t0 << 7) / (s32) (((s32) *arg2 >> 6) - 0x17)) >> 4;
-        if (temp_t1 < (s32) temp_t0) {
+        temp_t1 = (s32) ((s32) (*arg3 << 7) / (s32) (((s32) *arg2 >> 6) - 0x17)) >> 4;
+        if (temp_t1 < (s32) *arg3) {
             *arg3 = (u8) temp_t1;
         }
         *arg2 = 0x600;
@@ -109,8 +105,6 @@ s32 func_1517B6E8(void *arg0, void *arg1, s32 *arg2, u8 *arg3) {
     *(s16 *)((u8 *)arg1 + 4) = (s16) *(s16 *)((u8 *)arg0 + 4);
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517B6E8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A89B0/func_1517B6E8.s")
 s32 func_1517B7A8(void *arg0, void *arg1, s32 *arg2, s32 arg3) {
     s32 temp_v0;
 
