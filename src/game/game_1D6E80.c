@@ -23,7 +23,6 @@
  * - func_151AAABC
  * - func_151AABC4
  * - func_151AADF8
- * - func_151AB090
  * - func_151AB1C4
  * - func_151AB2C4
  *
@@ -819,29 +818,38 @@ s32 func_151AADBC(void *arg0) {
 u32 func_150ADA20(void);                     /* extern */
 f32 func_150ADA68();                                /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AB090 CURRENT (170) */
+typedef struct {
+    u8 pad0[4];
+    u8 unk4;
+    u8 pad5[3];
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+    s16 unk14;
+    s16 unk16;
+    s16 unk18;
+    u8 pad1A[2];
+    f32 unk1C;
+} Game1D6E80Timer;
+
 s8 func_151AB090(u8 *arg0) {
     s8 var_a2;
-    s32 temp_a0;
-    u8 *temp_v1;
+    Game1D6E80Timer *timer;
 
     var_a2 = 1;
-    temp_v1 = (void *)(arg0 + 0xB0);
-    if (*(u8 *)((u8 *)arg0 + 0xB4) == 0) {
+    timer = (Game1D6E80Timer *)(arg0 + 0xB0);
+    if (timer->unk4 == 0) {
         var_a2 = 0;
     }
-    *(s8 *)((u8 *)temp_v1 + 4) = 0;
-    *(s16 *)((u8 *)temp_v1 + 0x14) = (s16) (*(s16 *)((u8 *)temp_v1 + 0x14) - D_800BE9E4);
-    if (*(s16 *)((u8 *)temp_v1 + 0x14) < 0) {
-        *(s16 *)((u8 *)temp_v1 + 0x14) = (s16) ((func_150ADA20() % (u32) (*(s16 *)((u8 *)temp_v1 + 0x18) + 1)) + *(s16 *)((u8 *)temp_v1 + 0x16));
-        *(f32 *)((u8 *)temp_v1 + 0x10) = (f32) ((func_150ADA68() * *(f32 *)((u8 *)temp_v1 + 0xC)) + *(f32 *)((u8 *)temp_v1 + 8));
+    timer->unk4 = 0;
+    timer->unk14 = timer->unk14 - D_800BE9E4;
+    if (timer->unk14 < 0) {
+        timer->unk14 = timer->unk16 + (func_150ADA20() % (u32) (timer->unk18 + 1));
+        timer->unk10 = timer->unk8 + (timer->unkC * func_150ADA68());
     }
-    temp_a0 = *(s32 *)((u8 *)arg0 + 0x24);
-    *(s32 *)((u8 *)arg0 + 0x24) = (s32) (temp_a0 + (s32) ((*(f32 *)((u8 *)temp_v1 + 0x10) - (f32) temp_a0) * *(f32 *)((u8 *)temp_v1 + 0x1C)));
+    *(s32 *)(arg0 + 0x24) += (s32) ((timer->unk10 - (f32) *(s32 *)(arg0 + 0x24)) * timer->unk1C);
     return var_a2;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AB090 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AB090.s")
 
 s32 func_151AB180(void *arg0) {
     u8 (*temp_v0)[0x58];

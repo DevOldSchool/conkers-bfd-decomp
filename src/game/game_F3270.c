@@ -6,9 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_paired_owner_streams.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150C5DC0
- * - func_150C5E0C
- * - func_150C5F40
  * - func_150C5F94
  * - func_150C6460
  *
@@ -17,47 +14,51 @@
 
 s32 func_150C6460(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C5DC0 CURRENT (265) */
-void func_150C5DC0(void *arg0) {
-    void *temp_v0;
+typedef struct {
+    u8 pad0[4];
+    u8 unk4;
+    u8 pad5[3];
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+    s16 unk14;
+    s16 unk16;
+    s16 unk18;
+    u8 pad1A[2];
+    f32 unk1C;
+} GameF3270Timer;
 
+void func_150C5DC0(void *arg0) {
     if (*(s32 *)((u8 *)arg0 + 0x58) != 0) {
-        temp_v0 = *(void **)((u8 *)arg0 + 0x58);
-        temp_v0 = (void *)((u8 *)temp_v0 + 0xB0);
-        *(volatile s8 *)((u8 *)temp_v0 + 4) = 1;
+        GameF3270Timer *timer = (GameF3270Timer *)(*(u8 **)((u8 *)arg0 + 0x58) + 0xB0);
+
+        timer->unk4 = 1;
     } else {
         *(s32 *)((u8 *)arg0 + 0x58) = func_150C6460(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C5DC0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F3270/func_150C5DC0.s")
 u32 func_150ADA20(void);                      /* extern */
 f32 func_150ADA68();                                /* extern */
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C5E0C CURRENT (170) */
-s32 func_150C5E0C(u8 *arg0) {
+s8 func_150C5E0C(u8 *arg0) {
     s8 var_a2;
-    s32 temp_a0;
-    u8 *temp_v1;
+    GameF3270Timer *timer;
 
     var_a2 = 1;
-    temp_v1 = (void *)(arg0 + 0xB0);
-    if (*(u8 *)((u8 *)arg0 + 0xB4) == 0) {
+    timer = (GameF3270Timer *)(arg0 + 0xB0);
+    if (timer->unk4 == 0) {
         var_a2 = 0;
     }
-    *(s8 *)((u8 *)temp_v1 + 4) = 0;
-    *(s16 *)((u8 *)temp_v1 + 0x14) = (s16) (*(s16 *)((u8 *)temp_v1 + 0x14) - D_800BE9E4);
-    if (*(s16 *)((u8 *)temp_v1 + 0x14) < 0) {
-        *(s16 *)((u8 *)temp_v1 + 0x14) = (s16) ((func_150ADA20() % (u32) (*(s16 *)((u8 *)temp_v1 + 0x18) + 1)) + *(s16 *)((u8 *)temp_v1 + 0x16));
-        *(f32 *)((u8 *)temp_v1 + 0x10) = (f32) ((func_150ADA68() * *(f32 *)((u8 *)temp_v1 + 0xC)) + *(f32 *)((u8 *)temp_v1 + 8));
+    timer->unk4 = 0;
+    timer->unk14 = timer->unk14 - D_800BE9E4;
+    if (timer->unk14 < 0) {
+        timer->unk14 = timer->unk16 + (func_150ADA20() % (u32) (timer->unk18 + 1));
+        timer->unk10 = timer->unk8 + (timer->unkC * func_150ADA68());
     }
-    temp_a0 = *(s32 *)((u8 *)arg0 + 0x24);
-    *(s32 *)((u8 *)arg0 + 0x24) = (s32) (temp_a0 + (s32) ((*(f32 *)((u8 *)temp_v1 + 0x10) - (f32) temp_a0) * *(f32 *)((u8 *)temp_v1 + 0x1C)));
+    *(s32 *)(arg0 + 0x24) += (s32) ((timer->unk10 - (f32) *(s32 *)(arg0 + 0x24)) * timer->unk1C);
     return var_a2;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C5E0C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F3270/func_150C5E0C.s")
 
 s32 func_150C5EFC(void *arg0) {
     void *temp_v0;
@@ -84,21 +85,18 @@ typedef struct {
 
 s32 func_150C5F94(void *, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C5F40 CURRENT (265) */
 void func_150C5F40(GameF3270State *arg0) {
     s32 temp_a2;
-    u8 (*state)[1];
 
     temp_a2 = arg0->field_18;
     if (*(GameF3270Data *volatile *)&arg0->field_5C != 0) {
-        state = (u8 (*)[1])((u8 *)arg0->field_5C + 0x58);
-        state[4][0] = 1;
-        return;
+        GameF3270Timer *timer = (GameF3270Timer *)((u8 *)arg0->field_5C + 0x58);
+
+        timer->unk4 = 1;
+    } else {
+        arg0->field_5C = (GameF3270Data *)func_150C5F94((void *)temp_a2, arg0);
     }
-    arg0->field_5C = (GameF3270Data *)func_150C5F94((void *)temp_a2, arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C5F40 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F3270/func_150C5F40.s")
 extern f32 D_800A0410;
 extern f32 D_800A0414;
 extern f32 D_800A0418;
