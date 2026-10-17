@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_14D110.c
@@ -15,9 +16,6 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_14D110/func_1511FC60.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_14D110/func_15120158.s")
-typedef struct {
-    f32 x, y, z;
-} Game14D110Vector;
 
 typedef struct {
     u8 pad0[0x78];
@@ -25,7 +23,7 @@ typedef struct {
     u8 pad79[0x9B];
     s16 height;
     u8 pad116[0x1A];
-    Game14D110Vector direction, origin, destination;
+    Vec3f direction, origin, destination;
     u8 pad154[0x18];
     f32 pitch, yaw;
     u8 pad174[0x24];
@@ -34,7 +32,7 @@ typedef struct {
 
 typedef struct {
     u8 pad0[0x14];
-    Game14D110Vector position;
+    Vec3f position;
     u8 pad20[0x10];
     f32 groundY;
     u8 pad34[0xC];
@@ -49,9 +47,9 @@ extern f32 D_800A3408, D_800A340C, D_800A3410, D_800A3414, D_800A3418;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15121490 CURRENT (1407) */
 void func_15121490(Game14D110Actor *arg0, u16 *arg1) {
-    Game14D110Vector destination;
-    Game14D110Vector origin;
-    Game14D110Vector direction;
+    Vec3f destination;
+    Vec3f origin;
+    Vec3f direction;
     f32 intermediate;
     f32 angle;
     f32 value;

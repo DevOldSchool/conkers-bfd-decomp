@@ -337,11 +337,6 @@ void *func_15134908(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
     *((f32 *)(((u8 *)v0) + 0x3C)) = 0.0f;
     return v0;
 }
-typedef struct {
-    f32 x;
-    f32 y;
-    f32 z;
-} BloodTrailPosition;
 
 typedef struct {
     u8 pad0[0x10];
@@ -356,7 +351,7 @@ typedef struct {
     u8 field28;
     s8 callback;
     u8 pad2A[2];
-    BloodTrailPosition previous;
+    Vec3f previous;
     f32 inverseDiameter;
     f32 accumulator;
 } BloodTrail;
@@ -370,7 +365,7 @@ f32 sqrtf(f32);
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151349D0 CURRENT (2481) */
 void func_151349D0(BloodTrail *trail) {
     f32 radius;
-    BloodTrailPosition position;
+    Vec3f position;
     f32 deltaX;
     f32 deltaY;
     f32 deltaZ;
@@ -681,15 +676,10 @@ s32 func_15135BF8(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15135BF8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135BF8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135DD0.s")
-typedef struct Blood364Position {
-    f32 x;
-    f32 y;
-    f32 z;
-} Blood364Position;
 
 typedef struct Blood364Actor {
     u8 unknown0[0x14];
-    Blood364Position position;
+    Vec3f position;
 } Blood364Actor;
 
 typedef struct Blood364Hit {
@@ -716,8 +706,8 @@ extern f32 D_800A4618;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15136404 CURRENT (1329) */
 void func_15136404(Blood364Actor *actor, f32 radius, volatile s32 kind, s32 mode) {
     Blood364Hit hit;
-    Blood364Position probe;
-    Blood364Position output;
+    Vec3f probe;
+    Vec3f output;
     register f32 scale;
     register f32 count;
     register f32 cutoff;
@@ -757,11 +747,6 @@ void func_15136404(Blood364Actor *actor, f32 radius, volatile s32 kind, s32 mode
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15136404 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136404.s")
-typedef struct BloodVec3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} BloodVec3;
 
 typedef struct {
     s32 values[4];
@@ -778,9 +763,9 @@ typedef struct {
     u8 color[4];
     f32 scale14;
     f32 scale18;
-    BloodVec3 position;
-    BloodVec3 velocity;
-    BloodVec3 scale;
+    Vec3f position;
+    Vec3f velocity;
+    Vec3f scale;
     s32 flags;
     u8 field44;
     u8 field45;
@@ -823,7 +808,7 @@ void *func_15136698(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4,
     descriptor.color[3] = 0xFF;
     descriptor.scale18 = arg0;
     descriptor.scale14 = arg0;
-    descriptor.position = *(BloodVec3 *)arg6;
+    descriptor.position = *(Vec3f *)arg6;
     descriptor.flags = 0;
     descriptor.scale.x = 1.0f;
     descriptor.scale.y = 1.0f;
@@ -1020,7 +1005,7 @@ typedef struct Blood36C3CHit {
 typedef struct Blood36C3CSpray {
     s32 countBase;
     s32 countRange;
-    BloodVec3 origin;
+    Vec3f origin;
     s16 angleBase;
     s16 angleRange;
     s16 pitchBase;
@@ -1034,10 +1019,10 @@ typedef struct Blood36C3CSpray {
 } Blood36C3CSpray;
 
 s32 func_15134070();
-void func_1513A24C(BloodVec3 *, s32 *, f32 *, s32, f32, u8, u8, u8 *, void *,
+void func_1513A24C(Vec3f *, s32 *, f32 *, s32, f32, u8, u8, u8 *, void *,
                    u8, s32);
 void func_15150D1C(Blood36C3CSpray *, u8, s32);
-void func_151A9834(BloodVec3 *, f32, f32, void *, s32, u8, s8 *, u8, s32);
+void func_151A9834(Vec3f *, f32, f32, void *, s32, u8, s8 *, u8, s32);
 void func_151C61A0(s32, s32, u8, s32);
 void func_1513A48C(BloodA48CPosition *, u8, s32);
 extern s32 *D_80089A20[];
@@ -1052,7 +1037,7 @@ extern f32 D_800A4630;
 
 void func_15136C3C(Blood36C3CActor *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4,
                    u8 arg5, u8 arg6, s32 arg7) {
-    BloodVec3 position;
+    Vec3f position;
     f32 unused0;
     f32 unused1;
     f32 halfHeight;
@@ -1137,13 +1122,13 @@ typedef struct BloodImpactActor {
     void *transforms;
 } BloodImpactActor;
 
-void func_15136F50(BloodVec3 *, BloodVec3 *, BloodVec3 *, u8, u8, s32);
+void func_15136F50(Vec3f *, Vec3f *, Vec3f *, u8, u8, s32);
 void func_151C329C(void *, u8, s32);
-void func_151C577C(BloodVec3 *, BloodVec3 *, BloodVec3 *, u8, u8, u8, u8, s32);
+void func_151C577C(Vec3f *, Vec3f *, Vec3f *, u8, u8, u8, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15137610 CURRENT (260) */
-void func_15137610(BloodImpactActor *arg0, BloodVec3 *arg1, BloodVec3 *arg2,
-                   BloodVec3 *arg3, u8 arg4, s32 arg5) {
+void func_15137610(BloodImpactActor *arg0, Vec3f *arg1, Vec3f *arg2,
+                   Vec3f *arg3, u8 arg4, s32 arg5) {
     s32 mode;
 
     mode = 0;
@@ -1230,12 +1215,12 @@ void func_15137610(BloodImpactActor *arg0, BloodVec3 *arg1, BloodVec3 *arg2,
 #endif /* CONKER_DEFERRED_CANDIDATE func_15137610 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15137610.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513783C.s")
-s32 func_15145128(BloodVec3 *, BloodVec3 *, f32 *, f32 *);
+s32 func_15145128(Vec3f *, Vec3f *, f32 *, f32 *);
 s32 func_15146078(void *, void *, void *);
 
-s32 func_15137C64(BloodVec3 *arg0, BloodVec3 *arg1, BloodVec3 *arg2,
-                    s32 arg3, s32 arg4, BloodVec3 *arg5,
-                    BloodVec3 *arg6, BloodVec3 *arg7) {
+s32 func_15137C64(Vec3f *arg0, Vec3f *arg1, Vec3f *arg2,
+                    s32 arg3, s32 arg4, Vec3f *arg5,
+                    Vec3f *arg6, Vec3f *arg7) {
     f32 sp2C;
     f32 sp28;
 
@@ -1526,9 +1511,9 @@ typedef struct Blood39578Particle {
     u8 pad20[0x10];
     f32 mode;
     u8 pad34[4];
-    BloodVec3 position;
-    BloodVec3 velocity;
-    BloodVec3 rotation;
+    Vec3f position;
+    Vec3f velocity;
+    Vec3f rotation;
     f32 acceleration;
     s32 flags;
 } Blood39578Particle;
@@ -1540,7 +1525,7 @@ extern f32 D_800A4870;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151389A8 CURRENT (1477) */
 s32 func_151389A8(Blood39578Particle *arg0, s32 arg1, s32 arg2,
                   s32 arg3, f32 arg4, s32 arg5) {
-    BloodVec3 position;
+    Vec3f position;
     u32 random;
     f32 randomScale;
     s32 mode;
@@ -1630,7 +1615,7 @@ void func_1513A594(void *, s32, s32, s32, s32);
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15138C80 CURRENT (3009) */
 void func_15138C80(Blood1380B4State *arg0, s32 arg1, s32 arg2) {
     s32 kind;
-    BloodVec3 position;
+    Vec3f position;
     u8 valid;
     BloodHitRecord hit;
 
@@ -1699,7 +1684,7 @@ extern f32 D_800A48FC;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15139578 CURRENT (1477) */
 s32 func_15139578(Blood39578Particle *arg0, s32 arg1, s32 arg2,
                    s32 arg3, f32 arg4, s32 arg5) {
-    BloodVec3 position;
+    Vec3f position;
     u32 random;
     f32 randomScale;
     s32 mode;
@@ -1749,7 +1734,7 @@ s32 func_15139578(Blood39578Particle *arg0, s32 arg1, s32 arg2,
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15139D74.s")
 typedef struct BloodA24CDescriptor {
     s32 count, countRange;
-    BloodVec3 position;
+    Vec3f position;
     s16 angle, angleRange, pitch, pitchRange;
     f32 magnitude, magnitudeRange, field24, field28;
     s16 lifetime, lifetimeRange;
@@ -1779,7 +1764,7 @@ extern u8 D_800BE616;
 extern s32 D_800BE9F0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1513A24C CURRENT (2720) */
-void func_1513A24C(BloodVec3 *arg0, s32 *arg1, f32 *arg2, s32 arg3,
+void func_1513A24C(Vec3f *arg0, s32 *arg1, f32 *arg2, s32 arg3,
                    f32 arg4, u8 arg5, u8 arg6, u8 *arg7, void *arg8,
                    u8 arg9, s32 arg10) {
     BloodA24CDescriptor descriptor;

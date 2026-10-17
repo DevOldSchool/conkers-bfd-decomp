@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_117FC0.c
@@ -14,12 +15,6 @@ typedef struct Game117FC0Vec2 {
     f32 x;
     f32 y;
 } Game117FC0Vec2;
-
-typedef struct Game71820XZ {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game71820XZ;
 
 typedef struct Game71820Hit {
     f32 height;
@@ -152,11 +147,11 @@ typedef struct {
     Game117FC0Effect effect;
 } Game117FC0Motion;
 
-s32 func_15046C80(Game71820XZ *, u16, f32, Game71820Hit *);
+s32 func_15046C80(Vec3f *, u16, f32, Game71820Hit *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150EAE24 CURRENT (972) */
 s32 func_150EAE24(void *arg0) {
-    Game71820XZ position;
+    Vec3f position;
     s32 result;
     Game117FC0Effect *effect;
     Game117FC0Motion *motion = arg0;

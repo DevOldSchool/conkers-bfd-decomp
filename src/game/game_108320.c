@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_108320.c
@@ -13,10 +14,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct Game108320Vec3 {
-    f32 x, y, z;
-} Game108320Vec3;
-
 typedef struct Game108320BeamPacket {
     s8 kind;
     u8 pad1;
@@ -25,9 +22,9 @@ typedef struct Game108320BeamPacket {
     s32 field8, fieldC;
     u8 color[4];
     u8 pad14[8];
-    Game108320Vec3 position;
-    Game108320Vec3 direction;
-    Game108320Vec3 scale;
+    Vec3f position;
+    Vec3f direction;
+    Vec3f scale;
     s32 mode;
     u8 field44, field45;
     u8 pad46[0x12];
@@ -40,7 +37,7 @@ typedef struct Game108320BeamOwner {
 
 typedef struct Game108320BeamResult {
     u8 pad0[0x110];
-    Game108320Vec3 delta;
+    Vec3f delta;
     f32 field11C, field120, field124, field128;
     f32 field12C, field130, field134;
     u8 field138;
@@ -64,9 +61,9 @@ extern f32 D_800A0BE0;
 void func_150DAE70(Game108320BeamOwner *arg0, s32 arg1, s32 arg2, s32 arg3) {
     struct {
         Game108320BeamPacket packet;
-        Game108320Vec3 delta;
-        Game108320Vec3 second;
-        Game108320Vec3 first;
+        Vec3f delta;
+        Vec3f second;
+        Vec3f first;
         s32 transform;
     } work;
     Game108320BeamResult *result;

@@ -68,16 +68,11 @@ void func_150B5950(GameE2E00Owner5950 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B5950 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E2E00/func_150B5950.s")
-typedef struct GameE2E00Vector {
-    f32 x;
-    f32 y;
-    f32 z;
-} GameE2E00Vector;
 
 typedef struct GameE2E00Particle {
     s32 field0;
     s32 field4;
-    GameE2E00Vector position8;
+    Vec3f position8;
     f32 field14;
     f32 field18;
     f32 field1C;
@@ -116,7 +111,7 @@ void func_150B5A3C(void *arg0, u8 arg1, s32 arg2, void *arg3) {
 
     descriptor.field0 = 5;
     descriptor.field4 = 5;
-    descriptor.position8 = *(GameE2E00Vector *)arg0;
+    descriptor.position8 = *(Vec3f *)arg0;
     descriptor.field14 = 20.0f;
     descriptor.field18 = D_8009FCA0;
     descriptor.field1C = D_8009FCA4;
@@ -180,7 +175,7 @@ void func_150B5C38(void *arg0, u8 arg1, s32 arg2, void *arg3) {
 
     descriptor.field0 = 0xD;
     descriptor.field4 = 8;
-    descriptor.position8 = *(GameE2E00Vector *)arg0;
+    descriptor.position8 = *(Vec3f *)arg0;
     descriptor.field14 = D_8009FCAC;
     descriptor.field18 = D_8009FCB0;
     descriptor.field1C = D_8009FCB4;
@@ -250,7 +245,7 @@ typedef struct GameE2E00Spawn {
     f32 field24;
     f32 field28;
     f32 field2C;
-    GameE2E00Vector position30;
+    Vec3f position30;
     f32 field3C;
     f32 field40;
     f32 field44;
@@ -290,7 +285,7 @@ void func_150B5E34(void *arg0, u8 arg1, s32 arg2) {
     spawn.colors14[7] = 0xFF;
     spawn.colors14[8] = 0xFF;
     spawn.field28 = spawn.field2C = func_150ADA68() * 500.0f + 500.0f;
-    spawn.position30 = *(GameE2E00Vector *)arg0;
+    spawn.position30 = *(Vec3f *)arg0;
     spawn.field1E = 3;
     spawn.field20 = 0x55;
     spawn.field22 = 1;

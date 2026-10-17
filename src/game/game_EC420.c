@@ -277,12 +277,11 @@ void func_150BFFE0(void *arg0) {
     spawn.field68 = D_800A0148;
     func_15153634(&spawn, 0xFF, 0xFF, 1);
 }
-typedef struct GameEC420Position { f32 x; f32 y; f32 z; } GameEC420Position;
 typedef struct GameEC420Word { s32 value; } GameEC420Word;
 typedef struct GameEC420Burst {
     s32 field00;
     s32 field04;
-    GameEC420Position position;
+    Vec3f position;
     s16 field14;
     s16 field16;
     s16 field18;
@@ -312,7 +311,7 @@ extern f32 D_800A016C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150C01DC CURRENT (910) */
 s32 func_150C01DC(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
-    GameEC420Position position;
+    Vec3f position;
     GameEC420Burst burst;
     GameEC420Word word1;
     GameEC420Word word2;
@@ -366,7 +365,7 @@ s32 func_150C01DC(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
     spawn.field2C = D_800A0164;
     spawn.field30 = 218.0f;
     spawn.field34 = D_800A0168;
-    *(GameEC420Position *)&spawn.field38 = position;
+    *(Vec3f *)&spawn.field38 = position;
     spawn.field44 = 0;
     spawn.field46 = -0x28;
     spawn.field48 = 0xFF;
@@ -491,7 +490,7 @@ typedef struct GameEC420CollisionPacket {
     s16 config[4];
     s32 count;
     s32 mode;
-    GameEC420Position position;
+    Vec3f position;
     f32 value4;
     f32 value7;
     f32 value2C;

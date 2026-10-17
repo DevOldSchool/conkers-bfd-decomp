@@ -32,7 +32,6 @@ typedef struct Game127060Transform {
 } Game127060Transform;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150F9BB0.s")
-typedef struct { f32 x, y, z; } Game127060Vector;
 typedef struct {
     u8 pad0[0x48];
     f32 width, height;
@@ -41,14 +40,14 @@ typedef struct {
 } Game127060FirstParams;
 typedef struct {
     u8 pad0[0x34];
-    Game127060Vector position, direction;
+    Vec3f position, direction;
     u8 pad4C[0xC4];
     Game127060FirstParams params;
 } Game127060First;
 typedef struct { u8 pad0[4]; f32 size; } Game127060SecondParams;
 typedef struct {
     u8 pad0[0x34];
-    Game127060Vector position, direction;
+    Vec3f position, direction;
     u8 pad4C[0xC];
     volatile u32 flags;
     u8 pad5C[0x114];
@@ -76,15 +75,15 @@ typedef struct {
 } Game127060Effect;
 
 void func_15145EA4(s32 *, s32 *, s32, s32);
-extern Game127060Vector D_800A1CCC, D_800A1CD8, D_800A1CE4, D_800A1CF0;
+extern Vec3f D_800A1CCC, D_800A1CD8, D_800A1CE4, D_800A1CF0;
 extern f32 D_800A1D94;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FA1B8 CURRENT (2446) */
 void func_150FA1B8(Game127060Effect *effect) {
-    Game127060Vector first[2];
-    Game127060Vector second[2];
-    Game127060Vector *inputs[4];
-    Game127060Vector *outputs[4];
+    Vec3f first[2];
+    Vec3f second[2];
+    Vec3f *inputs[4];
+    Vec3f *outputs[4];
     Game127060Group *group;
     Game127060Owner *owner;
     void *object;
@@ -304,7 +303,7 @@ typedef struct {
     u8 field38, pad39[3];
     s32 field3C;
     u8 field40, field41, pad42[2];
-    Game127060Vector position;
+    Vec3f position;
     s32 field50;
     s16 field54, field56;
 } Game127060Model;
@@ -321,7 +320,7 @@ typedef struct {
 } Game127060Sprite;
 
 typedef struct { s16 values[8]; } Game127060Kinds;
-extern Game127060Vector D_800A5480;
+extern Vec3f D_800A5480;
 extern Game127060Kinds D_800A1D20;
 s32 func_15157010(s32, s32, f32, s32, s32, s32, s32, s32);
 void *func_1515548C(void *, s32, s32, s32, s32, s32, s32);

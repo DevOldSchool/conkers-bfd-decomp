@@ -14,25 +14,20 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10C170/func_150DECC0.s")
-typedef struct Game10C170Vec3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game10C170Vec3;
 
-extern s32 func_1504697C(Game10C170Vec3 *, s32, f32, f32 *);
+extern s32 func_1504697C(Vec3f *, s32, f32, f32 *);
 extern u32 func_150ADA20(void);
-extern void func_150E83AC(Game10C170Vec3 *, s16, u8, s32);
-extern void func_151A9834(Game10C170Vec3 *, f32, f32, f32 *, s32, s32, s32, s32, s32);
+extern void func_150E83AC(Vec3f *, s16, u8, s32);
+extern void func_151A9834(Vec3f *, f32, f32, f32 *, s32, s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150DF334 CURRENT (2624) */
 void func_150DF334(void *arg0) {
     f32 hit;
     volatile u8 flag;
-    Game10C170Vec3 alternate;
-    Game10C170Vec3 start;
-    Game10C170Vec3 result;
-    Game10C170Vec3 *position;
+    Vec3f alternate;
+    Vec3f start;
+    Vec3f result;
+    Vec3f *position;
 
     flag = 0;
     start.x = *(f32 *)((u8 *)arg0 + 0x28);
@@ -44,13 +39,13 @@ void func_150DF334(void *arg0) {
         flag = 1;
         alternate.z = *(f32 *)((u8 *)arg0 + 0x30);
     }
-    position = (Game10C170Vec3 *)((u8 *)arg0 + 0x28);
+    position = (Vec3f *)((u8 *)arg0 + 0x28);
     if (flag != 0) {
         position = &alternate;
     }
     func_150E83AC(position, (s16)((func_150ADA20() % 62U) + 0x78),
                    *(u8 *)((u8 *)arg0 + 0xC), *(u8 *)((u8 *)arg0 + 1));
-    position = (Game10C170Vec3 *)((u8 *)arg0 + 0x28);
+    position = (Vec3f *)((u8 *)arg0 + 0x28);
     if (flag != 0) {
         position = &alternate;
     }
@@ -63,7 +58,7 @@ void func_150DF334(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150DF334 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10C170/func_150DF334.s")
 typedef struct Game10C170Particle {
-    Game10C170Vec3 position;
+    Vec3f position;
     f32 field0C;
     f32 field10;
     f32 field14;
@@ -104,7 +99,7 @@ extern f32 D_800A0F4C;
 extern f32 D_800A0F50;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150DF4B8 CURRENT (7325) */
-void func_150DF4B8(Game10C170Vec3 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+void func_150DF4B8(Vec3f *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     Game10C170Particle particle;
     f32 firstScale;
     f32 secondScale;

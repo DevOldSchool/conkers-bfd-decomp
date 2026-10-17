@@ -86,12 +86,11 @@ void func_15104A80(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15104A80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_131F30/func_15104A80.s")
-typedef struct Game131F30Vector { f32 x, y, z; } Game131F30Vector;
 typedef struct Game104C44Beam {
     s16 life;
     s8 enabled;
     u8 pad3;
-    Game131F30Vector position, axis0, axis1, contact;
+    Vec3f position, axis0, axis1, contact;
     s8 flag;
     u8 pad35[3];
     s32 count;
@@ -106,7 +105,7 @@ typedef struct Game104C44State {
     f32 pending;
     s16 timer;
     u8 padA[2];
-    Game131F30Vector position;
+    Vec3f position;
     f32 radius, height, contactHeight;
     u8 pad24[0x20];
     s16 *shape;
@@ -126,7 +125,7 @@ extern s32 D_800BE9E4;
 void func_15104C44(u8 *arg0) {
     u32 random;
     Game104C44Beam beam;
-    Game131F30Vector point;
+    Vec3f point;
     Game104C44Pair first;
     Game104C44Pair second;
     Game104C44State *state;
@@ -231,7 +230,7 @@ typedef struct Game131F30Color { s32 value; } Game131F30Color;
 typedef struct Game131F30Factor { f32 value; } Game131F30Factor;
 typedef struct Game131F30Descriptor {
     s32 count, spread;
-    Game131F30Vector position, velocity;
+    Vec3f position, velocity;
     Game131F30Surface surface;
     u8 pad32[2];
     f32 field34, field38, field3C, field40, field44;
@@ -240,9 +239,9 @@ typedef struct Game131F30Descriptor {
 } Game131F30Descriptor;
 typedef struct Game131F30Part {
     u8 pad0[0x30];
-    Game131F30Vector position;
+    Vec3f position;
     u8 pad3C[0x24];
-    Game131F30Vector velocity;
+    Vec3f velocity;
     Game131F30Surface surface;
     u8 pad7E[0xA];
     s32 flags;
@@ -273,7 +272,7 @@ void func_1510558C(Game131F30Emitter *arg0) {
     } work;
     u32 random;
     f32 fraction;
-    Game131F30Vector *position;
+    Vec3f *position;
     Game131F30Surface *surface;
 
     fraction = func_150ADA68();
@@ -338,7 +337,7 @@ void func_15105848(void *arg0, s32 arg1, u8 arg2) {
 typedef struct Game131F30Handle { s16 *shape; f32 scale; } Game131F30Handle;
 
 typedef struct Game131F30Spawn {
-    Game131F30Vector position;
+    Vec3f position;
     s16 lifetime, kind;
     s32 flags;
     s8 mode, count;
@@ -346,7 +345,7 @@ typedef struct Game131F30Spawn {
 
 typedef struct Game131F30Motion {
     f32 size;
-    Game131F30Vector velocity;
+    Vec3f velocity;
     f32 spread;
     u8 field14, field15, field16, field17, field18, field19, field1A;
     u8 field1B, field1C, field1D, field1E, field1F, field20, field21;

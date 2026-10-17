@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_15B200.c
@@ -53,17 +54,12 @@ void func_1512DD50(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1512DD50 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15B200/func_1512DD50.s")
-typedef struct Game15B200Vec3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game15B200Vec3;
 
 typedef struct Game15B200Camera {
     u8 mode;
     u8 unknown1[3];
-    Game15B200Vec3 origin;
-    Game15B200Vec3 direction;
+    Vec3f origin;
+    Vec3f direction;
     f32 inverse;
     f32 speed;
     f32 vertical;
@@ -71,18 +67,18 @@ typedef struct Game15B200Camera {
     f32 maximum;
     f32 accelerationVelocity;
     f32 maximumVelocity;
-    Game15B200Vec3 target;
+    Vec3f target;
 } Game15B200Camera;
 
 typedef struct Game15B200Actor {
     u8 unknown0[0x23C];
     u8 immediate;
     u8 unknown23D[0x7F];
-    Game15B200Vec3 anchor;
+    Vec3f anchor;
     u8 unknown2C8[0x30];
-    Game15B200Vec3 position;
+    Vec3f position;
     u8 unknown304[0xBC];
-    Game15B200Vec3 velocity;
+    Vec3f velocity;
     u8 unknown3CC[0x3E8];
     f32 timestep;
     u8 unknown7B8[0xB8];
@@ -97,7 +93,7 @@ extern f32 D_800A3714;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1512DEA4 CURRENT (4583) */
 void func_1512DEA4(Game15B200Actor *actor) {
-    Game15B200Vec3 offset;
+    Vec3f offset;
     f32 x;
     f32 y;
     f32 z;

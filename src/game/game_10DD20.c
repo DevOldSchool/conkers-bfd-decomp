@@ -11,10 +11,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct Game10DD20Position { f32 x, y, z; } Game10DD20Position;
 typedef struct Game10DD20Object {
     u8 pad00[0x14];
-    Game10DD20Position position;
+    Vec3f position;
 } Game10DD20Object;
 typedef struct Game10DD20Hit {
     f32 height;
@@ -43,14 +42,14 @@ extern u8 D_800C35EA;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150E0870 CURRENT (6232) */
 void func_150E0870(Game10DD20Object *arg0, s32 arg1, s32 arg2) {
-    Game10DD20Position origin;
-    Game10DD20Position impact;
+    Vec3f origin;
+    Vec3f impact;
     u8 hitValid;
-    Game10DD20Position top;
+    Vec3f top;
     Game10DD20Hit hit;
     u32 random;
     f32 randomFloat;
-    Game10DD20Position *position;
+    Vec3f *position;
     s32 flags;
 
     flags = arg1 & 0xFF;

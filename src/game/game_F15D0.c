@@ -19,10 +19,9 @@ void *func_10022EC0(void *, const void *, u32);
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 
-typedef struct { f32 x, y, z; } GameF15D0Vec3;
 typedef struct { s32 values[4]; } GameF15D0Choices;
 extern GameF15D0Choices D_800A0340;
-extern GameF15D0Vec3 D_800A5480;
+extern Vec3f D_800A5480;
 extern f32 D_800A03AC, D_800A03B0, D_800A03B4;
 
 typedef struct {
@@ -43,7 +42,7 @@ typedef struct {
     u8 colors[10];
     s16 field1E, field20, field22;
     f32 size, width, height;
-    GameF15D0Vec3 position, direction, velocity;
+    Vec3f position, direction, velocity;
     f32 field54;
     s32 flags58, field5C;
     u8 mode60, mode61, mode62;

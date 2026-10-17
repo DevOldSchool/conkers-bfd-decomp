@@ -290,7 +290,6 @@ u8 func_151596BC(u8 *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151596BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_151596BC.s")
-typedef struct { f32 x, y, z; } Game1865D0Vector;
 
 typedef struct {
     s32 flags, zero4;
@@ -300,9 +299,9 @@ typedef struct {
     u8 alpha, maximum, kind;
     s16 duration, period, zero22;
     f32 zero24, width, height;
-    Game1865D0Vector position;
+    Vec3f position;
     f32 zero3C, zero40, zero44;
-    Game1865D0Vector velocity;
+    Vec3f velocity;
     f32 rotation;
     s32 mode, unused5C;
     s8 field60, field61, field62, field63;
@@ -350,7 +349,7 @@ void *func_15159890(f32 *arg0, f32 *arg1, u8 arg2, u8 arg3) {
     particle.field61 = 5;
     particle.field62 = 4;
     particle.field63 = -1;
-    particle.position = *(Game1865D0Vector *)arg0;
+    particle.position = *(Vec3f *)arg0;
     particle.zero3C = 0.0f;
     particle.zero40 = 0.0f;
     particle.zero44 = 0.0f;
@@ -361,7 +360,7 @@ void *func_15159890(f32 *arg0, f32 *arg1, u8 arg2, u8 arg3) {
     motion.limit = 1000.0f;
     motion.speed = 4.0f;
     motion.damping = 0.25f;
-    particle.velocity = *(Game1865D0Vector *)arg1;
+    particle.velocity = *(Vec3f *)arg1;
     if (func_150ADA20() & 1) particle.mode |= 0x40;
     if (func_150ADA20() & 1) particle.mode |= 0x80;
     particle.lifetime = (func_150ADA20() % 25U) + 0x1E;
@@ -484,7 +483,7 @@ void *func_1515A238(f32 *arg0, f32 *arg1, f32 arg2, f32 arg3,
     else particle.field62 = 0x14;
     particle.field63 = -1;
     ((s8 *)particle.pad64)[0] = -1;
-    particle.position = *(Game1865D0Vector *)arg0;
+    particle.position = *(Vec3f *)arg0;
     particle.zero44 = particle.zero40 = particle.zero3C = 0.0;
     particle.duration = 1;
     particle.period = 0xFF;
@@ -504,7 +503,7 @@ void *func_1515A238(f32 *arg0, f32 *arg1, f32 arg2, f32 arg3,
     motion.step3 = func_150ADA20() % 5U + 4;
     motion.amount2 = (func_150ADA68() * D_800A63EC + D_800A63F0) * motion.size;
     motion.amount3 = (func_150ADA68() * D_800A63F4 + D_800A63F8) * motion.size;
-    particle.velocity = *(Game1865D0Vector *)arg1;
+    particle.velocity = *(Vec3f *)arg1;
     particle.pad64[1] = 0;
     particle.lifetime = ((s16 *)&arg6)[1];
     particle.alpha = ((u8 *)&arg7)[3];

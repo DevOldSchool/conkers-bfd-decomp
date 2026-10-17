@@ -392,16 +392,11 @@ void func_151A2BD0(s32 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, void *arg5)
     func_15143794(arg1, arg2, (1.0f - arg4) * arg3, arg5);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CE2F0/func_151A2C24.s")
-typedef struct Game1CE2F0EmitterVector {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1CE2F0EmitterVector;
 
 typedef struct Game1CE2F0EmitterParticle {
     s32 field0;
     s32 field4;
-    Game1CE2F0EmitterVector position8;
+    Vec3f position8;
     f32 field14;
     f32 field18;
     f32 field1C;
@@ -436,8 +431,8 @@ typedef struct Game1CE2F0EmitterOwner {
     u8 padD[0x2B];
     f32 field38;
     f32 field3C;
-    Game1CE2F0EmitterVector position40;
-    Game1CE2F0EmitterVector offset4C;
+    Vec3f position40;
+    Vec3f offset4C;
     u8 pad58[0x10];
     s32 flags68;
 } Game1CE2F0EmitterOwner;

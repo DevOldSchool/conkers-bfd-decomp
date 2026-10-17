@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "game_command.h"
+#include "game_vec.h"
 
 struct Game15D730CopyBlock;
 struct Game13AAE0ValueList;
@@ -28,7 +29,6 @@ struct Game19A8B0Motion;
 struct Game1A0100Actor;
 struct Game11D830Inner;
 struct Game11D830Object;
-struct Game12B7D0Vec3;
 struct Game130B40WordVector;
 struct Game133190Color;
 struct Game133190Object;
@@ -36,12 +36,10 @@ struct Game14F130Camera;
 struct Game159940Object;
 struct Game15F680TransformState;
 struct Game182C30Effect;
-struct Game12B250Vec3;
 struct Game1238B0Object;
 struct Game3C230Actor;
 struct Game64120InitState;
 struct Game71240TransformSource;
-struct Game71240Vec3f;
 struct Game77BE0State;
 struct Game83300Actor;
 struct Game90840Actor;
@@ -161,7 +159,7 @@ s32 func_1500390C(s32);
 s32 func_15012720(void);
 void func_1500EE18(struct Game3C230Actor *, s32, s32);
 void func_15036C70(struct Game64120InitState *);
-void func_15043FF0(struct Game71240Vec3f *, struct Game71240TransformSource *);
+void func_15043FF0(Vec3f *, struct Game71240TransformSource *);
 s32 func_150490A8(void *);
 void func_1504C854(struct Game77BE0State *);
 void func_1505DFDC(struct Game83300Actor *);
@@ -171,11 +169,11 @@ void func_1507EB2C(struct GameAB760State *);
 void func_150F0A24(void *);
 void func_150F6400(struct Game1238B0Object *);
 void func_150FB240(u8 *, s16, s16, s16, s16);
-void func_150FDF38(void *, u8, s32, struct Game12B250Vec3 *, struct Game12B250Vec3 *);
+void func_150FDF38(void *, u8, s32, Vec3f *, Vec3f *);
 s32 func_1509D08C(s32, s32, s32 *, s32 *);
 void func_150E2EA4(s32, u8, s16, s32, f32, f32, f32, f32, f32, f32, s16, s16, u16, f32, f32, u8, f32);
 struct Game11D830Inner *func_150F0380(struct Game11D830Object *);
-void func_150FE49C(void *, u8, s32, struct Game12B7D0Vec3 *, struct Game12B7D0Vec3 *);
+void func_150FE49C(void *, u8, s32, Vec3f *, Vec3f *);
 void func_151036B4(struct Game130B40WordVector *, u8, s32);
 struct Game133190Object *func_15107C1C(void *, u8, f32 *, s16, s16, s16, s32, f32, f32, s16, s16, struct Game133190Color *, u8, s32);
 void func_1511F31C(u8 *);

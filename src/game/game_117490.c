@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_117490.c
@@ -80,7 +81,6 @@ s32 func_150EA10C(u8 *arg0) {
     *(s32 *)(arg0 + 0x80) = 0;
     return 1;
 }
-typedef struct { f32 x, y, z; } Game117490Vector;
 typedef struct {
     s32 flags, field04;
     s16 kind, life;
@@ -89,7 +89,7 @@ typedef struct {
     u8 mode;
     s16 size0, size1, field22;
     f32 field24, scale0, scale1;
-    Game117490Vector position, rotation, velocity;
+    Vec3f position, rotation, velocity;
     f32 field54;
     s32 flags58;
     u8 pad5C[4];
@@ -112,7 +112,7 @@ extern f32 D_800A1418, D_800A141C, D_800A1420, D_800A1424;
 extern f32 D_800A1428, D_800A142C, D_800A1430, D_800A1434;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150EA11C CURRENT (360) */
-void func_150EA11C(Game117490Vector *arg0, Game117490Vector *arg1,
+void func_150EA11C(Vec3f *arg0, Vec3f *arg1,
                    s32 arg2, s32 arg3, f32 arg4, u8 *arg5) {
     Game117490Particle particle;
     void *result;

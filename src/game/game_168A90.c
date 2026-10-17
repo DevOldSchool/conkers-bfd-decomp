@@ -293,10 +293,9 @@ void *func_1513BAE8(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513BAE8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_168A90/func_1513BAE8.s")
-typedef struct { f32 x, y, z; } Game168A90Point;
 typedef struct { s32 first, count; } Game168A90Range;
 typedef struct { s16 x, y, z, flag, u, v; u8 color[4]; } Game168A90Vertex;
-extern Game168A90Point D_800A49C0[9];
+extern Vec3f D_800A49C0[9];
 extern Game168A90Range D_800A4A2C[9];
 extern f32 D_800A4A74, D_800A4A78, D_800A4A7C, D_800A4A80;
 f32 func_15047D60(f32);
@@ -307,7 +306,7 @@ __pragma(1, sqrtf);
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1513BBFC CURRENT (10188) */
 s32 func_1513BBFC(Game168A90Allocated *owner, s16 arg1) {
     register Game168A90Vector5 *state;
-    register Game168A90Point *position, *point;
+    register Vec3f *position, *point;
     register Game168A90Range *range;
     register Game168A90Vertex *vertex;
     register s32 current;
@@ -319,7 +318,7 @@ s32 func_1513BBFC(Game168A90Allocated *owner, s16 arg1) {
     state = (Game168A90Vector5 *)((u8 *)owner + owner->size + 0xF8);
     width = func_15047D60(state->field_0C) * D_800A4A74 + D_800A4A78;
     height = func_15047D60(state->field_10) * D_800A4A7C + D_800A4A80;
-    position = (Game168A90Point *)func_15144B34(arg1);
+    position = (Vec3f *)func_15144B34(arg1);
     x = state->field_00;
     y = state->field_04;
     wrapX = x - (f32)(s32)(x * 0.0009765625f) * 1024.0f;

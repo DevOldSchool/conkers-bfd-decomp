@@ -58,20 +58,15 @@ void *func_15109410(void *arg0, s16 arg1, s8 arg2, s8 arg3,
     }
     return result;
 }
-typedef struct Game1368C0EmitterVector {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1368C0EmitterVector;
 
 void func_15143134(f32 *, f32 *, s32);
 s32 func_15145128(void *, void *, f32 *, f32 *);
 f32 func_150ADA68(void);
 extern void (*D_80088C60[])(void *);
-extern void (*D_80088C64[])(void *, Game1368C0EmitterVector *,
-    Game1368C0EmitterVector *, Game1368C0EmitterVector *,
-    Game1368C0EmitterVector *, Game1368C0EmitterVector *);
-extern Game1368C0EmitterVector D_800A24B0[], D_800A2520[];
+extern void (*D_80088C64[])(void *, Vec3f *,
+    Vec3f *, Vec3f *,
+    Vec3f *, Vec3f *);
+extern Vec3f D_800A24B0[], D_800A2520[];
 extern struct { f32 weights[6]; f32 total; } D_800A2504;
 extern f32 D_800A251C, D_800BE9A4;
 
@@ -79,13 +74,13 @@ extern f32 D_800A251C, D_800BE9A4;
 void func_151094FC(void *arg0) {
     void *source;
     void *savedSource;
-    Game1368C0EmitterVector position;
-    Game1368C0EmitterVector first;
-    Game1368C0EmitterVector second;
-    Game1368C0EmitterVector third;
-    Game1368C0EmitterVector direction;
-    Game1368C0EmitterVector local;
-    register Game1368C0EmitterVector *segment;
+    Vec3f position;
+    Vec3f first;
+    Vec3f second;
+    Vec3f third;
+    Vec3f direction;
+    Vec3f local;
+    register Vec3f *segment;
     f32 remaining;
     s32 transform;
     s32 offset;
@@ -114,7 +109,7 @@ void func_151094FC(void *arg0) {
                 }
                 remaining = func_150ADA68();
                 offset = index * 0xC;
-                segment = (Game1368C0EmitterVector *)((u8 *)D_800A24B0 + offset);
+                segment = (Vec3f *)((u8 *)D_800A24B0 + offset);
                 local.x = ((segment[1].x - segment->x) * remaining) + segment->x;
                 local.y = ((segment[1].y - segment->y) * remaining) + segment->y;
                 local.z = ((segment[1].z - segment->z) * remaining) + segment->z;
@@ -148,7 +143,7 @@ void func_151094FC(void *arg0) {
 typedef struct Game1368C0EmitterParticle {
     s32 field0;
     s32 field4;
-    Game1368C0EmitterVector position8;
+    Vec3f position8;
     f32 field14;
     f32 field18;
     f32 field1C;
@@ -190,7 +185,7 @@ typedef struct Game1368C0EmitterSpawn {
     f32 field24;
     f32 field28;
     f32 field2C;
-    Game1368C0EmitterVector position30;
+    Vec3f position30;
     f32 field3C;
     f32 field40;
     f32 field44;
@@ -225,8 +220,8 @@ extern f32 D_800A2648;
 extern f32 D_800A264C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15109848 CURRENT (550) */
-void func_15109848(Game1368C0EmitterOwner *arg0, Game1368C0EmitterVector *arg1,
-                   s32 arg2, s32 arg3, s32 arg4, Game1368C0EmitterVector *arg5) {
+void func_15109848(Game1368C0EmitterOwner *arg0, Vec3f *arg1,
+                   s32 arg2, s32 arg3, s32 arg4, Vec3f *arg5) {
     Game1368C0EmitterSpawn spawn;
     f32 speed;
     Game1368C0EmitterParticle descriptor;
@@ -345,7 +340,7 @@ typedef struct {
 } Game1368C0BurstOwner;
 typedef struct {
     f32 first, second, width, height;
-    Game1368C0EmitterVector angles, scale, position, velocity, acceleration;
+    Vec3f angles, scale, position, velocity, acceleration;
     f32 scalar4C;
     s32 flags;
     s16 life, kind;
@@ -362,8 +357,8 @@ extern f32 D_800A2650, D_800A2654, D_800A2658, D_800A265C, D_800A2660, D_800A266
 extern f32 D_800A2668, D_800A266C, D_800A2670, D_800A2674, D_800A2678, D_800A267C, D_800A2680;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15109C20 CURRENT (1265) */
-void func_15109C20(Game1368C0BurstOwner *arg0, Game1368C0EmitterVector *arg1,
-                   s32 arg2, s32 arg3, s32 arg4, Game1368C0EmitterVector *arg5) {
+void func_15109C20(Game1368C0BurstOwner *arg0, Vec3f *arg1,
+                   s32 arg2, s32 arg3, s32 arg4, Vec3f *arg5) {
     Game1368C0BurstParent *parent;
     f32 speed;
     Game1368C0Burst burst;
@@ -456,17 +451,17 @@ s32 func_15109ED4(s32 arg0, s16 arg1, s8 arg2, s8 arg3,
 }
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_1511490C(void *, void *);
-extern Game1368C0EmitterVector D_800A2568[], D_800A25BC[];
+extern Vec3f D_800A2568[], D_800A25BC[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15109FB8 CURRENT (5111) */
 void func_15109FB8(u8 *arg0) {
     s32 callback;
     f32 matrix[16];
-    Game1368C0EmitterVector position;
-    Game1368C0EmitterVector first;
-    Game1368C0EmitterVector second;
-    Game1368C0EmitterVector third;
-    Game1368C0EmitterVector direction;
+    Vec3f position;
+    Vec3f first;
+    Vec3f second;
+    Vec3f third;
+    Vec3f direction;
     f32 x;
     f32 y;
     f32 z;
@@ -475,8 +470,8 @@ void func_15109FB8(u8 *arg0) {
     f32 *weight;
     s32 index;
     s32 offset;
-    Game1368C0EmitterVector *segment;
-    Game1368C0EmitterVector *thirdPoint;
+    Vec3f *segment;
+    Vec3f *thirdPoint;
     Game1368C0Spawn *state;
 
     state = (Game1368C0Spawn *)(arg0 + 0x28);
@@ -497,7 +492,7 @@ void func_15109FB8(u8 *arg0) {
                 }
                 random = func_150ADA68();
                 offset = index * 0xC;
-                segment = (Game1368C0EmitterVector *)((u8 *)D_800A2568 + offset);
+                segment = (Vec3f *)((u8 *)D_800A2568 + offset);
                 x = segment->x;
                 y = segment->y;
                 z = segment->z;
@@ -509,7 +504,7 @@ void func_15109FB8(u8 *arg0) {
                     &first.x, &first.y, &first.z);
                 func_150A7960(matrix, segment[1].x, segment[1].y, segment[1].z,
                     &second.x, &second.y, &second.z);
-                thirdPoint = (Game1368C0EmitterVector *)((u8 *)D_800A25BC + offset);
+                thirdPoint = (Vec3f *)((u8 *)D_800A25BC + offset);
                 func_150A7960(matrix, thirdPoint->x, thirdPoint->y, thirdPoint->z,
                     &third.x, &third.y, &third.z);
                 random = func_150ADA68();

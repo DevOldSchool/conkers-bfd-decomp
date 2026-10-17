@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_637C0.c
@@ -10,7 +11,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct { f32 x, y, z; } Game637C0Vector;
 typedef struct { f32 values[16]; } Game637C0Matrix;
 typedef struct {
     u8 pad00[0x14C];
@@ -21,7 +21,7 @@ typedef struct {
 } Game637C0Actor;
 typedef struct {
     u8 pad00[0x2F8];
-    Game637C0Vector position;
+    Vec3f position;
 } Game637C0Target;
 
 void func_150440A0(void *, f32, f32, f32, f32, f32, f32, f32, f32, f32);
