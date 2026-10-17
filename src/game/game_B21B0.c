@@ -100,7 +100,7 @@ typedef struct GameB21B0PlayerRecord {
 extern GameB21B0PlayerRecord D_800D213C[];
 extern u16 D_800D2340;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150859AC CURRENT (970) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150859AC CURRENT (670) */
 s32 func_150859AC(s32 arg0, s32 arg1) {
     arg0 = (s16)arg0;
     arg1 = (s16)arg1;

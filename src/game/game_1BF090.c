@@ -46,15 +46,13 @@ typedef struct Game1BF090Payload {
 void func_1504715C(void *, void *, s32, void *);
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15191BE0 CURRENT (3280) */
-s32 func_15191BE0(u8 *arg0, Game1BF090Vector *arg1, s32 arg2,
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15191BE0 CURRENT (2209) */
+s32 func_15191BE0(u8 *arg0, Game1BF090Vector *arg1, u8 arg2,
                   f32 arg3, f32 arg4, s16 arg5, f32 arg6, f32 arg7,
                   s16 arg8, s16 arg9, u8 arg10, u8 arg11, f32 arg12,
                   f32 arg13, f32 arg14, u8 arg15, u8 arg16, s32 arg17) {
     Game1BF090Payload payload;
     void *effect;
-    s16 kind;
-    s32 enabled;
 
     if (arg0 == 0) {
         return 0;
@@ -62,11 +60,11 @@ s32 func_15191BE0(u8 *arg0, Game1BF090Vector *arg1, s32 arg2,
     payload.owner = arg0;
     payload.mode = arg0[0x3B];
     payload.origin = *arg1;
-    payload.radius = (arg2 & 0xFF) << 6;
+    payload.radius = arg2 << 6;
     payload.zero = 0.0f;
     payload.start = arg3;
     payload.end = arg4;
-    func_1504715C(payload.scratch, arg0, arg2 & 0xFF, arg0);
+    func_1504715C(payload.scratch, arg0, arg2, arg0);
     payload.scaleX = arg6;
     payload.scaleY = arg7;
     payload.field50 = arg8;
@@ -77,14 +75,7 @@ s32 func_15191BE0(u8 *arg0, Game1BF090Vector *arg1, s32 arg2,
     payload.field5C = arg13;
     payload.field60 = arg14;
     payload.field64 = arg15;
-    if (arg5 == -1) {
-        kind = 0x12C;
-        enabled = 0;
-    } else {
-        kind = arg5;
-        enabled = 1;
-    }
-    effect = func_15149130(kind, -1, 0x1D, -1, enabled, 0x1D, 0x68, arg16, arg17);
+    effect = func_15149130((arg5 == -1) ? 0x12C : arg5, -1, 0x1D, -1, (arg5 == -1) ? 0 : 1, 0x1D, 0x68, arg16, arg17);
     if (effect != 0) {
         func_10022EC0((u8 *)effect + 0x28, &payload, 0x68);
     }
@@ -408,7 +399,7 @@ extern f32 D_800A80C4[];
 extern f32 D_800A80D4[];
 extern u8 D_800A80E4[];
 
-s32 func_15191BE0(u8 *, Game1BF090Vector *, s32, f32, f32, s16,
+s32 func_15191BE0(u8 *, Game1BF090Vector *, u8, f32, f32, s16,
                   f32, f32, s16, s16, u8, u8, f32, f32, f32,
                   u8, u8, s32);
 

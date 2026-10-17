@@ -564,8 +564,8 @@ void func_15167E0C(Game1944C0MovingEffect *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168118.s")
 extern u8 *D_8008CA4C[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516865C CURRENT (3865) */
-void func_1516865C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516865C CURRENT (55) */
+void func_1516865C(u8 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4) {
     u8 *record;
     u8 *cursor;
     u8 **table;
@@ -574,21 +574,16 @@ void func_1516865C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     s16 value1;
     s16 value2;
     s16 value3;
-    u16 flags;
-    u8 a;
+    s16 temp;
 
-    arg1 &= 0xFF;
-    arg2 &= 0xFF;
-    arg3 &= 0xFF;
-    a = *(u8 *)((u8 *)&arg4 + 3);
     value0 = 0x2000;
     value1 = 0x2000;
     table = D_8008CA4C;
     record = table[arg0[0xA0]];
     value2 = (s16)((*(u16 *)(record + 8) + 0x100) << 5);
     value3 = (s16)((*(u16 *)(record + 6) + 0x100) << 5);
-    cursor = arg0;
     index = 0;
+    cursor = arg0;
     do {
         index++;
         cursor += 0x40;
@@ -596,53 +591,54 @@ void func_1516865C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
         cursor[-0x24] = arg1;
         cursor[-0x23] = arg2;
         cursor[-0x22] = arg3;
-        cursor[-0x21] = a;
+        cursor[-0x21] = arg4;
         *(s16 *)(cursor - 0x1A) = 0;
         cursor[-0x14] = arg1;
         cursor[-0x13] = arg2;
         cursor[-0x12] = arg3;
-        cursor[-0x11] = a;
+        cursor[-0x11] = arg4;
         *(s16 *)(cursor - 0xA) = 0;
         cursor[-4] = arg1;
         cursor[-3] = arg2;
         cursor[-2] = arg3;
-        cursor[-1] = a;
+        cursor[-1] = arg4;
         *(s16 *)(cursor - 0x3A) = 0;
         cursor[-0x34] = arg1;
         cursor[-0x33] = arg2;
         cursor[-0x32] = arg3;
-        cursor[-0x31] = a;
+        cursor[-0x31] = arg4;
     } while (index != 2);
-    flags = *(u16 *)(arg0 + 0x98);
-    if (flags & 0x80) {
+    if (*(u16 *)(arg0 + 0x98) & 0x80) {
         value2 = 0x2000;
-        record = table[arg0[0xA0]];
-        value0 = (s16)((*(u16 *)(record + 8) + 0x100) << 5);
+        value0 = (s16)((*(u16 *)(table[arg0[0xA0]] + 8) + 0x100) << 5);
     }
-    if (flags & 0x100) {
+    if (*(u16 *)(arg0 + 0x98) & 0x100) {
         value3 = 0x2000;
-        record = table[arg0[0xA0]];
-        value1 = (s16)((*(u16 *)(record + 6) + 0x100) << 5);
+        value1 = (s16)((*(u16 *)(table[arg0[0xA0]] + 6) + 0x100) << 5);
     }
     *(s16 *)(arg0 + 0x68) = value1;
     *(s16 *)(arg0 + 0x7A) = value0;
     *(s16 *)(arg0 + 0x78) = value3;
-    *(s16 *)(arg0 + 0x28) = *(s16 *)(arg0 + 0x68);
-    *(s16 *)(arg0 + 0x58) = *(s16 *)(arg0 + 0x68);
-    *(s16 *)(arg0 + 0x18) = *(s16 *)(arg0 + 0x68);
+    temp = *(s16 *)(arg0 + 0x68);
+    *(s16 *)(arg0 + 0x28) = temp;
+    *(s16 *)(arg0 + 0x58) = temp;
+    *(s16 *)(arg0 + 0x18) = temp;
     *(s16 *)(arg0 + 0x5A) = value2;
     *(s16 *)(arg0 + 0x88) = 0;
-    *(s16 *)(arg0 + 0x3A) = *(s16 *)(arg0 + 0x7A);
-    *(s16 *)(arg0 + 0x6A) = *(s16 *)(arg0 + 0x7A);
-    *(s16 *)(arg0 + 0x2A) = *(s16 *)(arg0 + 0x7A);
+    temp = *(s16 *)(arg0 + 0x7A);
+    *(s16 *)(arg0 + 0x3A) = temp;
+    *(s16 *)(arg0 + 0x6A) = temp;
+    *(s16 *)(arg0 + 0x2A) = temp;
     *(s16 *)(arg0 + 0x9C) = 0;
     *(s16 *)(arg0 + 0x9E) = 0;
-    *(s16 *)(arg0 + 0x38) = *(s16 *)(arg0 + 0x78);
-    *(s16 *)(arg0 + 0x48) = *(s16 *)(arg0 + 0x78);
-    *(s16 *)(arg0 + 8) = *(s16 *)(arg0 + 0x78);
-    *(s16 *)(arg0 + 0x1A) = *(s16 *)(arg0 + 0x5A);
-    *(s16 *)(arg0 + 0x4A) = *(s16 *)(arg0 + 0x5A);
-    *(s16 *)(arg0 + 0xA) = *(s16 *)(arg0 + 0x5A);
+    temp = *(s16 *)(arg0 + 0x78);
+    *(s16 *)(arg0 + 0x38) = temp;
+    *(s16 *)(arg0 + 0x48) = temp;
+    *(s16 *)(arg0 + 8) = temp;
+    temp = *(s16 *)(arg0 + 0x5A);
+    *(s16 *)(arg0 + 0x1A) = temp;
+    *(s16 *)(arg0 + 0x4A) = temp;
+    *(s16 *)(arg0 + 0xA) = temp;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1516865C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516865C.s")

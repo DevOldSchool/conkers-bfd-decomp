@@ -1735,16 +1735,15 @@
       "symbol": "func_15160B74"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2685,
-        "reason": "Manual C candidate CURRENT (2685): aggregate 0x28 payload and 12-byte vector copies compile, but frame 0x88 vs 0x80, stack locations and flag/control-flow order differ; explicit arg1 narrowing improved 2754 to 2685. Needs new stack/control-flow hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15160CDC",
           "vram": "0x15160CDC"
         }
@@ -2536,16 +2535,15 @@
       "symbol": "func_15163A18"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1141,
-        "reason": "Manual compiler/type repair; warning-free candidate remains CURRENT (1141). See build/fix-blockers-2/func_15163A60-finish.log.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15163A60",
           "vram": "0x15163A60"
         }
@@ -10712,17 +10710,16 @@
       "symbol": "func_150615DC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2360,
-        "reason": "Byte-indexed global read corrected; latest2975->2360, fullwidth0/255local neutral. Raw three argument home/mask chains differ from all existing s32 declarations; coordinated declaration approval needed before ABI correction. No workaround.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 432,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1506160C",
           "vram": "0x1506160C"
         }
@@ -11750,8 +11747,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1678,
-        "reason": "CURRENT (1678): packed packet layout and call stack align, but entry arg0 byte normalization/store ordering and packet initialization schedule differ; 7 register, 5 operand, 6 control-flow, 10 missing/extra rows after two manual revisions",
+        "current_score": 745,
+        "reason": "Round 5: u8 arg0 (drop m2c arg0 = (u8)arg0 and the phantom func_150ADA20(arg0) argument) 1678 -> 1157; owner assigned right after color[0] 745. Residual is scheduling of the packet stores (raw loads arg1 early but owner late; colors 1-5 all li/sb after the type constant). Store-order probes x2-x6 1227-3179. Other callers keep their own (s32, ...) declarations with constant arg0. Ledger round5-2026-10-18.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -13435,8 +13432,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3865,
-        "reason": "CURRENT (3865); raw homes a1-a3 and uses an 8-byte frame/s0 while s32-parameter C variants either eliminate the frame or save extra registers. One targeted in-place-narrowing revision improved score but 97 rows still differ, mostly ABI/register lifetime and final store order.",
+        "current_score": 55,
+        "reason": "Round 5: u8 arg1-arg4 (arg4 is the lbu 0x1B(sp) stack byte) 3865 -> 1155; index init before cursor 1020; one reused temp for the four field-copy groups 180; no flags local 160; table[arg0[0xA0]] inline in the flag arms 55. Residual: value1/value2 swap v1/t1 only; decl orders/types/init order 55-75, permute --budget 32 (twice) none. Ledger round5-2026-10-18.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -34126,17 +34123,16 @@
       "symbol": "func_151DBCBC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 898,
-        "reason": "CURRENT898 improved2038: aggregate position copy and removed scalar temporaries recover B0 frame/58 packet. Arg0 raw byte ABI, random spill and scheduling remain; no shared changes applied.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 436,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151DBE80",
           "vram": "0x151DBE80"
         }
@@ -43411,8 +43407,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1164,
-        "reason": "Original current1164 restored (historical1264 stale). Two manual probes u8 formal/else and selector snapshot/saved-return both1224; compiler retains late home reload and folds return copies. No new evidence; ledger deferred-manual-20260927.",
+        "current_score": 405,
+        "reason": "Round 5: u8 arg3 + prototyped func_151407D0(void *, u32, void *, u8 x4, s8, u8, s32) (game_16DC80 definition) and void * arg0/arg2 1164 -> 405; only the return epilogue differs (raw lw v1 / b / move v0,v1 then an extra b before move v0,zero). Probes: void* temp + cast, result variable if/else, assignment-in-if, duplicate return, else-return all 605-615 in probe. Ledger round5-2026-10-18.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -56006,8 +56002,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3280,
-        "reason": "Best valid repaired CURRENT3280: restored concrete payload mode byte at offset4 after legacy candidate failed compilation. Natural104B payload+4B result workspace regressed3430, prior volatile result4127 exhausted. FrameB0/payload48 versus rawA8/3C, owner/resultS0, delayed byte mask and branch/setup ordering remain. No shared changes; two fresh revisions exhausted.",
+        "current_score": 2209,
+        "reason": "Round 5: u8 arg2 (+in-file prototype; caller func_151925C4 passes u8 D_800A8060[] and stays 0) and inline ternary kind/enabled args 3280 -> 2209. Residual: raw homes arg0 (sw a0,0xa8) and keeps it in a3 with frame 0xa8; ours keeps arg0 in s0 (frame 0xb0) and reloads arg2 from its home instead of the andi copy. w0 3346, kind/enabled ternary locals w2 2811. Ledger round5-2026-10-18.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -59639,8 +59635,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1441,
-        "reason": "CURRENT 1441 best measured candidate after arg2 lifetime and void-pointer alias revision; further finish blocked by unrelated integrated src/game/game_2DDF0.c not mapped as C at 0x940",
+        "current_score": 85,
+        "reason": "Round 5: u8 arg2 twin of func_150D596C; link = *(arg0+0x98) hoisted, Game100810Link {u8 *id; u8 slot; void *handle}, ternary 0x7A/0x79 kind (matches -g3 b/li shape), 1441 -> 85. Residual: raw keeps *arg1 in v0 (loaded before link->id) and arg0 in a0; named other moves arg0 to a3 (720), decl orders/compare swaps/link->id reuse/u8 **arg1 85-738, permute --budget 32 none. Ledger round5-2026-10-18.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -62001,17 +61997,16 @@
       "symbol": "func_15166FD8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3075,
-        "reason": "Corrected invalid scalar-pointer indexing: required24-byte stride was90. Best valid CURRENT3075; old2270/2670 candidate rejected for unsupported addresses. Full-width declared arg2/3 omit raw early byte normalization, and scheduling/span differ; no supported target-local ABI change.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 208,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15187EC0",
           "vram": "0x15187EC0"
         }
@@ -62107,8 +62102,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 10315,
-        "reason": "single low-usage manual candidate remained CURRENT (10315); required 0x918 stack/object layout was not reproduced",
+        "current_score": 6081,
+        "reason": "Round 5: u8 arg2 + descriptor/payload local structs 10315 -> 6081 (K&R callee leaves a2 unnarrowed). A 3-param func_1515FF74(void *, s32, u8) prototype gives 1009 but its definition has 4 params (raw never sets a3), so not kept. Remaining: raw keeps arg0/arg1 in their homes (lw 0x918 twice) and the struct build drops either the owner or time store; volatile arg0 1555, volatile arg0/arg1 1390, m2c scalar locals 9779. Ledger round5-2026-10-18.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -65878,17 +65873,16 @@
       "symbol": "func_150BEACC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1793,
-        "reason": "Best candidate CURRENT (825): u8 selector plus nested switch preserves most control flow, but case-label layout and branch-likely code remain different; s32 selector revision regressed to CURRENT (1793).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 248,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150BEC30",
           "vram": "0x150BEC30"
         }
@@ -80423,8 +80417,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 970,
-        "reason": "Recovered all seven checksum-proven getter cases using one coherent 0x1C player record and full-word formals. Valid CURRENT 970 replaces empty switch CURRENT 5300; the lower overlapping-array form is invalid and superseded. Remaining allocation/address materialization differs; no alias or storage tricks.",
+        "current_score": 670,
+        "reason": "Round 5: not attempted; s16 args but body is a 7-case switch whose jtbl_8009D9A0_game has no reviewed game_B21B0 rodata mapping (new rodata extent fails verify-batch). Candidate unchanged at 970.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -85589,8 +85583,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1602,
-        "reason": "Two bounded source attempts remained non-exact; helper ABI revision did not recover the target prologue/register allocation.",
+        "current_score": 10,
+        "reason": "Round 5: u8 arg2, if-chain with link = arg0+0x28 hoisted, other = *arg1 named in both arms, 1-arg func_1516972C(void *) (game_1944C0 definition) 1602 -> 10. Only residual: bnel t2,a0 vs a0,t2 operand order on the second id compare; id/next/no-id/s32 *arg1/operand swaps 10-450, permute --budget 32 none. Ledger round5-2026-10-18.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
