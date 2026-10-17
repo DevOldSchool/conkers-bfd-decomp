@@ -393,14 +393,9 @@ void func_151B7144(u8 *arg0, s32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B7144 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B7144.s")
-typedef struct Game1E37D0Vec3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1E37D0Vec3;
 
 typedef struct Game1E37D0RingEntry {
-    Game1E37D0Vec3 position;
+    Vec3f position;
     f32 distance;
     u8 state;
     u8 pad11[3];
@@ -414,7 +409,7 @@ typedef struct Game1E37D0RingState {
 
 typedef struct Game1E37D0RingObject {
     u8 pad0[0x10];
-    Game1E37D0Vec3 position;
+    Vec3f position;
     u8 pad1C[9];
     u8 capacity;
     u8 pad26[6];
@@ -427,11 +422,11 @@ typedef struct Game1E37D0RingObject {
 } Game1E37D0RingObject;
 
 extern s32 D_800BE9E4;
-extern s32 (*D_8008FB90[])(Game1E37D0RingObject *, Game1E37D0Vec3 *);
+extern s32 (*D_8008FB90[])(Game1E37D0RingObject *, Vec3f *);
 
 
 typedef struct Game1E37D0RingConfig {
-    Game1E37D0Vec3 position;
+    Vec3f position;
     s16 lifetime, count;
     s32 flags;
     s8 mode, kind;
@@ -441,7 +436,7 @@ typedef struct Game1E37D0FourChoices {
     s32 values[4];
 } Game1E37D0FourChoices;
 
-extern Game1E37D0Vec3 D_800A5480;
+extern Vec3f D_800A5480;
 extern Game1E37D0FourChoices D_800AA460;
 extern f32 D_800AA480;
 
@@ -499,9 +494,9 @@ Game1E37D0RingObject *func_151B7328(void *arg0, s32 arg1, u32 arg2, s32 arg3, s3
         packet.fields.alpha = 0xFF;
         size = func_150ADA68();
         packet.fields.sizeX = packet.fields.sizeY = size * 800.0f + D_800AA480;
-        *(Game1E37D0Vec3 *)packet.fields.position = config.position;
-        *(Game1E37D0Vec3 *)packet.fields.velocity = D_800A5480;
-        *(Game1E37D0Vec3 *)packet.fields.acceleration = D_800A5480;
+        *(Vec3f *)packet.fields.position = config.position;
+        *(Vec3f *)packet.fields.velocity = D_800A5480;
+        *(Vec3f *)packet.fields.acceleration = D_800A5480;
         packet.fields.width = 1;
         packet.fields.height = 0xFF;
         packet.fields.duration = 1;
@@ -607,8 +602,8 @@ s32 func_151B76CC(void *arg0, f32 *arg1) {
 s32 func_151B77F4(Game1E37D0RingObject *arg0) {
     Game1E37D0RingState *state;
     Game1E37D0RingEntry *entries;
-    Game1E37D0Vec3 previous;
-    Game1E37D0Vec3 delta;
+    Vec3f previous;
+    Vec3f delta;
     Game1E37D0RingEntry *entry;
     s8 tail;
     f32 distance;
@@ -621,7 +616,7 @@ s32 func_151B77F4(Game1E37D0RingObject *arg0) {
             return 0;
         }
         if (state->linked != 0) {
-            *(Game1E37D0Vec3 *)(state->linked + 0x40) = arg0->position;
+            *(Vec3f *)(state->linked + 0x40) = arg0->position;
         }
         delta.x = arg0->position.x - previous.x;
         delta.y = arg0->position.y - previous.y;

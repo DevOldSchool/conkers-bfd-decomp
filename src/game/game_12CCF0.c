@@ -22,12 +22,6 @@ void func_15145EA4(s32 *, s32 *, s32, s32);
 extern u8 D_80088BB0;
 extern s32 D_800A2130;
 
-typedef struct Game12CCF0Vec3f {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game12CCF0Vec3f;
-
 typedef struct Game12CCF0Actor {
     u8 pad0[0x7A];
     u16 field_7A;
@@ -40,7 +34,7 @@ void func_150FFCC8(void *, void *, void *, void *, void *);
 void func_150FFC3C(void *);
 void func_151D5148(void *);
 void func_150FFD84(f32 *, f32 *, s32, s32);
-void func_150FFB6C(Game12CCF0Vec3f *, void *, Game12CCF0Actor *, s32);
+void func_150FFB6C(Vec3f *, void *, Game12CCF0Actor *, s32);
 void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32, s32, s32, s32, s32, s32);
 s32 func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);
 s32 func_15081E78(void *, void *, s32);
@@ -50,9 +44,9 @@ extern f32 D_800A2180, D_800A2184, D_800A2188;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FF840 CURRENT (1550) */
 void func_150FF840(Game12CCF0Actor *arg0, u8 arg1, u8 arg2, volatile u8 arg3, s32 arg4) {
-    Game12CCF0Vec3f position, direction, third, fourth;
+    Vec3f position, direction, third, fourth;
     f32 motion[2];
-    Game12CCF0Vec3f end, middle, start;
+    Vec3f end, middle, start;
     u32 scratch[25];
     void *result;
     u8 *state;
@@ -105,7 +99,7 @@ void func_150FF840(Game12CCF0Actor *arg0, u8 arg1, u8 arg2, volatile u8 arg3, s3
 s32 func_1505D1C4(f32, f32, f32, s32, s32, s32, s32, s32);
 extern u8 D_800CC2D0;
 
-void func_150FFB6C(Game12CCF0Vec3f *arg0, void *arg1, Game12CCF0Actor *arg2, s32 arg3) {
+void func_150FFB6C(Vec3f *arg0, void *arg1, Game12CCF0Actor *arg2, s32 arg3) {
     s32 actor_index;
     u16 actor_id;
 

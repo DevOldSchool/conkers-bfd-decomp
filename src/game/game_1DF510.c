@@ -154,13 +154,10 @@ s32 func_151B22F4(Game1DF510State *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B22F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B22F4.s")
-typedef struct Game1DF510Vector {
-    f32 x, y, z;
-} Game1DF510Vector;
 
 typedef struct Game1DF510Actor {
     u8 pad0[0x14];
-    Game1DF510Vector position;
+    Vec3f position;
     u8 pad20[0x1B];
     u8 generation;
 } Game1DF510Actor;
@@ -170,7 +167,7 @@ typedef struct Game1DF510Anchor {
     u8 generation;
     u8 mode;
     u8 pad6[2];
-    Game1DF510Vector offset;
+    Vec3f offset;
 } Game1DF510Anchor;
 
 /* The raw copy spans are 0x30, 0x28 and 0x38 bytes. */
@@ -184,7 +181,7 @@ typedef struct Game1DF510Pair {
 
 typedef struct Game1DF510Line {
     Game1DF510Anchor anchor;
-    Game1DF510Vector end;
+    Vec3f end;
     f32 radius;
     Game1DF510EffectOwner *owner;
 } Game1DF510Line;
@@ -193,8 +190,8 @@ typedef struct Game1DF510Request {
     u8 flags;
     u8 pad1;
     s16 timer;
-    Game1DF510Vector start;
-    Game1DF510Vector end;
+    Vec3f start;
+    Vec3f end;
     s8 firstIndex;
     s8 secondIndex;
     s8 drawIndex;
@@ -209,14 +206,14 @@ typedef struct Game1DF510Request {
     u8 pad35[3];
 } Game1DF510Request;
 
-extern Game1DF510Vector D_800AA320;
-extern Game1DF510Vector D_800AA32C;
-extern Game1DF510Vector D_800AA368;
-extern Game1DF510Vector D_800AA374;
+extern Vec3f D_800AA320;
+extern Vec3f D_800AA32C;
+extern Vec3f D_800AA368;
+extern Vec3f D_800AA374;
 extern f32 D_800AA388;
 extern f32 D_800AA38C;
 
-extern Game1DF510Vector D_800AA338, D_800AA344, D_800AA350, D_800AA35C;
+extern Vec3f D_800AA338, D_800AA344, D_800AA350, D_800AA35C;
 extern f32 D_800AA380, D_800AA384;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B2348 CURRENT (2022) */

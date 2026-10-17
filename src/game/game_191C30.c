@@ -61,12 +61,9 @@ void func_15164EE4(void) {
     func_100226F0(&D_800DCDE0, 0x60);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15164F0C.s")
-typedef struct {
-    f32 x, y, z;
-} Game191C30Vector;
 
 typedef struct {
-    Game191C30Vector points[4];
+    Vec3f points[4];
     f32 firstDuration, holdDuration, secondDuration;
 } Game191C30Motion;
 
@@ -76,11 +73,11 @@ typedef struct {
     u8 pad03;
     s16 duration;
     u8 owner, pad07;
-    Game191C30Vector vectors[4];
+    Vec3f vectors[4];
 } Game191C30Header;
 
 typedef struct {
-    Game191C30Vector firstVelocity[4], secondVelocity[4], points[4];
+    Vec3f firstVelocity[4], secondVelocity[4], points[4];
     f32 firstDuration, holdDuration, secondDuration, elapsed;
 } Game191C30Payload;
 

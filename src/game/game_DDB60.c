@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_DDB60.c
@@ -10,12 +11,11 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct GameDDB60Vector { f32 x, y, z; } GameDDB60Vector;
 typedef struct GameDDB60Actor {
     u8 pad00[4];
     u8 kind;
     u8 pad05[0xF];
-    GameDDB60Vector position;
+    Vec3f position;
 } GameDDB60Actor;
 typedef struct GameDDB60Hit {
     f32 height;
@@ -28,14 +28,14 @@ typedef struct GameDDB60Hit {
 } GameDDB60Hit;
 typedef struct GameDDB60Emitter {
     s32 count, countRange;
-    GameDDB60Vector position;
+    Vec3f position;
     s16 yaw, yawRange, pitch, pitchRange;
     f32 field1C, field20, field24, field28;
     s16 field2C, field2E;
     f32 field30, field34, field38;
 } GameDDB60Emitter;
 typedef struct GameDDB60Particles {
-    GameDDB60Vector position;
+    Vec3f position;
     f32 field0C, field10, field14, field18, field1C, field20;
     s16 field24, field26, field28, field2A, field2C, field2E, field30, field32;
     u8 mode;
@@ -56,10 +56,10 @@ extern f32 D_8009F848, D_8009F84C, D_8009F850, D_8009F854, D_8009F858, D_8009F85
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B06B0 CURRENT (4624) */
 void func_150B06B0(GameDDB60Actor *arg0, void *arg1, s32 arg2, s32 arg3) {
-    GameDDB60Vector position;
+    Vec3f position;
     s8 angle;
     GameDDB60Hit hit;
-    GameDDB60Vector raised;
+    Vec3f raised;
     GameDDB60Emitter special;
     GameDDB60Emitter normal;
     GameDDB60Particles particles;

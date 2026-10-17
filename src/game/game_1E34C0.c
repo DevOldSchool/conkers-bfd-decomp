@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1E34C0.c
@@ -12,12 +13,8 @@
  */
 
 typedef struct {
-    f32 x, y, z;
-} Game1B6010Vector;
-
-typedef struct {
     f32 field0, field4, field8, fieldC;
-    Game1B6010Vector rotation, scale, position, velocity, acceleration;
+    Vec3f rotation, scale, position, velocity, acceleration;
     f32 field4C;
     u32 flags;
     s16 lifetime;
@@ -38,8 +35,8 @@ void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 extern f32 D_800AA450;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B6010 CURRENT (490) */
-void *func_151B6010(Game1B6010Vector *arg0, Game1B6010Vector *arg1,
-                   f32 arg2, Game1B6010Vector *arg3, Game1B6010Vector *arg4,
+void *func_151B6010(Vec3f *arg0, Vec3f *arg1,
+                   f32 arg2, Vec3f *arg3, Vec3f *arg4,
                    f32 arg5, s16 arg6, u8 arg7, s32 arg8, f32 arg9,
                    u8 arg10, u8 arg11, u8 arg12, s32 arg13) {
     void *result;

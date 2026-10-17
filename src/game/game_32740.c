@@ -262,9 +262,6 @@ void func_150054C4(u8 *view, u32 index, s32 resource, s32 mode) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150054C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_32740/func_150054C4.s")
-typedef struct {
-    f32 x, y, z;
-} Game5818Vector;
 
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
@@ -284,15 +281,15 @@ typedef struct {
 extern Game5818FixedView D_800C3600;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15005818 CURRENT (185) */
-void func_15005818(u8 *arg0, u8 *arg1, Game5818Vector *volatile arg2) {
+void func_15005818(u8 *arg0, u8 *arg1, Vec3f *volatile arg2) {
     f32 value;
 
     arg0[0x23C] = 1;
     *(f32 *)(arg0 + 0x2F8) = arg2->x;
     *(f32 *)(arg0 + 0x2FC) = arg2->y;
     *(f32 *)(arg0 + 0x300) = arg2->z;
-    *(Game5818Vector *)(arg0 + 0x27C) = *(Game5818Vector *)(arg0 + 0x2F8);
-    *(Game5818Vector *)(arg0 + 0x304) = *(Game5818Vector *)(arg0 + 0x2F8);
+    *(Vec3f *)(arg0 + 0x27C) = *(Vec3f *)(arg0 + 0x2F8);
+    *(Vec3f *)(arg0 + 0x304) = *(Vec3f *)(arg0 + 0x2F8);
     func_1510E7A4((s32)(arg0 + 0x644), (s32)(arg0 + 0x648),
                    (s32)(arg0 + 0x354), (s32)(arg0 + 0x360),
                    (s32)(arg0 + 0x640), 0,
@@ -305,18 +302,18 @@ void func_15005818(u8 *arg0, u8 *arg1, Game5818Vector *volatile arg2) {
     *(f32 *)(arg0 + 0x2A4) = *(f32 *)(arg1 + 0x14);
     *(f32 *)(arg0 + 0x2A8) = *(f32 *)(arg1 + 0x18);
     *(f32 *)(arg0 + 0x2AC) = *(f32 *)(arg1 + 0x1C);
-    *(Game5818Vector *)(arg0 + 0x2BC) = *(Game5818Vector *)(arg0 + 0x2A4);
+    *(Vec3f *)(arg0 + 0x2BC) = *(Vec3f *)(arg0 + 0x2A4);
     value = sqrtf(
         (*(f32 *)(arg0 + 0x2AC) - *(f32 *)(arg0 + 0x300)) *
         (*(f32 *)(arg0 + 0x2AC) - *(f32 *)(arg0 + 0x300)) +
         (*(f32 *)(arg0 + 0x2A4) - *(f32 *)(arg0 + 0x2F8)) *
         (*(f32 *)(arg0 + 0x2A4) - *(f32 *)(arg0 + 0x2F8)));
-    *(Game5818Vector *)(arg0 + 0x2B0) = *(Game5818Vector *)(arg0 + 0x2A4);
+    *(Vec3f *)(arg0 + 0x2B0) = *(Vec3f *)(arg0 + 0x2A4);
     *(f32 *)(arg0 + 0x34C) = *(f32 *)(arg0 + 0x2FC) - *(f32 *)(arg0 + 0x354);
     *(f32 *)(arg0 + 0x348) = *(f32 *)(arg0 + 0x2FC) - *(f32 *)(arg0 + 0x354);
     *(f32 *)(arg0 + 0x374) = value;
-    *(Game5818Vector *)(arg0 + 0x2E0) = *(Game5818Vector *)(arg0 + 0x2BC);
-    *(Game5818Vector *)(arg0 + 0x2EC) = *(Game5818Vector *)(arg0 + 0x2F8);
+    *(Vec3f *)(arg0 + 0x2E0) = *(Vec3f *)(arg0 + 0x2BC);
+    *(Vec3f *)(arg0 + 0x2EC) = *(Vec3f *)(arg0 + 0x2F8);
     func_15124B18(arg0);
     func_15125330(arg0);
     func_1512523C(arg0);

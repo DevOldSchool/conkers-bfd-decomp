@@ -155,11 +155,6 @@ void func_15194588(s32 arg0, s32 arg1, s32 arg2) {
     func_150C7020(arg0, 0x1F4, 0xFF, 1);
     func_15194408(arg0, (Game1C1150Event *)arg1);
 }
-typedef struct Game1C1150Vec3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1C1150Vec3;
 
 extern u8 D_800A3FE6[];
 s32 func_15134070(void *);
@@ -173,7 +168,7 @@ extern f32 D_800A82B8;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151945CC CURRENT (180) */
 void func_151945CC(void *arg0, u8 *arg1, s32 volatile arg2) {
-    Game1C1150Vec3 position;
+    Vec3f position;
     s16 angle;
     Game194408Packet packet;
     u8 scratch[0x24];
@@ -188,7 +183,7 @@ void func_151945CC(void *arg0, u8 *arg1, s32 volatile arg2) {
     if (index != 0x63) {
         index = D_800A3FE6[index * 0x10];
         if (index != 2) {
-            *(Game1C1150Vec3 *)packet.position = position;
+            *(Vec3f *)packet.position = position;
             packet.field14 = D_800A82A8;
             packet.field2C = 0xF;
             packet.field2E = 0xC;
@@ -258,7 +253,7 @@ u32 func_150ADA20(void);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15194810 CURRENT (120) */
 void func_15194810(s32 arg0, Game1C1150Event *arg1, s32 arg2) {
-    Game1C1150Vec3 position;
+    Vec3f position;
     Game194408Packet packet;
     u8 scratch[0x24];
     Game1C1150EventPacket event;
@@ -278,7 +273,7 @@ spawn:
     position.y = *(f32 *)((u8 *)arg1 + 0x18) + 95.0f;
     position.z = *(f32 *)((u8 *)arg1 + 0x1C);
     func_1504715C(scratch, (s32)arg1);
-    *(Game1C1150Vec3 *)packet.position = position;
+    *(Vec3f *)packet.position = position;
     packet.field2C = 0xF;
     packet.field2E = 0xA;
     packet.field02 = 0xFF;
@@ -642,16 +637,10 @@ void func_1514373C(f32, f32, f32 *, f32 *);
 f32 func_150ADA68(void);
 extern f32 D_800A8708;
 
-typedef struct Game1C1150Vector3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1C1150Vector3;
-
 typedef struct Game1C1150BoundsLocals {
-    Game1C1150Vector3 direction;
-    Game1C1150Vector3 minimum;
-    Game1C1150Vector3 maximum;
+    Vec3f direction;
+    Vec3f minimum;
+    Vec3f maximum;
 } Game1C1150BoundsLocals;
 
 void func_15195528(void *arg0, Game1C1150Position *arg1, s32 arg2) {

@@ -94,7 +94,6 @@ extern s32 D_800BE628;
 extern s32 D_800BE9F0;
 extern u8 D_800DBFF4[];
 extern u16 D_800BE710[];
-typedef struct Camera22CVector { f32 x, y, z; } Camera22CVector;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15122C5C CURRENT (795) */
 void func_15122C5C(void *arg0) {
@@ -112,8 +111,8 @@ void func_15122C5C(void *arg0) {
     void *temp_v0;
 
     if ((*(u8 *)((u8 *)(arg0) + 0x23C)) != 0) {
-        *(Camera22CVector *)((u8 *)arg0 + 0x2E0) = *(Camera22CVector *)((u8 *)(u8 *)arg0 + 0x2BC);
-        *(Camera22CVector *)((u8 *)arg0 + 0x2EC) = *(Camera22CVector *)((u8 *)(u8 *)arg0 + 0x2F8);
+        *(Vec3f *)((u8 *)arg0 + 0x2E0) = *(Vec3f *)((u8 *)(u8 *)arg0 + 0x2BC);
+        *(Vec3f *)((u8 *)arg0 + 0x2EC) = *(Vec3f *)((u8 *)(u8 *)arg0 + 0x2F8);
     }
     temp_v0 = (*(void **)((u8 *)(arg0) + 0x3D4));
     temp_a0 = (u8 *)arg0 + 0x2BC;
@@ -128,15 +127,15 @@ void func_15122C5C(void *arg0) {
         (*(s32 *)((u8 *)(arg0) + 0x5F0)) = (s32) ((*(s32 *)((u8 *)(arg0) + 0x5F0)) & ~4);
     }
     if (!(*(s32 *)((u8 *)arg0 + 0x2C) & 0x400000)) {
-        *(Camera22CVector *)temp_a0 = *(Camera22CVector *)((u8 *)arg0 + 0x2E0);
-        *(Camera22CVector *)temp_a1 = *(Camera22CVector *)((u8 *)arg0 + 0x2EC);
+        *(Vec3f *)temp_a0 = *(Vec3f *)((u8 *)arg0 + 0x2E0);
+        *(Vec3f *)temp_a1 = *(Vec3f *)((u8 *)arg0 + 0x2EC);
     }
     temp_v0_2 = (*(u8 *)((u8 *)(arg0) + 0x23D));
     (*(s32 *)((u8 *)(arg0) + 0x36C)) = (s32) ((s32 *)D_800BE728)[temp_v0_2];
     (*(u16 *)((u8 *)(arg0) + 0x36A)) = (u16) D_800BE710[temp_v0_2];
-    *(Camera22CVector *)((u8 *)arg0 + 0x304) = *(Camera22CVector *)temp_a1;
+    *(Vec3f *)((u8 *)arg0 + 0x304) = *(Vec3f *)temp_a1;
     *(f32 *)((u8 *)arg0 + 0x358) = *(f32 *)((u8 *)arg0 + 0x35C);
-    *(Camera22CVector *)((u8 *)arg0 + 0x2C8) = *(Camera22CVector *)temp_a0;
+    *(Vec3f *)((u8 *)arg0 + 0x2C8) = *(Vec3f *)temp_a0;
     if ((*(u8 *)((u8 *)(arg0) + 0x23C)) != 0) {
         (*(f32 *)((u8 *)(arg0) + 0x19C)) = (f32) (*(f32 *)((u8 *)(arg0) + 0x1A4));
         (*(f32 *)((u8 *)(arg0) + 0x1A0)) = (f32) (*(f32 *)((u8 *)(arg0) + 0x1A8));
@@ -1682,19 +1681,14 @@ void func_15126138(u8 *arg0) {
     }
     func_15124C38(arg0, 0);
 }
-typedef struct Camera2623CVector {
-    f32 x;
-    f32 y;
-    f32 z;
-} Camera2623CVector;
 
 void func_15143134(f32 *, f32 *, s32);
 
 void func_1512623C(u8 *arg0, u8 *arg1, s32 arg2, f32 *arg3, f32 *arg4,
                    f32 *arg5, s32 arg6) {
     s32 saved_result;
-    Camera2623CVector input;
-    Camera2623CVector output;
+    Vec3f input;
+    Vec3f output;
     s32 mode;
     s32 result;
 
@@ -1761,7 +1755,7 @@ s32 func_15126378(u8 *arg0) {
     f32 spA4;
     union { f32 value; u32 bits; } sound_product;
     s32 sp98;
-    Camera22CVector direction;
+    Vec3f direction;
     f32 sp88;
     s32 sp58;
     u8 *sp54;
@@ -1838,9 +1832,9 @@ s32 func_15126378(u8 *arg0) {
         (*(f32 *)((u8 *)(arg0) + 0x2BC)) = (f32) ((func_15047D60(spA4) * 100.0f) + (*(f32 *)((u8 *)(arg0) + 0x2F8)));
         (*(f32 *)((u8 *)(arg0) + 0x2C0)) = (f32) ((*(f32 *)((u8 *)((*(u8 **)((u8 *)(arg0) + 0x3D0))) + 0x18)) + ((f32) (*(s16 *)((u8 *)((*(u8 **)((u8 *)(arg0) + 0x3D4))) + 0x114)) * 0.75f));
         (*(f32 *)((u8 *)(arg0) + 0x2C4)) = (f32) ((func_15047C00(spA4) * 100.0f) + (*(f32 *)((u8 *)(arg0) + 0x300)));
-        *(Camera22CVector *)(var_t0 + 0x13C) = *(Camera22CVector *)sp54;
+        *(Vec3f *)(var_t0 + 0x13C) = *(Vec3f *)sp54;
         (*(f32 *)((u8 *)(var_t0) + 0x18C)) = (f32) (*(f32 *)((u8 *)(arg0) + 0x37C));
-        *(Camera22CVector *)(var_t0 + 0x160) = *(Camera22CVector *)sp54;
+        *(Vec3f *)(var_t0 + 0x160) = *(Vec3f *)sp54;
         if (spB4 != (*(s32 *)((u8 *)(var_t0) + 0x190))) {
             if (spB4 == 0x1B) {
                 temp_fv0 = 1.0f;
@@ -2140,9 +2134,9 @@ camera_zoom_done:
         (*(f32 *)((u8 *)(arg0) + 0x2A4)) = (f32) (*(f32 *)((u8 *)(target) + 0x14));
         (*(f32 *)((u8 *)(arg0) + 0x2A8)) = (f32) (*(f32 *)((u8 *)(target) + 0x18));
         (*(f32 *)((u8 *)(arg0) + 0x2AC)) = (f32) (*(f32 *)((u8 *)(target) + 0x1C));
-        *(Camera22CVector *)temp_a1_2 = *(Camera22CVector *)(arg0 + 0x2BC);
-        *(Camera22CVector *)(sp50 + 0) = *(Camera22CVector *)sp54;
-        *(Camera22CVector *)temp_a2 = direction;
+        *(Vec3f *)temp_a1_2 = *(Vec3f *)(arg0 + 0x2BC);
+        *(Vec3f *)(sp50 + 0) = *(Vec3f *)sp54;
+        *(Vec3f *)temp_a2 = direction;
         func_15048F90(sp50, temp_a1_2, temp_a2);
         (*(f32 *)((u8 *)(((u8 *)D_800BE628 + ((*(u8 *)((u8 *)(arg0) + 0x23D)) * 0x180))) + 0x84)) = (f32) ((D_800A357C * spC4) + 1.0f);
         temp_v0_9 = (*(u8 *)((u8 *)(arg0) + 0x23D));
@@ -2313,14 +2307,14 @@ extern f32 D_800A359C;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151279A0 CURRENT (2861) */
 s32 func_151279A0(u8 *arg0, u16 *arg1) {
     s32 mode;
-    Camera22CVector point;
-    Camera22CVector origin;
+    Vec3f point;
+    Vec3f origin;
     f32 scale;
-    Camera22CVector direction;
+    Vec3f direction;
     f32 horizontal;
     s32 buttons;
     f32 angle;
-    Camera22CVector *destination;
+    Vec3f *destination;
     s32 state;
     u8 *target;
 
@@ -2335,7 +2329,7 @@ s32 func_151279A0(u8 *arg0, u16 *arg1) {
          mode == 0x3F || mode == 0x1B || mode == 0x1F || mode == 0x29) &&
         (*arg1 & 0x10) && target[0x197] == 0) {
         target[0x197] = 2;
-        *(Camera22CVector *)(target + 0x13C) = origin;
+        *(Vec3f *)(target + 0x13C) = origin;
         *(f32 *)(target + 0x178) = 0.0f;
         *(f32 *)(target + 0x170) = 0.0f;
         *(f32 *)(target + 0x17C) = 0.0f;
@@ -2366,7 +2360,7 @@ s32 func_151279A0(u8 *arg0, u16 *arg1) {
         angle = D_800A358C;
         *(f32 *)(target + 0x174) -= (f32)((s8 *)arg1)[2] * angle;
         *(f32 *)(target + 0x178) += (f32)((s8 *)arg1)[3] * angle;
-        destination = (Camera22CVector *)(target + 0x13C);
+        destination = (Vec3f *)(target + 0x13C);
         func_15048758((f32 *)(target + 0x174));
         if (mode == 0x1F || mode == 0x29) {
             angle = *(f32 *)(target + 0x178);
@@ -2388,9 +2382,9 @@ s32 func_151279A0(u8 *arg0, u16 *arg1) {
         point.y = origin.y + direction.y;
         mode = 1;
         point.z = origin.z + direction.z;
-        *(Camera22CVector *)(target + 0x148) = point;
+        *(Vec3f *)(target + 0x148) = point;
         *destination = origin;
-        *(Camera22CVector *)(target + 0x130) = direction;
+        *(Vec3f *)(target + 0x130) = direction;
         return mode;
     }
     return mode;
