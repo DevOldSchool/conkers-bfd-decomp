@@ -2010,15 +2010,15 @@
         "func_150120B0",
         "func_1501214C"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x121C0",
           "start": "0x120B0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_3F560.c"
+      "source": "src/done/game/game_3F560.c"
     },
     {
       "boundary_evidence": {
@@ -2278,15 +2278,15 @@
         "func_1500EE18",
         "func_1500EE94"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xEF20",
           "start": "0xED80",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_3C230.c"
+      "source": "src/done/game/game_3C230.c"
     },
     {
       "boundary_evidence": {
