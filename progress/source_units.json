@@ -12067,7 +12067,7 @@
         "us": {
           "end": "0x193390",
           "start": "0x192DF0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1C02A0.c"
@@ -17330,15 +17330,15 @@
         "func_151906E0",
         "func_1519072C"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x190770",
           "start": "0x1906E0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1BDB90.c"
+      "source": "src/done/game/game_1BDB90.c"
     },
     {
       "boundary_evidence": {

@@ -11,7 +11,6 @@
  * - func_1507F640
  * - func_1507FC2C
  * - func_1507FEA0
- * - func_1507FF94
  * - func_1507FFD8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -389,22 +388,17 @@ void func_1507FEA0(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507FEA0.s")
 void func_15191B8C();
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507FF94 CURRENT (300) */
 void func_1507FF94(void *arg0) {
     struct {
         void *object;
         u8 kind;
     } descriptor;
-    void *sp1C;
 
     descriptor.object = arg0;
     descriptor.kind = *(u8 *)((u8 *)arg0 + 0x3B);
-    sp1C = &descriptor;
-    func_15191B8C((u8 *)sp1C, 0xD, arg0);
-    func_151494E0((s32 *) sp1C, 0xD);
+    func_15191B8C((u8 *)(s32)&descriptor, 0xD);
+    func_151494E0((s32 *)(s32)&descriptor, 0xD);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507FF94 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507FF94.s")
 typedef struct GameAC030Position {
     u8 pad0[0x14];
     f32 position[3];
