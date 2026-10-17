@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_complete_callback_clusters.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150C7968
  * - func_150C79BC
  * - func_150C7C90
  *
@@ -68,7 +67,6 @@ typedef struct {
 extern void *D_800DBEF4;
 void func_15116110(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7968 CURRENT (200) */
 void func_150C7968(GameF4D20State *arg0) {
     u8 *var_v0;
     void *temp_v1;
@@ -79,14 +77,12 @@ void func_150C7968(GameF4D20State *arg0) {
         var_v0 = D_800DBEF4;
         var_v0 += 0x1E0;
         temp_v1 = arg0->field_7C;
-        value = *(s16 *)(var_v0 + 0x3C);
+        value = *(s16 *)(var_v0 + 0x3C) >> 4;
         if (temp_v1 != 0) {
-            *(s8 *)((u8 *)temp_v1 + 0x13) = value >> 4;
+            *(s8 *)((u8 *)temp_v1 + 0x13) = value;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C7968 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F4D20/func_150C7968.s")
 void func_1000D96C(s32, s32, s32);
 void func_1000DE1C(s32, s32);
 u32 func_150ADA20(void);

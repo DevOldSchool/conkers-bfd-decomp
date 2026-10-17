@@ -8,9 +8,7 @@
  * TODO: Implement these source-unit functions:
  * - func_15154C90
  * - func_15154D80
- * - func_1515548C
  * - func_151555AC
- * - func_1515572C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -63,7 +61,6 @@ void func_15154C90(u8 *arg0) {
 void *func_10022EC0(void *, const void *, u32);
 s32 func_151555AC(f32 *, f32 *, s32 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515548C CURRENT (20) */
 void *func_1515548C(void *arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4,
                     u8 arg5, s32 arg6) {
     struct { f32 position[2]; void *result; } locals;
@@ -87,12 +84,12 @@ void *func_1515548C(void *arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4,
     }
     func_10022EC0((u8 *)locals.result + 0x10, arg0, 0x58);
     arg0 = locals.result;
+    if (1) {
+    }
     *(u8 *)((u8 *)arg0 + 0x68) = 0;
     *(u8 *)((u8 *)arg0 + 0x68) |= arg1;
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515548C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_182140/func_1515548C.s")
 extern void (*D_8008AD04[])(void *, s32, u8);
 
 void func_15155564(void *arg0, s32 arg1, u8 arg2) {
@@ -170,12 +167,9 @@ typedef struct {
 void func_15169260(Game182140Pair *, s32, s32, u8);
 extern Game182140Pair D_800A6038;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515572C CURRENT (300) */
 void func_1515572C(s32 arg0, u8 arg1) {
     Game182140Pair sp18;
 
     sp18 = D_800A6038;
     func_15169260(&sp18, 2, arg0, arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515572C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_182140/func_1515572C.s")

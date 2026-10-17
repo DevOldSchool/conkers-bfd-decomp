@@ -1080,7 +1080,7 @@ void func_151EDF4C(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EEBE8.s")
 extern s32 D_800E9D00;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151EEFF0 CURRENT (505) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151EEFF0 CURRENT (2030) */
 void func_151EEFF0(void) {
     volatile s32 zero = 0;
 

@@ -10,7 +10,6 @@
  * - func_1518C0B8
  * - func_1518C57C
  * - func_1518C69C
- * - func_1518C850
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -246,30 +245,23 @@ s32 func_1518C69C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
 #endif /* CONKER_DEFERRED_CANDIDATE func_1518C69C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B9210/func_1518C69C.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518C850 CURRENT (475) */
 void func_1518C850(void *arg0, void *arg1, u8 arg2) {
-    s32 temp_v0;
-    s32 temp_v1;
-
     if (arg2 == 0x2D) {
-        temp_v0 = *(s32 *)arg1;
-        temp_v1 = *(s32 *)((u8 *)arg0 + 0x24);
-        if (temp_v0 == temp_v1) {
+        if (*(s32 *)arg1 == *(s32 *)((u8 *)arg0 + 0x24)) {
             *(s32 *)((u8 *)arg0 + 0x24) = *(s32 *)((u8 *)arg1 + 4);
             *(u8 *)((u8 *)arg0 + 0x28) = *(u8 *)((u8 *)arg1 + 9);
-            return;
-        }
-        if (*(s32 *)((u8 *)arg1 + 4) == temp_v1) {
-            *(s32 *)((u8 *)arg0 + 0x24) = temp_v0;
-            *(u8 *)((u8 *)arg0 + 0x28) = *(u8 *)((u8 *)arg1 + 8);
+        } else if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)((u8 *)arg0 + 0x24)) {
+            u8 *dst = arg0;
+
+            *(s32 *)(dst + 0x24) = *(s32 *)arg1;
+            *(u8 *)(dst + 0x28) = *(u8 *)((u8 *)arg1 + 8);
         }
     } else if (arg2 == 0) {
-        temp_v0 = *(s32 *)arg1;
+        s32 temp_v0 = *(s32 *)arg1;
+
         if ((temp_v0 == *(s32 *)((u8 *)arg0 + 0x24)) ||
             (*(u8 *)((u8 *)arg0 + 0x28) == *(u8 *)((u8 *)arg1 + 4))) {
             func_1516972C(arg0);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518C850 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B9210/func_1518C850.s")

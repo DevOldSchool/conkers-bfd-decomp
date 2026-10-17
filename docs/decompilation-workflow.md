@@ -961,6 +961,44 @@ Do not rerun an unchanged failed clean batch. The command records the build
 input fingerprint and rejects an identical retry; change the source or layout
 first.
 
+#### Test scope for a batch
+
+`verify-batch` classifies the checkout's changes before the build: the working
+tree (`git status --porcelain`) plus every commit since the merge base with the
+base branch (`CONKER_BASE_BRANCH`, else `origin/main`, else `main`). When every
+changed path is under `src/`, `include/`, `progress/`, `docs/`,
+`asm/nonmatchings/` or is `config/game/us.yaml`, the batch is **C-only** and runs
+only the matching-relevant test modules; it prints
+`tests: C-only batch -> matching subset (N modules) (<reason>)` and, after the
+run, the module count and elapsed time. Any change under `scripts/`, `tests/`,
+`Makefile`, `Dockerfile`, `toolchain/`, `lib/`, the rest of `config/` or any
+other path runs the full suite and prints the path that caused it. Pass
+`--full-tests` to force the full suite; `--host-tests` and `CONKER_TEST_RUNNER`
+still choose where the tests run. Public CI always runs the full suite in
+Docker, so the subset only shortens local batches.
+
+`scripts/test_selection.py` builds the subset by scanning `tests/test_*.py` for
+the scripts each module imports, loads by file or runs: a module that uses one
+of the matching, integration, inventory, data-ownership, rodata-verification,
+progress or shell helpers listed in `MATCHING_SCRIPTS` is selected, unless it
+also exercises an asset, model, audio, texture or soundtrack script. A new
+matching test module is picked up automatically; `ALWAYS_SELECTED_MODULES`
+keeps the shell, defer and finish tests whatever the scan finds. Inspect the
+decision with `./conker test-selection classify` and
+`./conker test-selection modules --explain`, and run the subset by itself with
+`./conker test --host --matching`.
+
+Measured on 2026-10-17 with `CONKER_JOBS=1` on the Mac (pinned arm64 image,
+warm container; host figures from `./conker test --host`):
+
+| Scope | Modules | Tests | Docker test time | Host test time | `verify-batch` wall time |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Matching subset (C-only batch) | 66 | 970 | 35 s | 28 s | 2 min 40 s |
+| Full suite (tooling change or `--full-tests`) | 247 | 2779 | 175 s | 176 s | 4 min 27 s |
+
+Both batches verified the same two matched game functions and ended in
+`BATCH_COMPLETE`; the rest of the wall time is the single-job game build.
+
 ### Asset reconstruction batches
 
 The [asset acceptance rules](../CONTRIBUTING.md#asset-and-build-changes) also

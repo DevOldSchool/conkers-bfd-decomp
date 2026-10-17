@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151AF6D4
- * - func_151AFEA4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -172,7 +171,6 @@ s32 func_151AFC88(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
 
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AFEA4 CURRENT (100) */
 s32 func_151AFEA4(void *arg0, s32 arg1) {
     f32 *factor;
     s32 remaining;
@@ -186,5 +184,3 @@ s32 func_151AFEA4(void *arg0, s32 arg1) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AFEA4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1DCA70/func_151AFEA4.s")
