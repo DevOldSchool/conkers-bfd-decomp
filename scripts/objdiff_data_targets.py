@@ -38,6 +38,7 @@ import objdiff_storage
 import sound_bank_build
 import adpcm_build
 import adpcm_layout
+import asset_receipts
 import normalize_asm
 import objdiff
 import objdiff_targets
@@ -47,6 +48,36 @@ from candidate_tables import Object32
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / 'build/us/objdiff-report/data'
+# The MP3 encoders read literal decoder tables from a C source outside scripts/.
+MP3_DECODER_SOURCE = mp3_table_build.ENCODER_EXTRA_SOURCES
+assert MP3_DECODER_SOURCE == mp3_spectral_build.ENCODER_EXTRA_SOURCES
+# ``./conker objdiff report --fresh`` sets this: every rebuilt asset is encoded
+# again from its editable sources and build receipts are ignored.
+FRESH_ENCODE = False
+
+
+def family_receipts(family: str, module: str, *, extra: tuple[str, ...] = ()):
+    """Load one asset family's build receipts; the fresh audit mode ignores them."""
+    if FRESH_ENCODE:
+        return asset_receipts.empty(family)
+    return asset_receipts.load(ROOT, family, module, extra=extra)
+
+
+def asset_candidate(receipts, name, *, hashes, extent, encode, ranged=False):
+    return asset_receipts.candidate(ROOT, receipts, name, hashes=hashes, extent=extent,
+                                    encode=encode, fresh=FRESH_ENCODE, ranged=ranged)
+
+
+def candidate_provenance(provenance, candidate: bytes) -> dict:
+    """Record whether a candidate was encoded now or reused from a build receipt."""
+    provenance = provenance or asset_receipts.fresh_provenance()
+    if provenance.get('candidate_source') not in asset_receipts.CANDIDATE_SOURCES:
+        raise ValueError('rebuilt asset candidate has an unknown origin')
+    record = {'candidate_source': provenance['candidate_source'],
+              'payload_sha256': hashlib.sha256(candidate).hexdigest()}
+    if 'receipt' in provenance:
+        record['receipt'] = provenance['receipt']
+    return record
 
 
 def target_config(image: dict, directory: Path, binary: Path, code_start: int, code_end: int,
@@ -450,47 +481,21 @@ def font_input_hashes(directory: Path) -> dict[str, str]:
     return {path.relative_to(ROOT).as_posix(): objdiff_targets.sha256(path) for path in paths}
 
 
-def prepare_texture(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+def prepare_texture(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     """Compare an actual PNG-built ROM link object with independent stored bytes."""
     index = expected['flat_index']
-    key = f'texture-{index:04d}'
     name = texture_build.part_name(index)
-    directory = output / key
-    directory.mkdir(parents=True, exist_ok=True)
-    linked = ROOT / ('build/us/assets/' + name + '.o')
-    inputs = ROOT / texture_build.input_directory(index, expected)
-    packed, hashes = texture_build.packed_texture(inputs, expected)
-    start, end = expected['rom_start'], expected['rom_end']
-    original = rom[start:end]
-    base, target = directory / 'base.o', directory / 'target.o'
-    linked_bytes = linked.read_bytes()
-    base.write_bytes(linked_bytes)
-    relative = name + '.bin'
-    reference = directory / relative
-    reference.parent.mkdir(parents=True, exist_ok=True)
-    reference.write_bytes(original)
-    # Byte-identical to `ld -r -b binary` from this directory, without a process per asset.
-    target.write_bytes(binary_object.binary_object(original, relative))
-    for path in (base, target):
-        target_extent(path, '.data', end - start)
-    candidate = sections(base.read_bytes(), 1)['.data'][1]
-    if (candidate != packed or hashes != texture_build.input_hashes(inputs, expected)
-            or linked.read_bytes() != linked_bytes):
-        raise ValueError('texture candidate differs from current editable inputs')
-    proof = objdiff_targets.verify_linked_bytes(sections(target.read_bytes(), 1)['.data'][1],
-                                              original, f'texture {index} RZIP storage')
-    unit = {'key': key, 'kind': 'rebuilt_asset', 'section': '.data',
-            'size': end - start, 'rom_start': start, 'rom_end': end,
-            'source_inputs': {(texture_build.input_directory(index, expected) / p).as_posix(): h for p, h in hashes.items()},
-            'linked_inputs': {linked.relative_to(ROOT).as_posix(): hashlib.sha256(linked_bytes).hexdigest()},
-            'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
-            'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
-            'literal_payload_matches_rom': candidate == original, 'target_verification': proof,
-            'report_code_bytes': 0, 'report_data_bytes': end - start, 'complete': candidate == original}
-    item = {'name': 'assets/' + name, 'target_path': unit['target_path'],
-            'base_path': unit['base_path'],
-            'metadata': {'complete': unit['complete'], 'progress_categories': ['data']}}
-    return unit, item
+    source = texture_build.input_directory(index, expected)
+    inputs = ROOT / source
+    if receipts is None:
+        receipts = family_receipts('textures', 'scripts/texture_build.py')
+    packed, hashes, provenance = asset_candidate(
+        receipts, name, hashes=texture_build.input_hashes(inputs, expected), extent=expected,
+        encode=lambda: texture_build.packed_texture(inputs, expected))
+    return prepare_rebuilt_asset(
+        rom, key=f'texture-{index:04d}', name=name, extent=expected, packed=packed, hashes=hashes,
+        source_directory=source, read_hashes=partial(texture_build.input_hashes, inputs, expected),
+        label=f'texture {index} RZIP storage', output=output, provenance=provenance)
 
 
 def prepare_textures(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -499,20 +504,24 @@ def prepare_textures(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict
     if checked_rom != rom:
         raise ValueError('texture reference ROM differs from the validated report ROM')
     paths = ['build/us/assets/' + texture_build.part_name(e['flat_index']) + '.o' for e, _ in selected]
-    with (output / 'texture-build.log').open('w') as log:
-        subprocess.run(['make', '--silent', '--jobs', str(job_count()), *paths, 'PROFILE=us', 'ASSETS=1'],
-                       cwd=ROOT, stdout=log, stderr=log, check=True)
+    build_rebuilt_objects(paths, 'texture', output)
+    receipts = family_receipts('textures', 'scripts/texture_build.py')
     # Each reference has its own directory. Preserve catalog order and retain
     # all per-object checks; the report also rechecks every source hash at end.
     with ThreadPoolExecutor(max_workers=job_count()) as workers:
-        pairs = list(workers.map(partial(prepare_texture, rom, output=output),
+        pairs = list(workers.map(partial(prepare_texture, rom, output=output, receipts=receipts),
                                  (expected for expected, _ in selected)))
     return [unit for unit, _ in pairs], [item for _, item in pairs]
 
 
 def prepare_rebuilt_asset(rom, *, key, name, extent, packed, hashes,
-                          source_directory, read_hashes, label, output):
-    """Compare one actual linker object with fresh source bytes and an independent target."""
+                          source_directory, read_hashes, label, output, provenance=None):
+    """Compare one actual linker object with source-derived bytes and an independent target.
+
+    ``packed`` comes from a fresh encode or from a build receipt whose inputs,
+    encoder and output hashes re-derive from the checkout; ``provenance`` says
+    which. Either way the candidate is compared against the ROM bytes here.
+    """
     directory = output / key
     directory.mkdir(parents=True, exist_ok=True)
     linked = ROOT / ('build/us/assets/' + name + '.o')
@@ -542,25 +551,66 @@ def prepare_rebuilt_asset(rom, *, key, name, extent, packed, hashes,
             'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
             'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
             'literal_payload_matches_rom': candidate == original, 'target_verification': proof,
-            'report_code_bytes': 0, 'report_data_bytes': end - start, 'complete': candidate == original}
+            'report_code_bytes': 0, 'report_data_bytes': end - start, 'complete': candidate == original,
+            **candidate_provenance(provenance, candidate)}
     item = {'name': 'assets/' + name, 'target_path': unit['target_path'],
             'base_path': unit['base_path'],
             'metadata': {'complete': unit['complete'], 'progress_categories': ['data']}}
     return unit, item
 
 
-def prepare_model(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+def model_receipts(banks) -> list:
+    """Whole-catalog and per-bank model builds write separate receipt files."""
+    return [family_receipts('models', 'scripts/model_build.py'),
+            *(family_receipts(f'models/bank{bank:02d}', 'scripts/model_build.py') for bank in sorted(banks))]
+
+
+def prepare_model(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     index, bank = expected['entry'], expected['bank']
     source = model_build.input_directory(index, bank)
-    packed, hashes = model_build.packed_model(ROOT / source, expected)
+    name = model_build.part_name(index, bank)
+    if receipts is None:
+        receipts = model_receipts({bank})
+    packed, hashes, provenance = asset_candidate(
+        receipts, name, hashes=model_build.input_hashes(ROOT / source, expected), extent=expected,
+        encode=lambda: model_build.packed_model(ROOT / source, expected))
     return prepare_rebuilt_asset(
-        rom, key=f'model-{bank:02d}-{index:04d}', name=model_build.part_name(index, bank),
+        rom, key=f'model-{bank:02d}-{index:04d}', name=name,
         extent=expected, packed=packed, hashes=hashes, source_directory=source,
         read_hashes=partial(model_build.input_hashes, ROOT / source, expected),
-        label=f'model {bank:02d}:{index:04d}', output=output)
+        label=f'model {bank:02d}:{index:04d}', output=output, provenance=provenance)
+
+
+# Set once the report refreshed every asset link object in one Make call.
+_PREBUILT_ASSET_OBJECTS = False
+
+
+def prebuild_asset_objects(output: Path) -> None:
+    """Refresh all rebuilt asset link objects in one Make evaluation.
+
+    Each later per-family request only checks that its objects exist. Make still
+    decides what is stale; this removes one Makefile evaluation per family.
+    """
+    global _PREBUILT_ASSET_OBJECTS
+    _PREBUILT_ASSET_OBJECTS = False
+    output.mkdir(parents=True, exist_ok=True)
+    log_path = output / 'asset-objects-build.log'
+    with log_path.open('w') as log:
+        try:
+            subprocess.run(['make', '--silent', '--jobs', str(job_count()), 'asset-objects', 'PROFILE=us', 'ASSETS=1'],
+                           cwd=ROOT, stdout=log, stderr=log, check=True)
+        except subprocess.CalledProcessError as error:
+            raise ValueError(f'asset link-object build failed (exit {error.returncode}); see {log_path}') from error
+    _PREBUILT_ASSET_OBJECTS = True
 
 
 def build_rebuilt_objects(paths, label, output):
+    if _PREBUILT_ASSET_OBJECTS:
+        missing = [path for path in paths if not (ROOT / path).is_file()]
+        if missing:
+            raise ValueError(f'{label}: {len(missing)} linker inputs missing after the asset-objects build, '
+                             f'for example {missing[0]}')
+        return
     log_path = output / (label + '-build.log')
     with log_path.open('w') as log:
         try:
@@ -577,23 +627,29 @@ def prepare_models(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]
         raise ValueError('model reference ROM differs from the validated report ROM')
     paths = ['build/us/assets/' + model_build.part_name(e['entry'], e['bank']) + '.o' for e, _ in selected]
     build_rebuilt_objects(paths, 'model', output)
+    receipts = model_receipts({e['bank'] for e, _ in selected})
     # Each reference has its own directory. Preserve catalog order and retain
     # all per-object checks; the report also rechecks every source hash at end.
     with ThreadPoolExecutor(max_workers=job_count()) as workers:
-        pairs = list(workers.map(partial(prepare_model, rom, output=output),
+        pairs = list(workers.map(partial(prepare_model, rom, output=output, receipts=receipts),
                                  (expected for expected, _ in selected)))
     return [unit for unit, _ in pairs], [item for _, item in pairs]
 
 
-def prepare_sequence(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+def prepare_sequence(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     index = expected['entry']
     source = sequence_build.input_directory(index)
-    packed, hashes = sequence_build.packed_sequence(ROOT / source, expected)
+    name = sequence_build.part_name(index)
+    if receipts is None:
+        receipts = family_receipts('sequences', 'scripts/sequence_build.py')
+    packed, hashes, provenance = asset_candidate(
+        receipts, name, hashes=sequence_build.input_hashes(ROOT / source, expected), extent=expected,
+        encode=lambda: sequence_build.packed_sequence(ROOT / source, expected))
     return prepare_rebuilt_asset(
-        rom, key=f'sequence-{index:04d}', name=sequence_build.part_name(index),
+        rom, key=f'sequence-{index:04d}', name=name,
         extent=expected, packed=packed, hashes=hashes, source_directory=source,
         read_hashes=partial(sequence_build.input_hashes, ROOT / source, expected),
-        label=f'sequence {index:04d} compact-sequence storage', output=output)
+        label=f'sequence {index:04d} compact-sequence storage', output=output, provenance=provenance)
 
 
 def prepare_sequences(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -603,23 +659,29 @@ def prepare_sequences(rom: bytes, *, output: Path) -> tuple[list[dict], list[dic
         raise ValueError('sequence reference ROM differs from the validated report ROM')
     paths = ['build/us/assets/' + sequence_build.part_name(e['entry']) + '.o' for e, _ in selected]
     build_rebuilt_objects(paths, 'sequence', output)
+    receipts = family_receipts('sequences', 'scripts/sequence_build.py')
     # Each reference has its own directory. Preserve catalog order and retain
     # all per-object checks; the report also rechecks every source hash at end.
     with ThreadPoolExecutor(max_workers=job_count()) as workers:
-        pairs = list(workers.map(partial(prepare_sequence, rom, output=output),
+        pairs = list(workers.map(partial(prepare_sequence, rom, output=output, receipts=receipts),
                                  (expected for expected, _ in selected)))
     return [unit for unit, _ in pairs], [item for _, item in pairs]
 
 
-def prepare_sound_part(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+def prepare_sound_part(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     index = expected['part']
     source = sound_bank_build.input_directory(index)
-    packed, hashes = sound_bank_build.packed_part(ROOT / source, expected)
+    name = sound_bank_build.part_name(index)
+    if receipts is None:
+        receipts = family_receipts('sound-bank', 'scripts/sound_bank_build.py')
+    packed, hashes, provenance = asset_candidate(
+        receipts, name, hashes=sound_bank_build.input_hashes(ROOT / source, expected), extent=expected,
+        encode=lambda: sound_bank_build.packed_part(ROOT / source, expected))
     return prepare_rebuilt_asset(
-        rom, key=f'sound-bank-{index}', name=sound_bank_build.part_name(index),
+        rom, key=f'sound-bank-{index}', name=name,
         extent=expected, packed=packed, hashes=hashes, source_directory=source,
         read_hashes=partial(sound_bank_build.input_hashes, ROOT / source, expected),
-        label=f'sound-bank part {index} sound-bank storage', output=output)
+        label=f'sound-bank part {index} sound-bank storage', output=output, provenance=provenance)
 
 
 def prepare_sound_bank(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -629,36 +691,55 @@ def prepare_sound_bank(rom: bytes, *, output: Path) -> tuple[list[dict], list[di
         raise ValueError('sound-bank reference ROM differs from the validated report ROM')
     paths = ['build/us/assets/' + sound_bank_build.part_name(e['part']) + '.o' for e, _ in selected]
     build_rebuilt_objects(paths, 'sound-bank', output)
+    receipts = family_receipts('sound-bank', 'scripts/sound_bank_build.py')
     # Each reference has its own directory. Preserve catalog order and retain
     # all per-object checks; the report also rechecks every source hash at end.
     with ThreadPoolExecutor(max_workers=job_count()) as workers:
-        pairs = list(workers.map(partial(prepare_sound_part, rom, output=output),
+        pairs = list(workers.map(partial(prepare_sound_part, rom, output=output, receipts=receipts),
                                  (expected for expected, _ in selected)))
     return [unit for unit, _ in pairs], [item for _, item in pairs]
 
 
-def prepare_adpcm_sample(rom: bytes, expected: dict, *, output: Path) -> list[tuple[dict, dict]]:
-    """Freshly encode the complete sample; build receipts never grant report credit."""
+def prepare_adpcm_sample(rom: bytes, expected: dict, *, output: Path, receipts=None) -> list[tuple[dict, dict]]:
+    """Encode the complete sample unless every part's build receipt re-derives from the checkout.
+
+    Reuse needs the receipt's input hashes, encoder hash and output hash to match the
+    current inputs, encoder and built part; otherwise the whole sample is encoded
+    again. Either way each part is compared against the ROM bytes here.
+    """
     sample = expected['sample']
     source = adpcm_build.input_directory(sample)
-    parts, hashes = adpcm_build.packed_sample(ROOT / source, expected)
+    if receipts is None:
+        receipts = family_receipts('adpcm', 'scripts/adpcm_build.py')
+    hashes = adpcm_build.input_hashes(ROOT / source, expected)
+    reused = [asset_receipts.reusable(ROOT, receipts, adpcm_layout.part_name(sample, part['first_frame']),
+                                      hashes=hashes, extent=part, fresh=FRESH_ENCODE)
+              for part in expected['parts']]
+    if reused and all(item is not None for item in reused):
+        parts = [((part, item.packed), item.provenance) for part, item in zip(expected['parts'], reused)]
+    else:
+        encoded, hashes = adpcm_build.packed_sample(ROOT / source, expected)
+        parts = [(pair, asset_receipts.fresh_provenance()) for pair in encoded]
     return [prepare_rebuilt_asset(
         rom, key=f'adpcm-{sample:04d}-{part["first_frame"]:08X}',
         name=adpcm_layout.part_name(sample, part['first_frame']), extent=part,
         packed=packed, hashes=hashes, source_directory=source,
         read_hashes=partial(adpcm_build.input_hashes, ROOT / source, expected),
-        label=f'ADPCM sample {sample}', output=output) for part, packed in parts]
+        label=f'ADPCM sample {sample}', output=output, provenance=provenance)
+        for (part, packed), provenance in parts]
 
 
-def initialize_adpcm_report_worker(root, rom, output):
-    # Pass the ROM once per process, not once per sample. Explicit initialization
-    # works with spawn as well as fork, including a caller's isolated checkout.
-    global ROOT, _ADPCM_REPORT_ROM, _ADPCM_REPORT_OUTPUT
-    ROOT, _ADPCM_REPORT_ROM, _ADPCM_REPORT_OUTPUT = root, rom, output
+def initialize_adpcm_report_worker(root, rom, output, receipts=None, fresh=False):
+    # Pass the ROM and receipts once per process, not once per sample. Explicit
+    # initialization works with spawn as well as fork, including a caller's isolated checkout.
+    global ROOT, FRESH_ENCODE, _ADPCM_REPORT_ROM, _ADPCM_REPORT_OUTPUT, _ADPCM_REPORT_RECEIPTS
+    ROOT, FRESH_ENCODE, _ADPCM_REPORT_ROM, _ADPCM_REPORT_OUTPUT = root, fresh, rom, output
+    _ADPCM_REPORT_RECEIPTS = receipts
 
 
 def prepare_adpcm_report_worker(expected):
-    return prepare_adpcm_sample(_ADPCM_REPORT_ROM, expected, output=_ADPCM_REPORT_OUTPUT)
+    return prepare_adpcm_sample(_ADPCM_REPORT_ROM, expected, output=_ADPCM_REPORT_OUTPUT,
+                                receipts=_ADPCM_REPORT_RECEIPTS)
 
 
 def prepare_adpcm(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -668,9 +749,10 @@ def prepare_adpcm(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
     paths = ['build/us/assets/' + adpcm_layout.part_name(e['sample'], p['first_frame']) + '.o'
              for e, _, _ in selected for p in e['parts']]
     build_rebuilt_objects(paths, 'adpcm', output)
+    receipts = family_receipts('adpcm', 'scripts/adpcm_build.py')
     with ProcessPoolExecutor(max_workers=job_count(),
                              initializer=initialize_adpcm_report_worker,
-                             initargs=(ROOT, rom, output)) as workers:
+                             initargs=(ROOT, rom, output, receipts, FRESH_ENCODE)) as workers:
         groups = list(workers.map(prepare_adpcm_report_worker,
                                   (expected for expected, _, _ in selected), chunksize=8))
     pairs = [pair for group in groups for pair in group]
@@ -683,9 +765,12 @@ def prepare_font(rom: bytes, *, output: Path | None = None) -> tuple[dict, dict]
     layout = font_assets.load_layout('us')
     ranges = font_splits.verify_splits(ROOT / 'config/profiles/us.yaml', rom, layout)
     paths = [ROOT / ('build/us/assets/' + name + '.o') for _, _, name in ranges]
-    with (directory / 'build.log').open('w') as log:
-        subprocess.run(['make', '--silent', '--jobs', str(job_count()), *[str(p.relative_to(ROOT)) for p in paths], 'PROFILE=us', 'ASSETS=1'],
-                       cwd=ROOT, stdout=log, stderr=log, check=True)
+    if _PREBUILT_ASSET_OBJECTS:
+        build_rebuilt_objects([str(p.relative_to(ROOT)) for p in paths], 'font', directory)
+    else:
+        with (directory / 'build.log').open('w') as log:
+            subprocess.run(['make', '--silent', '--jobs', str(job_count()), *[str(p.relative_to(ROOT)) for p in paths], 'PROFILE=us', 'ASSETS=1'],
+                           cwd=ROOT, stdout=log, stderr=log, check=True)
     layout = font_assets.load_layout('us')
     start, end = layout['font_start'], layout['font_storage_end']
     original = rom[start:end]
@@ -719,20 +804,31 @@ def prepare_font(rom: bytes, *, output: Path | None = None) -> tuple[dict, dict]
             'linked_inputs': linked_inputs,
             'target_path': 'font/target.o', 'target_sha256': objdiff_targets.sha256(target),
             'base_path': 'font/base.o', 'base_sha256': objdiff_targets.sha256(base),
-            'literal_payload_matches_rom': candidate == original, 'target_verification': proof}
+            'literal_payload_matches_rom': candidate == original, 'target_verification': proof,
+            **candidate_provenance(None, candidate)}
     item = {'name': 'assets/font_rle', 'target_path': unit['target_path'], 'base_path': unit['base_path'],
             'metadata': {'complete': False, 'progress_categories': ['data']}}
     return unit, item
 
 
-def prepare_mp3_table(rom: bytes, expected: dict, part: dict, *, output: Path) -> tuple[dict, dict]:
+def prepare_mp3_table(rom: bytes, expected: dict, part: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     source = mp3_table_build.INPUT_DIRECTORY
-    packed, hashes = mp3_table_build.packed_tables(ROOT / source, expected)
+    name = mp3_table_build.part_name(part['name'])
+    if receipts is None:
+        receipts = family_receipts('mp3-tables', 'scripts/mp3_table_build.py', extra=MP3_DECODER_SOURCE)
+    packed, hashes, provenance = asset_candidate(
+        receipts, name, hashes=mp3_table_build.input_hashes(ROOT / source, expected), extent=part,
+        encode=lambda: _packed_mp3_table(part['name'], expected, source))
     return prepare_rebuilt_asset(
-        rom, key=part['name'], name=mp3_table_build.part_name(part['name']),
-        extent=part, packed=packed[part['name']], hashes=hashes, source_directory=source,
+        rom, key=part['name'], name=name,
+        extent=part, packed=packed, hashes=hashes, source_directory=source,
         read_hashes=partial(mp3_table_build.input_hashes, ROOT / source, expected),
-        label=f"MP3 decoder {part['name']} storage", output=output)
+        label=f"MP3 decoder {part['name']} storage", output=output, provenance=provenance)
+
+
+def _packed_mp3_table(name, expected, source):
+    packed, hashes = mp3_table_build.packed_tables(ROOT / source, expected)
+    return packed[name], hashes
 
 
 def prepare_mp3_tables(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -741,18 +837,23 @@ def prepare_mp3_tables(rom: bytes, *, output: Path) -> tuple[list[dict], list[di
         raise ValueError('MP3 table reference ROM differs from the validated report ROM')
     paths = ['build/us/assets/' + mp3_table_build.part_name(p['name']) + '.o' for p in expected['parts']]
     build_rebuilt_objects(paths, 'mp3-tables', output)
-    pairs = [prepare_mp3_table(rom, expected, part, output=output) for part in expected['parts']]
+    receipts = family_receipts('mp3-tables', 'scripts/mp3_table_build.py', extra=MP3_DECODER_SOURCE)
+    pairs = [prepare_mp3_table(rom, expected, part, output=output, receipts=receipts) for part in expected['parts']]
     return [unit for unit, _ in pairs], [item for _, item in pairs]
 
 
-def prepare_morph_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+def prepare_morph_bank(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     source = model_morph_build.INPUT_DIRECTORY
-    packed, hashes = model_morph_build.packed_bank(ROOT / source, expected)
+    if receipts is None:
+        receipts = family_receipts('morphs', 'scripts/model_morph_build.py')
+    packed, hashes, provenance = asset_candidate(
+        receipts, model_morph_build.PART_NAME, hashes=model_morph_build.input_hashes(ROOT / source, expected),
+        extent=expected, encode=lambda: model_morph_build.packed_bank(ROOT / source, expected))
     return prepare_rebuilt_asset(
         rom, key='morph-bank', name=model_morph_build.PART_NAME,
         extent=expected, packed=packed, hashes=hashes, source_directory=source,
         read_hashes=partial(model_morph_build.input_hashes, ROOT / source, expected),
-        label='character morph bank storage', output=output)
+        label='character morph bank storage', output=output, provenance=provenance)
 
 
 def prepare_morphs(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -764,8 +865,13 @@ def prepare_morphs(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]
     return [unit], [item]
 
 def prepare_rebuilt_ranges(original_bank, expected, *, source, packed, fresh_spans, hashes,
-                           key, name, linked, ranges, read_hashes, output):
-    """Credit only disjoint regenerated slices of an independently checked linked object."""
+                           key, name, linked, ranges, read_hashes, output, provenance=None):
+    """Credit only disjoint regenerated slices of an independently checked linked object.
+
+    ``packed`` and ``fresh_spans`` come from a fresh encode or from a build receipt
+    that re-derives from the checkout; ``provenance`` records which. The slices are
+    compared against the original ROM bytes here in both cases.
+    """
     if len(original_bank) != expected['rom_end'] - expected['rom_start']:
         raise ValueError('asset reference extent differs from reviewed object')
     directory = output / key
@@ -809,24 +915,30 @@ def prepare_rebuilt_ranges(original_bank, expected, *, source, packed, fresh_spa
             'target_path': key + '/target.o', 'target_sha256': objdiff_targets.sha256(target),
             'base_path': key + '/base.o', 'base_sha256': objdiff_targets.sha256(base),
             'literal_payload_matches_rom': True, 'target_verification': proof,
-            'report_code_bytes': 0, 'report_data_bytes': size, 'complete': True}
+            'report_code_bytes': 0, 'report_data_bytes': size, 'complete': True,
+            **candidate_provenance(provenance, actual)}
     item = {'name': 'assets/' + name, 'target_path': unit['target_path'], 'base_path': unit['base_path'],
             'metadata': {'complete': True, 'progress_categories': ['data']}}
     return unit, item
 
 
 
-def prepare_visibility_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+def prepare_visibility_bank(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     """Report only regenerated physical ranges of the actual linked object."""
     source = visibility_build.INPUT_DIRECTORY
-    packed, fresh_spans, hashes = visibility_build.packed_bank(ROOT / source, expected)
+    if receipts is None:
+        receipts = family_receipts('visibility', 'scripts/visibility_build.py')
+    packed, fresh_spans, hashes, provenance = asset_candidate(
+        receipts, visibility_build.PART_NAME, hashes=visibility_build.input_hashes(ROOT / source, expected),
+        extent=expected, encode=lambda: visibility_build.packed_bank(ROOT / source, expected), ranged=True)
     key = 'visibility-bank'
     name = 'visibility/bank05'
     return prepare_rebuilt_ranges(
         rom[expected['rom_start']:expected['rom_end']], expected, source=source,
         packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
         linked=ROOT / ('build/us/assets/' + visibility_build.PART_NAME + '.o'), ranges=expected['rom_ranges'],
-        read_hashes=lambda: visibility_build.input_hashes(ROOT / source, expected), output=output)
+        read_hashes=lambda: visibility_build.input_hashes(ROOT / source, expected), output=output,
+        provenance=provenance)
 
 
 
@@ -839,17 +951,22 @@ def prepare_visibility(rom: bytes, *, output: Path) -> tuple[list[dict], list[di
     return [unit], [item]
 
 
-def prepare_sprite_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+def prepare_sprite_bank(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     """Report only regenerated physical ranges of the actual linked object."""
     source = sprite_build.INPUT_DIRECTORY
-    packed, fresh_spans, hashes = sprite_build.packed_bank(ROOT / source, expected)
+    if receipts is None:
+        receipts = family_receipts('sprites', 'scripts/sprite_build.py')
+    packed, fresh_spans, hashes, provenance = asset_candidate(
+        receipts, sprite_build.PART_NAME, hashes=sprite_build.input_hashes(ROOT / source, expected),
+        extent=expected, encode=lambda: sprite_build.packed_bank(ROOT / source, expected), ranged=True)
     key = 'sprite-bank'
     name = 'sprites/bank00'
     return prepare_rebuilt_ranges(
         rom[expected['rom_start']:expected['rom_end']], expected, source=source,
         packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
         linked=ROOT / ('build/us/assets/' + sprite_build.PART_NAME + '.o'), ranges=expected['rom_ranges'],
-        read_hashes=lambda: sprite_build.input_hashes(ROOT / source, expected), output=output)
+        read_hashes=lambda: sprite_build.input_hashes(ROOT / source, expected), output=output,
+        provenance=provenance)
 
 
 
@@ -862,29 +979,39 @@ def prepare_sprites(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]
     return [unit], [item]
 
 
-def prepare_mp3_spectral_stream(original: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+def prepare_mp3_spectral_stream(original: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     index = expected['entry']
     source = mp3_spectral_build.input_directory(index)
-    packed, fresh_spans, hashes = mp3_spectral_build.packed_stream(
-        ROOT / source, expected, include_partial=True,
-        cache_directory=ROOT / 'build/us/mp3-spectral/cache')
+    if receipts is None:
+        receipts = family_receipts('mp3-spectral', 'scripts/mp3_spectral_build.py', extra=MP3_DECODER_SOURCE)
+    packed, fresh_spans, hashes, provenance = asset_candidate(
+        receipts, mp3_spectral_build.part_name(index),
+        hashes=mp3_spectral_build.input_hashes(ROOT / source, expected),
+        extent={'rom_start': expected['rom_start'], 'rom_end': expected['rom_end']},
+        encode=lambda: mp3_spectral_build.packed_stream(
+            ROOT / source, expected, include_partial=True,
+            # The audit mode re-encodes from coefficients; the span cache is
+            # another receipt-like shortcut it must not take.
+            cache_directory=None if FRESH_ENCODE else ROOT / 'build/us/mp3-spectral/cache'), ranged=True)
     ranges, _, _ = mp3_spectral_build.codec.reviewed_ranges(original, include_partial=True)
     return prepare_rebuilt_ranges(
         original, expected, source=source, packed=packed, fresh_spans=fresh_spans, hashes=hashes,
         key=f'mp3-spectral-{index:04d}', name=f'audio/mp3/spectral/{index:04d}',
         linked=ROOT / ('build/us/assets/' + mp3_spectral_build.part_name(index) + '.o'),
         ranges=[[expected['rom_start'] + a, expected['rom_start'] + z] for a, z in ranges],
-        read_hashes=lambda: mp3_spectral_build.input_hashes(ROOT / source, expected), output=output)
+        read_hashes=lambda: mp3_spectral_build.input_hashes(ROOT / source, expected), output=output,
+        provenance=provenance)
 
 
-def initialize_mp3_spectral_report_worker(root, output):
-    global ROOT, _SPECTRAL_OUTPUT
-    ROOT, _SPECTRAL_OUTPUT = root, output
+def initialize_mp3_spectral_report_worker(root, output, receipts=None, fresh=False):
+    global ROOT, FRESH_ENCODE, _SPECTRAL_OUTPUT, _SPECTRAL_RECEIPTS
+    ROOT, FRESH_ENCODE, _SPECTRAL_OUTPUT, _SPECTRAL_RECEIPTS = root, fresh, output, receipts
 
 
 def prepare_mp3_spectral_report_worker(task):
     expected, original = task
-    return prepare_mp3_spectral_stream(original, expected, output=_SPECTRAL_OUTPUT)
+    return prepare_mp3_spectral_stream(original, expected, output=_SPECTRAL_OUTPUT,
+                                       receipts=_SPECTRAL_RECEIPTS)
 
 
 def prepare_mp3_spectral(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -894,21 +1021,26 @@ def prepare_mp3_spectral(rom: bytes, *, output: Path) -> tuple[list[dict], list[
         raise ValueError('spectral reference ROM differs from validated report ROM')
     paths = ['build/us/assets/' + mp3_spectral_build.part_name(e['entry']) + '.o' for e, _ in selected]
     build_rebuilt_objects(paths, 'mp3-spectral', output)
+    receipts = family_receipts('mp3-spectral', 'scripts/mp3_spectral_build.py', extra=MP3_DECODER_SOURCE)
     with ProcessPoolExecutor(max_workers=job_count(), initializer=initialize_mp3_spectral_report_worker,
-                             initargs=(ROOT, output)) as workers:
+                             initargs=(ROOT, output, receipts, FRESH_ENCODE)) as workers:
         pairs = list(workers.map(prepare_mp3_spectral_report_worker, selected, chunksize=4))
     return [unit for unit, _ in pairs], [item for _, item in pairs]
 
 
 
-def prepare_script_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+def prepare_script_bank(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     source = script_build.INPUT_DIRECTORY
-    packed, hashes = script_build.packed_bank(ROOT / source, expected)
+    if receipts is None:
+        receipts = family_receipts('scripts', 'scripts/script_build.py')
+    packed, hashes, provenance = asset_candidate(
+        receipts, script_build.PART_NAME, hashes=script_build.input_hashes(ROOT / source, expected),
+        extent=expected, encode=lambda: script_build.packed_bank(ROOT / source, expected))
     return prepare_rebuilt_asset(
         rom, key='script-bank', name=script_build.PART_NAME,
         extent=expected, packed=packed, hashes=hashes, source_directory=source,
         read_hashes=partial(script_build.input_hashes, ROOT / source, expected),
-        label='script program bank storage', output=output)
+        label='script program bank storage', output=output, provenance=provenance)
 
 
 def prepare_scripts(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -919,14 +1051,18 @@ def prepare_scripts(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]
     unit, item = prepare_script_bank(rom, expected, output=output)
     return [unit], [item]
 
-def prepare_event_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+def prepare_event_bank(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     source = event_build.INPUT_DIRECTORY
-    packed, hashes = event_build.packed_bank(ROOT / source, expected)
+    if receipts is None:
+        receipts = family_receipts('events', 'scripts/event_build.py')
+    packed, hashes, provenance = asset_candidate(
+        receipts, event_build.PART_NAME, hashes=event_build.input_hashes(ROOT / source, expected),
+        extent=expected, encode=lambda: event_build.packed_bank(ROOT / source, expected))
     return prepare_rebuilt_asset(
         rom, key='event-bank', name=event_build.PART_NAME,
         extent=expected, packed=packed, hashes=hashes, source_directory=source,
         read_hashes=partial(event_build.input_hashes, ROOT / source, expected),
-        label='event program bank storage', output=output)
+        label='event program bank storage', output=output, provenance=provenance)
 
 
 def prepare_events(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -937,17 +1073,22 @@ def prepare_events(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]
     unit, item = prepare_event_bank(rom, expected, output=output)
     return [unit], [item]
 
-def prepare_scene_volume_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+def prepare_scene_volume_bank(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     """Report only regenerated physical ranges of the actual linked object."""
     source = scene_volume_build.INPUT_DIRECTORY
-    packed, fresh_spans, hashes = scene_volume_build.packed_bank(ROOT / source, expected)
+    if receipts is None:
+        receipts = family_receipts('scene-volumes', 'scripts/scene_volume_build.py')
+    packed, fresh_spans, hashes, provenance = asset_candidate(
+        receipts, scene_volume_build.PART, hashes=scene_volume_build.input_hashes(ROOT / source, expected),
+        extent=expected, encode=lambda: scene_volume_build.packed_bank(ROOT / source, expected), ranged=True)
     key = 'scene-volumes'
     name = 'scenes/volumes'
     return prepare_rebuilt_ranges(
         rom[expected['rom_start']:expected['rom_end']], expected, source=source,
         packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
         linked=ROOT / ('build/us/assets/' + scene_volume_build.PART + '.o'), ranges=expected['rom_ranges'],
-        read_hashes=lambda: scene_volume_build.input_hashes(ROOT / source, expected), output=output)
+        read_hashes=lambda: scene_volume_build.input_hashes(ROOT / source, expected), output=output,
+        provenance=provenance)
 
 
 def prepare_scene_volumes(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -958,17 +1099,22 @@ def prepare_scene_volumes(rom: bytes, *, output: Path) -> tuple[list[dict], list
     unit, item = prepare_scene_volume_bank(rom, expected, output=output)
     return [unit], [item]
 
-def prepare_scene_field_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+def prepare_scene_field_bank(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     """Report only regenerated physical ranges of the actual linked object."""
     source = scene_field_build.INPUT_DIRECTORY
-    packed, fresh_spans, hashes = scene_field_build.packed_bank(ROOT / source, expected)
+    if receipts is None:
+        receipts = family_receipts('scene-fields', 'scripts/scene_field_build.py')
+    packed, fresh_spans, hashes, provenance = asset_candidate(
+        receipts, scene_field_build.PART, hashes=scene_field_build.input_hashes(ROOT / source, expected),
+        extent=expected, encode=lambda: scene_field_build.packed_bank(ROOT / source, expected), ranged=True)
     key = 'scene-fields'
     name = 'scenes/fields'
     return prepare_rebuilt_ranges(
         rom[expected['rom_start']:expected['rom_end']], expected, source=source,
         packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
         linked=ROOT / ('build/us/assets/' + scene_field_build.PART + '.o'), ranges=expected['rom_ranges'],
-        read_hashes=lambda: scene_field_build.input_hashes(ROOT / source, expected), output=output)
+        read_hashes=lambda: scene_field_build.input_hashes(ROOT / source, expected), output=output,
+        provenance=provenance)
 
 
 def prepare_scene_fields(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -980,17 +1126,22 @@ def prepare_scene_fields(rom: bytes, *, output: Path) -> tuple[list[dict], list[
     return [unit], [item]
 
 
-def prepare_animation_bank_object(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+def prepare_animation_bank_object(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     """Report only regenerated physical ranges of the actual linked object."""
     source = animation_bank_build.input_directory(expected['bank'])
-    packed, fresh_spans, hashes = animation_bank_build.packed_bank(ROOT / source, expected)
+    if receipts is None:
+        receipts = family_receipts('animation-bank', 'scripts/animation_bank_build.py')
+    packed, fresh_spans, hashes, provenance = asset_candidate(
+        receipts, animation_bank_build.part_name(expected['bank']), hashes=animation_bank_build.input_hashes(ROOT / source, expected),
+        extent=expected, encode=lambda: animation_bank_build.packed_bank(ROOT / source, expected), ranged=True)
     key = f'animation-bank{expected["bank"]:02X}'
     name = f'animations/bank{expected["bank"]:02X}'
     return prepare_rebuilt_ranges(
         rom[expected['rom_start']:expected['rom_end']], expected, source=source,
         packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
         linked=ROOT / ('build/us/assets/' + animation_bank_build.part_name(expected['bank']) + '.o'), ranges=expected['rom_ranges'],
-        read_hashes=lambda: animation_bank_build.input_hashes(ROOT / source, expected), output=output)
+        read_hashes=lambda: animation_bank_build.input_hashes(ROOT / source, expected), output=output,
+        provenance=provenance)
 
 
 
@@ -1006,17 +1157,22 @@ def prepare_animation_bank(rom: bytes, *, output: Path) -> tuple[list[dict], lis
     return units, configs
 
 
-def prepare_animation_control_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+def prepare_animation_control_bank(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     """Report only regenerated physical ranges of the actual linked object."""
     source = animation_control_build.input_directory(expected['bank'])
-    packed, fresh_spans, hashes = animation_control_build.packed_bank(ROOT / source, expected)
+    if receipts is None:
+        receipts = family_receipts('animation-control', 'scripts/animation_control_build.py')
+    packed, fresh_spans, hashes, provenance = asset_candidate(
+        receipts, animation_control_build.part_name(expected['bank']), hashes=animation_control_build.input_hashes(ROOT / source, expected),
+        extent=expected, encode=lambda: animation_control_build.packed_bank(ROOT / source, expected), ranged=True)
     key = f'animation-control-bank{expected["bank"]:02X}'
     name = f'animation-controls/bank{expected["bank"]:02X}'
     return prepare_rebuilt_ranges(
         rom[expected['rom_start']:expected['rom_end']], expected, source=source,
         packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
         linked=ROOT / ('build/us/assets/' + animation_control_build.part_name(expected['bank']) + '.o'), ranges=expected['rom_ranges'],
-        read_hashes=lambda: animation_control_build.input_hashes(ROOT / source, expected), output=output)
+        read_hashes=lambda: animation_control_build.input_hashes(ROOT / source, expected), output=output,
+        provenance=provenance)
 
 
 
@@ -1032,17 +1188,22 @@ def prepare_animation_controls(rom: bytes, *, output: Path) -> tuple[list[dict],
     return units, configs
 
 
-def prepare_route_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+def prepare_route_bank(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     """Report only regenerated physical ranges of the actual linked object."""
     source = route_build.input_directory(expected['bank'])
-    packed, fresh_spans, hashes = route_build.packed_bank(ROOT / source, expected)
+    if receipts is None:
+        receipts = family_receipts('routes', 'scripts/route_build.py')
+    packed, fresh_spans, hashes, provenance = asset_candidate(
+        receipts, route_build.part_name(expected['bank']), hashes=route_build.input_hashes(ROOT / source, expected),
+        extent=expected, encode=lambda: route_build.packed_bank(ROOT / source, expected), ranged=True)
     key = f'route-bank{expected["bank"]:02X}'
     name = f'routes/bank{expected["bank"]:02X}'
     return prepare_rebuilt_ranges(
         rom[expected['rom_start']:expected['rom_end']], expected, source=source,
         packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
         linked=ROOT / ('build/us/assets/' + route_build.part_name(expected['bank']) + '.o'), ranges=expected['rom_ranges'],
-        read_hashes=lambda: route_build.input_hashes(ROOT / source, expected), output=output)
+        read_hashes=lambda: route_build.input_hashes(ROOT / source, expected), output=output,
+        provenance=provenance)
 
 
 
@@ -1058,17 +1219,22 @@ def prepare_routes(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]
     return units, configs
 
 
-def prepare_animation_clips_object(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+def prepare_animation_clips_object(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     """Report only regenerated physical ranges of the actual linked object."""
     source = animation_clips_build.input_directory(expected['part'])
-    packed, fresh_spans, hashes = animation_clips_build.packed_object(ROOT / source, expected)
+    if receipts is None:
+        receipts = family_receipts('animation-clips', 'scripts/animation_clips_build.py')
+    packed, fresh_spans, hashes, provenance = asset_candidate(
+        receipts, animation_clips_build.part_name(expected['part']), hashes=animation_clips_build.input_hashes(ROOT / source, expected),
+        extent=expected, encode=lambda: animation_clips_build.packed_object(ROOT / source, expected), ranged=True)
     key = f'animation-clips-{expected["part"]}'
     name = f'animations/partial/{expected["part"]}'
     return prepare_rebuilt_ranges(
         rom[expected['rom_start']:expected['rom_end']], expected, source=source,
         packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
         linked=ROOT / ('build/us/assets/' + animation_clips_build.part_name(expected['part']) + '.o'), ranges=expected['rom_ranges'],
-        read_hashes=lambda: animation_clips_build.input_hashes(ROOT / source, expected), output=output)
+        read_hashes=lambda: animation_clips_build.input_hashes(ROOT / source, expected), output=output,
+        provenance=provenance)
 
 
 def prepare_animation_clips(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:

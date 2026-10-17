@@ -158,6 +158,14 @@ ASSET_BINS_us := \
 ASSET_BINS_eu := assets/boot.bin assets/2D810.bin
 ASSET_BINS := $(if $(and $(filter us,$(PROFILE)),$(filter 0,$(ASSETS))),$(patsubst original=%,%,$(filter original=%,$(PROFILE_ASSETS))),$(ASSET_BINS_$(PROFILE)))
 ASSET_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(ASSET_BINS))
+# Every rebuilt asset family's link objects in one Make evaluation; the objdiff
+# report uses this instead of one Make call per family.
+REBUILT_ASSET_OBJS := $(FONT_OBJS) $(SOUND_BANK_OBJS) $(ADPCM_OBJS) $(SEQUENCE_OBJS) $(SPRITE_OBJS) \
+	$(SCENE_VOLUME_OBJS) $(ANIMATION_BANK_OBJS) $(ANIMATION_CONTROL_OBJS) $(ROUTE_OBJS) $(VISIBILITY_OBJS) \
+	$(SCRIPT_OBJS) $(EVENT_OBJS) $(MORPH_OBJS) $(MP3_TABLE_OBJS) $(MP3_SPECTRAL_OBJS) $(TEXTURE_OBJS) \
+	$(MODEL_OBJS) $(ANIMATION_CLIP_OBJS)
+.PHONY: asset-objects
+asset-objects: $(REBUILT_ASSET_OBJS)
 GAME_PROFILE := us
 GAME_REFERENCE_PROFILE ?= us
 GAME_REFERENCE_BUILD_DIR := build/game-reference/$(GAME_REFERENCE_PROFILE)
@@ -453,7 +461,7 @@ $(BUILD_DIR)/src/%.o: src/%.c
 # fresh on-disk timestamps because Make may cache a part's mtime before packing.
 ifeq ($(PROFILE),us)
 ASSET_PACK_DEPS := Makefile $(PROFILE_INPUTS) scripts/profile_config.py config/rzip_layouts.json \
-	scripts/build_files.py scripts/rzip_archive.py scripts/rzip_extract.py \
+	scripts/build_files.py scripts/asset_receipts.py scripts/rzip_archive.py scripts/rzip_extract.py \
 	toolchain/python-requirements.txt $(ROM_PATH)
 FONT_PARTS := $(patsubst assets/%,$(BUILD_DIR)/fonts/parts/%,$(FONT_BINS))
 MP3_TABLE_PARTS := $(patsubst assets/%,$(BUILD_DIR)/mp3-tables/parts/%,$(MP3_TABLE_BINS))

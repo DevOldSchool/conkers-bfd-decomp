@@ -12,6 +12,7 @@ try:
     from scripts import texture_assets, texture_catalog, texture_rgba16, texture_native, rzip_pack
     from scripts import rzip_gzip
     from scripts.build_files import write_if_changed
+    from scripts import asset_receipts
     from scripts.profile_config import load_profile
 except ModuleNotFoundError:
     import texture_assets
@@ -21,6 +22,7 @@ except ModuleNotFoundError:
     import rzip_pack
     import rzip_gzip
     from build_files import write_if_changed
+    import asset_receipts
     from profile_config import load_profile
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -372,11 +374,17 @@ def build_parts(root: Path = ROOT) -> dict:
     for expected, directory, _, evidence in candidates:
         if evidence['source_inputs'] != input_hashes(directory, expected):
             raise ValueError('texture inputs changed during batch packing')
+    receipts = {}
     for expected, _, packed, evidence in candidates:
         index = expected['flat_index']
         write_if_changed(root / 'build/us/textures/parts' / (part_name(index) + '.bin'), packed)
         write_if_changed(root / f'build/us/textures/{index:04d}.json',
                          (json.dumps(evidence, indent=2) + '\n').encode())
+        receipts[part_name(index)] = asset_receipts.part_record(
+            output=f'build/us/textures/parts/{part_name(index)}.bin', payload=packed,
+            source_inputs=evidence['source_inputs'], input_directory=input_directory(index, expected),
+            extent=expected, matches_original=evidence['matches_original'])
+    asset_receipts.write(root, 'textures', __file__, receipts)
     result = {'texture_count': len(candidates), 'stored_bytes': sum(len(p) for _, _, p, _ in candidates),
               'matches_original': all(e['matches_original'] for _, _, _, e in candidates),
               'textures': [e for _, _, _, e in candidates]}

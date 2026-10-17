@@ -7,11 +7,13 @@ import struct
 try:
     from scripts import asset_inputs, model_assets, rzip_archive, model_animation_build as codec, texture_build
     from scripts.build_files import write_if_changed
+    from scripts import asset_receipts
     from scripts.model_character_alpha import checked_spans
     from scripts.profile_config import load_profile
 except ModuleNotFoundError:
     import asset_inputs, model_assets, rzip_archive, model_animation_build as codec, texture_build
     from build_files import write_if_changed
+    import asset_receipts
     from model_character_alpha import checked_spans
     from profile_config import load_profile
 
@@ -168,6 +170,9 @@ def build_parts(bank, root=ROOT):
     if input_hashes(directory, expected) != hashes:
         raise ValueError('animation inputs changed during batch packing')
     write_if_changed(root / 'build/us/animation-bank/parts' / (part_name(bank) + '.bin'), packed)
+    asset_receipts.write(root, 'animation-bank', __file__, {part_name(bank): asset_receipts.part_record(
+        output=f'build/us/animation-bank/parts/{part_name(bank)}.bin', payload=packed, source_inputs=hashes,
+        input_directory=input_directory(bank), extent=expected, spans=spans)}, merge=True)
     proof = {**expected, 'source_inputs': hashes, 'rebuilt_bytes': sum(len(data) for _, data in spans),
              'verification': 'native_animation_records_actual_rom_ranges', 'matches_original': True}
     write_if_changed(root / f'build/us/animation-bank/bank{bank:02X}.json', (json.dumps(proof, indent=2) + '\n').encode())

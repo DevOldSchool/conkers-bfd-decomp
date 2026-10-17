@@ -8,9 +8,11 @@ from pathlib import Path
 try:
     from scripts import asset_inputs, audio_boundaries, model_assets, mp3_assets, mp3_table_codec, rzip_archive, texture_build
     from scripts.build_files import write_if_changed
+    from scripts import asset_receipts
 except ModuleNotFoundError:
     import asset_inputs, audio_boundaries, model_assets, mp3_assets, mp3_table_codec, rzip_archive, texture_build
     from build_files import write_if_changed
+    import asset_receipts
 
 ROOT = Path(__file__).resolve().parent.parent
 ROM_SHA1 = '4cbadd3c4e0729dec46af64ad018050eada4f47a'
@@ -67,6 +69,9 @@ def input_error(directory, reason):
                       './conker mp3-assets recover-tables to back up this folder and restore reviewed C seeds.')
 
 
+ENCODER_EXTRA_SOURCES = ('lib/libultrare/src/libultrare/mp3/decoder.c',)
+
+
 def input_hashes(directory, expected):
     try:
         return asset_inputs.manifest_hashes(directory, expected, ('manifest.json', 'tables.json'), 'MP3 tables')
@@ -110,6 +115,11 @@ def build_parts(root=ROOT):
         raise ValueError('MP3 table inputs changed during batch packing')
     for name, payload in packed.items():
         write_if_changed(root / 'build/us/mp3-tables/parts' / (part_name(name) + '.bin'), payload)
+    asset_receipts.write(root, 'mp3-tables', __file__, {
+        part_name(part['name']): asset_receipts.part_record(
+            output=f"build/us/mp3-tables/parts/{part_name(part['name'])}.bin", payload=packed[part['name']],
+            source_inputs=hashes, input_directory=INPUT_DIRECTORY, extent=part)
+        for part in expected['parts']}, extra=ENCODER_EXTRA_SOURCES)
     result = {**expected, 'source_inputs': hashes, 'stored_bytes': sum(map(len, packed.values())),
               'verification': 'typed_c_seeds_and_independent_rom_bytes', 'matches_original': True}
     write_if_changed(root / 'build/us/mp3-tables/batch.json', (json.dumps(result, indent=2) + '\n').encode())

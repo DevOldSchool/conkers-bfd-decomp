@@ -21,6 +21,7 @@ import zipfile
 from build_jobs import job_count
 from profile_config import load_profile
 
+import asset_receipts
 import compile_c
 import data_boundaries
 import diff
@@ -333,8 +334,54 @@ def canonical_debugger_candidates(units: list[dict], configs: list[dict]) -> Non
         unit['base_sha256'] = objdiff_targets.sha256(path)
 
 
+# Report unit order; functions are looked up by name when the report runs.
+ASSET_FAMILIES = (
+    ('animation controls', 'prepare_animation_controls'), ('scripts', 'prepare_scripts'),
+    ('animation bank', 'prepare_animation_bank'), ('scene fields', 'prepare_scene_fields'),
+    ('scene volumes', 'prepare_scene_volumes'), ('animation clips', 'prepare_animation_clips'),
+    ('routes', 'prepare_routes'), ('visibility', 'prepare_visibility'), ('sprites', 'prepare_sprites'),
+    ('events', 'prepare_events'), ('MP3 spectral', 'prepare_mp3_spectral'), ('morphs', 'prepare_morphs'),
+    ('font', 'prepare_font'), ('textures', 'prepare_textures'), ('models', 'prepare_models'),
+    ('sequences', 'prepare_sequences'), ('sound bank', 'prepare_sound_bank'),
+    ('ADPCM', 'prepare_adpcm'), ('MP3 tables', 'prepare_mp3_tables'))
+
+
+def candidate_source_counts(units: list[dict]) -> dict[str, int]:
+    counts = {source: 0 for source in asset_receipts.CANDIDATE_SOURCES}
+    for unit in units:
+        if unit.get('kind') == 'rebuilt_asset':
+            counts[unit.get('candidate_source', 'unknown')] = counts.get(unit.get('candidate_source', 'unknown'), 0) + 1
+    return counts
+
+
+def prepare_rebuilt_assets(*, fresh: bool) -> tuple[list[dict], list[dict], dict]:
+    """Prepare every rebuilt asset family, logging one line per family instead of its parts."""
+    objdiff_data_targets.FRESH_ENCODE = fresh
+    rebuilt, configs, families = [], [], {}
+    started = time.perf_counter()
+    objdiff_data_targets.prebuild_asset_objects(OUTPUT)
+    link_seconds = round(time.perf_counter() - started, 3)
+    print(f'objdiff report assets: link objects refreshed in one Make call, {link_seconds:.1f}s', flush=True)
+    for label, name in ASSET_FAMILIES:
+        started = time.perf_counter()
+        units, items = globals()[name]()
+        if name == 'prepare_font':
+            units, items = [units], [items]
+        counts = candidate_source_counts(units)
+        families[label] = {'units': len(units), 'seconds': round(time.perf_counter() - started, 3), **counts}
+        print(f'objdiff report assets: {label}: {len(units)} units, '
+              f'{counts[asset_receipts.REUSED_RECEIPT]} reused receipts, '
+              f'{counts[asset_receipts.FRESH_ENCODE]} fresh encodes, '
+              f'{families[label]["seconds"]:.1f}s', flush=True)
+        rebuilt.extend(units)
+        configs.extend(items)
+    return rebuilt, configs, {'mode': 'fresh' if fresh else 'receipt_reuse',
+                              **candidate_source_counts(rebuilt), 'link_objects_seconds': link_seconds,
+                              'families': families}
+
+
 @rzip_archive.reference_session()
-def prepare() -> None:
+def prepare(*, fresh: bool = False) -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     for name in ('objdiff.json', 'coverage.json'):
         (OUTPUT / name).unlink(missing_ok=True)
@@ -473,27 +520,7 @@ def prepare() -> None:
             if field in item:
                 unit[field] = item[field]
         units.append(unit)
-    font, font_config = prepare_font()
-    textures, texture_configs = prepare_textures()
-    models, model_configs = prepare_models()
-    sequences, sequence_configs = prepare_sequences()
-    sound_parts, sound_configs = prepare_sound_bank()
-    adpcm_parts, adpcm_configs = prepare_adpcm()
-    mp3_tables, mp3_table_configs = prepare_mp3_tables()
-    animation_clips, animation_clip_configs = prepare_animation_clips()
-    scene_fields, scene_field_configs = prepare_scene_fields()
-    scene_volumes, scene_volume_configs = prepare_scene_volumes()
-    animation_bank, animation_bank_configs = prepare_animation_bank()
-    routes, route_configs = prepare_routes()
-    visibility, visibility_configs = prepare_visibility()
-    sprites, sprite_configs = prepare_sprites()
-    animation_controls, animation_control_configs = prepare_animation_controls()
-    scripts, script_configs = prepare_scripts()
-    events, event_configs = prepare_events()
-    morphs, morph_configs = prepare_morphs()
-    spectral, spectral_configs = prepare_mp3_spectral()
-    rebuilt = [*animation_controls, *scripts, *animation_bank, *scene_fields, *scene_volumes, *animation_clips, *routes, *visibility, *sprites, *events, *spectral, *morphs, font, *textures, *models, *sequences, *sound_parts, *adpcm_parts, *mp3_tables]
-    rebuilt_configs = [*animation_control_configs, *script_configs, *animation_bank_configs, *scene_field_configs, *scene_volume_configs, *animation_clip_configs, *route_configs, *visibility_configs, *sprite_configs, *event_configs, *spectral_configs, *morph_configs, font_config, *texture_configs, *model_configs, *sequence_configs, *sound_configs, *adpcm_configs, *mp3_table_configs]
+    rebuilt, rebuilt_configs, asset_candidates = prepare_rebuilt_assets(fresh=fresh)
     storage, storage_configs, storage_proof = prepare_storage(rebuilt, rebuilt_configs)
     data_built.extend([*rebuilt, *storage])
     data_config.extend([*rebuilt_configs, *storage_configs])
@@ -503,6 +530,7 @@ def prepare() -> None:
     data_coverage['expected_data_bytes'] = data_coverage.get('expected_data_bytes', 0) + stored_bytes
     data_coverage['mapped_data_bytes'] = data_coverage.get('mapped_data_bytes', 0) + stored_bytes
     data_coverage['stored_asset_bytes'] = stored_bytes
+    data_coverage['asset_candidates'] = asset_candidates
     grouped, grouped_config = objdiff_ownership.group_units(built + data_built, units + data_config, ROOT, OUTPUT)
     canonical_debugger_candidates(grouped, grouped_config)
     coverage = {'scope': 'US main/game/debugger CPU code, initialized data and all bounded font/flat/indexed asset storage; unassigned ROM regions, CPU archive backing, BSS and RSP excluded',
@@ -522,8 +550,35 @@ def prepare() -> None:
              ('original_assembly','Original assembly')]]})
 
 
-def validate_report(report: dict, coverage: dict, config: dict) -> None:
-    """Check each unit, not just a total where opposite errors could cancel."""
+def validate_candidate_source(spec: dict, root: Path | None) -> None:
+    """A rebuilt asset's candidate is a fresh encode or a receipt the checkout re-derives.
+
+    A reused receipt must name the same editable inputs the unit hashed and the same
+    output bytes the report compared. With ``root``, those inputs, the encoder and
+    the built output are re-hashed from disk too.
+    """
+    source = spec.get('candidate_source')
+    if source not in asset_receipts.CANDIDATE_SOURCES:
+        raise ValueError(f'{spec.get("key")}: rebuilt asset candidate origin is not recorded')
+    if source != asset_receipts.REUSED_RECEIPT:
+        return
+    receipt = spec.get('receipt')
+    if (not isinstance(receipt, dict) or not receipt.get('encoder_sha256')
+            or not receipt.get('encoder_module') or not receipt.get('output')
+            or receipt.get('source_inputs') != spec.get('source_inputs')
+            or not spec.get('source_inputs')
+            or receipt.get('output_sha256') != spec.get('payload_sha256')
+            or not spec.get('payload_sha256')):
+        raise ValueError(f'{spec.get("key")}: reused receipt does not match the compared candidate inputs or bytes')
+    if root is not None:
+        asset_receipts.verify_reused(root, spec)
+
+
+def validate_report(report: dict, coverage: dict, config: dict, *, root: Path | None = None) -> None:
+    """Check each unit, not just a total where opposite errors could cancel.
+
+    ``root`` additionally re-derives reused asset receipts from that checkout.
+    """
     if report.get('version') != 2:
         raise ValueError('unexpected objdiff report format version')
     planned = {u['name']: (s['report_code_bytes'], s.get('report_data_bytes', 0))
@@ -571,6 +626,8 @@ def validate_report(report: dict, coverage: dict, config: dict) -> None:
             if (int(measures.get('complete_code', 0)) != expected_code
                     or int(measures.get('matched_code', 0)) != spec['report_code_bytes']):
                 raise ValueError('original assembly must match natively and agree with verified linked bytes')
+        if spec.get('kind') == 'rebuilt_asset':
+            validate_candidate_source(spec, root)
         complete = bool(item.get('metadata', {}).get('complete'))
         expected_complete = total if spec.get('complete') else 0
         if total and complete:
@@ -625,7 +682,37 @@ def verify_input_files(unit: dict) -> None:
             raise ValueError('source or ROM build input changed during report generation: ' + path)
 
 
-def generate(binary: Path) -> int:
+def summary_lines(validation: dict, coverage: dict, report: dict) -> list[str]:
+    """A few lines for the log; validation.json keeps every detail."""
+    measures = report.get('measures', {})
+    units = coverage.get('units', [])
+    kinds = {}
+    for unit in units:
+        kinds[unit.get('kind', 'unknown')] = kinds.get(unit.get('kind', 'unknown'), 0) + 1
+    candidates = coverage.get('asset_candidates', {})
+    code_units = sum(1 for unit in units if unit.get('report_code_bytes'))
+    lines = [f"objdiff report: profile {validation['profile']}, revision {validation['git_revision'][:12]}"
+             f"{' (modified inputs)' if validation.get('source_dirty') else ''}, "
+             f"objdiff-cli {validation['native_toolchain'].get('version', '?')}",
+             f"  units: {len(units)} total, {code_units} with code; " +
+             ', '.join(f'{count} {kind}' for kind, count in sorted(kinds.items())),
+             f"  rebuilt assets: {candidates.get(asset_receipts.REUSED_RECEIPT, 0)} reused build receipts, "
+             f"{candidates.get(asset_receipts.FRESH_ENCODE, 0)} fresh encodes "
+             f"(mode: {candidates.get('mode', 'unknown')})",
+             f"  code: matched {int(measures.get('matched_code', 0))} / {int(measures.get('total_code', 0))} bytes, "
+             f"complete {int(measures.get('complete_code', 0))} ({float(measures.get('complete_code_percent', 0)):.3f}%)",
+             f"  data: matched {int(measures.get('matched_data', 0))} / {int(measures.get('total_data', 0))} bytes, "
+             f"complete {int(measures.get('complete_data', 0))} ({float(measures.get('complete_data_percent', 0)):.3f}%)",
+             f"  timings: preparation {validation['preparation_seconds']:.1f}s, "
+             f"report and validation {validation['report_and_validation_seconds']:.1f}s"]
+    errors = validation.get('compile_errors', [])
+    lines.append(f"  compile errors: {len(errors)}" + (':' if errors else ''))
+    lines.extend(f'    {error}' for error in errors)
+    lines.append(f"  report sha256 {validation['report_sha256']}; details in build/us/objdiff-report/validation.json")
+    return lines
+
+
+def generate(binary: Path, *, fresh: bool = False) -> int:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     for name in ('report.json', 'us_report.zip', 'validation.json'):
         (OUTPUT / name).unlink(missing_ok=True)
@@ -634,7 +721,8 @@ def generate(binary: Path) -> int:
     source_dirty = bool(objdiff_snapshot.git(ROOT, 'status', '--porcelain', '--untracked-files=normal',
                                              '--', *objdiff_snapshot.INPUTS))
     started = time.perf_counter()
-    subprocess.run([str(ROOT / 'conker'), 'objdiff-report-prepare'], cwd=ROOT, check=True)
+    subprocess.run([str(ROOT / 'conker'), 'objdiff-report-prepare', *(['--fresh'] if fresh else [])],
+                   cwd=ROOT, check=True)
     prepared = time.perf_counter()
     subprocess.run([str(binary), 'report', 'generate', '-p', str(OUTPUT), '-o', str(OUTPUT/'report.json')],
                    cwd=ROOT, check=True)
@@ -644,7 +732,8 @@ def generate(binary: Path) -> int:
     completion_notes = data_completion_notes(report, coverage, config)
     measured = int(report['measures'].get('total_code', 0))
     expected = coverage['expected_code_bytes']
-    validate_report(report, coverage, config)
+    # Reused asset receipts are re-derived from this checkout here, after objdiff ran.
+    validate_report(report, coverage, config, root=ROOT)
     for unit in coverage['units']:
         verify_input_files(unit)
         if objdiff_targets.sha256(OUTPUT / unit['target_path']) != unit['target_sha256']:
@@ -677,8 +766,10 @@ def generate(binary: Path) -> int:
                   'stored_asset_bytes': coverage.get('stored_asset_bytes', 0),
                   'storage_verification': coverage.get('storage_verification', {}),
                   'data_coverage': 'Initialized CPU data plus bounded asset storage; unreconstructed spans have no candidate or credit',
-                  'asset_verification': {u['key']: {k: u[k] for k in (
-                      'literal_payload_matches_rom', 'source_inputs', 'linked_inputs', 'target_verification')}
+                  'asset_candidates': coverage.get('asset_candidates', {}),
+                  'asset_verification': {u['key']: {k: u.get(k) for k in (
+                      'literal_payload_matches_rom', 'source_inputs', 'linked_inputs', 'target_verification',
+                      'candidate_source', 'payload_sha256', 'receipt')}
                       for u in coverage['units'] if u.get('kind') == 'rebuilt_asset'},
                   'editable_source_inputs': {path: digest for u in coverage['units']
                       for path, digest in u.get('source_inputs', {}).items()},
@@ -692,12 +783,12 @@ def generate(binary: Path) -> int:
                   'existing_progress': state.summary(state.validate_project()[1])['code_bytes']['regions']['us'],
                   'measures': report['measures']}
     objdiff.write_json(OUTPUT/'validation.json', validation)
-    print(json.dumps(validation, indent=2))
-    print('Saved build/us/objdiff-report/report.json and us_report.zip (local only).')
+    print('\n'.join(summary_lines(validation, coverage, report)))
+    print('Saved build/us/objdiff-report/report.json, validation.json and us_report.zip (local only).')
     return 2 if coverage['compile_errors'] else 0
 
 
 if __name__ == '__main__':
-    if sys.argv[1:] != ['prepare']:
-        raise SystemExit('Use ./conker objdiff report')
-    prepare()
+    if sys.argv[1:] not in (['prepare'], ['prepare', '--fresh']):
+        raise SystemExit('Use ./conker objdiff report [--fresh]')
+    prepare(fresh=sys.argv[2:] == ['--fresh'])

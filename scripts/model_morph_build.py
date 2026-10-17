@@ -9,10 +9,12 @@ import struct
 try:
     from scripts import asset_inputs, model_assets, model_morphs, rzip_archive, rzip_pack, texture_build
     from scripts.build_files import write_if_changed
+    from scripts import asset_receipts
     from scripts.profile_config import load_profile
 except ModuleNotFoundError:
     import asset_inputs, model_assets, model_morphs, rzip_archive, rzip_pack, texture_build
     from build_files import write_if_changed
+    import asset_receipts
     from profile_config import load_profile
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -180,6 +182,9 @@ def build_parts(root=ROOT):
     if input_hashes(directory, expected) != hashes:
         raise ValueError('morph inputs changed during batch packing')
     write_if_changed(root / 'build/us/morphs/parts' / (PART_NAME + '.bin'), packed)
+    asset_receipts.write(root, 'morphs', __file__, {PART_NAME: asset_receipts.part_record(
+        output=f'build/us/morphs/parts/{PART_NAME}.bin', payload=packed, source_inputs=hashes,
+        input_directory=INPUT_DIRECTORY, extent=expected)})
     proof = {**expected, 'source_inputs': hashes, 'stored_bytes': len(packed),
              'verification': 'typed_endpoints_fresh_compression_and_independent_rom', 'matches_original': True}
     write_if_changed(root / 'build/us/morphs/batch.json', (json.dumps(proof, indent=2) + '\n').encode())

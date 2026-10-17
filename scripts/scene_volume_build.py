@@ -6,11 +6,13 @@ from pathlib import Path
 try:
     from scripts import asset_inputs, model_assets, rzip_archive, scene_volume_codec as codec, texture_build
     from scripts.build_files import write_if_changed
+    from scripts import asset_receipts
     from scripts.model_character_alpha import checked_spans
     from scripts.profile_config import load_profile
 except ModuleNotFoundError:
     import asset_inputs, model_assets, rzip_archive, scene_volume_codec as codec, texture_build
     from build_files import write_if_changed
+    import asset_receipts
     from model_character_alpha import checked_spans
     from profile_config import load_profile
 
@@ -247,6 +249,9 @@ def build_parts(root=ROOT):
     if input_hashes(directory, expected) != hashes:
         raise ValueError('scene inputs changed during batch packing')
     write_if_changed(root / 'build/us/scene-volumes/parts' / (PART + '.bin'), packed)
+    asset_receipts.write(root, 'scene-volumes', __file__, {PART: asset_receipts.part_record(
+        output=f'build/us/scene-volumes/parts/{PART}.bin', payload=packed, source_inputs=hashes,
+        input_directory=INPUT_DIRECTORY, extent=expected, spans=spans)})
     proof = {**expected, 'source_inputs': hashes, 'rebuilt_bytes': sum(len(data) for _, data in spans),
              'verification': 'native_scene_records_actual_rom_ranges', 'matches_original': True}
     write_if_changed(root / 'build/us/scene-volumes/batch.json', (json.dumps(proof, indent=2) + '\n').encode())

@@ -13,11 +13,13 @@ try:
     from scripts import asset_inputs, mp3_assets, mp3_bank, mp3_spectral_codec as codec
     from scripts import mp3_table_build, texture_build
     from scripts.build_files import write_if_changed, cached_sha256
+    from scripts import asset_receipts
     from scripts.build_jobs import job_count
 except ModuleNotFoundError:
     import asset_inputs, mp3_assets, mp3_bank, mp3_spectral_codec as codec
     import mp3_table_build, texture_build
     from build_files import write_if_changed, cached_sha256
+    import asset_receipts
     from build_jobs import job_count
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -30,6 +32,9 @@ def sha256(data):
 
 def part_name(index):
     return f'audio/mp3/streams/{index:04d}'
+
+
+ENCODER_EXTRA_SOURCES = ('lib/libultrare/src/libultrare/mp3/decoder.c',)
 
 
 def input_directory(index):
@@ -240,13 +245,22 @@ def build_parts(root=ROOT, entries=None):
     with ProcessPoolExecutor(max_workers=job_count()) as workers:
         candidates = list(workers.map(prepare_candidate, ((root, e, raw) for e, raw in selected)))
     asset_inputs.check_batch_sources(candidates, input_hashes, 'MPEG spectral')
-    proofs = []
+    proofs, receipts = [], {}
     for expected, directory, packed, hashes in candidates:
-        write_if_changed(root / 'build/us/mp3-spectral/parts' / (part_name(expected['entry']) + '.bin'), packed)
+        name = part_name(expected['entry'])
+        write_if_changed(root / 'build/us/mp3-spectral/parts' / (name + '.bin'), packed)
         ranges, _, _ = codec.reviewed_ranges(packed, include_partial=True)
         physical = [[expected['rom_start'] + a, expected['rom_start'] + z] for a, z in ranges]
         proofs.append({**expected, 'rom_ranges': physical, 'source_inputs': hashes, 'matches_original': True,
                        'reconstructed_bytes': sum(end - start for start, end in physical)})
+        receipts[name] = asset_receipts.part_record(
+            output=f'build/us/mp3-spectral/parts/{name}.bin', payload=packed, source_inputs=hashes,
+            input_directory=input_directory(expected['entry']),
+            extent={'rom_start': expected['rom_start'], 'rom_end': expected['rom_end']},
+            spans=[(a, packed[a:z]) for a, z in ranges])
+    # A focused run adds its streams to the batch receipt; the encoder hash guards both.
+    asset_receipts.write(root, 'mp3-spectral', __file__, receipts, extra=ENCODER_EXTRA_SOURCES,
+                         merge=entries is not None)
     result = {'stream_count': len(proofs), 'reconstructed_bytes': sum(p['reconstructed_bytes'] for p in proofs),
               'verification': 'native_coefficients_and_linkable_original_streams', 'streams': proofs}
     # Focused runs have a distinct receipt so they cannot masquerade as a batch.
