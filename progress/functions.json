@@ -10106,17 +10106,16 @@
       "symbol": "func_1505D024"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "CURRENT (30): t3/t4/t5 register assignment across arg3+1 and saved global reload; explicit local enlarges stack and worsens to CURRENT (144); unchanged permutation skipped",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 244,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1505D1C4",
           "vram": "0x1505D1C4"
         }
@@ -51929,8 +51928,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "Manual 325->120: compound field adds and cached rate align FP schedule; global base V1/V0, return LI and one velocity add reversal remain; sibling pointer/volatile probes exhausted.",
+        "current_score": 60,
+        "reason": "Round3 2026-10-18: body of func_150CBE88 (unreferenced end: label keeps the D_800BE9A4 address in v0, (f32) cast on temp_fv1 flips the add.s): see measured score, down from 120. Left: li v0,1 placement (documented no-known-form pattern).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -54862,17 +54861,16 @@
       "symbol": "func_15178EB0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "PR121 review retains CURRENT30; conditional-reload probe75. Nonvolatile global reload outside if is redundant on the null path, which performs no call or memory write; callback/store path still reloads after both. Earlier arbitrary-conversion score10 rejected; no new search. See https://github.com/DevOldSchool/conkers-bfd-decomp/blob/dbedd671496fa3a9ee4191841e9fd3858621b814/docs/evidence/matching/pr121-review.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 268,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15178EFC",
           "vram": "0x15178EFC"
         }
@@ -59898,8 +59896,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "Manual compound updates, cached rate and velocity reuse improved CURRENT325 to120. Pointer and volatile-pointee probes regressed300/130; best120 restored. Remaining global base V1 versus V0/early return constant and velocity ADD operands. Six bounded evidence-backed revisions, no fresh hypothesis.",
+        "current_score": 60,
+        "reason": "Round3 2026-10-18: body of func_150CBE88 (unreferenced end: label keeps the D_800BE9A4 address in v0, (f32) cast on temp_fv1 flips the add.s): see measured score, down from 120. Left: li v0,1 placement (documented no-known-form pattern).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -67093,8 +67091,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 413,
-        "reason": "CURRENT (413): concrete two-argument helper, contiguous word/byte message, named word value, and natural pointer lifetime improve516->513->493->413. Remaining message offset20 vs1C and missing pointer spill/reload. Four manual revisions; no useful further layout hypothesis without artificial padding.",
+        "current_score": 33,
+        "reason": "Round3 2026-10-18: 8-byte message struct plus sp18 = (s32 *)(s32)&message.value passed to both calls (keeps the pointer spilled at 0x18): 413 -> CURRENT (33). Left: raw keeps the field_18 word in v0 (named) with the message one word lower (0x1C); a named word first grows the frame to 0x30 (struct 8-aligned, 55); separate value/selector locals 1041/1059; 12-byte message 75.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -67148,8 +67146,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 413,
-        "reason": "CURRENT (413): independently verified sibling packet/word-lifetime correction improves516->413. Concrete two-argument helper retained. Same stack offset20 vs1C and missing pointer spill/reload as151AA17C; no repeat of exhausted representation probes.",
+        "current_score": 33,
+        "reason": "Round3 2026-10-18: twin of func_151AA17C; 8-byte message struct plus sp18 = (s32 *)(s32)&message.value passed to both calls: 413 -> CURRENT (33). Left: raw keeps the field_18 word in v0 with the message one word lower (0x1C); named/register word grows the frame to 0x30.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
