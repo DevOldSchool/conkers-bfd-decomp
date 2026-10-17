@@ -29,6 +29,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [US sound-event selector table](game_1483e0_jump_table.md)
 - [US switch tables for game_15D730](game_15d730_jump_tables.md)
 - [US game_1BC650 jump tables](game_1bc650_jump_tables.md)
+- [US game_1BF090 literal pool before its switch table](game_1bf090_literal_pool.md)
 - [US state-scale switch table](game_3ba70_jump_table.md) · [JSON](game_3ba70_jump_table.json) · [PATCH](game_3ba70_jump_table.patch)
 - [US actor command dispatcher table](game_61490_jump_table.md)
 - [External jump table for func_1503453C (US)](game_61950_jump_table.md)

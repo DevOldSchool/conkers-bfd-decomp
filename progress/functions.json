@@ -36592,16 +36592,16 @@
       "symbol": "func_1515F040"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "reason": "Round2 2026-10-17: exact with ROM literal 32767.0f at 0x800A6524, but that extends the reviewed game_18A8F0 rodata payload from 4 to 8 bytes, which game_second_batch_literals.md reserves for separate maintainer approval. Object pool 46fffe0046fffe00 matches ROM 0x800A6520..0x800A6527.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515F0AC",
           "vram": "0x1515F0AC"
         }
@@ -56063,16 +56063,16 @@
       "symbol": "func_15192308"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "reason": "Round2 2026-10-17: exact with eight ROM literals at 0x800A80FC..0x800A8118, but that moves the reviewed game_1BF090 switch-table placement start from 0x800A811C to 0x800A80FC (payload 0x44 -> 0x64, size 0x50 -> 0x70); needs maintainer approval of the shared placement change. Object pool literals match ROM byte for byte, table follows at +0x20.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 548,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15192358",
           "vram": "0x15192358"
         }

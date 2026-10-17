@@ -137,7 +137,8 @@ SECTIONS
     .game_rodata_179f30 0x800A5E20 (INFO) : SUBALIGN(4) { *game_179F30.o(.rodata) }
     /* Recovered blocked switches: docs/evidence/data-layout/blocked_switch_jump_tables.md. */
     .game_rodata_5d2c0 0x80096F40 (INFO) : SUBALIGN(4) { *game_5D2C0.o(.rodata) }
-    .game_rodata_1bf090 0x800A811C (INFO) : SUBALIGN(4) { *game_1BF090.o(.rodata) }
+    /* Literal pool before the table: docs/evidence/data-layout/game_1bf090_literal_pool.md. */
+    .game_rodata_1bf090 0x800A80FC (INFO) : SUBALIGN(4) { *game_1BF090.o(.rodata) }
     /* Six switch targets: docs/evidence/data-layout/game_a9d90_jump_table.md. */
     .game_rodata_a9d90 0x8009B884 (INFO) : SUBALIGN(4) { *game_A9D90.o(.rodata) }
     /* Six switch targets: docs/evidence/data-layout/game_11f780_jump_table.md. */
@@ -184,9 +185,9 @@ __game_rodata_49be0_payload_size = 0x1C;
 __game_rodata_cd860_payload_size = 0x18;
 __game_rodata_179f30_payload_size = 0x28;
 ASSERT(SIZEOF(.game_rodata_5d2c0) == 0xE0, "game_5D2C0 table extent changed")
-ASSERT(SIZEOF(.game_rodata_1bf090) == 0x50, "game_1BF090 table extent changed")
+ASSERT(SIZEOF(.game_rodata_1bf090) == 0x70, "game_1BF090 literal and table extent changed")
 __game_rodata_5d2c0_payload_size = 0xDC;
-__game_rodata_1bf090_payload_size = 0x44;
+__game_rodata_1bf090_payload_size = 0x64;
 __game_rodata_aeb40_payload_size = 0x114;
 ASSERT(SIZEOF(.game_rodata_61950) == 0x20,
        "game_61950 external rodata extent changed")
@@ -288,4 +289,4 @@ ASSERT(SIZEOF(.game_rodata_camera_camera) == 0x10,
 __game_rodata_camera_camera_payload_size = 0x4;
 ASSERT(SIZEOF(.game_rodata_18a8f0) == 0x10,
        "game_18A8F0 clamp literal extent changed")
-__game_rodata_18a8f0_payload_size = 0x4;
+__game_rodata_18a8f0_payload_size = 0x8;

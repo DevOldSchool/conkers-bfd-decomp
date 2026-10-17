@@ -796,7 +796,7 @@
         }
       },
       {
-        "address": "0x800A811C",
+        "address": "0x800A80FC",
         "section": ".rodata",
         "owner": {
           "sources": [

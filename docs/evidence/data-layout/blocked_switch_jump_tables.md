@@ -16,8 +16,10 @@ table relocation against the preserved source-unit text starts (`0x1502FE10`
 and `0x15191BE0`) reproduces all table words in the checksum-validated US ROM.
 
 The `game_5D2C0.o` section has a `0xDC`-byte payload and four zero alignment
-bytes; `game_1BF090.o` has a `0x44`-byte payload and twelve zero alignment
-bytes. The following ROM words are other table data (`0x15031D18` and
+bytes; `game_1BF090.o` originally had a `0x44`-byte payload and twelve zero
+alignment bytes. It now starts with the eight literals of `func_15192358`
+(see [game_1bf090_literal_pool.md](game_1bf090_literal_pool.md)), so the
+table sits at section offset `0x20` and the payload is `0x64` bytes. The following ROM words are other table data (`0x15031D18` and
 `0x151928F4`, respectively), so object padding must not claim ownership of
 those bytes.
 

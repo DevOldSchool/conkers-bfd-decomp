@@ -9,7 +9,6 @@
  * - func_15191BE0
  * - func_15191D54
  * - func_1519203C
- * - func_15192358
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -339,7 +338,6 @@ void func_151DA6F8(f32 *, f32 *, f32, s16, s32, f32, s32, s32, f32, f32,
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15192358 */
 s32 func_15192358(s32 arg0, s32 arg1) {
     u8 result;
     f32 factor;
@@ -383,8 +381,6 @@ s32 func_15192358(s32 arg0, s32 arg1) {
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15192358 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BF090/func_15192358.s")
 s32 func_15192308(s32, s32);                        /* extern */
 s32 func_15192358(s32, s32);                        /* extern */
 
