@@ -16,7 +16,6 @@
  * - func_1501474C
  * - func_15014B60
  * - func_15015354
- * - func_150156F4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -832,7 +831,6 @@ void func_151ACBD4(Game40490BoundsRequest *, s32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150156F4 CURRENT (100) */
 s32 func_150156F4(u8 *arg0) {
     Game40490Point points[2];
     f32 matrix[4][4];
@@ -868,5 +866,3 @@ s32 func_150156F4(u8 *arg0) {
     func_151ACBD4(&request, 0);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150156F4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150156F4.s")

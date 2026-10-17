@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_slot_view_controller_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151732E0
  * - func_151733D8
  * - func_151733E4
  *
@@ -30,13 +29,10 @@ extern s8 *D_800B0DF0;
 extern Game1A0790Output D_8008CC70;
 extern s8 D_800DD2E0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151732E0 CURRENT (10) */
 void func_151732E0(s32 arg0) {
-    s16 temp_v0;
     s8 temp_a0;
 
-    temp_v0 = *(s16 *)(D_800B0DF0 + 0x3C);
-    if ((temp_v0 == *(s16 *)(D_800B0DF0 + 0x40)) && (temp_v0 == 0)) {
+    if ((*(s16 *)(D_800B0DF0 + 0x40) == *(s16 *)(D_800B0DF0 + 0x3C)) && (*(s16 *)(D_800B0DF0 + 0x3C) == 0)) {
         *(s16 *)(D_800B0DF0 + 0x40) = 0x64;
     }
     D_8008CC70.field0 = ((u8 *)D_800B0DF0)[0x42];
@@ -58,8 +54,6 @@ void func_151732E0(s32 arg0) {
     D_800DD2E0 = 0;
     func_151733E4(0, 0, arg0, 0, -1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151732E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A0790/func_151732E0.s")
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151733D8 CURRENT (60) */
 void *func_151733D8(void *arg0, s32 arg1) {

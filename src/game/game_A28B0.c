@@ -23,7 +23,6 @@
  * - func_1507A4D4
  * - func_1507AA48
  * - func_1507BB28
- * - func_1507BC14
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -2627,7 +2626,6 @@ typedef void (*GameA28B0ScriptCommand)(void);
 extern GameA28B0ScriptCommand D_80086730[];
 extern s16 D_800CC264;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507BC14 CURRENT (100) */
 void func_1507BC14(GameA28B0ScriptState *state) {
     if ((state->timer != 0) && (state->command != 0)) {
         if (state->timer != 25500) {
@@ -2661,5 +2659,3 @@ void func_1507BC14(GameA28B0ScriptState *state) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507BC14 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_1507BC14.s")

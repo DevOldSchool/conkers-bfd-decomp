@@ -3068,7 +3068,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 200,
-        "reason": "Restored candidate freshly verified CURRENT 200: all body instructions match, but raw trailing JR/NOP are two missing registered rows. Separate empty-entry trial removed. Full-span gate retained, no boundary or ASM changes.",
+        "reason": "Round3 2026-10-17 recheck unchanged: body exact; registered span still holds an extra unregistered jr ra/nop at +0x74/+0x78 (an unregistered empty function), CURRENT (200). Needs span registration/shrink, not C.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -6315,7 +6315,7 @@
           "vram": "0x1500ED80"
         }
       },
-      "source": "src/game/game_3C230.c",
+      "source": "src/done/game/game_3C230.c",
       "symbol": "func_1500ED80"
     },
     {
@@ -6333,26 +6333,25 @@
           "vram": "0x1500EE18"
         }
       },
-      "source": "src/game/game_3C230.c",
+      "source": "src/done/game/game_3C230.c",
       "symbol": "func_1500EE18"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 400,
-        "reason": "Typed 12-byte packet C matches the target body instruction-for-instruction, but the focused gate reports CURRENT (400) from shifted branch targets and registered trailing padding; diagnose shows 2 register-only and 4 control-flow rows with no justified source-only variant.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 140,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500EE94",
           "vram": "0x1500EE94"
         }
       },
-      "source": "src/game/game_3C230.c",
+      "source": "src/done/game/game_3C230.c",
       "symbol": "func_1500EE94"
     },
     {
@@ -16902,17 +16901,16 @@
       "symbol": "func_15015644"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "CURRENT 100: every executable instruction, register and stack offset matches; full registered span has one additional trailing nop at +0x218 absent from candidate object. No padding/assembly workaround applied. Three manual candidates tested; source-local A8050 declarations corrected from raw float ABI and fabsf intrinsic enabled.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 540,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150156F4",
           "vram": "0x150156F4"
         }
@@ -18495,7 +18493,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 200,
-        "reason": "The empty s32 stub emits its own sw/jr/nop exactly, but the registered target span also contains the adjacent boundary instructions; finish remains CURRENT (200) with one extra adjacent-stub store and no safe target-local source change.",
+        "reason": "Round3 2026-10-17 recheck unchanged CURRENT (200): stub body exact; registered span swallows an extra unregistered jr ra/nop at +0xC/+0x10. Needs span registration, not C.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -28388,17 +28386,16 @@
       "symbol": "func_1507BB28"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "Interpreter instructions are exact; CURRENT (100) is one missing registered trailing nop from the still-mixed source-unit layout. Preserve until remaining unit layout is resolved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 412,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1507BC14",
           "vram": "0x1507BC14"
         }
@@ -29462,8 +29459,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 400,
-        "reason": "Manual pointer-base cast recovers all 72 body bytes; full80-byte CURRENT400 remains because registered span contains extra jr/nop at48/4C after all paths return40. No padding or assembly changes permitted. Full-span blocker; see deferred-manual-20260927 ledger.",
+        "current_score": 200,
+        "reason": "Round3 2026-10-17 recheck unchanged CURRENT (200): all 72 body bytes exact; registered span holds an extra unregistered jr ra/nop at +0x48/+0x4C. Needs span registration, not C.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -47160,8 +47157,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 400,
-        "reason": "Manual color interpolation matches through its first return at +0x3D4. CURRENT (400) remains solely for the registered trailing jr ra/nop at +0x3D8/+0x3DC; preserve full-span comparison and candidate until the original extra epilogue is recovered.",
+        "current_score": 200,
+        "reason": "Round3 2026-10-17 recheck unchanged CURRENT (200): body exact through return at +0x3D4; registered span holds an extra unregistered jr ra/nop at +0x3D8/+0x3DC. Needs span registration, not C.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -49406,8 +49403,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 300,
-        "reason": "Recovered the 8-byte event packet and three-parameter ABI; semantic instructions match exactly, but two registered post-return nops keep the full-span gate at CURRENT 300",
+        "current_score": 100,
+        "reason": "Round3 2026-10-17 recheck unchanged: improved 300 -> CURRENT (100); body exact, one registered trailing nop at +0x74 (unit-end alignment) not produced by the focused object. Layout/unit-end issue, not C.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -49627,17 +49624,16 @@
       "symbol": "func_15158AFC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Twin-queue 2026-10-17: block-scoped arm locals (temp_v0/temp_v1 inside the 0x2D arm, s32 id in the zero arm) fix delay-slot and temp-numbering rows: 170 -> 10. One row left: raw bne t9,v1 vs candidate bne v1,t9 on the second compare; operand reversal and reloaded-field compare (15) neutral. Same residual as func_151AE640.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 148,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15158B3C",
           "vram": "0x15158B3C"
         }
@@ -52366,17 +52362,16 @@
       "symbol": "func_150DA4E0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 280,
-        "reason": "CURRENT (280): all substantive branches and almost all registers align; remaining mismatch is first-case float-store/return delay-slot scheduling plus one late register and trailing span padding after two bounded revisions",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 224,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150DA50C",
           "vram": "0x150DA50C"
         }
@@ -54279,17 +54274,16 @@
       "symbol": "func_150D6CC4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 35,
-        "reason": "Twin-queue 2026-10-17: temp_a0/temp_v1 declared inside the 0x2D arm and a block-local id in the zero arm fix the sb/b/lw-ra delay-slot row and temp numbering: 275 -> 35. Left: raw bnel t9,a0 vs candidate bnel a0,t9 plus dependent temp renames; operand reversal and reloaded-field compare (30) neutral. Twins func_15193234/func_151BE558 carry the same body.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 172,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D6E60",
           "vram": "0x150D6E60"
         }
@@ -54425,17 +54419,16 @@
       "symbol": "func_15172E7C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT (10) retained. New direct equality reversal neutral at 10; reuse of existing call local for second signed comparison operand grows frame 0x20 to 0x28 (s32 score 624, s16 score 619). Named-comparison hypothesis exhausted; original preserved. Randomized permute 120 s (seed 20261017, 11054 iterations) found no improvement.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 248,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151732E0",
           "vram": "0x151732E0"
         }
@@ -57826,17 +57819,16 @@
       "symbol": "func_150FE248"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 400,
-        "reason": "Instruction body matches through return; registered span remains CURRENT (400) only because three trailing padding nops precede next source unit func_150FE320 at 0x150FE320, which cannot be represented by this source unit without inventing a duplicate symbol.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 152,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150FE288",
           "vram": "0x150FE288"
         }
@@ -64883,7 +64875,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 300,
-        "reason": "Full-span CURRENT (300): corrected second callback parameter to the forwarded object pointer; every executable instruction and operand now matches raw US, but the 68-byte registered span has three trailing NOP words at +0x38,+0x3C,+0x40 absent from C output. Preserve improved semantic candidate pending reviewed source-unit padding/layout evidence.",
+        "reason": "Full-span CURRENT (300): every executable instruction matches raw US; three registered trailing NOP words. Round3 2026-10-17 recheck: finish/defer BLOCKED_TOOLING by address-alias verification (unit member spans not contiguous: func_151B5BF0 size 676 overlaps registered func_151B5E8C at 0x151B5E8C). Needs span fix in the inventory, not C.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -82553,17 +82545,16 @@
       "symbol": "func_150F0E48"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1290,
-        "reason": "Preserved CURRENT1290 from2769: repaired void return/call, byte event ABI, byte4 read, shared word local and second-arm pointer lifetime. First-arm pointer folding and branch/store scheduling remain; declaration order neutral.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 180,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150F1020",
           "vram": "0x150F1020"
         }

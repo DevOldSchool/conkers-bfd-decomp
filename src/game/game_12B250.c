@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150FE0B8
- * - func_150FE288
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -159,7 +158,6 @@ typedef struct {
 u32 func_150ADA20(void *);
 void func_151D8868(s8 *, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FE288 CURRENT (400) */
 void func_150FE288(void *arg0) {
     Game12B250EventPacket packet;
 
@@ -172,5 +170,3 @@ void func_150FE288(void *arg0) {
         func_151D8868(&packet.field_0, 0, 0xFF, 1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FE288 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12B250/func_150FE288.s")
