@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151BC5A4
  * - func_151BC794
  * - func_151BCA90
  * - func_151BD21C
@@ -30,36 +29,28 @@ s32 func_151BC580(void *arg0) {
     return result;
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BC5A4 CURRENT (10) */
 void func_151BC5A4(void *arg0, void *arg1, u8 arg2) {
-    s32 temp_a0;
     s32 temp_v1;
-    void *temp_v0;
+    u8 *temp_v0;
 
     temp_v1 = *(s32 *)((u8 *)arg0 + 0x40);
     if (arg2 == 0) {
         if ((temp_v1 == *(s32 *)arg1) || (*(u8 *)((u8 *)arg1 + 4) == *(u8 *)((u8 *)arg0 + 0x44))) {
-            func_1516972C((s32)arg0);
+            func_1516972C(arg0);
         }
     } else {
         temp_v0 = (u8 *)arg0 + 0x40;
         if (arg2 == 0x2D) {
-            temp_a0 = *(s32 *)temp_v0;
-            temp_v1 = *(s32 *)arg1;
-            if (temp_v1 == temp_a0) {
+            if (*(s32 *)arg1 == *(s32 *)temp_v0) {
                 *(s32 *)temp_v0 = *(s32 *)((u8 *)arg1 + 4);
-                *(u8 *)((u8 *)temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 9);
-                return;
-            }
-            if (*(s32 *)((u8 *)arg1 + 4) == temp_a0) {
-                *(s32 *)temp_v0 = temp_v1;
-                *(u8 *)((u8 *)temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 8);
+                *(u8 *)(temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 9);
+            } else if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)temp_v0) {
+                *(s32 *)temp_v0 = *(s32 *)arg1;
+                *(u8 *)(temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 8);
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151BC5A4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BC5A4.s")
 typedef struct Game1E9A30Trail {
     s32 x;
     s32 y;

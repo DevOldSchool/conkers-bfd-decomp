@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_97F90.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1506AC8C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_15137610(void *, void *, void *, s32, s32, s32);
@@ -69,7 +64,6 @@ extern f32 D_800CC254;
 extern f32 D_800CC258;
 extern f32 D_800CC25C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506AC8C CURRENT (400) */
 void func_1506AC8C(void *arg0, s32 arg1, s32 arg2) {
     void (*callback)(void *, s32);
 
@@ -86,5 +80,3 @@ void func_1506AC8C(void *arg0, s32 arg1, s32 arg2) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1506AC8C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_97F90/func_1506AC8C.s")

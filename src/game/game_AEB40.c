@@ -18,7 +18,6 @@
  * - func_150836CC
  * - func_150837D4
  * - func_15083AC8
- * - func_15083E0C
  * - func_15083E90
  * - func_15084044
  * - func_150843AC
@@ -744,40 +743,25 @@ s32 func_15083DA0(void) {
     }
     return var_v1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15083E0C CURRENT (10) */
+typedef struct GameAEB40Slot {
+    u8 pad0[0x28];
+    u8 id;
+    u8 pad29[7];
+} GameAEB40Slot;
+
 s32 func_15083E0C(u8 arg0) {
-    s32 var_a2;
-    u8 *var_a3;
-    s32 var_v1;
-    u8 *base;
-    s32 has_more;
+    s32 i;
 
     if (arg0 == 0) {
         return -1;
     }
-    var_v1 = 0;
-    if ((s32) D_800D2100 > 0) {
-        base = D_800D20FC;
-        var_a2 = 0;
-        var_a3 = base;
-loop_4:
-        var_v1 += 1;
-        has_more = var_v1 < (s32)D_800D2100;
-        if (var_a3[0x28] == arg0) {
-            return (s32) ((var_a2 + base) - base) / 48;
+    for (i = 0; i < D_800D2100; i++) {
+        if (((GameAEB40Slot *)D_800D20FC)[i].id == arg0) {
+            return (i + (GameAEB40Slot *)D_800D20FC) - (GameAEB40Slot *)D_800D20FC;
         }
-        var_a3 += 0x30;
-        var_a2 += 0x30;
-        if (!has_more) {
-            goto done;
-        }
-        goto loop_4;
     }
-done:
     return -1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15083E0C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15083E0C.s")
 extern s32 D_800CC2D0;
 extern u8 D_800CC30B;
 extern s32 D_800CC5FC;

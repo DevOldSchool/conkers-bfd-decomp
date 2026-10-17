@@ -20,24 +20,18 @@ typedef struct Game40440Entry {
 extern Game40440Entry D_800DF7D3;
 extern Game40440Entry D_800DF9B3;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15012F90 CURRENT (90) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15012F90 CURRENT (70) */
 void func_15012F90(void) {
-    u32 cursor;
-    u32 end;
+    s32 i;
+    s32 j;
 
     D_800DF7D0 = 0;
     D_800DF7D1 = 0;
     D_800DF7D2 = 0;
-    end = (u32)&D_800DF9B3;
-    cursor = (u32)&D_800DF7D3;
-clear_entries:
-    cursor += 4;
-    *(s8 *)(cursor - 3) = 0;
-    *(s8 *)(cursor - 2) = 0;
-    *(s8 *)(cursor - 1) = 0;
-    *(s8 *)(cursor - 4) = 0;
-    if (cursor != end) {
-        goto clear_entries;
+    for (i = 0; i < 120; i++) {
+        for (j = 0; j < 4; j++) {
+            (&D_800DF7D3)[i].pad0[j] = 0;
+        }
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15012F90 */

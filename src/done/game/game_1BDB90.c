@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1BDB90.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_isolated_selectors_and_calls.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1519072C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_151906E0(u8 *arg0, u8 *arg1, u8 arg2) {
@@ -29,20 +24,14 @@ void func_151906E0(u8 *arg0, u8 *arg1, u8 arg2) {
 }
 void func_151D343C();
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519072C CURRENT (300) */
 void func_1519072C(void *arg0) {
     struct {
-        void *field0;
-        u8 field4;
-        u8 pad8[3];
-    } sp20;
-    void **sp1C;
+        void *object;
+        u8 kind;
+    } descriptor;
 
-    sp20.field0 = arg0;
-    sp20.field4 = *(u8 *)((u8 *)arg0 + 0x3B);
-    sp1C = (void **)&sp20;
-    func_151D343C((void **)&sp20, 0x2A, arg0);
-    func_1518F45C(sp1C, 0x49);
+    descriptor.object = arg0;
+    descriptor.kind = *(u8 *)((u8 *)arg0 + 0x3B);
+    func_151D343C((s32)&descriptor, 0x2A);
+    func_1518F45C((s32)&descriptor, 0x49);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519072C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BDB90/func_1519072C.s")

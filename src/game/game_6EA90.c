@@ -199,27 +199,21 @@ extern u8 D_80085931;
 extern u8 D_80085932;
 extern u8 D_80085933[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15042C40 CURRENT (420) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15042C40 CURRENT (330) */
 s32 func_15042C40(u8 arg0) {
-    s32 temp_t6;
-    s32 var_a0;
-    s32 var_v0;
+    u8 c;
+    s32 i;
 
-    temp_t6 = arg0;
-    if ((temp_t6 >= 0x61) && (temp_t6 < 0x7B)) {
-        var_v0 = (temp_t6 - 0x20) & 0xFF;
-    } else {
-        var_v0 = temp_t6 & 0xFF;
-    }
-    if (temp_t6 == 0x20) {
+    c = ((arg0 >= 0x61) && (arg0 < 0x7B)) ? arg0 - 0x20 : arg0;
+    if (arg0 == 0x20) {
         return 0x60;
     }
-    for (var_a0 = 0; var_a0 < 0x5F; var_a0++) {
-        if (var_v0 == D_80085930[var_a0]) {
-            return var_a0;
+    for (i = 0; i < 0x5F; i++) {
+        if (c == D_80085930[i]) {
+            return i;
         }
     }
-    return temp_t6;
+    return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15042C40 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6EA90/func_15042C40.s")
