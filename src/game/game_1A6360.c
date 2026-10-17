@@ -6,6 +6,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_animated_emission_controllers.md
  *
  * TODO: Implement these source-unit functions:
+ * - func_15178EFC
  * - func_15179008
  * - func_151794C8
  * - func_15179600
@@ -36,6 +37,7 @@ void func_10004074(s32);
 void func_100111C8(u16);
 extern u16 D_800DD430;
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15178EFC CURRENT (30) */
 void func_15178EFC(s32 arg0) {
     s32 temp_v0;
     s32 var_s0;
@@ -56,8 +58,7 @@ void func_15178EFC(s32 arg0) {
                 temp_v0 = D_800DD440;
                 var_s0 += 4;
             } while (var_s0 != 0x4B0);
-            /* The ^ 0 is required for IDO register allocation (permuter). */
-            func_10004074(temp_v0 ^ 0);
+            func_10004074(temp_v0);
             D_800DD440 = 0;
         }
         func_100111C8(D_800DD430);
@@ -76,6 +77,8 @@ void func_15178EFC(s32 arg0) {
     }
     D_800DD434 = arg0;
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_15178EFC */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1A6360/func_15178EFC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A6360/func_15179008.s")
 f32 func_150AD780(f32);
 f32 func_150AD78C(f32);

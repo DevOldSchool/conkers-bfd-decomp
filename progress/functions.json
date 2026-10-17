@@ -7635,16 +7635,17 @@
       "symbol": "func_15124AB4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 15,
+        "reason": "Round3 review 2026-10-18: randomized-permuter exact match withdrawn as fake (empty if (!temp_t8) {} plus declaration reorder); natural candidate restored. Prior: CURRENT15 preserved; camera-manual-20260930 mask-only scope and inline first tablepointer dereference both neutral15. Prior union/scalar/pointer-formal hypotheses exhausted. Tail V1 instead of V0 remains.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 288,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_15124B18",
           "vram": "0x15124B18"
         }
@@ -10106,16 +10107,17 @@
       "symbol": "func_1505D024"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 30,
+        "reason": "Round3 review 2026-10-18: randomized-permuter exact match withdrawn as fake (dead (arg3 & 0xFF) mask before +1 (u8 arg3 probe 225)); natural candidate restored. Prior: CURRENT (30): t3/t4/t5 register assignment across arg3+1 and saved global reload; explicit local enlarges stack and worsens to CURRENT (144); unchanged permutation skipped",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 244,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_1505D1C4",
           "vram": "0x1505D1C4"
         }
@@ -47073,16 +47075,17 @@
       "symbol": "func_1516D400"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 60,
+        "reason": "Round3 review 2026-10-18: randomized-permuter exact match withdrawn as fake (empty do { } while (0) between the velocityZHigh/Low stores); natural candidate restored. Prior: Best manual CURRENT (60): one link-type argument load schedules three instructions early. The typed C candidate retains s32 parameters and explicit low-part reads.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 400,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_1516D4E8",
           "vram": "0x1516D4E8"
         }
@@ -54860,16 +54863,17 @@
       "symbol": "func_15178EB0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 30,
+        "reason": "Round3 review 2026-10-18: randomized-permuter exact match withdrawn as fake (temp_v0 ^ 0 call argument); natural candidate restored. Prior: PR121 review retains CURRENT30; conditional-reload probe75. Nonvolatile global reload outside if is redundant on the null path, which performs no call or memory write; callback/store path still reloads after both. Earlier arbitrary-conversion score10 rejected; no new search. See https://github.com/DevOldSchool/conkers-bfd-decomp/blob/dbedd671496fa3a9ee4191841e9fd3858621b814/docs/evidence/matching/pr121-review.md.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 268,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_15178EFC",
           "vram": "0x15178EFC"
         }
@@ -72647,21 +72651,22 @@
       "symbol": "func_151903D0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 55,
+        "reason": "Round3 review 2026-10-18: permuter match withdrawn as fake (six empty if (1) blocks plus a table re-read). Natural C is instruction-identical at CURRENT (55): raw keeps index in a1 and the callback in v0; IDO gives index v0 and callback v1. Neutral 55: named/unnamed index and callback, inline field reads, table pointer local, void/void* callback table typing, typedef'd table, if (callback). Worse: early return on null (510), nested range test (660/775), extra s32 arg1 (255). Probes in build/us/manual-attempts/round3-review-151A9060.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 96,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_151A9060",
           "vram": "0x151A9060"
         }
       },
-      "source": "src/done/game/game_1D6510.c",
+      "source": "src/game/game_1D6510.c",
       "symbol": "func_151A9060"
     },
     {

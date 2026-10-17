@@ -3,6 +3,11 @@
 /*
  * Reviewed source unit: src/game/game_1D6510.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_singletons_final.md
+ *
+ * TODO: Implement these source-unit functions:
+ * - func_151A9060
+ *
+ * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game1D6510State {
@@ -14,6 +19,7 @@ typedef struct Game1D6510State {
 
 extern s32 (*D_8008F984[])(Game1D6510State *);
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A9060 CURRENT (55) */
 s32 func_151A9060(Game1D6510State *arg0) {
     s32 index;
     s32 (*callback)(Game1D6510State *);
@@ -23,25 +29,11 @@ s32 func_151A9060(Game1D6510State *arg0) {
     if ((index < 0) || (index >= 8)) {
         return 1;
     }
-    /*
-     * The empty blocks and the table re-read in the test below are required
-     * for IDO codegen (permuter); callback holds the same table entry.
-     */
-    if (1) {
-    }
-    if (1) {
-    }
-    if (1) {
-    }
-    if (1) {
-    }
-    if (1) {
-    }
-    if (1) {
-    }
     callback = D_8008F984[index];
-    if (D_8008F984[index] != 0) {
+    if (callback != 0) {
         callback(arg0);
     }
     return 1;
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A9060 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6510/func_151A9060.s")

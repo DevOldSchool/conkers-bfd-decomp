@@ -13831,15 +13831,15 @@
       "functions": [
         "func_151A9060"
       ],
-      "integration": "c",
+      "integration": "mixed",
       "regions": {
         "us": {
           "end": "0x1A90C0",
           "start": "0x1A9060",
-          "state": "complete"
+          "state": "raw_asm"
         }
       },
-      "source": "src/done/game/game_1D6510.c"
+      "source": "src/game/game_1D6510.c"
     },
     {
       "boundary_evidence": {
