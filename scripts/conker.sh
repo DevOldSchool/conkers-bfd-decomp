@@ -155,7 +155,8 @@ After the raw base split map is available
   objdiff install               Install the checksum-pinned host objdiff CLI.
   objdiff compare <id> [<id>...] Compare US candidates with objdiff and asm-differ.
   objdiff data-audit             Audit US loaded data boundaries; no build or progress credit.
-  objdiff report                Build/validate the US code/data/asset report (ROM/toolchain needed).
+  objdiff report [--fresh]      Build/validate the US code/data/asset report (ROM/toolchain needed).
+                                 --fresh re-encodes every asset instead of reusing build receipts.
   objdiff view <id>             Open an interactive objdiff after preparing both objects.
   first-diff [--profile us] [--assets]
                                  Report the first difference in a rebuilt ROM.
@@ -1320,7 +1321,7 @@ case "$command" in
         python3 "$state_tool" progress --check
         run_in_container_libultra make --silent --jobs "$build_jobs" profile-libs PROFILE=us
         run_in_container_libultra make --silent --jobs "$build_jobs" game-libs
-        run_in_container python3 scripts/objdiff_report.py prepare
+        run_in_container python3 scripts/objdiff_report.py prepare "$@"
         ;;
     objdiff-prepare)
         python3 "$state_tool" setup-check --profile us

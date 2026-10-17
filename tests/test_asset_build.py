@@ -51,7 +51,7 @@ class AssetMakeTests(unittest.TestCase):
                      'toolchain/python-requirements.txt', 'roms/baserom.us.z64',
                      'config/texture_encoders.us.json',
                      'scripts/asset_inputs.py', 'scripts/audio_consumers.py', 'scripts/build_jobs.py', 'scripts/rzip_gzip.py',
-                     'scripts/build_files.py', 'scripts/rzip_bounded.py', 'scripts/deflate_encoder.py', 'scripts/font_assets.py', 'scripts/mp3_assets.py',
+                     'scripts/build_files.py', 'scripts/asset_receipts.py', 'scripts/rzip_bounded.py', 'scripts/deflate_encoder.py', 'scripts/font_assets.py', 'scripts/mp3_assets.py',
                      'scripts/rzip_archive.py', 'scripts/rzip_extract.py',
                      'scripts/texture_assets.py', 'scripts/texture_catalog.py',
                      'scripts/texture_ci8.py', 'scripts/texture_rgba16.py',

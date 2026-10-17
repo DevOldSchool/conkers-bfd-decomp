@@ -62,7 +62,8 @@ batch verification retain their existing rules.
 ## Published code and data report
 
 ```sh
-./conker objdiff report
+./conker objdiff report            # reuses verified asset build receipts
+./conker objdiff report --fresh    # audit mode: encodes every asset again
 ```
 
 This builds the mapped SDK archives and active C implementations, prepares
@@ -80,6 +81,48 @@ archives across asset families within one invocation. File changes invalidate th
 reference session; a subsequent report starts a fresh session. Bounded asset
 families use one common check for disjoint regenerated ranges, source stability,
 actual linked bytes, and equality with the independently supplied ROM.
+
+### Rebuilt asset receipts
+
+Each rebuilt asset family's build (`./conker build --assets`, or the per-family
+build commands Make runs) writes a receipt file under ignored
+`build/us/asset-receipts/<family>.json`; the font, whose packing is cheap, is
+always packed afresh. For every reconstructed part it records
+the SHA-256 of each editable input file the encoder read, the SHA-256 of the
+encoder itself (the family's build module plus every `scripts/` module it imports,
+directly or indirectly, and declared non-Python inputs such as the MP3 decoder
+source), the output's SHA-256 and byte count, its ROM span and, for bounded
+families, the regenerated spans inside the linked object.
+
+By default the report does not encode a part again when it can re-derive its
+receipt: the input hashes it reads now equal the recorded ones, the current encoder
+hashes to the recorded fingerprint, the ROM span equals the reviewed contract and
+the built output file still hashes as recorded. It then takes the built bytes as
+the candidate and compares them against the independently supplied ROM exactly as
+a fresh encode would, so credit still rests on bytes the report checked. Any part
+without such a receipt (missing, stale, written by another encoder revision,
+edited inputs, changed output) is encoded afresh. Receipts from a build in another
+checkout cannot satisfy the report: the encoder fingerprint is derived from the
+checkout that runs.
+
+`coverage.json` records per rebuilt unit `candidate_source` (`fresh_encode` or
+`reused_receipt`), `payload_sha256` of the compared linked payload and, when
+reused, the `receipt` (family, file, encoder module and hash, output path and hash,
+repo-relative input hashes). `asset_candidates` totals the two origins per family
+with their durations and names the mode. Validation refuses a reused unit whose
+receipt inputs differ from the unit's hashed inputs or whose output hash differs
+from the compared payload, and after objdiff runs it re-hashes those inputs, the
+encoder and the built output from the checkout again. `--fresh` ignores all
+receipts and re-encodes every part; it is the authoritative audit mode and must
+produce an identical `report.json` for the same inputs. The report log prints one
+line per asset family (units, reused receipts, fresh encodes, seconds) and a short
+summary at the end; the complete validation document is written to
+`build/us/objdiff-report/validation.json` instead of the log.
+
+Before the families run, one Make call (`make asset-objects`) refreshes every
+rebuilt family's link objects; the per-family requests then only check that their
+objects exist. Make still decides what is stale, but the Makefile is evaluated
+once rather than once per family.
 
 The MP3 build saves encoded typed spans under ignored
 `build/us/mp3-spectral/cache/`. The report can reuse them only when editable-input
@@ -159,10 +202,12 @@ Output is local under `build/us/objdiff-report/`:
 - `targets/`: isolated splat configs, original full assembly, normalized copies,
   target objects, linker scripts, linked validation images, and logs.
 - `coverage.json`: range ownership, source/SDK mappings, target link proofs,
-  excluded zero ranges, cache keys, object hashes, and any compiler failures.
+  excluded zero ranges, cache keys, object hashes, rebuilt-asset candidate origins
+  and receipts, and any compiler failures.
 - `validation.json`: US profile, snapshot revision/fingerprint, modified-input status,
   report hash, exact denominator checks, bounded-storage partition proof,
-  timings, native measures, and existing tracker totals.
+  asset candidate origins, timings, native measures, and existing tracker totals.
+  The command prints a short summary of it; the file holds the detail.
 - `self-changes.json`: the report compared with itself through objdiff's native
   parser; it must contain no changed units.
 
@@ -173,9 +218,9 @@ validated target objects did not change. Compilation failures remain explicit
 in coverage, retain the reference in the denominator, and produce a failing
 command exit status. See each unit's `build.log` for diagnostics.
 
-Report freshness requires the font, texture and model source inputs used to produce their candidates.
-Cleaning `build/` invalidates that evidence (and usually removes the report itself);
-recreate the inputs and regenerate the report after cleaning. During preparation,
+Report freshness requires the asset source inputs used to produce their candidates.
+Cleaning `build/` invalidates that evidence, the asset build receipts and usually
+the report itself; recreate the inputs and regenerate the report after cleaning. During preparation,
 completed source units run Make before the cache check so the cache hashes the
 current actual build object. This adds per-unit Make overhead; it is not a promise
 that every object is recompiled. Run report generation after ROM-enabled tests

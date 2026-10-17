@@ -389,6 +389,31 @@ class DataTargetTests(unittest.TestCase):
                 self.assertFalse(config['metadata']['complete'])
 
 
+    def test_prebuilt_asset_objects_skip_per_family_make_but_require_every_object(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'build/us/assets').mkdir(parents=True)
+            (root / 'build/us/assets/present.o').write_bytes(b'o')
+            self.addCleanup(setattr, targets, '_PREBUILT_ASSET_OBJECTS', False)
+            with patch.object(targets, 'ROOT', root), patch.object(targets.subprocess, 'run') as run:
+                targets.prebuild_asset_objects(root / 'report')
+                run.assert_called_once()
+                self.assertEqual(run.call_args.args[0], ['make', '--silent', '--jobs', '4', 'asset-objects',
+                                                         'PROFILE=us', 'ASSETS=1'])
+                self.assertTrue((root / 'report/asset-objects-build.log').is_file())
+                targets.build_rebuilt_objects(['build/us/assets/present.o'], 'test', root / 'report')
+                run.assert_called_once()
+                with self.assertRaisesRegex(ValueError, 'missing after the asset-objects build'):
+                    targets.build_rebuilt_objects(['build/us/assets/present.o', 'build/us/assets/absent.o'],
+                                                  'test', root / 'report')
+                run.side_effect = subprocess.CalledProcessError(2, 'make')
+                with self.assertRaisesRegex(ValueError, 'asset link-object build failed'):
+                    targets.prebuild_asset_objects(root / 'report')
+                self.assertFalse(targets._PREBUILT_ASSET_OBJECTS)
+                run.side_effect = None
+                targets.build_rebuilt_objects(['build/us/assets/absent.o'], 'test', root / 'report')
+                self.assertEqual(run.call_args.args[0][4], 'build/us/assets/absent.o')
+
     def test_texture_batch_builds_all_objects_in_one_make_call(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -458,7 +483,7 @@ class DataTargetTests(unittest.TestCase):
             released = [threading.Event(), threading.Event()]
             active = peak = 0
             finished = []
-            def prepare(rom, expected, *, output):
+            def prepare(rom, expected, *, output, receipts=None):
                 nonlocal active, peak
                 index = expected['flat_index']
                 with lock:
@@ -486,7 +511,7 @@ class DataTargetTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             selected = [({'flat_index': index}, None) for index in range(4)]
-            def prepare(rom, expected, *, output):
+            def prepare(rom, expected, *, output, receipts=None):
                 if expected['flat_index'] == 2:
                     raise ValueError('changed source')
                 return {}, {}
