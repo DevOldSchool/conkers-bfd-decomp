@@ -529,7 +529,7 @@ s32 func_15133760(s32 arg0, Game15F680TransformState *arg1) {
 }
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151337C0 CURRENT (120) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151337C0 CURRENT (60) */
 s32 func_151337C0(void *arg0) {
     f32 rate;
     f32 temp_fa0;
@@ -541,10 +541,11 @@ s32 func_151337C0(void *arg0) {
     temp_fa0 = *(f32 *)((u8 *)arg0 + 0x5C);
     *(f32 *)((u8 *)arg0 + 0x3C) = (f32) (*(f32 *)((u8 *)arg0 + 0x3C) + ((temp_fv1 * rate) + (temp_fa0 * rate * rate * 0.5f)));
     *(f32 *)((u8 *)arg0 + 0x40) += *(f32 *)((u8 *)arg0 + 0x4C) * D_800BE9A4;
-    *(f32 *)((u8 *)arg0 + 0x48) = (f32) (temp_fv1 + (temp_fa0 * D_800BE9A4));
+    *(f32 *)((u8 *)arg0 + 0x48) = (f32) ((f32)temp_fv1 + (temp_fa0 * D_800BE9A4));
     *(f32 *)((u8 *)arg0 + 0x20) += *(f32 *)((u8 *)arg0 + 0x50) * D_800BE9A4;
     *(f32 *)((u8 *)arg0 + 0x24) += *(f32 *)((u8 *)arg0 + 0x54) * D_800BE9A4;
     *(f32 *)((u8 *)arg0 + 0x28) += *(f32 *)((u8 *)arg0 + 0x58) * D_800BE9A4;
+end:
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151337C0 */

@@ -9,7 +9,6 @@
  * - func_1519CF70
  * - func_1519D454
  * - func_1519D9F4
- * - func_1519E818
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -956,36 +955,32 @@ void func_1519E754(Game1CA420Effect *arg0) {
         arg0->flags |= 1;
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519E818 CURRENT (520) */
-void func_1519E818(u8 *arg0, Game1CA420Event *arg1, u8 arg2) {
-    Game1CA420Link *link;
-    u8 *first;
-    u8 *actor;
+void func_1519E818(void *arg0, void *arg1, u8 arg2) {
+    s32 temp_t6;
+    u8 *temp_v0;
 
-    if (arg2 == 0) {
-        link = (Game1CA420Link *)(arg0 + 0x28);
-        if (arg1->removed.actor == link->actor ||
-            arg1->removed.generation == link->generation) {
-            func_1516972C((s32)arg0);
+    temp_t6 = arg2;
+    temp_v0 = (u8 *)arg0 + 0x28;
+    if (temp_t6 == 0) {
+        if ((*(s32 *)temp_v0 == *(s32 *)arg1) ||
+            (temp_v0[4] == *(u8 *)((u8 *)arg1 + 4))) {
+            u8 *owner = arg0;
+
+            func_1516972C(owner);
             D_800E0920[0] = 0;
         }
-    } else {
-        link = (Game1CA420Link *)(arg0 + 0x28);
-        if (arg2 == 0x2D) {
-        actor = link->actor;
-        first = arg1->swapped.first;
-        if (first == actor) {
-            link->actor = arg1->swapped.second;
-            link->generation = arg1->swapped.secondGeneration;
-        } else if (actor == arg1->swapped.second) {
-            link->actor = first;
-            link->generation = arg1->swapped.firstGeneration;
-        }
+    } else if (temp_t6 == 0x2D) {
+        if (*(s32 *)arg1 == *(s32 *)temp_v0) {
+            *(s32 *)temp_v0 = *(s32 *)((u8 *)arg1 + 4);
+            *(u8 *)(temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 9);
+        } else if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)temp_v0) {
+            u8 *dst = temp_v0;
+
+            *(s32 *)dst = *(s32 *)arg1;
+            *(u8 *)(dst + 4) = *(u8 *)((u8 *)arg1 + 8);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519E818 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519E818.s")
 /* Call context: func_1514933C: unique active project prototype */
 /* Call context: func_1514EDF0: unique active project prototype */
 
