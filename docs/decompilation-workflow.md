@@ -325,6 +325,31 @@ Each search initializes its own differ settings. Compiler-rejected variants may
 be skipped; scorer failures stop with `BLOCKED_TOOLING` and diagnostic evidence,
 preserving any already scored best candidate. If no candidate was scored, the
 command reports that explicitly and does not claim a saved best file.
+
+`permute <work-item-id> --randomized [--seconds N] [--seed S]` is an opt-in
+alternative that drives the pinned `decomp-permuter` from the toolchain image
+(`/opt/tools/decomp-permuter`, revision in `toolchain/tools.lock.json`) for a
+wall-clock bound (default 60 seconds). It builds `build/us/permute/<id>/randomized/`
+with `base.c` (the focused candidate expanded by the pinned IDO preprocessor with
+other definitions reduced to prototypes), `target.o` (the independent raw reference
+object), `compile.sh` (the pinned IDO flags) and `settings.toml`, scores the base
+once with the permuter's own metric, then runs its single-threaded randomized
+search with `--stop-on-zero --better-only --stack-diffs`. Every output the permuter
+reports as improved is rescored with the project's focused asm-differ comparison,
+so `best.c` and `search-report.json` keep their `CURRENT` meaning; the permuter's
+scores are recorded only as hints. Outputs whose regenerated text differs outside
+the target function are rejected, because permutation may change only that
+function. An exact rescored output goes through the same host `apply-permutation`,
+`finish` and rollback transaction as the deterministic mode; nothing is applied
+on a nonzero result. The applied text is pycparser's regeneration of the
+preprocessed function (macros expanded, two-space indentation widened to four),
+so restyle it afterwards while keeping `finish` at `CURRENT (0)`. An omitted
+`--seed` is drawn and recorded in the report; the same seed, seconds, source and
+tooling reuse the saved nonmatch like the deterministic search. The mode needs
+task permission like any permutation search and does not change the manual
+attempt ceilings; a plateaued randomized search is one exhausted hypothesis.
+`automate` does not use it.
+
 ### Fast probing
 
 Use `probe` to compare several hypotheses without editing source or recording

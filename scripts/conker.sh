@@ -117,6 +117,9 @@ Getting started
   diagnose-diff <work-item-id>   Classify a live or deferred candidate's focused differences.
   permute <work-item-id> [--budget N] [--exhaustive] [--stack-shapes]
                                  Search safe declaration/lifetime and expression-form variants.
+  permute <work-item-id> --randomized [--seconds N] [--seed S]
+                                 Drive the pinned decomp-permuter instead; improvements are
+                                 rescored with the project differ and applied through finish.
   probe <work-item-id> [<variant.c>...] [--layout]
                                  Score function variants in one pass without editing source;
                                  --layout prints frame size and named-local stack offsets.
@@ -983,7 +986,7 @@ case "$command" in
         run_in_warm_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay --diagnose
         ;;
     permute)
-        [[ $# -ge 1 ]] || die "usage: ./conker permute <work-item-id> [--budget N]"
+        [[ $# -ge 1 ]] || die "usage: ./conker permute <work-item-id> [--budget N] [--randomized [--seconds N] [--seed S]]"
         permute_symbol="$1"
         shift
         python3 "$state_tool" setup-check --profile us

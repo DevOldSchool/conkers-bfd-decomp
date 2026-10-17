@@ -7,7 +7,12 @@ import argparse
 import itertools
 import hashlib
 import json
+import os
 import re
+import secrets
+import shlex
+import shutil
+import signal
 import subprocess
 import sys
 import time
@@ -19,10 +24,28 @@ import candidate_syntax
 import candidate_tables
 import candidate_lifetimes
 import diff
+import m2c_context
 import project_state
 
 
 ROOT = Path(__file__).resolve().parent.parent
+# The toolchain image clones decomp-permuter at the revision pinned in
+# toolchain/tools.lock.json. Tests point this at a fake permuter.
+PERMUTER_ROOT = Path(os.environ.get("CONKER_DECOMP_PERMUTER", "/opt/tools/decomp-permuter"))
+# The permuter draws every randomization seed from Python's global random
+# module, so seeding it once in-process makes a single-threaded run reproducible.
+PERMUTER_SHIM = (
+    "import random, runpy, sys\n"
+    "seed, root = int(sys.argv[1]), sys.argv[2]\n"
+    "random.seed(seed)\n"
+    "sys.argv = [root + '/permuter.py'] + sys.argv[3:]\n"
+    "sys.path.insert(0, root)\n"
+    "runpy.run_path(sys.argv[0], run_name='__main__')\n"
+)
+PERMUTER_SEARCH_FLAGS = ("--stop-on-zero", "--better-only", "--stack-diffs", "-j", "1")
+PERMUTER_OUTPUT = re.compile(r"^output-(?P<score>\d+)-(?P<counter>\d+)$")
+REUSABLE_STOP_REASONS = ("plateau", "variants_exhausted", "stack_shape_no_improvement",
+                         "time_limit", "permuter_exit")
 
 
 def candidate_function_span(content: str, identifier: str, regional_symbol: str) -> tuple[int, int]:
@@ -222,6 +245,10 @@ def score_candidate(
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
+    # scripts/ is mounted read-only in the container; a writable bytecode cache
+    # roughly halves the per-candidate scorer start-up time.
+    environment = dict(os.environ)
+    environment.setdefault("PYTHONPYCACHEPREFIX", str(ROOT / "build" / "pycache"))
     try:
         result = subprocess.run(
             diff.asm_diff_command(
@@ -235,6 +262,7 @@ def score_candidate(
             check=False,
             capture_output=True,
             text=True,
+            env=environment,
         )
     except OSError as error:
         raise PermuteError(f"could not launch asm-differ: {error}") from error
@@ -252,10 +280,14 @@ def score_candidate(
 
 
 def search_fingerprint(profile: str, content: str, reference: Path, expected_size: int,
-                       budget: int, exhaustive: bool, stack_shapes: bool = False) -> str:
+                       budget: int, exhaustive: bool, stack_shapes: bool = False,
+                       randomized: tuple[int, int] | None = None) -> str:
     """Invalidate negative search results when any supported search input changes."""
     digest = hashlib.sha256()
-    digest.update(json.dumps([profile, content, expected_size, budget, exhaustive, stack_shapes]).encode())
+    settings: list = [profile, content, expected_size, budget, exhaustive, stack_shapes]
+    if randomized is not None:
+        settings.append(["randomized", *randomized])
+    digest.update(json.dumps(settings).encode())
     digest.update(reference.read_bytes())
     paths = [ROOT / "Makefile"]
     for directory in ("scripts", "include", "toolchain", "config"):
@@ -267,6 +299,285 @@ def search_fingerprint(profile: str, content: str, reference: Path, expected_siz
     return digest.hexdigest()
 
 
+def verify_exact_tables(entry: dict, symbol: str, candidate: Path, reference_assembly: Path,
+                        expected_size: int) -> None:
+    """Reject an instruction-exact candidate whose jump tables differ (game/debugger US)."""
+    table_options = ({"overlay": "debugger", "expected_start": int(entry["regions"]["us"]["vram"], 16)}
+                     if entry.get("overlay") == "debugger" else {})
+    candidate_tables.verify_candidate(candidate, symbol, reference_assembly, expected_size,
+                                      **table_options)
+
+
+def permuter_command(seed: int, *arguments: str) -> list[str]:
+    """Run the pinned decomp-permuter with Python's global RNG seeded first."""
+    return ["python3", "-c", PERMUTER_SHIM, str(seed), str(PERMUTER_ROOT), *arguments]
+
+
+def permuter_revision() -> str | None:
+    try:
+        lock = json.loads((ROOT / "toolchain" / "tools.lock.json").read_text(encoding="utf-8"))
+        return lock["tools"]["decomp-permuter"]["revision"]
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+
+
+def ido_preprocess(profile: str, focused: Path) -> str:
+    """Expand a focused source with the pinned IDO preprocessor and build flags."""
+    command = [str(compile_c.IDO_CC),
+               *(flag for flag in compile_c.compiler_flags(profile) if flag != "-c"),
+               "-E", str(focused.relative_to(ROOT))]
+    result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, check=False)
+    if result.returncode:
+        raise PermuteError(f"IDO preprocessing of the permuter base failed: {result.stderr.strip()}")
+    return result.stdout
+
+
+def preprocess_for_permuter(profile: str, focused: Path) -> str:
+    """Produce the self-contained, marker-free translation unit pycparser can parse."""
+    lines = [line for line in ido_preprocess(profile, focused).splitlines()
+             if not m2c_context.LINE_MARKER.fullmatch(line)]
+    return "\n".join(lines) + "\n"
+
+
+def clear_permuter_outputs(work: Path) -> None:
+    """Remove only files this module generates below the randomized directory."""
+    if not work.is_dir():
+        return
+    for entry in work.iterdir():
+        if entry.is_dir() and PERMUTER_OUTPUT.match(entry.name):
+            shutil.rmtree(entry)
+        elif entry.name in ("focused.c", "base.c", "target.o", "compile.sh", "function.txt",
+                            "settings.toml", "debug_source.c", "debug_compiled_object.o",
+                            "permuter-base.log", "permuter.log"):
+            entry.unlink()
+
+
+def prepare_permuter_directory(profile: str, symbol: str, active_content: str,
+                               reference: Path, directory: Path) -> Path:
+    """Build the base.c/target.o/compile.sh directory decomp-permuter expects."""
+    work = directory / "randomized"
+    clear_permuter_outputs(work)
+    work.mkdir(parents=True, exist_ok=True)
+    focused = work / "focused.c"
+    focused.write_text(diff.GLOBAL_ASM_LINE.sub("", active_content), encoding="utf-8")
+    (work / "base.c").write_text(preprocess_for_permuter(profile, focused), encoding="utf-8")
+    # Other definitions become prototypes so each permuter compile is one function.
+    stripped = subprocess.run(["python3", str(PERMUTER_ROOT / "strip_other_fns.py"), "base.c", symbol],
+                              cwd=work, capture_output=True, text=True, check=False)
+    if stripped.returncode:
+        raise PermuteError(f"decomp-permuter strip_other_fns failed: {stripped.stderr.strip()}")
+    shutil.copyfile(reference, work / "target.o")
+    flags = " ".join(shlex.quote(flag) for flag in compile_c.compiler_flags(profile))
+    compile_script = work / "compile.sh"
+    compile_script.write_text(
+        "#!/bin/bash\n"
+        "# Generated by scripts/permute.py: the pinned IDO flags of compile_c.compiler_flags.\n"
+        "set -euo pipefail\n"
+        f"cd {shlex.quote(str(ROOT))}\n"
+        f'exec {shlex.quote(str(compile_c.IDO_CC))} {flags} "$@"\n',
+        encoding="utf-8",
+    )
+    compile_script.chmod(0o755)
+    (work / "function.txt").write_text(symbol + "\n", encoding="utf-8")
+    (work / "settings.toml").write_text(
+        f'func_name = "{symbol}"\ncompiler_type = "ido"\n', encoding="utf-8"
+    )
+    return work
+
+
+def permuter_base(work: Path, seed: int) -> tuple[int, str]:
+    """Score the base with the permuter's own metric and keep its regenerated source."""
+    log = work / "permuter-base.log"
+    try:
+        result = subprocess.run(permuter_command(seed, str(work), "--debug", "--stack-diffs"),
+                                cwd=work, capture_output=True, text=True, check=False,
+                                stdin=subprocess.DEVNULL)
+    except OSError as error:
+        raise PermuteError(f"could not launch decomp-permuter: {error}") from error
+    log.write_text(result.stdout + result.stderr, encoding="utf-8")
+    score = re.search(r"base score = (\d+)", result.stdout)
+    regenerated = work / "debug_source.c"
+    if result.returncode or score is None or not regenerated.is_file():
+        raise PermuteError(f"decomp-permuter could not score the base candidate; details: {log}")
+    return int(score.group(1)), regenerated.read_text(encoding="utf-8")
+
+
+def run_permuter_search(work: Path, seed: int, seconds: int) -> tuple[bool, int]:
+    """Run the randomized search for at most `seconds`; return (timed_out, exit status)."""
+    log = work / "permuter.log"
+    with log.open("w", encoding="utf-8") as handle:
+        try:
+            process = subprocess.Popen(permuter_command(seed, str(work), *PERMUTER_SEARCH_FLAGS),
+                                       cwd=work, stdout=handle, stderr=subprocess.STDOUT,
+                                       stdin=subprocess.DEVNULL)
+        except OSError as error:
+            raise PermuteError(f"could not launch decomp-permuter: {error}") from error
+        try:
+            return False, process.wait(timeout=seconds)
+        except subprocess.TimeoutExpired:
+            # The permuter treats SIGINT as its normal "stop now" request.
+            process.send_signal(signal.SIGINT)
+            try:
+                process.wait(timeout=30)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                process.wait()
+            return True, process.returncode
+
+
+def permuter_iterations(work: Path) -> int | None:
+    """Best-effort iteration count from the permuter's status line."""
+    try:
+        text = (work / "permuter.log").read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return None
+    counts = re.findall(r"iteration (\d+)", text)
+    return int(counts[-1]) if counts else None
+
+
+def permuter_outputs(work: Path) -> list[tuple[int, int, Path]]:
+    """Improved candidates the permuter wrote, best permuter score first."""
+    outputs = []
+    for entry in work.iterdir():
+        match = PERMUTER_OUTPUT.match(entry.name)
+        source = entry / "source.c"
+        if match and source.is_file():
+            outputs.append((int(match.group("score")), int(match.group("counter")), source))
+    return sorted(outputs)
+
+
+def split_permuter_source(text: str, identifier: str, symbol: str) -> tuple[str, str]:
+    """Separate the target definition from the rest of a regenerated source."""
+    start, end = project_state.work_item_function_span(text, identifier, symbol)
+    return text[start:end].rstrip("\n"), text[:start] + text[end:]
+
+
+def restyle_permuter_function(function: str) -> str:
+    """Widen pycparser's two-space indentation to the project's four spaces."""
+    lines = function.splitlines()
+    indents = [len(line) - len(line.lstrip(" ")) for line in lines if line.strip()]
+    if any(indent % 2 for indent in indents) or min((i for i in indents if i), default=0) != 2:
+        return function
+    return "\n".join(" " * (2 * (len(line) - len(line.lstrip(" ")))) + line.lstrip(" ")
+                     for line in lines)
+
+
+def randomized_search(args: argparse.Namespace, entry: dict, symbol: str, active_content: str,
+                      span: tuple[int, int], original_function: str, reference_assembly: Path,
+                      reference: Path, expected_size: int, directory: Path, best_path: Path,
+                      seed: int) -> tuple[dict, int | None, bool]:
+    """Drive decomp-permuter, rescoring every reported improvement with the project scorer.
+
+    Returns the report summary, the best project score and whether it is exact.
+    """
+    function_start, function_end = span
+    started = time.monotonic()
+    summary: dict = {
+        "strategy": "randomized", "seconds": args.seconds, "seed": seed,
+        "seed_given": args.seed is not None, "permuter_revision": permuter_revision(),
+        "permuter_base_score": None, "permuter_outputs": 0, "permuter_iterations": None,
+        "permuter_elapsed_seconds": None, "permuter_exit": None,
+        "baseline_score": None, "compiled": 0, "invalid": 0, "rejected_context": 0,
+        "improvements": 0, "best_score": None, "stop_reason": "permuter_exit",
+    }
+    best_score: int | None = None
+    exact = False
+
+    def splice(function: str) -> str:
+        return active_content[:function_start] + function + "\n" + active_content[function_end:]
+
+    def finish(stop_reason: str, failure: str | None = None) -> tuple[dict, int | None, bool]:
+        summary["best_score"] = best_score
+        summary["stop_reason"] = stop_reason
+        summary["elapsed_seconds"] = time.monotonic() - started
+        if failure is not None:
+            summary["error"] = failure
+        return summary, best_score, exact
+
+    try:
+        best_score = score_candidate(args.profile, symbol, splice(original_function), directory,
+                                     reference, expected_size)
+    except subprocess.CalledProcessError:
+        return finish("tooling_failure", "the current candidate does not compile")
+    except (PermuteError, OSError) as error:
+        return finish("tooling_failure", str(error))
+    summary["compiled"] = 1
+    summary["baseline_score"] = best_score
+    best_path.write_text(original_function + "\n", encoding="utf-8")
+    print(f"{args.identifier}: baseline CURRENT ({best_score}) before the randomized search")
+    if best_score == 0:
+        try:
+            if args.profile == "us" and entry.get("overlay") in {"game", "debugger"}:
+                verify_exact_tables(entry, symbol, directory / "candidate.o", reference_assembly,
+                                    expected_size)
+        except (ValueError, OSError) as error:
+            best_score = None
+            best_path.unlink(missing_ok=True)
+            return finish("table_gate_failure", f"candidate table gate: {error}")
+        exact = True
+        return finish("exact")
+
+    try:
+        work = prepare_permuter_directory(args.profile, symbol, active_content, reference, directory)
+        permuter_started = time.monotonic()
+        summary["permuter_base_score"], regenerated_base = permuter_base(work, seed)
+        _, base_context = split_permuter_source(regenerated_base, args.identifier, symbol)
+        timed_out, status = run_permuter_search(work, seed, args.seconds)
+    except subprocess.CalledProcessError as error:
+        return finish("tooling_failure", f"{error}")
+    except (PermuteError, OSError, project_state.ProjectStateError) as error:
+        return finish("tooling_failure", str(error))
+    summary["permuter_elapsed_seconds"] = time.monotonic() - permuter_started
+    summary["permuter_exit"] = status
+    summary["permuter_iterations"] = permuter_iterations(work)
+    outputs = permuter_outputs(work)
+    summary["permuter_outputs"] = len(outputs)
+    print(f"{args.identifier}: decomp-permuter base score {summary['permuter_base_score']}, "
+          f"{len(outputs)} improved output(s) in {summary['permuter_elapsed_seconds']:.1f} s"
+          + (f", {summary['permuter_iterations']} iterations" if summary["permuter_iterations"] else ""))
+
+    stop_reason = "time_limit" if timed_out else "permuter_exit"
+    for permuter_score, counter, source in outputs:
+        label = source.parent.name
+        try:
+            function, context = split_permuter_source(source.read_text(encoding="utf-8"),
+                                                      args.identifier, symbol)
+        except (OSError, project_state.ProjectStateError):
+            summary["rejected_context"] += 1
+            continue
+        if context != base_context:
+            # Permutation may change only the target function.
+            summary["rejected_context"] += 1
+            print(f"{args.identifier}: rejected {label}; it changes text outside {symbol}")
+            continue
+        function = restyle_permuter_function(function)
+        try:
+            score = score_candidate(args.profile, symbol, splice(function), directory, reference,
+                                    expected_size)
+        except subprocess.CalledProcessError:
+            summary["invalid"] += 1
+            continue
+        except (PermuteError, OSError) as error:
+            return finish("tooling_failure", str(error))
+        summary["compiled"] += 1
+        if score == 0 and args.profile == "us" and entry.get("overlay") in {"game", "debugger"}:
+            try:
+                verify_exact_tables(entry, symbol, directory / "candidate.o", reference_assembly,
+                                    expected_size)
+            except (ValueError, OSError) as error:
+                return finish("table_gate_failure", f"candidate table gate: {error}")
+        if best_score is None or score < best_score:
+            best_score = score
+            best_path.write_text(function + "\n", encoding="utf-8")
+            summary["improvements"] += 1
+            print(f"{args.identifier}: improved CURRENT ({score}) from {label} "
+                  f"(permuter score {permuter_score})")
+        if score == 0:
+            exact = True
+            return finish("exact")
+    return finish(stop_reason)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("profile", choices=("us", "eu"))
@@ -276,9 +587,24 @@ def main() -> int:
                         help="use the full variant budget instead of stopping after 32 attempts without improvement")
     parser.add_argument("--stack-shapes", action="store_true",
                         help="probe storage shapes; stop at the first non-improvement")
+    parser.add_argument("--randomized", action="store_true",
+                        help="drive the pinned decomp-permuter instead of the deterministic variants; "
+                             "every improvement it reports is rescored with the project scorer")
+    parser.add_argument("--seconds", type=int, default=60,
+                        help="wall-clock bound for the randomized search (default 60)")
+    parser.add_argument("--seed", type=int,
+                        help="reproducible randomized search; omitted seeds are drawn and recorded")
     args = parser.parse_args()
     if args.budget < 1 or args.budget > 5000:
         parser.error("--budget must be between 1 and 5000")
+    if args.randomized and (args.exhaustive or args.stack_shapes):
+        parser.error("--randomized cannot be combined with --exhaustive or --stack-shapes")
+    if args.seconds < 1 or args.seconds > 3600:
+        parser.error("--seconds must be between 1 and 3600")
+    if args.seed is not None and not 0 <= args.seed < 2 ** 63:
+        parser.error("--seed must be a non-negative 63-bit integer")
+    if not args.randomized and (args.seed is not None or args.seconds != 60):
+        parser.error("--seconds and --seed require --randomized")
 
     try:
         entry, symbol = work_item(args.identifier, args.profile)
@@ -287,8 +613,12 @@ def main() -> int:
             active_content, args.identifier, symbol
         )
         original_function = active_content[function_start:function_end].rstrip("\n")
-        variants = (stack_source_variants(original_function, min(args.budget, 8))
-                    if args.stack_shapes else source_variants(original_function, args.budget))
+        if args.randomized:
+            variants = []
+        else:
+            variants = (stack_source_variants(original_function, min(args.budget, 8))
+                        if args.stack_shapes else source_variants(original_function, args.budget))
+        seed = args.seed if args.seed is not None else secrets.randbelow(2 ** 32)
         reference_assembly = diff.ensure_reference_function(
             args.profile,
             symbol,
@@ -306,11 +636,12 @@ def main() -> int:
         best_path = directory / "best.c"
         report = directory / "search-report.json"
         fingerprint = search_fingerprint(args.profile, active_content, reference, expected_size,
-                                         args.budget, args.exhaustive, args.stack_shapes)
+                                         args.budget, args.exhaustive, args.stack_shapes,
+                                         randomized=(args.seconds, seed) if args.randomized else None)
         if report.is_file():
             saved = json.loads(report.read_text())
             if (saved.get("fingerprint") == fingerprint
-                    and saved.get("stop_reason") in ("plateau", "variants_exhausted", "stack_shape_no_improvement")
+                    and saved.get("stop_reason") in REUSABLE_STOP_REASONS
                     and isinstance(saved.get("best_score"), int) and saved["best_score"] > 0
                     and best_path.is_file()
                     and saved.get("best_sha256") == hashlib.sha256(best_path.read_bytes()).hexdigest()):
@@ -321,6 +652,34 @@ def main() -> int:
         report.unlink(missing_ok=True)
         (directory / "scoring-failure.log").unlink(missing_ok=True)
         diff.write_settings(args.profile, source, directory=directory)
+
+        if args.randomized:
+            summary, best_score, exact = randomized_search(
+                args, entry, symbol, active_content, (function_start, function_end),
+                original_function, reference_assembly, reference, expected_size, directory,
+                best_path, seed,
+            )
+            summary["fingerprint"] = fingerprint
+            summary["best_sha256"] = (hashlib.sha256(best_path.read_bytes()).hexdigest()
+                                      if best_path.is_file() else None)
+            temporary = report.with_suffix(".json.tmp")
+            temporary.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+            temporary.replace(report)
+            if "error" in summary:
+                print(f"error: {summary['error']}", file=sys.stderr)
+                return 2
+            if exact:
+                print(f"{args.identifier}: exact randomized permutation saved to "
+                      f"{best_path.relative_to(ROOT)}; host application and "
+                      "authoritative finish required")
+                return 0
+            print(f"{args.identifier}: no exact match in {summary['permuter_outputs']} permuter "
+                  f"output(s) ({summary['stop_reason']}, seed {seed}); best CURRENT ({best_score}) "
+                  f"saved to {best_path.relative_to(ROOT)}"
+                  + (f"; {summary['invalid']} invalid output(s) skipped" if summary["invalid"] else "")
+                  + (f"; {summary['rejected_context']} output(s) rejected for changing other text"
+                     if summary["rejected_context"] else ""))
+            return 1
 
         best_score: int | None = None
         best_function = original_function
@@ -363,10 +722,8 @@ def main() -> int:
             attempted += 1
             if score == 0 and args.profile == "us" and entry.get("overlay") in {"game", "debugger"}:
                 try:
-                    table_options = ({"overlay": "debugger", "expected_start": int(entry["regions"]["us"]["vram"], 16)}
-                                     if entry.get("overlay") == "debugger" else {})
-                    candidate_tables.verify_candidate(directory / "candidate.o", symbol,
-                                                      reference_assembly, expected_size, **table_options)
+                    verify_exact_tables(entry, symbol, directory / "candidate.o", reference_assembly,
+                                        expected_size)
                 except (ValueError, OSError) as error:
                     failure = f"candidate table gate: {error}"
                     stop_reason = "table_gate_failure"
