@@ -9710,17 +9710,16 @@
       "symbol": "func_15059140"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 309,
-        "reason": "Output-record grouping and register-qualified float locals both CURRENT309, neutral against prior full diff. Restored original candidate; frame38 vs30, zero argument instruction, and FP add operand order remain. No useful new hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 128,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150593C4",
           "vram": "0x150593C4"
         }
@@ -9836,17 +9835,16 @@
       "symbol": "func_15059C84"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 589,
-        "reason": "CURRENT (589): best verified candidate after register-lifetime repair; remaining mismatch is a single bit-reinterpretation spill that shifts later scheduling, and the ABI-compatible union-parameter variant regressed",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 204,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1505A184",
           "vram": "0x1505A184"
         }
@@ -90522,8 +90520,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 230,
-        "reason": "CURRENT (230): float lifetime now exact, but bitset addu operand order differs twice and a redundant neighbor andi is absent; s32 neighbor variant restored mask but regressed register/branch layout, so manual revisions plateaued",
+        "current_score": 15,
+        "reason": "Round2 2026-10-17: CURRENT 230->15. (u8 *)state + (x >> 3) restores both addu s2,t operand orders; u8 neighbor with neighborIndex = neighbor & 0xFF restores the a0 argument and the andi copy. Remaining three rows: neighborIndex in v0 versus raw v1. Declaration orders and u32 index neutral/worse; randomized permute 120 s (seed 20261017, 6687 iterations) found nothing.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
