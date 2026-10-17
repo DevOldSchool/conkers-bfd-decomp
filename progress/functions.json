@@ -49420,17 +49420,16 @@
       "symbol": "func_15195738"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Canonical nonzero retained; no accepted exact C after the recorded source/lifetime hypotheses. Upstream single-worker runs 202610151506:5000:budget_complete. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 296,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151580B0",
           "vram": "0x151580B0"
         }
@@ -50881,17 +50880,16 @@
       "symbol": "func_151D77C8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Canonical nonzero retained; no accepted exact C after the recorded source/lifetime hypotheses. Upstream single-worker runs 202610151508:5000:budget_complete. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 252,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D7830",
           "vram": "0x151D7830"
         }
@@ -58448,17 +58446,16 @@
       "symbol": "func_1509CA78"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 60,
-        "reason": "Improved live CURRENT (65) to CURRENT (60) by correcting the descriptor pointer stride from scaled +0x640 to byte +0x50; only the D_80087430 low-half addiu scheduling differs by one position. An explicit mask lifetime compiled identically.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 208,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509CA98",
           "vram": "0x1509CA98"
         }
@@ -59823,17 +59820,16 @@
       "symbol": "func_150C8DB8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT 10: only commuted mul.s inputs at +0x1dc. Inlining func_150ADA68() matches only with fraction left unused (dummy -g3 home; rejected) and the dead-store form (fraction = call) inside the expression is likewise a dummy. Source operand swaps of the natural form stay 10. Randomized permute blocked: pycparser rejects the preprocessed __pragma(1, sqrtf) intrinsic line in base.c (tooling).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 552,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C99B4",
           "vram": "0x150C99B4"
         }
@@ -68017,8 +68013,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "Manual compound updates and cached rate lifetime improve CURRENT 325 to120. Full diff leaves global pointer V1/V0 and early return LI, velocity ADD operand order. Equivalent pointer/volatile probes exhausted on150CA07C; preserve best120.",
+        "current_score": 60,
+        "reason": "Round3 2026-10-17: unreferenced end: label before return 1 keeps the D_800BE9A4 address in v0 (120 -> 70); a redundant (f32) cast on temp_fv1 flips the add.s operands (70 -> 60). Left: li v0,1 is scheduled after the final add.s instead of right after the last lwc1 0(v0) (documented no-known-form pattern). Named f32 *rate_ptr local regresses to 300. Twins func_150CA07C/func_151337C0 (120) take the same body.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -82596,8 +82592,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 260,
-        "reason": "Preserve valid one-pointer helper call and named inputword CURRENT260. Raw has a second arg1 home load missing; volatile-home probe regressed430 with extra address instruction. Old86 used invalid obsolete helper arguments.",
+        "current_score": 160,
+        "reason": "Round3 2026-10-17: a K&R definition (void *arg0; void *arg1; u8 arg2;) reproduces the sw a0-a2 argument homes and the lbu 0x2B(sp) reload, 260 -> 160, but defer/probe cannot parse K&R so the ANSI 260 body is preserved. Left at 160: raw reloads arg1 twice in the 0x43 arm (lw t7/lw t0 from 0x24(sp), not CSE'd) and recomputes arg0+0x28 inside the arm. Volatile formals 768; K&R + per-arm temp + owner local 1442 (owner -> s0). Twins func_150F7310/func_15100230/func_151BE0AC/func_151D7538 share the shape.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -87325,8 +87321,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 14,
-        "reason": "CURRENT 14: frame, control flow, calls, constants, and all field offsets match; only the first and third identical 0xC8 byte stores use swapped temporary registers. Tail padding fixed frame layout; named signed fields and bounded permutations did not produce exact scheduling",
+        "current_score": 10,
+        "reason": "Round3 2026-10-17: ascending colour[0..3] store order 14 -> CURRENT (10): raw stores the four 0xC8 bytes in address order but materialises them as t6 (0x4A), t7 (0x49), t8 (0x48), t9 (0x4B); statement orders 2,1,0,3 (14), 3,2,1,0 (18), 2,1,3,0 (16), chained assignment 1691. One register row left.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

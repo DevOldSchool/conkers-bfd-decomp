@@ -426,7 +426,7 @@ void func_150F10D4(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1170.s")
 void func_15149514(s32, u8, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F15F8 CURRENT (260) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F15F8 CURRENT (160) */
 void func_150F15F8(void *arg0, void *arg1, u8 arg2) {
     u8 *temp_a2;
     s32 word;

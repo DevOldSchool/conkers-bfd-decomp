@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_descriptor_attachment_cores.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151580B0
  * - func_151582C8
  * - func_1515858C
  * - func_15158684
@@ -23,7 +22,6 @@ void *func_10022EC0(void *, const void *, u32);
 s32 func_1515D480(s32);
 extern s32 D_80082FA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151580B0 CURRENT (20) */
 void *func_151580B0(void *arg0, s32 arg1, s32 arg2, u8 arg3,
                     s32 arg4, u8 arg5, s32 arg6) {
     s32 var_a0;
@@ -31,6 +29,7 @@ void *func_151580B0(void *arg0, s32 arg1, s32 arg2, u8 arg3,
     void *temp_v0;
     u8 *var_s0;
 
+    var_s0 = arg0;
     if (arg3) {
         var_a0 = 0x55;
     } else {
@@ -40,12 +39,12 @@ void *func_151580B0(void *arg0, s32 arg1, s32 arg2, u8 arg3,
     if (temp_v0 == 0) {
         return 0;
     }
-    func_10022EC0((u8 *)temp_v0 + 0x10, arg0, 0x44);
+    func_10022EC0((u8 *)temp_v0 + 0x10, var_s0, 0x44);
     *(s32 *)((u8 *)temp_v0 + 0xD8) = arg1;
     *(s32 *)((u8 *)temp_v0 + 0xF4) = arg2;
     *(s8 *)((u8 *)temp_v0 + 0xDC) = 0;
-    var_s0 = temp_v0;
     var_s1 = 0;
+    var_s0 = temp_v0;
 clear_slot:
     var_s1++;
     var_s0 += 4;
@@ -68,8 +67,6 @@ clear_slot:
     }
     return temp_v0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151580B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_185560/func_151580B0.s")
 void func_151581D8(void *arg0, u8 arg1, s32 arg2, u8 arg3, s32 arg4) {
     func_151580B0(arg0, 0, 0, arg1, arg2, arg3, arg4);
 }
