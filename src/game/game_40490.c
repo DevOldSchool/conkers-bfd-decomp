@@ -723,13 +723,12 @@ s32 func_15015300(Game40490State *arg0) {
     }
     return 1;
 }
-typedef struct Game15354Point { f32 x, y, z; } Game15354Point;
 typedef struct Game15354Packet {
     void *owner;
     s16 index;
     f32 elapsed;
-    Game15354Point corners[4];
-    Game15354Point edges[4];
+    Vec3f corners[4];
+    Vec3f edges[4];
     s32 region;
     s32 zero;
 } Game15354Packet;
@@ -737,8 +736,8 @@ typedef struct Game15354Packet {
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15015354 CURRENT (354) */
 void func_15015354(void *arg0) {
     Game15354Packet packet;
-    Game15354Point origin;
-    Game15354Point corners[4];
+    Vec3f origin;
+    Vec3f corners[4];
     f32 matrix[16];
     register u8 index;
     s32 result;
@@ -813,15 +812,12 @@ s32 func_15015644(void *arg0, void *arg1) {
     }
     return 1;
 }
-typedef struct Game40490Point {
-    f32 x, y, z;
-} Game40490Point;
 
 typedef struct Game40490BoundsRequest {
     u8 index;
     u8 pad1[3];
-    Game40490Point upper;
-    Game40490Point lower;
+    Vec3f upper;
+    Vec3f lower;
     f32 height;
     u8 flag;
     u8 pad21[3];
@@ -832,7 +828,7 @@ f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 
 s32 func_150156F4(u8 *arg0) {
-    Game40490Point points[2];
+    Vec3f points[2];
     f32 matrix[4][4];
     Game40490BoundsRequest request;
 

@@ -67,12 +67,6 @@ typedef struct {
     f32 field44;
 } GameEF410Spawn;
 
-typedef struct GameEF410Vector {
-    f32 x;
-    f32 y;
-    f32 z;
-} GameEF410Vector;
-
 void func_15150178(s16 *, f32 *, s32, u8, s32);
 void func_15151A38(f32 *, s32, s32);
 extern f32 D_800A0230;
@@ -154,7 +148,7 @@ void func_150C1F60(s32 arg0) {
     packet.floats[5] = D_800A024C;
     packet.floats[6] = 1.0f;
     func_15151A38(packet.floats, (u8)arg0, 1);
-    *(GameEF410Vector *)spawn.position = *(GameEF410Vector *)packet.floats;
+    *(Vec3f *)spawn.position = *(Vec3f *)packet.floats;
     spawn.field14 = 0x19;
     spawn.field16 = 0x12;
     spawn.field00 = -0x9F;
@@ -594,7 +588,7 @@ extern f32 D_800A030C;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150C2C00 CURRENT (5739) */
 void func_150C2C00(GameEF410Emitter *arg0) {
     f32 *timer;
-    GameEF410Vector *vector;
+    Vec3f *vector;
     u8 *created;
     GameEF410Particle packet;
     f32 firstScale;
@@ -608,7 +602,7 @@ void func_150C2C00(GameEF410Emitter *arg0) {
     timer = &arg0->field28[0];
     *timer += func_150ADA68() * 20.0f * D_800A02C0 * D_800BE9A4 * D_800A02C4;
     if (*timer > 1.0f) {
-        vector = (GameEF410Vector *)func_15144B34(D_80082FA4);
+        vector = (Vec3f *)func_15144B34(D_80082FA4);
         if (D_800A02C8 < vector->x * vector->x + vector->z * vector->z) {
             threshold = D_800A02D4;
             angleBase = D_800A02D8;
@@ -767,7 +761,7 @@ extern u8 D_800CC2D0[];
 
 typedef struct GameEF410Release {
     void *owner;
-    GameEF410Vector position;
+    Vec3f position;
     s32 index;
 } GameEF410Release;
 

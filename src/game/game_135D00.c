@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_135D00.c
@@ -275,11 +276,6 @@ s32 func_15108D24(u8 *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15108D24 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15108D24.s")
-typedef struct Game135D00Point {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game135D00Point;
 
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *,
@@ -288,12 +284,12 @@ extern f32 D_800A2494;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15108E10 CURRENT (889) */
 s32 func_15108E10(u8 *arg0) {
-    Game135D00Point point;
+    Vec3f point;
     Game135D00MatrixWork work;
     f32 difference;
     f32 height;
     u8 *state;
-    Game135D00Point output;
+    Vec3f output;
     u8 *base;
 
     base = *(u8 **)(arg0 + 0x18);
@@ -415,7 +411,7 @@ s32 func_15109120(u8 *arg0, register s32 arg1) {
     Game109120Vertex *vertex;
     f32 transformedY;
     f32 textureS, textureT;
-    Game135D00Point output;
+    Vec3f output;
 
     arg1 = (s16)arg1;
     state = arg0 + *(s32 *)(arg0 + 0x50) + 0xF8;

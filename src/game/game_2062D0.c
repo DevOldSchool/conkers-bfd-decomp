@@ -381,7 +381,6 @@ u8 func_151D9B34(void) {
     sp20 = D_800AB3D8;
     return *((u8 *)&sp20 + ((func_150ADA20() & 3) * 4) + 3);
 }
-typedef struct { f32 x, y, z; } Game2062D0Vector;
 typedef struct {
     s32 flags;
     s16 lifetime;
@@ -397,24 +396,24 @@ typedef struct {
     s16 timer;
     u8 pad2[2];
     f32 size;
-    Game2062D0Vector direction;
+    Vec3f direction;
     u8 color, mode, kind, pad17;
 } Game2062D0Secondary;
 extern s32 (*D_8008FD04[])(void);
 extern u8 D_800AB330[];
-extern Game2062D0Vector D_800AB3E8;
+extern Vec3f D_800AB3E8;
 void *func_10022EC0(void *, const void *, u32);
 void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, s32, s32, u8, s32);
 f32 func_15144A74(void *, void *);
 s32 func_15144E80(void *, void *, void *, void *);
-s32 func_15145128(Game2062D0Vector *, Game2062D0Vector *, f32 *, f32 *);
+s32 func_15145128(Vec3f *, Vec3f *, f32 *, f32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D9B8C CURRENT (4763) */
 void func_151D9B8C(u8 arg0, f32 arg1, s32 arg2, s32 arg3, f32 *arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
     Game2062D0Particle particle;
     s32 timed;
-    Game2062D0Vector first, second, normal, up;
+    Vec3f first, second, normal, up;
     s32 mode;
     Game2062D0Secondary secondary;
     s32 random2;
@@ -462,7 +461,7 @@ void func_151D9B8C(u8 arg0, f32 arg1, s32 arg2, s32 arg3, f32 *arg4,
             secondary.timer = 0;
             timed = (s16)arg5;
             secondary.size = arg1 * 4.5f;
-            secondary.direction = *(Game2062D0Vector *)arg4;
+            secondary.direction = *(Vec3f *)arg4;
             secondary.color = (u8)arg2;
             secondary.mode = (u8)arg7;
             secondary.kind = arg0;
@@ -541,7 +540,7 @@ typedef struct Game1DA368Owner {
     u8 priority;
     u8 padD[0x1F];
     f32 sizeX, sizeY;
-    Game2062D0Vector position;
+    Vec3f position;
     u8 pad40[0xE8];
     Game1DA368Motion motion;
 } Game1DA368Owner;
@@ -550,8 +549,8 @@ typedef struct Game1DA368Owner {
 s32 func_151DA368(Game1DA368Owner *arg0) {
     Game1DA368Motion *motion;
     u8 phase;
-    Game2062D0Vector position;
-    Game2062D0Vector velocity;
+    Vec3f position;
+    Vec3f velocity;
     s16 angle;
     f32 radius;
     f32 cosine;
@@ -1054,7 +1053,7 @@ typedef struct Game1DB5D0Extension {
     s8 angleX, angleY, angleZ;
     s8 stepX, stepY, stepZ;
     u8 padE[2];
-    Game2062D0Vector amplitude;
+    Vec3f amplitude;
 } Game1DB5D0Extension;
 
 extern void (*D_8008FD38[])(void *);
@@ -1090,7 +1089,7 @@ void *func_151DB5D0(s32 arg0, f32 *arg1, f32 *arg2, f32 arg3, f32 arg4,
         extension.stepX = 0;
         extension.stepY = 0;
         extension.stepZ = 0;
-        extension.amplitude = *(Game2062D0Vector *)&D_800A5480;
+        extension.amplitude = *(Vec3f *)&D_800A5480;
     }
     D_8008FD38[((u8 *)&arg0)[3]](&packet);
     packet.field1D = 0x6C;

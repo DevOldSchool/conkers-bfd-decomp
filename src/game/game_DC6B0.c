@@ -310,17 +310,14 @@ void func_150B003C(s32 arg0) {
     }
     func_150AF200(0xDF, 0xDE);
 }
-typedef struct GameDC6B0Vector {
-    f32 x, y, z;
-} GameDC6B0Vector;
 
 typedef struct GameDC6B0Packet {
     f32 field0, field4, field8, fieldC;
     f32 angle0, angle1, angle2;
-    GameDC6B0Vector scale;
-    GameDC6B0Vector position;
-    GameDC6B0Vector velocity;
-    GameDC6B0Vector field40;
+    Vec3f scale;
+    Vec3f position;
+    Vec3f velocity;
+    Vec3f field40;
     f32 field4C;
     s32 field50;
     s16 field54, field56;
@@ -347,12 +344,12 @@ void func_15145974(void *, f32 *, f32 *);
 void *func_151B7328(void *, s32, s32, s32, s32);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
 extern f32 D_8009F7D8;
-extern GameDC6B0Vector D_800A5480;
+extern Vec3f D_800A5480;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B0094 CURRENT (75) */
-void func_150B0094(GameDC6B0Vector *arg0, GameDC6B0Vector *arg1, u8 arg2, s32 arg3) {
+void func_150B0094(Vec3f *arg0, Vec3f *arg1, u8 arg2, s32 arg3) {
     GameDC6B0Packet packet;
-    GameDC6B0Vector delta;
+    Vec3f delta;
     f32 length;
     f32 inverse_length;
     u8 *created;
@@ -435,7 +432,7 @@ typedef struct GameDC6B0Burst {
     u8 field21, field22, field23, field24, field25;
     s16 field26, field28, field2A;
     f32 field2C, field30, field34;
-    GameDC6B0Vector position;
+    Vec3f position;
     s16 yaw, pitch, yawRange, pitchRange;
     f32 speed, speedRange, field54, field58;
     u32 field5C;
@@ -447,7 +444,7 @@ typedef struct GameDC6B0Burst {
 
 typedef struct GameDC6B0Emission {
     s32 count, countRange;
-    GameDC6B0Vector position;
+    Vec3f position;
     s16 yaw, yawRange, pitch, pitchRange;
     f32 speed, speedRange, field24, field28;
     s16 timer, timerRange;
@@ -464,13 +461,13 @@ extern f32 D_8009F7FC, D_8009F800;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B0348 CURRENT (1851) */
 void func_150B0348(void *arg0, s32 arg1, s32 arg2) {
-    GameDC6B0Vector position;
+    Vec3f position;
     GameDC6B0Burst burst;
     GameDC6B0Emission emission;
 
-    position.x = ((GameDC6B0Vector *) ((u8 *) arg0 + 0x14))->x;
-    position.y = ((GameDC6B0Vector *) ((u8 *) arg0 + 0x14))->y + 30.0f;
-    position.z = ((GameDC6B0Vector *) ((u8 *) arg0 + 0x14))->z;
+    position.x = ((Vec3f *) ((u8 *) arg0 + 0x14))->x;
+    position.y = ((Vec3f *) ((u8 *) arg0 + 0x14))->y + 30.0f;
+    position.z = ((Vec3f *) ((u8 *) arg0 + 0x14))->z;
     burst.count = 10;
     burst.countRange = 7;
     burst.kind = 0x6C;

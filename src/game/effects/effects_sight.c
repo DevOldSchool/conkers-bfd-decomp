@@ -750,11 +750,6 @@ void func_151C970C(s32 arg0, void *arg1) {
     sp.sp1C = (s8)arg0;
     func_151403A8(&sp.sp18, 0x3A, arg1);
 }
-typedef struct EffectsSightVec3f {
-    f32 x;
-    f32 y;
-    f32 z;
-} EffectsSightVec3f;
 
 typedef struct EffectsSightTransform {
     u8 bytes[0x24];
@@ -783,11 +778,11 @@ void func_151D5514(void *, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9740 CURRENT (3809) */
 void func_151C9740(EffectsSightActor *arg0, u8 arg1, s32 arg2) {
-    EffectsSightVec3f origin;
-    EffectsSightVec3f impact;
+    Vec3f origin;
+    Vec3f impact;
     u8 hit;
     u8 airborne;
-    EffectsSightVec3f query;
+    Vec3f query;
     union {
         EffectsSightTransform transform;
         f32 values[9];
@@ -847,10 +842,10 @@ void func_151C9740(EffectsSightActor *arg0, u8 arg1, s32 arg2) {
 
 
 void func_1504715C(EffectsSightTransform *, EffectsSightActor *);
-void func_151ABE40(EffectsSightVec3f *, EffectsSightTransform *, s32, u8, s32);
+void func_151ABE40(Vec3f *, EffectsSightTransform *, s32, u8, s32);
 
 void func_151C9AC0(EffectsSightActor *arg0, u8 arg1, s32 arg2) {
-    EffectsSightVec3f position;
+    Vec3f position;
     EffectsSightTransform transform;
 
     position.x = arg0->x;

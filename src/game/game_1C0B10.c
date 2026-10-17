@@ -146,9 +146,6 @@ s32 func_151938E4(u8 *arg0) {
     *(f32 *)(arg0 + 0x74) = D_800A81E8;
     return 1;
 }
-typedef struct Game1938FCVector {
-    f32 x, y, z;
-} Game1938FCVector;
 
 typedef struct Game1938FCDescriptor {
     u8 kind, field01, field02;
@@ -165,7 +162,7 @@ typedef struct Game1938FCDescriptor {
     struct Game1890A0State *owner;
     u8 generation, field41;
     u8 pad42[2];
-    Game1938FCVector position;
+    Vec3f position;
     u8 pad50[4];
     s16 field54, field56;
 } Game1938FCDescriptor;
@@ -173,7 +170,7 @@ typedef struct Game1938FCDescriptor {
 typedef struct Game1938FCMotion {
     f32 rotationX, rotationY, rotationZ;
     f32 speed;
-    Game1938FCVector velocity;
+    Vec3f velocity;
     f32 field1C, field20, field24, field28, field2C;
     u8 flags;
     u8 pad31[3];
@@ -194,11 +191,11 @@ extern f32 D_800A8204;
 extern f32 D_800A8208;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151938FC CURRENT (1409) */
-void func_151938FC(Game1938FCVector *arg0, Game1938FCVector *arg1, s32 arg2, s32 arg3, f32 arg4, u8 *arg5) {
+void func_151938FC(Vec3f *arg0, Vec3f *arg1, s32 arg2, s32 arg3, f32 arg4, u8 *arg5) {
     Game1938FCDescriptor descriptor;
     Game1938FCMotion motion;
     u8 *velocity;
-    Game1938FCVector delta;
+    Vec3f delta;
     f32 random;
 
     if (func_1515C0F8(*(struct Game1890A0State **)(arg5 + 0x1C), &velocity) != 0) {

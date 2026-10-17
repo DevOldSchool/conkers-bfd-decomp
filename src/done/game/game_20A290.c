@@ -3,20 +3,11 @@
 /*
  * Reviewed source unit: src/game/game_20A290.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_call_singletons.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151DCDE0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
 extern f32 D_800AB550;
 extern f32 D_800AB554;
-extern f32 D_800AB558;
-extern f32 D_800AB55C;
-extern f32 D_800AB560;
-extern f32 D_800AB564;
 
 typedef struct {
     s32 x;
@@ -43,10 +34,9 @@ typedef struct {
     f32 field38;
 } Game20A290Config;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DCDE0 CURRENT (240) */
 void func_151DCDE0(void *arg0, u8 arg1, s32 arg2) {
     Game20A290Config config;
-    f32 temp_fv0 = D_800AB558;
+    f32 temp_fv0 = 0.2f;
 
     config.field0 = 0xC;
     config.field4 = 5;
@@ -61,11 +51,9 @@ void func_151DCDE0(void *arg0, u8 arg1, s32 arg2) {
     config.field34 = temp_fv0;
     config.field1C = 3.0f;
     config.field20 = 9.0f;
-    config.field24 = D_800AB55C;
-    config.field28 = D_800AB560;
-    config.field38 = D_800AB564;
+    config.field24 = -0.693f;
+    config.field28 = 0.30400002f;
+    config.field38 = 25.714f;
     func_15152190(&config, &D_800AB550, &D_800AB554, 1, 26.0f, 0,
                   (s32)arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DCDE0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20A290/func_151DCDE0.s")

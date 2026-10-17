@@ -11,7 +11,6 @@
  * - func_15037698
  * - func_150379DC
  * - func_150380C0
- * - func_15038468
  * - func_15038620
  * - func_15039A78
  * - func_15039CC8
@@ -378,11 +377,9 @@ s32 func_150380C0(f32 *output, s32 arg1, s32 arg2, s32 ownerIndex, f32 arg4,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_150380C0.s")
 /* Call context: func_150484A0: unique active project prototype */
 f32 func_150484A0(f32, f32);
-extern f32 D_80098648;
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15038468 CURRENT (475) */
 void func_15038468(f32 *arg0, f32 *arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) {
     f32 var_fv0;
     f32 factor;
@@ -409,7 +406,7 @@ void func_15038468(f32 *arg0, f32 *arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5)
         *arg1 = var_fv0;
         break;
     }
-    factor = D_80098648;
+    factor = 57.295776f;
     *arg0 *= factor;
     *arg1 *= factor;
     var_fv0 = *arg0;
@@ -421,8 +418,6 @@ void func_15038468(f32 *arg0, f32 *arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5)
         *arg1 = var_fv0 - 360.0f;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15038468 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15038468.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15038620.s")
 typedef struct Game64120Entry {
     u8 data[0x18];

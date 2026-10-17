@@ -12,10 +12,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct Game1D92F0Position {
-    f32 x, y, z;
-} Game1D92F0Position;
-
 typedef struct Game1D92F0Surface {
     u8 pad0[4];
     f32 normal[3];
@@ -55,7 +51,7 @@ void func_1514C678(f32, f32, f32, f32, s32, s32, s32, s32, s32, f32, void *, s32
 void func_151DBE80(u8, f32, f32, s32, void *, void *, s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151ABE40 CURRENT (3115) */
-void func_151ABE40(Game1D92F0Position *arg0, Game1D92F0Surface *arg1,
+void func_151ABE40(Vec3f *arg0, Game1D92F0Surface *arg1,
                    s32 arg2, s32 arg3, s32 arg4) {
     u8 kind;
     Game1D92F0Payload firstPayload;
@@ -110,7 +106,7 @@ typedef struct {
 } Game1D92F0ParticleStyle;
 
 typedef struct {
-    Game1D92F0Position position;
+    Vec3f position;
     s16 life, enabled;
     s32 active;
     u8 field14, fade, pad16[2];
@@ -118,7 +114,7 @@ typedef struct {
 
 typedef struct {
     f32 size;
-    Game1D92F0Position velocity;
+    Vec3f velocity;
     f32 growth, height;
     u8 flags, mode, blue, alpha;
     u8 pad1C[4];

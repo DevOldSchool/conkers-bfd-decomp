@@ -16,9 +16,6 @@ GameCommand *func_150D8590(GameCommand *arg0, s32 arg1) {
     arg0->value = 0;
     return arg0 + 1;
 }
-typedef struct Game71820XZ {
-    f32 x, y, z;
-} Game71820XZ;
 
 typedef struct Game71820Hit {
     f32 height;
@@ -40,7 +37,7 @@ typedef struct GameDC6B0Burst {
     u8 field21, field22, field23, field24, field25;
     s16 field26, field28, field2A;
     f32 field2C, field30, field34;
-    Game71820XZ position;
+    Vec3f position;
     s16 yaw, pitch, yawRange, pitchRange;
     f32 speed, speedRange, field54, field58;
     u32 field5C;
@@ -51,7 +48,7 @@ typedef struct GameDC6B0Burst {
 } GameDC6B0Burst;
 
 void func_1504715C(Game71820Hit *, void *);
-s32 func_15046C80(Game71820XZ *, u16, f32, Game71820Hit *);
+s32 func_15046C80(Vec3f *, u16, f32, Game71820Hit *);
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_150E7FEC(f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
@@ -73,7 +70,7 @@ void func_150D85AC(void *arg0) {
     probe[2] = position[2];
     probe[1] = position[1] + 100.0f;
     func_1504715C(&hit, arg0);
-    if (func_15046C80((Game71820XZ *)probe, 0, position[1] - 200.0f, &hit) != 0 && (hit.flags & 1)) {
+    if (func_15046C80((Vec3f *)probe, 0, position[1] - 200.0f, &hit) != 0 && (hit.flags & 1)) {
         u32 random;
         f32 size;
 

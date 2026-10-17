@@ -244,7 +244,8 @@ void func_150C99B4(GameF5D80Emitter *arg0, GameF5D80Vector *arg1, u8 arg2, s32 a
     packet.field62 = -1;
     packet.field63 = -1;
     angle = func_150ADA20() % 11U - 18;
-    magnitude = func_150ADA68() * (arg0->scale * D_800A0578) + arg0->scale * D_800A057C;
+    fraction = func_150ADA68();
+    magnitude = (f32)fraction * (arg0->scale * D_800A0578) + arg0->scale * D_800A057C;
     func_15143794(arg2, angle, magnitude, &packet.direction);
     func_15130374((s32)&packet, 1, 0, arg0->mode, arg0->group);
 }

@@ -411,19 +411,14 @@ s32 func_15063E84(void *arg0, u16 arg1, u16 arg2, register s32 arg3, s32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15063E84 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063E84.s")
-typedef struct {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game90840Vector;
 
 typedef struct {
     u8 pad0[0xB8];
-    Game90840Vector target;
+    Vec3f target;
     u8 padC4[0x45];
     u8 aiming;
     u8 pad10A[0x32];
-    Game90840Vector position;
+    Vec3f position;
     u8 pad148[0x24];
     f32 heading;
     f32 pitch;
@@ -448,7 +443,7 @@ void func_15063FA0(Game90840Actor *arg0, s32 arg1) {
     f32 verticalVelocity;
     f32 unusedDirection;
     f32 magnitude;
-    Game90840Vector position;
+    Vec3f position;
     f32 horizontalOffset[2];
     f32 height;
     f32 radius;

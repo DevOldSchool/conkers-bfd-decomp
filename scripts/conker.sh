@@ -61,6 +61,10 @@ Getting started
                                  Show how verify-batch classifies this checkout's changes
                                  and which test modules a C-only batch runs.
   doctor                         Check Docker and local prerequisites.
+  toolchain-inputs-check [--quiet]
+                                 Exit 0 when toolchain/tools.lock.json records the published
+                                 image as built from this checkout's toolchain inputs, 1 when
+                                 they changed (post-merge CI then rebuilds instead of pulling).
   rom-info <path>                Print a ROM's SHA-1 and file size.
   setup --us <path> [--eu <path>]
                                  Validate the active US ROM; EU/PAL is optional future setup.
@@ -173,6 +177,8 @@ After the raw base split map is available
                                  Register one US debugger function for matching work.
   record-region-size <id> --profile <region> --size <bytes>
                                  Preserve a reviewed legacy function span as function metadata.
+  split-game-function --parent <id> --id <id> --us <symbol>
+                                 Register an interior US game symbol as its own function and shorten its parent span.
   register-source-unit [--overlay main|game|debugger] --source <path> (--function <id>...|--register-members) --us-start <offset>
                        [--replace-unreviewed-source <path>]
       --us-end <offset> --evidence-kind <kind> --evidence-reference <reference>
@@ -840,6 +846,11 @@ case "$command" in
         [[ $# -eq 0 ]] || die "usage: ./conker $command"
         python3 "$repo_root/scripts/host_environment.py" "${command#host-}"
         ;;
+    toolchain-inputs-check)
+        # Exit 0 when the published image was built from this checkout's
+        # toolchain inputs, 1 when they changed (CI then builds locally).
+        python3 "$repo_root/scripts/toolchain_inputs.py" check "$@"
+        ;;
     test)
         select_test_runner
         while [[ $# -gt 0 ]]; do
@@ -1389,6 +1400,12 @@ case "$command" in
             run_in_container make prepare-reference PROFILE=us >&2
         fi
         python3 "$state_tool" register-debugger "$@"
+        ;;
+    split-game-function)
+        [[ $# -eq 6 ]] || die "usage: ./conker split-game-function --parent <id> --id <id> --us <symbol>"
+        python3 "$state_tool" setup-check --all
+        run_in_container make game-asm GAME_REFERENCE_PROFILE=us >&2
+        python3 "$state_tool" split-game-function "$@"
         ;;
     record-region-size)
         [[ $# -eq 5 ]] || die "usage: ./conker record-region-size <id> --profile <region> --size <bytes>"

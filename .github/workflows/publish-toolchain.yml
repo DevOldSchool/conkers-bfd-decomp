@@ -76,6 +76,12 @@ jobs:
     timeout-minutes: 15
     runs-on: ubuntu-24.04
     steps:
+      # The built commit's toolchain inputs are hashed into the lock record so
+      # post-merge verification can prove the pinned image matches a checkout.
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           path: ${{ runner.temp }}/digests
@@ -107,10 +113,16 @@ jobs:
             $(printf "$IMAGE@sha256:%s " *)
           digest="$(docker buildx imagetools inspect "$IMAGE:${{ github.sha }}" --format '{{json .Manifest}}' | jq -r .digest)"
           echo "digest=$digest" >> "$GITHUB_OUTPUT"
-      - name: Record the registry manifest digest for future pin updates
+      - name: Record the registry manifest digest and inputs hash for future pin updates
         env:
           IMAGE: ${{ steps.image.outputs.repository }}
           DIGEST: ${{ steps.published.outputs.digest }}
         run: |
-          printf 'Published immutable toolchain (linux/amd64 and linux/arm64): `%s@%s`\n' "$IMAGE" "$DIGEST" >> "$GITHUB_STEP_SUMMARY"
-          printf 'Use this registry manifest digest in tools.lock.json; do not assume a local docker image ID is retrievable from the registry.\n' >> "$GITHUB_STEP_SUMMARY"
+          inputs_sha256="$(python3 scripts/toolchain_inputs.py hash)"
+          {
+            printf 'Published immutable toolchain (linux/amd64 and linux/arm64): `%s@%s`\n\n' "$IMAGE" "$DIGEST"
+            printf 'Toolchain inputs hash of the built commit (`container_image.inputs_sha256`): `%s`\n\n' "$inputs_sha256"
+            printf 'Record both in tools.lock.json from a checkout with the same toolchain inputs:\n\n'
+            printf '    python3 scripts/toolchain_inputs.py record --repository %s --digest %s --inputs-sha256 %s\n\n' "$IMAGE" "$DIGEST" "$inputs_sha256"
+            printf 'Do not assume a local docker image ID is retrievable from the registry.\n'
+          } >> "$GITHUB_STEP_SUMMARY"

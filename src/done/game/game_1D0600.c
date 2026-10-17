@@ -1,20 +1,15 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1D0600.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_singletons_continued.md
  */
 
-typedef struct Game1D0600Vector {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1D0600Vector;
-
 typedef struct Game1D0600Particle {
     s32 field0;
     s32 field4;
-    Game1D0600Vector position8;
+    Vec3f position8;
     f32 field14;
     f32 field18;
     f32 field1C;
@@ -49,8 +44,8 @@ typedef struct Game1D0600Owner {
     u8 padD[0x2B];
     f32 field38;
     f32 field3C;
-    Game1D0600Vector position40;
-    Game1D0600Vector offset4C;
+    Vec3f position40;
+    Vec3f offset4C;
     u8 pad58[0x10];
     s32 flags68;
 } Game1D0600Owner;

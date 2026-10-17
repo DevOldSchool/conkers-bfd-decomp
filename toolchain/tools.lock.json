@@ -1,7 +1,8 @@
 {
   "container_image": {
     "digest": "sha256:67de4f788e404fbe1794725192801956abdae4cecf1db43c01988df058f9b429",
-    "repository": "ghcr.io/devoldschool/conkers-bfd-decomp-toolchain"
+    "repository": "ghcr.io/devoldschool/conkers-bfd-decomp-toolchain",
+    "inputs_sha256": "e68c58fdcca558b7d8648cc44dbe62491c88aa815a9ca85c5afea349fb26be6f"
   },
   "ido_static_recomp": {
     "version": "v1.2",

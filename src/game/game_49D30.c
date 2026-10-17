@@ -1164,9 +1164,6 @@ void func_1501FE68(s32 arg0, f32 arg1, f32 *arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1501FE68 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501FE68.s")
-typedef struct {
-    f32 x, y, z;
-} Game1FFE8Point;
 
 typedef struct {
     s16 x, y, z;
@@ -1196,20 +1193,20 @@ void func_1501FFE8(void *arg0, void *arg1, s32 arg2, s32 arg3) {
         count++;
     }
     for (index = first; index < first + count; index++) {
-        ((Game1FFE8Point *)arg0)[output].x = ((Game1FFE8Key *)arg1)[index].x;
-        ((Game1FFE8Point *)arg0)[output].y = ((Game1FFE8Key *)arg1)[index].y;
-        ((Game1FFE8Point *)arg0)[output].z = ((Game1FFE8Key *)arg1)[index].z;
+        ((Vec3f *)arg0)[output].x = ((Game1FFE8Key *)arg1)[index].x;
+        ((Vec3f *)arg0)[output].y = ((Game1FFE8Key *)arg1)[index].y;
+        ((Vec3f *)arg0)[output].z = ((Game1FFE8Key *)arg1)[index].z;
         output++;
     }
     if (!(flags & 1)) {
-        ((Game1FFE8Point *)arg0)[0].x = ((Game1FFE8Point *)arg0)[1].x;
-        ((Game1FFE8Point *)arg0)[0].y = ((Game1FFE8Point *)arg0)[1].y;
-        ((Game1FFE8Point *)arg0)[0].z = ((Game1FFE8Point *)arg0)[1].z;
+        ((Vec3f *)arg0)[0].x = ((Vec3f *)arg0)[1].x;
+        ((Vec3f *)arg0)[0].y = ((Vec3f *)arg0)[1].y;
+        ((Vec3f *)arg0)[0].z = ((Vec3f *)arg0)[1].z;
     }
     if (!(flags & 8)) {
-        ((Game1FFE8Point *)arg0)[3].x = ((Game1FFE8Point *)arg0)[2].x;
-        ((Game1FFE8Point *)arg0)[3].y = ((Game1FFE8Point *)arg0)[2].y;
-        ((Game1FFE8Point *)arg0)[3].z = ((Game1FFE8Point *)arg0)[2].z;
+        ((Vec3f *)arg0)[3].x = ((Vec3f *)arg0)[2].x;
+        ((Vec3f *)arg0)[3].y = ((Vec3f *)arg0)[2].y;
+        ((Vec3f *)arg0)[3].z = ((Vec3f *)arg0)[2].z;
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15020388.s")
