@@ -125,11 +125,10 @@ void func_151563B8(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151563B8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_183640/func_151563B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_183640/func_151564F8.s")
-typedef struct { f32 x, y, z; } Game183640Vector;
 typedef struct { f32 first, second; } Game183640Pair;
 
 typedef struct {
-    Game183640Vector position;
+    Vec3f position;
     s16 field_0C, field_0E, field_10, field_12, field_14, field_16;
     f32 field_18, field_1C, field_20, field_24;
     u8 field_28, field_29, field_2A, field_2B, field_2C;
@@ -162,7 +161,7 @@ typedef struct {
 
 typedef struct {
     s16 field_00, field_02;
-    Game183640Vector position;
+    Vec3f position;
     s16 field_10, field_12, field_14, field_16;
     f32 field_18, field_1C, field_20, field_24;
     u8 field_28, field_29, field_2A, field_2B, field_2C;
@@ -186,7 +185,7 @@ typedef struct {
     s16 field_1E, field_20, field_22;
     f32 field_24;
     Game183640Pair pair_28;
-    Game183640Vector position;
+    Vec3f position;
     u8 unused_3C[0xC];
     f32 field_48, field_4C, field_50, field_54;
     s32 field_58;

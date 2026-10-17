@@ -19,12 +19,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct Game1EF500EmitterVector {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1EF500EmitterVector;
-
 typedef struct {
     u8 pad0[0x3A0];
     f32 angle;
@@ -48,8 +42,8 @@ extern f32 D_800AAA30, D_800AAA34;
 extern Game1C2050Scene *D_800B0DF0;
 extern u8 D_800BE616;
 
-void func_151C2050(Game1C2050Owner *arg0, Game1EF500EmitterVector *arg1,
-                    Game1EF500EmitterVector *arg2, s32 arg3, f32 arg4) {
+void func_151C2050(Game1C2050Owner *arg0, Vec3f *arg1,
+                    Vec3f *arg2, s32 arg3, f32 arg4) {
     s32 pan;
     s32 volume;
     s16 scene;
@@ -84,7 +78,7 @@ void func_151C2050(Game1C2050Owner *arg0, Game1EF500EmitterVector *arg1,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C229C.s")
 typedef struct {
     u8 pad00[0x60];
-    Game1EF500EmitterVector direction;
+    Vec3f direction;
     u8 pad6C[0x20];
     f32 lifetime;
     u8 pad90[8];
@@ -97,12 +91,12 @@ typedef struct {
 
 typedef struct {
     u8 pad00[0x34];
-    Game1EF500EmitterVector position;
+    Vec3f position;
 } Game1C2734Owner;
 
 typedef struct {
     u8 pad00[0x2F8];
-    Game1EF500EmitterVector position;
+    Vec3f position;
     u8 pad304[0x7C];
     f32 rotation;
     u8 pad384[0x61C];
@@ -228,14 +222,14 @@ f32 sqrtf(f32);
 
 typedef struct {
     u8 pad0[0x10];
-    Game1EF500EmitterVector displacement;
+    Vec3f displacement;
 } Game1C2AD0Motion;
 
 typedef struct {
     u8 pad0[0x2C];
     f32 width;
     u8 pad30[4];
-    Game1EF500EmitterVector position;
+    Vec3f position;
     u8 pad40[0x1C];
     u8 alpha;
     u8 pad5D[0x63];
@@ -246,19 +240,19 @@ typedef struct {
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C2AD0 CURRENT (2998) */
 void *func_151C2AD0(Game1C2AD0Strip *arg0, s16 arg1) {
-    Game1EF500EmitterVector start;
-    Game1EF500EmitterVector end;
-    Game1EF500EmitterVector delta;
-    Game1EF500EmitterVector normal;
-    Game1EF500EmitterVector midpoint;
-    Game1EF500EmitterVector offset;
+    Vec3f start;
+    Vec3f end;
+    Vec3f delta;
+    Vec3f normal;
+    Vec3f midpoint;
+    Vec3f offset;
     f32 lengthSquared;
     f32 scale;
     void *vertices;
     void *base;
     u8 *cursor;
     u8 fresh;
-    Game1EF500EmitterVector *camera;
+    Vec3f *camera;
     u8 *buffers;
     void *vertexTemplate;
     Game1C2AD0Motion *motion;
@@ -275,7 +269,7 @@ void *func_151C2AD0(Game1C2AD0Strip *arg0, s16 arg1) {
     } else {
         return NULL;
     }
-    camera = (Game1EF500EmitterVector *)func_15144B34(arg1);
+    camera = (Vec3f *)func_15144B34(arg1);
     motion = (Game1C2AD0Motion *)((u8 *)arg0 + 0x110);
     start = arg0->position;
     end.x = arg0->position.x - motion->displacement.x;
@@ -367,7 +361,7 @@ void func_151C2EF0(s32 arg0, s32 arg1, void *arg2, s32 arg3, s32 arg4, s32 arg5)
 typedef struct Game1EF500EmitterParticle {
     s32 field0;
     s32 field4;
-    Game1EF500EmitterVector position8;
+    Vec3f position8;
     f32 field14;
     f32 field18;
     f32 field1C;
@@ -403,9 +397,9 @@ typedef struct Game1EF500EmitterLight {
 
 typedef struct Game1EF500EmitterState {
     u8 pad0[0x30];
-    Game1EF500EmitterVector position30;
+    Vec3f position30;
     u8 pad3C[0x30];
-    Game1EF500EmitterVector vector6C;
+    Vec3f vector6C;
     u8 pad78[0x10];
     s32 field88;
 } Game1EF500EmitterState;
@@ -431,7 +425,7 @@ extern f32 D_800DCA24;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C2F48 CURRENT (570) */
 void func_151C2F48(Game1EF500EmitterOwner *arg0) {
-    Game1EF500EmitterVector *position;
+    Vec3f *position;
     Game1EF500EmitterLight light;
     s32 coordinates[3];
     Game1EF500EmitterParticle descriptor;
@@ -525,7 +519,7 @@ typedef struct Game1EF500EmitterSpawn {
     f32 field24;
     f32 field28;
     f32 field2C;
-    Game1EF500EmitterVector position30;
+    Vec3f position30;
     f32 field3C;
     f32 field40;
     f32 field44;
@@ -551,7 +545,7 @@ extern f32 D_800AAA4C;
 extern f32 D_800AAA50;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C329C CURRENT (2058) */
-void func_151C329C(Game1EF500EmitterVector *arg0, u8 arg1, s32 arg2) {
+void func_151C329C(Vec3f *arg0, u8 arg1, s32 arg2) {
     Game1EF500EmitterParticle descriptor;
     Game1EF500EmitterSpawn spawn;
     Game1EF500EmitterLight light;
@@ -672,7 +666,7 @@ void func_151C329C(Game1EF500EmitterVector *arg0, u8 arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151C329C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C329C.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C36D8 CURRENT (2058) */
-void func_151C36D8(Game1EF500EmitterVector *arg0, u8 arg1, s32 arg2) {
+void func_151C36D8(Vec3f *arg0, u8 arg1, s32 arg2) {
     Game1EF500EmitterParticle descriptor;
     Game1EF500EmitterSpawn spawn;
     Game1EF500EmitterLight light;

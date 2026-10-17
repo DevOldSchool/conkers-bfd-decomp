@@ -2318,6 +2318,111 @@ def record_region_size(args: argparse.Namespace) -> None:
     print(f"Recorded {args.symbol}/{args.profile} size_bytes={size}.")
 
 
+def split_game_function(args: argparse.Namespace) -> None:
+    """Register an interior US game symbol as its own function and shorten its parent.
+
+    The parent's registered span must be partitioned exactly by the regenerated
+    raw reference: the parent label now ends where the new symbol starts and the
+    new symbol ends where the old span ended. The parent keeps its source and
+    unit membership but loses match evidence, because its verified span changed;
+    ``finish`` re-proves both spans. No source, map or assembly text changes.
+    """
+
+    functions_data = load_json(FUNCTIONS_FILE)
+    source_units_data = load_json(SOURCE_UNITS_FILE)
+    functions = validate_functions(functions_data)
+    units = validate_source_units(source_units_data, functions)
+
+    parent = next((entry for entry in functions if entry["symbol"] == args.parent), None)
+    if parent is None:
+        raise ProjectStateError(f"unknown work-item ID: {args.parent}")
+    if parent.get("overlay") != "game" or "us" not in parent["regions"]:
+        raise ProjectStateError(f"{args.parent} is not a registered US game function")
+    if parent.get("deferred") is not None or parent.get("blocked") is not None:
+        raise ProjectStateError(f"{args.parent} must not be deferred or blocked before a split")
+    parent_region = parent["regions"]["us"]
+    if parent_region["state"] not in {"raw_asm", "in_progress", "candidate", "matched"}:
+        raise ProjectStateError(f"{args.parent}/us state {parent_region['state']} cannot be split")
+    if any(entry["symbol"] == args.identifier for entry in functions):
+        raise ProjectStateError(f"function ID already registered: {args.identifier}")
+    if any(entry["regions"].get("us", {}).get("symbol") == args.us for entry in functions):
+        raise ProjectStateError(f"us function already registered: {args.us}")
+
+    parent_size = active_function_sizes(functions, units).get(args.parent)
+    if parent_size is None:
+        raise ProjectStateError(f"cannot determine the registered span of {args.parent}")
+    parent_vram = int(parent_region["vram"], 0)
+    parent_asm = find_game_function("us", parent_region["symbol"])
+    child_asm = find_game_function("us", args.us)
+    if args.us != f"func_{child_asm.vram:08X}":
+        raise ProjectStateError("--us must be the canonical func_<vram> symbol of the new span")
+    if not parent_vram < child_asm.vram < parent_vram + parent_size:
+        raise ProjectStateError(
+            f"{args.us} is not strictly inside the registered span of {args.parent}"
+        )
+    head = child_asm.vram - parent_vram
+    tail = child_asm.end - child_asm.offset
+    if (parent_asm.vram != parent_vram or parent_asm.end - parent_asm.offset != head
+            or head + tail != parent_size):
+        raise ProjectStateError(
+            "regenerated raw assembly does not partition the registered span of "
+            f"{args.parent} at {args.us}; run ./conker game-asm --profile us"
+        )
+
+    child = {
+        "overlay": "game",
+        "source": parent["source"],
+        "symbol": args.identifier,
+        "regions": {
+            "us": {
+                "state": "raw_asm",
+                "symbol": args.us,
+                "vram": f"0x{child_asm.vram:X}",
+                "size_bytes": tail,
+            }
+        },
+    }
+    parent_region["size_bytes"] = head
+    if parent_region["state"] == "matched":
+        parent_region["state"] = "in_progress"
+        parent_region.pop("evidence", None)
+    functions.insert(functions.index(parent) + 1, child)
+
+    source_unit = next(
+        (unit for unit in units if unit["source"] == parent["source"] and args.parent in unit["functions"]),
+        None,
+    )
+    if source_unit is not None:
+        members = source_unit["functions"]
+        members.insert(members.index(args.parent) + 1, args.identifier)
+        unit_members = [entry for entry in functions if entry["symbol"] in members]
+        source_unit["regions"]["us"]["state"] = source_unit_work_state(unit_members)
+
+    validated_functions = validate_functions(functions_data)
+    validate_source_units(source_units_data, validated_functions)
+    paths = (FUNCTIONS_FILE, SOURCE_UNITS_FILE, SUMMARY_FILE, DOCUMENT_FILE)
+    originals = {path: path.read_bytes() if path.exists() else None for path in paths}
+    try:
+        write_json(FUNCTIONS_FILE, functions_data)
+        if source_unit is not None:
+            write_json(SOURCE_UNITS_FILE, source_units_data)
+        render_progress(validated_functions)
+    except Exception:
+        for path, original in originals.items():
+            if original is None:
+                path.unlink(missing_ok=True)
+            else:
+                path.write_bytes(original)
+        raise
+    print(
+        f"Split {args.parent}/us at {args.us}: parent span is now {head} bytes"
+        + (" and awaits re-verification" if parent_region["state"] == "in_progress" else "")
+        + f"; registered {args.identifier} ({tail} bytes, raw_asm) in {parent['source']}"
+        + (f" and source unit {source_unit['source']}" if source_unit is not None else "")
+        + "."
+    )
+
+
 def source_unit_skeleton_content(
     source: str,
     evidence_reference: str,
@@ -3526,6 +3631,10 @@ def parse_args() -> argparse.Namespace:
     register_debugger_parser.add_argument("--id", dest="identifier", required=True)
     register_debugger_parser.add_argument("--us", required=True)
     register_debugger_parser.add_argument("--source", required=True)
+    split_parser = subparsers.add_parser("split-game-function")
+    split_parser.add_argument("--parent", required=True)
+    split_parser.add_argument("--id", dest="identifier", required=True)
+    split_parser.add_argument("--us", required=True)
     record_size_parser = subparsers.add_parser("record-region-size")
     record_size_parser.add_argument("symbol")
     record_size_parser.add_argument("--profile", choices=KNOWN_REGIONS, required=True)
@@ -3633,6 +3742,8 @@ def main() -> int:
             register_main(args)
         elif args.command == "register-debugger":
             register_debugger(args)
+        elif args.command == "split-game-function":
+            split_game_function(args)
         elif args.command == "record-region-size":
             record_region_size(args)
         elif args.command == "register-source-unit":

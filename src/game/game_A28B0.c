@@ -583,12 +583,6 @@ typedef struct GameA28B0Transform {
     s32 field20;
 } GameA28B0Transform;
 
-typedef struct GameA28B0Position {
-    f32 x;
-    f32 y;
-    f32 z;
-} GameA28B0Position;
-
 void func_1504715C(void *, GameA28B0State *);
 void func_1514B364(f32 *, void *, s32, s32);
 void func_15197A7C();

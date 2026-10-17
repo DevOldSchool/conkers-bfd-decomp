@@ -2027,6 +2027,106 @@ class GameInventoryTests(unittest.TestCase):
         functions = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))
         self.assertEqual(1, len(functions["functions"]))
 
+    def write_split_assembly(self, split: bool) -> None:
+        """Write a 16-byte parent span, optionally labelled at its interior return stub."""
+
+        assembly = self.root / "reference" / "game" / "us" / "asm" / "sample.s"
+        lines = [
+            "glabel func_15000000",
+            "    /* 0 15000000 03E00008 */  jr         $ra",
+            "    /* 4 15000004 00000000 */   nop",
+        ]
+        if split:
+            lines.append("glabel func_15000008")
+        lines += [
+            "    /* 8 15000008 03E00008 */  jr         $ra",
+            "    /* C 1500000C 00000000 */   nop",
+            "glabel func_15000010",
+            "    /* 10 15000010 00000000 */  nop",
+            "",
+        ]
+        assembly.write_text("\n".join(lines), encoding="utf-8")
+
+    def register_split_parent_unit(self) -> str:
+        source = "src/game/split_test.c"
+        self.write_split_assembly(split=False)
+        project_state.register_source_unit(SimpleNamespace(
+            source=source, register_members=True, functions=None,
+            us_start="0x0", us_end="0x10", evidence_kind="structural_analysis",
+            evidence_reference="review/boundary.md",
+        ))
+        path = self.root / source
+        path.write_text(path.read_text(encoding="utf-8").replace(
+            project_state.global_asm_pragma(source, "func_15000000") + "\n",
+            "void func_15000000(void) {\n}\n\nvoid func_15000008(void) {\n}\n",
+        ), encoding="utf-8")
+        project_state.mark_matched(SimpleNamespace(profile="us", symbol="func_15000000"))
+        return source
+
+    def test_split_game_function_partitions_matched_span_inside_its_unit(self) -> None:
+        source = self.register_split_parent_unit()
+        self.write_split_assembly(split=True)
+
+        with redirect_stdout(io.StringIO()) as output:
+            project_state.split_game_function(SimpleNamespace(
+                parent="func_15000000", identifier="func_15000008", us="func_15000008",
+            ))
+
+        functions = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))["functions"]
+        self.assertEqual(["func_15000000", "func_15000008"], [entry["symbol"] for entry in functions])
+        parent, child = functions
+        self.assertEqual({"state": "in_progress", "symbol": "func_15000000", "vram": "0x15000000", "size_bytes": 8}, parent["regions"]["us"])
+        self.assertEqual("game", child["overlay"])
+        self.assertEqual(source, child["source"])
+        self.assertEqual({"state": "raw_asm", "symbol": "func_15000008", "vram": "0x15000008", "size_bytes": 8}, child["regions"]["us"])
+        units = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))["source_units"]
+        self.assertEqual(["func_15000000", "func_15000008"], units[0]["functions"])
+        self.assertEqual("in_progress", units[0]["regions"]["us"]["state"])
+        self.assertEqual("raw_asm", units[0]["integration"])
+        self.assertIn("parent span is now 8 bytes and awaits re-verification", output.getvalue())
+        self.assertIn("Known functions: **2**", project_state.DOCUMENT_FILE.read_text(encoding="utf-8"))
+
+    def test_split_game_function_rejects_symbols_outside_the_partitioned_span(self) -> None:
+        self.register_split_parent_unit()
+        before = (project_state.FUNCTIONS_FILE.read_bytes(), project_state.SOURCE_UNITS_FILE.read_bytes())
+
+        with self.assertRaisesRegex(project_state.ProjectStateError, "not present in generated"):
+            project_state.split_game_function(SimpleNamespace(
+                parent="func_15000000", identifier="func_15000008", us="func_15000008",
+            ))
+        self.write_split_assembly(split=True)
+        with self.assertRaisesRegex(project_state.ProjectStateError, "not strictly inside"):
+            project_state.split_game_function(SimpleNamespace(
+                parent="func_15000000", identifier="func_15000010", us="func_15000010",
+            ))
+        with self.assertRaisesRegex(project_state.ProjectStateError, "already registered"):
+            project_state.split_game_function(SimpleNamespace(
+                parent="func_15000000", identifier="func_15000000", us="func_15000008",
+            ))
+
+        self.assertEqual(before, (project_state.FUNCTIONS_FILE.read_bytes(), project_state.SOURCE_UNITS_FILE.read_bytes()))
+
+    def test_split_game_function_rejects_a_reference_that_does_not_partition_the_span(self) -> None:
+        self.register_split_parent_unit()
+        assembly = self.root / "reference" / "game" / "us" / "asm" / "sample.s"
+        assembly.write_text("\n".join((
+            "glabel func_15000000",
+            "    /* 0 15000000 03E00008 */  jr         $ra",
+            "    /* 4 15000004 00000000 */   nop",
+            "glabel func_15000008",
+            "    /* 8 15000008 03E00008 */  jr         $ra",
+            "glabel func_1500000C",
+            "    /* C 1500000C 00000000 */   nop",
+            "glabel func_15000010",
+            "    /* 10 15000010 00000000 */  nop",
+            "",
+        )), encoding="utf-8")
+
+        with self.assertRaisesRegex(project_state.ProjectStateError, "does not partition"):
+            project_state.split_game_function(SimpleNamespace(
+                parent="func_15000000", identifier="func_15000008", us="func_15000008",
+            ))
+
     def register_withdrawable_game_unit(self) -> str:
         source = "src/game/withdraw_test.c"
         project_state.register_source_unit(SimpleNamespace(

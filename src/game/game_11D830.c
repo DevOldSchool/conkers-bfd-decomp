@@ -121,16 +121,11 @@ void func_150F0938(s32 arg0) {
     func_15160A58(arg0, 2, &D_800A1680, 2, 0x12C, 0xD, 0xFF, 0xFF,
                   0xFF, 0xFF, 0, -1, 0, 0, 0xFF, 1);
 }
-typedef struct Game11D830Position {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game11D830Position;
 
 typedef struct Game11D830EffectPacket {
     s32 field_0;
     s32 field_4;
-    Game11D830Position position;
+    Vec3f position;
     f32 field_14;
     f32 field_18;
     f32 field_1C;
@@ -172,7 +167,7 @@ void func_150F0A24(void *arg0) {
 
     packet.field_0 = 9;
     packet.field_4 = 6;
-    packet.position = *(Game11D830Position *)arg0;
+    packet.position = *(Vec3f *)arg0;
     packet.field_14 = 14.88f;
     packet.field_18 = 14.88f;
     packet.field_1C = D_800A1858;
@@ -238,9 +233,9 @@ typedef struct Game11D830EffectInitPacket {
     f32 scale;
     f32 width;
     f32 height;
-    Game11D830Position position;
-    Game11D830Position vector1;
-    Game11D830Position vector2;
+    Vec3f position;
+    Vec3f vector1;
+    Vec3f vector2;
     f32 field_54;
     s32 flags;
     s32 field_5C;
@@ -266,7 +261,7 @@ extern f32 D_800A1860;
 extern f32 D_800A1864;
 extern f32 D_800A1868;
 extern f32 D_800A186C;
-extern Game11D830Position D_800A5480;
+extern Vec3f D_800A5480;
 void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F0BEC CURRENT (130) */
@@ -639,7 +634,7 @@ void func_150F1CB0(void *arg0) {
 }
 typedef struct GameF1D10Burst {
     s32 count, countRange;
-    Game11D830Position position;
+    Vec3f position;
     s16 yaw, yawRange, pitch, pitchRange;
     f32 field1C, field20, field24, field28;
     s16 lifetime, lifetimeRange;
@@ -667,7 +662,7 @@ extern f32 D_800A190C, D_800A1910, D_800A1914, D_800A1918;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1D10 CURRENT (4890) */
 void func_150F1D10(u8 *arg0, u8 arg1, s32 arg2) {
-    Game11D830Position position;
+    Vec3f position;
     f32 scale;
     GameF1D10ExtendedBurst first;
     GameF1D10Burst second;

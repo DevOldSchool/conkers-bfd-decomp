@@ -32,10 +32,6 @@ typedef struct GameE35C0Object {
     GameE35C0Payload effect;
 } GameE35C0Object;
 
-typedef struct GameE35C0Position {
-    f32 x, y, z;
-} GameE35C0Position;
-
 typedef struct GameE35C0Descriptor {
     f32 field00, field04, field08, field0C, field10;
     s16 field14, field16, field18, field1A, field1C;
@@ -54,8 +50,8 @@ extern f32 D_8009FCBC, D_8009FCC0, D_8009FCC4, D_8009FCC8, D_800BE9A4;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6110 CURRENT (1456) */
 void func_150B6110(GameE35C0Object *arg0) {
     GameE35C0Descriptor descriptor;
-    GameE35C0Position first;
-    GameE35C0Position second;
+    Vec3f first;
+    Vec3f second;
     GameE35C0Owner *owner;
     GameE35C0Payload *effect;
     u8 angle;

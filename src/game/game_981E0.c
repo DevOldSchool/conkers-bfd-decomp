@@ -2539,12 +2539,6 @@ void func_15070D24(s32 arg0) {
 }
 void func_15070F60(s32 arg0);
 
-typedef struct {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game981E0Position;
-
 extern Game981E0CopiedVector D_80099BA0, D_80099BAC;
 void func_151D5334(f32 *, f32, f32, f32, s32, s32, s32);
 
@@ -2553,7 +2547,7 @@ void func_15070F60(s32 arg0) {
     Game981E0CopiedVector input;
     Game981E0CopiedVector second;
     f32 ranges[2];
-    Game981E0Position transformed;
+    Vec3f transformed;
     Game981E0Descriptor descriptor;
     s32 position[3];
     s32 randomSecond;
@@ -2726,12 +2720,12 @@ void func_15071690(s32 arg0) {
 
 typedef struct {
     u8 pad0[0x14];
-    Game981E0Position position;
+    Vec3f position;
 } Game981E0PositionSource;
 
 
 void func_150716EC(s32 arg0) {
-    Game981E0Position position;
+    Vec3f position;
     Game981E0PositionSource *source;
 
     source = (Game981E0PositionSource *)D_800D154C;

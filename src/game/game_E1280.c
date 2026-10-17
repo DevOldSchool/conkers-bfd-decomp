@@ -61,12 +61,6 @@ void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32
 u32 func_150ADA20(void);
 extern u8 D_1000EF40[];
 
-typedef struct {
-    f32 x;
-    f32 y;
-    f32 z;
-} GameE1280Vec3;
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B3F5C CURRENT (366) */
 void *func_150B3F5C(u8 *arg0, f32 *volatile arg1, s32 arg2) {
     struct {
@@ -81,7 +75,7 @@ void *func_150B3F5C(u8 *arg0, f32 *volatile arg1, s32 arg2) {
             u8 flag_b;
             u8 pad_51[3];
             f32 zero_b;
-            GameE1280Vec3 position;
+            Vec3f position;
             s16 mode;
             s16 subtype;
             s32 number;
@@ -108,7 +102,7 @@ void *func_150B3F5C(u8 *arg0, f32 *volatile arg1, s32 arg2) {
     locals.packet.combined = first + second;
     locals.packet.zero_b = 0.0f;
     locals.packet.combined_copy = locals.packet.combined;
-    locals.packet.position = *(GameE1280Vec3 *)arg1;
+    locals.packet.position = *(Vec3f *)arg1;
     locals.packet.number = 9;
     locals.result = func_15147A80(&locals.packet.position, (void *)0x58, 0x24,
                             7, 7, 7, 0, 0, 0, 0xFF, 1);
@@ -125,7 +119,7 @@ void *func_150B3F5C(u8 *arg0, f32 *volatile arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B3F5C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B3F5C.s")
 typedef struct GameE1280TimedEntry {
-    GameE1280Vec3 position;
+    Vec3f position;
     f32 velocityC;
     f32 velocity10;
     f32 velocity14;
@@ -152,7 +146,7 @@ typedef struct GameE1280TimedObject {
     s8 tail;
     s8 head;
     u8 pad2F[0x25];
-    GameE1280Vec3 output;
+    Vec3f output;
     u8 pad60[0x34];
     GameE1280TimedEntry *entries;
     GameE1280TimedState *state;
@@ -224,7 +218,7 @@ f32 func_150ADA68(void);
 extern u8 D_8009FBF0[];
 
 typedef struct GameE1280TrailHeader {
-    GameE1280Vec3 position;
+    Vec3f position;
     s16 life;
     u16 flags;
     s32 kind;
@@ -235,7 +229,7 @@ typedef struct GameE1280TrailHeader {
 
 typedef struct GameE1280TrailParameters {
     f32 width;
-    GameE1280Vec3 velocity;
+    Vec3f velocity;
     f32 gravity;
     u8 unused14[4];
     u8 flags;
@@ -308,7 +302,7 @@ void func_150B5088(void *arg0) {
     parameters.flags = 8;
     parameters.color = state[0x24];
     parameters.alpha = (s8)*(s16 *)(state + 0x26);
-    header.position = *(GameE1280Vec3 *)((u8 *)arg0 + 0x10);
+    header.position = *(Vec3f *)((u8 *)arg0 + 0x10);
     do {
         speed = func_150ADA68() * preset->speedRange + preset->speed;
         angle1 = func_150ADA20();

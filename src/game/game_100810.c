@@ -272,7 +272,6 @@ s32 func_150D4CC4(void *arg0) {
         (*(f32 *)((u8 *)arg0 + 0x174) - temp_fv0) * D_800A0A14;
     return 1;
 }
-typedef struct { f32 x, y, z; } Game100810Vector;
 
 typedef struct {
     s32 field00, field04;
@@ -282,7 +281,7 @@ typedef struct {
     u8 field1C, field1D;
     s16 field1E, field20, field22;
     f32 scale, size1, size2;
-    Game100810Vector position, base, velocity;
+    Vec3f position, base, velocity;
     f32 field54;
     s32 flags, field5C;
     u8 field60, field61;
@@ -293,10 +292,10 @@ typedef struct {
 f32 func_150ADA68(void);
 void func_15143794(s16, s16, f32, void *);
 extern f32 D_800A0A18, D_800A0A1C, D_800A0A20, D_800A0A24, D_800A0A28;
-extern Game100810Vector D_800A5480;
+extern Vec3f D_800A5480;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150D4D58 CURRENT (2653) */
-void func_150D4D58(Game100810Vector *arg0, Game100810Vector *arg1, f32 arg2,
+void func_150D4D58(Vec3f *arg0, Vec3f *arg1, f32 arg2,
                    s32 arg3, s32 arg4) {
     Game100810Descriptor packet;
     s16 yawBase;

@@ -10,12 +10,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1DBB60Vec3;
-
 void func_10010FFC(s32, s32, s32, s32, s32, void *);
 s32 func_15045800(f32 *, u16, f32, void *);
 void func_151ABE40(f32 *, void *, s32, u8, s32);

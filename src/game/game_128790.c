@@ -16,33 +16,28 @@ s32 func_150FB2E0(void *arg0) {
     func_150FB240((u8 *) arg0 + 0x2E, *(s16 *)((u8 *) arg0 + 0x22), *(s16 *)((u8 *) arg0 + 0x70), *(s16 *)((u8 *) arg0 + 0x26), *(s16 *)((u8 *) arg0 + 0x28));
     return 1;
 }
-typedef struct Game128790Vec3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game128790Vec3;
 
 typedef struct Game128790Locals {
     void *outputs[3];
     void *inputs[3];
-    Game128790Vec3 vec44;
-    Game128790Vec3 vec50;
-    Game128790Vec3 vec5C;
-    Game128790Vec3 vec68;
+    Vec3f vec44;
+    Vec3f vec50;
+    Vec3f vec5C;
+    Vec3f vec68;
     s32 pad74;
     s32 buffer;
-    Game128790Vec3 result7C;
-    Game128790Vec3 result88;
-    Game128790Vec3 result94;
+    Vec3f result7C;
+    Vec3f result88;
+    Vec3f result94;
 } Game128790Locals;
 
 void func_15145EA4(s32 *, s32 *, s32, s32);
 void func_151D4408(void *, void *, s32, void *, f32, s32, s32);
 void func_150FEC28(void *, s32, void *, void *, void *, s32, s32);
-extern Game128790Vec3 D_800A1D30;
-extern Game128790Vec3 D_800A1D3C;
-extern Game128790Vec3 D_800A1D48;
-extern Game128790Vec3 D_800A1D54;
+extern Vec3f D_800A1D30;
+extern Vec3f D_800A1D3C;
+extern Vec3f D_800A1D48;
+extern Vec3f D_800A1D54;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FB324 CURRENT (1147) */
 void func_150FB324(u8 *arg0, s32 arg1, s32 arg2) {

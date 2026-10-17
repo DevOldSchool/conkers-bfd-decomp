@@ -21,11 +21,6 @@ void func_1514BF7C(u8 *arg0) {
 }
 void func_1514BF9C(s32 arg0);
 void func_1514BE20(s32 arg0);
-typedef struct Game179400MotionVector {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game179400MotionVector;
 
 extern s32 D_800BE9E4;
 extern f32 D_800BE9A4;
@@ -35,14 +30,14 @@ extern f32 D_800BE9A8;
 void func_1514BF9C(s32 arg0) {
     u8 *owner;
     u8 *extension;
-    Game179400MotionVector previous;
+    Vec3f previous;
     u32 ticks;
     f32 delta_x;
     f32 delta_y;
     f32 delta_z;
 
     owner = (u8 *)arg0;
-    previous = *(Game179400MotionVector *)(owner + 0x148);
+    previous = *(Vec3f *)(owner + 0x148);
     extension = owner + 0x110;
     for (ticks = (u32)D_800BE9E4; ticks != 0; ticks--) {
         *(f32 *)(extension + 0x38) *= *(f32 *)(extension + 0x48);

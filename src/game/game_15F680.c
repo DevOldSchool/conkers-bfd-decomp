@@ -554,17 +554,11 @@ s32 func_15046C80(f32 *, s32, f32, void *);
 typedef s32 (*Game15F680MotionCallback)(void *, f32, f32, f32, f32, void *);
 extern Game15F680MotionCallback D_80089934[];
 
-typedef struct Game15F680Vector {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game15F680Vector;
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15133894 CURRENT (15) */
 s8 func_15133894(void *arg0) {
     struct {
-        Game15F680Vector test;
-        Game15F680Vector prior;
+        Vec3f test;
+        Vec3f prior;
         u8 pad4C[3];
         s8 result;
     } work;
@@ -574,7 +568,7 @@ s8 func_15133894(void *arg0) {
 
     state = arg0;
     work.result = 1;
-    work.prior = *(Game15F680Vector *)(state + 0x38);
+    work.prior = *(Vec3f *)(state + 0x38);
     func_151337C0(arg0);
     if ((*(s32 *)(state + 0x60) & 1) && state[0x73] &&
         (*(f32 *)(state + 0x3C) < work.prior.y)) {

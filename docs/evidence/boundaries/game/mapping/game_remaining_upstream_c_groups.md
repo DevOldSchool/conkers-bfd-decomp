@@ -71,7 +71,7 @@ Repeated table/constant references include `D_80085FD0`, `D_80085FE4`, `D_800990
 
 ### `game_A9D90.c`
 
-The opening `1507C8FC` repeatedly calls `1507D4F8` and also calls `1507CD0C` and the closing `1507E1D0`. `1507CD64` calls the first `1507C8E0`; later `1507D754` repeatedly calls `1507CD64`. Shared state includes `800D18A8`, `800BE616`, `800BE9F0`, `8008FD8C` and `800CC2D0`. The three unreferenced return sequences at `1507DB34`, `1507DB3C` and `1507DB64` remain intact in existing raw spans rather than gaining speculative symbol identities.
+The opening `1507C8FC` repeatedly calls `1507D4F8` and also calls `1507CD0C` and the closing `1507E1D0`. `1507CD64` calls the first `1507C8E0`; later `1507D754` repeatedly calls `1507CD64`. Shared state includes `800D18A8`, `800BE616`, `800BE9F0`, `8008FD8C` and `800CC2D0`. The three unreferenced return sequences at `1507DB34`, `1507DB3C` and `1507DB64` remain intact in existing raw spans rather than gaining speculative symbol identities. (`1507DB64` was later split from the matched `1507DB44` span because its accepted C is a separate empty function; it still has no entry reference. See [the return-stub splits](game_unreferenced_return_stub_splits.md).)
 
 ### `game_BC510.c`
 
@@ -290,7 +290,8 @@ Range SHA-1: `eac933934eb73765535fc39951194337d6c5085d`.
 | `func_1507D1D8` | `0x320` |
 | `func_1507D4F8` | `0x25c` |
 | `func_1507D754` | `0x3f0` |
-| `func_1507DB44` | `0x28` |
+| `func_1507DB44` | `0x1C` |
+| `func_1507DB64` | `0x8` |
 | `func_1507DB6C` | `0x2e0` |
 | `func_1507DE4C` | `0xc4` |
 | `func_1507DF10` | `0xd4` |

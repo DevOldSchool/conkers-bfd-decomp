@@ -28,20 +28,14 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1D6E80Vec3;
-
-s32 func_15045800(Game1D6E80Vec3 *, u16, f32, void *);
-void func_151ABE40(Game1D6E80Vec3 *, void *, s32, u8, s32);
+s32 func_15045800(Vec3f *, u16, f32, void *);
+void func_151ABE40(Vec3f *, void *, s32, u8, s32);
 extern f32 D_800A8F74;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A99D0 CURRENT (428) */
 void func_151A99D0(void *arg0) {
     u8 *object;
-    Game1D6E80Vec3 position;
+    Vec3f position;
     f32 height;
 
     object = *(u8 **)((u8 *)arg0 + 0x18);
@@ -68,7 +62,7 @@ extern f32 D_800A8F78;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A9AA4 CURRENT (512) */
 void func_151A9AA4(void *arg0) {
-    Game1D6E80Vec3 position;
+    Vec3f position;
     void *sp28;
     f32 height;
     void *target;
@@ -101,7 +95,7 @@ extern f32 D_800A8F7C;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A9BA0 CURRENT (270) */
 void func_151A9BA0(void *arg0) {
     u8 *object;
-    Game1D6E80Vec3 position;
+    Vec3f position;
     f32 height;
 
     object = *(u8 **)((u8 *)arg0 + 0x18);
@@ -128,7 +122,7 @@ extern f32 D_800A8F80;
 
 void func_151A9CA0(void *arg0) {
     u8 *object;
-    Game1D6E80Vec3 position;
+    Vec3f position;
 
     object = *(u8 **)((u8 *)arg0 + 0x18);
     if ((*(u8 **)(object + 0x31C) == 0) || (*(u8 *)(*(u8 **)(object + 0x31C) + 0x95) == 0)) {
@@ -155,7 +149,7 @@ extern f32 D_800A8F84;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A9DC0 CURRENT (502) */
 void func_151A9DC0(void *arg0) {
     u8 *object;
-    Game1D6E80Vec3 position;
+    Vec3f position;
     void *sp28;
     f32 height;
     void *target;
@@ -186,7 +180,7 @@ extern f32 D_800A8F88;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A9EC0 CURRENT (454) */
 void func_151A9EC0(void *arg0) {
-    Game1D6E80Vec3 position;
+    Vec3f position;
     void *sp28;
     register u8 *object;
 
@@ -215,7 +209,7 @@ extern f32 D_800A8F8C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A9FC8 CURRENT (520) */
 void func_151A9FC8(void *arg0) {
-    Game1D6E80Vec3 position;
+    Vec3f position;
     void *sp2C;
     f32 height;
     void *target;
@@ -244,7 +238,7 @@ extern f32 D_800A8F90;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151AA09C CURRENT (520) */
 void func_151AA09C(void *arg0) {
-    Game1D6E80Vec3 position;
+    Vec3f position;
     void *sp2C;
     f32 height;
     void *target;
@@ -328,7 +322,7 @@ void func_151AA264(void *arg0, void *arg1) {
         u8 field08;
         void *owner;
         s8 field10;
-        Game1D6E80Vec3 vector14;
+        Vec3f vector14;
         f32 field20;
         f32 field24;
         s16 field28;
@@ -518,7 +512,7 @@ typedef struct {
     u8 mode;
     s16 size0, size1, field22;
     f32 field24, scale0, scale1;
-    Game1D6E80Vec3 position, rotation, velocity;
+    Vec3f position, rotation, velocity;
     f32 field54;
     s32 flags58;
     u8 pad5C[4];
@@ -541,7 +535,7 @@ extern f32 D_800A8FAC, D_800A8FB0, D_800A8FB4, D_800A8FB8;
 extern f32 D_800A8FBC, D_800A8FC0, D_800A8FC4, D_800A8FC8;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151AA6D8 CURRENT (360) */
-void func_151AA6D8(Game1D6E80Vec3 *arg0, Game1D6E80Vec3 *arg1,
+void func_151AA6D8(Vec3f *arg0, Vec3f *arg1,
                    s32 arg2, s32 arg3, f32 arg4, u8 *arg5) {
     Game1D6E80Particle particle;
     void *result;
@@ -687,7 +681,7 @@ typedef struct Game1D6E80ImpactPacket {
     s16 alpha;
     s16 angle;
     s16 variant;
-    Game1D6E80Vec3 position;
+    Vec3f position;
     f32 scale;
     f32 value18;
     f32 value1C;
@@ -729,12 +723,12 @@ extern f32 D_800A8FDC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151AABC4 CURRENT (746) */
 void func_151AABC4(u8 *arg0, s32 arg1) {
-    Game1D6E80Vec3 joint;
+    Vec3f joint;
     Game1D6E80ImpactHit hit;
     f32 height;
-    Game1D6E80Vec3 query;
+    Vec3f query;
     u8 color;
-    Game1D6E80Vec3 position;
+    Vec3f position;
     Game1D6E80ImpactPacket packet;
 
     if (arg0 != 0 && *(s32 *)(arg0 + 0x1D4) != 0) {
@@ -847,7 +841,7 @@ extern f32 D_800A8FEC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151AB1C4 CURRENT (512) */
 void func_151AB1C4(void *arg0) {
-    Game1D6E80Vec3 position;
+    Vec3f position;
     void *sp28;
     f32 height;
     void *target;

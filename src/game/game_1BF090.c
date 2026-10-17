@@ -9,7 +9,6 @@
  * - func_15191BE0
  * - func_15191D54
  * - func_1519203C
- * - func_15192358
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -338,16 +337,7 @@ void func_151DA6F8(f32 *, f32 *, f32, s16, s32, f32, s32, s32, f32, f32,
                   s32, s32, s32, s32, s32, s32, s32, s32);
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
-extern f32 D_800A80FC;
-extern f32 D_800A8100;
-extern f32 D_800A8104;
-extern f32 D_800A8108;
-extern f32 D_800A810C;
-extern f32 D_800A8110;
-extern f32 D_800A8114;
-extern f32 D_800A8118;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15192358 CURRENT (130) */
 s32 func_15192358(s32 arg0, s32 arg1) {
     u8 result;
     f32 factor;
@@ -367,32 +357,30 @@ s32 func_15192358(s32 arg0, s32 arg1) {
         position.values[0] = ((Game1BF090Effect *)arg0)->position[0];
         position.values[1] = emitter->height + 2.0f;
         position.values[2] = ((Game1BF090Effect *)arg0)->position[2];
-        func_151D9B8C(emitter->kind, emitter->scale * D_800A80FC,
+        func_151D9B8C(emitter->kind, emitter->scale * 0.08308f,
                       ((Game1BF090Effect *)arg0)->index, (s32)emitter->data, (f32 *)&position,
                       100, 0, 1, 0, ((Game1BF090Effect *)arg0)->mode,
                       ((Game1BF090Effect *)arg0)->group);
         angle_random = func_150ADA68();
         speed_random = func_150ADA68();
         size_random = func_150ADA68();
-        factor = D_800A8100;
-        func_151436B4(angle_random * D_800A8104,
-                      (speed_random * 1000.0f + D_800A8108) * factor,
-                      (size_random * D_800A810C + D_800A8110) * factor,
+        factor = 0.001f;
+        func_151436B4(angle_random * 6.2831855f,
+                      (speed_random * 1000.0f + -1207.0f) * factor,
+                      (size_random * 3557.0f + 5336.0f) * factor,
                       &direction);
         size_random = func_150ADA68();
         duration_random = func_150ADA20();
         count_random = func_150ADA20();
         factor = 1.0f;
-        func_151DA6F8((f32 *)&position, (f32 *)&direction, size_random * D_800A8114 + D_800A8114,
+        func_151DA6F8((f32 *)&position, (f32 *)&direction, size_random * 0.20600002f + 0.20600002f,
                       (s16)(duration_random % 21U + 35), ((Game1BF090Effect *)arg0)->index,
-                      emitter->scale * D_800A8118, count_random % 7U + 5, 0,
+                      emitter->scale * 0.02495f, count_random % 7U + 5, 0,
                       factor, factor, 1, emitter->kind, 0, 0x10, 0xF, 0,
                       ((Game1BF090Effect *)arg0)->mode, ((Game1BF090Effect *)arg0)->group);
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15192358 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BF090/func_15192358.s")
 s32 func_15192308(s32, s32);                        /* extern */
 s32 func_15192358(s32, s32);                        /* extern */
 

@@ -11,14 +11,9 @@ void func_150B6450(s32 arg0, s32 arg1, u8 arg2) {
         func_1516972C((u8 *)arg0);
     }
 }
-typedef struct {
-    f32 x;
-    f32 y;
-    f32 z;
-} GameE3900Vector;
 
 typedef struct {
-    GameE3900Vector position;
+    Vec3f position;
     f32 fieldC;
     u8 field10;
     u8 pad11[3];
@@ -45,8 +40,8 @@ typedef struct {
 } GameE3900Spawn;
 
 void func_15143794(s16, s16, f32, void *);
-void *func_150B3F5C(GameE3900Spawn *, GameE3900Vector *, s16);
-extern GameE3900Vector D_8009FC3C[];
+void *func_150B3F5C(GameE3900Spawn *, Vec3f *, s16);
+extern Vec3f D_8009FC3C[];
 extern f32 D_8009FC60[], D_8009FC6C[], D_8009FC78[];
 extern s16 D_8009FC84[];
 extern s16 D_8009FC8E[][2];
@@ -55,7 +50,7 @@ extern f32 D_8009FCD8, D_8009FCDC, D_8009FCE0, D_8009FCE4;
 
 void func_150B648C(u8 arg0) {
     GameE3900Spawn spawn;
-    GameE3900Vector position;
+    Vec3f position;
     if (arg0 == 0) {
         spawn.position.x = func_151423D8(0xAA) * 10.0f;
         spawn.position.y = 3.0f;
