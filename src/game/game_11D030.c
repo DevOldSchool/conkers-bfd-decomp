@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_11D030.c
@@ -12,9 +13,8 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct Game11D030Vector { f32 x, y, z; } Game11D030Vector;
 typedef struct Game11D030Emission {
-    Game11D030Vector position;
+    Vec3f position;
     s16 life, fieldE;
     s32 field10;
     u8 field14, mode;
@@ -22,7 +22,7 @@ typedef struct Game11D030Emission {
 } Game11D030Emission;
 typedef struct Game11D030Motion {
     f32 speed;
-    Game11D030Vector direction;
+    Vec3f direction;
     f32 size;
     u8 kind, mode, flags, red, green, blue, alpha, field1B;
     u8 field1C, field1D, field1E, field1F, field20, field21;
@@ -59,7 +59,7 @@ void func_150EFB80(u8 *arg0) {
     if (state->accumulator > 1.0f) {
         actor = state->actor;
         if (actor[0x128] & 1) {
-            spawn.position = *(Game11D030Vector *)(actor + 0x40);
+            spawn.position = *(Vec3f *)(actor + 0x40);
             spawn.fieldE = 5;
             spawn.field10 = 10;
             motion.kind = 4;

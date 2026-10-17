@@ -23,8 +23,6 @@ void func_15145EA4(s32 *, s32 *, s32, s32);
 extern u8 D_80088BA0;
 extern s32 D_800A2000;
 
-typedef struct Game12BD10Vec3 { f32 x; f32 y; f32 z; } Game12BD10Vec3;
-
 s32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_150FEC28(void *, s32, void *, void *, void *, s32, s32);
@@ -47,12 +45,12 @@ f32 sqrtf(f32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FE860 CURRENT (775) */
 void func_150FE860(Game12BD10State *arg0, s32 arg1, s32 arg2) {
-    Game12BD10Vec3 position;
-    Game12BD10Vec3 direction;
-    Game12BD10Vec3 right;
-    Game12BD10Vec3 up;
-    Game12BD10Vec3 origin;
-    Game12BD10Vec3 delta;
+    Vec3f position;
+    Vec3f direction;
+    Vec3f right;
+    Vec3f up;
+    Vec3f origin;
+    Vec3f delta;
     f32 sideX;
     f32 sideZ;
     s32 matrix;

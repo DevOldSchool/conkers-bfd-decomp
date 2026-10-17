@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1E30A0.c
@@ -12,10 +13,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct Game1E30A0Vector { f32 x, y, z; } Game1E30A0Vector;
 typedef struct Game1E30A0Spawn {
     f32 field0, field4, field8, fieldC;
-    Game1E30A0Vector rotation, scale, position, velocity, acceleration;
+    Vec3f rotation, scale, position, velocity, acceleration;
     f32 field4C;
     s32 flags;
     s16 lifetime, resource;
@@ -40,8 +40,8 @@ extern s8 D_8008FDA8;
 extern f32 D_800AA430;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B5BF0 CURRENT (3080) */
-void *func_151B5BF0(Game1E30A0Vector *arg0, Game1E30A0Vector *arg1,
-    f32 arg2, Game1E30A0Vector *arg3, Game1E30A0Vector *arg4,
+void *func_151B5BF0(Vec3f *arg0, Vec3f *arg1,
+    f32 arg2, Vec3f *arg3, Vec3f *arg4,
     f32 arg5, s32 arg6, s32 arg7, s32 arg8, f32 arg9,
     s32 arg10, s32 arg11, s32 arg12, s32 arg13) {
     void *result;

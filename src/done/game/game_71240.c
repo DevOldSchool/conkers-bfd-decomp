@@ -72,11 +72,6 @@ void func_15043F6C(Game71240Work *arg0, f32 arg1, f32 arg2, f32 arg3,
     arg0->m[2][3] = 0.0f;
     arg0->m[3][3] = 1.0f;
 }
-typedef struct Game71240Vec3f {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game71240Vec3f;
 
 typedef struct Game71240TransformSource {
     u8 pad0[0x18];
@@ -89,7 +84,7 @@ typedef struct Game71240TransformSource {
     s16 dz;
 } Game71240TransformSource;
 
-void func_15043FF0(Game71240Vec3f *arg0, Game71240TransformSource *arg1) {
+void func_15043FF0(Vec3f *arg0, Game71240TransformSource *arg1) {
     arg0->x = (f32)arg1->x;
     arg0->y = (f32)arg1->y;
     arg0->z = (f32)arg1->z;

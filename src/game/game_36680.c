@@ -935,12 +935,9 @@ u32 func_1500B1F4(s16 arg0, s32 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) 
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1500B1F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500B1F4.s")
-typedef struct {
-    f32 x, y, z;
-} Game36680FloatPoint;
 
 typedef struct {
-    Game36680FloatPoint points[3];
+    Vec3f points[3];
 } Game36680Triangle;
 
 void func_15049350(Game36680Triangle);
@@ -954,7 +951,7 @@ u32 func_1500B3B0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) 
     f32 centerX;
     f32 centerY;
     f32 centerZ;
-    Game36680FloatPoint *point;
+    Vec3f *point;
     s16 **input;
     f32 **table;
     f32 *pattern;

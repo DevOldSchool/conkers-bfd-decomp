@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_FA360.c
@@ -86,10 +87,9 @@ void *func_150CD59C(u8 *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150CD59C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FA360/func_150CD59C.s")
-typedef struct { f32 x, y, z; } GameFA360Vector;
 typedef struct {
     s32 countBase, countRange;
-    GameFA360Vector position;
+    Vec3f position;
     s16 angleBase, angleRange, pitchBase, pitchRange;
     f32 speedBase, speedRange, field24;
     f32 scaleBase, scaleRange;

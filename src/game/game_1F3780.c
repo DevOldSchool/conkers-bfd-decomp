@@ -47,15 +47,12 @@ u8 arg2;
     func_15143134((f32 *)((u8 *)D_800AAB08 + (arg2 * 0xC)), (f32 *)arg1,
                    matrixAddress);
 }
-typedef struct Game1F3780Vector {
-    f32 x, y, z;
-} Game1F3780Vector;
 
 typedef struct Game1F3780EffectPacket {
     u8 pad0[8];
-    Game1F3780Vector position;
+    Vec3f position;
     u8 pad14[0x18];
-    Game1F3780Vector end;
+    Vec3f end;
     u8 pad38[0x21];
     u8 count;
     u8 pad5A[0xA];
@@ -74,14 +71,14 @@ extern f32 D_800AAC04, D_800AAC08, D_800AAC0C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C6A28 CURRENT (7885) */
 void func_151C6A28(void *arg0, u8 arg1, u8 arg2, s32 arg3) {
-    Game1F3780Vector first;
-    Game1F3780Vector second;
-    Game1F3780Vector third;
+    Vec3f first;
+    Vec3f second;
+    Vec3f third;
     s32 transform;
     s32 inputs[3];
     f32 *outputs[3];
     s32 matrix;
-    Game1F3780Vector position;
+    Vec3f position;
     void *entry;
     u8 *object;
     u8 *state;
@@ -95,9 +92,9 @@ void func_151C6A28(void *arg0, u8 arg1, u8 arg2, s32 arg3) {
         matrix = *(s32 *)((u8 *)arg0 + 0x1D4);
         if (matrix != 0) {
             transform = D_800AAB00[arg1] + matrix;
-            inputs[0] = (s32)((Game1F3780Vector *)D_800AAB08 + arg1);
-            inputs[1] = (s32)((Game1F3780Vector *)D_800AAB38 + arg1);
-            inputs[2] = (s32)((Game1F3780Vector *)D_800AAB50 + arg1);
+            inputs[0] = (s32)((Vec3f *)D_800AAB08 + arg1);
+            inputs[1] = (s32)((Vec3f *)D_800AAB38 + arg1);
+            inputs[2] = (s32)((Vec3f *)D_800AAB50 + arg1);
             outputs[0] = &first.x;
             outputs[1] = &second.x;
             outputs[2] = &third.x;

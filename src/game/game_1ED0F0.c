@@ -178,16 +178,11 @@ void func_151BFE84(void *arg0, void *arg1, void *arg2,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151BFE84 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151BFE84.s")
-typedef struct {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1ED0F0Vector;
 
 typedef struct {
     s16 angleBase, angleRange, pitchBase, pitchRange;
     s32 countBase, countRange;
-    Game1ED0F0Vector position;
+    Vec3f position;
     f32 field1C, field20, field24, field28, field2C, field30;
     s32 field34, field38;
     f32 field3C, field40, field44, field48;
@@ -203,14 +198,14 @@ typedef struct {
 
 void func_1514FCE8(s16 *, u8, s32);
 void func_1504715C(Game1C0098Hit *, void *);
-s32 func_15046C80(Game1ED0F0Vector *, u16, f32, Game1C0098Hit *);
+s32 func_15046C80(Vec3f *, u16, f32, Game1C0098Hit *);
 extern f32 D_800AA990, D_800AA994, D_800AA998;
 
-void func_151C0098(Game1ED0F0Vector *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4) {
+void func_151C0098(Vec3f *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4) {
     Game1C0098Config config;
-    Game1ED0F0Vector start;
+    Vec3f start;
     Game1C0098Hit hit;
-    Game1ED0F0Vector position;
+    Vec3f position;
 
     func_151C0418(arg0, arg3, arg4);
     func_151C04F8(&arg0->x, arg3, arg4);
@@ -465,7 +460,7 @@ typedef struct {
 
 void func_15143134(f32 *, f32 *, s32); /* extern */
 extern u8 D_800AA954[];
-extern Game1ED0F0Vector D_800AA958[];
+extern Vec3f D_800AA958[];
 
 void func_151C1798(Game1ED0F0Object *arg0, f32 *arg1) {
     s32 index;
@@ -528,10 +523,10 @@ typedef struct {
 typedef struct {
     s32 field00;
     f32 distance;
-    Game1ED0F0Vector position;
+    Vec3f position;
     u8 pad14[0x18];
-    Game1ED0F0Vector start;
-    Game1ED0F0Vector normal;
+    Vec3f start;
+    Vec3f normal;
     Game1ED0F0Surface surface;
     u8 pad56[6];
     u8 *hit;
@@ -553,12 +548,12 @@ void func_15081690(void *, f32, f32, f32, f32, f32, f32,
 extern f32 D_800AA9C4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C1D5C CURRENT (2360) */
-void func_151C1D5C(void * volatile arg0, Game1ED0F0Vector *arg1,
-                   Game1ED0F0Vector *arg2, Game1ED0F0Trace *arg3,
+void func_151C1D5C(void * volatile arg0, Vec3f *arg1,
+                   Vec3f *arg2, Game1ED0F0Trace *arg3,
                    f32 arg4, register s32 arg5, register s32 arg6, register s32 arg7,
-                   register s32 arg8, register s32 arg9, Game1ED0F0Vector *arg10,
+                   register s32 arg8, register s32 arg9, Vec3f *arg10,
                    f32 * volatile arg11, Game1ED0F0TraceHit *arg12, register s32 arg13) {
-    Game1ED0F0Vector position;
+    Vec3f position;
     register f32 epsilon;
     f32 distance;
     register s32 again;

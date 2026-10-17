@@ -85,24 +85,19 @@ void func_151A3390(u8 *arg0, u8 arg1) {
     func_15160A58(arg0, 1, origin, 2, 0x12C, 0x50, 0xFF, 0xFF,
                    0x75, 0xFF, 0, -1, 0, 0, arg1, 1);
 }
-typedef struct {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1D0840Vec3;
 
 typedef struct {
     u8 request[0x30];
     s8 field30;
     u8 pad31[3];
-    Game1D0840Vec3 vec34;
+    Vec3f vec34;
     f32 field40;
     s8 field44;
     u8 pad45[3];
     f32 field48;
     s8 field4C;
     u8 pad4D[3];
-    Game1D0840Vec3 output50;
+    Vec3f output50;
     s16 field5C;
     u16 flags5E;
     s32 field60;
@@ -149,7 +144,7 @@ extern s32 D_800BE9E4;
 extern f32 D_800BE9A4;
 
 typedef struct Game1D0840TimedEntry {
-    Game1D0840Vec3 value0;
+    Vec3f value0;
     f32 fieldC;
     s16 field10;
     s16 field12;
@@ -163,7 +158,7 @@ typedef struct Game1D0840TimedState {
     u8 identity;
     u8 transformIndex;
     u8 pad06[2];
-    Game1D0840Vec3 input08;
+    Vec3f input08;
     f32 field14;
     s16 field18;
     s16 field1A;
@@ -177,7 +172,7 @@ typedef struct Game1D0840TimedState {
     u8 pad2B[5];
     u8 flags30;
     u8 pad31[3];
-    Game1D0840Vec3 previous34;
+    Vec3f previous34;
     f32 field40;
     u8 field44;
     u8 pad45[3];
@@ -189,7 +184,7 @@ typedef struct Game1D0840TimedObject {
     u8 pad0[0xC];
     u8 fieldC;
     u8 pad0D[3];
-    Game1D0840Vec3 position10;
+    Vec3f position10;
     u8 pad1C[2];
     u16 flags1E;
     u8 pad20[5];
@@ -199,7 +194,7 @@ typedef struct Game1D0840TimedObject {
     s8 field2D;
     s8 field2E;
     u8 pad2F[0x25];
-    Game1D0840Vec3 output54;
+    Vec3f output54;
     u8 pad60[0x34];
     Game1D0840TimedEntry *entries94;
     Game1D0840TimedState *state98;
@@ -271,7 +266,7 @@ extern f32 D_800A8D58;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A37C0 CURRENT (12270) */
 s32 func_151A37C0(Game1D0840TimedObject *object) {
     Game1D0840LaunchPacket snapshot;
-    Game1D0840Vec3 point;
+    Vec3f point;
     f32 dx;
     f32 dy;
     f32 dz;
@@ -287,7 +282,7 @@ s32 func_151A37C0(Game1D0840TimedObject *object) {
     Game1D0840TimedEntry *entry;
     s32 initialized;
     s32 spawned;
-    Game1D0840Vec3 *previous;
+    Vec3f *previous;
 
     state = object->state98;
     entries = object->entries94;
@@ -444,9 +439,9 @@ typedef struct Game1D0840EmitterPacket {
     f32 field24;
     f32 field28;
     f32 field2C;
-    Game1D0840Vec3 position;
+    Vec3f position;
     u8 pad3C[0xC];
-    Game1D0840Vec3 velocity;
+    Vec3f velocity;
     f32 field54;
     u32 flags58;
     u8 pad5C[4];
@@ -642,7 +637,7 @@ typedef struct Game1D0840BurstPacket {
     f32 field2C;
     f32 field30;
     f32 field34;
-    Game1D0840Vec3 position;
+    Vec3f position;
     s16 field44;
     s16 field46;
     s16 field48;
@@ -667,7 +662,7 @@ void func_15153634(Game1D0840BurstPacket *, s32, s32, s32);
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4A38 CURRENT (463) */
 void func_151A4A38(u8 *object) {
     u8 *owner;
-    Game1D0840Vec3 position;
+    Vec3f position;
     Game1D0840BurstPacket packet;
     s16 angle;
     Game1D0840EffectPacket *state;

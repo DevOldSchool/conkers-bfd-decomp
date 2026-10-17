@@ -23592,7 +23592,7 @@
             "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
             "verified_revision": "working-tree"
           },
-          "size_bytes": 36,
+          "size_bytes": 28,
           "state": "matched",
           "symbol": "func_15073054",
           "vram": "0x15073054"
@@ -23600,6 +23600,24 @@
       },
       "source": "src/game/game_981E0.c",
       "symbol": "func_15073054"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 8,
+          "state": "matched",
+          "symbol": "func_15073070",
+          "vram": "0x15073070"
+        }
+      },
+      "source": "src/game/game_981E0.c",
+      "symbol": "func_15073070"
     },
     {
       "overlay": "game",
@@ -30664,7 +30682,7 @@
             "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
             "verified_revision": "working-tree"
           },
-          "size_bytes": 40,
+          "size_bytes": 32,
           "state": "matched",
           "symbol": "func_1507DB44",
           "vram": "0x1507DB44"
@@ -30672,6 +30690,24 @@
       },
       "source": "src/game/game_A9D90.c",
       "symbol": "func_1507DB44"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 8,
+          "state": "matched",
+          "symbol": "func_1507DB64",
+          "vram": "0x1507DB64"
+        }
+      },
+      "source": "src/game/game_A9D90.c",
+      "symbol": "func_1507DB64"
     },
     {
       "deferred": {

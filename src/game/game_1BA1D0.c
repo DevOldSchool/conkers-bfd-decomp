@@ -11,7 +11,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct Game1BA1D0Vector { f32 x, y, z; } Game1BA1D0Vector;
 typedef struct Game1BA1D0Spawn {
     s32 flags, word04;
     s16 type, life;
@@ -20,7 +19,7 @@ typedef struct Game1BA1D0Spawn {
     u8 byte1C, byte1D;
     s16 short1E, short20, short22;
     f32 value24, scaleX, scaleY;
-    Game1BA1D0Vector position, offset, velocity;
+    Vec3f position, offset, velocity;
     f32 acceleration;
     s32 motionFlags;
     u8 unused5C[4];
@@ -33,16 +32,16 @@ void *func_10022EC0(void *, const void *, u32);
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_1514373C(f32, f32, f32 *, f32 *);
-void func_15145DB4(void *, Game1BA1D0Vector *, Game1BA1D0Vector *, s32);
+void func_15145DB4(void *, Vec3f *, Vec3f *, s32);
 extern f32 D_800A7450, D_800A7454, D_800A7458, D_800A745C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1518CD20 CURRENT (4353) */
 void func_1518CD20(void *arg0, u8 arg1, s32 arg2) {
     Game1BA1D0Spawn spawn;
-    Game1BA1D0Vector *points;
-    Game1BA1D0Vector *transformed;
-    Game1BA1D0Vector *center;
-    Game1BA1D0Vector *point;
+    Vec3f *points;
+    Vec3f *transformed;
+    Vec3f *center;
+    Vec3f *point;
     u8 *result;
     f32 extra;
     f32 factor;
@@ -57,7 +56,7 @@ void func_1518CD20(void *arg0, u8 arg1, s32 arg2) {
     count = func_150ADA20() % 11U + 25;
     remaining = count;
     if (count > 0) {
-        bytes = (count + 1) * sizeof(Game1BA1D0Vector);
+        bytes = (count + 1) * sizeof(Vec3f);
         points = func_10003C6C(bytes, 3, 1, 0, 1);
         transformed = func_10003C6C(bytes, 3, 1, 0, 1);
         if (points != 0 && transformed != 0) {

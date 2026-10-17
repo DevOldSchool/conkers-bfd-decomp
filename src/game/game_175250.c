@@ -242,9 +242,6 @@ s32 func_15148AF4(void *arg0) {
     } while (var_a1 != *(s8 *)((u8 *)arg0 + 0x2D));
     return 1;
 }
-typedef struct {
-    f32 x, y, z;
-} Game175250Position;
 
 typedef s32 (*Game175250HitCallback)(void *, f32, f32, f32, f32, void *);
 extern Game175250HitCallback D_8008A430[];
@@ -255,15 +252,15 @@ s32 func_15148BA4(Game175250Trail *arg0) {
     s32 index;
     Game175250Motion *motion;
     s32 points;
-    Game175250Position oldPosition;
-    Game175250Position position;
+    Vec3f oldPosition;
+    Vec3f position;
     u8 callback;
 
     motion = arg0->motion;
     points = (s32)arg0->points;
     index = arg0->end;
     if (motion->flags & 7) {
-        oldPosition = *(Game175250Position *)((u32)points + arg0->start * 0x14);
+        oldPosition = *(Vec3f *)((u32)points + arg0->start * 0x14);
     }
     do {
         index--;

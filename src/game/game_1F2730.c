@@ -14,8 +14,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct { f32 x, y, z; } Game1F2730Vector;
-
 typedef struct Game1F2730PointPair {
     void *points[2];
 } Game1F2730PointPair;
@@ -38,10 +36,10 @@ extern u8 D_800BE616;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C5280 CURRENT (441) */
 void func_151C5280(void *arg0, u8 arg1, s32 arg2) {
-    Game1F2730Vector position;
-    Game1F2730Vector endpoint;
-    Game1F2730Vector direction;
-    Game1F2730Vector side;
+    Vec3f position;
+    Vec3f endpoint;
+    Vec3f direction;
+    Vec3f side;
     Game1F2730PointPair inputs;
     Game1F2730PointPair outputs;
     f32 random2;
@@ -193,7 +191,7 @@ typedef struct {
     u8 field1C, field1D;
     s16 field1E, field20, field22;
     f32 field24, field28, field2C;
-    Game1F2730Vector position, velocity, direction;
+    Vec3f position, velocity, direction;
     f32 field54;
     s32 flags, field5C;
     s8 controls[6];
@@ -210,7 +208,7 @@ void *func_10022EC0(void *, const void *, u32);
 extern f32 D_800AAAF0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C5F44 CURRENT (1597) */
-s32 func_151C5F44(Game1F2730Vector *arg0, Game1F2730Vector *arg1,
+s32 func_151C5F44(Vec3f *arg0, Vec3f *arg1,
                    f32 arg2, f32 arg3, s32 arg4, s32 arg5,
                    f32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
     Game1F2730SpawnInit packet;

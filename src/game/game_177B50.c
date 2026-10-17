@@ -17,9 +17,8 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514A6A0.s")
-typedef struct { f32 x, y, z; } Game177B50Vector;
 typedef struct {
-    Game177B50Vector position;
+    Vec3f position;
     f32 field0C;
     f32 field10;
     f32 field14;
@@ -109,7 +108,7 @@ extern f32 D_800A57EC, D_800A57F0, D_800A57F4, D_800A57F8;
 extern f32 D_800A57FC, D_800A5800, D_800A5804;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1514AD9C CURRENT (14) */
-void func_1514AD9C(Game177B50Vector *arg0, s32 arg1, s32 arg2) {
+void func_1514AD9C(Vec3f *arg0, s32 arg1, s32 arg2) {
     Game177B50Particle particle;
     f32 x_scale;
     f32 y_scale;
@@ -174,7 +173,7 @@ extern f32 D_800A5818, D_800A581C, D_800A5820, D_800A5824;
 extern f32 D_800A5828, D_800A582C, D_800A5830;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1514B034 CURRENT (5799) */
-void func_1514B034(Game177B50Vector *arg0, u8 arg1, s32 arg2) {
+void func_1514B034(Vec3f *arg0, u8 arg1, s32 arg2) {
     f32 count;
     Game177B50Particle particle;
     f32 xScale;
@@ -279,7 +278,7 @@ typedef struct {
     s32 field8, fieldC;
     u8 color[4];
     f32 field14, field18;
-    Game177B50Vector position, origin, scale;
+    Vec3f position, origin, scale;
     s32 flags;
     u8 field44, field45, field46, field47;
     s32 field48;
@@ -289,13 +288,13 @@ typedef struct {
 
 typedef struct {
     f32 values[14];
-    Game177B50Vector direction;
-    Game177B50Vector velocity;
+    Vec3f direction;
+    Vec3f velocity;
 } Game177B50Motion;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1514B8E4 CURRENT (460) */
-void *func_1514B8E4(Game177B50Vector *arg0, f32 *arg1, s16 arg2, u8 arg3,
-                     Game177B50Vector *arg4, f32 arg5, f32 arg6, f32 arg7,
+void *func_1514B8E4(Vec3f *arg0, f32 *arg1, s16 arg2, u8 arg3,
+                     Vec3f *arg4, f32 arg5, f32 arg6, f32 arg7,
                      u8 arg8, u8 arg9, u8 arg10, s32 arg11, u8 arg12,
                      s16 arg13, s16 arg14, s32 arg15, u8 arg16, s32 arg17) {
     void *result;

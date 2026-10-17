@@ -31,7 +31,7 @@ SOURCE_DIRS = ("src/game", "src/done/game")
 HEADER_DIR = "include"
 # Shared headers are seeded first so source files resolve their typedefs; any
 # other header under include/ follows in path order.
-HEADER_ORDER = ("types.h", "game_command.h", "game_functions.h")
+HEADER_ORDER = ("types.h", "game_command.h", "game_vec.h", "game_functions.h")
 PAD_RE = re.compile(r"^_*pad", re.IGNORECASE)
 LOCAL_QUALIFIERS = {"register", "const", "volatile", "static", "auto"}
 

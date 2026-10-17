@@ -1,15 +1,10 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_10BC70.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_table_runs.md
  */
-
-typedef struct Game10BC70Vec3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game10BC70Vec3;
 
 typedef union Game10BC70Pair {
     s32 value[2];
@@ -26,8 +21,8 @@ typedef struct Game10BC70SpawnPacket {
     s32 fieldC;
     u8 colour[4];
     f32 scale[2];
-    Game10BC70Vec3 position;
-    Game10BC70Vec3 rotation;
+    Vec3f position;
+    Vec3f rotation;
     f32 size[3];
     s32 field40;
     u8 field44;
@@ -43,10 +38,10 @@ typedef struct Game10BC70SpawnPacket {
 } Game10BC70SpawnPacket;
 
 typedef struct Game10BC70Motion {
-    Game10BC70Vec3 velocity;
+    Vec3f velocity;
     f32 duration;
-    Game10BC70Vec3 side;
-    Game10BC70Vec3 forward;
+    Vec3f side;
+    Vec3f forward;
 } Game10BC70Motion;
 
 typedef struct Game10BC70Link {
@@ -74,13 +69,13 @@ s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
 extern Game10BC70Pair D_800A0D00;
 extern f32 D_800A0D58;
 extern u8 D_800A4AA0;
-extern Game10BC70Vec3 D_800A5480;
+extern Vec3f D_800A5480;
 extern s32 D_800BE9E4;
 
 void func_150DE7C0(Game10BC70Emitter *arg0) {
     Game10BC70Link *link;
-    Game10BC70Vec3 target;
-    Game10BC70Vec3 delta;
+    Vec3f target;
+    Vec3f delta;
     f32 length;
     f32 unused;
     f32 base;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_130240.c
@@ -60,9 +61,6 @@ block_12:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15102D90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_130240/func_15102D90.s")
-typedef struct Game130240Vector {
-    f32 x, y, z;
-} Game130240Vector;
 
 typedef struct Game130240Vertex {
     s16 x, y, z, flags;
@@ -71,7 +69,7 @@ typedef struct Game130240Vertex {
 
 typedef struct Game130240Ribbon {
     u8 pad0[0x18];
-    Game130240Vector start, end;
+    Vec3f start, end;
 } Game130240Ribbon;
 
 void *func_10022EC0(void *, const void *, u32);
@@ -84,10 +82,10 @@ f32 sqrtf(f32);
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15102EB8 CURRENT (1810) */
 void *func_15102EB8(u8 *arg0, s16 arg1) {
     s32 camera;
-    Game130240Vector endpoint;
-    Game130240Vector direction;
+    Vec3f endpoint;
+    Vec3f direction;
     f32 fraction;
-    Game130240Vector closest;
+    Vec3f closest;
     f32 startX, startY, startZ;
     f32 x, y, z;
     Game130240Vertex *output;
@@ -185,9 +183,9 @@ typedef struct Game130240Descriptor {
     f32 field24;
     f32 field28;
     f32 field2C;
-    Game130240Vector position;
-    Game130240Vector velocity;
-    Game130240Vector acceleration;
+    Vec3f position;
+    Vec3f velocity;
+    Vec3f acceleration;
     f32 field54;
     s32 field58;
     s32 field5C;
@@ -206,7 +204,7 @@ void *func_15130374(s32, u8, s32, u8, s32);
 extern s32 D_80088BD0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15103254 CURRENT (438) */
-void func_15103254(s32 arg0, s32 arg1, f32 arg2, Game130240Vector *arg3,
+void func_15103254(s32 arg0, s32 arg1, f32 arg2, Vec3f *arg3,
                    s32 arg4, s32 arg5, s32 arg6) {
     s32 second;
     Game130240Descriptor descriptor;
