@@ -86965,17 +86965,16 @@
       "symbol": "func_1519EB8C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "CURRENT (120): cached D_800A8CD8 yields all arithmetic/copy rows exact; candidate hoists owner pointer lw v1,0x170(a0) before global lui/lwc1 and places first field lwc1 before raw li v0,1, two instruction-order pairs; volatile scale fixed order but changed global addressing to t6/addiu and regressed to 215, volatile pointer alone unchanged",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1519ED24",
           "vram": "0x1519ED24"
         }

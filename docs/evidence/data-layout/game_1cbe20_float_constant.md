@@ -1,0 +1,7 @@
+# US game_1CBE20 float constant
+
+The matched `func_1519ED24` copies a transform from its linked object and scales the first two components by one float. Its raw code loads `D_800A8CD8` into `$f0` before the linked-object pointer; the extern symbol form schedules the pointer load first, while a float literal reproduces the raw order. The checksum-validated US game-data archive contains big-endian `3DCCCCCD` at 0x800A8CD8, exactly 0.10000000149011612, reproduced by `0.1f`. ROM SHA1 is `4cbadd3c4e0729dec46af64ad018050eada4f47a`; game-data base 0x80082B20.
+
+The generated `build/us/src/game/game_1CBE20.o` has rodata `3dcccccd000000000000000000000000`: one four-byte constant followed by 12 zero alignment bytes, with no data relocations. Its only `.rodata` reference is the HI16/LO16 pair at the start of `func_1519ED24`; no other function in the unit references `D_800A8CD8`. The next ROM words (0x800A8CDC zero, 0x800A8CE0 nonzero) are outside this mapping's owned payload and are not treated as padding or replaced.
+
+The INFO mapping retains linked bytes for verification without appending to the code-only payload. A size assertion detects unexpected constant-pool growth. The full registered instruction comparison reached CURRENT (0) with focused layout, progress and whitespace checks passed; the clean linked verify-batch result is recorded in the commit that adds this mapping. No reference assembly, compiler flag or verifier changes are involved.
