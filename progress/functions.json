@@ -66941,8 +66941,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 430,
-        "reason": "CURRENT (430), improved from520 after four hypotheses/five finishes: redundant target alias removed and actual vector declared last, fixing every local offset. Height-in-vector808 and actual query aggregate788 recover frame but alter offsets/instructions; best430 restored. Remaining frame48 versus40 and early threshold/150 constant load scheduling. Prior two layout attempts carried forward; need new allocation/alias evidence, no forced padding.",
+        "current_score": 428,
+        "reason": "Twin-queue 2026-10-17: object/position/height locals with arg0+0x34 as a temp: 428 (was 430). Remaining: first-block scheduling of the position.x load/store around the D_800A8F74 load, and the temp slot 0x28 vs raw 0x2c. Shape without an object local 1095.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -66979,8 +66979,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 502,
-        "reason": "best CURRENT (502): instruction/control-flow shape and registers align, but IDO allocates a 0x48 frame with the vector at sp+0x38 instead of the reference 0x40 frame/vector at sp+0x30; declaration-order revision improved 554 to 502 without resolving stack layout",
+        "current_score": 270,
+        "reason": "Twin-queue 2026-10-17: reference frame plan (object home 0x3c, position 0x30, height home 0x2c, arg0+0x34 temp at 0x28) reproduced: 502 -> 270. Remaining: raw loads position.x before the D_800A8F7C load and stores it before the height load; candidate schedules the global load first. Typed object/owner structs, inline height, reversed compare all 270. Same block in siblings func_151A9DC0/func_151AE6B0 (278/270 with this shape, not applied).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

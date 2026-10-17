@@ -38,12 +38,11 @@ s32 func_15045800(Game1D6E80Vec3 *, u16, f32, void *);
 void func_151ABE40(Game1D6E80Vec3 *, void *, s32, u8, s32);
 extern f32 D_800A8F74;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A99D0 CURRENT (430) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A99D0 CURRENT (428) */
 void func_151A99D0(void *arg0) {
-    f32 height;
-    void *target;
-    register u8 *object;
+    u8 *object;
     Game1D6E80Vec3 position;
+    f32 height;
 
     object = *(u8 **)((u8 *)arg0 + 0x18);
     position.x = *(f32 *)(object + 0x14);
@@ -53,12 +52,12 @@ void func_151A99D0(void *arg0) {
     } else {
         position.y = *(f32 *)(object + 0x18) + 150.0f;
     }
-    target = (u8 *)arg0 + 0x34;
     position.z = *(f32 *)(object + 0x1C);
-    if (func_15045800(&position, 0, position.y - 300.0f, target) != 0) {
+    if (func_15045800(&position, 0, position.y - 300.0f, (u8 *)arg0 + 0x34) != 0) {
         position.y = *(f32 *)((u8 *)arg0 + 0x34);
-        func_151ABE40(&position, target, 3, *(u8 *)((u8 *)arg0 + 0xC),
-                       *(u8 *)((u8 *)arg0 + 1));
+        func_151ABE40(&position, (u8 *)arg0 + 0x34, 3,
+                      *(u8 *)((u8 *)arg0 + 0xC),
+                      *(u8 *)((u8 *)arg0 + 1));
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A99D0 */
@@ -99,13 +98,11 @@ void func_151A9AA4(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151A9AA4.s")
 extern f32 D_800A8F7C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A9BA0 CURRENT (502) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A9BA0 CURRENT (270) */
 void func_151A9BA0(void *arg0) {
     u8 *object;
     Game1D6E80Vec3 position;
-    void *sp28;
     f32 height;
-    void *target;
 
     object = *(u8 **)((u8 *)arg0 + 0x18);
     position.x = *(f32 *)(object + 0x14);
@@ -115,12 +112,10 @@ void func_151A9BA0(void *arg0) {
     } else {
         position.y = *(f32 *)(object + 0x18) + 150.0f;
     }
-    target = (u8 *)arg0 + 0x34;
-    sp28 = target;
     position.z = *(f32 *)(object + 0x1C);
-    if (func_15045800(&position, 0, position.y - 300.0f, target) != 0) {
+    if (func_15045800(&position, 0, position.y - 300.0f, (u8 *)arg0 + 0x34) != 0) {
         position.y = *(f32 *)((u8 *)arg0 + 0x34);
-        func_151ABE40(&position, sp28, 1,
+        func_151ABE40(&position, (u8 *)arg0 + 0x34, 1,
                       *(u8 *)((u8 *)arg0 + 0xC),
                       *(u8 *)((u8 *)arg0 + 1));
         func_10010FFC(0, 0x11, 0x5208, 0, 0, object);
