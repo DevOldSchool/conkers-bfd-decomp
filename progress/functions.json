@@ -53903,17 +53903,16 @@
       "symbol": "func_150E4E04"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 40,
-        "reason": "CURRENT (40). Replacing the named one with a named coefficient made no improvement. Chained constant assignments with a real RNG result scored 564 and 579 and grew the frame from 0xB0 to 0xB8. Prior direct-literal and RNG hypotheses remain exhausted. Restored the original candidate after two probe batches. No shared dependency changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 696,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150E5558",
           "vram": "0x150E5558"
         }
@@ -63500,8 +63499,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 40,
-        "reason": "CURRENT (40), original retained. New derived-state home elimination scores 561 with frame 0x90; scale home elimination scores 1656 with frame 0x98. Complete buffer storage retained; prior 12-byte/struct/layout hypotheses exhausted. One fresh two-variant probe batch, no source variant applied.",
+        "current_score": 20,
+        "reason": "Round2 2026-10-17: CURRENT 40->20 with ROM literal 0.01f for D_800A140C (restores f24/f26 roles). Remaining: frame 0x98 vs 0x90 with identical local offsets, so one extra saved register or outgoing word; inlining scale or the random draws leaves it. A match would also need a game_116D40 rodata INFO mapping.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -86906,7 +86905,7 @@
           "vram": "0x1519E970"
         }
       },
-      "source": "src/game/game_1CBE20.c",
+      "source": "src/done/game/game_1CBE20.c",
       "symbol": "func_1519E970"
     },
     {
@@ -86924,7 +86923,7 @@
           "vram": "0x1519EA04"
         }
       },
-      "source": "src/game/game_1CBE20.c",
+      "source": "src/done/game/game_1CBE20.c",
       "symbol": "func_1519EA04"
     },
     {
@@ -86942,26 +86941,25 @@
           "vram": "0x1519EA78"
         }
       },
-      "source": "src/game/game_1CBE20.c",
+      "source": "src/done/game/game_1CBE20.c",
       "symbol": "func_1519EA78"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 390,
-        "reason": "Improved6263 to390 with two Copy3 aggregate copies and raw-proven byte6E store; concrete typed packet retains exact B8 frame, field homes and all body registers/copies. Only global float load is scheduled after first packet stores instead of prologue. Early named one/scale1123 regresses frame; typed packet neutral390 retained. Four revisions, no fresh scheduling hypothesis; ledger deferred-manual-20260929-resume2.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 408,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1519EB8C",
           "vram": "0x1519EB8C"
         }
       },
-      "source": "src/game/game_1CBE20.c",
+      "source": "src/done/game/game_1CBE20.c",
       "symbol": "func_1519EB8C"
     },
     {
@@ -86979,7 +86977,7 @@
           "vram": "0x1519ED24"
         }
       },
-      "source": "src/game/game_1CBE20.c",
+      "source": "src/done/game/game_1CBE20.c",
       "symbol": "func_1519ED24"
     },
     {
@@ -86997,7 +86995,7 @@
           "vram": "0x1519ED84"
         }
       },
-      "source": "src/game/game_1CBE20.c",
+      "source": "src/done/game/game_1CBE20.c",
       "symbol": "func_1519ED84"
     },
     {
@@ -87015,7 +87013,7 @@
           "vram": "0x1519EF04"
         }
       },
-      "source": "src/game/game_1CBE20.c",
+      "source": "src/done/game/game_1CBE20.c",
       "symbol": "func_1519EF04"
     },
     {
@@ -92109,22 +92107,21 @@
       "symbol": "func_150163D0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 240,
-        "reason": "Saved240 preserved. Chained field34=field30 assignment neutral240; single volatile source load regressed1731. Prior direct/temp/initializedtemp also exhausted. Remaining D_800AB558 early load/two store scheduling unresolved; no useful further hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 272,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151DCDE0",
           "vram": "0x151DCDE0"
         }
       },
-      "source": "src/game/game_20A290.c",
+      "source": "src/done/game/game_20A290.c",
       "symbol": "func_151DCDE0"
     },
     {

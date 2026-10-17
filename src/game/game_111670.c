@@ -12,7 +12,6 @@
  * - func_150E4928
  * - func_150E4CBC
  * - func_150E4E04
- * - func_150E5558
  * - func_150E5810
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -389,10 +388,7 @@ f32 func_150484A0(f32, f32);
 f32 func_150ADA68(void);
 s32 func_151EF610(void);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-extern f32 D_800A1140, D_800A1144, D_800A1148, D_800A114C;
-extern f32 D_800A1150, D_800A1154, D_800A1158, D_800A115C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E5558 CURRENT (40) */
 void func_150E5558(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
                    f32 arg4, f32 arg5, s32 arg6, s32 arg7) {
     Game111670Effect packet;
@@ -402,12 +398,12 @@ void func_150E5558(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
 
     func_100226F0(&packet, 0x7C);
     if (arg4 != 0.0f) {
-        pitch = func_150484A0(arg3, arg4) * D_800A1140;
+        pitch = func_150484A0(arg3, arg4) * 57.295776f;
     } else {
         pitch = 90.0f;
     }
     if (arg5 != 0.0f) {
-        yaw = func_150484A0(arg3, arg5) * D_800A1144;
+        yaw = func_150484A0(arg3, arg5) * 57.295776f;
     } else {
         yaw = 90.0f;
     }
@@ -418,27 +414,27 @@ void func_150E5558(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
     packet.scale[1] = one;
     packet.scale[2] = one;
     packet.field0 = one;
-    packet.field8 = D_800A1148;
-    packet.fieldC = D_800A1148;
+    packet.field8 = 0.17f;
+    packet.fieldC = 0.17f;
     packet.position[0] = arg0;
     packet.position[1] = arg1;
     packet.position[2] = arg2;
     packet.angle[0] = 0.0f;
     if (arg6 == 4) {
         packet.kind = 6;
-        packet.field4 = D_800A114C;
+        packet.field4 = 0.6f;
     } else if (arg6 == 9) {
         packet.kind = 8;
-        packet.field4 = D_800A1150;
+        packet.field4 = 0.3f;
     } else {
         packet.kind = 7;
-        packet.field4 = D_800A1154;
+        packet.field4 = 0.3f;
     }
     packet.duration = func_151EF610() % 60 + 60;
     packet.flags = 0x29E9;
     fraction = func_150ADA68();
-    packet.field4C = D_800A1158;
-    yaw = fraction * D_800A115C + 1.5f;
+    packet.field4C = -0.78f;
+    yaw = fraction * 4.6f + 1.5f;
     packet.velocity[0] = yaw * arg3;
     packet.velocity[1] = -yaw * arg4;
     packet.velocity[2] = yaw * arg5;
@@ -464,8 +460,6 @@ void func_150E5558(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
     packet.field74 = 7;
     func_15132A4C(&packet, 3, 0xFF, 0, 0xFF, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E5558 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_111670/func_150E5558.s")
 
 typedef struct Game111670Point {
     f32 values[3];

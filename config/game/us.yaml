@@ -658,7 +658,7 @@ segments:
       - [0x193CA0, c, game/game_1C1150]
       - [0x1957B0, c, game/effects/characterflamethrower]
       - [0x19CF70, c, game/game_1CA420]
-      - [0x19E970, c, game/game_1CBE20]
+      - [0x19E970, c, done/game/game_1CBE20]
       - [0x19EF70, c, done/game/game_1CC420]
       - [0x19EF90, c, game/game_1CC440]
       - [0x1A0A10, c, game/game_1CDEC0]
@@ -746,7 +746,7 @@ segments:
       - [0x1D87E0, c, game/game_205C90]
       - [0x1D8E20, c, game/game_2062D0]
       - [0x1DC6A0, c, game/game_209B50]
-      - [0x1DCDE0, c, game/game_20A290]
+      - [0x1DCDE0, c, done/game/game_20A290]
       - [0x1DCEF0, c, done/game/game_20A3A0]
       # Exact Rare EEPROM overrides; complete reconstruction evidence is in
       # docs/evidence/libraries/game_libultrare_eeprom_variant_boundaries.md.
