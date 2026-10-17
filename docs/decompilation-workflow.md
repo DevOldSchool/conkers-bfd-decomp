@@ -628,6 +628,39 @@ correcting pointer types, and shortening local lifetimes. Check each sibling's
 assembly and ABI independently. Neither a similar body nor a reused source
 pattern establishes a match.
 
+### Sibling twins
+
+The game overlay repeats many small bodies. `siblings` normalises every
+per-function block of the US reference assembly (`reference/game/us/asm` and
+`reference/us/asm`) and groups identical instruction streams:
+
+- level 0 strips `%hi`/`%lo`, `.L` labels and `func_`/`D_`/`jtbl_` names;
+- level 1 additionally strips registers;
+- level 2 additionally strips immediates.
+
+```sh
+./conker siblings <work-item-id> [--level 0|1|2] [--limit N]
+./conker siblings --all-deferred [--unmatched] [--level 0|1|2] [--limit N]
+```
+
+The first form reports the lowest level at which the raw or deferred item has a
+`matched` twin, with the twin's source, its C definition, the instruction count
+and the level-0 instruction differences (register or immediate renames to carry
+into the copied body). `unmatched-twins` lists raw/deferred items with the same
+stream: one match serves the whole group. `--level` caps the loosest level
+searched; `--limit` bounds the twins printed. `--all-deferred` ranks every raw
+and deferred item that has a matched twin by level and then size as a queue;
+`--unmatched` instead ranks items whose twins are all still raw or deferred.
+`next --ready` prints the same lead as a one-line `sibling-twin:` field, or
+`none` when no twin or no reference assembly exists.
+
+The index is cached under ignored `build/reference-index/siblings-<level>.json`
+and keyed by the reference directory mtimes; `--refresh` rebuilds it. It needs
+`./conker game-asm` and the main reference split from `_prepare-reference`.
+A twin is a lead within the task's scope, not match evidence: copy the body,
+adapt the reported differences, declare the item's own data, and run the
+ordinary `finish` gates against its own assembly.
+
 ### Edit completion before verification
 
 Follow the [edit and recheck rules](../CONTRIBUTING.md#match-a-function).
