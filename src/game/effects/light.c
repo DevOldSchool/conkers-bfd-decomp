@@ -20,7 +20,6 @@
  * - func_15163704
  * - func_15163A60
  * - func_151640C0
- * - func_15164134
  * - func_151643A8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -1662,31 +1661,29 @@ void func_151640C0(void *volatile arg0, void *volatile arg1, u8 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151640C0.s")
 extern void (*D_8008B37C[])(void *, void *, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15164134 CURRENT (1270) */
 void func_15164134(void *arg0, void *arg1, u8 arg2) {
-    LightOwnerRecord *record;
     void (*callback)(void *, void *, u8);
-    LightActor *owner;
-    LightActor *incoming;
+    s32 temp_t6;
+    u8 *temp_v0;
 
-    if (arg2 == 0) {
-        record = &((LightEffectState *)arg0)->owner_record;
-        if ((((LightOwnerRecord *)arg1)->owner == record->owner) ||
-            (record->type == ((LightOwnerRecord *)arg1)->type)) {
+    temp_t6 = arg2;
+    temp_v0 = (u8 *)&((LightEffectState *)arg0)->owner_record;
+    if (temp_t6 == 0) {
+        s32 temp_v1 = *(s32 *)arg1;
+
+        if ((temp_v1 == *(s32 *)temp_v0) ||
+            (temp_v0[4] == *(u8 *)((u8 *)arg1 + 4))) {
             func_1516972C(arg0);
         }
-    } else if (arg2 == 0x2D) {
-        record = &((LightEffectState *)arg0)->owner_record;
-        owner = record->owner;
-        incoming = ((LightOwnerRecord *)arg1)->owner;
-        if (incoming == owner) {
-            record->owner = *(LightActor **)((u8 *)arg1 + 4);
-            record->type = *(u8 *)((u8 *)arg1 + 9);
-            return;
-        }
-        if (*(LightActor **)((u8 *)arg1 + 4) == owner) {
-            record->owner = incoming;
-            record->type = *(u8 *)((u8 *)arg1 + 8);
+    } else if (temp_t6 == 0x2D) {
+        if (*(s32 *)arg1 == *(s32 *)temp_v0) {
+            *(s32 *)temp_v0 = *(s32 *)((u8 *)arg1 + 4);
+            *(u8 *)(temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 9);
+        } else if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)temp_v0) {
+            u8 *dst = temp_v0;
+
+            *(s32 *)dst = *(s32 *)arg1;
+            *(u8 *)(dst + 4) = *(u8 *)((u8 *)arg1 + 8);
         }
     } else {
         callback = D_8008B37C[*(u8 *)((u8 *)arg0 + 0x3D)];
@@ -1695,8 +1692,6 @@ void func_15164134(void *arg0, void *arg1, u8 arg2) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15164134 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15164134.s")
 void *func_15164208(s32 arg0, u8 arg1, u8 arg2, s32 arg3) {
     void *result;
     GameLightDescriptor sp2C;

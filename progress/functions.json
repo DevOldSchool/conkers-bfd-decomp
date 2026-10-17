@@ -2693,16 +2693,15 @@
       "symbol": "func_151640C0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1270,
-        "reason": "CURRENT (1270) candidate; this is the byte-for-byte control-flow sibling of func_15163FEC and hits the same known embedded-record CSE/register scheduling plateau, so no unchanged duplicate search was repeated",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15164134",
           "vram": "0x15164134"
         }
@@ -32631,17 +32630,16 @@
       "symbol": "func_1515C388"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "PR121 review confirms CURRENT30. Seed202610151912 recorded6000 iterations, 936 compiler calls/726 successful, with an internal anonymous-declaration permuter failure and no accepted improvement; not a clean exhaustive search. Scoped product and u32 countdown retained; no worker is running. See https://github.com/DevOldSchool/conkers-bfd-decomp/blob/dbedd671496fa3a9ee4191841e9fd3858621b814/docs/evidence/matching/pr121-review.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 448,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515C534",
           "vram": "0x1515C534"
         }
@@ -78681,8 +78679,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 35,
-        "reason": "Resumed batch20261015-1505: preserve CURRENT35. New hypotheses/probes/searches and rejected forms recorded in build/us/manual-attempts/resume-20261015-1706/ledger.md; pending further expanded search for improved candidates. Prior exhausted context: Concrete source-local flags field improved65to35. Explicitbyte-selector1846 and vector-tabletypingneutral35. Remaining seven postcall index/transform register rows; preserve typedflags35.",
+        "current_score": 25,
+        "reason": "Round3 2026-10-18: unnamed transform read improves 35 -> CURRENT (25) (named transform took v0; raw keeps it in v1). Left: raw reloads arg0 from its home into a0 and keeps the state pointer unnamed; dropping the named state copy regresses to 35, a u8 copy of arg1 to 175.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
