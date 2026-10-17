@@ -203,7 +203,7 @@ extern f32 D_800A0570, D_800A0574, D_800A0578, D_800A057C;
 
 void func_150C99B4(GameF5D80Emitter *arg0, GameF5D80Vector *arg1, u8 arg2, s32 arg3) {
     GameF5D80Particle packet;
-    s32 duration;
+    f32 fraction;
     s16 angle;
     f32 magnitude;
     s32 flip0;
@@ -213,8 +213,7 @@ void func_150C99B4(GameF5D80Emitter *arg0, GameF5D80Vector *arg1, u8 arg2, s32 a
     packet.kind = 0xC01;
     packet.flags = 0x200005;
     packet.field4 = 0;
-    duration = func_150ADA20() % 81U + 25;
-    packet.duration = duration;
+    packet.duration = func_150ADA20() % 81U + 25;
     packet.fieldC = 0;
     packet.field10 = 0;
     packet.field60 = 5;
