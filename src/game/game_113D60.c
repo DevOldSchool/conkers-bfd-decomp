@@ -14,12 +14,11 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E68B0.s")
-typedef struct Game113D60Vector { f32 x, y, z; } Game113D60Vector;
 typedef struct Game113D60Emission {
     f32 x, y, amplitudeX, amplitudeY;
     f32 phaseX, phaseY, speedX, speedY;
     f32 time, rate, remaining;
-    Game113D60Vector position;
+    Vec3f position;
     f32 scale;
     s16 duration, durationRange;
     u8 color;
@@ -45,7 +44,7 @@ void func_150E6B84(Game113D60Effect *arg0) {
     volatile f32 time;
     f32 timeStep, phaseStepX, phaseStepY;
     f32 speedX, speedY;
-    Game113D60Vector direction;
+    Vec3f direction;
     f32 phaseX, phaseY, sineX, sineY;
     f32 randomX, randomY, inverse, period;
     register f32 factor;
@@ -96,15 +95,15 @@ void func_150E6B84(Game113D60Effect *arg0) {
 f32 func_150ADA68();                                /* extern */
 extern s32 func_150ADA20(void);
 typedef struct Game113D60Segment {
-    Game113D60Vector start;
-    Game113D60Vector end;
+    Vec3f start;
+    Vec3f end;
 } Game113D60Segment;
 extern Game113D60Segment *D_80088A44[];
 extern Game113D60Segment *D_80088A3C;
 extern Game113D60Segment *D_80088A40;
 extern f32 D_800A130C;
 
-void func_150E6E34(Game113D60Vector *arg0) {
+void func_150E6E34(Vec3f *arg0) {
     Game113D60Segment *segment;
 
     if (func_150ADA68() < D_800A130C) {
@@ -127,7 +126,7 @@ extern void func_1514470C(s32 arg0, s32 arg1);
 void func_150E6ED8(s32 arg0) {
     func_1514470C(D_800D9A20[func_150ADA20() & 1], arg0);
 }
-void func_150E6F18(Game113D60Vector *arg0) {
+void func_150E6F18(Vec3f *arg0) {
     Game113D60Segment *segment = D_80088A44[func_150ADA20() % 6U];
     f32 t = func_150ADA68();
 

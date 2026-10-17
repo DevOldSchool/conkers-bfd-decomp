@@ -15,7 +15,6 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_188440/func_1515AF90.s")
-typedef struct { f32 x, y, z; } GameB21CVector;
 
 typedef struct {
     s32 flags, zero4;
@@ -25,9 +24,9 @@ typedef struct {
     u8 alpha, maximum, kind;
     s16 duration, period, zero22;
     f32 zero24, width, height;
-    GameB21CVector position;
+    Vec3f position;
     f32 zero3C, zero40, zero44;
-    GameB21CVector velocity;
+    Vec3f velocity;
     f32 rotation;
     s32 mode, unused5C;
     s8 field60, field61, field62, field63;
@@ -43,7 +42,7 @@ typedef struct {
 } GameB21CMotion;
 
 typedef struct {
-    GameB21CVector position;
+    Vec3f position;
     f32 rate, count, limit;
 } GameB21CEmitter;
 

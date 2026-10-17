@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_3DF10.c
@@ -10,10 +11,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct { f32 x, y, z; } Game3DF10Vec;
 typedef struct {
     f32 scale[10];
-    Game3DF10Vec position;
+    Vec3f position;
     f32 motion[7];
     u32 flags;
     s16 life, resource;
@@ -32,7 +32,7 @@ typedef struct {
     s32 resource, model;
     u8 byte38, pad39[3];
 } Game3DF10Model;
-typedef struct { f32 values[6]; Game3DF10Vec position; f32 zero[2]; } Game3DF10Motion;
+typedef struct { f32 values[6]; Vec3f position; f32 zero[2]; } Game3DF10Motion;
 typedef struct { u8 kind, mode; s16 life; u8 flags, pad05; } Game3DF10Light;
 void *func_10022EC0(void *, const void *, u32);
 u32 func_10024770(void);
@@ -43,7 +43,7 @@ void *func_1510FD20(s32, s32);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 void *func_1513B5E0(s8 *, u8, s32, u8, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-extern Game3DF10Vec D_80096450[];
+extern Vec3f D_80096450[];
 extern u8 D_80096498[], D_8009649E[];
 extern f32 D_800964A0, D_800964A4, D_800964A8, D_800964AC, D_800964B0;
 
@@ -56,8 +56,8 @@ void func_15010A60(void) {
     Game3DF10Light light;
     s32 position[3];
     void *owner;
-    Game3DF10Vec point;
-    Game3DF10Vec *entry;
+    Vec3f point;
+    Vec3f *entry;
     u8 *enabled;
     void *effect;
     s32 lightEffect;

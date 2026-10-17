@@ -11,7 +11,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct Game1F1CD0Vec3 { f32 x, y, z; } Game1F1CD0Vec3;
 typedef struct Game1F1CD0Emission {
     f32 x, y;
     f32 amplitudeX, amplitudeY;
@@ -19,7 +18,7 @@ typedef struct Game1F1CD0Emission {
     f32 speedX, speedY;
     f32 time, rate;
     f32 remaining;
-    Game1F1CD0Vec3 position;
+    Vec3f position;
     f32 scaleX, scaleY, parameter;
 } Game1F1CD0Emission;
 typedef struct Game1F1CD0Actor {
@@ -35,7 +34,7 @@ f32 func_15047D60(f32);
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 f32 func_15144B68(f32);
-s32 func_151C229C(Game1F1CD0Vec3 *, Game1F1CD0Vec3 *, s32, s32, s32, s32,
+s32 func_151C229C(Vec3f *, Vec3f *, s32, s32, s32, s32,
                   f32, f32, f32, f32, f32, s32, s32, s32, s32, s32, s32,
                   s32, s32, s32, s32, f32, s32, s32, s32, s32, s32);
 extern f32 D_800BE9A4;
@@ -51,7 +50,7 @@ void func_151C4820(Game1F1CD0Actor *arg0) {
     f32 speedY;
     f32 inverse;
     Game1F1CD0Emission *emission;
-    Game1F1CD0Vec3 direction;
+    Vec3f direction;
     f32 phaseStepX;
     f32 phaseStepY;
     f32 time;

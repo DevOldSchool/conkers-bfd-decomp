@@ -76,12 +76,6 @@ typedef struct CharacterFlamethrowerSlot {
     u8 active;
 } CharacterFlamethrowerSlot;
 
-typedef struct CharacterFlamethrowerVec3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} CharacterFlamethrowerVec3;
-
 typedef struct CharacterFlamethrowerState {
     CharacterFlamethrowerIdentity *identity;
     u8 generation;
@@ -127,7 +121,7 @@ typedef struct CharacterFlamethrowerActor {
     char pad31[0xA];
     u8 unk3B;
     char pad3C[0x18];
-    CharacterFlamethrowerVec3 last_position;
+    Vec3f last_position;
     char pad60[0x34];
     void *points;
     CharacterFlamethrowerState *state;
@@ -672,8 +666,8 @@ typedef struct CharacterFlamethrowerJetTemplate {
     u8 unkC;
     s32 unk10;
     u8 unk14;
-    CharacterFlamethrowerVec3 unk18;
-    CharacterFlamethrowerVec3 unk24;
+    Vec3f unk18;
+    Vec3f unk24;
     s8 unk30;
     u8 unk31;
     u8 unk32;
@@ -707,10 +701,10 @@ typedef struct CharacterFlamethrowerJet {
     u8 unk5;
     s8 unk6;
     s8 unk7;
-    CharacterFlamethrowerVec3 unk8;
-    CharacterFlamethrowerVec3 unk14;
-    CharacterFlamethrowerVec3 unk20;
-    CharacterFlamethrowerVec3 unk2C;
+    Vec3f unk8;
+    Vec3f unk14;
+    Vec3f unk20;
+    Vec3f unk2C;
     f32 unk38;
     f32 unk3C;
     f32 unk40;
@@ -964,14 +958,9 @@ void func_15198054(CharacterFlamethrowerActor *actor, CharacterFlamethrowerEvent
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15198110.s")
-typedef struct CharacterFlamethrowerPosition {
-    f32 x;
-    f32 y;
-    f32 z;
-} CharacterFlamethrowerPosition;
 
 typedef struct CharacterFlamethrowerPoint {
-    CharacterFlamethrowerPosition position;
+    Vec3f position;
     u8 padC[0x18];
 } CharacterFlamethrowerPoint;
 
@@ -1008,7 +997,7 @@ extern s16 D_800CC3B8;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15198570 CURRENT (9204) */
 s32 func_15198570(CharacterFlamethrowerActor *arg0) {
-    volatile CharacterFlamethrowerPosition position;
+    volatile Vec3f position;
     CharacterFlamethrowerState *state;
     u8 *points;
     s32 index;
@@ -1026,7 +1015,7 @@ s32 func_15198570(CharacterFlamethrowerActor *arg0) {
         do {
             index -= 1;
             if (index < 0) index = arg0->point_capacity - 1;
-            position = *(CharacterFlamethrowerPosition *)(points + index * 0x24);
+            position = *(Vec3f *)(points + index * 0x24);
             radius = D_800CC3B4;
             height = D_800CC3B6;
             x = position.x - D_800CC2E4;
@@ -1059,7 +1048,7 @@ s32 func_15198570(CharacterFlamethrowerActor *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15198570.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151987CC CURRENT (1088) */
 s32 func_151987CC(CharacterFlamethrowerActor *arg0) {
-    CharacterFlamethrowerPosition position;
+    Vec3f position;
     s32 index;
     CharacterFlamethrowerCollisionActor *actor;
     f32 x;
@@ -1069,7 +1058,7 @@ s32 func_151987CC(CharacterFlamethrowerActor *arg0) {
     f32 height;
     CharacterFlamethrowerState *state;
     CharacterFlamethrowerPoint *points;
-    CharacterFlamethrowerPosition *point;
+    Vec3f *point;
 
     state = arg0->state;
     points = arg0->points;
@@ -1086,7 +1075,7 @@ s32 func_151987CC(CharacterFlamethrowerActor *arg0) {
                     }
                     radius = actor->radius;
                     height = actor->height;
-                    point = (CharacterFlamethrowerPosition *)((u8 *)points + index * 0x24);
+                    point = (Vec3f *)((u8 *)points + index * 0x24);
                     position = *point;
                     x = position.x - actor->x;
                     z = position.z - actor->z;
@@ -1128,7 +1117,7 @@ s32 func_1510F8D8(s32, s32, s32, s32 *);
 s32 func_1519897C(CharacterFlamethrowerActor *arg0) {
     s32 points;
     CharacterFlamethrowerGroups groups;
-    CharacterFlamethrowerPosition position;
+    Vec3f position;
     u8 *group;
     register CharacterFlamethrowerIdentity *owner;
     register void *control;
@@ -1178,7 +1167,7 @@ s32 func_1519897C(CharacterFlamethrowerActor *arg0) {
                                 index = arg0->point_capacity - 1;
                             }
                             point = (u8 *)(points + index * 0x24);
-                            position = *(CharacterFlamethrowerPosition *)point;
+                            position = *(Vec3f *)point;
                             dx = position.x - x;
                             radius = *(f32 *)(point + 0x18);
                             dy = position.y - y;
@@ -1259,7 +1248,7 @@ typedef struct {
 } CharacterFlamethrowerBurstFlags;
 typedef struct {
     f32 size;
-    CharacterFlamethrowerVec3 velocity;
+    Vec3f velocity;
     f32 growth;
     u8 pad14[4];
     u8 red, green, blue, alpha;
@@ -1270,7 +1259,7 @@ u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15198D88 CURRENT (1065) */
-void func_15198D88(CharacterFlamethrowerActor *arg0, CharacterFlamethrowerVec3 *arg1) {
+void func_15198D88(CharacterFlamethrowerActor *arg0, Vec3f *arg1) {
     CharacterFlamethrowerBurstFlags flags;
     f32 speed;
     f32 cosine1;
@@ -1294,7 +1283,7 @@ void func_15198D88(CharacterFlamethrowerActor *arg0, CharacterFlamethrowerVec3 *
     motion.blue = 255;
     motion.red = 40;
     motion.alpha = 130;
-    *(CharacterFlamethrowerVec3 *)spawn.position = *(CharacterFlamethrowerVec3 *)arg0->position;
+    *(Vec3f *)spawn.position = *(Vec3f *)arg0->position;
     flags.words[0] = 0;
     flags.words[1] = 1;
     flags.words[2] = 0x160600;
@@ -1380,7 +1369,7 @@ extern u8 D_80090514[];
 extern CharacterFlamethrowerEmissionPreset D_800A8770[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151990AC CURRENT (5250) */
-void func_151990AC(CharacterFlamethrowerActor *arg0, CharacterFlamethrowerVec3 *arg1) {
+void func_151990AC(CharacterFlamethrowerActor *arg0, Vec3f *arg1) {
     CharacterFlamethrowerEmission packet;
     f32 speed;
     f32 cosine1;
@@ -1514,7 +1503,7 @@ void func_1519944C(CharacterFlamethrowerActor *arg0) {
 typedef struct {
     CharacterFlamethrowerIdentity *owner;
     u8 generation, joint, flags, pad07;
-    CharacterFlamethrowerVec3 first, second;
+    Vec3f first, second;
     u8 pad20[0x14];
     s8 initialize, field35, field36, sound;
     u8 field38, field39, size;
@@ -1534,7 +1523,7 @@ typedef struct {
     CharacterFlamethrowerSeed seed;
     CharacterFlamethrowerRecord44 first, second;
     CharacterFlamethrowerRecord3C third;
-    CharacterFlamethrowerVec3 firstPosition, secondPosition;
+    Vec3f firstPosition, secondPosition;
     f32 field128, field12C;
     u8 pad130[4];
     f32 field134, field138, field13C, size, minimum;
@@ -1545,7 +1534,7 @@ typedef struct {
 } CharacterFlamethrowerInitialState;
 typedef struct {
     union {
-        CharacterFlamethrowerVec3 vector;
+        Vec3f vector;
         f32 values[3];
     } position;
     s16 lifetime;
@@ -1566,8 +1555,8 @@ void *func_151994B8(s32 arg0, CharacterFlamethrowerSetup *arg1, u8 arg2, s32 arg
     CharacterFlamethrowerFullSpawn spawn;
     CharacterFlamethrowerInitialState initial;
     CharacterFlamethrowerIdentity *owner;
-    CharacterFlamethrowerVec3 *inputs[2];
-    CharacterFlamethrowerVec3 *outputs[2];
+    Vec3f *inputs[2];
+    Vec3f *outputs[2];
     CharacterFlamethrowerState *state;
     s32 flag8;
     s32 flag4;
@@ -1698,8 +1687,8 @@ void func_15199980(void *arg0) {
     return;
 }
 typedef struct CharacterFlamethrowerMovingPoint {
-    CharacterFlamethrowerVec3 position;
-    CharacterFlamethrowerVec3 velocity;
+    Vec3f position;
+    Vec3f velocity;
     f32 size;
     u8 pad1C[0xC];
 } CharacterFlamethrowerMovingPoint;
@@ -1718,7 +1707,7 @@ typedef struct CharacterFlamethrowerAttachment {
 
 extern s32 (*D_8008F8C4[])(CharacterFlamethrowerActor *);
 extern void (*D_8008F8BC[])(CharacterFlamethrowerActor *);
-void func_1519BE1C(CharacterFlamethrowerVec3 *, CharacterFlamethrowerVec3 *, f32, f32);
+void func_1519BE1C(Vec3f *, Vec3f *, f32, f32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15199A10 CURRENT (215) */
 s32 func_15199A10(CharacterFlamethrowerActor *arg0) {
@@ -1777,8 +1766,8 @@ s32 func_15199A10(CharacterFlamethrowerActor *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15199C34.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519A9A4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519B4B8.s")
-void func_1519BE1C(CharacterFlamethrowerVec3 *arg0, CharacterFlamethrowerVec3 *arg1, f32 arg2, f32 arg3) {
-    CharacterFlamethrowerVec3 temp;
+void func_1519BE1C(Vec3f *arg0, Vec3f *arg1, f32 arg2, f32 arg3) {
+    Vec3f temp;
 
     temp = *arg1;
     arg1->y = (f32) (arg1->y + (arg2 * arg3));
@@ -1920,8 +1909,8 @@ void func_1519C258(CharacterFlamethrowerContext *arg0) {
     ((CharacterFlamethrowerState *)state)->unk148 = 0;
 }
 typedef struct CharacterFlamethrowerVelocity {
-    CharacterFlamethrowerPosition first;
-    CharacterFlamethrowerPosition second;
+    Vec3f first;
+    Vec3f second;
     f32 gravity;
     f32 damping;
     f32 second_damping;
@@ -1929,8 +1918,8 @@ typedef struct CharacterFlamethrowerVelocity {
 
 typedef struct CharacterFlamethrowerMotion {
     u8 pad0[0x34];
-    CharacterFlamethrowerPosition position;
-    CharacterFlamethrowerPosition second_position;
+    Vec3f position;
+    Vec3f second_position;
     u8 pad4C[0xC4];
     CharacterFlamethrowerVelocity motion;
 } CharacterFlamethrowerMotion;
@@ -1941,10 +1930,10 @@ extern s32 D_800BE9E4;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1519C26C CURRENT (400) */
 s32 func_1519C26C(CharacterFlamethrowerMotion *arg0) {
     f32 time_squared;
-    CharacterFlamethrowerPosition first;
-    CharacterFlamethrowerPosition second;
-    CharacterFlamethrowerPosition first_acceleration;
-    CharacterFlamethrowerPosition second_acceleration;
+    Vec3f first;
+    Vec3f second;
+    Vec3f first_acceleration;
+    Vec3f second_acceleration;
     s32 steps;
     CharacterFlamethrowerVelocity *velocity;
 
@@ -2022,8 +2011,8 @@ typedef struct CharacterFlamethrowerRibbon {
     u8 pad00[0x2C];
     f32 width;
     f32 fraction;
-    CharacterFlamethrowerVec3 start;
-    CharacterFlamethrowerVec3 end;
+    Vec3f start;
+    Vec3f end;
 } CharacterFlamethrowerRibbon;
 
 typedef struct CharacterFlamethrowerVertex {
@@ -2043,11 +2032,11 @@ void *func_1519C56C(CharacterFlamethrowerRibbon *arg0, s16 arg1) {
     CharacterFlamethrowerVertex *output;
     void *result;
     s32 camera;
-    CharacterFlamethrowerVec3 direction;
-    CharacterFlamethrowerVec3 endpoint;
+    Vec3f direction;
+    Vec3f endpoint;
     f32 x, y, z;
-    CharacterFlamethrowerVec3 cross;
-    CharacterFlamethrowerVec3 closest;
+    Vec3f cross;
+    Vec3f closest;
     f32 parameter;
     f32 lengthSquared;
     u8 fresh;

@@ -138,6 +138,26 @@ which the overlay header includes as needed. Private or partial structures stay
 in their owning C file. These headers are maintained source, not generated m2c
 output, and are seeded incrementally as interfaces are reviewed.
 
+### Shared type definitions
+
+A source-local structure may be promoted into a focused shared header (for
+example `include/game_vec.h`, which `game_functions.h` includes) only when
+`./conker struct-layouts` shows at least three copies with an identical MIPS
+o32 layout, every promoted copy spells the same field names in the same order,
+and the matched functions that name a copy use it consistently (the same
+pointer, parameter and member roles; no copy is a partial or padded view of a
+larger owner). Copies with the same layout but different field names are not
+promoted; renaming fields in a matched body is separate review work. Promotion
+only deletes the local definition and spells the shared name; every matched
+body in the file stays otherwise unchanged. Sources that do not yet include the
+overlay header receive `#include "game_functions.h"` directly after
+`#include "types.h"`, because the m2c context only inlines `*_functions.h`
+headers from the initial include block. Afterwards recheck every matched
+function in the edited files with full-span US `finish`, confirm a sample of
+`#if 0` deferred candidates still compiles with `diagnose-diff`, and finish
+with a clean `verify-batch`; a match that changes is reported, not repaired by
+editing its body. Record the batches and rechecked counts in the pull request.
+
 Use the registered matched C definition as the starting evidence, then audit
 all declaration sites and callers before adopting its signature. A matched body
 can omit unused parameters, so a self-contained signature alone is insufficient

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1355D0.c
@@ -22,16 +23,10 @@ extern f32 D_800A243C;
 extern f32 D_800A2440;
 extern f32 D_800A2444;
 
-typedef struct Game1355D0Vec3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1355D0Vec3;
-
 typedef struct Game1355D0Packet {
     s32 field00;
     s32 field04;
-    Game1355D0Vec3 position;
+    Vec3f position;
     s16 field14;
     s16 field16;
     s16 field18;
@@ -49,8 +44,8 @@ typedef struct Game1355D0Packet {
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15108120 CURRENT (911) */
 void func_15108120(void *arg0, u8 volatile arg1, s32 arg2) {
-    Game1355D0Vec3 target;
-    Game1355D0Vec3 source;
+    Vec3f target;
+    Vec3f source;
     Game1355D0Packet packet;
     u8 *actor = arg0;
 

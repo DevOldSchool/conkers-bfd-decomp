@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1D6570.c
@@ -186,8 +187,6 @@ typedef struct Game1D6570Actor {
     Game1D6570Emitter emitter;
 } Game1D6570Actor;
 
-typedef struct Game1D6570Vector { f32 x, y, z; } Game1D6570Vector;
-
 typedef struct Game1D6570Preset {
     f32 first, second;
     u8 field8, field9, fieldA, fieldB, fieldC;
@@ -233,9 +232,9 @@ void func_151A9390(s32 arg0, u8 arg1, void *arg2, f32 *arg3,
         descriptor.field_8 = preset->first;
         descriptor.field_C = preset->second;
         if (arg3 != 0) {
-            Game1D6570Vector *source;
+            Vec3f *source;
             source = (void *)arg3;
-            *(Game1D6570Vector *)&descriptor.field_10 = *source;
+            *(Vec3f *)&descriptor.field_10 = *source;
         } else {
             descriptor.field_10 = 0.0f;
             descriptor.field_14 = 0.0f;

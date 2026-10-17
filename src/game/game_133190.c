@@ -51,12 +51,6 @@ void func_15106214(s32);
 void func_15106610(void *);
 u32 func_150ADA20(void);
 
-typedef struct Game133190Vector {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game133190Vector;
-
 typedef struct Game133190Color {
     u8 bytes[4];
 } Game133190Color;
@@ -65,10 +59,10 @@ typedef struct Game133190Beam {
     s16 life;
     s8 enabled;
     u8 pad3;
-    Game133190Vector position;
-    Game133190Vector axis0;
-    Game133190Vector axis1;
-    Game133190Vector contact;
+    Vec3f position;
+    Vec3f axis0;
+    Vec3f axis1;
+    Vec3f contact;
     s8 flag;
     u8 pad35[3];
     s32 count;
@@ -514,7 +508,7 @@ s32 func_15106F98(Game133190Triple *arg0, Game133190Triple *arg1,
 
 typedef struct Game133190Contact {
     u8 pad0[8];
-    Game133190Vector point;
+    Vec3f point;
     u8 pad14[0x45];
     u8 hit;
     u8 pad5A[0xA];
@@ -531,7 +525,7 @@ typedef struct Game133190BeamConfig {
 typedef struct Game133190BeamChain {
     s32 count, index;
     Game133190Object *child;
-    Game133190Vector *points;
+    Vec3f *points;
     Game133190BeamConfig config;
 } Game133190BeamChain;
 
@@ -543,7 +537,7 @@ void func_151072BC(u8 *arg0) {
     Game133190Object *child;
     Game133190Beam beam;
     u8 *owner;
-    Game133190Vector direction;
+    Vec3f direction;
     Game133190BeamConfig *config;
     Game133190BeamChain *chain;
 
@@ -652,7 +646,7 @@ Game133190Object *func_15107700(void *arg0, s32 arg1, s32 arg2, s32 arg3,
     Game133190Object *result;
     Game133190Beam beam;
     Game133190Contact contact;
-    Game133190Vector origin;
+    Vec3f origin;
     s8 enabled;
 
     arg1 = (s16)arg1;
@@ -803,7 +797,7 @@ typedef struct Game133190Attachment {
     void *owner;
     u8 kind;
     u8 pad5[3];
-    Game133190Vector offset;
+    Vec3f offset;
     u8 transform;
     u8 pad15[3];
 } Game133190Attachment;
@@ -818,7 +812,7 @@ Game133190Object *func_15107C1C(void *arg0, u8 arg1, f32 *arg2,
     Game133190Object *result;
     Game133190Beam beam;
     Game133190Contact contact;
-    Game133190Vector direction;
+    Vec3f direction;
     s8 enabled;
 
     if (*(s32 *)((u8 *)arg0 + 0x1D4) == 0) {
@@ -826,7 +820,7 @@ Game133190Object *func_15107C1C(void *arg0, u8 arg1, f32 *arg2,
     }
     attachment.owner = arg0;
     attachment.kind = *(u8 *)((u8 *)arg0 + 0x3B);
-    attachment.offset = *(Game133190Vector *)arg2;
+    attachment.offset = *(Vec3f *)arg2;
     attachment.transform = arg1;
     if (arg5 == -1) {
         beam.life = 300;

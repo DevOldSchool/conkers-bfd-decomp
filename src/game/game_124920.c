@@ -126,7 +126,6 @@ void func_150F802C(f32 *arg0, s16 arg1, u8 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F802C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_124920/func_150F802C.s")
-typedef struct GameF81BCVector { f32 x, y, z; } GameF81BCVector;
 typedef struct GameF81BCPacket {
     u8 kind, field1;
     u16 mode;
@@ -135,7 +134,7 @@ typedef struct GameF81BCPacket {
     s32 field8, fieldC;
     u8 r, g, b, a;
     f32 field14, field18;
-    GameF81BCVector position, velocity;
+    Vec3f position, velocity;
     f32 scaleX, scaleY, scaleZ;
     u32 flags;
     u8 alpha, field45, field46, field47;
@@ -144,7 +143,7 @@ typedef struct GameF81BCPacket {
     s32 field50, field54;
 } GameF81BCPacket;
 typedef struct GameF81BCMotion {
-    GameF81BCVector first, second;
+    Vec3f first, second;
     f32 phase, rate, amplitude, offset, scale;
 } GameF81BCMotion;
 
@@ -157,10 +156,10 @@ extern u8 D_800A4AA0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F81BC CURRENT (5790) */
 s32 func_150F81BC(void *arg0) {
-    GameF81BCVector delta;
+    Vec3f delta;
     f32 length;
     f32 inverseLength;
-    GameF81BCVector normal;
+    Vec3f normal;
     f32 stepZ;
     f32 stepY;
     GameF81BCPacket packet;
@@ -210,7 +209,7 @@ s32 func_150F81BC(void *arg0) {
             packet.field18 = 0.0f;
             packet.field14 = 0.0f;
             motion.scale = D_800A1BEC;
-            packet.velocity = *(GameF81BCVector *)D_800A5480;
+            packet.velocity = *(Vec3f *)D_800A5480;
             temp_fs4 = D_800A1BF0;
             packet.scaleX = 1.0f;
             packet.scaleY = 1.0f;
@@ -226,7 +225,7 @@ s32 func_150F81BC(void *arg0) {
             do {
                 motion.rate = temp_fs2;
                 motion.phase = 27.0f - *(f32 *)((u8 *)(temp_s0) + 0x10);
-                packet.position = *(GameF81BCVector *)((u8 *)temp_s0 + 4);
+                packet.position = *(Vec3f *)((u8 *)temp_s0 + 4);
                 packet.alpha = (s8) (u32) (motion.phase * temp_fs4);
                 temp_v0_2 = func_1513D2F0((s32)&packet, (s32)D_800A4AA0, 0x24, 0, 0, 0x21, 0, 0, 0, 0x2C, (s32) *(u8 *)((u8 *)(arg0) + 0xC), (s32) *(u8 *)((u8 *)(arg0) + 1));
                 if (temp_v0_2 != 0) {

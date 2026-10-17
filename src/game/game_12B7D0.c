@@ -11,16 +11,10 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct Game12B7D0Vec3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game12B7D0Vec3;
-
 u32 func_150ADA20();
 f32 func_150ADA68();
 void func_15145740(void *, void *, void *, void *, f32);
-s32 func_151C229C(Game12B7D0Vec3 *, Game12B7D0Vec3 *, s32, s32, s32, s32,
+s32 func_151C229C(Vec3f *, Vec3f *, s32, s32, s32, s32,
                    f32, f32, f32, f32, f32, s32, void *, s32, s32, s32,
                    s32, s32, s32, s32, s32, f32, s32, s32, s32, s32, s32);
 extern f32 D_800A1FEC;
@@ -31,10 +25,10 @@ s32 func_150FE320(void *arg0, u8 arg1, s32 arg2) {
         f32 sp78;
         f32 sp7C;
         s32 unused80;
-        Game12B7D0Vec3 sp84;
-        Game12B7D0Vec3 sp90;
-        Game12B7D0Vec3 sp9C;
-        Game12B7D0Vec3 spA8;
+        Vec3f sp84;
+        Vec3f sp90;
+        Vec3f sp9C;
+        Vec3f spA8;
     } locals;
 
     if (arg0 == 0) {
@@ -54,21 +48,21 @@ s32 func_150FE320(void *arg0, u8 arg1, s32 arg2) {
 
 void func_15145EA4(s32 *, s32 *, s32, s32);
 void func_151D3E6C(void *, void *, void *, s32);
-void func_150FE604(void *, Game12B7D0Vec3 *, u8, s32);
+void func_150FE604(void *, Vec3f *, u8, s32);
 void func_150FE7D4(void *);
 extern s32 D_800A1FC8;
 extern s32 D_800A1FD4;
 extern u8 D_80088B94;
 
 void func_150FE49C(void *arg0, u8 arg1, s32 arg2,
-                   Game12B7D0Vec3 *arg3, Game12B7D0Vec3 *arg4) {
+                   Vec3f *arg3, Vec3f *arg4) {
     struct {
-        Game12B7D0Vec3 *input_ptr;
-        Game12B7D0Vec3 *output_ptr;
+        Vec3f *input_ptr;
+        Vec3f *output_ptr;
         void *source_ptr;
         void *target_ptr;
-        Game12B7D0Vec3 output;
-        Game12B7D0Vec3 input;
+        Vec3f output;
+        Vec3f input;
     } locals;
 
     if (arg0 == 0) {
@@ -105,7 +99,7 @@ extern f32 D_800A1FF0;
 extern f32 D_800A1FF4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FE604 CURRENT (330) */
-void func_150FE604(void *arg0, Game12B7D0Vec3 *arg1, u8 arg2, s32 arg3) {
+void func_150FE604(void *arg0, Vec3f *arg1, u8 arg2, s32 arg3) {
     f32 values[2];
     u8 mask;
     u32 random0;

@@ -54,7 +54,6 @@ typedef struct {
     u8 pad0[0x64];
     f32 (*points)[6];
 } Game1D4E00Curve;
-typedef struct { f32 x, y, z; } Game1D4E00Vector;
 
 f32 func_150ADA68(void);
 void func_151A8340(Game1D4E00Curve *, s16, s16, f32, s32);
@@ -69,9 +68,9 @@ void func_1516972C(s32);
 void func_151A7A90(Game1D4E00Curve *arg0) {
     Game1D4E00Curve *countOwner;
     struct { u8 expired; } state;
-    Game1D4E00Vector cross;
-    Game1D4E00Vector axis;
-    Game1D4E00Vector delta;
+    Vec3f cross;
+    Vec3f axis;
+    Vec3f delta;
     f32 (*point)[6];
     f32 x, y, z;
     s32 callbackIndex;
@@ -103,7 +102,7 @@ void func_151A7A90(Game1D4E00Curve *arg0) {
             delta.x = *(f32 *)((u8 *)arg0 + 0x3C) - *(f32 *)((u8 *)arg0 + 0x30);
             delta.y = *(f32 *)((u8 *)arg0 + 0x40) - *(f32 *)((u8 *)arg0 + 0x34);
             delta.z = *(f32 *)((u8 *)arg0 + 0x44) - *(f32 *)((u8 *)arg0 + 0x38);
-            axis = *(Game1D4E00Vector *)((u8 *)arg0 + 0x48);
+            axis = *(Vec3f *)((u8 *)arg0 + 0x48);
             func_151450B4(&delta, &axis, &cross);
             cross.x *= *(f32 *)((u8 *)arg0 + 0x58);
             cross.y *= *(f32 *)((u8 *)arg0 + 0x58);
@@ -244,10 +243,10 @@ typedef struct {
     void *owner;
     u8 generation;
     u8 pad05[3];
-    Game1D4E00Vector position;
+    Vec3f position;
     u8 style;
     u8 pad15[3];
-    Game1D4E00Vector offset;
+    Vec3f offset;
     u8 flag24;
     u8 flag25;
     u8 pad26[2];
@@ -257,9 +256,9 @@ extern f32 D_800A8DE0;
 void *func_151A7950(u8 *, s32, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A8624 CURRENT (1828) */
-void *func_151A8624(u8 *arg0, Game1D4E00Vector *arg1, s32 arg2, s32 arg3,
+void *func_151A8624(u8 *arg0, Vec3f *arg1, s32 arg2, s32 arg3,
                    f32 arg4, f32 arg5, Game1D4E00Colour *arg6, f32 arg7,
-                   Game1D4E00Vector *arg8, s32 arg9, s32 arg10, s32 arg11,
+                   Vec3f *arg8, s32 arg9, s32 arg10, s32 arg11,
                    s32 arg12, s32 arg13, s32 arg14) {
     void *result;
     Game1D4E00Descriptor descriptor;
@@ -334,7 +333,7 @@ typedef struct Game1D4E00Owner {
     s32 active;
     u8 type;
     u8 pad5[0xF];
-    Game1D4E00Vector position;
+    Vec3f position;
     u8 pad20[0x1B];
     u8 generation;
     u8 pad3C[0x198];
@@ -345,9 +344,9 @@ typedef struct Game1D4E00Beam {
     u8 pad0[0x1C];
     u8 flags;
     u8 pad1D[0x13];
-    Game1D4E00Vector position;
-    Game1D4E00Vector endpoint;
-    Game1D4E00Vector perpendicular;
+    Vec3f position;
+    Vec3f endpoint;
+    Vec3f perpendicular;
     f32 length;
     f32 inverse_length;
     u8 pad5C[4];
@@ -363,12 +362,12 @@ s32 func_15146078(void *, void *, void *);
 s32 func_151A87F8(Game1D4E00Beam *arg0) {
     Game1D4E00OwnerData *data;
     Game1D4E00Owner *owner;
-    Game1D4E00Vector delta;
+    Vec3f delta;
     s32 hit;
     f32 x;
     f32 z;
     f32 y;
-    Game1D4E00Vector scratch;
+    Vec3f scratch;
     f32 length;
     u8 *transform;
     f32 dx;

@@ -56,11 +56,6 @@ s32 func_151D71B0(s16 arg0, u8 arg1, u8 arg2, s32 arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D71B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D71B0.s")
-typedef struct Game204660Position {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game204660Position;
 
 extern s32 (*D_8008FCA0[])(void *);
 void func_151D7830(void *);
@@ -68,12 +63,12 @@ void func_151D77C8();
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7264 CURRENT (171) */
 void func_151D7264(void *arg0) {
-    Game204660Position previous;
-    Game204660Position delta;
+    Vec3f previous;
+    Vec3f delta;
     u8 flag;
     u8 *link;
 
-    previous = *(Game204660Position *)((u8 *)arg0 + 0x30);
+    previous = *(Vec3f *)((u8 *)arg0 + 0x30);
     flag = *(u8 *)((u8 *)arg0 + 0x2D) & 1;
     if (D_8008FCA0[*(u8 *)((u8 *)arg0 + 0x2C)](arg0) == 0) {
         *(s16 *)((u8 *)arg0 + 0xE) = -1;
@@ -419,18 +414,18 @@ typedef struct Game204660TrailOwner {
     u8 unknown0[0x2D];
     u8 flags;
     u8 unknown2E[2];
-    Game204660Position position;
+    Vec3f position;
 } Game204660TrailOwner;
 
 typedef struct Game204660TrailState {
     Game204660TrailOwner *owner;
-    Game204660Position previous;
+    Vec3f previous;
     f32 time;
     f32 phase;
 } Game204660TrailState;
 
 typedef struct Game204660TrailPoint {
-    Game204660Position position;
+    Vec3f position;
     f32 velocity;
     f32 value10;
     u8 active;
@@ -440,7 +435,7 @@ typedef struct Game204660TrailPoint {
 
 typedef struct Game204660Trail {
     u8 unknown0[0x10];
-    Game204660Position position;
+    Vec3f position;
     u8 unknown1C[9];
     u8 capacity;
     u8 unknown26[6];
@@ -454,8 +449,8 @@ typedef struct Game204660Trail {
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7A38 CURRENT (574) */
 s32 func_151D7A38(Game204660Trail *trail) {
-    Game204660Position endpoint;
-    Game204660Position *previous;
+    Vec3f endpoint;
+    Vec3f *previous;
     f32 phase;
     f32 reciprocal;
     f32 xDifference;
@@ -472,8 +467,8 @@ s32 func_151D7A38(Game204660Trail *trail) {
     Game204660TrailOwner *owner;
     s32 start;
     s32 end;
-    Game204660Position position;
-    register Game204660Position *cursor = &position;
+    Vec3f position;
+    register Vec3f *cursor = &position;
 
     state = trail->state;
     points = trail->points;
