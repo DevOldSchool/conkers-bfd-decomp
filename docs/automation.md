@@ -24,7 +24,11 @@ Both pools receive compact `diagnose-diff` preflight. Pure register differences
 qualify for search; register differences with one to three missing/extra rows
 receive a probe capped at 32 variants. Structural mismatches skip search. For raw
 candidates that are ineligible for search, the proposed source and diagnostics
-are saved and canonical source is restored, even with `--defer-best`.
+are saved and canonical source is restored, even with `--defer-best`. Automation
+runs only the deterministic `permute` search; the randomized
+[`permute --randomized`](decompilation-workflow.md#focused-iteration) mode that
+drives `decomp-permuter` is manual-only for now and is not scheduled, fingerprinted
+or retried by `automate`.
 
 Compilation must be warning-free. Before restoring a failed attempt, up to three
 compiler-guided target-function repairs address proven mechanical problems such
