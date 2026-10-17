@@ -8,9 +8,13 @@ on:
 permissions:
   contents: read
 
+# A newer main push supersedes earlier runs: it cancels one still queued,
+# waiting for the environment approval or already building, so a burst of
+# merges verifies and reports only its newest commit instead of serialising
+# every merge behind the previous run and its approval.
 concurrency:
   group: protected-rom-verification
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   verify-main:
@@ -37,8 +41,20 @@ jobs:
             echo "::error::Set ROM_ASSETS_REPOSITORY in the rom-verification environment."
             exit 1
           fi
-      - name: Build the public toolchain before fetching private inputs
-        run: docker build --platform linux/amd64 --tag "$CONKER_IMAGE" .
+      # Pull the pinned public image when the lock records it as built from
+      # this checkout's toolchain inputs; otherwise (inputs changed, lock has no
+      # inputs hash, or the registry is unavailable) build it locally as before.
+      - name: Pull or build the public toolchain before fetching private inputs
+        run: |
+          published="$(python3 scripts/toolchain_inputs.py image)"
+          if ./conker toolchain-inputs-check \
+              && docker pull --platform linux/amd64 "$published"; then
+            docker tag "$(docker image inspect --format '{{.Id}}' "$published")" "$CONKER_IMAGE"
+            echo "toolchain: pulled the published image $published as $CONKER_IMAGE"
+          else
+            echo "toolchain: building the image locally from this checkout"
+            docker build --platform linux/amd64 --tag "$CONKER_IMAGE" .
+          fi
       - name: Fetch maintainer-owned ROM assets
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:

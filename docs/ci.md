@@ -108,7 +108,22 @@ Configure these environment secrets without committing private repository names:
 - `ROM_ASSETS_REPOSITORY`: the private ROM storage repository's owner/name.
 - `ROM_ASSETS_READ_TOKEN`: an expiring token with Contents: read on that storage only.
 
-The workflow builds the public toolchain before fetching private inputs, checks
+Runs share the `protected-rom-verification` concurrency group with
+`cancel-in-progress` enabled: a newer push to main cancels an earlier run that
+is still queued, waiting for the environment approval or already building.
+After a burst of merges only the latest main commit is verified, so the
+decomp.dev report reflects the newest commit rather than every merge in turn,
+and a superseded commit never produces its own report. A manual dispatch from
+main joins the same group. Re-run the workflow for an intermediate commit only
+by dispatching it while no newer push is pending.
+
+The workflow prepares the public toolchain before fetching private inputs.
+When `./conker toolchain-inputs-check` passes, that is, the lock's
+`container_image.inputs_sha256` matches the checkout's hashed toolchain inputs,
+it pulls the pinned `repository@digest` image for linux/amd64 and tags it as
+`$CONKER_IMAGE`; otherwise (inputs changed since the published image, no hash
+recorded, or the registry unavailable) it builds the image locally from the
+checkout as before. The step log states which path it took. The job then checks
 out only the US ROM without persisting credentials, and runs `./conker build --all --assets`
 and `./conker objdiff report`. Report preparation validates linked targets for
 the tracked main/game/debugger US CPU-code and initialized-data ranges, plus the
@@ -130,7 +145,17 @@ guaranteed to refresh it.
 ## Toolchain and reporting
 
 **Publish toolchain** runs only on main and records the immutable registry
-digest in its job summary. Verify anonymous availability and compiler/build
+digest in its job summary, together with the hash of the toolchain inputs it
+built (`scripts/toolchain_inputs.py hash`: the files that trigger the workflow,
+sorted, each as path, NUL and contents; the lock itself is hashed without its
+`container_image` record so recording a new image never changes the hash). To
+pin the new image, run the `record` command from the summary in a checkout with
+the same toolchain inputs; it writes `container_image.digest`, `repository` and
+`inputs_sha256` to `toolchain/tools.lock.json` and refuses a hash the checkout
+does not reproduce. `./conker toolchain-inputs-check` reports whether the lock
+still matches the checkout; a mismatch (or a lock without the hash) only makes
+post-merge verification rebuild the image locally until the pin is updated.
+Verify anonymous availability and compiler/build
 compatibility before changing `toolchain/tools.lock.json`. A local Docker image
 ID is not necessarily a retrievable registry digest. Runtime containers disable
 networking, use a read-only root, drop capabilities and mount ROM inputs read-only.
