@@ -88,30 +88,16 @@ loop_1:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CA98.s")
 extern u8 D_80088420[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509CB68 CURRENT (30) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509CB68 CURRENT (10) */
 s32 func_1509CB68(void) {
-    u8 *descriptor_block;
     s32 count;
-    u32 end = (u32)D_80088420;
+    s32 i;
 
     count = 0;
-    descriptor_block = (u8 *)D_80087430;
-loop:
-        if (((ResourceDescriptor *)descriptor_block)[0].name != 0) {
+    for (i = 0; i < 204; i++) {
+        if (D_80087430[i].name != 0) {
             count++;
         }
-        if (((ResourceDescriptor *)descriptor_block)[1].name != 0) {
-            count++;
-        }
-        if (((ResourceDescriptor *)descriptor_block)[2].name != 0) {
-            count++;
-        }
-        if (((ResourceDescriptor *)descriptor_block)[3].name != 0) {
-            count++;
-        }
-        descriptor_block += 0x50;
-    if ((u32)descriptor_block != end) {
-        goto loop;
     }
     return count;
 }
