@@ -112,6 +112,31 @@ class SpriteBuildTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'changed during packing'):
                 build.packed_bank(self.directory, self.expected)
 
+    def test_report_reuses_ranged_build_receipt_spans_without_encoding(self):
+        from test_objdiff_data_targets import object_file, targets
+        with patch.object(build, 'reviewed_bank', return_value=(self.rom, self.expected, self.decoded)):
+            build.build_parts(self.root)
+        linked = self.root / 'build/us/assets/asset_bank_00.o'; linked.parent.mkdir(parents=True)
+        linked.write_bytes(object_file([('.data', 1, 3, self.payload)]))
+        with patch.object(targets, 'ROOT', self.root), \
+                patch.object(targets.sprite_build, 'packed_bank', side_effect=ValueError('fresh encoder ran')) as encode:
+            unit, item = targets.prepare_sprite_bank(self.rom, self.expected, output=self.root / 'report')
+            encode.assert_not_called()
+            self.assertEqual(unit['candidate_source'], 'reused_receipt')
+            self.assertEqual(unit['rom_ranges'], [[14, 2574]])
+            self.assertEqual(unit['payload_sha256'], build.sha256(self.payload))
+            self.assertEqual(unit['receipt']['output_sha256'], unit['payload_sha256'])
+            self.assertEqual(unit['receipt']['source_inputs'], unit['source_inputs'])
+            candidate = targets.sections((self.root / 'report/sprite-bank/base.o').read_bytes(), 1)['.data'][1]
+            self.assertEqual(candidate, self.data)
+            # A linked object that drifted from the receipt output is still rejected.
+            linked.write_bytes(object_file([('.data', 1, 3, bytes(len(self.payload)))]))
+            with self.assertRaisesRegex(ValueError, 'candidate differs'):
+                targets.prepare_sprite_bank(self.rom, self.expected, output=self.root / 'report')
+            linked.write_bytes(object_file([('.data', 1, 3, self.payload)]))
+            with patch.object(targets, 'FRESH_ENCODE', True), self.assertRaisesRegex(ValueError, 'fresh encoder ran'):
+                targets.prepare_sprite_bank(self.rom, self.expected, output=self.root / 'report')
+
     def test_report_credits_only_png_ranges_and_rejects_stale_actual_object(self):
         from test_objdiff_data_targets import object_file, targets
         linked = self.root / 'build/us/assets/asset_bank_00.o'; linked.parent.mkdir(parents=True)

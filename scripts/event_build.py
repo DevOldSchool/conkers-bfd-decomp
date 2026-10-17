@@ -9,11 +9,13 @@ import struct
 try:
     from scripts import asset_inputs, model_assets, model_event_activation, event_codec, rzip_archive, texture_build
     from scripts.build_files import write_if_changed
+    from scripts import asset_receipts
     from scripts.model_character_alpha import checked_spans
     from scripts.profile_config import load_profile
 except ModuleNotFoundError:
     import asset_inputs, model_assets, model_event_activation, event_codec, rzip_archive, texture_build
     from build_files import write_if_changed
+    import asset_receipts
     from model_character_alpha import checked_spans
     from profile_config import load_profile
 
@@ -134,6 +136,9 @@ def build_parts(root=ROOT):
     if input_hashes(directory, expected) != hashes:
         raise ValueError('event inputs changed during batch packing')
     write_if_changed(root / 'build/us/events/parts' / (PART_NAME + '.bin'), packed)
+    asset_receipts.write(root, 'events', __file__, {PART_NAME: asset_receipts.part_record(
+        output=f'build/us/events/parts/{PART_NAME}.bin', payload=packed, source_inputs=hashes,
+        input_directory=INPUT_DIRECTORY, extent=expected)})
     proof = {**expected, 'source_inputs': hashes, 'stored_bytes': len(packed),
              'verification': 'typed_instructions_strings_fresh_compression_and_independent_rom', 'matches_original': True}
     write_if_changed(root / 'build/us/events/batch.json', (json.dumps(proof, indent=2) + '\n').encode())
