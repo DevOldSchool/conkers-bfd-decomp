@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1516D400
- * - func_1516D4E8
  * - func_1516D738
  * - func_1516DB90
  * - func_1516E8CC
@@ -106,7 +105,6 @@ void func_1516D400(void) {
 
 void *func_150448D0(s32, void *, s32, s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516D4E8 CURRENT (60) */
 void func_1516D4E8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14, s32 arg15, s32 arg16, s32 arg17, s32 arg18, s32 arg19, s32 arg20, s32 arg21, s32 arg22, s32 arg23, s32 arg24, s32 arg25, s32 arg26, s32 arg27, s32 arg28, u8 arg29, s32 arg30) {
     Game19A8B0Motion *result;
     s32 kind;
@@ -132,6 +130,8 @@ void func_1516D4E8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s
         result->active = ((u8 *)&arg25)[3];
         result->velocityY = ((s16 *)&arg26)[1];
         result->yFraction = 0;
+        do {
+        } while (0);
         result->velocityXHigh = ((u8 *)&arg13)[3];
         result->velocityXLow = ((u8 *)&arg14)[3];
         result->velocityZHigh = ((u8 *)&arg15)[3];
@@ -149,8 +149,6 @@ void func_1516D4E8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s
         result->link = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1516D4E8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516D4E8.s")
 
 extern s32 D_800BE9E4;
 extern s32 (*D_8008CBA0[])(Game19A8B0Motion *);

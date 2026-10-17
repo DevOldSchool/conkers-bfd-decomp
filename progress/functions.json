@@ -47073,17 +47073,16 @@
       "symbol": "func_1516D400"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 60,
-        "reason": "Best manual CURRENT (60): one link-type argument load schedules three instructions early. The typed C candidate retains s32 parameters and explicit low-part reads.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 400,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1516D4E8",
           "vram": "0x1516D4E8"
         }
