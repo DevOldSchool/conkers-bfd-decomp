@@ -10888,17 +10888,16 @@
       "symbol": "func_15062800"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 260,
-        "reason": "Live CURRENT (260), stale saved 170: all arithmetic and registers match but compiler schedules second nonzero-path float store into jr delay slot where raw has nop, shifting both zero-case branch targets; volatile one/both stores were neutral. Full 88-byte span also includes next-function prologue row in candidate",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15062AC4",
           "vram": "0x15062AC4"
         }
@@ -10943,17 +10942,16 @@
       "symbol": "func_15062B50"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 260,
-        "reason": "Live full-span CURRENT (260), stale saved score 170: IDO places final nonzero-result store in jr-ra delay slot instead of raw pre-return store plus nop, shortening function and pulling next prologue into registered span. Volatile store and source-local typed output pair were neutral; restored baseline.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15062B84",
           "vram": "0x15062B84"
         }
@@ -25958,17 +25956,16 @@
       "symbol": "func_15077364"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 260,
-        "reason": "Manual accumulator arithmetic/registers now match; score 260 remains from final byte store being scheduled in the return delay slot instead of before the return.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 176,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15077404",
           "vram": "0x15077404"
         }
@@ -46101,17 +46098,16 @@
       "symbol": "func_15131C84"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 260,
-        "reason": "US CURRENT (260): raw early andi a3,a1,0xff is absent; candidate stores copied word before jal rather than in its delay slot and reloads a3 from sp+0x2F in that delay slot; u8 formal and named word snapshot compiled identically",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 80,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15131D4C",
           "vram": "0x15131D4C"
         }
@@ -49646,8 +49642,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 170,
-        "reason": "CURRENT (170) full-span US: u8 third formal and direct arg1+4 byte read correct ABI/data-width rows. Remaining second branch raw bne t9,v1 versus candidate bne v1,t9, raw stores byte before jr/nop while candidate uses store in jr delay slot, causing later register allocation differences and one extra end nop. Explicit return after second store compiled identically. Best corrected source preserved.",
+        "current_score": 10,
+        "reason": "Twin-queue 2026-10-17: block-scoped arm locals (temp_v0/temp_v1 inside the 0x2D arm, s32 id in the zero arm) fix delay-slot and temp-numbering rows: 170 -> 10. One row left: raw bne t9,v1 vs candidate bne v1,t9 on the second compare; operand reversal and reloaded-field compare (15) neutral. Same residual as func_151AE640.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -50813,7 +50809,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 16,
-        "reason": "CURRENT 16 retained: two new probe batches (copy then adjust/link last; real two-pointer context first/last) all 16. Raw link spill 0x20 versus generated 0x18 persists while packet 0x1C/frame 0x30 exact; prior volatile/extra-alias family exhausted. No supported new storage hypothesis.",
+        "reason": "Twin-queue 2026-10-17: typed packet/link sub-structures; CURRENT 16 unchanged. Reference frame plan: 3 unused named homes 0x2c..0x24, call-crossing sw v1 at 0x20 and sw t0 at 0x1c; candidate spills link (v1) at 0x18 whichever of 7 declaration orders/typings (struct pointers, u8*, void* sibling idiom) is used, i.e. link is numbered after the packet temp. Ledger build/us/manual-attempts/twin-queue-2026-10-17.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -53481,8 +53477,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 170,
-        "reason": "Byte-argument ABI improved live CURRENT (555) to CURRENT (170). Raw zero branch stores before jr/nop, while IDO puts store in jr delay slot; other differences are register choices and commuted final branch. Volatile zero store and explicit early return were neutral; best candidate preserved.",
+        "current_score": 10,
+        "reason": "Twin-queue 2026-10-17: block-scoped arm locals (s32 id in arg2==0 arm, temp_v0/temp_v1 inside the 0x2D arm) fix the store/jr delay-slot rows and temp numbering: 170 -> 10. One row left: raw bne t9,v1 (loaded arg1+4 first) vs candidate bne v1,t9; source operand reversal, reloaded-field compare (30/35) neutral or worse. Ledger build/us/manual-attempts/twin-queue-2026-10-17.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -54301,8 +54297,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 275,
-        "reason": "Manual2022->275: u8 selector, common interior base and named event word in both arms restore all registers. Remaining final SB in branch delay instead of before B/LWra, plus BNEL operand order. Explicit outer return and volatile final byte store did not fix scheduling; restored nonvolatile275 after3 revisions.",
+        "current_score": 35,
+        "reason": "Twin-queue 2026-10-17: temp_a0/temp_v1 declared inside the 0x2D arm and a block-local id in the zero arm fix the sb/b/lw-ra delay-slot row and temp numbering: 275 -> 35. Left: raw bnel t9,a0 vs candidate bnel a0,t9 plus dependent temp renames; operand reversal and reloaded-field compare (30) neutral. Twins func_15193234/func_151BE558 carry the same body.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -54466,8 +54462,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 160,
-        "reason": "Best typed identity candidate is CURRENT (160); remaining mismatch is return move scheduling into the jr delay slot",
+        "current_score": 60,
+        "reason": "Twin-queue 2026-10-17: identity return; candidate schedules move v0,a0 before jr ra with a nop delay slot, raw has the move in the delay slot. Named result local, s32 types, inner block, parenthesised return all CURRENT 60; if(arg1){} 260. No -g3 source form found that drops the end-of-function label.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -55456,8 +55452,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 270,
-        "reason": "Preserve CURRENT270 from typed0x44 table index and reused argument pointer. Initial byte-offset ADDU remains commuted; output store stays in JR delay, one word short. Volatile store neutral; earlier branch/address forms exhausted.",
+        "current_score": 10,
+        "reason": "Twin-queue 2026-10-17: if/else-if/else with a block-local entry pointer removes the jr-delay-slot store rows: 270 -> 10. One row left: raw addu v0,a0,t6 vs candidate addu v0,t6,a0 for arg0 + *(s32 *)(arg0 + 0x50); (s32)/(u32)/s32-param/array-index/folded +0xF8 spellings all keep t6 first. Same row as func_15109064.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -59234,17 +59230,16 @@
       "symbol": "func_150C5D0C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 265,
-        "reason": "Valid one-pointer 150C6460 owner contract repaired; CURRENT 265 over full76B span. Raw duplicate RA load versus shared compiler epilogue/SB branch-delay placement remains. Emitted early-return form neutral; earlier valid repaired form restored. Correctness repair plus one fresh scheduling revision exhausted; no shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C5DC0",
           "vram": "0x150C5DC0"
         }
@@ -59253,17 +59248,16 @@
       "symbol": "func_150C5DC0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 170,
-        "reason": "Valid CURRENT170 after correcting the real zero-input RNG call, removing two unread spill-remnant locals and using conservative fullword return. Historical1097 and intermediate203 are superseded. No shape alternatives; same-source context repaired so the preserved callback compiles under the required declaration.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 240,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C5E0C",
           "vram": "0x150C5E0C"
         }
@@ -59290,17 +59284,16 @@
       "symbol": "func_150C5EFC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 265,
-        "reason": "CURRENT (265): corrected two-argument helper call, separate first pointer read, and typed subrecord pointer recover all raw registers/address instructions. Only branch/store/return scheduling remains. Volatile store neutral; four manual revisions, best265 preserved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 84,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C5F40",
           "vram": "0x150C5F40"
         }
@@ -59419,17 +59412,16 @@
       "symbol": "func_150C6460"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 165,
-        "reason": "Best source-only candidate CURRENT (165); remaining difference is compiler delay-slot scheduling of the byte store versus the target epilogue load.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C66F0",
           "vram": "0x150C66F0"
         }
@@ -59438,17 +59430,16 @@
       "symbol": "func_150C66F0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 12,
-        "reason": "Fresh12 retains three pointer-spill rows. Earlier real snapshot/storage hypotheses exhausted; no padding or unproved alias change accepted. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 240,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C673C",
           "vram": "0x150C673C"
         }
@@ -59475,17 +59466,16 @@
       "symbol": "func_150C682C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 265,
-        "reason": "CURRENT (265): independently confirmed sibling two-argument call, separate pointer read, and typed subrecord pattern. One revision recovers registers/addresses; same return/store scheduling blocker asC5F40. No repeated volatile-store probe.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 84,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C6870",
           "vram": "0x150C6870"
         }
@@ -66951,8 +66941,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 430,
-        "reason": "CURRENT (430), improved from520 after four hypotheses/five finishes: redundant target alias removed and actual vector declared last, fixing every local offset. Height-in-vector808 and actual query aggregate788 recover frame but alter offsets/instructions; best430 restored. Remaining frame48 versus40 and early threshold/150 constant load scheduling. Prior two layout attempts carried forward; need new allocation/alias evidence, no forced padding.",
+        "current_score": 428,
+        "reason": "Twin-queue 2026-10-17: object/position/height locals with arg0+0x34 as a temp: 428 (was 430). Remaining: first-block scheduling of the position.x load/store around the D_800A8F74 load, and the temp slot 0x28 vs raw 0x2c. Shape without an object local 1095.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -66989,8 +66979,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 502,
-        "reason": "best CURRENT (502): instruction/control-flow shape and registers align, but IDO allocates a 0x48 frame with the vector at sp+0x38 instead of the reference 0x40 frame/vector at sp+0x30; declaration-order revision improved 554 to 502 without resolving stack layout",
+        "current_score": 270,
+        "reason": "Twin-queue 2026-10-17: reference frame plan (object home 0x3c, position 0x30, height home 0x2c, arg0+0x34 temp at 0x28) reproduced: 502 -> 270. Remaining: raw loads position.x before the D_800A8F7C load and stores it before the height load; candidate schedules the global load first. Typed object/owner structs, inline height, reversed compare all 270. Same block in siblings func_151A9DC0/func_151AE6B0 (278/270 with this shape, not applied).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -67006,17 +66996,16 @@
       "symbol": "func_151A9BA0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT (10). Restored the original candidate with frame 0x50. Reusing the actual pointer across phases reduced the frame to 0x48 but still scored 10. A direct height expression with ordered object/vector/pointer declarations produced the correct 0x40 frame but scored 12 because the pointer spill was at 0x28 instead of 0x2C. A one-word record and union also scored 12; a volatile output home grew the frame to 0x48 and scored 522. The simpler score-12 candidate remains in the local attempt ledger. No fabricated padding or shared changes; no new supported storage hypothesis remains.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 288,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A9CA0",
           "vram": "0x151A9CA0"
         }
@@ -67432,17 +67421,16 @@
       "symbol": "func_151AADF8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 170,
-        "reason": "Fresh1192 improved to170: corrected local no-argument RNG contract and removed unread starter copies. Frame30 versus raw28, pointer spill18 versus1c, and integer/FP register-expression rows remain. Two manual revisions; best retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 240,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151AB090",
           "vram": "0x151AB090"
         }
@@ -69645,8 +69633,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 275,
-        "reason": "Manual deferred-exact-20261005:1817to275 in two targeted revisions. Correct u8 formal restores raw home/normalization; shared actual statepointer/inputword snapshot recovers all registers and frame. Remaining second swap SB/B/RA delay scheduling, reversed comparison and one-word shift exactly match already-exhausted sibling151B1FAC. Its explicit-return/reversed-operand failures carried forward; not repeated. No new tail hypothesis; valid275 preserved. Prior detailedtargethistorymissing, Sept27triage only. Ledger and full diffs exported.",
+        "current_score": 35,
+        "reason": "Twin-queue 2026-10-17: copied func_150D6E60 block-scoped-arm body (275 -> 35); remaining bnel t9,a0 operand order as in func_150D6E60.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -74403,8 +74391,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 275,
-        "reason": "Best valid CURRENT275 from2322: byte selector, common interior pointer, explicit else and named zero-arm event word restore all registers. Symmetric comparison reversal/second-arm return neutral275; simpler best restored. Remaining BNEL operand order and final SB/B/LWra exit scheduling; two revisions exhausted.",
+        "current_score": 35,
+        "reason": "Twin-queue 2026-10-17: copied func_150D6E60 block-scoped-arm body (275 -> 35); remaining bnel t9,a0 operand order as in func_150D6E60.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -97381,7 +97369,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Checkpoint62 full20 CURRENT10 freshly verified6b03e7e2. Raw explicitly handwritten queue-pop; exact operations/control/span, next-pointer temporary t9 versus t6 across LW/SW only. Prior authorized bounded search exhausted baseline and actual thread first-assignment scope. Fresh raw/call-site audit provides no new natural value-width/lifetime hypothesis; no new candidate revision, no artificial pressure/padding, ABI/shared/SDK/ASM edits or permutation.",
+        "reason": "Twin-queue 2026-10-17: level-2 matched twin func_1519C258 is the same shape already used; probe of chained (*queue)->next, named next local and void* forms all CURRENT 10 (t9 vs t6 temp only). Raw is handwritten queue-pop; no C hypothesis left.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
