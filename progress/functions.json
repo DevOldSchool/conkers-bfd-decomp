@@ -2658,16 +2658,15 @@
       "symbol": "func_15163F50"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 760,
-        "reason": "CURRENT (760) bounded candidate; event semantics and callback ABI are represented, but compiler CSEs the embedded owner-record address and changes reference register/branch scheduling after two manual revisions",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15163FEC",
           "vram": "0x15163FEC"
         }
@@ -9088,17 +9087,16 @@
       "symbol": "func_151CA6A0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 265,
-        "reason": "Manual1474 to265 after4 revisions: volatile u8 selector with two home reads, word snapshot and named nested pointer. All registers match. Remaining first cleanup exit join/reload scheduling; branch-local callback1065/index675 regress. Best265 restored. Ledger deferred-manual-20260927.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 172,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151CAACC",
           "vram": "0x151CAACC"
         }
@@ -39005,17 +39003,16 @@
       "symbol": "func_1519E754"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 520,
-        "reason": "Typed callback fixes event word accesses and narrows the verified byte event code; best manual score 520.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 180,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1519E818",
           "vram": "0x1519E818"
         }

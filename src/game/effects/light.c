@@ -19,7 +19,6 @@
  * - func_15163604
  * - func_15163704
  * - func_15163A60
- * - func_15163FEC
  * - func_151640C0
  * - func_15164134
  * - func_151643A8
@@ -1571,47 +1570,37 @@ typedef struct {
     LightOwnerLink link;
 } LightOwnerState;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15163FEC CURRENT (760) */
 void func_15163FEC(void *arg0, void *arg1, u8 arg2) {
     void (*callback)(void *, void *, u8);
-    s32 temp_a2;
     s32 temp_t6;
-    s32 temp_v1;
-    void *temp_v0;
-    LightOwnerLink *link;
+    u8 *temp_v0;
 
     temp_t6 = arg2;
+    temp_v0 = (u8 *)&((LightOwnerState *)arg0)->link;
     if (temp_t6 == 0) {
-        link = &((LightOwnerState *)arg0)->link;
-        if ((*(s32 *)arg1 == link->owner) ||
-            (link->type == *(u8 *)((u8 *)arg1 + 4))) {
+        s32 temp_v1 = *(s32 *)arg1;
+
+        if ((temp_v1 == *(s32 *)temp_v0) ||
+            (temp_v0[4] == *(u8 *)((u8 *)arg1 + 4))) {
             func_1516972C(arg0);
         }
+    } else if (temp_t6 == 0x2D) {
+        if (*(s32 *)arg1 == *(s32 *)temp_v0) {
+            *(s32 *)temp_v0 = *(s32 *)((u8 *)arg1 + 4);
+            *(u8 *)(temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 9);
+        } else if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)temp_v0) {
+            u8 *dst = temp_v0;
+
+            *(s32 *)dst = *(s32 *)arg1;
+            *(u8 *)(dst + 4) = *(u8 *)((u8 *)arg1 + 8);
+        }
     } else {
-        link = &((LightOwnerState *)arg0)->link;
-        temp_v0 = link;
-        if (temp_t6 == 0x2D) {
-            temp_a2 = link->owner;
-            temp_v1 = *(s32 *)arg1;
-            if (temp_v1 == temp_a2) {
-                link->owner = *(s32 *)((u8 *)arg1 + 4);
-                *(u8 *)((u8 *)temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 9);
-                return;
-            }
-            if (*(s32 *)((u8 *)arg1 + 4) == temp_a2) {
-                link->owner = temp_v1;
-                *(u8 *)((u8 *)temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 8);
-            }
-        } else {
-            callback = D_8008B374[*(u8 *)((u8 *)arg0 + 0x2D)];
-            if (callback != 0) {
-                callback(arg0, arg1, arg2);
-            }
+        callback = D_8008B374[*(u8 *)((u8 *)arg0 + 0x2D)];
+        if (callback != 0) {
+            callback(arg0, arg1, arg2);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15163FEC */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163FEC.s")
 typedef struct LightActor {
     u8 pad0[0x3B];
     u8 type;
