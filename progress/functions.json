@@ -7638,17 +7638,16 @@
       "symbol": "func_15124AB4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 15,
-        "reason": "CURRENT15 preserved; camera-manual-20260930 mask-only scope and inline first tablepointer dereference both neutral15. Prior union/scalar/pointer-formal hypotheses exhausted. Tail V1 instead of V0 remains.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 288,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15124B18",
           "vram": "0x15124B18"
         }
