@@ -130,11 +130,11 @@ void func_1516D4E8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s
         result->active = ((u8 *)&arg25)[3];
         result->velocityY = ((s16 *)&arg26)[1];
         result->yFraction = 0;
-        do {
-        } while (0);
         result->velocityXHigh = ((u8 *)&arg13)[3];
         result->velocityXLow = ((u8 *)&arg14)[3];
         result->velocityZHigh = ((u8 *)&arg15)[3];
+        do {
+        } while (0);
         result->velocityZLow = ((u8 *)&arg16)[3];
         result->xFraction = ((u8 *)&arg17)[3];
         result->zFraction = ((u8 *)&arg18)[3];
