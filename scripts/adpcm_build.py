@@ -12,6 +12,7 @@ try:
     from scripts.build_jobs import job_count
     from scripts import asset_inputs
     from scripts.build_files import write_if_changed
+    from scripts import asset_receipts
 except ModuleNotFoundError:
     import adpcm_codec
     import adpcm_headroom
@@ -23,6 +24,7 @@ except ModuleNotFoundError:
     from build_jobs import job_count
     import asset_inputs
     from build_files import write_if_changed
+    import asset_receipts
 
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE_NAMES = ('manifest.json', 'encoding.json', 'sample.wav')
@@ -239,13 +241,17 @@ def build_parts(root=ROOT):
     asset_inputs.check_batch_sources(candidates, input_hashes, 'ADPCM')
     if encoder_fingerprint() != fingerprint:
         raise ValueError('ADPCM encoder changed during batch encoding')
-    proofs = []
+    proofs, receipts = [], {}
     for expected, _, parts, hashes in candidates:
         for part, raw in parts:
             name = adpcm_layout.part_name(expected['sample'], part['first_frame'])
             write_if_changed(root / 'build/us/adpcm/parts' / (name + '.bin'), raw)
             proofs.append({**part, 'sample': expected['sample'], 'source_inputs': hashes,
                            'stored_sha256': sha256(raw), 'matches_original': True})
+            receipts[name] = asset_receipts.part_record(
+                output=f'build/us/adpcm/parts/{name}.bin', payload=raw, source_inputs=hashes,
+                input_directory=input_directory(expected['sample']), extent=part)
+    asset_receipts.write(root, 'adpcm', __file__, receipts)
     result = {'sample_count': len(selected), 'part_count': len(proofs),
               'encoder_fingerprint': fingerprint,
               'stored_bytes': sum(p['rom_end'] - p['rom_start'] for p in proofs),

@@ -245,6 +245,33 @@ class SpectralBuildTests(unittest.TestCase):
                 targets.prepare_mp3_spectral_stream(self.original, self.expected, output=output)
 
 
+    def test_fresh_audit_mode_bypasses_the_span_cache_and_receipts(self):
+        from test_objdiff_data_targets import object_file, targets
+        linked = self.root / 'build/us/assets/audio/mp3/streams/0000.o'
+        linked.parent.mkdir(parents=True)
+        linked.write_bytes(object_file([('.data', 1, 3, self.original)]))
+        cache = self.root / 'build/us/mp3-spectral/cache'
+        with patch.object(build, 'reviewed_streams', return_value=(self.original, [(self.expected, self.original)])), \
+                patch.object(build.mp3_bank, 'build_bank'):
+            build.build_parts(self.root)
+        self.assertTrue(any(cache.glob('0000-partial.cache')), 'the build populated the span cache')
+        output = self.root / 'report'
+        # The targets module imports the encoder as a top-level module; patch that object.
+        spectral = targets.mp3_spectral_build
+        with patch.object(targets, 'ROOT', self.root), \
+                patch.object(spectral.codec, 'encode_stream', wraps=spectral.codec.encode_stream) as encode, \
+                patch.object(spectral, 'packed_stream', wraps=spectral.packed_stream) as packed:
+            unit, _ = targets.prepare_mp3_spectral_stream(self.original, self.expected, output=output)
+            self.assertEqual(unit['candidate_source'], 'reused_receipt')
+            packed.assert_not_called()
+            with patch.object(targets, 'FRESH_ENCODE', True):
+                unit, _ = targets.prepare_mp3_spectral_stream(self.original, self.expected, output=output)
+            self.assertEqual(unit['candidate_source'], 'fresh_encode')
+            self.assertIsNone(packed.call_args.kwargs['cache_directory'])
+            encode.assert_called_once()
+            self.assertTrue(unit['complete'])
+
+
 class SpectralReviewTests(unittest.TestCase):
     def test_invalid_huffman_selection_and_code_have_useful_errors(self):
         for book in (4, 14, -1, 100, True):

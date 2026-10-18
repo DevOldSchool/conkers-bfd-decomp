@@ -120,6 +120,7 @@ class CoveragePlanTests(unittest.TestCase):
                     patch.object(report, 'prepare_mp3_spectral', return_value=([], [])),
                     patch.object(report, 'prepare_mp3_tables', return_value=([], [])),
                     patch.object(report, 'prepare_sequences', return_value=([], [])),
+                    patch.object(report.objdiff_data_targets, 'prebuild_asset_objects'),
                     patch.object(report, 'prepare_storage', return_value=(
                         [{'kind': 'unreconstructed_asset', 'size': 7, 'report_code_bytes': 0,
                           'report_data_bytes': 7, 'complete': False}],
@@ -189,11 +190,23 @@ class NativeReportValidationTests(unittest.TestCase):
                 elif 'generate' in command:
                     (output / 'report.json').write_text(json.dumps(native))
             expected = report.state.summary(report.state.validate_project()[1])['code_bytes']['regions']['us']
+            printed = io.StringIO()
             with patch.object(report, 'ROOT', root), patch.object(report, 'OUTPUT', output), \
                     patch.object(report, 'input_fingerprint', return_value='stable-inputs'), \
                     patch.object(report.subprocess, 'check_output', return_value='a' * 40), \
-                    patch.object(report.subprocess, 'run', side_effect=run), redirect_stdout(io.StringIO()):
+                    patch.object(report.subprocess, 'run', side_effect=run) as commands, redirect_stdout(printed):
                 self.assertEqual(0, report.generate(Path('/synthetic/objdiff')))
+                prepare = commands.call_args_list[0].args[0]
+                self.assertEqual(prepare[1:], ['objdiff-report-prepare'])
+                self.assertEqual(0, report.generate(Path('/synthetic/objdiff'), fresh=True))
+                self.assertEqual(commands.call_args_list[3].args[0][1:], ['objdiff-report-prepare', '--fresh'])
+            # The log gets a short summary; the full validation document goes to disk only.
+            lines = printed.getvalue().splitlines()
+            self.assertLess(len(lines), 30)
+            self.assertTrue(lines[0].startswith('objdiff report: profile us, revision aaaaaaaaaaaa'))
+            self.assertIn('  compile errors: 0', lines)
+            self.assertNotIn('"snapshot_schema"', printed.getvalue())
+            self.assertIn('validation.json', printed.getvalue())
             self.assertFalse((root / 'progress/summary.json').exists())
             self.assertFalse((root / 'build/progress/summary.json').exists())
             validation = json.loads((output / 'validation.json').read_text())
@@ -351,7 +364,7 @@ class FontCompletionTests(unittest.TestCase):
         coverage['units'].append({'report_code_bytes': 0, 'report_data_bytes': 8,
             'kind': 'rebuilt_asset', 'complete': True, 'literal_payload_matches_rom': True,
             'source_inputs': {'glyph.pgm': 'hash'}, 'linked_inputs': {'font.o': 'hash'},
-            'target_verification': {'matches_original': True}})
+            'target_verification': {'matches_original': True}, 'candidate_source': 'fresh_encode'})
         coverage.update(expected_data_bytes=40, mapped_data_bytes=16)
         native['units'].append({'name': 'assets/font', 'measures': {
             'total_data': '8', 'matched_data': '8', 'complete_data': '8'}})
@@ -375,6 +388,73 @@ class FontCompletionTests(unittest.TestCase):
         native['units'][-1]['measures']['matched_data'] = '0'
         native['measures']['matched_data'] = '8'
         with self.assertRaisesRegex(ValueError, 'fully linked'):
+            report.validate_report(native, coverage, config)
+
+    def reused_fixtures(self):
+        native, coverage, config = self.fixtures()
+        coverage['units'][-1].update(
+            candidate_source='reused_receipt', payload_sha256='out',
+            receipt={'family': 'font', 'path': 'build/us/asset-receipts/font.json',
+                     'encoder_module': 'scripts/font_splits.py', 'encoder_extra': [], 'encoder_sha256': 'enc',
+                     'part': 'font_rle', 'output': 'build/us/fonts/parts/font_rle.bin', 'output_sha256': 'out',
+                     'input_directory': '', 'source_inputs': {'glyph.pgm': 'hash'}})
+        return native, coverage, config
+
+    def test_rebuilt_assets_record_their_candidate_origin(self):
+        native, coverage, config = self.fixtures()
+        del coverage['units'][-1]['candidate_source']
+        with self.assertRaisesRegex(ValueError, 'origin is not recorded'):
+            report.validate_report(native, coverage, config)
+        coverage['units'][-1]['candidate_source'] = 'cached'
+        with self.assertRaisesRegex(ValueError, 'origin is not recorded'):
+            report.validate_report(native, coverage, config)
+
+    def test_reused_receipt_must_match_compared_inputs_and_bytes(self):
+        report.validate_report(*self.reused_fixtures())
+        for change in ({'source_inputs': {'glyph.pgm': 'other'}}, {'output_sha256': 'other'},
+                       {'encoder_sha256': ''}, {'encoder_module': ''}, {'output': ''}):
+            native, coverage, config = self.reused_fixtures()
+            coverage['units'][-1]['receipt'].update(change)
+            with self.subTest(change=change), self.assertRaisesRegex(ValueError, 'reused receipt'):
+                report.validate_report(native, coverage, config)
+        native, coverage, config = self.reused_fixtures()
+        del coverage['units'][-1]['receipt']
+        with self.assertRaisesRegex(ValueError, 'reused receipt'):
+            report.validate_report(native, coverage, config)
+        native, coverage, config = self.reused_fixtures()
+        coverage['units'][-1]['payload_sha256'] = 'other'
+        with self.assertRaisesRegex(ValueError, 'reused receipt'):
+            report.validate_report(native, coverage, config)
+
+    def test_reused_receipt_is_rederived_from_the_checkout(self):
+        import hashlib
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'build/us/fonts/parts').mkdir(parents=True)
+            (root / 'build/us/fonts/parts/font_rle.bin').write_bytes(b'font bytes')
+            (root / 'glyph.pgm').write_bytes(b'glyph')
+            native, coverage, config = self.reused_fixtures()
+            unit = coverage['units'][-1]
+            unit['source_inputs'] = {'glyph.pgm': hashlib.sha256(b'glyph').hexdigest()}
+            unit['receipt']['source_inputs'] = dict(unit['source_inputs'])
+            unit['payload_sha256'] = unit['receipt']['output_sha256'] = hashlib.sha256(b'font bytes').hexdigest()
+            with patch.object(report.asset_receipts, 'encoder_fingerprint', return_value='enc') as fingerprint:
+                report.validate_report(native, coverage, config, root=root)
+                fingerprint.assert_called_once()
+                self.assertEqual(fingerprint.call_args.args[1], 'scripts/font_splits.py')
+                (root / 'build/us/fonts/parts/font_rle.bin').write_bytes(b'rebuilt differently')
+                with self.assertRaisesRegex(ValueError, 'differs from the built file'):
+                    report.validate_report(native, coverage, config, root=root)
+                (root / 'build/us/fonts/parts/font_rle.bin').write_bytes(b'font bytes')
+                (root / 'glyph.pgm').write_bytes(b'edited')
+                with self.assertRaisesRegex(ValueError, 'receipt input changed'):
+                    report.validate_report(native, coverage, config, root=root)
+                (root / 'glyph.pgm').write_bytes(b'glyph')
+                report.validate_report(native, coverage, config, root=root)
+            with patch.object(report.asset_receipts, 'encoder_fingerprint', return_value='other encoder'), \
+                    self.assertRaisesRegex(ValueError, 'encoder differs'):
+                report.validate_report(native, coverage, config, root=root)
+            # Without a root the structural checks still run and pass.
             report.validate_report(native, coverage, config)
 
     def test_unmatched_font_stays_in_denominator_without_completion(self):

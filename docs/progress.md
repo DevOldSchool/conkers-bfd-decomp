@@ -39,11 +39,17 @@ To refresh the headline, use your configured US ROM, the initialized SDK and the
 Docker toolchain (see [setup](../CONTRIBUTING.md#setup)):
 
 ```sh
-./conker objdiff report
+./conker objdiff report            # reuses verified asset build receipts
+./conker objdiff report --fresh    # audit mode: encodes every asset again
 ```
 
-Generation takes several minutes. See the
-[objdiff guide](objdiff.md#full-repository-cpu-code-report) for its outputs and
+Generation takes several minutes. After `./conker build --assets`, the default
+mode reuses each asset part's build receipt when its input hashes, encoder hash
+and output hash re-derive from the checkout, and still compares the built bytes
+against the ROM; `--fresh` re-encodes everything and must yield the same
+`report.json`. The command prints a short summary; the full validation document
+is `build/us/objdiff-report/validation.json`. See the
+[objdiff guide](objdiff.md#published-code-and-data-report) for its outputs and
 validation. Reporting is diagnostic: full-span, relocation, layout and
 byte-identical acceptance gates are unchanged.
 
