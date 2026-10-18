@@ -1,4 +1,4 @@
-"""Incremental build receipts never replace fresh native report verification."""
+"""Incremental build receipts only replace the report's encode step, never its ROM comparison."""
 import json
 import os
 import struct
@@ -74,15 +74,67 @@ class AdpcmIncrementalTests(unittest.TestCase):
                 build.build_parts(self.root)
             self.assertEqual((self.inputs / 'sample.wav').read_bytes(), edited)
 
-    def test_report_always_runs_fresh_source_encoder(self):
-        from test_objdiff_data_targets import targets
+    def test_report_reuses_verified_build_receipts_but_still_compares_the_rom(self):
+        from test_objdiff_data_targets import object_file, targets
         with patch.object(build, 'reviewed_samples', return_value=self.selection):
             build.build_parts(self.root)
+        self.assertTrue((self.root / 'build/us/asset-receipts/adpcm.json').is_file())
+        name = build.adpcm_layout.part_name(0, 0)
+        linked = self.root / ('build/us/assets/' + name + '.o')
+        linked.parent.mkdir(parents=True)
+        linked.write_bytes(object_file([('.data', 1, 3, self.packed)]))
+        part = self.root / 'build/us/adpcm/parts' / (name + '.bin')
+        output = self.root / 'report'
         with patch.object(targets, 'ROOT', self.root), \
                 patch.object(targets.adpcm_build, 'packed_sample', side_effect=ValueError('fresh encoder ran')) as encode:
-            with self.assertRaisesRegex(ValueError, 'fresh encoder ran'):
-                targets.prepare_adpcm_sample(self.rom, self.expected, output=self.root / 'report')
+            (unit, item), = targets.prepare_adpcm_sample(self.rom, self.expected, output=output)
+            encode.assert_not_called()
+            self.assertEqual(unit['candidate_source'], 'reused_receipt')
+            self.assertTrue(unit['complete'] and item['metadata']['complete'])
+            self.assertEqual(unit['payload_sha256'], build.sha256(self.packed))
+            self.assertEqual(unit['receipt']['output_sha256'], unit['payload_sha256'])
+            self.assertEqual(unit['receipt']['source_inputs'], unit['source_inputs'])
+            self.assertEqual(unit['receipt']['encoder_module'], 'scripts/adpcm_build.py')
+            self.assertEqual(unit['receipt']['output'], part.relative_to(self.root).as_posix())
+            # Reuse replaces the encode only; the ROM comparison still decides credit.
+            wrong = b'prefix' + bytes(len(self.packed)) + b'tail'
+            (unit, item), = targets.prepare_adpcm_sample(wrong, self.expected, output=output)
+            self.assertEqual(unit['candidate_source'], 'reused_receipt')
+            self.assertFalse(unit['complete'] or unit['literal_payload_matches_rom'] or item['metadata']['complete'])
+            # The audit mode and any stale field fall back to the fresh encoder.
+            with patch.object(targets, 'FRESH_ENCODE', True), self.assertRaisesRegex(ValueError, 'fresh encoder ran'):
+                targets.prepare_adpcm_sample(self.rom, self.expected, output=output)
             encode.assert_called_once_with(self.inputs, self.expected)
+            encode.reset_mock()
+            wav = (self.inputs / 'sample.wav').read_bytes()
+            (self.inputs / 'sample.wav').write_bytes(wav + b'JUNK')
+            with self.assertRaisesRegex(ValueError, 'fresh encoder ran'):
+                targets.prepare_adpcm_sample(self.rom, self.expected, output=output)
+            (self.inputs / 'sample.wav').write_bytes(wav)
+            part.write_bytes(bytes(len(self.packed)))
+            with self.assertRaisesRegex(ValueError, 'fresh encoder ran'):
+                targets.prepare_adpcm_sample(self.rom, self.expected, output=output)
+            part.write_bytes(self.packed)
+            with patch.object(targets.asset_receipts, 'encoder_fingerprint', return_value='another encoder'), \
+                    self.assertRaisesRegex(ValueError, 'fresh encoder ran'):
+                targets.prepare_adpcm_sample(self.rom, self.expected, output=output)
+            self.assertEqual(encode.call_count, 3)
+            (unit, _), = targets.prepare_adpcm_sample(self.rom, self.expected, output=output)
+            self.assertEqual(unit['candidate_source'], 'reused_receipt')
+
+    def test_report_without_receipts_encodes_fresh_and_records_it(self):
+        from test_objdiff_data_targets import object_file, targets
+        name = build.adpcm_layout.part_name(0, 0)
+        linked = self.root / ('build/us/assets/' + name + '.o')
+        linked.parent.mkdir(parents=True)
+        linked.write_bytes(object_file([('.data', 1, 3, self.packed)]))
+        with patch.object(targets, 'ROOT', self.root), \
+                patch.object(targets.adpcm_build, 'packed_sample', wraps=build.packed_sample) as encode:
+            (unit, _), = targets.prepare_adpcm_sample(self.rom, self.expected, output=self.root / 'report')
+        encode.assert_called_once_with(self.inputs, self.expected)
+        self.assertEqual(unit['candidate_source'], 'fresh_encode')
+        self.assertNotIn('receipt', unit)
+        self.assertTrue(unit['complete'])
 
     def test_migration_hint_exposes_single_and_all_sample_recovery(self):
         error = str(build.input_error(self.inputs, self.expected, 'old manifest'))

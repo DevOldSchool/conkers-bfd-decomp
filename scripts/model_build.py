@@ -13,6 +13,7 @@ try:
                          model_effect_format, model_emission_points, rzip_archive, rzip_pack, texture_build)
     from scripts import rzip_gzip, rzip_bounded
     from scripts.build_files import write_if_changed
+    from scripts import asset_receipts
     from scripts.profile_config import load_profile
 except ModuleNotFoundError:
     import model_assets, model_bundle_build, model_color_build, model_character_build, model_animation_build
@@ -20,6 +21,7 @@ except ModuleNotFoundError:
     import rzip_archive, rzip_pack, texture_build
     import rzip_gzip, rzip_bounded
     from build_files import write_if_changed
+    import asset_receipts
     from profile_config import load_profile
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -503,11 +505,16 @@ def build_parts(root: Path = ROOT, *, bank: int | None = None):
     for expected, directory, _, hashes in candidates:
         if input_hashes(directory, expected) != hashes:
             raise ValueError('model inputs changed during batch packing')
-    proofs = []
+    proofs, receipts = [], {}
     for expected, directory, packed, hashes in candidates:
-        write_if_changed(root / 'build/us/models/parts' / (part_name(expected['entry'], expected['bank']) + '.bin'), packed)
+        name = part_name(expected['entry'], expected['bank'])
+        write_if_changed(root / 'build/us/models/parts' / (name + '.bin'), packed)
         proofs.append({**expected, 'source_inputs': hashes, 'stored_sha256': sha256(packed),
                        'matches_original': packed == rom[expected['rom_start']:expected['rom_end']]})
+        receipts[name] = asset_receipts.part_record(
+            output=f'build/us/models/parts/{name}.bin', payload=packed, source_inputs=hashes,
+            input_directory=input_directory(expected['entry'], expected['bank']), extent=expected)
+    asset_receipts.write(root, 'models' if bank is None else f'models/bank{bank:02d}', __file__, receipts)
     result = {'model_count': len(proofs), 'stored_bytes': sum(len(p) for _, _, p, _ in candidates),
               'decoded_bytes': sum(e['decoded_size'] for e in proofs), 'models': proofs,
               'verification': 'decoded_and_stored_hashes_and_independent_rom_bytes',

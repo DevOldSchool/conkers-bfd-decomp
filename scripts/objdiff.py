@@ -198,7 +198,9 @@ def compare(binary: Path, identifiers: list[str]) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
-    commands.add_parser("report", help="generate the US code, data and rebuilt-asset progress report")
+    report = commands.add_parser("report", help="generate the US code, data and rebuilt-asset progress report")
+    report.add_argument("--fresh", action="store_true",
+                        help="encode every rebuilt asset again instead of reusing verified build receipts")
     commands.add_parser("data-audit", help="audit ROM-backed US data boundaries without changing progress")
     commands.add_parser("install", help="download and verify the pinned host CLI")
     for command in ("compare", "view", "prepare"):
@@ -217,7 +219,7 @@ def main() -> int:
         binary = install()
         if args.command == "report":
             import objdiff_report
-            return objdiff_report.generate(binary)
+            return objdiff_report.generate(binary, fresh=args.fresh)
         if args.command == "install":
             subprocess.run([str(binary), "--version"], check=True)
             print(binary)

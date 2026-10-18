@@ -6,11 +6,13 @@ from pathlib import Path
 try:
     from scripts import asset_inputs, model_assets, rzip_archive, scene_field_codec as codec, scene_volume_build as volumes, texture_build
     from scripts.build_files import write_if_changed
+    from scripts import asset_receipts
     from scripts.model_character_alpha import checked_spans
     from scripts.profile_config import load_profile
 except ModuleNotFoundError:
     import asset_inputs, model_assets, rzip_archive, scene_field_codec as codec, scene_volume_build as volumes, texture_build
     from build_files import write_if_changed
+    import asset_receipts
     from model_character_alpha import checked_spans
     from profile_config import load_profile
 
@@ -465,6 +467,13 @@ def build_parts(root=ROOT):
             or volumes.input_hashes(volume_directory, volume_expected) != volume_hashes):
         raise ValueError('scene inputs changed during batch packing')
     write_if_changed(root / 'build/us/scene-fields/parts' / (PART + '.bin'), bytes(composed))
+    # Both families link the same composed bank; each receipt names its own encoder.
+    asset_receipts.write(root, 'scene-fields', __file__, {PART: asset_receipts.part_record(
+        output=f'build/us/scene-fields/parts/{PART}.bin', payload=bytes(composed), source_inputs=hashes,
+        input_directory=INPUT_DIRECTORY, extent=expected, spans=spans)})
+    asset_receipts.write(root, 'scene-volumes', volumes.__file__, {PART: asset_receipts.part_record(
+        output=f'build/us/scene-fields/parts/{PART}.bin', payload=bytes(composed), source_inputs=volume_hashes,
+        input_directory=volumes.INPUT_DIRECTORY, extent=volume_expected, spans=volume_spans)})
     proof = {**expected, 'source_inputs': hashes, 'volume_source_inputs': volume_hashes,
              'rebuilt_bytes': sum(len(data) for _, data in spans),
              'verification': 'native_scene_fields_actual_rom_ranges', 'matches_original': True}
