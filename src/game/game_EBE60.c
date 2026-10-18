@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_internal_call_callback_clusters.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150BE9B0
  * - func_150BEACC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -15,7 +14,6 @@
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_1504715C(void *, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BE9B0 CURRENT (610) */
 s32 func_150BE9B0(f32 *arg0, void *arg1, void *arg2, u8 arg3) {
     f32 position[3];
     s32 var_a1;
@@ -31,8 +29,6 @@ s32 func_150BE9B0(f32 *arg0, void *arg1, void *arg2, u8 arg3) {
         var_a1 = 0xC;
         break;
     case 7:
-        var_a1 = 0x10;
-        break;
     default:
         var_a1 = 0x10;
         break;
@@ -47,8 +43,6 @@ s32 func_150BE9B0(f32 *arg0, void *arg1, void *arg2, u8 arg3) {
     func_1504715C(arg2, arg1);
     return func_15046C80(position, 0, arg0[1] - 50.0f, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150BE9B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EBE60/func_150BE9B0.s")
 s32 func_150BEAA8(s32 arg0, s32 arg1) {
     if ((arg0 == 0) || (arg0 == 1)) {
         return 0x11;

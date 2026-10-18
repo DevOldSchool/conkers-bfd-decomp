@@ -16,7 +16,6 @@
  * - func_151630F4
  * - func_15163704
  * - func_151640C0
- * - func_151643A8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1695,22 +1694,15 @@ void func_1516434C(void *arg0, void *arg1, u8 arg2) {
         *(u8 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 7) = *(u8 *)((u8 *)arg1 + 7);
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151643A8 CURRENT (210) */
-void func_151643A8(void *arg0, void *arg1, u8 arg2) {
-    void *temp_v0_2;
+void func_151643A8(void *arg0, u8 arg1, u8 arg2) {
+    u8 *state = (u8 *)arg0 + 0x18;
 
     if (arg2 == 0x40) {
-        arg0 = (u8 *)arg0 + 0x18;
-        *(u8 *)((u8 *)arg0 + 0x24) = (u8) (*(u8 *)((u8 *)arg0 + 0x24) | 1);
-        return;
-    }
-    temp_v0_2 = (u8 *)arg0 + 0x18;
-    if (arg2 == 0x41) {
-        *(u8 *)((u8 *)temp_v0_2 + 0x24) = (u8) (*(u8 *)((u8 *)temp_v0_2 + 0x24) & 0xFFFE);
+        state[0x24] |= 1;
+    } else if (arg2 == 0x41) {
+        state[0x24] &= ~1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151643A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151643A8.s")
 void func_1516441C(void *, void *);
 s32 func_151643F8(s32 arg0) {
     func_1516441C((void *) arg0, (void *) (arg0 + 0x18));

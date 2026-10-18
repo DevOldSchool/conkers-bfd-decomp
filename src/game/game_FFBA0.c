@@ -123,16 +123,12 @@ typedef struct {
 
 void func_150D278C(s32, void *, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D32FC CURRENT (565) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D32FC CURRENT (110) */
 void func_150D32FC(GameFFBA0State *arg0, u8 *arg1, u8 arg2) {
-    void *temp_v0;
+    GameFFBA0Child *child = &arg0->child;
 
-    if (arg2 == 0x34) {
-        temp_v0 = (void *)((u8 *)arg0 + 0x28);
-        if (*arg1 == *(u8 *)((u8 *)temp_v0 + 0x51)) {
-            func_150D278C(*(s32 *)temp_v0, (u8 *)temp_v0 + 0x10,
-                          arg0->field_C, arg0->field_1);
-        }
+    if (arg2 == 0x34 && *arg1 == child->field_51) {
+        func_150D278C(child->field_0, child->field_10, arg0->field_C, arg0->field_1);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150D32FC */

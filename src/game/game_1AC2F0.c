@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1517EF00
  * - func_1517F08C
  * - func_1517F488
  * - func_1517F564
@@ -50,33 +49,24 @@ void func_1517EE40(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4, s32 arg5) {
     }
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517EF00 CURRENT (495) */
 s32 func_1517EF00(s32 arg0) {
-    s32 temp_a1;
-    u8 temp_v0;
-    s32 var_v1;
+    s32 intensity;
 
-    temp_v0 = D_800DDDC0[arg0];
-    if (temp_v0 != 0) {
-        var_v1 = temp_v0;
+    if (D_800DDDC0[arg0] != 0) {
+        intensity = D_800DDDC0[arg0];
     } else {
-        temp_a1 = D_800DDE28[arg0];
-        if (temp_a1 != 0) {
-            var_v1 = (D_800DDDB0[arg0] * 0xFF) / temp_a1;
-            if (var_v1 >= 0x100) {
-                var_v1 = 0xFF;
-            }
+        if (D_800DDE28[arg0] != 0) {
+            intensity = (D_800DDDB0[arg0] * 0xFF) / D_800DDE28[arg0];
+            intensity = (intensity < 0x100) ? intensity : 0xFF;
         } else {
-            var_v1 = 0xFF;
+            intensity = 0xFF;
         }
         if (D_800DDDAC[arg0] == 0) {
-            var_v1 = 0xFF - var_v1;
+            intensity = 0xFF - intensity;
         }
     }
-    return var_v1;
+    return intensity;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517EF00 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517EF00.s")
 
 s32 func_1517EF00(s32);
 

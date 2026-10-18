@@ -3347,26 +3347,20 @@ typedef struct Game83300Actor63168 {
 void func_15194FF4(Game83300Actor63168 *, Game83300Actor63168 *, s32);
 extern s8 D_8008FD8C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15063168 CURRENT (675) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15063168 CURRENT (235) */
 void func_15063168(Game83300Actor63168 *arg0) {
+    s32 i;
     Game83300Actor63168 *other;
     Game83300Nested63168 *nested;
-    s32 index;
-    s32 self_index;
 
-    index = 0;
-    if (D_8008FD8C > 0) {
-        self_index = ((s32)arg0 - (s32)&D_800CC2D0) / 0x32C;
-        do {
-            if ((index != self_index) && ((1 << index) & D_800CC268)) {
-                other = (Game83300Actor63168 *)((u8 *)&D_800CC2D0 + (index * 0x32C));
-                nested = other->nested;
-                if ((nested != 0) && (nested->active == 0)) {
-                    func_15194FF4(arg0, other, 1);
-                }
+    for (i = 0; i < D_8008FD8C; i++) {
+        if ((i != ((s32)arg0 - (s32)&D_800CC2D0) / 0x32C) && ((1 << i) & D_800CC268)) {
+            other = (Game83300Actor63168 *)((u8 *)&D_800CC2D0 + (i * 0x32C));
+            nested = other->nested;
+            if ((nested != 0) && (nested->active == 0)) {
+                func_15194FF4(arg0, other, 1);
             }
-            index++;
-        } while (index < D_8008FD8C);
+        }
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15063168 */
