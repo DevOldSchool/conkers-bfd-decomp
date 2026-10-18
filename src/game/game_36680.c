@@ -352,7 +352,7 @@ typedef struct Game36680LightParameters {
     f32 radius;
 } Game36680LightParameters;
 
-s32 func_15187EC0(s32, f32, s32, s32, u8, u8, u8, u8);
+s32 func_15187EC0(s32, f32, u8, u8, u8, u8, u8, u8);
 /* These callers consume the allocation pointer left by func_1516037C. */
 void *func_1516387C(s32, u8, s8, s16, u8, s32, u8, s32);
 

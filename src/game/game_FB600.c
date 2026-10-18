@@ -17,40 +17,46 @@ struct ColourFramebufferEffect;
 struct ColourFramebufferEffect *func_1515FF74();
 extern f32 D_800A07FC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CE150 CURRENT (10315) */
-void *func_150CE150(void *arg0, s16 arg1, s32 arg2) {
-    s8 sp916;
-    s16 sp914;
-    s8 sp912;
-    s8 sp911;
-    s8 sp910;
-    s8 sp34;
-    s32 sp30;
-    f32 sp2C;
-    f32 sp28;
-    u8 sp24;
-    void *sp20;
-    void *var_v0;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CE150 CURRENT (6081) */
+void *func_150CE150(void *arg0, s16 arg1, u8 arg2) {
+    struct {
+        s8 field0;
+        s8 field1;
+        s8 field2;
+        u8 pad3;
+        s16 time;
+        s8 mode;
+    } descriptor;
+    struct {
+        void *owner;
+        u8 type;
+        u8 pad5[3];
+        f32 scale[2];
+        s32 timer;
+        s8 state;
+        u8 pad15[0x8F0 - 0x15];
+    } payload;
+    void *effect;
 
     if (arg0 == 0) {
         return 0;
     }
-    sp910 = 1;
-    sp911 = 1;
-    sp912 = 0;
-    sp916 = 2;
-    sp30 = 0x2710;
-    sp34 = 0;
-    sp28 = D_800A07FC;
-    sp2C = D_800A07FC;
-    sp914 = arg1;
-    sp20 = arg0;
-    sp24 = *(u8 *)((u8 *)arg0 + 0x3B);
-    var_v0 = (void *) func_1515FF74(&sp910, 0x8F0, arg2 & 0xFF);
-    if (var_v0 != 0) {
-        var_v0 = func_10022EC0((u8 *)var_v0 + 0x18, &sp20, 0x8F0);
+    descriptor.field0 = 1;
+    descriptor.field1 = 1;
+    descriptor.field2 = 0;
+    descriptor.mode = 2;
+    payload.timer = 10000;
+    payload.state = 0;
+    payload.scale[0] = D_800A07FC;
+    payload.scale[1] = D_800A07FC;
+    descriptor.time = arg1;
+    payload.owner = arg0;
+    payload.type = *(u8 *)((u8 *)arg0 + 0x3B);
+    effect = func_1515FF74(&descriptor, 0x8F0, arg2);
+    if (effect != 0) {
+        effect = func_10022EC0((u8 *)effect + 0x18, &payload, 0x8F0);
     }
-    return var_v0;
+    return effect;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150CE150 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FB600/func_150CE150.s")

@@ -13,16 +13,16 @@
  */
 
 void *func_10022EC0(void *, const void *, u32);
-s32 func_151407D0();
+s32 func_151407D0(void *, u32, void *, u8, u8, u8, u8, s8, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15189FF0 CURRENT (1164) */
-s32 func_15189FF0(s32 arg0, void *arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5, u8 arg6) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15189FF0 CURRENT (405) */
+s32 func_15189FF0(void *arg0, void *arg1, void *arg2, u8 arg3, u8 arg4, u8 arg5, u8 arg6) {
     s32 temp_v0;
 
     *(u8 *)((u8 *)arg1 + 0x58) = 0xB;
-    temp_v0 = func_151407D0(arg1, 0x80, arg0, arg3 & 0xFF, (s32)arg4, (s32)arg5, (s32)arg6, -1, 0xFF, 1);
+    temp_v0 = func_151407D0(arg1, 0x80, arg0, arg3, arg4, arg5, arg6, -1, 0xFF, 1);
     if (temp_v0 != 0) {
-        func_10022EC0((u8 *)temp_v0 + 0x170, (void *)arg2, 0x20);
+        func_10022EC0((u8 *)temp_v0 + 0x170, arg2, 0x20);
         return temp_v0;
     }
     return 0;

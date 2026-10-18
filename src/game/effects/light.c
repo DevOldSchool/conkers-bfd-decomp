@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151604A0
  * - func_15160B74
- * - func_15160CDC
  * - func_15160E30
  * - func_15161A68
  * - func_15161F4C
@@ -16,7 +15,6 @@
  * - func_15162B28
  * - func_151630F4
  * - func_15163704
- * - func_15163A60
  * - func_151640C0
  * - func_151643A8
  *
@@ -384,59 +382,40 @@ typedef struct Light60CDCPayload {
 
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15160CDC CURRENT (2685) */
-s32 func_15160CDC(void *arg0, s32 arg1, void *arg2, void *arg3, f32 arg4,
+s32 func_15160CDC(void *arg0, u8 arg1, void *arg2, void *arg3, f32 arg4,
                   u8 arg5, s16 arg6, s32 arg7, s32 arg8, s32 arg9,
                   s32 arg10, u8 arg11, u8 arg12, u8 arg13, u8 arg14,
                   s32 arg15) {
-    s32 sp7C;
-    GameLightDescriptor sp74;
-    Light60CDCPayload sp4C;
-    s32 sp40[3];
-    s32 temp_v0;
-    s32 var_v1;
-    s32 var_v1_2;
-    s32 var_v0;
+    s32 result;
+    GameLightDescriptor descriptor;
+    Light60CDCPayload payload;
+    s32 position[3];
 
-    arg1 = (u8)arg1;
     if (arg0 == 0) {
         return 0;
     }
-    sp74.field0 = arg5;
-    sp74.field1 = 6;
-    sp74.field4 = 0x11;
-    sp4C.object = arg0;
-    sp74.field2 = arg6;
-    sp4C.arg1 = arg1;
-    sp4C.object_value = *(u8 *)((u8 *)arg0 + 0x3B);
-    var_v1_2 = 0;
-    sp4C.vector = *(LightVector3Words *)arg2;
-    var_v0 = 0;
-    sp4C.other_vector = *(LightVector3Words *)arg3;
-    sp4C.scale = arg4;
-    if (arg11 != 0) {
-        var_v1_2 = 1;
+    descriptor.field0 = arg5;
+    descriptor.field1 = 6;
+    descriptor.field2 = arg6;
+    descriptor.field4 = 0x11;
+    payload.object = arg0;
+    payload.object_value = *(u8 *)((u8 *)arg0 + 0x3B);
+    payload.arg1 = arg1;
+    payload.vector = *(LightVector3Words *)arg2;
+    payload.other_vector = *(LightVector3Words *)arg3;
+    payload.scale = arg4;
+    payload.flags = (arg11 ? 1 : 0) | (arg13 ? 2 : 0);
+    payload.arg12 = arg12;
+    position[0] = 0;
+    position[1] = 0;
+    position[2] = 0;
+    result = func_151602C0((u8 *)&descriptor, position, arg7, arg8, arg9,
+                           arg10, 0xFF, 0, 0x28, arg14, arg15);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x18, &payload, 0x28);
     }
-    if (arg13 != 0) {
-        var_v0 = 2;
-    }
-    sp4C.flags = var_v0 | var_v1_2;
-    sp40[0] = 0;
-    sp40[1] = 0;
-    sp40[2] = 0;
-    sp4C.arg12 = arg12;
-    temp_v0 = func_151602C0((u8 *)&sp74, sp40, arg7, arg8, arg9,
-                            arg10, 0xFF, 0, 0x28, arg14, arg15);
-    var_v1 = temp_v0;
-    if (temp_v0 != 0) {
-        sp7C = temp_v0;
-        func_10022EC0((u8 *)temp_v0 + 0x18, &sp4C, 0x28);
-        var_v1 = sp7C;
-    }
-    return var_v1;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15160CDC */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15160CDC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15160E30.s")
 
 s32 func_15161238(LightEntry *arg0, LightEntry *arg1) {
@@ -1387,44 +1366,35 @@ void func_15163A18(void *arg0, s32 arg1, u8 arg2) {
 }
 extern f32 D_800A697C, D_800A69B4, D_800A69EC, D_800A6B08;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15163A60 CURRENT (1141) */
-s32 func_15163A60(s32 arg0, u8 arg1, s32 arg2) {
+s32 func_15163A60(u8 arg0, u8 arg1, s32 arg2) {
     s32 sp64;
     struct { u8 kind; s8 flags; s16 time; s8 mode; } sp5C;
     f32 values[4];
     s32 sp48;
     s32 position[3];
-    f32 temp_ft3;
-    s32 temp_v0;
-    s32 temp_v0_2;
 
-    temp_v0 = func_151149AC(arg0 & 0xFF);
-    sp48 = temp_v0;
-    if (temp_v0 == 0) {
+    sp48 = (s32)func_151149AC(arg0);
+    if (sp48 == 0) {
         return 0;
     }
     values[0] = D_800A697C;
     values[1] = D_800A69B4;
-    temp_ft3 = func_150ADA68() * D_800A6B08;
+    values[2] = func_150ADA68() * D_800A6B08;
     values[3] = D_800A69EC;
-    values[2] = temp_ft3;
-    position[0] = (s32) *(s16 *)((u8 *)sp48 + 0x10);
-    position[1] = (s32) *(s16 *)((u8 *)sp48 + 0x12);
-    position[2] = (s32) *(s16 *)((u8 *)sp48 + 0x14);
+    position[0] = *(s16 *)((u8 *)sp48 + 0x10);
+    position[1] = *(s16 *)((u8 *)sp48 + 0x12);
+    position[2] = *(s16 *)((u8 *)sp48 + 0x14);
     sp5C.kind = 2;
     sp5C.flags = 0x11;
     sp5C.time = 0x12C;
     sp5C.mode = 5;
-    temp_v0_2 = func_151602C0((u8 *) &sp5C, &position[0], (s32) D_800A697C, 0, 0xFF, 0, 0xFF, 0, 0x14, (s32) arg1, arg2);
-    sp64 = temp_v0_2;
-    if (temp_v0_2 != 0) {
-        func_10022EC0((void *)(temp_v0_2 + 0x18), &values[0], 0x10);
-        func_10022EC0((void *) (sp64 + 0x28), &sp48, 4);
+    sp64 = func_151602C0((u8 *)&sp5C, position, (s32)D_800A697C, 0, 0xFF, 0, 0xFF, 0, 0x14, arg1, arg2);
+    if (sp64 != 0) {
+        func_10022EC0((void *)(sp64 + 0x18), values, 0x10);
+        func_10022EC0((void *)(sp64 + 0x28), &sp48, 4);
     }
     return sp64;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15163A60 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163A60.s")
 typedef struct {
     u8 pad_0[0x6E];
     u8 field_6E;
