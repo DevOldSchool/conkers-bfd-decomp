@@ -204,14 +204,14 @@ void *func_10022EC0(void *, const void *, u32);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 
 void *func_150DB2D8(Game108320Geometry *arg0, s16 arg1) {
-    Game108320Vertex *vertices;
+    void *vertices;
     Game108320Vertex *result;
     f32 offsetX;
     f32 offsetZ;
     u8 created;
 
     func_151D5D60(arg0->buffers, arg1, 0x40,
-                 (void **)&vertices, &created);
+                 &vertices, &created);
     result = vertices;
     if (vertices != 0) {
         if (created != 0) {
@@ -224,22 +224,22 @@ void *func_150DB2D8(Game108320Geometry *arg0, s16 arg1) {
     {
         offsetX = arg0->width * arg0->directionX;
         offsetZ = -arg0->width * arg0->directionZ;
-        vertices[0].x = (s32)(arg0->x + offsetX);
-        vertices[0].y = (s32)(arg0->y + arg0->height);
-        vertices[0].z = (s32)(arg0->z + offsetZ);
-        vertices[0].flag = 0;
-        vertices[1].x = (s32)(arg0->x + offsetX);
-        vertices[1].y = (s32)(arg0->y - arg0->height);
-        vertices[1].z = (s32)(arg0->z + offsetZ);
-        vertices[1].flag = 0;
-        vertices[2].x = (s32)(arg0->x - offsetX);
-        vertices[2].y = (s32)(arg0->y - arg0->height);
-        vertices[2].z = (s32)(arg0->z - offsetZ);
-        vertices[2].flag = 0;
-        vertices[3].x = (s32)(arg0->x - offsetX);
-        vertices[3].y = (s32)(arg0->y + arg0->height);
-        vertices[3].z = (s32)(arg0->z - offsetZ);
-        vertices[3].flag = 0;
+        ((Game108320Vertex *)vertices)[0].x = (s32)(arg0->x + offsetX);
+        ((Game108320Vertex *)vertices)[0].y = (s32)(arg0->y + arg0->height);
+        ((Game108320Vertex *)vertices)[0].z = (s32)(arg0->z + offsetZ);
+        ((Game108320Vertex *)vertices)[0].flag = 0;
+        ((Game108320Vertex *)vertices)[1].x = (s32)(arg0->x + offsetX);
+        ((Game108320Vertex *)vertices)[1].y = (s32)(arg0->y - arg0->height);
+        ((Game108320Vertex *)vertices)[1].z = (s32)(arg0->z + offsetZ);
+        ((Game108320Vertex *)vertices)[1].flag = 0;
+        ((Game108320Vertex *)vertices)[2].x = (s32)(arg0->x - offsetX);
+        ((Game108320Vertex *)vertices)[2].y = (s32)(arg0->y - arg0->height);
+        ((Game108320Vertex *)vertices)[2].z = (s32)(arg0->z - offsetZ);
+        ((Game108320Vertex *)vertices)[2].flag = 0;
+        ((Game108320Vertex *)vertices)[3].x = (s32)(arg0->x - offsetX);
+        ((Game108320Vertex *)vertices)[3].y = (s32)(arg0->y + arg0->height);
+        ((Game108320Vertex *)vertices)[3].z = (s32)(arg0->z - offsetZ);
+        ((Game108320Vertex *)vertices)[3].flag = 0;
         return result;
     }
 }
