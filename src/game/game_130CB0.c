@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_130CB0.c
@@ -204,7 +205,6 @@ u16 func_1000FA64(s32, s32, s32, s32, s32, s32, s32,
                    Game130CB0SoundCallback, s32, void *, s32, s32);
 s32 func_10010894(void *);
 void *func_1505EEF4(s32);
-u32 func_150ADA20(void);
 s32 func_15103910(void *, s32 *, u32 *, s32 *, s32 *, s32 *, u16 *);
 s32 func_15103AA0(void *, s32 *, u32 *, s32 *, s32 *, s32 *, u16 *);
 

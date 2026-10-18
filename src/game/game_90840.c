@@ -156,7 +156,6 @@ void func_15063FA0(Game90840Actor *, s32);
 void func_151D57F8(Game90840Actor *, s32);
 s32 func_15081E78(Game90840Actor *, void *, s32);
 s32 func_10010894(void *);
-u32 func_150ADA20(void);
 void func_10010558(u16, void *, s32, s32, s32, s32);
 void func_150FFCC8(void *, void *, void *, void *, void *);
 void func_150FFD84(f32 *, f32 *, s32, s32);
@@ -494,7 +493,6 @@ void func_15063FA0(Game90840Actor *arg0, s32 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15063FA0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063FA0.s")
 s32 func_1505DADC(void *, u16 *, s32, s32, s32);
-u32 func_150ADA20(void);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150641D8 CURRENT (1340) */
 u16 func_150641D8(void *arg0, u16 arg1, u16 arg2, u16 arg3) {

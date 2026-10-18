@@ -36,7 +36,6 @@ typedef struct GameDF2D0Packet {
 } GameDF2D0Packet;
 
 void *func_10022EC0(void *, const void *, u32);
-extern u32 func_150ADA20(void);
 
 void func_150B1EE0(void *arg0, GameDF2D0Packet *arg1, s32 arg2, s32 arg3) {
     typedef struct { s32 words[3]; } Copy3;

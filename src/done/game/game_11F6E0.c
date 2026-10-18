@@ -7,7 +7,6 @@
  */
 
 void func_15143134(f32 *, f32 *, s32);
-s32 func_150ADA20(void);
 void func_151C329C(f32 *, u8, s32);
 
 void func_150F2230(void *arg0, u8 arg1, s32 arg2) {

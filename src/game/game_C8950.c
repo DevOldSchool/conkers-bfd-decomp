@@ -467,7 +467,6 @@ void func_1509BFB0(s32 count, ...) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509BFB0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509BFB0.s")
 
-s32 func_150ADA20(void);
 extern void *D_800D2E4C;
 
 typedef struct {

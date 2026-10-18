@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_12FDD0.c
@@ -36,7 +37,6 @@ typedef struct Game12FDD0Particle {
 s32 func_1510F8CC(s32);
 void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32, f32,
     u8, u8, s32, s32, s32, u8, s32);
-u32 func_150ADA20(void);
 extern f32 D_800A2340;
 extern s32 D_800BE9F0;
 

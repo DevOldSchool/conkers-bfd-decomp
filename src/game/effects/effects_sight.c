@@ -717,7 +717,6 @@ typedef struct EffectsSightActor {
 
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_150E7FEC(f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_1504715C(EffectsSightTransform *, EffectsSightActor *);

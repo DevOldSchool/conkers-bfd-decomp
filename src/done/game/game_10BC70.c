@@ -61,7 +61,6 @@ typedef struct Game10BC70Emitter {
 } Game10BC70Emitter;
 
 void *func_10022EC0(void *, const void *, u32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 void func_1514470C(s32, void *);

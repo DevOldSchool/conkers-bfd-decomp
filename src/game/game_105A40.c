@@ -49,7 +49,6 @@ typedef struct GameDC6B0Burst {
 
 void func_1504715C(Game71820Hit *, void *);
 s32 func_15046C80(Vec3f *, u16, f32, Game71820Hit *);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_150E7FEC(f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_150E83AC(void *, s16, u8, s32);

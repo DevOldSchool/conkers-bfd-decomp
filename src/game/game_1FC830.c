@@ -41,7 +41,6 @@ typedef struct Game71820Hit {
 } Game71820Hit;
 
 f32 func_150ADA68(void);
-u32 func_150ADA20(void);
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
 s32 func_15046C80(Vec3f *, u16, f32, Game71820Hit *);
@@ -103,7 +102,6 @@ void func_151D0024(void *arg0) {
     func_151494E0(&sp, 0x18);
 }
 void *func_10022EC0(void *, const void *, u32);
-u32 func_150ADA20(void);
 
 void func_151D0058(void *arg0, u8 arg1, u8 arg2, s32 arg3) {
     struct {

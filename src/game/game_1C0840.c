@@ -38,7 +38,6 @@ typedef struct {
 
 void func_100226F0(void *, s32);
 void func_1516865C(void *, s32, s32, s32, s32);
-u32 func_150ADA20(void);
 extern f32 D_800A81B0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15193390 CURRENT (1543) */

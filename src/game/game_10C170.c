@@ -16,7 +16,6 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10C170/func_150DECC0.s")
 
 extern s32 func_1504697C(Vec3f *, s32, f32, f32 *);
-extern u32 func_150ADA20(void);
 extern void func_150E83AC(Vec3f *, s16, u8, s32);
 extern void func_151A9834(Vec3f *, f32, f32, f32 *, s32, s32, s32, s32, s32);
 

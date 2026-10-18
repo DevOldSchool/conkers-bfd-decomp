@@ -31,7 +31,6 @@ s32 func_150A29C8(s32 arg0, s32 arg1);
 extern s32 D_800BE9F0;
 extern u8 D_800E0A10;
 extern u8 D_800AB344[];
-extern s32 func_150ADA20();
 
 u8 func_151D8E20(void) {
     if ((D_800BE9F0 == 0) && (func_150A29C8(0, 0x1C) == 0)) {
@@ -45,7 +44,6 @@ typedef struct {
     u8 field2;
 } Func151D8E6CBytes;
 extern Func151D8E6CBytes D_800AB340;
-extern s32 func_150ADA20();
 
 u8 func_151D8E6C(void) {
     Func151D8E6CBytes sp1C;
@@ -59,7 +57,6 @@ s32 func_151D8EB0(void) {
 s32 func_151D8EBC(void) {
     return 0x1D;
 }
-s32 func_150ADA20();                                /* extern */
 
 s32 func_151D8EC8(void) {
     s32 var_v1;
@@ -289,7 +286,6 @@ u8 func_151D9878(void) {
     sp1C = D_800AB378;
     return *((u8 *)&sp1C + ((func_150ADA20() % 3U) * 4) + 3);
 }
-extern s32 func_150ADA20();
 typedef struct Game2062D0Pair {
     s32 values[2];
 } Game2062D0Pair;
@@ -304,7 +300,6 @@ u8 func_151D98D0(void) {
     index = func_150ADA20() % 2U;
     return *((u8 *)&sp20 + (index * 4) + 3);
 }
-extern s32 func_150ADA20();
 extern Game2062D0Pair D_800AB38C;
 
 u8 func_151D9918(void) {
@@ -337,7 +332,6 @@ u8 func_151D99C8(void) {
     sp1C = D_800AB3A8;
     return *((u8 *)&sp1C + ((func_150ADA20() % 3U) * 4) + 3);
 }
-extern s32 func_150ADA20();
 extern Game2062D0Pair D_800AB3B4;
 
 u8 func_151D9A20(void) {

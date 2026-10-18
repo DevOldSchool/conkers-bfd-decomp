@@ -1254,7 +1254,6 @@ typedef struct {
     u8 pad1C[4];
 } CharacterFlamethrowerBurstMotion;
 extern CharacterFlamethrowerBurstPreset D_800A8728[];
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15198D88 CURRENT (1065) */
@@ -1362,7 +1361,6 @@ typedef struct CharacterFlamethrowerEmission {
     char pad36[2];
 } CharacterFlamethrowerEmission;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern u8 D_80090514[];
 extern CharacterFlamethrowerEmissionPreset D_800A8770[];

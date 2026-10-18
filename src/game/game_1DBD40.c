@@ -13,7 +13,6 @@
  */
 
 f32 func_150ADA68(void);
-u32 func_150ADA20(void);
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32,
                    f32, s32, s32, s32, s32, s32, s32);
 void func_151AE984(f32 *, s32, s32, s32, s32, s32);

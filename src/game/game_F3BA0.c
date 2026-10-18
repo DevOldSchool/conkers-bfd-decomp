@@ -38,7 +38,6 @@ void func_150C66F0(void *arg0) {
     }
 }
 
-u32 func_150ADA20(void);                      /* extern */
 f32 func_150ADA68();                                /* extern */
 extern s32 D_800BE9E4;
 

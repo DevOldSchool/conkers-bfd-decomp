@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_357F0.c
@@ -20,7 +21,6 @@ typedef struct Game357F0Region {
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 u32 func_10024770(void);
-u32 func_150ADA20(void);
 extern f32 D_80095B10, D_80095B14, D_80095B18, D_80095B1C, D_80095B20;
 extern f32 D_80095B24, D_80095B28, D_80095B2C, D_80095B30;
 

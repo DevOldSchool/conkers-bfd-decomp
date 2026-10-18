@@ -16,7 +16,6 @@
 
 void func_151432BC(s32, f32 *, f32 *, f32 *, s32);
 void *func_10022EC0(void *, const void *, u32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800A1570;
 extern f32 D_800A1574;

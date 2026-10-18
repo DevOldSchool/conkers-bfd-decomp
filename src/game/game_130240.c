@@ -199,7 +199,6 @@ typedef struct Game130240Descriptor {
     u8 pad67[9];
 } Game130240Descriptor;
 
-u32 func_150ADA20(void);
 void *func_15130374(s32, u8, s32, u8, s32);
 extern s32 D_80088BD0[];
 

@@ -110,7 +110,6 @@ void func_151C436C(s32, void *, s32);
 u8 func_151C43E0(void *, u8 *, f32);
 void func_151C4510(void *, void *, f32);
 s32 func_151C455C(s32, u8 *, f32);
-u32 func_150ADA20(void);
 s32 func_1000A420(s32, s32, s32, f32, s32, s32, s32, s32, s32,
                   s32 *, s32 *, s32 *);
 s32 func_1000F3D0(u16);
@@ -416,7 +415,6 @@ typedef struct Game1EF500EmitterOwner {
 s32 func_15102920(f32, s32, void *, void *, s32, s32, s32, s32, s32, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_15152B38(void *, s32, s32);
-u32 func_150ADA20();
 f32 func_150ADA68();
 extern f32 D_800AAA3C;
 extern f32 D_800AAA40;

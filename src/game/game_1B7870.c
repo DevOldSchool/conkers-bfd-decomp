@@ -60,7 +60,6 @@ typedef struct {
     s32 flags;
 } Game1B7870Header;
 
-u32 func_150ADA20(void);
 void *func_151580B0(void *, s32, s32, u8, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
 extern s32 D_8008D5B0[];

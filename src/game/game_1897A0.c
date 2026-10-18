@@ -302,7 +302,6 @@ typedef struct Game1897A0EmitterOwner {
 
 void func_15143794(s16, s16, f32, void *);
 void func_15152B38(void *, s32, s32);
-s32 func_150ADA20();
 f32 func_150ADA68();
 extern Game1897A0EmitterSettings D_800A64A0[];
 

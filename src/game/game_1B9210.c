@@ -14,7 +14,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800A7440;
 extern s32 D_800BE9E4;
@@ -152,7 +151,6 @@ typedef struct Game1B9210EffectPacket {
     u8 padA3;
 } Game1B9210EffectPacket;
 
-u32 func_150ADA20(void);
 void func_1516865C(void *, s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1518C57C CURRENT (2414) */

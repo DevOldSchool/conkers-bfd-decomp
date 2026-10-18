@@ -13,7 +13,6 @@
 
 void *func_10003C40(s32, s32, s32, s32);
 void func_100226F0(void *, s32);
-u32 func_150ADA20(void);
 void func_150C851C(s32);
 extern u8 *D_800BE4E0;
 

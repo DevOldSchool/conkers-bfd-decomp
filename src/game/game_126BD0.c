@@ -57,7 +57,6 @@ void func_150F97C0(void *arg0) {
 void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32,
                     s32, s32, s32, s32, s32);
 void func_15145EA4(s32 *, s32 *, s32, s32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern u8 D_80088B50;
 extern s32 D_800A1C48;

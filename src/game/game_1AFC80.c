@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1AFC80.c
@@ -46,7 +47,6 @@ extern Game362B0Preset D_8008D050[];
 extern Game1AFC80Actor D_800CC2D0[];
 extern s32 D_800BE9E4;
 s32 func_15182FDC(void *, s32, s32);
-u32 func_150ADA20(void);
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)

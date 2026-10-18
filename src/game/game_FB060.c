@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_FB060.c
@@ -13,7 +14,6 @@
 void func_1514C678(f32, f32, s32, f32, s32, s32, s32, s32, s32, f32, s32, s32);
 s32 func_15046C80(f32 *, s32, f32, f32 *);
 void func_1504715C(f32 *, void *);
-u32 func_150ADA20(void);
 extern f32 D_800A07B0;
 
 typedef struct GameFB060Trace {
@@ -70,7 +70,6 @@ typedef struct GameFB060Particle {
 void *func_10022EC0(void *, const void *, u32);
 void *func_15130374(s32, u8, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800A07B4, D_800A07B8, D_800A07BC, D_800A07C0;
 

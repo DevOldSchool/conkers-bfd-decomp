@@ -17,7 +17,6 @@
 
 /* Call context: func_150D278C: unique active declaration in the allowed source */
 void func_150D278C(s32, void *, u8, s32);
-u32 func_150ADA20();                                /* extern */
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150D26F0 CURRENT (355) */

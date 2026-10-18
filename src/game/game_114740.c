@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_114740.c
@@ -20,7 +21,6 @@ typedef struct Game114740Event {
     u8 pad7;
 } Game114740Event;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_10010F30(s32, s32, s32, s32, s32);
 void func_150E75A0(void *, f32, s16, u8, u8, u8, s16, s16, s32, s32, u8, s32);

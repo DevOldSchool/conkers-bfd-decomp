@@ -207,7 +207,6 @@ s32 func_151606A8(void *arg0) {
     return 1;
 }
 void func_15160954(f32 *, f32 *, f32 *, f32 *, void *);
-u32 func_150ADA20(void);
 extern f32 D_800BE9A4;
 extern f32 D_800A6AD4;
 
@@ -616,7 +615,6 @@ void func_15161860(void *arg0) {
     D_8008B2B0[*(u8 *)((u8 *)arg0 + 0x12)](arg0);
 }
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-u32 func_150ADA20(void);
 
 typedef struct GameLightSoundIds {
     s32 values[10];

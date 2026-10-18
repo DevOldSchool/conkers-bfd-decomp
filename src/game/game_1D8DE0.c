@@ -43,7 +43,6 @@ void func_151AB930(void *arg0) {
     }
 }
 void func_1504715C(void *, void *);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32,
                    f32, f32, s32, void *, s32, s32, s32, s32);

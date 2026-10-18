@@ -15,7 +15,6 @@
  */
 
 struct GameAB760State;
-u32 func_150ADA20(void);
 extern u8 D_800C35EA;
 extern s32 D_800BE9E4;
 

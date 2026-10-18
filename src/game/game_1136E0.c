@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1136E0.c
@@ -80,7 +81,6 @@ s32 func_150E679C(void *arg0) {
     }
     return 1;
 }
-s32 func_150ADA20();
 void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
 
 typedef struct Game1136E0Descriptor {

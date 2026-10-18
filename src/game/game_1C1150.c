@@ -249,7 +249,6 @@ extern f32 D_800A82E4;
 extern f32 D_800A82E8;
 extern f32 D_800A82EC;
 void func_151D8868(Game1C1150EventPacket *, s32, s32, s32);
-u32 func_150ADA20(void);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15194810 CURRENT (120) */
 void func_15194810(s32 arg0, Game1C1150Event *arg1, s32 arg2) {
@@ -499,7 +498,6 @@ void func_15194E54(s32 arg0, Game1C1150Data *arg1, s32 arg2) {
         func_150B06B0(arg1, arg0, 0xFF, 1);
     }
 }
-u32 func_150ADA20(void);
 void func_15182670(s32, s32, s32, s32, s32, s32, s32, s32);
 void func_15194BF0(s32, void *, s8 *);
 
@@ -685,7 +683,6 @@ void func_15195698(void *arg0, u8 *arg1, s32 arg2) {
 }
 
 
-u32 func_150ADA20(void);
 void func_151D8868(Game1C1150EventPacket *, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15195738 CURRENT (100) */

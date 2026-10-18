@@ -109,7 +109,6 @@ typedef struct GameFF5C0Controller {
     GameFF5C0SpawnParams params;
 } GameFF5C0Controller;
 
-u32 func_150ADA20(void);
 extern s32 D_800BE9E4;
 
 void func_150D2374(GameFF5C0Controller *arg0) {

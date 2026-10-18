@@ -37,7 +37,6 @@ void func_150C5DC0(void *arg0) {
         *(s32 *)((u8 *)arg0 + 0x58) = func_150C6460(arg0);
     }
 }
-u32 func_150ADA20(void);                      /* extern */
 f32 func_150ADA68();                                /* extern */
 extern s32 D_800BE9E4;
 

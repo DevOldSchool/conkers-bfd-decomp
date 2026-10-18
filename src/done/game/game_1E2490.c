@@ -70,7 +70,6 @@ void func_151B50A4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, G
     sp24[2] = arg2;
     func_151B50F4(sp24, arg3, arg4, arg5, arg6->field_C);
 }
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32,
                    f32, f32, s32, s32, s32, s32, s32, s32);

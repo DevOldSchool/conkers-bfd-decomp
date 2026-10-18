@@ -515,7 +515,6 @@ typedef struct Game131EE4Fade {
     f32 decay;
 } Game131EE4Fade;
 
-s32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800A3850;
 extern Game15D730Args D_800A5480;

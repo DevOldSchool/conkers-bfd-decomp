@@ -127,7 +127,6 @@ s32 func_150B66DC(GameE3900State *arg0) {
     }
     return 1;
 }
-u32 func_150ADA20(void);
 void func_15182670(s32, s32, s32, s32, s32, s32, s32, s32);
 
 void func_150B6754(u8 arg0, s32 arg1) {

@@ -101,7 +101,6 @@ typedef struct {
 } GameFA360Particle;
 typedef struct { f32 values[5]; } GameFA360Angles;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_1514373C(f32, f32, f32 *, f32 *);
 void func_15152874(GameFA360Particle *, u8, s32);

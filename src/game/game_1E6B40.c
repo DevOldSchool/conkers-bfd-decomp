@@ -29,7 +29,6 @@ typedef struct Game1E6B40Packet {
 } Game1E6B40Packet;
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
-u32 func_150ADA20(void);
 extern void *D_8008CA4C[];
 extern f32 D_800AA580;
 
@@ -145,7 +144,6 @@ typedef struct Game1E6B40Pulse {
 } Game1E6B40Pulse;
 
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-u32 func_150ADA20(void);
 void func_15171D4C(f32, f32, f32, s32, s32, s32, f32, s32, s32, s32, s32, s32, s32, s32);
 extern s32 D_800BE9E4;
 extern f32 D_800AA584, D_800AA588, D_800AA58C;

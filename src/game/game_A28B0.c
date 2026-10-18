@@ -161,7 +161,6 @@ void func_15075548(void) {
 }
 extern u8 *D_800D2108;
 
-u32 func_150ADA20();
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15075650 CURRENT (3069) */
 void func_15075650(void) {
@@ -396,7 +395,6 @@ void func_15075E6C(void) {
 void func_15075E98(void) {
     D_800D154C->field_235 = D_800D1890;
 }
-u32 func_150ADA20();                                /* extern */
 
 void func_15075EB4(void) {
     if ((u32) (func_150ADA20() % 100U) < (u8) D_800D1892) {

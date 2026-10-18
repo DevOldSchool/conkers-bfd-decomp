@@ -292,7 +292,6 @@ void func_1504BC38(Game77BE0State *arg0) {
 }
 
 f32 func_150AD78C(f32);
-u32 func_150ADA20(void);
 extern f32 D_800991D8;
 extern u16 D_800CC2B2;
 extern f32 D_800CC2B4;

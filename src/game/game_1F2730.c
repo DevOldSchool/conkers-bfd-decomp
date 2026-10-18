@@ -26,7 +26,6 @@ void func_151C5588(s32, s32, s16, u8, s32);
 s32 func_151C229C(f32 *, f32 *, s32, s32, s32, s32,
                   f32, f32, f32, f32, f32, s32, void *, s32, s32, s32,
                   s32, s32, s32, s32, s32, f32, s32, s32, s32, s32, s32);
-u32 func_150ADA20();
 f32 func_150ADA68(void);
 extern s32 D_800AAA90;
 extern u8 D_800AAAA8[];
@@ -107,7 +106,6 @@ void func_151C5280(void *arg0, u8 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1F2730/func_151C5280.s")
 void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32,
                    s32, s32, s32, s32, s32);
-u32 func_150ADA20();
 f32 func_150ADA68(void);
 extern s32 D_800AAA90;
 extern s32 D_800AAA9C;
@@ -141,7 +139,6 @@ typedef struct {
 } Game1F2730Descriptor;
 
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-u32 func_150ADA20();
 
 void func_151C56A4(void *arg0, u8 arg1, s32 arg2) {
     Game1F2730Descriptor descriptor;

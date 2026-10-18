@@ -40,7 +40,6 @@ typedef struct Game135780SpawnPacket {
 
 void *func_10022EC0(void *, const void *, u32);
 void func_1514373C(f32, f32, f32 *, f32 *);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800A2450, D_800A2454, D_800A245C;
 extern const f32 D_800A2458;

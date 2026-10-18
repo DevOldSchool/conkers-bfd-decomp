@@ -356,7 +356,6 @@ typedef struct Game1E9A30Owner {
 } Game1E9A30Owner;
 
 void *func_15130374(s32, u8, s32, u8, s32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800AA854, D_800AA858, D_800AA85C;
 

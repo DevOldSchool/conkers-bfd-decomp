@@ -25,7 +25,6 @@ void func_151C69A0(s32 arg0, s32 arg1, s32 arg2) {
 void func_15143134(f32 *, f32 *, s32);
 void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32,
                    s32, s32, s32, s32, s32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern s32 D_800AAB00[];
 extern f32 D_800AAB08[];

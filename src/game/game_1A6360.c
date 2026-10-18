@@ -118,7 +118,6 @@ void func_151794C8(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151794C8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A6360/func_151794C8.s")
-s32 func_150ADA20(void);
 void func_1516865C(void *, s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15179600 CURRENT (283) */
@@ -292,7 +291,6 @@ void func_15179AB8(void) {
         } while (var_v1 >= 0);
     }
 }
-s32 func_150ADA20(void);
 s32 func_1510F8D8(s32, s32, s32, s32);
 void func_1516865C(void *, s32, s32, s32, s32);
 extern f32 D_800A7208;

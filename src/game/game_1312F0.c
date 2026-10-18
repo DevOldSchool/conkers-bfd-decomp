@@ -25,7 +25,6 @@ typedef struct Game1312F0Hit {
 s32 func_15046C80(void *, u16, f32, void *);
 void func_1504715C(void *, s32);
 void func_15055A2C(s32, f32, f32, f32, s32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_150E7FEC(f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_150E83AC(void *, s16, u8, s32);

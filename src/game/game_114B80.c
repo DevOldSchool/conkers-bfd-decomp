@@ -35,7 +35,6 @@ typedef struct Game114B80Rectangle {
     f32 scaleX, scaleY, offsetX, offsetY;
 } Game114B80Rectangle;
 
-s32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void *func_1515548C(Game114B80Rectangle *, s32, s32, s32, s32, s32, s32);
 extern Game114B80Choices D_80088A68, D_80088A74;
@@ -186,7 +185,6 @@ typedef struct GameE7FECLocals {
 
 void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32,
                      f32, u8, u8, s32, s32, s32, u8, s32);
-s32 func_150ADA20();
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150E7FEC CURRENT (2172) */
 void func_150E7FEC(f32 arg0, u8 arg1, s32 arg2, f32 *arg3,
