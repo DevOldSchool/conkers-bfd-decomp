@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150DAE70
  * - func_150DB114
- * - func_150DB2D8
  * - func_150DB518
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -204,23 +203,20 @@ typedef struct Game108320Geometry {
 void *func_10022EC0(void *, const void *, u32);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DB2D8 CURRENT (10) */
-void *func_150DB2D8(Game108320Geometry *arg0, s32 arg1) {
+void *func_150DB2D8(Game108320Geometry *arg0, s16 arg1) {
     Game108320Vertex *vertices;
     Game108320Vertex *result;
     f32 offsetX;
     f32 offsetZ;
     u8 created;
-    Game108320Geometry *bufferOwner;
 
-    func_151D5D60(arg0->buffers, ((s16 *)&arg1)[1], 0x40,
+    func_151D5D60(arg0->buffers, arg1, 0x40,
                  (void **)&vertices, &created);
     result = vertices;
     if (vertices != 0) {
         if (created != 0) {
-            bufferOwner = (Game108320Geometry *)((u32)arg0 + ((s16 *)&arg1)[1] * 4);
-            func_10022EC0(bufferOwner->buffers[0], arg0->templateVertices, 0x40U);
-            func_10022EC0(bufferOwner->buffers[0] + 4, arg0->templateVertices, 0x40U);
+            func_10022EC0(arg0->buffers[arg1], arg0->templateVertices, 0x40U);
+            func_10022EC0(arg0->buffers[arg1] + 4, arg0->templateVertices, 0x40U);
         }
     } else {
         return 0;
@@ -247,8 +243,6 @@ void *func_150DB2D8(Game108320Geometry *arg0, s32 arg1) {
         return result;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150DB2D8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_108320/func_150DB2D8.s")
 typedef struct Game108320SpawnConfig {
     s8 field_00;
     u8 pad01;

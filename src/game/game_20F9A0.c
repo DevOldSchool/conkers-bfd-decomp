@@ -15,7 +15,6 @@
  * - func_151E4EE8
  * - func_151E50C8
  * - func_151E53E8
- * - func_151E55A8
  * - func_151E565C
  * - func_151E5FF4
  * - func_151E6964
@@ -697,29 +696,26 @@ extern s32 D_800BE9E4;
 extern u8 D_800E0B97;
 extern u8 D_800E0B98;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E55A8 CURRENT (160) */
 void func_151E55A8(void) {
-    s32 var_a0;
-    s32 var_v1;
+    s32 value;
+    s32 step;
 
     if (D_800E0B98 == 0) {
-        var_v1 = D_800BE9E4 * 8;
+        step = D_800BE9E4 * 8;
     } else {
-        var_v1 = -D_800BE9E4;
-        var_v1 *= 8;
+        step = -D_800BE9E4 * 8;
     }
-    var_a0 = D_800E0B97 + var_v1;
-    if (var_a0 >= 0x100) {
-        var_a0 = 0x1FE - var_a0;
+    value = D_800E0B97;
+    value += step;
+    if (value >= 0x100) {
+        value = 0x1FE - value;
         D_800E0B98 ^= 1;
-    } else if (var_a0 < 0) {
-        var_a0 = -var_a0;
+    } else if (value < 0) {
+        value = -value;
         D_800E0B98 ^= 1;
     }
-    D_800E0B97 = (u8) var_a0;
+    D_800E0B97 = (u8)value;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151E55A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E55A8.s")
 extern u8 D_800E0A8C;
 
 void func_151E562C(void) {
