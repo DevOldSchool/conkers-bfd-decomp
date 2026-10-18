@@ -18,7 +18,7 @@ s32 func_150F51BC(void) {
     return 0;
 }
 void func_10010F30(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-s32 func_150ADA20(u8 *arg0);
+u32 func_150ADA20(void);
 
 extern u8 D_80088B44;
 extern s32 D_800BE9E4;
@@ -35,11 +35,11 @@ void func_150F51E8(s32 arg0) {
             }
             D_80088B44 -= D_800BE9E4;
         } else {
-            D_80088B44 = (func_150ADA20(&D_80088B44) & 0x3F) + 0xC0;
+            D_80088B44 = (func_150ADA20() & 0x3F) + 0xC0;
             func_10010F30(
                 0xF,
                 0x4650,
-                ((func_150ADA20(&D_80088B44) & 0x3F) + 0x20) & 0xFF,
+                ((func_150ADA20() & 0x3F) + 0x20) & 0xFF,
                 0,
                 0
             );
