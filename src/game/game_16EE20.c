@@ -319,20 +319,20 @@ void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32, f32,
 s32 func_150ADA20();
 f32 func_150ADA68();
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15141F78 CURRENT (1678) */
-void func_15141F78(s32 arg0, void *arg1, f32 arg2, u8 arg3,
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15141F78 CURRENT (745) */
+void func_15141F78(u8 arg0, void *arg1, f32 arg2, u8 arg3,
                    void *arg4, u8 arg5) {
     Game141F78Packet packet;
     f32 scale;
 
-    arg0 = (u8)arg0;
     packet.kind = arg0;
     packet.zero7 = 0;
     packet.code = 0x6F701;
-    packet.value = (func_150ADA20(arg0) % 61U) + 0x64;
+    packet.value = (func_150ADA20() % 61U) + 0x64;
     packet.zero8 = 0;
     packet.zeroC = 0;
     packet.color[0] = (func_150ADA20() & 0x7F) + 0x80;
+    packet.owner = *(s32 *)((u8 *)arg1 + 0x18);
     packet.color[1] = 0xFF;
     packet.color[2] = 0xFF;
     packet.color[3] = 0xFF;
@@ -344,7 +344,6 @@ void func_15141F78(s32 arg0, void *arg1, f32 arg2, u8 arg3,
     packet.ff = 0xFF;
     packet.size = 0x28;
     packet.count = 6;
-    packet.owner = *(s32 *)((u8 *)arg1 + 0x18);
     scale = ((func_150ADA68() * 5.0f) + 10.0f) * arg2;
     func_1513C650((s32)&packet, 0, 0, (s32)((u8 *)arg1 + 4),
                    *(f32 *)arg4, *(f32 *)arg1, *(f32 *)((u8 *)arg4 + 8),

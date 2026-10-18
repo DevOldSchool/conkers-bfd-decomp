@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151A5660
- * - func_151A5D2C
  * - func_151A5D58
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -16,7 +15,7 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D2B10/func_151A5660.s")
 /* Call context: func_1514933C: unique active project prototype */
 
-extern void func_151A5D2C(s32 arg0, void *arg1);
+extern void func_151A5D2C(u16 arg0, void *arg1);
 
 void func_151A5CAC(void *arg0) {
     u8 *state;
@@ -38,14 +37,11 @@ void func_151A5CEC(void *arg0) {
     func_15149368(arg0);
 }
 /* Call context: func_100111C8: unique active project prototype */
-void func_100111C8(s32, u16);
+void func_100111C8(u16, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A5D2C CURRENT (419) */
-void func_151A5D2C(s32 arg0, u16 arg1) {
-    func_100111C8(arg0 & 0xFFFF, arg1);
+void func_151A5D2C(u16 arg0, void *arg1) {
+    func_100111C8(arg0, arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A5D2C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D2B10/func_151A5D2C.s")
 typedef struct Game1D2B10Effect {
     s32 flags;
     s16 duration;

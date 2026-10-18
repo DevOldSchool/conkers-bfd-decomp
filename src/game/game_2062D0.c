@@ -20,7 +20,6 @@
  * - func_151DB97C
  * - func_151DBAA8
  * - func_151DBCBC
- * - func_151DBE80
  * - func_151DC034
  * - func_151DC260
  * - func_151DC484
@@ -1365,29 +1364,26 @@ typedef struct Game1DBE80Packet {
     s16 field56;
 } Game1DBE80Packet;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DBE80 CURRENT (898) */
-void func_151DBE80(s32 arg0, f32 arg1, f32 arg2, s16 arg3, s32 *arg4,
+void func_151DBE80(u8 arg0, f32 arg1, f32 arg2, s16 arg3, s32 *arg4,
                     s32 arg5, u8 arg6, u8 arg7, u8 arg8, s32 arg9) {
     typedef struct { s32 words[3]; } Copy3;
     Game1DBE80Packet packet;
-    s32 random1;
-    s32 random2;
 
-    arg0 &= 0xFF;
     packet.type = 0x38;
     packet.flags = (arg7 != 0 ? 2 : 1) + 0x440000;
     packet.duration = arg3;
     packet.field8 = 0;
     packet.fieldC = 0x4000;
-    packet.alpha = 0xFF;
     packet.red = D_800AB414[arg0].r;
     packet.green = D_800AB414[arg0].g;
     packet.blue = D_800AB414[arg0].b;
+    packet.alpha = 0xFF;
     packet.scaleX = 1.0f;
     packet.scaleY = 1.0f;
     *(Copy3 *)packet.position = *(Copy3 *)arg4;
     packet.magnitude = arg2;
     packet.field40 = 0x466C0001;
+    packet.selector = arg6;
     packet.flag45 = 0xFF;
     packet.mode = 0;
     packet.flag46 = 0;
@@ -1402,16 +1398,11 @@ void func_151DBE80(s32 arg0, f32 arg1, f32 arg2, s16 arg3, s32 *arg4,
     packet.field28 = 0.0f;
     packet.field2C = 0.0f;
     packet.field30 = 0.0f;
-    packet.selector = arg6;
-    random1 = func_150ADA20();
-    random2 = func_150ADA20();
     func_1513D668((s32)&packet, 0, 0xB, 0x11, 0,
-                   (random2 & 1) + (random1 & 1),
+                   (func_150ADA20() & 1) + (func_150ADA20() & 1),
                    func_150ADA20() & 0xFF, arg1, arg1, 0, arg5,
                    0, 0, arg8, arg9);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DBE80 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DBE80.s")
 extern u8 D_800AB320[];
 extern u8 D_800AB330[];
 

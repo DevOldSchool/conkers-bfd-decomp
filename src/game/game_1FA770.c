@@ -77,30 +77,29 @@ s32 func_151CD4C0(void *, u8, s32, u8, s32);
 typedef struct Game1FA770Object Game1FA770Object;
 void func_151CE47C(Game1FA770Object *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD3CC CURRENT (558) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD3CC CURRENT (10) */
 void func_151CD3CC(Game1FA770DispatchOwner *arg0, s32 *arg1, u8 arg2) {
-    Game1FA770DispatchState *state;
-    s32 temp_a2;
-
+    Game1FA770DispatchState *state = &arg0->state;
     if (arg2 == 0x17) {
-        state = &arg0->state;
-        temp_a2 = state->id;
-        if ((temp_a2 == *arg1) && (state->handle == 0)) {
-            state->handle = (void *)func_151CD4C0(
-                state->object, state->field_C, temp_a2, arg0->field_C,
-                arg0->field_1);
+        s32 id = state->id;
+
+        if ((id == *arg1) && (state->handle == 0)) {
+            state->handle = (void *)func_151CD4C0(state->object, state->field_C, id, arg0->field_C, arg0->field_1);
             *(s8 *)((u8 *)state->object + 0x14) = 0;
         }
-    } else {
-        state = &arg0->state;
-        if (arg2 == 0x18) {
-            if ((state->id == *arg1) && (state->handle != 0)) {
-                func_151CE47C(state->handle);
+    } else if (arg2 == 0x18) {
+        if (state->id == *arg1) {
+            void *handle = state->handle;
+
+            if (handle != 0) {
+                func_151CE47C(handle);
             }
-        } else if ((arg2 == 0x23) && (state->id == *arg1)) {
-            state->handle = 0;
-            *(s8 *)((u8 *)state->object + 0x14) = 1;
         }
+    } else if ((arg2 == 0x23) && (state->id == *arg1)) {
+        u8 *object = state->object;
+
+        state->handle = 0;
+        object[0x14] = 1;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CD3CC */

@@ -27,7 +27,6 @@
  * - func_151CAD28
  * - func_151CB110
  * - func_151CB5FC
- * - func_151CBBE0
  * - func_151CBC60
  * - func_151CC1D4
  * - func_151CC524
@@ -1418,24 +1417,20 @@ extern f32 D_800AAEB8;
 
 f32 func_151CC1D4(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CBBE0 CURRENT (235) */
 s32 func_151CBBE0(u8 *arg0) {
-    f32 temp_fv0;
-    u8 *temp_v0;
+    u8 *state = arg0 + 0x70;
+    f32 value;
+    f32 offset;
 
-    temp_fv0 = func_151CC1D4(arg0);
-    temp_v0 = ((u8 (*)[0x70])arg0)[1];
-    if (temp_fv0 != *(f32 *)(temp_v0 + 0x28)) {
-        *(f32 *)(temp_v0 + 0x28) = temp_fv0;
-        temp_fv0 = (temp_fv0 - *(f32 *)(temp_v0 + 0x18)) *
-                   *(f32 *)(temp_v0 + 0x20) * D_800AAEB8;
-        func_1514373C(*(f32 *)(temp_v0 + 0x24) + temp_fv0,
+    value = func_151CC1D4(arg0);
+    if (value != *(f32 *)(state + 0x28)) {
+        *(f32 *)(state + 0x28) = value;
+        offset = *(f32 *)(state + 0x20) * (value - *(f32 *)(state + 0x18)) * D_800AAEB8;
+        func_1514373C(*(f32 *)(state + 0x24) + offset,
                       55.0f, (f32 *)(arg0 + 0x10), (f32 *)(arg0 + 0x14));
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CBBE0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CBBE0.s")
 extern f32 D_800AAEBC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CBC60 CURRENT (1330) */
@@ -1974,24 +1969,18 @@ typedef struct SightUpdateFields {
     f32 scale;
 } SightUpdateFields;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD224 CURRENT (700) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD224 CURRENT (300) */
 void func_151CD224(u8 *arg0) {
-    u8 temp_v1;
-    SightUpdateFields *state;
+    SightUpdateFields *state = (SightUpdateFields *)(arg0 + 0x70);
     f32 current;
+    f32 offset;
 
     current = func_151CC1D4(arg0);
-    state = (SightUpdateFields *)(arg0 + 0x70);
-    {
-        f32 temp_fv1 = (1.0f - ((current - state->start) * state->scale)) * 75.0f;
-    temp_v1 = state->mode;
-    if (temp_v1 == 5) {
-        *(f32 *)((u8 *)arg0 + 0x14) = (f32) (92.0f + temp_fv1);
-        return;
-    }
-    if (temp_v1 == 4) {
-        *(f32 *)((u8 *)arg0 + 0x14) = (f32) (-92.0f - temp_fv1);
-    }
+    offset = (1.0f - (current - state->start) * state->scale) * 75.0f;
+    if (state->mode == 5) {
+        *(f32 *)(arg0 + 0x14) = 92.0f + offset;
+    } else if (state->mode == 4) {
+        *(f32 *)(arg0 + 0x14) = -92.0f - offset;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CD224 */

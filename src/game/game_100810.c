@@ -151,45 +151,37 @@ s32 func_150D3FD4(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D4300.s")
 void *func_1503195C(void *, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D49C0 CURRENT (1441) */
-void func_150D49C0(u8 *arg0, void *arg1, s32 arg2) {
-    s32 var_v0;
-    u8 *temp_a0;
-    u8 *temp_v0;
-    u8 *temp_v1;
-    s32 var_a1;
+typedef struct Game100810Link {
+    u8 *id;
+    u8 slot;
+    u8 pad5[3];
+    void *handle;
+} Game100810Link;
 
-    arg2 &= 0xFF;
-    temp_v1 = *(u8 **)(arg0 + 0x98);
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D49C0 CURRENT (85) */
+void func_150D49C0(u8 *arg0, void *arg1, u8 arg2) {
+    Game100810Link *link;
+    u8 *other;
+    u8 *id;
+    s32 kind;
+
+    link = *(Game100810Link **)(arg0 + 0x98);
     if ((arg2 == 0) || (arg2 == 0x2E) || (arg2 == 3)) {
-        if ((*(u8 **)arg1 == *(u8 **)temp_v1) ||
-            (temp_v1[4] == *(u8 *)((u8 *)arg1 + 4))) {
-            func_1516972C((s32)arg0);
+        if ((*(u8 **)arg1 == link->id) || (link->slot == *((u8 *)arg1 + 4))) {
+            func_1516972C(arg0);
         }
     } else if (arg2 == 0x2D) {
-        temp_v0 = *(u8 **)arg1;
-        temp_a0 = *(u8 **)temp_v1;
-        if (temp_v0 == temp_a0) {
-            temp_a0 = *(u8 **)((u8 *)arg1 + 4);
-            *(u8 **)temp_v1 = temp_a0;
-            var_a1 = 0x79;
-            temp_v1[4] = *((u8 *)arg1 + 9);
-            if (temp_a0[4] == 0x48) {
-                var_a1 = 0x7A;
-            }
-            var_v0 = (s32)func_1503195C(temp_a0, var_a1, 0);
-            goto block_15;
-        }
-        if (*(u8 **)((u8 *)arg1 + 4) == temp_a0) {
-            *(u8 **)temp_v1 = temp_v0;
-            var_a1 = 0x79;
-            temp_v1[4] = *((u8 *)arg1 + 8);
-            if (temp_v0[4] == 0x48) {
-                var_a1 = 0x7A;
-            }
-            var_v0 = (s32)func_1503195C(temp_v0, var_a1, 0);
-block_15:
-            *(s32 *)(temp_v1 + 8) = var_v0;
+        other = *(u8 **)arg1;
+        id = link->id;
+        if (other == id) {
+            id = *(u8 **)((u8 *)arg1 + 4);
+            link->id = id;
+            link->slot = *((u8 *)arg1 + 9);
+            link->handle = func_1503195C(id, (id[4] == 0x48) ? 0x7A : 0x79, 0);
+        } else if (*(u8 **)((u8 *)arg1 + 4) == id) {
+            link->id = other;
+            link->slot = *((u8 *)arg1 + 8);
+            link->handle = func_1503195C(other, (other[4] == 0x48) ? 0x7A : 0x79, 0);
         }
     }
 }

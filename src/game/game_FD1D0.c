@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150CFDB8
- * - func_150CFE3C
  * - func_150CFE98
  * - func_150CFF10
  * - func_150D0034
@@ -68,17 +67,20 @@ void *func_10022EC0(void *, const void *, u32);
 
 struct GameFD1D0State;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CFE3C CURRENT (130) */
 void func_150CFE3C(struct GameFD1D0State *arg0) {
-    struct Text { u8 beforeWidth[0x14]; u8 width; u8 page; u8 pad16[2]; u8 *buffers[2]; } *temp_v0;
+    struct Text {
+        u8 pad0[0xC];
+        void *source;
+        u8 pad10[4];
+        u8 width;
+        u8 page;
+        u8 pad16[2];
+        u8 *buffers[2];
+    } *text = (struct Text *)((u8 *)arg0 + 0x28);
 
-    func_10022EC0(*(void **)(((u8 (*)[4])arg0)[*(u8 *)((u8 *)arg0 + 0x3D)] + 0x40),
-                   *(void **)((u8 *)arg0 + 0x34), *(u8 *)((u8 *)arg0 + 0x3C));
-    temp_v0 = (struct Text *)((u8 *)arg0 + 0x28);
-    temp_v0->buffers[temp_v0->page][temp_v0->width] = 0;
+    func_10022EC0(text->buffers[text->page], text->source, text->width);
+    text->buffers[text->page][text->width] = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150CFE3C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFE3C.s")
 typedef struct GameFD1D0TextCursor {
     u8 field_0;
     u8 pad1[7];
@@ -186,7 +188,7 @@ typedef s32 (*GameFD1D0EntryCallback)(GameFD1D0State *);
 
 extern GameFD1D0EntryCallback D_800888A0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D0034 CURRENT (430) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D0034 CURRENT (330) */
 s32 func_150D0034(s32 arg0, GameFD1D0State *arg1, s32 arg2) {
     GameFD1D0TextCursor *text;
 
