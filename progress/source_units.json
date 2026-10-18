@@ -16690,7 +16690,7 @@
         "us": {
           "end": "0xDB630",
           "start": "0xDAE70",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_108320.c"
