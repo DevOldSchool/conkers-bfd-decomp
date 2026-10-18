@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151B8400
  * - func_151B86F4
  * - func_151B8908
  *
@@ -56,63 +55,55 @@ typedef struct Game1E58B0MotionPacket {
     s16 mode;
 } Game1E58B0MotionPacket;
 
-typedef struct Game1E58B0SavedActor {
-    void *actor;
-    u32 pad;
-} Game1E58B0SavedActor;
-
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B8400 CURRENT (273) */
 void *func_151B8400(void *arg0) {
-    Game1E58B0SavedActor saved_actor;
-    Game1E58B0MotionPacket motion;
-    Game1E58B0SpawnPacket spawn;
+    u8 *actor = arg0;
+    void *saved_actor;
+    struct {
+        Game1E58B0SpawnPacket spawn;
+        Game1E58B0MotionPacket motion;
+    } packet;
     Game1E58B0Vec3 position;
     void *result;
-    u8 *actor = arg0;
-    f32 z_velocity;
 
-    saved_actor.actor = arg0;
+    saved_actor = arg0;
 
-    spawn.kind = 0xFF;
-    spawn.zero = 0;
-    spawn.identifier = 0x5901;
-    spawn.count = 0x32;
-    spawn.reserved0 = 0;
-    spawn.reserved1 = 0;
-    spawn.red = 0xFF;
-    spawn.green = 0xE6;
-    spawn.blue = 0xB6;
-    spawn.alpha = 0xFF;
-    spawn.scale = 9.0f;
-    spawn.rate = 1.0f;
+    packet.spawn.kind = 0xFF;
+    packet.spawn.zero = 0;
+    packet.spawn.identifier = 0x5901;
+    packet.spawn.count = 0x32;
+    packet.spawn.reserved0 = 0;
+    packet.spawn.reserved1 = 0;
+    packet.spawn.red = 0xFF;
+    packet.spawn.green = 0xE6;
+    packet.spawn.blue = 0xB6;
+    packet.spawn.alpha = 0xFF;
+    packet.spawn.scale = 9.0f;
+    packet.spawn.rate = 1.0f;
 
     position = *(Game1E58B0Vec3 *)(actor + 0x38);
-    motion.first = position;
-    motion.second = position;
-    motion.velocity[0] = *(f32 *)(actor + 0x44) * 0.25f;
-    motion.velocity[1] = *(f32 *)(actor + 0x48) * 0.25f;
-    z_velocity = *(f32 *)(actor + 0x4C) * 0.25f;
-    motion.tag = 0x0CCC0000;
-    motion.color0 = 0xC8;
-    motion.color1 = 0xFF;
-    motion.color2 = 0;
-    motion.color3 = 6;
-    motion.reserved0 = 0;
-    motion.kind = 0xFF;
-    motion.reserved1 = 0;
-    motion.velocity[2] = z_velocity;
-    motion.count = 0x32;
-    motion.mode = 5;
+    packet.motion.second = position;
+    packet.motion.first = position;
+    packet.motion.velocity[0] = *(f32 *)(actor + 0x44) * 0.25f;
+    packet.motion.velocity[1] = *(f32 *)(actor + 0x48) * 0.25f;
+    packet.motion.velocity[2] = *(f32 *)(actor + 0x4C) * 0.25f;
+    packet.motion.tag = 0x0CCC0000;
+    packet.motion.color0 = 0xC8;
+    packet.motion.color1 = 0xFF;
+    packet.motion.color2 = 0;
+    packet.motion.color3 = 6;
+    packet.motion.reserved0 = 0;
+    packet.motion.kind = 0xFF;
+    packet.motion.reserved1 = 0;
+    packet.motion.count = 0x32;
+    packet.motion.mode = 5;
 
-    result = func_1513D2F0((s32)&spawn, (s32)&D_800AA490, 0x1B, 0, 0, 0x19,
+    result = func_1513D2F0((s32)&packet, (s32)&D_800AA490, 0x1B, 0, 0, 0x19,
                            0, 0, 0, 4, actor[0xC], actor[1]);
     if (result != 0) {
-        func_10022EC0((u8 *)result + 0x110, &saved_actor.actor, 4);
+        func_10022EC0((u8 *)result + 0x110, &saved_actor, 4);
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B8400 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E58B0/func_151B8400.s")
 extern f32 D_800BE9A4;
 
 s32 func_151B85AC(void *arg0) {

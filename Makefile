@@ -188,6 +188,7 @@ GAME_LIB := $(GAME_LIB_DIR)/libultra_2_0G.a
 GAME_RARE_LIB := $(GAME_LIB_DIR)/libultrare.a
 GAME_LIB_SYMBOLS := config/game/us-sdk.ld
 GAME_RODATA_SCRIPT := config/game/us-rodata.ld
+GAME_SPLIT_RODATA_OBJS := game_B4080.o game_16EE20.o game_1C1150.o
 GAME_LIB_OBJECTS := $(addprefix lib/ultralib/build/G/libultra_rom/src/,\
 	gu/random.o gu/ortho.o gu/normalize.o gu/mtxcatl.o gu/mtxcatf.o gu/sqrtf.o \
 	gu/mtxutil.o \
@@ -905,9 +906,9 @@ $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.elf: $(GAME_INTEGRATED_BU
 $(GAME_INTEGRATED_BUILD_DIR)/src/%.o: src/%.c
 	@mkdir -p "$(@D)"
 	python3 scripts/compile_c.py --profile $(GAME_PROFILE) --output $@ $<
-	$(if $(filter game_16EE20.o game_1C1150.o,$(notdir $@)),python3 scripts/split_game_rodata.py $@)
+	$(if $(filter $(GAME_SPLIT_RODATA_OBJS),$(notdir $@)),python3 scripts/split_game_rodata.py $@)
 
-$(filter %/game_16EE20.o %/game_1C1150.o,$(GAME_INTEGRATED_C_OBJS)): scripts/split_game_rodata.py
+$(filter $(addprefix %/,$(GAME_SPLIT_RODATA_OBJS)),$(GAME_INTEGRATED_C_OBJS)): scripts/split_game_rodata.py
 
 $(GAME_INTEGRATED_NORMALIZED_ASM_DIR)/%.s: asm/%.s scripts/normalize_asm.py
 	python3 scripts/normalize_asm.py $< $@

@@ -557,41 +557,38 @@ extern Game15F680MotionCallback D_80089934[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15133894 CURRENT (15) */
 s8 func_15133894(void *arg0) {
-    struct {
-        Vec3f test;
-        Vec3f prior;
-        u8 pad4C[3];
-        s8 result;
-    } work;
+    s8 result;
+    Vec3f prior;
+    Vec3f test;
     s32 var_v1;
-    s32 temp_a0;
+    u8 *temp_a0;
     u8 *state;
 
     state = arg0;
-    work.result = 1;
-    work.prior = *(Vec3f *)(state + 0x38);
+    result = 1;
+    prior = *(Vec3f *)(state + 0x38);
     func_151337C0(arg0);
     if ((*(s32 *)(state + 0x60) & 1) && state[0x73] &&
-        (*(f32 *)(state + 0x3C) < work.prior.y)) {
-        work.test.x = *(f32 *)(state + 0x38);
-        work.test.y = *(f32 *)(state + 0x10) + work.prior.y;
-        work.test.z = *(f32 *)(state + 0x40);
-        if (func_15046C80(&work.test.x, 0,
+        (*(f32 *)(state + 0x3C) < prior.y)) {
+        test.x = *(f32 *)(state + 0x38);
+        test.y = *(f32 *)(state + 0x10) + prior.y;
+        test.z = *(f32 *)(state + 0x40);
+        if (func_15046C80(&test.x, 0,
                           *(f32 *)(state + 0x3C) - *(f32 *)(state + 0x10),
                           state + 0x110) != 0) {
-            temp_a0 = *(s32 *)(state + 0x130);
+            temp_a0 = *(u8 **)(state + 0x130);
             var_v1 = 0;
-            if ((temp_a0 != 0) && ((*(u8 *)(temp_a0 + 0x4F) & 0x60) == 0x40)) {
+            if ((temp_a0 != 0) && ((temp_a0[0x4F] & 0x60) == 0x40)) {
                 var_v1 = 1;
             }
             if (var_v1 == 0) {
-                work.result = D_80089934[state[0x73]](
-                    arg0, work.prior.x, work.prior.y, work.prior.z,
+                result = D_80089934[state[0x73]](
+                    arg0, prior.x, prior.y, prior.z,
                     *(f32 *)(state + 0x110), state + 0x114);
             }
         }
     }
-    return work.result;
+    return result;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15133894 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133894.s")

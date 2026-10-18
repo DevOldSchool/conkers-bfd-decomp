@@ -105,3 +105,76 @@ object offset moves from 0x258 to 0x26C. The unchanged splitter checks enforce
 complete relocation coverage, exact instruction addends and reviewed references.
 Each linker section retains an exact size assertion. Clean batch verification
 remains required after applying the mapping.
+
+## October 18 game_B4080 switch recovery
+
+Activating `func_15089BC0` adds its eight-entry table before the two existing
+`game_B4080` tables. The compiler packs all three into 0x200 bytes, but the
+original first table ends at 0x8009DA44 and the next begins at 0x8009DA94.
+Mapping the entire object at the old base would misplace every table.
+
+The raw US dispatch subtracts 0xB7, checks the unsigned index against eight,
+and loads `jtbl_8009DA24_game` at instruction addresses 0x15089BF8/0x15089C00.
+The existing dispatches still load 0x8009DA94 at 0x1508E6E0/0x1508E6E8 and
+0x8009DB90 at 0x1508E7A4/0x1508E7AC. These instructions are in the independently
+extracted `reference/game/us/asm/86BD0.s`; the source unit begins at 0x15086BD0.
+
+| Function | Object offset | Size | Runtime address | HI16 / LO16 object sites |
+| --- | --- | --- | --- | --- |
+| func_15089BC0 | 0x0 | 0x20 | 0x8009DA24 | 0x3028 / 0x3030 |
+| func_1508E6D0 | 0x20 | 0xFC | 0x8009DA94 | 0x7B10 / 0x7B18 |
+| func_1508E780 | 0x11C | 0xE4 | 0x8009DB90 | 0x7BD4 / 0x7BDC |
+
+All 128 relocated target words were independently compared with the
+checksum-validated US ROM using `rom_game_data` and `verify_bytes`. The first
+table's targets for selectors 0xB7 through 0xBE are 0x15089C3C, 0x15089C18,
+0x15089C0C, 0x15089C30, 0x15089C24, 0x15089C60, 0x15089C48 and 0x15089C54.
+The missing case 0xBC correctly targets the default at 0x15089C60.
+
+The three ROM payload SHA-256 hashes, in table order, are:
+
+- `67901f9240420a2be5c486ce971ec6393f6cef83a794230f8b03501e6b8a07c8`
+- `8d0056b89fa9c0d24d92f1a64381b3e186a77e04dac5fe0df745bd77560f6c5b`
+- `09c699ce2d0a77a73b03de5be682f08e74b3e28d5454ec6168adce3c426daade`
+
+The existing strict splitter now handles this object. It partitions the
+original table relocations and rebinds the six reviewed instruction references;
+`.text`, table words and instruction addends remain unchanged. Each section
+has an exact linker extent assertion, and linked ROM verification covers all
+512 bytes without a padding exemption. The original game-data archive remains
+the runtime backing. No source or assembly changes are needed for this repair.
+
+`config/data/us.json` records the source owner for each address/input-section
+pair, replacing the former single `.rodata` owner. The checked data audit and
+external-placement ownership tests enforce consistency with these mappings.
+
+PR 147 review re-verification on 2026-10-18 used tested commit
+`6d048a787aaf3e4c4b83376747b634deee51a1db`. This revision includes current main
+`619190f8cb044d5ef7b1440c2f24c0e4b7c6efcc`, including PR 146's compiler/profile/CI
+changes and PR 145's shared RNG declarations, plus the review fixes. The
+split-object names now have one Makefile definition used by both the recipe
+filter and dependency rule. The earlier pre-merge validation is superseded by
+this run.
+
+After the source edits, fresh `finish` checks for all ten functions reported
+US `CURRENT (0)` over the full registered spans and passed source-unit layout,
+progress and whitespace gates. The same ten-ID clean `verify-batch` ran on the
+committed revision above with a clean tracked working tree:
+
+```sh
+./conker verify-batch func_151CD3CC func_150E1060 func_15089BC0 func_151C5588 func_150DB518 func_150F706C func_151470FC func_1515F850 func_151CF898 func_151B8400
+```
+
+The run ended in `AGENT_ACTION: BATCH_COMPLETE`. The entire 2,072,880-byte
+integrated game-code payload and every linked external rodata payload matched
+the checksum-validated US ROM. All 2,805 tests completed successfully (nine
+skipped; 156.270 seconds), followed by valid metadata, progress and whitespace
+checks. This evidence update changes documentation only after that tested
+revision; it does not change source, compiler inputs or linker mappings.
+
+The review also corrected the typed call in disabled `func_15114188`; enabling
+it for `finish` compiled successfully and measured `CURRENT (1150)`, replacing
+the historical recorded 700. The optional typed-parameter cleanup of disabled
+`func_15157AA8` retained `CURRENT (65)` and its exact frame/local homes. Both
+were restored transactionally to deferred candidates with canonical
+`GLOBAL_ASM`; neither is included in the ten matching functions.

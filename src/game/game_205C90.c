@@ -168,27 +168,26 @@ s32 func_15144B34(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D8C00 CURRENT (25) */
 void func_151D8C00(void *arg0, u8 *arg1) {
-    struct {
-        f32 values[3];
-        u32 pad;
-    } difference;
+    f32 delta;
+    Vec3f difference;
     f32 distance;
     f32 start;
     f32 alpha;
     f32 *origin;
 
     origin = (f32 *)func_15144B34(arg1[0x18]);
-    difference.values[0] = *(f32 *)(arg1 + 0) - origin[0];
-    difference.values[1] = *(f32 *)(arg1 + 4) - origin[1];
-    difference.values[2] = *(f32 *)(arg1 + 8) - origin[2];
-    distance = func_15143E64(difference.values);
+    difference.x = *(f32 *)(arg1 + 0) - origin[0];
+    difference.y = *(f32 *)(arg1 + 4) - origin[1];
+    difference.z = *(f32 *)(arg1 + 8) - origin[2];
+    distance = func_15143E64(&difference.x);
     start = *(f32 *)(arg1 + 0xC);
     if (distance < start) {
         alpha = 1.0f;
-    } else if ((*(f32 *)(arg1 + 0x10) + start) < distance) {
+    } else if ((start + *(f32 *)(arg1 + 0x10)) < distance) {
         alpha = 0.0f;
     } else {
-        alpha = 1.0f - (*(f32 *)(arg1 + 0x14) * (distance - start));
+        delta = distance - start;
+        alpha = 1.0f - (delta * *(f32 *)(arg1 + 0x14));
     }
     *(s8 *)((u8 *)arg0 + 0x12) = (s8)(u32)(alpha * 8.0f);
 }

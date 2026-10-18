@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151CF380
- * - func_151CF898
  * - func_151CFA4C
  * - func_151D014C
  * - func_151D09A8
@@ -51,20 +50,18 @@ extern f32 D_800AB020;
 extern f32 D_800AB024;
 extern Game71820Hit D_800D9860;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CF898 CURRENT (432) */
 void func_151CF898(void *arg0, f32 arg1, f32 arg2) {
+    void *entity;
+    Vec3f position;
+    f32 *camera;
+    f32 yaw;
+    f32 angle;
+    f32 distance;
     struct {
         Vec3f position;
         f32 extra;
     } effect;
-    f32 distance;
-    f32 angle;
-    f32 yaw;
-    f32 *camera;
-    Vec3f position;
-    void *entity;
     void *result;
-    s32 choice;
 
     entity = *(void **)((u8 *)arg0 + 0x318);
     if (entity != 0 && func_150ADA68() < D_800AB020) {
@@ -79,16 +76,13 @@ void func_151CF898(void *arg0, f32 arg1, f32 arg2) {
             position.y = D_800D9860.height;
             effect.position = position;
             effect.extra = 0.0f;
-            choice = (s16)((func_150ADA20() % 131U) + 0x33);
-            result = func_15149130(choice, -1, 0x20, -1, 1, 0, 0x10, 0xFF, 1);
+            result = func_15149130((s16)((func_150ADA20() % 131U) + 0x33), -1, 0x20, -1, 1, 0, 0x10, 0xFF, 1);
             if (result != 0) {
                 func_10022EC0((u8 *)result + 0x28, &effect, 0x10);
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CF898 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151CF898.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151CFA4C.s")
 
 void func_151D0024(void *arg0) {

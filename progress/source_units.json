@@ -10684,7 +10684,7 @@
         "us": {
           "end": "0xE1570",
           "start": "0xE1060",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_10E510.c"
