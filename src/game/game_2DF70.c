@@ -9,8 +9,6 @@
  * - func_15000AD0
  * - func_15001460
  * - func_15001A08
- * - func_15001BC8
- * - func_15001CEC
  * - func_15001DE0
  * - func_15002008
  * - func_15002248
@@ -151,7 +149,6 @@ extern void *D_800DBE08[];
 extern s32 D_800B0DD4;
 extern s16 D_800B0DD8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15001BC8 CURRENT (300) */
 void func_15001BC8(s32 arg0, s16 *arg1, s16 *arg2) {
     s16 *sp20;
     s16 *temp_v0;
@@ -162,7 +159,7 @@ void func_15001BC8(s32 arg0, s16 *arg1, s16 *arg2) {
     func_1510F800(arg0);
     D_800B0DD8 = 0xA;
     D_800B0DD4 = 0x200;
-    temp_v0 = (s16 *)func_10003C40((D_800DBE4C + 1) * 2, 1, 0, 0);
+    temp_v0 = (s16 *)func_10003C40((D_800DBE4C + 1) << 1, 1, 0, 0);
     var_v1 = 0;
     temp_v0[0] = (s16)D_800DBE4C;
     if (D_800DBE4C > 0) {
@@ -185,18 +182,13 @@ void func_15001BC8(s32 arg0, s16 *arg1, s16 *arg2) {
         *arg2 = (s16)D_800B0DD0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15001BC8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15001BC8.s")
 s16 *func_15001B10(void);
 void func_15002008(s32, s32, s32, s32, s16 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15001CEC CURRENT (735) */
 void func_15001CEC(s32 arg0) {
     s16 *sp20;
     s16 *temp_v0;
     s16 *var_a0;
-    s32 temp_a0;
-    s32 temp_v0_2;
     s32 var_v1;
 
     func_1510F800(arg0);
@@ -205,13 +197,11 @@ void func_15001CEC(s32 arg0) {
     temp_v0[0] = -0x8000;
     temp_v0[1] = 0x7FFF;
     temp_v0[2] = 0;
-    temp_v0[3] = 0x8000;
+    ((u16 *)temp_v0)[3] = 0x8000;
     temp_v0[4] = 0;
     temp_v0[5] = 0;
     temp_v0[6] = 0;
-    temp_a0 = D_800DBE4C + 1;
-    temp_v0_2 = temp_a0 * 2;
-    temp_v0 = (s16 *)func_10003C40(temp_v0_2, 1, 0, 0);
+    temp_v0 = (s16 *)func_10003C40((D_800DBE4C + 1) << 1, 1, 0, 0);
     var_v1 = 0;
     temp_v0[0] = (s16)D_800DBE4C;
     if (D_800DBE4C > 0) {
@@ -226,8 +216,6 @@ void func_15001CEC(s32 arg0) {
     func_15002008(-0x8000, 0x8000, -0x8000, 0x8000, temp_v0);
     func_10004074((s32)sp20);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15001CEC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15001CEC.s")
 s32 func_15002248(s32, s32, s32, s32, s32 *, s32 *, s16 *, s16 **); /* extern */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15001DE0 CURRENT (4729) */

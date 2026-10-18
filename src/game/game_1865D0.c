@@ -15,7 +15,6 @@
  * - func_1515A11C
  * - func_1515A238
  * - func_1515A78C
- * - func_1515AA84
  * - func_1515AB88
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -723,31 +722,20 @@ typedef struct {
 u32 func_150ADA20(void);
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515AA84 CURRENT (400) */
-void func_1515AA84(Game1865D0Arg *volatile arg0, Game1865D0Copy12 *arg1, f32 arg2, s32 arg3) {
+void func_1515AA84(Game1865D0Arg *arg0, Game1865D0Copy12 *arg1, f32 arg2, s32 arg3) {
     typedef struct { s16 base; s16 range; } Range;
     Game1865D0Spawn spawn;
-    Game1865D0Arg *owner;
-    Range *range;
+    Range *range = (Range *)((u8 *)arg0 + 0x80);
     void *result;
-    u32 random;
-    s16 type;
 
     spawn.zero = 0.0f;
     spawn.input = *arg1;
     spawn.scale = arg2;
     spawn.copied = arg0->copied;
-
-    random = func_150ADA20();
-    owner = arg0;
-    range = (Range *) ((u8 *) owner + 0x80);
-    type = (s16) ((random % (u32) (range->range + 1)) + range->base);
-    result = func_15149130(type, -1, 0x3F, -1, 1, 0, 0x3C,
-                          owner->valueC, owner->value1);
+    result = func_15149130((s16)((func_150ADA20() % (u32)(range->range + 1)) + range->base), -1, 0x3F, -1, 1, 0, 0x3C,
+                          arg0->valueC, arg0->value1);
     if (result != 0) {
-        func_10022EC0((u8 *) result + 0x28, &spawn, 0x3C);
+        func_10022EC0((u8 *)result + 0x28, &spawn, 0x3C);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515AA84 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_1515AA84.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_1515AB88.s")
