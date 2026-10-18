@@ -1113,9 +1113,9 @@ f32 func_1505A5CC(void *arg0) {
 f32 func_150484A0(f32, f32);
 extern f32 D_800994D8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505A630 CURRENT (10) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505A630 CURRENT (135) */
 s32 func_1505A630(f32 arg0, f32 arg1, s32 arg2) {
-    return ((u16)(u32)(func_150484A0(-arg0, arg1) * D_800994D8) + 0x4000) & 0xFFFF;
+    return ((u32)(func_150484A0(-arg0, arg1) * D_800994D8) + 0x4000) & 0xFFFF;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1505A630 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A630.s")

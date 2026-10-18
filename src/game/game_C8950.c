@@ -54,10 +54,10 @@ void func_1509B4A0(s16 arg0, s32 arg1) {
     func_1509C120();
     func_15096970();
     for (index = 0; index < D_800D2F3C; index++) {
-        if (func_1509CBD4(D_800D2F40[index]) != 0) {
-            func_1509B5AC(D_800D2F40[index], context);
+        if (func_1509CBD4(D_800D2F40[index]) == 0) {
+            continue;
         }
-        continue;
+        func_1509B5AC(D_800D2F40[index], context);
     }
     func_1509C3A0();
     D_8003C8E0 = 0;

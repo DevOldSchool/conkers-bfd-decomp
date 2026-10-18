@@ -363,7 +363,6 @@ void func_15109064(u8 *arg0, u8 *arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15109064 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15109064.s")
-
 extern Game135D00DispatchDescriptor D_80088C58;
 
 void func_151090DC(void) {

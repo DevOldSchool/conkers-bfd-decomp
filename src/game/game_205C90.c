@@ -166,7 +166,7 @@ void func_151D8BE0(s32 arg0) {
 }
 s32 func_15144B34(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D8C00 CURRENT (15) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D8C00 CURRENT (25) */
 void func_151D8C00(void *arg0, u8 *arg1) {
     f32 delta;
     Vec3f difference;
@@ -183,7 +183,7 @@ void func_151D8C00(void *arg0, u8 *arg1) {
     start = *(f32 *)(arg1 + 0xC);
     if (distance < start) {
         alpha = 1.0f;
-    } else if ((start + *(f32 *)(arg1 + 0x10)) < (0, distance)) {
+    } else if ((start + *(f32 *)(arg1 + 0x10)) < distance) {
         alpha = 0.0f;
     } else {
         delta = distance - start;

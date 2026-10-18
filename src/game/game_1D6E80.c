@@ -597,7 +597,7 @@ void func_151AA6D8(Vec3f *arg0, Vec3f *arg1,
 /* Call context: func_151423D8: unique active project prototype */
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AAA4C CURRENT (10) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AAA4C CURRENT (20) */
 f32 func_151AAA4C(u8 * volatile arg0) {
     f32 temp_fv1;
     u8 *state;
@@ -608,7 +608,7 @@ f32 func_151AAA4C(u8 * volatile arg0) {
     temp_fv1 = func_151423D8(phase & 0xFF);
     state = arg0;
     state += 0x80;
-    temp_fv1 = *(f32 *)(state + 0x10) + (*(f32 *)(state + 0x14) * (0, temp_fv1));
+    temp_fv1 = *(f32 *)(state + 0x10) + (*(f32 *)(state + 0x14) * temp_fv1);
     *(s32 *)(state + 0x08) = (s32) ((*(u32 *)(state + 0x0C) * (u32) D_800BE9E4) + *(u32 *)(state + 0x08));
     return temp_fv1;
 }
