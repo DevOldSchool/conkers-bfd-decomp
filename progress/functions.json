@@ -93570,7 +93570,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 265,
-        "reason": "Closest-candidate pass full260 CURRENT265. New signed halfword lvalue probes first800, second690, both265; two-byte pixel record265. Volatile front-buffer stores/pointee265, signed volatile800, reversed comparisons265. Raw still differs in initial SRA scheduling and counter/color/second-pointer register allocation; preserve baseline.",
+        "reason": "Expanded manual pass2026-10-18: signed byteCount with original separate-count/snapshot lifetimes remains full260 CURRENT265; direct count expression before pointer loads worsens1280. Both leaf; raw SRA guard delay-slot and register residual remain. Earlier inside-guard count phase and pointer/color variants exhausted. Preserve baseline, no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93625,7 +93625,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1375,
-        "reason": "Fresh full-span1375 frame70; two probe batches tested endpoint pointer/integer arithmetic, explicit tail pointer/register lifetime, and separate real size/link locals. No improvement; pointer integer and explicit tail shapes grew frame78. Raw caches D800380BC in RA while candidate retains distinct endpoint base, leaving operand/register drift. Baseline preserved.",
+        "reason": "2026-10-18 goal manual pass: full1032 baseline1375 frame70 retained. Reusing existing endpoint in forward/reverse allocation formulas individually scores2507/2707 frame78; together2902 frame78. All three grow frame and worsen allocation. Prior endpoint construction/type and explicit tail-pointer hypotheses exhausted; preserve baseline, no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93644,7 +93644,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 35,
-        "reason": "Closest-candidate pass: seven register operands remain at full-span CURRENT35; frame30 and all opcodes agree. Natural loop-backedge, explicit register qualification of three real pointers, and individual/both pointer comparisons (eight new probes) do not change allocation. Initial V0 versus V1 and final T9/T0 versus T1/T2 remain; preserve baseline.",
+        "reason": "Expanded manual budget2026-10-18: early-return guard remains full476 CURRENT35 frame30; separate real free-list cursor and combined early-return335 frame30. Prior type/arithmetic/register/backedge hypotheses exhausted. Original seven register-operand residual retained, no padding/ABI/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93806,8 +93806,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1354,
-        "reason": "Fresh raw full-span1354 frame40; candidate source is unchanged from the record previously listed as 1154, which no longer reproduces on this tree (stale score, not a regression). Two probe batches tested named uncached-segment relocation, signed arithmetic intermediates, halfword destination casts, signed status, direct destination and split branch cursor lifetimes; no improvement. Core mismatch remains size in A3 instead of preserved S0, source S0 instead of S1; original candidate retained.",
+        "current_score": 854,
+        "reason": "Expanded manual budget 2026-10-18: four further variants signed/register/late busSource854 and early count1474, all frame40. Full468 best854 retained; original source saved-register residual remains. Prior1354->854 improvement preserved; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -97395,7 +97395,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 230,
-        "reason": "Closest-candidate pass: named denominator layout has correct frame38 but compiler spills the expression at18 instead of raw1C and still exchanges distance T1 with denominator T2. Fresh fixed-point multiplication (first/second/both), unsigned rounded value and unsigned mode probes remain230. Prior range/order families not repeated; preserve baseline.",
+        "reason": "2026-10-18 manual continuation: full816 baseline independently CURRENT230 (finish d1b4b1f501c04dab947e6f2e5a62a7ea). Replacing rounded with named limitRange retains frame38 and six local homes but worsens950; raw A5B8/A5C8 and matched B060 support separate angle representations. Original candidate retained; distance/denominator register exchange and eight spill rows remain. No new supported hypothesis; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -97414,7 +97414,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1816,
-        "reason": "Continuation manual vector representation improves full-span CURRENT 2275 to 1816, finish 62c76396b5184e50a986033ccfe07421. Raw frame D0 versus candidate D8 remains; pointer count lookup unchanged; actual base snapshot 1977; reusing table index reaches D0 but worsens 3768 and segment reuse 3163. Preserve structured vector candidate; no exact match, no shared changes.",
+        "reason": "2026-10-18 manual continuation: baseline full2320 CURRENT1816 frameD8 retained. New direct point->x variant removes non-call-crossing cache but worsens2032 and does not reduce frame. Layout confirms original top-relative homes already agree with raw frameD0; earlier base snapshot and index/segment reuse hypotheses exhausted. Preserve original candidate; no new supported frame hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

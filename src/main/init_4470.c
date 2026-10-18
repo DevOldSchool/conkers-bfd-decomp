@@ -150,7 +150,7 @@ extern volatile u8 D_8003A573;
 extern volatile u8 D_8003A575;
 void func_80022A60(TransferThread *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000480C CURRENT (1354) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000480C CURRENT (854) */
 void func_8000480C(u32 source, void *destination, u32 size) {
     u32 count;
     TransferWord data;
@@ -158,22 +158,24 @@ void func_8000480C(u32 source, void *destination, u32 size) {
     u32 offset;
     u32 readAddress;
     u8 *writeAddress;
+    u32 busSource;
 
+    busSource = source;
     D_8003A572 = 1;
     size = (size + 1) & ~1U;
     while (D_8003A573 != 0) {
     }
     while ((status = *(volatile u32 *)0xA4600010) & 3) {
     }
-    source |= D_80000308;
-    if (source & 2) {
+    busSource |= D_80000308;
+    if (busSource & 2) {
         size -= 2;
-        data.word = *(volatile u32 *)((source - 2) | 0xA0000000);
+        data.word = *(volatile u32 *)((busSource - 2) | 0xA0000000);
         count = size - 2;
         offset = 0;
         *(u16 *)((void **)&destination)[0] = data.half[1];
         if (count != 0) {
-            readAddress = source + 2;
+            readAddress = busSource + 2;
             writeAddress = ((void **)&destination)[0];
             do {
                 data.word = *(volatile u32 *)(readAddress | 0xA0000000);
@@ -185,14 +187,14 @@ void func_8000480C(u32 source, void *destination, u32 size) {
             } while (offset < count);
         }
         if (size & 2) {
-            data.word = *(volatile u32 *)((source + offset + 2) | 0xA0000000);
+            data.word = *(volatile u32 *)((busSource + offset + 2) | 0xA0000000);
             *(u16 *)((u8 *)((void **)&destination)[0] + offset + 2) = data.half[0];
         }
     } else {
         count = size - 2;
         offset = 0;
         if (count != 0) {
-            readAddress = source;
+            readAddress = busSource;
             writeAddress = ((void **)&destination)[0];
             do {
                 *(u32 *)writeAddress = *(volatile u32 *)(readAddress | 0xA0000000);
@@ -202,7 +204,7 @@ void func_8000480C(u32 source, void *destination, u32 size) {
             } while (offset < count);
         }
         if (size & 2) {
-            data.word = *(volatile u32 *)((source + offset) | 0xA0000000);
+            data.word = *(volatile u32 *)((busSource + offset) | 0xA0000000);
             *(u16 *)((u8 *)((void **)&destination)[0] + offset) = data.half[0];
         }
     }
