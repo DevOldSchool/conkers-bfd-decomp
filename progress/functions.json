@@ -50333,7 +50333,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 65,
-        "reason": "Improved121 to65: inline redundant owner alias fixes frame30 and vector20; grouped real Y assignments fixes load order. Remaining13 register-only rows swap accelerationY f0 and timestep f2. Deterministic32, register intent and compound assignment plateau65; inline-Y305. No stack/control differences.",
+        "reason": "PR147 review: typed Game1844C0MotionOwnerPrefix argument removes six repeated casts; motion derives from byte pointer plus0x120. Grouped Y assignment preserved and documented. Fresh CURRENT (65), unchanged13 FP register rows; frame30 and all local homes remain exact.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -77128,8 +77128,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 700,
-        "reason": "Manual pointer correction and explicit mask lifetimes improve5805 to CURRENT700. Remaining saved-register roles, bit-init scheduling, and extra callback A2 move; named entry-base and flags captures exhausted. Best700 restored.",
+        "current_score": 1150,
+        "reason": "PR147 review: corrected call argument cast to struct Game13F9D0MovingActor pointer; enabled candidate compiles on merged main. Fresh CURRENT (1150), versus inherited historical 700; frame40 matches, with49 register,11 operand,4 control and2 missing/extra rows. Remains a disabled candidate; no match claimed.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

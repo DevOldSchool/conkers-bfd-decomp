@@ -503,7 +503,7 @@ extern u8 D_800CC2D0;
 struct Game13F9D0MovingActor;
 void func_1511473C(struct Game13F9D0MovingActor *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15114188 CURRENT (700) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15114188 CURRENT (1150) */
 void func_15114188(void) {
     struct ActorSlot {
         u8 pad[0x127];
@@ -548,7 +548,7 @@ void func_15114188(void) {
                             }
                             if ((entry[0x4F] & 4) == 4) {
                                 if (!(entry[0x4F] & 8)) {
-                                    func_1511473C(&((struct ActorSlot *)&D_800CC2D0)[bit], index);
+                                    func_1511473C((struct Game13F9D0MovingActor *)&((struct ActorSlot *)&D_800CC2D0)[bit], index);
                                 }
                             }
                         }

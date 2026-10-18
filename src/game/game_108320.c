@@ -274,6 +274,7 @@ void func_150DB518(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
         config.field_08 = 0;
         config.field_04 = arg5;
         config.field_45 = 0xFF;
+        /* Keep this grouping to preserve IDO's t6/t7/t8/t9 constant materialisation order. */
         config.colour[2] = 0xC8, config.colour[1] = 0xC8, config.colour[0] = 0xC8;
         config.colour[3] = 0xC8;
         config.field_02 = 0x401;

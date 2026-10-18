@@ -272,7 +272,7 @@ extern f32 D_800BE9A4;
 extern f32 D_800BE9A8;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15157AA8 CURRENT (65) */
-s32 func_15157AA8(u8 *arg0) {
+s32 func_15157AA8(Game1844C0MotionOwnerPrefix *arg0) {
     Game1844C0MotionExtension *motion;
     Vec3f initialVelocity;
     u32 remaining;
@@ -280,7 +280,7 @@ s32 func_15157AA8(u8 *arg0) {
     f32 accelerationY;
     f32 accelerationZ;
 
-    motion = (Game1844C0MotionExtension *)(arg0 + 0x120);
+    motion = (Game1844C0MotionExtension *)((u8 *)arg0 + 0x120);
     if (motion->flags30 & 1U) {
         initialVelocity = motion->velocity10;
         if (motion->flags30 & 8U) {
@@ -297,7 +297,9 @@ s32 func_15157AA8(u8 *arg0) {
         }
 
         if (motion->flags30 & 4U) {
-            accelerationY = motion->acceleration28, motion->velocity10.y = motion->velocity10.y + accelerationY * D_800BE9A4;
+            /* Keep the grouped assignment to preserve the deferred candidate's load order. */
+            accelerationY = motion->acceleration28,
+            motion->velocity10.y = motion->velocity10.y + accelerationY * D_800BE9A4;
         } else {
             accelerationY = 0.0f;
         }
@@ -307,11 +309,11 @@ s32 func_15157AA8(u8 *arg0) {
         accelerationZ =
             (motion->velocity10.z - initialVelocity.z) * D_800BE9A8;
 
-        ((Game1844C0MotionOwnerPrefix *)arg0)->positionX54 = ((Game1844C0MotionOwnerPrefix *)arg0)->positionX54 +
+        arg0->positionX54 = arg0->positionX54 +
             (initialVelocity.x + (0.5f * accelerationX) * D_800BE9A4) * D_800BE9A4;
-        ((Game1844C0MotionOwnerPrefix *)arg0)->positionY58 = ((Game1844C0MotionOwnerPrefix *)arg0)->positionY58 +
+        arg0->positionY58 = arg0->positionY58 +
             (initialVelocity.y + (0.5f * accelerationY) * D_800BE9A4) * D_800BE9A4;
-        ((Game1844C0MotionOwnerPrefix *)arg0)->positionZ5C = ((Game1844C0MotionOwnerPrefix *)arg0)->positionZ5C +
+        arg0->positionZ5C = arg0->positionZ5C +
             (initialVelocity.z + (0.5f * accelerationZ) * D_800BE9A4) * D_800BE9A4;
     }
 
