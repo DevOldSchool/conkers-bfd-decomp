@@ -116,7 +116,6 @@ struct Game133190Object *func_15105CE0(Game104C44Beam *, s32, u8, s32);
 s32 func_15046C80(f32 *, u16, f32, void *);
 s32 func_1000FD38();
 s32 D_1000EF40();
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800A23AC, D_800A23B0, D_800BE9A4;
 extern s32 D_800BE9E4;
@@ -252,7 +251,6 @@ typedef struct Game131F30Emitter {
 } Game131F30Emitter;
 
 s32 func_15102920(f32, s32, void *, void *, s32, s32, s32, s32, s32, s32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_151C329C(void *, u8, s32);
 void func_15151D6C(Game131F30Descriptor *, Game131F30Color *, Game131F30Factor *, s32, u8, s32);

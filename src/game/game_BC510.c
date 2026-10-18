@@ -57,7 +57,6 @@ typedef struct GameBC510Node {
     u8 padB5[3];
 } GameBC510Node;
 
-u32 func_150ADA20(void);
 void *func_10003C40(s32, s32, s32, s32);
 void func_151EFEB8(void *, s32);
 s32 func_1503E5F8(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);

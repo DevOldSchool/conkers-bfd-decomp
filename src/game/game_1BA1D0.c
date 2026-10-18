@@ -29,7 +29,6 @@ typedef struct Game1BA1D0Spawn {
 
 void *func_10003C6C(s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_1514373C(f32, f32, f32 *, f32 *);
 void func_15145DB4(void *, Vec3f *, Vec3f *, s32);

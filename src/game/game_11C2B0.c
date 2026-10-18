@@ -15,7 +15,6 @@
 
 void func_15143134(f32 *, f32 *, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-u32 func_150ADA20(void);
 void func_150EEF80(void *, u8, s32, s32);
 extern u8 D_800A15F0[];
 extern u8 D_800A1638[];

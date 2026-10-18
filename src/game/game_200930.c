@@ -36,7 +36,6 @@ void func_100043B4(s32, s32);
 u16 func_10010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *, f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 s32 func_15102920(f32, s32, void *, void *, s32, s32, s32, s32, s32, s32);
 void * func_15132A4C(void *, s32, s32, s32, u8, s32);
@@ -448,7 +447,6 @@ void func_151D3E6C(void *arg0, void *arg1, void *arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D3E6C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D3E6C.s")
-u32 func_150ADA20(void);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 typedef struct Game200930Position {
@@ -1218,7 +1216,6 @@ void func_151D5514(s32 arg0, u8 arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D5514 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5514.s")
 void func_151541B8(f32 *, f32, f32, f32, f32, u8, s32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_151D5514(f32 *, u8, s32);
 

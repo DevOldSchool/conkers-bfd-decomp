@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_15ABA0.c
@@ -90,7 +91,6 @@ void func_1512D748(void *view, s32 preset_index, s32 mode) {
 /* Call context: func_15047D60: unique active project prototype */
 /* Call context: func_1512D6F0: unique active declaration in the allowed source */
 f32 func_15047D60(f32);
-s32 func_150ADA20();                                /* extern */
 extern f32 D_800A36F0;
 extern f32 D_800A36F4;
 extern f32 D_800A36F8;

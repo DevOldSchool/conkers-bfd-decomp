@@ -53,7 +53,6 @@ typedef struct {
     u8 flags;
 } Game121A20Motion;
 
-s32 func_150ADA20(void);
 f32 func_150ADA68(void);
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
@@ -187,7 +186,6 @@ typedef struct GameF4A38Actor {
 s32 func_15144B34(s32);
 void func_1000F9D4(s32, s32, s32, s32);
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-s32 func_150ADA20(void);
 extern f64 D_800A1A88, D_800A1A90;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F4A38 CURRENT (1667) */

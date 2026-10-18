@@ -33,7 +33,6 @@ typedef struct Game1E2180Actor {
 } Game1E2180Actor;
 
 s32 func_15134070(void *);
-u32 func_150ADA20(void);
 void *func_10022EC0(void *, const void *, u32);
 extern u8 D_800A3FE6[];
 

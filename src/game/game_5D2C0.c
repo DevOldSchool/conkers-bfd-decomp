@@ -1265,7 +1265,6 @@ typedef struct {
 
 void func_10010FFC(s32, s32, s32, s32, s32, void *);
 void func_100111C8(s32, void *);
-u32 func_150ADA20(void);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15033BDC CURRENT (120) */
 s32 func_15033BDC(GameCoreSoundHandle *arg0, s32 arg1, s32 *arg2,

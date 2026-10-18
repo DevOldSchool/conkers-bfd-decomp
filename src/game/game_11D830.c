@@ -254,7 +254,6 @@ typedef struct Game11D830SpawnTail {
     f32 z;
 } Game11D830SpawnTail;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800A1860;
 extern f32 D_800A1864;

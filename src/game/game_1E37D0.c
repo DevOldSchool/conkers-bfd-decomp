@@ -327,7 +327,6 @@ typedef struct Game1E37D0ParticleSpawn {
     s8 zero65;
 } Game1E37D0ParticleSpawn;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800AA47C;
 

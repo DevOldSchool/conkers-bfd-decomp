@@ -15,7 +15,6 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4FF0/func_150B7B40.s")
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_15143794(s16, s16, f32, void *);
 struct Game1B7870Vector;
@@ -107,7 +106,6 @@ typedef struct GameE4FF0Descriptor {
     u8 pad66[0xA];
 } GameE4FF0Descriptor;
 
-u32 func_150ADA20(void);
 void *func_15130374(s32, u8, s32, u8, s32);
 extern f32 D_8009FD88;
 

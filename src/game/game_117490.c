@@ -106,7 +106,6 @@ typedef struct {
 } Game117490Extra;
 
 void *func_151303BC(s32, u8, s32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800A1418, D_800A141C, D_800A1420, D_800A1424;
 extern f32 D_800A1428, D_800A142C, D_800A1430, D_800A1434;

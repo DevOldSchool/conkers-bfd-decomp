@@ -271,7 +271,6 @@ void func_151568F8(Game183640CombinedRecord *arg0, s32 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151568F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_183640/func_151568F8.s")
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-u32 func_150ADA20(void);
 void func_15156D24(void *, u8);
 
 typedef struct Game183640Point {

@@ -244,7 +244,6 @@ void func_150D4C2C(void *arg0) {
 extern s32 D_800BE9E4;
 extern s32 D_800A09C0[];
 extern f32 D_800A0A14;
-s32 func_150ADA20(void);
 
 s32 func_150D4CC4(void *arg0) {
     f32 temp_fv0;

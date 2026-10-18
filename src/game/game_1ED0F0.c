@@ -279,7 +279,6 @@ block_4:
 void func_150E7FEC(f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 void func_151C0360(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
-    u32 func_150ADA20();
     f32 func_150ADA68(void);
     struct { f32 scale; u32 value; u32 duration; } random;
 
@@ -292,7 +291,6 @@ void func_151C0360(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
                   (random.duration % 205U) + 0x12B,
                   1, 1, 0, 0, 0, (s32)arg2, 0);
 }
-u32 func_150ADA20();
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 typedef struct Game1ED0F0Position {

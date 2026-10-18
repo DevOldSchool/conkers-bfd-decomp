@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_13D350.c
@@ -254,7 +255,6 @@ void func_1511172C(s32 arg0) {
 void * func_10003C40(s32, s32, s32, s32);
 f32 func_150AD780(f32);                             /* extern */
 f32 func_150AD78C(f32);                             /* extern */
-u32 func_150ADA20();                                /* extern */
 extern f32 D_800A2F24;
 extern f32 D_800A2F28;
 extern f32 D_800A2F2C;

@@ -892,7 +892,6 @@ void func_1516FE1C(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1516FE1C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516FE1C.s")
-u32 func_150ADA20(void);
 
 void func_15170034(s32 arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
     s32 mask;

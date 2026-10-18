@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1D9A00.c
@@ -61,7 +62,6 @@ typedef struct Game1D9A00EmitterOwner {
     u8 kind;
 } Game1D9A00EmitterOwner;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_15143794(s16, s16, f32, void *);
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32,

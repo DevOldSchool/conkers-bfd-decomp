@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1DCA70.c
@@ -106,7 +107,6 @@ typedef struct Game1DCA70Particle {
 void *func_10022EC0(void *, const void *, u32);
 void *func_15130374(s32, u8, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800AA110, D_800AA114, D_800AA118, D_800AA11C;
 

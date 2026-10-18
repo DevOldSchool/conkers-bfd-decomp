@@ -42,7 +42,6 @@ typedef struct Game174BF0Actor {
     s8 opacity, fieldF1;
 } Game174BF0Actor;
 u16 func_10010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-u32 func_150ADA20(void);
 s32 func_1510F8D8(s32, s32, s32, s32 *);
 extern f32 D_800A7174;
 extern s32 D_800DBE3C, D_800DBE5C;
@@ -148,7 +147,6 @@ typedef struct {
 extern Game17685CPosition D_800CC2D0;
 extern u8 D_800DDF5C[], D_800DDF68[];
 s32 func_150AD960(s32, s32, s32, s32);
-u32 func_150ADA20(void);
 void func_15175958(void *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1517685C CURRENT (700) */

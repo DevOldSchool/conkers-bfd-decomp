@@ -12,7 +12,6 @@
  */
 
 void *func_10022EC0(void *, const void *, u32);
-u32 func_150ADA20(void);
 
 typedef struct GameE7970Packet {
     void *field_0;

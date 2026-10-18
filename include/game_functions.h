@@ -239,5 +239,12 @@ s32 func_151422DC(s32, void *, s32, s32, s32, void *, s32);
 void func_150026C4(s32);
 void func_15002724(s32);
 struct Game1D9F10Record *func_151ACA60(void *, f32, s32);
+/* Game RNG. The raw callee overwrites $a0 at 0x150ADA20 and takes no input.
+ * Most callers pass nothing, but some matched callers pass a value, and
+ * func_1507EEF4 and func_1507F4C0 (game_AC030.c) match only with it, so this
+ * declaration is deliberately unprototyped to fit that call contract. A (void)
+ * prototype was rejected: docs/evidence/matching/rng_shared_prototype.md.
+ */
+u32 func_150ADA20();
 
 #endif

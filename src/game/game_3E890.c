@@ -178,7 +178,6 @@ typedef struct Game3E890Light {
 } Game3E890Light;
 
 void *func_10022EC0(void *, const void *, u32);
-u32 func_150ADA20(void);
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern f32 D_80096508, D_8009650C, D_80096510, D_80096514;

@@ -696,7 +696,6 @@ typedef struct Blood364Hit {
 void func_1504715C(void *, void *);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
 s32 func_15046C80(f32 *, u16, f32, void *);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800A460C;
 extern f32 D_800A4610;
@@ -773,7 +772,6 @@ typedef struct {
 } Blood36698Descriptor;
 
 extern Blood36698Kinds D_80089BAC;
-u32 func_150ADA20(void);
 void *func_1513D594(s32, s32, u8, u8, u8, u8, s16, f32, f32,
                     s32, s32, s32, s32, u8, s32, u8, s32);
 
@@ -945,7 +943,6 @@ void func_15136A50(s32 arg0, s32 arg1, s32 arg2, s16 arg3, u8 arg4, s32 arg5) {
     func_15134908(&packet.x, 0, arg4, arg5);
 }
 f32 func_150ADA68(void);
-u32 func_150ADA20(void);
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32,
                    f32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A4624;
@@ -1279,7 +1276,6 @@ void func_15137E60(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4,
     func_151D9014(position, vector, 0, value, count, (u8)alpha, scale, 0,
                    1.0f, 1.0f, 1, 0, 1, 0, arg5[0xC], arg5[1]);
 }
-u32 func_150ADA20();                                /* extern */
 extern f32 D_800A482C;
 
 void func_15137F30(

@@ -218,7 +218,6 @@ typedef struct Game146E84Work {
 
 
 s32 func_15146890(f32 *, void *, s32, u8);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 u8 func_151D8E20(void);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32,
@@ -266,7 +265,6 @@ void func_15146E84(void *arg0, s32 arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15146E84 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_173D40/func_15146E84.s")
 s32 func_15146890(f32 *, void *, s32, u8);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_1514C678(f32, f32, s32, f32, s32, s32, s32, s32, s32, f32, s32, s32);
 
@@ -306,7 +304,6 @@ typedef struct Game173D40Particle {
 void *func_10022EC0(void *, const void *, u32);
 void *func_15130374(s32, u8, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800A5730, D_800A5734, D_800A5738;
 

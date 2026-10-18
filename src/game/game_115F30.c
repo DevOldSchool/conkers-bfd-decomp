@@ -16,7 +16,6 @@
  */
 
 void *func_10022EC0(void *, const void *, u32);
-u32 func_150ADA20(void);
 extern f32 D_800A137C;
 extern f32 D_800A1380;
 extern f32 D_800A13B0;

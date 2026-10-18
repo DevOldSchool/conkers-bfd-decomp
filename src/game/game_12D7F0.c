@@ -16,7 +16,6 @@ extern Game12D7F0Copy5 D_80088BC0;
 extern u8 D_800BE500[];
 extern u8 D_800DD405;
 
-u32 func_150ADA20(void);
 
 void func_15100340(s32 arg0) {
     s32 var_s2;

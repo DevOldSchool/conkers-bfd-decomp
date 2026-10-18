@@ -41,7 +41,6 @@ typedef struct GameE35C0Descriptor {
     u8 pad2D[3];
 } GameE35C0Descriptor;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_1514373C(f32, f32, f32 *, f32 *);
 s32 func_15106F98(void *, void *, s32, void *, f32, u8, u8, s32);

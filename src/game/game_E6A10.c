@@ -88,7 +88,6 @@ s32 func_150B9D14(void *arg0, GameE6A10TransformCommand *arg1) {
         arg1->field_40, arg1->field_20, arg1->field_24, arg1->field_28);
     return 1;
 }
-s32 func_150ADA20(void);
 
 typedef struct GameE6A10SpawnPacket {
     s32 kind;

@@ -50,7 +50,6 @@ s32 func_1509F33C(s32 arg0, s32 arg1, s32 arg2) {
 s32 func_10010344(s32, s32, u32, s16, s32);         /* extern */
 s32 func_10010894(s32);                             /* extern */
 s32 func_1505EEF4(s32);                             /* extern */
-u32 func_150ADA20();                                /* extern */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509F354 CURRENT (1747) */
 u32 func_1509F354(s32 arg0, s32 arg1, u32 arg2, u32 arg3, s32 arg4, s16 arg5, s32 arg6) {

@@ -148,7 +148,6 @@ void func_1518BBF4(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1518BBF4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B8F40/func_1518BBF4.s")
 void *func_10022EC0(void *, const void *, u32);
-s32 func_150ADA20(void);
 
 Game1B8F40Effect *func_1518BCD0(void *arg0, u8 arg1, s32 arg2) {
     Game1B8F40Effect *temp_v0;

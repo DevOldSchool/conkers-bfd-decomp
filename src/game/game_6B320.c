@@ -440,7 +440,6 @@ void func_1503EA54(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503EA54.s")
 extern f32 D_80098920;
 extern f32 D_80098924;
-u32 func_150ADA20(void);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1503EB78 CURRENT (227) */
 void func_1503EB78(void *arg0, f32 arg1, f32 arg2, s32 arg3) {
@@ -586,7 +585,6 @@ s32 func_1503EF4C(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 extern u8 D_80098914[];
-extern u32 func_150ADA20(void);
 
 void func_1503EFC4(s32 arg0) {
     Game6B320Slot *slot;

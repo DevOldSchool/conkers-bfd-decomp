@@ -23,7 +23,6 @@ void func_15145EA4(s32 *, s32 *, s32, s32);
 extern u8 D_80088BA0;
 extern s32 D_800A2000;
 
-s32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_150FEC28(void *, s32, void *, void *, void *, s32, s32);
 void func_15145740(void *, void *, void *, void *, f32);
@@ -124,7 +123,6 @@ void func_150FEBC8(Game12BD10State *arg0, s32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150FEBC8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12BD10/func_150FEBC8.s")
-s32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32,
                    s32, s32, s32, s32, s32);

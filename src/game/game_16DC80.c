@@ -183,7 +183,6 @@ void func_1514143C(void *arg0) {
         m->unk44->unk8 = a->unk3C;
     }
 }
-s32 func_150ADA20();                                /* extern */
 f32 func_150ADA68();                                /* extern */
 extern f32 D_800BE9A4;
 

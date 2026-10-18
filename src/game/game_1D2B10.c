@@ -60,7 +60,6 @@ typedef struct Game1D2B10Effect {
     u8 pad26[2];
 } Game1D2B10Effect;
 
-s32 func_150ADA20(void);
 void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, s32, s32, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A5D58 CURRENT (994) */

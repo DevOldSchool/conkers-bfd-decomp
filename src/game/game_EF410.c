@@ -430,7 +430,6 @@ void func_150C2804(s32 arg0, s32 arg1, s32 arg2, s16 arg3, u8 arg4, s32 arg5) {
 }
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32, f32,
                    s32, s32, s32, s32, s32, s32);
-u32 func_150ADA20(void);
 extern f32 D_800A0288;
 extern f32 D_800A028C;
 extern f32 D_800A0290;

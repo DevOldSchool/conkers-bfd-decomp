@@ -152,7 +152,6 @@ void *func_1519108C(u8 *arg0, s16 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1519108C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_1519108C.s")
-u32 func_150ADA20(void);
 extern u8 D_800A9D40[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15191400 CURRENT (835) */

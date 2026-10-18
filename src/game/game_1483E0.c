@@ -25,7 +25,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-u32 func_150ADA20(void);                        /* extern */
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 extern f32 D_800A3188;

@@ -12,7 +12,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-u32 func_150ADA20(void);
 void func_1516D4E8(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 
 typedef struct Game19EDA0Color {

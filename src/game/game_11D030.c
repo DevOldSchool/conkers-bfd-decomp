@@ -39,7 +39,6 @@ typedef struct Game11D030EmitterState {
     f32 accumulator;
 } Game11D030EmitterState;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_15143794(s16, s16, f32, void *);
 void *func_1515C2F0(void *, void *, s32, s32, u8, s32);

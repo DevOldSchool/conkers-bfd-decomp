@@ -21,6 +21,7 @@ Start with the [conversion audit](matching_conversion_audit.md) for the distinct
 - [Deferred GAME contract and descriptor continuation (US)](game_deferred_contract_continuation.md)
 - [Emitter-state callback matching (US)](game_1897a0_callback_matching.md)
 - [Five deferred matches and tooling timing, 2026-10-12](deferred_five_timing_20261012.md)
+- [Game RNG shared prototype (US)](rng_shared_prototype.md)
 - [Light callback and cleanup argument matching (US)](light_callback_argument_matching.md)
 - [m2c fork starter comparison (US), 2026-10-11](m2c_fork_starter_comparison.md)
 - [Manual interpolation, actor effect and descriptor candidates](manual_interpolation_actor_descriptor_candidates.md)

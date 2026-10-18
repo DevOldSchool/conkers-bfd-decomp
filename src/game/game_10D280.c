@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_10D280.c
@@ -100,7 +101,6 @@ typedef struct Game10D280Light {
     u8 flags;
 } Game10D280Light;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_15107700(void *, s16, s16, s16, s32, f32, f32, s32, s32, u8 *, s32, s32);
 void func_15107B78(void *, s16, s16, u8, s32);

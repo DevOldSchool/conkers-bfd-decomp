@@ -257,7 +257,6 @@ s32 func_151A361C(Game1D0840TimedObject *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A361C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A361C.s")
-u32 func_150ADA20(void);
 void func_151A4E9C(void *);
 f32 sqrtf(f32);
 f32 fabsf(f32);
@@ -452,7 +451,6 @@ typedef struct Game1D0840EmitterPacket {
     u8 pad64[0xC];
 } Game1D0840EmitterPacket;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void *func_15130374(s32, u8, s32, u8, s32);
 extern f32 D_800A8D60;

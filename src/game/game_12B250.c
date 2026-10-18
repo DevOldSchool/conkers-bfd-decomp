@@ -12,7 +12,6 @@
  */
 
 void func_15145740(void *, void *, void *, void *, f32);
-u32 func_150ADA20();
 f32 func_150ADA68(void);
 s32 func_151C229C(Vec3f *, Vec3f *, s32, s32, s32,
                    s32, f32, f32, f32, f32, f32, s32, void *, s32, s32,
@@ -149,7 +148,6 @@ typedef struct {
     s8 field_6;
 } Game12B250EventPacket;
 
-u32 func_150ADA20(void *);
 void func_151D8868(s8 *, s32, s32, s32);
 
 void func_150FE288(void *arg0) {

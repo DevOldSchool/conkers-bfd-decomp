@@ -49,7 +49,6 @@ extern Game133190EventCallback D_80088C10[];
 extern s32 D_800BE9E4;
 void func_15106214(s32);
 void func_15106610(void *);
-u32 func_150ADA20(void);
 
 typedef struct Game133190Color {
     u8 bytes[4];

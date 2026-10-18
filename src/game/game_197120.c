@@ -77,7 +77,6 @@ void func_1516A3F4(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1516A3F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_197120/func_1516A3F4.s")
-u32 func_150ADA20(void *);
 void func_15171D4C(f32, f32, f32, s32, s32, s32, f32, s32, s32,
                    s32, s32, s32, s32, s32);
 

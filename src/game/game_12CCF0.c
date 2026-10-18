@@ -28,7 +28,6 @@ typedef struct Game12CCF0Actor {
     u8 pad7C[0x2B0];
 } Game12CCF0Actor;
 
-u32 func_150ADA20();
 f32 func_150ADA68(void);
 void func_150FFCC8(void *, void *, void *, void *, void *);
 void func_150FFC3C(void *);
@@ -117,7 +116,6 @@ void func_150FFBDC(Game12CCF0State *arg0, s32 arg1, s32 arg2) {
     func_15145EA4((s32 *) &sp1C, &sp18,
                   arg0->field1D4 + (D_80088BB0 << 6), 1);
 }
-u32 func_150ADA20();
 void func_151D8868(s8 *, s32, s32, s32);
 
 void func_150FFC3C(void *arg0) {

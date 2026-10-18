@@ -682,7 +682,6 @@ s32 func_15133B98(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) 
 }
 s32 func_15133B98(void *, f32, f32, f32, f32, s32);
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-u32 func_150ADA20(void);
 
 s32 func_15133C58(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) {
     func_15133B98(arg0, arg1, arg2, arg3, arg4, arg5);

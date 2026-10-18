@@ -494,7 +494,6 @@ f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
-u32 func_150ADA20(void);
 void func_1504917C(void *, void *);
 void func_15049688(void *, f32, void *, f32, f32, f32);
 void func_150AD8B0(f32 *, f32 *, f32 *);
@@ -1338,7 +1337,6 @@ void func_15125690(void *arg0, s32 arg1) {
     }
 }
 void func_1508EF80(f32 *, f32 *, f32, f32 *);
-u32 func_150ADA20(void);
 extern f32 D_800BE9A4;
 extern f32 D_800A3534;
 extern f32 D_800A3538;

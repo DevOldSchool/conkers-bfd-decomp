@@ -52,7 +52,6 @@ s32 func_150BA930(f32 *, u8 *, void *, s32);
 u8 func_15143E94(s32, s32);
 void func_1514C678(f32, f32, f32, f32, s32, s32, s32, s32, s32, f32, s32, s32);
 /* The raw caller supplies two additional words beyond the consumed prefix. */
-u32 func_150ADA20();
 f32 func_150ADA68();
 extern s32 D_80082FA4;
 extern f32 D_8009FE64;

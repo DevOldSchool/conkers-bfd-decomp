@@ -316,7 +316,6 @@ typedef struct Game141F78Packet {
 
 void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32, f32,
                      u8, u8, s32, s32, s32, u8, s32);
-s32 func_150ADA20();
 f32 func_150ADA68();
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15141F78 CURRENT (745) */
@@ -641,7 +640,6 @@ void func_15142914(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
     *(f32 *)((u8 *)arg0 + 0x24) = (f32) (*(f32 *)((u8 *)arg0 + 0x24) * arg1);
     *(f32 *)((u8 *)arg0 + 0x28) = (f32) (*(f32 *)((u8 *)arg0 + 0x28) * arg1);
 }
-s32 func_150ADA20(); /* extern */
 extern u8 D_8008A160[];
 
 void func_151429E0(u8 arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
@@ -2686,7 +2684,6 @@ s32 func_1514672C(struct17 *arg0) {
         return 1;
     }
 }
-s32 func_150ADA20(f32 *);                           /* extern */
 f32 func_150ADA68();                                /* extern */
 extern f32 D_800BE9A4;
 
