@@ -93280,7 +93280,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Closest-candidate pass: refreshed full652 CURRENT60, only first framebuffer SW versus following LUI ordering differs. Consumer proves table elements are u16 pointers; typed-table/local-pointer probes preserve60, natural no-goto340, direct typed globals640. Type correction did not recover scheduling; baseline retained, immediate goto remains source-quality concern.",
+        "reason": "60: only the first framebuffer store is scheduled before lui a0 (goto label splits the block). Natural forms (direct stores, clear_size/framebuffers pointer, same-line joins, loops) score 340/640/6864; IDO -S shows identical ugen order for all of them. 0x1ECC0 = 292*216*2.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93569,8 +93569,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 265,
-        "reason": "Expanded manual pass2026-10-18: signed byteCount with original separate-count/snapshot lifetimes remains full260 CURRENT265; direct count expression before pointer loads worsens1280. Both leaf; raw SRA guard delay-slot and register residual remain. Earlier inside-guard count phase and pointer/color variants exhausted. Preserve baseline, no shared changes.",
+        "current_score": 120,
+        "reason": "Improved 265->120: color computed once inside the null check, count inside the if, for-init counters. Residual is a count/loop-bound/second register rotation (raw t0/a3/t1). Permuter reaches 60 only via a no-op if (second) {} in loop 1 (fake, rejected); natural single-pointer, register, index and decl-order variants do not reproduce it.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93644,7 +93644,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 35,
-        "reason": "Expanded manual budget2026-10-18: early-return guard remains full476 CURRENT35 frame30; separate real free-list cursor and combined early-return335 frame30. Prior type/arithmetic/register/backedge hypotheses exhausted. Original seven register-operand residual retained, no padding/ABI/shared changes.",
+        "reason": "35 (natural): block->prevFree reload recovers one of two missing ugen temps. Permuter (3 runs, ~70k iterations) reaches 15 only with an extra boolean local (new_var = cursor != block before the cursor == 0 test); first three rows remain: raw computes arg0-0xC straight into v1 (cursor), ours uses a CSE temp v0. Role enumeration (324 + 864 incl. 7th local), statement orders, integer header, initializers: no gain.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93826,7 +93826,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 790,
-        "reason": "Continuation 2026-10-13 full976 CURRENT790 unchanged. Manual case2 flatten/early-continue probes790; explicit graphics-slot local877 grows frame70 and still caches AC6C; audio guard1878. Disassembly confirms the wrong global-address promotion persists; preserve baseline.",
+        "reason": "790: only the s8 global-address promotion differs (raw &D_8002AC50, ours &D_8002AC6C; 3 uses each). Permuter best 31 used an extra zero local; isolated: storing a variable (not literal 0) to D_8002AC6C in case 3 flips it (87), but any fourth named local grows the frame 0x68->0x70. Decl order, volatile extern, arg0-as-zero: no gain.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95793,7 +95793,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1732,
-        "reason": "Continuation 2026-10-13: full240 CURRENT1732 from1802 (previous candidate reprobed on this tree) by narrowing volume in place before loading flags. Unsigned-mask/promotion, real split copies and early guard probes did not recover S1; saved-register choice and call scheduling still differ. Preserve measured improvement; no ABI/shared changes.",
+        "reason": "1732: raw keeps the volume parameter in s1 (no home store) and loads field184 into v0 via a named local (home 0x30, mixFlags confirmed: natural u16-cast form 1779). Local copies, register parameter, K&R definition, else-form: volume stays memory-resident.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -96908,17 +96908,22 @@
       "symbol": "func_80005B04"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 945,
-        "reason": "Full76 CURRENT945 restored independently (74efe269). New cursor-minus-one inclusive comparison2510 triggers loop unrolling; reject after one revision. Earlier pointer snapshot, integer cursor, explicit exit, mask lifetime and decrement forms exhausted. No further distinct supported hypothesis; preserve best candidate.",
-        "recorded_revision": "working-tree"
+      "original_asm": {
+        "reason": "Handwritten bitmap initializer: in-place t0/a0 register reuse with no IDO expression temporaries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "assembly_sha256": "8edb37ffe6aafc3add10ca595fcfecbbc82a44dd29b07828eed7bf239c7427ca",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "fb041ca8620d0564873d0763acbed67a65f8b7ccfe4c5e175a7ef71631f12899",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "original_asm",
           "symbol": "func_80005BE0",
           "vram": "0x80005BE0"
         }
@@ -96975,17 +96980,22 @@
       "symbol": "func_800061F8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 245,
-        "reason": "Raw handwritten-family wrapper uses frame0x10 with RA at SP+0 inside standard outgoing argument area; IDO C tail-return call generates frame0x18 with RA+0x14 and pre-JR restore, CURRENT245. No evidence-backed ordinary-C frame recovery; preserve semantic wrapper without modifying ASM or compiler flags.",
-        "recorded_revision": "working-tree"
+      "original_asm": {
+        "reason": "Handwritten decompression-family wrapper: 0x10 frame with ra at sp+0 (no o32 outgoing-argument area)",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "assembly_sha256": "98b5a8a0256716fb2929ec6e29f27e5c3b9a0b3075ade6881260b14b713d8345",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "31adecd138e838cf3add669d09feda65b9792f5256dd6eca4124b6aefc49d8f4",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 28,
-          "state": "raw_asm",
+          "state": "original_asm",
           "symbol": "func_80006240",
           "vram": "0x80006240"
         }
@@ -97258,17 +97268,22 @@
       "symbol": "func_8000777C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1275,
-        "reason": "Fresh manual inspection 2026-10-13 confirms 76-byte helper uses T9/T8/T7/T6 throughout, preserves normal return registers, and sits among handwritten scheduler entry points. Natural C cursor body retained; no fake register-pressure variables or ABI change introduced.",
-        "recorded_revision": "working-tree"
+      "original_asm": {
+        "reason": "Handwritten SDK exceptasm.s thread-queue routine (__osEnqueueThread/__osPopThread)",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "assembly_sha256": "af951ab417c89ecc7585092983c17d128164f3e311fa2a4ca15b59d4531d33a9",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "c830daccbfdb0ffa3dd1861154b3cc9d6e5940ae67f14f1443acb092f5c05d53",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "original_asm",
           "symbol": "func_800079D8",
           "vram": "0x800079D8"
         }
@@ -97277,17 +97292,22 @@
       "symbol": "func_800079D8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Twin-queue 2026-10-17: level-2 matched twin func_1519C258 is the same shape already used; probe of chained (*queue)->next, named next local and void* forms all CURRENT 10 (t9 vs t6 temp only). Raw is handwritten queue-pop; no C hypothesis left.",
-        "recorded_revision": "working-tree"
+      "original_asm": {
+        "reason": "Handwritten SDK exceptasm.s thread-queue routine (__osEnqueueThread/__osPopThread)",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/boundaries/main/main_handwritten_family_boundaries.md"
       },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "assembly_sha256": "c93f8ad30b2f4859f53eb81a8c17a4bb7398c896bf03f8cd2e7123109f66f9b3",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "397c7e3ffdad1ac5762a6c3a69ac2364d58132ee248686ffcb7531a20e5239c0",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 20,
-          "state": "raw_asm",
+          "state": "original_asm",
           "symbol": "func_80007A24",
           "vram": "0x80007A24"
         }
@@ -97395,7 +97415,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 230,
-        "reason": "2026-10-18 manual continuation: full816 baseline independently CURRENT230 (finish d1b4b1f501c04dab947e6f2e5a62a7ea). Replacing rounded with named limitRange retains frame38 and six local homes but worsens950; raw A5B8/A5C8 and matched B060 support separate angle representations. Original candidate retained; distance/denominator register exchange and eight spill rows remain. No new supported hypothesis; no shared changes.",
+        "reason": "Natural candidate 230: only a t1/t2 swap between distance and the CSE'd (otherLimit - flaggedLimit). Permuter's exact result needed five empty if (1) {} blocks after the second division (reopened as fake); diagnostics show >=5 extra IR blocks where distance is live but the denominator is not flip the uopt priority. Named range, scoped locals, u32 distance, ternary distance, cast removal: no gain.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
