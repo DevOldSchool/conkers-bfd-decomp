@@ -13,7 +13,6 @@
  * - func_15002008
  * - func_15002248
  * - func_15002754
- * - func_15002878
  * - func_150028BC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -559,23 +558,22 @@ s32 func_150027F8(ConkerGfx *arg0) {
     return ret;
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15002878 CURRENT (10) */
 s32 func_15002878(void) {
     s32 value;
     s32 maximum;
     s32 i;
 
     maximum = D_800DBE18[0];
-    for (i = 0; i < 3; i++) {
+    i = 0;
+    do {
         value = D_800DBE1C[i];
         if (maximum < value) {
             maximum = value;
         }
-    }
+        i++;
+    } while ((void *)&D_800DBE28 != (void *)&D_800DBE1C[i]);
     return maximum;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15002878 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15002878.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_150028BC.s")
 extern u8 D_800BE616;

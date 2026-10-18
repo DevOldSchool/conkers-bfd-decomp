@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_isolated_selectors_and_calls.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1518BA90
  * - func_1518BBF4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -55,7 +54,6 @@ typedef struct Game1B8F40Owner {
     u8 type;
 } Game1B8F40Owner;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518BA90 CURRENT (10) */
 Game1B8F40Effect *func_1518BA90(void *arg0, u8 arg1, s32 arg2) {
     u8 *block;
     Game1B8F40Spawn spawn;
@@ -65,7 +63,8 @@ Game1B8F40Effect *func_1518BA90(void *arg0, u8 arg1, s32 arg2) {
     if (arg0 == 0) {
         return 0;
     }
-    for (i = 0; i < 2; i++) {
+    i = 0;
+    do {
         block = D_800DCE50 + i * 0x1A0;
         for (node = *(Game1B8F40Node **)(block + 0x7C); node != 0; node = node->next) {
             if (node->owner == arg0 ||
@@ -73,7 +72,8 @@ Game1B8F40Effect *func_1518BA90(void *arg0, u8 arg1, s32 arg2) {
                 return (Game1B8F40Effect *)node;
             }
         }
-    }
+        i++;
+    } while ((u8 *)&D_800DD190 != D_800DCE50 + i * 0x1A0);
 
     switch (*(u8 *)((u8 *)arg0 + 4) + 1) {
     case 0:
@@ -109,10 +109,8 @@ Game1B8F40Effect *func_1518BA90(void *arg0, u8 arg1, s32 arg2) {
     spawn.type = *(u8 *)((u8 *)arg0 + 0x3B);
     return func_1518BCD0(&spawn, arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518BA90 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B8F40/func_1518BA90.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518BBF4 CURRENT (685) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518BBF4 CURRENT (580) */
 void func_1518BBF4(void *arg0) {
     u8 *block;
     u8 *end;

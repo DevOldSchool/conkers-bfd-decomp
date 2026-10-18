@@ -50,6 +50,18 @@ def is_transfer(word: int, address: int) -> bool:
             or (word >> 26 == 0 and (word & 63) in (8, 9)))
 
 
+def is_move(word: int) -> bool:
+    """The canonical OR-with-zero register move, not arbitrary R-type ALU."""
+    return (word >> 26 == 0 and word & 0x7FF == 0x25
+            and ((word >> 16) & 31) == 0)
+
+
+def independent_word(word: int, protected: set[int]) -> bool:
+    return (word == 0 or word >> 26 in (0x28, 0x29, 0x2B, 0x39)
+            or (word >> 26 in (0x23, 0x0E, 0x0B) and ((word >> 16) & 31) not in protected)
+            or (is_move(word) and ((word >> 11) & 31) not in protected))
+
+
 def reference_tables(assembly: str, code: bytes, data: bytes,
                      code_vram: int, data_vram: int) -> tuple[int, list[Table]]:
     rows = list(re.finditer(
@@ -69,6 +81,7 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
     rd = lambda word: (word >> 11) & 31
     direct_edges = [direct_target(word, start + i * 4) for i, word in enumerate(words)]
     tables = []
+    guarded_regions = []
     for index, row in enumerate(rows):
         name = re.search(r"%lo\(jtbl_([0-9A-Fa-f]{8})(?:_\w+)?\)", row[0])
         if name is None:
@@ -77,7 +90,12 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
             raise TableEvidenceError("truncated switch dispatch")
         if is_transfer(words[index + 2], start + (index + 2) * 4):
             raise TableEvidenceError("control transfer in switch jump delay slot")
-        shift, upper, add, load, jump = words[index - 3:index + 2]
+        upper, add, load, jump = words[index - 2:index + 2]
+        # IDO can hoist the shift over an unrelated conditional exit, leaving
+        # the table upper address in the bounds branch's delay slot.
+        hoisted = index >= 7 and words[index - 3] >> 26 == 4
+        shift_index = index - 6 if hoisted else index - 3
+        shift = words[shift_index]
         if not (shift >> 26 == 0 and shift & 0x7FF == 0x80 and rs(shift) == 0 and rd(shift) != 0
                 and upper >> 26 == 0x0F and rs(upper) == 0 and rt(upper) not in (0, rd(shift))
                 and add >> 26 == 0 and add & 0x7FF == 0x21 and rd(add) != 0
@@ -86,12 +104,36 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
                 and jump == ((rt(load) << 21) | 8)):
             raise TableEvidenceError("unsupported switch dispatch shape")
         counts = []
+        strict_guards = []
+        if hoisted:
+            guard_index = index - 7
+            guard, _, exit_branch, delay, branch = words[guard_index:index - 2]
+            protected = {rs(guard), rt(guard), rd(shift)}
+            guard_address = start + guard_index * 4
+            dispatch_end = start + (index + 2) * 4
+            exit_target = direct_target(exit_branch, start + (index - 5) * 4)
+            default_target = direct_target(branch, start + (index - 3) * 4)
+            # Only an ordinary/likely inequality exit is supported here. Its
+            # delay slot is checked even when annulled on the dispatch path.
+            if (guard >> 26 == 0x0B and rs(guard) == rt(shift)
+                    and rt(guard) not in (0, rs(guard), rd(shift))
+                    and 0 < (guard & 0xFFFF) <= 1024
+                    and exit_branch >> 26 in (5, 21)
+                    and exit_target in addresses and exit_target > dispatch_end
+                    and branch >> 26 == 4 and rs(branch) == rt(guard) and rt(branch) == 0
+                    and default_target in addresses and default_target > dispatch_end
+                    and independent_word(delay, protected)
+                    and not (guard_index and is_transfer(words[guard_index - 1], guard_address - 4))
+                    and not any(target is not None and guard_address < target <= dispatch_end
+                                for target in direct_edges)):
+                counts.append(guard & 0xFFFF)
+                strict_guards.append(guard_address)
         # Permit up to three independent instructions before the branch and
         # one delay slot before the shift. The boolean xori/sltiu scheduling
         # in func_1511DD98 cannot overwrite the index or guard result. swc1
         # names an FPR in rt, not a protected GPR. Direct-edge vetoes below
         # reject bypasses for the new schedule, without inferring a full CFG.
-        for guard_index in range(max(0, index - 9), index - 4):
+        for guard_index in (() if hoisted else range(max(0, index - 9), index - 4)):
             guard = words[guard_index]
             if not (guard >> 26 == 0x0B and rs(guard) == rt(shift) and rt(guard) != 0
                     and rt(guard) != rs(guard) and 0 < (guard & 0xFFFF) <= 1024):
@@ -106,7 +148,7 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
                     continue
                 independent = words[guard_index + 1:branch_index] + words[branch_index + 1:index - 3]
                 extended = (branch_index - guard_index > 3
-                            or any(word >> 26 in (0x0E, 0x0B) for word in independent))
+                            or any(word >> 26 in (0x0E, 0x0B) or is_move(word) for word in independent))
                 # New boolean schedules require a single direct entry at the
                 # guard. Legacy forms include reviewed guard-in-delay and
                 # loop-entry shapes; do not reinterpret those with this local
@@ -120,13 +162,14 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
                                    for target in direct_edges)):
                         continue
                 protected = {rs(guard), rt(guard)}
-                if any(not (word == 0 or word >> 26 in (0x28, 0x29, 0x2B, 0x39)
-                            or (word >> 26 in (0x23, 0x0E, 0x0B) and rt(word) not in protected))
-                       for word in independent):
+                if any(not independent_word(word, protected) for word in independent):
                     continue
                 counts.append(guard & 0xFFFF)
+                if extended:
+                    strict_guards.append(guard_address)
         if len(counts) != 1:
             raise TableEvidenceError("switch bound is missing or ambiguous")
+        guarded_regions.extend((address, start + (index + 2) * 4) for address in strict_guards)
         lower = load & 0xFFFF
         address = (((upper & 0xFFFF) << 16) + (lower if lower < 0x8000 else lower - 0x10000)) & 0xFFFFFFFF
         offset = address - data_vram
@@ -139,6 +182,11 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
         tables.append(Table((index - 2) * 4, index * 4, targets))
     if not tables:
         raise TableEvidenceError("switch reference has no supported dispatch")
+    # Another verified table in this function must not enter an extended
+    # dispatch after its bound check (direct edges were checked above).
+    if any(begin < target <= end for begin, end in guarded_regions
+           for table in tables for target in table.targets):
+        raise TableEvidenceError("ROM case target bypasses switch bound")
     return start, tables
 
 

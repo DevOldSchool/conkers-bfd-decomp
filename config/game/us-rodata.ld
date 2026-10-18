@@ -29,6 +29,11 @@ SECTIONS
     {
         *game_10BC70.o(.rodata)
     }
+    /* Emitter scale: docs/evidence/data-layout/game_116d40_float_constant.md. */
+    .game_rodata_116d40 0x800A140C (INFO) : SUBALIGN(4)
+    {
+        *game_116D40.o(.rodata)
+    }
     /* ROM-verified constant: docs/evidence/data-layout/game_11d830_float_constant.md. */
     .game_rodata_11d830 0x800A1854 (INFO) : SUBALIGN(4)
     {
@@ -160,6 +165,10 @@ SECTIONS
     .game_rodata_a9d90 0x8009B884 (INFO) : SUBALIGN(4) { *game_A9D90.o(.rodata) }
     /* Six switch targets: docs/evidence/data-layout/game_11f780_jump_table.md. */
     .game_rodata_11f780 0x800A192C (INFO) : SUBALIGN(4) { *game_11F780.o(.rodata) }
+    /* Nested light switches: docs/evidence/data-layout/effects_light_jump_tables.md. */
+    .game_rodata_light 0x800A6A18 (INFO) : SUBALIGN(4) { *light.o(.rodata) }
+    /* Nine switch targets: docs/evidence/data-layout/game_1b8f40_jump_table.md. */
+    .game_rodata_1b8f40 0x800A7410 (INFO) : SUBALIGN(4) { *game_1B8F40.o(.rodata) }
     /* Two adjacent switches: docs/evidence/data-layout/game_15d730_jump_tables.md. */
     .game_rodata_15d730 0x800A3800 (INFO) : SUBALIGN(4) { *game_15D730.o(.rodata) }
     /* Actor command dispatcher: docs/evidence/data-layout/game_61490_jump_table.md. */
@@ -321,3 +330,12 @@ __game_rodata_camera_camera_payload_size = 0x4;
 ASSERT(SIZEOF(.game_rodata_18a8f0) == 0x10,
        "game_18A8F0 clamp literal extent changed")
 __game_rodata_18a8f0_payload_size = 0x8;
+
+ASSERT(SIZEOF(.game_rodata_1b8f40) == 0x30, "game_1B8F40 table extent changed")
+__game_rodata_1b8f40_payload_size = 0x24;
+
+ASSERT(SIZEOF(.game_rodata_116d40) == 0x10, "game_116D40 constant pool extent changed")
+__game_rodata_116d40_payload_size = 0x4;
+
+ASSERT(SIZEOF(.game_rodata_light) == 0xC0, "light switch table extent changed")
+__game_rodata_light_payload_size = 0xBC;

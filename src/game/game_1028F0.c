@@ -57,7 +57,7 @@ void func_150D596C(void *arg0, void *arg1, u8 arg2) {
         if (other == id) {
             link->id = *(s32 *)((u8 *)arg1 + 4);
             link->slot = *(u8 *)((u8 *)arg1 + 9);
-        } else if (id == *(s32 *)((u8 *)arg1 + 4)) {
+        } else if (*(s32 *)((u8 *)arg1 + 4) == id) {
             link->id = other;
             link->slot = *(u8 *)((u8 *)arg1 + 8);
         }

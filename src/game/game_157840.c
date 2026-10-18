@@ -13,7 +13,6 @@
  * - func_1512B53C
  * - func_1512B730
  * - func_1512BB10
- * - func_1512C068
  * - func_1512C20C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -353,19 +352,13 @@ s32 func_1512B730(void *arg0, f32 *arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_157840/func_1512B730.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_157840/func_1512BB10.s")
-void func_15123A54(f32, f32);
+void func_15123A54(u8 *);
 void func_1512C150(void *);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512C068 CURRENT (20) */
 void func_1512C068(u8 *arg0) {
     f32 temp_fa0;
-    f32 temp_ft0;
-    f32 temp_ft1;
-    f32 temp_ft3;
-    f32 temp_ft4;
-    f32 temp_ft5;
     f32 temp_fv0;
     f32 temp_fv1;
     f32 var_fa1;
@@ -383,21 +376,14 @@ void func_1512C068(u8 *arg0) {
         temp_fv0 = sqrtf((temp_fv1 * temp_fv1) + (temp_fa0 * temp_fa0));
         *(f32 *)(arg0 + 0x370) = temp_fv0;
         if (temp_fv0 < 42.0f) {
-            temp_ft4 = 45.0f;
-            temp_ft3 = *(f32 *)(arg0 + 0x37C);
-            temp_ft1 = 0.0f;
-            temp_ft5 = temp_ft4 * var_fa1;
-            *(f32 *)(arg0 + 0x5CC) = temp_ft1;
-            temp_ft0 = temp_ft3 - temp_ft5;
-            *(f32 *)(arg0 + 0x384) = temp_ft0;
-            func_15123A54(temp_fa0, var_fa1);
+            *(f32 *)(arg0 + 0x384) = *(f32 *)(arg0 + 0x37C) - 45.0f * var_fa1;
+            *(f32 *)(arg0 + 0x5CC) = 0.0f;
+            func_15123A54(arg0);
             *(s32 *)(arg0 + 0x240) |= 2;
         }
     }
     func_1512C150(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1512C068 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_157840/func_1512C068.s")
 f32 func_15048A70(f32, f32);                        /* extern */
 extern f32 D_800A3694;
 extern f32 D_800A3698;

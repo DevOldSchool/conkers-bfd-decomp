@@ -391,16 +391,15 @@
       "symbol": "func_150027F8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Round 7: body instruction-identical; remaining 10 is the loop-end relocation (raw names D_800DBE28, C emits D_800DBE1C+0xC). Needs game local-data alias proof, not a source change",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15002878",
           "vram": "0x15002878"
         }
@@ -857,7 +856,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "Round3 2026-10-18: CURRENT (20) unchanged; bnel t9,v0 (arg1[1] vs current) and beq t1,v0 (default arm) operand order. Source swaps of either compare neutral (20); twin-style memory expressions with a dst block local flip the v0/v1 roles (60). Prior: canonical nonzero retained; no accepted exact C after the recorded source/lifetime hypotheses. Upstream single-worker runs 202610151514:5000:budget_complete. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained.",
+        "reason": "CURRENT20: two equality branches have reversed operands. Reverse/comma/byte-address probes20; random1810423844 iterations/60.4s no improvement.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -1578,16 +1577,15 @@
       "symbol": "func_151603FC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 17,
-        "reason": "Round 7: declaring callback before Vec3f position (raw layout) probes CURRENT (0) (variant build/us/manual-attempts/round7-2026-10-18/p/604a0.b.c) but finish is BLOCKED_TOOLING: 'switch bound is missing or ambiguous' (nested switch dispatch unsupported by candidate_tables.py). Candidate kept at 17 until tooling supports it",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_151604A0",
           "vram": "0x151604A0"
         }
@@ -7628,7 +7626,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 15,
-        "reason": "Round3 review 2026-10-18: randomized-permuter exact match withdrawn as fake (empty if (!temp_t8) {} plus declaration reorder); natural candidate restored. Prior: CURRENT15 preserved; camera-manual-20260930 mask-only scope and inline first tablepointer dereference both neutral15. Prior union/scalar/pointer-formal hypotheses exhausted. Tail V1 instead of V0 remains.",
+        "reason": "CURRENT15: table pointer v1 instead of v0 in three rows; two lifetime/address-phase probe groups unchanged15; randomized seed1810393439 iterations/60.4s no improvement.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -9859,7 +9857,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "Canonical20 remains; actual two-rate struct2496/array7540 regress and were not applied; source float-lifetime search completed without exact match. Upstream single-worker runs 202610151512:5000:budget_complete. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained.",
+        "reason": "CURRENT20: first two float multiplies exchanged. Direct/sequence reorder165, snapshot580, local-phase900; random1810401948 iterations/60.4s no improvement. Preserved baseline.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -9895,8 +9893,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 235,
-        "reason": "CURRENT (235): best verified unsigned-conversion candidate; remaining relocation/lifetime differences after bounded targeted revisions",
+        "current_score": 10,
+        "reason": "CURRENT10 tooling blocker: raw 3c018000 at+88 and25e24000 at+B0 match ROM exactly, but reference labels them hi/lo D_80004000. GAME address_alias_present defaults literals=False; literal-enabled eligibility true. All nonrelocated200-byte-span words agree; three true relocations remain normal. Preserve improved unsigned narrow candidate; no match credit.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -30804,7 +30802,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "Authored fork loop body (jefemagril/conker game_BC510.c) links to identical bytes; CURRENT 20 is 4 relocation-symbol rows only: reference names D_800D246D/D_800D247D where the unrolled loop emits D_800D2460+0xd/+0x1d. Rev1 split the first two stores onto the named symbols with a 4-iteration loop: regressed to 1230 (different unroll shape). No C form found that keeps the 6-iteration unroll and the named symbols; not changing symbols/asm to force it. Recheck 2026-10-17 unchanged.",
+        "reason": "CURRENT (20): first two array stores use base-plus-addend relocations instead of D_800D246D/D_800D247D. Explicit stores plus loop score 1130; do/continue 1230 and specialized loop 2240. Restored original best; needs a new unrolling/symbol hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -31107,17 +31105,16 @@
       "symbol": "func_15093B58"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Canonical nonzero retained; no accepted exact C after the recorded source/lifetime hypotheses. Upstream single-worker runs 202610151502:5000:budget_complete. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 208,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509B4A0",
           "vram": "0x1509B4A0"
         }
@@ -37989,7 +37986,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 26,
-        "reason": "CURRENT (26) retained. New invariant slot elimination scores 42/50, still frame 0x40; removing destination snapshot fixes frame 0x38 but changes loop, score 4016; pointer-dereference slot form scores 50 with frame 0x40. All probes unapplied; original retained. Three probe batches plus layout diagnostics; named-pointer elimination family exhausted.",
+        "reason": "CURRENT26 frame40 vs38. Declaration/slot-home probes42/50; indexed-address probes46/54/609 retain frame40. Two stack-shape groups exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -40940,8 +40937,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 35,
-        "reason": "Manual latest40 to35 (historical240 stale), 3 revisions: status s32/count u8 fixes status/sentinel registers. Reversed equality neutral. Six register-only rows remain: BEQ operand order and count a0 vs a2; full span includes tail nop. Ledger deferred-manual-20260927.",
+        "current_score": 135,
+        "reason": "Historical35 now135: register/sentinel lifetime residual plus final registered nop absent in current context. Original/v0wide/sentinel135, a2wide/bothwide140. No eligible pure register permutation; original candidate preserved.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -45223,7 +45220,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Round 7: only a0/v0 swap on the cursor+1 argument; initialized text pointer same 10, assignment-in-argument 38, ++cursor 270, randomized permute 90 s no improvement",
+        "reason": "CURRENT (10): cursor load uses v0 rather than a0. Explicit next local and assignment-call score 38 with frame 0x28 instead of 0x20; field increment and signed/unsigned integer-address probes stay 10. Random seed 181032 exhausted 5336 iterations in 60.4 seconds. Original best preserved.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -49061,7 +49058,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 120,
-        "reason": "First typed packet/event candidate CURRENT 120: two switch-table relocation rows and three call-delay scheduling rows. Actual collision-result structure and coherent local workspace variants both remain 120; first candidate preserved. New table at raw 0x800A82D0 would require reviewed mapping only after instruction shape is resolved. No mapping or instruction changes made.",
+        "reason": "CURRENT120 retained: addiu scratch address scheduled early and final position store in call delay, plus unmapped fourth table. Scratch struct/word/address and combined aggregate probes all120. Local pointer ABI correction valid but no score improvement; affected existing15194DC8 recheckedCURRENT0.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -49405,7 +49402,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 100,
-        "reason": "Round3 2026-10-17 recheck unchanged: improved 300 -> CURRENT (100); body exact, one registered trailing nop at +0x74 (unit-end alignment) not produced by the focused object. Layout/unit-end issue, not C.",
+        "reason": "CURRENT100: all executable rows agree, but final registered alignment nop is absent in current mixed-object context. No padding or assembly changes made. Correct local pointer-return declaration retained; continue sibling source match.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -49757,7 +49754,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 35,
-        "reason": "CURRENT 35 retained. Fresh typed-node/subrecord, word-pointer, integer-address, array-member decay and copy then adjust probes all CURRENT 240: IDO folds the +58 base. Original keeps adjusted v1 but raw uses a1 and mode a2. No further supported lifetime hypothesis.",
+        "reason": "Original CURRENT35 retained. Typed data pointer folds required addiu140; byte/cast/integer cursor240; explicit mode snapshot35. Two pointer-lifetime probe groups plateaued without a new hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -50792,7 +50789,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 16,
-        "reason": "Oct18 isolated: CURRENT16 retained. Fewer named-home probes: inline object696 frame30, inline transform26 frame30, inline packet976/frame28, inline link1785/frame28. Declaration-order family previously exhausted; no valid exact spill layout without changing body. Original preserved.",
+        "reason": "CURRENT16: link save/reload at sp18 vs reference sp20; frame30. Named-address removal probes26/696/1785; four declaration orders16. Stack-home families exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -51925,7 +51922,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 15,
-        "reason": "Oct18 isolated: CURRENT15 with natural s8 result / Vec3f prior / Vec3f test locals replacing artificial aggregate, pointer typed u8*. All raw local homes exact. Integer/pointer/block lifetime probes15. Randomized60 seed2026101802 3073iterations no improvement. Three pointer-register rows v0 vs raw a0 remain.",
+        "reason": "CURRENT15 owner pointer v0 vs a0 only; register/lifetime probes15/30/668; random seed181033 3464 iterations/60.6s no improvement. Exhausted bounded register search.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -53127,7 +53124,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 30,
-        "reason": "Original CURRENT30 restored and reverified after actual callback-result lifetime probes910/940. Reusing index for product restores V1/V0 product roles but introduces should_free A2 and sign-extension instructions; separate callback/product local also grows frame28. Prior lifetime/width/operand probes exhausted. No useful next hypothesis; deferred-manual-20260929-resume2.",
+        "reason": "CURRENT30 multiply/loaded-local v0/v1 allocation. Local width/scope/order/reverse probes30; valid earlyproduct915. Random1810444056iterations best10 rejected for uninitialized temp_v1 read; original30 retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -54436,7 +54433,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Twin-queue 2026-10-17: identity return; candidate schedules move v0,a0 before jr ra with a nop delay slot, raw has the move in the delay slot. Named result local, s32 types, inner block, parenthesised return all CURRENT 60; if(arg1){} 260. No -g3 source form found that drops the end-of-function label.",
+        "reason": "CURRENT60: identity return move scheduled before jr rather than in delay slot. Volatile parameter also60; scoped result60, nullguard200, conditional210. Original ABI/body restored; no pure-register permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -54631,8 +54628,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 25,
-        "reason": "Oct18 isolated pass: CURRENT25 retained with Vec3f and real consumed delta local replacing padded aggregate. Frame38 exact; four FP register/operand rows remain. Delta placement and operand probes unchanged25; randomized60 seed2026101801 3302iterations best15 rejected for dead comma expression (0,distance). No valid new improvement.",
+        "current_score": 15,
+        "reason": "Improved25->15 via random181036/3965 iterations. Comparison comma reproduces sum operands; remaining f18/f4 difference and field-load allocation. Four targeted probe groups incl layout/order/product exhausted; best15 preserved.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -55384,17 +55381,16 @@
       "symbol": "func_15108850"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 310,
-        "reason": "US CURRENT (310): in-place cursor fixes frame/saved-register layout but candidate uses reversed initial addu operands at 0x2C, loads +0x104 before advancing s0 instead of raw +0xC after advance, and carries 14 FP register-only differences. Integer-address expression and explicit second-field assignment were neutral; no new evidence-backed source shape.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 204,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15108AB4",
           "vram": "0x15108AB4"
         }
@@ -55403,17 +55399,16 @@
       "symbol": "func_15108AB4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 60,
-        "reason": "Unsigned timer subtraction preserves defined raw wrap at60. Search8000 generated45/55 rejected for wrong offsets; selector-before-cursor probes75/75 and common99960 do not improve. Preserve simple60, ledger resume-20261015-2057.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 64,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15108B80",
           "vram": "0x15108B80"
         }
@@ -55422,17 +55417,16 @@
       "symbol": "func_15108B80"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Twin-queue 2026-10-17: if/else-if/else with a block-local entry pointer removes the jr-delay-slot store rows: 270 -> 10. One row left: raw addu v0,a0,t6 vs candidate addu v0,t6,a0 for arg0 + *(s32 *)(arg0 + 0x50); (s32)/(u32)/s32-param/array-index/folded +0xF8 spellings all keep t6 first. Same row as func_15109064.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 120,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15108BC0",
           "vram": "0x15108BC0"
         }
@@ -55459,17 +55453,16 @@
       "symbol": "func_15108C38"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 50,
-        "reason": "Resumed batch20261015-1505: preserve CURRENT50. New hypotheses/probes/searches and rejected forms recorded in build/us/manual-attempts/resume-20261015-1706/ledger.md; pending further expanded search for improved candidates. Prior exhausted context: CURRENT50 restored. One new unsigned source-address sum was neutral, seven register rows unchanged. Prior float ABI250to50, typed matrix index55 and typed header55 remain exhausted. Initial LW t7/rawt8 and commuted initial ADDU propagate to five tail matrix-address registers. No new supported address lifetime hypothesis; ledger build/us/manual-attempts/deferred-exact-20261005/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 236,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15108D24",
           "vram": "0x15108D24"
         }
@@ -55517,8 +55510,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 130,
-        "reason": "CURRENT (130): raw addu v0,a0,t7 at 0x14 versus candidate v0,t7,a0; raw case-29 store before jr with nop delay while candidate schedules store in jr delay slot and shifts case-30 branch; reversing address operands and replacing return with break compiled identically",
+        "current_score": 160,
+        "reason": "CURRENT160 compound pointer; original freshly170 (historical130 stale). Return-delay store remains; two exit-structure probe groups260 exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -58462,7 +58455,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "CURRENT (10), improved from 30: natural for (i < 204) count loop over D_80087430 reproduces IDO's 4x unroll and every instruction; only residual is the end-address reloc spelling D_80087430+0xFF0 versus raw D_80088420 (finish does not resolve it; sized [204] declaration also left it). Needs reloc/alias resolution, not C changes.",
+        "reason": "CURRENT10 end symbol D80087430+FF0 vs D80088420. Explicit four-entry/pointer loops1910/3005; symbolic indexed loops2400/2880; continue1910. Two structural probe groups exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -63478,17 +63471,16 @@
       "symbol": "func_150E9890"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Round2 2026-10-17: CURRENT 40->20 with ROM literal 0.01f for D_800A140C (restores f24/f26 roles). Remaining: frame 0x98 vs 0x90 with identical local offsets, so one extra saved register or outgoing word; inlining scale or the random draws leaves it. A match would also need a game_116D40 rodata INFO mapping.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 428,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150E9E34",
           "vram": "0x150E9E34"
         }
@@ -65483,7 +65475,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "PR121 review confirms CURRENT20. Seed202610151913 completed6000 iterations, 5276 compiler calls/5223 successful, with no accepted improvement. Earlier mode/added lifetime candidate retained; no worker is running. See https://github.com/DevOldSchool/conkers-bfd-decomp/blob/dbedd671496fa3a9ee4191841e9fd3858621b814/docs/evidence/matching/pr121-review.md.",
+        "reason": "CURRENT20: three initial sign-extension shift register rows differ; halfword/byte casts and staged extraction all20, randomized seed1810383053 iterations/60.4s no improvement. No untried allocation hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -66046,26 +66038,25 @@
           "vram": "0x150E88C0"
         }
       },
-      "source": "src/game/game_115D70.c",
+      "source": "src/done/game/game_115D70.c",
       "symbol": "func_150E88C0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 40,
-        "reason": "Round 7: only v0/v1 for the D_800DCDC4 reloads (raw v1). Direct global conditions 40, variable reuse for the random 40; randomized permute exact only via a no-op if (active) {} (rejected, reopened)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 336,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150E8930",
           "vram": "0x150E8930"
         }
       },
-      "source": "src/game/game_115D70.c",
+      "source": "src/done/game/game_115D70.c",
       "symbol": "func_150E8930"
     },
     {
@@ -67225,8 +67216,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "CURRENT20; defined unsigned phase update. New8000 iteration search and signed-angle probes20/20/440 exhausted; no accepted improvement. See resume-20261015-2057 ledger.",
+        "current_score": 10,
+        "reason": "Improved20->10; random181037/4207 iterations fixed multiply order via comma, extra local removed. Remaining phase load v0 vs a0; direct/compound and split/copy/type probes exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -70920,7 +70911,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 25,
-        "reason": "Valid phase wrapping and consumed narrowed-height reuse improve155to25. Two distinct8000-iteration searches complete; direct packed reads1045 regressed. Five GPR rows remain; no dummy storage. Float-conversion domain review still needed before future exact acceptance. See resume-20261015-2057 ledger.",
+        "reason": "CURRENT25 integer conversion/temp registers only. Direct conversion probes155/1045; random181034 3819 iterations/60.4s no improvement. Bounded lifetime hypothesis exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -71206,7 +71197,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "Canonical nonzero retained; no accepted exact C after the recorded source/lifetime hypotheses. Upstream single-worker runs 202610151509:5000:budget_complete. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained.",
+        "reason": "CURRENT20: two final float add operands reversed. Reverse/comma expressions20, compound140, direct fields2545; random1810413684 iterations/60.3s no improvement.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -71225,7 +71216,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 85,
-        "reason": "CURRENT 85 retained. Two probe batches: explicit timestep snapshot 85, raw store-order source variants 985, named return constant 85, timestep address 115. Raw early v0 return constant and v1 global base remain; no ABI guessing.",
+        "reason": "CURRENT85: timestep address occupies v0 until the second load; original uses v1 and schedules return constant early. Timestep snapshot85, return local85, explicit pointer115. Known address-versus-return allocation pattern; no eligible structural permuter search.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -71791,7 +71782,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Round 7: only lui v0 vs v1 on the D_800BE9F0 stage reload; assignment-in-condition and stage compare 110, same-line 10, randomized permute 150 s none",
+        "reason": "CURRENT (10): two global-stage address rows use v0 then v1 rather than v1 throughout. Direct local/global/combined-stage forms score 110; unsigned stage remains 10. Random seed 181031 exhausted 3715 iterations in 60.4 seconds without improvement. Original best restored.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -72434,7 +72425,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Round2 2026-10-17: CURRENT 20->10. Randomized permute (seed 20261018) found a no-op (f32) cast on sine that restores mul.s f0,f4 operand order. Remaining row: phase_80 load in v0 versus raw a0; six angle/argument shapes neutral at 10; follow-up 120 s search (seed 20261019, 9640 iterations) found nothing.",
+        "reason": "CURRENT (10): phase load uses v0 rather than a0 in two rows. Separate angle-load and signed/unsigned probes remain10; compound-update/register probes415; randomized seed181027 exhausted5003 iterations in60.4s without improvement. Preserved original best candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -77158,17 +77149,16 @@
       "symbol": "func_15114348"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "Improved225 to30: direct compound angle update removes named full-width result; correct FP operand order. Remaining4 integer rows swap base/offset t6/t7. Width415/1005, pointer integer/named offset unchanged, typed stride30. Random60 best165 dead XOR0 rejected. Local forward declaration conflict fixed; no active matched C callers.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 364,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1511473C",
           "vram": "0x1511473C"
         }
@@ -78637,7 +78627,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 25,
-        "reason": "Round4 2026-10-18: CURRENT (25) unchanged. Using arg0 directly (no state copy) gets raw's a0 reload but arg1 reload lands in v1 and the 0x1D4 field in v0 (raw a3/v1): 35 for plain, named s32/u8* field local, field assignment before the test, u8 index copy; s32 index copy after the call 170. Prior: unnamed transform 35->25.",
+        "reason": "CURRENT (25): four register-only rows reload object into v1 and transform into v0 instead of a0/v1. Named transform, direct argument, and combined probes score 35. Random seed 181029 exhausted 4391 iterations in 60.4 seconds without improvement.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -83511,7 +83501,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 8,
-        "reason": "Oct18 isolated: CURRENT8 unchanged. Probe pointer arithmetic *(arg0+arg1) still8/frame28; explicit named slot after buffer129/frame30. Only anonymous slot spill18 vs raw1c remains; prior declaration and randomized searches retained. No artificial padding added.",
+        "reason": "CURRENT8 preserved. Revisited after exact150AFE64 array snapshot: explicit slot array1517 and direct slot array2681 at correct frame28. New reuse hypothesis rejected; earlier pointer/slot hypotheses exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -84607,17 +84597,16 @@
       "symbol": "func_150AFDB0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 16,
-        "reason": "Valid CURRENT16 improves26 by explicit actual matrix word-address operand order. Actual volatile home assigned at first call regressed376/frameB0, discarded; prior workspace1155 and matrix reuse860 not repeated. Best frameA8, all GPR/opcode/control exact; only SW/LW matrix home80 versusraw88 remain. Two fresh revisions exhausted; no dummy padding, ABI or shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 472,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150AFE64",
           "vram": "0x150AFE64"
         }
@@ -85546,7 +85535,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Oct18 isolated: CURRENT10 unchanged. Unsigned identity locals/load and actual event snapshot probes10; early-return first replacement arm with both second-compare operand orders10. Prior next/id and deterministic32 exhaustion retained. Single bnel operand-order row remains.",
+        "reason": "CURRENT (10): one bnel retains a0,t2 instead of t2,a0. Equality reversal, early-return probes, and 32 declaration/lifetime permutations unchanged; randomized seed 181028 exhausted 3843 iterations in 60.4 seconds without improvement.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -85874,17 +85863,16 @@
       "symbol": "func_1512BB10"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Canonical nonzero retained; no accepted exact C after the recorded source/lifetime hypotheses. Upstream single-worker runs 202610151505:5000:budget_complete, 202610151503:5000:budget_complete. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 232,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1512C068",
           "vram": "0x1512C068"
         }
@@ -87011,8 +86999,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "Round3 2026-10-18: volatile pointer formal + named copy stays CURRENT (30) (named v1 vs raw temp t7 reload). K&R definition (s16 arg2) without volatile drops the a1 home store (234); K&R + volatile arg1 used directly also worse. No untried storage hypothesis.",
+        "current_score": 10,
+        "reason": "CURRENT10: pointer loaded into v1 rather than t7, two register rows. Byte cast improved30->10; pointer-array270, direct120, register30, volatilearg225, byte-local50. Random1810435183 iterations found mask improvement; no new pointer-lifetime hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -88845,17 +88833,16 @@
       "symbol": "func_1519072C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT (10) improved from 145 (deferred-game-oct16d): indexed two-block for loop, named block cursor restores frame 0x48/spawn slot, Game1B8F40Owner view fixes byte-load order. All instructions/registers/stack match; remaining rows are relocation spelling only: end pointer D_800DCE50+0x340 vs reference D_800DD190 (a distinct s8 counter symbol in this unit) and jtbl_800A7410_game vs .rodata. Needs linked-alias/rodata tooling, not C changes. Randomized permute 120 s (seed 20261017) found no improvement.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 356,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1518BA90",
           "vram": "0x1518BA90"
         }
@@ -88866,8 +88853,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 685,
-        "reason": "CURRENT (685): node traversal and side effects exact; remaining alias-driven duplicate materialization of D_800DD190 plus unreachable comparison load order plateau after two revisions",
+        "current_score": 580,
+        "reason": "CURRENT (580): duplicate D_800DD190 address materialization is coalesced; byte comparison loads also reverse. Direct-end probes shrink frame to 0x28 and score 975; owner type, integer end address and assignment-condition probes score 685. No supported improving local hypothesis remains.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -90046,8 +90033,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 220,
-        "reason": "Live CURRENT (220), stale saved score 110: missing entry move a1,a0, four index/pointer register rows and trailing span difference. Explicit index plus parameter reassignment worsened to CURRENT (495); baseline preserved",
+        "current_score": 195,
+        "reason": "CURRENT195 improved from220 with base-before-index snapshot. Remaining entry move order, shift scheduling and computed address register. Separate/directbase505/495, compound205,indexcompound195,typedpointer230; plateaued.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -90469,7 +90456,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 15,
-        "reason": "Round2 2026-10-17: CURRENT 230->15. (u8 *)state + (x >> 3) restores both addu s2,t operand orders; u8 neighbor with neighborIndex = neighbor & 0xFF restores the a0 argument and the andi copy. Remaining three rows: neighborIndex in v0 versus raw v1. Declaration orders and u32 index neutral/worse; randomized permute 120 s (seed 20261017, 6687 iterations) found nothing.",
+        "reason": "CURRENT15 masked neighbor-index v0 vs v1; width/inline probes85/490/15. Random181035 3207 iterations/60.5s no gain; bounded lifetime search exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

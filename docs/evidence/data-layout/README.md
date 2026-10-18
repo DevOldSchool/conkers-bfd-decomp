@@ -19,6 +19,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [Entrypoint switch table](entrypoint_jump_table.md)
 - [US game_10BC70 float constant](game_10bc70_float_constant.md)
 - [US game_111670 effect literal pool](game_111670_float_constants.md)
+- [US game_116D40 emitter scale](game_116d40_float_constant.md)
 - [US game_11D830 float constant](game_11d830_float_constant.md)
 - [US game_177B50 particle float constants](game_177b50_float_constants.md)
 - [US game_1CBE20 float constants](game_1cbe20_float_constant.md)
@@ -31,6 +32,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [US switch table for game_11F780](game_11f780_jump_table.md)
 - [US sound-event selector table](game_1483e0_jump_table.md)
 - [US switch tables for game_15D730](game_15d730_jump_tables.md)
+- [US switch table for game_1B8F40](game_1b8f40_jump_table.md)
 - [US game_1BC650 jump tables](game_1bc650_jump_tables.md)
 - [US game_1BF090 literal pool before its switch table](game_1bf090_literal_pool.md)
 - [US state-scale switch table](game_3ba70_jump_table.md) · [JSON](game_3ba70_jump_table.json) · [PATCH](game_3ba70_jump_table.patch)
@@ -79,3 +81,5 @@ record when extending the same claim.
 - [Script bank reconstruction](us_script_reconstruction.md): tracks, bindings, commands, text and fresh nested archive storage.
 
 - [US animation-control records](us_animation_control_reconstruction.md): 82 bank-0F entries with typed routes, events, action phases and behavior instructions.
+
+- [Light nested switch tables](effects_light_jump_tables.md): both ROM-backed dispatch tables for `func_151604A0`.

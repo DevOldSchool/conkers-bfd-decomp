@@ -537,12 +537,16 @@ s32 func_15088270(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15088270 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15088270.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150882B0 CURRENT (220) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150882B0 CURRENT (195) */
 s8 func_150882B0(s32 arg0) {
-    if (D_800872A0 == 0) {
+    s32 base = D_800872A0;
+    s32 index = arg0;
+
+    if (base == 0) {
         return 0;
     }
-    return *(s8 *)((u8 *)((arg0 * 0x84) + D_800872A0) + 0x27);
+    arg0 = index * 0x84 + base;
+    return *(s8 *)((u8 *)arg0 + 0x27);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150882B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_150882B0.s")

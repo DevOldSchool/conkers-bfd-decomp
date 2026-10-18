@@ -1491,7 +1491,7 @@ extern u8 D_80038080;
 extern s32 D_800BE9F0;
 extern u8 D_800D2040;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502FD70 CURRENT (35) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502FD70 CURRENT (135) */
 void func_1502FD70(void *arg0) {
     s32 temp_v0_3;
     u8 *temp_v1;

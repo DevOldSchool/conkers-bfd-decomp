@@ -7,7 +7,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1509B4A0
  * - func_1509B5AC
  * - func_1509B950
  * - func_1509BA04
@@ -46,9 +45,7 @@ extern s32 D_8003C8E0;
 extern u8 D_800D2F3C;
 extern u16 *D_800D2F40;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509B4A0 CURRENT (10) */
 void func_1509B4A0(s16 arg0, s32 arg1) {
-    u8 *count_ptr;
     s32 context;
     s32 index;
 
@@ -56,17 +53,15 @@ void func_1509B4A0(s16 arg0, s32 arg1) {
     D_8003C8E0 = 0x05000000;
     func_1509C120();
     func_15096970();
-    count_ptr = &D_800D2F3C;
-    for (index = 0; index < *count_ptr; index++) {
+    for (index = 0; index < D_800D2F3C; index++) {
         if (func_1509CBD4(D_800D2F40[index]) != 0) {
             func_1509B5AC(D_800D2F40[index], context);
         }
+        continue;
     }
     func_1509C3A0();
     D_8003C8E0 = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509B4A0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B4A0.s")
 GameC8950Node *func_1509B704(s16);                  /* extern */
 
 void *func_1509B570(s32 arg0) {
