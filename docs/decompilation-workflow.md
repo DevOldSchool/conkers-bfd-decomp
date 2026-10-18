@@ -647,6 +647,29 @@ If later evidence invalidates an untouched game boundary, use
 range to raw assembly while retaining its function work items and refuses to
 discard modified or matched C work.
 
+When reviewed evidence proves that a registered raw-ASM span contains an
+original object boundary (for example, end-of-object `.text` padding after a
+member's `jr $ra` delay slot), split the unit instead of withdrawing it:
+
+```sh
+./conker split-source-unit \
+  --source src/main/<unit>.c \
+  --new-source src/main/<unit_tail>.c \
+  --us-split <offset>
+```
+
+The offset must be 16-byte aligned (8 for the debugger), lie strictly inside
+the unit, start a registered member and already exist in the checked-in map.
+Members from that offset onward move to the new file with their matched C,
+preserved deferred candidates and raw pragmas; the new unit inherits the same
+boundary evidence reference and raw-ASM integration, both inventories update
+and progress re-renders in one transaction that rolls back on any failure.
+Declarations above the first member are copied into the new file so both
+compile; prune unused copies, recheck moved matches with `diff`, and record
+the padding evidence in the referenced boundary document before
+`verify-batch`. Integrated (mixed or C) units cannot be split, and
+`withdraw-source-unit` remains game-only.
+
 ## Verified original assembly
 
 Reviewed handwritten main/game/debugger routines may remain unchanged `GLOBAL_ASM` bodies

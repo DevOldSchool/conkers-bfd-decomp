@@ -106,7 +106,8 @@ or deferring. For continued groups, follow [sibling selection and reuse](docs/de
 - Review original object boundaries and every member before source-unit registration.
   Alignment, a standalone build or a matching function does not prove ownership.
   Keep the evidence comment below the include block. Use `withdraw-source-unit` for
-  invalidated boundaries. See [registration and transitions](docs/decompilation-workflow.md#source-unit-boundaries-and-integration).
+  invalidated boundaries and `split-source-unit` when a reviewed raw span proves to
+  contain an original object boundary. See [registration and transitions](docs/decompilation-workflow.md#source-unit-boundaries-and-integration).
 - Follow `post-match-action` immediately: integrate when a reviewed raw unit enters
   mixed mode, then again when all members match. After integration run
   `./conker progress check` and `git -c core.whitespace=cr-at-eol diff --check`.
