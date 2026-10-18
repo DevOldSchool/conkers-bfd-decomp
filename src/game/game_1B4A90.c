@@ -32,7 +32,6 @@ typedef struct Game1B4A90Owner {
 } Game1B4A90Owner;
 
 void *func_10003C40(s32, s32, s32, s32);
-u32 func_150ADA20(void);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151875E0 CURRENT (1980) */
 void func_151875E0(f32 arg0, f32 arg1, f32 arg2, s32 arg3,

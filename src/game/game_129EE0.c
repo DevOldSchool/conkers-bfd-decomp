@@ -45,7 +45,6 @@ void func_150FCA30(void) {
     spawn[6] = -1;
     func_151D8868((s8 *)spawn, 0, 0xFF, 0);
 }
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_1514FCE8(s16 *, s32, s32);
 void *func_151541B8(void *, f32, f32, f32, f32, u8, s32);

@@ -65,7 +65,6 @@ void *func_15149FD0(Game177480Owner *arg0, s16 arg1) {
     vertices[1].z = vertices[2].z = (s32)(arg0->z + offsetZ);
     return result;
 }
-u32 func_150ADA20();                                /* extern */
 f32 func_150ADA68();                                /* extern */
 extern f32 D_800A5794;
 extern f32 D_800A5798;

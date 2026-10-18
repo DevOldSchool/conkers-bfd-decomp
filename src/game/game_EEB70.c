@@ -28,7 +28,6 @@ typedef struct {
     u8 mode, count, pad1E[2];
 } GameEEB70Descriptor;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800A01F0, D_800A01F4, D_800A01F8, D_800A01FC, D_800A0200;
 

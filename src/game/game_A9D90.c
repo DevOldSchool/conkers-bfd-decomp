@@ -72,7 +72,6 @@ s32 func_150859AC(s32, s32);
 void func_15181DC8(s32);
 void func_15082A44(s32, s32, s32, s32, s32);
 void func_15088D58(GameA9D90Object *);
-u32 func_150ADA20(void);
 extern s16 D_800BE9F2;
 extern s32 D_800BE9F0;
 extern s32 D_800D20FC;

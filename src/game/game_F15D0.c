@@ -16,7 +16,6 @@
 void func_150C4AD8(void *arg0);
 
 void *func_10022EC0(void *, const void *, u32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 
 typedef struct { s32 values[4]; } GameF15D0Choices;

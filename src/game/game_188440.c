@@ -47,7 +47,6 @@ typedef struct {
 } GameB21CEmitter;
 
 void *func_10022EC0(void *, const void *, u32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void *func_151303BC(s32, u8, s32);
 extern f32 D_800BE9A4;
@@ -152,7 +151,6 @@ void func_1515B62C(void *arg0, s16 *arg1, u8 arg2) {
 }
 void *func_10022EC0(void *, const void *, u32);
 u8 func_151D8E20(void);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void *func_1515548C(void *, u8, s32, s32, s32, u8, s32);
 extern s32 (*D_8008FD04[])(void);

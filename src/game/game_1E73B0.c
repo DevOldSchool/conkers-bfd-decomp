@@ -267,7 +267,6 @@ void func_151BB044(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E73B0/func_151BB0E0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E73B0/func_151BB61C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E73B0/func_151BBA9C.s")
-u32 func_150ADA20(void);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 typedef struct {

@@ -227,7 +227,6 @@ s32 func_15013D38(Game40490DispatchState *arg0) {
     return 1;
 }
 void func_15149550(f32 *, s32, s32, s32, s32, s32);
-u32 func_150ADA20(void);
 extern f32 D_80096654;
 extern f32 D_80096658;
 extern f32 D_8009665C;
@@ -495,7 +494,6 @@ typedef struct Game40490144B8Packet {
 
 f32 func_150484A0(f32, f32);
 void func_15145974(void *, f32 *, f32 *);
-u32 func_150ADA20(void);
 extern f32 D_80096688;
 extern f32 D_8009668C;
 
@@ -552,7 +550,6 @@ typedef struct {
 } Game40490ParticlePacket;
 
 void func_150A8050(f32 *, f32, f32, f32);
-u32 func_150ADA20(void);
 
 typedef struct struct260 { u8 bytes[0x24]; } struct260;
 

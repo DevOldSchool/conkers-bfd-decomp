@@ -22,7 +22,6 @@ extern f32 D_800AA294;
 extern f32 D_800AA298;
 extern f32 D_800AA29C;
 f32 func_150ADA68(void);
-u32 func_150ADA20(void);
 void func_15143794(s16, s16, f32, void *);
 void func_151DA6F8(f32 *, f32 *, f32, s16, s32, f32, s32, s32, f32, f32, s32, s32, s32, s32, s32, s32, s32, s32);
 

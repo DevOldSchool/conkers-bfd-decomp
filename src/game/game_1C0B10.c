@@ -177,7 +177,6 @@ typedef struct Game1938FCMotion {
 } Game1938FCMotion;
 
 s32 func_15157898(s32, s32, s32, f32, s32, s32, s32, u8, s32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)

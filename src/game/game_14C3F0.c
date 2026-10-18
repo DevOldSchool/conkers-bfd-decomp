@@ -258,7 +258,6 @@ void func_1511F768(s32 *arg0, s32 arg1) {
     }
 }
 f32 func_15047C00(f32);
-s32 func_150ADA20();                                /* extern */
 extern u8 D_800BE9B4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1511F788 CURRENT (2065) */

@@ -86,7 +86,6 @@ s32 func_1514F6E8(void *arg0) {
     }
     return 1;
 }
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1514F808 CURRENT (143) */
@@ -992,7 +991,6 @@ void func_15152874(Game152874Config *arg0, u8 arg1, s32 arg2) {
         } while (count != 0);
     }
 }
-u32 func_150ADA20(); /* extern */
 extern u8 D_800A5FE0[];
 
 void func_15152ABC(Game17CAF0Color *arg0) {

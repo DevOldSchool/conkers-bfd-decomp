@@ -135,7 +135,6 @@ void func_150FC438(Game128D70Actor *arg0, Game128D70Actor *arg1, s32 arg2, u8 ar
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150FC438 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_128D70/func_150FC438.s")
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_150FB8C0(void *, s32, f32, s32, s32, s32);
 void *func_151D8868(s8 *, s32, s32, s32);

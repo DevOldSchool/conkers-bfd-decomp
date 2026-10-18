@@ -58,7 +58,6 @@ void func_150EA500(void *arg0, s16 arg1, s32 arg2, s32 arg3) {
     packet.field2D = 6;
     func_1513418C(&packet, 0, 0xFF, 0);
 }
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void *func_10022EC0(void *, const void *, u32);
 

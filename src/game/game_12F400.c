@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_12F400.c
@@ -87,7 +88,6 @@ typedef struct Game12F400Animation {
 } Game12F400Animation;
 
 f32 func_15144B68(f32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800BE9A4, D_800A228C, D_800A2290, D_800A2294;
 

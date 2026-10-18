@@ -45,7 +45,6 @@ typedef struct Game1D92F0Payload {
 extern Game1D92F0Selection D_800A9020[];
 extern Game1D92F0Range D_800A9040[], D_800A9158[];
 extern Game1D92F0Impact D_800A925C[];
-u32 func_150ADA20(void);
 u8 func_151D8E20(void);
 void func_1514C678(f32, f32, f32, f32, s32, s32, s32, s32, s32, f32, void *, s32);
 void func_151DBE80(u8, f32, f32, s32, void *, void *, s32, s32, s32, s32);
@@ -223,7 +222,6 @@ s32 func_151AC3CC(void *arg0) {
 }
 u8 func_151D8E20(void);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
-u32 func_150ADA20(void);
 
 typedef struct Game1D92F0Entry {
     f32 field_0;

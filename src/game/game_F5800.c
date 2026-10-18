@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_F5800.c
@@ -88,7 +89,6 @@ void func_150C84F4(s32 arg0) {
         func_150C8350();
     }
 }
-u32 func_150ADA20(void);
 void func_150CDB6C(s32);
 
 void func_150C851C(s32 arg0) {

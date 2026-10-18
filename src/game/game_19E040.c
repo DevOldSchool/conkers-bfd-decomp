@@ -31,7 +31,6 @@ typedef struct {
     u16 values[3];
 } Game70B90Kinds;
 s32 func_1518C900(s32);
-u32 func_150ADA20(void);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 void func_151718F0(f32, f32, f32, f32, s32, f32, s32, s32, u8, s32);

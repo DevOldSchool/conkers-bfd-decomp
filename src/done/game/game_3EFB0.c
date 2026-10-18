@@ -15,7 +15,6 @@ typedef struct Game3EFB0Object {
     s8 field_30;
 } Game3EFB0Object;
 
-s32 func_150ADA20(void);
 
 void func_15011B00(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     Game3EFB0Object *temp_v0;

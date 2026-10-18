@@ -58,7 +58,6 @@ void func_150E41C0(void) {
 /* Call context: func_1510F8CC: matched US definition in src/game/game_13BB20.c */
 s32 func_1510F8CC(s32);
 
-s32 func_150ADA20(void);                                /* extern */
 void func_150E4550(f32, f32, f32, s32, s32, s32, s32); /* extern */
 s32 func_1510F8D8(s32, s32, s32, s32 *);        /* extern */
 extern f32 D_800A1060;

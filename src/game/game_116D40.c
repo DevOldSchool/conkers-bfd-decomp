@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_116D40.c
@@ -22,7 +23,6 @@ typedef struct Game116D40EmitterState {
 } Game116D40EmitterState;
 
 f32 func_150ADA68(void);
-u32 func_150ADA20(void);
 void func_1514470C(s32, void *);
 void func_15143794(s16, s16, f32, void *);
 void func_150E9890(void *, void *, f32, u8, s32);

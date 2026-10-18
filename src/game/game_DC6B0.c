@@ -83,7 +83,6 @@ typedef struct GameAF328Extension {
     u8 field0, field1, field2, field3;
     f32 x, y, scale;
 } GameAF328Extension;
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_8009F7B8, D_8009F7BC, D_8009F7C0;
 extern f32 D_8009F7C4, D_8009F7C8, D_8009F7CC;

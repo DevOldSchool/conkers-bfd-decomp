@@ -105,7 +105,6 @@ void func_150BD740(u8 *arg0, s32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150BD740 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E8C10/func_150BD740.s")
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_8009FFD0, D_8009FFD4, D_8009FFD8, D_8009FFDC, D_8009FFE0, D_8009FFE4;
 

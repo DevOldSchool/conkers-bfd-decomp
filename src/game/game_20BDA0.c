@@ -39,7 +39,6 @@ u16 func_1000EA94(s32);
 void func_15007668(void);
 s32 func_1507BB28(s32, s32);
 void *func_15083E90(u8);
-u32 func_150ADA20(void);
 s32 func_151F2CDC(void);
 void func_151E7E9C(void);
 extern f32 D_8008FDE8;

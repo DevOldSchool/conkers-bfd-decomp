@@ -58,7 +58,6 @@ void func_150B3EE8(GameE1280State *arg0) {
 void *func_10022EC0(void *, const void *, u32);
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
-u32 func_150ADA20(void);
 extern u8 D_1000EF40[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B3F5C CURRENT (366) */

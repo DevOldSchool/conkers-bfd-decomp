@@ -348,7 +348,6 @@ void func_151AA264(void *arg0, void *arg1) {
     }
 }
 void func_1515A238(f32 *, f32 *, f32, s32, s32, f32, s32, s32, s32, s32, s32);
-u32 func_150ADA20();
 f32 func_150ADA68();
 extern f32 D_800A8F98;
 extern f32 D_800A8F9C;
@@ -477,7 +476,6 @@ void *func_151AA48C(u8 *arg0, void *arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151AA48C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA48C.s")
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-u32 func_150ADA20(void);
 s32 func_151EF610(void);
 
 s32 func_151AA5A4(void *arg0) {
@@ -525,7 +523,6 @@ typedef struct {
 } Game1D6E80Extra;
 
 void *func_151303BC(s32, u8, s32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800A8FAC, D_800A8FB0, D_800A8FB4, D_800A8FB8;
 extern f32 D_800A8FBC, D_800A8FC0, D_800A8FC4, D_800A8FC8;
@@ -787,7 +784,6 @@ s32 func_151AADBC(void *arg0) {
     return 1;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AADF8.s")
-u32 func_150ADA20(void);                     /* extern */
 f32 func_150ADA68();                                /* extern */
 
 typedef struct {

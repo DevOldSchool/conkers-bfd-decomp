@@ -41,7 +41,6 @@ typedef struct Game1A7490Motion {
     u8 fadeB3;
 } Game1A7490Motion;
 
-u32 func_150ADA20(void);
 extern f32 D_800A7220;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15179FE0 CURRENT (2175) */
@@ -344,7 +343,6 @@ s32 func_1517A9A8(s32 arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517A9A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_1517A9A8.s")
-u32 func_150ADA20(void);
 void func_1517A644(f32, s32, s16, s16, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1517AA20 CURRENT (2053) */

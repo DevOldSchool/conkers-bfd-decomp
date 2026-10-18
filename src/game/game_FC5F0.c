@@ -21,7 +21,6 @@ typedef struct GameFC5F0Surface {
 } GameFC5F0Surface;
 
 void func_1504715C(GameFC5F0Surface *, void *);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_15143794(s16, s16, f32, void *);
 void *func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32,

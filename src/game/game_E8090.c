@@ -40,7 +40,6 @@ typedef struct GameBAFECPacket {
 typedef union GameBAFECAngle { s16 value; u8 byte[2]; } GameBAFECAngle;
 void *func_10022EC0(void *, const void *, u32);
 void *func_15130374(s32, u8, s32, u8, s32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_8009FE74;
 extern f32 D_8009FE78;

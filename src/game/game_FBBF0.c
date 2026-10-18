@@ -49,7 +49,6 @@ s32 func_1505A630(f32, f32, s32);
 
 f32 func_1505A5CC(void *);                          /* extern */
 void func_15063168(void *);                        /* extern */
-u32 func_150ADA20(void);                                /* extern */
 extern s8 D_8008FD8C;
 extern u8 D_800A080F[];                             /* unknown layout; byte-addressed storage */
 extern u8 D_800A0818[];                             /* unknown layout; byte-addressed storage */
