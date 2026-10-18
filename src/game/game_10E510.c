@@ -32,21 +32,19 @@ void func_1510F800(s32);
 s32 func_1510FD20(s16, s16);
 extern u8 D_800A0FE0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E1060 CURRENT (626) */
-s32 func_150E1060(s32 arg0, u8 arg1, s32 arg2) {
-    Game10E510Payload1060 payload;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E1060 CURRENT (5) */
+s32 func_150E1060(u8 arg0, u8 arg1, s32 arg2) {
     s32 result;
-    s32 index;
+    Game10E510Payload1060 payload;
 
-    index = arg0 & 0xFF;
-    if (index < 0) {
+    if (arg0 < 0) {
         return 0;
     }
-    if (index >= 2) {
+    if (arg0 >= 2) {
         return 0;
     }
-    payload.index = index;
-    payload.object = func_151149AC(D_800A0FE0[index]);
+    payload.index = arg0;
+    payload.object = func_151149AC(D_800A0FE0[arg0]);
     if (payload.object == 0) {
         return 0;
     }

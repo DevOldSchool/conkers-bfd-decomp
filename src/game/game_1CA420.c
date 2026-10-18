@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_resource_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1519CF70
  * - func_1519D454
  * - func_1519D9F4
  *
@@ -14,17 +13,14 @@
  */
 
 void func_15147D64(u8 *arg0, s32 arg1);
-void func_1519CF70(s32 arg0);
+void func_1519CF70(u8 arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519CF70 CURRENT (400) */
-void func_1519CF70(s32 arg0) {
+void func_1519CF70(u8 arg0) {
     u8 data[4];
 
     data[0] = arg0;
     func_15147D64(data, 6);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519CF70 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519CF70.s")
 typedef struct Game1CA420Packet {
     u8 pad0[6];
     u8 flags;
