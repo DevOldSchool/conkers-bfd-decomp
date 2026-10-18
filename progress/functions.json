@@ -96010,7 +96010,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 935,
-        "reason": "Fresh full460 CURRENT935 retained. New old-style narrow-parameter definitions (via complete-source probe) score935; reuse formal for output1408. Real mutable u16 handle plus owner-type snapshot935; fullword1335; explicit record snapshot1480-1880. No early A0 normalization recovery. Preserve original candidate, no ABI/helper/shared changes.",
+        "reason": "935: raw normalizes both u16 params in registers at entry, passes a0 to both calls without reloading, and narrows the result into a0 (andi a0,v0; move v0,a0). Writing the result back to arg0 register-allocates it but into s1 across the call (1408); a separate result var leaves arg0 memory-resident (935). Needs the variable shape that splits arg0's range at the call.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
