@@ -20,8 +20,9 @@ IDO toolchain with `./conker probe`:
 | `u32 func_150ADA20();`, retaining both pointer arguments | CURRENT (0) | 0x20 |
 | `u32 func_150ADA20(void);`, omitting both arguments | CURRENT (0) | 0x20 |
 
-The requested tie-breaker selects the `(void)` variant. This comparison does
-not establish the original source signature. In the raw caller, the first
+When both variants match, prefer the explicit no-argument declaration.
+The `(void)` variant is retained under that rule. This comparison does not
+establish the original source signature. In the raw caller, the first
 address in `$a0` also supplies the counter load at `0x150F5220`; the second
 supplies the counter store at `0x150F526C` in the second call's delay slot.
 Thus these address constructions do not independently establish an argument.
@@ -74,8 +75,9 @@ alignment or otherwise unidentified storage. No original BSS symbol size or
 allocation definition establishing a ninth owned byte was found.
 
 Therefore the accessed extent is at least nine bytes, but the original
-allocated extent remains unresolved. Under the user's extent-confirmation
-condition, `game_439B0.c` remains unchanged, including its redundant extern.
+allocated extent remains unresolved. Require evidence of the allocation extent
+before changing the bitset declaration. Without that evidence, `game_439B0.c`
+remains unchanged, including its redundant extern.
 Neither the eight-byte clear nor the loop is altered. This is an unresolved
 review finding, not a claim that the original code was memory-safe.
 
