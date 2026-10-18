@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1518F1A0
- * - func_1518F384
  * - func_1518F5D0
  * - func_1518F8E0
  * - func_1518FC84
@@ -79,7 +78,6 @@ s32 func_1518F1A0(u8 *arg0) {
 extern f32 D_800A7B74;
 extern f32 D_800A7B78;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F384 CURRENT (683) */
 s32 func_1518F384(u8 *arg0) {
     struct RangeState {
         f32 firstHigh;
@@ -91,38 +89,20 @@ s32 func_1518F384(u8 *arg0) {
         f32 secondValue;
         s16 firstReady;
         s16 secondReady;
-    };
-    struct RangeState *volatile saved;
-    f32 random;
-    f32 low;
-    f32 current;
-    f32 other;
-    struct RangeState *state;
+    } *state = (struct RangeState *)(arg0 + 0x110);
 
     if (*(s16 *)(arg0 + 0x12C) == 0) {
-        random = func_150ADA68();
-        state = (struct RangeState *)(arg0 + 0x110);
-        low = state->firstLow;
+        state->firstValue = func_150ADA68() * (state->firstHigh - state->firstLow) + state->firstLow;
         state->firstReady = 1;
-        state->firstValue = random * (state->firstHigh - low) + low;
     }
-    state = (struct RangeState *)(arg0 + 0x110);
     if (state->secondReady == 0) {
-        saved = state;
-        random = func_150ADA68();
-        state = saved;
-        low = state->secondLow;
+        state->secondValue = func_150ADA68() * (state->secondHigh - state->secondLow) + state->secondLow;
         state->secondReady = 1;
-        state->secondValue = random * (state->secondHigh - low) + low;
     }
-    current = *(f32 *)(arg0 + 0x30);
-    other = *(f32 *)(arg0 + 0x2C);
-    *(f32 *)(arg0 + 0x30) += (state->secondValue - current) * D_800A7B74;
-    *(f32 *)(arg0 + 0x2C) += (state->firstValue - other) * D_800A7B78;
+    *(f32 *)(arg0 + 0x30) += (state->secondValue - *(f32 *)(arg0 + 0x30)) * D_800A7B74;
+    *(f32 *)(arg0 + 0x2C) += (state->firstValue - *(f32 *)(arg0 + 0x2C)) * D_800A7B78;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518F384 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518F384.s")
 extern void func_15169260(s32 *arg0, s32 arg1, s32 arg2, u8 arg3);
 typedef struct {
     s32 value;
@@ -397,15 +377,13 @@ s32 func_1518FC44(void *arg0, void *arg1) {
     func_1514BF50(temp_a0);
     return 1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518FC84 CURRENT (311) */
-void func_1518FC84(u8 *arg0, void *arg1) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518FC84 CURRENT (153) */
+void func_1518FC84(u8 *arg0, f32 *arg1) {
     u8 *object;
-    u8 *settings;
     u8 *fields;
     u8 *transform;
-    f32 *position;
+    u8 *settings;
 
-    position = arg1;
     settings = *(u8 **)(arg0 + 0x30);
     object = *(u8 **)(arg0 + 0x2C);
     if (settings == 0) {
@@ -413,11 +391,11 @@ void func_1518FC84(u8 *arg0, void *arg1) {
         return;
     }
     *(f32 *)(object + 0x148) = *(f32 *)(settings + 0x60) *
-                              (position[0] - *(f32 *)(arg0 + 0x34));
+                              (arg1[0] - *(f32 *)(arg0 + 0x34));
     *(f32 *)(object + 0x14C) = *(f32 *)(settings + 0x60) *
-                              (position[1] - *(f32 *)(arg0 + 0x38));
+                              (arg1[1] - *(f32 *)(arg0 + 0x38));
     *(f32 *)(object + 0x150) = *(f32 *)(settings + 0x60) *
-                              (position[2] - *(f32 *)(arg0 + 0x3C));
+                              (arg1[2] - *(f32 *)(arg0 + 0x3C));
     transform = object + 0x110;
     fields = settings + 0x30;
     *(f32 *)(transform + 0x44) = *(f32 *)(fields + 0x34) +

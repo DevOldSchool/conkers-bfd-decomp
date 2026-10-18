@@ -10,7 +10,6 @@
  * - func_151D7264
  * - func_151D7538
  * - func_151D75C4
- * - func_151D7724
  * - func_151D792C
  * - func_151D7A38
  * - func_151D7CD0
@@ -233,21 +232,16 @@ s32 func_151D75C4(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D75C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D75C4.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7724 CURRENT (635) */
 s32 func_151D7724(u8 *arg0) {
-    u16 temp_v1;
-    u8 *temp_v0;
-    u8 *temp_v0_2;
+    u8 *state = arg0 + 0x28;
+    u8 *owner = *(u8 **)(arg0 + 0x40);
 
-    temp_v0 = (void *)(*(void **)((u8 *)arg0 + 0x40));
-    if ((*(s32 *)((u8 *)temp_v0 + 0x94) & 2) || (temp_v1 = *(u16 *)((u8 *)temp_v0 + 0x84), (temp_v1 == 4)) || (temp_v1 == 0xA) || (temp_v1 == 0xC)) {
-        temp_v0_2 = (void *)(arg0 + 0x28);
-        *(u8 *)((u8 *)temp_v0_2 + 5) = (u8) (*(u8 *)((u8 *)temp_v0_2 + 5) & 0xFFFE);
+    if ((*(s32 *)(owner + 0x94) & 2) || (*(u16 *)(owner + 0x84) == 4) ||
+        (*(u16 *)(owner + 0x84) == 0xA) || (*(u16 *)(owner + 0x84) == 0xC)) {
+        state[5] &= ~1;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D7724 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7724.s")
 s32 func_151D7770(void *arg0) {
     u8 *temp_v0;
     u8 *temp_v0_2;

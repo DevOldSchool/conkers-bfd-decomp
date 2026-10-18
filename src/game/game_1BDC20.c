@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15190898
- * - func_15190F9C
  * - func_1519108C
  * - func_15191400
  * - func_15191520
@@ -60,30 +59,21 @@ void func_1519086C(void *arg0) {
 /* Call context: func_151423D8: unique active project prototype */
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15190F9C CURRENT (303) */
 s32 func_15190F9C(u8 *arg0) {
-    f32 sp24;
-    u8 *volatile sp1C;
-    f32 temp_fa0;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    u8 *temp_v1;
+    u8 angle;
+    f32 second;
+    f32 first;
+    u8 *state = arg0 + 0x110;
 
-    *(u8 *)(arg0 + 0x131) += *(s8 *)(arg0 + 0x133) * D_800BE9E4;
-    *(u8 *)(arg0 + 0x132) += *(s8 *)(arg0 + 0x134) * D_800BE9E4;
-    sp24 = func_151423D8((*(u8 *)(arg0 + 0x131) - 0x40));
-    temp_v1 = (void *)(arg0 + 0x110);
-    sp1C = temp_v1;
-    temp_fv0 = func_151423D8((*(u8 *)((u8 *)temp_v1 + 0x22) - 0x40));
-    temp_v1 = sp1C;
-    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x2C);
-    temp_fa0 = *(f32 *)((u8 *)arg0 + 0x30);
-    *(f32 *)(arg0 + 0x2C) += ((*(f32 *)(temp_v1 + 0x28) + *(f32 *)(temp_v1 + 0x30) * sp24) - temp_fv1) * 0.5f;
-    *(f32 *)(arg0 + 0x30) += ((*(f32 *)(temp_v1 + 0x2C) + *(f32 *)(temp_v1 + 0x34) * temp_fv0) - temp_fa0) * 0.5f;
+    arg0[0x131] += *(s8 *)(arg0 + 0x133) * D_800BE9E4;
+    arg0[0x132] += *(s8 *)(arg0 + 0x134) * D_800BE9E4;
+    angle = arg0[0x131] - 0x40;
+    first = func_151423D8(angle);
+    second = func_151423D8(state[0x22] - 0x40);
+    *(f32 *)(arg0 + 0x2C) += ((*(f32 *)(state + 0x28) + *(f32 *)(state + 0x30) * first) - *(f32 *)(arg0 + 0x2C)) * 0.5f;
+    *(f32 *)(arg0 + 0x30) += ((*(f32 *)(state + 0x2C) + *(f32 *)(state + 0x34) * second) - *(f32 *)(arg0 + 0x30)) * 0.5f;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15190F9C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_15190F9C.s")
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);

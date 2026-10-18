@@ -148,14 +148,16 @@ void func_151A91AC(Game1D6570ParticleOwner *arg0, f32 *arg1, s32 arg2, s32 arg3)
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A91AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A91AC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A931C CURRENT (530) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A931C CURRENT (160) */
 void func_151A931C(void *arg0, u8 *arg1, u8 arg2) {
+    u8 *state = (u8 *)arg0 + 0x28;
+
     if (arg2 == 0x17) {
         if (*arg1 == *(u8 *)((u8 *)arg0 + 0x80)) {
-            *(u8 *)((u8 *)arg0 + 0x28) = (u8) (*(u8 *)((u8 *)arg0 + 0x28) | 1);
+            *state |= 1;
         }
     } else if ((arg2 == 0x18) && (*arg1 == *(u8 *)((u8 *)arg0 + 0x80))) {
-        *(u8 *)((u8 *)arg0 + 0x28) = (u8) (*(u8 *)((u8 *)arg0 + 0x28) & 0xFFFE);
+        *state &= ~1;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A931C */

@@ -9,7 +9,6 @@
  * - func_150F4570
  * - func_150F48D0
  * - func_150F4A38
- * - func_150F4CFC
  * - func_150F4DEC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -241,19 +240,16 @@ s32 func_150F4A38(GameF4A38Actor *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_121A20/func_150F4A38.s")
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F4CFC CURRENT (310) */
-void func_150F4CFC(Game121A20State *arg0, s32 arg1, u8 arg2) {
+void func_150F4CFC(Game121A20State *arg0, u8 arg1, u8 arg2) {
+    Game121A20NestedState *nested = &arg0->nested170;
+
     if (arg2 == 0x4E) {
         arg0->field71 = 0;
-        arg0->nested170.flags |= 5;
-        return;
-    }
-    if (arg2 == 0x4F) {
+        nested->flags |= 5;
+    } else if (arg2 == 0x4F) {
         func_1516972C((u8 *)arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F4CFC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_121A20/func_150F4CFC.s")
 
 void func_150F4D5C(s32 arg0, s8 arg1, u8 arg2, u8 arg3, s32 arg4) {
     struct {

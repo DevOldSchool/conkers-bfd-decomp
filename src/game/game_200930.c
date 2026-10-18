@@ -1424,34 +1424,27 @@ s32 func_151D5B6C(void *arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4) {
 s32 func_10003C40(s32, s32, s32, s32);
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5D60 CURRENT (826) */
-void func_151D5D60(volatile s32 arg0, s16 arg1, s32 arg2, s32 *arg3, u8 *arg4) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5D60 CURRENT (8) */
+void func_151D5D60(void **arg0, s16 arg1, s32 arg2, void **arg3, u8 *arg4) {
     u8 fallback;
-    s32 *entry;
-    s32 value;
-    s32 offset;
+    void *buffer;
 
-    if (arg4 == 0) {
+    if (arg4 == NULL) {
         arg4 = &fallback;
     }
     *arg4 = 0;
-    entry = (s32 *)(arg0 + (arg1 * 4));
-    value = *entry;
-    if (value == 0) {
-        value = func_10003C40(arg2 * 2, 1, 2, 1);
-        *entry = value;
-        if (value == 0) {
-            *arg3 = 0;
+    buffer = arg0[arg1];
+    if (buffer == NULL) {
+        buffer = (void *)func_10003C40(arg2 * 2, 1, 2, 1);
+        arg0[arg1] = buffer;
+        if (buffer == NULL) {
+            *arg3 = NULL;
             return;
         }
         *arg4 = 1;
-        value = *entry;
+        buffer = arg0[arg1];
     }
-    offset = arg2;
-    if (D_800BE9C0 != 0) {
-        offset = 0;
-    }
-    *arg3 = offset + value;
+    *arg3 = (u8 *)buffer + ((D_800BE9C0 != 0) ? 0 : arg2);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D5D60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5D60.s")

@@ -14,9 +14,7 @@
  * - func_1516295C
  * - func_15162B28
  * - func_151630F4
- * - func_15163704
  * - func_151640C0
- * - func_151643A8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1296,23 +1294,21 @@ f32 func_15144B68(f32);
 extern f32 D_800BE9A4;
 extern f32 D_800A6B04;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15163704 CURRENT (823) */
 s32 func_15163704(void *arg0) {
-    f32 temp_fv0;
-    u8 *temp_v0;
+    f32 *state = (f32 *)((u8 *)arg0 + 0x18);
+    f32 value;
+    f32 angle;
 
-    temp_v0 = (u8 *)arg0 + 0x18;
-    temp_fv0 = func_15047D60(*(f32 *)((u8 *)arg0 + 0x20));
-    *(s8 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0x2F) =
-        (s8)(u32)(*(f32 *)(temp_v0 + 0) +
-                  (*(f32 *)(temp_v0 + 4) * temp_fv0));
-    *(f32 *)(temp_v0 + 8) += *(f32 *)(temp_v0 + 0xC) * D_800BE9A4;
-    temp_fv0 = func_15144B68(*(f32 *)(temp_v0 + 8));
-    *(f32 *)(temp_v0 + 8) = temp_fv0;
-    return !(D_800A6B04 < temp_fv0);
+    value = func_15047D60(state[2]);
+    (*(u8 **)((u8 *)arg0 + 0x14))[0x2F] = (u32)(state[1] * value + state[0]);
+    state[2] += state[3] * D_800BE9A4;
+    angle = func_15144B68(state[2]);
+    state[2] = angle;
+    if (D_800A6B04 < angle) {
+        return 0;
+    }
+    return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15163704 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163704.s")
 void func_1516381C(s32 arg0, u8 arg1, u8 arg2, s32 arg3) {
     GameLightDescriptor sp20;
 
@@ -1695,22 +1691,15 @@ void func_1516434C(void *arg0, void *arg1, u8 arg2) {
         *(u8 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 7) = *(u8 *)((u8 *)arg1 + 7);
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151643A8 CURRENT (210) */
-void func_151643A8(void *arg0, void *arg1, u8 arg2) {
-    void *temp_v0_2;
+void func_151643A8(void *arg0, u8 arg1, u8 arg2) {
+    u8 *state = (u8 *)arg0 + 0x18;
 
     if (arg2 == 0x40) {
-        arg0 = (u8 *)arg0 + 0x18;
-        *(u8 *)((u8 *)arg0 + 0x24) = (u8) (*(u8 *)((u8 *)arg0 + 0x24) | 1);
-        return;
-    }
-    temp_v0_2 = (u8 *)arg0 + 0x18;
-    if (arg2 == 0x41) {
-        *(u8 *)((u8 *)temp_v0_2 + 0x24) = (u8) (*(u8 *)((u8 *)temp_v0_2 + 0x24) & 0xFFFE);
+        state[0x24] |= 1;
+    } else if (arg2 == 0x41) {
+        state[0x24] &= ~1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151643A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151643A8.s")
 void func_1516441C(void *, void *);
 s32 func_151643F8(s32 arg0) {
     func_1516441C((void *) arg0, (void *) (arg0 + 0x18));
