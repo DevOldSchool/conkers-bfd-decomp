@@ -242,7 +242,7 @@ extern s32 D_800BE9F0, D_800BEBA4, D_800D2588;
 extern GameBC510Command *D_800BE9C8[];
 extern u8 D_800D23D0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508FD38 CURRENT (193) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508FD38 CURRENT (73) */
 GameBC510Command *func_1508FD38(register GameBC510Command *arg0) {
     GameBC510Command *original;
     s32 index;
@@ -252,16 +252,8 @@ GameBC510Command *func_1508FD38(register GameBC510Command *arg0) {
 
     original = arg0;
     if (D_800BE9F0 == 0x1D) return arg0;
-    {
-        GameBC510Command *packet0 = arg0++;
-        packet0->w0 = 0xDB0E0000;
-        packet0->w1 = D_800D2454;
-    }
-    {
-        GameBC510Command *packet1 = arg0++;
-        packet1->w0 = 0xDA380007;
-        packet1->w1 = (u32)D_800D23D0;
-    }
+    { GameBC510Command *packet0 = arg0++; packet0->w0 = 0xDB0E0000; packet0->w1 = D_800D2454; }
+    { GameBC510Command *packet1 = arg0++; packet1->w0 = 0xDA380007; packet1->w1 = (u32)D_800D23D0; }
     if (D_800BE616 != 0) {
         arg0 = func_150918EC(arg0);
         overflow = D_800BEBA4 < arg0 - *(D_800BE9C8 + D_800BE9C0) ? 1 : 0;

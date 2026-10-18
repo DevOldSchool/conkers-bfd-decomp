@@ -7,8 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1514A6A0
- * - func_1514AB5C
- * - func_1514AD9C
  * - func_1514B034
  * - func_1514B364
  * - func_1514B8E4
@@ -48,7 +46,6 @@ u32 func_150ADA20(void);
 extern f32 D_800A57B0, D_800A57B4, D_800A57B8, D_800A57BC;
 extern f32 D_800A57C0, D_800A57C4, D_800A57C8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514AB5C CURRENT (14) */
 void func_1514AB5C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s16 arg4,
                    f32 arg5, f32 arg6, f32 arg7, f32 arg8,
                    s16 arg9, s16 arg10, u8 arg11) {
@@ -61,8 +58,7 @@ void func_1514AB5C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s16 arg4,
     u8 angle;
 
     if (arg4 > 0) {
-        particle.field20 = 0x6231;
-        particle.field22 = 0x1A4D;
+        particle.field20 = 0x6231; particle.field22 = 0x1A4D;
         particle.color26[0] = 0;
         particle.color26[1] = 0;
         particle.color26[2] = 0;
@@ -99,23 +95,19 @@ void func_1514AB5C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s16 arg4,
         } while (arg4 != 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514AB5C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514AB5C.s")
 
 extern f32 D_800A57CC, D_800A57D0, D_800A57D4, D_800A57D8;
 extern f32 D_800A57DC, D_800A57E0, D_800A57E4, D_800A57E8;
 extern f32 D_800A57EC, D_800A57F0, D_800A57F4, D_800A57F8;
 extern f32 D_800A57FC, D_800A5800, D_800A5804;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514AD9C CURRENT (14) */
 void func_1514AD9C(Vec3f *arg0, s32 arg1, s32 arg2) {
     Game177B50Particle particle;
     f32 x_scale;
     f32 y_scale;
     f32 random_y;
 
-    particle.field20 = 0x6231;
-    particle.field22 = 0x1A4D;
+    particle.field20 = 0x6231; particle.field22 = 0x1A4D;
     particle.position = *arg0;
     particle.color26[0] = 0;
     particle.color26[1] = 0;
@@ -143,8 +135,6 @@ void func_1514AD9C(Vec3f *arg0, s32 arg1, s32 arg2) {
     particle.field2C = func_150ADA20() % 156U + 0x64;
     func_15149550(&particle.position.x, 10, 0, 0, ((u8 *)&arg1)[3], arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514AD9C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514AD9C.s")
 extern f32 D_800BE9A4;
 
 typedef struct Game177B50Decay {

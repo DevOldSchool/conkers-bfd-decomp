@@ -24,7 +24,6 @@
  * - func_1505A250
  * - func_1505A3A8
  * - func_1505A630
- * - func_1505A770
  * - func_1505A9AC
  * - func_1505B5F8
  * - func_1505B9C4
@@ -1149,7 +1148,6 @@ extern f32 D_800994DC;
 extern f32 D_800994E0;
 extern f32 D_800994E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505A770 CURRENT (190) */
 void func_1505A770(void *arg0) {
     f32 velocity;
     f32 decrement;
@@ -1158,8 +1156,8 @@ void func_1505A770(void *arg0) {
 
     if ((*(f32 *)((u8 *)arg0 + 0x28) != 0.0f) ||
         (velocity = *(f32 *)((u8 *)arg0 + 0x20), velocity > 0.0f)) {
-        count = (s32)(D_800D1550 / 0.1f);
         decrement = *(f32 *)((u8 *)arg0 + 0x24) * 0.1f;
+        count = (s32)(D_800D1550 / 0.1f);
         for (i = 0; i < count; i++) {
             *(f32 *)((u8 *)arg0 + 0x20) -= decrement;
             *(f32 *)((u8 *)arg0 + 0x18) +=
@@ -1171,15 +1169,12 @@ void func_1505A770(void *arg0) {
     } else {
         *(f32 *)((u8 *)arg0 + 0x20) = velocity -
             (*(f32 *)((u8 *)arg0 + 0x24) * D_800D1550);
-        velocity = *(f32 *)((u8 *)arg0 + 0x20);
-        *(f32 *)((u8 *)arg0 + 0x18) += velocity * D_800D1550 * 0.5f;
+        velocity = *(f32 *)((u8 *)arg0 + 0x20); *(f32 *)((u8 *)arg0 + 0x18) += velocity * D_800D1550 * 0.5f;
         if (velocity < -500.0f) {
             *(f32 *)((u8 *)arg0 + 0x20) = -500.0f;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505A770 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A770.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A9AC.s")
 void func_1506E5FC(void);

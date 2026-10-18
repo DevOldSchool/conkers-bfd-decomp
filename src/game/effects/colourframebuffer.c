@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1515FDA0
  * - func_151600D8
- * - func_15160274
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -177,15 +176,16 @@ s32 func_151600D8(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151600D8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/colourframebuffer/func_151600D8.s")
-void func_15169260(s32 *arg0, s32 arg1, s32 arg2, s32 arg3);
-extern s32 D_800A6670;
+typedef struct {
+    s32 field_0;
+} ColourFramebufferArgs;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15160274 CURRENT (650) */
+extern ColourFramebufferArgs D_800A6670;
+void func_15169260(ColourFramebufferArgs *, s32, s32, u8);
+
 void func_15160274(s32 arg0, u8 arg1) {
-    s32 sp1C;
+    ColourFramebufferArgs sp1C;
 
     sp1C = D_800A6670;
-    func_15169260(&sp1C, 1, arg0, arg1 & 0xFF);
+    func_15169260(&sp1C, 1, arg0, arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15160274 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/colourframebuffer/func_15160274.s")

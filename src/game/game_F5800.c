@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150C8350
- * - func_150C851C
  * - func_150C8600
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -92,7 +91,6 @@ void func_150C84F4(s32 arg0) {
 u32 func_150ADA20(void);
 void func_150CDB6C(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C851C CURRENT (100) */
 void func_150C851C(s32 arg0) {
     s32 base;
     s32 range;
@@ -100,8 +98,7 @@ void func_150C851C(s32 arg0) {
 
     if (D_800BE4E0 != 0) {
         func_150CDB6C(arg0);
-        base = (s32)(arg0 * 0x12C) >> 8;
-        range = ((s32)(arg0 * 0x32) >> 8) + 0x32;
+        range = ((s32)(arg0 * 0x32) >> 8) + 0x32; base = (s32)(arg0 * 0x12C) >> 8;
         for (i = 0; i < 10; i++) {
             arg0 = base;
             arg0 += func_150ADA20() % (u32)range;
@@ -109,8 +106,6 @@ void func_150C851C(s32 arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C851C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F5800/func_150C851C.s")
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 extern s32 *D_80088810[2];
 
