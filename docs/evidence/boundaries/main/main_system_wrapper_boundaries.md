@@ -73,6 +73,12 @@ These checks establish bounded working units, not original data/BSS ownership.
   called in sequence at bootstrap `0x121C` and `0x1224`. The first clears
   `0x80038080`; the second reads that flag to select workspace limits.
   Existing aligned endpoints and legacy singleton placement are retained.
+  The 16-byte `0x3920` object was compiled without `-g3`: its `lui; jr; sb`
+  body fills the `jr $ra` delay slot, which IDO 5.3 `-O2 -g3` never does for a
+  single-statement leaf (`lui; sb; jr; nop`), and the pinned flags minus `-g3`
+  reproduce the raw bytes exactly (the trailing `nop` is object padding).
+  `src/main/init_3920.c` records this with a `CONKER_COMPILE_WITHOUT: -g3`
+  directive.
 - `0x39C0:0x3BD0`: a framebuffer initializer and its local filling helper.
   The initializer is called at `0x5138`, calls the helper at `0x3A54`, and
   both use the same framebuffer/size state. The helper also has game callers
