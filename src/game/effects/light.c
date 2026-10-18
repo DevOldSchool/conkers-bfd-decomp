@@ -1295,20 +1295,17 @@ f32 func_15144B68(f32);
 extern f32 D_800BE9A4;
 extern f32 D_800A6B04;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15163704 CURRENT (823) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15163704 CURRENT (415) */
 s32 func_15163704(void *arg0) {
-    f32 temp_fv0;
-    u8 *temp_v0;
+    f32 *state = (f32 *)((u8 *)arg0 + 0x18);
+    f32 value;
 
-    temp_v0 = (u8 *)arg0 + 0x18;
-    temp_fv0 = func_15047D60(*(f32 *)((u8 *)arg0 + 0x20));
-    *(s8 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0x2F) =
-        (s8)(u32)(*(f32 *)(temp_v0 + 0) +
-                  (*(f32 *)(temp_v0 + 4) * temp_fv0));
-    *(f32 *)(temp_v0 + 8) += *(f32 *)(temp_v0 + 0xC) * D_800BE9A4;
-    temp_fv0 = func_15144B68(*(f32 *)(temp_v0 + 8));
-    *(f32 *)(temp_v0 + 8) = temp_fv0;
-    return !(D_800A6B04 < temp_fv0);
+    value = func_15047D60(state[2]);
+    (*(u8 **)((u8 *)arg0 + 0x14))[0x2F] = (u32)(state[1] * value + state[0]);
+    state[2] += state[3] * D_800BE9A4;
+    value = func_15144B68(state[2]);
+    state[2] = value;
+    return (D_800A6B04 < value) ? 0 : 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15163704 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163704.s")

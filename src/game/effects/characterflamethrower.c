@@ -29,7 +29,6 @@
  * - func_1519A9A4
  * - func_1519B4B8
  * - func_1519C26C
- * - func_1519C4E4
  * - func_1519C56C
  * - func_1519C9C4
  * - func_1519CDB0
@@ -1973,40 +1972,24 @@ s32 func_1519C26C(CharacterFlamethrowerMotion *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C26C.s")
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519C4E4 CURRENT (435) */
 s32 func_1519C4E4(u8 *arg0) {
     typedef struct Damping { u8 pad0[0x24]; f32 factor; s16 threshold, multiplier; } Damping;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    s16 temp_v1;
-    s32 temp_lo;
-    s32 var_v1;
-    Damping *temp_v0;
-    Damping *temp_v0_2;
+    Damping *damping = (Damping *)(arg0 + 0x110);
+    s32 i;
 
-    var_v1 = D_800BE9E4;
-    temp_v0 = (void *)(arg0 + 0x110);
-    if (var_v1 > 0) {
-        do {
-            temp_fv0 = *(f32 *)((u8 *)arg0 + 0x2C);
-            temp_fv1 = *(f32 *)((u8 *)arg0 + 0x30);
-            var_v1 -= 1;
-            *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (temp_fv0 - (temp_fv0 * temp_v0->factor));
-            *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fv1 - (temp_fv1 * temp_v0->factor));
-        } while (var_v1 > 0);
+    for (i = D_800BE9E4; i > 0; i--) {
+        *(f32 *)(arg0 + 0x2C) -= *(f32 *)(arg0 + 0x2C) * damping->factor;
+        *(f32 *)(arg0 + 0x30) -= *(f32 *)(arg0 + 0x30) * damping->factor;
     }
-    temp_v0_2 = (void *)(arg0 + 0x110);
-    temp_v1 = *(s16 *)((u8 *)arg0 + 0x1C);
-    if (temp_v1 < temp_v0_2->threshold) {
-        temp_lo = temp_v1 * temp_v0_2->multiplier;
-        if (temp_lo < (s32) *(u8 *)((u8 *)arg0 + 0x5C)) {
-            *(u8 *)((u8 *)arg0 + 0x5C) = (u8) temp_lo;
+    if (*(s16 *)(arg0 + 0x1C) < damping->threshold) {
+        s32 limit = *(s16 *)(arg0 + 0x1C) * damping->multiplier;
+
+        if (limit < arg0[0x5C]) {
+            arg0[0x5C] = limit;
         }
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519C4E4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C4E4.s")
 typedef struct CharacterFlamethrowerRibbon {
     u8 pad00[0x2C];
     f32 width;

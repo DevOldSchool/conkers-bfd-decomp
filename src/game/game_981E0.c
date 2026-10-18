@@ -3095,61 +3095,31 @@ extern u8 D_800CC335;
 extern s32 D_800CC5FC;
 extern s32 D_800D121C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15072208 CURRENT (370) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15072208 CURRENT (270) */
 void *func_15072208(void *arg0, s32 arg1) {
-    u8 *temp_a1;
-    u8 *var_a1;
-    s32 temp_v0;
-    s32 var_v1;
+    u8 *actor;
+    s32 id;
+    s32 count;
+    s32 i;
 
-    temp_a1 = (u8 *)&D_800CC2D0;
-    temp_v0 = (((u8 *)arg0 - temp_a1) / 812) + 1;
-    var_v1 = 0;
-    if (temp_v0 == D_800CC335) {
-        var_v1 = 1;
+    actor = (u8 *)&D_800CC2D0;
+    id = (((u8 *)arg0 - actor) / 0x32C) + 1;
+    count = 0;
+    if (id == D_800CC335) {
         if (arg1 == 0) {
-            return temp_a1;
+            return actor;
+        }
+        count = 1;
+    }
+    for (i = 1; i < 25; i++) {
+        if (id == ((u8 (*)[0x32C])&D_800CC2D0)[i][0x65]) {
+            if (count == arg1) {
+                return ((u8 (*)[0x32C])&D_800CC2D0)[i];
+            }
+            count++;
         }
     }
-    var_a1 = (u8 *)&D_800CC5FC;
-loop_4:
-    if (temp_v0 == var_a1[0x65]) {
-        if (var_v1 == arg1) {
-            return var_a1;
-        }
-        var_v1 += 1;
-        goto block_8;
-    }
-block_8:
-    if (temp_v0 == var_a1[0x391]) {
-        if (var_v1 == arg1) {
-            return var_a1 + 0x32C;
-        }
-        var_v1 += 1;
-        goto block_12;
-    }
-block_12:
-    if (temp_v0 == var_a1[0x6BD]) {
-        if (var_v1 == arg1) {
-            return var_a1 + 0x658;
-        }
-        var_v1 += 1;
-        goto block_16;
-    }
-block_16:
-    if (temp_v0 == var_a1[0x9E9]) {
-        if (var_v1 == arg1) {
-            return var_a1 + 0x984;
-        }
-        var_v1 += 1;
-        goto block_20;
-    }
-block_20:
-    var_a1 += 0xCB0;
-    if (var_a1 == (u8 *)&D_800D121C) {
-        return 0;
-    }
-    goto loop_4;
+    return NULL;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15072208 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15072208.s")
