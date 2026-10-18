@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_timed_actor_emitter.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150E1060
  * - func_150E114C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -20,7 +19,7 @@ typedef struct Game10E510Object1060 {
 } Game10E510Object1060;
 
 typedef struct Game10E510Payload1060 {
-    s8 index;
+    u8 index;
     u8 pad1[3];
     Game10E510Object1060 *object;
     s32 value;
@@ -32,7 +31,6 @@ void func_1510F800(s32);
 s32 func_1510FD20(s16, s16);
 extern u8 D_800A0FE0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E1060 CURRENT (5) */
 s32 func_150E1060(u8 arg0, u8 arg1, s32 arg2) {
     s32 result;
     Game10E510Payload1060 payload;
@@ -57,6 +55,4 @@ s32 func_150E1060(u8 arg0, u8 arg1, s32 arg2) {
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E1060 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10E510/func_150E1060.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10E510/func_150E114C.s")

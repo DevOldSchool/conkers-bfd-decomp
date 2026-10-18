@@ -11,7 +11,6 @@
  * - func_15146D60
  * - func_15146E84
  * - func_15147040
- * - func_151470FC
  * - func_15147318
  * - func_15147478
  * - func_151475D8
@@ -311,12 +310,11 @@ u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800A5730, D_800A5734, D_800A5738;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151470FC CURRENT (150) */
 s32 func_151470FC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
                    s32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14) {
-    void *temp_v0;
     Game173D40Particle packet;
+    void *temp_v0;
     f32 sp2C;
     f32 fraction;
     u32 sp24;
@@ -339,11 +337,11 @@ s32 func_151470FC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     packet.field1C = 0xFF;
     packet.field60 = 3;
     packet.field61 = 3;
-    packet.size0 = (func_150ADA68() * 95.0f) + 101.0f;
+    packet.size1 = (func_150ADA68() * 95.0f) + 101.0f;
     packet.position[0] = arg2;
     packet.position[1] = arg3;
     packet.position[2] = arg4;
-    packet.size1 = packet.size0;
+    packet.size0 = packet.size1;
     sp24 = func_150ADA20();
     fraction = func_150ADA68();
     func_15143794(((s16 *)&arg8)[1], (s16) ((sp24 % 11U) - 0xB), ((fraction * 396.0f) + 202.0f) * D_800A5730, &packet.direction);
@@ -368,8 +366,6 @@ s32 func_151470FC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151470FC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_173D40/func_151470FC.s")
 extern s32 (*D_8008FD04)(void);
 extern f32 D_800A573C;
 extern f32 D_800A5740;

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151CD3CC
  * - func_151CD4C0
  * - func_151CD7BC
  * - func_151CDB94
@@ -77,17 +76,17 @@ s32 func_151CD4C0(void *, u8, s32, u8, s32);
 typedef struct Game1FA770Object Game1FA770Object;
 void func_151CE47C(Game1FA770Object *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD3CC CURRENT (10) */
 void func_151CD3CC(Game1FA770DispatchOwner *arg0, s32 *arg1, u8 arg2) {
+    s32 event = arg2;
     Game1FA770DispatchState *state = &arg0->state;
-    if (arg2 == 0x17) {
+    if (event == 0x17) {
         s32 id = state->id;
 
         if ((id == *arg1) && (state->handle == 0)) {
             state->handle = (void *)func_151CD4C0(state->object, state->field_C, id, arg0->field_C, arg0->field_1);
             *(s8 *)((u8 *)state->object + 0x14) = 0;
         }
-    } else if (arg2 == 0x18) {
+    } else if (event == 0x18) {
         if (state->id == *arg1) {
             void *handle = state->handle;
 
@@ -95,15 +94,11 @@ void func_151CD3CC(Game1FA770DispatchOwner *arg0, s32 *arg1, u8 arg2) {
                 func_151CE47C(handle);
             }
         }
-    } else if ((arg2 == 0x23) && (state->id == *arg1)) {
-        u8 *object = state->object;
-
+    } else if ((event == 0x23) && (state->id == *arg1)) {
         state->handle = 0;
-        object[0x14] = 1;
+        *(s8 *)((u8 *)state->object + 0x14) = 1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CD3CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CD3CC.s")
 typedef struct Game1CD4C0Source {
     s16 x;
     s16 y;

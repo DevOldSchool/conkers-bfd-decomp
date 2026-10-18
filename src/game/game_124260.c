@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150F6DE4
- * - func_150F706C
  * - func_150F7310
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -179,14 +178,13 @@ extern f32 D_800D9A50[3];
 extern f32 D_800A1BB4, D_800A1BB8;
 extern u8 D_800C35EA;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F706C CURRENT (53) */
 void func_150F706C(Game124260Root *arg0) {
+    Game124260Spawn *state;
+    Game124260Owner *owner;
     struct {
         Game124260Copy3 copied;
         Vec3f position;
     } work;
-    Game124260Spawn *state;
-    Game124260Owner *owner;
 
     owner = arg0->state.owner;
     state = &arg0->state;
@@ -237,8 +235,6 @@ void func_150F706C(Game124260Root *arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F706C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_124260/func_150F706C.s")
 void func_15149514(s32, u8, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F7310 CURRENT (260) */

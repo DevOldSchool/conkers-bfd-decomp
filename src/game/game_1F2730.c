@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151C5280
- * - func_151C5588
  * - func_151C577C
  * - func_151C5F44
  *
@@ -116,23 +115,20 @@ extern f32 D_800AAAC0;
 extern f32 D_800AAAC4;
 extern f32 D_800AAAC8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C5588 CURRENT (10) */
 void func_151C5588(s32 arg0, s32 arg1, s16 arg2, u8 arg3, s32 arg4) {
     f32 scale[2];
-    f32 angle;
+    f32 random_angle;
     u32 random[2];
 
     scale[1] = ((func_150ADA68() * D_800AAABC) + 604.0f) * D_800AAAC0;
     scale[0] = ((func_150ADA68() * 59.0f) + 141.0f) * D_800AAAC4;
     random[0] = func_150ADA20();
     random[1] = func_150ADA20();
-    angle = (func_150ADA68() * 270.0f) + D_800AAAC8;
+    random_angle = func_150ADA68();
     func_15102B38(arg0, 0, (s32)&D_800AAA90, (s32)&D_800AAA9C,
-                  scale, (random[0] & 3) + 6, 0xFF, angle,
+                  scale, (random[0] & 3) + 6, 0xFF, (random_angle * 270.0f) + D_800AAAC8,
                   arg1, 0xFF, 0, arg2, arg3, arg4);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C5588 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1F2730/func_151C5588.s")
 typedef struct {
     u8 type;
     s8 neg_one;

@@ -500,7 +500,8 @@ s32 func_151140C4(u8 *placedObject) {
     return 0;
 }
 extern u8 D_800CC2D0;
-void func_1511473C(void *, s32);
+struct Game13F9D0MovingActor;
+void func_1511473C(struct Game13F9D0MovingActor *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15114188 CURRENT (700) */
 void func_15114188(void) {
@@ -586,16 +587,13 @@ extern f32 D_800A2F60;
 extern u16 D_800CBDA0[];
 extern u8 D_800CC2D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511473C CURRENT (225) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511473C CURRENT (30) */
 void func_1511473C(Game13F9D0MovingActor *arg0, s32 arg1) {
-    u32 angle;
-
     if ((arg0 != 0) && (arg1 < D_800DBEF0)) {
         func_15114348(arg1, &arg0->xyz[0], &arg0->xyz[1], &arg0->xyz[2]);
-        angle = (u32)((f32)arg0->angle + (*(f32 *)((u8 *)D_800DBEF4 + (arg1 * 0xA0) + 0x64) * D_800A2F60));
-        arg0->angle = (u16)angle;
+        arg0->angle += *(f32 *)((u8 *)D_800DBEF4 + (arg1 * 0xA0) + 0x64) * D_800A2F60;
         if ((arg0->active != 0) && ((arg1 + 1) == D_800CBDA0[((s32)((u8 *)arg0 - &D_800CC2D0) / 0x32C)])) {
-            arg0->angleCopy = (s16)angle;
+            arg0->angleCopy = arg0->angle;
         }
     }
 }
