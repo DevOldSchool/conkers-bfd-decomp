@@ -11,7 +11,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 
 typedef struct GameDC360Spawn {

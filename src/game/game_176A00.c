@@ -31,7 +31,6 @@ typedef struct Game176A00Motion {
     u8 effect;
 } Game176A00Motion;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern s32 D_800BE9E4;
 
@@ -250,7 +249,6 @@ typedef struct {
 } Game176A00Effect;
 
 void func_151429E0(u8, u8 *, u8 *, u8 *);
-u32 func_150ADA20(void);
 void func_1518CA80();
 
 s32 func_15149EC4(void *arg0) {

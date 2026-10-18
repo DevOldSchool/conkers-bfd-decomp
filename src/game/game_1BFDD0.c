@@ -57,7 +57,6 @@ typedef struct Game1BFDD0Emitter {
 } Game1BFDD0Emitter;
 
 void *func_15130374(s32, u8, s32, u8, s32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern f32 D_800A8180;
 extern f32 D_800A8184;

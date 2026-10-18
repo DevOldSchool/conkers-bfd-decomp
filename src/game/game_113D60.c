@@ -33,7 +33,6 @@ typedef struct Game113D60Effect {
 
 f32 func_15047D60(f32);
 f32 func_150ADA68();
-s32 func_150ADA20(void);
 f32 func_15144528(f32, f32, f32);
 void *func_150E5FD0(void *, void *, f32, f32, f32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A1304, D_800A1308, D_800BE9A4;
@@ -93,7 +92,6 @@ void func_150E6B84(Game113D60Effect *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150E6B84 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E6B84.s")
 f32 func_150ADA68();                                /* extern */
-extern s32 func_150ADA20(void);
 typedef struct Game113D60Segment {
     Vec3f start;
     Vec3f end;
@@ -119,7 +117,6 @@ void func_150E6E34(Vec3f *arg0) {
         arg0->z = (segment->end.z - segment->start.z) * r + segment->start.z;
     }
 }
-extern s32 func_150ADA20(void);
 extern s32 D_800D9A20[];
 extern void func_1514470C(s32 arg0, s32 arg1);
 

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_68C70.c
@@ -31,7 +32,6 @@ typedef struct Game68C70Actor {
 
 void *func_10003C40(s32, s32, s32, s32);
 void func_100226F0(void *, s32);
-u32 func_150ADA20(void);
 
 void func_1503B7C0(Game68C70Actor *arg0) {
     arg0->field_31C->field_11C = func_10003C40(0x50, 1, 0, 0);

@@ -53,7 +53,6 @@ typedef struct Game117FC0Actor {
 
 void *func_10022EC0(void *, const void *, u32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-s32 func_150ADA20(void);
 f32 func_150ADA68(void);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)

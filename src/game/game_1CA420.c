@@ -296,7 +296,6 @@ s32 func_1519D240(Game1CA420Trail *arg0) {
     }
     return 1;
 }
-u32 func_150ADA20(void);
 extern f32 D_800BE9A8;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1519D454 CURRENT (10755) */

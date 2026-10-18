@@ -246,7 +246,6 @@ void func_150B17DC(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DE5A0/func_150B17DC.s")
 void func_150562FC(u8 *);
 void func_150597FC(u8 *);
-u32 func_150ADA20(void);
 void func_1510F800(s32);
 s32 func_1510F8D8(s32, s32, s32, s32 *);
 extern s32 D_8008CAE0;

@@ -260,7 +260,6 @@ typedef struct GameE2E00Spawn {
     u8 fields66[0xA];
 } GameE2E00Spawn;
 
-u32 func_150ADA20();
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B5E34 CURRENT (303) */
 void func_150B5E34(void *arg0, u8 arg1, s32 arg2) {
@@ -319,7 +318,6 @@ void func_150B5E34(void *arg0, u8 arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B5E34 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E2E00/func_150B5E34.s")
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-u32 func_150ADA20();
 
 void func_150B6000(void *arg0, u8 arg1, s32 arg2) {
     struct {

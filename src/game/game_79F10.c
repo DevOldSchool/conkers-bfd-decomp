@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_79F10.c
@@ -13,7 +14,6 @@
  */
 
 void func_15058EA4(void *, f32, f32, f32, f32, f32, f32);
-u32 func_150ADA20(void);
 
 void func_1504CA60(u8 *arg0) {
     f32 horizontal;

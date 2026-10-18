@@ -16,7 +16,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-u32 func_150ADA20(u32);
 extern s32 D_800BE9F0;
 
 void func_1507EB80(u8 *arg0, s32 *arg1, u8 arg2) {

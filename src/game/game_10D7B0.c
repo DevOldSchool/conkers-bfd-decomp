@@ -66,7 +66,6 @@ void func_150E0348(void *arg0, u8 arg1, s32 arg2) {
 /* Call context: func_150ADA68: unique active declaration in the allowed source */
 /* Call context: func_15143794: matched US definition in src/game/game_16EE20.c */
 /* Call context: func_151A26EC: unique active project prototype */
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_15143794(s16, s16, f32, void *);
 void func_151A26EC(f32 *, f32 *, f32 *, f32, f32, f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
@@ -141,7 +140,6 @@ void func_150E05F8(void *arg0) {
 void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32, s32,
                    s32, s32, s32, s32);
 void func_15145EA4(s32 *, s32 *, s32, s32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 extern u8 D_80088988;
 extern u8 D_800A0F70[];

@@ -72,7 +72,6 @@ void func_150D5A4C(void *arg0) {
     func_15149368(arg0);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1028F0/func_150D5A6C.s")
-u32 func_150ADA20(void);
 void func_151541B8(f32 *, f32, f32, f32, f32, u8, s32);
 f32 func_150ADA68();
 
@@ -139,7 +138,6 @@ void func_150D64E8(void *arg0, f32 *arg1) {
     }
     *(s8 *)((u8 *)arg0 + 0x50) = 0;
 }
-u32 func_150ADA20(void);
 void func_151A5D58(f32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 void func_150D65F0(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {

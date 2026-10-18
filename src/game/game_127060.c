@@ -223,7 +223,6 @@ typedef struct Game127060Emission {
     f32 count;
 } Game127060Emission;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_1514470C(s32, void *);
 void func_150F4570(f32 *, f32 *, u8, f32, f32, f32, s32, s32, s32, s32);

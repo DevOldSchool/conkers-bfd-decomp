@@ -1164,7 +1164,6 @@ void func_15084A18(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15084A18 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15084A18.s")
-u32 func_150ADA20();                                /* extern */
 
 void func_15084C30(void *arg0) {
     struct {

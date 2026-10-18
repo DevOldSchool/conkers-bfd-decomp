@@ -203,7 +203,6 @@ typedef struct Game1188E0Particle {
     s32 field78;
 } Game1188E0Particle;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_150E83AC(void *, s16, u8, s32);
 void *func_15164F0C(u8, u8, void *, u8, s32);

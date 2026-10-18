@@ -88,7 +88,6 @@ typedef struct GameF5D80RadialEffect {
     f32 pending;
 } GameF5D80RadialEffect;
 
-u32 func_150ADA20(void);
 extern f32 D_800BE9A4;
 extern s32 D_800BE9E4;
 extern s32 D_80082FA4;
@@ -195,7 +194,6 @@ typedef struct GameF5D80Emitter {
     f32 scale;
 } GameF5D80Emitter;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void *func_15130374(s32, u8, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);
@@ -456,7 +454,6 @@ end:
 #endif /* CONKER_DEFERRED_CANDIDATE func_150CA07C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150CA07C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150CA150.s")
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_1514C678(f32, f32, s32, f32, s32, s32, s32, s32, s32, f32, s32, s32);
 

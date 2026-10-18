@@ -604,7 +604,6 @@ void func_1500A94C(s32 arg0, s32 arg1) {
     }
 }
 s32 func_10024770(void);
-u32 func_150ADA20(void);
 extern f32 D_80095BB8;
 extern f32 D_80095BBC;
 extern f32 D_80095BC0;

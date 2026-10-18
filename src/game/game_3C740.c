@@ -53,7 +53,6 @@ typedef struct {
     s8 field_30;
 } Game3C740Object;
 
-s32 func_150ADA20(void);
 
 void func_1500F378(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     Game3C740Object *temp_v0;

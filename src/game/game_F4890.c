@@ -20,7 +20,6 @@ typedef struct GameF4890LightState {
 } GameF4890LightState;
 
 void func_10010F30(s32, s32, s32, s32, s32);
-u32 func_150ADA20(void);
 extern f32 D_800A04B0;
 extern s32 D_800BE9E4;
 

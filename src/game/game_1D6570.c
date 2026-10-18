@@ -105,7 +105,6 @@ typedef struct Game1D6570Choices {
     s16 values[3];
 } Game1D6570Choices;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, s32, s32, u8, s32);
 extern Game1D6570Choices D_8008F9A4;
@@ -286,7 +285,6 @@ typedef struct Game1D6570Payload {
 } Game1D6570Payload;
 
 void *func_10022EC0(void *, const void *, u32);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 s32 func_1514B8E4(s32, f32 *, s16, s32, s32, f32, f32, f32,
     s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);

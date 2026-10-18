@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_122650.c
@@ -18,7 +19,6 @@ s32 func_150F51BC(void) {
     return 0;
 }
 void func_10010F30(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-u32 func_150ADA20(void);
 
 extern u8 D_80088B44;
 extern s32 D_800BE9E4;

@@ -149,7 +149,6 @@ f32 func_1506AD30(Game6AD30Actor *arg0, f32 arg1, u8 arg2) {
 void func_1505E650(u8 *, s32, f32, f32, f32, f32, s32);
 extern u8 * D_800D154C;
 void func_15060A9C();
-s32 func_150ADA20(void);
 extern f32 D_80099D50;
 extern f32 D_80099C3C;
 void func_1506B634(s32 arg0);

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_115D70.c
@@ -47,7 +48,6 @@ extern u8 D_800BE9EB;
 extern s32 D_800DCDC4;
 void func_15169260(Game115D70Pair *, s32, s32, s32);
 void func_15164F0C(u8, u8, void *, u8, s32);
-u32 func_150ADA20(void);
 void func_151D8868(Game115D70Spawn *, s32, s32, s32);
 void func_150E8A80(void);
 void func_150E90DC(void);

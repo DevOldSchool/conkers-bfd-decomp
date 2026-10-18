@@ -55,7 +55,6 @@ typedef struct {
     f32 second;
 } GameE2880Emitter;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_15107700(void *, s16, s16, s16, s32, f32, f32, s32, s32, u8 *, s32, s32);
 void func_15107B78(void *, s16, s16, u8, s32);

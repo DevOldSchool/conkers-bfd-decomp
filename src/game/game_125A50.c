@@ -58,7 +58,6 @@ typedef struct Game125A50Position {
 /* The raw callee consumes only a0-a2; incoming a3 is not saved before its call. */
 void func_15152B38(void *, s32, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-u32 func_150ADA20();
 extern f32 D_800A1C60;
 extern f32 D_800A1C64;
 extern f32 D_800A1C68;

@@ -50,7 +50,6 @@ typedef struct {
     u8 tail14[0x44];
 } BeeCavernPayload;
 
-s32 func_150ADA20(void);
 f32 func_150ADA68(void);
 u8 *func_1515548C(void *, u8, s32 *, s32, s32, u8, s32);
 extern f32 D_800A0000, D_800A0004;

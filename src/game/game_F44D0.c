@@ -13,7 +13,6 @@
  */
 
 void *func_15134DAC(void *, s32);
-u32 func_150ADA20(void);
 extern f32 D_800A0490;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7020 CURRENT (2180) */

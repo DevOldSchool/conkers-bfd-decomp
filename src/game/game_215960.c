@@ -838,7 +838,6 @@ void func_151EDB58(void *uiModel) {
     }
 }
 void func_1503F4B0(void *);
-u32 func_150ADA20(void);
 extern u8 D_507[], D_508[], D_80089470[], D_80090110[], D_80090128[], D_800E0C38[];
 extern s16 D_800E0C30;
 

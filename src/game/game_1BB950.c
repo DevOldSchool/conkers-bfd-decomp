@@ -24,7 +24,6 @@ void func_1518E4F8(void *arg0) {
     func_1518E4A0(arg0);
     func_15169824(arg0);
 }
-s32 func_150ADA20();                                /* extern */
 
 void func_1518E524(s8 *arg0, u8 *arg1, s8 *arg2, s8 *arg3, s8 *arg4, u8 *arg5, s16 *arg6) {
     s32 temp_v1;

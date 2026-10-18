@@ -97,7 +97,6 @@ typedef struct GameE8710Packet {
     u8 unknown76[6];
 } GameE8710Packet;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 

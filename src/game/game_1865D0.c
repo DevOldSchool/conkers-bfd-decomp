@@ -315,7 +315,6 @@ typedef struct {
     f32 amount2, amount3, limit;
 } Game1865D0ParticleMotion;
 
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void *func_151303BC(s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
@@ -719,7 +718,6 @@ typedef struct {
     Game1865D0Copy40 copied;
 } Game1865D0Spawn;
 
-u32 func_150ADA20(void);
 void *func_10022EC0(void *, const void *, u32);
 
 void func_1515AA84(Game1865D0Arg *arg0, Game1865D0Copy12 *arg1, f32 arg2, s32 arg3) {

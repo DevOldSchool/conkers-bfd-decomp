@@ -36,7 +36,6 @@ typedef struct { f32 values[6]; Vec3f position; f32 zero[2]; } Game3DF10Motion;
 typedef struct { u8 kind, mode; s16 life; u8 flags, pad05; } Game3DF10Light;
 void *func_10022EC0(void *, const void *, u32);
 u32 func_10024770(void);
-u32 func_150ADA20(void);
 void func_150E8854(void);
 void func_1510F800();
 void *func_1510FD20(s32, s32);

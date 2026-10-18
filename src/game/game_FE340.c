@@ -121,7 +121,6 @@ s32 func_150D11B4(void *arg0) {
 }
 
 void func_151DB5D0(s32, void *, void *, f32, f32, f32, f32, s32, s32, s32, s32, s32, s32, s32);
-u32 func_150ADA20(void);
 extern f32 D_800A0898;
 extern f32 D_800A089C;
 extern f32 D_800A08A0;

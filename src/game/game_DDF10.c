@@ -82,7 +82,6 @@ void func_150B0CE0(s32 arg0, s32 arg1, u8 arg2) {
 void func_150B0A60(void *, void *, void *, void *, void *, s16 *);
 void func_1514373C(f32, f32, f32 *, f32 *);
 void func_15143794(s16, s16, f32, void *);
-u32 func_150ADA20(void);
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32,
                   f32, f32, s32, s32, s32, s32, s32, s32);
 extern f32 D_8009F860[], D_8009F868[];

@@ -2026,7 +2026,6 @@ loop_4:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1505F0AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505F0AC.s")
-u32 func_150ADA20();                                /* extern */
 extern f32 D_8009962C;
 extern f32 D_80099630;
 

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_F8590.c
@@ -64,7 +65,6 @@ s32 func_150CB7CC(void *arg0) {
     return 1;
 }
 void func_15143794(s16, s16, f32, void *);
-u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 
 typedef struct GameF8590EffectPacket {
