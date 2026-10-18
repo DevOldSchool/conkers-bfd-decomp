@@ -2430,16 +2430,15 @@
       "symbol": "func_15163604"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 415,
-        "reason": "Round6 2026-10-18: CURRENT 823 -> ~415. Initialized f32 *state = arg0 + 0x18, named value, ternary return. Left: FP temp numbering of the state[0]/state[1] and D_800BE9A4 loads, and raw returns the ternary straight in v0 (candidate v1 + move). Operand orders, TRUE/FALSE, reversed compare 415-480.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15163704",
           "vram": "0x15163704"
         }
@@ -70194,17 +70193,16 @@
       "symbol": "func_150EAB10"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 972,
-        "reason": "CURRENT (972): coherent owner/hit/f32 validity repair independently supported by actual 0x58 allocation, 0x40 payload and 0x24 hit; exact callback and collision ABI, real 12-byte XYZ, no scalar-root traversal. Full 788-byte producer remains CURRENT (0) after exactly five member renames. Remaining four XYZ stack rows and folded branch-local payload-base/boolean tail lack a new supported semantic hypothesis; prior typed/volatile/raw-pointer, array-size/layout/register forms remain exhausted. Preserve this valid candidate rather than historical invalid 955.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 300,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150EAE24",
           "vram": "0x150EAE24"
         }
@@ -80778,8 +80776,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 791,
-        "reason": "Best valid CURRENT791: repaired fabricated RNG args, local float fabsf intrinsic, and raw signed conversion of remainder0..999. Frame38 vs20, FP registers, spills and two control/span rows remain; two revisions plus one compile repair exhausted.",
+        "current_score": 115,
+        "reason": "Round6 2026-10-18: CURRENT 791 -> 115. Only scale (0x1C) and diff named (frame 0x20 like raw), ternary +/-1 step, direct field updates. Left: FP register roles (raw target f12 / diff f2 vs candidate f2 / f12) and the final add's load order; named target in either declaration slot neutral (115).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -86182,17 +86180,16 @@
       "symbol": "func_150F78B4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 764,
-        "reason": "Round6 2026-10-18: candidate unchanged. Initialized f32 *state = arg0 + 0x110 + ternary return probes 496-506 but frame 0x30 vs raw 0x28; unnamed state folds the offsets (frame 0x18, 1176). Needs the raw named-home count resolved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 312,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150F7E20",
           "vram": "0x150F7E20"
         }

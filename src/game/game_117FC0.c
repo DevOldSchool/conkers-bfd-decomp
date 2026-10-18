@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_117FC0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_table_runs.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150EAE24
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game117FC0Vec2 {
@@ -149,33 +144,25 @@ typedef struct {
 
 s32 func_15046C80(Vec3f *, u16, f32, Game71820Hit *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EAE24 CURRENT (972) */
-s32 func_150EAE24(void *arg0) {
+s32 func_150EAE24(Game117FC0Motion *arg0) {
+    Game117FC0Effect *effect = &arg0->effect;
     Vec3f position;
-    s32 result;
-    Game117FC0Effect *effect;
-    Game117FC0Motion *motion = arg0;
 
-    motion->effect.position.x += motion->effect.velocity.x * D_800BE9A4;
-    motion->effect.position.y += motion->effect.velocity.y * D_800BE9A4;
-    position.x = motion->effect.position.x;
-    position.y = motion->effect.height;
-    position.z = motion->effect.position.y;
-    motion->position->x = (s16) (s32) motion->effect.position.x;
-    motion->position->y = (s16) (s32) motion->effect.position.y;
-    if (func_15046C80(&position, 0, motion->effect.field14, &motion->effect.hit) != 0) {
-        effect = &motion->effect;
-        motion->position->height = (s16) (s32) effect->hit.height;
+    arg0->effect.position.x += arg0->effect.velocity.x * D_800BE9A4;
+    arg0->effect.position.y += arg0->effect.velocity.y * D_800BE9A4;
+    position.x = arg0->effect.position.x;
+    position.y = arg0->effect.height;
+    position.z = arg0->effect.position.y;
+    arg0->position->x = (s16)(s32)arg0->effect.position.x;
+    arg0->position->y = (s16)(s32)arg0->effect.position.y;
+    if (func_15046C80(&position, 0, arg0->effect.field14, &arg0->effect.hit) != 0) {
+        arg0->position->height = (s16)(s32)effect->hit.height;
     } else {
-        effect = &motion->effect;
-        motion->position->height = (s16) (s32) effect->height;
+        arg0->position->height = (s16)(s32)effect->height;
     }
     effect->lifetime -= D_800BE9A4;
-    result = 1;
     if (effect->lifetime <= 0.0f) {
-        result = 0;
+        return 0;
     }
-    return result;
+    return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150EAE24 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_117FC0/func_150EAE24.s")

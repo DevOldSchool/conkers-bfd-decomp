@@ -14,7 +14,6 @@
  * - func_1516295C
  * - func_15162B28
  * - func_151630F4
- * - func_15163704
  * - func_151640C0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -1295,20 +1294,21 @@ f32 func_15144B68(f32);
 extern f32 D_800BE9A4;
 extern f32 D_800A6B04;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15163704 CURRENT (415) */
 s32 func_15163704(void *arg0) {
     f32 *state = (f32 *)((u8 *)arg0 + 0x18);
     f32 value;
+    f32 angle;
 
     value = func_15047D60(state[2]);
     (*(u8 **)((u8 *)arg0 + 0x14))[0x2F] = (u32)(state[1] * value + state[0]);
     state[2] += state[3] * D_800BE9A4;
-    value = func_15144B68(state[2]);
-    state[2] = value;
-    return (D_800A6B04 < value) ? 0 : 1;
+    angle = func_15144B68(state[2]);
+    state[2] = angle;
+    if (D_800A6B04 < angle) {
+        return 0;
+    }
+    return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15163704 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163704.s")
 void func_1516381C(s32 arg0, u8 arg1, u8 arg2, s32 arg3) {
     GameLightDescriptor sp20;
 

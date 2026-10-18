@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150F7470
  * - func_150F78B4
- * - func_150F7E20
  * - func_150F802C
  * - func_150F81BC
  *
@@ -23,30 +22,21 @@ f32 func_15144B68(f32);                     /* extern */
 extern f32 D_800A1BD8;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F7E20 CURRENT (764) */
 s32 func_150F7E20(u8 *arg0) {
-    void *sp1C;
-    f32 temp_fv1;
-    u8 *temp_v0;
+    f32 *state = (f32 *)(arg0 + 0x110);
+    f32 value;
 
-    *(s8 *)((u8 *)arg0 + 0x5C) = (s8) (u32) (*(f32 *)((u8 *)arg0 + 0x128) * D_800A1BD8);
-    temp_v0 = (void *)(arg0 + 0x110);
-    temp_fv1 = (func_15047D60(*(f32 *)((u8 *)arg0 + 0x12C)) * *(f32 *)((u8 *)temp_v0 + 0x28)) + *(f32 *)((u8 *)temp_v0 + 0x24);
-    *(f32 *)((u8 *)arg0 + 0x30) = temp_fv1;
-    *(f32 *)((u8 *)arg0 + 0x2C) = temp_fv1;
-    sp1C = temp_v0;
-    *(f32 *)((u8 *)temp_v0 + 0x1C) = func_15144B68(*(f32 *)((u8 *)temp_v0 + 0x1C) + (*(f32 *)((u8 *)temp_v0 + 0x20) * D_800BE9A4));
-    *(f32 *)((u8 *)temp_v0 + 0x18) = (f32) (*(f32 *)((u8 *)temp_v0 + 0x18) - D_800BE9A4);
-    {
-        s32 var_v0 = 1;
-    if (*(f32 *)((u8 *)temp_v0 + 0x18) < 0.0f) {
-        var_v0 = 0;
+    *(s8 *)(arg0 + 0x5C) = (u32)(*(f32 *)(arg0 + 0x128) * D_800A1BD8);
+    value = state[9] + state[10] * func_15047D60(state[7]);
+    *(f32 *)(arg0 + 0x30) = value;
+    *(f32 *)(arg0 + 0x2C) = value;
+    state[7] = func_15144B68(state[8] * D_800BE9A4 + state[7]);
+    state[6] -= D_800BE9A4;
+    if (state[6] < 0.0f) {
+        return 0;
     }
-    return var_v0;
-    }
+    return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F7E20 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_124920/func_150F7E20.s")
 s32 func_15140410(s32, s32, s32, s16);
 
 void func_150F7F58(s32 arg0, s16 arg1) {
