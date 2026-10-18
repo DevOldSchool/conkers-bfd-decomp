@@ -70,7 +70,7 @@ def compile_active(root: Path, source_list: Path | None = None) -> None:
             text = re.sub(pattern, '/* Local asset definitions omitted for ROM-free compilation. */',
                           text, flags=re.M)
         temporary.write_text(text, encoding="utf-8")
-        command = [str(compile_c.IDO_CC), *compile_c.compiler_flags("us"),
+        command = [str(compile_c.IDO_CC), *compile_c.compiler_flags("us", text),
                    "-I", str(source.parent), "-o", str(temporary.with_suffix(".o")), str(temporary)]
         print(f"Compiling active US C: {name}", flush=True)
         subprocess.run(command, cwd=root, check=True)
