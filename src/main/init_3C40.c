@@ -274,8 +274,8 @@ void func_80004074(s32 arg0) {
                 block->prevFree = 0;
             } else if (cursor != block) {
                 block->prevFree = cursor;
-                if (cursor != 0) {
-                    cursor->nextFree = block;
+                if (block->prevFree != 0) {
+                    block->prevFree->nextFree = block;
                 }
             }
             merged = 1;

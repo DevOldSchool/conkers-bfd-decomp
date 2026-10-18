@@ -49,8 +49,13 @@ page-load/decompression path, updates CP0 mappings and resumes the faulted
 operation. Its eviction continuation shares that page table and transfers back
 into the fault path. The final `0x61F8` invalidates an explicit TLB index range
 while preserving EntryHi and is selected by the same bootstrap paths at
-`0x1074/0x145C/0x14E0`. The bitmap loop itself is left raw for possible C work;
-all other spans have explicit CP0 instructions.
+`0x1074/0x145C/0x14E0`. All other spans have explicit CP0 instructions. The
+bitmap initializer `0x5BE0` has none, but it is also original assembly: it
+keeps `0xFF`, then `2`, the shifted mask and its decrement in the single
+register `$t0`, loads, masks and decrements `$a0` in place, and uses no IDO
+expression temporaries (`$t6-$t9`). IDO 5.3 evaluates each of those steps into
+a fresh temporary and compiles the `sb; bne; addiu` loop as `xor/bnez` with a
+`-1` store offset; the best C candidate stayed at CURRENT 945.
 
 ## Shared-frame decompression family, `0x6240:0x71D0`
 
@@ -67,8 +72,12 @@ then `0x6380 -> 0x6424/0x6828/0x692C`; `0x6424 -> 0x696C/0x6E00` and
 shared decode tables at `0x8003BE90`, reuses the same `0xA88` frame layout and
 calls `0x696C` at `0x714C/0x7194` with additional arguments in `$t8/$t9`.
 These specific shared-frame/register contracts establish one working assembly
-family. The ordinary outer wrapper remains raw; the nine custom-ABI spans
-are preserved as original assembly.
+family. The outer wrapper `0x6240` is also original assembly: its 0x10-byte
+frame stores `$ra` at `sp+0x0`, inside the space an o32 caller must reserve for
+outgoing arguments. IDO 5.3 (and GCC) reserve that 16-byte area in every
+non-leaf C function, so the smallest compiled frame is 0x18 with `$ra` at
+`sp+0x14`; the C candidate scored 245 for exactly this prologue/epilogue. The
+wrapper and the nine custom-ABI spans are preserved as original assembly.
 
 ## Exception, dispatch and diagnostic family, `0x71D0:0x8120`
 
@@ -84,9 +93,13 @@ Fatal path `0x777C` calls diagnostic `0x7DAC` at `0x779C`. The diagnostic in
 turn calls the local hexadecimal/string and glyph helpers. Those use a custom
 return register and shared framebuffer/font state, rather than independent C
 ABIs. The `0x7DA0` public entry deliberately executes `syscall`. Queue helpers
-`0x79D8/0x7A24` remain raw candidates; their specific use by the dispatcher
-and scheduler proves working-family membership without requiring original-ASM
-classification. The remaining six spans have explicit privileged instructions,
+`0x79D8/0x7A24` are instruction-for-instruction the handwritten SDK routines
+`__osEnqueueThread` and `__osPopThread` in `lib/ultralib/src/os/exceptasm.s`
+(`ta2/ta3` assemble to `$t6/$t7`; the `$t9` link cursor, the unfilled branch
+delay slots and the unscheduled `jr $ra; nop` follow that source rather than
+IDO output). Their specific use by the dispatcher and scheduler proves
+working-family membership, and the SDK source proves they are original
+assembly. The remaining six spans have explicit privileged instructions,
 custom return-register contracts or owned interior entries with those contracts.
 
 ## Interior entries retained within their owning spans

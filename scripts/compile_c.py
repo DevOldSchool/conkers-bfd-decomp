@@ -16,10 +16,35 @@ ASM_PROCESSOR_PRELUDE = Path("/opt/tools/asm-processor/prelude.inc")
 ASSEMBLER = "mips-linux-gnu-as"
 DEBUGGER_UI_INCLUDE = '#include "debugger-assets/ui.inc.c"'
 GLOBAL_ASM_PRAGMA = re.compile(r"^[ \t]*#pragma[ \t]+GLOBAL_ASM\(", re.MULTILINE)
+# A reviewed source unit whose original object provably used different flags
+# names the pinned flags it drops, once, e.g. `/* CONKER_COMPILE_WITHOUT: -g3 */`.
+# The directive travels with every focused, probe, layout and CI copy of the
+# text, so each build of that unit agrees. Only the flags below may be dropped.
+COMPILE_WITHOUT_DIRECTIVE = re.compile(
+    r"^[ \t]*/\*[ \t]*CONKER_COMPILE_WITHOUT:[ \t]*([^*\n]*?)[ \t]*\*/[ \t]*$", re.MULTILINE
+)
+REMOVABLE_FLAGS = frozenset({"-g3"})
 
 
-def compiler_flags(profile: str) -> list[str]:
-    return [
+def dropped_flags(source_text: str) -> tuple[str, ...]:
+    """Flags a source's CONKER_COMPILE_WITHOUT directive removes from the pinned set."""
+    directives = COMPILE_WITHOUT_DIRECTIVE.findall(source_text)
+    if not directives:
+        return ()
+    if len(directives) > 1:
+        raise ValueError("a source may carry at most one CONKER_COMPILE_WITHOUT directive")
+    flags = tuple(directives[0].split())
+    unsupported = [flag for flag in flags if flag not in REMOVABLE_FLAGS]
+    if not flags or unsupported:
+        allowed = ", ".join(sorted(REMOVABLE_FLAGS))
+        raise ValueError(
+            f"CONKER_COMPILE_WITHOUT supports only {allowed}; got {directives[0]!r}"
+        )
+    return flags
+
+
+def compiler_flags(profile: str, source_text: str | None = None) -> list[str]:
+    flags = [
         "-c",
         "-32",
         "-G",
@@ -42,13 +67,17 @@ def compiler_flags(profile: str) -> list[str]:
         "-g3",
         "-mips2",
     ]
+    if source_text is not None:
+        for flag in dropped_flags(source_text):
+            flags.remove(flag)
+    return flags
 
 
 def compile_command(profile: str, source: Path, output: Path, *,
                     generated_dir: Path | None = None, source_text: str | None = None) -> list[str]:
     if source_text is None:
         source_text = source.read_text(encoding="utf-8")
-    flags = compiler_flags(profile)
+    flags = compiler_flags(profile, source_text)
     if DEBUGGER_UI_INCLUDE in source_text:
         flags += ['-I', str(generated_dir or ROOT / 'build' / profile)]
     if not GLOBAL_ASM_PRAGMA.search(source_text):

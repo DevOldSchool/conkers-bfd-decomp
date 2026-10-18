@@ -511,6 +511,18 @@ and changes integration to mixed C/ASM while preserving sibling matches.
 Source, mappings, inventories and progress reports roll back together if the
 transaction fails. Run a clean `verify-batch` before handoff.
 
+### Per-object compiler flags
+
+Every C object uses the pinned flags in `scripts/compile_c.py`. A reviewed
+source unit whose original object provably used different flags may carry one
+`/* CONKER_COMPILE_WITHOUT: -g3 */` directive below its evidence comment.
+`compile_c` then drops that flag for the file and for every focused, probe,
+layout and CI copy made from its text, so all builds of the unit agree. Only
+`-g3` may be dropped. The directive needs maintainer approval and recorded raw
+evidence in the unit's boundary document; `src/main/init_3920.c` carries one
+because its single-statement leaf fills the `jr $ra` delay slot, which `-g3`
+never produces. It is never a matching tactic for an ordinary residual.
+
 ## Automation
 
 For authorized automated work, use the [automation reference](automation.md).
