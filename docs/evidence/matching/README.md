@@ -24,6 +24,7 @@ Start with the [conversion audit](matching_conversion_audit.md) for the distinct
 - [Light callback and cleanup argument matching (US)](light_callback_argument_matching.md)
 - [m2c fork starter comparison (US), 2026-10-11](m2c_fork_starter_comparison.md)
 - [Manual interpolation, actor effect and descriptor candidates](manual_interpolation_actor_descriptor_candidates.md)
+- [Main transfer candidate (US)](main_transfer_candidate.md)
 - [Manual matching conversion audit, 2026-09-30](matching_conversion_audit.md)
 - [Parallel manual candidate families](parallel_manual_candidate_families.md)
 - [Particle callback storage matching and raw-ABI follow-ups (US)](particle_callback_storage_matching.md)
