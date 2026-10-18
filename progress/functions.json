@@ -93964,7 +93964,7 @@
           "vram": "0x800057E0"
         }
       },
-      "source": "src/main/init_5570.c",
+      "source": "src/main/init_57E0.c",
       "symbol": "func_800057E0"
     },
     {
@@ -93982,7 +93982,7 @@
           "vram": "0x80005948"
         }
       },
-      "source": "src/main/init_5570.c",
+      "source": "src/main/init_57E0.c",
       "symbol": "func_80005948"
     },
     {

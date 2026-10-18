@@ -1,7 +1,10 @@
 # US main allocation, transfer and controller working units
 
 Evidence kind: `structural_analysis`. Five working source units cover twenty-six
-entries and 8,032 bytes across six former navigation ranges. These neutral
+entries and 8,032 bytes across six former navigation ranges; the motor unit was
+later split at `0x57E0` on object-padding evidence (see
+[the revision below](#motor-packets-and-initialization-0x55700x5ab0)), so six
+units now cover the same bytes. These neutral
 source names assert complete working memberships, not original filenames or
 matching implementations. All members remain raw assembly in the canonical
 main build. Neither canonical nor reference map changes.
@@ -32,8 +35,14 @@ navigation split at `0x57E0` to be an original object boundary.
 | `src/main/init_3C40.c` | `0x3C40:0x4470` | `03C40`, `03C6C`, `04074`, `04250`, `04308`, `043B4`, `0440C` | 2,096 | `ed85dada4f63f147cdfcb4e401329a09047d29c6` |
 | `src/main/init_4470.c` | `0x4470:0x49E0` | `04470`, `04514`, `04674`, `046E4`, `0480C` | 1,392 | `d56079b413c1b9a17aeb1058e4f67d286386ac66` |
 | `src/main/init_49E0.c` | `0x49E0:0x50A0` | `049E0`, `04DB0`, `04F00`, `04FE0`, `05020` | 1,728 | `b563e8c2f8b28b748c447906a905480786bcaf85` |
-| `src/main/init_5570.c` | `0x5570:0x5AB0` | `05570`, `056A0`, `057E0`, `05948` | 1,344 | `6afa39725155de37ce16933e64ef528dc6b248bc` |
+| `src/main/init_5570.c` | `0x5570:0x57E0` | `05570`, `056A0` | 624 | `dbaa04bf756f9ae1c4f0c3da6c235571507c7c41` |
+| `src/main/init_57E0.c` | `0x57E0:0x5AB0` | `057E0`, `05948` | 720 | `302d3d3983f89d215b34ef370f3f7e193669494a` |
 | `src/main/init_11FA0.c` | `0x11FA0:0x12560` | `11FA0`, `11FB0`, `11FDC`, `11FEC`, `12020` | 1,472 | `01603766952812ab69a10c01690ccb6f2cb094d6` |
+
+`src/main/init_5570.c` was first registered as the single working unit
+`0x5570:0x5AB0` (`05570`, `056A0`, `057E0`, `05948`; 1,344 bytes; SHA-1
+`6afa39725155de37ce16933e64ef528dc6b248bc`) and split into the two rows above
+on 2026-10-18.
 
 ## Structural membership evidence
 
@@ -84,7 +93,28 @@ producer/consumer relationship accounts for all four members. The SI access
 and packet structure corroborate the legacy motor lineage, without claiming
 a matching stock object. Existing external callers select both submission
 routines and the initializer. The internal `0x57E0` navigation split is retained
-in both maps; the reviewed working unit deliberately spans it.
+in both maps; the reviewed working unit deliberately spanned it until the
+revision below.
+
+**Revision, 2026-10-18: `0x57E0` is an original object boundary.** The
+`0x56A0` routine's last instruction is `jr $ra` at `0x57CC` with its delay-slot
+`nop` at `0x57D0`; three further `nop` words follow at `0x57D4`, `0x57D8` and
+`0x57DC` (ROM bytes `03E00008 00000000 00000000 00000000 00000000` at
+`0x57CC:0x57E0`), and the next entry begins exactly at the 16-byte boundary
+`0x57E0`. Nothing branches to or calls those words. IDO emits trailing `.text`
+`nop` padding only to align the end of an object, so a 12-byte pad after a
+return delay slot marks an object end rather than interior alignment: the two
+submission routines (`0x5570`, `0x56A0`) end one object at `0x57E0` and the
+initializer and packet builder (`0x57E0`, `0x5948`) begin another. The exact C
+candidate for `0x56A0` corroborates this independently: it reproduces every
+executable word through the delay slot, yet cannot emit the trailing pad while
+`0x57E0` follows it in the same object, so the combined unit could never reach
+a full-span match. The producer/consumer relationship described above still
+ties the two objects together as one family; it does not require one object.
+The split was applied with `./conker split-source-unit --source
+src/main/init_5570.c --new-source src/main/init_57E0.c --us-split 0x57E0`,
+which keeps this document as the evidence reference for both units. No map
+changes: `0x57E0` already exists in the canonical and reference maps.
 
 ### Shared-state setters, reset and dispatcher, `0x11FA0:0x12560`
 
@@ -112,8 +142,10 @@ ranges and the mixed `0x12560:0x12820` interval remain under review.
 
 Replay each table row through `./conker register-source-unit --overlay main
 --register-members` with its source and bounds, `--evidence-kind
-structural_analysis`, and this document as the evidence reference. Do not
-replace inventories wholesale when reconciling concurrent game matching.
+structural_analysis`, and this document as the evidence reference. The
+`init_5570.c`/`init_57E0.c` rows were produced from the original
+`0x5570:0x5AB0` registration by `split-source-unit`, not by re-registration.
+Do not replace inventories wholesale when reconciling concurrent game matching.
 
 The checkpoint changes only evidence, skeletons, inventory and generated
 progress. No runtime source, map or build settings change. All 75 project-state
