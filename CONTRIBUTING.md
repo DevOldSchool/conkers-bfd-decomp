@@ -70,6 +70,8 @@ project evidence and add concrete required declarations before `finish`. Keep
 `sb`/`sh` parameters as `s32` unless existing declarations prove otherwise. Never
 copy `M2C_FIELD`/`M2C_UNK`, invent an ABI, add inline or handwritten assembly, or
 change assembly, compiler flags, shared tooling or headers to force a match.
+A [per-object flag directive](docs/decompilation-workflow.md#per-object-compiler-flags)
+needs maintainer approval and recorded raw evidence before any match attempt.
 Extra argument homes, conversions or union spills justify reviewing the callee
 contract and its caller family. After an approved declaration change, recheck
 affected existing matches; a same-source caller sample is not a complete impact audit.
