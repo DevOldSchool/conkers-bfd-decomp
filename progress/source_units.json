@@ -19855,7 +19855,27 @@
       },
       "functions": [
         "func_80005570",
-        "func_800056A0",
+        "func_800056A0"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x57E0",
+          "start": "0x5570",
+          "state": "in_progress"
+        }
+      },
+      "source": "src/main/init_5570.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/boundaries/main/main_allocator_transfer_controller_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
         "func_800057E0",
         "func_80005948"
       ],
@@ -19863,11 +19883,11 @@
       "regions": {
         "us": {
           "end": "0x5AB0",
-          "start": "0x5570",
-          "state": "in_progress"
+          "start": "0x57E0",
+          "state": "candidate"
         }
       },
-      "source": "src/main/init_5570.c"
+      "source": "src/main/init_57E0.c"
     },
     {
       "boundary_evidence": {

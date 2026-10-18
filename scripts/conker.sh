@@ -186,6 +186,8 @@ After the raw base split map is available
                                  Register a separately reviewed source/object boundary.
   withdraw-source-unit --source <path>
                                  Withdraw a raw game boundary while retaining function work.
+  split-source-unit --source <path> --new-source <path> --us-split <offset>
+                                 Split a reviewed raw-ASM unit at a proven original object boundary.
   retire-library-units --evidence-reference <path> [--source <path>...]
                                  Remove untouched raw-ASM units after exact archive mapping.
       --source <path> --preserved-source <library-path>
@@ -1436,6 +1438,25 @@ case "$command" in
     withdraw-source-unit)
         [[ $# -eq 2 ]] || die "usage: ./conker withdraw-source-unit --source <path>"
         python3 "$state_tool" withdraw-source-unit "$@"
+        ;;
+    split-source-unit)
+        [[ $# -eq 6 ]] || die "usage: ./conker split-source-unit --source <path> --new-source <path> --us-split <offset>"
+        python3 "$state_tool" setup-check --profile us
+        split_source=""
+        previous_argument=""
+        for argument in "$@"; do
+            if [[ "$previous_argument" == "--source" ]]; then
+                split_source="$argument"
+                break
+            fi
+            previous_argument="$argument"
+        done
+        if [[ "$split_source" == src/game/* && ! -d "$repo_root/reference/game/us/asm" ]]; then
+            run_in_container make game-asm GAME_REFERENCE_PROFILE=us >&2
+        elif [[ "$split_source" != src/game/* && ! -d "$repo_root/reference/us/asm" ]]; then
+            run_in_container make prepare-reference PROFILE=us >&2
+        fi
+        python3 "$state_tool" split-source-unit "$@"
         ;;
     retire-library-units)
         [[ $# -gt 0 ]] || die "usage: ./conker retire-library-units --evidence-reference <path> [--source <path>...]"

@@ -1445,6 +1445,15 @@ def remove_source_todo(source: str, symbol: str) -> bool:
     if not path.is_file():
         return False
     lines = path.read_text(encoding="utf-8").splitlines(keepends=True)
+    if not remove_source_todo_lines(lines, symbol):
+        return False
+    path.write_text("".join(lines), encoding="utf-8")
+    return True
+
+
+def remove_source_todo_lines(lines: list[str], symbol: str) -> bool:
+    """Drop one TODO entry in place, removing the block once it is empty."""
+
     todo_start = next(
         (
             index
@@ -1489,7 +1498,6 @@ def remove_source_todo(source: str, symbol: str) -> bool:
         if todo_start > 0 and lines[todo_start - 1].rstrip("\r\n") == " *":
             block_start -= 1
         del lines[block_start : todo_end + 1]
-    path.write_text("".join(lines), encoding="utf-8")
     return True
 
 
@@ -2423,6 +2431,33 @@ def split_game_function(args: argparse.Namespace) -> None:
     )
 
 
+def source_unit_header_comment(
+    source: str,
+    evidence_reference: str,
+    pending_functions: list[str],
+) -> str:
+    """Return the reviewed-source-unit block comment for one C file."""
+
+    safe_reference = evidence_reference.replace("*/", "* /")
+    lines = [
+        "/*",
+        f" * Reviewed source unit: {source}",
+        f" * Boundary evidence: {safe_reference}",
+    ]
+    if pending_functions:
+        lines.extend(
+            [
+                " *",
+                " * TODO: Implement these source-unit functions:",
+                *(f" * - {identifier}" for identifier in pending_functions),
+                " *",
+                " * Unmatched members use generated GLOBAL_ASM placeholders below.",
+            ]
+        )
+    lines.append(" */")
+    return "".join(f"{line}\n" for line in lines)
+
+
 def source_unit_skeleton_content(
     source: str,
     evidence_reference: str,
@@ -2430,24 +2465,132 @@ def source_unit_skeleton_content(
 ) -> str:
     """Return the canonical unmodified raw-ASM source-unit skeleton."""
 
-    safe_reference = evidence_reference.replace("*/", "* /")
-    pending_lines = "".join(f" * - {identifier}\n" for identifier in pending_functions)
     pragma_lines = "".join(
         f"{global_asm_pragma(source, identifier)}\n" for identifier in pending_functions
     )
     return (
         '#include "types.h"\n\n'
-        "/*\n"
-        f" * Reviewed source unit: {source}\n"
-        f" * Boundary evidence: {safe_reference}\n"
-        " *\n"
-        " * TODO: Implement these source-unit functions:\n"
-        f"{pending_lines}"
-        " *\n"
-        " * Unmatched members use generated GLOBAL_ASM placeholders below.\n"
-        " */\n\n"
-        f"{pragma_lines}"
+        + source_unit_header_comment(source, evidence_reference, pending_functions)
+        + "\n"
+        + pragma_lines
     )
+
+
+def member_source_item_span(
+    content: str, source: str, member: dict[str, Any]
+) -> tuple[int, int]:
+    """Locate one member's complete source item.
+
+    The item is its preserved deferred candidate block with the pragma that
+    follows it, its raw GLOBAL_ASM pragma line, or its C definition.
+    """
+
+    names = list(
+        dict.fromkeys(
+            name
+            for name in (
+                member["symbol"],
+                member["regions"].get(TARGET_REGIONS[0], {}).get("symbol"),
+            )
+            if name
+        )
+    )
+    for name in names:
+        marker_pattern = re.compile(
+            rf"#if 0 /\* {re.escape(DEFERRED_CANDIDATE_TAG)} "
+            rf"{re.escape(name)}(?: CURRENT \(\d+\))? \*/"
+        )
+        marker_match = marker_pattern.search(content)
+        pragma = global_asm_pragma(source, name)
+        if marker_match is not None:
+            _, end_marker = deferred_candidate_markers(name)
+            end = content.find(end_marker, marker_match.end())
+            if end < 0:
+                raise ProjectStateError(f"{name} has an unterminated deferred candidate")
+            end += len(end_marker)
+            start = content.rfind("\n", 0, marker_match.start()) + 1
+            after = end
+            if content.startswith("\r\n", after):
+                after += 2
+            elif content.startswith("\n", after):
+                after += 1
+            if content.startswith(pragma, after):
+                end = after + len(pragma)
+        else:
+            position = content.find(pragma)
+            if position < 0:
+                continue
+            start = content.rfind("\n", 0, position) + 1
+            end = position + len(pragma)
+        if content.startswith("\r\n", end):
+            end += 2
+        elif content.startswith("\n", end):
+            end += 1
+        return start, end
+    return work_item_function_span(
+        content, member["symbol"], member["regions"].get(TARGET_REGIONS[0], {}).get("symbol")
+    )
+
+
+def split_source_unit_content(
+    content: str,
+    source: str,
+    new_source: str,
+    evidence_reference: str,
+    retained: list[dict[str, Any]],
+    moved: list[dict[str, Any]],
+) -> tuple[str, str]:
+    """Split one reviewed C file after the last retained member item.
+
+    Every member item from the first moved member onward, including the
+    declarations written between items, moves to the new file. Declarations
+    above the first member item are copied so both files still compile; the
+    contributor prunes whichever copies are unused.
+    """
+
+    header = source_unit_header_span(content)
+    if header is None:
+        raise ProjectStateError(f"{source} lacks a reviewed source-unit header")
+    newline = "\r\n" if "\r\n" in content else "\n"
+    retained_spans = [member_source_item_span(content, source, member) for member in retained]
+    moved_spans = [member_source_item_span(content, source, member) for member in moved]
+    cut = max(end for _, end in retained_spans)
+    first_moved = min(start for start, _ in moved_spans)
+    if cut > first_moved:
+        raise ProjectStateError(
+            f"{source} member order does not follow the split boundary; "
+            "reorder the moved definitions after the retained ones first"
+        )
+    first_item = min(start for start, _ in retained_spans + moved_spans)
+    if first_item < header[1]:
+        raise ProjectStateError(f"{source} member items must follow the reviewed header")
+    preamble = content[header[1]:first_item].strip("\r\n")
+    tail = content[cut:].lstrip("\r\n")
+    head = content[:cut].rstrip("\r\n") + newline
+
+    for member in moved:
+        for name in dict.fromkeys(
+            (member["symbol"], member["regions"].get(TARGET_REGIONS[0], {}).get("symbol"))
+        ):
+            if name:
+                tail = tail.replace(
+                    global_asm_pragma(source, name), global_asm_pragma(new_source, name)
+                )
+    head_lines = head.splitlines(keepends=True)
+    for member in moved:
+        remove_source_todo_lines(head_lines, member["symbol"])
+    head = "".join(head_lines)
+
+    lines = content.splitlines(keepends=True)
+    include_lines = [index for index, line in enumerate(lines) if line.startswith("#include ")]
+    include_block = "".join(lines[: include_lines[-1] + 1]) if include_lines else ""
+    pending = [member["symbol"] for member in moved if not is_complete(member)]
+    new_header = source_unit_header_comment(new_source, evidence_reference, pending)
+    parts = [include_block, newline if include_block else "", new_header.replace("\n", newline), newline]
+    if preamble:
+        parts.extend([preamble, newline, newline])
+    parts.append(tail)
+    return head, "".join(parts)
 
 
 def create_source_unit_skeleton(
@@ -2790,6 +2933,156 @@ def withdraw_source_unit(args: argparse.Namespace) -> None:
                 path.write_bytes(original)
         raise
     print(f"Withdrew boundary {args.source}; retained {len(members)} raw function work items.")
+
+
+def split_source_unit(args: argparse.Namespace) -> None:
+    """Split one reviewed raw-ASM unit at a proven original object boundary."""
+
+    source = args.source
+    new_source = args.new_source
+    functions_data = load_json(FUNCTIONS_FILE)
+    units_data = load_json(SOURCE_UNITS_FILE)
+    functions = validate_functions(functions_data)
+    units = validate_source_units(units_data, functions)
+    unit = next((unit for unit in units if unit["source"] == source), None)
+    if unit is None:
+        raise ProjectStateError(f"source unit not registered: {source}")
+    if unit.get("integration") != "raw_asm":
+        raise ProjectStateError(
+            "split requires a raw-ASM source unit; integrated units keep their mapped C extent"
+        )
+    evidence = unit.get("boundary_evidence")
+    if not isinstance(evidence, dict) or "us" not in evidence:
+        raise ProjectStateError("split requires reviewed US boundary evidence")
+    if set(unit["regions"]) != {"us"}:
+        raise ProjectStateError("split supports source units with US regions only")
+    members = [entry for entry in functions if entry["symbol"] in unit["functions"]]
+    overlays = {member.get("overlay", "main") for member in members}
+    if len(overlays) != 1:
+        raise ProjectStateError(f"{source} cannot span multiple overlays")
+    overlay = overlays.pop()
+    validate_registration_source(new_source, overlay)
+    if new_source == source or any(unit["source"] == new_source for unit in units):
+        raise ProjectStateError(f"source unit already registered: {new_source}")
+    new_path = ROOT / new_source
+    if new_path.exists() or new_path.is_symlink():
+        raise ProjectStateError(f"refusing to overwrite existing source: {new_source}")
+    source_path = ROOT / source
+    if source_path.is_symlink() or not source_path.is_file():
+        raise ProjectStateError(f"source unit file is missing or symlinked: {source}")
+
+    try:
+        split = int(args.us_split, 0)
+    except ValueError as error:
+        raise ProjectStateError("--us-split must be a hexadecimal offset") from error
+    start = int(unit["regions"]["us"]["start"], 0)
+    end = int(unit["regions"]["us"]["end"], 0)
+    alignment = source_unit_alignment(overlay)
+    if split % alignment:
+        raise ProjectStateError(
+            f"split offset 0x{split:X} must be {alignment}-byte aligned"
+        )
+    if not start < split < end:
+        raise ProjectStateError(
+            f"split offset 0x{split:X} must lie strictly inside {format_range(start, end)}"
+        )
+    offsets = {offset for offset, _, _ in mapped_subsegments("us", overlay)}
+    if split not in offsets:
+        raise ProjectStateError(
+            f"split offset 0x{split:X} must already exist in "
+            f"{profile_map_path('us', overlay).relative_to(ROOT)}"
+        )
+    by_regional_symbol = {
+        function.symbol: function for function in parse_assembly_functions("us", overlay)
+    }
+    member_offsets: dict[str, int] = {}
+    for member in members:
+        regional_symbol = member["regions"]["us"]["symbol"]
+        function = by_regional_symbol.get(regional_symbol)
+        if function is None:
+            raise ProjectStateError(f"{regional_symbol} is missing from the US reference assembly")
+        member_offsets[member["symbol"]] = function.offset
+    if split not in member_offsets.values():
+        starts = ", ".join(f"0x{offset:X}" for offset in sorted(member_offsets.values()))
+        raise ProjectStateError(
+            f"split offset 0x{split:X} is not a member start (members begin at {starts})"
+        )
+    ordered = sorted(members, key=lambda member: member_offsets[member["symbol"]])
+    retained = [member for member in ordered if member_offsets[member["symbol"]] < split]
+    moved = [member for member in ordered if member_offsets[member["symbol"]] >= split]
+    if not retained or not moved:
+        raise ProjectStateError("split must leave members on both sides of the boundary")
+
+    content = source_path.read_text(encoding="utf-8")
+    reference = evidence["us"]["reference"]
+    head, tail = split_source_unit_content(
+        content, source, new_source, reference, retained, moved
+    )
+
+    moved_ids = [member["symbol"] for member in moved]
+    retained_ids = [member["symbol"] for member in retained]
+    updated_entries = [
+        {**entry, "source": new_source} if entry["symbol"] in moved_ids else entry
+        for entry in functions
+    ]
+    updated_functions = {**functions_data, "functions": updated_entries}
+    by_id = {entry["symbol"]: entry for entry in updated_entries}
+    first_unit = {
+        **unit,
+        "functions": retained_ids,
+        "regions": {
+            "us": {
+                **unit["regions"]["us"],
+                "end": f"0x{split:X}",
+                "state": source_unit_work_state([by_id[identifier] for identifier in retained_ids]),
+            }
+        },
+    }
+    second_unit = {
+        "source": new_source,
+        "functions": moved_ids,
+        "integration": "raw_asm",
+        "boundary_evidence": json.loads(json.dumps(evidence)),
+        "regions": {
+            "us": {
+                "state": source_unit_work_state([by_id[identifier] for identifier in moved_ids]),
+                "start": f"0x{split:X}",
+                "end": f"0x{end:X}",
+            }
+        },
+    }
+    position = units.index(unit)
+    updated_units = {
+        **units_data,
+        "source_units": [*units[:position], first_unit, second_unit, *units[position + 1 :]],
+    }
+    validated_functions = validate_functions(updated_functions)
+
+    paths = (source_path, new_path, FUNCTIONS_FILE, SOURCE_UNITS_FILE, SUMMARY_FILE, DOCUMENT_FILE)
+    snapshots = {path: path.read_bytes() if path.exists() else None for path in paths}
+    try:
+        source_path.write_text(head, encoding="utf-8")
+        with new_path.open("x", encoding="utf-8") as output:
+            output.write(tail)
+        validate_source_units(updated_units, validated_functions)
+        validate_deferred_candidate_sources(validated_functions)
+        validate_blocked_raw_sources(validated_functions)
+        write_json(FUNCTIONS_FILE, updated_functions)
+        write_json(SOURCE_UNITS_FILE, updated_units)
+        render_progress(validated_functions)
+    except BaseException:
+        for path, snapshot in snapshots.items():
+            if snapshot is None:
+                path.unlink(missing_ok=True)
+            else:
+                path.write_bytes(snapshot)
+        raise
+    print(
+        f"Split reviewed source unit {source} at us=0x{split:X}: "
+        f"{source}={format_range(start, split)} ({len(retained)} functions); "
+        f"{new_source}={format_range(split, end)} ({len(moved)} functions, skeleton=created). "
+        f"Review shared declarations in both files and record the boundary in {reference}."
+    )
 
 
 def register_source_unit(args: argparse.Namespace) -> None:
@@ -3665,6 +3958,15 @@ def parse_args() -> argparse.Namespace:
     )
     withdraw_unit_parser = subparsers.add_parser("withdraw-source-unit")
     withdraw_unit_parser.add_argument("--source", required=True)
+    split_unit_parser = subparsers.add_parser("split-source-unit")
+    split_unit_parser.add_argument("--source", required=True)
+    split_unit_parser.add_argument("--new-source", dest="new_source", required=True)
+    split_unit_parser.add_argument(
+        "--us-split",
+        dest="us_split",
+        required=True,
+        help="aligned member start that begins the new unit",
+    )
     retire_library_parser = subparsers.add_parser("retire-library-units")
     retire_library_parser.add_argument("--evidence-reference", required=True)
     retire_library_parser.add_argument("--source", dest="sources", action="append")
@@ -3750,6 +4052,8 @@ def main() -> int:
             register_source_unit(args)
         elif args.command == "withdraw-source-unit":
             withdraw_source_unit(args)
+        elif args.command == "split-source-unit":
+            split_source_unit(args)
         elif args.command == "retire-library-units":
             retire_library_units(args)
     except ProjectStateError as error:

@@ -2173,6 +2173,172 @@ class GameInventoryTests(unittest.TestCase):
                 project_state.withdraw_source_unit(SimpleNamespace(source=source))
         self.assertEqual(before, {path: path.read_bytes() for path in paths})
 
+    def test_withdraw_boundary_remains_game_only(self) -> None:
+        source = self.register_splittable_main_unit()
+        before = project_state.SOURCE_UNITS_FILE.read_bytes()
+        with self.assertRaisesRegex(project_state.ProjectStateError, "game functions"):
+            project_state.withdraw_source_unit(SimpleNamespace(source=source))
+        self.assertEqual(before, project_state.SOURCE_UNITS_FILE.read_bytes())
+
+    def register_splittable_main_unit(self) -> str:
+        assembly = self.root / "reference" / "us" / "asm" / "sample.s"
+        assembly.write_text("\n".join((
+            "glabel func_80001000",
+            "    /* 0 80001000 03E00008 */  jr         $ra",
+            "    /* 4 80001004 00000000 */   nop",
+            "    /* 8 80001008 00000000 */  nop",
+            "    /* C 8000100C 00000000 */  nop",
+            "glabel func_80001010",
+            "    /* 10 80001010 03E00008 */  jr         $ra",
+            "    /* 14 80001014 00000000 */   nop",
+            "glabel func_80001018",
+            "    /* 18 80001018 03E00008 */  jr         $ra",
+            "    /* 1C 8000101C 00000000 */   nop",
+            "    /* 20 80001020 00000000 */  nop",
+            "    /* 24 80001024 00000000 */  nop",
+            "    /* 28 80001028 00000000 */  nop",
+            "    /* 2C 8000102C 00000000 */  nop",
+            "",
+        )), encoding="utf-8")
+        (self.root / "config" / "profiles" / "us.yaml").write_text(
+            "    subsegments:\n"
+            "      - [0x0, asm]\n"
+            "      - [0x10, asm]\n"
+            "      - [0x20, asm]\n"
+            "      - [0x30, asm]\n",
+            encoding="utf-8",
+        )
+        source = "src/main/split_test.c"
+        with redirect_stdout(io.StringIO()):
+            project_state.register_source_unit(SimpleNamespace(
+                overlay="main", source=source, register_members=True, functions=None,
+                us_start="0x0", us_end="0x30", evidence_kind="structural_analysis",
+                evidence_reference="docs/evidence/split.md", replace_unreviewed_sources=None,
+            ))
+        return source
+
+    def prepare_split_members(self, source: str) -> None:
+        """Match the first two members, then reopen the second as a deferred candidate."""
+        path = self.root / source
+        path.write_text(path.read_text(encoding="utf-8").replace(
+            '#pragma GLOBAL_ASM("asm/nonmatchings/main/split_test/func_80001000.s")',
+            "typedef struct Shared {\n    s32 value;\n} Shared;\n\n"
+            "void func_80001000(Shared *shared) {\n    shared->value = 0;\n}",
+        ), encoding="utf-8")
+        with redirect_stdout(io.StringIO()):
+            project_state.mark_matched(SimpleNamespace(profile="us", symbol="func_80001000"))
+        path.write_text(path.read_text(encoding="utf-8").replace(
+            '#pragma GLOBAL_ASM("asm/nonmatchings/main/split_test/func_80001010.s")',
+            "void shared_helper(Shared *);\n\nvoid func_80001010(Shared *shared) {\n    shared_helper(shared);\n}",
+        ), encoding="utf-8")
+        with redirect_stdout(io.StringIO()):
+            project_state.mark_matched(SimpleNamespace(profile="us", symbol="func_80001010"))
+            project_state.reopen_match(SimpleNamespace(
+                profile="us", symbol="func_80001010", reason="trailing object pad"))
+
+    def split_arguments(self, source: str, us_split: str) -> SimpleNamespace:
+        return SimpleNamespace(source=source, new_source="src/main/split_test_tail.c", us_split=us_split)
+
+    def test_split_source_unit_moves_tail_members_into_a_new_reviewed_unit(self) -> None:
+        source = self.register_splittable_main_unit()
+        self.prepare_split_members(source)
+        with redirect_stdout(io.StringIO()) as output:
+            project_state.split_source_unit(self.split_arguments(source, "0x10"))
+        self.assertIn("src/main/split_test.c=0x0:0x10 (1 functions)", output.getvalue())
+        self.assertIn("src/main/split_test_tail.c=0x10:0x30 (2 functions", output.getvalue())
+
+        units = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))["source_units"]
+        self.assertEqual(2, len(units))
+        first, second = units
+        self.assertEqual(("src/main/split_test.c", ["func_80001000"]), (first["source"], first["functions"]))
+        self.assertEqual({"start": "0x0", "end": "0x10", "state": "candidate"}, first["regions"]["us"])
+        self.assertEqual(("src/main/split_test_tail.c", ["func_80001010", "func_80001018"]),
+                         (second["source"], second["functions"]))
+        self.assertEqual({"start": "0x10", "end": "0x30", "state": "raw_asm"}, second["regions"]["us"])
+        self.assertEqual("raw_asm", second["integration"])
+        self.assertEqual(first["boundary_evidence"], second["boundary_evidence"])
+        self.assertEqual("docs/evidence/split.md", second["boundary_evidence"]["us"]["reference"])
+
+        functions = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))["functions"]
+        by_symbol = {entry["symbol"]: entry for entry in functions}
+        self.assertEqual("src/main/split_test.c", by_symbol["func_80001000"]["source"])
+        self.assertEqual("matched", by_symbol["func_80001000"]["regions"]["us"]["state"])
+        self.assertEqual("src/main/split_test_tail.c", by_symbol["func_80001010"]["source"])
+        self.assertEqual("trailing object pad", by_symbol["func_80001010"]["deferred"]["reason"])
+        self.assertEqual("src/main/split_test_tail.c", by_symbol["func_80001018"]["source"])
+
+        head = (self.root / source).read_text(encoding="utf-8")
+        self.assertTrue(project_state.source_unit_header_follows_includes(head))
+        self.assertIn("void func_80001000(Shared *shared) {", head)
+        self.assertNotIn("TODO: Implement these source-unit functions", head)
+        self.assertNotIn("func_80001010", head)
+        self.assertNotIn("func_80001018", head)
+        self.assertTrue(head.endswith("}\n"))
+
+        tail = (self.root / "src/main/split_test_tail.c").read_text(encoding="utf-8")
+        self.assertTrue(tail.startswith('#include "types.h"\n\n/*\n * Reviewed source unit: src/main/split_test_tail.c\n'))
+        self.assertTrue(project_state.source_unit_header_follows_includes(tail))
+        self.assertIn(" * Boundary evidence: docs/evidence/split.md\n", tail)
+        self.assertIn(" * - func_80001010\n * - func_80001018\n", tail)
+        self.assertIn("typedef struct Shared {", tail)
+        self.assertIn("CONKER_DEFERRED_CANDIDATE func_80001010", tail)
+        self.assertIn("    shared_helper(shared);\n", tail)
+        self.assertIn('#pragma GLOBAL_ASM("asm/nonmatchings/main/split_test_tail/func_80001010.s")', tail)
+        self.assertIn('#pragma GLOBAL_ASM("asm/nonmatchings/main/split_test_tail/func_80001018.s")', tail)
+        self.assertNotIn("split_test/", tail)
+        self.assertNotIn("func_80001000", tail)
+        _, _, restored = project_state.restore_deferred_candidate(
+            "src/main/split_test_tail.c", "func_80001010")
+        self.assertIn("void func_80001010(Shared *shared) {", restored)
+
+        project_state.validate_project()
+        self.assertTrue(project_state.DOCUMENT_FILE.is_file())
+
+    def assert_split_rejected(self, source: str, us_split: str, message: str) -> None:
+        before = {p: p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
+        with self.assertRaisesRegex(project_state.ProjectStateError, message):
+            project_state.split_source_unit(self.split_arguments(source, us_split))
+        self.assertEqual(before, {p: p.read_bytes() for p in self.root.rglob("*") if p.is_file()})
+
+    def test_split_source_unit_rejects_unaligned_outside_or_non_member_offsets(self) -> None:
+        source = self.register_splittable_main_unit()
+        self.assert_split_rejected(source, "0x8", "16-byte aligned")
+        self.assert_split_rejected(source, "0x20", "not a member start")
+        self.assert_split_rejected(source, "0x0", "strictly inside")
+        self.assert_split_rejected(source, "0x30", "strictly inside")
+        self.assert_split_rejected(source, "zz", "hexadecimal offset")
+        main_map = self.root / "config" / "profiles" / "us.yaml"
+        main_map.write_text(main_map.read_text(encoding="utf-8").replace("      - [0x10, asm]\n", ""), encoding="utf-8")
+        self.assert_split_rejected(source, "0x10", "must already exist")
+
+    def test_split_source_unit_rejects_integrated_units_and_existing_targets(self) -> None:
+        source = self.register_splittable_main_unit()
+        (self.root / "src/main/split_test_tail.c").write_text("/* unrelated */\n", encoding="utf-8")
+        self.assert_split_rejected(source, "0x10", "refusing to overwrite")
+        (self.root / "src/main/split_test_tail.c").unlink()
+        with self.assertRaisesRegex(project_state.ProjectStateError, "not registered"):
+            project_state.split_source_unit(SimpleNamespace(
+                source="src/main/missing.c", new_source="src/main/split_test_tail.c", us_split="0x10"))
+        data = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))
+        data["source_units"][0]["integration"] = "mixed"
+        project_state.write_json(project_state.SOURCE_UNITS_FILE, data)
+        main_map = self.root / "config" / "profiles" / "us.yaml"
+        main_map.write_text(main_map.read_text(encoding="utf-8").replace(
+            "[0x0, asm]", "[0x0, c, main/split_test]"), encoding="utf-8")
+        self.assert_split_rejected(source, "0x10", "raw-ASM source unit")
+
+    def test_split_source_unit_rolls_back_every_file_on_failure(self) -> None:
+        source = self.register_splittable_main_unit()
+        self.prepare_split_members(source)
+        with redirect_stdout(io.StringIO()):
+            project_state.progress(SimpleNamespace(render=True, check=False))
+        before = {p: p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
+        with patch.object(project_state, "render_progress", side_effect=RuntimeError("render failed")):
+            with self.assertRaisesRegex(RuntimeError, "render failed"):
+                project_state.split_source_unit(self.split_arguments(source, "0x10"))
+        self.assertEqual(before, {p: p.read_bytes() for p in self.root.rglob("*") if p.is_file()})
+        self.assertFalse((self.root / "src/main/split_test_tail.c").exists())
+
     def test_register_source_unit_requires_every_function_in_reviewed_range(self) -> None:
         project_state.register_game(
             SimpleNamespace(
