@@ -79,6 +79,33 @@ class CompileCTests(unittest.TestCase):
                 compile_c.run_compile('us', source, Path(tmp) / 'unit.o', inputs_prepared=True, check=True)
                 prepare.assert_not_called()
 
+    def test_compile_without_directive_drops_only_named_pinned_flags(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "unit.c"
+            source.write_text(
+                "/* Reviewed source unit: src/main/unit.c */\n"
+                "/* CONKER_COMPILE_WITHOUT: -g3 */\n"
+                "void func_test(void) {}\n",
+                encoding="utf-8",
+            )
+            command = compile_c.compile_command("us", source, Path("build/unit.o"))
+
+        self.assertNotIn("-g3", command)
+        self.assertIn("-O2", command)
+        self.assertIn("-g3", compile_c.compiler_flags("us"))
+        self.assertEqual(compile_c.compiler_flags("us", "void f(void) {}\n"), compile_c.compiler_flags("us"))
+
+    def test_compile_without_directive_rejects_other_flags_and_repeats(self) -> None:
+        for text in (
+            "/* CONKER_COMPILE_WITHOUT: -O2 */\n",
+            "/* CONKER_COMPILE_WITHOUT: -g3 -O2 */\n",
+            "/* CONKER_COMPILE_WITHOUT: */\n",
+            "/* CONKER_COMPILE_WITHOUT: -g3 */\n/* CONKER_COMPILE_WITHOUT: -g3 */\n",
+        ):
+            with self.subTest(text=text), self.assertRaises(ValueError):
+                compile_c.compiler_flags("us", text)
+        self.assertEqual(compile_c.dropped_flags("/* mentions CONKER_COMPILE_WITHOUT: -g3 in prose */\n"), ())
+
 
 if __name__ == "__main__":
     unittest.main()
