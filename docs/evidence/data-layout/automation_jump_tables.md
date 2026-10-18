@@ -148,13 +148,33 @@ the runtime backing. No source or assembly changes are needed for this repair.
 pair, replacing the former single `.rodata` owner. The checked data audit and
 external-placement ownership tests enforce consistency with these mappings.
 
-Validation on 2026-10-18: the data-boundary audit and all 17 focused boundary
-tests passed. Clean `verify-batch` for `func_151CD3CC`, `func_150E1060`,
-`func_15089BC0`, `func_151C5588`, `func_150DB518`, `func_150F706C`,
-`func_151470FC`, `func_1515F850`, `func_151CF898` and `func_151B8400`
-ended in `BATCH_COMPLETE`. The entire 2,072,880-byte integrated game-code
-payload and every linked external rodata payload matched the checked US ROM.
-The full suite ran 2,803 tests successfully (nine skipped), followed by valid
-metadata, progress and whitespace checks. Validation used the uncommitted
-`codex/deferred-game-matches-oct18` worktree based on main
-`bb098992bf560efff55fbb0bec6d4e974a628431`.
+PR 147 review re-verification on 2026-10-18 used tested commit
+`6d048a787aaf3e4c4b83376747b634deee51a1db`. This revision includes current main
+`619190f8cb044d5ef7b1440c2f24c0e4b7c6efcc`, including PR 146's compiler/profile/CI
+changes and PR 145's shared RNG declarations, plus the review fixes. The
+split-object names now have one Makefile definition used by both the recipe
+filter and dependency rule. The earlier pre-merge validation is superseded by
+this run.
+
+After the source edits, fresh `finish` checks for all ten functions reported
+US `CURRENT (0)` over the full registered spans and passed source-unit layout,
+progress and whitespace gates. The same ten-ID clean `verify-batch` ran on the
+committed revision above with a clean tracked working tree:
+
+```sh
+./conker verify-batch func_151CD3CC func_150E1060 func_15089BC0 func_151C5588 func_150DB518 func_150F706C func_151470FC func_1515F850 func_151CF898 func_151B8400
+```
+
+The run ended in `AGENT_ACTION: BATCH_COMPLETE`. The entire 2,072,880-byte
+integrated game-code payload and every linked external rodata payload matched
+the checksum-validated US ROM. All 2,805 tests completed successfully (nine
+skipped; 156.270 seconds), followed by valid metadata, progress and whitespace
+checks. This evidence update changes documentation only after that tested
+revision; it does not change source, compiler inputs or linker mappings.
+
+The review also corrected the typed call in disabled `func_15114188`; enabling
+it for `finish` compiled successfully and measured `CURRENT (1150)`, replacing
+the historical recorded 700. The optional typed-parameter cleanup of disabled
+`func_15157AA8` retained `CURRENT (65)` and its exact frame/local homes. Both
+were restored transactionally to deferred candidates with canonical
+`GLOBAL_ASM`; neither is included in the ten matching functions.
