@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15190898
  * - func_1519108C
- * - func_15191400
  * - func_15191520
  * - func_151918BC
  * - func_15191980
@@ -154,40 +153,34 @@ void *func_1519108C(u8 *arg0, s16 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_1519108C.s")
 extern u8 D_800A9D40[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15191400 CURRENT (835) */
+typedef struct {
+    s16 base;
+    s16 range;
+    u8 pad4[0x10];
+} Game1BDC20Delay;
 void func_15191400(u8 *arg0) {
-    s32 var_s2;
-    u8 *var_s0;
-    s16 *temp_s1;
-    u8 *temp_v0;
-    u8 *temp_v1;
-    u8 *temp_v1_2;
+    s32 i;
+    u8 **entry;
+    Game1BDC20Delay *delay;
+    u8 *state;
 
-    var_s2 = 0;
     *(f32 *)(arg0 + 0x1C) = 0.0f;
     *(s32 *)(arg0 + 0x20) = 0;
-    var_s0 = *(u8 **)(arg0 + 0x24);
-    do {
-        temp_v1 = *(u8 **)var_s0;
-        temp_v0 = temp_v1 + 0x110;
-        if (temp_v1 != 0) {
-            *(f32 *)(temp_v0 + 0) = 0.0f;
-            *(f32 *)(temp_v0 + 4) = 0.0f;
-            *(f32 *)(temp_v0 + 8) = 0.0f;
-            temp_s1 = (s16 *)(D_800A9D40 + (*(u8 *)(temp_v0 + 0x20) * 0x14));
-            func_1513F680(*(void **)var_s0, 0xD, 0x12, 0, 0xD);
-            *(s16 *)(*(u8 **)var_s0 + 0x1C) =
-                (func_150ADA20() % (u32)(temp_s1[1] + 1)) + temp_s1[0];
-            temp_v1_2 = *(u8 **)var_s0;
-            *(s32 *)(temp_v1_2 + 0x58) |= 1;
+    entry = *(u8 ***)(arg0 + 0x24);
+    for (i = 0; i < 0x3C; i++, entry += 3) {
+        state = *entry + 0x110;
+        if (*entry != 0) {
+            *(f32 *)(state + 0) = 0.0f;
+            *(f32 *)(state + 4) = 0.0f;
+            *(f32 *)(state + 8) = 0.0f;
+            delay = (Game1BDC20Delay *)&D_800A9D40[state[0x20] * 0x14];
+            func_1513F680(*entry, 0xD, 0x12, 0, 0xD);
+            *(s16 *)(*entry + 0x1C) = (func_150ADA20() % (u32)(delay->range + 1)) + delay->base;
+            *(s32 *)(*entry + 0x58) |= 1;
         }
-        var_s2 += 1;
-        var_s0 += 0xC;
-    } while (var_s2 != 0x3C);
+    }
     func_100226F0(*(void **)(arg0 + 0x24), 0x2D0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15191400 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_15191400.s")
 s32 func_1514672C(f32 *);
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_151DBCBC(s32, f32, s32, s32, f32 *, s32, s32);

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_state_resource_helpers.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150E41C0
  * - func_150E42F8
  * - func_150E4550
  * - func_150E4928
@@ -22,12 +21,11 @@ f32 func_15047C00(f32);
 extern s16 D_800D99F0[];
 extern void *D_800DBFF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E41C0 CURRENT (2357) */
 void func_150E41C0(void) {
     s32 x;
     s32 y;
     s32 z;
-    f32 zero;
+    f32 zero = 0.0f;
     f32 horizontal;
     f32 depth;
     f32 trig;
@@ -45,7 +43,6 @@ void func_150E41C0(void) {
     angle = *(f32 *)((u8 *)D_800DBFF0 + 0x3A0);
     trig = func_15047D60(angle);
     cosine = func_15047C00(angle);
-    zero = 0.0f;
     x = (s32)((f32)x + (zero + (depth * trig)));
     z = (s32)((f32)z + ((depth * cosine) - zero));
     y = (s32)((f32)y + horizontal);
@@ -53,8 +50,6 @@ void func_150E41C0(void) {
     D_800D99F0[2] = z;
     D_800D99F0[1] = y;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E41C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_111670/func_150E41C0.s")
 /* Call context: func_1510F8CC: matched US definition in src/game/game_13BB20.c */
 s32 func_1510F8CC(s32);
 

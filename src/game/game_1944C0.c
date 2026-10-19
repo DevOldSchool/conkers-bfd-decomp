@@ -6,8 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_state_callback_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151670C0
- * - func_151671E8
  * - func_15167310
  * - func_151674F8
  * - func_15167C58
@@ -83,82 +81,52 @@ extern struct Game1944C0Node *D_800DCE50[][104];
 extern s8 D_800DD190;
 extern struct Game1944C0Node *D_800DD198[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151670C0 CURRENT (2253) */
 void func_151670C0(void) {
-    Game1944C0CallbackEntry *entry;
-    struct Game1944C0Node **slot;
     struct Game1944C0Node *node;
     s32 column;
     s32 row;
 
-    row = 0;
-    do {
-        entry = (Game1944C0CallbackEntry *)(u32)&D_8008B4A8;
-        column = 0;
-        do {
-            if (entry->callback != 0) {
+    for (row = 0; row < 2; row++) {
+        for (column = 0; column < 0x65; column++) {
+            if (((Game1944C0CallbackEntry *)&D_8008B4A8)[column].callback != 0) {
                 node = D_800DCE50[row][column];
                 D_800DD190++;
-                if (node != 0) {
-                    slot = (struct Game1944C0Node **)((u32)D_800DD198 + ((u32)(s32)D_800DD190 << 2));
-                    do {
-                        *slot = ((Game1944C0ProcessNode *)node)->next;
-                        entry->callback(node);
-                        slot = (struct Game1944C0Node **)((u32)D_800DD198 + ((u32)(s32)D_800DD190 << 2));
-                        node = *slot;
-                    } while (node != 0);
+                while (node != 0) {
+                    D_800DD198[D_800DD190] = ((Game1944C0ProcessNode *)node)->next;
+                    ((Game1944C0CallbackEntry *)&D_8008B4A8)[column].callback(node);
+                    node = D_800DD198[D_800DD190];
                 }
                 D_800DD190--;
             }
-            column++;
-            entry = (Game1944C0CallbackEntry *)((u32)entry + sizeof(*entry));
-        } while (column != 0x65);
-        row++;
-    } while (row != 2);
+        }
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151670C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_151670C0.s")
 typedef struct Game1944C0CallbackEntry2 {
     void (*callback0)(struct Game1944C0Node *);
     void (*callback1)(struct Game1944C0Node *);
     u8 pad8[0x2C];
 } Game1944C0CallbackEntry2;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151671E8 CURRENT (430) */
 void func_151671E8(void) {
-    Game1944C0CallbackEntry2 *entry;
-    struct Game1944C0Node **slot;
     struct Game1944C0Node *node;
     s32 column;
     s32 row;
 
-    row = 0;
-    do {
-        entry = (Game1944C0CallbackEntry2 *)&D_8008B4A8;
-        column = 0;
-        do {
-            if (entry->callback1 != 0) {
+    for (row = 0; row < 2; row++) {
+        for (column = 0; column < 0x65; column++) {
+            if (((Game1944C0CallbackEntry2 *)&D_8008B4A8)[column].callback1 != 0) {
                 node = D_800DCE50[row][column];
                 D_800DD190++;
-                if (node != 0) {
-                    slot = &D_800DD198[D_800DD190];
-                    do {
-                        *slot = ((Game1944C0ProcessNode *)node)->next;
-                        (*(void (**)(struct Game1944C0Node *))((u8 *)entry + 4))(node);
-                        slot = &D_800DD198[D_800DD190];
-                        node = *slot;
-                    } while (node != 0);
+                while (node != 0) {
+                    D_800DD198[D_800DD190] = ((Game1944C0ProcessNode *)node)->next;
+                    ((Game1944C0CallbackEntry2 *)&D_8008B4A8)[column].callback1(node);
+                    node = D_800DD198[D_800DD190];
                 }
                 D_800DD190--;
             }
-            column++;
-            entry++;
-        } while (column != 0x65);
-        row++;
-    } while (row != 2);
+        }
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151671E8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_151671E8.s")
 typedef struct Game1944C0UpdateEntry {
     u8 pad0[0xC];
     void (*update)(struct Game1944C0Node *);

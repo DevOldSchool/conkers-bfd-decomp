@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15178EFC
  * - func_15179008
- * - func_151794C8
  * - func_15179600
  * - func_151797B0
  * - func_15179B14
@@ -85,12 +84,11 @@ f32 func_150AD78C(f32);
 extern void *D_800DBFF0;
 extern s16 D_800DD438[3];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151794C8 CURRENT (2357) */
 void func_151794C8(void) {
     s32 x;
     s32 y;
     s32 z;
-    f32 zero;
+    f32 zero = 0.0f;
     f32 horizontal;
     f32 depth;
     f32 trig;
@@ -108,7 +106,6 @@ void func_151794C8(void) {
     angle = *(f32 *)((u8 *)D_800DBFF0 + 0x3A0);
     trig = func_150AD78C(angle);
     cosine = func_150AD780(angle);
-    zero = 0.0f;
     x = (s32)((f32)x + (zero + (depth * trig)));
     z = (s32)((f32)z + ((depth * cosine) - zero));
     y = (s32)((f32)y + horizontal);
@@ -116,8 +113,6 @@ void func_151794C8(void) {
     D_800DD438[2] = z;
     D_800DD438[1] = y;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151794C8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A6360/func_151794C8.s")
 void func_1516865C(void *, s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15179600 CURRENT (283) */
