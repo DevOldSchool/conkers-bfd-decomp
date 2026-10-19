@@ -29801,17 +29801,16 @@
       "symbol": "func_15019414"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3234,
-        "reason": "Deferred after three manual source-only variants; best CURRENT (3234) is dominated by ABI/register allocation and pointer spill scheduling across the helper chain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 316,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15019464",
           "vram": "0x15019464"
         }
@@ -29854,17 +29853,16 @@
       "symbol": "func_150198FC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1060,
-        "reason": "Manual body and argument widths recovered in three bounded variants; best tested CURRENT (1060), with packet-pointer preservation and frame/register allocation still differing from retail.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 272,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15019BB8",
           "vram": "0x15019BB8"
         }
@@ -29873,17 +29871,16 @@
       "symbol": "func_15019BB8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3120,
-        "reason": "Manual packet-building body recovered in three bounded variants; best CURRENT (3120), with argument/pointer preservation, frame size, and branch scheduling differing from retail.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 408,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15019CC8",
           "vram": "0x15019CC8"
         }
@@ -29892,17 +29889,16 @@
       "symbol": "func_15019CC8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1482,
-        "reason": "Manual semantic body recovered in three bounded variants; current best CURRENT (1482), with saved-pointer frame/register allocation and control-flow differences remaining.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 192,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15019E60",
           "vram": "0x15019E60"
         }
@@ -45006,17 +45002,16 @@
       "symbol": "func_151ED09C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 210,
-        "reason": "Consume incoming cursor with block-scoped8-byte command snapshots improves3956 to210. Remaining ORI word order, cursor increments before instead after store pairs and final GPR offset. Lowword-first/poststore increment600; two-word struct210neutral. Best210 after3 revisions.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 188,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151ED1E0",
           "vram": "0x151ED1E0"
         }
@@ -45521,17 +45516,16 @@
       "symbol": "func_151103C8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 278,
-        "reason": "Manual deferred-exact-20261005:fresh2079(stored1980)to278 in six manual hypotheses. Incoming commandcursor reuse removes savedS0/frame28; scoped actualtwo-word commandviews recover frame20/registers/full188B span. Packed u32 fixes signed high-bit shift. Poststoreadvance578 removes neededcopies; highword snapshot678 reverses constantGPRs; finalcursorresultreuse neutral278. Bestvalid278 retained. Remaining two earlyADDIU, secondcommandSWorder, finalA1/A2/A3home reloadschedule. No fresh alias/lifetime hypothesis; no shared changes. OldpointerABIhistoryincomplete; full diffs/ledger exported.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 188,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15110544",
           "vram": "0x15110544"
         }
@@ -69767,17 +69761,16 @@
       "symbol": "func_151D70CC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 550,
-        "reason": "Matched caller and raw v0 lifetime prove the scalar cursor return. Corrected void to s32 and retained the actual second-call result; CURRENT 550 is code-neutral. Existing pointer/constant scheduling and duplicate move differences remain; no repeated shaping.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 164,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D710C",
           "vram": "0x151D710C"
         }
@@ -80181,17 +80174,16 @@
       "symbol": "func_1510CB10"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1625,
-        "reason": "Valid unsigned color packing retained at CURRENT (1625); actual eight-byte command snapshots/postincrement cursors canonicalize identically. Three finish calls/two revisions; folded cursor addresses, RGB expression scheduling and full-span shortening remain. No further untried hypothesis; no shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 168,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510CDB8",
           "vram": "0x1510CDB8"
         }
