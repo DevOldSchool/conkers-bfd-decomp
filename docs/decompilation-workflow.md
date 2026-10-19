@@ -245,7 +245,12 @@ entire registered spans must equal each other and the checksum-validated ROM bef
 those bytes enter the same bounded asm-differ gate. HI16/LO16 references to
 external original tables (`jtbl_<address>_game`, typically from sibling
 `GLOBAL_ASM`) resolve to their named addresses and are covered by the same
-complete-unit ROM check. Unsupported relocations, and member spans that cannot
+complete-unit ROM check. A unit's own `.rodata` (C float literals and jump tables)
+is linked only at its single reviewed `config/game/us-rodata.ld` placement; its
+HI16/LO16 references and table pointers into the unit's text are resolved there,
+and the linked rodata must equal checksum-validated ROM game data (payload plus
+zero alignment) in addition to the complete text. Units without such a placement,
+split-table units and other data sections stay symbolic. Unsupported relocations, and member spans that cannot
 be proven (such as an unregistered symbol inside one), retain symbolic
 comparison; original objects still supply switch-table evidence. Watch
 mode remains symbolic and requires a fresh `finish` afterward.
