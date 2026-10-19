@@ -63066,17 +63066,16 @@
       "symbol": "func_150C851C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 63,
-        "reason": "Round 13: for-loop form + one-line gSPSegment block + typed GameF5800Command cursor 433 -> 63; only the s3/s4 owner swap between &sp4C and &D_800BE4E0 remains (index-loop form 73, randomized permuter 2x no exact).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 304,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C8600",
           "vram": "0x150C8600"
         }
@@ -63706,8 +63705,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1356,
-        "reason": "CURRENT1356; five-vertex color loop and integer register sequence recovered from5178. Frame0x88 versus0x80, effect/matrix spill offsets and packet-store ordering remain; final lifetime probes worsened to1744/frame0x90. Bounded attempts exhausted.",
+        "current_score": 686,
+        "reason": "Round 13: typed Game63A20Command *arg0 cursor with one-line blocks (including the four geometry-mode arms): 1356 -> 686. Remaining: -g3 frame 0x88 vs 0x80 (raw has 16 named homes; the transform value is a spill temp, not a home) and func_15036570/func_1515E544 argument scheduling; merged two-arm condition fixes the frame but breaks the branch chain (3462).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

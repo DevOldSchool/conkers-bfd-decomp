@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150C8350
- * - func_150C8600
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -114,36 +113,28 @@ typedef struct GameF5800Command {
     u32 w1;
 } GameF5800Command;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C8600 CURRENT (63) */
 GameF5800Command *func_150C8600(GameF5800Command *arg0) {
     typedef struct { s32 *entries[2]; } PointerPair;
     s32 record_offset;
     s32 command_offset;
-    s32 sp58[2];
+    s32 workspace[2];
     s32 variant;
-    PointerPair sp4C;
+    PointerPair tables;
     s32 result;
-    u8 state;
-    u8 *record;
 
-    sp4C = *(PointerPair *)D_80088810;
+    tables = *(PointerPair *)D_80088810;
     for (record_offset = 0, command_offset = 4; command_offset != 0x2C; command_offset += 4, record_offset += 0xA) {
-        record = (u8 *)D_800BE4E0 + record_offset;
-        variant = *(s16 *)(record + 4) >> 8;
+        variant = *(s16 *)((u8 *)D_800BE4E0 + record_offset + 4) >> 8;
         if (variant < 0) {
             variant = 0;
         } else if (variant >= 5) {
             variant = 4;
         }
-        state = record[0];
-        if (state >= 2) {
-            record[0] = 0;
-            state = *((u8 *)D_800BE4E0 + record_offset);
+        if (*((u8 *)D_800BE4E0 + record_offset) >= 2) {
+            *((u8 *)D_800BE4E0 + record_offset) = 0;
         }
-        result = func_1510D0EC(sp4C.entries[state][variant], sp58, 3, 0);
+        result = func_1510D0EC(tables.entries[*((u8 *)D_800BE4E0 + record_offset)][variant], workspace, 3, 0);
         { GameF5800Command *command = arg0++; command->w0 = (command_offset & 0xFFFF) | 0xDB060000; command->w1 = result; }
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C8600 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F5800/func_150C8600.s")

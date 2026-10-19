@@ -95,8 +95,13 @@ extern u8 D_80084350[], D_80089470[], D_800903BC[];
 extern u8 D_800BE9C0;
 extern s32 D_800DCD7C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150368C4 CURRENT (1356) */
-u32 *func_150368C4(u32 *arg0, s32 arg1, s32 arg2) {
+typedef struct Game63A20Command {
+    u32 w0;
+    u32 w1;
+} Game63A20Command;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150368C4 CURRENT (686) */
+Game63A20Command *func_150368C4(Game63A20Command *arg0, s32 arg1, s32 arg2) {
     u8 *effect;
     Game368C4State *state;
     u8 *colors;
@@ -128,73 +133,26 @@ u32 *func_150368C4(u32 *arg0, s32 arg1, s32 arg2) {
     }
     transform = state->transforms + 0x100;
     func_15036570(arg1, state->transforms + 0x240, transform);
-    {
-        u32 *packet = arg0;
-        arg0 += 2;
-        packet[0] = 0xDE000000;
-        packet[1] = (u32)D_80084350;
-    }
-    arg0 = (u32 *)func_1515E544((s32)arg0, state->lights[arg2], state->lighting0,
+    { Game63A20Command *command = arg0++; command->w0 = 0xDE000000; command->w1 = (u32)D_80084350; }
+    arg0 = (Game63A20Command *)func_1515E544((s32)arg0, state->lights[arg2], state->lighting0,
                               state->lighting1, state->lightData + D_800BE9C0 * 8);
     mode = state->mode & 0xC;
     if (mode == 0xC) {
-        u32 *packet = arg0;
-        arg0 += 2;
-        packet[0] = 0xD9FDFFFF;
-        packet[1] = 0;
+        { Game63A20Command *command = arg0++; command->w0 = 0xD9FDFFFF; command->w1 = 0; }
     } else if (mode != 8 && !(effect[4] & 1)) {
-        u32 *packet = arg0;
-        arg0 += 2;
-        packet[0] = 0xD9FDFFFF;
-        packet[1] = 0;
+        { Game63A20Command *command = arg0++; command->w0 = 0xD9FDFFFF; command->w1 = 0; }
     } else if (D_800DCD7C != 0) {
-        u32 *packet = arg0;
-        arg0 += 2;
-        packet[0] = 0xD9FFFFFF;
-        packet[1] = 0x20000;
+        { Game63A20Command *command = arg0++; command->w0 = 0xD9FFFFFF; command->w1 = 0x20000; }
     } else {
-        u32 *packet = arg0;
-        arg0 += 2;
-        packet[0] = 0xD9FDFFFF;
-        packet[1] = 0;
+        { Game63A20Command *command = arg0++; command->w0 = 0xD9FDFFFF; command->w1 = 0; }
     }
-    arg0 = (u32 *)func_15094F70((s32)arg0, (struct GameC2350Input *)D_800903BC, 0, NULL, 0, 0, 0, 2, 3);
-    {
-        u32 *packet = arg0;
-        arg0 += 2;
-        packet[0] = 0xDA380003;
-        packet[1] = (u32)D_80089470;
-    }
-    {
-        u32 *packet = arg0;
-        arg0 += 2;
-        packet[0] = 0x01001002;
-        packet[1] = (u32)*vertices;
-    }
-    {
-        u32 *packet = arg0;
-        arg0 += 2;
-        packet[0] = 0xDA380003;
-        packet[1] = (u32)transform;
-    }
-    {
-        u32 *packet = arg0;
-        arg0 += 2;
-        packet[0] = 0x0100400A;
-        packet[1] = (u32)(*vertices + 0x10);
-    }
-    {
-        u32 *packet = arg0;
-        arg0 += 2;
-        packet[0] = 0x05000204;
-        packet[1] = 0;
-    }
-    {
-        u32 *packet = arg0;
-        arg0 += 2;
-        packet[0] = 0x05000608;
-        packet[1] = 0;
-    }
+    arg0 = (Game63A20Command *)func_15094F70((s32)arg0, (struct GameC2350Input *)D_800903BC, 0, NULL, 0, 0, 0, 2, 3);
+    { Game63A20Command *command = arg0++; command->w0 = 0xDA380003; command->w1 = (u32)D_80089470; }
+    { Game63A20Command *command = arg0++; command->w0 = 0x01001002; command->w1 = (u32)*vertices; }
+    { Game63A20Command *command = arg0++; command->w0 = 0xDA380003; command->w1 = (u32)transform; }
+    { Game63A20Command *command = arg0++; command->w0 = 0x0100400A; command->w1 = (u32)(*vertices + 0x10); }
+    { Game63A20Command *command = arg0++; command->w0 = 0x05000204; command->w1 = 0; }
+    { Game63A20Command *command = arg0++; command->w0 = 0x05000608; command->w1 = 0; }
     return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150368C4 */
