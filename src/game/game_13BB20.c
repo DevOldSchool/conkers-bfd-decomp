@@ -9,7 +9,6 @@
  * - func_1510E670
  * - func_1510E950
  * - func_1510F720
- * - func_1510F820
  * - func_1510F8D8
  * - func_1510FD20
  *
@@ -197,31 +196,27 @@ f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 extern f32 D_800A2D9C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510F820 CURRENT (240) */
 void func_1510F820(void *arg0, void *arg1, f32 *arg2, f32 *arg3, s32 arg4,
                    f32 *arg5, f32 *arg6) {
     f32 sp24;
     f32 sp20;
-    f32 square24;
-    f32 square20;
-    f32 temp_fv1;
+    f32 length;
+    f32 zero;
 
+    zero = 0.0f;
     func_1510E388(arg0, arg1, &sp24, &sp20);
-    square24 = sp24 * sp24;
-    square20 = sp20 * sp20;
+    length = sqrtf((sp24 * sp24) + (sp20 * sp20));
     *arg5 = sp24;
     *arg6 = sp20;
-    temp_fv1 = sqrtf(square24 + square20) * D_800A2D9C;
-    if (0.0f == temp_fv1) {
+    length = length * D_800A2D9C;
+    if (zero == length) {
         *arg2 = 1.0f;
-        *arg3 = 0.0f;
+        *arg3 = zero;
         return;
     }
-    *arg2 = sp24 / temp_fv1;
-    *arg3 = sp20 / temp_fv1;
+    *arg2 = sp24 / length;
+    *arg3 = sp20 / length;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510F820 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510F820.s")
 s32 func_1510F8CC(s32 arg0) {
     return arg0 & 0x1F;
 }

@@ -13,7 +13,6 @@
  * - func_1501CC3C
  * - func_1501CDC0
  * - func_1501CE54
- * - func_1501CFF8
  * - func_1501D044
  * - func_1501D258
  * - func_1501D2C4
@@ -349,30 +348,23 @@ second_loop:
 #endif /* CONKER_DEFERRED_CANDIDATE func_1501CE54 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501CE54.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501CFF8 CURRENT (410) */
 s32 func_1501CFF8(s32 arg0) {
-    s32 var_v0;
-    s32 var_v1;
-    u16 *var_a2;
-    s32 temp_a1;
+    s32 i;
+    s32 sum;
+    u16 *entry;
 
-    var_v0 = 0;
-    var_v1 = 0;
-    temp_a1 = D_800C363A[arg0];
-    if ((s32)temp_a1 > 0) {
-        var_a2 = D_800C35D8[arg0];
-sum_entry:
-        var_v1 += *var_a2;
-        var_v0 += 1;
-        var_a2 += 1;
-        if (var_v0 < (s32)temp_a1) {
-            goto sum_entry;
-        }
+    sum = 0;
+    i = 0;
+    if (D_800C363A[arg0] > 0) {
+        entry = D_800C35D8[arg0];
+        do {
+            sum += *entry;
+            i++;
+            entry++;
+        } while (i < D_800C363A[arg0]);
     }
-    return var_v1;
+    return sum;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501CFF8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501CFF8.s")
 extern s32 D_800C35B8[];
 extern s32 D_800C35B0[];
 extern u8 D_800C35C0[];
