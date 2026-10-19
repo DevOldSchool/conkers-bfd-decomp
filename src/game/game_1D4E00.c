@@ -10,8 +10,6 @@
  * - func_151A7A90
  * - func_151A7D6C
  * - func_151A8340
- * - func_151A8584
- * - func_151A85D4
  * - func_151A8624
  * - func_151A87F8
  *
@@ -192,34 +190,26 @@ typedef struct {
 void func_151A8560(s32);
 extern void (*D_8008F94C[])(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A8584 CURRENT (575) */
 void func_151A8584(s32 arg0) {
-    void (*temp_v0)(s32);
+    Game1D4E00State *state = (Game1D4E00State *)arg0;
 
-    temp_v0 = D_8008F94C[((Game1D4E00State *)arg0)->field_5C];
-    if (temp_v0 != 0) {
-        temp_v0(arg0);
+    if (D_8008F94C[state->field_5C] != NULL) {
+        D_8008F94C[state->field_5C](arg0);
     }
     func_151A8560(arg0);
-    func_15169804(arg0);
+    func_15169804((void *)arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A8584 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A8584.s")
 extern void (*D_8008F958[])(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A85D4 CURRENT (575) */
 void func_151A85D4(s32 arg0) {
-    void (*temp_v0)(s32);
+    Game1D4E00State *state = (Game1D4E00State *)arg0;
 
-    temp_v0 = D_8008F958[((Game1D4E00State *)arg0)->field_5C];
-    if (temp_v0 != 0) {
-        temp_v0(arg0);
+    if (D_8008F958[state->field_5C] != NULL) {
+        D_8008F958[state->field_5C](arg0);
     }
     func_151A8560(arg0);
-    func_15169824(arg0);
+    func_15169824((void *)arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A85D4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A85D4.s")
 typedef struct { u8 bytes[4]; } Game1D4E00Colour;
 typedef struct {
     s16 lifetime;

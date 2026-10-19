@@ -7,8 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1519EF90
- * - func_1519F108
- * - func_1519F168
  * - func_1519F1C8
  * - func_1519F48C
  * - func_1519F4F0
@@ -115,14 +113,13 @@ s32 func_1519EF90(u8 *arg0, u8 arg1, u8 *arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1519EF90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519EF90.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519F108 CURRENT (735) */
 void func_1519F108(Game1CC440State *arg0) {
-    register Game1CC440Node **link = arg0->link98;
-    register Game1CC440Node *node = *link;
+    Game1CC440Node **link;
+    Game1CC440NodeData *data;
 
-    if (node != 0) {
-        Game1CC440NodeData *data = &node->data58;
-
+    link = arg0->link98;
+    if (*link != NULL) {
+        data = &(*link)->data58;
         if (arg0->mode == 6) {
             data->field0 = 0;
         }
@@ -132,26 +129,22 @@ void func_1519F108(Game1CC440State *arg0) {
     }
     func_151478F4(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519F108 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F108.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519F168 CURRENT (465) */
 void func_1519F168(Game1CC440State *arg0) {
-    Game1CC440State *owner = arg0;
-    Game1CC440Node *node = *owner->link98;
+    Game1CC440Node **link;
+    Game1CC440NodeData *data;
 
-    if (node != 0) {
-        arg0 = (Game1CC440State *)&node->data58;
-        if (owner->mode == 6) {
-            ((Game1CC440NodeData *)arg0)->field0 = 0;
+    link = arg0->link98;
+    if (*link != NULL) {
+        data = &(*link)->data58;
+        if (arg0->mode == 6) {
+            data->field0 = 0;
         }
-        if (owner->mode == 7) {
-            ((Game1CC440NodeData *)arg0)->field8 = 0;
+        if (arg0->mode == 7) {
+            data->field8 = 0;
         }
     }
-    func_15147928(owner);
+    func_15147928(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519F168 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F168.s")
 
 typedef struct Game1CC440Spawn {
     Vec3f position;

@@ -9479,7 +9479,7 @@
         "us": {
           "end": "0x1D6970",
           "start": "0x1D5E90",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_203340.c"
@@ -13857,7 +13857,7 @@
         "us": {
           "end": "0x1AE7B0",
           "start": "0x1AE6B0",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1DBB60.c"
