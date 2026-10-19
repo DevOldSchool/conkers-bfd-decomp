@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1511E780
- * - func_1511ED84
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -42,50 +41,37 @@ void func_1511EC50(void *arg0) {
     }
     *(s32 *)((u8 *)arg0 + 0x7C) = 1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511ED84 CURRENT (155) */
 void func_1511ED84(void *arg0) {
-    f32 temp_fa0;
-    f32 temp_fa0_2;
-    f32 temp_fa0_3;
-    f32 temp_fa0_4;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    s32 temp_v0;
+    f32 step;
+    s32 direction;
 
     if (*(s32 *)((u8 *)arg0 + 0x7C) == 0) {
         *(f32 *)((u8 *)arg0 + 0x84) = (f32) *(s16 *)((u8 *)arg0 + 0x14);
     }
-    temp_fv1 = (f32) D_800BE9E4 * 4.0f;
-    temp_v0 = 1 - (*(u8 *)((u8 *)arg0 + 0x72) & 1);
-    temp_fv0 = (f32) *(s16 *)((u8 *)arg0 + 0x14);
+    step = (f32) D_800BE9E4 * 4.0f;
+    direction = 1 - (*(u8 *)((u8 *)arg0 + 0x72) & 1);
     if (*(s32 *)((u8 *)arg0 + 0x80) != 0) {
-        if (temp_v0 & 1) {
-            temp_fa0 = *(f32 *)((u8 *)arg0 + 0x84);
-            *(s16 *)((u8 *)arg0 + 0x14) = (s16) (s32) (temp_fv0 + temp_fv1);
-            if (temp_fa0 < (f32) *(s16 *)((u8 *)arg0 + 0x14)) {
-                *(s16 *)((u8 *)arg0 + 0x14) = (s16) (s32) temp_fa0;
+        if (direction & 1) {
+            *(s16 *)((u8 *)arg0 + 0x14) = (s16) (s32) ((f32) *(s16 *)((u8 *)arg0 + 0x14) + step);
+            if (*(f32 *)((u8 *)arg0 + 0x84) < (f32) *(s16 *)((u8 *)arg0 + 0x14)) {
+                *(s16 *)((u8 *)arg0 + 0x14) = (s16) (s32) *(f32 *)((u8 *)arg0 + 0x84);
             }
         } else {
-            temp_fa0_2 = *(f32 *)((u8 *)arg0 + 0x84);
-            *(s16 *)((u8 *)arg0 + 0x14) = (s16) (s32) (temp_fv0 - temp_fv1);
-            if ((f32) *(s16 *)((u8 *)arg0 + 0x14) < temp_fa0_2) {
-                *(s16 *)((u8 *)arg0 + 0x14) = (s16) (s32) temp_fa0_2;
+            *(s16 *)((u8 *)arg0 + 0x14) = (s16) (s32) ((f32) *(s16 *)((u8 *)arg0 + 0x14) - step);
+            if ((f32) *(s16 *)((u8 *)arg0 + 0x14) < *(f32 *)((u8 *)arg0 + 0x84)) {
+                *(s16 *)((u8 *)arg0 + 0x14) = (s16) (s32) *(f32 *)((u8 *)arg0 + 0x84);
             }
         }
-    } else if (temp_v0 & 1) {
-        temp_fa0_3 = *(f32 *)((u8 *)arg0 + 0x84) - 350.0f;
-        *(s16 *)((u8 *)arg0 + 0x14) = (s16) (s32) (temp_fv0 - temp_fv1);
-        if ((f32) *(s16 *)((u8 *)arg0 + 0x14) < temp_fa0_3) {
-            *(s16 *)((u8 *)arg0 + 0x14) = (s16) (s32) temp_fa0_3;
+    } else if (direction & 1) {
+        *(s16 *)((u8 *)arg0 + 0x14) = (s16) (s32) ((f32) *(s16 *)((u8 *)arg0 + 0x14) - step);
+        if ((f32) *(s16 *)((u8 *)arg0 + 0x14) < (*(f32 *)((u8 *)arg0 + 0x84) - 350.0f)) {
+            *(s16 *)((u8 *)arg0 + 0x14) = (s16) (s32) (*(f32 *)((u8 *)arg0 + 0x84) - 350.0f);
         }
     } else {
-        temp_fa0_4 = *(f32 *)((u8 *)arg0 + 0x84) + 350.0f;
-        *(s16 *)((u8 *)arg0 + 0x14) = (s16) (s32) (temp_fv0 + temp_fv1);
-        if (temp_fa0_4 < (f32) *(s16 *)((u8 *)arg0 + 0x14)) {
-            *(s16 *)((u8 *)arg0 + 0x14) = (s16) (s32) temp_fa0_4;
+        *(s16 *)((u8 *)arg0 + 0x14) = (s16) (s32) ((f32) *(s16 *)((u8 *)arg0 + 0x14) + step);
+        if ((*(f32 *)((u8 *)arg0 + 0x84) + 350.0f) < (f32) *(s16 *)((u8 *)arg0 + 0x14)) {
+            *(s16 *)((u8 *)arg0 + 0x14) = (s16) (s32) (*(f32 *)((u8 *)arg0 + 0x84) + 350.0f);
         }
     }
     *(s32 *)((u8 *)arg0 + 0x7C) = 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1511ED84 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_14BC30/func_1511ED84.s")

@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15063628
- * - func_15063B64
  * - func_15063C60
  * - func_15063E84
  * - func_15063FA0
@@ -315,23 +314,19 @@ typedef struct Game90840ActionPacket {
     s32 actorIndex;
 } Game90840ActionPacket;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15063B64 CURRENT (250) */
 void func_15063B64(Game90840Actor *arg0) {
-    s32 value;
-    void *inner;
     s32 animation;
     Game90840ActionPacket packet;
+    s32 count;
 
-    value = *((u8 *)arg0 + 4);
-    if ((value == 0x75) || (value == 0xB1)) {
+    if ((*((u8 *)arg0 + 4) == 0x75) || (*((u8 *)arg0 + 4) == 0xB1)) {
         animation = 0x64;
     } else {
         animation = 0x2C;
     }
     if (func_1503195C(arg0, animation, 0) != 0) {
-        value = *(s32 *)((u8 *)arg0 + 0x1D4);
-        if (value != 0) {
-            func_15143134(0, packet.position, value + 0x100);
+        if (*(s32 *)((u8 *)arg0 + 0x1D4) != 0) {
+            func_15143134(0, packet.position, *(s32 *)((u8 *)arg0 + 0x1D4) + 0x100);
         } else {
             packet.position[0] = arg0->x;
             packet.position[1] = *(f32 *)((u8 *)arg0 + 0x18);
@@ -341,16 +336,13 @@ void func_15063B64(Game90840Actor *arg0) {
         packet.actor = arg0;
         func_1506AC8C(arg0, 0xB, &packet);
         func_150836CC(arg0, animation);
-        inner = arg0->field_31C;
-        value = *(u8 *)((u8 *)inner + 0x19A);
-        if (value != 0) {
-            *(u8 *)((u8 *)inner + 0x19A) = value - 1;
+        count = *(u8 *)((u8 *)arg0->field_31C + 0x19A);
+        if (count != 0) {
+            *(u8 *)((u8 *)arg0->field_31C + 0x19A) = count - 1;
         }
         ((u8 *)arg0->field_31C)[0x11A] = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15063B64 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063B64.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15063C60 CURRENT (40) */
 Game90840Actor *func_15063C60(Game90840Actor *arg0, s32 arg1) {
     s32 index;

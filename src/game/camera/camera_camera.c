@@ -1346,7 +1346,7 @@ extern f32 D_800A3544;
 extern f32 D_800A3548;
 extern f32 D_800A354C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151256BC CURRENT (295) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151256BC CURRENT (30) */
 void func_151256BC(u8 *arg0) {
     f32 random;
     f32 bound;
@@ -1356,7 +1356,6 @@ void func_151256BC(u8 *arg0) {
     f32 factor;
     f32 first_scale;
     f32 second_scale;
-    f32 phase;
     s32 flags;
     f32 *first;
     f32 *second;
@@ -1387,9 +1386,8 @@ void func_151256BC(u8 *arg0) {
         func_1508EF80(second, first, factor * second_scale, second);
         return;
     }
-    phase = *(f32 *)(arg0 + 0x29C);
-    if (phase != 0.0f) {
-        *(f32 *)(arg0 + 0x29C) = phase - phase * D_800A3544;
+    if ((*(f32 *)(arg0 + 0x29C)) != 0.0f) {
+        *(f32 *)(arg0 + 0x29C) = (*(f32 *)(arg0 + 0x29C)) - (*(f32 *)(arg0 + 0x29C)) * D_800A3544;
         sine = func_15047D60(*(f32 *)(arg0 + 0x29C));
         previous = *(f32 *)(arg0 + 0x5EC);
         first = (f32 *)(arg0 + 0x2F8);

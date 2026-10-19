@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1507EFD0
- * - func_1507F54C
  * - func_1507F640
  * - func_1507FC2C
  * - func_1507FEA0
@@ -236,42 +235,37 @@ s32 func_1507F4C0(s32 arg0) {
 void func_1505E650(u8 *, s32, s32, s32, f32, f32, s32);
 extern u8 D_800B85A4[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507F54C CURRENT (705) */
 void func_1507F54C(u8 *arg0) {
-    s32 var_v0;
-    u8 temp_v0;
-    u8 temp_v1;
+    s32 id;
+    s32 index;
 
-    temp_v1 = arg0[0x13C];
-    if ((s32)temp_v1 >= 0x64) {
-        temp_v0 = D_800B85A4[temp_v1 * 0x32C];
-        switch (temp_v0) {
+    index = arg0[0x13C];
+    if (index >= 0x64) {
+        switch (D_800B85A4[index * 0x32C]) {
         default:
-            var_v0 = 0xD8;
+            id = 0xD8;
             break;
         case 0x57:
-            var_v0 = 0x115;
+            id = 0x115;
             break;
         case 0x8C:
-            var_v0 = 0x1A5;
+            id = 0x1A5;
             break;
         case 0xA8:
         case 0xA9:
-            var_v0 = 0x1AF;
+            id = 0x1AF;
             break;
         case 0x89:
         case 0xBA:
-            var_v0 = 0x1FA;
+            id = 0x1FA;
             break;
         }
-        func_1505E650(arg0, var_v0 & 0xFFFF, 0x3F800000, 0x40800000,
+        func_1505E650(arg0, id & 0xFFFF, 0x3F800000, 0x40800000,
                       0.0f, 0.0f, 0);
         return;
     }
     func_1505E650(arg0, 0xF, 0x3F800000, 0x40400000, 0.0f, 0.0f, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507F54C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507F54C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507F640.s")
 typedef struct GameFC2CFrame { u8 pad0[6]; u8 flags; u8 pad7; } GameFC2CFrame;
 typedef struct GameFC2CSequence { u8 pad0[4]; u8 id; u8 frame; u8 flags; u8 pad7; } GameFC2CSequence;
