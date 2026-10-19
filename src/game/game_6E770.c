@@ -6,8 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150412C0
- * - func_150413FC
- * - func_15041508
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -87,35 +85,25 @@ void *func_150412C0(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150412C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6E770/func_150412C0.s")
-u8 *func_15041508(u8 *, s32, s32, s32);
+typedef struct Game6E770Command {
+    u32 w0;
+    u32 w1;
+} Game6E770Command;
+
+Game6E770Command *func_15041508(Game6E770Command *, s32, s32, s32);
 s32 func_15041480(u8);
 extern u8 D_800848D0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150413FC CURRENT (878) */
-u8 *func_150413FC(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3) {
-    s32 var_s1;
-    u8 *temp_v0;
-    u8 *var_s0;
-    u8 *var_s2;
-    u8 temp_t6;
+Game6E770Command *func_150413FC(Game6E770Command *arg0, s32 arg1, s32 arg2, u8 *arg3) {
+    s32 i;
 
-    var_s2 = arg0;
-    temp_t6 = *arg3;
-    var_s0 = arg3;
-    var_s1 = arg1;
-    if (temp_t6 != 0) {
-        do {
-            temp_v0 = func_15041508(var_s2, var_s1, arg2, func_15041480(temp_t6 & 0xFF));
-            temp_t6 = *(u8 *)(var_s0 + 1);
-            var_s2 = temp_v0;
-            var_s0 += 1;
-            var_s1 += 8;
-        } while (temp_t6 != 0);
+    i = 0;
+    while (arg3[i] != 0) {
+        arg0 = func_15041508(arg0, arg1 + i * 8, arg2, func_15041480(arg3[i]));
+        i++;
     }
-    return var_s2;
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150413FC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6E770/func_150413FC.s")
 s32 func_15041480(u8 arg0) {
     s32 i;
 
@@ -126,28 +114,12 @@ s32 func_15041480(u8 arg0) {
     }
     return i;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15041508 CURRENT (2575) */
-u8 *func_15041508(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    union Packet {
-        u64 command;
-        struct { u32 first; u32 second; } words;
-    };
-    union Packet *cursor;
-    union Packet *packet;
-    s32 remainder;
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+Game6E770Command *func_15041508(Game6E770Command *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    s32 remainder = arg3 % 8;
 
-    cursor = (union Packet *)arg0;
-    packet = cursor++;
-    packet->words.first = (((((arg1 + 8) * 4) & 0xFFF) << 12) | 0xE4000000 | (((arg2 + 12) * 4) & 0xFFF));
-    packet->words.second = ((((arg1 * 4) & 0xFFF) << 12) | ((arg2 * 4) & 0xFFF));
-    packet = cursor++;
-    packet->words.first = 0xE1000000;
-    remainder = arg3 % 8;
-    packet->words.second = (((u32)(remainder * 8) << 5) << 16) | ((((arg3 - remainder) / 8) * 0x180) & 0xFFFF);
-    packet = cursor++;
-    packet->words.first = 0xF1000000;
-    packet->words.second = 0x04000400;
-    return (u8 *)cursor;
+    { Game6E770Command *command = arg0++; command->w0 = _SHIFTL(0xE4, 24, 8) | _SHIFTL((arg1 + 8) << 2, 12, 12) | _SHIFTL((arg2 + 12) << 2, 0, 12); command->w1 = _SHIFTL(0, 24, 3) | _SHIFTL(arg1 << 2, 12, 12) | _SHIFTL(arg2 << 2, 0, 12); }
+    { Game6E770Command *command = arg0++; command->w0 = _SHIFTL(0xE1, 24, 8); command->w1 = _SHIFTL((remainder * 8) << 5, 16, 16) | _SHIFTL((((arg3 - remainder) / 8) * 12) << 5, 0, 16); }
+    { Game6E770Command *command = arg0++; command->w0 = _SHIFTL(0xF1, 24, 8); command->w1 = _SHIFTL(1 << 10, 16, 16) | _SHIFTL(1 << 10, 0, 16); }
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15041508 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6E770/func_15041508.s")

@@ -9459,7 +9459,7 @@
         "us": {
           "end": "0x10E670",
           "start": "0x10D970",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_13AE20.c"

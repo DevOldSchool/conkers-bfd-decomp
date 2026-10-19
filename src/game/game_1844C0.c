@@ -10,8 +10,6 @@
  * - func_15157420
  * - func_15157918
  * - func_15157AA8
- * - func_15157F80
- * - func_15157FE8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -359,43 +357,21 @@ typedef struct Game1844C0Matrix {
 extern u8 D_80089470;
 extern Game1844C0Matrix D_800DCC10[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15157F80 CURRENT (1435) */
 Game1844C0DisplayCommand *func_15157F80(Game1844C0DisplayCommand *arg0, s32 arg1,
                                        s32 arg2, s32 arg3, u8 *arg4) {
-    Game1844C0DisplayCommand *temp_v1;
-    Game1844C0DisplayCommand *temp_a1;
-
-    temp_v1 = arg0++;
-    temp_v1->word0 = 0xDA380003;
-    temp_v1->word1 = &D_80089470;
-    temp_a1 = arg0++;
-    temp_a1->word0 = 0xDA380007;
-    temp_a1->word1 = &D_800DCC10[arg2];
+    { Game1844C0DisplayCommand *command = arg0++; command->word0 = 0xDA380003; command->word1 = &D_80089470; }
+    { Game1844C0DisplayCommand *command = arg0++; command->word0 = 0xDA380007; command->word1 = &D_800DCC10[arg2]; }
     *arg4 = 1;
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15157F80 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157F80.s")
 extern s32 D_800BE628;
 extern u8 *D_800DC2A0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15157FE8 CURRENT (1860) */
-void *func_15157FE8(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    u8 *temp_a3;
-    u8 *var_v1;
-
-    temp_a3 = &D_800BE9C0;
-    var_v1 = (u8 *)arg0;
-    *(s32 *)var_v1 = 0xDA380007;
-    *(s32 *)(var_v1 + 4) = D_800BE628 + (arg2 * 0x180) + (*temp_a3 << 6) + 0x100;
-    arg0 = (void *)((u8 *)arg0 + 8);
-    *(s32 *)arg0 = 0xDA380005;
-    *(s32 *)((u8 *)arg0 + 4) = (s32)(D_800DC2A0[*temp_a3] + (arg2 << 6));
-    arg0 = (void *)((u8 *)arg0 + 8);
+Game1844C0DisplayCommand *func_15157FE8(Game1844C0DisplayCommand *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    { Game1844C0DisplayCommand *command = arg0++; command->word0 = 0xDA380007; command->word1 = (u8 *)D_800BE628 + (arg2 * 0x180) + (D_800BE9C0 << 6) + 0x100; }
+    { Game1844C0DisplayCommand *command = arg0++; command->word0 = 0xDA380005; command->word1 = D_800DC2A0[D_800BE9C0] + (arg2 << 6); }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15157FE8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157FE8.s")
 void func_15158078(s32 arg0, u8 arg1) {
     func_15169260(&D_800A6060, 3, arg0, arg1);
 }

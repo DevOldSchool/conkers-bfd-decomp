@@ -9,7 +9,6 @@
  * - func_15166B50
  * - func_15166D68
  * - func_15166F6C
- * - func_15166FD8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -247,14 +246,7 @@ void func_15166F6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_193E50/func_15166F6C.s")
 extern u8 D_80089470;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15166FD8 CURRENT (485) */
-void *func_15166FD8(void *arg0, s32 arg1, s32 arg2) {
-    u32 *temp_v1;
-
-    temp_v1 = arg0;
-    temp_v1[0] = 0xDA380003;
-    temp_v1[1] = (u32)&D_80089470;
-    return temp_v1 + 2;
+DisplayCommand193E50 *func_15166FD8(DisplayCommand193E50 *arg0, s32 arg1, s32 arg2) {
+    { DisplayCommand193E50 *command = arg0++; command->word0 = 0xDA380003; command->word1 = (u32)&D_80089470; }
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15166FD8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_193E50/func_15166FD8.s")

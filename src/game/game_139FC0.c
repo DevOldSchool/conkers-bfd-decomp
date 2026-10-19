@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1510CB10
- * - func_1510CDB8
  * - func_1510CE60
  * - func_1510D0EC
  * - func_1510D404
@@ -114,25 +113,17 @@ void func_1510CB10(s32 arg0) {
 extern u8 D_800D9B68[];
 extern u8 D_800D9B78[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510CDB8 CURRENT (1625) */
-void *func_1510CDB8(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    s32 temp_t0;
-    u8 *temp_a0;
-    u8 *temp_t1;
-    u8 *temp_t3;
+typedef struct Game139FC0Command {
+    u32 w0;
+    u32 w1;
+} Game139FC0Command;
 
-    temp_t0 = arg3 * 3;
-    *(s32 *)arg0 = 0xFA00F200;
-    temp_t1 = D_800D9B68 + temp_t0;
-    *(s32 *)((u8 *)arg0 + 4) = (s32)(((u32)temp_t1[2] << 8) | ((u32)temp_t1[0] << 0x18) | ((u32)temp_t1[1] << 0x10) | (arg1 & 0xFF));
-    temp_a0 = (u8 *)arg0 + 8;
-    *(s32 *)temp_a0 = 0xFB000000;
-    temp_t3 = D_800D9B78 + temp_t0;
-    *(s32 *)(temp_a0 + 4) = (s32)(((u32)temp_t3[2] << 8) | ((u32)temp_t3[0] << 0x18) | ((u32)temp_t3[1] << 0x10) | (arg2 & 0xFF));
-    return temp_a0 + 8;
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+Game139FC0Command *func_1510CDB8(Game139FC0Command *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    { Game139FC0Command *command = arg0++; command->w0 = _SHIFTL(0xFA, 24, 8) | _SHIFTL(0xF2, 8, 8) | _SHIFTL(0, 0, 8); command->w1 = _SHIFTL(D_800D9B68[arg3 * 3 + 0], 24, 8) | _SHIFTL(D_800D9B68[arg3 * 3 + 1], 16, 8) | _SHIFTL(D_800D9B68[arg3 * 3 + 2], 8, 8) | _SHIFTL(arg1, 0, 8); }
+    { Game139FC0Command *command = arg0++; command->w0 = _SHIFTL(0xFB, 24, 8); command->w1 = _SHIFTL(D_800D9B78[arg3 * 3 + 0], 24, 8) | _SHIFTL(D_800D9B78[arg3 * 3 + 1], 16, 8) | _SHIFTL(D_800D9B78[arg3 * 3 + 2], 8, 8) | _SHIFTL(arg2, 0, 8); }
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510CDB8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510CDB8.s")
 void *func_10003C40(s32, s32, s32, s32);
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 

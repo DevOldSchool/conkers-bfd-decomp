@@ -20,7 +20,6 @@
  * - func_151EC3E8
  * - func_151EC648
  * - func_151ED09C
- * - func_151ED1E0
  * - func_151ED29C
  * - func_151ED430
  * - func_151ED90C
@@ -39,7 +38,9 @@ typedef struct {
     s32 field_1D0;
 } Game215960State;
 
-void *func_151ED1E0(void *);
+typedef struct Game215960Command Game215960Command;
+
+Game215960Command *func_151ED1E0(Game215960Command *);
 extern s32 D_8003C8E0;
 extern s32 D_80000300;
 extern s8 D_8008FD90;
@@ -394,10 +395,10 @@ s32 func_151EC178(s32 arg0) {
     return arg0;
 }
 
-typedef struct Game215960Command {
+struct Game215960Command {
     u32 w0;
     u32 w1;
-} Game215960Command;
+};
 
 /* Raw helper15096934 returns its incoming command pointer plus eight bytes. */
 void *func_15096934(void *);
@@ -591,39 +592,17 @@ extern s32 D_800BE620;
 extern s32 D_800BE624;
 extern u8 D_800E0B96;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ED1E0 CURRENT (210) */
-void *func_151ED1E0(void *arg0) {
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+Game215960Command *func_151ED1E0(Game215960Command *arg0) {
     if (D_800E0B96 == 0) {
         return arg0;
     }
-    {
-        u32 *command = arg0;
-        arg0 = command + 2;
-        command[0] = 0xE7000000;
-        command[1] = 0;
-    }
-    {
-        u32 *command = arg0;
-        arg0 = command + 2;
-        command[0] = 0xEF082C3F;
-        command[1] = 0x00504340;
-    }
-    {
-        u32 *command = arg0;
-        arg0 = command + 2;
-        command[0] = 0xFCFFFFFF;
-        command[1] = 0xFFFEFB7D;
-    }
-    {
-        u32 *command = arg0;
-        arg0 = command + 2;
-        command[0] = 0xFB000000;
-        command[1] = D_800E0B96;
-    }
+    { Game215960Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
+    { Game215960Command *command = arg0++; command->w0 = 0xEF082C3F; command->w1 = 0x00504340; }
+    { Game215960Command *command = arg0++; command->w0 = 0xFCFFFFFF; command->w1 = 0xFFFEFB7D; }
+    { Game215960Command *command = arg0++; command->w0 = 0xFB000000; command->w1 = _SHIFTL(0, 24, 8) | _SHIFTL(0, 16, 8) | _SHIFTL(0, 8, 8) | _SHIFTL(D_800E0B96, 0, 8); }
     return func_1501A6CC(arg0, 0, 0, D_800BE620, D_800BE624);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151ED1E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151ED1E0.s")
 extern u8 D_8009DEB0[];
 extern u8 D_8009DEB4[];
 extern u8 D_8009DEB8[];

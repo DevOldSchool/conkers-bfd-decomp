@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15183290
- * - func_15183BA4
  * - func_15183C28
  * - func_15183D28
  *
@@ -100,42 +99,26 @@ void func_15183ACC(s32 arg0) {
 }
 extern u8 D_800A72D0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15183BA4 CURRENT (305) */
-s32 *func_15183BA4(s32 *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    s32 *temp_v0;
-    s32 *temp_v1;
-    s32 *var_a0;
-    s32 var_v0;
-    s32 var_v1;
-    u8 *var_a2;
+typedef struct Game1B0740Command {
+    u32 w0;
+    u32 w1;
+} Game1B0740Command;
 
-    var_a0 = arg0;
-    var_v0 = -1;
-    var_a2 = D_800A72D0;
-    var_v1 = 0;
-loop_1:
-    if (arg1 == *var_a2) {
-        var_v0 = var_v1;
-    } else {
-        var_v1 += 1;
-        var_a2 += 1;
-        if (var_v1 != 0xB) {
-            goto loop_1;
+Game1B0740Command *func_15183BA4(Game1B0740Command *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    s32 index = -1;
+    s32 i;
+
+    for (i = 0; i < 11; i++) {
+        if (arg1 == D_800A72D0[i]) {
+            index = i;
+            break;
         }
     }
-    if (var_v0 != -1) {
-        temp_v1 = &D_800DDF78[var_v0];
-        temp_v0 = var_a0;
-        if (*temp_v1 != 0) {
-            temp_v0[0] = 0xDE000000;
-            var_a0 += 2;
-            temp_v0[1] = *temp_v1;
-        }
+    if (index != -1 && D_800DDF78[index] != 0) {
+        { Game1B0740Command *command = arg0++; command->w0 = 0xDE000000; command->w1 = D_800DDF78[index]; }
     }
-    return var_a0;
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15183BA4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_15183BA4.s")
 void func_10004074(s32);
 extern s32 D_800DDF20;
 extern s8 D_800DDF70;
