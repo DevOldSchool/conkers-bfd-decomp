@@ -31127,8 +31127,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2285,
-        "reason": "Four-digit display-list candidate improves 2490 to 2285 with explicit first-command cursor timing. Integer-coordinate local form was code-neutral; compiler still folds the three float call arguments rather than raw integer-to-float conversions. Preserve natural command loop without forced storage, volatile, or helper ABI changes.",
+        "current_score": 2020,
+        "reason": "Round 13: one-line gSPSegment (gDma1p _SHIFTL) and DA/DE blocks; the digit loop now matches exactly: 2285 -> 2020. Remaining tail: raw passes 120/129/-303 to func_150A7D00 through runtime int-to-float conversions (constants folded in the candidate) and swaps the s0/s1 owners of D_800BE9C0/D_800D244C.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

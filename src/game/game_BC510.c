@@ -567,7 +567,8 @@ void func_150A7D00(volatile s64 *, f32, f32, f32);
 extern u8 D_11AD;
 extern s32 D_800D2450;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150938BC CURRENT (2285) */
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150938BC CURRENT (2020) */
 GameBC510Command *func_150938BC(GameBC510Command *dl) {
     s32 digit;
     s32 value;
@@ -580,12 +581,7 @@ GameBC510Command *func_150938BC(GameBC510Command *dl) {
         if (address == 0x80000000) {
             return dl;
         }
-        {
-            GameBC510Command *packet = dl;
-            packet->w0 = 0xDB060000 | ((digit * 4) & 0xFFFF);
-            dl++;
-            packet->w1 = address;
-        }
+        { GameBC510Command *packet = dl++; packet->w0 = _SHIFTL(0xDB, 24, 8) | _SHIFTL(6, 16, 8) | _SHIFTL(digit * 4, 0, 16); packet->w1 = address; }
         if (digit == 3) {
             value = (D_800D2450 / 30) / 60;
         } else {
@@ -593,18 +589,9 @@ GameBC510Command *func_150938BC(GameBC510Command *dl) {
         }
         digit--;
     } while (digit != 0);
-    func_150A7D00((volatile s64 *)((u8 *)D_800D244C + (D_800BE9C0 << 6)),
-                  (f32)0x78, (f32)0x81, (f32)-0x12F);
-    {
-        GameBC510Command *packet = dl++;
-        packet->w0 = 0xDA380003;
-        packet->w1 = (u32)((u8 *)D_800D244C + (D_800BE9C0 << 6));
-    }
-    {
-        GameBC510Command *packet = dl++;
-        packet->w0 = 0xDE000000;
-        packet->w1 = D_800D2448;
-    }
+    func_150A7D00((volatile s64 *)((u8 *)D_800D244C + (D_800BE9C0 << 6)), (f32)0x78, (f32)0x81, (f32)-0x12F);
+    { GameBC510Command *packet = dl++; packet->w0 = 0xDA380003; packet->w1 = (u32)((u8 *)D_800D244C + (D_800BE9C0 << 6)); }
+    { GameBC510Command *packet = dl++; packet->w0 = 0xDE000000; packet->w1 = D_800D2448; }
     return dl;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150938BC */
