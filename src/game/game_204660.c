@@ -157,7 +157,7 @@ void func_151D74B0(void *arg0, u8 arg1, s8 arg2, u8 arg3, s32 arg4) {
 }
 void func_15149514(s32, u8, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7538 CURRENT (260) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7538 CURRENT (160) */
 void func_151D7538(void *arg0, void *arg1, u8 arg2) {
     u8 *temp_a2;
 

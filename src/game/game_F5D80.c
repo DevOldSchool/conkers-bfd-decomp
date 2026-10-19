@@ -11,7 +11,6 @@
  * - func_150C8DB8
  * - func_150C9BDC
  * - func_150C9DC4
- * - func_150CA07C
  * - func_150CA150
  * - func_150CB008
  *
@@ -432,27 +431,18 @@ void func_150C9DC4(GameF5D80Emitter *arg0, GameF5D80Vector *arg1,
 
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CA07C CURRENT (60) */
 s32 func_150CA07C(void *arg0) {
-    f32 rate;
-    f32 temp_fa0;
-    f32 temp_fv1;
+    f32 *rate = &D_800BE9A4;
 
-    *(f32 *)((u8 *)arg0 + 0x38) += *(f32 *)((u8 *)arg0 + 0x44) * D_800BE9A4;
-    rate = D_800BE9A4;
-    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x48);
-    temp_fa0 = *(f32 *)((u8 *)arg0 + 0x5C);
-    *(f32 *)((u8 *)arg0 + 0x3C) = (f32) (*(f32 *)((u8 *)arg0 + 0x3C) + ((temp_fv1 * rate) + (temp_fa0 * rate * rate * 0.5f)));
-    *(f32 *)((u8 *)arg0 + 0x40) += *(f32 *)((u8 *)arg0 + 0x4C) * D_800BE9A4;
-    *(f32 *)((u8 *)arg0 + 0x48) = (f32) ((f32)temp_fv1 + (temp_fa0 * D_800BE9A4));
-    *(f32 *)((u8 *)arg0 + 0x20) += *(f32 *)((u8 *)arg0 + 0x50) * D_800BE9A4;
-    *(f32 *)((u8 *)arg0 + 0x24) += *(f32 *)((u8 *)arg0 + 0x54) * D_800BE9A4;
-    *(f32 *)((u8 *)arg0 + 0x28) += *(f32 *)((u8 *)arg0 + 0x58) * D_800BE9A4;
-end:
+    *(f32 *)((u8 *)arg0 + 0x38) += *(f32 *)((u8 *)arg0 + 0x44) * *rate;
+    *(f32 *)((u8 *)arg0 + 0x3C) += (*(f32 *)((u8 *)arg0 + 0x48) * *rate) + (*(f32 *)((u8 *)arg0 + 0x5C) * *rate * *rate * 0.5f);
+    *(f32 *)((u8 *)arg0 + 0x40) += *(f32 *)((u8 *)arg0 + 0x4C) * *rate;
+    *(f32 *)((u8 *)arg0 + 0x48) += *(f32 *)((u8 *)arg0 + 0x5C) * *rate;
+    *(f32 *)((u8 *)arg0 + 0x20) += *(f32 *)((u8 *)arg0 + 0x50) * *rate;
+    *(f32 *)((u8 *)arg0 + 0x24) += *(f32 *)((u8 *)arg0 + 0x54) * *rate;
+    *(f32 *)((u8 *)arg0 + 0x28) += *(f32 *)((u8 *)arg0 + 0x58) * *rate;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150CA07C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150CA07C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150CA150.s")
 f32 func_150ADA68(void);
 void func_1514C678(f32, f32, s32, f32, s32, s32, s32, s32, s32, f32, s32, s32);

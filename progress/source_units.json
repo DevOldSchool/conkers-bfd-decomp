@@ -13621,15 +13621,15 @@
       "functions": [
         "func_150EA490"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xEA500",
           "start": "0xEA490",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_117940.c"
+      "source": "src/done/game/game_117940.c"
     },
     {
       "boundary_evidence": {

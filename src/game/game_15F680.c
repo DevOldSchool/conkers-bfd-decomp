@@ -13,7 +13,6 @@
  * - func_15132DDC
  * - func_15133588
  * - func_151336A8
- * - func_151337C0
  * - func_15133894
  * - func_15133EEC
  *
@@ -500,27 +499,18 @@ s32 func_15133760(s32 arg0, Game15F680TransformState *arg1) {
 }
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151337C0 CURRENT (60) */
 s32 func_151337C0(void *arg0) {
-    f32 rate;
-    f32 temp_fa0;
-    f32 temp_fv1;
+    f32 *rate = &D_800BE9A4;
 
-    *(f32 *)((u8 *)arg0 + 0x38) += *(f32 *)((u8 *)arg0 + 0x44) * D_800BE9A4;
-    rate = D_800BE9A4;
-    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x48);
-    temp_fa0 = *(f32 *)((u8 *)arg0 + 0x5C);
-    *(f32 *)((u8 *)arg0 + 0x3C) = (f32) (*(f32 *)((u8 *)arg0 + 0x3C) + ((temp_fv1 * rate) + (temp_fa0 * rate * rate * 0.5f)));
-    *(f32 *)((u8 *)arg0 + 0x40) += *(f32 *)((u8 *)arg0 + 0x4C) * D_800BE9A4;
-    *(f32 *)((u8 *)arg0 + 0x48) = (f32) ((f32)temp_fv1 + (temp_fa0 * D_800BE9A4));
-    *(f32 *)((u8 *)arg0 + 0x20) += *(f32 *)((u8 *)arg0 + 0x50) * D_800BE9A4;
-    *(f32 *)((u8 *)arg0 + 0x24) += *(f32 *)((u8 *)arg0 + 0x54) * D_800BE9A4;
-    *(f32 *)((u8 *)arg0 + 0x28) += *(f32 *)((u8 *)arg0 + 0x58) * D_800BE9A4;
-end:
+    *(f32 *)((u8 *)arg0 + 0x38) += *(f32 *)((u8 *)arg0 + 0x44) * *rate;
+    *(f32 *)((u8 *)arg0 + 0x3C) += (*(f32 *)((u8 *)arg0 + 0x48) * *rate) + (*(f32 *)((u8 *)arg0 + 0x5C) * *rate * *rate * 0.5f);
+    *(f32 *)((u8 *)arg0 + 0x40) += *(f32 *)((u8 *)arg0 + 0x4C) * *rate;
+    *(f32 *)((u8 *)arg0 + 0x48) += *(f32 *)((u8 *)arg0 + 0x5C) * *rate;
+    *(f32 *)((u8 *)arg0 + 0x20) += *(f32 *)((u8 *)arg0 + 0x50) * *rate;
+    *(f32 *)((u8 *)arg0 + 0x24) += *(f32 *)((u8 *)arg0 + 0x54) * *rate;
+    *(f32 *)((u8 *)arg0 + 0x28) += *(f32 *)((u8 *)arg0 + 0x58) * *rate;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151337C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_151337C0.s")
 s32 func_151337C0(void *);
 s32 func_15046C80(f32 *, s32, f32, void *);
 typedef s32 (*Game15F680MotionCallback)(void *, f32, f32, f32, f32, void *);
