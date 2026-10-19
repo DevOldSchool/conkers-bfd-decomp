@@ -15,7 +15,17 @@ extern s32 D_800BE4E0;
 extern u8 D_800BE9A0;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C8350 CURRENT (450) */
+typedef struct GameF5800Record {
+    u8 state;
+    u8 pad1;
+    s8 dir;
+    u8 pad3;
+    s16 pos;
+    s16 speed;
+    s16 target;
+} GameF5800Record;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C8350 CURRENT (205) */
 void func_150C8350(void) {
     s32 temp_a1;
     s32 temp_a1_3;
@@ -25,14 +35,11 @@ void func_150C8350(void) {
     s32 temp_t7;
     s32 var_a1;
     s32 var_t0;
-    s32 var_v1;
-    void *var_v0;
+    s32 i;
 
-    var_v1 = 0;
-    do {
-        var_v0 = (u8 *)D_800BE4E0 + var_v1;
-        var_a0 = *(s16 *)((u8 *)var_v0 + 6);
-        temp_a1 = *(s16 *)((u8 *)var_v0 + 8);
+    for (i = 0; i < 10; i++) {
+        var_a0 = ((GameF5800Record *)D_800BE4E0)[i].speed;
+        temp_a1 = ((GameF5800Record *)D_800BE4E0)[i].target;
         if (var_a0 != temp_a1) {
             var_a2 = temp_a1;
             if (var_a0 < 0) {
@@ -42,44 +49,35 @@ void func_150C8350(void) {
             temp_t7 = D_800BE9E4 * 0x10;
             var_t0 = temp_a1_2 < 0 ? -temp_a1_2 : temp_a1_2;
             if (var_t0 < temp_t7) {
-                *(s16 *)((u8 *)var_v0 + 6) = var_a2;
-                var_v0 = (u8 *)D_800BE4E0 + var_v1;
-                var_a0 = *(s16 *)((u8 *)var_v0 + 6);
+                ((GameF5800Record *)D_800BE4E0)[i].speed = var_a2;
+                var_a0 = ((GameF5800Record *)D_800BE4E0)[i].speed;
             } else {
                 if (temp_a1_2 < 0) {
                     var_a1 = -1;
                 } else {
                     var_a1 = 1;
                 }
-                *(s16 *)((u8 *)var_v0 + 6) = (s16) (var_a0 + (temp_t7 * var_a1));
-                var_v0 = (u8 *)D_800BE4E0 + var_v1;
-                var_a0 = *(s16 *)((u8 *)var_v0 + 6);
+                ((GameF5800Record *)D_800BE4E0)[i].speed = (s16) (var_a0 + (temp_t7 * var_a1));
+                var_a0 = ((GameF5800Record *)D_800BE4E0)[i].speed;
             }
         }
-        *(s16 *)((u8 *)var_v0 + 4) += var_a0 * *(s8 *)((u8 *)var_v0 + 2) * D_800BE9A0;
-        var_v0 = (u8 *)D_800BE4E0 + var_v1;
-        temp_a1_3 = *(s16 *)((u8 *)var_v0 + 4);
+        ((GameF5800Record *)D_800BE4E0)[i].pos += var_a0 * ((GameF5800Record *)D_800BE4E0)[i].dir * D_800BE9A0;
+        temp_a1_3 = ((GameF5800Record *)D_800BE4E0)[i].pos;
         if (temp_a1_3 >= 0x500) {
-            *(s16 *)((u8 *)var_v0 + 4) = (s16) (temp_a1_3 - 0x500);
-            var_v0 = (u8 *)D_800BE4E0 + var_v1;
-            *(s16 *)((u8 *)var_v0 + 4) = (s16) (0x500 - *(s16 *)((u8 *)var_v0 + 4));
-            var_v0 = (u8 *)D_800BE4E0 + var_v1;
-            *(s8 *)((u8 *)var_v0 + 2) = (s8) -*(s8 *)((u8 *)var_v0 + 2);
-            var_v0 = (u8 *)D_800BE4E0 + var_v1;
-            if (*(s16 *)((u8 *)var_v0 + 4) >= 0x500) {
-                *(s16 *)((u8 *)var_v0 + 4) = 0x4FF;
+            ((GameF5800Record *)D_800BE4E0)[i].pos = (s16) (temp_a1_3 - 0x500);
+            ((GameF5800Record *)D_800BE4E0)[i].pos = (s16) (0x500 - ((GameF5800Record *)D_800BE4E0)[i].pos);
+            ((GameF5800Record *)D_800BE4E0)[i].dir = (s8) -((GameF5800Record *)D_800BE4E0)[i].dir;
+            if (((GameF5800Record *)D_800BE4E0)[i].pos >= 0x500) {
+                ((GameF5800Record *)D_800BE4E0)[i].pos = 0x4FF;
             }
         } else if (temp_a1_3 < 0) {
-            *(s16 *)((u8 *)var_v0 + 4) = (s16) -temp_a1_3;
-            var_v0 = (u8 *)D_800BE4E0 + var_v1;
-            *(s8 *)((u8 *)var_v0 + 2) = (s8) -*(s8 *)((u8 *)var_v0 + 2);
-            var_v0 = (u8 *)D_800BE4E0 + var_v1;
-            if (*(s16 *)((u8 *)var_v0 + 4) < 0) {
-                *(s16 *)((u8 *)var_v0 + 4) = 0;
+            ((GameF5800Record *)D_800BE4E0)[i].pos = (s16) -temp_a1_3;
+            ((GameF5800Record *)D_800BE4E0)[i].dir = (s8) -((GameF5800Record *)D_800BE4E0)[i].dir;
+            if (((GameF5800Record *)D_800BE4E0)[i].pos < 0) {
+                ((GameF5800Record *)D_800BE4E0)[i].pos = 0;
             }
         }
-        var_v1 += 0xA;
-    } while (var_v1 != 0x64);
+    }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C8350 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5800/func_150C8350.s")

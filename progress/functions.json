@@ -63010,8 +63010,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 450,
-        "reason": "Best CURRENT450 restored: fullwidth halfword arithmetic, one reloaded pointer, conditionalabs, independent LH arms and compoundposition; rawcontrol exact, register/index allocation and one ADD remain.",
+        "current_score": 205,
+        "reason": "Round 13: for (i = 0; i < 10; i++) over a typed 10-byte GameF5800Record view of D_800BE4E0 with fields re-read through the global (no cached record pointer): 450 -> 205. Remaining: v0/a0 swap between the record-address CSE and the speed local (declaration orders neutral).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
