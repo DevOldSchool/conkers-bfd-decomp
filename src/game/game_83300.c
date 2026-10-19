@@ -1956,21 +1956,16 @@ struct127 *func_1505F0AC(s32 arg0) {
 }
 extern f32 D_8009962C;
 extern f32 D_80099630;
+void func_150615DC(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505F188 CURRENT (50) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505F188 CURRENT (35) */
 void func_1505F188(u32 arg0) {
-    u32 temp_v1;
-    u32 var_v0;
+    s32 *p;
     f32 one;
     f32 initial;
 
-    temp_v1 = arg0 + 0x32C;
-    var_v0 = arg0;
-    if (arg0 < temp_v1) {
-        do {
-            var_v0 += 4;
-            *(s32 *)((u8 *)var_v0 + -4) = 0;
-        } while (var_v0 < temp_v1);
+    for (p = (s32 *)arg0; p < (s32 *)(arg0 + 0x32C); p++) {
+        *p = 0;
     }
     one = 1.0f;
     initial = D_8009962C;

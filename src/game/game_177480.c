@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_table_runs.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1514A19C
  * - func_1514A380
  * - func_1514A4EC
  * - func_1514A594
@@ -89,14 +88,11 @@ typedef struct Game177480InterpolationOwner {
     Game177480Interpolation state;
 } Game177480InterpolationOwner;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514A19C CURRENT (525) */
 s32 func_1514A19C(Game177480InterpolationOwner *arg0) {
-    Game177480Interpolation *state;
-    s32 integer;
+    Game177480Interpolation *state = &arg0->state;
 
-    arg0->state.timer1 -= D_800BE9E4;
-    if (arg0->state.timer1 < 0) {
-        state = &arg0->state;
+    state->timer1 -= D_800BE9E4;
+    if (state->timer1 < 0) {
         state->timer1 = func_150ADA20() % 6U;
         if (func_150ADA20() & 3) {
             state->target1 = func_150ADA68() * (state->split1 - state->low1) + state->low1;
@@ -104,7 +100,6 @@ s32 func_1514A19C(Game177480InterpolationOwner *arg0) {
             state->target1 = func_150ADA68() * (state->high1 - state->split1) + state->split1;
         }
     }
-    state = &arg0->state;
     arg0->height += (state->target1 - arg0->height) * D_800A5794;
     state->timer0 -= D_800BE9E4;
     if (state->timer0 < 0) {
@@ -117,12 +112,9 @@ s32 func_1514A19C(Game177480InterpolationOwner *arg0) {
         state->timer2 = func_150ADA20() % 15U;
         state->target2 = func_150ADA68() * (state->high2 - state->low2) + state->low2;
     }
-    integer = arg0->integer;
-    arg0->integer = (s32)((state->target2 - (f32)integer) * D_800A579C) + integer;
+    arg0->integer += (s32)((state->target2 - arg0->integer) * D_800A579C);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514A19C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_177480/func_1514A19C.s")
 
 extern f32 D_800A57A0;
 extern f32 D_800A57A4;

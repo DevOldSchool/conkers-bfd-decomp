@@ -237,7 +237,7 @@ void func_150F706C(Game124260Root *arg0) {
 }
 void func_15149514(s32, u8, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F7310 CURRENT (260) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F7310 CURRENT (160) */
 void func_150F7310(void *arg0, void *arg1, u8 arg2) {
     u8 *temp_a2;
 

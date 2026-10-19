@@ -6,12 +6,9 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_callback_table_runs.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151AA17C
- * - func_151AA210
  * - func_151AA30C
  * - func_151AA48C
  * - func_151AA6D8
- * - func_151AAA4C
  * - func_151AAABC
  * - func_151AABC4
  * - func_151AADF8
@@ -240,40 +237,34 @@ typedef struct {
 void func_15147D64(void *, u8);
 void func_1519F3B8(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AA17C CURRENT (33) */
 void func_151AA17C(Game1D6E80State *arg0) {
+    s32 value;
     struct { s32 value; u8 selector; } message;
-    s32 *sp18;
 
-    message.value = arg0->field_18;
-    sp18 = (s32 *)(s32)&message.value;
+    value = arg0->field_18;
+    message.value = value;
     message.selector = arg0->field_1C;
-    func_15147D64(sp18, 0xA);
-    func_151494E0(sp18, 0xA);
+    func_15147D64((s32 *)(s32)&message, 0xA);
+    func_151494E0((s32 *)(s32)&message, 0xA);
     func_1519F3B8(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AA17C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA17C.s")
 void func_151AA1D0(void) {
     func_1519F400();
 }
 void func_151AA1F0(void) {
     func_1519F400();
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AA210 CURRENT (33) */
 void func_151AA210(Game1D6E80State *arg0) {
+    s32 value;
     struct { s32 value; u8 selector; } message;
-    s32 *sp18;
 
-    message.value = arg0->field_18;
-    sp18 = (s32 *)(s32)&message.value;
+    value = arg0->field_18;
+    message.value = value;
     message.selector = arg0->field_1C;
-    func_15147D64(sp18, 0xA);
-    func_151494E0(sp18, 0xA);
+    func_15147D64((s32 *)(s32)&message, 0xA);
+    func_151494E0((s32 *)(s32)&message, 0xA);
     func_1519F3B8(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AA210 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA210.s")
 extern f32 D_800A8F94;
 
 void func_151AA264(void *arg0, void *arg1) {
@@ -562,23 +553,14 @@ void func_151AA6D8(Vec3f *arg0, Vec3f *arg1,
 /* Call context: func_151423D8: unique active project prototype */
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AAA4C CURRENT (20) */
-f32 func_151AAA4C(u8 * volatile arg0) {
-    f32 temp_fv1;
-    u8 *state;
-    u32 phase;
+f32 func_151AAA4C(u8 *arg0) {
+    u8 *state = arg0 + 0x80;
+    f32 result;
 
-    phase = *(u32 *)((u8 *)arg0 + 0x88);
-    phase = (phase >> 0x10) - 0x40;
-    temp_fv1 = func_151423D8(phase & 0xFF);
-    state = arg0;
-    state += 0x80;
-    temp_fv1 = *(f32 *)(state + 0x10) + (*(f32 *)(state + 0x14) * temp_fv1);
-    *(s32 *)(state + 0x08) = (s32) ((*(u32 *)(state + 0x0C) * (u32) D_800BE9E4) + *(u32 *)(state + 0x08));
-    return temp_fv1;
+    result = *(f32 *)(state + 0x10) + (*(f32 *)(state + 0x14) * func_151423D8((*(u32 *)(state + 0x08) >> 16) - 0x40));
+    *(u32 *)(state + 0x08) += *(u32 *)(state + 0x0C) * (u32)D_800BE9E4;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AAA4C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AAA4C.s")
 void *func_151AA48C(u8 *, void *);
 s32 func_151AB2C4(s32, void *);
 

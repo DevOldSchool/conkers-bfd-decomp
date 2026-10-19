@@ -14,8 +14,6 @@
  * - func_150450CC
  * - func_15045880
  * - func_15045AE4
- * - func_15045D48
- * - func_15045F8C
  * - func_150461D0
  * - func_15046460
  * - func_1504715C
@@ -796,7 +794,7 @@ extern s32 D_800DBEF4;
 extern f32 D_80098D50;
 extern u8 D_800D37E0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15045880 CURRENT (1300) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15045880 CURRENT (1000) */
 u8 func_15045880(Vec3f *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
     s32 count;
     s32 best;
@@ -874,7 +872,7 @@ u8 func_15045880(Vec3f *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15045880.s")
 extern f32 D_80098D54;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15045AE4 CURRENT (1065) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15045AE4 CURRENT (865) */
 u8 func_15045AE4(Vec3f *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
     s32 count;
     s32 best;
@@ -950,7 +948,6 @@ u8 func_15045AE4(Vec3f *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15045AE4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15045AE4.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15045D48 CURRENT (335) */
 s32 func_15045D48(Vec3f *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
     s32 count;
     s32 best;
@@ -982,9 +979,7 @@ s32 func_15045D48(Vec3f *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
         s32 surface_index;
         u8 *output;
         s32 offset;
-        Game71820Surface *surface;
         s32 *materials;
-        s32 triangle_index;
 
         candidate = &D_800D3300[best];
         source = candidate->sources;
@@ -998,17 +993,17 @@ s32 func_15045D48(Vec3f *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
             *(s16 *)(output + 6) = point[1];
             *(s16 *)(output + 8) = point[2];
         }
-        surface = (Game71820Surface *)(candidate->padC * 0xA0 + D_800DBEF4);
-        arg3->field20 = (s32)surface;
-        materials = surface->materials;
+        surface_index = candidate->padC;
+        arg3->field20 = surface_index * 0xA0 + D_800DBEF4;
+        materials = ((Game71820Surface *)arg3->field20)->materials;
         if (materials != 0) {
-            triangle_index = ((u8 *)source - D_800DBE3C) / 12 - surface->first_triangle;
+            s32 triangle_index = ((u8 *)source - D_800DBE3C) / 12 - ((Game71820Surface *)arg3->field20)->first_triangle;
             *(s32 *)((u8 *)arg3 + 0x18) = materials[triangle_index];
         } else {
-            *(s32 *)((u8 *)arg3 + 0x18) = surface->default_material;
+            *(s32 *)((u8 *)arg3 + 0x18) = ((Game71820Surface *)arg3->field20)->default_material;
         }
         arg3->flags |= 6;
-        if ((surface->flags & 0x80) == 0x80) {
+        if ((((Game71820Surface *)arg3->field20)->flags & 0x80) == 0x80) {
             arg3->flags |= 1;
         }
         arg3->active = 3;
@@ -1021,11 +1016,8 @@ s32 func_15045D48(Vec3f *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
     arg3->flags &= ~2;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15045D48 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15045D48.s")
 extern f32 D_80098D5C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15045F8C CURRENT (335) */
 s32 func_15045F8C(Vec3f *arg0, f32 arg1, void *arg2, Game71820Hit *arg3) {
     s32 count;
     s32 best;
@@ -1057,9 +1049,7 @@ s32 func_15045F8C(Vec3f *arg0, f32 arg1, void *arg2, Game71820Hit *arg3) {
         s32 surface_index;
         u8 *output;
         s32 offset;
-        Game71820Surface *surface;
         s32 *materials;
-        s32 triangle_index;
 
         candidate = &D_800D3300[best];
         source = candidate->sources;
@@ -1073,17 +1063,17 @@ s32 func_15045F8C(Vec3f *arg0, f32 arg1, void *arg2, Game71820Hit *arg3) {
             *(s16 *)(output + 6) = point[1];
             *(s16 *)(output + 8) = point[2];
         }
-        surface = (Game71820Surface *)(candidate->padC * 0xA0 + D_800DBEF4);
-        arg3->field20 = (s32)surface;
-        materials = surface->materials;
+        surface_index = candidate->padC;
+        arg3->field20 = surface_index * 0xA0 + D_800DBEF4;
+        materials = ((Game71820Surface *)arg3->field20)->materials;
         if (materials != 0) {
-            triangle_index = ((u8 *)source - D_800DBE3C) / 12 - surface->first_triangle;
+            s32 triangle_index = ((u8 *)source - D_800DBE3C) / 12 - ((Game71820Surface *)arg3->field20)->first_triangle;
             *(s32 *)((u8 *)arg3 + 0x18) = materials[triangle_index];
         } else {
-            *(s32 *)((u8 *)arg3 + 0x18) = surface->default_material;
+            *(s32 *)((u8 *)arg3 + 0x18) = ((Game71820Surface *)arg3->field20)->default_material;
         }
         arg3->flags |= 6;
-        if ((surface->flags & 0x80) == 0x80) {
+        if ((((Game71820Surface *)arg3->field20)->flags & 0x80) == 0x80) {
             arg3->flags |= 1;
         }
         arg3->active = 3;
@@ -1096,8 +1086,6 @@ s32 func_15045F8C(Vec3f *arg0, f32 arg1, void *arg2, Game71820Hit *arg3) {
     arg3->flags &= ~2;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15045F8C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15045F8C.s")
 u8 func_15045880(Vec3f *, f32, s32 *, Game71820Hit *);
 s32 func_15045D48(Vec3f *, f32, s32 *, Game71820Hit *);
 

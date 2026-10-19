@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1518F1A0
  * - func_1518F5D0
  * - func_1518F8E0
  * - func_1518FC84
@@ -21,59 +20,50 @@ extern f32 D_800A7B6C;
 extern f32 D_800A7B70;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F1A0 CURRENT (595) */
-s32 func_1518F1A0(u8 *arg0) {
-    f32 randomResult;
-    f32 temp_fv0_2;
-    f32 temp_fv1;
-    f32 temp_fv1_2;
-    f32 temp_fv1_3;
-    f32 temp_fv1_4;
-    s32 temp_v1;
-    u8 *temp_s0;
-    u8 *temp_s0_2;
+typedef struct Game1BC650Interpolation {
+    f32 high0, low0, target0;
+    f32 split1, low1, high1, target1;
+    s16 timer0, timer1;
+    f32 high2, low2, target2;
+    s16 timer2;
+} Game1BC650Interpolation;
 
-    *(s16 *)((u8 *)arg0 + 0x12E) = (s16) (*(s16 *)((u8 *)arg0 + 0x12E) - D_800BE9E4);
-    if (*(s16 *)((u8 *)arg0 + 0x12E) < 0) {
-        temp_s0 = (void *)(arg0 + 0x110);
-        *(s16 *)((u8 *)temp_s0 + 0x1E) = (s16) (func_150ADA20() % 6U);
+typedef struct Game1BC650InterpolationOwner {
+    u8 pad0[0x24];
+    s32 integer;
+    u8 pad28[4];
+    f32 scale, height;
+    u8 pad34[0xDC];
+    Game1BC650Interpolation state;
+} Game1BC650InterpolationOwner;
+
+s32 func_1518F1A0(Game1BC650InterpolationOwner *arg0) {
+    Game1BC650Interpolation *state = &arg0->state;
+
+    state->timer1 -= D_800BE9E4;
+    if (state->timer1 < 0) {
+        state->timer1 = func_150ADA20() % 6U;
         if (func_150ADA20() & 3) {
-            randomResult = func_150ADA68();
-            temp_fv1 = *(f32 *)((u8 *)temp_s0 + 0x10);
-            *(f32 *)((u8 *)temp_s0 + 0x18) = (f32) ((randomResult * (*(f32 *)((u8 *)temp_s0 + 0xC) - temp_fv1)) + temp_fv1);
+            state->target1 = func_150ADA68() * (state->split1 - state->low1) + state->low1;
         } else {
-            randomResult = func_150ADA68();
-            temp_fv1_2 = *(f32 *)((u8 *)temp_s0 + 0xC);
-            *(f32 *)((u8 *)temp_s0 + 0x18) = (f32) ((randomResult * (*(f32 *)((u8 *)temp_s0 + 0x14) - temp_fv1_2)) + temp_fv1_2);
+            state->target1 = func_150ADA68() * (state->high1 - state->split1) + state->split1;
         }
     }
-    temp_s0_2 = (void *)(arg0 + 0x110);
-    {
-        f32 temp_fv0 = *(f32 *)((u8 *)arg0 + 0x30);
-    *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fv0 + ((*(f32 *)((u8 *)temp_s0_2 + 0x18) - temp_fv0) * D_800A7B68));
-    *(s16 *)((u8 *)temp_s0_2 + 0x1C) = (s16) (*(s16 *)((u8 *)temp_s0_2 + 0x1C) - D_800BE9E4);
-    if (*(s16 *)((u8 *)temp_s0_2 + 0x1C) < 0) {
-        *(s16 *)((u8 *)temp_s0_2 + 0x1C) = (s16) (func_150ADA20() % 17U);
-        randomResult = func_150ADA68();
-        temp_fv1_3 = *(f32 *)((u8 *)temp_s0_2 + 4);
-        *(f32 *)((u8 *)temp_s0_2 + 8) = (f32) ((randomResult * (*(f32 *)((u8 *)arg0 + 0x110) - temp_fv1_3)) + temp_fv1_3);
+    arg0->height += (state->target1 - arg0->height) * D_800A7B68;
+    state->timer0 -= D_800BE9E4;
+    if (state->timer0 < 0) {
+        state->timer0 = func_150ADA20() % 17U;
+        state->target0 = func_150ADA68() * (state->high0 - state->low0) + state->low0;
     }
-    temp_fv0_2 = *(f32 *)((u8 *)arg0 + 0x2C);
-    *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (temp_fv0_2 + ((*(f32 *)((u8 *)temp_s0_2 + 8) - temp_fv0_2) * D_800A7B6C));
-    *(s16 *)((u8 *)temp_s0_2 + 0x2C) = (s16) (*(s16 *)((u8 *)temp_s0_2 + 0x2C) - D_800BE9E4);
-    if (*(s16 *)((u8 *)temp_s0_2 + 0x2C) < 0) {
-        *(s16 *)((u8 *)temp_s0_2 + 0x2C) = (s16) (func_150ADA20() % 15U);
-        randomResult = func_150ADA68();
-        temp_fv1_4 = *(f32 *)((u8 *)temp_s0_2 + 0x24);
-        *(f32 *)((u8 *)temp_s0_2 + 0x28) = (f32) ((randomResult * (*(f32 *)((u8 *)temp_s0_2 + 0x20) - temp_fv1_4)) + temp_fv1_4);
+    arg0->scale += (state->target0 - arg0->scale) * D_800A7B6C;
+    state->timer2 -= D_800BE9E4;
+    if (state->timer2 < 0) {
+        state->timer2 = func_150ADA20() % 15U;
+        state->target2 = func_150ADA68() * (state->high2 - state->low2) + state->low2;
     }
-    temp_v1 = *(s32 *)((u8 *)arg0 + 0x24);
-    *(s32 *)((u8 *)arg0 + 0x24) = (s32) (temp_v1 + (s32) ((*(f32 *)((u8 *)temp_s0_2 + 0x28) - (f32) temp_v1) * D_800A7B70));
+    arg0->integer += (s32)((state->target2 - arg0->integer) * D_800A7B70);
     return 1;
-    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518F1A0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518F1A0.s")
 extern f32 D_800A7B74;
 extern f32 D_800A7B78;
 

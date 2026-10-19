@@ -2017,36 +2017,28 @@ void func_150627D4(void *);
 s32 func_150229E4(void *);
 extern u8 D_800C3654;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502378C CURRENT (460) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502378C CURRENT (245) */
 void func_1502378C(void) {
-    u8 *var_s0;
-    s32 var_s1;
-    s32 var_s2;
-    s32 var_s4;
+    u8 *actor = (u8 *)&D_800CC2D0;
+    s32 i;
 
-    var_s0 = &D_800CC2D0;
-    var_s1 = 0;
     if (D_800C3654 != 0) {
         func_1504A730();
         return;
     }
-    var_s4 = 1;
-    var_s2 = 0x19;
-    do {
-        if (*(s32 *)var_s0 != 0) {
-            D_800C3E78 = var_s1;
-            func_15022998((s32 *)var_s0);
-            func_1507E73C((s32 *)var_s0);
-            if (func_150229E4(var_s0) != 0) {
-                func_1502178C(var_s0, 0, -1);
-                func_150627D4(var_s0);
-                func_1507FEA0((s32 *)var_s0);
-                *(s8 *)(var_s0 + 0x2FF) = var_s4;
+    for (i = 0; i < 25; i++, actor += 0x32C) {
+        if (*(s32 *)actor != 0) {
+            D_800C3E78 = i;
+            func_15022998((s32 *)actor);
+            func_1507E73C((s32 *)actor);
+            if (func_150229E4(actor) != 0) {
+                func_1502178C(actor, 0, -1);
+                func_150627D4(actor);
+                func_1507FEA0((s32 *)actor);
+                *(s8 *)(actor + 0x2FF) = 1;
             }
         }
-        var_s1 += 1;
-        var_s0 += 0x32C;
-    } while (var_s1 != var_s2);
+    }
     func_15061B4C();
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1502378C */
