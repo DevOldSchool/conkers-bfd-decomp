@@ -30,7 +30,7 @@ def main_code(root: Path) -> tuple[bytes, int, str]:
     return rom[start:end], base, digest
 
 
-def game_code(root: Path) -> tuple[bytes, int, str]:
+def game_archive(root: Path) -> tuple[rzip_archive.GameArchive, dict, str]:
     layout = json.loads((root / "config/rzip_layouts.json").read_text())["profiles"]["us"]
     rom, _ = rzip_archive.normalize_rom((root / layout["default_rom"]).read_bytes())
     digest = hashlib.sha1(rom).hexdigest()
@@ -38,7 +38,18 @@ def game_code(root: Path) -> tuple[bytes, int, str]:
         raise ValueError("span verification requires a checksum-validated US ROM")
     game = rzip_archive.parse_game_archive(
         rom[int(layout["game_start"], 0):int(layout["game_end"], 0)])
+    return game, layout, digest
+
+
+def game_code(root: Path) -> tuple[bytes, int, str]:
+    game, layout, digest = game_archive(root)
     return game.code, int(layout["game_vram"], 0), digest
+
+
+def game_data(root: Path) -> tuple[bytes, int, str]:
+    """Return the decoded GAME data image that supplies external unit rodata."""
+    game, layout, digest = game_archive(root)
+    return game.data, int(layout["game_data_vram"], 0), digest
 
 
 def debugger_image(root: Path) -> tuple[bytes, bytes, int, int, str]:

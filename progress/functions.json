@@ -10389,17 +10389,16 @@
       "symbol": "func_1505EEB0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "CURRENT (20) = only spimdisasm interior-symbol rows (D_800CC2D0+0x32c/+field vs D_800CC5FC/D_800CC40F-style names); natural peeled+4x-unrolled for loop. Linked alias proof unsupported: game_83300 .text has .rodata relocations (round9)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 220,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1505EEF4",
           "vram": "0x1505EEF4"
         }
@@ -10408,17 +10407,16 @@
       "symbol": "func_1505EEF4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "CURRENT (20) = only spimdisasm interior-symbol rows (D_800CC2D0+0x32c/+field vs D_800CC5FC/D_800CC40F-style names); natural peeled+4x-unrolled for loop. Linked alias proof unsupported: game_83300 .text has .rodata relocations (round9)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 220,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1505EFD0",
           "vram": "0x1505EFD0"
         }
@@ -10427,17 +10425,16 @@
       "symbol": "func_1505EFD0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "CURRENT (20) = only spimdisasm interior-symbol rows (D_800CC2D0+0x32c/+field vs D_800CC5FC/D_800CC40F-style names); natural peeled+4x-unrolled for loop. Linked alias proof unsupported: game_83300 .text has .rodata relocations (round9)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 220,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1505F0AC",
           "vram": "0x1505F0AC"
         }

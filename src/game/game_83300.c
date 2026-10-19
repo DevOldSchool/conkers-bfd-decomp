@@ -41,9 +41,6 @@
  * - func_1505E650
  * - func_1505E874
  * - func_1505ED34
- * - func_1505EEF4
- * - func_1505EFD0
- * - func_1505F0AC
  * - func_1505F188
  * - func_1505F298
  * - func_15060778
@@ -1917,7 +1914,6 @@ struct127 *func_1505EEB0(s32 arg0, s32 *arg1) {
 extern u8 D_800CC40F;
 extern s32 D_800CC5FC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505EEF4 CURRENT (20) */
 struct127 *func_1505EEF4(s32 arg0) {
     struct127 *tmp = (struct127 *)&D_800CC2D0;
     s32 i;
@@ -1930,11 +1926,8 @@ struct127 *func_1505EEF4(s32 arg0) {
     }
     return NULL;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505EEF4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505EEF4.s")
 extern u8 D_800CC3F7;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505EFD0 CURRENT (20) */
 struct127 *func_1505EFD0(s32 arg0) {
     struct127 *tmp = (struct127 *)&D_800CC2D0;
     s32 i;
@@ -1947,11 +1940,8 @@ struct127 *func_1505EFD0(s32 arg0) {
     }
     return NULL;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505EFD0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505EFD0.s")
 extern u8 D_800CC2D4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505F0AC CURRENT (20) */
 struct127 *func_1505F0AC(s32 arg0) {
     struct127 *tmp = (struct127 *)&D_800CC2D0;
     s32 i;
@@ -1964,8 +1954,6 @@ struct127 *func_1505F0AC(s32 arg0) {
     }
     return NULL;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505F0AC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505F0AC.s")
 extern f32 D_8009962C;
 extern f32 D_80099630;
 void func_150615DC(void *);
