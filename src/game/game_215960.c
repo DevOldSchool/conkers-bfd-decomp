@@ -36,6 +36,14 @@ typedef struct {
 } Game215960State;
 
 typedef struct Game215960Command Game215960Command;
+struct Game215960Command {
+    u32 w0;
+    u32 w1;
+};
+
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+#define MIN(a, b) (((a) < (b)) ? (a) : (b))
+#define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 Game215960Command *func_151ED1E0(Game215960Command *);
 extern s32 D_8003C8E0;
@@ -124,103 +132,17 @@ s32 func_151E8620(s32 arg0) {
 extern f32 D_8008FE1C;
 extern f32 D_8008FE20;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E86E4 CURRENT (5240) */
-void *func_151E86E4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
-    s16 var_t0;
-    s16 var_t0_2;
-    s16 var_t1;
-    s16 var_t1_2;
-    s32 temp_t4;
-    s32 temp_t5;
-    s32 temp_t6;
-    s32 temp_t7;
-    s32 var_t1_3;
-    s32 var_t2;
-    s32 var_v0;
-    s32 var_v0_2;
-    typedef struct { u32 hi; u32 lo; } Packet;
-    Packet *packet;
-    Packet *second;
-    Packet *third;
-
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E86E4 CURRENT (20) */
+Game215960Command *func_151E86E4(Game215960Command *arg0, s32 xl, s32 yl, s32 xh, s32 yh, s32 tile, s32 sStart, s32 tStart, s32 dsdx, s32 dtdy) {
     if (D_8008FE1C != 1.0f) {
-        arg1 = (s32) ((f32) arg1 * D_8008FE1C);
-        arg3 = (s32) ((f32) arg3 * D_8008FE1C);
-        arg2 = (s32) ((f32) arg2 * D_8008FE20);
-        arg4 = (s32) ((f32) arg4 * D_8008FE20);
-        arg8 = (s32) ((f32) arg8 / D_8008FE1C);
-        arg9 = (s32) ((f32) arg9 / D_8008FE20);
+        xl *= D_8008FE1C;
+        xh *= D_8008FE1C;
+        yl *= D_8008FE20;
+        yh *= D_8008FE20;
+        dsdx /= D_8008FE1C;
+        dtdy /= D_8008FE20;
     }
-    packet = (Packet *)arg0;
-    arg0 += sizeof(Packet);
-    if ((s16) arg3 > 0) {
-        var_t0 = (s16) arg3;
-    } else {
-        var_t0 = 0;
-    }
-    if ((s16) arg4 > 0) {
-        var_t1 = (s16) arg4;
-    } else {
-        var_t1 = 0;
-    }
-    packet->hi = (s32) ((var_t1 & 0xFFF) | 0xE4000000 | ((var_t0 & 0xFFF) << 0xC));
-    if ((s16) arg1 > 0) {
-        var_t0_2 = (s16) arg1;
-    } else {
-        var_t0_2 = 0;
-    }
-    if ((s16) arg2 > 0) {
-        var_t1_2 = (s16) arg2;
-    } else {
-        var_t1_2 = 0;
-    }
-    packet->lo = (s32) ((var_t1_2 & 0xFFF) | ((arg5 & 7) << 0x18) | ((var_t0_2 & 0xFFF) << 0xC));
-    second = (Packet *)arg0;
-    second->hi = 0xE1000000;
-    arg0 += sizeof(Packet);
-    if ((s16) arg1 < 0) {
-        if ((s16) arg8 < 0) {
-            temp_t5 = (s32) ((s16) arg1 * (s16) arg8) >> 7;
-            if (temp_t5 > 0) {
-                var_t2 = temp_t5;
-            } else {
-                var_t2 = 0;
-            }
-        } else {
-            var_v0 = 0;
-            temp_t4 = (s32) ((s16) arg1 * (s16) arg8) >> 7;
-            if (temp_t4 < 0) {
-                var_v0 = temp_t4;
-            }
-            var_t2 = var_v0;
-        }
-    } else {
-        var_t2 = 0;
-    }
-    if (arg2 < 0) {
-        if ((s16) arg9 < 0) {
-            temp_t7 = (s32) ((s16) arg2 * (s16) arg9) >> 7;
-            if (temp_t7 > 0) {
-                var_t1_3 = temp_t7;
-            } else {
-                var_t1_3 = 0;
-            }
-        } else {
-            var_v0_2 = 0;
-            temp_t6 = (s32) ((s16) arg2 * (s16) arg9) >> 7;
-            if (temp_t6 < 0) {
-                var_v0_2 = temp_t6;
-            }
-            var_t1_3 = var_v0_2;
-        }
-    } else {
-        var_t1_3 = 0;
-    }
-    second->lo = (s32) (((arg7 - var_t1_3) & 0xFFFF) | ((arg6 - var_t2) << 0x10));
-    third = (Packet *)arg0;
-    third->hi = 0xF1000000;
-    third->lo = (s32) ((arg8 << 0x10) | (arg9 & 0xFFFF));
-    arg0 += sizeof(Packet);
+    { Game215960Command *command = arg0++; command->w0 = (_SHIFTL(0xE4, 24, 8) | _SHIFTL(MAX((s16)(xh), 0), 12, 12) | _SHIFTL(MAX((s16)(yh), 0), 0, 12)); command->w1 = (_SHIFTL((tile), 24, 3) | _SHIFTL(MAX((s16)(xl), 0), 12, 12) | _SHIFTL(MAX((s16)(yl), 0), 0, 12)); { Game215960Command *command = arg0++; command->w0 = _SHIFTL(0xE1, 24, 8); command->w1 = (u32)((_SHIFTL(((sStart) - (((s16)(xl) < 0) ? (((s16)(dsdx) < 0) ? (MAX((((s16)(xl) * (s16)(dsdx)) >> 7), 0)) : (MIN((((s16)(xl) * (s16)(dsdx)) >> 7), 0))) : 0)), 16, 16) | _SHIFTL(((tStart) - (((yl) < 0) ? (((s16)(dtdy) < 0) ? (MAX((((s16)(yl) * (s16)(dtdy)) >> 7), 0)) : (MIN((((s16)(yl) * (s16)(dtdy)) >> 7), 0))) : 0)), 0, 16))); } { Game215960Command *command = arg0++; command->w0 = _SHIFTL(0xF1, 24, 8); command->w1 = (u32)((_SHIFTL((dsdx), 16, 16) | _SHIFTL((dtdy), 0, 16))); } }
     return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151E86E4 */
@@ -235,7 +157,7 @@ typedef struct GameEADFCPowers { s32 value[7]; } GameEADFCPowers;
 extern GameEADFCPowers D_8009009C;
 extern s32 D_80090074[];
 s32 func_1510D0EC(s32, s32 *, s32, s32);
-void *func_151E86E4(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+Game215960Command *func_151E86E4(Game215960Command *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151EADFC CURRENT (3192) */
 void *func_151EADFC(GameEADFCCommand *arg0, s32 arg1, s32 arg2, s32 arg3) {
@@ -287,7 +209,7 @@ void *func_151EADFC(GameEADFCCommand *arg0, s32 arg1, s32 arg2, s32 arg3) {
                 command = arg0++;
                 command->upper = 0xF2000000;
                 command->lower = 0x7C07C;
-                arg0 = func_151E86E4((u8 *)arg0, arg1, arg2,
+                arg0 = func_151E86E4(arg0, arg1, arg2,
                          (u32)arg1 + 0x80, (u32)arg2 + 0x80,
                          0, 0, 0, 0x400, 0x400);
             }
@@ -392,11 +314,6 @@ s32 func_151EC178(s32 arg0) {
     return arg0;
 }
 
-struct Game215960Command {
-    u32 w0;
-    u32 w1;
-};
-
 /* Raw helper15096934 returns its incoming command pointer plus eight bytes. */
 void *func_15096934(void *);
 void *func_151ED430(void *, void *, s32, s32, s32, s32, f32, s32);
@@ -409,7 +326,6 @@ extern s32 D_800E0A74;
 extern u8 D_800E0B97;
 extern u8 D_800E0B96;
 
-#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 Game215960Command *func_151EC1F0(Game215960Command *arg0) {
     s32 alpha;
 

@@ -14,7 +14,6 @@
  * - func_15090630
  * - func_1509093C
  * - func_150911F4
- * - func_15091534
  * - func_150918EC
  * - func_150938BC
  * - func_15093B58
@@ -414,130 +413,58 @@ typedef struct GameBC510DisplayState {
 } GameBC510DisplayState;
 extern u8 D_800D24C8[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150911F4 CURRENT (6510) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150911F4 CURRENT (2853) */
 GameBC510Command *func_150911F4(GameBC510Command *dl) {
     s32 resource0, resource1, resource2, resource3;
     s32 address;
     s32 loaded;
-    register GameBC510DisplayState *state;
+    GameBC510DisplayState *state;
 
-    state = (GameBC510DisplayState *)D_800D24C8;
+    state = (GameBC510DisplayState *)(u32)D_800D24C8;
     if (state->alpha == 0) {
         return dl;
     }
-    {
-        GameBC510Command *packet = dl++;
-        packet->w0 = 0xDE000000;
-        packet->w1 = (u32)D_80084160;
-    }
-    {
-        GameBC510Command *packet = dl++;
-        packet->w0 = 0xD9FFFFFF;
-        packet->w1 = 0x400;
-    }
-    {
-        GameBC510Command *packet = dl++;
-        packet->w0 = 0xD9F1FDFE;
-        packet->w1 = 0;
-    }
-    {
-        GameBC510Command *packet = dl++;
-        packet->w0 = 0xD9BDFFFF;
-        packet->w1 = 0;
-    }
+    { GameBC510Command *packet = dl++; packet->w0 = 0xDE000000; packet->w1 = (u32)D_80084160; }
+    { GameBC510Command *packet = dl++; packet->w0 = 0xD9FFFFFF; packet->w1 = 0x400; }
+    { GameBC510Command *packet = dl++; packet->w0 = 0xD9F1FDFE; packet->w1 = 0; }
+    { GameBC510Command *packet = dl++; packet->w0 = 0xD9BDFFFF; packet->w1 = 0; }
     if (state->alpha < 0xFF) {
-        {
-            GameBC510Command *packet = dl++;
-            packet->w0 = 0xDB060020;
-            packet->w1 = (u32)D_80083440;
-        }
+        { GameBC510Command *packet = dl++; packet->w0 = 0xDB060020; packet->w1 = (u32)D_80083440; }
     } else {
-        {
-            GameBC510Command *packet = dl++;
-            packet->w0 = 0xDB060020;
-            packet->w1 = (u32)D_800835C0;
-        }
+        { GameBC510Command *packet = dl++; packet->w0 = 0xDB060020; packet->w1 = (u32)D_800835C0; }
     }
     func_15043D90((s32)(state->matrices + (D_800BE9C0 << 6)),
                   -1.0f - state->x, -11.0f + state->y, 0.0f,
                   D_8009DD40, D_8009DD40, D_8009DD40,
                   D_8009DD44, 152.0f, D_8009DD48);
-    {
-        GameBC510Command *packet = dl++;
-        packet->w0 = 0xDA380003;
-        packet->w1 = (u32)(state->matrices + (D_800BE9C0 << 6));
-    }
-    {
-        GameBC510Command *packet = dl++;
-        packet->w0 = 0xF8000000;
-        packet->w1 = 0xFF;
-    }
-    {
-        GameBC510Command *packet = dl++;
-        packet->w0 = 0xFA00F200;
-        packet->w1 = 0;
-    }
-    {
-        GameBC510Command *packet = dl++;
-        packet->w0 = 0xFB000000;
-        packet->w1 = state->alpha;
-    }
-    {
-        GameBC510Command *packet = dl++;
-        packet->w0 = 0xDB06000C;
-        packet->w1 = (u32)(state->matrices + (D_800BE9C0 << 6));
-    }
-    {
-        GameBC510Command *packet = dl++;
-        packet->w0 = 0xDB060004;
-        packet->w1 = state->buffers[D_800BE9C0];
-    }
+    { GameBC510Command *packet = dl++; packet->w0 = 0xDA380003; packet->w1 = (u32)(state->matrices + (D_800BE9C0 << 6)); }
+    { GameBC510Command *packet = dl++; packet->w0 = 0xF8000000; packet->w1 = 0xFF; }
+    { GameBC510Command *packet = dl++; packet->w0 = 0xFA00F200; packet->w1 = 0; }
+    { GameBC510Command *packet = dl++; packet->w0 = 0xFB000000; packet->w1 = state->alpha; }
+    { GameBC510Command *packet = dl++; packet->w0 = 0xDB06000C; packet->w1 = (u32)(state->matrices + (D_800BE9C0 << 6)); }
+    { GameBC510Command *packet = dl++; packet->w0 = 0xDB060004; packet->w1 = state->buffers[D_800BE9C0]; }
     resource0 = state->resources[0];
     if (resource0 != 0) {
         address = func_1510D0EC(resource0, &loaded, 3, 0);
-        {
-            GameBC510Command *packet = dl++;
-            packet->w0 = 0xdb060018;
-            packet->w1 = address;
-        }
+        { GameBC510Command *packet = dl++; packet->w0 = 0xdb060018; packet->w1 = address; }
     }
     resource1 = state->resources[1];
     if (resource1 != 0) {
         address = func_1510D0EC(resource1, &loaded, 3, 0);
-        {
-            GameBC510Command *packet = dl++;
-            packet->w0 = 0xdb06001c;
-            packet->w1 = address;
-        }
+        { GameBC510Command *packet = dl++; packet->w0 = 0xdb06001c; packet->w1 = address; }
     }
     resource2 = state->resources[2];
     if (resource2 != 0) {
         address = func_1510D0EC(resource2, &loaded, 3, 0);
-        {
-            GameBC510Command *packet = dl++;
-            packet->w0 = 0xdb060028;
-            packet->w1 = address;
-        }
+        { GameBC510Command *packet = dl++; packet->w0 = 0xdb060028; packet->w1 = address; }
     }
     resource3 = state->resources[3];
     if (resource3 != 0) {
         address = func_1510D0EC(resource3, &loaded, 3, 0);
-        {
-            GameBC510Command *packet = dl++;
-            packet->w0 = 0xdb06002c;
-            packet->w1 = address;
-        }
+        { GameBC510Command *packet = dl++; packet->w0 = 0xdb06002c; packet->w1 = address; }
     }
-    {
-        GameBC510Command *packet = dl++;
-        packet->w0 = 0xDE000000;
-        packet->w1 = state->displayList;
-    }
-    {
-        GameBC510Command *packet = dl++;
-        packet->w0 = 0xDE000000;
-        packet->w1 = (u32)D_80084190;
-    }
+    { GameBC510Command *packet = dl++; packet->w0 = 0xDE000000; packet->w1 = state->displayList; }
+    { GameBC510Command *packet = dl++; packet->w0 = 0xDE000000; packet->w1 = (u32)D_80084190; }
     return dl;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150911F4 */
@@ -545,54 +472,27 @@ GameBC510Command *func_150911F4(GameBC510Command *dl) {
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 extern u8 D_D16;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15091534 CURRENT (6295) */
-void *func_15091534(void *arg0, s32 arg1, s8 *arg2) {
-    u8 *cursor = arg0;
-    u8 *next;
+GameBC510Command *func_15091534(GameBC510Command *arg0, s32 arg1, s8 *arg2) {
     s32 address;
 
     *arg2 = 0;
     address = func_1510D0EC((s32)&D_D16 + arg1, 0, 3, 0);
     if (address != 0x80000000) {
-        *(u32 *)cursor = 0xFD500000;
-        *(u32 *)(cursor + 4) = address;
-        next = cursor + 8;
-        *(u32 *)(cursor + 8) = 0xF5500000;
-        *(u32 *)(next + 4) = 0x07098260;
-        cursor = next + 8;
-        *(u32 *)(next + 8) = 0xE6000000;
-        *(u32 *)(cursor + 4) = 0;
-        next = cursor + 8;
-        *(u32 *)(cursor + 8) = 0xF3000000;
-        *(u32 *)(next + 4) = 0x073FF000;
-        cursor = next + 8;
-        *(u32 *)(next + 8) = 0xE7000000;
-        *(u32 *)(cursor + 4) = 0;
-        next = cursor + 8;
-        *(u32 *)(cursor + 8) = 0xF5400800;
-        *(u32 *)(next + 4) = 0x00098260;
-        cursor = next + 8;
-        *(u32 *)(next + 8) = 0xF2000000;
-        *(u32 *)(cursor + 4) = 0x000FC0FC;
-        next = cursor + 8;
-        *(u32 *)(next + 4) = address + 0x800;
-        *(u32 *)(cursor + 8) = 0xFD100000;
-        cursor = next + 8;
-        *(u32 *)(next + 8) = 0xE6000000;
-        *(u32 *)(cursor + 4) = 0;
-        next = cursor + 8;
-        *(u32 *)(cursor + 8) = 0xF0000000;
-        *(u32 *)(next + 4) = 0x0603C000;
-        cursor = next + 8;
-        *(u32 *)(next + 8) = 0xEF00AC3F;
-        *(u32 *)(cursor + 4) = 0x00504244;
-        cursor += 8;
+        { GameBC510Command *command = arg0++; command->w0 = 0xFD500000; command->w1 = address; }
+        { GameBC510Command *command = arg0++; command->w0 = 0xF5500000; command->w1 = 0x07098260; }
+        { GameBC510Command *command = arg0++; command->w0 = 0xE6000000; command->w1 = 0; }
+        { GameBC510Command *command = arg0++; command->w0 = 0xF3000000; command->w1 = 0x073FF000; }
+        { GameBC510Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
+        { GameBC510Command *command = arg0++; command->w0 = 0xF5400800; command->w1 = 0x00098260; }
+        { GameBC510Command *command = arg0++; command->w0 = 0xF2000000; command->w1 = 0x000FC0FC; }
+        { GameBC510Command *command = arg0++; command->w0 = 0xFD100000; command->w1 = address + 0x800; }
+        { GameBC510Command *command = arg0++; command->w0 = 0xE6000000; command->w1 = 0; }
+        { GameBC510Command *command = arg0++; command->w0 = 0xF0000000; command->w1 = 0x0603C000; }
+        { GameBC510Command *command = arg0++; command->w0 = 0xEF00AC3F; command->w1 = 0x00504244; }
         *arg2 = 1;
     }
-    return cursor;
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15091534 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_15091534.s")
 extern char D_8009DCC0[];
 extern char D_8009DCC4[];
 extern char D_8009DCCC[];

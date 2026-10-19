@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15166B50
- * - func_15166D68
  * - func_15166F6C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -146,88 +145,28 @@ typedef struct DisplayCommand193E50 {
 
 extern u8 D_8008B3E0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15166D68 CURRENT (2685) */
 DisplayCommand193E50 *func_15166D68(DisplayCommand193E50 *displayList,
                                      u8 *object, s32 unused) {
-    u8 *matrix;
-    s32 offset;
+    s32 i;
     s32 vertical;
-    u32 upper;
-    u32 lower;
 
-    offset = 0;
-    matrix = object + 0x10;
-    do {
-        {
-            DisplayCommand193E50 *command = displayList++;
-            command->word0 = 0xDA380003;
-            command->word1 = (u32) matrix;
-        }
-        {
-            DisplayCommand193E50 *command = displayList++;
-            command->word0 = 0x0100600C;
-            command->word1 = (u32) D_8008B3E0;
-        }
-        {
-            DisplayCommand193E50 *command = displayList++;
-            vertical = 0x2800 - ((object[0xD0] << 12) / 10);
-            upper = (u32) vertical << 16;
-            command->word0 = 0x02140000;
-            command->word1 = upper + 0x2000;
-        }
-        {
-            DisplayCommand193E50 *command = displayList++;
-            command->word0 = 0x02140002;
-            command->word1 = upper + 0x2000;
-        }
-        {
-            DisplayCommand193E50 *command = displayList++;
-            command->word0 = 0x02140004;
-            command->word1 = upper + 0x2400;
-        }
-        {
-            DisplayCommand193E50 *command = displayList++;
-            lower = (u32) (vertical + 0x800) << 16;
-            command->word0 = 0x02140006;
-            command->word1 = lower + 0x2000;
-        }
-        {
-            DisplayCommand193E50 *command = displayList++;
-            command->word0 = 0x02140008;
-            command->word1 = lower + 0x2000;
-        }
-        {
-            DisplayCommand193E50 *command = displayList++;
-            command->word0 = 0x0214000A;
-            command->word1 = lower + 0x2400;
-        }
-        {
-            DisplayCommand193E50 *command = displayList++;
-            command->word0 = 0x050A0600;
-            command->word1 = 0;
-        }
-        {
-            DisplayCommand193E50 *command = displayList++;
-            command->word0 = 0x05040A00;
-            command->word1 = 0;
-        }
-        {
-            DisplayCommand193E50 *command = displayList++;
-            command->word0 = 0x0502080A;
-            command->word1 = 0;
-        }
-        {
-            DisplayCommand193E50 *command = displayList++;
-            command->word0 = 0x05020A04;
-            command->word1 = 0;
-        }
-        offset += 0x40;
-        matrix += 0x40;
-    } while (offset != 0xC0);
+    for (i = 0; i < 3; i++) {
+        { DisplayCommand193E50 *command = displayList++; command->word0 = 0xDA380003; command->word1 = (u32)(object + 0x10 + i * 0x40); }
+        { DisplayCommand193E50 *command = displayList++; command->word0 = 0x0100600C; command->word1 = (u32)D_8008B3E0; }
+        vertical = 0x2800 - ((object[0xD0] << 12) / 10);
+        { DisplayCommand193E50 *command = displayList++; command->word0 = 0x02140000; command->word1 = (vertical << 16) + 0x2000; }
+        { DisplayCommand193E50 *command = displayList++; command->word0 = 0x02140002; command->word1 = (vertical << 16) + 0x2000; }
+        { DisplayCommand193E50 *command = displayList++; command->word0 = 0x02140004; command->word1 = (vertical << 16) + 0x2400; }
+        { DisplayCommand193E50 *command = displayList++; command->word0 = 0x02140006; command->word1 = ((vertical + 0x800) << 16) + 0x2000; }
+        { DisplayCommand193E50 *command = displayList++; command->word0 = 0x02140008; command->word1 = ((vertical + 0x800) << 16) + 0x2000; }
+        { DisplayCommand193E50 *command = displayList++; command->word0 = 0x0214000A; command->word1 = ((vertical + 0x800) << 16) + 0x2400; }
+        { DisplayCommand193E50 *command = displayList++; command->word0 = 0x050A0600; command->word1 = 0; }
+        { DisplayCommand193E50 *command = displayList++; command->word0 = 0x05040A00; command->word1 = 0; }
+        { DisplayCommand193E50 *command = displayList++; command->word0 = 0x0502080A; command->word1 = 0; }
+        { DisplayCommand193E50 *command = displayList++; command->word0 = 0x05020A04; command->word1 = 0; }
+    }
     return displayList;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15166D68 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_193E50/func_15166D68.s")
 
 s32 func_15094F70();
 extern u8 D_8009054C;

@@ -30744,8 +30744,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 7590,
-        "reason": "Best CURRENT 7590 after three bounded comparisons; scoped packets and actual first-formal cursor recover exact28frame/prologue and packet snapshots, but increment scheduling, coordinate arithmetic, byte/register and control differences remain. No shared changes.",
+        "current_score": 5190,
+        "reason": "Round 13: typed GameA9D90Command cursor with one-line load blocks and the final gSPTextureRectangle (E4/E1/F1) expansion on one line: 7590 -> 5190. Remaining: t-register numbering offset by one from the first gDPSetTile block and the flag-word address scheduling.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -31024,8 +31024,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 6510,
-        "reason": "CURRENT6510 after three finishes and two probe batches. Argument cursor improves allocation; frameA0 vsA8, state base rematerialization, command snapshot and float scheduling differ. Best valid candidate preserved with original ASM active; no shared dependencies.",
+        "current_score": 2853,
+        "reason": "Round 13: one-line packet blocks and state = (GameBC510DisplayState *)(u32)D_800D24C8 (keeps the state base in s1 like raw): 6510 -> 2958. Remaining: func_15043D90 float-argument evaluation order/registers and resource values loaded straight into a0 (raw loads v1 then move a0,v1).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -31041,17 +31041,16 @@
       "symbol": "func_150911F4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 6295,
-        "reason": "CURRENT (6295): sequential display-list command stream and return value implemented, but compiler folds cursor increments into wider offsets, frame 0x28 vs raw 0x20, and candidate is shorter so registered span includes next function; pointer-shape probe improved but remains nonzero",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 384,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15091534",
           "vram": "0x15091534"
         }
@@ -44761,8 +44760,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 5240,
-        "reason": "Manual baseline plus two targeted revisions exhausted; best valid CURRENT 5240 from actual packet cursor and in-place coordinate. Remaining FP allocation, early cursor/load scheduling and clipping control flow; no shared changes.",
+        "current_score": 20,
+        "reason": "Round 13: faithful gSPScisTextureRectangle expansion (MAX/MIN clamps, gImmp1 halves) on one line with xl/xh/yl/yh/dsdx/dtdy *= /= scale globals: 5240 -> 20. Only D_8008FE20 lands in f2 instead of raw f12 (local scale copies 888, reordered statements 1170, randomized permuter 150 s no exact).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -45546,17 +45545,16 @@
       "symbol": "func_15110600"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 4062,
-        "reason": "Valid manual candidate CURRENT4062; mutable command cursor and packet snapshots improve baseline6018. Two targeted revisions exhausted; neutral register revision restored to simpler best. Saved cursor, folded packet offsets and scheduling remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 540,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151106A8",
           "vram": "0x151106A8"
         }
@@ -47124,8 +47122,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3661,
-        "reason": "Typed sprite renderer and exact local record offsets recovered. Best CURRENT (3661): call setup, display-list pointer temporaries, and scheduling still differ; preserve ROM stack behavior for unchanged cached render mode.",
+        "current_score": 2078,
+        "reason": "Round 13: typed Game19A8B0Command *arg0 cursor, one-line E7/FC/FB blocks with _SHIFTL env colour, same local record: 3661 -> 2078. Remaining: -g3 local area starts 8 bytes higher (frame 0xa0 vs 0x98) and func_15142E24 argument evaluation order differs (pad1A[1] << 8 loaded straight into a2).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -61942,17 +61940,16 @@
       "symbol": "func_15166B50"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2685,
-        "reason": "Preserve SDK packet-lifetime candidate at 2685; explicit post-store cursor advances worsen allocation, constant hoisting and scheduling remain",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 516,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15166D68",
           "vram": "0x15166D68"
         }
@@ -62831,8 +62828,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3154,
-        "reason": "Best3154 final candidate retained; three manual candidates exhausted. Correct existing float matrix-helper contract, texture snapshot and per-command pointers. Frame28/prefix through helper exact; scratch registers/cursor scheduling, alpha-opacity stack home swap and branch delays remain.",
+        "current_score": 1814,
+        "reason": "Round 13: twelve packets as one-line arg0++ blocks (volatile opacity kept from the prior candidate; plain s32 2009): 3154 -> 1814. Remaining: D_800DD1B4 compare/store share a CSE'd address register where raw uses separate %lo accesses, shifting t-register numbering.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -62887,8 +62884,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 6213,
-        "reason": "Manual baseline plus two revisions. Corrected raw pre-store width snapshot and used source-local typed packets with mutable cursor, preserving all 17 command pairs and word-store order. Best valid CURRENT6213; frame40 vs98, invariant/register and cursor scheduling remain. Exhausted.",
+        "current_score": 92,
+        "reason": "Round 13: typed Game203340Command cursor (file prototype retyped; caller func_151D6778 deferred), faithful prologue blocks plus gDPLoadTextureTile/gSPTextureRectangle/gDPPipeSync expansions in nested 128x16 tile loops (for (x = 0, cols = 128; ...)): 6213 -> 92. Remaining: -g3 frame 0x90 vs 0x98 - raw homes put height third and rows fifth with two more function-level locals (two unused pads give 34 but are not accepted).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -62962,8 +62959,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4473,
-        "reason": "Bounded source-only group eight independently reproduced; hypotheses, helper/return-contract evidence and full differences retained in worker-group-8/report.json.",
+        "current_score": 225,
+        "reason": "Round 13: typed Game203340Command cursor, one-line E7/FF/ED/EF/D9 blocks (gDPSetColorImage and gDPSetScissor via _SHIFTL), D_800BE570 used directly (keeps the cached address register): 4473 -> 225. Remaining: flags lives in a3 instead of raw v1 + move a3,v1 (u8/s32/no-local forms 225-670, randomized permuter 180 s no exact).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -71771,8 +71768,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4678,
-        "reason": "Typed rendering candidate CURRENT 4678; initial 4755. Two finish attempts, one manual revision. Separate packet snapshots reduce score slightly but frame 0x108 differs from raw 0x100; stack layout, cursor increments, store scheduling and register allocation remain. Full matrix buffers, texture descriptor and vertex extents retained. No padding or dummy locals. Next hypothesis: original macro block scopes and descriptor lifetime, with each packet snapshot tied to actual cursor state.",
+        "current_score": 1399,
+        "reason": "Round 13: nine packets as one-line arg0++ blocks (vertex texcoord stores before the gSPVertex block): 4678 -> 1399. Remaining: -g3 frame 0x108 vs 0x100 (locals sit 8 bytes higher; inlining the s16 texcoord temps does not shrink it) and t-register numbering from the sp64 setup onward (raw allocates t0/t1 to the cursor copies first).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -77019,8 +77016,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4056,
-        "reason": "Preserve best renderer at CURRENT (4056). Real cross-call view offset restores the flag slot and frame (5473 to5081); typed eight-byte command cursor improves to4056. Fullword view formal retained; register allocation, reload and global-address scheduling differences remain.",
+        "current_score": 185,
+        "reason": "Round 13: typed Game13F9D0Command cursor, s16 arg2 (memory-resident like raw), one-line D9/DA blocks, named viewOffset shared by both tables, for (index = 0, offset = 0; ...) loop: 4056 -> 185. Remaining: offset zero-init scheduling and one t-register of numbering inside the draw loop (randomized permuter 180 s no exact).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

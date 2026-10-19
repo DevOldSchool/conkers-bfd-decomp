@@ -244,8 +244,9 @@ extern s32 D_800BE628;
 extern u16 D_800D18A2;
 extern u8 D_800D18A4[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507DB6C CURRENT (7590) */
-void *func_1507DB6C(register void *arg0, s32 arg1) {
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507DB6C CURRENT (5190) */
+GameA9D90Command *func_1507DB6C(GameA9D90Command *arg0, s32 arg1) {
     s32 texture;
     u8 level;
     u8 *levelByte;
@@ -255,82 +256,18 @@ void *func_1507DB6C(register void *arg0, s32 arg1) {
     s32 centerX, centerY;
     register s32 radius;
     s32 right, left, bottom, top;
-    s32 step;
 
-    {
-        GameA9D90Command *command0;
-
-        command0 = (GameA9D90Command *)arg0;
-        arg0 = (u8 *)arg0 + 8;
-        command0->first = 0xDE000000;
-        command0->second = (u32)D_80086B80;
-    }
+    { GameA9D90Command *command = arg0++; command->first = 0xDE000000; command->second = (u32)D_80086B80; }
     texture = func_1510D0EC((s32)&D_D0F, 0, 3, 0);
-    {
-        GameA9D90Command *command1;
-
-        command1 = (GameA9D90Command *)arg0;
-        arg0 = (u8 *)arg0 + 8;
-        command1->first = 0xFD180000;
-        command1->second = texture;
-    }
-    {
-        GameA9D90Command *command2;
-
-        command2 = (GameA9D90Command *)arg0;
-        arg0 = (u8 *)arg0 + 8;
-        command2->first = 0xF5180000;
-        command2->second = 0x07080200;
-    }
-    {
-        GameA9D90Command *command3;
-
-        command3 = (GameA9D90Command *)arg0;
-        arg0 = (u8 *)arg0 + 8;
-        command3->first = 0xE6000000;
-        command3->second = 0;
-    }
-    {
-        GameA9D90Command *command4;
-
-        command4 = (GameA9D90Command *)arg0;
-        arg0 = (u8 *)arg0 + 8;
-        command4->first = 0xF3000000;
-        command4->second = 0x073FF000;
-    }
-    {
-        GameA9D90Command *command5;
-
-        command5 = (GameA9D90Command *)arg0;
-        arg0 = (u8 *)arg0 + 8;
-        command5->first = 0xE7000000;
-        command5->second = 0;
-    }
-    {
-        GameA9D90Command *command6;
-
-        command6 = (GameA9D90Command *)arg0;
-        arg0 = (u8 *)arg0 + 8;
-        command6->first = 0xF5181000;
-        command6->second = 0x00080200;
-    }
-    {
-        GameA9D90Command *command7;
-
-        command7 = (GameA9D90Command *)arg0;
-        arg0 = (u8 *)arg0 + 8;
-        command7->first = 0xF2000000;
-        command7->second = 0x0007C07C;
-    }
-    {
-        GameA9D90Command *command8;
-
-        command8 = (GameA9D90Command *)arg0;
-        arg0 = (u8 *)arg0 + 8;
-        command8->first = 0xEF002C3F;
-        command8->second = 0x0F0A4004;
-    }
-    flagWord = &D_800D18A2;
+    { GameA9D90Command *command = arg0++; command->first = 0xFD180000; command->second = texture; }
+    { GameA9D90Command *command = arg0++; command->first = 0xF5180000; command->second = 0x07080200; }
+    { GameA9D90Command *command = arg0++; command->first = 0xE6000000; command->second = 0; }
+    { GameA9D90Command *command = arg0++; command->first = 0xF3000000; command->second = 0x073FF000; }
+    { GameA9D90Command *command = arg0++; command->first = 0xE7000000; command->second = 0; }
+    { GameA9D90Command *command = arg0++; command->first = 0xF5181000; command->second = 0x00080200; }
+    { GameA9D90Command *command = arg0++; command->first = 0xF2000000; command->second = 0x0007C07C; }
+    { GameA9D90Command *command = arg0++; command->first = 0xEF002C3F; command->second = 0x0F0A4004; }
+    flagWord = (u16 *)(u32)&D_800D18A2;
     flags = *flagWord;
     bit = 1U << arg1;
     if (flags & bit) {
@@ -359,29 +296,11 @@ draw:
     centerX = (s32)(*(f32 *)(viewport + 0x2C) + *(f32 *)(viewport + 0x30)) * 2;
     centerY = (s32)(*(f32 *)(viewport + 0x24) + *(f32 *)(viewport + 0x28)) * 2;
     radius = level + 4;
-    {
-        GameA9D90Command *command9;
-        GameA9D90Command *command10;
-        GameA9D90Command *command11;
-
-        command9 = (GameA9D90Command *)arg0;
-        arg0 = (u8 *)arg0 + 8;
-        command10 = (GameA9D90Command *)arg0;
-        arg0 = (u8 *)arg0 + 8;
-        left = centerX - radius;
-        right = centerX + radius;
-        top = centerY - radius;
-        bottom = centerY + radius;
-        command9->first = ((right & 0xFFF) << 12) | 0xE4000000 | (bottom & 0xFFF);
-        command9->second = ((left & 0xFFF) << 12) | (top & 0xFFF);
-        command10->first = 0xE1000000;
-        command10->second = 0;
-        step = (0x20000 / (right - left)) & 0xFFFF;
-        command11 = (GameA9D90Command *)arg0;
-        arg0 = (u8 *)arg0 + 8;
-        command11->first = 0xF1000000;
-        command11->second = (step << 16) | step;
-    }
+    left = centerX - radius;
+    right = centerX + radius;
+    top = centerY - radius;
+    bottom = centerY + radius;
+    { GameA9D90Command *command = arg0++; command->first = _SHIFTL(0xE4, 24, 8) | _SHIFTL(right, 12, 12) | _SHIFTL(bottom, 0, 12); command->second = _SHIFTL(0, 24, 3) | _SHIFTL(left, 12, 12) | _SHIFTL(top, 0, 12); } { GameA9D90Command *command = arg0++; command->first = _SHIFTL(0xE1, 24, 8); command->second = _SHIFTL(0, 16, 16) | _SHIFTL(0, 0, 16); } { GameA9D90Command *command = arg0++; command->first = _SHIFTL(0xF1, 24, 8); command->second = _SHIFTL(0x20000 / (right - left), 16, 16) | _SHIFTL(0x20000 / (right - left), 0, 16); }
     return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507DB6C */

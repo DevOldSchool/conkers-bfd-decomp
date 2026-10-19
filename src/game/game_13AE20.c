@@ -89,7 +89,7 @@ extern u8 D_800BE9C0;
 extern s32 D_800DD1B4;
 extern s16 D_800DD1C6;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510E120 CURRENT (3154) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510E120 CURRENT (1814) */
 Game13AE20Command *func_1510E120(Game13AE20Command *arg0, Game13AE20RenderState *arg1, s32 arg2) {
     volatile s32 opacity;
     s32 alpha;
@@ -98,34 +98,21 @@ Game13AE20Command *func_1510E120(Game13AE20Command *arg0, Game13AE20RenderState 
     u8 mode;
     u8 texture;
     u8 *source;
-    Game13AE20Command *command0, *command1, *command2, *command3, *command4, *command5, *command6, *command7, *command8, *command9, *command10, *command11;
 
     if (arg1->visible != 0) {
         func_150A7D00((volatile s64 *)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x10),
                       arg1->x, arg1->z, arg1->y);
-        command0 = arg0++;
-        command0->first = 0xDA380003;
-        command0->second = (u32)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x10);
+        { Game13AE20Command *command = arg0++; command->first = 0xDA380003; command->second = (u32)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x10); }
         texture = arg1->texture;
         if (D_800DD1B4 != texture) {
             D_800DD1B4 = texture;
             address = func_1510D0EC(D_80091770[arg1->texture], 0, 0x3E, 0);
-            command1 = arg0++;
-            command1->first = 0xE7000000;
-            command1->second = 0;
-            command2 = arg0++;
-            command2->first = 0xFD900000;
-            command2->second = address;
-            command3 = arg0++;
-            command3->first = 0xF3000000;
-            command3->second = 0x077FF000;
+            { Game13AE20Command *command = arg0++; command->first = 0xE7000000; command->second = 0; }
+            { Game13AE20Command *command = arg0++; command->first = 0xFD900000; command->second = address; }
+            { Game13AE20Command *command = arg0++; command->first = 0xF3000000; command->second = 0x077FF000; }
         }
-        command4 = arg0++;
-        command4->first = 0xE7000000;
-        command4->second = 0;
-        command5 = arg0++;
-        command5->first = 0xD9FFF9FF;
-        command5->second = 0;
+        { Game13AE20Command *command = arg0++; command->first = 0xE7000000; command->second = 0; }
+        { Game13AE20Command *command = arg0++; command->first = 0xD9FFF9FF; command->second = 0; }
         mode = arg1->mode;
         alpha = arg1->alpha;
         switch (mode) {
@@ -140,25 +127,13 @@ Game13AE20Command *func_1510E120(Game13AE20Command *arg0, Game13AE20RenderState 
         combined = (s32)((u32)alpha * (u32)opacity + 0xFFU) >> 8;
         if (combined != D_800DD1C6) {
             D_800DD1C6 = combined;
-            command6 = arg0++;
-            command6->first = 0xE7000000;
-            command6->second = 0;
-            command7 = arg0++;
-            command7->second = combined & 0xFF;
-            command7->first = 0xFA000100;
+            { Game13AE20Command *command = arg0++; command->first = 0xE7000000; command->second = 0; }
+            { Game13AE20Command *command = arg0++; command->first = 0xFA000100; command->second = combined & 0xFF; }
         }
-        command8 = arg0++;
-        command8->first = 0x01004008;
-        command8->second = (u32)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x90);
-        command9 = arg0++;
-        command9->first = 0x05000204;
-        command9->second = 0;
-        command10 = arg0++;
-        command10->first = 0x05000406;
-        command10->second = 0;
-        command11 = arg0++;
-        command11->first = 0xE7000000;
-        command11->second = 0;
+        { Game13AE20Command *command = arg0++; command->first = 0x01004008; command->second = (u32)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x90); }
+        { Game13AE20Command *command = arg0++; command->first = 0x05000204; command->second = 0; }
+        { Game13AE20Command *command = arg0++; command->first = 0x05000406; command->second = 0; }
+        { Game13AE20Command *command = arg0++; command->first = 0xE7000000; command->second = 0; }
     }
     return arg0;
 }

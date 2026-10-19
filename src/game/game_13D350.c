@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1510FEA0
- * - func_151106A8
  * - func_151108C4
  * - func_15110CFC
  * - func_15111858
@@ -116,57 +115,25 @@ extern s32 D_800BE624;
 extern s32 D_800BE9C4;
 extern u8 D_800BEAC2;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151106A8 CURRENT (4062) */
-void *func_151106A8(void *arg0) {
-    s32 temp_t5;
-    s32 temp_t7;
-    u8 *temp_a0;
-    u8 *temp_a0_2;
-    u8 *temp_a0_3;
-    u8 *temp_a0_4;
-    u8 *temp_v0;
-    u8 *temp_v0_2;
-    u8 *temp_v0_3;
-
-    temp_v0 = arg0;
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+Game13D350Command *func_151106A8(Game13D350Command *arg0) {
     if (D_80082FA4 == 0) {
-        arg0 = (u8 *)arg0 + 8;
-        *(s32 *)temp_v0 = 0xE7000000;
-        *(s32 *)(temp_v0 + 4) = 0;
-        temp_a0 = arg0;
-        *(s32 *)(temp_a0 + 4) = 4;
-        *(s32 *)temp_a0 = 0xEF302C0F;
-        arg0 = (u8 *)arg0 + 8;
-        temp_a0_2 = arg0;
-        *(s32 *)temp_a0_2 = 0xFCFFFFFF;
-        *(s32 *)(temp_a0_2 + 4) = 0xFFFE793C;
-        arg0 = (u8 *)arg0 + 8;
-        temp_a0_3 = arg0;
-        *(s32 *)temp_a0_3 = ((D_800BE620 - 1) & 0xFFF) | 0xFF100000;
-        arg0 = (u8 *)arg0 + 8;
-        temp_a0_4 = arg0;
-        *(s32 *)(temp_a0_3 + 4) = D_800BE9C4;
-        *(s32 *)temp_a0_4 = 0xF7000000;
-        *(s32 *)(temp_a0_4 + 4) = 0xFFFCFFFC;
-        arg0 = (u8 *)arg0 + 8;
-        temp_v0 = func_1501A490(arg0, 0xFF, 0, 0, 0, 0);
-        *(s32 *)((u8 *)temp_v0 + 4) = 0x8000;
-        *(s32 *)((u8 *)temp_v0 + 0) = (s32) ((((D_800BE620 - 2) & 0x3FF) << 0xE) | 0xF6000000 | ((D_800BE624 & 0x3FF) * 4));
-        *(s32 *)((u8 *)temp_v0 + 8) = 0xE7000000;
-        *(s32 *)((u8 *)temp_v0 + 0xC) = 0;
-        temp_v0_2 = (void *)(func_1501A680(temp_v0 + 0x10));
-        arg0 = temp_v0_2;
+        { Game13D350Command *command = arg0++; command->w0 = _SHIFTL(0xE7, 24, 8); command->w1 = 0; }
+        { Game13D350Command *command = arg0++; command->w0 = 0xEF302C0F; command->w1 = 4; }
+        { Game13D350Command *command = arg0++; command->w0 = 0xFCFFFFFF; command->w1 = 0xFFFE793C; }
+        { Game13D350Command *command = arg0++; command->w0 = _SHIFTL(0xFF, 24, 8) | _SHIFTL(0, 21, 3) | _SHIFTL(2, 19, 2) | _SHIFTL(D_800BE620 - 1, 0, 12); command->w1 = D_800BE9C4; }
+        { Game13D350Command *command = arg0++; command->w0 = 0xF7000000; command->w1 = 0xFFFCFFFC; }
+        arg0 = func_1501A490(arg0, 0xFF, 0, 0, 0, 0);
+        { Game13D350Command *command = arg0++; command->w0 = _SHIFTL(0xF6, 24, 8) | _SHIFTL(D_800BE620 - 2, 14, 10) | _SHIFTL(D_800BE624, 2, 10); command->w1 = _SHIFTL(2, 14, 10) | _SHIFTL(0, 2, 10); }
+        { Game13D350Command *command = arg0++; command->w0 = _SHIFTL(0xE7, 24, 8); command->w1 = 0; }
+        arg0 = func_1501A680(arg0);
         if (D_80082FA0 != 0) {
-            *(s32 *)((u8 *)temp_v0_2 + 0) = 0xE7000000;
-            *(s32 *)((u8 *)temp_v0_2 + 4) = 0;
-            temp_v0_3 = (void *)(func_1501A490((u8 *)arg0 + 8, 0xFF, 0, 0, 0, 0));
-            *(s32 *)((u8 *)temp_v0_3 + 0) = 0xF7000000;
-            *(s32 *)((u8 *)temp_v0_3 + 4) = 0x10001;
-            temp_t5 = (s32) D_800BE624 >> 1;
-            arg0 = (void *)(func_1501A6CC(temp_v0_3 + 8, 0, temp_t5 - 6, D_800BE620, temp_t5 + 6));
+            { Game13D350Command *command = arg0++; command->w0 = _SHIFTL(0xE7, 24, 8); command->w1 = 0; }
+            arg0 = func_1501A490(arg0, 0xFF, 0, 0, 0, 0);
+            { Game13D350Command *command = arg0++; command->w0 = 0xF7000000; command->w1 = 0x10001; }
+            arg0 = func_1501A6CC(arg0, 0, (D_800BE624 >> 1) - 6, D_800BE620, (D_800BE624 >> 1) + 6);
             if (D_80082FA0 != 1) {
-                temp_t7 = (s32) D_800BE620 >> 1;
-                arg0 = (void *)(func_1501A6CC(arg0, temp_t7 - 1, 0, temp_t7 + 1, D_800BE624));
+                arg0 = func_1501A6CC(arg0, (D_800BE620 >> 1) - 1, 0, (D_800BE620 >> 1) + 1, D_800BE624);
             }
             if (D_800BEAC2 != 0) {
                 arg0 = func_1501A6CC(arg0, 0, 0, D_800BE620, D_800BE624);
@@ -175,8 +142,6 @@ void *func_151106A8(void *arg0) {
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151106A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_151106A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_151108C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_15110CFC.s")
 typedef struct {

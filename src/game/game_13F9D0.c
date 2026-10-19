@@ -232,8 +232,8 @@ typedef struct Game13F9D0Command {
     u32 word1;
 } Game13F9D0Command;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151135C4 CURRENT (4056) */
-void *func_151135C4(Game13F9D0Command *arg0, s32 arg1, s32 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151135C4 CURRENT (185) */
+Game13F9D0Command *func_151135C4(Game13F9D0Command *arg0, s32 arg1, s16 arg2) {
     s32 viewOffset;
     s32 flags;
     s32 index;
@@ -241,46 +241,26 @@ void *func_151135C4(Game13F9D0Command *arg0, s32 arg1, s32 arg2) {
     u16 *count;
     u8 ***table;
     Game13F9D0DrawEntry *entry;
-    Game13F9D0Command *command;
 
     if (arg1 == 0) {
         flags = 0;
     } else {
         flags = 0x10;
     }
-    command = func_151733D8(arg0, 0);
-    command[0].word0 = 0xD9A3FFFF;
-    command[0].word1 = 0;
-    command[1].word1 = 0x20000;
-    command[1].word0 = 0xD9FFFFFF;
-    viewOffset = (s16)arg2 * 4;
-    arg0 = (Game13F9D0Command *)func_1515E544((s32)(command + 2),
-                          *(s32 *)((u8 *)D_800D9E10 + viewOffset),
-                          D_800D9E20, D_800D9E21,
-                          D_800D9BD0 + (s16)arg2 * 0x10 + D_800BE9C0 * 8);
-    count = &D_800DBEE8[(s16)arg2];
-    index = 0;
-    if (*count > 0) {
-        table = (u8 ***)((u8 *)&D_80089240 + viewOffset);
-        offset = 0;
-        do {
-            entry = (Game13F9D0DrawEntry *)(**table + offset);
-            arg0 = (Game13F9D0Command *)func_151137D4((s32)arg0, (void *)(entry->index * 0xA0 + D_800DBEF4),
-                                  (s32)(*D_80089250[D_800BE9C0] + (entry->index << 6)),
-                                  (s16)arg2, entry->value, flags);
-            index++;
-            offset += 4;
-        } while (index < *count);
+    arg0 = func_151733D8(arg0, 0);
+    { Game13F9D0Command *command = arg0++; command->word0 = 0xD9A3FFFF; command->word1 = 0; }
+    { Game13F9D0Command *command = arg0++; command->word0 = 0xD9FFFFFF; command->word1 = 0x20000; }
+    viewOffset = arg2 * 4;
+    arg0 = (Game13F9D0Command *)func_1515E544((s32)arg0, *(s32 *)((u8 *)D_800D9E10 + viewOffset), D_800D9E20, D_800D9E21, D_800D9BD0 + arg2 * 0x10 + D_800BE9C0 * 8);
+    count = &D_800DBEE8[arg2];
+    table = (u8 ***)((u8 *)&D_80089240 + viewOffset);
+    for (index = 0, offset = 0; index < *count; index++, offset += 4) {
+        entry = (Game13F9D0DrawEntry *)(**table + offset);
+        arg0 = (Game13F9D0Command *)func_151137D4((s32)arg0, entry->index * 0xA0 + D_800DBEF4, (s32)(*D_80089250[D_800BE9C0] + (entry->index << 6)), arg2, entry->value, flags);
     }
-    command = arg0++;
-    command->word0 = 0xDA380003;
-    command->word1 = (u32)&D_80089470;
-    command = arg0++;
-    command->word0 = 0xD9AFFDFF;
-    command->word1 = 0;
-    command = arg0++;
-    command->word1 = 0x20000;
-    command->word0 = 0xD9FFFFFF;
+    { Game13F9D0Command *command = arg0++; command->word0 = 0xDA380003; command->word1 = (u32)&D_80089470; }
+    { Game13F9D0Command *command = arg0++; command->word0 = 0xD9AFFDFF; command->word1 = 0; }
+    { Game13F9D0Command *command = arg0++; command->word0 = 0xD9FFFFFF; command->word1 = 0x20000; }
     return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151135C4 */
