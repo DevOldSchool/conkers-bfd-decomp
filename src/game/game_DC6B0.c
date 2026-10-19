@@ -9,7 +9,6 @@
  * - func_150AF328
  * - func_150AF7C4
  * - func_150AFDB0
- * - func_150AFE64
  * - func_150B0094
  * - func_150B0348
  *
@@ -257,7 +256,6 @@ void func_150E1AB0(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, s32, s
 void func_150E2DB4(s32, u8, s16, s32, f32, f32, f32, f32, f32, f32, s16, s16, u16, u8);
 extern void *D_800D154C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AFE64 CURRENT (16) */
 void func_150AFE64(s32 arg0) {
     f32 near_x;
     f32 near_y;
@@ -266,7 +264,8 @@ void func_150AFE64(s32 arg0) {
     f32 far_y;
     f32 far_z;
     s32 index;
-    void *matrix;
+    /* Keep the matrix snapshot in its local home across the transform call. */
+    void *matrix[1];
     u8 *matrices;
 
     matrices = *(u8 **)((u8 *)D_800D154C + 0x1D4);
@@ -276,15 +275,15 @@ void func_150AFE64(s32 arg0) {
         } else {
             index = 2;
         }
-        matrix = (void *)((u32)matrices + ((u32)index << 6));
+        matrix[0] = (void *)((u32)matrices + ((u32)index << 6));
         near_x = 0.0f;
         near_y = 0.0f;
         near_z = -20.0f;
-        func_150A7960(matrix, 0.0f, 0.0f, -20.0f, &near_x, &near_y, &near_z);
+        func_150A7960(matrix[0], 0.0f, 0.0f, -20.0f, &near_x, &near_y, &near_z);
         far_x = 0.0f;
         far_y = 0.0f;
         far_z = -150.0f;
-        func_150A7960(matrix, 0.0f, 0.0f, -150.0f, &far_x, &far_y, &far_z);
+        func_150A7960(matrix[0], 0.0f, 0.0f, -150.0f, &far_x, &far_y, &far_z);
         func_150E1AB0(0, near_x, near_y, near_z, far_x, far_y, far_z,
                      40.0f, 0.0f, 2.0f, 120.0f, 60, 35,
                      0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -295,8 +294,6 @@ void func_150AFE64(s32 arg0) {
                      0.0f, 0.0f, -150.0f, 3, 255, 4, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150AFE64 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AFE64.s")
 void func_15179008(s32);
 void func_150AF200(s32, s32);
 extern s32 D_800BE9F0;

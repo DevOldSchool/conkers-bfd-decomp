@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/effects/effects_light.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151604A0
  * - func_15160B74
  * - func_15160E30
  * - func_15161A68
@@ -109,11 +108,10 @@ void func_151603FC(void *arg0) {
 extern void (*D_8008B150[])(void *);
 void func_151618BC(u16, s16, u8, s32, void *, s16, s16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151604A0 CURRENT (17) */
 void func_151604A0(void *arg0, u8 *arg1, u8 arg2) {
     u8 *object = arg0;
-    struct { f32 x, y, z; } position;
     void (*callback)(void *);
+    Vec3f position;
 
     switch (arg2) {
     case 0x17:
@@ -156,8 +154,6 @@ void func_151604A0(void *arg0, u8 *arg1, u8 arg2) {
         break;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151604A0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151604A0.s")
 extern u8 D_800A6690;
 extern u8 D_800A6698;
 

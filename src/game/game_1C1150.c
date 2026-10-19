@@ -87,7 +87,7 @@ typedef struct Game194408Packet {
     s32 field48;
 } Game194408Packet;
 
-void func_1504715C(void *, s32);
+void func_1504715C(void *, void *);
 void func_15153F18(s16 *, void *, s32, s32, s32);
 void *func_151AE7B0(void *, f32, s16, u8, s32);
 extern f32 D_800A8294;
@@ -248,7 +248,7 @@ typedef struct {
 extern f32 D_800A82E4;
 extern f32 D_800A82E8;
 extern f32 D_800A82EC;
-void func_151D8868(Game1C1150EventPacket *, s32, s32, s32);
+void *func_151D8868(Game1C1150EventPacket *, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15194810 CURRENT (120) */
 void func_15194810(s32 arg0, Game1C1150Event *arg1, s32 arg2) {
@@ -271,7 +271,7 @@ spawn:
     position.x = *(f32 *)((u8 *)arg1 + 0x14);
     position.y = *(f32 *)((u8 *)arg1 + 0x18) + 95.0f;
     position.z = *(f32 *)((u8 *)arg1 + 0x1C);
-    func_1504715C(scratch, (s32)arg1);
+    func_1504715C(scratch, arg1);
     *(Vec3f *)packet.position = position;
     packet.field2C = 0xF;
     packet.field2E = 0xA;
@@ -480,7 +480,7 @@ void func_15194DC8(s32 arg0, s32 arg1, s32 arg2) {
     } else {
         func_1518D1C0((Game1C1150Event *)arg1, 0xB, 0, 1, 0xFF, 1, &D_800A8244);
     }
-    func_1504715C(sp2C, arg1);
+    func_1504715C(sp2C, (void *)arg1);
     func_1514B364((f32 *)((u8 *)arg1 + 0x14), sp2C, 0xFF, 1);
 }
 typedef struct {
@@ -683,7 +683,7 @@ void func_15195698(void *arg0, u8 *arg1, s32 arg2) {
 }
 
 
-void func_151D8868(Game1C1150EventPacket *, s32, s32, s32);
+void *func_151D8868(Game1C1150EventPacket *, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15195738 CURRENT (100) */
 void func_15195738(s32 arg0, s32 arg1, s32 arg2) {

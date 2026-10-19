@@ -267,3 +267,121 @@ class ScheduledBooleanGuardTests(unittest.TestCase):
             self.assertEqual(direct_target(branch | 0xFFFF, 0x15000040), 0x15000040)
             self.assertEqual(direct_target(branch | 2, 0x15000040), 0x1500004C)
         self.assertIsNone(direct_target(0x2F210036, 0x15000000))
+
+
+class HoistedLightDispatchTests(unittest.TestCase):
+    # func_151604A0's nested dispatch: sltiu; sll; bnel; lw delay;
+    # beqz; lui delay; addu; lw; jr; nop. Cases follow the dispatch.
+    words = [0x2C410002, 0x00024080, 0x57190008, 0x8FBF002C,
+             0x10200006, 0x3C018009, 0x00280821, 0x8C280000,
+             0x01000008, 0, 0, 0, 0]
+
+    def verify(self, words=None, targets=None, load=7):
+        words = self.words.copy() if words is None else words
+        start = 0x15000000
+        raw = ''.join(f'/* {i*4:06X} {start+i*4:08X} {word:08X} */ '
+                      + ('lw $t0,%lo(jtbl_80090000)($at)' if i == load else 'instruction')
+                      + '\n' for i, word in enumerate(words))
+        code = b''.join(word.to_bytes(4, 'big') for word in words)
+        data = struct.pack('>II', *(targets or (start + 40, start + 44)))
+        return reference_tables(raw, code, data, start, 0x80090000)
+
+    def reject(self, words, **kwargs):
+        with self.assertRaises(TableEvidenceError):
+            self.verify(words, **kwargs)
+
+    def test_hoisted_index_with_ordinary_and_likely_exit(self):
+        for opcode in (5, 21):
+            words = self.words.copy()
+            words[2] = (words[2] & 0x03FFFFFF) | opcode << 26
+            self.assertEqual(self.verify(words),
+                             (0x15000000, [Table(20, 28, (0x15000028, 0x1500002C))]))
+
+    def test_guard_shift_and_address_chain_must_agree(self):
+        for position, bad in ((0, 0x2C610002), (0, 0x2C480002), (0, 0x2C410000),
+                              (0, 0x2C410401), (1, 0x00034080), (1, 0x00024040),
+                              (1, 0x00020880), (4, 0x14200006), (4, 0x10400006),
+                              (5, 0x3C088009), (6, 0x00290821), (7, 0x8C480000),
+                              (8, 0x01200008), (9, 0x03E00008)):
+            with self.subTest(position=position, bad=hex(bad)):
+                words = self.words.copy()
+                words[position] = bad
+                self.reject(words)
+
+    def test_exit_cannot_call_jump_or_enter_dispatch(self):
+        for opcode in (2, 3, 4, 20):
+            words = self.words.copy()
+            words[2] = (words[2] & 0x03FFFFFF) | opcode << 26
+            self.reject(words)
+        for position in (2, 4):
+            for target in range(10):
+                words = self.words.copy()
+                words[position] = (words[position] & 0xFFFF0000) | ((target - position - 1) & 0xFFFF)
+                self.reject(words)
+            words[position] = (words[position] & 0xFFFF0000) | 0x7FFF
+            self.reject(words)
+
+    def test_exit_delay_cannot_clobber_index_shift_or_guard(self):
+        for register in (1, 2, 8):
+            for opcode in (0x23, 0x0B, 0x0E):
+                words = self.words.copy()
+                words[3] = opcode << 26 | 29 << 21 | register << 16 | 44
+                self.reject(words)
+            words = self.words.copy()
+            words[3] = 6 << 21 | register << 11 | 0x25
+            self.reject(words)
+        for transfer in (0x03E00008, 0x10000001, 0x0C000000):
+            words = self.words.copy()
+            words[3] = transfer
+            self.reject(words)
+
+    def test_direct_and_table_entries_cannot_bypass_guard(self):
+        for target in range(1, 10):
+            address = 0x15000000 + target * 4
+            self.reject(self.words + [0x08000000 | ((address >> 2) & 0x03FFFFFF), 0])
+            self.reject(self.words, targets=(address, 0x15000028))
+        for target in (0, 10):
+            address = 0x15000000 + target * 4
+            self.verify(self.words + [0x08000000 | ((address >> 2) & 0x03FFFFFF), 0])
+        self.reject([0x08000000] + self.words, load=8)
+
+    def test_independent_move_in_normal_guard_delay(self):
+        # Outer light dispatch: sltiu at,t7; beqz; move v0,a2; sll t7.
+        words = [0x2DE10002, 0x10200008, 0x00C01025, 0x000F7880,
+                 0x3C018009, 0x002F0821, 0x8C2F0000, 0x01E00008, 0, 0, 0, 0]
+        self.assertEqual(self.verify(words, load=6)[1],
+                         [Table(16, 24, (0x15000028, 0x1500002C))])
+        for register in (1, 15):
+            bad = words.copy()
+            bad[2] = 6 << 21 | register << 11 | 0x25
+            self.reject(bad, load=6)
+        for target in range(1, 9):
+            address = 0x15000000 + target * 4
+            self.reject(words + [0x08000000 | ((address >> 2) & 0x03FFFFFF), 0], load=6)
+
+    def test_actual_nested_light_dispatch_offsets_and_table_counts(self):
+        # Inline dispatch words survive clean builds, which remove matched
+        # nonmatching assembly. Case bodies here are synthetic nops.
+        words = [
+            0x27BDFFB8, 0xAFB00028, 0xAFA60050, 0x30CE00FF, 0x01C03025,
+            0x00808025, 0xAFBF002C, 0x24CFFFE9, 0x2DE1000C, 0x10200040,
+            0x00C01025, 0x000F7880, 0x3C01800A, 0x002F0821, 0x8C2F6A18,
+            0x01E00008, 0x00000000, 0x90B80000, 0x92190012, 0x2C410023,
+            0x00024080, 0x5719003E, 0x8FBF002C, 0x1020003B, 0x3C01800A,
+            0x00280821, 0x8C286A48, 0x01000008, 0x00000000,
+        ] + [0] * (88 - 29)
+        symbols = {14: 'jtbl_800A6A18_game', 26: 'jtbl_800A6A48_game'}
+        raw = ''.join(f'/* {i*4:06X} {0x151604A0+i*4:08X} {word:08X} */ '
+                      + (f'lw $t0,%lo({symbols[i]})($at)' if i in symbols else 'instruction')
+                      + '\n' for i, word in enumerate(words))
+        code = b''.join(word.to_bytes(4, 'big') for word in words)
+        # Synthetic table payload makes this a ROM-independent shape test;
+        # finish separately checks real checksum-validated ROM bytes/targets.
+        data = struct.pack('>47I', *([0x151604E4] * 12 + [0x15160514] * 35))
+        self.assertEqual(reference_tables(raw, code, data, 0x151604A0, 0x800A6A18),
+                         (0x151604A0, [Table(0x30, 0x38, (0x151604E4,) * 12),
+                                       Table(0x60, 0x68, (0x15160514,) * 35)]))
+        # The outer table must not jump into the nested dispatch after its guard.
+        with self.assertRaisesRegex(TableEvidenceError, 'bypasses switch bound'):
+            reference_tables(raw, code, struct.pack('>I', 0x151604F0) + data[4:],
+                             0x151604A0, 0x800A6A18)
