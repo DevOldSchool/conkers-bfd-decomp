@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_render_effect_lifecycles.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15094F40
  * - func_150950D4
  * - func_1509563C
  * - func_15095760
@@ -13,7 +12,6 @@
  * - func_15095B08
  * - func_15095D34
  * - func_1509629C
- * - func_15096934
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -36,18 +34,16 @@ void func_15094EA0(s32 arg0) {
 extern s32 D_800873D0;
 extern s32 D_800D2CA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15094F40 CURRENT (690) */
-void *func_15094F40(void *arg0) {
-    void *temp_v1 = arg0;
+typedef struct GameC2350Command {
+    u32 w0;
+    u32 w1;
+} GameC2350Command;
 
-    *(s32 *)temp_v1 = 0xDE000000;
-    *(void **)((u8 *)temp_v1 + 4) = &D_800873D0;
-    arg0 = (u8 *)arg0 + 8;
+GameC2350Command *func_15094F40(GameC2350Command *arg0) {
+    { GameC2350Command *command = arg0++; command->w0 = 0xDE000000; command->w1 = (u32)&D_800873D0; }
     D_800D2CA0 = 0;
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15094F40 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_15094F40.s")
 struct GameC2350Input;
 struct GameC2350Output;
 struct GameC2350Owner;
@@ -288,16 +284,8 @@ void func_15095D0C(s32 arg0, void *arg1) {
 extern s32 D_80087408;
 extern s8 D_800D2DAB;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15096934 CURRENT (620) */
-void *func_15096934(u8 *arg0) {
-    register void *temp_v1;
-
-    temp_v1 = arg0;
-    *(s32 *)temp_v1 = 0xDE000000;
-    *(void **)((u8 *)temp_v1 + 4) = &D_80087408;
+GameC2350Command *func_15096934(GameC2350Command *arg0) {
+    { GameC2350Command *command = arg0++; command->w0 = 0xDE000000; command->w1 = (u32)&D_80087408; }
     D_800D2DAB = 0;
-    arg0 = (u8 *)arg0 + 8;
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15096934 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_15096934.s")

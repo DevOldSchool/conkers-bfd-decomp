@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150CF5E8
  * - func_150CF680
  * - func_150CF800
  *
@@ -43,19 +42,16 @@ void func_150CF578(s32 arg0) {
 }
 extern s32 D_8008889C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CF5E8 CURRENT (975) */
-void *func_150CF5E8(u8 *arg0) {
-    u8 *temp_a0;
+typedef struct GameFC9E0Command {
+    u32 w0;
+    u32 w1;
+} GameFC9E0Command;
 
-    *(s32 *)((u8 *)arg0 + 0) = (s32) (((((s32) D_80088890 >> 7) & 0xFFF) << 0xC) | 0xF2000000 | (((s32) D_80088894 >> 7) & 0xFFF));
-    *(s32 *)((u8 *)arg0 + 4) = 0x47E47E;
-    temp_a0 = (void *)(arg0 + 8);
-    *(s32 *)((u8 *)arg0 + 8) = (s32) (((((s32) D_80088898 >> 7) & 0xFFF) << 0xC) | 0xF2000000 | (((s32) D_8008889C >> 7) & 0xFFF));
-    *(s32 *)((u8 *)temp_a0 + 4) = 0x0147E47E;
-    return temp_a0 + 8;
+GameFC9E0Command *func_150CF5E8(GameFC9E0Command *arg0) {
+    { GameFC9E0Command *command = arg0++; command->w0 = 0xF2000000 | (((D_80088890 >> 7) & 0xFFF) << 12) | ((D_80088894 >> 7) & 0xFFF); command->w1 = 0x47E47E; }
+    { GameFC9E0Command *command = arg0++; command->w0 = 0xF2000000 | (((D_80088898 >> 7) & 0xFFF) << 12) | ((D_8008889C >> 7) & 0xFFF); command->w1 = 0x0147E47E; }
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150CF5E8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FC9E0/func_150CF5E8.s")
 void *func_10022EC0(void *, const void *, u32);
 void *func_1515548C(f32 *, s32, s32, s32, s32, s32, s32);
 extern s32 D_80082FA0;
