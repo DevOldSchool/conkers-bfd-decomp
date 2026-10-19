@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_render_effect_lifecycles.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151571C4
  * - func_151572D0
  * - func_15157420
  * - func_15157918
@@ -80,35 +79,21 @@ s32 func_15157010(s32 arg0, s32 arg1, f32 arg2, s32 arg3, s32 arg4, s32 arg5, s3
     }
     return (s32) temp_v0;
 }
-void func_100043B4(s32, s32);
+void func_100043B4(void *, s32);
 extern s32 D_80082FA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151571C4 CURRENT (890) */
 void func_151571C4(void *arg0) {
-    s32 temp_v0;
-    s32 temp_v0_2;
-    void *var_s0;
-    s32 var_s1;
+    s32 i;
 
-    var_s1 = 0;
-    var_s0 = arg0;
-    if (D_80082FA0 >= 0) {
-        do {
-            temp_v0 = *(s32 *)((u8 *)var_s0 + 0x104);
-            if (temp_v0 != 0) {
-                func_100043B4(temp_v0, 4);
-            }
-            var_s1 += 1;
-            var_s0 = (u8 *)var_s0 + 4;
-        } while (D_80082FA0 >= var_s1);
+    for (i = 0; i <= D_80082FA0; i++) {
+        if (((s32 *)((u8 *)arg0 + 0x104))[i] != 0) {
+            func_100043B4((void *)((s32 *)((u8 *)arg0 + 0x104))[i], 4);
+        }
     }
-    temp_v0_2 = *(s32 *)((u8 *)arg0 + 0x114);
-    if (temp_v0_2 != 0) {
-        func_100043B4(temp_v0_2, 4);
+    if (*(s32 *)((u8 *)arg0 + 0x114) != 0) {
+        func_100043B4((void *)*(s32 *)((u8 *)arg0 + 0x114), 4);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151571C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_151571C4.s")
 extern void func_151571C4(void *arg0);
 extern void func_1518CA04(s32 arg0);
 

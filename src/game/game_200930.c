@@ -22,7 +22,6 @@
  * - func_151D5A18
  * - func_151D5B6C
  * - func_151D5D60
- * - func_151D5E30
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -31,7 +30,7 @@ typedef struct Game200930ResourceSlots {
     s32 entries[4];
 } Game200930ResourceSlots;
 
-void func_100043B4(s32, s32);
+void func_100043B4(void *, s32);
 
 u16 func_10010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
@@ -1445,19 +1444,12 @@ void func_151D5D60(void **arg0, s16 arg1, s32 arg2, void **arg3, u8 *arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D5D60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5D60.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5E30 CURRENT (405) */
 void func_151D5E30(Game200930ResourceSlots *arg0) {
-    register s32 resource;
-    s32 index;
+    u8 i;
 
-    index = 0;
-    do {
-        resource = arg0->entries[index];
-        if (resource != 0) {
-            func_100043B4(resource, 3);
+    for (i = 0; i < 4; i++) {
+        if (arg0->entries[i] != 0) {
+            func_100043B4((void *)arg0->entries[i], 3);
         }
-        index = (index + 1) & 0xFF;
-    } while (index < 4);
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D5E30 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5E30.s")

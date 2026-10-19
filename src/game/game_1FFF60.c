@@ -6,8 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151D2DCC
- * - func_151D2E14
  * - func_151D2F90
  * - func_151D3130
  *
@@ -136,33 +134,25 @@ void func_151D2DAC(void *arg0) {
     func_151D3354(arg0);
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D2DCC CURRENT (520) */
 void func_151D2DCC(void *arg0) {
-    s32 handle;
+    u8 *obj = arg0;
 
-    func_151D2DAC(arg0);
-    handle = *(s32 *)((u8 *)arg0 + 0x2C);
-    if (handle != 0) {
-        func_1516972C(handle);
+    func_151D2DAC(obj);
+    if (*(s32 *)(obj + 0x2C) != 0) {
+        func_1516972C((void *)*(s32 *)(obj + 0x2C));
     }
-    func_15169804(arg0);
+    func_15169804(obj);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D2DCC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2DCC.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D2E14 CURRENT (520) */
 void func_151D2E14(void *arg0) {
-    s32 handle;
+    u8 *obj = arg0;
 
-    func_151D2DAC(arg0);
-    handle = *(s32 *)((u8 *)arg0 + 0x2C);
-    if (handle != 0) {
-        func_1516979C(handle);
+    func_151D2DAC(obj);
+    if (*(s32 *)(obj + 0x2C) != 0) {
+        func_1516979C((void *)*(s32 *)(obj + 0x2C));
     }
-    func_15169824(arg0);
+    func_15169824(obj);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D2E14 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2E14.s")
 void func_151D2E5C(void *arg0, void *arg1, u8 arg2) {
     s32 temp_v0;
     s32 temp_v1;
