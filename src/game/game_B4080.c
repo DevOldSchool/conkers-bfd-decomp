@@ -11,9 +11,6 @@
  * - func_150870D0
  * - func_15087350
  * - func_15087CC0
- * - func_150881CC
- * - func_15088270
- * - func_150882B0
  * - func_150883B0
  * - func_1508855C
  * - func_150885EC
@@ -496,18 +493,15 @@ s32 func_150880F8(s32 arg0, s32 arg1) {
 }
 extern s32 D_800872A0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150881CC CURRENT (110) */
 s32 func_150881CC(u8 *arg0) {
-    s32 temp_v1;
+    f32 *entry;
 
-    temp_v1 = D_800872A0;
-    if (temp_v1 == 0) {
+    if (D_800872A0 == 0) {
         return 0;
     }
-    return (s32) (*(f32 *)((u8 *)temp_v1 + ((s32) arg0 * 0x84)) * 256.0f);
+    entry = (f32 *)(((s32) arg0 * 0x84) + D_800872A0);
+    return (s32) (*entry * 256.0f);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150881CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_150881CC.s")
 extern s32 D_800872A0;
 
 s32 func_15088218(s32 arg0) {
@@ -524,32 +518,24 @@ s32 func_15088218(s32 arg0) {
     temp_v0 += (s32) (*(f32 *)((u8 *)temp_a0 + 8) * 16.0f);
     return temp_v0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15088270 CURRENT (195) */
 s32 func_15088270(s32 arg0) {
-    s32 base = D_800872A0;
-    s32 index = arg0;
+    u8 *entry;
 
-    if (base == 0) {
+    if (D_800872A0 == 0) {
         return 0;
     }
-    arg0 = (index * 0x84) + base;
-    return (s32) *(f32 *)((u8 *)arg0 + 0x14);
+    entry = (u8 *)((arg0 * 0x84) + D_800872A0);
+    return (s32) *(f32 *)(entry + 0x14);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15088270 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15088270.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150882B0 CURRENT (195) */
 s8 func_150882B0(s32 arg0) {
-    s32 base = D_800872A0;
-    s32 index = arg0;
+    u8 *entry;
 
-    if (base == 0) {
+    if (D_800872A0 == 0) {
         return 0;
     }
-    arg0 = index * 0x84 + base;
-    return *(s8 *)((u8 *)arg0 + 0x27);
+    entry = (u8 *)((arg0 * 0x84) + D_800872A0);
+    return *(s8 *)(entry + 0x27);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150882B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_150882B0.s")
 extern s8 D_800D2398;
 
 s32 func_150882E4(s32 arg0, s32 arg1) {

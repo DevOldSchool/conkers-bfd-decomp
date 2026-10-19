@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150D54C8
- * - func_150D596C
  * - func_150D5A6C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -34,37 +33,26 @@ void func_150D5440(void *arg0, u8 arg1, s32 arg2) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1028F0/func_150D54C8.s")
-typedef struct Game1028F0Link {
-    s32 id;
-    u8 slot;
-} Game1028F0Link;
-
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D596C CURRENT (10) */
 void func_150D596C(void *arg0, void *arg1, u8 arg2) {
-    Game1028F0Link *link;
-    s32 id;
+    u8 *state;
     s32 other;
 
-    link = (Game1028F0Link *)((u8 *)arg0 + 0x28);
+    state = (u8 *)arg0 + 0x28;
     if ((arg2 == 0) || (arg2 == 0x2F) || (arg2 == 3)) {
         other = *(s32 *)arg1;
-        if ((other == link->id) || (link->slot == *(u8 *)((u8 *)arg1 + 4))) {
+        if ((other == *(s32 *)state) || (*(u8 *)(state + 4) == *(u8 *)((u8 *)arg1 + 4))) {
             func_1516972C(arg0);
         }
     } else if (arg2 == 0x2D) {
-        id = link->id;
-        other = *(s32 *)arg1;
-        if (other == id) {
-            link->id = *(s32 *)((u8 *)arg1 + 4);
-            link->slot = *(u8 *)((u8 *)arg1 + 9);
-        } else if (id == *(s32 *)((u8 *)arg1 + 4)) {
-            link->id = other;
-            link->slot = *(u8 *)((u8 *)arg1 + 8);
+        if (*(s32 *)arg1 == *(s32 *)state) {
+            *(s32 *)state = *(s32 *)((u8 *)arg1 + 4);
+            *(u8 *)(state + 4) = *(u8 *)((u8 *)arg1 + 9);
+        } else if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)state) {
+            *(s32 *)state = *(s32 *)arg1;
+            *(u8 *)(state + 4) = *(u8 *)((u8 *)arg1 + 8);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D596C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1028F0/func_150D596C.s")
 void func_150D5A2C(void *arg0) {
     func_1514933C(arg0);
 }

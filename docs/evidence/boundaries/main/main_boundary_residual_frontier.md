@@ -209,3 +209,7 @@ Find independent entry/selector evidence first, then reconcile all affected
 members and independently regenerate/verify their complete spans. The enclosing
 reviewed source-unit range `0x40350:0x40D90` remains fully owned throughout.
 No game registration or matching source is changed by this note.
+(`func_15040A40` was later matched after its preserved candidate reproduced
+the twelve-byte stub exactly and `0x15040A4C` was split as a separate empty
+function; see
+[the deferred-parent splits](../game/mapping/game_unreferenced_return_stub_splits.md#deferred-parent-splits).)
