@@ -51601,8 +51601,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2728,
-        "reason": "Best valid CURRENT (2728); three manual comparisons exhausted; native matrix homes and command scheduling remain.",
+        "current_score": 55,
+        "reason": "Round 13: typed cursor one-line blocks, gDPSetPrimColor alpha via _SHIFTL with block-local duration/alpha, index/offset declared before the matrices and a for (index = 0, offset = 0; index != 12; ...) loop: 2728 -> 55. Remaining: in the prim-colour block raw puts the cursor copy in v1 and duration in a1 (candidate a0/v1); function-scope or inlined duration/alpha forms 80-1501.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

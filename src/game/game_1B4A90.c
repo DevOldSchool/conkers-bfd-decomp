@@ -156,24 +156,18 @@ void func_151EFD00(f32 *, void *);
 extern u32 D_8008D538[];
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15187A98 CURRENT (2728) */
-void *func_15187A98(register Game1B4A90Command *cursor, Game1B4A90Owner *arg1, s32 arg2) {
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15187A98 CURRENT (55) */
+Game1B4A90Command *func_15187A98(Game1B4A90Command *cursor, Game1B4A90Owner *arg1, s32 arg2) {
+    s32 index, offset;
     f32 matrix[4][4];
     f32 rotation[4][4];
-    s32 index, offset;
 
     if (arg1->timer >= 0) {
         func_150A7DA0(matrix, arg1->x, arg1->y, arg1->z);
         func_151EFD00(&matrix[0][0], arg1->fixed[D_800BE9C0]);
-        index = 0;
-        offset = 0;
-        do {
-            {
-                Game1B4A90Command *command = cursor;
-                command->opcode = 0xDA380003;
-                command->value = (u32)arg1->fixed[D_800BE9C0];
-                cursor++;
-            }
+        for (index = 0, offset = 0; index != 12; index++, offset += 0xA0) {
+            { Game1B4A90Command *command = cursor++; command->opcode = 0xDA380003; command->value = (u32)arg1->fixed[D_800BE9C0]; }
             func_150A7DA0(matrix,
                 ((Game1B4A90Child *)((u8 *)arg1->children + offset))->translation, 0.0f, 0.0f);
             matrix[0][0] *= arg1->scaleX;
@@ -191,45 +185,16 @@ void *func_15187A98(register Game1B4A90Command *cursor, Game1B4A90Owner *arg1, s
             func_150A7790(matrix, (s32)arg1->children[index].fixed[D_800BE9C0]);
             {
                 Game1B4A90Child *child = (Game1B4A90Child *)((u8 *)arg1->children + offset);
-                register s32 duration = child->duration;
-                Game1B4A90Command *command = cursor;
-                command->value = (((duration - child->elapsed) * 255 / duration) & 255) | 0xFFFFFF00;
-                command->opcode = 0xFA000100;
-                cursor++;
+                s32 duration = child->duration;
+                s32 alpha = (duration - child->elapsed) * 255 / duration;
+                { Game1B4A90Command *command = cursor++; command->opcode = _SHIFTL(0xFA, 24, 8) | _SHIFTL(1, 8, 8) | _SHIFTL(0, 0, 8); command->value = _SHIFTL(255, 24, 8) | _SHIFTL(255, 16, 8) | _SHIFTL(255, 8, 8) | _SHIFTL(alpha, 0, 8); }
             }
-            {
-                Game1B4A90Command *command = cursor;
-                command->opcode = 0xDA380001;
-                command->value = (u32)arg1->children[index].fixed[D_800BE9C0];
-                cursor++;
-            }
-            {
-                Game1B4A90Command *command = cursor;
-                command->opcode = 0x01004008;
-                command->value = (u32)D_8008D538;
-                cursor++;
-            }
-            {
-                Game1B4A90Command *command = cursor;
-                command->opcode = 0x05000204;
-                command->value = 0;
-                cursor++;
-            }
-            {
-                Game1B4A90Command *command = cursor;
-                command->opcode = 0x05000206;
-                command->value = 0;
-                cursor++;
-            }
-            {
-                Game1B4A90Command *command = cursor;
-                command->opcode = 0x05000406;
-                command->value = 0;
-                cursor++;
-            }
-            index++;
-            offset += 0xA0;
-        } while (index != 12);
+            { Game1B4A90Command *command = cursor++; command->opcode = 0xDA380001; command->value = (u32)arg1->children[index].fixed[D_800BE9C0]; }
+            { Game1B4A90Command *command = cursor++; command->opcode = 0x01004008; command->value = (u32)D_8008D538; }
+            { Game1B4A90Command *command = cursor++; command->opcode = 0x05000204; command->value = 0; }
+            { Game1B4A90Command *command = cursor++; command->opcode = 0x05000206; command->value = 0; }
+            { Game1B4A90Command *command = cursor++; command->opcode = 0x05000406; command->value = 0; }
+        }
     }
     return cursor;
 }
