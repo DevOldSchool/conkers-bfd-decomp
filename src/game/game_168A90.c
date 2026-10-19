@@ -137,35 +137,19 @@ typedef struct {
 extern Game168A90RenderCallback D_80089C28[];
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513B83C CURRENT (4000) */
-void *func_1513B83C(void *arg0, Game168A90RenderState *arg1, s32 arg2) {
-    s32 result;
-    Game168A90Command *cursor;
-    Game168A90Command *command;
-
-    arg2 = (s16) arg2;
-    if ((arg1->flags & 2) && !(*((u8 *) arg1 + 0x49) & (1 << arg2))) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513B83C CURRENT (1025) */
+Game168A90Command *func_1513B83C(Game168A90Command *arg0, Game168A90RenderState *arg1, s32 arg2) {
+    arg2 = (s16)arg2;
+    if ((arg1->flags & 2) && !(*((u8 *)arg1 + 0x49) & (1 << arg2))) {
         return arg0;
     }
-    if (arg1->callback != -1) {
-        result = D_80089C28[arg1->callback](arg1, arg2, arg2, arg0);
-        if (result == 0) {
-            return arg0;
-        }
+    if (arg1->callback != -1 && D_80089C28[arg1->callback](arg1, arg2, arg2, arg0) == 0) {
+        return arg0;
     }
-
-    cursor = arg0;
-    command = cursor++;
-    command->word0 = 0xDA380003;
-    command->word1 = (s32) ((u8 *) arg1 + (D_800BE9C0 << 6) + 0x78);
-    command = cursor++;
-    command->word0 = 0xDB060004;
-    command->word1 =
-        *(s32 *) ((u8 *) arg1 + (D_800BE9C0 << 4) + (arg2 * 4) + 0x58);
-    command = cursor++;
-    command->word0 = 0xDE000000;
-    command->word1 = arg1->displayList;
-    return cursor;
+    { Game168A90Command *command = arg0++; command->word0 = 0xDA380003; command->word1 = (u32)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x78); }
+    { Game168A90Command *command = arg0++; command->word0 = 0xDB060004; command->word1 = *(s32 *)((u8 *)arg1 + (D_800BE9C0 << 4) + (arg2 * 4) + 0x58); }
+    { Game168A90Command *command = arg0++; command->word0 = 0xDE000000; command->word1 = arg1->displayList; }
+    return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513B83C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_168A90/func_1513B83C.s")

@@ -109,8 +109,13 @@ void func_150C851C(s32 arg0) {
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 extern s32 *D_80088810[2];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C8600 CURRENT (433) */
-void *func_150C8600(void *arg0) {
+typedef struct GameF5800Command {
+    u32 w0;
+    u32 w1;
+} GameF5800Command;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C8600 CURRENT (63) */
+GameF5800Command *func_150C8600(GameF5800Command *arg0) {
     typedef struct { s32 *entries[2]; } PointerPair;
     s32 record_offset;
     s32 command_offset;
@@ -122,9 +127,7 @@ void *func_150C8600(void *arg0) {
     u8 *record;
 
     sp4C = *(PointerPair *)D_80088810;
-    record_offset = 0;
-    command_offset = 4;
-    do {
+    for (record_offset = 0, command_offset = 4; command_offset != 0x2C; command_offset += 4, record_offset += 0xA) {
         record = (u8 *)D_800BE4E0 + record_offset;
         variant = *(s16 *)(record + 4) >> 8;
         if (variant < 0) {
@@ -138,15 +141,8 @@ void *func_150C8600(void *arg0) {
             state = *((u8 *)D_800BE4E0 + record_offset);
         }
         result = func_1510D0EC(sp4C.entries[state][variant], sp58, 3, 0);
-        {
-            s32 *slot = arg0;
-            arg0 = (u8 *)arg0 + 8;
-            slot[0] = (command_offset & 0xFFFF) | 0xDB060000;
-            slot[1] = result;
-        }
-        command_offset += 4;
-        record_offset += 0xA;
-    } while (command_offset != 0x2C);
+        { GameF5800Command *command = arg0++; command->w0 = (command_offset & 0xFFFF) | 0xDB060000; command->w1 = result; }
+    }
     return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C8600 */

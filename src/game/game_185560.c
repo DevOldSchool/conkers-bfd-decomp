@@ -145,16 +145,14 @@ void func_151441A4(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, s32, u8, u8, u8, u8, 
 void func_151442FC(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8);
 s32 func_151462C8(s32, void *, s32, s32, s32, s32, void *, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151582C8 CURRENT (1235) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151582C8 CURRENT (285) */
 Game185560Command *func_151582C8(Game185560Command *arg0, Game185560RenderActor *arg1, s32 arg2) {
-    Game185560Command *commands;
+    s32 callback;
     Game185560RenderColor first;
     Game185560RenderColor second;
     u8 sync;
-    s32 callback;
     s32 flags;
     s32 attached;
-    Game185560RenderPreset *preset;
 
     sync = 1;
     callback = arg1->drawCallback;
@@ -173,9 +171,8 @@ Game185560Command *func_151582C8(Game185560Command *arg0, Game185560RenderActor 
     arg0 = func_15142C10(arg0, second.red, second.green, second.blue, second.alpha, &sync);
     arg0 = func_15142CF0(arg0, 0, 0, first.red, first.green, first.blue, first.alpha, &sync);
     arg0 = func_1513F4E4(arg0, arg1->combine, &sync);
-    preset = &D_800A4AC8[arg1->presetIndex];
     arg0 = func_15142FBC(arg0, arg1->state | 0x80000 | 0x2C00 | arg1->flags2C | arg1->flags30,
-                        preset->second | preset->first, &sync);
+                        D_800A4AC8[arg1->presetIndex].second | D_800A4AC8[arg1->presetIndex].first, &sync);
     flags = arg1->flags;
     if (flags & 2) {
         if (flags & 4) {
@@ -186,14 +183,8 @@ Game185560Command *func_151582C8(Game185560Command *arg0, Game185560RenderActor 
         arg0 = (Game185560Command *) func_151462C8((s32) arg0, arg1->attachments, arg1->attachmentMode,
             (s32) arg1->owner, arg1->generation, *((s16 *) &arg2 + 1), arg1->position, attached, 0);
     }
-    commands = (Game185560Command *) arg0;
-    commands->opcode = 0xDA380003;
-    arg0++;
-    commands->data = (u32) ((u8 *) arg1 + (D_800BE9C0 << 6) + 0x58);
-    commands = (Game185560Command *) arg0;
-    commands->opcode = 0xDE000000;
-    arg0++;
-    commands->data = D_8008AFB8[arg1->listIndex];
+    { Game185560Command *command = arg0++; command->opcode = 0xDA380003; command->data = (u32)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x58); }
+    { Game185560Command *command = arg0++; command->opcode = 0xDE000000; command->data = D_8008AFB8[arg1->listIndex]; }
     return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151582C8 */

@@ -14,7 +14,6 @@
  * - func_15133588
  * - func_151336A8
  * - func_15133894
- * - func_15133EEC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -712,38 +711,29 @@ typedef struct Game15F680TextureLocals {
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 extern Game15F680TextureCommand D_80090B60[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15133EEC CURRENT (2333) */
-s32 func_15133EEC(s32 arg0, u16 arg1, u8 arg2, s32 arg3) {
-    Game15F680TextureCommand *texture;
-    Game15F680TextureLocals locals;
-    s32 result;
-    s32 command;
-    s32 threshold;
-    register s32 *output;
+typedef struct Game15F680Command {
+    u32 w0;
+    u32 w1;
+} Game15F680Command;
 
-    output = (s32 *)arg0;
-    texture = &D_80090B60[arg1];
-    locals.mode = texture->mode;
-    locals.count = texture->count;
-    result = func_1510D0EC(*texture->source, &locals.offset, arg3, 0);
-    output[1] = result;
-    command = arg2 * 4;
-    output[0] = (command & 0xFFFF) | 0xDB060000;
-    output += 2;
-    if (locals.mode == 2) {
-        output[0] = ((command + 4) & 0xFFFF) | 0xDB060000;
-        output += 2;
-        if (locals.count == 1) {
-            threshold = 0x200;
-        } else {
-            threshold = 0x20;
-        }
-        output[-1] = (result + locals.offset) - threshold;
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+s32 func_15133EEC(s32 arg0, u16 arg1, u8 arg2, s32 arg3) {
+    s32 source;
+    u8 mode;
+    u8 count;
+    s32 result;
+    s32 offset;
+
+    source = *D_80090B60[arg1].source;
+    mode = D_80090B60[arg1].mode;
+    count = D_80090B60[arg1].count;
+    result = func_1510D0EC(source, &offset, arg3, 0);
+    { Game15F680Command *command = (Game15F680Command *)arg0; arg0 += sizeof(Game15F680Command); command->w0 = _SHIFTL(0xDB, 24, 8) | _SHIFTL(6, 16, 8) | _SHIFTL(arg2 * 4, 0, 16); command->w1 = result; }
+    if (mode == 2) {
+        { Game15F680Command *command = (Game15F680Command *)arg0; arg0 += sizeof(Game15F680Command); command->w0 = _SHIFTL(0xDB, 24, 8) | _SHIFTL(6, 16, 8) | _SHIFTL((arg2 + 1) * 4, 0, 16); command->w1 = result + offset - (count == 1 ? 0x200 : 0x20); }
     }
-    return (s32)output;
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15133EEC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133EEC.s")
 s32 func_15133EEC(s32, u16, u8, s32);               /* extern */
 
 s32 func_15133FD8(s32 arg0, u8 *arg1, s32 arg2) {

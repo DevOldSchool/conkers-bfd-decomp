@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15188810
  * - func_1518894C
- * - func_15188D00
  * - func_15188E48
  * - func_15188F84
  * - func_15189118
@@ -263,51 +262,30 @@ void func_15188B74(s32 arg0) {
 extern u8 D_80089470[];
 extern void *(*D_8008D590[])(void *, void *, s16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15188D00 CURRENT (4845) */
-void *func_15188D00(void *arg0, s32 arg1, s16 arg2) {
-    u32 *display;
-    u32 *command;
-    u8 *node;
-    void *(*callback)(void *, void *, s16);
+typedef struct Game1B5CC0Command {
+    u32 w0;
+    u32 w1;
+} Game1B5CC0Command;
 
-    display = arg0;
-    node = ((void **)&D_800DF7C8)[arg1];
+Game1B5CC0Command *func_15188D00(Game1B5CC0Command *arg0, s32 arg1, s16 arg2) {
+    u8 *node;
+
+    node = ((u8 **)&D_800DF7C8)[arg1];
     if (node == 0) {
-        return display;
+        return arg0;
     }
-    command = display;
-    command[1] = (u32)D_80089470;
-    display += 2;
-    command[0] = 0xDA380003;
-    command = display;
-    command[0] = 0xD9FFFFFF;
-    command[1] = 0x200004;
-    display += 2;
-    command = display;
-    command[0] = 0xD9EEFFFF;
-    command[1] = 0;
-    display += 2;
-    command = display;
-    command[0] = 0xE7000000;
-    command[1] = 0;
-    display += 2;
-    command = display;
-    command[0] = 0xE2001E01;
-    command[1] = 0;
-    display += 2;
-    command = display;
-    command[1] = 0xFF;
-    command[0] = 0xEC000000;
-    display += 2;
-    do {
-        callback = D_8008D590[*node];
-        display = callback(display, node, arg2);
+    { Game1B5CC0Command *command = arg0++; command->w0 = 0xDA380003; command->w1 = (u32)D_80089470; }
+    { Game1B5CC0Command *command = arg0++; command->w0 = 0xD9FFFFFF; command->w1 = 0x200004; }
+    { Game1B5CC0Command *command = arg0++; command->w0 = 0xD9EEFFFF; command->w1 = 0; }
+    { Game1B5CC0Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
+    { Game1B5CC0Command *command = arg0++; command->w0 = 0xE2001E01; command->w1 = 0; }
+    { Game1B5CC0Command *command = arg0++; command->w0 = 0xEC000000; command->w1 = 0xFF; }
+    while (node != 0) {
+        arg0 = D_8008D590[*node](arg0, node, arg2);
         node = *(u8 **)(node + 0xC);
-    } while (node != 0);
-    return display;
+    }
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15188D00 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B5CC0/func_15188D00.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15188E48 CURRENT (1200) */
 void func_15188E48(void *arg0) {
     s32 temp_lo;

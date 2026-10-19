@@ -92,7 +92,7 @@ extern u8 *D_800BEAD0;
 extern u8 D_800BEBB0[];
 extern u8 D_800C1060[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501C880 CURRENT (435) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501C880 CURRENT (110) */
 void func_1501C880(s32 arg0, s32 arg1) {
     s32 capacity;
     s32 used;
@@ -106,33 +106,15 @@ void func_1501C880(s32 arg0, s32 arg1) {
     if (used < 0 || capacity < used) {
         func_1501A39C();
         D_800BE9D0 = *(D_800BE9D8 + D_800BE9C0);
-        {
-            Gfx *packet = *(Gfx *volatile *)&D_800BE9D0;
-            D_800BE9D0 = packet + 1;
-            packet->words.w1 = 0;
-            packet->words.w0 = 0xE9000000;
-        }
-        {
-            Gfx *packet = D_800BE9D0++;
-            packet->words.w1 = 0;
-            packet->words.w0 = 0xDF000000;
-        }
+        { Gfx *packet = D_800BE9D0++; packet->words.w0 = 0xE9000000; packet->words.w1 = 0; }
+        { Gfx *packet = D_800BE9D0++; packet->words.w0 = 0xDF000000; packet->words.w1 = 0; }
         base = *(D_800BE9C8 + D_800BE9C0);
         used = D_800BE9D0 - base;
     }
     if (used < 0 || capacity - 0x190 < used) {
         D_800BE9D0 = (Gfx *)((s32)base + ((capacity - 0x190) << 3));
-        {
-            Gfx *packet = *(Gfx *volatile *)&D_800BE9D0;
-            D_800BE9D0 = packet + 1;
-            packet->words.w1 = 0;
-            packet->words.w0 = 0xE9000000;
-        }
-        {
-            Gfx *packet = D_800BE9D0++;
-            packet->words.w1 = 0;
-            packet->words.w0 = 0xDF000000;
-        }
+        { Gfx *packet = D_800BE9D0++; packet->words.w0 = 0xE9000000; packet->words.w1 = 0; }
+        { Gfx *packet = D_800BE9D0++; packet->words.w0 = 0xDF000000; packet->words.w1 = 0; }
         base = *(D_800BE9C8 + D_800BE9C0);
     }
     D_800BEAD4->task.t.data_ptr = (u64 *)base;

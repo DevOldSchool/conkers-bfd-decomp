@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1510FEA0
- * - func_151103C8
  * - func_151106A8
  * - func_151108C4
  * - func_15110CFC
@@ -55,40 +54,26 @@ extern s32 D_800BE620;
 extern s32 D_800BE624;
 extern u8 D_800DBEA8[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151103C8 CURRENT (1553) */
-void *func_151103C8(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    Game13D350Record *record = &D_800BE628[D_80082FA4];
-    void *temp_v0;
-    void *temp_v0_2;
-    void *var_a0;
-    s32 half;
+Game13D350Command *func_151103C8(Game13D350Command *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    Game13D350Record *record = (Game13D350Record *)((u8 *)D_800BE628 + D_80082FA4 * 0x180);
 
-    temp_v0 = func_15110544(arg0,
-                           (s32)*(f32 *)((u8 *)record + 0x2C),
-                           (s32)*(f32 *)((u8 *)record + 0x24),
-                           (s32)(*(f32 *)((u8 *)record + 0x30) - 1.0f),
-                           (s32)*(f32 *)((u8 *)record + 0x28),
-                           D_800DBEA8[0], D_800DBEA8[1], D_800DBEA8[2]);
-    var_a0 = temp_v0;
-    if ((D_80082FA0 != 0) && (D_80082FA4 == 0)) {
-        *(s32 *)temp_v0 = 0xE7000000;
-        *(s32 *)((u8 *)temp_v0 + 4) = 0;
-        temp_v0_2 = func_1501A490((u8 *)var_a0 + 8, 0xFF, 0, 0, 0, 0);
-        *(s32 *)temp_v0_2 = 0xF7000000;
-        *(s32 *)((u8 *)temp_v0_2 + 4) = 0x10001;
-        half = D_800BE624 >> 1;
-        var_a0 = func_1501A6CC((u8 *)temp_v0_2 + 8, 0, half - 6,
-                                D_800BE620, half + 6);
+    arg0 = func_15110544(arg0,
+                         (s32)*(f32 *)((u8 *)record + 0x2C),
+                         (s32)*(f32 *)((u8 *)record + 0x24),
+                         (s32)(*(f32 *)((u8 *)record + 0x30) - 1.0f),
+                         (s32)*(f32 *)((u8 *)record + 0x28),
+                         D_800DBEA8[0], D_800DBEA8[1], D_800DBEA8[2]);
+    if (D_80082FA0 != 0 && D_80082FA4 == 0) {
+        { Game13D350Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
+        arg0 = func_1501A490(arg0, 0xFF, 0, 0, 0, 0);
+        { Game13D350Command *command = arg0++; command->w0 = 0xF7000000; command->w1 = 0x10001; }
+        arg0 = func_1501A6CC(arg0, 0, (D_800BE624 >> 1) - 6, D_800BE620, (D_800BE624 >> 1) + 6);
         if (D_80082FA0 != 1) {
-            half = D_800BE620 >> 1;
-            var_a0 = func_1501A6CC(var_a0, half - 1, 0, half + 1,
-                                    D_800BE624);
+            arg0 = func_1501A6CC(arg0, (D_800BE620 >> 1) - 1, 0, (D_800BE620 >> 1) + 1, D_800BE624);
         }
     }
-    return var_a0;
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151103C8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_151103C8.s")
 
 void *func_1501A680(void *);
 void *func_1501A6CC(void *, s32, s32, s32, s32);

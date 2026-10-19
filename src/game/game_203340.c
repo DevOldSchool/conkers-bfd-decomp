@@ -228,148 +228,32 @@ void func_151D61B0(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D61B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_203340/func_151D61B0.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D6418 CURRENT (4830) */
-void *func_151D6418(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    typedef struct { u32 first, second; } Packet;
-    s32 width;
-    s32 height;
-    volatile s32 sp34;
-    s32 address;
-    u32 doubleWidth;
-    u32 loadSize;
-    u32 stride;
+typedef struct Game203340Command { u32 first, second; } Game203340Command;
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+#define MIN(a, b) (((a) < (b)) ? (a) : (b))
+#define MAX(a, b) (((a) > (b)) ? (a) : (b))
+#define TXL2WORDS(txls, b_txl) MAX(1, ((txls) * (b_txl) / 8))
+#define CALC_DXT(width, b_txl) (((1 << 11) + TXL2WORDS(width, b_txl) - 1) / TXL2WORDS(width, b_txl))
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D6418 CURRENT (88) */
+Game203340Command *func_151D6418(Game203340Command *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    u32 width;
+    u32 height;
     u32 y;
-    u32 nextY;
-    u32 size;
-    u32 numerator;
-    u32 denominator;
+    s32 address;
 
     width = D_800BE620;
     height = D_800BE624;
     address = arg1;
-    {
-        Packet *command = (Packet *)arg0;
-        arg0 += sizeof(Packet);
-        command->first = 0xFA000000;
-        command->second = (arg3 & 0xFF) | ~0xFF;
-    }
-    {
-        Packet *command = (Packet *)arg0;
-        arg0 += sizeof(Packet);
-        command->second = -0x805;
-        command->first = 0xFC11FE23;
-    }
-    {
-        Packet *command = (Packet *)arg0;
-        arg0 += sizeof(Packet);
-        command->first = 0xEF000CFF;
-        command->second = 0x00504340;
-    }
-    {
-        Packet *command = (Packet *)arg0;
-        arg0 += sizeof(Packet);
-        command->first = 0xD9000000;
-        command->second = 0;
-    }
-    {
-        Packet *command = (Packet *)arg0;
-        arg0 += sizeof(Packet);
-        command->second = -1;
-        command->first = 0xD7000002;
-    }
-    y = 0;
-    sp34 = height;
-    if (height != 0) {
-        doubleWidth = width * 2;
-        loadSize = (width * 4) - 1;
-        stride = doubleWidth >> 3;
-        do {
-            {
-                Packet *command = (Packet *)arg0;
-                arg0 += sizeof(Packet);
-                command->second = address + 0x80000000;
-                command->first = 0xFD100000;
-            }
-            {
-                Packet *command = (Packet *)arg0;
-                arg0 += sizeof(Packet);
-                command->first = 0xF5100000;
-                command->second = 0x07000000;
-            }
-            {
-                Packet *command = (Packet *)arg0;
-                arg0 += sizeof(Packet);
-                command->first = 0xE6000000;
-                command->second = 0;
-            }
-            {
-                Packet *command = (Packet *)arg0;
-                arg0 += sizeof(Packet);
-                command->first = 0xF3000000;
-                if (loadSize < 0x7FFU) {
-                    size = loadSize;
-                } else {
-                    size = 0x7FF;
-                }
-                if (stride == 0) {
-                    numerator = 1;
-                } else {
-                    numerator = stride;
-                }
-                if (stride == 0) {
-                    denominator = 1;
-                } else {
-                    denominator = stride;
-                }
-                command->second = (((numerator + 0x7FF) / denominator) & 0xFFF) |
-                                  0x07000000 | ((size & 0xFFF) << 12);
-            }
-            {
-                Packet *command = (Packet *)arg0;
-                arg0 += sizeof(Packet);
-                command->first = 0xE7000000;
-                command->second = 0;
-            }
-            {
-                Packet *command = (Packet *)arg0;
-                arg0 += sizeof(Packet);
-                command->first = (((((u32)(doubleWidth + 7) >> 3) & 0x1FF) << 9) | 0xF5100000);
-                command->second = 0;
-            }
-            {
-                Packet *command = (Packet *)arg0;
-                arg0 += sizeof(Packet);
-                command->first = 0xF2000000;
-                command->second = ((((width - 1) * 4) & 0xFFF) << 12) | 0xC;
-            }
-            nextY = y + 4;
-            {
-                Packet *command = (Packet *)arg0;
-                arg0 += sizeof(Packet);
-                command->first = ((((width - arg2) * 4) & 0xFFF) << 12) | 0xE4000000 | ((nextY * 4) & 0xFFF);
-                command->second = (y * 4) & 0xFFF;
-            }
-            {
-                Packet *command = (Packet *)arg0;
-                arg0 += sizeof(Packet);
-                command->first = 0xE1000000;
-                command->second = 0;
-            }
-            {
-                Packet *command = (Packet *)arg0;
-                arg0 += sizeof(Packet);
-                command->first = 0xF1000000;
-                command->second = 0x04000400;
-            }
-            {
-                Packet *command = (Packet *)arg0;
-                arg0 += sizeof(Packet);
-                command->first = 0xE7000000;
-                command->second = 0;
-            }
-            y = nextY;
-            address += width * 8;
-        } while (nextY < (u32)sp34);
+    { Game203340Command *command = arg0++; command->first = _SHIFTL(0xFA, 24, 8) | _SHIFTL(0, 8, 8) | _SHIFTL(0, 0, 8); command->second = _SHIFTL(255, 24, 8) | _SHIFTL(255, 16, 8) | _SHIFTL(255, 8, 8) | _SHIFTL(arg3, 0, 8); }
+    { Game203340Command *command = arg0++; command->first = 0xFC11FE23; command->second = 0xFFFFF7FB; }
+    { Game203340Command *command = arg0++; command->first = 0xEF000CFF; command->second = 0x00504340; }
+    { Game203340Command *command = arg0++; command->first = 0xD9000000; command->second = 0; }
+    { Game203340Command *command = arg0++; command->first = 0xD7000002; command->second = 0xFFFFFFFF; }
+    for (y = 0; y < height; y += 4) {
+        { Game203340Command *command = arg0++; command->first = _SHIFTL(0xFD, 24, 8) | _SHIFTL(0, 21, 3) | _SHIFTL(2, 19, 2) | _SHIFTL(1 - 1, 0, 12); command->second = address + 0x80000000; } { Game203340Command *command = arg0++; command->first = _SHIFTL(0xF5, 24, 8) | _SHIFTL(0, 21, 3) | _SHIFTL(2, 19, 2) | _SHIFTL(0, 9, 9) | _SHIFTL(0, 0, 9); command->second = _SHIFTL(7, 24, 3) | _SHIFTL(0, 20, 4) | _SHIFTL(0, 18, 2) | _SHIFTL(0, 14, 4) | _SHIFTL(0, 10, 4) | _SHIFTL(0, 8, 2) | _SHIFTL(0, 4, 4) | _SHIFTL(0, 0, 4); } { Game203340Command *command = arg0++; command->first = _SHIFTL(0xE6, 24, 8); command->second = 0; } { Game203340Command *command = arg0++; command->first = _SHIFTL(0xF3, 24, 8) | _SHIFTL(0, 12, 12) | _SHIFTL(0, 0, 12); command->second = _SHIFTL(7, 24, 3) | _SHIFTL(MIN(((width * 4) + 0 >> 0) - 1, 0x7FF), 12, 12) | _SHIFTL(CALC_DXT(width, 2), 0, 12); } { Game203340Command *command = arg0++; command->first = _SHIFTL(0xE7, 24, 8); command->second = 0; } { Game203340Command *command = arg0++; command->first = _SHIFTL(0xF5, 24, 8) | _SHIFTL(0, 21, 3) | _SHIFTL(2, 19, 2) | _SHIFTL(((width * 2) + 7) >> 3, 9, 9) | _SHIFTL(0, 0, 9); command->second = _SHIFTL(0, 24, 3) | _SHIFTL(0, 20, 4) | _SHIFTL(0, 18, 2) | _SHIFTL(0, 14, 4) | _SHIFTL(0, 10, 4) | _SHIFTL(0, 8, 2) | _SHIFTL(0, 4, 4) | _SHIFTL(0, 0, 4); } { Game203340Command *command = arg0++; command->first = _SHIFTL(0xF2, 24, 8) | _SHIFTL(0, 12, 12) | _SHIFTL(0, 0, 12); command->second = _SHIFTL(0, 24, 3) | _SHIFTL((width - 1) << 2, 12, 12) | _SHIFTL((4 - 1) << 2, 0, 12); }
+        { Game203340Command *command = arg0++; command->first = _SHIFTL(0xE4, 24, 8) | _SHIFTL((width - arg2) << 2, 12, 12) | _SHIFTL((y + 4) << 2, 0, 12); command->second = _SHIFTL(0, 24, 3) | _SHIFTL(0 << 2, 12, 12) | _SHIFTL(y << 2, 0, 12); } { Game203340Command *command = arg0++; command->first = _SHIFTL(0xE1, 24, 8); command->second = _SHIFTL(0, 16, 16) | _SHIFTL(0, 0, 16); } { Game203340Command *command = arg0++; command->first = _SHIFTL(0xF1, 24, 8); command->second = _SHIFTL(1 << 10, 16, 16) | _SHIFTL(1 << 10, 0, 16); }
+        { Game203340Command *command = arg0++; command->first = _SHIFTL(0xE7, 24, 8); command->second = 0; }
+        address += width * 8;
     }
     return arg0;
 }
@@ -401,13 +285,12 @@ void func_151D66F0(s32 arg0, s32 arg1) {
 }
 void *func_1501A680(void *);
 s32 func_10003C40(s32, s32, s32, s32);
-void *func_151D6418(u8 *, s32, s32, s32);
+Game203340Command *func_151D6418(Game203340Command *, s32, s32, s32);
 void *func_151D5E90(u8 *, s32, s32, s32);
 extern s32 D_8002AAE8[];
 extern u8 D_800BE9C0;
 extern u8 D_800BEAC0;
 
-typedef struct Game203340Command { u32 first, second; } Game203340Command;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D6778 CURRENT (4473) */
 u8 *func_151D6778(u8 *arg0) {
@@ -427,7 +310,7 @@ u8 *func_151D6778(u8 *arg0) {
         command->first = 0xE7000000;
         command->second = 0;
         if (*buffer != 0) {
-            cursor = func_151D6418((u8 *)cursor, *buffer, 0, flags);
+            cursor = func_151D6418(cursor, *buffer, 0, flags);
         } else {
             allocated = func_10003C40(D_800BE620 * D_800BE624 * 2, 1, 3, 1);
             *buffer = allocated;

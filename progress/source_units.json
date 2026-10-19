@@ -10122,15 +10122,15 @@
         "func_151D275C",
         "func_151D2830"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x1D2AB0",
           "start": "0x1D26C0",
-          "state": "candidate"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1FFB70.c"
+      "source": "src/done/game/game_1FFB70.c"
     },
     {
       "boundary_evidence": {
@@ -14975,15 +14975,15 @@
         "func_15100340",
         "func_15100464"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x100600",
           "start": "0x100340",
-          "state": "candidate"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_12D7F0.c"
+      "source": "src/done/game/game_12D7F0.c"
     },
     {
       "boundary_evidence": {
@@ -15555,15 +15555,15 @@
         "func_15041480",
         "func_15041508"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x415E0",
           "start": "0x412C0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_6E770.c"
+      "source": "src/done/game/game_6E770.c"
     },
     {
       "boundary_evidence": {
@@ -18543,15 +18543,15 @@
       "functions": [
         "func_15172F70"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x1732E0",
           "start": "0x172F70",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1A0420.c"
+      "source": "src/done/game/game_1A0420.c"
     },
     {
       "boundary_evidence": {
@@ -18585,15 +18585,15 @@
       "functions": [
         "func_1512E5F0"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x12E8E0",
           "start": "0x12E5F0",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_15BAA0.c"
+      "source": "src/done/game/game_15BAA0.c"
     },
     {
       "boundary_evidence": {
