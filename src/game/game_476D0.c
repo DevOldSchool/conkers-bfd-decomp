@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1501A490
- * - func_1501A6CC
  * - func_1501A764
  * - func_1501A8C0
  * - func_1501B0A0
@@ -153,35 +152,22 @@ Game476D0DisplayCommand *func_1501A680(Game476D0DisplayCommand *arg0) {
 extern s32 D_800BE620;
 extern s32 D_800BE624;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501A6CC CURRENT (2392) */
-void *func_1501A6CC(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    s32 temp_v0;
-    u8 *temp_a0;
-
-    if (arg1 < 3) {
-        arg1 = 2;
+Game476D0DisplayCommand *func_1501A6CC(Game476D0DisplayCommand *arg0, s32 ulx, s32 uly, s32 lrx, s32 lry) {
+    if (ulx < 3) {
+        ulx = 2;
     }
-    {
-        s32 var_v1 = arg4;
-    if (arg2 <= 0) {
-        arg2 = 0;
+    if (uly <= 0) {
+        uly = 0;
     }
-    temp_a0 = arg0;
-    temp_v0 = D_800BE620 - 2;
-    if (arg3 >= temp_v0) {
-        arg3 = temp_v0;
+    if (lrx >= D_800BE620 - 2) {
+        lrx = D_800BE620 - 2;
     }
-    if (var_v1 >= D_800BE624) {
-        var_v1 = D_800BE624;
+    if (lry >= D_800BE624) {
+        lry = D_800BE624;
     }
-    arg0 = (void *)(temp_a0 + 8);
-    *(s32 *)((u8 *)temp_a0 + 4) = (s32) (((arg1 & 0x3FF) << 0xE) | ((arg2 & 0x3FF) * 4));
-    *(s32 *)((u8 *)temp_a0 + 0) = (s32) (((arg3 & 0x3FF) << 0xE) | 0xF6000000 | ((var_v1 & 0x3FF) * 4));
+    { Game476D0DisplayCommand *command = arg0++; command->words.word0 = _SHIFTL(0xF6, 24, 8) | _SHIFTL(lrx, 14, 10) | _SHIFTL(lry, 2, 10); command->words.word1 = _SHIFTL(ulx, 14, 10) | _SHIFTL(uly, 2, 10); }
     return arg0;
-    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501A6CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_476D0/func_1501A6CC.s")
 void func_150A7A00(void *, f32, f32, f32, f32 *, f32 *, f32 *, f32 *);
 extern u8 D_800D9D10[];
 

@@ -6,12 +6,10 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1517F08C
  * - func_1517F488
  * - func_1517F564
  * - func_1517F75C
  * - func_1517F814
- * - func_1517F9F4
  * - func_1517FB9C
  * - func_15180580
  * - func_151814FC
@@ -115,43 +113,15 @@ typedef struct Game1AC2F0FillViewportPrefix {
 
 extern s32 D_800BE628;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517F08C CURRENT (2105) */
-s32 func_1517F08C(s32 cursor, s32 alpha, s32 red, s32 green, s32 blue,
-                 s32 viewport_index) {
-    Game1AC2F0FillCommand *command;
-    Game1AC2F0FillViewportPrefix *view;
-
-    command = (Game1AC2F0FillCommand *)cursor;
-    cursor = (s32)(command + 1);
-    command->word0 = 0xE7000000;
-    command->word1 = 0;
-    command = (Game1AC2F0FillCommand *)cursor;
-    cursor = (s32)(command + 1);
-    command->word0 = 0xFCFFFFFF;
-    command->word1 = 0xFFFDF6FB;
-    command = (Game1AC2F0FillCommand *)cursor;
-    cursor = (s32)(command + 1);
-    command->word0 = 0xFA000000;
-    command->word1 = ((u32)red << 24) | (((u32)green & 0xFF) << 16) |
-                     (((u32)blue & 0xFF) << 8) | ((u32)alpha & 0xFF);
-    command = (Game1AC2F0FillCommand *)cursor;
-    cursor = (s32)(command + 1);
-    command->word0 = 0xEF002CFF;
-    command->word1 = 0x00504344;
-    command = (Game1AC2F0FillCommand *)cursor;
-    cursor = (s32)(command + 1);
-    view = (Game1AC2F0FillViewportPrefix *)
-        ((u8 *)D_800BE628 + viewport_index * 0x180);
-    command->word0 = 0xF6000000 | (((u32)view->bottom28 & 0x3FF) << 2) |
-                     (((u32)view->right30 & 0x3FF) << 14);
-    view = (Game1AC2F0FillViewportPrefix *)
-        ((u8 *)D_800BE628 + viewport_index * 0x180);
-    command->word1 = (((u32)view->top24 & 0x3FF) << 2) |
-                     (((u32)view->left2C & 0x3FF) << 14);
-    return cursor;
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+s32 func_1517F08C(s32 arg0, s32 alpha, s32 red, s32 green, s32 blue, s32 viewport_index) {
+    { Game1AC2F0FillCommand *command = (Game1AC2F0FillCommand *)arg0; arg0 += sizeof(Game1AC2F0FillCommand); command->word0 = _SHIFTL(0xE7, 24, 8); command->word1 = 0; }
+    { Game1AC2F0FillCommand *command = (Game1AC2F0FillCommand *)arg0; arg0 += sizeof(Game1AC2F0FillCommand); command->word0 = 0xFCFFFFFF; command->word1 = 0xFFFDF6FB; }
+    { Game1AC2F0FillCommand *command = (Game1AC2F0FillCommand *)arg0; arg0 += sizeof(Game1AC2F0FillCommand); command->word0 = _SHIFTL(0xFA, 24, 8) | _SHIFTL(0, 8, 8) | _SHIFTL(0, 0, 8); command->word1 = _SHIFTL(red, 24, 8) | _SHIFTL(green, 16, 8) | _SHIFTL(blue, 8, 8) | _SHIFTL(alpha, 0, 8); }
+    { Game1AC2F0FillCommand *command = (Game1AC2F0FillCommand *)arg0; arg0 += sizeof(Game1AC2F0FillCommand); command->word0 = 0xEF002CFF; command->word1 = 0x00504344; }
+    { Game1AC2F0FillCommand *command = (Game1AC2F0FillCommand *)arg0; arg0 += sizeof(Game1AC2F0FillCommand); command->word0 = _SHIFTL(0xF6, 24, 8) | _SHIFTL(((Game1AC2F0FillViewportPrefix *)((u8 *)D_800BE628 + viewport_index * 0x180))->bottom28, 2, 10) | _SHIFTL(((Game1AC2F0FillViewportPrefix *)((u8 *)D_800BE628 + viewport_index * 0x180))->right30, 14, 10); command->word1 = _SHIFTL(((Game1AC2F0FillViewportPrefix *)((u8 *)D_800BE628 + viewport_index * 0x180))->top24, 2, 10) | _SHIFTL(((Game1AC2F0FillViewportPrefix *)((u8 *)D_800BE628 + viewport_index * 0x180))->left2C, 14, 10); }
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517F08C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F08C.s")
 
 s32 func_1517F08C(s32, s32, s32, s32, s32, s32);
 
@@ -376,51 +346,42 @@ void func_1517F814(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F814.s")
 extern s32 D_800BE628;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517F9F4 CURRENT (220) */
-void *func_1517F9F4(void *volatile arg0, s32 arg1, s32 arg2, s32 arg3, volatile s32 arg4, s32 arg5) {
-    s32 temp_ft1;
-    s32 temp_ft1_2;
-    s32 temp_ft3;
-    s32 temp_ft5;
-    s32 var_a0;
-    s32 var_v1;
-    u8 *temp_a0;
-    u8 *temp_v1;
+void *func_1517F9F4(Game1AC2F0FillCommand *arg0, s32 x1, s32 y1, s32 x2, s32 y2, s32 viewport_index) {
+    s32 left;
+    s32 bottom;
+    s32 top;
+    s32 right;
+    s32 clamped;
+    u8 *view;
 
-    var_v1 = arg4;
-    if (arg3 < arg1) {
-        temp_ft1 = arg1;
-        arg1 = arg3;
-        arg3 = temp_ft1;
+    if (x2 < x1) {
+        left = x1;
+        x1 = x2;
+        x2 = left;
     }
-    if (var_v1 < arg2) {
-        temp_ft1 = arg2;
-        arg2 = var_v1;
-        var_v1 = temp_ft1;
+    if (y2 < y1) {
+        left = y1;
+        y1 = y2;
+        y2 = left;
     }
-    temp_a0 = (u8 *)D_800BE628 + (arg5 * 0x180);
-    temp_ft1 = (s32) *(f32 *)((u8 *)temp_a0 + 0x2C);
-    temp_ft3 = (s32) *(f32 *)((u8 *)temp_a0 + 0x24);
-    temp_ft5 = (s32) *(f32 *)((u8 *)temp_a0 + 0x30);
-    temp_ft1_2 = (s32) *(f32 *)((u8 *)temp_a0 + 0x28);
-    if ((arg2 >= temp_ft1_2) || (temp_ft3 >= var_v1) || (arg1 >= temp_ft5) || (temp_ft1 >= arg3)) {
+    view = (u8 *)D_800BE628 + viewport_index * 0x180;
+    left = (s32)*(f32 *)(view + 0x2C);
+    top = (s32)*(f32 *)(view + 0x24);
+    right = (s32)*(f32 *)(view + 0x30);
+    bottom = (s32)*(f32 *)(view + 0x28);
+    if ((y1 >= bottom) || (top >= y2) || (x1 >= right) || (left >= x2)) {
         return arg0;
     }
-    var_a0 = arg1 < temp_ft1 ? temp_ft1 : (temp_ft5 < arg1 ? temp_ft5 : arg1);
-    arg1 = var_a0;
-    var_a0 = arg2 < temp_ft3 ? temp_ft3 : (temp_ft1_2 < arg2 ? temp_ft1_2 : arg2);
-    arg2 = var_a0;
-    var_a0 = arg3 < temp_ft1 ? temp_ft1 : (temp_ft5 < arg3 ? temp_ft5 : arg3);
-    arg3 = var_a0;
-    var_a0 = var_v1 < temp_ft3 ? temp_ft3 : (temp_ft1_2 < var_v1 ? temp_ft1_2 : var_v1);
-    temp_v1 = arg0;
-    arg0 = (void *)(temp_v1 + 8);
-    *(s32 *)((u8 *)temp_v1 + 0) = (s32) (((arg3 & 0x3FF) << 0xE) | 0xF6000000 | ((var_a0 & 0x3FF) * 4));
-    *(s32 *)((u8 *)temp_v1 + 4) = (s32) (((arg1 & 0x3FF) << 0xE) | ((arg2 & 0x3FF) * 4));
+    clamped = x1 < left ? left : (right < x1 ? right : x1);
+    x1 = clamped;
+    clamped = y1 < top ? top : (bottom < y1 ? bottom : y1);
+    y1 = clamped;
+    clamped = x2 < left ? left : (right < x2 ? right : x2);
+    x2 = clamped;
+    clamped = y2 < top ? top : (bottom < y2 ? bottom : y2);
+    { Game1AC2F0FillCommand *command = arg0++; command->word0 = _SHIFTL(0xF6, 24, 8) | _SHIFTL(x2, 14, 10) | _SHIFTL(clamped, 2, 10); command->word1 = _SHIFTL(x1, 14, 10) | _SHIFTL(y1, 2, 10); }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517F9F4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F9F4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517FB9C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_15180580.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_151814FC.s")

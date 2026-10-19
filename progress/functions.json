@@ -17080,17 +17080,16 @@
       "symbol": "func_1501A680"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2392,
-        "reason": "US CURRENT (2392) under live inputs: direct arg1/arg2/arg3 form reduces stale alias copies but compiler homes a3 at sp+0xC, delays D_800BE620 LUI/load, keeps global bound in a3 instead of raw v0 and changes output word scheduling; moving global capture before first clamp regresses to 2455; original aliased source scores 2575 live",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 152,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501A6CC",
           "vram": "0x1501A6CC"
         }
@@ -37013,17 +37012,16 @@
       "symbol": "func_1517EFDC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2105,
-        "reason": "CURRENT (2105) over the full 788-byte US span. Three ordinary C forms tested: typed cursor 4840, incoming s32 cursor advanced from each real packet 2105, named packet pointers 3885. Best retains genuine five-command output and initialized viewport fields; global-address hoisting, command scheduling and register allocation remain different. Manual initial plus two revisions exhausted; no new supported hypothesis or permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 788,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1517F08C",
           "vram": "0x1517F08C"
         }
@@ -37216,17 +37214,16 @@
       "symbol": "func_1517F814"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 220,
-        "reason": "Manual candidate improved latest5350/stored1645 to CURRENT220; corrected formal lifetimes, raw parameter homes, shared clamp results, conditional clamps, FP conversion order, pointer typing and packet word evaluation. Remaining V0/V1 rotation and paired-store ordering need new evidence.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 424,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1517F9F4",
           "vram": "0x1517F9F4"
         }
