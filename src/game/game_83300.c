@@ -41,9 +41,6 @@
  * - func_1505E650
  * - func_1505E874
  * - func_1505ED34
- * - func_1505EEF4
- * - func_1505EFD0
- * - func_1505F0AC
  * - func_1505F188
  * - func_1505F298
  * - func_15060778
@@ -1917,115 +1914,46 @@ struct127 *func_1505EEB0(s32 arg0, s32 *arg1) {
 extern u8 D_800CC40F;
 extern s32 D_800CC5FC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505EEF4 CURRENT (415) */
-s32 *func_1505EEF4(s32 arg0) {
-    u8 *var_v1;
-    s32 var_v0;
+struct127 *func_1505EEF4(s32 arg0) {
+    struct127 *tmp = (struct127 *)&D_800CC2D0;
+    s32 i;
 
-    var_v1 = (u8 *)&D_800CC5FC;
-    if ((D_800CC2D0 != 0) && (arg0 == D_800CC40F)) {
-        return &D_800CC2D0;
+    for (i = 0; i < 25; i++) {
+        if ((tmp->interaction_state != 0) && (arg0 == tmp->unk13F)) {
+            return tmp;
+        }
+        tmp++;
     }
-    var_v0 = 1;
-loop_4:
-    if ((*(s32 *)((u8 *)var_v1 + 0) != 0) && (arg0 == *(u8 *)((u8 *)var_v1 + 0x13F))) {
-        return (s32 *)var_v1;
-    }
-    var_v1 += 0x32C;
-    if ((*(s32 *)var_v1 != 0) && (arg0 == *(u8 *)(var_v1 + 0x13F))) {
-        return (s32 *)var_v1;
-    }
-    var_v1 += 0x32C;
-    if ((*(s32 *)var_v1 != 0) && (arg0 == *(u8 *)(var_v1 + 0x13F))) {
-        return (s32 *)var_v1;
-    }
-    var_v1 += 0x32C;
-    var_v0 += 4;
-    if ((*(s32 *)var_v1 != 0) && (arg0 == *(u8 *)(var_v1 + 0x13F))) {
-        return (s32 *)var_v1;
-    }
-    var_v1 += 0x32C;
-    if (var_v0 == 0x19) {
-        return 0;
-    }
-    goto loop_4;
+    return NULL;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505EEF4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505EEF4.s")
 extern u8 D_800CC3F7;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505EFD0 CURRENT (415) */
-s32 *func_1505EFD0(s32 arg0) {
-    u8 *var_v1;
-    s32 var_v0;
+struct127 *func_1505EFD0(s32 arg0) {
+    struct127 *tmp = (struct127 *)&D_800CC2D0;
+    s32 i;
 
-    var_v1 = (u8 *)&D_800CC5FC;
-    if ((D_800CC2D0 != 0) && (arg0 == D_800CC3F7)) {
-        return &D_800CC2D0;
+    for (i = 0; i < 25; i++) {
+        if ((tmp->interaction_state != 0) && (arg0 == tmp->unk127)) {
+            return tmp;
+        }
+        tmp++;
     }
-    var_v0 = 1;
-loop_4:
-    if ((*(s32 *)((u8 *)var_v1 + 0) != 0) && (arg0 == *(u8 *)((u8 *)var_v1 + 0x127))) {
-        return (s32 *)var_v1;
-    }
-    var_v1 += 0x32C;
-    if ((*(s32 *)((u8 *)var_v1 + 0) != 0) && (arg0 == *(u8 *)((u8 *)var_v1 + 0x127))) {
-        return (s32 *)var_v1;
-    }
-    var_v1 += 0x32C;
-    if ((*(s32 *)((u8 *)var_v1 + 0) != 0) && (arg0 == *(u8 *)((u8 *)var_v1 + 0x127))) {
-        return (s32 *)var_v1;
-    }
-    var_v1 += 0x32C;
-    var_v0 += 4;
-    if ((*(s32 *)((u8 *)var_v1 + 0) != 0) && (arg0 == *(u8 *)((u8 *)var_v1 + 0x127))) {
-        return (s32 *)var_v1;
-    }
-    var_v1 += 0x32C;
-    if (var_v0 == 0x19) {
-        return 0;
-    }
-    goto loop_4;
+    return NULL;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505EFD0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505EFD0.s")
 extern u8 D_800CC2D4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505F0AC CURRENT (415) */
-s32 *func_1505F0AC(s32 arg0) {
-    u8 *var_v1;
-    s32 var_v0;
+struct127 *func_1505F0AC(s32 arg0) {
+    struct127 *tmp = (struct127 *)&D_800CC2D0;
+    s32 i;
 
-    var_v1 = (u8 *)&D_800CC5FC;
-    if ((D_800CC2D0 != 0) && (arg0 == D_800CC2D4)) {
-        return &D_800CC2D0;
+    for (i = 0; i < 25; i++) {
+        if ((tmp->interaction_state != 0) && (arg0 == tmp->id)) {
+            return tmp;
+        }
+        tmp++;
     }
-    var_v0 = 1;
-loop_4:
-    if ((*(s32 *)((u8 *)var_v1 + 0) != 0) && (arg0 == *(u8 *)((u8 *)var_v1 + 4))) {
-        return (s32 *)var_v1;
-    }
-    var_v1 += 0x32C;
-    if ((*(s32 *)((u8 *)var_v1 + 0) != 0) && (arg0 == *(u8 *)((u8 *)var_v1 + 4))) {
-        return (s32 *)var_v1;
-    }
-    var_v1 += 0x32C;
-    if ((*(s32 *)((u8 *)var_v1 + 0) != 0) && (arg0 == *(u8 *)((u8 *)var_v1 + 4))) {
-        return (s32 *)var_v1;
-    }
-    var_v1 += 0x32C;
-    var_v0 += 4;
-    if ((*(s32 *)((u8 *)var_v1 + 0) != 0) && (arg0 == *(u8 *)((u8 *)var_v1 + 4))) {
-        return (s32 *)var_v1;
-    }
-    var_v1 += 0x32C;
-    if (var_v0 == 0x19) {
-        return 0;
-    }
-    goto loop_4;
+    return NULL;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505F0AC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505F0AC.s")
 extern f32 D_8009962C;
 extern f32 D_80099630;
 

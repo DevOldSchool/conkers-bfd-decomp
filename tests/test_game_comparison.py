@@ -401,6 +401,120 @@ class GameComparisonTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "raw-reference span differs"):
                 self.prove(root, candidate, reference, words=[*self.words[:-1], 1])
 
+    # The neighbor reads its unit's own .rodata, placed by a reviewed script.
+    literal = "lui $at,%hi(.Lliteral)\nlwc1 $f0,%lo(.Lliteral)($at)\njr $ra\nnop"
+    literal_words = [0x3C01800A, 0xC4200010, 0x03E00008, 0]
+    literal_data = ".section .rodata\n.align 2\n.Lliteral: .word 0x3DCCCCCD, 0, 0, 0\n"
+    table = ".Lcase0:\nlui $at,%hi(.Ltable)\nlw $t6,%lo(.Ltable)($at)\n.Lcase1:\njr $t6\nnop"
+    table_words = [0x3C01800A, 0x8C2E0010, 0x01C00008, 0]
+    table_data = ".section .rodata\n.align 2\n.Ltable: .word .Lcase0, .Lcase1, 0, 0\n"
+
+    def rodata_script(self, root, *, address=0x800A0010, inputs="*unit.o(.rodata)",
+                      size=0x10, payload=0x4):
+        lines = ["SECTIONS\n{\n",
+                 f"    .game_rodata_unit 0x{address:08X} (INFO) : SUBALIGN(4)\n",
+                 f"    {{\n        {inputs}\n    }}\n}}\n"]
+        if size is not None:
+            lines.append(f'ASSERT(SIZEOF(.game_rodata_unit) == 0x{size:X},\n       "unit extent changed")\n')
+        if payload is not None:
+            lines.append(f"__game_rodata_unit_payload_size = 0x{payload:X};\n")
+        (root / "config/game").mkdir(parents=True, exist_ok=True)
+        (root / linked_aliases.GAME_RODATA_SCRIPT).write_text("".join(lines))
+
+    def prove_rodata(self, root, candidate, reference, neighbor_words, data):
+        unit_words = [0x03E00008, 0, 0, 0, *self.words, *neighbor_words]
+        rom_data = bytes(0x10) + data + b"\xff" * 0x10
+        with patch.object(rom_span, "game_data", return_value=(rom_data, 0x800A0000, "validated")):
+            return self.prove(root, candidate, reference, unit_words=unit_words)
+
+    def test_own_rodata_literal_is_placed_at_reviewed_address_and_proven_against_rom(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.metadata(root)
+            self.rodata_script(root)
+            candidate, reference = self.objects(root, neighbor=self.literal, tail=self.literal_data)
+            original = candidate.read_bytes()
+            obj = Object32(original)
+            rodata = linked_aliases.game_rodata(obj)
+            self.assertIsNotNone(rodata)
+            self.assertTrue(any(target[3] == rodata for _, target in obj.relocations.values()))
+            # Only the payload is ROM data; the following ROM bytes stay unrelated.
+            pair = self.prove_rodata(root, candidate, reference, self.literal_words,
+                                     bytes.fromhex("3DCCCCCD"))
+            self.assertIsNotNone(pair)
+            self.assertEqual(pair[0].read_bytes(), pair[1].read_bytes())
+            self.assertEqual(original, candidate.read_bytes())
+            output = root / "build/us/linked-aliases" / self.symbol
+            self.assertIn(".rodata 0x800A0010 : SUBALIGN(4) { *(.rodata) }",
+                          (output / "candidate.ld").read_text())
+            self.assertEqual((0x800A0010, bytes.fromhex("3DCCCCCD") + bytes(12)),
+                             linked_aliases.linked_section(output / "candidate.elf", ".rodata"))
+
+    def test_own_rodata_jump_table_resolves_text_pointers_and_rom_table(self):
+        good = struct.pack(">IIII", 0x15001020, 0x15001028, 0, 0)
+        wrong = struct.pack(">IIII", 0x15001020, 0x1500102C, 0, 0)
+        for data, expected in ((good, True), (wrong, False)):
+            with self.subTest(expected=expected), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                self.metadata(root)
+                self.rodata_script(root, payload=None)
+                candidate, reference = self.objects(root, neighbor=self.table, tail=self.table_data)
+                pair = self.prove_rodata(root, candidate, reference, self.table_words, data)
+                self.assertEqual(expected, pair is not None)
+
+    def test_own_rodata_never_matches_unreviewed_or_differing_bytes(self):
+        payload = bytes.fromhex("3DCCCCCD")
+        cases = [({"payload": None}, payload, self.literal_data),  # Full 16 bytes differ.
+                 ({}, bytes.fromhex("3DCCCCCE"), self.literal_data),
+                 ({}, payload, self.literal_data.replace("0, 0, 0", "1, 0, 0")),
+                 ({"size": 0x20}, payload, self.literal_data),
+                 ({"address": 0x800A0020}, payload, self.literal_data),
+                 ({"inputs": "*unit.o(.rodata.unit_0)"}, payload, self.literal_data),
+                 ({"inputs": "*other.o(.rodata)"}, payload, self.literal_data),
+                 ({"inputs": "*unit.o(.rodata) *other.o(.rodata)"}, payload, self.literal_data),
+                 (None, payload, self.literal_data),
+                 ({}, payload, self.literal_data + ".data\n.word 0\n"),
+                 ({}, payload, self.literal_data.replace(".section .rodata", '.section .rodata,"aw"'))]
+        for script, data, tail in cases:
+            with self.subTest(script=script, data=data, tail=tail), \
+                    tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                self.metadata(root)
+                if script is not None:
+                    self.rodata_script(root, **script)
+                candidate, reference = self.objects(root, neighbor=self.literal, tail=tail)
+                self.assertIsNone(self.prove_rodata(root, candidate, reference,
+                                                    self.literal_words, data + b"\xee" * 12))
+
+    def test_own_rodata_relocation_forms_are_restricted(self):
+        cases = [(".word .Lliteral\nnop\njr $ra\nnop", self.literal_data),
+                 (self.table, self.table_data.replace(".Lcase1,", ".Lcase1+2,")),
+                 (self.table, self.table_data.replace(".Lcase1,", ".Lcase1+0x40,")),
+                 (self.table, self.table_data.replace(".Lcase1,", "D_800E8000,"))]
+        for neighbor, tail in cases:
+            with self.subTest(neighbor=neighbor, tail=tail), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                candidate, _ = self.objects(root, neighbor=neighbor, tail=tail)
+                obj = Object32(candidate.read_bytes())
+                _, section = linked_aliases.function(obj, self.symbol, 16)
+                self.assertIsNotNone(linked_aliases.game_rodata(obj))
+                self.assertIsNone(linked_aliases.game_definitions(
+                    obj, {"func_15001000": 0x15001000}, section, 0x15001000))
+
+    def test_reviewed_rodata_placement_is_read_only_for_one_whole_unit_section(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.assertIsNone(linked_aliases.game_rodata_placement(root, self.source))
+            self.rodata_script(root)
+            self.assertEqual((".game_rodata_unit", 0x800A0010, 0x10, 0x4),
+                             linked_aliases.game_rodata_placement(root, self.source))
+            self.assertIsNone(linked_aliases.game_rodata_placement(root, "src/game/other.c"))
+            script = root / linked_aliases.GAME_RODATA_SCRIPT
+            script.write_text(script.read_text() * 2)
+            self.assertIsNone(linked_aliases.game_rodata_placement(root, self.source))
+            self.rodata_script(root, address=0x800A0012)
+            self.assertIsNone(linked_aliases.game_rodata_placement(root, self.source))
+
 
 class GameComparisonWorkflowTests(unittest.TestCase):
     def test_real_fingerprints_cover_phase_executables_modules_and_proof_inputs(self):

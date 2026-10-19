@@ -10389,17 +10389,16 @@
       "symbol": "func_1505EEB0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 415,
-        "reason": "US CURRENT (415): byte-stride in-place loop matches raw body, but candidate forms D_800CC2D0 address once in a1 and reuses it for early return; raw loads global through t6 with relocated offset and forms the return address separately in v0; nested and volatile-read shapes compile identically",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 220,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1505EEF4",
           "vram": "0x1505EEF4"
         }
@@ -10408,17 +10407,16 @@
       "symbol": "func_1505EEF4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 415,
-        "reason": "Manual byte-stride/in-place pointer correction improves live1330 to415; loop exact, initial global-address CSE remains as exhausted sibling1505EEF4. Evidence deferred-manual-20260928.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 220,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1505EFD0",
           "vram": "0x1505EFD0"
         }
@@ -10427,17 +10425,16 @@
       "symbol": "func_1505EFD0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 415,
-        "reason": "Byte-stride/in-place pointer fixes loop to exact; CURRENT415 initial global CSE remains, same exhausted sibling1505EEF4. See deferred-manual-20260928.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 220,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1505F0AC",
           "vram": "0x1505F0AC"
         }

@@ -5,7 +5,9 @@ The existing path supports undefined address-bearing bootstrap labels. A separat
 debugger SI path also proves literal MMIO operands, retaining natural same-object
 call resolution. The debugger also permits one explicitly reviewed empty-return
 companion within its unchanged registered span. Reviewed main initialized data uses explicit ROM-backed placement manifests.
-GAME also proves terminal alignment padding using complete reviewed units.
+GAME also proves terminal alignment padding using complete reviewed units, and
+places a unit's own .rodata only at its reviewed external address, proving
+those linked bytes against checksum-validated ROM game data.
 Other paths reject local data relocations; no path rewrites originals.
 """
 from __future__ import annotations
@@ -126,9 +128,10 @@ def address_alias_present(candidate: Object32, reference: Object32, symbol: str,
 def definitions(obj: Object32, *, text_addresses: dict[str, int] | None = None,
                 text_section: int | None = None, text_base: int = 0,
                 private_sections: frozenset[int] = frozenset(),
-                game_tables: bool = False) -> dict[str, int] | None:
+                game_tables: bool = False, relocations=None) -> dict[str, int] | None:
     result = {}
-    for kind, (name, value, extent, section) in obj.relocations.values():
+    for kind, (name, value, extent, section) in (obj.relocations.values()
+                                                 if relocations is None else relocations):
         if section in private_sections:
             # Preserve natural linker resolution of actual reviewed storage.
             # Do not assign an address to an individual variable or section symbol.
@@ -553,24 +556,123 @@ def game_context(root: Path, source: str, symbol: str, start: int, size: int):
     return entry, unit, members, addresses, unit_start, extent, spans
 
 
+GAME_RODATA_SCRIPT = "config/game/us-rodata.ld"
+
+
+def game_rodata(obj: Object32) -> int | None:
+    """Return the object's one read-only, allocated, nonempty .rodata section.
+
+    Any other allocated data, or a .rodata with other flags, stays unsupported.
+    """
+    header = obj.unpack(">16sHHIIIIIHHHHHH", 0)
+    names = obj.section(header[13])
+    found = [index for index, section in enumerate(obj.sections)
+             if names[section[0]:].split(b"\0", 1)[0] == b".rodata"]
+    if len(found) != 1:
+        return None
+    _, kind, flags, _, _, size, _, _, alignment, _ = obj.sections[found[0]]
+    if kind != 1 or flags != 2 or size <= 0 or size % 4 or alignment > 16:
+        return None
+    return found[0]
+
+
+def game_rodata_placement(root: Path, source: str) -> tuple[str, int, int | None, int | None] | None:
+    """Read the unit's single reviewed external .rodata placement.
+
+    Returns the section name, its reviewed address, the asserted section size
+    and the reviewed payload size. A missing, split or shared placement fails
+    closed: the proof never chooses an address for unreviewed rodata.
+    """
+    path = root / GAME_RODATA_SCRIPT
+    if not path.is_file():
+        return None
+    script = path.read_text()
+    stem = re.escape(Path(source).stem)
+    if len(re.findall(r"\*" + stem + r"\.o\(\.rodata", script)) != 1:
+        return None
+    placements = re.findall(r"(\.game_rodata_\w+)\s+0x([0-9A-Fa-f]+)\s+\(INFO\)\s*:\s*SUBALIGN\(4\)\s*"
+                            r"\{\s*\*" + stem + r"\.o\(\.rodata\)\s*\}", script)
+    if len(placements) != 1:
+        return None
+    name, address = placements[0][0], int(placements[0][1], 16)
+    sizes = re.findall(r"ASSERT\(SIZEOF\(" + re.escape(name) + r"\)\s*==\s*0x([0-9A-Fa-f]+)\s*,", script)
+    payloads = re.findall(r"__" + re.escape(name[1:]) + r"_payload_size\s*=\s*0x([0-9A-Fa-f]+)\s*;", script)
+    if len(sizes) > 1 or len(payloads) > 1 or address % 4:
+        return None
+    return (name, address, int(sizes[0], 16) if sizes else None,
+            int(payloads[0], 16) if payloads else None)
+
+
+def linked_section(path: Path, name: str) -> tuple[int, bytes]:
+    """Read one allocated section's address and bytes from a linked ELF32."""
+    data = path.read_bytes()
+    header = struct.unpack_from(">16sHHIIIIIHHHHHH", data, 0)
+    if header[0][:7] != b"\x7fELF\x01\x02\x01" or header[11] != 40:
+        raise ValueError("linked alias proof requires a big-endian ELF32 image")
+    sections = [struct.unpack_from(">10I", data, header[6] + 40 * index) for index in range(header[12])]
+    names = sections[header[13]]
+    strings = data[names[4]:names[4] + names[5]]
+    found = [section for section in sections
+             if strings[section[0]:].split(b"\0", 1)[0] == name.encode("ascii")]
+    if len(found) != 1 or found[0][1] != 1 or found[0][4] + found[0][5] > len(data):
+        raise ValueError(f"linked alias proof requires one {name} payload")
+    return found[0][3], data[found[0][4]:found[0][4] + found[0][5]]
+
+
 def game_definitions(obj: Object32, addresses: dict[str, int], section: int,
                      base: int) -> dict[str, int] | None:
     """Inspect the entire object, including dependencies outside the target."""
     names = [name for symbols in obj.symbols.values() for name, _, _, _ in symbols if name]
     if len(names) != len(set(names)):
         return None
-    for (location_section, offset), (kind, (_, _, _, defined_section)) in obj.relocations.items():
-        # This capability has no data/jump-table ownership or non-text fixups.
+    rodata = game_rodata(obj)
+    text_relocations = []
+    for (location_section, offset), relocation in obj.relocations.items():
+        kind, (_, value, _, defined_section) = relocation
+        if rodata is not None and location_section == rodata:
+            # Jump-table words may only point into this unit's own text. The
+            # linked rodata is still compared with the ROM before any proof.
+            if kind != 2 or defined_section != section or offset % 4:
+                return None
+            target = value + obj.word(rodata, offset)
+            if target % 4 or not 0 <= target < len(obj.section(section)):
+                return None
+            continue
         if location_section != section:
             return None
+        text_relocations.append(relocation)
+        if rodata is not None and defined_section == rodata:
+            # Literal and table addresses resolve to the reviewed placement.
+            if kind not in (5, 6):
+                return None
+            continue
         word = obj.word(location_section, offset)
         if defined_section and (kind != 4 or word >> 26 != 3 or word & 0x03FFFFFF):
             return None
-    if any(index != section and header[1] in (1, 8) and header[2] & 6 and header[5]
+    if any(index not in (section, rodata) and header[1] in (1, 8) and header[2] & 6 and header[5]
            for index, header in enumerate(obj.sections)):
         return None
     return definitions(obj, text_addresses=addresses, text_section=section, text_base=base,
-                       game_tables=True)
+                       private_sections=frozenset() if rodata is None else frozenset({rodata}),
+                       game_tables=True, relocations=text_relocations)
+
+
+def game_rodata_matches(root: Path, elf: Path, obj: Object32, rodata: int,
+                        placement: tuple[str, int, int | None, int | None]) -> bool:
+    """Compare the unit's linked .rodata with ROM game data at its reviewed address."""
+    import verify_game_rodata
+
+    name, address, asserted, payload = placement
+    linked_address, linked = linked_section(elf, ".rodata")
+    if (linked_address != address or len(linked) != len(obj.section(rodata))
+            or (asserted is not None and len(linked) != asserted)):
+        return False
+    data, data_vram, _ = rom_span.game_data(root)
+    try:
+        verify_game_rodata.verify_bytes(name, linked, len(linked), address, data, data_vram, payload)
+    except ValueError:
+        return False
+    return True
 
 
 def prepare_game(root: Path, source: str, candidate: Path, reference: Path, assembly: Path,
@@ -594,6 +696,13 @@ def prepare_game(root: Path, source: str, candidate: Path, reference: Path, asse
     raw_symbols = game_definitions(raw, {}, raw_section, start - raw_origin)
     if current_symbols is None or raw_symbols is None:
         return None
+    if game_rodata(raw) is not None:
+        return None  # Raw GAME references name external tables; never place their rodata.
+    rodata, placement = game_rodata(current), None
+    if rodata is not None:
+        placement = game_rodata_placement(root, source)
+        if placement is None:
+            return None
     for member in members:
         region = member["regions"]["us"]
         try:
@@ -620,13 +729,18 @@ def prepare_game(root: Path, source: str, candidate: Path, reference: Path, asse
     if raw_bytes != expected:
         raise ValueError("linked raw-reference span differs from the US ROM")
     current_bytes = linked_span(candidate, current, symbol, start, size, current_symbols,
-                                output / "candidate", reference=False, padding=padding)
+                                output / "candidate", reference=False, padding=padding,
+                                section_placements=None if placement is None
+                                else {".rodata": (placement[1], 4)})
     # linked_span writes the whole real .text section before extracting the
     # bounded display span. No fabricated alignment or cropped unit is accepted.
     complete = (output / "candidate.bin").read_bytes()
     if candidate.read_bytes() != current.data or reference.read_bytes() != raw.data:
         raise ValueError("game comparison objects changed during proof")
     if current_bytes != expected or complete != expected_unit:
+        return None
+    if placement is not None and not game_rodata_matches(
+            root, output / "candidate.elf", current, rodata, placement):
         return None
     paths = output / "candidate.o", output / "reference.o"
     for path, payload in zip(paths, (current_bytes, raw_bytes)):
