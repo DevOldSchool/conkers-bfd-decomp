@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150CFDB8
- * - func_150CFE98
  * - func_150CFF10
  * - func_150D0034
  * - func_150D01A0
@@ -86,7 +85,7 @@ typedef struct GameFD1D0TextCursor {
     u8 pad1[7];
     u8 flags;
     u8 pad9[3];
-    u8 *field_C;
+    s32 field_C;
     u8 *cursor;
     u8 width;
     u8 page;
@@ -104,21 +103,18 @@ typedef struct GameFD1D0State {
 
 void func_150CFE3C(GameFD1D0State *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CFE98 CURRENT (10) */
 void func_150CFE98(GameFD1D0State *arg0) {
     GameFD1D0TextCursor *text;
 
     text = &arg0->text;
     if (*text->cursor != 0) {
-        text->field_C = text->cursor + 1;
-        text->width = func_150CFD84((s32)text->field_C, (s32 *)&text->cursor);
+        text->field_C = (s32)(text->cursor + 1);
+        text->width = func_150CFD84(text->field_C, (s32 *)&text->cursor);
         text->page ^= 1;
         func_150CFE3C(arg0);
         text->flags |= 1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150CFE98 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFE98.s")
 s32 func_150CFDB8(u8 *);
 struct GameFD1D0Object;
 

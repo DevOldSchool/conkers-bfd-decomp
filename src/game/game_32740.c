@@ -178,10 +178,10 @@ extern s32 D_800BE624;
 extern s8 D_800C3671;
 extern u8 D_800CC2D0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150054C4 CURRENT (615) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150054C4 CURRENT (485) */
 void func_150054C4(u8 *view, u32 index, s32 resource, s32 mode) {
     Game32740View *state = (Game32740View *)view;
-    u16 i;
+    u16 i = 0;
     s32 actorIndex;
     u8 *actor;
     f32 value;
@@ -189,7 +189,6 @@ void func_150054C4(u8 *view, u32 index, s32 resource, s32 mode) {
     func_100226F0(view, 0x9A0);
     state->field23D = index;
     state->field23C = 1;
-    i = 0;
     do {
         func_151239CC(view, i);
         state->field1B6[i++] = 0x3E7;
