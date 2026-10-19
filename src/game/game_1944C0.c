@@ -13,7 +13,6 @@
  * - func_15168118
  * - func_1516865C
  * - func_15168870
- * - func_15168C4C
  * - func_15168E54
  * - func_15168F08
  * - func_15169070
@@ -879,39 +878,23 @@ void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 extern s16 D_800DD1C0, D_800DD1C2, D_800DD1C4, D_800DD1C6;
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15168C4C CURRENT (383) */
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 void *func_15168C4C(Game1944C0Command *arg0, Game1944C0RenderState *arg1, s32 arg2) {
+    Game1944C0Command *result;
     s32 texture;
     u8 loaded;
-    Game1944C0Command *result;
 
     func_15043D90((s32)arg1->matrices[D_800BE9C0], arg1->field9C, arg1->fieldA0, arg1->fieldA4,
                    arg1->valuesC0[0], arg1->valuesC0[1], arg1->valuesC0[2],
                    arg1->values90[0], arg1->values90[1], arg1->values90[2]);
-    {
-        Game1944C0Command *command = arg0++;
-        command->w0 = 0xE7000000;
-        command->w1 = 0;
-    }
-    {
-        Game1944C0Command *command = arg0++;
-        command->w0 = 0xFA000000;
-        command->w1 = arg1->alpha;
-    }
+    { Game1944C0Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
+    { Game1944C0Command *command = arg0++; command->w0 = 0xFA000000; command->w1 = _SHIFTL(0, 24, 8) | _SHIFTL(0, 16, 8) | _SHIFTL(0, 8, 8) | _SHIFTL(arg1->alpha, 0, 8); }
     D_800DD1C6 = arg1->alpha;
     D_800DD1C4 = 0;
     D_800DD1C2 = D_800DD1C4;
     D_800DD1C0 = D_800DD1C2;
-    {
-        Game1944C0Command *command = arg0++;
-        command->w0 = 0xFB000000;
-        command->w1 = 0;
-    }
-    {
-        Game1944C0Command *command = arg0++;
-        command->w0 = arg1->tile | 0xF2002000;
-        command->w1 = 0x7E0FE;
-    }
+    { Game1944C0Command *command = arg0++; command->w0 = 0xFB000000; command->w1 = 0; }
+    { Game1944C0Command *command = arg0++; command->w0 = _SHIFTL(0xF2, 24, 8) | _SHIFTL(2, 12, 12) | _SHIFTL(arg1->tile, 0, 12); command->w1 = 0x7E0FE; }
     switch (arg1->kind) {
     case 1: texture = 0x552230; break;
     case 2: texture = 0x504A50; break;
@@ -920,24 +903,12 @@ void *func_15168C4C(Game1944C0Command *arg0, Game1944C0RenderState *arg1, s32 ar
     result = func_15142FBC(arg0, 0x8ACA0, texture, &loaded);
     arg0 = result;
     if (arg1->mode == 1) {
-        result->w0 = 0xFC123824;
-        result->w1 = 0xFF73FFFF;
-        arg0 = result + 1;
+        { Game1944C0Command *command = arg0++; command->w0 = 0xFC123824; command->w1 = 0xFF73FFFF; }
     }
-    {
-        Game1944C0Command *command = arg0++;
-        command->w0 = 0xDA380003;
-        command->w1 = (u32)arg1->matrices[D_800BE9C0];
-    }
-    {
-        Game1944C0Command *command = arg0++;
-        command->w0 = 0xDE000000;
-        command->w1 = arg1->displayList;
-    }
+    { Game1944C0Command *command = arg0++; command->w0 = 0xDA380003; command->w1 = (u32)arg1->matrices[D_800BE9C0]; }
+    { Game1944C0Command *command = arg0++; command->w0 = 0xDE000000; command->w1 = arg1->displayList; }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15168C4C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168C4C.s")
 void func_15168E34(s32 *arg0, s32 arg1) {
     s32 temp_v0;
 

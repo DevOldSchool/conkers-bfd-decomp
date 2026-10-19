@@ -10127,7 +10127,7 @@
         "us": {
           "end": "0x1D2AB0",
           "start": "0x1D26C0",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1FFB70.c"
@@ -13227,15 +13227,15 @@
       "functions": [
         "func_150F9AB0"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xF9BB0",
           "start": "0xF9AB0",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_126F60.c"
+      "source": "src/done/game/game_126F60.c"
     },
     {
       "boundary_evidence": {
@@ -14980,7 +14980,7 @@
         "us": {
           "end": "0x100600",
           "start": "0x100340",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_12D7F0.c"

@@ -13613,17 +13613,16 @@
       "symbol": "func_15168BE4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 383,
-        "reason": "Manual display-command construction3760/443/383. Updating incoming display pointer directly recovers saved-register assignment; separate actual helper result improves optional-command flow. Frame8short, command increment/store scheduling and transient registers remain. Three variants exhausted; no padding.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 488,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15168C4C",
           "vram": "0x15168C4C"
         }
@@ -44932,17 +44931,16 @@
       "symbol": "func_151EC178"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 655,
-        "reason": "Three bounded forms scored 2550/655/655. Raw helper15096934 explicitly returns input+8, so corrected local return annotation. Macro-like command writes and staged clamp arithmetic improve; SDK Gfx alignment view is unchanged. Pointer bumps, store and call-argument scheduling remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 504,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151EC1F0",
           "vram": "0x151EC1F0"
         }
@@ -44983,17 +44981,16 @@
       "symbol": "func_151EC648"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2769,
-        "reason": "CURRENT (2769): display-list logic represented but IDO adds arg spill/0x38 frame, reorders command stores and call stack setup; pointer-increment revision enlarged frame further. Preserve initial candidate.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 324,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151ED09C",
           "vram": "0x151ED09C"
         }
@@ -45089,17 +45086,16 @@
       "symbol": "func_151EDB58"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1303,
-        "reason": "CURRENT 1303 after two finishes and two bounded probe batches. Frame 0x28 is exact; original pointer spill is 0x24 versus 0x20, and display-list command advancement, store ordering and temporary allocation still differ.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 880,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151EDBDC",
           "vram": "0x151EDBDC"
         }
@@ -50064,17 +50060,16 @@
       "symbol": "func_1509563C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1523,
-        "reason": "Manual FP operand order1543->1523 fixes ADD and tail FPR. Typed byte-base address1528 rejected; separate pointer lifetimes previously exhausted. Remaining display pointer folding, GPR/FPR allocation and call argument schedule.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 336,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15095760",
           "vram": "0x15095760"
         }
@@ -64440,17 +64435,16 @@
       "symbol": "func_151D275C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3025,
-        "reason": "Best3025 retained; frame20 and most post-call command pointer GPRs exact, but parameter home, narrowing schedule and command increment/store timing remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 640,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D2830",
           "vram": "0x151D2830"
         }
@@ -72076,22 +72070,21 @@
       "symbol": "func_150F43F0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 134,
-        "reason": "Improved980 to134: typed stride/scoped command cursors/removed unused matrix prefix. Frame80/matrix40 vs78/38 and four command order rows remain; pointer reuse and inlining exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 256,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150F9AB0",
           "vram": "0x150F9AB0"
         }
       },
-      "source": "src/game/game_126F60.c",
+      "source": "src/done/game/game_126F60.c",
       "symbol": "func_150F9AB0"
     },
     {
@@ -77784,17 +77777,16 @@
       "symbol": "func_15100340"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 335,
-        "reason": "Improved1702 to335: scoped packet writes/direct arg pointer and removed inherited padding. Exact registers/frame/workspace; three pointer-increment placements remain. Late increments740 and typed postincrement335 exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 412,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15100464",
           "vram": "0x15100464"
         }
