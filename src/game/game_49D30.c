@@ -35,7 +35,6 @@
  * - func_15021DB8
  * - func_15022024
  * - func_1502225C
- * - func_15022398
  * - func_15022528
  * - func_15022640
  * - func_150229E4
@@ -1477,17 +1476,14 @@ extern u8 D_800CC2D0;
 extern u8 *D_800D20FC;
 extern u8 D_800D2100;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15022398 CURRENT (16) */
 void func_15022398(s32 arg0, s32 arg1) {
     u8 *actor;
     s32 id;
     s32 kind;
-    Game49D30Selection *entry;
 
     if (((u16 *)D_800C35C8[arg1])[arg0] != 0) {
-        entry = &((Game49D30Selection *)D_800C35F0[arg1])[arg0];
-        if (entry->kind == 2) {
-            kind = entry->actor;
+        if (((Game49D30Selection *)D_800C35F0[arg1])[arg0].kind == 2) {
+            kind = ((Game49D30Selection *)D_800C35F0[arg1])[arg0].actor;
             id = func_15083E0C(kind);
             if (id != -1) {
                 actor = func_1505EEF4(id);
@@ -1514,8 +1510,6 @@ void func_15022398(s32 arg0, s32 arg1) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15022398 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15022398.s")
 void func_1502178C(void *, s32, s32);
 void *func_15083E90(u8);
 extern s32 D_800C35D0;

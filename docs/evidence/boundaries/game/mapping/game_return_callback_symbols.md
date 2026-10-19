@@ -64,9 +64,9 @@ other return-only candidates without a direct game-data pointer are not
 promoted by this symbol change: `150045BC`, `15040A4C`, `15073070`,
 `1507DB34`, `1507DB3C`, `1507DB64`, and `1513E134`. Their bytes remain
 inside the existing raw spans until stronger entry-point evidence is available.
-(`15073070` and `1507DB64` were later given labels on compiler-model grounds,
-not table evidence; see
-[the return-stub splits](game_unreferenced_return_stub_splits.md).)
+(`15073070` and `1507DB64`, and later `150045BC`, `15040A4C` and
+`1513E134`, were given labels on compiler-model grounds, not table evidence;
+see [the return-stub splits](game_unreferenced_return_stub_splits.md).)
 No SDK ownership, C implementation or historical function name is inferred.
 
 Regenerate the ROM-derived comparison assembly using `./conker game-asm

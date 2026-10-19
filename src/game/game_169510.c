@@ -12,7 +12,6 @@
  * - func_1513CFE4
  * - func_1513D6FC
  * - func_1513DB00
- * - func_1513E084
  * - func_1513E13C
  * - func_1513E2AC
  * - func_1513E6E8
@@ -805,10 +804,8 @@ dispatch:
 void func_1513E070(s32 arg0, s32 arg1, s32 arg2) {
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E084 CURRENT (220) */
 void func_1513E084(void *arg0, void *arg1, u8 arg2) {
     u8 *state;
-    s32 current;
 
     state = (u8 *)arg0 + 0x110;
     if (arg2 == 0x1A) {
@@ -821,17 +818,16 @@ void func_1513E084(void *arg0, void *arg1, u8 arg2) {
     if (arg2 != 0x2D) {
         return;
     }
-    current = *(s32 *)state;
-    if (*(s32 *)arg1 == current) {
+    if (*(s32 *)arg1 == *(s32 *)state) {
         *(s32 *)state = *(s32 *)((u8 *)arg1 + 4);
         *(u8 *)(state + 4) = *(u8 *)((u8 *)arg1 + 9);
-    } else if (*(s32 *)((u8 *)arg1 + 4) == current) {
+    } else if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)state) {
         *(s32 *)state = *(s32 *)arg1;
         *(u8 *)(state + 4) = *(u8 *)((u8 *)arg1 + 8);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513E084 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513E084.s")
+void func_1513E134(void) {
+}
 /* Call context: func_151423D8: unique active project prototype */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E13C CURRENT (2081) */

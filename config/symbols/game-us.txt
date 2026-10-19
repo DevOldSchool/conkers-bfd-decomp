@@ -34,3 +34,10 @@ func_151DE6CC = 0x151DE6CC; // type:func size:0x8
 // Their bodies are already separate empty C definitions; no callback identity is claimed.
 func_15073070 = 0x15073070; // type:func size:0x8
 func_1507DB64 = 0x1507DB64; // type:func size:0x8
+// Return-only stubs split from deferred parents whose C reproduced the rest of the span.
+// Evidence: docs/evidence/boundaries/game/mapping/game_unreferenced_return_stub_splits.md#deferred-parent-splits
+func_150045BC = 0x150045BC; // type:func size:0x8
+func_15040A4C = 0x15040A4C; // type:func size:0x8
+func_1516ECA4 = 0x1516ECA4; // type:func size:0x8
+func_15195824 = 0x15195824; // type:func size:0x8
+func_1513E134 = 0x1513E134; // type:func size:0x8

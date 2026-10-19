@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/effects/effects_characterflamethrower.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151957B0
  * - func_1519582C
  * - func_15195868
  * - func_15195AA8
@@ -153,7 +152,6 @@ typedef struct CharacterFlamethrowerListNode {
 
 void *func_10003C40(s32, s32, s32, s32); /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151957B0 CURRENT (200) */
 CharacterFlamethrowerListNode *func_151957B0(
     s32 arg0,
     CharacterFlamethrowerListNode **arg1,
@@ -178,8 +176,9 @@ CharacterFlamethrowerListNode *func_151957B0(
     }
     return node;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151957B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151957B0.s")
+
+void func_15195824(void) {
+}
 CharacterFlamethrowerListNode *func_151957B0(s32, CharacterFlamethrowerListNode **, CharacterFlamethrowerListNode **);
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1519582C CURRENT (450) */
 void func_1519582C(void) {

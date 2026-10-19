@@ -58,11 +58,13 @@ produce or a comparison that again borrows words from a neighbouring symbol.
   `game_981E0.c` and `game_A9D90.c` are unchanged; the new members sit between
   their parent and the parent's former successor.
 - The other unreferenced return sequences retained inside raw spans
-  (`150045BC`, `15040A4C`, `1507DB34`, `1507DB3C`, `1513E134`) are not
-  promoted here. They sit inside spans that have no accepted C definition, so
-  the compiler argument above has not yet been exercised for them; the
-  [deferred `func_15040A40` caveat](../../main/main_boundary_residual_frontier.md#separate-game-function-span-caveat)
-  still applies to them.
+  (`150045BC`, `15040A4C`, `1507DB34`, `1507DB3C`, `1513E134`) were not
+  promoted by this first pass. They sat inside spans that had no accepted C
+  definition, so the compiler argument above had not yet been exercised for
+  them. `150045BC`, `15040A4C` and `1513E134` were split later, once their
+  parents' C reproduced every other word; see
+  [the deferred-parent splits](#deferred-parent-splits) below.
+  `1507DB34` and `1507DB3C` remain inside their raw span.
 
 ## Transaction and validation
 
@@ -81,3 +83,40 @@ shortens the parent span and withdraws the parent's stale match evidence. The
 regenerated reference added exactly the two labels and changed no instruction
 word. All four spans were then re-proved through `./conker finish` and a clean
 `./conker verify-batch` with the four work items.
+
+## Deferred-parent splits
+
+Five deferred US game parents had preserved C candidates that reproduced
+every word of their registered span except a final unlabelled `jr $ra; nop`
+after the candidate's own complete epilogue. Their deferred scores (200, or
+220 for `func_1513E084`) were exactly that missing pair, apart from two
+branch-operand rows in `func_1513E084` that were fixed in C separately. This
+exercises the compiler argument above for each parent: a single C function
+cannot yield a second return sequence after its epilogue, so the eight bytes
+are a separate empty function.
+
+| Parent | Old span | New span | Split symbol | Source |
+| --- | ---: | ---: | --- | --- |
+| `func_15004574` | `0x50` | `0x48` | `func_150045BC` | `src/game/game_30E90.c` |
+| `func_15040A40` | `0x14` | `0xC` | `func_15040A4C` | `src/game/game_6D800.c` |
+| `func_1513E084` | `0xB8` | `0xB0` | `func_1513E134` | `src/game/game_169510.c` |
+| `func_1516E8CC` | `0x3E0` | `0x3D8` | `func_1516ECA4` | `src/game/game_19A8B0.c` |
+| `func_151957B0` | `0x7C` | `0x74` | `func_15195824` | `src/game/effects/characterflamethrower.c` |
+
+The beta index independently proposes `150045BC` as an entry (see
+[the remaining upstream C groups](game_remaining_upstream_c_groups.md)).
+`15040A4C` and `1513E134` are the interior entry proposals that the
+[dispatcher evidence](game_dispatcher_callback_groups.md#resolving-the-function-index-disagreements)
+retained inside the preceding raw spans. `1516ECA4` and `15195824` have no
+index proposal; they rest on the compiler argument alone. As above, no
+callback identity or historical name is claimed, and no reference to any of
+the five addresses exists in retail game data or code.
+
+Each split added the label to `config/symbols/game-us.txt`, regenerated the
+reference with `./conker game-asm` (only the five labels changed), resumed the
+deferred parent and ran
+`./conker split-game-function --parent <parent> --id <stub> --us <stub>`.
+Each source then gained `void <stub>(void) {}` directly after its parent.
+All ten spans scored `CURRENT (0)` through `./conker finish` and passed one
+clean `./conker verify-batch` with the rest of the round-10 batch. The
+source-unit boundaries are unchanged, and all five units remain mixed.

@@ -3052,22 +3052,40 @@
       "symbol": "func_15160274"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "Round3 2026-10-17 recheck unchanged: body exact; registered span still holds an extra unregistered jr ra/nop at +0x74/+0x78 (an unregistered empty function), CURRENT (200). Needs span registration/shrink, not C.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 116,
+          "state": "matched",
           "symbol": "func_151957B0",
           "vram": "0x151957B0"
         }
       },
       "source": "src/game/effects/characterflamethrower.c",
       "symbol": "func_151957B0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 8,
+          "state": "matched",
+          "symbol": "func_15195824",
+          "vram": "0x15195824"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15195824"
     },
     {
       "deferred": {
@@ -18462,23 +18480,40 @@
       "symbol": "func_15040A34"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "Round3 2026-10-17 recheck unchanged CURRENT (200): stub body exact; registered span swallows an extra unregistered jr ra/nop at +0xC/+0x10. Needs span registration, not C.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "size_bytes": 20,
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 12,
+          "state": "matched",
           "symbol": "func_15040A40",
           "vram": "0x15040A40"
         }
       },
       "source": "src/game/game_6D800.c",
       "symbol": "func_15040A40"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 8,
+          "state": "matched",
+          "symbol": "func_15040A4C",
+          "vram": "0x15040A4C"
+        }
+      },
+      "source": "src/game/game_6D800.c",
+      "symbol": "func_15040A4C"
     },
     {
       "overlay": "game",
@@ -28946,23 +28981,40 @@
       "symbol": "func_1513E070"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 220,
-        "reason": "Refreshed full-span CURRENT (220): previous two branch-operand swaps remain, plus missing jr ra/nop at offsets0xB0/0xB4 of the registered184-byte span (candidate176bytes). Prior score20 omitted this tail difference. No C change or permutation: requires independent boundary/unreachable-tail evidence; do not append an unexplained stub or narrow comparison.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "size_bytes": 184,
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 176,
+          "state": "matched",
           "symbol": "func_1513E084",
           "vram": "0x1513E084"
         }
       },
       "source": "src/game/game_169510.c",
       "symbol": "func_1513E084"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 8,
+          "state": "matched",
+          "symbol": "func_1513E134",
+          "vram": "0x1513E134"
+        }
+      },
+      "source": "src/game/game_169510.c",
+      "symbol": "func_1513E134"
     },
     {
       "deferred": {
@@ -29445,23 +29497,40 @@
       "symbol": "func_150039E0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "Round2 recheck 2026-10-17: CURRENT (200), every body instruction exact; only a second unreachable jr ra/nop after the shared epilogue is missing. Probe of early return, return inside the arm, trailing return and goto-end shapes all neutral.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "size_bytes": 80,
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 72,
+          "state": "matched",
           "symbol": "func_15004574",
           "vram": "0x15004574"
         }
       },
       "source": "src/game/game_30E90.c",
       "symbol": "func_15004574"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 8,
+          "state": "matched",
+          "symbol": "func_150045BC",
+          "vram": "0x150045BC"
+        }
+      },
+      "source": "src/game/game_30E90.c",
+      "symbol": "func_150045BC"
     },
     {
       "deferred": {
@@ -39726,17 +39795,16 @@
       "symbol": "func_150222E0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 16,
-        "reason": "Round8 2026-10-19: CURRENT 1172 -> 16. Real prototypes: func_15083E0C(u8) (definition game_AEB40.c; s32 proto lost the lbu v0/move a0 copy) and func_1505E650 args 2-3 f32 (raw mfc1 a2/a3). Four named locals actor/id/kind/entry (table is a CSE temp: named table grows frame to 0x48), D_800C35F0 != &D_800C35F0[arg1] operand order. Only residual: table-address spill at sp+0x28 vs raw sp+0x2C (raw 0x28 unused). Typed actor struct, 0x32C pointer difference, named table at 5 positions, typed entry, 240s randomized permuter: all 16 or worse.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 400,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15022398",
           "vram": "0x15022398"
         }
@@ -41609,17 +41677,16 @@
       "symbol": "func_15033E84"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 240,
-        "reason": "Original CURRENT240 retained. Reusing arg1 for node byte after preserving replacement regressed285; pointer declaration order neutral285. No useful further allocation hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 72,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15033EC4",
           "vram": "0x15033EC4"
         }
@@ -47140,23 +47207,40 @@
       "symbol": "func_1516E778"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "Round2 recheck 2026-10-17: CURRENT (200), every body instruction exact; only a second unreachable jr ra/nop after the shared epilogue is missing. Probe of early return, return inside the arm, trailing return and goto-end shapes all neutral.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "size_bytes": 992,
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 984,
+          "state": "matched",
           "symbol": "func_1516E8CC",
           "vram": "0x1516E8CC"
         }
       },
       "source": "src/game/game_19A8B0.c",
       "symbol": "func_1516E8CC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 8,
+          "state": "matched",
+          "symbol": "func_1516ECA4",
+          "vram": "0x1516ECA4"
+        }
+      },
+      "source": "src/game/game_19A8B0.c",
+      "symbol": "func_1516ECA4"
     },
     {
       "overlay": "game",
@@ -85483,17 +85567,16 @@
       "symbol": "func_150D54C8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT (10): score-neutral equality operand swap reverted. One bnel uses a0,t2 instead of t2,a0. Reversal, early return and 32 deterministic permutations remain 10. Search: seed=181028; iterations=3843; elapsed_seconds=60.4. Historical main evidence: Oct18 isolated: CURRENT (10) unchanged. Unsigned identity locals/load and actual event snapshot probes10; early-return first replacement arm with both second-compare operand orders10. Prior next/id and deterministic32 exhaustion retained. Single bnel operand-order row remains. Ledger: build/us/manual-attempts/deferred-20261018/ledger.md; review ledger: build/us/manual-attempts/pr149-review/ledger.md; durable review: docs/evidence/matching/pr149-review.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 192,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D596C",
           "vram": "0x150D596C"
         }
@@ -89926,17 +90009,16 @@
       "symbol": "func_150880F8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 110,
-        "reason": "Three source-only argument and lifetime variants plateaued at CURRENT (110); target requires entry move a1,a0 before global load.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150881CC",
           "vram": "0x150881CC"
         }
@@ -89963,17 +90045,16 @@
       "symbol": "func_15088218"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 195,
-        "reason": "Preserve CURRENT195 explicit base/index snapshots versus original210. Named index alone495, reverse initialization505; raw early MOVE and stride scheduling plus final address register unresolved. No new useful hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 64,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15088270",
           "vram": "0x15088270"
         }
@@ -89982,17 +90063,16 @@
       "symbol": "func_15088270"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 195,
-        "reason": "CURRENT (195), improved from 220 with base-before-index snapshot. Entry move order, shift scheduling and address register remain. Separate/direct-base probes 505/495; compound 205; indexed compound 195; typed pointer 230. Historical main evidence: Live CURRENT (220), stale saved score 110: missing entry move a1,a0, four index/pointer register rows and trailing span difference. Explicit index plus parameter reassignment worsened to CURRENT (495); baseline preserved Ledger: build/us/manual-attempts/deferred-20261018/ledger.md; review ledger: build/us/manual-attempts/pr149-review/ledger.md; durable review: docs/evidence/matching/pr149-review.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 52,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150882B0",
           "vram": "0x150882B0"
         }

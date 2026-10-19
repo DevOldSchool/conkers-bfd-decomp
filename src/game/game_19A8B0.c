@@ -10,7 +10,6 @@
  * - func_1516D4E8
  * - func_1516D738
  * - func_1516DB90
- * - func_1516E8CC
  * - func_1516EED4
  * - func_1516F548
  * - func_1516FE1C
@@ -395,7 +394,6 @@ void func_1516E778(u32 arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4) {
 extern u8 D_800A6E00[];
 extern u8 D_800A6E0C[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516E8CC CURRENT (200) */
 s32 func_1516E8CC(Game19A8B0Motion *arg0) {
     s32 value;
     s32 progress;
@@ -456,8 +454,9 @@ s32 func_1516E8CC(Game19A8B0Motion *arg0) {
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1516E8CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516E8CC.s")
+
+void func_1516ECA4(void) {
+}
 
 extern s32 D_800BE9E4;
 
