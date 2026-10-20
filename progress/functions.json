@@ -11098,8 +11098,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4000,
-        "reason": "CURRENT (4000): removing the duplicate s16 local fixed the frame and explicit s32-to-s16 normalization improved 4813\u21924385\u21924000, but IDO still delays normalization, folds all three display-list cursor increments into fixed offsets, and changes branch scheduling. void-pointer, u32 cursor, and two-word command cursor forms plateaued.",
+        "current_score": 1025,
+        "reason": "Round 13: typed Game168A90Command *arg0 cursor, one-line DA/DB/DE blocks, s32 arg2 narrowed by arg2 = (s16)arg2: 4000 -> 1025. Prototyped s16 arg2 makes IDO keep the parameter memory-resident (1845); raw narrows it in the prologue and spills it with sh/lh only around the callback.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -13613,17 +13613,16 @@
       "symbol": "func_15168BE4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 383,
-        "reason": "Manual display-command construction3760/443/383. Updating incoming display pointer directly recovers saved-register assignment; separate actual helper result improves optional-command flow. Frame8short, command increment/store scheduling and transient registers remain. Three variants exhausted; no padding.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 488,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15168C4C",
           "vram": "0x15168C4C"
         }
@@ -17026,17 +17025,16 @@
       "symbol": "func_1501A220"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2755,
-        "reason": "Improved6192 to2755: explicitbackedge removes unroll; advancing commandcursor restores raw18frame andfive savedregs. Registerhint and command-sized postincrement neutral2755; simpler best restored/reverified. Remaining five cursor snapshot MOVEs removed, 224Bvs244B, global setup/tablecursor scheduling and GPR allocation; no supported new hypothesis. Four manual revisions plus restoration; deferred-exact-20261005.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 244,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501A39C",
           "vram": "0x1501A39C"
         }
@@ -17047,8 +17045,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1325,
-        "reason": "Manual baseline plus two revisions exhausted; valid best CURRENT 1325 models actual mutable command cursor. Revision 2 fixed addressed float offsets but regressed to 1425 by folding initial cursor. Remaining stack offsets, command scheduling and limit FP allocation; retain simpler lower-score revision 1.",
+        "current_score": 590,
+        "reason": "Round 13: s16 arg1, one-line gDPPipeSync/gDPSetScissor blocks ((int)((float)x*4.0F) _SHIFTL form) 1325 -> 590; reference float homes sit two words lower (two unknown named locals above them); limit/height or pad locals push the frame to 0x50.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -17082,17 +17080,16 @@
       "symbol": "func_1501A680"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2392,
-        "reason": "US CURRENT (2392) under live inputs: direct arg1/arg2/arg3 form reduces stale alias copies but compiler homes a3 at sp+0xC, delays D_800BE620 LUI/load, keeps global bound in a3 instead of raw v0 and changes output word scheduling; moving global capture before first clamp regresses to 2455; original aliased source scores 2575 live",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 152,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501A6CC",
           "vram": "0x1501A6CC"
         }
@@ -30746,8 +30743,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 7590,
-        "reason": "Best CURRENT 7590 after three bounded comparisons; scoped packets and actual first-formal cursor recover exact28frame/prologue and packet snapshots, but increment scheduling, coordinate arithmetic, byte/register and control differences remain. No shared changes.",
+        "current_score": 5190,
+        "reason": "Round 13: typed GameA9D90Command cursor with one-line load blocks and the final gSPTextureRectangle (E4/E1/F1) expansion on one line: 7590 -> 5190. Remaining: t-register numbering offset by one from the first gDPSetTile block and the flag-word address scheduling.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -31026,8 +31023,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 6510,
-        "reason": "CURRENT6510 after three finishes and two probe batches. Argument cursor improves allocation; frameA0 vsA8, state base rematerialization, command snapshot and float scheduling differ. Best valid candidate preserved with original ASM active; no shared dependencies.",
+        "current_score": 2853,
+        "reason": "Round 13: one-line packet blocks and state = (GameBC510DisplayState *)(u32)D_800D24C8 (keeps the state base in s1 like raw): 6510 -> 2958. Remaining: func_15043D90 float-argument evaluation order/registers and resource values loaded straight into a0 (raw loads v1 then move a0,v1).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -31043,17 +31040,16 @@
       "symbol": "func_150911F4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 6295,
-        "reason": "CURRENT (6295): sequential display-list command stream and return value implemented, but compiler folds cursor increments into wider offsets, frame 0x28 vs raw 0x20, and candidate is shorter so registered span includes next function; pointer-shape probe improved but remains nonzero",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 384,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15091534",
           "vram": "0x15091534"
         }
@@ -31131,8 +31127,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2285,
-        "reason": "Four-digit display-list candidate improves 2490 to 2285 with explicit first-command cursor timing. Integer-coordinate local form was code-neutral; compiler still folds the three float call arguments rather than raw integer-to-float conversions. Preserve natural command loop without forced storage, volatile, or helper ABI changes.",
+        "current_score": 2020,
+        "reason": "Round 13: one-line gSPSegment (gDma1p _SHIFTL) and DA/DE blocks; the digit loop now matches exactly: 2285 -> 2020. Remaining tail: raw passes 120/129/-303 to func_150A7D00 through runtime int-to-float conversions (constants folded in the candidate) and swaps the s0/s1 owners of D_800BE9C0/D_800D244C.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -36458,8 +36454,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 6470,
-        "reason": "Manual baseline11850 after missing declaration repair; best valid6470 restores mutable cursor and packet snapshots. Two targeted revisions exhausted; distinct snapshot/load-order revision regressed7609 and was restored. Frame18 and actual cursor home18 match; packet lifetimes, load/expression ordering and offset folding remain. Full-width argument ABI unchanged; no shared dependency edits.",
+        "current_score": 290,
+        "reason": "Round 13: typed Game18A8F0Command *arg0 cursor with fourteen one-line moveword blocks, integer words as ((x[0] >> 16) << 16) | ((x[1] >> 16) & 0xFFFF) and base-first record address: 6470 -> 290. Only t-register numbering in the fractional words differs (raw starts three temps later; _SHIFTL/mask forms 290-1030).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -37016,17 +37012,16 @@
       "symbol": "func_1517EFDC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2105,
-        "reason": "CURRENT (2105) over the full 788-byte US span. Three ordinary C forms tested: typed cursor 4840, incoming s32 cursor advanced from each real packet 2105, named packet pointers 3885. Best retains genuine five-command output and initialized viewport fields; global-address hoisting, command scheduling and register allocation remain different. Manual initial plus two revisions exhausted; no new supported hypothesis or permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 788,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1517F08C",
           "vram": "0x1517F08C"
         }
@@ -37219,17 +37214,16 @@
       "symbol": "func_1517F814"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 220,
-        "reason": "Manual candidate improved latest5350/stored1645 to CURRENT220; corrected formal lifetimes, raw parameter homes, shared clamp results, conditional clamps, FP conversion order, pointer typing and packet word evaluation. Remaining V0/V1 rotation and paired-store ordering need new evidence.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 424,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1517F9F4",
           "vram": "0x1517F9F4"
         }
@@ -39122,8 +39116,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 435,
-        "reason": "CURRENT (435) after three finish calls and two bounded probe batches. Original 0x28 frame and instruction ordering recovered; task base v0/v1 allocation, packet v1/a1 versus v0 and one clipping-store address materialization remain. Manual revision budget exhausted.",
+        "current_score": 110,
+        "reason": "Round 13: volatile cursor hack removed, one-line E9/DF blocks on D_800BE9D0++ 435 -> 110; clip store D_800BE9D0 = base + ... still uses lui at/%lo instead of the cached address register.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -44763,8 +44757,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 5240,
-        "reason": "Manual baseline plus two targeted revisions exhausted; best valid CURRENT 5240 from actual packet cursor and in-place coordinate. Remaining FP allocation, early cursor/load scheduling and clipping control flow; no shared changes.",
+        "current_score": 20,
+        "reason": "Round 13: faithful gSPScisTextureRectangle expansion (MAX/MIN clamps, gImmp1 halves) on one line with xl/xh/yl/yh/dsdx/dtdy *= /= scale globals: 5240 -> 20. Only D_8008FE20 lands in f2 instead of raw f12 (local scale copies 888, reordered statements 1170, randomized permuter 150 s no exact).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -44932,17 +44926,16 @@
       "symbol": "func_151EC178"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 655,
-        "reason": "Three bounded forms scored 2550/655/655. Raw helper15096934 explicitly returns input+8, so corrected local return annotation. Macro-like command writes and staged clamp arithmetic improve; SDK Gfx alignment view is unchanged. Pointer bumps, store and call-argument scheduling remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 504,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151EC1F0",
           "vram": "0x151EC1F0"
         }
@@ -44983,17 +44976,16 @@
       "symbol": "func_151EC648"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2769,
-        "reason": "CURRENT (2769): display-list logic represented but IDO adds arg spill/0x38 frame, reorders command stores and call stack setup; pointer-increment revision enlarged frame further. Preserve initial candidate.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 324,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151ED09C",
           "vram": "0x151ED09C"
         }
@@ -45089,17 +45081,16 @@
       "symbol": "func_151EDB58"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1303,
-        "reason": "CURRENT 1303 after two finishes and two bounded probe batches. Frame 0x28 is exact; original pointer spill is 0x24 versus 0x20, and display-list command advancement, store ordering and temporary allocation still differ.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 880,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151EDBDC",
           "vram": "0x151EDBDC"
         }
@@ -45497,17 +45488,16 @@
       "symbol": "func_15110360"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1553,
-        "reason": "CURRENT (1553): matching float setup, but compiler retains display-list result in s0 with 0x30 frame versus raw a0 and 0x28; branch/call scheduling differs; direct and early-return shapes did not improve",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 380,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151103C8",
           "vram": "0x151103C8"
         }
@@ -45552,17 +45542,16 @@
       "symbol": "func_15110600"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 4062,
-        "reason": "Valid manual candidate CURRENT4062; mutable command cursor and packet snapshots improve baseline6018. Two targeted revisions exhausted; neutral register revision restored to simpler best. Saved cursor, folded packet offsets and scheduling remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 540,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151106A8",
           "vram": "0x151106A8"
         }
@@ -47130,8 +47119,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3661,
-        "reason": "Typed sprite renderer and exact local record offsets recovered. Best CURRENT (3661): call setup, display-list pointer temporaries, and scheduling still differ; preserve ROM stack behavior for unchanged cached render mode.",
+        "current_score": 2078,
+        "reason": "Round 13: typed Game19A8B0Command *arg0 cursor, one-line E7/FC/FB blocks with _SHIFTL env colour, same local record: 3661 -> 2078. Remaining: -g3 local area starts 8 bytes higher (frame 0xa0 vs 0x98) and func_15142E24 argument evaluation order differs (pad1A[1] << 8 loaded straight into a2).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -49531,8 +49520,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1235,
-        "reason": "Manual budget exhausted; bestCURRENT1235 exactframe70/allstackaddresses; preset GPR ownership and final command-store schedule remain",
+        "current_score": 285,
+        "reason": "Round 13: one-line DA/DE blocks, preset index inlined, callback declared before the colour structs 1235 -> 285; remaining t-register numbering off by one from the state/preset call onward (restoring a preset local 472-1352).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -50064,17 +50053,16 @@
       "symbol": "func_1509563C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1523,
-        "reason": "Manual FP operand order1543->1523 fixes ADD and tail FPR. Typed byte-base address1528 rejected; separate pointer lifetimes previously exhausted. Remaining display pointer folding, GPR/FPR allocation and call argument schedule.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 336,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15095760",
           "vram": "0x15095760"
         }
@@ -50085,8 +50073,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2387,
-        "reason": "CURRENT (2387): moving concrete func_15095B08 float prototype before this caller removed default-double ABI mismatch and improved from 3885, but full-span raw still has 0x48 frame vs candidate 0x50, 20 register, 21 operand, 10 control, four missing/extra and 15 stack rows; needs new source-shape evidence beyond this declaration fix",
+        "current_score": 118,
+        "reason": "Round 13: one-line E7/EE (gDPSetPrimDepth via _SHIFTL) blocks on a typed GameC2350Command cursor + f32 scale = D_8009DEC0 as the first if-body statement 2387 -> 118; only frame 0x50 vs 0x48 remains (scale takes a third -g3 home; shared command var 285, no scale local 460).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -51610,8 +51598,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2728,
-        "reason": "Best valid CURRENT (2728); three manual comparisons exhausted; native matrix homes and command scheduling remain.",
+        "current_score": 55,
+        "reason": "Round 13: typed cursor one-line blocks, gDPSetPrimColor alpha via _SHIFTL with block-local duration/alpha, index/offset declared before the matrices and a for (index = 0, offset = 0; index != 12; ...) loop: 2728 -> 55. Remaining: in the prim-colour block raw puts the cursor copy in v1 and duration in a1 (candidate a0/v1); function-scope or inlined duration/alpha forms 80-1501.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -52164,17 +52152,16 @@
       "symbol": "func_15133EB8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2333,
-        "reason": "CURRENT 2333 after two targeted revisions; data layout and semantics are represented, but the compiler homes the output pointer instead of keeping it in s0 and restructures the display-list write sequence. Explicit source lifetime and register qualification did not improve the diff.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 236,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15133EEC",
           "vram": "0x15133EEC"
         }
@@ -61950,17 +61937,16 @@
       "symbol": "func_15166B50"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2685,
-        "reason": "Preserve SDK packet-lifetime candidate at 2685; explicit post-store cursor advances worsen allocation, constant hoisting and scheduling remain",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 516,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15166D68",
           "vram": "0x15166D68"
         }
@@ -62644,17 +62630,16 @@
       "symbol": "func_15188B74"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 4845,
-        "reason": "CURRENT (4845): staged display-list writes improve slightly but IDO uses different saved-register allocation and command scheduling across callback loop; no exact source-local hypothesis after bounded revisions. Preserve candidate.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 328,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15188D00",
           "vram": "0x15188D00"
         }
@@ -62840,8 +62825,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3154,
-        "reason": "Best3154 final candidate retained; three manual candidates exhausted. Correct existing float matrix-helper contract, texture snapshot and per-command pointers. Frame28/prefix through helper exact; scratch registers/cursor scheduling, alpha-opacity stack home swap and branch delays remain.",
+        "current_score": 1814,
+        "reason": "Round 13: twelve packets as one-line arg0++ blocks (volatile opacity kept from the prior candidate; plain s32 2009): 3154 -> 1814. Remaining: D_800DD1B4 compare/store share a CSE'd address register where raw uses separate %lo accesses, shifting t-register numbering.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -62896,8 +62881,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 6213,
-        "reason": "Manual baseline plus two revisions. Corrected raw pre-store width snapshot and used source-local typed packets with mutable cursor, preserving all 17 command pairs and word-store order. Best valid CURRENT6213; frame40 vs98, invariant/register and cursor scheduling remain. Exhausted.",
+        "current_score": 92,
+        "reason": "Round 13: typed Game203340Command cursor (file prototype retyped; caller func_151D6778 deferred), faithful prologue blocks plus gDPLoadTextureTile/gSPTextureRectangle/gDPPipeSync expansions in nested 128x16 tile loops (for (x = 0, cols = 128; ...)): 6213 -> 92. Remaining: -g3 frame 0x90 vs 0x98 - raw homes put height third and rows fifth with two more function-level locals (two unused pads give 34 but are not accepted).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -62934,8 +62919,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4830,
-        "reason": "Manual baseline13204; two raw lifetime revisions improve to best valid4830. Actual packet cursor, entry width/height snapshots and real bound home match frame40/save set/home34. Invariant order, induction/constant allocation and cursor scheduling remain; budget exhausted; no shared changes.",
+        "current_score": 88,
+        "reason": "Round 13: typed Game203340Command cursor (file prototype retyped; only caller is deferred func_151D6778), faithful gDPSetPrimColor/gSPTexture/gDPLoadTextureBlock(width x 4, 16b)/gSPTextureRectangle expansions with a separate address induction local: 4830 -> 88. Remaining: frame 0x38 vs 0x40 (height spill slot 0x30 vs 0x34) and s3-s6 rotation of the loop invariants (width * 8 takes s3 in raw).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -62971,8 +62956,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4473,
-        "reason": "Bounded source-only group eight independently reproduced; hypotheses, helper/return-contract evidence and full differences retained in worker-group-8/report.json.",
+        "current_score": 225,
+        "reason": "Round 13: typed Game203340Command cursor, one-line E7/FF/ED/EF/D9 blocks (gDPSetColorImage and gDPSetScissor via _SHIFTL), D_800BE570 used directly (keeps the cached address register): 4473 -> 225. Remaining: flags lives in a3 instead of raw v1 + move a3,v1 (u8/s32/no-local forms 225-670, randomized permuter 180 s no exact).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -63025,8 +63010,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 450,
-        "reason": "Best CURRENT450 restored: fullwidth halfword arithmetic, one reloaded pointer, conditionalabs, independent LH arms and compoundposition; rawcontrol exact, register/index allocation and one ADD remain.",
+        "current_score": 205,
+        "reason": "Round 13: for (i = 0; i < 10; i++) over a typed 10-byte GameF5800Record view of D_800BE4E0 with fields re-read through the global (no cached record pointer): 450 -> 205. Remaining: v0/a0 swap between the record-address CSE and the speed local (declaration orders neutral).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -63078,17 +63063,16 @@
       "symbol": "func_150C851C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 433,
-        "reason": "1931 to433: pointer-pair copy, direct arg/scoped packet capture and existing declaration order. Exact stack offsets. Table alias/initializer neutral; remaining s3/s4 rotation and scheduling lacks fresh hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 304,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C8600",
           "vram": "0x150C8600"
         }
@@ -63718,8 +63702,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1356,
-        "reason": "CURRENT1356; five-vertex color loop and integer register sequence recovered from5178. Frame0x88 versus0x80, effect/matrix spill offsets and packet-store ordering remain; final lifetime probes worsened to1744/frame0x90. Bounded attempts exhausted.",
+        "current_score": 686,
+        "reason": "Round 13: typed Game63A20Command *arg0 cursor with one-line blocks (including the four geometry-mode arms): 1356 -> 686. Remaining: -g3 frame 0x88 vs 0x80 (raw has 16 named homes; the transform value is a spill temp, not a home) and func_15036570/func_1515E544 argument scheduling; merged two-arm condition fixes the frame but breaks the branch chain (3462).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -64400,7 +64384,7 @@
           "vram": "0x151D26C0"
         }
       },
-      "source": "src/game/game_1FFB70.c",
+      "source": "src/done/game/game_1FFB70.c",
       "symbol": "func_151D26C0"
     },
     {
@@ -64418,7 +64402,7 @@
           "vram": "0x151D2718"
         }
       },
-      "source": "src/game/game_1FFB70.c",
+      "source": "src/done/game/game_1FFB70.c",
       "symbol": "func_151D2718"
     },
     {
@@ -64436,26 +64420,25 @@
           "vram": "0x151D275C"
         }
       },
-      "source": "src/game/game_1FFB70.c",
+      "source": "src/done/game/game_1FFB70.c",
       "symbol": "func_151D275C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3025,
-        "reason": "Best3025 retained; frame20 and most post-call command pointer GPRs exact, but parameter home, narrowing schedule and command increment/store timing remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 640,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D2830",
           "vram": "0x151D2830"
         }
       },
-      "source": "src/game/game_1FFB70.c",
+      "source": "src/done/game/game_1FFB70.c",
       "symbol": "func_151D2830"
     },
     {
@@ -71781,8 +71764,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4678,
-        "reason": "Typed rendering candidate CURRENT 4678; initial 4755. Two finish attempts, one manual revision. Separate packet snapshots reduce score slightly but frame 0x108 differs from raw 0x100; stack layout, cursor increments, store scheduling and register allocation remain. Full matrix buffers, texture descriptor and vertex extents retained. No padding or dummy locals. Next hypothesis: original macro block scopes and descriptor lifetime, with each packet snapshot tied to actual cursor state.",
+        "current_score": 1399,
+        "reason": "Round 13: nine packets as one-line arg0++ blocks (vertex texcoord stores before the gSPVertex block): 4678 -> 1399. Remaining: -g3 frame 0x108 vs 0x100 (locals sit 8 bytes higher; inlining the s16 texcoord temps does not shrink it) and t-register numbering from the sp64 setup onward (raw allocates t0/t1 to the cursor copies first).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -72076,22 +72059,21 @@
       "symbol": "func_150F43F0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 134,
-        "reason": "Improved980 to134: typed stride/scoped command cursors/removed unused matrix prefix. Frame80/matrix40 vs78/38 and four command order rows remain; pointer reuse and inlining exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 256,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150F9AB0",
           "vram": "0x150F9AB0"
         }
       },
-      "source": "src/game/game_126F60.c",
+      "source": "src/done/game/game_126F60.c",
       "symbol": "func_150F9AB0"
     },
     {
@@ -77030,8 +77012,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4056,
-        "reason": "Preserve best renderer at CURRENT (4056). Real cross-call view offset restores the flag slot and frame (5473 to5081); typed eight-byte command cursor improves to4056. Fullword view formal retained; register allocation, reload and global-address scheduling differences remain.",
+        "current_score": 185,
+        "reason": "Round 13: typed Game13F9D0Command cursor, s16 arg2 (memory-resident like raw), one-line D9/DA blocks, named viewOffset shared by both tables, for (index = 0, offset = 0; ...) loop: 4056 -> 185. Remaining: offset zero-init scheduling and one t-register of numbering inside the draw loop (randomized permuter 180 s no exact).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -77780,26 +77762,25 @@
           "vram": "0x15100340"
         }
       },
-      "source": "src/game/game_12D7F0.c",
+      "source": "src/done/game/game_12D7F0.c",
       "symbol": "func_15100340"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 335,
-        "reason": "Improved1702 to335: scoped packet writes/direct arg pointer and removed inherited padding. Exact registers/frame/workspace; three pointer-increment placements remain. Late increments740 and typed postincrement335 exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 412,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15100464",
           "vram": "0x15100464"
         }
       },
-      "source": "src/game/game_12D7F0.c",
+      "source": "src/done/game/game_12D7F0.c",
       "symbol": "func_15100464"
     },
     {
@@ -79875,22 +79856,21 @@
       "symbol": "func_1514BC08"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 7170,
-        "reason": "Valid CURRENT7170, actual eight-byte union packet cursor with separate lexical command snapshots and all twelve raw word pairs. Fresh baseline8300; shared nonvolatile snapshot10300 regressed, separate macro-style blocks7170 improved but cursor increments still folded to base offsets and broad scheduling/register differences remain. Historical6065 was not reproduced over current full span. Three finish/two fresh exhausted; no shared edits.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 316,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150412C0",
           "vram": "0x150412C0"
         }
       },
-      "source": "src/game/game_6E770.c",
+      "source": "src/done/game/game_6E770.c",
       "symbol": "func_150412C0"
     },
     {
@@ -79908,7 +79888,7 @@
           "vram": "0x150413FC"
         }
       },
-      "source": "src/game/game_6E770.c",
+      "source": "src/done/game/game_6E770.c",
       "symbol": "func_150413FC"
     },
     {
@@ -79926,7 +79906,7 @@
           "vram": "0x15041480"
         }
       },
-      "source": "src/game/game_6E770.c",
+      "source": "src/done/game/game_6E770.c",
       "symbol": "func_15041480"
     },
     {
@@ -79944,7 +79924,7 @@
           "vram": "0x15041508"
         }
       },
-      "source": "src/game/game_6E770.c",
+      "source": "src/done/game/game_6E770.c",
       "symbol": "func_15041508"
     },
     {
@@ -80106,8 +80086,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 7175,
-        "reason": "CURRENT (7175) after two manual revisions; volatile two-word writes reduce mismatch, but IDO still flattens the cursor into fixed offsets and hoists constants, diverging across 103 rows from raw pointer-increment scheduling.",
+        "current_score": 1065,
+        "reason": "Round 13: typed Game138B40Command *arg0 cursor with twelve one-line blocks 7175 -> 1065 (full-file); IDO CSEs arg1 * 0x180 across the DB0E and DA380007 records (raw recomputes it) and copies arg1 to a2; base-first (u8 *) record form 1170, randomized permuter 240 s no exact.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -91810,22 +91790,21 @@
       "symbol": "func_150B06B0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1055,
-        "reason": "Best valid command-emitter candidate CURRENT 1055 after initial plus two targeted revisions (2520,1055,2895). Real per-command block-local cursor lifetimes recovered all register allocation; four unsigned f32 conversions and full suffix from offset0x108 match. Remaining prefix instruction scheduling includes increment/store order and constant construction. Fill-then-advance regressed and was rejected. Manual budget exhausted; no permutation, dummy storage, volatile, alias or ABI workaround is justified.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 880,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15172F70",
           "vram": "0x15172F70"
         }
       },
-      "source": "src/game/game_1A0420.c",
+      "source": "src/done/game/game_1A0420.c",
       "symbol": "func_15172F70"
     },
     {
@@ -91848,22 +91827,21 @@
       "symbol": "func_15165C80"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3515,
-        "reason": "Best CURRENT 3515 after three comparisons; complete display-list packets, native20frame/clamp/division and real caller contracts recovered. Global width rematerialization, packet colors and cursor scheduling remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 752,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1512E5F0",
           "vram": "0x1512E5F0"
         }
       },
-      "source": "src/game/game_15BAA0.c",
+      "source": "src/done/game/game_15BAA0.c",
       "symbol": "func_1512E5F0"
     },
     {

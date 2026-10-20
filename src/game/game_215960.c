@@ -16,14 +16,11 @@
  * - func_151EB06C
  * - func_151EB96C
  * - func_151EBB50
- * - func_151EC1F0
  * - func_151EC3E8
  * - func_151EC648
- * - func_151ED09C
  * - func_151ED29C
  * - func_151ED430
  * - func_151ED90C
- * - func_151EDBDC
  * - func_151EDF4C
  * - func_151EE184
  * - func_151EEBE8
@@ -39,6 +36,14 @@ typedef struct {
 } Game215960State;
 
 typedef struct Game215960Command Game215960Command;
+struct Game215960Command {
+    u32 w0;
+    u32 w1;
+};
+
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+#define MIN(a, b) (((a) < (b)) ? (a) : (b))
+#define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 Game215960Command *func_151ED1E0(Game215960Command *);
 extern s32 D_8003C8E0;
@@ -127,103 +132,17 @@ s32 func_151E8620(s32 arg0) {
 extern f32 D_8008FE1C;
 extern f32 D_8008FE20;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E86E4 CURRENT (5240) */
-void *func_151E86E4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
-    s16 var_t0;
-    s16 var_t0_2;
-    s16 var_t1;
-    s16 var_t1_2;
-    s32 temp_t4;
-    s32 temp_t5;
-    s32 temp_t6;
-    s32 temp_t7;
-    s32 var_t1_3;
-    s32 var_t2;
-    s32 var_v0;
-    s32 var_v0_2;
-    typedef struct { u32 hi; u32 lo; } Packet;
-    Packet *packet;
-    Packet *second;
-    Packet *third;
-
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E86E4 CURRENT (20) */
+Game215960Command *func_151E86E4(Game215960Command *arg0, s32 xl, s32 yl, s32 xh, s32 yh, s32 tile, s32 sStart, s32 tStart, s32 dsdx, s32 dtdy) {
     if (D_8008FE1C != 1.0f) {
-        arg1 = (s32) ((f32) arg1 * D_8008FE1C);
-        arg3 = (s32) ((f32) arg3 * D_8008FE1C);
-        arg2 = (s32) ((f32) arg2 * D_8008FE20);
-        arg4 = (s32) ((f32) arg4 * D_8008FE20);
-        arg8 = (s32) ((f32) arg8 / D_8008FE1C);
-        arg9 = (s32) ((f32) arg9 / D_8008FE20);
+        xl *= D_8008FE1C;
+        xh *= D_8008FE1C;
+        yl *= D_8008FE20;
+        yh *= D_8008FE20;
+        dsdx /= D_8008FE1C;
+        dtdy /= D_8008FE20;
     }
-    packet = (Packet *)arg0;
-    arg0 += sizeof(Packet);
-    if ((s16) arg3 > 0) {
-        var_t0 = (s16) arg3;
-    } else {
-        var_t0 = 0;
-    }
-    if ((s16) arg4 > 0) {
-        var_t1 = (s16) arg4;
-    } else {
-        var_t1 = 0;
-    }
-    packet->hi = (s32) ((var_t1 & 0xFFF) | 0xE4000000 | ((var_t0 & 0xFFF) << 0xC));
-    if ((s16) arg1 > 0) {
-        var_t0_2 = (s16) arg1;
-    } else {
-        var_t0_2 = 0;
-    }
-    if ((s16) arg2 > 0) {
-        var_t1_2 = (s16) arg2;
-    } else {
-        var_t1_2 = 0;
-    }
-    packet->lo = (s32) ((var_t1_2 & 0xFFF) | ((arg5 & 7) << 0x18) | ((var_t0_2 & 0xFFF) << 0xC));
-    second = (Packet *)arg0;
-    second->hi = 0xE1000000;
-    arg0 += sizeof(Packet);
-    if ((s16) arg1 < 0) {
-        if ((s16) arg8 < 0) {
-            temp_t5 = (s32) ((s16) arg1 * (s16) arg8) >> 7;
-            if (temp_t5 > 0) {
-                var_t2 = temp_t5;
-            } else {
-                var_t2 = 0;
-            }
-        } else {
-            var_v0 = 0;
-            temp_t4 = (s32) ((s16) arg1 * (s16) arg8) >> 7;
-            if (temp_t4 < 0) {
-                var_v0 = temp_t4;
-            }
-            var_t2 = var_v0;
-        }
-    } else {
-        var_t2 = 0;
-    }
-    if (arg2 < 0) {
-        if ((s16) arg9 < 0) {
-            temp_t7 = (s32) ((s16) arg2 * (s16) arg9) >> 7;
-            if (temp_t7 > 0) {
-                var_t1_3 = temp_t7;
-            } else {
-                var_t1_3 = 0;
-            }
-        } else {
-            var_v0_2 = 0;
-            temp_t6 = (s32) ((s16) arg2 * (s16) arg9) >> 7;
-            if (temp_t6 < 0) {
-                var_v0_2 = temp_t6;
-            }
-            var_t1_3 = var_v0_2;
-        }
-    } else {
-        var_t1_3 = 0;
-    }
-    second->lo = (s32) (((arg7 - var_t1_3) & 0xFFFF) | ((arg6 - var_t2) << 0x10));
-    third = (Packet *)arg0;
-    third->hi = 0xF1000000;
-    third->lo = (s32) ((arg8 << 0x10) | (arg9 & 0xFFFF));
-    arg0 += sizeof(Packet);
+    { Game215960Command *command = arg0++; command->w0 = (_SHIFTL(0xE4, 24, 8) | _SHIFTL(MAX((s16)(xh), 0), 12, 12) | _SHIFTL(MAX((s16)(yh), 0), 0, 12)); command->w1 = (_SHIFTL((tile), 24, 3) | _SHIFTL(MAX((s16)(xl), 0), 12, 12) | _SHIFTL(MAX((s16)(yl), 0), 0, 12)); { Game215960Command *command = arg0++; command->w0 = _SHIFTL(0xE1, 24, 8); command->w1 = (u32)((_SHIFTL(((sStart) - (((s16)(xl) < 0) ? (((s16)(dsdx) < 0) ? (MAX((((s16)(xl) * (s16)(dsdx)) >> 7), 0)) : (MIN((((s16)(xl) * (s16)(dsdx)) >> 7), 0))) : 0)), 16, 16) | _SHIFTL(((tStart) - (((yl) < 0) ? (((s16)(dtdy) < 0) ? (MAX((((s16)(yl) * (s16)(dtdy)) >> 7), 0)) : (MIN((((s16)(yl) * (s16)(dtdy)) >> 7), 0))) : 0)), 0, 16))); } { Game215960Command *command = arg0++; command->w0 = _SHIFTL(0xF1, 24, 8); command->w1 = (u32)((_SHIFTL((dsdx), 16, 16) | _SHIFTL((dtdy), 0, 16))); } }
     return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151E86E4 */
@@ -238,7 +157,7 @@ typedef struct GameEADFCPowers { s32 value[7]; } GameEADFCPowers;
 extern GameEADFCPowers D_8009009C;
 extern s32 D_80090074[];
 s32 func_1510D0EC(s32, s32 *, s32, s32);
-void *func_151E86E4(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+Game215960Command *func_151E86E4(Game215960Command *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151EADFC CURRENT (3192) */
 void *func_151EADFC(GameEADFCCommand *arg0, s32 arg1, s32 arg2, s32 arg3) {
@@ -290,7 +209,7 @@ void *func_151EADFC(GameEADFCCommand *arg0, s32 arg1, s32 arg2, s32 arg3) {
                 command = arg0++;
                 command->upper = 0xF2000000;
                 command->lower = 0x7C07C;
-                arg0 = func_151E86E4((u8 *)arg0, arg1, arg2,
+                arg0 = func_151E86E4(arg0, arg1, arg2,
                          (u32)arg1 + 0x80, (u32)arg2 + 0x80,
                          0, 0, 0, 0x400, 0x400);
             }
@@ -395,11 +314,6 @@ s32 func_151EC178(s32 arg0) {
     return arg0;
 }
 
-struct Game215960Command {
-    u32 w0;
-    u32 w1;
-};
-
 /* Raw helper15096934 returns its incoming command pointer plus eight bytes. */
 void *func_15096934(void *);
 void *func_151ED430(void *, void *, s32, s32, s32, s32, f32, s32);
@@ -412,16 +326,11 @@ extern s32 D_800E0A74;
 extern u8 D_800E0B97;
 extern u8 D_800E0B96;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151EC1F0 CURRENT (655) */
 Game215960Command *func_151EC1F0(Game215960Command *arg0) {
     s32 alpha;
-    Game215960Command *command;
 
-    command = arg0;
     if (D_800BE9F0 == 33) return arg0;
-    arg0++;
-    command->w0 = 0xDE000000;
-    command->w1 = (u32)D_80090028;
+    { Game215960Command *command = arg0++; command->w0 = 0xDE000000; command->w1 = (u32)D_80090028; }
     alpha = D_800E0A90;
     if (alpha >= 301) {
         alpha = 428 - alpha;
@@ -432,31 +341,24 @@ Game215960Command *func_151EC1F0(Game215960Command *arg0) {
         if (alpha >= 256) alpha = 255;
     }
     if (alpha != 0) {
-        command = arg0++;
-        command->w0 = 0xFB000000;
-        command->w1 = (alpha & 255) | ~255;
+        { Game215960Command *command = arg0++; command->w0 = 0xFB000000; command->w1 = _SHIFTL(255, 24, 8) | _SHIFTL(255, 16, 8) | _SHIFTL(255, 8, 8) | _SHIFTL(alpha, 0, 8); }
         arg0 = func_151ED430(arg0, D_800917F8, 146, 99, 5, 6, 1.0f, 0);
     }
-    command = arg0++;
-    command->w0 = 0xFB000000;
-    command->w1 = -1;
-    command = func_151ED430(arg0, D_80091804, 146, 203, 5, 2, 1.0f, 0);
-    command[0].w0 = 0xFCFFD3FF;
-    command[0].w1 = 0xFFA6FF7F;
-    command[1].w0 = 0xFB000000;
-    command[1].w1 = D_800E0B97 | 0x20FF2000;
-    arg0 = func_15096934(func_151ED430(command + 2, D_80091810, 146, 203, 5, 2, 1.0f, 0));
+    { Game215960Command *command = arg0++; command->w0 = 0xFB000000; command->w1 = _SHIFTL(255, 24, 8) | _SHIFTL(255, 16, 8) | _SHIFTL(255, 8, 8) | _SHIFTL(255, 0, 8); }
+    arg0 = func_151ED430(arg0, D_80091804, 146, 203, 5, 2, 1.0f, 0);
+    { Game215960Command *command = arg0++; command->w0 = 0xFCFFD3FF; command->w1 = 0xFFA6FF7F; }
+    { Game215960Command *command = arg0++; command->w0 = 0xFB000000; command->w1 = _SHIFTL(0x20, 24, 8) | _SHIFTL(0xFF, 16, 8) | _SHIFTL(0x20, 8, 8) | _SHIFTL(D_800E0B97, 0, 8); }
+    arg0 = func_15096934(func_151ED430(arg0, D_80091810, 146, 203, 5, 2, 1.0f, 0));
     alpha = 490 - D_800E0A74;
     if (alpha < 0) alpha = 0;
     else {
         alpha *= 16;
         if (alpha >= 256) alpha = 255;
     }
-    D_800E0B96 = 255 - alpha;
+    alpha = 255 - alpha;
+    D_800E0B96 = alpha;
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151EC1F0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EC1F0.s")
 
 typedef struct {
     f32 amount;
@@ -555,44 +457,24 @@ extern u8 D_8009181C[];
 extern u8 D_80091828[];
 extern u8 D_800E0B97;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ED09C CURRENT (2769) */
-void func_151ED09C(void *arg0) {
-    s32 saved_alpha;
-    s32 scaled;
+Game215960Command *func_151ED09C(Game215960Command *arg0) {
     s32 alpha;
-    u8 *command;
-    u8 *result;
 
-    *(u32 *)arg0 = 0xDE000000;
-    *(void **)((u8 *)arg0 + 4) = D_80090028;
-    command = (u8 *)arg0 + 8;
-    scaled = D_800E0A90 * 4;
-    alpha = scaled;
-    if (scaled >= 0x100) {
-        alpha = 0xFF;
-    }
-    *(u32 *)command = 0xFB000000;
-    *(u32 *)(command + 4) = (alpha & 0xFF) | ~0xFF;
-    saved_alpha = alpha;
-    result = func_151ED430(command + 8, D_8009181C, 0x92, 0x6C,
-                           8, 3, 1.0f, 0);
-    *(u32 *)result = 0xE7000000;
-    *(u32 *)(result + 4) = 0;
-    *(u32 *)(result + 8) = 0xFCFFD3FF;
-    *(u32 *)(result + 0xC) = 0xFFA6FF7F;
-    *(u32 *)(result + 0x10) = 0xFB000000;
-    *(u32 *)(result + 0x14) = (((D_800E0B97 * (saved_alpha + 1)) >> 8) & 0xFF) | 0xFF802000;
-    func_15096934(func_151ED430(result + 0x18, D_80091828, 0x92, 0x6C,
-                                  8, 3, 1.0f, 0));
+    { Game215960Command *command = arg0++; command->w0 = 0xDE000000; command->w1 = (u32)D_80090028; }
+    alpha = D_800E0A90 * 4;
+    if (alpha >= 256) alpha = 255;
+    { Game215960Command *command = arg0++; command->w0 = 0xFB000000; command->w1 = _SHIFTL(255, 24, 8) | _SHIFTL(255, 16, 8) | _SHIFTL(255, 8, 8) | _SHIFTL(alpha, 0, 8); }
+    arg0 = func_151ED430(arg0, D_8009181C, 146, 108, 8, 3, 1.0f, 0);
+    { Game215960Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
+    { Game215960Command *command = arg0++; command->w0 = 0xFCFFD3FF; command->w1 = 0xFFA6FF7F; }
+    { Game215960Command *command = arg0++; command->w0 = 0xFB000000; command->w1 = _SHIFTL(0xFF, 24, 8) | _SHIFTL(0x80, 16, 8) | _SHIFTL(0x20, 8, 8) | _SHIFTL((D_800E0B97 * (alpha + 1)) >> 8, 0, 8); }
+    return func_15096934(func_151ED430(arg0, D_80091828, 146, 108, 8, 3, 1.0f, 0));
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151ED09C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151ED09C.s")
 void *func_1501A6CC(void *, s32, s32, s32, s32);
 extern s32 D_800BE620;
 extern s32 D_800BE624;
 extern u8 D_800E0B96;
 
-#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 Game215960Command *func_151ED1E0(Game215960Command *arg0) {
     if (D_800E0B96 == 0) {
         return arg0;
@@ -820,10 +702,12 @@ void func_1503F4B0(void *);
 extern u8 D_507[], D_508[], D_80089470[], D_80090110[], D_80090128[], D_800E0C38[];
 extern s16 D_800E0C30;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151EDBDC CURRENT (1303) */
 Gfx *func_151EDBDC(Gfx *arg0, Game1ED90CObject *arg1,
                                 f32 arg2, f32 arg3, f32 arg4) {
+    s32 index;
     Gfx *original;
+    s32 resource;
+    s32 texture;
 
     original = arg0;
     if (D_8008FE1C != 1.0f) {
@@ -839,115 +723,34 @@ Gfx *func_151EDBDC(Gfx *arg0, Game1ED90CObject *arg1,
     *(f32 *)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x3C) = arg4;
     *(f32 *)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x50) = arg4;
     func_1503F4B0(arg1->actor);
-    {
-        Gfx *command = arg0++;
-        command->words.w0 = 0xDA380003;
-        command->words.w1 = (u32)D_80089470;
-    }
-    {
-        Gfx *command = arg0++;
-        command->words.w0 = 0xDA380007;
-        command->words.w1 = (u32)D_800E0C38;
-    }
-    {
-        Gfx *command = arg0++;
-        command->words.w0 = 0xDE000000;
-        command->words.w1 = (u32)D_80090110;
-    }
-    {
-        Gfx *command = arg0++;
-        command->words.w0 = 0xFC12FE25;
-        command->words.w1 = 0xFFFFFBFD;
-    }
-    {
-        Gfx *command = arg0++;
-        command->words.w0 = 0xD9000000;
-        command->words.w1 = 0;
-    }
-    {
-        Gfx *command = arg0++;
-        command->words.w0 = 0xD9FFFFFF;
-        command->words.w1 = 0x200404;
-    }
-    {
-        Gfx *command = arg0++;
-        command->words.w0 = 0xFA000000;
-        command->words.w1 = 0xFFFFFFFF;
-    }
-    {
-        Gfx *command = arg0++;
-        command->words.w0 = 0xFB000000;
-        command->words.w1 = (D_800E0C30 & 0xFF) | 0xFFFFFF00;
-    }
-    {
-        Gfx *command = arg0++;
-        command->words.w0 = 0xF8000000;
-        command->words.w1 = 0xFF;
-    }
-    {
-        Gfx *command = arg0++;
-        command->words.w0 = 0xDB06000C;
-        command->words.w1 = *(u32 *)((u8 *)arg1->actor + D_800BE9C0 * 4 + 0x3E8);
-    }
-    {
-        Gfx *command = arg0++;
-        command->words.w0 = 0xDB060004;
-        command->words.w1 = (u32)arg1->field1C;
-    }
+    { Gfx *command = arg0++; command->words.w0 = 0xDA380003; command->words.w1 = (u32)D_80089470; }
+    { Gfx *command = arg0++; command->words.w0 = 0xDA380007; command->words.w1 = (u32)D_800E0C38; }
+    { Gfx *command = arg0++; command->words.w0 = 0xDE000000; command->words.w1 = (u32)D_80090110; }
+    { Gfx *command = arg0++; command->words.w0 = 0xFC12FE25; command->words.w1 = 0xFFFFFBFD; }
+    { Gfx *command = arg0++; command->words.w0 = 0xD9000000; command->words.w1 = 0; }
+    { Gfx *command = arg0++; command->words.w0 = 0xD9FFFFFF; command->words.w1 = 0x200404; }
+    { Gfx *command = arg0++; command->words.w0 = 0xFA000000; command->words.w1 = 0xFFFFFFFF; }
+    { Gfx *command = arg0++; command->words.w0 = 0xFB000000; command->words.w1 = (D_800E0C30 & 0xFF) | 0xFFFFFF00; }
+    { Gfx *command = arg0++; command->words.w0 = 0xF8000000; command->words.w1 = 0xFF; }
+    { Gfx *command = arg0++; command->words.w0 = 0xDB06000C; command->words.w1 = *(u32 *)((u8 *)arg1->actor + D_800BE9C0 * 4 + 0x3E8); }
+    { Gfx *command = arg0++; command->words.w0 = 0xDB060004; command->words.w1 = (u32)arg1->field1C; }
     if ((s32)arg1 == D_80090058) {
-        u8 firstByte;
-        u8 secondByte;
-        s32 timer;
-        s32 resource;
-        s32 texture;
-
-        firstByte = arg1->flags - 1;
-        timer = firstByte;
-        arg1->flags = firstByte;
-        if (timer == 0) {
-            secondByte = (func_150ADA20() & 0x7F) + 15;
-            arg1->flags = secondByte;
-            timer = secondByte;
+        if (--arg1->flags == 0) {
+            arg1->flags = (func_150ADA20() & 0x7F) + 15;
         }
-        if (timer < 7) resource = (s32)D_507;
+        if (arg1->flags < 7) resource = (s32)D_507;
         else resource = (s32)D_508;
         texture = func_1510D0EC(resource, 0, 3, 0);
         if (texture == (s32)0x80000000) return original;
-        {
-            Gfx *command = arg0++;
-            command->words.w0 = 0xDB060018;
-            command->words.w1 = texture;
-        }
-        {
-            Gfx *command = arg0++;
-            command->words.w0 = 0xDB06001C;
-            command->words.w1 = texture;
-        }
+        { Gfx *command = arg0++; command->words.w0 = 0xDB060018; command->words.w1 = texture; }
+        { Gfx *command = arg0++; command->words.w0 = 0xDB06001C; command->words.w1 = texture; }
     }
-    {
-        s32 index = 0;
-        Game1ED90CObject *cursor;
-
-        if ((s32)arg1->count > 0) {
-            cursor = arg1;
-            do {
-                Gfx *command = arg0++;
-                command->words.w0 = 0xDE000000;
-                command->words.w1 = (u32)cursor->copies[0];
-                index++;
-                cursor = (Game1ED90CObject *)((u8 *)cursor + 4);
-            } while (index < (s32)arg1->count);
-        }
+    for (index = 0; index < (s32)arg1->count; index++) {
+        { Gfx *command = arg0++; command->words.w0 = 0xDE000000; command->words.w1 = (u32)arg1->copies[index]; }
     }
-    {
-        Gfx *command = arg0++;
-        command->words.w0 = 0xDE000000;
-        command->words.w1 = (u32)D_80090128;
-    }
+    { Gfx *command = arg0++; command->words.w0 = 0xDE000000; command->words.w1 = (u32)D_80090128; }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151EDBDC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EDBDC.s")
 /* The 0x1A8 owner contains two text banks and thirty 12-byte resources. */
 typedef struct {
     Game215960Command *commands;

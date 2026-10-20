@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150C8350
- * - func_150C8600
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -16,7 +15,17 @@ extern s32 D_800BE4E0;
 extern u8 D_800BE9A0;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C8350 CURRENT (450) */
+typedef struct GameF5800Record {
+    u8 state;
+    u8 pad1;
+    s8 dir;
+    u8 pad3;
+    s16 pos;
+    s16 speed;
+    s16 target;
+} GameF5800Record;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C8350 CURRENT (205) */
 void func_150C8350(void) {
     s32 temp_a1;
     s32 temp_a1_3;
@@ -26,14 +35,11 @@ void func_150C8350(void) {
     s32 temp_t7;
     s32 var_a1;
     s32 var_t0;
-    s32 var_v1;
-    void *var_v0;
+    s32 i;
 
-    var_v1 = 0;
-    do {
-        var_v0 = (u8 *)D_800BE4E0 + var_v1;
-        var_a0 = *(s16 *)((u8 *)var_v0 + 6);
-        temp_a1 = *(s16 *)((u8 *)var_v0 + 8);
+    for (i = 0; i < 10; i++) {
+        var_a0 = ((GameF5800Record *)D_800BE4E0)[i].speed;
+        temp_a1 = ((GameF5800Record *)D_800BE4E0)[i].target;
         if (var_a0 != temp_a1) {
             var_a2 = temp_a1;
             if (var_a0 < 0) {
@@ -43,44 +49,35 @@ void func_150C8350(void) {
             temp_t7 = D_800BE9E4 * 0x10;
             var_t0 = temp_a1_2 < 0 ? -temp_a1_2 : temp_a1_2;
             if (var_t0 < temp_t7) {
-                *(s16 *)((u8 *)var_v0 + 6) = var_a2;
-                var_v0 = (u8 *)D_800BE4E0 + var_v1;
-                var_a0 = *(s16 *)((u8 *)var_v0 + 6);
+                ((GameF5800Record *)D_800BE4E0)[i].speed = var_a2;
+                var_a0 = ((GameF5800Record *)D_800BE4E0)[i].speed;
             } else {
                 if (temp_a1_2 < 0) {
                     var_a1 = -1;
                 } else {
                     var_a1 = 1;
                 }
-                *(s16 *)((u8 *)var_v0 + 6) = (s16) (var_a0 + (temp_t7 * var_a1));
-                var_v0 = (u8 *)D_800BE4E0 + var_v1;
-                var_a0 = *(s16 *)((u8 *)var_v0 + 6);
+                ((GameF5800Record *)D_800BE4E0)[i].speed = (s16) (var_a0 + (temp_t7 * var_a1));
+                var_a0 = ((GameF5800Record *)D_800BE4E0)[i].speed;
             }
         }
-        *(s16 *)((u8 *)var_v0 + 4) += var_a0 * *(s8 *)((u8 *)var_v0 + 2) * D_800BE9A0;
-        var_v0 = (u8 *)D_800BE4E0 + var_v1;
-        temp_a1_3 = *(s16 *)((u8 *)var_v0 + 4);
+        ((GameF5800Record *)D_800BE4E0)[i].pos += var_a0 * ((GameF5800Record *)D_800BE4E0)[i].dir * D_800BE9A0;
+        temp_a1_3 = ((GameF5800Record *)D_800BE4E0)[i].pos;
         if (temp_a1_3 >= 0x500) {
-            *(s16 *)((u8 *)var_v0 + 4) = (s16) (temp_a1_3 - 0x500);
-            var_v0 = (u8 *)D_800BE4E0 + var_v1;
-            *(s16 *)((u8 *)var_v0 + 4) = (s16) (0x500 - *(s16 *)((u8 *)var_v0 + 4));
-            var_v0 = (u8 *)D_800BE4E0 + var_v1;
-            *(s8 *)((u8 *)var_v0 + 2) = (s8) -*(s8 *)((u8 *)var_v0 + 2);
-            var_v0 = (u8 *)D_800BE4E0 + var_v1;
-            if (*(s16 *)((u8 *)var_v0 + 4) >= 0x500) {
-                *(s16 *)((u8 *)var_v0 + 4) = 0x4FF;
+            ((GameF5800Record *)D_800BE4E0)[i].pos = (s16) (temp_a1_3 - 0x500);
+            ((GameF5800Record *)D_800BE4E0)[i].pos = (s16) (0x500 - ((GameF5800Record *)D_800BE4E0)[i].pos);
+            ((GameF5800Record *)D_800BE4E0)[i].dir = (s8) -((GameF5800Record *)D_800BE4E0)[i].dir;
+            if (((GameF5800Record *)D_800BE4E0)[i].pos >= 0x500) {
+                ((GameF5800Record *)D_800BE4E0)[i].pos = 0x4FF;
             }
         } else if (temp_a1_3 < 0) {
-            *(s16 *)((u8 *)var_v0 + 4) = (s16) -temp_a1_3;
-            var_v0 = (u8 *)D_800BE4E0 + var_v1;
-            *(s8 *)((u8 *)var_v0 + 2) = (s8) -*(s8 *)((u8 *)var_v0 + 2);
-            var_v0 = (u8 *)D_800BE4E0 + var_v1;
-            if (*(s16 *)((u8 *)var_v0 + 4) < 0) {
-                *(s16 *)((u8 *)var_v0 + 4) = 0;
+            ((GameF5800Record *)D_800BE4E0)[i].pos = (s16) -temp_a1_3;
+            ((GameF5800Record *)D_800BE4E0)[i].dir = (s8) -((GameF5800Record *)D_800BE4E0)[i].dir;
+            if (((GameF5800Record *)D_800BE4E0)[i].pos < 0) {
+                ((GameF5800Record *)D_800BE4E0)[i].pos = 0;
             }
         }
-        var_v1 += 0xA;
-    } while (var_v1 != 0x64);
+    }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C8350 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5800/func_150C8350.s")
@@ -109,45 +106,33 @@ void func_150C851C(s32 arg0) {
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 extern s32 *D_80088810[2];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C8600 CURRENT (433) */
-void *func_150C8600(void *arg0) {
+typedef struct GameF5800Command {
+    u32 w0;
+    u32 w1;
+} GameF5800Command;
+
+GameF5800Command *func_150C8600(GameF5800Command *arg0) {
     typedef struct { s32 *entries[2]; } PointerPair;
     s32 record_offset;
     s32 command_offset;
-    s32 sp58[2];
+    s32 workspace[2];
     s32 variant;
-    PointerPair sp4C;
+    PointerPair tables;
     s32 result;
-    u8 state;
-    u8 *record;
 
-    sp4C = *(PointerPair *)D_80088810;
-    record_offset = 0;
-    command_offset = 4;
-    do {
-        record = (u8 *)D_800BE4E0 + record_offset;
-        variant = *(s16 *)(record + 4) >> 8;
+    tables = *(PointerPair *)D_80088810;
+    for (record_offset = 0, command_offset = 4; command_offset != 0x2C; command_offset += 4, record_offset += 0xA) {
+        variant = *(s16 *)((u8 *)D_800BE4E0 + record_offset + 4) >> 8;
         if (variant < 0) {
             variant = 0;
         } else if (variant >= 5) {
             variant = 4;
         }
-        state = record[0];
-        if (state >= 2) {
-            record[0] = 0;
-            state = *((u8 *)D_800BE4E0 + record_offset);
+        if (*((u8 *)D_800BE4E0 + record_offset) >= 2) {
+            *((u8 *)D_800BE4E0 + record_offset) = 0;
         }
-        result = func_1510D0EC(sp4C.entries[state][variant], sp58, 3, 0);
-        {
-            s32 *slot = arg0;
-            arg0 = (u8 *)arg0 + 8;
-            slot[0] = (command_offset & 0xFFFF) | 0xDB060000;
-            slot[1] = result;
-        }
-        command_offset += 4;
-        record_offset += 0xA;
-    } while (command_offset != 0x2C);
+        result = func_1510D0EC(tables.entries[*((u8 *)D_800BE4E0 + record_offset)][variant], workspace, 3, 0);
+        { GameF5800Command *command = arg0++; command->w0 = (command_offset & 0xFFFF) | 0xDB060000; command->w1 = result; }
+    }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C8600 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F5800/func_150C8600.s")

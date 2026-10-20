@@ -151,67 +151,28 @@ extern u8 D_800BE9C0;
 extern s32 D_800DCD10[];
 void func_1515EF74(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515D6D0 CURRENT (6470) */
-void *func_1515D6D0(u8 *arg0, s32 arg1) {
-    u32 *packet;
+typedef struct Game18A8F0Command {
+    u32 w0;
+    u32 w1;
+} Game18A8F0Command;
 
-    packet = (u32 *)arg0;
-    arg0 += 8;
-    packet[0] = 0xDB020000;
-    packet[1] = 0;
-    packet = (u32 *)arg0;
-    arg0 += 8;
-    packet[1] = 0x20000;
-    packet[0] = 0xD9FFFFFF;
-    func_1515EF74(D_800BE628 + arg1 * 0x180 + (D_800BE9C0 << 6) + 0x100);
-    packet = (u32 *)arg0;
-    arg0 += 8;
-    packet[0] = 0xDB100000;
-    packet[1] = (((D_800DCD10[1] >> 16) & 0xFFFF) | ((D_800DCD10[0] >> 16) << 16));
-    packet = (u32 *)arg0;
-    arg0 += 8;
-    packet[0] = 0xDB100008;
-    packet[1] = (((D_800DCD10[1] >> 16) & 0xFFFF) | ((D_800DCD10[0] >> 16) << 16));
-    packet = (u32 *)arg0;
-    arg0 += 8;
-    packet[0] = 0xDB100004;
-    packet[1] = ((D_800DCD10[2] >> 16) << 16);
-    packet = (u32 *)arg0;
-    arg0 += 8;
-    packet[0] = 0xDB10000C;
-    packet[1] = ((D_800DCD10[2] >> 16) << 16);
-    packet = (u32 *)arg0;
-    arg0 += 8;
-    packet[0] = 0xDB100010;
-    packet[1] = ((D_800DCD10[1] & 0xFFFF) | (D_800DCD10[0] << 16));
-    packet = (u32 *)arg0;
-    arg0 += 8;
-    packet[0] = 0xDB100018;
-    packet[1] = ((D_800DCD10[1] & 0xFFFF) | (D_800DCD10[0] << 16));
-    packet = (u32 *)arg0;
-    arg0 += 8;
-    packet[0] = 0xDB100014;
-    packet[1] = (D_800DCD10[2] << 16);
-    packet = (u32 *)arg0;
-    arg0 += 8;
-    packet[0] = 0xDB10001C;
-    packet[1] = (D_800DCD10[2] << 16);
-    packet = (u32 *)arg0;
-    arg0 += 8;
-    packet[0] = 0xDB100020;
-    packet[1] = 0;
-    packet = (u32 *)arg0;
-    arg0 += 8;
-    packet[0] = 0xDB100024;
-    packet[1] = (D_800DCD10[3] << 16);
-    packet = (u32 *)arg0;
-    arg0 += 8;
-    packet[0] = 0xDB100028;
-    packet[1] = 0;
-    packet = (u32 *)arg0;
-    arg0 += 8;
-    packet[0] = 0xDB10002C;
-    packet[1] = (D_800DCD10[3] << 16);
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515D6D0 CURRENT (290) */
+Game18A8F0Command *func_1515D6D0(Game18A8F0Command *arg0, s32 arg1) {
+    { Game18A8F0Command *command = arg0++; command->w0 = 0xDB020000; command->w1 = 0; }
+    { Game18A8F0Command *command = arg0++; command->w0 = 0xD9FFFFFF; command->w1 = 0x20000; }
+    func_1515EF74((u32)D_800BE628 + arg1 * 0x180 + (D_800BE9C0 << 6) + 0x100);
+    { Game18A8F0Command *command = arg0++; command->w0 = 0xDB100000; command->w1 = (((D_800DCD10[0] >> 16) << 16) | ((D_800DCD10[1] >> 16) & 0xFFFF)); }
+    { Game18A8F0Command *command = arg0++; command->w0 = 0xDB100008; command->w1 = (((D_800DCD10[0] >> 16) << 16) | ((D_800DCD10[1] >> 16) & 0xFFFF)); }
+    { Game18A8F0Command *command = arg0++; command->w0 = 0xDB100004; command->w1 = ((D_800DCD10[2] >> 16) << 16); }
+    { Game18A8F0Command *command = arg0++; command->w0 = 0xDB10000C; command->w1 = ((D_800DCD10[2] >> 16) << 16); }
+    { Game18A8F0Command *command = arg0++; command->w0 = 0xDB100010; command->w1 = (((D_800DCD10[0] & 0xFFFF) << 16) | (D_800DCD10[1] & 0xFFFF)); }
+    { Game18A8F0Command *command = arg0++; command->w0 = 0xDB100018; command->w1 = (((D_800DCD10[0] & 0xFFFF) << 16) | (D_800DCD10[1] & 0xFFFF)); }
+    { Game18A8F0Command *command = arg0++; command->w0 = 0xDB100014; command->w1 = ((D_800DCD10[2] & 0xFFFF) << 16); }
+    { Game18A8F0Command *command = arg0++; command->w0 = 0xDB10001C; command->w1 = ((D_800DCD10[2] & 0xFFFF) << 16); }
+    { Game18A8F0Command *command = arg0++; command->w0 = 0xDB100020; command->w1 = 0; }
+    { Game18A8F0Command *command = arg0++; command->w0 = 0xDB100024; command->w1 = ((D_800DCD10[3] & 0xFFFF) << 16); }
+    { Game18A8F0Command *command = arg0++; command->w0 = 0xDB100028; command->w1 = 0; }
+    { Game18A8F0Command *command = arg0++; command->w0 = 0xDB10002C; command->w1 = ((D_800DCD10[3] & 0xFFFF) << 16); }
     return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515D6D0 */

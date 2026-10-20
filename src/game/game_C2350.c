@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150950D4
  * - func_1509563C
- * - func_15095760
  * - func_150958B0
  * - func_15095B08
  * - func_15095D34
@@ -136,64 +135,55 @@ s32 func_1509563C(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4,
 s32 func_1509563C(f32, f32, f32, f32 *, f32 *, f32 *, f32 *, f32);
 s32 func_15095A90(s32, void *, f32, f32, f32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15095760 CURRENT (1523) */
-void *func_15095760(u8 *display, s16 *input) {
+typedef struct GameC2350Viewport {
+    s16 scale[4];
+    s16 translate[4];
+} GameC2350Viewport;
+
+typedef struct GameC2350Record {
+    u8 pad0[0x40];
+    GameC2350Viewport viewports[12];
+    u8 matrices[2][0x40];
+} GameC2350Record;
+
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+GameC2350Command *func_15095760(GameC2350Command *arg0, s16 *input) {
     f32 sp44;
     f32 sp40;
     f32 sp3C;
     f32 sp38;
-    u8 *record;
-    f32 projection;
 
     if (func_1509563C((f32)input[0], (f32)input[1], (f32)input[2],
                       &sp44, &sp40, &sp3C, &sp38, 4000.0f) == 0) {
-        return display;
+        return arg0;
     }
-    *(s32 *)display = 0xE7000000;
-    *(s32 *)(display + 4) = 0;
-    display += 8;
-    *(s32 *)display = 0xEE000000;
-    record = (u8 *)(D_800BE628 + D_80082FA4 * 0x180 + D_800BE9C0 * 0x10);
-    projection = sp3C / sp38;
-    *(s32 *)(display + 4) =
-        ((s32)(((f32)*(s16 *)(record + 0x44) * projection +
-                (f32)*(s16 *)(record + 0x4C)) * 32.0f)) << 16;
-    display += 8;
-    return (void *)func_15095A90((s32)display, input, sp44, sp40,
-                                 sp38, 1, 0, 0, 0);
+    { GameC2350Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
+    { GameC2350Command *command = arg0++; command->w0 = _SHIFTL(0xEE, 24, 8); command->w1 = _SHIFTL((s32)((sp3C / sp38 * ((GameC2350Record *)D_800BE628)[D_80082FA4].viewports[D_800BE9C0].scale[2] + ((GameC2350Record *)D_800BE628)[D_80082FA4].viewports[D_800BE9C0].translate[2]) * 32.0f), 16, 16) | _SHIFTL(0, 0, 16); }
+    return (GameC2350Command *)func_15095A90((s32)arg0, input, sp44, sp40, sp38, 1, 0, 0, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15095760 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_15095760.s")
 s32 func_1509563C(f32, f32, f32, f32 *, f32 *, f32 *, f32 *, f32); /* extern */
 extern f32 D_8009DEC0;
 void func_15095B08(void *, f32, f32, f32, s32, s32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150958B0 CURRENT (2387) */
-void *func_150958B0(void *arg0, u8 *arg1, s32 *arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150958B0 CURRENT (118) */
+GameC2350Command *func_150958B0(GameC2350Command *arg0, s16 *arg1, s32 *arg2) {
     f32 sp44;
     f32 sp40;
     f32 sp3C;
     f32 sp38;
-    u8 *temp_s0;
-    u8 *temp_v1;
-    u8 *var_s0;
+    f32 scale;
 
-    var_s0 = arg0;
-    if (func_1509563C((f32) *(s16 *)((u8 *)arg1 + 0), (f32) *(s16 *)((u8 *)arg1 + 2), (f32) *(s16 *)((u8 *)arg1 + 4), &sp44, &sp40, &sp3C, &sp38, 4000.0f) == 0) {
+    if (func_1509563C((f32)arg1[0], (f32)arg1[1], (f32)arg1[2], &sp44, &sp40, &sp3C, &sp38, 4000.0f) == 0) {
         *arg2 = 0;
-        return var_s0;
+        return arg0;
     }
     func_15095B08(arg1, sp44, sp40, sp38, 1, arg2);
     if (*arg2 != 0) {
-        temp_s0 = (void *)(var_s0 + 8);
-        *(s32 *)((u8 *)var_s0 + 0) = 0xE7000000;
-        *(s32 *)((u8 *)var_s0 + 4) = 0;
-        temp_v1 = temp_s0;
-        *(s32 *)((u8 *)var_s0 + 8) = 0xEE000000;
-        var_s0 = (void *)(temp_s0 + 8);
-        *(s32 *)((u8 *)temp_v1 + 4) = (s32) ((u32) (((sp3C / sp38) * D_8009DEC0) + D_8009DEC0) << 0x10);
+        scale = D_8009DEC0;
+        { GameC2350Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
+        { GameC2350Command *command = arg0++; command->w0 = _SHIFTL(0xEE, 24, 8); command->w1 = _SHIFTL(sp3C / sp38 * scale + scale, 16, 16) | _SHIFTL(0, 0, 16); }
     }
-    return var_s0;
+    return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150958B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_150958B0.s")

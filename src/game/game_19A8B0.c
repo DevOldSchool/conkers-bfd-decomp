@@ -217,8 +217,9 @@ s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
 void *func_15142FBC(void *, s32, s32, u8 *);
 void *func_15095760(void *, Game19A8B0Sprite *, u8, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516D738 CURRENT (3661) */
-void *func_1516D738(s32 arg0, Game19A8B0Motion *arg1, s32 arg2) {
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516D738 CURRENT (2078) */
+Game19A8B0Command *func_1516D738(Game19A8B0Command *arg0, Game19A8B0Motion *arg1, s32 arg2) {
     struct {
         s32 renderFlags;
         u8 pad4[0x18];
@@ -228,7 +229,6 @@ void *func_1516D738(s32 arg0, Game19A8B0Motion *arg1, s32 arg2) {
         Game19A8B0Sprite sprite;
         u8 pad36[6];
     } local;
-    Game19A8B0Command *result;
     s16 mode;
     u8 red;
     u8 green;
@@ -237,37 +237,25 @@ void *func_1516D738(s32 arg0, Game19A8B0Motion *arg1, s32 arg2) {
     local.sync = 0;
     D_800D2DAB = 0;
     local.resource = D_8008CA4C[arg1->pad1A[0]];
-    result = (void *)func_15142E24(arg0, (s32)local.resource, arg1->pad1A[1] << 8,
+    arg0 = (Game19A8B0Command *)func_15142E24((s32)arg0, (s32)local.resource, arg1->pad1A[1] << 8,
         2, 0x100, 0x100, 0, 6, (s32)&local.sprite, (u8 *)&local.sync, 3);
-    arg0 = (s32)result;
     mode = local.resource->type == 5 ? 2 : 1;
     if (mode != D_800DD1BC) {
         if (local.sync == 0) {
-            arg0 = (s32)(result + 1);
-            result->word0 = 0xE7000000;
-            result->word1 = 0;
+            { Game19A8B0Command *command = arg0++; command->word0 = _SHIFTL(0xE7, 24, 8); command->word1 = 0; }
             local.sync = 1;
         }
         D_800DD1BC = mode;
         if (mode == 1) {
             local.renderFlags = 0;
-            result = (void *)arg0;
-            result->word0 = 0xFC30B261;
-            result->word1 = 0x5566FF7F;
-            arg0 += 8;
+            { Game19A8B0Command *command = arg0++; command->word0 = 0xFC30B261; command->word1 = 0x5566FF7F; }
         } else {
             local.renderFlags = 0x100000;
-            result = (void *)arg0;
-            result->word0 = 0xFC30B5FF;
-            result->word1 = 0x5FFEFE38;
-            arg0 += 8;
+            { Game19A8B0Command *command = arg0++; command->word0 = 0xFC30B5FF; command->word1 = 0x5FFEFE38; }
         }
     }
-    /* The raw function retains this stack value when the cached mode is unchanged. */
-    result = func_15142FBC((void *)arg0, local.renderFlags | D_800D2C9C | 0x2C00,
-        0x5049DC, (u8 *)&local.sync);
+    arg0 = func_15142FBC(arg0, local.renderFlags | D_800D2C9C | 0x2C00, 0x5049DC, (u8 *)&local.sync);
     local.sprite.x = arg1->x;
-    arg0 = (s32)result;
     local.sprite.y = arg1->y;
     local.sprite.z = arg1->z;
     local.sprite.scaleX = arg1->scaleX;
@@ -285,16 +273,11 @@ void *func_1516D738(s32 arg0, Game19A8B0Motion *arg1, s32 arg2) {
         D_800DD1CA = green;
         D_800DD1CC = blue;
         if (local.sync == 0) {
-            result->word0 = 0xE7000000;
-            arg0 = (s32)(result + 1);
-            result->word1 = 0;
+            { Game19A8B0Command *command = arg0++; command->word0 = _SHIFTL(0xE7, 24, 8); command->word1 = 0; }
         }
-        result = (void *)arg0;
-        result->word1 = (red << 24) | ((green & 0xFF) << 16) | ((blue & 0xFF) << 8);
-        result->word0 = 0xFB000000;
-        arg0 += 8;
+        { Game19A8B0Command *command = arg0++; command->word0 = 0xFB000000; command->word1 = _SHIFTL(red, 24, 8) | _SHIFTL(green, 16, 8) | _SHIFTL(blue, 8, 8) | _SHIFTL(0, 0, 8); }
     }
-    return func_15095760((void *)arg0, &local.sprite, green, blue);
+    return func_15095760(arg0, &local.sprite, green, blue);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1516D738 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516D738.s")

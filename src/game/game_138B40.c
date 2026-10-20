@@ -73,50 +73,21 @@ typedef struct Game138B40Command {
     u32 word1;
 } Game138B40Command;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B7B4 CURRENT (7175) */
-void *func_1510B7B4(void *arg0, s32 arg1) {
-    volatile Game138B40Command *command;
-    Game138B40Command *cursor;
-
-    cursor = arg0;
-    command = cursor++;
-    command->word0 = 0xE7000000;
-    command->word1 = 0;
-    command = cursor++;
-    command->word1 = 1;
-    command->word0 = 0xF9000000;
-    command = cursor++;
-    command->word0 = 0xDA380003;
-    command->word1 = (s32)D_80089470;
-    command = cursor++;
-    command->word0 = 0xDB0E0000;
-    command->word1 = *(u16 *)((u8 *)&D_800BE628[arg1] + 0xB8);
-    command = cursor++;
-    command->word1 = 3;
-    command->word0 = 0xDB040004;
-    command = cursor++;
-    command->word0 = 0xDB04000C;
-    command->word1 = 3;
-    command = cursor++;
-    command->word0 = 0xDB040014;
-    command->word1 = 0xFFFD;
-    command = cursor++;
-    command->word0 = 0xDB04001C;
-    command->word1 = 0xFFFD;
-    command = cursor++;
-    command->word0 = 0xD9EFFFFF;
-    command->word1 = 0;
-    command = cursor++;
-    command->word0 = 0xDA380007;
-    command->word1 = (s32)((u8 *)&D_800BE628[arg1] +
-                          (D_800BE9C0 << 6) + 0x100);
-    command = cursor++;
-    command->word0 = 0xDA380005;
-    command->word1 = (s32)(D_800DC2A0[D_800BE9C0] + (arg1 << 6));
-    command = cursor++;
-    command->word0 = 0xEF082C3F;
-    command->word1 = 0x552230;
-    return cursor;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B7B4 CURRENT (1065) */
+Game138B40Command *func_1510B7B4(Game138B40Command *arg0, s32 arg1) {
+    { Game138B40Command *command = arg0++; command->word0 = 0xE7000000; command->word1 = 0; }
+    { Game138B40Command *command = arg0++; command->word0 = 0xF9000000; command->word1 = 1; }
+    { Game138B40Command *command = arg0++; command->word0 = 0xDA380003; command->word1 = (s32)D_80089470; }
+    { Game138B40Command *command = arg0++; command->word0 = 0xDB0E0000; command->word1 = *(u16 *)((u8 *)&D_800BE628[arg1] + 0xB8); }
+    { Game138B40Command *command = arg0++; command->word0 = 0xDB040004; command->word1 = 3; }
+    { Game138B40Command *command = arg0++; command->word0 = 0xDB04000C; command->word1 = 3; }
+    { Game138B40Command *command = arg0++; command->word0 = 0xDB040014; command->word1 = 0xFFFD; }
+    { Game138B40Command *command = arg0++; command->word0 = 0xDB04001C; command->word1 = 0xFFFD; }
+    { Game138B40Command *command = arg0++; command->word0 = 0xD9EFFFFF; command->word1 = 0; }
+    { Game138B40Command *command = arg0++; command->word0 = 0xDA380007; command->word1 = (s32)((u8 *)&D_800BE628[arg1] + (D_800BE9C0 << 6) + 0x100); }
+    { Game138B40Command *command = arg0++; command->word0 = 0xDA380005; command->word1 = (s32)(D_800DC2A0[D_800BE9C0] + (arg1 << 6)); }
+    { Game138B40Command *command = arg0++; command->word0 = 0xEF082C3F; command->word1 = 0x552230; }
+    return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510B7B4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_138B40/func_1510B7B4.s")
