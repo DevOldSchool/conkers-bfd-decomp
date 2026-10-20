@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150950D4
  * - func_1509563C
- * - func_150958B0
  * - func_15095B08
  * - func_15095D34
  * - func_1509629C
@@ -162,16 +161,13 @@ GameC2350Command *func_15095760(GameC2350Command *arg0, s16 *input) {
     return (GameC2350Command *)func_15095A90((s32)arg0, input, sp44, sp40, sp38, 1, 0, 0, 0);
 }
 s32 func_1509563C(f32, f32, f32, f32 *, f32 *, f32 *, f32 *, f32); /* extern */
-extern f32 D_8009DEC0;
 void func_15095B08(void *, f32, f32, f32, s32, s32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150958B0 CURRENT (118) */
 GameC2350Command *func_150958B0(GameC2350Command *arg0, s16 *arg1, s32 *arg2) {
     f32 sp44;
     f32 sp40;
     f32 sp3C;
     f32 sp38;
-    f32 scale;
 
     if (func_1509563C((f32)arg1[0], (f32)arg1[1], (f32)arg1[2], &sp44, &sp40, &sp3C, &sp38, 4000.0f) == 0) {
         *arg2 = 0;
@@ -179,14 +175,11 @@ GameC2350Command *func_150958B0(GameC2350Command *arg0, s16 *arg1, s32 *arg2) {
     }
     func_15095B08(arg1, sp44, sp40, sp38, 1, arg2);
     if (*arg2 != 0) {
-        scale = D_8009DEC0;
         { GameC2350Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
-        { GameC2350Command *command = arg0++; command->w0 = _SHIFTL(0xEE, 24, 8); command->w1 = _SHIFTL(sp3C / sp38 * scale + scale, 16, 16) | _SHIFTL(0, 0, 16); }
+        { GameC2350Command *command = arg0++; command->w0 = _SHIFTL(0xEE, 24, 8); command->w1 = _SHIFTL(sp3C / sp38 * 16352.0f + 16352.0f, 16, 16) | _SHIFTL(0, 0, 16); }
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150958B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_150958B0.s")
 s32 func_15095A48(s32 arg0, void *arg1, f32 arg2, f32 arg3) {
     return func_15095A90(arg0, arg1, arg2, arg3, 4096.0f, 0, 0, 0, 0);
 }

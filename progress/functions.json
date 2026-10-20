@@ -16716,17 +16716,16 @@
       "symbol": "func_150142EC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 207,
-        "reason": "CURRENT (207): exact instruction/register order but all local homes and frame eight bytes high. Separate matrix/direction 207, value-first 131, grouped consumed work 669; all retain frame C8 versus C0. No justified smaller frame hypothesis remains.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 660,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150144B8",
           "vram": "0x150144B8"
         }
@@ -25656,17 +25655,16 @@
       "symbol": "func_15076D04"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 180,
-        "reason": "Preserved prior180 after2 nonimproving manual hypotheses: volatile scale view935 retains late load and adds address register; direct repeated global1585 regresses schedule. Named scale snapshot otherwise exact; no fresh load-hoisting hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 184,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15076D3C",
           "vram": "0x15076D3C"
         }
@@ -30955,17 +30953,16 @@
       "symbol": "func_1508F9F4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 73,
-        "reason": "Round 7: GBI command blocks collapsed onto one line each (macro-expansion form) 193 -> 73; remaining frame 0x98 vs 0x90: raw has 4 scalar homes + rows and no homes for the two block packet locals (register/same-name _g/no-local forms tried: 73/73/1150)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 952,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1508FD38",
           "vram": "0x1508FD38"
         }
@@ -34611,8 +34608,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 348,
-        "reason": "Improved380 to364 to348 in renewed deferred pass. Two authoritative finishes and two bounded probe batches plus one layout diagnostic. Inlining both RNG arguments recovers raw temporary spill offsets and preserves generated call order; frame remains0xB0 versus0xA8, addressed locals eight bytes high, and three final counter GPR rows differ. Explicit vector cursor regressed1270. No shared changes; renewed and prior hypotheses exhausted.",
+        "current_score": 158,
+        "reason": "Round15: CURRENT 348 -> 158. Dropping the child local (chain->child stored and re-read) gives raw frame 0xA8; remaining rows are every stack home 4 bytes high (raw has one more named word above beam and one fewer reserved word below the call-crossing spills). Keeping child first restores the top layout but frame 0xB0; dropping config/chain locals or the s16 casts regress (1118/1013/348). Ledger: build/us/manual-attempts/round15/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -39205,17 +39202,16 @@
       "symbol": "func_1501CFF8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 355,
-        "reason": "Manual C candidate reached CURRENT (355) across full 400-byte US span; raw preloads D_800969C0 into f2 and zero into f0 before stores, while IDO emits zero in f2 and delays D_800969C0 load into f0. Explicit early local and zero local plateaued; no source-backed scheduling hypothesis remains.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 400,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501D044",
           "vram": "0x1501D044"
         }
@@ -50066,17 +50062,16 @@
       "symbol": "func_15095760"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 118,
-        "reason": "Round 13: one-line E7/EE (gDPSetPrimDepth via _SHIFTL) blocks on a typed GameC2350Command cursor + f32 scale = D_8009DEC0 as the first if-body statement 2387 -> 118; only frame 0x50 vs 0x48 remains (scale takes a third -g3 home; shared command var 285, no scale local 460).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 408,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150958B0",
           "vram": "0x150958B0"
         }
@@ -57877,17 +57872,16 @@
       "symbol": "func_150FE49C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 330,
-        "reason": "Manual candidate reached CURRENT (330) across full 400-byte US span, zero opcode/control-flow and missing/extra; explicit f32 factor restored raw mul.s but emitted frame 0x70 versus raw 0x68, shifting stack locals and register allocation. Narrow factor scope plateaued unchanged; preserve best candidate and advance.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 400,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150FE604",
           "vram": "0x150FE604"
         }
@@ -84609,17 +84603,16 @@
       "symbol": "func_150B003C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 75,
-        "reason": "CURRENT75 after five manual hypotheses; exact stack layout and instruction schedule, twelve floating register rows from D constant lifetime remain. Full0x7c packet and8-byte link copy extents verified. Retained best candidate; literal chaining, separate D loads and explicit one scalar exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 556,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150B0094",
           "vram": "0x150B0094"
         }

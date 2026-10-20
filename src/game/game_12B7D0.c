@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_12B7D0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_slot_motion_attachment_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150FE604
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 f32 func_150ADA68();
@@ -94,27 +89,23 @@ void func_150FE49C(void *arg0, u8 arg1, s32 arg2,
 void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32, s32,
                    s32, s32, s32, s32);
 extern s32 D_800A1FE0;
-extern f32 D_800A1FF0;
-extern f32 D_800A1FF4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FE604 CURRENT (330) */
 void func_150FE604(void *arg0, Vec3f *arg1, u8 arg2, s32 arg3) {
     f32 values[2];
     u8 mask;
-    u32 random0;
-    u32 random1;
     u8 *object;
-    u8 *actor = arg0;
+    u32 random1;
+    u32 random0;
 
-    if ((*(s32 *)(actor + 0x1D4) != 0) && ((actor[0x74] & 0xF) != 0xF)) {
+    if ((*(s32 *)((u8 *)arg0 + 0x1D4) != 0) && ((((u8 *)arg0)[0x74] & 0xF) != 0xF)) {
         f32 factor = 2.0f;
 
-        values[1] = (func_150ADA68() * factor) + D_800A1FF0;
+        values[1] = (func_150ADA68() * factor) + 3.7099998f;
         values[0] = (func_150ADA68() * 15.0f) + 35.0f;
-        object = *(u8 **)(actor + 0x31C);
+        object = *(u8 **)((u8 *)arg0 + 0x31C);
         if ((object != 0) && (object[0x197] != 0) &&
-            ((object = *(u8 **)(actor + 0x318)) != 0)) {
-            mask = ~(1 << object[0x23D]);
+            ((object = *(u8 **)((u8 *)arg0 + 0x318)) != 0)) {
+            mask = ~(1 << object[0x23D]) & 0xFF;
         } else {
             mask = 0xFF;
         }
@@ -123,12 +114,10 @@ void func_150FE604(void *arg0, Vec3f *arg1, u8 arg2, s32 arg3) {
         func_15102B38((s32)arg0, D_80088B94, (s32)&D_800A1FC8,
                        (s32)&D_800A1FE0, values,
                        (random0 % 3U) + 4, (random1 % 56U) + 0xC8,
-                       (func_150ADA68() * D_800A1FF4) + 500.0f,
+                       (func_150ADA68() * 301.0f) + 500.0f,
                        (s32)arg1, mask, 0, -1, arg2, arg3);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FE604 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12B7D0/func_150FE604.s")
 void func_151D3E04(void *, f32 *, f32 *, u8, f32);
 extern u8 D_80088B94;
 extern s32 D_800A1FC8;

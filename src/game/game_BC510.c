@@ -9,7 +9,6 @@
  * - func_1508F060
  * - func_1508F0D4
  * - func_1508F9F4
- * - func_1508FD38
  * - func_150900F0
  * - func_15090630
  * - func_1509093C
@@ -240,7 +239,6 @@ extern s32 D_800BE9F0, D_800BEBA4, D_800D2588;
 extern GameBC510Command *D_800BE9C8[];
 extern u8 D_800D23D0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508FD38 CURRENT (73) */
 GameBC510Command *func_1508FD38(register GameBC510Command *arg0) {
     GameBC510Command *original;
     s32 index;
@@ -275,13 +273,14 @@ GameBC510Command *func_1508FD38(register GameBC510Command *arg0) {
         func_1518CA04(0xB8);
         D_800D2588 = 0;
     }
-    arg0 = func_15096934(func_15090630(func_15094F40(func_150911F4(arg0))));
+    arg0 = func_150911F4(arg0);
+    arg0 = func_15094F40(arg0);
+    arg0 = func_15090630(arg0);
+    arg0 = func_15096934(arg0);
     overflow = D_800BEBA4 < arg0 - *(D_800BE9C8 + D_800BE9C0) ? 1 : 0;
     if (overflow != 0) return original;
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1508FD38 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_1508FD38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_150900F0.s")
 
 typedef struct GameBC510Sprite {

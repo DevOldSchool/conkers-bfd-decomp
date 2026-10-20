@@ -8441,7 +8441,7 @@
         "us": {
           "end": "0xFE860",
           "start": "0xFE320",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_12B7D0.c"
