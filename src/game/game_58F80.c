@@ -49,42 +49,36 @@ extern u8 D_800CC2D0;
 extern u32 D_8003C8E0;
 extern u32 D_80084160[], D_80084190[];
 void *func_1502C408(void *, s32);
-s32 func_1502C974(s32, s32, s16, s32, s32);
-void *func_150368C4(s32, s32, s16);
+s32 func_1502C974(s32, s32, s32, s32, s32);
+void *func_150368C4(s32, s32, s32);
 s32 func_15030E08(s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502BAD0 CURRENT (1940) */
-Game58F80Command *func_1502BAD0(Game58F80Command *commands, s32 mode, register s16 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502BAD0 CURRENT (45) */
+Game58F80Command *func_1502BAD0(Game58F80Command *commands, s32 mode, s16 arg2) {
     Game58F80DrawActor *actor;
-    s32 index, kind;
-    s32 one = 1, seven = 7;
-    Game58F80Command *opening, *closing;
+    s32 index;
+    s32 active;
 
-    opening = commands;
-    commands++;
-    opening->first = 0xDE000000;
-    opening->second = (u32)D_80084160;
+    { Game58F80Command *opening = commands++; opening->first = 0xDE000000; opening->second = (u32)D_80084160; }
     actor = (Game58F80DrawActor *)&D_800CC2D0;
-    index = 0;
-    do {
+    for (index = 0; index != 25; index++, actor++) {
         D_8003C8E0 = (index & 0xFFFFFF) | 0x01000000;
-        kind = actor->active;
-        if (kind == 0) goto next_actor;
-        kind = actor->kind;
-        if (kind == 3 || kind == 5) goto next_actor;
-        if (kind == 2) {
-            if (mode != 2) goto next_actor;
-        } else if (actor->model == 0xFF) goto next_actor;
+        active = actor->active;
+        if (active == 0) continue;
+        if (actor->kind == 3 || actor->kind == 5) continue;
+        if (actor->kind == 2) {
+            if (mode != 2) continue;
+        } else if (actor->model == 0xFF) continue;
         if (mode == 6) {
-            if (kind != seven) goto next_actor;
+            if (actor->kind != 7) continue;
         } else if (mode == 0) {
-            if (!((actor->flags >> 9) & 1)) goto next_actor;
-        } else if (mode == one) {
-            if (kind == seven || kind == one) goto next_actor;
-            if (kind == 0 && func_1506196C((u8 *)actor, arg2) < 0xFF) goto next_actor;
-        } else if (mode == 2 && kind != 2) {
-            if (kind == seven || (kind != 0 && kind != one)) goto next_actor;
-            if (kind == 0 && func_1506196C((u8 *)actor, arg2) == 0xFF) goto next_actor;
+            if (!((actor->flags >> 9) & 1)) continue;
+        } else if (mode == 1) {
+            if (actor->kind == 7 || actor->kind == 1) continue;
+            if (actor->kind == 0 && func_1506196C((u8 *)actor, arg2) < 0xFF) continue;
+        } else if (mode == 2 && actor->kind != 2) {
+            if (actor->kind == 7 || (actor->kind != 0 && actor->kind != 1)) continue;
+            if (actor->kind == 0 && func_1506196C((u8 *)actor, arg2) == 0xFF) continue;
         }
         if (actor->kind == 2) {
             commands = func_1502C408(commands, index);
@@ -92,18 +86,12 @@ Game58F80Command *func_1502BAD0(Game58F80Command *commands, s32 mode, register s
             commands = (Game58F80Command *)func_1502C974((s32)commands, index, arg2, mode, 0);
             if (index == 0) commands = func_150368C4((s32)commands, index, arg2);
         }
-next_actor:
-        index++;
-        actor++;
-    } while (index != 25);
+    }
     D_8003C8E0 = 0x01FFFFFF;
-    if (mode == one) commands = (Game58F80Command *)func_15030E08((s32)commands, arg2, 0);
+    if (mode == 1) commands = (Game58F80Command *)func_15030E08((s32)commands, arg2, 0);
     else if (mode == 2) commands = (Game58F80Command *)func_15030E08((s32)commands, arg2, 1);
     else if (mode == 6) commands = (Game58F80Command *)func_15030E08((s32)commands, arg2, 2);
-    closing = commands;
-    commands++;
-    closing->first = 0xDE000000;
-    closing->second = (u32)D_80084190;
+    { Game58F80Command *closing = commands++; closing->first = 0xDE000000; closing->second = (u32)D_80084190; }
     D_8003C8E0 = 0;
     return commands;
 }
@@ -650,7 +638,7 @@ extern s32 D_800BE9C8[], D_800BEBA4, D_800DF7C0;
 extern u8 D_800DF7C4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1502C974 CURRENT (6018) */
-s32 func_1502C974(s32 arg0, s32 arg1, s16 arg2, s32 arg3, s32 arg4) {
+s32 func_1502C974(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     struct {
         s32 original, model;
         s32 color[4];

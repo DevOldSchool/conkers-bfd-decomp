@@ -12,7 +12,6 @@
  * - func_151B70B4
  * - func_151B7144
  * - func_151B7328
- * - func_151B77F4
  * - func_151B7998
  * - func_151B7C38
  *
@@ -597,18 +596,15 @@ s32 func_151B76CC(void *arg0, f32 *arg1) {
     return 1;
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B77F4 CURRENT (757) */
 s32 func_151B77F4(Game1E37D0RingObject *arg0) {
     Game1E37D0RingState *state;
     Game1E37D0RingEntry *entries;
     Vec3f previous;
     Vec3f delta;
-    Game1E37D0RingEntry *entry;
-    s8 tail;
     f32 distance;
 
-    entries = arg0->entries;
     state = arg0->state;
+    entries = arg0->entries;
     if (D_800BE9E4 > 0) {
         previous = arg0->position;
         if (D_8008FB90[state->selector](arg0, &arg0->position) == 0) {
@@ -621,18 +617,20 @@ s32 func_151B77F4(Game1E37D0RingObject *arg0) {
         delta.y = arg0->position.y - previous.y;
         delta.z = arg0->position.z - previous.z;
         distance = func_15143E64(&delta);
-        entry = &entries[arg0->head];
-        entry->position = arg0->position;
-        entry->distance = distance;
-        entry->state = 0xFF;
+        {
+            Game1E37D0RingEntry *entry = &entries[arg0->head];
+
+            entry->position = arg0->position;
+            entry->distance = distance;
+            entry->state = 0xFF;
+        }
         arg0->head++;
         if (arg0->head == arg0->capacity) {
             arg0->head = 0;
         }
         arg0->count++;
-        tail = arg0->tail;
-        if (tail == arg0->head) {
-            arg0->tail = tail + 1;
+        if (arg0->head == arg0->tail) {
+            arg0->tail++;
             if (arg0->tail == arg0->capacity) {
                 arg0->tail = 0;
             }
@@ -641,8 +639,6 @@ s32 func_151B77F4(Game1E37D0RingObject *arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B77F4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B77F4.s")
 extern f32 D_800AA484;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B7998 CURRENT (3057) */

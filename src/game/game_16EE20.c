@@ -2281,71 +2281,54 @@ typedef struct Game16EE20Transform {
     f32 values[12];
 } Game16EE20Transform;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15145CD0 CURRENT (1026) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15145CD0 CURRENT (693) */
 void func_15145CD0(u8 *arg0, f32 **arg1, f32 **arg2, s32 arg3) {
-    f32 transform[4][4];
-    f32 **var_s2;
-    f32 *temp_v1;
-    f32 **var_s1;
-    f32 *temp_v0;
+    f32 matrix[4][4];
+    f32 **dst;
+    f32 **src;
 
-    func_150A8050(transform, *(f32 *)(arg0 + 0), *(s32 *)(arg0 + 4),
-                   *(f32 *)(arg0 + 8));
-    var_s2 = arg2;
-    transform[3][0] = (f32)*(s16 *)(arg0 + 0x10);
-    transform[3][1] = (f32)*(s16 *)(arg0 + 0x12);
-    transform[3][2] = (f32)*(s16 *)(arg0 + 0x14);
-    var_s1 = arg1;
-    if (arg3 > 0) {
-        do {
-            temp_v0 = *var_s1;
-            temp_v1 = *var_s2;
-            func_150A7960(transform, temp_v0[0], temp_v0[1], temp_v0[2],
-                           temp_v1, temp_v1 + 1, temp_v1 + 2);
-            arg3 -= 1;
-            var_s1 += 1;
-            var_s2 += 1;
-        } while (arg3 > 0);
+    func_150A8050(matrix, *(f32 *)(arg0 + 0), *(f32 *)(arg0 + 4), *(f32 *)(arg0 + 8));
+    dst = arg2;
+    matrix[3][0] = *(s16 *)(arg0 + 0x10);
+    matrix[3][1] = *(s16 *)(arg0 + 0x12);
+    matrix[3][2] = *(s16 *)(arg0 + 0x14);
+    src = arg1;
+    while (arg3 > 0) {
+        func_150A7960(matrix, (*src)[0], (*src)[1], (*src)[2], *dst, *dst + 1, *dst + 2);
+        arg3--;
+        src++;
+        dst++;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15145CD0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15145CD0.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15145DB4 CURRENT (1259) */
-void func_15145DB4(u8 *arg0, u8 *arg1, f32 *arg2, register s32 arg3) {
-    struct {
-        u32 pad;
-        Game16EE20Transform transform;
-        volatile f32 x;
-        volatile f32 y;
-        volatile f32 z;
-    } locals;
-    f32 *out_x;
-    f32 *out_y;
-    f32 *out_z;
-    s32 count;
-    u8 *input;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15145DB4 CURRENT (156) */
+void func_15145DB4(u8 *arg0, f32 *arg1, f32 *arg2, s32 arg3) {
+    f32 matrix[4][4];
+    f32 *x;
+    f32 *y;
+    f32 *z;
+    f32 *in;
+    f32 *out;
 
-    count = arg3;
-    func_150A8050(&locals.transform, *(f32 *)(arg0 + 0), *(s32 *)(arg0 + 4),
-                   *(f32 *)(arg0 + 8));
-    out_x = arg2;
-    out_y = out_x + 1;
-    out_z = out_x + 2;
-    locals.x = (f32)*(s16 *)(arg0 + 0x10);
-    locals.y = (f32)*(s16 *)(arg0 + 0x12);
-    locals.z = (f32)*(s16 *)(arg0 + 0x14);
-    if (count > 0) {
-        input = arg1;
+    func_150A8050(matrix, *(f32 *)(arg0 + 0), *(f32 *)(arg0 + 4), *(f32 *)(arg0 + 8));
+    out = arg2;
+    x = out;
+    y = x + 1;
+    z = x + 2;
+    matrix[3][0] = *(s16 *)(arg0 + 0x10);
+    matrix[3][1] = *(s16 *)(arg0 + 0x12);
+    matrix[3][2] = *(s16 *)(arg0 + 0x14);
+    if (arg3 > 0) {
+        in = arg1;
         do {
-            func_150A7960(&locals.transform, *(f32 *)(input + 0),
-                           *(f32 *)(input + 4), *(f32 *)(input + 8),
-                           out_x, out_y, out_z);
-            count--;
-            input += 0xC;
-            out_x += 3;
-            out_y += 3;
-            out_z += 3;
-        } while (count > 0);
+            func_150A7960(matrix, in[0], in[1], in[2], x, y, z);
+            arg3--;
+            in += 3;
+            x += 3;
+            y += 3;
+            z += 3;
+        } while (arg3 > 0);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15145DB4 */

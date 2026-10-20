@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150F23E0
- * - func_150F2518
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -50,23 +49,20 @@ void func_150A7790(void *, s32);
 void func_150A8050(void *, f32, f32, f32);
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F2518 CURRENT (50) */
-s32 func_150F2518(void *arg0, s32 arg1) {
-    u8 *actor;
-    u8 work[0x3C];
+s32 func_150F2518(u8 *arg0, s32 arg1) {
+    f32 matrix[4][4];
     u8 *source;
 
-    actor = arg0;
-    source = actor + *(s32 *)(actor + 0x50) + 0xF8;
-    func_150A8050(work, *(f32 *)(source + 0x24), 0.0f, *(f32 *)(source + 0x28));
-    *(f32 *)(work + 0x30) = *(f32 *)(source + 0x18);
-    *(f32 *)(work + 0x34) = *(f32 *)(source + 0x1C);
-    *(f32 *)(work + 0x38) = *(f32 *)(source + 0x20);
-    func_150A7790(work, (s32)(actor + (D_800BE9C0 << 6) + 0x78));
+    source = arg0;
+    source += *(s32 *)(arg0 + 0x50);
+    source += 0xF8;
+    func_150A8050(matrix, *(f32 *)(source + 0x24), 0.0f, *(f32 *)(source + 0x28));
+    matrix[3][0] = *(f32 *)(source + 0x18);
+    matrix[3][1] = *(f32 *)(source + 0x1C);
+    matrix[3][2] = *(f32 *)(source + 0x20);
+    func_150A7790(matrix, (s32)(arg0 + 0x78 + (D_800BE9C0 << 6)));
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F2518 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11F890/func_150F2518.s")
 typedef struct Game11F890Work {
     u8 transform[0x30];
     f32 position_x;

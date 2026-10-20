@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151572D0
  * - func_15157420
- * - func_15157918
  * - func_15157AA8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -188,40 +187,27 @@ s32 func_15157898(s32 arg0, s32 arg1, s32 arg2, f32 arg3, s32 arg4,
     }
 }
 /* Call context: func_150A8050: unique active project prototype */
-void func_150A8050(void *, f32, s32, f32);
+void func_150A8050(void *, f32, f32, f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15157918 CURRENT (140) */
 s32 func_15157918(u8 *arg0) {
-    u8 *temp_a0;
-    u8 *temp_v1;
+    f32 *rotation;
 
-    func_150A8050(arg0 + (D_800BE9C0 << 6) + 0x7C, *(f32 *)((u8 *)arg0 + 0x120), *(s32 *)((u8 *)arg0 + 0x124), *(f32 *)((u8 *)arg0 + 0x128));
-    temp_a0 = (void *)(arg0 + 0x120);
-    *(f32 *)((u8 *)(arg0 + (D_800BE9C0 << 6)) + 0xAC) = (f32) *(f32 *)((u8 *)arg0 + 0x54);
-    *(f32 *)((u8 *)(arg0 + (D_800BE9C0 << 6)) + 0xB0) = (f32) *(f32 *)((u8 *)arg0 + 0x58);
-    *(f32 *)((u8 *)(arg0 + (D_800BE9C0 << 6)) + 0xB4) = (f32) *(f32 *)((u8 *)arg0 + 0x5C);
-    temp_v1 = (void *)(arg0 + (D_800BE9C0 << 6));
-    *(f32 *)((u8 *)temp_v1 + 0x7C) *= *(f32 *)(temp_a0 + 0xC);
-    temp_v1 = (void *)(arg0 + (D_800BE9C0 << 6));
-    *(f32 *)((u8 *)temp_v1 + 0x80) *= *(f32 *)(temp_a0 + 0xC);
-    temp_v1 = (void *)(arg0 + (D_800BE9C0 << 6));
-    *(f32 *)((u8 *)temp_v1 + 0x84) *= *(f32 *)(temp_a0 + 0xC);
-    temp_v1 = (void *)(arg0 + (D_800BE9C0 << 6));
-    *(f32 *)((u8 *)temp_v1 + 0x8C) *= *(f32 *)(temp_a0 + 0xC);
-    temp_v1 = (void *)(arg0 + (D_800BE9C0 << 6));
-    *(f32 *)((u8 *)temp_v1 + 0x90) *= *(f32 *)(temp_a0 + 0xC);
-    temp_v1 = (void *)(arg0 + (D_800BE9C0 << 6));
-    *(f32 *)((u8 *)temp_v1 + 0x94) *= *(f32 *)(temp_a0 + 0xC);
-    temp_v1 = (void *)(arg0 + (D_800BE9C0 << 6));
-    *(f32 *)((u8 *)temp_v1 + 0x9C) *= *(f32 *)(temp_a0 + 0xC);
-    temp_v1 = (void *)(arg0 + (D_800BE9C0 << 6));
-    *(f32 *)((u8 *)temp_v1 + 0xA0) *= *(f32 *)(temp_a0 + 0xC);
-    temp_v1 = (void *)(arg0 + (D_800BE9C0 << 6));
-    *(f32 *)((u8 *)temp_v1 + 0xA4) *= *(f32 *)(temp_a0 + 0xC);
+    rotation = (f32 *)(arg0 + 0x120);
+    func_150A8050(((f32 (*)[16])(arg0 + 0x7C))[D_800BE9C0], rotation[0], rotation[1], rotation[2]);
+    ((f32 (*)[16])(arg0 + 0x7C))[D_800BE9C0][12] = *(f32 *)(arg0 + 0x54);
+    ((f32 (*)[16])(arg0 + 0x7C))[D_800BE9C0][13] = *(f32 *)(arg0 + 0x58);
+    ((f32 (*)[16])(arg0 + 0x7C))[D_800BE9C0][14] = *(f32 *)(arg0 + 0x5C);
+    ((f32 (*)[16])(arg0 + 0x7C))[D_800BE9C0][0] *= rotation[3];
+    ((f32 (*)[16])(arg0 + 0x7C))[D_800BE9C0][1] *= rotation[3];
+    ((f32 (*)[16])(arg0 + 0x7C))[D_800BE9C0][2] *= rotation[3];
+    ((f32 (*)[16])(arg0 + 0x7C))[D_800BE9C0][4] *= rotation[3];
+    ((f32 (*)[16])(arg0 + 0x7C))[D_800BE9C0][5] *= rotation[3];
+    ((f32 (*)[16])(arg0 + 0x7C))[D_800BE9C0][6] *= rotation[3];
+    ((f32 (*)[16])(arg0 + 0x7C))[D_800BE9C0][8] *= rotation[3];
+    ((f32 (*)[16])(arg0 + 0x7C))[D_800BE9C0][9] *= rotation[3];
+    ((f32 (*)[16])(arg0 + 0x7C))[D_800BE9C0][10] *= rotation[3];
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15157918 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157918.s")
 /* Slot 0 of D_8008AD90 receives the live owner. The selected constructor
  * paths reserve 0x158 bytes and copy 0x38 bytes at +0x120. These partial
  * views name only observed fields; unknown bytes remain opaque. The local
@@ -322,7 +308,7 @@ void func_15157DEC(u8 *arg0, u8 *arg1) {
     u8 *temp_v0;
 
     func_150A8050((u8 *)((s32)arg0 + (D_800BE9C0 << 6) + 0x7C),
-                   *(f32 *)(arg1 + 0), *(s32 *)(arg1 + 4), *(f32 *)(arg1 + 8));
+                   *(f32 *)(arg1 + 0), *(f32 *)(arg1 + 4), *(f32 *)(arg1 + 8));
     *(f32 *)(arg0 + (D_800BE9C0 << 6) + 0xAC) = *(f32 *)(arg0 + 0x54);
     *(f32 *)(arg0 + (D_800BE9C0 << 6) + 0xB0) = *(f32 *)(arg0 + 0x58);
     *(f32 *)(arg0 + (D_800BE9C0 << 6) + 0xB4) = *(f32 *)(arg0 + 0x5C);
