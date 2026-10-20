@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1510B690
  * - func_1510B7B4
- * - func_1510B958
  * - func_1510B9D0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -91,16 +90,13 @@ Game138B40Command *func_1510B7B4(Game138B40Command *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510B7B4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_138B40/func_1510B7B4.s")
-extern volatile f32 D_800D35E0;
+extern f32 D_800D35E0, D_800D35E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B958 CURRENT (460) */
 void func_1510B958(s32 arg0) {
     Game138B40Record *record;
 
-    record = &D_800BE628[arg0];
+    record = (Game138B40Record *)((u8 *)D_800BE628 + arg0 * 0x180);
     D_800D35E0 = (((record->value_x / record->scale_x) - 1.0f) * -1.0f) + record->base_x;
-    *(volatile f32 *)((u8 *)&D_800D35E0 + 4) = (((record->value_y / record->scale_y) - 1.0f) * -1.0f) + record->base_y;
+    D_800D35E4 = (((record->value_y / record->scale_y) - 1.0f) * -1.0f) + record->base_y;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510B958 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_138B40/func_1510B958.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_138B40/func_1510B9D0.s")

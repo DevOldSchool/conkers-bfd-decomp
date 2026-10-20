@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15013000
  * - func_150130B4
- * - func_15013778
  * - func_150139AC
  * - func_15013DE8
  * - func_15014094
@@ -105,28 +104,27 @@ typedef struct Game40490BeamPacket {
     f32 field30;
 } Game40490BeamPacket;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15013778 CURRENT (1233) */
 s32 func_15013778(u8 *arg0) {
     s32 result;
     Game40490BeamPacket packet;
     f32 matrix[4][4];
-    f32 inverse;
-    s16 height;
 
-    height = *(s16 *)(arg0 + 8);
-    if (height != 0) {
-        packet.height = 2.0f * (f32)height;
+    if (*(s16 *)(arg0 + 8) != 0) {
+        f32 inverse;
+        s16 height;
+
+        packet.height = 2.0f * (f32)*(s16 *)(arg0 + 8);
         inverse = 1.0f / packet.height;
         packet.width = (f32)*(s16 *)(arg0 + 6);
         packet.rotation[0] = *(f32 *)(arg0 + 0xC);
+        packet.rotation[1] = *(f32 *)(arg0 + 0x10);
         packet.zero = 0.0f;
         packet.field2C = D_80096640;
         packet.field30 = D_80096644;
-        packet.rotation[1] = *(f32 *)(arg0 + 0x10);
         packet.position[0] = (f32)*(s16 *)(arg0 + 0);
         packet.position[1] = (f32)*(s16 *)(arg0 + 2);
         packet.position[2] = (f32)*(s16 *)(arg0 + 4);
-        func_150A8050(&matrix[0][0], *(s32 *)(arg0 + 0xC), *(s32 *)(arg0 + 0x10), 0);
+        func_150A8050(matrix, *(f32 *)(arg0 + 0xC), *(f32 *)(arg0 + 0x10), 0.0f);
         func_150A7960(matrix, 0.0f, packet.height, 0.0f,
                       &packet.direction[0], &packet.direction[1], &packet.direction[2]);
         packet.direction[0] *= inverse;
@@ -143,8 +141,6 @@ s32 func_15013778(u8 *arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15013778 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013778.s")
 s32 func_1501396C(u8 *arg0) {
     Game40490SimpleCallback callback;
     s32 index;

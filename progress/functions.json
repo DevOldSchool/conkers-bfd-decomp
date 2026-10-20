@@ -13039,7 +13039,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 156,
-        "reason": "Round14 2026-10-20: f32 matrix[4][4], named out/x/y/z/in pointers match frame 0x98; remaining arg3 in s2 vs s4 and the input load placed inside the loop guard; count copy homes arg3 (worse), while/for forms worse.",
+        "reason": "Round14 2026-10-20: f32 matrix[4][4], named out/x/y/z/in pointers match frame 0x98; remaining arg3 in s2 vs s4 and the input load placed inside the loop guard; count copy homes arg3 (worse), while/for forms worse. Permuter 400 s best 60 only via a synthetic new_var = arg3 > 0 flag hoisted before the matrix stores (not accepted).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -16427,17 +16427,16 @@
       "symbol": "func_1501374C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1233,
-        "reason": "Bounded source-only group six independently reproduced; hypotheses, scores and remaining differences preserved in worker-group-6/report.json.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 500,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15013778",
           "vram": "0x15013778"
         }
@@ -55500,8 +55499,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 889,
-        "reason": "Bounded source-only parallel group four independently rechecked canonical best; exact hypotheses and remaining mismatches retained in worker-group-4/report.json.",
+        "current_score": 654,
+        "reason": "Round14 2026-10-20: frame-plan order base/state/height, Vec3f point, f32 matrix[4][4], difference/hit, Vec3f output plus matched-sibling state cursor idiom 889 -> 654; remaining s0/s1 swap (arg0 vs state). Permuter reached 0 only with a no-op if (!arg0 ...) {} fake (reopened, annotated invalid).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -80096,17 +80095,16 @@
       "symbol": "func_1510B7B4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 460,
-        "reason": "Two new concrete global pair representations tested: volatile f32[2] and x/y record both remain460 with common base coalescing. Original460candidate/declaration restored; no further untried source-only relocation hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 120,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510B958",
           "vram": "0x1510B958"
         }
@@ -84316,17 +84314,16 @@
       "symbol": "func_151B76CC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 757,
-        "reason": "Canonical matched15143E64 one-pointer call fixes stale three-argument compile failure; live A1/A2 do not prove formal args. Actual state/entries then vector declaration order improves CURRENT821 to757; vectors raw+8 instead+16. Frame50/raw48,18 stack rows and early entries scheduling remain. Prior aggregate probe regressed; two fresh revisions exhausted. No ABI/shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 420,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151B77F4",
           "vram": "0x151B77F4"
         }

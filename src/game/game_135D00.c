@@ -268,39 +268,38 @@ s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *,
                   f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
 extern f32 D_800A2494;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15108E10 CURRENT (889) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15108E10 CURRENT (654) */
 s32 func_15108E10(u8 *arg0) {
-    Vec3f point;
-    Game135D00MatrixWork work;
-    f32 difference;
-    f32 height;
-    u8 *state;
-    Vec3f output;
     u8 *base;
+    u8 *state;
+    f32 height;
+    Vec3f point;
+    f32 matrix[4][4];
+    f32 difference;
+    s32 hit;
+    s32 unused2;
+    Vec3f output;
 
     base = *(u8 **)(arg0 + 0x18);
     state = base;
     state += *(s32 *)(base + 0x50);
     state += 0xF8;
-    func_150A8050(work.values, *(f32 *)(state + 0), 0.0f,
-                  *(f32 *)(state + 4));
-    work.saved = *(f32 *)(state + 0x10);
-    work.values[0] *= D_800A2494;
-    work.values[1] *= D_800A2494;
-    work.values[2] *= D_800A2494;
-    work.values[4] *= D_800A2494;
-    work.values[5] *= D_800A2494;
-    work.values[6] *= D_800A2494;
-    work.values[8] *= D_800A2494;
-    work.values[9] *= D_800A2494;
-    work.values[10] *= D_800A2494;
-    func_150A7960(work.values, 0.0f, -1108.0f, 0.0f,
-                  &point.x, &point.y, &point.z);
-    height = *(f32 *)(state + 0x10);
-    difference = point.y - height;
-    if (func_150AC9C0(0.0f, height, 0.0f, point.x, difference,
-                      point.z, 0, 0, &output.x, &output.y, &output.z,
-                      0, 0, 0, 0.0f) == 0) {
+    func_150A8050(matrix, *(f32 *)(state + 0), 0.0f, *(f32 *)(state + 4));
+    matrix[3][1] = *(f32 *)(state + 0x10);
+    matrix[0][0] *= D_800A2494;
+    matrix[0][1] *= D_800A2494;
+    matrix[0][2] *= D_800A2494;
+    matrix[1][0] *= D_800A2494;
+    matrix[1][1] *= D_800A2494;
+    matrix[1][2] *= D_800A2494;
+    matrix[2][0] *= D_800A2494;
+    matrix[2][1] *= D_800A2494;
+    matrix[2][2] *= D_800A2494;
+    func_150A7960(matrix, 0.0f, -1108.0f, 0.0f, &point.x, &point.y, &point.z);
+    difference = point.y - *(f32 *)(state + 0x10);
+    hit = func_150AC9C0(0.0f, *(f32 *)(state + 0x10), 0.0f, point.x, difference, point.z, 0, 0,
+                      &output.x, &output.y, &output.z, 0, 0, 0, 0.0f);
+    if (hit == 0) {
         output = point;
     }
     *(s16 *)(*(u8 **)(arg0 + 0x14) + 0xE) = (s32)output.x;
