@@ -9469,7 +9469,7 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 300,
+        "current_score": 100,
         "reason": "Round6 2026-10-18: CURRENT 700 -> 300 with every body instruction exact (initialized SightUpdateFields *state, named offset, if/else-if). The 300 is three registered trailing nops (unit-end alignment of effects_sight.c, last function) that the focused object does not produce; span/tooling issue like func_15195738, not C.",
         "recorded_revision": "working-tree"
       },
@@ -38029,17 +38029,16 @@
       "symbol": "func_1503D774"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 26,
-        "reason": "CURRENT (26): frame 0x40 versus 0x38. Declaration/home probes score 42/50; address probes 46/54/609 retain frame 0x40. No improvement. Historical main evidence: CURRENT (26) retained. New invariant slot elimination scores 42/50, still frame 0x40; removing destination snapshot fixes frame 0x38 but changes loop, score 4016; pointer-dereference slot form scores 50 with frame 0x40. All probes unapplied; original retained. Three probe batches plus layout diagnostics; named-pointer elimination family exhausted. Ledger: build/us/manual-attempts/deferred-20261018/ledger.md; review ledger: build/us/manual-attempts/pr149-review/ledger.md; durable review: docs/evidence/matching/pr149-review.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 384,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1503D804",
           "vram": "0x1503D804"
         }
@@ -46259,8 +46258,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "Improved 93 to 30 using s32 count and inline selector: loop/global registers and final spill 0x3C exact. 4 probe batches: alias/flags removal regressed; width/selector edits improve; separate loop scopes neutral 30. Remaining frame 0x60 versus 0x50 and named tail flags v1 versus raw t9. Best 30 preserved, no fabricated storage.",
+        "current_score": 8,
+        "reason": "Round15: CURRENT 30 -> 8. Dropped the slot pointer and actor locals (4 named homes i/list/mask/count give frame 0x50); only residual is the func_10004074 call-crossing spill of the actor address at 0x38 vs raw 0x3c (raw has a second reserved spill word below). Named actor (top/loop/block), flags block, typed 0x32C array views and permute --randomized 150s (10424 iterations) found nothing. Ledger: build/us/manual-attempts/round15/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -53018,17 +53017,16 @@
       "symbol": "func_15153C84"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 54,
-        "reason": "Oct18 isolated: CURRENT54 retained. Array-to-Vec3f and byte-pointer arithmetic probes54; low-byte value cast860. Full diagnosis shows all saved registers already exact, only frame/argument homes +8 and two MUL operand swaps. Vector-first/one-float-first layouts59/frameC0, no improvement. Existing frame and operand families remain exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 588,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15153CCC",
           "vram": "0x15153CCC"
         }
@@ -53037,17 +53035,16 @@
       "symbol": "func_15153CCC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 54,
-        "reason": "Best CURRENT 54 retained after three manual comparisons; direction home matches, frame and FP operand order remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 672,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15153F18",
           "vram": "0x15153F18"
         }
@@ -71551,17 +71548,16 @@
       "symbol": "func_151B9310"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1305,
-        "reason": "New manual matrix helper; CURRENT 3394 -> 1305 -> 1305. Valid16-float matrix/output aggregate plus independent source snapshot; full matrix/call prefix and all homes agree. Two revisions exhausted. Final state-base folding, dx spill, float operand/scheduling and return-span differences remain; last revision produces identical assembly.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 600,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151B9408",
           "vram": "0x151B9408"
         }

@@ -11,7 +11,6 @@
  * - func_1503D5F0
  * - func_1503D660
  * - func_1503D774
- * - func_1503D804
  * - func_1503D984
  * - func_1503DA9C
  * - func_1503DD1C
@@ -299,14 +298,11 @@ extern void *D_800C4020[];
 extern void *D_800C6360[];
 extern s32 D_800D19A0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D804 CURRENT (26) */
 s32 func_1503D804(s32 arg0) {
-    s32 selected = -1;
     s32 count;
-    void **slot;
+    s32 selected = -1;
     u8 *source;
     u8 *destination;
-    s32 i;
 
     if (arg0 == 0x24) {
         count = 0x5E;
@@ -317,26 +313,23 @@ s32 func_1503D804(s32 arg0) {
     if (count == 0) {
         return 0;
     }
-    slot = &D_800C6360[arg0];
-    if (*slot != 0) {
+    if (D_800C6360[arg0] != 0) {
         return 0;
     }
     source = (u8 *)D_800D19A0[arg0];
     if (selected != -1) {
         source += *(s32 *)((u8 *)D_800C4020[arg0] + selected * 4) * 0x10;
     }
-    if ((*slot = func_10003C40(count * 4, 1, 0, 2)) == 0) {
+    if ((D_800C6360[arg0] = func_10003C40(count * 4, 1, 0, 2)) == 0) {
         return 1;
     }
-    destination = *slot;
-    for (i = 0; i < count; i++) {
-        *(s16 *)(destination + i * 4) = *(s16 *)(((u8 (*)[0x10])source)[i] + 8);
-        *(s16 *)(destination + i * 4 + 2) = *(s16 *)(((u8 (*)[0x10])source)[i] + 0xA);
+    destination = D_800C6360[arg0];
+    for (arg0 = 0; arg0 < count; arg0++) {
+        *(s16 *)(destination + arg0 * 4) = *(s16 *)(((u8 (*)[0x10])source)[arg0] + 8);
+        *(s16 *)(destination + arg0 * 4 + 2) = *(s16 *)(((u8 (*)[0x10])source)[arg0] + 0xA);
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503D804 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D804.s")
 extern s32 D_800C4488;
 extern s16 D_800C5918;
 
