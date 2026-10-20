@@ -516,6 +516,100 @@ class GameComparisonTests(unittest.TestCase):
             self.assertIsNone(linked_aliases.game_rodata_placement(root, self.source))
 
 
+    def test_raw_literal_address_pair_is_proven_only_by_linked_unit_bytes(self):
+        # Splat can spell a reference address as a bare lui/addiu literal pair.
+        literal = "lui $v0,0x800F\naddiu $v0,$v0,-0x8000\njr $ra\nnop"
+        for expression, expected in (("D_800E8000", True), ("D_800E7FFC+4", True),
+                                     ("D_800E8004", False), ("D_800F8000", False)):
+            with self.subTest(expression=expression), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                self.metadata(root)
+                candidate, _ = self.objects(root, body=self.body(expression))
+                reference = self.assemble(root, "raw", self.function(self.symbol, literal))
+                current, raw = Object32(candidate.read_bytes()), Object32(reference.read_bytes())
+                self.assertFalse(raw.relocations)
+                self.assertFalse(linked_aliases.address_alias_present(current, raw, self.symbol, 16))
+                self.assertTrue(linked_aliases.game_eligible(candidate, reference, self.symbol, 16))
+                pair = self.prove(root, candidate, reference)
+                self.assertEqual(expected, pair is not None)
+                if pair is not None:
+                    self.assertEqual(pair[0].read_bytes(), pair[1].read_bytes())
+
+    def test_literal_eligibility_requires_a_data_address_relocation(self):
+        literal = "lui $v0,0x800F\naddiu $v0,$v0,-0x8000\njr $ra\nnop"
+        for body in (literal, "lui $v0,%hi(func_15001000)\naddiu $v0,$v0,%lo(func_15001000)\njr $ra\nnop"):
+            with self.subTest(body=body), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                self.metadata(root)
+                candidate, _ = self.objects(root, body=body)
+                reference = self.assemble(root, "raw", self.function(self.symbol, literal))
+                self.assertFalse(linked_aliases.game_eligible(candidate, reference, self.symbol, 16))
+
+    callback = "lui $v0,%hi(func_15001000)\naddiu $v0,$v0,%lo(func_15001000)\njr $ra\nnop"
+
+    def test_same_unit_callback_address_resolves_by_linker_and_rom_bytes(self):
+        for low, expected in ((0x1000, True), (0x1004, False)):
+            with self.subTest(low=low), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                self.metadata(root)
+                candidate, reference = self.objects(root, neighbor=self.callback)
+                obj = Object32(candidate.read_bytes())
+                _, section = linked_aliases.function(obj, self.symbol, 16)
+                kinds = sorted(kind for kind, target in obj.relocations.values()
+                               if target[0] == "func_15001000")
+                self.assertEqual([5, 6], kinds)
+                addresses = {"func_15001000": 0x15001000}
+                self.assertIsNotNone(linked_aliases.game_definitions(obj, addresses, section, 0x15001000))
+                # The mixed main path keeps admitting only same-unit jal targets.
+                self.assertIsNone(linked_aliases.definitions(
+                    obj, text_addresses=addresses, text_section=section, text_base=0x15001000))
+                unit_words = [0x03E00008, 0, 0, 0, *self.words, 0x3C021500, 0x24420000 | low,
+                              0x03E00008, 0]
+                pair = self.prove(root, candidate, reference, unit_words=unit_words)
+                self.assertEqual(expected, pair is not None)
+                if pair is not None:
+                    self.assertNotIn("func_15001000 =", (root / "build/us/linked-aliases" / self.symbol
+                                                         / "candidate.ld").read_text())
+
+    def test_same_unit_callback_forms_are_restricted(self):
+        neighbors = [self.callback.replace("func_15001000)", "func_15001000+4)"),
+                     self.callback.replace("addiu $v0,$v0", "ori $v0,$v0"),
+                     self.callback.replace("addiu $v0,$v0,%lo(func_15001000)",
+                                           "lw $v0,%lo(func_15001000)($v0)"),
+                     ".word func_15001000\nnop\njr $ra\nnop"]
+        for neighbor in neighbors:
+            with self.subTest(neighbor=neighbor), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                self.metadata(root)
+                candidate, _ = self.objects(root, neighbor=neighbor)
+                obj = Object32(candidate.read_bytes())
+                _, section = linked_aliases.function(obj, self.symbol, 16)
+                addresses = {"func_15001000": 0x15001000}
+                self.assertIsNone(linked_aliases.game_definitions(obj, addresses, section, 0x15001000))
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.metadata(root)
+            candidate, _ = self.objects(root, neighbor=self.callback)
+            obj = Object32(candidate.read_bytes())
+            _, section = linked_aliases.function(obj, self.symbol, 16)
+            # An unregistered or misplaced callback target never resolves.
+            self.assertIsNone(linked_aliases.game_definitions(obj, {}, section, 0x15001000))
+            self.assertIsNone(linked_aliases.game_definitions(
+                obj, {"func_15001000": 0x15001000}, section, 0x15001004))
+
+    def test_terminal_padding_unit_with_callback_to_target_is_proven(self):
+        prefix = "lui $v0,%hi(func_15001010)\naddiu $v0,$v0,%lo(func_15001010)\njr $ra\nnop"
+        words = [0x03E00008, 0, 0, 0]
+        for low, expected in ((0x1010, True), (0x1014, False)):
+            with self.subTest(low=low), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                candidate, reference = self.padding_objects(root, prefix=prefix)
+                unit_words = [0x3C021500, 0x24420000 | low, 0x03E00008, 0, *words]
+                pair = self.prove(root, candidate, reference, words=words, unit_words=unit_words)
+                self.assertEqual(expected, pair is not None)
+                if pair is not None:
+                    self.assertEqual(pair[0].read_bytes(), pair[1].read_bytes())
+
 class GameComparisonWorkflowTests(unittest.TestCase):
     def test_real_fingerprints_cover_phase_executables_modules_and_proof_inputs(self):
         with tempfile.TemporaryDirectory() as temporary:
