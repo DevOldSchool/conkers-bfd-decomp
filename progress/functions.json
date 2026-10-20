@@ -64720,17 +64720,16 @@
       "symbol": "func_150C7020"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 442,
-        "reason": "Manual three-component vector candidate reached CURRENT (442) over full 400-byte US span, zero register/control-flow differences; remaining raw frame 0x60 versus generated 0x68 shifts stack locals and D_800A0494 preload moves after prologue. Source-local padded struct regressed to CURRENT (1165); restored best candidate, no further evidence-backed layout revision.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 400,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C71C0",
           "vram": "0x150C71C0"
         }
@@ -82840,17 +82839,16 @@
       "symbol": "func_150FAE18"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 654,
-        "reason": "Best CURRENT 654 after three source-only float-lifetime variants; recovered state f32 fields at 0x54/0x58/0x5C, five-float transform layout, and two-argument func_15157DEC ABI, with remaining mismatch in IDO constant-load scheduling and FPR allocation",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150FB188",
           "vram": "0x150FB188"
         }

@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150C7020
- * - func_150C71C0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -88,34 +87,27 @@ void func_150C7020(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
 f32 func_150ADA68(void);
 void func_151DB5D0(s32, void *, f32 *, f32, f32, f32, f32, s32, s32, s32,
                    s32, s32, s32, s32);
-extern f32 D_800A0494;
-extern f32 D_800A0498;
-extern f32 D_800A049C;
-extern f32 D_800A04A0;
-extern f32 D_800A04A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C71C0 CURRENT (442) */
 void func_150C71C0(f32 *arg0, f32 *arg1, s32 arg2, s32 arg3, s32 arg4,
                     u8 *arg5) {
     f32 vector[3];
     s16 sp52;
+    s32 life;
     f32 sp48;
     f32 sp44;
     f32 sp40;
-    f32 scale = D_800A0494;
 
-    vector[0] = (arg1[0] - arg0[0]) * scale;
-    vector[1] = (arg1[1] - arg0[1]) * scale;
-    vector[2] = (arg1[2] - arg0[2]) * scale;
+    vector[0] = (arg1[0] - arg0[0]) * 0.407f;
+    vector[1] = (arg1[1] - arg0[1]) * 0.407f;
+    vector[2] = (arg1[2] - arg0[2]) * 0.407f;
     sp52 = (func_150ADA20() % 31U) + 0x2A;
     sp40 = func_150ADA68();
     sp44 = func_150ADA68();
     sp48 = func_150ADA68();
+    life = (func_150ADA20() % 101U) + 0x9B;
     func_151DB5D0(0, arg0, vector, (sp40 * 70.0f) + 30.0f,
-                   (sp44 * D_800A0498) + D_800A049C, 1.0f,
-                   (sp48 * D_800A04A0) + D_800A04A4,
-                   sp52, (func_150ADA20() % 101U) + 0x9B, sp52,
+                   (sp44 * 0.020000001f) + 1.0400001f, 1.0f,
+                   (sp48 * 0.194f) + -0.35000002f,
+                   sp52, life, sp52,
                    0xFF / sp52, 1, arg5[0xC], arg5[1]);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C71C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F44D0/func_150C71C0.s")
