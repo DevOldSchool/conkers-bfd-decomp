@@ -534,6 +534,32 @@ class LocalDeltaTests(unittest.TestCase):
         self.assertEqual("named: drop or merge count", lines[1])
         self.assertIn("or drop constant and declare a later local before direction", lines[2])
 
+    def scalar_homes(self, frame: int) -> list[frame_plan.NamedHome]:
+        return [Home(name, frame + relative, 4) for name, relative in
+                (("first", -4), ("second", -8), ("third", -12), ("fourth", -16))]
+
+    def test_newly_aligned_home_does_not_replace_a_lost_alignment(self):
+        # Dropping `first` would move `second` off -8 while moving `fourth` onto -12.
+        candidate = ("swap", 0x38, ["sw $ra, 0x14($sp)"], crossing(0x30, 0x28))
+        reference = (0x30, ["sw $ra, 0x14($sp)"], crossing(0x28, 0x24))
+        lines, _rendered = self.delta(candidate, self.scalar_homes(0x38), [], 1, reference)
+        self.assertEqual("candidate +2 words: 1 named, 1 alignment", lines[0])
+        # `fourth` was never aligned, so dropping it is still allowed; `first` alone is not.
+        self.assertEqual("named: drop or merge third or fourth", lines[1])
+        self.assertIn("  or drop first and declare a later local before second", lines[2])
+        self.assertFalse(any("first" in line for line in lines if line.startswith("or:")))
+
+    def test_wide_reference_access_covers_both_words(self):
+        # The reference sdc1 at sp+0x20 touches top-relative -16 and -12.
+        candidate = ("wide", 0x38, ["sw $ra, 0x14($sp)"], crossing(0x2C))
+        reference = (0x30, ["sw $ra, 0x14($sp)"], ["sdc1 $f4, 0x20($sp)", "jal func_x", "nop",
+                                                     "ldc1 $f4, 0x20($sp)"])
+        reference_plan = framed(*reference)
+        self.assertEqual({-16, -12}, frame_plan._reference_words(reference_plan))
+        lines, _rendered = self.delta(candidate, self.scalar_homes(0x38), [], 1, reference)
+        self.assertEqual("candidate +2 words: 1 named, 1 alignment", lines[0])
+        self.assertEqual("named: drop or merge fourth", lines[1])
+
     def test_unknown_alignment_tries_both(self):
         candidate = ("d804/a.c", 0x40, ["sw $ra, 0x14($sp)"], crossing(0x3C, 0x34, 0x1C))
         homes = [Home("count", 0x3C, 4), Home("selected", 0x38, 4), Home("source", 0x34, 4),

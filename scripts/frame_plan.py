@@ -851,9 +851,20 @@ def _area_words(area: tuple[int, int] | None) -> int:
 
 
 def _reference_words(reference: FramePlan) -> set[int]:
-    """Frame-top-relative words the reference code touches in its local area."""
+    """Frame-top-relative words the reference code touches in its local area.
 
-    return {(slot.offset & ~3) - reference.frame_size for slot in reference.slots if slot.area == "local"}
+    A load or store covers every word it overlaps, so an eight-byte ``sdc1``
+    covers two; taking an address marks only the word it points at.
+    """
+
+    words = set()
+    for slot in reference.slots:
+        if slot.area != "local":
+            continue
+        for access in slot.accesses:
+            end = access.offset + (access.size if access.kind != "address" else 1)
+            words.update(range(access.offset & ~3, end, 4))
+    return {word - reference.frame_size for word in words}
 
 
 def explain_surplus(account: LocalAccount, reference: FramePlan) -> list[Explanation]:
@@ -875,9 +886,9 @@ def explain_surplus(account: LocalAccount, reference: FramePlan) -> list[Explana
     order = [home.name for home in account.homes]
     used = {index for index, home in enumerate(account.homes) if home.name in account.accessed}
 
-    def aligned(offsets: list[int], kept: list[int]) -> int:
-        return sum(1 for position, index in enumerate(kept)
-                   if index in used and (offsets[position] & ~3) in reference_words)
+    def aligned(offsets: list[int], kept: list[int]) -> set[int]:
+        return {index for position, index in enumerate(kept)
+                if index in used and (offsets[position] & ~3) in reference_words}
 
     named_options: list[tuple[tuple[int, ...], int]] = [((), 0)]
     if account.materialized and account.layout is not None:
@@ -890,7 +901,9 @@ def explain_surplus(account: LocalAccount, reference: FramePlan) -> list[Explana
                 kept = [index for index in everything if index not in removed]
                 offsets = pack_homes([account.layout[index] for index in kept])
                 freed = account.named_words - _words_from_top(offsets)
-                if freed <= 0 or aligned(offsets, kept) < baseline:
+                # Each home already on a reference word must stay on one; a newly
+                # aligned home does not make up for losing another.
+                if freed <= 0 or not baseline <= aligned(offsets, kept):
                     continue
                 named_options.append((removed, freed))
     counts = [statement.count for statement in account.call_arg_statements]
