@@ -736,6 +736,10 @@ expression/lifetime mismatch. Do not rank solely by `CURRENT`: a small register
 mismatch may resist many changes, while a larger structural mismatch may have
 a direct fix. Refresh diagnostics when relevant inputs have changed.
 
+For a family-wide hypothesis (one mechanical rewrite that may fit many
+deferred candidates), run a [transform sweep](#transform-sweeps) before
+reshaping items by hand.
+
 After a match, make at most one bounded sibling lookup within scope. Record a
 concrete ASM/ABI hypothesis and prioritise an eligible result with
 `next --ready --function <id>`; untouched-only tasks require an untouched sibling.
@@ -781,6 +785,59 @@ and keyed by the reference directory mtimes; `--refresh` rebuilds it. It needs
 A twin is a lead within the task's scope, not match evidence: copy the body,
 adapt the reported differences, declare the item's own data, and run the
 ordinary `finish` gates against its own assembly.
+
+### Transform sweeps
+
+`sweep` applies one mechanical source transform to every preserved deferred
+candidate and rescores the results in one warm-container process. It is
+read-only: nothing under `src/` or `progress/` changes.
+
+```sh
+./conker sweep unchanged --max-score 300
+./conker sweep literals [--source src/game/<unit>.c]... [--function <id>]... [--reason REGEX]
+./conker sweep literals-inline
+```
+
+- `unchanged` rescores each `#if 0 /* CONKER_DEFERRED_CANDIDATE ... */` body as
+  written, which finds stored scores that later declaration changes moved;
+- `literals` replaces each `extern f32 D_800[9A]xxxx` game rodata use with the
+  shortest float literal that round-trips to its ROM word (skipping
+  address-taken symbols), so the function gets its own literal pool;
+- `literals-inline` also inlines `f32` locals written once from a float literal,
+  because a named copy costs a `-g3` frame word. A plain declaration's single
+  assignment must sit at the declaration's block level, before every other use.
+
+Transforms other than `unchanged` select only candidates they change. Filters
+combine: `--max-score` bounds the stored inventory score, `--source` takes a file
+or directory (repeatable), `--function` names deferred IDs and `--reason` matches
+the recorded deferral reason. The literal transforms need the checksum-validated
+US ROM.
+
+The output is a TSV on stdout and in `build/us/sweep/<transform>.tsv`: stored
+score, new score, candidate frame, reference frame, function, source and the
+transform detail. Exact zeros come first, then the largest improvements; rows
+that fail to build show `ERR` with the compiler's first error. Each candidate
+is built in its own unit exactly as `probe <id> <variant>` builds it, and scored
+with the same focused asm-differ comparison, so the scores equal probe's.
+The sweep loads the pinned differ once and parses the inventories once, which
+removes probe's per-item container, start-up and differ-process costs. For the
+240 candidates at `--max-score 300` the sweep took 29 s and gave the same scores
+as a loop of 240 `./conker probe` calls, which took 578 s. `--probe-baseline`
+keeps probe's in-process costs (a differ process per score) for comparison: 114 s.
+
+`--batched` compiles one unit per source file with every selected candidate
+active, isolating any candidate the compiler blames for an error. It saves
+about a fifth of the time but is only a screen: other active functions shift
+IDO's register-allocation tie-breaks, so a function can score differently than it
+does alone (3 of 240 in the measurement above). Batched zeros and
+improvements are rescored on their own before they are reported (`[confirmed]`
+or `[batched N]`). Other rows keep the batched score (`[batched]`), so the screen
+can miss an improvement.
+
+A sweep zero is a lead, not a match: copy the transformed body (the transform
+detail lists the substitutions), then run `finish`. Owned literals still need
+the reviewed `config/game/us-rodata.ld` mapping and data-layout evidence from the
+[diagnosis checklist](#diagnosis-checklist) before `verify-batch`.
 
 ### Edit completion before verification
 

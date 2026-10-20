@@ -159,14 +159,23 @@ def mdebug_locals(path: Path, symbol: str) -> list[Local]:
 FRAME = re.compile(r"addiu\s+\$?sp,\s*\$?sp,\s*-(0x[0-9A-Fa-f]+|\d+)")
 
 
-def object_frame_size(path: Path, symbol: str) -> int | None:
+def object_disassembly(path: Path) -> str:
     try:
-        output = subprocess.run(
+        return subprocess.run(
             ["mips-linux-gnu-objdump", "-d", "--no-show-raw-insn", str(path)],
             cwd=ROOT, check=True, capture_output=True, text=True,
         ).stdout
     except (OSError, subprocess.CalledProcessError) as error:
         raise ToolingError(f"objdump failed for {path}: {error}") from error
+
+
+def object_frame_size(path: Path, symbol: str) -> int | None:
+    return disassembly_frame_size(object_disassembly(path), symbol, path)
+
+
+def disassembly_frame_size(output: str, symbol: str, path: Path) -> int | None:
+    """Frame size from the prologue of ``symbol`` in ``objdump -d`` text, or None for a leaf."""
+
     start = output.find(f"<{symbol}>:")
     if start < 0:
         raise ToolingError(f"{symbol} not found in {path}")

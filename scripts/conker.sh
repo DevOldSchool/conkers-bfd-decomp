@@ -131,6 +131,12 @@ Getting started
   probe <work-item-id> [<variant.c>...] [--layout]
                                  Score function variants in one pass without editing source;
                                  --layout prints frame size and named-local stack offsets.
+  sweep <unchanged|literals|literals-inline> [--max-score N] [--source PATH]... [--function ID]...
+        [--reason REGEX] [--batched | --probe-baseline] [--output PATH]
+                                 Rescore every deferred candidate under one transform in one
+                                 process without editing source; scores equal probe's. --batched
+                                 compiles one unit per source as a screen (zeros rechecked).
+                                 TSV (zeros first) on stdout and in build/us/sweep/<transform>.tsv.
   finish [--profile us] <work-item-id>
                                  Record CURRENT (0), then check progress and whitespace.
   verify-batch [--incremental] [--host-tests] [--full-tests] <work-item-id> [<work-item-id>...]
@@ -1058,6 +1064,12 @@ case "$command" in
         python3 "$state_tool" setup-check --profile us
         ensure_warm_container
         run_in_warm_container python3 scripts/probe.py us "$@"
+        ;;
+    sweep)
+        [[ $# -ge 1 ]] || die "usage: ./conker sweep <unchanged|literals|literals-inline> [--max-score N] [--source PATH]..."
+        python3 "$state_tool" setup-check --profile us
+        ensure_warm_container
+        run_in_warm_container python3 scripts/sweep.py "$@"
         ;;
     diagnose-diff)
         parse_profile_and_value "usage: ./conker diagnose-diff [--profile us] <work-item-id>" "$@"
