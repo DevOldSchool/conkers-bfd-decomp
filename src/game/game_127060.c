@@ -11,7 +11,6 @@
  * - func_150FA520
  * - func_150FAAEC
  * - func_150FAE18
- * - func_150FB188
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -415,9 +414,7 @@ void func_150FAE18(s16 arg0, u8 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150FAE18 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAE18.s")
-extern f32 D_800A1DC0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FB188 CURRENT (654) */
 s32 func_150FB188(Game127060State *arg0) {
     Game127060Transform transform;
 
@@ -427,13 +424,11 @@ s32 func_150FB188(Game127060State *arg0) {
     transform.field0 = 0.0f;
     transform.field4 = 0.0f;
     transform.field8 = 0.0f;
-    transform.fieldC = D_800A1DC0;
-    transform.field10 = D_800A1DC0;
+    transform.fieldC = 0.3f;
+    transform.field10 = 0.3f;
     func_15157DEC(arg0, &transform);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FB188 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FB188.s")
 
 void func_15157F80(s32, s32, s32, s32, s32);
 s32 func_151D710C(s32, s32, s32, s32, s32);

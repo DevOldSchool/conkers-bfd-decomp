@@ -1921,7 +1921,7 @@ typedef struct SightUpdateFields {
     f32 scale;
 } SightUpdateFields;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD224 CURRENT (300) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD224 CURRENT (100) */
 void func_151CD224(u8 *arg0) {
     SightUpdateFields *state = (SightUpdateFields *)(arg0 + 0x70);
     f32 current;

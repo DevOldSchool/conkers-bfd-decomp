@@ -531,9 +531,8 @@ typedef struct Game133190BeamChain {
 Game133190Object *func_15105CE0(Game133190Beam *, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151072BC CURRENT (348) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151072BC CURRENT (158) */
 void func_151072BC(u8 *arg0) {
-    Game133190Object *child;
     Game133190Beam beam;
     u8 *owner;
     Vec3f direction;
@@ -576,10 +575,9 @@ void func_151072BC(u8 *arg0) {
         beam.color.bytes[3] = func_150ADA20() % (u32)(config->alphaRange + 1) + config->alphaBase;
         beam.mode = 1;
         beam.count = func_150ADA20() % (u32)(config->countRange + 1) + config->countBase;
-        child = func_15105CE0(&beam, 4, arg0[0xC], arg0[1]);
-        chain->child = child;
-        if (child != NULL) {
-            func_10022EC0(child->holder, &owner, 4U);
+        chain->child = func_15105CE0(&beam, 4, arg0[0xC], arg0[1]);
+        if (chain->child != NULL) {
+            func_10022EC0(chain->child->holder, &owner, 4U);
         }
         chain->index++;
     }

@@ -9,7 +9,6 @@
  * - func_150AF328
  * - func_150AF7C4
  * - func_150AFDB0
- * - func_150B0094
  * - func_150B0348
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -339,10 +338,8 @@ void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
 void func_15145974(void *, f32 *, f32 *);
 void *func_151B7328(void *, s32, s32, s32, s32);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
-extern f32 D_8009F7D8;
 extern Vec3f D_800A5480;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B0094 CURRENT (75) */
 void func_150B0094(Vec3f *arg0, Vec3f *arg1, u8 arg2, s32 arg3) {
     GameDC6B0Packet packet;
     Vec3f delta;
@@ -358,7 +355,7 @@ void func_150B0094(Vec3f *arg0, Vec3f *arg1, u8 arg2, s32 arg3) {
     delta.z = arg1->z - arg0->z;
     if (func_15145128(&delta.x, &delta.x, &length, &inverse_length) != 0) {
         packet.field4 = packet.field0 = 1.0f;
-        packet.field8 = packet.fieldC = D_8009F7D8;
+        packet.field8 = packet.fieldC = 0.7f;
         packet.position = *arg0;
         packet.velocity.x = delta.x * 80.0f;
         packet.velocity.y = delta.y * 80.0f;
@@ -397,8 +394,6 @@ void func_150B0094(Vec3f *arg0, Vec3f *arg1, u8 arg2, s32 arg3) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B0094 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150B0094.s")
 void func_150B02C0(void *arg0);
 
 void func_150B02C0(void *arg0) {
