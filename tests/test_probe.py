@@ -155,24 +155,32 @@ class MainErrorHandlingTests(unittest.TestCase):
         self.assertEqual(probe.diff.EXIT_FIX_COMPILE, status)
 
 
-def mdebug_object(symbols: list[tuple[str, int, int, int]]) -> bytes:
-    """Build a minimal big-endian ELF32 with an IDO-style .mdebug symbol table."""
+def mdebug_object(symbols: list[tuple], aux: list[int] = ()) -> bytes:
+    """Build a minimal big-endian ELF32 with an IDO-style .mdebug symbol table.
+
+    Each symbol is ``(name, value, st, sc[, aux index])``; ``aux`` holds the
+    auxiliary type words. There is no file descriptor table, so the reader
+    treats the table as one file.
+    """
 
     strings = b''
     entries = b''
-    for name, value, st, sc in symbols:
+    for name, value, st, sc, *index in symbols:
         iss = len(strings)
         strings += name.encode() + b'\0'
-        entries += struct.pack('>iiI', iss, value, (st << 26) | (sc << 21))
+        entries += struct.pack('>iiI', iss, value, (st << 26) | (sc << 21) | (index[0] if index else 0))
     shstrtab = b'\0.shstrtab\0.mdebug\0'
     elf_header_size = 52
     mdebug_offset = elf_header_size
     symbols_offset = mdebug_offset + 0x60
     strings_offset = symbols_offset + len(entries)
+    aux_offset = strings_offset + len(strings)
     fields = [0] * 23
     fields[7], fields[8] = len(symbols), symbols_offset
+    fields[11], fields[12] = len(aux), aux_offset
     fields[14] = strings_offset
-    mdebug = struct.pack('>hh' + 'i' * 23, 0x7009, 0, *fields) + entries + strings
+    mdebug = (struct.pack('>hh' + 'i' * 23, 0x7009, 0, *fields) + entries + strings
+              + b''.join(struct.pack('>I', word) for word in aux))
     shstrtab_offset = mdebug_offset + len(mdebug)
     section_offset = shstrtab_offset + len(shstrtab)
     header = bytearray(elf_header_size)
@@ -206,6 +214,66 @@ class MdebugLocalsTests(unittest.TestCase):
             [(entry.kind, entry.name, entry.frame_offset) for entry in found],
         )
 
+    def read(self, symbols, aux=()):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'unit.o'
+            path.write_bytes(mdebug_object(symbols, list(aux)))
+            return probe.mdebug_locals(path, 'func_A')
+
+    def test_block_scoped_locals_sit_below_the_body_block(self):
+        found = self.read([
+            ('func_A', 0, probe.ST_PROC, 1),
+            ('arg0', 0, probe.ST_PARAM, probe.SC_ABS),
+            ('', 0, probe.ST_BLOCK, 1),
+            ('original', -4, probe.ST_LOCAL, probe.SC_ABS),
+            ('', 0, probe.ST_BLOCK, 1),
+            ('packet0', -8, probe.ST_LOCAL, probe.SC_ABS),
+            ('', 0, probe.ST_END, 1),
+            ('', 0, probe.ST_BLOCK, 1),
+            ('packet1', -12, probe.ST_LOCAL, probe.SC_ABS),
+            ('', 0, probe.ST_END, 1),
+            ('', 0, probe.ST_END, 1),
+            ('', 0, probe.ST_END, 1),
+            ('stray', -16, probe.ST_LOCAL, probe.SC_ABS),
+        ])
+        self.assertEqual([('arg0', False), ('original', False), ('packet0', True), ('packet1', True)],
+                         [(entry.name, entry.block) for entry in found])
+
+    def test_sizes_come_from_type_records(self):
+        def tir(basic, *qualifiers):
+            shifts = (12, 8, 4, 0)
+            return (basic << 24) | sum(qualifier << shift for qualifier, shift in zip(qualifiers, shifts))
+
+        escape = probe.RFD_ESCAPE << 20
+        aux = [
+            tir(4),                                                  # 0: short (s16's type)
+            tir(probe.BT_TYPEDEF, probe.TQ_ARRAY), escape | 0, 0,    # 1: s16 rows[33]
+            escape | 0, 0, 0, 32, 16,
+            tir(6, probe.TQ_PTR),                                    # 9: int *
+            tir(6, probe.TQ_PTR, probe.TQ_ARRAY), escape | 0, 0, 0, 2, 32,  # 10: int *table[3]
+            tir(probe.BT_STRUCT), escape | 1, 0,                     # 16: Pair
+            tir(11),                                                 # 19: double
+            tir(probe.BT_TYPEDEF), escape | 0, 7,                    # 20: a type from another file
+        ]
+        found = self.read([
+            ('s16', 0, 10, 11, 0),
+            ('Pair', 8, 26, 11, 0),
+            ('func_A', 0, probe.ST_PROC, 1),
+            ('', 0, probe.ST_BLOCK, 1),
+            ('rows', -0x44, probe.ST_LOCAL, probe.SC_ABS, 1),
+            ('pointer', -0x48, probe.ST_LOCAL, probe.SC_ABS, 9),
+            ('table', -0x54, probe.ST_LOCAL, probe.SC_ABS, 10),
+            ('pair', -0x5C, probe.ST_LOCAL, probe.SC_ABS, 16),
+            ('value', -0x68, probe.ST_LOCAL, probe.SC_ABS, 19),
+            ('foreign', -0x6C, probe.ST_LOCAL, probe.SC_ABS, 20),
+            ('', 0, probe.ST_END, 1),
+        ], aux)
+        self.assertEqual(
+            [('rows', 66, True), ('pointer', 4, False), ('table', 12, True), ('pair', 8, True),
+             ('value', 8, False), ('foreign', None, False)],
+            [(entry.name, entry.size, entry.aggregate) for entry in found],
+        )
+
     def test_missing_mdebug_section_is_reported(self):
         header = bytearray(52)
         header[:6] = b'\x7fELF\x01\x02'
@@ -219,6 +287,73 @@ class MdebugLocalsTests(unittest.TestCase):
             path.write_bytes(bytes(header) + sections + shstrtab)
             with self.assertRaises(probe.ProbeError):
                 probe.mdebug_locals(path, 'func_A')
+
+
+LAYOUT_SOURCE = '''#include "types.h"
+
+s32 func_A(s32 arg0) {
+    s32 count;
+    if (arg0) {
+        return func_B(func_C(arg0));
+    }
+    return 0;
+}
+'''
+
+
+class LayoutAccountTests(unittest.TestCase):
+    def target(self, directory: Path) -> probe.Target:
+        return probe.Target('func_A', 'us', Path('src/unit.c'), 'func_A', Path('ref.s'), Path('ref.o'), 8, directory)
+
+    def test_function_body_spans_the_definition_braces(self):
+        start, end = probe.function_body(LAYOUT_SOURCE, self.target(Path('.')))
+        self.assertEqual('{', LAYOUT_SOURCE[start])
+        self.assertEqual('}\n', LAYOUT_SOURCE[end:])
+
+    def test_pad_probe_adds_one_block_local_and_reads_the_frame_change(self):
+        with tempfile.TemporaryDirectory() as directory:
+            candidate = Path(directory) / 'variant000.o'
+            target = self.target(Path(directory))
+            body = probe.function_body(LAYOUT_SOURCE, target)
+            completed = mock.Mock(returncode=0)
+            for frames, expected in (([0x40, 0x40], 1), ([0x40, 0x48], 0), ([0x40, 0x50], None)):
+                with self.subTest(frames=frames), \
+                        mock.patch.object(probe.compile_c, 'run_compile', return_value=completed), \
+                        mock.patch.object(probe.frame_plan, 'object_frame_size', side_effect=frames):
+                    self.assertEqual(expected, probe.pad_alignment(target, candidate, LAYOUT_SOURCE, body))
+            padded = (Path(directory) / 'variant000-pad.c').read_text(encoding='utf-8')
+        self.assertIn('    return 0;\n    { int conker_layout_pad; }\n}\n', padded)
+
+    def test_failed_pad_compile_leaves_the_alignment_unknown(self):
+        with tempfile.TemporaryDirectory() as directory:
+            target = self.target(Path(directory))
+            body = probe.function_body(LAYOUT_SOURCE, target)
+            with mock.patch.object(probe.compile_c, 'run_compile', return_value=mock.Mock(returncode=1)):
+                self.assertIsNone(probe.pad_alignment(target, Path(directory) / 'current.o', LAYOUT_SOURCE, body))
+
+    def test_account_counts_call_arguments_in_the_candidate_source(self):
+        sys.path.insert(0, str(ROOT / 'tests'))
+        from test_frame_plan import crossing, framed
+
+        candidate_plan = framed(0x28, ['sw $ra, 0x14($sp)'], crossing(0x24))
+        reference = framed(0x20, ['sw $ra, 0x14($sp)'], crossing(0x1C))
+        locals_ = [probe.Local('param', 'arg0', 0, 4), probe.Local('local', 'count', -4, 4),
+                   probe.Local('local', 'extra', -8, 4)]
+        with tempfile.TemporaryDirectory() as directory:
+            candidate = Path(directory) / 'variant000.o'
+            candidate.with_suffix('.c').write_text(LAYOUT_SOURCE, encoding='utf-8')
+            with mock.patch.object(probe.frame_plan, 'object_plan', return_value=candidate_plan), \
+                    mock.patch.object(probe, 'header_macros', return_value=frozenset()), \
+                    mock.patch.object(probe, 'pad_alignment', return_value=1) as pad:
+                lines = probe.account_lines(self.target(Path(directory)), candidate, locals_, reference)
+        pad.assert_called_once()
+        text = '\n'.join(lines)
+        self.assertIn('call-arg temps 1 word (largest statement: return func_B(func_C(arg0)))', text)
+        # A call-arg temp and an unused named home explain the surplus equally; the
+        # call-arg temp ranks first and the named home is the alternative.
+        self.assertIn('  candidate +2 words: 1 call-arg temp, 1 alignment', lines)
+        self.assertIn('  or: 1 named, 1 alignment (extra)', lines)
+        self.assertIn('  or: 1 named, 1 call-arg temp (extra)', lines)
 
 
 class FrameParsingTests(unittest.TestCase):

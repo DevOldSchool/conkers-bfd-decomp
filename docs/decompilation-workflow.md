@@ -394,7 +394,9 @@ comparison as `diff`, in one warm-container pass. The table also reports each
 frame size against the reference. `--layout` prints the frame size and every
 named local's stack offset read from IDO's `.mdebug` symbols beside the
 reference [frame plan](#diagnosis-checklist), aligned by offset from each
-side's frame top. A probe score is
+side's frame top. When the frames differ it adds a `local-area account:` that
+counts the candidate's local words (see the checklist) and ends with a one-line
+delta such as `candidate +2 words: 1 named, 1 alignment`. A probe score is
 search evidence only: apply the chosen body and run `finish`. One probe batch
 counts as one manual revision for the attempt limits; record its hypothesis and
 best score in the ledger.
@@ -403,14 +405,34 @@ best score in the ledger.
 
 Check these before reshaping statements:
 
-- Frame size or every stack offset differs: run `probe --layout`. IDO gives each
-  named local, including unused and register-allocated ones, a slot in
-  declaration order from the frame top. Compare the count and order of named
-  locals with the reference offsets before changing expressions.
-- Frame differs although the locals agree: the area below the lowest local is
-  outgoing arguments, saved registers and reserved spill words. Some constructs
-  reserve an extra word; in `func_150DE7C0`, a variable array index
-  (`array[i]`) did and pointer arithmetic (`*(array + i)`) did not.
+- Frame size or every stack offset differs: run `probe --layout` and read its
+  `local-area account:` before changing expressions. It counts the candidate's
+  local area from the top down:
+  - **named homes**: every named local takes a home in declaration order from
+    the frame top, unused, register-only and `register` ones included, packed
+    by natural alignment (aggregates word-aligned). Block-scoped locals count
+    too, and sibling blocks do not share space. Homes cost nothing until some
+    named local needs memory (address taken, aggregate or stored across a call);
+  - **call-arg temps**: each argument expression that contains a call reserves
+    one word even when nothing spills: `f(g(x))` costs one, a three-deep chain
+    three, and RNG calls passed inline one each. The words are reused across
+    statements, so the area holds the largest statement's count, and a spilled
+    argument value reuses its word;
+  - **spill words** used below the named homes beyond the call-arg temps;
+  - **alignment**: one word or none, found by recompiling with an extra unused
+    block-scoped `int`;
+  - **other uopt temps**: the remainder, which follows code shape. In
+    `func_150DE7C0`, a variable array index (`array[i]`) reserved one and
+    pointer arithmetic (`*(array + i)`) did not.
+
+  The delta line names the fewest changes that reach the reference's
+  local-area word count without moving a home that already lines up with a
+  reference access, e.g. `candidate +2 words: 3 call-arg temps, -1 alignment`
+  (`func_1508FD38`: split the nested chain into one call per statement) or
+  `candidate +2 words: 1 named, 1 alignment` (`func_1503D804`: reuse a
+  parameter as the loop index; `func_15153CCC`: pass the literal instead of a
+  named copy). Treat it as the next hypothesis to probe, not proof, and
+  then probe declaration orders.
 - **Frame plan.** `diagnose-diff` prints a `frame-plan:` block whenever the
   diagnosis has stack rows or the frames differ, and `probe --layout` prints the
   same reference plan beside the candidate's `.mdebug` homes. Both come from

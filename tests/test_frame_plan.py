@@ -369,5 +369,197 @@ class ProbeLayoutTests(unittest.TestCase):
         self.assertIn("reference frame-plan: unavailable (no glabel)", lines)
 
 
+
+def framed(frame: int, saved: list[str], body: list[str]) -> frame_plan.FramePlan:
+    """Plan of a function with ``frame`` bytes, prologue ``saved`` stores, ``body`` and an epilogue."""
+
+    restores = [line.replace("sw ", "lw ", 1) for line in saved]
+    return inline_plan([f"addiu $sp, $sp, -{frame:#x}", *saved, *body, *restores,
+                        "jr $ra", f"addiu $sp, $sp, {frame:#x}"])
+
+
+def crossing(*offsets: int, register: str = "t0") -> list[str]:
+    """Stores to ``offsets`` that are reloaded only after a call."""
+
+    return ([f"sw ${register}, {offset:#x}($sp)" for offset in offsets] + ["jal func_x", "nop"]
+            + [f"lw ${register}, {offset:#x}($sp)" for offset in offsets])
+
+
+Home = frame_plan.NamedHome
+Statement = frame_plan.CallArgumentStatement
+
+# Round 15 (build/us/manual-attempts/round15/v/): candidate and reference frames
+# and the slots each side's code touches, copied from the compiled candidates and
+# the US reference listings.
+FD38_CANDIDATE = ("fd38/base.c", 0x98, ["sw $s0, 0x20($sp)", "sw $ra, 0x24($sp)"],
+                  crossing(0x94) + ["addiu $v1, $sp, 0x46", "addiu $a2, $sp, 0x44", "sh $zero, 0x44($sp)",
+                                    "sw $t9, 0x10($sp)"])
+FD38_REFERENCE = (0x90, ["sw $s0, 0x20($sp)", "sw $ra, 0x24($sp)"],
+                  crossing(0x8C) + ["addiu $v1, $sp, 0x3e", "addiu $a2, $sp, 0x3c", "sh $zero, 0x3c($sp)",
+                                    "sw $t9, 0x10($sp)"])
+FD38_HOMES = [Home("original", 0x94, 4), Home("index", 0x90, 4), Home("step", 0x8C, 4), Home("overflow", 0x88, 4),
+              Home("rows", 0x44, 66, aggregate=True), Home("packet0", 0x40, 4, block=True),
+              Home("packet1", 0x3C, 4, block=True)]
+FD38_CHAIN = Statement(3, "arg0 = func_15096934(func_15090630(func_15094F40(func_150911F4(arg0))))")
+
+
+class CallArgumentStatementTests(unittest.TestCase):
+    def counts(self, body: str, macros=frozenset()) -> list[int]:
+        return [statement.count for statement in frame_plan.call_argument_statements(body, macros)]
+
+    def test_each_nested_call_argument_counts_once(self):
+        statements = frame_plan.call_argument_statements(
+            "arg0 = func_15096934(func_15090630(func_15094F40(func_150911F4(arg0))));")
+        self.assertEqual([FD38_CHAIN], statements)
+
+    def test_one_call_per_statement_reserves_nothing(self):
+        self.assertEqual([], self.counts("a = g(a);\na = g(a);\nreturn g(a);\nx = g(a) + g(a);"))
+
+    def test_rng_calls_passed_inline_count_per_argument(self):
+        body = ("func_151DA6F8(&arg1->position.x, direction, func_150ADA68() * arg1->scaleRange,\n"
+                "    (func_150ADA20() % (u32)(arg1->lifeRange + 1)) + arg1->lifeBase, func_150ADA68() < arg1->chance,"
+                " 1.7f, arg1->kind);\n"
+                "func_1514F808(arg0, func_150ADA68() * arg1->directionRange, direction);")
+        self.assertEqual([3, 1], self.counts(body))
+
+    def test_statements_split_at_conditions_clauses_and_else(self):
+        body = ("if (f(g(a))) h(k(b), k(c)); else h(k(b), c);\n"
+                "for (i = f(g(0)); i < f(g(n)); i++) { }\n"
+                "while (f(g(h(a)))) a--;")
+        self.assertEqual([2, 2, 1, 1, 1, 1], self.counts(body))
+
+    def test_casts_keywords_macros_comments_and_strings_are_not_calls(self):
+        body = ("x = h((s32)(a), sizeof(b)); /* f(g(x)) */\n"
+                "gSPDisplayList(gdl++, f(a));\n"
+                "printf(\"f(g(x))\", 1);\n"
+                "y = f(OFFSET(a, b));")
+        self.assertEqual([], self.counts(body, {"gSPDisplayList", "OFFSET"}))
+
+    def test_calls_inside_macro_arguments_still_count_their_own(self):
+        self.assertEqual([1], self.counts("gSPDisplayList(gdl++, f(g(a)));", {"gSPDisplayList"}))
+
+    def test_indirect_calls_are_calls(self):
+        self.assertEqual([1, 1], self.counts("(*callback)(f(a));\ntable[i](f(a));"))
+
+    def test_function_like_macro_names(self):
+        text = "#define gSPDisplayList(pkt, dl) gDma1p(pkt, G_DL, dl, 0, 0)\n#define CONST 3\n # define SQ(x) ((x) * (x))\n"
+        self.assertEqual({"gSPDisplayList", "SQ"}, frame_plan.function_like_macros(text))
+
+
+class HomePackingTests(unittest.TestCase):
+    def test_layout_reproduces_natural_and_aggregate_alignment(self):
+        homes = [Home("c", 0xEF, 1), Home("s", 0xEC, 2), Home("d", 0xE0, 8), Home("rows", 0x98, 66, aggregate=True),
+                 Home("raw", 0x30, 16, aggregate=True), Home("unknown", 0x28)]
+        homes.insert(4, Home("pairs", 0x44, 32, aggregate=True))
+        layout = frame_plan.home_layout(homes, 0xF0)
+        self.assertEqual([home.offset - 0xF0 for home in homes], frame_plan.pack_homes(layout))
+        self.assertEqual((16, 8), layout[5])
+        self.assertEqual((8, 1), layout[6])
+
+    def test_two_shorts_share_one_word(self):
+        layout = frame_plan.home_layout([Home("b", 0x20, 8, aggregate=True), Home("c", 0x1E, 2), Home("d", 0x1C, 2)], 0x28)
+        self.assertEqual([-8, -10, -12], frame_plan.pack_homes(layout))
+        self.assertEqual([-8, -10], frame_plan.pack_homes(layout[:2]))
+
+
+class LocalAccountTests(unittest.TestCase):
+    def test_fd38_account(self):
+        _name, frame, saved, body = FD38_CANDIDATE
+        plan = framed(frame, saved, body)
+        account = frame_plan.account_local_area(plan, FD38_HOMES, [FD38_CHAIN], 0)
+        self.assertEqual((28, 23, 3, 0, 2), (account.words, account.named_words, account.call_arg_words,
+                                             len(account.spill_words), account.other_words))
+        self.assertTrue(account.materialized)
+        self.assertEqual({"original", "rows"}, account.accessed)
+
+    def test_homes_below_the_local_area_cost_nothing(self):
+        plan = framed(0x20, ["sw $ra, 0x14($sp)"], crossing(0x18))
+        homes = [Home("original", 0x1C, 4), Home("index", 0x18, 4), Home("rows", -0x34, 66, aggregate=True)]
+        account = frame_plan.account_local_area(plan, homes, [], 0)
+        self.assertFalse(account.materialized)
+        self.assertEqual((0, [0x18]), (account.named_words, account.spill_words))
+
+    def test_spill_beyond_the_call_arg_words(self):
+        plan = framed(0x28, ["sw $ra, 0x14($sp)"], crossing(0x1C, 0x18))
+        account = frame_plan.account_local_area(plan, [Home("b", 0x24, 4)], [Statement(1, "h(g(a), a)")], 1)
+        self.assertEqual((2, 1, 1), (len(account.spill_words), account.extra_spill_words, account.alignment))
+        self.assertEqual(0, account.other_words)
+        overcounted = frame_plan.account_local_area(plan, [Home("b", 0x24, 4)], [Statement(3, "f(g(h(k(a))))")], 1)
+        self.assertEqual(-1, overcounted.other_words)
+        reference = framed(0x28, ["sw $ra, 0x14($sp)"], crossing(0x1C, 0x18))
+        self.assertIn("    model overcount 1 word (a call-arg or spill estimate is too high)",
+                      frame_plan.render_account(overcounted, plan, reference))
+
+
+class LocalDeltaTests(unittest.TestCase):
+    def delta(self, candidate, homes, statements, alignment, reference) -> tuple[list[str], list[str]]:
+        _name, frame, saved, body = candidate
+        candidate_plan = framed(frame, saved, body)
+        reference_plan = framed(*reference)
+        account = frame_plan.account_local_area(candidate_plan, homes, statements, alignment)
+        return (frame_plan.delta_lines(account, candidate_plan, reference_plan),
+                frame_plan.render_account(account, candidate_plan, reference_plan))
+
+    def test_fd38_nested_chain_costs_three_call_arg_words(self):
+        lines, rendered = self.delta(FD38_CANDIDATE, FD38_HOMES, [FD38_CHAIN], 0, FD38_REFERENCE)
+        self.assertEqual("candidate +2 words: 3 call-arg temps, -1 alignment", lines[0])
+        self.assertIn("call-arg temps: give 1 statement one call each (largest: 3 call-containing arguments)", lines)
+        self.assertIn("or: 2 named (packet0, packet1)", lines)
+        text = "\n".join(rendered)
+        self.assertIn("named homes 23 words (7 locals, 2 block-scoped", text)
+        self.assertIn("original 4*, index 4, step 4, overflow 4, rows 66*, packet0 4 [block], packet1 4 [block]", text)
+        self.assertIn("call-arg temps 3 words (largest statement: arg0 = func_15096934(", text)
+        self.assertIn("reference local 0x28..0x8f: 26 words", text)
+        self.assertEqual(rendered[-len(lines):], ["  " + line for line in lines])
+
+    def test_d804_extra_named_local(self):
+        candidate = ("d804/a.c", 0x40, ["sw $ra, 0x14($sp)"], crossing(0x3C, 0x34, 0x1C))
+        homes = [Home("count", 0x3C, 4), Home("selected", 0x38, 4), Home("source", 0x34, 4),
+                 Home("destination", 0x30, 4), Home("i", 0x2C, 4)]
+        reference = (0x38, ["sw $ra, 0x14($sp)"], crossing(0x34, 0x2C, 0x18))
+        lines, rendered = self.delta(candidate, homes, [], 1, reference)
+        self.assertEqual("candidate +2 words: 1 named, 1 alignment", lines[0])
+        self.assertEqual("named: drop or merge destination or i", lines[1])
+        self.assertIn("selected and declare a later local before source", lines[2])
+        self.assertIn("other uopt temps 3 words", "\n".join(rendered))
+
+    def test_3ccc_named_literal_copy(self):
+        saved = ["sw $s0, 0x50($sp)", "sw $ra, 0x8c($sp)"]
+        candidate = ("3ccc/a.c", 0xC0, saved, ["addiu $s5, $sp, 0xb0", "jal func_x", "nop"])
+        homes = [Home("constant", 0xBC, 4), Home("direction", 0xB0, 12, aggregate=True), Home("count", 0xAC, 4)]
+        statements = [Statement(6, "func_151DA6F8(...)"), Statement(1, "func_1514F808(...)")]
+        reference = (0xB8, saved, ["addiu $s5, $sp, 0xa8", "jal func_x", "nop"])
+        lines, _rendered = self.delta(candidate, homes, statements, 1, reference)
+        self.assertEqual("candidate +2 words: 1 named, 1 alignment", lines[0])
+        self.assertEqual("named: drop or merge count", lines[1])
+        self.assertIn("or drop constant and declare a later local before direction", lines[2])
+
+    def test_unknown_alignment_tries_both(self):
+        candidate = ("d804/a.c", 0x40, ["sw $ra, 0x14($sp)"], crossing(0x3C, 0x34, 0x1C))
+        homes = [Home("count", 0x3C, 4), Home("selected", 0x38, 4), Home("source", 0x34, 4),
+                 Home("destination", 0x30, 4), Home("i", 0x2C, 4)]
+        reference = (0x38, ["sw $ra, 0x14($sp)"], crossing(0x34, 0x2C, 0x18))
+        lines, rendered = self.delta(candidate, homes, [], None, reference)
+        self.assertEqual("candidate +2 words: 1 named, 1 alignment", lines[0])
+        self.assertIn("alignment assumed: the pad probe was unavailable", lines)
+        self.assertIn("alignment and other temps 4 words (pad probe unavailable)", "\n".join(rendered))
+
+    def test_short_candidate_names_the_missing_words(self):
+        _name, _frame, saved, body = FD38_CANDIDATE
+        candidate = ("fd38/short.c", 0x88, saved, crossing(0x84) + ["addiu $a2, $sp, 0x34"])
+        homes = [Home("original", 0x84, 4), Home("index", 0x80, 4), Home("step", 0x7C, 4), Home("overflow", 0x78, 4),
+                 Home("rows", 0x34, 66, aggregate=True)]
+        lines, _rendered = self.delta(candidate, homes, [], 1, FD38_REFERENCE)
+        self.assertEqual("candidate -2 words: local area short: add 2 (+1 alignment) or 3 words of named locals,"
+                         " call-containing arguments or spills", lines[0])
+
+    def test_saved_register_words_are_reported_beside_the_local_area(self):
+        candidate = ("extra-s1", 0x28, ["sw $s0, 0x18($sp)", "sw $s1, 0x1c($sp)", "sw $ra, 0x20($sp)"],
+                     ["jal func_x", "nop"])
+        reference = (0x20, ["sw $s0, 0x18($sp)", "sw $ra, 0x1c($sp)"], ["jal func_x", "nop"])
+        lines, _rendered = self.delta(candidate, [], [], None, reference)
+        self.assertEqual("candidate +2 words: 2 saved-register words", lines[0])
+
+
 if __name__ == "__main__":
     unittest.main()

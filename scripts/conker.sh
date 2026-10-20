@@ -130,7 +130,8 @@ Getting started
                                  rescored with the project differ and applied through finish.
   probe <work-item-id> [<variant.c>...] [--layout]
                                  Score function variants in one pass without editing source;
-                                 --layout prints frame size and named-local stack offsets.
+                                 --layout prints frame size and named-local stack offsets,
+                                 plus a local-area word account when the frames differ.
   finish [--profile us] <work-item-id>
                                  Record CURRENT (0), then check progress and whitespace.
   verify-batch [--incremental] [--host-tests] [--full-tests] <work-item-id> [<work-item-id>...]
