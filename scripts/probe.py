@@ -10,6 +10,7 @@ evidence only; `finish` remains the authoritative gate.
 from __future__ import annotations
 
 import argparse
+import functools
 import re
 import struct
 import subprocess
@@ -32,6 +33,13 @@ ST_PARAM = 3
 ST_BLOCK = 7
 ST_END = 8
 SC_ABS = 5
+# mdebug auxiliary type records (TIR basic types and type qualifiers).
+BT_SIZES = {1: 4, 2: 1, 3: 1, 4: 2, 5: 2, 6: 4, 7: 4, 8: 4, 9: 4, 10: 4, 11: 8, 27: 8, 28: 8}
+BT_STRUCT, BT_UNION, BT_ENUM, BT_TYPEDEF = 12, 13, 14, 15
+TQ_PTR, TQ_PROC, TQ_ARRAY = 1, 2, 3
+RFD_ESCAPE = 0xFFF
+HEADER_DIRECTORIES = ("include", "lib/ultralib/include")
+PAD_LOCAL = "conker_layout_pad"
 
 
 class ProbeError(Exception):
@@ -51,6 +59,9 @@ class Local:
     kind: str
     name: str
     frame_offset: int  # relative to the frame top (negative for locals)
+    size: int | None = None  # bytes, from the .mdebug type records
+    block: bool = False  # declared in a block nested inside the function body
+    aggregate: bool = False  # array, struct or union
 
 
 def definition_names(content: str, regional_symbol: str) -> list[str]:
@@ -126,31 +137,159 @@ def _section(data: bytes, name: str) -> tuple[int, int]:
     raise ProbeError(f"object has no {name} section; compile with -g3")
 
 
-def mdebug_locals(path: Path, symbol: str) -> list[Local]:
-    """Read parameters and locals of ``symbol`` from IDO's .mdebug table."""
+def _signed(value: int) -> int:
+    return value - (1 << 32) if value & 0x80000000 else value
 
-    data = path.read_bytes()
+
+@dataclass(frozen=True)
+class _MdebugFile:
+    string_base: int
+    symbol_base: int
+    symbol_count: int
+    aux_base: int
+    rfd_base: int
+    rfd_count: int
+
+
+@dataclass
+class _Mdebug:
+    files: list[_MdebugFile]
+    symbols: list[tuple[str, int, int, int, int]]  # name, value, st, sc, aux index
+    aux: list[int]
+    rfds: list[int]
+
+    def file_of(self, file: int, rfd: int) -> int | None:
+        """File index a relative file descriptor of ``file`` names."""
+
+        entry = self.files[file]
+        if not entry.rfd_count:
+            return rfd if 0 <= rfd < len(self.files) else None
+        position = entry.rfd_base + rfd
+        return self.rfds[position] if 0 <= rfd < entry.rfd_count and position < len(self.rfds) else None
+
+    def type_size(self, file: int, index: int, depth: int = 0) -> tuple[int, bool] | None:
+        """(bytes, aggregate) of ``file``'s type record ``index``, or None when unreadable.
+
+        The record is a TIR word, an optional bitfield width, a symbol reference
+        for struct, union, enum and typedef types, then bounds and element width
+        for each array qualifier. The last qualifier is the outermost declarator.
+        """
+
+        if depth > 8:
+            return None
+        aux = self.aux
+        try:
+            position = self.files[file].aux_base + index
+            tir = aux[position]
+            basic = (tir >> 24) & 0x3F
+            qualifiers = [(tir >> shift) & 0xF for shift in (12, 8, 4, 0, 20, 16)]
+            qualifiers = qualifiers[: qualifiers.index(0)] if 0 in qualifiers else qualifiers
+            position += 1 + (tir >> 31)
+            referenced = None
+            if basic in (BT_STRUCT, BT_UNION, BT_ENUM, BT_TYPEDEF):
+                word = aux[position]
+                rfd = word >> 20
+                position += 1
+                if rfd == RFD_ESCAPE:
+                    rfd = aux[position]
+                    position += 1
+                target = self.file_of(file, rfd)
+                if target is None:
+                    return None
+                referenced = (target, self.files[target].symbol_base + (word & 0xFFFFF))
+            arrays = []
+            for qualifier in qualifiers:
+                if qualifier != TQ_ARRAY:
+                    continue
+                position += 2 if aux[position] >> 20 == RFD_ESCAPE else 1
+                low, high, width = _signed(aux[position]), _signed(aux[position + 1]), aux[position + 2]
+                position += 3
+                arrays.append((high - low + 1) * width // 8)
+            if qualifiers:
+                if qualifiers[-1] in (TQ_PTR, TQ_PROC):
+                    return 4, False
+                if qualifiers[-1] == TQ_ARRAY:
+                    return arrays[-1], True
+                return None
+            if basic in BT_SIZES:
+                return BT_SIZES[basic], False
+            if basic == BT_ENUM:
+                return 4, False
+            if referenced is None:
+                return None
+            target, symbol = referenced
+            if basic in (BT_STRUCT, BT_UNION):
+                return self.symbols[symbol][1], True
+            return self.type_size(target, self.symbols[symbol][4], depth + 1)
+        except (IndexError, TypeError, ValueError):
+            return None
+
+
+def _read_mdebug(data: bytes) -> _Mdebug:
     offset, _size = _section(data, ".mdebug")
     header = struct.unpack(">hh" + "i" * 23, data[offset : offset + 0x60])
     symbol_count, symbol_offset = header[9], header[10]
+    aux_count, aux_offset = header[13], header[14]
     string_offset = header[16]
+    file_count, file_offset, rfd_count, rfd_offset = header[19], header[20], header[21], header[22]
+
+    def words(count: int, start: int) -> list[int]:
+        if count <= 0 or start + 4 * count > len(data):
+            return []
+        return list(struct.unpack(f">{count}I", data[start : start + 4 * count]))
+
+    files = []
+    for index in range(max(file_count, 0)):
+        fields = struct.unpack(">IIIIIIIIIIhhIIIIIII", data[file_offset + 72 * index : file_offset + 72 * index + 72])
+        files.append(_MdebugFile(fields[2], fields[4], fields[5], fields[12], fields[14], fields[15]))
+    if not files:
+        files = [_MdebugFile(0, 0, symbol_count, 0, 0, 0)]
+    symbols: list[tuple[str, int, int, int, int]] = [("", 0, 0, 0, 0)] * symbol_count
+    for file in files:
+        for index in range(file.symbol_base, min(file.symbol_base + file.symbol_count, symbol_count)):
+            entry = symbol_offset + index * 12
+            iss, value, bits = struct.unpack(">iiI", data[entry : entry + 12])
+            name = ""
+            if iss >= 0:
+                start = string_offset + file.string_base + iss
+                name = data[start : data.index(b"\0", start)].decode(errors="replace")
+            symbols[index] = (name, value, bits >> 26, (bits >> 21) & 0x1F, bits & 0xFFFFF)
+    return _Mdebug(files, symbols, words(aux_count, aux_offset), words(rfd_count, rfd_offset))
+
+
+def mdebug_locals(path: Path, symbol: str) -> list[Local]:
+    """Read parameters and locals of ``symbol`` from IDO's .mdebug table.
+
+    Locals keep declaration order, their sizes from the type records and
+    whether they sit in a block nested inside the function body block.
+    """
+
+    table = _read_mdebug(path.read_bytes())
     found: list[Local] = []
     inside = False
-    for index in range(symbol_count):
-        entry = symbol_offset + index * 12
-        iss, value, bits = struct.unpack(">iiI", data[entry : entry + 12])
-        st, sc = bits >> 26, (bits >> 21) & 0x1F
-        name = ""
-        if iss >= 0:
-            start = string_offset + iss
-            name = data[start : data.index(b"\0", start)].decode(errors="replace")
-        if st in (ST_PROC, ST_STATIC_PROC):
-            if inside:
-                break
-            inside = name == symbol
-            continue
-        if inside and st in (ST_LOCAL, ST_PARAM) and sc == SC_ABS:
-            found.append(Local("param" if st == ST_PARAM else "local", name, value))
+    for file_index, file in enumerate(table.files):
+        depth = 0
+        for name, value, st, sc, aux_index in table.symbols[file.symbol_base : file.symbol_base + file.symbol_count]:
+            if st in (ST_PROC, ST_STATIC_PROC):
+                if inside:
+                    break
+                inside, depth = name == symbol, 0
+                continue
+            if not inside:
+                continue
+            if st == ST_BLOCK:
+                depth += 1
+            elif st == ST_END:
+                if depth == 0:
+                    break
+                depth -= 1
+            elif st in (ST_LOCAL, ST_PARAM) and sc == SC_ABS:
+                typed = table.type_size(file_index, aux_index)
+                size, aggregate = typed if typed is not None else (None, False)
+                found.append(Local("param" if st == ST_PARAM else "local", name, value, size,
+                                   st == ST_LOCAL and depth >= 2, aggregate))
+        if inside:
+            break
     if not inside and not found:
         raise ProbeError(f"{symbol} not found in .mdebug")
     return found
@@ -326,6 +465,81 @@ def layout_lines(frame: int | None, reference_frame: int | None, locals_: list[L
     return lines
 
 
+@functools.lru_cache(maxsize=1)
+def header_macros() -> frozenset[str]:
+    """Function-like macros of the project and libultra headers."""
+
+    names: set[str] = set()
+    for directory in HEADER_DIRECTORIES:
+        for header in sorted((ROOT / directory).rglob("*.h")):
+            try:
+                names |= frame_plan.function_like_macros(header.read_text(encoding="utf-8", errors="replace"))
+            except OSError:
+                continue
+    return frozenset(names)
+
+
+def function_body(content: str, target: Target) -> tuple[int, int] | None:
+    """Offsets of the scored definition's ``{`` and matching ``}`` in ``content``."""
+
+    for name in definition_names(content, target.symbol):
+        try:
+            start, end = project_state.c_function_span(content, name)
+        except project_state.ProjectStateError:
+            continue
+        opening = content.index("{", content.index(name, start))
+        return opening, project_state.matching_delimiter(content, opening, "{", "}")
+    return None
+
+
+def pad_alignment(target: Target, candidate: Path, content: str, body: tuple[int, int]) -> int | None:
+    """Alignment words in the candidate's frame: 1 when one more named word still fits.
+
+    Recompiles the probe source with an unused block-scoped ``int`` at the end of
+    the body, which takes one word below every other named home. None when the
+    probe compile or its frame cannot be read.
+    """
+
+    closing = body[1]
+    source = candidate.with_name(f"{candidate.stem}-pad.c")
+    output = source.with_suffix(".o")
+    source.write_text(content[:closing] + f"    {{ int {PAD_LOCAL}; }}\n" + content[closing:], encoding="utf-8")
+    output.unlink(missing_ok=True)
+    try:
+        result = compile_c.run_compile(target.profile, source, output, cwd=ROOT, capture_output=True, text=True)
+        if result.returncode:
+            return None
+        before = frame_plan.object_frame_size(candidate, target.symbol) or 0
+        after = frame_plan.object_frame_size(output, target.symbol) or 0
+    except (OSError, frame_plan.FramePlanError):
+        return None
+    return {0: 1, 8: 0}.get(after - before)
+
+
+def account_lines(target: Target, candidate: Path, locals_: list[Local],
+                  reference: frame_plan.FramePlan) -> list[str]:
+    """Word account of the candidate's local area against the reference's."""
+
+    plan = frame_plan.object_plan(candidate, target.symbol)
+    homes = [frame_plan.NamedHome(entry.name, plan.frame_size + entry.frame_offset, entry.size,
+                                  entry.block, entry.aggregate)
+             for entry in locals_ if entry.kind == "local"]
+    source = candidate.with_suffix(".c")
+    content = source.read_text(encoding="utf-8") if source.exists() else ""
+    body = function_body(content, target) if content else None
+    statements = []
+    if body is not None:
+        macros = header_macros() | frame_plan.function_like_macros(content)
+        statements = frame_plan.call_argument_statements(content[body[0] + 1: body[1]], macros)
+    account = frame_plan.account_local_area(plan, homes, statements, None)
+    if account.materialized and body is not None:
+        account.alignment = pad_alignment(target, candidate, content, body)
+    lines = frame_plan.render_account(account, plan, reference, indent="  ")
+    if body is None:
+        lines.insert(1, "  (candidate source unavailable: call-arg temps not counted)")
+    return lines
+
+
 def print_layout(target: Target, candidate: Path) -> None:
     frame = object_frame_size(candidate, target.symbol)
     reference_frame = reference_frame_size(target.assembly, target.symbol)
@@ -338,6 +552,13 @@ def print_layout(target: Target, candidate: Path) -> None:
         reference_error = str(error)
     for line in layout_lines(frame, reference_frame, locals_, reference, reference_error):
         print(line)
+    if reference is not None and frame != reference_frame:
+        try:
+            lines = account_lines(target, candidate, locals_, reference)
+        except (frame_plan.FramePlanError, OSError, ValueError) as error:
+            lines = [f"local-area account: unavailable ({error})"]
+        for line in lines:
+            print(line)
 
 
 def main() -> int:
@@ -347,7 +568,8 @@ def main() -> int:
     parser.add_argument("variants", nargs="*", type=Path,
                         help="function-definition or complete-source variant files")
     parser.add_argument("--layout", action="store_true",
-                        help="print frame size and named-local stack offsets")
+                        help="print frame size and named-local stack offsets, plus a local-area "
+                             "word account against the reference when the frames differ")
     arguments = parser.parse_intermixed_args()
     try:
         target = resolve(arguments.identifier, arguments.profile)

@@ -130,7 +130,8 @@ Getting started
                                  rescored with the project differ and applied through finish.
   probe <work-item-id> [<variant.c>...] [--layout]
                                  Score function variants in one pass without editing source;
-                                 --layout prints frame size and named-local stack offsets.
+                                 --layout prints frame size and named-local stack offsets,
+                                 plus a local-area word account when the frames differ.
   sweep <unchanged|literals|literals-inline> [--max-score N] [--source PATH]... [--function ID]...
         [--reason REGEX] [--batched | --probe-baseline] [--output PATH]
                                  Rescore every deferred candidate under one transform in one
