@@ -107,6 +107,11 @@ class LiteralTests(unittest.TestCase):
         self.assertEqual('-0.0f', sweep.shortest_f32_literal(bytes.fromhex('80000000')))
         self.assertIsNone(sweep.shortest_f32_literal(bytes.fromhex('7FC00000')))
 
+    def test_short_spellings_that_overflow_are_skipped(self):
+        # %.4g of FLT_MAX is 3.403e+38, which rounds above FLT_MAX and cannot pack.
+        self.assertEqual('3.4028235e+38f', sweep.shortest_f32_literal(bytes.fromhex('7F7FFFFF')))
+        self.assertEqual('-3.4028235e+38f', sweep.shortest_f32_literal(bytes.fromhex('FF7FFFFF')))
+
     def test_negated_negative_literal_is_parenthesized(self):
         self.assertEqual('x = -(-2.0f) + -2.0f;', sweep.substitute('x = -D_1 + D_1;', 'D_1', '-2.0f'))
 
@@ -162,6 +167,24 @@ class InlineTests(unittest.TestCase):
         ):
             with self.subTest(body=body):
                 self.assertEqual((body, []), sweep.inline_literal_locals(body))
+
+    def test_substitution_stays_inside_the_declaring_block(self):
+        body = ('f32 f(void) {\n    {\n        f32 scale;\n        scale = 1.0f;\n'
+                '        consume(scale);\n    }\n    return scale;\n}\n')
+        text, inlined = sweep.inline_literal_locals(body)
+        self.assertEqual(['scale=1.0f'], inlined)
+        self.assertIn('consume(1.0f);', text)
+        self.assertIn('return scale;', text)
+        self.assertNotIn('f32 scale', text)
+
+    def test_shadowed_names_are_kept(self):
+        body = ('void f(f32 *p) {\n    f32 t = 1.0f;\n\n    {\n        s32 t;\n\n'
+                '        t = 2;\n        g(t);\n    }\n    *p = t;\n}\n')
+        self.assertEqual((body, []), sweep.inline_literal_locals(body))
+
+    def test_braces_in_comments_and_strings_do_not_form_blocks(self):
+        text = '{ /* { */ "}" \'{\' // }\n}'
+        self.assertEqual([(0, len(text) - 1)], sweep.brace_pairs(text))
 
     def test_literals_inline_applies_only_when_a_local_is_inlined(self):
         body = 'f32 func_A(void) {\n    f32 t;\n\n    t = D_800A0000;\n    return t * t;\n}\n'
@@ -240,10 +263,44 @@ class SelectionTests(unittest.TestCase):
             self.select(functions=['func_15000020'])
 
 
-class BatchedConfirmationTests(unittest.TestCase):
-    def runner(self):
+class TemporaryOutputMixin:
+    def setUp(self):
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        patcher = mock.patch.object(sweep, 'OUTPUT_ROOT', Path(directory.name))
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def runner(self, mode='batched'):
         with mock.patch.object(sweep, 'InProcessScorer'):
-            return sweep.Sweep('unchanged', mode='batched', log=io.StringIO())
+            runner = sweep.Sweep('unchanged', mode=mode, log=io.StringIO())
+        self.addCleanup(runner.close)
+        return runner
+
+
+class InvocationIsolationTests(TemporaryOutputMixin, unittest.TestCase):
+    def test_each_invocation_builds_in_its_own_directory(self):
+        first, second = self.runner('exact'), self.runner('exact')
+        target = sweep.probe.Target('func_A', 'us', Path('src/unit.c'), 'func_A', Path('ref.s'),
+                                    Path('ref.o'), 8, Path('build/us/probe/func_A'))
+        with mock.patch.object(sweep.probe, 'resolve', return_value=target):
+            directories = [first.target('func_A').directory, second.target('func_A').directory]
+        self.assertNotEqual(*directories)
+        self.assertTrue(all(directory.is_dir() for directory in directories))
+        self.assertNotIn(Path('build/us/probe/func_A'), directories)
+        first.close()
+        self.assertFalse(directories[0].exists())
+        self.assertTrue(directories[1].exists())
+
+    def test_tables_are_replaced_atomically(self):
+        path = sweep.OUTPUT_ROOT / 'unchanged.tsv'
+        sweep.write_atomically(path, 'old\n')
+        sweep.write_atomically(path, 'new\n')
+        self.assertEqual('new\n', path.read_text())
+        self.assertEqual(['unchanged.tsv'], [entry.name for entry in path.parent.iterdir()])
+
+
+class BatchedConfirmationTests(TemporaryOutputMixin, unittest.TestCase):
 
     def test_batched_zeros_and_improvements_are_rescored_on_their_own(self):
         blocks, _ = sweep.candidate_blocks(SOURCE, SOURCE_PATH)

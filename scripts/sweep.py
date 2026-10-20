@@ -33,6 +33,7 @@ import re
 import struct
 import subprocess
 import sys
+import tempfile
 import time
 from contextlib import contextmanager, nullcontext, redirect_stderr, redirect_stdout
 from dataclasses import dataclass, field, replace
@@ -48,9 +49,7 @@ import project_state
 ROOT = diff.ROOT
 PROFILE = "us"
 OUTPUT_ROOT = ROOT / "build" / PROFILE / "sweep"
-# probe.build_variant names its outputs variant<index>; keep sweep builds
-# apart from the files an interactive probe batch writes.
-VARIANT_INDEX = 990
+VARIANT_INDEX = 1  # probe.build_variant output name; each invocation has its own directory
 TSV_HEADER = ("stored", "new", "frame", "ref_frame", "function", "source", "detail")
 
 TAG = re.escape(project_state.DEFERRED_CANDIDATE_TAG)
@@ -200,8 +199,11 @@ def shortest_f32_literal(word: bytes) -> str | None:
         return None
     for precision in range(1, 10):
         text = "%.*g" % (precision, value)
-        if struct.pack(">f", float(text)) == word:
-            break
+        try:
+            if struct.pack(">f", float(text)) == word:
+                break
+        except OverflowError:  # a short spelling of FLT_MAX rounds above it
+            continue
     else:  # nine significant digits always round-trip an f32
         return None
     if -7 <= Decimal(text).adjusted() < 16:
@@ -264,11 +266,56 @@ F32_DECLARATION = re.compile(
 )
 
 
+def brace_pairs(text: str) -> list[tuple[int, int]]:
+    """Matching ``{``/``}`` offsets in C text, ignoring comments and literals."""
+
+    pairs: list[tuple[int, int]] = []
+    stack: list[int] = []
+    index, state = 0, "code"
+    while index < len(text):
+        char, following = text[index], text[index + 1:index + 2]
+        if state == "code":
+            if char == "/" and following in ("*", "/"):
+                state = "block_comment" if following == "*" else "line_comment"
+                index += 2
+                continue
+            if char in "\"'":
+                state = char
+            elif char == "{":
+                stack.append(index)
+            elif char == "}" and stack:
+                pairs.append((stack.pop(), index))
+        elif state == "block_comment" and char == "*" and following == "/":
+            state = "code"
+            index += 2
+            continue
+        elif state == "line_comment" and char == "\n":
+            state = "code"
+        elif state in "\"'":
+            if char == "\\":
+                index += 2
+                continue
+            if char == state:
+                state = "code"
+        index += 1
+    return pairs
+
+
+def redeclares(scope: str, name: str) -> bool:
+    """Whether ``scope`` declares ``name`` again (a nested block would shadow the local)."""
+
+    return re.search(
+        rf"(?m)^[ \t]*(?!(?:return|else|case|goto)\b)(?:(?:register|static|const|volatile)[ \t]+)*"
+        rf"[A-Za-z_]\w*[ \t*]+{name}[ \t]*[;=,\[]", scope) is not None
+
+
 def inline_literal_locals(body: str) -> tuple[str, list[str]]:
     """Inline f32 locals whose only write is one float-literal initialization or assignment.
 
-    A plain declaration's single assignment must sit at the declaration's block
-    level and precede every other use, so the substitution keeps the meaning.
+    Every check and substitution stays inside the block that declares the local,
+    so a same-named outer variable is untouched; a block that redeclares the
+    name is skipped. A plain declaration's single assignment must sit at the
+    declaration's block level and precede every other use.
     """
 
     inlined: list[str] = []
@@ -276,8 +323,15 @@ def inline_literal_locals(body: str) -> tuple[str, list[str]]:
         declaration = next((match for match in F32_DECLARATION.finditer(body) if match.group(2) == name), None)
         if declaration is None:
             continue
+        blocks = [pair for pair in brace_pairs(body)
+                  if pair[0] < declaration.start() and declaration.end() <= pair[1]]
+        if not blocks:
+            continue
+        opening, closing = max(blocks)  # the innermost enclosing block
         indent, literal = declaration.group(1), declaration.group(3)
-        trial = body[:declaration.start()] + body[declaration.end():]
+        trial = body[opening + 1:declaration.start()] + body[declaration.end():closing]
+        if redeclares(trial, name):
+            continue
         if literal is None:
             assignment = re.compile(rf"(?m)^([ \t]*){name}[ \t]*=[ \t]*({FLOAT_LITERAL})[ \t]*;[ \t]*\n")
             assignments = list(assignment.finditer(trial))
@@ -293,7 +347,7 @@ def inline_literal_locals(body: str) -> tuple[str, list[str]]:
             continue
         if not re.search(rf"(?<!\.)(?<!->)\b{name}\b", trial):
             continue
-        body = substitute(trial, name, literal)
+        body = body[:opening + 1] + substitute(trial, name, literal) + body[closing:]
         inlined.append(f"{name}={literal}")
     return body, inlined
 
@@ -465,10 +519,26 @@ class Sweep:
         self.directory = OUTPUT_ROOT / transform
         self.compiles = 0
         self.confirmations = 0
-        self.scorer = probe.score if mode == "probe" else InProcessScorer(OUTPUT_ROOT / "differ")
+        # Builds, objects and differ settings stay private to this invocation, so
+        # overlapping sweeps (or probes) never overwrite each other's objects.
+        runs = OUTPUT_ROOT / "runs"
+        runs.mkdir(parents=True, exist_ok=True)
+        self.run = tempfile.TemporaryDirectory(prefix=f"{transform}-", dir=runs)
+        self.work = Path(self.run.name)
+        try:
+            self.scorer = probe.score if mode == "probe" else InProcessScorer(self.work / "differ")
+        except BaseException:
+            self.close()
+            raise
+
+    def close(self) -> None:
+        self.run.cleanup()
 
     def target(self, identifier: str) -> probe.Target:
-        return probe.resolve(identifier, PROFILE)
+        target = probe.resolve(identifier, PROFILE)
+        directory = self.work / "probe" / target.symbol
+        directory.mkdir(parents=True, exist_ok=True)
+        return replace(target, directory=directory)
 
     def score_object(self, target: probe.Target, candidate: Path, disassembly: str) -> tuple[int, str]:
         value = self.scorer(target, candidate)
@@ -481,7 +551,7 @@ class Sweep:
     def compile_unit(self, source_relative: str, content: str,
                      selected: list[Selected]) -> tuple[Path, dict[str, range]]:
         unit, lines = variant_unit(content, [(item.block, item.body) for item in selected])
-        source = self.directory / "units" / source_relative
+        source = self.work / "units" / source_relative
         output = source.with_suffix(".o")
         source.parent.mkdir(parents=True, exist_ok=True)
         source.write_text(unit, encoding="utf-8")
@@ -561,9 +631,11 @@ class Sweep:
 
         try:
             target = self.target(item.block.identifier)
-            variant = self.directory / "variants" / f"{item.block.identifier}.c"
+            variant = self.work / "variants" / f"{item.block.identifier}.c"
             variant.parent.mkdir(parents=True, exist_ok=True)
             variant.write_text(item.body, encoding="utf-8")
+            # Keep the transformed body for copying into source after the run.
+            write_atomically(self.directory / "variants" / variant.name, item.body)
             self.compiles += 1
             candidate = probe.build_variant(target, variant, VARIANT_INDEX)
             value, frame = self.score_object(target, candidate, probe.object_disassembly(candidate))
@@ -627,6 +699,18 @@ def select_candidates(transform: str, *, max_score: int | None, sources: list[st
     return grouped, problems
 
 
+def write_atomically(path: Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    handle, temporary = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
+    try:
+        with os.fdopen(handle, "w", encoding="utf-8") as stream:
+            stream.write(text)
+        os.replace(temporary, path)
+    except BaseException:
+        Path(temporary).unlink(missing_ok=True)
+        raise
+
+
 def write_tsv(rows: list[Row], stream) -> None:
     stream.write("\t".join(TSV_HEADER) + "\n")
     for row in sorted(rows, key=Row.sort_key):
@@ -668,19 +752,22 @@ def main(argv: list[str] | None = None) -> int:
         print(f"error: could not start the scorer: {error}", file=sys.stderr)
         return diff.EXIT_BLOCKED_TOOLING
     # The probe baseline keeps probe's own per-function inventory parsing.
-    with nullcontext() if arguments.mode == "probe" else parse_inventories_once():
-        for index, (source_relative, (content, selected)) in enumerate(grouped.items(), start=1):
-            file_started = time.monotonic()
-            file_rows = sweep.score_file(source_relative, content, selected)
-            rows.extend(file_rows)
-            zeros = sum(row.new == 0 for row in file_rows)
-            print(f"[{index}/{len(grouped)}] {source_relative}: {len(selected)} scored, {zeros} zero, "
-                  f"{time.monotonic() - file_started:.1f}s", file=sys.stderr, flush=True)
+    try:
+        with nullcontext() if arguments.mode == "probe" else parse_inventories_once():
+            for index, (source_relative, (content, selected)) in enumerate(grouped.items(), start=1):
+                file_started = time.monotonic()
+                file_rows = sweep.score_file(source_relative, content, selected)
+                rows.extend(file_rows)
+                zeros = sum(row.new == 0 for row in file_rows)
+                print(f"[{index}/{len(grouped)}] {source_relative}: {len(selected)} scored, {zeros} zero, "
+                      f"{time.monotonic() - file_started:.1f}s", file=sys.stderr, flush=True)
+    finally:
+        sweep.close()
     output = arguments.output or OUTPUT_ROOT / f"{arguments.transform}.tsv"
-    output.parent.mkdir(parents=True, exist_ok=True)
-    with output.open("w", encoding="utf-8") as stream:
-        write_tsv(rows, stream)
-    write_tsv(rows, sys.stdout)
+    table = io.StringIO()
+    write_tsv(rows, table)
+    write_atomically(output, table.getvalue())
+    sys.stdout.write(table.getvalue())
     errors = sum(row.new is None for row in rows)
     zeros = sum(row.new == 0 for row in rows)
     elapsed = time.monotonic() - started
