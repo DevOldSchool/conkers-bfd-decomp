@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151582C8
- * - func_1515858C
  * - func_15158684
  * - func_15158920
  *
@@ -197,38 +196,35 @@ typedef struct Game185560TransformArgs {
     f32 field50;
     u8 pad54[0xA4];
     f32 fieldF8;
-    s32 fieldFC;
+    f32 fieldFC;
     f32 field100;
     f32 field104;
 } Game185560TransformArgs;
 
 void func_150A7790(void *, s32);
-void func_150A8050(void *, f32, s32, f32);
+void func_150A8050(void *, f32, f32, f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515858C CURRENT (583) */
 s32 func_1515858C(s32 arg0, Game185560TransformArgs *arg1) {
-    f32 matrix[15];
-    void *temp_v0;
+    f32 *rotation;
+    f32 matrix[4][4];
 
-    func_150A8050(matrix, arg1->fieldF8, arg1->fieldFC, arg1->field100);
-    temp_v0 = (u8 *)arg1 + 0xF8;
-    matrix[12] = arg1->field48;
-    matrix[13] = arg1->field4C;
-    matrix[14] = arg1->field50;
-    matrix[0] *= *(f32 *)((u8 *)temp_v0 + 0xC);
-    matrix[1] *= *(f32 *)((u8 *)temp_v0 + 0xC);
-    matrix[2] *= *(f32 *)((u8 *)temp_v0 + 0xC);
-    matrix[4] *= *(f32 *)((u8 *)temp_v0 + 0xC);
-    matrix[5] *= *(f32 *)((u8 *)temp_v0 + 0xC);
-    matrix[6] *= *(f32 *)((u8 *)temp_v0 + 0xC);
-    matrix[8] *= *(f32 *)((u8 *)temp_v0 + 0xC);
-    matrix[9] *= *(f32 *)((u8 *)temp_v0 + 0xC);
-    matrix[10] *= *(f32 *)((u8 *)temp_v0 + 0xC);
+    rotation = &arg1->fieldF8;
+    func_150A8050(matrix, rotation[0], rotation[1], rotation[2]);
+    matrix[3][0] = arg1->field48;
+    matrix[3][1] = arg1->field4C;
+    matrix[3][2] = arg1->field50;
+    matrix[0][0] *= rotation[3];
+    matrix[0][1] *= rotation[3];
+    matrix[0][2] *= rotation[3];
+    matrix[1][0] *= rotation[3];
+    matrix[1][1] *= rotation[3];
+    matrix[1][2] *= rotation[3];
+    matrix[2][0] *= rotation[3];
+    matrix[2][1] *= rotation[3];
+    matrix[2][2] *= rotation[3];
     func_150A7790(matrix, arg0);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515858C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_185560/func_1515858C.s")
 
 typedef struct Game185560Motion {
     Vec3f angle;

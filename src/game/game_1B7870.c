@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1518A5F4
- * - func_1518A914
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -166,34 +165,26 @@ s32 func_1518A5F4(Game1B7870Object *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1518A5F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B7870/func_1518A5F4.s")
 void func_150A7790(void *, s32);
-void func_150A8050(f32 *, s32, s32, s32);
+void func_150A8050(f32 *, f32, f32, f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518A914 CURRENT (425) */
-s32 func_1518A914(s32 arg0, void *arg1) {
-    struct {
-        f32 matrix[16];
-        f32 pad;
-    } work;
-    volatile f32 *temp_v0;
+s32 func_1518A914(s32 arg0, u8 *arg1) {
+    f32 *rotation;
+    f32 matrix[4][4];
 
-    func_150A8050(work.matrix, *(s32 *)((u8 *)arg1 + 0x100),
-                  *(s32 *)((u8 *)arg1 + 0x104),
-                  *(s32 *)((u8 *)arg1 + 0x108));
-    temp_v0 = (volatile f32 *)((u8 *)arg1 + 0x100);
-    work.matrix[12] = *(f32 *)((u8 *)arg1 + 0x48);
-    work.matrix[13] = *(f32 *)((u8 *)arg1 + 0x4C);
-    work.matrix[14] = *(f32 *)((u8 *)arg1 + 0x50);
-    work.matrix[0] *= temp_v0[3];
-    work.matrix[1] *= temp_v0[3];
-    work.matrix[2] *= temp_v0[3];
-    work.matrix[4] *= temp_v0[3];
-    work.matrix[5] *= temp_v0[3];
-    work.matrix[6] *= temp_v0[3];
-    work.matrix[8] *= temp_v0[3];
-    work.matrix[9] *= temp_v0[3];
-    work.matrix[10] *= temp_v0[3];
-    func_150A7790(work.matrix, arg0);
+    rotation = (f32 *)(arg1 + 0x100);
+    func_150A8050((f32 *)matrix, rotation[0], rotation[1], rotation[2]);
+    matrix[3][0] = *(f32 *)(arg1 + 0x48);
+    matrix[3][1] = *(f32 *)(arg1 + 0x4C);
+    matrix[3][2] = *(f32 *)(arg1 + 0x50);
+    matrix[0][0] *= rotation[3];
+    matrix[0][1] *= rotation[3];
+    matrix[0][2] *= rotation[3];
+    matrix[1][0] *= rotation[3];
+    matrix[1][1] *= rotation[3];
+    matrix[1][2] *= rotation[3];
+    matrix[2][0] *= rotation[3];
+    matrix[2][1] *= rotation[3];
+    matrix[2][2] *= rotation[3];
+    func_150A7790(matrix, arg0);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518A914 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B7870/func_1518A914.s")

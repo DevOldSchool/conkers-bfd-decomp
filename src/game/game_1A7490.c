@@ -153,7 +153,7 @@ s32 func_1517A9A8(s32, s32);
 void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 void *func_15142FBC(void *, s32, s32, u8 *);
 extern u8 D_800D9C10[];
-extern f32 D_800D35E0[2];
+extern f32 D_800D35E0, D_800D35E4;
 extern f32 D_800D9B20;
 extern f32 D_800D9B1C;
 extern u8 D_800BE9C0;
@@ -161,57 +161,48 @@ extern s16 D_800DD450;
 extern s32 D_800D2C9C;
 extern u8 D_8008CDF0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517A3A0 CURRENT (4278) */
-s32 func_1517A3A0(s32 arg0, Game1A7490Motion *effect, s32 view) {
-    u8 flag;
-    f32 scale;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517A3A0 CURRENT (50) */
+void *func_1517A3A0(u32 *gdl, void *arg1, s16 view) {
+    Game1A7490Motion *effect;
     s32 mode;
-    u32 *command;
 
+    effect = arg1;
     if (effect->kind != 0xC && effect->kind != 0x59 &&
-        func_1510AEE0((f32 *)(D_800D9C10 + ((s16)view * 0x40)),
-                       (f32)effect->pos90, (f32)effect->pos92, (f32)effect->pos94,
-                       D_800D9B20, D_800D9B1C, D_800D35E0[0], D_800D35E0[1],
-                       0, 0) != 0) {
-        if (effect->kind == 8 && (effect->phaseB2 & (1 << (s16)view))) {
-            effect->phaseB2 |= 0x10 << (s16)view;
+        func_1510AEE0((f32 *)(D_800D9C10 + (view << 6)),
+                      effect->pos90, effect->pos92, effect->pos94,
+                      D_800D9B20, D_800D9B1C, D_800D35E0, D_800D35E4, 0, 0) != 0) {
+        if (effect->kind == 8 && (effect->phaseB2 & (1 << view))) {
+            effect->phaseB2 |= 0x10 << view;
         }
-        return arg0;
+        return gdl;
     }
     if (effect->kind != 9) {
-        effect->phaseB2 |= 1 << (s16)view;
+        effect->phaseB2 |= 1 << view;
     }
-    arg0 = func_1517A9A8(arg0, effect->field9F);
-    scale = effect->fieldA8;
-    func_15043D90((s32)((u8 *)effect + (D_800BE9C0 << 6) + 0x10),
-                   (f32)effect->pos96, (f32)effect->pos98, (f32)effect->pos9A,
-                   scale, scale, scale,
-                   (f32)effect->pos90, (f32)effect->pos92, (f32)effect->pos94);
-    command = (u32 *)arg0;
-    command[0] = 0xDA380003;
-    arg0 += 8;
-    command[1] = (u32)((u8 *)effect + (D_800BE9C0 << 6) + 0x10);
-    if (effect->fadeB3 != D_800DD450) {
-        command = (u32 *)arg0;
-        command[0] = 0xE7000000;
-        arg0 += 8;
-        command[1] = 0;
-        command = (u32 *)arg0;
-        command[0] = 0xFA000000;
-        arg0 += 8;
-        command[1] = effect->fadeB3;
+    gdl = (u32 *)func_1517A9A8((s32)gdl, effect->field9F);
+    func_15043D90((s32)(((u8 *)effect + 0x10) + (D_800BE9C0 << 6)),
+                  effect->pos96, effect->pos98, effect->pos9A,
+                  effect->fieldA8, effect->fieldA8, effect->fieldA8,
+                  effect->pos90, effect->pos92, effect->pos94);
+    { u32 *g = gdl; gdl += 2; g[0] = 0xDA380003; g[1] = (u32)(((u8 *)effect + 0x10) + (D_800BE9C0 << 6)); }
+    if (D_800DD450 != effect->fadeB3) {
+        { u32 *g = gdl; gdl += 2; g[0] = 0xE7000000; g[1] = 0; }
+        { u32 *g = gdl; gdl += 2; g[0] = 0xFA000000; g[1] = ((0 & 0xFF) << 24) | ((0 & 0xFF) << 16) | ((0 & 0xFF) << 8) | ((effect->fadeB3 & 0xFF) << 0); }
         D_800DD450 = effect->fadeB3;
     }
-    flag = 0;
-    if (effect->kind == 8 || effect->kind == 9) {
-        mode = 0x5049D8;
-    } else {
-        mode = 0x504240;
+    {
+        u8 flag;
+
+        flag = 0;
+        if (effect->kind == 8 || effect->kind == 9) {
+            mode = 0x5049D8;
+        } else {
+            mode = 0x504240;
+        }
+        gdl = func_15142FBC(gdl, D_800D2C9C | 0x80000 | 0x2CA0, mode, &flag);
     }
-    command = func_15142FBC((void *)arg0, D_800D2C9C | 0x82CA0, mode, &flag);
-    command[0] = 0xDE000000;
-    command[1] = (u32)D_8008CDF0;
-    return (s32)(command + 2);
+    { u32 *g = gdl; gdl += 2; g[0] = 0xDE000000; g[1] = (u32)D_8008CDF0; }
+    return gdl;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517A3A0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_1517A3A0.s")

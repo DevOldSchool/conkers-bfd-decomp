@@ -8881,7 +8881,7 @@
         "us": {
           "end": "0x177410",
           "start": "0x174BF0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1A20A0.c"
