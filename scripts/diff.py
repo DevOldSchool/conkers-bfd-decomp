@@ -572,7 +572,9 @@ def configure_registered_span_differ(differ, candidate_lines: int | None = None)
     differ.trim_nops = lambda lines, arch: lines
 
 
-def run_pinned_asm_differ(candidate_lines: int | None = None) -> None:
+def load_pinned_asm_differ(candidate_lines: int | None = None):
+    """Import the pinned asm-differ, configured for registered-span scoring."""
+
     spec = importlib.util.spec_from_file_location("conker_asm_differ", ASM_DIFFER)
     if spec is None or spec.loader is None:
         raise ValueError(f"cannot load pinned asm-differ: {ASM_DIFFER}")
@@ -580,7 +582,11 @@ def run_pinned_asm_differ(candidate_lines: int | None = None) -> None:
     sys.modules[spec.name] = differ
     spec.loader.exec_module(differ)
     configure_registered_span_differ(differ, candidate_lines)
-    differ.main()
+    return differ
+
+
+def run_pinned_asm_differ(candidate_lines: int | None = None) -> None:
+    load_pinned_asm_differ(candidate_lines).main()
 
 
 def run_asm_diff(command: list[str], directory: Path) -> int:
