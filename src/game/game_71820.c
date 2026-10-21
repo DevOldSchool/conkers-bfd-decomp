@@ -96,11 +96,11 @@ void func_15044660(Game71820Global *, f32, f32, f32);
 s32 func_150AB1F0(f32, f32, f32, Game71820Global *, s32);
 void func_150AC3E4(f32, f32, f32, Game71820Global *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15044380 CURRENT (146) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15044380 CURRENT (30) */
 s32 func_15044380(f32 arg0, f32 arg1, f32 arg2, Game71820Global *arg3, s32 arg4, s32 arg5) {
-    s32 saved_mode;
     s32 index;
-    u32 total;
+    s32 total;
+    s32 saved_mode;
     u8 *active;
 
     D_800CBDF4 = -32768.0f;
@@ -108,18 +108,15 @@ s32 func_15044380(f32 arg0, f32 arg1, f32 arg2, Game71820Global *arg3, s32 arg4,
     total = 0;
     arg3->status275 = 0;
     func_15044660(arg3, arg0, arg1, arg2);
-    active = &D_80089123;
-    index = 3;
-    saved_mode = D_800CBDD3;
-    do {
+    active = &D_80089123; index = 3; saved_mode = D_800CBDD3; do {
         if (*active == 1 && (index != 3 || !(arg3->flagsF8 & 0x200))) {
             func_1510F800(index);
             if (D_800DBE62 != 0) {
-                total += (u32)func_150AB1F0(arg0, arg1, arg2, arg3, arg4);
+                total += func_150AB1F0(arg0, arg1, arg2, arg3, arg4);
             }
         }
         index--;
-        active = (u8 *)((s32)active - 1);
+        active--;
     } while (index >= 0);
     active = &D_80089120;
     index = 0;
@@ -132,12 +129,12 @@ s32 func_15044380(f32 arg0, f32 arg1, f32 arg2, Game71820Global *arg3, s32 arg4,
                 }
             }
             index++;
-            active = (u8 *)((s32)active + 1);
+            active++;
         } while (index != 3);
     }
     func_1510F800(0);
     D_800CBDD3 = saved_mode;
-    return (s32)total;
+    return total;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15044380 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044380.s")
