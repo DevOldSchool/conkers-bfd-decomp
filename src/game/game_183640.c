@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15156190
- * - func_151563B8
  * - func_151564F8
  * - func_15156B54
  * - func_15156D24
@@ -87,7 +86,6 @@ void func_15156388(s32 arg0, u8 arg1, s32 arg2) {
 extern f32 D_800BE9A4;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151563B8 CURRENT (30) */
 void func_151563B8(u8 *arg0) {
     s32 value;
     s16 product;
@@ -110,7 +108,7 @@ void func_151563B8(u8 *arg0) {
         if (arg0[0x40] & 8) {
             value = *(s16 *)(arg0 + 0x42);
             if (value < *(s16 *)(arg0 + 0x4E)) {
-                product = value * *(s16 *)(arg0 + 0x50);
+                product = *(s16 *)(arg0 + 0x50) * *(s16 *)(arg0 + 0x42);
                 if (product < arg0[0x4C]) {
                     arg0[0x4C] = product;
                 }
@@ -121,8 +119,6 @@ void func_151563B8(u8 *arg0) {
         func_1516972C(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151563B8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_183640/func_151563B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_183640/func_151564F8.s")
 typedef struct { f32 first, second; } Game183640Pair;
 

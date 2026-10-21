@@ -16,7 +16,6 @@
  * - func_1515F338
  * - func_1515F5C4
  * - func_1515FB70
- * - func_1515FC60
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -821,24 +820,19 @@ void func_1507CD64(u8 *, s32);
 s32 func_150AD960(s16, s16, s32, s32);
 extern f32 D_800A6534;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515FC60 CURRENT (484) */
 void func_1515FC60(u8 *arg0, u8 *arg1) {
+    s32 distance;
+    f32 limit;
     f32 scaled;
-    f32 amount;
-    s32 count;
-    u8 *object;
 
-    object = *(u8 **)(arg0 + 0x31C);
-    if (object != 0 && object[0x120] == 0) {
-        count = *(u32 *)(arg1 + 0x1C);
-        if (count != 0) {
-            amount = (f32)(u32)count;
-            scaled = amount * D_800A6534;
-            if ((f32)func_150AD960(*(s16 *)arg1, *(s16 *)(arg1 + 4),
+    if (*(u8 **)(arg0 + 0x31C) != 0 && (*(u8 **)(arg0 + 0x31C))[0x120] == 0) {
+        if (*(u32 *)(arg1 + 0x1C) != 0) {
+            scaled = (f32)*(u32 *)(arg1 + 0x1C) * D_800A6534;
+            distance = func_150AD960(*(s16 *)arg1, *(s16 *)(arg1 + 4),
                                      (s32)*(f32 *)(arg0 + 0x14),
-                                     (s32)*(f32 *)(arg0 + 0x1C)) <
-                ((f32)*(s16 *)(arg1 + 6) * scaled -
-                 (f32)*(s16 *)(arg0 + 0xE4))) {
+                                     (s32)*(f32 *)(arg0 + 0x1C));
+            limit = (f32)*(s16 *)(arg1 + 6) * scaled - (f32)*(s16 *)(arg0 + 0xE4);
+            if ((f32)distance < limit) {
                 return;
             }
         }
@@ -848,5 +842,3 @@ void func_1515FC60(u8 *arg0, u8 *arg1) {
         func_1507CD64(arg0, 6);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515FC60 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515FC60.s")

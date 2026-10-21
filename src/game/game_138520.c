@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1510B128
  * - func_1510B3B0
- * - func_1510B51C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -148,40 +147,24 @@ void func_1510B458(s32 arg0, f32 arg1, f32 arg2) {
     *(f32 *)(temp_v0 + 4) = arg2;
     D_800D9B18 = 1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B51C CURRENT (65) */
 void func_1510B51C(void) {
     f32 *entry;
-    f32 value;
-    f32 second;
-    f32 inactive;
     s32 offset;
     s32 index;
-    u8 *record;
 
-    entry = D_800D9AF8;
-    index = 0;
-    if (D_80082FA0 >= 0) {
-        inactive = -1.0f;
-        do {
-            value = entry[0];
-            if (inactive != value) {
-                second = entry[1];
-                offset = index * 0x180;
-                record = (u8 *)D_800BE628 + offset;
-                func_1510B5F8(index, (void *)((u32)offset + (u32)D_800BE628 + 0xB8),
-                              *(f32 *)(record + 0x78),
-                              *(f32 *)(record + 0x74),
-                              value, second, *(f32 *)(record + 0x84));
-                entry[0] = inactive;
-            }
-            index++;
-            entry += 2;
-        } while (D_80082FA0 >= index);
+    for (index = 0; index <= D_80082FA0; index++) {
+        entry = &D_800D9AF8[index * 2];
+        if (entry[0] != -1.0f) {
+            offset = index * 0x180;
+            func_1510B5F8(index, (void *)(offset + D_800BE628 + 0xB8),
+                          *(f32 *)((u8 *)D_800BE628 + offset + 0x78),
+                          *(f32 *)((u8 *)D_800BE628 + offset + 0x74),
+                          entry[0], entry[1], *(f32 *)((u8 *)D_800BE628 + offset + 0x84));
+            entry[0] = -1.0f;
+        }
     }
     D_800D9B18 = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510B51C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_138520/func_1510B51C.s")
 void func_150A7790(void *, s32);
 void func_15047F00(void *, void *, f32, f32, f32, f32, f32);
 extern s32 D_800BE628;

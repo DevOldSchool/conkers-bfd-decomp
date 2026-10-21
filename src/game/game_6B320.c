@@ -77,7 +77,7 @@ extern void (*D_80084430[])(void *, s32);
 extern void (*D_8008443C[])(s32);
 extern void (*D_80084448[])(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503DF48 CURRENT (2426) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503DF48 CURRENT (368) */
 void func_1503DF48(s32 arg0) {
     Game6B320Slot *slot;
     Game6B320Particle *allocated;
@@ -114,8 +114,7 @@ void func_1503DF48(s32 arg0) {
         list = D_80084454[slot->pad_E[0]];
         i = 0;
         if (count > 0) {
-            parent = list;
-            do {
+            for (parent = list; i != count; i++, parent++) {
             if (*parent != -2) {
                 particle = (Game6B320Particle *)slot->entity + i;
                 if (func_1503E1F4(i, arg0) != 0 && particle->active == 0) {
@@ -124,9 +123,7 @@ void func_1503DF48(s32 arg0) {
                     particle->active = 1;
                 }
             }
-                i++;
-                parent++;
-            } while (i != count);
+            }
         }
         D_8008443C[slot->pad_E[0]](arg0);
         state = 1;

@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1500E5C0
- * - func_1500E738
  * - func_1500E8C0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -115,7 +114,6 @@ extern f32 D_800DCA24;
 extern s8 D_800DCA28;
 extern f32 D_800DCA2C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500E738 */
 void func_1500E738(void) {
     switch (D_80082FA0) {                           /* switch 1; irregular */
     case 0:                                         /* switch 1 */
@@ -167,8 +165,6 @@ void func_1500E738(void) {
         return;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1500E738 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_3BA70/func_1500E738.s")
 /* Call context: func_15008E00: unique active project prototype */
 /* Call context: func_15008E10: unique active project prototype */
 void func_15008E00(void);

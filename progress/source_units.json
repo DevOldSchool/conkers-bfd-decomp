@@ -10487,7 +10487,7 @@
         "us": {
           "end": "0x9E900",
           "start": "0x9E730",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_CBBE0.c"

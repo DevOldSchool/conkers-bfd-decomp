@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_composite_emitter_timed_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151A361C
  * - func_151A37C0
  * - func_151A3BE4
  * - func_151A4590
@@ -198,13 +197,11 @@ typedef struct Game1D0840TimedObject {
     Game1D0840TimedState *state98;
 } Game1D0840TimedObject;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A361C CURRENT (115) */
 s32 func_151A361C(Game1D0840TimedObject *arg0) {
     Game1D0840TimedState *state = arg0->state98;
     Game1D0840TimedEntry *entries = arg0->entries94;
     Game1D0840TimedEntry *entry;
     s32 index;
-    s32 current;
 
     if (arg0->field2C < 2 && (state->flags30 & 1)) {
         return 0;
@@ -227,25 +224,19 @@ s32 func_151A361C(Game1D0840TimedObject *arg0) {
             entry->fieldC += D_800BE9A4 * state->field24;
             if (entry->field10 < 0) {
                 state->flags30 &= ~2;
-                current = arg0->field2D;
-                if (index != current) {
-                    do {
-                        arg0->field2D = current + 1;
-                        current = arg0->field2D;
-                        if (arg0->field25 == current) {
-                            arg0->field2D = 0;
-                            current = arg0->field2D;
-                        }
-                        arg0->field2C--;
-                    } while (index != current);
+                while (index != arg0->field2D) {
+                    arg0->field2D++;
+                    if (arg0->field2D == arg0->field25) {
+                        arg0->field2D = 0;
+                    }
+                    arg0->field2C--;
                 }
-                entries[current].field10 = 0;
+                entries[arg0->field2D].field10 = 0;
             }
         } while (index != arg0->field2D);
     }
     if (arg0->field2C > 0) {
-        entry = &entries[arg0->field2D];
-        arg0->output54 = entry->value0;
+        arg0->output54 = entries[arg0->field2D].value0;
     } else {
         arg0->output54.x = 0.0f;
         arg0->output54.y = 0.0f;
@@ -253,8 +244,6 @@ s32 func_151A361C(Game1D0840TimedObject *arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A361C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A361C.s")
 void func_151A4E9C(void *);
 f32 sqrtf(f32);
 f32 fabsf(f32);

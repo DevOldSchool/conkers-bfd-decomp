@@ -6,4 +6,9 @@ Temporary proposed linking reproduces all 2,072,880 GAME bytes and external roda
 Canonical clean linking failed: +64 bytes and four table-address bytes differ.
 Supported reopen-match preserved exact C and restored GLOBAL_ASM for checkpointing.
 Mapping approval pending; restored ASM passed clean BATCH_COMPLETE, no new C match credit.
+
+Round 18 (2026-10-21) applied the proposed mapping (the same reviewed INFO-section
+pattern as game_B21B0 and game_C98F0) to `config/game/us-rodata.ld` and added the
+`config/data/us.json` owner, then resumed the preserved C; its clean verify-batch
+reached BATCH_COMPLETE with all 64 linked payload bytes matching the ROM.
 [Proof](game_3ba70_jump_table.json) · [Proposed patch](game_3ba70_jump_table.patch)
