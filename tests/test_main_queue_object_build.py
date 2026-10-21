@@ -48,6 +48,9 @@ class MainQueueObjectBuildTests(unittest.TestCase):
     def test_selector_object_is_prepared_again_without_double_rebasing(self):
         self.check_object_refresh("init_11FA0", 5)
 
+    def test_scheduler_object_is_prepared_again_without_double_rebasing(self):
+        self.check_object_refresh("init_49E0", 7)
+
     def check_object_refresh(self, source_name, relocation_count):
         physical, table_offset = compiler_object(relocation_count)
         expected = bytearray(physical)

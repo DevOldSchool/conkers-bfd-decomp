@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_80003C6C
- * - func_80004074
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -232,17 +231,15 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_80003C6C */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_3C40/func_80003C6C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80004074 CURRENT (35) */
-void func_80004074(s32 arg0) {
+void func_80004074(void *arg0) {
     AllocatorFreeBlock *block;
     AllocatorFreeBlock *neighbor;
-    AllocatorFreeBlock *nextFree;
+    AllocatorFreeBlock *cursor;
     s32 merged;
     volatile s32 mask;
-    AllocatorFreeBlock *cursor;
 
     if (arg0 != 0) {
-        cursor = (AllocatorFreeBlock *)(arg0 - 0xC);
+        cursor = (AllocatorFreeBlock *)((AllocatorBlock *)arg0 - 1);
         block = cursor;
         merged = 0;
         mask = func_80024880(1);
@@ -293,21 +290,20 @@ void func_80004074(s32 arg0) {
                 D_800380B8 = block;
             } else {
                 for (;;) {
-                    nextFree = cursor->nextFree;
-                    if (nextFree == 0) {
+                    if (cursor->nextFree == 0) {
                         block->nextFree = 0;
                         block->prevFree = cursor;
                         cursor->nextFree = block;
                         break;
                     }
-                    if ((u32)block < (u32)nextFree) {
-                        block->nextFree = nextFree;
+                    if ((u32)block < (u32)cursor->nextFree) {
+                        block->nextFree = cursor->nextFree;
                         block->prevFree = cursor;
-                        nextFree->prevFree = block;
+                        block->nextFree->prevFree = block;
                         cursor->nextFree = block;
                         break;
                     }
-                    cursor = nextFree;
+                    cursor = cursor->nextFree;
                 }
             }
         }
@@ -321,9 +317,7 @@ void func_80004074(s32 arg0) {
         func_80024880(mask);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80004074 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_3C40/func_80004074.s")
-void func_80004074(s32);
+void func_80004074(void *);
 s32 func_80024880(s32);
 void func_85042D50(void);
 
@@ -338,7 +332,7 @@ void func_80004250(void) {
         do {
             tag = block->taggedSize >> 24;
             if (tag == 2) {
-                func_80004074((s32)(block + 1));
+                func_80004074(block + 1);
             } else if ((tag == 3) || (tag == 4)) {
                 block->taggedSize = ((tag - 1) << 24) |
                     (block->taggedSize & 0xFFFFFF);
@@ -360,7 +354,7 @@ void func_80004308(void) {
         do {
             tag = block->taggedSize >> 24;
             if ((tag == 1) || (tag == 2) || (tag == 3) || (tag == 4)) {
-                func_80004074((s32)(block + 1));
+                func_80004074(block + 1);
             }
             block = block->next;
         } while (block != 0);

@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/main/init_5570.c
  * Boundary evidence: docs/evidence/boundaries/main/main_allocator_transfer_controller_boundaries.md
- *
- * TODO: Implement these source-unit functions:
- * - func_800056A0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct PakDevice {
@@ -64,7 +59,6 @@ s32 func_80005570(PakDevice *device) {
     return result;
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800056A0 CURRENT (600) */
 s32 func_800056A0(PakDevice *device) {
     u8 *ptr;
     s32 result;
@@ -91,5 +85,3 @@ s32 func_800056A0(PakDevice *device) {
     func_80025794();
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_800056A0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_5570/func_800056A0.s")

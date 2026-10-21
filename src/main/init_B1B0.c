@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_8000CEAC
- * - func_8000D2F8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1011,7 +1010,6 @@ void func_80008660(u8, u8, u8, s32);
 void func_80008C04(u8, u8, s32);
 s32 func_80008CE8(u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000D2F8 CURRENT (540) */
 void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     s32 status;
     SequenceRecordState **slot;
@@ -1036,7 +1034,7 @@ void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     channel = (u8)((u32 *)&arg0)[0];
     status = func_8000853C((u8)((u32 *)&arg0)[0]);
     offset = (s32)((u32 *)&arg0)[0] * sizeof(*slot);
-    slot = (SequenceRecordState **)((u8 *)D_800417B0 + offset);
+    slot = (SequenceRecordState **)&(*(u8 (*)[])D_800417B0)[offset];
     record = *slot;
     if (record != 0) {
         if (record->field24 != 0 &&
@@ -1154,8 +1152,6 @@ void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000D2F8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000D2F8.s")
 extern s8 D_80041F00;
 extern u16 D_800427F4;
 s32 func_851F2CDC(void);

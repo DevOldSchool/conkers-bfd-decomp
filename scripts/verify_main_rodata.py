@@ -18,6 +18,7 @@ ROM_START = 0x2C080
 REVIEWED_SECTIONS = {
     SECTION_NAME: (SECTION_VRAM, SECTION_SIZE, ROM_START),
     ".main_rodata_init_11fa0": (0x8002C410, 0x40, 0x2C410),
+    ".main_rodata_init_49e0": (0x8002C0A0, 0x20, 0x2C0A0),
 }
 
 

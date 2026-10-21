@@ -19742,15 +19742,15 @@
         "func_800039C0",
         "func_80003ACC"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x3BD0",
           "start": "0x39C0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_39C0.c"
+      "source": "src/done/main/init_39C0.c"
     },
     {
       "boundary_evidence": {
@@ -19815,15 +19815,15 @@
         "func_800046E4",
         "func_8000480C"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x49E0",
           "start": "0x4470",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_4470.c"
+      "source": "src/done/main/init_4470.c"
     },
     {
       "boundary_evidence": {
@@ -19840,15 +19840,15 @@
         "func_80004FE0",
         "func_80005020"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x50A0",
           "start": "0x49E0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_49E0.c"
+      "source": "src/done/main/init_49E0.c"
     },
     {
       "boundary_evidence": {
@@ -19862,15 +19862,15 @@
         "func_80005570",
         "func_800056A0"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x57E0",
           "start": "0x5570",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_5570.c"
+      "source": "src/done/main/init_5570.c"
     },
     {
       "boundary_evidence": {

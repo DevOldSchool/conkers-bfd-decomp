@@ -93216,7 +93216,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "60: only the first framebuffer store is scheduled before lui a0 (goto label splits the block). Natural forms (direct stores, clear_size/framebuffers pointer, same-line joins, loops) score 340/640/6864; IDO -S shows identical ugen order for all of them. 0x1ECC0 = 292*216*2.",
+        "reason": "Retain CURRENT60/full652/frame0x50: exact residual remains LUI A0,1 versus framebuffer SW order. New parity-checked AS1 store-side trace proves pointer identity0 falls through alias check against normalized stack FFFFFFFF; native static identity bypasses it but folds away required S0 owner. Formal cursor and real-scope alternatives lack a supporting ownership/partial-constant gate; no new source probe.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93498,26 +93498,25 @@
           "vram": "0x800039C0"
         }
       },
-      "source": "src/main/init_39C0.c",
+      "source": "src/done/main/init_39C0.c",
       "symbol": "func_800039C0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "Improved 265->120: color computed once inside the null check, count inside the if, for-init counters. Residual is a count/loop-bound/second register rotation (raw t0/a3/t1). Permuter reaches 60 only via a no-op if (second) {} in loop 1 (fake, rejected); natural single-pointer, register, index and decl-order variants do not reproduce it.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 260,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80003ACC",
           "vram": "0x80003ACC"
         }
       },
-      "source": "src/main/init_39C0.c",
+      "source": "src/done/main/init_39C0.c",
       "symbol": "func_80003ACC"
     },
     {
@@ -93560,7 +93559,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1375,
-        "reason": "2026-10-18 goal manual pass: full1032 baseline1375 frame70 retained. Reusing existing endpoint in forward/reverse allocation formulas individually scores2507/2707 frame78; together2902 frame78. All three grow frame and worsen allocation. Prior endpoint construction/type and explicit tail-pointer hypotheses exhausted; preserve baseline, no shared changes.",
+        "reason": "Retain CURRENT1375: outer cast before first end store changed ingress ADD-bias forwarding to UCVT whole-expression forwarding but produced identical target bytes and relocations. Converted expression retains priority30/V0 while named end remains priority4/A2; full-span1032/frame0x70 and all observer parity checks passed. No improved candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93576,17 +93575,16 @@
       "symbol": "func_80003C6C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 35,
-        "reason": "35 (natural): block->prevFree reload recovers one of two missing ugen temps. Permuter (3 runs, ~70k iterations) reaches 15 only with an extra boolean local (new_var = cursor != block before the cursor == 0 test); first three rows remain: raw computes arg0-0xC straight into v1 (cursor), ours uses a CSE temp v0. Role enumeration (324 + 864 incl. 7th local), statement orders, integer header, initializers: no gain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 476,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80004074",
           "vram": "0x80004074"
         }
@@ -93681,7 +93679,7 @@
           "vram": "0x80004470"
         }
       },
-      "source": "src/main/init_4470.c",
+      "source": "src/done/main/init_4470.c",
       "symbol": "func_80004470"
     },
     {
@@ -93699,7 +93697,7 @@
           "vram": "0x80004514"
         }
       },
-      "source": "src/main/init_4470.c",
+      "source": "src/done/main/init_4470.c",
       "symbol": "func_80004514"
     },
     {
@@ -93717,7 +93715,7 @@
           "vram": "0x80004674"
         }
       },
-      "source": "src/main/init_4470.c",
+      "source": "src/done/main/init_4470.c",
       "symbol": "func_80004674"
     },
     {
@@ -93735,45 +93733,43 @@
           "vram": "0x800046E4"
         }
       },
-      "source": "src/main/init_4470.c",
+      "source": "src/done/main/init_4470.c",
       "symbol": "func_800046E4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 854,
-        "reason": "Expanded manual budget 2026-10-18: four further variants signed/register/late busSource854 and early count1474, all frame40. Full468 best854 retained; original source saved-register residual remains. Prior1354->854 improvement preserved; no shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 468,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000480C",
           "vram": "0x8000480C"
         }
       },
-      "source": "src/main/init_4470.c",
+      "source": "src/done/main/init_4470.c",
       "symbol": "func_8000480C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 790,
-        "reason": "790: only the s8 global-address promotion differs (raw &D_8002AC50, ours &D_8002AC6C; 3 uses each). Permuter best 31 used an extra zero local; isolated: storing a variable (not literal 0) to D_8002AC6C in case 3 flips it (87), but any fourth named local grows the frame 0x68->0x70. Decl order, volatile extern, arg0-as-zero: no gain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 976,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800049E0",
           "vram": "0x800049E0"
         }
       },
-      "source": "src/main/init_49E0.c",
+      "source": "src/done/main/init_49E0.c",
       "symbol": "func_800049E0"
     },
     {
@@ -93791,7 +93787,7 @@
           "vram": "0x80004DB0"
         }
       },
-      "source": "src/main/init_49E0.c",
+      "source": "src/done/main/init_49E0.c",
       "symbol": "func_80004DB0"
     },
     {
@@ -93809,7 +93805,7 @@
           "vram": "0x80004F00"
         }
       },
-      "source": "src/main/init_49E0.c",
+      "source": "src/done/main/init_49E0.c",
       "symbol": "func_80004F00"
     },
     {
@@ -93827,7 +93823,7 @@
           "vram": "0x80004FE0"
         }
       },
-      "source": "src/main/init_49E0.c",
+      "source": "src/done/main/init_49E0.c",
       "symbol": "func_80004FE0"
     },
     {
@@ -93845,7 +93841,7 @@
           "vram": "0x80005020"
         }
       },
-      "source": "src/main/init_49E0.c",
+      "source": "src/done/main/init_49E0.c",
       "symbol": "func_80005020"
     },
     {
@@ -93863,26 +93859,25 @@
           "vram": "0x80005570"
         }
       },
-      "source": "src/main/init_5570.c",
+      "source": "src/done/main/init_5570.c",
       "symbol": "func_80005570"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 600,
-        "reason": "Fresh full320 CURRENT600 b2b483b9: every executable instruction exact through return delay slot; final12 bytes are required NOP padding but current combined source emits next function57E0 there. Reviewed working boundary explicitly spans57E0; no independent original object split proof. Do not change function body or add padding to force match; blocked on boundary/layout evidence.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 320,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800056A0",
           "vram": "0x800056A0"
         }
       },
-      "source": "src/main/init_5570.c",
+      "source": "src/done/main/init_5570.c",
       "symbol": "func_800056A0"
     },
     {
@@ -94753,7 +94748,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1608,
-        "reason": "Fresh raw full-span diagnosis1608; ten mask width, signedness, snapshot, scope and real step-pointer probe variants did not improve. Frame98 exact; missing mask preservation move, hidden spill70/58 vs6c/50 and switch scheduling remain. Original candidate preserved.",
+        "reason": "Retain CURRENT1608/frame98. Novel destructive formal-offset probe CURRENT3156/frame90: named offset survives in FP and removes anonymous MPY home, but introduces two entry copies and moves flags/queue homes; rejected. Production/private/fullTU/isolation parity passed; evidence main-ceac-formal-20261021.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94769,17 +94764,16 @@
       "symbol": "func_8000CEAC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 540,
-        "reason": "Manual unsigned override read and split halfword stores improve full-span CURRENT580 to540 (finish05e4bb53abde460496e8bbda21e195a9):98 register-only rows, exact frame40 and opcodes. Signed base address resolves temp rotation but reorders two instruction clusters (690; delayed status630); real snapshots/scopes worsen or grow frame58. Bounded32 permutation stays540. Detailed current-pass candidates and full diffs retained in build/us/manual-attempts/main-five-close-20261013/D2F8. Candidate only; no match credit.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1120,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000D2F8",
           "vram": "0x8000D2F8"
         }
@@ -95508,17 +95502,16 @@
       "symbol": "func_8000F9D4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1483,
-        "reason": "Fresh raw continuation: index uses A2 with spills at sp20 around two calls, candidate uses S1 despite correct frame28. Real queue-record fields, pointer-index access and register hint remain1483; nested success/common return worsens2970/3570. Seven new manual probes, no exact or better candidate; preserve baseline, no shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 436,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000FA64",
           "vram": "0x8000FA64"
         }
@@ -95728,7 +95721,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1732,
-        "reason": "1732: raw keeps the volume parameter in s1 (no home store) and loads field184 into v0 via a named local (home 0x30, mixFlags confirmed: natural u16-cast form 1779). Local copies, register parameter, K&R definition, else-form: volume stays memory-resident.",
+        "reason": "Retained CURRENT1732/full240/frame40. Parity-checked IDO observer confirms incoming volume allocation savings4.0 versus best cost4.2, so it splits/spills instead of choosing raw S1. Callee-width, snapshot, narrowing, and phase-reuse families exhausted; no new behavior-preserving source hypothesis justified. Evidence: build/us/manual-attempts/main-10ffc-trace-20261021/10630.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95942,17 +95935,16 @@
       "symbol": "func_80010F88"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 935,
-        "reason": "935: raw normalizes both u16 params in registers at entry, passes a0 to both calls without reloading, and narrows the result into a0 (andi a0,v0; move v0,a0). Writing the result back to arg0 register-allocates it but into s1 across the call (1408); a separate result var leaves arg0 memory-resident (935). Needs the variable shape that splits arg0's range at the call.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 460,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80010FFC",
           "vram": "0x80010FFC"
         }
@@ -97350,7 +97342,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 230,
-        "reason": "Natural candidate 230: only a t1/t2 swap between distance and the CSE'd (otherLimit - flaggedLimit). Permuter's exact result needed five empty if (1) {} blocks after the second division (reopened as fake); diagnostics show >=5 extra IR blocks where distance is live but the denominator is not flip the uopt priority. Named range, scoped locals, u32 distance, ternary distance, cast removal: no gain.",
+        "reason": "Retain CURRENT230. Logging-only physical-color trace proves equal cost2 for available T1/T2; distance rank selects T1 first and blocks denominator. Full-unit/isolated stock/off/on and production parity pass; no new source candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -97369,7 +97361,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1816,
-        "reason": "2026-10-18 manual continuation: baseline full2320 CURRENT1816 frameD8 retained. New direct point->x variant removes non-call-crossing cache but worsens2032 and does not reduce frame. Layout confirms original top-relative homes already agree with raw frameD0; earlier base snapshot and index/segment reuse hypotheses exhausted. Preserve original candidate; no new supported frame hypothesis.",
+        "reason": "Retain CURRENT1816. Sum-sink trace identifies tail previousDistance assignment at BB45/64; removing it also shortens cost span13 to5 and doubles priority37.5 to75. Stock/off/on and production parity pass; phase/union/index alternatives rejected from compiler and prior evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
