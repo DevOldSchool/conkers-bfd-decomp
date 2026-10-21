@@ -9,7 +9,6 @@
  * - func_15156190
  * - func_151563B8
  * - func_151564F8
- * - func_151568F8
  * - func_15156B54
  * - func_15156D24
  *
@@ -198,12 +197,10 @@ typedef struct {
 void func_151539B4(void *, s32);
 void *func_15130374(s32, u8, s32, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151568F8 CURRENT (1075) */
-void func_151568F8(Game183640CombinedRecord *arg0, s32 arg1) {
+void func_151568F8(Game183640CombinedRecord *arg0, u8 arg1) {
     Game183640BurstDescriptor burst;
     Game183640SpriteDescriptor sprite;
 
-    arg1 = (u8)arg1;
     burst.field_00 = arg0->field_0C;
     burst.field_02 = arg0->field_0E;
     burst.position = arg0->position;
@@ -266,10 +263,8 @@ void func_151568F8(Game183640CombinedRecord *arg0, s32 arg1) {
     sprite.field_4C = 0.0f;
     sprite.field_50 = 0.0f;
     sprite.field_54 = 0.0f;
-    func_15130374((s32)&sprite, arg0->field_88, 0, (u8)arg1, 0);
+    func_15130374((s32)&sprite, arg0->field_88, 0, arg1, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151568F8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_183640/func_151568F8.s")
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_15156D24(void *, u8);
 
@@ -323,7 +318,7 @@ void func_15156B54(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_183640/func_15156B54.s")
 void *func_10022EC0(void *, const void *, u32);
 f32 func_150ADA68(void);
-void func_151568F8(Game183640CombinedRecord *, s32);
+void func_151568F8(Game183640CombinedRecord *, u8);
 extern f32 D_800A6040;
 extern f32 D_800A6044;
 extern f32 D_800A6048;

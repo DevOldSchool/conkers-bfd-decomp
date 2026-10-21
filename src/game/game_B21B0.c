@@ -9,7 +9,6 @@
  * - func_15084D70
  * - func_15085430
  * - func_15085710
- * - func_150859AC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -99,10 +98,7 @@ typedef struct GameB21B0PlayerRecord {
 extern GameB21B0PlayerRecord D_800D213C[];
 extern u16 D_800D2340;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150859AC CURRENT (670) */
-s32 func_150859AC(s32 arg0, s32 arg1) {
-    arg0 = (s16)arg0;
-    arg1 = (s16)arg1;
+s32 func_150859AC(s16 arg0, s16 arg1) {
     if (arg0 >= 0xFF) {
         return 0;
     }
@@ -123,8 +119,6 @@ s32 func_150859AC(s32 arg0, s32 arg1) {
         return D_800D213C[arg0].field_C;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150859AC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_150859AC.s")
 
 void func_15085710(s16, s32, u8);
 extern u8 D_800CC2D0[];
