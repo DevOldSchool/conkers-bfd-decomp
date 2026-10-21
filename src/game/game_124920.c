@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150F7470
  * - func_150F78B4
- * - func_150F802C
  * - func_150F81BC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -57,10 +56,8 @@ void func_150F7F8C(void *arg0, u8 arg1, s32 arg2) {
 }
 void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
-extern f32 D_800A1BDC;
 extern u32 D_800A5480[3];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F802C CURRENT (1325) */
 void func_150F802C(f32 *arg0, s16 arg1, u8 arg2, s32 arg3) {
     typedef struct { u32 words[3]; } Copy3;
     u8 packet[0x90];
@@ -73,8 +70,8 @@ void func_150F802C(f32 *arg0, s16 arg1, u8 arg2, s32 arg3) {
     *(f32 *)(packet + 0x8C) = 0.0f;
     *(f32 *)(packet + 0x00) = 1.0f;
     *(f32 *)(packet + 0x04) = 1.0f;
-    *(f32 *)(packet + 0x08) = D_800A1BDC;
-    *(f32 *)(packet + 0x0C) = D_800A1BDC;
+    *(f32 *)(packet + 0x08) = 0.020000001f;
+    *(f32 *)(packet + 0x0C) = 0.020000001f;
     *(f32 *)(packet + 0x10) = arg0[3];
     *(f32 *)(packet + 0x14) = arg0[4];
     *(f32 *)(packet + 0x18) = arg0[5];
@@ -114,8 +111,6 @@ void func_150F802C(f32 *arg0, s16 arg1, u8 arg2, s32 arg3) {
         func_10022EC0((u8 *)result + 0x170, packet + 0x7C, 0x14);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F802C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_124920/func_150F802C.s")
 typedef struct GameF81BCPacket {
     u8 kind, field1;
     u16 mode;

@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151AC61C
- * - func_151AC810
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -130,8 +129,7 @@ void func_151D5D60(void *, s16, s32, void **, u8 *);
 extern f32 D_800DD1D8[];
 extern f32 D_800DD1E8[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AC810 CURRENT (796) */
-void *func_151AC810(Game1D9A00Quad *arg0, s32 arg1) {
+void *func_151AC810(Game1D9A00Quad *arg0, s16 arg1) {
     Game1D9A00Vertex *vertices;
     void *result;
     f32 scale;
@@ -140,20 +138,20 @@ void *func_151AC810(Game1D9A00Quad *arg0, s32 arg1) {
     f32 offsetX;
     u8 fresh;
 
-    func_151D5D60(arg0->buffers, (s16)arg1, 0x40, (void **)&vertices, &fresh);
+    func_151D5D60(arg0->buffers, arg1, 0x40, (void **)&vertices, &fresh);
     result = vertices;
     if (vertices != 0) {
         if (fresh != 0) {
-            func_10022EC0(arg0->buffers[(s16)arg1], arg0->templateData, 0x40);
-            func_10022EC0(arg0->buffers[(s16)arg1] + 0x40, arg0->templateData, 0x40);
+            func_10022EC0(arg0->buffers[arg1], arg0->templateData, 0x40);
+            func_10022EC0(arg0->buffers[arg1] + 0x40, arg0->templateData, 0x40);
         }
     } else {
         return 0;
     }
     scale = arg0->scale * arg0->scaleMultiplier;
     height = arg0->height * arg0->heightMultiplier;
-    offsetZ = D_800DD1D8[(s16)arg1] * scale;
-    offsetX = D_800DD1E8[(s16)arg1] * scale;
+    offsetZ = D_800DD1D8[arg1] * scale;
+    offsetX = D_800DD1E8[arg1] * scale;
     vertices[0].flag = 0;
     vertices[1].flag = 0;
     vertices[2].flag = 0;
@@ -166,8 +164,6 @@ void *func_151AC810(Game1D9A00Quad *arg0, s32 arg1) {
     vertices[1].z = vertices[2].z = (s32)(arg0->z + offsetZ);
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AC810 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D9A00/func_151AC810.s")
 extern f32 D_800BE9A4;
 
 s32 func_151AC9EC(void *arg0) {

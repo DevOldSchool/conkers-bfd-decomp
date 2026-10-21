@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150ED298
- * - func_150ED578
  * - func_150ED638
  * - func_150ED748
  * - func_150EEC84
@@ -128,9 +127,8 @@ f32 func_150ED298(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11A680/func_150ED298.s")
 extern u8 D_800BE616;
 extern u32 *D_800BE728;
-extern u8 *D_800CC2D0;
+extern u8 D_800CC2D0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150ED578 CURRENT (220) */
 void func_150ED578(void *arg0) {
     u8 var_v0;
     u8 *temp_v0;
@@ -149,14 +147,12 @@ void func_150ED578(void *arg0) {
             if (*(u8 *)(*(u8 **)(temp_v1 + 0x31C) + 0x197) != 0) {
                 temp_v0_2 = *(u8 **)(temp_v1 + 0x318);
                 if (temp_v0_2 != 0) {
-                    *(u8 *)((u8 *)arg0 + 0x2FC) |= (u8)(1 << *(u8 *)(temp_v0_2 + 0x23D));
+                    *(u8 *)((u8 *)arg0 + 0x2FC) |= (1 << *(u8 *)(temp_v0_2 + 0x23D));
                 }
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150ED578 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11A680/func_150ED578.s")
 void func_15062FC0(void *, s32, s32, s32, s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150ED638 CURRENT (570) */
