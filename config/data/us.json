@@ -378,6 +378,16 @@
         }
       },
       {
+        "address": "0x800961D0",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_3BA70.c",
+            "src/done/game/game_3BA70.c"
+          ]
+        }
+      },
+      {
         "address": "0x80096688",
         "section": ".rodata",
         "owner": {
@@ -464,6 +474,16 @@
           "sources": [
             "src/game/game_64120.c",
             "src/done/game/game_64120.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80098928",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_6B320.c",
+            "src/done/game/game_6B320.c"
           ]
         }
       },
@@ -662,6 +682,16 @@
           "sources": [
             "src/game/game_C98F0.c",
             "src/done/game/game_C98F0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009F3D0",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_CBBE0.c",
+            "src/done/game/game_CBBE0.c"
           ]
         }
       },

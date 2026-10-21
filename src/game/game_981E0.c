@@ -30,7 +30,6 @@
  * - func_150721A4
  * - func_15072208
  * - func_150722F0
- * - func_1507266C
  * - func_150727F0
  * - func_15072B44
  * - func_15072F10
@@ -3222,13 +3221,12 @@ struct Game1E3050Data;
 void func_151B5BA0(struct Game1E3050Data *, struct Game1E3050Data *);
 extern u8 D_800BE616;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507266C CURRENT (775) */
 void func_1507266C(void) {
     typedef struct {
         u8 bytes[0x32C];
     } ActorSlot;
     s32 high_value;
-    s32 value;
+    u8 value;
     u8 *actor;
     ActorSlot *slots;
 
@@ -3237,7 +3235,7 @@ void func_1507266C(void) {
         return;
     }
     value = D_800D1580;
-    high_value = value >> 16;
+    high_value = D_800D1580 >> 16;
     actor = slots[*(u8 *)((u8 *)D_800D154C + 0x222)].bytes;
     actor[0x65] = D_800C3E78 + 1;
     *(s32 *)(actor + 0x5C) = high_value;
@@ -3254,8 +3252,6 @@ void func_1507266C(void) {
     *(f32 *)(actor + 0xE0) = 1.0f;
     func_151B5BA0((struct Game1E3050Data *) slots[D_800C3E78].bytes, (struct Game1E3050Data *) actor);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507266C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1507266C.s")
 void func_15072740(void);
 
 void func_15072740(void) {
@@ -3930,21 +3926,21 @@ extern s8 D_800CC3D7;
 void func_150748F4(void) {
     D_800CC3D7 = (s8)D_800D1580;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507490C CURRENT (415) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507490C CURRENT (20) */
 void func_1507490C(void) {
-    u8 temp_v1;
-    u8 offset;
-    void *temp_v1_2;
+    u8 kind;
+    u8 index;
+    u8 *actor;
 
-    temp_v1 = *(u8 *)((u8 *)D_800D154C + 0x13C);
-    offset = (temp_v1 - 0x64) & 0xFF;
-    temp_v1_2 = (offset * 0x32C) + (u8 *)&D_800CC2D0;
-    if (temp_v1 != 0) {
-        if ((s32) *(u8 *)((u8 *)temp_v1_2 + 0x13D) >= 0x64) {
+    kind = *(u8 *)((u8 *)D_800D154C + 0x13C);
+    index = *(u8 *)((u8 *)D_800D154C + 0x13C) - 100;
+    actor = (u8 *)&D_800CC2D0 + index * 0x32C;
+    if (kind != 0) {
+        if (actor[0x13D] >= 100) {
             s32 value = D_800D1580;
-            *(s32 *)((u8 *)temp_v1_2 + 0x218) = 0;
-            *(s8 *)((u8 *)temp_v1_2 + 0x104) = 0;
-            *(s8 *)((u8 *)temp_v1_2 + 0x232) = (s8) value;
+            *(s32 *)(actor + 0x218) = 0;
+            actor[0x104] = 0;
+            actor[0x232] = value;
         }
     }
 }

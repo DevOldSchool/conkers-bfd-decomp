@@ -101,11 +101,11 @@ void func_151D61B0(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D61B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_203340/func_151D61B0.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D6418 CURRENT (88) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D6418 CURRENT (70) */
 Game203340Command *func_151D6418(Game203340Command *arg0, s32 arg1, s32 arg2, s32 arg3) {
     u32 width;
-    u32 height;
     u32 y;
+    u32 height;
     s32 address;
 
     width = D_800BE620;

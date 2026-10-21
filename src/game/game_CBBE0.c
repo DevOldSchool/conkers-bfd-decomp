@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_descriptor_callback_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1509E730
  * - func_1509E8A0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -27,7 +26,6 @@ s32 func_1000E654(s32, s32, s32, s32);
 void func_1000E054(s32, s32);
 extern s32 D_800D3840;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509E730 */
 s32 func_1509E730(s32 arg0, u32 kind, GameCBBE0Args *args) {
     s32 value;
     s32 mode;
@@ -69,8 +67,6 @@ s32 func_1509E730(s32 arg0, u32 kind, GameCBBE0Args *args) {
 block_default:
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509E730 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CBBE0/func_1509E730.s")
 s32 func_1000E0F8();                                /* extern */
 s32 func_1000E8F0();                                /* extern */
 

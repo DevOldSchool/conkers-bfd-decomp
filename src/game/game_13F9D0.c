@@ -232,15 +232,13 @@ typedef struct Game13F9D0Command {
     u32 word1;
 } Game13F9D0Command;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151135C4 CURRENT (185) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151135C4 CURRENT (60) */
 Game13F9D0Command *func_151135C4(Game13F9D0Command *arg0, s32 arg1, s16 arg2) {
     s32 viewOffset;
     s32 flags;
     s32 index;
-    s32 offset;
     u16 *count;
     u8 ***table;
-    Game13F9D0DrawEntry *entry;
 
     if (arg1 == 0) {
         flags = 0;
@@ -254,9 +252,8 @@ Game13F9D0Command *func_151135C4(Game13F9D0Command *arg0, s32 arg1, s16 arg2) {
     arg0 = (Game13F9D0Command *)func_1515E544((s32)arg0, *(s32 *)((u8 *)D_800D9E10 + viewOffset), D_800D9E20, D_800D9E21, D_800D9BD0 + arg2 * 0x10 + D_800BE9C0 * 8);
     count = &D_800DBEE8[arg2];
     table = (u8 ***)((u8 *)&D_80089240 + viewOffset);
-    for (index = 0, offset = 0; index < *count; index++, offset += 4) {
-        entry = (Game13F9D0DrawEntry *)(**table + offset);
-        arg0 = (Game13F9D0Command *)func_151137D4((s32)arg0, entry->index * 0xA0 + D_800DBEF4, (s32)(*D_80089250[D_800BE9C0] + (entry->index << 6)), arg2, entry->value, flags);
+    for (index = 0; index < *count; index++) {
+        arg0 = (Game13F9D0Command *)func_151137D4((s32)arg0, ((Game13F9D0DrawEntry *)(**table + index * 4))->index * 0xA0 + D_800DBEF4, (s32)(*D_80089250[D_800BE9C0] + (((Game13F9D0DrawEntry *)(**table + index * 4))->index << 6)), arg2, ((Game13F9D0DrawEntry *)(**table + index * 4))->value, flags);
     }
     { Game13F9D0Command *command = arg0++; command->word0 = 0xDA380003; command->word1 = (u32)&D_80089470; }
     { Game13F9D0Command *command = arg0++; command->word0 = 0xD9AFFDFF; command->word1 = 0; }

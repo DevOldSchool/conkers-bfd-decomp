@@ -18,38 +18,27 @@ extern u8 D_800DF7D0[];
 extern s32 D_800DF9B8[];
 extern s32 *D_800E0148[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518C900 CURRENT (722) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518C900 CURRENT (24) */
 s32 func_1518C900(s32 arg0) {
-    s32 offset;
-    s32 *temp_v0;
-    s32 *var_s0;
-    u8 *temp_t0;
-    u8 var_v0;
-    u8 var_v1;
+    s32 *object;
+    u8 *count;
 
-    temp_t0 = &D_800DF7D0[arg0];
-    var_v0 = *temp_t0;
-    var_v1 = var_v0;
-    if (var_v0 == 0) {
-        temp_v0 = func_1502B6BC(0, 0, 0, 2, 9, arg0);
-        var_s0 = temp_v0;
-        if (temp_v0 == 0) {
+    count = &D_800DF7D0[arg0];
+    if (*count == 0) {
+        object = func_1502B6BC(0, 0, 0, 2, 9, arg0);
+        if (object == 0) {
             return 0;
         }
-        offset = arg0 * 4;
-        func_1510CE60(*var_s0, 0, 1, 0x3E, &D_800DF9B8[arg0]);
-        func_15168E54(*var_s0, var_s0);
-        *(s32 **)((u8 *) D_800E0148 + offset) = var_s0;
-        var_v0 = *temp_t0;
-        var_v1 = var_v0;
-        goto block_5;
+        func_1510CE60(*object, 0, 1, 0x3E, &D_800DF9B8[arg0]);
+        func_15168E54(*object, object);
+        D_800E0148[arg0] = object;
+    } else {
+        object = D_800E0148[arg0];
     }
-    var_s0 = D_800E0148[arg0];
-block_5:
-    if (var_v1 != 0xFF) {
-        *temp_t0 = var_v0 + 1;
+    if (*count != 0xFF) {
+        (*count)++;
     }
-    return *var_s0;
+    return *object;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1518C900 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B9DB0/func_1518C900.s")

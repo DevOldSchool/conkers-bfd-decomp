@@ -13,18 +13,27 @@
 
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CEA20 CURRENT (575) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CEA20 CURRENT (285) */
 s32 func_151CEA20(void *arg0) {
-    f32 temp_fa0;
-    f32 temp_fv1;
+    typedef struct {
+        u8 pad0[0x38];
+        f32 position;
+        u8 pad3C[4];
+        f32 acceleration;
+        f32 velocity;
+        u8 pad48[4];
+        f32 fadeRate;
+        f32 fade;
+    } Motion;
+    Motion *motion = arg0;
+    f32 previous;
 
-    temp_fa0 = *(f32 *)((u8 *)arg0 + 0x40);
-    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x44);
-    *(f32 *)((u8 *)arg0 + 0x44) = (f32) (temp_fv1 + (temp_fa0 * D_800BE9A4));
-    *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(f32 *)((u8 *)arg0 + 0x38) + ((temp_fv1 + (0.5f * temp_fa0 * D_800BE9A4)) * D_800BE9A4));
-    *(f32 *)((u8 *)arg0 + 0x50) = (f32) (*(f32 *)((u8 *)arg0 + 0x50) + (*(f32 *)((u8 *)arg0 + 0x4C) * D_800BE9A4));
-    if (*(f32 *)((u8 *)arg0 + 0x50) > 1.0f) {
-        *(f32 *)((u8 *)arg0 + 0x50) = 1.0f;
+    previous = motion->velocity;
+    motion->velocity += motion->acceleration * D_800BE9A4;
+    motion->position += (previous + 0.5f * motion->acceleration * D_800BE9A4) * D_800BE9A4;
+    motion->fade += motion->fadeRate * D_800BE9A4;
+    if (motion->fade > 1.0f) {
+        motion->fade = 1.0f;
     }
     return 1;
 }

@@ -868,7 +868,7 @@ typedef struct {
 } Game16EE20PointerGroup;
 extern Game16EE20PointerGroup D_80090B60[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514306C CURRENT (205) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514306C CURRENT (20) */
 s32 func_1514306C(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
     s32 value;
     u32 address;
@@ -894,7 +894,7 @@ s32 func_1514306C(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
         if (address >= 0x10000000U) {
             value = ((s32 *)address)[arg2];
         } else {
-            value = address;
+            value = (*(u32 *)arg0);
         }
         break;
     default:

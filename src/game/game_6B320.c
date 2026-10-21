@@ -12,7 +12,6 @@
  * - func_1503E82C
  * - func_1503EA54
  * - func_1503EB78
- * - func_1503ECA0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -77,7 +76,7 @@ extern void (*D_80084430[])(void *, s32);
 extern void (*D_8008443C[])(s32);
 extern void (*D_80084448[])(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503DF48 CURRENT (2426) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503DF48 CURRENT (368) */
 void func_1503DF48(s32 arg0) {
     Game6B320Slot *slot;
     Game6B320Particle *allocated;
@@ -114,8 +113,7 @@ void func_1503DF48(s32 arg0) {
         list = D_80084454[slot->pad_E[0]];
         i = 0;
         if (count > 0) {
-            parent = list;
-            do {
+            for (parent = list; i != count; i++, parent++) {
             if (*parent != -2) {
                 particle = (Game6B320Particle *)slot->entity + i;
                 if (func_1503E1F4(i, arg0) != 0 && particle->active == 0) {
@@ -124,9 +122,7 @@ void func_1503DF48(s32 arg0) {
                     particle->active = 1;
                 }
             }
-                i++;
-                parent++;
-            } while (i != count);
+            }
         }
         D_8008443C[slot->pad_E[0]](arg0);
         state = 1;
@@ -484,62 +480,60 @@ s32 func_1510F8D8(s32, s32, s32, s32);
 extern f32 D_80098928;
 extern f32 D_8009892C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503ECA0 CURRENT (290) */
 void func_1503ECA0(s32 arg0) {
-    Game6B320Entity *temp_v0;
-    Game6B320Slot *temp_s3;
-    f32 temp_fs1;
-    f32 temp_fs5;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    s32 var_s1;
-    s32 var_s2;
-    u8 *temp_s0;
-    s32 temp_s6;
+    Game6B320Entity *entity;
+    Game6B320Slot *slot;
+    f32 smallScale;
+    f32 largeScale;
+    f32 floor;
+    f32 velocityY;
+    s32 index;
+    s32 offset;
+    u8 *particle;
+    s32 count;
 
     func_1510F800(0);
-    temp_s3 = &D_800C6660[arg0];
-    var_s1 = 0;
-    temp_s6 = D_80098914[temp_s3->pad_E[0]];
-    var_s2 = 0;
-    if ((s32) temp_s6 > 0) {
-        temp_fs5 = 0.4f;
-        temp_fs1 = 0.8f;
+    slot = &D_800C6660[arg0];
+    index = 0;
+    count = D_80098914[slot->pad_E[0]];
+    offset = 0;
+    if (count > 0) {
+        smallScale = 0.4f;
+        largeScale = 0.8f;
         do {
-            temp_v0 = temp_s3->entity;
-            if (*((u8 *)temp_v0 + var_s2 + 0x64) != 0) {
-                temp_s0 = (u8 *)temp_v0 + var_s2;
-                if ((D_80084454[temp_s3->pad_E[0]][var_s1] == -1) && (*(f32 *)(temp_s0 + 0x60) != 0.0f)) {
-                    temp_fv0 = (f32) (func_1510F8D8((s32) *(f32 *)(temp_s0 + 0x24), (s32) *(f32 *)(temp_s0 + 0x28), (s32) *(f32 *)(temp_s0 + 0x2C), 0) + 5);
-                    if (*(f32 *)(temp_s0 + 0x28) < temp_fv0) {
-                        temp_fv1 = *(f32 *)(temp_s0 + 0x4C);
-                        *(f32 *)(temp_s0 + 0x28) = temp_fv0;
-                        if (temp_fv1 < -4.0f) {
-                            *(f32 *)(temp_s0 + 0x48) = (f32) (*(f32 *)(temp_s0 + 0x48) * temp_fs1);
-                            *(f32 *)(temp_s0 + 0x4C) = (f32) (temp_fv1 * -0.5f);
-                            *(f32 *)(temp_s0 + 0x50) = (f32) (*(f32 *)(temp_s0 + 0x50) * temp_fs1);
-                            *(f32 *)(temp_s0 + 0x54) = (f32) (*(f32 *)(temp_s0 + 0x54) * -1.0f);
-                            *(f32 *)(temp_s0 + 0x58) = (f32) (*(f32 *)(temp_s0 + 0x58) * temp_fs5);
-                            *(f32 *)(temp_s0 + 0x5C) = (f32) (*(f32 *)(temp_s0 + 0x5C) * -1.0f);
+            entity = slot->entity;
+            if (*((u8 *)slot->entity + offset + 0x64) != 0) {
+                particle = (u8 *)entity + offset;
+                if (D_80084454[slot->pad_E[0]][index] == -1 && *(f32 *)(particle + 0x60) != 0.0f) {
+                    floor = func_1510F8D8((s32)*(f32 *)(particle + 0x24), (s32)*(f32 *)(particle + 0x28),
+                                          (s32)*(f32 *)(particle + 0x2C), 0) + 5;
+                    if (*(f32 *)(particle + 0x28) < floor) {
+                        velocityY = *(f32 *)(particle + 0x4C);
+                        *(f32 *)(particle + 0x28) = floor;
+                        if (velocityY < -4.0f) {
+                            *(f32 *)(particle + 0x48) = *(f32 *)(particle + 0x48) * largeScale;
+                            *(f32 *)(particle + 0x4C) = velocityY * -0.5f;
+                            *(f32 *)(particle + 0x50) = *(f32 *)(particle + 0x50) * largeScale;
+                            *(f32 *)(particle + 0x54) = *(f32 *)(particle + 0x54) * -1.0f;
+                            *(f32 *)(particle + 0x58) = *(f32 *)(particle + 0x58) * smallScale;
+                            *(f32 *)(particle + 0x5C) = *(f32 *)(particle + 0x5C) * -1.0f;
                         } else {
-                            *(f32 *)(temp_s0 + 0x5C) = 0.0f;
-                            *(f32 *)(temp_s0 + 0x58) = 0.0f;
-                            *(f32 *)(temp_s0 + 0x54) = 0.0f;
-                            *(f32 *)(temp_s0 + 0x60) = 0.0f;
-                            *(f32 *)(temp_s0 + 0x50) = 0.0f;
-                            *(f32 *)(temp_s0 + 0x4C) = 0.0f;
-                            *(f32 *)(temp_s0 + 0x48) = 0.0f;
+                            *(f32 *)(particle + 0x5C) = 0.0f;
+                            *(f32 *)(particle + 0x58) = 0.0f;
+                            *(f32 *)(particle + 0x54) = 0.0f;
+                            *(f32 *)(particle + 0x60) = 0.0f;
+                            *(f32 *)(particle + 0x50) = 0.0f;
+                            *(f32 *)(particle + 0x4C) = 0.0f;
+                            *(f32 *)(particle + 0x48) = 0.0f;
                         }
                     }
                 }
             }
-            var_s1 += 1;
-            var_s2 += 0x68;
-        } while (var_s1 != temp_s6);
+            index++;
+            offset += 0x68;
+        } while (index != count);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503ECA0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503ECA0.s")
 void func_1503EEB8(void) {
 
 }
