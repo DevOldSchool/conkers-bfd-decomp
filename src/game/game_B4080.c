@@ -31,7 +31,6 @@
  * - func_1508BF14
  * - func_1508C1A4
  * - func_1508C5B8
- * - func_1508CA88
  * - func_1508CAD8
  * - func_1508D850
  * - func_1508DA1C
@@ -1730,20 +1729,13 @@ s32 func_1508C9CC(void) {
 }
 extern s8 D_8008FD90;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508CA88 CURRENT (210) */
 s8 func_1508CA88(void) {
-    s8 var_v1;
-
-    *(s8 *)((u8 *)D_800D23B0 + 0x1703) = (s8) (*(s8 *)((u8 *)D_800D23B0 + 0x1703) + 1);
-    var_v1 = *(s8 *)((u8 *)D_800D23B0 + 0x1703);
-    if (var_v1 >= D_8008FD90) {
+    (*(s8 *)((u8 *)D_800D23B0 + 0x1703))++;
+    if (*(s8 *)((u8 *)D_800D23B0 + 0x1703) >= D_8008FD90) {
         *(s8 *)((u8 *)D_800D23B0 + 0x1703) = 0;
-        var_v1 = *(s8 *)((u8 *)D_800D23B0 + 0x1703);
     }
-    return var_v1;
+    return *(s8 *)((u8 *)D_800D23B0 + 0x1703);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1508CA88 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508CA88.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508CAD8.s")
 typedef struct GameB4080TargetState {
     u8 pad0[0x129];

@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1514F808
  * - func_1514F8F8
- * - func_1514FCE8
  * - func_1514FF44
  * - func_15150178
  * - func_15150400
@@ -253,44 +252,27 @@ typedef struct {
 void func_151A2A14(s32, s16, s16, f32, f32, f32, s32, f32, f32, f32,
                     f32, s16, s16, s16, s16, s16, s16, s8, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514FCE8 CURRENT (492) */
-void func_1514FCE8(s16 *arg0, s32 arg1, s32 arg2) {
+void func_1514FCE8(s16 *arg0, u8 arg1, s32 arg2) {
     Game17CAF0RangeConfig *config;
-    f32 randomX;
-    f32 randomY;
-    f32 randomZ;
     s32 count;
-    u32 randomB;
-    u32 randomA;
-    u8 color;
 
     config = (Game17CAF0RangeConfig *)arg0;
-    color = (u8)arg1;
     count = (func_150ADA20() % (u32)(config->countRange + 1)) + config->countBase;
-    if (count != 0) {
-        do {
-            randomA = func_150ADA20();
-            randomB = func_150ADA20();
-            randomX = func_150ADA68();
-            randomY = func_150ADA68();
-            randomZ = func_150ADA68();
-            func_151A2A14((s32)&config->position,
-                (s16)((randomA % (u32)(config->firstRange + 1)) + config->firstBase),
-                (s16)((randomB % (u32)(config->secondRange + 1)) + config->secondBase),
-                (randomX * config->field20) + config->field1C,
-                (randomY * config->field28) + config->field24,
-                (randomZ * config->field30) + config->field2C,
-                (func_150ADA20() % (u32)(config->field38 + 1)) + config->field34,
-                config->field3C, config->field40, config->field44, config->field48,
-                config->field4C, config->field4E, config->field50,
-                config->field52, config->field54, config->field56,
-                config->field58, color, arg2);
-            count--;
-        } while (count != 0);
+    while (count != 0) {
+        func_151A2A14((s32)&config->position,
+            (s16)((func_150ADA20() % (u32)(config->firstRange + 1)) + config->firstBase),
+            (s16)((func_150ADA20() % (u32)(config->secondRange + 1)) + config->secondBase),
+            (func_150ADA68() * config->field20) + config->field1C,
+            (func_150ADA68() * config->field28) + config->field24,
+            (func_150ADA68() * config->field30) + config->field2C,
+            (func_150ADA20() % (u32)(config->field38 + 1)) + config->field34,
+            config->field3C, config->field40, config->field44, config->field48,
+            config->field4C, config->field4E, config->field50,
+            config->field52, config->field54, config->field56,
+            config->field58, arg1, arg2);
+        count--;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514FCE8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_1514FCE8.s")
 void func_1514F640(s32, u8 *);
 void func_1514FF44(void *, s32, s32, s32, s32);
 

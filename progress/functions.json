@@ -999,16 +999,15 @@
       "symbol": "func_15136404"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1952,
-        "reason": "Provider-proved 0x58-byte descriptor and fullword target formals; scores1968/1952, mapped real sample homes improve1952. Eight-byte frame shift, FP scheduling and unsupported narrow-formal reload differences remain; retain second form.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15136698",
           "vram": "0x15136698"
         }
@@ -52629,17 +52628,16 @@
       "symbol": "func_1514FBFC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 492,
-        "reason": "Exact existing fullword target contract and typed range config; scores1402/492/492, second retained. Byte local improves register allocation; entry-mask/home and multiply operand differences remain. No unsupported formal narrowing.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 532,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1514FCE8",
           "vram": "0x1514FCE8"
         }
@@ -71410,17 +71408,16 @@
       "symbol": "func_151AC61C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 796,
-        "reason": "Valid best796 paired-vertex candidate retained. Aligned halfword view of actual word formal restores LH homes but regresses2437; actual saved indexed owner plus final selector snapshot recovers frame50/home30 but1483 and split branch reloads. Two fresh non-improving revisions exhausted; no unsupported narrowing or equivalent retries.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 476,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151AC810",
           "vram": "0x151AC810"
         }
@@ -75671,17 +75668,16 @@
       "symbol": "func_151A1FB4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 665,
-        "reason": "Manual sibling pointer/counter shape1050->665; simple multiplication order neutral. Remaining first interior compare folding, delta register and reload schedule mirror exhausted151A25E0.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 312,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A24A8",
           "vram": "0x151A24A8"
         }
@@ -90555,17 +90551,16 @@
       "symbol": "func_1508C9CC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 210,
-        "reason": "Live CURRENT (210): raw preloads separate D_800D23B0 high half into t9 for final reload while IDO reuses a0; volatile final read neutral, explicit object pointer removes another required reload. Baseline restored",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 80,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1508CA88",
           "vram": "0x1508CA88"
         }

@@ -14,7 +14,6 @@
  * - func_15135BF8
  * - func_15135DD0
  * - func_15136404
- * - func_15136698
  * - func_15136F50
  * - func_15137610
  * - func_1513783C
@@ -775,10 +774,7 @@ extern Blood36698Kinds D_80089BAC;
 void *func_1513D594(s32, s32, u8, u8, u8, u8, s16, f32, f32,
                     s32, s32, s32, s32, u8, s32, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15136698 CURRENT (1952) */
-void *func_15136698(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4,
-                   s32 arg5, void *arg6, s32 arg7, s32 arg8, s32 arg9,
-                   s32 arg10) {
+void *func_15136698(f32 arg0, f32 arg1, u8 arg2, u8 arg3, s16 arg4, s32 arg5, void *arg6, u8 arg7, u8 arg8, u8 arg9, s32 arg10) {
     u8 *result;
     Blood36698Descriptor descriptor;
     f32 rate;
@@ -792,7 +788,7 @@ void *func_15136698(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4,
     kinds = D_80089BAC;
     rate = arg1;
     descriptor.kind = kinds.values[func_150ADA20() & 3];
-    if ((u8)arg7 != 0) {
+    if (arg7 != 0) {
         mode = 2;
     } else {
         mode = 1;
@@ -808,21 +804,21 @@ void *func_15136698(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4,
     descriptor.scale14 = arg0;
     descriptor.position = *(Vec3f *)arg6;
     descriptor.flags = 0;
-    descriptor.scale.x = 1.0f;
-    descriptor.scale.y = 1.0f;
-    descriptor.scale.z = 1.0f;
     descriptor.velocity.x = 0.0f;
     descriptor.velocity.y = 0.0f;
     descriptor.velocity.z = 0.0f;
-    if ((s16)arg4 == -1) {
+    descriptor.scale.x = 1.0f;
+    descriptor.scale.y = 1.0f;
+    descriptor.scale.z = 1.0f;
+    if (arg4 == -1) {
         descriptor.lifetime = 0x12C;
     } else {
-        descriptor.lifetime = (s16)arg4 + 0x20;
+        descriptor.lifetime = arg4 + 0x20;
         descriptor.flags = 1;
     }
-    descriptor.field44 = (u8)arg2;
-    descriptor.field45 = (u8)arg3;
-    if ((u8)arg8 != 0) {
+    descriptor.field44 = arg2;
+    descriptor.field45 = arg3;
+    if (arg8 != 0) {
         option = 3;
         intensity = 0xFF;
     } else {
@@ -834,14 +830,12 @@ void *func_15136698(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4,
     result = func_1513D594((s32)&descriptor, 0, 0, 0x1A, 0,
                           (random1 & 1) + (random0 & 1),
                           func_150ADA20() & 0xFF, 500.0f, 500.0f, 0,
-                          arg5, option, intensity, 0, 4, (u8)arg9, arg10);
+                          arg5, option, intensity, 0, 4, arg9, arg10);
     if (result != 0) {
         func_10022EC0(result + 0x128, &rate, 4);
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15136698 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136698.s")
 
 s32 func_151368A8(struct102 *arg0) {
     s16 tmp = *(s16 *)((s32)arg0 + 0x1C);
