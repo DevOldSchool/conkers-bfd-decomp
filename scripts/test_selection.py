@@ -79,6 +79,7 @@ MATCHING_SCRIPTS = frozenset({
     "siblings",
     "split_game_rodata",
     "struct_layouts",
+    "sweep",
     "test_selection",
     "verify_debugger_rodata",
     "verify_game_rodata",

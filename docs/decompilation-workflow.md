@@ -240,9 +240,14 @@ ROM. Unsupported dispatches fail closed; layout and clean-batch verification
 remain required.
 
 US game candidates with different address-bearing data aliases may use linked comparison.
+This includes a raw reference that spells the address as a bare `lui`/`addiu`
+literal pair (splat loses the pairing across a branch) where the candidate has a
+`D_<address>` relocation.
 Both original objects are linked independently at the registered address; their
 entire registered spans must equal each other and the checksum-validated ROM before
-those bytes enter the same bounded asm-differ gate. HI16/LO16 references to
+those bytes enter the same bounded asm-differ gate. Same-unit functions may be
+`jal` targets or exact `lui`/`addiu` callback addresses with no in-place addend;
+the linker resolves them at their registered member offsets. HI16/LO16 references to
 external original tables (`jtbl_<address>_game`, typically from sibling
 `GLOBAL_ASM`) resolve to their named addresses and are covered by the same
 complete-unit ROM check. A unit's own `.rodata` (C float literals and jump tables)
@@ -394,7 +399,9 @@ comparison as `diff`, in one warm-container pass. The table also reports each
 frame size against the reference. `--layout` prints the frame size and every
 named local's stack offset read from IDO's `.mdebug` symbols beside the
 reference [frame plan](#diagnosis-checklist), aligned by offset from each
-side's frame top. A probe score is
+side's frame top. When the frames differ it adds a `local-area account:` that
+counts the candidate's local words (see the checklist) and ends with a one-line
+delta such as `candidate +2 words: 1 named, 1 alignment`. A probe score is
 search evidence only: apply the chosen body and run `finish`. One probe batch
 counts as one manual revision for the attempt limits; record its hypothesis and
 best score in the ledger.
@@ -403,14 +410,34 @@ best score in the ledger.
 
 Check these before reshaping statements:
 
-- Frame size or every stack offset differs: run `probe --layout`. IDO gives each
-  named local, including unused and register-allocated ones, a slot in
-  declaration order from the frame top. Compare the count and order of named
-  locals with the reference offsets before changing expressions.
-- Frame differs although the locals agree: the area below the lowest local is
-  outgoing arguments, saved registers and reserved spill words. Some constructs
-  reserve an extra word; in `func_150DE7C0`, a variable array index
-  (`array[i]`) did and pointer arithmetic (`*(array + i)`) did not.
+- Frame size or every stack offset differs: run `probe --layout` and read its
+  `local-area account:` before changing expressions. It counts the candidate's
+  local area from the top down:
+  - **named homes**: every named local takes a home in declaration order from
+    the frame top, unused, register-only and `register` ones included, packed
+    by natural alignment (aggregates word-aligned). Block-scoped locals count
+    too, and sibling blocks do not share space. Homes cost nothing until some
+    named local needs memory (address taken, aggregate or stored across a call);
+  - **call-arg temps**: each argument expression that contains a call reserves
+    one word even when nothing spills: `f(g(x))` costs one, a three-deep chain
+    three, and RNG calls passed inline one each. The words are reused across
+    statements, so the area holds the largest statement's count, and a spilled
+    argument value reuses its word;
+  - **spill words** used below the named homes beyond the call-arg temps;
+  - **alignment**: one word or none, found by recompiling with an extra unused
+    block-scoped `int`;
+  - **other uopt temps**: the remainder, which follows code shape. In
+    `func_150DE7C0`, a variable array index (`array[i]`) reserved one and
+    pointer arithmetic (`*(array + i)`) did not.
+
+  The delta line names the fewest changes that reach the reference's
+  local-area word count without moving a home that already lines up with a
+  reference access, e.g. `candidate +2 words: 3 call-arg temps, -1 alignment`
+  (`func_1508FD38`: split the nested chain into one call per statement) or
+  `candidate +2 words: 1 named, 1 alignment` (`func_1503D804`: reuse a
+  parameter as the loop index; `func_15153CCC`: pass the literal instead of a
+  named copy). Treat it as the next hypothesis to probe, not proof, and
+  then probe declaration orders.
 - **Frame plan.** `diagnose-diff` prints a `frame-plan:` block whenever the
   diagnosis has stack rows or the frames differ, and `probe --layout` prints the
   same reference plan beside the candidate's `.mdebug` homes. Both come from
@@ -736,6 +763,10 @@ expression/lifetime mismatch. Do not rank solely by `CURRENT`: a small register
 mismatch may resist many changes, while a larger structural mismatch may have
 a direct fix. Refresh diagnostics when relevant inputs have changed.
 
+For a family-wide hypothesis (one mechanical rewrite that may fit many
+deferred candidates), run a [transform sweep](#transform-sweeps) before
+reshaping items by hand.
+
 After a match, make at most one bounded sibling lookup within scope. Record a
 concrete ASM/ABI hypothesis and prioritise an eligible result with
 `next --ready --function <id>`; untouched-only tasks require an untouched sibling.
@@ -781,6 +812,59 @@ and keyed by the reference directory mtimes; `--refresh` rebuilds it. It needs
 A twin is a lead within the task's scope, not match evidence: copy the body,
 adapt the reported differences, declare the item's own data, and run the
 ordinary `finish` gates against its own assembly.
+
+### Transform sweeps
+
+`sweep` applies one mechanical source transform to every preserved deferred
+candidate and rescores the results in one warm-container process. It is
+read-only: nothing under `src/` or `progress/` changes.
+
+```sh
+./conker sweep unchanged --max-score 300
+./conker sweep literals [--source src/game/<unit>.c]... [--function <id>]... [--reason REGEX]
+./conker sweep literals-inline
+```
+
+- `unchanged` rescores each `#if 0 /* CONKER_DEFERRED_CANDIDATE ... */` body as
+  written, which finds stored scores that later declaration changes moved;
+- `literals` replaces each `extern f32 D_800[9A]xxxx` game rodata use with the
+  shortest float literal that round-trips to its ROM word (skipping
+  address-taken symbols), so the function gets its own literal pool;
+- `literals-inline` also inlines `f32` locals written once from a float literal,
+  because a named copy costs a `-g3` frame word. A plain declaration's single
+  assignment must sit at the declaration's block level, before every other use.
+
+Transforms other than `unchanged` select only candidates they change. Filters
+combine: `--max-score` bounds the stored inventory score, `--source` takes a file
+or directory (repeatable), `--function` names deferred IDs and `--reason` matches
+the recorded deferral reason. The literal transforms need the checksum-validated
+US ROM.
+
+The output is a TSV on stdout and in `build/us/sweep/<transform>.tsv`: stored
+score, new score, candidate frame, reference frame, function, source and the
+transform detail. Exact zeros come first, then the largest improvements; rows
+that fail to build show `ERR` with the compiler's first error. Each candidate
+is built in its own unit exactly as `probe <id> <variant>` builds it, and scored
+with the same focused asm-differ comparison, so the scores equal probe's.
+The sweep loads the pinned differ once and parses the inventories once, which
+removes probe's per-item container, start-up and differ-process costs. For the
+240 candidates at `--max-score 300` the sweep took 29 s and gave the same scores
+as a loop of 240 `./conker probe` calls, which took 578 s. `--probe-baseline`
+keeps probe's in-process costs (a differ process per score) for comparison: 114 s.
+
+`--batched` compiles one unit per source file with every selected candidate
+active, isolating any candidate the compiler blames for an error. It saves
+about a fifth of the time but is only a screen: other active functions shift
+IDO's register-allocation tie-breaks, so a function can score differently than it
+does alone (3 of 240 in the measurement above). Batched zeros and
+improvements are rescored on their own before they are reported (`[confirmed]`
+or `[batched N]`). Other rows keep the batched score (`[batched]`), so the screen
+can miss an improvement.
+
+A sweep zero is a lead, not a match: copy the transformed body (the transform
+detail lists the substitutions), then run `finish`. Owned literals still need
+the reviewed `config/game/us-rodata.ld` mapping and data-layout evidence from the
+[diagnosis checklist](#diagnosis-checklist) before `verify-batch`.
 
 ### Edit completion before verification
 

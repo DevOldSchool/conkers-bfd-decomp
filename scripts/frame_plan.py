@@ -28,6 +28,7 @@ import re
 import struct
 import sys
 from dataclasses import dataclass, field
+from itertools import combinations
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -562,6 +563,549 @@ def render_block(reference: FramePlan, candidate: FramePlan | None, *, indent: s
         lines.append(f"{indent}candidate slots (sp offsets of the candidate's own frame):")
         for slot in sorted(candidate.slots, key=lambda item: -item.offset):
             lines.append(f"{indent}{hex(slot.offset):>7} {slot.size:>4}  {slot.area:7} {slot.summary()}")
+    return lines
+
+
+# --- local-area word account -----------------------------------------------------
+#
+# Under IDO -O2 -g3 the candidate's local area (between the saved registers and
+# the frame top) holds, from the top down:
+#
+# - a home for every named local in declaration order, block-scoped ones
+#   included (sibling blocks do not share space) and register-only or
+#   `register` ones too. Homes pack by natural alignment (aggregates at least
+#   word-aligned). They exist only once some named local needs memory; until
+#   then their .mdebug offsets fall below the local area and cost nothing;
+# - one reserved word per call-containing argument (`f(g(x))`, RNG calls passed
+#   inline), counted per statement and shared across statements, so the area
+#   holds the largest statement's count. A spilled argument value reuses it;
+# - further spill words and other uopt temporaries;
+# - at most one alignment word keeping the frame 8-byte aligned.
+
+C_KEYWORDS = frozenset({
+    "if", "else", "while", "for", "do", "switch", "case", "default", "return", "sizeof",
+    "goto", "break", "continue",
+})
+CONDITION_KEYWORDS = frozenset({"if", "while", "for", "switch"})
+C_NOISE = re.compile(
+    r"/\*.*?\*/|//[^\n]*|\"(?:\\.|[^\"\\\n])*\"|'(?:\\.|[^'\\\n])*'|^[ \t]*#[^\n]*(?:\\\n[^\n]*)*",
+    re.DOTALL | re.MULTILINE,
+)
+C_TOKEN = re.compile(r"[A-Za-z_]\w*|\d[\w.]*|->|\+\+|--|&&|\|\||<<|>>|\S")
+FUNCTION_MACRO = re.compile(r"(?m)^[ \t]*#[ \t]*define[ \t]+([A-Za-z_]\w*)\(")
+MAX_SEARCH_WORDS = 6  # largest local-area surplus the attribution search explains
+MAX_REMOVED_HOMES = 4
+MAX_SEARCH_HOMES = 24  # beyond this only homes the code never touches are tried
+
+
+def function_like_macros(text: str) -> set[str]:
+    """Names of function-like macros defined in ``text``; their invocations are not calls."""
+
+    return set(FUNCTION_MACRO.findall(text))
+
+
+@dataclass(frozen=True)
+class CallArgumentStatement:
+    count: int  # call-containing argument expressions in the statement
+    text: str  # the statement, whitespace-normalised
+
+
+def call_argument_statements(body: str, macros: set[str] | frozenset[str] = frozenset()) -> list[CallArgumentStatement]:
+    """Statements of a C function body that pass call-containing arguments, largest first.
+
+    Statements end at ``;``, braces, ``else``/``do`` and after the condition of
+    ``if``/``while``/``for``/``switch``; each ``for`` clause is its own statement.
+    Every argument, at any nesting level, whose expression contains a call counts
+    once. Invocations of ``macros`` are not calls, though calls inside their
+    arguments still count their own arguments.
+    """
+
+    text = C_NOISE.sub(lambda match: re.sub(r"[^\n]", " ", match.group(0)), body)
+    statements: list[list[re.Match[str]]] = [[]]
+    depth = 0
+    condition_depth: int | None = None
+    pending_condition = False
+
+    def close() -> None:
+        if statements[-1]:
+            statements.append([])
+
+    for match in C_TOKEN.finditer(text):
+        token = match.group(0)
+        if token in (";", "{", "}", "else", "do"):
+            close()
+            continue
+        statements[-1].append(match)
+        if token in CONDITION_KEYWORDS:
+            pending_condition = True
+        elif token == "(":
+            depth += 1
+            if pending_condition:
+                condition_depth, pending_condition = depth, False
+        elif token == ")":
+            if condition_depth == depth:
+                condition_depth = None
+                close()
+            depth -= 1
+    found = []
+    for matches in statements:
+        tokens = [match.group(0) for match in matches]
+        count = _call_argument_count(tokens, macros)
+        if count:
+            snippet = " ".join(text[matches[0].start(): matches[-1].end()].split())
+            found.append(CallArgumentStatement(count, snippet))
+    found.sort(key=lambda statement: -statement.count)
+    return found
+
+
+def _matching(tokens: list[str], index: int, step: int) -> int | None:
+    opening, closing = ("(", ")") if step > 0 else (")", "(")
+    depth = 0
+    position = index
+    while 0 <= position < len(tokens):
+        if tokens[position] == opening:
+            depth += 1
+        elif tokens[position] == closing:
+            depth -= 1
+            if depth == 0:
+                return position
+        position += step
+    return None
+
+
+def _is_call(tokens: list[str], index: int, macros: set[str] | frozenset[str]) -> bool:
+    """True when the ``(`` at ``index`` opens a call's argument list."""
+
+    if index == 0:
+        return False
+    previous = tokens[index - 1]
+    if previous == "]":
+        return True
+    if previous == ")":
+        # `(*pointer)(x)` calls through a pointer; `(type)(x)` is a cast.
+        opening = _matching(tokens, index - 1, -1)
+        return opening is not None and tokens[opening + 1: opening + 2] == ["*"]
+    return (previous[0].isalpha() or previous[0] == "_") and previous not in C_KEYWORDS \
+        and previous not in macros
+
+
+def _call_argument_count(tokens: list[str], macros: set[str] | frozenset[str]) -> int:
+    count = 0
+    for index, token in enumerate(tokens):
+        if token != "(" or not _is_call(tokens, index, macros):
+            continue
+        closing = _matching(tokens, index, 1)
+        end = len(tokens) if closing is None else closing
+        start = index + 1
+        depth = 0
+        for position in range(index + 1, end + 1):
+            if position < end:
+                if tokens[position] in ("(", "["):
+                    depth += 1
+                elif tokens[position] in (")", "]"):
+                    depth -= 1
+                if depth or tokens[position] != ",":
+                    continue
+            if any(tokens[inner] == "(" and _is_call(tokens, inner, macros) for inner in range(start, position)):
+                count += 1
+            start = position + 1
+    return count
+
+
+@dataclass(frozen=True)
+class NamedHome:
+    name: str
+    offset: int  # sp offset in the candidate frame
+    size: int | None = None  # bytes from .mdebug type information
+    block: bool = False  # declared in a nested block
+    aggregate: bool = False  # array, struct or union
+
+
+@dataclass
+class LocalAccount:
+    frame_size: int
+    local_area: tuple[int, int] | None
+    homes: list[NamedHome]
+    materialized: bool  # the homes occupy frame words
+    named_words: int
+    call_arg_words: int
+    call_arg_statements: list[CallArgumentStatement]
+    spill_words: list[int]  # used words below the named homes
+    alignment: int | None  # 0 or 1 from the pad probe; None when unknown
+    accessed: set[str]  # homes the candidate's code reads, writes or takes the address of
+    layout: list[tuple[int, int]] | None  # (size, alignment) per home reproducing the offsets
+
+    @property
+    def words(self) -> int:
+        if self.local_area is None:
+            return 0
+        low, high = self.local_area
+        return (high - low) // 4
+
+    @property
+    def extra_spill_words(self) -> int:
+        """Spill words beyond those a spilled argument value takes in a call-arg word."""
+
+        return max(0, len(self.spill_words) - self.call_arg_words)
+
+    @property
+    def other_words(self) -> int | None:
+        """Words left for other uopt temporaries; None while the alignment is unknown."""
+
+        if self.alignment is None:
+            return None
+        return (self.words - self.named_words - self.call_arg_words - self.extra_spill_words
+                - self.alignment)
+
+
+def _natural_alignment(home: NamedHome) -> int:
+    if home.size is None:
+        return 1
+    if home.aggregate:
+        return 4
+    return home.size if home.size in (1, 2, 4, 8) else 1
+
+
+def home_layout(homes: list[NamedHome], frame_size: int) -> list[tuple[int, int]] | None:
+    """(size, alignment) per home that reproduces the .mdebug offsets when packed.
+
+    Homes are packed downward from the frame top in declaration order. A home
+    without a usable size takes its span down from the previous home.
+    """
+
+    cursor = 0
+    layout: list[tuple[int, int]] = []
+    for home in homes:
+        relative = home.offset - frame_size
+        if relative > cursor:
+            return None
+        choices: list[tuple[int, int]] = []
+        if home.size:
+            natural = _natural_alignment(home)
+            choices.extend((home.size, alignment) for alignment in (1, 2, 4, 8) if alignment >= natural)
+        choices.append((cursor - relative, 1))
+        for size, alignment in choices:
+            if (cursor - size) // alignment * alignment == relative:
+                layout.append((size, alignment))
+                break
+        cursor = relative
+    return layout
+
+
+def pack_homes(layout: list[tuple[int, int]]) -> list[int]:
+    """Frame-top-relative offsets of homes packed in order."""
+
+    cursor = 0
+    offsets = []
+    for size, alignment in layout:
+        cursor = (cursor - size) // alignment * alignment
+        offsets.append(cursor)
+    return offsets
+
+
+def _words_from_top(offsets: list[int]) -> int:
+    return (-min(offsets) + 3) // 4 if offsets else 0
+
+
+def account_local_area(plan: FramePlan, homes: list[NamedHome],
+                       statements: list[CallArgumentStatement], alignment: int | None) -> LocalAccount:
+    """Split the candidate's local area into named homes, call-arg temps, spills and alignment."""
+
+    local_area = plan.local_area
+    low, high = local_area if local_area is not None else (plan.frame_size, plan.frame_size)
+    materialized = bool(homes) and local_area is not None and all(low <= home.offset < high for home in homes)
+    named_words = (high - (min(home.offset for home in homes) & ~3)) // 4 if materialized else 0
+    floor = high - named_words * 4
+    spill_words = [word for word in range(floor - 4, low - 1, -4) if plan.word_slots(word)]
+    accessed = set()
+    if materialized:
+        for home in homes:
+            end = home.offset + (home.size or 4)
+            if any(slot.offset < end and slot.end > home.offset for slot in plan.slots if slot.area == "local"):
+                accessed.add(home.name)
+    return LocalAccount(
+        plan.frame_size, local_area, list(homes), materialized, named_words,
+        statements[0].count if statements else 0, list(statements), spill_words, alignment,
+        accessed, home_layout(homes, plan.frame_size) if materialized else None,
+    )
+
+
+@dataclass(frozen=True)
+class Explanation:
+    named: tuple[str, ...]  # homes the reference lacks
+    call_arg_words: int
+    call_arg_statements: int  # statements whose call-containing arguments must be split out
+    spill_words: int
+    alignment: int  # candidate alignment words minus the hypothesis' alignment words
+
+    @property
+    def units(self) -> int:
+        return len(self.named) + self.call_arg_statements + self.spill_words
+
+    def signature(self) -> tuple[int, int, int, int]:
+        return (len(self.named), self.call_arg_words, self.spill_words, self.alignment)
+
+
+def _area_words(area: tuple[int, int] | None) -> int:
+    return (area[1] - area[0]) // 4 if area is not None else 0
+
+
+def _reference_words(reference: FramePlan) -> set[int]:
+    """Frame-top-relative words the reference code touches in its local area.
+
+    A load or store covers every word it overlaps, so an eight-byte ``sdc1``
+    covers two; taking an address marks only the word it points at.
+    """
+
+    words = set()
+    for slot in reference.slots:
+        if slot.area != "local":
+            continue
+        for access in slot.accesses:
+            end = access.offset + (access.size if access.kind != "address" else 1)
+            words.update(range(access.offset & ~3, end, 4))
+    return {word - reference.frame_size for word in words}
+
+
+def explain_surplus(account: LocalAccount, reference: FramePlan) -> list[Explanation]:
+    """Fewest-unit ways to remove the candidate's surplus local words, best first.
+
+    A unit is one named home, one statement whose call-containing arguments are
+    split into separate statements, or one spill word the reference lacks.
+    Removing a home must not move a used candidate home off a word the
+    reference also uses. Alignment follows from the remaining word parity.
+    Ties prefer no alignment change, then call-arg temps over named homes; ways
+    needing one more unit than the best are kept as alternatives.
+    """
+
+    target = _area_words(reference.local_area)
+    surplus = account.words - target
+    if surplus <= 0 or surplus > MAX_SEARCH_WORDS:
+        return []
+    reference_words = _reference_words(reference)
+    order = [home.name for home in account.homes]
+    used = {index for index, home in enumerate(account.homes) if home.name in account.accessed}
+
+    def aligned(offsets: list[int], kept: list[int]) -> set[int]:
+        return {index for position, index in enumerate(kept)
+                if index in used and (offsets[position] & ~3) in reference_words}
+
+    named_options: list[tuple[tuple[int, ...], int]] = [((), 0)]
+    if account.materialized and account.layout is not None:
+        everything = list(range(len(account.homes)))
+        baseline = aligned(pack_homes(account.layout), everything)
+        pool = everything if len(everything) <= MAX_SEARCH_HOMES else \
+            [index for index in everything if index not in used]
+        for count in range(1, min(surplus + 1, MAX_REMOVED_HOMES, len(pool)) + 1):
+            for removed in combinations(pool, count):
+                kept = [index for index in everything if index not in removed]
+                offsets = pack_homes([account.layout[index] for index in kept])
+                freed = account.named_words - _words_from_top(offsets)
+                # Each home already on a reference word must stay on one; a newly
+                # aligned home does not make up for losing another.
+                if freed <= 0 or not baseline <= aligned(offsets, kept):
+                    continue
+                named_options.append((removed, freed))
+    counts = [statement.count for statement in account.call_arg_statements]
+    call_options = [(0, 0)]
+    if counts:
+        for level in sorted(set(counts[1:]) | {0}):
+            if level < counts[0]:
+                call_options.append((counts[0] - level, sum(1 for count in counts if count > level)))
+    reference_inference = reference.infer()
+    reference_spills = len(reference_inference.crossing_words) if reference_inference else 0
+    spill_limit = min(account.extra_spill_words, max(0, len(account.spill_words) - reference_spills))
+    alignments = [account.alignment] if account.alignment is not None else [0, 1]
+
+    found: dict[tuple, Explanation] = {}
+    for removed, freed in named_options:
+        for call_words, call_statements in call_options:
+            for spills in range(spill_limit + 1):
+                for alignment in alignments:
+                    content = account.words - alignment - freed - call_words - spills
+                    if content < 0 or content + content % 2 != target:
+                        continue
+                    explanation = Explanation(tuple(order[index] for index in removed), call_words,
+                                              call_statements, spills, alignment - content % 2)
+                    found.setdefault((explanation.named, explanation.signature()), explanation)
+    ranked = sorted(found.values(), key=lambda item: (item.units, abs(item.alignment), len(item.named),
+                                                     [order.index(name) for name in item.named]))
+    return [item for item in ranked if item.units <= ranked[0].units + 1] if ranked else []
+
+
+def pinned_above(account: LocalAccount, reference: FramePlan,
+                 choices: list[tuple[str, ...]]) -> tuple[str, list[str]] | None:
+    """The lowest used home already on a reference word, and the unused homes above it.
+
+    The search keeps such homes in place, so a surplus home declared above one
+    is only removable together with moving a later local up.
+    """
+
+    if account.layout is None:
+        return None
+    reference_words = _reference_words(reference)
+    offsets = pack_homes(account.layout)
+    pinned = [index for index, home in enumerate(account.homes)
+              if home.name in account.accessed and (offsets[index] & ~3) in reference_words]
+    if not pinned:
+        return None
+    lowest = max(pinned)
+    chosen = {name for names in choices for name in names}
+    names = [home.name for home in account.homes[:lowest]
+             if home.name not in account.accessed and home.name not in chosen]
+    return (account.homes[lowest].name, names) if names else None
+
+
+def _plural(count: int, singular: str, plural: str | None = None) -> str:
+    return f"{count} {singular if abs(count) == 1 else (plural or singular + 's')}"
+
+
+def _explanation_parts(explanation: Explanation) -> list[str]:
+    parts = []
+    if explanation.named:
+        parts.append(f"{len(explanation.named)} named")
+    if explanation.call_arg_words:
+        parts.append(_plural(explanation.call_arg_words, "call-arg temp"))
+    if explanation.spill_words:
+        parts.append(_plural(explanation.spill_words, "spill word"))
+    if explanation.alignment:
+        parts.append(f"{explanation.alignment} alignment")
+    return parts
+
+
+def _grouped(explanations: list[Explanation]) -> list[tuple[Explanation, list[tuple[str, ...]]]]:
+    """Explanations with the same category counts, keeping each one's named homes."""
+
+    groups: dict[tuple[int, int, int, int], tuple[Explanation, list[tuple[str, ...]]]] = {}
+    for explanation in explanations:
+        entry = groups.setdefault(explanation.signature(), (explanation, []))
+        if explanation.named:
+            entry[1].append(explanation.named)
+    return list(groups.values())
+
+
+def _named_choices(choices: list[tuple[str, ...]]) -> str:
+    return " or ".join(", ".join(names) for names in choices[:6]) + (" or ..." if len(choices) > 6 else "")
+
+
+def render_account(account: LocalAccount, candidate: FramePlan, reference: FramePlan,
+                   *, indent: str = "  ") -> list[str]:
+    """``local-area account:`` block ending in a one-line word delta against the reference."""
+
+    lines = [f"local-area account (candidate frame {candidate.frame_size:#x}, reference {reference.frame_size:#x}):"]
+    if account.local_area is not None:
+        low, high = account.local_area
+        lines.append(f"{indent}candidate local {low:#x}..{high - 1:#x}: {_plural(account.words, 'word')}")
+    else:
+        lines.append(f"{indent}candidate local area: none")
+    sub = indent * 2
+    if account.homes:
+        blocks = sum(1 for home in account.homes if home.block)
+        state = "" if account.materialized else "; no named local needs memory, so the homes cost no words"
+        lines.append(f"{sub}named homes {_plural(account.named_words, 'word')} ({_plural(len(account.homes), 'local')},"
+                     f" {blocks} block-scoped; * = home used by the code{state}):")
+        entries = []
+        for home in account.homes:
+            size = home.size if home.size is not None else "?"
+            text = f"{home.name} {size}{'*' if home.name in account.accessed else ''}"
+            entries.append(text + (" [block]" if home.block else ""))
+        lines.append(f"{sub}{indent}" + ", ".join(entries))
+    else:
+        lines.append(f"{sub}named homes 0 words (no named locals)")
+    if account.call_arg_statements:
+        largest = account.call_arg_statements[0]
+        snippet = largest.text if len(largest.text) <= 72 else largest.text[:69] + "..."
+        lines.append(f"{sub}call-arg temps {_plural(account.call_arg_words, 'word')} (largest statement: {snippet})")
+    else:
+        lines.append(f"{sub}call-arg temps 0 words (no call-containing arguments)")
+    spill = ", ".join(f"{word:#x}" for word in account.spill_words)
+    lines.append(f"{sub}spill words {len(account.spill_words)}{f' ({spill})' if spill else ''}; "
+                 f"{account.extra_spill_words} beyond the call-arg temps")
+    if account.alignment is None:
+        rest = account.words - account.named_words - account.call_arg_words - account.extra_spill_words
+        lines.append(f"{sub}alignment and other temps {_plural(rest, 'word')} (pad probe unavailable)")
+    else:
+        lines.append(f"{sub}alignment {account.alignment} (pad probe: one more named word "
+                     f"{'fits in the frame' if account.alignment else 'grows the frame'})")
+        other = account.other_words
+        if other is not None and other < 0:
+            lines.append(f"{sub}model overcount {_plural(-other, 'word')} (a call-arg or spill estimate is too high)")
+        else:
+            lines.append(f"{sub}other uopt temps {_plural(other, 'word')}")
+    inference = reference.infer()
+    if reference.local_area is not None:
+        low, high = reference.local_area
+        summary = f"{indent}reference local {low:#x}..{high - 1:#x}: {_plural(_area_words(reference.local_area), 'word')}"
+        if inference is not None:
+            summary += f" (named homes >= {len(inference.named_words)} words"
+            if inference.crossing_words:
+                summary += f"; {_plural(len(inference.crossing_words), 'call-crossing bottom word')}"
+            if inference.unused_bottom_words:
+                summary += f"; {_plural(len(inference.unused_bottom_words), 'unused bottom word')}"
+            summary += ")"
+        lines.append(summary)
+    else:
+        lines.append(f"{indent}reference local area: none")
+    lines.extend(f"{indent}{line}" for line in delta_lines(account, candidate, reference))
+    return lines
+
+
+def delta_lines(account: LocalAccount, candidate: FramePlan, reference: FramePlan) -> list[str]:
+    """The one-line word delta plus the homes or statements it names."""
+
+    frame_words = (candidate.frame_size - reference.frame_size) // 4
+    parts: list[str] = []
+    for label, mine, theirs in (("saved-register word", candidate.saved_area, reference.saved_area),
+                                ("outgoing-arg word", candidate.outgoing, reference.outgoing)):
+        difference = _area_words(mine) - _area_words(theirs)
+        if difference:
+            parts.append(_plural(difference, label))
+    local = account.words - _area_words(reference.local_area)
+    details: list[str] = []
+    if local > 0:
+        groups = _grouped(explain_surplus(account, reference))
+        if groups:
+            best, choices = groups[0]
+            parts.extend(_explanation_parts(best))
+            if best.named:
+                details.append(f"named: drop or merge {_named_choices(choices)}")
+                above = pinned_above(account, reference, choices)
+                if above:
+                    pinned, names = above
+                    which = names[0] if len(names) == 1 else f"one of {', '.join(names)}"
+                    details.append(f"  or drop {which} and declare a later local before {pinned}"
+                                   f" ({pinned}'s home lines up with a reference word)")
+            if best.call_arg_words:
+                details.append(f"call-arg temps: give {_plural(best.call_arg_statements, 'statement')} one call each"
+                               f" (largest: {account.call_arg_statements[0].count} call-containing arguments)")
+            for other, other_choices in groups[1:]:
+                text = ", ".join(_explanation_parts(other))
+                if other.named:
+                    text += f" ({_named_choices(other_choices)})"
+                details.append(f"or: {text}")
+            if account.alignment is None:
+                details.append("alignment assumed: the pad probe was unavailable")
+        elif local > MAX_SEARCH_WORDS:
+            parts.append(f"{_plural(local, 'local word')} (too many to attribute; compare the named homes first)")
+        else:
+            parts.append(f"{_plural(local, 'local word')} unexplained")
+    elif local < 0:
+        missing = -local
+        if account.alignment is None:
+            parts.append(f"local area {_plural(missing, 'word')} short")
+        else:
+            content = account.words - account.alignment
+            target = _area_words(reference.local_area)
+            options = []
+            for needed in sorted(needed for needed in (target - content, target - 1 - content) if needed > 0):
+                padded = (content + needed) % 2
+                options.append(f"{needed}{' (+1 alignment)' if padded else ''}")
+            parts.append(f"local area short: add {' or '.join(options)} words of named locals,"
+                         " call-containing arguments or spills")
+    sign = "+" if frame_words > 0 else ""
+    summary = f"candidate {sign}{_plural(frame_words, 'word')}"
+    lines = [summary + (": " + ", ".join(parts) if parts else "")]
+    lines.extend(details)
     return lines
 
 
