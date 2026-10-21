@@ -175,7 +175,7 @@ void func_8000480C(u32 source, void *destination, u32 size) {
                 offset += 4;
                 *(s16 *)(writeAddress + 2) = data.word >> 16;
                 writeAddress += 4;
-                *(u16 *)writeAddress = (u32)data.word & 0xFFFF;
+                *(u16 *)writeAddress = data.word & 0xFFFF;
             } while (offset < count);
         }
         if (size & 2) {

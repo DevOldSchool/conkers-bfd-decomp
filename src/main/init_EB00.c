@@ -1078,7 +1078,7 @@ u16 func_80010E78(u16 arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4,
                            (s16)arg8, &value, (s16)arg9, (s16)arg10);
     volume = ((u32)arg2 * volume) >> 15;
     if (volume != 0) {
-        return func_80010BE8((u16)arg0, arg1, (u16)volume,
+        return func_80010BE8(arg0, arg1, (u16)volume,
                              value & 0x7F, ((s16 *)&arg3)[1],
                              (value & 0x80) | (u8)arg4, D_80041FD9);
     }
