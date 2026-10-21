@@ -139,5 +139,45 @@ class MainSelectorRodataTests(unittest.TestCase):
                 verifier.external_payloads(image_sections([self.selector]), required)
 
 
+class MainSchedulerRodataTests(unittest.TestCase):
+    def setUp(self):
+        self.name = ".main_rodata_init_49e0"
+        self.payload = bytes(range(32))
+        self.scheduler = (self.name, 0, 0x8002C0A0, self.payload)
+        self.other = [(verifier.SECTION_NAME, 0, verifier.SECTION_VRAM, bytes(32)),
+                      (SELECTOR, 0, 0x8002C410, bytes(64))]
+
+    def test_scheduler_only_and_all_reviewed_pools(self):
+        self.assertEqual(verifier.external_payloads(image_sections([self.scheduler]), (self.name,)),
+                         {self.name: self.payload})
+        entries = self.other + [self.scheduler]
+        required = tuple(entry[0] for entry in entries)
+        self.assertEqual(verifier.external_payloads(image_sections(entries), required),
+                         {entry[0]: entry[3] for entry in entries})
+
+    def test_missing_duplicate_unrequested_and_invalid_scheduler_mapping(self):
+        invalid = [(self.name, flags, address, bytes(size))
+                   for flags, address, size in [(1, 0x8002C0A0, 32), (2, 0x8002C0A0, 32),
+                                                (0, 0x8002C0A4, 32), (0, 0x8002C0A0, 28),
+                                                (0, 0x8002C0A0, 36)]]
+        for entry in invalid:
+            with self.subTest(entry=entry[:3]), self.assertRaises(ValueError):
+                verifier.external_payloads(image_sections([entry]), (self.name,))
+        for entries, required in [([], (self.name,)),
+                                  ([self.scheduler, self.scheduler], (self.name,)),
+                                  ([self.other[0], self.scheduler], (verifier.SECTION_NAME,))]:
+            with self.subTest(entries=len(entries), required=required), self.assertRaises(ValueError):
+                verifier.external_payloads(image_sections(entries), required)
+
+    def test_every_scheduler_pointer_and_padding_byte_is_checked(self):
+        rom = bytes(0x2C0A0) + self.payload
+        verifier.verify_bytes(self.payload, rom, self.name)
+        for at in range(32):
+            changed = bytearray(self.payload)
+            changed[at] ^= 1
+            with self.subTest(at=at), self.assertRaisesRegex(ValueError, "differs"):
+                verifier.verify_bytes(bytes(changed), rom, self.name)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -176,6 +176,16 @@
         }
       },
       {
+        "address": "0x8002C0A0",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/main/init_49E0.c",
+            "src/done/main/init_49E0.c"
+          ]
+        }
+      },
+      {
         "address": "0x8002C1B0",
         "section": ".data",
         "owner": {

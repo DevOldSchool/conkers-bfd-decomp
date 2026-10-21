@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/main/init_49E0.c
  * Boundary evidence: docs/evidence/boundaries/main/main_allocator_transfer_controller_boundaries.md
- *
- * TODO: Implement these source-unit functions:
- * - func_800049E0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct {
@@ -60,7 +55,6 @@ extern u8 D_8003B23A;
 extern u8 D_8003B240[];
 extern u8 D_800BE900[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800049E0 CURRENT (790) */
 void func_800049E0(void *arg0) {
     void *message;
     SchedulerClient *client;
@@ -72,6 +66,7 @@ void func_800049E0(void *arg0) {
     D_8003A583 = 0;
     *(s16 *)D_8003B240 = 1;
     message = 0;
+    arg0 = 0;
     D_8003A5C8 = 4;
     while (1) {
         func_80023440(&D_8003B218, &message, 1);
@@ -104,6 +99,7 @@ void func_800049E0(void *arg0) {
             if (D_8003A581 == 0) {
                 func_80004DB0();
             }
+            arg0 = 0;
             break;
         case 2:
             if (D_8003A582 == 3) {
@@ -142,7 +138,7 @@ void func_800049E0(void *arg0) {
             }
             break;
         case 3:
-            D_8002AC6C = 0;
+            D_8002AC6C = (s32)arg0;
             if (D_8003A583 != 0) {
                 func_80024BA0();
                 D_8003A582 = 3;
@@ -160,8 +156,6 @@ void func_800049E0(void *arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_800049E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_49E0/func_800049E0.s")
 void func_80004F00(void);
 void func_80004FE0(void);
 void *func_80024E20(void);

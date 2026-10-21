@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/main/init_39C0.c
  * Boundary evidence: docs/evidence/boundaries/main/main_system_wrapper_boundaries.md
- *
- * TODO: Implement these source-unit functions:
- * - func_80003ACC
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 extern u16 *D_8002AAE8[2];
@@ -40,7 +35,6 @@ void func_800039C0(void) {
     func_80024830(D_8002AAE8[D_800BE9C0 ^ 1]);
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80003ACC CURRENT (120) */
 void func_80003ACC(s32 red, s32 green, s32 blue) {
     u16 *pixels;
     u16 *second;
@@ -51,12 +45,12 @@ void func_80003ACC(s32 red, s32 green, s32 blue) {
 
     byteCount = (u32)D_800BE620 * (u32)D_800BE624 * 2;
     pixels = D_8002AAE8[0];
-    second = pixels;
-    if (second != 0) {
+    if (pixels != 0) {
         color = (((u32)red << 8) & 0xF800) | (((u32)green << 3) & 0x7C0) | ((blue >> 2) & 0x3E) | 1;
         count = (s32)byteCount >> 1;
+        second = pixels;
         for (i = 0; i < count; i++) {
-            pixels++;
+            pixels = &(*(u16 (*)[])second)[i + 1];
             pixels[-1] = color;
         }
         second = D_8002AAE8[1];
@@ -65,5 +59,3 @@ void func_80003ACC(s32 red, s32 green, s32 blue) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80003ACC */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_39C0/func_80003ACC.s")

@@ -5,9 +5,7 @@
  * Boundary evidence: docs/evidence/boundaries/main/main_sound_record_family_boundary.md
  *
  * TODO: Implement these source-unit functions:
- * - func_8000FA64
  * - func_80010630
- * - func_80010FFC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -588,8 +586,7 @@ extern SoundArrayRecord D_80041FE0[];
 void func_80011624(SoundArrayRecord *, s32 *, s32, s32);
 s32 func_85083E0C(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FA64 CURRENT (1483) */
-u16 func_8000FA64(u16 sound, s16 x, s16 y, s16 z, s32 volume,
+u16 func_8000FA64(u16 sound, s16 x, volatile s16 y, s16 z, s32 volume,
                   u16 farDistance, s16 nearDistance, void *callback,
                   s32 owner, s32 key, s32 flags, s32 cents) {
     s32 count;
@@ -620,7 +617,7 @@ u16 func_8000FA64(u16 sound, s16 x, s16 y, s16 z, s32 volume,
     D_80041FE0[index].field22 = 0;
     D_80041FE0[index].field0 = sound;
     D_80041FE0[index].positionX = x;
-    D_80041FE0[index].positionY = ((s16 *)&y)[0];
+    D_80041FE0[index].positionY = y;
     D_80041FE0[index].positionZ = z;
     D_80041FE0[index].field8 = farDistance;
     D_80041FE0[index].fieldA = nearDistance;
@@ -640,8 +637,6 @@ u16 func_8000FA64(u16 sound, s16 x, s16 y, s16 z, s32 volume,
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000FA64 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000FA64.s")
 extern SoundArrayRecord D_80041FE0[];
 
 void func_8000FC18(u16 sound, s16 x, s16 y, s16 z, u16 arg4) {
@@ -758,7 +753,7 @@ void func_800100E0(void *callback, void *owner, s32 key,
         }
     }
 }
-u16 func_8000FA64(u16, s16, s16, s16, s32, u16, s16,
+u16 func_8000FA64(u16, s16, volatile s16, s16, s32, u16, s16,
                   void *, s32, s32, s32, s32);
 void func_8000FD38(void *, void *, s32);
 u16 func_80010BE8(u16, s32, u16, u8, s16, u8, u8);
@@ -851,7 +846,7 @@ s32 func_80010344(u16 sound, void *arg1, u32 volume,
     owner->handle8C = flags;
     return flags;
 }
-u16 func_8000FA64(u16, s16, s16, s16, s32, u16, s16,
+u16 func_8000FA64(u16, s16, volatile s16, s16, s32, u16, s16,
                   void *, s32, s32, s32, s32);
 extern u8 D_1000ECCC[];
 
@@ -1074,7 +1069,7 @@ u16 func_80010BE8(u16 arg0, s32 sound, u16 volume, u8 pan,
 }
 u16 func_80010BE8(u16, s32, u16, u8, s16, u8, u8);
 
-u16 func_80010E78(s32 arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4,
+u16 func_80010E78(u16 arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4,
                  s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
     s32 value;
     u32 volume;
@@ -1099,7 +1094,7 @@ s32 arg4;
     return func_80010BE8(0, arg0, arg1, arg2,
                         arg3, ((u8 *)&arg4)[3], D_80041FD9);
 }
-u16 func_80010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+u16 func_80010E78(u16, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 
 s32 func_80010F88(s32 arg0, u16 arg1, s16 arg2, u8 arg3, s32 arg4,
                  s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
@@ -1113,18 +1108,15 @@ typedef struct {
 
 extern SoundOwnerScale *D_800D1C90[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010FFC CURRENT (935) */
 s32 func_80010FFC(u16 arg0, s32 arg1, u16 arg2, s16 arg3,
                   u8 arg4, SoundOwnerState *owner) {
-    s32 handle = arg0;
-    u16 result;
     f32 scale;
 
     if ((owner == 0) || (owner->field0 == 0)) {
         return 0;
     }
     if (owner->field318 != 0) {
-        result = func_80010BE8(handle, arg1, arg2, 0x40,
+        arg0 = func_80010BE8(arg0, arg1, arg2, 0x40,
                               arg3, arg4, D_80041FD9);
     } else {
         arg2 = (u16)((arg2 + arg2 + arg2) >> 2);
@@ -1140,15 +1132,13 @@ s32 func_80010FFC(u16 arg0, s32 arg1, u16 arg2, s16 arg3,
         } else {
             scale *= 0.00390625f;
         }
-        result = func_80010E78(handle, arg1, arg2, arg3,
+        arg0 = func_80010E78(arg0, arg1, arg2, arg3,
                               arg4, 0, (s32)owner->field14,
                               (s32)owner->field18, (s32)owner->field1C,
                               0x1F4, (s32)(2000.0f * scale) + 0x1F5);
     }
-    return result;
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80010FFC */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80010FFC.s")
 void func_800111C8(u16 arg0) {
     SoundHandleEntry *entry;
 
