@@ -9,7 +9,6 @@
  * - func_15103828
  * - func_15103910
  * - func_15103AA0
- * - func_15103C14
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -208,17 +207,12 @@ void *func_1505EEF4(s32);
 s32 func_15103910(void *, s32 *, u32 *, s32 *, s32 *, s32 *, u16 *);
 s32 func_15103AA0(void *, s32 *, u32 *, s32 *, s32 *, s32 *, u16 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15103C14 CURRENT (166) */
 void func_15103C14(s32 arg0, s32 arg1, u32 arg2, s32 arg3, s32 arg4) {
-    u16 *saved;
     Game130CB0Source *actor;
-    u16 *timer;
     s32 special;
 
-    timer = &D_800D9AB0[arg3];
     special = 0;
-    if (*timer == 0 || arg0 == 0x58D) {
-        saved = timer;
+    if (D_800D9AB0[arg3] == 0 || arg0 == 0x58D) {
         actor = func_1505EEF4(arg1);
         if (actor != 0 && func_10010894(actor) == 0) {
             if (arg2 != 0) {
@@ -244,9 +238,7 @@ void func_15103C14(s32 arg0, s32 arg1, u32 arg2, s32 arg3, s32 arg4) {
                     0x7FBC, 0x7FFF, 0x7FFE, func_15103AA0,
                     (arg4 << 15) | 0x14, actor, 0x100, 0);
             }
-            *saved = 0x258;
+            D_800D9AB0[arg3] = 0x258;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15103C14 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_130CB0/func_15103C14.s")

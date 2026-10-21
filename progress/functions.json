@@ -32152,17 +32152,16 @@
       "symbol": "func_15103AA0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 166,
-        "reason": "CURRENT166 best after seven manual hypotheses. Exact registers and non-stack instructions; remaining frame58 versus50 changes argument offsets, plus trailing padding row. Audited12-slot sound/callback ABI. Incoming sound mutation fixed register allocation; actor/index argument reuse and grouped state layouts exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 556,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15103C14",
           "vram": "0x15103C14"
         }
@@ -47713,17 +47712,16 @@
       "symbol": "func_15183BA4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 183,
-        "reason": "Best valid183 retained: full256B opcodes/control/count align, frame28/raw20 and slot/resource registers differ. Fresh direct-load removal449 recoversframe20 but savedslot18/raw1C and globalA0/control regress. Prior scalar-local rewrite987; manual budget exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 256,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15183C28",
           "vram": "0x15183C28"
         }

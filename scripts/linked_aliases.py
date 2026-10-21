@@ -7,7 +7,9 @@ call resolution. The debugger also permits one explicitly reviewed empty-return
 companion within its unchanged registered span. Reviewed main initialized data uses explicit ROM-backed placement manifests.
 GAME also proves terminal alignment padding using complete reviewed units, and
 places a unit's own .rodata only at its reviewed external address, proving
-those linked bytes against checksum-validated ROM game data.
+those linked bytes against checksum-validated ROM game data. Like main, GAME
+attempts the proof for raw literal address pairs, and leaves exact same-unit
+callback addresses (lui/addiu) to the linker.
 Other paths reject local data relocations; no path rewrites originals.
 """
 from __future__ import annotations
@@ -128,7 +130,8 @@ def address_alias_present(candidate: Object32, reference: Object32, symbol: str,
 def definitions(obj: Object32, *, text_addresses: dict[str, int] | None = None,
                 text_section: int | None = None, text_base: int = 0,
                 private_sections: frozenset[int] = frozenset(),
-                game_tables: bool = False, relocations=None) -> dict[str, int] | None:
+                game_tables: bool = False, function_addresses: bool = False,
+                relocations=None) -> dict[str, int] | None:
     result = {}
     for kind, (name, value, extent, section) in (obj.relocations.values()
                                                  if relocations is None else relocations):
@@ -146,11 +149,13 @@ def definitions(obj: Object32, *, text_addresses: dict[str, int] | None = None,
         if kind not in (2, 4, 5, 6) or match is None:
             return None
         if section:
-            # Only real, uniquely defined, reviewed same-unit callees. Leave
-            # them to the linker: assigning their address in the script would
-            # conceal a compressed or stale candidate's incorrect offsets.
+            # Only real, uniquely defined, reviewed same-unit callees (or, for
+            # GAME, their HI16/LO16 addresses). Leave them to the linker:
+            # assigning their address in the script would conceal a
+            # compressed or stale candidate's incorrect offsets.
             matches = [s for syms in obj.symbols.values() for s in syms if s[0] == name]
-            if (kind != 4 or section != text_section or text_addresses is None
+            if (kind not in ((4, 5, 6) if function_addresses else (4,))
+                    or section != text_section or text_addresses is None
                     or not name.startswith("func_") or len(matches) != 1
                     or text_addresses.get(name) != text_base + value
                     or int(match[1], 16) != text_base + value):
@@ -395,7 +400,7 @@ def game_eligible(candidate: Path, reference: Path, symbol: str, size: int) -> b
         function(raw, symbol, size, reference=True)
         if game_padding_extent(current, symbol, size) is not None:
             return True
-        return address_alias_present(current, raw, symbol, size)
+        return address_alias_present(current, raw, symbol, size, literals=True)
     except ValueError:
         return False
 
@@ -647,14 +652,18 @@ def game_definitions(obj: Object32, addresses: dict[str, int], section: int,
                 return None
             continue
         word = obj.word(location_section, offset)
-        if defined_section and (kind != 4 or word >> 26 != 3 or word & 0x03FFFFFF):
+        if defined_section and not (kind == 4 and word >> 26 == 3 and not word & 0x03FFFFFF
+                                    or kind == 5 and word >> 21 == 0x1E0 and not word & 0xFFFF
+                                    or kind == 6 and word >> 26 == 9 and not word & 0xFFFF):
+            # A same-unit function is either a jal target or an exact
+            # lui/addiu address (a callback), with no in-place addend.
             return None
     if any(index not in (section, rodata) and header[1] in (1, 8) and header[2] & 6 and header[5]
            for index, header in enumerate(obj.sections)):
         return None
     return definitions(obj, text_addresses=addresses, text_section=section, text_base=base,
                        private_sections=frozenset() if rodata is None else frozenset({rodata}),
-                       game_tables=True, relocations=text_relocations)
+                       game_tables=True, function_addresses=True, relocations=text_relocations)
 
 
 def game_rodata_matches(root: Path, elf: Path, obj: Object32, rodata: int,
@@ -684,7 +693,7 @@ def prepare_game(root: Path, source: str, candidate: Path, reference: Path, asse
     if short is not None:
         raise ShortInteriorExtent(symbol, short)
     padding = game_terminal_padding(current, symbol, size, start, unit_start + extent)
-    if not padding and not address_alias_present(current, raw, symbol, size):
+    if not padding and not address_alias_present(current, raw, symbol, size, literals=True):
         return None
     measured, text_size, alignment = layout_check.archived_object_layout(current.data)
     layout_check.validate_layout(entry, unit, measured, text_size, alignment, "us", root=root)

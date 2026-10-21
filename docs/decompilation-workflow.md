@@ -240,9 +240,14 @@ ROM. Unsupported dispatches fail closed; layout and clean-batch verification
 remain required.
 
 US game candidates with different address-bearing data aliases may use linked comparison.
+This includes a raw reference that spells the address as a bare `lui`/`addiu`
+literal pair (splat loses the pairing across a branch) where the candidate has a
+`D_<address>` relocation.
 Both original objects are linked independently at the registered address; their
 entire registered spans must equal each other and the checksum-validated ROM before
-those bytes enter the same bounded asm-differ gate. HI16/LO16 references to
+those bytes enter the same bounded asm-differ gate. Same-unit functions may be
+`jal` targets or exact `lui`/`addiu` callback addresses with no in-place addend;
+the linker resolves them at their registered member offsets. HI16/LO16 references to
 external original tables (`jtbl_<address>_game`, typically from sibling
 `GLOBAL_ASM`) resolve to their named addresses and are covered by the same
 complete-unit ROM check. A unit's own `.rodata` (C float literals and jump tables)
