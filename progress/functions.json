@@ -3454,7 +3454,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15197C10",
           "vram": "0x15197C10"
         }
@@ -30583,8 +30588,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1040,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1507C8FC",
           "vram": "0x1507C8FC"
         }
@@ -44780,8 +44790,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1092,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151E9D18",
           "vram": "0x151E9D18"
         }
@@ -45111,8 +45126,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1032,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151EEBE8",
           "vram": "0x151EEBE8"
         }
@@ -47717,8 +47737,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1008,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15183D28",
           "vram": "0x15183D28"
         }
@@ -54076,8 +54101,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1020,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510C4AC",
           "vram": "0x1510C4AC"
         }
@@ -71137,8 +71167,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1092,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1518EB10",
           "vram": "0x1518EB10"
         }
@@ -79608,6 +79643,12 @@
       "symbol": "func_1510A40C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5884,
+        "reason": "Round20 2026-10-22: first C from near-sibling func_15197C10 (beam quad with range clamp). Frame 0xc8 and named homes exact (vertices, result, progress, Vec3f tip, 9 scalars, lengthSquared, distance, factor, fresh, eye, scale). Residual CURRENT (5884 finish, probe 5444 with tip z/y/x order): FP allocation keeps start.x spilled at 0x70 while raw holds it in fs5 and spills tip.z/scale to their homes; lengthSquared reuse, range/factor locals, eye placement variants 5444-6629. 60 s randomized permuter best 3650 is invalid (reads tip.x before assignment).",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
