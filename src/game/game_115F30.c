@@ -423,7 +423,6 @@ typedef struct Game115F30Effect {
 } Game115F30Effect;
 
 s32 func_151337C0(void *);
-void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
 f32 func_150ADA68(void);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150E971C CURRENT (2812) */
@@ -456,7 +455,7 @@ s32 func_150E971C(Game115F30Owner *arg0) {
         effect.field18 = 0x3B0003;
         effect.field22 = 0x14;
         effect.field24 = 0xC;
-        func_1513C73C((s32 *)&effect, 0, 0, timing + 2,
+        func_1513C73C((s32)&effect, 0, 0, timing + 2,
                        arg0->field38, *timing + 5.0f, arg0->field40,
                        scale, scale, func_150ADA20() & 0xFF, 0, 0,
                        arg0->fieldC, arg0->field1);

@@ -863,7 +863,6 @@ typedef struct {
     u8 tailPad[0xC];
 } Blood6918Packet;
 
-void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
 
 void func_15136918(f32 arg0, u8 arg1, u8 arg2, s16 arg3, s16 arg4,
                    void *arg5, f32 *arg6, u8 arg7, s32 arg8) {

@@ -44,7 +44,6 @@ extern void func_150DBD70(u8, void *);
 void func_150DDF88(void *arg0) {
     func_150DBD70(*(u8 *)((u8 *)arg0 + 0x28), arg0);
 }
-void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
 f32 func_150ADA68();
 
 typedef struct {
@@ -97,7 +96,7 @@ s32 func_150DDFAC(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, void *arg5) 
     packet.field_14 = 0;
     packet.field_15 = 0xFF;
     packet.field_18 = 0x30002;
-    func_1513C73C((s32 *)&packet, 5, 0, arg5, *(f32 *)(sp88 + ((s8)arg0[0x2D] * 0x14)), arg4, *(f32 *)(sp88 + ((s8)arg0[0x2D] * 0x14) + 8), sp5C, sp5C, func_150ADA20() & 0xFF, (func_150ADA20() & 1) + (func_150ADA20() & 1), 0, arg0[0xC], arg0[1]);
+    func_1513C73C((s32)&packet, 5, 0, arg5, *(f32 *)(sp88 + ((s8)arg0[0x2D] * 0x14)), arg4, *(f32 *)(sp88 + ((s8)arg0[0x2D] * 0x14) + 8), sp5C, sp5C, func_150ADA20() & 0xFF, (func_150ADA20() & 1) + (func_150ADA20() & 1), 0, arg0[0xC], arg0[1]);
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150DDFAC */
@@ -133,7 +132,7 @@ s32 func_150DE12C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, void *arg5) 
     packet.field_14 = 0;
     packet.field_15 = 0xAA;
     packet.field_18 = 0x30002;
-    func_1513C73C((s32 *)&packet, 5, 0, arg5, *(f32 *)(sp88 + ((s8)arg0[0x2D] * 0x14)), arg4, *(f32 *)(sp88 + ((s8)arg0[0x2D] * 0x14) + 8), sp5C, sp5C, func_150ADA20() & 0xFF, (func_150ADA20() & 1) + (func_150ADA20() & 1), 0, arg0[0xC], arg0[1]);
+    func_1513C73C((s32)&packet, 5, 0, arg5, *(f32 *)(sp88 + ((s8)arg0[0x2D] * 0x14)), arg4, *(f32 *)(sp88 + ((s8)arg0[0x2D] * 0x14) + 8), sp5C, sp5C, func_150ADA20() & 0xFF, (func_150ADA20() & 1) + (func_150ADA20() & 1), 0, arg0[0xC], arg0[1]);
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150DE12C */

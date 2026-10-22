@@ -1277,7 +1277,6 @@ typedef struct Game1DBCBCPacket {
 } Game1DBCBCPacket;
 
 void *func_1513C5B0(s32, s32, u8, u8, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
-void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151DBCBC CURRENT (3624) */
 void func_151DBCBC(s32 arg0, f32 arg1, s32 arg2, s32 arg3, f32 *arg4, s32 arg5, s32 arg6) {
