@@ -590,12 +590,12 @@ void func_15076768(void) {
         func_15197A7C(D_800D154C);
         break;
     case 1: {
-        struct127 *a1 = D_800D154C;
+        struct127 *a1 = (struct127 *)D_800D154C;
         pos[0] = a1->x_position;
         pos[1] = -390.0f;
         pos[2] = a1->z_position;
         dummy_label_222019: ;
-        func_1504715C(sp20, a1);
+        func_1504715C(sp20, (GameA28B0State *)a1);
         func_1514B364(pos, sp20, 0xFF, 0);
         break;
     }
@@ -736,7 +736,7 @@ void func_15076D3C(void) {
     *(f32 *) ((u8 *) D_800D154C + 0x150) = (f32) y * scale;
     *(f32 *) ((u8 *) D_800D154C + 0x154) = *(f32 *) ((u8 *) D_800D154C + 0x14C);
     *(f32 *) ((u8 *) D_800D154C + 0x158) = *(f32 *) ((u8 *) D_800D154C + 0x150);
-    func_15062BDC(D_800D154C, *(f32 *) ((u8 *) D_800D154C + 0x14C), *(f32 *) ((u8 *) D_800D154C + 0x150));
+    func_15062BDC((u8 *)D_800D154C, *(f32 *) ((u8 *) D_800D154C + 0x14C), *(f32 *) ((u8 *) D_800D154C + 0x150));
 }
 void func_15076DF4(void) {
     D_800D154C->field_0 = D_800D1890;
@@ -1985,7 +1985,7 @@ void func_1507A47C(void)
 {
   struct127 *new_var;
   s32 tmp = ((((D_800D1890 << 16) << 8) | (((((((((((D_800D1891 & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) << 0x10)) | ((D_800D1892 << 3) << 5)) | (D_800D1893 & 0xFFu);
-  new_var = (0, D_800D154C);
+  new_var = (0, (struct127 *)D_800D154C);
   new_var->unk94 &= ~tmp;
 }
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507A4D4 CURRENT (910) */

@@ -188,7 +188,7 @@ typedef struct struct206 { struct205 *unk0; u16 unk4; u8 pad6[0x6]; u8 unkC; u8 
 typedef struct struct207 { u8 pad0[0x28]; struct206 *unk28; } struct207;
 
 void func_15104FF8(struct207 *arg0, s32 arg1, u8 arg2) {
-    struct206 *m = &arg0->unk28;
+    struct206 *m = (struct206 *)&arg0->unk28;
     if ((arg2 == 0x38) && (m->unk0->unk14 == 1)) {
         *(s16 *)((u8 *)m + 8) = 300;
         func_1000FD38(D_1000EF40, (struct205 *)((s32)m->unk0), 0);

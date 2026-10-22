@@ -644,7 +644,7 @@ void func_151C94D4(void *arg0) {
     if (*(void **)(state + 0x50) != 0) {
         func_1516972C(*(void **)(state + 0x50));
     }
-    func_1513CA6C((s32)arg0);
+    func_1513CA6C((void *)arg0);
 }
 
 void func_151C95D8(void *arg0) {
@@ -678,7 +678,7 @@ void func_151C95D8(void *arg0) {
     if (*(void **)(state + 0x50) != 0) {
         func_1516972C(*(void **)(state + 0x50));
     }
-    func_1513CAA0((s32)arg0);
+    func_1513CAA0((void *)arg0);
 }
 s32 func_151C96DC(void *arg0, s32 arg1) {
     s32 temp_v0;

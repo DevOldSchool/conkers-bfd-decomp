@@ -86,6 +86,7 @@ void func_160021FC(ConkerPft *px, va_list *args, u8 type, u8 *buffer);
 #define FLAGS_MINUS 4
 #define FLAGS_HASH 8
 #define FLAGS_ZERO 16
+#undef NULL
 #define NULL ((void *)0)
 #define spaces D_16003C70
 #define zeroes D_16003C94

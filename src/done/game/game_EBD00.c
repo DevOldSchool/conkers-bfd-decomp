@@ -48,7 +48,7 @@ void func_150BE850(GameEBD00Actor *arg0) {
     if (state.sp28 != 0 && temp_v0 != -1) {
         func_1509BFB0(0, 0x400E, 1);
         if (arg0->field2C != 8) {
-            func_1512868C(arg0);
+            func_1512868C((u8 *)arg0);
         }
         if (func_15123934(arg0, 8, 0, arg0->field134, 3) != 0) {
             func_151254F4(arg0, D_800CC335 - 1);
@@ -62,7 +62,7 @@ void func_150BE850(GameEBD00Actor *arg0) {
         arg0->field348 = value;
         arg0->field34C = value;
         arg0->field190 = 0.0f;
-        func_15123070(arg0);
+        func_15123070((struct108 *)arg0);
         return;
     }
     if (func_151239CC(arg0, 3) != 0) {

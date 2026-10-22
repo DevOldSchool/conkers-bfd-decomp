@@ -33,7 +33,7 @@ s32 func_150BE9B0(f32 *arg0, void *arg1, void *arg2, u8 arg3) {
         var_a1 = 0x10;
         break;
     }
-    func_15142314(*(s32 *)((u8 *)arg1 + 0x1D4), var_a1, arg0);
+    func_15142314((void *)*(s32 *)((u8 *)arg1 + 0x1D4), var_a1, arg0);
     if (arg2 == 0) {
         return 1;
     }

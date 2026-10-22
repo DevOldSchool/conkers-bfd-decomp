@@ -109,7 +109,7 @@ void func_151D2C40(Game1FFF60Motion *arg0) {
         func_1516972C(arg0);
         return;
     }
-    frame = source->frames + (arg0->frame << 6);
+    frame = (s32)(source->frames + (arg0->frame << 6));
     func_15143134(arg0->position, (f32 *)&position, frame);
     if (arg0->flags & 1) {
         arg0->timer = (s16)(arg0->timer - D_800BE9E4);

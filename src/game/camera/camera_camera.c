@@ -1112,8 +1112,6 @@ f32 func_150484A0(f32, f32);                        /* extern */
 extern f32 D_800A351C;
 extern f32 D_800A3520;
 
-f32 sqrtf(f32);
-#pragma intrinsic(sqrtf)
 void func_1512523C(void *arg0) {
     f32 temp_fa0;
     f32 temp_fv0;
@@ -1194,7 +1192,7 @@ s32 func_151253CC(u8 *arg0) {
         *(f32 *)(arg0 + 0x398) = *(f32 *)(arg0 + 0x388) * scale;
         func_15124AB4(arg0);
         if ((*(u8 **)(arg0 + 0x3D4))[0x197] != 0) {
-            func_15127EB8(arg0);
+            func_15127EB8((struct108 *)arg0);
         }
         func_1512C490(arg0);
         return 1;
@@ -1227,8 +1225,6 @@ typedef struct CameraCameraTargetState {
     s16 field_5FE;
 } CameraCameraTargetState;
 
-f32 fabsf(f32);
-#pragma intrinsic(fabsf)
 
 s32 func_15125490(void *arg0) {
     typedef struct {
@@ -1307,7 +1303,7 @@ void func_15125628(void) {
     u8 v0;
     u8 *p4 = D_800DBFF4;
     u8 *p5 = &D_800DBFF5;
-    u8 *p6 = &D_800DBFF6;
+    u8 *p6 = D_800DBFF6;
     u8 *p7 = &D_800DBFF6[1];
 
     v0 = *p4;
@@ -1501,7 +1497,7 @@ void func_15125A6C(struct108 *arg0) {
         ((struct168 *)&D_800C3600)->unk8 = 0.0f;
         ((struct168 *)&D_800C3600)->unk28 = yaw - 180.0f;
         D_800C365C = 0;
-        func_1512D560(arg0, 7, &D_800C3600);
+        func_1512D560(arg0, 7, (s32)&D_800C3600);
         return;
     }
     if (arg0->unk7E4 != 0) {

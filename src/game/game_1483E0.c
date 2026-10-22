@@ -72,8 +72,6 @@ typedef struct Game1483E0Rotation {
 f32 func_15048A70(f32, f32);
 void func_15173C60(s32, s32);
 void func_1518804C(s32, f32);
-f32 fabsf(f32);
-__pragma(1, fabsf);
 extern f32 D_800A31BC, D_800A31C0, D_800A31C4, D_800A31C8;
 extern u8 D_800BE9B4;
 

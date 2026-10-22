@@ -542,7 +542,7 @@ f32 func_1515F008(s32 arg0, s32 arg1) {
 
     temp_v1 = (s16 *)arg0 + arg1;
     value = *temp_v1;
-    temp_v1 = (u8 *)temp_v1 + 0x20;
+    temp_v1 = (s16 *)((u8 *)temp_v1 + 0x20);
     value = *(u16 *)temp_v1 | (value * 0x10000);
     return (f32)value * 0.000015258789f;
 }
@@ -837,7 +837,7 @@ void func_1515FC60(u8 *arg0, u8 *arg1) {
             }
         }
         func_1505D024((s32)arg0, 0x2F, 0, -1);
-        func_15136C3C(arg0, 1, 1, 1, 1, 0, 0xFF, 1);
+        func_15136C3C((struct Blood36C3CActor *)arg0, 1, 1, 1, 1, 0, 0xFF, 1);
         func_15145A50(arg0);
         func_1507CD64(arg0, 6);
     }

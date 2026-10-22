@@ -178,8 +178,6 @@ f32 func_15048C30(f32, f32);                        /* extern */
 extern f32 D_80099070;
 extern f32 D_80099074;
 
-f32 sqrtf(f32);
-#pragma intrinsic(sqrtf)
 
 f32 func_15048FC8(f32 *arg0) {
     f32 z;

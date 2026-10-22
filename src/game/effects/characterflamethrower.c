@@ -2120,8 +2120,6 @@ typedef struct CharacterFlamethrowerVertex {
 s32 func_15144B34(s32);
 void func_15145548(void *, void *, void *, void *, f32 *);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
-f32 sqrtf(f32);
-#pragma intrinsic(sqrtf)
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1519C56C CURRENT (2597) */
 void *func_1519C56C(CharacterFlamethrowerRibbon *arg0, s16 arg1) {

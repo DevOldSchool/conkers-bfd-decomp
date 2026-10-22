@@ -356,7 +356,7 @@ s32 func_15192358(s32 arg0, s32 arg1) {
         func_151436B4(angle_random * 6.2831855f,
                       (speed_random * 1000.0f + -1207.0f) * factor,
                       (size_random * 3557.0f + 5336.0f) * factor,
-                      &direction);
+                      (f32 *)&direction);
         size_random = func_150ADA68();
         duration_random = func_150ADA20();
         count_random = func_150ADA20();

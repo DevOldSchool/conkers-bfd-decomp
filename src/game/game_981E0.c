@@ -869,7 +869,7 @@ void func_1506D6B4(void)
   unsigned short var_v0;
   struct127 *v0;
   struct127 *new_var;
-  new_var = D_800D154C;
+  new_var = (struct127 *)D_800D154C;
   v0 = new_var;
   temp_f0 = v0->unk118;
   if (v0->unk118 == D_80099D4C)
@@ -991,7 +991,7 @@ void func_1506DBD4(void) {
     }
 }
 void func_1506DC10(void) {
-    struct127 *temp_a1 = D_800D154C;
+    struct127 *temp_a1 = (struct127 *)D_800D154C;
     s32 a0;
     s32 temp_v1;
 
@@ -1002,7 +1002,7 @@ void func_1506DC10(void) {
         } else {
             a0 = temp_v1 + 0x8F;
         }
-        temp_a1 = D_800D154C;
+        temp_a1 = (struct127 *)D_800D154C;
     } else {
         a0 = 9;
     }
@@ -2450,7 +2450,7 @@ void func_15103E40(struct127 *, struct127 *, struct17 *, u8, s32, s32, s32);
 
 void func_15070C40(u8 arg0) {
     struct17 tmp;
-    struct127 *a1 = D_800D154C;
+    struct127 *a1 = (struct127 *)D_800D154C;
 
     tmp.unk0 = a1->x_position;
     tmp.unk4 = a1->y_position;
@@ -2735,8 +2735,9 @@ void func_150717E0(s32 arg0) {
     if (temp_v0 != 0) {
         sp20.ptr = temp_v0;
         sp20.id = ((struct127 *)temp_v0)->unique_id;
-        func_15131D4C((s32)&sp20, 0x43);
-        func_151494E0((s32)&sp20, 0x43);
+        /* Keep (T *)(s32)&sp20: a direct pointer cast changes codegen. */
+        func_15131D4C((Game981E0MenuInput *)(s32)&sp20, 0x43);
+        func_151494E0((void *)(s32)&sp20, 0x43);
     }
 }
 void func_150F9BB0(u8 *arg0, s32 arg1, s32 arg2);
@@ -3706,7 +3707,7 @@ void func_15073A50(void) {
 void func_15073B38(void) {
     f32 a;
     f32 b;
-    struct127 **p = &D_800D154C;
+    struct127 **p = (struct127 **)&D_800D154C;
     a = (f32)(D_800D1580 & 0xFFFF);
     (*p)->unk31C->unkA8 = a;
     b = (f32)((D_800D1580 >> 0x10) & 0xFF);
@@ -3842,7 +3843,7 @@ void func_150746F0(void)
   var_a0 = 0;
   if (D_800BE616 != 0)
   {
-    var_a0 = D_800D154C;
+    var_a0 = (struct127 *)D_800D154C;
   }
   else
   {

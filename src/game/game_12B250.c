@@ -41,7 +41,7 @@ s32 func_150FDDA0(void *arg0, u8 arg1, s32 arg2) {
     locals.sp7C = func_150ADA68();
     locals.sp80 = func_150ADA68();
     random = func_150ADA20();
-    return func_151C229C(&locals.sp8C, 0, &locals.sp8C, &locals.sp98,
+    return func_151C229C(&locals.sp8C, 0, (s32)&locals.sp8C, (s32)&locals.sp98,
                           0, 0, 300.0f, D_800A1F94,
                           (locals.sp7C * 10.0f) + 25.0f,
                           (locals.sp80 * 201.0f) + D_800A1F98, 50.0f,
