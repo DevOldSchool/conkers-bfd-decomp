@@ -29,10 +29,16 @@ typedef struct Game184DF0Actor {
     f32 x;
     f32 y;
     f32 z;
-    u8 pad20[0x12C];
+    u8 pad20[0x103];
+    u8 field_123;
+    u8 pad124[3];
+    u8 field_127;
+    u8 pad128[0x24];
     f32 scaleXZ;
     f32 scaleY;
-    u8 pad154[0x80];
+    u8 pad154[0x74];
+    u8 field_1C8;
+    u8 pad1C9[0xB];
     Game184150Matrix *matrices;
     u8 pad1D8[0x154];
 } Game184DF0Actor;
@@ -149,6 +155,83 @@ s32 func_15184DF0(s32 arg0, s32 arg1, f32 *arg2, f32 *arg3, f32 *arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15184DF0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15184DF0.s")
+typedef struct Game1B1600Command {
+    u32 w0;
+    u32 w1;
+} Game1B1600Command;
+
+void *func_1501A490(void *, s16, s32, s32, s32, s32);
+void *func_1501A680(void *);
+void *func_1502CCFC(void *, s32, s32, Game184150Matrix *, s32, s32 *, s32, s32);
+void func_1510B7B4(void *, s32);
+extern s16 D_80082FA6;
+extern u8 D_8008D3E8[];
+extern u8 D_8008D448[];
+extern u8 D_800BE9C0;
+extern s32 D_800DF088;
+extern u16 D_800DF0D0[];
+extern u8 D_800DF2F8[];
+extern u8 D_89470[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15184FA4 CURRENT (15) */
+void func_15184FA4(Game1B1600Command *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    s32 count;
+    s32 bounds[3];
+
+    if (D_800CC2D0[arg1].field_127 == 0xFF) {
+        count = D_800CC2D0[arg1].field_1C8 + 1;
+    } else {
+        count = D_800CC2D0[arg1].field_1C8;
+    }
+    { Game1B1600Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
+    { Game1B1600Command *command = arg0++; command->w0 = 0xFF48003F; command->w1 = D_800DF088; }
+    { Game1B1600Command *command = arg0++; command->w0 = 0xDE000000; command->w1 = (u32)D_8008D448; }
+    { Game1B1600Command *command = arg0++; command->w0 = 0xDB0E0000; command->w1 = D_800DF0D0[arg2]; }
+    { Game1B1600Command *command = arg0++; command->w0 = 0xDC080008; command->w1 = (u32)D_8008D3E8; }
+    { Game1B1600Command *command = arg0++; command->w0 = 0xDA380007; command->w1 = (u32)(D_800DF2F8 + (arg2 << 7) + (D_800BE9C0 << 6)); }
+    { Game1B1600Command *command = arg0++; command->w0 = 0xDA380003; command->w1 = (u32)D_89470; }
+    bounds[2] = 0;
+    bounds[1] = 0;
+    bounds[0] = 0;
+    arg0 = func_1502CCFC(arg0, arg1, arg3, D_800CC2D0[arg1].matrices, func_1506196C((u8 *)&D_800CC2D0[arg1], arg3), bounds, 3, 1);
+    { Game1B1600Command *command = arg0++; command->w0 = 0xD7000002; command->w1 = 0xFFFFFFFF; }
+    { Game1B1600Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
+    if (count < 2) {
+        { Game1B1600Command *command = arg0++; command->w0 = 0xFCFFFFFF; command->w1 = 0xFFFCF87C; }
+        { Game1B1600Command *command = arg0++; command->w0 = 0xFA000000; command->w1 = 0xFFFFFFFF; }
+        { Game1B1600Command *command = arg0++; command->w0 = 0xEF003C3F; command->w1 = 0x0F0A4000; }
+        { Game1B1600Command *command = arg0++; command->w0 = 0xFD900000; command->w1 = D_800DF088; }
+        { Game1B1600Command *command = arg0++; command->w0 = 0xF5900000; command->w1 = 0x07018060; }
+        { Game1B1600Command *command = arg0++; command->w0 = 0xE6000000; command->w1 = 0; }
+        { Game1B1600Command *command = arg0++; command->w0 = 0xF3000000; command->w1 = 0x077FF100; }
+        { Game1B1600Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
+        { Game1B1600Command *command = arg0++; command->w0 = 0xF5881000; command->w1 = 0x00018060; }
+        { Game1B1600Command *command = arg0++; command->w0 = 0xF2000000; command->w1 = 0x000FC0FC; }
+        { Game1B1600Command *command = arg0++; command->w0 = 0xE40FC0FC; command->w1 = 0; }
+        { Game1B1600Command *command = arg0++; command->w0 = 0xE1000000; command->w1 = 0x00100010; }
+        { Game1B1600Command *command = arg0++; command->w0 = 0xF1000000; command->w1 = 0x04000400; }
+        if (count == 0) {
+            { Game1B1600Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
+            { Game1B1600Command *command = arg0++; command->w0 = 0xFD900000; command->w1 = D_800DF088; }
+            { Game1B1600Command *command = arg0++; command->w0 = 0xF5900000; command->w1 = 0x07018060; }
+            { Game1B1600Command *command = arg0++; command->w0 = 0xE6000000; command->w1 = 0; }
+            { Game1B1600Command *command = arg0++; command->w0 = 0xF3000000; command->w1 = 0x077FF100; }
+            { Game1B1600Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
+            { Game1B1600Command *command = arg0++; command->w0 = 0xF5881000; command->w1 = 0x00018060; }
+            { Game1B1600Command *command = arg0++; command->w0 = 0xF2000000; command->w1 = 0x000FC0FC; }
+            { Game1B1600Command *command = arg0++; command->w0 = 0xE40FC0FC; command->w1 = 0; }
+            { Game1B1600Command *command = arg0++; command->w0 = 0xE1000000; command->w1 = 0x00100010; }
+            { Game1B1600Command *command = arg0++; command->w0 = 0xF1000000; command->w1 = 0x04000400; }
+        }
+        { Game1B1600Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
+    }
+    { Game1B1600Command *command = arg0++; command->w0 = 0xD9FFFFFF; command->w1 = 0x00200001; }
+    arg0 = func_1501A680(arg0);
+    arg0 = func_1501A490(arg0, D_80082FA6, 0, 0, 0, 0);
+    func_1510B7B4(arg0, arg3);
+    D_800CC2D0[arg1].field_123 = 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15184FA4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15184FA4.s")
 void *func_15185454(u8 *arg0, u8 *arg1, u8 *arg2) {
     f32 ratio;

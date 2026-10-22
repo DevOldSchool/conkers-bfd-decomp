@@ -3454,7 +3454,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15197C10",
           "vram": "0x15197C10"
         }
@@ -30583,8 +30588,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1040,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1507C8FC",
           "vram": "0x1507C8FC"
         }
@@ -43363,8 +43373,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1516,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15173D00",
           "vram": "0x15173D00"
         }
@@ -44764,6 +44779,12 @@
       "symbol": "func_151E89A0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 7949,
+        "reason": "Round20 2026-10-22: first C with gbi.h macros (RGBA32 gDPLoadTextureBlockS background when arg3, team env colours, CI4 64x64 gDPLoadTextureBlock_4bS + gDPSetTextureImage/gDPLoadSync/gDPLoadTLUTCmd(6, 15) palette at texture + 0x800, func_151E86E4 rects); s8 hidden-team mask at 0xFF, x/spacing homes at 0xE4/0xE0 match. Residual CURRENT (7949 finish; probe 8230): raw re-reads arg4 from its home every iteration, hoists 0xFB000000 into fp, and keeps left (not left * 4) as the inner induction variable; ours caches arg4 in a spill (frame 0xf8 vs 0x100), uses fp for i and strength-reduces left * 4. u8 hidden 8933 probe (frame exact), for-header left += 8 8610 probe.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -44780,8 +44801,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1092,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151E9D18",
           "vram": "0x151E9D18"
         }
@@ -45008,6 +45034,12 @@
       "symbol": "func_151ED29C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5390,
+        "reason": "Round20 2026-10-22: first C with gDPPipeSync/gDPSetTextureImage/gDPLoadBlock macros and the file's literal F3DEX2 scissored texrect expansion (0xE4/0xE1/0xF1 on one line; plain gbi.h gSPScisTextureRectangle emits F3D 0xB4/0xB3) in a columns x rows tile loop; arg0 is the cursor reassigned from func_151ED29C (file prototype retyped to Game215960Command *, matching every caller); u16 sprite sizes converted as (u32). Frame 0xc8 and named homes exact (column, row, width, height, top, blockSize, resource, dsdx, dtdy, address, continued, remaining, scale). Residual CURRENT (5390): callee-saved allocation differs (raw keeps continued in its home across the first call, x in s5, height s6, dtdy s7, dsdx fp; ours gives continued s5). continued == 0 test and != loops were worse.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -45111,8 +45143,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1032,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151EEBE8",
           "vram": "0x151EEBE8"
         }
@@ -47717,8 +47754,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1008,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15183D28",
           "vram": "0x15183D28"
         }
@@ -51089,6 +51131,12 @@
       "symbol": "func_15184DF0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 15,
+        "reason": "Round20 2026-10-22: first C as one-line command blocks (pipe sync, colour image, display list, persp-normalize, viewport, two matrices, gSPTexture, I8 64x64 LoadTextureBlock + texrect twice, geometry mode). Actor fields 0x123/0x127/0x1C8 named in Game184DF0Actor (pad split only). No actor local (named actor costs a -g3 home) and the final call chain split into one call per statement fix the frame 0xd8. Residual CURRENT (15): the fifth block's cursor copy is a2 where raw uses a3 (a2 unused by raw in that region); joining blocks 3-7 on lines, and a 60 s randomized permuter, did not change it.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -53299,6 +53347,12 @@
       "symbol": "func_151ACB94"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 15046,
+        "reason": "Round20 2026-10-22: first C (line effect spawn: copy 0x24 bytes, reciprocal length, 20 interpolated points of 0x18, two 20x4 vertex strips with tc[0] = (k * width/4 + 0x100) << 5 and colour by D_800BE9F0). Frame 0x40 exact. Residual: raw materialises 20 once in s2 (count store, point loop and vertex row bound across the second alloc) and its unrolled point loop has a skipped peeled iteration (variable-bound unroll); raw divides by a register 19 and converts (f32)19 at runtime. count variable 20881, line->count bounds 19143-20096, literal 20 best.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -54076,8 +54130,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1020,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510C4AC",
           "vram": "0x1510C4AC"
         }
@@ -54446,6 +54505,12 @@
       "symbol": "func_151733D8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 12429,
+        "reason": "Round20 2026-10-22: first C (preset lerp: index = &arg0/&arg1 switch loop with four separate case bodies, colour bytes via Game1A0790Output *out, six s16/u16 destination pointers, -1 fallback to D_800B0DF0 for fieldC/fieldE). Frame 0x70 exact but pointer homes one word high (raw has six named homes before them). Residual CURRENT (12429): raw keeps out in s5 and arg3 in s3 with only 0x7C/0x7D hoisted, and reloads arg0/arg1 after every colour byte store; ours spills out/arg3 and hoists all four case constants. Named t = arg3 copy 12357, ternary index 13089.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -55920,6 +55985,12 @@
       "symbol": "func_151A5130"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1845,
+        "reason": "Round20 2026-10-22: first C (framebuffer copy: pipe sync, combine, prim colour from field_15..17, func_1501A490 result ignored, two passes of 256-wide then remainder columns, per-strip SetTextureImage/SetTile/LoadTile/SetTile/SetTileSize/texrect as literal F3DEX2 _SHIFTL blocks). Homes exact (y, pass, left, columns, rows, width, height, sync at 0xAB); arg2 is s32 (raw converts at the call). end computed in each pass branch and recomputed after each strip: 3295 -> 1845. Residual: raw loads view top twice in each pass branch (once for y, once for end) and reuses the loop-test (f32)y in the clamp; ours CSEs top and reconverts y. Statement orders 1845-1855; 60 s randomized permuter no improvement.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -69402,6 +69473,12 @@
       "symbol": "func_150E6230"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 9860,
+        "reason": "Round20 2026-10-22: first C from the beam-quad family (func_1518EB10 matched; sibling deferred func_151C2AD0): Vec3f start = position (struct copy), memory Vec3f end = position - direction * length, midpoint (d * 0.5f + start - eye), cross product, width/sqrtf scale, four vertices with alpha byte 0xF; if/else return NULL shape. Frame 0xa0 and homes exact (start, end, 12 scalars, lengthSquared, scale, eye, vertices, result, fresh). Residual CURRENT (9860): raw stores end and reloads it from memory, rematerialises 0.5f from at per use and spills the cross product (0x30..0x38); ours forwards end and keeps 0.5f in one FPR. eye before start copy 11973 -> 9860.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71137,8 +71214,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1092,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1518EB10",
           "vram": "0x1518EB10"
         }
@@ -75742,6 +75824,12 @@
       "symbol": "func_151DF574"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2447,
+        "reason": "Round20 2026-10-22: first C (records-screen confirm menu: slot colours, score/time text with seconds = time % 60 and minutes = time / 60 sharing one divu, delete/confirm handling, deferred sound). Frame 0x58 with named option = D_8008FE2C copy; homes slot/alpha/sound/score exact. Residual CURRENT (2447): every t-register from the first branch is one higher than raw (raw t0 hidden temp, ours t0+t1), and the record-pointer spill sits at 0x2C vs raw 0x28 (raw has one more named home). Opening-statement orders unchanged; 60 s permuter 2202 only via fake u64 masks on alpha; alpha & 0xFF in the first colour call 2392.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -75803,8 +75891,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1328,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151E1214",
           "vram": "0x151E1214"
         }
@@ -77077,6 +77170,12 @@
       "symbol": "func_15114188"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 345,
+        "reason": "Round20 2026-10-22: first C (pivot rotation: identity axes[3][3], three axis rotations via func_15048190/func_150A7960, two spin matrices multiplied, offset re-added from origin). Frame 0x100 and homes exact; entry as ((Game13F9D0Pivot *)D_800DBEF4)[arg0] fixes base-first addu (index * 0xA0 + base kept s1 + t). Residual CURRENT (345 finish, 450 probe): the first func_15048190 call rematerialises 1.0f (lui a2) and 0.0f (mtc1 zero) where ours reuses the axes-init 1.0f register and the fs0 zero; named zero local costs a home (frame 0x108). 60 s permuter: 275 only from brace reformatting (-g3 line info), no source change.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -79608,6 +79707,12 @@
       "symbol": "func_1510A40C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5884,
+        "reason": "Round20 2026-10-22: first C from near-sibling func_15197C10 (beam quad with range clamp). Frame 0xc8 and named homes exact (vertices, result, progress, Vec3f tip, 9 scalars, lengthSquared, distance, factor, fresh, eye, scale). Residual CURRENT (5884 finish, probe 5444 with tip z/y/x order): FP allocation keeps start.x spilled at 0x70 while raw holds it in fs5 and spills tip.z/scale to their homes; lengthSquared reuse, range/factor locals, eye placement variants 5444-6629. 60 s randomized permuter best 3650 is invalid (reads tip.x before assignment).",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

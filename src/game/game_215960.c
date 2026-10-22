@@ -10,7 +10,6 @@
  * - func_151E86E4
  * - func_151E89A0
  * - func_151E966C
- * - func_151E9D18
  * - func_151EA15C
  * - func_151EADFC
  * - func_151EB06C
@@ -23,7 +22,6 @@
  * - func_151ED90C
  * - func_151EDF4C
  * - func_151EE184
- * - func_151EEBE8
  * - func_151EEFF0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -149,8 +147,219 @@ Game215960Command *func_151E86E4(Game215960Command *arg0, s32 xl, s32 yl, s32 xh
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151E86E4.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151E89A0.s")
+s32 func_150859AC(s16, s32);
+s32 func_1510D0EC(s32, s32 *, s32, s32);
+Game215960Command *func_151E86E4(Game215960Command *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+extern s8 D_80087268;
+extern s8 D_8008FD8C;
+extern u8 D_800ABA90[][4];
+extern s16 D_800E0AA0[];
+extern s8 D_800E0BB0;
+extern s8 D_800E0C00[];
+extern u8 D_D14[];
+extern u8 D_D16[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E966C CURRENT (7949) */
+Game215960Command *func_151E966C(Game215960Command *arg0, s32 arg1, s32 arg2, s8 arg3, u8 arg4) {
+    s8 hidden;
+    s32 texture;
+    s32 i;
+    s32 j;
+    s32 score;
+    s32 left;
+    s32 x;
+    s32 spacing;
+
+    hidden = 0;
+    if (arg3 != 0) {
+        texture = func_1510D0EC((s32)D_D14, NULL, 3, 0);
+        if (texture == (s32)0x80000000) {
+            return arg0;
+        }
+        gDPPipeSync(arg0++);
+        { Gfx *command = (Gfx *)arg0++; command->words.w0 = 0xFC12FE25; command->words.w1 = 0xFFFFF3F9; }
+        gDPLoadTextureBlockS(arg0++, texture, G_IM_FMT_RGBA, G_IM_SIZ_32b, 32, 32, 0, G_TX_CLAMP, G_TX_CLAMP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
+        gDPSetOtherMode(arg0++, 0x2C3F, 0x504244);
+    }
+    spacing = 0x124;
+    if (D_800E0BB0 > 0) {
+        spacing = 0x124 / D_800E0BB0;
+    }
+    if (arg4 != 0) {
+        hidden = 0xF;
+        for (i = 0; i < D_8008FD8C; i++) {
+            if (func_150859AC(i, 3) != 0) {
+                hidden &= ~(1 << D_800E0C00[i]);
+            }
+        }
+    }
+    x = spacing >> 1;
+    for (i = 0; i < D_800E0BB0; i++) {
+        if (arg4 != 0) {
+            score = func_150859AC(i, 6);
+            D_800E0AA0[i] = score;
+        } else {
+            score = D_800E0AA0[i];
+        }
+        if (!(hidden & (1 << i))) {
+            j = 0;
+            if (i == arg2) {
+                score++;
+            }
+            gDPPipeSync(arg0++);
+            gDPSetEnvColor(arg0++, D_800ABA90[i][0], D_800ABA90[i][1], D_800ABA90[i][2], 0xFF);
+            for (left = x - D_80087268 * 4; j < D_80087268; j++) {
+                if (j == score) {
+                    gDPPipeSync(arg0++);
+                    gDPSetEnvColor(arg0++, 0x40, 0x40, 0x40, 0x40);
+                }
+                arg0 = func_151E86E4(arg0, left * 4, arg1, (left + 7) * 4, arg1 + 0x1C, 0, 0x1C0, 0x200, 0x400, 0x400);
+                left += 8;
+            }
+        }
+        x += spacing;
+    }
+    if (hidden != 0) {
+        texture = func_1510D0EC((s32)(D_D16 + 1), NULL, 3, 0);
+        if (texture == (s32)0x80000000) {
+            return arg0;
+        }
+        gDPPipeSync(arg0++);
+        gDPLoadTextureBlock_4bS(arg0++, texture, G_IM_FMT_CI, 64, 64, 0, G_TX_CLAMP, G_TX_CLAMP, 6, 6, G_TX_NOLOD, G_TX_NOLOD);
+        gDPSetTextureImage(arg0++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, texture + 0x800);
+        gDPLoadSync(arg0++);
+        gDPLoadTLUTCmd(arg0++, 6, 15);
+        gDPSetOtherMode(arg0++, 0xAC3F, 0x504244);
+        x = spacing >> 1;
+        for (i = 0; i < D_800E0BB0; i++) {
+            if (hidden & (1 << i)) {
+                gDPPipeSync(arg0++);
+                gDPSetEnvColor(arg0++, D_800ABA90[i][0], D_800ABA90[i][1], D_800ABA90[i][2], 0xFF);
+                arg0 = func_151E86E4(arg0, (x - 8) * 4, arg1 - 0x18, (x + 8) * 4, arg1 + 0x28, 0, 0x600, 0x280, 0x400, 0x400);
+            }
+            x += spacing;
+        }
+    }
+    gDPPipeSync(arg0++);
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151E966C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151E966C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151E9D18.s")
+typedef struct {
+    f32 amount;
+    u8 pad04[4];
+    f32 transition;
+    u8 pad0C[0x20];
+    s8 selection;
+    u8 pad2D[0x11];
+    s8 mode;
+    u8 pad3F[3];
+    s8 rules;
+    u8 pad43[3];
+    s16 scores[4];
+} Game215960Menu;
+
+extern Game215960Menu *D_8008FDD4;
+extern u16 D_8008FDC0;
+extern s8 D_8008FD8C;
+extern u8 D_D10[];
+extern s16 D_800E0AA0[];
+extern s8 D_800E0C00[];
+extern u8 D_800CC2D0[];
+extern char D_800ABAA0[], D_800ABAA4[];
+s32 func_150859AC(s16, s32);
+s32 func_1510D0EC(s32, s32 *, s32, s32);
+Game215960Command *func_151E86E4(Game215960Command *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+
+Game215960Command *func_151E9D18(Game215960Command *arg0, s32 arg1, s32 arg2) {
+    s32 texture;
+    s32 t;
+    s32 resource;
+    s32 width;
+    s32 red;
+    s32 blue;
+    s32 score;
+    s32 y;
+    s32 leftS;
+    s32 rightS;
+    s32 i;
+    s32 flags;
+
+    y = arg1 - 0x10;
+    if ((D_8008FDC0 & 0x4000) || D_8008FDD4->rules == 8) {
+        if (D_8008FDD4->rules == 8) {
+            resource = (s32)(D_D10 + 2);
+        } else {
+            resource = (s32)(D_D10 + 1);
+        }
+        width = 16;
+        leftS = 0;
+        rightS = 0x200;
+    } else {
+        resource = (s32)D_D10;
+        width = 32;
+        leftS = 0x200;
+        rightS = 0;
+    }
+    texture = func_1510D0EC(resource, NULL, 3, 0);
+    if (texture == (s32)0x80000000) {
+        return arg0;
+    }
+    gDPPipeSync(arg0++);
+    gDPLoadTextureBlockS(arg0++, texture, G_IM_FMT_RGBA, G_IM_SIZ_32b, width, 32, 0, G_TX_CLAMP, G_TX_CLAMP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
+    gDPSetOtherMode(arg0++, 0xC3F, 0x504244);
+    gDPSetEnvColor(arg0++, 0xFF, 0xFF, 0xFF, 0xFF);
+    t = 0;
+    red = 0;
+    blue = 0;
+    if (arg2 != 0) {
+        flags = D_8008FDC0;
+        if (flags & 0x6040) {
+            red = func_150859AC(0, 6);
+            blue = func_150859AC(1, 6);
+        } else if (flags & 0x100) {
+            u8 *player = D_800CC2D0;
+
+
+            for (i = 0; i < D_8008FD8C; i++) {
+                score = func_150859AC(i, 3);
+                if (score < 0) {
+                    score = 0;
+                }
+                if (player[0x128] == 0) {
+                    red += score;
+                } else {
+                    blue += score;
+                }
+                player += 0x32C;
+            }
+        } else {
+            t = 0x200;
+            for (i = 0; i < D_8008FD8C; i++) {
+                score = D_8008FDD4->scores[i];
+                if (score < 0) {
+                    score = 0;
+                }
+                if (D_800E0C00[i] == 0) {
+                    red += score;
+                } else {
+                    blue += score;
+                }
+            }
+        }
+        D_800E0AA0[0] = red;
+        D_800E0AA0[1] = blue;
+    } else {
+        red = D_800E0AA0[0];
+        blue = D_800E0AA0[1];
+    }
+    arg0 = func_151E86E4(arg0, 0x108, y, 0x148, y + 0x40, 0, leftS, t, 0x400, 0x400);
+    arg0 = func_151E86E4(arg0, 0x318, y, 0x358, y + 0x40, 0, 0, t + rightS, 0x400, 0x400);
+    func_1504332C(0xC0, 0xC0, 0xC0, 0xFF);
+    func_15042D94(0x4F, (y >> 2) + 1, 0x80, (s32)D_800ABAA0, blue);
+    func_15042D94(0xD3, (y >> 2) + 1, 0x80, (s32)D_800ABAA4, red);
+    return arg0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EA15C.s")
 typedef struct GameEADFCCommand { u32 upper; u32 lower; } GameEADFCCommand;
 typedef struct GameEADFCPowers { s32 value[7]; } GameEADFCPowers;
@@ -316,7 +525,7 @@ s32 func_151EC178(s32 arg0) {
 
 /* Raw helper15096934 returns its incoming command pointer plus eight bytes. */
 void *func_15096934(void *);
-void *func_151ED430(void *, void *, s32, s32, s32, s32, f32, s32);
+Game215960Command *func_151ED430(Game215960Command *, void *, s32, s32, s32, s32, f32, s32);
 extern u8 D_80090028[];
 extern u8 D_800917F8[];
 extern u8 D_80091804[];
@@ -361,22 +570,11 @@ Game215960Command *func_151EC1F0(Game215960Command *arg0) {
 }
 
 typedef struct {
-    f32 amount;
-    u8 pad04[4];
-    f32 transition;
-    u8 pad0C[0x20];
-    s8 selection;
-    u8 pad2D[0x11];
-    s8 mode;
-} Game215960Menu;
-
-typedef struct {
     s32 value;
     u8 id;
     u8 pad05[0xB];
 } Game215960MenuOption;
 
-extern Game215960Menu *D_8008FDD4;
 extern s8 D_8008FEF8;
 extern s32 D_80090060;
 extern s32 D_800900BC[];
@@ -387,7 +585,7 @@ extern u8 D_800C35EA;
 extern u8 D_800E0A95;
 void *func_151EC648(void *);
 void *func_151EE184(void *);
-void *func_151EEBE8(void *, s32);
+Game215960Command *func_151EEBE8(Game215960Command *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151EC3E8 CURRENT (3247) */
 Game215960Command *func_151EC3E8(Game215960Command *arg0) {
@@ -451,7 +649,7 @@ Game215960Command *func_151EC3E8(Game215960Command *arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EC648.s")
 void *func_15096934(void *);
-void *func_151ED430(void *, void *, s32, s32, s32, s32, f32, s32);
+Game215960Command *func_151ED430(Game215960Command *, void *, s32, s32, s32, s32, f32, s32);
 extern u8 D_80090028[];
 extern u8 D_8009181C[];
 extern u8 D_80091828[];
@@ -553,6 +751,80 @@ void *func_151ED29C(u32 *arg0, u8 *arg1, s32 *arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151ED29C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151ED29C.s")
+typedef struct Game215960Sprite {
+    s32 resource;
+    u8 pad4[2];
+    u16 width;
+    u16 height;
+    u8 format;
+    u8 size;
+} Game215960Sprite;
+
+extern u8 D_8009DEBC[];
+void *func_151ED29C(u32 *, u8 *, s32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ED430 CURRENT (5390) */
+Game215960Command *func_151ED430(Game215960Command *arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, f32 arg6, s32 arg7) {
+    s32 column;
+    s32 row;
+    s32 width;
+    s32 height;
+    s32 top;
+    s32 blockSize;
+    s32 resource;
+    s32 dsdx;
+    s32 dtdy;
+    s32 address;
+    s32 continued;
+    s32 remaining;
+    f32 scale;
+
+    continued = 0;
+    arg0 = func_151ED29C((u32 *)arg0, arg1, &blockSize);
+    if (arg7 < 0) {
+        scale = 1.0f;
+        arg7 = 0;
+    } else {
+        scale = arg6;
+    }
+    resource = ((Game215960Sprite *)arg1)->resource + arg7;
+    width = (u32)((Game215960Sprite *)arg1)->width * scale * D_8008FE1C;
+    height = (u32)((Game215960Sprite *)arg1)->height * arg6 * D_8008FE20;
+    dtdy = 1024.0f / (arg6 * D_8008FE20);
+    dsdx = 1024.0f / (scale * D_8008FE1C);
+    arg2 = (s32)(arg2 * D_8008FE1C) - ((width * arg4) >> 1);
+    arg3 = arg3 * D_8008FE20;
+    top = arg3 - ((height * arg5) >> 1);
+    for (column = 0; column < arg4; column++) {
+        arg3 = top;
+        for (row = 0; row < arg5; row++) {
+            if (!continued) {
+                address = func_1510D0EC(resource, &remaining, 3, 0);
+            }
+            if (address != (s32)0x80000000) {
+                gDPPipeSync(arg0++);
+                gDPSetTextureImage(arg0++, ((Game215960Sprite *)arg1)->format, D_8009DEBC[((Game215960Sprite *)arg1)->size], 1, address);
+                gDPLoadBlock(arg0++, G_TX_LOADTILE, 0, 0, blockSize - 1, 0);
+                { Game215960Command *command = arg0++; command->w0 = (_SHIFTL(0xE4, 24, 8) | _SHIFTL(MAX((s16)(((arg2 + width) << 2)), 0), 12, 12) | _SHIFTL(MAX((s16)(((arg3 + height) << 2)), 0), 0, 12)); command->w1 = (_SHIFTL((0), 24, 3) | _SHIFTL(MAX((s16)((arg2 << 2)), 0), 12, 12) | _SHIFTL(MAX((s16)((arg3 << 2)), 0), 0, 12)); { Game215960Command *command = arg0++; command->w0 = _SHIFTL(0xE1, 24, 8); command->w1 = (u32)((_SHIFTL(((0) - (((s16)((arg2 << 2)) < 0) ? (((s16)(dsdx) < 0) ? (MAX((((s16)((arg2 << 2)) * (s16)(dsdx)) >> 7), 0)) : (MIN((((s16)((arg2 << 2)) * (s16)(dsdx)) >> 7), 0))) : 0)), 16, 16) | _SHIFTL(((0) - ((((arg3 << 2)) < 0) ? (((s16)(dtdy) < 0) ? (MAX((((s16)((arg3 << 2)) * (s16)(dtdy)) >> 7), 0)) : (MIN((((s16)((arg3 << 2)) * (s16)(dtdy)) >> 7), 0))) : 0)), 0, 16))); } { Game215960Command *command = arg0++; command->w0 = _SHIFTL(0xF1, 24, 8); command->w1 = (u32)((_SHIFTL((dsdx), 16, 16) | _SHIFTL((dtdy), 0, 16))); } }
+            }
+            arg3 += height;
+            continued = 0;
+            if (remaining > 0x1000) {
+                continued = 1;
+                if (address != 0) {
+                    address += (blockSize << ((Game215960Sprite *)arg1)->size) >> 1;
+                }
+                remaining -= (blockSize << ((Game215960Sprite *)arg1)->size) >> 1;
+            } else {
+                resource++;
+            }
+        }
+        arg2 += width;
+    }
+    gDPPipeSync(arg0++);
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151ED430 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151ED430.s")
 typedef struct {
     u8 pad0[0x3E0];
@@ -858,7 +1130,50 @@ void func_151EDF4C(void) {
  * Evidence: docs/evidence/assets/naming/text_entry_model_role_names.md.
  */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EE184.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EEBE8.s")
+u32 func_1502B7F0(s32 *, s32, s32);
+extern u8 D_7FB[], D_887[];
+extern u8 D_800E0A94;
+extern u8 D_800E0C85;
+extern s32 D_8009013C;
+
+Game215960Command *func_151EEBE8(Game215960Command *arg0, s32 arg1) {
+    s32 texture;
+
+    gDPPipeSync(arg0++);
+    gDPSetEnvColor(arg0++, 0xFF, 0xFF, 0xFF, D_800E0A94);
+    texture = func_1510D0EC((s32)D_7FB, NULL, 3, 0);
+    if (texture != (s32)0x80000000) {
+        gDPLoadTextureBlockS(arg0++, texture, G_IM_FMT_RGBA, G_IM_SIZ_16b, 48, 32, 0, G_TX_CLAMP, G_TX_MIRROR, 6, 5, G_TX_NOLOD, G_TX_NOLOD);
+        gDPSetOtherMode(arg0++, 0x2C3F, 0x504244);
+        arg0 = func_151E86E4(arg0, 0x190, 0x100, 0x250, 0x200, 0, 0, 0, 0x400, 0x400);
+        arg0 = func_151E86E4(arg0, 0x250, 0x100, 0x310, 0x200, 0, 0x5E0, 0, -0x400, 0x400);
+    }
+    gDPPipeSync(arg0++);
+    texture = func_1510D0EC((s32)D_887, NULL, 3, 0);
+    if (texture != (s32)0x80000000) {
+        gDPLoadTextureBlockS(arg0++, texture, G_IM_FMT_RGBA, G_IM_SIZ_32b, 32, 32, 0, G_TX_CLAMP, G_TX_CLAMP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
+        arg0 = func_151E86E4(arg0, 0x250, 0xBC, 0x290, 0xFC, 0, 0, 0, 0x400, 0x400);
+        arg0 = func_151E86E4(arg0, 0x180, 0xBC, 0x1D0, 0xFC, 0, 0x200, 0x200, 0x400, 0x400);
+    }
+    if (D_800E0C85 != arg1 + 1) {
+        s32 table = 0;
+        u16 *entries;
+
+        if ((u32)arg1 < func_1502B7F0(&table, 1, 0x1D) >> 1) {
+            entries = (u16 *)table;
+            D_8009013C = entries[arg1];
+        } else {
+            D_8009013C = 0;
+        }
+        func_10004074(table);
+        D_800E0C85 = arg1 + 1;
+    }
+    if (D_8009013C != 0) {
+        gDPPipeSync(arg0++);
+        arg0 = func_151ED430(arg0, &D_8009013C, 0x94, 0x60, 1, 2, 1.0f, 0);
+    }
+    return arg0;
+}
 extern s32 D_800E9D00;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151EEFF0 CURRENT (2030) */

@@ -6,14 +6,12 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1510BF60
- * - func_1510C4AC
  * - func_1510C8A8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_139410/func_1510BF60.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_139410/func_1510C4AC.s")
 typedef struct { s16 x, y; } Game139410Point;
 typedef struct {
     u8 pad0[8];
@@ -35,6 +33,54 @@ extern u8 D_800D9E64;
 extern Game139410Buffers D_800B0E10;
 extern s32 D_800BE9E4;
 extern f32 D_800A2CC0;
+void *func_10003C40(s32, s32, s32, s32);
+u8 func_1510BF60(s32, s32, Game139410Vertex **, s32);
+extern s32 D_800B0E00;
+extern s32 D_800B0E04;
+extern s32 D_800917B8;
+
+Game139410Record *func_1510C4AC(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    Game139410Vertex *vertices;
+    s32 count;
+    s32 i;
+    Game139410Record *record;
+
+    if ((s32)D_800D9E64 > 0) {
+        return NULL;
+    }
+    record = func_10003C40(0x14, 1, 0, 0);
+    if (record == NULL) {
+        return NULL;
+    }
+    D_800D9E60[D_800D9E64++] = record;
+    record->disabled = arg1;
+    record->primary = NULL;
+    record->secondary = NULL;
+    record->phase = 0;
+    record->rate = arg2;
+    record->amplitude = arg3;
+    count = func_1510BF60(D_800B0E00, arg0, &vertices, 0);
+    if (count != 0) {
+        record->primaryCount = count;
+        record->primaryIndex = vertices - D_800B0E10.primary;
+        record->primary = func_10003C40(count * 4, 1, 0, 0);
+        for (i = 0; i < count; i++) {
+            record->primary[i].x = vertices[i].x;
+            record->primary[i].y = vertices[i].y;
+        }
+    }
+    count = func_1510BF60(D_800B0E04, D_800917B8, &vertices, 0);
+    if (count != 0) {
+        record->secondaryCount = count;
+        record->secondaryIndex = vertices - D_800B0E10.secondary;
+        record->secondary = func_10003C40(count * 4, 1, 0, 0);
+        for (i = 0; i < count; i++) {
+            record->secondary[i].x = vertices[i].x;
+            record->secondary[i].y = vertices[i].y;
+        }
+    }
+    return record;
+}
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
 

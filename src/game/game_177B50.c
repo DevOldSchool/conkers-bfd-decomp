@@ -14,6 +14,138 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game177B50Vertex {
+    s16 x, y, z, flag;
+    u8 other[8];
+} Game177B50Vertex;
+
+typedef struct Game177B50Beam {
+    u8 unknown0[0x2C];
+    f32 width;
+    f32 progress;
+    Vec3f start;
+    Vec3f end;
+    f32 range;
+    u8 unknown50[0x70];
+    u8 vertexTemplate[0x40];
+    u8 *buffers[1];
+} Game177B50Beam;
+
+typedef struct Game177B50Camera {
+    u8 unknown0[0x2F8];
+    Vec3f position;
+    u8 unknown304[0x69C];
+} Game177B50Camera;
+
+void *func_10022EC0(void *, const void *, u32);
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+extern Game177B50Camera *D_800DBFF0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514A6A0 CURRENT (5884) */
+void *func_1514A6A0(Game177B50Beam *arg0, s16 arg1) {
+    Game177B50Vertex *vertices;
+    void *result;
+    f32 progress;
+    Vec3f tip;
+    f32 dx, dy, dz;
+    f32 vx, vy, vz;
+    f32 nx, ny, nz;
+    f32 lengthSquared;
+    f32 distance;
+    f32 factor;
+    u8 fresh;
+    Vec3f *eye;
+    f32 scale;
+
+    func_151D5D60(arg0->buffers, arg1, 0x40, (void **)&vertices, &fresh);
+    result = vertices;
+    if (vertices != NULL) {
+        if (fresh != 0) {
+            func_10022EC0(arg0->buffers[arg1], arg0->vertexTemplate, 0x40);
+            func_10022EC0(arg0->buffers[arg1] + 0x40, arg0->vertexTemplate, 0x40);
+        }
+    } else {
+        return NULL;
+    }
+    progress = arg0->progress;
+    dx = arg0->end.x - arg0->start.x;
+    dy = arg0->end.y - arg0->start.y;
+    dz = arg0->end.z - arg0->start.z;
+    tip.z = arg0->start.z + dz * progress;
+    tip.y = arg0->start.y + dy * progress;
+    tip.x = arg0->start.x + dx * progress;
+    eye = &D_800DBFF0[arg1].position;
+    dx = tip.x - arg0->start.x;
+    dy = tip.y - arg0->start.y;
+    dz = tip.z - arg0->start.z;
+    distance = dx * dx + dy * dy + dz * dz;
+    if (distance < arg0->range * arg0->range) {
+        factor = 1.0f - sqrtf(distance) / arg0->range;
+        dx += dx * factor;
+        dy += dy * factor;
+        dz += dz * factor;
+    }
+    vx = arg0->start.x - eye->x;
+    vy = arg0->start.y - eye->y;
+    vz = arg0->start.z - eye->z;
+    nx = dy * vz - vy * dz;
+    ny = dz * vx - vz * dx;
+    nz = dx * vy - vx * dy;
+    lengthSquared = nx * nx + ny * ny + nz * nz;
+    if (lengthSquared == 0.0f) {
+        nx = 0.0f;
+        ny = 0.0f;
+        nz = 0.0f;
+    } else {
+        scale = arg0->width / sqrtf(lengthSquared);
+        nx *= scale;
+        ny *= scale;
+        nz *= scale;
+    }
+    vertices->x = arg0->start.x + nx;
+    vertices->y = arg0->start.y + ny;
+    vertices->z = arg0->start.z + nz;
+    vertices->flag = 0;
+    vertices++;
+    vertices->x = arg0->start.x - nx;
+    vertices->y = arg0->start.y - ny;
+    vertices->z = arg0->start.z - nz;
+    vertices->flag = 0;
+    vertices++;
+    dx = -dx;
+    dy = -dy;
+    dz = -dz;
+    vx = tip.x - eye->x;
+    vy = tip.y - eye->y;
+    vz = tip.z - eye->z;
+    nx = dy * vz - vy * dz;
+    ny = dz * vx - vz * dx;
+    nz = dx * vy - vx * dy;
+    lengthSquared = nx * nx + ny * ny + nz * nz;
+    if (lengthSquared == 0.0f) {
+        nx = 0.0f;
+        ny = 0.0f;
+        nz = 0.0f;
+    } else {
+        scale = arg0->width / sqrtf(lengthSquared);
+        nx *= scale;
+        ny *= scale;
+        nz *= scale;
+    }
+    vertices->x = tip.x + nx;
+    vertices->y = tip.y + ny;
+    vertices->z = tip.z + nz;
+    vertices->flag = 0;
+    vertices++;
+    vertices->x = tip.x - nx;
+    vertices->y = tip.y - ny;
+    vertices->z = tip.z - nz;
+    vertices->flag = 0;
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514A6A0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514A6A0.s")
 typedef struct {
     Vec3f position;
