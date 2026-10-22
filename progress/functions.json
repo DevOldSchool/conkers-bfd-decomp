@@ -4184,16 +4184,15 @@
       "symbol": "func_1519CD64"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 970,
-        "reason": "Manual trail interpolation callback; CURRENT 970, float-zero setup, addition operand order, loop scheduling and terminal padding remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_1519CDB0",
           "vram": "0x1519CDB0"
         }
@@ -5268,7 +5267,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Baseline60 onlyfinal38store scheduling. Volatiletail120; concretefloatmatrix/formals3295 addsFPmoves/stores. Original localtype/function restored60; no useful new hypothesis.",
+        "reason": "Baseline60 onlyfinal38store scheduling. Volatiletail120; concretefloatmatrix/formals3295 addsFPmoves/stores. Original localtype/function restored60; no useful new hypothesis. Round19 2026-10-22: randomized permuter 60 s (seed 325937670) no exact; best CURRENT (60).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -9465,17 +9464,16 @@
       "symbol": "func_151CCF08"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "Round6 2026-10-18: CURRENT 700 -> 300 with every body instruction exact (initialized SightUpdateFields *state, named offset, if/else-if). The 300 is three registered trailing nops (unit-end alignment of effects_sight.c, last function) that the focused object does not produce; span/tooling issue like func_15195738, not C.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 156,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151CD224",
           "vram": "0x151CD224"
         }
@@ -13431,7 +13429,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 55,
-        "reason": "CURRENT (55) retained: value1/value2 v1/t1 swap across11 rows; prior declaration/lifetime permutations exhausted. New initialization grouping hypotheses70 both; no progress.",
+        "reason": "CURRENT (55) retained: value1/value2 v1/t1 swap across11 rows; prior declaration/lifetime permutations exhausted. New initialization grouping hypotheses70 both; no progress. Round19 2026-10-22: randomized permuter 60 s (seed 528535925) no exact; best CURRENT (55).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -17037,17 +17035,16 @@
       "symbol": "func_1501A39C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 590,
-        "reason": "Round 13: s16 arg1, one-line gDPPipeSync/gDPSetScissor blocks ((int)((float)x*4.0F) _SHIFTL form) 1325 -> 590; reference float homes sit two words lower (two unknown named locals above them); limit/height or pad locals push the frame to 0x50.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 496,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501A490",
           "vram": "0x1501A490"
         }
@@ -19927,17 +19924,16 @@
       "symbol": "func_1506D950"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 60,
-        "reason": "Round6 2026-10-18: CURRENT 495 -> 60, every instruction/register exact. Natural for (i < 25) search over ((u8 (*)[0x32C])&D_800CC2D0)[i] (IDO peels one row and unrolls two), inline row indexing (a named actor pointer 2390). Left: relocation spelling only, D_800CC2D0+0xAB/+0x65/+0x101/+0x32C/+0x4F4C vs the split reference symbols D_800CC37B/D_800CC335/D_800CC3D1/D_800CC5FC/D_800D121C; linked-alias proof does not resolve them in this unit (same as func_15063C60).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 288,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1506D958",
           "vram": "0x1506D958"
         }
@@ -24605,7 +24601,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Canonical nonzero retained; no accepted exact C after the recorded source/lifetime hypotheses. Upstream single-worker runs 202610151513:5000:budget_complete. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained.",
+        "reason": "Canonical nonzero retained; no accepted exact C after the recorded source/lifetime hypotheses. Upstream single-worker runs 202610151513:5000:budget_complete. Evidence: build/us/manual-attempts/scheduled-20261015-1505; prior exhausted hypotheses retained. Round19 2026-10-22: randomized permuter 60 s (seed 1878807549) no exact; best CURRENT (45).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -32343,17 +32339,16 @@
       "symbol": "func_15105BC8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 60,
-        "reason": "Manual2160->60: typed104-pointer rows, u8 counters and original goto loop restore all instructions/registers except counter MOVE scheduled between table LUI/ADDIU. Reversed initialization and inline table neutral60; structured for/do loops hoist increments. Best60 preserved; ledger deferred-manual-20260927.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 188,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15105C24",
           "vram": "0x15105C24"
         }
@@ -34802,8 +34797,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 394,
-        "reason": "Two manual probes exhausted: natural XYZ structs394 neutral; named scaled-Y/reordered store491 regresses frame40 and eliminates raw intermediate Y store. Original394 restored. FP lifetimes/scheduling unresolved; ledger deferred-manual-20260927.",
+        "current_score": 84,
+        "reason": "Two manual probes exhausted: natural XYZ structs394 neutral; named scaled-Y/reordered store491 regresses frame40 and eliminates raw intermediate Y store. Original394 restored. FP lifetimes/scheduling unresolved; ledger deferred-manual-20260927. Round19 2026-10-22: randomized permuter 60 s (seed 1356777679) no exact from build/us/manual-attempts/round19/ms-chain.tsv.best/func_15107B78.c; best CURRENT (44).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -40356,17 +40351,16 @@
       "symbol": "func_1502BEE4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 320,
-        "reason": "Reuse actual812-byte actor layout with named fields:940. Shared fullword active/model temporary and explicit creation branches380; initialize needed after model cache and name returned effect320. Frame/registers equal; global-address initialization and creation-store branch-delay scheduling remain. Three bounded manual candidates; no artificial barriers.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 476,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1502C1A4",
           "vram": "0x1502C1A4"
         }
@@ -51575,7 +51569,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 55,
-        "reason": "Round 13: typed cursor one-line blocks, gDPSetPrimColor alpha via _SHIFTL with block-local duration/alpha, index/offset declared before the matrices and a for (index = 0, offset = 0; index != 12; ...) loop: 2728 -> 55. Remaining: in the prim-colour block raw puts the cursor copy in v1 and duration in a1 (candidate a0/v1); function-scope or inlined duration/alpha forms 80-1501.",
+        "reason": "Round 13: typed cursor one-line blocks, gDPSetPrimColor alpha via _SHIFTL with block-local duration/alpha, index/offset declared before the matrices and a for (index = 0, offset = 0; index != 12; ...) loop: 2728 -> 55. Remaining: in the prim-colour block raw puts the cursor copy in v1 and duration in a1 (candidate a0/v1); function-scope or inlined duration/alpha forms 80-1501. Round19 2026-10-22: randomized permuter 60 s (seed 2787762066) no exact; best CURRENT (55).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -58444,17 +58438,16 @@
       "symbol": "func_1509CA98"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT (10): D_80087430+0xFF0 versus D_80088420 relocation spelling. Four-entry/pointer loops score 1910/3005; symbolic indexed loops 2400/2880; continue probe 1910. Original retained. Historical main evidence: CURRENT (10), improved from 30: natural for (i < 204) count loop over D_80087430 reproduces IDO's 4x unroll and every instruction; only residual is the end-address reloc spelling D_80087430+0xFF0 versus raw D_80088420 (finish does not resolve it; sized [204] declaration also left it). Needs reloc/alias resolution, not C changes. Ledger: build/us/manual-attempts/deferred-20261018/ledger.md; review ledger: build/us/manual-attempts/pr149-review/ledger.md; durable review: docs/evidence/matching/pr149-review.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 108,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509CB68",
           "vram": "0x1509CB68"
         }
@@ -60180,17 +60173,16 @@
       "symbol": "func_150428D4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 330,
-        "reason": "Round6 2026-10-18: recheck, every instruction exact. CURRENT (330) is reloc spelling only (D_80085930+1/+2/+3 vs reference D_80085931/2/3 split symbols) plus three registered unit-end nops; tooling/span limitation, not C.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 272,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15042C40",
           "vram": "0x15042C40"
         }
@@ -65326,17 +65318,16 @@
       "symbol": "func_1509C7C8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "CURRENT (200) on 2026-10-17 recheck: every executable instruction exact; only the two registered trailing span nops at +0x10C/+0x110 are missing (unit-end padding not produced here, unlike other last-in-file items). Source unchanged.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 276,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509C8FC",
           "vram": "0x1509C8FC"
         }
@@ -71645,8 +71636,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 640,
-        "reason": "CURRENT 640 after 975,640,640. Correct 0x38 frame and stack homes; remaining six sentinel register rows and final branch-tail scheduling/size. Two targeted revisions exhausted. Next hypothesis: a named query-result lifetime instead of sentinel constant, or nested final conditional shape.",
+        "current_score": 40,
+        "reason": "CURRENT 640 after 975,640,640. Correct 0x38 frame and stack homes; remaining six sentinel register rows and final branch-tail scheduling/size. Two targeted revisions exhausted. Next hypothesis: a named query-result lifetime instead of sentinel constant, or nested final conditional shape. Round19 2026-10-22: randomized permuter 60 s (seed 2925624937) no exact from build/us/manual-attempts/round19/v/7e00/lit.c; best CURRENT (30).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -73519,7 +73510,7 @@
           "vram": "0x151A6B10"
         }
       },
-      "source": "src/game/game_1D3FC0.c",
+      "source": "src/done/game/game_1D3FC0.c",
       "symbol": "func_151A6B10"
     },
     {
@@ -73537,7 +73528,7 @@
           "vram": "0x151A6B3C"
         }
       },
-      "source": "src/game/game_1D3FC0.c",
+      "source": "src/done/game/game_1D3FC0.c",
       "symbol": "func_151A6B3C"
     },
     {
@@ -73555,26 +73546,25 @@
           "vram": "0x151A6B68"
         }
       },
-      "source": "src/game/game_1D3FC0.c",
+      "source": "src/done/game/game_1D3FC0.c",
       "symbol": "func_151A6B68"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 60,
-        "reason": "Manual4235->60: corrected masked counters, typed0x1A0 pointertable, inlinebucket and explicit nested-loop exits. All instructions/registers exact except initial move v0,zero scheduled between global LUI/ADDIU. Inlinebase and explicit initialization order neutral60; best preserved, see deferred-manual-20260927 ledger.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 184,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A6BD8",
           "vram": "0x151A6BD8"
         }
       },
-      "source": "src/game/game_1D3FC0.c",
+      "source": "src/done/game/game_1D3FC0.c",
       "symbol": "func_151A6BD8"
     },
     {
@@ -75945,17 +75935,16 @@
       "symbol": "func_151037DC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 469,
-        "reason": "Typed 0x58-byte emission payload and source-local callback/allocator contracts. First candidate840; inline lifetime/timed ternaries recovered prefix to469. Remaining0xB0 vs0xA8 frame/stack-slot offsets and one node-store/flag-load branch scheduling difference. No padding, volatility or automated permutations. Preserve469 for fresh storage evidence.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 460,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A8B20",
           "vram": "0x151A8B20"
         }
@@ -79423,8 +79412,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 230,
-        "reason": "Improved 1120 to 230 with ROM-backed 0.001f (D_800A1374 bytes3a83126f); exact 0x110 frame and FP loop registers. Remaining zero materialization/packet address scheduling and two flags GPR rows. Three renewed probe batches and one finish; zero store ordering, chained/named zero, compound/left flags plateaued. Literal mapping required if later matched.",
+        "current_score": 10,
+        "reason": "Improved 1120 to 230 with ROM-backed 0.001f (D_800A1374 bytes3a83126f); exact 0x110 frame and FP loop registers. Remaining zero materialization/packet address scheduling and two flags GPR rows. Three renewed probe batches and one finish; zero store ordering, chained/named zero, compound/left flags plateaued. Literal mapping required if later matched. Round19 2026-10-22: randomized permuter 60 s (seed 3616174254) no exact from build/us/manual-attempts/round19/ms-blk.tsv.best/func_150E8470.c; best CURRENT (10).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -79897,7 +79886,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "PR121 review uses one u8 entry pointer per iteration, preserving unsigned numerical traversal and canonical CURRENT60. No load/call/store ordering or bounds changed. Prior endpoint probes remain exhausted; no new search. See https://github.com/DevOldSchool/conkers-bfd-decomp/blob/dbedd671496fa3a9ee4191841e9fd3858621b814/docs/evidence/matching/pr121-review.md.",
+        "reason": "PR121 review uses one u8 entry pointer per iteration, preserving unsigned numerical traversal and canonical CURRENT60. No load/call/store ordering or bounds changed. Prior endpoint probes remain exhausted; no new search. See https://github.com/DevOldSchool/conkers-bfd-decomp/blob/dbedd671496fa3a9ee4191841e9fd3858621b814/docs/evidence/matching/pr121-review.md. Round19 2026-10-22: randomized permuter 60 s (seed 166238421) no exact; best CURRENT (60).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -84131,7 +84120,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Best CURRENT60 restored: same-source Copy3 aggregate fixes final word-copy registers; explicit elapsed local80 and direct globalfactor590 regress. Remaining branch/address operands and FP allocation.",
+        "reason": "Best CURRENT60 restored: same-source Copy3 aggregate fixes final word-copy registers; explicit elapsed local80 and direct globalfactor590 regress. Remaining branch/address operands and FP allocation. Round19 2026-10-22: randomized permuter 60 s (seed 2398302786) no exact; best CURRENT (50).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

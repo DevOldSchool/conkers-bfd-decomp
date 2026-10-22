@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1501A490
  * - func_1501A764
  * - func_1501A8C0
  * - func_1501B0A0
@@ -105,38 +104,35 @@ extern s32 D_800BE624;
 extern s32 D_800BE628;
 
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501A490 CURRENT (590) */
 Game476D0DisplayCommand *func_1501A490(Game476D0DisplayCommand *arg0, s16 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
-    f32 sp3C;
-    f32 sp38;
-    f32 sp34;
-    f32 sp30;
-    u8 *record;
-
     { Game476D0DisplayCommand *command = arg0++; command->words.word0 = 0xE7000000; command->words.word1 = 0; }
     if (arg1 == 0xFF) {
         { Game476D0DisplayCommand *command = arg0++; command->words.word0 = _SHIFTL(0xED, 24, 8) | _SHIFTL((s32)((f32)(2) * 4.0f), 12, 12) | _SHIFTL((s32)((f32)(0) * 4.0f), 0, 12); command->words.word1 = _SHIFTL(arg5, 24, 2) | _SHIFTL((s32)((f32)(D_800BE620 - 2) * 4.0f), 12, 12) | _SHIFTL((s32)((f32)(D_800BE624) * 4.0f), 0, 12); }
     } else {
-        record = (u8 *)(D_800BE628 + arg1 * 0x180);
-        sp3C = *(f32 *)(record + 0x2C);
-        sp38 = *(f32 *)(record + 0x30);
-        sp34 = *(f32 *)(record + 0x24);
+        f32 ulx;
+        f32 lrx;
+        f32 uly;
+        f32 lry;
+        u8 *record;
+
+        record = (u8 *)D_800BE628 + arg1 * 0x180;
+        ulx = *(f32 *)(record + 0x2C);
+        lrx = *(f32 *)(record + 0x30);
+        uly = *(f32 *)(record + 0x24);
         if (arg4 != 0) {
             if ((f32)arg4 < *(f32 *)(record + 0x28)) {
-                sp30 = (f32)arg4;
+                lry = (f32)arg4;
             } else {
-                sp30 = *(f32 *)(record + 0x28);
+                lry = *(f32 *)(record + 0x28);
             }
         } else {
-            sp30 = *(f32 *)(record + 0x28);
+            lry = *(f32 *)(record + 0x28);
         }
-        func_1501AF44(&sp3C, &sp34, &sp38, &sp30);
-        { Game476D0DisplayCommand *command = arg0++; command->words.word0 = _SHIFTL(0xED, 24, 8) | _SHIFTL((s32)((f32)(sp3C) * 4.0f), 12, 12) | _SHIFTL((s32)((f32)(sp34) * 4.0f), 0, 12); command->words.word1 = _SHIFTL(arg5, 24, 2) | _SHIFTL((s32)((f32)(sp38) * 4.0f), 12, 12) | _SHIFTL((s32)((f32)(sp30) * 4.0f), 0, 12); }
+        func_1501AF44(&ulx, &uly, &lrx, &lry);
+        { Game476D0DisplayCommand *command = arg0++; command->words.word0 = _SHIFTL(0xED, 24, 8) | _SHIFTL((s32)((f32)(ulx) * 4.0f), 12, 12) | _SHIFTL((s32)((f32)(uly) * 4.0f), 0, 12); command->words.word1 = _SHIFTL(arg5, 24, 2) | _SHIFTL((s32)((f32)(lrx) * 4.0f), 12, 12) | _SHIFTL((s32)((f32)(lry) * 4.0f), 0, 12); }
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501A490 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_476D0/func_1501A490.s")
 extern s32 D_8002AAE8[];
 extern u8 D_800BE9C0;
 

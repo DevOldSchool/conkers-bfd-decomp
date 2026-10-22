@@ -373,18 +373,18 @@ typedef struct GameE8470State {
 
 extern f32 D_800A1368, D_800A136C, D_800A1370, D_800A1374;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E8470 CURRENT (230) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E8470 CURRENT (10) */
 void func_150E8470(void *arg0) {
     void *result;
     GameE8470Descriptor packet;
     GameE8470Extension extension;
-    f32 speedScale;
     s32 firstFlip, secondFlip;
     GameE8470State *state;
 
     state = (GameE8470State *)((u8 *)arg0 + 0x28);
     state->pending += (D_800A1368 + func_150ADA68() * D_800A136C) * D_800BE9A4;
     if (state->pending > 1.0f) {
+        f32 speedScale;
         packet.field1D = 0x6C;
         packet.field08 = 0x5103;
         packet.field00 = 0x200005;

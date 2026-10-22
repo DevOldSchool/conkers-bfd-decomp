@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1D3FC0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_recovered_pointer_helper_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151A6BD8
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_151A6AB8(void *arg0);
@@ -55,7 +50,6 @@ void func_151A6B68(Game1D3FC0Actor *arg0, s32 arg1) {
 extern s32 D_800A5770[];
 extern u8 D_800DCE50[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A6BD8 CURRENT (60) */
 Game1D3FC0Node *func_151A6BD8(s32 arg0) {
     typedef struct { Game1D3FC0Node *heads[0x68]; } NodeTable;
     NodeTable *tables = (NodeTable *)D_800DCE50;
@@ -63,9 +57,7 @@ Game1D3FC0Node *func_151A6BD8(s32 arg0) {
     s32 inner;
     Game1D3FC0Node *node;
 
-    outer = 0;
-outer_loop:
-    inner = 0;
+    outer = 0; outer_loop: inner = 0;
 inner_loop:
     node = tables[inner].heads[D_800A5770[outer]];
     if (node != 0) {
@@ -87,5 +79,3 @@ next_inner:
     }
     goto inner_loop;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A6BD8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D3FC0/func_151A6BD8.s")

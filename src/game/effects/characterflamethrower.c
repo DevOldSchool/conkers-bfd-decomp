@@ -30,7 +30,6 @@
  * - func_1519C26C
  * - func_1519C56C
  * - func_1519C9C4
- * - func_1519CDB0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -2372,10 +2371,7 @@ typedef struct CharacterFlamethrowerTrailPoint {
 
 s32 func_1505D1C4(f32, f32, f32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519CDB0 CURRENT (970) */
 void func_1519CDB0(CharacterFlamethrowerActor *arg0, f32 arg1, s32 arg2) {
-    f32 interpolated_z;
-    f32 distance;
     f32 spacing;
     f32 factor;
     f32 total;
@@ -2391,11 +2387,13 @@ void func_1519CDB0(CharacterFlamethrowerActor *arg0, f32 arg1, s32 arg2) {
     points = arg0->points;
     previous = arg0->position;
     if (arg0->unk2C >= 2) {
+        f32 interpolated_z;
         total = 0.0f;
         spacing = state->spacing * arg1;
         index = arg0->point_end;
         next = 0.0f;
         do {
+            f32 distance;
             index--;
             if (index < 0) {
                 index = arg0->point_capacity - 1;
@@ -2406,9 +2404,9 @@ void func_1519CDB0(CharacterFlamethrowerActor *arg0, f32 arg1, s32 arg2) {
             if (next <= total) {
                 identity = state->identity;
                 factor = (total - next) / distance;
-                func_1505D1C4(point->position[0] + ((previous[0] - point->position[0]) * factor),
-                    point->position[1] + ((previous[1] - point->position[1]) * factor),
-                    (interpolated_z = point->position[2] + ((previous[2] - point->position[2]) * factor)), arg2,
+                func_1505D1C4(((previous[0] - point->position[0]) * factor) + point->position[0],
+                    ((previous[1] - point->position[1]) * factor) + point->position[1],
+                    (interpolated_z = ((previous[2] - point->position[2]) * factor) + point->position[2]), arg2,
                     ((s32)identity - (s32)D_800CC2D0) / 0x32C,
                     identity->unk76, 0, 0);
                 next += spacing;
@@ -2417,5 +2415,3 @@ void func_1519CDB0(CharacterFlamethrowerActor *arg0, f32 arg1, s32 arg2) {
         } while (index != arg0->point_index);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519CDB0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519CDB0.s")
