@@ -43373,8 +43373,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1516,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15173D00",
           "vram": "0x15173D00"
         }
@@ -44774,6 +44779,12 @@
       "symbol": "func_151E89A0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 7949,
+        "reason": "Round20 2026-10-22: first C with gbi.h macros (RGBA32 gDPLoadTextureBlockS background when arg3, team env colours, CI4 64x64 gDPLoadTextureBlock_4bS + gDPSetTextureImage/gDPLoadSync/gDPLoadTLUTCmd(6, 15) palette at texture + 0x800, func_151E86E4 rects); s8 hidden-team mask at 0xFF, x/spacing homes at 0xE4/0xE0 match. Residual CURRENT (7949 finish; probe 8230): raw re-reads arg4 from its home every iteration, hoists 0xFB000000 into fp, and keeps left (not left * 4) as the inner induction variable; ours caches arg4 in a spill (frame 0xf8 vs 0x100), uses fp for i and strength-reduces left * 4. u8 hidden 8933 probe (frame exact), for-header left += 8 8610 probe.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -45023,6 +45034,12 @@
       "symbol": "func_151ED29C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5390,
+        "reason": "Round20 2026-10-22: first C with gDPPipeSync/gDPSetTextureImage/gDPLoadBlock macros and the file's literal F3DEX2 scissored texrect expansion (0xE4/0xE1/0xF1 on one line; plain gbi.h gSPScisTextureRectangle emits F3D 0xB4/0xB3) in a columns x rows tile loop; arg0 is the cursor reassigned from func_151ED29C (file prototype retyped to Game215960Command *, matching every caller); u16 sprite sizes converted as (u32). Frame 0xc8 and named homes exact (column, row, width, height, top, blockSize, resource, dsdx, dtdy, address, continued, remaining, scale). Residual CURRENT (5390): callee-saved allocation differs (raw keeps continued in its home across the first call, x in s5, height s6, dtdy s7, dsdx fp; ours gives continued s5). continued == 0 test and != loops were worse.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -51114,6 +51131,12 @@
       "symbol": "func_15184DF0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 15,
+        "reason": "Round20 2026-10-22: first C as one-line command blocks (pipe sync, colour image, display list, persp-normalize, viewport, two matrices, gSPTexture, I8 64x64 LoadTextureBlock + texrect twice, geometry mode). Actor fields 0x123/0x127/0x1C8 named in Game184DF0Actor (pad split only). No actor local (named actor costs a -g3 home) and the final call chain split into one call per statement fix the frame 0xd8. Residual CURRENT (15): the fifth block's cursor copy is a2 where raw uses a3 (a2 unused by raw in that region); joining blocks 3-7 on lines, and a 60 s randomized permuter, did not change it.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -54476,6 +54499,12 @@
       "symbol": "func_151733D8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 12429,
+        "reason": "Round20 2026-10-22: first C (preset lerp: index = &arg0/&arg1 switch loop with four separate case bodies, colour bytes via Game1A0790Output *out, six s16/u16 destination pointers, -1 fallback to D_800B0DF0 for fieldC/fieldE). Frame 0x70 exact but pointer homes one word high (raw has six named homes before them). Residual CURRENT (12429): raw keeps out in s5 and arg3 in s3 with only 0x7C/0x7D hoisted, and reloads arg0/arg1 after every colour byte store; ours spills out/arg3 and hoists all four case constants. Named t = arg3 copy 12357, ternary index 13089.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

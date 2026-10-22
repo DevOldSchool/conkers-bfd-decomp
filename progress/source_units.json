@@ -6266,7 +6266,7 @@
         "us": {
           "end": "0x174690",
           "start": "0x173D00",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1A11B0.c"
