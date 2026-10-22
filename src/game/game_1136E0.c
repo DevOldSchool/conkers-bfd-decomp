@@ -188,7 +188,6 @@ s32 func_150E679C(void *arg0) {
     }
     return 1;
 }
-void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
 
 typedef struct Game1136E0Descriptor {
     s32 field_0;

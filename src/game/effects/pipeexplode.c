@@ -182,7 +182,6 @@ typedef struct {
 
 typedef struct { s16 kind[3]; } PipeExplodeKinds;
 
-void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
 extern PipeExplodeKinds D_80088700;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B37C8 CURRENT (1894) */

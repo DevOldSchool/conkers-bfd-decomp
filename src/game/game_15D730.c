@@ -427,9 +427,9 @@ typedef struct {
 } Game15D730Args;
 
 extern Game15D730Args D_800A37F0;
-void func_15169260(Game15D730Args *, s32, s32, u8);
+void func_15169260(Game15D730Args *, s32, void *, u8);
 
-void func_15131D4C(s32 arg0, u8 arg1) {
+void func_15131D4C(void *arg0, u8 arg1) {
     Game15D730Args sp1C;
 
     sp1C = D_800A37F0;

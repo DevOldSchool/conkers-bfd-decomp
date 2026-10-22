@@ -2718,13 +2718,6 @@ void func_15071764(s32 arg0) {
     }
 }
 
-typedef struct {
-    void *field_0;
-    u8 field_4;
-} Game981E0MenuInput;
-
-void func_15131D4C(Game981E0MenuInput *, s32);
-
 void func_150717E0(s32 arg0) {
     struct {
         struct127 *ptr;
@@ -2735,8 +2728,10 @@ void func_150717E0(s32 arg0) {
     if (temp_v0 != 0) {
         sp20.ptr = temp_v0;
         sp20.id = ((struct127 *)temp_v0)->unique_id;
-        /* Keep (T *)(s32)&sp20: a direct pointer cast changes codegen. */
-        func_15131D4C((Game981E0MenuInput *)(s32)&sp20, 0x43);
+        /* Both callees take pointers, but the integer address (s32)&sp20 is
+         * what IDO saves once and reloads for the second call; a plain &sp20
+         * is recomputed per call (CURRENT 300). */
+        func_15131D4C((void *)(s32)&sp20, 0x43);
         func_151494E0((void *)(s32)&sp20, 0x43);
     }
 }
