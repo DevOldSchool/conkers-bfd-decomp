@@ -123,13 +123,13 @@ s32 func_15013778(u8 *arg0) {
         packet.position[0] = (f32)*(s16 *)(arg0 + 0);
         packet.position[1] = (f32)*(s16 *)(arg0 + 2);
         packet.position[2] = (f32)*(s16 *)(arg0 + 4);
-        func_150A8050(matrix, *(f32 *)(arg0 + 0xC), *(f32 *)(arg0 + 0x10), 0.0f);
+        func_150A8050((f32 *)matrix, *(f32 *)(arg0 + 0xC), *(f32 *)(arg0 + 0x10), 0.0f);
         func_150A7960(matrix, 0.0f, packet.height, 0.0f,
                       &packet.direction[0], &packet.direction[1], &packet.direction[2]);
         packet.direction[0] *= inverse;
         packet.direction[1] *= inverse;
         packet.direction[2] *= inverse;
-        result = func_15149130(0x12C, -1, 0x19, -1, 0, 0x17, 0x34, 0xFF, 0);
+        result = (s32)func_15149130(0x12C, -1, 0x19, -1, 0, 0x17, 0x34, 0xFF, 0);
         if (result != 0) {
             func_10022EC0((void *)(result + 0x28), &packet, 0x34);
         }
@@ -518,7 +518,7 @@ s32 func_150144B8(u8 *arg0) {
     packet.height = (f32)*(s16 *)(arg0 + 8) * packet.inverse;
     packet.arc = func_150484A0((f32)*(s16 *)(arg0 + 6), (f32)*(s16 *)(arg0 + 8));
     packet.factor = (f32)((*(u32 *)(arg0 + 0x1C) >> 16) & 0xFFU) * 0.00390625f * 0.7853982f;
-    value = func_15149130(0x12C, -1, 0x2A, -1, 0, 0, 0x38, 0xFF, 0);
+    value = (u32)func_15149130(0x12C, -1, 0x2A, -1, 0, 0, 0x38, 0xFF, 0);
     if (value != 0) {
         func_10022EC0((void *)((u32)value + 0x28U), &packet, 0x38);
     }
@@ -575,7 +575,7 @@ s32 func_15014F6C(struct134 *arg0) {
     p.unk4 = arg0->unk18 & 0xFFFF;
     p.unk8 = ((u32) arg0->unk18 >> 16) & 0xFFFF;
     p.unkC = (func_150ADA20() % (u32) (p.unk8 + 1)) + p.unk4;
-    func_150A8050(p.mtx, *(f32 *) &arg0->unkC, *(f32 *) &arg0->unk10, 0.0f);
+    func_150A8050((f32 *)p.mtx, *(f32 *) &arg0->unkC, *(f32 *) &arg0->unk10, 0.0f);
     p.mtx[3][0] = (f32) arg0->unk0;
     p.mtx[3][1] = (f32) (s16) arg0->unk2;
     p.mtx[3][2] = (f32) arg0->unk4;

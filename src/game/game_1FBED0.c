@@ -104,7 +104,7 @@ void *func_151CEAAC(void *arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4) {
     locals.link.random0 = func_150ADA68() * 400.0f + 400.0f;
     random = func_150ADA68();
     locals.link.random1 = (random + random) * D_800AB008;
-    if (func_151CEC10(locals.spawn.position, arg0, arg1) == 0) {
+    if (func_151CEC10(locals.spawn.position, arg0, (void *)arg1) == 0) {
         locals.spawn.position[0] = 0.0f;
         locals.spawn.position[1] = 0.0f;
         locals.spawn.position[2] = 0.0f;

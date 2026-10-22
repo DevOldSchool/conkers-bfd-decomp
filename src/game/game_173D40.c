@@ -180,7 +180,7 @@ void func_15146BF8(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
                           (u32)(*(f32 *)((u32)arg0 + 0x40U) * D_800A5724) & 0xFF,
                           locals.position, (u8)arg1);
             if (arg2 >= 0x73) {
-                func_15142180(2, locals.position, locals.work[6], 1.0f, 1.0f);
+                func_15142180(2, (s32 *)locals.position, locals.work[6], 1.0f, 1.0f);
             }
         }
     }

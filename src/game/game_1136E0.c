@@ -225,7 +225,7 @@ s32 func_150E67D0(u8 *arg0) {
     descriptor.field_15 = 0xFF;
     descriptor.field_18 = 0x130001;
     temp_v1 = arg0 + 0x110;
-    func_1513C73C((s32 *)&descriptor, 0, 0, temp_v1 + 0x14,
+    func_1513C73C((s32)&descriptor, 0, 0, (s32)(temp_v1 + 0x14),
                   *(f32 *)(temp_v1 + 4), *(f32 *)(temp_v1 + 8),
                   *(f32 *)(temp_v1 + 0xC), 50.0f, 50.0f,
                   func_150ADA20() & 0xFF, 0, 0, arg0[0xC], arg0[1]);

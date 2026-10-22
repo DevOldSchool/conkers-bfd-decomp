@@ -494,7 +494,7 @@ extern void (*D_80089B70[])(BloodState *);
 
 void func_100111C8(u16 arg0);
 void func_1513532C(struct102 *arg0) {
-    void (**tbl)(struct102 *) = D_80089B70;
+    void (**tbl)(struct102 *) = (void (**)(struct102 *))D_80089B70;
     s32 idx = *(u8 *)((s32)arg0 + 0x50);
     u16 tmp;
 
@@ -513,7 +513,7 @@ void func_1513532C(struct102 *arg0) {
 extern void (*D_80089B88[])(BloodState *);
 
 void func_151353A8(struct102 *arg0) {
-    void (**tbl)(struct102 *) = D_80089B88;
+    void (**tbl)(struct102 *) = (void (**)(struct102 *))D_80089B88;
     s32 idx = *(u8 *)((s32)arg0 + 0x50);
     u16 tmp;
 
@@ -1266,7 +1266,7 @@ void func_15137E60(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4,
     f32 scale;
 
     func_15137F30(arg0, arg1, arg2, arg3, arg4, (struct259 *)arg5, position, direction,
-                   vector, &value, &count, &alpha, &scale);
+                   vector, &value, &count, (u8 *)&alpha, &scale);
     func_151D9014(position, vector, 0, value, count, (u8)alpha, scale, 0,
                    1.0f, 1.0f, 1, 0, 1, 0, arg5[0xC], arg5[1]);
 }
@@ -1576,14 +1576,14 @@ void func_15138BC0(s32 arg0, u8 arg1, s32 arg2) {
     u8 sp28[0x20];
     s32 temp_v0;
     u8 *a1p = &arg1;
-    temp_v0 = func_15134070(arg0);
+    temp_v0 = func_15134070((void *)arg0);
     if (temp_v0 != 0x63) {
-        sp28[0x1F] = func_151380B4(arg0, temp_v0, (s32)sp50);
-        func_15138120(arg0, temp_v0, 1);
+        sp28[0x1F] = func_151380B4((Blood1380B4State *)arg0, temp_v0, (f32 *)sp50);
+        func_15138120((Blood1380B4State *)arg0, temp_v0, 1);
         if (sp28[0x1F] != 0) {
-            func_1504715C(sp28 - 8, arg0);
-            func_151382E0(sp50, temp_v0, (s32)(sp28 - 8), *a1p, arg2);
-            func_15138424(arg0, sp50, temp_v0, sp28 - 8, *a1p, arg2);
+            func_1504715C(sp28 - 8, (void *)arg0);
+            func_151382E0((f32 *)sp50, temp_v0, (void *)(sp28 - 8), *a1p, arg2);
+            func_15138424((Blood1380B4State *)arg0, (f32 *)sp50, temp_v0, sp28 - 8, *a1p, arg2);
         }
     }
 }

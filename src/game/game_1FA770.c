@@ -34,7 +34,7 @@ s32 func_151CD2C0(void *arg0, u8 arg1, s32 arg2) {
     packet.field_4 = *(s32 *)((u8 *)arg0 + 0x18);
     packet.field_8 = 0;
     packet.field_C = (s8) *(s32 *)((u8 *)arg0 + 0x1C);
-    result = func_15149130(0x12C, -1, -1, -1, 0, 0x1E, 0x10, (s32) arg1, arg2);
+    result = (s32)func_15149130(0x12C, -1, -1, -1, 0, 0x1E, 0x10, (s32) arg1, arg2);
     if (result != 0) {
         func_10022EC0((void *)(result + 0x28), &packet, 0x10);
     }

@@ -874,7 +874,7 @@ void func_1519E570(u8 *arg0, Game1CA420Event *arg1, u8 arg2) {
     if (arg2 == 0) {
         if (arg1->removed.actor == link->actor ||
             arg1->removed.generation == link->generation) {
-            func_1516972C((s32)arg0);
+            func_1516972C((void *)arg0);
         }
     } else if (arg2 == 0x2D) {
         if (link->actor == arg1->swapped.first) {

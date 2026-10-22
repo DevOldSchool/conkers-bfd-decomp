@@ -49,7 +49,7 @@ s32 func_150E1060(u8 arg0, u8 arg1, s32 arg2) {
     func_1510F800(0);
     payload.value = func_1510FD20(payload.object->field_10, payload.object->field_14);
     payload.zero = 0.0f;
-    result = func_15149130(0x12C, -1, 0x1F, -1, 0, 0x1F, 0x10, arg1, arg2);
+    result = (s32)func_15149130(0x12C, -1, 0x1F, -1, 0, 0x1F, 0x10, arg1, arg2);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0x28, &payload, 0x10U);
     }

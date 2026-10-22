@@ -306,7 +306,7 @@ struct225 *func_15160A58(struct127 *arg0, u8 arg1, void *arg2, u8 arg3, s16 arg4
     s.h2.unk8 = 0;
     s.tmp.unk14 = argB;
     s.tmp.unk15 = argD;
-    v0 = func_151602C0(&s.h, &s.h2, arg5, arg6, arg7, arg8, 0xFF, 0, argC + sizeof(s.tmp), argE, argF);
+    v0 = (struct225 *)func_151602C0((u8 *)&s.h, (s32 *)&s.h2, arg5, arg6, arg7, arg8, 0xFF, 0, argC + sizeof(s.tmp), argE, argF);
     if (v0 != 0) {
         func_10022EC0(&v0->unk18, &s.tmp, sizeof(s.tmp));
     }
@@ -1328,8 +1328,8 @@ s32 func_151638E0(struct225 *arg0) {
     f32 sp1C;
 
     temp_v1 = (struct227 *)&arg0->unk18;
-    func_15187FC0(*(struct227 **)&arg0->unk18, sp20);
-    func_15188010(*(struct227 **)temp_v1, &sp1C);
+    func_15187FC0((s32)*(struct227 **)&arg0->unk18, sp20);
+    func_15188010((s32)*(struct227 **)temp_v1, &sp1C);
     arg0->unk14->unk2F = temp_v1->unk4 + (temp_v1->unk8 * sp1C);
     return 1;
 }
@@ -1417,7 +1417,7 @@ s32 func_15163BE8(void *arg0, u8 arg1, s32 arg2) {
     values[1] = D_800A69B4;
     values[2] = func_150ADA68() * D_800A6B0C;
     values[3] = D_800A69EC;
-    var_v1 = func_15160A58(arg0, 1, &D_800A6A0C, 2, 0x12C, 0x64, 0, 0xFF, 0, 0xFF, 0, 0, 0x10, 1, arg1, arg2);
+    var_v1 = (s32)func_15160A58(arg0, 1, &D_800A6A0C, 2, 0x12C, 0x64, 0, 0xFF, 0, 0xFF, 0, 0, 0x10, 1, arg1, arg2);
     if (var_v1 != 0) {
         func_10022EC0((void *)(var_v1 + 0x30), values, 0x10);
     }

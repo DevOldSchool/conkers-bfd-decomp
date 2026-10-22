@@ -523,7 +523,7 @@ void func_151424F4(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
     mtx[2][0] *= arg6 * arg1;
     mtx[2][1] *= arg7 * arg1;
     mtx[2][2] *= arg8 * arg1;
-    func_150A7790(mtx, arg0);
+    func_150A7790(mtx, (s32)arg0);
 }
 /* Call context: func_150A7790: unique active declaration in the allowed source */
 f32 sqrtf(f32);
@@ -2008,7 +2008,7 @@ s32 func_151454BC(u8 arg0, f32 arg1, void *arg2) {
     f32 temp_fv1;
     void *temp_v0;
 
-    temp_v0 = func_15144B34((s32) arg0);
+    temp_v0 = (void *)func_15144B34((s32) arg0);
     temp_fv0 = *(f32 *)((u8 *)arg2 + 0) - *(f32 *)((u8 *)temp_v0 + 0);
     temp_fv1 = *(f32 *)((u8 *)arg2 + 4) - *(f32 *)((u8 *)temp_v0 + 4);
     temp_fa0 = *(f32 *)((u8 *)arg2 + 8) - *(f32 *)((u8 *)temp_v0 + 8);

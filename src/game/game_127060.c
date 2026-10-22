@@ -426,7 +426,7 @@ s32 func_150FB188(Game127060State *arg0) {
     transform.field8 = 0.0f;
     transform.fieldC = 0.3f;
     transform.field10 = 0.3f;
-    func_15157DEC(arg0, &transform);
+    func_15157DEC((u8 *)arg0, (u8 *)&transform);
     return 1;
 }
 

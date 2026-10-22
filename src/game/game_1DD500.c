@@ -452,7 +452,7 @@ void func_151B1918(u8 *arg0) {
         s32 *entry = list->entries[i];
 
         if (list->entries[i][0] != 0) {
-            func_1516972C(entry[0]);
+            func_1516972C((void *)entry[0]);
         }
         entry[0] = 0;
         entry[1] = 0;
