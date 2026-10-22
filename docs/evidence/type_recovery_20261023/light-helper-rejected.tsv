@@ -1,0 +1,14 @@
+stored	new	frame	ref_frame	function	source	detail
+90	90	0x38	0x38	func_15160B74	src/game/effects/light.c	-
+106	106	0x80	0x90	func_151A91AC	src/game/game_1D6570.c	-
+220	220	0x58	0x58	func_151A90C0	src/game/game_1D6570.c	-
+881	881	0xb8	0xb0	func_151A9834	src/game/game_1D6570.c	-
+978	978	0x18	0x18	func_151640C0	src/game/effects/light.c	-
+1000	1000	0x20	0x30	func_151630F4	src/game/effects/light.c	-
+2422	2422	0x50	0x40	func_151A5F70	src/game/game_1D3420.c	-
+2915	2915	0x18	0x18	func_15161F4C	src/game/effects/light.c	-
+3909	3909	0x68	0x68	func_1516295C	src/game/effects/light.c	-
+5219	5219	0xa8	0x98	func_151A9390	src/game/game_1D6570.c	-
+5395	5395	0xe0	0xd8	func_151A6068	src/game/game_1D3420.c	-
+160	260	leaf	leaf	func_151A931C	src/game/game_1D6570.c	-
+628	728	0x38	0x38	func_15162B28	src/game/effects/light.c	-

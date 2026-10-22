@@ -103,3 +103,52 @@ independently extracted reference byte for byte (SHA-1
 Existing SDK `cc` option warnings are separate. No asset reconstruction inputs
 changed; this validates the GAME image and mapped data, not reconstructed assets.
 Whitespace checks passed.
+
+## Examined leads rejected this round
+
+| Lead | Evidence and trial | Decision |
+| --- | --- | --- |
+| Shared 0x74-byte emitter particle (layout cluster #15) | Seven copies with identical field names and types, backed by five matched readers. Deleted only local definitions, replaced type names, and included a focused shared header. All 20 candidates in touched files compile; score sum **35,619 -> 35,619**. | No score reduction. Restored all eight existing files and removed the trial header; no inventory changes. [Trial scores](particle-promotion-rejected.tsv). |
+| `func_1516284C` light helper | Its matched `effects/light.c` definition proves byte parameters 6, 7, 9 and 10. Shared that signature and removed the two wider local declarations. All 13 source-family candidates compile; score sum **24,123 -> 24,123**. Callers already pass bytes or in-range constants. | No score reduction; restored all three trial files. [Trial scores](light-helper-rejected.tsv). |
+| `D_800BE9A4` integer view | Almost all declarations are `f32`; `game_6C960.c` declares `s32` to pass unchanged bits to `func_1507BDB0`. Raw instructions at `0x1503F57C` and `0x1507C2F0` load integer words into `a1`; the callee consumes them with `mtc1` at `0x1507BDBC`. | A plain numerical conversion would change meaning. An isolated global retype is insufficient; leave the bit-view/ABI family for coordinated review. No trial edit retained. |
+| Collision result's 0x18 word | `Game71820Hit.object` holds object pointers in some paths and material indices in others, including matched `func_1504697C`. Several nominally equivalent hit layouts name it `owner` and use different point-array spellings. | A pointer-only shared field cannot represent every proven user. Do not rename matched fields or impose that definition. No trial edit retained. |
+| `func_1505E650` animation signature | Active callers use floats while the saved callee candidate uses integer words and type-punned float reads. The actual baseline candidate fails compilation because its signature conflicts with the active declaration. | Stored 4,967 is not a measured baseline. Coordinate the complete ABI family before claiming any score reduction or adopting one spelling. No trial edit retained. |
+
+The two executable rejected trials did not run `finish`, modify inventories,
+or leave type/source changes behind. Their restored implementation files are
+byte-identical to the clean-batch-tested lead commit. No permutations ran.
+
+## Next five leads
+
+These are investigation priorities after the rejected isolated retypes above.
+Counts include only successfully measured deferred dependents, and sums weight
+whole-function scores; overlapping symbols must not be added together. The
+counts are upper bounds on possible impact, not predicted improvements.
+
+| Priority | Shared contract to recover | Scored deferred dependents | Score weight | First evidence to resolve |
+| ---: | --- | ---: | ---: | --- |
+| 1 | `D_800CC2D0` actor pool and its 0x32C record | 153 (four more baseline errors) | 337,469 | Byte/scalar/array views and padded typed records disagree. Establish consistent owner and real-field roles from matched readers before extending a shared actor definition. |
+| 2 | `D_800DBFF0` global root pointer | 35 (one more baseline error) | 101,170 | Integer, byte-pointer, void-pointer and several typed views. Trace matched readers to distinguish shared prefixes from distinct owner/extension records. |
+| 3 | `D_800D154C` actor pointer | 43 | 86,474 | Byte arithmetic in `game_981E0.c` and dense typed field access in `game_A28B0.c`; reconcile the actor layout before changing global declarations. |
+| 4 | `D_800A5480` three-word vector/copy contract | 20 | 55,645 | `Vec3f`, integer arrays and named three-word structs. Separate numerical field reads from bitwise aggregate copies and preserve matched load/store widths. |
+| 5 | `func_150A8050` matrix-builder arguments | 17 | 54,869 | Float triples in matched callers versus integer-word angle views in `game_1E37D0.c`; audit the raw callee and full caller ABI before sharing one signature. |
+
+
+## Final round result
+
+The [final full exact sweep](final.tsv), run after restoring both rejected
+trials, scores all 1,384 candidates again in 108.2 seconds. It confirms exactly
+the four listed score changes, the same 49 unscored compiler failures, and the
+same four pre-existing zeros. No other candidate improves or regresses.
+
+| Round | Successfully scored candidates | Score sum before | Score sum after | Net reduction | New matches |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Shared prototype recovery | 1,335 | 2,794,626 | 2,793,996 | **630** | **0** |
+
+One shared prototype lead is kept; two score-neutral executable trials and
+three broader retypes are rejected with reasons above. Every implementation
+and inventory file equals tested commit
+`2bc84781a42edfa1d671f9235e2ec5daefe15bce`; subsequent changes add evidence
+only. The clean `BATCH_COMPLETE` and zero-new-warning results therefore apply
+to the final code. The required per-lead gates ran before that lead's commit.
+No assembly, compiler settings, tooling or asset reconstruction inputs changed.
