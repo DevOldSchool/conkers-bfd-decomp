@@ -138,12 +138,12 @@ void func_15179600(s32 arg0, s32 arg1) {
     base_x = (s32)*(f32 *)(camera + 0x2F8);
     base_y = (s32)*(f32 *)(camera + 0x2FC);
     base_z = (s32)*(f32 *)(camera + 0x300);
-    x = (func_150ADA20() % 500) + base_x;
-    z = (func_150ADA20() % 500) + base_z;
+    x = ((s32)func_150ADA20() % 500) + base_x;
+    z = ((s32)func_150ADA20() % 500) + base_z;
     if (arg0 == 0) {
         y = base_y + 500;
     } else {
-        y = (func_150ADA20() % 500) + base_y;
+        y = ((s32)func_150ADA20() % 500) + base_y;
     }
     random = (u32)func_150ADA20() % 10U;
     *(s16 *)(packet + 0x9C) = 0;
@@ -307,8 +307,8 @@ void func_15179B14(s32 arg0) {
     if (arg0 > 0) {
         sentinel = D_800A7208;
         do {
-            x = baseX + func_150ADA20() % 500;
-            z = baseZ + func_150ADA20() % 500;
+            x = baseX + (s32)func_150ADA20() % 500;
+            z = baseZ + (s32)func_150ADA20() % 500;
             value = func_1510F8D8(x, 0x2710, z, 0);
             if (sentinel != (f32)value) {
                 *(s32 *)(packet + 0x80) = 0;

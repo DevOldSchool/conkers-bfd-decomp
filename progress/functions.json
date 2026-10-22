@@ -54885,7 +54885,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 283,
-        "reason": "CURRENT (283): signed random/control flow align and frame 0xF8 now matches, but one-word local padding overshoots packet base to sp+0x2C versus raw sp+0x28, leaving 22 stack rows plus three register-only rows; two bounded layout revisions improved 2977 to 373 to 283",
+        "reason": "Round19 2026-10-22: three '% 500' sites cast to s32 ((s32)func_150ADA20() % 500): the shared u32 func_150ADA20() prototype (272da566) had made them divu (883); raw divides signed. Back to the prior residual: CURRENT (283): signed random/control flow align and frame 0xF8 now matches, but one-word local padding overshoots packet base to sp+0x2C versus raw sp+0x28, leaving 22 stack rows plus three register-only rows; two bounded layout revisions improved 2977 to 373 to 283",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -54941,7 +54941,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 303,
-        "reason": "CURRENT (303): instruction/operand pattern otherwise aligns; only 15 packet stack-address rows and frame/base offsets differ after two manual revisions",
+        "reason": "Round19 2026-10-22: both '% 500' sites cast to s32: the shared u32 func_150ADA20() prototype (272da566) had made them divu (3244); raw divides signed. Back to the prior residual: CURRENT (303): instruction/operand pattern otherwise aligns; only 15 packet stack-address rows and frame/base offsets differ after two manual revisions",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
