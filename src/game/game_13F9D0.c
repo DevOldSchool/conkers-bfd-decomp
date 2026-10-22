@@ -546,6 +546,77 @@ void func_15114188(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15114188 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114188.s")
+typedef struct Game13F9D0Pivot {
+    f32 angleX;
+    f32 angleY;
+    f32 angleZ;
+    u8 padC[4];
+    s16 pivot[3];
+    u8 pad16[0x44];
+    s16 origin[3];
+    f32 spinX;
+    f32 spinY;
+    f32 spinZ;
+    u8 pad6C[0x34];
+} Game13F9D0Pivot;
+
+void func_15048190(f32 (*)[4], f32, f32, f32, f32);
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+void func_150A7A48(void *, void *, void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15114348 CURRENT (345) */
+void func_15114348(s32 arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
+    f32 dx;
+    f32 dy;
+    f32 dz;
+    f32 rx;
+    f32 ry;
+    f32 rz;
+    f32 matrix[4][4];
+    f32 rotation[4][4];
+    f32 axes[3][3];
+
+    axes[0][0] = 1.0f;
+    axes[0][1] = 0.0f;
+    axes[0][2] = 0.0f;
+    axes[1][0] = 0.0f;
+    axes[1][1] = 1.0f;
+    axes[1][2] = 0.0f;
+    axes[2][0] = 0.0f;
+    axes[2][1] = 0.0f;
+    axes[2][2] = 1.0f;
+    dx = *arg1 - ((Game13F9D0Pivot *)D_800DBEF4)[arg0].pivot[0];
+    dy = *arg2 - ((Game13F9D0Pivot *)D_800DBEF4)[arg0].pivot[1];
+    dz = *arg3 - ((Game13F9D0Pivot *)D_800DBEF4)[arg0].pivot[2];
+    if (((Game13F9D0Pivot *)D_800DBEF4)[arg0].angleX != 0.0f) {
+        func_15048190(matrix, ((Game13F9D0Pivot *)D_800DBEF4)[arg0].angleX, 1.0f, 0.0f, 0.0f);
+        func_150A7960(matrix, axes[1][0], axes[1][1], axes[1][2], &axes[1][0], &axes[1][1], &axes[1][2]);
+        func_150A7960(matrix, axes[2][0], axes[2][1], axes[2][2], &axes[2][0], &axes[2][1], &axes[2][2]);
+    }
+    if (((Game13F9D0Pivot *)D_800DBEF4)[arg0].angleZ != 0.0f) {
+        func_15048190(matrix, ((Game13F9D0Pivot *)D_800DBEF4)[arg0].angleZ, axes[2][0], axes[2][1], axes[2][2]);
+        func_150A7960(matrix, axes[1][0], axes[1][1], axes[1][2], &axes[1][0], &axes[1][1], &axes[1][2]);
+        func_150A7960(matrix, axes[0][0], axes[0][1], axes[0][2], &axes[0][0], &axes[0][1], &axes[0][2]);
+    }
+    if (((Game13F9D0Pivot *)D_800DBEF4)[arg0].angleY != 0.0f) {
+        func_15048190(matrix, ((Game13F9D0Pivot *)D_800DBEF4)[arg0].angleY, axes[1][0], axes[1][1], axes[1][2]);
+        func_150A7960(matrix, axes[0][0], axes[0][1], axes[0][2], &axes[0][0], &axes[0][1], &axes[0][2]);
+        func_150A7960(matrix, axes[2][0], axes[2][1], axes[2][2], &axes[2][0], &axes[2][1], &axes[2][2]);
+    }
+    func_15048190(matrix, ((Game13F9D0Pivot *)D_800DBEF4)[arg0].spinX, axes[0][0], axes[0][1], axes[0][2]);
+    func_15048190(rotation, ((Game13F9D0Pivot *)D_800DBEF4)[arg0].spinZ, axes[2][0], axes[2][1], axes[2][2]);
+    func_150A7A48(matrix, rotation, matrix);
+    func_15048190(rotation, ((Game13F9D0Pivot *)D_800DBEF4)[arg0].spinY, axes[1][0], axes[1][1], axes[1][2]);
+    func_150A7A48(matrix, rotation, matrix);
+    func_150A7960(matrix, dx, dy, dz, &rx, &ry, &rz);
+    rx = ((Game13F9D0Pivot *)D_800DBEF4)[arg0].origin[0] + (rx - dx);
+    ry = ((Game13F9D0Pivot *)D_800DBEF4)[arg0].origin[1] + (ry - dy);
+    rz = ((Game13F9D0Pivot *)D_800DBEF4)[arg0].origin[2] + (rz - dz);
+    *arg1 += rx;
+    *arg2 += ry;
+    *arg3 += rz;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15114348 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114348.s")
 typedef struct Game13F9D0MovingActor {
     u8 pad0[0x14];

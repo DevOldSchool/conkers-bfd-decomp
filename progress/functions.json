@@ -55979,6 +55979,12 @@
       "symbol": "func_151A5130"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1845,
+        "reason": "Round20 2026-10-22: first C (framebuffer copy: pipe sync, combine, prim colour from field_15..17, func_1501A490 result ignored, two passes of 256-wide then remainder columns, per-strip SetTextureImage/SetTile/LoadTile/SetTile/SetTileSize/texrect as literal F3DEX2 _SHIFTL blocks). Homes exact (y, pass, left, columns, rows, width, height, sync at 0xAB); arg2 is s32 (raw converts at the call). end computed in each pass branch and recomputed after each strip: 3295 -> 1845. Residual: raw loads view top twice in each pass branch (once for y, once for end) and reuses the loop-test (f32)y in the clamp; ours CSEs top and reconverts y. Statement orders 1845-1855; 60 s randomized permuter no improvement.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -69461,6 +69467,12 @@
       "symbol": "func_150E6230"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 9860,
+        "reason": "Round20 2026-10-22: first C from the beam-quad family (func_1518EB10 matched; sibling deferred func_151C2AD0): Vec3f start = position (struct copy), memory Vec3f end = position - direction * length, midpoint (d * 0.5f + start - eye), cross product, width/sqrtf scale, four vertices with alpha byte 0xF; if/else return NULL shape. Frame 0xa0 and homes exact (start, end, 12 scalars, lengthSquared, scale, eye, vertices, result, fresh). Residual CURRENT (9860): raw stores end and reloads it from memory, rematerialises 0.5f from at per use and spills the cross product (0x30..0x38); ours forwards end and keeps 0.5f in one FPR. eye before start copy 11973 -> 9860.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -77141,6 +77153,12 @@
       "symbol": "func_15114188"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 345,
+        "reason": "Round20 2026-10-22: first C (pivot rotation: identity axes[3][3], three axis rotations via func_15048190/func_150A7960, two spin matrices multiplied, offset re-added from origin). Frame 0x100 and homes exact; entry as ((Game13F9D0Pivot *)D_800DBEF4)[arg0] fixes base-first addu (index * 0xA0 + base kept s1 + t). Residual CURRENT (345 finish, 450 probe): the first func_15048190 call rematerialises 1.0f (lui a2) and 0.0f (mtc1 zero) where ours reuses the axes-init 1.0f register and the fs0 zero; named zero local costs a home (frame 0x108). 60 s permuter: 275 only from brace reformatting (-g3 line info), no source change.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

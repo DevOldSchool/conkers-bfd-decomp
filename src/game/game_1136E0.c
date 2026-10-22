@@ -67,6 +67,113 @@ s8 func_150E6230(Game1136E0MotionActor *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150E6230 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1136E0/func_150E6230.s")
+typedef struct Game1136E0StripVertex {
+    s16 x, y, z, flag;
+    u8 pad8[7];
+    u8 alpha;
+} Game1136E0StripVertex;
+
+typedef struct Game1136E0Strip {
+    u8 pad0[0x2C];
+    f32 width;
+    f32 length;
+    Vec3f position;
+    Vec3f direction;
+    u8 pad4C[0x10];
+    u8 alpha;
+    u8 pad5D[0x63];
+    u8 vertexTemplate[0x40];
+    u8 *buffers[1];
+} Game1136E0Strip;
+
+typedef struct Game1136E0Camera {
+    u8 pad0[0x2F8];
+    Vec3f position;
+    u8 pad304[0x69C];
+} Game1136E0Camera;
+
+void *func_10022EC0(void *, const void *, u32);
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+extern Game1136E0Camera *D_800DBFF0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E63A0 CURRENT (9860) */
+void *func_150E63A0(Game1136E0Strip *arg0, s16 arg1) {
+    Vec3f start;
+    Vec3f end;
+    f32 dx, dy, dz;
+    f32 mx, my, mz;
+    f32 nx, ny, nz;
+    f32 ox, oy, oz;
+    f32 lengthSquared;
+    f32 scale;
+    Vec3f *eye;
+    Game1136E0StripVertex *vertices;
+    void *result;
+    u8 fresh;
+
+    func_151D5D60(arg0->buffers, arg1, 0x40, (void **)&vertices, &fresh);
+    result = vertices;
+    if (vertices != NULL) {
+        if (fresh != 0) {
+            func_10022EC0(arg0->buffers[arg1], arg0->vertexTemplate, 0x40);
+            func_10022EC0(arg0->buffers[arg1] + 0x40, arg0->vertexTemplate, 0x40);
+        }
+    } else {
+        return NULL;
+    }
+    eye = &D_800DBFF0[arg1].position;
+    start = arg0->position;
+    end.x = arg0->position.x - arg0->direction.x * arg0->length;
+    end.y = arg0->position.y - arg0->direction.y * arg0->length;
+    end.z = arg0->position.z - arg0->direction.z * arg0->length;
+    dx = end.x - start.x;
+    mx = dx * 0.5f + start.x - eye->x;
+    dy = end.y - start.y;
+    my = dy * 0.5f + start.y - eye->y;
+    dz = end.z - start.z;
+    mz = dz * 0.5f + start.z - eye->z;
+    nx = dy * mz - my * dz;
+    ny = dz * mx - mz * dx;
+    nz = dx * my - mx * dy;
+    lengthSquared = nx * nx + ny * ny + nz * nz;
+    if (lengthSquared == 0.0f) {
+        oz = 0.0f;
+        ox = 0.0f;
+        oy = 0.0f;
+    } else {
+        scale = arg0->width / sqrtf(lengthSquared);
+        ox = nx * scale;
+        oy = ny * scale;
+        oz = nz * scale;
+    }
+    vertices->x = start.x - ox;
+    vertices->y = start.y - oy;
+    vertices->z = start.z - oz;
+    vertices->alpha = arg0->alpha;
+    vertices->flag = 0;
+    vertices++;
+    vertices->x = end.x - ox;
+    vertices->y = end.y - oy;
+    vertices->z = end.z - oz;
+    vertices->alpha = 0;
+    vertices->flag = 0;
+    vertices++;
+    vertices->x = end.x + ox;
+    vertices->y = end.y + oy;
+    vertices->z = end.z + oz;
+    vertices->alpha = 0;
+    vertices->flag = 0;
+    vertices++;
+    vertices->x = start.x + ox;
+    vertices->y = start.y + oy;
+    vertices->z = start.z + oz;
+    vertices->alpha = arg0->alpha;
+    vertices->flag = 0;
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E63A0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1136E0/func_150E63A0.s")
 s32 func_150E679C(void *arg0) {
     s16 temp_v0;
