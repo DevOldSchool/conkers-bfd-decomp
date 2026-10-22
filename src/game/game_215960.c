@@ -688,66 +688,28 @@ extern u8 D_8009DEB4[];
 extern u8 D_8009DEB8[];
 extern u8 D_8009DEBC[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ED29C CURRENT (4255) */
-void *func_151ED29C(u32 *arg0, u8 *arg1, s32 *arg2) {
-    s32 temp_at;
-    s32 temp_at_2;
-    s32 temp_t2;
-    s32 temp_t5;
-    s32 temp_t6;
-    s32 var_a2;
-    s32 var_t1;
-    s32 var_v0;
-    u16 temp_t0;
-    u16 temp_v1;
-    u8 temp_a3;
-    u8 temp_a3_2;
-    u32 *cursor;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ED29C CURRENT (1755) */
+void *func_151ED29C(Gfx *arg0, u8 *arg1, s32 *arg2) {
+    s32 masks;
+    s32 maskt;
+    s32 i;
+    s32 fmt;
 
-    temp_a3 = arg1[0xB];
-    var_v0 = 1;
-    var_t1 = 2;
-    *arg2 = (D_8009DEB0[temp_a3] +
-             (*(u16 *)(arg1 + 6) * *(u16 *)(arg1 + 8))) >>
-            D_8009DEB4[temp_a3];
-    temp_t0 = *(u16 *)(arg1 + 6);
-    if (temp_t0 >= 3) {
-        do {
-            temp_t5 = var_t1 * 2;
-            temp_at = temp_t5 < temp_t0;
-            var_t1 = temp_t5;
-            var_v0 += 1;
-        } while (temp_at != 0);
-        var_t1 = 2;
+    *arg2 = (D_8009DEB0[arg1[0xB]] + *(u16 *)(arg1 + 6) * *(u16 *)(arg1 + 8)) >> D_8009DEB4[arg1[0xB]];
+    masks = 1;
+    for (i = 2; i < *(u16 *)(arg1 + 6); i *= 2) {
+        masks++;
     }
-    temp_v1 = *(u16 *)(arg1 + 8);
-    var_a2 = 1;
-    cursor = arg0;
-    if (temp_v1 >= 3) {
-        do {
-            temp_t6 = var_t1 * 2;
-            temp_at_2 = temp_t6 < temp_v1;
-            var_t1 = temp_t6;
-            var_a2 += 1;
-        } while (temp_at_2 != 0);
+    maskt = 1;
+    for (i = 2; i < *(u16 *)(arg1 + 8); i *= 2) {
+        maskt++;
     }
-    cursor[0] = 0xE7000000;
-    cursor[1] = 0;
-    cursor += 2;
-    temp_t2 = ((arg1[0xA] & 7) << 21) | 0xF5000000;
-    cursor[0] = ((D_8009DEBC[arg1[0xB]] & 3) << 19) | temp_t2;
-    cursor[1] = 0x07000000;
-    cursor += 2;
-    temp_a3_2 = arg1[0xB];
-    cursor[0] = (((((D_8009DEB8[temp_a3_2] * *(u16 *)(arg1 + 6)) + 7) >> 3)
-                & 0x1FF) << 9) | temp_t2 | ((temp_a3_2 & 3) << 19);
-    cursor[1] = ((var_a2 & 0xF) << 14) | 0x80000 | 0x200 | ((var_v0 & 0xF) * 0x10);
-    cursor += 2;
-    cursor[0] = 0xF2000000;
-    cursor[1] = ((((*(u16 *)(arg1 + 6) - 1) * 4) & 0xFFF) << 12) |
-              (((*(u16 *)(arg1 + 8) - 1) * 4) & 0xFFF);
-    cursor += 2;
-    return cursor;
+    gDPPipeSync(arg0++);
+    fmt = arg1[0xA];
+    gDPSetTile(arg0++, fmt, D_8009DEBC[arg1[0xB]], 0, 0, G_TX_LOADTILE, 0, 0, 0, 0, 0, 0, 0);
+    gDPSetTile(arg0++, fmt, arg1[0xB], ((D_8009DEB8[arg1[0xB]] * *(u16 *)(arg1 + 6)) + 7) >> 3, 0, G_TX_RENDERTILE, 0, G_TX_CLAMP, maskt, G_TX_NOLOD, G_TX_CLAMP, masks, G_TX_NOLOD);
+    gDPSetTileSize(arg0++, G_TX_RENDERTILE, 0, 0, (*(u16 *)(arg1 + 6) - 1) << G_TEXTURE_IMAGE_FRAC, (*(u16 *)(arg1 + 8) - 1) << G_TEXTURE_IMAGE_FRAC);
+    return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151ED29C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151ED29C.s")
@@ -761,7 +723,7 @@ typedef struct Game215960Sprite {
 } Game215960Sprite;
 
 extern u8 D_8009DEBC[];
-void *func_151ED29C(u32 *, u8 *, s32 *);
+void *func_151ED29C(Gfx *, u8 *, s32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151ED430 CURRENT (5390) */
 Game215960Command *func_151ED430(Game215960Command *arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, f32 arg6, s32 arg7) {
@@ -780,7 +742,7 @@ Game215960Command *func_151ED430(Game215960Command *arg0, void *arg1, s32 arg2, 
     f32 scale;
 
     continued = 0;
-    arg0 = func_151ED29C((u32 *)arg0, arg1, &blockSize);
+    arg0 = func_151ED29C((Gfx *)arg0, arg1, &blockSize);
     if (arg7 < 0) {
         scale = 1.0f;
         arg7 = 0;
