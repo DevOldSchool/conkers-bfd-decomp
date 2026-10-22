@@ -38534,6 +38534,12 @@
       "symbol": "func_1507EFA0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6886,
+        "reason": "unstarted first candidate: control flow and frame exact; choice is memory-resident (stored at every assignment) where raw keeps it in a3 with a home spill only across func_1503195C; passing choice as the 4th arg, register, block scope did not change it",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -45017,8 +45023,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4255,
-        "reason": "CURRENT (4255): leaf display-list encoder compiles but IDO folds sequential writes to fixed offsets and changes register allocation and width arithmetic; explicit cursor revision produced the same full-span diff.",
+        "current_score": 1755,
+        "reason": "Round21: rewritten with project gbi.h gDP macros (PipeSync, SetTile load/render, SetTileSize) on a Gfx *arg0 cursor (file prototype and the deferred func_151ED430 caller cast updated) with fmt read once after PipeSync: 4255 -> 1755. Residual is register colouring only (raw siz in a3, masks v0, maskt a2); declaration orders, comma-for loops and moving the *arg2 store did not change it",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -50038,8 +50044,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1384,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150950D4",
           "vram": "0x150950D4"
         }
@@ -68385,8 +68396,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1376,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150ECC70",
           "vram": "0x150ECC70"
         }
@@ -77064,6 +77080,12 @@
       "symbol": "func_151135C4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 140,
+        "reason": "unstarted first candidate: frame/homes exact (alpha then start); residuals: flags copy move v0,v1 scheduled before the andi (raw in beqz delay slot) and final pipe-sync cursor in v1 vs v0; overflow if/else/ternary, joined last blocks, block-scoped overflow, s32 flags tried; randomized permute 60 s no improvement",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

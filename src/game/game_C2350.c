@@ -1,11 +1,11 @@
 #include "types.h"
+#include <PR/gbi.h>
 
 /*
  * Reviewed source unit: src/game/game_C2350.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_render_effect_lifecycles.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150950D4
  * - func_1509563C
  * - func_15095B08
  * - func_15095D34
@@ -30,7 +30,7 @@ void func_15094EA0(s32 arg0) {
     func_150A7A48(sp58, sp18, D_800D2CA8 + arg0 * 0x40);
 }
 extern s32 D_800873D0;
-extern s32 D_800D2CA0;
+extern u32 D_800D2CA0;
 
 typedef struct GameC2350Command {
     u32 w0;
@@ -47,16 +47,16 @@ struct GameC2350Output;
 struct GameC2350Owner;
 
 void func_15095060(struct GameC2350Input *, s32, struct GameC2350Owner *);
-s32 func_150950D4(s32, struct GameC2350Output *, s32, s32, s32, s32, s32, s32, s32, s32);
+s32 func_150950D4(Gfx *, struct GameC2350Output *, s32, s32, s32, s32, s32, s32, s32, s32);
 extern struct GameC2350Output D_800D2C90;
 
 s32 func_15094F70(s32 arg0, struct GameC2350Input *arg1, s32 arg2, struct GameC2350Owner *arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8) {
     func_15095060(arg1, arg2, arg3);
-    return func_150950D4(arg0, &D_800D2C90, arg4, arg5, 0, arg6, arg7, 0x100, 0x100, arg8);
+    return func_150950D4((Gfx *)arg0, &D_800D2C90, arg4, arg5, 0, arg6, arg7, 0x100, 0x100, arg8);
 }
 s32 func_15094FE8(s32 arg0, struct GameC2350Input *arg1, s32 arg2, struct GameC2350Owner *arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
     func_15095060(arg1, arg2, arg3);
-    return func_150950D4(arg0, &D_800D2C90, arg4, arg5, 0, arg6, arg7, arg8, arg9, arg10);
+    return func_150950D4((Gfx *)arg0, &D_800D2C90, arg4, arg5, 0, arg6, arg7, arg8, arg9, arg10);
 }
 
 typedef struct GameC2350Input {
@@ -103,7 +103,87 @@ void func_15095060(GameC2350Input *arg0, s32 arg1, GameC2350Owner *arg2) {
     D_800D2C90.field_9 = arg0->field_B;
     D_800D2C90.field_A = arg0->field_4;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_150950D4.s")
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+#define MIN(a, b) (((a) < (b)) ? (a) : (b))
+/* Call context: func_1510D0EC: unique active project prototype */
+s32 func_1510D0EC(s32, s32 *, s32, s32);
+extern u8 D_8009DEB0[];
+extern u8 D_8009DEB4[];
+extern u8 D_8009DEB8[];
+extern u8 D_8009DEBC[];
+extern s32 D_800D2C9C;
+
+s32 func_150950D4(Gfx *arg0, GameC2350Output *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
+    s32 width;
+    s32 size;
+    s32 masks;
+    s32 maskt;
+    s32 i;
+    s32 fmt;
+
+    if (arg1->field_A == 0) {
+        arg4 = 0;
+    }
+    size = D_8009DEB0[arg1->field_9] + arg1->field_4 * arg1->field_6;
+    if (arg1->field_8 == 5) {
+        size += (arg1->field_4 * arg1->field_6) / 4;
+    }
+    size >>= D_8009DEB4[arg1->field_9];
+    D_800D2CA0 = arg1->data;
+    if (D_800D2CA0 < 0x10000000U) {
+        D_800D2CA0 = func_1510D0EC(D_800D2CA0, NULL, arg9, 0);
+    }
+    if (D_800D2CA0 != 0x80000000) {
+        D_800D2CA0 += (size + size) * arg4;
+    }
+    if (arg1->field_9 == 0) {
+        width = arg1->field_4 >> 1;
+    } else {
+        width = arg1->field_4;
+    }
+    masks = 1;
+    for (i = 2; i < arg1->field_4; i *= 2) {
+        masks++;
+    }
+    maskt = 1;
+    for (i = 2; i < arg1->field_6; i *= 2) {
+        maskt++;
+    }
+    if (arg1->field_8 != 5) {
+        fmt = arg1->field_8;
+    } else {
+        fmt = 0;
+    }
+    gDPPipeSync(arg0++);
+    gDPSetTextureImage(arg0++, fmt, D_8009DEBC[arg1->field_9], 1, D_800D2CA0);
+    gDPSetTile(arg0++, fmt, D_8009DEBC[arg1->field_9], 0, arg2, G_TX_LOADTILE, 0, 0, 0, 0, 0, 0, 0);
+    gDPLoadBlock(arg0++, G_TX_LOADTILE, 0, 0, size - 1, 0);
+    gDPSetTile(arg0++, fmt, arg1->field_9, ((D_8009DEB8[arg1->field_9] * width) + 7) >> 3, arg2, arg3, 0, arg6, maskt, 0, arg6, masks, 0);
+    gDPSetTileSize(arg0++, arg3, (arg7 << 2) + arg5, arg8 << 2, ((arg1->field_4 + arg7 - 1) << 2) + arg5, (arg1->field_6 + arg8 - 1) << 2);
+    if (arg1->field_8 == 5) {
+        gDPSetTile(arg0++, G_IM_FMT_I, G_IM_SIZ_4b, ((D_8009DEB8[G_IM_SIZ_4b] * (width >> 1)) + 7) >> 3, arg2 + (width * arg1->field_6) / 4, arg3 + 1, 0, arg6, maskt, 0, arg6, masks, 0);
+        gDPSetTileSize(arg0++, arg3 + 1, (arg7 << 2) + arg5, arg8, ((arg1->field_4 + arg7 - 1) << 2) + arg5, (arg1->field_6 + arg8 - 1) << 2);
+    }
+    if (arg1->field_8 == 2) {
+        s32 bits;
+        s32 count;
+
+        if (arg1->field_9 == 0) {
+            bits = 4;
+            count = 0xF;
+        } else {
+            bits = 8;
+            count = 0xFF;
+        }
+        gDPSetTextureImage(arg0++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_800D2CA0 + (arg1->field_4 * arg1->field_6 * bits) / 8);
+        gDPLoadSync(arg0++);
+        gDPLoadTLUTCmd(arg0++, G_TX_LOADTILE - 1, count);
+        D_800D2C9C = 0x8000;
+    } else {
+        D_800D2C9C = 0;
+    }
+    return (s32)arg0;
+}
 void func_150A7A00(void *, f32, f32, f32, f32 *, f32 *, f32 *, f32 *);
 extern s32 D_80082FA4;
 extern f32 D_800D9B20;

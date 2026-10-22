@@ -106,7 +106,8 @@ typedef struct Game13F9D0DrawEntry {
 } Game13F9D0DrawEntry;
 
 void *func_151733D8(void *, s32);
-s32 func_151137D4(s32, void *, s32, s32, s32, s32);
+struct Game13F9D0Model;
+s32 func_151137D4(s32, struct Game13F9D0Model *, s32, s32, s32, s32);
 s32 func_1515E544(s32, s32, s32, s32, void *);
 extern u8 **D_80089240;
 extern u8 **D_80089250[];
@@ -262,6 +263,111 @@ Game13F9D0Command *func_151135C4(Game13F9D0Command *arg0, s32 arg1, s16 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151135C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151135C4.s")
+typedef struct Game13F9D0Model {
+    u8 pad0[4];
+    f32 scale;
+    u8 pad8[8];
+    s16 x;
+    s16 y;
+    s16 z;
+    u8 pad16[2];
+    f32 yOffset;
+    s32 displayList;
+    s32 matrices[2];
+    u8 pad28[0x27];
+    u8 renderFlags;
+    u8 pad50[0x1C];
+    u16 effectFlags;
+    u8 pad6E[2];
+    u8 displayFlags;
+    u8 pad71[0xB];
+    s32 effectScale;
+    u8 pad80[0xA];
+    u8 alpha;
+    u8 alphas[1];
+} Game13F9D0Model;
+
+s32 func_1511FC2C(s32, f32, f32, f32, f32, s32);
+s32 func_1511FC44(s32, f32, f32, f32, s32);
+s32 func_1510CDB8(s32, s32, s32, s32);
+s32 func_1510D8C0(s32, Game13F9D0Model *);
+s32 func_150CF5E8(s32);
+s32 func_150A50C0(s32, s32, u8 *, s32, s32, s32);
+extern u8 D_80083D40[];
+extern u8 D_80083EC0[];
+extern s32 D_800BE9C8[];
+extern s32 D_800BEBA4;
+extern u8 D_800D9C10[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151137D4 CURRENT (140) */
+s32 func_151137D4(s32 arg0, Game13F9D0Model *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
+    s32 alpha;
+    s32 start;
+    s32 overflow;
+    u16 flags;
+
+    start = arg0;
+    if (arg1->alphas[arg3] == 0xFF && arg1->alpha == 0xFF) {
+        alpha = 0xFF;
+    } else {
+        alpha = (arg1->alphas[arg3] * arg1->alpha) / 255;
+        if (alpha == 0) {
+            return arg0;
+        }
+    }
+    if (alpha == 0xFF) {
+        if (arg5 == (arg1->renderFlags & 0x10)) {
+            return arg0;
+        }
+    } else if (arg5 != 0) {
+        return arg0;
+    }
+    flags = arg1->effectFlags;
+    if (flags != 0) {
+        if (flags & 1) {
+            arg0 = func_1511FC2C(arg0, arg1->x, arg1->y + arg1->yOffset, arg1->z, arg1->scale, arg3);
+        } else if (flags & 0x10) {
+            arg0 = func_1511FC2C(arg0, arg1->x, arg1->y + arg1->yOffset, arg1->z, arg1->effectScale, arg3);
+        } else if (flags & 0x20) {
+            arg0 = func_1511FC44(arg0, arg1->x, arg1->y + arg1->yOffset, arg1->z, arg3);
+        }
+    }
+    { Game13F9D0Command *command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xE7000000; command->word1 = 0; }
+    if (alpha < 0xFF) {
+        { Game13F9D0Command *command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xDB060020; command->word1 = (u32)D_80083D40; }
+    } else {
+        { Game13F9D0Command *command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xDB060020; command->word1 = (u32)D_80083EC0; }
+    }
+    if ((arg1->renderFlags & 2) == 2) {
+        { Game13F9D0Command *command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xD9FFFFFF; command->word1 = 0x400000; }
+    } else {
+        { Game13F9D0Command *command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xD9BFFFFF; command->word1 = 0; }
+    }
+    { Game13F9D0Command *command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xD9FFFFFF; command->word1 = 0x20000; }
+    arg0 = func_1510D8C0(func_1510CDB8(arg0, 0xFF, alpha, arg3), arg1);
+    if (arg5 == 0) {
+        { Game13F9D0Command *command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xD9FFFFFF; command->word1 = 0x110000; }
+    }
+    { Game13F9D0Command *command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xDB060004; command->word1 = arg1->matrices[D_800BE9C0]; }
+    { Game13F9D0Command *command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xDA380003; command->word1 = arg2; }
+    { Game13F9D0Command *command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xD9F7FFFF; command->word1 = 0; }
+    if (arg1->effectFlags & 0x200) {
+        arg0 = func_150CF5E8(arg0);
+    }
+    if ((arg1->displayFlags & 2) == 2) {
+        arg0 = func_150A50C0(arg1->displayList, arg0, D_800D9C10 + (arg3 << 6), 0, 0, arg1->matrices[D_800BE9C0] + 0xFF000000);
+    } else {
+        { Game13F9D0Command *command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xDE000000; command->word1 = arg1->displayList; }
+    }
+    { Game13F9D0Command *command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xD9EEFFFF; command->word1 = 0; }
+    { Game13F9D0Command *command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xE7000000; command->word1 = 0; }
+    overflow = (D_800BEBA4 < ((arg0 - D_800BE9C8[D_800BE9C0]) >> 3)) ? 1 : 0;
+    if (overflow != 0) {
+        return start;
+    }
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151137D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151137D4.s")
 s32 func_15022B08(s32, s32);
 s32 func_150859AC(s32, s32);

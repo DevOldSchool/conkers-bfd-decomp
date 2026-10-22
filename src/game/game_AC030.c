@@ -171,6 +171,115 @@ void func_1507EFA0(s32 arg0, u8 *arg1) {
         }
     }
 }
+s32 func_1503195C(void *, s32, s32, s32);
+s32 func_1515942C(void *, s32, s32, s32, s32, s32);
+s32 func_1507FFD8(void *);
+s32 func_1507F4C0(s32);
+void func_1507FF94(void *);
+extern u8 D_800C3E78;
+extern u8 D_800D18C0;
+extern u8 D_800CC2D0[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507EFD0 CURRENT (6886) */
+void func_1507EFD0(void) {
+    u8 *state;
+    u8 candidates[40];
+    u8 output[40];
+    s32 count;
+    s32 output_count;
+    s32 index;
+    s32 choice;
+    s32 found;
+    s32 id;
+    u8 *history;
+
+    count = 0;
+    state = (u8 *)*(void **)((u8 *)D_800D154C + 0x31C) + 0x58;
+    if (*((u8 *)D_800D154C + 0x13A) != 0) {
+        if (*((u8 *)D_800D154C + 0x139) < 0x21) {
+            func_1507EB80(candidates, &count, *((u8 *)D_800D154C + 0x139));
+        }
+    } else if (D_800D18C0 & 2) {
+        func_1507EB80(candidates, &count, 3);
+        D_800D18C0 = 0;
+    } else if (*(s16 *)(*(u8 **)((u8 *)D_800D154C + 0x31C) + 0x66) != 0 &&
+               *(*(u8 **)((u8 *)D_800D154C + 0x31C) + 0x78) == 0) {
+        id = 0xB;
+        if (*(u16 *)(state + 2) >= 0x79) {
+            *(s16 *)(*(u8 **)((u8 *)D_800D154C + 0x31C) + 0x66) = 0;
+            *(u16 *)(state + 2) = 0;
+            state[0xC] = 0;
+            id = 0xC;
+            func_1507FF94(D_800D154C);
+        }
+        func_1507EB80(candidates, &count, id);
+    } else if (*((u8 *)D_800D154C + 0x1CA) < 2) {
+        func_1507EB80(candidates, &count, 0);
+    } else if (func_1515942C(D_800CC2D0 + D_800C3E78 * 0x32C, 0, 0, -1, -1, -1) != 0) {
+        func_1507EB80(candidates, &count, 0);
+    } else if (*(u16 *)(state + 2) >= func_1507F4C0(state[0xC])) {
+        func_1507EEF4((u32)candidates);
+        choice = -1;
+        if (*(u16 *)((u8 *)D_800D154C + 0x2F8) & 0x200) {
+            choice = 2;
+        } else if (*(*(u8 **)((u8 *)D_800D154C + 0x31C) + 0x78) == 9) {
+            choice = 5;
+        } else if (*(*(u8 **)((u8 *)D_800D154C + 0x31C) + 0x78) == 0x23) {
+            choice = 9;
+        } else if (*(*(u8 **)((u8 *)D_800D154C + 0x31C) + 0x78) == 0x16) {
+            choice = 0xA;
+        } else if (func_1503195C(D_800D154C, 0x17, 0, -1) != 0) {
+            choice = 6;
+        } else if (D_800BE9F0 == 0x31) {
+            if (D_800D18C0 & 4) {
+                choice = 8;
+            } else {
+                choice = 7;
+            }
+        } else if (*((u8 *)D_800D154C + 4) == 0x96 || D_800BE9F0 == 0x10 ||
+                   D_800BE9F0 == 0x1B || D_800BE9F0 == 0x1E || D_800BE9F0 == 0x26 ||
+                   D_800BE9F0 == 0x2F || D_800BE9F0 == 0xE || D_800BE9F0 == 0x28 ||
+                   D_800BE9F0 == 0x23 || D_800BE9F0 == 0x1C || D_800BE9F0 == 0x36 ||
+                   D_800BE9F0 == 0x3A) {
+            choice = 2;
+        } else if (D_800D18C0 != 0) {
+            if (D_800D18C0 & 1) {
+                choice = 4;
+            }
+            D_800D18C0 = 0;
+        }
+        if (choice != -1) {
+            count = 0;
+            func_1507EBB8((s32)candidates, &count, choice);
+        } else if (state[0xC] == 1) {
+            func_1507EBB8((s32)candidates, &count, 0);
+        } else {
+            func_1507EBB8((s32)candidates, &count, 1);
+            if (state[0xC] == 2 && state[0xD] >= 4 && func_1507FFD8(D_800D154C) != 0) {
+                func_1507EBB8((s32)candidates, &count, 3);
+            }
+        }
+    } else {
+        func_1507EB80(candidates, &count, 0);
+    }
+    history = state + 7;
+    found = func_1507EC38(candidates, count, output, &output_count, history);
+    index = 0;
+    if (output_count >= 2) {
+        index = func_150ADA20() % output_count;
+    }
+    state[5] = 0;
+    state[0xD]++;
+    state[4] = output[index];
+    if (state[0xC] != 0) {
+        *(u16 *)(state + 2) = 0;
+    }
+    if (found) {
+        func_1507EFA0(state[4], history);
+    }
+    func_1507EE58(state[4], history);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1507EFD0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EFD0.s")
 typedef struct GameAC030AnimationState {
     u8 pad0[4];
