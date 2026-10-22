@@ -34797,8 +34797,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 84,
-        "reason": "Two manual probes exhausted: natural XYZ structs394 neutral; named scaled-Y/reordered store491 regresses frame40 and eliminates raw intermediate Y store. Original394 restored. FP lifetimes/scheduling unresolved; ledger deferred-manual-20260927. Round19 2026-10-22: randomized permuter 60 s (seed 1356777679) no exact from build/us/manual-attempts/round19/ms-chain.tsv.best/func_15107B78.c; best CURRENT (44).",
+        "current_score": 44,
+        "reason": "Round19 2026-10-22: CURRENT (44). msweep chain (offsets[0] + result[0] order, result[1] separate statement) 394 -> 84, then result[1] = xF0 * result[1] operand order (the natural half of a 60 s permuter hint) -> 44. Residual: FP register numbering in the offset adds. Folding the scale into result[1] * xF0 + offsets[1] 1469; the permuter's other change was a dummy label (fake, rejected).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -46642,7 +46642,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 210,
-        "reason": "CURRENT (354): control flow and instruction count align, but register choices and a 0x380 versus raw 0x378 local frame differ after two manual revisions Round19 2026-10-22: randomized permuter 60 s (seed 517482736) no exact from build/us/manual-attempts/round19/v/104c/nh.c; best CURRENT (45).",
+        "reason": "Round19 2026-10-22: CURRENT (210). entry pointer block-scoped in the matched-entry if and the case-2 height local inlined, which makes the frame 0x378 exact (was 354 at frame 0x380). Residual: s3-s8 rotation of the hoisted loop constants (~0x40000, 6, 2, 1, &actor) and entry in v0/v1 vs raw a1/v0. 60 s randomized permuter best CURRENT (45) only inserts do { } while (0) between entry = *arg1 and the kind test: rejected as a no-op fake; natural boundary forms (initializer, same-line join) stay 210, re-testing *arg1 390.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -53790,8 +53790,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2610,
-        "reason": "Oct18 isolated: CURRENT80 retained. Height/Z declaration swap and register hints80; block-scoped constant97. Assignment-in-comparison either operand order80. Four s1/s2 register rows and invariant float-load scheduling remain; no valid improvement.",
+        "current_score": 80,
+        "reason": "Round19 2026-10-22: CURRENT (80). The shared u32 func_150ADA20() prototype (272da566) made both '% 500' unsigned (divu, 2610); the raw uses signed div at 0x150E4380/0x150E43BC, so the candidate casts ((s32)func_150ADA20() % 500). Remaining residual as Oct18: four s1/s2 register rows and invariant float-load scheduling; height/Z declaration swap and register hints 80, block-scoped constant 97, assignment-in-comparison either order 80.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -62268,7 +62268,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 320,
-        "reason": "Manual325 to120 using proven rate lifetime and compound updates. Remaining global V1/early return LI and velocity ADD operand mismatch duplicate exhausted sibling hypotheses; preserve120.",
+        "reason": "Round19 2026-10-22: CURRENT (320), candidate unchanged since 2026-09-30 (stored 120). Not a codegen regression: b15a680c (2026-10-10) scores the words a short non-terminal candidate leaves unfilled instead of padding them, and this candidate is two words short of its span (the two trailing nops, 200). Code residual as before: D_800BE9A4 base in v1 vs raw v0, return li v0,1 scheduled early instead of before jr, and one velocity add.s operand order.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -65136,7 +65136,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 213,
-        "reason": "ABI declaration plateau: semantically correct three-argument candidate finish CURRENT (113); two-argument starter switched on a0 and cannot reproduce target a1 plus a2 home spill, unnamed/register-qualified parameter variants were rejected or unchanged",
+        "reason": "Round19 2026-10-22: CURRENT (213), candidate unchanged since 2026-09-14 (stored 113). Not caused by the round-18 game_CBBE0 jtbl INFO mapping (that only places .rodata for func_1509E730): b15a680c (2026-10-10) now scores the span word the candidate shifts out (one trailing nop, 100). Code residual as before: three-argument -g3 candidate homes a0 at 0x18 before a2, while raw homes only a2; two-argument and unnamed/register parameter forms were rejected or unchanged.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -71637,7 +71637,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 40,
-        "reason": "CURRENT 640 after 975,640,640. Correct 0x38 frame and stack homes; remaining six sentinel register rows and final branch-tail scheduling/size. Two targeted revisions exhausted. Next hypothesis: a named query-result lifetime instead of sentinel constant, or nested final conditional shape. Round19 2026-10-22: randomized permuter 60 s (seed 2925624937) no exact from build/us/manual-attempts/round19/v/7e00/lit.c; best CURRENT (30).",
+        "reason": "Round19 2026-10-22: CURRENT (40). temp_fv0 block-scoped in its branch and the m2c `none` local replaced by literal -1 (640 -> 40, frame 0x38 exact). Residual: -1 constant in v0 vs raw v1 against the sp30 load at the three != -1 tests. Reversed compares 25 (unnatural), `none` local in any declaration position or assigned inside the outer if 40-72; 60 s permuter best 30 only re-adds such a -1 local (not reproducible naturally).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -74726,7 +74726,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Coherent f32 C73C interface with genuine0x28 owning descriptor and complete-object pointer. Single transition/extent measurement CURRENT315; old undersized233 and word-union925 are obsolete. Frame0x98 vs0x90, packet/scalar/RNG spill offsets and registers remain. No shape revisions. Round19 2026-10-22: randomized permuter 60 s (seed 3950028114) no exact from build/us/manual-attempts/round19/v/dfac/join.c; best CURRENT (50).",
+        "reason": "Round19 2026-10-22: CURRENT (60). The three func_150ADA20 calls are written inline in the func_1513C73C argument list and the entry address inline (315 -> 60, frame 0x90 exact; the old sp50/sp54/sp4C/entry locals cost the extra words). Residual: t-register numbering of the entry address (raw t9/t8/t0). Operand orders, f32 indexing and a one-line call stay 60; 60 s permuter best 50 adds a redundant arg0[1] & 0xFF on a u8 (rejected).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -74745,7 +74745,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Coherent f32 C73C interface with genuine0x28 owning descriptor and complete-object pointer. Single transition/extent measurement CURRENT315; old undersized233 and word-union925 are obsolete. Frame0x98 vs0x90, packet/scalar/RNG spill offsets and registers remain. No shape revisions. Round19 2026-10-22: randomized permuter 60 s (seed 1693822882) no exact from build/us/manual-attempts/round19/v/dfac/twin.c; best CURRENT (60).",
+        "reason": "Round19 2026-10-22: CURRENT (60). Twin of func_150DDFAC with the same rewrite: three func_150ADA20 calls inline in the func_1513C73C arguments and the entry address inline (315 -> 60, frame 0x90 exact). Residual: entry-address t-register numbering, identical to func_150DDFAC; 60 s permuter found no improvement.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -79413,7 +79413,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Improved 1120 to 230 with ROM-backed 0.001f (D_800A1374 bytes3a83126f); exact 0x110 frame and FP loop registers. Remaining zero materialization/packet address scheduling and two flags GPR rows. Three renewed probe batches and one finish; zero store ordering, chained/named zero, compound/left flags plateaued. Literal mapping required if later matched. Round19 2026-10-22: randomized permuter 60 s (seed 3616174254) no exact from build/us/manual-attempts/round19/ms-blk.tsv.best/func_150E8470.c; best CURRENT (10).",
+        "reason": "Round19 2026-10-22: CURRENT (10). speedScale block-scoped in the pending > 1.0f block (230 -> 10). Residual: packet.flags reload/merge temp numbering only (raw lw t6 / or t9, ours t9 / t6); 16 merge, ternary and if/else spellings score 10-20; 60 s randomized permuter found no improvement.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
