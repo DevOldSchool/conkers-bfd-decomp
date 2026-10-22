@@ -321,7 +321,6 @@ typedef struct { s16 values[8]; } Game127060Kinds;
 extern Vec3f D_800A5480;
 extern Game127060Kinds D_800A1D20;
 s32 func_15157010(s32, s32, f32, s32, s32, s32, s32, s32);
-void *func_1515548C(void *, s32, s32, s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FAE18 CURRENT (2229) */
 void func_150FAE18(s16 arg0, u8 arg1, s32 arg2) {

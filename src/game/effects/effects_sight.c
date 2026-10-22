@@ -898,7 +898,6 @@ void func_151CAACC(void *arg0, void **arg1, volatile u8 arg2) {
     }
 }
 extern s32 D_80082FA0;
-void *func_1515548C(void *, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CAB78 CURRENT (1557) */
@@ -1689,7 +1688,6 @@ typedef struct SightEffectSpawn {
     u8 pad45[3];
 } SightEffectSpawn;
 
-void *func_1515548C(void *, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CCD1C CURRENT (2834) */

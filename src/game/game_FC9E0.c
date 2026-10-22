@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_FC9E0.c
@@ -53,7 +54,6 @@ GameFC9E0Command *func_150CF5E8(GameFC9E0Command *arg0) {
     return arg0;
 }
 void *func_10022EC0(void *, const void *, u32);
-void *func_1515548C(f32 *, s32, s32, s32, s32, s32, s32);
 extern s32 D_80082FA0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150CF680 CURRENT (2087) */
