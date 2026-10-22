@@ -104,6 +104,7 @@ void func_15095060(GameC2350Input *arg0, s32 arg1, GameC2350Owner *arg2) {
     D_800D2C90.field_A = arg0->field_4;
 }
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+#undef MIN
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 /* Call context: func_1510D0EC: unique active project prototype */
 s32 func_1510D0EC(s32, s32 *, s32, s32);

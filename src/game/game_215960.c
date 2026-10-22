@@ -40,7 +40,9 @@ struct Game215960Command {
 };
 
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+#undef MIN
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
+#undef MAX
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 Game215960Command *func_151ED1E0(Game215960Command *);
