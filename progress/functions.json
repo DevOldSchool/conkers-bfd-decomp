@@ -53347,6 +53347,12 @@
       "symbol": "func_151ACB94"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 15046,
+        "reason": "Round20 2026-10-22: first C (line effect spawn: copy 0x24 bytes, reciprocal length, 20 interpolated points of 0x18, two 20x4 vertex strips with tc[0] = (k * width/4 + 0x100) << 5 and colour by D_800BE9F0). Frame 0x40 exact. Residual: raw materialises 20 once in s2 (count store, point loop and vertex row bound across the second alloc) and its unrolled point loop has a skipped peeled iteration (variable-bound unroll); raw divides by a register 19 and converts (f32)19 at runtime. count variable 20881, line->count bounds 19143-20096, literal 20 best.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -75818,6 +75824,12 @@
       "symbol": "func_151DF574"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2447,
+        "reason": "Round20 2026-10-22: first C (records-screen confirm menu: slot colours, score/time text with seconds = time % 60 and minutes = time / 60 sharing one divu, delete/confirm handling, deferred sound). Frame 0x58 with named option = D_8008FE2C copy; homes slot/alpha/sound/score exact. Residual CURRENT (2447): every t-register from the first branch is one higher than raw (raw t0 hidden temp, ours t0+t1), and the record-pointer spill sits at 0x2C vs raw 0x28 (raw has one more named home). Opening-statement orders unchanged; 60 s permuter 2202 only via fake u64 masks on alpha; alpha & 0xFF in the first colour call 2392.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -75879,8 +75891,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1328,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151E1214",
           "vram": "0x151E1214"
         }
