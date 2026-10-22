@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15160B74
  * - func_15160E30
- * - func_15161A68
  * - func_15161F4C
  * - func_1516295C
  * - func_15162B28
@@ -654,17 +653,17 @@ s32 func_151619A0(s32 arg0, s16 arg1, u8 arg2, s32 arg3) {
 extern u8 D_800C35EA;
 extern u8 *D_800C3958[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15161A68 CURRENT (300) */
 s32 func_15161A68(void *arg0) {
     u8 *object = arg0;
-    f32 *light;
-    f32 red;
-    f32 green;
-    f32 blue;
-    f32 alpha;
-    f32 value;
 
     if (D_800C35EA == 1) {
+        f32 *light;
+        f32 red;
+        f32 green;
+        f32 blue;
+        f32 alpha;
+        f32 value;
+
         light = (f32 *)(*(s32 *)(object + 0x18) * 0x44 + D_800C3958[0]);
         *(s16 *)(*(u8 **)(object + 0x14) + 0xE) = light[0];
         *(s16 *)(*(u8 **)(object + 0x14) + 0x10) = light[1];
@@ -688,8 +687,6 @@ s32 func_15161A68(void *arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15161A68 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161A68.s")
 typedef struct LightEffectActor {
     u8 pad0[0x14];
     f32 position[3];

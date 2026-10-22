@@ -670,7 +670,7 @@ segments:
       - [0x1A5F70, c, game/game_1D3420]
       - [0x1A6350, c, game/game_1D3800]
       - [0x1A6600, c, game/game_1D3AB0]
-      - [0x1A6B10, c, game/game_1D3FC0]
+      - [0x1A6B10, c, done/game/game_1D3FC0]
       - [0x1A6C90, c, game/game_1D4140]
       - [0x1A7610, c, game/game_1D4AC0]
       - [0x1A7950, c, game/game_1D4E00]

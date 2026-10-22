@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_resource_dependency_core.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1509CB68
  * - func_1509CBD4
  * - func_1509CDDC
  * - func_1509CE64
@@ -67,7 +66,6 @@ s32 func_1509CA98(s32 arg0) {
 }
 extern u8 D_80088420[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509CB68 CURRENT (10) */
 s32 func_1509CB68(void) {
     s32 count;
     s32 i;
@@ -80,8 +78,6 @@ s32 func_1509CB68(void) {
     }
     return count;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509CB68 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CB68.s")
 extern s32 D_800D2E4C;
 extern s32 D_8008743C[];
 

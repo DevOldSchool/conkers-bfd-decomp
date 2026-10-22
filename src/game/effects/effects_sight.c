@@ -31,7 +31,6 @@
  * - func_151CC840
  * - func_151CCD1C
  * - func_151CCF08
- * - func_151CD224
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1921,7 +1920,6 @@ typedef struct SightUpdateFields {
     f32 scale;
 } SightUpdateFields;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD224 CURRENT (100) */
 void func_151CD224(u8 *arg0) {
     SightUpdateFields *state = (SightUpdateFields *)(arg0 + 0x70);
     f32 current;
@@ -1935,5 +1933,3 @@ void func_151CD224(u8 *arg0) {
         *(f32 *)(arg0 + 0x14) = -92.0f - offset;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CD224 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CD224.s")

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_extended_code_selected_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151A8B20
  * - func_151A8CEC
  * - func_151A8F6C
  *
@@ -45,14 +44,9 @@ typedef struct Game1D5FD0Payload {
     f32 squaredRadius;
 } Game1D5FD0Payload;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A8B20 CURRENT (469) */
 void *func_151A8B20(void *arg0, s16 arg1, s32 arg2, u8 arg3, s32 arg4) {
     void *result;
     Game1D5FD0Payload packet;
-    Game1D5FD0Payload *payload;
-    f32 z;
-    f32 x;
-    s16 *owner;
 
     func_10022EC0(&packet, arg0, 0x28);
     packet.state44 = 0;
@@ -65,12 +59,17 @@ void *func_151A8B20(void *arg0, s16 arg1, s32 arg2, u8 arg3, s32 arg4) {
                            arg1 == -1 ? 0 : 1, 0x22,
                            arg2 + 0x58, arg3, arg4);
     if (result != 0) {
+        Game1D5FD0Payload *payload;
+
         payload = (Game1D5FD0Payload *)((u8 *)result + 0x28);
         func_10022EC0(payload, &packet, 0x58);
         if (payload->flags & 4) {
-            if ((payload->flags & 2) && ((owner = payload->owner) != 0)) {
-                x = owner[0];
-                z = owner[2];
+            f32 z;
+            f32 x;
+
+            if ((payload->flags & 2) && (payload->owner != 0)) {
+                x = payload->owner[0];
+                z = payload->owner[2];
             } else {
                 x = payload->x;
                 z = payload->z;
@@ -80,16 +79,14 @@ void *func_151A8B20(void *arg0, s16 arg1, s32 arg2, u8 arg3, s32 arg4) {
         } else {
             payload->node = 0;
         }
-        if ((payload->flags & 2) && ((owner = payload->owner) != 0)) {
-            payload->squaredRadius = func_15144598(owner);
+        if ((payload->flags & 2) && (payload->owner != 0)) {
+            payload->squaredRadius = func_15144598(payload->owner);
         } else {
             payload->squaredRadius = payload->radius * payload->radius * D_800A8F54;
         }
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A8B20 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D5FD0/func_151A8B20.s")
 typedef struct {
     u8 pad_0[0x2C];
     s32 field_2C;

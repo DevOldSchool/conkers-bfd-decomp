@@ -70,7 +70,7 @@ block_default:
 s32 func_1000E0F8();                                /* extern */
 s32 func_1000E8F0();                                /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509E8A0 CURRENT (113) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509E8A0 CURRENT (213) */
 s32 func_1509E8A0(s32 arg0, s32 arg1, s32 arg2) {
     switch (arg1) {                                 /* irregular */
     case 7:

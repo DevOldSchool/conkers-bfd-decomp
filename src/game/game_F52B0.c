@@ -42,13 +42,11 @@ extern s32 D_80088800;
 extern f32 D_800A04E0, D_800A04E4;
 extern u8 D_800CC335;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7E00 CURRENT (640) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7E00 CURRENT (40) */
 void func_150C7E00(GameF52B0Camera *arg0) {
     s32 sp34;
     s32 sp30;
     s32 sp2C;
-    s32 none = -1;
-    f32 temp_fv0;
     f32 temp_fv0_2;
     f32 var_fa0;
     f32 var_fv1;
@@ -59,14 +57,14 @@ void func_150C7E00(GameF52B0Camera *arg0) {
     sp30 = func_1509BE40(0, 0x2000, 0xBB);
     sp2C = func_1509BE40(0, func_1509BE40(0, 0x2010, 0xB7) | 0x2000, 0xBB);
     if (func_1509BE40(0, 0x5071, 0x1A) == 0) {
-        if ((sp30 != none) && (sp34 == 0)) {
+        if ((sp30 != -1) && (sp34 == 0)) {
             if (func_15123934(arg0, arg0->mode, 0, arg0->player, 3) != 0) {
                 arg0->flags = (s32) (arg0->flags | 0x01000000);
                 func_151254F4(arg0, D_800CC335 - 1);
                 arg0->target = 0.0f;
             }
         } else {
-            if ((sp30 != none) && (sp34 != 0)) {
+            if ((sp30 != -1) && (sp34 != 0)) {
                 func_151239CC(arg0, 2);
                 if (func_15123934(arg0, 8, 0, arg0->player, 3) != 0) {
                     func_151254F4(arg0, D_800CC335 - 1);
@@ -93,6 +91,7 @@ void func_150C7E00(GameF52B0Camera *arg0) {
         }
     } else {
         if (func_1509BE40(0, 0x5072, 0x1A) == 0) {
+            f32 temp_fv0;
             if (*arg0->buttons & 4) {
                 arg0->distance = 20.0f;
             }
@@ -125,7 +124,7 @@ void func_150C7E00(GameF52B0Camera *arg0) {
             }
             func_1509BFB0(2, 0x9000, 6, 1, 0x20000);
             func_1509BFB0(2, 0x9000, 6, 0, 4);
-            if (sp2C != none) {
+            if (sp2C != -1) {
                 arg0->current = 0.0f;
             }
             D_80088800 = 0;

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_text_view_descriptor_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150CFDB8
  * - func_150CFF10
  * - func_150D0034
  * - func_150D01A0
@@ -37,31 +36,23 @@ s32 func_150CFD84(s32 arg0, s32 *arg1) {
     *arg1 = temp_v0;
     return temp_v0 - arg0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CFDB8 CURRENT (249) */
 s32 func_150CFDB8(u8 *arg0) {
-    s32 temp_v0_3;
-    s32 var_s0;
-    u32 temp_v0;
-    s32 sp2C;
-    u8 *temp_v0_2;
+    s32 max;
+    u8 *end;
+    s32 next;
 
-    var_s0 = 0;
-    temp_v0 = func_150CFD5C(arg0);
-    if ((u32)arg0 < temp_v0) {
-        do {
-            temp_v0_3 = func_150CFD84((s32)arg0, &sp2C);
-            if (var_s0 < temp_v0_3) {
-                var_s0 = temp_v0_3;
-            }
-            temp_v0_2 = (u8 *)sp2C;
-            temp_v0_2 += 1;
-            arg0 = temp_v0_2;
-        } while ((u32) temp_v0_2 < temp_v0);
+    max = 0;
+    end = func_150CFD5C(arg0);
+    while (arg0 < end) {
+        s32 value = func_150CFD84((s32)arg0, &next);
+
+        if (max < value) {
+            max = value;
+        }
+        arg0 = (u8 *)next + 1;
     }
-    return var_s0;
+    return max;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150CFDB8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFDB8.s")
 void *func_10022EC0(void *, const void *, u32);
 
 struct GameFD1D0State;

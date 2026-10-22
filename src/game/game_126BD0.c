@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150F9720
  * - func_150F97EC
- * - func_150F9950
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -106,7 +105,6 @@ void func_150FF474(void *, void *, u8, s32);
 s32 func_150FF6E0(void *, void *, void *, void *, void *, void *, s32);
 void func_151D4408(void *, void *, s32, void *, f32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F9950 CURRENT (135) */
 void func_150F9950(u8 *arg0, u8 arg1, s32 arg2) {
     Game126BD0Workspace workspace;
     u8 *lookup;
@@ -118,12 +116,10 @@ void func_150F9950(u8 *arg0, u8 arg1, s32 arg2) {
                           workspace.vectors[0], arg0, (s32)lookup) != 0) {
             func_151D3F14(workspace.vectors[3], arg1, arg2);
             func_151D4408(workspace.vectors[2], workspace.vectors[1],
-                          *(s32 *)(arg0 + 0x1D4) + (lookup[2] << 6), arg0,
+                          (lookup[2] << 6) + *(s32 *)(arg0 + 0x1D4), arg0,
                           1.0f, arg1, arg2);
             func_150FF474(workspace.vectors[3], workspace.vectors[4], arg1,
                           arg2);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F9950 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_126BD0/func_150F9950.s")

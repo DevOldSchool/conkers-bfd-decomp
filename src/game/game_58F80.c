@@ -9,7 +9,6 @@
  * - func_1502BAD0
  * - func_1502BD84
  * - func_1502BEE4
- * - func_1502C1A4
  * - func_1502C408
  * - func_1502C608
  * - func_1502C6E8
@@ -308,17 +307,14 @@ extern s32 D_80082FA0;
 s32 func_150229E4(void *);
 void *func_1510D970(s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502C1A4 CURRENT (320) */
 void func_1502C1A4(void) {
-    s32 kind;
     s32 index;
     s32 needed;
     s32 flag;
     u8 *effect;
     Game58F80Actor *actor;
 
-    actor = (Game58F80Actor *)&D_800CC2D0;
-    do {
+    actor = (Game58F80Actor *)&D_800CC2D0; do {
         flag = actor->active;
         if (flag != 0) {
             flag = actor->model;
@@ -340,6 +336,7 @@ void func_1502C1A4(void) {
             }
             if (needed != 0) {
                 if (actor->effect2D4 == 0) {
+                    s32 kind;
                     if (actor->model == 0x4D) {
                         kind = 2;
                         flag = 1;
@@ -361,8 +358,6 @@ void func_1502C1A4(void) {
         actor++;
     } while (actor != (Game58F80Actor *)&D_800D121C);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502C1A4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502C1A4.s")
 extern u8 D_800BE9C0;
 extern s16 D_800C3E7A;
 extern void *D_800C3E80[];

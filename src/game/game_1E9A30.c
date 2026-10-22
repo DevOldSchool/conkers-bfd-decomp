@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151BC794
  * - func_151BCA90
- * - func_151BD21C
  * - func_151BD2F8
  * - func_151BD43C
  * - func_151BD828
@@ -216,7 +215,6 @@ s32 func_151BC794(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151BC794 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BC794.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BCA90.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BD21C CURRENT (25) */
 void func_151BD21C(void *arg0, void *arg1, u8 arg2) {
     void *target;
     s32 current;
@@ -238,14 +236,12 @@ void func_151BD21C(void *arg0, void *arg1, u8 arg2) {
             *(u8 *)((u8 *)target + 4) = *(u8 *)((u8 *)arg1 + 9);
             return;
         }
-        if (*(s32 *)((u8 *)arg1 + 4) == current) {
+        if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)target) {
             *(s32 *)target = value;
             *(u8 *)((u8 *)target + 4) = *(u8 *)((u8 *)arg1 + 8);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151BD21C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BD21C.s")
 s32 func_151BD2BC(void *arg0) {
     void *temp_v0;
 

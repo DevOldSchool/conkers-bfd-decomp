@@ -80,8 +80,8 @@ void func_150E42F8(s32 arg0) {
     if (arg0 > 0) {
         temp_fs0 = D_800A1060;
         do {
-            temp_s0 = (func_150ADA20() % 500) + sp70;
-            temp_a2 = (func_150ADA20() % 500) + sp68;
+            temp_s0 = ((s32)func_150ADA20() % 500) + sp70;
+            temp_a2 = ((s32)func_150ADA20() % 500) + sp68;
             temp_v0 = func_1510F8D8(temp_s0, 0x2710, temp_a2, &sp58);
             if ((temp_fs0 != (f32) temp_v0) && (sp58 != 0)) {
                 temp_lo = (s32) (sp58 - D_800DBE3C) / 12;

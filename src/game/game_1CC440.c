@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1519EF90
  * - func_1519F1C8
- * - func_1519F48C
  * - func_1519F4F0
  * - func_1519F7F0
  * - func_1519FE6C
@@ -292,29 +291,28 @@ void func_1519F400(void *arg0) {
         func_1516972C(*(void **)((u8 *)temp_s0 + 0xC));
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519F48C CURRENT (35) */
 void func_1519F48C(Game1CC440State *arg0) {
-    u8 *temp_v0;
-    u8 *temp_v1;
+    u8 *record;
+    u8 *object;
+    u8 *fields;
 
-    temp_v0 = (void *)(*(void **)((u8 *)arg0 + 0x98));
-    temp_v1 = (void *)(*(void **)((u8 *)temp_v0 + 0));
-    if (temp_v1 != 0) {
-        temp_v1 += 0x58;
+    record = *(u8 **)((u8 *)arg0 + 0x98);
+    object = *(u8 **)record;
+    fields = object;
+    if (object != 0) {
+        fields += 0x58;
         if (*(s32 *)((u8 *)arg0 + 0x20) == 6) {
-            *(s32 *)temp_v1 = 0;
+            *(s32 *)fields = 0;
         }
         if (*(s32 *)((u8 *)arg0 + 0x20) == 7) {
-            *(s32 *)(temp_v1 + 8) = 0;
+            *(s32 *)(fields + 8) = 0;
         }
-        *(void **)((u8 *)temp_v0 + 0) = 0;
+        *(void **)record = 0;
     }
     *(s8 *)((u8 *)arg0 + 0x30) = 0;
     *(u16 *)((u8 *)arg0 + 0x1E) = (u16) (*(u16 *)((u8 *)arg0 + 0x1E) & 0xFFFD);
-    *(u8 *)((u8 *)temp_v0 + 4) = (u8) (*(u8 *)((u8 *)temp_v0 + 4) | 1);
+    *(u8 *)((u8 *)record + 4) = (u8) (*(u8 *)((u8 *)record + 4) | 1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519F48C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F48C.s")
 typedef struct Game1CC440TrailPoint {
     f32 x, z, y, fieldC;
     s16 size, delay, alpha;

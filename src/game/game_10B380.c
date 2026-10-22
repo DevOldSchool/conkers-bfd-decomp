@@ -67,16 +67,12 @@ typedef struct {
     u8 unknown_20[8];
 } Game10B380Packet;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DDFAC CURRENT (315) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DDFAC CURRENT (60) */
 s32 func_150DDFAC(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, void *arg5) {
     void *sp8C;
     s32 sp88;
     Game10B380Packet packet;
     f32 sp5C;
-    s32 sp54;
-    s32 sp50;
-    s32 sp4C;
-    u8 *entry;
 
     sp8C = *(void **)(arg0 + 0x98);
     sp88 = *(s32 *)(arg0 + 0x94);
@@ -101,28 +97,18 @@ s32 func_150DDFAC(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, void *arg5) 
     packet.field_14 = 0;
     packet.field_15 = 0xFF;
     packet.field_18 = 0x30002;
-    sp50 = func_150ADA20();
-    sp54 = func_150ADA20();
-    sp4C = func_150ADA20();
-    entry = (u8 *)(sp88 + ((s8)arg0[0x2D] * 0x14));
-    func_1513C73C((s32 *)&packet, 5, 0, arg5, *(f32 *)entry, arg4,
-                   *(f32 *)(entry + 8), sp5C, sp5C, sp50 & 0xFF,
-                   (sp4C & 1) + (sp54 & 1), 0, arg0[0xC], arg0[1]);
+    func_1513C73C((s32 *)&packet, 5, 0, arg5, *(f32 *)(sp88 + ((s8)arg0[0x2D] * 0x14)), arg4, *(f32 *)(sp88 + ((s8)arg0[0x2D] * 0x14) + 8), sp5C, sp5C, func_150ADA20() & 0xFF, (func_150ADA20() & 1) + (func_150ADA20() & 1), 0, arg0[0xC], arg0[1]);
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150DDFAC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10B380/func_150DDFAC.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DE12C CURRENT (315) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DE12C CURRENT (60) */
 s32 func_150DE12C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, void *arg5) {
     void *sp8C;
     s32 sp88;
     Game10B380Packet packet;
     f32 sp5C;
-    s32 sp54;
-    s32 sp50;
-    s32 sp4C;
-    u8 *entry;
 
     sp8C = *(void **)(arg0 + 0x98);
     sp88 = *(s32 *)(arg0 + 0x94);
@@ -147,11 +133,7 @@ s32 func_150DE12C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, void *arg5) 
     packet.field_14 = 0;
     packet.field_15 = 0xAA;
     packet.field_18 = 0x30002;
-    sp50 = func_150ADA20();
-    sp54 = func_150ADA20();
-    sp4C = func_150ADA20();
-    entry = (u8 *)(sp88 + ((s8)arg0[0x2D] * 0x14));
-    func_1513C73C((s32 *)&packet, 5, 0, arg5, *(f32 *)entry, arg4, *(f32 *)(entry + 8), sp5C, sp5C, sp50 & 0xFF, (sp4C & 1) + (sp54 & 1), 0, arg0[0xC], arg0[1]);
+    func_1513C73C((s32 *)&packet, 5, 0, arg5, *(f32 *)(sp88 + ((s8)arg0[0x2D] * 0x14)), arg4, *(f32 *)(sp88 + ((s8)arg0[0x2D] * 0x14) + 8), sp5C, sp5C, func_150ADA20() & 0xFF, (func_150ADA20() & 1) + (func_150ADA20() & 1), 0, arg0[0xC], arg0[1]);
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150DE12C */

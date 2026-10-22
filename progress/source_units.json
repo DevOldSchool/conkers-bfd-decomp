@@ -14171,15 +14171,15 @@
         "func_151A6B68",
         "func_151A6BD8"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x1A6C90",
           "start": "0x1A6B10",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1D3FC0.c"
+      "source": "src/done/game/game_1D3FC0.c"
     },
     {
       "boundary_evidence": {

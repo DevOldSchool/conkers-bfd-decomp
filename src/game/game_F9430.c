@@ -210,7 +210,7 @@ s32 func_150CCA7C(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
 }
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CCCB4 CURRENT (120) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CCCB4 CURRENT (320) */
 s32 func_150CCCB4(void *arg0) {
     f32 rate;
     f32 temp_fa0;

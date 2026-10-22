@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150417AC
  * - func_150428D4
- * - func_15042C40
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -199,7 +198,6 @@ extern u8 D_80085931;
 extern u8 D_80085932;
 extern u8 D_80085933[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15042C40 CURRENT (330) */
 s32 func_15042C40(u8 arg0) {
     u8 c;
     s32 i;
@@ -215,5 +213,3 @@ s32 func_15042C40(u8 arg0) {
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15042C40 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6EA90/func_15042C40.s")
