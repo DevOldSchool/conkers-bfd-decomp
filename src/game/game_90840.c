@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15063628
- * - func_15063C60
  * - func_15063E84
  * - func_15063FA0
  * - func_150641D8
@@ -343,7 +342,6 @@ void func_15063B64(Game90840Actor *arg0) {
         ((u8 *)arg0->field_31C)[0x11A] = 0;
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15063C60 CURRENT (40) */
 Game90840Actor *func_15063C60(Game90840Actor *arg0, s32 arg1) {
     s32 index;
 
@@ -356,8 +354,6 @@ Game90840Actor *func_15063C60(Game90840Actor *arg0, s32 arg1) {
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15063C60 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063C60.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15063E84 CURRENT (1885) */
 s32 func_15063E84(void *arg0, u16 arg1, u16 arg2, register s32 arg3, s32 arg4) {
     register s32 temp_t6;

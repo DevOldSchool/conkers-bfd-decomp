@@ -9,7 +9,6 @@
  * - func_151B6420
  * - func_151B65D4
  * - func_151B6928
- * - func_151B70B4
  * - func_151B7144
  * - func_151B7328
  * - func_151B7998
@@ -268,7 +267,6 @@ s32 func_151B65D4(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B65D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B65D4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B6928.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B70B4 CURRENT (25) */
 void func_151B70B4(void *arg0, void *arg1, u8 arg2) {
     void *target;
     s32 current;
@@ -290,14 +288,12 @@ void func_151B70B4(void *arg0, void *arg1, u8 arg2) {
             *(u8 *)((u8 *)target + 4) = *(u8 *)((u8 *)arg1 + 9);
             return;
         }
-        if (*(s32 *)((u8 *)arg1 + 4) == current) {
+        if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)target) {
             *(s32 *)target = value;
             *(u8 *)((u8 *)target + 4) = *(u8 *)((u8 *)arg1 + 8);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B70B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B70B4.s")
 typedef struct Game1E37D0ParticleSpawn {
     s32 code;
     s32 zero4;

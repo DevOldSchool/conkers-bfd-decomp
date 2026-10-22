@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150DFDD0
- * - func_150DFEFC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -107,15 +106,14 @@ void func_15107B78(void *, s16, s16, u8, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DFEFC CURRENT (110) */
 void func_150DFEFC(Game10D280Effect *arg0) {
     Game10D280EffectState *state;
     Game10D280Parent *parent;
     Game10D280Light light;
     s32 position[3];
-    s8 count;
+    u32 yaw;
     u8 color[4];
-    u32 pitch, yaw;
+    u32 pitch;
 
     parent = arg0->state.parent;
     state = &arg0->state;
@@ -138,6 +136,8 @@ void func_150DFEFC(Game10D280Effect *arg0) {
     }
     state->particleTimer -= D_800BE9E4;
     if (state->particleTimer < 0) {
+        s8 count;
+
         count = func_150ADA20() % 3U + 2;
         do {
             color[0] = 0xAE;
@@ -162,8 +162,6 @@ void func_150DFEFC(Game10D280Effect *arg0) {
         state->ringTimer = func_150ADA20() % 26U + 15;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150DFEFC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10D280/func_150DFEFC.s")
 
 void func_150E02C0(s32 arg0, s32 arg1, u8 arg2) {
     func_15149514(arg1, arg2, arg0 + 0x28, arg0 + 0x2C, arg0);
