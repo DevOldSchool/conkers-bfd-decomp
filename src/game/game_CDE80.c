@@ -242,11 +242,9 @@ s32 func_150A1040(s32 arg0) {
 }
 extern f32 D_8009F5AC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A104C CURRENT (354) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A104C CURRENT (210) */
 void func_150A104C(u8 *arg0, s32 *arg1, s32 arg2) {
     GameCDE80Actor actor;
-    u8 *entry;
-    s16 height;
 
     actor.x = *(f32 *)(arg0 + 0x2F8);
     actor.y = *(f32 *)(arg0 + 0x2FC);
@@ -259,12 +257,12 @@ void func_150A104C(u8 *arg0, s32 *arg1, s32 arg2) {
     *(s32 *)(arg0 + 0x84) &= ~0x40000;
     while (arg2 != 0) {
         if (*arg1 != 0 && func_150A1DA0(&actor, *arg1, 0) == 0) {
+            u8 *entry;
             entry = (u8 *)*arg1;
             if ((entry[0x15] >> 2) == 1) {
                 switch (entry[0x17]) {
                 case 2:
-                    height = *(s16 *)(entry + 8);
-                    *(f32 *)(arg0 + 0x364) = (f32)(height + *(s16 *)(entry + 2));
+                    *(f32 *)(arg0 + 0x364) = (f32)(*(s16 *)(entry + 8) + *(s16 *)(entry + 2));
                     break;
                 case 0:
                     *(s32 *)(arg0 + 0x84) |= 0x40000;

@@ -60,7 +60,7 @@ extern s32 D_800DBE3C;
 extern s32 D_800DBE4C;
 extern s32 *D_800DBE5C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E42F8 CURRENT (80) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E42F8 CURRENT (2610) */
 void func_150E42F8(s32 arg0) {
     s32 temp_s0;
     s32 temp_v0;

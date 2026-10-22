@@ -46641,8 +46641,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 354,
-        "reason": "CURRENT (354): control flow and instruction count align, but register choices and a 0x380 versus raw 0x378 local frame differ after two manual revisions",
+        "current_score": 210,
+        "reason": "CURRENT (354): control flow and instruction count align, but register choices and a 0x380 versus raw 0x378 local frame differ after two manual revisions Round19 2026-10-22: randomized permuter 60 s (seed 517482736) no exact from build/us/manual-attempts/round19/v/104c/nh.c; best CURRENT (45).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -53790,7 +53790,7 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 80,
+        "current_score": 2610,
         "reason": "Oct18 isolated: CURRENT80 retained. Height/Z declaration swap and register hints80; block-scoped constant97. Assignment-in-comparison either operand order80. Four s1/s2 register rows and invariant float-load scheduling remain; no valid improvement.",
         "recorded_revision": "working-tree"
       },
@@ -62267,7 +62267,7 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 120,
+        "current_score": 320,
         "reason": "Manual325 to120 using proven rate lifetime and compound updates. Remaining global V1/early return LI and velocity ADD operand mismatch duplicate exhausted sibling hypotheses; preserve120.",
         "recorded_revision": "working-tree"
       },
@@ -65135,7 +65135,7 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 113,
+        "current_score": 213,
         "reason": "ABI declaration plateau: semantically correct three-argument candidate finish CURRENT (113); two-argument starter switched on a0 and cannot reproduce target a1 plus a2 home spill, unnamed/register-qualified parameter variants were rejected or unchanged",
         "recorded_revision": "working-tree"
       },
@@ -74725,8 +74725,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 315,
-        "reason": "Coherent f32 C73C interface with genuine0x28 owning descriptor and complete-object pointer. Single transition/extent measurement CURRENT315; old undersized233 and word-union925 are obsolete. Frame0x98 vs0x90, packet/scalar/RNG spill offsets and registers remain. No shape revisions.",
+        "current_score": 60,
+        "reason": "Coherent f32 C73C interface with genuine0x28 owning descriptor and complete-object pointer. Single transition/extent measurement CURRENT315; old undersized233 and word-union925 are obsolete. Frame0x98 vs0x90, packet/scalar/RNG spill offsets and registers remain. No shape revisions. Round19 2026-10-22: randomized permuter 60 s (seed 3950028114) no exact from build/us/manual-attempts/round19/v/dfac/join.c; best CURRENT (50).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -74744,8 +74744,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 315,
-        "reason": "Coherent f32 C73C interface with genuine0x28 owning descriptor and complete-object pointer. Single transition/extent measurement CURRENT315; old undersized233 and word-union925 are obsolete. Frame0x98 vs0x90, packet/scalar/RNG spill offsets and registers remain. No shape revisions.",
+        "current_score": 60,
+        "reason": "Coherent f32 C73C interface with genuine0x28 owning descriptor and complete-object pointer. Single transition/extent measurement CURRENT315; old undersized233 and word-union925 are obsolete. Frame0x98 vs0x90, packet/scalar/RNG spill offsets and registers remain. No shape revisions. Round19 2026-10-22: randomized permuter 60 s (seed 1693822882) no exact from build/us/manual-attempts/round19/v/dfac/twin.c; best CURRENT (60).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
