@@ -1116,8 +1116,6 @@ s32 func_1505A630(f32 arg0, f32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1505A630 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A630.s")
-f32 sqrtf(f32);
-#pragma intrinsic(sqrtf)
 f32 func_1505A6F8(void *arg0, void *arg1) {
     f32 temp_fa0;
     f32 temp_fv1;

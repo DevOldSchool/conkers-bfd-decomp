@@ -334,8 +334,6 @@ void func_15179B14(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A6360/func_15179B14.s")
 extern void *D_800DBFF0;
 
-f32 sqrtf(f32);
-#pragma intrinsic(sqrtf)
 void func_15179CB0(void *arg0) {
     f32 temp_fa0;
     f32 temp_fv1;

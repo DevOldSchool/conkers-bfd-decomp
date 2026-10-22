@@ -211,8 +211,6 @@ void func_15178C34(u8 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4) {
         *(s16 *)((u8 *)temp_v0 + 0x30) = arg4;
     }
 }
-f32 sqrtf(f32);
-#pragma intrinsic(sqrtf)
 extern s32 D_800CC2D0;
 
 s32 func_15178C9C(u8 arg0, s32 arg1) {

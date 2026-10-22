@@ -1230,8 +1230,6 @@ s16 func_15143E24(void *arg0) {
     }
     return (s16) ((s32) *(u16 *)((u8 *)arg0 + 0x7A) >> 8);
 }
-f32 sqrtf(f32);
-#pragma intrinsic(sqrtf)
 f32 func_15143E64(void *arg0) {
     f32 temp_fa0;
     f32 temp_fa1;

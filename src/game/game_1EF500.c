@@ -216,8 +216,6 @@ s8 func_151C2734(Game1C2734Owner *arg0) {
 void *func_10022EC0(void *, const void *, u32);
 s32 func_15144B34(s32);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
-f32 sqrtf(f32);
-#pragma intrinsic(sqrtf)
 
 typedef struct {
     u8 pad0[0x10];
