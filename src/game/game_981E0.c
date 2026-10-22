@@ -2735,6 +2735,7 @@ void func_150717E0(s32 arg0) {
     if (temp_v0 != 0) {
         sp20.ptr = temp_v0;
         sp20.id = ((struct127 *)temp_v0)->unique_id;
+        /* Keep (T *)(s32)&sp20: a direct pointer cast changes codegen. */
         func_15131D4C((Game981E0MenuInput *)(s32)&sp20, 0x43);
         func_151494E0((void *)(s32)&sp20, 0x43);
     }
