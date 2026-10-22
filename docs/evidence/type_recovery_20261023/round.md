@@ -88,7 +88,7 @@ Validation: all **52** matched functions in edited sources plus the helper
 owner passed independent full-span US `finish` with `CURRENT (0)`, layout,
 progress and whitespace gates. A separate compiler audit built **43 pairs**
 of historical/current canonical and individually activated deferred units:
-no errors or canonical `cfe` warnings, and the same two pre-existing deferred
+no errors or edited canonical GAME `cfe` warnings, and the same two pre-existing deferred
 warning-712 sites before and after (`func_150E81A8`, `func_151C9ED4`). This
 covers every `#if 0` candidate in the edited files and the helper's source.
 The `game_114740.c` unit has no matched function: both deferred candidates
@@ -99,8 +99,17 @@ func_150E8824 func_150FA468 func_1515B5F4 func_150CF530 func_1515548C`
 reported **BATCH_COMPLETE**. The 2,072,880-byte US GAME image equals the
 independently extracted reference byte for byte (SHA-1
 `90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5`). The matching subset passed:
-1,062 tests, six skipped. The clean build log has no `cfe: Warning` lines.
-Existing SDK `cc` option warnings are separate. No asset reconstruction inputs
+1,062 tests, six skipped. The clean build introduces no new `cfe` warnings. It does contain ten
+pre-existing SDK/reconstructed-library `cfe` warnings: SDK `sethwinterrupt.c`
+(709), Rare `xldtob.c` (709), `xprintf.c` (581), `expf.c` (763),
+`n_seqplayer.c` (two 581s), and two MP3 assembly preprocessing units (two 581s
+each for NOP/CACHE). A focused replay of seven compile/preprocess commands
+reproduces exactly the same ten warning lines. Those library source trees,
+headers, Makefiles, toolchain inputs and SDK gitlink are unchanged from
+`origin/main`; none includes the changed `game_functions.h`. The replay writes
+objects only to the ignored ledger and leaves the tested image intact.
+[Exact reproduced warnings](library-warnings.log). Existing SDK `cc` option
+warnings are separate. No asset reconstruction inputs
 changed; this validates the GAME image and mapped data, not reconstructed assets.
 Whitespace checks passed.
 
@@ -148,7 +157,7 @@ same four pre-existing zeros. No other candidate improves or regresses.
 One shared prototype lead is kept; two score-neutral executable trials and
 three broader retypes are rejected with reasons above. Every implementation
 and inventory file equals tested commit
-`2bc84781a42edfa1d671f9235e2ec5daefe15bce`; subsequent changes add evidence
+`2bc84781a42edfa1d671f9235e2ec5daefe15bce`; subsequent changes add or correct evidence
 only. The clean `BATCH_COMPLETE` and zero-new-warning results therefore apply
 to the final code. The required per-lead gates ran before that lead's commit.
 No assembly, compiler settings, tooling or asset reconstruction inputs changed.

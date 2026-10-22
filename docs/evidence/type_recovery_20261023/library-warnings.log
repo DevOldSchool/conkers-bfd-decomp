@@ -1,0 +1,25 @@
+cfe: Warning 709: src/libultrare/libc/xldtob.c, line 197: Incompatible pointer type assignment
+ 		p = D_8002BF70;
+ 		--^
+
+cfe: Warning 581: src/libultrare/libc/xprintf.c:35: Macro NULL redefined.
+
+cfe: Warning 763: src/libultrare/gu/expf.c, line 35: value is outside range representable for type 'float'
+ 			return 3.4028234663852886e+38f;
+ 			-------^
+as1: Warning: src/libultrare/gu/expf.c, line 35: number outside range for single precision floating point values
+
+cfe: Warning 581: src/libultrare/audio/n_seqplayer.c:7: Macro MIN redefined.
+cfe: Warning 581: src/libultrare/audio/n_seqplayer.c:8: Macro MAX redefined.
+
+cfe: Warning 581: src/libultrare/mp3/asm_helper.h:11: Macro NOP redefined.
+cfe: Warning 581: src/libultrare/mp3/asm_helper.h:12: Macro CACHE redefined.
+
+cfe: Warning 581: src/libultrare/mp3/asm_helper.h:11: Macro NOP redefined.
+cfe: Warning 581: src/libultrare/mp3/asm_helper.h:12: Macro CACHE redefined.
+
+cfe: Warning 709: sethwinterrupt.c, line 35: Incompatible pointer type assignment
+     __osHwIntTable[interrupt] = handler;
+ ------------------------------^
+The type pointed to by the left-hand side of simple assignment
+statement is incompatible with the type pointed to by the right-hand side.
