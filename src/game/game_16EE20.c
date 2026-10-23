@@ -1,5 +1,8 @@
 #include "types.h"
 #include "game_functions.h"
+/* Retail geometry commands use the F3DEX2 0xD9 encoding. */
+#define F3DEX_GBI_2
+#include "PR/mbi.h"
 
 /*
  * Reviewed source unit: src/game/game_16EE20.c
@@ -676,67 +679,6 @@ f32 func_15142B44(f32 arg0) {
 }
 extern s32 D_800DD1FC;
 extern s32 D_800DD200;
-
-typedef struct {
-    u32 w0;
-    u32 w1;
-} Game16EE20Gwords;
-
-typedef union {
-    Game16EE20Gwords words;
-} Gfx;
-
-#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
-#define G_GEOMETRYMODE 0xd9
-#define G_SETENVCOLOR 0xfb
-#define G_SETPRIMCOLOR 0xfa
-#define G_RDPSETOTHERMODE 0xef
-#define G_RDPPIPESYNC 0xe7
-#define gSPGeometryMode(pkt, c, s) \
-{ \
-    Gfx *_g = (Gfx *)(pkt); \
-    _g->words.w0 = _SHIFTL(G_GEOMETRYMODE, 24, 8) | _SHIFTL(~(u32)(c), 0, 24); \
-    _g->words.w1 = (u32)(s); \
-}
-#define gSPSetGeometryMode(pkt, word) gSPGeometryMode((pkt), 0, (word))
-#define gSPClearGeometryMode(pkt, word) gSPGeometryMode((pkt), (word), 0)
-#define gDPNoParam(pkt, cmd) \
-{ \
-    Gfx *_g = (Gfx *)(pkt); \
- \
-    _g->words.w0 = _SHIFTL(cmd, 24, 8); \
-    _g->words.w1 = 0; \
-}
-#define gDPPipeSync(pkt) gDPNoParam(pkt, G_RDPPIPESYNC)
-#define gDPSetColor(pkt, c, d) \
-{ \
-    Gfx *_g = (Gfx *)(pkt); \
- \
-    _g->words.w0 = _SHIFTL(c, 24, 8); \
-    _g->words.w1 = (u32)(d); \
-}
-#define DPRGBColor(pkt, cmd, r, g, b, a) \
-    gDPSetColor(pkt, cmd, \
-                (_SHIFTL(r, 24, 8) | _SHIFTL(g, 16, 8) | \
-                 _SHIFTL(b, 8, 8) | _SHIFTL(a, 0, 8)))
-#define gDPSetEnvColor(pkt, r, g, b, a) \
-    DPRGBColor(pkt, G_SETENVCOLOR, r, g, b, a)
-#define gDPSetPrimColor(pkt, m, l, r, g, b, a) \
-{ \
-    Gfx *_g = (Gfx *)(pkt); \
- \
-    _g->words.w0 = (_SHIFTL(G_SETPRIMCOLOR, 24, 8) | \
-                    _SHIFTL(m, 8, 8) | _SHIFTL(l, 0, 8)); \
-    _g->words.w1 = (_SHIFTL(r, 24, 8) | _SHIFTL(g, 16, 8) | \
-                    _SHIFTL(b, 8, 8) | _SHIFTL(a, 0, 8)); \
-}
-#define gDPSetOtherMode(pkt, mode0, mode1) \
-{ \
-    Gfx *_g = (Gfx *)(pkt); \
- \
-    _g->words.w0 = _SHIFTL(G_RDPSETOTHERMODE, 24, 8) | _SHIFTL(mode0, 0, 24); \
-    _g->words.w1 = (u32)(mode1); \
-}
 
 Gfx *func_15142B7C(Gfx *gdl, s32 arg1, s32 arg2) {
     extern s32 D_800DD200;
