@@ -2576,7 +2576,7 @@ typedef struct Game16EE20TransformNode {
 
 s32 func_15031070(void *, void *, s32 *, s32 *);
 void *func_1503195C(void *, s32, s32);
-void func_15145EA4(s32 *, s32 *, s32, s32);
+void func_15145EA4(f32 **, f32 **, s32, s32);
 extern u8 D_800BE9C0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1514654C CURRENT (1533) */
@@ -2624,7 +2624,7 @@ s32 func_1514654C(u8 *arg0, Game16EE20TransformNode *arg1, s32 arg2,
             if (matrix != 0) {
                 matrix += D_800BE9C0 << 6;
             } else {
-                func_15145EA4((s32 *)arg3, (s32 *)arg4,
+                func_15145EA4(arg3, arg4,
                               base + (arg1->transformIndex << 6), arg5);
                 return 1;
             }

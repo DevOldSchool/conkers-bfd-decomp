@@ -1,0 +1,47 @@
+trial	function	source	baseline_score	trial_score	frame	detail
+repair-only	func_1514306C	src/game/game_16EE20.c	20	20	leaf	-
+repair-only	func_15145DB4	src/game/game_16EE20.c	156	156	0x98	-
+repair-only	func_15143134	src/game/game_16EE20.c	215	215	0x78	-
+repair-only	func_15143D18	src/game/game_16EE20.c	300	300	0x10	-
+repair-only	func_1514401C	src/game/game_16EE20.c	320	320	leaf	-
+repair-only	func_15145EA4	src/game/game_16EE20.c	ERR	353	0xa0	-
+repair-only	func_15145CD0	src/game/game_16EE20.c	693	693	0x88	-
+repair-only	func_15141F78	src/game/game_16EE20.c	745	745	0x78	-
+repair-only	func_15145AD8	src/game/game_16EE20.c	787	787	0x88	-
+repair-only	func_15143E94	src/game/game_16EE20.c	933	933	0x48	-
+repair-only	func_15141E38	src/game/game_16EE20.c	1418	1418	0x68	-
+repair-only	func_1514563C	src/game/game_16EE20.c	1600	1600	0x20	-
+repair-only	func_15144E80	src/game/game_16EE20.c	1615	1615	0x60	-
+repair-only	func_15146078	src/game/game_16EE20.c	1755	1755	0x48	-
+repair-only	func_15145740	src/game/game_16EE20.c	1849	1849	0x40	-
+repair-only	func_151438D8	src/game/game_16EE20.c	2428	2428	0x40	-
+repair-only	func_151452C4	src/game/game_16EE20.c	2576	2576	0x78	-
+repair-only	func_151462C8	src/game/game_16EE20.c	3510	3510	0x70	-
+repair-only	func_15144CEC	src/game/game_16EE20.c	3547	3547	0x58	-
+repair-only	func_15141A7C	src/game/game_16EE20.c	3828	3828	0x50	-
+repair-only	func_15142600	src/game/game_16EE20.c	10388	10388	0xe0	-
+repair-only	func_1514470C	src/game/game_16EE20.c	1819	1819	0xa0	-
+repair-only	func_1514654C	src/game/game_16EE20.c	2033	2033	0xb0	-
+render-trial	func_15141A7C	src/game/game_16EE20.c	3828	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_15141A7C/variant001.c, line 729: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_15141E38	src/game/game_16EE20.c	1418	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_15141E38/variant001.c, line 724: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_15141F78	src/game/game_16EE20.c	745	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_15141F78/variant001.c, line 716: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_15142600	src/game/game_16EE20.c	10388	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_15142600/variant001.c, line 755: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_1514306C	src/game/game_16EE20.c	20	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_1514306C/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_15143134	src/game/game_16EE20.c	215	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_15143134/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_151438D8	src/game/game_16EE20.c	2428	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_151438D8/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_15143D18	src/game/game_16EE20.c	300	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_15143D18/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_15143E94	src/game/game_16EE20.c	933	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_15143E94/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_1514401C	src/game/game_16EE20.c	320	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_1514401C/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_1514470C	src/game/game_16EE20.c	1819	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_1514470C/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_15144CEC	src/game/game_16EE20.c	3547	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_15144CEC/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_15144E80	src/game/game_16EE20.c	1615	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_15144E80/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_151452C4	src/game/game_16EE20.c	2576	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_151452C4/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_1514563C	src/game/game_16EE20.c	1600	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_1514563C/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_15145740	src/game/game_16EE20.c	1849	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_15145740/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_15145AD8	src/game/game_16EE20.c	787	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_15145AD8/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_15145CD0	src/game/game_16EE20.c	693	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_15145CD0/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_15145DB4	src/game/game_16EE20.c	156	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_15145DB4/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_15145EA4	src/game/game_16EE20.c	ERR	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_15145EA4/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_15146078	src/game/game_16EE20.c	1755	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_15146078/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_151462C8	src/game/game_16EE20.c	3510	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_151462C8/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
+render-trial	func_1514654C	src/game/game_16EE20.c	2033	ERR	-	[compile: cfe: Error: build/us/sweep/runs/unchanged-a_3z1pkm/probe/func_1514654C/variant001.c, line 688: redeclaration of 'Gfx'; previous declaration at line 1720 in file 'lib/ultralib/include/PR/gbi.h']
