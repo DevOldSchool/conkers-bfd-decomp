@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "game_view.h"
 
 /*
  * Reviewed source unit: src/game/game_32740.c
@@ -24,7 +25,6 @@ extern s32 D_800894B0;
 extern s16 D_80089550;
 extern u8 *D_800BE2B0[];
 extern s32 D_800BE620;
-extern u8 *D_800DBFF0;
 extern u8 D_800DBFF4[];
 extern u8 *D_800DC010;
 extern u8 *D_800DC020;
@@ -46,7 +46,7 @@ void func_15005290(s32 resource, s32 mode) {
     D_800DC020 = (u8 *)func_1502B5C8(&resource_size, 3, 0xC, resource, 8);
     D_80089550 = (u32)resource_size / 24U;
     count = D_80082FA0 + 1;
-    D_800DBFF0 = (u8 *)func_10003C40(count * 0x9A0, 1, 1, 0);
+    D_800DBFF0 = (struct108 *)func_10003C40(count * 0x9A0, 1, 1, 0);
     matrix_bytes = count << 6;
     D_800DC2B0 = (u8 *)func_10003C40(count * 0xB0, 1, 0, 0);
     D_800DC2A0[0] = (u8 *)func_10003C40(matrix_bytes, 1, 1, 0);
@@ -57,7 +57,7 @@ void func_15005290(s32 resource, s32 mode) {
     index = 0;
     view_offset = 0;
     do {
-        view = D_800DBFF0 + view_offset;
+        view = (u8 *)&D_800DBFF0[index];
         *buffer = (u8 *)func_10003C40(D_800BE620 * 2, 1, 2, 0);
         func_150054C4(view, index, (s16)view_resource, mode);
         *flag = 0;
