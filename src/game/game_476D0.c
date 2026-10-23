@@ -294,7 +294,6 @@ void func_1501B0A0(s32 arg0, s32 arg1) {
     f32 temp_fa0;
     s32 temp_t4;
     s32 temp_t6;
-    s32 temp_t8;
     u8 *temp_v0;
 
     temp_t6 = arg0 * 0x180;
@@ -306,7 +305,6 @@ void func_1501B0A0(s32 arg0, s32 arg1) {
     sp2C = func_15047D60(temp_fa0);
     sp44 = sp2C / func_15047C00(temp_fa0);
     sp2C = func_15047D60(sp48);
-    temp_t8 = arg1 * 4;
     sp38 = (f32)D_800BE650[arg1] / (2.0f * (sp2C / func_15047C00(sp48)));
     temp_t4 = arg1 * 0x180;
     sp34 = (func_150484A0(*(f32 *)((u8 *)D_800BE628 + sp28 + 0xC),

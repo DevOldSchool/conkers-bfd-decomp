@@ -38,7 +38,6 @@ void func_15005290(s32 resource, s32 mode) {
     s32 count;
     s32 matrix_bytes;
     u8 *view;
-    s32 view_offset;
     u8 *flag;
     u32 index;
     s16 view_resource;
@@ -55,14 +54,12 @@ void func_15005290(s32 resource, s32 mode) {
     flag = D_800DBFF4;
     buffer = D_800BE2B0;
     index = 0;
-    view_offset = 0;
     do {
         view = (u8 *)&D_800DBFF0[index];
         *buffer = (u8 *)func_10003C40(D_800BE620 * 2, 1, 2, 0);
         func_150054C4(view, index, (s16)view_resource, mode);
         *flag = 0;
         index += 1;
-        view_offset += 0x9A0;
         buffer += 1;
         flag += 1;
     } while ((u32)D_80082FA0 >= index);

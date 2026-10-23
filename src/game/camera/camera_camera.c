@@ -1770,7 +1770,6 @@ s32 func_15126378(u8 *arg0) {
     u8 var_a0;
     u8 var_v0;
 
-    target = (u8 *)D_800BE628 + ((*(u8 *)((u8 *)(arg0) + 0x23D)) * 0x180);
     temp_fv0 = D_800BE628[*(u8 *)((u8 *)arg0 + 0x23D)].scale_x;
     var_t0 = (*(u8 **)((u8 *)(arg0) + 0x3D4));
     spC0 = D_800BE628[*(u8 *)((u8 *)arg0 + 0x23D)].scale_y / temp_fv0;
