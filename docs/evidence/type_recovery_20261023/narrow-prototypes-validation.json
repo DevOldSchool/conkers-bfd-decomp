@@ -1,0 +1,51 @@
+{
+  "baseline_commit": "d943e10e82121d81b67d9aad4d41df236526a0b6",
+  "baseline_file": "spatial-point-final.tsv",
+  "baseline_sha256": "f43ca9034a32cb16ac96347a6942594bcf1b4008acad785847affa2d7b9e4340",
+  "baseline_sum": 2792094,
+  "trials": [
+    {
+      "lead": "blood ABI",
+      "rows": 15,
+      "scored": 14,
+      "before": 30377,
+      "after": 30816,
+      "retained": false
+    },
+    {
+      "lead": "stack ABI",
+      "rows": 18,
+      "scored": 18,
+      "before": 27033,
+      "after": 27033,
+      "retained": false
+    },
+    {
+      "lead": "byte ABI",
+      "rows": 13,
+      "scored": 13,
+      "before": 29168,
+      "after": 29168,
+      "retained": false
+    }
+  ],
+  "retained_runtime_changes": 0,
+  "restoration_rows": 46,
+  "restoration_scored": 45,
+  "restoration_sum": 86578,
+  "restoration_errors": [
+    "func_1513A594"
+  ],
+  "all_restored_scores_and_frames_equal_baseline": true,
+  "round_reduction": 0,
+  "cumulative_reduction": 2532,
+  "new_matches": 0,
+  "runtime_equal_tested_commit": true,
+  "previous_batch": "BATCH_COMPLETE",
+  "new_batch_run": false,
+  "reason": "All trials rejected and runtime sources restored byte-for-byte; no accepted implementation change to revalidate.",
+  "binary_byte_identical": true,
+  "game_bytes": 2072880,
+  "game_sha1": "90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5",
+  "pending_batch_ids": []
+}
