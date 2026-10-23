@@ -80153,17 +80153,16 @@
       "symbol": "func_1510B690"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1065,
-        "reason": "Round 13: typed Game138B40Command *arg0 cursor with twelve one-line blocks 7175 -> 1065 (full-file); IDO CSEs arg1 * 0x180 across the DB0E and DA380007 records (raw recomputes it) and copies arg1 to a2; base-first (u8 *) record form 1170, randomized permuter 240 s no exact.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 420,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510B7B4",
           "vram": "0x1510B7B4"
         }

@@ -1,0 +1,15 @@
+trial	function	source	baseline	trial_score	reduction	retained_source
+initial-owner	func_1510B7B4	src/game/game_138B40.c	1265	0	1265	yes
+initial-owner	func_150D1810	src/game/game_FECC0.c	1399	1399	0	yes
+initial-owner	func_1512ABF8	src/game/game_157840.c	1490	1490	0	no
+initial-owner	func_1512C20C	src/game/game_157840.c	2316	2316	0	no
+initial-owner	func_1512B53C	src/game/game_157840.c	4675	4675	0	no
+initial-owner	func_1512B730	src/game/game_157840.c	5433	5433	0	no
+initial-owner	func_1510B690	src/game/game_138B40.c	635	635	0	yes
+initial-owner	func_1512B1B8	src/game/game_157840.c	5577	5652	-75	no
+bounds-extension	func_1507DB6C	src/game/game_A9D90.c	5190	5185	5	no
+bounds-extension	func_1507DFE4	src/game/game_A9D90.c	487	487	0	no
+bounds-extension	func_1507D4F8	src/game/game_A9D90.c	879	879	0	no
+bounds-extension	func_1516D0CC	src/game/game_197F20.c	3528	3528	0	no
+bounds-extension	func_1516C934	src/game/game_197F20.c	4766	4766	0	no
+bounds-extension	func_1507E1D0	src/game/game_A9D90.c	ERR	ERR	-	no

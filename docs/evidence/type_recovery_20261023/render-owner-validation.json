@@ -1,0 +1,175 @@
+{
+  "before": 2793441,
+  "after": 2792176,
+  "baseline_rows": 1384,
+  "final_rows": 1383,
+  "baseline_scored": 1335,
+  "final_scored": 1334,
+  "newly_matched": {
+    "func_1510B7B4": {
+      "baseline": 1265,
+      "final": 0,
+      "independent_finish": true
+    }
+  },
+  "changed_remaining_scores": [],
+  "same_error_set": true,
+  "scorer_seconds": 121.3,
+  "new_matches": 1,
+  "net_reduction": 1265,
+  "cumulative_reduction": 2450,
+  "baseline_file": "root-owner-final.tsv",
+  "baseline_sha256": "734c08f490eb28242cf48171016de1c37b3851f9f34f118a5e4a21058761f3a1",
+  "final_file": "render-owner-final.tsv",
+  "final_sha256": "ba1cf07b425bdb1efe9d7807b3a7c586ceb3e5a0f83ccfaded410e2b3e9178b6",
+  "batch": "BATCH_COMPLETE",
+  "batch_command": "CONKER_JOBS=1 ./conker verify-batch func_1510B7B4 func_1510B958",
+  "tests": 1062,
+  "skipped": 6,
+  "new_cfe_warnings": 0,
+  "compile_audit": [
+    {
+      "source": "src/game/game_FECC0.c",
+      "function": "canonical",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_FECC0.c",
+      "function": "func_150D1810",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_138B40.c",
+      "function": "canonical",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_138B40.c",
+      "function": "func_1510B690",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_138B40.c",
+      "function": "func_1510B7B4",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    }
+  ],
+  "layout": {
+    "expected": [
+      384,
+      16,
+      64,
+      4,
+      12,
+      16,
+      36,
+      40,
+      44,
+      48,
+      64,
+      100,
+      104,
+      108,
+      112,
+      116,
+      120,
+      132,
+      184,
+      188,
+      256
+    ],
+    "actual": [
+      384,
+      16,
+      64,
+      4,
+      12,
+      16,
+      36,
+      40,
+      44,
+      48,
+      64,
+      100,
+      104,
+      108,
+      112,
+      116,
+      120,
+      132,
+      184,
+      188,
+      256
+    ],
+    "compiler": "pinned IDO o32",
+    "all_equal": true,
+    "labels": [
+      "record-size",
+      "Vp-size",
+      "Mtx-size",
+      "width",
+      "field0C",
+      "field10",
+      "top",
+      "bottom",
+      "left",
+      "right",
+      "viewports",
+      "base_x",
+      "base_y",
+      "scale_x",
+      "scale_y",
+      "value_x",
+      "value_y",
+      "field84",
+      "normalization",
+      "matrix",
+      "matrices"
+    ]
+  },
+  "pending_batch_ids": [],
+  "game_bytes": 2072880,
+  "game_sha1": "90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5",
+  "byte_identical": true,
+  "tested_source_sha256": {
+    "include/game_render_view.h": "0c381eac76348ff20c14d7e500cda442a314925df9b7e0034f89443bae859ea0",
+    "src/game/game_138B40.c": "5dd5c3d5c5c16e6f647f96b290d20f49c8432a728504638a0dbcc594a54ad526",
+    "src/game/game_FECC0.c": "d17ebbda95f7b2c128793990ee0b1c357123a2fac6dfe315b606777bcb2a048c",
+    "progress/functions.json": "9cee8c04d0389a9b34002eccdadc26f03b4cea4edd2d60545455a1d57c81d9e0"
+  }
+}
