@@ -39,9 +39,7 @@ void func_1510B690(void) {
     if (D_80082FA0 >= 0) {
         do {
             func_151EFEB8(&sp4C,
-                          (s32)((u32)D_800BE628 +
-                                ((((u32)var_s0 << 2) - (u32)var_s0) << 7) +
-                                ((u32)D_800BE9C0 << 6) + 0x100U));
+                          (s32)&D_800BE628[var_s0].matrices[D_800BE9C0]);
             temp_s1 = (u32)var_s0 << 6;
             temp_s2 = (void *)((u32)D_800D9C10 + (u32)temp_s1);
             func_151EFEB8(temp_s2,
