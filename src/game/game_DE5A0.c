@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "game_path.h"
 
 /*
  * Reviewed source unit: src/game/game_DE5A0.c
@@ -81,7 +82,6 @@ void func_15056B08(u8 *);
 void func_15059140(u8 *);
 extern f32 D_8009F8BC;
 extern f32 D_8009F8C0;
-extern u8 **D_800D2104;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B12FC CURRENT (1805) */
 void func_150B12FC(u8 *arg0) {
@@ -93,7 +93,7 @@ void func_150B12FC(u8 *arg0) {
 
     original[0] = *(s16 *)(arg0 + 0x76);
     arg0[0x80] = 0xA;
-    height = (f32)*(s16 *)(D_800D2104[arg0[0x13F]] + 2);
+    height = (f32)D_800D2104[arg0[0x13F]][0].y;
     func_15058EA4(arg0, height, 1.0f, height, D_8009F8BC, 12.0f, -16.0f);
     func_15056B08(arg0);
     prior = *(f32 *)(arg0 + 0xC4);
@@ -151,7 +151,7 @@ void func_150B1484(u8 *arg0) {
             offset = *(s16 *)(arg0 + 0x224);
             if (offset != 0) {
                 if (offset == 10000) {
-                    height = (f32)*(s16 *)(D_800D2104[arg0[0x13F]] + arg0[0x21E] * 8 + 10);
+                    height = (f32)D_800D2104[arg0[0x13F]][arg0[0x21E] + 1].y;
                 } else {
                     kind = arg0[4];
                     if (kind == 0x50 || kind == 5 || kind == 0xAD || kind == 0xAE || kind == 0xAF) {
@@ -166,7 +166,7 @@ void func_150B1484(u8 *arg0) {
                 if (arg0[4] == 0x44) {
                     positive = 3.0f;
                     range = 12.0f;
-                    height = (f32)*(s16 *)(D_800D2104[arg0[0x13F]] + arg0[0x21E] * 8 + 10);
+                    height = (f32)D_800D2104[arg0[0x13F]][arg0[0x21E] + 1].y;
                 } else {
                     positive = 5.0f;
                     range = 35.0f;

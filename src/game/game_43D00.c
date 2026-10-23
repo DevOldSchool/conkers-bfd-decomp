@@ -1,4 +1,6 @@
 #include "types.h"
+#include "game_functions.h"
+#include "game_path.h"
 
 /*
  * Reviewed source unit: src/game/game_43D00.c
@@ -75,7 +77,6 @@ void *func_10003C40(s32, s32, s32, s32);
 void func_100226F0(void *, s32);
 extern s8 D_8008FD8C;
 extern u8 D_800D2101;
-extern void **D_800D2104;
 extern u8 *D_800D2108;
 typedef struct Game43D00Entry {
     s32 offset;
