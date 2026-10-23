@@ -76,6 +76,11 @@ Only four scores change in the [complete rescore](rectangle-spawn.tsv):
 | `func_150FAE18` | 2,229 | 2,181 | 48 |
 | `func_151CAB78` | 1,557 | 2,182 | -625 |
 
+**Superseded by the [PR review follow-up](review-followup.md):** removing the
+redundant `mode & 0xFF` restores `func_151CAB78` to 1,557 while preserving the
+shared byte contract. The historical measurements and rationale below record
+the earlier checkpoint, not the final retained regression status.
+
 The regression is retained deliberately to use the matched helper's proven
 byte contract consistently. Paired complete-source `probe` variants reproduce
 1,557 and 2,182 with the same 0xE8 frame. At the second argument's `mode &
