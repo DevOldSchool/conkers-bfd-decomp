@@ -1,0 +1,2337 @@
+{
+  "date": "2026-10-24",
+  "profile": "us",
+  "base_commit": "fed0a221aa6dba4189e08bd084180ec3ab418f4c",
+  "baseline": {
+    "path": "docs/evidence/type_recovery_20261023/sdk-gfx-16ee20-final.tsv",
+    "sha256": "96ff868459831b1849228a61b9ebf564cd7906f01838ea29f64170756e40af5f",
+    "sum": 2791612
+  },
+  "final": {
+    "path": "docs/evidence/type_recovery_20261023/review-followup-final.tsv",
+    "sha256": "ae5121a88b3658469eb2973f936cdcce41dd7c9d678e9cb510c46a04e2f0bb23",
+    "sum": 2790949,
+    "rows": 1383,
+    "scored": 1335,
+    "errors": 48,
+    "preexisting_zeros": [
+      "func_15081E0C",
+      "func_150B6BC0",
+      "func_15194408",
+      "func_151E2404"
+    ],
+    "sweep_timing_lines": [
+      "sweep unchanged: 1383 candidates in 452 sources (exact)",
+      "sweep unchanged: 1383 rows, 4 zero, 48 errors, 1383 compiles, 0 batched confirmations, 111.2s; wrote build/us/manual-attempts/pr170-review-20261023/final.tsv"
+    ]
+  },
+  "measurement": {
+    "reduction": 663,
+    "cumulative_pr_reduction": 4030,
+    "original_baseline_comparable_sum": 2790596,
+    "coverage_credit": 0,
+    "changes": [
+      {
+        "function": "func_15005290",
+        "source": "src/game/game_32740.c",
+        "before": 2472,
+        "after": 2454,
+        "frame_before": "0x78",
+        "frame_after": "0x70"
+      },
+      {
+        "function": "func_1501B0A0",
+        "source": "src/game/game_476D0.c",
+        "before": 1506,
+        "after": 1486,
+        "frame_before": "0x60",
+        "frame_after": "0x60"
+      },
+      {
+        "function": "func_151CAB78",
+        "source": "src/game/effects/effects_sight.c",
+        "before": 2182,
+        "after": 1557,
+        "frame_before": "0xe8",
+        "frame_after": "0xe8"
+      }
+    ],
+    "regressions": [],
+    "new_matches": []
+  },
+  "source_sha256": {
+    "src/game/effects/effects_sight.c": "0ab2dbad83f3a4728a52e1ca158b3223a6248a544fc92b844b34d776a1fe6b68",
+    "src/game/game_32740.c": "b712da89fdf3a4d7b9980d5a2bcd47c2bf21627bd87d834ff21b9e245c6eeb2c",
+    "src/game/camera/camera_camera.c": "3617058a68421c8ba64e0c0a406e269d66c75feb9592103fb6bcf2989ae31cee",
+    "src/game/game_476D0.c": "ed0ff3c66badc9a50b36d52189a3134bbae6625fe9e53c1e352858ad5b6f523c",
+    "src/game/game_16EE20.c": "9bab7dfd415c65dc3c93021b71b02cbc63ca13133b8365d379157f214ab05e73"
+  },
+  "matched_rechecks": [
+    {
+      "function": "func_15122AE0",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 8.34,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15123070",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.96,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15123508",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.05,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15123934",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.12,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151239CC",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.95,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15124770",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.09,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15124AB4",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.75,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1512523C",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.42,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125330",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.46,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125394",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.12,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151253CC",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.08,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125490",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.92,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151254F4",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.31,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125594",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.13,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125608",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.41,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125628",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.0,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125690",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.22,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125924",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.4,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125A6C",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.78,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125C40",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.08,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15126138",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 8.55,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1512623C",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.72,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15127EB8",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 8.21,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15127FEC",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.4,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151283B8",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.46,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151284C4",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.93,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15128540",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.91,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15128680",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 8.2,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1512868C",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.31,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15128774",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 9.53,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151C8674",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.78,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151C87AC",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.98,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151C94D4",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.35,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151C95D8",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.53,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151C96DC",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.77,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151C970C",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.94,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151C9AC0",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 8.48,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151C9B30",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.68,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151C9B64",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.4,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151CAACC",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.41,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151CB49C",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.5,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151CB510",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.6,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151CB918",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.32,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151CB970",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 6.93,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151CBB6C",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.19,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151CBBE0",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.89,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151CC290",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.11,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151CC2BC",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.06,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151CC77C",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.44,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151CCE94",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 7.27,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151CD224",
+      "source": "src/game/effects/effects_sight.c",
+      "seconds": 9.28,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1501A220",
+      "source": "src/game/game_476D0.c",
+      "seconds": 6.46,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1501A39C",
+      "source": "src/game/game_476D0.c",
+      "seconds": 8.25,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1501A490",
+      "source": "src/game/game_476D0.c",
+      "seconds": 6.57,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1501A680",
+      "source": "src/game/game_476D0.c",
+      "seconds": 6.48,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1501A6CC",
+      "source": "src/game/game_476D0.c",
+      "seconds": 6.6,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1501AE94",
+      "source": "src/game/game_476D0.c",
+      "seconds": 6.48,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1501AF44",
+      "source": "src/game/game_476D0.c",
+      "seconds": 7.32,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15141970",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 7.09,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15141990",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 7.25,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151419B0",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.56,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151419D0",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.53,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15141C0C",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.74,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15141CC0",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.7,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15141DA4",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.56,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151420F8",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.73,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15142180",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.58,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151422C0",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.57,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151422DC",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.55,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151422F8",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.55,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15142314",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.6,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151423D8",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.69,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15142444",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.57,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151424F4",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.59,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15142838",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 7.44,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15142914",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.64,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151429E0",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.57,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15142A5C",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.55,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15142A80",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.53,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15142AC0",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.49,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15142B04",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.52,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15142B44",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.55,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15142B7C",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.56,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15142C10",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.55,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15142CF0",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.58,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15142E24",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.52,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15142FBC",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.49,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15143044",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.47,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151436B4",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.48,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1514373C",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.53,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15143794",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.59,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15143834",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.54,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15143874",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.64,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15143DA8",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.64,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15143E08",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 7.01,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15143E24",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 7.02,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15143E64",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 7.72,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151441A4",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 7.03,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151442FC",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.72,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151444DC",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.64,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15144528",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.57,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15144598",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.57,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1514462C",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.57,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15144A74",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.57,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15144AA8",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.61,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15144B34",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.7,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15144B68",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 7.3,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15144BC8",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.67,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15144C2C",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.6,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15144C8C",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.57,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151450B4",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.69,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15145128",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.77,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151451F0",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.67,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151454BC",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.58,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15145548",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.56,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15145974",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.54,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15145A0C",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.55,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15145A50",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.54,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15145C90",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.56,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151464B8",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.56,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15146508",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.56,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1514672C",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 6.56,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151467A4",
+      "source": "src/game/game_16EE20.c",
+      "seconds": 8.4,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    }
+  ],
+  "superseded_sdk_rechecks": 65,
+  "guard_trials": {
+    "rejected_nonfatal_constraints": [
+      "preprocessor error (warning 605)",
+      "negative array bound (warning 654)"
+    ],
+    "retained_constraint": "negative bitfield only under invalid GBI selection"
+  },
+  "matched_counts": {
+    "src/game/camera/camera_camera.c": 30,
+    "src/game/effects/effects_sight.c": 21,
+    "src/game/game_476D0.c": 7,
+    "src/game/game_16EE20.c": 65
+  },
+  "compile_audit": {
+    "pairs": 66,
+    "deferred_candidates": 61,
+    "canonical_sources": 5,
+    "warnings_before": 9,
+    "warnings_after": 9,
+    "results": [
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "canonical",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "func_151C71A0",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "func_151C82D0",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "func_151C86AC",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "func_151C87E0",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "func_151C8FCC",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "func_151C9198",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "func_151C9740",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "func_151C9DE8",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "func_151C9ED4",
+        "before": {
+          "returncode": 0,
+          "warnings": [
+            "cfe: Warning 712: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/effects_sight-func_151C9ED4-before.c, line 866: illegal combination of pointer and integer"
+          ],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [
+            "cfe: Warning 712: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/effects_sight-func_151C9ED4-after.c, line 866: illegal combination of pointer and integer"
+          ],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "func_151CAB78",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "func_151CB110",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "func_151CB5FC",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "func_151CBC60",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "func_151CC1D4",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "func_151CC524",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "func_151CCD1C",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/effects/effects_sight.c",
+        "function": "func_151CCF08",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_32740.c",
+        "function": "canonical",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_32740.c",
+        "function": "func_15005290",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_32740.c",
+        "function": "func_150054C4",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_32740.c",
+        "function": "func_15005818",
+        "before": {
+          "returncode": 0,
+          "warnings": [
+            "cfe: Warning 709: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/game_32740-func_15005818-before.c, line 318: Incompatible pointer type assignment"
+          ],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [
+            "cfe: Warning 709: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/game_32740-func_15005818-after.c, line 315: Incompatible pointer type assignment"
+          ],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/camera/camera_camera.c",
+        "function": "canonical",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/camera/camera_camera.c",
+        "function": "func_15122C5C",
+        "before": {
+          "returncode": 0,
+          "warnings": [
+            "cfe: Warning 709: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/camera_camera-func_15122C5C-before.c, line 156: Incompatible pointer type assignment"
+          ],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [
+            "cfe: Warning 709: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/camera_camera-func_15122C5C-after.c, line 156: Incompatible pointer type assignment"
+          ],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/camera/camera_camera.c",
+        "function": "func_1512317C",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/camera/camera_camera.c",
+        "function": "func_15123568",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/camera/camera_camera.c",
+        "function": "func_151236D0",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/camera/camera_camera.c",
+        "function": "func_15123A54",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/camera/camera_camera.c",
+        "function": "func_151247C0",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/camera/camera_camera.c",
+        "function": "func_15124B18",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/camera/camera_camera.c",
+        "function": "func_15124C38",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/camera/camera_camera.c",
+        "function": "func_151256BC",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/camera/camera_camera.c",
+        "function": "func_15125DB4",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/camera/camera_camera.c",
+        "function": "func_15126378",
+        "before": {
+          "returncode": 0,
+          "warnings": [
+            "cfe: Warning 709: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/camera_camera-func_15126378-before.c, line 1908: Incompatible pointer type assignment"
+          ],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [
+            "cfe: Warning 709: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/camera_camera-func_15126378-after.c, line 1907: Incompatible pointer type assignment"
+          ],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/camera/camera_camera.c",
+        "function": "func_15127520",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/camera/camera_camera.c",
+        "function": "func_151277B0",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/camera/camera_camera.c",
+        "function": "func_151279A0",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/camera/camera_camera.c",
+        "function": "func_15128030",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_476D0.c",
+        "function": "canonical",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_476D0.c",
+        "function": "func_1501A764",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_476D0.c",
+        "function": "func_1501B0A0",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_476D0.c",
+        "function": "func_1501B22C",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "canonical",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_15141A7C",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_15141E38",
+        "before": {
+          "returncode": 0,
+          "warnings": [
+            "cfe: Warning 712: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/game_16EE20-func_15141E38-before.c, line 295: illegal combination of pointer and integer",
+            "cfe: Warning 712: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/game_16EE20-func_15141E38-before.c, line 295: illegal combination of pointer and integer"
+          ],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [
+            "cfe: Warning 712: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/game_16EE20-func_15141E38-after.c, line 303: illegal combination of pointer and integer",
+            "cfe: Warning 712: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/game_16EE20-func_15141E38-after.c, line 303: illegal combination of pointer and integer"
+          ],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_15141F78",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_15142600",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_1514306C",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_15143134",
+        "before": {
+          "returncode": 0,
+          "warnings": [
+            "cfe: Warning 712: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/game_16EE20-func_15143134-before.c, line 883: illegal combination of pointer and integer"
+          ],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [
+            "cfe: Warning 712: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/game_16EE20-func_15143134-after.c, line 891: illegal combination of pointer and integer"
+          ],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_151438D8",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_15143D18",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_15143E94",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_1514401C",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_1514470C",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_15144CEC",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_15144E80",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_151452C4",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_1514563C",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_15145740",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_15145AD8",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_15145CD0",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_15145DB4",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_15145EA4",
+        "before": {
+          "returncode": 0,
+          "warnings": [
+            "cfe: Warning 712: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/game_16EE20-func_15145EA4-before.c, line 2297: illegal combination of pointer and integer",
+            "cfe: Warning 712: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/game_16EE20-func_15145EA4-before.c, line 2314: illegal combination of pointer and integer"
+          ],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [
+            "cfe: Warning 712: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/game_16EE20-func_15145EA4-after.c, line 2305: illegal combination of pointer and integer",
+            "cfe: Warning 712: /workspace/build/us/manual-attempts/pr170-review-20261023/warning-audit/game_16EE20-func_15145EA4-after.c, line 2322: illegal combination of pointer and integer"
+          ],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_15146078",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_151462C8",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      },
+      {
+        "source": "src/game/game_16EE20.c",
+        "function": "func_1514654C",
+        "before": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        },
+        "after": {
+          "returncode": 0,
+          "warnings": [],
+          "errors": []
+        }
+      }
+    ]
+  },
+  "context_and_gbi_checks": {
+    "contexts": [
+      {
+        "source": "src/game/game_138B40.c",
+        "method": "ido-preprocessed",
+        "sha256": "c80824b26c12c8bf9deb933e7c6654e5c46547e87df243a425259a8bc270e578",
+        "needles": [
+          "} GameRenderView;",
+          "extern GameRenderView *D_800BE628;",
+          "Mtx matrices[2];"
+        ]
+      },
+      {
+        "source": "src/game/game_DE5A0.c",
+        "method": "ido-preprocessed",
+        "sha256": "2efef47aee15cb35e78cba78fd84f840f75a18a973780fe5237482d0934b1724",
+        "needles": [
+          "} GameSpatialPoint;",
+          "D_800D2104"
+        ]
+      },
+      {
+        "source": "src/game/game_32740.c",
+        "method": "ido-preprocessed",
+        "sha256": "d71de3a9427e25c3af4c1a15cea4f572dcd29771ba1212493c6d28337a537edd",
+        "needles": [
+          "struct108",
+          "D_800DBFF0"
+        ]
+      }
+    ],
+    "guards": [
+      {
+        "case": "wrong-earlier-gbi",
+        "returncode": 1,
+        "expected_diagnostic": "geometry_command_must_be_0xd9"
+      },
+      {
+        "case": "late-selector",
+        "returncode": 1,
+        "expected_diagnostic": "geometry_command_must_be_0xd9"
+      }
+    ],
+    "initial_header_bytes": 10276
+  },
+  "batch": {
+    "command": "CONKER_JOBS=1 ./conker verify-batch func_151C8674 func_15127EB8 func_1501A220 func_15142B7C",
+    "action": "BATCH_COMPLETE",
+    "warning_lines": [],
+    "game_bytes": 2072880,
+    "game_sha1": "90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5",
+    "game_reference_equal": true,
+    "tests": 1062,
+    "skipped": 6
+  },
+  "pending_batch_ids": [],
+  "ledger": "build/us/manual-attempts/pr170-review-20261023"
+}

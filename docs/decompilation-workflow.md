@@ -151,8 +151,10 @@ promoted; renaming fields in a matched body is separate review work. Promotion
 only deletes the local definition and spells the shared name; every matched
 body in the file stays otherwise unchanged. Sources that do not yet include the
 overlay header receive `#include "game_functions.h"` directly after
-`#include "types.h"`, because the m2c context only inlines `*_functions.h`
-headers from the initial include block. Afterwards recheck every matched
+`#include "types.h"` for initial shared-prototype discovery. The fast m2c
+context path inlines `*_functions.h` headers from that block; direct type-header
+includes or other unsupported directives select pinned-IDO preprocessing,
+which also includes those headers. Afterwards recheck every matched
 function in the edited files with full-span US `finish`, confirm a sample of
 `#if 0` deferred candidates still compiles with `diagnose-diff`, and finish
 with a clean `verify-batch`; a match that changes is reported, not repaired by

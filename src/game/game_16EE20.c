@@ -1,7 +1,10 @@
 #include "types.h"
 #include "game_functions.h"
-/* Retail geometry commands use the F3DEX2 0xD9 encoding. */
+/* Keep the initial shared headers visible to declaration discovery.
+ * The encoding check below rejects an incompatible earlier GBI include. */
+#ifndef F3DEX_GBI_2
 #define F3DEX_GBI_2
+#endif
 #include "PR/mbi.h"
 
 /*
@@ -36,6 +39,11 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
+
+#if !defined(G_GEOMETRYMODE) || G_GEOMETRYMODE != 0xD9
+/* IDO treats #error and negative array bounds as warnings. */
+struct ConkerRequiresRetailGbi { int geometry_command_must_be_0xd9 : -1; };
+#endif
 
 /* Reviewed bank-01 model records; descriptive labels, not original symbols.
  * See config/model-semantic-names.json.
