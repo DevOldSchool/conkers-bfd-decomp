@@ -1,0 +1,22 @@
+{
+  "rows": 1384,
+  "scored": 1335,
+  "before": 2793996,
+  "after": 2793996,
+  "changed_scores": [],
+  "same_error_set": true,
+  "elapsed_seconds": 152.3,
+  "baseline_commit": "6b61b26a935d4f1dcaf7f1b0263c07698bb54f69",
+  "baseline_file": "final.tsv",
+  "baseline_sha256": "b2216058515cbf828fc9c5a19375c10d0e52fe1ab21069020088c5ac8bd1d87d",
+  "full_trial_sha256": "1b6d629a209a0242df7c9a33685c0547ab3863483a5234775c2b8f4eb48328d9",
+  "pool_dependents": 157,
+  "pool_scored": 153,
+  "pool_errors": 4,
+  "pool_score_sum": 337469,
+  "new_matches": 0,
+  "retained_type_changes": 0,
+  "trial_restored": true,
+  "finish_transactions": 0,
+  "permutations": 0
+}
