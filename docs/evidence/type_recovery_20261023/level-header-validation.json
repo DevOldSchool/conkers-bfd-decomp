@@ -1,0 +1,378 @@
+{
+  "date": "2026-10-23",
+  "profile": "us",
+  "base_commit": "ada3727be41ccb7492f5d0617103384bc1803bef",
+  "baseline": {
+    "baseline_path": "docs/evidence/type_recovery_20261023/sdk-gfx-16ee20-final.tsv",
+    "sha256": "96ff868459831b1849228a61b9ebf564cd7906f01838ea29f64170756e40af5f",
+    "sum": 2791612,
+    "deferred_rows": 1383,
+    "scored": 1335,
+    "errors": 48,
+    "newly_matched": [
+      "func_1510B7B4"
+    ],
+    "commit": "ada3727be41ccb7492f5d0617103384bc1803bef",
+    "ledger": "build/us/manual-attempts/sdk-gfx-16ee20-20261023",
+    "cumulative_reduction": 3367,
+    "pending_batch_ids": [],
+    "score_coverage_additions": [
+      {
+        "function": "func_15145EA4",
+        "previous_score": "ERR",
+        "first_measured_score": 353,
+        "commit": "a7d9af231ad2658b648ea6e2b9faf951b3d45822",
+        "reduction_credit": 0
+      }
+    ],
+    "original_baseline_comparable_sum": 2791259
+  },
+  "lead": {
+    "symbol": "D_800B0DF0",
+    "candidates": 13,
+    "score_sum": 43380,
+    "candidate_rows": [
+      {
+        "stored": "485",
+        "new": "485",
+        "frame": "0x28",
+        "ref_frame": "0x28",
+        "function": "func_150054C4",
+        "source": "src/game/game_32740.c",
+        "detail": "-"
+      },
+      {
+        "stored": "3213",
+        "new": "3213",
+        "frame": "0x50",
+        "ref_frame": "0x30",
+        "function": "func_1500AF08",
+        "source": "src/game/game_36680.c",
+        "detail": "-"
+      },
+      {
+        "stored": "1285",
+        "new": "1285",
+        "frame": "0x48",
+        "ref_frame": "0x48",
+        "function": "func_1500BEC0",
+        "source": "src/game/game_36680.c",
+        "detail": "-"
+      },
+      {
+        "stored": "1837",
+        "new": "1837",
+        "frame": "0x78",
+        "ref_frame": "0x70",
+        "function": "func_150031EC",
+        "source": "src/game/game_305D0.c",
+        "detail": "-"
+      },
+      {
+        "stored": "4232",
+        "new": "4232",
+        "frame": "0x80",
+        "ref_frame": "0x78",
+        "function": "func_1517E28C",
+        "source": "src/game/game_1AB530.c",
+        "detail": "-"
+      },
+      {
+        "stored": "7667",
+        "new": "7667",
+        "frame": "0x78",
+        "ref_frame": "0x28",
+        "function": "func_15000940",
+        "source": "src/game/game_2DDF0.c",
+        "detail": "-"
+      },
+      {
+        "stored": "1220",
+        "new": "1220",
+        "frame": "0x30",
+        "ref_frame": "0x30",
+        "function": "func_150006E0",
+        "source": "src/game/game_2D540.c",
+        "detail": "-"
+      },
+      {
+        "stored": "470",
+        "new": "470",
+        "frame": "0x18",
+        "ref_frame": "0x18",
+        "function": "func_15015E80",
+        "source": "src/game/game_43330.c",
+        "detail": "-"
+      },
+      {
+        "stored": "619",
+        "new": "719",
+        "frame": "0x40",
+        "ref_frame": "0x40",
+        "function": "func_1505B5F8",
+        "source": "src/game/game_83300.c",
+        "detail": "-"
+      },
+      {
+        "stored": "12429",
+        "new": "12429",
+        "frame": "0x70",
+        "ref_frame": "0x70",
+        "function": "func_151733E4",
+        "source": "src/game/game_1A0790.c",
+        "detail": "-"
+      },
+      {
+        "stored": "2001",
+        "new": "2001",
+        "frame": "0x48",
+        "ref_frame": "0x30",
+        "function": "func_1501CC3C",
+        "source": "src/game/game_49D30.c",
+        "detail": "-"
+      },
+      {
+        "stored": "6018",
+        "new": "5490",
+        "frame": "0x70",
+        "ref_frame": "0x58",
+        "function": "func_1502C974",
+        "source": "src/game/game_58F80.c",
+        "detail": "-"
+      },
+      {
+        "stored": "2332",
+        "new": "2332",
+        "frame": "0x38",
+        "ref_frame": "0x40",
+        "function": "func_151739B0",
+        "source": "src/game/game_1A0E60.c",
+        "detail": "-"
+      }
+    ],
+    "declaration_conflict": {
+      "name": "D_800B0DF0",
+      "kind": "object",
+      "severity": "pointee",
+      "severity_rank": 3,
+      "abi_risk": false,
+      "reasons": [
+        "struct size differs"
+      ],
+      "match_state": null,
+      "declaration_count": 25,
+      "file_count": 25,
+      "variant_count": 12,
+      "definition": null,
+      "definition_type": null,
+      "disagree_with_definition": [],
+      "variants": [
+        {
+          "type": "void *",
+          "count": 11,
+          "sites": [
+            "src/done/game/game_1A1E50.c:29",
+            "src/done/game/game_322B0.c:35",
+            "src/done/game/game_32F10.c:9",
+            "src/done/game/game_3B920.c:29",
+            "src/game/game_1AB530.c:110",
+            "src/game/game_2D540.c:21",
+            "src/game/game_2DF70.c:600",
+            "src/game/game_32740.c:176",
+            "src/game/game_43330.c:14",
+            "src/game/game_58F80.c:631",
+            "src/game/game_83300.c:1180"
+          ]
+        },
+        {
+          "type": "u8 *",
+          "count": 4,
+          "sites": [
+            "src/done/main/init_11FA0.c:41",
+            "src/game/effects/light.c:1747",
+            "src/game/game_2DDF0.c:17",
+            "src/game/game_49D30.c:168"
+          ]
+        },
+        {
+          "type": "Game13D350State *",
+          "count": 1,
+          "sites": [
+            "src/game/game_13D350.c:159"
+          ],
+          "resolved": "Game13D350State /*size 0xA*/ *"
+        },
+        {
+          "type": "Game15D6E0State *",
+          "count": 1,
+          "sites": [
+            "src/done/game/game_15D6E0.c:13"
+          ],
+          "resolved": "Game15D6E0State /*size 0x10*/ *"
+        },
+        {
+          "type": "Game1A0E60State *",
+          "count": 1,
+          "sites": [
+            "src/game/game_1A0E60.c:26"
+          ],
+          "resolved": "Game1A0E60State /*size 0x22*/ *"
+        },
+        {
+          "type": "Game1A6300InputState *",
+          "count": 1,
+          "sites": [
+            "src/done/game/game_1A6300.c:20"
+          ],
+          "resolved": "Game1A6300InputState /*size 0x18*/ *"
+        },
+        {
+          "type": "Game1C2050Scene *",
+          "count": 1,
+          "sites": [
+            "src/game/game_1EF500.c:42"
+          ],
+          "resolved": "Game1C2050Scene /*size 0x2E*/ *"
+        },
+        {
+          "type": "Game305D0Scene *",
+          "count": 1,
+          "sites": [
+            "src/game/game_305D0.c:89"
+          ],
+          "resolved": "Game305D0Scene /*size 0x4C*/ *"
+        },
+        {
+          "type": "Game36600State *",
+          "count": 1,
+          "sites": [
+            "src/done/game/game_36600.c:20"
+          ],
+          "resolved": "Game36600State /*size 0x11*/ *"
+        },
+        {
+          "type": "Game36680RecordHeader *",
+          "count": 1,
+          "sites": [
+            "src/game/game_36680.c:829"
+          ],
+          "resolved": "Game36680RecordHeader /*size 0x1A*/ *"
+        },
+        {
+          "type": "Game3E810Colors *",
+          "count": 1,
+          "sites": [
+            "src/done/game/game_3E810.c:22"
+          ],
+          "resolved": "Game3E810Colors /*size 0x8*/ *"
+        },
+        {
+          "type": "s8 *",
+          "count": 1,
+          "sites": [
+            "src/game/game_1A0790.c:28"
+          ]
+        }
+      ]
+    }
+  },
+  "final": {
+    "path": "docs/evidence/type_recovery_20261023/level-header-final.tsv",
+    "sha256": "d4cc22f597899497849d4f661e34dc85f57b6a30c13193d7d27c7de514ff6f8c",
+    "rows": 1383,
+    "scored": 1335,
+    "errors": 48,
+    "sum": 2791612,
+    "score_or_frame_changes": [],
+    "new_zeros": [],
+    "sweep_summary": [
+      "sweep unchanged: 1383 candidates in 452 sources (exact)",
+      "sweep unchanged: 1383 rows, 4 zero, 48 errors, 1383 compiles, 0 batched confirmations, 128.9s; wrote build/us/manual-attempts/level-header-20261023/final.tsv"
+    ]
+  },
+  "measurement": {
+    "reduction": 0,
+    "new_matches": [],
+    "cumulative_pr_reduction": 3367,
+    "cumulative_pr_new_matches": [
+      "func_1510B7B4"
+    ],
+    "original_baseline_comparable_sum": 2791259,
+    "trials": [
+      {
+        "name": "prefix",
+        "sources": 4,
+        "candidates": 8,
+        "before": 21666,
+        "after": 21666,
+        "retained": false
+      },
+      {
+        "name": "signed-settings",
+        "sources": 2,
+        "candidates": 4,
+        "before": 14518,
+        "after": 14518,
+        "retained": false
+      }
+    ]
+  },
+  "rejected_patches": {
+    "prefix": {
+      "path": "docs/evidence/type_recovery_20261023/level-header-prefix-rejected.patch",
+      "sha256": "52fc705300a2aeda4ecc16dee01b9432c0e4f60812e2950e5f4edff7d081e231",
+      "git_apply_check": "passed"
+    },
+    "signed": {
+      "path": "docs/evidence/type_recovery_20261023/level-header-signed-rejected.patch",
+      "sha256": "a24a694b81943c808995e2714a9b64ad01ea4beae3f0fe8362ccda44e8197e44",
+      "git_apply_check": "passed"
+    }
+  },
+  "restored_source_sha256": {
+    "src/game/game_2D540.c": "cda18a20cdad1b4d906d3cb441d37129dbb60174063714fdde35e6d4363b565f",
+    "src/game/game_32740.c": "2232ffd02fda4d27480941b4b91191e5287aa1fc0788d87d9fecced3810e0dfe",
+    "src/game/game_1AB530.c": "4cabc5931a8f08fbe9a59b508ef2436ed98cc2de82d86b30006a92c2acc61876",
+    "src/game/game_1A0790.c": "39bf565eb6599e25a1a6a414711150bf320dffb4e618de1b915d082845f8ed17",
+    "src/game/game_138520.c": "6a5a60f2a4575a8255066c34c7ac7768feec6c3cdb341348c8cd49218fd48485"
+  },
+  "validation_scope": {
+    "new_matched_rechecks": 0,
+    "new_clean_batch_run": false,
+    "reason": "Both proposals failed the score-reduction gate and were restored before acceptance; the final commit contains evidence only. No changed source requires new matched or batch checks.",
+    "last_clean_batch_commit": "ada3727be41ccb7492f5d0617103384bc1803bef",
+    "last_clean_batch_status": "BATCH_COMPLETE",
+    "last_clean_batch_evidence": "docs/evidence/type_recovery_20261023/sdk-gfx-16ee20-validation.json",
+    "last_clean_batch_log_sha256": "343def4dd95cf6e2e5d77daa1e8f04657fb03030a6667765d66a06cfc1bd30d4",
+    "all_tracked_code_restored_to_base": true,
+    "temporary_headers_removed": true,
+    "binary": {
+      "bytes": 2072880,
+      "sha1": "90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5",
+      "independent_reference_identical": true
+    },
+    "pending_batch_ids": []
+  },
+  "scope": {
+    "retained_source_changes": false,
+    "retained_header_changes": false,
+    "assembly_changes": false,
+    "inventory_changes": false,
+    "tooling_changes": false,
+    "permutations": false,
+    "parallel_builds": false,
+    "read_only_workers": 2
+  },
+  "ledger": "build/us/manual-attempts/level-header-20261023",
+  "review": {
+    "independent_read_only_review": "passed",
+    "validated": [
+      "all five restored source hashes against base commit",
+      "both headers removed",
+      "baseline/final identities and scores/frames",
+      "both trial totals and patch hashes",
+      "existing binary and prior batch log"
+    ],
+    "clarification": "1502C974 is a deferred consumer of matched-backed field0x3E"
+  }
+}
