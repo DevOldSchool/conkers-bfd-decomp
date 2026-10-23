@@ -1,0 +1,303 @@
+{
+  "rows": 1384,
+  "scored": 1335,
+  "before": 2793996,
+  "after": 2793441,
+  "changes": [
+    {
+      "function": "func_15155CFC",
+      "before": "4701",
+      "after": "4196"
+    },
+    {
+      "function": "func_150C8A68",
+      "before": "2804",
+      "after": "2754"
+    }
+  ],
+  "same_error_set": true,
+  "elapsed_seconds": 126.1,
+  "new_matches": 0,
+  "baseline_commit": "9036d84acd6104b840ab062c67bf5462fb836bf8",
+  "baseline_file": "final.tsv",
+  "baseline_sha256": "b2216058515cbf828fc9c5a19375c10d0e52fe1ab21069020088c5ac8bd1d87d",
+  "final_file": "root-owner-final.tsv",
+  "final_sha256": "734c08f490eb28242cf48171016de1c37b3851f9f34f118a5e4a21058761f3a1",
+  "direct_callers": {
+    "candidates": 2,
+    "before": 7505,
+    "after": 6950
+  },
+  "touched_sources": {
+    "candidates": 7,
+    "before": 13788,
+    "after": 13233
+  },
+  "all_root_dependents": {
+    "scored": 35,
+    "errors": 1,
+    "before": 101170,
+    "after": 100615
+  },
+  "net_reduction": 555,
+  "cumulative_reduction": 1185,
+  "matched_rechecks": [
+    {
+      "function": "func_15155780",
+      "source": "src/game/game_182C30.c",
+      "seconds": 7.76,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151557FC",
+      "source": "src/game/game_182C30.c",
+      "seconds": 7.15,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15155EF8",
+      "source": "src/game/game_182C30.c",
+      "seconds": 7.11,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15155F3C",
+      "source": "src/game/game_182C30.c",
+      "seconds": 7.13,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15155F90",
+      "source": "src/game/game_182C30.c",
+      "seconds": 7.1,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15155FD4",
+      "source": "src/game/game_182C30.c",
+      "seconds": 9.72,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_150C99B4",
+      "source": "src/game/game_F5D80.c",
+      "seconds": 7.24,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_150CA07C",
+      "source": "src/game/game_F5D80.c",
+      "seconds": 7.17,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_150CA930",
+      "source": "src/game/game_F5D80.c",
+      "seconds": 7.37,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_150CA9D0",
+      "source": "src/game/game_F5D80.c",
+      "seconds": 7.4,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_150CAA04",
+      "source": "src/game/game_F5D80.c",
+      "seconds": 7.26,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_150CAC28",
+      "source": "src/game/game_F5D80.c",
+      "seconds": 7.55,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_150CADD0",
+      "source": "src/game/game_F5D80.c",
+      "seconds": 7.21,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    }
+  ],
+  "compile_audit": [
+    {
+      "source": "src/game/game_182C30.c",
+      "function": "canonical",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_182C30.c",
+      "function": "func_15155CFC",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_182C30.c",
+      "function": "func_15156028",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_F5D80.c",
+      "function": "canonical",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_F5D80.c",
+      "function": "func_150C88D0",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_F5D80.c",
+      "function": "func_150C8A68",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_F5D80.c",
+      "function": "func_150C9BDC",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_F5D80.c",
+      "function": "func_150C9DC4",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_F5D80.c",
+      "function": "func_150CB008",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    }
+  ],
+  "pending_batch_ids": [],
+  "batch": "BATCH_COMPLETE",
+  "batch_command": "CONKER_JOBS=1 ./conker verify-batch func_15155780 func_150C99B4",
+  "tests": 1062,
+  "skipped": 6,
+  "game_bytes": 2072880,
+  "game_sha1": "90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5",
+  "binary_byte_identical": true,
+  "new_cfe_warnings": 0,
+  "batch_cfe_warnings": 0,
+  "tested_source_sha256": {
+    "include/game_view.h": "311ac9d6e8839036de586b83a200c87a187ed3b1b3048eb38a50ff07d1890278",
+    "src/game/game_182C30.c": "5fcc05e076fd19cc484263ec99473bee09721612c937f6dad63eeca107edc2c9",
+    "src/game/game_F5D80.c": "7597ca6d1776241f090513df5852e6dd1d1d087b7628abebdd6388ca44540e50",
+    "include/types.h": "cd7667870f8e0e07b6360bb3697add1ab22a91fd42d010b0fb12237bbc211731",
+    "include/game_functions.h": "ecb2834392d8087b4008b5325b4d40c3a440db1919c367c86f0ee850edf5c991"
+  }
+}
