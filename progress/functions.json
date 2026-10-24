@@ -52831,17 +52831,16 @@
       "symbol": "func_151511FC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1114,
-        "reason": "CURRENT1114 from1649. Local byte snapshot improves masking and register allocation but frame118 versus110 leaves stack objects8high; entry masking and saved-register allocation still differ. Two finishes and two bounded revision probes plus one unchanged layout diagnostic. Inlining integer RNG did not improve; preserve named RNG call order. Budget exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 968,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15151670",
           "vram": "0x15151670"
         }
@@ -65969,7 +65968,7 @@
           "vram": "0x150D88E0"
         }
       },
-      "source": "src/game/game_105D90.c",
+      "source": "src/done/game/game_105D90.c",
       "symbol": "func_150D88E0"
     },
     {
@@ -65987,26 +65986,25 @@
           "vram": "0x150D8A20"
         }
       },
-      "source": "src/game/game_105D90.c",
+      "source": "src/done/game/game_105D90.c",
       "symbol": "func_150D8A20"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 531,
-        "reason": "Manual1206->531: removed unsupported fourth argument and actor copy; entire body exact. Remaining prologue byte-load/RA scheduling and branch-likely tail. Volatile formal881 regressed; restored531. Ledger deferred-manual-20260928.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 220,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D8A34",
           "vram": "0x150D8A34"
         }
       },
-      "source": "src/game/game_105D90.c",
+      "source": "src/done/game/game_105D90.c",
       "symbol": "func_150D8A34"
     },
     {
@@ -66690,17 +66688,16 @@
       "symbol": "func_1516A7B0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 825,
-        "reason": "Wrapper825, otherwise exact frame/arguments/control. Four word-vs-byte formal reloads and selectorregister remain; no qualifying narrow declaration for target arg1. No byte-addressing workaround or extra unsupported trial.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 508,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15171600",
           "vram": "0x15171600"
         }
@@ -72657,22 +72654,21 @@
       "symbol": "func_151903D0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 55,
-        "reason": "Round3 review 2026-10-18: permuter match withdrawn as fake (six empty if (1) blocks plus a table re-read). Natural C is instruction-identical at CURRENT (55): raw keeps index in a1 and the callback in v0; IDO gives index v0 and callback v1. Neutral 55: named/unnamed index and callback, inline field reads, table pointer local, void/void* callback table typing, typedef'd table, if (callback). Worse: early return on null (510), nested range test (660/775), extra s32 arg1 (255). Probes in build/us/manual-attempts/round3-review-151A9060.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A9060",
           "vram": "0x151A9060"
         }
       },
-      "source": "src/game/game_1D6510.c",
+      "source": "src/done/game/game_1D6510.c",
       "symbol": "func_151A9060"
     },
     {

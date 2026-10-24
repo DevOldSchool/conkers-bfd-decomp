@@ -15,7 +15,6 @@
  * - func_15150D1C
  * - func_15150F90
  * - func_151511FC
- * - func_15151670
  * - func_15151D6C
  * - func_15152190
  * - func_15152520
@@ -562,8 +561,7 @@ typedef struct {
     s32 fieldA0;
 } Game151670Config;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15151670 CURRENT (1114) */
-void func_15151670(Game151670Config *arg0, s32 arg1, s32 arg2) {
+void func_15151670(Game151670Config *arg0, u8 arg1, s32 arg2) {
     Game151A38Spawn spawn;
     Game151A38Motion motion;
     u8 kind;
@@ -625,8 +623,6 @@ void func_15151670(Game151670Config *arg0, s32 arg1, s32 arg2) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15151670 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15151670.s")
 
 typedef struct {
     Vec3f position;
