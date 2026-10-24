@@ -17,3 +17,8 @@ instruction words in `func_15134070` and grows by the object's 0x260 rodata
 bytes. The unchanged game-data archive supplies the tables at runtime.
 
 Clean batch verification remains required after applying this mapping.
+
+Update: the spray literal pool of `func_1513A48C` and `func_1513A5E0` follows
+these tables in `blood.o`. The unit is now split into exact 0x204 and 0x5C table
+sections at their unchanged addresses, plus a 0x20 pool at 0x800A4950. See
+[literal sub-pools](game_rodata_literal_sub_pools.md).
