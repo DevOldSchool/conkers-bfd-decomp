@@ -675,7 +675,7 @@ segments:
       - [0x1A7610, c, game/game_1D4AC0]
       - [0x1A7950, c, game/game_1D4E00]
       - [0x1A8B20, c, game/game_1D5FD0]
-      - [0x1A9060, c, game/game_1D6510]
+      - [0x1A9060, c, done/game/game_1D6510]
       - [0x1A90C0, c, game/game_1D6570]
       - [0x1A99D0, c, game/game_1D6E80]
       - [0x1AB930, c, game/game_1D8DE0]
