@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/main/init_1050.c
  * Boundary evidence: docs/evidence/boundaries/main/main_bootstrap_source_units.md
- *
- * TODO: Implement these source-unit functions:
- * - func_80001194
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 #if PROFILE_US
@@ -110,7 +105,6 @@ void func_800010F8(s32 arg0) {
     }
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80001194 CURRENT (60) */
 void func_80001194(s32 arg0) {
     u32 sp28;
     u32 block_count;
@@ -119,7 +113,7 @@ void func_80001194(s32 arg0) {
     s32 offset;
     s32 clear_size;
     s32 i;
-    s32 *framebuffers;
+    u32 framebufferSize;
 
     func_80005218();
     clear_size = 0x80400000 - (s32)&queue_end;
@@ -134,15 +128,9 @@ void func_80001194(s32 arg0) {
     func_80003930();
     func_80003BD0();
     func_8000709C();
-    block_count = func_80003C6C(0x1ECC0, 0xFF, 3, 1, 0);
-    clear_size = (s32)D_8002AAE8;
-    framebuffers = (s32 *)clear_size;
-    sp40 = 0x10000;
-    framebuffers[0] = block_count;
-    goto allocate_second_framebuffer;
-allocate_second_framebuffer:
-    sp40 |= 0xECC0;
-    framebuffers[1] = func_80003C6C(sp40, 0xFF, 3, 1, 0);
+    framebufferSize = 0x1ECC0;
+    D_8002AAE8[0] = func_80003C6C(framebufferSize, 0xFF, 3, 1, 0);
+    D_8002AAE8[1] = func_80003C6C(framebufferSize, 0xFF, 3, 1, 0);
     func_800034E0(0xFE);
     offset = (s32)&D_42450;
     func_80004514(offset, &D_80082B20, 0x10U, 1);
@@ -168,5 +156,3 @@ allocate_second_framebuffer:
     func_80005BE0();
     func_85007830();
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80001194 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_1050/func_80001194.s")

@@ -19525,15 +19525,15 @@
         "func_800010F8",
         "func_80001194"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x1420",
           "start": "0x1050",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_1050.c"
+      "source": "src/done/main/init_1050.c"
     },
     {
       "boundary_evidence": {
