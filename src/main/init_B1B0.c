@@ -900,11 +900,11 @@ extern s32 D_800418A0[];
 extern u8 D_80041970[][16];
 extern u8 D_800419A0;
 extern u8 D_800CC2D0[];
-void func_8507E7E4(void *, s32, s32, s32, s32);
+void func_8507E7E4(void *, u8, u8, s32, s32);
 void func_800084D8(u8);
 void func_80008F58(u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000CEAC CURRENT (1608) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000CEAC CURRENT (1408) */
 void func_8000CEAC(s32 arg0) {
     void *message;
     s32 *modes;

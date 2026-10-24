@@ -94851,8 +94851,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1608,
-        "reason": "Retain CURRENT1608/frame98. Novel destructive formal-offset probe CURRENT3156/frame90: named offset survives in FP and removes anonymous MPY home, but introduces two entry copies and moves flags/queue homes; rejected. Production/private/fullTU/isolation parity passed; evidence main-ceac-formal-20261021.",
+        "current_score": 1408,
+        "reason": "Improved 1608->1408 (full1100/frame98) by correcting the file-local func_8507E7E4 prototype to the game definition (void *, u8, u8, s32, s32): the u8 conversions stop constant 1 from sharing s7 (li a2,1). Remaining: 81 register-only, 8 missing/extra (lui/addiu order for D_80041970/D_800417C0 bases, multu placement in case 1), 9 stack rows (spill slots 0x70/0x58 vs 0x6c/0x50, suggesting one more named local), and the loop-carried remaining copy at the loop head (move t1,v0). Tried: for-loop forms, u16/s32 remaining, two-variable next/remaining, counter pointer, direct array stores (1472-3291). Evidence: build/us/manual-attempts/main-finish-oct24/CEAC.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -97446,7 +97446,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 230,
-        "reason": "Retain CURRENT230. 2026-10-24: named s32 range local declared last (home 0x1c) removes all 8 stack rows but leaves the pure distance/range T1-T2 priority swap (246); range after distance 278, range first 262. Evidence: build/us/manual-attempts/main-finish-oct24/A420.",
+        "reason": "Retain CURRENT230. 2026-10-24 permuter (authorised): deterministic budget32 on named-range body 246 no gain; randomized 60s found 16 only via five empty if(1){} blocks after the second division (block-count fake, rejected); x^0 fake inert. Named range fixes stack rows (246); any 8th local grows frame; ternary single-def 246; tail restructures 1092/1730. Residual is the distance/range T1-T2 priority rank. Evidence: build/us/manual-attempts/main-finish-oct24/A420.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
