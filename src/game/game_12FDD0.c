@@ -40,15 +40,13 @@ void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32, f32,
 extern f32 D_800A2340;
 extern s32 D_800BE9F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15102920 CURRENT (2441) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15102920 CURRENT (2294) */
 void *func_15102920(f32 arg0, s32 arg1, s32 arg2, f32 *arg3,
     s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
+    s32 enabled;
     Game12FDD0Particle particle;
     s32 sp60;
     s32 sp5C;
-    u32 random_byte;
-    u32 random_low;
-    u32 random_high;
     s32 temp_v0;
 
     particle.field22 = 0xA;
@@ -70,7 +68,8 @@ void *func_15102920(f32 arg0, s32 arg1, s32 arg2, f32 *arg3,
         break;
     }
     particle.mode = 0;
-    particle.flags = (((s16)arg4 == -1) ? 0 : 1) | 0x9700 | 0x20000;
+    enabled = ((s16)arg4 == -1) ? 0 : 1;
+    particle.flags = enabled | 0x9700 | 0x20000;
     if ((s16)arg4 == -1) {
         particle.lifetime = 0x12C;
     } else {
@@ -98,12 +97,9 @@ void *func_15102920(f32 arg0, s32 arg1, s32 arg2, f32 *arg3,
         sp60 = 0;
         sp5C = 0;
     }
-    random_byte = func_150ADA20();
-    random_low = func_150ADA20();
-    random_high = func_150ADA20();
     return func_1513C650((s32)&particle, 0, 0, arg2, arg3[0], arg3[1],
-        arg3[2], arg0, arg0, random_byte & 0xFF,
-        ((random_high & 1) * 2) + (random_low & 1), sp60, sp5C, 0,
+        arg3[2], arg0, arg0, func_150ADA20() & 0xFF,
+        ((func_150ADA20() & 1) * 2) + (func_150ADA20() & 1), sp60, sp5C, 0,
         (u8)arg8, arg9);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15102920 */

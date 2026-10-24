@@ -14432,15 +14432,15 @@
         "func_150DE2A4",
         "func_150DE2C4"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xDE310",
           "start": "0xDDED0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_10B380.c"
+      "source": "src/done/game/game_10B380.c"
     },
     {
       "boundary_evidence": {

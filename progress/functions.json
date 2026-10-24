@@ -2930,8 +2930,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1894,
-        "reason": "Manual budget exhausted: best CURRENT 1894; float phase reuse recovers paired Y/X stores, frame100 versus F8 and packet/spill offsets plus schedule and GPR differences remain. Full packet copies audited: unwritten option fields are disabled for selected flags and callbacks; no shared edits.",
+        "current_score": 830,
+        "reason": "CURRENT (830), round22 state-first local order, inline RNG args, PipeExplodeEntry array indexing for both point reads (frame 0xF8 exact; residual: raw hoists li v1,0x14 / points reload / arg4 load / 0.75f before the render stores; moving the trail statements earlier 3025) (stored 1894). Earlier: Manual budget exhausted: best CURRENT 1894; float phase reuse recovers paired Y/X stores, frame100 versus F8 and packet/spill offsets plus schedule and GPR differences remain. Full packet copies audited: unwritten option fields are disabled for selected flags and callbacks; no shared edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -40114,17 +40114,16 @@
       "symbol": "func_150235DC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "CURRENT (100): round22 continue-form loop body (if (*(s32 *)actor == 0) continue;) fixes the s2/s3/s4 rotation (245->145 stored, 145->100); every instruction now matches and the only residual is the unit-end alignment nop at e0 (last function of game_49D30; mixed-unit focused object places it 0 mod 16 vs ROM 0xC mod 16). Blocked on registered-span/padding tooling, not C.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 228,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1502378C",
           "vram": "0x1502378C"
         }
@@ -41743,17 +41742,16 @@
       "symbol": "func_15044370"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "Round18 2026-10-21: CURRENT 146 -> 30. saved_mode declared third of four named locals (index, total, saved_mode, active) gives the raw call-crossing home 0x5C and frame 0x68; a first randomized permuter run (300s, 30) showed the -g3 line hint: active = &D_80089123; index = 3; saved_mode = D_800CBDD3; do { share one line. Residual total/arg4 s6/s7 swap; declaration orders and total = 0 placement stay 30. A u32 total with casts is equivalent (30).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 428,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15044380",
           "vram": "0x15044380"
         }
@@ -49607,17 +49605,16 @@
       "symbol": "func_15158684"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 89,
-        "reason": "Round6 2026-10-18: unchanged CURRENT (89). A named copy of arg0 (s32 node = arg0, passed to func_150A7790) supplies raw's second named home and the early lw a1 arg-home reload -> probe 0, but it is a single-use copy alias, not accepted. Non-register scale 89, matrix-first order 173.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 256,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15158920",
           "vram": "0x15158920"
         }
@@ -74815,7 +74812,7 @@
           "vram": "0x150DDED0"
         }
       },
-      "source": "src/game/game_10B380.c",
+      "source": "src/done/game/game_10B380.c",
       "symbol": "func_150DDED0"
     },
     {
@@ -74833,45 +74830,43 @@
           "vram": "0x150DDF88"
         }
       },
-      "source": "src/game/game_10B380.c",
+      "source": "src/done/game/game_10B380.c",
       "symbol": "func_150DDF88"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 60,
-        "reason": "Round19 2026-10-22: CURRENT (60). The three func_150ADA20 calls are written inline in the func_1513C73C argument list and the entry address inline (315 -> 60, frame 0x90 exact; the old sp50/sp54/sp4C/entry locals cost the extra words). Residual: t-register numbering of the entry address (raw t9/t8/t0). Operand orders, f32 indexing and a one-line call stay 60; 60 s permuter best 50 adds a redundant arg0[1] & 0xFF on a u8 (rejected).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 384,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150DDFAC",
           "vram": "0x150DDFAC"
         }
       },
-      "source": "src/game/game_10B380.c",
+      "source": "src/done/game/game_10B380.c",
       "symbol": "func_150DDFAC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 60,
-        "reason": "Round19 2026-10-22: CURRENT (60). Twin of func_150DDFAC with the same rewrite: three func_150ADA20 calls inline in the func_1513C73C arguments and the entry address inline (315 -> 60, frame 0x90 exact). Residual: entry-address t-register numbering, identical to func_150DDFAC; 60 s permuter found no improvement.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 376,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150DE12C",
           "vram": "0x150DE12C"
         }
       },
-      "source": "src/game/game_10B380.c",
+      "source": "src/done/game/game_10B380.c",
       "symbol": "func_150DE12C"
     },
     {
@@ -74889,7 +74884,7 @@
           "vram": "0x150DE2A4"
         }
       },
-      "source": "src/game/game_10B380.c",
+      "source": "src/done/game/game_10B380.c",
       "symbol": "func_150DE2A4"
     },
     {
@@ -74907,7 +74902,7 @@
           "vram": "0x150DE2C4"
         }
       },
-      "source": "src/game/game_10B380.c",
+      "source": "src/done/game/game_10B380.c",
       "symbol": "func_150DE2C4"
     },
     {
@@ -78611,17 +78606,16 @@
       "symbol": "func_151A90C0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 106,
-        "reason": "CURRENT (106): raw packet initializer order and natural three-RNG snapshots recovered; all body instructions/registers/control flow exact. Only eight frame/incoming-home rows: frame0x80 versus raw0x90. No concrete consumer proof supports larger packet or extra storage. Two fresh revisions exhausted; valid best retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 368,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A91AC",
           "vram": "0x151A91AC"
         }
@@ -79497,8 +79491,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2172,
-        "reason": "Original2172 restored: direct flags3697, ordered lifetime reuse2435, nested RNG/four scalars2960 fail full-span improvement. Structural frame88 probe saved separately; no useful remaining hypothesis.",
+        "current_score": 1631,
+        "reason": "CURRENT (1631), round22 all-s32 caller ABI (pun reads; matched callers in game_105A40.c/game_1E73B0.c declare s32), var_v1/var_v0 reused for the flag bits and the control pair, style via named var_v0, inline RNG (frame 0x88 but packet at 0x60: raw has one named word above the packet at 0x84 and only 3 non-named words; every inline-RNG form here costs 4) (stored 2172). Earlier: Original2172 restored: direct flags3697, ordered lifetime reuse2435, nested RNG/four scalars2960 fail full-span improvement. Structural frame88 probe saved separately; no useful remaining hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -91289,8 +91283,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2441,
-        "reason": "Validity-corrected reviewed candidate CURRENT 2441. Numeric truncation casts and explicit byte-low-high RNG draw sequence replace invalid scalar-parameter home forcing and incorrect prior RNG order. Old score 795 is superseded and invalid for comparison. Measurement-only correction; no shape experiments authorized.",
+        "current_score": 2294,
+        "reason": "CURRENT (2294), round22 s32 enabled declared before the particle (raw 0x8C), inline RNG args, cast ABI kept (frame 0x98 vs 0x90: inline RNG costs 4-5 words here, raw has 3 + 1 unused bottom word) (stored 2441). Earlier: Validity-corrected reviewed candidate CURRENT 2441. Numeric truncation casts and explicit byte-low-high RNG draw sequence replace invalid scalar-parameter home forcing and incorrect prior RNG order. Old score 795 is superseded and invalid for comparison. Measurement-only correction; no shape experiments authorized.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

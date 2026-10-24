@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151582C8
  * - func_15158684
- * - func_15158920
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -284,11 +283,12 @@ typedef struct {
 extern Game185560Matrix D_8008AE18;
 extern f32 D_800A6070;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15158920 CURRENT (89) */
 s32 func_15158920(s32 arg0, Game185560TransformArgs *arg1) {
-    register f32 scale;
+    s32 node;
+    f32 scale;
     Game185560Matrix matrix;
 
+    node = arg0;
     matrix = D_8008AE18;
     scale = arg1->fieldF8 * D_800A6070;
     matrix.values[12] = arg1->field48;
@@ -303,11 +303,9 @@ s32 func_15158920(s32 arg0, Game185560TransformArgs *arg1) {
     matrix.values[8] *= scale;
     matrix.values[9] *= scale;
     matrix.values[10] *= scale;
-    func_150A7790(&matrix, arg0);
+    func_150A7790(&matrix, node);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15158920 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_185560/func_15158920.s")
 void func_100043B4(void *, s32);
 extern s32 D_80082FA0;
 
