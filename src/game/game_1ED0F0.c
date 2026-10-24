@@ -12,7 +12,6 @@
  * - func_151C0698
  * - func_151C1180
  * - func_151C1570
- * - func_151C196C
  * - func_151C1D5C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -646,7 +645,6 @@ s32 func_151C02E4(void *arg0, void *arg1, s32 arg2, void **arg3);
 void func_151C1940(void *arg0, void *arg1, s32 *arg2) {
     func_151C02E4(arg0, arg1, *arg2, (void **)((u8 *)arg2 + 4));
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C196C.s")
 typedef struct {
     u16 values[9];
 } Game1ED0F0Surface;
@@ -655,11 +653,16 @@ typedef struct {
     s32 field00;
     f32 distance;
     Vec3f position;
-    u8 pad14[0x18];
+    Vec3f position14;
+    Vec3f position20;
     Vec3f start;
     Vec3f normal;
     Game1ED0F0Surface surface;
-    u8 pad56[6];
+    s16 field56;
+    u8 field58;
+    u8 field59;
+    u8 field5A;
+    u8 pad5B;
     u8 *hit;
     s32 field60;
 } Game1ED0F0Trace;
@@ -673,6 +676,68 @@ typedef struct {
     u8 pad1E[2];
     void *hit;
 } Game1ED0F0TraceHit;
+
+void func_151C1D5C(void *, Vec3f *, Vec3f *, Game1ED0F0Trace *, f32, s32, s32, s32,
+                   s32, s32, Vec3f *, f32 *, Game1ED0F0TraceHit *, s32);
+s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
+extern f32 D_800AA9C0;
+
+s32 func_151C196C(Game1ED0F0Trace *arg0, Vec3f *arg1, Vec3f *arg2, Vec3f *arg3, Vec3f *arg4,
+                  void *arg5, s32 arg6, Vec3f *arg7, f32 *arg8, Game1ED0F0TraceHit *arg9, s32 arg10) {
+    u8 again = 1;
+    u8 hit = 0;
+    f32 distance;
+
+    if (arg3 != NULL && arg4 != NULL) {
+        arg0->start = *arg3;
+        arg0->normal = *arg4;
+        func_151C1D5C(arg5, &arg0->start, &arg0->normal, arg0, 0.0f, 0, 0, 1, 3, arg6, arg7, arg8, arg9, arg10);
+        if (arg0->field59 == 0) {
+            if (arg1->x != arg0->start.x || arg1->y != arg0->start.y || arg1->z != arg0->start.z) {
+                arg0->start = *arg1;
+                arg0->normal = *arg4;
+            } else {
+                again = 0;
+            }
+        } else if (arg1->x != arg0->start.x || arg1->y != arg0->start.y || arg1->z != arg0->start.z) {
+            arg0->start = *arg1;
+            arg0->normal.x = arg0->position.x - arg1->x;
+            arg0->normal.y = arg0->position.y - arg1->y;
+            arg0->normal.z = arg0->position.z - arg1->z;
+            if (func_15145128(&arg0->normal.x, &arg0->normal.x, &arg0->distance, NULL) == 0) {
+                return 0;
+            }
+        }
+    } else {
+        arg0->start = *arg1;
+        arg0->normal = *arg2;
+    }
+    if (again) {
+        func_151C1D5C(arg5, &arg0->start, &arg0->normal, arg0, 0.0f, 0, 1, 1, 3, arg6, arg7, arg8, arg9, arg10);
+        if (arg0->field59 != 0) {
+            hit = 1;
+        }
+    }
+    if (hit == 0) {
+        distance = D_800AA9C0;
+        arg0->field00 = 0;
+        arg0->distance = distance;
+        arg0->start = *arg1;
+        arg0->normal = *((arg4 != NULL) ? arg4 : arg2);
+        arg0->position.x = arg0->start.x + arg0->normal.x * distance;
+        arg0->position.y = arg0->start.y + arg0->normal.y * distance;
+        arg0->position.z = arg0->start.z + arg0->normal.z * distance;
+        arg0->position14 = arg0->position;
+        arg0->position20 = arg0->position;
+        arg0->field56 = 0;
+        arg0->field58 = 0;
+        arg0->field59 = 0;
+        arg0->field5A = 0;
+        arg0->hit = NULL;
+        arg0->field60 = 0;
+    }
+    return 1;
+}
 
 void func_15081690(void *, f32, f32, f32, f32, f32, f32,
                    void *, f32, s32, s32, s32, s32, s32, s32);
