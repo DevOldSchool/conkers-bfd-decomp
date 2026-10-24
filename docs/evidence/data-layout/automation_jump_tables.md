@@ -178,3 +178,10 @@ the historical recorded 700. The optional typed-parameter cleanup of disabled
 `func_15157AA8` retained `CURRENT (65)` and its exact frame/local homes. Both
 were restored transactionally to deferred candidates with canonical
 `GLOBAL_ASM`; neither is included in the ten matching functions.
+
+## October 24 game_1C1150 literal pool
+
+`func_15194408` adds its own table at 0x800A8280 and a literal pool at
+0x800A8294 between the second and third game_1C1150 tables. The
+`func_15194794` table keeps 0x800A82BC, but its object offset moves from 0x28
+to 0x48. See [literal sub-pools](game_rodata_literal_sub_pools.md).

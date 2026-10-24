@@ -1418,16 +1418,15 @@
       "symbol": "func_1513A24C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 610,
-        "reason": "Direct constant-value expressions remove two redundant FP source homes:692 to610, frame68/config2C now exact, no stack/register/control rows. Remaining global-constant preload and independent field-store scheduling; no further grounded dependency. Preserve one new form and prior692 in blood-config-review.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_1513A48C",
           "vram": "0x1513A48C"
         }
@@ -1454,16 +1453,15 @@
       "symbol": "func_1513A594"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 847,
-        "reason": "Best847 restored. One research-led direct-constant form recovered exact frame68/config2C but worsened overall945 through FP identities/preload scheduling. Both preserved in derived-address-tail; no further dependency-backed revision or padding.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_1513A5E0",
           "vram": "0x1513A5E0"
         }
@@ -10472,17 +10470,16 @@
       "symbol": "func_1505F0AC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 35,
-        "reason": "CURRENT (35) after round9 compile repair (file-local void func_150615DC(void *) before the candidate; implicit call conflicted with its C definition). Only one/initial f0/f2 swap: decl/assignment order, literal, loop shapes and permute 32 all 35 Round19 2026-10-22: randomized permuter 60 s (seed 1964166521) no exact; best CURRENT (35).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 272,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1505F188",
           "vram": "0x1505F188"
         }
@@ -49069,16 +49066,16 @@
       "symbol": "func_15194394"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "reason": "Focused CURRENT (0) was invalidated by clean verify-batch layout: src/game/game_1C1150.c adds a fourth jump-table block, producing .rodata extent 0x50 versus reviewed 0x40; split_game_rodata.py rejects the integrated object. Source-local C cannot preserve the reviewed table layout without shared layout/tooling changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 384,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15194408",
           "vram": "0x15194408"
         }

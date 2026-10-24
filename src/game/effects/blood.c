@@ -27,9 +27,7 @@
  * - func_15139768
  * - func_15139D74
  * - func_1513A24C
- * - func_1513A48C
  * - func_1513A594
- * - func_1513A5E0
  * - func_1513A6E0
  * - func_1513ABB8
  * - func_1513B0F8
@@ -1842,12 +1840,7 @@ typedef struct {
 void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
 extern u8 D_800A4260[];
 extern u8 D_800A4264[];
-extern f32 D_800A4950;
-extern f32 D_800A4954;
-extern f32 D_800A4958;
-extern f32 D_800A495C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513A48C CURRENT (610) */
 void func_1513A48C(BloodA48CPosition *arg0, u8 arg1, s32 arg2) {
     BloodA48CConfig config;
 
@@ -1860,18 +1853,16 @@ void func_1513A48C(BloodA48CPosition *arg0, u8 arg1, s32 arg2) {
     config.field_1A = 0x20;
     config.field_2C = 0x28;
     config.field_2E = 0x14;
-    config.field_30 = D_800A4950;
-    config.field_34 = D_800A4950;
+    config.field_30 = 0.07f;
+    config.field_34 = 0.07f;
     config.field_1C = 10.0f;
     config.field_20 = 9.0f;
-    config.field_24 = D_800A4954;
-    config.field_28 = D_800A4958;
-    config.field_38 = D_800A495C;
+    config.field_24 = -1.0040001f;
+    config.field_28 = 0.254f;
+    config.field_38 = 23.446001f;
     func_15152190(&config, D_800A4260, D_800A4264, 1, 0.0f, 1,
                   (s32)arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513A48C */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513A48C.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1513A594 CURRENT (924) */
 void func_1513A594(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     s32 temp_t6;
@@ -1912,19 +1903,10 @@ typedef struct {
 void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
 extern u8 D_800A4268[];
 extern u8 D_800A4270[];
-extern f32 D_800A4960;
-extern f32 D_800A4964;
-extern f32 D_800A4968;
-extern f32 D_800A496C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513A5E0 CURRENT (847) */
 void func_1513A5E0(s32 arg0, s32 arg1, s32 arg2) {
     BloodA5E0Config config;
-    register f32 scale;
-    register f32 repeated;
 
-    scale = 4.0f;
-    repeated = D_800A4960;
     config.field_0 = 7;
     config.field_4 = 7;
     config.position = *(BloodA5E0Position *)arg0;
@@ -1932,20 +1914,18 @@ void func_1513A5E0(s32 arg0, s32 arg1, s32 arg2) {
     config.field_16 = 0xFF;
     config.field_18 = -0x32;
     config.field_1A = 0x1B;
-    config.field_1C = scale;
-    config.field_20 = scale;
+    config.field_1C = 4.0f;
+    config.field_20 = 4.0f;
     config.field_2C = 0x19;
     config.field_2E = 0x28;
-    config.field_30 = repeated;
-    config.field_34 = repeated;
-    config.field_24 = D_800A4964;
-    config.field_28 = D_800A4968;
-    config.field_38 = D_800A496C;
+    config.field_30 = 0.0201f;
+    config.field_34 = 0.0201f;
+    config.field_24 = -0.43f;
+    config.field_28 = 0.272f;
+    config.field_38 = 20.187f;
     func_15152190(&config, D_800A4268, D_800A4270, 2, 0.0f, 1,
                   (u8)arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513A5E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513A5E0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513A6E0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513ABB8.s")
 

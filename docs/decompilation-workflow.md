@@ -257,7 +257,7 @@ is linked only at its single reviewed `config/game/us-rodata.ld` placement; its
 HI16/LO16 references and table pointers into the unit's text are resolved there,
 and the linked rodata must equal checksum-validated ROM game data (payload plus
 zero alignment) in addition to the complete text. Units without such a placement,
-split-table units and other data sections stay symbolic. Unsupported relocations, and member spans that cannot
+split-rodata units and other data sections stay symbolic. Unsupported relocations, and member spans that cannot
 be proven (such as an unregistered symbol inside one), retain symbolic
 comparison; original objects still supply switch-table evidence. Watch
 mode remains symbolic and requires a fresh `finish` afterward.
@@ -866,7 +866,11 @@ can miss an improvement.
 A sweep zero is a lead, not a match: copy the transformed body (the transform
 detail lists the substitutions), then run `finish`. Owned literals still need
 the reviewed `config/game/us-rodata.ld` mapping and data-layout evidence from the
-[diagnosis checklist](#diagnosis-checklist) before `verify-batch`.
+[diagnosis checklist](#diagnosis-checklist) before `verify-batch`. If the unit's
+`.rodata` is already mapped and the new pool lies elsewhere in ROM, give the unit
+a `LAYOUTS` entry in `scripts/split_game_rodata.py` with a literal-pool range,
+add it to `GAME_SPLIT_RODATA_OBJS` and map each range separately
+([example](evidence/data-layout/game_rodata_literal_sub_pools.md)).
 
 ### Edit completion before verification
 

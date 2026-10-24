@@ -26,6 +26,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [US game_1CE2F0 float constants](game_1ce2f0_float_constants.md)
 - [US game_64120 float constant](game_64120_float_constant.md)
 - [US game_83300 velocity float constants](game_83300_float_constants.md)
+- [US game rodata literal sub-pools](game_rodata_literal_sub_pools.md)
 - [US game_F9430 particle constants](game_f9430_float_constants.md)
 - [US game_1FA770 particle gravity constants](game_1fa770_float_constants.md)
 - [US game_20A290 spawn literal pool](game_20a290_float_constant.md)

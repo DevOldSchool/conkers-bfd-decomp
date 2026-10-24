@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15193CA0
- * - func_15194408
  * - func_151945CC
  * - func_15194810
  * - func_15194BF0
@@ -90,11 +89,7 @@ typedef struct Game194408Packet {
 void func_1504715C(void *, void *);
 void func_15153F18(s16 *, void *, s32, s32, s32);
 void *func_151AE7B0(void *, f32, s16, u8, s32);
-extern f32 D_800A8294;
-extern f32 D_800A8298;
-extern f32 D_800A829C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15194408 */
 void func_15194408(s32 arg0, Game1C1150Event *arg1) {
     struct {
         u8 scratch[0x24];
@@ -139,16 +134,14 @@ spawn:
     locals.packet.field48 = 0;
     locals.packet.field3C = 0;
     locals.packet.field18 = 3.0f;
-    locals.packet.field1C = D_800A8294;
-    locals.packet.field20 = D_800A8298;
+    locals.packet.field1C = 0.21f;
+    locals.packet.field20 = 0.406f;
     locals.packet.field24 = 13.0f;
     locals.packet.field28 = 8.0f;
-    locals.packet.field40 = D_800A829C;
+    locals.packet.field40 = 0.3f;
     func_15153F18(&locals.packet.field00, &locals.packet.position,
                    (s32)locals.scratch, 0xFF, 1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15194408 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194408.s")
 extern void func_150C7020(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 
 void func_15194588(s32 arg0, s32 arg1, s32 arg2) {

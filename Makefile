@@ -188,7 +188,7 @@ GAME_LIB := $(GAME_LIB_DIR)/libultra_2_0G.a
 GAME_RARE_LIB := $(GAME_LIB_DIR)/libultrare.a
 GAME_LIB_SYMBOLS := config/game/us-sdk.ld
 GAME_RODATA_SCRIPT := config/game/us-rodata.ld
-GAME_SPLIT_RODATA_OBJS := game_B4080.o game_16EE20.o game_1C1150.o
+GAME_SPLIT_RODATA_OBJS := game_B4080.o game_16EE20.o game_1C1150.o game_83300.o blood.o
 GAME_LIB_OBJECTS := $(addprefix lib/ultralib/build/G/libultra_rom/src/,\
 	gu/random.o gu/ortho.o gu/normalize.o gu/mtxcatl.o gu/mtxcatf.o gu/sqrtf.o \
 	gu/mtxutil.o \
