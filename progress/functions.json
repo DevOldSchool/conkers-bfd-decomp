@@ -40112,17 +40112,16 @@
       "symbol": "func_150235DC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "CURRENT (100): round22 continue-form loop body (if (*(s32 *)actor == 0) continue;) fixes the s2/s3/s4 rotation (245->145 stored, 145->100); every instruction now matches and the only residual is the unit-end alignment nop at e0 (last function of game_49D30; mixed-unit focused object places it 0 mod 16 vs ROM 0xC mod 16). Blocked on registered-span/padding tooling, not C.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 228,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1502378C",
           "vram": "0x1502378C"
         }
