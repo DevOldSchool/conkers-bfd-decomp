@@ -73,7 +73,7 @@ jobs:
       - name: Install pinned host and test dependencies
         run: ./conker host-setup
       - name: Check shell entry points
-        run: bash -n conker scripts/conker.sh
+        run: bash -n conker scripts/conker.sh scripts/auto_round.sh
       - name: Run tooling and public-check regression tests on the host
         run: ./conker test --host -v
 

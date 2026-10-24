@@ -25,6 +25,8 @@ matches the work you intend to do.
   registering source units, integrating them, and verifying a batch.
 - [Matching automation](automation.md) covers authorized bounded runs, saved outcomes,
   full scans, recovery and maintainer validation.
+- [Unattended matching rounds](automation-routines.md) covers the scheduled round driver,
+  the independent review and the auto-merge policy.
 - [Objdiff comparison](objdiff.md) documents the optional comparison pilot and its limits.
 - [Runtime tracing](runtime-tracing.md) covers the pinned Mupen64Plus debugger
   used when static code or display-list evidence cannot identify a consumer.
