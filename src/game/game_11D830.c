@@ -82,7 +82,7 @@ typedef struct Game11D830Motion {
 } Game11D830Motion;
 
 f32 func_150ADA68(void);
-void func_15145EA4(s32 *, s32 *, s32, s32);
+void func_15145EA4(f32 **, f32 **, s32, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32, s32, s32, s32, s32, s32);
 s32 func_151C229C(f32 *, f32 *, s32, s32, s32, s32, f32, f32, f32, f32, f32,
@@ -116,7 +116,7 @@ s32 func_150F03F8(Game11D830BurstActor *arg0, s32 arg1, s32 arg2, s32 arg3) {
     outputs[0] = &position.x;
     outputs[1] = &direction.x;
     bone = &D_800A1670[((u8 *)&arg1)[3]];
-    func_15145EA4((s32 *)inputs, (s32 *)outputs,
+    func_15145EA4(inputs, outputs,
                   (s32)(arg0->matrices + (*bone << 6)), 2);
     direction.x -= position.x;
     direction.y -= position.y;
@@ -536,7 +536,6 @@ void func_150F1684(u8 *arg0, u8 *arg1, u8 arg2) {
     }
 }
 void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32, s32, s32, s32, s32, s32);
-void func_15145EA4(s32 *, s32 *, s32, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern u8 D_800A168C[], D_800A174C[], D_800A180C[];
 typedef union { u16 word; u8 bytes[2]; } Game11D830Flags;
@@ -549,7 +548,7 @@ void func_150F16DC(void *volatile arg0, u8 volatile arg1, u8 volatile arg2, u8 v
     f32 position[3];
     volatile u8 variant;
     Game11D830Flags flags;
-    u8 *input;
+    f32 *input;
     f32 *output;
     struct { u8 kind; s8 mode; s16 lifetime; u8 field4; } light;
     s32 lightPosition[3];
@@ -571,9 +570,9 @@ void func_150F16DC(void *volatile arg0, u8 volatile arg1, u8 volatile arg2, u8 v
         if (*(s32 *)((u8 *)arg0 + 0x1D4) != 0) {
             row = variant * 0x60 + arg2 * 0x18 + D_800A168C;
             bone = variant * 2 + arg1 + D_800A180C;
-            input = row + arg1 * 12;
+            input = (f32 *)(row + arg1 * 12);
             output = position;
-            func_15145EA4((s32 *)&input, (s32 *)&output,
+            func_15145EA4(&input, &output,
                           (*bone << 6) + *(s32 *)((u8 *)arg0 + 0x1D4), 1);
             light.kind = 3;
             light.mode = -1;

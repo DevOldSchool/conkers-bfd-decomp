@@ -30,7 +30,7 @@ s32 func_150A29C8(s32 arg0, s32 arg1);
 extern s32 D_800BE9F0;
 extern u8 D_800E0A10;
 typedef struct {
-    u8 field0, field1, field2, field3, field4;
+    u8 values[5];
 } Func151D8F30Bytes;
 extern Func151D8F30Bytes D_800AB344;
 
@@ -88,7 +88,7 @@ u8 func_151D8F30(void) {
 
     sp20 = D_800AB344;
     index = func_150ADA20() % 5U;
-    return ((u8 *)&sp20)[index];
+    return sp20.values[index];
 }
 
 s32 func_151D8F7C(void) {

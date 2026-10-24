@@ -9131,7 +9131,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 5806,
-        "reason": "CURRENT5806, frame100 and aggregate homes exact. Source candidate corrects initial byte-field mapping and redundant argument masking. Remaining first flag intermediate stores optimized away, GPR scheduling and tail branch/load schedule differ. Snapshot, volatile, direct-member, signed-byte and union-view probes exhausted; shared prototypes unchanged.",
+        "reason": "PR171 review on main93daef1a: canonical GameRenderView header, indexed owner and center_x/center_y fields replace the scalar global/raw stride. Full-span CURRENT5806 unchanged; frame100 exact. Existing control/data, flag-store, register and tail-schedule residuals remain. Prior snapshot, volatile, direct-member, signed-byte and union hypotheses exhausted; no further search in this review.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -82471,7 +82471,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 5437,
-        "reason": "Manual candidate CURRENT5437, frameF0 vs rawE0; all packet homes are16bytes high. Semantic audit confirms actor offsets,27spawn arguments,light fields,RNG order andmotion layout. One finish and four probe families: address syntax neutral5594; explicit subtract neutral5594; valuecasts5453/10046; wholevector5594; nestedRNG5570 andbonefirst5769. Extra four local words remain unexplained; preserve initial best, no shared changes.",
+        "reason": "PR171 review on main93daef1a: restore canonical local func15145EA4(f32**, f32**, s32, s32) and remove pointer-array casts; full-span CURRENT5437 unchanged. Existing F0 versus E0 frame, packet homes16bytes high, registers and lifetime residuals remain; prior probe families exhausted. Review cleanup only.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -82685,7 +82685,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 9645,
-        "reason": "CURRENT 9645, frame 0x90 recovered with aligned flag aggregate; parameter/variant lifetime and final call evaluation still differ. Two finishes and two bounded probe batches exhausted ordinary and volatile parameter variants. Corrected no-argument RNG declaration has no active same-source prior callers.",
+        "reason": "PR171 review on main93daef1a: canonical local func15145EA4 f32** pointer-array contract; input now f32* with byte-offset row conversion, direct &input/&output arguments. Full-span CURRENT9645 unchanged. Existing control-flow, operand and register residuals remain; original candidate body otherwise preserved, no further matching search in review.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

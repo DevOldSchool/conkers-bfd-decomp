@@ -1,7 +1,8 @@
 # Manual matching from PR #170
 
-Base: `fed0a221aa6dba4189e08bd084180ec3ab418f4c` on
-`codex/struct-type-recovery`. Work completed on 24 October 2026.
+Initial base: `fed0a221aa6dba4189e08bd084180ec3ab418f4c` on
+`codex/struct-type-recovery`. The review follow-up below rebases and revalidates
+this work on merged main `93daef1acf5fd83b8e5afd8b6f9705c28d66a8a5`.
 
 ## Accepted functions
 
@@ -30,13 +31,13 @@ were updated transactionally. Source-local ABI changes received caller-impact
 audits. Existing matches `151D9EB0`, `15059140`, `151D74B0`, `15048360` and
 `15048408` were independently rechecked and included in clean batches.
 
-Shared dependency changes: **no**. No shared headers, assembly, compiler flags,
+Initial matching scope: no shared dependency changes. No shared headers, assembly, compiler flags,
 tooling or asset reconstruction changed. The changed code is in the sources
 listed above and the preserved-candidate sources below; metadata changes are
 limited to `config/game/us.yaml`, `progress/functions.json` and
 `progress/source_units.json`.
 
-## Clean batch verification
+## Initial clean batch verification
 
 Each command finished with `AGENT_ACTION: BATCH_COMPLETE`:
 
@@ -88,3 +89,63 @@ saved-float read. The preserved score-1565 candidate removes that read.
 Earlier broad-scope `151C1180` snapshots were also rejected and neighboring
 edits restored before the final independent check. Neither rejected variant
 is active or preserved as the final candidate.
+
+## PR #171 review on current main
+
+The remote main merge was preserved, then the branch was rebased onto
+`93daef1acf5fd83b8e5afd8b6f9705c28d66a8a5`. Its tree was identical before
+and after rebasing, including all three final PR #170 commits.
+
+Review cleanups:
+
+- `GameRenderView` now exposes `center_x` and `center_y`; `1501A764` uses those
+  members with unchanged arithmetic and evaluation order. Raw `1501A764` reads
+  floats at offsets `0x34/0x38`. Raw `1501A8C0` writes them and derives
+  left/right and top/bottom bounds from them.
+- `151CAD28` uses the canonical render-view header, indexed owner and named
+  center fields, removing the scalar global declaration and raw `0x180` stride.
+- `game_11D830.c` keeps one canonical `15145EA4(f32 **, f32 **, s32, s32)`
+  declaration. Both deferred callers pass typed pointer arrays directly; the
+  second caller retains byte-based row arithmetic before converting its input.
+- `Func151D8F30Bytes` contains `values[5]`; aggregate copy and index lifetime
+  are unchanged. Raw code copies four bytes plus one byte before RNG, then
+  indexes modulo five.
+
+The existing shared render-view header is the only shared dependency changed
+by this review. This completes proven fields of an existing type; it does not
+promote another local structure or change the allocation layout.
+
+Pinned IDO MIPS o32 compilation independently confirmed:
+
+| Fact | Value |
+| --- | --- |
+| `sizeof(GameRenderView)` | `0x180` |
+| `center_x` | `0x34` |
+| `center_y` | `0x38` |
+| `unknown3C` | `0x3C` |
+| `viewports` | `0x40` |
+| `matrix` | `0xBC` |
+| `matrices` | `0x100` |
+
+Each edited deferred caller received one review `finish`, followed by the
+supported `defer` transaction. Their scores are unchanged: `151CAD28` 5806,
+`150F03F8` 5437 and `150F16DC` 9645. All remain disabled behind canonical
+assembly; no new match credit is claimed. An unchanged deferred header consumer,
+`150D1810`, also compiled with `diagnose-diff` at 1399.
+
+All **132** focused rechecks passed full-span US `CURRENT (0)` and layout,
+including the PR's eleven new matches, five previously audited callers and
+every matched function in the affected source files. The
+[recheck manifest](pr171-main-rechecks.tsv) records each symbol, source and
+authoritative finish attempt.
+
+One clean `CONKER_JOBS=1 ./conker verify-batch` invocation covering all 132
+manifest symbols completed with `AGENT_ACTION: BATCH_COMPLETE`. It rebuilt
+the US GAME integration, ran 1,062 tests with six skipped across 68 modules,
+and passed metadata, progress and whitespace checks. The GAME overlay remains
+2,072,880 bytes with SHA1 `90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5`.
+No focused or batch acceptance remains pending. This is GAME-overlay validation,
+not full-ROM or reconstructed-assets validation.
+
+The only changes after this clean batch are this evidence summary and manifest.
+The PR records the resulting commit containing the validated source tree.

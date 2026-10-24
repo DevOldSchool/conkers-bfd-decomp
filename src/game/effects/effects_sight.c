@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "game_render_view.h"
 
 /*
  * Reviewed source unit: src/game/effects/effects_sight.c
@@ -995,7 +996,7 @@ void func_151CAB78(u8 *arg0, u8 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CAB78 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAB78.s")
 void *func_1515FF74(void *, s32, u8, s32);
-extern s32 D_800BE628, D_800BE620;
+extern s32 D_800BE620;
 extern u8 D_800BE616;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CAD28 CURRENT (5806) */
@@ -1050,7 +1051,7 @@ void func_151CAD28(u8 *arg0, s32 arg1) {
     } icon;
     struct {
         u8 *owner;
-        u8 *screen;
+        GameRenderView *screen;
         void *pixels;
         s32 x, y;
     } warp;
@@ -1123,14 +1124,14 @@ void func_151CAD28(u8 *arg0, s32 arg1) {
     if (object != NULL) func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
     if (D_800BE616 == 0) {
         warp.owner = arg0;
-        warp.screen = (u8 *)(arg0[0x23D] * 0x180 + D_800BE628);
-        warp.x = (s32)(*(f32 *)(warp.screen + 0x34) - 12.0f);
+        warp.screen = &D_800BE628[arg0[0x23D]];
+        warp.x = (s32)(warp.screen->center_x - 12.0f);
         icon.type = 0xE;
         icon.color = -1;
         icon.flags = 1;
         icon.time = 0x12C;
         icon.enabled = 1;
-        warp.y = (s32)(*(f32 *)(warp.screen + 0x38) - 12.0f) * D_800BE620;
+        warp.y = (s32)(warp.screen->center_y - 12.0f) * D_800BE620;
         object = func_1515FF74(&icon, 0x498, 0xFF, 1);
         if (object != NULL) {
             warp.pixels = (u8 *)object + 0x30;
