@@ -66691,17 +66691,16 @@
       "symbol": "func_1516A7B0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 825,
-        "reason": "Wrapper825, otherwise exact frame/arguments/control. Four word-vs-byte formal reloads and selectorregister remain; no qualifying narrow declaration for target arg1. No byte-addressing workaround or extra unsupported trial.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 508,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15171600",
           "vram": "0x15171600"
         }
