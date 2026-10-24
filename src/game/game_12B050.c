@@ -36,7 +36,7 @@ typedef struct Game12B050Cleanup {
     u16 sound2;
 } Game12B050Cleanup;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FDC2C CURRENT (421) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FDC2C CURRENT (408) */
 void func_150FDC2C(u8 *arg0) {
     Game12B050Cleanup *state;
     void *resource;

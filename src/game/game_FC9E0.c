@@ -119,6 +119,128 @@ void func_150CF680(s16 arg0, u8 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150CF680 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FC9E0/func_150CF680.s")
+f32 func_15047D60(f32);
+f32 func_150ADA68(void);
+extern s32 (*D_8008FCD0[])(void);
+extern f32 D_800A0860, D_800A0864, D_800A0868, D_800A086C;
+extern f32 D_800A0870, D_800A0874;
+extern f32 D_800BE9A4;
+
+typedef struct GameFC9E0Position2 {
+    f32 x, y;
+} GameFC9E0Position2;
+
+typedef struct GameFC9E0SpawnPacket {
+    GameFC9E0Position2 position;
+    f32 scaleX, scaleY;
+    s8 selector;
+    u8 pad11;
+    s16 lifetime, flags, field16, field18;
+    u8 color0, color1, color2, color3, color4;
+    u8 color5, color6, color7, color8, color9;
+    s32 field24, field28, field2C, field30, field34, field38, field3C;
+    s8 field40, field41;
+    u8 pad42[2];
+    s8 field44;
+    u8 pad45[3];
+    f32 field48, field4C, field50, field54;
+} GameFC9E0SpawnPacket;
+
+typedef struct GameFC9E0Motion {
+    f32 x, y, z, height;
+} GameFC9E0Motion;
+
+typedef struct GameFC9E0State {
+    u8 flags;
+    u8 pad01[3];
+    f32 phase, originX, deltaX;
+} GameFC9E0State;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CF800 CURRENT (1466) */
+s32 func_150CF800(void *arg0) {
+    f32 phase;
+    GameFC9E0SpawnPacket packet;
+    GameFC9E0Motion motion;
+    GameFC9E0State *state;
+    s32 flags1;
+    s8 count;
+    s8 selectedCount;
+    s8 copiedCount;
+    u32 random;
+    void *result;
+
+    if (*(u8 *)((u8 *)arg0 + 0x70) & 1) {
+        state = (GameFC9E0State *)((u8 *)arg0 + 0x70);
+        state->phase = state->phase + D_800A0860 * D_800BE9A4;
+        phase = state->phase;
+        if (phase >= 1.0f) {
+            state->phase = 1.0f;
+            state->flags &= 0xFFFE;
+            selectedCount = (func_150ADA20() & 3) + 2;
+            copiedCount = selectedCount;
+            motion.height = *(f32 *)((u8 *)arg0 + 0x14) + 15.0f;
+            count = copiedCount;
+            packet.position = *(GameFC9E0Position2 *)((u8 *)arg0 + 0x10);
+            packet.color7 = 0xFF;
+            packet.field16 = 0xC;
+            packet.field18 = 0x15;
+            packet.color8 = 0xFF;
+            packet.color1 = 0xFF;
+            packet.color2 = 0xFF;
+            packet.color3 = 0xFF;
+            packet.color5 = 0xFF;
+            packet.color6 = 0xFF;
+            packet.color9 = 0xFF;
+            packet.color0 = 0;
+            packet.field24 = 0;
+            packet.field28 = 0x200004;
+            packet.field2C = 0x9F0601;
+            packet.field40 = 0;
+            packet.field41 = 0xA;
+            packet.field30 = 0x17;
+            packet.field34 = 0x44;
+            packet.field38 = 0x80;
+            packet.field3C = 0x20;
+            packet.field48 = 1.0f;
+            packet.field4C = 1.0f;
+            packet.field54 = 0.0f;
+            packet.field50 = 0.0f;
+            packet.field44 = D_80082FA0;
+            if (selectedCount > 0) {
+                phase = 2.0f;
+                do {
+                    packet.color4 = func_150ADA20() % 101U + 0x9B;
+                    packet.selector = D_8008FCD0[2]();
+                    random = func_150ADA20();
+                    func_15143874((s16)((random % 65U) - 0xA0),
+                                   func_150ADA68() * phase + 2.5f,
+                                   &motion.x, &motion.y);
+                    motion.z = func_150ADA68() * 0.3330000042915344f + 0.40400001406669617f;
+                    packet.scaleY = packet.scaleX = func_150ADA68() * 1.7899999618530273f + 1.6999999284744263f;
+                    packet.lifetime = func_150ADA20() % 26U + 0x1E;
+                    if (func_150ADA20() & 1) flags1 = 2;
+                    else flags1 = 0;
+                    if (func_150ADA20() & 1) random = 4;
+                    else random = 0;
+                    packet.flags = random | 1 | flags1 | 0x38;
+                    result = func_1515548C(&packet, 0xD, 0, 0, 0x10,
+                                           *(u8 *)((u8 *)arg0 + 0xC),
+                                           *(u8 *)((u8 *)arg0 + 1));
+                    if (result != NULL) {
+                        func_10022EC0((u8 *)result + 0x70, &motion, 0x10);
+                    }
+                    count -= 1;
+                } while (count > 0);
+            }
+            phase = state->phase;
+        }
+        *(f32 *)((u8 *)arg0 + 0x10) = state->originX + phase * state->deltaX;
+        *(f32 *)((u8 *)arg0 + 0x14) =
+            func_15047D60(state->phase * D_800A0874) * -17.5f + 72.0f;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150CF800 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FC9E0/func_150CF800.s")
 void func_150CFBEC(u8 *arg0, f32 *arg1, u8 arg2) {
     u8 *temp_v0;

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151D8F30
  * - func_151D9014
  * - func_151D9534
  * - func_151D9B8C
@@ -30,7 +29,10 @@
 s32 func_150A29C8(s32 arg0, s32 arg1);
 extern s32 D_800BE9F0;
 extern u8 D_800E0A10;
-extern u8 D_800AB344[];
+typedef struct {
+    u8 field0, field1, field2, field3, field4;
+} Func151D8F30Bytes;
+extern Func151D8F30Bytes D_800AB344;
 
 u8 func_151D8E20(void) {
     if ((D_800BE9F0 == 0) && (func_150A29C8(0, 0x1C) == 0)) {
@@ -80,18 +82,15 @@ s32 func_151D8EFC(void) {
 }
 extern f32 D_800AB4B0;
 extern s32  D_800BE9E4;
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D8F30 CURRENT (425) */
 u8 func_151D8F30(void) {
-    u8 sp20[8];
-    u8 *temp_t7;
+    Func151D8F30Bytes sp20;
+    u32 index;
 
-    temp_t7 = D_800AB344;
-    *(s32 *)(sp20 + 0) = *(s32 *)(temp_t7 + 0);
-    *(u8 *)(sp20 + 4) = *(u8 *)(temp_t7 + 4);
-    return sp20[func_150ADA20() % 5U];
+    sp20 = D_800AB344;
+    index = func_150ADA20() % 5U;
+    return ((u8 *)&sp20)[index];
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D8F30 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D8F30.s")
+
 s32 func_151D8F7C(void) {
     s32 var_v1;
 
@@ -121,7 +120,148 @@ s32 func_151D8FE0(void) {
     sp1C = D_800AB34C;
     return ((u8 *)&sp1C)[func_150ADA20() & 3];
 }
+typedef struct {
+    s32 words[3];
+} Game2062D0Vector3;
+
+typedef struct {
+    s32 field00;
+    s32 field04;
+    s16 field08;
+    s16 field0A;
+    s32 field0C;
+    s32 field10;
+    u8 field14, field15, field16, field17;
+    u8 field18, field19, field1A, field1B, field1C, field1D;
+    s16 field1E, field20, field22;
+    f32 field24, scaleY, scaleX;
+    Game2062D0Vector3 position;
+    Game2062D0Vector3 vector3C;
+    Game2062D0Vector3 vector48;
+    f32 field54;
+    s32 flags;
+    s32 field5C;
+    s8 field60, field61, field62, field63, field64, field65;
+    u8 field66;
+    u8 pad67;
+    s16 field68;
+    u8 pad6A[2];
+    f32 field6C;
+} Game1DC034Packet;
+
+typedef struct Game1D9014Motion {
+    f32 size;
+    u8 angleX, angleY;
+    s8 stepX, stepY;
+    f32 amplitudeX, amplitudeY;
+    f32 scaleX, scaleY;
+    u8 kind, flags;
+    u8 pad1A[2];
+} Game1D9014Motion;
+
+extern s32 (*D_8008FCD0[])(void);
+extern u8 D_800AB330[];
+extern f32 D_800A5480;
+extern f32 D_800AB43C, D_800AB440, D_800AB444, D_800AB448;
+void *func_10022EC0(void *, const void *, u32);
+f32 func_150ADA68(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D9014 CURRENT (380) */
+void *func_151D9014(f32 *arg0, f32 *arg1, s32 arg2, f32 arg3,
+                   s32 arg4, s32 arg5, f32 arg6, s32 arg7, f32 arg8,
+                   f32 arg9, s32 arg10, s32 arg11, s32 arg12, s32 arg13,
+                   s32 arg14, s32 arg15) {
+    void *result;
+    Game1DC034Packet packet;
+    Game1D9014Motion motion;
+    s32 mode;
+    s32 enabled;
+    s32 random2;
+    s32 random1;
+    s32 mask;
+
+    packet.field1D = D_8008FCD0[((u8 *)&arg2)[3]]();
+    if (((u8 *)&arg10)[3] != 0) mode = 0x44;
+    else mode = 0x22;
+    packet.field08 = (mode << 8) + 3;
+    packet.field00 = 0x200005;
+    packet.field04 = 0;
+    packet.field0C = 0;
+    packet.field10 = 0;
+    packet.field14 = 0;
+    packet.field15 = 0;
+    packet.field16 = 0;
+    packet.field17 = 0xFF;
+    packet.field18 = 0;
+    packet.field19 = 0;
+    packet.field1A = 0;
+    packet.field1B = ((u8 *)&arg5)[3];
+    packet.field1C = 0xFF;
+    packet.position = *(Game2062D0Vector3 *)arg0;
+    packet.vector3C = *(Game2062D0Vector3 *)&D_800A5480;
+    packet.vector48 = *(Game2062D0Vector3 *)arg1;
+    packet.field22 = 1;
+    packet.field54 = arg3;
+    packet.field24 = 1.0f;
+    if (((u8 *)&arg10)[3] != 0) mask = 0x10000;
+    else mask = 0;
+    if (func_150ADA20() & 1) random1 = 0x80;
+    else random1 = 0;
+    if (func_150ADA20() & 1) random2 = 0x40;
+    else random2 = 0;
+    if (((s16 *)&arg4)[1] == -0x63) enabled = 0;
+    else enabled = 1;
+    if (D_800AB330[((u8 *)&arg2)[3]] != 0) mode = 0x800000;
+    else mode = 0;
+    packet.flags = mode | enabled | 6 | random2 | random1 | 0xC200 | mask;
+    if (((s16 *)&arg4)[1] == -0x63) {
+        packet.field0A = 0x12C;
+        packet.field1E = 1;
+        packet.field20 = 0xFF;
+    } else {
+        packet.field0A = ((s16 *)&arg4)[1] + 0x12;
+        packet.field1E = 0x12;
+        packet.field20 = 0xE;
+    }
+    packet.field60 = 6;
+    packet.field61 = 8;
+    packet.field64 = -1;
+    if (((u8 *)&arg7)[3] != 0) packet.field62 = 0x21;
+    else packet.field62 = 0x22;
+    packet.field63 = -1;
+    packet.field65 = 0;
+    packet.field5C = 0;
+    packet.field66 = 0xFF;
+    packet.field68 = 0;
+    packet.field6C = D_800AB43C;
+    motion.angleX = func_150ADA20();
+    motion.angleY = func_150ADA20();
+    if (packet.field1D == 0x40 || packet.field1D == 0x67) {
+        motion.size = packet.scaleY = packet.scaleX = arg6 * D_800AB440;
+    } else {
+        motion.size = packet.scaleY = packet.scaleX = arg6;
+    }
+    motion.stepX = func_150ADA20() % 6U + 5;
+    motion.stepY = func_150ADA20() % 6U + 5;
+    motion.amplitudeX = (func_150ADA68() * 0.25f + D_800AB444) * motion.size;
+    motion.amplitudeY = (func_150ADA68() * 0.25f + D_800AB448) * motion.size;
+    motion.scaleX = arg8;
+    motion.kind = ((u8 *)&arg2)[3];
+    motion.scaleY = arg9;
+    if (((u8 *)&arg12)[3] != 0) enabled = 0;
+    else enabled = 1;
+    if (((u8 *)&arg13)[3] != 0) mode = 2;
+    else mode = 0;
+    motion.flags = mode | enabled;
+    result = func_15130280(&packet, 1, (struct Game15D730CopyBlock *)arg11,
+                          0x1C, ((u8 *)&arg14)[3], arg15);
+    if (result != NULL) func_10022EC0((u8 *)result + 0xA8, &motion, 0x1C);
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D9014 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9014.s")
+
+
 s32 func_151D9534(s32, s32);                        /* extern */
 
 s32 func_151D93F4(s32 arg0, s32 arg1) {
@@ -468,7 +608,7 @@ void func_151D9B8C(u8 arg0, f32 arg1, s32 arg2, s32 arg3, f32 *arg4,
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D9B8C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9B8C.s")
 f32 func_150ADA68(void);
-void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32,
+void *func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32,
                    f32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A5480;
 extern f32 D_800AB464;
@@ -598,9 +738,7 @@ s32 func_151DA6A8(u8 *arg0) {
     }
     return 1;
 }
-typedef struct {
-    s32 words[3];
-} Game2062D0Vector3;
+
 
 typedef struct {
     Game2062D0Vector3 position;
@@ -1014,30 +1152,7 @@ void func_151DB4CC(void *arg0) {
     *(s8 *)((u8 *)arg0 + 0x19) = (s8) ((func_150ADA20() % 56U) + 0xC8);
     *(s8 *)((u8 *)arg0 + 0x1A) = (s8) ((func_150ADA20() % 56U) + 0xC8);
 }
-typedef struct {
-    s32 field00;
-    s32 field04;
-    s16 field08;
-    s16 field0A;
-    s32 field0C;
-    s32 field10;
-    u8 field14, field15, field16, field17;
-    u8 field18, field19, field1A, field1B, field1C, field1D;
-    s16 field1E, field20, field22;
-    f32 field24, scaleY, scaleX;
-    Game2062D0Vector3 position;
-    Game2062D0Vector3 vector3C;
-    Game2062D0Vector3 vector48;
-    f32 field54;
-    s32 flags;
-    s32 field5C;
-    s8 field60, field61, field62, field63, field64, field65;
-    u8 field66;
-    u8 pad67;
-    s16 field68;
-    u8 pad6A[2];
-    f32 field6C;
-} Game1DC034Packet;
+
 
 typedef struct Game1DB5D0Extension {
     u8 flags;

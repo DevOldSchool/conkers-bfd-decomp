@@ -6,10 +6,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_render_effect_lifecycles.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151D71B0
- * - func_151D7264
  * - func_151D7538
- * - func_151D75C4
  * - func_151D792C
  * - func_151D7A38
  * - func_151D7CD0
@@ -20,9 +17,9 @@
 
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D71B0 CURRENT (816) */
-s32 func_151D71B0(s16 arg0, u8 arg1, u8 arg2, s32 arg3,
+s32 func_151D71B0(s16 arg0, u8 arg1, u8 arg2, f32 arg3,
                   s32 arg4, u8 arg5, s32 arg6) {
+    void *result;
     struct {
         s32 field0;
         u8 field4;
@@ -30,57 +27,54 @@ s32 func_151D71B0(s16 arg0, u8 arg1, u8 arg2, s32 arg3,
         f32 vector8[3];
         f32 value14;
     } packet;
-    s32 saved;
-    s32 temp_v0;
-    s32 var_v1;
 
     packet.field0 = 0;
     packet.field5 = 0;
     packet.vector8[0] = 0.0f;
     packet.vector8[1] = 0.0f;
     packet.vector8[2] = 0.0f;
-    packet.value14 = *(f32 *)&arg3;
+    packet.value14 = arg3;
     packet.field4 = arg2;
-    temp_v0 = func_15149130((s16)arg0, -1, 0x42, -1,
+    result = func_15149130((s16)arg0, -1, 0x42, -1,
                             (s32)arg1, 0x36, arg4 + 0x18,
                             (s32)arg5, arg6);
-    var_v1 = temp_v0;
-    if (temp_v0 != 0) {
-        saved = temp_v0;
-        func_10022EC0((void *)(temp_v0 + 0x28), &packet, 0x18);
-        var_v1 = saved;
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x28, &packet, 0x18);
     }
-    return var_v1;
+    return (s32)result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D71B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D71B0.s")
-
 extern s32 (*D_8008FCA0[])(void *);
 void func_151D7830(void *);
 void func_151D77C8();
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7264 CURRENT (171) */
 void func_151D7264(void *arg0) {
+    struct {
+        s32 active;
+        u8 pad4;
+        u8 flags;
+        u8 pad6[2];
+        Vec3f position;
+        f32 threshold;
+    } *link;
     Vec3f previous;
-    Vec3f delta;
     u8 flag;
-    u8 *link;
+    Vec3f delta;
 
-    previous = *(Vec3f *)((u8 *)arg0 + 0x30);
-    flag = *(u8 *)((u8 *)arg0 + 0x2D) & 1;
+    link = (void *)((u8 *)arg0 + 0x28);
+    previous = link->position;
+    flag = link->flags & 1;
     if (D_8008FCA0[*(u8 *)((u8 *)arg0 + 0x2C)](arg0) == 0) {
         *(s16 *)((u8 *)arg0 + 0xE) = -1;
         *(u8 *)((u8 *)arg0 + 0xD) |= 1;
         return;
     }
-    link = (u8 *)arg0 + 0x28;
-    if (link[5] & 1) {
+    if (link->flags & 1) {
         if (flag != 0) {
-            delta.x = *(f32 *)(link + 8) - previous.x;
-            delta.y = *(f32 *)(link + 0xC) - previous.y;
-            delta.z = *(f32 *)(link + 0x10) - previous.z;
-            if (func_15143E64(&delta) < *(f32 *)(link + 0x14)) {
-                if (*(s32 *)link == 0) {
+            delta.x = link->position.x - previous.x;
+            delta.y = link->position.y - previous.y;
+            delta.z = link->position.z - previous.z;
+            if (func_15143E64(&delta) < link->threshold) {
+                if (link->active == 0) {
                     func_151D7830(arg0);
                 }
             } else {
@@ -93,8 +87,6 @@ void func_151D7264(void *arg0) {
         func_151D77C8(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D7264 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7264.s")
 extern void (*D_8008FCA4[])(void *, s32, u8);
 
 void func_151D73A8(void *arg0, s32 arg1, u8 arg2) {
@@ -132,7 +124,7 @@ void func_151D747C(void *arg0) {
     func_151494E0(&sp, 0x3D);
 }
 void *func_10022EC0(void *, const void *, u32);
-s32 func_151D71B0(s16, u8, u8, s32, s32, u8, s32);
+s32 func_151D71B0(s16, u8, u8, f32, s32, u8, s32);
 
 typedef struct Game204660D74B0Packet {
     void *owner;
@@ -150,7 +142,7 @@ void func_151D74B0(void *arg0, u8 arg1, s8 arg2, u8 arg3, s32 arg4) {
     packet.field34 = *(u8 *)((u8 *)arg0 + 0x3B);
     packet.field35 = arg1;
     packet.field36 = arg2;
-    temp_v0 = func_151D71B0(0x12C, 0, 0, 0x41400000, 8, (s32)arg3, arg4);
+    temp_v0 = func_151D71B0(0x12C, 0, 0, 12.0f, 8, (s32)arg3, arg4);
     if (temp_v0 != 0) {
         func_10022EC0((void *)(temp_v0 + 0x40), &packet, 8);
     }
@@ -194,21 +186,18 @@ typedef struct {
     f32 vector[3];
 } Game204660FlagLink;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D75C4 CURRENT (16) */
 s32 func_151D75C4(void *arg0) {
     Game204660LinkPacket *packet;
     u8 *object;
-    s32 transform;
     Game204660FlagLink *link;
 
+    link = (Game204660FlagLink *)((u8 *)arg0 + 0x28);
     packet = (Game204660LinkPacket *)((u8 *)arg0 + 0x40);
     object = packet->object;
     if (*(s32 *)object == 0 || packet->unk4 != object[0x3B]) {
         return 0;
     }
-    transform = *(s32 *)(object + 0x1D4);
-    link = (Game204660FlagLink *)((u8 *)arg0 + 0x28);
-    if (transform == 0) {
+    if ((*(s32 *)(object + 0x1D4)) == 0) {
         link->flags &= ~1;
         return 1;
     }
@@ -223,15 +212,13 @@ s32 func_151D75C4(void *arg0) {
         return 1;
     }
     func_15143134((f32 *)((u8 *)D_800AB280 + packet->unk5 * 0xC), link->vector,
-                  (D_800AB2D4[packet->unk5] << 6) + transform);
+                  (*(s32 *)(object + 0x1D4)) + (D_800AB2D4[packet->unk5] << 6));
     link->flags |= 1;
     if (packet->unk6 != -1) {
         return D_8008FCA8[packet->unk6](arg0);
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D75C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D75C4.s")
 s32 func_151D7724(u8 *arg0) {
     u8 *state = arg0 + 0x28;
     u8 *owner = *(u8 **)(arg0 + 0x40);
@@ -516,6 +503,114 @@ s32 func_151D7A38(Game204660Trail *trail) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D7A38 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7A38.s")
+f32 func_15144528(f32, f32, f32);
+extern f32 D_800AB2DC, D_800AB2E0, D_800AB2E4, D_800AB2E8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7CD0 CURRENT (1565) */
+s32 func_151D7CD0(Game204660Trail *trail) {
+    f32 fraction;
+    f32 length;
+    f32 fadeStart;
+    f32 fadeSpan;
+    Vec3f delta;
+    f32 total;
+    f32 walkDistance;
+    f32 fadeDistance;
+    f32 remainder;
+    Game204660TrailPoint *point;
+    Vec3f *previous;
+    Game204660TrailPoint *points;
+    Game204660TrailState *state;
+    Game204660TrailPoint *walkPoint;
+    Game204660TrailPoint *fadePoint;
+    s32 index;
+    s32 walkIndex;
+    s32 fadeIndex;
+    f32 unit;
+    f32 reciprocal;
+    f32 measuredLength;
+
+    unit = 1.0f;
+    state = trail->state;
+    points = trail->points;
+    if (trail->count >= 2) {
+        total = 0.0f;
+        walkDistance = 80.0f;
+        index = trail->end;
+        if (*(u16 *)((u8 *)trail + 0x1E) & 2) {
+            previous = &trail->position;
+        } else {
+            index--;
+            if (index < 0) index = trail->capacity - 1;
+            previous = &points[index].position;
+        }
+        do {
+            index--;
+            if (index < 0) index = trail->capacity - 1;
+            point = &points[index];
+            delta.x = point->position.x - previous->x;
+            delta.y = point->position.y - previous->y;
+            delta.z = point->position.z - previous->z;
+            measuredLength = func_15143E64(&delta);
+            total += measuredLength;
+            point->value10 = measuredLength;
+            if (total > walkDistance) {
+                length = point->value10;
+                if (length != 0) {
+                    fraction = (total - walkDistance) * (unit / length);
+                    point->position.x -= delta.x * fraction;
+                    point->position.y -= delta.y * fraction;
+                    point->position.z -= delta.z * fraction;
+                    point->value10 = length * (unit - fraction);
+                }
+                total = walkDistance;
+                while (index != trail->start) {
+                    trail->start++;
+                    if (trail->capacity == trail->start) trail->start = 0;
+                    trail->count--;
+                }
+            }
+            previous = &point->position;
+        } while (index != trail->start);
+    }
+    if (trail->count >= 2) {
+        *(f32 *)((u8 *)state + 0x18) += -41.0f * D_800BE9A4;
+        *(f32 *)((u8 *)state + 0x18) = func_15144528(*(f32 *)((u8 *)state + 0x18), D_800AB2DC, -16384.0f);
+        walkDistance = 0.0f;
+        walkIndex = trail->end;
+        do {
+            walkIndex--;
+            if (walkIndex < 0) walkIndex = trail->capacity - 1;
+            walkPoint = &points[walkIndex];
+            walkDistance += walkPoint->value10;
+            walkPoint->value18 = func_15144528(*(f32 *)((u8 *)state + 0x18) + walkDistance * D_800AB2E0,
+                                               D_800AB2E4, -16384.0f);
+        } while (walkIndex != trail->start);
+    }
+    if (trail->count >= 2) {
+        walkDistance = 60.0f;
+        fadeDistance = 0.0f;
+        fadeStart = total * D_800AB2E8;
+        fadeIndex = trail->end;
+        fadeSpan = total - fadeStart;
+        reciprocal = unit / fadeSpan;
+        do {
+            fadeIndex--;
+            if (fadeIndex < 0) fadeIndex = trail->capacity - 1;
+            fadePoint = &points[fadeIndex];
+            if (fadeStart < fadeDistance) {
+                remainder = fadeDistance - fadeStart;
+                if (fadeSpan < remainder) remainder = fadeSpan;
+                fadePoint->active = (u32)((fadeSpan - remainder) * reciprocal * walkDistance);
+            } else {
+                fadePoint->active = 60;
+            }
+            fadeDistance += fadePoint->value10;
+        } while (fadeIndex != trail->start);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D7CD0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7CD0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D80C4.s")
 extern f32 D_800AB2EC;

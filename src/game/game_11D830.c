@@ -61,7 +61,97 @@ Game11D830AltInner *func_150F03E8(Game11D830AltObject *arg0) {
     inner->field_13C = 0;
     return inner;
 }
+typedef struct Game11D830BurstActor {
+    u8 pad0[0x1D4];
+    u8 *matrices;
+    u8 pad1D8[0x114];
+    s32 age;
+} Game11D830BurstActor;
+
+typedef struct Game11D830Light {
+    u8 kind;
+    s8 mode;
+    s16 lifetime;
+    u8 field4;
+    u8 pad5[3];
+} Game11D830Light;
+
+typedef struct Game11D830Motion {
+    u32 seed;
+    f32 values[2];
+} Game11D830Motion;
+
+f32 func_150ADA68(void);
+void func_15145EA4(s32 *, s32 *, s32, s32);
+s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32, s32, s32, s32, s32, s32);
+s32 func_151C229C(f32 *, f32 *, s32, s32, s32, s32, f32, f32, f32, f32, f32,
+                  s32, void *, s32, s32, s32, s32, s32, s32, s32, s32, f32,
+                  s32, s32, s32, s32, s32);
+extern u8 D_800A1640[], D_800A1658[], D_800A1670[];
+extern f32 D_800A1838, D_800A183C, D_800A1840, D_800A1844;
+extern f32 D_800A1848, D_800A184C, D_800A1850;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F03F8 CURRENT (5437) */
+s32 func_150F03F8(Game11D830BurstActor *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    s32 result;
+    Vec3f position;
+    Vec3f direction;
+    f32 *inputs[2];
+    f32 *outputs[2];
+    Game11D830Light light;
+    s32 lightPosition[3];
+    Game11D830Motion motion;
+    f32 random2;
+    f32 random1;
+    u32 lifetime;
+    u8 *bone;
+
+    if (arg0 == NULL) return 0;
+    if (((u8 *)&arg1)[3] >= 2) return 0;
+    if (arg0->matrices == NULL) return 0;
+    if (arg0->age < 90) return 0;
+    inputs[0] = (f32 *)(D_800A1640 + ((u8 *)&arg1)[3] * 12);
+    inputs[1] = (f32 *)(D_800A1658 + ((u8 *)&arg1)[3] * 12);
+    outputs[0] = &position.x;
+    outputs[1] = &direction.x;
+    bone = &D_800A1670[((u8 *)&arg1)[3]];
+    func_15145EA4((s32 *)inputs, (s32 *)outputs,
+                  (s32)(arg0->matrices + (*bone << 6)), 2);
+    direction.x -= position.x;
+    direction.y -= position.y;
+    direction.z -= position.z;
+    random1 = func_150ADA68();
+    random2 = func_150ADA68();
+    func_150ADA20();
+    result = func_151C229C(&position.x, &direction.x, 0, 0, 0, 0,
+                          150.0f, D_800A1838, random1 * 19.0f + 38.0f,
+                          random2 * D_800A183C + 149.0f, 50.0f, 255,
+                          arg0, 1, 1, 0, 8, 0, 1, 0, 0xA0038, 0.0f,
+                          255, -1, 0, ((u8 *)&arg2)[3], arg3);
+    light.kind = 3;
+    light.mode = -1;
+    light.lifetime = func_150ADA20() % 5U + 4;
+    light.field4 = 0;
+    lightPosition[0] = (s32)position.x;
+    lightPosition[1] = (s32)position.y;
+    lightPosition[2] = (s32)position.z;
+    func_151602C0((u8 *)&light, lightPosition, func_150ADA20() % 51U + 80,
+                  255, 255, 255, 255, 0, 0, ((u8 *)&arg2)[3], arg3);
+    motion.values[1] = (func_150ADA68() * D_800A1840 + D_800A1844) * D_800A1848;
+    motion.values[0] = (func_150ADA68() * D_800A184C + 628.0f) * D_800A1850;
+    lifetime = func_150ADA20();
+    motion.seed = func_150ADA20();
+    func_15102B38((s32)arg0, *bone,
+                  (s32)(D_800A1640 + ((u8 *)&arg1)[3] * 12),
+                  (s32)(D_800A1658 + ((u8 *)&arg1)[3] * 12), motion.values,
+                  lifetime % 3U + 8, 255, func_150ADA68() * 2000.0f + 2000.0f,
+                  (s32)&position, 255, 0, -1, ((u8 *)&arg2)[3], arg3);
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150F03F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F03F8.s")
+
 /* Call context: func_1516972C: unique active declaration in the allowed source */
 
 void func_150F07E4(void *arg0, void *arg1, u8 arg2) {

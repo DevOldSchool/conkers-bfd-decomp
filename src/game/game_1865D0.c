@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15159230
  * - func_151592B8
- * - func_1515942C
  * - func_15159594
  * - func_151596BC
  * - func_15159C08
@@ -152,21 +151,19 @@ s32 func_15159370(void *arg0, s8 *arg1) {
 /* Call context: func_1514ECE0: unique active declaration in the allowed source */
 s32 func_1514ECE0();
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515942C CURRENT (3560) */
-u8 func_1515942C(void *arg0, s16 arg1, s16 arg2, void *arg3, s16 arg4, s16 arg5) {
+u8 func_1515942C(void *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5) {
+    s32 actual;
     void *sp38;
-    u8 sp37;
+    u8 var_t2;
     s32 temp_v0;
     s32 var_a0;
     s32 var_a2;
     s32 var_a3;
-    u8 var_t2;
     s32 var_t0;
     s32 var_t1;
     void *temp_a1;
 
-    sp37 = 0;
-    var_t2 = sp37;
+    var_t2 = 0;
     if (func_1514ECE0(*(s32 *)((u8 *)arg0 + 0x2F4), 0x13, &sp38) == 0) {
         return 0U;
     }
@@ -196,14 +193,13 @@ u8 func_1515942C(void *arg0, s16 arg1, s16 arg2, void *arg3, s16 arg4, s16 arg5)
     } else {
         var_a0 = 1 << (arg5 + 0xD);
     }
+    actual = (1 << (*(u8 *)((u8 *)temp_a1 + 0x2D) + 3)) | (1 << (*(u8 *)((u8 *)temp_a1 + 0x2E) + 6)) | (1 << (*(u8 *)((u8 *)temp_a1 + 0x2F) + 9)) | (1 << (*(u8 *)((u8 *)temp_a1 + 0x30) + 0xD)) | (1 << *(u8 *)((u8 *)temp_a1 + 0x2C));
     temp_v0 = var_a0 | var_a3 | var_a2 | var_t0 | var_t1;
-    if (temp_v0 == (temp_v0 | ((1 << *(u8 *)((u8 *)temp_a1 + 0x2C)) | (1 << (*(u8 *)((u8 *)temp_a1 + 0x2D) + 3)) | (1 << (*(u8 *)((u8 *)temp_a1 + 0x2E) + 6)) | (1 << (*(u8 *)((u8 *)temp_a1 + 0x2F) + 9)) | (1 << (*(u8 *)((u8 *)temp_a1 + 0x30) + 0xD))))) {
+    if (temp_v0 == (temp_v0 | actual)) {
         var_t2 = 1;
     }
     return var_t2;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515942C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_1515942C.s")
 u8 func_151596BC(u8 *, s32);
 u8 func_151D8E20(void);
 void func_151DBCBC(s32, f32, u8, s32, f32 *, s32, s32);
@@ -211,7 +207,7 @@ s32 func_15046C00(f32 *, u16, f32, u8 *);
 s32 func_1514672C(f32 *);
 extern f32 D_800A63A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15159594 CURRENT (716) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15159594 CURRENT (616) */
 u8 func_15159594(u8 *arg0, s32 arg1) {
     u8 result;
     f32 position[3];

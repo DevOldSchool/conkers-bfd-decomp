@@ -360,6 +360,161 @@ s32 func_151C110C(void *arg0, s32 arg1, s32 *arg2, s32 arg3, s32 arg4, s32 arg5,
     *arg6 = 0;
     return 0;
 }
+typedef struct {
+    u8 pad00[0xE];
+    s16 x, y, z;
+} Game1ED0F0PositionShort;
+
+typedef struct {
+    u8 pad00[0x14];
+    Game1ED0F0PositionShort *position;
+} Game1ED0F0PositionNode;
+
+typedef struct {
+    u8 pad00[0x40];
+    Vec3f position;
+} Game1ED0F0PositionTarget;
+
+typedef struct {
+    u8 pad00[8];
+    Vec3f origin;
+    u8 pad14[0x24];
+    Vec3f velocity;
+    u8 triangle[0x15];
+    u8 endKind;
+    u8 pad5A[0xA];
+    f32 lifetime;
+    f32 speed;
+    void *object;
+    u8 query[0x10];
+    Game1ED0F0PositionNode *positionNode;
+    Game1ED0F0PositionTarget *positionTarget;
+    u8 pad88[0xA];
+    u8 kind;
+    u8 pad93;
+    f32 timer;
+    Vec3f effectPosition;
+    u8 effectData[0x24];
+    u8 flags;
+    u8 padC9[3];
+    s32 filter;
+} Game1ED0F0UpdateState;
+
+typedef struct {
+    u8 pad00;
+    u8 layer;
+    u8 pad02[0xA];
+    u8 screen;
+    u8 pad0D[0x2B];
+    Vec3f position;
+    Vec3f velocity;
+    u8 pad50[0x120];
+    Game1ED0F0UpdateState state;
+} Game1ED0F0UpdateActor;
+
+typedef struct {
+    void *surface;
+    u8 pad04[4];
+    Vec3f position;
+    u8 pad14[0x45];
+    u8 status;
+    u8 pad5A[0xA];
+} Game1ED0F0Collision;
+
+void func_15055A2C(s32, f32, f32, f32, s32);
+void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);
+void func_151C1654(void *, s32, s32, u8, s32);
+void func_151BFDA0(void *, f32 *, s32, s32, s32);
+void func_151BFE84(void *, void *, void *, s32, s32, s32);
+void func_151ABE40(void *, void *, s32, u8, s32);
+extern f32 D_800BE9A4;
+extern s32 (*D_800E0930)(void *, f32 *, f32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C1180 CURRENT (1627) */
+s32 func_151C1180(Game1ED0F0UpdateActor *arg0) {
+    s32 flags;
+    f32 scale;
+    Vec3f delta;
+    Vec3f callbackHit;
+    Game1ED0F0Collision hit;
+    void *savedVector;
+    Game1ED0F0UpdateState *state;
+
+
+    state = &arg0->state;
+    if (*(volatile f32 *)&arg0->state.lifetime < D_800BE9A4) {
+        state = &arg0->state;
+        scale = state->speed * state->lifetime;
+    } else {
+        scale = state->speed * D_800BE9A4;
+    }
+    delta.x = state->velocity.x * scale;
+    delta.y = state->velocity.y * scale;
+    delta.z = state->velocity.z * scale;
+    if (D_800E0930 != NULL) {
+        if (D_800E0930(&arg0->position, &delta.x, &callbackHit.x) != 0) {
+            func_15055A2C(0, callbackHit.x, callbackHit.y, callbackHit.z, 0);
+            savedVector = &state->velocity;
+            func_151C1654(&callbackHit, (s32)savedVector, (s32)state->object, state->kind, 0);
+            flags = state->flags;
+            flags = (flags & 1) == 0;
+            func_151BFDA0(&callbackHit, (f32 *)savedVector, flags & 0xFF,
+                          arg0->screen, arg0->layer);
+            return 0;
+        }
+    }
+    if (scale != 0) {
+        func_15081690(state->object, arg0->position.x, arg0->position.y, arg0->position.z,
+                      delta.x, delta.y, delta.z, &hit, scale, 1, 0, 1, 3,
+                      (s32)state->query, state->filter);
+        if (hit.status >= 2) {
+            func_15055A2C(1, hit.position.x, hit.position.y, hit.position.z, 0);
+            func_151C1654(&hit.position, (s32)&state->velocity, (s32)state->object, state->kind, 0);
+            flags = state->flags;
+            flags = (flags & 1) == 0;
+            func_151C0098(&hit.position, hit.surface, flags & 0xFF,
+                          arg0->screen, arg0->layer);
+            return 0;
+        }
+    }
+    arg0->position.x += arg0->velocity.x * D_800BE9A4;
+    arg0->position.y += arg0->velocity.y * D_800BE9A4;
+    arg0->position.z += arg0->velocity.z * D_800BE9A4;
+    if (state->flags & 1) {
+        scale = state->timer;
+        if (scale > 0.0f) {
+            state->timer = scale - D_800BE9A4;
+            if (state->timer <= 0.0f) {
+                func_151ABE40(&state->effectPosition, state->effectData, 2, arg0->screen, arg0->layer);
+            }
+        }
+    }
+    state->lifetime -= D_800BE9A4;
+    if (state->lifetime <= 0.0f) {
+        if (state->endKind == 1) {
+            func_15055A2C(0, state->origin.x, state->origin.y, state->origin.z, 0);
+            savedVector = (Vec3f *)state->triangle;
+            func_151C1654(&state->origin, (s32)&state->velocity, (s32)state->object, state->kind,
+                          (s32)savedVector);
+            flags = state->flags;
+            flags = (flags & 1) == 0;
+            func_151BFE84(savedVector, &state->origin, &arg0->velocity,
+                          flags & 0xFF, arg0->screen, arg0->layer);
+        }
+        return 0;
+    }
+    savedVector = state->positionNode;
+    if (savedVector != NULL) {
+        ((Game1ED0F0PositionNode *)savedVector)->position->x = (s32)arg0->position.x;
+        ((Game1ED0F0PositionNode *)savedVector)->position->y = (s32)arg0->position.y;
+        ((Game1ED0F0PositionNode *)savedVector)->position->z = (s32)arg0->position.z;
+    }
+    if (state->positionTarget != NULL) {
+        state->positionTarget->position = arg0->position;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C1180 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C1180.s")
 void func_1000FD38(s32 (*)(void *, s32, s32 *, s32, s32, s32, s16 *), s32, s32);
 

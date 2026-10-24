@@ -994,7 +994,153 @@ void func_151CAB78(u8 *arg0, u8 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CAB78 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAB78.s")
+void *func_1515FF74(void *, s32, u8, s32);
+extern s32 D_800BE628, D_800BE620;
+extern u8 D_800BE616;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CAD28 CURRENT (5806) */
+void func_151CAD28(u8 *arg0, s32 arg1) {
+    struct {
+        f32 x;
+        f32 y;
+        f32 width;
+        f32 height;
+        u8 type;
+        u8 pad11;
+        s16 angle;
+        u16 flags;
+        s16 count;
+        s16 color;
+        u8 mode;
+        u8 arg1;
+        u8 arg2;
+        u8 arg3;
+        u8 time;
+        u8 color0;
+        u8 color1;
+        u8 color2;
+        u8 color3;
+        u8 color4;
+        s32 field24;
+        s32 field28;
+        s32 field2C;
+        s32 field30;
+        s32 field34;
+        s32 field38;
+        s32 field3C;
+        u8 field40;
+        u8 field41;
+        u8 pad42[2];
+        u8 field44;
+        u8 pad45[0x13];
+    } spawn;
+    struct {
+        u8 *owner;
+        f32 zero;
+        f32 scale;
+        u8 bytes[2];
+        u8 pad[0x4E];
+    } payload;
+    struct {
+        s8 type, color, flags;
+        u8 pad03;
+        s16 time;
+        s8 enabled;
+        u8 pad07;
+    } icon;
+    struct {
+        u8 *owner;
+        u8 *screen;
+        void *pixels;
+        s32 x, y;
+    } warp;
+    void *object;
+    s32 mode;
+
+    payload.bytes[1] = 0;
+    payload.bytes[0] = 0;
+    spawn.height = 25.0f;
+    spawn.width = 25.0f;
+    payload.owner = arg0;
+    payload.zero = 0.0f;
+    payload.scale = 130.0f;
+    if (D_80082FA0 > 0) spawn.type = 0x72;
+    else spawn.type = 0x65;
+    spawn.angle = 0x12C;
+    mode = (1 << (arg0[0x23D] + 0xB)) | 0x50;
+    spawn.count = 1;
+    spawn.mode = 7;
+    spawn.arg2 = 0xFF;
+    spawn.time = 0x82;
+    spawn.color1 = 0xFF;
+    spawn.color0 = 0xFF;
+    spawn.color2 = 0xFF;
+    spawn.color3 = 0xFF;
+    spawn.field30 = 8;
+    spawn.field38 = 0x80;
+    spawn.flags = mode;
+    spawn.color = 0xFF;
+    spawn.arg1 = 0;
+    spawn.arg3 = 0;
+    spawn.color4 = 0xFF;
+    spawn.field24 = 0;
+    spawn.field28 = 0x200004;
+    spawn.field2C = 0x1F0601;
+    spawn.field34 = 0x44;
+    spawn.field3C = 0x20;
+    spawn.field40 = 0;
+    spawn.field41 = 0xA;
+    mode &= 0xFFF9;
+    spawn.flags = mode;
+    spawn.flags = mode | 6;
+    spawn.x = 25.0f;
+    spawn.y = 25.0f;
+    spawn.field44 = arg0[0x23D];
+    if (((u8 *)&arg1)[3] != 0) mode = 4;
+    else mode = 0;
+    object = func_1515548C(&spawn, mode, 0, 0, 0x58, 0xFF, 1);
+    if (object != NULL) func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
+    spawn.flags = (spawn.flags & 0xFFF9) | 4;
+    spawn.x = -25.0f;
+    spawn.y = 25.0f;
+    if (((u8 *)&arg1)[3] != 0) mode = 4;
+    else mode = 0;
+    object = func_1515548C(&spawn, mode, 0, 0, 0x58, 0xFF, 1);
+    if (object != NULL) func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
+    spawn.flags &= 0xFFF9;
+    spawn.x = -25.0f;
+    spawn.y = -25.0f;
+    if (((u8 *)&arg1)[3] != 0) mode = 4;
+    else mode = 0;
+    object = func_1515548C(&spawn, mode, 0, 0, 0x58, 0xFF, 1);
+    if (object != NULL) func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
+    spawn.flags = (spawn.flags & 0xFFF9) | 2;
+    spawn.x = 25.0f;
+    spawn.y = -25.0f;
+    if (((u8 *)&arg1)[3] != 0) mode = 4;
+    else mode = 0;
+    object = func_1515548C(&spawn, mode, 0, 0, 0x58, 0xFF, 1);
+    if (object != NULL) func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
+    if (D_800BE616 == 0) {
+        warp.owner = arg0;
+        warp.screen = (u8 *)(arg0[0x23D] * 0x180 + D_800BE628);
+        warp.x = (s32)(*(f32 *)(warp.screen + 0x34) - 12.0f);
+        icon.type = 0xE;
+        icon.color = -1;
+        icon.flags = 1;
+        icon.time = 0x12C;
+        icon.enabled = 1;
+        warp.y = (s32)(*(f32 *)(warp.screen + 0x38) - 12.0f) * D_800BE620;
+        object = func_1515FF74(&icon, 0x498, 0xFF, 1);
+        if (object != NULL) {
+            warp.pixels = (u8 *)object + 0x30;
+            func_10022EC0((u8 *)object + 0x18, &warp, 0x14);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CAD28 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAD28.s")
+
 typedef struct SightWarpState {
     s32 field0;
     u8 *center;

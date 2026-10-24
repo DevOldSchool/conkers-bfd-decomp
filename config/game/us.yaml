@@ -185,7 +185,7 @@ segments:
       - [0x48190, lib, libultrare, rotate, .text]
       - [0x48360, c, done/game/game_75810]
       - [0x484A0, c, done/game/game_75950]
-      - [0x485E0, c, game/game_75A90]
+      - [0x485E0, c, done/game/game_75A90]
       - [0x48720, c, game/game_75BD0]
       - [0x487E0, c, done/game/game_75C90]
       - [0x489B0, c, done/game/game_75E60]

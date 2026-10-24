@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_render_effect_lifecycles.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151B22F4
  * - func_151B2348
  * - func_151B2690
  *
@@ -142,18 +141,17 @@ typedef struct {
 
 extern u8 D_800CC2D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B22F4 CURRENT (885) */
 s32 func_151B22F4(Game1DF510State *arg0) {
-    Game1DF510Entry *temp_v1;
+    u8 *owner;
+    Game1DF510Entry *entry;
 
-    temp_v1 = arg0->field_30;
-    if (((((arg0->field_28 - &D_800CC2D0) / 0x32C) + 1) == temp_v1->field_65) && (temp_v1->field_5C == 1)) {
+    owner = arg0->field_28;
+    entry = arg0->field_30;
+    if ((entry->field_65 == ((owner - &D_800CC2D0) / 0x32C + 1)) && (entry->field_5C == 1)) {
         return 1;
     }
     return 2;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B22F4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B22F4.s")
 
 typedef struct Game1DF510Actor {
     u8 pad0[0x14];
