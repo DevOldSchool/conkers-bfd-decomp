@@ -13,17 +13,11 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct Game1BF090Vector {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game1BF090Vector;
-
 typedef struct Game1BF090Payload {
     void *owner;
     u8 mode;
     u8 pad5[3];
-    Game1BF090Vector origin;
+    Vec3i origin;
     s32 radius;
     f32 zero;
     f32 start;
@@ -47,7 +41,7 @@ void func_1504715C(void *, void *, s32, void *);
 void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15191BE0 CURRENT (2209) */
-s32 func_15191BE0(u8 *arg0, Game1BF090Vector *arg1, u8 arg2,
+s32 func_15191BE0(u8 *arg0, Vec3i *arg1, u8 arg2,
                   f32 arg3, f32 arg4, s16 arg5, f32 arg6, f32 arg7,
                   s16 arg8, s16 arg9, u8 arg10, u8 arg11, f32 arg12,
                   f32 arg13, f32 arg14, u8 arg15, u8 arg16, s32 arg17) {
@@ -88,14 +82,14 @@ f32 func_150ADA68(void);
 void func_15143134(f32 *, f32 *, s32);
 s32 func_1514672C(f32 *);
 s32 func_15046F84(f32 *, u16, f32, void *);
-void *func_1519203C(Game1BF090Vector *, Game1BF090Vector *, f32, s32, s32,
+void *func_1519203C(Vec3i *, Vec3i *, f32, s32, s32,
                     s32, f32, s32, f32, struct Game1BF090Packed *, s32, s32, s32);
 extern f32 D_800A80E8, D_800A80EC, D_800A80F0, D_800BE9A4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15191D54 CURRENT (994) */
 void func_15191D54(u8 *arg0) {
-    Game1BF090Vector position;
-    Game1BF090Vector direction;
+    Vec3i position;
+    Vec3i direction;
     f32 limit;
     f32 height;
     u32 lifeRandom, modeRandom;
@@ -171,9 +165,9 @@ typedef struct Game1BF090Spawn {
     u8 field18, field19, field1A, mode, group, kind;
     s16 field1E, field20, count;
     f32 scale, scaleX, scaleY;
-    Game1BF090Vector position;
+    Vec3i position;
     f32 rotation[3];
-    Game1BF090Vector direction;
+    Vec3i direction;
     f32 speed;
     s32 flags;
     u8 pad5C[4];
@@ -202,7 +196,7 @@ extern s32 (*D_8008FCD0[])(void);
 extern f32 D_800A80F4, D_800A80F8;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1519203C CURRENT (210) */
-void *func_1519203C(Game1BF090Vector *position, Game1BF090Vector *direction,
+void *func_1519203C(Vec3i *position, Vec3i *direction,
                     f32 speed, s32 lifetime, s32 mode, s32 group,
                     f32 scale, s32 unused, f32 height, Game1BF090Packed *body,
                     s32 kind, s32 priority, s32 owner) {
@@ -383,7 +377,7 @@ s32 func_1519257C(s32 arg0, s32 arg1) {
     }
     return var_v1;
 }
-extern Game1BF090Vector D_800A8030[];
+extern Vec3i D_800A8030[];
 extern u8 D_800A8060[];
 extern f32 D_800A8064[];
 extern f32 D_800A8074[];
@@ -396,7 +390,7 @@ extern f32 D_800A80C4[];
 extern f32 D_800A80D4[];
 extern u8 D_800A80E4[];
 
-s32 func_15191BE0(u8 *, Game1BF090Vector *, u8, f32, f32, s16,
+s32 func_15191BE0(u8 *, Vec3i *, u8, f32, f32, s16,
                   f32, f32, s16, s16, u8, u8, f32, f32, f32,
                   u8, u8, s32);
 

@@ -448,12 +448,6 @@ void func_151D3E6C(void *arg0, void *arg1, void *arg2, s32 arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D3E6C.s")
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
-typedef struct Game200930Position {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game200930Position;
-
 typedef struct Game200930Particle {
     u8 type;
     s8 subtype;
@@ -463,7 +457,7 @@ typedef struct Game200930Particle {
 
 void func_151D3F14(void *arg0, u8 arg1, s32 arg2) {
     Game200930Particle particle;
-    Game200930Position position;
+    Vec3i position;
 
     particle.type = 3;
     particle.subtype = -1;
@@ -478,7 +472,7 @@ void func_151D3F14(void *arg0, u8 arg1, s32 arg2) {
 }
 void func_151D3FF4(f32 *arg0, u8 arg1, s32 arg2) {
     Game200930Particle particle;
-    Game200930Position position;
+    Vec3i position;
 
     particle.type = 3;
     particle.subtype = -1;
@@ -573,7 +567,7 @@ typedef struct Game200930TransformPacket {
     f32 field0C;
     f32 rotation[3];
     f32 scale[3];
-    Game200930Position position;
+    Vec3i position;
     f32 velocity[3];
     f32 field40;
     f32 field44;
@@ -626,7 +620,7 @@ void func_151D4408(void *arg0, void *arg1, s32 arg2, void *arg3,
     packet.scale[0] = 1.0f;
     packet.scale[1] = 1.0f;
     packet.scale[2] = 1.0f;
-    packet.position = *(Game200930Position *)arg0;
+    packet.position = *(Vec3i *)arg0;
     speed = ((random * 105.0f) + 199.0f) * D_800AB1D8;
     packet.velocity[0] = *(f32 *)arg1 * speed;
     packet.velocity[1] = *(f32 *)((u8 *)arg1 + 4) * speed;
@@ -1095,13 +1089,7 @@ typedef struct {
 } Game200930EventDescriptor;
 
 typedef struct {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game200930EventPosition;
-
-typedef struct {
-    Game200930EventPosition position;
+    Vec3i position;
     f32 value1;
     f32 value2;
     f32 value3;
@@ -1119,7 +1107,7 @@ void func_151D5404(void *arg0, f32 arg1, f32 arg2, f32 arg3, s16 arg4,
     u8 *temp_v0;
     s32 var_s0;
 
-    locals.payload.position = *(Game200930EventPosition *)arg0;
+    locals.payload.position = *(Vec3i *)arg0;
     locals.payload.value1 = arg1;
     locals.payload.value2 = arg2;
     locals.descriptor.field0 = 1;
@@ -1148,7 +1136,7 @@ typedef struct {
     s16 field06;
     s32 field08;
     s32 field0C;
-    Game200930EventPosition position;
+    Vec3i position;
     f32 field1C;
     f32 field20;
     f32 field24;
@@ -1190,7 +1178,7 @@ void func_151D5514(s32 arg0, u8 arg1, s32 arg2) {
     effect.field06 = 0x4A;
     effect.field08 = 9;
     effect.field0C = 3;
-    effect.position = *(Game200930EventPosition *)arg0;
+    effect.position = *(Vec3i *)arg0;
     effect.field1C = D_800AB21C;
     effect.field20 = 214.0f;
     effect.field24 = 203.0f;

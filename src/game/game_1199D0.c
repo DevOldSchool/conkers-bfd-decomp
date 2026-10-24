@@ -57,7 +57,6 @@ void func_150EC520(u8 *arg0, void *arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150EC520 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1199D0/func_150EC520.s")
-typedef struct GameEC6B0Vector { s32 x, y, z; } GameEC6B0Vector;
 typedef struct GameEC6B0Packet {
     u32 field00, field04;
     s16 field08, field0A;
@@ -66,7 +65,7 @@ typedef struct GameEC6B0Packet {
     u8 field18, field19, field1A, field1B, field1C, field1D;
     s16 field1E, field20, field22;
     f32 field24, scaleX, scaleY;
-    GameEC6B0Vector position;
+    Vec3i position;
     f32 field3C, field40, field44, field48, field4C, field50, speed;
     u32 flags;
     u8 pad5C[4];
@@ -78,7 +77,7 @@ typedef struct GameEC6B0Extension {
     f32 x, y, z;
 } GameEC6B0Extension;
 typedef struct GameEC6B0State {
-    GameEC6B0Vector position;
+    Vec3i position;
     f32 counter;
 } GameEC6B0State;
 extern f32 D_800A1578, D_800A157C, D_800A1580;

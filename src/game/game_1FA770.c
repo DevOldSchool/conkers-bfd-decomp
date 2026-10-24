@@ -184,12 +184,6 @@ typedef struct Game1FA770Particle {
     u8 pad10[0xC];
 } Game1FA770Particle;
 
-typedef struct Game1FA770Position {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game1FA770Position;
-
 extern f32 D_800BE9A4;
 
 s32 func_151CD674(u8 *actor) {
@@ -239,7 +233,7 @@ s32 func_151CD674(u8 *actor) {
             }
         } while (cursor != *(s8 *)(actor + 0x2D));
     }
-    *(Game1FA770Position *)(actor + 0x54) = *(Game1FA770Position *)(actor + 0x10);
+    *(Vec3i *)(actor + 0x54) = *(Vec3i *)(actor + 0x10);
     return 1;
 }
 /* Call context: func_15047D60: unique active project prototype */

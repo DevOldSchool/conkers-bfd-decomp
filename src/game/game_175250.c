@@ -45,11 +45,6 @@ void *func_15147DA0(void *arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4,
     return temp_v0;
 }
 typedef s32 (*Game175250Callback)();
-typedef struct Game175250Vec3 {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game175250Vec3;
 
 extern Game175250Callback D_8008A3E0[];
 extern Game175250Callback D_8008A3F8[];
@@ -63,7 +58,7 @@ s8 func_15147EB8(void *arg0) {
     s16 count;
     s32 product;
     u8 *list;
-    Game175250Vec3 *position;
+    Vec3i *position;
 
     index = entry[0x20];
     if (index != 0) {
@@ -94,8 +89,8 @@ s8 func_15147EB8(void *arg0) {
     }
     list = *(u8 **)((u8 *)arg0 + 0x94);
     if (*(s8 *)((u8 *)arg0 + 0x2C) > 0) {
-        position = (Game175250Vec3 *)((u32)list + (u32)(s32)*(s8 *)((u8 *)arg0 + 0x2D) * 0x14U);
-        *(Game175250Vec3 *)((u8 *)arg0 + 0x54) = *position;
+        position = (Vec3i *)((u32)list + (u32)(s32)*(s8 *)((u8 *)arg0 + 0x2D) * 0x14U);
+        *(Vec3i *)((u8 *)arg0 + 0x54) = *position;
     } else {
         *(f32 *)((u8 *)arg0 + 0x54) = 0.0f;
         *(f32 *)((u8 *)arg0 + 0x58) = 0.0f;
@@ -138,7 +133,7 @@ typedef struct {
 
 typedef struct {
     u8 pad0[0x10];
-    Game175250Vec3 position;
+    Vec3i position;
     u8 pad1C[9];
     u8 capacity;
     u8 pad26[6];
@@ -189,7 +184,7 @@ s32 func_151488C4(Game175250Trail *arg0) {
             interval.step = 0x1000 / count;
         }
         arg0->count = count + 1;
-        *(Game175250Vec3 *)&points[arg0->end] = arg0->position;
+        *(Vec3i *)&points[arg0->end] = arg0->position;
         points[arg0->end].velocity = motion->speedY;
         arg0->end++;
         if (arg0->end == arg0->capacity) {

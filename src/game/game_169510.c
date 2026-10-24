@@ -118,12 +118,6 @@ void func_1513C060(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513C060 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513C060.s")
 
-typedef struct Game169510Vec3 {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game169510Vec3;
-
 void *func_10022EC0(void *, const void *, u32);
 void func_1513FFF4(void *, u8, u8);
 void func_151400D0(void *, void *);
@@ -180,7 +174,7 @@ void *func_1513C350(s32 arg0, s32 arg1, u8 arg2, u8 arg3,
         *(void **)(effect + 0x9C) = func_1515D440();
     }
     if (arg7 != 0) {
-        *(Game169510Vec3 *)(effect + 0xA4) = *(Game169510Vec3 *)arg7;
+        *(Vec3i *)(effect + 0xA4) = *(Vec3i *)arg7;
     }
     return effect;
 }

@@ -52,9 +52,6 @@ void func_150B1EE0(void *arg0, GameDF2D0Packet *arg1, s32 arg2, s32 arg3) {
         func_10022EC0((u8 *)temp_v0 + 0x28, &packet, 0x10);
     }
 }
-typedef struct GameDF2D0Vector {
-    s32 x, y, z;
-} GameDF2D0Vector;
 
 typedef struct GameDF2D0Descriptor {
     s32 field00, field04;
@@ -64,7 +61,7 @@ typedef struct GameDF2D0Descriptor {
     u8 field18, field19, field1A, field1B, field1C, field1D;
     s16 field1E, field20, field22;
     f32 field24, scaleY, scaleX;
-    GameDF2D0Vector position;
+    Vec3i position;
     f32 x3C, y40, z44, x48, y4C, z50, field54;
     s32 flags, field5C;
     s8 field60, field61, field62, field63, field64, field65;
@@ -121,7 +118,7 @@ void func_150B1F90(void *arg0) {
         packet.field1C = 0xFF;
         extension.fieldC = D_8009F8E8;
         packet.field24 = D_8009F8EC;
-        packet.position = *(GameDF2D0Vector *)state;
+        packet.position = *(Vec3i *)state;
         scaleBase = D_8009F8F0;
         scaleRange = D_8009F8F4;
         speedBase = D_8009F8F8;

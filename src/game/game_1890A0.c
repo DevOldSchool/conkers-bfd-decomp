@@ -151,12 +151,6 @@ void func_1515BF7C(void *arg0) {
 extern f32 D_800BE9A8;
 extern s32 D_800BE9E4;
 
-typedef struct {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game1890A0Vector;
-
 void func_1515BFA8(u8 *arg0) {
     s32 var_a1;
     f32 *temp_v1;
@@ -174,7 +168,7 @@ void func_1515BFA8(u8 *arg0) {
         var_a1 = 1;
     }
     if (var_a1 == 0) {
-        *(Game1890A0Vector *)(arg0 + 0x2C) = *(Game1890A0Vector *)(arg0 + 0x20);
+        *(Vec3i *)(arg0 + 0x2C) = *(Vec3i *)(arg0 + 0x20);
         temp_v0 = *(u8 **)(arg0 + 0x18);
         temp_v1 = &D_800BE9A8;
         *(f32 *)(arg0 + 0x20) = *(f32 *)(temp_v0 + 0x14);

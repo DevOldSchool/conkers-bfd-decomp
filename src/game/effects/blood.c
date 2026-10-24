@@ -979,12 +979,6 @@ typedef struct {
     f32 values[4];
 } Blood1380B4Vector;
 
-typedef struct {
-    s32 x;
-    s32 y;
-    s32 z;
-} BloodA48CPosition;
-
 typedef struct Blood36C3CHit {
     f32 height;
     u8 geometry[0x20];
@@ -1012,7 +1006,7 @@ void func_1513A24C(Vec3f *, s32 *, f32 *, s32, f32, u8, u8, u8 *, void *,
 void func_15150D1C(Blood36C3CSpray *, u8, s32);
 void func_151A9834(Vec3f *, f32, f32, void *, s32, u8, s8 *, u8, s32);
 void func_151C61A0(s32, s32, u8, s32);
-void func_1513A48C(BloodA48CPosition *, u8, s32);
+void func_1513A48C(Vec3i *, u8, s32);
 extern s32 *D_80089A20[];
 extern f32 D_800A3C30;
 extern s32 D_800A3F14[];
@@ -1090,7 +1084,7 @@ void func_15136C3C(Blood36C3CActor *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4,
         if ((&D_800A3FF8 == &D_800A3FD8[kind]) || (&D_800A40C8 == &D_800A3FD8[kind])) {
             func_151C61A0((s32)&position, (s32)&hit, arg6, arg7);
         } else {
-            func_1513A48C((BloodA48CPosition *)&position, arg6, arg7);
+            func_1513A48C((Vec3i *)&position, arg6, arg7);
         }
     }
 }
@@ -1401,18 +1395,13 @@ void func_15138120(Blood1380B4State *arg0, s32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15138120 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15138120.s")
-typedef struct Blood382E0Position {
-    s32 x;
-    s32 y;
-    s32 z;
-} Blood382E0Position;
 
 typedef struct Blood382E0Packet {
     s16 field_00;
     s16 field_02;
     s16 field_04;
     s16 field_06;
-    Blood382E0Position position;
+    Vec3i position;
     f32 field_14;
     f32 field_18;
     f32 field_1C;
@@ -1450,7 +1439,7 @@ void func_151382E0(f32 *arg0, s32 arg1, void *arg2, u8 arg3, s32 arg4) {
 
     kind = D_800A3FE6[arg1 * 0x10];
     if (kind != 2) {
-        packet.position = *(Blood382E0Position *)arg0;
+        packet.position = *(Vec3i *)arg0;
         packet.field_14 = D_800A4830;
         packet.field_2C = 0x12;
         packet.field_2E = 7;
@@ -1821,7 +1810,7 @@ void func_1513A24C(Vec3f *arg0, s32 *arg1, f32 *arg2, s32 arg3,
 typedef struct {
     s32 field_0;
     s32 field_4;
-    BloodA48CPosition position;
+    Vec3i position;
     s16 field_14;
     s16 field_16;
     s16 field_18;
@@ -1841,7 +1830,7 @@ void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
 extern u8 D_800A4260[];
 extern u8 D_800A4264[];
 
-void func_1513A48C(BloodA48CPosition *arg0, u8 arg1, s32 arg2) {
+void func_1513A48C(Vec3i *arg0, u8 arg1, s32 arg2) {
     BloodA48CConfig config;
 
     config.field_0 = 8;
@@ -1875,16 +1864,11 @@ void func_1513A594(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513A594 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513A594.s")
-typedef struct {
-    s32 x;
-    s32 y;
-    s32 z;
-} BloodA5E0Position;
 
 typedef struct {
     s32 field_0;
     s32 field_4;
-    BloodA5E0Position position;
+    Vec3i position;
     s16 field_14;
     s16 field_16;
     s16 field_18;
@@ -1909,7 +1893,7 @@ void func_1513A5E0(s32 arg0, s32 arg1, s32 arg2) {
 
     config.field_0 = 7;
     config.field_4 = 7;
-    config.position = *(BloodA5E0Position *)arg0;
+    config.position = *(Vec3i *)arg0;
     config.field_14 = 0;
     config.field_16 = 0xFF;
     config.field_18 = -0x32;

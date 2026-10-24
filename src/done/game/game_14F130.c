@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_call_singletons.md
  */
 
-typedef struct Game14F130Vector { s32 x, y, z; } Game14F130Vector;
 typedef struct Game14F130Actor {
     u8 pad00[0x40];
     f32 yaw;
@@ -19,7 +18,7 @@ typedef struct Game14F130Target {
     u8 pad00[0x12];
     s16 angle;
     u8 pad14[0x14C];
-    Game14F130Vector position;
+    Vec3i position;
     u8 pad16C[0x20];
     f32 yaw;
     u8 pad190[0x23];
@@ -33,7 +32,7 @@ typedef struct Game14F130Camera {
     u8 pad23D;
     u8 mode;
     u8 pad23F[0xB9];
-    Game14F130Vector position, previousPosition;
+    Vec3i position, previousPosition;
     u8 pad310[0x5C];
     u16 *controls;
     u8 pad370[0xC];
@@ -77,7 +76,7 @@ void func_15121C80(Game14F130Camera *arg0, f32 arg1) {
     f32 limit;
     s32 mode;
     s32 active;
-    Game14F130Vector position;
+    Vec3i position;
 
     active = (arg0->flags5F0 & 0x10) != 0;
     if (active != 0) {

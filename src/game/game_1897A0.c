@@ -157,18 +157,15 @@ s32 func_1515C534(void *arg0) {
     return 1;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1897A0/func_1515C6F4.s")
-typedef struct Game1897A0Vec3i {
-    s32 x, y, z;
-} Game1897A0Vec3i;
 
 typedef struct Game1897A0TrailPoint {
-    Game1897A0Vec3i position;
+    Vec3i position;
     f32 width;
 } Game1897A0TrailPoint;
 
 typedef struct Game1897A0Trail {
     u8 pad0[0x10];
-    Game1897A0Vec3i position;
+    Vec3i position;
     u8 pad1C[9];
     u8 capacity;
     u8 pad26[6];

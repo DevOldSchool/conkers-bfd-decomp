@@ -379,18 +379,12 @@ void func_15153F18(s16 *, void *, s32, s32, s32);
 extern f32 D_800A5470;
 extern f32 D_800A5474;
 
-typedef struct Game16EE20Position {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game16EE20Position;
-
 typedef struct Game16EE20EffectPacket {
     s16 field00;
     s16 field02;
     s16 field04;
     s16 field06;
-    Game16EE20Position position;
+    Vec3i position;
     f32 field14;
     f32 field18;
     f32 field1C;
@@ -416,7 +410,7 @@ typedef struct Game16EE20EffectPacket {
 void func_15142180(u8 arg0, s32 *arg1, s32 arg2, f32 arg3, f32 arg4) {
     Game16EE20EffectPacket packet;
 
-    packet.position = *(Game16EE20Position *)arg1;
+    packet.position = *(Vec3i *)arg1;
     packet.field14 = 2.5f * arg3;
     packet.field18 = 2 * arg3;
     packet.field1C = D_800A5470;

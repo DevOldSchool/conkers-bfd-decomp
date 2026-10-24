@@ -14,12 +14,6 @@ typedef struct Game130B40Word {
     s32 value;
 } Game130B40Word;
 
-typedef struct Game130B40WordVector {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game130B40WordVector;
-
 extern Game130B40Word D_800A2350;
 extern Game130B40Word D_800A2354;
 extern f32 D_800A2358;
@@ -31,7 +25,7 @@ extern f32 D_800A2368;
 typedef struct Game130B40Params {
     s32 field_0;
     s32 field_4;
-    Game130B40WordVector field_8;
+    Vec3i field_8;
     s16 field_14;
     s16 field_16;
     s16 field_18;
@@ -47,7 +41,7 @@ typedef struct Game130B40Params {
     f32 field_38;
 } Game130B40Params;
 
-void func_151036B4(Game130B40WordVector *arg0, u8 arg1, s32 arg2) {
+void func_151036B4(Vec3i *arg0, u8 arg1, s32 arg2) {
     Game130B40Params params;
     Game130B40Word word1;
     Game130B40Word word2;

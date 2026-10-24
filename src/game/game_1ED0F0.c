@@ -293,12 +293,6 @@ void func_151C0360(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
 }
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
-typedef struct Game1ED0F0Position {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game1ED0F0Position;
-
 typedef struct Game1ED0F0Particle {
     u8 type;
     s8 subtype;
@@ -308,7 +302,7 @@ typedef struct Game1ED0F0Particle {
 
 void func_151C0418(void *arg0, u8 arg1, s32 arg2) {
     Game1ED0F0Particle particle;
-    Game1ED0F0Position position;
+    Vec3i position;
 
     particle.type = 3;
     particle.subtype = -1;
@@ -634,7 +628,7 @@ void func_151C1814(u8 *arg0, u8 *arg1, u8 arg2) {
 }
 void func_151C1860(void *arg0, u8 arg1, s32 arg2) {
     Game1ED0F0Particle particle;
-    Game1ED0F0Position position;
+    Vec3i position;
 
     particle.type = 3;
     particle.subtype = -1;

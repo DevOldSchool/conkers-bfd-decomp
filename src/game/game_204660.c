@@ -292,14 +292,8 @@ void func_151D77C8(Game204660ActorContext *arg0) {
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32,
                     s32, s32);
 
-typedef struct Game204660VecWords {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game204660VecWords;
-
 typedef struct Game204660Spawn {
-    Game204660VecWords position;
+    Vec3i position;
     s16 fieldC;
     s16 fieldE;
     s32 field10;
@@ -311,7 +305,7 @@ typedef struct Game204660Spawn {
 
 typedef struct Game204660Link {
     void *owner;
-    Game204660VecWords position;
+    Vec3i position;
     f32 offset[3];
 } Game204660Link;
 
@@ -321,10 +315,10 @@ void func_151D7830(void *arg0) {
         Game204660Spawn spawn;
         Game204660Link link;
     } locals;
-    Game204660VecWords *source;
+    Vec3i *source;
 
     locals.link.owner = arg0;
-    source = (Game204660VecWords *)((u8 *)arg0 + 0x30);
+    source = (Vec3i *)((u8 *)arg0 + 0x30);
     locals.link.position = *source;
     locals.link.offset[0] = 0.0f;
     locals.link.offset[1] = 0.0f;
@@ -341,7 +335,7 @@ void func_151D7830(void *arg0) {
                            *(u8 *)((u8 *)arg0 + 0xC),
                            *(u8 *)((u8 *)arg0 + 1));
     if (result != 0) {
-        source = *(Game204660VecWords **)((u8 *)result + 0x98);
+        source = *(Vec3i **)((u8 *)result + 0x98);
         func_10022EC0(source, &locals.link, 0x1C);
         *(void **)((u8 *)arg0 + 0x28) = result;
     }
@@ -373,8 +367,8 @@ s32 func_151D792C(void *arg0) {
         } while (var_s0 != *(s8 *)((u8 *)arg0 + 0x2D));
     }
     if (*(s8 *)((u8 *)arg0 + 0x2C) > 0) {
-        *(Game204660VecWords *)((u8 *)arg0 + 0x54) =
-            *(Game204660VecWords *)((u8 (*)[0x1C])temp_s4)[*(s8 *)((u8 *)arg0 + 0x2D)];
+        *(Vec3i *)((u8 *)arg0 + 0x54) =
+            *(Vec3i *)((u8 (*)[0x1C])temp_s4)[*(s8 *)((u8 *)arg0 + 0x2D)];
     } else {
         zero = 0.0f;
         *(f32 *)((u8 *)arg0 + 0x54) = zero;
