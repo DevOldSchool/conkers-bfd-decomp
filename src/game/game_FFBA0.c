@@ -19,8 +19,8 @@
 void func_150D278C(s32, void *, u8, s32);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D26F0 CURRENT (355) */
-void func_150D26F0(u8 *volatile arg0) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D26F0 CURRENT (74) */
+void func_150D26F0(u8 *arg0) {
     u8 *owner;
     u8 *temp_v1;
 

@@ -63,7 +63,7 @@ extern f32 D_800A1C64;
 extern f32 D_800A1C68;
 extern f32 D_800A1C6C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F85A0 CURRENT (266) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F85A0 CURRENT (180) */
 void func_150F85A0(s32 arg0, Game125A50Position *arg1, s32 arg2) {
     Vec3f position;
     Game125A50Light light;
@@ -73,10 +73,10 @@ void func_150F85A0(s32 arg0, Game125A50Position *arg1, s32 arg2) {
     position.x = arg1->position14.x;
     position.y = arg1->position14.y + 50.0f;
     position.z = arg1->position14.z;
+    light.field4 = 0;
     light.field0 = 3;
     light.field1 = -1;
     light.field2 = (func_150ADA20() % 9U) + 5;
-    light.field4 = 0;
     coordinates[0] = (s32) position.x;
     coordinates[1] = (s32) position.y;
     coordinates[2] = (s32) position.z;

@@ -9,7 +9,6 @@
  * - func_15112520
  * - func_15112A80
  * - func_15113218
- * - func_151135C4
  * - func_151137D4
  * - func_15113C88
  * - func_15113E54
@@ -233,12 +232,10 @@ typedef struct Game13F9D0Command {
     u32 word1;
 } Game13F9D0Command;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151135C4 CURRENT (60) */
 Game13F9D0Command *func_151135C4(Game13F9D0Command *arg0, s32 arg1, s16 arg2) {
     s32 viewOffset;
     s32 flags;
     s32 index;
-    u16 *count;
     u8 ***table;
 
     if (arg1 == 0) {
@@ -250,10 +247,9 @@ Game13F9D0Command *func_151135C4(Game13F9D0Command *arg0, s32 arg1, s16 arg2) {
     { Game13F9D0Command *command = arg0++; command->word0 = 0xD9A3FFFF; command->word1 = 0; }
     { Game13F9D0Command *command = arg0++; command->word0 = 0xD9FFFFFF; command->word1 = 0x20000; }
     viewOffset = arg2 * 4;
-    arg0 = (Game13F9D0Command *)func_1515E544((s32)arg0, *(s32 *)((u8 *)D_800D9E10 + viewOffset), D_800D9E20, D_800D9E21, D_800D9BD0 + arg2 * 0x10 + D_800BE9C0 * 8);
-    count = &D_800DBEE8[arg2];
     table = (u8 ***)((u8 *)&D_80089240 + viewOffset);
-    for (index = 0; index < *count; index++) {
+    arg0 = (Game13F9D0Command *)func_1515E544((s32)arg0, *(s32 *)((u8 *)D_800D9E10 + viewOffset), D_800D9E20, D_800D9E21, D_800D9BD0 + arg2 * 0x10 + D_800BE9C0 * 8);
+    for (index = 0; index < D_800DBEE8[arg2]; index++) {
         arg0 = (Game13F9D0Command *)func_151137D4((s32)arg0, ((Game13F9D0DrawEntry *)(**table + index * 4))->index * 0xA0 + D_800DBEF4, (s32)(*D_80089250[D_800BE9C0] + (((Game13F9D0DrawEntry *)(**table + index * 4))->index << 6)), arg2, ((Game13F9D0DrawEntry *)(**table + index * 4))->value, flags);
     }
     { Game13F9D0Command *command = arg0++; command->word0 = 0xDA380003; command->word1 = (u32)&D_80089470; }
@@ -261,8 +257,6 @@ Game13F9D0Command *func_151135C4(Game13F9D0Command *arg0, s32 arg1, s16 arg2) {
     { Game13F9D0Command *command = arg0++; command->word0 = 0xD9FFFFFF; command->word1 = 0x20000; }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151135C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151135C4.s")
 typedef struct Game13F9D0Model {
     u8 pad0[4];
     f32 scale;
@@ -299,7 +293,7 @@ extern s32 D_800BE9C8[];
 extern s32 D_800BEBA4;
 extern u8 D_800D9C10[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151137D4 CURRENT (140) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151137D4 CURRENT (15) */
 s32 func_151137D4(s32 arg0, Game13F9D0Model *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
     s32 alpha;
     s32 start;
@@ -323,7 +317,7 @@ s32 func_151137D4(s32 arg0, Game13F9D0Model *arg1, s32 arg2, s32 arg3, s32 arg4,
         return arg0;
     }
     flags = arg1->effectFlags;
-    if (flags != 0) {
+    if (arg1->effectFlags != 0) {
         if (flags & 1) {
             arg0 = func_1511FC2C(arg0, arg1->x, arg1->y + arg1->yOffset, arg1->z, arg1->scale, arg3);
         } else if (flags & 0x10) {
