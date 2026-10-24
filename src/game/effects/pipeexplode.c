@@ -184,23 +184,25 @@ typedef struct { s16 kind[3]; } PipeExplodeKinds;
 
 extern PipeExplodeKinds D_80088700;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B37C8 CURRENT (1894) */
+typedef struct PipeExplodeEntry {
+    f32 x, y, z;
+    u8 padC[8];
+} PipeExplodeEntry;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B37C8 CURRENT (830) */
 s32 func_150B37C8(PipeExplodeActor *arg0, s32 arg1, s32 arg2, s32 arg3,
                    f32 arg4, s32 arg5) {
-    s32 points;
+    u8 *state;
+    PipeExplodeEntry *points;
     PipeExplodeParticle particle;
     f32 size;
     PipeExplodeKinds kinds;
     PipeExplodeTrail trail;
     PipeExplodeMotion motion;
     PipeExplodeRender render;
-    u32 first, second;
-    register u32 third;
-    register u8 *state;
-    register u8 *point;
 
     state = (u8 *)arg0->state;
-    points = *(s32 *)((u8 *)arg0 + 0x94);
+    points = *(PipeExplodeEntry **)((u8 *)arg0 + 0x94);
     kinds = D_80088700;
     state[0x20] = 4;
     size = func_150ADA68() * 50.0f + 50.0f;
@@ -217,13 +219,9 @@ s32 func_150B37C8(PipeExplodeActor *arg0, s32 arg1, s32 arg2, s32 arg3,
     particle.colors[5] = 0xFF;
     particle.renderMode = 0x30002;
     /* The disabled option flags leave these copied bytes unused. */
-    first = func_150ADA20();
-    second = func_150ADA20();
-    third = func_150ADA20();
-    point = (u8 *)(points + *(s8 *)((u8 *)arg0 + 0x2D) * 0x14);
-    func_1513C73C((s32)&particle, 1, 0, arg5, *(f32 *)point, arg4,
-                  *(f32 *)(point + 8), size, size, first & 0xFF,
-                  (third & 1) + (second & 1), 0, ((u8 *)arg0)[0xC], ((u8 *)arg0)[1]);
+    func_1513C73C((s32)&particle, 1, 0, arg5, points[*(s8 *)((u8 *)arg0 + 0x2D)].x, arg4,
+                  points[*(s8 *)((u8 *)arg0 + 0x2D)].z, size, size, func_150ADA20() & 0xFF,
+                  (func_150ADA20() & 1) + (func_150ADA20() & 1), 0, ((u8 *)arg0)[0xC], ((u8 *)arg0)[1]);
     render.words[0] = 0;
     render.words[1] = 1;
     render.words[2] = 0x160600;
@@ -240,9 +238,9 @@ s32 func_150B37C8(PipeExplodeActor *arg0, s32 arg1, s32 arg2, s32 arg3,
     motion.color = state[0x1A];
     motion.alpha = state[0x1B];
     size = arg4;
-    trail.position[0] = *(f32 *)(points + *(s8 *)((u8 *)arg0 + 0x2D) * 0x14);
+    trail.position[0] = points[*(s8 *)((u8 *)arg0 + 0x2D)].x;
     trail.position[1] = size;
-    trail.position[2] = *(f32 *)(points + *(s8 *)((u8 *)arg0 + 0x2D) * 0x14 + 8);
+    trail.position[2] = points[*(s8 *)((u8 *)arg0 + 0x2D)].z;
     trail.life = 0x3C;
     trail.capacity = ((u8 *)arg0)[0x25];
     motion.width = *(f32 *)state * 0.75f;

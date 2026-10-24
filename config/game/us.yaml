@@ -382,7 +382,7 @@ segments:
       - [0xDB9E0, c, game/game_108E90]
       - [0xDBD70, c, game/game_109220]
       - [0xDCEA0, c, game/game_10A350]
-      - [0xDDED0, c, game/game_10B380]
+      - [0xDDED0, c, done/game/game_10B380]
       - [0xDE310, c, done/game/game_10B7C0]
       - [0xDE320, c, game/game_10B7D0]
       - [0xDE7C0, c, done/game/game_10BC70]
