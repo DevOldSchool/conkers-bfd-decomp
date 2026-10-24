@@ -51,7 +51,7 @@ segments:
     subsegments:
       # Legacy boundary hypotheses confirmed at current regional instruction starts.
       # These raw-ASM splits are navigation aids, not match evidence.
-      - [0x1050, asm]
+      - [0x1050, c, done/main/init_1050]
       - [0x1420, c, done/main/init_1420]
       - [0x1550, lib, libultrare, xldtob, .text]
       - [0x2070, lib, libultrare, syncprintf, .text]

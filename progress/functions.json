@@ -24,6 +24,7 @@
       "symbol": "func_bootstrap_clear_region"
     },
     {
+      "overlay": "main",
       "regions": {
         "eu": {
           "evidence": {
@@ -42,12 +43,13 @@
             "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
             "verified_revision": "working-tree"
           },
+          "size_bytes": 168,
           "state": "matched",
           "symbol": "func_80001050",
           "vram": "0x80001050"
         }
       },
-      "source": "src/main/init_1050.c",
+      "source": "src/done/main/init_1050.c",
       "symbol": "func_80001050"
     },
     {
@@ -93306,26 +93308,25 @@
           "vram": "0x800010F8"
         }
       },
-      "source": "src/main/init_1050.c",
+      "source": "src/done/main/init_1050.c",
       "symbol": "func_800010F8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 60,
-        "reason": "Retain CURRENT60/full652/frame0x50: exact residual remains LUI A0,1 versus framebuffer SW order. New parity-checked AS1 store-side trace proves pointer identity0 falls through alias check against normalized stack FFFFFFFF; native static identity bypasses it but folds away required S0 owner. Formal cursor and real-scope alternatives lack a supporting ownership/partial-constant gate; no new source probe.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 652,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80001194",
           "vram": "0x80001194"
         }
       },
-      "source": "src/main/init_1050.c",
+      "source": "src/done/main/init_1050.c",
       "symbol": "func_80001194"
     },
     {
@@ -94844,8 +94845,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1608,
-        "reason": "Retain CURRENT1608/frame98. Novel destructive formal-offset probe CURRENT3156/frame90: named offset survives in FP and removes anonymous MPY home, but introduces two entry copies and moves flags/queue homes; rejected. Production/private/fullTU/isolation parity passed; evidence main-ceac-formal-20261021.",
+        "current_score": 1408,
+        "reason": "Retain CURRENT1408/full1100/frame98 (func_8507E7E4 prototype corrected to u8,u8). Authorised 60s randomized permuter (seed 1547648518): best 1145 only via a redundant new_var = arg0 copy inside the queue loop (fake, rejected); no exact. Loop-head copy of the carried mask and base lui/addiu order remain. Evidence: build/us/manual-attempts/main-finish-oct24/CEAC.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95818,7 +95819,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1732,
-        "reason": "Retained CURRENT1732/full240/frame40. Parity-checked IDO observer confirms incoming volume allocation savings4.0 versus best cost4.2, so it splits/spills instead of choosing raw S1. Callee-width, snapshot, narrowing, and phase-reuse families exhausted; no new behavior-preserving source hypothesis justified. Evidence: build/us/manual-attempts/main-10ffc-trace-20261021/10630.",
+        "reason": "Retain CURRENT1732/full240/frame40. 2026-10-24 pass: 20 probe variants (starter mask/cast, K&R definition, register qualifier, arms swapped, early guard, u16/s32 masked locals at entry/outer/inner scope, u32 parameter, u32/u16 conversion wrappers, narrow func_80010F30 prototype) all 1732-3025; volume stays memory-resident (lhu from home). Evidence: build/us/manual-attempts/main-finish-oct24/10630.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -97439,7 +97440,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 230,
-        "reason": "Retain CURRENT230. Logging-only physical-color trace proves equal cost2 for available T1/T2; distance rank selects T1 first and blocks denominator. Full-unit/isolated stock/off/on and production parity pass; no new source candidate.",
+        "reason": "Retain CURRENT230. 2026-10-24 permuter (authorised): deterministic budget32 on named-range body 246 no gain; randomized 60s found 16 only via five empty if(1){} blocks after the second division (block-count fake, rejected); x^0 fake inert. Named range fixes stack rows (246); any 8th local grows frame; ternary single-def 246; tail restructures 1092/1730. Residual is the distance/range T1-T2 priority rank. Evidence: build/us/manual-attempts/main-finish-oct24/A420.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -97457,8 +97458,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1816,
-        "reason": "Retain CURRENT1816. Sum-sink trace identifies tail previousDistance assignment at BB45/64; removing it also shortens cost span13 to5 and doubles priority37.5 to75. Stock/off/on and production parity pass; phase/union/index alternatives rejected from compiler and prior evidence.",
+        "current_score": 1221,
+        "reason": "Improved 1816->1221 (full2320, frame D8 vs raw D0): u32 previousDistance (found by the authorised 60s randomized permuter, seed 470070384, as a plain type change; verified legitimate) fixes the 0x7FFFFFFF sentinel registers. Remaining: frame +8 (uopt reserves 6 temps vs raw 4; propagated index*4 temp), bnel operand order x5, segment/point register cluster (sll v1 vs temp + move v1,v0). Named points base body scores 1382 with the same frame; dropping the post-loop point variable 2847+. Evidence: build/us/manual-attempts/main-finish-oct24/A750.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
