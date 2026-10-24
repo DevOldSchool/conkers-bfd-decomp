@@ -461,7 +461,7 @@ s32 func_151895F4(s32 arg0, u8 *arg1, s16 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B5CC0/func_151895F4.s")
 s32 func_151137D4(s32, void *, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151897A4 CURRENT (2147) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151897A4 CURRENT (677) */
 s32 func_151897A4(s32 arg0, u8 *arg1, s16 arg2) {
     s32 saved;
     register s32 var_s0;
@@ -478,9 +478,9 @@ s32 func_151897A4(s32 arg0, u8 *arg1, s16 arg2) {
     temp_a0 = arg1[3];
     var_s1 = temp_a0 * 0x60;
     var_s0 = 0;
-    saved = (*(u8 **)(arg1 + 0x10))[0x8A];
     var_s5 = temp_a3;
     var_s2 = D_800BE9C0 * arg1[1];
+    saved = (*(u8 **)(arg1 + 0x10))[0x8A];
     if (temp_a3 > 0) {
         do {
             (*(u8 **)(arg1 + 0x10))[0x8A] = var_s1 >> 8;

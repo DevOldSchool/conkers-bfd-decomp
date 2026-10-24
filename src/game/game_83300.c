@@ -705,18 +705,19 @@ s32 func_1505A630(f32, f32, s32);
 u32 func_1505E7CC(s32, void *);
 void func_1505E874(u8, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505959C CURRENT (852) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505959C CURRENT (68) */
 void func_1505959C(void *arg0, s32 arg1, register void *arg2) {
     Game83300Actor *other;
+    void *entry;
     s32 selection;
-    s32 offset;
+    Game83300AnimationRecord *animations;
 
     *(u32 *)((u8 *)arg0 + 0xF8) &= 0xFF7FFFFF;
     *((u8 *)arg0 + 0x13D) = arg1 + 0x64;
     *(u16 *)((u8 *)arg0 + 0x21C) = 0;
-    *(u32 *)((u8 *)arg0 + 0x25C) &= ~8;
     other = (Game83300Actor *)((u8 *)&D_800CC2D0 + arg1 * 0x32C);
     *(f32 *)((u8 *)arg0 + 0x24) = 4.0f;
+    *(u32 *)((u8 *)arg0 + 0x25C) &= ~8;
     other->pad40[0x43] = 0xFF;
     other->pad86[3] = 0xFF;
     arg2 = (void *)(u32)*((u8 *)arg0 + 4);
@@ -733,34 +734,29 @@ void func_1505959C(void *arg0, s32 arg1, register void *arg2) {
         arg2 = (void *)(u32)*((u8 *)arg0 + 4);
     }
     if ((u32)arg2 == 0x89) selection = 5;
-    offset = selection * 2;
-    func_1505E650(other, *(u16 *)((u8 *)D_800860C0 + offset), D_800860CC[selection],
+    func_1505E650(other, D_800860C0[selection], D_800860CC[selection],
         0.0f, 0.0f, 0.0f, 0);
     *((u8 *)arg0 + 0x104) = 0xFE;
     *((u8 *)arg0 + 0x105) = 0;
-    *((u8 *)arg0 + 0x106) = func_1505E7CC(*(u16 *)((u8 *)D_800860E4 + offset), arg0);
+    *((u8 *)arg0 + 0x106) = func_1505E7CC(D_800860E4[selection], arg0);
     *(u16 *)((u8 *)arg0 + 0x84) = 0xFFFF;
     func_1505E874(D_800C3E78, arg0);
-    {
-        void *entry;
-        Game83300AnimationRecord *animations;
-        entry = D_800D1588[*((u8 *)arg0 + 4)];
-        if (entry != 0) {
-            animations = *(Game83300AnimationRecord **)((u8 *)entry - 8);
-            if (animations != 0 && (animations[*((u8 *)arg0 + 0x106)].flags & 2)) {
-                *(u16 *)((u8 *)arg0 + 0x7A) = *(u16 *)((u8 *)other + 0x7A);
-            }
-            if (animations == 0 || !(animations[*((u8 *)arg0 + 0x106)].flags & 1)) {
-                *((u8 *)arg0 + 0x13E) = (s32)(*(u16 *)((u8 *)arg0 + 0x7A) -
-                    *(u16 *)((u8 *)other + 0x7A)) >> 8;
-                return;
-            }
-            *((u8 *)arg0 + 0x13E) = 0;
+    entry = D_800D1588[*((u8 *)arg0 + 4)];
+    if (entry != 0) {
+        animations = *(Game83300AnimationRecord **)((u8 *)entry - 8);
+        if (animations != 0 && (animations[*((u8 *)arg0 + 0x106)].flags & 2)) {
+            *(u16 *)((u8 *)arg0 + 0x7A) = *(u16 *)((u8 *)other + 0x7A);
+        }
+        if (animations == 0 || !(animations[*((u8 *)arg0 + 0x106)].flags & 1)) {
+            *((u8 *)arg0 + 0x13E) = (s32)(*(u16 *)((u8 *)arg0 + 0x7A) -
+                *(u16 *)((u8 *)other + 0x7A)) >> 8;
             return;
         }
-        *((u8 *)arg0 + 0x13E) = (s32)(*(u16 *)((u8 *)arg0 + 0x7A) -
-            *(u16 *)((u8 *)other + 0x7A)) >> 8;
+        *((u8 *)arg0 + 0x13E) = 0;
+        return;
     }
+    *((u8 *)arg0 + 0x13E) = (s32)(*(u16 *)((u8 *)arg0 + 0x7A) -
+        *(u16 *)((u8 *)other + 0x7A)) >> 8;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1505959C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505959C.s")

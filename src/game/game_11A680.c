@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150ED298
- * - func_150ED638
  * - func_150ED748
  * - func_150EEC84
  *
@@ -155,45 +154,23 @@ void func_150ED578(void *arg0) {
 }
 void func_15062FC0(void *, s32, s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150ED638 CURRENT (570) */
 void func_150ED638(void *arg0, s32 arg1, s32 arg2) {
-    s32 temp_v0;
-    s32 var_s0;
-    s32 var_v0;
-    s32 var_v0_2;
+    s32 temp;
+    s32 width;
 
-    if (arg1 < -0x2D) {
-        arg1 = -0x2D;
-    } else {
-        var_v0 = arg1;
-        if (arg1 >= 0x2E) {
-            var_v0 = 0x2D;
-        }
-        arg1 = var_v0;
-    }
-    if (arg2 < -0x2D) {
-        arg2 = -0x2D;
-    } else {
-        var_v0_2 = arg2;
-        if (arg2 >= 0x2E) {
-            var_v0_2 = 0x2D;
-        }
-        arg2 = var_v0_2;
-    }
+    arg1 = (arg1 < -0x2D) ? -0x2D : (arg1 > 0x2D) ? 0x2D : arg1;
+    arg2 = (arg2 < -0x2D) ? -0x2D : (arg2 > 0x2D) ? 0x2D : arg2;
     if (*(u8 *)((u8 *)arg0 + 4) == 0x28) {
-        var_s0 = 0x7C;
+        width = 0x7C;
     } else {
-        temp_v0 = arg1;
+        temp = arg1;
         arg1 = arg2;
-        var_s0 = 0x1C;
-        arg2 = temp_v0;
+        width = 0x1C;
+        arg2 = temp;
     }
-    func_15062FC0(arg0, 0, 0, 0x800, 0x800, var_s0, arg2 * -7, 0);
-    func_15062FC0(arg0, 1, var_s0, 0x800, 0x800, var_s0,
-                  arg1 * -7, 0);
+    func_15062FC0(arg0, 0, 0, 0x800, 0x800, width, -arg2 * 7, 0);
+    func_15062FC0(arg0, 1, width, 0x800, 0x800, width, -arg1 * 7, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150ED638 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11A680/func_150ED638.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11A680/func_150ED748.s")
 void func_151254F4(void *, s32);
 void func_1517F488(s32, s32, s32, s32, s32, s32);

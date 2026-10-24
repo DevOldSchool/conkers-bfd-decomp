@@ -9,7 +9,6 @@
  * - func_15147EB8
  * - func_1514803C
  * - func_15148DE0
- * - func_15148F1C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -375,18 +374,17 @@ typedef struct Game175250SecondaryPacket {
     u8 pad1C[4];
 } Game175250SecondaryPacket;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15148F1C CURRENT (443) */
 void func_15148F1C(u8 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4,
                     s32 arg5, s32 arg6, f32 arg7, s16 arg8, f32 arg9,
                     f32 arg10, u8 arg11) {
+    f32 amount;
     Game175250PrimaryPacket primary;
     Game175250SecondaryPacket secondary;
     f32 channel0;
     f32 channel1;
     f32 channel2;
-    Struct15147DA0 colors;
     f32 channel3;
-    f32 amount;
+    Struct15147DA0 colors;
 
     channel0 = func_151423D8((u8)arg6);
     channel1 = func_151423D8((u8)(arg6 - 0x40));
@@ -410,9 +408,9 @@ void func_15148F1C(u8 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4,
     amount = arg7 * channel0;
     secondary.value1 = amount * channel3;
     secondary.value2 = -arg7 * channel1;
+    secondary.color1 = 0xFF;
     secondary.value3 = amount * channel2;
     primary.kind = arg4 + 3;
-    secondary.color1 = 0xFF;
     primary.angle = arg8;
 
     colors.values[0] = 0;
@@ -427,8 +425,6 @@ void func_15148F1C(u8 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4,
     func_15147DA0(&primary, &secondary, 0, 1, 0, 0, 0, 0, 0, 0, 0,
                   &colors, 0, arg11, 1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15148F1C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_175250/func_15148F1C.s")
 s32 func_151490C8(void *arg0) {
     s32 var_v1;
     u8 *temp_v0;

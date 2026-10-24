@@ -202,7 +202,7 @@ u8 func_151D8E20(void);
 f32 func_150ADA68(void);
 void func_151DBCBC(s32, f32, u8, s32, f32 *, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518C69C CURRENT (1787) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518C69C CURRENT (957) */
 s32 func_1518C69C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
                    s32 arg5) {
     Game1B9210EffectPacket packet;
@@ -217,9 +217,9 @@ s32 func_1518C69C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
     positions = *(Game18C69CPosition **)(arg0 + 0x94);
     packet.field80 = 0;
     packet.field8A = 0x100;
+    packet.field8C = (s32)positions[*(s8 *)(arg0 + 0x2D)].x;
     height = (s32)arg4;
     packet.field8E = height;
-    packet.field8C = (s32)positions[*(s8 *)(arg0 + 0x2D)].x;
     packet.field90 = (s32)positions[*(s8 *)(arg0 + 0x2D)].z;
     size = (func_150ADA20() % 21U) + 0x23;
     packet.field92 = size;

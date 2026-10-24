@@ -11,7 +11,6 @@
  * - func_151D014C
  * - func_151D09A8
  * - func_151D10E4
- * - func_151D1138
  * - func_151D1448
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -241,13 +240,11 @@ s32 func_1510F8CC(s32);
 void func_151D13E0();
 void func_151D1448(u8 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D1138 CURRENT (1022) */
-void func_151D1138(void *volatile arg0) {
+void func_151D1138(void *arg0) {
+    Game1FC830ParticlePacket *packet;
     void *actor;
     u8 failed;
-    Game1FC830ParticlePacket *packet;
     s32 mode;
-    f32 distance;
 
     packet = (Game1FC830ParticlePacket *)((u8 *)arg0 + 0x28);
     actor = packet->object;
@@ -266,8 +263,7 @@ void func_151D1138(void *volatile arg0) {
     *(f32 *)&packet->default_position.z = *(f32 *)&packet->callback_position.z - *(f32 *)&packet->position.z;
     packet->field_30 = func_15143E64(&packet->default_position);
     mode = func_1510F8CC(*(s32 *)((u8 *)actor + 0x184));
-    distance = packet->field_30;
-    if (distance > 300.0f || distance <= 0.0f ||
+    if (packet->field_30 > 300.0f || packet->field_30 <= 0.0f ||
         *(f32 *)((u8 *)actor + 0x28) != 0.0f || *((u8 *)actor + 0xAD) != 0 ||
         mode == 5 || mode == 6 || mode == 9 || mode == 13 || mode == 14) {
         failed = 1;
@@ -280,8 +276,6 @@ void func_151D1138(void *volatile arg0) {
         func_151D1448(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D1138 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D1138.s")
 
 void func_151D1328(s32 arg0, s32 arg1, u8 arg2) {
     func_15169850(arg1, (s32) arg2, arg0 + 0x28, arg0 + 0x2C, arg0);
@@ -346,7 +340,7 @@ void func_151D13E0(Game1FC830ActorContext *arg0) {
 extern s32 D_80082FA0;
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D1448 CURRENT (886) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D1448 CURRENT (581) */
 void func_151D1448(u8 *arg0) {
     struct {
         Vec3i position;
@@ -392,9 +386,9 @@ void func_151D1448(u8 *arg0) {
         packet.height = 40.0f;
         packet.extent = 180.0f;
     }
-    packet.value = 0x19;
     packet.source_value = *(f32 *)(*(u8 **)link + 0x14C);
     packet.position = *(Vec3i *)(link + 0x18);
+    packet.value = 0x19;
     packet.type = 0x12C;
     packet.subtype = 0x36;
     packet.mode = 0x13;

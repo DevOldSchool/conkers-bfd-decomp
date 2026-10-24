@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150EFB80
  * - func_150EFEC8
- * - func_150F00EC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -225,28 +224,25 @@ s32 func_150EFEC8(u8 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150EFEC8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D030/func_150EFEC8.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F00EC CURRENT (290) */
 s32 func_150F00EC(u8 *arg0) {
     typedef struct { f32 words[3]; } Copy3;
-    u8 *temp_v0;
-    u8 *temp_v1;
+    u8 *object;
+    u8 *motion;
 
-    temp_v0 = (void *)(*(void **)((u8 *)arg0 + 0x178));
-    if (*(u8 *)((u8 *)temp_v0 + 0x128) & 1) {
-        temp_v1 = (void *)(temp_v0 + 0x110);
-        *(Copy3 *)((u8 *)arg0 + 0x34) = *(Copy3 *)((u8 *)temp_v0 + 0x34);
-        *(f32 *)((u8 *)arg0 + 0x40) = (*(f32 *)((u8 *)temp_v1 + 0x30) * 500.0f) + *(f32 *)((u8 *)temp_v0 + 0x34);
-        *(f32 *)((u8 *)arg0 + 0x44) = (*(f32 *)((u8 *)temp_v1 + 0x34) * 500.0f) + *(f32 *)((u8 *)temp_v0 + 0x38);
-        *(s32 *)((u8 *)arg0 + 0x58) = (s32) (*(s32 *)((u8 *)arg0 + 0x58) | 6);
-        *(f32 *)((u8 *)arg0 + 0x48) = (*(f32 *)((u8 *)temp_v1 + 0x38) * 500.0f) + *(f32 *)((u8 *)temp_v0 + 0x3C);
+    object = *(u8 **)(arg0 + 0x178);
+    motion = object + 0x110;
+    if (object[0x128] & 1) {
+        *(Copy3 *)(arg0 + 0x34) = *(Copy3 *)(object + 0x34);
+        *(f32 *)(arg0 + 0x40) = (*(f32 *)(motion + 0x30) * 500.0f) + *(f32 *)(object + 0x34);
+        *(f32 *)(arg0 + 0x44) = (*(f32 *)(motion + 0x34) * 500.0f) + *(f32 *)(object + 0x38);
+        *(f32 *)(arg0 + 0x48) = (*(f32 *)(motion + 0x38) * 500.0f) + *(f32 *)(object + 0x3C);
+        *(s32 *)(arg0 + 0x58) |= 6;
     } else {
-        *(s32 *)((u8 *)arg0 + 0x58) &= ~4;
-        *(volatile s32 *)((u8 *)arg0 + 0x58) = *(s32 *)((u8 *)arg0 + 0x58) & ~2;
+        *(s32 *)(arg0 + 0x58) &= ~4;
+        *(s32 *)(arg0 + 0x58) &= ~2;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F00EC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D030/func_150F00EC.s")
 void *func_10022EC0(void *, const void *, u32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 

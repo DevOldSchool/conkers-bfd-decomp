@@ -519,7 +519,7 @@ f32 func_150ADA68(void);
 extern f32 D_800A3850;
 extern Game15D730Args D_800A5480;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15131EE4 CURRENT (1463) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15131EE4 CURRENT (842) */
 void *func_15131EE4(void *arg0, f32 arg1, s32 arg2, s32 arg3) {
     Game131EE4Spawn spawn;
     Game131EE4Fade fade;
@@ -532,9 +532,9 @@ void *func_15131EE4(void *arg0, f32 arg1, s32 arg2, s32 arg3) {
     fade.duration = 2.0f * func_150ADA68() + 5.0f;
     fade.brightness = func_150ADA68() * 15.0f + 240.0f;
     fade.decay = fade.brightness / (fade.duration * fade.duration);
-    spawn.resource = 1;
     spawn.secondaryA = (u8)(u32)fade.brightness;
     spawn.effect = 0x69;
+    spawn.resource = 1;
     spawn.renderFlags = 0x4417;
     spawn.flags = 0x200004;
     spawn.frame = 0;

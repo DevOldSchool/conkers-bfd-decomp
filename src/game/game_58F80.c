@@ -930,12 +930,12 @@ void func_1502E474(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502E4C4.s")
 void func_1502E9FC(s32 arg0, s32 arg1) {
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502EA0C CURRENT (860) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502EA0C CURRENT (490) */
 void func_1502EA0C(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
     *(s8 *)((u8 *)arg0 + 0xA4) = 4;
+    *(s8 *)((u8 *)arg0 + 0xA7) = 0xFF;
     *(s8 *)((u8 *)arg0 + 0xA5) = 0;
     *(s8 *)((u8 *)arg0 + 0xA6) = (s8) arg5;
-    *(s8 *)((u8 *)arg0 + 0xA7) = 0xFF;
     *(s32 *)((u8 *)arg0 + 0xA0) = (s32) ((arg4 << 0x18) | (arg1 << 0x10) | (arg2 << 8) | arg3);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1502EA0C */

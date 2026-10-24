@@ -79,7 +79,7 @@ s32 func_1510D0EC(s32, s32 *, s32, s32);
 void func_1510D874(s32, s32, s32, s32, s32);
 extern s32 D_800BE9E4, D_80090204[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DE458 CURRENT (767) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DE458 CURRENT (357) */
 void func_150DE458(void *arg0) {
     GameDE458State *state = arg0;
     s32 size;
@@ -115,9 +115,9 @@ void func_150DE458(void *arg0) {
         else state->dead = 1;
     }
     if ((state->flags & 0xFFFF7FFF) == 12) {
-        first = 4;
         cursor = D_80090204 + ((u32)state->kind << 1);
         second = 5;
+        first = 4;
         do {
             result = func_1510D0EC(*cursor, &size, 3, 0);
             func_1510D874((s32)arg0, result, (s32)((u32)size + (u32)result - 0x200), first, second);

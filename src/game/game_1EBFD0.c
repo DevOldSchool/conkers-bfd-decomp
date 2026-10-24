@@ -81,7 +81,7 @@ void func_151BEEE0(f32, f32 *, s32, u8, s32, s32, s32, s32, s32);
 extern Game1EBFD0Actor D_800CC2D0[];
 extern Game1EBFD0Actor D_800D1548;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BECB8 CURRENT (711) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BECB8 CURRENT (436) */
 s32 func_151BECB8(Game1EBFD0Owner *arg0) {
     Game1EBFD0Actor *actor;
     Game1EBFD0Event *event;
@@ -103,9 +103,9 @@ s32 func_151BECB8(Game1EBFD0Owner *arg0) {
             delta[1] = position[1] - event->position[1];
             delta[2] = position[2] - event->position[2];
             if (func_15143E64(delta) - radius < 43.0f) {
-                ready = 0;
                 func_15085710(actor->player, 3, event->value);
                 func_10010F30(0x511, 0x7D00, 0x40, 0, 0);
+                ready = 0;
                 func_151BF340(arg0->group, arg0->category);
                 func_151BF0C8(event->position);
                 switch (arg0->mode) {

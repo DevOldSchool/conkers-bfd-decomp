@@ -9,7 +9,6 @@
  * - func_150091D0
  * - func_15009334
  * - func_1500AC14
- * - func_1500AD84
  * - func_1500AF08
  * - func_1500B1F4
  * - func_1500B3B0
@@ -757,27 +756,23 @@ extern s32 D_800DDC00;
 extern s32 D_800DDC04;
 extern s32 D_800DDC08;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500AD84 CURRENT (500) */
 void func_1500AD84(s32 arg0, s32 arg1, s32 arg2) {
     Game36680ResourceInfo *info;
     u8 *cursor;
-    u8 palette;
-    s32 options;
-    u8 last;
+    s32 flags;
 
     if (arg1 != 255) {
         cursor = &D_800DDBD0[arg0];
         info = &D_80095CE0[arg1];
-        options = arg2;
-        arg2 = info->flags;
         *cursor = info->frames;
-        if (arg2 & 0x10) {
+        flags = info->flags;
+        if (flags & 0x10) {
             *cursor -= 1;
             D_800DDBE0[arg0] = *cursor;
         } else {
             D_800DDBE0[arg0] = 0;
         }
-        if (arg2 & 0x80) {
+        if (flags & 0x80) {
             D_800DDBF0[arg0] = 2;
         } else {
             D_800DDBF0[arg0] = 1;
@@ -786,14 +781,14 @@ void func_1500AD84(s32 arg0, s32 arg1, s32 arg2) {
         ((s16 *)cursor)[0] = info->x;
         ((s16 *)cursor)[1] = info->y;
         D_800DDBC0[arg0] = arg1;
-        D_800DDC80[arg0] = options & 0xFF7F;
-        if (options & 0x80) {
+        D_800DDC80[arg0] = arg2 & 0xFF7F;
+        if (arg2 & 0x80) {
             D_800DDC00 |= 1 << arg0;
         }
-        if (arg2 & 1) {
+        if (flags & 1) {
             D_800DDC04 |= 1 << arg0;
         }
-        if (arg2 & 8) {
+        if (flags & 8) {
             D_800DDC08 |= 1 << arg0;
         }
     } else {
@@ -805,8 +800,6 @@ void func_1500AD84(s32 arg0, s32 arg1, s32 arg2) {
     cursor[0] = arg1;
     cursor[1] = arg1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1500AD84 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500AD84.s")
 typedef struct Game36680Record {
     s16 x;
     s16 y;
