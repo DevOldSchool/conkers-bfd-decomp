@@ -19,7 +19,9 @@ typedef struct GameRenderView {
     f32 bottom;
     f32 left;
     f32 right;
-    u8 unknown34[0xC];
+    f32 center_x;
+    f32 center_y;
+    u8 unknown3C[4];
     Vp viewports[2];
     u8 unknown60[4];
     f32 base_x;

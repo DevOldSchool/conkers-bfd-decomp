@@ -7,7 +7,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1501A764
  * - func_1501A8C0
  * - func_1501B0A0
  * - func_1501B22C
@@ -166,7 +165,6 @@ Game476D0DisplayCommand *func_1501A6CC(Game476D0DisplayCommand *arg0, s32 ulx, s
 void func_150A7A00(void *, f32, f32, f32, f32 *, f32 *, f32 *, f32 *);
 extern u8 D_800D9D10[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501A764 CURRENT (800) */
 void func_1501A764(s16 arg0, f32 arg1, f32 arg2, f32 arg3, f32 *arg4,
                    f32 *arg5, f32 *arg6) {
     f32 sp34;
@@ -176,18 +174,16 @@ void func_1501A764(s16 arg0, f32 arg1, f32 arg2, f32 arg3, f32 *arg4,
     func_150A7A00(&D_800D9D10[arg0 << 6], arg1, arg2, arg3,
                    &sp34, &sp30, &sp2C, &sp28);
     sp28 = 1.0f / sp28;
-    *arg4 = ((D_800BE628[arg0].field0C + 5.0f) *
-             sp34 * sp28) +
-            *(f32 *)((u8 *)D_800BE628 + arg0 * 0x180 + 0x34);
-    *arg5 = *(f32 *)((u8 *)D_800BE628 + arg0 * 0x180 + 0x38) -
+    *arg4 = D_800BE628[arg0].center_x +
+            ((D_800BE628[arg0].field0C + 5.0f) * sp34 * sp28);
+    *arg5 = D_800BE628[arg0].center_y -
             ((D_800BE628[arg0].field10 + 5.0f) *
              sp30 * sp28);
-    *arg6 = ((f32)D_800BE628[arg0].viewports[D_800BE9C0].vp.vtrans[2] +
-             (sp2C * sp28 *
-              (f32)D_800BE628[arg0].viewports[D_800BE9C0].vp.vscale[2])) * 32.0f;
+    arg3 = sp2C * sp28;
+    *arg6 = (arg3 *
+             (f32)D_800BE628[arg0].viewports[D_800BE9C0].vp.vscale[2] +
+             (f32)D_800BE628[arg0].viewports[D_800BE9C0].vp.vtrans[2]) * 32.0f;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501A764 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_476D0/func_1501A764.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_476D0/func_1501A8C0.s")
 extern s32 D_800BE620;
 extern s32 D_800BE624;

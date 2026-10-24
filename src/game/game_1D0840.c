@@ -355,7 +355,7 @@ s32 func_151A37C0(Game1D0840TimedObject *object) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A3BE4.s")
 extern f32 D_800A8D5C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4590 CURRENT (716) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4590 CURRENT (459) */
 void func_151A4590(void *arg0, u8 arg1) {
     struct {
         s32 zero0;
@@ -376,14 +376,12 @@ void func_151A4590(void *arg0, u8 arg1) {
         s8 c;
         s8 d;
     } packet;
-    s32 selector;
-    f32 scale;
 
     if (arg0 != 0) {
         packet.zero0 = 0;
         packet.zero4 = 0;
-        selector = *(u8 *)((u8 *)arg0 + 0x3B);
-        scale = D_800A8D5C;
+        packet.selector = *(u8 *)((u8 *)arg0 + 0x3B);
+        packet.scale = D_800A8D5C;
         packet.kind = 1;
         packet.lifetime = 0x64;
         packet.a = 0xA;
@@ -391,11 +389,9 @@ void func_151A4590(void *arg0, u8 arg1) {
         packet.c = -1;
         packet.d = 0;
         packet.object = arg0;
-        packet.selector = selector;
         packet.x = 0.0f;
         packet.y = 0.0f;
         packet.z = 0.0f;
-        packet.scale = scale;
         packet.size = 3.0f;
         func_1513418C((void *)&packet, 0, arg1, 0);
     }

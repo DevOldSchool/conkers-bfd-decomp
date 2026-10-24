@@ -34,7 +34,124 @@ s32 func_150C19C0(void *arg0, GameEEE70State *arg1, u8 arg2) {
 s32 func_150C1A2C(s32 arg0, s32 arg1) {
     return 7;
 }
+typedef struct GameEEE70SpawnPacket {
+    f32 scaleX, field04, scaleY, scaleZ;
+    Vec3f rotation;
+    Vec3f stretch;
+    Vec3f position;
+    Vec3f velocity;
+    Vec3f angularVelocity;
+    f32 field4C;
+    s32 flags;
+    s16 lifetime, type;
+    u8 field58;
+    u8 pad59[3];
+    s32 field5C;
+    u8 color0, color1, color2, color3, color4;
+    u8 color5, color6, color7, color8;
+    u8 pad69;
+    u8 field6A;
+    u8 pad6B;
+    GameEEE70State *owner;
+    u8 layer;
+    u8 pad71;
+    s16 field72, field74;
+    u8 pad76[2];
+} GameEEE70SpawnPacket;
+
+void *func_15132A4C(void *, s32, s32, s32, u8, s32);
+void func_1514C2F0(f32, f32, f32, f32, u8, s8, s16, u8, s32, f32, s32, u8);
+f32 func_150ADA68(void);
+extern f32 D_800A0210, D_800A0214, D_800A0218;
+extern f32 D_800A021C, D_800A0220;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C1A40 CURRENT (340) */
+void func_150C1A40(GameEEE70State *arg0, s32 arg1, s32 arg2) {
+    Vec3f position;
+    f32 average;
+    f32 radius;
+    GameEEE70SpawnPacket packet;
+    f32 speed;
+    f32 cosine;
+    f32 sine;
+    f32 size;
+    f32 base;
+    f32 spread;
+    s32 direction;
+    void *result;
+
+    if (arg0->field_1D4 != NULL) {
+        average = (*(f32 *)((u8 *)arg0 + 0x150) + *(f32 *)((u8 *)arg0 + 0x14C)) * 0.5f;
+        func_150C19C0(&position, arg0, arg1);
+        arg2 = ((s32)*(u16 *)((u8 *)arg0 + 0x76) >> 8) + 0x40;
+        arg2 &= 0xFF;
+        radius = average * 70.0f;
+        func_1514C2F0(position.x, *(f32 *)((u8 *)arg0 + 0x180), position.z,
+                      radius, arg2, arg1 == 1 ? 0x10 : -0x10, 8, 0, 0, radius * D_800A0210, 0, 0xFF);
+        func_15165F80(-1, (s32)position.x,
+                      (s32)((f32)(s32)*(f32 *)((u8 *)arg0 + 0x180) + 2.0f),
+                      (s32)position.z, 8, 0x15, 0, 0xFF, 0);
+        packet.type = 5;
+        packet.flags = 0x29E9;
+        packet.field58 = 0;
+        packet.field5C = 0;
+        packet.color0 = 0xFF;
+        packet.color1 = 1;
+        packet.color2 = 0;
+        packet.color3 = 0;
+        packet.color4 = 0;
+        packet.color5 = 0;
+        packet.color6 = 0;
+        packet.color7 = 0;
+        packet.color8 = 0;
+        packet.field6A = 1;
+        packet.owner = arg0;
+        packet.stretch.x = 1.0f;
+        packet.stretch.y = 1.0f;
+        packet.stretch.z = 1.0f;
+        packet.field04 = D_800A0214;
+        packet.angularVelocity.z = 0.0f;
+        packet.field4C = D_800A0218;
+        packet.layer = arg0->pad0[0x3B];
+        packet.field72 = 0x10;
+        packet.field74 = 0xF;
+        arg2 = (func_150ADA20() & 7) + 5;
+        direction = arg2 - 1;
+        if (arg2 != 0) {
+            base = D_800A021C;
+            spread = D_800A0220;
+            do {
+                arg1 = (u8)func_150ADA20();
+                speed = (func_150ADA68() * spread + base) * 9.0f * average;
+                cosine = func_151423D8(arg1 - 0x40);
+                sine = func_151423D8(arg1);
+                packet.lifetime = (func_150ADA20() & 0xF) + 0x1E;
+                packet.position.x = radius * cosine + position.x;
+                packet.position.y = *(f32 *)((u8 *)arg0 + 0x180) + 2.0f;
+                packet.position.z = radius * sine + position.z;
+                packet.velocity.x = speed * cosine;
+                packet.velocity.y = 2.0f * speed;
+                packet.velocity.z = speed * sine;
+                size = (func_150ADA68() * spread + base) * average * 1.5f;
+                packet.scaleY = size;
+                packet.scaleZ = size;
+                packet.scaleX = size;
+                packet.rotation.x = func_150ADA68() * 360.0f;
+                packet.rotation.y = func_150ADA68() * 360.0f;
+                packet.rotation.z = func_150ADA68() * 360.0f;
+                packet.angularVelocity.x = 25.0f - func_150ADA68() * 50.0f;
+                packet.angularVelocity.y = 25.0f - func_150ADA68() * 50.0f;
+                result = func_15132A4C(&packet, 3, 0xFF, 4, 0xFF, 0);
+                if (result != NULL) {
+                    *(f32 *)((u8 *)result + 0x170) = *(f32 *)((u8 *)arg0 + 0x180);
+                }
+            } while (direction--);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C1A40 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EEE70/func_150C1A40.s")
+
 void func_151429E0(u8, u8 *, u8 *, u8 *);
 void func_1518CA80();
 extern f64 D_800A0228;

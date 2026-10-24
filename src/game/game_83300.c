@@ -543,7 +543,7 @@ void func_1505A250(f32, f32, f32, f32 *, f32 *);
 void func_1505A770(void *);
 void func_1505B5F8(u8 *, f32);
 void func_1505C7D8(s32 *, s32);
-void func_1505D6F0(u8 *, u8);
+void func_1505D6F0(u8 *, s32);
 extern s32 D_800CC268;
 extern u8 D_800C3E78;
 extern u8 D_800BE9A0;
@@ -1543,7 +1543,129 @@ void func_1505D5D0(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1505D5D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505D5D0.s")
+typedef struct Game83300ContactActor {
+    s32 state;
+    u8 kind;
+    u8 pad05[0xF];
+    f32 x, y, z;
+    u8 pad20[0x45];
+    u8 owner;
+    u8 pad66[0x7E];
+    s16 radius;
+    u8 padE6[2];
+    s16 height;
+    u8 padEA[2];
+    f32 scale;
+    u8 padF0[8];
+    s32 flags;
+    u8 padFC[0x2B];
+    u8 mode, team;
+    u8 pad129[0x14];
+    u8 cooldown;
+    u8 pad13E[0x113];
+    u8 subtype;
+    u8 pad252[0xA8];
+    u8 enabled;
+    u8 pad2FB[0x21];
+    u8 *detail;
+    u8 pad320[0xC];
+} Game83300ContactActor;
+
+extern f32 D_80099530;
+extern u8 D_800CC5EC[];
+void func_1505D408(void *, void *, f32, f32, f32, f32, f32, s32);
+void func_1505D5D0(void *, void *, f32, f32, f32, f32, f32, s32,
+                   f32, f32, f32, f32, f32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505D6F0 CURRENT (60) */
+void func_1505D6F0(u8 *arg0, s32 arg1) {
+    f32 dx, dz;
+    f32 radius;
+    f32 scale;
+    f32 x, y, z;
+    f32 distance;
+    f32 combinedRadius;
+    f32 dy;
+    Game83300ContactActor *other;
+    s32 otherState;
+    s32 flags;
+    s32 otherFlags;
+    s32 ownRadius;
+    s32 index;
+    s32 count;
+    u8 *initialDetail;
+    u8 *detail;
+    Game83300ContactActor *self;
+
+    self = (Game83300ContactActor *)arg0;
+    D_800CC268 = 0;
+    D_800CC26C = 0;
+    D_800CC26D = 0;
+    count = 25;
+    if ((self->state != 1 ||
+         ((initialDetail = *(u8 **)(D_800CC5EC + arg1 * 0x32C), initialDetail[0x4E] == 0) && initialDetail[0x27] == 0)) &&
+        self->cooldown < 100) {
+        ownRadius = self->radius;
+        if (ownRadius != 0 && self->owner == 0) {
+            flags = self->flags;
+            if (!(flags & 0x01000000) && !(flags & 0x4000)) {
+                radius = (f32)ownRadius;
+                scale = self->scale;
+                x = self->x;
+                y = self->y + self->height;
+                z = self->z;
+                if (flags & 0x02000000) count = 1;
+                index = 0;
+                if (count > 0) {
+                    other = (Game83300ContactActor *)&D_800CC2D0;
+                    do {
+                        otherState = other->state;
+                        if (otherState != 0) {
+                            ownRadius = other->radius;
+                            if (ownRadius >= 2 &&
+                                ((otherFlags = other->flags, !(otherFlags & 0x02000000)) || self->mode != 0xFF) &&
+                                !(otherFlags & 0x01000000) && index != arg1 &&
+                                arg1 + 1 != other->owner && other->cooldown < 100 && other->enabled != 0) {
+                                distance = (f32)ownRadius;
+                                ownRadius = otherState;
+                                dx = x - other->x;
+                                dz = z - other->z;
+                                dy = y - (other->y + other->height);
+                                dy *= (scale + other->scale) * 0.5f;
+                                if (D_800BE616 != 0 && dx * dx + dy * dy + dz * dz < D_80099530 &&
+                                    self->state == 1 && other->state == 1 && self->team != other->team) {
+                                    detail = self->detail;
+                                    if (detail[0x78] == 0) {
+                                        if (other->detail[0x78] != 0) detail[0x4A] = 0x14;
+                                    }
+                                }
+                                combinedRadius = radius + distance;
+                                distance = dx * dx + dy * dy + dz * dz;
+                                if (distance < combinedRadius * combinedRadius) {
+                                    func_1505D408(self, other, dx, dy, dz, distance, combinedRadius, index);
+                                }
+                                if (other->kind == 0x34) {
+                                    if (other->subtype == 2) {
+                                        func_1505D5D0(self, other, x, y, z, scale, radius, index,
+                                                       120.0f, 250.0f, 120.0f, -130.0f, 0.0f);
+                                    } else {
+                                        func_1505D5D0(self, other, x, y, z, scale, radius, index,
+                                                       130.0f, 140.0f, 250.0f, -50.0f, 0.0f);
+                                    }
+                                }
+                            }
+                        }
+                        index++;
+                        other++;
+                    } while (index != count);
+                }
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1505D6F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505D6F0.s")
+
 typedef struct {
     s32 state;
     u8 pad4[0x10];

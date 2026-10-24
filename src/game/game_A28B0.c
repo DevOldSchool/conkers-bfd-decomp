@@ -1945,13 +1945,12 @@ void func_1507A2A4(void) {
     D_800D1893 = (func_150ADA20() % (u8) D_800D1891) + D_800D1893;
     func_15075CA0();
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507A2F8 CURRENT (469) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507A2F8 CURRENT (425) */
 void func_1507A2F8(void) {
+    s32 index;
     u32 count;
     u8 candidates[25];
     u8 *state;
-    s32 index;
-    u8 *selected;
 
     count = 0;
     for (index = 0, state = (u8 *) &D_800CC2D0; index < 25; index++, state += 0x32C) {
@@ -1960,9 +1959,9 @@ void func_1507A2F8(void) {
         }
     }
     if (count != 0) {
-        selected = candidates + func_150ADA20() % count;
+        state = candidates + func_150ADA20() % count;
         D_800D154C->field_A8 = D_800D154C->field_222;
-        D_800D154C->field_222 = *selected;
+        D_800D154C->field_222 = *state;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507A2F8 */

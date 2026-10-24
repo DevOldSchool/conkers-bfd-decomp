@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15081690
  * - func_15081C20
- * - func_15081E0C
  * - func_15081E78
  * - func_150825C0
  * - func_15082A44
@@ -108,7 +107,6 @@ s32 func_15081C20(void *arg0, void *arg1, GameAEB40State *arg2,
 void func_1507DF10(void *, s32);
 extern u8 D_800BE616;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15081E0C CURRENT (742) */
 void func_15081E0C(GameAEB40State *arg0, u16 arg1, u8 arg2) {
     if (D_800BE616 == 0) {
         if (arg0->field_1CA != 0) {
@@ -119,8 +117,6 @@ void func_15081E0C(GameAEB40State *arg0, u16 arg1, u8 arg2) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15081E0C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15081E0C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15081E78.s")
 s32 func_150A6360(void *, void *, f32, f32, f32, f32, f32, f32);
 s32 func_15082A44(void *, s32, s32, s32, s32);
