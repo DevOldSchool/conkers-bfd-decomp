@@ -10188,15 +10188,15 @@
         "func_1518CA80",
         "func_1518CCA8"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x18CD20",
           "start": "0x18CA80",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1B9F30.c"
+      "source": "src/done/game/game_1B9F30.c"
     },
     {
       "boundary_evidence": {
