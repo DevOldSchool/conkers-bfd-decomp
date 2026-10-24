@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_105D90.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_internal_call_callback_clusters.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150D8A34
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
@@ -58,8 +53,7 @@ void func_151875E0(f32, f32, f32, s32, s32, s32, f32, f32);
 extern f32 D_800A0B30;
 extern f32 D_800A0B34;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D8A34 CURRENT (531) */
-void func_150D8A34(void *arg0, u8 arg1, s32 arg2) {
+void func_150D8A34(void *arg0, s32 arg1, s32 arg2) {
     f32 position[3];
 
     if (*(s32 *)((u8 *)arg0 + 0x1D4) != 0) {
@@ -71,5 +65,3 @@ void func_150D8A34(void *arg0, u8 arg1, s32 arg2) {
                       (s32)position[2], 4, 0x32, 0, 0xFF, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D8A34 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_105D90/func_150D8A34.s")
