@@ -46289,17 +46289,16 @@
       "symbol": "func_1503E1F4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 8,
-        "reason": "Round15: CURRENT 30 -> 8. Dropped the slot pointer and actor locals (4 named homes i/list/mask/count give frame 0x50); only residual is the func_10004074 call-crossing spill of the actor address at 0x38 vs raw 0x3c (raw has a second reserved spill word below). Named actor (top/loop/block), flags block, typed 0x32C array views and permute --randomized 150s (10424 iterations) found nothing. Ledger: build/us/manual-attempts/round15/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 356,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1503E260",
           "vram": "0x1503E260"
         }
@@ -48041,8 +48040,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3188,
-        "reason": "Best CURRENT3188 retained; full output buffers/frame/homes agree, byte-home address materialization and call scheduling remain after three comparisons.",
+        "current_score": 35,
+        "reason": "CURRENT (35), round22c unvolall (plain u8 reads of the homed arg1 byte; stored 3188). Residual: temp numbering/addu operand order of resource1D4 + (lookup[2] << 6) before func_151D4408 (raw loads resource first). Exhausted: u8 arg1 / (u8)arg1 (2153/3216, frame 0x160 with a spilled conversion), u8 *lookup, 5 address-sum spellings (all 35), permute 32 (1 variant) and randomized 60 s seed 3690281194 (35).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -62472,8 +62471,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 74,
-        "reason": "CURRENT (74), round22 (stored 355): dropping the volatile qualifier on arg0 (msweep unvol op) leaves only frame/stack rows: candidate frame 0x28 vs 0x20 (reference: 1 named home at 0x1C, temp_v1 spill at 0x18, arg0 reloaded from its home). Single named state local 82, removing owner 82, removing temp_v1 2010, swapped declaration order 74.",
+        "current_score": 42,
+        "reason": "CURRENT (42), round22 single named state pointer (owner copy dropped) and field4 + rand%(field8+1) sum order fix the post-call temps; residual only frame 0x28 vs 0x20 (one uopt temp word + alignment, source unknown: named random local, split -=, s32 *state indexing, 1U divisor all 42/0x28) (stored 74). Earlier: CURRENT (74), round22 (stored 355): dropping the volatile qualifier on arg0 (msweep unvol op) leaves only frame/stack rows: candidate frame 0x28 vs 0x20 (reference: 1 named home at 0x1C, temp_v1 spill at 0x18, arg0 reloaded from its home). Single named state local 82, removing owner 82, removing temp_v1 2010, swapped declaration order 74.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -64933,22 +64932,21 @@
       "symbol": "func_151B5FCC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 24,
-        "reason": "Round18 2026-10-21: CURRENT 822 -> 24 as natural if/else with *count read directly and (*count)++ (object, count locals). Instructions and registers exact; only stack offsets differ: raw spills count to a named home 0x38 and arg0 * 4 at 0x2C (ours 0x34/0x28). Extra named created/value/table locals give frame 0x48 (42+); randomized permuter 300s found no exact output.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 260,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1518C900",
           "vram": "0x1518C900"
         }
       },
-      "source": "src/game/game_1B9DB0.c",
+      "source": "src/done/game/game_1B9DB0.c",
       "symbol": "func_1518C900"
     },
     {
@@ -64966,7 +64964,7 @@
           "vram": "0x1518CA04"
         }
       },
-      "source": "src/game/game_1B9DB0.c",
+      "source": "src/done/game/game_1B9DB0.c",
       "symbol": "func_1518CA04"
     },
     {
@@ -83578,17 +83576,16 @@
       "symbol": "func_151D5B6C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 8,
-        "reason": "CURRENT (8): explicit slot-array probes score 1517/2681 at frame 0x28. Reuse hypothesis rejected; earlier pointer/home hypotheses remain exhausted. Historical main evidence: Oct18 isolated: CURRENT (8) unchanged. Probe pointer arithmetic *(arg0+arg1) still8/frame28; explicit named slot after buffer129/frame30. Only anonymous slot spill18 vs raw1c remains; prior declaration and randomized searches retained. No artificial padding added. Ledger: build/us/manual-attempts/deferred-20261018/ledger.md; review ledger: build/us/manual-attempts/pr149-review/ledger.md; durable review: docs/evidence/matching/pr149-review.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 208,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D5D60",
           "vram": "0x151D5D60"
         }

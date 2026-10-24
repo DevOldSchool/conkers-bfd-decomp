@@ -38,7 +38,7 @@ typedef struct Game12C1E0EmissionOwner {
     s32 resource1D4;
 } Game12C1E0EmissionOwner;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FED30 CURRENT (3188) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FED30 CURRENT (35) */
 void func_150FED30(f32 *arg0, s32 arg1, s32 arg2) {
     f32 position[3];
     f32 endpoint[3];
@@ -91,13 +91,13 @@ void func_150FED30(f32 *arg0, s32 arg1, s32 arg2) {
                      random1 * 200.0f + 600.0f, 50.0f,
                      ((u32)randomWord % 156U) + 0x64, arg0,
                      0x63, 1, 1, 1, 0, 1, 0, kind, 0.0f, 0xFF,
-                     directionSign, 0, *(volatile u8 *)((u8 *)&arg1 + 3), arg2);
+                     directionSign, 0, *(u8 *)((u8 *)&arg1 + 3), arg2);
         if (valid != 0) {
-            func_151D3F14(position, *(volatile u8 *)((u8 *)&arg1 + 3), arg2);
+            func_151D3F14(position, *(u8 *)((u8 *)&arg1 + 3), arg2);
             func_151D4408(hit, normal,
                 ((Game12C1E0EmissionOwner *)arg0)->resource1D4 +
-                (*(u8 *)(lookup + 2) << 6), arg0, 1.0f, *(volatile u8 *)((u8 *)&arg1 + 3), arg2);
-            func_150FF474(position, points, *(volatile u8 *)((u8 *)&arg1 + 3), arg2);
+                (*(u8 *)(lookup + 2) << 6), arg0, 1.0f, *(u8 *)((u8 *)&arg1 + 3), arg2);
+            func_150FF474(position, points, *(u8 *)((u8 *)&arg1 + 3), arg2);
         }
     }
 }

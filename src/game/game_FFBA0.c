@@ -19,18 +19,15 @@
 void func_150D278C(s32, void *, u8, s32);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D26F0 CURRENT (74) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D26F0 CURRENT (42) */
 void func_150D26F0(u8 *arg0) {
-    u8 *owner;
-    u8 *temp_v1;
+    u8 *state;
 
-    owner = arg0;
-    temp_v1 = owner + 0x28;
-    if (*(u8 *)(owner + 0x78) & 1) {
-        if ((*(s32 *)((u8 *)temp_v1 + 0xC) -= D_800BE9E4) < 0) {
-            owner = arg0;
-            func_150D278C(*(s32 *)temp_v1, temp_v1 + 0x10, *(u8 *)(owner + 0xC), *(u8 *)(owner + 1));
-            *(s32 *)((u8 *)temp_v1 + 0xC) = (s32) ((func_150ADA20() % (u32) (*(s32 *)((u8 *)temp_v1 + 8) + 1)) + *(s32 *)((u8 *)temp_v1 + 4));
+    state = arg0 + 0x28;
+    if (arg0[0x78] & 1) {
+        if ((*(s32 *)(state + 0xC) -= D_800BE9E4) < 0) {
+            func_150D278C(*(s32 *)state, state + 0x10, arg0[0xC], arg0[1]);
+            *(s32 *)(state + 0xC) = *(s32 *)(state + 4) + (func_150ADA20() % (u32)(*(s32 *)(state + 8) + 1));
         }
     }
 }

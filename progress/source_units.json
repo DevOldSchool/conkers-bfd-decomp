@@ -10366,15 +10366,15 @@
         "func_1518C900",
         "func_1518CA04"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x18CA80",
           "start": "0x18C900",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1B9DB0.c"
+      "source": "src/done/game/game_1B9DB0.c"
     },
     {
       "boundary_evidence": {

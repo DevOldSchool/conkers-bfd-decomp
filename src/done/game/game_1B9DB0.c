@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1B9DB0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_selected_particle_resource_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1518C900
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 s32 *func_1502B6BC(s32, s32, s32, s32, s32, s32);
@@ -18,13 +13,10 @@ extern u8 D_800DF7D0[];
 extern s32 D_800DF9B8[];
 extern s32 *D_800E0148[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518C900 CURRENT (24) */
 s32 func_1518C900(s32 arg0) {
     s32 *object;
-    u8 *count;
 
-    count = &D_800DF7D0[arg0];
-    if (*count == 0) {
+    if (D_800DF7D0[arg0] == 0) {
         object = func_1502B6BC(0, 0, 0, 2, 9, arg0);
         if (object == 0) {
             return 0;
@@ -35,13 +27,11 @@ s32 func_1518C900(s32 arg0) {
     } else {
         object = D_800E0148[arg0];
     }
-    if (*count != 0xFF) {
-        (*count)++;
+    if (D_800DF7D0[arg0] != 0xFF) {
+        D_800DF7D0[arg0]++;
     }
     return *object;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518C900 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B9DB0/func_1518C900.s")
 void func_100043B4(s32, s32); /* extern */
 
 void func_1518CA04(s32 arg0) {
