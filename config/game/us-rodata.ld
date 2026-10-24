@@ -141,6 +141,11 @@ SECTIONS
     {
         *game_124920.o(.rodata)
     }
+    /* ROM-verified constants: docs/evidence/data-layout/game_1ef500_float_constants.md. */
+    .game_rodata_1ef500 0x800AAA7C (INFO) : SUBALIGN(4)
+    {
+        *game_1EF500.o(.rodata)
+    }
     /* ROM-verified constants: docs/evidence/data-layout/game_17caf0_float_constants.md. */
     .game_rodata_17caf0 0x800A5FFC (INFO) : SUBALIGN(4)
     {
@@ -377,6 +382,9 @@ __game_rodata_177b50_payload_size = 0x1C;
 ASSERT(SIZEOF(.game_rodata_17caf0) == 0x10,
        "game_17CAF0 particle literal extent changed")
 __game_rodata_17caf0_payload_size = 0x8;
+ASSERT(SIZEOF(.game_rodata_1ef500) == 0x10,
+       "game_1EF500 literal extent changed")
+__game_rodata_1ef500_payload_size = 0x4;
 ASSERT(SIZEOF(.game_rodata_6b320) == 0x10,
        "game_6B320 literal extent changed")
 __game_rodata_6b320_payload_size = 0x8;

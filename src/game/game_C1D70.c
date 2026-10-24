@@ -15,7 +15,7 @@ void func_1509499C(u8 *, u8 *);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 extern void *D_800D2C20;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150948C0 CURRENT (893) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150948C0 CURRENT (275) */
 void func_150948C0(u8 *arg0, s32 arg1) {
     void *items[16];
     s32 index;
@@ -23,9 +23,9 @@ void func_150948C0(u8 *arg0, s32 arg1) {
     void *current;
     f32 *output;
 
+    item = (u8 *)(s32)items;
     func_1509499C(arg0, (u8 *)items);
     index = 0;
-    item = (u8 *)(s32)items;
     do {
         current = *(void **)item;
         if (current != 0) {

@@ -719,12 +719,11 @@ void func_151BD7F4(void *);
 void func_151D4668(void *);
 void func_151D747C(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15031C14 CURRENT (440) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15031C14 CURRENT (270) */
 void func_15031C14(void *arg0) {
     u8 *object;
     GameCoreMessage first;
     GameCoreMessage second;
-    GameCoreMessage *message;
 
     object = func_15083E90(*(u8 *)arg0);
     if (object != 0) {
@@ -755,10 +754,9 @@ void func_15031C14(void *arg0) {
             break;
         case 0x5D:
             second.object = object;
-            message = &second;
             second.id = object[0x3B];
             func_15147D64((s32)&second, 0x2E);
-            func_151494E0((s32)message, 0x2F);
+            func_151494E0((s32)&second, 0x2F);
             break;
         case 0x3D:
             func_151BD7F4(object);
@@ -779,10 +777,13 @@ void func_15031C14(void *arg0) {
             *(u32 *)(object + 0x9C) &= ~0x6000;
             break;
         }
-        if ((((u8 *)arg0)[6] == 0x16) || (((u8 *)arg0)[6] == 0x63) ||
-            (((u8 *)arg0)[6] == 0x89)) {
+        switch (((u8 *)arg0)[6]) {
+        case 0x16:
+        case 0x63:
+        case 0x89:
             func_151027E8(object);
             func_151D4668(object);
+            break;
         }
     }
 }

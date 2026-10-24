@@ -895,7 +895,7 @@ void func_15170034(s32 arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_151700D8.s")
 extern u16 D_800CC34A;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15170500 CURRENT (758) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15170500 CURRENT (600) */
 void func_15170500(s16 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, u8 arg5, s32 arg6) {
     f32 x;
     f32 y;
@@ -915,10 +915,10 @@ void func_15170500(s16 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, u8 arg5, s3
     angle = arg3;
     x = func_150489B0(angle);
     z = -func_15048A40(angle);
+    zero.bits = 0;
     factor = func_150489B0((u8)random);
     x *= factor;
     z *= factor;
-    zero.bits = 0;
     y = zero.value + zero.value;
     x += x;
     z += z;

@@ -30,39 +30,30 @@ extern s32 D_800BE9F0;
 extern u8 D_800DC0C0;
 extern Game157840Record D_800DC200[4][4];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512ABF8 CURRENT (1490) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512ABF8 CURRENT (200) */
 void func_1512ABF8(void) {
-    u8 row;
-    s32 column;
     s32 scaleMode;
     s32 animationMode;
+    u8 row;
+    u8 column;
     Game157840Record *record;
 
     scaleMode = D_80082FA0;
     animationMode = D_800BE9F0;
-    row = 0;
-    do {
-        column = 0;
-        do {
+    for (row = 0; row < 4; row++) {
+        for (column = 0; column < 4; column++) {
             record = &D_800DC200[row][column];
             *record = D_80089590[column];
-            column++;
             if ((scaleMode > 0) && (scaleMode < 4)) {
-                *(s16 *)&record->bytes[0] =
-                    (s16)(s32)((f32)*(s16 *)&record->bytes[0] * 0.5f);
-                *(s16 *)&record->bytes[2] =
-                    (s16)(s32)((f32)*(s16 *)&record->bytes[2] * 0.5f);
+                *(s16 *)&record->bytes[0] = *(s16 *)&record->bytes[0] * 0.5f;
+                *(s16 *)&record->bytes[2] = *(s16 *)&record->bytes[2] * 0.5f;
             }
             if ((animationMode == 0x1B) || (animationMode == 0x1E)) {
-                *(s16 *)&record->bytes[0] =
-                    (s16)(s32)((f32)*(s16 *)&record->bytes[0] * 0.75f);
-                *(s16 *)&record->bytes[2] =
-                    (s16)(s32)((f32)*(s16 *)&record->bytes[2] * 0.75f);
+                *(s16 *)&record->bytes[0] = *(s16 *)&record->bytes[0] * 0.75f;
+                *(s16 *)&record->bytes[2] = *(s16 *)&record->bytes[2] * 0.75f;
             }
-            column = (u8)column;
-        } while (column < 4);
-        row++;
-    } while (row < 4);
+        }
+    }
     func_100226F0(&D_800DC0C0, 0x130);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1512ABF8 */

@@ -71,7 +71,7 @@ extern s32 D_800D98A0;
 extern void *D_800D98C0;
 extern s8 D_800D9890;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6C90 CURRENT (670) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6C90 CURRENT (530) */
 void func_150B6C90(void) {
     u32 var_v0;
     u32 var_v1;
@@ -82,9 +82,9 @@ void func_150B6C90(void) {
     D_800D9894 = func_151A4FD0(0, 0, 0xFF, 0, 0, D_800BE9E8, 0, 0);
     D_800D9890 = 3;
     var_v0 = (u32)&D_800D98A0;
+    D_800D989C = 0;
     var_v1 = (u32)&D_800D98C0;
     D_800D9898 = 0;
-    D_800D989C = 0;
 clear_words:
         var_v0 += 16;
         *(s32 *)(var_v0 - 12) = 0;

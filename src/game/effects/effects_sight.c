@@ -498,7 +498,7 @@ typedef struct SightSpawnCommands {
     SightSpawnCommand entries[2];
 } SightSpawnCommands;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9198 CURRENT (1147) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9198 CURRENT (760) */
 void func_151C9198(struct Game15F680TransformState **arg0, Sight8FCCVector *arg1,
                    void *arg2, s32 arg3, s32 arg4, volatile u8 arg5, u8 arg6, u8 arg7, s32 arg8) {
     Sight8FCCVector vector0, vector1, vector2;
@@ -515,9 +515,9 @@ void func_151C9198(struct Game15F680TransformState **arg0, Sight8FCCVector *arg1
         descriptor.scale1 = 1.0f;
         descriptor.scale[0] = 1.0f;
         descriptor.scale[1] = 1.0f;
-        descriptor.pitch += 90.0f;
         descriptor.scale[2] = 1.0f;
         descriptor.field0C = D_800AAC7C;
+        descriptor.pitch += 90.0f;
         descriptor.field08 = D_800AAC7C;
         descriptor.roll = 0.0f;
         descriptor.position = *arg1;
@@ -901,7 +901,7 @@ void func_151CAACC(void *arg0, void **arg1, volatile u8 arg2) {
 extern s32 D_80082FA0;
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CAB78 CURRENT (1557) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CAB78 CURRENT (547) */
 void func_151CAB78(u8 *arg0, u8 arg1) {
     struct {
         f32 x;
@@ -962,9 +962,9 @@ void func_151CAB78(u8 *arg0, u8 arg1) {
     spawn.angle = 300;
     spawn.height = multiplier * 12.0f;
     spawn.width = spawn.height;
+    spawn.flags = (1 << (arg0[0x23D] + 11)) | 0x50;
     spawn.color = 255;
     spawn.mode = 7;
-    spawn.flags = (1 << (arg0[0x23D] + 11)) | 0x50;
     spawn.count = 1;
     spawn.arg1 = 255;
     spawn.arg2 = 200;

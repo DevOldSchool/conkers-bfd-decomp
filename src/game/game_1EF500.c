@@ -13,7 +13,6 @@
  * - func_151C329C
  * - func_151C36D8
  * - func_151C3B0C
- * - func_151C436C
  * - func_151C43E0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -783,36 +782,15 @@ void func_151C36D8(Vec3f *arg0, u8 arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151C36D8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C36D8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C3B0C.s")
-extern f32 D_800AAA7C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C436C CURRENT (110) */
 void func_151C436C(s32 arg0, void *arg1, s32 arg2) {
-    f32 temp_fa0;
-    f32 temp_ft4;
-    f32 temp_fv0;
-    f32 step;
-    f32 target_x;
-    f32 target_y;
-    f32 target_z;
-
-    if (arg2 > 0) {
-        target_x = *(f32 *)((u8 *)arg1 + 0x1C);
-        target_y = *(f32 *)((u8 *)arg1 + 0x20);
-        target_z = *(f32 *)((u8 *)arg1 + 0x24);
-        step = D_800AAA7C;
-        do {
-            temp_fv0 = *(f32 *)((u8 *)arg1 + 0x10);
-            temp_fa0 = *(f32 *)((u8 *)arg1 + 0x14);
-            temp_ft4 = *(f32 *)((u8 *)arg1 + 0x18);
-            arg2 -= 1;
-            *(f32 *)((u8 *)arg1 + 0x10) = (f32) (temp_fv0 + ((target_x - temp_fv0) * step));
-            *(f32 *)((u8 *)arg1 + 0x14) = (f32) (temp_fa0 + ((target_y - temp_fa0) * step));
-            *(f32 *)((u8 *)arg1 + 0x18) = (f32) (temp_ft4 + ((target_z - temp_ft4) * step));
-        } while (arg2 > 0);
+    while (arg2 > 0) {
+        arg2--;
+        *(f32 *)((u8 *)arg1 + 0x10) += (*(f32 *)((u8 *)arg1 + 0x1C) - *(f32 *)((u8 *)arg1 + 0x10)) * 0.228659f;
+        *(f32 *)((u8 *)arg1 + 0x14) += (*(f32 *)((u8 *)arg1 + 0x20) - *(f32 *)((u8 *)arg1 + 0x14)) * 0.228659f;
+        *(f32 *)((u8 *)arg1 + 0x18) += (*(f32 *)((u8 *)arg1 + 0x24) - *(f32 *)((u8 *)arg1 + 0x18)) * 0.228659f;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C436C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C436C.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C43E0 CURRENT (1633) */
 u8 func_151C43E0(void *arg0, u8 *arg1, f32 arg2) {
     u8 spDF;

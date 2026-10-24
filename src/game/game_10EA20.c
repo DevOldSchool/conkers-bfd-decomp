@@ -38,7 +38,7 @@ __pragma(1, sqrtf);
 extern u8 D_800C3E78;
 extern u8 D_800CC2D0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E1570 CURRENT (775) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E1570 CURRENT (310) */
 s32 func_150E1570(Game10EA20Actor *arg0, f32 arg1, f32 arg2, f32 arg3,
                   f32 arg4, f32 arg5, f32 arg6, register s32 arg7, s32 arg8) {
     f32 matrix[16];
@@ -54,9 +54,9 @@ s32 func_150E1570(Game10EA20Actor *arg0, f32 arg1, f32 arg2, f32 arg3,
     s32 bestDistance;
     s32 ownerIndex;
 
-    bestDistance = 0;
     result = 0;
     func_15047390(matrix, arg1, arg2, arg3, arg4, arg5, arg6, 0.0f, 1.0f, 0.0f);
+    bestDistance = 0;
     dx = arg1 - arg4;
     dy = arg2 - arg5;
     dz = arg3 - arg6;

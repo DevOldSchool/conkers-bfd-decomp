@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1513C060
- * - func_1513C350
  * - func_1513CBF0
  * - func_1513CFE4
  * - func_1513D6FC
@@ -125,14 +124,13 @@ s32 func_1515D480(s32);
 extern u8 D_800A4AA0;
 extern s32 D_80082FA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513C350 CURRENT (1220) */
 void *func_1513C350(s32 arg0, s32 arg1, u8 arg2, u8 arg3,
                      s32 arg4, s32 arg5, s32 arg6, void *arg7,
                      s32 arg8, s32 arg9, s32 arg10) {
     u8 *effect;
     u8 *cursor;
     s32 index;
-    s32 kind;
+    u8 kind;
 
     if (arg1 == 0) {
         arg1 = (s32)&D_800A4AA0;
@@ -148,28 +146,18 @@ void *func_1513C350(s32 arg0, s32 arg1, u8 arg2, u8 arg3,
     func_1513FFF4(cursor, effect[0x1E], (u8)arg4);
     func_151400D0(cursor, (void *)arg1);
     effect[0x80] = arg2;
+    effect[0x81] = arg3;
     *(s32 *)(effect + 0x10) = 1;
     *(s32 *)(effect + 0x14) = 0;
     *(s32 *)(effect + 0x84) = arg5;
-    effect[0x81] = arg3;
     *(s32 *)(effect + 0xA0) = arg6;
-    index = 0;
-    cursor = effect;
-    do {
-        index++;
-        cursor += 4;
-        *(s32 *)(cursor + 0x88) = 0;
-    } while (index < 4);
+    for (index = 0; index < 4; index++) {
+        ((s32 *)(effect + 0x8C))[index] = 0;
+    }
     *(s32 *)(effect + 0x9C) = 0;
     if (arg5 != 0) {
-        index = 0;
-        cursor = effect;
-        if (D_80082FA0 >= 0) {
-            do {
-                *(s32 *)(cursor + 0x8C) = func_1515D480(arg5);
-                index++;
-                cursor += 4;
-            } while (D_80082FA0 >= index);
+        for (index = 0; index <= D_80082FA0; index++) {
+            ((s32 *)(effect + 0x8C))[index] = func_1515D480(arg5);
         }
         *(void **)(effect + 0x9C) = func_1515D440();
     }
@@ -178,8 +166,6 @@ void *func_1513C350(s32 arg0, s32 arg1, u8 arg2, u8 arg3,
     }
     return effect;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513C350 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513C350.s")
 void *func_1513C350(s32, s32, u8, u8, s32, s32, s32, void *, s32, s32, s32);
 void *func_1513E13C(void *, f32, f32, f32, f32, f32, u8);
 

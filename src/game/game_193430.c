@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_display_transition_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15166118
  * - func_15166268
  * - func_151668B8
  *
@@ -80,30 +79,35 @@ void func_15165F80(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
 }
 void func_1517E05C(s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15166118 CURRENT (200) */
+typedef struct Game193430Vertex {
+    s16 position[3];
+    u16 flag;
+    s16 texcoord[2];
+    u8 color[4];
+} Game193430Vertex;
+
+typedef struct Game193430Quad {
+    Game193430Vertex vertices[4];
+} Game193430Quad;
+
 void func_15166118(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, u8 arg8, s32 arg9) {
     s32 i;
     u8 *effect;
-    u8 *cursor;
 
     effect = func_15167A68(4, arg9, 0xA8, 1, arg8, 1);
     if (effect != 0) {
         effect[0x95] = 2;
-        i = 0;
-        cursor = effect;
-        do {
-            i++;
-            cursor += 0x40;
-            *(s16 *)(cursor - 0x28) = 0x2000;
-            *(s16 *)(cursor - 0x26) = 0x2000;
-            *(s16 *)(cursor - 0x18) = 0x2800;
-            *(s16 *)(cursor - 0x16) = 0x2000;
-            *(s16 *)(cursor - 8) = 0x2800;
-            *(s16 *)(cursor - 6) = 0x2800;
-            *(s16 *)(cursor + 8) = 0x2000;
-            *(s16 *)(cursor + 0xA) = 0x2800;
-        } while (i != 2);
+        for (i = 0; i < 2; i++) {
+            ((Game193430Quad *)(effect + 0x10))[i].vertices[0].texcoord[0] = 0x2000;
+            ((Game193430Quad *)(effect + 0x10))[i].vertices[0].texcoord[1] = 0x2000;
+            ((Game193430Quad *)(effect + 0x10))[i].vertices[1].texcoord[0] = 0x2800;
+            ((Game193430Quad *)(effect + 0x10))[i].vertices[1].texcoord[1] = 0x2000;
+            ((Game193430Quad *)(effect + 0x10))[i].vertices[2].texcoord[0] = 0x2800;
+            ((Game193430Quad *)(effect + 0x10))[i].vertices[2].texcoord[1] = 0x2800;
+            ((Game193430Quad *)(effect + 0x10))[i].vertices[3].texcoord[0] = 0x2000;
+            ((Game193430Quad *)(effect + 0x10))[i].vertices[3].texcoord[1] = 0x2800;
+        }
         *(s16 *)(effect + 0x9E) = 1;
         effect[0x92] = arg6;
         effect[0x93] = arg6;
@@ -117,8 +121,6 @@ void func_15166118(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
         func_1517E05C(arg2, arg3, arg4);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15166118 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_193430/func_15166118.s")
 typedef struct {
     u8 pad_0[0x92];
     u8 field_92;

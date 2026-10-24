@@ -245,29 +245,23 @@ void func_151D2F90(u8 *arg0) {
 extern void (*D_8008FC48[])(void *, void *);
 extern void (*D_8008FC5C[])(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3130 CURRENT (415) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3130 CURRENT (300) */
 void func_151D3130(u8 *arg0) {
-    u8 *var_s0;
-    u8 *temp_s1;
-    s8 temp_v0;
+    u8 *node;
+    u8 *next;
 
-    if (D_8008FC5C[*(u8 *)((u8 *)arg0 + 0x1D)] != 0) {
-        D_8008FC5C[*(u8 *)((u8 *)arg0 + 0x1D)](arg0);
+    if (D_8008FC5C[arg0[0x1D]] != 0) {
+        D_8008FC5C[arg0[0x1D]](arg0);
     }
-    var_s0 = *(u8 **)((u8 *)arg0 + 0x24);
-    if (var_s0 != 0) {
-        do {
-        temp_v0 = *(s8 *)(var_s0 + 0x2A);
-        temp_s1 = *(u8 **)(var_s0 + 0x40);
-        if (temp_v0 != -1) {
-            D_8008FC48[(s32)temp_v0](var_s0, var_s0 + 0x34);
+    for (node = *(u8 **)(arg0 + 0x24); node != 0; node = next) {
+        next = *(u8 **)(node + 0x40);
+        if (*(s8 *)(node + 0x2A) != -1) {
+            D_8008FC48[*(s8 *)(node + 0x2A)](node, node + 0x34);
         }
-        *(s32 *)(var_s0 + 0x2C) = 0;
-        func_1516972C(var_s0);
-        var_s0 = temp_s1;
-        } while (var_s0 != 0);
+        *(s32 *)(node + 0x2C) = 0;
+        func_1516972C(node);
     }
-    func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x10));
+    func_1514EDF0(arg0, *(void **)(arg0 + 0x10));
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D3130 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D3130.s")

@@ -324,7 +324,7 @@ extern s8 D_800AB68C[];
 extern s8 D_800E0A86;
 extern s32 D_800E0A90;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E4BD8 CURRENT (875) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E4BD8 CURRENT (205) */
 void func_151E4BD8(void) {
     s16 selection;
     s8 alternate;
@@ -359,8 +359,8 @@ void func_151E4BD8(void) {
             D_8008FD80 = 4;
         }
     } else {
-        D_800E0B94 = 6;
         selection = D_800AB7BC[alternate].value;
+        D_800E0B94 = 6;
         D_8008FD80 = 1;
     }
     D_800D2E40 = 0;
