@@ -103,34 +103,45 @@ with a 180-minute budget that is five to seven rounds a day. Requirements on the
 Mac: the desktop app open, Docker running, the US ROM at
 `roms/baserom.us.z64` in the main checkout.
 
-Routine prompt (self-contained; the session starts in the main checkout):
+Routine prompt (self-contained; the session starts in the main checkout and
+runs the driver from a detached `../conker-auto-driver` worktree at
+`origin/main`, so the main checkout is never modified):
 
 ```text
 You are an unattended matching round for conkers-bfd-decomp. Work only through
-scripts/auto_round.sh and the normal ./conker commands.
+the round driver and the normal ./conker commands. Never edit, commit or
+switch branches in the checkout you start in.
 
-1. Run `scripts/auto_round.sh start --budget-minutes 180`. If it prints
-   AUTO_ROUND: BUSY, stop immediately with a one-line report.
-2. cd into the printed WORKTREE. Run `scripts/auto_round.sh review-pending`
-   and note each PR verdict it prints.
+0. Refresh the driver checkout from your starting directory:
+   git fetch -q origin
+   [ -d ../conker-auto-driver ] || git worktree add -q --detach ../conker-auto-driver origin/main
+   git -C ../conker-auto-driver checkout -q --detach origin/main
+   D="$(cd ../conker-auto-driver && pwd)/scripts/auto_round.sh"
+   If "$D" does not exist, stop and report that the driver is not on main.
+1. Run "$D" start --budget-minutes 180. If it prints AUTO_ROUND: BUSY, stop
+   immediately with a one-line report.
+2. cd into the printed WORKTREE. Run "$D" review-pending and note each PR
+   verdict it prints (VERIFIED, MERGED, REQUEUED, NEEDS_HUMAN).
 3. Read AGENTS.md and CONTRIBUTING.md there, then match functions following
-   them exactly (next --ready, finish, STOP_MATCHED) until
-   `scripts/auto_round.sh remaining` is below 25. Prefer `./conker sweep`
-   leads and the msweep move/cont/unvol idioms recorded in
-   build/us/manual-attempts ledgers on main. Never run defer, never edit
+   them exactly (finish must print AGENT_ACTION: STOP_MATCHED) until
+   "$D" remaining is below 25. Lead order: `./conker sweep unchanged
+   --max-score 300` zeros (resume, then finish), `./conker siblings
+   --all-deferred`, then `./conker next --ready`. Never run defer, never edit
    include/, config/, Makefile, scripts/ or tests/, never add volatile, #if 0
-   or fake constructs; restore any function you do not match exactly.
+   or fake constructs; restore any function you do not match exactly with
+   git checkout of its files.
 4. With at least one STOP_MATCHED: run `./conker verify-batch <ids>` and
-   require AGENT_ACTION: BATCH_COMPLETE; fix or drop a function if it fails.
-   Then `scripts/auto_round.sh commit -m "<summary>"` and
-   `scripts/auto_round.sh open-pr --ids "<ids>" --title "<title>" --body-file <f>`
+   require AGENT_ACTION: BATCH_COMPLETE; drop a function if it fails. Then
+   "$D" commit -m "<summary>" and
+   "$D" open-pr --ids "<ids>" --title "<title>" --body-file <file>
    with a body in the style of recent merged auto-match PRs: a table of
    matched functions with source, start score and key change, shared
-   dependency changed: no, the verify-batch result, and leads for a maintainer.
-   Titles and bodies describe the work only: no model, agent or tool names.
-5. Always finish with `scripts/auto_round.sh cleanup`, then report in a few
-   lines: PRs reviewed and their verdicts, functions matched, PR URL or
-   "no PR", and anything labelled needs-human.
+   dependency changed: no, the verify-batch result, and leads for a
+   maintainer. Titles and bodies describe the work only: no model, agent or
+   tool names.
+5. Always finish with "$D" cleanup, then report in a few lines: PRs reviewed
+   and their verdicts, functions matched, PR URL or "no PR", and anything
+   labelled needs-human.
 ```
 
 ## Maintainer duties
