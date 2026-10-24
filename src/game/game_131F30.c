@@ -258,7 +258,7 @@ extern Game131F30Factor D_800A23A8;
 extern f32 D_800A23C0, D_800A23C4, D_800A23C8, D_800A23CC, D_800A23D0;
 extern f32 D_800A23D4, D_800A23D8, D_800A23DC, D_800A23E0, D_800A23E4, D_800A23E8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510558C CURRENT (335) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510558C CURRENT (203) */
 void func_1510558C(Game131F30Emitter *arg0) {
     register Game131F30Part *part;
     register u32 flags;
@@ -272,9 +272,9 @@ void func_1510558C(Game131F30Emitter *arg0) {
     Vec3f *position;
     Game131F30Surface *surface;
 
+    part = (Game131F30Part *)((u8 *)arg0 + 0x110);
     fraction = func_150ADA68();
     random = func_150ADA20();
-    part = (Game131F30Part *)((u8 *)arg0 + 0x110);
     surface = &part->surface;
     position = &part->position;
     func_15102920(fraction * 25.0f + 15.0f, ((random % 56U) + 0xC8) & 0xFF,

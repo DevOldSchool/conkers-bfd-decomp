@@ -49,7 +49,7 @@ void *func_10022EC0(void *, const void *, u32);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 extern f32 D_800A0BF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DB714 CURRENT (268) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DB714 CURRENT (10) */
 void *func_150DB714(void *owner, s32 bufferIndex) {
     void *vertices;
     void *result;
@@ -61,28 +61,26 @@ void *func_150DB714(void *owner, s32 bufferIndex) {
     Game108AE0Values *values;
     u8 fresh;
     u8 *slot;
-    void *template;
 
     func_151D5D60(((Game108AE0Owner *)owner)->buffers, ((s16 *)&bufferIndex)[1], 0x40, &vertices, &fresh);
     result = vertices;
     if (vertices != 0) {
         if (fresh != 0) {
             slot = (u8 *)owner + ((s16 *)&bufferIndex)[1] * 4;
-            template = ((Game108AE0Owner *)owner)->template;
-            func_10022EC0(*(u8 **)(slot + 0x100), template, 0x40U);
-            func_10022EC0(*(u8 **)(slot + 0x100) + 0x40, template, 0x40U);
+            func_10022EC0(*(u8 **)(slot + 0x100), (((Game108AE0Owner *)owner)->template), 0x40U);
+            func_10022EC0(*(u8 **)(slot + 0x100) + 0x40, (((Game108AE0Owner *)owner)->template), 0x40U);
         }
     } else {
         return 0;
     }
     angle = (s32)(*(((Game108AE0Owner *)owner)->values.data[1]) * D_800A0BF0);
+    values = (Game108AE0Values *)((u8 *)owner + 0x110);
     sine = func_151423D8((u8)angle);
     cosine = func_151423D8((u8)(angle - 0x40));
-    values = (Game108AE0Values *)((u8 *)owner + 0x110);
     offsetX = *values->data[2] * sine;
     offsetZ = -*values->data[2] * cosine;
     ((Game108AE0Vertex *)vertices)[0].x = (s32)(values->data[0][0] + offsetX);
-    ((Game108AE0Vertex *)vertices)[0].y = (s32)(*values->data[3] + values->data[0][1]);
+    ((Game108AE0Vertex *)vertices)[0].y = (s32)(values->data[0][1] + *values->data[3]);
     ((Game108AE0Vertex *)vertices)[0].z = (s32)(values->data[0][2] + offsetZ);
     ((Game108AE0Vertex *)vertices)[0].flag = 0;
     ((Game108AE0Vertex *)vertices)[1].x = (s32)(values->data[0][0] + offsetX);
@@ -94,7 +92,7 @@ void *func_150DB714(void *owner, s32 bufferIndex) {
     ((Game108AE0Vertex *)vertices)[2].z = (s32)(values->data[0][2] - offsetZ);
     ((Game108AE0Vertex *)vertices)[2].flag = 0;
     ((Game108AE0Vertex *)vertices)[3].x = (s32)(values->data[0][0] - offsetX);
-    ((Game108AE0Vertex *)vertices)[3].y = (s32)(*values->data[3] + values->data[0][1]);
+    ((Game108AE0Vertex *)vertices)[3].y = (s32)(values->data[0][1] + *values->data[3]);
     ((Game108AE0Vertex *)vertices)[3].z = (s32)(values->data[0][2] - offsetZ);
     ((Game108AE0Vertex *)vertices)[3].flag = 0;
     return result;

@@ -40,7 +40,7 @@ extern u8 *D_800D3098;
 extern f32 D_800DCD90;
 extern void *D_800DCDC4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15013000 CURRENT (275) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15013000 CURRENT (150) */
 void func_15013000(void) {
     Game40490DispatchCallback callback;
     u32 var_s1;
@@ -48,10 +48,10 @@ void func_15013000(void) {
     u8 *base;
     s32 index;
 
-    D_800DCDC4 = 0;
     D_800DCD90 = 0.0f;
     var_s1 = 0;
     var_s0 = 0;
+    D_800DCDC4 = 0;
     if (D_800D3094 != 0) {
         do {
             base = D_800D3098;
