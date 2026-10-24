@@ -80592,17 +80592,16 @@
       "symbol": "func_1515942C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 616,
-        "reason": "Valid716 with canonical local15046C00 scalar contract u16/f32, third argument float field load, actual three-coordinate array; unsupported fourth-float pad removed. Legacy685 invalid scalar contract/padding. Revision2 actual byte-result volatile neutral716; simpler revision1 retained. Two fresh revisions exhausted; prior operand/branch rewrite2850 not repeated. Raw frame48/result47 exact; array38/raw34, commutative load order and duplicate result-zero branch-delay store remain. Audit reports no matched C callers; recheck canonical15046C00 and sourceowner15159370 before clean batch. No shared header/type/tool edits.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 296,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15159594",
           "vram": "0x15159594"
         }

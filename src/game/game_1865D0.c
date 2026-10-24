@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15159230
  * - func_151592B8
- * - func_15159594
  * - func_151596BC
  * - func_15159C08
  * - func_1515A11C
@@ -207,21 +206,23 @@ s32 func_15046C00(f32 *, u16, f32, u8 *);
 s32 func_1514672C(f32 *);
 extern f32 D_800A63A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15159594 CURRENT (616) */
 u8 func_15159594(u8 *arg0, s32 arg1) {
     u8 result;
-    f32 position[3];
+    s32 found;
 
     result = 1;
     if (func_151596BC(arg0, arg1) != 0) {
         if (*(f32 *)(arg0 + 0x5C) > 0.0f) {
-            position[0] = *(f32 *)(arg0 + 0x40) + *(f32 *)(arg0 + 0x4C);
+            f32 position[3];
+
+            position[0] = *(f32 *)(arg0 + 0x4C) + *(f32 *)(arg0 + 0x40);
             position[1] = *(f32 *)((u8 *)arg1 + 4);
-            position[2] = *(f32 *)(arg0 + 0x48) + *(f32 *)(arg0 + 0x54);
+            position[2] = *(f32 *)(arg0 + 0x54) + *(f32 *)(arg0 + 0x48);
             if (func_1514672C(position) == 0) {
                 return 0;
             }
-            if (func_15046C00(position, 0, *(f32 *)(arg0 + 0x44), arg0 + 0x80) != 0) {
+            found = func_15046C00(position, 0, *(f32 *)(arg0 + 0x44), arg0 + 0x80);
+            if (found != 0) {
                 position[1] = *(f32 *)(arg0 + 0x80);
                 if (*(u8 *)(arg0 + 0x9D) == 3) {
                     func_151DBCBC(func_151D8E20() & 0xFF, *(f32 *)(arg0 + 0xA8) * D_800A63A4,
@@ -236,8 +237,6 @@ u8 func_15159594(u8 *arg0, s32 arg1) {
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15159594 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_15159594.s")
 /* Call context: func_151423D8: unique active project prototype */
 extern s32 D_800BE9E4;
 
