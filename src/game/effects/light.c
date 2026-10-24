@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/effects/effects_light.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15160B74
  * - func_15160E30
  * - func_15161F4C
  * - func_1516295C
@@ -315,13 +314,11 @@ struct225 *func_15160A58(struct127 *arg0, u8 arg1, void *arg2, u8 arg3, s16 arg4
 void func_15143134(f32 *, f32 *, s32);
 extern u8 (*D_8008B1F8[])(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15160B74 CURRENT (90) */
 u8 func_15160B74(void *arg0) {
     u8 result;
     s8 selector;
     u8 *slot;
     u8 *entity;
-    f32 transformed[3];
 
     entity = *(u8 **)((u8 *)arg0 + 0x18);
     result = 1;
@@ -333,12 +330,13 @@ u8 func_15160B74(void *arg0) {
         return 0;
     }
     if (*(s32 *)(entity + 0x1D4) != 0 && (entity[0x74] & 0xF) != 0xF) {
+        f32 transformed[3];
+
         func_15143134((f32 *)(slot + 8), transformed,
-                       *(s32 *)(entity + 0x1D4) + (slot[5] << 6));
+                       (slot[5] << 6) + *(s32 *)(entity + 0x1D4));
         *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0xE) = (s16)(s32)transformed[0];
         *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0x10) = (s16)(s32)transformed[1];
         *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0x12) = (s16)(s32)transformed[2];
-        selector = *(s8 *)(slot + 0x14);
     } else {
         *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0xE) =
             (s16)(s32)*(f32 *)(entity + 0x14);
@@ -346,15 +344,13 @@ u8 func_15160B74(void *arg0) {
             (s16)(s32)*(f32 *)(entity + 0x18);
         *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0x12) =
             (s16)(s32)*(f32 *)(entity + 0x1C);
-        selector = *(s8 *)(slot + 0x14);
     }
+    selector = *(s8 *)(slot + 0x14);
     if (selector != -1) {
         result = D_8008B1F8[selector](arg0);
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15160B74 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15160B74.s")
 typedef struct LightVector3Words {
     s32 values[3];
 } LightVector3Words;

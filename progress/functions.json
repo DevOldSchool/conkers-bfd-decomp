@@ -1712,16 +1712,15 @@
       "symbol": "func_15160A58"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 90,
-        "reason": "CURRENT (90) retained. Selector word157/frame40; reverse add147/frame40; halfword80/frame38 only fixes add order; real transform snapshot677/frame40. Callback selector GPR/table schedule remains; no useful new hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15160B74",
           "vram": "0x15160B74"
         }
