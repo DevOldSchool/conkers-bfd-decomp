@@ -17,15 +17,6 @@ GameCommand *func_150D8590(GameCommand *arg0, s32 arg1) {
     return arg0 + 1;
 }
 
-typedef struct Game71820Hit {
-    f32 height;
-    s16 points[9];
-    s32 object;
-    u8 flags, active;
-    u8 pad1E[2];
-    s32 field20;
-} Game71820Hit;
-
 typedef struct GameDC6B0Burst {
     s16 count, countRange;
     u8 kind, pad5;

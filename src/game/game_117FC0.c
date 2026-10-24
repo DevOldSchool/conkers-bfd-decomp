@@ -11,16 +11,6 @@ typedef struct Game117FC0Vec2 {
     f32 y;
 } Game117FC0Vec2;
 
-typedef struct Game71820Hit {
-    f32 height;
-    s16 points[9];
-    s32 object;
-    u8 flags;
-    u8 active;
-    u8 pad1E[2];
-    s32 field20;
-} Game71820Hit;
-
 typedef struct Game117FC0Effect {
     Game117FC0Vec2 position;
     Game117FC0Vec2 velocity;
