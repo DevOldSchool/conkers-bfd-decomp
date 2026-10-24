@@ -247,9 +247,6 @@ void func_150FF2D4(u8 *arg0, void *arg1, f32 *arg2, void *arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150FF2D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12C1E0/func_150FF2D4.s")
-typedef struct Game12C1E0VectorBits {
-    s32 x, y, z;
-} Game12C1E0VectorBits;
 
 typedef struct Game12C1E0Particle {
     u8 kind, mode;
@@ -259,7 +256,7 @@ typedef struct Game12C1E0Particle {
     s32 field8, fieldC;
     u8 red, green, blue, alpha;
     f32 size, magnitude;
-    Game12C1E0VectorBits position, direction;
+    Vec3i position, direction;
     f32 zeroX, zeroY, zeroZ;
     u32 flags;
     u8 brightness, field45, field46, field47;
@@ -291,7 +288,7 @@ void func_150FF474(void *arg0, void *arg1, u8 arg2, s32 arg3) {
     packet.green = 0xFF;
     packet.blue = 0xFF;
     packet.alpha = 0xFF;
-    packet.position = *(Game12C1E0VectorBits *)arg0;
+    packet.position = *(Vec3i *)arg0;
     packet.zeroX = 0.0f;
     packet.zeroY = 0.0f;
     packet.zeroZ = 0.0f;
@@ -309,7 +306,7 @@ void func_150FF474(void *arg0, void *arg1, u8 arg2, s32 arg3) {
     do {
         packet.size = func_150ADA68() * sizeRange + 5.0f;
         packet.magnitude = func_150ADA68() * magnitudeRange + magnitudeBase;
-        packet.direction = ((Game12C1E0VectorBits *)arg1)[index];
+        packet.direction = ((Vec3i *)arg1)[index];
         packet.brightness = ((u32)func_150ADA20() % 156U) + 0x64;
         if (func_150ADA20() & 1) {
             variant = 2;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_20A290.c
@@ -10,15 +11,9 @@ extern f32 D_800AB550;
 extern f32 D_800AB554;
 
 typedef struct {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game20A290Position;
-
-typedef struct {
     s32 field0;
     s32 field4;
-    Game20A290Position position;
+    Vec3i position;
     s16 field14;
     s16 field16;
     s16 field18;
@@ -40,7 +35,7 @@ void func_151DCDE0(void *arg0, u8 arg1, s32 arg2) {
 
     config.field0 = 0xC;
     config.field4 = 5;
-    config.position = *(Game20A290Position *)arg0;
+    config.position = *(Vec3i *)arg0;
     config.field14 = 0;
     config.field16 = 0xFF;
     config.field18 = -0x40;

@@ -59,12 +59,6 @@ typedef struct Game1E9A30Trail {
     u8 pad_F[5];
 } Game1E9A30Trail;
 
-typedef struct Game1E9A30Position {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game1E9A30Position;
-
 extern s32 D_800BE9E4;
 
 s32 func_151BC64C(u8 *actor) {
@@ -107,7 +101,7 @@ s32 func_151BC64C(u8 *actor) {
         } while (cursor != *(s8 *)(actor + 0x2D));
     }
     if (*(s8 *)(actor + 0x2C) > 0) {
-        *(Game1E9A30Position *)(actor + 0x54) = *(Game1E9A30Position *)((u8 (*)[sizeof(Game1E9A30Trail)])entries)[*(s8 *)(actor + 0x2D)];
+        *(Vec3i *)(actor + 0x54) = *(Vec3i *)((u8 (*)[sizeof(Game1E9A30Trail)])entries)[*(s8 *)(actor + 0x2D)];
     } else {
         *(f32 *)(actor + 0x54) = 0.0f;
         *(f32 *)(actor + 0x58) = 0.0f;
@@ -463,7 +457,7 @@ void func_151BD7F4(void *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BD828.s")
 void func_15145EA4(s32 *, s32 *, s32, s32);
-extern Game1E9A30Position D_800AA778, D_800AA784, D_800AA790, D_800AA79C;
+extern Vec3i D_800AA778, D_800AA784, D_800AA790, D_800AA79C;
 extern u16 **D_800BE728;
 extern u8 D_800CC2D0[];
 
@@ -474,11 +468,11 @@ typedef struct { u8 pad0[4]; f32 scale; } Game1E9A30SparkEffect;
 void func_151BDD8C(void *arg0) {
     s32 i;
     u8 *owner;
-    Game1E9A30Position starts[2];
-    Game1E9A30Position ends[2];
+    Vec3i starts[2];
+    Vec3i ends[2];
     s32 player;
-    Game1E9A30Position *inputs[4];
-    Game1E9A30Position *outputs[4];
+    Vec3i *inputs[4];
+    Vec3i *outputs[4];
     u8 *payload;
     u8 *entry;
     u8 *hiddenEntry;
@@ -511,15 +505,15 @@ void func_151BDD8C(void *arg0) {
             object = *(u8 **)(entry + 8);
             if (object != NULL) {
                 object[0x168] |= 1;
-                *(Game1E9A30Position *)(object + 0x34) = starts[i];
-                *(Game1E9A30Position *)(object + 0x40) = ends[i];
+                *(Vec3i *)(object + 0x34) = starts[i];
+                *(Vec3i *)(object + 0x40) = ends[i];
             }
             object = *(u8 **)(entry + 0x10);
             if (object != NULL) {
                 *(s32 *)(object + 0x58) |= 2;
                 *(s32 *)(object + 0x58) &= ~4;
-                *(Game1E9A30Position *)(object + 0x34) = starts[i];
-                *(Game1E9A30Position *)(object + 0x40) = ends[i];
+                *(Vec3i *)(object + 0x34) = starts[i];
+                *(Vec3i *)(object + 0x40) = ends[i];
             }
             i = (i + 1) & 0xFF;
         } while (i < 2);

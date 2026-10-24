@@ -53,9 +53,8 @@ void func_150AF2E0(void *arg0, void *arg1) {
     temp_v0 = *(s16 *)((u8 *)arg1 + 2);
     func_151CF898(arg0, (f32)(*(s16 *)((u8 *)arg1 + 8) + *(s16 *)((u8 *)arg1 + 2)), (f32)temp_v0);
 }
-typedef struct GameAF328Position { s32 x, y, z; } GameAF328Position;
 typedef struct GameAF328State {
-    GameAF328Position position;
+    Vec3i position;
     f32 counter;
 } GameAF328State;
 typedef struct GameAF328Packet {
@@ -67,7 +66,7 @@ typedef struct GameAF328Packet {
     u8 field1A, field1B, field1C, kind;
     s16 field1E, field20, field22;
     f32 field24, scaleX, scaleY;
-    GameAF328Position position;
+    Vec3i position;
     f32 field3C, field40, field44, field48, field4C, field50;
     f32 speed;
     u32 spriteFlags;

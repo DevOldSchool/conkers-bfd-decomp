@@ -58,16 +58,11 @@ void func_1519EA04(Game1CBE20Effect *arg0) {
         }
     }
 }
-typedef struct Game1CBE20WordVector {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game1CBE20WordVector;
 
 typedef struct Game1CBE20ParticleConfig {
     s32 field_00;
     s32 field_04;
-    Game1CBE20WordVector position;
+    Vec3i position;
     s16 field_14;
     s16 field_16;
     s16 field_18;
@@ -90,7 +85,7 @@ extern f32 D_800A8CC8;
 extern f32 D_800A8CCC;
 extern f32 D_800A8CD0;
 
-void func_1519EA78(Game1CBE20WordVector *arg0, u16 arg1, f32 arg2, u8 arg3,
+void func_1519EA78(Vec3i *arg0, u16 arg1, f32 arg2, u8 arg3,
                    s32 arg4) {
     Game1CBE20ParticleConfig config;
     s32 local_arg1;

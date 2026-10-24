@@ -386,11 +386,6 @@ s32 func_150C01DC(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C01DC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EC420/func_150C01DC.s")
-typedef struct GameEC420Vec3 {
-    s32 x;
-    s32 y;
-    s32 z;
-} GameEC420Vec3;
 
 typedef struct GameEC420Head {
     s32 value;
@@ -403,7 +398,7 @@ typedef struct GameEC420Packet {
     s16 config[4];
     s32 count;
     s32 mode;
-    GameEC420Vec3 position;
+    Vec3i position;
     f32 value4;
     f32 value7;
     f32 value2C;
@@ -450,7 +445,7 @@ void func_150C04C0(void *arg0, s32 arg1, s32 arg2, u8 arg3, u8 arg4, s32 arg5) {
     packet.count = 9;
     packet.mode = 4;
     packet.base = D_800A0170;
-    packet.position = *(GameEC420Vec3 *)arg0;
+    packet.position = *(Vec3i *)arg0;
     packet.value4 = 4.0f;
     packet.value7 = 7.0f;
     packet.value2C = D_800A0174;

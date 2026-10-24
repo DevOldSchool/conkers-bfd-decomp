@@ -16,12 +16,6 @@ void *func_10022EC0(void *, const void *, u32);
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 extern u8 D_800AA490;
 
-typedef struct Game1E58B0Vec3 {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game1E58B0Vec3;
-
 typedef struct Game1E58B0SpawnPacket {
     u8 kind;
     u8 zero;
@@ -39,8 +33,8 @@ typedef struct Game1E58B0SpawnPacket {
 } Game1E58B0SpawnPacket;
 
 typedef struct Game1E58B0MotionPacket {
-    Game1E58B0Vec3 first;
-    Game1E58B0Vec3 second;
+    Vec3i first;
+    Vec3i second;
     f32 velocity[3];
     s32 tag;
     u8 color0;
@@ -62,7 +56,7 @@ void *func_151B8400(void *arg0) {
         Game1E58B0SpawnPacket spawn;
         Game1E58B0MotionPacket motion;
     } packet;
-    Game1E58B0Vec3 position;
+    Vec3i position;
     void *result;
 
     saved_actor = arg0;
@@ -80,7 +74,7 @@ void *func_151B8400(void *arg0) {
     packet.spawn.scale = 9.0f;
     packet.spawn.rate = 1.0f;
 
-    position = *(Game1E58B0Vec3 *)(actor + 0x38);
+    position = *(Vec3i *)(actor + 0x38);
     packet.motion.second = position;
     packet.motion.first = position;
     packet.motion.velocity[0] = *(f32 *)(actor + 0x44) * 0.25f;
@@ -220,9 +214,9 @@ typedef struct Game1E58B0ActorDescriptor {
     f32 field24;
     f32 field28;
     f32 field2C;
-    Game1E58B0Vec3 field30;
-    Game1E58B0Vec3 field3C;
-    Game1E58B0Vec3 field48;
+    Vec3i field30;
+    Vec3i field3C;
+    Vec3i field48;
     f32 field54;
     s32 field58;
     s32 field5C;
@@ -237,7 +231,7 @@ typedef struct Game1E58B0ChoiceTable {
 
 struct Game15D730CopyBlock;
 extern Game1E58B0ChoiceTable D_800AA4B8;
-extern Game1E58B0Vec3 D_800A5480;
+extern Vec3i D_800A5480;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B8908 CURRENT (1068) */
 void *func_151B8908(void *arg0) {
@@ -269,7 +263,7 @@ void *func_151B8908(void *arg0) {
     size = (func_150ADA68() * 500.0f) + 900.0f;
     descriptor.field2C = size;
     descriptor.field28 = size;
-    descriptor.field30 = *(Game1E58B0Vec3 *)((u8 *)arg0 + 0x38);
+    descriptor.field30 = *(Vec3i *)((u8 *)arg0 + 0x38);
     descriptor.field3C = D_800A5480;
     descriptor.field48 = D_800A5480;
     descriptor.field1E = 1;

@@ -40,11 +40,6 @@ typedef struct Game133190Object {
 } Game133190Object;
 
 typedef s32 (*Game133190EventCallback)(void *, u8 *);
-typedef struct Game133190Triple {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game133190Triple;
 extern Game133190EventCallback D_80088C10[];
 extern s32 D_800BE9E4;
 void func_15106214(s32);
@@ -94,7 +89,7 @@ typedef struct Game133190EndpointDescriptor {
     u8 channel, kind;
     s16 field1E, field20, field22;
     f32 scale, width, height;
-    Game133190Triple position, axis0, axis1;
+    Vec3i position, axis0, axis1;
     f32 field54;
     u32 flips;
     s32 field5C;
@@ -108,7 +103,7 @@ typedef struct Game133190EndpointDescriptor {
 
 void *func_10022EC0(void *, const void *, u32);
 void func_100226F0(void *, s32);
-extern Game133190Triple D_800A5480;
+extern Vec3i D_800A5480;
 extern f32 D_800A2410, D_800A2414;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15105CE0 CURRENT (5420) */
@@ -123,7 +118,7 @@ Game133190Object *func_15105CE0(Game133190Beam *arg0, s32 arg1, u8 arg2, s32 arg
 
     generation = arg2;
     count = arg0->count;
-    vectorBytes = (count + 2) * sizeof(Game133190Triple);
+    vectorBytes = (count + 2) * sizeof(Vec3i);
     result = func_15167A68(0x40, arg3, count * (u32)0x34 + vectorBytes + arg1 + 0x88, 1, generation, 1);
     if (result == NULL) {
         return NULL;
@@ -180,7 +175,7 @@ Game133190Object *func_15105CE0(Game133190Beam *arg0, s32 arg1, u8 arg2, s32 arg
         if (index == 0) {
             secondFlip = 0;
         }
-        descriptor.position = *(Game133190Triple *)((u8 *)arg0 + secondFlip * 12 + 4);
+        descriptor.position = *(Vec3i *)((u8 *)arg0 + secondFlip * 12 + 4);
         if (func_150ADA20() != 0) {
             vectorBytes = 0x40;
         } else {
@@ -226,10 +221,10 @@ void func_1510608C(void *arg0) {
         *(s16 *)((u8 *)arg0 + 0x68) = (s16)(*(s16 *)((u8 *)arg0 + 0x54) + (func_150ADA20() % (u32)(*(s16 *)((u8 *)arg0 + 0x56) + 1)));
     }
     if (*(void **)((u8 *)arg0 + 0x6C) != 0) {
-        *(Game133190Triple *)((u8 *)*(void **)((u8 *)arg0 + 0x6C) + 0x40) = *(Game133190Triple *)((u8 *)arg0 + 0x14);
+        *(Vec3i *)((u8 *)*(void **)((u8 *)arg0 + 0x6C) + 0x40) = *(Vec3i *)((u8 *)arg0 + 0x14);
     }
     if (*(void **)((u8 *)arg0 + 0x70) != 0) {
-        *(Game133190Triple *)((u8 *)*(void **)((u8 *)arg0 + 0x70) + 0x40) = *(Game133190Triple *)((u8 *)arg0 + 0x38);
+        *(Vec3i *)((u8 *)*(void **)((u8 *)arg0 + 0x70) + 0x40) = *(Vec3i *)((u8 *)arg0 + 0x38);
     }
 }
 s32 func_151061E0(s32 arg0) {
@@ -360,9 +355,9 @@ f32 func_151065EC(f32 arg0) {
 }
 typedef struct Game133190CurveObject {
     u8 pad0[0x14];
-    Game133190Triple first;
+    Vec3i first;
     u8 pad20[0x18];
-    Game133190Triple last;
+    Vec3i last;
     u8 pad44[4];
     s32 count;
     f32 scale;
@@ -388,8 +383,8 @@ void func_15106610(void *arg0) {
 
     control = (f32 *)func_151061E0((s32)arg0);
     output = func_151061EC((u8 *)arg0);
-    *(Game133190Triple *)output = obj->first;
-    ((Game133190Triple *)output)[obj->count + 1] = obj->last;
+    *(Vec3i *)output = obj->first;
+    ((Vec3i *)output)[obj->count + 1] = obj->last;
     count = 1;
     currentOutput = output + 3;
     currentControl = control;
@@ -457,7 +452,7 @@ void func_15106F50(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
     }
 }
 typedef struct Game133190FourTriples {
-    Game133190Triple values[4];
+    Vec3i values[4];
 } Game133190FourTriples;
 
 typedef struct Game133190SpawnPacket {
@@ -474,13 +469,13 @@ void *func_10022EC0(void *, const void *, u32);
 void func_151070F8(s32, s32, s16, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15106F98 CURRENT (505) */
-s32 func_15106F98(Game133190Triple *arg0, Game133190Triple *arg1,
+s32 func_15106F98(Vec3i *arg0, Vec3i *arg1,
                   s32 arg2, Game133190FourTriples *arg3, s32 arg4,
                   u8 arg5, u8 arg6, s32 arg7) {
     s32 result;
     Game133190SpawnPacket packet;
     u8 *object;
-    Game133190Triple *positions;
+    Vec3i *positions;
 
     packet.count = (1 << arg2) + 1;
     packet.field48 = 0;
@@ -492,8 +487,8 @@ s32 func_15106F98(Game133190Triple *arg0, Game133190Triple *arg1,
     if (result != 0) {
         object = (u8 *)result + 0x28;
         func_10022EC0(object, &packet, 0x44);
-        positions = (Game133190Triple *)(object + 0x48);
-        *(Game133190Triple **)(object + 0xC) = positions;
+        positions = (Vec3i *)(object + 0x48);
+        *(Vec3i **)(object + 0xC) = positions;
         positions[0] = *arg0;
         positions[packet.count - 1] = *arg1;
         func_151070F8(result, 0, (s16)(packet.count - 1), arg4);
@@ -691,12 +686,6 @@ void func_151078E4(void *arg0, s32 arg1, u8 arg2) {
 }
 void func_15107A20(void *, s16, s16, void *, void *);
 void func_15107AE0(void *, void *, void *, void *);
-
-typedef struct Game133190VectorWords {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game133190VectorWords;
 
 s32 func_15107924(void *arg0, s8 *arg1) {
     typedef struct { f32 x; f32 y; f32 z; } Vector;

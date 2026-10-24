@@ -14,4 +14,15 @@ typedef struct Vec3f {
     f32 z;
 } Vec3f;
 
+/* Three-word integer vector shared by the game overlay.
+ * Promoted from 33 identical source-local copies (s32 x, y, z at 0x0, 0x4,
+ * 0x8; size 0xC) under docs/decompilation-workflow.md, Shared type
+ * definitions. Matched bodies keep using the same field names.
+ */
+typedef struct Vec3i {
+    s32 x;
+    s32 y;
+    s32 z;
+} Vec3i;
+
 #endif

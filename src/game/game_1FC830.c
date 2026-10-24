@@ -164,24 +164,19 @@ void func_151D0F34(void *arg0) {
     func_151D0ED8(arg0);
     func_1513175C(arg0);
 }
-typedef struct Game1FC830Vector {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game1FC830Vector;
 
-typedef s32 (*Game1FC830PositionCallback)(void *, Game1FC830Vector *);
+typedef s32 (*Game1FC830PositionCallback)(void *, Vec3i *);
 extern Game1FC830PositionCallback D_8008FC30[];
-extern Game1FC830Vector D_800A5480;
+extern Vec3i D_800A5480;
 
 typedef struct Game1FC830ParticlePacket {
     void *object;
     u8 object_type;
     u8 pad5[3];
     s32 field_08;
-    Game1FC830Vector position;
-    Game1FC830Vector callback_position;
-    Game1FC830Vector default_position;
+    Vec3i position;
+    Vec3i callback_position;
+    Vec3i default_position;
     f32 field_30;
     u8 type;
     u8 pad35[3];
@@ -351,16 +346,10 @@ void func_151D13E0(Game1FC830ActorContext *arg0) {
 extern s32 D_80082FA0;
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
-typedef struct {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game1FC830Position;
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D1448 CURRENT (886) */
 void func_151D1448(u8 *arg0) {
     struct {
-        Game1FC830Position position;
+        Vec3i position;
         s16 type;
         s16 subtype;
         s32 mode;
@@ -405,7 +394,7 @@ void func_151D1448(u8 *arg0) {
     }
     packet.value = 0x19;
     packet.source_value = *(f32 *)(*(u8 **)link + 0x14C);
-    packet.position = *(Game1FC830Position *)(link + 0x18);
+    packet.position = *(Vec3i *)(link + 0x18);
     packet.type = 0x12C;
     packet.subtype = 0x36;
     packet.mode = 0x13;

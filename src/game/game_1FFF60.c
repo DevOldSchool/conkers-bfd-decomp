@@ -44,12 +44,6 @@ void func_151D2B4C(s32 arg0) {
 void *func_10022EC0(void *, const void *, u32);
 void func_151D3308(void *);
 
-typedef struct Game1FFF60Vec3 {
-    s32 x;
-    s32 y;
-    s32 z;
-} Game1FFF60Vec3;
-
 void *func_151D2BA4(s32 arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4) {
     void *temp_v0;
     void *sp24;
@@ -60,7 +54,7 @@ void *func_151D2BA4(s32 arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4) {
     }
     sp24 = temp_v0;
     func_10022EC0((u8 *)temp_v0 + 0x10, (void *)arg0, 0x24);
-    *(Game1FFF60Vec3 *)((u8 *)sp24 + 0x34) = *(Game1FFF60Vec3 *)arg1;
+    *(Vec3i *)((u8 *)sp24 + 0x34) = *(Vec3i *)arg1;
     func_151D3308(sp24);
     return sp24;
 }
@@ -90,7 +84,7 @@ typedef struct Game1FFF60Motion {
     u8 pad2B;
     s32 state;
     u8 pad30[4];
-    Game1FFF60Vec3 result;
+    Vec3i result;
 } Game1FFF60Motion;
 
 void func_15143134(f32 *, f32 *, s32);
@@ -100,7 +94,7 @@ extern void (*D_8008FC48[])(void *, void *);
 
 void func_151D2C40(Game1FFF60Motion *arg0) {
     s32 frame;
-    Game1FFF60Vec3 position;
+    Vec3i position;
     Game1FFF60MotionSource *source;
 
     source = arg0->source;

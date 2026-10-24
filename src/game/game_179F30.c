@@ -1287,10 +1287,7 @@ void func_1514EE70(u8 *arg0) {
     temp_v0 = func_1515BE50(&sp20, 0, 0xFF, 1);
     func_1514EC1C((s32)temp_v0, (s32)arg0, 0x16);
 }
-typedef struct Game179F30TrialVector {
-    s32 x, y, z;
-} Game179F30TrialVector;
-extern Game179F30TrialVector D_800A5934, D_800A5940, D_800A594C;
+extern Vec3i D_800A5934, D_800A5940, D_800A594C;
 extern f32 D_800A5E48, D_800A5E4C, D_800A5E50, D_800A5E54;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1514EECC CURRENT (5880) */
@@ -1321,8 +1318,8 @@ void func_1514EECC(void *arg0) {
         s32 sp114;
         s16 sp118, sp11A;
     } setup;
-    Game179F30TrialVector second;
-    Game179F30TrialVector first;
+    Vec3i second;
+    Vec3i first;
     func_1514EC1C((s32)func_15160A58(arg0, 1, &D_800A5934, 2, 0x12C, 2, 0xFF, 0, 0, 0xFF, 0, 3, 0, 0, 0xFF, 1), (s32) arg0, 0x19);
     setup.spC4 = 0x69;
     setup.sp104 = 0x04ED200A;

@@ -218,7 +218,6 @@ typedef struct BeeCavernBounds {
     u8 pad0[0x14C];
     f32 lower, upper;
 } BeeCavernBounds;
-typedef struct BeeCavernWords { s32 x, y, z; } BeeCavernWords;
 typedef struct BeeCavernHit {
     f32 height;
     s16 vertices[9];
@@ -229,7 +228,7 @@ typedef struct BeeCavernHit {
 } BeeCavernHit;
 typedef struct BeeCavernPrimary {
     s32 count, countRange;
-    BeeCavernWords position;
+    Vec3i position;
     s16 yaw, yawRange, pitch, pitchRange;
     f32 speed, speedRange, field24, field28;
     s16 timer, timerRange;
@@ -239,14 +238,14 @@ typedef struct BeeCavernPrimary {
 } BeeCavernPrimary;
 typedef struct BeeCavernSecondary {
     s32 count, countRange;
-    BeeCavernWords position;
+    Vec3i position;
     s16 yaw, yawRange, pitch, pitchRange;
     f32 speed, speedRange, field24, field28;
     s16 timer, timerRange;
     f32 field30, field34, field38;
 } BeeCavernSecondary;
 typedef struct BeeCavernParticles {
-    BeeCavernWords position;
+    Vec3i position;
     f32 fieldC, field10, field14, field18, field1C, field20;
     s16 count, countRange, timer, timerRange;
     s16 field2C, field2E, field30, field32;
@@ -269,7 +268,7 @@ extern f32 D_800A009C, D_800A00A0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150BE494 CURRENT (3231) */
 void func_150BE494(void *arg0, u8 arg1, s32 arg2) {
-    BeeCavernWords position;
+    Vec3i position;
     f32 upper;
     f32 lower;
     f32 radius;

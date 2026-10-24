@@ -2614,11 +2614,6 @@ void func_1512E4B0(u8 *);
 void func_151219D0(u8 *);
 void func_1512D380(s32);
 s32 func_15126378(u8 *);
-typedef struct CameraCameraTriple {
-    s32 x;
-    s32 y;
-    s32 z;
-} CameraCameraTriple;
 
 s32 func_15128540(u8 *arg0) {
     s32 temp_v0;
@@ -2632,8 +2627,8 @@ s32 func_15128540(u8 *arg0) {
     temp_v0 = *(s32 *)(arg0 + 0x2C);
     if (temp_v0 & 0x80000) {
         func_1512A360(arg0);
-        *(CameraCameraTriple *)(arg0 + 0x2BC) =
-            *(CameraCameraTriple *)(arg0 + 0x2A4);
+        *(Vec3i *)(arg0 + 0x2BC) =
+            *(Vec3i *)(arg0 + 0x2A4);
         func_151256BC(arg0);
         func_151236D0(arg0);
         func_151284C4((CameraCameraTargetState *)arg0);
