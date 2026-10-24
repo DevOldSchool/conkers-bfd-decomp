@@ -208,7 +208,7 @@ void func_15116BAC(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_143DE0/func_15116BAC.s")
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15116D7C CURRENT (285) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15116D7C CURRENT (105) */
 void func_15116D7C(f32 *arg0) {
     volatile f32 *var_a1;
     f32 *var_a2;
@@ -219,10 +219,10 @@ void func_15116D7C(f32 *arg0) {
     f32 rate;
     s32 var_v1;
 
-    temp_fa1 = (f32) *(s32 *)((u8 *)arg0 + 0x3C);
+    temp_fv0 = ((f32) *(s32 *)((u8 *)arg0 + 0x3C)) * 0.00390625f;
     temp_fa0 = (f32) D_800BE9E4;
     rate = temp_fa0;
-    temp_fv0 = temp_fa1 * 0.00390625f;
+    temp_fa1 = (f32) *(s32 *)((u8 *)arg0 + 0x3C);
     var_a1 = (f32 *)((u8 *)arg0 + 0x60);
     var_a2 = (f32 *)((u8 *)arg0 + 0x7C);
     var_a3 = arg0;

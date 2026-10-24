@@ -472,17 +472,17 @@ u8 *func_1505F0AC(u8);
 void func_15060F28(u8 *, s32);
 extern s32 D_800CC2D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150836CC CURRENT (330) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150836CC CURRENT (165) */
 void func_150836CC(void *arg0, s32 arg1) {
     s32 var_s1;
     u8 *temp_v0;
     GameAEB40EntryList *temp_s2;
 
     func_150302F0(arg0, arg1);
-    arg1 -= 1;
     temp_s2 = &D_80086CC4[arg1];
     var_s1 = 0;
     arg1 = (s32)temp_s2->entries;
+    arg1 -= 1;
     if ((s32)temp_s2->count > 0) {
         do {
             if (((u8 *)arg1)[3] == 0) {

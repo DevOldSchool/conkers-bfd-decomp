@@ -4,6 +4,7 @@
 #include "types.h"
 #include "game_command.h"
 #include "game_vec.h"
+#include "game_collision.h"
 
 struct Game15D730CopyBlock;
 struct Game13AAE0ValueList;

@@ -16368,8 +16368,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 275,
-        "reason": "Named base/index lifetimes and pointer argument improve780 to275. Remaining initial count load hoist versus zero stores and one ADDU operand order. Explicit cached count both volatile/plain hoists S4 and enlarges frame934. Best275 after4 manual revisions; callback ABI unchanged.",
+        "current_score": 150,
+        "reason": "CURRENT (150), round22 msweep move op (move7_10: one statement moved within its straight-line run) (stored 275). Earlier: Named base/index lifetimes and pointer argument improve780 to275. Remaining initial count load hoist versus zero stores and one ADDU operand order. Explicit cached count both volatile/plain hoists S4 and enlarges frame934. Best275 after4 manual revisions; callback ABI unchanged.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -32283,8 +32283,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 335,
-        "reason": "Manual budget exhausted; retain best CURRENT335 with exact opcodes/control flow, remaining stack homes and saved-pointer ownership.",
+        "current_score": 203,
+        "reason": "CURRENT (203), round22 msweep move op (move15_13: one statement moved within its straight-line run) (stored 335). Earlier: Manual budget exhausted; retain best CURRENT335 with exact opcodes/control flow, remaining stack homes and saved-pointer ownership.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -38060,8 +38060,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 330,
-        "reason": "Legacy2195 invalid: omitted table indirection, scanned four streams instead of raw bytecount0+=4 bound4, and narrowed every count update. Corrected valid330 after four hypotheses and restoration. Missing initial cursor MOVE plus18GPR rows remain; pointer snapshot improves425to330, numeric cursor and fullword tag-state both neutral330. No fresh lifetime evidence. Invalid original saved privately; best wrapping-address/u32-count candidate preserved. Ledger deferred-exact-20261005.",
+        "current_score": 150,
+        "reason": "CURRENT (150), round22 msweep move op (move16_14: one statement moved within its straight-line run) (stored 330). Earlier: Legacy2195 invalid: omitted table indirection, scanned four streams instead of raw bytecount0+=4 bound4, and narrowed every count update. Corrected valid330 after four hypotheses and restoration. Missing initial cursor MOVE plus18GPR rows remain; pointer snapshot improves425to330, numeric cursor and fullword tag-state both neutral330. No fresh lifetime evidence. Invalid original saved privately; best wrapping-address/u32-count candidate preserved. Ledger deferred-exact-20261005.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -39328,17 +39328,16 @@
       "symbol": "func_1501DAAC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "CURRENT (30) improved from 110 (deferred-game-oct16d): natural for loop over 0x32C actor rows. Only s2/s3 swap remains: raw allocates constant 25 to s2 before D_800C3E78 address (same as sibling func_1502378C); decl/condition/actor-local variants and permute neutral. Round19 2026-10-22: randomized permuter 60 s (seed 3899371814) no exact; best CURRENT (30).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 236,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501DE18",
           "vram": "0x1501DE18"
         }
@@ -40120,8 +40119,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 245,
-        "reason": "CURRENT (245), improved from 460 in round9: natural for loop over 25 0x32C actors with actor initialized at declaration and i = 0 before the D_800C3654 early return. Residual: s2/s3/s4 rotation (raw bound 25 in s2, &D_800C3E78 in s3, 1 in s4); while/do/!= loop forms and deterministic permute all 245",
+        "current_score": 100,
+        "reason": "CURRENT (100): round22 continue-form loop body (if (*(s32 *)actor == 0) continue;) fixes the s2/s3/s4 rotation (245->145 stored, 145->100); every instruction now matches and the only residual is the unit-end alignment nop at e0 (last function of game_49D30; mixed-unit focused object places it 0 mod 16 vs ROM 0xC mod 16). Blocked on registered-span/padding tooling, not C.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -41768,8 +41767,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 365,
-        "reason": "Manual natural three-vertex loop/preloads improved5196 to365. All FP instructions/registers exact; integer induction roles/input-byte counter differ. Exhausted explicit output-byte and shared record indexing; preserved365.",
+        "current_score": 230,
+        "reason": "CURRENT (230), round22 msweep move op (move15_13: one statement moved within its straight-line run) (stored 365). Earlier: Manual natural three-vertex loop/preloads improved5196 to365. All FP instructions/registers exact; integer induction roles/input-byte counter differ. Exhausted explicit output-byte and shared record indexing; preserved365.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -42705,8 +42704,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 330,
-        "reason": "CURRENT (330) after two manual revisions; argument/entry-pointer register reuse matches, but load/counter initialization ordering and loop constant setup still differ",
+        "current_score": 165,
+        "reason": "CURRENT (165), round22 msweep move op (move6_9: one statement moved within its straight-line run) (stored 330). Earlier: CURRENT (330) after two manual revisions; argument/entry-pointer register reuse matches, but load/counter initialization ordering and loop constant setup still differ",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -53638,17 +53637,16 @@
       "symbol": "func_1512D070"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 240,
-        "reason": "extended manual m2c and exhaustive 1000-variant permutation pass: improved to CURRENT (240); remaining frame-size, low-address scheduling, and delayed v0 store differences",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 172,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1512D238",
           "vram": "0x1512D238"
         }
@@ -55740,17 +55738,16 @@
       "symbol": "func_151A3BE4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 459,
-        "reason": "Combined removal of selector and scale captures: probe559, authoritative full-span finish CURRENT459 (stored716 before); frame corrected0x50 to0x48. Early packet writes improve; late and typed variants2580. Remaining12 register,5 operand,5 scheduling rows; no match credit.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 168,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A4590",
           "vram": "0x151A4590"
         }
@@ -62483,8 +62480,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 355,
-        "reason": "Manual889->407->355: volatile owner home with two snapshots, helper interior field0, inline compound timer decrement. Exact frame20/spill18 recovered. Used pointer record363 regressed spill; restored355. Remaining named-owner GPR allocation and duplicate interior copy. Ledger deferred-manual-20260927.",
+        "current_score": 74,
+        "reason": "CURRENT (74), round22 (stored 355): dropping the volatile qualifier on arg0 (msweep unvol op) leaves only frame/stack rows: candidate frame 0x28 vs 0x20 (reference: 1 named home at 0x1C, temp_v1 spill at 0x18, arg0 reloaded from its home). Single named state local 82, removing owner 82, removing temp_v1 2010, swapped declaration order 74.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -62601,17 +62598,16 @@
       "symbol": "func_15188810"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 260,
-        "reason": "Best valid260: actual list cursor/allocated node pointer reuse855to785, one pre-search threshold snapshot785to260. Full268B frame20/homes/count and search control correct; thresholdV0/rawT8 cascades registers, node-store/call-constant scheduling remains. Two fresh revisions exhausted, no shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 268,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1518894C",
           "vram": "0x1518894C"
         }
@@ -64093,8 +64089,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 375,
-        "reason": "2085 improved to valid375 after five hypotheses plus restoration: fullword index, raw repeated word loads, captured old output count, shared tag/count/nextword lifetime, actual byte snapshot. Remaining21GPR rows, reversed global-base creation and early counter increment. Direct final extraction500 removes A2 but regresses store scheduling; assignment-in-index neutral500. Both alternatives retained privately; no fresh narrow hypothesis. See deferred-exact-20261005 ledger.",
+        "current_score": 300,
+        "reason": "CURRENT (300), round22 msweep move op (move19_17: one statement moved within its straight-line run) (stored 375). Earlier: 2085 improved to valid375 after five hypotheses plus restoration: fullword index, raw repeated word loads, captured old output count, shared tag/count/nextword lifetime, actual byte snapshot. Remaining21GPR rows, reversed global-base creation and early counter increment. Direct final extraction500 removes A2 but regresses store scheduling; assignment-in-index neutral500. Both alternatives retained privately; no fresh narrow hypothesis. See deferred-exact-20261005 ledger.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -68514,17 +68510,16 @@
       "symbol": "func_150FEBC8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 216,
-        "reason": "CURRENT (216) after two manual revisions; body has zero register/control-flow differences, but the live random local is at stack 0x4c instead of 0x44 and the registered reference span has two additional trailing NOPs",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 264,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150FEC28",
           "vram": "0x150FEC28"
         }
@@ -69427,8 +69422,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 268,
-        "reason": "Manual budget exhausted: best CURRENT 268; original frame and FP ownership recovered, template spill and reference-base load schedule remain",
+        "current_score": 10,
+        "reason": "CURRENT (10), round22 (stored 268): msweep move 78, inl template 70, then swapping the two vertex .y sums to values->data[0][1] + *values->data[3] fixes the data[0]/data[3] load order -> 10. Only residual: slot address addu operand order (raw addu v0,s0(owner),t9(index*4)). Tried index*4, 4*index, << 2, (u8 **) arithmetic, &((u8 **)owner)[i], buffers[] array (210-1334), (s16) cast param (1075); randomized permute 60 s seed 1078693326 no improvement.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -71725,8 +71720,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 290,
-        "reason": "Useful complete script/camera implementation; CURRENT 290 after 845 -> 590 -> 290, initial plus two revisions exhausted. Frame 0x30 and control flow match; 27 register rows and four reordered rows remain around global script ID and final settings/float loads. Next hypothesis: explicit global ID lifetime without invented ABI or volatile fields.",
+        "current_score": 170,
+        "reason": "CURRENT (170), round22 msweep move op (move65_63: one statement moved within its straight-line run) (stored 290). Earlier: Useful complete script/camera implementation; CURRENT 290 after 845 -> 590 -> 290, initial plus two revisions exhausted. Frame 0x30 and control flow match; 27 register rows and four reordered rows remain around global script ID and final settings/float loads. Next hypothesis: explicit global ID lifetime without invented ABI or volatile fields.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -73770,8 +73765,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 266,
-        "reason": "Manual typed particle/light descriptors match all but three pre-RNG store-scheduling rows (CURRENT 266). Legacy RNG declaration unchanged; byte-array light storage 271. Bounded source hypotheses exhausted.",
+        "current_score": 180,
+        "reason": "CURRENT (180), round22 msweep move op (move12_9: one statement moved within its straight-line run) (stored 266). Earlier: Manual typed particle/light descriptors match all but three pre-RNG store-scheduling rows (CURRENT 266). Legacy RNG declaration unchanged; byte-array light storage 271. Bounded source hypotheses exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -77090,17 +77085,16 @@
       "symbol": "func_15113218"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 60,
-        "reason": "Round18 2026-10-21: CURRENT 185 -> 60 by reading each draw entry directly from **table + index * 4 in the call arguments (no entry or offset locals). Residual: raw schedules move s1,zero after the loop-invariant setup instead of the blez delay slot; offset-step and << forms 90-3097; randomized permuter 300s found no exact output.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 528,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151135C4",
           "vram": "0x151135C4"
         }
@@ -77111,8 +77105,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 140,
-        "reason": "unstarted first candidate: frame/homes exact (alpha then start); residuals: flags copy move v0,v1 scheduled before the andi (raw in beqz delay slot) and final pipe-sync cursor in v1 vs v0; overflow if/else/ternary, joined last blocks, block-scoped overflow, s32 flags tried; randomized permute 60 s no improvement",
+        "current_score": 15,
+        "reason": "CURRENT (15), round22 (stored 140): msweep reuse op reads arg1->effectFlags directly in the outer if (flags local kept for the bit tests) fixes the flags-copy schedule. Only residual: final E7000000 pipe-sync command cursor in v1 instead of v0 (3 register rows). Tried after the change: overflow ternary/if-else (15), overflow=0;if (745), plain compare (1040), block-scoped overflow (745), joined D9EE/E7 blocks or E7+overflow line (15), if (overflow) (15), ternary return (490); randomized permute 60 s seed 528355532 best 15.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -79003,8 +78997,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 285,
-        "reason": "Resumed batch20261015-1505: preserve CURRENT285. New hypotheses/probes/searches and rejected forms recorded in build/us/manual-attempts/resume-20261015-1706/ledger.md; pending further expanded search for improved candidates. Prior exhausted context: Manual corrected float strides/reloads and natural three-element loop3985->285; exact integer/control sequence, remaining FP register allocation. Register qualifiers neutral. Best ledger deferred-manual-20260928.",
+        "current_score": 105,
+        "reason": "CURRENT (105), round22 msweep move+reuse (reuse10_11+move10_13 on top of move13_11) (stored 210). Earlier: CURRENT (210), round22 msweep move op (move13_11: one statement moved within its straight-line run) (stored 285). Earlier: Resumed batch20261015-1505: preserve CURRENT285. New hypotheses/probes/searches and rejected forms recorded in build/us/manual-attempts/resume-20261015-1706/ledger.md; pending further expanded search for improved candidates. Prior exhausted context: Manual corrected float strides/reloads and natural three-element loop3985->285; exact integer/control sequence, remaining FP register allocation. Register qualifiers neutral. Best ledger deferred-manual-20260928.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -88868,8 +88862,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 293,
-        "reason": "Manual post-call field reads and genuine pointer home improve3336 to CURRENT293. Remaining home1C versus18, interior-store folding and float roles/add pairs. Natural pointer rematerializes; declaration/input lifetime probes neutral. Best293 restored.",
+        "current_score": 35,
+        "reason": "CURRENT (35), round22 (stored 293): msweep move (state = arg0 + 0x170 at top) 83, reuse x2 (direct state+0x18/state+0xC re-reads) 43, declaration permutation (timer declared before saved) fixes the 0x18 spill home -> 35. Residual: timer in f14 vs f12 and two add.s pairs (amplitude second). amplitude-first source order neutral (35); += direct-field forms 595-840. Separate natural rewrite (no volatile, direct fields, += forms, block-scoped rate) fixes all add orders but has 3 named homes vs reference 1 (frame 0x30 vs 0x20, 125): build/us/manual-attempts/round22/b9214/n4.c.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

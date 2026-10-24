@@ -29,12 +29,12 @@ typedef struct Game1199D0Motion {
 } Game1199D0Motion;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150EC520 CURRENT (262) */
-void func_150EC520(u8 *arg0, void *arg1) {
+void func_150EC520(u8 *arg0) {
     Game1199D0Motion motion;
     u8 *state;
     s32 spawned;
 
-    if (func_151464B8(*(s32 *)(arg0 + 0x30), arg1) == 0) {
+    if (func_151464B8(*(s16 **)(arg0 + 0x30)) == 0) {
         state = arg0 + 0x28;
         *(f32 *)(state + 0xC) +=
             (D_800A1570 + func_150ADA68() * D_800A1574) *

@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151A37C0
  * - func_151A3BE4
- * - func_151A4590
  * - func_151A4638
  * - func_151A4A38
  * - func_151A4ECC
@@ -355,7 +354,6 @@ s32 func_151A37C0(Game1D0840TimedObject *object) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A3BE4.s")
 extern f32 D_800A8D5C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4590 CURRENT (459) */
 void func_151A4590(void *arg0, u8 arg1) {
     struct {
         s32 zero0;
@@ -377,27 +375,25 @@ void func_151A4590(void *arg0, u8 arg1) {
         s8 d;
     } packet;
 
-    if (arg0 != 0) {
+    if (0 != arg0) {
         packet.zero0 = 0;
         packet.zero4 = 0;
         packet.selector = *(u8 *)((u8 *)arg0 + 0x3B);
-        packet.scale = D_800A8D5C;
+        packet.x = 0.0f;
+        packet.y = 0.0f;
+        packet.z = 0.0f;
         packet.kind = 1;
+        packet.scale = D_800A8D5C;
         packet.lifetime = 0x64;
         packet.a = 0xA;
         packet.b = 1;
         packet.c = -1;
         packet.d = 0;
         packet.object = arg0;
-        packet.x = 0.0f;
-        packet.y = 0.0f;
-        packet.z = 0.0f;
         packet.size = 3.0f;
         func_1513418C((void *)&packet, 0, arg1, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A4590 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4590.s")
 typedef struct Game1D0840EmitterPacket {
     u32 field00;
     s32 field04;

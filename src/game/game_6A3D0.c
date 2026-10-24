@@ -333,7 +333,7 @@ s32 func_1503D804(s32 arg0) {
 extern s32 D_800C4488;
 extern s16 D_800C5918;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D984 CURRENT (330) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D984 CURRENT (150) */
 void func_1503D984(s32 arg0) {
     u32 count;
     s32 stream;
@@ -348,9 +348,9 @@ void func_1503D984(s32 arg0) {
 next_stream:
     {
         start = *(u32 **)list;
+        record = (u32)start;
         stream += 4;
         tag = (s8)(start[0] >> 24);
-        record = (u32)start;
         while (tag != -0x21) {
             if (tag == 5) {
                 count += 1;

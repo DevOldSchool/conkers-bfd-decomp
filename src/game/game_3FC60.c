@@ -33,7 +33,7 @@ extern u8 D_800BE530[];
 extern s16 D_800BE550[];
 extern u8 D_800BE564;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15012ED8 CURRENT (375) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15012ED8 CURRENT (300) */
 void func_15012ED8(u32 *arg0) {
     u32 index;
     s32 tag;
@@ -51,9 +51,9 @@ void func_15012ED8(u32 *arg0) {
             D_800BE550[tag] = index;
             output = D_800BE530 + (tag * 3);
             output[0] = (u8)(record[1] >> 24);
+            D_800BE564 = tag + 1;
             output[1] = (u8)(record[1] >> 16);
             value = (u8)(record[1] >> 8);
-            D_800BE564 = tag + 1;
             output[2] = value;
         }
         tag = record[2];

@@ -38,15 +38,6 @@ s32 func_150BA930(f32 *arg0, u8 *arg1, void *arg2, s32 arg3) {
 s32 func_150BAA00(s32 arg0, s32 arg1) {
     return 9;
 }
-typedef struct GameE7DE0Hit {
-    f32 height;
-    s16 points[9];
-    s32 object;
-    u8 flags;
-    u8 active;
-    u8 pad1E[2];
-    s32 field20;
-} GameE7DE0Hit;
 
 s32 func_150BA930(f32 *, u8 *, void *, s32);
 u8 func_15143E94(s32, s32);
@@ -60,7 +51,7 @@ extern u8 *D_800DBFF0;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150BAA14 CURRENT (188) */
 void func_150BAA14(u8 *volatile arg0, u8 arg1, s32 arg2) {
     f32 position[3];
-    GameE7DE0Hit hit;
+    Game71820Hit hit;
     s32 angle;
     u8 found;
     f32 random;

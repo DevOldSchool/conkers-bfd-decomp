@@ -139,7 +139,7 @@ s32 func_15044380(f32 arg0, f32 arg1, f32 arg2, Game71820Global *arg3, s32 arg4,
 #endif /* CONKER_DEFERRED_CANDIDATE func_15044380 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044380.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504452C CURRENT (365) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504452C CURRENT (230) */
 void func_1504452C(s32 *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32 arg7) {
     f32 (*output)[3] = arg1;
     s16 *vertex;
@@ -153,9 +153,9 @@ void func_1504452C(s32 *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5
         x = (f32)vertex[0] - arg4;
         y = (f32)vertex[1] - arg5;
         z = (f32)vertex[2] - arg6;
+        output[i][1] = y;
         output[i][0] = x * arg3 + z * arg2;
         output[i][2] = z * arg3 - x * arg2;
-        output[i][1] = y;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1504452C */
@@ -410,16 +410,6 @@ void func_15044E88(void) {
         func_1505D024(D_800CC2D0, 1, *(u16 *)(D_800CC2D0 + 0x7A), -1);
     }
 }
-
-typedef struct Game71820Hit {
-    f32 height;
-    s16 points[9];
-    s32 object;
-    u8 flags;
-    u8 active;
-    u8 pad1E[2];
-    s32 field20;
-} Game71820Hit;
 
 typedef struct Game71820Candidate {
     s32 height;

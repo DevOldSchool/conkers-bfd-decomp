@@ -53,7 +53,7 @@ extern s32 D_80088710;
 extern f32 D_8009FCF0;
 extern f32 D_8009FCF4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B67E0 CURRENT (290) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B67E0 CURRENT (170) */
 void func_150B67E0(ScriptCameraActor *arg0) {
     s32 temp_s0;
     s32 temp_v0;
@@ -117,9 +117,9 @@ void func_150B67E0(ScriptCameraActor *arg0) {
             func_151254F4(arg0, arg0->owner->camera - 1);
             arg0->field134 = 0;
         }
+        arg0->scale = (f32) D_8009FCF4;
         arg0->heightB = 450.0f;
         arg0->heightA = 450.0f;
-        arg0->scale = (f32) D_8009FCF4;
         if (*arg0->settings & 4) {
             arg0->angle = 0.0f;
             return;

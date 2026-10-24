@@ -11690,7 +11690,7 @@
         "us": {
           "end": "0xFED30",
           "start": "0xFE860",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_12BD10.c"

@@ -29,16 +29,6 @@ void func_151CF844(void *arg0, s32 arg1, u8 arg2) {
     }
 }
 
-typedef struct Game71820Hit {
-    f32 height;
-    s16 points[9];
-    s32 object;
-    u8 flags;
-    u8 active;
-    u8 pad1E[2];
-    s32 field20;
-} Game71820Hit;
-
 f32 func_150ADA68(void);
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
