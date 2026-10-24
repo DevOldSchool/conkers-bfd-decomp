@@ -636,7 +636,7 @@ segments:
       - [0x18BA90, c, game/game_1B8F40]
       - [0x18BD60, c, game/game_1B9210]
       - [0x18C900, c, done/game/game_1B9DB0]
-      - [0x18CA80, c, game/game_1B9F30]
+      - [0x18CA80, c, done/game/game_1B9F30]
       - [0x18CD20, c, game/game_1BA1D0]
       - [0x18D1C0, c, game/game_1BA670]
       - [0x18E4A0, c, game/game_1BB950]

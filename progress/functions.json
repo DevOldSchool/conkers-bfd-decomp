@@ -64576,7 +64576,7 @@
           "vram": "0x1518CA80"
         }
       },
-      "source": "src/game/game_1B9F30.c",
+      "source": "src/done/game/game_1B9F30.c",
       "symbol": "func_1518CA80"
     },
     {
@@ -64594,7 +64594,7 @@
           "vram": "0x1518CCA8"
         }
       },
-      "source": "src/game/game_1B9F30.c",
+      "source": "src/done/game/game_1B9F30.c",
       "symbol": "func_1518CCA8"
     },
     {
