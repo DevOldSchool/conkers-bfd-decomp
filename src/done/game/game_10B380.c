@@ -4,12 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_10B380.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_code_selected_callback_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150DDFAC
- * - func_150DE12C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_150DDED0(void *arg0) {
@@ -66,15 +60,21 @@ typedef struct {
     u8 unknown_20[8];
 } Game10B380Packet;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DDFAC CURRENT (60) */
+typedef struct Game10B380Entry {
+    f32 x;
+    f32 y;
+    f32 z;
+    u8 padC[8];
+} Game10B380Entry;
+
 s32 func_150DDFAC(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, void *arg5) {
     void *sp8C;
-    s32 sp88;
+    Game10B380Entry *sp88;
     Game10B380Packet packet;
     f32 sp5C;
 
     sp8C = *(void **)(arg0 + 0x98);
-    sp88 = *(s32 *)(arg0 + 0x94);
+    sp88 = *(Game10B380Entry **)(arg0 + 0x94);
     sp5C = (func_150ADA68() * 70.0f) + 10.0f;
     *(s8 *)((u8 *)sp8C + 0x20) = 4;
     switch (func_150ADA20() & 1) {
@@ -96,21 +96,18 @@ s32 func_150DDFAC(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, void *arg5) 
     packet.field_14 = 0;
     packet.field_15 = 0xFF;
     packet.field_18 = 0x30002;
-    func_1513C73C((s32)&packet, 5, 0, arg5, *(f32 *)(sp88 + ((s8)arg0[0x2D] * 0x14)), arg4, *(f32 *)(sp88 + ((s8)arg0[0x2D] * 0x14) + 8), sp5C, sp5C, func_150ADA20() & 0xFF, (func_150ADA20() & 1) + (func_150ADA20() & 1), 0, arg0[0xC], arg0[1]);
+    func_1513C73C((s32)&packet, 5, 0, arg5, sp88[(s8)arg0[0x2D]].x, arg4, sp88[(s8)arg0[0x2D]].z, sp5C, sp5C, func_150ADA20() & 0xFF, (func_150ADA20() & 1) + (func_150ADA20() & 1), 0, arg0[0xC], arg0[1]);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150DDFAC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10B380/func_150DDFAC.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DE12C CURRENT (60) */
 s32 func_150DE12C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, void *arg5) {
     void *sp8C;
-    s32 sp88;
+    Game10B380Entry *sp88;
     Game10B380Packet packet;
     f32 sp5C;
 
     sp8C = *(void **)(arg0 + 0x98);
-    sp88 = *(s32 *)(arg0 + 0x94);
+    sp88 = *(Game10B380Entry **)(arg0 + 0x94);
     sp5C = (func_150ADA68() * 10.0f) + 10.0f;
     *(s8 *)((u8 *)sp8C + 0x20) = 4;
     switch (func_150ADA20() & 1) {
@@ -132,11 +129,9 @@ s32 func_150DE12C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, void *arg5) 
     packet.field_14 = 0;
     packet.field_15 = 0xAA;
     packet.field_18 = 0x30002;
-    func_1513C73C((s32)&packet, 5, 0, arg5, *(f32 *)(sp88 + ((s8)arg0[0x2D] * 0x14)), arg4, *(f32 *)(sp88 + ((s8)arg0[0x2D] * 0x14) + 8), sp5C, sp5C, func_150ADA20() & 0xFF, (func_150ADA20() & 1) + (func_150ADA20() & 1), 0, arg0[0xC], arg0[1]);
+    func_1513C73C((s32)&packet, 5, 0, arg5, sp88[(s8)arg0[0x2D]].x, arg4, sp88[(s8)arg0[0x2D]].z, sp5C, sp5C, func_150ADA20() & 0xFF, (func_150ADA20() & 1) + (func_150ADA20() & 1), 0, arg0[0xC], arg0[1]);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150DE12C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10B380/func_150DE12C.s")
 typedef struct Game10B380Object {
     u8 pad0[0x1C];
     s16 field_1C;

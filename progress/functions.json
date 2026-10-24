@@ -2928,8 +2928,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1894,
-        "reason": "Manual budget exhausted: best CURRENT 1894; float phase reuse recovers paired Y/X stores, frame100 versus F8 and packet/spill offsets plus schedule and GPR differences remain. Full packet copies audited: unwritten option fields are disabled for selected flags and callbacks; no shared edits.",
+        "current_score": 830,
+        "reason": "CURRENT (830), round22 state-first local order, inline RNG args, PipeExplodeEntry array indexing for both point reads (frame 0xF8 exact; residual: raw hoists li v1,0x14 / points reload / arg4 load / 0.75f before the render stores; moving the trail statements earlier 3025) (stored 1894). Earlier: Manual budget exhausted: best CURRENT 1894; float phase reuse recovers paired Y/X stores, frame100 versus F8 and packet/spill offsets plus schedule and GPR differences remain. Full packet copies audited: unwritten option fields are disabled for selected flags and callbacks; no shared edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -74811,7 +74811,7 @@
           "vram": "0x150DDED0"
         }
       },
-      "source": "src/game/game_10B380.c",
+      "source": "src/done/game/game_10B380.c",
       "symbol": "func_150DDED0"
     },
     {
@@ -74829,45 +74829,43 @@
           "vram": "0x150DDF88"
         }
       },
-      "source": "src/game/game_10B380.c",
+      "source": "src/done/game/game_10B380.c",
       "symbol": "func_150DDF88"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 60,
-        "reason": "Round19 2026-10-22: CURRENT (60). The three func_150ADA20 calls are written inline in the func_1513C73C argument list and the entry address inline (315 -> 60, frame 0x90 exact; the old sp50/sp54/sp4C/entry locals cost the extra words). Residual: t-register numbering of the entry address (raw t9/t8/t0). Operand orders, f32 indexing and a one-line call stay 60; 60 s permuter best 50 adds a redundant arg0[1] & 0xFF on a u8 (rejected).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 384,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150DDFAC",
           "vram": "0x150DDFAC"
         }
       },
-      "source": "src/game/game_10B380.c",
+      "source": "src/done/game/game_10B380.c",
       "symbol": "func_150DDFAC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 60,
-        "reason": "Round19 2026-10-22: CURRENT (60). Twin of func_150DDFAC with the same rewrite: three func_150ADA20 calls inline in the func_1513C73C arguments and the entry address inline (315 -> 60, frame 0x90 exact). Residual: entry-address t-register numbering, identical to func_150DDFAC; 60 s permuter found no improvement.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 376,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150DE12C",
           "vram": "0x150DE12C"
         }
       },
-      "source": "src/game/game_10B380.c",
+      "source": "src/done/game/game_10B380.c",
       "symbol": "func_150DE12C"
     },
     {
@@ -74885,7 +74883,7 @@
           "vram": "0x150DE2A4"
         }
       },
-      "source": "src/game/game_10B380.c",
+      "source": "src/done/game/game_10B380.c",
       "symbol": "func_150DE2A4"
     },
     {
@@ -74903,7 +74901,7 @@
           "vram": "0x150DE2C4"
         }
       },
-      "source": "src/game/game_10B380.c",
+      "source": "src/done/game/game_10B380.c",
       "symbol": "func_150DE2C4"
     },
     {
@@ -79492,8 +79490,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2172,
-        "reason": "Original2172 restored: direct flags3697, ordered lifetime reuse2435, nested RNG/four scalars2960 fail full-span improvement. Structural frame88 probe saved separately; no useful remaining hypothesis.",
+        "current_score": 1631,
+        "reason": "CURRENT (1631), round22 all-s32 caller ABI (pun reads; matched callers in game_105A40.c/game_1E73B0.c declare s32), var_v1/var_v0 reused for the flag bits and the control pair, style via named var_v0, inline RNG (frame 0x88 but packet at 0x60: raw has one named word above the packet at 0x84 and only 3 non-named words; every inline-RNG form here costs 4) (stored 2172). Earlier: Original2172 restored: direct flags3697, ordered lifetime reuse2435, nested RNG/four scalars2960 fail full-span improvement. Structural frame88 probe saved separately; no useful remaining hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -91284,8 +91282,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2441,
-        "reason": "Validity-corrected reviewed candidate CURRENT 2441. Numeric truncation casts and explicit byte-low-high RNG draw sequence replace invalid scalar-parameter home forcing and incorrect prior RNG order. Old score 795 is superseded and invalid for comparison. Measurement-only correction; no shape experiments authorized.",
+        "current_score": 2294,
+        "reason": "CURRENT (2294), round22 s32 enabled declared before the particle (raw 0x8C), inline RNG args, cast ABI kept (frame 0x98 vs 0x90: inline RNG costs 4-5 words here, raw has 3 + 1 unused bottom word) (stored 2441). Earlier: Validity-corrected reviewed candidate CURRENT 2441. Numeric truncation casts and explicit byte-low-high RNG draw sequence replace invalid scalar-parameter home forcing and incorrect prior RNG order. Old score 795 is superseded and invalid for comparison. Measurement-only correction; no shape experiments authorized.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
