@@ -64580,17 +64580,16 @@
       "symbol": "func_1518CA80"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 460,
-        "reason": "Recovered packed 16-bit deltas, state fields 0x14/0x34-0x3B, and callback table typing; remaining register allocation plus three registered tail nops leave CURRENT 460 after three variants",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 120,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1518CCA8",
           "vram": "0x1518CCA8"
         }
