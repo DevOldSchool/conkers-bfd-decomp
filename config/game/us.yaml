@@ -375,7 +375,7 @@ segments:
       - [0xD7630, c, game/game_104AE0]
       - [0xD82B0, c, game/game_105760]
       - [0xD8590, c, game/game_105A40]
-      - [0xD88E0, c, game/game_105D90]
+      - [0xD88E0, c, done/game/game_105D90]
       - [0xD8B10, c, game/game_105FC0]
       - [0xDAE70, c, game/game_108320]
       - [0xDB630, c, game/game_108AE0]

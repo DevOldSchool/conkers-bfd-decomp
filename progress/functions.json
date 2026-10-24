@@ -65973,7 +65973,7 @@
           "vram": "0x150D88E0"
         }
       },
-      "source": "src/game/game_105D90.c",
+      "source": "src/done/game/game_105D90.c",
       "symbol": "func_150D88E0"
     },
     {
@@ -65991,26 +65991,25 @@
           "vram": "0x150D8A20"
         }
       },
-      "source": "src/game/game_105D90.c",
+      "source": "src/done/game/game_105D90.c",
       "symbol": "func_150D8A20"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 531,
-        "reason": "Manual1206->531: removed unsupported fourth argument and actor copy; entire body exact. Remaining prologue byte-load/RA scheduling and branch-likely tail. Volatile formal881 regressed; restored531. Ledger deferred-manual-20260928.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 220,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D8A34",
           "vram": "0x150D8A34"
         }
       },
-      "source": "src/game/game_105D90.c",
+      "source": "src/done/game/game_105D90.c",
       "symbol": "func_150D8A34"
     },
     {

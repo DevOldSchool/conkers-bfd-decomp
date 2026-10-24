@@ -10846,15 +10846,15 @@
         "func_150D8A20",
         "func_150D8A34"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xD8B10",
           "start": "0xD88E0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_105D90.c"
+      "source": "src/done/game/game_105D90.c"
     },
     {
       "boundary_evidence": {
