@@ -52833,17 +52833,16 @@
       "symbol": "func_151511FC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1114,
-        "reason": "CURRENT1114 from1649. Local byte snapshot improves masking and register allocation but frame118 versus110 leaves stack objects8high; entry masking and saved-register allocation still differ. Two finishes and two bounded revision probes plus one unchanged layout diagnostic. Inlining integer RNG did not improve; preserve named RNG call order. Budget exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 968,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15151670",
           "vram": "0x15151670"
         }
