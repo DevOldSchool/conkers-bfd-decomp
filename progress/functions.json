@@ -94852,7 +94852,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1408,
-        "reason": "Improved 1608->1408 (full1100/frame98) by correcting the file-local func_8507E7E4 prototype to the game definition (void *, u8, u8, s32, s32): the u8 conversions stop constant 1 from sharing s7 (li a2,1). Remaining: 81 register-only, 8 missing/extra (lui/addiu order for D_80041970/D_800417C0 bases, multu placement in case 1), 9 stack rows (spill slots 0x70/0x58 vs 0x6c/0x50, suggesting one more named local), and the loop-carried remaining copy at the loop head (move t1,v0). Tried: for-loop forms, u16/s32 remaining, two-variable next/remaining, counter pointer, direct array stores (1472-3291). Evidence: build/us/manual-attempts/main-finish-oct24/CEAC.",
+        "reason": "Retain CURRENT1408/full1100/frame98 (func_8507E7E4 prototype corrected to u8,u8). Authorised 60s randomized permuter (seed 1547648518): best 1145 only via a redundant new_var = arg0 copy inside the queue loop (fake, rejected); no exact. Loop-head copy of the carried mask and base lui/addiu order remain. Evidence: build/us/manual-attempts/main-finish-oct24/CEAC.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -97464,8 +97464,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1816,
-        "reason": "Retain CURRENT1816. Sum-sink trace identifies tail previousDistance assignment at BB45/64; removing it also shortens cost span13 to5 and doubles priority37.5 to75. Stock/off/on and production parity pass; phase/union/index alternatives rejected from compiler and prior evidence.",
+        "current_score": 1221,
+        "reason": "Improved 1816->1221 (full2320, frame D8 vs raw D0): u32 previousDistance (found by the authorised 60s randomized permuter, seed 470070384, as a plain type change; verified legitimate) fixes the 0x7FFFFFFF sentinel registers. Remaining: frame +8 (uopt reserves 6 temps vs raw 4; propagated index*4 temp), bnel operand order x5, segment/point register cluster (sll v1 vs temp + move v1,v0). Named points base body scores 1382 with the same frame; dropping the post-loop point variable 2847+. Evidence: build/us/manual-attempts/main-finish-oct24/A750.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

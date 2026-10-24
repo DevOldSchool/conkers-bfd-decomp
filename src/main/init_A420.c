@@ -108,14 +108,14 @@ void func_85049148(f32 *, f32, f32 *);
 s32 func_8000A420(s32, s32, s32, f32, s32, s32, s32, s32, s32,
                   s32 *, s32 *, s32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A750 CURRENT (1816) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A750 CURRENT (1221) */
 s32 func_8000A750(s32 index, s32 panX, s32 panY, s32 panZ, f32 rotation,
                   s32 distanceX, s32 distanceY, s32 distanceZ,
                   s32 nearLimit, s32 farLimit, s32 *panOut,
                   s32 *attenuationOut, s32 *distanceOut) {
     s32 closest;
     s32 bestDistance;
-    s32 previousDistance;
+    u32 previousDistance;
     s32 currentDistance;
     s32 dx;
     s32 dy;
