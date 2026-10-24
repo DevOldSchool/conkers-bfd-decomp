@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Split reviewed discontiguous US jump tables without changing instructions.
+"""Split reviewed discontiguous US rodata ranges without changing instructions.
 
-REL instruction addends retain their original offsets. Each table's HI16/LO16
-references use a linker-defined base (runtime address minus original offset).
-Table R_MIPS_32 relocations still refer to the original .text symbol.
+A range is a jump table or a float literal pool. REL instruction addends retain
+their original offsets. Each range's HI16/LO16 references use a linker-defined
+base (runtime address minus original offset). Table R_MIPS_32 relocations still
+refer to the original .text symbol; literal pools have no data relocations.
 """
 from __future__ import annotations
 
@@ -11,15 +12,24 @@ import argparse
 from pathlib import Path
 import struct
 
-# (object extent, [(offset, payload size, HI16 site, LO16 site), ...])
-# ROM provenance and dispatch bounds: docs/evidence/data-layout/automation_jump_tables.md.
+# (object extent, [range, ...]) with ranges tiling the object rodata in order.
+# A table range is (offset, payload size, HI16 site, LO16 site) for its one
+# reviewed dispatch. A literal pool is (offset, payload size): its HI16/LO16
+# sites are every .text reference whose LO16 addend lies inside the pool, each
+# HI16 joining the next LO16 as in the REL pairing convention.
+# ROM provenance and dispatch bounds: docs/evidence/data-layout/automation_jump_tables.md;
+# literal pools and the blood and game_1C1150 additions:
+# docs/evidence/data-layout/game_rodata_literal_sub_pools.md.
 LAYOUTS = {
     'game_B4080': (0x200, [(0, 0x20, 0x3028, 0x3030), (0x20, 0xFC, 0x7B10, 0x7B18),
                               (0x11C, 0xE4, 0x7BD4, 0x7BDC)]),
     'game_16EE20': (0x2B0, [(0, 0xB4, 0x2B8, 0x2C0), (0xB4, 0x164, 0x2D8, 0x2E0),
                               (0x218, 0x40, 0x3B4, 0x3BC), (0x258, 0x14, 0x284C, 0x2854),
                               (0x26C, 0x38, 0x29A0, 0x29A8)]),
-    'game_1C1150': (0x40, [(0, 0x14, 0x6A4, 0x6AC), (0x14, 0x14, 0x718, 0x720), (0x28, 0x14, 0xB40, 0xB48)]),
+    'game_1C1150': (0x60, [(0, 0x14, 0x6A4, 0x6AC), (0x14, 0x14, 0x718, 0x720), (0x28, 0x14, 0x78C, 0x794),
+                              (0x3C, 0xC), (0x48, 0x14, 0xB40, 0xB48)]),
+    'game_83300': (0x20, [(0, 0xC), (0xC, 0x8)]),
+    'blood': (0x280, [(0, 0x204, 0x1C, 0x24), (0x204, 0x5C, 0x3C, 0x44), (0x260, 0x20)]),
 }
 
 
@@ -49,11 +59,17 @@ def split(data: bytes, unit: str) -> bytes:
     ro = decoded.index('.rodata')
     text = decoded.index('.text')
     sym = decoded.index('.symtab')
-    relro = decoded.index('.rel.rodata')
-    extent, tables = LAYOUTS[unit]
+    relro = decoded.index('.rel.rodata') if '.rel.rodata' in decoded else None
+    extent, ranges = LAYOUTS[unit]
     if sections[ro][5] != extent or sections[ro][1] != 1:
         raise ValueError('reviewed rodata extent changed')
-    end = tables[-1][0] + tables[-1][1]
+    end = 0
+    for item in ranges:
+        if len(item) not in (2, 4) or item[0] != end or item[1] <= 0 or item[1] % 4:
+            raise ValueError('reviewed rodata ranges must tile the object rodata')
+        end += item[1]
+    if end > extent:
+        raise ValueError('reviewed rodata ranges exceed the object extent')
     if any(contents[ro][end:]):
         raise ValueError('nonzero object alignment bytes')
     if sections[sym][9] != 16 or len(contents[sym]) % 16:
@@ -67,13 +83,14 @@ def split(data: bytes, unit: str) -> bytes:
     names = bytearray(names)
     base_symbols = []
     prefix = unit.removeprefix('game_').lower()
-    for start, size, hi, lo in tables:
+    for start, *_ in ranges:
         name = f'__game_rodata_{prefix}_{start:x}_base'.encode() + b'\0'
         base_symbols.append(len(symbols))
         symbols.append([len(strings), 0, 0, 0x10, 0, 0])  # undefined global
         strings.extend(name)
-    expected = {site: (kind, base_symbols[i], start) for i, (start, size, hi, lo) in enumerate(tables)
-                for site, kind in ((hi, 5), (lo, 6))}
+    expected = {site: (kind, base_symbols[i], item[0]) for i, item in enumerate(ranges) if len(item) == 4
+                for site, kind in ((item[2], 5), (item[3], 6))}
+    pools = [(item[0], item[0] + item[1], base_symbols[i]) for i, item in enumerate(ranges) if len(item) == 2]
     seen = set()
     for i, section in enumerate(sections):
         if section[1] == 4:
@@ -83,12 +100,33 @@ def split(data: bytes, unit: str) -> bytes:
         if section[6] != sym or section[9] != 8 or len(contents[i]) % 8:
             raise ValueError('invalid REL section')
         rel = bytearray(contents[i])
+        pending, group = [], None
         for pos in range(0, len(rel), 8):
             location, info = struct.unpack_from('>II', rel, pos)
             if info >> 8 != ro_symbol:
                 continue
-            if section[7] != text or location not in expected or location in seen:
+            if section[7] != text or location in seen or location + 4 > len(contents[text]):
                 raise ValueError('unreviewed reference to rodata')
+            if location not in expected:
+                # Literal pool load: lui %hi(.rodata) ... lwc1 %lo(.rodata+offset).
+                kind = info & 255
+                immediate = struct.unpack_from('>I', contents[text], location)[0] & 0xFFFF
+                if kind == 5 and immediate == 0:
+                    pending.append(pos)
+                elif kind == 6:
+                    pool = [p for p in pools if p[0] <= immediate < p[1] and not immediate % 4]
+                    if not pool or not pending and group != pool[0]:
+                        raise ValueError('unreviewed reference to rodata')
+                    group = pool[0]
+                    for site in pending + [pos]:
+                        struct.pack_into('>I', rel, site + 4, group[2] << 8 | struct.unpack_from('>I', rel, site + 4)[0] & 255)
+                    pending = []
+                else:
+                    raise ValueError('unreviewed reference to rodata')
+                seen.add(location)
+                continue
+            if pending:
+                raise ValueError('unpaired literal HI16 relocation')
             kind, symbol, start = expected[location]
             if info & 255 != kind or location + 4 > len(contents[text]):
                 raise ValueError('unexpected table relocation')
@@ -97,28 +135,36 @@ def split(data: bytes, unit: str) -> bytes:
                 raise ValueError('table instruction addend changed')
             struct.pack_into('>I', rel, pos + 4, symbol << 8 | kind)
             seen.add(location)
+        if pending:
+            raise ValueError('unpaired literal HI16 relocation')
         contents[i] = bytes(rel)
-    if seen != expected.keys():
+    if not expected.keys() <= seen:
         raise ValueError('missing reviewed table references')
-    table_relocations = [struct.unpack_from('>II', contents[relro], i) for i in range(0, len(contents[relro]), 8)]
-    if [off for off, _ in table_relocations] != list(range(0, end, 4)):
+    relocated = b'' if relro is None else contents[relro]
+    table_relocations = [struct.unpack_from('>II', relocated, i) for i in range(0, len(relocated), 8)]
+    table_words = [off for item in ranges if len(item) == 4 for off in range(item[0], item[0] + item[1], 4)]
+    if [off for off, _ in table_relocations] != table_words:
         raise ValueError('table relocation coverage changed')
     for _, info in table_relocations:
         if info & 255 != 2 or info >> 8 >= len(symbols) or symbols[info >> 8][5] != text:
             raise ValueError('jump table must contain only relocated text pointers')
-    for start, size, _, _ in tables:
+    for start, size, *table in ranges:
         section_name = f'.rodata.{prefix}_{start:x}'
         name_offset = len(names)
         names.extend(section_name.encode() + b'\0')
         index = len(sections)
         sections.append([name_offset, 1, sections[ro][2], 0, 0, size, 0, 0, 4, 0])
         contents.append(contents[ro][start:start + size])
+        if not table:
+            continue
         name_offset = len(names)
         names.extend(('.rel' + section_name).encode() + b'\0')
         relocations = b''.join(struct.pack('>II', off - start, info) for off, info in table_relocations if start <= off < start + size)
         sections.append([name_offset, 9, sections[relro][2], 0, 0, len(relocations), sym, index, 4, 8])
         contents.append(relocations)
-    contents[ro] = contents[relro] = b''
+    contents[ro] = b''
+    if relro is not None:
+        contents[relro] = b''
     symbols[ro_symbol][2] = 0
     contents[sym] = b''.join(struct.pack('>IIIBBH', *s) for s in symbols)
     contents[sections[sym][6]] = bytes(strings)
