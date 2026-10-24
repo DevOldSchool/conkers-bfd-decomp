@@ -1712,16 +1712,15 @@
       "symbol": "func_15160A58"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 90,
-        "reason": "CURRENT (90) retained. Selector word157/frame40; reverse add147/frame40; halfword80/frame38 only fixes add order; real transform snapshot677/frame40. Callback selector GPR/table schedule remains; no useful new hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15160B74",
           "vram": "0x15160B74"
         }
@@ -22715,17 +22714,16 @@
       "symbol": "func_15071A64"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 390,
-        "reason": "Bounded source-only group five independently reproduced; detailed hypotheses, scores and remaining differences preserved in worker-group-5/report.json.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 496,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15071B18",
           "vram": "0x15071B18"
         }
@@ -55021,17 +55019,16 @@
       "symbol": "func_15179AB8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 303,
-        "reason": "Round19 2026-10-22: both '% 500' sites cast to s32: the shared u32 func_150ADA20() prototype (272da566) had made them divu (3244); raw divides signed. Back to the prior residual: CURRENT (303): instruction/operand pattern otherwise aligns; only 15 packet stack-address rows and frame/base offsets differ after two manual revisions",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 412,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15179B14",
           "vram": "0x15179B14"
         }
@@ -80590,17 +80587,16 @@
       "symbol": "func_1515942C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 616,
-        "reason": "Valid716 with canonical local15046C00 scalar contract u16/f32, third argument float field load, actual three-coordinate array; unsupported fourth-float pad removed. Legacy685 invalid scalar contract/padding. Revision2 actual byte-result volatile neutral716; simpler revision1 retained. Two fresh revisions exhausted; prior operand/branch rewrite2850 not repeated. Raw frame48/result47 exact; array38/raw34, commutative load order and duplicate result-zero branch-delay store remain. Audit reports no matched C callers; recheck canonical15046C00 and sourceowner15159370 before clean batch. No shared header/type/tool edits.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 296,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15159594",
           "vram": "0x15159594"
         }

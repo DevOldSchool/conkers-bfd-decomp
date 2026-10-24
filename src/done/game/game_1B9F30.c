@@ -102,12 +102,13 @@ extern void (*D_8008D5D0[])(void);
 
 void func_1518CCA8(Game1B9F30State *arg0) {
     s32 packed_delta;
-    s32 callback_index;
 
     packed_delta = arg0->packed_delta;
     arg0->field_34 += (u32)(packed_delta & 0xFFFF0000) >> 16;
     arg0->field_36 += packed_delta & 0xFFFF;
     if (arg0->field_38 == 0) {
+        s32 callback_index;
+
         callback_index = arg0->callback_flags & 0xF;
         if (callback_index != 0) {
             D_8008D5D0[callback_index]();
