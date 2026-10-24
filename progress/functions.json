@@ -41741,17 +41741,16 @@
       "symbol": "func_15044370"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "Round18 2026-10-21: CURRENT 146 -> 30. saved_mode declared third of four named locals (index, total, saved_mode, active) gives the raw call-crossing home 0x5C and frame 0x68; a first randomized permuter run (300s, 30) showed the -g3 line hint: active = &D_80089123; index = 3; saved_mode = D_800CBDD3; do { share one line. Residual total/arg4 s6/s7 swap; declaration orders and total = 0 placement stay 30. A u32 total with casts is equivalent (30).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 428,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15044380",
           "vram": "0x15044380"
         }
@@ -49605,17 +49604,16 @@
       "symbol": "func_15158684"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 89,
-        "reason": "Round6 2026-10-18: unchanged CURRENT (89). A named copy of arg0 (s32 node = arg0, passed to func_150A7790) supplies raw's second named home and the early lw a1 arg-home reload -> probe 0, but it is a single-use copy alias, not accepted. Non-register scale 89, matrix-first order 173.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 256,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15158920",
           "vram": "0x15158920"
         }
@@ -78609,17 +78607,16 @@
       "symbol": "func_151A90C0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 106,
-        "reason": "CURRENT (106): raw packet initializer order and natural three-RNG snapshots recovered; all body instructions/registers/control flow exact. Only eight frame/incoming-home rows: frame0x80 versus raw0x90. No concrete consumer proof supports larger packet or extra storage. Two fresh revisions exhausted; valid best retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 368,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A91AC",
           "vram": "0x151A91AC"
         }
