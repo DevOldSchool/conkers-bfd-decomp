@@ -1,0 +1,151 @@
+# Unattended matching rounds
+
+Scheduled Claude Code routines keep function matching moving without a
+maintainer in the loop. Each round runs on the maintainer's machine through the
+desktop app's bridge environment, because matching needs the private US ROM,
+Docker and the pinned IDO image; public CI never sees a ROM. The driver is
+[`scripts/auto_round.sh`](../scripts/auto_round.sh); the merge policy is
+[`scripts/auto_policy.py`](../scripts/auto_policy.py). Ordinary matching rules
+are unchanged: [AGENTS.md](../AGENTS.md), [CONTRIBUTING.md](../CONTRIBUTING.md)
+and the [workflow reference](decompilation-workflow.md) still govern every edit.
+
+## Shape of a round
+
+1. **Lock.** `auto_round.sh start` refuses to run when another round holds the
+   lock or any `conker-toolchain-*` container is using CPU, so rounds never
+   compete with a maintainer's or Codex's session. A lock older than its
+   deadline plus 90 minutes is reclaimed and its worktree removed. The lock
+   lives in `~/.conker-auto/lock`; `caffeinate -i` keeps the Mac awake for the
+   budget.
+2. **Worktree.** A fresh `../conker-auto/<stamp>` worktree on branch
+   `auto/match-<stamp>` from `origin/main`, with submodules, a real ROM copy and
+   the US reference split prepared.
+3. **Review pending PRs.** `auto_round.sh review-pending` re-verifies every open
+   `auto-match` PR that has no verdict yet (see below) and merges the ones that
+   pass. The reviewing session is never the session that produced the PR.
+4. **Match** under the normal rules for the remaining budget
+   (`auto_round.sh remaining` prints the minutes left). Exact matches only: the
+   round does not `defer`, promote types, edit headers or touch build inputs.
+   Anything that needs such a change is written up in the PR body as a lead and
+   the function is restored.
+5. **Batch, commit, PR.** `./conker verify-batch <ids>` must print
+   `AGENT_ACTION: BATCH_COMPLETE`; `auto_round.sh commit` uses the agent
+   identity; `auto_round.sh open-pr --ids "<ids>"` pushes and labels the PR
+   `auto-match`. The body ends with the machine-readable line
+   `Auto-match IDs: <ids>` that the reviewer reads. A round with no match opens
+   no PR. The driver finds the ROM in the main checkout's `roms/` directory
+   (`CONKER_AUTO_ROM` overrides it), so it may run from any linked worktree.
+6. **Cleanup.** `auto_round.sh cleanup` stops the container, removes the
+   worktree and releases the lock. It runs even after a failed round.
+
+## Review and merge
+
+`auto_round.sh review <pr>` is an independent re-verification in its own
+worktree of the PR head (after `gh pr update-branch` when the branch is behind
+main):
+
+| Gate | Requirement |
+| --- | --- |
+| Policy | `auto_policy.py` passes (below) |
+| Per function | `./conker finish <id>` prints `AGENT_ACTION: STOP_MATCHED` for every claimed ID |
+| Batch | `./conker verify-batch <ids>` prints `AGENT_ACTION: BATCH_COMPLETE` |
+| Public checks | GitHub reports the PR mergeable (`CLEAN`): every public check green; up to 60 minutes wait, a failed or cancelled check stops |
+| Base | the branch is up to date with main at merge time (`BEHIND` updates the branch and requeues it for the next round) |
+
+`CONKER_AUTO_NO_MERGE=1` makes `review` and `review-pending` verify and label
+without merging, for dry runs.
+
+A pass posts the report, adds `auto-verified` and merges with a merge commit
+(`gh pr merge --merge --delete-branch`), matching the repository's history. Any
+failure posts the report, adds `needs-human` and stops; automation never
+touches a `needs-human` PR again. If main moves while checks run, the branch is
+updated, `auto-verified` is removed and the next round re-verifies it.
+
+The reviewer's local evidence is the pre-merge US verification that
+[CI and review policy](ci.md) asks a maintainer for; the post-merge ROM
+workflow still needs its environment approval.
+
+### Merge policy
+
+`auto_policy.py --repo <worktree> --base origin/main --head HEAD --ids <ids>`
+reads only Git and fails on any of these:
+
+- A changed path outside `src/**/*.c`, `progress/functions.json`,
+  `progress/source_units.json`, `docs/evidence/`, `config/game/us.yaml` or
+  `config/game/us-rodata.ld`. Headers, `include/`, `Makefile`, `scripts/`,
+  `tests/`, `toolchain/`, `.github/` and `config/` otherwise all stop automation.
+- `config/game/us.yaml` with any change other than a completed unit's segment
+  row moving from `game/<unit>` to `done/game/<unit>` (what
+  `progress integrate` writes).
+- Any deleted file. Moving a completed unit into `src/done/` is a rename and is
+  allowed.
+- `config/game/us-rodata.ld` with removed lines; literal and jump-table
+  mappings may only be added.
+- Added C lines containing a forced-match construct (`if (1) {}`, `^ 0`,
+  `do {} while (0)`), a new `volatile`, inline assembly, a new `#include`, a new
+  `#if`/`#ifdef`/`#ifndef`, or an added `GLOBAL_ASM` pragma.
+- Inventory changes that are not the claimed matches: an added or removed
+  function, a changed entry whose ID is not claimed (other than its `source`
+  moving under `src/done/` with a completed unit), a claimed ID with no
+  inventory change, or a claimed ID whose US state is not `matched` with zero
+  differences. A `defer` therefore fails the policy, which is why rounds never
+  defer.
+
+The policy is a scope limit, not match evidence; `finish` and `verify-batch`
+establish the match.
+
+## Schedule
+
+One routine, hourly, model `claude-opus-5-5`, environment
+`MacBookPro.lan:conkers-bfd-decomp` (bridge). A fire that finds the machine
+busy exits in seconds, so rounds run back to back whenever the machine is free:
+with a 180-minute budget that is five to seven rounds a day. Requirements on the
+Mac: the desktop app open, Docker running, the US ROM at
+`roms/baserom.us.z64` in the main checkout.
+
+Routine prompt (self-contained; the session starts in the main checkout):
+
+```text
+You are an unattended matching round for conkers-bfd-decomp. Work only through
+scripts/auto_round.sh and the normal ./conker commands.
+
+1. Run `scripts/auto_round.sh start --budget-minutes 180`. If it prints
+   AUTO_ROUND: BUSY, stop immediately with a one-line report.
+2. cd into the printed WORKTREE. Run `scripts/auto_round.sh review-pending`
+   and note each PR verdict it prints.
+3. Read AGENTS.md and CONTRIBUTING.md there, then match functions following
+   them exactly (next --ready, finish, STOP_MATCHED) until
+   `scripts/auto_round.sh remaining` is below 25. Prefer `./conker sweep`
+   leads and the msweep move/cont/unvol idioms recorded in
+   build/us/manual-attempts ledgers on main. Never run defer, never edit
+   include/, config/, Makefile, scripts/ or tests/, never add volatile, #if 0
+   or fake constructs; restore any function you do not match exactly.
+4. With at least one STOP_MATCHED: run `./conker verify-batch <ids>` and
+   require AGENT_ACTION: BATCH_COMPLETE; fix or drop a function if it fails.
+   Then `scripts/auto_round.sh commit -m "<summary>"` and
+   `scripts/auto_round.sh open-pr --ids "<ids>" --title "<title>" --body-file <f>`
+   with a body in the style of recent merged auto-match PRs: a table of
+   matched functions with source, start score and key change, shared
+   dependency changed: no, the verify-batch result, and leads for a maintainer.
+   Titles and bodies describe the work only: no model, agent or tool names.
+5. Always finish with `scripts/auto_round.sh cleanup`, then report in a few
+   lines: PRs reviewed and their verdicts, functions matched, PR URL or
+   "no PR", and anything labelled needs-human.
+```
+
+## Maintainer duties
+
+- Handle `needs-human` PRs: fix and remove the label (the next round
+  re-verifies), or close them.
+- Approve the post-merge ROM verification environment when prompted, or relax
+  that approval for main.
+- Watch cost: a full day is up to ~20 model-hours of Opus 5.5. Lower the budget
+  or the cron frequency in the routine when the match rate drops.
+- Inspect a misbehaving run from `https://claude.ai/code/routines`.
+
+## Local checks
+
+```sh
+bash -n scripts/auto_round.sh
+python3 -m unittest discover -s tests -p 'test_auto_policy.py'
+```
