@@ -55020,17 +55020,16 @@
       "symbol": "func_15179AB8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 303,
-        "reason": "Round19 2026-10-22: both '% 500' sites cast to s32: the shared u32 func_150ADA20() prototype (272da566) had made them divu (3244); raw divides signed. Back to the prior residual: CURRENT (303): instruction/operand pattern otherwise aligns; only 15 packet stack-address rows and frame/base offsets differ after two manual revisions",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 412,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15179B14",
           "vram": "0x15179B14"
         }
