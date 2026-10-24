@@ -22714,17 +22714,16 @@
       "symbol": "func_15071A64"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 390,
-        "reason": "Bounded source-only group five independently reproduced; detailed hypotheses, scores and remaining differences preserved in worker-group-5/report.json.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 496,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15071B18",
           "vram": "0x15071B18"
         }

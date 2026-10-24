@@ -24,7 +24,6 @@
  * - func_15070300
  * - func_15070898
  * - func_15070F60
- * - func_15071B18
  * - func_15071FDC
  * - func_150721A4
  * - func_15072208
@@ -2847,11 +2846,9 @@ extern f32 D_80099F3C;
 extern f32 D_80099F40;
 extern f32 D_80099F44;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15071B18 CURRENT (390) */
 void func_15071B18(s32 arg0) {
     Game981E0EffectPoint point;
     u8 collision[0x24];
-    Game981E0SmokeConfig config;
 
     if ((*(s32 *)(D_800D154C + 0x1D4) != 0) &&
         ((D_800D154C[0x74] & 0xF) != 0xF)) {
@@ -2866,6 +2863,8 @@ void func_15071B18(s32 arg0) {
             }
         }
         if (func_150ADA20() & 1) {
+            Game981E0SmokeConfig config;
+
             config.kind = 8;
             config.count = 5;
             config.position = point;
@@ -2887,8 +2886,6 @@ void func_15071B18(s32 arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15071B18 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15071B18.s")
 
 void func_15071D08(s32 arg0) {
     func_150F2230(D_800D154C, 0xFF, 1);
