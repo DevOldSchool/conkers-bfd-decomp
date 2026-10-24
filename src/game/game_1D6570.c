@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151A90C0
- * - func_151A91AC
  * - func_151A931C
  * - func_151A9390
  * - func_151A9834
@@ -90,6 +89,7 @@ typedef struct Game1D6570Particle {
     u8 field16;
     u8 field17;
     s32 field18;
+    u8 pad1C[0xC];
 } Game1D6570Particle;
 
 typedef struct Game1D6570ParticleOwner {
@@ -109,8 +109,8 @@ f32 func_150ADA68(void);
 void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, s32, s32, u8, s32);
 extern Game1D6570Choices D_8008F9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A91AC CURRENT (106) */
 void func_151A91AC(Game1D6570ParticleOwner *arg0, f32 *arg1, s32 arg2, s32 arg3) {
+    void *result;
     Game1D6570Particle particle;
     f32 size;
     Game1D6570Choices choices;
@@ -140,13 +140,11 @@ void func_151A91AC(Game1D6570ParticleOwner *arg0, f32 *arg1, s32 arg2, s32 arg3)
     random.first = func_150ADA20();
     random.second = func_150ADA20();
     random.third = func_150ADA20();
-    func_1513C650((s32)&particle, 1, 0, (s32)&arg0->field58,
+    result = func_1513C650((s32)&particle, 1, 0, (s32)&arg0->field58,
                   arg1[0], arg1[1], arg1[2], size, size,
                   random.first & 0xFF, (random.third & 1) + (random.second & 1),
                   3, 0xFF, 0, arg0->fieldC, arg0->field1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A91AC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A91AC.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A931C CURRENT (160) */
 void func_151A931C(void *arg0, u8 *arg1, u8 arg2) {
     u8 *state = (u8 *)arg0 + 0x28;

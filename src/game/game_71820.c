@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_core_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15044380
  * - func_1504452C
  * - func_15044660
  * - func_15044B78
@@ -96,7 +95,6 @@ void func_15044660(Game71820Global *, f32, f32, f32);
 s32 func_150AB1F0(f32, f32, f32, Game71820Global *, s32);
 void func_150AC3E4(f32, f32, f32, Game71820Global *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15044380 CURRENT (30) */
 s32 func_15044380(f32 arg0, f32 arg1, f32 arg2, Game71820Global *arg3, s32 arg4, s32 arg5) {
     s32 index;
     s32 total;
@@ -108,16 +106,14 @@ s32 func_15044380(f32 arg0, f32 arg1, f32 arg2, Game71820Global *arg3, s32 arg4,
     total = 0;
     arg3->status275 = 0;
     func_15044660(arg3, arg0, arg1, arg2);
-    active = &D_80089123; index = 3; saved_mode = D_800CBDD3; do {
+    saved_mode = D_800CBDD3;
+    for (active = &D_80089123, index = 3; index >= 0; index--, active--) {
         if (*active == 1 && (index != 3 || !(arg3->flagsF8 & 0x200))) {
             func_1510F800(index);
-            if (D_800DBE62 != 0) {
-                total += func_150AB1F0(arg0, arg1, arg2, arg3, arg4);
-            }
+            if (D_800DBE62 == 0) continue;
+            total += func_150AB1F0(arg0, arg1, arg2, arg3, arg4);
         }
-        index--;
-        active--;
-    } while (index >= 0);
+    }
     active = &D_80089120;
     index = 0;
     if (arg5 != 0) {
@@ -136,8 +132,6 @@ s32 func_15044380(f32 arg0, f32 arg1, f32 arg2, Game71820Global *arg3, s32 arg4,
     D_800CBDD3 = saved_mode;
     return total;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15044380 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044380.s")
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1504452C CURRENT (230) */
 void func_1504452C(s32 *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32 arg7) {
