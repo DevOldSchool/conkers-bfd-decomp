@@ -36,7 +36,6 @@ typedef struct Game114B80Rectangle {
 } Game114B80Rectangle;
 
 f32 func_150ADA68(void);
-void *func_1515548C(Game114B80Rectangle *, s32, s32, s32, s32, s32, s32);
 extern Game114B80Choices D_80088A68, D_80088A74;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150E76D0 CURRENT (1082) */

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "game_view.h"
 
 /*
  * Reviewed source unit: src/game/game_F5D80.c
@@ -90,7 +91,6 @@ typedef struct GameF5D80RadialEffect {
 extern f32 D_800BE9A4;
 extern s32 D_800BE9E4;
 extern s32 D_80082FA4;
-extern s32 D_800DBFF0;
 extern f32 D_800A052C, D_800A0530, D_800A0534;
 extern void (*D_80088858[])(void *, f32 *, s32, f32, f32);
 extern s32 (*D_80088860[])(void *);
@@ -132,7 +132,7 @@ void func_150C8A68(GameF5D80RadialEffect *arg0) {
                 maxDistance = D_800A0530;
                 angleScale = D_800A0534;
                 do {
-                    bias = (s32)(((f32 *)(D_800DBFF0 + (D_80082FA4 * 0x9A0)))[0xE0] * angleScale);
+                    bias = (s32)(D_800DBFF0[D_80082FA4].unk380 * angleScale);
                     angle = (func_150ADA20() % 81U + bias) - 0x28;
                     heading = angle & 0xFF;
                     cosine = func_151423D8((angle - 0x40) & 0xFF);

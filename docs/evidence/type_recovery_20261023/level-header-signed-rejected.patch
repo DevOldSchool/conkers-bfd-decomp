@@ -1,0 +1,109 @@
+--- a/src/game/game_1A0790.c
++++ b/src/game/game_1A0790.c
+@@ -1,4 +1,5 @@
+ #include "types.h"
++#include "game_level_settings.h"
+
+ /*
+  * Reviewed source unit: src/game/game_1A0790.c
+@@ -11,22 +12,10 @@
+  * Unmatched members use generated GLOBAL_ASM placeholders below.
+  */
+
+-typedef struct Game1A0790Output {
+-    u8 field0;
+-    u8 field1;
+-    u8 field2;
+-    u8 field3;
+-    s16 field4;
+-    s16 field6;
+-    s16 field8;
+-    s16 fieldA;
+-    u16 fieldC;
+-    u16 fieldE;
+-} Game1A0790Output;
+
+ void func_151733E4(s32, s32, s32, s32, s32);
+ extern s8 *D_800B0DF0;
+-extern Game1A0790Output D_8008CC70;
++extern GameLevelTransitionPreset D_8008CC70;
+ extern s8 D_800DD2E0;
+
+ void func_151732E0(s32 arg0) {
+@@ -70,26 +59,24 @@
+ extern s16 D_800DD2EC;
+ extern s16 D_800DD2EE;
+ extern s16 D_800DD2F0;
+-extern u16 D_800DD2F2;
+-extern u16 D_800DD2F4;
+
+ #if 0 /* CONKER_DEFERRED_CANDIDATE func_151733E4 CURRENT (12429) */
+ void func_151733E4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+     s32 i;
+     s32 *index;
+-    Game1A0790Output *out;
++    GameLevelTransitionPreset *out;
+     s32 from;
+     s32 to;
+     s16 *near;
+     s16 *far;
+     s16 *field8;
+     s16 *fieldA;
+-    u16 *fieldC;
+-    u16 *fieldE;
++    s16 *fieldC;
++    s16 *fieldE;
+
+     D_800DD2F0 = arg3;
+     if (arg4 == -1) {
+-        out = (Game1A0790Output *)D_800DD2E4;
++        out = (GameLevelTransitionPreset *)D_800DD2E4;
+         near = &D_800DD2EC;
+         far = &D_800DD2EE;
+         field8 = &D_800DD2E8;
+--- a/src/game/game_138520.c
++++ b/src/game/game_138520.c
+@@ -1,4 +1,5 @@
+ #include "types.h"
++#include "game_level_settings.h"
+
+ /*
+  * Reviewed source unit: src/game/game_138520.c
+@@ -19,8 +20,6 @@
+ extern f32 D_800D9B20;
+ extern u8 D_800D9B28[];
+ extern s32 D_800BE628;
+-extern s16 D_800DD2F2;
+-extern s16 D_800DD2F4;
+
+ void func_1510B070(s32 arg0) {
+     D_800D9B20 = (f32)D_800DD2F2;
+--- /dev/null
++++ b/include/game_level_settings.h
+@@ -0,0 +1,26 @@
++#ifndef CONKER_GAME_LEVEL_SETTINGS_H
++#define CONKER_GAME_LEVEL_SETTINGS_H
++
++#include "types.h"
++
++/* Transition presets use signed projection settings, including the -1 fallback.
++ * Matched func_1510B070 consumes the resulting globals as signed halfwords.
++ * The source level-header values retain their separate unsigned bit-copy view.
++ */
++typedef struct GameLevelTransitionPreset {
++    u8 field0;
++    u8 field1;
++    u8 field2;
++    u8 field3;
++    s16 field4;
++    s16 field6;
++    s16 field8;
++    s16 fieldA;
++    s16 fieldC;
++    s16 fieldE;
++} GameLevelTransitionPreset;
++
++extern s16 D_800DD2F2;
++extern s16 D_800DD2F4;
++
++#endif

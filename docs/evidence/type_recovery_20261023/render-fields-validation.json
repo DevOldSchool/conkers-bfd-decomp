@@ -1,0 +1,885 @@
+{
+  "date": "2026-10-23",
+  "profile": "us",
+  "base_commit": "d699b0863c0253da025c613b9cad66fcb38cfe91",
+  "baseline": {
+    "path": "docs/evidence/type_recovery_20261023/spatial-point-final.tsv",
+    "sha256": "f43ca9034a32cb16ac96347a6942594bcf1b4008acad785847affa2d7b9e4340",
+    "sum": 2792094
+  },
+  "final": {
+    "path": "docs/evidence/type_recovery_20261023/render-fields-final.tsv",
+    "sha256": "e3c97458273a74ce509f631235e8444f6bb6d2f2eb5b4d5228b4c4121aae31e7",
+    "sum": 2791259,
+    "rows": 1383,
+    "scored": 1334,
+    "compile_errors": [
+      "func_1501E81C",
+      "func_1502225C",
+      "func_150241B4",
+      "func_1502B5C8",
+      "func_1502BD84",
+      "func_1502EEF4",
+      "func_15030158",
+      "func_15044B78",
+      "func_15047700",
+      "func_15048664",
+      "func_150486B8",
+      "func_15058F24",
+      "func_150599C8",
+      "func_1505A250",
+      "func_1505E650",
+      "func_1507E1D0",
+      "func_1507FC2C",
+      "func_150837D4",
+      "func_150888A8",
+      "func_1509B5AC",
+      "func_1509C440",
+      "func_1509CDDC",
+      "func_150A2E4C",
+      "func_150C7C90",
+      "func_150DE32C",
+      "func_150E0870",
+      "func_150E1AB0",
+      "func_150EC520",
+      "func_150FEC28",
+      "func_150FF6E0",
+      "func_15103910",
+      "func_15103E40",
+      "func_15108850",
+      "func_1510D0EC",
+      "func_1510F8D8",
+      "func_151194D4",
+      "func_1511A410",
+      "func_1513A594",
+      "func_15145EA4",
+      "func_1514E920",
+      "func_1515E278",
+      "func_1517F564",
+      "func_15194BF0",
+      "func_151A7A90",
+      "func_151A8F6C",
+      "func_151AE2BC",
+      "func_151AE984",
+      "func_151C1570",
+      "func_151D5514"
+    ],
+    "preexisting_zeros": [
+      "func_15081E0C",
+      "func_150B6BC0",
+      "func_15194408",
+      "func_151E2404"
+    ]
+  },
+  "reduction": 835,
+  "cumulative_pr_reduction": 3367,
+  "new_matches": [],
+  "retained_cohort": {
+    "sources": [
+      "src/game/camera/camera_camera.c",
+      "src/game/game_476D0.c",
+      "src/game/game_138B40.c"
+    ],
+    "candidate_count": 19,
+    "sum_before": 44121,
+    "sum_after": 43286,
+    "improved": [
+      {
+        "function": "func_15126378",
+        "source": "src/game/camera/camera_camera.c",
+        "before": 13092,
+        "after": 12492,
+        "reduction": 600,
+        "before_frame": "0xe0",
+        "after_frame": "0xe0"
+      },
+      {
+        "function": "func_1501A764",
+        "source": "src/game/game_476D0.c",
+        "before": 800,
+        "after": 675,
+        "reduction": 125,
+        "before_frame": "0x38",
+        "after_frame": "0x38"
+      },
+      {
+        "function": "func_1510B690",
+        "source": "src/game/game_138B40.c",
+        "before": 635,
+        "after": 565,
+        "reduction": 70,
+        "before_frame": "0xa0",
+        "after_frame": "0xa0"
+      },
+      {
+        "function": "func_1501B22C",
+        "source": "src/game/game_476D0.c",
+        "before": 1239,
+        "after": 1199,
+        "reduction": 40,
+        "before_frame": "0x38",
+        "after_frame": "0x38"
+      }
+    ],
+    "regressions": []
+  },
+  "source_sha256": {
+    "src/game/camera/camera_camera.c": "7a42aa3b199745869e769af8993604ebf68661437222e68e4610b36a74388cbd",
+    "src/game/game_476D0.c": "0e57464becc558a49bdf9d33a00f84d1b1e399ed57b5ed86d3f078592749cc2a",
+    "src/game/game_138B40.c": "fa33488e43cd1865763f2b4c8fbe20cda9d3acdf2ff9e4ed3d944310f05708da",
+    "include/game_render_view.h": "0c381eac76348ff20c14d7e500cda442a314925df9b7e0034f89443bae859ea0",
+    "include/game_functions.h": "ecb2834392d8087b4008b5325b4d40c3a440db1919c367c86f0ee850edf5c991",
+    "include/types.h": "cd7667870f8e0e07b6360bb3697add1ab22a91fd42d010b0fb12237bbc211731"
+  },
+  "matched_rechecks": [
+    {
+      "function": "func_15127EB8",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.78,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1501A220",
+      "source": "src/game/game_476D0.c",
+      "seconds": 7.09,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1501A39C",
+      "source": "src/game/game_476D0.c",
+      "seconds": 10.28,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15122AE0",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.37,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15123070",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.92,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15123508",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.94,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15123934",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.87,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151239CC",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.85,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15124770",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.94,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15124AB4",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.92,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1512523C",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.0,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125330",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.95,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125394",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.47,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151253CC",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.96,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125490",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.15,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151254F4",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.02,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125594",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.88,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125608",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.88,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125628",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.9,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125690",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.92,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125924",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.96,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125A6C",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 7.1,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15125C40",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.98,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15126138",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.91,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1512623C",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.93,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15127FEC",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.91,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151283B8",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.97,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_151284C4",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.81,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15128540",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.84,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15128680",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.88,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1512868C",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 6.96,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_15128774",
+      "source": "src/game/camera/camera_camera.c",
+      "seconds": 9.16,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1501A490",
+      "source": "src/game/game_476D0.c",
+      "seconds": 6.83,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1501A680",
+      "source": "src/game/game_476D0.c",
+      "seconds": 6.83,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1501A6CC",
+      "source": "src/game/game_476D0.c",
+      "seconds": 6.82,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1501AE94",
+      "source": "src/game/game_476D0.c",
+      "seconds": 7.09,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1501AF44",
+      "source": "src/game/game_476D0.c",
+      "seconds": 6.93,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1510B7B4",
+      "source": "src/game/game_138B40.c",
+      "seconds": 7.16,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    },
+    {
+      "function": "func_1510B958",
+      "source": "src/game/game_138B40.c",
+      "seconds": 8.76,
+      "returncode": 0,
+      "actions": [
+        "STOP_MATCHED"
+      ],
+      "zero": true
+    }
+  ],
+  "compile_audit": [
+    {
+      "source": "src/game/camera/camera_camera.c",
+      "function": "canonical",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/camera/camera_camera.c",
+      "function": "func_15122C5C",
+      "before": {
+        "returncode": 0,
+        "warnings": [
+          "cfe: Warning 709: Incompatible pointer type assignment"
+        ]
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": [
+          "cfe: Warning 709: Incompatible pointer type assignment"
+        ]
+      }
+    },
+    {
+      "source": "src/game/camera/camera_camera.c",
+      "function": "func_1512317C",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/camera/camera_camera.c",
+      "function": "func_15123568",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/camera/camera_camera.c",
+      "function": "func_151236D0",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/camera/camera_camera.c",
+      "function": "func_15123A54",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/camera/camera_camera.c",
+      "function": "func_151247C0",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/camera/camera_camera.c",
+      "function": "func_15124B18",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/camera/camera_camera.c",
+      "function": "func_15124C38",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/camera/camera_camera.c",
+      "function": "func_151256BC",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/camera/camera_camera.c",
+      "function": "func_15125DB4",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/camera/camera_camera.c",
+      "function": "func_15126378",
+      "before": {
+        "returncode": 0,
+        "warnings": [
+          "cfe: Warning 709: Incompatible pointer type assignment"
+        ]
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": [
+          "cfe: Warning 709: Incompatible pointer type assignment"
+        ]
+      }
+    },
+    {
+      "source": "src/game/camera/camera_camera.c",
+      "function": "func_15127520",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/camera/camera_camera.c",
+      "function": "func_151277B0",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/camera/camera_camera.c",
+      "function": "func_151279A0",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/camera/camera_camera.c",
+      "function": "func_15128030",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_476D0.c",
+      "function": "canonical",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_476D0.c",
+      "function": "func_1501A764",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_476D0.c",
+      "function": "func_1501B0A0",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_476D0.c",
+      "function": "func_1501B22C",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_138B40.c",
+      "function": "canonical",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_138B40.c",
+      "function": "func_1510B690",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    }
+  ],
+  "batch": {
+    "command": "CONKER_JOBS=1 ./conker verify-batch func_15127EB8 func_1501A220 func_1510B7B4",
+    "status": "BATCH_COMPLETE",
+    "tests_run": 1062,
+    "tests_skipped": 6,
+    "new_cfe_warnings": 0,
+    "log_sha256": "ab5d7b3de846d4b26cc8ede33ec8917b57f20ef7b4afd67187059cf944bd0aeb"
+  },
+  "binary": {
+    "size": 2072880,
+    "sha1": "90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5",
+    "independent_reference_identical": true
+  },
+  "pending_batch_ids": [],
+  "review": {
+    "reviewer": "spatial_type_review",
+    "read_only": true,
+    "findings": [
+      "No semantic blocker found",
+      "Camera target remains a byte view for later actor/controller reuse; first root scale loads cross no call/store",
+      "Discarded game_1A5C00 trial review only: Cull loop var_s0 equals var_s2*0x180 at entry; matrix stride remains0x40",
+      "Matrix address is root+index*0x180+0x100+selector*0x40",
+      "SDK signed Vp fields vscale[2]/vtrans[2] preserve offsets44/4C",
+      "Header layout and matched member names unchanged; unknown floats retain byte views"
+    ],
+    "rejected_sources": [
+      "src/game/game_1AB530.c",
+      "src/game/game_138520.c"
+    ],
+    "reverted_body": "func_1501B0A0",
+    "validation_discard": {
+      "file": "src/game/game_1A5C00.c",
+      "candidate": "func_151787AC",
+      "gain_discarded": 325,
+      "blocked_match": "func_15178E14",
+      "reason": "BLOCKED_TOOLING: registered GAME member spans not contiguous and unambiguous",
+      "metadata_detail": "func_15178750 is registered for92bytes from15178750 to151787AC; separately registered func_151787A4 covers last8bytes. Inventory unchanged.",
+      "source_restored_exactly": true
+    },
+    "final_retained_review": "No blocker: code semantics, all source hashes, score populations/totals, 39 matched rechecks, 22 compiler pairs and warning sites independently confirmed."
+  },
+  "rejections": [
+    {
+      "function": "func_1517EAAC",
+      "source": "src/game/game_1AB530.c",
+      "before": 583,
+      "trial": 663,
+      "reason": "score regression",
+      "restoration": "entire source"
+    },
+    {
+      "function": "func_1510B128",
+      "source": "src/game/game_138520.c",
+      "before": 1759,
+      "trial": 1815,
+      "reason": "score regression",
+      "restoration": "entire source"
+    },
+    {
+      "function": "func_1501B0A0",
+      "source": "src/game/game_476D0.c",
+      "before": 1506,
+      "trial": 1516,
+      "reason": "score regression",
+      "restoration": "function body; final score 1506"
+    },
+    {
+      "function": "func_151787AC",
+      "source": "src/game/game_1A5C00.c",
+      "before": 4852,
+      "trial": 4527,
+      "reason": "required matched recheck func_15178E14 reports BLOCKED_TOOLING: preexisting overlapping registered GAME spans",
+      "restoration": "entire source; 325-point trial gain discarded"
+    }
+  ],
+  "scope": {
+    "header_layout_changed": false,
+    "assembly_changed": false,
+    "inventory_changed": false,
+    "function_reshaping": false,
+    "permutations": false,
+    "parallel_builds": false,
+    "read_only_workers": 2
+  },
+  "ledger": "build/us/manual-attempts/render-fields-20261023"
+}

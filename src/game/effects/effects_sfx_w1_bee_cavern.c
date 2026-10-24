@@ -51,7 +51,6 @@ typedef struct {
 } BeeCavernPayload;
 
 f32 func_150ADA68(void);
-u8 *func_1515548C(void *, u8, s32 *, s32, s32, u8, s32);
 extern f32 D_800A0000, D_800A0004;
 extern s32 D_800BE9E4;
 

@@ -111,7 +111,6 @@ typedef struct {
     u8 pad6E[0x1A];
 } Game114740Local;
 
-void func_1515548C(void *, s32, s32, s32, s32, s32, s32);
 extern u8 D_80088A64;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150E75A0 CURRENT (1893) */

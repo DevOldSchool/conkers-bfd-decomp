@@ -1,0 +1,102 @@
+{
+  "baseline_commit": "1b715cfc23fd1a648c5f72c556636728ec2cd591",
+  "baseline_path": "render-owner-final.tsv",
+  "baseline_sha256": "ba1cf07b425bdb1efe9d7807b3a7c586ceb3e5a0f83ccfaded410e2b3e9178b6",
+  "before": 2792176,
+  "after": 2792129,
+  "net_reduction": 47,
+  "cumulative_reduction": 2497,
+  "rows": 1383,
+  "scored": 1334,
+  "errors": 49,
+  "same_error_set": true,
+  "preexisting_zeros": 4,
+  "new_matches": 0,
+  "changes": [
+    {
+      "function": "func_15005290",
+      "before": "2519",
+      "after": "2472"
+    }
+  ],
+  "elapsed_sweep_seconds": 141.4,
+  "touched_source": "src/game/game_32740.c",
+  "touched_cohort_before": 3189,
+  "touched_cohort_after": 3142,
+  "matched_functions_in_touched_source": 0,
+  "pending_batch_ids": [],
+  "final_path": "root-owner-followup-final.tsv",
+  "final_sha256": "b86baeadfbb5e1ac942177a133ef3b891eafac7dd57476269ae66344d0f6ab90",
+  "compile_audit": [
+    {
+      "source": "src/game/game_32740.c",
+      "function": "canonical",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_32740.c",
+      "function": "func_15005290",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_32740.c",
+      "function": "func_150054C4",
+      "before": {
+        "returncode": 0,
+        "warnings": []
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source": "src/game/game_32740.c",
+      "function": "func_15005818",
+      "before": {
+        "returncode": 0,
+        "warnings": [
+          "cfe: Warning 709: /workspace/build/us/manual-attempts/root-owner-followup-20261023/compile-audit/game_32740-func_15005818-before.c, line 318: Incompatible pointer type assignment"
+        ]
+      },
+      "after": {
+        "returncode": 0,
+        "warnings": [
+          "cfe: Warning 709: /workspace/build/us/manual-attempts/root-owner-followup-20261023/compile-audit/game_32740-func_15005818-after.c, line 318: Incompatible pointer type assignment"
+        ]
+      }
+    }
+  ],
+  "new_cfe_warnings": 0,
+  "existing_deferred_warning": "709 incompatible pointer assignment in func15005818 at func15123070(arg0), same before/after",
+  "canonical_cfe_warnings": 0,
+  "trial_audit_path": "root-owner-followup-trials.tsv",
+  "tested_source_sha256": {
+    "src/game/game_32740.c": "2232ffd02fda4d27480941b4b91191e5287aa1fc0788d87d9fecced3810e0dfe",
+    "include/game_view.h": "311ac9d6e8839036de586b83a200c87a187ed3b1b3048eb38a50ff07d1890278",
+    "include/types.h": "cd7667870f8e0e07b6360bb3697add1ab22a91fd42d010b0fb12237bbc211731",
+    "include/game_functions.h": "ecb2834392d8087b4008b5325b4d40c3a440db1919c367c86f0ee850edf5c991"
+  },
+  "validation_status": "BATCH_COMPLETE",
+  "batch_command": "CONKER_JOBS=1 ./conker verify-batch func_15155780 func_150C99B4",
+  "batch_cfe_warnings": 0,
+  "tests": 1062,
+  "skipped": 6,
+  "binary_byte_identical": true,
+  "game_bytes": 2072880,
+  "game_sha1": "90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5"
+}

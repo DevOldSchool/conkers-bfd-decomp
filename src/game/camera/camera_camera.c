@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "game_render_view.h"
 
 /*
  * Reviewed source unit: src/game/camera/camera_camera.c
@@ -90,7 +91,6 @@ void func_15123568(u8 *);
 void func_15125924(u8 *);
 extern f32 D_800A34D4;
 extern s32 D_800BE728;
-extern s32 D_800BE628;
 extern s32 D_800BE9F0;
 extern u8 D_800DBFF4[];
 extern u16 D_800BE710[];
@@ -152,7 +152,7 @@ void func_15122C5C(void *arg0) {
         var_fv0 = 0.0f;
     }
     temp_v0_3 = (*(u8 *)((u8 *)(arg0) + 0x23D));
-    func_1510B128((s32) temp_v0_3, (*(f32 *)((u8 *)(arg0) + 0x19C)), (*(f32 *)((u8 *)(arg0) + 0x1A0)), (*(f32 *)((u8 *)(((u8 *)D_800BE628 + (temp_v0_3 * 0x180))) + 0x84)), var_fv0);
+    func_1510B128((s32) temp_v0_3, (*(f32 *)((u8 *)(arg0) + 0x19C)), (*(f32 *)((u8 *)(arg0) + 0x1A0)), D_800BE628[temp_v0_3].field84, var_fv0);
     func_15097798((s32) (*(u8 *)((u8 *)(arg0) + 0x23D)));
     func_15125A6C((u8 *) arg0);
     func_15128CB0(arg0);
@@ -1770,10 +1770,9 @@ s32 func_15126378(u8 *arg0) {
     u8 var_a0;
     u8 var_v0;
 
-    target = (u8 *)D_800BE628 + ((*(u8 *)((u8 *)(arg0) + 0x23D)) * 0x180);
-    temp_fv0 = (*(f32 *)((u8 *)(target) + 0x6C));
+    temp_fv0 = D_800BE628[*(u8 *)((u8 *)arg0 + 0x23D)].scale_x;
     var_t0 = (*(u8 **)((u8 *)(arg0) + 0x3D4));
-    spC0 = (*(f32 *)((u8 *)(target) + 0x70)) / temp_fv0;
+    spC0 = D_800BE628[*(u8 *)((u8 *)arg0 + 0x23D)].scale_y / temp_fv0;
     spBC = -(temp_fv0 - 5.0f);
     spB8 = temp_fv0 * D_800A3558;
     spB4 = (*(u8 *)((u8 *)(arg0) + 0x23E));
@@ -1867,7 +1866,7 @@ s32 func_15126378(u8 *arg0) {
         (*(f32 *)((u8 *)(arg0) + 0x1A4)) = (f32) (*(f32 *)((u8 *)(var_t0) + 0x184));
         (*(f32 *)((u8 *)(arg0) + 0x1A8)) = (f32) (*(f32 *)((u8 *)(var_t0) + 0x188));
         func_1510B32C((s32) (*(u8 *)((u8 *)(arg0) + 0x23D)), (*(f32 *)((u8 *)(arg0) + 0x19C)), (*(f32 *)((u8 *)(arg0) + 0x1A0)), 1.0f);
-        (*(f32 *)((u8 *)(((u8 *)D_800BE628 + ((*(u8 *)((u8 *)(arg0) + 0x23D)) * 0x180))) + 0x84)) = 1.0f;
+        D_800BE628[*(u8 *)((u8 *)arg0 + 0x23D)].field84 = 1.0f;
         func_150627D4((*(u8 **)((u8 *)(arg0) + 0x3D0)));
         D_800DBFF4[(*(u8 *)((u8 *)(arg0) + 0x23D))] = 2;
         if ((spB4 == 0x24) || (spB4 == 0x23)) {
@@ -2130,9 +2129,9 @@ camera_zoom_done:
         *(Vec3f *)(sp50 + 0) = *(Vec3f *)sp54;
         *(Vec3f *)temp_a2 = direction;
         func_15048F90(sp50, temp_a1_2, temp_a2);
-        (*(f32 *)((u8 *)(((u8 *)D_800BE628 + ((*(u8 *)((u8 *)(arg0) + 0x23D)) * 0x180))) + 0x84)) = (f32) ((D_800A357C * spC4) + 1.0f);
+        D_800BE628[*(u8 *)((u8 *)arg0 + 0x23D)].field84 = (f32) ((D_800A357C * spC4) + 1.0f);
         temp_v0_9 = (*(u8 *)((u8 *)(arg0) + 0x23D));
-        func_1510B128((s32) temp_v0_9, (*(f32 *)((u8 *)(arg0) + 0x19C)), (*(f32 *)((u8 *)(arg0) + 0x1A0)), (*(f32 *)((u8 *)(((u8 *)D_800BE628 + (temp_v0_9 * 0x180))) + 0x84)), (71.0f * spC4) + 54.0f);
+        func_1510B128((s32) temp_v0_9, (*(f32 *)((u8 *)(arg0) + 0x19C)), (*(f32 *)((u8 *)(arg0) + 0x1A0)), D_800BE628[temp_v0_9].field84, (71.0f * spC4) + 54.0f);
         var_v0 = 1;
     }
     return (s32) var_v0;
@@ -2387,7 +2386,6 @@ s32 func_151279A0(u8 *arg0, u16 *arg1) {
 void func_150627D4(void *);
 void func_1510B32C(s32, f32, f32, f32);
 void func_151C9ED4(void *);
-extern s32 D_800BE628;
 
 void func_15127EB8(struct108 *arg0)
 {
@@ -2402,7 +2400,7 @@ void func_15127EB8(struct108 *arg0)
   arg0->unk1A4 = 0.0f;
   arg0->unk1A8 = 0.0f;
   func_1510B32C(arg0->unk23D, 0.0f, 0.0f, 1.0f);
-  *((f32 *) ((D_800BE628 + (arg0->unk23D * 0x180)) + 0x84)) = 1.0f;
+  D_800BE628[arg0->unk23D].field84 = 1.0f;
   func_150627D4(arg0->unk3D0);
   D_800DBFF4[arg0->unk23D] = 2;
   v1 = arg0->unk3D0;

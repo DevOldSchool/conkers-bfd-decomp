@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "game_view.h"
 
 /*
  * Reviewed source unit: src/game/game_182C30.c
@@ -66,7 +67,6 @@ void *func_15096934(void *);
 void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 extern u8 D_800BE9C0;
 extern u8 D_800CC2D0[];
-extern s32 D_800DBFF0;
 extern s32 *D_800E03E0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15155CFC CURRENT (4991) */
@@ -83,7 +83,7 @@ void *func_15155CFC(void *arg0, Game182C30Effect *arg1, s32 arg2) {
         } else {
             height = 0.0f;
         }
-        angle = *(f32 *)(D_800DBFF0 + arg2 * 0x9A0 + 0x380);
+        angle = D_800DBFF0[arg2].unk380;
         arg0 = func_15096934(arg0);
         func_15043D90((s32)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x18),
             0.0f, angle, 0.0f, 2.25f, 2.25f, 2.25f,

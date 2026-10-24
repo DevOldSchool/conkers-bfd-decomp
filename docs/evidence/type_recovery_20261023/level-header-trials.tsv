@@ -1,0 +1,13 @@
+trial	function	source	before	after	delta	frame	ref_frame	retained
+prefix	func_15005290	src/game/game_32740.c	2472	2472	0	0x78	0x70	no
+prefix	func_151733D8	src/game/game_1A0790.c	60	60	0	leaf	leaf	no
+prefix	func_15005818	src/game/game_32740.c	185	185	0	0x50	0x50	no
+prefix	func_150054C4	src/game/game_32740.c	485	485	0	0x28	0x28	no
+prefix	func_1517EAAC	src/game/game_1AB530.c	583	583	0	0x98	0x98	no
+prefix	func_150006E0	src/game/game_2D540.c	1220	1220	0	0x30	0x30	no
+prefix	func_1517E28C	src/game/game_1AB530.c	4232	4232	0	0x80	0x78	no
+prefix	func_151733E4	src/game/game_1A0790.c	12429	12429	0	0x70	0x70	no
+signed	func_151733D8	src/game/game_1A0790.c	60	60	0	leaf	leaf	no
+signed	func_1510B3B0	src/game/game_138520.c	270	270	0	0x38	0x38	no
+signed	func_1510B128	src/game/game_138520.c	1759	1759	0	0x40	0x50	no
+signed	func_151733E4	src/game/game_1A0790.c	12429	12429	0	0x70	0x70	no

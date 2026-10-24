@@ -1,5 +1,11 @@
 #include "types.h"
 #include "game_functions.h"
+/* Keep the initial shared headers visible to declaration discovery.
+ * The encoding check below rejects an incompatible earlier GBI include. */
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include "PR/mbi.h"
 
 /*
  * Reviewed source unit: src/game/game_16EE20.c
@@ -33,6 +39,11 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
+
+#if !defined(G_GEOMETRYMODE) || G_GEOMETRYMODE != 0xD9
+/* IDO treats #error and negative array bounds as warnings. */
+struct ConkerRequiresRetailGbi { int geometry_command_must_be_0xd9 : -1; };
+#endif
 
 /* Reviewed bank-01 model records; descriptive labels, not original symbols.
  * See config/model-semantic-names.json.
@@ -676,67 +687,6 @@ f32 func_15142B44(f32 arg0) {
 }
 extern s32 D_800DD1FC;
 extern s32 D_800DD200;
-
-typedef struct {
-    u32 w0;
-    u32 w1;
-} Game16EE20Gwords;
-
-typedef union {
-    Game16EE20Gwords words;
-} Gfx;
-
-#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
-#define G_GEOMETRYMODE 0xd9
-#define G_SETENVCOLOR 0xfb
-#define G_SETPRIMCOLOR 0xfa
-#define G_RDPSETOTHERMODE 0xef
-#define G_RDPPIPESYNC 0xe7
-#define gSPGeometryMode(pkt, c, s) \
-{ \
-    Gfx *_g = (Gfx *)(pkt); \
-    _g->words.w0 = _SHIFTL(G_GEOMETRYMODE, 24, 8) | _SHIFTL(~(u32)(c), 0, 24); \
-    _g->words.w1 = (u32)(s); \
-}
-#define gSPSetGeometryMode(pkt, word) gSPGeometryMode((pkt), 0, (word))
-#define gSPClearGeometryMode(pkt, word) gSPGeometryMode((pkt), (word), 0)
-#define gDPNoParam(pkt, cmd) \
-{ \
-    Gfx *_g = (Gfx *)(pkt); \
- \
-    _g->words.w0 = _SHIFTL(cmd, 24, 8); \
-    _g->words.w1 = 0; \
-}
-#define gDPPipeSync(pkt) gDPNoParam(pkt, G_RDPPIPESYNC)
-#define gDPSetColor(pkt, c, d) \
-{ \
-    Gfx *_g = (Gfx *)(pkt); \
- \
-    _g->words.w0 = _SHIFTL(c, 24, 8); \
-    _g->words.w1 = (u32)(d); \
-}
-#define DPRGBColor(pkt, cmd, r, g, b, a) \
-    gDPSetColor(pkt, cmd, \
-                (_SHIFTL(r, 24, 8) | _SHIFTL(g, 16, 8) | \
-                 _SHIFTL(b, 8, 8) | _SHIFTL(a, 0, 8)))
-#define gDPSetEnvColor(pkt, r, g, b, a) \
-    DPRGBColor(pkt, G_SETENVCOLOR, r, g, b, a)
-#define gDPSetPrimColor(pkt, m, l, r, g, b, a) \
-{ \
-    Gfx *_g = (Gfx *)(pkt); \
- \
-    _g->words.w0 = (_SHIFTL(G_SETPRIMCOLOR, 24, 8) | \
-                    _SHIFTL(m, 8, 8) | _SHIFTL(l, 0, 8)); \
-    _g->words.w1 = (_SHIFTL(r, 24, 8) | _SHIFTL(g, 16, 8) | \
-                    _SHIFTL(b, 8, 8) | _SHIFTL(a, 0, 8)); \
-}
-#define gDPSetOtherMode(pkt, mode0, mode1) \
-{ \
-    Gfx *_g = (Gfx *)(pkt); \
- \
-    _g->words.w0 = _SHIFTL(G_RDPSETOTHERMODE, 24, 8) | _SHIFTL(mode0, 0, 24); \
-    _g->words.w1 = (u32)(mode1); \
-}
 
 Gfx *func_15142B7C(Gfx *gdl, s32 arg1, s32 arg2) {
     extern s32 D_800DD200;
@@ -2576,7 +2526,7 @@ typedef struct Game16EE20TransformNode {
 
 s32 func_15031070(void *, void *, s32 *, s32 *);
 void *func_1503195C(void *, s32, s32);
-void func_15145EA4(s32 *, s32 *, s32, s32);
+void func_15145EA4(f32 **, f32 **, s32, s32);
 extern u8 D_800BE9C0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1514654C CURRENT (1533) */
@@ -2624,7 +2574,7 @@ s32 func_1514654C(u8 *arg0, Game16EE20TransformNode *arg1, s32 arg2,
             if (matrix != 0) {
                 matrix += D_800BE9C0 << 6;
             } else {
-                func_15145EA4((s32 *)arg3, (s32 *)arg4,
+                func_15145EA4(arg3, arg4,
                               base + (arg1->transformIndex << 6), arg5);
                 return 1;
             }

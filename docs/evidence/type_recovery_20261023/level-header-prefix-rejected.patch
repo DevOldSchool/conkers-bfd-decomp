@@ -1,0 +1,221 @@
+--- a/src/game/game_2D540.c
++++ b/src/game/game_2D540.c
+@@ -1,4 +1,5 @@
+ #include "types.h"
++#include "game_level_header.h"
+
+ /*
+  * Reviewed source unit: src/game/game_2D540.c
+@@ -18,7 +19,6 @@
+ void func_15000940(s32);
+ void *func_1515D480(s32);
+ extern s32 D_80082FA0;
+-extern void *D_800B0DF0;
+ extern f32 D_800D3670, D_800D9B1C, D_800D9B20;
+ extern f32 D_800D9AC0[], D_800D9AF8[];
+ extern u8 D_800D9B68[], D_800D9B78[], D_800D9B84[], D_800D9B88[];
+@@ -41,8 +41,8 @@
+     s32 limit;
+     s32 allocated;
+
+-    D_800D9B20 = (f32)(u32)*(u16 *)((u8 *)D_800B0DF0 + 2);
+-    D_800D9B1C = (f32)(u32)*(u16 *)D_800B0DF0;
++    D_800D9B20 = (f32)(u32)D_800B0DF0->field02;
++    D_800D9B1C = (f32)(u32)D_800B0DF0->field00;
+     D_800D3670 = 100.0f - D_800D9B1C;
+     func_15000940(arg0);
+     first = D_800D9B68;
+--- a/src/game/game_32740.c
++++ b/src/game/game_32740.c
+@@ -1,5 +1,6 @@
+ #include "types.h"
+ #include "game_functions.h"
++#include "game_level_header.h"
+ #include "game_view.h"
+
+ /*
+@@ -173,7 +174,6 @@
+ void func_151298C0(u8 *, s16, void *);
+ extern s32 D_80089520, D_80089524[], D_80089534[];
+ extern f32 D_800959E0, D_800959E4, D_800959E8, D_800959EC;
+-extern void *D_800B0DF0;
+ extern s32 D_800BE624;
+ extern s8 D_800C3671;
+ extern u8 D_800CC2D0[];
+@@ -215,7 +215,7 @@
+     state->field272 = -1;
+     state->field5FA = 1;
+     state->field3E8 = 1;
+-    state->field67C = (f32)(u32)*(u16 *)((u8 *)D_800B0DF0 + 2);
++    state->field67C = (f32)(u32)D_800B0DF0->field02;
+     state->field2B0 = state->field2A4;
+     state->field2B4 = state->field2A8;
+     state->field2B8 = state->field2AC;
+--- a/src/game/game_1AB530.c
++++ b/src/game/game_1AB530.c
+@@ -1,4 +1,5 @@
+ #include "types.h"
++#include "game_level_header.h"
+
+ /*
+  * Reviewed source unit: src/game/game_1AB530.c
+@@ -107,7 +108,6 @@
+ s32 func_1517EC1C(void *, s32 *);
+ extern f32 *D_8008CFFC[];
+ extern Game1AB530BytePair D_8008D004, D_8008D008, D_8008D00C;
+-extern void *D_800B0DF0;
+ extern u8 D_800DCDD0;
+ extern s8 D_800DD2D0, D_800DDD60;
+
+@@ -139,7 +139,7 @@
+                     if (D_800DCDD0 == 0) {
+                         skip = 1;
+                     } else {
+-                        position = D_8008CFFC[*((u8 *)D_800B0DF0 + 0x10)];
++                        position = D_8008CFFC[D_800B0DF0->position_index];
+                         depth = 0xFF;
+                         if (func_1517EAAC(position[0], position[1], position[2], &node->field_C, &node->field_10) != 1) {
+                             skip = 1;
+--- a/src/game/game_1A0790.c
++++ b/src/game/game_1A0790.c
+@@ -1,4 +1,5 @@
+ #include "types.h"
++#include "game_level_header.h"
+
+ /*
+  * Reviewed source unit: src/game/game_1A0790.c
+@@ -25,29 +26,28 @@
+ } Game1A0790Output;
+
+ void func_151733E4(s32, s32, s32, s32, s32);
+-extern s8 *D_800B0DF0;
+ extern Game1A0790Output D_8008CC70;
+ extern s8 D_800DD2E0;
+
+ void func_151732E0(s32 arg0) {
+     s8 temp_a0;
+
+-    if ((*(s16 *)(D_800B0DF0 + 0x40) == *(s16 *)(D_800B0DF0 + 0x3C)) && (*(s16 *)(D_800B0DF0 + 0x3C) == 0)) {
+-        *(s16 *)(D_800B0DF0 + 0x40) = 0x64;
++    if ((D_800B0DF0->field40 == D_800B0DF0->field3C) && (D_800B0DF0->field3C == 0)) {
++        D_800B0DF0->field40 = 0x64;
+     }
+-    D_8008CC70.field0 = ((u8 *)D_800B0DF0)[0x42];
+-    D_8008CC70.field1 = ((u8 *)D_800B0DF0)[0x43];
+-    D_8008CC70.field2 = ((u8 *)D_800B0DF0)[0x44];
+-    D_8008CC70.field3 = ((u8 *)D_800B0DF0)[0x45];
+-    D_8008CC70.field4 = *(s16 *)(D_800B0DF0 + 0x3A);
+-    D_8008CC70.field6 = *(s16 *)(D_800B0DF0 + 0x3C);
+-    D_8008CC70.field8 = *(s16 *)(D_800B0DF0 + 0x3E);
+-    D_8008CC70.fieldA = *(s16 *)(D_800B0DF0 + 0x40);
+-    D_8008CC70.fieldC = *(u16 *)(D_800B0DF0 + 2);
+-    D_8008CC70.fieldE = *(u16 *)D_800B0DF0;
+-    if (D_800B0DF0[0x46] != -1) {
++    D_8008CC70.field0 = D_800B0DF0->field42;
++    D_8008CC70.field1 = D_800B0DF0->field43;
++    D_8008CC70.field2 = D_800B0DF0->field44;
++    D_8008CC70.field3 = D_800B0DF0->field45;
++    D_8008CC70.field4 = D_800B0DF0->field3A;
++    D_8008CC70.field6 = D_800B0DF0->field3C;
++    D_8008CC70.field8 = D_800B0DF0->field3E;
++    D_8008CC70.fieldA = D_800B0DF0->field40;
++    D_8008CC70.fieldC = D_800B0DF0->field02;
++    D_8008CC70.fieldE = D_800B0DF0->field00;
++    if (D_800B0DF0->selector != -1) {
+         D_800DD2E0 = 1;
+-        temp_a0 = D_800B0DF0[0x46];
++        temp_a0 = D_800B0DF0->selector;
+         func_151733E4((s32)temp_a0, (s32)temp_a0, arg0, 0, -1);
+         return;
+     }
+@@ -135,23 +135,23 @@
+     *field8 = (u16)(&D_8008CC70)[arg0].field8 + ((u16)(&D_8008CC70)[arg1].field8 - (u16)(&D_8008CC70)[arg0].field8) * arg3 / 4096;
+     *fieldA = (u16)(&D_8008CC70)[arg0].fieldA + ((u16)(&D_8008CC70)[arg1].fieldA - (u16)(&D_8008CC70)[arg0].fieldA) * arg3 / 4096;
+     if ((s16)(&D_8008CC70)[arg0].fieldC == -1) {
+-        from = *(s16 *)(D_800B0DF0 + 2);
++        from = (s16)D_800B0DF0->field02;
+     } else {
+         from = (s16)(&D_8008CC70)[arg0].fieldC;
+     }
+     if ((s16)(&D_8008CC70)[arg1].fieldC == -1) {
+-        to = *(s16 *)(D_800B0DF0 + 2);
++        to = (s16)D_800B0DF0->field02;
+     } else {
+         to = (s16)(&D_8008CC70)[arg1].fieldC;
+     }
+     *fieldC = (to - from) * arg3 / 4096 + from;
+     if ((s16)(&D_8008CC70)[arg0].fieldE == -1) {
+-        from = *(s16 *)D_800B0DF0;
++        from = (s16)D_800B0DF0->field00;
+     } else {
+         from = (s16)(&D_8008CC70)[arg0].fieldE;
+     }
+     if ((s16)(&D_8008CC70)[arg1].fieldE == -1) {
+-        to = *(s16 *)D_800B0DF0;
++        to = (s16)D_800B0DF0->field00;
+     } else {
+         to = (s16)(&D_8008CC70)[arg1].fieldE;
+     }
+@@ -164,7 +164,7 @@
+ extern u8 D_800DD2E4[];
+
+ void func_151738C4(s32 arg0) {
+-    if (D_800B0DF0[0x46] == -1) {
++    if (D_800B0DF0->selector == -1) {
+         if (*(s32 *)((u8 *)D_800DBFF0 + 0x5F0) & 1) {
+             func_151733E4(6, 6, arg0, 0, -1);
+             D_800DBEA8[0] = D_800DD2E4[0];
+@@ -173,12 +173,12 @@
+             return;
+         }
+         func_151733E4(0, 0, arg0, 0, -1);
+-        D_800DBEA8[0] = ((u8 *)D_800B0DF0)[5];
+-        D_800DBEA8[1] = ((u8 *)D_800B0DF0)[6];
+-        D_800DBEA8[2] = ((u8 *)D_800B0DF0)[7];
++        D_800DBEA8[0] = D_800B0DF0->red;
++        D_800DBEA8[1] = D_800B0DF0->green;
++        D_800DBEA8[2] = D_800B0DF0->blue;
+     }
+ }
+
+ s8 func_15173994(s32 arg0) {
+-    return D_800B0DF0[0x46];
++    return D_800B0DF0->selector;
+ }
+--- /dev/null
++++ b/include/game_level_header.h
+@@ -0,0 +1,34 @@
++#ifndef CONKER_GAME_LEVEL_HEADER_H
++#define CONKER_GAME_LEVEL_HEADER_H
++
++#include "types.h"
++
++/* Observed prefix only; no allocation size or array stride is established.
++ * Matched game_1A0790 readers establish the halfwords, RGB and signed selector;
++ * matched game_36600 uses the position-table index at 0x10.
++ * Transition fallback reads of field00/field02 require explicit s16 conversion.
++ */
++typedef struct GameLevelHeaderPrefix {
++    u16 field00;
++    u16 field02;
++    u8 unknown04;
++    u8 red;
++    u8 green;
++    u8 blue;
++    u8 unknown08[8];
++    u8 position_index;
++    u8 unknown11[0x29];
++    s16 field3A;
++    s16 field3C;
++    s16 field3E;
++    s16 field40;
++    u8 field42;
++    u8 field43;
++    u8 field44;
++    u8 field45;
++    s8 selector;
++} GameLevelHeaderPrefix;
++
++extern GameLevelHeaderPrefix *D_800B0DF0;
++
++#endif

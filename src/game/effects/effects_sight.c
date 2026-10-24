@@ -898,7 +898,6 @@ void func_151CAACC(void *arg0, void **arg1, volatile u8 arg2) {
     }
 }
 extern s32 D_80082FA0;
-void *func_1515548C(void *, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CAB78 CURRENT (1557) */
@@ -988,7 +987,7 @@ void func_151CAB78(u8 *arg0, u8 arg1) {
     spawn.y = 0.0f;
     spawn.field44 = arg0[0x23D];
     mode = arg1 ? 4 : 0;
-    object = func_1515548C(&spawn, mode & 0xFF, 0, 0, 0x58, 0xFF, 1);
+    object = func_1515548C(&spawn, mode, 0, 0, 0x58, 0xFF, 1);
     if (object != 0) {
         func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
     }
@@ -1689,7 +1688,6 @@ typedef struct SightEffectSpawn {
     u8 pad45[3];
 } SightEffectSpawn;
 
-void *func_1515548C(void *, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CCD1C CURRENT (2834) */

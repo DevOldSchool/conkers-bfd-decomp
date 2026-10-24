@@ -1,4 +1,6 @@
 #include "types.h"
+#include "game_functions.h"
+#include "game_render_view.h"
 
 /*
  * Reviewed source unit: src/game/game_FECC0.c
@@ -17,13 +19,6 @@ typedef struct GameFECC0Vertex {
     s16 texcoord[2];
     u8 color[4];
 } GameFECC0Vertex;
-typedef struct GameFECC0View {
-    u8 pad0[0xB8];
-    u16 normalization;
-    u8 padBA[2];
-    f32 matrix[16];
-    u8 padFC[0x180 - 0xFC];
-} GameFECC0View;
 typedef union GameFECC0Index {
     s32 word;
     struct { s16 high, low; } halves;
@@ -41,7 +36,6 @@ void func_150A7A48(void *, void *, void *);
 void func_151102CC(void *, f32, f32, f32);
 extern GameFECC0Index D_80082FA4;
 extern u8 D_80089470[];
-extern GameFECC0View *D_800BE628;
 extern u8 D_800BE9C0;
 extern s32 D_800BE9F0;
 extern void *D_800DBE80;

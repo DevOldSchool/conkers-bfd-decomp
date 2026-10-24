@@ -1,4 +1,6 @@
 #include "types.h"
+#include "game_functions.h"
+#include "game_render_view.h"
 
 /*
  * Reviewed source unit: src/game/game_476D0.c
@@ -18,7 +20,6 @@ void func_150006E0(s32);
 void func_1501A8C0(s32, s32, s32, s32);
 void func_1510B070(s32);
 extern s32 D_80082FA0;
-extern s32 D_800BE628;
 extern s32 D_800BE62C;
 extern s32 D_800BE63C;
 extern s32 D_800BE9F0;
@@ -43,7 +44,7 @@ void func_1501A220(s32 arg0, s32 arg1) {
     } else {
         var_s0 = temp_s1 + 2;
     }
-    D_800BE628 = func_10003C40(var_s0 * 0x180, 1, 1, 0);
+    D_800BE628 = (GameRenderView *)func_10003C40(var_s0 * 0x180, 1, 1, 0);
     D_800BE62C = func_10003C40(var_s0 * 0x10, 1, 1, 0);
     if (D_80082FA0 == 1) {
         temp_fv0 = (f32)D_800BE63C - 2.0f;
@@ -71,7 +72,6 @@ void func_1501A220(s32 arg0, s32 arg1) {
 }
 extern u8 D_8002C930;
 extern s32 D_800BE9C4;
-extern s32 D_800BE628;
 typedef union Game476D0DisplayCommand {
     struct {
         u32 word0;
@@ -93,7 +93,7 @@ void func_1501A39C(void) {
         { Game476D0DisplayCommand *command = gdl++; command->words.word0 = 0xDB060000; command->words.word1 = 0; }
         { Game476D0DisplayCommand *command = gdl++; command->words.word0 = 0xDE000000; command->words.word1 = (u32)&D_8002C930; }
         { Game476D0DisplayCommand *command = gdl++; command->words.word0 = 0xFE000000; command->words.word1 = D_800BE9C4; }
-        { Game476D0DisplayCommand *command = gdl++; command->words.word0 = 0xDC080008; command->words.word1 = D_800BE628 + 0x40 + i * 0x10; }
+        { Game476D0DisplayCommand *command = gdl++; command->words.word0 = 0xDC080008; command->words.word1 = (u32)&D_800BE628[0].viewports[i]; }
         D_800BE9D8[i] = gdl;
     }
 }
@@ -101,7 +101,6 @@ void func_1501A39C(void) {
 void func_1501AF44(f32 *, f32 *, f32 *, f32 *);
 extern s32 D_800BE620;
 extern s32 D_800BE624;
-extern s32 D_800BE628;
 
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 Game476D0DisplayCommand *func_1501A490(Game476D0DisplayCommand *arg0, s16 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
@@ -177,24 +176,21 @@ void func_1501A764(s16 arg0, f32 arg1, f32 arg2, f32 arg3, f32 *arg4,
     func_150A7A00(&D_800D9D10[arg0 << 6], arg1, arg2, arg3,
                    &sp34, &sp30, &sp2C, &sp28);
     sp28 = 1.0f / sp28;
-    *arg4 = ((*(f32 *)((u8 *)D_800BE628 + arg0 * 0x180 + 0xC) + 5.0f) *
+    *arg4 = ((D_800BE628[arg0].field0C + 5.0f) *
              sp34 * sp28) +
             *(f32 *)((u8 *)D_800BE628 + arg0 * 0x180 + 0x34);
     *arg5 = *(f32 *)((u8 *)D_800BE628 + arg0 * 0x180 + 0x38) -
-            ((*(f32 *)((u8 *)D_800BE628 + arg0 * 0x180 + 0x10) + 5.0f) *
+            ((D_800BE628[arg0].field10 + 5.0f) *
              sp30 * sp28);
-    *arg6 = ((f32)*(s16 *)((u8 *)D_800BE628 + arg0 * 0x180 +
-                           D_800BE9C0 * 0x10 + 0x4C) +
+    *arg6 = ((f32)D_800BE628[arg0].viewports[D_800BE9C0].vp.vtrans[2] +
              (sp2C * sp28 *
-              (f32)*(s16 *)((u8 *)D_800BE628 + arg0 * 0x180 +
-                             D_800BE9C0 * 0x10 + 0x44))) * 32.0f;
+              (f32)D_800BE628[arg0].viewports[D_800BE9C0].vp.vscale[2])) * 32.0f;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1501A764 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_476D0/func_1501A764.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_476D0/func_1501A8C0.s")
 extern s32 D_800BE620;
 extern s32 D_800BE624;
-extern s32 D_800BE628;
 
 s32 func_1501AE94(s32 arg0) {
     void *temp_v0;
@@ -298,7 +294,6 @@ void func_1501B0A0(s32 arg0, s32 arg1) {
     f32 temp_fa0;
     s32 temp_t4;
     s32 temp_t6;
-    s32 temp_t8;
     u8 *temp_v0;
 
     temp_t6 = arg0 * 0x180;
@@ -310,7 +305,6 @@ void func_1501B0A0(s32 arg0, s32 arg1) {
     sp2C = func_15047D60(temp_fa0);
     sp44 = sp2C / func_15047C00(temp_fa0);
     sp2C = func_15047D60(sp48);
-    temp_t8 = arg1 * 4;
     sp38 = (f32)D_800BE650[arg1] / (2.0f * (sp2C / func_15047C00(sp48)));
     temp_t4 = arg1 * 0x180;
     sp34 = (func_150484A0(*(f32 *)((u8 *)D_800BE628 + sp28 + 0xC),
@@ -339,32 +333,32 @@ void func_1501B22C(s32 arg0) {
     f32 temp_fv0;
     f32 temp_fv1;
     f32 temp_fv1_2;
-    u8 *temp_s0;
+    GameRenderView *temp_s0;
 
-    temp_s0 = (u8 *)D_800BE628 + (arg0 * 0x180);
-    temp_fa0 = -(*(f32 *)(temp_s0 + 0x74) * 0.5f) * D_80096900;
-    sp28 = *(f32 *)(temp_s0 + 0x78) * 0.5f;
+    temp_s0 = &D_800BE628[arg0];
+    temp_fa0 = -(temp_s0->value_x * 0.5f) * D_80096900;
+    sp28 = temp_s0->value_y * 0.5f;
     sp24 = temp_fa0;
     sp34 = func_15047C00(sp24);
     temp_fv0 = func_15047D60(sp24);
-    *(f32 *)(temp_s0 + 0x9C) = temp_fv0;
+    *(f32 *)((u8 *)temp_s0 + 0x9C) = temp_fv0;
     temp_fv1 = -sp34;
-    *(f32 *)(temp_s0 + 0x90) = temp_fv0;
-    *(f32 *)(temp_s0 + 0x94) = temp_fv1;
-    *(f32 *)(temp_s0 + 0x88) = -temp_fv1;
-    *(f32 *)(temp_s0 + 0x98) = 0.0f;
-    *(f32 *)(temp_s0 + 0x8C) = 0.0f;
+    *(f32 *)((u8 *)temp_s0 + 0x90) = temp_fv0;
+    *(f32 *)((u8 *)temp_s0 + 0x94) = temp_fv1;
+    *(f32 *)((u8 *)temp_s0 + 0x88) = -temp_fv1;
+    *(f32 *)((u8 *)temp_s0 + 0x98) = 0.0f;
+    *(f32 *)((u8 *)temp_s0 + 0x8C) = 0.0f;
     temp_fa0_2 = sp28 * D_80096904;
     sp24 = temp_fa0_2;
     sp34 = func_15047C00(sp24);
     temp_fa0_3 = -func_15047D60(sp24);
-    *(f32 *)(temp_s0 + 0xA0) = 0.0f;
-    *(f32 *)(temp_s0 + 0xA8) = temp_fa0_3;
-    *(f32 *)(temp_s0 + 0xB4) = temp_fa0_3;
+    *(f32 *)((u8 *)temp_s0 + 0xA0) = 0.0f;
+    *(f32 *)((u8 *)temp_s0 + 0xA8) = temp_fa0_3;
+    *(f32 *)((u8 *)temp_s0 + 0xB4) = temp_fa0_3;
     temp_fv1_2 = -sp34;
-    *(f32 *)(temp_s0 + 0xAC) = 0.0f;
-    *(f32 *)(temp_s0 + 0xA4) = temp_fv1_2;
-    *(f32 *)(temp_s0 + 0xB0) = -temp_fv1_2;
+    *(f32 *)((u8 *)temp_s0 + 0xAC) = 0.0f;
+    *(f32 *)((u8 *)temp_s0 + 0xA4) = temp_fv1_2;
+    *(f32 *)((u8 *)temp_s0 + 0xB0) = -temp_fv1_2;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1501B22C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_476D0/func_1501B22C.s")
