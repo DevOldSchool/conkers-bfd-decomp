@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1503DF48
- * - func_1503E260
  * - func_1503E5F8
  * - func_1503E82C
  * - func_1503EA54
@@ -161,27 +160,19 @@ s32 func_1503E1F4(s32 arg0, s32 arg1) {
 extern u8 *D_80084460[];
 void func_10004074(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503E260 CURRENT (8) */
 void func_1503E260(s32 arg0) {
     s32 i;
     u8 *list;
-    u8 *mask;
     s32 count;
 
     if (D_800C6660[arg0].pad_E[1] != 0) {
         list = D_80084460[D_800C6660[arg0].pad_E[0]];
         if (list != 0) {
             count = D_80098914[D_800C6660[arg0].pad_E[0]];
-            i = 0;
-            mask = list;
-            if (count > 0) {
-                do {
-                    if (*mask != 0xFF && func_1503E1F4(i, arg0) != 0) {
-                        *(s32 *)(D_800CC2D0 + arg0 * 0x32C + 0x94) |= 1 << *mask;
-                    }
-                    i++;
-                    mask++;
-                } while (i != count);
+            for (i = 0; i < count; i++) {
+                if (list[i] != 0xFF && func_1503E1F4(i, arg0) != 0) {
+                    *(s32 *)(D_800CC2D0 + arg0 * 0x32C + 0x94) |= 1 << list[i];
+                }
             }
         }
         D_800C6660[arg0].pad_E[1] = 0;
@@ -192,8 +183,6 @@ void func_1503E260(s32 arg0) {
         (D_800CC2D0 + arg0 * 0x32C)[0x74] &= 0xFF7F;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503E260 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503E260.s")
 /* Call context: func_10023A10: unique active project prototype */
 /* Call context: func_1503E5F8: unique active declaration in the allowed source */
 /* Call context: func_150A7A48: unique active declaration in the allowed source */
