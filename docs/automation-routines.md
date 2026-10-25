@@ -36,7 +36,10 @@ and the [workflow reference](decompilation-workflow.md) still govern every edit.
    no PR. The driver finds the ROM in the main checkout's `roms/` directory
    (`CONKER_AUTO_ROM` overrides it), so it may run from any linked worktree.
 6. **Cleanup.** `auto_round.sh cleanup` stops the container, removes the
-   worktree and releases the lock. It runs even after a failed round.
+   worktree and its local branch, deletes any other local `auto/match-*`
+   branch that is merged into main or gone upstream, and releases the lock.
+   It runs even after a failed round. The merge step deletes the remote
+   branch; a PR merged by hand should use `--delete-branch` too.
 
 ## Review and merge
 
