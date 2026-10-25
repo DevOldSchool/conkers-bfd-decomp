@@ -190,7 +190,7 @@ segments:
       - [0x487E0, c, done/game/game_75C90]
       - [0x489B0, c, done/game/game_75E60]
       - [0x48B10, c, game/game_75FC0]
-      - [0x49260, c, game/game_76710]
+      - [0x49260, c, done/game/game_76710]
       - [0x49440, c, game/game_768F0]
       - [0x495B0, c, game/game_76A60]
       - [0x497E0, c, game/game_76C90]

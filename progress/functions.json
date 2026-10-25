@@ -6479,7 +6479,7 @@
           "vram": "0x15049260"
         }
       },
-      "source": "src/game/game_76710.c",
+      "source": "src/done/game/game_76710.c",
       "symbol": "func_15049260"
     },
     {
@@ -6497,26 +6497,25 @@
           "vram": "0x150492CC"
         }
       },
-      "source": "src/game/game_76710.c",
+      "source": "src/done/game/game_76710.c",
       "symbol": "func_150492CC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 414,
-        "reason": "Manual live2456 to414: reuse proven nine-word aggregate argument carrier; remove unused sp10 copy. Computational instruction stream and FP registers now exact. Remaining frame40 vs38, argument homes and three registered trailing NOPs. Removing coordinate snapshots932 and consumed-direction reuse1830 exhausted; best414 restored/rechecked. See deferred-focused-20260930 ledger.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 240,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15049350",
           "vram": "0x15049350"
         }
       },
-      "source": "src/game/game_76710.c",
+      "source": "src/done/game/game_76710.c",
       "symbol": "func_15049350"
     },
     {
@@ -32286,17 +32285,16 @@
       "symbol": "func_15105548"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 203,
-        "reason": "CURRENT (203), round22 msweep move op (move15_13: one statement moved within its straight-line run) (stored 335). Earlier: Manual budget exhausted; retain best CURRENT335 with exact opcodes/control flow, remaining stack homes and saved-pointer ownership.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 700,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510558C",
           "vram": "0x1510558C"
         }
@@ -54341,17 +54339,16 @@
       "symbol": "func_150D6C98"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 372,
-        "reason": "CURRENT (372): only eight differing rows, early D_800BE9A4 address construction and load/copy ordering; two manual revisions exhausted",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 412,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D6CC4",
           "vram": "0x150D6CC4"
         }
@@ -71290,17 +71287,16 @@
       "symbol": "func_1518EF54"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 85,
-        "reason": "CURRENT (85): timestep address v0 vs raw v1 with early li v0,1. Round9: f32 *rate pointer 115, compound/rate-local forms 85, permute 32 85",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 176,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1518F058",
           "vram": "0x1518F058"
         }

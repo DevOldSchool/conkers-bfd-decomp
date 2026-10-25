@@ -68,7 +68,27 @@ def changed_files(repo: str, base: str, head: str) -> list[tuple[str, str, str]]
         else:
             rows.append((status[0], parts[i + 1], parts[i + 1]))
             i += 2
-    return rows
+    return pair_done_moves(rows)
+
+
+def pair_done_moves(rows: list[tuple[str, str, str]]) -> list[tuple[str, str, str]]:
+    """Treat a deleted `src/game/X.c` plus an added `src/done/game/X.c` as a rename.
+
+    A unit completed in the same commit that matched several of its functions
+    can fall below Git's rename similarity, so Git reports D + A instead of R.
+    """
+    deleted = {old: idx for idx, (status, old, _) in enumerate(rows) if status == "D"}
+    paired: list[tuple[str, str, str]] = []
+    consumed: set[int] = set()
+    for idx, (status, _, new) in enumerate(rows):
+        if status != "A":
+            continue
+        for old, old_idx in deleted.items():
+            if old_idx not in consumed and is_done_move(old, new):
+                paired.append(("R", old, new))
+                consumed.update({idx, old_idx})
+                break
+    return [row for idx, row in enumerate(rows) if idx not in consumed] + paired
 
 
 def path_allowed(path: str) -> bool:
@@ -93,14 +113,16 @@ def check_paths(repo: str, base: str, head: str, result: Result) -> list[tuple[s
     return sources
 
 
-def file_diff(repo: str, base: str, head: str, *paths: str) -> str:
-    # Pass both names of a renamed file so Git still pairs them instead of
-    # reporting the whole file as added.
-    return git(repo, "diff", "-U0", "-M", f"{base}...{head}", "--", *sorted(set(paths)))
+def file_diff(repo: str, base: str, head: str, old: str, new: str) -> str:
+    # A renamed file is diffed blob to blob, so a move that Git did not pair
+    # (or paired only with -M) is still compared against its old content.
+    if old != new:
+        return git(repo, "diff", "-U0", f"{base}:{old}", f"{head}:{new}")
+    return git(repo, "diff", "-U0", f"{base}...{head}", "--", new)
 
 
-def added_lines(repo: str, base: str, head: str, *paths: str) -> list[tuple[int, str]]:
-    diff = file_diff(repo, base, head, *paths)
+def added_lines(repo: str, base: str, head: str, old: str, new: str) -> list[tuple[int, str]]:
+    diff = file_diff(repo, base, head, old, new)
     lines: list[tuple[int, str]] = []
     line_no = 0
     for raw in diff.splitlines():
@@ -114,7 +136,7 @@ def added_lines(repo: str, base: str, head: str, *paths: str) -> list[tuple[int,
 
 
 def removed_lines(repo: str, base: str, head: str, path: str) -> list[str]:
-    diff = file_diff(repo, base, head, path)
+    diff = file_diff(repo, base, head, path, path)
     return [raw[1:] for raw in diff.splitlines() if raw.startswith("-") and not raw.startswith("---")]
 
 
@@ -142,7 +164,7 @@ def is_done_move(before: str, after: str) -> bool:
 def check_source_map(repo: str, base: str, head: str, result: Result) -> None:
     # Integration rewrites one segment row per completed unit; anything else is a layout change.
     removed = [line for line in removed_lines(repo, base, head, SOURCE_MAP) if line.strip()]
-    added = [text for _, text in added_lines(repo, base, head, SOURCE_MAP) if text.strip()]
+    added = [text for _, text in added_lines(repo, base, head, SOURCE_MAP, SOURCE_MAP) if text.strip()]
     if not removed and not added:
         return
     unmatched = [line for line in removed if not any(is_done_move(line, new) for new in added)]

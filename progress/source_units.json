@@ -2348,15 +2348,15 @@
         "func_150492CC",
         "func_15049350"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x49440",
           "start": "0x49260",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_76710.c"
+      "source": "src/done/game/game_76710.c"
     },
     {
       "boundary_evidence": {
