@@ -9,7 +9,6 @@
  * - func_15104A80
  * - func_15104C44
  * - func_151050B0
- * - func_1510558C
  * - func_151058B4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -258,47 +257,44 @@ extern Game131F30Factor D_800A23A8;
 extern f32 D_800A23C0, D_800A23C4, D_800A23C8, D_800A23CC, D_800A23D0;
 extern f32 D_800A23D4, D_800A23D8, D_800A23DC, D_800A23E0, D_800A23E4, D_800A23E8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510558C CURRENT (203) */
 void func_1510558C(Game131F30Emitter *arg0) {
-    register Game131F30Part *part;
-    register u32 flags;
+    Game131F30Part *part;
+    u32 flags;
     struct {
         Game131F30Factor factor;
         Game131F30Color color;
         Game131F30Descriptor descriptor;
     } work;
+    u32 lifetime;
     u32 random;
     f32 fraction;
-    Vec3f *position;
-    Game131F30Surface *surface;
 
     part = (Game131F30Part *)((u8 *)arg0 + 0x110);
     fraction = func_150ADA68();
     random = func_150ADA20();
-    surface = &part->surface;
-    position = &part->position;
+    lifetime = func_150ADA20() % 81U + 0x32;
     func_15102920(fraction * 25.0f + 15.0f, ((random % 56U) + 0xC8) & 0xFF,
-                  surface, position, func_150ADA20() % 81U + 0x32, 1, 1,
+                  &part->surface, &part->position, lifetime, 1, 1,
                   part->flags, arg0->mode, arg0->group);
     flags = part->flags;
     if ((flags & 0x1F) == 9) {
         if (func_150ADA68() < D_800A23C0) {
-            func_151C329C(position, arg0->mode, arg0->group);
+            func_151C329C(&part->position, arg0->mode, arg0->group);
         }
     } else {
         if (func_150ADA68() < D_800A23C4) {
-            func_151C329C(position, arg0->mode, arg0->group);
+            func_151C329C(&part->position, arg0->mode, arg0->group);
         }
         if (func_150ADA68() < D_800A23C8) {
             work.color = D_800A23A4;
             work.factor = D_800A23A8;
             work.descriptor.count = 1;
             work.descriptor.spread = 3;
-            work.descriptor.position = *position;
+            work.descriptor.position = part->position;
             work.descriptor.velocity.x = -part->velocity.x;
             work.descriptor.velocity.y = -part->velocity.y;
             work.descriptor.velocity.z = -part->velocity.z;
-            work.descriptor.surface = *surface;
+            work.descriptor.surface = part->surface;
             work.descriptor.field34 = D_800A23CC;
             work.descriptor.field38 = D_800A23D0;
             work.descriptor.duration = 15;
@@ -313,8 +309,6 @@ void func_1510558C(Game131F30Emitter *arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510558C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_131F30/func_1510558C.s")
 
 
 void func_151058B4(void *);
