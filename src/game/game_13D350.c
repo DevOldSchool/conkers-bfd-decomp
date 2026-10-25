@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_text_view_descriptor_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1510FEA0
  * - func_151108C4
  * - func_15110CFC
  * - func_15111858
@@ -15,7 +14,144 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_1510FEA0.s")
+typedef struct Game13D350ViewWord {
+    u32 w0;
+    u32 w1;
+} Game13D350ViewWord;
+
+typedef struct Game13D350ViewAngles {
+    u8 pad0[0xC];
+    f32 pitch;
+    f32 yaw;
+    f32 roll;
+} Game13D350ViewAngles;
+
+typedef struct Game13D350Command *(*Game13D350ViewDraw)(struct Game13D350Command *, f32, f32, f32, f32, f32, f32, s32);
+
+struct Game13D350Command *func_151106A8(struct Game13D350Command *);
+struct Game13D350Command *func_15110544(struct Game13D350Command *, s32, s32, s32, s32, s32, s32, u8);
+s32 func_151108C4(f32, f32, f32, f32, f32);
+void *func_1501A490(void *, s16, s32, s32, s32, s32);
+extern u8 D_800D9B68;
+extern u8 D_800D9B69;
+extern u8 D_800D9B6A;
+extern u8 D_800D9B6B;
+extern u8 D_800D9B6C;
+extern u8 D_800D9B6D;
+extern u8 D_800D9B6E;
+extern u8 D_800D9B6F;
+extern u8 D_800D9B70;
+extern u8 D_800D9B71;
+extern u8 D_800D9B72;
+extern u8 D_800D9B73;
+extern u8 D_800D9B78;
+extern u8 D_800D9B79;
+extern u8 D_800D9B7A;
+extern u8 D_800D9B7B;
+extern u8 D_800D9B7C;
+extern u8 D_800D9B7D;
+extern u8 D_800D9B7E;
+extern u8 D_800D9B7F;
+extern u8 D_800D9B80;
+extern u8 D_800D9B81;
+extern u8 D_800D9B82;
+extern u8 D_800D9B83;
+extern u8 D_800BE635;
+extern u8 D_800C35EA;
+extern u8 D_800C3681;
+extern u8 D_800C3682;
+extern s32 D_80082FA4;
+extern s16 D_80082FA6;
+extern s32 D_800BE620;
+extern s32 D_800BE624;
+extern void *D_800DBFF0;
+extern struct Game13D350Record *D_800BE628;
+extern Game13D350ViewAngles D_800DCDE0[];
+extern struct Game13D350State *D_800B0DF0;
+extern Game13D350ViewDraw D_800891D8[];
+
+Game13D350ViewWord *func_1510FEA0(Game13D350ViewWord *arg0, s32 arg1) {
+    u8 *record;
+    f32 pitch;
+    f32 yaw;
+    f32 roll;
+    s32 visible;
+    f32 x;
+    f32 y;
+    f32 z;
+
+    D_800D9B68 = 0;
+    D_800D9B69 = 0;
+    D_800D9B6A = 0;
+    D_800D9B78 = 0;
+    D_800D9B79 = 0;
+    D_800D9B7A = 0;
+    D_800D9B6B = 0;
+    D_800D9B6C = 0;
+    D_800D9B6D = 0;
+    D_800D9B7B = 0;
+    D_800D9B7C = 0;
+    D_800D9B7D = 0;
+    D_800D9B6E = 0;
+    D_800D9B6F = 0;
+    D_800D9B70 = 0;
+    D_800D9B7E = 0;
+    D_800D9B7F = 0;
+    D_800D9B80 = 0;
+    D_800D9B71 = 0;
+    D_800D9B72 = 0;
+    D_800D9B73 = 0;
+    D_800D9B81 = 0;
+    D_800D9B82 = 0;
+    D_800D9B83 = 0;
+    { Game13D350ViewWord *command = arg0++; command->w0 = 0xD9FFF9FF; command->w1 = 0; }
+    arg0 = (Game13D350ViewWord *)func_151106A8((struct Game13D350Command *)arg0);
+    { Game13D350ViewWord *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
+    if (D_800BE635 != 0) {
+        arg0 = (Game13D350ViewWord *)func_15110544((struct Game13D350Command *)arg0, 0, 0, D_800BE620, D_800BE624, 0, 0, 0);
+    }
+    if (D_800C35EA == 1 && D_800C3681 != 0) {
+        return arg0;
+    }
+    pitch = 360.0f - (*(f32 *)((u8 *)D_800DBFF0 + D_80082FA4 * 0x9A0 + 0x388) + D_800DCDE0[D_80082FA4].pitch);
+    while (pitch < -180.0f) {
+        pitch += 360.0f;
+    }
+    while (pitch >= 180.0f) {
+        pitch -= 360.0f;
+    }
+    yaw = 360.0f - (*(f32 *)((u8 *)D_800DBFF0 + D_80082FA4 * 0x9A0 + 0x380) + D_800DCDE0[D_80082FA4].yaw);
+    while (yaw < 0.0f) {
+        yaw += 360.0f;
+    }
+    while (yaw >= 360.0f) {
+        yaw -= 360.0f;
+    }
+    roll = *(f32 *)((u8 *)D_800DBFF0 + D_80082FA4 * 0x9A0 + 0x5EC) + D_800DCDE0[D_80082FA4].roll;
+    while (roll < -180.0f) {
+        roll += 360.0f;
+    }
+    while (roll >= 180.0f) {
+        roll -= 360.0f;
+    }
+    x = *(f32 *)((u8 *)D_800DBFF0 + D_80082FA4 * 0x9A0 + 0x2F8);
+    y = *(f32 *)((u8 *)D_800DBFF0 + D_80082FA4 * 0x9A0 + 0x2FC);
+    z = *(f32 *)((u8 *)D_800DBFF0 + D_80082FA4 * 0x9A0 + 0x300);
+    if (D_800C3682 != 0) {
+        record = (u8 *)D_800BE628 + D_80082FA4 * 0x180;
+        return (Game13D350ViewWord *)func_15110544((struct Game13D350Command *)arg0,
+                                                   (s32)*(f32 *)(record + 0x2C), (s32)*(f32 *)(record + 0x24),
+                                                   (s32)(*(f32 *)(record + 0x30) - 1.0f),
+                                                   (s32)*(f32 *)(record + 0x28), 0x16, 0x1C, 0x1B);
+    }
+    visible = func_151108C4(x, y, z, pitch, yaw);
+    if (visible != 0) {
+        arg0 = (Game13D350ViewWord *)D_800891D8[((u8 *)D_800B0DF0)[8]]((struct Game13D350Command *)arg0, x, y, z, pitch, yaw, roll, visible);
+    }
+    arg0 = func_1501A490(arg0, D_80082FA6, 0, 0, 0, 0);
+    { Game13D350ViewWord *command = arg0++; command->w0 = 0xD9FFFFFF; command->w1 = 0x400; }
+    return arg0;
+}
 void func_150A8050(void *, f32, f32, f32);
 void func_151102CC(void *, f32, f32, f32);
 void func_150A7A48(void *, void *, void *);
@@ -144,7 +280,7 @@ Game13D350Command *func_151106A8(Game13D350Command *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_151108C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_15110CFC.s")
-typedef struct {
+typedef struct Game13D350State {
     u8 pad0[8];
     u8 mode;
     u8 selection;
