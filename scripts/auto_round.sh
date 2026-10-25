@@ -249,6 +249,11 @@ cmd_review_pending() {
     for pr in $numbers; do
         cmd_review "$pr" || true
     done
+    # A PR verified earlier but not merged (checks were slow, or main moved) is merged now.
+    for pr in $(gh pr list --repo "$remote_repo" --state open --label "$label_verified" --json number,labels \
+            --jq "[.[] | select(all(.labels[].name; . != \"$label_human\")) | .number] | sort | .[]"); do
+        cmd_merge "$pr" || true
+    done
 }
 
 cmd_review() {
