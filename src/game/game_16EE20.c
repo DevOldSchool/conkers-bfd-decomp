@@ -18,7 +18,6 @@
  * - func_15142600
  * - func_1514306C
  * - func_15143134
- * - func_151432BC
  * - func_151438D8
  * - func_15143D18
  * - func_15143E94
@@ -890,7 +889,84 @@ void func_15143134(f32 *arg0, f32 *arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15143134 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15143134.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151432BC.s")
+typedef struct Game16EE20Emitter {
+    s16 x;
+    s16 y;
+    s16 z;
+    s16 radiusX;
+    s16 height;
+    s16 radiusZ;
+    u8 padC[4];
+    f32 rotation;
+    u8 pad14;
+    u8 flags;
+} Game16EE20Emitter;
+
+extern f32 D_800A5644;
+
+void func_151432BC(Game16EE20Emitter *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4) {
+    switch (arg0->flags & 3) {
+    default:
+        *arg1 = arg0->x;
+        *arg2 = arg0->z;
+        *arg3 = arg0->y + arg0->height;
+        *arg4 = arg0->y - arg0->height;
+        return;
+    case 2:
+        {
+            u8 angle;
+            f32 cosine;
+            f32 sine;
+            f32 offsetX;
+            f32 offsetZ;
+
+            angle = arg0->rotation * D_800A5644;
+            cosine = func_151423D8(angle - 0x40);
+            sine = func_151423D8(angle);
+            offsetX = func_150ADA68() * (2.0f * arg0->radiusX) + -arg0->radiusX;
+            offsetZ = func_150ADA68() * (2.0f * arg0->radiusZ) + -arg0->radiusZ;
+            *arg1 = arg0->x + (offsetX * sine + offsetZ * cosine);
+            *arg2 = arg0->z + (offsetZ * sine - offsetX * cosine);
+            *arg3 = arg0->y + arg0->height;
+            *arg4 = arg0->y;
+        }
+        return;
+    case 0:
+        {
+            u8 angle;
+            f32 cosine;
+            f32 sine;
+            f32 radius;
+
+            angle = func_150ADA20() & 0xFF;
+            cosine = func_151423D8(angle - 0x40);
+            sine = func_151423D8(angle);
+            radius = func_150ADA68() * arg0->radiusX;
+            *arg1 = arg0->x + radius * sine;
+            *arg2 = arg0->z - radius * cosine;
+            *arg3 = arg0->y + arg0->height;
+            *arg4 = arg0->y;
+        }
+        return;
+    case 1:
+        {
+            u8 angle;
+            f32 cosine;
+            f32 sine;
+            f32 radius;
+
+            angle = func_150ADA20() & 0xFF;
+            cosine = func_151423D8(angle - 0x40);
+            sine = func_151423D8(angle);
+            radius = func_150ADA68() * arg0->radiusX;
+            *arg1 = arg0->x + radius * sine;
+            *arg2 = arg0->z - radius * cosine;
+            *arg3 = arg0->y + arg0->height;
+            *arg4 = arg0->y - arg0->height;
+        }
+        return;
+    }
+}
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);                             /* extern */

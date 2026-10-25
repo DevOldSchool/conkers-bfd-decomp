@@ -14,3 +14,9 @@ rom:0x3914 reloc:MIPS_HI16 symbol:D_800B0E58 addend:0x4
 rom:0x3928 reloc:MIPS_LO16 symbol:D_800B0E58 addend:0x4
 rom:0x392C reloc:MIPS_HI16 symbol:D_800B0E58 addend:0x8
 rom:0x3930 reloc:MIPS_LO16 symbol:D_800B0E58 addend:0x8
+
+// func_151432BC converts f32 to u32 (lui 0x8000 bias) and later computes
+// (angle - 0x40) with addiu -0x40. Neither immediate addresses data; without
+// these overrides the pair is symbolised as %hi/%lo(D_7FFFFFC0).
+rom:0x1433DC reloc:MIPS_NONE symbol:D_7FFFFFC0
+rom:0x143400 reloc:MIPS_NONE symbol:D_7FFFFFC0
