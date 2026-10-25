@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1518EF54
- * - func_1518F058
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -169,30 +168,28 @@ s32 func_1518EF54(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BBFC0/func_1518EF54.s")
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F058 CURRENT (85) */
 s32 func_1518F058(void *arg0) {
+    u8 *base = arg0;
     f32 temp_fa0;
     f32 temp_fa1;
     f32 temp_ft4;
     f32 temp_fv0;
 
-    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x150);
-    *(f32 *)((u8 *)arg0 + 0x140) = (f32) (*(f32 *)((u8 *)arg0 + 0x140) * temp_fv0);
-    *(f32 *)((u8 *)arg0 + 0x144) = (f32) ((*(f32 *)((u8 *)arg0 + 0x14C) * D_800BE9A4) + *(f32 *)((u8 *)arg0 + 0x144));
-    *(f32 *)((u8 *)arg0 + 0x148) = (f32) (*(f32 *)((u8 *)arg0 + 0x148) * temp_fv0);
-    temp_fa0 = *(f32 *)((u8 *)arg0 + 0x140) * D_800BE9A4;
-    temp_fa1 = *(f32 *)((u8 *)arg0 + 0x144) * D_800BE9A4;
-    temp_ft4 = *(f32 *)((u8 *)arg0 + 0x148) * D_800BE9A4;
-    *(f32 *)((u8 *)arg0 + 0x34) = (f32) (*(f32 *)((u8 *)arg0 + 0x34) + temp_fa0);
-    *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(f32 *)((u8 *)arg0 + 0x38) + temp_fa1);
-    *(f32 *)((u8 *)arg0 + 0x3C) = (f32) (*(f32 *)((u8 *)arg0 + 0x3C) + temp_ft4);
-    *(f32 *)((u8 *)arg0 + 0x40) = (f32) (*(f32 *)((u8 *)arg0 + 0x40) + temp_fa0);
-    *(f32 *)((u8 *)arg0 + 0x44) = (f32) (*(f32 *)((u8 *)arg0 + 0x44) + temp_fa1);
-    *(f32 *)((u8 *)arg0 + 0x48) = (f32) (*(f32 *)((u8 *)arg0 + 0x48) + temp_ft4);
+    temp_fv0 = *(f32 *)(base + 0x150);
+    *(f32 *)(base + 0x140) = (f32) (*(f32 *)(base + 0x140) * temp_fv0);
+    *(f32 *)(base + 0x144) = (f32) ((*(f32 *)(base + 0x14C) * D_800BE9A4) + *(f32 *)(base + 0x144));
+    *(f32 *)(base + 0x148) = (f32) (*(f32 *)(base + 0x148) * temp_fv0);
+    temp_fa0 = *(f32 *)(base + 0x140) * D_800BE9A4;
+    temp_fa1 = *(f32 *)(base + 0x144) * D_800BE9A4;
+    temp_ft4 = *(f32 *)(base + 0x148) * D_800BE9A4;
+    *(f32 *)(base + 0x34) = (f32) (*(f32 *)(base + 0x34) + temp_fa0);
+    *(f32 *)(base + 0x38) = (f32) (*(f32 *)(base + 0x38) + temp_fa1);
+    *(f32 *)(base + 0x3C) = (f32) (*(f32 *)(base + 0x3C) + temp_ft4);
+    *(f32 *)(base + 0x40) = (f32) (*(f32 *)(base + 0x40) + temp_fa0);
+    *(f32 *)(base + 0x44) = (f32) (*(f32 *)(base + 0x44) + temp_fa1);
+    *(f32 *)(base + 0x48) = (f32) (*(f32 *)(base + 0x48) + temp_ft4);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518F058 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BBFC0/func_1518F058.s")
 s32 func_1518F108(void *arg0) {
     f32 temp_fa0;
     f32 temp_fv0;
