@@ -16,7 +16,8 @@
 #   review-pending               Re-verify and merge every open auto-match PR without a verdict.
 #   review <pr-number>           Re-verify one PR, label it, and merge it when verified.
 #   merge <pr-number>            Wait for public checks and merge a verified PR.
-#   cleanup                      Stop the round container, remove the worktree, release the lock.
+#   cleanup                      Stop the round container, remove the worktree and its branch,
+#                                prune merged auto/match-* branches, release the lock.
 # CONKER_AUTO_NO_MERGE=1 makes review/review-pending verify and label without merging.
 set -euo pipefail
 
@@ -365,7 +366,14 @@ cmd_merge() {
         (( $(now) < deadline )) || { mark_human "$pr" "merge state stayed $status for $checks_timeout_minutes minutes"; return 1; }
         sleep 60
     done
+    local head_ref
+    head_ref="$(pr_json "$pr" headRefName .headRefName)"
     if gh pr merge "$pr" --repo "$remote_repo" --merge --delete-branch >/dev/null; then
+        # --delete-branch can leave the remote ref when the local repo has no copy; make sure.
+        git -C "$repo_root" fetch --quiet --prune origin || true
+        if git -C "$repo_root" show-ref --verify --quiet "refs/remotes/origin/$head_ref"; then
+            git -C "$repo_root" push --quiet origin --delete "$head_ref" || true
+        fi
         printf 'AUTO_ROUND: MERGED %s\n' "$pr"
     else
         mark_human "$pr" "gh pr merge failed"
@@ -373,14 +381,41 @@ cmd_merge() {
     fi
 }
 
+prune_round_branches() {
+    # Local auto/match-* branches outlive their worktrees: delete any that is not
+    # checked out anywhere and is either merged into origin/main or gone upstream.
+    local branch upstream
+    git -C "$repo_root" fetch --quiet --prune origin || true
+    while read -r branch; do
+        [[ -n "$branch" ]] || continue
+        git -C "$repo_root" worktree list --porcelain | grep -qx "branch refs/heads/$branch" && continue
+        if git -C "$repo_root" merge-base --is-ancestor "$branch" origin/main 2>/dev/null; then
+            git -C "$repo_root" branch -D "$branch" >/dev/null && note "deleted merged branch $branch"
+            continue
+        fi
+        upstream="$(git -C "$repo_root" rev-parse --abbrev-ref "$branch@{upstream}" 2>/dev/null || true)"
+        if [[ -n "$upstream" ]] && ! git -C "$repo_root" show-ref --verify --quiet "refs/remotes/$upstream"; then
+            git -C "$repo_root" branch -D "$branch" >/dev/null && note "deleted branch $branch (upstream gone)"
+        fi
+    done < <(git -C "$repo_root" for-each-ref --format='%(refname:short)' 'refs/heads/auto/match-*')
+}
+
 cmd_cleanup() {
-    [[ -d "$lock_dir" ]] || { printf 'AUTO_ROUND: NO_LOCK\n'; return; }
-    local path
+    if [[ ! -d "$lock_dir" ]]; then
+        prune_round_branches
+        printf 'AUTO_ROUND: NO_LOCK\n'
+        return
+    fi
+    local path branch
     path="$(lock_value worktree)"
+    branch="$(lock_value branch)"
     if [[ -d "$path" ]] && ! git -C "$path" diff --quiet HEAD 2>/dev/null; then
         note "worktree $path has uncommitted changes; they are discarded"
     fi
     remove_worktree "$path"
+    # The round branch lives on in the PR (or was never pushed); the local copy is not needed.
+    [[ -z "$branch" ]] || git -C "$repo_root" branch -D "$branch" >/dev/null 2>&1 || true
+    prune_round_branches
     release_lock
     printf 'AUTO_ROUND: CLEANED\n'
 }
