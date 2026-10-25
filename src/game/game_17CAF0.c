@@ -18,7 +18,6 @@
  * - func_15151D6C
  * - func_15152190
  * - func_15152520
- * - func_15152B38
  * - func_151539B4
  * - func_151541B8
  * - func_15154684
@@ -981,7 +980,98 @@ void func_15152ABC(Game17CAF0Color *arg0) {
     arg0->green = locals.color[1];
     arg0->blue = locals.color[2];
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152B38.s")
+typedef struct {
+    s32 countBase, countRange;
+    Vec3f position;
+    f32 sizeBase, sizeRange, spreadBase, spreadRange, speedBase, speedRange;
+    s16 yawBase, yawRange, pitchBase, pitchRange;
+    s32 burstBase, burstRange;
+    s16 lifeBase, lifeRange;
+    u16 kind;
+    u8 field42, field43, field44;
+    u8 colorBase[4], colorRange[4], fadeBase[4], fadeRange[4];
+    u8 field55, field56, field57, field58;
+    u8 pad59[3];
+    s32 flags, mode;
+    s16 duration, period, repeat;
+    u8 field6A, pad6B;
+    f32 scale;
+    s8 field70, field71;
+} Game152B38Config;
+
+typedef struct {
+    Vec3f position;
+    s16 lifetime;
+    u16 kind;
+    s32 flags;
+    s8 mode, count;
+} Game152B38Spawn;
+
+typedef struct {
+    f32 size;
+    Vec3f velocity;
+    f32 spread;
+    u8 field14, field15, field16, field17, field18, field19, field1A;
+    u8 field1B, field1C, field1D, field1E, field1F, field20, field21;
+    s32 flags, mode;
+    s16 duration, period, repeat;
+    u8 field32;
+    f32 scale;
+    s8 field38, field39;
+} Game152B38Motion;
+
+void *func_1515C2F0(void *, void *, s32, s32, u8, s32);
+
+void func_15152B38(Game152B38Config *arg0, u8 arg1, s32 arg2) {
+    s32 count;
+    Game152B38Spawn spawn;
+    Game152B38Motion motion;
+    Game152B38Motion *motionPtr;
+
+    count = func_150ADA20() % (u32)(arg0->countRange + 1) + arg0->countBase;
+    spawn.position = arg0->position;
+    spawn.kind = arg0->kind;
+    spawn.flags = 10;
+    motion.field14 = arg0->field42;
+    motion.field15 = arg0->field43;
+    motion.field16 = arg0->field44;
+    motion.field20 = arg0->field57;
+    motion.field21 = arg0->field58;
+    motion.flags = arg0->flags;
+    motion.mode = arg0->mode;
+    motion.duration = arg0->duration;
+    motion.period = arg0->period;
+    motion.field38 = arg0->field70;
+    motion.field39 = arg0->field71;
+    motion.repeat = arg0->repeat;
+    motion.field32 = arg0->field6A;
+    motion.scale = arg0->scale;
+    motionPtr = &motion;
+    if (count != 0) {
+        do {
+            spawn.count = func_150ADA20() % (u32)(arg0->burstRange + 1) + arg0->burstBase;
+            spawn.lifetime = func_150ADA20() % (u32)(arg0->lifeRange + 1) + arg0->lifeBase;
+            motion.size = func_150ADA68() * arg0->sizeRange + arg0->sizeBase;
+            motion.spread = func_150ADA68() * arg0->spreadRange + arg0->spreadBase;
+            func_15143794(
+                func_150ADA20() % (u32)(arg0->yawRange + 1) + arg0->yawBase,
+                func_150ADA20() % (u32)(arg0->pitchRange + 1) + arg0->pitchBase,
+                func_150ADA68() * arg0->speedRange + arg0->speedBase,
+                &motion.velocity);
+            motion.field17 = arg0->colorBase[0] + func_150ADA20() % (u32)(arg0->colorRange[0] + 1);
+            motion.field18 = arg0->colorBase[1] + func_150ADA20() % (u32)(arg0->colorRange[1] + 1);
+            motion.field19 = arg0->colorBase[2] + func_150ADA20() % (u32)(arg0->colorRange[2] + 1);
+            motion.field1A = arg0->colorBase[3] + func_150ADA20() % (u32)(arg0->colorRange[3] + 1);
+            motion.field1B = arg0->fadeBase[0] + func_150ADA20() % (u32)(arg0->fadeRange[0] + 1);
+            motion.field1C = arg0->fadeBase[1] + func_150ADA20() % (u32)(arg0->fadeRange[1] + 1);
+            motion.field1D = arg0->fadeBase[2] + func_150ADA20() % (u32)(arg0->fadeRange[2] + 1);
+            motion.field1E = arg0->fadeBase[3] + func_150ADA20() % (u32)(arg0->fadeRange[3] + 1);
+            motion.field1F = arg0->field55 + func_150ADA20() % (u32)(arg0->field56 + 1);
+            func_1515C2F0(&spawn, NULL, (s32)motionPtr, 0, arg1, arg2);
+            count--;
+        } while (count != 0);
+    }
+}
 typedef struct {
     Vec3f position;
     f32 sizeBase, sizeRange, growthBase, growthRange, speedBase, speedRange;
