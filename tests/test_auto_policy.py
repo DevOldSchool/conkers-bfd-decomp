@@ -99,6 +99,24 @@ class AutoPolicyTests(unittest.TestCase):
         self.assertIn('src/game/game_1.c -> src/done/game/game_1.c', result.notes)
         self.assertIn('func_B moved with its completed unit', result.notes)
 
+    def test_completed_unit_below_rename_similarity_is_a_move(self):
+        # Matching most of a unit and moving it under done/ in one commit drops
+        # Git's similarity below 50%, so it reports D + A rather than R.
+        body = '\n'.join(f'void func_{i}(void) {{\n    D_{i} = {i} * 7 + D_{i + 1};\n}}\n' for i in range(40))
+        (self.repo.root / 'src/done/game').mkdir(parents=True)
+        (self.repo.root / 'src/game/game_1.c').unlink()
+        self.repo.write('src/done/game/game_1.c', '#include "game_functions.h"\n\nvoid func_A(void) {\n    D_1 = 0;\n}\n\n' + body)
+        moved = [dict(f, source='src/done/game/game_1.c') for f in BASE_FUNCTIONS]
+        moved[0] = dict(entry('func_A', 'matched', 0), source='src/done/game/game_1.c')
+        self.repo.write('progress/functions.json', inventory_text(moved))
+        self.repo.write('config/game/us.yaml', 'segments:\n  - [0x100, c, done/game/game_1]\n  - [0x200, c, done/game/game_2]\n')
+        self.repo.commit('integrate heavy')
+        status = self.repo.git('diff', '--name-status', 'main...topic')
+        self.assertIn('D\tsrc/game/game_1.c', status)
+        result = self.repo.evaluate('func_A')
+        self.assertEqual(result.findings, [])
+        self.assertIn('src/game/game_1.c -> src/done/game/game_1.c', result.notes)
+
     def test_source_map_layout_change_fails(self):
         self.match_a()
         self.repo.write('config/game/us.yaml', 'segments:\n  - [0x100, c, game/game_1]\n  - [0x180, c, game/game_1b]\n  - [0x200, c, done/game/game_2]\n')
