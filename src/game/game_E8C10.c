@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150BB760
  * - func_150BBB5C
  * - func_150BC488
  * - func_150BCBBC
@@ -16,7 +15,152 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E8C10/func_150BB760.s")
+typedef struct GameE8C10Particle {
+    f32 field0;
+    f32 field4;
+    f32 field8;
+    f32 fieldC;
+    f32 field10;
+    f32 field14;
+    f32 field18;
+    f32 field1C;
+    f32 field20;
+    f32 field24;
+    f32 field28;
+    f32 field2C;
+    f32 field30;
+    f32 field34;
+    f32 field38;
+    f32 field3C;
+    f32 field40;
+    f32 field44;
+    f32 field48;
+    f32 field4C;
+    s32 field50;
+    s16 field54;
+    s16 field56;
+    u8 field58;
+    u8 pad59[0x3];
+    s32 field5C;
+    u8 field60;
+    u8 field61;
+    u8 field62;
+    u8 field63;
+    u8 field64;
+    u8 field65;
+    u8 field66;
+    u8 field67;
+    u8 field68;
+    u8 pad69[0x1];
+    u8 field6A;
+    u8 pad6B[0x1];
+    s32 field6C;
+    u8 field70;
+    u8 pad71[0x1];
+    s16 field72;
+    s16 field74;
+    u8 pad76[0x6];
+} GameE8C10Particle;
+
+f32 func_150ADA68(void);
+void *func_15132A4C(void *, s32, s32, s32, u8, s32);
+extern f32 D_8009FE94;
+extern f32 D_8009FE98;
+extern f32 D_8009FE9C;
+extern f32 D_8009FEA0;
+extern f32 D_8009FEA4;
+
+s32 func_150BB760(u8 *arg0) {
+    GameE8C10Particle particle;
+    f32 width;
+    f32 height;
+    f32 sine;
+    f32 cosine;
+    f32 offsetX;
+    f32 offsetZ;
+
+    if (arg0[4] != 0x20) {
+        return 1;
+    }
+    if (arg0 != NULL && *(s32 *)arg0 != 0 && *(s32 *)(arg0 + 0x1D4) != 0) {
+        width = *(s16 *)(arg0 + 0xE4);
+        height = *(s16 *)(arg0 + 0xE6);
+        sine = func_151423D8(*(u16 *)(arg0 + 0x76) >> 8);
+        cosine = func_151423D8((*(u16 *)(arg0 + 0x76) >> 8) + 0x40);
+        offsetX = *(f32 *)(arg0 + 0x3C) * sine * 0.5f;
+        offsetZ = *(f32 *)(arg0 + 0x3C) * cosine * 0.5f;
+        particle.field56 = 1;
+        particle.field50 = 0x29E9;
+        particle.field58 = 0;
+        particle.field5C = 0;
+        particle.field60 = 0xFF;
+        particle.field61 = 1;
+        particle.field62 = 0;
+        particle.field63 = 2;
+        particle.field64 = 0;
+        particle.field65 = 0;
+        particle.field66 = 0;
+        particle.field67 = 0;
+        particle.field68 = 0;
+        particle.field6A = 1;
+        particle.field6C = (s32)arg0;
+        particle.field1C = 1.0f;
+        particle.field20 = 1.0f;
+        particle.field24 = 1.0f;
+        particle.field48 = 0.0f;
+        particle.field4C = -1.0f;
+        particle.field70 = arg0[0x3B];
+        particle.field72 = 0x20;
+        particle.field74 = 7;
+        {
+            u8 angle;
+            f32 spreadSine;
+            f32 spreadCosine;
+            f32 distance;
+            f32 spreadX;
+            f32 spreadZ;
+            u8 heading;
+            f32 headingSine;
+            f32 headingCosine;
+            f32 speed;
+            f32 velocityX;
+            f32 velocityZ;
+            f32 size;
+
+            angle = func_150ADA20();
+            spreadSine = func_151423D8(angle);
+            spreadCosine = func_151423D8(angle - 0x40);
+            distance = func_150ADA68() * width;
+            spreadX = spreadSine * distance;
+            spreadZ = -spreadCosine * distance;
+            heading = (*(u16 *)(arg0 + 0x76) >> 8) - (func_150ADA20() & 0x3F) - 0x20;
+            headingSine = func_151423D8(heading);
+            headingCosine = func_151423D8(heading - 0x40);
+            speed = func_150ADA68() * 5.0f + 3.0f;
+            velocityX = headingCosine * speed;
+            velocityZ = headingSine * speed;
+            size = func_150ADA68() * D_8009FE94 + D_8009FE98;
+            distance = func_150ADA68() * D_8009FE9C + D_8009FEA0;
+            particle.field8 = size;
+            particle.fieldC = distance;
+            particle.field0 = (size + distance) * 0.5f;
+            particle.field10 = func_150ADA68() * 360.0f;
+            particle.field14 = func_150ADA68() * 360.0f;
+            particle.field18 = func_150ADA68() * 360.0f;
+            particle.field28 = *(f32 *)(arg0 + 0x14) + spreadX;
+            particle.field2C = *(f32 *)(arg0 + 0x18) + func_150ADA68() * height + 4.0f;
+            particle.field30 = *(f32 *)(arg0 + 0x1C) + spreadZ;
+            particle.field34 = velocityX + offsetX;
+            particle.field38 = func_150ADA68() * 5.0f + 3.0f;
+            particle.field3C = velocityZ + offsetZ;
+            particle.field40 = 25.0f - func_150ADA68() * 50.0f;
+            particle.field44 = 25.0f - func_150ADA68() * 50.0f;
+            particle.field54 = (func_150ADA20() & 0x1F) + 0x3C;
+            particle.field4 = func_150ADA68() * D_8009FEA4 + 0.25f;
+            func_15132A4C(&particle, 3, 0xFF, 0, 0xFF, 0);
+        }
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E8C10/func_150BBB5C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E8C10/func_150BC488.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E8C10/func_150BCBBC.s")
