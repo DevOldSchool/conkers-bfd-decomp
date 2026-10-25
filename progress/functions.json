@@ -69419,17 +69419,16 @@
       "symbol": "func_150DB630"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT (10), round22 (stored 268): msweep move 78, inl template 70, then swapping the two vertex .y sums to values->data[0][1] + *values->data[3] fixes the data[0]/data[3] load order -> 10. Only residual: slot address addu operand order (raw addu v0,s0(owner),t9(index*4)). Tried index*4, 4*index, << 2, (u8 **) arithmetic, &((u8 **)owner)[i], buffers[] array (210-1334), (s16) cast param (1075); randomized permute 60 s seed 1078693326 no improvement.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 716,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150DB714",
           "vram": "0x150DB714"
         }
