@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_108AE0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_subranges.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150DB714
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 s32 func_150DB630(void *arg0) {
@@ -49,8 +44,7 @@ void *func_10022EC0(void *, const void *, u32);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 extern f32 D_800A0BF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DB714 CURRENT (10) */
-void *func_150DB714(void *owner, s32 bufferIndex) {
+void *func_150DB714(Game108AE0Owner *owner, s16 bufferIndex) {
     void *vertices;
     void *result;
     f32 cosine;
@@ -60,20 +54,18 @@ void *func_150DB714(void *owner, s32 bufferIndex) {
     f32 offsetZ;
     Game108AE0Values *values;
     u8 fresh;
-    u8 *slot;
 
-    func_151D5D60(((Game108AE0Owner *)owner)->buffers, ((s16 *)&bufferIndex)[1], 0x40, &vertices, &fresh);
+    func_151D5D60(owner->buffers, bufferIndex, 0x40, &vertices, &fresh);
     result = vertices;
     if (vertices != 0) {
         if (fresh != 0) {
-            slot = (u8 *)owner + ((s16 *)&bufferIndex)[1] * 4;
-            func_10022EC0(*(u8 **)(slot + 0x100), (((Game108AE0Owner *)owner)->template), 0x40U);
-            func_10022EC0(*(u8 **)(slot + 0x100) + 0x40, (((Game108AE0Owner *)owner)->template), 0x40U);
+            func_10022EC0(owner->buffers[bufferIndex], owner->template, 0x40U);
+            func_10022EC0(owner->buffers[bufferIndex] + 0x40, owner->template, 0x40U);
         }
     } else {
         return 0;
     }
-    angle = (s32)(*(((Game108AE0Owner *)owner)->values.data[1]) * D_800A0BF0);
+    angle = (s32)(*(owner->values.data[1]) * D_800A0BF0);
     values = (Game108AE0Values *)((u8 *)owner + 0x110);
     sine = func_151423D8((u8)angle);
     cosine = func_151423D8((u8)(angle - 0x40));
@@ -97,5 +89,3 @@ void *func_150DB714(void *owner, s32 bufferIndex) {
     ((Game108AE0Vertex *)vertices)[3].flag = 0;
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150DB714 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_108AE0/func_150DB714.s")
