@@ -18,8 +18,9 @@ and the [workflow reference](decompilation-workflow.md) still govern every edit.
    lives in `~/.conker-auto/lock`; `caffeinate -i` keeps the Mac awake for the
    budget.
 2. **Worktree.** A fresh `../conker-auto/<stamp>` worktree on branch
-   `auto/match-<stamp>` from `origin/main`, with submodules, a real ROM copy and
-   the US reference split prepared.
+   `auto/match-<stamp>` from `origin/main`, with submodules, a real ROM copy,
+   a link to the main checkout's `build/host-python` (from `./conker host-setup`)
+   and the US reference split prepared.
 3. **Review pending PRs.** `auto_round.sh review-pending` re-verifies every open
    `auto-match` PR that has no verdict yet (see below) and merges the ones that
    pass. The reviewing session is never the session that produced the PR.

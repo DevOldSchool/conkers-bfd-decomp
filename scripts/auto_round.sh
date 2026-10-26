@@ -111,9 +111,14 @@ ensure_idle() {
 
 prepare_checkout() {
     # Fresh worktrees need the submodules, a real ROM copy (not a symlink the
-    # container cannot follow) and the US reference split before verify-batch.
+    # container cannot follow), the main checkout's pinned host Python (PyYAML)
+    # and the US reference split before verify-batch.
     local path="$1"
     git -C "$path" submodule update --init --recursive --quiet
+    if [[ -x "$main_checkout/build/host-python/bin/python3" && ! -e "$path/build/host-python" ]]; then
+        mkdir -p "$path/build"
+        ln -s "$main_checkout/build/host-python" "$path/build/host-python"
+    fi
     [[ -f "$rom_source" ]] || die "US ROM not found at $rom_source"
     mkdir -p "$path/roms"
     rm -f "$path/roms/baserom.us.z64"
