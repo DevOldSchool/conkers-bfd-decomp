@@ -30,7 +30,8 @@ and the [workflow reference](decompilation-workflow.md) still govern every edit.
    (`auto_round.sh remaining` prints the minutes left). Exact matches only: the
    round does not `defer`, promote types, edit headers or touch build inputs
    other than added `config/game/us-rodata.ld` literal and jump-table mappings
-   (the merge policy accepts those). It may run one `permute --budget 32` per
+   with their `config/data/us.json` owner records and `docs/evidence/data-layout/`
+   notes (the merge policy accepts those). It may run one `permute --budget 32` per
    distinct candidate when the latest diagnosis is register-only. Anything that
    needs another change is written up in the PR body as a lead and the function
    is restored.
@@ -81,8 +82,8 @@ workflow still needs its environment approval.
 reads only Git and fails on any of these:
 
 - A changed path outside `src/**/*.c`, `progress/functions.json`,
-  `progress/source_units.json`, `docs/evidence/`, `config/game/us.yaml` or
-  `config/game/us-rodata.ld`. Headers, `include/`, `Makefile`, `scripts/`,
+  `progress/source_units.json`, `docs/evidence/`, `config/game/us.yaml`,
+  `config/game/us-rodata.ld` or `config/data/us.json`. Headers, `include/`, `Makefile`, `scripts/`,
   `tests/`, `toolchain/`, `.github/` and `config/` otherwise all stop automation.
 - `config/game/us.yaml` with any change other than a completed unit's segment
   row moving from `game/<unit>` to `done/game/<unit>` (what
@@ -91,6 +92,9 @@ reads only Git and fails on any of these:
   allowed.
 - `config/game/us-rodata.ld` with removed lines; literal and jump-table
   mappings may only be added.
+- `config/data/us.json` with anything but new `.rodata` owner records whose
+  `owner.sources` are units the PR changes (in either their `src/game/` or
+  `src/done/game/` form). Existing records must be unchanged.
 - Added C lines containing a forced-match construct (`if (1) {}`, `^ 0`,
   `do {} while (0)`), a new `volatile`, inline assembly, a new `#include`, a new
   `#if`/`#ifdef`/`#ifndef`, or an added `GLOBAL_ASM` pragma.
@@ -142,9 +146,13 @@ switch branches in the checkout you start in.
    dead end with `./conker matching-history note <id> <attempt> --exhausted`.
    You have task permission for one `./conker permute <id> --budget 32` per
    distinct candidate when the latest finish diagnosis is register-only, as
-   CONTRIBUTING allows. You may add literal or jump-table mappings for the
-   function you are matching to config/game/us-rodata.ld; never remove or
-   change its existing lines. Never run defer, never edit include/, Makefile,
+   CONTRIBUTING allows. A function whose literals or jump tables live in its
+   unit's own rodata may land with a new mapping, following the most recent
+   commit that added one (git log -S'payload_size' -- config/game/us-rodata.ld):
+   add the section and its extent ASSERT to config/game/us-rodata.ld, a .rodata
+   owner record for the unit to config/data/us.json, and a note under
+   docs/evidence/data-layout/ with its README entry. Never remove or change
+   existing lines or records in either file. Never run defer, never edit include/, Makefile,
    scripts/, tests/ or any other config/ file, never add volatile, #if 0 or
    fake constructs; restore any function you do not match exactly with git
    checkout of its files.
