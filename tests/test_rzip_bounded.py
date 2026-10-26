@@ -139,5 +139,7 @@ class HashReuseTests(unittest.TestCase):
             self.assertEqual(build_files.cached_sha256(path), hashlib.sha256(b'first').hexdigest())
             with patch.object(Path, 'read_bytes', side_effect=AssertionError('redundant read')):
                 self.assertEqual(build_files.cached_sha256(path), hashlib.sha256(b'first').hexdigest())
-            path.write_bytes(b'other')
-            self.assertEqual(build_files.cached_sha256(path), hashlib.sha256(b'other').hexdigest())
+            # A different size: Linux file timestamps are tick-coarse, so a
+            # same-size rewrite can keep the whole file signature.
+            path.write_bytes(b'edited')
+            self.assertEqual(build_files.cached_sha256(path), hashlib.sha256(b'edited').hexdigest())

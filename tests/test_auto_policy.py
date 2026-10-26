@@ -31,6 +31,17 @@ BASE_SOURCE = '#include "game_functions.h"\n\n#pragma GLOBAL_ASM("asm/func_A.s")
 MATCHED_A = '#include "game_functions.h"\n\nvoid func_A(void) {\n    D_1 = 0;\n}\n\n#pragma GLOBAL_ASM("asm/func_B.s")\n'
 
 
+def owner(address: str, *sources: str, section: str = '.rodata') -> dict:
+    return {"address": address, "section": section, "owner": {"sources": list(sources)}}
+
+
+BASE_OWNERS = [owner('0x80001000', 'src/game/game_2.c', 'src/done/game/game_2.c')]
+
+
+def owners_text(game: list[dict]) -> str:
+    return json.dumps({"schema_version": 1, "rom_sha1": "abc", "owners": {"game": game}}, indent=2)
+
+
 class Repo:
     def __init__(self, root: Path):
         self.root = root
@@ -41,6 +52,7 @@ class Repo:
         self.write('src/game/game_1.c', BASE_SOURCE)
         self.write('include/game_functions.h', 'void func_A(void);\n')
         self.write('config/game/us-rodata.ld', 'KEEP(a)\nKEEP(b)\n')
+        self.write('config/data/us.json', owners_text(BASE_OWNERS))
         self.write('config/game/us.yaml', 'segments:\n  - [0x100, c, game/game_1]\n  - [0x200, c, done/game/game_2]\n')
         self.commit('base')
         self.git('checkout', '-q', '-b', 'topic')
@@ -171,6 +183,30 @@ class AutoPolicyTests(unittest.TestCase):
         self.repo.write('config/game/us-rodata.ld', 'KEEP(a)\n')
         self.repo.commit('rodata')
         self.assertTrue(any('us-rodata.ld: removes 1 line' in f for f in self.repo.evaluate('func_A').findings))
+
+    def test_literal_owner_record_for_matched_unit_passes(self):
+        self.match_a()
+        self.repo.write('config/game/us-rodata.ld', 'KEEP(a)\nKEEP(b)\nKEEP(c)\n')
+        self.repo.write('config/data/us.json', owners_text(BASE_OWNERS + [
+            owner('0x80002000', 'src/game/game_1.c', 'src/done/game/game_1.c')]))
+        self.repo.commit('literal pool')
+        self.assertEqual(self.repo.evaluate('func_A').findings, [])
+
+    def test_owner_record_problems_fail(self):
+        cases = [
+            ('unit this PR does not change', BASE_OWNERS + [owner('0x80002000', 'src/game/game_3.c')]),
+            ('is not a .rodata source-owner record', BASE_OWNERS + [owner('0x80002000', 'src/game/game_1.c', section='.data')]),
+            ('duplicates an existing address', BASE_OWNERS + [owner('0x80001000', 'src/game/game_1.c')]),
+            ('changed or removed', [owner('0x80001000', 'src/game/game_1.c')]),
+        ]
+        for reason, records in cases:
+            with self.subTest(reason=reason):
+                self.match_a()
+                self.repo.write('config/data/us.json', owners_text(records))
+                self.repo.commit('owners')
+                findings = self.repo.evaluate('func_A').findings
+                self.assertTrue(any(reason in f for f in findings), (reason, findings))
+                self.repo.git('reset', '-q', '--hard', 'main')
 
     def test_cli_exit_codes(self):
         self.match_a()
