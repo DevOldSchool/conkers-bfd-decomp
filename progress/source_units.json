@@ -15394,7 +15394,7 @@
         "us": {
           "end": "0xCDBB0",
           "start": "0xCCEB0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_FA360.c"
