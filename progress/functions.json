@@ -80156,8 +80156,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1024,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15171200",
           "vram": "0x15171200"
         }
@@ -86504,8 +86509,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1020,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150BCBBC",
           "vram": "0x150BCBBC"
         }
