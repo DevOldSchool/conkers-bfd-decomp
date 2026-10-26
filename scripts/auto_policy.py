@@ -4,8 +4,8 @@
 An auto-match PR may change matched C bodies, the function inventory and the
 evidence that integration records. Anything that changes a shared contract
 (headers, build inputs, tooling, linker configuration beyond additive rodata
-mappings) or that smells like a forced match stops automation and waits for a
-maintainer. The check reads only Git; it never builds or compares.
+mappings and their owner records) or that smells like a forced match stops
+automation and waits for a maintainer. The check reads only Git; it never builds or compares.
 
 Usage: auto_policy.py --repo PATH --base REF --head REF --ids ID [ID ...] [--json]
 Exit status 0 means the policy passed, 1 means a finding stops the merge.
@@ -24,7 +24,8 @@ INVENTORY = "progress/functions.json"
 SOURCE_UNITS = "progress/source_units.json"
 SOURCE_MAP = "config/game/us.yaml"
 ADDITIVE_ONLY = {"config/game/us-rodata.ld"}
-ALLOWED_EXACT = {INVENTORY, SOURCE_UNITS, SOURCE_MAP} | ADDITIVE_ONLY
+DATA_OWNERS = "config/data/us.json"
+ALLOWED_EXACT = {INVENTORY, SOURCE_UNITS, SOURCE_MAP, DATA_OWNERS} | ADDITIVE_ONLY
 DONE_MOVE = re.compile(r"(?<![\w/])(?:src/)?game/")
 ALLOWED_TREES = ("docs/evidence/",)
 SOURCE_TREES = ("src/",)
@@ -172,6 +173,58 @@ def check_source_map(repo: str, base: str, head: str, result: Result) -> None:
         result.findings.append(f"{SOURCE_MAP}: changes other than moving completed units under done/")
 
 
+def load_json(repo: str, ref: str, path: str) -> dict | None:
+    try:
+        return json.loads(git(repo, "show", f"{ref}:{path}"))
+    except subprocess.CalledProcessError:
+        return None
+
+
+def unit_variants(path: str) -> set[str]:
+    """A source path and its counterpart on the other side of a done/ move."""
+    if path.startswith("src/done/"):
+        return {path, "src/" + path[len("src/done/"):]}
+    return {path, "src/done/" + path[len("src/"):]}
+
+
+def check_data_owners(repo: str, base: str, head: str, sources: list[tuple[str, str]], result: Result) -> None:
+    # A new literal-pool mapping in us-rodata.ld needs an owner record here. Only
+    # new .rodata records owned by a unit this PR changes may be added; every
+    # existing record must stay as it was.
+    before = load_json(repo, base, DATA_OWNERS)
+    after = load_json(repo, head, DATA_OWNERS)
+    if before == after:
+        return
+    if before is None or after is None:
+        result.findings.append(f"{DATA_OWNERS}: added or removed")
+        return
+    if {k: v for k, v in before.items() if k != "owners"} != {k: v for k, v in after.items() if k != "owners"}:
+        result.findings.append(f"{DATA_OWNERS}: changes outside the owner records")
+    changed_units = set()
+    for old, new in sources:
+        changed_units |= unit_variants(old) | unit_variants(new)
+    old_owners, new_owners = before.get("owners", {}), after.get("owners", {})
+    for group in sorted(set(old_owners) | set(new_owners)):
+        old_records, new_records = old_owners.get(group, []), new_owners.get(group, [])
+        remaining = list(new_records)
+        for record in old_records:
+            if record in remaining:
+                remaining.remove(record)
+            else:
+                result.findings.append(f"{DATA_OWNERS}: {group} record {record.get('address')} changed or removed")
+        known = {record.get("address") for record in old_records}
+        for record in remaining:
+            address = record.get("address")
+            owner_sources = record.get("owner", {}).get("sources") if set(record.get("owner", {})) == {"sources"} else None
+            if record.get("section") != ".rodata" or set(record) != {"address", "section", "owner"} or not owner_sources:
+                result.findings.append(f"{DATA_OWNERS}: {group} record {address} is not a .rodata source-owner record")
+            elif address in known:
+                result.findings.append(f"{DATA_OWNERS}: {group} record {address} duplicates an existing address")
+            elif not set(owner_sources) <= changed_units:
+                result.findings.append(f"{DATA_OWNERS}: {group} record {address} is owned by a unit this PR does not change")
+            known.add(address)
+
+
 def load_inventory(repo: str, ref: str) -> dict:
     """Return the inventory keyed by work-item ID (the `functions` list keyed by `symbol`)."""
     try:
@@ -221,6 +274,7 @@ def evaluate(repo: str, base: str, head: str, ids: list[str]) -> Result:
     check_sources(repo, base, head, sources, result)
     check_additive(repo, base, head, result)
     check_source_map(repo, base, head, result)
+    check_data_owners(repo, base, head, sources, result)
     check_inventory(repo, base, head, ids, result)
     return result
 
