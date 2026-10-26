@@ -1,0 +1,9 @@
+# US game_FA360 drift float constants
+
+`func_150CD17C` integrates a drifting object's position, applies per-frame drag in unrolled loops, and while the object falls sways it with `func_151436B4`, then wraps its phase into one turn. It loads two per-function rodata constants: the sway angle offset `D_800A074C` (pi/2) and the phase wrap period `D_800A0750` (2*pi).
+
+The raw function loads the period once with `lui`/`lwc1` and keeps it in `$f2` across both wrap loops, the literal-pool pattern. With extern symbols IDO takes the address once and reloads the value after every store to the phase field (CURRENT 1235 for that candidate); the literals `1.5707964f` and `6.2831855f` reproduce the raw function (CURRENT 0). The checksum-validated US game-data archive contains big-endian `3FC90FDB 40C90FDB` at 0x800A074C, exactly the single-precision values of those literals. ROM SHA1 is `4cbadd3c4e0729dec46af64ad018050eada4f47a`; game-data base 0x80082B20.
+
+The generated `build/us/src/game/game_FA360.o` has rodata `3fc90fdb40c90fdb0000000000000000`: the two constants in load order followed by 8 zero alignment bytes, with no data relocations. The preceding words `D_800A0740` through `D_800A0748` are loaded by `func_150CCEB0` and the following words `D_800A0754` and `D_800A0758` by `func_150CD7F8`; both functions are still in assembly in this unit, and those words lie outside this mapping's owned payload and are not treated as padding or replaced.
+
+The INFO mapping retains linked bytes for verification without appending to the code-only payload. A size assertion detects unexpected constant-pool growth. The function reached full registered CURRENT (0) with focused layout, progress and whitespace checks passed; the clean linked verify-batch result is recorded in the commit that adds this mapping. No reference assembly, compiler flag or verifier changes are involved.

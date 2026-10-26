@@ -68904,8 +68904,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1032,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1518B2A8",
           "vram": "0x1518B2A8"
         }
@@ -79136,8 +79141,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1056,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150CD17C",
           "vram": "0x150CD17C"
         }
@@ -80156,8 +80166,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1024,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15171200",
           "vram": "0x15171200"
         }
@@ -86504,8 +86519,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1020,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150BCBBC",
           "vram": "0x150BCBBC"
         }
@@ -90645,8 +90665,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1044,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1508C1A4",
           "vram": "0x1508C1A4"
         }
