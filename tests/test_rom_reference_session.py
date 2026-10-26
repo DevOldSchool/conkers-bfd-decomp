@@ -29,11 +29,13 @@ class ReferenceSessionTests(unittest.TestCase):
                     archive.read_rom(path)
                     path.write_bytes(archive.Z64_MAGIC + bytes(17))
                     archive.read_rom(path)
+            # Each rewrite changes the size: Linux file timestamps are
+            # tick-coarse, so a same-size rewrite can keep the file signature.
             with self.assertRaisesRegex(ValueError, 'changed during report'):
                 with archive.reference_session():
                     archive.read_rom(path)
-                    path.write_bytes(archive.Z64_MAGIC + bytes(17))
-            self.assertEqual(len(archive.read_rom(path)[0]), 21)
+                    path.write_bytes(archive.Z64_MAGIC + bytes(18))
+            self.assertEqual(len(archive.read_rom(path)[0]), 22)
 
     def test_report_and_builders_use_same_reference_session(self):
         import sys
