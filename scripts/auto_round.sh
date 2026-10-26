@@ -8,7 +8,8 @@
 #
 # Subcommands (run from any checkout of the repository):
 #   status                       Show lock state and busy toolchain containers.
-#   start [--budget-minutes N]   Acquire the machine lock and create a round worktree.
+#   start [--budget-minutes N]   Acquire the machine lock, create a round worktree and
+#                                restore saved matching history into it.
 #   remaining                    Print the minutes left in the current round.
 #   commit -m <message>          Commit the current worktree with the agent identity.
 #   open-pr --ids "<id>...> --title <t> --body-file <f>
@@ -16,8 +17,9 @@
 #   review-pending               Re-verify and merge every open auto-match PR without a verdict.
 #   review <pr-number>           Re-verify one PR, label it, and merge it when verified.
 #   merge <pr-number>            Wait for public checks and merge a verified PR.
-#   cleanup                      Stop the round container, remove the worktree and its branch,
-#                                prune merged auto/match-* branches, release the lock.
+#   cleanup                      Save the worktree's matching history, stop the round container,
+#                                remove the worktree and its branch, prune merged auto/match-*
+#                                branches, release the lock.
 # CONKER_AUTO_NO_MERGE=1 makes review/review-pending verify and label without merging.
 set -euo pipefail
 
@@ -25,6 +27,8 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(cd "$script_dir/.." && pwd)"
 state_dir="${CONKER_AUTO_STATE:-$HOME/.conker-auto}"
 lock_dir="$state_dir/lock"
+# Per-function matching-history bundles carried from one round to the next.
+history_store="$state_dir/history"
 rounds_root="${CONKER_AUTO_ROUNDS:-$(dirname "$repo_root")/conker-auto}"
 remote_repo="${CONKER_AUTO_REPO:-DevOldSchool/conkers-bfd-decomp}"
 # The ROM lives in the main checkout; this script may run from any linked worktree.
@@ -79,9 +83,44 @@ release_lock() {
     rm -rf "$lock_dir"
 }
 
+save_history() {
+    # Export every function's attempt history before the worktree goes, so the
+    # next round's `next` summary shows what was already tried. A bundle holds
+    # the full history (imported plus new), so it replaces the previous one.
+    local path="$1" directory identifier bundle
+    [[ -d "$path/build/us/matching-attempts" ]] || return 0
+    mkdir -p "$history_store"
+    for directory in "$path"/build/us/matching-attempts/*/; do
+        identifier="$(basename "$directory")"
+        compgen -G "$directory*/start.json" >/dev/null || continue
+        bundle="$history_store/.$identifier.$$.zip"
+        rm -f "$bundle"
+        if (cd "$path" && ./conker matching-history export "$identifier" "$bundle" >/dev/null); then
+            mv -f "$bundle" "$history_store/$identifier.zip"
+        else
+            rm -f "$bundle"
+            note "could not save matching history for $identifier"
+        fi
+    done
+}
+
+restore_history() {
+    local path="$1" bundle restored=0
+    for bundle in "$history_store"/*.zip; do
+        [[ -f "$bundle" ]] || continue
+        if (cd "$path" && ./conker matching-history import "$bundle" >/dev/null); then
+            restored=$(( restored + 1 ))
+        else
+            note "could not restore matching history from $bundle"
+        fi
+    done
+    printf '%s\n' "$restored"
+}
+
 remove_worktree() {
     local path="$1"
     [[ -d "$path" ]] || return 0
+    save_history "$path"
     if [[ -x "$path/conker" ]]; then
         (cd "$path" && ./conker stop >/dev/null 2>&1) || true
     fi
@@ -183,10 +222,13 @@ cmd_start() {
     git -C "$repo_root" fetch --quiet origin
     git -C "$repo_root" worktree add --quiet -b "$branch" "$path" origin/main
     prepare_checkout "$path"
+    local restored
+    restored="$(restore_history "$path")"
     ensure_labels
     started_ok=1
-    printf 'AUTO_ROUND: STARTED\nWORKTREE=%s\nBRANCH=%s\nBASE=%s\nDEADLINE_EPOCH=%s\nDEADLINE_LOCAL=%s\n' \
-        "$path" "$branch" "$(git -C "$path" rev-parse --short HEAD)" "$deadline" "$(date -r "$deadline" '+%Y-%m-%d %H:%M')"
+    printf 'AUTO_ROUND: STARTED\nWORKTREE=%s\nBRANCH=%s\nBASE=%s\nDEADLINE_EPOCH=%s\nDEADLINE_LOCAL=%s\nHISTORY_RESTORED=%s\n' \
+        "$path" "$branch" "$(git -C "$path" rev-parse --short HEAD)" "$deadline" "$(date -r "$deadline" '+%Y-%m-%d %H:%M')" \
+        "$restored"
 }
 
 cmd_remaining() {

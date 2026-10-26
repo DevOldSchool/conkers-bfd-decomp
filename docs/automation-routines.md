@@ -20,15 +20,20 @@ and the [workflow reference](decompilation-workflow.md) still govern every edit.
 2. **Worktree.** A fresh `../conker-auto/<stamp>` worktree on branch
    `auto/match-<stamp>` from `origin/main`, with submodules, a real ROM copy,
    a link to the main checkout's `build/host-python` (from `./conker host-setup`)
-   and the US reference split prepared.
+   and the US reference split prepared. Matching history saved by earlier
+   rounds in `~/.conker-auto/history/` (one `matching-history export` bundle per
+   function) is imported, so `next` prints what was already tried.
 3. **Review pending PRs.** `auto_round.sh review-pending` re-verifies every open
    `auto-match` PR that has no verdict yet (see below) and merges the ones that
    pass. The reviewing session is never the session that produced the PR.
 4. **Match** under the normal rules for the remaining budget
    (`auto_round.sh remaining` prints the minutes left). Exact matches only: the
-   round does not `defer`, promote types, edit headers or touch build inputs.
-   Anything that needs such a change is written up in the PR body as a lead and
-   the function is restored.
+   round does not `defer`, promote types, edit headers or touch build inputs
+   other than added `config/game/us-rodata.ld` literal and jump-table mappings
+   (the merge policy accepts those). It may run one `permute --budget 32` per
+   distinct candidate when the latest diagnosis is register-only. Anything that
+   needs another change is written up in the PR body as a lead and the function
+   is restored.
 5. **Batch, commit, PR.** `./conker verify-batch <ids>` must print
    `AGENT_ACTION: BATCH_COMPLETE`; `auto_round.sh commit` uses the agent
    identity; `auto_round.sh open-pr --ids "<ids>"` pushes and labels the PR
@@ -36,7 +41,8 @@ and the [workflow reference](decompilation-workflow.md) still govern every edit.
    `Auto-match IDs: <ids>` that the reviewer reads. A round with no match opens
    no PR. The driver finds the ROM in the main checkout's `roms/` directory
    (`CONKER_AUTO_ROM` overrides it), so it may run from any linked worktree.
-6. **Cleanup.** `auto_round.sh cleanup` stops the container, removes the
+6. **Cleanup.** `auto_round.sh cleanup` saves the worktree's matching history
+   to `~/.conker-auto/history/`, stops the container, removes the
    worktree and its local branch, deletes any other local `auto/match-*`
    branch that is merged into main or gone upstream, and releases the lock.
    It runs even after a failed round. The merge step deletes the remote
@@ -130,10 +136,18 @@ switch branches in the checkout you start in.
    them exactly (finish must print AGENT_ACTION: STOP_MATCHED) until
    "$D" remaining is below 25. Lead order: `./conker sweep unchanged
    --max-score 300` zeros (resume, then finish), `./conker siblings
-   --all-deferred`, then `./conker next --ready`. Never run defer, never edit
-   include/, config/, Makefile, scripts/ or tests/, never add volatile, #if 0
-   or fake constructs; restore any function you do not match exactly with
-   git checkout of its files.
+   --all-deferred`, then `./conker next --ready`. Read the history summary
+   `next` prints: skip a function whose recorded attempts already exhausted
+   your hypotheses unless you have a concrete new one, and record each new
+   dead end with `./conker matching-history note <id> <attempt> --exhausted`.
+   You have task permission for one `./conker permute <id> --budget 32` per
+   distinct candidate when the latest finish diagnosis is register-only, as
+   CONTRIBUTING allows. You may add literal or jump-table mappings for the
+   function you are matching to config/game/us-rodata.ld; never remove or
+   change its existing lines. Never run defer, never edit include/, Makefile,
+   scripts/, tests/ or any other config/ file, never add volatile, #if 0 or
+   fake constructs; restore any function you do not match exactly with git
+   checkout of its files.
 4. With at least one STOP_MATCHED: run `./conker verify-batch <ids>` and
    require AGENT_ACTION: BATCH_COMPLETE; drop a function if it fails. Then
    "$D" commit -m "<summary>" and
