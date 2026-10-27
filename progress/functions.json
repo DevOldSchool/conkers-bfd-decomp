@@ -84636,8 +84636,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1072,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150AF7C4",
           "vram": "0x150AF7C4"
         }
