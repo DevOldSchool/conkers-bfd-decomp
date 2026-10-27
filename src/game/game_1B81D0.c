@@ -47,7 +47,7 @@ s32 func_1518B1D8(void *arg0) {
 extern void func_1518B2A8(f32 *arg0, f32 arg1, f32 arg2, s32 arg3, u16 arg4, s32 arg5, u8 arg6);
 
 void func_1518B264(void *arg0, f32 arg1, f32 arg2, s32 arg3, u8 arg4) {
-    func_1518B2A8(arg0, arg1, arg2, arg3, 4, 0xFF, (s32) arg4);
+    func_1518B2A8(arg0, arg1, arg2, arg3, 4, 0xFF, arg4);
 }
 typedef struct Game1B81D0Particle {
     f32 field0;
