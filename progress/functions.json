@@ -34824,17 +34824,16 @@
       "symbol": "func_15107AE0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 44,
-        "reason": "Round19 2026-10-22: CURRENT (44). msweep chain (offsets[0] + result[0] order, result[1] separate statement) 394 -> 84, then result[1] = xF0 * result[1] operand order (the natural half of a 60 s permuter hint) -> 44. Residual: FP register numbering in the offset adds. Folding the scale into result[1] * xF0 + offsets[1] 1469; the permuter's other change was a dummy label (fake, rejected).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 164,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15107B78",
           "vram": "0x15107B78"
         }
