@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151B86F4
  * - func_151B8908
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -155,13 +154,8 @@ void func_15143794(s16, s16, f32, void *);
 void func_151A26EC(f32 *, f32 *, f32 *, f32, f32, f32, s32, s32, s32,
                     s32, s32, s32, s32, s32, s32, s32, s32);
 f32 func_150ADA68(void);
-extern f32 D_800AA4CC;
-extern f32 D_800AA4D0;
-extern f32 D_800AA4D4;
-extern f32 D_800AA4D8;
 extern f32 D_800BE9A8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B86F4 CURRENT (1110) */
 void func_151B86F4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    f32 arg5, void *arg6) {
     f32 position[3];
@@ -178,9 +172,10 @@ void func_151B86F4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
     position[2] = arg2;
     random0 = func_150ADA20();
     random1 = func_150ADA20();
+    randomScale0 = func_150ADA68();
     func_15143794((s16)(random0 & 0xFF), (s16)((random1 % 65U) - 0x20),
-                   func_150ADA68() * D_800AA4CC * D_800AA4D0, velocity);
-    velocityScale = ((func_150ADA68() * 157.0f) + 604.0f) * D_800AA4D4;
+                   randomScale0 * 945.0f * 0.01f, velocity);
+    velocityScale = ((func_150ADA68() * 157.0f) + 604.0f) * 0.001f;
     zero[0] = 0.0f;
     zero[1] = 0.0f;
     zero[2] = 0.0f;
@@ -190,15 +185,14 @@ void func_151B86F4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
     randomScale0 = func_150ADA68();
     randomScale1 = func_150ADA68();
     random0 = func_150ADA20();
+    random1 = func_150ADA20();
     func_151A26EC(position, zero, velocity, 1.0f,
-                   ((randomScale0 * 157.0f) + -151.0f) * D_800AA4D8,
+                   ((randomScale0 * 157.0f) + -151.0f) * 0.001f,
                    (randomScale1 * 55.0f) + 75.0f,
-                   (random0 % 26U) + 0x19, (func_150ADA20() % 101U) + 0x64,
+                   (random0 % 26U) + 0x19, (random1 % 101U) + 0x64,
                    0xA, 0x19, 0, -1, 0, 0, 0,
                    *(u8 *)((u8 *)arg6 + 0xC), *(u8 *)((u8 *)arg6 + 1));
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B86F4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E58B0/func_151B86F4.s")
 typedef struct Game1E58B0ActorDescriptor {
     s32 field00;
     s32 field04;

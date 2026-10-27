@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150E03F8
  * - func_150E05F8
  * - func_150E06D8
  *
@@ -70,14 +69,8 @@ f32 func_150ADA68(void);
 void func_15143794(s16, s16, f32, void *);
 void func_151A26EC(f32 *, f32 *, f32 *, f32, f32, f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
-extern f32 D_800A0FBC;
-extern f32 D_800A0FC0;
-extern f32 D_800A0FC4;
-extern f32 D_800A0FC8;
-extern f32 D_800A0FCC;
 extern f32 D_800BE9A8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E03F8 CURRENT (1008) */
 void func_150E03F8(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, void *arg6) {
     f32 position[3];
     f32 direction[3];
@@ -93,8 +86,9 @@ void func_150E03F8(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, v
     position[2] = arg2;
     random_a = func_150ADA20();
     random_b = func_150ADA20();
-    func_15143794((s16) (random_a & 0xFF), (s16) ((random_b % 65U) - 0x20), func_150ADA68() * D_800A0FBC, &direction[0]);
-    scale = (func_150ADA68() * D_800A0FC0) + D_800A0FC4;
+    alpha_random = func_150ADA68();
+    func_15143794((s16) (random_a & 0xFF), (s16) ((random_b % 65U) - 0x20), alpha_random * 5.87f, &direction[0]);
+    scale = (func_150ADA68() * 0.16900001f) + 0.186f;
     acceleration[0] = 0.0f;
     acceleration[1] = 0.0f;
     acceleration[2] = 0.0f;
@@ -104,10 +98,9 @@ void func_150E03F8(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, v
     alpha_random = func_150ADA68();
     size_random = func_150ADA68();
     random_a = func_150ADA20();
-    func_151A26EC(&position[0], &acceleration[0], &direction[0], 0.986891f, (alpha_random * D_800A0FC8) + D_800A0FCC, (size_random * 200.0f) + 150.0f, (random_a % 26U) + 0x28, (func_150ADA20() % 201U) + 0x37, 0x1E, 0x14, 0, -1, 0x34, 0x35, 0x34, (s32) *((u8 *)arg6 + 0xC), (s32) *((u8 *)arg6 + 1));
+    random_b = func_150ADA20();
+    func_151A26EC(&position[0], &acceleration[0], &direction[0], 0.986891f, (alpha_random * 0.23f) + -0.337f, (size_random * 200.0f) + 150.0f, (random_a % 26U) + 0x28, (random_b % 201U) + 0x37, 0x1E, 0x14, 0, -1, 0x34, 0x35, 0x34, (s32) *((u8 *)arg6 + 0xC), (s32) *((u8 *)arg6 + 1));
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E03F8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10D7B0/func_150E03F8.s")
 extern f32 D_800A0FD0;
 extern f32 D_800A0FD4;
 extern void *D_800DBFF0;

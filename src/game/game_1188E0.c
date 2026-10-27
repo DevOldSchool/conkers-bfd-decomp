@@ -9,7 +9,6 @@
  * - func_150EB484
  * - func_150EB614
  * - func_150EB8C4
- * - func_150EBC80
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -290,9 +289,7 @@ typedef struct Game1188E0Event {
 } Game1188E0Event;
 
 void *func_151D8868(void *, s32, u8, s32);
-extern f32 D_800A14FC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EBC80 CURRENT (130) */
 void func_150EBC80(void *arg0, u8 arg1, s32 arg2) {
     Vec3f position;
     f32 random;
@@ -314,7 +311,7 @@ void func_150EBC80(void *arg0, u8 arg1, s32 arg2) {
     event.field5 = 1;
     func_151D8868(&event, 0, arg1, arg2);
     func_15164F0C(0, 0, 0, arg1, arg2);
-    scale = D_800A14FC;
+    scale = 1.6409999f;
     index = 0;
     do {
         func_151D3FF4(&position, arg1, arg2);
@@ -326,5 +323,3 @@ void func_150EBC80(void *arg0, u8 arg1, s32 arg2) {
         position.y += step;
     } while (index < 2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150EBC80 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1188E0/func_150EBC80.s")

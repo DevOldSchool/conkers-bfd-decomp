@@ -12,9 +12,7 @@
  * - func_151067B8
  * - func_15106F98
  * - func_151070F8
- * - func_151072BC
  * - func_15107700
- * - func_15107AE0
  * - func_15107B78
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -526,13 +524,12 @@ typedef struct Game133190BeamChain {
 Game133190Object *func_15105CE0(Game133190Beam *, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151072BC CURRENT (158) */
 void func_151072BC(u8 *arg0) {
+    Game133190BeamChain *chain;
     Game133190Beam beam;
     u8 *owner;
     Vec3f direction;
     Game133190BeamConfig *config;
-    Game133190BeamChain *chain;
 
     chain = (Game133190BeamChain *)(arg0 + 0x28);
     if (*(s32 *)(arg0 + 0x30) == 0) {
@@ -577,8 +574,6 @@ void func_151072BC(u8 *arg0) {
         chain->index++;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151072BC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151072BC.s")
 
 Game133190Holder *func_15107604(Game133190Object *arg0) {
     Game133190Holder *holder;
@@ -731,32 +726,26 @@ void func_15107A20(void *arg0, s16 arg1, s16 arg2, void *arg3, void *arg4) {
         *(Copy3 *)arg4 = *(Copy3 *)sp2C;
     }
 }
-extern f32 D_800A2420;
-extern f32 D_800A2424;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15107AE0 CURRENT (1070) */
 void func_15107AE0(void *arg0, void *arg1, void *arg2, void *arg3) {
-    f32 weight_first = D_800A2420;
-    f32 weight_second = D_800A2424;
-    f32 temp_fa0;
-    f32 temp_fv0;
-    f32 temp_fv1;
+    f32 *start = arg0;
+    f32 *end = arg1;
+    f32 *first = arg2;
+    f32 *second = arg3;
+    f32 dx;
+    f32 dy;
+    f32 dz;
 
-    temp_fv1 = *(f32 *)((u8 *)arg0 + 0);
-    temp_fv0 = *(f32 *)((u8 *)arg1 + 0) - temp_fv1;
-    temp_fa0 = *(f32 *)((u8 *)arg1 + 4) - *(f32 *)((u8 *)arg0 + 4);
-    {
-        f32 temp_fa1 = *(f32 *)((u8 *)arg1 + 8) - *(f32 *)((u8 *)arg0 + 8);
-    *(f32 *)((u8 *)arg2 + 0) = (f32) (temp_fv1 + (temp_fv0 * weight_first));
-    *(f32 *)((u8 *)arg2 + 4) = (f32) (*(f32 *)((u8 *)arg0 + 4) + (temp_fa0 * weight_first));
-    *(f32 *)((u8 *)arg2 + 8) = (f32) (*(f32 *)((u8 *)arg0 + 8) + (temp_fa1 * weight_first));
-    *(f32 *)((u8 *)arg3 + 0) = (f32) (*(f32 *)((u8 *)arg0 + 0) + (temp_fv0 * weight_second));
-    *(f32 *)((u8 *)arg3 + 4) = (f32) (*(f32 *)((u8 *)arg0 + 4) + (temp_fa0 * weight_second));
-    *(f32 *)((u8 *)arg3 + 8) = (f32) (*(f32 *)((u8 *)arg0 + 8) + (temp_fa1 * weight_second));
-    }
+    dx = end[0] - start[0];
+    dy = end[1] - start[1];
+    dz = end[2] - start[2];
+    first[0] = start[0] + dx * 0.333f;
+    first[1] = start[1] + dy * 0.333f;
+    first[2] = start[2] + dz * 0.333f;
+    second[0] = start[0] + dx * 0.6667f;
+    second[1] = start[1] + dy * 0.6667f;
+    second[2] = start[2] + dz * 0.6667f;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15107AE0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15107AE0.s")
 void func_15143794(s16, s16, f32, void *);
 void func_151C329C(f32 *, u8, s32);
 

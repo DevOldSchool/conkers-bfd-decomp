@@ -34,6 +34,41 @@ SECTIONS
     {
         *game_116D40.o(.rodata)
     }
+    /* Burst spread scale: docs/evidence/data-layout/game_1188e0_float_constant.md. */
+    /* ROM-verified constants: docs/evidence/data-layout/game_10d7b0_float_constants.md. */
+    .game_rodata_10d7b0 0x800A0FBC (INFO) : SUBALIGN(4)
+    {
+        *game_10D7B0.o(.rodata)
+    }
+    .game_rodata_1188e0 0x800A14FC (INFO) : SUBALIGN(4)
+    {
+        *game_1188E0.o(.rodata)
+    }
+    /* ROM-verified constants: docs/evidence/data-layout/game_133190_float_constants.md. */
+    .game_rodata_133190 0x800A2420 (INFO) : SUBALIGN(4)
+    {
+        *game_133190.o(.rodata)
+    }
+    /* ROM-verified constant: docs/evidence/data-layout/game_197120_float_constant.md. */
+    .game_rodata_197120 0x800A6CC8 (INFO) : SUBALIGN(4)
+    {
+        *game_197120.o(.rodata)
+    }
+    /* ROM-verified constants: docs/evidence/data-layout/game_1d4ac0_float_constants.md. */
+    .game_rodata_1d4ac0 0x800A8DC8 (INFO) : SUBALIGN(4)
+    {
+        *game_1D4AC0.o(.rodata)
+    }
+    /* ROM-verified constants: docs/evidence/data-layout/game_1e58b0_float_constants.md. */
+    .game_rodata_1e58b0 0x800AA4CC (INFO) : SUBALIGN(4)
+    {
+        *game_1E58B0.o(.rodata)
+    }
+    /* ROM-verified constants: docs/evidence/data-layout/game_1e9820_float_constants.md. */
+    .game_rodata_1e9820 0x800AA834 (INFO) : SUBALIGN(4)
+    {
+        *game_1E9820.o(.rodata)
+    }
     /* ROM-verified constant: docs/evidence/data-layout/game_11d830_float_constant.md. */
     .game_rodata_11d830 0x800A1854 (INFO) : SUBALIGN(4)
     {
@@ -105,6 +140,16 @@ SECTIONS
     .game_rodata_dc6b0 0x8009F7D8 (INFO) : SUBALIGN(4)
     {
         *game_DC6B0.o(.rodata)
+    }
+    /* ROM-verified constants: docs/evidence/data-layout/game_97aa0_float_constants.md. */
+    .game_rodata_97aa0 0x80099A10 (INFO) : SUBALIGN(4)
+    {
+        *game_97AA0.o(.rodata)
+    }
+    /* ROM-verified constants: docs/evidence/data-layout/game_de5a0_float_constants.md. */
+    .game_rodata_de5a0 0x8009F8A0 (INFO) : SUBALIGN(4)
+    {
+        *game_DE5A0.o(.rodata)
     }
     /* ROM-verified constants: docs/evidence/data-layout/game_a28b0_float_constants.md. */
     .game_rodata_a28b0 0x8009A144 (INFO) : SUBALIGN(4)
@@ -493,6 +538,33 @@ __game_rodata_1b8f40_payload_size = 0x24;
 
 ASSERT(SIZEOF(.game_rodata_116d40) == 0x10, "game_116D40 constant pool extent changed")
 __game_rodata_116d40_payload_size = 0x4;
+
+ASSERT(SIZEOF(.game_rodata_10d7b0) == 0x20, "game_10D7B0 constant pool extent changed")
+__game_rodata_10d7b0_payload_size = 0x14;
+
+ASSERT(SIZEOF(.game_rodata_1188e0) == 0x10, "game_1188E0 constant pool extent changed")
+__game_rodata_1188e0_payload_size = 0x4;
+
+ASSERT(SIZEOF(.game_rodata_97aa0) == 0x20, "game_97AA0 constant pool extent changed")
+__game_rodata_97aa0_payload_size = 0x18;
+
+ASSERT(SIZEOF(.game_rodata_de5a0) == 0x20, "game_DE5A0 constant pool extent changed")
+__game_rodata_de5a0_payload_size = 0x1C;
+
+ASSERT(SIZEOF(.game_rodata_133190) == 0x10, "game_133190 constant pool extent changed")
+__game_rodata_133190_payload_size = 0x8;
+
+ASSERT(SIZEOF(.game_rodata_197120) == 0x10, "game_197120 constant pool extent changed")
+__game_rodata_197120_payload_size = 0x4;
+
+ASSERT(SIZEOF(.game_rodata_1d4ac0) == 0x10, "game_1D4AC0 constant pool extent changed")
+__game_rodata_1d4ac0_payload_size = 0xC;
+
+ASSERT(SIZEOF(.game_rodata_1e58b0) == 0x10, "game_1E58B0 constant pool extent changed")
+__game_rodata_1e58b0_payload_size = 0x10;
+
+ASSERT(SIZEOF(.game_rodata_1e9820) == 0x20, "game_1E9820 constant pool extent changed")
+__game_rodata_1e9820_payload_size = 0x14;
 
 ASSERT(SIZEOF(.game_rodata_light) == 0xC0, "light switch table extent changed")
 __game_rodata_light_payload_size = 0xBC;
