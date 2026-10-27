@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150AF328
- * - func_150AF7C4
  * - func_150AFDB0
  * - func_150B0348
  *
@@ -199,7 +198,138 @@ void func_150B1DB0(s32 arg0, s32 arg1, s32 arg2);
 void func_150AF790(s32 arg0, s32 arg1) {
     func_150B1DB0(arg1, arg1 + 0x1ECC0, arg1);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF7C4.s")
+typedef struct GameDC6B0SmokeTimers {
+    s16 puff;
+    s16 spark;
+} GameDC6B0SmokeTimers;
+
+typedef struct GameDC6B0SmokeSource {
+    u8 pad0;
+    u8 owner;
+    u8 pad2[0xA];
+    u8 group;
+    u8 padD;
+    s16 maxLifetime;
+    u8 pad10[0x18];
+    GameDC6B0SmokeTimers timers;
+} GameDC6B0SmokeSource;
+
+typedef struct GameDC6B0SmokePacket {
+    f32 x, y;
+    f32 scaleX, scaleY;
+    u8 selector;
+    u8 pad11;
+    s16 lifetime, flags, field16, field18;
+    u8 color0, color1, color2, color3, color4;
+    u8 color5, color6, color7, color8, color9;
+    s32 field24, field28, field2C, field30, field34, field38, field3C;
+    u8 field40, field41;
+    u8 pad42[2];
+    u8 field44;
+    u8 pad45[0x13];
+} GameDC6B0SmokePacket;
+
+typedef struct GameDC6B0SmokeMotion {
+    f32 x, y, speed, angle;
+} GameDC6B0SmokeMotion;
+
+u8 func_151D8E6C(void);
+extern f32 D_8009F7D0;
+extern f32 D_8009F7D4;
+extern s32 D_800BE9E4;
+
+void func_150AF7C4(GameDC6B0SmokeSource *arg0) {
+    u8 *result;
+    struct {
+        GameDC6B0SmokeMotion motion;
+        GameDC6B0SmokePacket packet;
+    } puff;
+    GameDC6B0SmokeTimers *timers;
+    GameDC6B0SmokePacket spark;
+
+    timers = &arg0->timers;
+    timers->puff -= D_800BE9E4;
+    if (timers->puff < 0) {
+        puff.motion.x = func_150ADA68() * 280.0f + -140.0f;
+        puff.motion.y = func_150ADA68() * 50.0f;
+        puff.motion.speed = 2.0f * (func_150ADA68() * D_8009F7D0);
+        puff.motion.angle = func_150ADA68() * D_8009F7D4;
+        puff.packet.x = 0.0f;
+        puff.packet.y = 0.0f;
+        func_150ADA68();
+        puff.packet.selector = 0xFF;
+        puff.packet.scaleX = 1.0f;
+        puff.packet.scaleY = 115.0f;
+        puff.packet.lifetime = func_150ADA20() % 71U + 20;
+        if (arg0->maxLifetime < puff.packet.lifetime) {
+            puff.packet.lifetime = arg0->maxLifetime;
+        }
+        puff.packet.flags = 0x21;
+        puff.packet.field16 = 1;
+        puff.packet.field18 = 0xFF;
+        puff.packet.color0 = 0;
+        puff.packet.color1 = 0xFF;
+        puff.packet.color2 = 0xFF;
+        puff.packet.color3 = 0xFF;
+        puff.packet.color4 = func_150ADA20() % 71U + 40;
+        puff.packet.color5 = 0xFF;
+        puff.packet.color6 = 0xFF;
+        puff.packet.color7 = 0xFF;
+        puff.packet.color8 = 0xFF;
+        puff.packet.color9 = 0xFF;
+        puff.packet.field24 = 0;
+        puff.packet.field28 = 0x200004;
+        puff.packet.field2C = 0x1F0601;
+        puff.packet.field30 = 0x19;
+        puff.packet.field34 = 0x54;
+        puff.packet.field38 = 0x80;
+        puff.packet.field3C = 0x20;
+        puff.packet.field40 = 0;
+        puff.packet.field41 = 0xA;
+        puff.packet.field44 = 0;
+        result = func_1515548C(&puff.packet, 6, 0, 0, 0x10, arg0->group, arg0->owner);
+        if (result != NULL) {
+            func_10022EC0(result + 0x70, &puff.motion, sizeof(puff.motion));
+        }
+        timers->puff = func_150ADA20() % 41U + 45;
+    }
+    timers->spark -= D_800BE9E4;
+    if (timers->spark < 0) {
+        spark.x = func_150ADA68() * 280.0f + -140.0f;
+        spark.y = func_150ADA68() * 200.0f + -100.0f;
+        spark.scaleX = spark.scaleY = 2.0f * func_150ADA68() + 1.0f;
+        spark.selector = func_151D8E6C();
+        spark.lifetime = func_150ADA20() % 7U + 5;
+        if (arg0->maxLifetime < spark.lifetime) {
+            spark.lifetime = arg0->maxLifetime;
+        }
+        spark.flags = 1 | (func_150ADA20() ? 2 : 0) | (func_150ADA20() ? 4 : 0) | 0x20;
+        spark.field16 = 1;
+        spark.field18 = 0xFF;
+        spark.color0 = 0;
+        spark.color1 = 0xFF;
+        spark.color2 = 0xFF;
+        spark.color3 = 0xFF;
+        spark.color4 = func_150ADA20() % 121U + 80;
+        spark.color5 = 0xFF;
+        spark.color6 = 0xFF;
+        spark.color7 = 0xFF;
+        spark.color8 = 0xFF;
+        spark.color9 = 0xFF;
+        spark.field24 = 0;
+        spark.field28 = 0x200004;
+        spark.field2C = 0x1F0601;
+        spark.field30 = 0x19;
+        spark.field34 = 0x55;
+        spark.field38 = 0x80;
+        spark.field3C = 0x20;
+        spark.field40 = 0;
+        spark.field41 = 7;
+        spark.field44 = 0;
+        func_1515548C(&spark, 0, 0, 0, 0, arg0->group, arg0->owner);
+        timers->spark = func_150ADA20() % 11U + 3;
+    }
+}
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */
