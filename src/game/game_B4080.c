@@ -29,7 +29,6 @@
  * - func_1508B9BC
  * - func_1508BC20
  * - func_1508BF14
- * - func_1508C1A4
  * - func_1508C5B8
  * - func_1508CAD8
  * - func_1508D850
@@ -1691,7 +1690,117 @@ loop_25:
 s32 func_1508C194(s32 arg0) {
     return 0;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508C1A4.s")
+typedef struct GameB4080SightInner {
+    u8 pad0[0x75];
+    u8 kind75;
+    u8 pad76[0xE];
+    u8 flag84;
+    u8 pad85[0x8F];
+    s16 height114;
+} GameB4080SightInner;
+
+typedef struct GameB4080SightActor {
+    s32 type;
+    u8 pad4[0x10];
+    f32 x;
+    f32 y;
+    f32 z;
+    u8 pad20[0x184];
+    s16 pointX;
+    s16 pointY;
+    s16 pointZ;
+    u8 pad1AA[0x172];
+    GameB4080SightInner *inner;
+} GameB4080SightActor;
+
+void *func_1505EEF4(s32);
+s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *,
+                  f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
+f32 func_15086D94(f32, f32, f32, f32, f32);
+extern s16 D_800872C4[];
+
+void func_1508C1A4(s32 arg0, s32 arg1) {
+    s32 blocked;
+    s32 seen;
+    GameB4080SightActor *from;
+    GameB4080SightActor *to;
+    s32 fromFlag;
+    s32 toFlag;
+    GameB4080SightInner *fromInner;
+    f32 distance;
+    f32 hitX;
+    f32 hitY;
+    f32 hitZ;
+    f32 hitDistance;
+    f32 x0;
+    f32 x1;
+    f32 y0;
+    f32 y1;
+    f32 z0;
+    f32 z1;
+
+    seen = 0;
+    blocked = 0;
+    from = func_1505EEF4(arg0 & 0xFFFF0FFF);
+    to = func_1505EEF4(arg1 & 0xFFFF0FFF);
+    if (from != NULL && to != NULL) {
+        x0 = from->x;
+        z0 = from->z;
+        fromInner = from->inner;
+        fromFlag = fromInner->flag84;
+        if (fromFlag) {
+            y0 = from->y + fromInner->height114 * 0.75f;
+            if ((fromInner->kind75 & 0x7F) == 9) {
+                y0 -= 50.0f;
+            }
+        } else if (from->type == 0x1F) {
+            y0 = from->y + 80.0f;
+        } else if (to->inner->flag84 && D_800872C4[D_800E0BD0] != -1) {
+            x0 = from->pointX;
+            y0 = from->pointY;
+            z0 = from->pointZ;
+        } else {
+            y0 = from->y + 40.0f;
+        }
+        x1 = to->x;
+        z1 = to->z;
+        toFlag = to->inner->flag84;
+        if (toFlag) {
+            y1 = to->y + to->inner->height114 * 0.75f;
+            if ((to->inner->kind75 & 0x7F) == 9) {
+                y1 -= 50.0f;
+            }
+        } else if (to->type == 0x1F) {
+            y1 = to->y + 80.0f;
+        } else if (fromFlag && D_800872C4[D_800E0BD0] != -1) {
+            x1 = to->pointX;
+            y1 = to->pointY;
+            z1 = to->pointZ;
+        } else {
+            y1 = to->y + 40.0f;
+        }
+        distance = sqrtf((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) +
+                         (z1 - z0) * (z1 - z0));
+        if (func_150AC9C0(x0, y0, z0, x1 - x0, y1 - y0, z1 - z0, NULL, NULL, &hitX,
+                          &hitY, &hitZ, &hitDistance, NULL, NULL, 0.0f) == 0) {
+            blocked = 1;
+        } else if (distance < hitDistance) {
+            blocked = 1;
+        }
+        seen = blocked;
+        if (blocked && func_15086D94(x0, y0, z0, x1 - x0, z1 - z0) > 0.0f) {
+            blocked = 0;
+        }
+    }
+    if (blocked) {
+        *(s32 *)((u8 *)D_800D23B0 + arg0 * 4 + 0x16C0) |= 1 << arg1;
+        *(s32 *)((u8 *)D_800D23B0 + arg1 * 4 + 0x16C0) |= 1 << arg0;
+    }
+    if (seen) {
+        *(s32 *)((u8 *)D_800D23B0 + arg0 * 4 + 0x16C0) |= 0x10000 << arg1;
+        *(s32 *)((u8 *)D_800D23B0 + arg1 * 4 + 0x16C0) |= 0x10000 << arg0;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508C5B8.s")
 extern s8 D_8008FD8C;
 extern u16 D_800D18A0;
