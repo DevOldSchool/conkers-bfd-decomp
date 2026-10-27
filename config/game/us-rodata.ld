@@ -166,6 +166,21 @@ SECTIONS
     {
         *game_FA360.o(.rodata)
     }
+    /* ROM-verified constants: docs/evidence/data-layout/game_123d40_float_constants.md. */
+    .game_rodata_123d40 0x800A1B74 (INFO) : SUBALIGN(4)
+    {
+        *game_123D40.o(.rodata)
+    }
+    /* ROM-verified constants: docs/evidence/data-layout/game_1dbd40_float_constants.md. */
+    .game_rodata_1dbd40 0x800A9D8C (INFO) : SUBALIGN(4)
+    {
+        *game_1DBD40.o(.rodata)
+    }
+    /* ROM-verified constants: docs/evidence/data-layout/game_200930_float_constants.md. */
+    .game_rodata_200930 0x800AB21C (INFO) : SUBALIGN(4)
+    {
+        *game_200930.o(.rodata)
+    }
     /* ROM-verified constants: docs/evidence/data-layout/game_17caf0_float_constants.md. */
     .game_rodata_17caf0 0x800A5FFC (INFO) : SUBALIGN(4)
     {
@@ -417,6 +432,15 @@ __game_rodata_1b81d0_payload_size = 0x14;
 ASSERT(SIZEOF(.game_rodata_fa360) == 0x10,
        "game_FA360 drift literal extent changed")
 __game_rodata_fa360_payload_size = 0x8;
+ASSERT(SIZEOF(.game_rodata_123d40) == 0x10,
+       "game_123D40 spawn literal extent changed")
+__game_rodata_123d40_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_1dbd40) == 0x10,
+       "game_1DBD40 emission literal extent changed")
+__game_rodata_1dbd40_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_200930) == 0x20,
+       "game_200930 effect literal extent changed")
+__game_rodata_200930_payload_size = 0x1C;
 ASSERT(SIZEOF(.game_rodata_6b320) == 0x10,
        "game_6B320 literal extent changed")
 __game_rodata_6b320_payload_size = 0x8;
