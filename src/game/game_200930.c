@@ -16,7 +16,6 @@
  * - func_151D4DAC
  * - func_151D5174
  * - func_151D5334
- * - func_151D5514
  * - func_151D5714
  * - func_151D57F8
  * - func_151D5A18
@@ -1158,17 +1157,9 @@ typedef struct {
     u8 pad59[3];
 } Game200930Effect;
 
-void func_1514FCE8(s16 *, s32, s32);
-extern f32 D_800AB21C;
-extern f32 D_800AB220;
-extern f32 D_800AB224;
-extern f32 D_800AB228;
-extern f32 D_800AB22C;
-extern f32 D_800AB230;
-extern f32 D_800AB234;
+void func_1514FCE8(s16 *, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5514 CURRENT (778) */
-void func_151D5514(s32 arg0, u8 arg1, s32 arg2) {
+void func_151D5514(f32 *arg0, u8 arg1, s32 arg2) {
     Game200930Effect effect;
 
     effect.field00 = 0;
@@ -1178,10 +1169,10 @@ void func_151D5514(s32 arg0, u8 arg1, s32 arg2) {
     effect.field08 = 9;
     effect.field0C = 3;
     effect.position = *(Vec3i *)arg0;
-    effect.field1C = D_800AB21C;
+    effect.field1C = 323.0f;
     effect.field20 = 214.0f;
     effect.field24 = 203.0f;
-    effect.field28 = D_800AB220;
+    effect.field28 = 263.0f;
     effect.field34 = 7;
     effect.field38 = 3;
     effect.field4C = 0xF;
@@ -1191,16 +1182,14 @@ void func_151D5514(s32 arg0, u8 arg1, s32 arg2) {
     effect.field54 = 0xC;
     effect.field56 = 0x14;
     effect.field58 = 0;
-    effect.field2C = D_800AB224;
-    effect.field30 = D_800AB228;
+    effect.field2C = 677.0f;
+    effect.field30 = 895.0f;
     effect.field3C = 45.0f;
-    effect.field40 = D_800AB22C;
-    effect.field44 = D_800AB230;
-    effect.field48 = D_800AB234;
+    effect.field40 = 0.60200006f;
+    effect.field44 = -1.7320001f;
+    effect.field48 = 1.5120001f;
     func_1514FCE8(&effect.field00, arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D5514 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5514.s")
 void func_151541B8(f32 *, f32, f32, f32, f32, u8, s32);
 f32 func_150ADA68(void);
 void func_151D5514(f32 *, u8, s32);

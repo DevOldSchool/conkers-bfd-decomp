@@ -53583,17 +53583,16 @@
       "symbol": "func_151AE890"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 443,
-        "reason": "CURRENT 443; vector semantics and all registers match, but compiler places the three-float vector and random temporaries 4-8 bytes high and schedules the global load after the prologue; exact aggregate layout regressed to 549",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 304,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151AE984",
           "vram": "0x151AE984"
         }
@@ -60314,26 +60313,25 @@
           "vram": "0x150F6890"
         }
       },
-      "source": "src/game/game_123D40.c",
+      "source": "src/done/game/game_123D40.c",
       "symbol": "func_150F6890"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1460,
-        "reason": "CURRENT (1460) after three focused revisions; frame and stack match and only 12 rows differ, localized to selection-flag spill width/location and random-variant branch scheduling. Adjacent-struct and volatile-byte experiments regressed.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 420,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150F695C",
           "vram": "0x150F695C"
         }
       },
-      "source": "src/game/game_123D40.c",
+      "source": "src/done/game/game_123D40.c",
       "symbol": "func_150F695C"
     },
     {
@@ -83485,17 +83483,16 @@
       "symbol": "func_151D5404"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 778,
-        "reason": "CURRENT (778): local layout, constants, copy, and call behavior align; remaining mismatch is the entry byte-normalization schedule, which shifts temporary registers and leaves four missing/extra rows.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 308,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D5514",
           "vram": "0x151D5514"
         }

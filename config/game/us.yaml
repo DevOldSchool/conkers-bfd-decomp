@@ -452,7 +452,7 @@ segments:
       - [0xF6400, c, done/game/game_1238B0]
       - [0xF6420, c, done/game/game_1238D0]
       - [0xF64B0, c, game/game_123960]
-      - [0xF6890, c, game/game_123D40]
+      - [0xF6890, c, done/game/game_123D40]
       - [0xF6B00, c, game/game_123FB0]
       - [0xF6DB0, c, game/game_124260]
       - [0xF7470, c, game/game_124920]

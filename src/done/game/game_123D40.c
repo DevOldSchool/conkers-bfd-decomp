@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_123D40.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_record_glyph_emitter_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150F695C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct {
@@ -71,11 +66,7 @@ void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32, f32,
                    s32, s32, s32, s32, s32, s32);
 void func_1504715C(f32 *, s32);
 f32 func_150ADA68(void);
-extern f32 D_800A1B74;
-extern f32 D_800A1B78;
-extern f32 D_800A1B7C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F695C CURRENT (1460) */
 void func_150F695C(void *arg0, void *arg1, void *arg2, void *arg3,
                     f32 arg4, u8 *arg5) {
     struct {
@@ -105,7 +96,7 @@ void func_150F695C(void *arg0, void *arg1, void *arg2, void *arg3,
                    &local.scale);
     random = func_150ADA68();
     local.scale *= 1.0f + (random + random);
-    selected = func_150ADA68() < D_800A1B74;
+    selected = func_150ADA68() < 0.6f;
     if (selected != 0) {
         func_1504715C(&local.value, *(s32 *)(arg5 + 0x1C));
     } else {
@@ -113,16 +104,15 @@ void func_150F695C(void *arg0, void *arg1, void *arg2, void *arg3,
         local.field78 = 0;
         local.field79 = 0;
         local.field7C = 0;
-        local.value = D_800A1B78;
+        local.value = -10000.0f;
     }
-    variant = 0;
-    if (selected != 0 && func_150ADA68() < 0.5f) {
-        variant = 1;
+    if (selected) {
+        variant = func_150ADA68() < 0.5f;
+    } else {
+        variant = 0;
     }
     func_151D9014(local.vectorA4, local.vector8C, 1, local.field88,
                    local.field86, (u8)local.field85, local.scale, selected,
-                   D_800A1B7C, D_800A1B7C, 1, (s32)&local.value, 1,
+                   1.8f, 1.8f, 1, (s32)&local.value, 1,
                    variant, arg5[0xC], arg5[1]);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F695C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_123D40/func_150F695C.s")
