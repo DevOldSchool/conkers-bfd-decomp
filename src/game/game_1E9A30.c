@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151BC794
  * - func_151BCA90
- * - func_151BD2F8
  * - func_151BD43C
  * - func_151BD828
  * - func_151BDD8C
@@ -282,13 +281,14 @@ void *func_10022EC0(void *, const void *, u32);
 void *func_15134DAC(void *, s32);
 extern f32 D_800AA850;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BD2F8 CURRENT (120) */
 void func_151BD2F8(void *arg0, s32 arg1, s32 arg2) {
     Game1E9A30Spawn spawn;
     void *result;
 
     if (arg0 != 0) {
         spawn.id = *(u8 *)((u8 *)arg0 + 0x3B);
+        spawn.object = arg0;
+        spawn.active = 1;
         spawn.x1 = 31.0f;
         spawn.y1 = -34.0f;
         spawn.z1 = -117.0f;
@@ -296,8 +296,6 @@ void func_151BD2F8(void *arg0, s32 arg1, s32 arg2) {
         spawn.y2 = -24.0f;
         spawn.z2 = -182.0f;
         spawn.scale = D_800AA850;
-        spawn.object = arg0;
-        spawn.active = 1;
         spawn.field28 = 0;
         spawn.field2A = 0x32;
         spawn.field2C = 0x64;
@@ -320,8 +318,6 @@ void func_151BD2F8(void *arg0, s32 arg1, s32 arg2) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151BD2F8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BD2F8.s")
 s32 func_151BD42C(u8 *arg0) {
     *(s16 *)(arg0 + 0x80) = 0;
     return 1;

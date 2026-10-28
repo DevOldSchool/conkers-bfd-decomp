@@ -49,6 +49,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [US game_20A290 spawn literal pool](game_20a290_float_constant.md)
 - [US switch table for game_11F780](game_11f780_jump_table.md)
 - [US sound-event selector table](game_1483e0_jump_table.md)
+- [US switch table for game_15BD90](game_15bd90_jump_table.md)
 - [US switch tables for game_15D730](game_15d730_jump_tables.md)
 - [US switch table for game_1B8F40](game_1b8f40_jump_table.md)
 - [US game_1BC650 jump tables](game_1bc650_jump_tables.md)

@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1B7EC0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_radial_queue_render_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1518ABD0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game1B7EC0Node {
@@ -107,11 +102,9 @@ void *func_1518AB60(s32 arg0, u8 arg1) {
 }
 void *func_1518AB60(s32, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518ABD0 CURRENT (182) */
 s32 func_1518ABD0(Game1B7EC0RadialEffect *arg0, s32 arg1, u8 arg2) {
-    Game1B7EC0Node *node;
-    Game1B7EC0Node *oldHead;
     Game1B7EC0Node *oldTail;
+    Game1B7EC0Node *node;
 
     if (arg0 == 0) {
         if (arg2 != 0) {
@@ -126,17 +119,16 @@ s32 func_1518ABD0(Game1B7EC0RadialEffect *arg0, s32 arg1, u8 arg2) {
         }
         return 0;
     }
-    oldHead = (Game1B7EC0Node *)arg0->field_10;
-    node->field14 = oldHead;
-    if (oldHead != 0) {
-        oldHead->field18 = node;
+    node->field14 = (Game1B7EC0Node *)arg0->field_10;
+    if (node->field14 != 0) {
+        node->field14->field18 = node;
     } else {
         arg0->field_14 = (s32)node;
     }
     arg0->field_10 = (s32)node;
     node->field18 = 0;
-    arg0->field_1C += 1;
     arg0->field_22 = arg0->field_20;
+    arg0->field_1C += 1;
     if (arg0->field_18 < arg0->field_1C) {
         oldTail = (Game1B7EC0Node *)arg0->field_14;
         arg0->field_1C -= 1;
@@ -154,5 +146,3 @@ s32 func_1518ABD0(Game1B7EC0RadialEffect *arg0, s32 arg1, u8 arg2) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518ABD0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B7EC0/func_1518ABD0.s")

@@ -956,6 +956,16 @@
         }
       },
       {
+        "address": "0x800A376C",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_15BD90.c",
+            "src/done/game/game_15BD90.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A3800",
         "section": ".rodata",
         "owner": {
