@@ -15,7 +15,6 @@
  * - func_151247C0
  * - func_15124B18
  * - func_15124C38
- * - func_151256BC
  * - func_15125DB4
  * - func_15126378
  * - func_15127520
@@ -1342,16 +1341,12 @@ extern f32 D_800A3544;
 extern f32 D_800A3548;
 extern f32 D_800A354C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151256BC CURRENT (30) */
 void func_151256BC(u8 *arg0) {
-    f32 random;
     f32 bound;
-    u32 random_bits;
-    f32 sine;
-    f32 previous;
     f32 factor;
     f32 first_scale;
     f32 second_scale;
+    u32 random_bits;
     s32 flags;
     f32 *first;
     f32 *second;
@@ -1360,14 +1355,11 @@ void func_151256BC(u8 *arg0) {
     if ((flags & 0x80000) || ((*(s32 *)(arg0 + 0x5F0) & 8) && !(flags & 0x40000))) {
         random_bits = func_150ADA20() % 3U;
         bound = D_800A3534;
-        random = (f32)random_bits;
-        *(f32 *)(arg0 + 0x29C) += (random + random) * D_800A3538 * D_800BE9A4;
+        *(f32 *)(arg0 + 0x29C) += ((f32)random_bits + (f32)random_bits) * D_800A3538 * D_800BE9A4;
         while (bound < *(f32 *)(arg0 + 0x29C)) {
             *(f32 *)(arg0 + 0x29C) -= bound;
         }
-        sine = func_15047D60(*(f32 *)(arg0 + 0x29C));
-        previous = *(f32 *)(arg0 + 0x5EC);
-        *(f32 *)(arg0 + 0x5EC) = previous + ((sine * 4.0f - previous) * D_800A353C);
+        *(f32 *)(arg0 + 0x5EC) += ((func_15047D60(*(f32 *)(arg0 + 0x29C)) * 4.0f - *(f32 *)(arg0 + 0x5EC)) * D_800A353C);
         factor = *(f32 *)(arg0 + 0x5EC) * D_800A3540;
         if (*(s32 *)(arg0 + 0x2C) & 0x80000) {
             first_scale = 4.0f;
@@ -1384,18 +1376,14 @@ void func_151256BC(u8 *arg0) {
     }
     if ((*(f32 *)(arg0 + 0x29C)) != 0.0f) {
         *(f32 *)(arg0 + 0x29C) = (*(f32 *)(arg0 + 0x29C)) - (*(f32 *)(arg0 + 0x29C)) * D_800A3544;
-        sine = func_15047D60(*(f32 *)(arg0 + 0x29C));
-        previous = *(f32 *)(arg0 + 0x5EC);
         first = (f32 *)(arg0 + 0x2F8);
         second = (f32 *)(arg0 + 0x2BC);
-        *(f32 *)(arg0 + 0x5EC) = previous + ((sine * 4.0f - previous) * D_800A3548);
+        *(f32 *)(arg0 + 0x5EC) += ((func_15047D60(*(f32 *)(arg0 + 0x29C)) * 4.0f - *(f32 *)(arg0 + 0x5EC)) * D_800A3548);
         factor = *(f32 *)(arg0 + 0x5EC) * D_800A354C;
         func_1508EF80(first, second, factor, first);
         func_1508EF80(second, first, factor * 20.0f, second);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151256BC */
-#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151256BC.s")
 
 void func_15125924(u8 *arg0) {
     s32 type;

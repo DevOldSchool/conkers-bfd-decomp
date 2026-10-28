@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_directly_called_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1510D7AC
  * - func_1510D8C0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -39,37 +38,21 @@ void func_1510D720(s32 arg0) {
 void func_10004074(s32);
 extern u32 D_800B0E58[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510D7AC CURRENT (142) */
 void func_1510D7AC(s32 arg0) {
-    s32 *temp_v0_2;
-    s8 *temp_a2;
-    s8 temp_v1;
-    u8 *temp_v0;
-    u8 temp_a0;
-    u8 temp_t8;
+    s8 value;
 
-    temp_a2 = &D_800BC448[arg0];
-    temp_v1 = *temp_a2;
-    temp_v0 = &D_800D9F68[arg0];
-    if (temp_v1 != 0) {
-        temp_a0 = *temp_v0;
-        temp_t8 = temp_a0 - 1;
-        if (temp_a0 != 0) {
-            *temp_v0 = temp_t8;
-            if (!(temp_t8 & 0xFF)) {
-                if (temp_v1 & 0x40) {
-                    func_10004074(*(s32 *)D_800B0E58[arg0]);
-                }
-                temp_v0_2 = (s32 *)&D_800B0E58[arg0];
-                func_10004074(*temp_v0_2);
-                *temp_v0_2 = -1;
-                *temp_a2 = 0;
+    value = D_800BC448[arg0];
+    if (value != 0 && D_800D9F68[arg0] != 0) {
+        if (--D_800D9F68[arg0] == 0) {
+            if (value & 0x40) {
+                func_10004074(*(s32 *)D_800B0E58[arg0]);
             }
+            func_10004074(D_800B0E58[arg0]);
+            D_800B0E58[arg0] = -1;
+            D_800BC448[arg0] = 0;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510D7AC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13ABD0/func_1510D7AC.s")
 typedef struct {
     s32 object;
     s32 pixelBase;

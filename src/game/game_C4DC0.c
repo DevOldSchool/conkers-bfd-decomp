@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_descriptor_callback_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150979CC
  * - func_15097A8C
  * - func_15099C14
  *
@@ -45,34 +44,30 @@ s32 func_15097910(s32 arg0, u8 arg1) {
 }
 void func_15060F28(u8 *, s32);
 void func_15053430(u8 *);
-u8 *func_1505EEF4(void);
+u8 *func_1505EEF4(s32);
 extern u8 D_800D2100;
 extern s32 D_800D3840;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150979CC CURRENT (256) */
 s32 func_150979CC(s32 arg0, void *arg1) {
-    void *descriptor;
+    u8 *object;
 
-    descriptor = arg1;
-    arg1 = func_1505EEF4();
-    if (arg1 == 0) {
+    object = func_1505EEF4(arg0);
+    if (object == NULL) {
         return 0;
     }
     if (arg0 < D_800D2100) {
         *(u8 *)((u8 *)D_800D20FC + arg0 * 0x30 + 2) = 1;
     }
     if (D_800D3840 == 2) {
-        if (*(s32 *)((u8 *)descriptor + 4) == 0) {
-            func_15060F28(arg1, 0);
+        if (*(s32 *)((u8 *)arg1 + 4) == 0) {
+            func_15060F28(object, 0);
         } else {
-            func_15053430(arg1);
+            func_15053430(object);
         }
     } else {
-        func_15060F28(arg1, 0);
+        func_15060F28(object, 0);
     }
     return 0xF423F;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150979CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C4DC0/func_150979CC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C4DC0/func_15097A8C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C4DC0/func_15099C14.s")

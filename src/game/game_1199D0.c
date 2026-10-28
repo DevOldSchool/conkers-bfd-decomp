@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150EC520
  * - func_150EC6B0
- * - func_150ECA68
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -168,47 +167,24 @@ typedef struct Game1199D0SpawnParams {
     u8 padA[2];
 } Game1199D0SpawnParams;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150ECA68 CURRENT (125) */
 void func_150ECA68(void *arg0, u8 arg1, u8 arg2, u8 arg3,
                    u8 arg4, u8 arg5, s16 arg6, u8 arg7, s32 arg8) {
-    s32 var_v1;
-    s16 temp_t2;
     Game1199D0SpawnParams params;
-    s32 temp_v0;
-    s32 var_v0;
-    u8 temp_t0;
-    u8 temp_t1;
-    u8 temp_t9;
+    s32 result;
 
     params.actor = arg0;
-    temp_t9 = *(u8 *)((u8 *)arg0 + 0x3B);
-    temp_t2 = arg6;
-    temp_t0 = arg4;
-    temp_t1 = arg5;
+    params.field_4 = *(u8 *)((u8 *)arg0 + 0x3B);
     params.field_5 = arg1;
     params.field_6 = arg2;
     params.field_7 = arg3;
-    params.field_4 = temp_t9;
-    params.field_8 = temp_t0;
-    params.field_9 = temp_t1;
-    if (temp_t2 == -1) {
-        var_v1 = 0x12C;
-    } else {
-        var_v1 = temp_t2;
-    }
-    if (temp_t2 == -1) {
-        var_v0 = 0;
-    } else {
-        var_v0 = 1;
-    }
-    temp_v0 = func_15149130((s16)var_v1, -1, 0x5D, -1, var_v0,
-                             0x45, 0xC, arg7, arg8);
-    if (temp_v0 != 0) {
-        func_10022EC0((u8 *)temp_v0 + 0x28, &params, 0xC);
+    params.field_8 = arg4;
+    params.field_9 = arg5;
+    result = func_15149130((arg6 == -1) ? 0x12C : arg6, -1, 0x5D, -1,
+                           (arg6 == -1) ? 0 : 1, 0x45, 0xC, arg7, arg8);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x28, &params, 0xC);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150ECA68 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1199D0/func_150ECA68.s")
 void func_150ECB4C(s32 arg0, s32 arg1, u8 arg2) {
     func_15169850(arg1, arg2, arg0 + 0x28, arg0 + 0x2C, arg0);
 }
