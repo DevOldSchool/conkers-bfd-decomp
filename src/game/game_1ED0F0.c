@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151BFDA0
  * - func_151BFE84
- * - func_151C02E4
  * - func_151C0698
  * - func_151C1180
  * - func_151C1570
@@ -237,35 +236,18 @@ void func_151C0098(Vec3f *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4) {
         }
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C02E4 CURRENT (450) */
 s32 func_151C02E4(void *arg0, void *arg1, s32 arg2, void **arg3) {
-    s32 temp_t6;
-    void **temp_t7;
-    void *temp_t8;
-    s32 temp_t9;
-    s32 var_v0;
+    u8 i;
 
-    var_v0 = 0;
-    if (arg2 > 0) {
-loop_1:
-        temp_t6 = var_v0 << 2;
-        temp_t7 = (void **)((u8 *)arg3 + temp_t6);
-        temp_t8 = *temp_t7;
-        if (arg0 == temp_t8) {
+    for (i = 0; i < arg2; i++) {
+        if (arg0 == arg3[i]) {
             return 0;
         }
-        var_v0 += 1;
-        temp_t9 = var_v0 & 0xFF;
-        if (temp_t9 >= arg2) {
-            goto block_4;
-        }
-        goto loop_1;
     }
-block_4:
     if (arg0 == arg1) {
         return 0;
     }
-    if (*(s32 *)((u8 *)arg0 + 0) == 0) {
+    if (*(s32 *)arg0 == 0) {
         return 0;
     }
     if (*(u8 *)((u8 *)arg0 + 4) == 0xFF) {
@@ -273,8 +255,6 @@ block_4:
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C02E4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C02E4.s")
 void func_150E7FEC(f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 void func_151C0360(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {

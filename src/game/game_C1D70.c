@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_reconciled_empty_stub_splits.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150948C0
  * - func_15094AB8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -15,33 +14,20 @@ void func_1509499C(u8 *, u8 *);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 extern void *D_800D2C20;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150948C0 CURRENT (275) */
 void func_150948C0(u8 *arg0, s32 arg1) {
-    void *items[16];
+    s16 *items[16];
     s32 index;
-    u8 *item;
-    void *current;
     f32 *output;
 
-    item = (u8 *)(s32)items;
     func_1509499C(arg0, (u8 *)items);
-    index = 0;
-    do {
-        current = *(void **)item;
-        if (current != 0) {
+    for (index = 0; index < 16; index++) {
+        if (items[index] != 0) {
             output = (f32 *)(arg1 + index * 0xC);
-            func_150A7960(D_800D2C20,
-                          (f32)*(s16 *)current,
-                          (f32)*(s16 *)((u8 *)current + 2),
-                          (f32)*(s16 *)((u8 *)current + 4),
+            func_150A7960(D_800D2C20, items[index][0], items[index][1], items[index][2],
                           output, output + 1, output + 2);
         }
-        index++;
-        item += 4;
-    } while (index != 0x10);
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150948C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C1D70/func_150948C0.s")
 void func_1509499C(u8 *arg0, u8 *arg1) {
     s16 temp_a2;
     s16 temp_v1;

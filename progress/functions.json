@@ -36372,17 +36372,16 @@
       "symbol": "func_1515D4D4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 255,
-        "reason": "Manual1065->263->255: remove redundant savedpointer and natural cursor/allocated record fixes spill1C/global-head branch. Explicit head snapshot neutral255; simplest best restored. Remaining allocated a2 vs raw a0, head a0 vs a1 and extra initial move. Three revisions; ledger deferred-manual-20260927.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 140,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515D520",
           "vram": "0x1515D520"
         }
@@ -37513,17 +37512,16 @@
       "symbol": "func_151C0098"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 450,
-        "reason": "CURRENT (450), replacing stale source marker CURRENT (20): goto form keeps exact frameless shape but differs in loop branch-likely/register allocation; structured do-while and explicit masked-index lifetime variants regress",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 124,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C02E4",
           "vram": "0x151C02E4"
         }
@@ -43056,17 +43054,16 @@
       "symbol": "func_15084C30"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 235,
-        "reason": "Live CURRENT (235): fixed u16 cursor stride from 4 to raw 2 bytes; all operands and control flow now agree, but IDO copies a0 into a2 and assigns D_800BE598 cursor to a0 instead of raw a2, plus omits the terminal nop in the 80-byte registered span",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 80,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15084CB0",
           "vram": "0x15084CB0"
         }
@@ -54083,17 +54080,16 @@
       "symbol": "func_1510B32C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 270,
-        "reason": "Full168B CURRENT280 to270: named shared inactive sentinel fixes FP compare orientation. Actual second/third scalar argument snapshots regress815 with extra LWC1/MFC1; restored270. Only three reordered rows remain: raw MFC1 a3,f0 before LW a1,4 and LW a2,8, candidate after. Two new revisions; inherited bounded history details unavailable, not reset. No justified ABI change or new scheduling hypothesis; see deferred-exact-20261005 ledger.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 168,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510B3B0",
           "vram": "0x1510B3B0"
         }
@@ -76787,17 +76783,16 @@
       "symbol": "func_151E6C1C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 375,
-        "reason": "CURRENT (375): frame, early return, loop index, and calls exact; remaining table-address setup ordering and branch-local shift/register scheduling plateau after two bounded revisions",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 220,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151E7DC0",
           "vram": "0x151E7DC0"
         }
@@ -89869,17 +89864,16 @@
       "symbol": "func_15086CBC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 235,
-        "reason": "CURRENT (235): exact control flow and operands, but IDO copies a0 into a1 on entry, allocates the global cursor to a0 instead of raw a1, and omits the terminal nop; pointer type, declaration order, signedness and condition shape did not fix allocation",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15086D48",
           "vram": "0x15086D48"
         }
@@ -90996,17 +90990,16 @@
       "symbol": "func_1508EE0C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 275,
-        "reason": "CURRENT (275), round22 pass1 move sweep (dependency-checked: moved statement crosses only independent statements) (stored 893). Earlier: CURRENT (893): loop body and registers exact; compiler retains the local array base across the setup call, shifting prologue/epilogue and loop pointer scheduling after two bounded revisions",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 220,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150948C0",
           "vram": "0x150948C0"
         }
