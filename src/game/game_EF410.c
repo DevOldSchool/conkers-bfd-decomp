@@ -13,7 +13,6 @@
  * - func_150C29F0
  * - func_150C2C00
  * - func_150C3230
- * - func_150C3574
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -854,7 +853,129 @@ void func_150C3230(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C3230 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3230.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3574.s")
+void func_1505A250(f32, f32, f32, f32 *, f32 *);
+void func_1505A3A8(f32, void *, f32, f32, u8);
+void func_15056B08(u8 *);
+void func_150562FC(u8 *);
+void func_15059140(u8 *);
+s32 func_1505A630(f32, f32, s32);
+void func_150599C8(u8 *, s32, u16);
+void func_15052490(void *, u16, f32, f32);
+void func_1506E5FC(void);
+void func_1506E8D8(void);
+void func_100109D0(s32);
+s32 func_100107F8(u8 *);
+void func_1001091C(u8 *, s32);
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+extern f32 D_800A0320;
+extern f32 D_800A0324;
+extern f32 D_800A0328;
+extern f32 D_800A032C;
+extern f32 D_800A0330;
+extern f32 D_800BE9A8;
+extern u8 *D_800D154C;
+extern s32 D_800D1580;
+
+void func_150C3574(u8 *arg0) {
+    f32 speed;
+    f32 dist;
+    f32 x;
+    f32 rate;
+    f32 z;
+    u16 angle;
+    u16 heading;
+    s32 volume;
+
+    speed = 0.25f;
+    rate = 0.5f;
+    arg0[0x80] = 10;
+    if (arg0[4] == 0x25) {
+        func_1505A250(0.0f, 0.0f, 0.15f, (f32 *)(arg0 + 0x164), (f32 *)(arg0 + 0x168));
+        speed = D_800A0320;
+        if (arg0[0x87] & 1) {
+            *(s16 *)(arg0 + 0x224) = *(f32 *)(arg0 + 0x18);
+        }
+        *(s16 *)(arg0 + 0x160) = 0;
+    }
+    func_1505A3A8(0.0f, arg0, 2.0f, speed, 0);
+    *(f32 *)(arg0 + 0x24) = 3.0f;
+    if (arg0[4] == 0x10) {
+        rate = 0.375f;
+    }
+    if (arg0[4] == 0xAC) {
+        rate = 1.5f;
+    }
+    rate *= 0.75f;
+    func_15056B08(arg0);
+    if (arg0[0x13D] != 0) {
+        func_150562FC(arg0);
+    }
+    func_15059140(arg0);
+    *(f32 *)(arg0 + 0xBC) = (*(f32 *)(arg0 + 0x14) - *(f32 *)(arg0 + 0x2C)) * D_800BE9A8;
+    x = *(f32 *)(arg0 + 0xBC);
+    *(f32 *)(arg0 + 0x148) = (*(f32 *)(arg0 + 0x1C) - *(f32 *)(arg0 + 0x34)) * D_800BE9A8;
+    z = *(f32 *)(arg0 + 0x148);
+    dist = sqrtf(x * x + z * z);
+    if ((dist + 4.0f) * 2.0f < *(f32 *)(arg0 + 0x3C)) {
+        *(f32 *)(arg0 + 0x3C) = dist * 2.0f;
+    }
+    if (arg0[0x87] == 4) {
+        D_800D1580 = 0xFF020133;
+        D_800D154C = D_800CC2D0;
+        func_1506E8D8();
+        D_800D154C = arg0;
+        *(f32 *)(arg0 + 0x164) = *(f32 *)(arg0 + 0xBC);
+        *(f32 *)(arg0 + 0x168) = *(f32 *)(arg0 + 0x148);
+        *(f32 *)(arg0 + 0x3C) = 0.0f;
+    }
+    arg0[0x87] *= 2;
+    if (dist > 0.5f && arg0[0x13D] == 0) {
+        *(u16 *)(arg0 + 0x78) = func_1505A630(*(f32 *)(arg0 + 0x14) - *(f32 *)(arg0 + 0x2C),
+                                              *(f32 *)(arg0 + 0x34) - *(f32 *)(arg0 + 0x1C), 0);
+    }
+    angle = *(u16 *)(arg0 + 0x78);
+    if ((*(u16 *)(arg0 + 0x7A) - angle - 0x4000) & 0x8000) {
+        heading = angle;
+    } else {
+        heading = angle ^ 0x8000;
+    }
+    func_150599C8(arg0, 2, heading);
+    if (*(f32 *)(arg0 + 0x28) > 30.0f) {
+        *(f32 *)(arg0 + 0x44) *= D_800A0324;
+    } else {
+        *(f32 *)(arg0 + 0x44) = dist * 2.0f;
+    }
+    if (arg0[0x13D] != 0) {
+        *(f32 *)(arg0 + 0x44) = 0.0f;
+    }
+    func_15052490(arg0, *(u16 *)(arg0 + 0x78), *(f32 *)(arg0 + 0x44),
+                  (2.0f - *(f32 *)(arg0 + 0x14C)) * rate);
+    if (*(f32 *)(arg0 + 0x44) < D_800A0328) {
+        func_100109D0((s32)arg0);
+    } else if (func_100107F8(arg0) == 0) {
+        if (arg0[4] == 0xAC) {
+            D_800D1580 = 0x630;
+        } else if (arg0[4] == 0x25) {
+            D_800D1580 = 0x67A;
+        } else {
+            D_800D1580 = 0x62A;
+        }
+        func_1506E5FC();
+    } else {
+        volume = *(f32 *)(arg0 + 0x44) * D_800A032C;
+        if (volume > 0x6D60) {
+            volume = 0x6D60;
+        }
+        if (arg0[4] == 0x25) {
+            volume >>= 1;
+        }
+        func_1001091C(arg0, volume);
+    }
+    if (*(f32 *)(arg0 + 0x44) < D_800A0330) {
+        func_100109D0((s32)arg0);
+    }
+}
 void func_15059140(u8 *);
 void func_15060F28(u8 *, s32);
 void func_1506AC8C(void *, s32, void *);
