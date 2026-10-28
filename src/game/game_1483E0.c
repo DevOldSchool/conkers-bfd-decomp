@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1511AF30
  * - func_1511B07C
  * - func_1511B51C
  * - func_1511B7D4
@@ -31,7 +30,6 @@ extern f32 D_800A318C;
 extern f32 D_800A3190;
 extern f32 D_800A3194;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511AF30 CURRENT (115) */
 void func_1511AF30(void *arg0) {
     f32 scale = (f32) *(s32 *)((u8 *)arg0 + 0x3C);
     u32 roll;
@@ -50,12 +48,11 @@ void func_1511AF30(void *arg0) {
         if ((s32)roll < 0x1F4) {
             *(f32 *)((u8 *)arg0 + 0x84) = (s32)roll * 5.0f * scale * D_800A318C * D_800A3190;
         }
-        *(f32 *)((u8 *)arg0 + 0x80) += (*(f32 *)((u8 *)arg0 + 0x84) - *(f32 *)((u8 *)arg0 + 0x80)) * D_800A3194;
+        diff = *(f32 *)((u8 *)arg0 + 0x84) - *(f32 *)((u8 *)arg0 + 0x80);
+        *(f32 *)((u8 *)arg0 + 0x80) += diff * D_800A3194;
     }
-    *(f32 *)((u8 *)arg0 + 0) = *(f32 *)((u8 *)arg0 + 0x7C) + *(f32 *)((u8 *)arg0 + 0x80);
+    *(f32 *)((u8 *)arg0 + 0) = *(f32 *)((u8 *)arg0 + 0x80) + *(f32 *)((u8 *)arg0 + 0x7C);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1511AF30 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511AF30.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511B07C.s")
 typedef struct Game1483E0Rotation {
     u8 pad0[8];
