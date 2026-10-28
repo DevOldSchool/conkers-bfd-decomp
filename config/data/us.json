@@ -746,6 +746,16 @@
         }
       },
       {
+        "address": "0x8009FD00",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_E4070.c",
+            "src/done/game/game_E4070.c"
+          ]
+        }
+      },
+      {
         "address": "0x8009FEE4",
         "section": ".rodata",
         "owner": {
