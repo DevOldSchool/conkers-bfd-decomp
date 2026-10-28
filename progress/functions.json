@@ -78606,17 +78606,16 @@
       "symbol": "func_151A5D58"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 220,
-        "reason": "CURRENT (220), improved302 after four hypotheses. Actual one-byte buffer declared after parity fixes payload28; first CEQ operand order and field0-before-field4 fix compare/store rows. Reusing consumed parity as zero is neutral280 and closed. Remaining zeroF0/parityF2 versus rawF2/F0, reversed second CEQ operands, missing later MTC1zeroF0. Prior two bounded revisions carried; need concrete floating lifetime/constant-CSE evidence, no padding or qualifier guessing.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 236,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A90C0",
           "vram": "0x151A90C0"
         }
@@ -88407,26 +88406,25 @@
           "vram": "0x151220D0"
         }
       },
-      "source": "src/game/game_14F580.c",
+      "source": "src/done/game/game_14F580.c",
       "symbol": "func_151220D0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 80,
-        "reason": "Integer-zero store improves285to80; search8000 exhausted prior285 context. Four registers and moved zero initialization remain. Inline decay385, all integer zeros285, shared zero1584 regress; no pure-register followup search. Ledger resume-20261015-2057.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 720,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15122170",
           "vram": "0x15122170"
         }
       },
-      "source": "src/game/game_14F580.c",
+      "source": "src/done/game/game_14F580.c",
       "symbol": "func_15122170"
     },
     {

@@ -17068,15 +17068,15 @@
         "func_151220D0",
         "func_15122170"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x122440",
           "start": "0x1220D0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_14F580.c"
+      "source": "src/done/game/game_14F580.c"
     },
     {
       "boundary_evidence": {
