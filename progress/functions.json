@@ -32243,8 +32243,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1116,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151050B0",
           "vram": "0x151050B0"
         }
@@ -80838,17 +80843,16 @@
       "symbol": "func_1515AB88"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 115,
-        "reason": "Round6 2026-10-18: CURRENT 791 -> 115. Only scale (0x1C) and diff named (frame 0x20 like raw), ternary +/-1 step, direct field updates. Left: FP register roles (raw target f12 / diff f2 vs candidate f2 / f12) and the final add's load order; named target in either declaration slot neutral (115).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 332,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1511AF30",
           "vram": "0x1511AF30"
         }

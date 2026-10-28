@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15104A80
  * - func_15104C44
- * - func_151050B0
  * - func_151058B4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -206,7 +205,88 @@ void func_15104FF8(struct207 *arg0, s32 arg1, u8 arg2) {
             0);
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_131F30/func_151050B0.s")
+typedef struct Game131F30Burst {
+    f32 scales[5];
+    s16 count;
+    s16 field16;
+    s16 field18;
+    s16 field1A;
+    s16 field1C;
+    s32 field20;
+    s32 field24;
+    u8 color[5];
+} Game131F30Burst;
+typedef struct Game131F30Spark {
+    struct205 *owner;
+    s16 timer;
+    u8 pad6[2];
+    f32 pending;
+    Vec3f points[4];
+    Vec3f spans[4];
+    s16 *shape;
+} Game131F30Spark;
+s32 func_15106F98(Vec3f *, Vec3f *, s32, Game131F30Burst *, f32, u8, u8, s32);
+
+void func_151050B0(u8 *arg0) {
+    Game131F30Spark *spark;
+    Game131F30Burst burst;
+    Vec3f from;
+    Vec3f to;
+    u8 first;
+    u8 second;
+    f32 t;
+
+    spark = (Game131F30Spark *)(arg0 + 0x28);
+    if (spark->timer < 0) {
+        spark->owner->unk14 = 1;
+        return;
+    }
+    spark->owner->unk14 = 0;
+    spark->timer -= D_800BE9E4;
+    if (spark->timer < 0) {
+        func_151494E0(NULL, 0x39);
+        func_151494E0(NULL, 0x4B);
+    }
+    if (func_151464B8(spark->shape) == 0) {
+        spark->pending += (0.040000003f + func_150ADA68() * 0.07f) * D_800BE9A4;
+        if (spark->pending > 1.0f) {
+            burst.scales[0] = 10.0f;
+            burst.scales[1] = 15.0f;
+            burst.scales[2] = 20.0f;
+            burst.scales[3] = 44.0f;
+            burst.scales[4] = 37.0f;
+            burst.count = 100;
+            burst.field16 = 0;
+            burst.field18 = 10;
+            burst.field1A = 1;
+            burst.field1C = 10;
+            burst.field20 = 4;
+            burst.field24 = 2;
+            burst.color[0] = 0x7E;
+            burst.color[1] = 0xF9;
+            burst.color[2] = 0xFF;
+            burst.color[3] = 0x37;
+            burst.color[4] = 0xC8;
+            do {
+                first = func_150ADA68() * 3.0f;
+                second = func_150ADA68() * 2 + 1 + first;
+                if (second >= 4) {
+                    second -= 4;
+                }
+                t = func_150ADA68();
+                from.x = spark->points[first].x + spark->spans[first].x * t;
+                from.y = spark->points[first].y + spark->spans[first].y * t;
+                from.z = spark->points[first].z + spark->spans[first].z * t;
+                t = func_150ADA68();
+                to.x = spark->points[second].x + spark->spans[second].x * t;
+                to.y = spark->points[second].y + spark->spans[second].y * t;
+                to.z = spark->points[second].z + spark->spans[second].z * t;
+                func_15106F98(&from, &to, 3, &burst, 0.32500002f, 2, arg0[0xC], arg0[1]);
+                spark->pending -= 1.0f;
+            } while (spark->pending > 1.0f);
+        }
+    }
+}
 
 void func_1510550C(s32 arg0, s32 arg1, u8 arg2) {
     if (arg2 == 0x4B) {
