@@ -65057,17 +65057,16 @@
       "symbol": "func_1509D180"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 600,
-        "reason": "CURRENT (600): register/stack rows align, but case 9 null path is 8 bytes shorter than raw and compiler emits .rodata jump-table relocation instead of raw jtbl_8009F1AC_game; branch-shape revision did not improve",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 380,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509D780",
           "vram": "0x1509D780"
         }
@@ -81236,17 +81235,16 @@
       "symbol": "func_151025F4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 600,
-        "reason": "Valid CURRENT600 with exact frame/call setup; default branch-likely folding leaves one missing branch and relocation/offset residuals. Nested single-case switch neutral600; prior positive/negative if forms also neutral. Two finish/one fresh this pass, plateau exhausted; retain simpler candidate.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 300,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151026BC",
           "vram": "0x151026BC"
         }

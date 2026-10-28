@@ -10419,7 +10419,7 @@
         "us": {
           "end": "0x9DD10",
           "start": "0x9D180",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_CA630.c"

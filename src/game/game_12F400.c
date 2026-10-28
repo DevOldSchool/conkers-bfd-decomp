@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151022AC
  * - func_151025F4
- * - func_151026BC
  * - func_151028AC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -197,7 +196,6 @@ extern u8 D_800A21F4[];
 extern u8 D_800A2248[];
 extern f32 D_800A233C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151026BC CURRENT (600) */
 s32 func_151026BC(Game12F400Object *arg0, s16 arg1, u8 arg2, u8 arg3, u8 arg4, s32 arg5) {
     s32 offset;
     s32 var_t0;
@@ -222,13 +220,13 @@ s32 func_151026BC(Game12F400Object *arg0, s16 arg1, u8 arg2, u8 arg3, u8 arg4, s
         var_t0 = 0;
         break;
     default:
-        var_v1 = 0x32;
-        var_t0 = 0xFF;
-        if (arg0->inner->field78 != 0x3B) {
-            break;
+        if (arg0->inner->field78 == 0x3B) {
+            var_v1 = 0xFF;
+            var_t0 = 0;
+        } else {
+            var_v1 = 0x32;
+            var_t0 = 0xFF;
         }
-        var_v1 = 0xFF;
-        var_t0 = 0;
         break;
     }
     offset = arg2 * 0xC;
@@ -236,8 +234,6 @@ s32 func_151026BC(Game12F400Object *arg0, s16 arg1, u8 arg2, u8 arg3, u8 arg4, s
                          arg1, var_v1, var_t0, 0, 20.0f, (f32) 20, 4.0f, D_800A233C,
                          arg3, arg4, arg5);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151026BC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_151026BC.s")
 void func_151403A8();
 
 void func_151027E8(void *arg0) {
