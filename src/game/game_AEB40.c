@@ -22,7 +22,6 @@
  * - func_150843AC
  * - func_15084558
  * - func_15084A18
- * - func_15084CB0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1177,28 +1176,16 @@ void func_15084C30(void *arg0) {
 extern u8 D_800BE590;
 extern u16 D_800BE598;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15084CB0 CURRENT (235) */
 s32 func_15084CB0(s32 arg0) {
-    s32 var_v0;
-    s32 var_v1;
-    u16 *var_a2;
+    s32 i;
+    s32 result;
 
-    var_v1 = 0;
-    var_v0 = 0;
-    if ((s32) D_800BE590 > 0) {
-        var_a2 = &D_800BE598;
-loop_2:
-        if (arg0 == *var_a2) {
-            var_v1 = var_v0;
-        } else {
-            var_v0 += 1;
-            var_a2 += 1;
-            if (var_v0 < (s32) D_800BE590) {
-                goto loop_2;
-            }
+    result = 0;
+    for (i = 0; i < D_800BE590; i++) {
+        if (arg0 == (&D_800BE598)[i]) {
+            result = i;
+            break;
         }
     }
-    return var_v1;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15084CB0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15084CB0.s")
