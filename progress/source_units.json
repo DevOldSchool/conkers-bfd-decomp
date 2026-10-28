@@ -9940,7 +9940,7 @@
         "us": {
           "end": "0x130230",
           "start": "0x12E8E0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_15BD90.c"
@@ -9957,15 +9957,15 @@
         "func_15192800",
         "func_151928B0"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x192920",
           "start": "0x192800",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1BFCB0.c"
+      "source": "src/done/game/game_1BFCB0.c"
     },
     {
       "boundary_evidence": {
@@ -10419,7 +10419,7 @@
         "us": {
           "end": "0x9DD10",
           "start": "0x9D180",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_CA630.c"

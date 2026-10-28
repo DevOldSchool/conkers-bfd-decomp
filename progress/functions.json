@@ -44434,16 +44434,16 @@
       "symbol": "func_15065A5C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "reason": "full integration exposed unresolved private jump-table relocation while source unit remains mixed; canonical jtbl_8009ED10_game layout is not yet recoverable",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 208,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150B6BC0",
           "vram": "0x150B6BC0"
         }
@@ -64021,8 +64021,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1072,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1512FE00",
           "vram": "0x1512FE00"
         }
@@ -64045,26 +64050,25 @@
           "vram": "0x15192800"
         }
       },
-      "source": "src/game/game_1BFCB0.c",
+      "source": "src/done/game/game_1BFCB0.c",
       "symbol": "func_15192800"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 265,
-        "reason": "Repaired selected definition to existing void-pointer prototype; compiles full CURRENT265 versus previously noncompiling candidate/stale405. Explicit default result=0 attempt hit BLOCKED_TOOLING extent mismatch; stopped and preserved compilable265. Remaining exit branches and jump-table mapping unresolved. No shared edits; ledger deferred-manual-20260930-continue1.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 112,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151928B0",
           "vram": "0x151928B0"
         }
       },
-      "source": "src/game/game_1BFCB0.c",
+      "source": "src/done/game/game_1BFCB0.c",
       "symbol": "func_151928B0"
     },
     {
@@ -65063,17 +65067,16 @@
       "symbol": "func_1509D180"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 600,
-        "reason": "CURRENT (600): register/stack rows align, but case 9 null path is 8 bytes shorter than raw and compiler emits .rodata jump-table relocation instead of raw jtbl_8009F1AC_game; branch-shape revision did not improve",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 380,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509D780",
           "vram": "0x1509D780"
         }
@@ -81251,17 +81254,16 @@
       "symbol": "func_151025F4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 600,
-        "reason": "Valid CURRENT600 with exact frame/call setup; default branch-likely folding leaves one missing branch and relocation/offset residuals. Nested single-case switch neutral600; prior positive/negative if forms also neutral. Two finish/one fresh this pass, plateau exhausted; retain simpler candidate.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 300,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151026BC",
           "vram": "0x151026BC"
         }

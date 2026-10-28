@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1509D180
- * - func_1509D780
  * - func_1509D8FC
  * - func_1509DBBC
  *
@@ -38,8 +37,7 @@ void func_150EB8C4(void);
 void func_150F9720(u8);
 extern s8 D_800D9920;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509D780 CURRENT (600) */
-void func_1509D780(s32 arg0, u8 *arg1) {
+s32 func_1509D780(s32 arg0, u8 *arg1) {
     void *temp_v0;
 
     switch (arg0) {
@@ -77,11 +75,11 @@ void func_1509D780(s32 arg0, u8 *arg1) {
         return;
     case 9:
         temp_v0 = func_1505EEF4(*(s32 *)(arg1 + 4) & 0xFFF);
-        if (temp_v0 != 0) {
-            func_150C5C9C(temp_v0);
-            return;
+        if (temp_v0 == 0) {
+            return 0;
         }
-        break;
+        func_150C5C9C(temp_v0);
+        return;
     case 10:
         func_150C522C();
         return;
@@ -97,8 +95,6 @@ void func_1509D780(s32 arg0, u8 *arg1) {
         break;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509D780 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CA630/func_1509D780.s")
 typedef struct GameCA630Input {
     s32 command, object, value, amount, red, green, blue;
 } GameCA630Input;
