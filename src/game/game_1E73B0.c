@@ -12,7 +12,6 @@
  * - func_151BA518
  * - func_151BB0E0
  * - func_151BB61C
- * - func_151BBA9C
  * - func_151BC104
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -266,7 +265,156 @@ void func_151BB044(void *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E73B0/func_151BB0E0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E73B0/func_151BB61C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E73B0/func_151BBA9C.s")
+typedef struct Game1E73B0Effect {
+    s16 field00;
+    s16 field02;
+    s16 field04;
+    s16 field06;
+    s32 field08;
+    s32 field0C;
+    Vec3i position;
+    f32 field1C;
+    f32 field20;
+    f32 field24;
+    f32 field28;
+    f32 field2C;
+    f32 field30;
+    s32 field34;
+    s32 field38;
+    f32 field3C;
+    f32 field40;
+    f32 field44;
+    f32 field48;
+    s16 field4C;
+    s16 field4E;
+    s16 field50;
+    s16 field52;
+    s16 field54;
+    s16 field56;
+    s8 field58;
+    u8 pad59[3];
+} Game1E73B0Effect;
+
+typedef struct Game1E73B0Config {
+    s32 countBase, countRange;
+    Vec3f position;
+    s16 yawBase, yawRange, pitchBase, pitchRange;
+    f32 speedBase, speedRange, durationBase, durationRange;
+    s16 lifeBase, lifeRange;
+    f32 sizeBase, sizeRange, jitter;
+} Game1E73B0Config;
+
+void func_15055A2C(s32, f32, f32, f32, s32);
+s32 func_15144E80(void *, void *, void *, void *);
+void func_1514FCE8(s16 *, u8, s32);
+void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+void func_151BBEE4(void *, u8, s32);
+void func_151BBFBC(s32, s32, u8, s32);
+void func_151C0644(void *, u8, s32);
+s32 func_15046C80(f32 *, u16, f32, void *);
+void func_1504715C(void *, void *);
+extern s32 D_80082FA0;
+extern Vec3f D_8008FBA0;
+extern Vec3f D_8008FBAC;
+extern s8 D_8008FD8C;
+extern f32 D_800AA80C;
+extern f32 D_800AA810;
+extern f32 D_800AA814;
+extern f32 D_800AA818;
+extern f32 D_800AA81C;
+extern f32 D_800AA820;
+extern f32 D_800AA824;
+extern f32 D_800AA828;
+
+void func_151BBA9C(s32 arg0, f32 *arg1, f32 *arg2, u8 arg3, s32 arg4) {
+    Vec3f center;
+    Game1E73B0Effect effect;
+    f32 contact[8];
+    f32 ground;
+    Vec3f probe;
+    Vec3f hit;
+    Vec3f normal;
+    Vec3f tangent;
+    Vec3f facing;
+
+    if (arg0 != 0) {
+        center.x = (arg2[0] + arg1[0]) * 0.5f;
+        center.y = (arg2[1] + arg1[1]) * 0.5f;
+        center.z = (arg2[2] + arg1[2]) * 0.5f;
+        func_151C04F8(&center.x, arg3, arg4);
+        func_151C05A4(&center.x, arg3, arg4);
+        func_151C05F0(&center.x, arg3, arg4);
+        func_15055A2C(1, center.x, center.y, center.z, 0);
+        func_151BBEE4(&center, arg3, arg4);
+        effect.field00 = 0;
+        effect.field02 = 0xFF;
+        effect.field04 = -0x40;
+        effect.field06 = 0x47;
+        effect.field08 = 6;
+        effect.field0C = 4 >> ((D_80082FA0 >= 2) ? 1 : 0);
+        effect.position = *(Vec3i *)&center;
+        effect.field34 = 7;
+        effect.field1C = 23.0f;
+        effect.field20 = 30.0f;
+        effect.field24 = 45.0f;
+        effect.field28 = 53.0f;
+        effect.field2C = 203.0f;
+        effect.field30 = 414.0f;
+        effect.field38 = 3 >> ((D_80082FA0 >= 2 || D_8008FD8C >= 8) ? 1 : 0);
+        effect.field4C = 0x19;
+        effect.field4E = 0xF;
+        effect.field50 = 0x64;
+        effect.field52 = 0x64;
+        effect.field54 = 0xC;
+        effect.field56 = 0x14;
+        effect.field3C = 15.0f;
+        effect.field40 = D_800AA80C;
+        effect.field44 = D_800AA810;
+        effect.field48 = D_800AA814;
+        if (D_80082FA0 >= 2 || D_8008FD8C >= 8) {
+            effect.field58 = -1;
+        } else {
+            effect.field58 = 0;
+        }
+        func_1514FCE8(&effect.field00, arg3, arg4);
+        func_1504715C(&ground, (void *)arg0);
+        probe.x = center.x;
+        probe.y = center.y + 100.0f;
+        probe.z = center.z;
+        if (func_15046C80(&probe.x, 0, center.y - 1000.0f, &ground) != 0) {
+            hit.x = probe.x;
+            hit.y = ground;
+            hit.z = probe.z;
+            func_151BBFBC((s32)contact, (s32)&hit, arg3, arg4);
+            if (func_15144E80(contact, &normal, &tangent, &facing) != 0 && facing.y < 0.0f) {
+                func_151C0644(&hit, arg3, arg4);
+            }
+        }
+        {
+            Game1E73B0Config config;
+            Vec3f first = D_8008FBA0;
+            Vec3f second = D_8008FBAC;
+
+            config.countBase = 4;
+            config.countRange = 8;
+            config.position = center;
+            config.speedBase = 12.0f;
+            config.speedRange = 6.0f;
+            config.yawBase = 0;
+            config.yawRange = 0xFF;
+            config.pitchBase = -0x3F;
+            config.pitchRange = 0x57;
+            config.lifeBase = 0x32;
+            config.lifeRange = 0xA;
+            config.durationBase = D_800AA818;
+            config.durationRange = D_800AA81C;
+            config.sizeBase = D_800AA820;
+            config.sizeRange = D_800AA824;
+            config.jitter = D_800AA828;
+            func_15152190(&config, &first, &second, 3, 0.0f, 1, arg3, arg4);
+        }
+    }
+}
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 typedef struct {
