@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_reconciled_empty_stub_splits.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15086D48
  * - func_15086D94
  * - func_150870D0
  * - func_15087350
@@ -93,26 +92,16 @@ s32 func_15086CBC(s32 arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
     return 1;
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15086D48 CURRENT (235) */
 s32 func_15086D48(s32 arg0) {
-    s32 var_v1;
-    u8 *var_a1;
+    s32 i;
 
-    var_v1 = 0;
-    if (D_80087290 > 0) {
-        var_a1 = D_800D2350;
-        do {
-            if (arg0 == var_a1[7]) {
-                return var_v1;
-            }
-            var_v1 += 1;
-            var_a1 += 0x10;
-        } while (var_v1 < D_80087290);
+    for (i = 0; i < D_80087290; i++) {
+        if (arg0 == D_800D2350[i * 0x10 + 7]) {
+            return i;
+        }
     }
     return 0xFF;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15086D48 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15086D48.s")
 s32 func_15085DA8(f32);                             /* extern */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15086D94 CURRENT (7578) */

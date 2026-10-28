@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_14F580.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15122170
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void *func_15122980(void *);
@@ -38,14 +33,12 @@ f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 extern f32 D_800A3470, D_800A3474, D_800A3478, D_800A347C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15122170 CURRENT (80) */
 void func_15122170(void *arg0) {
     f32 deltaZ;
     f32 deltaX;
     f32 distance;
     f32 angle;
     f32 heading;
-    f32 decay;
     f32 *point;
     s32 flags;
 
@@ -53,10 +46,8 @@ void func_15122170(void *arg0) {
         func_15122980(arg0);
         return;
     }
-    angle = *(f32 *)((u8 *)arg0 + 0x5DC);
-    decay = angle * D_800A3470;
-    *(f32 *)((u8 *)arg0 + 0x6C4) = 0;
-    *(f32 *)((u8 *)arg0 + 0x5DC) = angle - decay;
+    *(f32 *)((u8 *)arg0 + 0x5DC) -= *(f32 *)((u8 *)arg0 + 0x5DC) * D_800A3470;
+    *(f32 *)((u8 *)arg0 + 0x6C4) = 0.0f;
     func_15125330(arg0);
     point = *(f32 **)((u8 *)arg0 + 0x614);
     if (point == 0) {
@@ -111,5 +102,3 @@ void func_15122170(void *arg0) {
         func_1512E140(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15122170 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_14F580/func_15122170.s")

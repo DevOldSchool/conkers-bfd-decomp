@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1515D520
  * - func_1515D6D0
  * - func_1515D914
  * - func_1515E278
@@ -70,36 +69,26 @@ void func_1515D4D4(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
         D_800DCD27 = arg3;
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515D520 CURRENT (255) */
 void *func_1515D520(void) {
-    struct {
-        s32 *cursor;
-        s32 *allocated;
-    } state;
-    void *var_v1;
+    s32 *node;
+    s32 *cursor;
 
-    state.allocated = (s32 *)func_10003C40(0x34, 1, 2, 2);
-    if (state.allocated != 0) {
-        func_100226F0(state.allocated, 0x34);
+    node = (s32 *)func_10003C40(0x34, 1, 2, 2);
+    if (node != 0) {
+        func_100226F0(node, 0x34);
         if (D_800DCD78 != 0) {
-            state.cursor = *(s32 **)D_800DCD78;
-            var_v1 = D_800DCD78;
-            if (state.cursor != 0) {
-                do {
-                    var_v1 = state.cursor;
-                    state.cursor = *(s32 **)state.cursor;
-                } while (state.cursor != 0);
+            cursor = D_800DCD78;
+            while (*cursor != 0) {
+                cursor = (s32 *)*cursor;
             }
-            *(s32 **)var_v1 = state.allocated;
+            *cursor = (s32)node;
         } else {
-            D_800DCD78 = state.allocated;
+            D_800DCD78 = node;
         }
-        *state.allocated = 0;
+        *node = 0;
     }
-    return state.allocated;
+    return node;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515D520 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515D520.s")
 void *func_1515D5F8(s32, s32, s32, s32, s32, s32, s32, s32, s32, u8);
 
 void *func_1515D5AC(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, u8 arg9) {

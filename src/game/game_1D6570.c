@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_extended.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151A90C0
  * - func_151A931C
  * - func_151A9390
  * - func_151A9834
@@ -37,7 +36,6 @@ extern f32 D_800A8F5C;
 extern f32 D_800A8F60;
 extern f32 D_800A8F64;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A90C0 CURRENT (220) */
 void func_151A90C0(s32 arg0, s32 arg1) {
     Game1D6570Descriptor descriptor;
     f32 parity;
@@ -47,12 +45,12 @@ void func_151A90C0(s32 arg0, s32 arg1) {
     descriptor.field_0 = 2;
     descriptor.field_4 = arg0;
     parity = (f32)(arg1 & 1);
-    if (0.0f != parity) {
+    if (parity) {
         descriptor.field_8 = D_800A8F58;
     } else {
         descriptor.field_8 = D_800A8F5C;
     }
-    if (parity != 0.0f) {
+    if (parity) {
         descriptor.field_C = D_800A8F60;
     } else {
         descriptor.field_C = D_800A8F64;
@@ -71,8 +69,6 @@ void func_151A90C0(s32 arg0, s32 arg1) {
         func_10022EC0((u8 *)result + 0x80, payload, 1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A90C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A90C0.s")
 typedef struct Game1D6570Particle {
     s32 field0;
     s16 field4;
