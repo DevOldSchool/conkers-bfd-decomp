@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15169C70
- * - func_1516A3F4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -32,51 +31,47 @@ void func_1510F800(s32);
 s32 func_1510F8D8(s16, s16, s16, s32);
 void func_15167AD8(void *, u8, s32);
 extern s32 D_8008CADC;
-extern f32 D_800A6CC8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516A3F4 CURRENT (2217) */
 void func_1516A3F4(void *arg0) {
-    Game197120SpawnPacket packet;
-    s32 limit;
     s32 current;
+    s32 limit;
     s32 shade;
+    Game197120SpawnPacket packet;
     u8 color;
 
     current = *(s32 *)((u8 *)arg0 + 0x14);
-    limit = *(s16 *)((u8 *)arg0 + 0x22) + *(s16 *)((u8 *)arg0 + 0x2A);
+    limit = *(s16 *)((u8 *)arg0 + 0x2A) + *(s16 *)((u8 *)arg0 + 0x22);
     if (current >= limit) {
         func_1510F800(0);
-        current = func_1510F8D8(*(s16 *)((u8 *)arg0 + 0x20),
+        *(s32 *)((u8 *)arg0 + 0x14) = func_1510F8D8(*(s16 *)((u8 *)arg0 + 0x20),
                                 *(s16 *)((u8 *)arg0 + 0x22),
                                 *(s16 *)((u8 *)arg0 + 0x24), 0);
-        *(s32 *)((u8 *)arg0 + 0x14) = current;
+        current = *(s32 *)((u8 *)arg0 + 0x14);
     }
     if (current >= limit) {
         *(s16 *)((u8 *)arg0 + 0x38) = 0;
         if ((limit - current) < 0x32) {
+            packet.resource = D_8008CADC;
             packet.field_4 = 0;
             packet.field_6 = 0x100;
-            packet.resource = D_8008CADC;
             packet.field_8 = *(s16 *)((u8 *)arg0 + 0x20);
             packet.field_A = *(s32 *)((u8 *)arg0 + 0x14) + 0xA;
             packet.field_C = *(s16 *)((u8 *)arg0 + 0x24);
             color = *(u8 *)((u8 *)arg0 + 0x3B);
-            packet.field_12 = 0;
-            packet.field_14 = 3;
             shade = ((s32)(color << 12) / 5100) + 0xCC;
+            packet.field_12 = 0;
             packet.field_E = shade;
             packet.field_10 = shade;
             packet.field_15 = color;
+            packet.field_14 = 3;
             func_15167AD8(&packet, *(u8 *)((u8 *)arg0 + 0xC),
                            *(u8 *)((u8 *)arg0 + 1));
         }
     } else {
-        *(s16 *)((u8 *)arg0 + 0x26) = (s32)((f32)*(s16 *)((u8 *)arg0 + 0x26) * D_800A6CC8);
-        *(s16 *)((u8 *)arg0 + 0x28) = (s32)((f32)*(s16 *)((u8 *)arg0 + 0x28) * D_800A6CC8);
+        *(s16 *)((u8 *)arg0 + 0x26) = (s32)((f32)*(s16 *)((u8 *)arg0 + 0x26) * 0.98f);
+        *(s16 *)((u8 *)arg0 + 0x28) = (s32)((f32)*(s16 *)((u8 *)arg0 + 0x28) * 0.98f);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1516A3F4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_197120/func_1516A3F4.s")
 void func_15171D4C(f32, f32, f32, s32, s32, s32, f32, s32, s32,
                    s32, s32, s32, s32, s32);
 

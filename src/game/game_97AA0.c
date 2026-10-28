@@ -6,19 +6,12 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_table_runs.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1506A5F0
  * - func_1506A864
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_151A6F00(s16 *, s32, s32, s32);
-extern f32 D_80099A10;
-extern f32 D_80099A14;
-extern f32 D_80099A18;
-extern f32 D_80099A1C;
-extern f32 D_80099A20;
-extern f32 D_80099A24;
 
 typedef struct {
     s16 type;
@@ -51,7 +44,6 @@ typedef struct {
     s16 field58;
 } Game97AA0Effect;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506A5F0 CURRENT (514) */
 void func_1506A5F0(void *arg0, s32 arg1) {
     Game97AA0Effect effect;
 
@@ -64,16 +56,16 @@ void func_1506A5F0(void *arg0, s32 arg1) {
     effect.field1A = 0xFF;
     effect.field1C = -0x40;
     effect.field1E = 0x28;
-    effect.field20 = D_80099A14;
-    effect.field14 = D_80099A10;
-    effect.field24 = D_80099A18;
+    effect.field14 = 151.5f;
+    effect.field20 = 15.1f;
+    effect.field24 = 25.2f;
     effect.field30 = 0.0f;
     effect.field34 = 0.0f;
     effect.field38 = 0.0f;
-    effect.field3C = D_80099A1C;
-    effect.field40 = D_80099A20;
-    effect.field44 = D_80099A24;
-    effect.field48 = 0.0f;
+    effect.field3C = 0.388f;
+    effect.field40 = 0.24300002f;
+    effect.field44 = -1.0200001f;
+    effect.field48 = 0;
     effect.field4C = -4.0f;
     effect.field50 = 8.0f;
     effect.field54 = 0;
@@ -82,8 +74,6 @@ void func_1506A5F0(void *arg0, s32 arg1) {
     effect.field58 = 0x19;
     func_151A6F00(&effect.type, 1, 0xFF, 1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1506A5F0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_97AA0/func_1506A5F0.s")
 
 void func_1506A6FC(void *arg0, u8 arg1) {
     func_150E0348(arg0, 0xFF, 1);
