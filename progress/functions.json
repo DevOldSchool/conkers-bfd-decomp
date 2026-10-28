@@ -64040,26 +64040,25 @@
           "vram": "0x15192800"
         }
       },
-      "source": "src/game/game_1BFCB0.c",
+      "source": "src/done/game/game_1BFCB0.c",
       "symbol": "func_15192800"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 265,
-        "reason": "Repaired selected definition to existing void-pointer prototype; compiles full CURRENT265 versus previously noncompiling candidate/stale405. Explicit default result=0 attempt hit BLOCKED_TOOLING extent mismatch; stopped and preserved compilable265. Remaining exit branches and jump-table mapping unresolved. No shared edits; ledger deferred-manual-20260930-continue1.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 112,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151928B0",
           "vram": "0x151928B0"
         }
       },
-      "source": "src/game/game_1BFCB0.c",
+      "source": "src/done/game/game_1BFCB0.c",
       "symbol": "func_151928B0"
     },
     {
