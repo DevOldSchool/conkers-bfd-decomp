@@ -23,6 +23,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [US game_116D40 emitter scale](game_116d40_float_constant.md)
 - [US game_1188E0 burst spread scale](game_1188e0_float_constant.md)
 - [US game_11D830 float constant](game_11d830_float_constant.md)
+- [US game_131F30 spark float constants](game_131f30_float_constants.md)
 - [US game_123D40 spawn float constants](game_123d40_float_constants.md)
 - [US game_133190 float constants](game_133190_float_constants.md)
 - [US game_177B50 particle float constants](game_177b50_float_constants.md)
