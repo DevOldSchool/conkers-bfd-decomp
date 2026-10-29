@@ -267,7 +267,8 @@ cmd_open_pr() {
     git diff --quiet && git diff --cached --quiet || die "commit the worktree before open-pr"
     local branch body
     branch="$(lock_value branch)"
-    body="$(cat "$body_file")"$'\n\n'"Auto-match IDs: $ids"$'\n\n'"$pr_footer"
+    # The driver owns the IDs line; drop any copy the body already carries.
+    body="$(grep -v '^Auto-match IDs:' "$body_file" || true)"$'\n\n'"Auto-match IDs: $ids"$'\n\n'"$pr_footer"
     git push --quiet -u origin "$branch"
     gh pr create --repo "$remote_repo" --base main --head "$branch" --title "$title" --body "$body" --label "$label_match"
 }
