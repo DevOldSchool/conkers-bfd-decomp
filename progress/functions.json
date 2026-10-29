@@ -80963,17 +80963,16 @@
       "symbol": "func_1511BB04"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 605,
-        "reason": "Recovered source-local reference/state layouts and the five-argument float ABI for func_1511BB04; remaining mismatch is cached-pointer merge control flow (best CURRENT 605)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 104,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1511BDF4",
           "vram": "0x1511BDF4"
         }

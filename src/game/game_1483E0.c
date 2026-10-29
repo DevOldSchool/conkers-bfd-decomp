@@ -10,7 +10,6 @@
  * - func_1511B51C
  * - func_1511B7D4
  * - func_1511BB04
- * - func_1511BDF4
  * - func_1511BEBC
  * - func_1511C548
  * - func_1511C638
@@ -341,18 +340,18 @@ void func_1511BB04(Game1483E0State *arg0, f32 arg1, f32 arg2,
 Game1483E0Reference *func_15083E90(u8);
 void func_1511BB04(Game1483E0State *, f32, f32, f32, f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511BDF4 CURRENT (605) */
 void func_1511BDF4(Game1483E0State *arg0) {
     Game1483E0Reference *reference;
 
-    reference = arg0->reference;
-    reference = (reference != 0) ? reference : func_15083E90(arg0->reference_id);
+    if (arg0->reference != 0) {
+        reference = arg0->reference;
+    } else {
+        reference = func_15083E90(arg0->reference_id);
+    }
     if (reference != 0) {
         func_1511BB04(arg0, reference->x, reference->z, 1.0f, 1.0f);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1511BDF4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511BDF4.s")
 f32 func_150484A0(f32, f32);                        /* extern */
 extern f32 D_800A31E0;
 extern void *D_800DBFF0;
