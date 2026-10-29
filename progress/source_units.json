@@ -10482,15 +10482,15 @@
         "func_1509E730",
         "func_1509E8A0"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x9E900",
           "start": "0x9E730",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_CBBE0.c"
+      "source": "src/done/game/game_CBBE0.c"
     },
     {
       "boundary_evidence": {

@@ -42716,17 +42716,16 @@
       "symbol": "func_15083568"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 165,
-        "reason": "CURRENT (165), round22 msweep move op (move6_9: one statement moved within its straight-line run) (stored 330). Earlier: CURRENT (330) after two manual revisions; argument/entry-pointer register reuse matches, but load/counter initialization ordering and loop constant setup still differ",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 264,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150836CC",
           "vram": "0x150836CC"
         }
@@ -48006,17 +48005,16 @@
       "symbol": "func_1509F660"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "Full-span CURRENT (120): target prologue stores ra,a1,a2,a3 then loads narrow args; candidate stores a2,a3,loads a3,then stores ra,a1. Explicit count/kind/position locals were neutral at CURRENT (120). Restored best; no new evidence for changing source parameter ABI or prologue schedule.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 56,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509F6B0",
           "vram": "0x1509F6B0"
         }
@@ -65241,26 +65239,25 @@
           "vram": "0x1509E730"
         }
       },
-      "source": "src/game/game_CBBE0.c",
+      "source": "src/done/game/game_CBBE0.c",
       "symbol": "func_1509E730"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 213,
-        "reason": "Round19 2026-10-22: CURRENT (213), candidate unchanged since 2026-09-14 (stored 113). Not caused by the round-18 game_CBBE0 jtbl INFO mapping (that only places .rodata for func_1509E730): b15a680c (2026-10-10) now scores the span word the candidate shifts out (one trailing nop, 100). Code residual as before: three-argument -g3 candidate homes a0 at 0x18 before a2, while raw homes only a2; two-argument and unnamed/register parameter forms were rejected or unchanged.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509E8A0",
           "vram": "0x1509E8A0"
         }
       },
-      "source": "src/game/game_CBBE0.c",
+      "source": "src/done/game/game_CBBE0.c",
       "symbol": "func_1509E8A0"
     },
     {
@@ -76131,17 +76128,16 @@
       "symbol": "func_151A8F1C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 491,
-        "reason": "Matched callee/raw reference proves15143874 second argument is f32; old396 candidate converted it numerically to s32 incorrectly. Correct source-local ABI and direct f32 call now491; removing saved-argument aliases also491. Remaining raw saved statepointer versus rematerialization, frame28vs30 and FP allocation. Preserve semantically corrected491 rather than numerically lower incorrect396. No volatile/padding/permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 184,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A8F6C",
           "vram": "0x151A8F6C"
         }
@@ -80966,17 +80962,16 @@
       "symbol": "func_1511BB04"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 605,
-        "reason": "Recovered source-local reference/state layouts and the five-argument float ABI for func_1511BB04; remaining mismatch is cached-pointer merge control flow (best CURRENT 605)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 104,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1511BDF4",
           "vram": "0x1511BDF4"
         }
