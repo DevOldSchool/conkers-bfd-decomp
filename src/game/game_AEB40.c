@@ -14,7 +14,6 @@
  * - func_150832AC
  * - func_15083384
  * - func_15083568
- * - func_150836CC
  * - func_150837D4
  * - func_15083AC8
  * - func_15083E90
@@ -471,18 +470,19 @@ u8 *func_1505F0AC(u8);
 void func_15060F28(u8 *, s32);
 extern s32 D_800CC2D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150836CC CURRENT (165) */
 void func_150836CC(void *arg0, s32 arg1) {
     s32 var_s1;
     u8 *temp_v0;
     GameAEB40EntryList *temp_s2;
+    s32 first;
 
     func_150302F0(arg0, arg1);
-    temp_s2 = &D_80086CC4[arg1];
-    var_s1 = 0;
-    arg1 = (s32)temp_s2->entries;
     arg1 -= 1;
+    temp_s2 = &D_80086CC4[arg1];
+    first = (s32)temp_s2->entries;
+    var_s1 = 0;
     if ((s32)temp_s2->count > 0) {
+        arg1 = first;
         do {
             if (((u8 *)arg1)[3] == 0) {
                 temp_v0 = func_1505F0AC(((u8 *)arg1)[0]);
@@ -497,8 +497,6 @@ void func_150836CC(void *arg0, s32 arg1) {
         } while (var_s1 < (s32)temp_s2->count);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150836CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_150836CC.s")
 extern u8 *D_800D1C90[];
 extern u16 D_800C5A90[];
 s32 func_1502B020(s32, s32, s32, s32);
