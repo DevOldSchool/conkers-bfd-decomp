@@ -9,7 +9,6 @@
  * - func_15053750
  * - func_150538CC
  * - func_150548E4
- * - func_15054A94
  * - func_15054F74
  * - func_1505528C
  * - func_15055A2C
@@ -144,7 +143,138 @@ void func_15054A5C(u8 *arg0, void *arg1) {
     func_151027E8(arg1);
     func_15060F28(arg0, 0);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_80B80/func_15054A94.s")
+void func_1505E650(u8 *, s32, f32, f32, f32, f32, s32);
+void func_15083568(u8 *, s32, f32, s32);
+void func_150836CC(u8 *, s32);
+void func_1507C324(void *, void *);
+void func_151026BC(void *, s32, s32, s32, s32, s32);
+void func_15188810(u8 *, s32, s32);
+extern u16 **D_800BE728;
+
+void func_15054A94(u8 *arg0) {
+    u8 *anim;
+    u8 *other;
+    u8 *otherAnim;
+    s32 motion;
+    s32 attach;
+    s32 action;
+    s32 hold;
+    s32 enter;
+    u8 *state;
+    s32 index;
+    u8 ready;
+
+    anim = *(u8 **)(arg0 + 0x2D0);
+    if (anim == NULL || arg0[0x65] == 0) {
+        return;
+    }
+    other = &D_800CC2D0 + (arg0[0x65] - 1) * 0x32C;
+    otherAnim = *(u8 **)(other + 0x2D0);
+    if (otherAnim == NULL) {
+        return;
+    }
+    if (arg0[4] == 0x41) {
+        if (*(u16 *)(other + 0x84) != 0x48 && *(u16 *)(other + 0x84) != 0x4B) {
+            func_15060F28(arg0, 0);
+            return;
+        }
+        if (*(u16 *)(arg0 + 0x84) == 0 && *(f32 *)(anim + 8) == 0.0f) {
+            func_15188810(arg0, 0x64, 0);
+        }
+        if (*(u16 *)(arg0 + 0x84) == 0 && *(u16 *)(other + 0x84) == 0x4B) {
+            func_1505E650(arg0, 1, 1.0f, 3.0f, 0.0f, 0.0f, 0);
+        }
+        if (*(u16 *)(arg0 + 0x84) == 1 && *(f32 *)(anim + 0x18) - 1.0f <= *(f32 *)(anim + 8)) {
+            func_15060F28(arg0, 0);
+        }
+        return;
+    }
+    if (arg0[4] != 0x1D && arg0[4] != 0x6E && arg0[4] != 0x2F) {
+        return;
+    }
+    if (arg0[0x65] == 0 || other[0x65] != 0 || other[0x1CA] == 0) {
+        func_15054A5C(arg0, other);
+        return;
+    }
+    state = *(u8 **)(other + 0x31C);
+    if (state[0x78] != 0x12 && state[0x78] != 0x18 && state[0x78] != 0x41 && state[0x11A] != 3) {
+        func_15054A5C(arg0, other);
+        return;
+    }
+    if (arg0[4] == 0x1D) {
+        enter = 0xC4;
+        hold = 0xC7;
+        action = 0x39;
+    } else if (arg0[4] == 0x6E) {
+        enter = 0xFB;
+        hold = 0xFC;
+        action = 0x51;
+    } else {
+        enter = 0x2C8;
+        hold = 0x2C9;
+        action = 0x51;
+    }
+    if (other[0x13C] != 0) {
+        func_15054A5C(arg0, other);
+        return;
+    }
+    if (arg0[4] == 0x1D && other[0x104] != 0) {
+        func_15054A5C(arg0, other);
+        return;
+    }
+    attach = 1;
+    if (hold == *(u16 *)(other + 0x84)) {
+        motion = 2;
+        if (*(s32 *)(arg0 + 0x2E4) == 0) {
+            if (*(f32 *)(otherAnim + 8) >= 6.0f && *(f32 *)(otherAnim + 8) < 11.0f) {
+                *(s32 *)(arg0 + 0x2E4) = 1;
+                func_15083568(arg0, action, 1.0f, 0);
+            }
+        } else if (*(f32 *)(otherAnim + 8) >= 11.0f) {
+            *(s32 *)(arg0 + 0x2E4) = 0;
+            func_150836CC(arg0, action);
+        }
+    } else {
+        if (*(s32 *)(arg0 + 0x2E4) == 1) {
+            *(s32 *)(arg0 + 0x2E4) = 0;
+            func_150836CC(arg0, action);
+        }
+        if (enter == *(u16 *)(other + 0x84)) {
+            motion = 0;
+        } else if (*(u16 *)(other + 0x84) == 0xC6) {
+            motion = 3;
+        } else {
+            motion = 1;
+            attach = 0;
+        }
+    }
+    func_1505E650(arg0, motion & 0xFFFF, 1.0f, 0.0f, 0.0f, 0.0f, 0);
+    if (attach) {
+        func_1507C324(arg0, other);
+    }
+    state = *(u8 **)(other + 0x31C);
+    if (state[0x78] == 0x12) {
+        ready = 1;
+    } else {
+        ready = state[0x197];
+        if (state[0x84] == 0) {
+            index = (other - &D_800CC2D0) / 0x32C;
+            if (index < 4 && !(*D_800BE728[index] & 0x10)) {
+                ready = 0;
+            }
+        }
+    }
+    if (*(u16 *)(other + 0x84) == 0x10A && *(s16 *)(otherAnim + 0x3C) <= 0 && ready &&
+        (*(u16 *)(state + 0x8A) & 0x2000)) {
+        if (*(s32 *)(arg0 + 0x2E8) == 0) {
+            func_151026BC(other, -1, 3, 1, 0xFF, 1);
+            *(s32 *)(arg0 + 0x2E8) = 1;
+        }
+    } else if (*(s32 *)(arg0 + 0x2E8) == 1) {
+        *(s32 *)(arg0 + 0x2E8) = 0;
+        func_151027E8(other);
+    }
+}
 void func_15052F9C(u8 *, f32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_1505327C(u8 *, f32, f32, s32, s32);
 void func_1505A184(u16, f32, f32, f32 *, f32 *, f32 *);
