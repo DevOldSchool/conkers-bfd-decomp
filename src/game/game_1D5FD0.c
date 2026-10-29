@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151A8CEC
- * - func_151A8F6C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -151,24 +150,18 @@ void func_151A8F1C(Game1D5FD0State *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
 }
 f32 func_150ADA68(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A8F6C CURRENT (491) */
-void func_151A8F6C(void *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
-    s32 random;
+void func_151A8F6C(Game1D5FD0State *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
     u8 *state;
-    f32 velocity;
 
-    random = func_150ADA20();
-    velocity = func_150ADA68() * *(f32 *)((u8 *)arg0 + 0x48);
     state = (u8 *)arg0 + 0x28;
-    func_15143874((s16)(random & 0xFF), velocity, arg1, arg1 + 2);
+    func_15143874((s16)(func_150ADA20() & 0xFF), *(f32 *)(state + 0x20) * func_150ADA68(),
+                  arg1, arg1 + 2);
     arg1[0] += *(f32 *)(state + 0x10);
     arg1[2] += *(f32 *)(state + 0x18);
     arg1[1] = *(f32 *)(state + 0x14);
     *arg2 = *(f32 *)(state + 0x14);
     *arg3 = *(f32 *)(state + 0x1C);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A8F6C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D5FD0/func_151A8F6C.s")
 
 void func_151A931C(void *, u8 *, u8);
 

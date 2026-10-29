@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_CBBE0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_descriptor_callback_families.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1509E8A0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct GameCBBE0Args {
@@ -67,19 +62,16 @@ s32 func_1509E730(s32 arg0, u32 kind, GameCBBE0Args *args) {
 block_default:
     return 0;
 }
-s32 func_1000E0F8();                                /* extern */
-s32 func_1000E8F0();                                /* extern */
+s32 func_1000E0F8(s32);
+s32 func_1000E8F0(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509E8A0 CURRENT (213) */
 s32 func_1509E8A0(s32 arg0, s32 arg1, s32 arg2) {
     switch (arg1) {                                 /* irregular */
     case 7:
-        return func_1000E0F8();
+        return func_1000E0F8(arg0);
     case 8:
-        return func_1000E8F0();
+        return func_1000E8F0(arg0);
     default:
         return 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509E8A0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CBBE0/func_1509E8A0.s")
