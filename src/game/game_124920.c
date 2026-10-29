@@ -6,14 +6,118 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150F7470
  * - func_150F78B4
  * - func_150F81BC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_124920/func_150F7470.s")
+s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
+s32 func_151C4B0C(s32, void *, Vec3f *, Vec3f *, void *, f32, s32, s32, Vec3f *, u8 *, s32, f32,
+                  u8 *, s32, s32, s32, s32, s32);
+s32 func_15146078(void *, void *, void *);
+void func_15145974(void *, f32 *, f32 *);
+s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
+void *func_10022EC0(void *, const void *, u32);
+extern f32 D_800A1BC0;
+extern u32 D_800A5480[3];
+
+void func_150F7470(Vec3f *arg0, Vec3f *arg1, s32 arg2, Vec3f *arg3, u8 arg4, s32 arg5, f32 arg6,
+                   f32 arg7, f32 arg8, u8 *arg9, u8 arg10, u8 arg11, u8 arg12, u8 arg13,
+                   s32 arg14, s8 arg15, s32 arg16, u8 arg17, u8 arg18, s32 arg19) {
+    typedef struct { u32 words[3]; } Copy3;
+    u8 packet[0x130];
+    void *result;
+    Vec3f sourceDir;
+    u8 useSource;
+    Vec3f targetDir;
+    u8 useTarget;
+
+    useTarget = arg4;
+    useSource = 0;
+    if (useTarget) {
+        targetDir = *arg3;
+    }
+    packet[0x7C + 0x70] = (arg11 ? 1 : 0) | (arg12 ? 2 : 0) | (arg13 ? 4 : 0);
+    packet[0x7C + 0xB0] = arg15;
+    if (arg2 != 0 && arg3 != NULL) {
+        if (!useTarget) {
+            if (func_15145128(&arg3->x, &targetDir.x, NULL, NULL) == 0) {
+                return;
+            }
+            useTarget = 1;
+        }
+    } else if (arg1 != NULL) {
+        if (func_15145128(&arg1->x, &sourceDir.x, NULL, NULL) == 0) {
+            return;
+        }
+        useSource = 1;
+    }
+    if (func_151C4B0C(arg5, packet + 0x7C, arg0, useSource ? &sourceDir : NULL,
+                      packet + 0x7C + 0x68, arg7, arg10, arg2,
+                      useTarget ? &targetDir : NULL, packet + 0x7C + 0x70, 1, arg8, arg9,
+                      arg15, arg12, arg13, 0, arg17) == 0) {
+        return;
+    }
+    if (func_15146078(packet + 0x7C + 0x38, packet + 0x7C + 0x74, packet + 0x7C + 0x80) == 0) {
+        return;
+    }
+    *(s32 *)(packet + 0x7C + 0x64) = arg14;
+    *(f32 *)(packet + 0x7C + 0x90) = 0.0f;
+    *(f32 *)(packet + 0x7C + 0x8C) = 0.0f;
+    *(f32 *)(packet + 0x7C + 0x94) = 70.0f * arg7;
+    *(Vec3f *)(packet + 0x7C + 0x98) = *arg0;
+    *(f32 *)(packet + 0x7C + 0xA4) = *(f32 *)(packet + 0x7C + 0x38) * 70.0f;
+    *(f32 *)(packet + 0x7C + 0xA8) = *(f32 *)(packet + 0x7C + 0x3C) * 70.0f;
+    *(f32 *)(packet + 0x7C + 0xAC) = *(f32 *)(packet + 0x7C + 0x40) * 70.0f;
+    *(f32 *)(packet + 0x7C + 0x6C) = arg6;
+    packet[0x7C + 0x70] |= *(f32 *)(packet + 0x7C + 0x04) > 150.0f ? 1 : 0;
+    *(f32 *)(packet + 0x00) = 1.0f;
+    *(f32 *)(packet + 0x04) = 1.0f;
+    *(f32 *)(packet + 0x0C) = *(f32 *)(packet + 0x08) = D_800A1BC0;
+    func_15145974(packet + 0x7C + 0x38, (f32 *)(packet + 0x14), (f32 *)(packet + 0x10));
+    *(f32 *)(packet + 0x1C) = 1.0f;
+    *(f32 *)(packet + 0x20) = 1.0f;
+    *(f32 *)(packet + 0x24) = 1.0f;
+    *(f32 *)(packet + 0x18) = 0.0f;
+    *(Vec3f *)(packet + 0x28) = *arg0;
+    *(f32 *)(packet + 0x34) = *(f32 *)(packet + 0x7C + 0x38) * arg6;
+    *(f32 *)(packet + 0x38) = *(f32 *)(packet + 0x7C + 0x3C) * arg6;
+    *(f32 *)(packet + 0x3C) = *(f32 *)(packet + 0x7C + 0x40) * arg6;
+    *(Copy3 *)(packet + 0x40) = *(Copy3 *)D_800A5480;
+    *(s32 *)(packet + 0x50) = 0x120;
+    *(s16 *)(packet + 0x54) = 0x12C;
+    *(s16 *)(packet + 0x56) = 0x2F;
+    packet[0x58] = 0;
+    *(s32 *)(packet + 0x5C) = 0;
+    packet[0x60] = 0xFF;
+    packet[0x61] = 0x13;
+    packet[0x62] = 0;
+    packet[0x63] = 0;
+    packet[0x64] = 0;
+    packet[0x65] = 0;
+    packet[0x66] = 0;
+    packet[0x67] = 0;
+    packet[0x68] = 0;
+    packet[0x6A] = 0;
+    *(f32 *)(packet + 0x4C) = 0.0f;
+    *(u8 **)(packet + 0x6C) = arg9;
+    packet[0x70] = arg9[0x3B];
+    *(s16 *)(packet + 0x72) = 1;
+    *(s16 *)(packet + 0x74) = 0xFF;
+    if (arg16 != 0) {
+        *(s32 *)(packet + 0x78) = func_10010F88(arg16, 0x4650, -500, 0, -1,
+                                                *(f32 *)(packet + 0x28), *(f32 *)(packet + 0x2C),
+                                                *(f32 *)(packet + 0x30), 1000, 2000);
+    } else {
+        *(s32 *)(packet + 0x78) = 0;
+    }
+    result = func_1513264C(packet, 0, 0, 0, 0xB4, arg18, arg19);
+    if (result != NULL) {
+        func_10022EC0((u8 *)result + 0x170, packet + 0x7C, 0xB4);
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_124920/func_150F78B4.s")
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
