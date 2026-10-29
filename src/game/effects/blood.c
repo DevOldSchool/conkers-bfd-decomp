@@ -16,7 +16,6 @@
  * - func_15136404
  * - func_15136F50
  * - func_15137610
- * - func_1513783C
  * - func_15138120
  * - func_151382E0
  * - func_15138424
@@ -1196,7 +1195,105 @@ void func_15137610(BloodImpactActor *arg0, Vec3f *arg1, Vec3f *arg2,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15137610 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15137610.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513783C.s")
+typedef struct Blood3783CHit {
+    f32 height;
+    u8 geometry[0x18];
+    u8 flags;
+    u8 pad1D[7];
+} Blood3783CHit;
+
+typedef void *(*Blood3783CSpawn)(Vec3f *, Vec3f *, f32, Vec3f *, Vec3f *, f32,
+                                 s32, s32, s32, f32, s32, s32, s32, s32);
+
+s32 func_1514672C(f32 *);
+void func_15145A50(void *);
+void *func_151B5BF0(Vec3f *, Vec3f *, f32, Vec3f *, Vec3f *, f32, s32, s32,
+                    s32, f32, s32, s32, s32, s32);
+void *func_151B6010(Vec3f *, Vec3f *, f32, Vec3f *, Vec3f *, f32, s32, s32,
+                    s32, f32, s32, s32, s32, s32);
+extern f32 D_800A481C;
+extern f32 D_800A4820;
+extern f32 D_800A4824;
+extern u8 D_800A3FE6[];
+
+void func_1513783C(Blood36C3CActor *arg0, u8 arg1, s32 arg2) {
+    Vec3f position;
+    f32 unused0;
+    f32 unused1;
+    f32 halfHeight;
+    Vec3f probe;
+    Blood3783CHit hit;
+    s32 kind;
+    u8 heavy;
+    Vec3f origin;
+    Vec3f velocity;
+    Vec3f rotation;
+    Vec3f spin;
+    Blood3783CSpawn spawn;
+
+    if (arg0 == NULL) {
+        return;
+    }
+    kind = func_15134070(arg0);
+    if (kind == 0x63) {
+        return;
+    }
+    halfHeight = (arg0->unk14C + arg0->unk150) * 0.5f;
+    func_1515C244(arg0, &position, &unused0, &unused1);
+    func_1504715C(&hit, arg0);
+    probe.x = position.x;
+    probe.y = position.y + 100.0f;
+    probe.z = position.z;
+    if (func_1514672C(&probe.x) == 0) {
+        return;
+    }
+    if (func_15046C80(&probe.x, 0, probe.y - 500.0f, &hit) != 0) {
+        if (hit.flags & 1) {
+            heavy = 1;
+        } else {
+            heavy = 0;
+        }
+        probe.y = hit.height;
+    } else {
+        heavy = 0;
+        probe = position;
+    }
+    func_1513A24C(&position, D_80089A20[kind] + 2, &D_800A3C30,
+                  D_800A3F14[kind] - 2, halfHeight, kind, D_800A3F64[kind],
+                  (u8 *)arg0, &hit, arg1, arg2);
+    if (D_800A3FE6[kind * 16] != 2) {
+        func_1513A48C((Vec3i *)&position, arg1, arg2);
+        if (heavy != 0) {
+            func_15136698(((func_150ADA68() * 25.0f) + 75.0f) * D_800A481C,
+                          ((func_150ADA68() * 106.0f) + 75.0f) * D_800A4820,
+                          (func_150ADA20() % 101U) + 0x9B,
+                          (func_150ADA20() % 101U) + 0x64,
+                          (func_150ADA20() % 56U) + 0xCB, (s32)hit.geometry,
+                          &probe, 1, 1, arg1, arg2);
+            if (func_150ADA20() & 1) {
+                spawn = func_151B5BF0;
+            } else {
+                spawn = func_151B6010;
+            }
+            origin.x = probe.x;
+            velocity.x = 0.0f;
+            origin.y = probe.y + 10.0f;
+            velocity.y = 0.0f;
+            velocity.z = 0.0f;
+            origin.z = probe.z;
+            rotation.x = func_150ADA68() * 360.0f;
+            rotation.y = func_150ADA68() * 360.0f;
+            rotation.z = func_150ADA68() * 360.0f;
+            spin.x = 0.0f;
+            spin.y = 0.0f;
+            spin.z = 0.0f;
+            spawn(&origin, &velocity,
+                  ((func_150ADA68() * 101.0f) + 600.0f) * D_800A4824, &rotation,
+                  &spin, 0.0f, 1000, 0xFF, 0xFF, 1.0f, 3, 0, arg1, arg2);
+        }
+    }
+    func_15145A50(arg0);
+}
 s32 func_15145128(Vec3f *, Vec3f *, f32 *, f32 *);
 s32 func_15146078(void *, void *, void *);
 
