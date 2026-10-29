@@ -650,7 +650,7 @@ segments:
       - [0x190770, c, game/game_1BDC20]
       - [0x191BE0, c, game/game_1BF090]
       - [0x1927C0, c, done/game/game_1BFC70]
-      - [0x192800, c, game/game_1BFCB0]
+      - [0x192800, c, done/game/game_1BFCB0]
       - [0x192920, c, game/game_1BFDD0]
       - [0x192DF0, c, done/game/game_1C02A0]
       - [0x193390, c, game/game_1C0840]

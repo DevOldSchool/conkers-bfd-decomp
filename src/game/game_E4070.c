@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_connected_controller_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150B6BC0
  * - func_150B6C90
  * - func_150B6E3C
  * - func_150B7220
@@ -28,7 +27,6 @@ void func_150B77A8(void);
 void func_150B791C(void);
 extern s8 D_800D9890;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6BC0 */
 void func_150B6BC0(s32 arg0) {
     switch ((u8)D_800D9890) {
     case 1:
@@ -61,8 +59,6 @@ void func_150B6BC0(s32 arg0) {
         return;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B6BC0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B6BC0.s")
 extern s32 D_800BE9E8;
 extern void *D_800D9894;
 extern void *D_800D9898;
