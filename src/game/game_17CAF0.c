@@ -14,7 +14,6 @@
  * - func_1515080C
  * - func_15150D1C
  * - func_15150F90
- * - func_151511FC
  * - func_15151D6C
  * - func_15152190
  * - func_15152520
@@ -525,7 +524,157 @@ void func_15150F90(Game150F90Config *arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15150F90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15150F90.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_151511FC.s")
+typedef struct {
+    s16 countBase;
+    s16 countRange;
+    Vec3f position;
+    Vec3f normal;
+    u8 triangle[0x14];
+    f32 spread;
+    u8 field34;
+    u8 field35;
+    u16 field36;
+    s16 field38;
+    s16 field3A;
+    f32 scaleBase;
+    f32 scaleRange;
+    s32 flags;
+    u8 lifeBase;
+    u8 lifeRange;
+    u8 pad4A[2];
+    f32 durationBase;
+    f32 durationRange;
+    f32 speedBase;
+    f32 speedRange;
+    u8 field5C;
+    u8 field5D;
+    u8 pad5E[2];
+    s32 field60;
+    s32 field64;
+    s16 field68;
+    s16 field6A;
+    f32 field6C;
+    f32 jitter;
+} Game1511FCConfig;
+
+typedef struct {
+    u8 field0;
+    u8 field1;
+    s16 field2;
+    s16 field4;
+    u8 pad6[2];
+    s32 field8;
+    s32 fieldC;
+    u8 colour[4];
+    f32 scale[2];
+    Vec3f position;
+    Vec3f rotation;
+    f32 size[3];
+    s32 flags;
+    u8 life;
+    u8 field45;
+    u8 field46;
+    u8 field47;
+    s32 field48;
+    u8 field4C;
+    u8 pad4D[3];
+    s32 field50;
+    s16 field54;
+    s16 field56;
+} Game1511FCPacket;
+
+typedef struct {
+    Vec3f velocity;
+    f32 duration;
+    f32 field10;
+    f32 jitterX;
+    f32 field18;
+    f32 jitterZ;
+} Game1511FCMotion;
+
+void *func_10022EC0(void *, const void *, u32);
+void *func_1513D2F0(void *, void *, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
+extern u8 D_800A4AA0[];
+
+void func_151511FC(Game1511FCConfig *arg0, u8 arg1, s32 arg2) {
+    void *result;
+    Vec3f basis1;
+    f32 magnitude1, inverse1;
+    Vec3f basis2;
+    f32 magnitude2, inverse2;
+    Vec3f basis3;
+    f32 magnitude3, inverse3;
+    Game1511FCPacket packet;
+    Game1511FCMotion motion;
+    f32 speed;
+    f32 second;
+    f32 first;
+    s32 count;
+    u32 random;
+
+    packet.field54 = arg0->field68;
+    packet.field56 = arg0->field6A;
+    packet.field0 = arg0->field34;
+    packet.field1 = arg0->field35;
+    packet.field2 = arg0->field36;
+    packet.field8 = 0;
+    packet.fieldC = 0;
+    packet.colour[0] = 0xFF;
+    packet.colour[1] = 0xFF;
+    packet.colour[2] = 0xFF;
+    packet.colour[3] = 0xFF;
+    packet.position = arg0->position;
+    packet.size[0] = 1.0f;
+    packet.size[1] = 1.0f;
+    packet.size[2] = 1.0f;
+    packet.flags = arg0->flags | 0x08000000;
+    packet.field45 = 0xFF;
+    packet.field46 = arg0->field5C;
+    packet.field47 = arg0->field5D;
+    motion.field10 = arg0->field6C;
+    if (func_15144E80(arg0->triangle, &basis1, &basis2, &basis3) != 0) {
+        func_15145128(&basis1.x, &basis1.x, &magnitude1, &inverse1);
+        func_15145128(&basis2.x, &basis2.x, &magnitude2, &inverse2);
+        func_15145128(&basis3.x, &basis3.x, &magnitude3, &inverse3);
+        if (func_15144A74(&basis3, &arg0->normal) < 0.0f) {
+            basis3.x = -basis3.x;
+            basis3.y = -basis3.y;
+            basis3.z = -basis3.z;
+        }
+        motion.field18 = 0.0f;
+        basis3.x *= 1000.0f;
+        basis3.y *= 1000.0f;
+        basis3.z *= 1000.0f;
+        count = func_150ADA20() % (u32)(arg0->countRange + 1) + arg0->countBase;
+        if (count != 0) {
+            do {
+                random = func_150ADA20();
+                func_15143874((s16)(random & 0xFF), func_150ADA68() * arg0->spread, &first, &second);
+                speed = func_150ADA68() * arg0->speedRange + arg0->speedBase;
+                packet.field4 = func_150ADA68() * (f32)arg0->field3A + (f32)arg0->field38;
+                packet.scale[1] = func_150ADA68() * arg0->scaleRange + arg0->scaleBase;
+                packet.scale[0] = packet.scale[1];
+                packet.rotation.x = func_150ADA68() * 360.0f;
+                packet.rotation.y = func_150ADA68() * 360.0f;
+                packet.rotation.z = func_150ADA68() * 360.0f;
+                packet.life = func_150ADA20() % (u32)(arg0->lifeRange + 1) + arg0->lifeBase;
+                motion.velocity.x = (basis1.x * first + basis2.x * second + basis3.x) * speed;
+                motion.velocity.y = (basis1.y * first + basis2.y * second + basis3.y) * speed;
+                motion.velocity.z = (basis1.z * first + basis2.z * second + basis3.z) * speed;
+                motion.duration = func_150ADA68() * arg0->durationRange + arg0->durationBase;
+                motion.jitterX = func_150ADA68() * (2.0f * arg0->jitter) - arg0->jitter;
+                motion.jitterZ = func_150ADA68() * (2.0f * arg0->jitter) - arg0->jitter;
+                result = func_1513D2F0(&packet, D_800A4AA0, 0x19, 0, 0, 0x17,
+                                       (func_150ADA20() & 1) * 2 + (func_150ADA20() & 1),
+                                       arg0->field60, arg0->field64, 0x20, arg1, arg2);
+                if (result != NULL) {
+                    func_10022EC0((u8 *)result + 0x110, &motion, sizeof(motion));
+                }
+                count--;
+            } while (count != 0);
+        }
+    }
+}
 typedef struct {
     Vec3f position;
     s16 life, enabled;

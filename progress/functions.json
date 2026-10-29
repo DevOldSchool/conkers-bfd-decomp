@@ -52844,8 +52844,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1140,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151511FC",
           "vram": "0x151511FC"
         }
