@@ -9414,17 +9414,16 @@
       "symbol": "func_151CC840"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2834,
-        "reason": "CURRENT (2834): payload and spawn stack bases align after source-local padding, but frame 0xD0 versus raw 0xE0, byte-argument reloads, and store scheduling differ after bounded revisions",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 376,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151CCD1C",
           "vram": "0x151CCD1C"
         }
