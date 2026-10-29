@@ -30,7 +30,6 @@
  * - func_151CC1D4
  * - func_151CC524
  * - func_151CC840
- * - func_151CCD1C
  * - func_151CCF08
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -1837,53 +1836,50 @@ typedef struct SightEffectSpawn {
 
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CCD1C CURRENT (2834) */
-void func_151CCD1C(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    SightEffectSpawn spawn;
-    SightEffectPayload payload;
+void func_151CCD1C(void *arg0, u8 arg1, u8 arg2, u8 arg3) {
+    SightTwinSpawn spawn;
     void *object;
+    SightTwinPayload payload;
 
-    payload.zero = 0.0f;
-    payload.bytes[1] = 0;
-    payload.bytes[0] = 0;
-    spawn.angle = 0x12C;
-    payload.owner = arg0;
-    payload.scale = 130.0f;
+    payload.value_04 = 0.0f;
+    payload.selector = 0;
+    payload.flags = 0;
+    payload.owner = (u8 *)arg0;
+    spawn.lifetime = 0x12C;
+    payload.value_08 = 130.0f;
     spawn.flags = (1 << (*(u8 *)((u8 *)arg0 + 0x23D) + 0xB)) | 0x50;
-    spawn.count = 1;
-    spawn.arg1 = arg1;
-    spawn.arg2 = arg2;
-    spawn.mode = 7;
-    spawn.time = 0xB4;
-    spawn.color0 = 0xFF;
-    spawn.color1 = 0xFF;
-    spawn.color2 = 0xFF;
-    spawn.arg3 = arg3;
-    spawn.color = 0xFF;
-    spawn.color3 = 0xFF;
-    spawn.color4 = 0xFF;
-    spawn.field24 = 0;
-    spawn.field28 = 0x200004;
-    spawn.field2C = 0x1F0601;
-    spawn.field30 = 8;
-    spawn.field34 = 0x44;
-    spawn.field38 = 0x80;
-    spawn.field3C = 0x20;
-    spawn.field40 = 0;
-    spawn.field41 = 0xA;
+    spawn.value_16 = 1;
+    spawn.value_18 = 0xFF;
+    spawn.value_1A = 7;
+    spawn.red = arg1;
+    spawn.green = arg2;
+    spawn.blue = arg3;
+    spawn.value_1E = 0xB4;
+    spawn.value_1F = 0xFF;
+    spawn.value_20 = 0xFF;
+    spawn.value_21 = 0xFF;
+    spawn.value_22 = 0xFF;
+    spawn.value_23 = 0xFF;
+    spawn.value_24 = 0;
+    spawn.value_28 = 0x200004;
+    spawn.value_2C = 0x1F0601;
+    spawn.value_30 = 8;
+    spawn.value_34 = 0x44;
+    spawn.value_38 = 0x80;
+    spawn.value_3C = 0x20;
+    spawn.value_40 = 0;
+    spawn.value_41 = 0xA;
     spawn.x = 0.0f;
     spawn.y = 0.0f;
-    spawn.type = 0xB4;
-    spawn.width = 65.0f;
-    spawn.height = 65.0f;
-    spawn.field44 = *(u8 *)((u8 *)arg0 + 0x23D);
+    spawn.value_44 = *(u8 *)((u8 *)arg0 + 0x23D);
+    spawn.kind = 0xB4;
+    spawn.z = 65.0f;
+    spawn.value_0C = 65.0f;
     object = func_1515548C(&spawn, 0, 0, 0, 0x58, 0xFF, 1);
     if (object != 0) {
         func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CCD1C */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CCD1C.s")
 typedef struct SightSpawnOwner {
     u8 pad0[0x23D];
     u8 type;
