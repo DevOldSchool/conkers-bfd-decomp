@@ -3915,7 +3915,6 @@ extern s8 D_800CC3D7;
 void func_150748F4(void) {
     D_800CC3D7 = (s8)D_800D1580;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507490C CURRENT (20) */
 void func_1507490C(void) {
     u8 kind;
     u8 index;
@@ -3926,15 +3925,12 @@ void func_1507490C(void) {
     actor = (u8 *)&D_800CC2D0 + index * 0x32C;
     if (kind != 0) {
         if (actor[0x13D] >= 100) {
-            s32 value = D_800D1580;
+            actor[0x232] = D_800D1580;
             *(s32 *)(actor + 0x218) = 0;
             actor[0x104] = 0;
-            actor[0x232] = value;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507490C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1507490C.s")
 extern s8 D_8008FD8C;
 
 void func_15074980(void) {
