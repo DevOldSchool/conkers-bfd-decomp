@@ -13,8 +13,6 @@
  * - func_150450CC
  * - func_15045880
  * - func_15045AE4
- * - func_150461D0
- * - func_15046460
  * - func_1504715C
  * - func_150472C0
  * - func_15047390
@@ -1070,7 +1068,6 @@ s32 func_15045F8C(Vec3f *arg0, f32 arg1, void *arg2, Game71820Hit *arg3) {
 u8 func_15045880(Vec3f *, f32, s32 *, Game71820Hit *);
 s32 func_15045D48(Vec3f *, f32, s32 *, Game71820Hit *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150461D0 CURRENT (120) */
 s32 func_150461D0(Vec3f *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     s32 first_set;
     s32 second_set;
@@ -1088,7 +1085,7 @@ s32 func_150461D0(Vec3f *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     func_15045714(arg0, arg1, &first_set, (s32)&second_set);
     first_result = func_15045880(arg0, arg2, &first_set, &first_hit);
     second_result = func_15045D48(arg0, arg2, &second_set, &second_hit);
-    if (first_result != 0 && second_result != 0) {
+    if (first_result && second_result) {
         if (first_hit.height < second_hit.height) {
             *arg3 = first_hit;
             return 1;
@@ -1112,11 +1109,8 @@ s32 func_150461D0(Vec3f *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     arg3->flags &= ~2;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150461D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_150461D0.s")
 u8 func_15045AE4(Vec3f *, f32, s32 *, Game71820Hit *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15046460 CURRENT (120) */
 s32 func_15046460(Vec3f *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     s32 first_set;
     s32 second_set;
@@ -1136,7 +1130,7 @@ s32 func_15046460(Vec3f *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     func_15045714(arg0, arg1, &first_set, (s32)&second_set);
     first_result = func_15045AE4(arg0, arg2, &first_set, &first_hit);
     second_result = func_15045F8C(arg0, arg2, &second_set, &second_hit);
-    if (first_result != 0 && second_result != 0) {
+    if (first_result && second_result) {
         if (second_hit.height < first_hit.height) {
             *arg3 = first_hit;
             return 1;
@@ -1160,8 +1154,6 @@ s32 func_15046460(Vec3f *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
     arg3->flags &= ~2;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15046460 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15046460.s")
 s32 func_150461D0(Vec3f *, u16, f32, Game71820Hit *);
 
 s32 func_150466F8(Vec3f *arg0, u16 arg1, f32 arg2, Game71820Hit *arg3) {
