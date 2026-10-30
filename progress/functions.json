@@ -24242,17 +24242,16 @@
       "symbol": "func_150748F4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Round18 2026-10-21: CURRENT 415 -> 20 with u8 kind/index locals (index re-reads the byte), the actor pointer from (u8 *)&D_800CC2D0 + index * 0x32C and a block-scoped value. Residual: value lands in v0 instead of raw t1; a direct D_800D1580 read is 60 (load not hoisted above the stores).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 116,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1507490C",
           "vram": "0x1507490C"
         }
