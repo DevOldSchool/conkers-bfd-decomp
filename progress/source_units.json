@@ -10509,7 +10509,7 @@
         "us": {
           "end": "0x9EFF0",
           "start": "0x9E900",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_CBDB0.c"

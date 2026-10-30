@@ -726,6 +726,16 @@
         }
       },
       {
+        "address": "0x8009F43C",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_CBDB0.c",
+            "src/done/game/game_CBDB0.c"
+          ]
+        }
+      },
+      {
         "address": "0x8009F550",
         "section": ".rodata",
         "owner": {
