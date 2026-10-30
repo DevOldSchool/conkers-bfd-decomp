@@ -32,14 +32,17 @@ and the [workflow reference](decompilation-workflow.md) still govern every edit.
    other than added `config/game/us-rodata.ld` literal and jump-table mappings
    with their `config/data/us.json` owner records and `docs/evidence/data-layout/`
    notes (the merge policy accepts those). It may run one `permute --budget 32` per
-   distinct candidate when the latest diagnosis is register-only. Anything that
-   needs another change is written up in the PR body as a lead and the function
-   is restored.
+   distinct candidate when the latest diagnosis is register-only. Near misses
+   and dead ends go to matching history, not the PR. A function blocked by
+   something the round may not change (a shared header or prototype, a rodata
+   mapping, a function boundary, tooling or reference symbolisation) gets one
+   line under "Needs a maintainer" in the PR body, and the function is restored.
 5. **Batch, commit, PR.** `./conker verify-batch <ids>` must print
    `AGENT_ACTION: BATCH_COMPLETE`; `auto_round.sh commit` uses the agent
    identity; `auto_round.sh open-pr --ids "<ids>"` pushes and labels the PR
-   `auto-match`. The body ends with the machine-readable line
-   `Auto-match IDs: <ids>` that the reviewer reads. A round with no match opens
+   `auto-match`. The driver appends the machine-readable line
+   `Auto-match IDs: <ids>` that the reviewer reads, replacing any copy already
+   in the body file. A round with no match opens
    no PR. The driver finds the ROM in the main checkout's `roms/` directory
    (`CONKER_AUTO_ROM` overrides it), so it may run from any linked worktree.
 6. **Cleanup.** `auto_round.sh cleanup` saves the worktree's matching history
@@ -162,9 +165,14 @@ switch branches in the checkout you start in.
    "$D" open-pr --ids "<ids>" --title "<title>" --body-file <file>
    with a body in the style of recent merged auto-match PRs: a table of
    matched functions with source, start score and key change, shared
-   dependency changed: no, the verify-batch result, and leads for a
-   maintainer. Titles and bodies describe the work only: no model, agent or
-   tool names.
+   dependency changed: no, and the verify-batch result. Add a "Needs a
+   maintainer" section only for functions blocked by something this round
+   may not change (a shared header or prototype, a rodata mapping, a function
+   boundary, tooling or reference symbolisation), one line each; omit it when
+   there are none. Near misses, scores and tried variants belong in matching
+   history notes, not the PR body. Do not write an Auto-match IDs line; the
+   driver adds it. Titles and bodies describe the work only: no model, agent
+   or tool names.
 5. Always finish with "$D" cleanup, then report in a few lines: PRs reviewed
    and their verdicts, functions matched, PR URL or "no PR", and anything
    labelled needs-human.
