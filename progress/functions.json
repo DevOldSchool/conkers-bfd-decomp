@@ -42231,17 +42231,16 @@
       "symbol": "func_15045F8C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "Retained CURRENT (120); final-argument assignment enlarges frame without fixing spill. Adjacent deferred candidate restored from saved exact backup after an editing-range error.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 656,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150461D0",
           "vram": "0x150461D0"
         }
@@ -42250,17 +42249,16 @@
       "symbol": "func_150461D0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "Manual opposite-height selector CURRENT (120); all frame/control/copy instructions match except first-result sb scheduling before second call rather than delay slot. Shared temporary, wide first result and nested initializers do not resolve it.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 664,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15046460",
           "vram": "0x15046460"
         }
@@ -64068,8 +64066,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1236,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150127B0",
           "vram": "0x150127B0"
         }
@@ -64078,17 +64081,16 @@
       "symbol": "func_150127B0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1025,
-        "reason": "Fresh valid baseline2705; best valid1025 restores one unsigned-count high-level color-copy loop and original IDO unrolling. Two revisions exhausted. Main loop integer induction instead of raw cursor endpoint leaves3extra/missing instructions and register allocation differences. ABI unchanged; no shared dependencies.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 596,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15012C84",
           "vram": "0x15012C84"
         }
