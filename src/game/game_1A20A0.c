@@ -10,7 +10,6 @@
  * - func_15175390
  * - func_15175958
  * - func_1517685C
- * - func_15176B84
  * - func_15176DF0
  * - func_1517725C
  *
@@ -307,7 +306,82 @@ void func_1517685C(Game17685CActor *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517685C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_1517685C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_15176B84.s")
+typedef struct Game176B84Actor {
+    u8 pad0[0x90];
+    u8 group, phase;
+    u8 pad92[2];
+    u8 *model;
+    f32 x, y, z;
+    u8 padA4[0x24];
+    f32 floor;
+    u8 padCC[6];
+    s16 delayBase;
+    u8 padD4[6];
+    s16 delayRange;
+    u8 padDC[8];
+    f32 delay;
+    u8 padE8[5];
+    u8 slot;
+    u8 padEE[2];
+    u8 alpha;
+    u8 fading;
+} Game176B84Actor;
+
+extern u8 D_800DDE80[], D_800DDE84[];
+extern s32 D_800BE9E4, D_800DDF78[];
+
+void func_15176B84(Game176B84Actor *arg0) {
+    s32 alpha;
+
+    if (*(s32 *)(D_800DDE80 + arg0->slot * 0x14) == 0 || D_800DDF78[arg0->slot] == 0) {
+        func_1516972C(arg0);
+        return;
+    }
+    alpha = arg0->alpha;
+    if (arg0->fading == 0) {
+        if (D_800DDF5C[arg0->group] == 0) {
+            arg0->fading = 1;
+        } else if (alpha != 0xFF) {
+            alpha += D_800BE9E4 * 4;
+            if (alpha >= 0x100) {
+                alpha = 0xFF;
+            }
+            arg0->alpha = alpha;
+        }
+    } else {
+        if (alpha == 0) {
+            func_1516972C(arg0);
+            return;
+        }
+        alpha -= D_800BE9E4 * 4;
+        if (alpha < 0) {
+            alpha = 0;
+        }
+        arg0->alpha = alpha;
+    }
+    D_800DDF68[arg0->slot] = 1;
+    switch (arg0->phase) {
+    case 0:
+        if (func_150AD960(D_800CC2D0.x, D_800CC2D0.z, arg0->x, arg0->z) < 0xC8) {
+            arg0->phase = 2;
+            arg0->delay = (f32)(func_150ADA20() % arg0->delayRange) + arg0->delayBase;
+            arg0->model = D_800DDE88[arg0->slot].model;
+        } else {
+            arg0->model = *(u8 **)(D_800DDE84 + arg0->slot * 0x14);
+        }
+        break;
+    case 4:
+        if (arg0->y < arg0->floor) {
+            func_1516972C(arg0);
+            return;
+        }
+    default:
+    case 2:
+    case 3:
+        func_15175958(arg0);
+        break;
+    }
+}
 void func_150A7790(void *, s32);
 void func_150A8050(void *, f32, f32, f32);
 void func_150A7A48(void *, void *, void *);

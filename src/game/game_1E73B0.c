@@ -464,4 +464,117 @@ void func_151BC074(s32 arg0) {
         func_15160CDC(arg0, 1, &D_800AA760, &D_800AA76C, D_800AA82C, 2, 0x12C, 0xFF, 0xFF, 0xFF, 0xFF, 1, 0, 0, 0xFF, 1);
     }
 }
+typedef struct Game1E73B0Owner {
+    u8 pad0[0x14];
+    f32 x, y, z;
+    u8 pad20[0x1B];
+    u8 id;
+} Game1E73B0Owner;
+
+typedef struct Game1E73B0Spark {
+    f32 *x, *y, *z;
+    f32 size;
+    f32 scale;
+    s16 duration;
+    s8 field16, field17, field18, field19;
+    u8 pad1A[2];
+} Game1E73B0Spark;
+
+typedef struct Game1E73B0Link {
+    Game1E73B0Owner *owner;
+    u8 id;
+    u8 pad5[3];
+} Game1E73B0Link;
+
+typedef struct Game1E73B0Spawn {
+    Vec3f position;
+    s16 duration;
+    u16 flags;
+    s32 mode;
+    u8 pad14;
+    u8 field15;
+    u8 pad16[2];
+} Game1E73B0Spawn;
+
+typedef struct Game1E73B0Track {
+    Game1E73B0Owner *owner;
+    u8 id;
+    u8 pad5[3];
+    Vec3f position;
+    f32 field14, field18, field1C, field20;
+} Game1E73B0Track;
+
+typedef struct Game1E73B0Glow {
+    u8 kind;
+    s8 mode;
+    s16 duration;
+    s8 field4;
+    u8 pad5[7];
+} Game1E73B0Glow;
+
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+s32 func_15163414(u8 *, f32 *, f32 *, f32 *, s8, u8, u8, u8, u8, u8, u8, u8, s32, u8, s32);
+extern f32 D_800AA830;
+extern f32 D_800DCA24;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BC104 CURRENT (1647) */
+void func_151BC104(Game1E73B0Owner *arg0, u8 arg1, s32 arg2) {
+    void *spark_result;
+    Game1E73B0Spark spark;
+    Game1E73B0Link sparkLink;
+    void *track_result;
+    Game1E73B0Spawn spawn;
+    s32 glow_result;
+    Game1E73B0Track track;
+    Game1E73B0Link glowLink;
+    Game1E73B0Glow glow;
+
+    if (D_80082FA0 < 2 && D_8008FD8C < 5) {
+        spark.x = &arg0->x;
+        spark.y = &arg0->y;
+        spark.z = &arg0->z;
+        spark.duration = 0x12C;
+        spark.size = 15.0f;
+        spark.scale = D_800AA830 * D_800DCA24;
+        spark.field16 = 4;
+        spark.field17 = 4;
+        spark.field18 = 1;
+        spark.field19 = 0;
+        sparkLink.owner = arg0;
+        sparkLink.id = arg0->id;
+        spark_result = func_15134908(&spark, 8, arg1, arg2);
+        if (spark_result != NULL) {
+            func_10022EC0((u8 *)spark_result + 0x40, &sparkLink, 8);
+        }
+    }
+    track.field14 = 0.0f;
+    track.field18 = 0.0f;
+    track.field20 = -16384.0f;
+    track.field1C = -16384.0f;
+    spawn.field15 = 0x28;
+    spawn.position.x = arg0->x;
+    spawn.position.y = arg0->y;
+    spawn.duration = 0x12C;
+    spawn.flags = 6;
+    spawn.mode = 0xC;
+    track.owner = arg0;
+    spawn.position.z = arg0->z;
+    track.id = arg0->id;
+    track.position = spawn.position;
+    track_result = func_15147A80(&spawn, (void *)0x28, 0x14, 0xA, 0xA, 0xA, 0, 0, 0, arg1, arg2);
+    if (track_result != NULL) {
+        func_10022EC0(*(void **)((u8 *)track_result + 0x98), &track, 0x24);
+    }
+    glowLink.owner = arg0;
+    glow.kind = 2;
+    glow.mode = 0xE;
+    glowLink.id = arg0->id;
+    glow.duration = 0x12C;
+    glow.field4 = 0x1F;
+    glow_result = func_15163414(&glow.kind, &arg0->x, &arg0->y, &arg0->z, 0, 0, 0x28, 0xFF, 0xFF, 0xFF, 0xFF, 0, 8, arg1, arg2);
+    if (glow_result != 0) {
+        func_10022EC0((u8 *)glow_result + 0x28, &glowLink, 8);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151BC104 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E73B0/func_151BC104.s")
