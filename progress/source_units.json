@@ -9985,7 +9985,7 @@
         "us": {
           "end": "0x12F90",
           "start": "0x127B0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_3FC60.c"

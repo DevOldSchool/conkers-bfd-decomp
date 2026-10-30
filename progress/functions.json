@@ -64087,8 +64087,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1236,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150127B0",
           "vram": "0x150127B0"
         }
@@ -64097,17 +64102,16 @@
       "symbol": "func_150127B0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1025,
-        "reason": "Fresh valid baseline2705; best valid1025 restores one unsigned-count high-level color-copy loop and original IDO unrolling. Two revisions exhausted. Main loop integer induction instead of raw cursor endpoint leaves3extra/missing instructions and register allocation differences. ABI unchanged; no shared dependencies.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 596,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15012C84",
           "vram": "0x15012C84"
         }
