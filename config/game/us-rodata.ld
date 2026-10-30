@@ -226,6 +226,11 @@ SECTIONS
     {
         *game_200930.o(.rodata)
     }
+    /* ROM-verified constants: docs/evidence/data-layout/game_12ccf0_float_constants.md. */
+    .game_rodata_12ccf0 0x800A218C (INFO) : SUBALIGN(4)
+    {
+        *game_12CCF0.o(.rodata)
+    }
     /* ROM-verified constants: docs/evidence/data-layout/game_131f30_float_constants.md. */
     .game_rodata_131f30 0x800A23B4 (INFO) : SUBALIGN(4)
     {
@@ -511,6 +516,9 @@ __game_rodata_1dbd40_payload_size = 0xC;
 ASSERT(SIZEOF(.game_rodata_200930) == 0x20,
        "game_200930 effect literal extent changed")
 __game_rodata_200930_payload_size = 0x1C;
+ASSERT(SIZEOF(.game_rodata_12ccf0) == 0x10,
+       "game_12CCF0 sparkle literal extent changed")
+__game_rodata_12ccf0_payload_size = 0x10;
 ASSERT(SIZEOF(.game_rodata_131f30) == 0x10,
        "game_131F30 spark literal extent changed")
 __game_rodata_131f30_payload_size = 0xC;

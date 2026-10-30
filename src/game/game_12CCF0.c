@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150FF840
- * - func_150FFD84
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -32,7 +31,7 @@ f32 func_150ADA68(void);
 void func_150FFCC8(void *, void *, void *, void *, void *);
 void func_150FFC3C(void *);
 void func_151D5148(void *);
-void func_150FFD84(f32 *, f32 *, s32, s32);
+void func_150FFD84(f32 *, f32 *, u8, s32);
 void func_150FFB6C(Vec3f *, void *, Game12CCF0Actor *, s32);
 void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32, s32, s32, s32, s32, s32);
 s32 func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);
@@ -156,4 +155,98 @@ void func_150FFD2C(s32 arg0, void *arg1, s32 arg2) {
         func_15081E0C(arg1, 4, 0);
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12CCF0/func_150FFD84.s")
+typedef struct Game12CCF0Particle {
+    s32 flags, field4;
+    s16 kind, duration;
+    s32 fieldC, field10;
+    u8 color0[4], color1[4];
+    u8 field1C, field1D;
+    s16 field1E, field20, field22;
+    f32 field24, size0, size1;
+    Vec3f position;
+    Vec3f field3C;
+    Vec3f field48;
+    f32 field54;
+    s32 flags58;
+    s32 field5C;
+    u8 field60, field61;
+    s8 field62, field63, field64;
+    u8 field65, field66;
+    u8 pad67;
+} Game12CCF0Particle;
+
+typedef struct Game12CCF0Colors {
+    s32 value[4];
+} Game12CCF0Colors;
+
+void func_15143794(s16, s16, f32, void *);
+void func_15145974(void *, f32 *, f32 *);
+extern Game12CCF0Colors D_800A2160;
+extern Vec3f D_800A5480;
+
+void func_150FFD84(f32 *arg0, f32 *arg1, u8 arg2, s32 arg3) {
+    u32 random1;
+    u32 random0;
+    Game12CCF0Particle packet;
+    s32 count;
+    s16 x;
+    s16 y;
+    Vec3f angles;
+    Game12CCF0Colors colors;
+
+    count = (func_150ADA20() % 9U) + 0xA;
+    packet.kind = 0x2203;
+    packet.flags = 0x200005;
+    packet.field4 = 0;
+    packet.fieldC = 0;
+    packet.field10 = 0;
+    packet.color0[0] = 0xFF;
+    packet.color0[1] = 0xFF;
+    packet.color0[2] = 0xFF;
+    packet.color0[3] = 0xFF;
+    packet.color1[0] = 0xFF;
+    packet.color1[1] = 0xFF;
+    packet.color1[2] = 0xFF;
+    packet.field1C = 0xFF;
+    packet.position = *(Vec3f *)arg0;
+    packet.field3C = D_800A5480;
+    packet.field1E = 7;
+    packet.field20 = 0x24;
+    packet.field22 = 1;
+    packet.flags58 = 0x4C207;
+    packet.field60 = 0;
+    packet.field61 = 7;
+    packet.field62 = -1;
+    packet.field63 = -1;
+    packet.field64 = -1;
+    packet.field65 = 0;
+    packet.field5C = 0;
+    packet.field66 = 0xFF;
+    packet.field24 = 1.0f;
+    func_15145974(arg1, &angles.y, &angles.x);
+    angles.x = 0.0f;
+    x = angles.y * 182.04445f;
+    y = angles.x * 182.04445f;
+    x >>= 8;
+    y >>= 8;
+    x -= 0x8A;
+    y -= 0x8A;
+    do {
+        colors = D_800A2160;
+        packet.field1D = colors.value[func_150ADA20() & 3];
+        packet.duration = (func_150ADA20() % 13U) + 0xA;
+        packet.color1[3] = (func_150ADA20() % 101U) + 0x9B;
+        packet.size0 = packet.size1 = (func_150ADA68() * 155.0f) + 75.0f;
+        random1 = func_150ADA20();
+        random0 = func_150ADA20();
+        func_15143794((random1 % 21U) + x, (random0 % 21U) + y,
+                      (func_150ADA68() * 20.0f) + 20.0f, &packet.field48);
+        packet.field54 = func_150ADA68() * 0.62100005f + -0.657f;
+        packet.flags58 &= ~0xC0;
+        random1 = (func_150ADA20() & 1) ? 0x80 : 0;
+        random0 = (func_150ADA20() & 1) ? 0x40 : 0;
+        packet.flags58 |= (s32)(random0 | random1);
+        func_15130280(&packet, 1, NULL, 0, arg2, arg3);
+        count--;
+    } while (count > 0);
+}
