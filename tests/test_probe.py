@@ -103,7 +103,7 @@ class SpliceVariantTests(unittest.TestCase):
 
 
 class MainErrorHandlingTests(unittest.TestCase):
-    def run_main(self, outcomes):
+    def run_main(self, outcomes, padding=None):
         """Run main() over variants whose build/score steps follow ``outcomes``."""
 
         target = probe.Target('func_A', 'us', Path('src/unit.c'), 'func_A', Path('ref.s'),
@@ -129,9 +129,17 @@ class MainErrorHandlingTests(unittest.TestCase):
                 mock.patch.object(probe, 'score', side_effect=score), \
                 mock.patch.object(probe, 'object_frame_size', return_value=0x20), \
                 mock.patch.object(probe, 'reference_frame_size', return_value=0x20), \
+                mock.patch.object(probe, 'terminal_padding_extent', return_value=padding), \
                 redirect_stdout(stdout), redirect_stderr(stderr):
             status = probe.main()
         return status, stdout.getvalue(), stderr.getvalue()
+
+    def test_unscored_terminal_padding_is_reported(self):
+        status, stdout, _stderr = self.run_main(['ok'], padding=4)
+        self.assertEqual(0, status)
+        self.assertIn('trailing alignment words were not scored for v0.c', stdout)
+        status, stdout, _stderr = self.run_main(['ok'])
+        self.assertNotIn('trailing alignment words', stdout)
 
     def test_scorer_failure_after_a_scored_variant_blocks_without_partial_ranking(self):
         status, stdout, stderr = self.run_main(['ok', 'scorer-fails'])
@@ -153,6 +161,40 @@ class MainErrorHandlingTests(unittest.TestCase):
     def test_all_variants_rejected_is_a_compile_failure(self):
         status, _stdout, _stderr = self.run_main(['reject'])
         self.assertEqual(probe.diff.EXIT_FIX_COMPILE, status)
+
+
+class TerminalPaddingTests(unittest.TestCase):
+    """Probe leaves out only the alignment words a terminal unit member gains in finish."""
+
+    def extent(self, start, size, extent, unit_end, tail=bytes(8)):
+        reference = mock.Mock()
+        reference.read_bytes.return_value = b''
+        target = probe.Target('func_A', 'us', probe.ROOT / 'src/game/unit.c', 'func_A',
+                              Path('ref.s'), reference, size, Path('build/probe'))
+        inventory = {'functions': [{'regions': {'us': {'symbol': 'func_A', 'vram': hex(start)}}}]}
+        raw = mock.Mock(relocations=[])
+        raw.section.return_value = bytes(size - len(tail)) + tail
+        candidate = mock.Mock()
+        candidate.read_bytes.return_value = b''
+        with mock.patch.object(probe.project_state, 'load_json', return_value=inventory), \
+                mock.patch.object(probe.linked_aliases, 'game_context',
+                                  return_value=(None, None, None, None, unit_end - 0x100, 0x100, None)), \
+                mock.patch.object(probe.linked_aliases, 'Object32', return_value=raw), \
+                mock.patch.object(probe.linked_aliases, 'game_padding_extent', return_value=extent), \
+                mock.patch.object(probe.linked_aliases, 'function', return_value=(0, 1)):
+            return probe.terminal_padding_extent(target, candidate)
+
+    def test_terminal_alignment_words_are_left_out(self):
+        self.assertEqual(0x70, self.extent(0x15000008, 0x78, 0x70, 0x15000080))
+
+    def test_interior_members_keep_their_full_span(self):
+        self.assertIsNone(self.extent(0x15000008, 0x78, 0x70, 0x15000090))
+
+    def test_a_unit_end_off_16_byte_alignment_keeps_the_full_span(self):
+        self.assertIsNone(self.extent(0x15000004, 0x78, 0x70, 0x1500007C))
+
+    def test_nonzero_reference_words_are_still_scored(self):
+        self.assertIsNone(self.extent(0x15000008, 0x78, 0x70, 0x15000080, tail=b'\0\0\0\0\x03\xe0\0\x08'))
 
 
 def mdebug_object(symbols: list[tuple], aux: list[int] = ()) -> bytes:

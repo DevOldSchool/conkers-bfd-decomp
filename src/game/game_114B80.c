@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150E76D0
- * - func_150E7994
  * - func_150E7C9C
  * - func_150E7FEC
  * - func_150E81A8
@@ -112,7 +111,85 @@ void func_150E76D0(f32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
 #endif /* CONKER_DEFERRED_CANDIDATE func_150E76D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E76D0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E7994.s")
+typedef struct Game114B80Cue {
+    s8 kind;
+    u8 pad1;
+    s16 duration;
+    s8 field4, field5, field6;
+    u8 pad7;
+} Game114B80Cue;
+
+typedef struct Game114B80CurveHeader {
+    f32 rate, pending;
+    s16 count, index;
+} Game114B80CurveHeader;
+
+void *func_10022EC0(void *, const void *, u32);
+f32 func_150ADA68(void);
+void func_1512D748(void *, s32, s32);
+f32 func_15142A80(f32);
+f32 func_15142AC0(f32);
+f32 func_15142B04(f32);
+f32 func_15142B44(f32);
+void *func_151D8868(s8 *, s32, s32, s32);
+extern s32 D_800BE9E8;
+extern s32 D_800DBFF0;
+
+void *func_150E7994(s16 arg0, f32 arg1, u8 arg2, s32 arg3) {
+    void *result;
+    Game114B80CurveHeader header;
+    Game114B80Cue cue;
+    f32 points[4][2];
+    f32 w0, w1, w2, w3;
+    f32 *dst;
+    s16 i;
+    f32 t;
+    f32 step;
+
+    if (arg0 < 2) {
+        return NULL;
+    }
+    func_1512D748((void *)(D_800BE9E8 * 0x9A0 + D_800DBFF0), 0, 1);
+    cue.kind = 1;
+    cue.duration = func_150ADA20() % 11U + 0x1E;
+    cue.field4 = 8;
+    cue.field6 = -1;
+    cue.field5 = 1;
+    func_151D8868(&cue.kind, 0, 0xFF, 0);
+    header.rate = arg1;
+    header.count = arg0;
+    header.index = 0;
+    header.pending = 0.0f;
+    result = func_151491F4(0x12C, -1, 0x10, 1, 0xC, arg0 * 8 + 0x10, arg2, arg3);
+    if (result != NULL) {
+        func_10022EC0((u8 *)result + 0x28, &header, 0xC);
+        points[0][0] = -146.0f;
+        points[0][1] = func_150ADA68() * 160.0f - 80.0f;
+        points[1][0] = -50.0f;
+        points[1][1] = func_150ADA68() * 160.0f - 80.0f;
+        points[2][0] = 50.0f;
+        points[2][1] = func_150ADA68() * 160.0f - 80.0f;
+        points[3][0] = 146.0f;
+        points[3][1] = func_150ADA68() * 160.0f - 80.0f;
+        t = -1.0f;
+        dst = (f32 *)((u8 *)result + 0x38);
+        for (i = 0; i < arg0; i++) {
+            w2 = func_15142B04(t);
+            w1 = func_15142AC0(t);
+            w0 = func_15142A80(t);
+            w3 = func_15142B44(t);
+            dst[i * 2] = w0 * points[0][0] + w1 * points[1][0] + w2 * points[2][0] + w3 * points[3][0];
+            w2 = func_15142B04(t);
+            w1 = func_15142AC0(t);
+            w0 = func_15142A80(t);
+            w3 = func_15142B44(t);
+            dst[i * 2 + 1] = w0 * points[0][1] + w1 * points[1][1] + w2 * points[2][1] + w3 * points[3][1];
+            step = 3.0f / (f32)(arg0 - 1);
+            t += step;
+        }
+    }
+    return result;
+}
 typedef struct Game114B80PointQueue {
     f32 rate, pending;
     s16 count, index;

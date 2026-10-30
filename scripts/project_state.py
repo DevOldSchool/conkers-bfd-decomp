@@ -2431,6 +2431,83 @@ def split_game_function(args: argparse.Namespace) -> None:
     )
 
 
+def correct_game_span(args: argparse.Namespace) -> None:
+    """Shorten a US game span that overlaps the next member of its source unit.
+
+    Early registrations recorded some parents with the length they had before an
+    interior stub became its own function. The corrected size must end exactly
+    where the next registered member starts and must equal the parent's label in
+    the regenerated raw reference. A matched parent loses its evidence, because
+    its verified span changed; ``finish`` re-proves it. No source, map or
+    assembly text changes.
+    """
+
+    functions_data = load_json(FUNCTIONS_FILE)
+    source_units_data = load_json(SOURCE_UNITS_FILE)
+    functions = validate_functions(functions_data)
+    units = validate_source_units(source_units_data, functions)
+
+    entry = next((item for item in functions if item["symbol"] == args.symbol), None)
+    if entry is None:
+        raise ProjectStateError(f"unknown work-item ID: {args.symbol}")
+    if entry.get("overlay") != "game" or "us" not in entry["regions"]:
+        raise ProjectStateError(f"{args.symbol} is not a registered US game function")
+    region = entry["regions"]["us"]
+    size = region.get("size_bytes")
+    if size is None:
+        raise ProjectStateError(f"{args.symbol}/us has no recorded size to correct")
+    unit = next((item for item in units if args.symbol in item["functions"]), None)
+    if unit is None or "us" not in unit["regions"]:
+        raise ProjectStateError(f"{args.symbol} is not a member of a US source unit")
+
+    by_symbol = {item["symbol"]: item for item in functions}
+    vram = int(region["vram"], 0)
+    following = sorted(
+        int(by_symbol[member]["regions"]["us"]["vram"], 0)
+        for member in unit["functions"]
+        if int(by_symbol[member]["regions"]["us"]["vram"], 0) > vram
+    )
+    if not following or not vram < following[0] < vram + size:
+        raise ProjectStateError(
+            f"{args.symbol}/us does not overlap the next member of {unit['source']}"
+        )
+    corrected = following[0] - vram
+    assembly = find_game_function("us", region["symbol"])
+    if assembly.vram != vram or assembly.end - assembly.offset != corrected:
+        raise ProjectStateError(
+            f"regenerated raw assembly for {region['symbol']} is not {corrected} bytes; "
+            "run ./conker game-asm --profile us"
+        )
+
+    region["size_bytes"] = corrected
+    if region["state"] == "matched":
+        region["state"] = "in_progress"
+        region.pop("evidence", None)
+    members = [item for item in functions if item["symbol"] in unit["functions"]]
+    unit["regions"]["us"]["state"] = source_unit_work_state(members)
+
+    validated_functions = validate_functions(functions_data)
+    validate_source_units(source_units_data, validated_functions)
+    paths = (FUNCTIONS_FILE, SOURCE_UNITS_FILE, SUMMARY_FILE, DOCUMENT_FILE)
+    originals = {path: path.read_bytes() if path.exists() else None for path in paths}
+    try:
+        write_json(FUNCTIONS_FILE, functions_data)
+        write_json(SOURCE_UNITS_FILE, source_units_data)
+        render_progress(validated_functions)
+    except Exception:
+        for path, original in originals.items():
+            if original is None:
+                path.unlink(missing_ok=True)
+            else:
+                path.write_bytes(original)
+        raise
+    print(
+        f"Corrected {args.symbol}/us span from {size} to {corrected} bytes"
+        + (" and it awaits re-verification" if region["state"] == "in_progress" else "")
+        + "."
+    )
+
+
 def source_unit_header_comment(
     source: str,
     evidence_reference: str,
@@ -3928,6 +4005,8 @@ def parse_args() -> argparse.Namespace:
     split_parser.add_argument("--parent", required=True)
     split_parser.add_argument("--id", dest="identifier", required=True)
     split_parser.add_argument("--us", required=True)
+    correct_span_parser = subparsers.add_parser("correct-game-span")
+    correct_span_parser.add_argument("symbol")
     record_size_parser = subparsers.add_parser("record-region-size")
     record_size_parser.add_argument("symbol")
     record_size_parser.add_argument("--profile", choices=KNOWN_REGIONS, required=True)
@@ -4046,6 +4125,8 @@ def main() -> int:
             register_debugger(args)
         elif args.command == "split-game-function":
             split_game_function(args)
+        elif args.command == "correct-game-span":
+            correct_game_span(args)
         elif args.command == "record-region-size":
             record_region_size(args)
         elif args.command == "register-source-unit":

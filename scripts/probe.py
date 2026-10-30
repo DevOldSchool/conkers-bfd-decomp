@@ -21,6 +21,7 @@ from pathlib import Path
 import compile_c
 import diff
 import frame_plan
+import linked_aliases
 import project_state
 
 ROOT = diff.ROOT
@@ -399,12 +400,49 @@ def build_variant(target: Target, variant: Path | None, index: int) -> Path:
     return output
 
 
+def terminal_padding_extent(target: Target, candidate: Path) -> int | None:
+    """Return the scored extent when a terminal GAME candidate stops before its padding.
+
+    The focused object omits the unit's GLOBAL_ASM neighbours, so the 16-byte
+    alignment that follows the last member of a unit can vanish. ``finish``
+    proves those words in the complete unit (``game_terminal_padding``); probe
+    leaves them out of the score only when the reference words are zero too.
+    """
+    if target.profile != "us":
+        return None
+    try:
+        source = target.source.relative_to(ROOT).as_posix()
+        start = int(next(entry["regions"]["us"]["vram"] for entry in project_state.load_json(
+            project_state.FUNCTIONS_FILE)["functions"]
+            if entry["regions"].get("us", {}).get("symbol") == target.symbol), 0)
+        _, _, _, _, unit_start, unit_extent, _ = linked_aliases.game_context(
+            ROOT, source, target.symbol, start, target.expected_size)
+        if start + target.expected_size != unit_start + unit_extent:
+            return None
+        current = linked_aliases.Object32(candidate.read_bytes())
+        extent = linked_aliases.game_padding_extent(current, target.symbol, target.expected_size)
+        # Only the words that 16-byte text alignment adds after the candidate.
+        if extent is None or (start + extent + 15) & ~15 != start + target.expected_size:
+            return None
+        raw = linked_aliases.Object32(target.reference.read_bytes())
+        origin, section = linked_aliases.function(raw, target.symbol, target.expected_size,
+                                                  reference=True)
+    except (StopIteration, ValueError, OSError):
+        return None
+    tail = raw.section(section)[origin + extent:origin + target.expected_size]
+    if any(tail) or any(index == section and origin + extent <= offset < origin + target.expected_size
+                        for index, offset in raw.relocations):
+        return None
+    return extent
+
+
 def score(target: Target, candidate: Path) -> int:
     settings = diff.write_settings(target.profile, target.source, directory=target.directory)
+    size = terminal_padding_extent(target, candidate) or target.expected_size
     try:
         result = subprocess.run(
             diff.asm_diff_command(candidate, target.reference, target.symbol,
-                                  target.expected_size, require_match=True),
+                                  size, require_match=True),
             cwd=settings, capture_output=True, text=True,
         )
     except (OSError, ValueError) as error:
@@ -584,6 +622,9 @@ def main() -> int:
         try:
             candidate = build_variant(target, variant, 0)
             print(f"{target.symbol}: CURRENT ({score(target, candidate)}) [probe]")
+            if terminal_padding_extent(target, candidate) is not None:
+                print("note: trailing alignment words were not scored; "
+                      "finish proves them in the complete unit")
             print_layout(target, candidate)
         except VariantError as error:
             print(f"error: {error}", file=sys.stderr)
@@ -595,6 +636,7 @@ def main() -> int:
 
     variants: list[Path | None] = list(arguments.variants) or [None]
     results: list[tuple[int, str, str]] = []
+    padded: list[str] = []
     for index, variant in enumerate(variants, start=1):
         label = "current source" if variant is None else str(variant)
         try:
@@ -609,6 +651,8 @@ def main() -> int:
         try:
             value = score(target, candidate)
             frame = object_frame_size(candidate, target.symbol)
+            if terminal_padding_extent(target, candidate) is not None:
+                padded.append(label)
         except (ProbeError, OSError) as error:
             # A scorer failure makes any ranking unreliable; stop without a partial result.
             print(f"error: scoring {label} failed: {error}", file=sys.stderr)
@@ -621,6 +665,9 @@ def main() -> int:
     print(f"{target.symbol}: reference frame {hex(reference_frame) if reference_frame else 'leaf'}")
     for value, label, frame in sorted(results, key=lambda item: item[0]):
         print(f"CURRENT ({value})\tframe {frame}\t{label}")
+    if padded:
+        print("note: trailing alignment words were not scored for "
+              + ", ".join(padded) + "; finish proves them in the complete unit")
     if min(result[0] for result in results) == 0:
         print("note: a probe zero is not a match; apply the variant and run ./conker finish")
     return 0
