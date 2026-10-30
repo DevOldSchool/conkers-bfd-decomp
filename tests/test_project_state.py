@@ -2127,6 +2127,49 @@ class GameInventoryTests(unittest.TestCase):
                 parent="func_15000000", identifier="func_15000008", us="func_15000008",
             ))
 
+    def register_legacy_overlapping_parent(self) -> None:
+        """Split the parent, then restore its legacy pre-split size and evidence."""
+
+        self.register_split_parent_unit()
+        evidence = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))[
+            "functions"][0]["regions"]["us"]["evidence"]
+        self.write_split_assembly(split=True)
+        with redirect_stdout(io.StringIO()):
+            project_state.split_game_function(SimpleNamespace(
+                parent="func_15000000", identifier="func_15000008", us="func_15000008",
+            ))
+        data = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))
+        parent = data["functions"][0]["regions"]["us"]
+        parent.update(size_bytes=16, state="matched", evidence=evidence)
+        project_state.write_json(project_state.FUNCTIONS_FILE, data)
+
+    def test_correct_game_span_ends_parent_at_the_next_unit_member(self) -> None:
+        self.register_legacy_overlapping_parent()
+
+        with redirect_stdout(io.StringIO()) as output:
+            project_state.correct_game_span(SimpleNamespace(symbol="func_15000000"))
+
+        functions = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))["functions"]
+        self.assertEqual({"state": "in_progress", "symbol": "func_15000000", "vram": "0x15000000", "size_bytes": 8}, functions[0]["regions"]["us"])
+        self.assertEqual(8, functions[1]["regions"]["us"]["size_bytes"])
+        self.assertIn("from 16 to 8 bytes and it awaits re-verification", output.getvalue())
+
+    def test_correct_game_span_rejects_a_span_without_overlap_or_matching_reference(self) -> None:
+        self.register_legacy_overlapping_parent()
+        with redirect_stdout(io.StringIO()):
+            project_state.correct_game_span(SimpleNamespace(symbol="func_15000000"))
+        before = project_state.FUNCTIONS_FILE.read_bytes()
+        with self.assertRaisesRegex(project_state.ProjectStateError, "does not overlap"):
+            project_state.correct_game_span(SimpleNamespace(symbol="func_15000000"))
+        self.assertEqual(before, project_state.FUNCTIONS_FILE.read_bytes())
+
+        data = json.loads(before)
+        data["functions"][0]["regions"]["us"]["size_bytes"] = 16
+        project_state.write_json(project_state.FUNCTIONS_FILE, data)
+        self.write_split_assembly(split=False)
+        with self.assertRaisesRegex(project_state.ProjectStateError, "not present in generated|is not 8 bytes"):
+            project_state.correct_game_span(SimpleNamespace(symbol="func_15000000"))
+
     def register_withdrawable_game_unit(self) -> str:
         source = "src/game/withdraw_test.c"
         project_state.register_source_unit(SimpleNamespace(

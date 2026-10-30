@@ -406,7 +406,7 @@ segments:
       - [0xE4010, c, done/game/game_1114C0]
       - [0xE41C0, c, game/game_111670]
       - [0xE5AE0, c, game/game_112F90]
-      - [0xE5FD0, c, game/game_113480]
+      - [0xE5FD0, c, done/game/game_113480]
       - [0xE6230, c, game/game_1136E0]
       - [0xE68B0, c, game/game_113D60]
       - [0xE7290, c, game/game_114740]

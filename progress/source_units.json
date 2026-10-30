@@ -18627,15 +18627,15 @@
       "functions": [
         "func_150E5FD0"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xE6230",
           "start": "0xE5FD0",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_113480.c"
+      "source": "src/done/game/game_113480.c"
     },
     {
       "boundary_evidence": {

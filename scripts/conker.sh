@@ -187,6 +187,7 @@ After the raw base split map is available
                                  Preserve a reviewed legacy function span as function metadata.
   split-game-function --parent <id> --id <id> --us <symbol>
                                  Register an interior US game symbol as its own function and shorten its parent span.
+  correct-game-span <id>         Shorten a US game span that overlaps the next member of its source unit.
   register-source-unit [--overlay main|game|debugger] --source <path> (--function <id>...|--register-members) --us-start <offset>
                        [--replace-unreviewed-source <path>]
       --us-end <offset> --evidence-kind <kind> --evidence-reference <reference>
@@ -1422,6 +1423,12 @@ case "$command" in
         python3 "$state_tool" setup-check --all
         run_in_container make game-asm GAME_REFERENCE_PROFILE=us >&2
         python3 "$state_tool" split-game-function "$@"
+        ;;
+    correct-game-span)
+        [[ $# -eq 1 ]] || die "usage: ./conker correct-game-span <id>"
+        python3 "$state_tool" setup-check --all
+        run_in_container make game-asm GAME_REFERENCE_PROFILE=us >&2
+        python3 "$state_tool" correct-game-span "$@"
         ;;
     record-region-size)
         [[ $# -eq 5 ]] || die "usage: ./conker record-region-size <id> --profile <region> --size <bytes>"

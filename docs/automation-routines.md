@@ -163,15 +163,16 @@ switch branches in the checkout you start in.
    require AGENT_ACTION: BATCH_COMPLETE; drop a function if it fails. Then
    "$D" commit -m "<summary>" and
    "$D" open-pr --ids "<ids>" --title "<title>" --body-file <file>
-   with a body in the style of recent merged auto-match PRs: a table of
-   matched functions with source, start score and key change, shared
-   dependency changed: no, and the verify-batch result. Add a "Needs a
-   maintainer" section only for functions blocked by something this round
-   may not change (a shared header or prototype, a rodata mapping, a function
-   boundary, tooling or reference symbolisation), one line each; omit it when
-   there are none. Near misses, scores and tried variants belong in matching
-   history notes, not the PR body. Do not write an Auto-match IDs line; the
-   driver adds it. Titles and bodies describe the work only: no model, agent
+   with a body of exactly these sections, whatever earlier auto-match PRs
+   contain: a one-line summary; a table of matched functions with source,
+   start score and key change; shared dependency changed: no; the
+   verify-batch result; and, only for functions blocked by something this
+   round may not change (a shared header or prototype, a rodata mapping, a
+   function boundary, tooling or reference symbolisation), a "Needs a
+   maintainer" section with one line each, omitted when there are none. Do
+   not write a leads section: near misses, scores and tried variants belong
+   in matching history notes, not the PR body. Do not write an Auto-match
+   IDs line; the driver adds it. Titles and bodies describe the work only: no model, agent
    or tool names.
 5. Always finish with "$D" cleanup, then report in a few lines: PRs reviewed
    and their verdicts, functions matched, PR URL or "no PR", and anything

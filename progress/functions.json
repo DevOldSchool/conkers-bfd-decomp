@@ -6803,15 +6803,11 @@
       "symbol": "func_150F6B00"
     },
     {
-      "blocked": {
-        "reason": "Native EFF8/F074/F0D8/F154 consumes151491F4 V0 pointer and copies16bytes to actor28. Matched src/done/game/game_1765E0.c defines151491F4 void and calls15149130 without returning. Raw49130 returns allocated pointer or0; wrapper preservesV0. Local pointer redeclaration would contradict shared matched C type. Requires separately authorized shared return/caller-family audit; no C edit or finish.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 752,
-          "state": "blocked",
+          "state": "raw_asm",
           "symbol": "func_1500EF20",
           "vram": "0x1500EF20"
         }
@@ -7183,15 +7179,17 @@
       "symbol": "func_15012470"
     },
     {
-      "blocked": {
-        "reason": "Raw tail consumes func_151491F4 v0 as pointer for a six-byte memcpy, but active matched definition returns void. Shared helper return contract must be reconciled before C.",
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 945,
+        "reason": "Fresh after unblock 2026-10-30: typed candidate CURRENT 1076 -> 945. Code body matches; residuals are the outer row pointer copied through v1 before s0 (raw lw v1; move s0,v1), fs4/fs5 swap between scale (D_80096570) and 300.0f, 10.0f*sin operand order, and one spill-word offset. Tried declaration orders, direction temps (frame 0x100), explicit row/spread pointers (worse).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 640,
-          "state": "blocked",
+          "state": "raw_asm",
           "symbol": "func_150124A0",
           "vram": "0x150124A0"
         }
@@ -16477,15 +16475,11 @@
       "symbol": "func_1501396C"
     },
     {
-      "blocked": {
-        "reason": "Fresh mapping-only target. Raw15013C04 call151491F4 consumes v0 as pointer and copies70bytes, while matched game1765E0 definition is void; independent wrapper forwards allocator return unchanged. Raw15013B70 sets only a0/a1 for1510FD20, existing active game40490 contract requires third pointer; independent callee uses only first two inputs. Active1000FA64 declaration void also conflicts with stored v0 halfword. Shared helper/caller contract reconciliation required; untouched pragma, no C attempt.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 652,
-          "state": "blocked",
+          "state": "raw_asm",
           "symbol": "func_150139AC",
           "vram": "0x150139AC"
         }
@@ -29842,15 +29836,11 @@
       "symbol": "func_150195A0"
     },
     {
-      "blocked": {
-        "reason": "Active allowed-source func_1517EFAC(void) is contradicted by raw forwarding of A0 to func_1517EF00, which indexes D_800DDDC0 and related tables; target passes explicit zero. Shared ABI correction required.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 700,
-          "state": "blocked",
+          "state": "raw_asm",
           "symbol": "func_150198FC",
           "vram": "0x150198FC"
         }
@@ -33857,15 +33847,16 @@
       "symbol": "func_151DADA0"
     },
     {
-      "blocked": {
-        "reason": "Exact476-byte raw duplicate of exhausted func_151AC810 (prior best796), SHA256c2c069b6daa71470e88cedcf4ab4617dd73692b7c5eeba7022ef36c664fdf42f. Already screened in workflow pilot; no qualifying target formal declaration or new source-shape evidence. Preserve zero-compilation screen in fresh-ready-1.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 476,
-          "state": "blocked",
+          "state": "matched",
           "symbol": "func_151DAE28",
           "vram": "0x151DAE28"
         }
@@ -57013,15 +57004,11 @@
       "symbol": "func_1517AB7C"
     },
     {
-      "blocked": {
-        "reason": "Fresh target; eed1124 adds only caller prototype/body, no target attempt. Raw1515B1F0 consumes151491F4 v0 as pointer for24byte memcpy; matched game1765E0 definition is void. Independent raw wrapper forwards allocator return unchanged. Requires shared helper/caller contract reconciliation; untouched pragma, no C attempt.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 652,
-          "state": "blocked",
+          "state": "raw_asm",
           "symbol": "func_1515AF90",
           "vram": "0x1515AF90"
         }
@@ -60089,17 +60076,16 @@
       "symbol": "func_150CADD0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "Manual compound updates and cached rate improve325 to CURRENT120. Remaining global base V1 versus V0, early return LI, and velocity add reversal duplicate exhausted150CA07C hypotheses; best preserved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 216,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150CB008",
           "vram": "0x150CB008"
         }
@@ -60431,15 +60417,16 @@
       "symbol": "func_1517685C"
     },
     {
-      "blocked": {
-        "reason": "Raw caller passes full 32-bit truncated coordinates to func_150AD960, whose project prototype narrows the first two arguments to s16. Handwritten callee subtracts the full words without narrowing; matching requires a reviewed shared ABI correction.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 620,
-          "state": "blocked",
+          "state": "matched",
           "symbol": "func_15176B84",
           "vram": "0x15176B84"
         }
@@ -60591,15 +60578,11 @@
       "symbol": "func_1503CB98"
     },
     {
-      "blocked": {
-        "reason": "Matched shared func_151491F4 declares void, but raw wrapper forwards func_15149130 allocated pointer/zero; target uses V0 at E6B60-E6B70 as memcpy destination. Requires shared return-contract audit outside target-only scope.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 724,
-          "state": "blocked",
+          "state": "raw_asm",
           "symbol": "func_150E68B0",
           "vram": "0x150E68B0"
         }
@@ -62389,17 +62372,16 @@
       "symbol": "func_150CCA7C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 320,
-        "reason": "Round19 2026-10-22: CURRENT (320), candidate unchanged since 2026-09-30 (stored 120). Not a codegen regression: b15a680c (2026-10-10) scores the words a short non-terminal candidate leaves unfilled instead of padding them, and this candidate is two words short of its span (the two trailing nops, 200). Code residual as before: D_800BE9A4 base in v1 vs raw v0, return li v0,1 scheduled early instead of before jr, and one velocity add.s operand order.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 220,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150CCCB4",
           "vram": "0x150CCCB4"
         }
@@ -64921,7 +64903,7 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "size_bytes": 676,
+          "size_bytes": 668,
           "state": "raw_asm",
           "symbol": "func_151B5BF0",
           "vram": "0x151B5BF0"
@@ -64950,17 +64932,16 @@
       "symbol": "func_151B5E94"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 300,
-        "reason": "Full-span CURRENT (300): every executable instruction matches raw US; three registered trailing NOP words. Round3 2026-10-17 recheck: finish/defer BLOCKED_TOOLING by address-alias verification (unit member spans not contiguous: func_151B5BF0 size 676 overlaps registered func_151B5E8C at 0x151B5E8C). Needs span fix in the inventory, not C.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 68,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151B5FCC",
           "vram": "0x151B5FCC"
         }
@@ -65290,15 +65271,17 @@
       "symbol": "func_1509E900"
     },
     {
-      "blocked": {
-        "reason": "Independent raw15114050 reads only two incoming arguments, while indexed declaration requires three. Target case20 prepares only a0/a1 after15084000. Shared helper arity must be reconciled and affected callers revalidated before exact C.",
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 20,
+        "reason": "Fresh after unblock 2026-10-30: typed switch candidate CURRENT 1340 -> 20 (finish). Keys: func_151149AC(arg0 & 0xFF) explicit mask, two-argument func_15114050, break to the shared return 0 after cases 33/34, s32 return. Left: (1) jtbl_8009F43C_game rows need a new game_CBDB0 .rodata INFO placement (none mapped), (2) case-21 loop loads arg2->value before D_800CC2D0[i].id (raw: id first); compare order, nested if and actor-pointer loops 20-70; deterministic permute 28 variants no gain.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 636,
-          "state": "blocked",
+          "state": "raw_asm",
           "symbol": "func_1509ED74",
           "vram": "0x1509ED74"
         }
@@ -67428,15 +67411,11 @@
       "symbol": "func_151AADBC"
     },
     {
-      "blocked": {
-        "reason": "Active source-local func_150ADA20(void *, s32) declarations conflict with the independently audited no-input RNG. Target has three calls with unset argument registers; correcting pre-existing declarations/contracts is outside the target-only matching scope. Original pragma untouched; no C attempt.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 664,
-          "state": "blocked",
+          "state": "raw_asm",
           "symbol": "func_151AADF8",
           "vram": "0x151AADF8"
         }
@@ -74299,15 +74278,17 @@
       "symbol": "func_15119938"
     },
     {
-      "blocked": {
-        "reason": "Raw caller passes eight arguments to func_151D5404, including explicit words 0xFF and zero at stack18/1C; the registered matched definition has only six parameters. Requires reviewed caller/callee contract reconciliation before exact source-local matching.",
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 200,
+        "reason": "Fresh after unblock 2026-10-30: every instruction matches (finish CURRENT 200 = only the two zero words at 0x151A6EF8/0x151A6EFC). Those are end-of-object .text padding after the jr delay slot, so an original object boundary sits at 0x1A6F00 inside mixed unit game_1D4140 (0x1A6C90:0x1A7610). split-source-unit refuses mixed units and the map has no 0x1A6F00 entry; needs a reviewed boundary split, then resume+finish. Keys: f32 func_150ADA68 prototype (file had none), u8 arg1 with func_151A6F00(s16*, s32, u8, s32), field30-38 = 0 (separate zero from field20), random hoisted into its own statement, exact literal 1.6409999f.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 624,
-          "state": "blocked",
+          "state": "raw_asm",
           "symbol": "func_151A6C90",
           "vram": "0x151A6C90"
         }
@@ -76183,7 +76164,7 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "size_bytes": 2740,
+          "size_bytes": 2732,
           "state": "raw_asm",
           "symbol": "func_151DDC20",
           "vram": "0x151DDC20"
@@ -77622,15 +77603,17 @@
       "symbol": "func_151BC074"
     },
     {
-      "blocked": {
-        "reason": "Caller consumes the pointer returned by func_15134908, but its existing project declaration and deferred definition return void. Raw callee explicitly returns the created pointer or zero. Requires reviewed return-contract repair across callers.",
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1647,
+        "reason": "Fresh after unblock 2026-10-30: typed three-packet candidate CURRENT 5388 -> 1647. Frame matches with one result local per call declared before each packet (named homes at 0xDC/0xB4/0x98) and no named x/y/z pointers (raw 0x54..0x5C are CSE spills). Residual is scheduling only: raw materialises -16384.0f/0.0f and &spawn at the start of block 2 but stores the track floats after the spawn copy; moving the float stores anywhere in block 2 gives 1647-3315. spark.size before spark.scale fixed the 15.0f order.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 620,
-          "state": "blocked",
+          "state": "raw_asm",
           "symbol": "func_151BC104",
           "vram": "0x151BC104"
         }
@@ -78820,15 +78803,11 @@
       "symbol": "func_150EF784"
     },
     {
-      "blocked": {
-        "reason": "Shared return contract: matched func_1513D524 is void but raw wrapper forwards func_1513D2F0 pointer/zero V0; target consumes it at15149808, copies0x50 toresult+0x110 and returnsresult. Requires separately authorized shared return repair and affected-match audit; no target C edits or comparisons.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 744,
-          "state": "blocked",
+          "state": "raw_asm",
           "symbol": "func_15149550",
           "vram": "0x15149550"
         }
@@ -79139,15 +79118,11 @@
       "symbol": "func_150D7928"
     },
     {
-      "blocked": {
-        "reason": "Raw func_1513D524 forwards func_1513D2F0 allocated pointer-or-zero return, consumed at 150CD148 and used as memcpy destination +0x110; matched shared definition declares void. Requires reviewed shared return-contract repair outside this target.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 716,
-          "state": "blocked",
+          "state": "raw_asm",
           "symbol": "func_150CCEB0",
           "vram": "0x150CCEB0"
         }
@@ -79497,15 +79472,16 @@
       "symbol": "func_150E76D0"
     },
     {
-      "blocked": {
-        "reason": "Return-contract conflict: raw caller stores/tests allocator object in V0 after151491F4, while its matched shared definition game_1765E0 is void; project declarations disagree (void/s32/pointer). Need separately scoped shared ABI audit/repair; do not invent local return type or copy M2C_ERROR.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 776,
-          "state": "blocked",
+          "state": "matched",
           "symbol": "func_150E7994",
           "vram": "0x150E7994"
         }
@@ -81336,17 +81312,16 @@
       "symbol": "func_15102884"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 460,
-        "reason": "Three source-only variants recovered the control pointer at 0x170, selector at 0x132, linked/deep pointers at 0x110/0x31C, active byte at 0x197, and flags at 0x174; best candidate is CURRENT (460), with remaining temporary-register allocation and registered tail padding.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 116,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151028AC",
           "vram": "0x151028AC"
         }
@@ -91580,15 +91555,17 @@
       "symbol": "func_15103E40"
     },
     {
-      "blocked": {
-        "reason": "Matched shared func_1510F800 declares void input but forwards A0 to func_150A49F4, which reads table index and stores it; target passes zero. Requires shared input-contract audit outside target-only scope.",
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4070,
+        "reason": "Fresh after unblock 2026-10-30: typed candidate CURRENT 3921/4070; this one has the exact reference frame (result/surface/bits above a 0x54-byte packet at 0x68, trail 0x54, 3-byte shades copy 0x50, offset 0x44, scale/shade homes). Residuals: raw keeps arg4 in a0 and copies to v1 (candidate loads v1), and the packet/trail store schedule differs throughout. Needs game_functions.h (added to the file) and s32 func_151BEEE0 return.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 720,
-          "state": "blocked",
+          "state": "raw_asm",
           "symbol": "func_151BE850",
           "vram": "0x151BE850"
         }
@@ -92003,20 +91980,21 @@
       "symbol": "func_150499A0"
     },
     {
-      "blocked": {
-        "reason": "Raw target branches on v0 from func_1513D524, copies 0x30 bytes to returned pointer+0x110, and returns that pointer. Its matched C definition is void and forwards func_1513D2F0; raw wrapper leaves that callee result in v0. Target-only C cannot consume the matched void result without a shared return-contract repair and caller-family verification.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 608,
-          "state": "blocked",
+          "state": "matched",
           "symbol": "func_150E5FD0",
           "vram": "0x150E5FD0"
         }
       },
-      "source": "src/game/game_113480.c",
+      "source": "src/done/game/game_113480.c",
       "symbol": "func_150E5FD0"
     },
     {
