@@ -33857,15 +33857,16 @@
       "symbol": "func_151DADA0"
     },
     {
-      "blocked": {
-        "reason": "Exact476-byte raw duplicate of exhausted func_151AC810 (prior best796), SHA256c2c069b6daa71470e88cedcf4ab4617dd73692b7c5eeba7022ef36c664fdf42f. Already screened in workflow pilot; no qualifying target formal declaration or new source-shape evidence. Preserve zero-compilation screen in fresh-ready-1.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 476,
-          "state": "blocked",
+          "state": "matched",
           "symbol": "func_151DAE28",
           "vram": "0x151DAE28"
         }
@@ -60091,17 +60092,16 @@
       "symbol": "func_150CADD0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "Manual compound updates and cached rate improve325 to CURRENT120. Remaining global base V1 versus V0, early return LI, and velocity add reversal duplicate exhausted150CA07C hypotheses; best preserved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 216,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150CB008",
           "vram": "0x150CB008"
         }
@@ -62391,17 +62391,16 @@
       "symbol": "func_150CCA7C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 320,
-        "reason": "Round19 2026-10-22: CURRENT (320), candidate unchanged since 2026-09-30 (stored 120). Not a codegen regression: b15a680c (2026-10-10) scores the words a short non-terminal candidate leaves unfilled instead of padding them, and this candidate is two words short of its span (the two trailing nops, 200). Code residual as before: D_800BE9A4 base in v1 vs raw v0, return li v0,1 scheduled early instead of before jr, and one velocity add.s operand order.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 220,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150CCCB4",
           "vram": "0x150CCCB4"
         }
@@ -79137,15 +79136,11 @@
       "symbol": "func_150D7928"
     },
     {
-      "blocked": {
-        "reason": "Raw func_1513D524 forwards func_1513D2F0 allocated pointer-or-zero return, consumed at 150CD148 and used as memcpy destination +0x110; matched shared definition declares void. Requires reviewed shared return-contract repair outside this target.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 716,
-          "state": "blocked",
+          "state": "raw_asm",
           "symbol": "func_150CCEB0",
           "vram": "0x150CCEB0"
         }
@@ -79495,15 +79490,16 @@
       "symbol": "func_150E76D0"
     },
     {
-      "blocked": {
-        "reason": "Return-contract conflict: raw caller stores/tests allocator object in V0 after151491F4, while its matched shared definition game_1765E0 is void; project declarations disagree (void/s32/pointer). Need separately scoped shared ABI audit/repair; do not invent local return type or copy M2C_ERROR.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 776,
-          "state": "blocked",
+          "state": "matched",
           "symbol": "func_150E7994",
           "vram": "0x150E7994"
         }
@@ -81334,17 +81330,16 @@
       "symbol": "func_15102884"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 460,
-        "reason": "Three source-only variants recovered the control pointer at 0x170, selector at 0x132, linked/deep pointers at 0x110/0x31C, active byte at 0x197, and flags at 0x174; best candidate is CURRENT (460), with remaining temporary-register allocation and registered tail padding.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 116,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151028AC",
           "vram": "0x151028AC"
         }
@@ -92001,20 +91996,21 @@
       "symbol": "func_150499A0"
     },
     {
-      "blocked": {
-        "reason": "Raw target branches on v0 from func_1513D524, copies 0x30 bytes to returned pointer+0x110, and returns that pointer. Its matched C definition is void and forwards func_1513D2F0; raw wrapper leaves that callee result in v0. Target-only C cannot consume the matched void result without a shared return-contract repair and caller-family verification.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 608,
-          "state": "blocked",
+          "state": "matched",
           "symbol": "func_150E5FD0",
           "vram": "0x150E5FD0"
         }
       },
-      "source": "src/game/game_113480.c",
+      "source": "src/done/game/game_113480.c",
       "symbol": "func_150E5FD0"
     },
     {

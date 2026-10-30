@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151022AC
  * - func_151025F4
- * - func_151028AC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -298,16 +297,14 @@ typedef struct Game12F400WideState {
     u8 flags;
 } Game12F400WideState;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151028AC CURRENT (460) */
 s32 func_151028AC(Game12F400WideState *arg0, s16 arg1) {
-    Game12F400ControlState *control = arg0->control;
-    Game12F400LinkedState *linked;
-    u8 selector = control->selector;
+    Game12F400LinkedState **temp_v0;
+    Game12F400LinkedState *temp_v1;
 
-    control = (Game12F400ControlState *)((u8 *)control + 0x110);
-    if (arg1 == selector) {
-        linked = *(Game12F400LinkedState **)control;
-        if ((linked == 0) || (linked->deep->active != 0)) {
+    temp_v0 = (Game12F400LinkedState **)((u8 (*)[1])arg0->control)[0x110];
+    if (arg1 == *(u8 *)((u8 *)temp_v0 + 0x22)) {
+        temp_v1 = *temp_v0;
+        if ((temp_v1 == 0) || (temp_v1->deep->active != 0)) {
             return 0;
         }
     }
@@ -316,5 +313,3 @@ s32 func_151028AC(Game12F400WideState *arg0, s16 arg1) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151028AC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_151028AC.s")
