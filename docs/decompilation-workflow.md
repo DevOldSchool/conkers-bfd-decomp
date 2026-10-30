@@ -612,6 +612,18 @@ span shrinks to the split point and a matched parent loses its evidence; rerun
 `finish` for both. Record the reasoning in an evidence note, as in
 [the return-stub splits](evidence/boundaries/game/mapping/game_unreferenced_return_stub_splits.md).
 
+Some early registrations kept the parent's pre-split size after the stub was
+registered, so the parent's span overlaps the next unit member and `finish`
+reports that member spans are not contiguous. Correct the parent with:
+
+```sh
+./conker correct-game-span <parent-id>
+```
+
+The corrected span ends where the next registered member starts and must equal
+the parent's label in the regenerated reference; a matched parent loses its
+evidence until `finish` re-proves it.
+
 After a default build, locate the first differing word with (add `--assets`
 for the reconstructed-assets output):
 
