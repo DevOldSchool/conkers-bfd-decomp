@@ -65286,17 +65286,16 @@
       "symbol": "func_1509E900"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Fresh after unblock 2026-10-30: typed switch candidate CURRENT 1340 -> 20 (finish). Keys: func_151149AC(arg0 & 0xFF) explicit mask, two-argument func_15114050, break to the shared return 0 after cases 33/34, s32 return. Left: (1) jtbl_8009F43C_game rows need a new game_CBDB0 .rodata INFO placement (none mapped), (2) case-21 loop loads arg2->value before D_800CC2D0[i].id (raw: id first); compare order, nested if and actor-pointer loops 20-70; deterministic permute 28 variants no gain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 636,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509ED74",
           "vram": "0x1509ED74"
         }

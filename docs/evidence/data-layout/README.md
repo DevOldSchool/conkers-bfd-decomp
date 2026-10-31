@@ -55,6 +55,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [US switch table for game_15BD90](game_15bd90_jump_table.md)
 - [US switch table for game_1BFCB0](game_1bfcb0_jump_table.md)
 - [US switch table for game_CA630](game_ca630_jump_table.md)
+- [US switch table for game_CBDB0](game_cbdb0_jump_table.md)
 - [US switch table for game_E4070](game_e4070_jump_table.md)
 - [US switch tables for game_15D730](game_15d730_jump_tables.md)
 - [US switch table for game_1B8F40](game_1b8f40_jump_table.md)
