@@ -93,6 +93,24 @@ class GameComparisonTests(unittest.TestCase):
             self.assertEqual(48, len((output / "candidate.bin").read_bytes()))
             self.assertNotIn("func_15001000 =", (output / "candidate.ld").read_text())
 
+    def test_unit_wide_raw_reference_resolves_same_unit_callees_at_registered_addresses(self):
+        neighbor = "jal func_15001000\nnop\njr $ra\nnop"
+        for first, proven in (("func_15001000", True), ("func_15001004", False)):
+            with self.subTest(first=first), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                self.metadata(root)
+                candidate, _ = self.objects(root)
+                reference = self.assemble(root, "raw", self.function(first, "jr $ra\nnop\nnop\nnop")
+                                          + self.function(self.symbol, self.body("D_800E8000"))
+                                          + self.function("func_15001020", neighbor.replace(
+                                              "func_15001000", first)))
+                pair = self.prove(root, candidate, reference)
+                if proven:
+                    self.assertIsNotNone(pair)
+                    self.assertEqual(pair[0].read_bytes(), pair[1].read_bytes())
+                else:
+                    self.assertIsNone(pair)
+
     def test_instruction_and_endpoint_errors_cannot_become_a_match(self):
         changes = [self.body("D_800E7FFC+8"), self.body("D_800E7FF8+4"),
                    self.body().replace("$v0", "$v1"), self.body().replace("addiu", "ori"),
