@@ -6,14 +6,132 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_extended.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150CCEB0
  * - func_150CD59C
  * - func_150CD7F8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FA360/func_150CCEB0.s")
+typedef struct GameFA360Range {
+    f32 low;
+    f32 high;
+} GameFA360Range;
+
+typedef struct GameFA360Emitter {
+    Vec3f position;
+    Vec3f velocity;
+    f32 drag;
+    f32 gravity;
+    u8 color[3];
+    u8 alpha;
+    s32 life;
+    GameFA360Range range;
+    f32 minVy;
+} GameFA360Emitter;
+
+typedef struct GameFA360Packet {
+    s8 kind;
+    u8 pad1;
+    s16 flags;
+    s16 life;
+    u8 pad6[2];
+    s32 field8;
+    s32 fieldC;
+    u8 color[4];
+    GameFA360Range range;
+    Vec3f position;
+    Vec3f direction;
+    Vec3f scale;
+    s32 mode;
+    u8 field44;
+    u8 field45;
+    u8 field46;
+    u8 field47;
+    u8 pad48[0x10];
+} GameFA360Packet;
+
+typedef struct GameFA360DriftInit {
+    Vec3f velocity;
+    f32 gravity;
+    f32 drag;
+    f32 offsetX;
+    f32 offsetY;
+    f32 offsetZ;
+    u8 pad20[4];
+    f32 swayAngle;
+    f32 swaySpeed;
+    f32 swayRadius;
+    f32 phase;
+    f32 phaseSpeed;
+    f32 phaseScale;
+    f32 minVy;
+} GameFA360DriftInit;
+
+void *func_10022EC0(void *, const void *, u32);
+f32 func_150ADA68(void);
+void *func_1513D524(s32, u8, u8, u8, u8, u8, s32, u8, s32);
+extern f32 D_800A0710;
+extern f32 D_800A0714;
+extern f32 D_800A0718;
+extern f32 D_800A071C;
+extern f32 D_800A0720;
+extern f32 D_800A0724;
+extern f32 D_800A0728;
+extern f32 D_800A072C;
+extern f32 D_800A0730;
+extern f32 D_800A0734;
+extern f32 D_800A0738;
+extern f32 D_800A073C;
+extern f32 D_800A0740;
+extern f32 D_800A0744;
+extern f32 D_800A0748;
+
+void *func_150CCEB0(GameFA360Emitter *arg0, u8 arg1, u8 arg2) {
+    void *result;
+    GameFA360Packet packet;
+    GameFA360DriftInit drift;
+
+    packet.kind = 0x57;
+    packet.flags = 0x2D03;
+    packet.life = arg0->life;
+    packet.field8 = 0;
+    packet.fieldC = 0;
+    packet.color[0] = arg0->color[0];
+    packet.color[1] = arg0->color[1];
+    packet.color[2] = arg0->color[2];
+    packet.color[3] = 0xFF;
+    packet.range = arg0->range;
+    packet.position = arg0->position;
+    packet.direction.x = func_150ADA68() * 360.0f;
+    packet.direction.y = func_150ADA68() * 360.0f;
+    packet.direction.z = func_150ADA68() * 360.0f;
+    packet.mode = 0xC03E1;
+    packet.scale.x = 0.0f;
+    packet.scale.y = 0.0f;
+    packet.scale.z = 0.0f;
+    packet.field44 = arg0->alpha;
+    packet.field45 = 0xFF;
+    packet.field46 = 0;
+    packet.field47 = 6;
+    drift.velocity = arg0->velocity;
+    drift.minVy = arg0->minVy;
+    drift.drag = arg0->drag;
+    drift.gravity = arg0->gravity;
+    drift.offsetX = (func_150ADA68() * D_800A0710 + D_800A0714) * D_800A0718;
+    drift.offsetY = (func_150ADA68() * D_800A071C + D_800A0720) * D_800A0724;
+    drift.offsetZ = (func_150ADA68() * D_800A0728 + D_800A072C) * D_800A0730;
+    drift.swayAngle = 0.0f;
+    drift.swaySpeed = (func_150ADA68() * 206.0f + 58.0f) * D_800A0734;
+    drift.swayRadius = func_150ADA68() * 360.0f;
+    drift.phase = 0.0f;
+    drift.phaseSpeed = func_150ADA68() * D_800A0738 * D_800A073C;
+    drift.phaseScale = (func_150ADA68() * D_800A0740 + D_800A0744) * D_800A0748;
+    result = func_1513D524((s32)&packet, 0x13, 0x1E, 0, 0x11, 0, 0x40, arg1, arg2);
+    if (result != NULL) {
+        func_10022EC0((u8 *)result + 0x110, &drift, 0x40);
+    }
+    return result;
+}
 typedef struct GameFA360Drift {
     f32 vx;
     f32 vy;

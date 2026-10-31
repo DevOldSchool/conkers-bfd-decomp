@@ -6,14 +6,171 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_extended.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15149550
  * - func_15149838
  * - func_15149A94
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_176A00/func_15149550.s")
+typedef struct Game176A00Emitter {
+    Vec3f position;
+    f32 maxA;
+    f32 maxB;
+    f32 minA;
+    f32 minB;
+    f32 alternateB;
+    s16 maxC;
+    s16 minC;
+    s16 life;
+    u8 color[4];
+    u16 mode;
+    u8 field44;
+    u8 field45;
+    u8 kindArg;
+    u8 layerArg;
+    s32 size;
+    u8 effect;
+    u8 pad35[3];
+    f32 scale;
+    f32 field4C;
+    f32 field40;
+    f32 field44f;
+} Game176A00Emitter;
+
+typedef struct Game176A00Packet {
+    s8 kind;
+    u8 pad1;
+    s16 flags;
+    s16 life;
+    u8 pad6[2];
+    s32 field8;
+    s32 fieldC;
+    u8 color[4];
+    f32 range[2];
+    Vec3f position;
+    Vec3f direction;
+    Vec3f scale;
+    s32 mode;
+    u8 field44;
+    u8 field45;
+    u8 pad46[2];
+    s32 region;
+    u8 pad4C[0xC];
+} Game176A00Packet;
+
+typedef struct Game176A00MotionInit {
+    f32 maxA, minA, targetA;
+    s16 timerA;
+    s16 rangeA;
+    f32 factorA;
+    f32 maxB, minB, alternateB, targetB;
+    s16 timerB;
+    s16 rangeB;
+    f32 factorB;
+    s32 maxC, minC, targetC;
+    s16 timerC;
+    s16 rangeC;
+    f32 factorC;
+    f32 field40;
+    f32 field44;
+    u8 effect;
+    u8 pad49[3];
+    f32 field4C;
+} Game176A00MotionInit;
+
+void *func_10022EC0(void *, const void *, u32);
+void func_1510F800(s32);
+s32 func_1510FD20(s32, s32);
+void *func_1513D524(s32, u8, u8, u8, u8, u8, s32, u8, s32);
+extern f32 D_800A5780;
+extern f32 D_800A5784;
+extern f32 D_800A5788;
+
+void *func_15149550(Game176A00Emitter *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, s32 arg5) {
+    void *result;
+    Game176A00Packet packet;
+    Game176A00MotionInit motion;
+    s32 flip;
+
+    packet.mode = arg0->mode | 0x40000000;
+    packet.position = arg0->position;
+    if (arg2) {
+        packet.mode |= 0x01000000;
+        func_1510F800(0);
+        packet.region = func_1510FD20(packet.position.x, packet.position.z);
+    } else {
+        packet.mode &= ~0x01000000;
+        packet.region = 0;
+    }
+    switch (arg3) {
+    case 1:
+        packet.kind = 0x13;
+        break;
+    case 2:
+        packet.kind = 0x71;
+        break;
+    case 0:
+    default:
+        if (func_150ADA20() & 1) {
+            packet.kind = 0x13;
+        } else {
+            packet.kind = 0x14;
+        }
+        break;
+    }
+    packet.flags = 0x301;
+    packet.life = arg0->life;
+    packet.color[0] = arg0->color[0];
+    packet.color[1] = arg0->color[1];
+    packet.color[2] = arg0->color[2];
+    packet.color[3] = arg0->color[3];
+    packet.field44 = arg0->field44;
+    packet.field45 = arg0->field45;
+    packet.direction.x = 0.0f;
+    packet.direction.y = 0.0f;
+    packet.direction.z = 0.0f;
+    packet.scale.x = arg0->scale;
+    packet.scale.y = 0.0f;
+    packet.scale.z = 1.0f;
+    motion.maxA = arg0->maxA;
+    motion.minA = arg0->minA;
+    motion.targetA = (motion.maxA + motion.minA) * 0.5f;
+    motion.timerA = 0;
+    motion.rangeA = 6;
+    motion.factorA = D_800A5780;
+    motion.maxB = arg0->maxB;
+    motion.minB = arg0->minB;
+    motion.alternateB = arg0->alternateB;
+    motion.targetB = (motion.maxB + motion.minB) * 0.5f;
+    motion.timerB = 0;
+    motion.rangeB = 0x11;
+    motion.factorB = D_800A5784;
+    motion.maxC = arg0->maxC;
+    motion.minC = arg0->minC;
+    motion.targetC = 0;
+    motion.timerC = 0;
+    motion.rangeC = 0xF;
+    motion.factorC = D_800A5788;
+    motion.field40 = arg0->field40;
+    motion.field44 = arg0->field44f;
+    packet.field8 = 0;
+    packet.fieldC = (motion.maxC + motion.minC) >> 1;
+    packet.range[0] = 0.0f;
+    packet.range[1] = 0.0f;
+    motion.effect = arg0->effect;
+    motion.field4C = arg0->field4C;
+    if (func_150ADA20() & 1) {
+        flip = 1;
+    } else {
+        flip = 0;
+    }
+    result = func_1513D524((s32)&packet, arg0->kindArg, 0xE, arg0->layerArg, arg1, flip | 2,
+                           arg0->size + 0x50, arg4, arg5);
+    if (result != NULL) {
+        func_10022EC0((u8 *)result + 0x110, &motion, 0x50);
+    }
+    return result;
+}
 typedef struct Game176A00Motion {
     f32 maxA, minA, targetA;
     volatile s16 timerA;
