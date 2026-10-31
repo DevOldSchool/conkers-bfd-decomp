@@ -13,6 +13,113 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game113D60Spawner {
+    f32 chance;
+    s8 originKind;
+    s8 targetKind;
+    s8 motionKind;
+    u8 pad7;
+    s16 duration;
+    s16 durationRange;
+    u8 color;
+    u8 padD[3];
+} Game113D60Spawner;
+
+typedef struct Game113D60SpawnPacket {
+    f32 motion[4][2];
+    f32 zero20;
+    f32 scale;
+    f32 zero28;
+    Vec3f position;
+    f32 speed;
+    s16 duration;
+    s16 durationRange;
+    u8 color;
+    u8 pad41[3];
+} Game113D60SpawnPacket;
+
+typedef void (*Game113D60PointCallback)(Vec3f *);
+typedef void (*Game113D60TargetCallback)(Vec3f *, void *);
+typedef void (*Game113D60MotionCallback)(Vec3f *, Vec3f *, Vec3f *, Game113D60SpawnPacket *);
+
+void *func_10022EC0(void *, const void *, u32);
+f32 func_150ADA68();
+extern Game113D60PointCallback D_80088A20[];
+extern Game113D60TargetCallback D_80088A2C[];
+extern Game113D60MotionCallback D_80088A34[];
+extern Game113D60Spawner D_800A1190[];
+extern f32 D_800A12F8;
+extern f32 D_800A12FC;
+extern f32 D_800A1300;
+extern u8 D_800C35E8;
+extern u8 D_800C35EA;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E68B0 CURRENT (1295) */
+void func_150E68B0(void *arg0, s32 arg1, s32 arg2, u8 arg3) {
+    Game113D60Spawner *spawner;
+    Vec3f target;
+    Vec3f position;
+    Vec3f direction;
+    Game113D60SpawnPacket packet;
+    void *result;
+
+    if (arg0 == NULL) {
+        return;
+    }
+    if (D_800C35EA == 1 && D_800C35E8 == 9) {
+        return;
+    }
+    if (!(func_150ADA68() < D_800A1190[arg3].chance)) {
+        return;
+    }
+    spawner = &D_800A1190[arg3];
+    if (spawner->originKind == -1) {
+        return;
+    }
+    if (spawner->targetKind != -1) {
+        D_80088A2C[spawner->targetKind](&target, arg0);
+    } else {
+        target.x = 0;
+        target.y = 0;
+        target.z = 0;
+    }
+    if (spawner->originKind != -1) {
+        D_80088A20[spawner->originKind](&position);
+    } else {
+        position.x = 0;
+        position.y = 0;
+        position.z = 0;
+    }
+    direction.x = target.x - position.x;
+    direction.y = target.y - position.y;
+    direction.z = target.z - position.z;
+    if (direction.x == 0.0f && direction.z == 0.0f) {
+        return;
+    }
+    if (spawner->motionKind != -1) {
+        D_80088A34[spawner->motionKind](&position, &target, &direction, &packet);
+    } else {
+        packet.motion[0][0] = 0;
+        packet.motion[1][0] = 0;
+        packet.motion[2][0] = 0;
+        packet.motion[0][1] = 0;
+        packet.motion[1][1] = 0;
+        packet.motion[2][1] = 0;
+    }
+    packet.zero28 = 0;
+    packet.scale = func_150ADA68() * D_800A12F8 + D_800A12FC;
+    packet.position = position;
+    packet.zero20 = 0;
+    packet.speed = (func_150ADA68() * 100.0f + 150.0f) * D_800A1300;
+    packet.duration = spawner->duration;
+    packet.durationRange = spawner->durationRange;
+    packet.color = spawner->color;
+    result = func_151491F4(func_150ADA68() * 70.0f + 30.0f, -1, 0xF, 1, 0xB, 0x44, 0xFF, 1);
+    if (result != NULL) {
+        func_10022EC0((u8 *)result + 0x28, &packet, sizeof(packet));
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E68B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E68B0.s")
 typedef struct Game113D60Emission {
     f32 x, y, amplitudeX, amplitudeY;

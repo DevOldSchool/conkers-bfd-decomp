@@ -87,7 +87,7 @@ void func_1510D874(s32, s32, s32, s32, s32);
 extern u8 D_1C0[], D_2C1[];
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C4E9C CURRENT (1000) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C4E9C CURRENT (300) */
 void func_150C4E9C(u8 *arg0) {
     u8 *resource;
     s32 limit;
@@ -108,8 +108,8 @@ void func_150C4E9C(u8 *arg0) {
         *(GameF21D0ScrollState **)(arg0 + 0x7C) = state;
         func_1511A410(*(s8 **)(arg0 + 0x1C), (s32 *)state);
         state->initialPhase = *(s16 *)(*(u8 **)(arg0 + 0x28) + 0xA);
-        state->speed = 0.0f;
-        state->remainder = 0.0f;
+        state->speed = 0;
+        state->remainder = 0;
     } else {
         state = initialState;
     }
@@ -119,8 +119,8 @@ void func_150C4E9C(u8 *arg0) {
         resource = D_1C0;
     }
     if (mode == 0 || mode == 3) {
-        state->speed = 0.0f;
-        state->remainder = 0.0f;
+        state->speed = 0;
+        state->remainder = 0;
     } else if (mode == 2) {
         if (state->speed < 300.0f) {
             state->speed = state->speed + 25.0f * (f32)D_800BE9E4;
@@ -132,7 +132,7 @@ void func_150C4E9C(u8 *arg0) {
             state->speed = state->speed - 25.0f * (f32)D_800BE9E4;
         } else {
             state->speed = 100.0f;
-            mode = *(s16 *)(*(u8 **)((D_800BE9C0 * 4 + arg0) + 0x20) + 0xA) % 1024;
+            mode = *(s16 *)(((u8 **)(arg0 + 0x20))[D_800BE9C0] + 0xA) % 1024;
             while (mode < 0) {
                 mode += 1024;
             }
@@ -148,24 +148,24 @@ void func_150C4E9C(u8 *arg0) {
         }
     }
     if (state->speed != 0.0f) {
-        index = 0;
         offset = 0;
+        index = 0;
         if (*(u16 *)(arg0 + 0x16) > 0) {
             do {
                 index++;
-                vertex = *(u8 **)((D_800BE9C0 * 4 + arg0) + 0x20) + offset;
+                vertex = ((u8 **)(arg0 + 0x20))[D_800BE9C0] + offset;
                 offset += 0x10;
                 *(s16 *)(vertex + 0xA) = (s32)((f32)*(s16 *)(vertex + 0xA) - state->speed);
             } while (index < *(u16 *)(arg0 + 0x16));
         }
     }
-    if (*(s16 *)(*(u8 **)((D_800BE9C0 * 4 + arg0) + 0x20) + 0xA) < -0x2800) {
-        index = 0;
+    if (*(s16 *)(((u8 **)(arg0 + 0x20))[D_800BE9C0] + 0xA) < -0x2800) {
         offset = 0;
+        index = 0;
         if (*(u16 *)(arg0 + 0x16) > 0) {
             do {
                 index++;
-                vertex = *(u8 **)((D_800BE9C0 * 4 + arg0) + 0x20) + offset;
+                vertex = ((u8 **)(arg0 + 0x20))[D_800BE9C0] + offset;
                 offset += 0x10;
                 *(s16 *)(vertex + 0xA) += 0x2800;
             } while (index < *(u16 *)(arg0 + 0x16));

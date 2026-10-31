@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15013000
  * - func_150130B4
- * - func_150139AC
  * - func_15013DE8
  * - func_15014094
  * - func_15014B60
@@ -86,7 +85,7 @@ s32 func_1501374C(u8 *arg0) {
 void *func_10022EC0(void *, const void *, u32);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_150A8050(f32 *, f32, f32, f32);
-void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
+s32 func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
 extern u8 D_1000EF40[];
 extern f32 D_80096640;
 extern f32 D_80096644;
@@ -150,7 +149,120 @@ s32 func_1501396C(u8 *arg0) {
     }
     return 1;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150139AC.s")
+void func_1510F800(s32);
+typedef struct Game40490EmitterEntry {
+    f32 field0;
+    f32 field4[4];
+    s16 field14;
+    s16 field16;
+    f32 field18;
+    f32 field1C;
+    f32 field20[4];
+    u8 field30;
+    u8 field31;
+    u8 field32;
+    u8 hasSound;
+    u8 hasRegion;
+    u8 pad35[3];
+} Game40490EmitterEntry;
+
+typedef struct Game40490EmitterPacket {
+    void *object;
+    f32 scale;
+    f32 field8;
+    f32 zeroC;
+    f32 range;
+    f32 field14[4];
+    s16 field24;
+    s16 field26;
+    f32 field28;
+    f32 field2C;
+    f32 field30[4];
+    u8 field40;
+    u8 field41;
+    u8 field42;
+    u8 pad43;
+    s16 sound;
+    u8 pad46[2];
+    f32 constant48;
+    u8 pad4C[0x14];
+    s32 zero60;
+    s8 zero64;
+    s8 zero65;
+    u8 pad66[2];
+    s32 zero68;
+    s32 region;
+} Game40490EmitterPacket;
+
+extern Game40490EmitterEntry D_80095FA0[];
+extern f32 D_80096648;
+extern f32 D_8009664C;
+s32 func_1510FD20();
+
+s32 func_150139AC(u8 *arg0) {
+    Game40490EmitterPacket packet;
+    Game40490EmitterEntry *entry;
+    s32 index;
+
+    index = *(s32 *)(arg0 + 0x18);
+    arg0[0x16] |= 4;
+    packet.object = arg0;
+    packet.zeroC = 0.0f;
+    switch (arg0[0x15] & 3) {
+    default:
+        packet.scale = 1.0f;
+        packet.range = 1000.0f;
+        break;
+    case 2:
+        packet.scale = (f32)(*(s16 *)(arg0 + 0xA) * *(s16 *)(arg0 + 6)) * 4.0f;
+        packet.range = (f32)(*(s16 *)(arg0 + 8) + *(s16 *)(arg0 + 2));
+        break;
+    case 0:
+    case 1:
+        packet.scale = (f32)(*(s16 *)(arg0 + 6) * *(s16 *)(arg0 + 6)) * D_80096648;
+        packet.range = (f32)(*(s16 *)(arg0 + 8) + *(s16 *)(arg0 + 2));
+        break;
+    }
+    entry = &D_80095FA0[index];
+    packet.field14[0] = entry->field4[0];
+    packet.field14[1] = entry->field4[1];
+    packet.field14[2] = entry->field4[2];
+    packet.field14[3] = entry->field4[3];
+    packet.field28 = entry->field18;
+    packet.field2C = entry->field1C;
+    packet.zero60 = 0;
+    packet.zero64 = 0;
+    packet.zero65 = 0;
+    packet.zero68 = 0;
+    packet.field24 = entry->field14;
+    packet.field26 = entry->field16;
+    packet.field30[0] = entry->field20[0];
+    packet.field30[1] = entry->field20[1];
+    packet.field30[2] = entry->field20[2];
+    packet.field30[3] = entry->field20[3];
+    packet.field8 = entry->field0;
+    packet.field40 = entry->field30;
+    packet.field41 = entry->field31;
+    packet.field42 = entry->field32;
+    packet.constant48 = D_8009664C;
+    if (entry->hasRegion != 0) {
+        func_1510F800(0);
+        packet.region = func_1510FD20(*(s16 *)(arg0 + 0), *(s16 *)(arg0 + 4));
+    } else {
+        packet.region = 0;
+    }
+    if (entry->hasSound != 0) {
+        packet.sound = func_1000FA64(0x4D, *(s16 *)(arg0 + 0), *(s16 *)(arg0 + 2), *(s16 *)(arg0 + 4),
+                                     0x5DC0, 0x3E8, 0x12C, NULL, 0, 0, 0, 0);
+    } else {
+        packet.sound = 0;
+    }
+    entry = func_151491F4(0x12C, -1, 6, 0, 0xA, 0x70, 0xFF, 0);
+    if (entry != NULL) {
+        func_10022EC0((u8 *)entry + 0x28, &packet, sizeof(packet));
+    }
+    return 1;
+}
 typedef struct Game40490CallbackState {
     u8 pad0[0x16];
     u8 flags;
@@ -345,7 +457,7 @@ s32 func_1501407C(s32 arg0) {
 }
 f32 func_15144598();
 extern void func_1510F800(s32 arg0);
-extern s32 func_1510FD20(s16 arg0, s16 arg1, void *arg2);
+extern s32 func_1510FD20();
 void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15014094 CURRENT (1394) */
@@ -669,7 +781,7 @@ s32 func_150150A4(s32 arg0) {
 }
 void *func_10022EC0(void *, const void *, u32);
 void func_1510F800(s32);
-s32 func_1510FD20(s16, s16, void *);
+s32 func_1510FD20();
 
 typedef struct Game40490SpawnPacket {
     void *object;

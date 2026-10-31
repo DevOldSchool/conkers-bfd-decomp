@@ -6,14 +6,131 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_extended.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150CCEB0
  * - func_150CD59C
  * - func_150CD7F8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FA360/func_150CCEB0.s")
+typedef struct GameFA360BurstExtent {
+    f32 values[2];
+} GameFA360BurstExtent;
+
+typedef struct GameFA360BurstConfig {
+    Vec3f position;
+    Vec3f velocity;
+    f32 spin;
+    f32 drag;
+    u8 color[3];
+    u8 field23;
+    s32 life;
+    GameFA360BurstExtent extent;
+    f32 gravity;
+} GameFA360BurstConfig;
+
+typedef struct GameFA360BurstPacket {
+    s8 kind;
+    u8 pad1;
+    s16 flags;
+    s16 life;
+    u8 pad6[2];
+    s32 field8;
+    s32 fieldC;
+    u8 color[4];
+    GameFA360BurstExtent extent;
+    Vec3f position;
+    Vec3f rotation;
+    Vec3f scale;
+    s32 mode;
+    u8 field44;
+    u8 field45;
+    u8 field46;
+    u8 field47;
+    u8 pad48[0x10];
+} GameFA360BurstPacket;
+
+typedef struct GameFA360BurstMotion {
+    Vec3f velocity;
+    f32 drag;
+    f32 spin;
+    f32 field14;
+    f32 field18;
+    f32 field1C;
+    f32 field20;
+    f32 field24;
+    f32 field28;
+    f32 field2C;
+    f32 field30;
+    f32 field34;
+    f32 field38;
+    f32 gravity;
+} GameFA360BurstMotion;
+
+void *func_10022EC0(void *, const void *, u32);
+f32 func_150ADA68(void);
+void *func_1513D524(s32, u8, u8, u8, u8, u8, s32, u8, s32);
+extern f32 D_800A0710;
+extern f32 D_800A0714;
+extern f32 D_800A0718;
+extern f32 D_800A071C;
+extern f32 D_800A0720;
+extern f32 D_800A0724;
+extern f32 D_800A0728;
+extern f32 D_800A072C;
+extern f32 D_800A0730;
+extern f32 D_800A0734;
+extern f32 D_800A0738;
+extern f32 D_800A073C;
+extern f32 D_800A0740;
+extern f32 D_800A0744;
+extern f32 D_800A0748;
+
+void *func_150CCEB0(GameFA360BurstConfig *arg0, u8 arg1, u8 arg2) {
+    void *result;
+    GameFA360BurstPacket packet;
+    GameFA360BurstMotion motion;
+
+    packet.kind = 0x57;
+    packet.flags = 0x2D03;
+    packet.life = arg0->life;
+    packet.field8 = 0;
+    packet.fieldC = 0;
+    packet.color[0] = arg0->color[0];
+    packet.color[1] = arg0->color[1];
+    packet.color[2] = arg0->color[2];
+    packet.color[3] = 0xFF;
+    packet.extent = arg0->extent;
+    packet.position = arg0->position;
+    packet.rotation.x = func_150ADA68() * 360.0f;
+    packet.rotation.y = func_150ADA68() * 360.0f;
+    packet.rotation.z = func_150ADA68() * 360.0f;
+    packet.mode = 0xC03E1;
+    packet.scale.x = 0.0f;
+    packet.scale.y = 0.0f;
+    packet.scale.z = 0.0f;
+    packet.field44 = arg0->field23;
+    packet.field45 = 0xFF;
+    packet.field46 = 0;
+    packet.field47 = 6;
+    motion.velocity = arg0->velocity;
+    motion.gravity = arg0->gravity;
+    motion.spin = arg0->spin;
+    motion.drag = arg0->drag;
+    motion.field14 = (func_150ADA68() * D_800A0710 + D_800A0714) * D_800A0718;
+    motion.field18 = (func_150ADA68() * D_800A071C + D_800A0720) * D_800A0724;
+    motion.field1C = (func_150ADA68() * D_800A0728 + D_800A072C) * D_800A0730;
+    motion.field24 = 0.0f;
+    motion.field28 = (func_150ADA68() * 206.0f + 58.0f) * D_800A0734;
+    motion.field2C = func_150ADA68() * 360.0f;
+    motion.field30 = 0.0f;
+    motion.field34 = func_150ADA68() * D_800A0738 * D_800A073C;
+    motion.field38 = (func_150ADA68() * D_800A0740 + D_800A0744) * D_800A0748;
+    result = func_1513D524((s32)&packet, 0x13, 0x1E, 0, 0x11, 0, 0x40, arg1, arg2);
+    if (result != NULL) {
+        func_10022EC0((u8 *)result + 0x110, &motion, sizeof(motion));
+    }
+    return result;
+}
 typedef struct GameFA360Drift {
     f32 vx;
     f32 vy;

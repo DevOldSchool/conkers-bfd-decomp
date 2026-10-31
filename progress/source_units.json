@@ -2684,15 +2684,15 @@
       "functions": [
         "func_1500EF20"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xF210",
           "start": "0xEF20",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_3C3D0.c"
+      "source": "src/done/game/game_3C3D0.c"
     },
     {
       "boundary_evidence": {

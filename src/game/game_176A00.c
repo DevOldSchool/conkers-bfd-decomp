@@ -6,14 +6,173 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_extended.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15149550
  * - func_15149838
  * - func_15149A94
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_176A00/func_15149550.s")
+typedef struct Game176A00SparkConfig {
+    Vec3f position;
+    f32 fieldC;
+    f32 field10;
+    f32 field14;
+    f32 field18;
+    f32 field1C;
+    s16 field20;
+    s16 field22;
+    s16 life;
+    u8 color[4];
+    u16 mode;
+    u8 field2C;
+    u8 field2D;
+    u8 field2E;
+    u8 field2F;
+    s32 field30;
+    u8 field34;
+    u8 pad35[3];
+    f32 field38;
+    f32 field3C;
+    f32 field40;
+    f32 field44;
+} Game176A00SparkConfig;
+
+typedef struct Game176A00SparkPacket {
+    s8 kind;
+    u8 pad1;
+    s16 flags;
+    s16 life;
+    u8 pad6[2];
+    s32 field8;
+    s32 fieldC;
+    u8 color[4];
+    f32 field14;
+    f32 field18;
+    Vec3f position;
+    Vec3f direction;
+    Vec3f scale;
+    s32 mode;
+    u8 field44;
+    u8 field45;
+    u8 pad46[2];
+    s32 region;
+    u8 pad4C[0x10];
+} Game176A00SparkPacket;
+
+typedef struct Game176A00SparkMotion {
+    f32 field0;
+    f32 field4;
+    f32 field8;
+    s16 fieldC;
+    s16 fieldE;
+    f32 field10;
+    f32 field14;
+    f32 field18;
+    f32 field1C;
+    f32 field20;
+    s16 field24;
+    s16 field26;
+    f32 field28;
+    s32 field2C;
+    s32 field30;
+    s32 field34;
+    s16 field38;
+    s16 field3A;
+    f32 field3C;
+    f32 field40;
+    f32 field44;
+    u8 field48;
+    u8 pad49[3];
+    f32 field4C;
+} Game176A00SparkMotion;
+
+void *func_10022EC0(void *, const void *, u32);
+void func_1510F800(s32);
+s32 func_1510FD20(s32, s32);
+void *func_1513D524(s32, u8, u8, u8, u8, u8, s32, u8, s32);
+extern f32 D_800A5780;
+extern f32 D_800A5784;
+extern f32 D_800A5788;
+
+void *func_15149550(Game176A00SparkConfig *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, s32 arg5) {
+    Game176A00SparkPacket packet;
+    Game176A00SparkMotion motion;
+    void *result;
+
+    packet.mode = arg0->mode | 0x40000000;
+    packet.position = arg0->position;
+    if (arg2) {
+        packet.mode |= 0x01000000;
+        func_1510F800(0);
+        packet.region = func_1510FD20(packet.position.x, packet.position.z);
+    } else {
+        packet.mode &= ~0x01000000;
+        packet.region = 0;
+    }
+    switch (arg3) {
+    case 1:
+        packet.kind = 0x13;
+        break;
+    case 2:
+        packet.kind = 0x71;
+        break;
+    case 0:
+    default:
+        if (func_150ADA20() & 1) {
+            packet.kind = 0x13;
+        } else {
+            packet.kind = 0x14;
+        }
+        break;
+    }
+    packet.flags = 0x301;
+    packet.life = arg0->life;
+    packet.color[0] = arg0->color[0];
+    packet.color[1] = arg0->color[1];
+    packet.color[2] = arg0->color[2];
+    packet.color[3] = arg0->color[3];
+    packet.field44 = arg0->field2C;
+    packet.field45 = arg0->field2D;
+    packet.direction.x = 0.0f;
+    packet.direction.y = 0.0f;
+    packet.direction.z = 0.0f;
+    packet.scale.x = arg0->field38;
+    packet.scale.y = 0.0f;
+    packet.scale.z = 1.0f;
+    motion.field0 = arg0->fieldC;
+    motion.field4 = arg0->field14;
+    motion.field8 = (motion.field0 + motion.field4) * 0.5f;
+    motion.fieldC = 0;
+    motion.fieldE = 6;
+    motion.field10 = D_800A5780;
+    motion.field14 = arg0->field10;
+    motion.field18 = arg0->field18;
+    motion.field1C = arg0->field1C;
+    motion.field20 = (motion.field14 + motion.field18) * 0.5f;
+    motion.field24 = 0;
+    motion.field26 = 0x11;
+    motion.field28 = D_800A5784;
+    motion.field2C = arg0->field20;
+    motion.field30 = arg0->field22;
+    motion.field34 = 0;
+    motion.field38 = 0;
+    motion.field3A = 0xF;
+    motion.field3C = D_800A5788;
+    motion.field40 = arg0->field40;
+    motion.field44 = arg0->field44;
+    packet.field8 = 0;
+    packet.fieldC = (motion.field2C + motion.field30) >> 1;
+    packet.field14 = 0.0f;
+    packet.field18 = 0.0f;
+    motion.field48 = arg0->field34;
+    motion.field4C = arg0->field3C;
+    result = func_1513D524((s32)&packet, arg0->field2E, 0xE, arg0->field2F, arg1, ((func_150ADA20() & 1) ? 1 : 0) | 2,
+                           arg0->field30 + 0x50, arg4, arg5);
+    if (result != NULL) {
+        func_10022EC0((u8 *)result + 0x110, &motion, sizeof(motion));
+    }
+    return result;
+}
 typedef struct Game176A00Motion {
     f32 maxA, minA, targetA;
     volatile s16 timerA;

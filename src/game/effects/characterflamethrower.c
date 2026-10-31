@@ -1071,6 +1071,176 @@ void func_15198054(CharacterFlamethrowerActor *actor, CharacterFlamethrowerEvent
         }
     }
 }
+typedef struct CharacterFlamethrowerFlamePoint {
+    Vec3f position;
+    Vec3f origin;
+    f32 radius;
+    u8 pad1C[5];
+    u8 emitted;
+    u8 pad22[2];
+} CharacterFlamethrowerFlamePoint;
+
+typedef struct CharacterFlamethrowerFlameStyle {
+    f32 width;
+    f32 height;
+    s16 life;
+    s16 lifeRange;
+} CharacterFlamethrowerFlameStyle;
+
+typedef struct CharacterFlamethrowerFlamePacket {
+    s8 kind;
+    u8 pad1;
+    s16 flags;
+    s16 life;
+    u8 pad6[2];
+    s32 field8;
+    s32 fieldC;
+    u8 color[4];
+    f32 field14;
+    f32 field18;
+    Vec3f start;
+    Vec3f end;
+    Vec3f scale;
+    s32 mode;
+    u8 field44;
+    u8 field45;
+    u8 pad46[0x12];
+} CharacterFlamethrowerFlamePacket;
+
+typedef struct CharacterFlamethrowerFlameMotion {
+    f32 field0;
+    f32 field4;
+    f32 field8;
+    f32 fieldC;
+    f32 field10;
+    f32 field14;
+    f32 field18;
+    s16 field1C;
+    s16 field1E;
+    f32 field20;
+    f32 field24;
+    u8 pad28[4];
+    s16 field2C;
+    u8 pad2E[2];
+    Vec3f end;
+    Vec3f start;
+    f32 field48;
+    f32 field4C;
+    f32 field50;
+    f32 field54;
+    s16 field58;
+    s16 field5A;
+} CharacterFlamethrowerFlameMotion;
+
+void *func_1513D524(s32, u8, u8, u8, u8, u8, s32, u8, s32);
+extern CharacterFlamethrowerFlameStyle D_800A8710[];
+extern f32 D_800A8AB0;
+extern f32 D_800A8AB4;
+extern f32 D_800A8AB8;
+extern f32 D_800A8ABC;
+extern f32 D_800A8AC0;
+extern f32 D_800A8AC4;
+extern f32 D_800A8AC8;
+extern f32 D_800A8ACC;
+extern f32 D_800A8AD0;
+extern f32 D_800A8AD4;
+extern f32 D_800A8AD8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15198110 CURRENT (8109) */
+void func_15198110(CharacterFlamethrowerActor *arg0, s32 arg1) {
+    u8 *state;
+    CharacterFlamethrowerFlamePoint *points;
+    CharacterFlamethrowerFlamePoint *current;
+    CharacterFlamethrowerFlameStyle *style;
+    CharacterFlamethrowerFlamePacket packet;
+    CharacterFlamethrowerFlameMotion motion;
+    CharacterFlamethrowerFlamePoint *next;
+    s32 nextIndex;
+    u8 angleA;
+    u8 angleB;
+    f32 cosA;
+    f32 sinA;
+    f32 cosB;
+    f32 sinB;
+    f32 radius;
+    void *result;
+
+    state = (u8 *)arg0->state;
+    points = arg0->points;
+    *(f32 *)(state + 0x70) += *(f32 *)(state + 0x6C);
+    current = &points[arg1];
+    current->emitted = 1;
+    style = &D_800A8710[state[0x69]];
+    nextIndex = arg1 + 1;
+    if (nextIndex == arg0->point_capacity) {
+        nextIndex = 0;
+    }
+    if (*(f32 *)(state + 0x70) > 1.0f && nextIndex != arg0->point_end) {
+        packet.field8 = 0;
+        motion.field20 = D_800A8AB0;
+        motion.field24 = D_800A8AB4;
+        motion.field2C = 0;
+        packet.fieldC = (motion.field20 + motion.field24) * 0.5f;
+        motion.field58 = 8;
+        motion.field5A = 0x20;
+        motion.field4C = D_800A8AB8;
+        motion.field50 = D_800A8ABC;
+        motion.field54 = D_800A8AC0;
+        motion.field48 = *(f32 *)(state + 0x40);
+        motion.field0 = style->width * D_800A8AC4;
+        motion.field4 = style->width * D_800A8AC8;
+        motion.field1C = 0;
+        packet.field14 = (motion.field0 + motion.field4) * 0.5f;
+        motion.field8 = packet.field14;
+        motion.fieldC = style->height * D_800A8ACC;
+        motion.field10 = style->height * D_800A8AD0;
+        motion.field14 = style->height * D_800A8AD4;
+        motion.field1E = 0;
+        packet.scale.x = 1.0f;
+        packet.scale.z = 1.0f;
+        packet.mode = 0x40000001;
+        packet.field44 = 0xFF;
+        packet.field45 = 0xFF;
+        packet.scale.y = 0.0f;
+        packet.field18 = (motion.fieldC + motion.field10) * 0.5f;
+        motion.field18 = packet.field18;
+        if (func_150ADA20() & 1) {
+            packet.kind = 0x13;
+        } else {
+            packet.kind = 0x14;
+        }
+        packet.color[0] = 0;
+        packet.color[1] = 0;
+        packet.color[2] = 0;
+        packet.color[3] = 0x68;
+        packet.flags = 0x301;
+        next = &points[nextIndex];
+        motion.end = next->origin;
+        motion.start = current->origin;
+        do {
+            angleA = func_150ADA20();
+            angleB = func_150ADA20();
+            cosA = func_151423D8(angleA - 0x40);
+            sinA = func_151423D8(angleA);
+            cosB = func_151423D8(angleB - 0x40);
+            sinB = func_151423D8(angleB);
+            radius = next->radius * D_800A8AD8;
+            packet.life = func_150ADA20() % (style->lifeRange + 1) + style->life;
+            packet.start.x = next->position.x + radius * sinB * cosA;
+            packet.start.y = next->position.y + -radius * cosB;
+            packet.start.z = next->position.z + radius * sinB * sinA;
+            packet.end.x = current->position.x + radius * sinB * cosA;
+            packet.end.y = current->position.y + -radius * cosB;
+            packet.end.z = current->position.z + radius * sinB * sinA;
+            result = func_1513D524((s32)&packet, 0xA, 0xB, 0, 9, ((func_150ADA20() & 1) ? 1 : 0) | 2, 0x5C, 0xFF, 0);
+            if (result != NULL) {
+                func_10022EC0((u8 *)result + 0x110, &motion, sizeof(motion));
+            }
+            *(f32 *)(state + 0x70) -= 1.0f;
+        } while (*(f32 *)(state + 0x70) > 1.0f);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15198110 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15198110.s")
 
 typedef struct CharacterFlamethrowerPoint {
