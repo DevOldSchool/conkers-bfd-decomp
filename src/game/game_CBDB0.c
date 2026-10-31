@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_CBDB0.c
@@ -6,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1509E900
- * - func_1509ED74
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -35,8 +35,7 @@ typedef struct GameCBDB0Actor {
 } GameCBDB0Actor;
 
 typedef struct GameCBDB0Query {
-    u8 pad0[8];
-    s32 value;
+    s32 args[3];
 } GameCBDB0Query;
 
 s32 func_15084000(s32);
@@ -44,13 +43,12 @@ s32 func_151140C4(GameCBDB0Object *);
 s32 func_15114050(GameCBDB0Object *, s32);
 extern GameCBDB0Actor D_800CC2D0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509ED74 CURRENT (20) */
 s32 func_1509ED74(s32 arg0, s32 arg1, GameCBDB0Query *arg2) {
     GameCBDB0Object *object;
     s32 i;
     s32 result;
 
-    object = (GameCBDB0Object *)func_151149AC(arg0 & 0xFF);
+    object = func_151149AC(arg0);
     if (object == NULL) {
         return 0;
     }
@@ -58,10 +56,10 @@ s32 func_1509ED74(s32 arg0, s32 arg1, GameCBDB0Query *arg2) {
     case 19:
         return func_15114050(object, -1);
     case 20:
-        return func_15114050(object, func_15084000(arg2->value & 0xFFFF0FFF));
+        return func_15114050(object, func_15084000(arg2->args[2] & 0xFFFF0FFF));
     case 21:
         for (i = 0; i < 25; i++) {
-            if (arg2->value == D_800CC2D0[i].id && func_15114050(object, i) != 0) {
+            if (D_800CC2D0[i].id == arg2->args[2] && func_15114050(object, i) != 0) {
                 return 1;
             }
         }
@@ -99,24 +97,24 @@ s32 func_1509ED74(s32 arg0, s32 arg1, GameCBDB0Query *arg2) {
     case 32:
         return object->x;
     case 33:
-        if (arg2->value == 0) {
+        if (arg2->args[2] == 0) {
             return object->values[0];
         }
-        if (arg2->value == 1) {
+        if (arg2->args[2] == 1) {
             return object->values[1];
         }
-        if (arg2->value == 2) {
+        if (arg2->args[2] == 2) {
             return object->values[2];
         }
         break;
     case 34:
-        if (arg2->value == 0) {
+        if (arg2->args[2] == 0) {
             return *(f32 *)&object->values[0];
         }
-        if (arg2->value == 1) {
+        if (arg2->args[2] == 1) {
             return *(f32 *)&object->values[1];
         }
-        if (arg2->value == 2) {
+        if (arg2->args[2] == 2) {
             return *(f32 *)&object->values[2];
         }
         break;
@@ -125,5 +123,3 @@ s32 func_1509ED74(s32 arg0, s32 arg1, GameCBDB0Query *arg2) {
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509ED74 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CBDB0/func_1509ED74.s")

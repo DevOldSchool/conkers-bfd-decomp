@@ -344,6 +344,8 @@ SECTIONS
     .game_rodata_b21b0 0x8009D9A0 (INFO) : SUBALIGN(4) { *game_B21B0.o(.rodata) }
     /* Seven mode targets: docs/evidence/data-layout/game_cbbe0_jump_table.md. */
     .game_rodata_cbbe0 0x8009F3D0 (INFO) : SUBALIGN(4) { *game_CBBE0.o(.rodata) }
+    /* Seventeen query targets: docs/evidence/data-layout/game_cbdb0_jump_table.md. */
+    .game_rodata_cbdb0 0x8009F43C (INFO) : SUBALIGN(4) { *game_CBDB0.o(.rodata) }
     /* Pending actor actions: docs/evidence/data-layout/game_90840_jump_table.md. */
     .game_rodata_90840 0x800996D8 (INFO) : SUBALIGN(4) { *game_90840.o(.rodata) }
     /* Sound-event switch: docs/evidence/data-layout/game_1483e0_jump_table.md. */
@@ -459,6 +461,8 @@ ASSERT(SIZEOF(.game_rodata_b21b0) == 0x20, "game_B21B0 table extent changed")
 __game_rodata_b21b0_payload_size = 0x1C;
 ASSERT(SIZEOF(.game_rodata_cbbe0) == 0x20, "game_CBBE0 table extent changed")
 __game_rodata_cbbe0_payload_size = 0x1C;
+ASSERT(SIZEOF(.game_rodata_cbdb0) == 0x50, "game_CBDB0 table extent changed")
+__game_rodata_cbdb0_payload_size = 0x44;
 
 ASSERT(SIZEOF(.game_rodata_981e0) == 0xF0,
        "game_981E0 constructor literal pool extent changed")

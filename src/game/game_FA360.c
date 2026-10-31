@@ -12,23 +12,24 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-typedef struct GameFA360BurstExtent {
-    f32 values[2];
-} GameFA360BurstExtent;
+typedef struct GameFA360Range {
+    f32 low;
+    f32 high;
+} GameFA360Range;
 
-typedef struct GameFA360BurstConfig {
+typedef struct GameFA360Emitter {
     Vec3f position;
     Vec3f velocity;
-    f32 spin;
     f32 drag;
-    u8 color[3];
-    u8 field23;
-    s32 life;
-    GameFA360BurstExtent extent;
     f32 gravity;
-} GameFA360BurstConfig;
+    u8 color[3];
+    u8 alpha;
+    s32 life;
+    GameFA360Range range;
+    f32 minVy;
+} GameFA360Emitter;
 
-typedef struct GameFA360BurstPacket {
+typedef struct GameFA360Packet {
     s8 kind;
     u8 pad1;
     s16 flags;
@@ -37,9 +38,9 @@ typedef struct GameFA360BurstPacket {
     s32 field8;
     s32 fieldC;
     u8 color[4];
-    GameFA360BurstExtent extent;
+    GameFA360Range range;
     Vec3f position;
-    Vec3f rotation;
+    Vec3f direction;
     Vec3f scale;
     s32 mode;
     u8 field44;
@@ -47,24 +48,24 @@ typedef struct GameFA360BurstPacket {
     u8 field46;
     u8 field47;
     u8 pad48[0x10];
-} GameFA360BurstPacket;
+} GameFA360Packet;
 
-typedef struct GameFA360BurstMotion {
+typedef struct GameFA360DriftInit {
     Vec3f velocity;
-    f32 drag;
-    f32 spin;
-    f32 field14;
-    f32 field18;
-    f32 field1C;
-    f32 field20;
-    f32 field24;
-    f32 field28;
-    f32 field2C;
-    f32 field30;
-    f32 field34;
-    f32 field38;
     f32 gravity;
-} GameFA360BurstMotion;
+    f32 drag;
+    f32 offsetX;
+    f32 offsetY;
+    f32 offsetZ;
+    u8 pad20[4];
+    f32 swayAngle;
+    f32 swaySpeed;
+    f32 swayRadius;
+    f32 phase;
+    f32 phaseSpeed;
+    f32 phaseScale;
+    f32 minVy;
+} GameFA360DriftInit;
 
 void *func_10022EC0(void *, const void *, u32);
 f32 func_150ADA68(void);
@@ -85,10 +86,10 @@ extern f32 D_800A0740;
 extern f32 D_800A0744;
 extern f32 D_800A0748;
 
-void *func_150CCEB0(GameFA360BurstConfig *arg0, u8 arg1, u8 arg2) {
+void *func_150CCEB0(GameFA360Emitter *arg0, u8 arg1, u8 arg2) {
     void *result;
-    GameFA360BurstPacket packet;
-    GameFA360BurstMotion motion;
+    GameFA360Packet packet;
+    GameFA360DriftInit drift;
 
     packet.kind = 0x57;
     packet.flags = 0x2D03;
@@ -99,35 +100,35 @@ void *func_150CCEB0(GameFA360BurstConfig *arg0, u8 arg1, u8 arg2) {
     packet.color[1] = arg0->color[1];
     packet.color[2] = arg0->color[2];
     packet.color[3] = 0xFF;
-    packet.extent = arg0->extent;
+    packet.range = arg0->range;
     packet.position = arg0->position;
-    packet.rotation.x = func_150ADA68() * 360.0f;
-    packet.rotation.y = func_150ADA68() * 360.0f;
-    packet.rotation.z = func_150ADA68() * 360.0f;
+    packet.direction.x = func_150ADA68() * 360.0f;
+    packet.direction.y = func_150ADA68() * 360.0f;
+    packet.direction.z = func_150ADA68() * 360.0f;
     packet.mode = 0xC03E1;
     packet.scale.x = 0.0f;
     packet.scale.y = 0.0f;
     packet.scale.z = 0.0f;
-    packet.field44 = arg0->field23;
+    packet.field44 = arg0->alpha;
     packet.field45 = 0xFF;
     packet.field46 = 0;
     packet.field47 = 6;
-    motion.velocity = arg0->velocity;
-    motion.gravity = arg0->gravity;
-    motion.spin = arg0->spin;
-    motion.drag = arg0->drag;
-    motion.field14 = (func_150ADA68() * D_800A0710 + D_800A0714) * D_800A0718;
-    motion.field18 = (func_150ADA68() * D_800A071C + D_800A0720) * D_800A0724;
-    motion.field1C = (func_150ADA68() * D_800A0728 + D_800A072C) * D_800A0730;
-    motion.field24 = 0.0f;
-    motion.field28 = (func_150ADA68() * 206.0f + 58.0f) * D_800A0734;
-    motion.field2C = func_150ADA68() * 360.0f;
-    motion.field30 = 0.0f;
-    motion.field34 = func_150ADA68() * D_800A0738 * D_800A073C;
-    motion.field38 = (func_150ADA68() * D_800A0740 + D_800A0744) * D_800A0748;
+    drift.velocity = arg0->velocity;
+    drift.minVy = arg0->minVy;
+    drift.drag = arg0->drag;
+    drift.gravity = arg0->gravity;
+    drift.offsetX = (func_150ADA68() * D_800A0710 + D_800A0714) * D_800A0718;
+    drift.offsetY = (func_150ADA68() * D_800A071C + D_800A0720) * D_800A0724;
+    drift.offsetZ = (func_150ADA68() * D_800A0728 + D_800A072C) * D_800A0730;
+    drift.swayAngle = 0.0f;
+    drift.swaySpeed = (func_150ADA68() * 206.0f + 58.0f) * D_800A0734;
+    drift.swayRadius = func_150ADA68() * 360.0f;
+    drift.phase = 0.0f;
+    drift.phaseSpeed = func_150ADA68() * D_800A0738 * D_800A073C;
+    drift.phaseScale = (func_150ADA68() * D_800A0740 + D_800A0744) * D_800A0748;
     result = func_1513D524((s32)&packet, 0x13, 0x1E, 0, 0x11, 0, 0x40, arg1, arg2);
     if (result != NULL) {
-        func_10022EC0((u8 *)result + 0x110, &motion, sizeof(motion));
+        func_10022EC0((u8 *)result + 0x110, &drift, 0x40);
     }
     return result;
 }
