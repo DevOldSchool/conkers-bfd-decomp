@@ -6,14 +6,12 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_actor_classification_emitter.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150E68B0
  * - func_150E6B84
  * - func_150E6FAC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E68B0.s")
 typedef struct Game113D60Emission {
     f32 x, y, amplitudeX, amplitudeY;
     f32 phaseX, phaseY, speedX, speedY;
@@ -30,6 +28,90 @@ typedef struct Game113D60Effect {
     u8 padD[0x1B];
     Game113D60Emission emission;
 } Game113D60Effect;
+
+typedef struct Game113D60Source {
+    f32 chance;
+    s8 start;
+    s8 end;
+    s8 motion;
+    u8 pad7;
+    s16 duration;
+    s16 durationRange;
+    u8 color;
+    u8 padD[3];
+} Game113D60Source;
+
+typedef void (*Game113D60EndCallback)(Vec3f *, s32);
+typedef void (*Game113D60StartCallback)(Vec3f *);
+typedef void (*Game113D60MotionCallback)(Vec3f *, Vec3f *, Vec3f *, Game113D60Emission *);
+
+void *func_10022EC0(void *, const void *, u32);
+extern Game113D60StartCallback D_80088A20[];
+extern Game113D60EndCallback D_80088A2C[];
+extern Game113D60MotionCallback D_80088A34[];
+extern Game113D60Source D_800A1190[];
+extern f32 D_800A12F8;
+extern f32 D_800A12FC;
+extern f32 D_800A1300;
+extern u8 D_800C35E8;
+extern u8 D_800C35EA;
+f32 func_150ADA68();
+
+void func_150E68B0(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
+    Game113D60Source *source;
+    Vec3f end;
+    Vec3f start;
+    Vec3f delta;
+    Game113D60Emission emission;
+    void *result;
+
+    if ((arg0 != 0) && ((D_800C35EA != 1) || (D_800C35E8 != 9))) {
+        source = &D_800A1190[arg3];
+        if ((func_150ADA68() < source->chance) && (source->start != -1)) {
+            if (source->end != -1) {
+                D_80088A2C[source->end](&end, arg0);
+            } else {
+                end.x = 0.0f;
+                end.y = 0.0f;
+                end.z = 0.0f;
+            }
+            if (source->start != -1) {
+                D_80088A20[source->start](&start);
+            } else {
+                start.x = 0.0f;
+                start.y = 0.0f;
+                start.z = 0.0f;
+            }
+            delta.x = end.x - start.x;
+            delta.y = end.y - start.y;
+            delta.z = end.z - start.z;
+            if ((delta.x != 0) || (delta.z != 0)) {
+                if (source->motion != -1) {
+                    D_80088A34[source->motion](&start, &end, &delta, &emission);
+                } else {
+                    emission.x = 0.0f;
+                    emission.amplitudeX = 0.0f;
+                    emission.phaseX = 0.0f;
+                    emission.y = 0.0f;
+                    emission.amplitudeY = 0.0f;
+                    emission.phaseY = 0.0f;
+                }
+                emission.rate = func_150ADA68() * D_800A12F8 + D_800A12FC;
+                emission.remaining = 0.0f;
+                emission.position = start;
+                emission.time = 0.0f;
+                emission.scale = (func_150ADA68() * 100.0f + 150.0f) * D_800A1300;
+                emission.duration = source->duration;
+                emission.durationRange = source->durationRange;
+                emission.color = source->color;
+                result = func_151491F4(func_150ADA68() * 70.0f + 30.0f, -1, 0xF, 1, 0xB, 0x44, 0xFF, 1);
+                if (result != NULL) {
+                    func_10022EC0((u8 *)result + 0x28, &emission, 0x44);
+                }
+            }
+        }
+    }
+}
 
 f32 func_15047D60(f32);
 f32 func_150ADA68();

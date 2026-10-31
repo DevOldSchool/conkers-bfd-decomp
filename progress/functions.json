@@ -6806,13 +6806,18 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 752,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500EF20",
           "vram": "0x1500EF20"
         }
       },
-      "source": "src/game/game_3C3D0.c",
+      "source": "src/done/game/game_3C3D0.c",
       "symbol": "func_1500EF20"
     },
     {
@@ -16478,8 +16483,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 652,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150139AC",
           "vram": "0x150139AC"
         }
@@ -60581,8 +60591,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 724,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150E68B0",
           "vram": "0x150E68B0"
         }
@@ -78805,8 +78820,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 744,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15149550",
           "vram": "0x15149550"
         }
@@ -79120,8 +79140,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 716,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150CCEB0",
           "vram": "0x150CCEB0"
         }
