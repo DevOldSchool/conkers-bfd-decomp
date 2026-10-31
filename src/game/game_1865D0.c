@@ -13,7 +13,6 @@
  * - func_1515A11C
  * - func_1515A238
  * - func_1515A78C
- * - func_1515AB88
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -731,4 +730,107 @@ void func_1515AA84(Game1865D0Arg *arg0, Game1865D0Copy12 *arg1, f32 arg2, s32 ar
         func_10022EC0((u8 *)result + 0x28, &spawn, 0x3C);
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_1515AB88.s")
+typedef struct Game1865D0AB88Descriptor {
+    s32 field00, field04;
+    s16 field08, field0A;
+    s32 field0C, field10;
+    u8 field14, field15, field16, field17;
+    u8 field18, field19, field1A, field1B, field1C, field1D;
+    s16 field1E, field20, field22;
+    f32 field24, scaleY, scaleX;
+    Vec3f position;
+    f32 x3C, y40, z44, x48, y4C, z50, field54;
+    s32 flags, field5C;
+    s8 field60, field61, field62, field63, field64, field65;
+    u8 pad66[10];
+} Game1865D0AB88Descriptor;
+
+typedef struct Game1865D0AB88State {
+    f32 pending;
+    Vec3f position;
+    f32 limit;
+    f32 rateBase, rateRange;
+    f32 sizeBase, sizeRange;
+    f32 rotationBase, rotationRange;
+    f32 speed, damping;
+    u8 alphaBase, alphaRange;
+    u8 color[3];
+} Game1865D0AB88State;
+
+
+void func_1515AB88(void *arg0) {
+    void *result;
+    Game1865D0AB88Descriptor packet;
+    Game1865D0ParticleMotion motion;
+    Game1865D0AB88State *state;
+
+    state = (Game1865D0AB88State *)((u8 *)arg0 + 0x28);
+    state->pending += (state->rateBase + func_150ADA68() * state->rateRange) * D_800BE9A4;
+    if (state->pending > 1.0f) {
+        s32 first;
+
+        motion.phase0 = 0;
+        motion.phase1 = 0;
+        motion.phase2 = 0;
+        motion.phase3 = 0;
+        motion.speed = state->speed;
+        motion.damping = state->damping;
+        motion.limit = state->limit;
+        packet.field1D = 0x2F;
+        packet.field08 = 0x4403;
+        packet.field00 = 0x200005;
+        packet.field04 = 0x9F0600;
+        packet.field0A = 0x12C;
+        packet.field0C = 0;
+        packet.field10 = 0;
+        packet.field18 = 0xFF;
+        packet.field19 = 0xFF;
+        packet.field1A = 0xFF;
+        packet.field17 = 0xFF;
+        packet.field14 = state->color[0];
+        packet.field15 = state->color[1];
+        packet.field16 = state->color[2];
+        packet.field1C = 0xFF;
+        packet.position = state->position;
+        packet.x48 = 0.0f;
+        packet.y4C = 0.0f;
+        packet.z50 = 0.0f;
+        packet.field1E = 1;
+        packet.field20 = 0xFF;
+        packet.field22 = 1;
+        packet.field24 = 1.0f;
+        packet.field60 = 6;
+        packet.field61 = 9;
+        packet.field62 = 4;
+        packet.field63 = -1;
+        packet.field64 = -1;
+        packet.field65 = 0;
+        packet.x3C = 0.0f;
+        packet.y40 = 0.0f;
+        packet.z44 = 0.0f;
+        do {
+            motion.step0 = func_150ADA20() % 5U + 4;
+            motion.step1 = func_150ADA20() % 5U + 4;
+            motion.size = packet.scaleY = packet.scaleX = func_150ADA68() * state->sizeRange + state->sizeBase;
+            motion.amount0 = (func_150ADA68() * 0.25f + 0.15f) * motion.size;
+            motion.amount1 = (func_150ADA68() * 0.25f + 0.15f) * motion.size;
+            motion.step2 = func_150ADA20() % 5U + 4;
+            motion.step3 = func_150ADA20() % 5U + 4;
+            motion.amount2 = (func_150ADA68() * 0.1f + 0.08f) * motion.size;
+            motion.amount3 = (func_150ADA68() * 0.1f + 0.08f) * motion.size;
+            packet.field54 = func_150ADA68() * state->rotationRange + state->rotationBase;
+            packet.field1B = func_150ADA20() % (u32)(state->alphaRange + 1) + state->alphaBase;
+            if (func_150ADA20() & 1) {
+                first = 0x40;
+            } else {
+                first = 0;
+            }
+            packet.flags = ((func_150ADA20() & 1) ? 0x80 : 0) | 6 | first | 0x1000 | 0x2000 | 0x4000 | 0x8000;
+            result = func_15130280(&packet, 2, NULL, 0x28, *((u8 *)arg0 + 0xC), *((u8 *)arg0 + 1));
+            if (result != NULL) {
+                func_10022EC0((u8 *)result + 0xA8, &motion, sizeof(motion));
+            }
+            state->pending -= 1.0f;
+        } while (state->pending > 1.0f);
+    }
+}

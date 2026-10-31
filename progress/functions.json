@@ -3489,6 +3489,12 @@
       "symbol": "func_15198054"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 8109,
+        "reason": "locals/homes match (state, points, current, style first; next after motion); residual: candidate keeps &D_800A8AD8 in s6 and needs s8 (frame 0x188) where raw hoists &packet/&motion into s6/s7; permuter 90s 7217",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -29846,6 +29852,12 @@
       "symbol": "func_150195A0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1285,
+        "reason": "register-only cascade: candidate keeps &D_80082F90 in t1 across the BEAC0 arm (one extra long-lived temp); permuter 370 only via no-op 'if (!D_80082F90 && !D_80082F90) {}' fake (rejected)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -57014,6 +57026,12 @@
       "symbol": "func_1517AB7C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2718,
+        "reason": "frame/layout exact (result first, sine word, angle reused for spawn id); base pointer allocated to s0 while reference keeps it memory-resident at 0xB0; f32*/volatile/order variants no better",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -62548,6 +62566,12 @@
       "symbol": "func_150D2924"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6389,
+        "reason": "-g3 layout exact (vertices, result, camera, delta, end, middle, view, side, lengthSquared, length, fresh, scale, slot, source, x, y, z); residual: raw keeps arg0+0x34..0x3C loads in f0/f2/f12 across end/middle (no reload after end stores) and stores end.x late",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -67425,6 +67449,12 @@
       "symbol": "func_151AADBC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5277,
+        "reason": "frame 0xc0 exact; residual is scheduling of state/descriptor constant loads plus non-folded +0xB0 pointer in early-return arm; same family as deferred func_150C6460/func_150C6D90 (5102); permuter 60s best 4326",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -78240,8 +78270,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1000,
-        "reason": "Three focused finishes and two bounded probe batches reduced CURRENT 2481 to 1000 with the exact 0x58 frame and addressed local offsets. Zero constant lifetime, FP expression scheduling and loop register allocation remain; original assembly retained.",
+        "current_score": 300,
+        "reason": "1200 -> 400: int zero stores, arg0 + index*4 base, ((u8 **)(arg0 + 0x20))[D_800BE9C0], offset before index; residual vertex/offset v0/v1 swap in both loops; permuter 60s 395",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -79593,7 +79623,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Round19 2026-10-22: CURRENT (10). speedScale block-scoped in the pending > 1.0f block (230 -> 10). Residual: packet.flags reload/merge temp numbering only (raw lw t6 / or t9, ours t9 / t6); 16 merge, ternary and if/else spellings score 10-20; 60 s randomized permuter found no improvement.",
+        "reason": "10: only real residual is flags load t6 vs or t9 numbering ('flags | (second | first)'); literal 0.001f rows score equal; ternary, |=, split-mask, decl order and permuter 120s no change",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -80867,8 +80897,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1032,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515AB88",
           "vram": "0x1515AB88"
         }

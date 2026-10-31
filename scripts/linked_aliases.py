@@ -702,7 +702,9 @@ def prepare_game(root: Path, source: str, candidate: Path, reference: Path, asse
         raise layout_check.LayoutMismatch("game comparison needs the exact unit extent, origin and alignment")
     current_symbols = game_definitions(current, addresses, section, unit_start)
     raw_origin, raw_section = function(raw, symbol, size, reference=True)
-    raw_symbols = game_definitions(raw, {}, raw_section, start - raw_origin)
+    # A raw reference that spans the unit defines its same-unit callees too;
+    # they resolve only at the registered member addresses, as for the candidate.
+    raw_symbols = game_definitions(raw, addresses, raw_section, start - raw_origin)
     if current_symbols is None or raw_symbols is None:
         return None
     if game_rodata(raw) is not None:
