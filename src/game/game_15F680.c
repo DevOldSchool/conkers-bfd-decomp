@@ -148,7 +148,7 @@ typedef struct Game15F680ListNode {
     void *resource;
     struct Game15F680ListNode *next;
     struct Game15F680ListNode *prev;
-    u8 padC[2];
+    u16 index;
     u8 active;
 } Game15F680ListNode;
 
@@ -227,8 +227,181 @@ void func_151325C8(void *arg0) {
         func_100043B4((void *)*(s32 *)((u8 *)arg0 + 0x164), 4);
     }
 }
+typedef struct {
+    u8 pad0[0x34];
+    Vec3f velocity;
+    u8 pad40[0x10];
+    s32 flags;
+    u8 pad54[2];
+    u16 index;
+} Game15F680Source;
+
+typedef struct {
+    f32 unk0;
+    u8 pad4[0x14];
+    s32 unk18;
+    s8 unk1C;
+    s8 unk1D;
+    u8 pad1E[2];
+    s32 unk20;
+} Game15F680Params;
+
+typedef struct {
+    u8 pad0[0x10];
+    u8 copy[0x50];
+    s32 flags;
+    u8 pad64[0x28];
+    Game15F680ListNode *node;
+    u8 pad90[0x80];
+    Game15F680Params params;
+    f32 unk134;
+    f32 unk138;
+    f32 unk13C;
+    f32 speed;
+    f32 unk144;
+    s8 unk148;
+    s8 unk149;
+    u8 pad14A[2];
+    s32 unk14C;
+    s8 unk150;
+    u8 pad151[3];
+    void *resources[4];
+    void *unk164;
+    s32 unk168;
+} Game15F680Instance;
+
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+extern f32 D_800A3868;
+extern u8 D_800BE616;
+extern s32 D_800BE9F0;
+void *func_10003C40(s32, s32, s32, s32);
+void func_10004074(void *);
+void *func_10022EC0(void *, const void *, u32);
+s32 func_151336A8(u16, Game15F680ListNode *, void *);
+void *func_1515D480(s32);
+void func_15168A9C(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513264C CURRENT (1255) */
+void *func_1513264C(Game15F680Source *src, s32 arg1, s32 arg2, Game15F680Params *arg3, s32 arg4, u8 arg5,
+                    s32 arg6) {
+    Game15F680Instance *obj;
+    Game15F680ListNode *node;
+    s32 i;
+    s32 type;
+    s32 mode;
+    u16 index;
+
+    if (D_800DC63C >= 0x12D) {
+        return NULL;
+    }
+    type = 0x19;
+    if (src->flags & 0x4000) {
+        type = 0x48;
+    }
+    if (src->flags & 0x400000) {
+        mode = 2;
+    } else {
+        mode = 1;
+    }
+    obj = func_15167A68(type, arg6, arg4 + 0x170, 1, arg5, mode);
+    if (obj == NULL) {
+        return NULL;
+    }
+    if (D_800DC468[src->index] == 0) {
+        if (src->flags & 0x400000) {
+            mode = 2;
+        } else {
+            mode = 1;
+        }
+        node = func_10003C40(0x10, 1, 2, mode);
+        if (node == NULL) {
+            func_15168A9C(obj);
+            func_10004074(obj);
+            return NULL;
+        }
+        if (func_151336A8(src->index, node, obj) != 0) {
+            node->next = D_800DC460;
+            if (node->next != NULL) {
+                node->next->prev = node;
+            } else {
+                D_800DC464 = node;
+            }
+            D_800DC460 = node;
+            node->prev = NULL;
+            node->index = src->index;
+            if (src->flags & 0x100000) {
+                if (D_800BE9F0 == 0x3B || D_800BE9F0 == 6 || D_800BE9F0 == 0x13 || D_800BE616 != 0 ||
+                    D_800BE9F0 == 2) {
+                    node->active = 0;
+                } else {
+                    node->active = 1;
+                }
+            } else {
+                node->active = 0;
+            }
+        } else {
+            func_15168A9C(obj);
+            func_10004074(obj);
+            func_10004074(node);
+            return NULL;
+        }
+    } else {
+        index = src->index;
+        node = D_800DC460;
+        i = 100;
+        while (node->index != index) {
+            i--;
+            node = node->next;
+            if (i <= 0) {
+                break;
+            }
+        }
+        if (i <= 0) {
+            func_15168A9C(obj);
+            func_10004074(obj);
+            return NULL;
+        }
+    }
+    D_800DC468[src->index]++;
+    obj->node = node;
+    func_10022EC0(obj->copy, src, 0x7C);
+    obj->unk149 = 0;
+    obj->unk134 = 0.0f;
+    obj->unk138 = 0.0f;
+    obj->unk13C = 0.0f;
+    obj->speed = sqrtf(src->velocity.x * src->velocity.x + src->velocity.y * src->velocity.y + src->velocity.z * src->velocity.z);
+    obj->unk148 = 0;
+    obj->unk144 = 1.0f;
+    if (arg3 != NULL) {
+        obj->params = *arg3;
+    } else {
+        obj->params.unk20 = 0;
+        obj->params.unk1D = 0;
+        obj->params.unk1C = 0;
+        obj->params.unk18 = 0;
+        obj->params.unk0 = D_800A3868;
+    }
+    D_800DC63C++;
+    obj->unk150 = 0;
+    obj->unk14C = arg1;
+    obj->unk168 = arg2;
+    for (i = 0; i < 4; i++) {
+        obj->resources[i] = NULL;
+    }
+    obj->unk164 = NULL;
+    if (arg1 != 0) {
+        for (i = 0; i <= D_80082FA0; i++) {
+            obj->resources[i] = func_1515D480(arg1);
+        }
+        obj->unk164 = func_1515D440();
+    }
+    obj->flags &= ~0x200000;
+    return obj;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513264C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_1513264C.s")
-void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
+void *func_1513264C(Game15F680Source *, s32, s32, Game15F680Params *, s32, u8, s32);
 
 void *func_15132A4C(void *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
     return func_1513264C(arg0, arg1, arg2, 0, arg3, arg4, arg5);

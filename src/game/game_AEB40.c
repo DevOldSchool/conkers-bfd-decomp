@@ -1028,6 +1028,98 @@ void func_15084488(u8 *spawnRecord, s32 arg1, s32 arg2) {
         }
     }
 }
+extern s32 D_800C5C08[];
+extern s32 D_800C6070[];
+extern s32 D_800C6360[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15084558 CURRENT (2213) */
+void func_15084558(GameAEB40State *arg0) {
+    void *route;
+    s32 pad0;
+    s32 pad1;
+    s32 pad2;
+    s32 count;
+    u8 *list;
+    s32 model;
+    s32 i;
+    s32 j;
+    s32 k;
+    s32 n;
+    s32 freeShared;
+    s32 freeRoute;
+    s32 freeDefaults;
+    u8 *other;
+    u8 *entries;
+    void *resource;
+
+    model = arg0->pad0[4];
+    if (model != 0xFF && D_800D19A0[model] != NULL) {
+        count = arg0->field_2C9;
+        list = arg0->field_2C4;
+        func_1508434C(arg0);
+        for (i = 0; i < count; i++) {
+            freeShared = 1;
+            freeRoute = 1;
+            freeDefaults = 1;
+            for (j = 0; j < i; j++) {
+                if (list[j] == list[i]) {
+                }
+            }
+            for (j = 0; j < 25; j++) {
+                if (j != ((u8 *)arg0 - (u8 *)&D_800CC2D0) / 0x32C) {
+                    other = (u8 *)&D_800CC2D0 + j * 0x32C;
+                    if (*(s32 *)other != 0 && other[4] != 0xFF && other[5] != 2) {
+                        n = other[0x2C9];
+                        entries = *(u8 **)(other + 0x2C4);
+                        for (k = 0; k < n; k++) {
+                            if (entries[k] == list[i]) {
+                                freeShared = 0;
+                            }
+                            if (D_800D1588[entries[k]] == D_800D1588[list[i]] && D_800D1588[entries[k]] != NULL) {
+                                freeRoute = 0;
+                            }
+                            if (D_800D1C90[entries[k]] == D_800D1C90[list[i]] && D_800D1C90[entries[k]] != NULL) {
+                                freeDefaults = 0;
+                            }
+                        }
+                    }
+                }
+            }
+            if (freeRoute) {
+                route = D_800D1588[list[i]];
+                if (route != NULL) {
+                    func_100043B4((s32)((u8 *)route - 0x10), 3);
+                    for (k = 0; k < 187; k++) {
+                        if (route == D_800D1588[k]) {
+                            D_800D1588[k] = NULL;
+                        }
+                    }
+                }
+            }
+            if (freeDefaults) {
+                if (D_800D1C90[list[i]] != NULL) {
+                    func_100043B4((s32)(D_800D1C90[list[i]] - 0x10), 3);
+                    D_800D1C90[list[i]] = NULL;
+                }
+            }
+            if (freeShared) {
+                if (D_800D19A0[list[i]] != NULL) {
+                    if (D_800C5C08[model] != 0) {
+                        func_10004074(D_800C5C08[model]);
+                        D_800C5C08[model] = 0;
+                        func_10004074(D_800C6070[model]);
+                        D_800C6070[model] = 0;
+                    }
+                    if (D_800C6360[model] != 0) {
+                        func_10004074(D_800C6360[model]);
+                        D_800C6360[model] = 0;
+                    }
+                }
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15084558 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15084558.s")
 /* Semantic role: actor_get_override_or_base_representation_model.
  * Override selector zero uses the first model, not the applied ordinal at +1C8.
