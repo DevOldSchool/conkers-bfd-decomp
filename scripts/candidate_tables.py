@@ -62,6 +62,30 @@ def independent_word(word: int, protected: set[int]) -> bool:
             or (is_move(word) and ((word >> 11) & 31) not in protected))
 
 
+DISTANT_LIMIT = 12
+
+
+def is_index_shift(word: int) -> bool:
+    return word >> 26 == 0 and word & 0x7FF == 0x80 and (word >> 21) & 31 == 0 and (word >> 11) & 31 != 0
+
+
+def distant_word(word: int, protected: set[int]) -> bool:
+    """Straight-line work IDO schedules between a distant guard and its branch.
+
+    Stores, loads, addu/subu/or and mflo/mfhi only; none may write a protected
+    GPR. Transfers, immediates and multiplies are not accepted here.
+    """
+    op = word >> 26
+    if word == 0 or op in (0x28, 0x29, 0x2B, 0x39):
+        return True
+    if op in (0x20, 0x21, 0x23, 0x24, 0x25):
+        return (word >> 16) & 31 not in protected
+    if op == 0 and (word & 0x7FF in (0x21, 0x23, 0x25)
+                    or word & 0xFFFF07FF in (0x10, 0x12)):
+        return (word >> 11) & 31 not in protected
+    return False
+
+
 def reference_tables(assembly: str, code: bytes, data: bytes,
                      code_vram: int, data_vram: int) -> tuple[int, list[Table]]:
     rows = list(re.finditer(
@@ -95,6 +119,16 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
         # the table upper address in the bounds branch's delay slot.
         hoisted = index >= 7 and words[index - 3] >> 26 == 4
         shift_index = index - 6 if hoisted else index - 3
+        # func_151E2404: the guard and shift can also be scheduled ahead of a
+        # straight-line run of record copies, leaving only the bounds branch
+        # and its delay slot before the table address.
+        distant = (not hoisted and index >= 8 and words[index - 4] >> 26 == 4
+                   and not is_index_shift(words[index - 3]))
+        if distant:
+            shift_index = next((i for i in range(index - 5, max(0, index - 5 - DISTANT_LIMIT), -1)
+                                if is_index_shift(words[i])), None)
+            if shift_index is None:
+                raise TableEvidenceError("unsupported switch dispatch shape")
         shift = words[shift_index]
         if not (shift >> 26 == 0 and shift & 0x7FF == 0x80 and rs(shift) == 0 and rd(shift) != 0
                 and upper >> 26 == 0x0F and rs(upper) == 0 and rt(upper) not in (0, rd(shift))
@@ -128,12 +162,32 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
                                 for target in direct_edges)):
                 counts.append(guard & 0xFFFF)
                 strict_guards.append(guard_address)
+        if distant:
+            guard_index = shift_index - 1
+            branch_index = index - 4
+            guard, branch = words[guard_index], words[branch_index]
+            protected = {rs(guard), rt(guard), rd(shift)}
+            guard_address = start + guard_index * 4
+            dispatch_end = start + (index + 2) * 4
+            default_target = direct_target(branch, start + branch_index * 4)
+            between = words[shift_index + 1:branch_index] + [words[index - 3]]
+            if (guard_index >= 0 and guard >> 26 == 0x0B and rs(guard) == rt(shift)
+                    and rt(guard) not in (0, rs(guard), rd(shift))
+                    and 0 < (guard & 0xFFFF) <= 1024
+                    and branch >> 26 == 4 and rs(branch) == rt(guard) and rt(branch) == 0
+                    and default_target in addresses and default_target > dispatch_end
+                    and all(distant_word(word, protected) for word in between)
+                    and not (guard_index and is_transfer(words[guard_index - 1], guard_address - 4))
+                    and not any(target is not None and guard_address < target <= dispatch_end
+                                for target in direct_edges)):
+                counts.append(guard & 0xFFFF)
+                strict_guards.append(guard_address)
         # Permit up to three independent instructions before the branch and
         # one delay slot before the shift. The boolean xori/sltiu scheduling
         # in func_1511DD98 cannot overwrite the index or guard result. swc1
         # names an FPR in rt, not a protected GPR. Direct-edge vetoes below
         # reject bypasses for the new schedule, without inferring a full CFG.
-        for guard_index in (() if hoisted else range(max(0, index - 9), index - 4)):
+        for guard_index in (() if hoisted or distant else range(max(0, index - 9), index - 4)):
             guard = words[guard_index]
             if not (guard >> 26 == 0x0B and rs(guard) == rt(shift) and rt(guard) != 0
                     and rt(guard) != rs(guard) and 0 < (guard & 0xFFFF) <= 1024):

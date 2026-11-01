@@ -385,3 +385,82 @@ class HoistedLightDispatchTests(unittest.TestCase):
         with self.assertRaisesRegex(TableEvidenceError, 'bypasses switch bound'):
             reference_tables(raw, code, struct.pack('>I', 0x151604F0) + data[4:],
                              0x151604A0, 0x800A6A18)
+
+
+class DistantGuardDispatchTests(unittest.TestCase):
+    # func_151E2404: sltiu at,v1,10 and sll t5,v1,2 are scheduled ahead of
+    # ten record-copy instructions; beqz at and its sb delay slot precede
+    # lui/addu/lw/jr. These are the US ROM words; the table holds the US ROM targets.
+    start = 0x151E2404
+    words = [
+        0x27BDFFE8, 0x3C04800E, 0x24840BE0, 0xAFBF0014, 0x2405000A, 0x3C0E8009,
+        0x8DCEFDD4, 0x3C03800B, 0x3C088008, 0x81CF0042, 0x8D082BBC, 0x01E50019,
+        0x0000C012, 0x00781821, 0x8063B690, 0x00650019, 0x2C61000A, 0x00036880,
+        0x0000C812, 0x03281021, 0xA0400000, 0x80890002, 0xA0490001, 0x808A0003,
+        0xA04A0002, 0x808B0010, 0xA04B0003, 0x808C0011, 0x10200015, 0xA04C0004,
+        0x3C01800B, 0x002D0821, 0x8C2DB9BC, 0x01A00008, 0x00000000, 0x808E0004,
+        0x1000000D, 0xA04E0005, 0x808F000D, 0xA04F0005, 0x8098000E, 0x10000008,
+        0xA0580006, 0x80990012, 0x10000005, 0xA0590005, 0x80880007, 0xA0480005,
+        0x80890013, 0xA0490006, 0x808A0016, 0xA04A0008, 0x808B0006, 0x0D401DA8,
+        0xA04B0009, 0x8FBF0014, 0x27BD0018, 0x03E00008, 0x00000000,
+    ]
+    targets = (0x151E2490, 0x151E249C, 0x151E249C, 0x151E24CC, 0x151E24CC,
+               0x151E24B0, 0x151E24CC, 0x151E24B0, 0x151E24BC, 0x151E24BC)
+
+    def verify(self, words=None, targets=None, load=32):
+        words = self.words.copy() if words is None else words
+        raw = ''.join(f'/* {i*4:06X} {self.start+i*4:08X} {word:08X} */ '
+                      + ('lw $t5,%lo(jtbl_800AB9BC_game)($at)' if i == load else 'instruction')
+                      + '\n' for i, word in enumerate(words))
+        code = b''.join(word.to_bytes(4, 'big') for word in words)
+        data = struct.pack('>10I', *(targets or self.targets))
+        return reference_tables(raw, code, data, self.start, 0x800AB9BC)
+
+    def reject(self, words, **kwargs):
+        with self.assertRaises(TableEvidenceError):
+            self.verify(words, **kwargs)
+
+    def test_real_distant_guard_dispatch(self):
+        self.assertEqual(self.verify(), (self.start, [Table(0x78, 0x80, self.targets)]))
+
+    def test_intervening_writes_to_index_guard_or_shift_are_rejected(self):
+        # Positions 18..27 lie between the shift and the branch; 29 is its delay.
+        for position in (18, 19, 21, 27, 29):
+            for register in (1, 3, 13):
+                for word in (0x80800002 | register << 16, 0x8C800002 | register << 16,
+                             0x00000012 | register << 11, 0x03280021 | register << 11):
+                    with self.subTest(position=position, register=register, word=hex(word)):
+                        words = self.words.copy()
+                        words[position] = word
+                        self.reject(words)
+
+    def test_only_narrow_straight_line_opcodes_are_accepted(self):
+        for position in (18, 22, 29):
+            for word in (0x24420001, 0x00651019, 0x0C000000, 0x08000000, 0x10000001,
+                         0x03E00008, 0x0320F809, 0x45010001, 0x00021080):
+                with self.subTest(position=position, word=hex(word)):
+                    words = self.words.copy()
+                    words[position] = word
+                    self.reject(words)
+
+    def test_guard_shift_and_branch_must_agree(self):
+        for position, bad in ((16, 0x2C81000A), (16, 0x2C6D000A), (16, 0x2C610000),
+                              (16, 0x2C610401), (16, 0), (17, 0x00046880),
+                              (28, 0x14200015), (28, 0x10600015), (28, 0x10200001)):
+            with self.subTest(position=position, bad=hex(bad)):
+                words = self.words.copy()
+                words[position] = bad
+                self.reject(words)
+
+    def test_run_longer_than_limit_is_rejected(self):
+        words = self.words[:20] + [0xA0400000] * 3 + self.words[20:]
+        self.reject(words, load=35)
+
+    def test_entries_into_guarded_region_are_rejected(self):
+        for target_index in range(17, 35):
+            address = self.start + target_index * 4
+            with self.subTest(target=target_index):
+                self.reject(self.words[:-1] + [0x08000000 | ((address >> 2) & 0x03FFFFFF), 0])
+                self.reject(self.words, targets=(address,) + self.targets[1:])
+        address = self.start + 16 * 4
+        self.verify(self.words[:-1] + [0x08000000 | ((address >> 2) & 0x03FFFFFF), 0])

@@ -361,6 +361,8 @@ SECTIONS
     .game_rodata_c98f0 0x8009E458 (INFO) : SUBALIGN(4) { *game_C98F0.o(.rodata) }
     /* Sixteen ROM-proven entries: docs/evidence/data-layout/game_3ba70_jump_table.md. */
     .game_rodata_3ba70 0x800961D0 (INFO) : SUBALIGN(4) { *game_3BA70.o(.rodata) }
+    /* Ten ROM-proven entries: docs/evidence/data-layout/game_20bda0_jump_table.md. */
+    .game_rodata_20bda0 0x800AB9BC (INFO) : SUBALIGN(4) { *game_20BDA0.o(.rodata) }
 }
 __game_rodata_b4080_0_base = ADDR(.game_rodata_b4080_0);
 __game_rodata_b4080_20_base = ADDR(.game_rodata_b4080_20) - 0x20;
@@ -478,6 +480,9 @@ __game_rodata_c98f0_payload_size = 0x18;
 
 ASSERT(SIZEOF(.game_rodata_3ba70) == 0x40, "game_3BA70 table extent changed")
 __game_rodata_3ba70_payload_size = 0x40;
+
+ASSERT(SIZEOF(.game_rodata_20bda0) == 0x30, "game_20BDA0 table extent changed")
+__game_rodata_20bda0_payload_size = 0x28;
 
 ASSERT(SIZEOF(.game_rodata_90840) == 0xC0, "game_90840 table extent changed")
 __game_rodata_90840_payload_size = 0xB8;

@@ -76060,16 +76060,16 @@
       "symbol": "func_151E22BC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "reason": "full integration exposed unresolved private jump-table relocation while source unit remains mixed; canonical jtbl_800AB9BC_game layout is not yet recoverable",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 236,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151E2404",
           "vram": "0x151E2404"
         }
