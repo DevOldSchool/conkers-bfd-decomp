@@ -89,6 +89,30 @@ symbolically, as it already does for the other split units. The integrated
 build's ROM comparison and `verify_game_rodata.py` still cover every linked
 byte.
 
+## Full-unit proof
+
+`linked_aliases.prepare_game` proves a split GAME unit as the build links it.
+The unsplit object's rodata relocations and text references are checked first,
+as for a single placement. `split_game_rodata.split` then splits the object,
+and each `.rodata.<unit>_<offset>` sub-pool is linked at its reviewed address.
+Each `__game_rodata_<unit>_<offset>_base` symbol is defined as that address minus
+the offset. `game_rodata_split_placements` accepts a unit only when:
+
+- its object rodata extent equals the `LAYOUTS` extent;
+- the script has no whole-unit `.rodata` input;
+- every range has one placement, one exact `SIZEOF` assertion and one base
+  definition with the matching offset;
+- every address is word aligned.
+
+The complete linked `.text` must equal the unit's ROM bytes, which proves every
+rebased HI16/LO16 pair. Each linked sub-pool must also equal ROM game data at
+its address.
+
+This lets `finish` prove terminal padding in split units. `func_15195738` is
+the last member of `game_1C1150`. Its 120-byte span ends in 8 zero alignment
+bytes that only the complete object contains, so it reached `CURRENT (0)` once
+the unit could be linked.
+
 ## Validation
 
 On the real compiled objects, the splitter reproduces `.text` byte for byte and

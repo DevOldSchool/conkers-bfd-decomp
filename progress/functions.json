@@ -49523,17 +49523,16 @@
       "symbol": "func_15195698"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "CURRENT (100): every instruction matches; only the final terminal alignment word is absent from the focused object. The complete mixed object (.text 0x1B10) does contain the 8-byte terminal padding, but linked_aliases.prepare_game returns early because game_1C1150 uses split rodata (game_rodata_placement is None for split layouts), so the full-unit padding proof never runs. Unblock by teaching the proof to link split sub-pools.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 120,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15195738",
           "vram": "0x15195738"
         }

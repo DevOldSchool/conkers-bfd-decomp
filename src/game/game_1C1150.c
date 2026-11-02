@@ -12,7 +12,6 @@
  * - func_15194BF0
  * - func_15194FF4
  * - func_151951E0
- * - func_15195738
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -678,7 +677,6 @@ void func_15195698(void *arg0, u8 *arg1, s32 arg2) {
 
 void *func_151D8868(Game1C1150EventPacket *, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15195738 CURRENT (100) */
 void func_15195738(s32 arg0, s32 arg1, s32 arg2) {
     Game1C1150EventPacket packet;
 
@@ -689,5 +687,3 @@ void func_15195738(s32 arg0, s32 arg1, s32 arg2) {
     packet.field_5 = 1;
     func_151D8868(&packet, 0, 0xFF, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15195738 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15195738.s")
