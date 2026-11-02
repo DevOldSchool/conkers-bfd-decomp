@@ -3013,7 +3013,11 @@ def withdraw_source_unit(args: argparse.Namespace) -> None:
 
 
 def split_source_unit(args: argparse.Namespace) -> None:
-    """Split one reviewed raw-ASM unit at a proven original object boundary."""
+    """Split one reviewed raw-ASM or mixed unit at a proven original object boundary.
+
+    A mixed unit is already mapped as C, so the split inserts the new unit's C
+    map entry at the boundary in the same transaction; both halves stay mixed.
+    """
 
     source = args.source
     new_source = args.new_source
@@ -3024,9 +3028,10 @@ def split_source_unit(args: argparse.Namespace) -> None:
     unit = next((unit for unit in units if unit["source"] == source), None)
     if unit is None:
         raise ProjectStateError(f"source unit not registered: {source}")
-    if unit.get("integration") != "raw_asm":
+    integration = unit.get("integration")
+    if integration not in {"raw_asm", "mixed"}:
         raise ProjectStateError(
-            "split requires a raw-ASM source unit; integrated units keep their mapped C extent"
+            "split requires a raw-ASM or mixed source unit; completed C units keep their mapped extent"
         )
     evidence = unit.get("boundary_evidence")
     if not isinstance(evidence, dict) or "us" not in evidence:
@@ -3064,11 +3069,30 @@ def split_source_unit(args: argparse.Namespace) -> None:
             f"split offset 0x{split:X} must lie strictly inside {format_range(start, end)}"
         )
     offsets = {offset for offset, _, _ in mapped_subsegments("us", overlay)}
-    if split not in offsets:
+    map_path = profile_map_path("us", overlay)
+    map_content = None
+    if integration == "raw_asm" and split not in offsets:
         raise ProjectStateError(
             f"split offset 0x{split:X} must already exist in "
-            f"{profile_map_path('us', overlay).relative_to(ROOT)}"
+            f"{map_path.relative_to(ROOT)}"
         )
+    if integration == "mixed":
+        if split in offsets:
+            raise ProjectStateError(
+                f"mixed unit already has a map boundary at 0x{split:X} in "
+                f"{map_path.relative_to(ROOT)}"
+            )
+        old_name = source.removeprefix("src/").removesuffix(".c")
+        new_name = new_source.removeprefix("src/").removesuffix(".c")
+        content = map_path.read_text(encoding="utf-8")
+        pattern = (rf"(?m)^([ \t]*-[ \t]*\[)0x{start:X}(,[ \t]*c,[ \t]*)"
+                   rf"{re.escape(old_name)}(\][ \t]*)$")
+        matches = list(re.finditer(pattern, content, flags=re.IGNORECASE))
+        if len(matches) != 1:
+            raise ProjectStateError(f"could not identify one exact C mapping for {source}")
+        line = matches[0]
+        inserted = f"\n{line[1]}0x{split:X}{line[2]}{new_name}{line[3]}"
+        map_content = content[:line.end()] + inserted + content[line.end():]
     by_regional_symbol = {
         function.symbol: function for function in parse_assembly_functions("us", overlay)
     }
@@ -3118,7 +3142,7 @@ def split_source_unit(args: argparse.Namespace) -> None:
     second_unit = {
         "source": new_source,
         "functions": moved_ids,
-        "integration": "raw_asm",
+        "integration": integration,
         "boundary_evidence": json.loads(json.dumps(evidence)),
         "regions": {
             "us": {
@@ -3135,12 +3159,15 @@ def split_source_unit(args: argparse.Namespace) -> None:
     }
     validated_functions = validate_functions(updated_functions)
 
-    paths = (source_path, new_path, FUNCTIONS_FILE, SOURCE_UNITS_FILE, SUMMARY_FILE, DOCUMENT_FILE)
+    paths = (source_path, new_path, FUNCTIONS_FILE, SOURCE_UNITS_FILE, SUMMARY_FILE, DOCUMENT_FILE,
+             map_path)
     snapshots = {path: path.read_bytes() if path.exists() else None for path in paths}
     try:
         source_path.write_text(head, encoding="utf-8")
         with new_path.open("x", encoding="utf-8") as output:
             output.write(tail)
+        if map_content is not None:
+            map_path.write_text(map_content, encoding="utf-8")
         validate_source_units(updated_units, validated_functions)
         validate_deferred_candidate_sources(validated_functions)
         validate_blocked_raw_sources(validated_functions)

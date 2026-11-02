@@ -14343,7 +14343,27 @@
         }
       },
       "functions": [
-        "func_151A6C90",
+        "func_151A6C90"
+      ],
+      "integration": "c",
+      "regions": {
+        "us": {
+          "end": "0x1A6F00",
+          "start": "0x1A6C90",
+          "state": "complete"
+        }
+      },
+      "source": "src/done/game/game_1D4140.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/boundaries/game/families/game_raw_recovered_pointer_helper_groups_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
         "func_151A6F00",
         "func_151A73EC",
         "func_151A743C"
@@ -14352,11 +14372,11 @@
       "regions": {
         "us": {
           "end": "0x1A7610",
-          "start": "0x1A6C90",
+          "start": "0x1A6F00",
           "state": "in_progress"
         }
       },
-      "source": "src/game/game_1D4140.c"
+      "source": "src/game/game_1D43B0.c"
     },
     {
       "boundary_evidence": {

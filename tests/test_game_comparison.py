@@ -533,6 +533,50 @@ class GameComparisonTests(unittest.TestCase):
             self.rodata_script(root, address=0x800A0012)
             self.assertIsNone(linked_aliases.game_rodata_placement(root, self.source))
 
+    def test_split_rodata_placements_require_every_reviewed_sub_pool(self):
+        import split_game_rodata
+
+        source = "src/game/game_unit.c"
+        sections = (".game_rodata_unit_0 0x800A0010 (INFO) : SUBALIGN(4) { *game_unit.o(.rodata.unit_0) }\n"
+                    ".game_rodata_unit_8 0x800A0040 (INFO) : SUBALIGN(4) { *game_unit.o(.rodata.unit_8) }\n")
+        bases = ("__game_rodata_unit_0_base = ADDR(.game_rodata_unit_0);\n"
+                 "__game_rodata_unit_8_base = ADDR(.game_rodata_unit_8) - 0x8;\n")
+        sizes = ('ASSERT(SIZEOF(.game_rodata_unit_0) == 0x8, "first")\n'
+                 'ASSERT(SIZEOF(.game_rodata_unit_8) == 0x4, "second")\n')
+        expected = [(".rodata.unit_0", 0x800A0010, 8, 0), (".rodata.unit_8", 0x800A0040, 4, 8)]
+        cases = [(sections + bases + sizes, 0x10, expected),
+                 (sections + bases + sizes, 0x20, None),
+                 (sections + sizes, 0x10, None),
+                 (sections + bases.replace("- 0x8", "- 0x4") + sizes, 0x10, None),
+                 (sections + bases + sizes.replace("== 0x4", "== 0x8"), 0x10, None),
+                 (sections.replace("0x800A0040", "0x800A0042") + bases + sizes, 0x10, None),
+                 (sections * 2 + bases + sizes, 0x10, None),
+                 (sections + ".game_rodata_unit 0x800A0080 (INFO) : SUBALIGN(4) { *game_unit.o(.rodata) }\n"
+                  + bases + sizes, 0x10, None)]
+        layouts = {"game_unit": (0x10, [(0, 8), (8, 4, 0x10, 0x18)])}
+        for script, extent, result in cases:
+            with (self.subTest(script=script, extent=extent), tempfile.TemporaryDirectory() as temporary,
+                  patch.dict(split_game_rodata.LAYOUTS, layouts)):
+                root = Path(temporary)
+                self.assertIsNone(linked_aliases.game_rodata_split_placements(root, source, extent))
+                path = root / linked_aliases.GAME_RODATA_SCRIPT
+                path.parent.mkdir(parents=True)
+                path.write_text(script)
+                self.assertEqual(result, linked_aliases.game_rodata_split_placements(root, source, extent))
+                self.assertIsNone(linked_aliases.game_rodata_split_placements(root, "src/game/other.c", extent))
+
+    def test_repository_split_rodata_placements_cover_each_layout(self):
+        import split_game_rodata
+
+        root = Path(__file__).resolve().parents[1]
+        for stem, (extent, ranges) in split_game_rodata.LAYOUTS.items():
+            if not stem.startswith("game_"):
+                continue
+            with self.subTest(stem=stem):
+                placements = linked_aliases.game_rodata_split_placements(root, f"src/game/{stem}.c", extent)
+                self.assertEqual([(item[0], item[1]) for item in ranges],
+                                 [(offset, size) for _, _, size, offset in placements])
+
 
     def test_raw_literal_address_pair_is_proven_only_by_linked_unit_bytes(self):
         # Splat can spell a reference address as a bare lui/addiu literal pair.

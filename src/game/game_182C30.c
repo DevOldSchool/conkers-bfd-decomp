@@ -19,8 +19,9 @@ typedef struct Game182C30Effect {
     s16 fieldE;
     s8 field10;
     u8 field11;
-    u8 pad12[2];
-    s32 field14;
+    u8 field12;
+    u8 pad13;
+    struct Game18A8F0ListNode *field14;
     u8 pad18[0x80];
     f32 field98;
 } Game182C30Effect;
@@ -62,6 +63,95 @@ void func_151557FC(s32 arg0, s32 arg1, f32 arg2) {
         effect->fieldE = (s16)arg1;
     }
 }
+void func_10010F30(s32, s32, s32, s32, s32);
+void *func_1515D5F8(s32, s32, s32, s32, s32, s32, s32, s32, s32, u8);
+extern s32 D_800BE9E4;
+extern u8 D_800CC2D0[];
+extern u8 D_800D2E68;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515589C CURRENT (400) */
+void func_1515589C(Game182C30Effect *arg0) {
+    u32 index;
+    u8 *actor;
+    u8 *owner;
+    s32 kind;
+    s32 timer;
+    f32 height;
+
+    actor = D_800CC2D0 + (u8)arg0->field10 * 0x32C;
+    index = (u8)arg0->field10;
+    switch (arg0->field11) {
+    case 0:
+        owner = *(u8 **)(D_800CC2D0 + index * 0x32C + 0x31C);
+        if (owner != NULL) {
+            kind = owner[0x75];
+        } else {
+            kind = 0;
+        }
+        if (!(kind & 0x80) && kind != 0x2A && kind != 0x2B && (kind != 0x42 || !(D_800D2E68 & 4)) &&
+            kind != 0x2C && owner[0x197] == 0 && kind != 0 && kind != 0x1F && actor[0xAD] == 0) {
+            arg0->field11 = 1;
+            arg0->fieldE = 0x78;
+            func_10010F30(0x1EB, 0x7FFF, 0x40, 0, 0);
+        } else if (arg0->field14 != NULL) {
+            func_1515F10C(arg0->field14);
+            arg0->field14 = NULL;
+        }
+        break;
+    case 1:
+        timer = arg0->fieldE;
+        timer -= D_800BE9E4;
+        if (timer <= 0 || (*(u8 **)(D_800CC2D0 + index * 0x32C + 0x31C))[0x75] == 0) {
+            arg0->field11 = 2;
+            timer = 0;
+        }
+        arg0->fieldE = timer;
+        arg0->field12 += D_800BE9E4 * 2;
+        if (arg0->field14 != NULL) {
+            if ((*(u8 **)(D_800CC2D0 + index * 0x32C + 0x31C))[0x75] == 5) {
+                height = 85.0f;
+            } else {
+                height = 0.0f;
+            }
+            *(s16 *)((u8 *)arg0->field14 + 0xE) = *(f32 *)(actor + 0x14);
+            *(s16 *)((u8 *)arg0->field14 + 0x10) =
+                (*(f32 *)(actor + 0x18) + 160.0f + arg0->field98 + height) + func_15048A40(arg0->field12) * 15.0f;
+            *(s16 *)((u8 *)arg0->field14 + 0x12) = *(f32 *)(actor + 0x1C);
+        } else {
+            arg0->field14 = func_1515D5F8(0, 0, 0, 2, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0);
+        }
+        break;
+    case 2:
+        if ((*(u8 **)(D_800CC2D0 + index * 0x32C + 0x31C))[0x75] == 0) {
+            arg0->field11 = 0;
+        }
+        if (arg0->field14 != NULL) {
+            func_1515F10C(arg0->field14);
+            arg0->field14 = NULL;
+        }
+        break;
+    case 3:
+        timer = arg0->fieldE;
+        timer -= D_800BE9E4;
+        if (timer <= 0) {
+            arg0->field11 = 2;
+            arg0->fieldE = 0;
+            break;
+        }
+        arg0->fieldE = timer;
+        arg0->field12 += D_800BE9E4 * 2;
+        if (arg0->field14 != NULL) {
+            *(s16 *)((u8 *)arg0->field14 + 0xE) = *(f32 *)(actor + 0x14);
+            *(s16 *)((u8 *)arg0->field14 + 0x10) =
+                (*(f32 *)(actor + 0x18) + 160.0f) + func_15048A40(arg0->field12) * 15.0f;
+            *(s16 *)((u8 *)arg0->field14 + 0x12) = *(f32 *)(actor + 0x1C);
+        } else {
+            arg0->field14 = func_1515D5F8(0, 0, 0, 2, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0);
+        }
+        break;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1515589C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_1515589C.s")
 void *func_15096934(void *);
 void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);

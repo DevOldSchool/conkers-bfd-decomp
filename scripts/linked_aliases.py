@@ -608,6 +608,47 @@ def game_rodata_placement(root: Path, source: str) -> tuple[str, int, int | None
             int(payloads[0], 16) if payloads else None)
 
 
+def game_rodata_split_placements(root: Path, source: str,
+                                 extent: int) -> list[tuple[str, int, int, int]] | None:
+    """Read every reviewed sub-pool placement of a split-rodata unit.
+
+    Returns (input section, address, size, object offset) for each range of
+    the unit's ``split_game_rodata.LAYOUTS`` entry. Every range needs exactly
+    one placement, one exact size assertion and the linker base symbol the
+    build uses; anything else fails closed.
+    """
+    import split_game_rodata
+
+    stem = Path(source).stem
+    layout = split_game_rodata.LAYOUTS.get(stem)
+    path = root / GAME_RODATA_SCRIPT
+    if layout is None or layout[0] != extent or not path.is_file():
+        return None
+    script = path.read_text()
+    if re.search(r"\*" + re.escape(stem) + r"\.o\(\.rodata\)", script):
+        return None
+    prefix = stem.removeprefix("game_").lower()
+    placements = []
+    for item in layout[1]:
+        offset, size = item[0], item[1]
+        section = f".rodata.{prefix}_{offset:x}"
+        name = f".game_rodata_{prefix}_{offset:x}"
+        found = re.findall(re.escape(name) + r"\s+0x([0-9A-Fa-f]+)\s+\(INFO\)\s*:\s*SUBALIGN\(4\)\s*"
+                           r"\{\s*\*" + re.escape(stem) + r"\.o\(" + re.escape(section) + r"\)\s*\}", script)
+        sizes = re.findall(r"ASSERT\(SIZEOF\(" + re.escape(name) + r"\)\s*==\s*0x([0-9A-Fa-f]+)\s*,", script)
+        adjust = f"\\s*-\\s*0x0*{offset:X}" if offset else ""
+        bases = re.findall(r"__" + re.escape(name[1:]) + r"_base\s*=\s*ADDR\(" + re.escape(name) + r"\)"
+                           + adjust + r"\s*;", script, flags=re.IGNORECASE)
+        if (len(found) != 1 or len(sizes) != 1 or int(sizes[0], 16) != size or len(bases) != 1
+                or len(re.findall(re.escape(section) + r"\)", script)) != 1):
+            return None
+        address = int(found[0], 16)
+        if address % 4:
+            return None
+        placements.append((section, address, size, offset))
+    return placements
+
+
 def linked_section(path: Path, name: str) -> tuple[int, bytes]:
     """Read one allocated section's address and bytes from a linked ELF32."""
     data = path.read_bytes()
@@ -684,6 +725,23 @@ def game_rodata_matches(root: Path, elf: Path, obj: Object32, rodata: int,
     return True
 
 
+def game_split_rodata_matches(root: Path, elf: Path,
+                              placements: list[tuple[str, int, int, int]]) -> bool:
+    """Compare each linked sub-pool with ROM game data at its reviewed address."""
+    import verify_game_rodata
+
+    data, data_vram, _ = rom_span.game_data(root)
+    for section, address, size, _ in placements:
+        linked_address, linked = linked_section(elf, section)
+        if linked_address != address or len(linked) != size:
+            return False
+        try:
+            verify_game_rodata.verify_bytes(section, linked, size, address, data, data_vram)
+        except ValueError:
+            return False
+    return True
+
+
 def prepare_game(root: Path, source: str, candidate: Path, reference: Path, assembly: Path,
                  symbol: str, start: int, size: int) -> tuple[Path, Path] | None:
     """Prove the target and every physical byte of its freshly built GAME unit."""
@@ -709,11 +767,13 @@ def prepare_game(root: Path, source: str, candidate: Path, reference: Path, asse
         return None
     if game_rodata(raw) is not None:
         return None  # Raw GAME references name external tables; never place their rodata.
-    rodata, placement = game_rodata(current), None
+    rodata, placement, split = game_rodata(current), None, None
     if rodata is not None:
         placement = game_rodata_placement(root, source)
         if placement is None:
-            return None
+            split = game_rodata_split_placements(root, source, len(current.section(rodata)))
+            if split is None:
+                return None
     for member in members:
         region = member["regions"]["us"]
         try:
@@ -739,10 +799,32 @@ def prepare_game(root: Path, source: str, candidate: Path, reference: Path, asse
                             output / "reference", reference=True)
     if raw_bytes != expected:
         raise ValueError("linked raw-reference span differs from the US ROM")
-    current_bytes = linked_span(candidate, current, symbol, start, size, current_symbols,
+    linked_path, linked_object, placements = candidate, current, None
+    if placement is not None:
+        placements = {".rodata": (placement[1], 4)}
+    elif split is not None:
+        # Split exactly as the build does; the splitter rejects any text
+        # reference outside the reviewed table sites and literal pools.
+        import split_game_rodata
+
+        try:
+            split_bytes = split_game_rodata.split(current.data, Path(source).stem)
+        except (ValueError, KeyError, struct.error):
+            return None
+        linked_path = output / "candidate-split.o"
+        linked_path.write_bytes(split_bytes)
+        linked_object = Object32(split_bytes)
+        placements = {section: (address, 4) for section, address, _, _ in split}
+        prefix = Path(source).stem.removeprefix("game_").lower()
+        current_symbols = dict(current_symbols)
+        for _, address, _, offset in split:
+            name = f"__game_rodata_{prefix}_{offset:x}_base"
+            if name in current_symbols:
+                return None
+            current_symbols[name] = address - offset
+    current_bytes = linked_span(linked_path, linked_object, symbol, start, size, current_symbols,
                                 output / "candidate", reference=False, padding=padding,
-                                section_placements=None if placement is None
-                                else {".rodata": (placement[1], 4)})
+                                section_placements=placements)
     # linked_span writes the whole real .text section before extracting the
     # bounded display span. No fabricated alignment or cropped unit is accepted.
     complete = (output / "candidate.bin").read_bytes()
@@ -752,6 +834,8 @@ def prepare_game(root: Path, source: str, candidate: Path, reference: Path, asse
         return None
     if placement is not None and not game_rodata_matches(
             root, output / "candidate.elf", current, rodata, placement):
+        return None
+    if split is not None and not game_split_rodata_matches(root, output / "candidate.elf", split):
         return None
     paths = output / "candidate.o", output / "reference.o"
     for path, payload in zip(paths, (current_bytes, raw_bytes)):

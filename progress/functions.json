@@ -42988,6 +42988,12 @@
       "symbol": "func_15084488"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2213,
+        "reason": "best CURRENT 2213: frame/dead-loop/unrolling match; residual is D_800CC2D0 base materialised once (ref recomputes into fp), inner-loop route/defaults register swap (a3/t0), n copy into t4, route loaded to a3 then moved to s0, and D_800D1588+off vs D_800D158C/D_800D1590/D_800D1594/D_800D1874 reloc names; four placeholder pad locals keep the 0x90 frame",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -49517,17 +49523,16 @@
       "symbol": "func_15195698"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "CURRENT (100): executable rows agree, but the final registered alignment nop is absent in the current mixed-object context. Correct source-local pointer-return declaration retained. No padding or assembly changes. Historical main evidence: Round3 2026-10-17 recheck unchanged: improved 300 -> CURRENT (100); body exact, one registered trailing nop at +0x74 (unit-end alignment) not produced by the focused object. Layout/unit-end issue, not C. Ledger: build/us/manual-attempts/deferred-20261018/ledger.md; review ledger: build/us/manual-attempts/pr149-review/ledger.md; durable review: docs/evidence/matching/pr149-review.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 120,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15195738",
           "vram": "0x15195738"
         }
@@ -51841,6 +51846,12 @@
       "symbol": "func_151325C8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1255,
+        "reason": "best CURRENT 1255: residual is create-path arg register choice (a1/a2 for &D_800DC460), search index copy (move v1,a0 vs andi), and IDO hoisting copy-block setup and D_800A3868/D_80082FA0 lui above beqz arg3; frame/locals matched",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -56576,6 +56587,12 @@
       "symbol": "func_151557FC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 400,
+        "reason": "CURRENT 400: only case-1 tail delay-slot fill differs; return/else/if-chain shapes tried",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -74322,22 +74339,21 @@
       "symbol": "func_15119938"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "Fresh after unblock 2026-10-30: every instruction matches (finish CURRENT 200 = only the two zero words at 0x151A6EF8/0x151A6EFC). Those are end-of-object .text padding after the jr delay slot, so an original object boundary sits at 0x1A6F00 inside mixed unit game_1D4140 (0x1A6C90:0x1A7610). split-source-unit refuses mixed units and the map has no 0x1A6F00 entry; needs a reviewed boundary split, then resume+finish. Keys: f32 func_150ADA68 prototype (file had none), u8 arg1 with func_151A6F00(s16*, s32, u8, s32), field30-38 = 0 (separate zero from field20), random hoisted into its own statement, exact literal 1.6409999f.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 624,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A6C90",
           "vram": "0x151A6C90"
         }
       },
-      "source": "src/game/game_1D4140.c",
+      "source": "src/done/game/game_1D4140.c",
       "symbol": "func_151A6C90"
     },
     {
@@ -74350,7 +74366,7 @@
           "vram": "0x151A6F00"
         }
       },
-      "source": "src/game/game_1D4140.c",
+      "source": "src/game/game_1D43B0.c",
       "symbol": "func_151A6F00"
     },
     {
@@ -74368,7 +74384,7 @@
           "vram": "0x151A73EC"
         }
       },
-      "source": "src/game/game_1D4140.c",
+      "source": "src/game/game_1D43B0.c",
       "symbol": "func_151A73EC"
     },
     {
@@ -74386,7 +74402,7 @@
           "vram": "0x151A743C"
         }
       },
-      "source": "src/game/game_1D4140.c",
+      "source": "src/game/game_1D43B0.c",
       "symbol": "func_151A743C"
     },
     {
@@ -76042,16 +76058,16 @@
       "symbol": "func_151E22BC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "reason": "full integration exposed unresolved private jump-table relocation while source unit remains mixed; canonical jtbl_800AB9BC_game layout is not yet recoverable",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 236,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151E2404",
           "vram": "0x151E2404"
         }
@@ -79068,6 +79084,12 @@
       "symbol": "func_15116D7C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3253,
+        "reason": "best CURRENT 3253 (from 21256): body matches after per-operand (f32) casts and s32 count/index; residual is frame 0x38 vs 0x58. Raw spills size/current/frames/step into named homes (0x54/0x34/0x2C/0x28), so some named local needs memory; dead address-of/array probes reach 0x60/0x68 (rejected as fake). Need a natural memory-resident local plus 13 named words with size 1st, current 9th, frames 11th, step 12th; rom is an expression (temp spill 0x20)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -81107,8 +81129,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1268,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1511C638",
           "vram": "0x1511C638"
         }

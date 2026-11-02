@@ -12,7 +12,6 @@
  * - func_1511BB04
  * - func_1511BEBC
  * - func_1511C548
- * - func_1511C638
  * - func_1511CB44
  * - func_1511D394
  * - func_1511D7BC
@@ -389,7 +388,121 @@ void func_1511C548(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1511C548 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511C548.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511C638.s")
+typedef struct Game1483E0SoundSet {
+    u16 id[3];
+} Game1483E0SoundSet;
+
+void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
+void func_10010F30(s32, s32, s32, s32, s32);
+void func_150B2740(s32, s32);
+void func_15170F4C(u8 *, s32, s32);
+void D_1000EC24(void);
+extern Game1483E0SoundSet D_800A2F84;
+extern s32 D_800BE9E4;
+extern s32 D_800BE9F0;
+
+void func_1511C638(void *arg0) {
+    s32 state;
+    u8 *child;
+    u8 *other;
+    u16 first;
+    u16 second;
+    Game1483E0SoundSet sounds;
+
+    state = *((u8 *)arg0 + 0x73) & 3;
+    child = (u8 *)arg0 + 0xA0;
+    if (D_800BE9F0 == 4) {
+        other = (u8 *)arg0 + 0x140;
+    } else {
+        other = NULL;
+    }
+    if (state == 1) {
+        state = 0;
+        *((u8 *)arg0 + 0x8A) = 0;
+        child[0x6E] = 0;
+        if (other != NULL) {
+            other[0x6E] = 0;
+        }
+        if (*(s32 *)((u8 *)arg0 + 0x3C) != 0xFF) {
+            func_15173C60(0, *(s32 *)((u8 *)arg0 + 0x3C));
+        }
+    }
+    if (D_800BE9B4 != 0) {
+        if (state == 3) {
+            *((u8 *)arg0 + 0x8A) = 0xFF;
+            child[0x6E] = 1;
+            if (other != NULL) {
+                other[0x6E] = 1;
+            }
+        } else {
+            *((u8 *)arg0 + 0x8A) = 0;
+            child[0x6E] = 0;
+            if (other != NULL) {
+                other[0x6E] = 0;
+            }
+        }
+    }
+    if (state == 2) {
+        if (*(s32 *)((u8 *)arg0 + 0x7C) < 0) {
+            *(s32 *)((u8 *)arg0 + 0x7C) += D_800BE9E4;
+        } else {
+            if (*(s32 *)((u8 *)arg0 + 0x80) == 0) {
+                switch (*(s32 *)(child + 0x3C) & 0xFF) {
+                case 1:
+                    func_15170F4C(child, 0xFF, 0);
+                    func_10010F30(0x2BE, 0x7FFF, 0x40, 0, 0);
+                    break;
+                case 0:
+                    first = func_150ADA20() % 3;
+                    sounds = D_800A2F84;
+                    second = ((func_150ADA20() & 1) + first + 1) % 3;
+                    first = sounds.id[first];
+                    second = sounds.id[second];
+                    func_10010F30(0x2B7, 0x7FFF, 0x40, 0, 0);
+                    func_10010F30(first, 0x7FFF, 0xA, 0, 0);
+                    func_10010F30(second, 0x7FFF, 0x36, 0, 0);
+                    first = func_150ADA20() % 5;
+                    second = ((func_150ADA20() & 3) + first + 1) % 5;
+                    func_1000FA64((u16)(first + 0x2B1), *(s16 *)((u8 *)arg0 + 0x10), *(s16 *)((u8 *)arg0 + 0x12),
+                                  *(s16 *)((u8 *)arg0 + 0x14), 0x4000, 0x2711, 0x2710, (void *)D_1000EC24, 0x1001E, 0, 0x200, 0);
+                    func_1000FA64((u16)(second + 0x2B1), *(s16 *)((u8 *)arg0 + 0x10), *(s16 *)((u8 *)arg0 + 0x12),
+                                  *(s16 *)((u8 *)arg0 + 0x14), 0x4000, 0x2711, 0x2710, (void *)D_1000EC24, 0x1001E, 0, 0, 0);
+                    first = func_150ADA20() % 5;
+                    second = ((func_150ADA20() & 3) + first + 1) % 5;
+                    func_1000FA64((u16)(first + 0x2B1), *(s16 *)((u8 *)arg0 + 0x10), *(s16 *)((u8 *)arg0 + 0x12),
+                                  *(s16 *)((u8 *)arg0 + 0x14), 0x4000, 0x2711, 0x2710, (void *)D_1000EC24, 0x3C, 0, 0x300, 0);
+                    func_1000FA64((u16)(second + 0x2B1), *(s16 *)((u8 *)arg0 + 0x10), *(s16 *)((u8 *)arg0 + 0x12),
+                                  *(s16 *)((u8 *)arg0 + 0x14), 0x4000, 0x2711, 0x2710, (void *)D_1000EC24, 0x3C, 0, 0x100, 0);
+                    break;
+                case 3:
+                    func_150B2740((*(s32 *)(child + 0x3C) >> 8) & 0xFF, 0xFF);
+                    break;
+                case 2:
+                    break;
+                }
+            }
+            *((u8 *)arg0 + 0x8A) = 0xFF;
+            child[0x6E] = 1;
+            if (other != NULL) {
+                other[0x6E] = 1;
+            }
+            *(s32 *)((u8 *)arg0 + 0x80) += D_800BE9E4 * 30;
+            if (*(s32 *)((u8 *)arg0 + 0x80) >= 0xFF) {
+                *(s32 *)((u8 *)arg0 + 0x80) = 0xFF;
+                state = 3;
+            }
+            if (*(s32 *)((u8 *)arg0 + 0x3C) != 0xFF) {
+                func_15173C60(*(s32 *)((u8 *)arg0 + 0x80), *(s32 *)((u8 *)arg0 + 0x3C));
+            }
+            if (state == 3) {
+                *(s32 *)((u8 *)arg0 + 0x7C) = 0;
+                *(s32 *)((u8 *)arg0 + 0x80) = 0;
+            }
+        }
+    }
+    *((u8 *)arg0 + 0x73) &= 0xFFFC;
+    *((u8 *)arg0 + 0x73) |= state;
+}
 extern f32 D_800A31F4;
 
 void func_1511CB2C(s32 arg0, f32 *arg1) {
