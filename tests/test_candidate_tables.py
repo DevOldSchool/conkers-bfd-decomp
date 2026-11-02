@@ -464,3 +464,26 @@ class DistantGuardDispatchTests(unittest.TestCase):
                 self.reject(self.words, targets=(address,) + self.targets[1:])
         address = self.start + 16 * 4
         self.verify(self.words[:-1] + [0x08000000 | ((address >> 2) & 0x03FFFFFF), 0])
+
+    def test_adjacent_guard_with_shift_overwriting_index(self):
+        # func_150538CC's second dispatch: sltiu at,t7,15; sll t7,t7,2;
+        # beqz at; swc1 delay; lui/addu/lw/jr. The guard reads the index
+        # before the shift overwrites it.
+        start = 0x15054050
+        words = [0, 0, 0x244FFFFD, 0x2DE1000F, 0x000F7880, 0x1020000A, 0xE60A00B8,
+                 0x3C01800A, 0x002F0821, 0x8C2F93C0, 0x01E00008, 0] + [0] * 6
+        raw = ''.join(f'/* {i*4:06X} {start+i*4:08X} {word:08X} */ '
+                      + ('lw $t7,%lo(jtbl_800993C0_game)($at)' if i == 9 else 'instruction')
+                      + '\n' for i, word in enumerate(words))
+        code = b''.join(word.to_bytes(4, 'big') for word in words)
+        data = struct.pack('>15I', *([start + 48] * 15))
+        self.assertEqual(reference_tables(raw, code, data, start, 0x800993C0),
+                         (start, [Table(28, 36, (start + 48,) * 15)]))
+        # A delay slot that writes the guard or shifted index is rejected.
+        for delay in (0x8E010000, 0x8E0F0000):
+            bad = words.copy()
+            bad[6] = delay
+            bad_code = b''.join(word.to_bytes(4, 'big') for word in bad)
+            bad_raw = raw.replace(f'{words[6]:08X}', f'{delay:08X}')
+            with self.assertRaises(TableEvidenceError):
+                reference_tables(bad_raw, bad_code, data, start, 0x800993C0)

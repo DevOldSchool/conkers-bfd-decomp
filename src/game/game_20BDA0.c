@@ -515,8 +515,8 @@ extern volatile s8 D_800E0BE0[];
 extern u8 *D_8008FDD4;
 extern s8 D_800AB690[];
 extern s8 *D_80082BBC;
-/* The raw call leaves D_800E0BE0 live in a0; no other caller exists. */
-void func_150076A0(volatile s8 *);
+/* Unprototyped: the raw call passes D_800E0BE0, which the callee ignores. */
+void func_150076A0();
 
 void func_151E2404(void) {
     s8 *record;

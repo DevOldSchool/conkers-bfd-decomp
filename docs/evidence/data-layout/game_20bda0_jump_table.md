@@ -24,9 +24,10 @@ The mapping in `config/game/us-rodata.ld` places this section at `0x800AB9BC`
 as informational data with `SUBALIGN(4)`, an exact 48-byte size assertion and a
 40-byte payload-size symbol. The other `game_20BDA0` members are `GLOBAL_ASM`
 and emit no `.rodata`; their tables (`jtbl_800AB960`, `jtbl_800AB978`,
-`jtbl_800AB994`) and literals precede this table in ROM. When one of them is
-matched, the unit needs a `scripts/split_game_rodata.py` layout instead of this
-single placement.
+`jtbl_800AB994`) and literals precede this table in ROM. Matching one of them
+grows the object's `.rodata`, which fails the exact size assertion, so the
+unit then needs a `scripts/split_game_rodata.py` layout as described in the
+[sub-pool record](game_rodata_literal_sub_pools.md).
 
 ## Dispatch shape
 
@@ -40,11 +41,33 @@ branch, none writes the index, guard or shift register, the guard is not in a
 delay slot, and no direct edge or table target enters the guarded region.
 `tests/test_candidate_tables.py` covers the US words and each rejection.
 
+## Recognizer audit
+
+The old and new recognizers were run over all 87 raw game functions with a
+jump table, against the checksum-validated US ROM. Two results changed:
+
+- `func_150538CC` (game_80B80) is now accepted. Its second dispatch is
+  `sltiu at,t7,15; sll t7,t7,2; beqz at` with a `swc1` delay slot: the guard
+  reads the index before the shift overwrites it, and the ROM table has 15
+  entries. Its first dispatch was already in the supported form.
+- `func_15007168` (game_33990) still fails, now as "switch bound is missing
+  or ambiguous" instead of "unsupported switch dispatch shape".
+
+No previously accepted function changed. No debugger-overlay raw assembly with
+a jump table is present under `asm/`, so none was compared.
+
 ## Call argument
 
-The raw function never writes `a0` after loading `&D_800E0BE0` and calls
-`func_150076A0` with it still live. Every source form without an argument
-allocates the pointer to `v1`; passing it reproduces the original `a0`.
-`func_150076A0` (game_33990.c) has no other caller and ignores its argument,
-so the file-local `void func_150076A0(volatile s8 *)` declaration does not
-change the callee's code. Its shared definition keeps `(void)` pending review.
+The raw function loads `&D_800E0BE0` into `a0` and never writes `a0` again
+before calling `func_150076A0`. About thirty source forms without an argument
+(local or global source, declaration and assignment orders, `volatile` or
+not, index and record types) all allocate the pointer to `v1`; passing it
+reproduces the original `a0`. The callee (game_33990.c) cannot take a
+parameter: an unused named parameter makes IDO store `a0` to its home
+(CURRENT 200), which the original does not. So the original caller passed an
+argument that the parameterless callee ignores. `func_151E2404` is the only
+caller, called itself without arguments from `func_151E09DC`.
+
+As with `func_150ADA20` ([shared RNG prototype](../matching/rng_shared_prototype.md)),
+the caller's declaration is deliberately unprototyped, `void func_150076A0();`,
+and passes `D_800E0BE0` without a cast. The callee definition keeps `(void)`.
