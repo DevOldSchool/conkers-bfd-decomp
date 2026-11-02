@@ -44096,17 +44096,16 @@
       "symbol": "func_1503A830"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 365,
-        "reason": "CURRENT (365), round22 pass1 move sweep (dependency-checked: moved statement crosses only independent statements) (stored 450). Earlier: Manual deferred-exact-20261005:450 unchanged, one initializer hypothesis plus restore. Full184B frame/GPR correct; remaining float load occurs after argument homes and firstcall setup scheduled early. Initializer placement neutral. No existing game64120 rodata mapping or reviewed D800986EC immutable-literal evidence; investigate constant ownership before substitution or shared declaration change. Saved valid450 restored, prior1385to450 detailedhistorymissing; no repeat of allocation guesses. Ledger/full diff exported.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 184,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1503B708",
           "vram": "0x1503B708"
         }
@@ -44421,17 +44420,16 @@
       "symbol": "func_15064A14"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2155,
-        "reason": "Full control flow, switch and every branch recovered at CURRENT (2155); remaining rows are float-constant materialization order and register choice in the later inner-state branches. Statement-order sweeps across four branches plateaued.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 3784,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15064B94",
           "vram": "0x15064B94"
         }
