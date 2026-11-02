@@ -52648,17 +52648,16 @@
       "symbol": "func_1514F6E8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 143,
-        "reason": "Preserved unchanged at requested verification/push boundary: full-span CURRENT143; random spill24 versus raw20, reversed RNG MUL and outer ADD operands with 17 register rows. Prior two ABI/layout revisions lack detailed recovered history and remain carried forward. No new revision this pass. Next investigate actual consumed magnitude/random workspace layout or expression order using full diff; no dummy storage or shared ABI edits.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 240,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1514F808",
           "vram": "0x1514F808"
         }
@@ -56122,17 +56121,16 @@
       "symbol": "func_15191BE0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 994,
-        "reason": "Best CURRENT994 retained after three comparisons: native C8 frame/most arithmetic and helper calls exact, but vector offsets BC/B0 versus B4/A4, S4/S5/S6 rotation, chance branch and commuted operands remain. Existing payload and complete vectors retained; no shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 744,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15191D54",
           "vram": "0x15191D54"
         }
