@@ -106,6 +106,10 @@ SECTIONS
     {
         *game_20A290.o(.rodata)
     }
+    /* ROM-verified constants: docs/evidence/data-layout/game_rodata_literal_sub_pools.md. */
+    .game_rodata_173d40_0 0x800A5708 (INFO) : SUBALIGN(4) { *game_173D40.o(.rodata.173d40_0) }
+    .game_rodata_173d40_18 0x800A5728 (INFO) : SUBALIGN(4) { *game_173D40.o(.rodata.173d40_18) }
+    .game_rodata_173d40_20 0x800A573C (INFO) : SUBALIGN(4) { *game_173D40.o(.rodata.173d40_20) }
     /* ROM-verified constants: docs/evidence/data-layout/game_64120_float_constant.md
      * and docs/evidence/data-layout/game_rodata_literal_sub_pools.md. */
     .game_rodata_64120_0 0x80098648 (INFO) : SUBALIGN(4) { *game_64120.o(.rodata.64120_0) }
@@ -384,6 +388,9 @@ __game_rodata_64120_0_base = ADDR(.game_rodata_64120_0);
 __game_rodata_64120_4_base = ADDR(.game_rodata_64120_4) - 0x4;
 __game_rodata_90840_0_base = ADDR(.game_rodata_90840_0);
 __game_rodata_90840_b8_base = ADDR(.game_rodata_90840_b8) - 0xB8;
+__game_rodata_173d40_0_base = ADDR(.game_rodata_173d40_0);
+__game_rodata_173d40_18_base = ADDR(.game_rodata_173d40_18) - 0x18;
+__game_rodata_173d40_20_base = ADDR(.game_rodata_173d40_20) - 0x20;
 __game_rodata_blood_0_base = ADDR(.game_rodata_blood_0);
 __game_rodata_blood_204_base = ADDR(.game_rodata_blood_204) - 0x204;
 __game_rodata_blood_260_base = ADDR(.game_rodata_blood_260) - 0x260;
@@ -492,6 +499,12 @@ __game_rodata_20bda0_payload_size = 0x28;
 ASSERT(SIZEOF(.game_rodata_90840_0) == 0xB8, "game_90840 table extent changed")
 ASSERT(SIZEOF(.game_rodata_90840_b8) == 0x98,
        "game_90840 func_15064B94 literal extent changed")
+ASSERT(SIZEOF(.game_rodata_173d40_0) == 0x18,
+       "game_173D40 func_15146A98 literal extent changed")
+ASSERT(SIZEOF(.game_rodata_173d40_18) == 0x8,
+       "game_173D40 func_15146D60 literal extent changed")
+ASSERT(SIZEOF(.game_rodata_173d40_20) == 0x18,
+       "game_173D40 emitter literal extent changed")
 
 /* Burst velocity literals own one word; remaining input bytes are zero alignment. */
 ASSERT(SIZEOF(.game_rodata_f3270) == 0x10,

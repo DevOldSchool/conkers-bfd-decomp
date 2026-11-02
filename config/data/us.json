@@ -1146,6 +1146,36 @@
         }
       },
       {
+        "address": "0x800A5708",
+        "section": ".rodata.173d40_0",
+        "owner": {
+          "sources": [
+            "src/game/game_173D40.c",
+            "src/done/game/game_173D40.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A5728",
+        "section": ".rodata.173d40_18",
+        "owner": {
+          "sources": [
+            "src/game/game_173D40.c",
+            "src/done/game/game_173D40.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A573C",
+        "section": ".rodata.173d40_20",
+        "owner": {
+          "sources": [
+            "src/game/game_173D40.c",
+            "src/done/game/game_173D40.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A57B0",
         "section": ".rodata",
         "owner": {
