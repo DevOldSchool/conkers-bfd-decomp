@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1514CA80
  * - func_1514D15C
- * - func_1514D3B0
  * - func_1514D64C
  * - func_1514E920
  * - func_1514EECC
@@ -129,43 +128,23 @@ s32 func_1514D310(void *arg0) {
 s32 func_1514D4B8(s16, s16);
 extern s32 (*D_8008AB64[])(s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514D3B0 CURRENT (703) */
 s32 func_1514D3B0(void *arg0, s16 arg1, s32 arg2, s32 arg3) {
-    s32 callback_result;
-    s32 var_s1;
-    Game179F30Node *var_s0;
-    Game179F30DispatchEntry **entries;
+    s32 result;
+    Game179F30Node *node;
 
-    var_s1 = 0;
-    var_s0 = *(Game179F30Node **)((u8 *)arg0 + 0x2F4);
-    if (var_s0 != 0) {
-        entries = D_8008ABE8;
-        do {
-            if (arg1 != var_s0->dispatch_index) {
-                if (func_1514D4B8(
-                        *(s16 *)((u8 *)entries[arg1] + 4),
-                        var_s0->dispatch_index) != 0) {
-                    goto dispatch;
-                }
-            } else {
-dispatch:
-                if (*(s16 *)entries[var_s0->dispatch_index] != -1) {
-                    callback_result = D_8008AB64[
-                        *(s16 *)entries[var_s0->dispatch_index]](
-                            var_s0->field_10, arg2, arg3);
-                    var_s1 = 0;
-                    if (callback_result != 0) {
-                        var_s1 = 1;
-                    }
-                }
+    result = 0;
+    node = *(Game179F30Node **)((u8 *)arg0 + 0x2F4);
+    while (node != 0) {
+        if (arg1 == node->dispatch_index ||
+            func_1514D4B8(*(s16 *)((u8 *)D_8008ABE8[arg1] + 4), node->dispatch_index) != 0) {
+            if (*(s16 *)D_8008ABE8[node->dispatch_index] != -1) {
+                result = D_8008AB64[*(s16 *)D_8008ABE8[node->dispatch_index]](node->field_10, arg2, arg3) != 0 ? 1 : 0;
             }
-            var_s0 = (Game179F30Node *)var_s0->next;
-        } while (var_s0 != 0);
+        }
+        node = (Game179F30Node *)node->next;
     }
-    return var_s1;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514D3B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514D3B0.s")
 s32 func_1514D4B8(s16 arg0, s16 arg1) {
     if (arg0 == -1) {
         return 0;

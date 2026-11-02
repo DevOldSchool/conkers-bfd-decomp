@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15146970
- * - func_15146E84
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -199,13 +198,10 @@ u8 func_151D8E20(void);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32,
                    s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15146E84 CURRENT (774) */
 void func_15146E84(void *arg0, s32 arg1, s32 arg2) {
     Game146E84Work work;
     u8 kind;
     f32 copy[3];
-    u32 randomValue;
-    f32 randomScale;
 
     if (*(s32 *)((u8 *)arg0 + 0x1D4) == 0) {
         return;
@@ -223,23 +219,18 @@ void func_15146E84(void *arg0, s32 arg1, s32 arg2) {
     copy[1] = *(f32 *)work.data;
     copy[2] = work.position[2];
     if (func_150ADA20() & 1) {
-        randomScale = func_150ADA68();
-        randomValue = func_150ADA20();
         func_151D9B8C(kind,
-                       randomScale * 10.0f + 10.0f,
-                       (randomValue % 101U + 0x64) & 0xFF,
+                       func_150ADA68() * 10.0f + 10.0f,
+                       (func_150ADA20() % 101U + 0x64) & 0xFF,
                        (s32)(work.data + 4), copy,
                        (func_150ADA20() % 41U) + 0x50,
                        1, 1, 0, 0xFF, 1);
         return;
     }
-    randomScale = func_150ADA68();
-    func_151DAB58(kind, randomScale * 8.0f + 5.0f,
-                   (func_150ADA20() % 101U + 0x64) & 0xFF,
+    func_151DAB58(kind, func_150ADA68() * 8.0f + 5.0f,
+                   func_150ADA20() % 101U + 0x64,
                    copy, 1, 0xFF, 1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15146E84 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_173D40/func_15146E84.s")
 s32 func_15146890(f32 *, void *, s32, u8);
 f32 func_150ADA68(void);
 void func_1514C678(f32, f32, s32, f32, s32, s32, s32, s32, s32, f32, s32, s32);

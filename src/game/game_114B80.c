@@ -10,7 +10,6 @@
  * - func_150E7C9C
  * - func_150E7FEC
  * - func_150E81A8
- * - func_150E83AC
  * - func_150E8470
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -377,36 +376,23 @@ void func_150E81A8(s32 arg0, s32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E81A8.s")
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E83AC CURRENT (1230) */
 void func_150E83AC(void *arg0, s16 arg1, u8 arg2, s32 arg3) {
     typedef struct { s32 words[3]; } Copy3;
     struct {
         Copy3 header;
         f32 value;
     } packet;
-    s32 var_v1;
-    s32 var_v0;
     u8 *temp_v0;
 
     packet.header = *(Copy3 *)arg0;
-    var_v1 = arg1;
     packet.value = 0.0f;
-    if (arg1 == -1) {
-        var_v1 = 0x12C;
-    }
-    if (arg1 == -1) {
-        var_v0 = 0;
-    } else {
-        var_v0 = 1;
-    }
-    temp_v0 = func_15149130((s32)var_v1, -1, 0x28, -1, var_v0, 0, 0x10,
+    temp_v0 = func_15149130(arg1 == -1 ? 0x12C : arg1, -1, 0x28, -1, arg1 == -1 ? 0 : 1, 0, 0x10,
         (s32)arg2, arg3);
-    if (temp_v0 != 0) {
-        func_10022EC0(temp_v0 + 0x28, &packet, 0x10);
+    if (temp_v0 == 0) {
+        return;
     }
+    func_10022EC0(temp_v0 + 0x28, &packet, 0x10);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E83AC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E83AC.s")
 typedef struct GameE8470Descriptor {
     s32 field00, field04;
     s16 field08, field0A;
