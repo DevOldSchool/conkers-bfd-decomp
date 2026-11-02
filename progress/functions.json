@@ -49526,7 +49526,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 100,
-        "reason": "CURRENT (100): executable rows agree, but the final registered alignment nop is absent in the current mixed-object context. Correct source-local pointer-return declaration retained. No padding or assembly changes. Historical main evidence: Round3 2026-10-17 recheck unchanged: improved 300 -> CURRENT (100); body exact, one registered trailing nop at +0x74 (unit-end alignment) not produced by the focused object. Layout/unit-end issue, not C. Ledger: build/us/manual-attempts/deferred-20261018/ledger.md; review ledger: build/us/manual-attempts/pr149-review/ledger.md; durable review: docs/evidence/matching/pr149-review.md.",
+        "reason": "CURRENT (100): every instruction matches; only the final terminal alignment word is absent from the focused object. The complete mixed object (.text 0x1B10) does contain the 8-byte terminal padding, but linked_aliases.prepare_game returns early because game_1C1150 uses split rodata (game_rodata_placement is None for split layouts), so the full-unit padding proof never runs. Unblock by teaching the proof to link split sub-pools.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
