@@ -717,16 +717,19 @@ member's `jr $ra` delay slot), split the unit instead of withdrawing it:
 ```
 
 The offset must be 16-byte aligned (8 for the debugger), lie strictly inside
-the unit, start a registered member and already exist in the checked-in map.
+the unit, start a registered member and, for a raw-ASM unit, already exist in
+the checked-in map.
 Members from that offset onward move to the new file with their matched C,
 preserved deferred candidates and raw pragmas; the new unit inherits the same
-boundary evidence reference and raw-ASM integration, both inventories update
+boundary evidence reference and integration, both inventories update
 and progress re-renders in one transaction that rolls back on any failure.
 Declarations above the first member are copied into the new file so both
 compile; prune unused copies, recheck moved matches with `diff`, and record
 the padding evidence in the referenced boundary document before
-`verify-batch`. Integrated (mixed or C) units cannot be split, and
-`withdraw-source-unit` remains game-only.
+`verify-batch`. A mixed unit can be split too: the offset must not already be
+a map boundary, and the transaction inserts the new unit's `c` map entry after
+the original one, so both halves stay mixed. Completed C units cannot be split
+(reopen first), and `withdraw-source-unit` remains game-only.
 
 ## Verified original assembly
 

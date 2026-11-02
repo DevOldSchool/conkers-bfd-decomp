@@ -19,7 +19,8 @@ bytes.
 | `src/game/game_143870.c` | `0x1163C0:0x116930` | 4 | 1,392 | `fc0770bf6ac567347783af2a392cd930c9e502e0` |
 | `src/game/game_1449A0.c` | `0x1174F0:0x1177C0` | 4 | 720 | `7949f70f9deba1488c0275426f018d8396cb1855` |
 | `src/game/game_144C70.c` | `0x1177C0:0x119FC0` | 14 | 10,240 | `dea51b229664db8158e543cc5c696c7e5b56c49c` |
-| `src/game/game_1D4140.c` | `0x1A6C90:0x1A7610` | 4 | 2,432 | `2ce15c8c6689d2cbdcf1e4b1cedd1e3bce77da56` |
+| `src/done/game/game_1D4140.c` | `0x1A6C90:0x1A6F00` | 1 | 624 | `a78b0e1f3c09159ead4c628d19522aa3c1790979` |
+| `src/game/game_1D43B0.c` | `0x1A6F00:0x1A7610` | 3 | 1,808 | `eada2e013619158a56271a955d0ada21787267fd` |
 | `src/game/game_1EB6C0.c` | `0x1BE210:0x1BE850` | 12 | 1,600 | `d34e275f977e219213e2ffed7333a4624e5312a4` |
 
 ## Membership review
@@ -58,6 +59,20 @@ wrappers at `0x11896C` and `0x11898C` call `func_151189AC`; and selected
 `func_151A6C90` -> `func_151A6F00`, followed by `func_151A73EC` and
 `func_151A743C`, selected at `0x80089928` and `0x80089944`. Its end is the
 existing reviewed boundary for the following source.
+
+This range was first registered as one unit, `src/game/game_1D4140.c`
+(`0x1A6C90:0x1A7610`, 4 entries, 2,432 bytes, SHA-1
+`2ce15c8c6689d2cbdcf1e4b1cedd1e3bce77da56`), and split at `0x1A6F00` on
+2026-11-02. `func_151A6C90` ends with `jr $ra` and its `addiu $sp, $sp, 0xA8`
+delay slot at `0x1A6EF0`/`0x1A6EF4`, followed by two zero words at
+`0x1A6EF8`/`0x1A6EFC` before `func_151A6F00`'s prologue
+(`addiu $sp, $sp, -0x168`) at the 16-byte-aligned `0x1A6F00`. IDO pads only at
+the end of an object's `.text`, so `0x1A6F00` begins a new object. Every
+`func_151A6C90` instruction matches its C candidate; only those two padding
+words differed while the unit continued past them. The direct call
+`func_151A6C90` -> `func_151A6F00` now crosses the object boundary. The
+`0x1A6C90:0x1A6F00` unit is complete and integrated; the selected members stay
+in `src/game/game_1D43B0.c` with `func_151A6F00`.
 
 `0x1BE210:0x1BE850` has selections for ten members across
 `0x80089894`, `0x80089DF4`, `0x80089E08`, `0x80089E90`,

@@ -74340,22 +74340,21 @@
       "symbol": "func_15119938"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "Fresh after unblock 2026-10-30: every instruction matches (finish CURRENT 200 = only the two zero words at 0x151A6EF8/0x151A6EFC). Those are end-of-object .text padding after the jr delay slot, so an original object boundary sits at 0x1A6F00 inside mixed unit game_1D4140 (0x1A6C90:0x1A7610). split-source-unit refuses mixed units and the map has no 0x1A6F00 entry; needs a reviewed boundary split, then resume+finish. Keys: f32 func_150ADA68 prototype (file had none), u8 arg1 with func_151A6F00(s16*, s32, u8, s32), field30-38 = 0 (separate zero from field20), random hoisted into its own statement, exact literal 1.6409999f.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 624,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A6C90",
           "vram": "0x151A6C90"
         }
       },
-      "source": "src/game/game_1D4140.c",
+      "source": "src/done/game/game_1D4140.c",
       "symbol": "func_151A6C90"
     },
     {
@@ -74368,7 +74367,7 @@
           "vram": "0x151A6F00"
         }
       },
-      "source": "src/game/game_1D4140.c",
+      "source": "src/game/game_1D43B0.c",
       "symbol": "func_151A6F00"
     },
     {
@@ -74386,7 +74385,7 @@
           "vram": "0x151A73EC"
         }
       },
-      "source": "src/game/game_1D4140.c",
+      "source": "src/game/game_1D43B0.c",
       "symbol": "func_151A73EC"
     },
     {
@@ -74404,7 +74403,7 @@
           "vram": "0x151A743C"
         }
       },
-      "source": "src/game/game_1D4140.c",
+      "source": "src/game/game_1D43B0.c",
       "symbol": "func_151A743C"
     },
     {

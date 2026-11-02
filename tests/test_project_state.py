@@ -2368,7 +2368,50 @@ class GameInventoryTests(unittest.TestCase):
         main_map = self.root / "config" / "profiles" / "us.yaml"
         main_map.write_text(main_map.read_text(encoding="utf-8").replace(
             "[0x0, asm]", "[0x0, c, main/split_test]"), encoding="utf-8")
-        self.assert_split_rejected(source, "0x10", "raw-ASM source unit")
+        self.assert_split_rejected(source, "0x10", "already has a map boundary")
+
+    def mix_split_unit(self, source: str) -> Path:
+        """Integrate the fixture unit as mixed C: one C map entry, no inner boundary."""
+        data = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))
+        data["source_units"][0]["integration"] = "mixed"
+        project_state.write_json(project_state.SOURCE_UNITS_FILE, data)
+        main_map = self.root / "config" / "profiles" / "us.yaml"
+        main_map.write_text(main_map.read_text(encoding="utf-8")
+                            .replace("[0x0, asm]", "[0x0, c, main/split_test]")
+                            .replace("      - [0x10, asm]\n", ""), encoding="utf-8")
+        return main_map
+
+    def test_split_source_unit_maps_the_tail_of_a_mixed_unit_as_c(self) -> None:
+        source = self.register_splittable_main_unit()
+        self.prepare_split_members(source)
+        main_map = self.mix_split_unit(source)
+        with redirect_stdout(io.StringIO()):
+            project_state.split_source_unit(self.split_arguments(source, "0x10"))
+        self.assertEqual(
+            "    subsegments:\n"
+            "      - [0x0, c, main/split_test]\n"
+            "      - [0x10, c, main/split_test_tail]\n"
+            "      - [0x20, asm]\n"
+            "      - [0x30, asm]\n",
+            main_map.read_text(encoding="utf-8"))
+        first, second = json.loads(
+            project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))["source_units"]
+        self.assertEqual(("mixed", "mixed"), (first["integration"], second["integration"]))
+        self.assertEqual({"start": "0x0", "end": "0x10"},
+                         {key: first["regions"]["us"][key] for key in ("start", "end")})
+        self.assertEqual({"start": "0x10", "end": "0x30"},
+                         {key: second["regions"]["us"][key] for key in ("start", "end")})
+        project_state.validate_project()
+
+    def test_mixed_split_rolls_back_the_map_on_failure(self) -> None:
+        source = self.register_splittable_main_unit()
+        self.prepare_split_members(source)
+        self.mix_split_unit(source)
+        before = {p: p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
+        with patch.object(project_state, "render_progress", side_effect=RuntimeError("render failed")):
+            with self.assertRaisesRegex(RuntimeError, "render failed"):
+                project_state.split_source_unit(self.split_arguments(source, "0x10"))
+        self.assertEqual(before, {p: p.read_bytes() for p in self.root.rglob("*") if p.is_file()})
 
     def test_split_source_unit_rolls_back_every_file_on_failure(self) -> None:
         source = self.register_splittable_main_unit()
