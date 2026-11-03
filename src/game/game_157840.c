@@ -12,7 +12,6 @@
  * - func_1512B1B8
  * - func_1512B53C
  * - func_1512B730
- * - func_1512BB10
  * - func_1512C20C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -342,7 +341,164 @@ s32 func_1512B730(void *arg0, f32 *arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1512B730 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_157840/func_1512B730.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_157840/func_1512BB10.s")
+typedef struct Game1512BB10Probe {
+    s32 type;
+    u8 pad04[0x10];
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 field20;
+    u8 pad24[4];
+    f32 field28;
+    u8 pad2C[0x14];
+    f32 field40;
+    u8 pad44[0x13C];
+    f32 floor180;
+    u8 pad184[4];
+    s32 field188;
+    u8 pad18C[0x18C];
+    u8 *owner;
+    u8 pad31C[0x10];
+} Game1512BB10Probe;
+
+void func_150495B0(f32 *, f32, f32 *, f32, f32, f32);
+void func_1510E8BC(s32, s32, f32 *, s32, s32, s32, f32, f32, f32, f32, u16, s32, f32, f32, s32);
+void func_151236D0(u8 *);
+s32 func_15044380(f32, f32, f32, void *, s32, s32);
+extern u8 D_80089120[];
+extern f32 D_800A3688;
+extern f32 D_800A368C;
+extern f32 D_800A3690;
+extern u8 D_800CBDD2;
+extern u8 D_800CBDD3;
+extern u8 D_800CBDD4;
+
+void func_1512BB10(u8 *arg0) {
+    s32 savedDD3;
+    s32 flag;
+    Game1512BB10Probe probe;
+    s32 flags;
+    s32 savedFlag2;
+    s32 savedFlag1;
+    s32 savedDD4;
+
+    flags = *(s32 *) (arg0 + 0x84);
+    flag = 0;
+    if (!(flags & 0x40000) && ((*(u8 **) (arg0 + 0x3D4))[0x95] == 0) &&
+        *(s32 *) (arg0 + 0x2C) != 0x40 && !(flags & 0x80) && !(flags & 0x200)) {
+        savedFlag2 = D_80089120[2];
+        savedFlag1 = D_80089120[1];
+        flags = *(s32 *) (arg0 + 0x5F0);
+        if (flags & 0x800) {
+            *(f32 *) (arg0 + 0x94C) = 20.0f;
+            *(f32 *) (arg0 + 0x950) = 40.0f;
+        } else if (flags & 0x10) {
+            *(f32 *) (arg0 + 0x94C) = 20.0f;
+            *(f32 *) (arg0 + 0x950) = 72.0f;
+        } else if (*(f32 *) (arg0 + 0x374) > 580.0f) {
+            *(f32 *) (arg0 + 0x94C) = 70.0f;
+            *(f32 *) (arg0 + 0x950) = 140.0f;
+        } else if (D_800BE9F0 == 0x31 && arg0[0x23E] == 3) {
+            flag = 1;
+            *(f32 *) (arg0 + 0x94C) = 20.0f;
+            *(f32 *) (arg0 + 0x950) = 50.0f;
+        } else {
+            if ((*(s16 *) (arg0 + 0x73C) != 0 && *(s16 *) (arg0 + 0x73C) != 1 && *(s16 *) (arg0 + 0x73C) != 3) ||
+                ((*(u8 **) (arg0 + 0x3D0))[0x102] != 0 &&
+                 (*(f32 *) (arg0 + 0x2B0) != *(f32 *) (*(u8 **) (arg0 + 0x3D0) + 0x14) ||
+                  *(f32 *) (arg0 + 0x2B8) != *(f32 *) (*(u8 **) (arg0 + 0x3D0) + 0x1C))) ||
+                (*(u8 **) (arg0 + 0x3D4))[0x1B3] != 0) {
+                *(f32 *) (arg0 + 0x94C) = 20.0f;
+                *(f32 *) (arg0 + 0x950) = 20.0f;
+            } else if ((*(u8 **) (arg0 + 0x3D0))[0x102] != 0) {
+                flag = 1;
+                *(f32 *) (arg0 + 0x94C) = 25.0f;
+                *(f32 *) (arg0 + 0x950) = 30.0f;
+            } else {
+                *(f32 *) (arg0 + 0x94C) = 30.0f;
+                *(f32 *) (arg0 + 0x950) = 60.0f;
+            }
+        }
+        if (arg0[0x23C] != 0) {
+            *(f32 *) (arg0 + 0x954) = 0.0f;
+            *(f32 *) (arg0 + 0x95C) = *(f32 *) (arg0 + 0x94C);
+            *(f32 *) (arg0 + 0x958) = 0.0f;
+            *(f32 *) (arg0 + 0x960) = *(f32 *) (arg0 + 0x950);
+        } else {
+            func_150495B0((f32 *) (arg0 + 0x95C), *(f32 *) (arg0 + 0x94C), (f32 *) (arg0 + 0x954), 4.0f, 6.0f,
+                          *(f32 *) (arg0 + 0x7B4));
+            func_150495B0((f32 *) (arg0 + 0x960), *(f32 *) (arg0 + 0x950), (f32 *) (arg0 + 0x958), 4.0f, 6.0f,
+                          *(f32 *) (arg0 + 0x7B4));
+        }
+        probe.type = 0x2D;
+        probe.owner = arg0;
+        probe.x = *(f32 *) (arg0 + 0x2F8);
+        if (*(s32 *) (arg0 + 0x5F0) & 0x800) {
+            probe.y = *(f32 *) (arg0 + 0x18C) + *(f32 *) (arg0 + 0x2FC);
+        } else {
+            probe.y = *(f32 *) (arg0 + 0x2FC);
+        }
+        probe.z = *(f32 *) (arg0 + 0x300);
+        probe.field188 = *(s32 *) (arg0 + 0x644);
+        probe.field28 = probe.y - *(f32 *) (arg0 + 0x354);
+        probe.floor180 = *(f32 *) (arg0 + 0x354);
+        probe.field20 = 0.0f;
+        probe.field40 = *(f32 *) (arg0 + 0x37C);
+        if ((*(s32 *) (arg0 + 0x84) & 0x80000000) || D_800BE9F0 == 0x37) {
+            D_80089120[2] = 0;
+        }
+        if (*(s32 *) (arg0 + 0x84) & 0x10000) {
+            D_80089120[1] = 0;
+        }
+        D_800CBDD2 = 1;
+        savedDD3 = D_800CBDD3;
+        if ((*(u8 **) (arg0 + 0x3D0))[0x102] != 0) {
+            D_800CBDD3 = 1;
+        } else {
+            D_800CBDD3 = 0;
+        }
+        savedDD4 = D_800CBDD4;
+        if (arg0[0x23C] != 0 || (*(s32 *) (arg0 + 0x2C) == 0x100 && flag == 0)) {
+            D_800CBDD4 = 1;
+        } else {
+            D_800CBDD4 = 0;
+        }
+        flags = func_15044380(*(f32 *) (arg0 + 0x304), *(f32 *) (arg0 + 0x308), *(f32 *) (arg0 + 0x30C), &probe, 0, 0);
+        D_800CBDD4 = savedDD4;
+        D_800CBDD2 = 0;
+        D_800CBDD3 = savedDD3;
+        D_80089120[2] = savedFlag2;
+        D_80089120[1] = savedFlag1;
+        if (flags != 0) {
+            arg0[0x3E8] = 0;
+            *(f32 *) (arg0 + 0x26C) = D_800A3688;
+        } else {
+            arg0[0x3E8] = 1;
+            *(f32 *) (arg0 + 0x26C) += (1.0f - *(f32 *) (arg0 + 0x26C)) * D_800A368C;
+        }
+        *(f32 *) (arg0 + 0x2F8) = probe.x;
+        if (*(s32 *) (arg0 + 0x2C) != 0x100) {
+            if (*(s32 *) (arg0 + 0x5F0) & 0x800) {
+                *(f32 *) (arg0 + 0x2FC) = probe.y - *(f32 *) (arg0 + 0x18C);
+            } else {
+                *(f32 *) (arg0 + 0x2FC) = probe.y;
+            }
+        }
+        *(f32 *) (arg0 + 0x300) = probe.z;
+        if (D_800BE9F0 != 0x1B && flags != 0 && *(s32 *) (arg0 + 0x2C) != 0x100) {
+            f32 height;
+            func_1510E8BC(0, 0, &height, 0, 0, 0, *(f32 *) (arg0 + 0x2F8), *(f32 *) (arg0 + 0x2FC),
+                          *(f32 *) (arg0 + 0x300), *(f32 *) (arg0 + 0x308), 0, 0, D_800A3690,
+                          *(f32 *) (arg0 + 0x2FC), 1);
+            if (*(f32 *) (arg0 + 0x2FC) < height + 40.0f) {
+                *(f32 *) (arg0 + 0x2FC) = height + 40.0f;
+            }
+        }
+    } else {
+        arg0[0x3E8] = 1;
+    }
+    func_151236D0(arg0);
+}
 void func_15123A54(u8 *);
 void func_1512C150(void *);
 f32 sqrtf(f32);
