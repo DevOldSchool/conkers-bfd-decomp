@@ -10,7 +10,6 @@
  * - func_1513264C
  * - func_15132A88
  * - func_15132B80
- * - func_15132DDC
  * - func_15133588
  * - func_151336A8
  * - func_15133894
@@ -528,7 +527,139 @@ s32 *func_15132B80(s32 *arg0, Game15F680TransformState *arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15132B80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132B80.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132DDC.s")
+void *func_10022EC0(void *, const void *, u32);
+s32 func_15046C80(f32 *, s32, f32, void *);
+f32 func_150484A0(f32, f32);
+s32 func_15044380(f32, f32, f32, void *, s32, s32);
+extern f32 D_800BE9A4;
+extern f32 D_800A386C;
+extern f32 D_800A3870;
+extern s32 (*D_80089934[])(void *, f32, f32, f32, f32, void *);
+extern s32 (*D_80089970[])(void *, f32, f32, f32, f32);
+extern s32 (*D_80089974[])(void *, void *, f32, f32, f32);
+
+typedef struct {
+    s16 v[9];
+} Game15F680Surface;
+
+typedef struct {
+    s32 type;
+    u8 pad04[0x10];
+    Vec3f pos;
+    u8 pad20[8];
+    f32 scale28;
+    u8 pad2C[0xB8];
+    s16 heightE4;
+    s16 heightE6;
+    u8 padE8[0x10];
+    s32 fieldF8;
+    u8 padFC[0x50];
+    f32 scale14C;
+    f32 scale150;
+    u8 pad154[0x2C];
+    f32 floor180;
+    u8 pad184[4];
+    s32 field188;
+    Game15F680Surface surface;
+    u8 pad19E[0x192];
+} Game15F680Probe;
+
+s32 func_15132DDC(Game15F680TransformState *arg0) {
+    Vec3f prior;
+    Vec3f test;
+    Game15F680Probe probe;
+    f32 speed;
+
+    if (arg0->flags60 & 7) {
+        func_10022EC0(&prior, &arg0->field38, 0xC);
+    }
+    if (arg0->flags60 & 8) {
+        *(f32 *)((u8 *)arg0 + 0x48) += *(f32 *)((u8 *)arg0 + 0x5C) * D_800BE9A4;
+    }
+    if (arg0->flags60 & 0x20) {
+        arg0->field38 += *(f32 *)((u8 *)arg0 + 0x44) * D_800BE9A4;
+        arg0->field3C += *(f32 *)((u8 *)arg0 + 0x48) * D_800BE9A4;
+        arg0->field40 += *(f32 *)((u8 *)arg0 + 0x4C) * D_800BE9A4;
+    }
+    if (arg0->flags60 & 0x40) {
+        arg0->field20 += arg0->field50 * D_800BE9A4;
+        arg0->field24 += arg0->field54 * D_800BE9A4;
+        arg0->field28 += arg0->field58 * D_800BE9A4;
+    }
+    if (arg0->flags60 & 7) {
+        test.x = arg0->field38;
+        test.y = prior.y;
+        test.z = arg0->field40;
+        if (func_15046C80(&test.x, 0, arg0->field3C - arg0->field10, (u8 *)arg0 + 0x110) != 0) {
+            if (((u8 *)arg0)[0x12D] == 1 || (((u8 *)arg0)[0x12D] == 2 && (((u8 *)arg0)[0x12C] & 1))) {
+                arg0->flags148 |= 1;
+                if (arg0->flags60 & 0x10) {
+                    speed = sqrtf(*(f32 *)((u8 *)arg0 + 0x4C) * *(f32 *)((u8 *)arg0 + 0x4C) + (*(f32 *)((u8 *)arg0 + 0x48) * *(f32 *)((u8 *)arg0 + 0x48) + *(f32 *)((u8 *)arg0 + 0x44) * *(f32 *)((u8 *)arg0 + 0x44)));
+                    if (speed > 1.0f) {
+                        arg0->flags148 |= 8;
+                        *(f32 *)((u8 *)arg0 + 0x140) = speed;
+                        arg0->field144 = 1.0f / speed;
+                    }
+                }
+                if (((u8 *)arg0)[0x73] != 0 &&
+                    D_80089934[((u8 *)arg0)[0x73]](arg0, prior.x, prior.y, prior.z,
+                                                   *(f32 *)((u8 *)arg0 + 0x110), (u8 *)arg0 + 0x114) == 0) {
+                    return 0;
+                }
+                if (arg0->flags60 & 0x10) {
+                    func_10022EC0((u8 *)arg0 + 0x134, &arg0->field38, 0xC);
+                }
+            }
+            if (((u8 *)arg0)[0x12D] == 3) {
+                arg0->flags148 |= 2;
+                if (((u8 *)arg0)[0x74] != 0 &&
+                    D_80089970[((u8 *)arg0)[0x74]](arg0, prior.x, prior.y, prior.z,
+                                                   *(f32 *)((u8 *)arg0 + 0x110)) == 0) {
+                    return 0;
+                }
+            }
+        }
+        if (arg0->flags60 & 4) {
+            probe.type = 4;
+            probe.pos.x = arg0->field38;
+            probe.pos.y = arg0->field3C;
+            probe.pos.z = arg0->field40;
+            probe.field188 = 0;
+            probe.surface = *(Game15F680Surface *)((u8 *)arg0 + 0x114);
+            probe.scale28 = 1.0f;
+            probe.scale14C = 1.0f;
+            probe.heightE4 = arg0->field10;
+            probe.scale150 = 1.0f;
+            probe.heightE6 = arg0->field10;
+            if (((u8 *)arg0)[0x12C] & 2) {
+                probe.floor180 = *(f32 *)((u8 *)arg0 + 0x110);
+            } else {
+                probe.floor180 = D_800A386C;
+            }
+            probe.fieldF8 = 0;
+            if (func_15044380(prior.x, prior.y, prior.z, &probe, 0, 0) != 0) {
+                arg0->flags148 |= 4;
+                if (arg0->flags60 & 0x10) {
+                    speed = sqrtf(*(f32 *)((u8 *)arg0 + 0x4C) * *(f32 *)((u8 *)arg0 + 0x4C) + (*(f32 *)((u8 *)arg0 + 0x48) * *(f32 *)((u8 *)arg0 + 0x48) + *(f32 *)((u8 *)arg0 + 0x44) * *(f32 *)((u8 *)arg0 + 0x44)));
+                    if (speed > 1.0f) {
+                        arg0->flags148 |= 0x10;
+                        *(f32 *)((u8 *)arg0 + 0x140) = speed;
+                        arg0->field144 = 1.0f / speed;
+                        arg0->angle14A = func_150484A0(probe.pos.x - arg0->field38, probe.pos.z - arg0->field40) * D_800A3870;
+                    }
+                }
+                if (((u8 *)arg0)[0x75] != 0 &&
+                    D_80089974[((u8 *)arg0)[0x75]](arg0, &probe, prior.x, prior.y, prior.z) == 0) {
+                    return 0;
+                }
+                if (arg0->flags60 & 0x10) {
+                    func_10022EC0((u8 *)arg0 + 0x134, &arg0->field38, 0xC);
+                }
+            }
+        }
+    }
+    return 1;
+}
 void *func_10022EC0(void *, const void *, u32);
 extern f32 D_800BE9A4;
 extern s32 D_800BE9E4;

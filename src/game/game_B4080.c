@@ -17,7 +17,6 @@
  * - func_15088F30
  * - func_1508907C
  * - func_150891E8
- * - func_150896EC
  * - func_15089F9C
  * - func_1508A1BC
  * - func_1508A6FC
@@ -1148,7 +1147,151 @@ loop_9:
 #endif /* CONKER_DEFERRED_CANDIDATE func_1508907C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508907C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_150891E8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_150896EC.s")
+typedef struct {
+    s32 field0;
+    s32 field4;
+    u8 pad8[4];
+    f32 fieldC;
+    s32 field10;
+    f32 x0;
+    f32 y0;
+    f32 z0;
+    f32 x1;
+    f32 y1;
+    f32 z1;
+    f32 field2C;
+    f32 field30;
+    f32 field34;
+} GameB4080RailPacket;
+
+typedef struct {
+    u8 pad0[0x34];
+    f32 phase;
+    f32 x;
+    f32 y;
+    f32 z;
+    u8 nodes[4];
+    u8 field48;
+    s8 active;
+    u8 pad4A[2];
+    GameB4080RailPacket packet;
+} GameB4080RailEntry;
+
+typedef struct {
+    u8 pad0[0x14];
+    f32 x;
+    f32 y;
+    f32 z;
+    u8 pad20[0x20];
+    f32 angle;
+    u8 pad44[0x2D4];
+    u8 *field_318;
+} GameB4080RailActor;
+
+u8 func_1508907C(u8, u8, u8, u8);
+f32 func_15047C00(f32);
+f32 func_15047D60(f32);
+void func_1512D560(void *, s32, s32);
+extern f32 D_8009DA0C;
+extern f32 D_8009DA10;
+extern s32 D_800BE9E4;
+
+void func_150896EC(void *arg0, void *arg1, s32 arg2) {
+    u8 *model;
+    s32 i;
+    s32 valid;
+    f32 angle;
+    u8 next;
+    u8 *p;
+    GameB4080RailPacket *packet = &((GameB4080RailEntry *)arg0)->packet;
+    f32 xs[4];
+    f32 ys[4];
+    f32 zs[4];
+    f32 xs2[4];
+    f32 ys2[4];
+    f32 zs2[4];
+
+    if (((GameB4080RailActor *)arg1)->field_318 == NULL) {
+        return;
+    }
+    model = ((GameB4080RailActor *)arg1)->field_318;
+    if (arg2 != 0) {
+        packet->field10 = 0x78;
+        packet->fieldC = D_8009DA0C;
+        func_1512D560(((GameB4080RailActor *)arg1)->field_318, 0xA, (s32)packet);
+        func_1512D560(((GameB4080RailActor *)arg1)->field_318, 6, model[0x23D]);
+        ((GameB4080RailEntry *)arg0)->active = 0;
+        return;
+    }
+    if (((GameB4080RailEntry *)arg0)->active == 0) {
+        next = D_800D23A8 + 1;
+        for (i = 0; i < D_80087290; i++) {
+            p = D_800D2350 + i * 0x10;
+            if (p[0xE] == 6 && next == p[0xF]) {
+                ((GameB4080RailEntry *)arg0)->nodes[0] = i;
+                i = D_80087290;
+            }
+        }
+        ((GameB4080RailEntry *)arg0)->nodes[1] = func_1508907C(((GameB4080RailEntry *)arg0)->nodes[0], 6, 0xFF, 0);
+        ((GameB4080RailEntry *)arg0)->nodes[2] = func_1508907C(((GameB4080RailEntry *)arg0)->nodes[1], 6, ((GameB4080RailEntry *)arg0)->nodes[0], 0);
+        ((GameB4080RailEntry *)arg0)->nodes[3] = func_1508907C(((GameB4080RailEntry *)arg0)->nodes[2], 6, ((GameB4080RailEntry *)arg0)->nodes[1], 0);
+        ((GameB4080RailEntry *)arg0)->x = ((GameB4080RailActor *)arg1)->x;
+        ((GameB4080RailEntry *)arg0)->y = ((GameB4080RailActor *)arg1)->y;
+        ((GameB4080RailEntry *)arg0)->z = ((GameB4080RailActor *)arg1)->z;
+        ((GameB4080RailEntry *)arg0)->phase = 0.0f;
+        func_1512D560(((GameB4080RailActor *)arg1)->field_318, 5, model[0x23D]);
+        ((GameB4080RailEntry *)arg0)->active = 1;
+    }
+    ((GameB4080RailEntry *)arg0)->phase += D_8009DA10 * D_800BE9E4;
+    if (((GameB4080RailEntry *)arg0)->phase >= 1.0f) {
+        if (((GameB4080RailEntry *)arg0)->nodes[2] == 0xFF) {
+            ((GameB4080RailEntry *)arg0)->phase = 1.0f;
+        } else {
+            ((GameB4080RailEntry *)arg0)->phase -= 1.0f;
+            ((GameB4080RailEntry *)arg0)->nodes[0] = ((GameB4080RailEntry *)arg0)->nodes[1];
+            ((GameB4080RailEntry *)arg0)->nodes[1] = ((GameB4080RailEntry *)arg0)->nodes[2];
+            ((GameB4080RailEntry *)arg0)->nodes[2] = ((GameB4080RailEntry *)arg0)->nodes[3];
+            ((GameB4080RailEntry *)arg0)->nodes[3] = func_1508907C(((GameB4080RailEntry *)arg0)->nodes[2], 6, ((GameB4080RailEntry *)arg0)->nodes[1], 0);
+        }
+    }
+    valid = 0;
+    for (i = 0; i < 4; i++) {
+        if (((GameB4080RailEntry *)arg0)->nodes[i] != 0xFF) {
+            func_15086CBC(((GameB4080RailEntry *)arg0)->nodes[i], &xs[i], &ys[i], &zs[i]);
+            valid = 1;
+            func_15086CBC(func_1508907C(((GameB4080RailEntry *)arg0)->nodes[i], 4, 0xFF, 0), &xs2[i], &ys2[i], &zs2[i]);
+        } else if (valid == 1) {
+            valid = 0;
+            angle = ((GameB4080RailActor *)arg1)->angle * 0.01745;
+            xs[i] = ((GameB4080RailEntry *)arg0)->x - func_15047D60(angle) * 500.0f;
+            ys[i] = ((GameB4080RailEntry *)arg0)->y + 180.0f;
+            zs[i] = ((GameB4080RailEntry *)arg0)->z - func_15047C00(angle) * 500.0f;
+            xs2[i] = ((GameB4080RailEntry *)arg0)->x;
+            ys2[i] = ((GameB4080RailEntry *)arg0)->y + 120.0f;
+            zs2[i] = ((GameB4080RailEntry *)arg0)->z;
+        } else {
+            xs[i] = xs[i - 1] + (xs[i - 1] - xs[i - 2]);
+            ys[i] = ys[i - 1] + (ys[i - 1] - ys[i - 2]);
+            zs[i] = zs[i - 1] + (zs[i - 1] - zs[i - 2]);
+            xs2[i] = xs2[i - 1] + (xs2[i - 1] - xs2[i - 2]);
+            ys2[i] = ys2[i - 1] + (ys2[i - 1] - ys2[i - 2]);
+            zs2[i] = zs2[i - 1] + (zs2[i - 1] - zs2[i - 2]);
+        }
+    }
+    angle = ((GameB4080RailEntry *)arg0)->phase;
+    packet->x0 = func_150497E0(xs, 0, angle);
+    packet->y0 = func_150497E0(ys, 0, angle);
+    packet->z0 = func_150497E0(zs, 0, angle);
+    packet->x1 = func_150497E0(xs2, 0, angle);
+    packet->y1 = func_150497E0(ys2, 0, angle);
+    packet->z1 = func_150497E0(zs2, 0, angle);
+    packet->field0 = 0;
+    packet->field4 = 0;
+    packet->field30 = 30.0f;
+    packet->field34 = 30.0f;
+    packet->field2C = 0.0f;
+    func_1512D560(((GameB4080RailActor *)arg1)->field_318, 7, (s32)packet);
+}
 extern s32 D_800D23B0;
 
 void func_15089BB0(void) {

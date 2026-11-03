@@ -60,6 +60,10 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_173D40 | 0x0 | 0x18 | 0x800A5708 | pool (func_15146A98) | `3CCCCCCC 3CA30553 40FF3B65 BECE5605 3E916873 3F741BDA` |
 | game_173D40 | 0x18 | 0x8 | 0x800A5728 | pool (func_15146D60) | `3C40C0C1 3F360B61` (0.011764706, 0.7111111) |
 | game_173D40 | 0x20 | 0x18 | 0x800A573C | pool (func_15147318, func_15147478, func_151475D8) | `3BFC0FC1 3F360B61` ×3 |
+| game_B4080 | 0x0 | 0x8 | 0x8009DA18 | pool (func_150896EC) | `3F91DE69 AD42C3CA` (f64 0.01745) |
+| game_B4080 | 0x8 | 0x20 | 0x8009DA24 | table, sites 0x3028 / 0x3030 | unchanged |
+| game_B4080 | 0x28 | 0xFC | 0x8009DA94 | table, sites 0x7B10 / 0x7B18 | unchanged |
+| game_B4080 | 0x124 | 0xE4 | 0x8009DB90 | table, sites 0x7BD4 / 0x7BDC | unchanged |
 
 The blood table hashes are SHA-256
 `d321edfcf0ef657c343364be6b03428e24a84df3a377f3acee9bfa8fee19b509` and
@@ -117,6 +121,22 @@ keep their runtime addresses.
   and 0x800A5730..0x800A573B stay extern symbols of the matched
   `func_15146BF8` and `func_151470FC`, so the pools are three ranges. The
   object `.rodata` is 0x40 bytes: 0x38 of payload and 8 zero alignment bytes.
+
+- **game_B4080:** `func_150896EC` converts a rail angle from degrees with the
+  double literal `0.01745` inside a loop. As an `extern` IDO reloads it every
+  iteration (CURRENT 1405); as a literal it is hoisted and the function
+  matches. The checksum-validated ROM holds `3F91DE69 AD42C3CA` (exactly the
+  double 0.01745, not pi/180) at 0x8009DA18, the 8-aligned word pair after
+  this function's 999.0f (0x8009DA0C), 0.017f (0x8009DA10) and a padding word
+  (0x8009DA14). The two floats stay extern symbols; the match is identical
+  either way, and as literals the padding word would misplace the double in
+  the object. The literal load (HI16/LO16 at text offsets 0x2D4C/0x2D54 of the
+  integrated object) precedes the first table dispatch (0x3028), so the pool is
+  object offset 0 and the three tables move from 0/0x20/0x11C to
+  0x8/0x28/0x124. Their runtime addresses and dispatch sites are unchanged;
+  base symbols, section names and `config/data/us.json` sections follow the
+  new offsets. The object `.rodata` is 0x210 bytes: 0x208 of payload and 8
+  zero alignment bytes.
 
 `config/data/us.json` records one owner per address and input-section pair.
 These units are now split objects, so `finish` compares their own rodata
