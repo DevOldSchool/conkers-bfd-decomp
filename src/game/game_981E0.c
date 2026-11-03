@@ -9,7 +9,6 @@
  * - func_1506AD30
  * - func_1506B3B8
  * - func_1506BF5C
- * - func_1506C32C
  * - func_1506C460
  * - func_1506CE6C
  * - func_1506D2E8
@@ -716,44 +715,33 @@ play:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506BF5C.s")
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506C32C CURRENT (632) */
 void func_1506C32C(void) {
-    s32 value;
     s32 selector;
     s32 values[4];
 
-    value = (s32)((u32)D_800D187C - 1U);
     if (D_800D187C != 0) {
-        D_800D187C = value;
-        values[0] = value & 0x7FF;
-        value = ((s32) D_800D1580 >> 0x16) & 0x7FF;
+        D_800D187C--;
+        values[0] = D_800D187C & 0x7FF;
         values[1] = D_800D1580 & 0x7FF;
-        values[2] = ((s32) D_800D1580 >> 0xB) & 0x7FF;
-        values[3] = value;
-        if (value != 0) {
+        values[2] = (D_800D1580 >> 11) & 0x7FF;
+        values[3] = (D_800D1580 >> 22) & 0x7FF;
+        if (values[3] != 0) {
             selector = 4;
         } else if (values[2] != 0) {
             selector = 3;
         } else {
-            selector = 0;
-            if (values[1] != 0) {
-                selector = 2;
-            }
+            selector = (values[1] != 0) ? 2 : 0;
         }
         if (selector != 0) {
             selector = func_1000F568(values[0], selector) - values[0];
         }
-        value = values[selector];
-        if (value != 0) {
-            selector = D_800D187C & 0xFFFEF800;
-            D_800D187C = selector;
-            D_800D1580 = value | selector;
+        if (values[selector] != 0) {
+            D_800D187C &= 0xFFFEF800;
+            D_800D1580 = values[selector] | D_800D187C;
             func_1506BF5C();
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1506C32C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506C32C.s")
 void func_1506C418(void) {
     func_10010A3C((s32) D_800D154C);
 }
