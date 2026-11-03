@@ -14373,7 +14373,7 @@
         "us": {
           "end": "0x1A7610",
           "start": "0x1A6F00",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1D43B0.c"

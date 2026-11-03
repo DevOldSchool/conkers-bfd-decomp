@@ -68,6 +68,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_11D830 | 0x4 | 0x20 | 0x800A1878 | pool (func_150F1170) | `3DDF3B65 3E916873 3F7C82E0 3F83D19A 3EAA7EFA 3F039581 3F27EF9E 44008000` |
 | game_1E73B0 | 0x0 | 0x48 | 0x800AA718 | pool (func_151BB61C `const` arrays) | `4 4 7 8 18 19 1D 1E 20`, `3F800000 3F800000 3E19999A 3E19999A 3F800000 3F800000 3DC6A7F0 3F800000 3E4CCCCD` |
 | game_1E73B0 | 0x48 | 0x4 | 0x800AA7F4 | pool (func_151BB61C) | `3CA3D70B` (0.020000001) |
+| game_209B50 | 0x0 | 0x18 | 0x800AB500 | pool (func_151DC97C `const` tables) | `EFE0CD9E 9CA09E9C A0000000 3030309A 69D2D583 91000000` |
+| game_209B50 | 0x18 | 0xC | 0x800AB538 | pool (func_151DC97C) | `43C98000 3E439582 3E1A9FBF` (403.0, 0.19100001, 0.15100001) |
 
 The blood table hashes are SHA-256
 `d321edfcf0ef657c343364be6b03428e24a84df3a377f3acee9bfa8fee19b509` and
@@ -164,6 +166,17 @@ keep their runtime addresses.
   two ranges. The object `.rodata` is 0x50 bytes: 0x4C of payload and 4 zero
   alignment bytes; the HI16/LO16 sites are standalone text offsets
   0x394/0x398, 0x3B0/0x3B4 and 0x3E4/0x3E8.
+
+- **game_209B50:** `func_151DC97C` picks spark colours from two block-scope
+  `const u8 [3][3]` tables (EF E0 CD / 9E 9C A0 / 9E 9C A0 and 30 30 30 /
+  9A 69 D2 / D5 83 91). IDO pads each 9-byte table to a word, giving exactly
+  the ROM words at 0x800AB500..0x800AB517 including their zero tails. Its
+  loop-hoisted `403.0f`, `0.19100001f` and `0.15100001f` must be literals and
+  sit at 0x800AB538..0x800AB543. The words between (0x800AB518..0x800AB537)
+  belong to the unmatched `func_151DC6A0` and to this function's once-used
+  floats, which stay extern symbols. The unit had no rodata mapping; it is now
+  a split object with two ranges. The object `.rodata` is 0x30 bytes: 0x24 of
+  payload and 12 zero alignment bytes.
 
 `config/data/us.json` records one owner per address and input-section pair.
 These units are now split objects, so `finish` compares their own rodata
