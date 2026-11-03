@@ -8342,17 +8342,16 @@
       "symbol": "func_151B3CF0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 310,
-        "reason": "Manual corrected pointer semantics/byte selector/16-bit masks and output XYZ order improve1990 to310. Explicit failure return1020 regresses; register output hint does not remove output copy. Actor/output GPR allocation and failure exit SB delay remain; best310 preserved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 180,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151B3F28",
           "vram": "0x151B3F28"
         }
@@ -41573,17 +41572,16 @@
       "symbol": "func_150337E4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 195,
-        "reason": "Manual typed C candidate reached CURRENT (195) over full 400-byte US span with zero opcode/control-flow differences; remaining 9 register-only, 10 operand, 2 missing/extra rows reflect early arg0 reload and v1/a3 register allocation. State-pointer/type revision regressed to CURRENT (3194), so restored best candidate; no further evidence-backed local revision.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 400,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15033838",
           "vram": "0x15033838"
         }
@@ -42706,17 +42704,16 @@
       "symbol": "func_15083384"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 515,
-        "reason": "CURRENT (515): target entry-list pointer/load timing and second-call argument scheduling differ; explicit entry/payload lifetime revision regressed to CURRENT (1835)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 356,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15083568",
           "vram": "0x15083568"
         }
@@ -44307,17 +44304,16 @@
       "symbol": "func_15063C60"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1885,
-        "reason": "Original valid CURRENT (1885) retained. Prior simplified temporaries 2490/raw fields 2495 and fresh late-key/consumed-arg1 mode 2723 regressed. u16 formal reuse forces home store/reload and mask; A3 spill and inner-pointer colors remain. Lifetime/type probes exhausted; no shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 284,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15063E84",
           "vram": "0x15063E84"
         }
@@ -44395,17 +44391,16 @@
       "symbol": "func_150649A0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2376,
-        "reason": "CURRENT 2376 after separating declaration initializers and fixing float arguments; argument a0 spills at entry instead of the first call delay slot, shifting register allocation and branch scheduling.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 384,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15064A14",
           "vram": "0x15064A14"
         }
@@ -47642,17 +47637,16 @@
       "symbol": "func_15170500"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 113,
-        "reason": "Correctness-repaired CURRENT113: removed phantom RNG args and unused local; defined negative shift and wrapping fade/square sum. Three new revisions: correction593, defined shift restores both products113, promoted locals113. Saved40 rejected for unsupported helper args and undefined negative shift; historical detailed attempts unavailable. Remaining13 register rows and alpha spill24 vs raw20; needs genuine local lifetime/stack evidence, no dummy padding or ABI arguments.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 468,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151707E0",
           "vram": "0x151707E0"
         }
@@ -86773,17 +86767,16 @@
       "symbol": "func_150B9D14"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2433,
-        "reason": "CURRENT (2433): packet stack base +8 and remaining field-store scheduling/FPR register differences after two bounded revisions; preserve typed candidate and move on.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 324,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150B9D8C",
           "vram": "0x150B9D8C"
         }
