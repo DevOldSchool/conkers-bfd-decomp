@@ -59845,17 +59845,16 @@
       "symbol": "func_150D4D58"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 635,
-        "reason": "CURRENT635: owner/target register lifetimes and redundant target copy plus t6/t7 propagation; comparison spellings, explicit conversion and inline owner did not improve. ABI corrected to seven callback argument positions and one-argument stop-sound. Manual hypotheses exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 796,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D5124",
           "vram": "0x150D5124"
         }
