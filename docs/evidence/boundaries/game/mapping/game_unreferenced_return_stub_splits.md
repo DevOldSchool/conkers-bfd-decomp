@@ -64,7 +64,8 @@ produce or a comparison that again borrows words from a neighbouring symbol.
   them. `150045BC`, `15040A4C` and `1513E134` were split later, once their
   parents' C reproduced every other word; see
   [the deferred-parent splits](#deferred-parent-splits) below.
-  `1507DB34` and `1507DB3C` remain inside their raw span.
+  `1507DB34` and `1507DB3C` were split once their parent was matched; see
+  [the raw-parent split](#raw-parent-split).
 
 ## Transaction and validation
 
@@ -120,3 +121,30 @@ Each source then gained `void <stub>(void) {}` directly after its parent.
 All ten spans scored `CURRENT (0)` through `./conker finish` and passed one
 clean `./conker verify-batch` with the rest of the round-10 batch. The
 source-unit boundaries are unchanged, and all five units remain mixed.
+
+## Raw-parent split
+
+`func_1507D754` (`src/game/game_A9D90.c`) was an untouched raw span of
+`0x3F0` bytes ending with two consecutive unlabelled `jr $ra; nop` pairs at
+`0x1507DB34` and `0x1507DB3C`, after the routine's own epilogue at
+`0x1507DB20`. Its new C switch reproduced every other word of the span
+(`CURRENT (800)`: the four rows of those two pairs plus the four jump-table
+address rows, resolved separately by the
+[game_A9D90 table mapping](../../../data-layout/game_a9d90_jump_table.md)).
+By the compiler argument above, neither pair can belong to the parent, and
+two return sequences need two empty functions.
+
+| Parent | Old span | New span | Split symbols | Source |
+| --- | ---: | ---: | --- | --- |
+| `func_1507D754` | `0x3F0` | `0x3E0` | `func_1507DB34`, `func_1507DB3C` | `src/game/game_A9D90.c` |
+
+`split-game-function` requires the regenerated reference to partition the
+span at exactly the new symbol, so the labels were added one at a time:
+`func_1507DB3C` first (parent to `0x3E8`), then `func_1507DB34` (parent to
+`0x3E0`). Each `./conker game-asm` run changed only the added `glabel` lines
+in `reference/game/us/asm/7C8E0.s`. The source gained
+`void func_1507DB34(void) {}` and `void func_1507DB3C(void) {}` after the
+parent. All three spans scored `CURRENT (0)` through `./conker finish`. As
+above, no callback identity or historical name is claimed, and no reference
+to either address exists in retail game data or code. The source-unit
+boundary is unchanged and the unit remains mixed.

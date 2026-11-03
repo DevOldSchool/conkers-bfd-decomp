@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_owner_point_lifecycle.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151ACB60
  * - func_151ACBD4
  * - func_151AD174
  * - func_151AD92C
@@ -67,16 +66,22 @@ s32 func_151ACB38(void *arg0, s8 *arg1) {
 }
 void func_151AE3A8(s32 arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ACB60 CURRENT (200) */
-void func_151ACB60(void *arg0) {
-    s32 temp_v0 = *(s32 *)((u8 *)(*(void **)((u8 *)(*(void **)((u8 *)arg0 + 0x1C)) + 0x31C)) + 0x9C);
-
-    if (temp_v0 != 0) {
-        func_151AE3A8((s32)arg0);
+void func_151ACB60(void *arg0)
+{
+    void *new_var;
+    s32 temp_v0 = *((s32 *) (((u8 *) (*((void **) (((u8 *) (*((void **) (((u8 *) arg0) + 0x1C)))) + 0x31C)))) + 0x9C));
+    if (!temp_v0)
+    {
+    }
+    if (temp_v0)
+    {
+        new_var = arg0;
+        func_151AE3A8((s32) new_var);
+        if (!arg0)
+        {
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151ACB60 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151ACB60.s")
 void func_151ACB94(s32 arg0, s32 arg1, u8 arg2) {
     func_15169850(arg1, arg2, arg0 + 0x1C, arg0 + 0x20, arg0);
 }

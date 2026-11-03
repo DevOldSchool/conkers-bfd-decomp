@@ -11,7 +11,6 @@
  * - func_150E7FEC
  * - func_150E81A8
  * - func_150E83AC
- * - func_150E8470
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -432,9 +431,8 @@ typedef struct GameE8470State {
     f32 pending;
 } GameE8470State;
 
-extern f32 D_800A1368, D_800A136C, D_800A1370, D_800A1374;
+extern f32 D_800A1368, D_800A136C, D_800A1370;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E8470 CURRENT (10) */
 void func_150E8470(void *arg0) {
     void *result;
     GameE8470Descriptor packet;
@@ -491,7 +489,7 @@ void func_150E8470(void *arg0) {
             firstFlip = (func_150ADA20() & 1) ? 0x80 : 0;
             if (func_150ADA20() & 1) secondFlip = 0x40;
             else secondFlip = 0;
-            packet.flags = (secondFlip | firstFlip) | packet.flags;
+            packet.flags = (u32)packet.flags | (u32)(secondFlip | firstFlip);
             packet.field1B = (u32)func_150ADA20() % 156U + 0x64;
             packet.field0A = (u32)func_150ADA20() % 34U + 0x8D;
             packet.scaleY = packet.scaleX = func_150ADA68() * 71.0f + 80.0f;
@@ -501,8 +499,6 @@ void func_150E8470(void *arg0) {
         } while (state->pending > 1.0f);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E8470 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E8470.s")
 
 void func_15131828(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 
