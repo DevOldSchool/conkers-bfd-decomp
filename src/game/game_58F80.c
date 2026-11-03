@@ -27,7 +27,6 @@
  * - func_1502F01C
  * - func_1502F264
  * - func_1502F3C8
- * - func_1502F490
  * - func_1502F9FC
  * - func_1502FBE8
  * - func_1502FD70
@@ -1320,7 +1319,110 @@ void func_1502F3C8(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1502F3C8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502F3C8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502F490.s")
+typedef struct {
+    u32 start;
+    s32 count;
+    s32 index;
+} Game58F80Seg;
+
+typedef struct {
+    s32 offset[3];
+} Game58F80Tri;
+
+extern Game58F80Tri *D_800C6070[];
+extern s32 D_800D19A0[];
+extern u16 D_800C5EF8[];
+extern Game58F80Seg *D_800C5C08[];
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+
+void func_1502F490(Game58F80Actor *arg0, f32 *arg1, f32 *arg2, f32 *arg3, s32 arg4) {
+    f32 delta[3];
+    f32 hit[3];
+    s32 idx[3];
+    s32 j;
+    s32 k;
+    s32 found;
+    s32 model;
+    u8 *mtx;
+    s16 *verts[3];
+    f32 tri[2][3][3];
+    f32 e1[2][3];
+    f32 e2[2][3];
+    s32 i;
+    f32 u;
+    f32 v;
+
+    model = arg0->model;
+    if (D_800C6070[model] == NULL) {
+        return;
+    }
+    for (i = 0; i < 3; i++) {
+        verts[i] = (s16 *)(D_800C6070[model][arg4].offset[i] + D_800D19A0[model]);
+    }
+    j = 0;
+    found = 0;
+    do {
+        if (j == D_800C5EF8[model]) {
+            return;
+        }
+        for (i = 0; i < 3; i++) {
+            if (!((1 << i) & found)) {
+                if ((u32)verts[i] >= D_800C5C08[model][j].start &&
+                    (u32)verts[i] < D_800C5C08[model][j].start + D_800C5C08[model][j].count * 16) {
+                    found = (1 << i) | found;
+                    idx[i] = D_800C5C08[model][j].index;
+                }
+            }
+        }
+        j++;
+    } while (found != 7);
+    if (*(u8 **)((u8 *)arg0 + 0x1D8) == NULL || *(u8 **)((u8 *)arg0 + 0x1D4) == NULL) {
+        return;
+    }
+    mtx = *(u8 **)((u8 *)arg0 + 0x1D8);
+    for (i = 0; i < 2; i++) {
+        if (i == 1) {
+            mtx = *(u8 **)((u8 *)arg0 + 0x1D4);
+        }
+        for (k = 0; k < 3; k++) {
+            func_150A7960(mtx + (idx[k] << 6), verts[k][0], verts[k][1], verts[k][2],
+                          &tri[i][k][0], &tri[i][k][1], &tri[i][k][2]);
+        }
+    }
+    for (i = 0; i < 2; i++) {
+        for (k = 0; k < 3; k++) {
+            e1[i][k] = tri[i][1][k] - tri[i][0][k];
+            e2[i][k] = tri[i][2][k] - tri[i][0][k];
+        }
+    }
+    delta[0] = *arg1 - tri[0][0][0];
+    delta[1] = *arg2 - tri[0][0][1];
+    delta[2] = *arg3 - tri[0][0][2];
+    u = e1[0][0] * e2[0][2] - e1[0][2] * e2[0][0];
+    if (u != 0.0f) {
+        u = (delta[0] * e2[0][2] - delta[2] * e2[0][0]) / u;
+    } else {
+        u = -100.0f;
+    }
+    if (u < 0.0f || u > 1.0f) {
+        return;
+    }
+    if (e2[0][2] != 0.0f) {
+        v = (delta[2] - u * e1[0][2]) / e2[0][2];
+    } else {
+        v = -100.0f;
+    }
+    if (v < 0.0f || v > 1.0f) {
+        return;
+    }
+    for (i = 0; i < 3; i++) {
+        hit[i] = u * e1[1][i] + e2[1][i] * v;
+    }
+    delta[1] = u * e1[0][1] + e2[0][1] * v;
+    *arg1 += hit[0] + tri[1][0][0] - delta[0] - tri[0][0][0];
+    *arg2 += hit[1] + tri[1][0][1] - delta[1] - tri[0][0][1];
+    *arg3 += hit[2] + tri[1][0][2] - delta[2] - tri[0][0][2];
+}
 extern void *func_10003C40(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern void func_10023A10(void *arg0, void *arg1, s32 arg2);
 

@@ -64,6 +64,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_B4080 | 0x8 | 0x20 | 0x8009DA24 | table, sites 0x3028 / 0x3030 | unchanged |
 | game_B4080 | 0x28 | 0xFC | 0x8009DA94 | table, sites 0x7B10 / 0x7B18 | unchanged |
 | game_B4080 | 0x124 | 0xE4 | 0x8009DB90 | table, sites 0x7BD4 / 0x7BDC | unchanged |
+| game_11D830 | 0x0 | 0x4 | 0x800A1854 | pool (func_150F0A24) | `416E147B` (14.88) |
+| game_11D830 | 0x4 | 0x20 | 0x800A1878 | pool (func_150F1170) | `3DDF3B65 3E916873 3F7C82E0 3F83D19A 3EAA7EFA 3F039581 3F27EF9E 44008000` |
 
 The blood table hashes are SHA-256
 `d321edfcf0ef657c343364be6b03428e24a84df3a377f3acee9bfa8fee19b509` and
@@ -137,6 +139,16 @@ keep their runtime addresses.
   base symbols, section names and `config/data/us.json` sections follow the
   new offsets. The object `.rodata` is 0x210 bytes: 0x208 of payload and 8
   zero alignment bytes.
+
+- **game_11D830:** `func_150F1170` loads 0.109000005, 0.284, 0.986372,
+  1.029834, 0.333, 0.514, 0.656 and 514.0 (each checked bit-for-bit against
+  the ROM; `0.109f` would round to `3DDF3B64`) from 0x800A1878..0x800A1897 in
+  first-use order. The [existing constant record](game_11d830_float_constant.md)
+  covers the first pool. The words 0x800A1858..0x800A1877 belong to other
+  functions and keep their extern symbols, so the unit's single `.rodata`
+  placement became two ranges and `game_11D830.o` joined
+  `GAME_SPLIT_RODATA_OBJS`; the former payload-size symbol is gone. The object
+  `.rodata` is 0x30 bytes: 0x24 of payload and 12 zero alignment bytes.
 
 `config/data/us.json` records one owner per address and input-section pair.
 These units are now split objects, so `finish` compares their own rodata
