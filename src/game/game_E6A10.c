@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150B9560
  * - func_150B963C
- * - func_150B9D8C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -107,15 +106,16 @@ typedef struct GameE6A10SpawnPacket {
     u8 pad_1C[8];
 } GameE6A10SpawnPacket;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B9D8C CURRENT (2433) */
 void func_150B9D8C(void *arg0) {
+    s32 unused0;
+    s32 unused1;
     GameE6A10SpawnPacket packet;
-    s32 sp54;
-    s32 sp50;
-    s32 spRandom;
-    f32 temp_fv0;
+    s32 random2;
 
     if (*(s16 *)((u8 *)arg0 + 0x98) == -1) {
+        s32 random1;
+        s32 random0;
+
         packet.count = 4;
         packet.field_8 = 0;
         packet.field_C = 0;
@@ -128,16 +128,13 @@ void func_150B9D8C(void *arg0) {
         packet.field_14 = 0;
         packet.field_15 = 0xFF;
         packet.flags = 0x30001;
-        sp50 = func_150ADA20();
-        sp54 = func_150ADA20();
-        spRandom = func_150ADA20();
-        temp_fv0 = (f32) *(s16 *)((u8 *)arg0 + 0xA2);
+        random0 = func_150ADA20();
+        random1 = func_150ADA20();
+        random2 = func_150ADA20();
         func_1513C4EC(&packet, 0, 2, 0, (f32) *(s16 *)((u8 *)arg0 + 0x9C),
             (f32) (*(s16 *)((u8 *)arg0 + 0xA6) + 2),
-            (f32) *(s16 *)((u8 *)arg0 + 0xA0), temp_fv0, temp_fv0,
-            sp50 & 0xFF, ((spRandom & 1) * 2) + (sp54 & 1),
+            (f32) *(s16 *)((u8 *)arg0 + 0xA0), ((f32) *(s16 *)((u8 *)arg0 + 0xA2)), ((f32) *(s16 *)((u8 *)arg0 + 0xA2)),
+            random0 & 0xFF, ((random2 & 1) * 2) + (random1 & 1),
             3, 0xFF, 0, *(u8 *)((u8 *)arg0 + 0xC), *(u8 *)((u8 *)arg0 + 1));
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B9D8C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E6A10/func_150B9D8C.s")

@@ -7,11 +7,9 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15063628
- * - func_15063E84
  * - func_15063FA0
  * - func_150641D8
  * - func_150642AC
- * - func_15064A14
  * - func_15065A5C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -353,30 +351,19 @@ Game90840Actor *func_15063C60(Game90840Actor *arg0, s32 arg1) {
     }
     return 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15063E84 CURRENT (1885) */
-s32 func_15063E84(void *arg0, u16 arg1, u16 arg2, register s32 arg3, s32 arg4) {
-    register s32 temp_t6;
-    register s32 temp_t7;
-    u8 temp_a1;
-    u8 *temp_v0;
-
-    temp_t6 = arg1;
-    temp_t7 = arg2;
-    arg2 = temp_t7;
-    arg1 = temp_t6;
+s32 func_15063E84(void *arg0, u16 arg1, u16 arg2, s32 arg3, s32 arg4) {
     if ((arg4 & 0x4000) &&
         (*(f32 *)((u8 *)arg0 + 0x28) == 0.0f) &&
         (*(f32 *)((u8 *)arg0 + 0x20) <= 0.0f)) {
-        temp_v0 = *(u8 **)((u8 *)arg0 + 0x31C);
-        if ((temp_v0[0x95] == 0) &&
-            (temp_t6 != *(u16 *)((u8 *)arg0 + 0x84)) &&
-            ((temp_a1 = temp_v0[0x11A], temp_a1 == 0) ||
-             (temp_a1 == 2)) &&
-            (temp_v0[0x27] == 0)) {
+        if (((*(u8 **)((u8 *)arg0 + 0x31C))[0x95] == 0) &&
+            (arg1 != *(u16 *)((u8 *)arg0 + 0x84)) &&
+            (((*(u8 **)((u8 *)arg0 + 0x31C))[0x11A] == 0) ||
+             ((*(u8 **)((u8 *)arg0 + 0x31C))[0x11A] == 2)) &&
+            ((*(u8 **)((u8 *)arg0 + 0x31C))[0x27] == 0)) {
             if ((arg3 != 0) && (*(u8 *)((u8 *)arg0 + 0x8A) != 0)) {
                 return 0x3E7;
             }
-            if (temp_t7 & 1) {
+            if (arg2 & 1) {
                 *(u8 *)((u8 *)arg0 + 0x8A) = 0x14;
             }
             if (arg3 != 0) {
@@ -390,13 +377,11 @@ s32 func_15063E84(void *arg0, u16 arg1, u16 arg2, register s32 arg3, s32 arg4) {
             (*(u8 **)((u8 *)arg0 + 0x31C))[0x78] = arg3;
             *(u8 *)((u8 *)arg0 + 0x89) = 0xFF;
             *(u8 *)((u8 *)arg0 + 0x83) = 0xFF;
-            return temp_t6;
+            return arg1;
         }
     }
     return 0x3E7;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15063E84 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063E84.s")
 
 typedef struct {
     u8 pad0[0xB8];
@@ -528,39 +513,33 @@ void func_150649A0(u32 arg0, u32 arg1) {
 void func_150649A0(u32, u32);
 extern u8 D_800C3E78;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15064A14 CURRENT (2376) */
 void func_15064A14(Game90840Actor *arg0) {
     u8 *actor;
-    u8 type;
     s32 animation;
-    s32 active;
     void *other;
-    u16 state1;
-    u16 state2;
 
     actor = (u8 *)(&D_800CC2D0[*((u8 *)arg0 + 0x65)] - 1);
-    type = actor[4];
     animation = 0xF;
 
-    if (type == 0xC) {
-        state1 = *(u16 *)(actor + 0x84);
+    if (actor[4] == 0xC) {
         animation = 0x5A;
-        if (state1 == 0xC) {
+        if ((*(u16 *)(actor + 0x84)) == 0xC) {
             animation = 0x5B;
-        } else if (state1 == 0xD) {
+        } else if ((*(u16 *)(actor + 0x84)) == 0xD) {
             animation = 0x5C;
         }
-    } else if (type == 0x53) {
-        state2 = *(u16 *)(actor + 0x84);
+    } else if (actor[4] == 0x53) {
         animation = 0x8C;
-        if (state2 == 0xB) {
+        if ((*(u16 *)(actor + 0x84)) == 0xB) {
             animation = 0xA2;
-        } else if (state2 == 0xD) {
+        } else if ((*(u16 *)(actor + 0x84)) == 0xD) {
             animation = 0xA3;
         }
-    } else if (type == 0x21) {
+    } else if (actor[4] == 0x21) {
         animation = 0x169;
-    } else if (type == 0x8A) {
+    } else if (actor[4] == 0x8A) {
+        s32 active;
+
         other = arg0->field_31C;
         if (other != 0 && *(u8 *)((u8 *)other + 0x1B2) != 0) {
             active = 1;
@@ -574,9 +553,10 @@ void func_15064A14(Game90840Actor *arg0) {
                 animation = 0x1A4;
             }
         } else {
-            animation = 0x1A1;
             if (active != 0) {
                 animation = 0x34F;
+            } else {
+                animation = 0x1A1;
             }
         }
     }
@@ -584,8 +564,6 @@ void func_15064A14(Game90840Actor *arg0) {
                    0.0f, 0.0f, 0);
     func_150649A0(*((u8 *)arg0 + 0x65) - 1, D_800C3E78);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15064A14 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15064A14.s")
 s32 func_1504C078(void);
 s32 func_1504C0B8(void);
 void func_1506E5FC(void);

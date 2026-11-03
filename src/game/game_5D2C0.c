@@ -20,8 +20,6 @@
  * - func_15031E7C
  * - func_15031FC8
  * - func_150331B8
- * - func_15033838
- * - func_15033BDC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1121,33 +1119,28 @@ s32 func_150337E4(Game5D2C0State *arg0, s32 arg1) {
 void func_151027E8(void *);
 void func_151026BC(void *, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15033838 CURRENT (195) */
 s32 func_15033838(u8 *arg0, u8 *arg1) {
     s32 mode;
     s32 valid;
-    u16 kind;
-    u8 category;
     u8 *object;
     u8 *object2;
 
     valid = 0;
-    category = arg0[6];
-    if (category == 0x16) {
+    if (arg0[6] == 0x16) {
         mode = 4;
         if (*(u16 *)(arg1 + 0x84) == 0x165) {
-            goto valid_kind;
+            valid = 1;
         }
-    } else if (category == 0x89) {
+    } else if (arg0[6] == 0x89) {
         mode = 6;
-        kind = *(u16 *)(arg1 + 0x84);
-        if (((kind == 0x221) || (kind == 0x223) || (kind == 0x31B)) &&
-            (*(u8 *)(*(u8 **)(arg1 + 0x31C) + 0x198) == 2)) {
-            goto valid_kind;
+        if ((*(u16 *)(arg1 + 0x84) == 0x221 || *(u16 *)(arg1 + 0x84) == 0x223 ||
+             *(u16 *)(arg1 + 0x84) == 0x31B) &&
+            (*(u8 **)(arg1 + 0x31C))[0x198] == 2) {
+            valid = 1;
         }
     } else {
         mode = 5;
         if (*(u16 *)(arg1 + 0x84) == 0x157) {
-valid_kind:
             valid = 1;
         }
     }
@@ -1168,8 +1161,6 @@ valid_kind:
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15033838 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15033838.s")
 s32 func_150334B8(u8 *, void *);
 void func_1000FD38(void *, void *, s32);
 s32 func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *,
@@ -1266,7 +1257,6 @@ typedef struct {
 void func_10010FFC(s32, s32, s32, s32, s32, void *);
 void func_100111C8(s32, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15033BDC CURRENT (120) */
 s32 func_15033BDC(GameCoreSoundHandle *arg0, s32 arg1, s32 *arg2,
                   s32 arg3, s32 arg4, s32 arg5, s16 *arg6) {
     GameCoreSoundOwner *owner;
@@ -1274,7 +1264,6 @@ s32 func_15033BDC(GameCoreSoundHandle *arg0, s32 arg1, s32 *arg2,
     GameCoreSoundChild *child;
     s32 sound;
     s32 previousSound;
-    u16 kind;
     u16 handle;
 
     owner = arg0->owner;
@@ -1285,6 +1274,8 @@ s32 func_15033BDC(GameCoreSoundHandle *arg0, s32 arg1, s32 *arg2,
         arg0->z = (s16)(s32)actor->z;
         if (*arg2 != 0) {
             if (owner->type == 0x37) {
+                u16 kind;
+
                 previousSound = owner->sound;
                 kind = actor->kind;
                 sound = -1;
@@ -1320,8 +1311,6 @@ s32 func_15033BDC(GameCoreSoundHandle *arg0, s32 arg1, s32 *arg2,
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15033BDC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15033BDC.s")
 s32 func_15033E00(s32 arg0, void *arg1) {
     if (*(u8 *)((u8 *)arg1 + 5) == 3) {
         return 1;

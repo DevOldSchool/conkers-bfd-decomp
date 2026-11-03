@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150C4120
  * - func_150C44A4
- * - func_150C4B60
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -158,27 +157,16 @@ void func_150C4B34(void *arg0) {
 /* Call context: func_15149514: unique active project prototype */
 void func_15149514(s32, u8, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C4B60 CURRENT (415) */
-void func_150C4B60(u8 *volatile arg0, volatile s32 arg1, volatile u8 arg2) {
-    u8 *temp_a2;
-    u8 *owner;
-    s32 selector;
+void func_150C4B60(u8 *arg0, s32 arg1, u8 arg2) {
+    u8 *state = arg0 + 0x28;
 
-    selector = arg2;
-    temp_a2 = arg0;
-    if (selector == 0x55) {
-        temp_a2 += 0x28;
-        temp_a2[0x16] &= 0xFFFD;
+    if (arg2 == 0x55) {
+        state[0x16] &= 0xFFFD;
         return;
     }
-    owner = arg0;
-    if (selector == 0x56) {
-        temp_a2 = arg0 + 0x28;
-        temp_a2[0x16] |= 2;
+    if (arg2 == 0x56) {
+        state[0x16] |= 2;
         return;
     }
-    temp_a2 = owner + 0x28;
-    func_15149514(arg1, arg2, (s32)temp_a2, (s32)(temp_a2 + 4), (s32)owner);
+    func_15149514(arg1, arg2, (s32)state, (s32)(state + 4), (s32)arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C4B60 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F15D0/func_150C4B60.s")

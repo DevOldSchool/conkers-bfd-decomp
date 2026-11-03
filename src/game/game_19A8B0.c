@@ -15,7 +15,6 @@
  * - func_1516FE1C
  * - func_151700D8
  * - func_15170500
- * - func_151707E0
  * - func_151709B4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -936,14 +935,12 @@ void func_15170500(s16 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, u8 arg5, s3
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_15170500.s")
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151707E0 CURRENT (113) */
 s32 func_151707E0(Game19A8B0Motion *arg0) {
+    s32 unused;
     s32 func_151EF610(void);
     s32 value;
     s32 x;
     s32 z;
-    s32 high;
-    s32 low;
 
     value = arg0->alpha;
     if (arg0->active != 0) {
@@ -972,13 +969,13 @@ s32 func_151707E0(Game19A8B0Motion *arg0) {
         func_1516F8EC(arg0, (func_151EF610() % 32) + 0xE6);
         func_1516F91C(arg0, (func_151EF610() % 32) + 0xE6);
     } else {
-        high = arg0->velocityXHigh;
-        low = arg0->velocityXLow;
-        x = (s32)((u32)(s32)high << 8) + low;
-        z = high;
+        x = arg0->velocityXHigh;
+        x *= 256;
+        x += arg0->velocityXLow;
+        z = arg0->velocityXHigh;
         z *= 256;
-        z += low;
-        if ((s32)((u32)(x * x) + (u32)(z * z)) >= 0x7D1) {
+        z += arg0->velocityXLow;
+        if (x * x + z * z >= 0x7D1) {
             func_1516F8EC(arg0, (func_151EF610() % 32) + 0xDC);
             func_1516F91C(arg0, (func_151EF610() % 32) + 0xDC);
         }
@@ -986,8 +983,6 @@ s32 func_151707E0(Game19A8B0Motion *arg0) {
     arg0->velocityY = 0;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151707E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_151707E0.s")
 
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151709B4 CURRENT (3972) */

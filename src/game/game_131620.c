@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151041E4
- * - func_1510448C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -161,19 +160,14 @@ typedef struct Game131620ScaleState {
 
 s32 func_1517F08C(s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510448C CURRENT (30) */
-s32 func_1510448C(s32 arg0, Game131620ScaleState * volatile arg1, s16 arg2) {
-    s32 temp_v0;
-    Game131620ScaleState *state;
+s32 func_1510448C(s32 arg0, Game131620ScaleState *arg1, s16 arg2) {
+    Game131620ScaleState *state = arg1;
 
-    state = arg1;
-    if ((arg2 != 0) || ((temp_v0 = state->scale) == 0)) {
+    if (arg2 != 0 || state->scale == 0) {
         return arg0;
     }
-    return func_1517F08C(arg0, (temp_v0 * 0x3F) >> 8, 0, 0, 0, arg2);
+    return func_1517F08C(arg0, (state->scale * 0x3F) >> 8, 0, 0, 0, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510448C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_131620/func_1510448C.s")
 extern void *D_800CC5EC;
 
 u8 func_151044F4(void) {

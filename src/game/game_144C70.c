@@ -9,7 +9,6 @@
  * - func_151177C0
  * - func_151179BC
  * - func_15117D3C
- * - func_15117DA4
  * - func_15117F3C
  * - func_151189AC
  * - func_151193F4
@@ -285,14 +284,12 @@ extern f32 D_800A2FF8;
 extern f32 D_800A2FFC;
 extern s32 D_800BE9F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15117DA4 CURRENT (210) */
 void func_15117DA4(u8 *arg0, f32 arg1, f32 arg2, f32 arg3,
-                   volatile f32 *arg4) {
+                   f32 *arg4) {
     f32 angle;
     f32 sine;
     f32 cosine;
     f32 x;
-    f32 z;
 
     if (*(u16 *)(arg0 + 0x54) == 0x8006 && D_800BE9F0 == 0x35) {
         arg0 = func_151149AC(0xFD);
@@ -310,16 +307,13 @@ void func_15117DA4(u8 *arg0, f32 arg1, f32 arg2, f32 arg3,
     angle = *(f32 *)(arg0 + 4) * D_800A2FFC;
     sine = func_15047D60(angle);
     cosine = func_15047C00(angle);
-    z = arg4[2];
     x = arg4[0];
-    arg4[0] = (z * sine) + (x * cosine);
-    arg4[2] = (z * cosine) + (-x * sine);
+    arg4[0] = (arg4[2] * sine) + (x * cosine);
+    arg4[2] = (arg4[2] * cosine) + (-x * sine);
     arg4[0] += (f32)*(s16 *)(arg0 + 0x10);
     arg4[1] += (f32)*(s16 *)(arg0 + 0x12);
     arg4[2] += (f32)*(s16 *)(arg0 + 0x14);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15117DA4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_15117DA4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_15117F3C.s")
 void func_151189AC(void *arg0, s32 arg1);
 

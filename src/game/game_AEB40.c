@@ -13,7 +13,6 @@
  * - func_15082A44
  * - func_150832AC
  * - func_15083384
- * - func_15083568
  * - func_150837D4
  * - func_15083AC8
  * - func_15083E90
@@ -426,44 +425,36 @@ extern GameAEB40EntryList D_80086CC4[];
 s32 func_15083AC8(s32, u8, u8, s32, s32, s32, s32, s32, f32);
 s32 func_15030AF4(s32, u8, u8, u8, s32, s32, s32, s32, s32, u8 *, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15083568 CURRENT (515) */
 s32 func_15083568(s32 arg0, s32 arg1, f32 arg2, s32 arg3) {
-    GameAEB40EntryList *list;
     u8 *entry;
     s32 index;
     s32 result;
+    u8 *entries;
 
     arg1 -= 1;
-    list = &D_80086CC4[arg1];
     result = 0;
-    index = 0;
-    if (list->count > 0) {
-        entry = list->entries;
-        do {
-            if (entry[3] == 0) {
-                result = func_15083AC8(arg0, entry[1], entry[0], 0,
-                                        entry[2], entry[4], entry[5], entry[6], arg2);
-            } else {
-                s32 special;
+    entries = D_80086CC4[arg1].entries;
+    for (index = 0; index < D_80086CC4[arg1].count; index++) {
+        entry = entries + index * 0x10;
+        if (entry[3] == 0) {
+            result = func_15083AC8(arg0, entry[1], entry[0], 0,
+                                    entry[2], entry[4], entry[5], entry[6], arg2);
+        } else {
+            s32 special;
 
-                if (entry[3] == 2) {
-                    special = entry[6];
-                } else {
-                    special = -1;
-                }
-                result = func_15030AF4(arg0, entry[0], entry[1], entry[7],
-                                       entry[4], entry[5], arg3, arg1 + 1,
-                                       entry[2], entry + 8, special,
-                                       entry[0xE], entry[0xF]);
+            if (entry[3] == 2) {
+                special = entry[6];
+            } else {
+                special = -1;
             }
-            index++;
-            entry += 0x10;
-        } while (index < list->count);
+            result = func_15030AF4(arg0, entry[0], entry[1], entry[7],
+                                   entry[4], entry[5], arg3, arg1 + 1,
+                                   entry[2], entry + 8, special,
+                                   entry[0xE], entry[0xF]);
+        }
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15083568 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15083568.s")
 
 void func_150302F0(void *, s32);
 u8 *func_1505F0AC(u8);

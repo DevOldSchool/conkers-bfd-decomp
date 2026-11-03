@@ -12,7 +12,6 @@
  * - func_150768DC
  * - func_15076B94
  * - func_15077508
- * - func_15077C38
  * - func_15078544
  * - func_15078A60
  * - func_1507911C
@@ -1088,43 +1087,32 @@ void func_15077C1C(void) {
 }
 extern f32 D_8009A148;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15077C38 CURRENT (155) */
 void func_15077C38(void) {
-    f32 temp_fv0;
-    f32 var_fs0;
-    s32 *var_s0;
-    s32 temp_v1;
-    s32 temp_v0;
-    s32 var_s1;
+    f32 distance;
+    f32 best;
+    s32 *entry;
+    s32 i;
 
-    var_fs0 = D_8009A148;
-    var_s0 = &D_800CC2D0;
-    var_s1 = 0;
+    best = D_8009A148;
     D_800D154C->field_222 = 0;
-loop_1:
-    temp_v1 = *(s32 *)((u8 *)var_s0 + 0);
-    if ((temp_v1 != 0) && (*(u8 *)((u8 *)var_s0 + 0x1CA) != 0) && ((temp_v0 = *(u8 *)((u8 *)var_s0 + 0x125), (temp_v0 == 0)) || (temp_v0 == 0xFF)) && ((*(u8 *)((u8 *)var_s0 + 0x65) == 0) || (D_800D1892 != 0)) && ((D_800D1890 == *(u8 *)((u8 *)var_s0 + 4)) || ((D_800D1891 == temp_v1) && (*(u8 *)((u8 *)var_s0 + 0x104) == 0)))) {
-        if (D_800D1893 == 0) {
-            D_800D154C->field_222 = var_s1;
-            return;
+    for (i = 0, entry = &D_800CC2D0; i != 25; i++, entry = (s32 *)((u8 *)entry + 0x32C)) {
+        if (*entry != 0 && *(u8 *)((u8 *)entry + 0x1CA) != 0 &&
+            (*(u8 *)((u8 *)entry + 0x125) == 0 || *(u8 *)((u8 *)entry + 0x125) == 0xFF) &&
+            (*(u8 *)((u8 *)entry + 0x65) == 0 || D_800D1892 != 0) &&
+            (D_800D1890 == *(u8 *)((u8 *)entry + 4) ||
+             (D_800D1891 == *entry && *(u8 *)((u8 *)entry + 0x104) == 0))) {
+            if (D_800D1893 == 0) {
+                D_800D154C->field_222 = i;
+                return;
+            }
+            distance = func_1505A72C(D_800D154C, entry);
+            if (distance < best) {
+                best = distance;
+                D_800D154C->field_222 = i;
+            }
         }
-        temp_fv0 = func_1505A72C(D_800D154C, var_s0);
-        if (temp_fv0 < var_fs0) {
-            var_fs0 = temp_fv0;
-            D_800D154C->field_222 = var_s1;
-        }
-        goto block_14;
     }
-block_14:
-    var_s1 += 1;
-    var_s0 = (s32 *)((u8 *)var_s0 + 0x32C);
-    if (var_s1 == 0x19) {
-        return;
-    }
-    goto loop_1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15077C38 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15077C38.s")
 void func_15077DA0(void) {
     D_800D154C->field_21E = D_800D1890;
 }
