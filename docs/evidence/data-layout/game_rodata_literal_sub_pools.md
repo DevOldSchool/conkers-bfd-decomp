@@ -66,6 +66,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_B4080 | 0x124 | 0xE4 | 0x8009DB90 | table, sites 0x7BD4 / 0x7BDC | unchanged |
 | game_11D830 | 0x0 | 0x4 | 0x800A1854 | pool (func_150F0A24) | `416E147B` (14.88) |
 | game_11D830 | 0x4 | 0x20 | 0x800A1878 | pool (func_150F1170) | `3DDF3B65 3E916873 3F7C82E0 3F83D19A 3EAA7EFA 3F039581 3F27EF9E 44008000` |
+| game_1E73B0 | 0x0 | 0x48 | 0x800AA718 | pool (func_151BB61C `const` arrays) | `4 4 7 8 18 19 1D 1E 20`, `3F800000 3F800000 3E19999A 3E19999A 3F800000 3F800000 3DC6A7F0 3F800000 3E4CCCCD` |
+| game_1E73B0 | 0x48 | 0x4 | 0x800AA7F4 | pool (func_151BB61C) | `3CA3D70B` (0.020000001) |
 
 The blood table hashes are SHA-256
 `d321edfcf0ef657c343364be6b03428e24a84df3a377f3acee9bfa8fee19b509` and
@@ -149,6 +151,19 @@ keep their runtime addresses.
   placement became two ranges and `game_11D830.o` joined
   `GAME_SPLIT_RODATA_OBJS`; the former payload-size symbol is gone. The object
   `.rodata` is 0x30 bytes: 0x24 of payload and 12 zero alignment bytes.
+
+- **game_1E73B0:** `func_151BB61C` passes two nine-element tables to
+  `func_15151D6C`: `const s32 indices[9]` (4, 4, 7, 8, 24, 25, 29, 30, 32) and
+  `const f32 factors[9]` (1.0, 1.0, 0.15, 0.15, 1.0, 1.0, 0.097, 1.0, 0.2).
+  IDO emits them as `.rodata` in declaration order, matching the
+  checksum-validated ROM words at 0x800AA718..0x800AA75F. It also loads
+  `0.020000001f` once and uses it twice (as an extern IDO reloads it). That
+  word sits at 0x800AA7F4 between this function's other float constants,
+  which stay extern symbols because each is used once and compiles the same
+  either way. The unit had no rodata mapping; it is now a split object with
+  two ranges. The object `.rodata` is 0x50 bytes: 0x4C of payload and 4 zero
+  alignment bytes; the HI16/LO16 sites are standalone text offsets
+  0x394/0x398, 0x3B0/0x3B4 and 0x3E4/0x3E8.
 
 `config/data/us.json` records one owner per address and input-section pair.
 These units are now split objects, so `finish` compares their own rodata
