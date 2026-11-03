@@ -268,6 +268,11 @@ SECTIONS
     {
         *game_1CE2F0.o(.rodata)
     }
+    /* ROM-verified constants: docs/evidence/data-layout/game_1d3ab0_float_constants.md. */
+    .game_rodata_1d3ab0 0x800A8DA0 (INFO) : SUBALIGN(4)
+    {
+        *game_1D3AB0.o(.rodata)
+    }
     /* Reviewed tables: docs/evidence/data-layout/game_1bc650_jump_tables.md. */
     .game_rodata_1bc650 0x800A7B7C (INFO) : SUBALIGN(4)
     {
@@ -623,6 +628,9 @@ ASSERT(SIZEOF(.game_rodata_83300_0) == 0xC,
        "game_83300 velocity literal extent changed")
 ASSERT(SIZEOF(.game_rodata_83300_c) == 0x8,
        "game_83300 func_1505F188 literal extent changed")
+ASSERT(SIZEOF(.game_rodata_1d3ab0) == 0x10,
+       "game_1D3AB0 constant pool extent changed")
+__game_rodata_1d3ab0_payload_size = 0x10;
 ASSERT(SIZEOF(.game_rodata_1ce2f0) == 0x10,
        "game_1CE2F0 scale literal extent changed")
 __game_rodata_1ce2f0_payload_size = 0x8;
