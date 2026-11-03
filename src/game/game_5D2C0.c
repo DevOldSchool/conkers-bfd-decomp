@@ -21,7 +21,6 @@
  * - func_15031FC8
  * - func_150331B8
  * - func_15033838
- * - func_15033BDC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1266,7 +1265,6 @@ typedef struct {
 void func_10010FFC(s32, s32, s32, s32, s32, void *);
 void func_100111C8(s32, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15033BDC CURRENT (120) */
 s32 func_15033BDC(GameCoreSoundHandle *arg0, s32 arg1, s32 *arg2,
                   s32 arg3, s32 arg4, s32 arg5, s16 *arg6) {
     GameCoreSoundOwner *owner;
@@ -1274,7 +1272,6 @@ s32 func_15033BDC(GameCoreSoundHandle *arg0, s32 arg1, s32 *arg2,
     GameCoreSoundChild *child;
     s32 sound;
     s32 previousSound;
-    u16 kind;
     u16 handle;
 
     owner = arg0->owner;
@@ -1285,6 +1282,8 @@ s32 func_15033BDC(GameCoreSoundHandle *arg0, s32 arg1, s32 *arg2,
         arg0->z = (s16)(s32)actor->z;
         if (*arg2 != 0) {
             if (owner->type == 0x37) {
+                u16 kind;
+
                 previousSound = owner->sound;
                 kind = actor->kind;
                 sound = -1;
@@ -1320,8 +1319,6 @@ s32 func_15033BDC(GameCoreSoundHandle *arg0, s32 arg1, s32 *arg2,
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15033BDC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15033BDC.s")
 s32 func_15033E00(s32 arg0, void *arg1) {
     if (*(u8 *)((u8 *)arg1 + 5) == 3) {
         return 1;
