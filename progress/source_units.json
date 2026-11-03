@@ -17183,7 +17183,7 @@
         "us": {
           "end": "0xBB260",
           "start": "0xBABE0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_E8090.c"
