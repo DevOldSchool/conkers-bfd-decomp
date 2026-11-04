@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_text_view_descriptor_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151303EC
  * - func_15130A9C
  * - func_15131828
  * - func_15131C84
@@ -81,7 +80,147 @@ void *func_15130374(s32, u8, s32, u8, s32);
 void *func_151303BC(s32 arg0, u8 arg1, s32 arg2) {
     return func_15130374(arg0, arg1, arg2, 0xFF, 0);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_151303EC.s")
+typedef struct Game15D730Particle {
+    u8 pad0[0x1A];
+    s16 timer1A;
+    s32 frame1C;
+    s32 rate20;
+    u8 pad24[0x7];
+    u8 alpha2B;
+    u8 pad2C;
+    u8 anim2D;
+    s16 fade2E;
+    s16 fadeMul30;
+    s16 scaleT32;
+    f32 scaleK34;
+    f32 scale38;
+    f32 scale3C;
+    Vec3f pos40;
+    u8 pad4C[0xC];
+    f32 vel58;
+    f32 vel5C;
+    f32 vel60;
+    f32 grav64;
+    s32 flags68;
+    u8 pad6C[6];
+    s8 update72;
+    s8 kill73;
+} Game15D730Particle;
+
+typedef struct Game15D730AnimEntry {
+    u8 frames;
+    u8 pad1[0xB];
+} Game15D730AnimEntry;
+
+extern s32 D_800BE9E4;
+extern f32 D_800BE9A4;
+extern s32 (*D_80089760[])(Game15D730Particle *, Vec3f *);
+extern void (*D_80089800[])(Game15D730Particle *);
+extern Game15D730AnimEntry D_80090B64[];
+
+void func_151303EC(Game15D730Particle *arg0) {
+    s32 unused;
+    Vec3f sp48;
+    u8 dead;
+    s32 i;
+    s32 max;
+    s32 rate;
+    s32 frames;
+
+    dead = 0;
+    if (arg0->flags68 & 1) {
+        arg0->timer1A -= D_800BE9E4;
+        if (arg0->timer1A < 0) {
+            dead = 1;
+        }
+    }
+    if (arg0->flags68 & 2) {
+        arg0->vel5C += arg0->grav64 * D_800BE9A4;
+    }
+    sp48 = arg0->pos40;
+    if (arg0->flags68 & 4) {
+        arg0->pos40.x += arg0->vel58 * D_800BE9A4;
+        arg0->pos40.y += arg0->vel5C * D_800BE9A4;
+        arg0->pos40.z += arg0->vel60 * D_800BE9A4;
+    }
+    if (arg0->flags68 & 0x200) {
+        if (arg0->timer1A < arg0->fade2E) {
+            i = arg0->timer1A * arg0->fadeMul30;
+            i = (s16)i;
+            if (i < arg0->alpha2B) {
+                arg0->alpha2B = i;
+            }
+        }
+    }
+    if ((arg0->flags68 & 0x400) && (arg0->timer1A < arg0->scaleT32)) {
+        if (arg0->flags68 & 0x800) {
+            i = D_800BE9E4;
+            if (arg0->flags68 & 0x80000) {
+                for (; i != 0; i--) {
+                    arg0->scale38 *= arg0->scaleK34;
+                }
+            } else if (arg0->flags68 & 0x100000) {
+                for (; i != 0; i--) {
+                    arg0->scale3C *= arg0->scaleK34;
+                }
+            } else {
+                for (; i != 0; i--) {
+                    arg0->scale38 *= arg0->scaleK34;
+                    arg0->scale3C *= arg0->scaleK34;
+                }
+            }
+        } else {
+            if (!(arg0->flags68 & 0x80000)) {
+                arg0->scale3C += arg0->scaleK34 * D_800BE9E4;
+            }
+            if (!(arg0->flags68 & 0x100000)) {
+                arg0->scale38 += arg0->scaleK34 * D_800BE9E4;
+            }
+        }
+    }
+    if (!dead) {
+        rate = arg0->rate20;
+        if (rate != 0) {
+            frames = D_80090B64[arg0->anim2D].frames;
+            max = (frames << 16) - 1;
+            arg0->frame1C += rate * D_800BE9E4;
+            if (max < arg0->frame1C) {
+                if (arg0->flags68 & 0x10) {
+                    dead = 1;
+                } else if (arg0->flags68 & 8) {
+                    arg0->frame1C = max - arg0->frame1C % max;
+                    arg0->rate20 = -rate;
+                } else {
+                    do {
+                        arg0->frame1C -= max;
+                    } while (max < arg0->frame1C);
+                }
+            } else if (arg0->frame1C < 0) {
+                if (arg0->flags68 & 0x20) {
+                    dead = 1;
+                } else if (arg0->flags68 & 8) {
+                    arg0->frame1C = -arg0->frame1C % max;
+                    arg0->rate20 = -rate;
+                } else {
+                    do {
+                        arg0->frame1C += max;
+                    } while (arg0->frame1C < 0);
+                }
+            }
+        }
+    }
+    if (arg0->update72 != -1 && !dead) {
+        if (D_80089760[arg0->update72](arg0, &sp48) == 0) {
+            dead = 1;
+        }
+    }
+    if (dead) {
+        if (arg0->kill73 != -1) {
+            D_80089800[arg0->kill73](arg0);
+        }
+        func_1516972C(arg0);
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15130A9C.s")
 void func_1513137C(s16 *arg0, s16 *arg1, s16 *arg2, s16 *arg3, Game15D730ColorState *arg4) {
     s16 temp_v0;

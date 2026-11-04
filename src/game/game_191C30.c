@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dispatch_position_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1516489C
  * - func_15164F0C
  * - func_15165628
  * - func_151658DC
@@ -53,7 +52,108 @@ void *func_15164780(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
 void func_15164888(u8 *arg0) {
     arg0[0x10] |= 2;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_1516489C.s")
+f32 func_15047D60(f32);
+f32 func_15144B68(f32);
+void func_15164888(u8 *);
+typedef struct { u8 v[3]; } Bytes3_1516489C;
+extern s32 (*D_8008B390[])(u8 *);
+extern f32 (*D_8008B394[])(u8 *);
+extern f32 D_800BE9A4;
+extern s32 D_800BE9E4;
+extern u8 D_800DCDE0;
+
+void func_1516489C(u8 *arg0) {
+    s32 pad;
+    u8 done;
+    u8 kill;
+    f32 scale;
+    Bytes3_1516489C prevA;
+    Bytes3_1516489C prevB;
+
+    done = 0;
+    kill = 0;
+    if (arg0[0x10] & 1) {
+        *(s16 *)(arg0 + 0x14) -= D_800BE9E4;
+        if (*(s16 *)(arg0 + 0x14) < 0) {
+            kill = 1;
+        }
+    }
+    if (!kill && *(s8 *)(arg0 + 0x11) != -1 && !D_8008B390[*(s8 *)(arg0 + 0x11)](arg0)) {
+        kill = 1;
+    }
+    if (kill != 0) {
+        func_15164888(arg0);
+    }
+    prevA = *(Bytes3_1516489C *)(arg0 + 0x60);
+    prevB = *(Bytes3_1516489C *)(arg0 + 0x63);
+    scale = 1.0f;
+    if (arg0[0x10] & 4) {
+        if (*(s8 *)(arg0 + 0x12) != -1) {
+            scale = D_8008B394[*(s8 *)(arg0 + 0x12)](arg0);
+        }
+    }
+    if (*(f32 *)(arg0 + 0x30) != 0.0f) {
+        *(f32 *)(arg0 + 0x48) = func_15144B68(*(f32 *)(arg0 + 0x30) * D_800BE9A4 + *(f32 *)(arg0 + 0x48));
+        arg0[0x60] = *(f32 *)(arg0 + 0x48) < 3.1415927f;
+        if ((arg0[0x10] & 2) && (prevA.v[0] != arg0[0x60])) {
+            *(f32 *)(arg0 + 0x30) = 0.0f;
+            *(f32 *)(arg0 + 0x48) = 0.0f;
+        }
+        ((f32 *)(&D_800DCDE0 + arg0[0x16] * 0x18))[0] += func_15047D60(*(f32 *)(arg0 + 0x48)) * *(f32 *)(arg0 + 0x18) * scale;
+    }
+    if (*(f32 *)(arg0 + 0x34) != 0.0f) {
+        *(f32 *)(arg0 + 0x4c) = func_15144B68(*(f32 *)(arg0 + 0x34) * D_800BE9A4 + *(f32 *)(arg0 + 0x4c));
+        arg0[0x61] = *(f32 *)(arg0 + 0x4c) < 3.1415927f;
+        if ((arg0[0x10] & 2) && (prevA.v[1] != arg0[0x61])) {
+            *(f32 *)(arg0 + 0x34) = 0.0f;
+            *(f32 *)(arg0 + 0x4c) = 0.0f;
+        }
+        ((f32 *)(&D_800DCDE0 + arg0[0x16] * 0x18))[1] += func_15047D60(*(f32 *)(arg0 + 0x4c)) * *(f32 *)(arg0 + 0x1c) * scale;
+    }
+    if (*(f32 *)(arg0 + 0x38) != 0.0f) {
+        *(f32 *)(arg0 + 0x50) = func_15144B68(*(f32 *)(arg0 + 0x38) * D_800BE9A4 + *(f32 *)(arg0 + 0x50));
+        arg0[0x62] = *(f32 *)(arg0 + 0x50) < 3.1415927f;
+        if ((arg0[0x10] & 2) && (prevA.v[2] != arg0[0x62])) {
+            *(f32 *)(arg0 + 0x38) = 0.0f;
+            *(f32 *)(arg0 + 0x50) = 0.0f;
+        }
+        ((f32 *)(&D_800DCDE0 + arg0[0x16] * 0x18))[2] += func_15047D60(*(f32 *)(arg0 + 0x50)) * *(f32 *)(arg0 + 0x20) * scale;
+    }
+    if (*(f32 *)(arg0 + 0x3c) != 0.0f) {
+        *(f32 *)(arg0 + 0x54) = func_15144B68(*(f32 *)(arg0 + 0x3c) * D_800BE9A4 + *(f32 *)(arg0 + 0x54));
+        arg0[0x63] = *(f32 *)(arg0 + 0x54) < 3.1415927f;
+        if ((arg0[0x10] & 2) && (prevB.v[0] != arg0[0x63])) {
+            *(f32 *)(arg0 + 0x3c) = 0.0f;
+            *(f32 *)(arg0 + 0x54) = 0.0f;
+        }
+        ((f32 *)(&D_800DCDE0 + arg0[0x16] * 0x18))[3] += func_15047D60(*(f32 *)(arg0 + 0x54)) * *(f32 *)(arg0 + 0x24) * scale;
+    }
+    if (*(f32 *)(arg0 + 0x40) != 0.0f) {
+        *(f32 *)(arg0 + 0x58) = func_15144B68(*(f32 *)(arg0 + 0x40) * D_800BE9A4 + *(f32 *)(arg0 + 0x58));
+        arg0[0x64] = *(f32 *)(arg0 + 0x58) < 3.1415927f;
+        if ((arg0[0x10] & 2) && (prevB.v[1] != arg0[0x64])) {
+            *(f32 *)(arg0 + 0x40) = 0.0f;
+            *(f32 *)(arg0 + 0x58) = 0.0f;
+        }
+        ((f32 *)(&D_800DCDE0 + arg0[0x16] * 0x18))[4] += func_15047D60(*(f32 *)(arg0 + 0x58)) * *(f32 *)(arg0 + 0x28) * scale;
+    }
+    if (*(f32 *)(arg0 + 0x44) != 0.0f) {
+        *(f32 *)(arg0 + 0x5c) = func_15144B68(*(f32 *)(arg0 + 0x44) * D_800BE9A4 + *(f32 *)(arg0 + 0x5c));
+        arg0[0x65] = *(f32 *)(arg0 + 0x5c) < 3.1415927f;
+        if ((arg0[0x10] & 2) && (prevB.v[2] != arg0[0x65])) {
+            *(f32 *)(arg0 + 0x44) = 0.0f;
+            *(f32 *)(arg0 + 0x5c) = 0.0f;
+        }
+        ((f32 *)(&D_800DCDE0 + arg0[0x16] * 0x18))[5] += func_15047D60(*(f32 *)(arg0 + 0x5c)) * *(f32 *)(arg0 + 0x2c) * scale;
+    }
+    if (*(f32 *)(arg0 + 0x30) == 0.0f && *(f32 *)(arg0 + 0x34) == 0.0f && *(f32 *)(arg0 + 0x38) == 0.0f &&
+        *(f32 *)(arg0 + 0x3C) == 0.0f && *(f32 *)(arg0 + 0x40) == 0.0f && *(f32 *)(arg0 + 0x44) == 0.0f) {
+        done = 1;
+    }
+    if (done != 0) {
+        func_1516972C(arg0);
+    }
+}
 void func_100226F0(void *arg0, s32 arg1);
 extern u8 D_800DCDE0;
 

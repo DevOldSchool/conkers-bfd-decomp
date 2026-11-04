@@ -25,3 +25,13 @@ completed-path alias. The original data archive supplies the runtime bytes.
 The function passed independent full-span `CURRENT (0)`, layout, progress and
 whitespace checks. Clean batch verification remains the linked integration gate.
 No reference assembly, compiler options or verifier rules changed.
+
+## Debris constants (func_15169C70)
+
+`func_15169C70`, which precedes the 0.98f owner in text order, loads six
+literals: `0.4f`, `57.295776f` (twice, one word per use), `-0.4f`, `0.7f` and
+`-0.7f`. The checksum-validated ROM holds big-endian `3ECCCCCD 42652EE0
+42652EE0 BECCCCCD 3F333333 BF333333` at `0x800A6CB0..0x800A6CC7`, immediately
+before the 0.98f word. The mapping now starts at `0x800A6CB0`: the object
+`.rodata` is 0x20 bytes, 0x1C of payload and 4 zero alignment bytes.
+`progress integrate` rebuilt the integrated image byte-identically.

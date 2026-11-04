@@ -37,7 +37,6 @@
  * - func_1505D6F0
  * - func_1505DADC
  * - func_1505DDA8
- * - func_1505E0C4
  * - func_1505E650
  * - func_1505E874
  * - func_1505ED34
@@ -1848,9 +1847,177 @@ void func_1505E060(u8 *arg0) {
     *(s32 *)((u8 *)arg0 + 0x2C) = (s32) *(s32 *)((u8 *)arg0 + 0x28);
     func_10023A10(arg0 + 0x40, arg0 + 0x210, 0x1D0);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505E0C4.s")
+s32 func_1502AF04(u8 *, s32, s32, s32);
+s32 func_1502B110(u8 *, s32, s32, u32, ...);
+void func_1000480C(s32, s32, s32);
+void func_10004514(s32, s32, s32, s32);
+void func_150627D4(void *);
+extern s32 D_8008630C[];
+extern u16 D_800993F8[];
+extern f32 D_8009953C;
+extern s8 D_8008FD8C;
+extern u8 D_800C35EA;
+
+void func_1505E0C4(Game83300Actor *arg0, u16 *arg1, u8 *arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10, s32 arg11) {
+    s32 index;
+    s32 flag;
+    s32 sp8C;
+    s32 t1;
+    s32 sp84;
+    s32 sp80;
+    s32 *v0;
+    s16 cur;
+    s32 mask;
+    u8 sp48[0x2C];
+
+    flag = 0;
+    if (arg4 != 0) {
+        flag = 1;
+        arg8 = 0.0f;
+    } else if (arg5 != (*(u16 *)(arg2 + 4) & 0xFFFF7FFF)) {
+        flag = 1;
+    } else if (arg0 != NULL && (arg5 != *(u16 *)((u8 *)arg0 + 0x84) || *(u16 *)((u8 *)arg0 + 0x84) == 0xFFFF || *((u8 *)arg0 + 0x103) != 0)) {
+        flag = 1;
+    }
+    if (flag != 0) {
+        if (arg0 != NULL) {
+            index = ((s32)arg0 - (s32)&D_800CC2D0) / 812;
+            t1 = 2;
+            arg6 = *((u8 *)arg0 + 6);
+        } else {
+            t1 = 10;
+        }
+        if (arg1 != NULL) {
+            sp8C = arg1[0];
+        } else {
+            sp8C = arg5 * 2;
+        }
+        if (arg0 != NULL) {
+            *(u16 *)((u8 *)arg0 + 0x84) = arg5;
+            *(f32 *)((u8 *)arg0 + 0x4C) = arg7;
+            *(s32 *)((u8 *)arg0 + 0x1C4) = *(s32 *)(arg1 + 2);
+            *(s8 *)((u8 *)arg0 + 0x138) = 0;
+            *((u8 *)arg0 + 0x103) = 0;
+            *(f32 *)((u8 *)arg0 + 0xB4) = 0.0f;
+            if (index < D_8008FD8C) {
+                u8 *p = (u8 *)&D_800CC2D0 + index * 0x32C;
+                *(s8 *)(*(u8 **)(p + 0x31C) + 0x58) = 0;
+                *(s16 *)(*(u8 **)(p + 0x31C) + 0x5A) = 0;
+                *(s8 *)(*(u8 **)(p + 0x31C) + 0x59) = 0;
+            }
+        }
+        if (*(s32 *)(arg2 + 0x28) != 0) {
+            cur = *(s16 *)(arg2 + 0x3C);
+            if (arg8 >= 1.0f) {
+                *(s16 *)(arg2 + 0x3A) = 500 / (s16)arg8;
+                if (*(s16 *)(arg2 + 0x3C) > 0 && arg5 == (*(u16 *)(arg2 + 6) & 0xFFFF7FFF)) {
+                    *(s16 *)(arg2 + 0x3C) = 0x3FF - *(s16 *)(arg2 + 0x3C);
+                    cur = 0;
+                } else if (cur < 600) {
+                    *(s16 *)(arg2 + 0x3C) = 0x3FF;
+                }
+            } else {
+                *(s16 *)(arg2 + 0x3C) = 0;
+            }
+            if (cur < 600) {
+                *(u16 *)(arg2 + 6) = *(u16 *)(arg2 + 4);
+                *(f32 *)(arg2 + 0xC) = *(f32 *)(arg2 + 8);
+                *(f32 *)(arg2 + 0x14) = *(f32 *)(arg2 + 0x10);
+                *(f32 *)(arg2 + 0x24) = *(f32 *)(arg2 + 0x20);
+                *(f32 *)(arg2 + 0x1C) = *(f32 *)(arg2 + 0x18);
+                *(s8 *)(arg2 + 0x39) = *(s8 *)(arg2 + 0x38);
+                *(s32 *)(arg2 + 0x2C) = *(s32 *)(arg2 + 0x28);
+                func_10023A10(arg2 + 0x40, arg2 + 0x210, 0x1D0);
+            }
+        }
+        *(u16 *)(arg2 + 4) = arg5;
+        if (arg11 != 0) {
+            *(u16 *)(arg2 + 4) |= 0x8000;
+        }
+        *(f32 *)(arg2 + 8) = arg9;
+        *(f32 *)(arg2 + 0x10) = arg7;
+        *(f32 *)(arg2 + 0x20) = arg10;
+        if (arg1 != NULL) {
+            *(s32 *)arg2 = D_8008630C[arg1[1]];
+        } else {
+            *(s32 *)arg2 = 0;
+        }
+        if (arg0 != NULL && *(u8 **)((u8 *)arg0 + 0x58) != NULL) {
+            v0 = (s32 *)func_1502AF04(*(u8 **)((u8 *)arg0 + 0x58), (s32)sp48, sp8C, 2);
+        } else {
+            v0 = (s32 *)func_1502B110(NULL, 2, (s32)sp48, 3, t1, arg6, sp8C);
+        }
+        if (v0 != NULL) {
+            sp84 = v0[1];
+            sp80 = v0[0];
+            *(s32 *)(arg2 + 0x28) = v0[2];
+        }
+        {
+            s32 size = (sp84 + 0xF) & ~0xF;
+            if (sp84 == 0) {
+                func_1505DFDC(arg0);
+                return;
+            }
+            if (size < 200) {
+                func_1000480C(sp80, (s32)(arg2 + 0x40), size);
+            } else {
+                func_10004514(sp80, (s32)(arg2 + 0x40), size, 1);
+            }
+        }
+        *(f32 *)(arg2 + 0x18) = (u32)arg2[0x43];
+        if (arg2[0x43] == 0xFF && arg0 != NULL) {
+            switch (*((u8 *)arg0 + 4)) {
+            case 0x92:
+                *(f32 *)(arg2 + 0x18) = (u32)D_800993F8[*(u16 *)((u8 *)arg0 + 0x84)];
+                break;
+            case 0xB7:
+            case 0xB8:
+            case 0xB9:
+                *(f32 *)(arg2 + 0x18) = D_8009953C;
+                break;
+            }
+        }
+        mask = 0x303;
+        if (arg0 != NULL) {
+            *((u8 *)arg0 + 0x24E) = 0;
+            *((u8 *)arg0 + 0x1FC) |= 2;
+            *((u8 *)arg0 + 0x1FC) &= ~1;
+            if (*((u8 *)arg0 + 0x104) == 0) {
+                mask = 0x30B;
+            }
+            *(s32 *)((u8 *)arg0 + 0xF4) &= ~mask;
+            if (*(s32 *)((u8 *)arg0 + 0xF4) & 0x20) {
+                *(s32 *)((u8 *)arg0 + 0xF4) |= 2;
+                *(s32 *)((u8 *)arg0 + 0xF4) &= ~0x20;
+            }
+            if (arg2[0x47] & 0x20) {
+                *((u8 *)arg0 + 0x1FD) = arg2[0x4B];
+            } else {
+                *((u8 *)arg0 + 0x1FD) = 0;
+            }
+        }
+        if (arg2[0x45] == 0) {
+            *(s32 *)(arg2 + 0x28) = 1;
+        }
+    } else {
+        if (arg0 != NULL) {
+            *(f32 *)((u8 *)arg0 + 0x4C) = arg7;
+        }
+        *(f32 *)(arg2 + 0x10) = arg7;
+        if (arg11 != 0) {
+            *(u16 *)(arg2 + 4) |= 0x8000;
+        } else {
+            *(u16 *)(arg2 + 4) &= 0xFFFF7FFF;
+        }
+        if (D_800C35EA == 1 && (*(u16 *)(arg2 + 4) & 0x8000)) {
+            *(f32 *)(arg2 + 8) = arg9;
+        }
+    }
+    if (arg0 != NULL && flag != 0) {
+        func_150627D4(arg0);
+    }
+}
 s32 func_150229E4(void *);
-void func_1505E0C4(f32, Game83300Actor *, u16 *, Game83300Inner *, s32, s32, s32, s32, f32, f32, f32, f32, s32);
 extern u8 D_800C3638;
 extern u8 D_800C3654;
 extern u16 D_800C5A90[];

@@ -22,3 +22,16 @@ are not padding. The original data archive supplies the runtime bytes.
 The function passed independent full-span `CURRENT (0)`, layout, progress and
 whitespace checks. Clean batch verification remains the linked integration gate.
 No reference assembly, compiler options or verifier rules changed.
+
+## Burst constants (func_150E9890)
+
+`func_150E9890`, the member before `func_150E9E34` in text order, loads seven
+literals: `0.001f`, `0.2f`, `3047.0f`, `1641.0f`, `2031.0f`, `0.01f` (twice,
+one pool word per use) and `0.0001f`. As C literals they form the first 0x1C
+bytes of the object pool, so the mapping now starts at `0x800A13F0`. The same
+checksum-validated ROM holds big-endian `3A83126F 3E4CCCCD 453E7000 44CD2000
+44FDE000 3C23D70A 38D1B717` at `0x800A13F0..0x800A140B`, directly followed by
+the emitter scale above. The object `.rodata` is now exactly 0x20 bytes of
+payload with no alignment bytes; the INFO section asserts a 0x20 extent and a
+0x20 payload. `progress integrate` rebuilt the integrated game image
+byte-identically with this mapping.

@@ -29,3 +29,15 @@ checks that the alignment bytes are zero. `config/data/us.json` records the
 layout, progress and whitespace checks; the clean verify-batch result is
 recorded with the commit that adds this mapping. No reference assembly,
 compiler flag or verifier changes are involved.
+
+## Spray constants (func_150BC488)
+
+`func_150BC488`, the member before `func_150BCBBC` in text order, loads ten
+literals in first-use order: `0.4f`, `0.05f`, `0.04f`, `0.02f`, `0.04f`,
+`0.02f`, `0.2f`, `1.6f`, `0.6f` and `-1.6f` (repeated values are separate
+words, one per use). As externs IDO schedules their loads differently; as
+literals the function reaches CURRENT (0). The checksum-validated archive
+holds big-endian `3ECCCCCD 3D4CCCCD 3D23D70A 3CA3D70A 3D23D70A 3CA3D70A
+3E4CCCCD 3FCCCCCD 3F19999A BFCCCCCD` at 0x8009FEBC..0x8009FEE3, immediately
+before the 0x8009FEE4 words above. The mapping now starts at 0x8009FEBC: the
+object `.rodata` is 0x40 bytes, 0x3C of payload and 4 zero alignment bytes.

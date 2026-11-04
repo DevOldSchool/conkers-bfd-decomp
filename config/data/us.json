@@ -419,7 +419,17 @@
       },
       {
         "address": "0x800969C0",
-        "section": ".rodata",
+        "section": ".rodata.49d30_0",
+        "owner": {
+          "sources": [
+            "src/game/game_49D30.c",
+            "src/done/game/game_49D30.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800969D0",
+        "section": ".rodata.49d30_4",
         "owner": {
           "sources": [
             "src/game/game_49D30.c",
@@ -806,7 +816,7 @@
         }
       },
       {
-        "address": "0x8009FEE4",
+        "address": "0x8009FEBC",
         "section": ".rodata",
         "owner": {
           "sources": [
@@ -886,7 +896,7 @@
         }
       },
       {
-        "address": "0x800A1140",
+        "address": "0x800A112C",
         "section": ".rodata",
         "owner": {
           "sources": [
@@ -906,7 +916,7 @@
         }
       },
       {
-        "address": "0x800A140C",
+        "address": "0x800A13F0",
         "section": ".rodata",
         "owner": {
           "sources": [
@@ -1276,7 +1286,17 @@
         }
       },
       {
-        "address": "0x800A6CC8",
+        "address": "0x800A6B20",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_191C30.c",
+            "src/done/game/game_191C30.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A6CB0",
         "section": ".rodata",
         "owner": {
           "sources": [
@@ -1292,6 +1312,16 @@
           "sources": [
             "src/game/game_19E040.c",
             "src/done/game/game_19E040.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A7398",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1B5370.c",
+            "src/done/game/game_1B5370.c"
           ]
         }
       },
@@ -1532,6 +1562,26 @@
           "sources": [
             "src/game/game_1EF500.c",
             "src/done/game/game_1EF500.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800AAACC",
+        "section": ".rodata.1f2730_0",
+        "owner": {
+          "sources": [
+            "src/game/game_1F2730.c",
+            "src/done/game/game_1F2730.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800AAADC",
+        "section": ".rodata.1f2730_c",
+        "owner": {
+          "sources": [
+            "src/game/game_1F2730.c",
+            "src/done/game/game_1F2730.c"
           ]
         }
       },

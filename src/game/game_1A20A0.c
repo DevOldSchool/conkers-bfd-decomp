@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15174BF0
- * - func_15175390
  * - func_15175958
  * - func_1517685C
  * - func_15176DF0
@@ -206,7 +205,123 @@ void func_15174FA4(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
         } while (index != arg0);
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_15175390.s")
+extern f32 D_800A7178;
+void func_15175390(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7,
+                   s32 arg8, s32 arg9, s32 arg10, u32 arg11, s32 arg12, s32 arg13, s32 arg14,
+                   f32 arg15, f32 arg16, s32 arg17) {
+    s32 x;
+    s32 y;
+    s32 z;
+    s32 index;
+    Game174BF0Actor *actor;
+    s32 angle;
+    s32 baseAngle;
+    s32 range;
+    u32 flags;
+    f32 delta[3];
+    u32 slot;
+    s32 surface;
+
+    if (!(arg9 & 0x40) || arg7 > 0) {
+        if (arg9 & 0x10000) {
+            delta[0] = (f32)arg2 - *(f32 *)((u8 *)D_800DBFF0 + arg6 * 0x9A0 + 0x2F8);
+            delta[1] = (f32)arg3 - *(f32 *)((u8 *)D_800DBFF0 + arg6 * 0x9A0 + 0x2FC);
+            delta[2] = (f32)arg4 - *(f32 *)((u8 *)D_800DBFF0 + arg6 * 0x9A0 + 0x300);
+            baseAngle = (s32)func_15048FC8(delta);
+        }
+        for (index = 0; index < arg0; index++) {
+            if (arg11 != 0) {
+                slot = func_150ADA20() % arg11;
+            } else {
+                slot = 0;
+            }
+            actor = func_15167A68(arg10 + slot, 0, 0xF8, 1, 0xFF, 1);
+            if (actor == NULL) return;
+            range = arg5 - arg8;
+            x = (s32)func_150ADA20() % range;
+            y = arg3;
+            x = (x < 0) ? x - arg8 : x + arg8;
+            x += arg2;
+            z = (s32)func_150ADA20() % range;
+            z = (z < 0) ? z - arg8 : z + arg8;
+            z += arg4;
+            if (arg14 == 0 || (arg17 & 1)) {
+                actor->baseHeight = (f32)func_1510F8D8(x, arg3, z, &surface);
+            }
+            if (arg14 == 0) {
+                y = (s32)actor->baseHeight;
+            } else if (arg7 != 0) {
+                y += func_150ADA20() % (u32)arg7;
+            }
+            actor->group = arg1;
+            actor->flags = arg9;
+            actor->phase = arg14;
+            actor->x = (f32)x;
+            actor->y = (f32)y;
+            actor->z = (f32)z;
+            actor->timer = func_150ADA20() % 15U + 0xA;
+            actor->enabled = 0;
+            if (arg9 & 0x10000) {
+                angle = (s32)(func_150ADA20() & 0x1F) + baseAngle - 0xF;
+                if (angle < 0) angle += 0x168;
+                else if (angle >= 0x168) angle -= 0x168;
+            } else {
+                angle = func_150ADA20() % 360U;
+            }
+            if (arg9 & 0x20000) {
+                actor->pitch = (f32)((s32)(func_150ADA20() & 0x1F) - 0xF);
+                actor->velocity = -1.0f;
+            } else {
+                actor->pitch = 0.0f;
+                actor->velocity = 0.0f;
+            }
+            actor->roll = 0.0f;
+            actor->yaw = (f32)angle;
+            actor->yawStep = (f32)((s32)(func_150ADA20() & 0xFF) - 0x80) * D_800A7178;
+            actor->fieldBC = 0.0f;
+            actor->scale = (f32)(s32)(func_150ADA20() & 0xFFFF) * 0.000030517578125f * arg16 + arg15;
+            if (arg13 != -1) {
+                if (arg13 != 0) slot = func_150ADA20() & arg13;
+                else slot = 0;
+            }
+            slot += arg12;
+            actor->model = D_800DDE88[slot].model;
+            actor->modelIndex = slot;
+            *(s16 *)((u8 *)actor + 0xD0) = arg2;
+            *(s16 *)((u8 *)actor + 0xD2) = arg3;
+            *(s16 *)((u8 *)actor + 0xD4) = arg4;
+            *(s16 *)((u8 *)actor + 0xD6) = arg5;
+            *(s16 *)((u8 *)actor + 0xD8) = arg8;
+            *(s16 *)((u8 *)actor + 0xDA) = arg7;
+            *(s16 *)((u8 *)actor + 0xDC) = 0;
+            *(s16 *)((u8 *)actor + 0xDE) = 0;
+            actor->surfaceFlags = 0;
+            *(f32 *)((u8 *)actor + 0xE0) = 0;
+            if (index == 0) {
+                if (arg10 == 0xA) {
+                    actor->sound = func_10010E78(0, 0xA2, 0x7D00, 0, 0, 0, x, y, z, 0x3E8, 0xFA0);
+                }
+            } else {
+                actor->sound = 0;
+            }
+            if (arg17 & 1) {
+                actor->flags |= 0x80;
+                if (surface != 0) {
+                    range = (surface - D_800DBE3C) / 12;
+                    flags = ((u32 *)D_800DBE5C)[range];
+                } else {
+                    flags = 0;
+                }
+                actor->surfaceFlags = flags;
+                actor->brightness = D_800A7170[(flags >> 5) & 3];
+            } else {
+                actor->brightness = 0;
+            }
+            actor->opacity = 0;
+            actor->fieldF1 = 0;
+        }
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_15175958.s")
 typedef struct {
     u8 pad0[0x90];

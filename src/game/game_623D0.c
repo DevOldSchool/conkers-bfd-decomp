@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_record_glyph_emitter_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15034F30
  * - func_15035808
  * - func_15035D6C
  * - func_15035FE8
@@ -19,7 +18,118 @@ extern s8 D_800C3F00;
 void func_15034F20(void) {
     D_800C3F00 = 0;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_623D0/func_15034F30.s")
+void func_10023A10(void *, void *, s32);
+void func_150A7A48(void *, void *, void *);
+void func_151EFD00(void *, void *);
+void func_151EFEB8(void *, void *);
+void func_15034728(void *);
+void func_150A7BC0(void *);
+void func_150A8050(void *, f32, f32, f32);
+s32 func_150AD960(s32, s32, s32, s32);
+
+void func_15034F30(u8 *arg0, u8 *arg1, s32 arg2, f32 (*arg3)[4][4], f32 (*arg4)[4][4], s32 arg5,
+                   f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10, f32 arg11, f32 arg12,
+                   f32 arg13, f32 arg14, f32 arg15, f32 arg16, s32 arg17, s32 arg18) {
+    f32 flip[4][4];
+    f32 rotA[4][4];
+    f32 rotB[4][4];
+    s32 i;
+    f32 (*src)[4];
+    f32 dist;
+    f32 temp[4][4];
+    void *saved;
+
+    func_150A7BC0(flip);
+    if (arg2 == 1 || arg2 == 0) {
+        flip[1][1] = -1.0f;
+        for (i = 0; i < arg5; i++) {
+            if (arg17 != 0) {
+                func_151EFEB8(temp, (i << 6) + (u8 *)arg3);
+                src = temp;
+            } else {
+                arg3[i][0][3] = 0.0f;
+                arg3[i][1][3] = 0.0f;
+                arg3[i][2][3] = 0.0f;
+                arg3[i][3][3] = 1.0f;
+                src = (void *)((i << 6) + (u8 *)arg3);
+            }
+            func_150A7A48(src, flip, arg4[i]);
+            arg4[i][3][1] = src[3][1] - 2.0f * (src[3][1] - arg7);
+            if (arg18 != 0) {
+                func_10023A10((i << 6) + (u8 *)arg4, temp, 0x40);
+                func_151EFD00(temp, (i << 6) + (u8 *)arg4);
+            }
+        }
+        dist = arg12 - arg7;
+        if (arg15 < dist) {
+            arg1[4] = 0;
+        } else if (dist < arg14) {
+            if (arg2 == 0) {
+                if (dist < 10.0f) {
+                    arg1[4] = arg16 / 10.0f * dist;
+                } else {
+                    arg1[4] = arg16;
+                }
+            } else {
+                arg1[4] = arg16;
+            }
+        } else {
+            dist -= arg14;
+            dist = arg16 * dist / (arg15 - arg14);
+            dist = arg16 - dist;
+            arg1[4] = dist;
+        }
+    } else if (arg2 == 2) {
+        flip[0][0] = -1.0f;
+        func_150A8050(rotA, 0.0f, -arg10, 0.0f);
+        func_150A8050(rotB, 0.0f, arg10, 0.0f);
+        for (i = 0; i < arg5; i++) {
+            if (arg17 != 0) {
+                func_151EFEB8(temp, (i << 6) + (u8 *)arg3);
+                src = temp;
+            } else {
+                arg3[i][0][3] = 0.0f;
+                arg3[i][1][3] = 0.0f;
+                arg3[i][2][3] = 0.0f;
+                arg3[i][3][3] = 1.0f;
+                src = (void *)((i << 6) + (u8 *)arg3);
+            }
+            func_10023A10(src, arg4[i], 0x40);
+            arg4[i][3][0] -= arg6;
+            arg4[i][3][1] -= arg7;
+            arg4[i][3][2] -= arg8;
+            func_150A7A48(arg4[i], rotA, arg4[i]);
+            func_150A7A48(arg4[i], flip, arg4[i]);
+            func_150A7A48(arg4[i], rotB, arg4[i]);
+            arg4[i][3][0] += arg6;
+            arg4[i][3][1] += arg7;
+            arg4[i][3][2] += arg8;
+            if (arg18 != 0) {
+                func_10023A10((i << 6) + (u8 *)arg4, temp, 0x40);
+                func_151EFD00(temp, (i << 6) + (u8 *)arg4);
+            }
+        }
+        dist = func_150AD960(arg6, arg8, arg11, arg13);
+        if (arg15 < dist) {
+            arg1[4] = 0;
+        } else if (dist < arg14) {
+            arg1[4] = arg16;
+        } else {
+            dist -= arg14;
+            dist = arg16 * dist / (arg15 - arg14);
+            dist = arg16 - dist;
+            arg1[4] = dist;
+        }
+    } else {
+        return;
+    }
+    if (arg0 != NULL && *(s32 *)(arg0 + 0x9C) != 0) {
+        saved = *(void **)(arg0 + 0x1D4);
+        *(void **)(arg0 + 0x1D4) = arg4;
+        func_15034728(arg0);
+        *(void **)(arg0 + 0x1D4) = saved;
+    }
+}
 extern u8 D_800C3F08[];
 
 void *func_150356C8(void) {

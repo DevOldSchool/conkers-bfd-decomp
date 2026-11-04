@@ -22,7 +22,6 @@
  * - func_1501E81C
  * - func_1501EA18
  * - func_1501EC38
- * - func_1501F72C
  * - func_1501FC8C
  * - func_1501FE68
  * - func_15020388
@@ -1036,7 +1035,88 @@ void func_1501EA18(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501EA18.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501EC38.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501F72C.s")
+void func_15020878(s32, s32, s32);
+void func_1501FFE8(void *, void *, s32, s32);
+extern void *D_800C35C8[];
+extern u8 D_800C3868[];
+extern void *D_800C3A50[];
+
+s32 func_1501F72C(s32 arg0, f32 arg1, f32 *arg2, s32 arg3, s32 *arg4) {
+    s32 key;
+    s32 lo;
+    s32 hi;
+    s32 sample;
+    Vec3f points[4];
+    f32 *times;
+    s32 i;
+    u8 j;
+    s32 interp;
+    f32 t;
+
+    lo = 0;
+    hi = *(u16 *)((u8 *)D_800C35C8[arg3] + arg0 * 2) - 1;
+    if (hi >= 0) {
+        times = *(f32 **)((u8 *)D_800C3A50[arg3] + (arg0 << 6) + 4);
+        do {
+            key = (lo + hi) / 2;
+            if (arg1 < times[key]) {
+                hi = key - 1;
+            } else {
+                lo = key + 1;
+            }
+            if (times[key] <= arg1 && arg1 <= times[key + 1]) {
+                break;
+            }
+        } while (hi >= lo);
+    }
+    *arg4 = key;
+    if (key != *((u8 *)D_800C3A50[arg3] + (arg0 << 6) + 0x3C)) {
+        func_15020878(arg0, key, arg3);
+    }
+    interp = *(u16 *)(*(u8 **)(D_800C3868 + arg3 * 0x78 + arg0 * 4) + key * 8 + 6);
+    func_1501FFE8(points, *(void **)(D_800C3868 + arg3 * 0x78 + arg0 * 4), key,
+                  *(u16 *)((u8 *)D_800C35C8[arg3] + arg0 * 2));
+    if (interp == 0) {
+        hi = 100;
+        lo = 0;
+        times = *(f32 **)((u8 *)D_800C3A50[arg3] + (arg0 << 6) + 0x38);
+        do {
+            sample = (lo + hi) / 2;
+            if (arg1 < times[sample]) {
+                hi = sample - 1;
+            } else {
+                lo = sample + 1;
+            }
+            if (times[sample] <= arg1 && arg1 <= times[sample + 1]) {
+                break;
+            }
+        } while (hi >= lo);
+        j = 0;
+        for (i = 0; i < 2; i++) {
+            t = (f32)(sample + i) * 0.01f;
+            ((Vec3f *)arg2)[j].x = ((((f32 *)((u8 *)D_800C3A50[arg3] + (arg0 << 6)))[11] * t + ((f32 *)((u8 *)D_800C3A50[arg3] + (arg0 << 6)))[8]) * t + ((f32 *)((u8 *)D_800C3A50[arg3] + (arg0 << 6)))[5]) * t + ((f32 *)((u8 *)D_800C3A50[arg3] + (arg0 << 6)))[2];
+            ((Vec3f *)arg2)[j].y = ((((f32 *)((u8 *)D_800C3A50[arg3] + (arg0 << 6)))[12] * t + ((f32 *)((u8 *)D_800C3A50[arg3] + (arg0 << 6)))[9]) * t + ((f32 *)((u8 *)D_800C3A50[arg3] + (arg0 << 6)))[6]) * t + ((f32 *)((u8 *)D_800C3A50[arg3] + (arg0 << 6)))[3];
+            ((Vec3f *)arg2)[j].z = ((((f32 *)((u8 *)D_800C3A50[arg3] + (arg0 << 6)))[13] * t + ((f32 *)((u8 *)D_800C3A50[arg3] + (arg0 << 6)))[10]) * t + ((f32 *)((u8 *)D_800C3A50[arg3] + (arg0 << 6)))[7]) * t + ((f32 *)((u8 *)D_800C3A50[arg3] + (arg0 << 6)))[4];
+            j ^= 1;
+        }
+    } else {
+        t = (*(f32 **)((u8 *)D_800C3A50[arg3] + (arg0 << 6) + 4))[key + 1] - (*(f32 **)((u8 *)D_800C3A50[arg3] + (arg0 << 6) + 4))[key];
+        arg1 = arg1 - (*(f32 **)((u8 *)D_800C3A50[arg3] + (arg0 << 6) + 4))[key];
+        if (t != 0) {
+            arg1 = arg1 / t;
+        } else {
+            arg1 = 0.0f;
+        }
+        j = 0;
+        for (i = 0; i < 2; i++) {
+            ((Vec3f *)arg2)[j].x = (points[2].x - points[1].x) * arg1 + points[1].x;
+            ((Vec3f *)arg2)[j].y = (points[2].y - points[1].y) * arg1 + points[1].y;
+            ((Vec3f *)arg2)[j].z = (points[2].z - points[1].z) * arg1 + points[1].z;
+            j ^= 1;
+        }
+    }
+    return sample;
+}
 s32 func_1501F72C(s32, f32, f32 *, s32, s32 *);
 extern void *D_800C35C8[];
 extern u8 D_800C3868[];
