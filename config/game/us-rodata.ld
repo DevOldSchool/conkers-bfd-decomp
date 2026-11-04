@@ -29,6 +29,11 @@ SECTIONS
     {
         *game_10BC70.o(.rodata)
     }
+    /* Particle speed scale: docs/evidence/data-layout/game_114b80_float_constant.md. */
+    .game_rodata_114b80 0x800A1374 (INFO) : SUBALIGN(4)
+    {
+        *game_114B80.o(.rodata)
+    }
     /* Burst and emitter constants: docs/evidence/data-layout/game_116d40_float_constant.md. */
     .game_rodata_116d40 0x800A13F0 (INFO) : SUBALIGN(4)
     {
@@ -351,8 +356,8 @@ SECTIONS
     .game_rodata_1bf090 0x800A80FC (INFO) : SUBALIGN(4) { *game_1BF090.o(.rodata) }
     /* Five switch targets after the 1BF090 table: docs/evidence/data-layout/game_1bfcb0_jump_table.md. */
     .game_rodata_1bfcb0 0x800A8160 (INFO) : SUBALIGN(4) { *game_1BFCB0.o(.rodata) }
-    /* Six switch targets: docs/evidence/data-layout/game_a9d90_jump_table.md. */
-    .game_rodata_a9d90 0x8009B884 (INFO) : SUBALIGN(4) { *game_A9D90.o(.rodata) }
+    /* Three adjacent switches: docs/evidence/data-layout/game_a9d90_jump_table.md. */
+    .game_rodata_a9d90 0x8009B6DC (INFO) : SUBALIGN(4) { *game_A9D90.o(.rodata) }
     /* Six switch targets: docs/evidence/data-layout/game_11f780_jump_table.md. */
     .game_rodata_11f780 0x800A192C (INFO) : SUBALIGN(4) { *game_11F780.o(.rodata) }
     /* Nested light switches: docs/evidence/data-layout/effects_light_jump_tables.md. */
@@ -491,8 +496,8 @@ __game_rodata_12f400_payload_size = 0xA4;
 ASSERT(SIZEOF(.game_rodata_ca630) == 0xA0, "game_CA630 table extent changed")
 __game_rodata_ca630_payload_size = 0xA0;
 
-ASSERT(SIZEOF(.game_rodata_a9d90) == 0x20, "game_A9D90 table extent changed")
-__game_rodata_a9d90_payload_size = 0x18;
+ASSERT(SIZEOF(.game_rodata_a9d90) == 0x1C0, "game_A9D90 table extent changed")
+__game_rodata_a9d90_payload_size = 0x1C0;
 
 ASSERT(SIZEOF(.game_rodata_10bc70) == 0x10,
        "game_10BC70 constant pool extent changed")
@@ -694,6 +699,9 @@ __game_rodata_18a8f0_payload_size = 0x8;
 
 ASSERT(SIZEOF(.game_rodata_1b8f40) == 0x30, "game_1B8F40 table extent changed")
 __game_rodata_1b8f40_payload_size = 0x24;
+
+ASSERT(SIZEOF(.game_rodata_114b80) == 0x10, "game_114B80 constant pool extent changed")
+__game_rodata_114b80_payload_size = 0x4;
 
 ASSERT(SIZEOF(.game_rodata_116d40) == 0x20, "game_116D40 constant pool extent changed")
 __game_rodata_116d40_payload_size = 0x20;
