@@ -1556,6 +1556,26 @@
         }
       },
       {
+        "address": "0x800AAACC",
+        "section": ".rodata.1f2730_0",
+        "owner": {
+          "sources": [
+            "src/game/game_1F2730.c",
+            "src/done/game/game_1F2730.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800AAADC",
+        "section": ".rodata.1f2730_c",
+        "owner": {
+          "sources": [
+            "src/game/game_1F2730.c",
+            "src/done/game/game_1F2730.c"
+          ]
+        }
+      },
+      {
         "address": "0x800AAFC0",
         "section": ".rodata",
         "owner": {

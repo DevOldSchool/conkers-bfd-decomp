@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151C5280
- * - func_151C577C
  * - func_151C5F44
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -151,11 +150,129 @@ void func_151C56A4(void *arg0, u8 arg1, s32 arg2) {
                   (func_150ADA20(arg0) & 1) + 6,
                   0xFF, 0xE8, 0xAB, 0xFF, 0, 0, arg1, arg2);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1F2730/func_151C577C.s")
+typedef struct {
+    s32 field00, field04;
+    s16 field08, lifetime;
+    s32 field0C, field10;
+    u8 colors[8];
+    u8 field1C, field1D;
+    s16 field1E, field20, field22;
+    f32 field24, field28, field2C;
+    Vec3f position, velocity, direction;
+    f32 field54;
+    s32 flags, field5C;
+    s8 controls[6];
+    u8 pad66[0xA];
+} Game1F2730Spawn577C;
+
+s32 func_15137C64(void *, Vec3f *, Vec3f *, Vec3f *, Vec3f *, s32, s32, s32);
+void func_151DC034(void *, f32, u8, s16, s32, u8, s32);
+void func_151DA6F8(void *, Vec3f *, f32, s16, s32, f32, s32, s32, f32, f32,
+                   s32, s32, s32, s32, s32, s32, u8, s32);
+void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32,
+                   f32, s32, s32, s32, s32, u8, s32);
+void func_15143794(s16, s16, f32, void *);
+void *func_10022EC0(void *, const void *, u32);
+
+void func_151C577C(s32 arg0, s32 arg1, s32 arg2, u8 arg3, u8 arg4, u8 arg5, u8 arg6, s32 arg7) {
+    u8 handle[0xC];
+    Vec3f origin;
+    Vec3f forward;
+    Vec3f right;
+    Vec3f up;
+    s32 j;
+    f32 sinv;
+    f32 cosv;
+    Vec3f offset;
+    s16 i;
+    f32 dist;
+    Vec3f velocity;
+    void *result;
+    Game1F2730Spawn577C packet;
+    f32 value;
+    s32 k;
+    s32 bits;
+
+    if (func_15137C64(handle, &origin, &forward, &right, &up, arg0, arg1, arg2) == 0) {
+        return;
+    }
+    func_151DC034(handle, func_150ADA68() * 24.0f + 168.0f, func_150ADA20() % 101U + 0x9B,
+                  (func_150ADA20() & 7) + 0xF, 1, arg6, arg7);
+    if (arg4 != 0) {
+        i = func_150ADA20() % 3U + 5;
+        while (i != 0) {
+            dist = (func_150ADA68() * 33.0f + 60.0f) * 0.1f;
+            func_15143874(func_150ADA20() & 0xFF, dist, &cosv, &sinv);
+            offset.x = right.x * cosv + up.x * sinv;
+            offset.y = right.y * cosv + up.y * sinv;
+            offset.z = right.z * cosv + up.z * sinv;
+            func_151DA6F8(handle, &offset, func_150ADA68() * 0.162f + 0.193f, func_150ADA20() % 9U + 0x12,
+                          func_150ADA20() % 156U + 100, func_150ADA68() * 4.0f + 4.0f, 3, func_150ADA20() % 1U, 1.0f, 1.0f, 1, 1, 0,
+                          0x10, 0xF, 0, arg6, arg7);
+            i--;
+        }
+    }
+    if (arg3 != 0) {
+        for (j = func_150ADA20() % 6U + 5; j != 0; j--) {
+            dist = (func_150ADA68() * 150.0f + 200.0f) * 0.1f;
+            velocity.x = forward.x * dist;
+            velocity.y = forward.y * dist;
+            velocity.z = forward.z * dist;
+            func_151D9014(&origin.x, &velocity.x, 1, func_150ADA68() * 0.68200004f + -0.41200003f, func_150ADA20() % 11U + 5,
+                          func_150ADA20() % 156U + 100, func_150ADA68() * 60.0f + 80.0f, 0, 1.0f, 1.0f,
+                          1, 0, 1, 0, arg6, arg7);
+        }
+    }
+    if (arg5 != 0) {
+        k = func_150ADA20() % 7U + 3;
+        value = 0.950865f;
+        packet.field1D = 0x6C;
+        packet.field08 = 0x5103;
+        packet.field00 = 0x200005;
+        packet.field1E = 0x14;
+        packet.field20 = 0xC;
+        packet.flags = 0x80D207;
+        packet.controls[0] = 8;
+        packet.controls[1] = 6;
+        packet.controls[2] = 0x10;
+        packet.field04 = 0;
+        packet.field0C = 0;
+        packet.field10 = 0;
+        packet.controls[3] = -1;
+        packet.controls[4] = -1;
+        packet.controls[5] = 0;
+        packet.field22 = 1;
+        packet.field24 = 1.0f;
+        packet.colors[0] = 0xE2;
+        packet.colors[1] = 0xB2;
+        packet.colors[2] = 0x60;
+        packet.colors[3] = 0xFF;
+        packet.colors[4] = 0x39;
+        packet.colors[5] = 0xF;
+        packet.colors[6] = 0;
+        packet.field1C = 0xFF;
+        packet.position = origin;
+        packet.velocity.x = 0.0f;
+        packet.velocity.y = 0.0f;
+        packet.velocity.z = 0.0f;
+        for (; k > 0; k--) {
+            func_15143794(func_150ADA20() & 0xFF, -(func_150ADA20() & 0x3F), func_150ADA68() * 7.0f + 2.0f, &packet.direction);
+            packet.field54 = (func_150ADA68() * 117.0f + -197.0f) * 0.001f;
+            packet.flags &= ~0xC0;
+            bits = ((func_150ADA20() & 1) ? 0x80 : 0) | ((func_150ADA20() & 1) ? 0x40 : 0);
+            packet.flags |= bits;
+            packet.colors[7] = func_150ADA20() % 66U + 0xBE;
+            packet.lifetime = func_150ADA20() % 45U + 0x2C;
+            packet.field28 = packet.field2C = func_150ADA68() * 122.0f + 77.0f;
+            result = func_15130280(&packet, 1, NULL, 4, arg6, arg7);
+            if (result != NULL) {
+                func_10022EC0((u8 *)result + 0xA8, &value, 4U);
+            }
+        }
+    }
+}
 void func_15137F30(void *, void *, void *, void *, f32, void *, void *, void *,
                    void *, f32 *, s16 *, s8 *, f32 *);
-void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32,
-                   f32, s32, s32, s32, s32, s32, s32);
 
 void func_151C5E74(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4,
                    u8 *arg5) {
