@@ -7,7 +7,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1501A8C0
  * - func_1501B0A0
  * - func_1501B22C
  *
@@ -16,7 +15,7 @@
 
 s32 func_10003C40(s32, s32, s32, s32);
 void func_150006E0(s32);
-void func_1501A8C0(s32, s32, s32, s32);
+void func_1501A8C0(s32, s32, s32, s16);
 void func_1510B070(s32);
 extern s32 D_80082FA0;
 extern s32 D_800BE62C;
@@ -184,7 +183,86 @@ void func_1501A764(s16 arg0, f32 arg1, f32 arg2, f32 arg3, f32 *arg4,
              (f32)D_800BE628[arg0].viewports[D_800BE9C0].vp.vscale[2] +
              (f32)D_800BE628[arg0].viewports[D_800BE9C0].vp.vtrans[2]) * 32.0f;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_476D0/func_1501A8C0.s")
+s32 func_1501AE94(s32);
+void func_1501B0A0(s32, s32);
+f32 func_15047C00(f32);
+f32 func_15047D60(f32);
+void func_1510B32C(s32, f32, f32, f32);
+extern s32 D_800BE638[];
+extern s32 D_800BE650[];
+extern f32 D_80082FA8[];
+extern f32 D_800968E4;
+extern f32 D_800968E8;
+extern f32 D_800968EC;
+extern f32 D_800968F0;
+extern s8 D_800BE630[];
+extern s16 D_800BE668[][5][2];
+
+void func_1501A8C0(s32 arg0, s32 arg1, s32 arg2, s16 arg3) {
+    f32 angle;
+    s32 half;
+    f32 ratio;
+    f32 aspect;
+    f32 sine;
+
+    D_800BE628[arg0].width = (f32)D_800BE638[arg1];
+    *(f32 *)D_800BE628[arg0].unknown08 = (f32)D_800BE650[arg1];
+    if (arg1 != 0) {
+        D_800BE628[arg0].width -= 2.0f;
+        *(f32 *)D_800BE628[arg0].unknown08 -= 2.0f;
+    }
+    D_800BE628[arg0].base_x = D_80082FA8[arg1];
+    D_800BE628[arg0].base_y = 2.0f;
+    if (arg1 == 1) {
+        D_800BE628[arg0].width *= D_800BE6B8;
+        D_800BE628[arg0].scale_x = D_800968E4 * D_800BE6B8;
+        D_800BE628[arg0].scale_y = 50.0f;
+    } else {
+        D_800BE628[arg0].scale_x = D_800968E8;
+        D_800BE628[arg0].scale_y = 50.0f;
+    }
+    D_800BE628[arg0].value_x = D_800BE628[arg0].scale_x;
+    D_800BE628[arg0].value_y = D_800BE628[arg0].scale_y;
+    *(f32 *)D_800BE628[arg0].unknown60 = D_800BE628[arg0].width / *(f32 *)D_800BE628[arg0].unknown08;
+    D_800BE628[arg0].field0C = D_800BE628[arg0].width * 0.5f;
+    D_800BE628[arg0].field10 = *(f32 *)D_800BE628[arg0].unknown08 * 0.5f;
+    D_800BE628[arg0].center_x = D_800BE668[arg1][arg0][0];
+    D_800BE628[arg0].center_y = D_800BE668[arg1][arg0][1];
+    D_800BE628[arg0].left = D_800BE628[arg0].center_x - D_800BE628[arg0].field0C;
+    D_800BE628[arg0].top = D_800BE628[arg0].center_y - D_800BE628[arg0].field10;
+    D_800BE628[arg0].right = D_800BE628[arg0].center_x + D_800BE628[arg0].field0C;
+    D_800BE628[arg0].bottom = D_800BE628[arg0].center_y + D_800BE628[arg0].field10;
+    if (arg3 != 0) {
+        func_1501B0A0(arg0, arg1);
+    } else {
+        ratio = (f32)D_800BE638[0] / (f32)D_800BE650[0];
+        aspect = D_800BE628[arg0].width / *(f32 *)D_800BE628[arg0].unknown08;
+        *(f32 *)D_800BE628[arg0].unknown14 = (D_800BE628[arg0].width / (f32)D_800BE638[0]) * (ratio / aspect);
+        *(f32 *)(D_800BE628[arg0].unknown14 + 4) = *(f32 *)D_800BE628[arg0].unknown08 / (f32)D_800BE650[0];
+    }
+    half = arg2 >> 1;
+    angle = D_800BE628[arg0].scale_x * 0.5f * D_800968EC;
+    sine = func_15047D60(angle);
+    *(f32 *)D_800BE628[arg0].unknown7C = sine / (func_15047C00(angle) * D_800BE628[arg0].field0C);
+    angle = D_800BE628[arg0].scale_y * 0.5f * D_800968F0;
+    sine = func_15047D60(angle);
+    *(f32 *)(D_800BE628[arg0].unknown7C + 4) = sine / (func_15047C00(angle) * D_800BE628[arg0].field10);
+    ((Vp *)D_800BE62C)[arg0].vp.vscale[0] = 2.0f * (D_800BE628[arg0].width + 10.0f);
+    ((Vp *)D_800BE62C)[arg0].vp.vscale[1] = 2.0f * (*(f32 *)D_800BE628[arg0].unknown08 + 10.0f);
+    ((Vp *)D_800BE62C)[arg0].vp.vscale[2] = half;
+    ((Vp *)D_800BE62C)[arg0].vp.vscale[3] = 0;
+    ((Vp *)D_800BE62C)[arg0].vp.vtrans[0] = D_800BE628[arg0].center_x * 4.0f;
+    ((Vp *)D_800BE62C)[arg0].vp.vtrans[1] = D_800BE628[arg0].center_y * 4.0f;
+    ((Vp *)D_800BE62C)[arg0].vp.vtrans[2] = half;
+    ((Vp *)D_800BE62C)[arg0].vp.vtrans[3] = 0;
+    D_800BE628[arg0].viewports[D_800BE9C0] = ((Vp *)D_800BE62C)[arg0];
+    D_800BE628[arg0].viewports[!D_800BE9C0] = D_800BE628[arg0].viewports[D_800BE9C0];
+    D_800BE628[arg0].field84 = 1.0f;
+    D_800BE628[arg0].unknown00[1] = func_1501AE94(arg0);
+    func_1501AF44(&D_800BE628[arg0].left, &D_800BE628[arg0].top, &D_800BE628[arg0].right, &D_800BE628[arg0].bottom);
+    func_1510B32C(arg0, 0.0f, 0.0f, D_800BE628[arg0].field84);
+    D_800BE630[arg0] = arg0;
+}
 extern s32 D_800BE620;
 extern s32 D_800BE624;
 
