@@ -10807,7 +10807,7 @@
         "us": {
           "end": "0xBEC30",
           "start": "0xBE9B0",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_EBE60.c"
@@ -10830,7 +10830,7 @@
         "us": {
           "end": "0xBEEB0",
           "start": "0xBEC30",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_EC0E0.c"
@@ -11078,7 +11078,7 @@
         "us": {
           "end": "0xBABE0",
           "start": "0xBA930",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_E7DE0.c"
@@ -11620,7 +11620,7 @@
         "us": {
           "end": "0xEB1C0",
           "start": "0xEAF50",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_118400.c"

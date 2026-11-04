@@ -12,7 +12,6 @@
  * - func_151AE0E4
  * - func_151AE2BC
  * - func_151AE3A8
- * - func_151AE590
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -462,30 +461,28 @@ void func_151AE3A8(s32 arg0) {
 extern s32 D_800A9270[];
 extern void *D_800DCE50[][104];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AE590 CURRENT (465) */
 void *func_151AE590(u8 arg0) {
-    u8 var_v0;
-    u8 var_v1;
-    void *var_a0;
-    void *temp_a2;
+    u8 i;
+    void *node;
 
-    for (var_v0 = 0; var_v0 < 2; var_v0++) {
-        for (var_v1 = 0; var_v1 < 2; var_v1++) {
-            var_a0 = D_800DCE50[var_v1][D_800A9270[var_v0]];
-            while (var_a0 != 0) {
-                temp_a2 = *(void **)((u8 *)var_a0 + 8);
-                if (arg0 != *(u8 *)((u8 *)var_a0 + 0x10)) {
-                    var_a0 = temp_a2;
-                } else {
-                    return var_a0;
+    for (i = 0; i < 2; i++) {
+        u8 j;
+
+        for (j = 0; j < 2; j++) {
+            node = D_800DCE50[j][D_800A9270[i]];
+            while (node != 0) {
+                void *next;
+
+                next = *(void **)((u8 *)node + 8);
+                if (arg0 == *(u8 *)((u8 *)node + 0x10)) {
+                    return node;
                 }
+                node = next;
             }
         }
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AE590 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151AE590.s")
 void func_151AE640(void *arg0, void *arg1, u8 arg2) {
     if (arg2 == 0) {
         s32 id = *(s32 *)arg1;

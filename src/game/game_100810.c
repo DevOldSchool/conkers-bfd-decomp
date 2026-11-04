@@ -12,7 +12,6 @@
  * - func_150D4300
  * - func_150D49C0
  * - func_150D4D58
- * - func_150D5124
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -359,32 +358,27 @@ void func_150D4D58(Vec3f *arg0, Vec3f *arg1, f32 arg2,
 
 void func_100111C8(u16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D5124 CURRENT (635) */
 s32 func_150D5124(u8 *arg0, s32 arg1, u32 *arg2, s32 arg3, s32 *arg4, s32 arg5, u16 *arg6) {
-    s32 kind;
     s32 target = 0;
     s32 pitch = 0;
     u8 *state;
     s32 level;
     s32 currentPitch;
     u8 *owner;
-    f32 speed;
 
-    kind = *(s32 *)(arg0 + 0x1C);
     state = *(u8 **)(arg0 + 0x18);
     level = *(s32 *)(arg0 + 0xC);
     currentPitch = *arg4;
-    if (kind == 0x5B3) {
+    if ((*(s32 *)(arg0 + 0x1C)) == 0x5B3) {
         owner = *(u8 **)state;
         if (owner != 0) {
-            speed = *(f32 *)(owner + 0x28);
-            target = speed * 25.0f;
+            target = (*(f32 *)(owner + 0x28)) * 25.0f;
             if (target > 5000) {
                 target = 5000;
             } else if (target < 500) {
                 target = 0;
             }
-            pitch += speed * 5.0f;
+            pitch += (*(f32 *)(owner + 0x28)) * 5.0f;
             if (pitch > 1000) {
                 pitch = 1000;
             }
@@ -400,14 +394,14 @@ s32 func_150D5124(u8 *arg0, s32 arg1, u32 *arg2, s32 arg3, s32 *arg4, s32 arg5, 
                 level = target;
             }
         }
-    } else if (kind == 0x5BC) {
+    } else if ((*(s32 *)(arg0 + 0x1C)) == 0x5BC) {
         target = 24000;
         if (state[5] == 0) {
             level = 24000;
         } else {
             target = 400;
         }
-    } else if (kind == 0x5B4) {
+    } else if ((*(s32 *)(arg0 + 0x1C)) == 0x5B4) {
         if (state[5] == 0) {
             target = 16000;
             pitch = 400;
@@ -447,8 +441,8 @@ s32 func_150D5124(u8 *arg0, s32 arg1, u32 *arg2, s32 arg3, s32 *arg4, s32 arg5, 
     if (level < 500) {
         level = 0;
     } else if (*arg6 == 0) {
-        *(s16 *)arg0 = kind;
-        *arg6 = kind;
+        *(s16 *)arg0 = (*(s32 *)(arg0 + 0x1C));
+        *arg6 = (*(s32 *)(arg0 + 0x1C));
     }
     *(s16 *)(arg0 + 2) = (s32)*(f32 *)(*(u8 **)state + 0x14);
     *(s16 *)(arg0 + 4) = (s32)*(f32 *)(*(u8 **)state + 0x18);
@@ -470,5 +464,3 @@ s32 func_150D5124(u8 *arg0, s32 arg1, u32 *arg2, s32 arg3, s32 *arg4, s32 arg5, 
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D5124 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D5124.s")

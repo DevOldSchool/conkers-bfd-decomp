@@ -1,9 +1,10 @@
 # US game rodata literal sub-pools
 
-Four functions reached full-span US `CURRENT (0)` once their `extern f32`
+Twelve functions reached full-span US `CURRENT (0)` once their `extern f32`
 rodata symbols became C float literals: `func_1505F188` (game_83300),
-`func_1513A48C` and `func_1513A5E0` (effects/blood) and `func_15194408`
-(game_1C1150). Each literal pool lies in ROM apart from the unit's existing
+`func_1513A48C` and `func_1513A5E0` (effects/blood), `func_15194408`
+(game_1C1150), `func_1503B708` (game_64120), `func_15064B94` (game_90840) and six
+game_173D40 emitters. Each literal pool lies in ROM apart from the unit's existing
 reviewed rodata, so mapping the unit's single `.rodata` at one address would
 misplace it. `scripts/split_game_rodata.py` now also accepts literal-pool
 ranges and splits these three objects. Their compiled `.rodata` holds the
@@ -52,6 +53,13 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_1C1150 | 0x28 | 0x14 | 0x800A8280 | table, sites 0x78C / 0x794 | `15194440` ×5 |
 | game_1C1150 | 0x3C | 0xC | 0x800A8294 | pool (func_15194408) | `3E570A3D 3ECFDF3B 3E99999A` (0.21, 0.406, 0.3) |
 | game_1C1150 | 0x48 | 0x14 | 0x800A82BC | table, sites 0xB40 / 0xB48 | `151947F4` ×5 |
+| game_64120 | 0x0 | 0x4 | 0x80098648 | pool (func_15038468) | `42652EE0` (57.295776) |
+| game_64120 | 0x4 | 0x4 | 0x800986EC | pool (func_1503B708) | `C7C34F80` (-99999.0) |
+| game_90840 | 0x0 | 0xB8 | 0x800996D8 | table, sites 0x450 / 0x458 | 46 action targets |
+| game_90840 | 0xB8 | 0x98 | 0x800997E8 | pool (func_15064B94) | 38 words, 0x800997E8..0x8009987F |
+| game_173D40 | 0x0 | 0x18 | 0x800A5708 | pool (func_15146A98) | `3CCCCCCC 3CA30553 40FF3B65 BECE5605 3E916873 3F741BDA` |
+| game_173D40 | 0x18 | 0x8 | 0x800A5728 | pool (func_15146D60) | `3C40C0C1 3F360B61` (0.011764706, 0.7111111) |
+| game_173D40 | 0x20 | 0x18 | 0x800A573C | pool (func_15147318, func_15147478, func_151475D8) | `3BFC0FC1 3F360B61` ×3 |
 
 The blood table hashes are SHA-256
 `d321edfcf0ef657c343364be6b03428e24a84df3a377f3acee9bfa8fee19b509` and
@@ -82,6 +90,33 @@ keep their runtime addresses.
   0x28 to 0x48. Its LO16 addend, base symbol and section names now use 0x48.
   The object `.rodata` is 0x60 bytes: 0x5C of payload and 4 zero alignment
   bytes.
+
+- **game_64120:** `func_1503B708` fills six vectors with `-99999.0f`
+  (one load, text offset of the pair inside the function at +0xC/+0x10). The
+  [existing constant record](game_64120_float_constant.md) covers the first
+  word. The words 0x8009864C..0x800986EB belong to unmatched functions and
+  keep their extern symbols. The object `.rodata` is 0x10 bytes: 8 of
+  payload and 8 zero alignment bytes.
+- **game_90840:** `func_15064B94` loads 38 literals (0.4, 0.6, 2.6, 0.3,
+  0.2 and 0.65, each use its own word, as IDO emits them) from
+  0x800997E8..0x8009987F in first-use order; the full 0x98-byte range was
+  compared with the checksum-validated ROM by `verify_game_rodata.py`. The
+  [action table](game_90840_jump_table.md) keeps 0x800996D8 and object offset
+  0; its HI16/LO16 sites are text offsets 0x450/0x458 in `func_150636F0`.
+  The words 0x80099790..0x800997E7 belong to unmatched functions. The object
+  `.rodata` is exactly 0x150 bytes.
+
+- **game_173D40:** Six effect emitters matched once their `void *volatile`
+  parameter hack became an early `return` on `arg0->0x1D4 == 0` (the raw
+  reloads `arg0` from its home for the call argument because the test and
+  the call sit in different blocks) and their extern floats became literals.
+  `func_15146A98` loads 0.024999999, 0.0199, 7.9760003, -0.40300003, 0.284
+  and 0.95355; `func_15146D60` loads 0.011764706 and 0.7111111; the three
+  `func_15141F78` emitters each load 0.0076923077 and 0.7111111.
+  `func_15147040` uses only `lui` immediates. The words 0x800A5720..0x800A5727
+  and 0x800A5730..0x800A573B stay extern symbols of the matched
+  `func_15146BF8` and `func_151470FC`, so the pools are three ranges. The
+  object `.rodata` is 0x40 bytes: 0x38 of payload and 8 zero alignment bytes.
 
 `config/data/us.json` records one owner per address and input-section pair.
 These units are now split objects, so `finish` compares their own rodata

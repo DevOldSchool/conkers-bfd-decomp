@@ -9,7 +9,6 @@
  * - func_151B32C8
  * - func_151B3A7C
  * - func_151B3CF0
- * - func_151B3F28
  * - func_151B3FDC
  * - func_151B42A4
  * - func_151B47D8
@@ -265,18 +264,16 @@ s32 func_151B3CF0(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B3CF0.s")
 extern f32 D_800AA3AC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B3F28 CURRENT (310) */
 s32 func_151B3F28(void *arg0, f32 *arg1, u8 arg2) {
-    u8 *base;
-    u8 *state;
     s32 result;
 
     result = 1;
     if (arg2 != 0) {
+        u8 *base;
+
         base = (u8 *)arg0 + 0x150;
-        if ((*(s32 *)*(u8 *volatile *)base != 0) &&
-            (state = *(u8 **)base, base[4] == state[0x3B])) {
-            arg1[0] = *(f32 *)((u8 *)state + 0x14);
+        if (*(s32 *)*(u8 **)base != 0 && base[4] == (*(u8 **)base)[0x3B]) {
+            arg1[0] = *(f32 *)(*(u8 **)base + 0x14);
             arg1[1] = *(f32 *)(*(u8 **)base + 0x18);
             arg1[2] = *(f32 *)(*(u8 **)base + 0x1C);
             *(u8 *)((u8 *)arg0 + 0x10) &= ~4;
@@ -292,8 +289,6 @@ s32 func_151B3F28(void *arg0, f32 *arg1, u8 arg2) {
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B3F28 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B3F28.s")
 /* Call context: func_15047D60: unique active project prototype */
 s32 func_151B3A7C(u8 *);
 extern f32 D_800AA3B0;

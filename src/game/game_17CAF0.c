@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_emission_descriptor_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1514F808
  * - func_1514F8F8
  * - func_1514FF44
  * - func_15150178
@@ -82,27 +81,15 @@ s32 func_1514F6E8(void *arg0) {
 }
 f32 func_150ADA68(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514F808 CURRENT (143) */
 void func_1514F808(u8 *arg0, f32 arg1, f32 *arg2) {
     f32 second;
     f32 first;
-    u32 random;
 
-    random = func_150ADA20();
-    func_15143874(
-        (s16)(random & 0xFF),
-        func_150ADA68() * *(f32 *)(arg0 + 0x28),
-        &first,
-        &second);
-    arg2[0] = ((*(f32 *)(arg0 + 0x10) * first) +
-               (*(f32 *)(arg0 + 0x1C) * second) + *(f32 *)(arg0 + 4)) * arg1;
-    arg2[1] = ((*(f32 *)(arg0 + 0x14) * first) +
-               (*(f32 *)(arg0 + 0x20) * second) + *(f32 *)(arg0 + 8)) * arg1;
-    arg2[2] = ((*(f32 *)(arg0 + 0x18) * first) +
-               (*(f32 *)(arg0 + 0x24) * second) + *(f32 *)(arg0 + 0xC)) * arg1;
+    func_15143874((s16)(func_150ADA20() & 0xFF), *(f32 *)(arg0 + 0x28) * func_150ADA68(), &first, &second);
+    arg2[0] = (*(f32 *)(arg0 + 0x4) + (*(f32 *)(arg0 + 0x1C) * second + *(f32 *)(arg0 + 0x10) * first)) * arg1;
+    arg2[1] = (*(f32 *)(arg0 + 0x8) + (*(f32 *)(arg0 + 0x20) * second + *(f32 *)(arg0 + 0x14) * first)) * arg1;
+    arg2[2] = (*(f32 *)(arg0 + 0xC) + (*(f32 *)(arg0 + 0x24) * second + *(f32 *)(arg0 + 0x18) * first)) * arg1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514F808 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_1514F808.s")
 
 typedef struct {
     u8 pad_0[0xC];

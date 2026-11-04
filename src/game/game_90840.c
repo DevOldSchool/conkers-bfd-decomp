@@ -7,12 +7,9 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15063628
- * - func_15063E84
  * - func_15063FA0
  * - func_150641D8
  * - func_150642AC
- * - func_15064A14
- * - func_15064B94
  * - func_15065A5C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -354,30 +351,19 @@ Game90840Actor *func_15063C60(Game90840Actor *arg0, s32 arg1) {
     }
     return 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15063E84 CURRENT (1885) */
-s32 func_15063E84(void *arg0, u16 arg1, u16 arg2, register s32 arg3, s32 arg4) {
-    register s32 temp_t6;
-    register s32 temp_t7;
-    u8 temp_a1;
-    u8 *temp_v0;
-
-    temp_t6 = arg1;
-    temp_t7 = arg2;
-    arg2 = temp_t7;
-    arg1 = temp_t6;
+s32 func_15063E84(void *arg0, u16 arg1, u16 arg2, s32 arg3, s32 arg4) {
     if ((arg4 & 0x4000) &&
         (*(f32 *)((u8 *)arg0 + 0x28) == 0.0f) &&
         (*(f32 *)((u8 *)arg0 + 0x20) <= 0.0f)) {
-        temp_v0 = *(u8 **)((u8 *)arg0 + 0x31C);
-        if ((temp_v0[0x95] == 0) &&
-            (temp_t6 != *(u16 *)((u8 *)arg0 + 0x84)) &&
-            ((temp_a1 = temp_v0[0x11A], temp_a1 == 0) ||
-             (temp_a1 == 2)) &&
-            (temp_v0[0x27] == 0)) {
+        if (((*(u8 **)((u8 *)arg0 + 0x31C))[0x95] == 0) &&
+            (arg1 != *(u16 *)((u8 *)arg0 + 0x84)) &&
+            (((*(u8 **)((u8 *)arg0 + 0x31C))[0x11A] == 0) ||
+             ((*(u8 **)((u8 *)arg0 + 0x31C))[0x11A] == 2)) &&
+            ((*(u8 **)((u8 *)arg0 + 0x31C))[0x27] == 0)) {
             if ((arg3 != 0) && (*(u8 *)((u8 *)arg0 + 0x8A) != 0)) {
                 return 0x3E7;
             }
-            if (temp_t7 & 1) {
+            if (arg2 & 1) {
                 *(u8 *)((u8 *)arg0 + 0x8A) = 0x14;
             }
             if (arg3 != 0) {
@@ -391,13 +377,11 @@ s32 func_15063E84(void *arg0, u16 arg1, u16 arg2, register s32 arg3, s32 arg4) {
             (*(u8 **)((u8 *)arg0 + 0x31C))[0x78] = arg3;
             *(u8 *)((u8 *)arg0 + 0x89) = 0xFF;
             *(u8 *)((u8 *)arg0 + 0x83) = 0xFF;
-            return temp_t6;
+            return arg1;
         }
     }
     return 0x3E7;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15063E84 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063E84.s")
 
 typedef struct {
     u8 pad0[0xB8];
@@ -529,39 +513,33 @@ void func_150649A0(u32 arg0, u32 arg1) {
 void func_150649A0(u32, u32);
 extern u8 D_800C3E78;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15064A14 CURRENT (2376) */
 void func_15064A14(Game90840Actor *arg0) {
     u8 *actor;
-    u8 type;
     s32 animation;
-    s32 active;
     void *other;
-    u16 state1;
-    u16 state2;
 
     actor = (u8 *)(&D_800CC2D0[*((u8 *)arg0 + 0x65)] - 1);
-    type = actor[4];
     animation = 0xF;
 
-    if (type == 0xC) {
-        state1 = *(u16 *)(actor + 0x84);
+    if (actor[4] == 0xC) {
         animation = 0x5A;
-        if (state1 == 0xC) {
+        if ((*(u16 *)(actor + 0x84)) == 0xC) {
             animation = 0x5B;
-        } else if (state1 == 0xD) {
+        } else if ((*(u16 *)(actor + 0x84)) == 0xD) {
             animation = 0x5C;
         }
-    } else if (type == 0x53) {
-        state2 = *(u16 *)(actor + 0x84);
+    } else if (actor[4] == 0x53) {
         animation = 0x8C;
-        if (state2 == 0xB) {
+        if ((*(u16 *)(actor + 0x84)) == 0xB) {
             animation = 0xA2;
-        } else if (state2 == 0xD) {
+        } else if ((*(u16 *)(actor + 0x84)) == 0xD) {
             animation = 0xA3;
         }
-    } else if (type == 0x21) {
+    } else if (actor[4] == 0x21) {
         animation = 0x169;
-    } else if (type == 0x8A) {
+    } else if (actor[4] == 0x8A) {
+        s32 active;
+
         other = arg0->field_31C;
         if (other != 0 && *(u8 *)((u8 *)other + 0x1B2) != 0) {
             active = 1;
@@ -575,9 +553,10 @@ void func_15064A14(Game90840Actor *arg0) {
                 animation = 0x1A4;
             }
         } else {
-            animation = 0x1A1;
             if (active != 0) {
                 animation = 0x34F;
+            } else {
+                animation = 0x1A1;
             }
         }
     }
@@ -585,54 +564,13 @@ void func_15064A14(Game90840Actor *arg0) {
                    0.0f, 0.0f, 0);
     func_150649A0(*((u8 *)arg0 + 0x65) - 1, D_800C3E78);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15064A14 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15064A14.s")
 s32 func_1504C078(void);
 s32 func_1504C0B8(void);
 void func_1506E5FC(void);
-extern f32 D_800997E8;
-extern f32 D_800997EC;
-extern f32 D_800997F0;
-extern f32 D_800997F4;
-extern f32 D_800997F8;
-extern f32 D_800997FC;
-extern f32 D_80099800;
-extern f32 D_80099804;
-extern f32 D_80099808;
-extern f32 D_8009980C;
-extern f32 D_80099810;
-extern f32 D_80099814;
-extern f32 D_80099818;
-extern f32 D_8009981C;
-extern f32 D_80099820;
-extern f32 D_80099824;
-extern f32 D_80099828;
-extern f32 D_8009982C;
-extern f32 D_80099830;
-extern f32 D_80099834;
-extern f32 D_80099838;
-extern f32 D_8009983C;
-extern f32 D_80099840;
-extern f32 D_80099844;
-extern f32 D_80099848;
-extern f32 D_8009984C;
-extern f32 D_80099850;
-extern f32 D_80099854;
-extern f32 D_80099858;
-extern f32 D_8009985C;
-extern f32 D_80099860;
-extern f32 D_80099864;
-extern f32 D_80099868;
-extern f32 D_8009986C;
-extern f32 D_80099870;
-extern f32 D_80099874;
-extern f32 D_80099878;
-extern f32 D_8009987C;
 extern u8 D_800B85A4[];
 extern u8 D_800BE616;
 extern s32 D_800D1580;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15064B94 CURRENT (2155) */
 s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
     s32 anim;
     f32 blend;
@@ -661,7 +599,7 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
             case 0x8C:
                 arg0[0xAA] = 0x5A;
                 anim = 0x1A6;
-                speed = arg1 / 6.0f + D_800997E8;
+                speed = arg1 / 6.0f + 0.4f;
                 if (*(f32 *)(arg0 + 0x3C) > 14.0f) {
                     anim = 0x1A7;
                     speed = arg1 / 26.0f + 0.5f;
@@ -670,7 +608,7 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
             case 0x57:
                 arg0[0xAA] = 0x5A;
                 anim = 0x116;
-                speed = arg1 / 6.0f + D_800997EC;
+                speed = arg1 / 6.0f + 0.4f;
                 if (*(f32 *)(arg0 + 0x3C) > 14.0f) {
                     anim = 0x117;
                     speed = arg1 / 26.0f + 0.5f;
@@ -680,10 +618,10 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
             case 0xA9:
                 if (*(f32 *)(arg0 + 0x3C) > 14.0f) {
                     anim = 0x1B1;
-                    speed = arg1 / 22.0f + D_800997F0;
+                    speed = arg1 / 22.0f + 0.4f;
                 } else {
                     anim = 0x1B0;
-                    speed = arg1 * 0.0625f + D_800997F4;
+                    speed = arg1 * 0.0625f + 0.6f;
                 }
                 break;
             case 0x13:
@@ -700,27 +638,24 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
                     speed = arg1 * 0.0625f + 0.5f;
                 } else {
                     anim = 0xD7;
-                    speed = arg1 / 6.0f + D_800997F8;
+                    speed = arg1 / 6.0f + 0.4f;
                 }
                 break;
             }
         }
     } else if (arg3 != 0 && inner[0x78] == 0) {
         anim = arg3;
-        speed = arg1 / 15.0f + D_800997FC;
-    } else if (D_80099800 < *(f32 *)(arg0 + 0x44) && (*(u16 *)(inner + 0x32) & 1)) {
+        speed = arg1 / 15.0f + 0.6f;
+    } else if (2.6f < *(f32 *)(arg0 + 0x44) && (*(u16 *)(inner + 0x32) & 1)) {
         arg0[0xAA] = 0x28;
         blend = 5.0f;
         speed = *(f32 *)(arg0 + 0x44) / 15.0f + 0.5f;
         anim = func_1504C0B8();
     } else if (inner[0x78] == 0x16) {
         if (*(f32 *)(arg0 + 0x44) >= 1.0f) {
-            anim = 0xE8;
-            if (inner[0x1B2] != 0) {
-                anim = 0x2C6;
-            }
+            anim = inner[0x1B2] != 0 ? 0x2C6 : 0xE8;
             arg0[0xAA] = 0x1E;
-            speed = arg1 * 0.0625f + D_80099804;
+            speed = arg1 * 0.0625f + 0.6f;
         } else {
             speed = 1.0f;
             anim = func_1504C078();
@@ -732,10 +667,10 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
             }
             anim = 0x7E;
             if (D_800BE616 == 0) {
-                speed = arg1 * 0.0625f + D_80099808;
+                speed = arg1 * 0.0625f + 0.6f;
             } else if (*(f32 *)(arg0 + 0x44) >= 20.0f) {
                 anim = 0x22C;
-                speed = arg1 / 22.0f + D_8009980C;
+                speed = arg1 / 22.0f + 0.4f;
             }
         } else {
             speed = 1.0f;
@@ -746,7 +681,7 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
             anim = 0x1E1;
             if (*(f32 *)(arg0 + 0x44) >= 20.0f) {
                 anim = 0x1E2;
-                speed = arg1 / 22.0f + D_80099810;
+                speed = arg1 / 22.0f + 0.4f;
             }
         } else {
             speed = 1.0f;
@@ -758,7 +693,7 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
                 anim = 0x1EC;
                 if (*(f32 *)(arg0 + 0x44) >= 20.0f) {
                     anim = 0x1ED;
-                    speed = arg1 / 22.0f + D_80099814;
+                    speed = arg1 / 22.0f + 0.4f;
                 }
             } else {
                 speed = 1.0f;
@@ -773,7 +708,7 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
                 anim = 0x1F5;
                 if (*(f32 *)(arg0 + 0x44) >= 20.0f) {
                     anim = 0x1F6;
-                    speed = arg1 / 22.0f + D_80099818;
+                    speed = arg1 / 22.0f + 0.4f;
                 }
             } else {
                 speed = 1.0f;
@@ -789,7 +724,7 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
                 arg0[0xAA] = 0x37;
                 if (*(f32 *)(arg0 + 0x44) >= 20.0f) {
                     anim = 0x224;
-                    speed = arg1 / 22.0f + D_8009981C;
+                    speed = arg1 / 22.0f + 0.4f;
                 }
             } else {
                 speed = 1.0f;
@@ -802,10 +737,10 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
         if (*(f32 *)(arg0 + 0x44) >= 1.0f) {
             arg0[0xAA] = 0x50;
             anim = 0xEC;
-            speed = arg1 * 0.0625f + D_80099820;
+            speed = arg1 * 0.0625f + 0.6f;
             if (*(f32 *)(arg0 + 0x44) >= 20.0f) {
                 anim = 0xF8;
-                speed = arg1 / 22.0f + D_80099824;
+                speed = arg1 / 22.0f + 0.4f;
             }
         } else {
             speed = 1.0f;
@@ -815,10 +750,10 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
         if (*(f32 *)(arg0 + 0x44) >= 1.0f) {
             arg0[0xAA] = 0x50;
             anim = 0x158;
-            speed = arg1 * 0.0625f + D_80099828;
+            speed = arg1 * 0.0625f + 0.6f;
             if (*(f32 *)(arg0 + 0x44) >= 20.0f) {
                 anim = 0x159;
-                speed = arg1 / 22.0f + D_8009982C;
+                speed = arg1 / 22.0f + 0.4f;
             }
         } else {
             speed = 1.0f;
@@ -828,10 +763,10 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
         if (*(f32 *)(arg0 + 0x44) >= 1.0f) {
             arg0[0xAA] = 0x50;
             anim = 0x15B;
-            speed = arg1 * 0.0625f + D_80099830;
+            speed = arg1 * 0.0625f + 0.6f;
             if (*(f32 *)(arg0 + 0x44) >= 20.0f) {
                 anim = 0x15C;
-                speed = arg1 / 22.0f + D_80099834;
+                speed = arg1 / 22.0f + 0.4f;
             }
         } else {
             speed = 1.0f;
@@ -841,7 +776,7 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
         if (*(f32 *)(arg0 + 0x44) >= 1.0f) {
             arg0[0xAA] = 0x6E;
             anim = 0x123;
-            speed = arg1 * 0.0625f + D_80099838;
+            speed = arg1 * 0.0625f + 0.6f;
             if (*(f32 *)(arg0 + 0x44) >= 15.0f) {
                 anim = 0x124;
                 speed = arg1 / 27.0f;
@@ -854,10 +789,10 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
         if (*(f32 *)(arg0 + 0x44) >= 1.0f) {
             arg0[0xAA] = 0x50;
             anim = 0x178;
-            speed = arg1 * 0.0625f + D_8009983C;
+            speed = arg1 * 0.0625f + 0.6f;
             if (*(f32 *)(arg0 + 0x44) >= 20.0f) {
                 anim = 0x179;
-                speed = arg1 / 22.0f + D_80099840;
+                speed = arg1 / 22.0f + 0.4f;
             }
         } else {
             speed = 1.0f;
@@ -867,7 +802,7 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
         if (*(f32 *)(arg0 + 0x44) >= 1.0f) {
             arg0[0xAA] = 0x50;
             anim = 0x1FB;
-            speed = arg1 * 0.0625f + D_80099844;
+            speed = arg1 * 0.0625f + 0.6f;
         } else {
             speed = 1.0f;
             anim = func_1504C078();
@@ -876,9 +811,9 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
         if (*(f32 *)(arg0 + 0x44) >= 1.0f) {
             arg0[0xAA] = 0x50;
             anim = 0xD7;
-            speed = arg1 * 0.0625f + D_80099848;
+            speed = arg1 * 0.0625f + 0.6f;
             if (*(f32 *)(arg0 + 0x44) >= 20.0f) {
-                speed = arg1 / 22.0f + D_8009984C;
+                speed = arg1 / 22.0f + 0.4f;
             }
         } else {
             speed = 1.0f;
@@ -887,10 +822,10 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
     } else if (inner[0x78] == 0x2D || inner[0x78] == 0x2E) {
         if (*(f32 *)(arg0 + 0x44) >= 1.0f) {
             anim = 0x1B0;
-            speed = arg1 * 0.0625f + D_80099850;
+            speed = arg1 * 0.0625f + 0.6f;
             if (*(f32 *)(arg0 + 0x44) >= 20.0f) {
                 anim = 0x1B1;
-                speed = arg1 / 22.0f + D_80099854;
+                speed = arg1 / 22.0f + 0.4f;
             }
         } else {
             speed = 1.0f;
@@ -900,10 +835,10 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
         if (*(f32 *)(arg0 + 0x44) >= 1.0f) {
             arg0[0xAA] = 0x50;
             anim = 0x161;
-            speed = arg1 * 0.0625f + D_80099858;
+            speed = arg1 * 0.0625f + 0.6f;
             if (*(f32 *)(arg0 + 0x44) >= 20.0f) {
                 anim = 0x162;
-                speed = arg1 / 22.0f + D_8009985C;
+                speed = arg1 / 22.0f + 0.4f;
             }
         } else {
             speed = 1.0f;
@@ -913,9 +848,9 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
         if (*(f32 *)(arg0 + 0x44) >= 1.0f) {
             arg0[0xAA] = 0x50;
             anim = 0xED;
-            speed = arg1 * 0.0625f + D_80099860;
+            speed = arg1 * 0.0625f + 0.6f;
             if (*(f32 *)(arg0 + 0x44) >= 20.0f) {
-                speed = arg1 / 22.0f + D_80099864;
+                speed = arg1 / 22.0f + 0.4f;
             }
         } else {
             speed = 1.0f;
@@ -924,11 +859,11 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
     } else if (inner[0x78] == 0x19 || inner[0x78] == 0x40) {
         if (*(f32 *)(arg0 + 0x3C) >= 1.0f) {
             anim = 0x112;
-            speed = arg1 * 0.125f + D_80099868;
             blend = 8.0f;
+            speed = arg1 * 0.125f + 0.3f;
             if (*(f32 *)(arg0 + 0x3C) >= 18.0f) {
                 anim = 0x111;
-                speed = arg1 / 20.0f + D_80099868;
+                speed = arg1 / 20.0f + 0.3f;
             }
         } else {
             speed = 1.0f;
@@ -936,7 +871,7 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
         }
     } else if (inner[0x1A] != 0 && arg2 > 1.0f) {
         anim = 0x6D;
-        speed = arg1 / 6.5f + D_8009986C;
+        speed = arg1 / 6.5f + 0.3f;
         arg0[0xAA] = 0x28;
         blend = 8.0f;
     } else if (*(s16 *)(inner + 8) > 0) {
@@ -945,14 +880,14 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
             anim = func_1504C078();
         } else {
             anim = *(u16 *)(inner + 0xE);
+            speed = arg1 / 6.0f + 0.3f;
             blend = 16.0f;
-            speed = arg1 / 6.0f + D_80099870;
         }
     } else if (inner[0x17] != 0) {
         blend = 5.0f;
         if (*(u16 *)D_800CC284 & 0x2000) {
             if (*(u16 *)(arg0 + 0x84) != 0x283) {
-                *(f32 *)(arg0 + 0x3C) *= D_80099874;
+                *(f32 *)(arg0 + 0x3C) *= 0.2f;
                 D_800D1580 = 0xFF010604;
                 func_1506E5FC();
                 speed = 1.0f;
@@ -967,8 +902,8 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
             }
             if (*(f32 *)(arg0 + 0x44) >= 1.0f && arg0[0x89] == 0) {
                 arg0[0xAA] = 0x2D;
-                anim = 0x4E;
                 speed = *(f32 *)(arg0 + 0x3C) / 9.0f;
+                anim = 0x4E;
             } else {
                 speed = 1.0f;
                 anim = func_1504C078();
@@ -977,12 +912,12 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
     } else if ((*(u16 *)(inner + 0x32) & 2) && *(f32 *)(arg0 + 0x44) >= 1.0f) {
         inner[0x3C] = 0x1C;
         arg0[0xAA] = 0xF;
-        speed = arg4 / 5.0f + D_80099878;
+        speed = arg4 / 5.0f + 0.3f;
         blend = 8.0f;
         anim = 0x64;
         if (func_150ADA20() % 1000 >= 988) {
             anim = (func_150ADA20() & 1) + 0x65;
-            speed = D_8009987C;
+            speed = 0.65f;
             arg0[0x89] = 0xFF;
             arg0[0x83] = 0xFF;
         }
@@ -992,6 +927,4 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
     }
     return anim;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15064B94 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15064B94.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15065A5C.s")

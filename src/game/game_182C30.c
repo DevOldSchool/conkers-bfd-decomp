@@ -7,7 +7,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_indexed_controller_view_worklist.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1515589C
  * - func_15155CFC
  * - func_15156028
  *
@@ -69,14 +68,12 @@ extern s32 D_800BE9E4;
 extern u8 D_800CC2D0[];
 extern u8 D_800D2E68;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515589C CURRENT (400) */
 void func_1515589C(Game182C30Effect *arg0) {
     u32 index;
     u8 *actor;
     u8 *owner;
     s32 kind;
     s32 timer;
-    f32 height;
 
     actor = D_800CC2D0 + (u8)arg0->field10 * 0x32C;
     index = (u8)arg0->field10;
@@ -108,6 +105,8 @@ void func_1515589C(Game182C30Effect *arg0) {
         arg0->fieldE = timer;
         arg0->field12 += D_800BE9E4 * 2;
         if (arg0->field14 != NULL) {
+            f32 height;
+
             if ((*(u8 **)(D_800CC2D0 + index * 0x32C + 0x31C))[0x75] == 5) {
                 height = 85.0f;
             } else {
@@ -151,8 +150,6 @@ void func_1515589C(Game182C30Effect *arg0) {
         break;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515589C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_1515589C.s")
 void *func_15096934(void *);
 void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 extern u8 D_800BE9C0;

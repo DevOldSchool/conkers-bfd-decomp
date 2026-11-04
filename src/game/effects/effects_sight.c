@@ -10,8 +10,6 @@
  * - func_151C71A0
  * - func_151C756C
  * - func_151C7E98
- * - func_151C82D0
- * - func_151C86AC
  * - func_151C87E0
  * - func_151C899C
  * - func_151C8FCC
@@ -146,16 +144,14 @@ f32 func_15144B68(f32);
 extern f32 D_800BE9A4, D_800AAC50, D_800AAC54;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C82D0 CURRENT (970) */
-s32 func_151C82D0(void *volatile arg0) {
-    register SightOscillation *state;
-    register s16 period;
-    register void *object;
-    register void *object1;
-    register void *object2;
-    register void *object3;
+s32 func_151C82D0(void *arg0) {
+    SightOscillation *state = (SightOscillation *)((u8 *)arg0 + 0x110);
+    s16 period;
+    void *object;
+    void *object1;
+    void *object2;
+    void *object3;
 
-    state = (SightOscillation *)((u8 *)arg0 + 0x110);
     if (state->flags & 1) {
         period = state->period;
         state->timer += D_800BE9E4;
@@ -168,7 +164,6 @@ s32 func_151C82D0(void *volatile arg0) {
             state->flags &= 0xFFFD;
         }
     }
-    state = (SightOscillation *)((u8 *)arg0 + 0x110);
     if (state->flags & 2) {
         state->angleX += state->speedX * D_800BE9A4;
         state->angleY += state->speedY * D_800BE9A4;
@@ -226,8 +221,6 @@ s32 func_151C82D0(void *volatile arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C82D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C82D0.s")
 void func_151403A8();
 
 void func_151C8674(void *arg0, s32 arg1) {
@@ -245,37 +238,25 @@ void func_151C8674(void *arg0, s32 arg1) {
 s32 func_151C87E0(s32, void *);
 void func_151C899C();
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C86AC CURRENT (935) */
-void func_151C86AC(void *volatile arg0, void *arg1, u8 arg2) {
-    void *owner;
-    s32 owner_id;
-    u8 temp_v1;
-    u8 *temp_v0;
-    u8 *temp_v0_2;
+void func_151C86AC(void *arg0, void *arg1, u8 arg2) {
+    u8 *state = (u8 *)arg0 + 0x110;
 
     switch (arg2) {
     case 0x20:
-        owner = arg0;
-        temp_v0 = (u8 *)owner + 0x110;
-        if ((temp_v0[0x86] & 0x10) &&
-            (*(s32 *)(temp_v0 + 0x28) == *(s32 *)((u8 *)arg1 + 4)) &&
-            (func_151C87E0(*(s32 *)arg1, owner) != 0)) {
+        if ((state[0x86] & 0x10) && *(s32 *)(state + 0x28) == *(s32 *)((u8 *)arg1 + 4) &&
+            func_151C87E0(*(s32 *)arg1, arg0) != 0) {
             func_151C899C(*(s32 *)arg1, arg0);
         }
-        return;
+        break;
     case 0x3A:
-        temp_v0_2 = arg0;
-        owner_id = *(s32 *)(temp_v0_2 + 0x138);
-        temp_v0_2 += 0x110;
-        if (owner_id == *(s32 *)arg1) {
-            temp_v1 = *((u8 *)arg1 + 4);
-            switch (temp_v1) {
+        if (*(s32 *)(state + 0x28) == *(s32 *)arg1) {
+            switch (*((u8 *)arg1 + 4)) {
             case 0:
-                temp_v0_2[0x86] |= 2;
-                return;
+                state[0x86] |= 2;
+                break;
             case 1:
-                temp_v0_2[0x86] &= 0xFFFD;
-                return;
+                state[0x86] &= 0xFFFD;
+                break;
             case 2:
                 func_151C899C(0, arg0);
                 break;
@@ -284,8 +265,6 @@ void func_151C86AC(void *volatile arg0, void *arg1, u8 arg2) {
         break;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C86AC */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C86AC.s")
 s32 func_151C87AC(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s16 *arg6) {
     void *temp_v0;
 

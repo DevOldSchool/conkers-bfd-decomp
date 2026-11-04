@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1502BAD0
- * - func_1502BD84
  * - func_1502BEE4
  * - func_1502C408
  * - func_1502C608
@@ -128,12 +127,11 @@ void func_1503A830(void *);
 void func_1503DF48(s32);
 void func_150A4B04(void *);
 void func_1517AD00(u8, u8, s32);
-void func_1502EEF4(void);
+void func_1502EEF4(s32);
 void func_1502EAFC(void *);
 extern u8 D_800C666F[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502BD84 CURRENT (620) */
-void func_1502BD84(Game58F80BD84Actor *arg0, volatile s32 arg1) {
+void func_1502BD84(Game58F80BD84Actor *arg0, s32 arg1) {
     s32 type;
 
     type = arg0->field5;
@@ -142,43 +140,44 @@ void func_1502BD84(Game58F80BD84Actor *arg0, volatile s32 arg1) {
         func_1502DF38(arg1, 1);
         return;
     }
-    if (arg0->field4 != 0xFF && type != 3) {
-        if (type == 2) {
-            func_1502C608(arg1);
-            return;
-        }
-        if (arg0->field1C9 != 0) {
-            func_1502FBE8(arg0);
-        }
-        func_1502E4C4(arg1);
-        func_1502DF38(arg1, 0);
-        func_1503A08C(arg0);
-        if (arg0->field1D4 == 0) {
-            arg0->field1FC = 2;
-        } else {
-            func_150345E4(arg1);
-            func_1503A830(arg0);
-        }
-        if (D_800C666F[arg1 * 0x10] != 0) {
-            func_1503DF48(arg1);
-        }
-        if (arg0->field0 != 0) {
-            func_1502EEF4();
-            func_1502F264(arg1);
-            if (arg0->fieldA4 != 0) {
-                func_1502EAFC(arg0);
-            }
-            if (arg0->fieldF8 & 0x4000) {
-                func_150A4B04(arg0);
-            }
-            if (arg0->field260 != 0) {
-                func_1517AD00(arg0->field134, arg0->field135, arg1);
-            }
-        }
+    if (arg0->field4 == 0xFF || type == 3) {
+        return;
     }
+    if (type == 2) {
+        func_1502C608(arg1);
+        return;
+    }
+    if (arg0->field1C9 != 0) {
+        func_1502FBE8(arg0);
+    }
+    func_1502E4C4(arg1);
+    func_1502DF38(arg1, 0);
+    func_1503A08C(arg0);
+    if (arg0->field1D4 == 0) {
+        arg0->field1FC = 2;
+    } else {
+        func_150345E4(arg1);
+        func_1503A830(arg0);
+    }
+    if (D_800C666F[arg1 * 0x10] != 0) {
+        func_1503DF48(arg1);
+    }
+    if (arg0->field0 == 0) {
+        return;
+    }
+    func_1502EEF4(arg1);
+    func_1502F264(arg1);
+    if (arg0->fieldA4 != 0) {
+        func_1502EAFC(arg0);
+    }
+    if (arg0->fieldF8 & 0x4000) {
+        func_150A4B04(arg0);
+    }
+    if (arg0->field260 == 0) {
+        return;
+    }
+    func_1517AD00(arg0->field134, arg0->field135, arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502BD84 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502BD84.s")
 typedef struct Game58F80Actor {
     s32 active;
     u8 model;
