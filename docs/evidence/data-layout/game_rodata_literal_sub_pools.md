@@ -60,6 +60,16 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_173D40 | 0x0 | 0x18 | 0x800A5708 | pool (func_15146A98) | `3CCCCCCC 3CA30553 40FF3B65 BECE5605 3E916873 3F741BDA` |
 | game_173D40 | 0x18 | 0x8 | 0x800A5728 | pool (func_15146D60) | `3C40C0C1 3F360B61` (0.011764706, 0.7111111) |
 | game_173D40 | 0x20 | 0x18 | 0x800A573C | pool (func_15147318, func_15147478, func_151475D8) | `3BFC0FC1 3F360B61` ×3 |
+| game_B4080 | 0x0 | 0x8 | 0x8009DA18 | pool (func_150896EC) | `3F91DE69 AD42C3CA` (f64 0.01745) |
+| game_B4080 | 0x8 | 0x20 | 0x8009DA24 | table, sites 0x3028 / 0x3030 | unchanged |
+| game_B4080 | 0x28 | 0xFC | 0x8009DA94 | table, sites 0x7B10 / 0x7B18 | unchanged |
+| game_B4080 | 0x124 | 0xE4 | 0x8009DB90 | table, sites 0x7BD4 / 0x7BDC | unchanged |
+| game_11D830 | 0x0 | 0x4 | 0x800A1854 | pool (func_150F0A24) | `416E147B` (14.88) |
+| game_11D830 | 0x4 | 0x20 | 0x800A1878 | pool (func_150F1170) | `3DDF3B65 3E916873 3F7C82E0 3F83D19A 3EAA7EFA 3F039581 3F27EF9E 44008000` |
+| game_1E73B0 | 0x0 | 0x48 | 0x800AA718 | pool (func_151BB61C `const` arrays) | `4 4 7 8 18 19 1D 1E 20`, `3F800000 3F800000 3E19999A 3E19999A 3F800000 3F800000 3DC6A7F0 3F800000 3E4CCCCD` |
+| game_1E73B0 | 0x48 | 0x4 | 0x800AA7F4 | pool (func_151BB61C) | `3CA3D70B` (0.020000001) |
+| game_209B50 | 0x0 | 0x18 | 0x800AB500 | pool (func_151DC97C `const` tables) | `EFE0CD9E 9CA09E9C A0000000 3030309A 69D2D583 91000000` |
+| game_209B50 | 0x18 | 0xC | 0x800AB538 | pool (func_151DC97C) | `43C98000 3E439582 3E1A9FBF` (403.0, 0.19100001, 0.15100001) |
 
 The blood table hashes are SHA-256
 `d321edfcf0ef657c343364be6b03428e24a84df3a377f3acee9bfa8fee19b509` and
@@ -117,6 +127,56 @@ keep their runtime addresses.
   and 0x800A5730..0x800A573B stay extern symbols of the matched
   `func_15146BF8` and `func_151470FC`, so the pools are three ranges. The
   object `.rodata` is 0x40 bytes: 0x38 of payload and 8 zero alignment bytes.
+
+- **game_B4080:** `func_150896EC` converts a rail angle from degrees with the
+  double literal `0.01745` inside a loop. As an `extern` IDO reloads it every
+  iteration (CURRENT 1405); as a literal it is hoisted and the function
+  matches. The checksum-validated ROM holds `3F91DE69 AD42C3CA` (exactly the
+  double 0.01745, not pi/180) at 0x8009DA18, the 8-aligned word pair after
+  this function's 999.0f (0x8009DA0C), 0.017f (0x8009DA10) and a padding word
+  (0x8009DA14). The two floats stay extern symbols; the match is identical
+  either way, and as literals the padding word would misplace the double in
+  the object. The literal load (HI16/LO16 at text offsets 0x2D4C/0x2D54 of the
+  integrated object) precedes the first table dispatch (0x3028), so the pool is
+  object offset 0 and the three tables move from 0/0x20/0x11C to
+  0x8/0x28/0x124. Their runtime addresses and dispatch sites are unchanged;
+  base symbols, section names and `config/data/us.json` sections follow the
+  new offsets. The object `.rodata` is 0x210 bytes: 0x208 of payload and 8
+  zero alignment bytes.
+
+- **game_11D830:** `func_150F1170` loads 0.109000005, 0.284, 0.986372,
+  1.029834, 0.333, 0.514, 0.656 and 514.0 (each checked bit-for-bit against
+  the ROM; `0.109f` would round to `3DDF3B64`) from 0x800A1878..0x800A1897 in
+  first-use order. The [existing constant record](game_11d830_float_constant.md)
+  covers the first pool. The words 0x800A1858..0x800A1877 belong to other
+  functions and keep their extern symbols, so the unit's single `.rodata`
+  placement became two ranges and `game_11D830.o` joined
+  `GAME_SPLIT_RODATA_OBJS`; the former payload-size symbol is gone. The object
+  `.rodata` is 0x30 bytes: 0x24 of payload and 12 zero alignment bytes.
+
+- **game_1E73B0:** `func_151BB61C` passes two nine-element tables to
+  `func_15151D6C`: `const s32 indices[9]` (4, 4, 7, 8, 24, 25, 29, 30, 32) and
+  `const f32 factors[9]` (1.0, 1.0, 0.15, 0.15, 1.0, 1.0, 0.097, 1.0, 0.2).
+  IDO emits them as `.rodata` in declaration order, matching the
+  checksum-validated ROM words at 0x800AA718..0x800AA75F. It also loads
+  `0.020000001f` once and uses it twice (as an extern IDO reloads it). That
+  word sits at 0x800AA7F4 between this function's other float constants,
+  which stay extern symbols because each is used once and compiles the same
+  either way. The unit had no rodata mapping; it is now a split object with
+  two ranges. The object `.rodata` is 0x50 bytes: 0x4C of payload and 4 zero
+  alignment bytes; the HI16/LO16 sites are standalone text offsets
+  0x394/0x398, 0x3B0/0x3B4 and 0x3E4/0x3E8.
+
+- **game_209B50:** `func_151DC97C` picks spark colours from two block-scope
+  `const u8 [3][3]` tables (EF E0 CD / 9E 9C A0 / 9E 9C A0 and 30 30 30 /
+  9A 69 D2 / D5 83 91). IDO pads each 9-byte table to a word, giving exactly
+  the ROM words at 0x800AB500..0x800AB517 including their zero tails. Its
+  loop-hoisted `403.0f`, `0.19100001f` and `0.15100001f` must be literals and
+  sit at 0x800AB538..0x800AB543. The words between (0x800AB518..0x800AB537)
+  belong to the unmatched `func_151DC6A0` and to this function's once-used
+  floats, which stay extern symbols. The unit had no rodata mapping; it is now
+  a split object with two ranges. The object `.rodata` is 0x30 bytes: 0x24 of
+  payload and 12 zero alignment bytes.
 
 `config/data/us.json` records one owner per address and input-section pair.
 These units are now split objects, so `finish` compares their own rodata

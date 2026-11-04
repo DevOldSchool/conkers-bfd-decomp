@@ -7,3 +7,5 @@ The generated `build/us/src/game/game_11D830.o` snapshot SHA-256 is `8ffa27f634e
 A read-only ELF32 audit used `scripts/verify_game_rodata.py` checksum-validating `rom_game_data()` and `verify_bytes` with section size 0x10, target address 0x800A1854 and payload size 4. The ROM comparison and zero-alignment check passed. The INFO mapping retains linked bytes for verification without appending to the code-only payload. A size assertion detects unexpected constant-pool growth. Existing adjacent nonzero ROM values are not treated as padding or replaced.
 
 The full registered instruction comparison reached CURRENT (0), with focused layout, progress and whitespace checks passed. Clean linked verify-batch must still return BATCH_COMPLETE before this is reported as batch-verified. No reference assembly, compiler flag or verifier changes are involved.
+
+The unit is now split: this constant is the `.rodata.11d830_0` range and `func_150F1170`'s literals form `.rodata.11d830_4` at 0x800A1878. See [literal sub-pools](game_rodata_literal_sub_pools.md).
