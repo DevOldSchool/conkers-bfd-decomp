@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151C229C
  * - func_151C2734
  * - func_151C2AD0
  * - func_151C2F48
@@ -74,7 +73,183 @@ void func_151C2050(Game1C2050Owner *arg0, Vec3f *arg1,
         }
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C229C.s")
+void *func_10022EC0(void *, const void *, u32);
+void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
+void func_151C436C(s32, void *, s32);
+u8 func_151C43E0(void *, u8 *, f32);
+void func_151C4510(void *, void *, f32);
+s32 func_151C455C(s32, u8 *, f32);
+s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
+s32 func_151C4B0C(s32, void *, Vec3f *, Vec3f *, void *, f32, s32, s32, Vec3f *, u8 *, s32, f32,
+                  u8 *, s32, s32, s32, s32, s32);
+s32 func_151D5B6C(void *, void *, void *, s32, s32);
+extern u8 D_800A4AA0[];
+
+typedef struct Game1EF500TrailExt {
+    u8 flags;
+    u8 pad1[3];
+    f32 velocity[3];
+    f32 accel[3];
+    f32 drift[3];
+    u8 path[0x38];
+    f32 direction[3];
+    u8 pad6C[0x20];
+    u8 extra[4];
+    u8 *owner;
+    u8 ownerId;
+    u8 pad95[3];
+    f32 scale;
+    s8 field9C;
+    u8 pad9D;
+    s16 field9E;
+    u8 chance;
+    u8 fieldA1;
+    u8 padA2[2];
+    s32 fieldA4;
+    s8 fieldA8;
+    u8 padA9[3];
+    s32 handle;
+} Game1EF500TrailExt;
+
+typedef struct Game1EF500TrailSpawn {
+    u8 field00;
+    u8 field01;
+    s16 field02;
+    s16 field04;
+    u8 pad06[2];
+    s32 field08;
+    s32 field0C;
+    u8 field10;
+    u8 field11;
+    u8 field12;
+    u8 field13;
+    f32 field14;
+    f32 field18;
+    Vec3f position;
+    f32 field28[6];
+    s32 flags;
+    u8 field44;
+    u8 field45;
+    u8 field46;
+    u8 field47;
+    u8 pad48[4];
+    u8 field4C;
+    u8 pad4D[0xB];
+} Game1EF500TrailSpawn;
+
+void *func_151C229C(Vec3f *arg0, Vec3f *arg1, s32 arg2, Vec3f *arg3, u8 arg4, s32 arg5,
+                    f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10, u8 arg11, u8 *arg12,
+                    u8 arg13, u8 arg14, u8 arg15, u8 arg16, u8 arg17, u8 arg18, s8 arg19,
+                    s32 arg20, f32 arg21, u8 arg22, s8 arg23, s32 arg24, u8 arg25, s32 arg26) {
+    void *result;
+    Game1EF500TrailSpawn spawn;
+    Game1EF500TrailExt ext;
+    Vec3f sourceDir;
+    u8 useSource;
+    Vec3f targetDir;
+    u8 useTarget;
+    s32 unused; /* extra named home in the original frame */
+    void *from;
+    Vec3f *dir;
+
+    useSource = 0;
+    useTarget = arg4 && arg3 != NULL;
+    if (useTarget) {
+        targetDir = *arg3;
+    }
+    ext.flags = (arg17 ? 1 : 0) | (arg18 ? 2 : 0) | (arg14 ? 4 : 0) | (arg15 ? 8 : 0);
+    ext.handle = 0;
+    ext.fieldA8 = arg23;
+    ext.field9C = arg19;
+    ext.fieldA4 = arg20;
+    ext.chance = (func_150ADA20() & 0xFF) < arg16 ? 1 : 0;
+    ext.field9E = 0;
+    ext.fieldA1 = 0;
+    if (arg2 != 0 && arg3 != NULL) {
+        if (!useTarget) {
+            if (func_15145128(&arg3->x, &targetDir.x, NULL, NULL) != 0) {
+                useTarget = 1;
+            } else {
+                return NULL;
+            }
+        }
+        from = (void *)arg2;
+        dir = &targetDir;
+    } else {
+        if (arg1 != NULL) {
+            if (func_15145128(&arg1->x, &sourceDir.x, NULL, NULL) != 0) {
+                useSource = 1;
+            } else {
+                return NULL;
+            }
+        }
+        from = arg0;
+        dir = &sourceDir;
+    }
+    ext.handle = arg14 ? func_151D5B6C(from, dir, arg12, arg23, 0) : -1;
+    if (func_151C4B0C(arg5, ext.path, arg0, useSource ? &sourceDir : NULL, ext.extra, arg7, arg13,
+                      arg2, useTarget ? &targetDir : NULL, &ext.flags, 3, arg10, arg12, arg23,
+                      arg14, arg15, ext.handle, 0) == 0) {
+        return NULL;
+    }
+    ext.velocity[0] = ext.direction[0] * arg6;
+    ext.velocity[1] = ext.direction[1] * arg6;
+    ext.velocity[2] = ext.direction[2] * arg6;
+    ext.accel[0] = 0.0f;
+    ext.accel[1] = 0.0f;
+    ext.accel[2] = 0.0f;
+    ext.drift[0] = ext.direction[0] * arg9;
+    ext.drift[1] = ext.direction[1] * arg9;
+    ext.drift[2] = ext.direction[2] * arg9;
+    ext.owner = arg12;
+    ext.ownerId = (arg12 != NULL) ? arg12[0x3B] : 0x63;
+    spawn.field00 = 0x41;
+    ext.scale = arg6;
+    spawn.field01 = 4;
+    spawn.field02 = 0x4503;
+    spawn.field04 = 0x12C;
+    spawn.field08 = 0;
+    spawn.field0C = 0;
+    spawn.field10 = 0;
+    spawn.field11 = 0;
+    spawn.field12 = 0;
+    spawn.field13 = 0xFF;
+    spawn.field44 = arg11;
+    spawn.field45 = 0xFF;
+    spawn.field18 = arg9;
+    spawn.field14 = arg8;
+    spawn.position = *arg0;
+    spawn.field28[0] = 0.0f;
+    spawn.field28[1] = 0.0f;
+    spawn.field28[2] = 0.0f;
+    spawn.field28[3] = 0.0f;
+    spawn.field28[4] = 0.0f;
+    spawn.field28[5] = 0.0f;
+    spawn.flags = 0xC04C0008;
+    spawn.field46 = 0;
+    spawn.field47 = 0;
+    spawn.field4C = arg22;
+    result = func_1513D2F0((s32)&spawn, (s32)D_800A4AA0, 0x16, 0, 0, 0x14, 0, 0, 0, arg24 + 0xB0, arg25, arg26);
+    if (result != NULL) {
+        u8 failed;
+
+        failed = 0;
+        func_10022EC0((u8 *)result + 0x110, &ext, 0xB0);
+        func_151C436C((s32)result, (u8 *)result + 0x110, (s32)arg21);
+        if (func_151C43E0(result, (u8 *)result + 0x110, arg21) == 0) {
+            failed = 1;
+        }
+        func_151C4510(result, (u8 *)result + 0x110, arg21);
+        if (func_151C455C((s32)result, (u8 *)result + 0x110, arg21) == 0) {
+            failed = 1;
+        }
+        if (failed) {
+            func_1516972C(result);
+            return NULL;
+        }
+    }
+    return result;
+}
 typedef struct {
     u8 pad00[0x60];
     Vec3f direction;

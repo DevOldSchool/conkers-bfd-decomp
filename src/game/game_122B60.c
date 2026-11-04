@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150F56B0
  * - func_150F5A54
- * - func_150F5C98
  * - func_150F6178
  * - func_150F631C
  *
@@ -184,7 +183,147 @@ void func_150F5C08(void *arg0, s16 arg1, u8 arg2, s32 arg3) {
         func_10022EC0(temp_v0 + 0x28, (void **)&packet, 0xC);
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_122B60/func_150F5C98.s")
+typedef struct Game122B60SparkPacket {
+    s32 config;
+    s32 mode;
+    s16 kind;
+    s16 lifetime;
+    s32 field_C;
+    s32 field_10;
+    u8 colors[10];
+    s16 field_1E;
+    s16 field_20;
+    s16 field_22;
+    f32 scale;
+    f32 width;
+    f32 height;
+    Vec3f position;
+    Vec3f vector1;
+    Vec3f vector2;
+    f32 field_54;
+    s32 flags;
+    s32 field_5C;
+    s8 bytes[6];
+    u8 byte66;
+    u8 pad67;
+    s16 field_68;
+    u8 pad6A[2];
+    f32 field_6C;
+} Game122B60SparkPacket;
+
+f32 func_150ADA68(void);
+extern u8 D_800A1B00[];
+extern u8 D_800A1B0C[];
+extern f32 D_800A1B50;
+extern f32 D_800A1B54;
+extern f32 D_800A1B58;
+extern f32 D_800A1B5C;
+extern Vec3f D_800A5480;
+extern f32 D_800BE9A4;
+void func_15145EA4(s32 *, s32 *, s32, s32);
+
+void func_150F5C98(u8 *arg0) {
+    u8 *state;
+    u8 *actor;
+    Game122B60SparkPacket packet;
+    f32 tail;
+    Vec3f start;
+    Vec3f end;
+    f32 dx;
+    f32 dy;
+    f32 dz;
+    u8 *sources[2];
+    Vec3f *targets[2];
+    f32 scale;
+    f32 t;
+    s32 n;
+    s32 flags2;
+    s32 flags1;
+    void *result;
+
+    state = arg0 + 0x28;
+    actor = *(u8 **)state;
+    if (*(s32 *)actor == 0 || state[4] != actor[0x3B]) {
+        *(s16 *)(arg0 + 0xE) = -1;
+        return;
+    }
+    if (*(s32 *)(actor + 0x1D4) != 0) {
+        *(f32 *)(state + 8) += (D_800A1B50 + func_150ADA68() * D_800A1B54) * D_800BE9A4;
+        if (*(f32 *)(state + 8) > 1.0f) {
+            packet.colors[0] = 0xFF;
+            packet.colors[1] = 0xFF;
+            packet.colors[2] = 0xFF;
+            packet.colors[4] = 0xB4;
+            packet.colors[5] = 0xB4;
+            packet.colors[6] = 0xB4;
+            sources[0] = D_800A1B00;
+            sources[1] = D_800A1B0C;
+            targets[0] = &start;
+            targets[1] = &end;
+            func_15145EA4((s32 *)sources, (s32 *)targets, *(s32 *)(actor + 0x1D4) + 0x140, 2);
+            packet.colors[9] = 0x6C;
+            packet.kind = 0x5103;
+            packet.config = 0x200005;
+            packet.mode = 0x9F0600;
+            packet.field_C = 0;
+            packet.field_10 = 0;
+            packet.colors[3] = 0xFF;
+            packet.colors[8] = 0xFF;
+            dx = end.x - start.x;
+            dy = end.y - start.y;
+            dz = end.z - start.z;
+            packet.vector1 = D_800A5480;
+            packet.flags = 0x84CE07;
+            packet.bytes[0] = 8;
+            packet.bytes[1] = 6;
+            packet.bytes[2] = 0x10;
+            packet.bytes[3] = -1;
+            packet.bytes[4] = -1;
+            packet.bytes[5] = 0;
+            packet.field_5C = 0;
+            packet.byte66 = 0xFF;
+            packet.field_68 = 1000;
+            packet.field_6C = 1000.0f;
+            tail = D_800A1B58;
+            packet.scale = D_800A1B5C;
+            do {
+                n = (s16)(func_150ADA20() % 21U + 20);
+                packet.field_22 = n;
+                packet.field_1E = n;
+                packet.field_20 = 255 / n;
+                packet.lifetime = n;
+                packet.colors[7] = func_150ADA20() % 26U + 8;
+                packet.width = packet.height = func_150ADA68() * 70.0f + 148.0f;
+                packet.field_54 = func_150ADA68() * 0.21900001f + 0.086f;
+                scale = func_150ADA68() * 0.041f + 0.078f;
+                packet.vector2.x = dx * scale;
+                packet.vector2.y = dy * scale;
+                packet.vector2.z = dz * scale;
+                t = func_150ADA68() * D_800BE9A4;
+                packet.flags &= ~0xC0;
+                packet.position.x = packet.vector2.x * t + start.x;
+                packet.position.y = packet.vector2.y * t + start.y;
+                packet.position.z = packet.vector2.z * t + start.z;
+                if (func_150ADA20() & 1) {
+                    flags2 = 0x80;
+                } else {
+                    flags2 = 0;
+                }
+                if (func_150ADA20() & 1) {
+                    flags1 = 0x40;
+                } else {
+                    flags1 = 0;
+                }
+                packet.flags |= (u32)(flags1 | flags2);
+                result = func_15130280(&packet, 1, NULL, 4, arg0[0xC], arg0[1]);
+                if (result != NULL) {
+                    func_10022EC0((u8 *)result + 0xA8, &tail, 4);
+                }
+                *(f32 *)(state + 8) -= 1.0f;
+            } while (*(f32 *)(state + 8) > 1.0f);
+        }
+    }
+}
 extern void func_15149514(s32 arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_150F6138(s32 arg0, s32 arg1, u8 arg2) {

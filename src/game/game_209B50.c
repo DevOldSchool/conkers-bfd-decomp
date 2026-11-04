@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151DC6A0
- * - func_151DC97C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -106,4 +105,108 @@ void func_151DC8BC(void *arg0, s16 arg1, u8 arg2, u8 arg3, u8 arg4, s32 arg5) {
         func_10022EC0((u8 *)temp_v0 + 0x28, &packet, 0x14U);
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_209B50/func_151DC97C.s")
+typedef struct Game209B50SpawnPacket {
+    u32 field00, field04;
+    s16 field08, field0A;
+    u32 field0C, field10;
+    u8 field14, field15, field16, field17;
+    u8 field18, field19, field1A, field1B, field1C, field1D;
+    s16 field1E, field20, field22;
+    f32 field24, scaleX, scaleY;
+    Game209B50Vector position;
+    f32 field3C, field40, field44, field48, field4C, field50, speed;
+    u32 flags;
+    u8 pad5C[4];
+    s8 field60, field61, field62, field63, field64, field65;
+    u8 pad66[0xA];
+} Game209B50SpawnPacket;
+typedef struct Game209B50SpawnExtension {
+    u8 field0, field1, field2, field3;
+    f32 x, y, z;
+} Game209B50SpawnExtension;
+typedef struct Game209B50SpawnState {
+    Game209B50Vector position;
+    f32 counter;
+    u8 useTable;
+} Game209B50SpawnState;
+extern f32 D_800AB528, D_800AB52C, D_800AB530, D_800AB534;
+extern f32 D_800BE9A4;
+
+void func_151DC97C(u8 *arg0) {
+    Game209B50SpawnState *state;
+    Game209B50SpawnPacket packet;
+
+    state = (Game209B50SpawnState *)(arg0 + 0x28);
+    state->counter += (D_800AB528 + func_150ADA68() * D_800AB52C) * D_800BE9A4;
+    if (state->counter > 1.0f) {
+        Game209B50SpawnExtension extension;
+        extension.z = D_800AB530;
+        packet.field1D = 0x6C;
+        packet.field08 = 0x5103;
+        packet.field00 = 0x200005;
+        extension.field0 = 0;
+        extension.field1 = 0;
+        packet.field04 = 0;
+        packet.field0C = 0;
+        packet.field10 = 0;
+        packet.field1E = 0x28;
+        packet.field20 = 6;
+        packet.flags = 0x80DE07;
+        packet.field60 = 8;
+        packet.field61 = 6;
+        packet.field62 = 0x16;
+        packet.field63 = -1;
+        packet.field64 = -1;
+        packet.field65 = 0;
+        packet.field22 = 0x78;
+        packet.field1C = 0xFF;
+        packet.field24 = D_800AB534;
+        packet.position = state->position;
+        packet.field3C = 0.0f;
+        packet.field40 = 0.0f;
+        packet.field44 = 0.0f;
+        packet.field48 = 0.0f;
+        packet.field4C = 0.0f;
+        packet.field50 = 0.0f;
+        if (state->useTable == 0) {
+            packet.field14 = 0xEF;
+            packet.field15 = 0xE0;
+            packet.field16 = 0xCD;
+            packet.field17 = 0xFF;
+            packet.field18 = 0x30;
+            packet.field19 = 0x30;
+            packet.field1A = 0x30;
+        }
+        do {
+            void *result;
+            extension.field2 = func_150ADA20() % 5U + 4;
+            extension.field3 = func_150ADA20() % 5U + 4;
+            extension.x = func_150ADA68() * 50.0f;
+            extension.y = func_150ADA68() * 50.0f;
+            packet.speed = func_150ADA68() * 0.15100001f + 0.19100001f;
+            packet.flags &= ~0xC0;
+            packet.flags |= (func_150ADA20() & 1 ? 0x40 : 0) | (func_150ADA20() & 1 ? 0x80 : 0);
+            packet.field1B = func_150ADA20() % 56U + 0xC8;
+            packet.field0A = func_150ADA20() % 36U + 0x6E;
+            packet.scaleX = packet.scaleY = func_150ADA68() * 370.0f + 403.0f;
+            if (state->useTable != 0) {
+                const u8 tableA[3][3] = { { 0xEF, 0xE0, 0xCD }, { 0x9E, 0x9C, 0xA0 }, { 0x9E, 0x9C, 0xA0 } };
+                u8 index;
+                const u8 tableB[3][3] = { { 0x30, 0x30, 0x30 }, { 0x9A, 0x69, 0xD2 }, { 0xD5, 0x83, 0x91 } };
+                index = func_150ADA20() % 3U;
+                packet.field14 = tableA[index][0];
+                packet.field15 = tableA[index][1];
+                packet.field16 = tableA[index][2];
+                packet.field17 = 0xFF;
+                packet.field18 = tableB[index][0];
+                packet.field19 = tableB[index][1];
+                packet.field1A = tableB[index][2];
+            }
+            result = func_15130280(&packet, 0, NULL, 0x10, arg0[0xC], arg0[1]);
+            if (result != NULL) {
+                func_10022EC0((u8 *)result + 0xA8, &extension, 0x10);
+            }
+            state->counter -= 1.0f;
+        } while (state->counter > 1.0f);
+    }
+}
