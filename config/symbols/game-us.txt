@@ -41,3 +41,5 @@ func_15040A4C = 0x15040A4C; // type:func size:0x8
 func_1516ECA4 = 0x1516ECA4; // type:func size:0x8
 func_15195824 = 0x15195824; // type:func size:0x8
 func_1513E134 = 0x1513E134; // type:func size:0x8
+func_1507DB34 = 0x1507DB34; // type:func size:0x8
+func_1507DB3C = 0x1507DB3C; // type:func size:0x8

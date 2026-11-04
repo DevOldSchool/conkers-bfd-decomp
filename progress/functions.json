@@ -30648,6 +30648,12 @@
       "symbol": "func_1507CD0C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 640,
+        "reason": "CURRENT (640); frame 0x68 vs raw 0x60 with unexplained uopt temp; stack-heavy residual, no new hypothesis this pass",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -30719,14 +30725,55 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "size_bytes": 1008,
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 992,
+          "state": "matched",
           "symbol": "func_1507D754",
           "vram": "0x1507D754"
         }
       },
       "source": "src/game/game_A9D90.c",
       "symbol": "func_1507D754"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 8,
+          "state": "matched",
+          "symbol": "func_1507DB34",
+          "vram": "0x1507DB34"
+        }
+      },
+      "source": "src/game/game_A9D90.c",
+      "symbol": "func_1507DB34"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 8,
+          "state": "matched",
+          "symbol": "func_1507DB3C",
+          "vram": "0x1507DB3C"
+        }
+      },
+      "source": "src/game/game_A9D90.c",
+      "symbol": "func_1507DB3C"
     },
     {
       "overlay": "game",
@@ -79649,17 +79696,16 @@
       "symbol": "func_150E83AC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "10: only real residual is flags load t6 vs or t9 numbering ('flags | (second | first)'); literal 0.001f rows score equal; ternary, |=, split-mask, decl order and permuter 120s no change",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 948,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150E8470",
           "vram": "0x150E8470"
         }

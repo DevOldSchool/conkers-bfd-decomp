@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1507CD64
  * - func_1507D4F8
- * - func_1507D754
  * - func_1507DB6C
  * - func_1507DFE4
  * - func_1507E1D0
@@ -171,6 +170,228 @@ void func_1507CD0C(void *arg0) {
         func_15181D70(temp_lo);
     }
 }
+typedef struct GameA9D90ActorState {
+    u8 pad0[0x46];
+    s16 field_46;
+    u8 pad48[0xD8];
+    u8 field_120;
+    u8 field_121;
+    u8 pad122[0x8A];
+    u8 field_1AC;
+} GameA9D90ActorState;
+
+typedef struct GameA9D90Actor {
+    s32 field_0;
+    u8 kind;
+    u8 field_5;
+    u8 pad6[0xE];
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 field_20;
+    u8 pad24[0x17];
+    u8 field_3B;
+    f32 field_3C;
+    f32 field_40;
+    u8 pad44[0x21];
+    u8 field_65;
+    u8 pad66[0x23];
+    u8 field_89;
+    u8 pad8A[0x2E];
+    f32 field_B8;
+    u8 padBC[8];
+    f32 field_C4;
+    u8 padC8[0x1C];
+    s16 field_E4;
+    s16 field_E6;
+    u8 padE8[0x10];
+    s32 field_F8;
+    u8 padFC[8];
+    u8 field_104;
+    u8 pad105[0x20];
+    u8 field_125;
+    u8 pad126;
+    u8 field_127;
+    u8 field_128;
+    u8 pad129[0x13];
+    u8 field_13C;
+    u8 pad13D[0x8D];
+    u8 field_1CA;
+    u8 pad1CB[0x121];
+    s32 field_2EC;
+    u8 pad2F0[0x2C];
+    GameA9D90ActorState *state;
+    u8 pad320[8];
+    u8 field_328;
+} GameA9D90Actor;
+
+void func_1504BAF0(void *);
+void func_1505E650(void *, s32, f32, f32, f32, f32, s32);
+void func_1507CD64(GameA9D90Actor *, s32);
+void func_15085710(s32, s32, s32);
+f32 func_150ADA68(void);
+void func_150E7994(s16, f32, s32, s32);
+void func_15169040(s32, u8);
+extern void *D_800D154C;
+extern u8 D_800D18A9;
+extern s16 D_800E0AD0[];
+extern s32 D_800BE9F0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507CD64 CURRENT (640) */
+void func_1507CD64(GameA9D90Actor *arg0, s32 arg1) {
+    GameA9D90ActorState *state;
+    s32 sound;
+    s32 flag;
+    s32 mode;
+    s32 restart;
+    struct { void *object; u8 kind; } descriptor;
+    void *saved;
+    s32 slot;
+    u32 random;
+    f32 scale;
+
+    state = arg0->state;
+    if (state != NULL) {
+        slot = ((u8 *)arg0 - &D_800CC2D0) / 812;
+        if (slot < D_8008FD8C) {
+            if (state->field_120 != 0) {
+                if (arg1 != 9) {
+                    return;
+                }
+                if (arg1 == state->field_121) {
+                    return;
+                }
+                restart = 1;
+            } else {
+                restart = 0;
+            }
+            state->field_121 = arg1;
+            if (D_800BE616 != 0 && restart == 0) {
+                if (slot < 0x10) {
+                    D_800E0AD0[slot]++;
+                }
+                if ((D_8008FDBC & 0x20) && arg0->field_128 == 0) {
+                    func_15085710(1, 0xA, 1);
+                }
+            }
+            descriptor.object = arg0;
+            descriptor.kind = arg0->field_3B;
+            func_15169040((s32)&descriptor, 3);
+            D_800D18A9 = 0;
+            sound = -1;
+            flag = 0;
+            mode = 0;
+            if (arg0->state->field_1AC != 0) {
+                D_800D18A9 = 2;
+            }
+            switch (arg1) {
+            case 11:
+                sound = 0x2D4;
+                break;
+            case 12:
+                sound = 0x2D6;
+                break;
+            case 0:
+                sound = 0x58;
+                break;
+            case 1:
+                sound = 0x13;
+                flag = 1;
+                break;
+            case 2:
+                sound = 7;
+                flag = 1;
+                break;
+            case 3:
+                sound = 0x28;
+                D_800D18A9 = 1;
+                break;
+            case 4:
+                sound = 0x24;
+                mode = 1;
+                D_800D18A9 = 1;
+                break;
+            case 5:
+                sound = 0x24;
+                mode = 1;
+                D_800D18A9 = 3;
+                break;
+            case 6:
+                if (arg0->field_0 == 1 || arg0->field_0 == 0x15 || arg0->field_5 == 3 || arg0->field_65 != 0) {
+                    sound = 0x170;
+                }
+                mode = 1;
+                break;
+            case 7:
+                sound = 0x16F;
+                break;
+            case 8:
+                sound = 0x170;
+                mode = 1;
+                D_800D18A9 = 3;
+                break;
+            case 15:
+                sound = 0x170;
+                mode = 3;
+                D_800D18A9 = 3;
+                break;
+            case 9:
+                mode = 2;
+                break;
+            case 10:
+                sound = 0x2F;
+                D_800D18A9 = 3;
+                break;
+            case 14:
+                sound = 0x1E;
+                mode = 1;
+                break;
+            case 13:
+                sound = 0x2D8;
+                mode = 1;
+                break;
+            case 16:
+                sound = 0xF6;
+                mode = 1;
+                break;
+            }
+            if (sound != -1) {
+                func_1505E650(arg0, sound & 0xFFFF, 1.0f, 3.0f, 0.0f, 0.0f, flag);
+            }
+            arg0->field_1CA = 0;
+            arg0->field_125 = 0xFF;
+            arg0->field_104 = 0xFF;
+            arg0->field_89 = 0xFF;
+            arg0->field_F8 |= 0x200;
+            arg0->field_E4 = 0;
+            arg0->field_E6 = 0;
+            arg0->field_3C = 0.0f;
+            arg0->state->field_46 = 0;
+            if (arg0->field_13C != 0) {
+                saved = D_800D154C;
+                D_800D154C = arg0;
+                func_1504BAF0(arg0);
+                D_800D154C = saved;
+            }
+            if (mode == 0 || mode == 3) {
+                arg0->state->field_120 = 1;
+            } else {
+                func_1507C8E0((GameA9D90Object *)arg0, 0);
+            }
+            if (mode == 2) {
+                arg0->state->field_120 = 0xB;
+            } else if (mode == 3) {
+                func_1507D4F8(slot);
+            }
+            if (slot == 0 && D_800BE9F0 == 4) {
+                random = func_150ADA20();
+                scale = func_150ADA68() * 0.1f + 0.3f;
+                func_150E7994((random % 3) + 4, scale, 0xFF, 0);
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1507CD64 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507CD64.s")
 typedef struct GameA9D90EntityIdRecord {
     u8 field_0;
@@ -349,7 +570,161 @@ void func_1507D4F8(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507D4F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D4F8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D754.s")
+
+typedef struct GameA9D90Spawn {
+    f32 field_0;
+    f32 field_4;
+    f32 field_8;
+    u8 padC[4];
+    s16 x;
+    s16 y;
+    s16 z;
+    u8 pad16[0x58];
+    u8 field_6E;
+    u8 pad6F[0xD];
+    s32 field_7C;
+    s32 field_80;
+    s32 field_84;
+    u8 pad88[2];
+    u8 field_8A;
+} GameA9D90Spawn;
+
+void func_1507DB44(void *, s32);
+s32 *func_1507515C(s32);
+void func_150AEB9C(void *);
+void func_150B0348(void *, s32, s32);
+void func_150B7B40(void *, s32, s32);
+void func_150BBB5C(void *);
+void func_150BC488(void *);
+void func_150BE494(void *, u8, s32);
+void func_150BFFE0(void *);
+void func_150D85AC(void *);
+void func_150E0870(void *, s32, s32);
+void func_150F1D10(u8 *, u8, s32);
+void func_15136C3C(void *, s32, s32, s32, s32, s32, s32, s32);
+void func_15145A50(u8 *);
+void func_151A6C90(void *, s32, s32);
+void func_151BA518(void *, s32, s32);
+void func_151C9740(u8 *, s32, s32);
+void func_151CFA4C(void *, s32, s32);
+void func_151D22B0(void *, s32, s32);
+extern u8 D_800C35EA;
+
+s32 func_1507D754(GameA9D90Actor *arg0) {
+    GameA9D90Spawn *spawn;
+    s32 *target;
+
+    switch (arg0->kind) {
+    case 0x7F:
+        func_150B0348(arg0, 0xFF, 1);
+        break;
+    case 0x10:
+    case 0x38:
+    case 0x91:
+        func_150BFFE0(arg0);
+        break;
+    case 0x3A:
+    case 0x3D:
+        func_150D85AC(arg0);
+        break;
+    case 0x4A:
+        func_150F1D10((u8 *)arg0, 0xFF, 1);
+        break;
+    case 0x47:
+        func_151C9740((u8 *)arg0, 0xFF, 1);
+        break;
+    case 0x25:
+        if (arg0->field_2EC != 0 || D_800BE9F0 == 6 || D_800BE9F0 == 0x3B) {
+            func_151CFA4C(arg0, 0xFF, 1);
+        }
+        return 0;
+    case 0x79:
+        func_150BE494(arg0, 0xFF, 1);
+        break;
+    case 0x5:
+    case 0xAD:
+    case 0xAE:
+    case 0xAF:
+        arg0->field_328 = 0;
+        func_1507DB44(arg0, 0);
+        func_150AEB9C(arg0);
+        return 1;
+    case 0x53:
+        if (D_800BE616 != 0) {
+            func_1507CD64(arg0, 0xA);
+            return 2;
+        }
+        break;
+    case 0x90:
+        if (D_800BE616 != 0 && D_800BE9F0 == 0x33) {
+            func_1507CD64(arg0, 8);
+            return 2;
+        }
+        break;
+    case 0x28:
+    case 0x77:
+        spawn = NULL;
+        func_151BA518(arg0, 0xFF, 1);
+        func_15145A50((u8 *)arg0);
+        if (D_800BE616 != 0) {
+            func_1507CD64(arg0, 6);
+            spawn = func_151149AC(arg0->field_127 + 0xB);
+        } else {
+            if (D_800BE9F0 == 0x23) {
+                spawn = func_151149AC(1);
+            }
+            target = func_1507515C((s32)arg0);
+            if (target != NULL && D_800C35EA != 1) {
+                func_15136C3C(target, 1, 1, 1, 1, 0, 0xFF, 1);
+            }
+        }
+        if (spawn != NULL) {
+            spawn->field_6E = 0;
+            spawn->x = arg0->x;
+            spawn->y = arg0->y;
+            spawn->z = arg0->z;
+            spawn->field_0 = arg0->field_B8;
+            spawn->field_4 = arg0->field_40;
+            spawn->field_8 = arg0->field_C4;
+            spawn->field_8A = 0xFF;
+            spawn->field_7C = 0;
+            spawn->field_80 = 0;
+            spawn->field_84 = 0;
+        }
+        if (D_800BE616 != 0) {
+            return 2;
+        }
+        break;
+    case 0xD:
+        func_150B7B40(arg0, 0xFF, 1);
+        break;
+    case 0x20:
+        if (arg0->field_20 < -20.0f) {
+            func_150BC488(arg0);
+        } else {
+            func_150BBB5C(arg0);
+        }
+        break;
+    case 0x4F:
+    case 0x83:
+        func_151A6C90(arg0, 0xFF, 1);
+        break;
+    case 0x34:
+        func_150E0870(arg0, 0xFF, 1);
+        break;
+    case 0x44:
+        func_151D22B0(arg0, 0xFF, 1);
+        break;
+    }
+    return 0;
+}
+
+void func_1507DB34(void) {
+}
+
+void func_1507DB3C(void) {
+}
+
 void func_1507DB44(void *arg0, s32 arg1) {
     func_1503DE70(arg0, arg1, -1);
 }
