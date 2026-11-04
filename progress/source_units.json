@@ -9709,15 +9709,15 @@
         "func_150E9890",
         "func_150E9E34"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xE9FE0",
           "start": "0xE9890",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_116D40.c"
+      "source": "src/done/game/game_116D40.c"
     },
     {
       "boundary_evidence": {

@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15167310
- * - func_151674F8
  * - func_15167C58
  * - func_15167E0C
  * - func_15168118
@@ -209,7 +208,147 @@ void func_15167310(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15167310 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15167310.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_151674F8.s")
+typedef struct Game74F8Command {
+    u32 w0, w1;
+} Game74F8Command;
+typedef struct Game74F8Entry {
+    u8 pad0[8];
+    s32 (*draw)(s32, struct Game1944C0Node *, s16);
+    u8 padC[4];
+    s32 startList;
+    s32 (*pre)(s32, s32, s32, s16);
+    u8 pad18[8];
+    s32 (*post)(s32, s32, s16);
+    s32 endList;
+    u8 pad28[8];
+    s8 mode;
+    u8 pad31[3];
+} Game74F8Entry;
+void func_15168F84(s32, s32 *, s32 *);
+extern s32 D_8003C8E0;
+extern u8 D_80089470[];
+extern u8 D_800BE9C0;
+extern s32 D_800BE9C8[];
+extern s32 D_800BEBA4;
+extern s8 D_800D2DAB;
+extern u32 D_800DD1B0;
+extern s32 D_800DD1B4, D_800DD1B8;
+extern s16 D_800DD1BC, D_800DD1BE;
+extern s16 D_800DD1C0, D_800DD1C2, D_800DD1C4, D_800DD1C6;
+extern s16 D_800DD1C8, D_800DD1CA, D_800DD1CC, D_800DD1CE;
+extern s16 D_800DD1F8;
+extern s32 D_800DD1FC, D_800DD200;
+extern s16 D_800DD204, D_800DD206;
+extern s32 D_800DD208, D_800DD20C, D_800DD210, D_800DD214, D_800DD218, D_800DD21C;
+extern s32 D_800DD220, D_800DD224, D_800DD228;
+
+s32 func_151674F8(s32 arg0, s32 arg1, s16 arg2, s32 arg3) {
+    s32 column;
+    s32 start;
+    s32 end;
+    struct Game1944C0Node **head;
+    struct Game1944C0Node *node;
+    Game74F8Command *command;
+    s32 mark0;
+    s32 prev;
+    s32 mark1;
+    s32 overflowed;
+    s32 overflow;
+
+    { Game74F8Command *command = (Game74F8Command *)arg0; arg0 += 8; command->w0 = 0xDA380003; command->w1 = (u32)D_80089470; }
+    func_15168F84(arg1, &start, &end);
+    for (column = start; column < end; column++) {
+        if (((Game74F8Entry *)&D_8008B4A8)[column].draw != NULL) {
+            head = &D_800DCE50[arg3][column];
+            if (*head != NULL) {
+                D_8003C8E0 = (column & 0xFFFFFF) | 0x07000000;
+                overflowed = 0;
+                if (((Game74F8Entry *)&D_8008B4A8)[column].mode == 0) {
+                    mark0 = arg0;
+                }
+                if (((Game74F8Entry *)&D_8008B4A8)[column].mode == 1) {
+                    mark1 = arg0;
+                }
+                D_800D2DAB = 0;
+                D_800DD228 = 0;
+                D_800DD220 = 0;
+                D_800DD224 = 2;
+                D_800DD1B0 = -1;
+                D_800DD1B4 = -1;
+                D_800DD1B8 = -1;
+                D_800DD1BC = 0;
+                D_800DD1BE = 0;
+                D_800DD1C0 = D_800DD1C2 = D_800DD1C4 = D_800DD1C6 = -1;
+                D_800DD1C8 = D_800DD1CA = D_800DD1CC = D_800DD1CE = -1;
+                D_800DD1F8 = 0;
+                D_800DD1FC = 0;
+                D_800DD200 = 0;
+                D_800DD204 = -1;
+                D_800DD206 = -1;
+                D_800DD208 = -1;
+                D_800DD20C = -1;
+                D_800DD210 = -1;
+                D_800DD214 = 0;
+                D_800DD218 = 0;
+                D_800DD21C = 0;
+                if (((Game74F8Entry *)&D_8008B4A8)[column].startList != 0) {
+                    { Game74F8Command *command = (Game74F8Command *)arg0; arg0 += 8; command->w0 = 0xDE000000; command->w1 = ((Game74F8Entry *)&D_8008B4A8)[column].startList; }
+                }
+                if (((Game74F8Entry *)&D_8008B4A8)[column].pre != NULL) {
+                    arg0 = ((Game74F8Entry *)&D_8008B4A8)[column].pre(arg0, column, arg3, arg2);
+                }
+                { Game74F8Command *command = (Game74F8Command *)arg0; arg0 += 8; command->w0 = 0xD9FDFFFF; command->w1 = 0; }
+                node = *head;
+                if (((Game74F8Entry *)&D_8008B4A8)[column].mode == 1) {
+                    D_800DD190++;
+                    while (node != NULL) {
+                        D_800DD198[D_800DD190] = ((Game1944C0ProcessNode *)node)->next;
+                        prev = arg0;
+                        arg0 = ((Game74F8Entry *)&D_8008B4A8)[column].draw(arg0, node, arg2);
+                        overflow = (D_800BEBA4 < ((arg0 - D_800BE9C8[D_800BE9C0]) >> 3)) ? 1 : 0;
+                        if (overflow != 0) {
+                            overflowed = 1;
+                            arg0 = prev;
+                        }
+                        node = D_800DD198[D_800DD190];
+                    }
+                    D_800DD190--;
+                } else {
+                    D_800DD190++;
+                    while (node != NULL) {
+                        D_800DD198[D_800DD190] = ((Game1944C0ProcessNode *)node)->next;
+                        arg0 = ((Game74F8Entry *)&D_8008B4A8)[column].draw(arg0, node, arg2);
+                        node = D_800DD198[D_800DD190];
+                    }
+                    D_800DD190--;
+                }
+                if (((Game74F8Entry *)&D_8008B4A8)[column].endList != 0) {
+                    { Game74F8Command *command = (Game74F8Command *)arg0; arg0 += 8; command->w0 = 0xDE000000; command->w1 = ((Game74F8Entry *)&D_8008B4A8)[column].endList; }
+                }
+                if (((Game74F8Entry *)&D_8008B4A8)[column].post != NULL) {
+                    arg0 = ((Game74F8Entry *)&D_8008B4A8)[column].post(arg0, column, arg2);
+                }
+                if (overflowed != 0) {
+                    overflow = (D_800BEBA4 < ((arg0 - D_800BE9C8[D_800BE9C0]) >> 3)) ? 1 : 0;
+                    if (overflow != 0) {
+                        command = (Game74F8Command *)arg0; arg0 += 8; command->w0 = 0xD9FFFFFF; command->w1 = 1;
+                        return mark1;
+                    }
+                }
+                if (((Game74F8Entry *)&D_8008B4A8)[column].mode == 0) {
+                    overflow = (D_800BEBA4 < ((arg0 - D_800BE9C8[D_800BE9C0]) >> 3)) ? 1 : 0;
+                    if (overflow != 0) {
+                        command = (Game74F8Command *)arg0; arg0 += 8; command->w0 = 0xD9FFFFFF; command->w1 = 1;
+                        return mark0;
+                    }
+                }
+                D_8003C8E0 = 0;
+            }
+        }
+    }
+    { Game74F8Command *command = (Game74F8Command *)arg0; arg0 += 8; command->w0 = 0xD9FFFFFF; command->w1 = 1; }
+    return arg0;
+}
 typedef struct Game1944C0AllocatedEffect {
     s8 field_0;
     s8 field_1;

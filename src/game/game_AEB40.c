@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_core_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15081690
  * - func_15081C20
  * - func_15081E78
  * - func_150825C0
@@ -51,7 +50,163 @@ typedef struct GameAEB40State {
     GameAEB40NestedState *nested_31C;
 } GameAEB40State;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15081690.s")
+void func_100226F0(void *, s32);
+s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *, f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
+s32 func_1508114C(GameAEB40State *, void *, void *, void *, void *, void *, f32 *, s32 *, s32 *, s32 *, void *);
+s32 func_15081C20(void *arg0, void *arg1, GameAEB40State *arg2, s32 arg3, s32 arg4, f32 *arg5, f32 *arg6);
+extern s32 (*D_80086C90[])(GameAEB40State *, void *, s32);
+extern f32 D_8009CBE0;
+extern u8 *D_800DBEF4;
+extern s32 D_800CC2D0;
+
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 z;
+} Vec3fAEB40;
+
+typedef struct {
+    GameAEB40State *actor;
+    f32 dist;
+    Vec3fAEB40 hit;
+    Vec3fAEB40 normal;
+    Vec3fAEB40 point;
+    Vec3fAEB40 start;
+    Vec3fAEB40 end;
+    s16 surface[9];
+    s16 field_56;
+    s8 field_58;
+    s8 type;
+    s8 field_5A;
+    u8 pad5B;
+    u8 *field_5C;
+    s32 field_60;
+} HitAEB40;
+
+void func_15081690(GameAEB40State *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, HitAEB40 *arg7, f32 arg8, s32 arg9, s32 arg10, s32 arg11, s8 arg12, s32 arg13, s32 arg14) {
+    f32 sp124;
+    f32 sp120;
+    f32 sp11C;
+    f32 sp118;
+    f32 dist;
+    f32 sp110;
+    s32 sp10C;
+    s32 sp108;
+    s32 sp104;
+    s32 sp100;
+    GameAEB40State *actor;
+    s32 i;
+    s32 best;
+    s32 self;
+    s32 r;
+    u8 map[0x1C];
+    Vec3fAEB40 hit;
+    Vec3fAEB40 point;
+    Vec3fAEB40 normal;
+    Vec3fAEB40 start;
+    Vec3fAEB40 end;
+    s32 sp90;
+    s32 sp8C;
+
+    start.x = arg1;
+    start.y = arg2;
+    start.z = arg3;
+    end.x = arg4;
+    end.y = arg5;
+    end.z = arg6;
+    arg7->dist = -1.0f;
+    arg7->actor = NULL;
+    arg7->type = 0;
+    arg7->start = start;
+    best = -1;
+    arg7->end = end;
+    arg7->field_5C = NULL;
+    arg7->field_60 = 0;
+    if (arg8 == 0.0f) {
+        arg8 = D_8009CBE0;
+    }
+    if (arg0 != NULL) {
+        self = ((u8 *)arg0)[0x124] - 1;
+    } else {
+        self = -1;
+    }
+    func_100226F0(map, 0x19);
+    for (i = 0; i < 0x19; i++) {
+        actor = (GameAEB40State *)((u8 *)&D_800CC2D0 + i * 0x32C);
+        if (*(s32 *)actor == 0) {
+            continue;
+        }
+        if (((u8 *)actor)[0x65] != 0) {
+            map[((u8 *)actor)[0x65] - 1] = i + 1;
+        }
+    }
+    if (arg9 == 0 && func_150AC9C0(arg1, arg2, arg3, arg4, arg5, arg6, &sp124, arg7->surface, &sp120, &sp11C, &sp118, &dist, &sp8C, &arg7->field_60, 0.0f) != 0 && dist < arg8) {
+        arg7->dist = dist;
+        arg7->type = 1;
+        arg7->hit.x = sp120;
+        arg7->hit.y = sp11C;
+        arg7->hit.z = sp118;
+        arg7->point = arg7->hit;
+        if (sp8C != -1) {
+            arg7->field_5C = sp8C * 0xA0 + D_800DBEF4;
+        } else {
+            arg7->field_5C = NULL;
+        }
+    }
+    if (arg10 != 0) {
+        return;
+    }
+    for (i = 0; i != 0x19; i++) {
+        if ((1 << i) & arg14) {
+            continue;
+        }
+        if (self == i) {
+            continue;
+        }
+        actor = (GameAEB40State *)((u8 *)&D_800CC2D0 + i * 0x32C);
+        if (*(s32 *)actor == 0) {
+            continue;
+        }
+        if (((u8 *)actor)[5] == 3) {
+            continue;
+        }
+        if (actor == arg0) {
+            continue;
+        }
+        if (!(actor->flags_F8 & 0x40)) {
+            continue;
+        }
+        if (arg12 != -1 && D_80086C90[arg12](actor, arg0, arg13) == 0) {
+            continue;
+        }
+        if (arg11 == 0) {
+            r = func_1508114C(actor, &start, &end, &hit, &point, &normal, &dist, &sp90, &sp108, &sp10C, &sp100);
+            if (r > 0 && dist < arg8 && (arg7->dist == -1.0f || dist < arg7->dist) && best != map[i]) {
+                arg7->dist = dist;
+                arg7->actor = actor;
+                best = i + 1;
+                arg7->field_58 = sp10C;
+                arg7->field_56 = sp108;
+                arg7->hit = hit;
+                arg7->normal = normal;
+                arg7->field_5A = sp90;
+                arg7->point = point;
+                arg7->type = 3;
+            }
+            if (r != -1) {
+                continue;
+            }
+        }
+        if (func_15081C20(&start, &end, actor, (s32)&hit, (s32)&point, &dist, &sp110) != 0 && dist < arg8 && (arg7->dist == -1.0f || dist < arg7->dist) && best != map[i]) {
+            arg7->dist = dist;
+            arg7->actor = actor;
+            best = i + 1;
+            arg7->hit = hit;
+            arg7->point = point;
+            arg7->type = 2;
+        }
+    }
+}
 s32 func_151452C4(void *, void *, s32, f32, s32, s32, f32 *, f32 *);
 s32 func_15145128(void *, void *, f32 *, f32 *);
 

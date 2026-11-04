@@ -419,7 +419,17 @@
       },
       {
         "address": "0x800969C0",
-        "section": ".rodata",
+        "section": ".rodata.49d30_0",
+        "owner": {
+          "sources": [
+            "src/game/game_49D30.c",
+            "src/done/game/game_49D30.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800969D0",
+        "section": ".rodata.49d30_4",
         "owner": {
           "sources": [
             "src/game/game_49D30.c",
@@ -896,7 +906,7 @@
         }
       },
       {
-        "address": "0x800A140C",
+        "address": "0x800A13F0",
         "section": ".rodata",
         "owner": {
           "sources": [

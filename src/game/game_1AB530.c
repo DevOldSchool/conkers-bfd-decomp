@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1517E28C
- * - func_1517E4A8
  * - func_1517EAAC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -176,7 +175,129 @@ s32 func_1517E28C(s32 arg0, s32 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517E28C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AB530/func_1517E28C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AB530/func_1517E4A8.s")
+typedef struct Game1AB530Glow {
+    u8 pad0[0xC];
+    f32 x;
+    f32 y;
+    u8 pad14[0x14];
+    s16 level;
+    u8 pad2A[6];
+    u8 intensity;
+} Game1AB530Glow;
+
+typedef struct Game1AB530Sprite {
+    u8 pad0[6];
+    s16 width;
+    s16 height;
+    u8 alpha;
+    u8 red;
+    u8 green;
+    u8 blue;
+    u8 padE[2];
+    void *texture;
+} Game1AB530Sprite;
+
+union Game1AB530DisplayCommand *func_1517EA4C(union Game1AB530DisplayCommand *);
+s32 func_150950D4(s32, void *, s32, s32, s32, s32, s32, s32, s32, s32);
+s32 func_15095A48(s32, void *, f32, f32);
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+extern f32 D_800380A0;
+extern f32 D_800380A4;
+extern u8 D_800903AC[];
+extern u8 D_800A7250[][7];
+extern s32 D_800BE9E4;
+extern u8 D_800D2DA8;
+extern u8 D_800D2DA9;
+extern u8 D_800D2DAA;
+extern u8 D_800D2DAB;
+
+s32 func_1517E4A8(s32 arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s8 *arg6) {
+    Game1AB530Glow *glow = arg1;
+    s32 i;
+    f32 dx;
+    f32 dy;
+    s32 dist;
+    s32 target;
+    s32 step;
+    s32 val;
+    f32 fx;
+    f32 fy;
+    Game1AB530Sprite sprite;
+    dx = glow->x - (f32)D_800BE620 * 0.5f;
+    dy = glow->y - (f32)D_800BE624 * 0.5f;
+    if (arg6 != NULL) {
+        if (arg5 == -1) {
+            target = 0;
+        } else {
+            dist = (((s32)dx * (s32)dx) + ((s32)dy * (s32)dy)) * arg4 / 10;
+            if (dist < 120) {
+                target = (120 - dist) * 176 / 120;
+            } else {
+                target = 0;
+            }
+        }
+        val = (u8)*arg6;
+        step = D_800BE9E4 * 5;
+        if (((target - val) < 0 ? -(target - val) : (target - val)) < step) {
+            val = target;
+        } else if (val < target) {
+            val += step;
+        } else {
+            val -= step;
+        }
+        *arg6 = val;
+    }
+    dist = (((s32)dx * (s32)dx) + ((s32)dy * (s32)dy)) * arg4 / 10;
+    if (glow->x < 2.0f || (f32)(D_800BE620 - 2) <= glow->x || glow->y < 0.0f || (f32)D_800BE624 <= glow->y) {
+        val = 0;
+    } else if (arg5 == -1) {
+        val = 0;
+    } else {
+        val = (0x1ADB00 / (dist + 10000)) * arg5 / 256;
+    }
+    step = D_800BE9E4 * 10;
+    if (((val - glow->level) < 0 ? -(val - glow->level) : (val - glow->level)) < step) {
+        glow->level = val;
+    } else if (val < glow->level) {
+        glow->level = glow->level - step;
+    } else {
+        glow->level = glow->level + step;
+    }
+    if (dist < 200000 && glow->level > 0 && fabsf(glow->x) < 2000.0f && fabsf(glow->y) < 2000.0f) {
+        D_800D2DA8 = 0xFF;
+        D_800D2DA9 = 0xFF;
+        D_800D2DAA = 0xFF;
+        sprite.texture = D_800903AC;
+        sprite.red = 0;
+        sprite.green = 0;
+        sprite.blue = 0;
+        if ((u8)D_800DDD60 == 0) {
+            arg0 = func_150950D4((s32)func_1517EA4C((union Game1AB530DisplayCommand *)arg0), D_800903AC, 0, 0, 0, 0, 2, 0x100, 0x100, 3);
+            D_800DDD60 = 1;
+        }
+        val = glow->intensity;
+        val = (glow->level * val) >> 8;
+        for (i = 0; i < arg3; i++) {
+            fx = glow->x - (dx * (i * 2 + 2)) / 5.0f;
+            target = D_800A7250[arg2][i];
+            fy = glow->y - (dy * (i * 2 + 2)) / 5.0f;
+            fy += (f32)target * 0.015625f;
+            sprite.alpha = val;
+            sprite.width = ((f32)(target << 12) * D_800380A0) / 255.0f;
+            sprite.height = ((f32)(target << 12) * D_800380A4) / 255.0f;
+            D_800D2DAB = 0;
+            arg0 = func_15095A48(arg0, &sprite, fx, fy);
+            {
+                u32 *cmd = (u32 *)arg0;
+                cmd[0] = 0xE7000000;
+                arg0 += 8;
+                cmd[1] = 0;
+            }
+        }
+    }
+    return arg0;
+}
 typedef union Game1AB530DisplayCommand {
     struct {
         u32 word0;

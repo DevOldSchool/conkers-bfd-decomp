@@ -55,6 +55,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_1C1150 | 0x48 | 0x14 | 0x800A82BC | table, sites 0xB40 / 0xB48 | `151947F4` ×5 |
 | game_64120 | 0x0 | 0x4 | 0x80098648 | pool (func_15038468) | `42652EE0` (57.295776) |
 | game_64120 | 0x4 | 0x4 | 0x800986EC | pool (func_1503B708) | `C7C34F80` (-99999.0) |
+| game_49D30 | 0x0 | 0x4 | 0x800969C0 | pool (func_1501D044) | `4479C000` (999.0) |
+| game_49D30 | 0x4 | 0x4 | 0x800969D0 | pool (func_1501F72C) | `3C23D70A` (0.01) |
 | game_90840 | 0x0 | 0xB8 | 0x800996D8 | table, sites 0x450 / 0x458 | 46 action targets |
 | game_90840 | 0xB8 | 0x98 | 0x800997E8 | pool (func_15064B94) | 38 words, 0x800997E8..0x8009987F |
 | game_173D40 | 0x0 | 0x18 | 0x800A5708 | pool (func_15146A98) | `3CCCCCCC 3CA30553 40FF3B65 BECE5605 3E916873 3F741BDA` |
@@ -107,6 +109,14 @@ keep their runtime addresses.
   word. The words 0x8009864C..0x800986EB belong to unmatched functions and
   keep their extern symbols. The object `.rodata` is 0x10 bytes: 8 of
   payload and 8 zero alignment bytes.
+- **game_49D30:** `func_1501F72C` scales its key time by `0.01f` once before
+  its binary search loop. As an `extern` IDO reloads it inside the loop; as a
+  literal it is hoisted and the function matches. The checksum-validated ROM
+  holds `3C23D70A` at 0x800969D0 (HI16/LO16 at raw 0x1501F988/0x1501F990).
+  The [existing constant record](game_49d30_float_constants.md) covers the
+  first word. The words 0x800969C4..0x800969CF belong to the unmatched
+  `func_1501EA18` and `func_1501EC38` and keep their extern symbols. The
+  object `.rodata` is 0x10 bytes: 8 of payload and 8 zero alignment bytes.
 - **game_90840:** `func_15064B94` loads 38 literals (0.4, 0.6, 2.6, 0.3,
   0.2 and 0.65, each use its own word, as IDO emits them) from
   0x800997E8..0x8009987F in first-use order; the full 0x98-byte range was
