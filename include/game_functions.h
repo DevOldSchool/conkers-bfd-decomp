@@ -185,7 +185,7 @@ void func_1512868C(u8 *);
 void func_1512D2E4(struct Game159940Object *, s32);
 s32 func_15133760(s32, struct Game15F680TransformState *);
 void *func_1513C4EC(s32, s32, u8, u8, f32, f32, f32, f32, f32, u8, u8, s32, s32, s32, u8, s32);
-void func_1513D668(s32, s32, u8, u8, u8, u8, s16, f32, f32, s32, s32, u8, s32, u8, s32);
+void *func_1513D668(s32, s32, u8, u8, u8, u8, s16, f32, f32, s32, s32, u8, s32, u8, s32);
 void func_1513FA70(void *, s16);
 void func_151424F4(void *, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 s32 func_1514BC08(void *, void *);

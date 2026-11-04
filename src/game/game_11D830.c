@@ -9,7 +9,6 @@
  * - func_150F03F8
  * - func_150F0BEC
  * - func_150F0E48
- * - func_150F1170
  * - func_150F15F8
  * - func_150F16DC
  * - func_150F1A00
@@ -507,7 +506,119 @@ void func_150F10D4(void *arg0) {
         func_10022EC0((void *)(temp_v0 + 0x28), &packet, 0x18);
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1170.s")
+extern f32 D_800BE9A8;
+
+typedef struct Game11D830SparkTail {
+    u8 field_0;
+    u8 field_1;
+    u8 field_2;
+    u8 field_3;
+    f32 field_4;
+    f32 field_8;
+    f32 field_C;
+} Game11D830SparkTail;
+
+void func_150F1170(u8 *arg0) {
+    Game11D830SpawnPacket *state;
+    u8 *target;
+    Vec3f old;
+    f32 dx;
+    f32 dy;
+    f32 dz;
+    Game11D830EffectInitPacket packet;
+
+    target = *(u8 **)(arg0 + 0x28);
+    old = *(Vec3f *)(arg0 + 0x34);
+    state = (Game11D830SpawnPacket *)(arg0 + 0x28);
+    if (*(s32 *)target == 0 || state->field_4 != target[0x3B]) {
+        *(s16 *)(arg0 + 0xE) = -1;
+        return;
+    }
+    state->field_C = *(f32 *)(target + 0x14);
+    state->field_10 = *(f32 *)(target + 0x18);
+    state->field_14 = *(f32 *)(target + 0x1C);
+    dx = state->field_C - old.x;
+    dy = state->field_10 - old.y;
+    dz = state->field_14 - old.z;
+    state->field_8 += (0.109000005f + func_150ADA68() * 0.284f) * D_800BE9A4;
+    if (state->field_8 > 1.0f) {
+        Game11D830SparkTail tail;
+        s32 flags2;
+        s32 flags1;
+
+        tail.field_C = 0.986372f;
+        packet.colors[9] = 0x6C;
+        packet.kind = 0x5103;
+        packet.config = 0x200005;
+        packet.field_1E = 0x23;
+        packet.field_20 = 7;
+        packet.flags = 0x90DE07;
+        packet.bytes[0] = 8;
+        packet.bytes[1] = 6;
+        packet.bytes[2] = 0x20;
+        packet.bytes[3] = -1;
+        packet.mode = 0;
+        packet.field_C = 0;
+        packet.field_10 = 0;
+        packet.bytes[4] = -1;
+        packet.bytes[5] = 0;
+        packet.field_22 = 0x23;
+        packet.colors[0] = 0xDD;
+        packet.colors[1] = 0xD3;
+        packet.colors[2] = 0xCD;
+        packet.colors[3] = 0xFF;
+        packet.colors[4] = 0x57;
+        packet.colors[5] = 0x55;
+        packet.colors[6] = 0x5A;
+        packet.colors[8] = 0xFF;
+        packet.vector1.x = 0.0f;
+        packet.vector1.y = 0.0f;
+        packet.vector1.z = 0.0f;
+        packet.scale = 1.029834f;
+        do {
+            f32 t;
+            void *result;
+
+            t = func_150ADA68();
+            {
+                Vec3f *pos = &packet.position;
+                pos->x = dx * t + old.x;
+                pos->y = dy * t + old.y;
+                pos->z = dz * t + old.z;
+            }
+            packet.vector2.x = dx * D_800BE9A8 * 0.333f;
+            packet.vector2.y = dy * D_800BE9A8 * 0.333f;
+            packet.vector2.z = dz * D_800BE9A8 * 0.333f;
+            tail.field_0 = func_150ADA20() & 0xFF;
+            tail.field_1 = (u8)(func_150ADA20() & 0xFF);
+            tail.field_2 = func_150ADA20() % 5 + 4;
+            tail.field_3 = func_150ADA20() % 5 + 4;
+            tail.field_4 = func_150ADA68() * 39.0f;
+            tail.field_8 = func_150ADA68() * 39.0f;
+            packet.field_54 = func_150ADA68() * 0.514f + 0.656f;
+            packet.flags &= ~0xC0;
+            if (func_150ADA20() & 1) {
+                flags2 = 0x80;
+            } else {
+                flags2 = 0;
+            }
+            if (func_150ADA20() & 1) {
+                flags1 = 0x40;
+            } else {
+                flags1 = 0;
+            }
+            packet.flags = packet.flags | (u32)(flags1 | flags2);
+            packet.colors[7] = func_150ADA20() % 71 + 0x50;
+            packet.lifetime = func_150ADA20() % 31 + 0x3C;
+            packet.width = packet.height = func_150ADA68() * 514.0f + 404.0f;
+            result = func_15130280(&packet, 1, NULL, 0x10, arg0[0xC], arg0[1]);
+            if (result != NULL) {
+                func_10022EC0((u8 *)result + 0xA8, &tail, 0x10);
+            }
+            state->field_8 -= 1.0f;
+        } while (state->field_8 > 1.0f);
+    }
+}
 void func_15149514(s32, u8, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F15F8 CURRENT (160) */

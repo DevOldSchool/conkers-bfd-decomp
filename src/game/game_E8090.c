@@ -6,13 +6,113 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150BABE0
  * - func_150BAFEC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E8090/func_150BABE0.s")
+typedef struct GameBABE0Packet {
+    s32 field_0;
+    s16 field_4;
+    u8 field_6;
+    u8 field_7;
+    s32 field_8;
+    s32 field_C;
+    u8 field_10;
+    u8 field_11;
+    u8 field_12;
+    u8 field_13;
+    u8 field_14;
+    u8 field_15;
+    u8 field_16;
+    u8 field_17;
+    s32 field_18;
+    s32 field_1C;
+    u8 field_20;
+    u8 pad21[7];
+} GameBABE0Packet;
+u8 func_15143E94(s32, s32);
+void func_1514C678(f32, f32, f32, f32, s32, s32, s32, s32, s32, f32, s32, u8);
+f32 func_150ADA68(void);
+s32 func_15046C80(f32 *, u16, f32, void *);
+void func_1504715C(void *, void *);
+s32 func_1518ABD0(void *, void *, u8);
+extern void *D_80088750;
+extern s32 D_80082FA4;
+extern f32 D_8009FE70;
+extern struct108 *D_800DBFF0;
+
+void func_150BABE0(u8 *arg0, u8 arg1, u8 arg2) {
+    f32 position[3];
+    s32 type;
+    s32 angle;
+    Game71820Hit hit;
+    f32 probe[3];
+    GameBABE0Packet packet;
+    void *created;
+    f32 scale;
+
+    angle = (s32)(D_800DBFF0[D_80082FA4].unk380 * D_8009FE70);
+    if (arg0 == NULL) {
+        return;
+    }
+    if (*(s32 *)arg0 == 0 || *(s32 *)arg0 == 8) {
+        return;
+    }
+    if (*(s32 *)(arg0 + 0x1D4) == 0) {
+        return;
+    }
+    switch (arg1) {
+    case 0:
+        type = 0x11;
+        break;
+    case 1:
+        type = 0x1A;
+        break;
+    }
+    func_15142314((void *)*(s32 *)(arg0 + 0x1D4), type, position);
+    position[1] = *(f32 *)(arg0 + 0x180);
+    func_15143E94(5, 0x4022);
+    func_15165F80(-1, (s32)position[0], (s32)(position[1] + 6.0f),
+                 (s32)position[2], 0x19, 0x12, 0, arg2, 1);
+    func_1514C678(position[0], position[1], position[2], func_150ADA68() * 50.0f + 40.0f,
+                 (s16)(angle + 0x3C), (s16)(angle - 0x3C), (func_150ADA20() % 11U) + 0x1E, 5, 0, 0.0f, 0, arg2);
+    func_1504715C(&hit, arg0);
+    probe[0] = position[0];
+    probe[1] = position[1] + 100.0f;
+    probe[2] = position[2];
+    if (func_15046C80(probe, 0, position[1] - 100.0f, &hit) != 0) {
+        scale = func_150ADA68() * 200.0f + 200.0f;
+        packet.field_6 = 0x2A;
+        packet.field_7 = 0;
+        packet.field_0 = 0x7340;
+        packet.field_4 = 0x12C;
+        packet.field_8 = 0;
+        packet.field_C = (func_150ADA20() % 2001U) + 0x7D0;
+        packet.field_10 = 0xFF;
+        packet.field_11 = 0xFF;
+        packet.field_12 = 0;
+        packet.field_13 = 0;
+        packet.field_14 = 0;
+        packet.field_15 = 0xFF;
+        packet.field_16 = 0;
+        packet.field_17 = 0xD;
+        packet.field_20 = 0xFF;
+        packet.field_1C = 0;
+        packet.field_18 = 0x170002;
+        created = func_1513C73C((s32)&packet, 0, 0, (s32)&hit.points[0],
+                                position[0], hit.height, position[2], scale, scale,
+                                func_150ADA20() & 0xFF, (func_150ADA20() & 1) * 2 + (func_150ADA20() & 1),
+                                4, arg2, 0);
+        if (created != NULL) {
+            if (func_1518ABD0(D_80088750, created, 1) == 0) {
+                func_1516972C(created);
+            }
+        }
+    }
+    func_1514C678(position[0], position[1], position[2], func_150ADA68() * 40.0f + 60.0f,
+                 (s16)(angle + 0x3C), (s16)(angle - 0x3C), (func_150ADA20() % 7U) + 6, 6, 0, 0.0f, 0, arg2);
+}
 typedef struct GameBAFECPacket {
     u32 flags;
     u32 owner;

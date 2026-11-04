@@ -11,7 +11,6 @@
  * - func_151BA468
  * - func_151BA518
  * - func_151BB0E0
- * - func_151BB61C
  * - func_151BC104
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -264,7 +263,159 @@ void func_151BB044(void *arg0) {
                   (s32) arg0, 0, 8, 0);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E73B0/func_151BB0E0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E73B0/func_151BB61C.s")
+typedef struct Game1E73B0Surface {
+    s16 data[9];
+} Game1E73B0Surface;
+
+typedef struct Game1E73B0Burst {
+    Vec3f direction;
+    Game1E73B0Surface surface;
+    f32 size;
+    s32 count24;
+    s32 count28;
+    Vec3f position;
+    f32 field38;
+    f32 field3C;
+    f32 field40;
+    f32 field44;
+    f32 field48;
+    f32 field4C;
+    s32 field50;
+    s32 field54;
+    f32 field58;
+    f32 field5C;
+    f32 field60;
+    f32 field64;
+    s16 field68;
+    s16 field6A;
+    s16 field6C;
+    s16 field6E;
+    s16 field70;
+    s16 field72;
+    s8 field74;
+} Game1E73B0Burst;
+
+typedef struct Game1E73B0Spray {
+    s32 field00;
+    s32 field04;
+    Vec3f position;
+    Vec3f direction;
+    Game1E73B0Surface surface;
+    f32 field34;
+    f32 field38;
+    f32 field3C;
+    f32 field40;
+    f32 field44;
+    s16 field48;
+    s16 field4A;
+    f32 field4C;
+    f32 field50;
+    f32 field54;
+} Game1E73B0Spray;
+
+extern f32 D_800AA7E0;
+extern f32 D_800AA7E4;
+extern f32 D_800AA7E8;
+extern f32 D_800AA7EC;
+extern f32 D_800AA7F0;
+extern f32 D_800AA7F8;
+extern f32 D_800AA7FC;
+extern f32 D_800AA800;
+extern f32 D_800AA804;
+extern f32 D_800AA808;
+s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *,
+                  f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
+s32 func_15145C90(s32);
+void func_1514FBFC(void *, u8, s32);
+void func_15151D6C(void *, void *, void *, s32, u8, s32);
+void func_15055A2C(s32, f32, f32, f32, s32);
+s32 func_15144E80(void *, void *, void *, void *);
+void func_151BBEE4(void *, u8, s32);
+void func_151BBFBC(s32, s32, u8, s32);
+void func_151C0644(void *, u8, s32);
+
+void func_151BB61C(s32 arg0, f32 *arg1, f32 *arg2, u8 arg3, s32 arg4) {
+    Game1E73B0Surface surface;
+    Vec3f hit;
+    Vec3f delta;
+    s32 id;
+    Vec3f normal;
+    Vec3f tangent;
+    Vec3f facing;
+    Game1E73B0Burst burst;
+
+    if (arg0 != 0) {
+        func_15055A2C(0, arg1[0], arg1[1], arg1[2], 0);
+        delta.x = arg2[0] - arg1[0];
+        delta.y = arg2[1] - arg1[1];
+        delta.z = arg2[2] - arg1[2];
+        func_151C05A4(arg1, arg3, arg4);
+        func_151C05F0(arg1, arg3, arg4);
+        func_151C04F8(arg1, arg3, arg4);
+        func_151BBEE4(arg1, arg3, arg4);
+        if (func_150AC9C0(arg1[0], arg1[1], arg1[2], delta.x, delta.y, delta.z, NULL, surface.data,
+                          &hit.x, &hit.y, &hit.z, NULL, &id, NULL, 0.0f) != 0) {
+            if (func_15145C90(id) != 0) {
+                func_151BBFBC((s32)&surface, (s32)&hit, arg3, arg4);
+            }
+            if (func_15144E80(&surface, &normal, &tangent, &facing) != 0 && facing.y < 0.0f) {
+                func_151C0644(&hit, arg3, arg4);
+            }
+            burst.direction.x = -delta.x;
+            burst.direction.y = -delta.y;
+            burst.direction.z = -delta.z;
+            burst.surface = surface;
+            burst.size = 494.0f;
+            burst.position = hit;
+            burst.count24 = 3;
+            burst.count28 = 4;
+            burst.field50 = 7;
+            burst.field54 = 3;
+            burst.field68 = 0x19;
+            burst.field6A = 0xF;
+            burst.field6C = 0x64;
+            burst.field6E = 0x64;
+            burst.field70 = 0xC;
+            burst.field72 = 0x14;
+            burst.field74 = 0;
+            burst.field38 = D_800AA7E0;
+            burst.field3C = D_800AA7E4;
+            burst.field40 = 45.0f;
+            burst.field44 = 53.0f;
+            burst.field48 = 203.0f;
+            burst.field4C = 414.0f;
+            burst.field58 = 15.0f;
+            burst.field5C = D_800AA7E8;
+            burst.field60 = D_800AA7EC;
+            burst.field64 = D_800AA7F0;
+            func_1514FBFC(&burst, arg3, arg4);
+            {
+            const s32 indices[9] = { 4, 4, 7, 8, 24, 25, 29, 30, 32 };
+            const f32 factors[9] = { 1.0f, 1.0f, 0.15f, 0.15f, 1.0f, 1.0f, 0.097f, 1.0f, 0.2f };
+            Game1E73B0Spray spray;
+
+            spray.field00 = 6;
+            spray.field04 = 6;
+            spray.position = hit;
+            spray.direction.x = -delta.x;
+            spray.direction.y = -delta.y;
+            spray.direction.z = -delta.z;
+            spray.surface = surface;
+            spray.field34 = 456.0f;
+            spray.field38 = 0.020000001f;
+            spray.field3C = 0.020000001f;
+            spray.field40 = D_800AA7F8;
+            spray.field44 = D_800AA7FC;
+            spray.field48 = 0x32;
+            spray.field4A = 0x14;
+            spray.field4C = D_800AA800;
+            spray.field50 = D_800AA804;
+            spray.field54 = D_800AA808;
+            func_15151D6C(&spray, (void *)indices, (void *)factors, 9, arg3, arg4);
+            }
+        }
+    }
+}
 typedef struct Game1E73B0Effect {
     s16 field00;
     s16 field02;
