@@ -7,3 +7,16 @@ The checksum-validated US game-data archive contains big-endian `42652EE0 42652E
 The generated `build/us/src/game/game_111670.o` has a 0x20-byte `.rodata` equal to those 32 ROM bytes, with no alignment padding and no data relocations. Only `func_150E5558` references `.rodata`. Earlier unit constants (for example 0x800A1060 used by `func_150E42F8`) keep their extern symbols and are outside this mapping; the next ROM word at 0x800A1160 belongs to the following data and is not replaced.
 
 The INFO mapping retains linked bytes for verification without appending to the code-only payload, and a size assertion detects constant-pool growth. The full registered instruction comparison reached CURRENT (0) with focused layout, progress and whitespace checks passed; the clean linked verify-batch result is recorded in the commit that adds this mapping. No reference assembly, compiler flag or verifier changes are involved.
+
+## Spark constants (func_150E4E04)
+
+`func_150E4E04`, the member before `func_150E5558` in text order, hoists five
+loop-invariant literals: `815.0f`, `0.0001f`, `0.9f`, `0.315f` and `957.0f`.
+With extern symbols IDO reloads them inside the loop (CURRENT 523); as literals
+the function reaches CURRENT (0). The same checksum-validated archive holds
+big-endian `444BC000 38D1B717 3F666666 3EA147AE 446F4000` at
+0x800A112C..0x800A113F, immediately before the 0x800A1140 pool. The mapping
+therefore starts at 0x800A112C: the object `.rodata` is 0x40 bytes, 0x34 of
+payload (these five words followed by the eight words above) and 12 zero
+alignment bytes. The word at 0x800A1128 stays the extern of the matched
+`func_150E4928`.

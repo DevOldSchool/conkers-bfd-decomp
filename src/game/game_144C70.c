@@ -10,7 +10,6 @@
  * - func_151179BC
  * - func_15117D3C
  * - func_15117F3C
- * - func_151189AC
  * - func_151193F4
  * - func_151194D4
  * - func_151196D4
@@ -323,7 +322,156 @@ void func_1511896C(void *arg0) {
 void func_1511898C(void *arg0) {
     func_151189AC(arg0, 3);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_151189AC.s")
+typedef struct Game189ACSoundRow {
+    s16 open;
+    s16 close;
+    s16 opened;
+    s16 closed;
+    u8 pad8[4];
+} Game189ACSoundRow;
+f32 func_15048A70(f32, f32);
+void func_15173C60(s32, s32);
+void func_15173C90(s32, s32, s32);
+void func_1518804C(s32, f32);
+void func_1511F990(void *, s32);
+s32 func_15022B08(s32, s32);
+void func_1000E75C(s32);
+void func_15114D24(void *, s32, s32, s16, s32, s32);
+extern Game189ACSoundRow D_80089260[];
+extern Game189ACSoundRow D_80089262[];
+extern f32 D_800A3138;
+extern f32 D_800A313C;
+extern f32 D_800A3140;
+extern f32 D_800A3144;
+extern u8 D_800BE9B4;
+extern u8 D_800C35EA;
+extern s32 D_800DBEF4;
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+
+void func_151189AC(void *arg0, s32 arg1) {
+    f32 speed;
+    f32 target;
+    f32 angle;
+    f32 remaining;
+    f32 damping;
+    f32 accel;
+    s32 mode;
+    s32 index;
+    s32 openAngle;
+    s32 row;
+    s32 sound;
+    s32 slow;
+    f32 scale;
+
+    sound = 0;
+    slow = 0;
+    func_1511F990(arg0, arg1);
+    row = (*(s32 *)(((u8 *)arg0) + 0x3C) & 0xFC00) >> 10;
+    openAngle = (*(s32 *)(((u8 *)arg0) + 0x3C) << 22) >> 22;
+    mode = ((u8 *)arg0)[0x73] & 3;
+    target = openAngle;
+    angle = *(f32 *)(((u8 *)arg0) + 4);
+    speed = *(f32 *)(((u8 *)arg0) + 0x84);
+    if (mode == 0 || mode == 1) {
+        target = 0.0f;
+        if (mode == 1 && (((u8 *)arg0)[0x73] & 4)) {
+            slow = 1;
+        }
+    }
+    if (mode == 0 || mode == 3) {
+        speed = 0.0f;
+        angle = target;
+    }
+    if (angle != target || speed != 0.0f) {
+        if (*(f32 *)(((u8 *)arg0) + 0x7C) == 0.0f) {
+            if (slow) {
+                *(f32 *)(((u8 *)arg0) + 0x7C) = D_800A3138;
+            } else {
+                *(f32 *)(((u8 *)arg0) + 0x7C) = D_800A313C;
+            }
+        }
+        damping = *(f32 *)(((u8 *)arg0) + 0x7C);
+        if (*(f32 *)(((u8 *)arg0) + 0x80) == 0.0f) {
+            if (slow) {
+                *(f32 *)(((u8 *)arg0) + 0x80) = D_800A3140;
+            } else {
+                *(f32 *)(((u8 *)arg0) + 0x80) = D_800A3144;
+            }
+        }
+        accel = *(f32 *)(((u8 *)arg0) + 0x80);
+        if (speed == 0.0f) {
+            if (target == 0.0f) {
+                sound = D_80089262[row].open;
+            } else {
+                sound = D_80089260[row].open;
+            }
+        }
+        angle += speed;
+        remaining = func_15048A70(angle, target);
+        if (fabsf(remaining) < fabsf(speed)) {
+            speed = -speed * damping;
+            if (fabsf(speed) < 1.0f) {
+                speed = 0.0f;
+                angle = target;
+                if (target == 0.0f) {
+                    mode = 0;
+                    sound = D_80089260[row].closed;
+                } else {
+                    mode = 3;
+                    sound = D_80089260[row].opened;
+                }
+            } else {
+                accel *= 0.5f;
+                *(f32 *)(((u8 *)arg0) + 0x80) = accel;
+            }
+        } else if (remaining > 0.0f) {
+            speed += accel;
+            if (speed > 5.0f) {
+                speed = 5.0f;
+            }
+        } else {
+            speed -= accel;
+            if (speed < -5.0f) {
+                speed = -5.0f;
+            }
+        }
+        if ((remaining < 0 ? -remaining : remaining) > 30.0f && remaining * speed < 0.0f) {
+            speed = 0.0f;
+        }
+        if (angle < -180.0f) {
+            angle += 360.0f;
+        } else if (angle >= 180.0f) {
+            angle -= 360.0f;
+        }
+        ((u8 *)arg0)[0x73] &= ~3;
+        ((u8 *)arg0)[0x73] |= mode;
+        if (sound != 0) {
+            func_15114D24(arg0, sound, 0x5DC0, 0x9C4, 0x1194, 0);
+        }
+    }
+    *(f32 *)(((u8 *)arg0) + 0x84) = speed;
+    if (D_800BE9B4 != 0 || angle != *(f32 *)(((u8 *)arg0) + 4)) {
+        if (D_800C35EA == 1 && func_15022B08(((s32)arg0 - D_800DBEF4) / 160, 0) != 0) {
+            angle = *(f32 *)(((u8 *)arg0) + 4);
+        } else {
+            *(f32 *)(((u8 *)arg0) + 4) = angle;
+        }
+        index = (*(s32 *)(((u8 *)arg0) + 0x3C) >> 24) & 0xFF;
+        if (D_800BE9F0 == 2) {
+            func_1000E75C(255.0f - fabsf(((angle - (f32)openAngle) * 255.0f) / (f32)openAngle));
+            return;
+        }
+        if (index != 0) {
+            scale = 1.0f - fabsf((fabsf(angle) - (openAngle < 0 ? -openAngle : openAngle)) / (f32)openAngle);
+            func_1518804C(index - 1, scale);
+            func_15173C60(scale * 255.0f, index - 1);
+            if (D_800BE9F0 == 1 && index - 1 == 0) {
+                func_15173C90(scale * 255.0f, 0, 0xF8);
+            }
+        }
+    }
+}
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 f32 func_15048A70(f32, f32);
 void func_15173C60(s32, s32);

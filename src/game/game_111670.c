@@ -10,7 +10,6 @@
  * - func_150E4550
  * - func_150E4928
  * - func_150E4CBC
- * - func_150E4E04
  * - func_150E5810
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -361,7 +360,183 @@ void func_150E4CBC(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150E4CBC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_111670/func_150E4CBC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_111670/func_150E4E04.s")
+typedef struct GameE4E04Triangle {
+    f32 values[3][3];
+} GameE4E04Triangle;
+
+typedef struct GameE4E04Packet {
+    void *data;
+    u8 pad04[8];
+    s16 field0C, field0E;
+    s16 x, y, z;
+    s16 velocityX, velocityZ;
+    u8 pad1A[5];
+    s8 field1F;
+    s16 velocityY;
+    s16 field22;
+    s16 field24, field26;
+    s16 field28;
+    s8 field2A;
+    u8 pad2B;
+    u8 red, green, blue, alpha;
+    u8 pad30[4];
+    s16 field34;
+    u8 pad36[2];
+} GameE4E04Packet;
+
+void func_150440A0(void *, f32, f32, f32, f32, f32, f32, f32, f32, f32);
+f32 func_150ADA68(void);
+void func_15049350();
+void func_150E5558(f32, f32, f32, f32, f32, f32, s32, s32);
+extern f32 D_800CC210, D_800CC214, D_800CC218;
+extern u8 D_8009187C[], D_800918A0[], D_800918AC[], D_80090520[];
+extern u8 D_800D9960[];
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+
+void func_150E4E04(f32 arg0, f32 arg1, f32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
+    f32 base;
+    f32 range;
+    f32 x;
+    f32 y;
+    f32 z;
+    s32 noMatrix;
+    s32 doubled;
+    s32 i;
+    GameE4E04Triangle triangle;
+    f32 nx;
+    f32 ny;
+    f32 nz;
+    f32 length;
+    f32 speed;
+    f32 matrix[16];
+    GameE4E04Packet packet;
+    f32 scale;
+    s32 count;
+    s32 ok;
+    s32 skip;
+    u8 angle;
+
+    scale = 815.0f;
+    ok = 1;
+    count = 1;
+    noMatrix = 0;
+    doubled = 0;
+    skip = 0;
+    speed = scale;
+    func_100226F0(&packet, 0x38);
+    if (arg3 & 0x8000) {
+        skip = 1;
+        arg3 ^= 0x8000;
+    }
+    if (arg5 != 0) {
+        for (i = 0; i < 3; i++) {
+            triangle.values[i][0] = ((s16 **)arg5)[i][0];
+            triangle.values[i][1] = ((s16 **)arg5)[i][1];
+            triangle.values[i][2] = ((s16 **)arg5)[i][2];
+        }
+        func_15049350(triangle);
+        nx = -D_800CC210;
+        ny = -D_800CC214;
+        nz = -D_800CC218;
+        length = sqrtf(nx * nx + ny * ny + nz * nz);
+        if (length < 0.0001f) {
+            return;
+        }
+        nx /= length;
+        ny /= length;
+        nz /= length;
+        if (arg6 != 0xFF && fabsf(ny) < 0.9f) {
+            func_150440A0(matrix, 0.0f, 0.0f, 0.0f, nx, ny, nz, 0.0f, 1.0f, 0.0f);
+            func_150A7960(matrix, 0.0f, 0.0f, 1.0f, (f32 *)(D_800D9960 + arg6 * 0x1C + 0x10),
+                          (f32 *)(D_800D9960 + arg6 * 0x1C + 0x14), (f32 *)(D_800D9960 + arg6 * 0x1C + 0x18));
+        } else {
+            noMatrix = 1;
+        }
+    } else {
+        noMatrix = 1;
+    }
+    if (arg6 != 0xFF && noMatrix != 0) {
+        D_800D9963[arg6 * 0x1C] = 0;
+    }
+    if (skip != 0) {
+        return;
+    }
+    packet.x = (s32)arg0;
+    packet.y = (s32)arg1;
+    packet.z = (s32)arg2;
+    packet.red = 0xB4;
+    packet.green = 0xB4;
+    packet.blue = 0xB4;
+    packet.alpha = 0xFF;
+    packet.field1F = -1;
+    packet.field34 = 0;
+    packet.field0C = 0;
+    packet.field0E = 0;
+    base = (f32)D_800A1110[arg4][1] * 95.0f * 0.00390625f;
+    range = (f32)D_800A1110[arg4][1] * 130.0f * 0.00390625f;
+    if (arg3 == 0x11) {
+        packet.data = D_8009187C;
+    } else if (arg3 == 0xA) {
+        packet.data = D_800918A0;
+    } else if (arg3 == 4 || arg3 == 9) {
+        packet.data = D_800918A0;
+    } else if (arg3 == 8) {
+        packet.data = D_80090520;
+        base = 180.0f;
+        range = 200.0f;
+    } else {
+        packet.data = D_800918AC;
+    }
+    if (arg4 == 2) {
+        doubled = 1;
+        packet.field22 = -0x175;
+        count = 12;
+        speed *= 0.5f * (f32)(func_151EF610() % 3 + 1);
+    } else if (arg4 == 0) {
+        packet.field22 = -0xDA;
+        count = 12;
+        speed = scale * 0.5f;
+    } else {
+        packet.field22 = -0xDA;
+    }
+    while (count-- && ok) {
+        f32 velocity;
+        velocity = func_150ADA68() * 957.0f + speed;
+        angle = func_151EF610() % 256;
+        if (doubled != 0) {
+            velocity += velocity;
+        }
+        if (noMatrix != 0) {
+            nx = func_15048A40(angle);
+            ny = 1.0f;
+            nz = func_150489B0(angle);
+        } else {
+            scale = func_15048A40(angle);
+            func_150A7960(matrix, scale * 0.5f, func_150489B0(angle) * 0.5f, 1.0f,
+                          &nx, &ny, &nz);
+        }
+        x = 0.315f * nx;
+        y = ny;
+        z = 0.315f * nz;
+        packet.field28 = func_151EF610() % 2 + 0x182;
+        packet.velocityX = velocity * x;
+        packet.velocityY = velocity * y;
+        packet.velocityZ = velocity * z;
+        func_151EF610();
+        packet.field2A = 0xA;
+        packet.field24 = func_150ADA68() * range + base;
+        packet.field26 = func_150ADA68() * range + base;
+        if (func_15167D84(&packet, 0, 0, -1, 0xFF, 0) == NULL) {
+            ok = 0;
+        }
+    }
+    if ((arg3 == 4 || arg3 == 9 || arg3 == 5) && func_151EF610() % 5 == 0) {
+        func_150E5558(arg0, arg1, arg2, nx, ny, nz, arg3, arg4);
+    }
+}
 typedef struct Game111670Effect {
     f32 field0, field4, field8, fieldC;
     f32 angle[3], scale[3], position[3], velocity[3], acceleration[3];

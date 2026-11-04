@@ -55,7 +55,7 @@ SECTIONS
         *game_191C30.o(.rodata)
     }
     /* ROM-verified constant: docs/evidence/data-layout/game_197120_float_constant.md. */
-    .game_rodata_197120 0x800A6CC8 (INFO) : SUBALIGN(4)
+    .game_rodata_197120 0x800A6CB0 (INFO) : SUBALIGN(4)
     {
         *game_197120.o(.rodata)
     }
@@ -107,7 +107,7 @@ SECTIONS
         *game_1D6E80.o(.rodata)
     }
     /* ROM-verified constants: docs/evidence/data-layout/game_111670_float_constants.md. */
-    .game_rodata_111670 0x800A1140 (INFO) : SUBALIGN(4)
+    .game_rodata_111670 0x800A112C (INFO) : SUBALIGN(4)
     {
         *game_111670.o(.rodata)
     }
@@ -217,6 +217,11 @@ SECTIONS
     .game_rodata_19e040 0x800A6FB0 (INFO) : SUBALIGN(4)
     {
         *game_19E040.o(.rodata)
+    }
+    /* ROM-verified constant: docs/evidence/data-layout/game_1b5370_float_constant.md. */
+    .game_rodata_1b5370 0x800A7398 (INFO) : SUBALIGN(4)
+    {
+        *game_1B5370.o(.rodata)
     }
     /* ROM-verified constants: docs/evidence/data-layout/game_1b81d0_float_constants.md. */
     .game_rodata_1b81d0 0x800A73E0 (INFO) : SUBALIGN(4)
@@ -579,6 +584,8 @@ __game_rodata_e8c10_payload_size = 0x14;
 ASSERT(SIZEOF(.game_rodata_19e040) == 0x10,
        "game_19E040 particle literal extent changed")
 __game_rodata_19e040_payload_size = 0x10;
+ASSERT(SIZEOF(.game_rodata_1b5370) == 0x10, "game_1B5370 constant pool extent changed")
+__game_rodata_1b5370_payload_size = 0x4;
 ASSERT(SIZEOF(.game_rodata_1b81d0) == 0x20,
        "game_1B81D0 particle literal extent changed")
 __game_rodata_1b81d0_payload_size = 0x14;
@@ -654,9 +661,9 @@ __game_rodata_20a290_payload_size = 0x10;
 ASSERT(SIZEOF(.game_rodata_1fa770) == 0x10,
        "game_1FA770 particle gravity literal extent changed")
 __game_rodata_1fa770_payload_size = 0x8;
-ASSERT(SIZEOF(.game_rodata_111670) == 0x20,
+ASSERT(SIZEOF(.game_rodata_111670) == 0x40,
        "game_111670 effect literal pool extent changed")
-__game_rodata_111670_payload_size = 0x20;
+__game_rodata_111670_payload_size = 0x34;
 
 ASSERT(SIZEOF(.game_rodata_1179b0) == 0x10,
        "game_1179B0 velocity literal extent changed")
@@ -699,8 +706,8 @@ __game_rodata_133190_payload_size = 0x8;
 
 ASSERT(SIZEOF(.game_rodata_191c30) == 0x20, "game_191C30 constant pool extent changed")
 __game_rodata_191c30_payload_size = 0x18;
-ASSERT(SIZEOF(.game_rodata_197120) == 0x10, "game_197120 constant pool extent changed")
-__game_rodata_197120_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_197120) == 0x20, "game_197120 constant pool extent changed")
+__game_rodata_197120_payload_size = 0x1C;
 
 ASSERT(SIZEOF(.game_rodata_1d4ac0) == 0x10, "game_1D4AC0 constant pool extent changed")
 __game_rodata_1d4ac0_payload_size = 0xC;
