@@ -626,9 +626,9 @@ __game_rodata_123d40_payload_size = 0xC;
 ASSERT(SIZEOF(.game_rodata_1dbd40) == 0x10,
        "game_1DBD40 emission literal extent changed")
 __game_rodata_1dbd40_payload_size = 0xC;
-ASSERT(SIZEOF(.game_rodata_200930) == 0x20,
+ASSERT(SIZEOF(.game_rodata_200930) == 0x30,
        "game_200930 effect literal extent changed")
-__game_rodata_200930_payload_size = 0x1C;
+__game_rodata_200930_payload_size = 0x24;
 ASSERT(SIZEOF(.game_rodata_12ccf0) == 0x10,
        "game_12CCF0 sparkle literal extent changed")
 __game_rodata_12ccf0_payload_size = 0x10;

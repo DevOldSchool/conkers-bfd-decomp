@@ -22,7 +22,6 @@
  * - func_15198D88
  * - func_151990AC
  * - func_151994B8
- * - func_15199A10
  * - func_15199C34
  * - func_1519A9A4
  * - func_1519B4B8
@@ -1991,13 +1990,11 @@ extern s32 (*D_8008F8C4[])(CharacterFlamethrowerActor *);
 extern void (*D_8008F8BC[])(CharacterFlamethrowerActor *);
 void func_1519BE1C(Vec3f *, Vec3f *, f32, f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15199A10 CURRENT (215) */
 s32 func_15199A10(CharacterFlamethrowerActor *arg0) {
     CharacterFlamethrowerMovingPoint *point;
     s32 index;
     CharacterFlamethrowerState *state;
     u8 *points;
-    CharacterFlamethrowerAttachment *attachment;
     CharacterFlamethrowerShortPosition *position;
     CharacterFlamethrowerMovingPoint *head;
 
@@ -2022,13 +2019,16 @@ s32 func_15199A10(CharacterFlamethrowerActor *arg0) {
             point->size += state->size_rate * D_800BE9A4;
         } while (index != arg0->point_index);
     }
-    attachment = (CharacterFlamethrowerAttachment *)state->unk148;
-    if ((attachment != 0) && (arg0->unk2C >= 2)) {
-        position = attachment->position;
-        head = (CharacterFlamethrowerMovingPoint *)(arg0->point_index * 0x28 + points);
-        position->x = (s16)(s32)head->position.x;
-        position->y = (s16)(s32)head->position.y;
-        position->z = (s16)(s32)head->position.z;
+    {
+        CharacterFlamethrowerAttachment *attachment = (CharacterFlamethrowerAttachment *)state->unk148;
+        if ((attachment != 0) && (arg0->unk2C >= 2)) {
+            s32 idx = arg0->point_index;
+            position = attachment->position;
+            head = (CharacterFlamethrowerMovingPoint *)(idx * 0x28 + points);
+            position->x = (s16)(s32)head->position.x;
+            position->y = (s16)(s32)head->position.y;
+            position->z = (s16)(s32)head->position.z;
+        }
     }
     if (state->callback38 != -1) {
         D_8008F8BC[state->callback38](arg0);
@@ -2043,8 +2043,6 @@ s32 func_15199A10(CharacterFlamethrowerActor *arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15199A10 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15199A10.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15199C34.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519A9A4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519B4B8.s")

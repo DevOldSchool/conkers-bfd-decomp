@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1507E2B0
  * - func_1507E3C0
- * - func_1507E73C
  * - func_1507E7E4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -231,21 +230,18 @@ typedef struct GameAB760State {
 void func_1507E2B0(GameAB760State *);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E73C CURRENT (220) */
 void func_1507E73C(GameAB760State *arg0) {
-    u32 temp_v0;
-    u16 temp_v1;
+    s32 t;
 
     if (arg0->pad0[5] != 2) {
-        temp_v1 = arg0->expressionTimer;
-        if (temp_v1 != 0) {
-            if (temp_v1 == 0xFFFE) {
+        if (arg0->expressionTimer != 0) {
+            t = arg0->expressionTimer;
+            if (t == 0xFFFE) {
                 return;
             }
-            temp_v0 = (u32)temp_v1;
-            if (temp_v1 != 0xFFFF) {
-                if (D_800BE9E4 < (s32)temp_v0) {
-                    arg0->expressionTimer = temp_v0 - D_800BE9E4;
+            if (t != 0xFFFF) {
+                if (D_800BE9E4 < t) {
+                    arg0->expressionTimer = t - D_800BE9E4;
                 } else {
                     arg0->expressionTimer = 0;
                 }
@@ -259,8 +255,6 @@ void func_1507E73C(GameAB760State *arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507E73C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E73C.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E7E4 CURRENT (258) */
 void func_1507E7E4(GameAB760State *arg0, u8 arg1, u8 arg2, s32 arg3, s32 arg4) {
     if (((arg1 != arg0->pad6E[1]) || (arg2 != arg0->expressionPriority) ||

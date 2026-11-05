@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1D9A00.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_table_runs.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151AC61C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 u8 func_151D8E20(void);
@@ -69,42 +64,31 @@ extern s8 D_800A9023[];
 extern Game1D9A00EmitterConfig D_800A9180[];
 
 /* D_8008AA00[12] points here; its existing callback declaration fixes the slots. */
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AC61C CURRENT (209) */
 s32 func_151AC61C(s32 arg0, s16 arg1, f32 arg2, f32 arg3, f32 arg4,
                    f32 arg5, f32 arg6, f32 arg7, s32 arg8, s32 arg9,
                    f32 arg10, s32 arg11, f32 arg12, Game1D9A00EmitterOwner *arg13,
                    s32 arg14) {
+    f32 unused[3];
     f32 position[3];
     f32 direction[3];
-    u32 random0;
-    f32 randomSize;
-    u32 random1;
-    f32 randomRate;
     Game1D9A00EmitterConfig *config;
 
     config = &D_800A9180[D_800A9023[arg11 * 5]];
     position[0] = arg2;
     position[1] = arg3;
     position[2] = arg4;
-    random0 = func_150ADA20();
     func_15143794((s16)arg8,
-        (s16)((random0 % (u32)(config->angleRange + 1)) + config->angle),
+        (s16)((func_150ADA20() % (u32)(config->angleRange + 1)) + config->angle),
         func_150ADA68() * config->speedRange + config->speed, direction);
-    randomRate = func_150ADA68();
-    random1 = func_150ADA20();
-    random0 = func_150ADA20();
-    randomSize = func_150ADA68();
     func_151D9014(position, direction, arg13->kind,
-        randomRate * config->rateRange + config->rate,
-        (random1 % (u32)(config->lifeRange + 1)) + config->life,
-        (random0 % (u32)(config->alphaRange + 1)) + config->alpha,
-        randomSize * config->sizeRange + config->size,
+        func_150ADA68() * config->rateRange + config->rate,
+        (func_150ADA20() % (u32)(config->lifeRange + 1)) + config->life,
+        (func_150ADA20() % (u32)(config->alphaRange + 1)) + config->alpha,
+        func_150ADA68() * config->sizeRange + config->size,
         func_150ADA68() < config->probability,
         1.0f, 1.0f, 1, arg13->first, 1, 0, (u8)arg14, arg13->second);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AC61C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D9A00/func_151AC61C.s")
 
 typedef struct Game1D9A00Vertex {
     s16 x, y, z, flag;

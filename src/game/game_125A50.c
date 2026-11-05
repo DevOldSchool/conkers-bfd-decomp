@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_recovered_pointer_helper_groups_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150F85A0
  * - func_150F887C
  * - func_150F892C
  *
@@ -63,81 +62,81 @@ extern f32 D_800A1C64;
 extern f32 D_800A1C68;
 extern f32 D_800A1C6C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F85A0 CURRENT (180) */
 void func_150F85A0(s32 arg0, Game125A50Position *arg1, s32 arg2) {
     Vec3f position;
-    Game125A50Light light;
-    s32 coordinates[3];
-    Game125A50Particle descriptor;
 
     position.x = arg1->position14.x;
     position.y = arg1->position14.y + 50.0f;
     position.z = arg1->position14.z;
-    light.field4 = 0;
-    light.field0 = 3;
-    light.field1 = -1;
-    light.field2 = (func_150ADA20() % 9U) + 5;
-    coordinates[0] = (s32) position.x;
-    coordinates[1] = (s32) position.y;
-    coordinates[2] = (s32) position.z;
-    func_151602C0((u8 *)&light, coordinates, (func_150ADA20() % 31U) + 0x5A,
-                 0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0xFF, 1);
-    descriptor.field0 = 8;
-    descriptor.field4 = 0xC;
-    descriptor.position8 = position;
-    descriptor.field14 = D_800A1C60;
-    descriptor.field18 = D_800A1C64;
-    descriptor.field1C = D_800A1C68;
-    descriptor.field20 = D_800A1C6C;
-    descriptor.field24 = 15.0f;
-    descriptor.field28 = 30.0f;
-    descriptor.field2C = 0;
-    descriptor.field2E = 0xFF;
-    descriptor.field30 = -0x40;
-    descriptor.field32 = 0x50;
-    descriptor.field34 = 3;
-    descriptor.field38 = 1;
-    descriptor.field3C = 0x14;
-    descriptor.field3E = 0xF;
-    descriptor.field40 = 1;
-    descriptor.fields42[0] = 4;
-    descriptor.fields42[1] = 2;
-    descriptor.fields42[2] = 3;
-    descriptor.fields42[3] = 0xFF;
-    descriptor.fields42[4] = 0xFF;
-    descriptor.fields42[5] = 0xFF;
-    descriptor.fields42[6] = 0xFF;
-    descriptor.fields42[7] = 0;
-    descriptor.fields42[8] = 0;
-    descriptor.fields42[9] = 0;
-    descriptor.fields42[10] = 0;
-    descriptor.fields42[11] = 0xFF;
-    descriptor.fields42[12] = 0xFF;
-    descriptor.fields42[13] = 0xFF;
-    descriptor.fields42[14] = 0xFF;
-    descriptor.fields42[15] = 0;
-    descriptor.fields42[16] = 0;
-    descriptor.fields42[17] = 0;
-    descriptor.fields42[18] = 0;
-    descriptor.fields42[19] = 0xFF;
-    descriptor.fields42[20] = 0;
-    descriptor.fields42[21] = 3;
-    descriptor.fields42[22] = 0x24;
-    descriptor.field5C = 0x200005;
-    descriptor.field60 = 0x60600;
-    descriptor.field64 = 8;
-    descriptor.field66 = 0x1F;
-    descriptor.field68 = 1;
-    descriptor.field6A = 0;
-    descriptor.field6C = 1.0f;
-    descriptor.fields70[0] = -1;
-    descriptor.fields70[1] = 0;
-    descriptor.fields70[2] = -1;
-    descriptor.fields70[3] = -1;
-    func_15152B38(&descriptor, 0xFF, 1);
+    {
+        Game125A50Light light;
+        s32 coordinates[3];
+        Game125A50Particle descriptor;
+
+        light.field0 = 3;
+        light.field1 = -1;
+        light.field2 = (func_150ADA20() % 9U) + 5;
+        coordinates[0] = (s32) position.x;
+        light.field4 = 0;
+        coordinates[1] = (s32) position.y;
+        coordinates[2] = (s32) position.z;
+        func_151602C0((u8 *)&light, coordinates, (func_150ADA20() % 31U) + 0x5A,
+                     0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0xFF, 1);
+        descriptor.field0 = 8;
+        descriptor.field4 = 0xC;
+        descriptor.position8 = position;
+        descriptor.field14 = D_800A1C60;
+        descriptor.field18 = D_800A1C64;
+        descriptor.field1C = D_800A1C68;
+        descriptor.field20 = D_800A1C6C;
+        descriptor.field24 = 15.0f;
+        descriptor.field28 = 30.0f;
+        descriptor.field2C = 0;
+        descriptor.field2E = 0xFF;
+        descriptor.field30 = -0x40;
+        descriptor.field32 = 0x50;
+        descriptor.field34 = 3;
+        descriptor.field38 = 1;
+        descriptor.field3C = 0x14;
+        descriptor.field3E = 0xF;
+        descriptor.field40 = 1;
+        descriptor.fields42[0] = 4;
+        descriptor.fields42[1] = 2;
+        descriptor.fields42[2] = 3;
+        descriptor.fields42[3] = 0xFF;
+        descriptor.fields42[4] = 0xFF;
+        descriptor.fields42[5] = 0xFF;
+        descriptor.fields42[6] = 0xFF;
+        descriptor.fields42[7] = 0;
+        descriptor.fields42[8] = 0;
+        descriptor.fields42[9] = 0;
+        descriptor.fields42[10] = 0;
+        descriptor.fields42[11] = 0xFF;
+        descriptor.fields42[12] = 0xFF;
+        descriptor.fields42[13] = 0xFF;
+        descriptor.fields42[14] = 0xFF;
+        descriptor.fields42[15] = 0;
+        descriptor.fields42[16] = 0;
+        descriptor.fields42[17] = 0;
+        descriptor.fields42[18] = 0;
+        descriptor.fields42[19] = 0xFF;
+        descriptor.fields42[20] = 0;
+        descriptor.fields42[21] = 3;
+        descriptor.fields42[22] = 0x24;
+        descriptor.field5C = 0x200005;
+        descriptor.field60 = 0x60600;
+        descriptor.field64 = 8;
+        descriptor.field66 = 0x1F;
+        descriptor.field68 = 1;
+        descriptor.field6A = 0;
+        descriptor.field6C = 1.0f;
+        descriptor.fields70[0] = -1;
+        descriptor.fields70[1] = 0;
+        descriptor.fields70[2] = -1;
+        descriptor.fields70[3] = -1;
+        func_15152B38(&descriptor, 0xFF, 1);
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F85A0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_125A50/func_150F85A0.s")
 
 void func_150F884C(s32 arg0, s32 arg1) {
     s32 sp18[2];

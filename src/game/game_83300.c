@@ -25,7 +25,6 @@
  * - func_1505A9AC
  * - func_1505B5F8
  * - func_1505B9C4
- * - func_1505C1A4
  * - func_1505C1E4
  * - func_1505C7D8
  * - func_1505D024
@@ -1273,24 +1272,20 @@ s32 func_1505C140(Game83300Position *arg0, Game83300Position *arg1) {
 extern s32 D_8009A9F8;
 extern void *D_800D1588[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505C1A4 CURRENT (210) */
 void *func_1505C1A4(void *arg0) {
-    void *var_a0;
-    void **var_v0;
-    void *temp_v1;
-    u8 temp_v0;
+    void *result;
+    void **header;
+    u8 index;
 
-    temp_v0 = *(u8 *)((u8 *)arg0 + 4);
-    if ((temp_v0 != 0xFF) && ((temp_v1 = D_800D1588[temp_v0]) != 0)) {
-            var_v0 = (void **)((u8 *)temp_v1 - 0xC);
-            var_a0 = *var_v0;
+    index = *(u8 *)((u8 *)arg0 + 4);
+    if ((index != 0xFF) && (D_800D1588[index] != 0)) {
+        header = (void **)((u8 *)D_800D1588[index] - 0xC);
+        result = *header;
     } else {
-        var_a0 = &D_8009A9F8;
+        result = &D_8009A9F8;
     }
-    return var_a0;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505C1A4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505C1A4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505C1E4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505C7D8.s")
 s32 func_1505C1E4(s32 *, void *, void *, s32, s32, s32, s32);
