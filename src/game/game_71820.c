@@ -9,7 +9,6 @@
  * - func_1504452C
  * - func_15044660
  * - func_15044B78
- * - func_15044ED0
  * - func_15045880
  * - func_15045AE4
  * - func_1504715C
@@ -424,8 +423,7 @@ extern f32 D_800DBE70;
 extern f32 D_800DBE74;
 s32 func_150A4FA0(s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15044ED0 CURRENT (65) */
-s32 func_15044ED0(Vec3f *arg0, f32 arg1, volatile Game71820Hit *arg2) {
+s32 func_15044ED0(Vec3f *arg0, f32 arg1, Game71820Hit *arg2) {
     s32 count;
     s32 best;
     s32 scan_index;
@@ -456,18 +454,15 @@ s32 func_15044ED0(Vec3f *arg0, f32 arg1, volatile Game71820Hit *arg2) {
     if (best != -1) {
         Game71820Candidate *candidate;
         u32 index;
-        volatile s32 *source;
+        s32 *source;
         u32 copy_index;
-        volatile u8 *output;
+        u8 *output;
         s32 offset;
-        s32 updated_flags;
-        s32 flags;
-        s32 object_difference;
 
         candidate = &D_800D3300[best];
         source = candidate->sources;
         copy_index = 0;
-        output = (volatile u8 *)arg2;
+        output = (u8 *)arg2;
         index = candidate->index;
         offset = index * 0x10;
         for (; copy_index != 3; copy_index++, output += 6) {
@@ -476,29 +471,22 @@ s32 func_15044ED0(Vec3f *arg0, f32 arg1, volatile Game71820Hit *arg2) {
             *(s16 *)(output + 6) = point[1];
             *(s16 *)(output + 8) = point[2];
         }
-        object_difference = (u8 *)candidate->sources - D_800DBE3C;
-        object_difference /= 12;
-        arg2->object = (s32)D_800DBE5C[object_difference];
-        flags = arg2->flags;
+        {
+            s32 diff = ((u8 *)candidate->sources - D_800DBE3C) / 12;
+            arg2->object = (s32)D_800DBE5C[diff];
+        }
+        arg2->flags |= 5;
         arg2->active = 1;
         arg2->field20 = 0;
-        updated_flags = flags | 5;
-        arg2->flags = updated_flags;
-        {
-            f32 threshold = arg1;
-
-            if (arg2->height <= threshold) {
-                arg2->flags = updated_flags | 2;
-                return 1;
-            }
+        if (arg2->height <= arg1) {
+            arg2->flags |= 2;
+            return 1;
         }
         return 0;
     }
     arg2->flags &= ~2;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15044ED0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044ED0.s")
 s32 func_150450CC(Vec3f *arg0, f32 arg1, Game71820Hit *arg2) {
     s32 count;
     s32 best;
@@ -571,7 +559,7 @@ s32 func_150450CC(Vec3f *arg0, f32 arg1, Game71820Hit *arg2) {
     arg2->flags &= ~2;
     return 0;
 }
-s32 func_15044ED0(Vec3f *, f32, volatile Game71820Hit *); /* extern */
+s32 func_15044ED0(Vec3f *, f32, Game71820Hit *); /* extern */
 s32 func_150470B0(void *, f32, void *);             /* extern */
 
 s32 func_1504530C(Vec3f *arg0, f32 arg1, Game71820Hit *arg2) {

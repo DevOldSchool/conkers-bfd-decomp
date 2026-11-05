@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151572D0
  * - func_15157420
- * - func_15157AA8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -240,7 +239,6 @@ typedef struct Game1844C0MotionExtension {
 extern f32 D_800BE9A4;
 extern f32 D_800BE9A8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15157AA8 CURRENT (65) */
 s32 func_15157AA8(Game1844C0MotionOwnerPrefix *arg0) {
     Game1844C0MotionExtension *motion;
     Vec3f initialVelocity;
@@ -256,36 +254,24 @@ s32 func_15157AA8(Game1844C0MotionOwnerPrefix *arg0) {
             remaining = (u32)D_800BE9E4;
             if (remaining != 0U) {
                 do {
-                    motion->velocity10.x =
-                        motion->velocity10.x * motion->damping2C;
-                    motion->velocity10.z =
-                        motion->velocity10.z * motion->damping2C;
+                    motion->velocity10.x = motion->velocity10.x * motion->damping2C;
+                    motion->velocity10.z = motion->velocity10.z * motion->damping2C;
                     remaining -= 1U;
                 } while (remaining != 0U);
             }
         }
-
         if (motion->flags30 & 4U) {
-            /* Keep the grouped assignment to preserve the deferred candidate's load order. */
-            accelerationY = motion->acceleration28,
-            motion->velocity10.y = motion->velocity10.y + accelerationY * D_800BE9A4;
+            motion->velocity10.y = motion->velocity10.y + motion->acceleration28 * D_800BE9A4;
+            accelerationY = motion->acceleration28;
         } else {
             accelerationY = 0.0f;
         }
-
-        accelerationX =
-            (motion->velocity10.x - initialVelocity.x) * D_800BE9A8;
-        accelerationZ =
-            (motion->velocity10.z - initialVelocity.z) * D_800BE9A8;
-
-        arg0->positionX54 = arg0->positionX54 +
-            (initialVelocity.x + (0.5f * accelerationX) * D_800BE9A4) * D_800BE9A4;
-        arg0->positionY58 = arg0->positionY58 +
-            (initialVelocity.y + (0.5f * accelerationY) * D_800BE9A4) * D_800BE9A4;
-        arg0->positionZ5C = arg0->positionZ5C +
-            (initialVelocity.z + (0.5f * accelerationZ) * D_800BE9A4) * D_800BE9A4;
+        accelerationX = (motion->velocity10.x - initialVelocity.x) * D_800BE9A8;
+        accelerationZ = (motion->velocity10.z - initialVelocity.z) * D_800BE9A8;
+        arg0->positionX54 = arg0->positionX54 + (initialVelocity.x + (0.5f * accelerationX) * D_800BE9A4) * D_800BE9A4;
+        arg0->positionY58 = arg0->positionY58 + (initialVelocity.y + (0.5f * accelerationY) * D_800BE9A4) * D_800BE9A4;
+        arg0->positionZ5C = arg0->positionZ5C + (initialVelocity.z + (0.5f * accelerationZ) * D_800BE9A4) * D_800BE9A4;
     }
-
     if (motion->flags30 & 2U) {
         motion->value00 = motion->value00 + motion->rate1C * D_800BE9A4;
         motion->value04 = motion->value04 + motion->rate20 * D_800BE9A4;
@@ -293,8 +279,6 @@ s32 func_15157AA8(Game1844C0MotionOwnerPrefix *arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15157AA8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157AA8.s")
 extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_15157D88(s32 arg0, s32 arg1, u8 arg2) {
