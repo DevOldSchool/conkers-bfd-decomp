@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_10E090.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_singletons_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150E0BE0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_1502178C(void *, s32, s32);
@@ -23,12 +18,9 @@ extern u16 D_800CC346;
 extern u8 *D_800D154C;
 extern s32 D_800D1580;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E0BE0 CURRENT (35) */
 void func_150E0BE0(u8 *actor) {
     s32 counter;
-    s16 updated;
-    u16 *current_frame;
-    u16 frame;
+    u16 updated;
 
     actor[0xB0] = 0xF;
     actor[0x80] = 0xA;
@@ -41,12 +33,10 @@ void func_150E0BE0(u8 *actor) {
         }
         if (counter >= 5) {
             counter = actor[0x251];
-            current_frame = &D_800CC346;
             if (counter != 3) {
-                frame = *current_frame;
+                *(u16 *)(actor + 0x78) = D_800CC346;
                 *(s32 *)(actor + 0x218) = 0;
                 actor[0x232] = 4;
-                *(u16 *)(actor + 0x78) = frame;
                 if (counter == 2) {
                     actor[0x232] = 2;
                 }
@@ -81,5 +71,3 @@ void func_150E0BE0(u8 *actor) {
         func_1502178C(actor, 0, -1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E0BE0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10E090/func_150E0BE0.s")

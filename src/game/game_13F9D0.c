@@ -9,7 +9,6 @@
  * - func_15112520
  * - func_15112A80
  * - func_15113218
- * - func_151137D4
  * - func_15113C88
  * - func_15113E54
  * - func_15114188
@@ -293,7 +292,6 @@ extern s32 D_800BE9C8[];
 extern s32 D_800BEBA4;
 extern u8 D_800D9C10[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151137D4 CURRENT (15) */
 s32 func_151137D4(s32 arg0, Game13F9D0Model *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
     s32 alpha;
     s32 start;
@@ -353,16 +351,14 @@ s32 func_151137D4(s32 arg0, Game13F9D0Model *arg1, s32 arg2, s32 arg3, s32 arg4,
     } else {
         { Game13F9D0Command *command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xDE000000; command->word1 = arg1->displayList; }
     }
-    { Game13F9D0Command *command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xD9EEFFFF; command->word1 = 0; }
-    { Game13F9D0Command *command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xE7000000; command->word1 = 0; }
+    { Game13F9D0Command *command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xD9EEFFFF; command->word1 = 0;
+      command = (Game13F9D0Command *)arg0; arg0 += 8; command->word0 = 0xE7000000; command->word1 = 0; }
     overflow = (D_800BEBA4 < ((arg0 - D_800BE9C8[D_800BE9C0]) >> 3)) ? 1 : 0;
     if (overflow != 0) {
         return start;
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151137D4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151137D4.s")
 s32 func_15022B08(s32, s32);
 s32 func_150859AC(s32, s32);
 void *func_1510D970(s32, s32, s32, s32, s32);

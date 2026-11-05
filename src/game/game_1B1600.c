@@ -9,7 +9,6 @@
  * - func_15184150
  * - func_15184368
  * - func_15184DF0
- * - func_15184FA4
  * - func_15185DD4
  * - func_15185F24
  * - func_1518652C
@@ -173,7 +172,6 @@ extern u16 D_800DF0D0[];
 extern u8 D_800DF2F8[];
 extern u8 D_89470[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15184FA4 CURRENT (15) */
 void func_15184FA4(Game1B1600Command *arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 count;
     s32 bounds[3];
@@ -190,9 +188,7 @@ void func_15184FA4(Game1B1600Command *arg0, s32 arg1, s32 arg2, s32 arg3) {
     { Game1B1600Command *command = arg0++; command->w0 = 0xDC080008; command->w1 = (u32)D_8008D3E8; }
     { Game1B1600Command *command = arg0++; command->w0 = 0xDA380007; command->w1 = (u32)(D_800DF2F8 + (arg2 << 7) + (D_800BE9C0 << 6)); }
     { Game1B1600Command *command = arg0++; command->w0 = 0xDA380003; command->w1 = (u32)D_89470; }
-    bounds[2] = 0;
-    bounds[1] = 0;
-    bounds[0] = 0;
+    bounds[0] = bounds[1] = bounds[2] = 0;
     arg0 = func_1502CCFC(arg0, arg1, arg3, D_800CC2D0[arg1].matrices, func_1506196C((u8 *)&D_800CC2D0[arg1], arg3), bounds, 3, 1);
     { Game1B1600Command *command = arg0++; command->w0 = 0xD7000002; command->w1 = 0xFFFFFFFF; }
     { Game1B1600Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
@@ -231,8 +227,6 @@ void func_15184FA4(Game1B1600Command *arg0, s32 arg1, s32 arg2, s32 arg3) {
     func_1510B7B4(arg0, arg3);
     D_800CC2D0[arg1].field_123 = 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15184FA4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15184FA4.s")
 void *func_15185454(u8 *arg0, u8 *arg1, u8 *arg2) {
     f32 ratio;
 

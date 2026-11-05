@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_core_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1502BAD0
  * - func_1502BEE4
  * - func_1502C408
  * - func_1502C608
@@ -49,7 +48,6 @@ s32 func_1502C974(s32, s32, s32, s32, s32);
 void *func_150368C4(s32, s32, s32);
 s32 func_15030E08(s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502BAD0 CURRENT (45) */
 Game58F80Command *func_1502BAD0(Game58F80Command *commands, s32 mode, s16 arg2) {
     Game58F80DrawActor *actor;
     s32 index;
@@ -60,8 +58,7 @@ Game58F80Command *func_1502BAD0(Game58F80Command *commands, s32 mode, s16 arg2) 
     for (index = 0; index != 25; index++, actor++) {
         D_8003C8E0 = (index & 0xFFFFFF) | 0x01000000;
         active = actor->active;
-        if (active == 0) continue;
-        if (actor->kind == 3 || actor->kind == 5) continue;
+        if (active == 0 || actor->kind == 3 || actor->kind == 5) continue;
         if (actor->kind == 2) {
             if (mode != 2) continue;
         } else if (actor->model == 0xFF) continue;
@@ -91,8 +88,6 @@ Game58F80Command *func_1502BAD0(Game58F80Command *commands, s32 mode, s16 arg2) 
     D_8003C8E0 = 0;
     return commands;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502BAD0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502BAD0.s")
 typedef struct Game58F80BD84Actor {
     s32 field0;
     u8 field4;

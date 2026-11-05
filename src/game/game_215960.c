@@ -7,7 +7,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_connected_controller_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151E86E4
  * - func_151E89A0
  * - func_151E966C
  * - func_151EA15C
@@ -131,21 +130,23 @@ s32 func_151E8620(s32 arg0) {
 extern f32 D_8008FE1C;
 extern f32 D_8008FE20;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E86E4 CURRENT (20) */
 Game215960Command *func_151E86E4(Game215960Command *arg0, s32 xl, s32 yl, s32 xh, s32 yh, s32 tile, s32 sStart, s32 tStart, s32 dsdx, s32 dtdy) {
+    f32 sx;
+    f32 sy;
+
     if (D_8008FE1C != 1.0f) {
-        xl *= D_8008FE1C;
-        xh *= D_8008FE1C;
-        yl *= D_8008FE20;
-        yh *= D_8008FE20;
-        dsdx /= D_8008FE1C;
-        dtdy /= D_8008FE20;
+        sx = D_8008FE1C;
+        sy = D_8008FE20;
+        xl *= sx;
+        xh *= sx;
+        yl *= sy;
+        yh *= sy;
+        dsdx /= sx;
+        dtdy /= sy;
     }
     { Game215960Command *command = arg0++; command->w0 = (_SHIFTL(0xE4, 24, 8) | _SHIFTL(MAX((s16)(xh), 0), 12, 12) | _SHIFTL(MAX((s16)(yh), 0), 0, 12)); command->w1 = (_SHIFTL((tile), 24, 3) | _SHIFTL(MAX((s16)(xl), 0), 12, 12) | _SHIFTL(MAX((s16)(yl), 0), 0, 12)); { Game215960Command *command = arg0++; command->w0 = _SHIFTL(0xE1, 24, 8); command->w1 = (u32)((_SHIFTL(((sStart) - (((s16)(xl) < 0) ? (((s16)(dsdx) < 0) ? (MAX((((s16)(xl) * (s16)(dsdx)) >> 7), 0)) : (MIN((((s16)(xl) * (s16)(dsdx)) >> 7), 0))) : 0)), 16, 16) | _SHIFTL(((tStart) - (((yl) < 0) ? (((s16)(dtdy) < 0) ? (MAX((((s16)(yl) * (s16)(dtdy)) >> 7), 0)) : (MIN((((s16)(yl) * (s16)(dtdy)) >> 7), 0))) : 0)), 0, 16))); } { Game215960Command *command = arg0++; command->w0 = _SHIFTL(0xF1, 24, 8); command->w1 = (u32)((_SHIFTL((dsdx), 16, 16) | _SHIFTL((dtdy), 0, 16))); } }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151E86E4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151E86E4.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151E89A0.s")
 s32 func_150859AC(s16, s32);

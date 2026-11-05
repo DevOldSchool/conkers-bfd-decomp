@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_child_chain_render_lists.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150D26F0
  * - func_150D278C
  * - func_150D2924
  * - func_150D2D6C
@@ -19,20 +18,17 @@
 void func_150D278C(s32, void *, u8, s32);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D26F0 CURRENT (42) */
+typedef struct { s32 a; s32 b; s32 c; s32 d; u8 e[4]; } S150D26F0;
 void func_150D26F0(u8 *arg0) {
-    u8 *state;
+    S150D26F0 *state = (S150D26F0 *)(arg0 + 0x28);
 
-    state = arg0 + 0x28;
     if (arg0[0x78] & 1) {
-        if ((*(s32 *)(state + 0xC) -= D_800BE9E4) < 0) {
-            func_150D278C(*(s32 *)state, state + 0x10, arg0[0xC], arg0[1]);
-            *(s32 *)(state + 0xC) = *(s32 *)(state + 4) + (func_150ADA20() % (u32)(*(s32 *)(state + 8) + 1));
+        if ((state->d -= D_800BE9E4) < 0) {
+            func_150D278C(state->a, state->e, arg0[0xC], arg0[1]);
+            state->d = state->b + (func_150ADA20() % (u32)(state->c + 1));
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D26F0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FFBA0/func_150D26F0.s")
 void *func_10022EC0(void *, const void *, u32);
 f32 func_150ADA68(void);
 extern u8 D_800A0990[];

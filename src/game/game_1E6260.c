@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151B8DB0
- * - func_151B9214
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -15,38 +14,34 @@
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */
-extern f32 D_800AA564;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B9214 CURRENT (35) */
-s32 func_151B9214(u8 *arg0) {
+typedef struct {
+    f32 out;
+    f32 amp;
+    f32 phase;
+    f32 speed;
+    f32 targetAmp;
+    f32 targetSpeed;
     f32 timer;
-    u8 *volatile saved;
-    f32 value;
-    f32 amplitude;
-    u8 *state;
+    f32 ampRate;
+    f32 speedRate;
+} Osc151B9214;
 
-    state = arg0 + 0x170;
-    *(f32 *)(arg0 + 0x178) += *(f32 *)(arg0 + 0x17C) * D_800BE9A4;
-    value = func_15144B68(*(f32 *)(arg0 + 0x178));
-    *(f32 *)(state + 8) = value;
-    saved = state;
-    value = func_15047D60(value);
-    state = saved;
-    amplitude = *(f32 *)(state + 4);
-    timer = *(f32 *)(state + 0x18);
-    *(f32 *)state = value * amplitude;
-    if (timer > 0.0f) {
-        *(f32 *)(state + 0x18) = (*(f32 *)(state + 0x18)) - D_800BE9A4;
-        *(f32 *)(state + 0xC) += *(f32 *)(state + 0x20) * D_800BE9A4;
-        *(f32 *)(state + 4) = *(f32 *)(state + 0x1C) * D_800BE9A4 + amplitude;
+s32 func_151B9214(u8 *arg0) {
+    Osc151B9214 *s;
+
+    s = (Osc151B9214 *)(arg0 + 0x170);
+    s->phase += s->speed * D_800BE9A4;
+    s->phase = func_15144B68(s->phase);
+    s->out = func_15047D60(s->phase) * s->amp;
+    if (s->timer > 0.0f) {
+        s->timer -= D_800BE9A4;
+        s->speed += s->speedRate * D_800BE9A4;
+        s->amp = s->amp + s->ampRate * D_800BE9A4;
     } else {
-        value = *(f32 *)(state + 0xC);
-        timer = D_800AA564;
-        *(f32 *)(state + 0xC) = (*(f32 *)(state + 0x14) - (*(f32 *)(state + 0xC))) * timer + (*(f32 *)(state + 0xC));
-        *(f32 *)(state + 4) = (*(f32 *)(state + 0x10) - amplitude) * timer + amplitude;
+        s->speed += (s->targetSpeed - s->speed) * 0.0234f;
+        s->amp += (s->targetAmp - s->amp) * 0.0234f;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B9214 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E6260/func_151B9214.s")
