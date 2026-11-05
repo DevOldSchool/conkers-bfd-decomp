@@ -47736,8 +47736,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3972,
-        "reason": "Manual direction-based spawn loop improved to CURRENT (3972). Remaining differences include repeated coordinate narrowing at the constructor call and local stack layout; preserve this typed candidate.",
+        "current_score": 455,
+        "reason": "Rescored after func_1516D4E8 prototype narrowing (s16/u8 parameters, PR 231): CURRENT 3972 -> 455. Remaining: coordinate narrowing at the constructor call and local stack layout.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -54629,16 +54629,16 @@
       "symbol": "func_151732E0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "PR 231 review: if (1) early-return form is an artificial scheduling construct. Natural return arg0 scores 60 under -O2 -g3 (jr delay slot unfilled); it is exact only without -g3, which breaks the unit's other members, so a separate object boundary or flag directive needs maintainer review",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 12,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_151733D8",
           "vram": "0x151733D8"
         }
@@ -88551,8 +88551,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2784,
-        "reason": "Best CURRENT (2784), three comparisons; exact 3-byte color copy and four raw callers all pass color index zero. Existing 31-slot helper retained, unsigned RNG conversion recovered. Real height snapshot improves frame 130 to138 vs native140; color FC vsF4 and argument scheduling/narrowing remain. Final phase reuse unchanged; manual budget exhausted.",
+        "current_score": 528,
+        "reason": "Rescored after func_1516D4E8 prototype narrowing (s16/u8 parameters, PR 231): CURRENT 2784 -> 528. Remaining: argument scheduling/narrowing at the constructor call and frame 0x138 layout.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

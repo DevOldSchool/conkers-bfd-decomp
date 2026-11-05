@@ -17,14 +17,21 @@
 void func_150D278C(s32, void *, u8, s32);
 extern s32 D_800BE9E4;
 
-typedef struct { s32 a; s32 b; s32 c; s32 d; u8 e[4]; } S150D26F0;
+typedef struct GameFFBA0Timer {
+    s32 arg;
+    s32 baseDelay;
+    s32 delayRange;
+    s32 countdown;
+    u8 data[4];
+} GameFFBA0Timer;
+
 void func_150D26F0(u8 *arg0) {
-    S150D26F0 *state = (S150D26F0 *)(arg0 + 0x28);
+    GameFFBA0Timer *state = (GameFFBA0Timer *)(arg0 + 0x28);
 
     if (arg0[0x78] & 1) {
-        if ((state->d -= D_800BE9E4) < 0) {
-            func_150D278C(state->a, state->e, arg0[0xC], arg0[1]);
-            state->d = state->b + (func_150ADA20() % (u32)(state->c + 1));
+        if ((state->countdown -= D_800BE9E4) < 0) {
+            func_150D278C(state->arg, state->data, arg0[0xC], arg0[1]);
+            state->countdown = state->baseDelay + (func_150ADA20() % (u32)(state->delayRange + 1));
         }
     }
 }

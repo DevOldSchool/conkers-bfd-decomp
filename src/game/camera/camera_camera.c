@@ -907,10 +907,9 @@ void func_15124AB4(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x664) = (f32) (*(f32 *)((u8 *)arg0 + 0x66C) * func_15047D60(*(f32 *)((u8 *)arg0 + 0x39C)));
     *(f32 *)((u8 *)arg0 + 0x66C) = (f32) (*(f32 *)((u8 *)arg0 + 0x66C) * func_15047C00(*(f32 *)((u8 *)arg0 + 0x39C)));
 }
-extern f32 D_800A34B0[];
+extern f32 D_800A34B0[][2];
 extern s32 D_800BE9F0;
 
-typedef struct { f32 a; f32 b; } Pair15124B18;
 
 void func_15124B18(u8 *arg0) {
     s32 temp_t8;
@@ -945,8 +944,8 @@ void func_15124B18(u8 *arg0) {
         *(f32 *)(arg0 + 0x374) = 194.0f;
         return;
     }
-    *(f32 *)(arg0 + 0x374) = ((Pair15124B18 *)D_800A34B0)[*(s16 *)(arg0 + 0x1B4)].a;
-    *(f32 *)(arg0 + 0x348) = ((Pair15124B18 *)D_800A34B0)[*(s16 *)(arg0 + 0x1B4)].b;
+    *(f32 *)(arg0 + 0x374) = D_800A34B0[*(s16 *)(arg0 + 0x1B4)][0];
+    *(f32 *)(arg0 + 0x348) = D_800A34B0[*(s16 *)(arg0 + 0x1B4)][1];
     *(f32 *)(arg0 + 0x34C) = *(f32 *)(arg0 + 0x348);
 }
 void func_1507C3E0(void *, s16 *, s16 *, s16 *);

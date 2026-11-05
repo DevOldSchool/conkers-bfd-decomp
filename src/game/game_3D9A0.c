@@ -37,18 +37,20 @@ typedef struct Game3D9A0Packet {
 } Game3D9A0Packet;
 
 void func_15010538(void *arg0) {
-    Game3D9A0Packet packet;
-    u8 *object;
     func_15161E24(arg0, 2, 2, 0x12C, 0x1E, 0x64, 0xC8, 0xFF, 0xFF, 1);
-send_packet:
-    packet.owner = arg0;
-    packet.type = ((u8 *)packet.owner)[0x3B];
-    packet.x = 0;
-    packet.y = 0;
-    packet.z = 0;
-    object = func_15149130(0x12C, -1, 0x50, -1, 0, 0x3D, 0xC, 0xFF, 1);
-    if (object != 0) {
-        func_10022EC0(object + 0x28, &packet, sizeof(packet));
+    {
+        Game3D9A0Packet packet;
+        u8 *object;
+
+        packet.owner = arg0;
+        packet.type = ((u8 *)packet.owner)[0x3B];
+        packet.x = 0;
+        packet.y = 0;
+        packet.z = 0;
+        object = func_15149130(0x12C, -1, 0x50, -1, 0, 0x3D, 0xC, 0xFF, 1);
+        if (object != 0) {
+            func_10022EC0(object + 0x28, &packet, sizeof(packet));
+        }
     }
 }
 

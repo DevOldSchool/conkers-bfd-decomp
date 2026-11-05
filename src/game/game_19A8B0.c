@@ -981,7 +981,7 @@ s32 func_151707E0(Game19A8B0Motion *arg0) {
 }
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151709B4 CURRENT (3972) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151709B4 CURRENT (455) */
 void func_151709B4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, u8 arg5, s32 arg6) {
     f32 spF0;
     f32 spEC;

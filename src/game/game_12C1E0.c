@@ -34,10 +34,9 @@ typedef struct Game12C1E0EmissionOwner {
     u8 pad5[0x6F];
     u8 flags74;
     u8 pad75[0x15F];
-    s32 resource1D4;
+    u8 (*resource1D4)[0x40];
 } Game12C1E0EmissionOwner;
 
-typedef struct { u8 data[0x40]; } Game12C1E0Resource;
 void func_150FED30(f32 *arg0, s32 arg1, s32 arg2) {
     f32 position[3];
     f32 endpoint[3];
@@ -94,7 +93,7 @@ void func_150FED30(f32 *arg0, s32 arg1, s32 arg2) {
         if (valid != 0) {
             func_151D3F14(position, *(u8 *)((u8 *)&arg1 + 3), arg2);
             func_151D4408(hit, normal,
-                (s32)((Game12C1E0Resource *)((Game12C1E0EmissionOwner *)arg0)->resource1D4)[*(u8 *)(lookup + 2)].data, arg0, 1.0f, *(u8 *)((u8 *)&arg1 + 3), arg2);
+                (s32)((Game12C1E0EmissionOwner *)arg0)->resource1D4[*(u8 *)(lookup + 2)], arg0, 1.0f, *(u8 *)((u8 *)&arg1 + 3), arg2);
             func_150FF474(position, points, *(u8 *)((u8 *)&arg1 + 3), arg2);
         }
     }

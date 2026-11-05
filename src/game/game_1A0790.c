@@ -5,6 +5,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_slot_view_controller_groups.md
  *
  * TODO: Implement these source-unit functions:
+ * - func_151733D8
  * - func_151733E4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -54,12 +55,13 @@ void func_151732E0(s32 arg0) {
     func_151733E4(0, 0, arg0, 0, -1);
 }
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151733D8 CURRENT (60) */
+/* Exact only without -g3 (jr delay slot filled); the unit's other members need -g3. */
 void *func_151733D8(void *arg0, s32 arg1) {
-    if (1) {
-        return arg0;
-    }
-    return NULL;
+    return arg0;
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_151733D8 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1A0790/func_151733D8.s")
 s8 func_15173994(s32);
 extern u8 D_800DD2E4[];
 extern s16 D_800DD2E8;

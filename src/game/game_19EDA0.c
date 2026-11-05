@@ -20,7 +20,7 @@ typedef struct Game19EDA0Color {
 
 extern Game19EDA0Color D_8008CC20;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151718F0 CURRENT (2784) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151718F0 CURRENT (528) */
 void func_151718F0(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4,
                    f32 arg5, s32 arg6, s32 arg7, u8 arg8, s32 arg9) {
     f32 sine, z, randomScale;
