@@ -6,11 +6,9 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_child_chain_render_lists.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150D26F0
  * - func_150D278C
  * - func_150D2924
  * - func_150D2D6C
- * - func_150D32FC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -19,20 +17,24 @@
 void func_150D278C(s32, void *, u8, s32);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D26F0 CURRENT (42) */
-void func_150D26F0(u8 *arg0) {
-    u8 *state;
+typedef struct GameFFBA0Timer {
+    s32 arg;
+    s32 baseDelay;
+    s32 delayRange;
+    s32 countdown;
+    u8 data[4];
+} GameFFBA0Timer;
 
-    state = arg0 + 0x28;
+void func_150D26F0(u8 *arg0) {
+    GameFFBA0Timer *state = (GameFFBA0Timer *)(arg0 + 0x28);
+
     if (arg0[0x78] & 1) {
-        if ((*(s32 *)(state + 0xC) -= D_800BE9E4) < 0) {
-            func_150D278C(*(s32 *)state, state + 0x10, arg0[0xC], arg0[1]);
-            *(s32 *)(state + 0xC) = *(s32 *)(state + 4) + (func_150ADA20() % (u32)(*(s32 *)(state + 8) + 1));
+        if ((state->countdown -= D_800BE9E4) < 0) {
+            func_150D278C(state->arg, state->data, arg0[0xC], arg0[1]);
+            state->countdown = state->baseDelay + (func_150ADA20() % (u32)(state->delayRange + 1));
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D26F0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FFBA0/func_150D26F0.s")
 void *func_10022EC0(void *, const void *, u32);
 f32 func_150ADA68(void);
 extern u8 D_800A0990[];
@@ -223,13 +225,9 @@ typedef struct {
 
 void func_150D278C(s32, void *, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D32FC CURRENT (110) */
 void func_150D32FC(GameFFBA0State *arg0, u8 *arg1, u8 arg2) {
     GameFFBA0Child *child = &arg0->child;
-
-    if (arg2 == 0x34 && *arg1 == child->field_51) {
+    if (arg2 == 0x34 && *arg1 == ((u8 *)child)[0x51]) {
         func_150D278C(child->field_0, child->field_10, arg0->field_C, arg0->field_1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D32FC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FFBA0/func_150D32FC.s")

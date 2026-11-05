@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_dispatcher_callback_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15075400
  * - func_15075650
  * - func_15075938
  * - func_150768DC
@@ -97,30 +96,27 @@ extern u8  D_800D1890;
 extern u8  D_800D1891;
 extern u8  D_800D1892;
 extern u8  D_800D1893;
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15075400 CURRENT (60) */
 void func_15075400(s32 arg0) {
     u8 count;
-    u8 value;
+    u8 temp;
 
     if (arg0 < 0xF7) {
         *(u8 **)((u8 *)D_800D154C + 0x218) = (u8 *)((u32)*(u8 **)((u8 *)D_800D154C + 0x218) + (u32)arg0 * 5U);
         return;
     }
     for (count = 0; count < 100; count++) {
-        value = **(u8 **) ((u8 *) D_800D154C + 0x218);
-        if (value < 0xF7) {
+        if (**(u8 **) ((u8 *) D_800D154C + 0x218) < 0xF7) {
             *(u8 **) ((u8 *) D_800D154C + 0x218) += 5;
         } else {
+            temp = **(u8 **) ((u8 *) D_800D154C + 0x218);
             *(u8 **) ((u8 *) D_800D154C + 0x218) += 1;
-            if (arg0 == (value & 0xFF)) {
+            if (arg0 == temp) {
                 *(u8 **) ((u8 *) D_800D154C + 0x218) -= 5;
                 return;
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15075400 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15075400.s")
 
 void func_15075498(void) {
     u32 value;

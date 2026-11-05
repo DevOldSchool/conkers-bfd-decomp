@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1516D400
- * - func_1516D4E8
  * - func_1516D738
  * - func_1516DB90
  * - func_1516EED4
@@ -53,7 +52,7 @@ typedef struct Game19A8B0Motion {
 
 void func_1516D99C(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 
-void func_1516D4E8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14, s32 arg15, s32 arg16, s32 arg17, s32 arg18, s32 arg19, s32 arg20, s32 arg21, s32 arg22, s32 arg23, s32 arg24, s32 arg25, s32 arg26, s32 arg27, s32 arg28, u8 arg29, s32 arg30);
+void func_1516D4E8(s16 arg0, s16 arg1, s16 arg2, u8 arg3, u8 arg4, u8 arg5, u8 arg6, u8 arg7, u8 arg8, u8 arg9, u8 arg10, u8 arg11, u8 arg12, u8 arg13, u8 arg14, u8 arg15, u8 arg16, u8 arg17, u8 arg18, u8 arg19, u8 arg20, u8 arg21, u8 arg22, s16 arg23, s16 arg24, u8 arg25, s16 arg26, s32 arg27, s32 arg28, u8 arg29, s32 arg30);
 
 s32 func_151EF610();
 
@@ -104,42 +103,41 @@ void func_1516D400(void) {
 
 void *func_150448D0(s32, void *, s32, s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516D4E8 CURRENT (60) */
-void func_1516D4E8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14, s32 arg15, s32 arg16, s32 arg17, s32 arg18, s32 arg19, s32 arg20, s32 arg21, s32 arg22, s32 arg23, s32 arg24, s32 arg25, s32 arg26, s32 arg27, s32 arg28, u8 arg29, s32 arg30) {
+void func_1516D4E8(s16 arg0, s16 arg1, s16 arg2, u8 arg3, u8 arg4, u8 arg5, u8 arg6, u8 arg7, u8 arg8, u8 arg9, u8 arg10, u8 arg11, u8 arg12, u8 arg13, u8 arg14, u8 arg15, u8 arg16, u8 arg17, u8 arg18, u8 arg19, u8 arg20, u8 arg21, u8 arg22, s16 arg23, s16 arg24, u8 arg25, s16 arg26, s32 arg27, s32 arg28, u8 arg29, s32 arg30) {
     Game19A8B0Motion *result;
     s32 kind;
 
     kind = arg27 ? 0x67 : 0x12;
     result = func_15167A68(kind, arg30, 0x34, 0, arg29, 1);
     if (result != 0) {
-        result->x = ((s16 *)&arg0)[1];
-        result->y = ((s16 *)&arg1)[1];
-        result->z = ((s16 *)&arg2)[1];
-        result->pad1A[0] = ((u8 *)&arg3)[3];
-        result->pad1A[1] = ((u8 *)&arg4)[3];
-        result->pad1A[2] = ((u8 *)&arg5)[3];
-        result->pad1A[3] = ((u8 *)&arg6)[3];
-        result->pad1A[4] = ((u8 *)&arg7)[3];
-        result->alpha = ((u8 *)&arg8)[3];
-        result->pad20[0] = ((u8 *)&arg9)[3];
-        result->pad20[1] = ((u8 *)&arg10)[3];
-        result->pad20[2] = ((u8 *)&arg11)[3];
-        result->kind = ((u8 *)&arg12)[3];
-        result->scaleX = ((s16 *)&arg23)[1];
-        result->scaleY = ((s16 *)&arg24)[1];
-        result->active = ((u8 *)&arg25)[3];
-        result->velocityY = ((s16 *)&arg26)[1];
+        result->x = arg0;
+        result->y = arg1;
+        result->z = arg2;
+        result->pad1A[0] = arg3;
+        result->pad1A[1] = arg4;
+        result->pad1A[2] = arg5;
+        result->pad1A[3] = arg6;
+        result->pad1A[4] = arg7;
+        result->alpha = arg8;
+        result->pad20[0] = arg9;
+        result->pad20[1] = arg10;
+        result->pad20[2] = arg11;
+        result->kind = arg12;
+        result->scaleX = arg23;
+        result->scaleY = arg24;
+        result->active = arg25;
+        result->velocityY = arg26;
         result->yFraction = 0;
-        result->velocityXHigh = ((u8 *)&arg13)[3];
-        result->velocityXLow = ((u8 *)&arg14)[3];
-        result->velocityZHigh = ((u8 *)&arg15)[3];
-        result->velocityZLow = ((u8 *)&arg16)[3];
-        result->xFraction = ((u8 *)&arg17)[3];
-        result->zFraction = ((u8 *)&arg18)[3];
-        result->sizeHigh = ((u8 *)&arg19)[3];
-        result->sizeLow = ((u8 *)&arg20)[3];
-        result->pad2E[0] = ((u8 *)&arg21)[3];
-        result->pad2E[1] = ((u8 *)&arg22)[3];
+        result->velocityXHigh = arg13;
+        result->velocityXLow = arg14;
+        result->velocityZHigh = arg15;
+        result->velocityZLow = arg16;
+        result->xFraction = arg17;
+        result->zFraction = arg18;
+        result->sizeHigh = arg19;
+        result->sizeLow = arg20;
+        result->pad2E[0] = arg21;
+        result->pad2E[1] = arg22;
         if (arg28 != 0) {
             result->link = func_150448D0(-1, 0, arg28, 0x14, 0x14, 0x14, 0, (s32)&result->x, (s32)&result->scaleX);
             return;
@@ -147,8 +145,6 @@ void func_1516D4E8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s
         result->link = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1516D4E8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516D4E8.s")
 
 extern s32 D_800BE9E4;
 extern s32 (*D_8008CBA0[])(Game19A8B0Motion *);
@@ -985,7 +981,7 @@ s32 func_151707E0(Game19A8B0Motion *arg0) {
 }
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151709B4 CURRENT (3972) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151709B4 CURRENT (455) */
 void func_151709B4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, u8 arg5, s32 arg6) {
     f32 spF0;
     f32 spEC;

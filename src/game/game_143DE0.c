@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151169B4
  * - func_15116BAC
- * - func_15116D7C
  * - func_15116EA4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -208,57 +207,36 @@ void func_15116BAC(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_143DE0/func_15116BAC.s")
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15116D7C CURRENT (105) */
 void func_15116D7C(f32 *arg0) {
-    volatile f32 *var_a1;
-    f32 *var_a2;
-    volatile f32 *var_a3;
-    f32 temp_fa0;
-    f32 temp_fa1;
-    f32 temp_fv0;
-    f32 rate;
-    s32 var_v1;
+    f32 step = *(s32 *)((u8 *)arg0 + 0x3C) * 0.00390625f;
+    f32 rate = D_800BE9E4;
+    f32 *vel = (f32 *)((u8 *)arg0 + 0x60);
+    f32 *target = (f32 *)((u8 *)arg0 + 0x7C);
+    f32 *rot = arg0;
+    s32 i;
 
-    temp_fv0 = ((f32) *(s32 *)((u8 *)arg0 + 0x3C)) * 0.00390625f;
-    temp_fa0 = (f32) D_800BE9E4;
-    rate = temp_fa0;
-    temp_fa1 = (f32) *(s32 *)((u8 *)arg0 + 0x3C);
-    var_a1 = (f32 *)((u8 *)arg0 + 0x60);
-    var_a2 = (f32 *)((u8 *)arg0 + 0x7C);
-    var_a3 = arg0;
-    for (var_v1 = 0; var_v1 < 3; var_v1++) {
-        temp_fa1 = var_a1[var_v1];
-        temp_fa0 = var_a2[var_v1];
-        if (temp_fa1 != temp_fa0) {
-            if (temp_fa0 < temp_fa1) {
-                var_a1[var_v1] = temp_fa1 - temp_fv0;
-                temp_fa0 = var_a2[var_v1];
-                temp_fa1 = var_a1[var_v1];
-                if (temp_fa1 < temp_fa0) {
-                    var_a1[var_v1] = temp_fa0;
-                    temp_fa1 = var_a1[var_v1];
+    for (i = 0; i < 3; i++) {
+        if (vel[i] != target[i]) {
+            if (target[i] < vel[i]) {
+                vel[i] -= step;
+                if (vel[i] < target[i]) {
+                    vel[i] = target[i];
                 }
             } else {
-                var_a1[var_v1] = temp_fa1 + temp_fv0;
-                temp_fa1 = var_a1[var_v1];
-                temp_fa0 = var_a2[var_v1];
-                if (temp_fa0 < temp_fa1) {
-                    var_a1[var_v1] = temp_fa0;
-                    temp_fa1 = var_a1[var_v1];
+                vel[i] += step;
+                if (target[i] < vel[i]) {
+                    vel[i] = target[i];
                 }
             }
         }
-        var_a3[var_v1] += temp_fa1 * rate;
-        temp_fa0 = var_a3[var_v1];
-        if (temp_fa0 < 0.0f) {
-            var_a3[var_v1] = temp_fa0 + 360.0f;
-        } else if (temp_fa0 >= 360.0f) {
-            var_a3[var_v1] = temp_fa0 - 360.0f;
+        rot[i] += vel[i] * rate;
+        if (rot[i] < 0.0f) {
+            rot[i] += 360.0f;
+        } else if (rot[i] >= 360.0f) {
+            rot[i] -= 360.0f;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15116D7C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_143DE0/func_15116D7C.s")
 s32 func_10003C40(s32, s32, s32, s32);
 void func_10004514(s32, s32, s32, s32);
 extern u8 D_8002AAD0[];

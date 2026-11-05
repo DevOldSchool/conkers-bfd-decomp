@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151D8868
  * - func_151D8A24
- * - func_151D8C00
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -166,12 +165,10 @@ void func_151D8BE0(s32 arg0) {
 }
 s32 func_15144B34(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D8C00 CURRENT (25) */
 void func_151D8C00(void *arg0, u8 *arg1) {
     f32 delta;
     Vec3f difference;
     f32 distance;
-    f32 start;
     f32 alpha;
     f32 *origin;
 
@@ -180,19 +177,15 @@ void func_151D8C00(void *arg0, u8 *arg1) {
     difference.y = *(f32 *)(arg1 + 4) - origin[1];
     difference.z = *(f32 *)(arg1 + 8) - origin[2];
     distance = func_15143E64(&difference.x);
-    start = *(f32 *)(arg1 + 0xC);
-    if (distance < start) {
+    if (distance < *(f32 *)(arg1 + 0xC)) {
         alpha = 1.0f;
-    } else if ((start + *(f32 *)(arg1 + 0x10)) < distance) {
+    } else if ((*(f32 *)(arg1 + 0x10) + *(f32 *)(arg1 + 0xC)) < distance) {
         alpha = 0.0f;
     } else {
-        delta = distance - start;
-        alpha = 1.0f - (delta * *(f32 *)(arg1 + 0x14));
+        alpha = 1.0f - (*(f32 *)(arg1 + 0x14) * (distance - *(f32 *)(arg1 + 0xC)));
     }
     *(s8 *)((u8 *)arg0 + 0x12) = (s8)(u32)(alpha * 8.0f);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D8C00 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_205C90/func_151D8C00.s")
 void func_151D8D5C(void *arg0, s32 arg1, u8 arg2) {
     if (arg2 == 0x58) {
         func_1516972C(arg0);

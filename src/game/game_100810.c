@@ -10,7 +10,6 @@
  * - func_150D3A68
  * - func_150D3FD4
  * - func_150D4300
- * - func_150D49C0
  * - func_150D4D58
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -157,35 +156,29 @@ typedef struct Game100810Link {
     void *handle;
 } Game100810Link;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D49C0 CURRENT (85) */
-void func_150D49C0(u8 *arg0, void *arg1, u8 arg2) {
+typedef struct { u8 *a; u8 *b; u8 c8; u8 c9; } Game100810Msg;
+void func_150D49C0(u8 *arg0, Game100810Msg *arg1, u8 arg2) {
     Game100810Link *link;
     u8 *other;
-    u8 *id;
-    s32 kind;
 
     link = *(Game100810Link **)(arg0 + 0x98);
     if ((arg2 == 0) || (arg2 == 0x2E) || (arg2 == 3)) {
-        if ((*(u8 **)arg1 == link->id) || (link->slot == *((u8 *)arg1 + 4))) {
+        other = arg1->a;
+        if ((other == link->id) || (link->slot == *(u8 *)&arg1->b)) {
             func_1516972C(arg0);
         }
     } else if (arg2 == 0x2D) {
-        other = *(u8 **)arg1;
-        id = link->id;
-        if (other == id) {
-            id = *(u8 **)((u8 *)arg1 + 4);
-            link->id = id;
-            link->slot = *((u8 *)arg1 + 9);
-            link->handle = func_1503195C(id, (id[4] == 0x48) ? 0x7A : 0x79, 0);
-        } else if (*(u8 **)((u8 *)arg1 + 4) == id) {
-            link->id = other;
-            link->slot = *((u8 *)arg1 + 8);
-            link->handle = func_1503195C(other, (other[4] == 0x48) ? 0x7A : 0x79, 0);
+        if (link->id == arg1->a) {
+            link->id = arg1->b;
+            link->slot = arg1->c9;
+            link->handle = func_1503195C(link->id, (link->id[4] == 0x48) ? 0x7A : 0x79, 0);
+        } else if (link->id == arg1->b) {
+            link->id = arg1->a;
+            link->slot = arg1->c8;
+            link->handle = func_1503195C(link->id, (link->id[4] == 0x48) ? 0x7A : 0x79, 0);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D49C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D49C0.s")
 s32 func_1514654C(void *, s32, s32, void **, void **, s32);
 extern u8 D_800A09D0;
 extern u8 D_800A09DC;

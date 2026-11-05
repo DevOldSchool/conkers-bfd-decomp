@@ -56,10 +56,9 @@ void func_151732E0(s32 arg0) {
 }
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151733D8 CURRENT (60) */
+/* Exact only without -g3 (jr delay slot filled); the unit's other members need -g3. */
 void *func_151733D8(void *arg0, s32 arg1) {
-    void *result = arg0;
-
-    return result;
+    return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151733D8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A0790/func_151733D8.s")

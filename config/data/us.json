@@ -1516,12 +1516,32 @@
         }
       },
       {
+        "address": "0x800AA470",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1E37D0.c",
+            "src/done/game/game_1E37D0.c"
+          ]
+        }
+      },
+      {
         "address": "0x800AA4CC",
         "section": ".rodata",
         "owner": {
           "sources": [
             "src/game/game_1E58B0.c",
             "src/done/game/game_1E58B0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800AA564",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1E6260.c",
+            "src/done/game/game_1E6260.c"
           ]
         }
       },

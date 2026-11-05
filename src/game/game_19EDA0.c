@@ -12,7 +12,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_1516D4E8(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, u8, s32);
+void func_1516D4E8(s16, s16, s16, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8, s16, s16, u8, s16, s32, s32, u8, s32);
 
 typedef struct Game19EDA0Color {
     u8 red, green, blue;
@@ -20,7 +20,7 @@ typedef struct Game19EDA0Color {
 
 extern Game19EDA0Color D_8008CC20;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151718F0 CURRENT (2784) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151718F0 CURRENT (528) */
 void func_151718F0(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4,
                    f32 arg5, s32 arg6, s32 arg7, u8 arg8, s32 arg9) {
     f32 sine, z, randomScale;

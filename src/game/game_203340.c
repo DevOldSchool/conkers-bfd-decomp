@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151D5E90
  * - func_151D61B0
- * - func_151D6418
  * - func_151D6778
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -101,16 +100,17 @@ void func_151D61B0(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D61B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_203340/func_151D61B0.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D6418 CURRENT (70) */
 Game203340Command *func_151D6418(Game203340Command *arg0, s32 arg1, s32 arg2, s32 arg3) {
     u32 width;
     u32 y;
     u32 height;
     s32 address;
+    u32 stride;
 
     width = D_800BE620;
     height = D_800BE624;
     address = arg1;
+    stride = width * 8;
     { Game203340Command *command = arg0++; command->first = _SHIFTL(0xFA, 24, 8) | _SHIFTL(0, 8, 8) | _SHIFTL(0, 0, 8); command->second = _SHIFTL(255, 24, 8) | _SHIFTL(255, 16, 8) | _SHIFTL(255, 8, 8) | _SHIFTL(arg3, 0, 8); }
     { Game203340Command *command = arg0++; command->first = 0xFC11FE23; command->second = 0xFFFFF7FB; }
     { Game203340Command *command = arg0++; command->first = 0xEF000CFF; command->second = 0x00504340; }
@@ -120,12 +120,10 @@ Game203340Command *func_151D6418(Game203340Command *arg0, s32 arg1, s32 arg2, s3
         { Game203340Command *command = arg0++; command->first = _SHIFTL(0xFD, 24, 8) | _SHIFTL(0, 21, 3) | _SHIFTL(2, 19, 2) | _SHIFTL(1 - 1, 0, 12); command->second = address + 0x80000000; } { Game203340Command *command = arg0++; command->first = _SHIFTL(0xF5, 24, 8) | _SHIFTL(0, 21, 3) | _SHIFTL(2, 19, 2) | _SHIFTL(0, 9, 9) | _SHIFTL(0, 0, 9); command->second = _SHIFTL(7, 24, 3) | _SHIFTL(0, 20, 4) | _SHIFTL(0, 18, 2) | _SHIFTL(0, 14, 4) | _SHIFTL(0, 10, 4) | _SHIFTL(0, 8, 2) | _SHIFTL(0, 4, 4) | _SHIFTL(0, 0, 4); } { Game203340Command *command = arg0++; command->first = _SHIFTL(0xE6, 24, 8); command->second = 0; } { Game203340Command *command = arg0++; command->first = _SHIFTL(0xF3, 24, 8) | _SHIFTL(0, 12, 12) | _SHIFTL(0, 0, 12); command->second = _SHIFTL(7, 24, 3) | _SHIFTL(MIN(((width * 4) + 0 >> 0) - 1, 0x7FF), 12, 12) | _SHIFTL(CALC_DXT(width, 2), 0, 12); } { Game203340Command *command = arg0++; command->first = _SHIFTL(0xE7, 24, 8); command->second = 0; } { Game203340Command *command = arg0++; command->first = _SHIFTL(0xF5, 24, 8) | _SHIFTL(0, 21, 3) | _SHIFTL(2, 19, 2) | _SHIFTL(((width * 2) + 7) >> 3, 9, 9) | _SHIFTL(0, 0, 9); command->second = _SHIFTL(0, 24, 3) | _SHIFTL(0, 20, 4) | _SHIFTL(0, 18, 2) | _SHIFTL(0, 14, 4) | _SHIFTL(0, 10, 4) | _SHIFTL(0, 8, 2) | _SHIFTL(0, 4, 4) | _SHIFTL(0, 0, 4); } { Game203340Command *command = arg0++; command->first = _SHIFTL(0xF2, 24, 8) | _SHIFTL(0, 12, 12) | _SHIFTL(0, 0, 12); command->second = _SHIFTL(0, 24, 3) | _SHIFTL((width - 1) << 2, 12, 12) | _SHIFTL((4 - 1) << 2, 0, 12); }
         { Game203340Command *command = arg0++; command->first = _SHIFTL(0xE4, 24, 8) | _SHIFTL((width - arg2) << 2, 12, 12) | _SHIFTL((y + 4) << 2, 0, 12); command->second = _SHIFTL(0, 24, 3) | _SHIFTL(0 << 2, 12, 12) | _SHIFTL(y << 2, 0, 12); } { Game203340Command *command = arg0++; command->first = _SHIFTL(0xE1, 24, 8); command->second = _SHIFTL(0, 16, 16) | _SHIFTL(0, 0, 16); } { Game203340Command *command = arg0++; command->first = _SHIFTL(0xF1, 24, 8); command->second = _SHIFTL(1 << 10, 16, 16) | _SHIFTL(1 << 10, 0, 16); }
         { Game203340Command *command = arg0++; command->first = _SHIFTL(0xE7, 24, 8); command->second = 0; }
-        address += width * 8;
+        address += stride;
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D6418 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_203340/func_151D6418.s")
 void func_100043B4(void *, s32);
 extern u8 D_80038080;
 extern s32 D_800BE570;

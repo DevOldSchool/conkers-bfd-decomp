@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151B6420
  * - func_151B65D4
  * - func_151B6928
  * - func_151B7144
@@ -89,26 +88,22 @@ typedef struct Game1B6420Actor {
     Game1B6420Record *records;
 } Game1B6420Actor;
 
-extern f32 D_800AA470;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B6420 CURRENT (60) */
 s32 func_151B6420(Game1B6420Actor *actor) {
     typedef struct { s32 words[3]; } Copy3;
     Game1B6420Record *records;
     Game1B6420Record *record;
     s32 index;
     s32 intensity;
-    f32 zero;
     f32 baseTime;
-    f32 scale;
+    f32 diff;
 
     records = actor->records;
     if (actor->count < 2 && (actor->flags & 8)) {
         return 0;
     }
     index = actor->tail;
-    zero = 0.0f;
     if (index != actor->head) {
         do {
             index--;
@@ -117,10 +112,10 @@ s32 func_151B6420(Game1B6420Actor *actor) {
             }
             record = &records[index];
             record->countdown -= D_800BE9A4;
-            if (record->countdown < zero && index != actor->head) {
+            if (record->countdown < 0.0f && index != actor->head) {
                 do {
                     actor->head++;
-                    if (actor->capacity == actor->head) {
+                    if (actor->head == actor->capacity) {
                         actor->head = 0;
                     }
                     actor->count--;
@@ -131,10 +126,10 @@ s32 func_151B6420(Game1B6420Actor *actor) {
     if (actor->count > 0) {
         index = actor->head;
         baseTime = records[index].time;
-        scale = D_800AA470;
         do {
             record = &records[index];
-            intensity = (s32)((record->time - baseTime) * scale);
+            diff = record->time - baseTime;
+            intensity = diff * 0.49400002f;
             if (intensity >= 0x9C) {
                 record->intensity = 0x9B;
             } else {
@@ -147,16 +142,14 @@ s32 func_151B6420(Game1B6420Actor *actor) {
         } while (index != actor->tail);
     }
     if (actor->count > 0) {
-        *(Copy3 *)actor->output = *(Copy3 *)&records[actor->head];
+        *(Copy3 *)actor->output = *(Copy3 *)records[actor->head].pad0;
     } else {
-        *(f32 *)&actor->output[0] = zero;
-        *(f32 *)&actor->output[1] = zero;
-        *(f32 *)&actor->output[2] = zero;
+        *(f32 *)&actor->output[0] = 0.0f;
+        *(f32 *)&actor->output[1] = 0.0f;
+        *(f32 *)&actor->output[2] = 0.0f;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B6420 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B6420.s")
 extern f32 D_800AA474;
 extern f32 D_800AA478;
 extern f32 D_800BE9A4;

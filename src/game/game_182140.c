@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_emission_descriptor_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15154C90
  * - func_15154D80
  * - func_151555AC
  *
@@ -18,7 +17,6 @@ typedef s32 (*Game182140Callback)(u8 *, s8);
 extern Game182140Callback D_8008ACC8[];
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15154C90 CURRENT (30) */
 void func_15154C90(u8 *arg0) {
     s32 index;
     s8 should_free;
@@ -39,14 +37,12 @@ void func_15154C90(u8 *arg0) {
     }
 
     if (*(u16 *)(arg0 + 0x24) & 8) {
-        s16 temp_lo;
-        s16 temp_v1;
+        s32 a;
 
-        temp_v1 = *(s16 *)(arg0 + 0x22);
-        if (temp_v1 < *(s16 *)(arg0 + 0x26)) {
-            temp_lo = temp_v1 * *(s16 *)(arg0 + 0x28);
-            if (temp_lo < arg0[0x2E]) {
-                arg0[0x2E] = temp_lo;
+        a = *(s16 *)(arg0 + 0x22);
+        if (a < *(s16 *)(arg0 + 0x26)) {
+            if ((s16)(*(s16 *)(arg0 + 0x22) * *(s16 *)(arg0 + 0x28)) < arg0[0x2E]) {
+                arg0[0x2E] = (s16)(*(s16 *)(arg0 + 0x22) * *(s16 *)(arg0 + 0x28));
             }
         }
     }
@@ -55,8 +51,6 @@ void func_15154C90(u8 *arg0) {
         func_1516972C(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15154C90 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_182140/func_15154C90.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182140/func_15154D80.s")
 void *func_10022EC0(void *, const void *, u32);
 s32 func_151555AC(f32 *, f32 *, s32 *, s32);

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dispatch_position_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150FED30
  * - func_150FF084
  * - func_150FF2D4
  * - func_150FF474
@@ -35,10 +34,9 @@ typedef struct Game12C1E0EmissionOwner {
     u8 pad5[0x6F];
     u8 flags74;
     u8 pad75[0x15F];
-    s32 resource1D4;
+    u8 (*resource1D4)[0x40];
 } Game12C1E0EmissionOwner;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FED30 CURRENT (35) */
 void func_150FED30(f32 *arg0, s32 arg1, s32 arg2) {
     f32 position[3];
     f32 endpoint[3];
@@ -54,9 +52,9 @@ void func_150FED30(f32 *arg0, s32 arg1, s32 arg2) {
     s32 value1;
     s32 lookup;
     u8 valid;
-    register s32 randomWord;
-    register s32 kind;
-    register s32 directionSign;
+    s32 randomWord;
+    s32 kind;
+    s32 directionSign;
     f32 random1;
     f32 random0;
 
@@ -95,14 +93,11 @@ void func_150FED30(f32 *arg0, s32 arg1, s32 arg2) {
         if (valid != 0) {
             func_151D3F14(position, *(u8 *)((u8 *)&arg1 + 3), arg2);
             func_151D4408(hit, normal,
-                ((Game12C1E0EmissionOwner *)arg0)->resource1D4 +
-                (*(u8 *)(lookup + 2) << 6), arg0, 1.0f, *(u8 *)((u8 *)&arg1 + 3), arg2);
+                (s32)((Game12C1E0EmissionOwner *)arg0)->resource1D4[*(u8 *)(lookup + 2)], arg0, 1.0f, *(u8 *)((u8 *)&arg1 + 3), arg2);
             func_150FF474(position, points, *(u8 *)((u8 *)&arg1 + 3), arg2);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FED30 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12C1E0/func_150FED30.s")
 extern s32 func_1503195C(void *arg0, s32 arg1, s32 arg2);
 s32 func_1514654C(void *, s32, s32, void **, void **, s32);
 extern u8 D_800A2050;
