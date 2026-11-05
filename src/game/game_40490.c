@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15013000
  * - func_150130B4
  * - func_15013DE8
  * - func_15014094
@@ -38,7 +37,6 @@ extern u8 *D_800D3098;
 extern f32 D_800DCD90;
 extern void *D_800DCDC4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15013000 CURRENT (150) */
 void func_15013000(void) {
     Game40490DispatchCallback callback;
     u32 var_s1;
@@ -46,25 +44,24 @@ void func_15013000(void) {
     u8 *base;
     s32 index;
 
+    D_800DCDC4 = 0;
     D_800DCD90 = 0.0f;
+lbl:
     var_s1 = 0;
     var_s0 = 0;
-    D_800DCDC4 = 0;
     if (D_800D3094 != 0) {
         do {
             base = D_800D3098;
             index = *(u8 *)((s32)base + var_s0 + 0x15);
             callback = D_80082E30[(index >> 2) & 0xFF];
             if (callback != 0) {
-                callback(base + var_s0, callback);
+                callback(var_s0 + base, callback);
             }
             var_s1 += 1;
             var_s0 += 0x34;
         } while (var_s1 < D_800D3094);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15013000 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013000.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150130B4.s")
 s32 func_1501370C(u8 *arg0) {
     Game40490SimpleCallback callback;

@@ -11,7 +11,6 @@
  * - func_151E30C4
  * - func_151E3344
  * - func_151E43DC
- * - func_151E4BD8
  * - func_151E50C8
  * - func_151E53E8
  * - func_151E565C
@@ -322,11 +321,11 @@ extern s8 D_800AB68C[];
 extern s8 D_800E0A86;
 extern s32 D_800E0A90;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E4BD8 CURRENT (205) */
 void func_151E4BD8(void) {
     s16 selection;
     s8 alternate;
     s8 count;
+    s32 i;
 
     D_8008FE2C = 0;
     D_800BEAC1 = 0;
@@ -336,10 +335,9 @@ void func_151E4BD8(void) {
     alternate = D_800AB68C[*(s8 *)((u8 *)D_8008FDD4 + 0x42) * 10 + 7];
     D_8008FDC0 &= 0xF369;
     if (D_800AB68C[*(s8 *)((u8 *)D_8008FDD4 + 0x42) * 10 + 5] >= 0) {
-        if (D_800E0AC0 == 1) count = 1;
-        if (D_800E0AC1 == 1) count++;
-        if (D_800E0AC2 == 1) count++;
-        if (D_800E0AC3 == 1) count++;
+        for (i = 0; i < 4; i++) {
+            if ((&D_800E0AC0)[i] == 1) count++;
+        }
         count = count >= 2;
     }
     if (alternate < 0 || count != 0) {
@@ -367,8 +365,6 @@ void func_151E4BD8(void) {
     D_8008FD8C = 1;
     D_8008FD90 = 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151E4BD8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E4BD8.s")
 
 extern u8 D_800E0B94;
 

@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_118670.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_singletons_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150EB1C0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct GameEB1C0Actor {
@@ -44,14 +39,9 @@ void func_151254F4(void *, s32);
 extern s32 D_80088A90;
 extern f32 D_800A1480;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EB1C0 CURRENT (195) */
 void func_150EB1C0(GameEB1C0Actor *arg0) {
-    volatile s32 enabled;
+    s32 enabled;
     s32 other;
-    u32 flags;
-    f32 range;
-    f32 scale;
-    f32 angle;
 
     enabled = func_1509BE40(0, func_1509BE40(0, 0x2006, 0xB7) | 0x2000, 0xBC);
     other = func_1509BE40(0, 0x2000, 0xBB);
@@ -63,21 +53,17 @@ void func_150EB1C0(GameEB1C0Actor *arg0) {
         func_1509BFB0(0, 0x4061, 1);
         if (arg0->mode != 0x100 && arg0->pending == 0) {
             if (func_15123934(arg0, 8, 0, 0, 3)) {
-                flags = arg0->flags | 0x01100004;
-                *(volatile u32 *)&arg0->flags = flags;
-                arg0->flags = flags & ~2;
+                arg0->flags |= 0x01100004;
+                arg0->flags &= ~2;
                 arg0->speed = 0.0f;
                 func_151254F4(arg0, arg0->selection[0x65] - 1);
                 arg0->state_flags |= 0x10;
             }
-            range = 320.0f;
-            scale = D_800A1480;
-            angle = 180.0f;
+            arg0->scale = D_800A1480;
             arg0->target = 0;
-            arg0->range1 = range;
-            arg0->range2 = range;
-            arg0->scale = scale;
-            arg0->angle = angle;
+            arg0->range1 = 320.0f;
+            arg0->range2 = 320.0f;
+            arg0->angle = 180.0f;
             D_80088A90 = 1;
             func_1509BFB0(0, 0x405C, 0);
         }
@@ -102,5 +88,3 @@ void func_150EB1C0(GameEB1C0Actor *arg0) {
         arg0->flags &= ~0x80;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150EB1C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_118670/func_150EB1C0.s")

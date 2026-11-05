@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1512A390
- * - func_1512ABF8
  * - func_1512AD54
  * - func_1512B1B8
  * - func_1512B53C
@@ -29,34 +28,26 @@ extern s32 D_800BE9F0;
 extern u8 D_800DC0C0;
 extern Game157840Record D_800DC200[4][4];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512ABF8 CURRENT (200) */
 void func_1512ABF8(void) {
-    s32 scaleMode;
-    s32 animationMode;
     u8 row;
     u8 column;
-    Game157840Record *record;
 
-    scaleMode = D_80082FA0;
-    animationMode = D_800BE9F0;
     for (row = 0; row < 4; row++) {
-        for (column = 0; column < 4; column++) {
-            record = &D_800DC200[row][column];
-            *record = D_80089590[column];
-            if ((scaleMode > 0) && (scaleMode < 4)) {
-                *(s16 *)&record->bytes[0] = *(s16 *)&record->bytes[0] * 0.5f;
-                *(s16 *)&record->bytes[2] = *(s16 *)&record->bytes[2] * 0.5f;
+        column = 0;
+        for (; column < 4; column++) {
+            D_800DC200[row][column] = D_80089590[column];
+            if ((D_80082FA0 > 0) && (D_80082FA0 < 4)) {
+                *(s16 *)&D_800DC200[row][column].bytes[0] = *(s16 *)&D_800DC200[row][column].bytes[0] * 0.5f;
+                *(s16 *)&D_800DC200[row][column].bytes[2] = *(s16 *)&D_800DC200[row][column].bytes[2] * 0.5f;
             }
-            if ((animationMode == 0x1B) || (animationMode == 0x1E)) {
-                *(s16 *)&record->bytes[0] = *(s16 *)&record->bytes[0] * 0.75f;
-                *(s16 *)&record->bytes[2] = *(s16 *)&record->bytes[2] * 0.75f;
+            if ((D_800BE9F0 == 0x1B) || (D_800BE9F0 == 0x1E)) {
+                *(s16 *)&D_800DC200[row][column].bytes[0] = *(s16 *)&D_800DC200[row][column].bytes[0] * 0.75f;
+                *(s16 *)&D_800DC200[row][column].bytes[2] = *(s16 *)&D_800DC200[row][column].bytes[2] * 0.75f;
             }
         }
     }
     func_100226F0(&D_800DC0C0, 0x130);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1512ABF8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_157840/func_1512ABF8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_157840/func_1512AD54.s")
 void func_1512AD54(void);
 extern u8 D_800BEAC0;

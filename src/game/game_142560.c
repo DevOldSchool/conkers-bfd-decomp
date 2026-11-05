@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_table_runs.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151152A8
  * - func_15115368
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -82,29 +81,35 @@ void func_1511529C(s32 arg0) {
 }
 extern f32 D_800A2F8C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151152A8 CURRENT (170) */
-void func_151152A8(void *arg0) {
-    s16 temp_v1;
-    s32 temp_a1;
-    s32 var_v0;
+typedef struct Game142560Actor {
+    u8 pad00[0x12];
+    s16 unk12;
+    u8 pad14[0x28];
+    s32 unk3C;
+    u8 pad40[0xF];
+    u8 unk4F;
+    u8 pad50[0x2C];
+    s32 unk7C;
+} Game142560Actor;
 
-    var_v0 = *(s32 *)((u8 *)arg0 + 0x7C);
-    if (var_v0 == 0) {
-        var_v0 = (s32) *(s16 *)((u8 *)arg0 + 0x12);
-        *(s32 *)((u8 *)arg0 + 0x7C) = var_v0;
+void func_151152A8(Game142560Actor *arg0) {
+    s32 target;
+    s32 cur;
+
+    target = arg0->unk7C;
+    if (target == 0) {
+        target = arg0->unk12;
+        arg0->unk7C = target;
     }
-    temp_v1 = *(s16 *)((u8 *)arg0 + 0x12);
-    if (*(u8 *)((u8 *)arg0 + 0x4F) & 4) {
-        temp_a1 = *(s32 *)((u8 *)arg0 + 0x3C);
-        if ((s32)((u32)var_v0 - (u32)(s32)temp_v1) < (s16) temp_a1) {
-            *(s16 *)((u8 *)arg0 + 0x12) = (s16) ((u32)(s32)temp_v1 - ((u32)(s32)(s16)(temp_a1 >> 0x10) * (u32)D_800BE9E4));
+    cur = arg0->unk12;
+    if ((u8)(arg0->unk4F & 4)) {
+        if (target - cur < (s16)arg0->unk3C) {
+            arg0->unk12 = cur - (s16)(arg0->unk3C >> 16) * D_800BE9E4;
         }
     } else {
-        *(s16 *)((u8 *)arg0 + 0x12) = (s16) (s32) ((f32) temp_v1 + ((f32) (s32)((u32)var_v0 - (u32)(s32)temp_v1) * D_800A2F8C * (f32) D_800BE9E4));
+        arg0->unk12 = cur + (target - cur) * D_800A2F8C * D_800BE9E4;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151152A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_142560/func_151152A8.s")
 f32 func_15047D60(f32);
 extern f32 D_800A2F90;
 extern f32 D_800A2F94;

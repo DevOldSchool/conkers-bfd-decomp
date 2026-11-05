@@ -9,7 +9,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_core_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1501C880
  * - func_1501CC3C
  * - func_1501CDC0
  * - func_1501CE54
@@ -88,10 +87,10 @@ extern u8 *D_800BEAD0;
 extern u8 D_800BEBB0[];
 extern u8 D_800C1060[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501C880 CURRENT (110) */
 void func_1501C880(s32 arg0, s32 arg1) {
     s32 capacity;
     s32 used;
+    s32 limit;
     Gfx *base;
 
     capacity = D_800BE9C8[1] - D_800BE9C8[0];
@@ -107,8 +106,9 @@ void func_1501C880(s32 arg0, s32 arg1) {
         base = *(D_800BE9C8 + D_800BE9C0);
         used = D_800BE9D0 - base;
     }
-    if (used < 0 || capacity - 0x190 < used) {
-        D_800BE9D0 = (Gfx *)((s32)base + ((capacity - 0x190) << 3));
+    limit = capacity - 0x190;
+    if (used < 0 || limit < used) {
+        D_800BE9D0 = (Gfx *)((s32)base + (limit << 3));
         { Gfx *packet = D_800BE9D0++; packet->words.w0 = 0xE9000000; packet->words.w1 = 0; }
         { Gfx *packet = D_800BE9D0++; packet->words.w0 = 0xDF000000; packet->words.w1 = 0; }
         base = *(D_800BE9C8 + D_800BE9C0);
@@ -148,8 +148,6 @@ void func_1501C880(s32 arg0, s32 arg1) {
     if (arg1 != 0) D_800BE9C0 ^= 1;
     D_800BEAA8++;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501C880 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501C880.s")
 typedef struct Game1CC3CEntry {
     s32 start0;
     s32 end0;

@@ -358,16 +358,15 @@
       "symbol": "func_15002724"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "CURRENT (200). Corrected the consumed a0 argument in the call to func_1510F800 and retained the raw allocator writes. The old no-argument candidate was invalid and scored 2110; the corrected candidate scores 200. Nine lifetime and declaration-order variants were unchanged (2.561 seconds in the loop, 4.74 seconds for the command), and an ordinary initial load was also unchanged. The inherited score of 250 was stale. The redundant block-local declaration has been removed; the existing file-scope declaration remains. No shared dependency changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15002754",
           "vram": "0x15002754"
         }
@@ -16379,17 +16378,16 @@
       "symbol": "func_15012FE0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 150,
-        "reason": "CURRENT (150), round22 msweep move op (move7_10: one statement moved within its straight-line run) (stored 275). Earlier: Named base/index lifetimes and pointer argument improve780 to275. Remaining initial count load hoist versus zero stores and one ADDU operand order. Explicit cached count both volatile/plain hoists S4 and enlarges frame934. Best275 after4 manual revisions; callback ABI unchanged.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 180,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15013000",
           "vram": "0x15013000"
         }
@@ -39205,17 +39203,16 @@
       "symbol": "func_1519E948"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 110,
-        "reason": "Round 13: volatile cursor hack removed, one-line E9/DF blocks on D_800BE9D0++ 435 -> 110; clip store D_800BE9D0 = base + ... still uses lui at/%lo instead of the cached address register.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 956,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501C880",
           "vram": "0x1501C880"
         }
@@ -49941,17 +49938,16 @@
       "symbol": "func_1519F48C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 135,
-        "reason": "Best CURRENT (135), three comparisons; word index recovered and native loop/control flow preserved. Frame80 versus78, probe54 versus58, swapped FP20/22 roles, one hoisted load and final ADDU order remain; no shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 768,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1519F4F0",
           "vram": "0x1519F4F0"
         }
@@ -53445,17 +53441,16 @@
       "symbol": "func_151ACB38"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "Full-span CURRENT (200): raw jal delay-slot sw a0,0x18(sp) (arg0 kept live past the call) is absent; all other instructions match. Round9: s32 param, inline test and owner-local forms 200-220; randomized permuter reached 0 only with an empty if (!arg0) {} after the call (fake, reopened)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 52,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151ACB60",
           "vram": "0x151ACB60"
         }
@@ -55699,17 +55694,16 @@
       "symbol": "func_15108FFC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 160,
-        "reason": "CURRENT (160): compound pointer body retained. Authoritative finish measures the unchanged main body at 170 in the same PR source context; compound pointer form measures 160. Probe-only scores of 270/260 are not interchangeable with finish. Historical 130 is stale. Reproduction commands and context: docs/evidence/matching/pr149-review.md. Historical main evidence: CURRENT (130): raw addu v0,a0,t7 at 0x14 versus candidate v0,t7,a0; raw case-29 store before jr with nop delay while candidate schedules store in jr delay slot and shifts case-30 branch; reversing address operands and replacing return with break compiled identically Ledger: build/us/manual-attempts/deferred-20261018/ledger.md; review ledger: build/us/manual-attempts/pr149-review/ledger.md; durable review: docs/evidence/matching/pr149-review.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 120,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15109064",
           "vram": "0x15109064"
         }
@@ -63190,17 +63184,16 @@
       "symbol": "func_150DBC60"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 205,
-        "reason": "Round 13: for (i = 0; i < 10; i++) over a typed 10-byte GameF5800Record view of D_800BE4E0 with fields re-read through the global (no cached record pointer): 450 -> 205. Remaining: v0/a0 swap between the record-address CSE and the speed local (declaration orders neutral).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 420,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C8350",
           "vram": "0x150C8350"
         }
@@ -71054,17 +71047,16 @@
       "symbol": "func_1511529C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 170,
-        "reason": "Defined unsigned wrapping differences/products retain CURRENT170. Seed1906 completed6000; alias-based120 not applied, cleaned actualheight snapshot560 regresses. Float-conversion domain needs review before any future acceptance; continuation1903 ledger.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 192,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151152A8",
           "vram": "0x151152A8"
         }
@@ -72220,17 +72212,16 @@
       "symbol": "func_150E1860"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 195,
-        "reason": "CURRENT (195) inherited candidate uses volatile scalar and volatile object flag access without established volatile contract. No new search performed on that foundation; needs a natural source/lifetime hypothesis before acceptance.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 624,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150EB1C0",
           "vram": "0x150EB1C0"
         }
@@ -76547,17 +76538,16 @@
       "symbol": "func_151E43DC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 205,
-        "reason": "CURRENT (205), round22 chain swap35 (independent global stores) (stored 875). Earlier: Three bounded forms all875: typed selection record, real scalar ordering and explicit common continuation. Exact frame and arithmetic; cached state/count v0-v1 swap and alternate-table scheduling remain. First shape retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 492,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151E4BD8",
           "vram": "0x151E4BD8"
         }
@@ -78796,17 +78786,16 @@
       "symbol": "func_151A91AC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 160,
-        "reason": "Round6 2026-10-18: CURRENT 530 -> 160. Initialized u8 *state = arg0 + 0x28 reproduces the per-arm addiu. Left: first arm's store sits in the jr delay slot (raw sb; jr; nop). return after the store 260 (probe), block-scoped state 440, named id 360, switch 1000, nested if 260.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 116,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A931C",
           "vram": "0x151A931C"
         }
@@ -85995,17 +85984,16 @@
       "symbol": "func_1512A390"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "CURRENT (200), round22 natural u8 for loops, residual global load/addu scheduling and beql operand order (stored 1490). Earlier: Best manual candidate CURRENT (1490): exact frame/stack and record-copy operations, but register allocation and loop branch scheduling differ (40 register-only, 4 control-flow, 4 missing/extra); needs new loop/global-load hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 348,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1512ABF8",
           "vram": "0x1512ABF8"
         }

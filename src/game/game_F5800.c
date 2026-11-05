@@ -4,14 +4,8 @@
 /*
  * Reviewed source unit: src/game/game_F5800.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_narrow_effect_record_cores.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150C8350
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern s32 D_800BE4E0;
 extern u8 D_800BE9A0;
 extern s32 D_800BE9E4;
 
@@ -25,62 +19,55 @@ typedef struct GameF5800Record {
     s16 target;
 } GameF5800Record;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C8350 CURRENT (205) */
+extern GameF5800Record *D_800BE4E0;
+
 void func_150C8350(void) {
-    s32 temp_a1;
-    s32 temp_a1_3;
-    s32 var_a0;
-    s32 var_a2;
-    s32 temp_a1_2;
-    s32 temp_t7;
-    s32 var_a1;
-    s32 var_t0;
     s32 i;
+    s32 target;
+    s32 diff;
+    s32 step;
+    s32 dist;
+    s32 sign;
+    s32 pos;
 
     for (i = 0; i < 10; i++) {
-        var_a0 = ((GameF5800Record *)D_800BE4E0)[i].speed;
-        temp_a1 = ((GameF5800Record *)D_800BE4E0)[i].target;
-        if (var_a0 != temp_a1) {
-            var_a2 = temp_a1;
-            if (var_a0 < 0) {
-                var_a2 = -temp_a1;
+        if (D_800BE4E0[i].speed != D_800BE4E0[i].target) {
+            target = D_800BE4E0[i].target;
+            if (D_800BE4E0[i].speed < 0) {
+                target = -target;
             }
-            temp_a1_2 = var_a2 - var_a0;
-            temp_t7 = D_800BE9E4 * 0x10;
-            var_t0 = temp_a1_2 < 0 ? -temp_a1_2 : temp_a1_2;
-            if (var_t0 < temp_t7) {
-                ((GameF5800Record *)D_800BE4E0)[i].speed = var_a2;
-                var_a0 = ((GameF5800Record *)D_800BE4E0)[i].speed;
+            diff = target - D_800BE4E0[i].speed;
+            step = D_800BE9E4 * 0x10;
+            dist = diff < 0 ? -diff : diff;
+            if (dist < step) {
+                D_800BE4E0[i].speed = target;
             } else {
-                if (temp_a1_2 < 0) {
-                    var_a1 = -1;
+                if (diff < 0) {
+                    sign = -1;
                 } else {
-                    var_a1 = 1;
+                    sign = 1;
                 }
-                ((GameF5800Record *)D_800BE4E0)[i].speed = (s16) (var_a0 + (temp_t7 * var_a1));
-                var_a0 = ((GameF5800Record *)D_800BE4E0)[i].speed;
+                D_800BE4E0[i].speed = D_800BE4E0[i].speed + step * sign;
             }
         }
-        ((GameF5800Record *)D_800BE4E0)[i].pos += var_a0 * ((GameF5800Record *)D_800BE4E0)[i].dir * D_800BE9A0;
-        temp_a1_3 = ((GameF5800Record *)D_800BE4E0)[i].pos;
-        if (temp_a1_3 >= 0x500) {
-            ((GameF5800Record *)D_800BE4E0)[i].pos = (s16) (temp_a1_3 - 0x500);
-            ((GameF5800Record *)D_800BE4E0)[i].pos = (s16) (0x500 - ((GameF5800Record *)D_800BE4E0)[i].pos);
-            ((GameF5800Record *)D_800BE4E0)[i].dir = (s8) -((GameF5800Record *)D_800BE4E0)[i].dir;
-            if (((GameF5800Record *)D_800BE4E0)[i].pos >= 0x500) {
-                ((GameF5800Record *)D_800BE4E0)[i].pos = 0x4FF;
+        D_800BE4E0[i].pos += D_800BE4E0[i].speed * D_800BE4E0[i].dir * D_800BE9A0;
+        pos = D_800BE4E0[i].pos;
+        if (pos >= 0x500) {
+            D_800BE4E0[i].pos = pos - 0x500;
+            D_800BE4E0[i].pos = 0x500 - D_800BE4E0[i].pos;
+            D_800BE4E0[i].dir = -D_800BE4E0[i].dir;
+            if (D_800BE4E0[i].pos >= 0x500) {
+                D_800BE4E0[i].pos = 0x4FF;
             }
-        } else if (temp_a1_3 < 0) {
-            ((GameF5800Record *)D_800BE4E0)[i].pos = (s16) -temp_a1_3;
-            ((GameF5800Record *)D_800BE4E0)[i].dir = (s8) -((GameF5800Record *)D_800BE4E0)[i].dir;
-            if (((GameF5800Record *)D_800BE4E0)[i].pos < 0) {
-                ((GameF5800Record *)D_800BE4E0)[i].pos = 0;
+        } else if (pos < 0) {
+            D_800BE4E0[i].pos = -pos;
+            D_800BE4E0[i].dir = -D_800BE4E0[i].dir;
+            if (D_800BE4E0[i].pos < 0) {
+                D_800BE4E0[i].pos = 0;
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C8350 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F5800/func_150C8350.s")
 void func_150C84F4(s32 arg0) {
     if (arg0 == 0) {
         func_150C8350();
