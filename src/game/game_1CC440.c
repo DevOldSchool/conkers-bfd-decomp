@@ -330,7 +330,6 @@ s32 func_1519F4F0(u8 *arg0) {
     Game1CC440TrailPoint *point;
     Game1CC440Config *config;
     s32 index, expired;
-    f32 probe[3];
 
     config = *(Game1CC440Config **)(arg0 + 0x98);
     base = *(Game1CC440TrailPoint **)(arg0 + 0x94);
@@ -350,14 +349,16 @@ s32 func_1519F4F0(u8 *arg0) {
             point->fieldC += config->field3C * D_800BE9A4;
             point->x += point->velocityX * D_800BE9A4;
             point->z += point->velocityZ * D_800BE9A4;
-        lbl:
-            probe[0] = point->x;
-            probe[1] = point->y + 30.0f;
-            probe[2] = point->z;
-            if (20000.0f < fabsf(probe[0]) || 20000.0f < fabsf(probe[2])) expired = 1;
-            else if (func_15045800((Vec3f *)probe, 0, point->y - 30.0f, arg0 + 0x60) != 0) {
-                point->y = *(f32 *)(arg0 + 0x60);
-            } else expired = 1;
+            {
+                Vec3f probe;
+                probe.x = point->x;
+                probe.y = point->y + 30.0f;
+                probe.z = point->z;
+                if (20000.0f < fabsf(probe.x) || 20000.0f < fabsf(probe.z)) expired = 1;
+                else if (func_15045800(&probe, 0, point->y - 30.0f, arg0 + 0x60) != 0) {
+                    point->y = *(f32 *)(arg0 + 0x60);
+                } else expired = 1;
+            }
             if (point->size < 0) expired = 1;
             if (expired != 0) {
                 if (index != *(s8 *)(arg0 + 0x2D)) {

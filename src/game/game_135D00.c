@@ -344,19 +344,21 @@ void func_15109064(u8 *arg0, u8 *arg1, u8 arg2) {
     temp_v0 += *(s32 *)(arg0 + 0x50);
     temp_v0 += 0xF8;
     switch (arg2) {
-    case 29:
-        *(s32 *)(temp_v0 + 0x14) = *(s32 *)(arg1 + 0);
-        *(u8 *)(temp_v0 + 0x18) = *(u8 *)(arg1 + 8);
-        *(s32 *)(temp_v0 + 0x1C) = *(s32 *)(arg1 + 4);
-    end:
-        return;
+    case 29: {
+        s32 *src = (s32 *)arg1;
+
+        *(s32 *)(temp_v0 + 0x14) = src[0];
+        *(u8 *)(temp_v0 + 0x18) = arg1[8];
+        *(s32 *)(temp_v0 + 0x1C) = src[1];
+    }
+        break;
     case 30:
         if (*(u8 *)(temp_v0 + 0x20) != 0) {
             *(u8 *)(temp_v0 + 0x20) = 0;
-            return;
+        } else {
+            *(u8 *)(temp_v0 + 0x20) = 1;
         }
-        *(u8 *)(temp_v0 + 0x20) = 1;
-        return;
+        break;
     }
 }
 extern Game135D00DispatchDescriptor D_80088C58;

@@ -68,25 +68,30 @@ s32 func_151AC61C(s32 arg0, s16 arg1, f32 arg2, f32 arg3, f32 arg4,
                    f32 arg5, f32 arg6, f32 arg7, s32 arg8, s32 arg9,
                    f32 arg10, s32 arg11, f32 arg12, Game1D9A00EmitterOwner *arg13,
                    s32 arg14) {
-    f32 unused[3];
+    Game1D9A00EmitterOwner *owner;
+    f32 scale;
+    s8 *entry;
     f32 position[3];
     f32 direction[3];
     Game1D9A00EmitterConfig *config;
 
-    config = &D_800A9180[D_800A9023[arg11 * 5]];
+    owner = arg13;
+    scale = 1.0f;
+    entry = &D_800A9023[arg11 * 5];
+    config = &D_800A9180[*entry];
     position[0] = arg2;
     position[1] = arg3;
     position[2] = arg4;
     func_15143794((s16)arg8,
         (s16)((func_150ADA20() % (u32)(config->angleRange + 1)) + config->angle),
         func_150ADA68() * config->speedRange + config->speed, direction);
-    func_151D9014(position, direction, arg13->kind,
+    func_151D9014(position, direction, owner->kind,
         func_150ADA68() * config->rateRange + config->rate,
         (func_150ADA20() % (u32)(config->lifeRange + 1)) + config->life,
         (func_150ADA20() % (u32)(config->alphaRange + 1)) + config->alpha,
         func_150ADA68() * config->sizeRange + config->size,
         func_150ADA68() < config->probability,
-        1.0f, 1.0f, 1, arg13->first, 1, 0, (u8)arg14, arg13->second);
+        scale, scale, 1, owner->first, 1, 0, (u8)arg14, owner->second);
     return 1;
 }
 

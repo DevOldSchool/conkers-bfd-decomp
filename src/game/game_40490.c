@@ -38,28 +38,21 @@ extern f32 D_800DCD90;
 extern void *D_800DCDC4;
 
 void func_15013000(void) {
-    Game40490DispatchCallback callback;
-    u32 var_s1;
-    s32 var_s0;
-    u8 *base;
-    s32 index;
-
     D_800DCDC4 = 0;
     D_800DCD90 = 0.0f;
-lbl:
-    var_s1 = 0;
-    var_s0 = 0;
-    if (D_800D3094 != 0) {
-        do {
-            base = D_800D3098;
-            index = *(u8 *)((s32)base + var_s0 + 0x15);
-            callback = D_80082E30[(index >> 2) & 0xFF];
+    {
+        u32 i;
+        s32 offset;
+
+        for (i = 0, offset = 0; i < D_800D3094; i++, offset += 0x34) {
+            u8 *base = D_800D3098;
+            s32 index = *(u8 *)((s32)base + offset + 0x15);
+            Game40490DispatchCallback callback = D_80082E30[(index >> 2) & 0xFF];
+
             if (callback != 0) {
-                callback(var_s0 + base, callback);
+                callback(offset + base, callback);
             }
-            var_s1 += 1;
-            var_s0 += 0x34;
-        } while (var_s1 < D_800D3094);
+        }
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150130B4.s")

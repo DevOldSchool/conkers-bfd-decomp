@@ -53437,16 +53437,16 @@
       "symbol": "func_151ACB38"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "PR 233 review: exact form needed a dead 'if (arg0) {}' to keep arg0 live for the jal delay-slot sw; best natural form (typed record->actor->nested->model) scores 200",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 52,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_151ACB60",
           "vram": "0x151ACB60"
         }

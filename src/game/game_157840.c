@@ -34,7 +34,7 @@ void func_1512ABF8(void) {
 
     for (row = 0; row < 4; row++) {
         column = 0;
-        for (; column < 4; column++) {
+        while (column < 4) {
             D_800DC200[row][column] = D_80089590[column];
             if ((D_80082FA0 > 0) && (D_80082FA0 < 4)) {
                 *(s16 *)&D_800DC200[row][column].bytes[0] = *(s16 *)&D_800DC200[row][column].bytes[0] * 0.5f;
@@ -44,6 +44,7 @@ void func_1512ABF8(void) {
                 *(s16 *)&D_800DC200[row][column].bytes[0] = *(s16 *)&D_800DC200[row][column].bytes[0] * 0.75f;
                 *(s16 *)&D_800DC200[row][column].bytes[2] = *(s16 *)&D_800DC200[row][column].bytes[2] * 0.75f;
             }
+            column++;
         }
     }
     func_100226F0(&D_800DC0C0, 0x130);

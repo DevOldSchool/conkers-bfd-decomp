@@ -311,30 +311,33 @@ s32 func_1503D804(s32 arg0) {
     }
     return 0;
 }
-extern s32 D_800C4488;
-extern s16 D_800C5918;
+extern u32 **D_800C4488[];
+extern s16 D_800C5918[];
 
-void func_1503D984(s32 arg0) {
+/* Display-list layers per model; the binary keeps this loop (a1 steps by 4 to 4). */
+#define GAME6A3D0_DL_LAYERS 1
+
+void func_1503D984(s32 model) {
     s32 count;
     s32 i;
     s32 j;
-    u32 *rec;
-    s8 tag;
+    u32 *dl;
+    s8 cmd;
 
     count = 0;
-    for (i = 0; i < 1; i++) {
-        rec = (*(u32 ***)((u8 *)&D_800C4488 + arg0 * 4))[i];
-        for (j = 0; (tag = rec[j * 2] >> 24) != -0x21; j++) {
-            if (tag == 5) {
+    for (i = 0; i < GAME6A3D0_DL_LAYERS; i++) {
+        dl = D_800C4488[model][i];
+        for (j = 0; (cmd = dl[j * 2] >> 24) != -0x21; j++) {
+            if (cmd == 5) {
                 count += 1;
-            } else if (tag == 6) {
+            } else if (cmd == 6) {
                 count += 2;
-            } else if ((tag >> 4) == 1) {
+            } else if ((cmd >> 4) == 1) {
                 count += 4;
             }
         }
     }
-    *(s16 *)((u8 *)&D_800C5918 + arg0 * 2) = count;
+    D_800C5918[model] = count;
 }
 extern s32 D_800D19A0[];
 
@@ -374,7 +377,6 @@ s32 func_15084044(void *, s32);
 void func_1510CE60(s32, s32, s32, s32, void *);
 extern s32 D_800C5C08[];
 extern u16 D_800C4778[];
-extern s32 D_800C4488;
 extern u8 *D_800C5338[];
 extern u16 D_800C5628[];
 
@@ -405,7 +407,7 @@ s32 func_1503DA9C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
                 offset = 0;
                 if (*countPtr > 0) {
                     do {
-                        entries = *(s32 **)((u8 *)&D_800C4488 + arg1 * 4);
+                        entries = (s32 *)D_800C4488[arg1];
                         func_1510CE60(*(s32 *)((u8 *)entries + offset),
                                        0, 0, 0x3E, 0);
                         index++;

@@ -241,7 +241,7 @@ s32 func_150A1040(s32 arg0) {
 }
 extern f32 D_8009F5AC;
 
-void func_150A104C(u8 *arg0, s32 *arg1, s32 arg2) {
+void func_150A104C(u8 *arg0, u8 **arg1, s32 arg2) {
     GameCDE80Actor actor;
     u8 *entry;
 
@@ -255,20 +255,23 @@ void func_150A104C(u8 *arg0, s32 *arg1, s32 arg2) {
     *(f32 *)(arg0 + 0x364) = D_8009F5AC;
     *(s32 *)(arg0 + 0x84) &= ~0x40000;
     for (; arg2 != 0; arg2--, arg1++) {
-        if ((entry = (u8 *)*arg1) == 0 || func_150A1DA0(&actor, (s32)entry, 0) != 0
-            || ((entry = (u8 *)*arg1)[0x15] >> 2) != 1) {
-            continue;
-        }
-        switch (entry[0x17]) {
-        case 2:
-            *(f32 *)(arg0 + 0x364) = (f32)(*(s16 *)(entry + 2) + *(s16 *)(entry + 8));
-            break;
-        case 0:
-            *(s32 *)(arg0 + 0x84) |= 0x40000;
-            break;
-        case 6:
-            *(s32 *)(arg0 + 0x84) &= ~0x40000;
-            break;
+        entry = *arg1;
+        if (entry != 0 && func_150A1DA0(&actor, (s32)entry, 0) == 0) {
+            entry = *arg1;
+            if ((entry[0x15] >> 2) != 1) {
+                continue;
+            }
+            switch (entry[0x17]) {
+            case 2:
+                *(f32 *)(arg0 + 0x364) = (f32)(*(s16 *)(entry + 2) + *(s16 *)(entry + 8));
+                break;
+            case 0:
+                *(s32 *)(arg0 + 0x84) |= 0x40000;
+                break;
+            case 6:
+                *(s32 *)(arg0 + 0x84) &= ~0x40000;
+                break;
+            }
         }
     }
 }

@@ -141,15 +141,18 @@ void func_151A91AC(Game1D6570ParticleOwner *arg0, f32 *arg1, s32 arg2, s32 arg3)
                   3, 0xFF, 0, arg0->fieldC, arg0->field1);
 }
 void func_151A931C(void *arg0, u8 *arg1, u8 arg2) {
-    u8 *state = (u8 *)arg0 + 0x28;
-
     if (arg2 == 0x17) {
+        u8 *state = (u8 *)arg0 + 0x28;
+
         if (*arg1 == *(u8 *)((u8 *)arg0 + 0x80)) {
             *state |= 1;
         }
-    end:;
-    } else if ((arg2 == 0x18) && (*arg1 == *(u8 *)((u8 *)arg0 + 0x80))) {
-        *state &= ~1;
+    } else if (arg2 == 0x18) {
+        u8 *state = (u8 *)arg0 + 0x28;
+
+        if (*arg1 == *(u8 *)((u8 *)arg0 + 0x80)) {
+            *state &= ~1;
+        }
     }
 }
 typedef struct Game1D6570Emitter {

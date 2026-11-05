@@ -310,10 +310,7 @@ void func_151E4314(void) {
 void func_151E557C(void);
 extern Game20F9A0Selection D_800AB7BC[];
 extern s8 D_800BEAC1;
-extern s8 D_800E0AC0;
-extern s8 D_800E0AC1;
-extern s8 D_800E0AC2;
-extern s8 D_800E0AC3;
+extern s8 D_800E0AC0[4];
 extern u16 D_8008FDC0;
 extern s8 D_8008FE2C;
 extern s8 D_8008FDA4;
@@ -336,7 +333,7 @@ void func_151E4BD8(void) {
     D_8008FDC0 &= 0xF369;
     if (D_800AB68C[*(s8 *)((u8 *)D_8008FDD4 + 0x42) * 10 + 5] >= 0) {
         for (i = 0; i < 4; i++) {
-            if ((&D_800E0AC0)[i] == 1) count++;
+            if (D_800E0AC0[i] == 1) count++;
         }
         count = count >= 2;
     }

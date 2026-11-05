@@ -93,21 +93,15 @@ typedef struct Game142560Actor {
 } Game142560Actor;
 
 void func_151152A8(Game142560Actor *arg0) {
-    s32 target;
-    s32 cur;
-
-    target = arg0->unk7C;
-    if (target == 0) {
-        target = arg0->unk12;
-        arg0->unk7C = target;
+    if (arg0->unk7C == 0) {
+        arg0->unk7C = arg0->unk12;
     }
-    cur = arg0->unk12;
-    if ((u8)(arg0->unk4F & 4)) {
-        if (target - cur < (s16)arg0->unk3C) {
-            arg0->unk12 = cur - (s16)(arg0->unk3C >> 16) * D_800BE9E4;
+    if (arg0->unk4F & 4) {
+        if (arg0->unk7C - arg0->unk12 < (s16)arg0->unk3C) {
+            arg0->unk12 -= (s16)(arg0->unk3C >> 16) * D_800BE9E4;
         }
     } else {
-        arg0->unk12 = cur + (target - cur) * D_800A2F8C * D_800BE9E4;
+        arg0->unk12 += (arg0->unk7C - arg0->unk12) * D_800A2F8C * D_800BE9E4;
     }
 }
 f32 func_15047D60(f32);
