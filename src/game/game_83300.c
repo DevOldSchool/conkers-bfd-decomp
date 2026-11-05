@@ -17,7 +17,6 @@
  * - func_15058898
  * - func_15058F24
  * - func_15059444
- * - func_1505959C
  * - func_150599C8
  * - func_15059B54
  * - func_15059C84
@@ -704,12 +703,10 @@ s32 func_1505A630(f32, f32, s32);
 u32 func_1505E7CC(s32, void *);
 void func_1505E874(u8, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505959C CURRENT (68) */
-void func_1505959C(void *arg0, s32 arg1, register void *arg2) {
+void func_1505959C(void *arg0, s32 arg1, void *arg2) {
     Game83300Actor *other;
-    void *entry;
-    s32 selection;
     Game83300AnimationRecord *animations;
+    s32 selection;
 
     *(u32 *)((u8 *)arg0 + 0xF8) &= 0xFF7FFFFF;
     *((u8 *)arg0 + 0x13D) = arg1 + 0x64;
@@ -730,8 +727,8 @@ void func_1505959C(void *arg0, s32 arg1, register void *arg2) {
         *(u16 *)((u8 *)other + 0x76) = func_1505A630(
             *(f32 *)((u8 *)arg0 + 0x14) - *(f32 *)((u8 *)other + 0x14),
             *(f32 *)((u8 *)other + 0x1C) - *(f32 *)((u8 *)arg0 + 0x1C), 0);
-        arg2 = (void *)(u32)*((u8 *)arg0 + 4);
     }
+    arg2 = (void *)(u32)*((u8 *)arg0 + 4);
     if ((u32)arg2 == 0x89) selection = 5;
     func_1505E650(other, D_800860C0[selection], D_800860CC[selection],
         0.0f, 0.0f, 0.0f, 0);
@@ -740,9 +737,8 @@ void func_1505959C(void *arg0, s32 arg1, register void *arg2) {
     *((u8 *)arg0 + 0x106) = func_1505E7CC(D_800860E4[selection], arg0);
     *(u16 *)((u8 *)arg0 + 0x84) = 0xFFFF;
     func_1505E874(D_800C3E78, arg0);
-    entry = D_800D1588[*((u8 *)arg0 + 4)];
-    if (entry != 0) {
-        animations = *(Game83300AnimationRecord **)((u8 *)entry - 8);
+    if (D_800D1588[*((u8 *)arg0 + 4)] != 0) {
+        animations = *(Game83300AnimationRecord **)((u8 *)D_800D1588[*((u8 *)arg0 + 4)] - 8);
         if (animations != 0 && (animations[*((u8 *)arg0 + 0x106)].flags & 2)) {
             *(u16 *)((u8 *)arg0 + 0x7A) = *(u16 *)((u8 *)other + 0x7A);
         }
@@ -757,8 +753,6 @@ void func_1505959C(void *arg0, s32 arg1, register void *arg2) {
     *((u8 *)arg0 + 0x13E) = (s32)(*(u16 *)((u8 *)arg0 + 0x7A) -
         *(u16 *)((u8 *)other + 0x7A)) >> 8;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505959C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505959C.s")
 typedef struct Game83300InteractionState {
     u8 pad0[0x18];
     s16 unk18;

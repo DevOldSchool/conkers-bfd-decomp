@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_44A90.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_compact_multi_function_units.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15017640
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 extern u8 D_800BE616;
@@ -45,7 +40,6 @@ extern s32 D_800D24C0;
 extern u8 D_800D24C8;
 extern s32 D_800D2588;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15017640 CURRENT (55) */
 void func_15017640(void) {
     f32 *value;
     u8 *entry;
@@ -58,14 +52,13 @@ void func_15017640(void) {
     D_800D2438.z = 0.0f;
     D_800D2428.x = D_8009DCB4[0];
     D_800D2428.y = D_8009DCB4[1];
-    value = &D_800D2410;
     D_800D2428.z = D_8009DCB4[2];
     D_800D2444 = 0;
     D_800D245C = 0;
 
-    do {
-        *value++ = 1.0f;
-    } while ((u32)value < (u32)(&D_800D2410 + 6));
+    for (entryIndex = 0; entryIndex < 6; entryIndex++) {
+        (&D_800D2410)[entryIndex] = 1.0f;
+    }
 
     for (entryIndex = 0; entryIndex < 6; entryIndex++) {
         entry = &D_800D2460 + (entryIndex * 0x10);
@@ -76,5 +69,3 @@ void func_15017640(void) {
     func_100226F0(&D_800D24C8, 0xC0, &D_800D2438);
     func_15048134(&D_800D23D0, &D_800D2454, 50.0f, 60.6f, 53.0f, D_800968B0, 1.0f);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15017640 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_44A90/func_15017640.s")

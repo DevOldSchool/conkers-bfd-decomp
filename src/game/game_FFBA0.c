@@ -9,7 +9,6 @@
  * - func_150D278C
  * - func_150D2924
  * - func_150D2D6C
- * - func_150D32FC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -219,13 +218,9 @@ typedef struct {
 
 void func_150D278C(s32, void *, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D32FC CURRENT (110) */
 void func_150D32FC(GameFFBA0State *arg0, u8 *arg1, u8 arg2) {
     GameFFBA0Child *child = &arg0->child;
-
-    if (arg2 == 0x34 && *arg1 == child->field_51) {
+    if (arg2 == 0x34 && *arg1 == ((u8 *)child)[0x51]) {
         func_150D278C(child->field_0, child->field_10, arg0->field_C, arg0->field_1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D32FC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FFBA0/func_150D32FC.s")

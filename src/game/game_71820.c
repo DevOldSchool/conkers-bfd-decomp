@@ -10,7 +10,6 @@
  * - func_15044660
  * - func_15044B78
  * - func_15044ED0
- * - func_150450CC
  * - func_15045880
  * - func_15045AE4
  * - func_1504715C
@@ -500,7 +499,6 @@ s32 func_15044ED0(Vec3f *arg0, f32 arg1, volatile Game71820Hit *arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15044ED0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044ED0.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150450CC CURRENT (100) */
 s32 func_150450CC(Vec3f *arg0, f32 arg1, Game71820Hit *arg2) {
     s32 count;
     s32 best;
@@ -508,10 +506,10 @@ s32 func_150450CC(Vec3f *arg0, f32 arg1, Game71820Hit *arg2) {
     f32 height;
 
     if (arg0->y < arg1) {
-        ((volatile Game71820Hit *)arg2)->flags &= ~2;
+        arg2->flags &= ~2;
         return 0;
     }
-    ((volatile Game71820Hit *)arg2)->height = D_80098D44;
+    arg2->height = D_80098D44;
     best = -1;
     func_1510F800(0);
     D_800DBE68 = arg0->x;
@@ -525,9 +523,9 @@ s32 func_150450CC(Vec3f *arg0, f32 arg1, Game71820Hit *arg2) {
 
         do {
             height = (f32)scan->height * 0.00390625f;
-            if ((height <= arg0->y) && (((volatile Game71820Hit *)arg2)->height < height)) {
+            if ((height <= arg0->y) && (arg2->height < height)) {
                 best = scan_index;
-                ((volatile Game71820Hit *)arg2)->height = height;
+                arg2->height = height;
             }
             scan_index++;
             scan++;
@@ -538,17 +536,14 @@ s32 func_150450CC(Vec3f *arg0, f32 arg1, Game71820Hit *arg2) {
         u32 index;
         s32 *source;
         u32 copy_index;
-        volatile u8 *output;
+        u8 *output;
         s32 offset;
-        s32 flags;
-        s32 updated_flags;
         s32 **objects;
-        s32 difference;
 
         candidate = &D_800D3300[best];
         source = candidate->sources;
         copy_index = 0;
-        output = (volatile u8 *)arg2;
+        output = (u8 *)arg2;
         index = candidate->index;
         offset = index * 0x10;
         for (; copy_index != 3; copy_index++, output += 6) {
@@ -558,29 +553,24 @@ s32 func_150450CC(Vec3f *arg0, f32 arg1, Game71820Hit *arg2) {
             *(s16 *)(output + 8) = point[2];
         }
         objects = D_800DBE5C;
-        if (objects != 0) {
-            difference = (u8 *)candidate->sources - D_800DBE3C;
-            ((volatile Game71820Hit *)arg2)->object = (s32)objects[difference / 12];
-            flags = ((volatile Game71820Hit *)arg2)->flags;
+        if (objects) {
+            s32 diff = (u8 *)candidate->sources - D_800DBE3C;
+            arg2->object = (s32)objects[diff / 12];
         } else {
-            ((volatile Game71820Hit *)arg2)->object = 0;
-            flags = ((volatile Game71820Hit *)arg2)->flags;
+            arg2->object = 0;
         }
-        ((volatile Game71820Hit *)arg2)->active = 1;
-        updated_flags = flags | 7;
-        ((volatile Game71820Hit *)arg2)->flags = updated_flags;
-        ((volatile Game71820Hit *)arg2)->field20 = 0;
-        if (arg1 <= ((volatile Game71820Hit *)arg2)->height) {
-            ((volatile Game71820Hit *)arg2)->flags = updated_flags | 2;
+        arg2->flags |= 7;
+        arg2->active = 1;
+        arg2->field20 = 0;
+        if (arg1 <= arg2->height) {
+            arg2->flags |= 2;
             return 1;
         }
         return 0;
     }
-    ((volatile Game71820Hit *)arg2)->flags &= ~2;
+    arg2->flags &= ~2;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150450CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_150450CC.s")
 s32 func_15044ED0(Vec3f *, f32, volatile Game71820Hit *); /* extern */
 s32 func_150470B0(void *, f32, void *);             /* extern */
 
