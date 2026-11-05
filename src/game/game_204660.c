@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_render_effect_lifecycles.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151D7538
  * - func_151D792C
  * - func_151D7A38
  * - func_151D7CD0
@@ -149,23 +148,22 @@ void func_151D74B0(void *arg0, u8 arg1, s8 arg2, u8 arg3, s32 arg4) {
 }
 void func_15149514(s32, u8, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7538 CURRENT (160) */
 void func_151D7538(void *arg0, void *arg1, u8 arg2) {
     u8 *temp_a2;
 
     temp_a2 = (u8 *)arg0 + 0x40;
     if (arg2 == 0x3D) {
-        if ((*(s32 *)temp_a2 == *(s32 *)arg1) ||
-            (*(u8 *)(temp_a2 + 4) == *(u8 *)((u8 *)arg1 + 4))) {
+        if (*(s32 *)temp_a2 == *(s32 *)arg1) {
+            goto hit;
+        }
+        if (temp_a2[4] == ((u8 *)arg1)[4]) {
+        hit:
             func_1516972C(arg0);
         }
     } else {
-        func_15149514((s32)arg1, arg2, (s32)temp_a2,
-                      (s32)(temp_a2 + 4), (s32)arg0);
+        func_15149514((s32) arg1, arg2, (s32) temp_a2, (s32) (temp_a2 + 4), (s32) arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D7538 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7538.s")
 void func_15143134(f32 *, f32 *, s32);
 extern s32 (*D_8008FCA8[])(void *);
 extern f32 D_800AB280[];

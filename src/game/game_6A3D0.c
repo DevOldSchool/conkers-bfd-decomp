@@ -10,7 +10,6 @@
  * - func_1503D510
  * - func_1503D5F0
  * - func_1503D774
- * - func_1503D984
  * - func_1503DA9C
  * - func_1503DD1C
  *
@@ -315,25 +314,17 @@ s32 func_1503D804(s32 arg0) {
 extern s32 D_800C4488;
 extern s16 D_800C5918;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D984 CURRENT (150) */
 void func_1503D984(s32 arg0) {
-    u32 count;
-    s32 stream;
-    u32 *start;
-    u32 list;
-    u32 record;
+    s32 count;
+    s32 i;
+    s32 j;
+    u32 *rec;
     s8 tag;
 
     count = 0;
-    list = *(u32 *)((u32)&D_800C4488 + (u32)arg0 * 4U);
-    stream = 0;
-next_stream:
-    {
-        start = *(u32 **)list;
-        record = (u32)start;
-        stream += 4;
-        tag = (s8)(start[0] >> 24);
-        while (tag != -0x21) {
+    for (i = 0; i < 1; i++) {
+        rec = (*(u32 ***)((u8 *)&D_800C4488 + arg0 * 4))[i];
+        for (j = 0; (tag = rec[j * 2] >> 24) != -0x21; j++) {
             if (tag == 5) {
                 count += 1;
             } else if (tag == 6) {
@@ -341,18 +332,10 @@ next_stream:
             } else if ((tag >> 4) == 1) {
                 count += 4;
             }
-            record += 8;
-            tag = (s8)(*(u32 *)record >> 24);
         }
     }
-    list += 4;
-    if (stream != 4) {
-        goto next_stream;
-    }
-    *(s16 *)((u32)&D_800C5918 + (u32)arg0 * 2U) = count;
+    *(s16 *)((u8 *)&D_800C5918 + arg0 * 2) = count;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503D984 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D984.s")
 extern s32 D_800D19A0[];
 
 /* Partial header at stream address - 0x38; the preceding bytes are opaque. */

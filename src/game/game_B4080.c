@@ -20,7 +20,6 @@
  * - func_15089F9C
  * - func_1508A1BC
  * - func_1508A6FC
- * - func_1508B20C
  * - func_1508B2A8
  * - func_1508B3F8
  * - func_1508B9BC
@@ -1462,25 +1461,35 @@ void func_1508B1D4(s32 arg0) {
         *(s16 *)((u8 *)(D_8008FDD4 + (arg0 * 0xC)) + 0x70) = 0;
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508B20C CURRENT (145) */
-void func_1508B20C(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
-    s32 temp_a1;
-    s8 temp_v1;
+typedef struct {
+    f32 radiusSq;
+    s16 x;
+    s16 y;
+    s16 z;
+    s16 pad;
+} Entry_1508B20C;
 
-    if (D_800D23B0 != 0) {
-        temp_v1 = *(s8 *)((u8 *)D_800D23B0 + 0x1745);
-        if (temp_v1 < 8) {
-            *(s8 *)((u8 *)D_800D23B0 + 0x1745) = (s8) (temp_v1 + 1);
-            temp_a1 = temp_v1 * 0xC;
-            *(s16 *)((u8 *)(D_800D23B0 + temp_a1) + 0x174C) = (s16) (s32) arg0;
-            *(s16 *)((u8 *)(D_800D23B0 + temp_a1) + 0x174E) = (s16) (s32) arg1;
-            *(s16 *)((u8 *)(D_800D23B0 + temp_a1) + 0x1750) = (s16) (s32) arg2;
-            *(f32 *)((u8 *)(D_800D23B0 + temp_a1) + 0x1748) = (f32) (arg3 * arg3);
+typedef struct {
+    u8 pad0[0x1745];
+    s8 count;
+    u8 pad1746[2];
+    Entry_1508B20C entries[8];
+} Table_1508B20C;
+
+void func_1508B20C(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+    Table_1508B20C *table = (Table_1508B20C *)D_800D23B0;
+    s32 i;
+
+    if (table != NULL) {
+        if (table->count < 8) {
+            i = table->count++;
+            ((Table_1508B20C *)D_800D23B0)->entries[i].x = arg0;
+            ((Table_1508B20C *)D_800D23B0)->entries[i].y = arg1;
+            ((Table_1508B20C *)D_800D23B0)->entries[i].z = arg2;
+            ((Table_1508B20C *)D_800D23B0)->entries[i].radiusSq = arg3 * arg3;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1508B20C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508B20C.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1508B2A8 CURRENT (15) */
 void func_1508B2A8(u8 arg0, u8 *state) {
     u8 *entry;

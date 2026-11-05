@@ -9,7 +9,6 @@
  * - func_150E42F8
  * - func_150E4550
  * - func_150E4928
- * - func_150E4CBC
  * - func_150E5810
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -328,38 +327,36 @@ void func_150E4928(GameE4928State *arg0) {
 
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E4CBC CURRENT (135) */
-void func_150E4CBC(void *arg0) {
-    s32 temp_t0;
-    s32 temp_v0;
-    s32 temp_a1;
+typedef struct {
+    u8 pad0[0x90];
+    s32 f90;
+    s16 f94;
+    s16 f96;
+    s16 f98;
+    u8 pad9A[0xA2 - 0x9A];
+    s16 fA2;
+    s16 fA4;
+    u8 padA6[0xB4 - 0xA6];
+    u8 fB4;
+} Game111670Fader;
 
-    temp_v0 = *(s32 *)((u8 *)arg0 + 0x90);
-    if (temp_v0 < 9) {
-        temp_t0 = (s32)((u32)temp_v0 * 0x5AU) / 9;
-        *(s16 *)((u8 *)arg0 + 0xA4) = (s16)(s32)((f32)(s32)((u32)temp_t0 * (u32)*(s16 *)((u8 *)arg0 + 0x96)) * 0.00390625f);
+void func_150E4CBC(Game111670Fader *a) {
+    if (a->f90 < 9) {
+        a->fA4 = (f32)(a->f90 * 90 / 9 * a->f96) * 0.00390625f;
     } else {
-        temp_a1 = *(u8 *)((u8 *)arg0 + 0xB4);
-        temp_t0 = 0x5A - ((s32)((u32)temp_v0 * 0x5AU - 0x32AU) / 600);
-        *(s16 *)((u8 *)arg0 + 0xA4) = (s16)(s32)((f32)(s32)((u32)temp_t0 * (u32)*(s16 *)((u8 *)arg0 + 0x96)) * 0.00390625f);
-        temp_t0 = (s32)((u32)D_800BE9E4 * 0x11U);
-        if (temp_t0 < (s32) temp_a1) {
-            *(u8 *)((u8 *)arg0 + 0xB4) = (u8) ((u32)temp_a1 - (u32)temp_t0);
-            temp_v0 = *(s32 *)((u8 *)arg0 + 0x90);
+        a->fA4 = ((90 - (a->f90 * 90 - 810) / 600) * a->f96) * 0.00390625f;
+        if (a->fB4 > D_800BE9E4 * 17) {
+            a->fB4 -= D_800BE9E4 * 17;
         } else {
-            *(s16 *)((u8 *)arg0 + 0x98) = -1;
-            temp_v0 = *(s32 *)((u8 *)arg0 + 0x90);
+            a->f98 = -1;
         }
     }
-    *(s16 *)((u8 *)arg0 + 0xA2) = (s16) ((s32) ((f32) *(s16 *)((u8 *)arg0 + 0x94) * 14.0f) >> 8);
-    if (temp_v0 >= 0x261) {
-        *(s16 *)((u8 *)arg0 + 0x98) = -1;
-        temp_v0 = *(s32 *)((u8 *)arg0 + 0x90);
+    a->fA2 = (s32)(a->f94 * 14.0f) >> 8;
+    if (a->f90 > 0x260) {
+        a->f98 = -1;
     }
-    *(s32 *)((u8 *)arg0 + 0x90) = (s32) ((u32)temp_v0 + (u32)D_800BE9E4);
+    a->f90 += D_800BE9E4;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E4CBC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_111670/func_150E4CBC.s")
 typedef struct GameE4E04Triangle {
     f32 values[3][3];
 } GameE4E04Triangle;

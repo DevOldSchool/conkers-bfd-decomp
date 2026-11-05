@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1510E670
  * - func_1510E950
- * - func_1510F720
  * - func_1510F8D8
  * - func_1510FD20
  *
@@ -131,61 +130,47 @@ f32 func_1510F648(f32 arg0, f32 arg1, f32 arg2) {
 typedef struct Game13BB20Node {
     u8 pad0[4];
     s16 sibling_offset_4;
-    u8 pad6[6];
+    u16 size_6;
+    s16 x_8;
+    s16 y_A;
     s16 child_offset_C;
 } Game13BB20Node;
 
 extern Game13BB20Node *D_800DBE48;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510F720 CURRENT (135) */
+#define GAME13BB20_ABS(x) ((x) < 0 ? -(x) : (x))
 s32 func_1510F720(s32 arg0, s32 arg1, s32 arg2, void **arg3) {
-    s32 temp_a1;
-    s32 var_a2;
-    s32 var_a3;
-    s32 var_v1;
-    Game13BB20Node *var_v0;
+    s32 d;
+    s32 r;
+    s32 next;
+    s32 count;
+    Game13BB20Node *node;
 
-    var_v0 = D_800DBE48;
-    var_v1 = 0;
-    if (var_v0 != 0) {
-        do {
-            temp_a1 = *(s16 *)((u8 *)var_v0 + 8) - arg0;
-            var_a2 = temp_a1 < 0 ? -temp_a1 : temp_a1;
-            temp_a1 = arg2;
-            temp_a1 += *(u16 *)((u8 *)var_v0 + 6);
-            if (var_a2 < temp_a1) {
-                var_a2 = *(s16 *)((u8 *)var_v0 + 0xA) - arg1;
-                var_a3 = var_a2 < 0 ? -var_a2 : var_a2;
-                if (var_a3 < temp_a1) {
-                    temp_a1 = *(s16 *)((u8 *)var_v0 + 0xC);
-                    if (temp_a1 != 0) {
-                        var_a2 = temp_a1;
-                    } else {
-                        *arg3 = var_v0;
-                        arg3 += 1;
-                        var_v1 += 1;
-                        var_a2 = *(s16 *)((u8 *)var_v0 + 4);
-                        goto advance;
-                    }
-                } else {
-                    goto block_10;
-                }
+    node = D_800DBE48;
+    count = 0;
+    while (node != NULL) {
+        d = GAME13BB20_ABS(node->x_8 - arg0);
+        r = arg2;
+        r += node->size_6;
+        if (d < r && GAME13BB20_ABS(node->y_A - arg1) < r) {
+            if (node->child_offset_C != 0) {
+                next = node->child_offset_C;
             } else {
-block_10:
-                var_a2 = *(s16 *)((u8 *)var_v0 + 4);
+                *arg3++ = node;
+                count++;
+                next = node->sibling_offset_4;
             }
-advance:
-            if (var_a2 != 0) {
-                var_v0 = (Game13BB20Node *)((u8 *)var_v0 + var_a2);
-            } else {
-                var_v0 = 0;
-            }
-        } while (var_v0 != 0);
+        } else {
+            next = node->sibling_offset_4;
+        }
+        if (next != 0) {
+            node = (Game13BB20Node *)((u8 *)node + next);
+        } else {
+            node = NULL;
+        }
     }
-    return var_v1;
+    return count;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510F720 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510F720.s")
 void func_150A49F4(s32);
 
 void func_1510F800(s32 arg0) {

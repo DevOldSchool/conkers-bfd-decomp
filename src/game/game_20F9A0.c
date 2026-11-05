@@ -12,7 +12,6 @@
  * - func_151E3344
  * - func_151E43DC
  * - func_151E4BD8
- * - func_151E4EE8
  * - func_151E50C8
  * - func_151E53E8
  * - func_151E565C
@@ -424,50 +423,38 @@ extern f32 D_800DDDD8;
 extern u8 D_800E0B96;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E4EE8 CURRENT (170) */
 void func_151E4EE8(void) {
-    f32 var_ft1;
-    u8 temp_t7;
-    s32 var_v0;
+    s32 alpha;
 
-    var_v0 = D_800E0B96;
-    var_ft1 = (f32)(u32)var_v0;
-    D_8008FDD0 = 1.0f - (var_ft1 / 255.0f);
+    D_8008FDD0 = 1.0f - (f32)(u32)D_800E0B96 / 255.0f;
     if (D_8008FD74 == 0xFF) {
         if (D_800ABA2C < D_800DDDC8) {
-            temp_t7 = var_v0 + (u32)D_800BE9E4;
-            var_v0 = temp_t7 & 0xFF;
-            D_800E0B96 = temp_t7;
-            if ((s32) var_v0 < 0x55) {
+            D_800E0B96 += D_800BE9E4;
+            if (D_800E0B96 < 0x55) {
                 D_800DDDD8 = D_800ABA30;
             } else {
                 D_800DDDD8 = D_800ABA34;
             }
         }
-        if (!(D_800DDDC8 < 1.0f)) {
-            if ((s32) var_v0 < 0x6E) {
-                return;
-            }
-            goto block_14;
-        }
-    } else {
-        if (var_v0 != 0xFF) {
-            var_v0 = (s32)((u32)var_v0 + ((u32)D_800BE9E4 * D_8008FD74));
-            if (var_v0 >= 0x100) {
-                var_v0 = 0xFF;
-            }
-            D_800E0B96 = (u8) var_v0;
+        if (D_800DDDC8 < 1.0f) {
             return;
         }
-block_14:
-        D_800E0B96 = 0xFF;
-        D_8008FD74 = 8;
-        D_8008FDD0 = 1.0f;
-        D_800E0A88();
+        if (D_800E0B96 < 0x6E) {
+            return;
+        }
+    } else if (D_800E0B96 != 0xFF) {
+        alpha = D_800E0B96 + D_800BE9E4 * D_8008FD74;
+        if (alpha >= 0x100) {
+            alpha = 0xFF;
+        }
+        D_800E0B96 = alpha;
+        return;
     }
+    D_800E0B96 = 0xFF;
+    D_8008FD74 = 8;
+    D_8008FDD0 = 1.0f;
+    D_800E0A88();
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151E4EE8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E4EE8.s")
 extern void *D_8008FDD4;
 
 void func_151E5034(void) {

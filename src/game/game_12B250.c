@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_12B250.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_slot_motion_attachment_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150FE0B8
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_15145740(void *, void *, void *, void *, f32);
@@ -105,13 +100,12 @@ extern f32 D_800A1F9C;
 extern f32 D_800A1FA0;
 extern f32 D_800A1FA4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FE0B8 CURRENT (171) */
 void func_150FE0B8(u8 *arg0, Vec3f *arg1, u8 arg2, s32 arg3) {
     f32 values[2];
     u8 mask;
-    u32 random0;
-    u32 random1;
     u8 *object;
+    u32 random1;
+    u32 random0;
 
     if ((*(s32 *)(arg0 + 0x1D4) != 0) && ((arg0[0x74] & 0xF) != 0xF)) {
         values[1] = (func_150ADA68() * 1.5f) + 2.0f;
@@ -119,7 +113,7 @@ void func_150FE0B8(u8 *arg0, Vec3f *arg1, u8 arg2, s32 arg3) {
         object = *(u8 **)(arg0 + 0x31C);
         if ((object != 0) && (object[0x197] != 0) &&
             ((object = *(u8 **)(arg0 + 0x318)) != 0)) {
-            mask = ~(1 << object[0x23D]);
+            mask = ~(1 << object[0x23D]) & 0xFF;
         } else {
             mask = 0xFF;
         }
@@ -132,8 +126,6 @@ void func_150FE0B8(u8 *arg0, Vec3f *arg1, u8 arg2, s32 arg3) {
                        (s32)arg1, mask, 0, -1, arg2, arg3);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FE0B8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12B250/func_150FE0B8.s")
 void func_151D3E04(void *, f32 *, f32 *, u8, f32);
 
 void func_150FE248(s32 arg0, s32 arg1, s32 arg2) {
