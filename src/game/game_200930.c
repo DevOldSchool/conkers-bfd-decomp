@@ -17,7 +17,6 @@
  * - func_151D5174
  * - func_151D5334
  * - func_151D5714
- * - func_151D57F8
  * - func_151D5A18
  * - func_151D5B6C
  *
@@ -1250,10 +1249,7 @@ void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, 
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
 extern s32 D_8008FC8C[];
 extern u8 *D_8008FC94[];
-extern f32 D_800AB238;
-extern f32 D_800AB23C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D57F8 CURRENT (180) */
 void func_151D57F8(void *arg0, s32 arg1) {
     Vec3f position;
     Vec3f direction;
@@ -1263,9 +1259,6 @@ void func_151D57F8(void *arg0, s32 arg1) {
     Vec3f result_direction;
     Vec3f *position_ptr;
     Vec3f *direction_ptr;
-    Vec3f delta;
-    f32 length;
-    f32 scale;
 
     func_151D5A18(arg0, (s32)&position, &direction, &first, &second,
                   D_8008FC8C[(u8)arg1], *D_8008FC94[(u8)arg1]);
@@ -1279,11 +1272,13 @@ void func_151D57F8(void *arg0, s32 arg1) {
     if (direction_ptr == 0) {
         direction_ptr = &direction;
     }
-    scale = D_800AB238;
-    *(f32 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0xB8) = position_ptr->x + direction_ptr->x * scale;
-    *(f32 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0xBC) = position_ptr->y + direction_ptr->y * scale;
-    *(f32 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0xC0) = position_ptr->z + direction_ptr->z * scale;
+    *(f32 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0xB8) = position_ptr->x + direction_ptr->x * 9999.0f;
+    *(f32 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0xBC) = position_ptr->y + direction_ptr->y * 9999.0f;
+    *(f32 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0xC0) = position_ptr->z + direction_ptr->z * 9999.0f;
     if (*(u8 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x109) != 0) {
+        Vec3f delta;
+        f32 length;
+
         delta.x = *(f32 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0xB8) - position.x;
         delta.y = *(f32 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0xBC) - position.y;
         delta.z = *(f32 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0xC0) - position.z;
@@ -1291,13 +1286,11 @@ void func_151D57F8(void *arg0, s32 arg1) {
             func_15081690(arg0, position.x, position.y, position.z,
                           delta.x, delta.y, delta.z,
                           *(u8 **)((u8 *)arg0 + 0x31C) + 0xB0,
-                          length * D_800AB23C, 0, 0, 0, -1, 0, 0);
+                          length * 1.01f, 0, 0, 0, -1, 0, 0);
         }
     }
     func_150636A4(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D57F8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D57F8.s")
 
 /* Call context: func_15145740: unique active project prototype */
 /* Call context: func_15145EA4: unique active project prototype */

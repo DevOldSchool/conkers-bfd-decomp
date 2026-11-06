@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150A09D0
  * - func_150A0D8C
- * - func_150A104C
  * - func_150A11C4
  * - func_150A1DA0
  * - func_150A23E4
@@ -242,9 +241,9 @@ s32 func_150A1040(s32 arg0) {
 }
 extern f32 D_8009F5AC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A104C CURRENT (210) */
-void func_150A104C(u8 *arg0, s32 *arg1, s32 arg2) {
+void func_150A104C(u8 *arg0, u8 **arg1, s32 arg2) {
     GameCDE80Actor actor;
+    u8 *entry;
 
     actor.x = *(f32 *)(arg0 + 0x2F8);
     actor.y = *(f32 *)(arg0 + 0x2FC);
@@ -255,30 +254,27 @@ void func_150A104C(u8 *arg0, s32 *arg1, s32 arg2) {
     actor.field34 = *(f32 *)(arg0 + 0x30C);
     *(f32 *)(arg0 + 0x364) = D_8009F5AC;
     *(s32 *)(arg0 + 0x84) &= ~0x40000;
-    while (arg2 != 0) {
-        if (*arg1 != 0 && func_150A1DA0(&actor, *arg1, 0) == 0) {
-            u8 *entry;
-            entry = (u8 *)*arg1;
-            if ((entry[0x15] >> 2) == 1) {
-                switch (entry[0x17]) {
-                case 2:
-                    *(f32 *)(arg0 + 0x364) = (f32)(*(s16 *)(entry + 8) + *(s16 *)(entry + 2));
-                    break;
-                case 0:
-                    *(s32 *)(arg0 + 0x84) |= 0x40000;
-                    break;
-                case 6:
-                    *(s32 *)(arg0 + 0x84) &= ~0x40000;
-                    break;
-                }
+    for (; arg2 != 0; arg2--, arg1++) {
+        entry = *arg1;
+        if (entry != 0 && func_150A1DA0(&actor, (s32)entry, 0) == 0) {
+            entry = *arg1;
+            if ((entry[0x15] >> 2) != 1) {
+                continue;
+            }
+            switch (entry[0x17]) {
+            case 2:
+                *(f32 *)(arg0 + 0x364) = (f32)(*(s16 *)(entry + 2) + *(s16 *)(entry + 8));
+                break;
+            case 0:
+                *(s32 *)(arg0 + 0x84) |= 0x40000;
+                break;
+            case 6:
+                *(s32 *)(arg0 + 0x84) &= ~0x40000;
+                break;
             }
         }
-        arg2--;
-        arg1++;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150A104C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A104C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A11C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A1DA0.s")
 /* Call context: func_1000FA64: unique active project prototype */

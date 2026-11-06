@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15108850
  * - func_15108E10
- * - func_15109064
  * - func_15109120
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -338,30 +337,30 @@ void func_15108FFC(s32 arg0, s32 arg1, u8 arg2) {
     message.arg2 = arg2;
     func_15169260(&descriptor, 2, &message, 0x1D);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15109064 CURRENT (160) */
 void func_15109064(u8 *arg0, u8 *arg1, u8 arg2) {
     u8 *temp_v0;
 
     temp_v0 = arg0;
     temp_v0 += *(s32 *)(arg0 + 0x50);
     temp_v0 += 0xF8;
-    switch (arg2) {                              /* irregular */
-    case 29:
-        *(s32 *)((u8 *)temp_v0 + 0x14) = (s32) *(s32 *)((u8 *)arg1 + 0);
-        *(u8 *)((u8 *)temp_v0 + 0x18) = (u8) *(u8 *)((u8 *)arg1 + 8);
-        *(s32 *)((u8 *)temp_v0 + 0x1C) = (s32) *(s32 *)((u8 *)arg1 + 4);
-        return;
+    switch (arg2) {
+    case 29: {
+        s32 *src = (s32 *)arg1;
+
+        *(s32 *)(temp_v0 + 0x14) = src[0];
+        *(u8 *)(temp_v0 + 0x18) = arg1[8];
+        *(s32 *)(temp_v0 + 0x1C) = src[1];
+    }
+        break;
     case 30:
-        if (*(u8 *)((u8 *)temp_v0 + 0x20) != 0) {
-            *(u8 *)((u8 *)temp_v0 + 0x20) = 0U;
-            return;
+        if (*(u8 *)(temp_v0 + 0x20) != 0) {
+            *(u8 *)(temp_v0 + 0x20) = 0;
+        } else {
+            *(u8 *)(temp_v0 + 0x20) = 1;
         }
-        *(u8 *)((u8 *)temp_v0 + 0x20) = 1U;
-        return;
+        break;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15109064 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15109064.s")
 extern Game135D00DispatchDescriptor D_80088C58;
 
 void func_151090DC(void) {

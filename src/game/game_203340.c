@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151D5E90
  * - func_151D61B0
- * - func_151D6778
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -157,14 +156,13 @@ extern u8 D_800BE9C0;
 extern u8 D_800BEAC0;
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D6778 CURRENT (225) */
 Game203340Command *func_151D6778(Game203340Command *arg0) {
     u32 flags;
 
-    flags = (u8)D_800BE574;
-    if ((flags == 0 && D_800BE9F0 != 0x32 && D_800BE9F0 != 0x33) || D_800BEAC0 != 0) {
+    if (((u8)D_800BE574 == 0 && D_800BE9F0 != 0x32 && D_800BE9F0 != 0x33) || D_800BEAC0 != 0) {
         return arg0;
     }
+    flags = (u8)D_800BE574;
     if (flags != 0) {
         { Game203340Command *command = arg0++; command->first = _SHIFTL(0xE7, 24, 8); command->second = 0; }
         if (D_800BE570 != 0) {
@@ -184,5 +182,3 @@ Game203340Command *func_151D6778(Game203340Command *arg0) {
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D6778 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_203340/func_151D6778.s")

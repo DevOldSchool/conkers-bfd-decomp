@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_helper_pairs.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150E7290
  * - func_150E75A0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -30,13 +29,12 @@ void *func_151D8868(void *, s32, u8, s32);
 extern Game114740Pair D_80088A5C;
 extern f32 D_800A1340, D_800A1344, D_800A1348, D_800A134C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E7290 CURRENT (152) */
 void func_150E7290(s32 arg0, s32 arg1, s32 arg2) {
     Game114740Pair pair;
     f32 position[2];
     Game114740Event event;
     s32 choice;
-    u32 flags4;
+    s32 flags4;
     s32 flags2;
     u32 random;
     f32 scale;
@@ -54,7 +52,7 @@ void func_150E7290(s32 arg0, s32 arg1, s32 arg2) {
             if (func_150ADA20() & 1) flags4 = 4;
             else flags4 = 0;
             func_150E75A0(position, (scale * 150.0f + 200.0f) * D_800A1348,
-                (s16)(random % 201U + 0x1F4), ((s32)flags4 | flags2 | 9) & 0xFF,
+                (s16)(random % 201U + 0x1F4), (u8)(flags4 | flags2) | 9,
                 (func_150ADA20() % 26U + 0x64), 0xFF, 0x40, 3,
                 (s32)&pair, 2, *((u8 *)&arg1 + 3), arg2);
         } else {
@@ -75,8 +73,6 @@ void func_150E7290(s32 arg0, s32 arg1, s32 arg2) {
         func_151D8868(&event, 0, 0xFF, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E7290 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_114740/func_150E7290.s")
 typedef struct {
     u8 sp28;
     u8 pad29[3];

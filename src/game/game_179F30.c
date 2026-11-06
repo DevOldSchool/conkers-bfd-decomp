@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1514CA80
- * - func_1514D15C
  * - func_1514D64C
  * - func_1514E920
  * - func_1514EECC
@@ -34,21 +33,18 @@ extern u8 D_800A5ED8[];
 extern u8 D_800CC2D0[];
 extern u8 D_800BE616;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514D15C CURRENT (150) */
 s32 func_1514D15C(u8 *arg0) {
-    struct {
-        s32 third;
-        s32 second;
-        s32 first;
-    } locals;
+    s32 first;
+    s32 second;
+    s32 third;
     u8 mask;
     void *node;
     s32 result;
     s32 actorIndex;
 
-    locals.first = -1;
-    locals.second = -1;
-    locals.third = -1;
+    first = -1;
+    second = -1;
+    third = -1;
     if (*(s32 *)(arg0 + 0x2F4) != 0) {
         return 0;
     }
@@ -63,30 +59,28 @@ s32 func_1514D15C(u8 *arg0) {
         func_15155780(actorIndex, 0xFF);
     }
     D_8008AACC(arg0);
-    result = func_1514CA80(arg0, &locals.first, &locals.second, &locals.third);
+    result = func_1514CA80(arg0, &first, &second, &third);
     mask = result;
     if (result == 0) {
         return 0;
     }
-    if (result & 4) {
-        if (D_800A5ED8[locals.third] != 0) {
-            D_8008AA70[D_800A5ED8[locals.third]](arg0);
+    if (mask & 4) {
+        if (D_800A5ED8[third] != 0) {
+            D_8008AA70[D_800A5ED8[third]](arg0);
         }
     }
     if (mask & 2) {
-        if (D_800A5EC0[locals.second] != 0) {
-            D_8008AA70[D_800A5EC0[locals.second]](arg0);
+        if (D_800A5EC0[second] != 0) {
+            D_8008AA70[D_800A5EC0[second]](arg0);
         }
     }
     if ((mask & 2) && (mask & 1)) {
-        if (D_8008AA70[D_8008AB90[locals.second][locals.first]] != 0) {
-            D_8008AA70[D_8008AB90[locals.second][locals.first]](arg0);
+        if (D_8008AA70[D_8008AB90[second][first]] != 0) {
+            D_8008AA70[D_8008AB90[second][first]](arg0);
         }
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514D15C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514D15C.s")
 typedef struct {
     u8 pad_0[0x10];
     s32 field_10;

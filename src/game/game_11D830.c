@@ -9,7 +9,6 @@
  * - func_150F03F8
  * - func_150F0BEC
  * - func_150F0E48
- * - func_150F15F8
  * - func_150F16DC
  * - func_150F1A00
  * - func_150F1B48
@@ -621,22 +620,23 @@ void func_150F1170(u8 *arg0) {
 }
 void func_15149514(s32, u8, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F15F8 CURRENT (160) */
 void func_150F15F8(void *arg0, void *arg1, u8 arg2) {
     u8 *temp_a2;
     s32 word;
 
     temp_a2 = (u8 *)arg0 + 0x28;
     if (arg2 == 0x43) {
-        if (((word = *(s32 *)arg1) == *(s32 *)temp_a2) || (*(u8 *)((u8 *)temp_a2 + 4) == *(u8 *)((u8 *)arg1 + 4))) {
+        if ((word = *(s32 *)arg1) == *(s32 *)temp_a2) {
+            goto hit;
+        }
+        if (temp_a2[4] == ((u8 *)arg1)[4]) {
+        hit:
             func_1516972C(arg0);
         }
     } else {
-        func_15149514((s32) arg1, arg2, (s32) temp_a2, (s32) ((u8 *)temp_a2 + 4), (s32) arg0);
+        func_15149514((s32) arg1, arg2, (s32) temp_a2, (s32) (temp_a2 + 4), (s32) arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F15F8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F15F8.s")
 void func_150F1684(u8 *arg0, u8 *arg1, u8 arg2) {
     s32 word;
     u8 *temp_v1;

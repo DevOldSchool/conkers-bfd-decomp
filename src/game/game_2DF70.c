@@ -12,7 +12,6 @@
  * - func_15001DE0
  * - func_15002008
  * - func_15002248
- * - func_15002754
  * - func_150028BC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -513,27 +512,17 @@ extern s32 D_800DBDE8[];
 extern s32 D_800DBDF8[];
 extern s32 D_800DBE50;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15002754 CURRENT (200) */
 void func_15002754(void) {
-    s32 temp_t0;
-    s32 temp_t2;
-    s32 temp_t8;
-
-    temp_t8 = (*D_800B0DC0 + 3) & ~3;
-    *(volatile s32 *)D_800B0DC0 = temp_t8;
-    D_800DBDD8[D_800DBE50] = temp_t8;
-    temp_t0 = temp_t8 + (D_800DBE38 * 0xC);
-    *(volatile s32 *)D_800B0DC0 = temp_t0;
-    D_800DBDE8[D_800DBE50] = temp_t0;
-    temp_t2 = temp_t0 + (D_800DBE38 * 8);
-    *(volatile s32 *)D_800B0DC0 = temp_t2;
-    D_800DBDF8[D_800DBE50] = temp_t2;
-    *(volatile s32 *)D_800B0DC0 = temp_t2 + (D_800DBE38 * 4);
+    D_800B0DC0[0] = (D_800B0DC0[0] + 3) & ~3;
+    D_800DBDD8[D_800DBE50] = D_800B0DC0[0];
+    D_800B0DC0[0] += D_800DBE38 * 12;
+    D_800DBDE8[D_800DBE50] = D_800B0DC0[0];
+    D_800B0DC0[0] += D_800DBE38 * 8;
+    D_800DBDF8[D_800DBE50] = D_800B0DC0[0];
+    D_800B0DC0[0] += D_800DBE38 * 4;
     func_1510F800(D_800DBE50);
     D_800DBE38 = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15002754 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15002754.s")
 s32 func_150027F8(ConkerGfx *arg0) {
     s32 var_v0;
     s32 ret;

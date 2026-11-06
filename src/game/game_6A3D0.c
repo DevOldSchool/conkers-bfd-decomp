@@ -10,7 +10,6 @@
  * - func_1503D510
  * - func_1503D5F0
  * - func_1503D774
- * - func_1503D984
  * - func_1503DA9C
  * - func_1503DD1C
  *
@@ -312,47 +311,34 @@ s32 func_1503D804(s32 arg0) {
     }
     return 0;
 }
-extern s32 D_800C4488;
-extern s16 D_800C5918;
+extern u32 **D_800C4488[];
+extern s16 D_800C5918[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D984 CURRENT (150) */
-void func_1503D984(s32 arg0) {
-    u32 count;
-    s32 stream;
-    u32 *start;
-    u32 list;
-    u32 record;
-    s8 tag;
+/* Display-list layers per model; the binary keeps this loop (a1 steps by 4 to 4). */
+#define GAME6A3D0_DL_LAYERS 1
+
+void func_1503D984(s32 model) {
+    s32 count;
+    s32 i;
+    s32 j;
+    u32 *dl;
+    s8 cmd;
 
     count = 0;
-    list = *(u32 *)((u32)&D_800C4488 + (u32)arg0 * 4U);
-    stream = 0;
-next_stream:
-    {
-        start = *(u32 **)list;
-        record = (u32)start;
-        stream += 4;
-        tag = (s8)(start[0] >> 24);
-        while (tag != -0x21) {
-            if (tag == 5) {
+    for (i = 0; i < GAME6A3D0_DL_LAYERS; i++) {
+        dl = D_800C4488[model][i];
+        for (j = 0; (cmd = dl[j * 2] >> 24) != -0x21; j++) {
+            if (cmd == 5) {
                 count += 1;
-            } else if (tag == 6) {
+            } else if (cmd == 6) {
                 count += 2;
-            } else if ((tag >> 4) == 1) {
+            } else if ((cmd >> 4) == 1) {
                 count += 4;
             }
-            record += 8;
-            tag = (s8)(*(u32 *)record >> 24);
         }
     }
-    list += 4;
-    if (stream != 4) {
-        goto next_stream;
-    }
-    *(s16 *)((u32)&D_800C5918 + (u32)arg0 * 2U) = count;
+    D_800C5918[model] = count;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503D984 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D984.s")
 extern s32 D_800D19A0[];
 
 /* Partial header at stream address - 0x38; the preceding bytes are opaque. */
@@ -391,7 +377,6 @@ s32 func_15084044(void *, s32);
 void func_1510CE60(s32, s32, s32, s32, void *);
 extern s32 D_800C5C08[];
 extern u16 D_800C4778[];
-extern s32 D_800C4488;
 extern u8 *D_800C5338[];
 extern u16 D_800C5628[];
 
@@ -422,7 +407,7 @@ s32 func_1503DA9C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
                 offset = 0;
                 if (*countPtr > 0) {
                     do {
-                        entries = *(s32 **)((u8 *)&D_800C4488 + arg1 * 4);
+                        entries = (s32 *)D_800C4488[arg1];
                         func_1510CE60(*(s32 *)((u8 *)entries + offset),
                                        0, 0, 0x3E, 0);
                         index++;

@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1514A380
- * - func_1514A4EC
  * - func_1514A594
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -186,23 +185,33 @@ s32 func_1514A498(void *arg0) {
 }
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514A4EC CURRENT (95) */
-s32 func_1514A4EC(void *arg0) {
-    typedef struct { f32 words[3]; } Copy3;
-    f32 temp_fv0;
+typedef struct {
+    f32 x, y, z;
+} Vec3_1514A4EC;
 
-    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x140);
-    *(Copy3 *)((u8 *)arg0 + 0x40) = *(Copy3 *)((u8 *)arg0 + 0x34);
-    *(f32 *)((u8 *)arg0 + 0x130) = (f32) (*(f32 *)((u8 *)arg0 + 0x130) * temp_fv0);
-    *(f32 *)((u8 *)arg0 + 0x134) += *(f32 *)((u8 *)arg0 + 0x13C) * D_800BE9A4;
-    *(f32 *)((u8 *)arg0 + 0x138) = (f32) (*(f32 *)((u8 *)arg0 + 0x138) * temp_fv0);
-    *(f32 *)((u8 *)arg0 + 0x34) += *(f32 *)((u8 *)arg0 + 0x130) * D_800BE9A4;
-    *(f32 *)((u8 *)arg0 + 0x38) += *(f32 *)((u8 *)arg0 + 0x134) * D_800BE9A4;
-    *(f32 *)((u8 *)arg0 + 0x3C) += *(f32 *)((u8 *)arg0 + 0x138) * D_800BE9A4;
+typedef struct {
+    u8 pad0[0x34];
+    Vec3_1514A4EC pos;
+    Vec3_1514A4EC prevPos;
+    u8 pad4C[0x130 - 0x4C];
+    f32 vel[3];
+    f32 accel;
+    f32 damping;
+} Body_1514A4EC;
+
+s32 func_1514A4EC(void *arg0) {
+    Body_1514A4EC *body = arg0;
+    f32 damping = body->damping;
+
+    body->prevPos = body->pos;
+    body->vel[0] *= damping;
+    body->vel[1] += body->accel * D_800BE9A4;
+    body->vel[2] *= damping;
+    body->pos.x += body->vel[0] * D_800BE9A4;
+    body->pos.y += body->vel[1] * D_800BE9A4;
+    body->pos.z += body->vel[2] * D_800BE9A4;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514A4EC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_177480/func_1514A4EC.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1514A594 CURRENT (30) */
 s32 func_1514A594(void *arg0) {
     f32 temp_fa0;

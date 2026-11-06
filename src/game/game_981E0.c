@@ -18,7 +18,6 @@
  * - func_1506E2CC
  * - func_1506E46C
  * - func_1506EA98
- * - func_1506EF5C
  * - func_15070300
  * - func_15070898
  * - func_15070F60
@@ -1571,22 +1570,20 @@ void func_1506EEF4(void) {
     *(s8 *)((u8 *)D_800D154C + 0x286) = 0;
     *(s8 *)((u8 *)D_800D154C + 0x287) = 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506EF5C CURRENT (160) */
 void func_1506EF5C(void) {
     s32 index;
-    s32 first;
-    s32 second;
+    s16 first;
+    s16 second;
 
     index = (D_800D1580 >> 16) & 0xFF;
     first = (D_800D1580 >> 8) & 0xFF;
     second = D_800D1580 & 0xFF;
     *(u16 *)(D_800D154C + 0x282) = 0xFFFF;
     D_800D154C[0x276] = 5;
-    D_800D154C[index * 2 + 0x284] = first;
-    D_800D154C[index * 2 + 0x285] = second;
+    index *= 2;
+    D_800D154C[index + 0x284] = first;
+    D_800D154C[index + 0x285] = second;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1506EF5C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506EF5C.s")
 void func_1506EFB4(void) {
     *(s16 *)(D_800D154C + 0x282) = 0;
 }

@@ -20,7 +20,6 @@
  * - func_15089F9C
  * - func_1508A1BC
  * - func_1508A6FC
- * - func_1508B20C
  * - func_1508B2A8
  * - func_1508B3F8
  * - func_1508B9BC
@@ -1292,7 +1291,22 @@ void func_150896EC(void *arg0, void *arg1, s32 arg2) {
     packet->field2C = 0.0f;
     func_1512D560(((GameB4080RailActor *)arg1)->field_318, 7, (s32)packet);
 }
-extern s32 D_800D23B0;
+typedef struct {
+    f32 radiusSq;
+    s16 x;
+    s16 y;
+    s16 z;
+    s16 pad;
+} GameB4080Entry;
+
+typedef struct {
+    u8 pad0[0x1745];
+    s8 count;
+    u8 pad1746[2];
+    GameB4080Entry entries[8];
+} GameB4080Table;
+
+extern GameB4080Table *D_800D23B0;
 
 void func_15089BB0(void) {
     D_800D23B0 = 0;
@@ -1314,25 +1328,25 @@ s32 func_15089BC0(void) {
     if (resource == NULL) return 0;
     switch (id) {
     case 0xB9:
-        D_800D23B0 = (s32)resource;
+        D_800D23B0 = resource;
         break;
     case 0xB8:
-        D_800D23B0 = (s32)resource;
+        D_800D23B0 = resource;
         break;
     case 0xBB:
-        D_800D23B0 = (s32)resource;
+        D_800D23B0 = resource;
         break;
     case 0xBA:
-        D_800D23B0 = (s32)resource;
+        D_800D23B0 = resource;
         break;
     case 0xB7:
-        D_800D23B0 = (s32)resource;
+        D_800D23B0 = resource;
         break;
     case 0xBD:
-        D_800D23B0 = (s32)resource;
+        D_800D23B0 = resource;
         break;
     case 0xBE:
-        D_800D23B0 = (s32)resource;
+        D_800D23B0 = resource;
         break;
     default:
         D_800D23B0 = 0;
@@ -1462,25 +1476,19 @@ void func_1508B1D4(s32 arg0) {
         *(s16 *)((u8 *)(D_8008FDD4 + (arg0 * 0xC)) + 0x70) = 0;
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508B20C CURRENT (145) */
 void func_1508B20C(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
-    s32 temp_a1;
-    s8 temp_v1;
+    s32 i;
 
-    if (D_800D23B0 != 0) {
-        temp_v1 = *(s8 *)((u8 *)D_800D23B0 + 0x1745);
-        if (temp_v1 < 8) {
-            *(s8 *)((u8 *)D_800D23B0 + 0x1745) = (s8) (temp_v1 + 1);
-            temp_a1 = temp_v1 * 0xC;
-            *(s16 *)((u8 *)(D_800D23B0 + temp_a1) + 0x174C) = (s16) (s32) arg0;
-            *(s16 *)((u8 *)(D_800D23B0 + temp_a1) + 0x174E) = (s16) (s32) arg1;
-            *(s16 *)((u8 *)(D_800D23B0 + temp_a1) + 0x1750) = (s16) (s32) arg2;
-            *(f32 *)((u8 *)(D_800D23B0 + temp_a1) + 0x1748) = (f32) (arg3 * arg3);
+    if (D_800D23B0 != NULL) {
+        if (D_800D23B0->count < 8) {
+            i = D_800D23B0->count++;
+            D_800D23B0->entries[i].x = arg0;
+            D_800D23B0->entries[i].y = arg1;
+            D_800D23B0->entries[i].z = arg2;
+            D_800D23B0->entries[i].radiusSq = arg3 * arg3;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1508B20C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508B20C.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1508B2A8 CURRENT (15) */
 void func_1508B2A8(u8 arg0, u8 *state) {
     u8 *entry;
@@ -1721,14 +1729,14 @@ s32 func_1508BF14(void) {
 
     var_t1 = 0;
     temp_s3 = *(s32 *)((u8 *)D_800D23B0 + 0x10);
-    sp6C = (void *)(D_800D23B0 + 0x15C);
-    sp68 = (void *)(D_800D23B0 + 0x39C);
-    temp_s4 = (void *)(D_800D23B0 + 0xE64);
-    sp64 = (void *)(D_800D23B0 + 0x45C);
-    sp60 = (void *)(D_800D23B0 + 0x49C);
+    sp6C = (void *)((u8 *)D_800D23B0 + 0x15C);
+    sp68 = (void *)((u8 *)D_800D23B0 + 0x39C);
+    temp_s4 = (void *)((u8 *)D_800D23B0 + 0xE64);
+    sp64 = (void *)((u8 *)D_800D23B0 + 0x45C);
+    sp60 = (void *)((u8 *)D_800D23B0 + 0x49C);
     temp_s5 = *(s32 *)(temp_s4 + (*(s32 *)((u8 *)D_800D23B0 + 4) * 4));
-    temp_t2 = (void *)(D_800D23B0 + 0x5DC);
-    weights = (u8 *)(D_800D23B0 + 0x9DC);
+    temp_t2 = (void *)((u8 *)D_800D23B0 + 0x5DC);
+    weights = (u8 *)((u8 *)D_800D23B0 + 0x9DC);
     for (var_t1 = 0; var_t1 < temp_s3; var_t1++) {
         counters[var_t1] = 0;
     }
@@ -1928,7 +1936,7 @@ void func_1508C1A4(s32 arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508C5B8.s")
 extern s8 D_8008FD8C;
 extern u16 D_800D18A0;
-extern s32 D_800D23B0;
+extern GameB4080Table *D_800D23B0;
 extern u8 D_800CC2D0;
 
 s32 func_1508C9CC(void) {

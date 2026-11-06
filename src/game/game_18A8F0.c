@@ -9,7 +9,6 @@
  * - func_1515D6D0
  * - func_1515D914
  * - func_1515E278
- * - func_1515E43C
  * - func_1515E888
  * - func_1515EC78
  * - func_1515F338
@@ -252,25 +251,20 @@ extern u8 D_800DCD3C;
 extern u8 D_800DCD3D;
 extern struct Game18A8F0SearchNode *D_800DCD84;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515E43C CURRENT (140) */
 void func_1515E43C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 *arg4,
                    u8 *arg5, u8 *arg6, u8 *arg7) {
     Game18A8F0ColorResult *temp_v0;
-    u32 second_color;
-    s32 first_alpha;
 
     temp_v0 = func_1515EB84(arg0, arg1, arg2, 0, D_800DCD84);
     if (temp_v0 != 0) {
-        arg4[0] = temp_v0->field_18;
-        arg4[1] = temp_v0->field_18 >> 8;
-        arg4[2] = temp_v0->field_18 >> 16;
-        arg5[0] = temp_v0->field_1C;
-        second_color = temp_v0->field_1C;
-        arg5[1] = second_color >> 8;
-        arg5[2] = temp_v0->field_1C >> 16;
-        *arg6 = temp_v0->field_1C >> 24;
-        first_alpha = temp_v0->field_18 >> 24;
-        *arg7 = first_alpha;
+        arg4[0] = temp_v0->field_18 & 0xFF;
+        arg4[1] = (temp_v0->field_18 >> 8) & 0xFF;
+        arg4[2] = (temp_v0->field_18 >> 16) & 0xFF;
+        arg5[0] = temp_v0->field_1C & 0xFF;
+        arg5[1] = (temp_v0->field_1C >> 8) & 0xFF;
+        arg5[2] = (temp_v0->field_1C >> 16) & 0xFF;
+        *arg6 = (temp_v0->field_1C >> 24) & 0xFF;
+        *arg7 = (temp_v0->field_18 >> 24) & 0xFF;
     } else {
         arg4[0] = D_800DCD24[0];
         arg4[1] = D_800DCD24[1];
@@ -282,8 +276,6 @@ void func_1515E43C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 *arg4,
         *arg7 = D_800DCD3D;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515E43C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515E43C.s")
 extern u8 D_800DCD40[];
 
 u32 *func_1515E544(u32 *arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4) {

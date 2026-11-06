@@ -27,7 +27,6 @@
  * - func_1502F3C8
  * - func_1502F9FC
  * - func_1502FBE8
- * - func_1502FD70
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1715,41 +1714,42 @@ extern u8 D_80038080;
 extern s32 D_800BE9F0;
 extern u8 D_800D2040;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502FD70 CURRENT (135) */
-void func_1502FD70(void *arg0) {
-    s32 temp_v0_3;
-    u8 *temp_v1;
-    s32 temp_a1;
-    u8 temp_a2;
-    u8 temp_v0;
-    void *temp_v0_2;
+typedef struct {
+    u8 pad0[0x2E];
+    u8 timer;
+} Sub_1502FD70;
 
-    temp_v0 = *(u8 *)((u8 *)arg0 + 4);
+typedef struct {
+    u8 pad0[4];
+    u8 id;
+    u8 pad5[0x144 - 5];
+    Sub_1502FD70 *sub;
+} Actor_1502FD70;
+
+void func_1502FD70(void *arg0) {
+    Actor_1502FD70 *actor = arg0;
+    u8 id = actor->id;
+    u8 *slot;
+
     if ((D_80038080 == 0) && (D_800BE9F0 == 0x1D)) {
-        *(&D_800D2040 + temp_v0) = 2;
+        (&D_800D2040)[id] = 2;
         return;
     }
-    temp_v1 = &D_800D2040 + temp_v0;
-    temp_a1 = *temp_v1;
-    if (0xFF != temp_a1) {
-        temp_v0_2 = *(void **)((u8 *)arg0 + 0x144);
-        if (temp_v0_2 != 0) {
-            temp_a2 = *(u8 *)((u8 *)temp_v0_2 + 0x2E);
-            if (temp_a2 != 0xFF) {
-                if (temp_a2 != 0) {
-                    temp_v0_3 = temp_a2 * 0x1E;
-                    if ((s32)temp_a1 < temp_v0_3) {
-                        *temp_v1 = (u8)temp_v0_3;
+    slot = &(&D_800D2040)[id];
+    if (*slot != 0xFF) {
+        if (actor->sub != NULL) {
+            if (actor->sub->timer != 0xFF) {
+                if (actor->sub->timer != 0) {
+                    if (*slot < actor->sub->timer * 30) {
+                        *slot = actor->sub->timer * 30;
                     }
                 } else {
-                    goto block_9;
+                    goto set3;
                 }
             }
         } else {
-block_9:
-            *temp_v1 = 3;
+set3:
+            *slot = 3;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502FD70 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502FD70.s")
