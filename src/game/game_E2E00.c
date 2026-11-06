@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150B5950
- * - func_150B5E34
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -261,7 +260,6 @@ typedef struct GameE2E00Spawn {
 } GameE2E00Spawn;
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B5E34 CURRENT (303) */
 void func_150B5E34(void *arg0, u8 arg1, s32 arg2) {
     GameE2E00Spawn spawn;
     s32 var_v0;
@@ -306,7 +304,7 @@ void func_150B5E34(void *arg0, u8 arg1, s32 arg2) {
     } else {
         var_v0 = 0;
     }
-    spawn.field58 = var_v0 | 1 | var_v1 | 0xC200;
+    spawn.field58 = var_v0 | 1 | var_v1 | 0x8000 | 0x4000 | 0x200;
     spawn.fields60[0] = 6;
     spawn.fields60[1] = 6;
     spawn.fields60[2] = -1;
@@ -315,8 +313,6 @@ void func_150B5E34(void *arg0, u8 arg1, s32 arg2) {
     spawn.fields60[5] = 4;
     func_15130280(&spawn, 1, 0, 0, arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B5E34 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E2E00/func_150B5E34.s")
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 void func_150B6000(void *arg0, u8 arg1, s32 arg2) {

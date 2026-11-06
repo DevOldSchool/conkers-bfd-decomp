@@ -19,7 +19,6 @@
  * - func_1514306C
  * - func_15143134
  * - func_151438D8
- * - func_15143D18
  * - func_15143E94
  * - func_1514401C
  * - func_1514470C
@@ -1181,42 +1180,34 @@ s32 func_151438D8(s32 arg0, s32 arg1, u16 arg2, u8 *arg3) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151438D8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151438D8.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15143D18 CURRENT (300) */
 void func_15143D18(s32 *arg0, s32 *arg1, s32 arg2, s32 arg3) {
-    s32 temp_a0;
-    s32 temp_a1;
-    s32 temp_v0;
-    s32 temp_v1;
-    s32 temp_v1_2;
-    s32 var_a1;
-    s32 var_a2;
+    s32 diff;
+    s32 swapped;
+    s32 hi;
+    s32 lo;
 
-    var_a2 = arg2;
-    temp_v1 = var_a2 ^ arg3;
-    if (arg3 < var_a2) {
-        temp_a1 = arg3 ^ temp_v1;
-        arg3 = temp_a1;
-        var_a2 = temp_a1 ^ temp_v1;
+    if (arg3 < arg2) {
+        diff = arg2 ^ arg3;
+        swapped = arg3 ^ diff;
+        arg3 = swapped;
+        arg2 = diff ^ swapped;
     }
-    temp_v1_2 = *arg1;
-    var_a1 = *arg0;
-    temp_v0 = var_a1 ^ temp_v1_2;
-    if (temp_v1_2 < var_a1) {
-        *arg0 = temp_v0;
-        temp_a0 = *arg1 ^ temp_v0;
-        *arg1 = temp_a0;
-        var_a1 = *arg0 ^ temp_a0;
-        *arg0 = var_a1;
+    hi = *arg1;
+    lo = *arg0;
+    diff = lo ^ hi;
+    if (hi < lo) {
+        *arg0 = diff;
+        swapped = *arg1 ^ diff;
+        *arg1 = swapped;
+        lo = (*arg0 ^= swapped);
     }
-    if (var_a1 < var_a2) {
-        *arg0 = var_a2;
+    if (lo < arg2) {
+        *arg0 = arg2;
     }
     if (arg3 < *arg1) {
         *arg1 = arg3;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15143D18 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15143D18.s")
 s32 func_15143DA8(s32 *arg0, s32 arg1, s32 arg2) {
     s32 temp_a3;
     s32 temp_v0;

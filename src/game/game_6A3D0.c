@@ -9,7 +9,6 @@
  * - func_1503D368
  * - func_1503D510
  * - func_1503D5F0
- * - func_1503D774
  * - func_1503DA9C
  * - func_1503DD1C
  *
@@ -251,29 +250,23 @@ extern s32 D_800D1C90[];
  * The first relocated descriptor pointer becomes D_800D1C90[modelIndex].
  * See docs/evidence/assets/naming/actor_representation_asset_semantics.md.
  */
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D774 CURRENT (317) */
 s32 func_1503D774(s32 arg0, void *arg1) {
     s32 sp2C;
-    s32 *sp24;
-    s32 *temp_v1;
-    s32 *temp_v0;
+    s32 *v;
 
-    temp_v1 = &D_800D1C90[arg0];
-    if (*temp_v1 != 0) {
+    if (D_800D1C90[arg0] != 0) {
         return 0;
     }
-    sp24 = temp_v1;
-    temp_v0 = func_1502B6BC(&sp2C, 2, 0, 2, 0x11, arg0);
-    if (temp_v0 == 0) {
-        *sp24 = 0;
+    v = func_1502B6BC(&sp2C, 2, 0, 2, 0x11, arg0);
+    if (v == 0) {
+        D_800D1C90[arg0] = 0;
         return 2;
+    } else {
+        D_800D1C90[arg0] = (s32)v;
+        D_800D1C90[arg0] = *v;
     }
-    *sp24 = (s32)temp_v0;
-    *sp24 = *temp_v0;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503D774 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D774.s")
 void *func_10003C40(s32, s32, s32, s32);
 extern void *D_800C4020[];
 extern void *D_800C6360[];

@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_10EA20.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_directly_called_families.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150E1570
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game10EA20Actor {
@@ -38,9 +33,8 @@ __pragma(1, sqrtf);
 extern u8 D_800C3E78;
 extern u8 D_800CC2D0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E1570 CURRENT (310) */
 s32 func_150E1570(Game10EA20Actor *arg0, f32 arg1, f32 arg2, f32 arg3,
-                  f32 arg4, f32 arg5, f32 arg6, register s32 arg7, s32 arg8) {
+                  f32 arg4, f32 arg5, f32 arg6, s32 arg7, s32 arg8) {
     f32 matrix[16];
     Game10EA20Actor *actor;
     f32 dx;
@@ -54,18 +48,17 @@ s32 func_150E1570(Game10EA20Actor *arg0, f32 arg1, f32 arg2, f32 arg3,
     s32 bestDistance;
     s32 ownerIndex;
 
+    bestDistance = 0;
     result = 0;
     func_15047390(matrix, arg1, arg2, arg3, arg4, arg5, arg6, 0.0f, 1.0f, 0.0f);
-    bestDistance = 0;
     dx = arg1 - arg4;
     dy = arg2 - arg5;
     dz = arg3 - arg6;
-    best = -1;
-    actor = (Game10EA20Actor *)D_800CC2D0;
-    index = 0;
     length = sqrtf(dx * dx + dy * dy + dz * dz);
     ownerIndex = arg0 != 0 ? arg0->index - 1 : -1;
-    do {
+    best = -1;
+    actor = (Game10EA20Actor *)D_800CC2D0;
+    for (index = 0; index != 25; index++, actor++) {
         if (actor->present != 0 && index != arg7 && actor->active != 0 &&
             actor->excluded == 0 && index != ownerIndex) {
             distance = func_15049440(matrix, actor->x, actor->y + (f32)actor->yOffset,
@@ -76,9 +69,7 @@ s32 func_150E1570(Game10EA20Actor *arg0, f32 arg1, f32 arg2, f32 arg3,
                 bestDistance = distance;
             }
         }
-        index++;
-        actor++;
-    } while (index != 25);
+    }
     if (best != -1) {
         actor = (Game10EA20Actor *)(D_800CC2D0 + best * 0x32C);
         result = func_1505D1C4(actor->x, (f32)actor->yOffset + actor->y,
@@ -87,5 +78,3 @@ s32 func_150E1570(Game10EA20Actor *arg0, f32 arg1, f32 arg2, f32 arg3,
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E1570 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10EA20/func_150E1570.s")
