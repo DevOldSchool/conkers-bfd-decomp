@@ -179,7 +179,6 @@ void func_15104C44(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15104C44 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_131F30/func_15104C44.s")
-u16 func_1000FA64(u16, s16, s16, s16, s32, u16, s16, s32, void *, s32, s32, s32);
 
 typedef struct struct205 { u8 pad0[0x14]; u8 unk14; } struct205;
 typedef struct struct206 { struct205 *unk0; u16 unk4; u8 pad6[0x6]; u8 unkC; u8 padD[0x63]; s32 *unk70; } struct206;

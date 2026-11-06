@@ -392,7 +392,6 @@ typedef struct Game1483E0SoundSet {
     u16 id[3];
 } Game1483E0SoundSet;
 
-void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
 void func_10010F30(s32, s32, s32, s32, s32);
 void func_150B2740(s32, s32);
 void func_15170F4C(u8 *, s32, s32);

@@ -75,7 +75,6 @@ s32 func_1501374C(u8 *arg0) {
 void *func_10022EC0(void *, const void *, u32);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_150A8050(f32 *, f32, f32, f32);
-s32 func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
 extern u8 D_1000EF40[];
 extern f32 D_80096640;
 extern f32 D_80096644;

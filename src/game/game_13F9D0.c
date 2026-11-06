@@ -929,8 +929,6 @@ typedef struct Game13F9D0SoundEntry {
     u16 sound;
 } Game13F9D0SoundEntry;
 
-u16 func_1000FA64(u16, s16, s16, s16, s32, s32, s32,
-                 s32 (*)(void *, s32, s32 *, s32), void *, s32, s32, s32);
 u16 func_10010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_100111C8(u16);
 void func_1001123C(s32);

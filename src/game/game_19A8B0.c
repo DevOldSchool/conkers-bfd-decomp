@@ -578,7 +578,6 @@ void func_1516F2F8(u8 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
         4, 4, arg0, arg2, 0, 0, 0x81, 5, 0, 1,
         0, 0, 0, 1, arg3, arg4, arg5);
 }
-void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
 extern u8 D_1000EBC4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1516F548 CURRENT (5360) */

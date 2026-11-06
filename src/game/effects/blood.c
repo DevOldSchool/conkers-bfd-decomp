@@ -1414,7 +1414,6 @@ s32 func_151380B4(Blood1380B4State *actor, s32 effectProfileIndex, f32 *outPosit
 extern u8 D_800A4058;
 extern u8 D_800A4068;
 extern u8 D_1000EBC4;
-s32 func_1000FA64(s32, s16, s16, s16, s32, s32, s32, void *, s32, s32, s32, s32);
 void *func_15134DAC(void *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15138120 CURRENT (969) */

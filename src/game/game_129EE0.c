@@ -12,7 +12,6 @@
  */
 
 void func_15164F0C(u8, s32, void *, u8, s32);
-s32 func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
 void func_150FCBC0(s32);
 void func_151D8868(s8 *, s32, s32, s32);
 extern u8 D_1000EC24[];
