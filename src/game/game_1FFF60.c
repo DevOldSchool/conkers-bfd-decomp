@@ -245,21 +245,26 @@ void func_151D2F90(u8 *arg0) {
 extern void (*D_8008FC48[])(void *, void *);
 extern void (*D_8008FC5C[])(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3130 CURRENT (300) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3130 CURRENT (10) */
 void func_151D3130(u8 *arg0) {
     u8 *node;
     u8 *next;
+    void (*fn)(s32);
 
-    if (D_8008FC5C[arg0[0x1D]] != 0) {
-        D_8008FC5C[arg0[0x1D]](arg0);
+    fn = D_8008FC5C[arg0[0x1D]];
+    if (fn != 0) {
+        fn((s32)arg0);
     }
-    for (node = *(u8 **)(arg0 + 0x24); node != 0; node = next) {
+    node = *(u8 **)(arg0 + 0x24);
+    while (node != 0) {
+        s8 idx = *(s8 *)(node + 0x2A);
         next = *(u8 **)(node + 0x40);
-        if (*(s8 *)(node + 0x2A) != -1) {
-            D_8008FC48[*(s8 *)(node + 0x2A)](node, node + 0x34);
+        if (idx != -1) {
+            D_8008FC48[idx](node, node + 0x34);
         }
         *(s32 *)(node + 0x2C) = 0;
         func_1516972C(node);
+        node = next;
     }
     func_1514EDF0(arg0, *(void **)(arg0 + 0x10));
 }

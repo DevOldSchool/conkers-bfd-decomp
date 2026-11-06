@@ -15,8 +15,6 @@
  * - func_15031070
  * - func_150311C4
  * - func_1503195C
- * - func_150319CC
- * - func_15031C14
  * - func_15031E7C
  * - func_15031FC8
  * - func_150331B8
@@ -612,19 +610,18 @@ void *func_1503195C(void *arg0, s32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1503195C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_1503195C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150319CC CURRENT (245) */
 void *func_150319CC(s32 arg0, void *arg1) {
-    s32 requested = arg0;
+    u8 key;
     void *next;
     void *cursor;
 
     if (arg1 != 0) {
         cursor = D_800C3EE0;
         if (cursor != 0) {
-            arg0 = *(u8 *)((u8 *)arg1 + 0x3B);
+            key = *(u8 *)((u8 *)arg1 + 0x3B);
             do {
                 next = *(void **)((u8 *)cursor + 0x54);
-                if ((arg0 == *(u8 *)cursor) && (requested == *(u8 *)((u8 *)cursor + 6))) {
+                if ((key == *(u8 *)cursor) && (arg0 == *(u8 *)((u8 *)cursor + 6))) {
                     return cursor;
                 }
                 cursor = next;
@@ -635,7 +632,7 @@ void *func_150319CC(s32 arg0, void *arg1) {
     if (cursor != 0) {
         do {
             next = *(void **)((u8 *)cursor + 0x54);
-            if (requested == *(u8 *)((u8 *)cursor + 6)) {
+            if (arg0 == *(u8 *)((u8 *)cursor + 6)) {
                 return cursor;
             }
             cursor = next;
@@ -643,8 +640,6 @@ void *func_150319CC(s32 arg0, void *arg1) {
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150319CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_150319CC.s")
 s32 func_150859AC(s32, s32);
 void func_150D5440(void *, u8, s32);
 void func_150D3360(void *, u8, s32);
@@ -712,12 +707,11 @@ void func_1000FD38(void *, void *, s32);
 s32 func_15033BDC();
 void func_15100180(void *);
 void func_151027E8(void *);
-void func_15147D64(s32, s32);
+void func_15147D64(void *, u8);
 void func_151BD7F4(void *);
 void func_151D4668(void *);
 void func_151D747C(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15031C14 CURRENT (270) */
 void func_15031C14(void *arg0) {
     u8 *object;
     GameCoreMessage first;
@@ -753,8 +747,8 @@ void func_15031C14(void *arg0) {
         case 0x5D:
             second.object = object;
             second.id = object[0x3B];
-            func_15147D64((s32)&second, 0x2E);
-            func_151494E0((s32)&second, 0x2F);
+            func_15147D64((s32 *)(s32)&second, 0x2E);
+            func_151494E0((s32 *)(s32)&second, 0x2F);
             break;
         case 0x3D:
             func_151BD7F4(object);
@@ -785,8 +779,6 @@ void func_15031C14(void *arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15031C14 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15031C14.s")
 typedef struct {
     u8 pad_0[0x18];
     s16 field_18;

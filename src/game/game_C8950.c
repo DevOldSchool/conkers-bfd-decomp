@@ -9,7 +9,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1509B5AC
  * - func_1509B950
- * - func_1509BA04
  * - func_1509BBA0
  * - func_1509BE40
  * - func_1509BFB0
@@ -262,7 +261,6 @@ extern u8 D_800D2E69;
 extern u8 D_800D2E70[];
 extern s32 D_800BE9F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509BA04 CURRENT (260) */
 void func_1509BA04(s32 arg0) {
     GameC8950Node *node;
     GameC8950Node *next;
@@ -271,7 +269,7 @@ void func_1509BA04(s32 arg0) {
     s32 key;
     s32 index;
     s32 mask;
-    u16 original;
+    s32 original;
 
     count = D_800D2F48.count;
     node = D_800D2F48.head;
@@ -287,7 +285,7 @@ void func_1509BA04(s32 arg0) {
             index = key >> 3;
             mask = 1 << (key & 7);
             next = node->next;
-            if ((((u8 *)D_800D2E4C)[index] & mask) && arg0 == 0) {
+            if ((*(u8 *)(index + (u32)D_800D2E4C) & mask) && arg0 == 0) {
                 func_1509B764(node);
                 D_800D2E70[key] = 3;
             } else if (arg0 != 0 || (original & 0x8000) ||
@@ -296,10 +294,10 @@ void func_1509BA04(s32 arg0) {
                 func_150ADAF0(&node->key, 3);
                 D_8003C8E0 = 0;
                 func_1509B764(node);
-                if (((u8 *)D_800D2E4C)[index] & mask) {
-                    D_800D2E70[key] = 3;
-                } else {
+                if (!(*(u8 *)(index + (u32)D_800D2E4C) & mask)) {
                     D_800D2E70[key] = 0;
+                } else {
+                    D_800D2E70[key] = 3;
                 }
             }
             i++;
@@ -307,8 +305,6 @@ void func_1509BA04(s32 arg0) {
         } while (i != count);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509BA04 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509BA04.s")
 void func_15096D08(void);
 void func_1509B4A0(s16, s32);
 s32 func_1509BE40(s32, ...);

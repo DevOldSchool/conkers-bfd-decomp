@@ -476,9 +476,9 @@ ASSERT(SIZEOF(.game_rodata_179f30) == 0x30, "game_179F30 table extent changed")
 __game_rodata_49be0_payload_size = 0x1C;
 __game_rodata_cd860_payload_size = 0x18;
 __game_rodata_179f30_payload_size = 0x28;
-ASSERT(SIZEOF(.game_rodata_5d2c0) == 0xE0, "game_5D2C0 table extent changed")
+ASSERT(SIZEOF(.game_rodata_5d2c0) == 0x1A0, "game_5D2C0 table extent changed")
 ASSERT(SIZEOF(.game_rodata_1bf090) == 0x70, "game_1BF090 literal and table extent changed")
-__game_rodata_5d2c0_payload_size = 0xDC;
+__game_rodata_5d2c0_payload_size = 0x19C;
 __game_rodata_1bf090_payload_size = 0x64;
 __game_rodata_aeb40_payload_size = 0x114;
 ASSERT(SIZEOF(.game_rodata_61950) == 0x20,

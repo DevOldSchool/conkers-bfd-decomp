@@ -498,7 +498,7 @@ typedef struct GameAEB40CommandState {
 } GameAEB40CommandState;
 s32 func_15083568(s32, s32, f32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15083384 CURRENT (265) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15083384 CURRENT (165) */
 void func_15083384(GameAEB40CommandState *arg0, s32 arg1) {
     s32 command = -1;
     s32 group;

@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151E24F0
  * - func_151E2834
- * - func_151E30C4
  * - func_151E3344
  * - func_151E43DC
  * - func_151E50C8
@@ -163,7 +162,6 @@ extern s8 D_800E0BB1;
 extern u8 D_800E0BD1;
 extern s32 D_800E9D00;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E30C4 CURRENT (275) */
 void func_151E30C4(void) {
     s32 sp2C;
     s32 sp28;
@@ -192,7 +190,7 @@ void func_151E30C4(void) {
     D_8008FDBC = 0;
     D_8008FDA8 = -1;
     D_800E0B94 = 0;
-    D_800E0B99 = 1;
+    *(u8 *)&D_800E0B99 = 1;
     D_8008FD8C = 1;
     D_8008FD90 = 1;
     D_8008FD94 = 1;
@@ -205,11 +203,9 @@ void func_151E30C4(void) {
     D_800D18A8 = 0;
     D_800E0BB1 = 1;
     func_151E7EF8();
-    D_800D2E40 = 1;
+    *(u8 *)&D_800D2E40 = 1;
     func_1501C730(6, D_800BE9F4, func_1509CA50(sp28), 0, 1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151E30C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E30C4.s")
 /* Call context: func_1501C730: unique active declaration in the allowed source */
 void func_1501C730(s32, s32, s32, s32, s32);
 extern s8 D_80087260;

@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15178EFC
  * - func_15179008
- * - func_15179600
  * - func_151797B0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -114,19 +113,18 @@ void func_151794C8(void) {
 }
 void func_1516865C(void *, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15179600 CURRENT (283) */
 void func_15179600(s32 arg0, s32 arg1) {
-    u8 *camera;
-    void *effect;
-    s32 base_x;
-    s32 base_y;
-    s32 base_z;
     s32 x;
     s32 y;
     s32 z;
+    s32 base_x;
+    s32 base_y;
+    s32 base_z;
+    u8 *camera;
+    void *effect;
     s32 random;
+    s32 spD0;
     u8 packet[0xA8];
-    volatile s32 packet_pad;
 
     packet[0xA0] = 0x11;
     *(s16 *)(packet + 0x8A) = 0x33;
@@ -145,15 +143,15 @@ void func_15179600(s32 arg0, s32 arg1) {
         y = ((s32)func_150ADA20() % 500) + base_y;
     }
     random = (u32)func_150ADA20() % 10U;
+    *(s16 *)(packet + 0x8C) = x;
+    *(s16 *)(packet + 0x90) = z;
+    *(s16 *)(packet + 0x8E) = y;
     *(s16 *)(packet + 0x9C) = 0;
     *(s16 *)(packet + 0x9E) = 0;
     *(s16 *)(packet + 0x92) = 4;
     *(s16 *)(packet + 0x94) = random + 0x23;
-    *(s16 *)(packet + 0x98) = 0x8C00;
+    *(u16 *)(packet + 0x98) = 0x8C00;
     packet[0xA1] = random + 0xA;
-    *(s16 *)(packet + 0x8E) = y;
-    *(s16 *)(packet + 0x8C) = x;
-    *(s16 *)(packet + 0x90) = z;
     *(s32 *)(packet + 0x80) = arg1;
     *(s16 *)(packet + 0x84) = D_800DD436;
     effect = func_15168800(packet, 0xFF, 0);
@@ -162,8 +160,6 @@ void func_15179600(s32 arg0, s32 arg1) {
         D_800DD436 += 1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15179600 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A6360/func_15179600.s")
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 extern f32 D_800A7204;

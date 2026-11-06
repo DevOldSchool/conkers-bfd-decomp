@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_child_chain_render_lists.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15188810
  * - func_15188E48
  * - func_15188F84
  * - func_15189118
@@ -25,57 +24,49 @@ void func_10023A10(void *, void *, s32);
 extern void *D_800DF7CC;
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15188810 CURRENT (258) */
 void func_15188810(void *arg0, s32 arg1, s32 arg2) {
-    s32 temp_t0;
-    s32 temp_v0_2;
-    void *temp_v0_3;
     u8 *var_s0;
-    volatile s32 sp20;
+    s32 count;
+    s32 size;
+    void *buffer;
+    s32 sp24;
 
-    var_s0 = D_800DF7C8;
-    if (var_s0 != 0) {
-        do {
-            if (arg0 == *(void **)(var_s0 + 0x10)) {
-                if (*(s16 *)(var_s0 + 6) < arg1) {
-                    *(s16 *)(var_s0 + 6) = (s16)arg1;
-                }
-                *(s8 *)(var_s0 + 4) = (s8)arg2;
-                return;
+    for (var_s0 = D_800DF7C8; var_s0 != 0; var_s0 = *(u8 **)(var_s0 + 0xC)) {
+        if (arg0 == *(void **)(var_s0 + 0x10)) {
+            if (*(s16 *)(var_s0 + 6) < arg1) {
+                *(s16 *)(var_s0 + 6) = arg1;
             }
-            var_s0 = *(u8 **)(var_s0 + 0xC);
-        } while (var_s0 != 0);
+            *(s8 *)(var_s0 + 4) = arg2;
+            return;
+        }
     }
 
     var_s0 = func_10003C40(0x18, 1, 0, 0);
     if (var_s0 != 0) {
-        temp_v0_2 = func_1502DB20(*(u8 *)((u8 *)arg0 + 4));
-        if (temp_v0_2 == 0) {
+        count = func_1502DB20(*(u8 *)((u8 *)arg0 + 4));
+        if (count == 0) {
             func_10004074((s32)var_s0);
             return;
         }
-        temp_t0 = temp_v0_2 * 0x180;
-        sp20 = temp_t0;
-        temp_v0_3 = func_10003C40(temp_t0, 1, 1, 1);
-        if (temp_v0_3 == 0) {
+        size = (count * 3) << 7;
+        buffer = func_10003C40(size, 1, 1, 1);
+        if (buffer == 0) {
             func_10004074((s32)var_s0);
             return;
         }
-        *(u8 *)var_s0 = 0;
-        *((u8 *)var_s0 + 1) = 3;
-        *((u8 *)var_s0 + 2) = 0;
-        *((u8 *)var_s0 + 3) = 0x14;
-        *((s8 *)var_s0 + 4) = (s8)arg2;
-        *(s16 *)((u8 *)var_s0 + 6) = (s16)arg1;
-        *(void **)((u8 *)var_s0 + 8) = temp_v0_3;
-        *(void **)((u8 *)var_s0 + 0x10) = arg0;
-        *(s32 *)((u8 *)var_s0 + 0x14) = 0;
-        func_100226F0(temp_v0_3, sp20);
+        var_s0[0] = 0;
+        var_s0[1] = 3;
+        var_s0[2] = 0;
+        var_s0[3] = 0x14;
+        *(s8 *)(var_s0 + 4) = arg2;
+        *(s16 *)(var_s0 + 6) = arg1;
+        *(void **)(var_s0 + 8) = buffer;
+        *(void **)(var_s0 + 0x10) = arg0;
+        *(s32 *)(var_s0 + 0x14) = 0;
+        func_100226F0(buffer, size);
         func_15188A58(var_s0, &D_800DF7C8);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15188810 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B5CC0/func_15188810.s")
 void func_1518894C(s32 arg0, s32 arg1, s32 arg2) {
     u8 *node;
     void *buffer;

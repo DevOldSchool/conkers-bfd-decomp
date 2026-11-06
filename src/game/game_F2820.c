@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_path_owner_lifecycles.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150C5370
  * - func_150C5568
  * - func_150C56A4
  *
@@ -15,26 +14,36 @@
 
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C5370 CURRENT (280) */
+typedef struct F2820Obj {
+    u8 pad00[0x10];
+    s32 field10;
+    s32 field14;
+    f32 pos[3];
+    f32 prev[3];
+    u8 pad30[0x90];
+    f32 fieldC0;
+} F2820Obj;
+
 void *func_150C5370(void *arg0, s32 arg1) {
-    void *object;
-    f32 delta[3];
+    F2820Obj *object;
 
     object = func_15167A68(0x46, 0, arg1 + 0xC8, 1, 0xFF, 1);
     if (object == 0) {
         return 0;
     }
-    func_10022EC0((u8 *)object + 0x18, arg0, 0x24);
-    delta[0] = *(f32 *)((u8 *)object + 0x18) - *(f32 *)((u8 *)object + 0x24);
-    delta[1] = *(f32 *)((u8 *)object + 0x1C) - *(f32 *)((u8 *)object + 0x28);
-    delta[2] = *(f32 *)((u8 *)object + 0x20) - *(f32 *)((u8 *)object + 0x2C);
-    *(f32 *)((u8 *)object + 0xC0) = func_15143E64(delta);
-    *(s32 *)((u8 *)object + 0x10) = 1;
-    *(s32 *)((u8 *)object + 0x14) = 0;
+    func_10022EC0(object->pos, arg0, 0x24);
+    {
+        f32 delta[3];
+
+        delta[0] = object->pos[0] - object->prev[0];
+        delta[1] = object->pos[1] - object->prev[1];
+        delta[2] = object->pos[2] - object->prev[2];
+        object->fieldC0 = func_15143E64(delta);
+    }
+    object->field10 = 1;
+    object->field14 = 0;
     return object;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C5370 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F2820/func_150C5370.s")
 
 void func_150C5430(void *arg0) {
     func_15169804(arg0);

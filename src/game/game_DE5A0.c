@@ -9,7 +9,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150B12FC
  * - func_150B1484
- * - func_150B17DC
  * - func_150B19E0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -191,26 +190,27 @@ extern f32 D_8009F8C8;
 extern u8 D_800BE9A0;
 extern u8 D_800C3E78;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B17DC CURRENT (230) */
 void func_150B17DC(u8 *arg0) {
     s32 sp3C;
     void *temp_s0;
     f32 sp34;
     f32 sp30;
     f32 sp2C;
-    s16 temp_v0;
+    f32 t;
 
     temp_s0 = func_1505EEB0(0xA, &sp3C);
     func_15056B08(arg0);
     if (*(u8 *)((u8 *)arg0 + 0x1E5) == 2) {
         *(f32 *)((u8 *)arg0 + 0x14) = (f32) *(f32 *)((u8 *)temp_s0 + 0x14);
         *(f32 *)((u8 *)arg0 + 0x1C) = (f32) *(f32 *)((u8 *)temp_s0 + 0x1C);
-        *(f32 *)((u8 *)arg0 + 0x18) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x18) + ((f32) ((s32) *(u16 *)((u8 *)arg0 + 0x21C) / 5) + 160.0f));
+        *(f32 *)((u8 *)arg0 + 0x18) = ((f32) ((s32) *(u16 *)((u8 *)arg0 + 0x21C) / 5) + 160.0f) + *(f32 *)((u8 *)temp_s0 + 0x18);
         *(f32 *)((u8 *)arg0 + 0x20) = 0.0f;
         *(f32 *)((u8 *)arg0 + 0x24) = (f32) D_8009F8C4;
         *(u8 *)((u8 *)arg0 + 0x7E) = 0U;
     } else {
-        *(f32 *)((u8 *)temp_s0 + 0xB8) = (f32) (func_150AD78C((f32)(u32)*(u8 *)(arg0 + 0x7E) * D_8009F8C8) * 6.0f);
+        t = *(u8 *)(arg0 + 0x7E);
+        t *= D_8009F8C8;
+        *(f32 *)((u8 *)temp_s0 + 0xB8) = func_150AD78C(t) * 6.0f;
         func_1505A770(arg0);
         *(f32 *)((u8 *)temp_s0 + 0x18) = (f32) (*(f32 *)((u8 *)arg0 + 0x18) - 170.0f);
         *(s8 *)((u8 *)temp_s0 + 0x13C) = (s8) (D_800C3E78 + 0x64);
@@ -224,12 +224,9 @@ void func_150B17DC(u8 *arg0) {
         *(f32 *)((u8 *)temp_s0 + 0x16C) = 0.0f;
         *(f32 *)((u8 *)temp_s0 + 0x170) = 0.0f;
     }
-    temp_v0 = func_1505A630(*(f32 *)((u8 *)&D_800CC2D0 + 0x14) - *(f32 *)((u8 *)arg0 + 0x14), *(f32 *)((u8 *)arg0 + 0x1C) - *(f32 *)((u8 *)&D_800CC2D0 + 0x1C), 0);
-    *(s16 *)((u8 *)arg0 + 0x7A) = temp_v0;
-    *(f32 *)((u8 *)arg0 + 0x40) = (f32) ((f32) (s16) (temp_v0 + 0x4000) * 0.005493164f);
+    *(s16 *)((u8 *)arg0 + 0x7A) = func_1505A630(*(f32 *)((u8 *)&D_800CC2D0 + 0x14) - *(f32 *)((u8 *)arg0 + 0x14), *(f32 *)((u8 *)arg0 + 0x1C) - *(f32 *)((u8 *)&D_800CC2D0 + 0x1C), 0);
+    *(f32 *)((u8 *)arg0 + 0x40) = (s16)(*(u16 *)((u8 *)arg0 + 0x7A) + 0x4000) * 0.005493164f;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B17DC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DE5A0/func_150B17DC.s")
 void func_150562FC(u8 *);
 void func_150597FC(u8 *);
 void func_1510F800(s32);
