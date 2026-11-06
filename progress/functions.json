@@ -9732,16 +9732,17 @@
       "symbol": "func_150593C4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 165,
+        "reason": "natural C without the unreferenced block_29: label before break; the label reaches CURRENT 0 (hint only)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 344,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_15059444",
           "vram": "0x15059444"
         }
@@ -33019,16 +33020,17 @@
       "symbol": "func_151D2F90"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 10,
+        "reason": "natural use of the s8 idx local; an unused block-scope s8 idx load reaches CURRENT 0 (hint only)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 196,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_151D3130",
           "vram": "0x151D3130"
         }
@@ -42731,16 +42733,17 @@
       "symbol": "func_150832AC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 165,
+        "reason": "natural C without the unreferenced block_29: label before break; the label reaches CURRENT 0 (hint only)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 484,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_15083384",
           "vram": "0x15083384"
         }
@@ -46818,16 +46821,17 @@
       "symbol": "func_150A1DA0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 165,
+        "reason": "natural C without the unreferenced block_done: label; the label reaches CURRENT 0 (hint only)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 220,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_150A23E4",
           "vram": "0x150A23E4"
         }
@@ -64286,21 +64290,22 @@
       "symbol": "func_150B879C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 160,
+        "reason": "natural C without the unreferenced l1: label; the label reaches CURRENT 0 (hint only)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 324,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_150CDBB0",
           "vram": "0x150CDBB0"
         }
       },
-      "source": "src/done/game/game_FB060.c",
+      "source": "src/game/game_FB060.c",
       "symbol": "func_150CDBB0"
     },
     {
@@ -64318,7 +64323,7 @@
           "vram": "0x150CDCF4"
         }
       },
-      "source": "src/done/game/game_FB060.c",
+      "source": "src/game/game_FB060.c",
       "symbol": "func_150CDCF4"
     },
     {
@@ -64336,7 +64341,7 @@
           "vram": "0x150CDF10"
         }
       },
-      "source": "src/done/game/game_FB060.c",
+      "source": "src/game/game_FB060.c",
       "symbol": "func_150CDF10"
     },
     {
@@ -65264,8 +65269,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "jtbl+65536.0f need game_CB3D0 rodata mapping at 0x8009F370; volatile arg0; trailing unit padding",
+        "current_score": 265,
+        "reason": "natural C without the unreferenced end: label (the label only lowered 265->200; hint only); still needs a game_CB3D0 rodata mapping at 0x8009F370 and drops volatile arg0",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

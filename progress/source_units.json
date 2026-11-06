@@ -10029,15 +10029,15 @@
         "func_150CDCF4",
         "func_150CDF10"
       ],
-      "integration": "c",
+      "integration": "mixed",
       "regions": {
         "us": {
           "end": "0xCE150",
           "start": "0xCDBB0",
-          "state": "complete"
+          "state": "in_progress"
         }
       },
-      "source": "src/done/game/game_FB060.c"
+      "source": "src/game/game_FB060.c"
     },
     {
       "boundary_evidence": {

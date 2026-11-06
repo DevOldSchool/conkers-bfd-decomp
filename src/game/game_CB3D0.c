@@ -68,7 +68,7 @@ extern s8 D_800E0BD0;
 extern s8 D_800E0BE0[];
 extern u16 D_8008FDBC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509E3DC CURRENT (200) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509E3DC CURRENT (265) */
 s32 func_1509E3DC(volatile s32 arg0, u32 arg1, GameCB3D0Query *arg2) {
     s32 dx;
     s32 dz;
@@ -131,7 +131,6 @@ s32 func_1509E3DC(volatile s32 arg0, u32 arg1, GameCB3D0Query *arg2) {
         }
         return 0;
     }
-end:
     return 0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509E3DC */

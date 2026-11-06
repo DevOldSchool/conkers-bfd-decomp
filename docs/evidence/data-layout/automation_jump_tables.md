@@ -9,7 +9,7 @@ US code identify these original game-data addresses:
 | --- | --- | --- | --- |
 | game_433F0 | func_15015F40 | 0x800966C0 | 160 / 160 |
 | game_58F80 | func_1502DB20 | 0x80096DF8 | 256 / 256 |
-| game_AEB40 | func_150829D8, func_15083384 | 0x8009CC40 | 396 / 400 |
+| game_AEB40 | func_150829D8 | 0x8009CC40 | 276 / 288 |
 | game_B4080 | func_1508E6D0, func_1508E780 | 0x8009DA94, 0x8009DB90 | 480 / 480 combined |
 | game_16EE20 | func_15141CC0 | 0x800A5430 | 64 |
 | game_16EE20 | func_151442FC | 0x800A565C | 56; 8 trailing object-alignment bytes |
@@ -18,18 +18,9 @@ US code identify these original game-data addresses:
 | game_1C1150 | func_15194794 | 0x800A82BC | 20; 4 trailing object-alignment bytes |
 
 The first four objects use ordinary external informational ELF sections in
-`config/game/us-rodata.ld`. The trailing four bytes of `game_AEB40` are zero
-object alignment, not the following ROM data: the existing explicit payload
-size verifier checks the 396 payload bytes and requires zero alignment bytes.
-
-`func_15083384` (matched November 2026) adds a contiguous 30-entry table at
-`0x8009CD54`, object offset `0x114`, immediately after the original 276-byte
-payload. Its raw dispatch loads `jtbl_8009CD54_game` with a HI16/LO16 pair.
-Each of the 30 `R_MIPS_32` table words, resolved against the preserved
-`game_AEB40` text start `0x15081690`, equals the checksum-validated US ROM word
-at the same address. The section grows from `0x120` to `0x190` bytes with a
-`0x18C`-byte payload; the following ROM word at `0x8009CDCC` is zero, and the
-object padding claims no ROM bytes.
+`config/game/us-rodata.ld`. The twelve trailing bytes of `game_AEB40` are zero
+object alignment, not the following ROM table: the existing explicit payload
+size verifier checks the 276 payload bytes and requires zero alignment bytes.
 
 The last two objects contain noncontiguous original tables. Their compiled
 `.rodata` packs the currently recovered tables together. The integrated build

@@ -343,7 +343,7 @@ segments:
       - [0xCBF80, c, game/game_F9430]
       - [0xCCD90, c, done/game/game_FA240]
       - [0xCCEB0, c, game/game_FA360]
-      - [0xCDBB0, c, done/game/game_FB060]
+      - [0xCDBB0, c, game/game_FB060]
       - [0xCE150, c, game/game_FB600]
       - [0xCE740, c, game/game_FBBF0]
       - [0xCEF10, c, done/game/game_FC3C0]

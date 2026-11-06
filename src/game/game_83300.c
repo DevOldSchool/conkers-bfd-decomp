@@ -16,6 +16,7 @@
  * - func_150585F0
  * - func_15058898
  * - func_15058F24
+ * - func_15059444
  * - func_150599C8
  * - func_15059B54
  * - func_15059C84
@@ -640,6 +641,7 @@ void func_150611E8(u8 *, s32);
 extern s32 D_800BE9F0;
 extern u8 D_800C3E78;
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15059444 CURRENT (165) */
 void func_15059444(s32 arg0) {
     s32 sp1C;
     s32 var_v0;
@@ -665,7 +667,6 @@ void func_15059444(s32 arg0) {
             var_v0_2 = 6;
         }
         sp1C = func_15083E0C(var_v0_2 & 0xFF);
-    block_29:
         break;
     case 0x2B:
         sp1C = func_15083E0C(0x12);
@@ -683,6 +684,8 @@ void func_15059444(s32 arg0) {
         func_150611E8((u8 *)arg0, sp1C);
     }
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_15059444 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15059444.s")
 typedef struct Game83300AnimationRecord {
     u8 pad00[0x15];
     u8 flags;
