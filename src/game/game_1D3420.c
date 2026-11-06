@@ -91,7 +91,6 @@ typedef struct Game1D3420Light {
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
 s32 func_1516284C(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-u16 func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
 f32 func_150ADA68(void);
 extern u8 D_800A4AA0[], D_1000EF40[];
 extern f32 D_800A8D98, D_800A8D9C;

@@ -39,7 +39,6 @@ s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
 void func_15145974(void *, f32 *, f32 *);
 s32 func_15145C90(s32);
 
-s32 func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
 void func_15152B38(void *, s32, s32);
 extern u8 D_1000EC24[];
 extern s32 D_80082FA0;

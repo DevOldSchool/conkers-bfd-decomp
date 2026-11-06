@@ -996,7 +996,6 @@ u32 func_1500B3B0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) 
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1500B3B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500B3B0.s")
-void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1500B714 CURRENT (2143) */
 u32 func_1500B714(s32 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {

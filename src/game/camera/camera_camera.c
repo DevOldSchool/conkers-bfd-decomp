@@ -1700,7 +1700,6 @@ void func_1512623C(u8 *arg0, u8 *arg1, s32 arg2, f32 *arg3, f32 *arg4,
 void func_15048758(f32 *);
 void func_150627D4(void *);
 void func_1510B32C(s32, f32, f32, f32);
-s32 func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
 void func_151C9BA0(u8 *, s32);
 s32 func_15127520(u8 *, s32, s32, s32, s32, s32, u16 *);
 s32 func_151277B0(u8 *, s32, s32, s32, s32, s32, u16 *);

@@ -55,6 +55,11 @@ struct LightEffectActor;
  * Include this header in both definitions and callers; do not redeclare locally.
  * See docs/decompilation-workflow.md, Shared function declarations.
  */
+/* Main sound-record constructor, GAME execution alias of matched
+ * func_8000FA64 (src/main/init_EB00.c). */
+u16 func_1000FA64(u16 sound, s16 x, s16 y, s16 z, s32 volume, u16 farDistance,
+                  s16 nearDistance, void *callback, s32 owner, s32 key, s32 flags,
+                  s32 cents);
 s32 func_1508868C(u8 *);
 GameCommand *func_150D8590(GameCommand *, s32);
 void func_15143874(s16, f32, f32 *, f32 *);

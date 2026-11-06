@@ -277,8 +277,6 @@ void func_150A104C(u8 *arg0, u8 **arg1, s32 arg2) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A11C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A1DA0.s")
-/* Call context: func_1000FA64: unique active project prototype */
-void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150A23E4 CURRENT (265) */
 void func_150A23E4(void *arg0) {

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_3BA70.c
@@ -188,7 +189,6 @@ typedef struct Game3BA70Descriptor {
 
 void func_15189900(void *, u8);
 void func_15195AA8(s32, s32, s32, s32, s32, s32, s32, s32);
-void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
 extern u8 D_1000EF40;
 extern s32 D_800B0E00, D_800B0E04, D_800902E8, D_800BE9F0;
 extern f32 D_80096210, D_80096214, D_80096218, D_8009621C;

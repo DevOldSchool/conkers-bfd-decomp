@@ -200,8 +200,6 @@ s32 func_15103AA0(void *arg0, s32 *arg1, u32 *arg2, s32 *arg3,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_130CB0/func_15103AA0.s")
 typedef s32 (*Game130CB0SoundCallback)(void *, s32 *, u32 *, s32 *, s32 *, s32 *, u16 *);
 
-u16 func_1000FA64(s32, s32, s32, s32, s32, s32, s32,
-                   Game130CB0SoundCallback, s32, void *, s32, s32);
 s32 func_10010894(void *);
 void *func_1505EEF4(s32);
 s32 func_15103910(void *, s32 *, u32 *, s32 *, s32 *, s32 *, u16 *);
@@ -228,15 +226,15 @@ void func_15103C14(s32 arg0, s32 arg1, u32 arg2, s32 arg3, s32 arg4) {
                 arg0 += 1;
             }
             if (special != 0) {
-                func_1000FA64(arg0 & 0xFFFF, (s16)(s32)actor->x,
+                func_1000FA64(arg0, (s16)(s32)actor->x,
                     (s16)(s32)actor->y, (s16)(s32)actor->z,
                     0x7530, 0x7FFF, 0x7FFE, func_15103910,
-                    0x14, actor, 0x100, 0);
+                    0x14, (s32)actor, 0x100, 0);
             } else {
-                func_1000FA64(arg0 & 0xFFFF, (s16)(s32)actor->x,
+                func_1000FA64(arg0, (s16)(s32)actor->x,
                     (s16)(s32)actor->y, (s16)(s32)actor->z,
                     0x7FBC, 0x7FFF, 0x7FFE, func_15103AA0,
-                    (arg4 << 15) | 0x14, actor, 0x100, 0);
+                    (arg4 << 15) | 0x14, (s32)actor, 0x100, 0);
             }
             D_800D9AB0[arg3] = 0x258;
         }

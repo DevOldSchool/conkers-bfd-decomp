@@ -1163,8 +1163,6 @@ s32 func_15033838(u8 *arg0, u8 *arg1) {
 }
 s32 func_150334B8(u8 *, void *);
 void func_1000FD38(void *, void *, s32);
-s32 func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *,
-                   void *, void *, s32, s32);
 s32 func_15033BDC();
 extern u8 D_800BEA0C;
 
@@ -1188,8 +1186,6 @@ s32 func_150339C8(u8 *arg0, void *arg1) {
     return 0;
 }
 void func_1508B20C(f32, f32, f32, s32);
-s32 func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *,
-                   void *, void *, s32, s32);
 s32 func_15033BDC();
 extern u8 D_800BE616;
 
