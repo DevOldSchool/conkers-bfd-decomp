@@ -123,7 +123,7 @@ void func_15179600(s32 arg0, s32 arg1) {
     u8 *camera;
     void *effect;
     s32 random;
-    s32 pad;
+    s32 spD0;
     u8 packet[0xA8];
 
     packet[0xA0] = 0x11;

@@ -29,7 +29,7 @@ void func_15188810(void *arg0, s32 arg1, s32 arg2) {
     s32 count;
     s32 size;
     void *buffer;
-    s32 unused;
+    s32 sp24;
 
     for (var_s0 = D_800DF7C8; var_s0 != 0; var_s0 = *(u8 **)(var_s0 + 0xC)) {
         if (arg0 == *(void **)(var_s0 + 0x10)) {

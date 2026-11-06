@@ -50,7 +50,7 @@ f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 
 void func_1511617C(void *arg0) {
-    s32 pad[2];
+    s32 sp20[2];
     s16 sp1C[2];
     f32 temp_fv0;
     s16 temp_v0;

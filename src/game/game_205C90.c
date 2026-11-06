@@ -96,7 +96,7 @@ extern void (*D_8008FCC0[])(void *);
 extern s32 D_800BE9E4;
 
 void func_151D8A24(void *arg0) {
-    s32 pad;
+    s32 sp24;
     u8 sp23;
     u8 i;
     s8 temp_v0;

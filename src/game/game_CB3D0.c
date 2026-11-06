@@ -130,8 +130,9 @@ s32 func_1509E3DC(volatile s32 arg0, u32 arg1, GameCB3D0Query *arg2) {
             return (s16)(s32)actor->y;
         }
         return 0;
+    default:
+        return 0;
     }
-    return 0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509E3DC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CB3D0/func_1509E3DC.s")
