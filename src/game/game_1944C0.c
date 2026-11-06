@@ -10,7 +10,6 @@
  * - func_15167C58
  * - func_15167E0C
  * - func_15168118
- * - func_15168870
  * - func_15168F08
  * - func_15169070
  * - func_15169260
@@ -775,7 +774,6 @@ extern Game168870Callback D_8008C9C8[];
 extern u8 *D_8008CA4C[];
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15168870 CURRENT (245) */
 void func_15168870(Game168870State *arg0) {
     s32 speed;
     s32 maximum;
@@ -788,11 +786,10 @@ void func_15168870(Game168870State *arg0) {
         maximum = (flags << 8) - 1;
         arg0->progress = arg0->progress + speed * D_800BE9E4;
         if (maximum < arg0->progress) {
-            flags = arg0->flags;
-            if (flags & 0x40) {
+            if (arg0->flags & 0x40) {
                 arg0->progress = maximum - (arg0->progress % maximum);
                 arg0->speed = -speed;
-            } else if (flags & 4) {
+            } else if (arg0->flags & 4) {
                 arg0->progress = -1;
             } else {
                 do {
@@ -800,11 +797,10 @@ void func_15168870(Game168870State *arg0) {
                 } while (maximum < arg0->progress);
             }
         } else if (arg0->progress < 0) {
-            flags = arg0->flags;
-            if (flags & 0x40) {
+            if (arg0->flags & 0x40) {
                 arg0->progress = -arg0->progress % maximum;
                 arg0->speed = -speed;
-            } else if (flags & 4) {
+            } else if (arg0->flags & 4) {
                 arg0->progress = -1;
             } else {
                 do {
@@ -823,8 +819,6 @@ void func_15168870(Game168870State *arg0) {
         func_1516972C((u8 *)arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15168870 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168870.s")
 void func_15168A2C(void *arg0) {
     func_15168B10(arg0, 0);
 }

@@ -13,7 +13,6 @@
  * - func_150380C0
  * - func_15038620
  * - func_15039A78
- * - func_15039CC8
  * - func_15039ED0
  * - func_1503A08C
  * - func_1503A678
@@ -544,28 +543,24 @@ extern u8 D_80097E7C[];
 extern u8 D_80098050[];
 extern u8 D_800BE9B4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15039CC8 CURRENT (280) */
 void func_15039CC8(Game64120ControllerView *object) {
-    u8 *block;
+    Game64120InitBlock *block;
     s32 type;
     s32 group;
     s32 count;
     s32 index;
     u16 *animations;
 
-    block = (u8 *) object->block324;
+    block = object->block324;
     if (block != 0) {
         type = object->type;
         if (((type == 0x53) && (object->animation == 0x15)) ||
             (D_800BE9B4 != 0)) {
-            index = 0;
-            do {
-                index++;
-                block++;
-                block[0x2F] = 0x28;
-                block[0x32] = 0;
-                block[0x35] = 4;
-            } while (index != 3);
+            for (index = 0; index < 3; index++) {
+                block->field30[index] = 0x28;
+                block->field33[index] = 0;
+                block->field36[index] = 4;
+            }
         }
         group = D_80097E7C[type];
         if (group != 0) {
@@ -591,8 +586,6 @@ void func_15039CC8(Game64120ControllerView *object) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15039CC8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15039CC8.s")
 void func_15039A78(f32 *, f32 *, f32 *, f32 *, f32, f32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15039ED0 CURRENT (1758) */

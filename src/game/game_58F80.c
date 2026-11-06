@@ -20,7 +20,6 @@
  * - func_1502EA0C
  * - func_1502EAFC
  * - func_1502EC34
- * - func_1502EE8C
  * - func_1502EEF4
  * - func_1502F01C
  * - func_1502F264
@@ -1228,24 +1227,20 @@ void func_1502EC34(u8 *arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502EC34.s")
 extern u8 D_800CC33A[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502EE8C CURRENT (265) */
 s32 func_1502EE8C(s32 arg0, s32 arg1) {
-    s32 temp_v0;
-    s32 var_v1;
-
-    temp_v0 = D_800CC33A[(arg0 * 0x32C) + arg1];
-    var_v1 = temp_v0;
-    if (temp_v0 >= 2) {
-        if (temp_v0 >= 4) {
-            var_v1 = 2;
+    s32 v = D_800CC33A[(arg0 * 0x32C) + arg1];
+    s32 r;
+    if (v >= 2) {
+        if (v >= 4) {
+            r = 2;
         } else {
-            var_v1 = temp_v0 - 2;
+            r = v - 2;
         }
+    } else {
+        r = v;
     }
-    return var_v1;
+    return r;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502EE8C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502EE8C.s")
 s32 func_1507E3C0(void *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1502EEF4 CURRENT (1750) */

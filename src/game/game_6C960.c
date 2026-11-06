@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_isolated_selectors_and_calls.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1503F4B0
  * - func_1503F62C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -37,7 +36,6 @@ typedef struct {
     s32 allocation;
 } Game6C960F4B0Locals;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503F4B0 CURRENT (270) */
 void func_1503F4B0(void *arg0) {
     Game6C960F4B0Locals locals;
     s32 temp_v0;
@@ -50,8 +48,9 @@ void func_1503F4B0(void *arg0) {
         func_1502D824(arg0, 0, temp_v0);
         locals.value = 0x1000;
         temp_v0_2 = (u8 *)arg0 + (D_800BE9C0 * 4);
+        temp_v0 = *(s32 *)((u8 *)temp_v0_2 + 0x3E0);
         locals.handle = *(s32 *)((u8 *)temp_v0_2 + 0x3E8);
-        func_150A81D0(&locals.handle, *(s32 *)((u8 *)temp_v0_2 + 0x3E0), arg0,
+        func_150A81D0(&locals.handle, temp_v0, arg0,
                        *(s32 *)((u8 *)arg0 + 0x3F0),
                        *(u8 *)((u8 *)arg0 + 0x3F4), &locals.value, 0, 0);
         func_150A9984(*(void **)((u8 *)arg0 + (D_800BE9C0 * 4) + 0x3E8),
@@ -63,8 +62,6 @@ void func_1503F4B0(void *arg0) {
         func_10004074(locals.allocation);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503F4B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6C960/func_1503F4B0.s")
 
 void func_1503F5B8(Game6C960Actor *arg0, s32 arg1, s32 arg2, f32 arg3,
                    f32 arg4, s32 arg5) {

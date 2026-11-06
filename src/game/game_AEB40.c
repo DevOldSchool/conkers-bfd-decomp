@@ -11,7 +11,6 @@
  * - func_150825C0
  * - func_15082A44
  * - func_150832AC
- * - func_15083384
  * - func_150837D4
  * - func_15083AC8
  * - func_15083E90
@@ -498,7 +497,6 @@ typedef struct GameAEB40CommandState {
 } GameAEB40CommandState;
 s32 func_15083568(s32, s32, f32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15083384 CURRENT (265) */
 void func_15083384(GameAEB40CommandState *arg0, s32 arg1) {
     s32 command = -1;
     s32 group;
@@ -537,6 +535,7 @@ void func_15083384(GameAEB40CommandState *arg0, s32 arg1) {
         if (group >> 1) {
             arg0->flags &= ~2;
         }
+    block_29:
         break;
     case 17:
     case 18:
@@ -568,8 +567,6 @@ void func_15083384(GameAEB40CommandState *arg0, s32 arg1) {
         func_15083568((s32)arg0, command, 0.0f, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15083384 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15083384.s")
 typedef struct {
     u8 *entries;
     u8 count;

@@ -8,6 +8,7 @@ game-data archive, rather than at the end of the game-code payload.
 | --- | --- | --- | --- | --- |
 | `func_15031A50` | `game_5D2C0.o` | `0x80096F40` | 15 | `0x0` |
 | `func_15031A50` | `game_5D2C0.o` | `0x80096F7C` | 40 | `0x3C` |
+| `func_15031C14` | `game_5D2C0.o` | `0x8009701C` | 48 | `0xDC` |
 | `func_151925C4` | `game_1BF090.o` | `0x800A811C` | 17 | `0x0` |
 
 The raw dispatch bounds and HI16/LO16 address pairs establish these addresses
@@ -15,11 +16,14 @@ and lengths. The first two tables are contiguous. Resolving every `R_MIPS_32`
 table relocation against the preserved source-unit text starts (`0x1502FE10`
 and `0x15191BE0`) reproduces all table words in the checksum-validated US ROM.
 
-The `game_5D2C0.o` section has a `0xDC`-byte payload and four zero alignment
-bytes; `game_1BF090.o` originally had a `0x44`-byte payload and twelve zero
+The `game_5D2C0.o` section originally had a `0xDC`-byte payload. Matching
+`func_15031C14` adds its contiguous 48-entry table at `0x8009701C` (raw
+HI16/LO16 pair for `jtbl_8009701C_game`), giving a `0x19C`-byte payload and four
+zero alignment bytes in a `0x1A0`-byte section; all 48 relocated words equal
+the ROM words; `game_1BF090.o` originally had a `0x44`-byte payload and twelve zero
 alignment bytes. It now starts with the eight literals of `func_15192358`
 (see [game_1bf090_literal_pool.md](game_1bf090_literal_pool.md)), so the
-table sits at section offset `0x20` and the payload is `0x64` bytes. The following ROM words are other table data (`0x15031D18` and
+table sits at section offset `0x20` and the payload is `0x64` bytes. The following ROM words are other data (`0x3C088889` after the grown `game_5D2C0` payload, and
 `0x151928F4`, respectively), so object padding must not claim ownership of
 those bytes.
 
