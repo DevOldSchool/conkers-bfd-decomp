@@ -66,11 +66,29 @@ s32 func_151ACB38(void *arg0, s8 *arg1) {
 }
 void func_151AE3A8(s32 arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ACB60 */
-void func_151ACB60(void *arg0) {
-    s32 temp_v0 = *(s32 *)((u8 *)(*(void **)((u8 *)(*(void **)((u8 *)arg0 + 0x1C)) + 0x31C)) + 0x9C);
-    if (temp_v0 != 0) { func_151AE3A8((s32)arg0); }
-    if (arg0) {}
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ACB60 CURRENT (200) */
+/* Residual: the reference spills arg0 to 0x18(sp) in the jal delay slot. */
+typedef struct Game1D9F10ModelState {
+    u8 pad0[0x9C];
+    void *model;
+} Game1D9F10ModelState;
+
+typedef struct Game1D9F10ModelHolder {
+    u8 pad0[0x31C];
+    Game1D9F10ModelState *nested;
+} Game1D9F10ModelHolder;
+
+typedef struct Game1D9F10Owner {
+    u8 pad0[0x1C];
+    Game1D9F10ModelHolder *actor;
+} Game1D9F10Owner;
+
+void func_151ACB60(Game1D9F10Owner *record) {
+    void *model = record->actor->nested->model;
+
+    if (model != 0) {
+        func_151AE3A8((s32)record);
+    }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151ACB60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151ACB60.s")
