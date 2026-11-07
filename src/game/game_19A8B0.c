@@ -14,7 +14,6 @@
  * - func_1516FE1C
  * - func_151700D8
  * - func_15170500
- * - func_151709B4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -980,31 +979,26 @@ s32 func_151707E0(Game19A8B0Motion *arg0) {
 }
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151709B4 CURRENT (455) */
 void func_151709B4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, u8 arg5, s32 arg6) {
-    f32 spF0;
-    f32 spEC;
-    f32 spE8;
-    s32 temp_ft0;
-    s32 temp_ft1;
-    s32 var_s0;
+    s32 i;
+    f32 x;
+    f32 y;
+    f32 z;
+    s32 vx;
+    s32 vy;
+    s32 vz;
+    s16 sx = arg0;
+    s16 sy = arg1;
+    s16 sz = arg2;
 
-    var_s0 = 0;
-    if (arg3 > 0) {
-        arg0 = (s16)arg0;
-        arg1 = (s16)arg1;
-        arg2 = (s16)arg2;
-        do {
-            func_15170034(0x40, &spF0, &spEC, &spE8);
-            spF0 *= arg4;
-            spEC *= 2.0f * arg4;
-            spE8 *= arg4;
-            temp_ft0 = (s32)spF0;
-            temp_ft1 = (s32)spE8;
-            func_1516D4E8((s16)arg0, (s16)arg1, (s16)arg2, 0x2F, 0, 0xFF, 0xFF, 0xFF, 0, 0xFF, 0, 0, 7, temp_ft0 >> 8, temp_ft0 & 0xFF, temp_ft1 >> 8, temp_ft1 & 0xFF, 0, 0, 0, 0, 0, 0, 0x200, 0x200, 0x28, (s32) spEC, 0, 0, (u8) (s32) arg5, arg6);
-            var_s0 += 1;
-        } while (var_s0 != arg3);
+    for (i = 0; i < arg3; i++) {
+        func_15170034(0x40, &x, &y, &z);
+        x *= arg4;
+        y *= 2.0f * arg4;
+        z *= arg4;
+        vx = (s32)x;
+        vz = (s32)z;
+        vy = (s32)y;
+        func_1516D4E8(sx, sy, sz, 0x2F, 0, 0xFF, 0xFF, 0xFF, 0, 0xFF, 0, 0, 7, vx >> 8, vx & 0xFF, vz >> 8, vz & 0xFF, 0, 0, 0, 0, 0, 0, 0x200, 0x200, 0x28, vy, 0, 0, arg5, arg6);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151709B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_151709B4.s")

@@ -10,7 +10,6 @@
  * - func_1517A1EC
  * - func_1517A3A0
  * - func_1517A644
- * - func_1517A9A8
  * - func_1517AA20
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -322,18 +321,15 @@ s32 func_15094F70();
 extern Game1A7490Input D_80090614;
 extern s32 D_800DD1B0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517A9A8 CURRENT (440) */
 s32 func_1517A9A8(s32 arg0, s32 arg1) {
     Game1A7490Owner owner;
 
-    if (arg1 != D_800DD1B0) {
-        arg0 = func_15094F70(arg0, &D_80090614, arg1 << 8, &owner, 0, 0, 0, 2, 3);
+    if (D_800DD1B0 != arg1) {
+        arg0 = func_15094F70(arg0, &D_80090614, (u32)arg1 << 8, &owner, 0, 0, 0, 2, 3);
         D_800DD1B0 = arg1;
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517A9A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_1517A9A8.s")
 void func_1517A644(f32, s32, s16, s16, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1517AA20 CURRENT (2053) */

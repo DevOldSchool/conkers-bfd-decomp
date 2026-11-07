@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_connected_controller_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15063628
  * - func_150641D8
  * - func_150642AC
  * - func_15065A5C
@@ -21,9 +20,9 @@ typedef struct Game90840Inner {
     f32 field_130;
     f32 field_134;
     f32 field_138;
-    s32 field_13C;
-    s32 field_140;
-    s32 field_144;
+    f32 field_13C;
+    f32 field_140;
+    f32 field_144;
 } Game90840Inner;
 
 typedef struct Game90840Actor {
@@ -102,20 +101,16 @@ void func_15063570(Game90840Actor *arg0) {
     func_1505E650(arg0, 0x221, 1.0f, 0.0f, 0.0f, 0.0f, 0);
 }
 
-void func_15081690(f32, s32, s32, s32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);
+void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15063628 CURRENT (481) */
 void func_15063628(Game90840Actor *arg0, f32 arg1) {
-    Game90840Inner *inner;
+    Game90840Inner *inner = arg0->field_31C;
 
-    inner = arg0->field_31C;
-    func_15081690(arg1, inner->field_13C, inner->field_140, inner->field_144,
+    func_15081690(arg0, inner->field_13C, inner->field_140, inner->field_144,
                   inner->field_130, inner->field_134, inner->field_138,
                   (u8 *)inner + 0xB0, arg1, 0, 0, 0, -1, 0, 0);
     func_150636A4(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15063628 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063628.s")
 
 void func_150636A4(Game90840Actor *arg0) {
     void *temp_a1;

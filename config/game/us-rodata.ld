@@ -169,11 +169,10 @@ SECTIONS
     {
         *game_1CC440.o(.rodata)
     }
-    /* ROM-verified constants: docs/evidence/data-layout/game_177b50_float_constants.md. */
-    .game_rodata_177b50 0x800A57B0 (INFO) : SUBALIGN(4)
-    {
-        *game_177B50.o(.rodata)
-    }
+    /* ROM-verified constants: docs/evidence/data-layout/game_177b50_float_constants.md
+       and docs/evidence/data-layout/game_rodata_literal_sub_pools.md. */
+    .game_rodata_177b50_0 0x800A57B0 (INFO) : SUBALIGN(4) { *game_177B50.o(.rodata.177b50_0) }
+    .game_rodata_177b50_1c 0x800A5860 (INFO) : SUBALIGN(4) { *game_177B50.o(.rodata.177b50_1c) }
     /* ROM-verified constants: docs/evidence/data-layout/game_12b7d0_float_constants.md. */
     .game_rodata_12b7d0 0x800A1FF0 (INFO) : SUBALIGN(4)
     {
@@ -468,6 +467,8 @@ __game_rodata_173d40_20_base = ADDR(.game_rodata_173d40_20) - 0x20;
 __game_rodata_blood_0_base = ADDR(.game_rodata_blood_0);
 __game_rodata_blood_204_base = ADDR(.game_rodata_blood_204) - 0x204;
 __game_rodata_blood_260_base = ADDR(.game_rodata_blood_260) - 0x260;
+__game_rodata_177b50_0_base = ADDR(.game_rodata_177b50_0);
+__game_rodata_177b50_1c_base = ADDR(.game_rodata_177b50_1c) - 0x1C;
 ASSERT(SIZEOF(.game_rodata_433f0) == 0xA0, "game_433F0 rodata extent changed")
 ASSERT(SIZEOF(.game_rodata_58f80) == 0x100, "game_58F80 rodata extent changed")
 ASSERT(SIZEOF(.game_rodata_aeb40) == 0x120, "game_AEB40 rodata extent changed")
@@ -609,9 +610,10 @@ __game_rodata_1cbe20_payload_size = 0x8;
 
 ASSERT(SIZEOF(.game_rodata_1cc440) == 0x10, "game_1CC440 constant pool extent changed")
 __game_rodata_1cc440_payload_size = 0x4;
-ASSERT(SIZEOF(.game_rodata_177b50) == 0x20,
-       "game_177B50 particle literal extent changed")
-__game_rodata_177b50_payload_size = 0x1C;
+ASSERT(SIZEOF(.game_rodata_177b50_0) == 0x1C,
+       "game_177B50 func_1514AB5C literal extent changed")
+ASSERT(SIZEOF(.game_rodata_177b50_1c) == 0x28,
+       "game_177B50 func_1514B8E4 literal extent changed")
 ASSERT(SIZEOF(.game_rodata_17caf0) == 0x10,
        "game_17CAF0 particle literal extent changed")
 __game_rodata_17caf0_payload_size = 0x8;
