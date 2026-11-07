@@ -746,7 +746,7 @@ void func_1506C43C(void) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506C460.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506CE6C.s")
-void func_1505A184(s32, f32, f32, f32 *, f32 *, f32 *);
+void func_1505A184(u16, f32, f32, f32 *, f32 *, f32 *);
 s32 func_15083E0C(s32);
 void *func_1505EEF4(s32);
 void func_151A3390(u8 *, u8);
@@ -874,7 +874,7 @@ void func_1506D6B4(void)
   *(&D_800D1580) = ((var_v0 << 10) << 14) | ((*(&D_800D1580)) & 0xFFFF);
   func_1506D584();
 }
-void func_1505A184(s32, f32, f32, f32 *, f32 *, f32 *);
+void func_1505A184(u16, f32, f32, f32 *, f32 *, f32 *);
 
 void func_1506D74C(void) {
     f32 sp34;
@@ -3460,7 +3460,7 @@ void func_15072EC0(void) {
 void func_15072EF4(void) {
     D_800D154C[0x104] = (s8)D_800D1580;
 }
-void func_1505A184(s32, f32, f32, f32 *, f32 *, f32 *);
+void func_1505A184(u16, f32, f32, f32 *, f32 *, f32 *);
 void func_150E1570(u8 *, f32, f32, f32, f32, f32, f32, s32, s32);
 extern f32 D_8009A094;
 

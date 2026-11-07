@@ -623,12 +623,12 @@ void func_15059140(u8 *arg0) {
         }
     }
 }
-void func_1505A184(u16, f32, f32, f32 *, f32 *, s32 *);
+void func_1505A184(u16, f32, f32, f32 *, f32 *, f32 *);
 
 void func_150593C4(s32 arg0, u16 arg1, f32 arg2, f32 arg3) {
     f32 sp2C;
     f32 sp28;
-    s32 sp24;
+    f32 sp24;
 
     func_1505A184(arg1, arg2, 0.0, &sp2C, &sp28, &sp24);
     *(f32 *)((u8 *)arg0 + 0x16C) += (sp2C - *(f32 *)((u8 *)arg0 + 0x16C)) * arg3;
@@ -937,7 +937,7 @@ extern f32 D_800994B8;
 extern f32 D_800994BC;
 
 void func_1505A184(u16 arg0, register f32 arg1, f32 arg2, f32 *arg3,
-    f32 *arg4, s32 *arg5) {
+    f32 *arg4, f32 *arg5) {
     f32 sine;
     f32 cosine;
     f32 height;
@@ -946,7 +946,7 @@ void func_1505A184(u16 arg0, register f32 arg1, f32 arg2, f32 *arg3,
     arg1 *= 0.5f;
     arg2 *= D_800994B8;
     height = func_150AD78C(arg2) * -arg1;
-    *(f32 *)arg5 = height;
+    *arg5 = height;
     arg1 = func_150AD780(arg2) * arg1;
     angle = (f32)arg0 * D_800994BC;
     sine = func_150AD780(angle);

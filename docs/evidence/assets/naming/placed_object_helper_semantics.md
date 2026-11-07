@@ -30,8 +30,10 @@ and `verticalOffset` (still `f32`), without a motion-mechanism claim.
 Placement floats `+20/+24/+28` populate object `+2C/+30/+34` at
 `15003C08..15003C28`. `15114978..15114984` passes those words unchanged to
 `150A7CB0`, which stores them on the scale-matrix diagonal at `+0/+14/+28`;
-`15114990` combines the matrices. The existing fields remain `s32` and are
-named `scaleXBits/scaleYBits/scaleZBits`; the local is `scaleMatrix`.
+`15114990` combines the matrices. The fields are `f32` `scaleX/scaleY/scaleZ`,
+matching the `(void *, f32, f32, f32)` prototype of `150A7CB0` used by
+`game_44C40.c` and `game_6B320.c`; float arguments after a pointer travel in
+`a1..a3`, so the instructions are unchanged. The local is `scaleMatrix`.
 
 Only the same `Game13F9D0MotionArgs` member spellings are propagated to the
 existing disabled `15113218` candidate. Its `#if 0`, recorded `CURRENT (4727)`,
