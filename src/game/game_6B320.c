@@ -32,13 +32,20 @@ void func_1503DE70(void *arg0, s32 arg1, s32 arg2) {
     }
     func_1503DF0C(temp_a0, arg1, -1, -1);
 }
-typedef struct {
-    u8 pad_0[0x1EC];
-    f32 field_1EC;
-} Game6B320Entity;
+typedef struct Game6B320Particle {
+    u8 pad_0[0x24];
+    f32 rot[3];
+    f32 pos[3];
+    f32 scale[3];
+    u8 pad_48[4];
+    f32 field_4C;
+    u8 pad_50[0x14];
+    u8 active;
+    u8 reserved_65[3];
+} Game6B320Particle;
 
 typedef struct {
-    Game6B320Entity *entity;
+    Game6B320Particle *entity;
     u8 pad_4[8];
     s16 field_C;
     u8 pad_E[2];
@@ -58,12 +65,6 @@ void func_1503DF0C(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     *(s8 *)((u8 *)temp_v0 + 0xE) = arg1;
     *(s8 *)((u8 *)temp_v0 + 0xF) = 2;
 }
-typedef struct Game6B320Particle {
-    u8 fields[0x64];
-    u8 active;
-    u8 reserved_65[3];
-} Game6B320Particle;
-
 void *func_10003C40(s32, s32, s32, s32);
 s32 func_1503E1F4(s32, s32);
 void func_1503E3C4(s32, s32, s32, s32, s32);
@@ -100,7 +101,7 @@ void func_1503DF48(s32 arg0) {
             if (allocated == 0) {
                 return;
             }
-            slot->entity = (Game6B320Entity *)allocated;
+            slot->entity = allocated;
             for (i = 0; i < count; i++) {
                 allocated[i].active = 0;
             }
@@ -110,7 +111,7 @@ void func_1503DF48(s32 arg0) {
             if (list[i] == -2) {
                 continue;
             }
-            particle = (Game6B320Particle *)slot->entity + i;
+            particle = &slot->entity[i];
             if (func_1503E1F4(i, arg0) == 0 || particle->active != 0) {
                 continue;
             }
@@ -321,16 +322,6 @@ void func_150A7CB0(void *, f32, f32, f32);
 void func_150A7DA0(void *, f32, f32, f32);
 void func_150A8050(void *, f32, f32, f32);
 
-typedef struct {
-    u8 pad_0[0x24];
-    f32 rot[3];
-    f32 pos[3];
-    f32 scale[3];
-    u8 pad_48[0x64 - 0x48];
-    u8 active;
-    u8 pad_65[3];
-} Game6B320Bone;
-
 void func_1503E82C(s32 arg0) {
     s32 count;
     s32 i;
@@ -343,28 +334,28 @@ void func_1503E82C(s32 arg0) {
         count = D_80098914[D_800C6660[arg0].pad_E[0]];
         list = D_80084454[D_800C6660[arg0].pad_E[0]];
         for (i = 0; i < count; i++) {
-            if ((list[i] == -2) || (((Game6B320Bone *)D_800C6660[arg0].entity)[i].active == 0)) {
+            if ((list[i] == -2) || (D_800C6660[arg0].entity[i].active == 0)) {
                 continue;
             }
             bone = *(u8 **)((arg0 * 0x32C) + D_800CC2D0 + 0x1D4) + (i << 6);
             parentIndex = D_80084454[D_800C6660[arg0].pad_E[0]][i];
             if (parentIndex != -1) {
-                func_150A7DA0(matrix, ((Game6B320Bone *)D_800C6660[arg0].entity)[i].rot[0], ((Game6B320Bone *)D_800C6660[arg0].entity)[i].rot[1], ((Game6B320Bone *)D_800C6660[arg0].entity)[i].rot[2]);
+                func_150A7DA0(matrix, D_800C6660[arg0].entity[i].rot[0], D_800C6660[arg0].entity[i].rot[1], D_800C6660[arg0].entity[i].rot[2]);
                 func_150A7A48(matrix, *(u8 **)((arg0 * 0x32C) + D_800CC2D0 + 0x1D4) + (parentIndex << 6), matrix);
-                func_150A8050(bone, ((Game6B320Bone *)D_800C6660[arg0].entity)[i].pos[0], ((Game6B320Bone *)D_800C6660[arg0].entity)[i].pos[1], ((Game6B320Bone *)D_800C6660[arg0].entity)[i].pos[2]);
+                func_150A8050(bone, D_800C6660[arg0].entity[i].pos[0], D_800C6660[arg0].entity[i].pos[1], D_800C6660[arg0].entity[i].pos[2]);
                 func_150A7A48(bone, matrix, bone);
-                func_150A7CB0(matrix, ((Game6B320Bone *)D_800C6660[arg0].entity)[i].scale[0], ((Game6B320Bone *)D_800C6660[arg0].entity)[i].scale[1], ((Game6B320Bone *)D_800C6660[arg0].entity)[i].scale[2]);
+                func_150A7CB0(matrix, D_800C6660[arg0].entity[i].scale[0], D_800C6660[arg0].entity[i].scale[1], D_800C6660[arg0].entity[i].scale[2]);
                 func_150A7A48(matrix, bone, bone);
             } else {
-                func_150A8050(bone, ((Game6B320Bone *)D_800C6660[arg0].entity)[i].pos[0], ((Game6B320Bone *)D_800C6660[arg0].entity)[i].pos[1], ((Game6B320Bone *)D_800C6660[arg0].entity)[i].pos[2]);
-                func_15043EC8(bone, ((Game6B320Bone *)D_800C6660[arg0].entity)[i].scale[0], ((Game6B320Bone *)D_800C6660[arg0].entity)[i].scale[1], ((Game6B320Bone *)D_800C6660[arg0].entity)[i].scale[2], ((Game6B320Bone *)D_800C6660[arg0].entity)[i].rot[0], ((Game6B320Bone *)D_800C6660[arg0].entity)[i].rot[1], ((Game6B320Bone *)D_800C6660[arg0].entity)[i].rot[2]);
+                func_150A8050(bone, D_800C6660[arg0].entity[i].pos[0], D_800C6660[arg0].entity[i].pos[1], D_800C6660[arg0].entity[i].pos[2]);
+                func_15043EC8(bone, D_800C6660[arg0].entity[i].scale[0], D_800C6660[arg0].entity[i].scale[1], D_800C6660[arg0].entity[i].scale[2], D_800C6660[arg0].entity[i].rot[0], D_800C6660[arg0].entity[i].rot[1], D_800C6660[arg0].entity[i].rot[2]);
             }
         }
     }
 }
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1503EA54 CURRENT (3165) */
 void func_1503EA54(s32 arg0) {
-    Game6B320Entity *temp_a0;
+    Game6B320Particle *temp_a0;
     Game6B320Slot *temp_v1;
     f32 temp_fv0;
     f32 temp_fv1;
@@ -455,7 +446,7 @@ extern f32 D_80098928;
 extern f32 D_8009892C;
 
 void func_1503ECA0(s32 arg0) {
-    Game6B320Entity *entity;
+    Game6B320Particle *entity;
     Game6B320Slot *slot;
     f32 smallScale;
     f32 largeScale;
@@ -556,7 +547,7 @@ void func_1503EFC4(s32 arg0) {
     slot->field_C = 0x78;
     count = D_80098914[slot->pad_E[0]];
     for (i = 0; i < count; i++) {
-        *(f32 *)(((Game6B320Particle *)slot->entity + i)->fields + 0x4C) =
+        slot->entity[i].field_4C =
             (f32)((s32)(func_150ADA20() % 20U) - 5);
     }
 }
@@ -586,7 +577,7 @@ extern Game6B320EntityRecordField94 D_800CC364[];
 void func_1503F108(s32 arg0) {
     D_800C6660[arg0].field_C = 0x8C;
     D_800CC364[arg0].field_0 = 6;
-    D_800C6660[arg0].entity->field_1EC = 10.0f;
+    D_800C6660[arg0].entity[4].field_4C = 10.0f;
 }
 s32 func_1503EF4C(s32, s32, s32);
 extern s16 D_800C666C;

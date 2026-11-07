@@ -791,12 +791,12 @@ typedef struct {
     u8 unk_74;
     u8 pad_75[0x1D4 - 0x75];
     s32 unk_1D4;
-} Ecc4Target;
+} Game1D0840LinkTarget;
 
 typedef struct {
-    Ecc4Target *target;
+    Game1D0840LinkTarget *target;
     u8 id;
-} Ecc4Link;
+} Game1D0840Link;
 
 typedef struct {
     u8 pad_0[0xC];
@@ -804,13 +804,13 @@ typedef struct {
     u8 unk_D;
     s16 unk_E;
     u8 pad_10[0x28 - 0x10];
-    Ecc4Link link;
-} Ecc4State;
+    Game1D0840Link link;
+} Game1D0840LinkState;
 
-void func_151A4ECC(Ecc4State *arg0) {
-    Ecc4Link *link;
+void func_151A4ECC(Game1D0840LinkState *arg0) {
+    Game1D0840Link *link;
     u8 dirty;
-    Ecc4Target *target;
+    Game1D0840LinkTarget *target;
 
     dirty = 0;
     link = &arg0->link;

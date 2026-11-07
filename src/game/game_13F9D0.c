@@ -683,6 +683,7 @@ void func_15114348(s32 arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
     dy = *arg2 - ((Game13F9D0Pivot *)D_800DBEF4)[arg0].pivot[1];
     dz = *arg3 - ((Game13F9D0Pivot *)D_800DBEF4)[arg0].pivot[2];
     if (((Game13F9D0Pivot *)D_800DBEF4)[arg0].angleX != 0.0f) {
+        /* Double literals needed: 1.0f/0.0f reuse the axes constants (CURRENT 345). */
         func_15048190(matrix, ((Game13F9D0Pivot *)D_800DBEF4)[arg0].angleX, 1.0, 0.0, 0.0);
         func_150A7960(matrix, axes[1][0], axes[1][1], axes[1][2], &axes[1][0], &axes[1][1], &axes[1][2]);
         func_150A7960(matrix, axes[2][0], axes[2][1], axes[2][2], &axes[2][0], &axes[2][1], &axes[2][2]);

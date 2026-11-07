@@ -256,16 +256,7 @@ typedef struct Game144C70MotionState {
     u8 motion;
 } Game144C70MotionState;
 
-typedef struct Game144C70MotionStateNV {
-    u8 pad0[0x3C];
-    s32 packed;
-    u8 pad40[0xF];
-    u8 flags;
-    u8 pad50[0x23];
-    u8 motion;
-} Game144C70MotionStateNV;
-
-void func_15117D3C(Game144C70MotionStateNV *arg0, Game144C70EventState *arg1) {
+void func_15117D3C(Game144C70MotionState *arg0, Game144C70EventState *arg1) {
     s32 lo;
     s32 motion;
 
