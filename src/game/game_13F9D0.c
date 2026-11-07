@@ -88,9 +88,9 @@ typedef struct {
     u8 pad_16[2];
     f32 verticalOffset;
     u8 pad_1C[0x10];
-    s32 scaleXBits;
-    s32 scaleYBits;
-    s32 scaleZBits;
+    f32 scaleX;
+    f32 scaleY;
+    f32 scaleZ;
     u8 pad_38[0x16];
     u8 kind4E;
     u8 pad_4F[0x21];
@@ -129,7 +129,7 @@ typedef struct Game13F9D0AttachedActor {
 s32 func_150859AC(s32, s32);
 void func_150A7790(void *, s32);
 void func_150A7B80(void *);
-void func_150A7CB0(Game13F9D0Matrix *, s32, s32, s32);
+void func_150A7CB0(Game13F9D0Matrix *, f32, f32, f32);
 void func_150442C0(f32 [4][4], f32, f32, f32);
 void func_1511490C(Game13F9D0Transform *, Game13F9D0MotionArgs *);
 extern s32 D_80082FA0;
@@ -179,7 +179,7 @@ void func_15113218(void) {
                                 actor = &((Game13F9D0AttachedActor *)&D_800CC2D0)[kind - 100];
                                 if (actor->transform1D4 == 0) {
                                     func_150A7CB0((Game13F9D0Matrix *)&matrix,
-                                        motion->scaleXBits, motion->scaleYBits, motion->scaleZBits);
+                                        motion->scaleX, motion->scaleY, motion->scaleZ);
                                     matrix.position_x = actor->xyz[0];
                                     matrix.position_y = actor->xyz[1];
                                     matrix.position_z = actor->xyz[2];
@@ -193,7 +193,7 @@ void func_15113218(void) {
                                     translation[1] = (f32)actor->field90;
                                     parent = actor->transform1D4;
                                     func_150A7CB0((Game13F9D0Matrix *)&matrix,
-                                        motion->scaleXBits, motion->scaleYBits, motion->scaleZBits);
+                                        motion->scaleX, motion->scaleY, motion->scaleZ);
                                     matrix.position_x = parent->position_x;
                                     matrix.position_y = parent->position_y;
                                     matrix.position_z = parent->position_z;
@@ -753,10 +753,10 @@ void func_151148A8(Game13F9D0Transform *orientation, Game13F9D0TransformArgs *ro
     func_150A8050(&xzRotation, rotation->rotationXDegrees, 0.0f, rotation->rotationZDegrees);
     func_150A7A48(&xzRotation, orientation, orientation);
 }
-void func_150A7CB0(Game13F9D0Matrix *, s32, s32, s32);
+void func_150A7CB0(Game13F9D0Matrix *, f32, f32, f32);
 
 /* Semantic role: placed_object_build_transform.
- * Add the vertical offset to Y; pass scale bit patterns through unchanged.
+ * Add the vertical offset to Y; pass the placement scale floats to the scale matrix.
  * See docs/evidence/assets/naming/placed_object_helper_semantics.md.
  */
 void func_1511490C(Game13F9D0Transform *transform,
@@ -767,7 +767,7 @@ void func_1511490C(Game13F9D0Transform *transform,
     transform->position_x = (f32)placedObject->positionX;
     transform->position_y = (f32)placedObject->positionY + placedObject->verticalOffset;
     transform->position_z = (f32)placedObject->positionZ;
-    func_150A7CB0(&scaleMatrix, placedObject->scaleXBits, placedObject->scaleYBits, placedObject->scaleZBits);
+    func_150A7CB0(&scaleMatrix, placedObject->scaleX, placedObject->scaleY, placedObject->scaleZ);
     func_150A7A48(&scaleMatrix, transform, transform);
 }
 /* Semantic role: placed_object_find_by_id.

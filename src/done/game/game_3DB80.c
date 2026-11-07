@@ -22,7 +22,7 @@ typedef struct Game3DB80Payload {
 
 void *func_10022EC0(void *, const void *, u32);
 void func_1510F800(s32);
-s32 func_1510FD20(s16, s16, Game3DB80Object *);
+s32 func_1510FD20(s32, s32);
 f32 func_15144598(void *);
 
 s32 func_150106D0(Game3DB80Object *arg0) {
@@ -34,7 +34,7 @@ s32 func_150106D0(Game3DB80Object *arg0) {
     payload.field4 = func_15144598(arg0);
     payload.fieldC = 0.0f;
     func_1510F800(0);
-    temp_v0 = func_1510FD20(arg0->field_0, arg0->field_4, arg0);
+    temp_v0 = func_1510FD20(arg0->field_0, arg0->field_4);
     payload.field8 = temp_v0;
     if (temp_v0 == 0) {
         return 1;
