@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150D82BC
- * - func_150D83D8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -82,9 +81,7 @@ typedef struct GameD83D8Owner {
 extern f32 D_800A0B14;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D83D8 CURRENT (395) */
 s32 func_150D83D8(GameD83D8State *arg0, GameD83D8Owner *arg1) {
-    s32 progress;
     s32 index;
     s8 *display;
     f32 scaled;
@@ -97,13 +94,11 @@ s32 func_150D83D8(GameD83D8State *arg0, GameD83D8Owner *arg1) {
             arg0->phase = 1;
             arg0->field18 = D_80090298[0x70 / 4];
         }
-        progress = arg0->progress;
         break;
     case 1:
-        progress = arg0->progress + D_800BE9E4;
-        arg0->progress = progress;
-        if (progress >= 0x64) {
-            arg0->progress = (progress = 0x64);
+        arg0->progress += D_800BE9E4;
+        if (arg0->progress >= 0x64) {
+            arg0->progress = 0x64;
             arg0->phase = 2;
         }
         break;
@@ -111,33 +106,23 @@ s32 func_150D83D8(GameD83D8State *arg0, GameD83D8Owner *arg1) {
         if (arg1->action == 0x18E && *(f32 *)(arg1->position + 8) >= 34.0f) {
             arg0->phase = 3;
         }
-        progress = arg0->progress;
         break;
     case 3:
-        progress = arg0->progress - D_800BE9E4 * 4;
-        arg0->progress = progress;
-        if (progress <= 0) {
+        arg0->progress -= D_800BE9E4 * 4;
+        if (arg0->progress <= 0) {
             arg0->progress = 0;
             arg0->phase = 4;
-            progress = 0;
         }
         break;
-    default:
-        progress = arg0->progress;
-        break;
     }
-    scaled = (f32)progress * D_800A0B14;
+    scaled = (f32)arg0->progress * D_800A0B14;
     display = *arg0->display;
     index = 0;
-    if (*display != -0xE) {
-        do {
-            index++;
-        } while (*(s8 *)((s32)display + (index << 3)) != -0xE);
+    while (*(s8 *)((index << 3) + (s32)display) != -0xE) {
+        index++;
     }
     *(s32 *)((s32)display + (index << 3)) =
         ((s32)(120.0f * scaled + 2.0f) & 0xFFF) |
         0xF2002000;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D83D8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_105760/func_150D83D8.s")

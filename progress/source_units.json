@@ -10011,7 +10011,7 @@
         "us": {
           "end": "0xB89E0",
           "start": "0xB7B40",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_E4FF0.c"
@@ -14029,7 +14029,7 @@
         "us": {
           "end": "0xFDD10",
           "start": "0xFDBA0",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_12B050.c"
@@ -15093,7 +15093,7 @@
         "us": {
           "end": "0xEA490",
           "start": "0xE9FE0",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_117490.c"

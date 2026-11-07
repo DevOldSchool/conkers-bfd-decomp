@@ -10,7 +10,6 @@
  * - func_151A3BE4
  * - func_151A4638
  * - func_151A4A38
- * - func_151A4ECC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -784,35 +783,53 @@ void func_151A4E9C(void *arg0) {
 }
 extern void *func_151A3504(void *arg0, u8 arg1);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4ECC CURRENT (426) */
-void func_151A4ECC(void *arg0) {
-    u8 *temp_a0;
-    void *temp_v0;
-    u8 saved;
-    s32 var_v1;
+typedef struct {
+    s32 unk_0;
+    u8 pad_4[0x3B - 0x4];
+    u8 unk_3B;
+    u8 pad_3C[0x74 - 0x3C];
+    u8 unk_74;
+    u8 pad_75[0x1D4 - 0x75];
+    s32 unk_1D4;
+} Ecc4Target;
 
-    var_v1 = 0;
-    temp_a0 = (u8 *)arg0 + 0x28;
-    if (*(s32 *)*(void *volatile *)((u8 *)arg0 + 0x28) == 0) {
-        var_v1 = 1;
+typedef struct {
+    Ecc4Target *target;
+    u8 id;
+} Ecc4Link;
+
+typedef struct {
+    u8 pad_0[0xC];
+    u8 unk_C;
+    u8 unk_D;
+    s16 unk_E;
+    u8 pad_10[0x28 - 0x10];
+    Ecc4Link link;
+} Ecc4State;
+
+void func_151A4ECC(Ecc4State *arg0) {
+    Ecc4Link *link;
+    u8 dirty;
+    Ecc4Target *target;
+
+    dirty = 0;
+    link = &arg0->link;
+    if (arg0->link.target->unk_0 == 0) {
+        dirty = 1;
     }
-    temp_v0 = *(void **)temp_a0;
-    if (temp_a0[4] != *(u8 *)((u8 *)temp_v0 + 0x3B)) {
-        var_v1 = 1;
+    target = link->target;
+    if (target->unk_3B != link->id) {
+        dirty = 1;
     }
-    if ((var_v1 == 0) && (*(s32 *)((u8 *)temp_v0 + 0x1D4) != 0) &&
-        ((*(u8 *)((u8 *)temp_v0 + 0x74) & 0xF) != 0xF)) {
-        saved = 1;
-        func_151A3504(temp_a0, *(u8 *)((u8 *)arg0 + 0xC));
-        var_v1 = saved;
+    if (!dirty && (target->unk_1D4 != 0) && ((target->unk_74 & 0xF) != 0xF)) {
+        func_151A3504(&arg0->link, arg0->unk_C);
+        dirty = 1;
     }
-    if (var_v1 != 0) {
-        *(s16 *)((u8 *)arg0 + 0xE) = -1;
-        *(u8 *)((u8 *)arg0 + 0xD) |= 1;
+    if (dirty != 0) {
+        arg0->unk_E = -1;
+        arg0->unk_D |= 1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A4ECC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4ECC.s")
 typedef struct {
     s32 field_0;
     u8 field_4;

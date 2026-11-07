@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_audio_owner_emitters.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150B3F5C
  * - func_150B4294
  * - func_150B4710
  * - func_150B5088
@@ -59,63 +58,48 @@ void *func_10022EC0(void *, const void *, u32);
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern u8 D_1000EF40[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B3F5C CURRENT (366) */
-void *func_150B3F5C(u8 *arg0, f32 *volatile arg1, s32 arg2) {
-    struct {
-        void *result;
-        struct {
-            u8 copied[0x40];
-            f32 combined_copy;
-            f32 zero_a;
-            u8 flag_a;
-            u8 pad_49[3];
-            f32 combined;
-            u8 flag_b;
-            u8 pad_51[3];
-            f32 zero_b;
-            Vec3f position;
-            s16 mode;
-            s16 subtype;
-            s32 number;
-            u8 pad_6c;
-            u8 color;
-            u8 pad_6e[2];
-            s32 trailing_pad;
-        } packet;
-    } locals;
-    u32 sound_flags;
-    f32 first;
-    f32 second;
-    f32 *audio_position;
+typedef struct {
+    u8 copied[0x40];
+    f32 combined_copy;
+    f32 zero_a;
+    u8 flag_a;
+    f32 combined;
+    u8 flag_b;
+    f32 zero_b;
+    Vec3f position;
+    s16 mode;
+    s16 subtype;
+    s32 number;
+    u8 pad6C;
+    u8 color;
+} GameE1280Packet;
 
-    func_10022EC0(&locals.packet, arg0, 0x40);
-    locals.packet.flag_a = 0;
-    locals.packet.subtype = 2;
-    locals.packet.mode = 0x1F4;
-    locals.packet.zero_a = 0.0f;
-    locals.packet.color = (u8)*(s16 *)((u8 *)&arg2 + 2);
-    second = *(f32 *)(arg0 + 0x18);
-    first = *(f32 *)(arg0 + 0x14);
-    locals.packet.flag_b = 0;
-    locals.packet.combined = first + second;
-    locals.packet.zero_b = 0.0f;
-    locals.packet.combined_copy = locals.packet.combined;
-    locals.packet.position = *(Vec3f *)arg1;
-    locals.packet.number = 9;
-    locals.result = func_15147A80(&locals.packet.position, (void *)0x58, 0x24,
-                            7, 7, 7, 0, 0, 0, 0xFF, 1);
-    if (locals.result != 0) {
-        sound_flags = func_150ADA20() & 0x40;
-        audio_position = arg1;
-        func_1000FA64(0x221, (s16)(s32)audio_position[0], (s16)(s32)audio_position[1],
-                      (s16)(s32)audio_position[2], 0x61A8, 0xFA0, 0x258,
-                      D_1000EF40, 0, 0, 8, sound_flags);
-        func_10022EC0(*(void **)((u8 *)locals.result + 0x98), &locals.packet, 0x58);
+void *func_150B3F5C(u8 *arg0, Vec3f *arg1, s16 arg2) {
+    Vec3f *position = arg1;
+    GameE1280Packet packet;
+    void *result;
+
+    func_10022EC0(&packet, arg0, 0x40);
+    packet.flag_a = 0;
+    packet.zero_a = 0.0f;
+    packet.color = arg2;
+    packet.subtype = 2;
+    packet.mode = 0x1F4;
+    packet.combined = *(f32 *)(arg0 + 0x18) + *(f32 *)(arg0 + 0x14);
+    packet.zero_b = 0.0f;
+    packet.flag_b = 0;
+    packet.combined_copy = packet.combined;
+    packet.position = *position;
+    packet.number = 9;
+    result = func_15147A80(&packet.position, (void *)0x58, 0x24,
+                           7, 7, 7, 0, 0, 0, 0xFF, 1);
+    if (result != 0) {
+        func_1000FA64(0x221, position->x, position->y, position->z, 0x61A8, 0xFA0, 0x258,
+                      D_1000EF40, 0, 0, 8, func_150ADA20() & 0x40);
+        func_10022EC0(*(void **)((u8 *)result + 0x98), &packet, 0x58);
     }
-    return locals.result;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B3F5C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B3F5C.s")
 typedef struct GameE1280TimedEntry {
     Vec3f position;
     f32 velocityC;

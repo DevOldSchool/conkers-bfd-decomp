@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_117490.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150EA11C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void *func_10022EC0(void *, const void *, u32);
@@ -110,9 +105,9 @@ f32 func_150ADA68(void);
 extern f32 D_800A1418, D_800A141C, D_800A1420, D_800A1424;
 extern f32 D_800A1428, D_800A142C, D_800A1430, D_800A1434;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EA11C CURRENT (360) */
+typedef struct { u8 pad[0x74]; f32 scale; } Game117490Owner;
 void func_150EA11C(Vec3f *arg0, Vec3f *arg1,
-                   s32 arg2, s32 arg3, f32 arg4, u8 *arg5) {
+                   s32 arg2, s32 arg3, f32 arg4, Game117490Owner *arg5) {
     Game117490Particle particle;
     void *result;
     Game117490Extra extra;
@@ -149,9 +144,9 @@ void func_150EA11C(Vec3f *arg0, Vec3f *arg1,
     extra.modes1[1] = 0;
     extra.values0[2] = 3.5f;
     extra.values0[3] = D_800A1418;
-    particle.velocity.x = *(f32 *)(arg5 + 0x74) * (arg1->x - arg0->x);
-    particle.velocity.y = *(f32 *)(arg5 + 0x74) * (arg1->y - arg0->y);
-    particle.velocity.z = *(f32 *)(arg5 + 0x74) * (arg1->z - arg0->z);
+    particle.velocity.x = (arg1->x - arg0->x) * arg5->scale;
+    particle.velocity.y = (arg1->y - arg0->y) * arg5->scale;
+    particle.velocity.z = (arg1->z - arg0->z) * arg5->scale;
     particle.position = *arg0;
     particle.position.x += particle.velocity.x * arg4;
     particle.position.y += particle.velocity.y * arg4;
@@ -175,5 +170,3 @@ void func_150EA11C(Vec3f *arg0, Vec3f *arg1,
         func_10022EC0((u8 *)result + 0xA8, &extra, 0x28U);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150EA11C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_117490/func_150EA11C.s")

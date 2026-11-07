@@ -9,7 +9,6 @@
  * - func_1517F488
  * - func_1517F564
  * - func_1517F75C
- * - func_1517F814
  * - func_1517FB9C
  * - func_15180580
  * - func_151814FC
@@ -295,17 +294,14 @@ void func_150A7A00(void *, f32, f32, f32, f32 *, f32 *, f32 *, f32 *);
 extern u8 D_800D9D10[];
 extern s32 D_800BE628;
 extern u8 D_800DDDE8[];
-extern f32 D_800A7280, D_800A7284, D_800A7288;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517F814 CURRENT (320) */
 void func_1517F814(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
-    f32 lower;
-    Game1AC2F0Viewport *view;
-    f32 *output;
     f32 x;
     f32 y;
     f32 z;
     f32 w;
+    Game1AC2F0Viewport *view;
+    f32 *output;
 
     if (arg0 == 0) {
         func_150A7A00((void *)((u32)D_800D9D10 + ((u32)arg4 << 6)), arg1, arg2, arg3, &x, &y, &z, &w);
@@ -324,26 +320,20 @@ void func_1517F814(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
         y = arg2;
         view = (Game1AC2F0Viewport *)((u32)D_800BE628 + (u32)arg4 * 0x180U);
     }
-    if (D_800A7280 < x) {
-        lower = D_800A7284;
-        x = D_800A7280;
-    } else {
-        lower = D_800A7288;
-        if (x < lower) {
-            x = lower;
-        }
+    if (x > 10000.0f) {
+        x = 10000.0f;
+    } else if (x < -10000.0f) {
+        x = -10000.0f;
     }
-    if (D_800A7280 < y) {
-        y = D_800A7280;
-    } else if (y < lower) {
-        y = lower;
+    if (y > 10000.0f) {
+        y = 10000.0f;
+    } else if (y < -10000.0f) {
+        y = -10000.0f;
     }
-    output = (f32 *)((u32)D_800DDDE8 + (u32)arg4 * 8U);
+    output = (f32 *)(D_800DDDE8 + arg4 * 8);
     output[0] = x - view->halfWidth;
     output[1] = y - view->halfHeight;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517F814 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F814.s")
 extern s32 D_800BE628;
 
 void *func_1517F9F4(Game1AC2F0FillCommand *arg0, s32 x1, s32 y1, s32 x2, s32 y2, s32 viewport_index) {

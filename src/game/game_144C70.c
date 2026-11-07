@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151177C0
  * - func_151179BC
- * - func_15117D3C
  * - func_15117F3C
  * - func_151193F4
  * - func_151194D4
@@ -254,28 +253,31 @@ typedef struct Game144C70MotionState {
     u8 pad40[0xF];
     u8 flags;
     u8 pad50[0x23];
-    volatile u8 motion;
+    u8 motion;
 } Game144C70MotionState;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15117D3C CURRENT (340) */
-void func_15117D3C(Game144C70MotionState *arg0, Game144C70EventState *arg1) {
-    s32 temp_v0;
-    s32 temp_t5;
-    s32 temp_v1;
+typedef struct Game144C70MotionStateNV {
+    u8 pad0[0x3C];
+    s32 packed;
+    u8 pad40[0xF];
+    u8 flags;
+    u8 pad50[0x23];
+    u8 motion;
+} Game144C70MotionStateNV;
 
-    temp_v0 = arg0->packed;
+void func_15117D3C(Game144C70MotionStateNV *arg0, Game144C70EventState *arg1) {
+    s32 lo;
+    s32 motion;
+
+    lo = arg0->packed & 0xFFFF;
     if ((arg1->kind == 1) && (arg0->flags & 4)) {
-        temp_v1 = arg0->motion;
-        if (!(temp_v1 & 3) && !(temp_v1 & 4) &&
-            ((temp_t5 = temp_v1 & 0xFFFC, ((temp_v0 & 0xFFFF) == 0)) ||
-             (arg1->nested->enabled == 1))) {
-            arg0->motion = temp_t5;
-            arg0->motion = temp_t5 | 2;
+        motion = arg0->motion;
+        if (!(motion & 3) && !(motion & 4) && (lo == 0 || arg1->nested->enabled == 1)) {
+            arg0->motion = motion & 0xFFFC;
+            arg0->motion |= 2;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15117D3C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_15117D3C.s")
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 extern f32 D_800A2FF4;

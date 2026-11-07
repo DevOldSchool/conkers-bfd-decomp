@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151AA30C
  * - func_151AA48C
- * - func_151AA6D8
  * - func_151AAABC
  * - func_151AABC4
  * - func_151AADF8
@@ -483,9 +482,9 @@ f32 func_150ADA68(void);
 extern f32 D_800A8FAC, D_800A8FB0, D_800A8FB4, D_800A8FB8;
 extern f32 D_800A8FBC, D_800A8FC0, D_800A8FC4, D_800A8FC8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AA6D8 CURRENT (360) */
+typedef struct { u8 pad00[0x74]; f32 speed; } Game1D6E80Emitter;
 void func_151AA6D8(Vec3f *arg0, Vec3f *arg1,
-                   s32 arg2, s32 arg3, f32 arg4, u8 *arg5) {
+                   s32 arg2, s32 arg3, f32 arg4, Game1D6E80Emitter *arg5) {
     Game1D6E80Particle particle;
     void *result;
     Game1D6E80Extra extra;
@@ -522,9 +521,9 @@ void func_151AA6D8(Vec3f *arg0, Vec3f *arg1,
     extra.modes1[1] = 0;
     extra.values0[2] = 3.5f;
     extra.values0[3] = D_800A8FAC;
-    particle.velocity.x = *(f32 *)(arg5 + 0x74) * (arg1->x - arg0->x);
-    particle.velocity.y = *(f32 *)(arg5 + 0x74) * (arg1->y - arg0->y);
-    particle.velocity.z = *(f32 *)(arg5 + 0x74) * (arg1->z - arg0->z);
+    particle.velocity.x = (arg1->x - arg0->x) * arg5->speed;
+    particle.velocity.y = (arg1->y - arg0->y) * arg5->speed;
+    particle.velocity.z = (arg1->z - arg0->z) * arg5->speed;
     particle.position = *arg0;
     particle.position.x += particle.velocity.x * arg4;
     particle.position.y += particle.velocity.y * arg4;
@@ -548,8 +547,6 @@ void func_151AA6D8(Vec3f *arg0, Vec3f *arg1,
         func_10022EC0((u8 *)result + 0xA8, &extra, 0x28U);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AA6D8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA6D8.s")
 /* Call context: func_151423D8: unique active project prototype */
 extern s32 D_800BE9E4;
 

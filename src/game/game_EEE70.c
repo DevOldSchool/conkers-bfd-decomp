@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_complete_callback_clusters.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150C1A40
  * - func_150C1E34
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -62,10 +61,7 @@ typedef struct GameEEE70SpawnPacket {
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 void func_1514C2F0(f32, f32, f32, f32, u8, s8, s16, u8, s32, f32, s32, u8);
 f32 func_150ADA68(void);
-extern f32 D_800A0210, D_800A0214, D_800A0218;
-extern f32 D_800A021C, D_800A0220;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C1A40 CURRENT (340) */
 void func_150C1A40(GameEEE70State *arg0, s32 arg1, s32 arg2) {
     Vec3f position;
     f32 average;
@@ -75,10 +71,10 @@ void func_150C1A40(GameEEE70State *arg0, s32 arg1, s32 arg2) {
     f32 cosine;
     f32 sine;
     f32 size;
-    f32 base;
-    f32 spread;
+    s32 count;
     s32 direction;
     void *result;
+    u8 angle;
 
     if (arg0->field_1D4 != NULL) {
         average = (*(f32 *)((u8 *)arg0 + 0x150) + *(f32 *)((u8 *)arg0 + 0x14C)) * 0.5f;
@@ -87,7 +83,7 @@ void func_150C1A40(GameEEE70State *arg0, s32 arg1, s32 arg2) {
         arg2 &= 0xFF;
         radius = average * 70.0f;
         func_1514C2F0(position.x, *(f32 *)((u8 *)arg0 + 0x180), position.z,
-                      radius, arg2, arg1 == 1 ? 0x10 : -0x10, 8, 0, 0, radius * D_800A0210, 0, 0xFF);
+                      radius, arg2, arg1 == 1 ? 0x10 : -0x10, 8, 0, 0, radius * 4.04f, 0, 0xFF);
         func_15165F80(-1, (s32)position.x,
                       (s32)((f32)(s32)*(f32 *)((u8 *)arg0 + 0x180) + 2.0f),
                       (s32)position.z, 8, 0x15, 0, 0xFF, 0);
@@ -109,22 +105,20 @@ void func_150C1A40(GameEEE70State *arg0, s32 arg1, s32 arg2) {
         packet.stretch.x = 1.0f;
         packet.stretch.y = 1.0f;
         packet.stretch.z = 1.0f;
-        packet.field04 = D_800A0214;
+        packet.field04 = 0.4f;
         packet.angularVelocity.z = 0.0f;
-        packet.field4C = D_800A0218;
+        packet.field4C = -0.9f;
         packet.layer = arg0->pad0[0x3B];
         packet.field72 = 0x10;
         packet.field74 = 0xF;
-        arg2 = (func_150ADA20() & 7) + 5;
-        direction = arg2 - 1;
-        if (arg2 != 0) {
-            base = D_800A021C;
-            spread = D_800A0220;
+        count = (func_150ADA20() & 7) + 5;
+        direction = count - 1;
+        if (count != 0) {
             do {
-                arg1 = (u8)func_150ADA20();
-                speed = (func_150ADA68() * spread + base) * 9.0f * average;
-                cosine = func_151423D8(arg1 - 0x40);
-                sine = func_151423D8(arg1);
+                angle = func_150ADA20() & 0xFF;
+                speed = (func_150ADA68() * 0.9f + 0.1f) * 9.0f * average;
+                cosine = func_151423D8(angle - 0x40);
+                sine = func_151423D8(angle);
                 packet.lifetime = (func_150ADA20() & 0xF) + 0x1E;
                 packet.position.x = radius * cosine + position.x;
                 packet.position.y = *(f32 *)((u8 *)arg0 + 0x180) + 2.0f;
@@ -132,7 +126,7 @@ void func_150C1A40(GameEEE70State *arg0, s32 arg1, s32 arg2) {
                 packet.velocity.x = speed * cosine;
                 packet.velocity.y = 2.0f * speed;
                 packet.velocity.z = speed * sine;
-                size = (func_150ADA68() * spread + base) * average * 1.5f;
+                size = (func_150ADA68() * 0.9f + 0.1f) * average * 1.5f;
                 packet.scaleY = size;
                 packet.scaleZ = size;
                 packet.scaleX = size;
@@ -149,8 +143,6 @@ void func_150C1A40(GameEEE70State *arg0, s32 arg1, s32 arg2) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C1A40 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EEE70/func_150C1A40.s")
 
 void func_151429E0(u8, u8 *, u8 *, u8 *);
 void func_1518CA80();
