@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150CFF10
- * - func_150D0034
  * - func_150D01A0
  * - func_150D032C
  * - func_150D0534
@@ -80,6 +79,10 @@ typedef struct GameFD1D0TextCursor {
     u8 *cursor;
     u8 width;
     u8 page;
+    u8 pad16[0xE];
+    s8 handler;
+    u8 mode;
+    u8 pad26[2];
 } GameFD1D0TextCursor;
 
 typedef struct GameFD1D0State {
@@ -87,9 +90,6 @@ typedef struct GameFD1D0State {
     s16 field_0E;
     u8 pad10[0x18];
     GameFD1D0TextCursor text;
-    u8 pad40[0xC];
-    s8 field_4C;
-    u8 field_4D;
 } GameFD1D0State;
 
 void func_150CFE3C(GameFD1D0State *);
@@ -175,20 +175,16 @@ typedef s32 (*GameFD1D0EntryCallback)(GameFD1D0State *);
 
 extern GameFD1D0EntryCallback D_800888A0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D0034 CURRENT (330) */
 s32 func_150D0034(s32 arg0, GameFD1D0State *arg1, s32 arg2) {
-    GameFD1D0TextCursor *text;
+    GameFD1D0TextCursor *text = &arg1->text;
 
-    if ((*(volatile s8 *)&arg1->field_4C != -1) && (D_800888A0[arg1->field_4C](arg1) == 0)) {
+    if ((text->handler != -1) && (D_800888A0[text->handler](arg1) == 0)) {
         arg1->field_0E = -1;
         return arg0;
     }
-    text = &arg1->text;
-    text->flags = (u8) ((u16) text->flags & 0xFFFE);
+    text->flags &= ~1;
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D0034 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D0034.s")
 
 typedef void (*GameFD1D0Callback)(GameFD1D0State *);
 
@@ -203,7 +199,7 @@ void func_150D00C0(GameFD1D0State *arg0, u8 *arg1, u8 arg2) {
             func_150CFE98(arg0);
         }
     } else {
-        callback = D_800888B0[arg0->field_4D];
+        callback = D_800888B0[arg0->text.mode];
         if (callback != 0) {
             callback(arg0);
         }

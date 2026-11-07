@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15063628
- * - func_15063FA0
  * - func_150641D8
  * - func_150642AC
  * - func_15065A5C
@@ -398,7 +397,7 @@ typedef struct {
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
 f32 func_150484A0(f32, f32);
-void func_1505A184(s32, f32, f32, f32 *, f32 *, f32 *);
+void func_1505A184(u16, f32, f32, f32 *, f32 *, f32 *);
 void *func_1506C460(f32, f32, f32, f32, s32, s32, f32, f32,
                        f32 *, s32, s32);
 f32 sqrtf(f32);
@@ -408,7 +407,6 @@ extern f32 D_80099794;
 extern f32 D_80099798;
 extern f32 D_8009979C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15063FA0 CURRENT (382) */
 void func_15063FA0(Game90840Actor *arg0, s32 arg1) {
     f32 horizontal;
     f32 verticalVelocity;
@@ -424,7 +422,6 @@ void func_15063FA0(Game90840Actor *arg0, s32 arg1) {
     f32 deltaX;
     f32 deltaY;
     f32 deltaZ;
-    s32 inclination;
 
     magnitude = 300.0f;
     height = 0.0f;
@@ -455,15 +452,13 @@ void func_15063FA0(Game90840Actor *arg0, s32 arg1) {
         pitch = func_150484A0(deltaY, sqrtf(deltaX * deltaX + deltaZ * deltaZ)) * D_80099794;
         heading = func_150484A0(deltaX, deltaZ) * D_80099798;
     }
-    inclination = (s32)(pitch * D_8009979C);
-    func_1505A184(inclination & 0xFFFF, magnitude, 0.0f,
+
+    func_1505A184((u16)(s16)(pitch * D_8009979C), magnitude, 0.0f,
                   &horizontal, &verticalVelocity, &unusedDirection);
     verticalVelocity = -verticalVelocity;
     func_1506C460(heading, horizontal, verticalVelocity, 0.0f, 100, arg1,
                   0.0f, 0.5f, &position.x, 1, 1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15063FA0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063FA0.s")
 s32 func_1505DADC(void *, u16 *, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150641D8 CURRENT (1340) */

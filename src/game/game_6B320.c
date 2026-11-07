@@ -6,9 +6,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_state_lifecycle_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1503DF48
  * - func_1503E5F8
- * - func_1503E82C
  * - func_1503EA54
  * - func_1503EB78
  *
@@ -34,13 +32,20 @@ void func_1503DE70(void *arg0, s32 arg1, s32 arg2) {
     }
     func_1503DF0C(temp_a0, arg1, -1, -1);
 }
-typedef struct {
-    u8 pad_0[0x1EC];
-    f32 field_1EC;
-} Game6B320Entity;
+typedef struct Game6B320Particle {
+    u8 pad_0[0x24];
+    f32 rot[3];
+    f32 pos[3];
+    f32 scale[3];
+    u8 pad_48[4];
+    f32 field_4C;
+    u8 pad_50[0x14];
+    u8 active;
+    u8 reserved_65[3];
+} Game6B320Particle;
 
 typedef struct {
-    Game6B320Entity *entity;
+    Game6B320Particle *entity;
     u8 pad_4[8];
     s16 field_C;
     u8 pad_E[2];
@@ -60,12 +65,6 @@ void func_1503DF0C(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     *(s8 *)((u8 *)temp_v0 + 0xE) = arg1;
     *(s8 *)((u8 *)temp_v0 + 0xF) = 2;
 }
-typedef struct Game6B320Particle {
-    u8 fields[0x64];
-    u8 active;
-    u8 reserved_65[3];
-} Game6B320Particle;
-
 void *func_10003C40(s32, s32, s32, s32);
 s32 func_1503E1F4(s32, s32);
 void func_1503E3C4(s32, s32, s32, s32, s32);
@@ -75,13 +74,11 @@ extern void (*D_80084430[])(void *, s32);
 extern void (*D_8008443C[])(s32);
 extern void (*D_80084448[])(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503DF48 CURRENT (368) */
 void func_1503DF48(s32 arg0) {
     Game6B320Slot *slot;
     Game6B320Particle *allocated;
     Game6B320Particle *particle;
     u8 *actor;
-    s8 *parent;
     s8 *list;
     s32 state;
     s32 count;
@@ -104,24 +101,23 @@ void func_1503DF48(s32 arg0) {
             if (allocated == 0) {
                 return;
             }
-            slot->entity = (Game6B320Entity *)allocated;
+            slot->entity = allocated;
             for (i = 0; i < count; i++) {
                 allocated[i].active = 0;
             }
         }
         list = D_80084454[slot->pad_E[0]];
-        i = 0;
-        if (count > 0) {
-            for (parent = list; i != count; i++, parent++) {
-            if (*parent != -2) {
-                particle = (Game6B320Particle *)slot->entity + i;
-                if (func_1503E1F4(i, arg0) != 0 && particle->active == 0) {
-                    func_1503E3C4(arg0, i, 0, (s32)particle, 0);
-                    D_80084430[slot->pad_E[0]](particle, arg0);
-                    particle->active = 1;
-                }
+        for (i = 0; i < count; i++) {
+            if (list[i] == -2) {
+                continue;
             }
+            particle = &slot->entity[i];
+            if (func_1503E1F4(i, arg0) == 0 || particle->active != 0) {
+                continue;
             }
+            func_1503E3C4(arg0, i, 0, (s32)particle, 0);
+            D_80084430[slot->pad_E[0]](particle, arg0);
+            particle->active = 1;
         }
         D_8008443C[slot->pad_E[0]](arg0);
         state = 1;
@@ -135,8 +131,6 @@ void func_1503DF48(s32 arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503DF48 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503DF48.s")
 typedef struct Game6B320MaskColumn {
     u32 bits;
     u8 pad4[0xC];
@@ -324,62 +318,44 @@ void func_1503E5F8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3,
 void func_15043EC8(void *, f32, f32, f32, f32, f32, f32);
 void func_150A7A48(void *, void *, void *);
 
-void func_150A7CB0(void *, s32, s32, s32);
-void func_150A7DA0(void *, s32, s32, s32);
+void func_150A7CB0(void *, f32, f32, f32);
+void func_150A7DA0(void *, f32, f32, f32);
 void func_150A8050(void *, f32, f32, f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503E82C CURRENT (432) */
 void func_1503E82C(s32 arg0) {
     s32 count;
-    Game6B320Slot *temp_s6;
-    s32 var_s5;
-    s8 *var_s7;
-    s8 temp_s3;
+    s32 i;
+    s8 *list;
+    s32 parentIndex;
+    u8 *bone;
     f32 matrix[4][4];
-    u8 *temp_fp;
-    u8 *temp_s0;
-    u8 *temp_s1;
 
-    temp_fp = (arg0 * 0x32C) + D_800CC2D0;
-    if (*(s32 *)(temp_fp + 0x1D4) != 0) {
-        temp_s6 = &D_800C6660[arg0];
-        count = D_80098914[temp_s6->pad_E[0]];
-        var_s7 = D_80084454[temp_s6->pad_E[0]];
-        var_s5 = 0;
-        if (count > 0) {
-            do {
-                if (*var_s7 != -2) {
-                    temp_s0 = (u8 *)temp_s6->entity + (var_s5 * 0x68);
-                    if (*(u8 *)(temp_s0 + 0x64) != 0) {
-                        temp_s3 = D_80084454[temp_s6->pad_E[0]][var_s5];
-                        temp_s1 = *(u8 **)(temp_fp + 0x1D4) + (var_s5 << 6);
-                        if (temp_s3 != -1) {
-                            func_150A7DA0(matrix, *(s32 *)(temp_s0 + 0x24), *(s32 *)(temp_s0 + 0x28), *(s32 *)(temp_s0 + 0x2C));
-                            func_150A7A48(matrix, *(u8 **)(temp_fp + 0x1D4) + (temp_s3 << 6), matrix);
-                            temp_s0 = (u8 *)temp_s6->entity + (var_s5 * 0x68);
-                            func_150A8050(temp_s1, *(f32 *)(temp_s0 + 0x30), *(f32 *)(temp_s0 + 0x34), *(f32 *)(temp_s0 + 0x38));
-                            func_150A7A48(temp_s1, matrix, temp_s1);
-                            temp_s0 = (u8 *)temp_s6->entity + (var_s5 * 0x68);
-                            func_150A7CB0(matrix, *(s32 *)(temp_s0 + 0x3C), *(s32 *)(temp_s0 + 0x40), *(s32 *)(temp_s0 + 0x44));
-                            func_150A7A48(matrix, temp_s1, temp_s1);
-                        } else {
-                            func_150A8050(temp_s1, *(f32 *)(temp_s0 + 0x30), *(f32 *)(temp_s0 + 0x34), *(f32 *)(temp_s0 + 0x38));
-                            temp_s0 = (u8 *)temp_s6->entity + (var_s5 * 0x68);
-                            func_15043EC8(temp_s1, *(f32 *)(temp_s0 + 0x3C), *(f32 *)(temp_s0 + 0x40), *(f32 *)(temp_s0 + 0x44), *(f32 *)(temp_s0 + 0x24), *(f32 *)(temp_s0 + 0x28), *(f32 *)(temp_s0 + 0x2C));
-                        }
-                    }
-                }
-                var_s5 += 1;
-                var_s7 += 1;
-            } while (var_s5 != count);
+    if (*(s32 *)((arg0 * 0x32C) + D_800CC2D0 + 0x1D4) != 0) {
+        count = D_80098914[D_800C6660[arg0].pad_E[0]];
+        list = D_80084454[D_800C6660[arg0].pad_E[0]];
+        for (i = 0; i < count; i++) {
+            if ((list[i] == -2) || (D_800C6660[arg0].entity[i].active == 0)) {
+                continue;
+            }
+            bone = *(u8 **)((arg0 * 0x32C) + D_800CC2D0 + 0x1D4) + (i << 6);
+            parentIndex = D_80084454[D_800C6660[arg0].pad_E[0]][i];
+            if (parentIndex != -1) {
+                func_150A7DA0(matrix, D_800C6660[arg0].entity[i].rot[0], D_800C6660[arg0].entity[i].rot[1], D_800C6660[arg0].entity[i].rot[2]);
+                func_150A7A48(matrix, *(u8 **)((arg0 * 0x32C) + D_800CC2D0 + 0x1D4) + (parentIndex << 6), matrix);
+                func_150A8050(bone, D_800C6660[arg0].entity[i].pos[0], D_800C6660[arg0].entity[i].pos[1], D_800C6660[arg0].entity[i].pos[2]);
+                func_150A7A48(bone, matrix, bone);
+                func_150A7CB0(matrix, D_800C6660[arg0].entity[i].scale[0], D_800C6660[arg0].entity[i].scale[1], D_800C6660[arg0].entity[i].scale[2]);
+                func_150A7A48(matrix, bone, bone);
+            } else {
+                func_150A8050(bone, D_800C6660[arg0].entity[i].pos[0], D_800C6660[arg0].entity[i].pos[1], D_800C6660[arg0].entity[i].pos[2]);
+                func_15043EC8(bone, D_800C6660[arg0].entity[i].scale[0], D_800C6660[arg0].entity[i].scale[1], D_800C6660[arg0].entity[i].scale[2], D_800C6660[arg0].entity[i].rot[0], D_800C6660[arg0].entity[i].rot[1], D_800C6660[arg0].entity[i].rot[2]);
+            }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503E82C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503E82C.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1503EA54 CURRENT (3165) */
 void func_1503EA54(s32 arg0) {
-    Game6B320Entity *temp_a0;
+    Game6B320Particle *temp_a0;
     Game6B320Slot *temp_v1;
     f32 temp_fv0;
     f32 temp_fv1;
@@ -470,7 +446,7 @@ extern f32 D_80098928;
 extern f32 D_8009892C;
 
 void func_1503ECA0(s32 arg0) {
-    Game6B320Entity *entity;
+    Game6B320Particle *entity;
     Game6B320Slot *slot;
     f32 smallScale;
     f32 largeScale;
@@ -571,7 +547,7 @@ void func_1503EFC4(s32 arg0) {
     slot->field_C = 0x78;
     count = D_80098914[slot->pad_E[0]];
     for (i = 0; i < count; i++) {
-        *(f32 *)(((Game6B320Particle *)slot->entity + i)->fields + 0x4C) =
+        slot->entity[i].field_4C =
             (f32)((s32)(func_150ADA20() % 20U) - 5);
     }
 }
@@ -601,7 +577,7 @@ extern Game6B320EntityRecordField94 D_800CC364[];
 void func_1503F108(s32 arg0) {
     D_800C6660[arg0].field_C = 0x8C;
     D_800CC364[arg0].field_0 = 6;
-    D_800C6660[arg0].entity->field_1EC = 10.0f;
+    D_800C6660[arg0].entity[4].field_4C = 10.0f;
 }
 s32 func_1503EF4C(s32, s32, s32);
 extern s16 D_800C666C;

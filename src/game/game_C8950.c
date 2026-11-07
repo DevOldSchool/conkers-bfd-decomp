@@ -8,7 +8,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1509B5AC
- * - func_1509B950
  * - func_1509BBA0
  * - func_1509BE40
  * - func_1509BFB0
@@ -225,37 +224,33 @@ void *func_10003C40(s32, s32, s32, s32);
 void func_10023A10(void *, void *, s32);
 void func_100226F0(void *, u16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509B950 CURRENT (355) */
-void *func_1509B950(void *arg0) {
-    s32 temp_v0;
-    s32 temp_t0;
-    u8 adjustment;
-    s32 temp_t6;
-    void *temp_v0_3;
-    void *temp_s0;
+typedef struct {
+    u8 pad0[4];
+    u16 size;
+    u16 extra;
+    u8 pad8[2];
+    u16 offset;
+} GameC8950Block;
 
-    temp_s0 = arg0;
-    temp_v0 = *(u16 *)((u8 *)temp_s0 + 4);
-    adjustment = 8 - (((s32)temp_s0 + temp_v0) & 7);
-    temp_t0 = temp_v0 + adjustment;
-    temp_v0 = temp_t0 + *(u16 *)((u8 *)temp_s0 + 6);
-    *(volatile u16 *)((u8 *)temp_s0 + 4) = temp_v0;
-    temp_t6 = (temp_v0 - ((s32)((u8 *)temp_s0 + temp_v0) & 7)) + 8;
-    *(u16 *)((u8 *)temp_s0 + 0xA) = temp_t0;
-    *(u16 *)((u8 *)temp_s0 + 4) = temp_t6;
-    temp_v0_3 = func_10003C40(temp_t6 & 0xFFFF, 0xFF, 2, 0);
-    if (temp_v0_3 == 0) {
+void *func_1509B950(void *arg) {
+    GameC8950Block *arg0 = arg;
+    GameC8950Block *new;
+    s32 align;
+
+    align = 8 - (((s32)arg0 + arg0->size) & 7);
+    arg0->offset = arg0->size + align;
+    arg0->size = arg0->offset + arg0->extra;
+    arg0->size = (arg0->size - (((s32)arg0 + arg0->size) & 7)) + 8;
+    new = func_10003C40(arg0->size, 0xFF, 2, 0);
+    if (new == NULL) {
         for (;;) {
         }
     }
-    func_10023A10(temp_s0, temp_v0_3, *(u16 *)((u8 *)temp_s0 + 4));
-    func_100226F0((void *)((s32)temp_v0_3 + *(u16 *)((u8 *)temp_v0_3 + 0xA)),
-                  *(u16 *)((u8 *)temp_v0_3 + 6));
-    func_10004074((s32)temp_s0);
-    return temp_v0_3;
+    func_10023A10(arg0, new, arg0->size);
+    func_100226F0((u8 *)new + new->offset, new->extra);
+    func_10004074((s32)arg0);
+    return new;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509B950 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B950.s")
 void func_1509C228(void);
 extern u8 D_800D2E69;
 extern u8 D_800D2E70[];

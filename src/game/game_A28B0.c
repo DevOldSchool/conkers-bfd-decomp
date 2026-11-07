@@ -15,7 +15,6 @@
  * - func_15078A60
  * - func_1507911C
  * - func_15079B30
- * - func_1507A2F8
  * - func_1507A4D4
  * - func_1507AA48
  * - func_1507BB28
@@ -1920,7 +1919,6 @@ void func_1507A2A4(void) {
     D_800D1893 = (func_150ADA20() % (u8) D_800D1891) + D_800D1893;
     func_15075CA0();
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507A2F8 CURRENT (425) */
 void func_1507A2F8(void) {
     s32 index;
     u32 count;
@@ -1928,19 +1926,18 @@ void func_1507A2F8(void) {
     u8 *state;
 
     count = 0;
-    for (index = 0, state = (u8 *) &D_800CC2D0; index < 25; index++, state += 0x32C) {
+    for (index = 0, state = (u8 *) &D_800CC2D0; index < 25; index++) {
         if (*(s32 *) state != 0 && D_800D1890 == state[4]) {
             candidates[count++] = index;
         }
+        state += 0x32C;
     }
     if (count != 0) {
-        state = candidates + func_150ADA20() % count;
+        index = func_150ADA20() % count;
         D_800D154C->field_A8 = D_800D154C->field_222;
-        D_800D154C->field_222 = *state;
+        D_800D154C->field_222 = candidates[index];
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507A2F8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_1507A2F8.s")
 void func_1507A3B4(void) {
     D_800D154C->field_222 = D_800D154C->field_A8;
 }

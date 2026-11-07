@@ -9,7 +9,6 @@
  * - func_150B7B40
  * - func_150B82D0
  * - func_150B85C0
- * - func_150B879C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -171,12 +170,11 @@ extern f32 D_8009FD98;
 extern f32 D_8009FD9C;
 extern f32 D_8009FDA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B879C CURRENT (435) */
 s32 func_150B879C(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
                   s32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14) {
     f32 extra;
-    f32 scale;
+    s16 angle;
     GameE4FF0Descriptor descriptor;
     void *object;
     s32 second;
@@ -201,16 +199,15 @@ s32 func_150B879C(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     descriptor.alpha = 0xFF;
     descriptor.field60 = 3;
     descriptor.field61 = 3;
-    scale = (func_150ADA68() * D_8009FD90 + D_8009FD94) * D_8009FD98;
-    descriptor.field28 = scale;
-    descriptor.field2C = scale;
+    descriptor.field28 = descriptor.field2C = (func_150ADA68() * D_8009FD90 + D_8009FD94) * D_8009FD98;
     descriptor.position.x = arg2;
     descriptor.position.y = arg3;
     descriptor.position.z = arg4;
     descriptor.velocity.x = 0.0f;
     descriptor.velocity.y = 0.0f;
     descriptor.velocity.z = 0.0f;
-    func_15143874((s16)arg8, (func_150ADA68() * 154.0f + 205.0f) * D_8009FD9C,
+    angle = arg8;
+    func_15143874(angle, (func_150ADA68() * 154.0f + 205.0f) * D_8009FD9C,
                    &descriptor.acceleration.x, &descriptor.acceleration.z);
     descriptor.acceleration.y = 0.0f;
     descriptor.field54 = 0.0f;
@@ -220,7 +217,7 @@ s32 func_150B879C(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     } else {
         second = 0;
     }
-    descriptor.field58 = second | 0xE05 | first | 0xC000;
+    descriptor.field58 = second | 0xE05 | first | 0x8000 | 0x4000;
     descriptor.field62 = 0xA;
     descriptor.field63 = -1;
     descriptor.field1E = 0x1C;
@@ -235,5 +232,3 @@ s32 func_150B879C(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B879C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E4FF0/func_150B879C.s")

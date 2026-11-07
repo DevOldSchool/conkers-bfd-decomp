@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151B9F00
  * - func_151BA084
- * - func_151BA468
  * - func_151BA518
  * - func_151BB0E0
  * - func_151BC104
@@ -221,35 +220,33 @@ block_18:
 #endif /* CONKER_DEFERRED_CANDIDATE func_151BA084 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E73B0/func_151BA084.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BA468 CURRENT (350) */
 void func_151BA468(void *arg0, u8 *arg1, u8 arg2) {
-    u8 *temp_v0;
-    void *temp_v1;
+    u8 *slot;
+    void *owner;
 
-    temp_v0 = (u8 *)arg0 + *(s32 *)((u8 *)arg0 + 0x50);
-    temp_v1 = *(void **)(temp_v0 + 0xF8);
-    temp_v0 += 0xF8;
+    slot = arg0;
+    slot += *(s32 *)((u8 *)arg0 + 0x50);
+    slot += 0xF8;
+    owner = *(void **)slot;
     if (arg2 == 0) {
-        if ((temp_v1 == *(void **)arg1) ||
-            (*(u8 *)((u8 *)temp_v1 + 0x3B) == arg1[4])) {
+        if ((owner == *(void **)arg1) ||
+            (*(u8 *)((u8 *)owner + 0x3B) == arg1[4])) {
             func_1516972C(arg0);
         }
     } else if (arg2 == 0x2D) {
-        void *temp_a0 = *(void **)arg1;
+        void *first = *(void **)arg1;
 
-        if (temp_a0 == temp_v1) {
-            *(void **)temp_v0 = *(void **)(arg1 + 4);
-            temp_v0[4] = arg1[9];
+        if (first == *(void **)slot) {
+            *(void **)slot = *(void **)(arg1 + 4);
+            slot[4] = arg1[9];
             return;
         }
-        if (*(void **)(arg1 + 4) == temp_v1) {
-            *(void **)temp_v0 = temp_a0;
-            temp_v0[4] = arg1[8];
+        if (*(void **)(arg1 + 4) == *(void **)slot) {
+            *(void **)slot = first;
+            slot[4] = arg1[8];
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151BA468 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E73B0/func_151BA468.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E73B0/func_151BA518.s")
 extern void func_151BB0E0(void);
 

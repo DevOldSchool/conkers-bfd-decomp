@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150E8B1C
  * - func_150E8D5C
  * - func_150E9178
  * - func_150E93DC
@@ -49,15 +48,11 @@ typedef struct Game115F30WeightedNode {
 f32 func_150ADA68(void);
 s32 func_15144B34(s32);
 void func_1514470C(void *, f32 *);
-extern f32 D_800A1384;
-extern f32 D_800A1388;
-extern f32 D_800A138C;
 extern f32 D_800BE9A4;
 extern s32 D_800BE9E8;
 extern f32 D_800DCD90;
 extern Game115F30WeightedNode *D_800DCDC4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E8B1C CURRENT (413) */
 void func_150E8B1C(u8 *arg0) {
     f32 *state;
     f32 *reference;
@@ -67,49 +62,41 @@ void func_150E8B1C(u8 *arg0) {
     f32 dx;
     f32 dy;
     f32 dz;
-    f32 distanceLimit;
-    f32 scale;
-    f32 speed;
     f32 selection;
     f32 weight;
+    f32 distance;
 
     reference = (f32 *)func_15144B34(D_800BE9E8);
     state = (f32 *)(arg0 + 0x28);
     state[2] += (state[0] + func_150ADA68() * state[1]) * D_800BE9A4 * D_800DCD90;
-    if (state[2] > 1.0f) {
-        speed = D_800A1384;
-        scale = D_800A1388;
-        distanceLimit = D_800A138C;
-        do {
-            selection = func_150ADA68() * D_800DCD90;
-            node = D_800DCDC4;
+    for (; state[2] > 1.0f; state[2] -= 1.0f) {
+        selection = func_150ADA68() * D_800DCD90;
+        node = D_800DCDC4;
+        weight = node->weight;
+        while (weight < selection) {
+            node = node->next;
+            selection -= weight;
             weight = node->weight;
-            while (weight < selection) {
-                node = node->next;
-                selection -= weight;
-                weight = node->weight;
+        }
+        func_1514470C(node->region, packet);
+        dx = packet[0] - reference[0];
+        dy = packet[1] - reference[1];
+        dz = packet[2] - reference[2];
+        distance = dx * dx + dy * dy + dz * dz;
+        if (distance < 3240000.0f) {
+            packet[3] = 0.31712f;
+            packet[4] = 1.04651f;
+            packet[5] = 0.0f;
+            result = func_15149130((s16)((func_150ADA20() % 13U) + 5),
+                                  -1, 0x34, -1, 1, 0, 0x18,
+                                  arg0[0xC], arg0[1]);
+            if (result == 0) {
+                continue;
             }
-            func_1514470C(node->region, packet);
-            dx = packet[0] - reference[0];
-            dy = packet[1] - reference[1];
-            dz = packet[2] - reference[2];
-            if (dx * dx + dy * dy + dz * dz < distanceLimit) {
-                packet[3] = scale;
-                packet[4] = speed;
-                packet[5] = 0.0f;
-                result = func_15149130((s16)((func_150ADA20() % 13U) + 5),
-                                      -1, 0x34, -1, 1, 0, 0x18,
-                                      arg0[0xC], arg0[1]);
-                if (result != 0) {
-                    func_10022EC0(result + 0x28, packet, 0x18);
-                }
-            }
-            state[2] -= 1.0f;
-        } while (state[2] > 1.0f);
+            func_10022EC0(result + 0x28, packet, 0x18);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E8B1C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_115F30/func_150E8B1C.s")
 void *func_15130374(s32, u8, s32, u8, s32);
 extern f32 D_800A1390, D_800A1394, D_800A1398, D_800A139C;
 extern f32 D_800A13A0, D_800A13A4, D_800A13A8, D_800A13AC;

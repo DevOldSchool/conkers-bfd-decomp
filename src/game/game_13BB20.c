@@ -9,7 +9,6 @@
  * - func_1510E670
  * - func_1510E950
  * - func_1510F8D8
- * - func_1510FD20
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -320,69 +319,40 @@ void func_1510FC34(s32 arg0) {
         func_150F33F8(arg0);
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510FD20 CURRENT (360) */
 Game13BB20Node *func_1510FD20(s32 arg0, s32 arg1) {
-    s32 temp_v0;
-    s32 temp_a1;
-    s32 var_a2;
-    s32 var_t0;
-    Game13BB20Node *var_v1;
+    Game13BB20Node *node;
+    s32 off;
 
-    var_v1 = D_800DBE48;
-    if (var_v1 != 0) {
-loop_1:
-        temp_v0 = *(s16 *)((u8 *)var_v1 + 0xC);
-        if (temp_v0 != 0) {
-            temp_a1 = arg0 - *(s16 *)((u8 *)var_v1 + 8);
-            var_a2 = temp_a1 < 0 ? -temp_a1 : temp_a1;
-            temp_a1 = *(u16 *)((u8 *)var_v1 + 6);
-            if ((s32) temp_a1 >= var_a2) {
-                var_a2 = arg1 - *(s16 *)((u8 *)var_v1 + 0xA);
-                var_t0 = var_a2 < 0 ? -var_a2 : var_a2;
-                if ((s32) temp_a1 >= var_t0) {
-                    var_v1 = (Game13BB20Node *)((u8 *)var_v1 + temp_v0);
-                } else {
-                    goto block_9;
-                }
+    node = D_800DBE48;
+    while (node != NULL) {
+        off = node->child_offset_C;
+        if (off != 0) {
+            if (GAME13BB20_ABS(arg0 - node->x_8) <= node->size_6 &&
+                GAME13BB20_ABS(arg1 - node->y_A) <= node->size_6) {
+                node = (Game13BB20Node *)((u8 *)node + off);
+                continue;
+            }
+            off = node->sibling_offset_4;
+            if (off != 0) {
+                node = (Game13BB20Node *)((u8 *)node + off);
             } else {
-block_9:
-                temp_v0 = *(s16 *)((u8 *)var_v1 + 4);
-                if (temp_v0 != 0) {
-                    var_v1 = (Game13BB20Node *)((u8 *)var_v1 + temp_v0);
-                } else {
-                    goto block_21;
-                }
+                node = NULL;
             }
-            goto block_22;
-        }
-        temp_a1 = arg0 - *(s16 *)((u8 *)var_v1 + 8);
-        var_a2 = temp_a1 < 0 ? -temp_a1 : temp_a1;
-        temp_a1 = *(u16 *)((u8 *)var_v1 + 6);
-        if ((s32) temp_a1 >= var_a2) {
-            var_a2 = arg1 - *(s16 *)((u8 *)var_v1 + 0xA);
-            var_t0 = var_a2 < 0 ? -var_a2 : var_a2;
-            if ((s32) temp_a1 >= var_t0) {
-                return var_v1;
-            }
-            goto block_19;
-        }
-block_19:
-        temp_v0 = *(s16 *)((u8 *)var_v1 + 4);
-        if (temp_v0 != 0) {
-            var_v1 = (Game13BB20Node *)((u8 *)var_v1 + temp_v0);
         } else {
-block_21:
-            var_v1 = 0;
-        }
-block_22:
-        if (var_v1 != 0) {
-            goto loop_1;
+            if (GAME13BB20_ABS(arg0 - node->x_8) <= node->size_6 &&
+                GAME13BB20_ABS(arg1 - node->y_A) <= node->size_6) {
+                return node;
+            }
+            off = node->sibling_offset_4;
+            if (off != 0) {
+                node = (Game13BB20Node *)((u8 *)node + off);
+            } else {
+                node = NULL;
+            }
         }
     }
-    return 0;
+    return NULL;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510FD20 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510FD20.s")
 s32 func_1510FE30(Game13BB20Node *arg0) {
     s16 offset;
     s32 index;

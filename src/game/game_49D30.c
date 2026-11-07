@@ -22,7 +22,6 @@
  * - func_1501EA18
  * - func_1501EC38
  * - func_1501FC8C
- * - func_1501FE68
  * - func_15020388
  * - func_15020878
  * - func_15020EC4
@@ -1170,18 +1169,15 @@ extern void *D_800C35C8[];
 extern u8 D_800C3868[];
 extern void *D_800C3A50[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501FE68 CURRENT (351) */
 void func_1501FE68(s32 arg0, f32 arg1, f32 *arg2, s32 arg3) {
-    f32 sp6C[6];
-    s32 sp60;
-    u8 sp30[0x30];
-    void **flags = (void **)((u32)D_800C35C8 + (u32)arg3 * 4U);
-    u32 byteOffset = (u32)arg0 * 2U;
-    void *table;
-    f32 x;
-    f32 y;
+    f32 t;
+    Vec3f pos[2];
+    f32 dx;
+    f32 dz;
+    s32 key;
+    Vec3f points[4];
 
-    if (*(u16 *)((u32)*flags + byteOffset) < 2) {
+    if (*(u16 *)((u8 *)D_800C35C8[arg3] + arg0 * 2) < 2) {
         return;
     }
     if (arg1 > 100.0f) {
@@ -1190,22 +1186,19 @@ void func_1501FE68(s32 arg0, f32 arg1, f32 *arg2, s32 arg3) {
     if (arg1 < 0.0f) {
         arg1 = 0.0f;
     }
-    func_1501F72C(arg0,
-                   *(f32 *)((u32)*(void **)((u32)D_800C3A50 + (u32)arg3 * 4U) + ((u32)arg0 << 6)) * arg1 * D_800969D8,
-                   sp6C, arg3, &sp60);
-    table = *(void **)((u32)D_800C3868 + (u32)arg3 * 0x78U + (u32)arg0 * 4U);
-    if (*(u16 *)((u32)table + (u32)sp60 * 8U + 6U) == 0) {
-        x = sp6C[0] - sp6C[3];
-        y = sp6C[2] - sp6C[5];
+    t = *(f32 *)((u8 *)D_800C3A50[arg3] + (arg0 << 6)) * arg1 * D_800969D8;
+    func_1501F72C(arg0, t, (f32 *)pos, arg3, &key);
+    if (*(u16 *)(*(u8 **)(D_800C3868 + arg3 * 0x78 + arg0 * 4) + key * 8 + 6) == 0) {
+        dx = pos[0].x - pos[1].x;
+        dz = pos[0].z - pos[1].z;
     } else {
-        func_1501FFE8(sp30, table, sp60, *(u16 *)((u32)*flags + byteOffset));
-        x = *(f32 *)(sp30 + 0x18) - *(f32 *)(sp30 + 0xC);
-        y = *(f32 *)(sp30 + 0x20) - *(f32 *)(sp30 + 0x14);
+        func_1501FFE8(points, *(void **)(D_800C3868 + arg3 * 0x78 + arg0 * 4), key,
+                      *(u16 *)((u8 *)D_800C35C8[arg3] + arg0 * 2));
+        dx = points[2].x - points[1].x;
+        dz = points[2].z - points[1].z;
     }
-    *arg2 = func_150484A0(x, y) * D_800969DC;
+    *arg2 = func_150484A0(dx, dz) * D_800969DC;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501FE68 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501FE68.s")
 
 typedef struct {
     s16 x, y, z;

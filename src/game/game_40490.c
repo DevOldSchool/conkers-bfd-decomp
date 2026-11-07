@@ -10,7 +10,6 @@
  * - func_15013DE8
  * - func_15014094
  * - func_15014B60
- * - func_15015354
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -880,14 +879,13 @@ typedef struct Game15354Packet {
     s32 zero;
 } Game15354Packet;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15015354 CURRENT (354) */
 void func_15015354(void *arg0) {
     Game15354Packet packet;
+    s32 result;
     Vec3f origin;
     Vec3f corners[4];
     f32 matrix[16];
-    register u8 index;
-    s32 result;
+    u8 index;
 
     packet.owner = arg0;
     packet.index = -1;
@@ -931,15 +929,13 @@ void func_15015354(void *arg0) {
     packet.edges[3].y = packet.corners[0].y - packet.corners[3].y;
     packet.edges[3].z = packet.corners[0].z - packet.corners[3].z;
     func_1510F800(0);
-    packet.region = func_1510FD20(*(s16 *)arg0, *(s16 *)((u8 *)arg0 + 4), arg0);
+    packet.region = func_1510FD20(*(s16 *)arg0, *(s16 *)((u8 *)arg0 + 4));
     packet.zero = 0;
     result = func_15149130(300, -1, 0x3D, -1, 0, 0x2E, sizeof(packet), 0xFF, 0);
     if (result != 0) {
         func_10022EC0((void *)(result + 0x28), &packet, sizeof(packet));
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15015354 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15015354.s")
 
 
 s32 func_15015644(void *arg0, void *arg1) {
