@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_15A840.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_call_singletons.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1512D390
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_1508EF80(f32 *, f32 *, f32, f32 *);
@@ -38,7 +33,6 @@ typedef struct Game15A840Owner {
     Game15A840State state;
 } Game15A840Owner;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512D390 CURRENT (490) */
 void func_1512D390(Game15A840Owner *arg0) {
     Game15A840State *state;
     u16 input;
@@ -46,15 +40,14 @@ void func_1512D390(Game15A840Owner *arg0) {
     f32 clamped;
 
     input = *arg0->input;
+    state = &arg0->state;
     if ((input & 3) && !(arg0->flags84 & 0x200000)) {
-        state = &arg0->state;
         if (arg0->lock == 0) {
             if (input & 1) {
                 arg0->state.direction = 1;
             } else {
                 arg0->state.direction = -1;
             }
-            clamped = -10.0f;
             state->counter++;
             state->rate += (f32)arg0->state.direction * 0.5f * D_800BE9A4;
             value = state->rate;
@@ -76,15 +69,10 @@ void func_1512D390(Game15A840Owner *arg0) {
                          (state->rate * D_800BE9A4) / 2.5f, arg0->vector);
         }
     } else {
-        Game15A840State *decayState = &arg0->state;
-        f32 old = decayState->rate;
-
-        if (0.0f != old) {
-            decayState->rate = old - (old * D_800A36E0 * D_800BE9A4);
+        if (state->rate != 0.0f) {
+            state->rate -= state->rate * D_800A36E0 * D_800BE9A4;
             func_1508EF80(arg0->vector, arg0->target,
-                         (decayState->rate * D_800BE9A4) / 2.5f, arg0->vector);
+                         (state->rate * D_800BE9A4) / 2.5f, arg0->vector);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1512D390 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15A840/func_1512D390.s")

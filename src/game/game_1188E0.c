@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150EB484
- * - func_150EB614
  * - func_150EB8C4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -94,7 +93,7 @@ typedef struct Game1188E0StateB614 {
     u8 pad40[0xF];
     u8 flags;
     u8 pad50[0x23];
-    volatile u8 mode;
+    u8 mode;
     u8 pad74[8];
     f32 damping, acceleration, velocity;
 } Game1188E0StateB614;
@@ -108,26 +107,28 @@ extern Game1188E0OwnerB614 D_800CC2D0;
 extern f32 D_800A14DC, D_800A14E0, D_800A14E4;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EB614 CURRENT (466) */
 void func_150EB614(f32 *arg0) {
-    register Game1188E0StateB614 *state;
-    f32 before;
+    f32 velocity;
+    f32 dx;
+    f32 target;
+    f32 dy;
+    f32 damping;
+    f32 acceleration;
+    f32 dz;
     f32 angle;
-    f32 acceleration, damping;
-    f32 target, velocity;
-    register f32 dx, dy, dz, distance, delta, magnitude;
-    register s32 flags;
-    u8 masked;
+    f32 before;
+    Game1188E0StateB614 *state;
+    f32 distance, delta, magnitude;
+    s32 flags;
 
     state = (void *)arg0;
     flags = state->mode;
     if ((flags & 3) != 3) {
         if ((flags & 3) != 2) {
             if (state->flags & 4) {
-                masked = flags & 0xFFFC;
                 if (D_800CC2D0.child->enabled != 0) {
-                    state->mode = masked;
-                    state->mode = masked | 2;
+                    state->mode = flags & 0xFFFC;
+                    state->mode |= 2;
                     state->packedTarget = 0;
                     state->damping = 0.5f;
                     state->acceleration = D_800A14DC;
@@ -174,15 +175,12 @@ void func_150EB614(f32 *arg0) {
         before = state->angle;
         func_15117770(arg0);
         if (before == state->angle) {
-            masked = state->mode & 0xFFFC;
-            state->mode = masked;
-            state->mode = masked | 3;
+            state->mode &= 0xFFFC;
+            state->mode |= 3;
             state->angle = 0.0f;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150EB614 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1188E0/func_150EB614.s")
 /* The constructor copies the full 0x7C-byte descriptor. */
 typedef struct Game1188E0Particle {
     f32 field0, field4, field8, fieldC;

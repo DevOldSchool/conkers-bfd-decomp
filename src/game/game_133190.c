@@ -10,7 +10,6 @@
  * - func_15106214
  * - func_15106610
  * - func_151067B8
- * - func_15106F98
  * - func_151070F8
  * - func_15107700
  *
@@ -465,14 +464,12 @@ typedef struct Game133190SpawnPacket {
 void *func_10022EC0(void *, const void *, u32);
 void func_151070F8(s32, s32, s16, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15106F98 CURRENT (505) */
 s32 func_15106F98(Vec3i *arg0, Vec3i *arg1,
                   s32 arg2, Game133190FourTriples *arg3, s32 arg4,
                   u8 arg5, u8 arg6, s32 arg7) {
     s32 result;
     Game133190SpawnPacket packet;
     u8 *object;
-    Vec3i *positions;
 
     packet.count = (1 << arg2) + 1;
     packet.field48 = 0;
@@ -484,16 +481,13 @@ s32 func_15106F98(Vec3i *arg0, Vec3i *arg1,
     if (result != 0) {
         object = (u8 *)result + 0x28;
         func_10022EC0(object, &packet, 0x44);
-        positions = (Vec3i *)(object + 0x48);
-        *(Vec3i **)(object + 0xC) = positions;
-        positions[0] = *arg0;
-        positions[packet.count - 1] = *arg1;
+        *(Vec3i **)(object + 0xC) = (Vec3i *)(object + 0x48);
+        (*(Vec3i **)(object + 0xC))[0] = *arg0;
+        (*(Vec3i **)(object + 0xC))[packet.count - 1] = *arg1;
         func_151070F8(result, 0, (s16)(packet.count - 1), arg4);
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15106F98 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15106F98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151070F8.s")
 
 

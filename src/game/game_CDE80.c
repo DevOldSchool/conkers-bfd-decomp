@@ -19,7 +19,6 @@
  * - func_150A2CA4
  * - func_150A2E4C
  * - func_150A2EE4
- * - func_150A2FA4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -711,25 +710,19 @@ s32 func_150A2EE4(s32 arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A2EE4.s")
 extern s32 D_800DBFF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A2FA4 CURRENT (495) */
 s32 func_150A2FA4(s32 arg0, s32 arg1) {
-    s32 temp_t0;
-    u32 temp_t8;
-    u8 *temp_v0;
+    u8 *actor;
 
-    temp_t8 = arg1 & 0xFFF;
-    temp_v0 = (void *)((arg0 * 0x9A0) + D_800DBFF0);
-    if ((u32) D_800D3094 < temp_t8) {
+    actor = (u8 *)((arg0 * 0x9A0) + D_800DBFF0);
+    arg1 &= 0xFFF;
+    if (D_800D3094 < arg1) {
         return 1;
     }
-    temp_t0 = temp_t8 * 0x34;
-    if ((*(u8 *)((u8 *)(D_800D3098 + temp_t0) + 0x15) & 3) == 3) {
-        return func_150A2E4C(temp_t0 + D_800D3098, *(f32 *)((u8 *)temp_v0 + 0x2F8), *(f32 *)((u8 *)temp_v0 + 0x2FC), *(f32 *)((u8 *)temp_v0 + 0x300));
+    if ((((GameCDE80Zone *)D_800D3098)[arg1].flags & 3) == 3) {
+        return func_150A2E4C(arg1 * 0x34 + D_800D3098, *(f32 *)(actor + 0x2F8), *(f32 *)(actor + 0x2FC), *(f32 *)(actor + 0x300));
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150A2FA4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A2FA4.s")
 typedef struct {
     u8 pad0[0x14];
     f32 x;

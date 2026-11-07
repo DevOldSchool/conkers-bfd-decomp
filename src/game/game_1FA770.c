@@ -466,7 +466,7 @@ typedef struct {
 
 void *func_151CE634(s32);
 void func_1515C1A0(void *, void *, f32 *, f32 *);
-void func_1505D024(void *, s32, s32, s32);
+s32 func_1505D024(void *, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CE51C CURRENT (1718) */
 void func_151CE51C(void *arg0, void *arg1) {

@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15149838
- * - func_15149A94
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -184,7 +183,8 @@ typedef struct Game176A00Motion {
     volatile s16 timerC;
     s16 rangeC;
     f32 factorC;
-    u8 pad40[8];
+    u8 pad40[4];
+    f32 factor44;
     u8 effect;
 } Game176A00Motion;
 
@@ -249,57 +249,38 @@ s32 func_15149838(u8 *arg0) {
 extern f32 D_800A578C;
 extern f32 D_800A5790;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15149A94 CURRENT (475) */
-s32 func_15149A94(void *arg0) {
-    u8 *actor = arg0;
-    s32 flags = actor[0x74];
-    s32 ready = 1;
-    u8 *target;
-    f32 current;
-    f32 target_value;
-    f32 factor;
+s32 func_15149A94(u8 *arg0) {
+    Game176A00Motion *motion = (Game176A00Motion *)(arg0 + 0x110);
+    s32 flags = arg0[0x74];
+    s32 ready = TRUE;
 
     if (!(flags & 2)) {
-        target = actor + 0x110;
-        target_value = *(volatile f32 *)(target + 8);
-        current = *(volatile f32 *)(actor + 0x2C);
-        factor = *(volatile f32 *)(target + 0x44);
-        *(volatile f32 *)(actor + 0x2C) = current +
-            ((target_value - current) * factor);
-        if ((*(volatile f32 *)(target + 8) * D_800A578C) < *(volatile f32 *)(actor + 0x2C)) {
-            flags = actor[0x74] | 2;
-            actor[0x74] = (u8)flags;
-            flags &= 0xFF;
+        *(f32 *)(arg0 + 0x2C) += (motion->targetA - *(f32 *)(arg0 + 0x2C)) * motion->factor44;
+        if (motion->targetA * D_800A578C < *(f32 *)(arg0 + 0x2C)) {
+            flags = arg0[0x74] |= 2;
         } else {
-            ready = 0;
-            flags = actor[0x74];
+            ready = FALSE;
+            flags = arg0[0x74];
         }
     }
-    target = actor + 0x110;
     if (!(flags & 8)) {
-        current = *(volatile f32 *)(actor + 0x30);
-        target_value = *(volatile f32 *)(target + 0x20);
-        factor = *(volatile f32 *)(target + 0x44);
-        *(volatile f32 *)(actor + 0x30) = current +
-            ((target_value - current) * factor);
-        if ((*(volatile f32 *)(target + 0x20) * D_800A5790) < *(volatile f32 *)(actor + 0x30)) {
-            actor[0x74] |= 8;
+        *(f32 *)(arg0 + 0x30) += (motion->targetB - *(f32 *)(arg0 + 0x30)) * motion->factor44;
+        if (motion->targetB * D_800A5790 < *(f32 *)(arg0 + 0x30)) {
+            arg0[0x74] |= 8;
         } else {
-            ready = 0;
+            ready = FALSE;
         }
     }
-    if (ready != 0) {
-        func_1513F680(arg0, actor[0x70], 0xD, actor[0x72], actor[0x73]);
+    if (ready) {
+        func_1513F680(arg0, arg0[0x70], 0xD, arg0[0x72], arg0[0x73]);
     }
-    if (*(s16 *)(actor + 0x1C) < 5) {
-        func_1513F680(arg0, actor[0x70], actor[0x158], actor[0x72], actor[0x73]);
-        *(s16 *)(actor + 0x1C) = 0x64;
-        *(s32 *)(actor + 0x58) &= ~1;
+    if (*(s16 *)(arg0 + 0x1C) < 5) {
+        func_1513F680(arg0, arg0[0x70], motion->effect, arg0[0x72], arg0[0x73]);
+        *(s16 *)(arg0 + 0x1C) = 100;
+        *(s32 *)(arg0 + 0x58) &= ~1;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15149A94 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_176A00/func_15149A94.s")
 s32 func_15149BF4(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x2C) -= *(f32 *)((u8 *)arg0 + 0x2C) * *(f32 *)((u8 *)arg0 + 0x150);
     *(f32 *)((u8 *)arg0 + 0x30) -= *(f32 *)((u8 *)arg0 + 0x30) * *(f32 *)((u8 *)arg0 + 0x150);

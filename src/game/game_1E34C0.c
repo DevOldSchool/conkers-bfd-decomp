@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_compact_display_resource_pairs.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151B6010
  * - func_151B6254
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -34,7 +33,6 @@ void *func_10022EC0(void *, const void *, u32);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 extern f32 D_800AA450;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B6010 CURRENT (490) */
 void *func_151B6010(Vec3f *arg0, Vec3f *arg1,
                    f32 arg2, Vec3f *arg3, Vec3f *arg4,
                    f32 arg5, s16 arg6, u8 arg7, s32 arg8, f32 arg9,
@@ -61,7 +59,8 @@ void *func_151B6010(Vec3f *arg0, Vec3f *arg1,
         spawn.lifetime = 300;
         step = 0x100 >> arg10;
     } else {
-        spawn.lifetime = (step = 0x100 >> arg10) + arg6;
+        step = 0x100 >> arg10;
+        spawn.lifetime = arg6 + step;
         spawn.flags = 0x3980;
     }
     if (arg1 != 0) {
@@ -86,6 +85,7 @@ void *func_151B6010(Vec3f *arg0, Vec3f *arg1,
     spawn.resource = 3;
     spawn.field58 = 0;
     spawn.field5C = 0;
+    spawn.field60 = arg7;
     spawn.field61 = 6;
     spawn.field62 = 0;
     spawn.field63 = 6;
@@ -99,15 +99,12 @@ void *func_151B6010(Vec3f *arg0, Vec3f *arg1,
     spawn.field70 = 0;
     spawn.step = step;
     spawn.rate = 0xFF / step;
-    spawn.field60 = arg7;
     result = func_15132A4C(&spawn, 3, 0xFF, 8, arg12, arg13);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0x170, extra, sizeof(extra));
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B6010 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E34C0/func_151B6010.s")
 f32 func_15047D60(f32);
 void func_15133894(void *);
 extern f32 D_800AA454;

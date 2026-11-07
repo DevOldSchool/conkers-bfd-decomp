@@ -8,8 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151A37C0
  * - func_151A3BE4
- * - func_151A4638
- * - func_151A4A38
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -434,7 +432,6 @@ void *func_15130374(s32, u8, s32, u8, s32);
 extern f32 D_800A8D60;
 extern f32 D_800BE9A8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4638 CURRENT (470) */
 void func_151A4638(f32 x, f32 y, f32 z, f32 velocityX, f32 velocityY,
                    f32 velocityZ, u8 *owner) {
     Game1D0840EmitterPacket packet;
@@ -460,7 +457,7 @@ void func_151A4638(f32 x, f32 y, f32 z, f32 velocityX, f32 velocityY,
     packet.field20 = 0xFF;
     packet.field22 = 1;
     packet.field24 = 1.0f;
-    packet.field28 = func_150ADA68() * 50.0f + 500.0f;
+    packet.field28 = packet.field2C = func_150ADA68() * 50.0f + 500.0f;
     packet.position.x = x;
     packet.position.y = y;
     packet.position.z = z;
@@ -470,7 +467,6 @@ void func_151A4638(f32 x, f32 y, f32 z, f32 velocityX, f32 velocityY,
     packet.flags58 = 0xD;
     packet.field60 = 1;
     packet.field61 = 1;
-    packet.field2C = packet.field28;
     packet.velocity.z = -velocityZ * scale;
     packet.field54 = 0.0f;
     if (func_150ADA20() & 1) {
@@ -494,8 +490,6 @@ void func_151A4638(f32 x, f32 y, f32 z, f32 velocityX, f32 velocityY,
         func_10022EC0(result + 0xA8, parameters, 0xC);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A4638 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4638.s")
 extern s32 D_800BE9E4;
 
 s32 func_151A483C(u8 *arg0, s32 arg1) {
@@ -620,33 +614,30 @@ typedef struct Game1D0840BurstPacket {
 void func_15143134(f32 *, f32 *, s32);
 void func_15153634(Game1D0840BurstPacket *, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4A38 CURRENT (463) */
 void func_151A4A38(u8 *object) {
-    u8 *owner;
+    Game1D0840EffectPacket *state;
     Vec3f position;
     Game1D0840BurstPacket packet;
     s16 angle;
-    Game1D0840EffectPacket *state;
 
     state = (Game1D0840EffectPacket *) (object + 0x28);
     if ((*(s32 *) *(void **) (object + 0x28) == 0) ||
-        (owner = state->field_0, *(s32 *) owner == 8) ||
-        (state->field_4 != owner[0x3B])) {
+        (*(s32 *) state->field_0 == 8) ||
+        (state->field_4 != ((u8 *) state->field_0)[0x3B])) {
         *(s16 *) (object + 0xE) = -1;
         object[0xD] |= 1;
         return;
     }
-    if ((*(void **) (owner + 0x1D4) != 0) &&
-        ((owner[0x74] & 0xF) != 0xF)) {
+    if ((*(void **) (((u8 *) state->field_0) + 0x1D4) != 0) &&
+        ((((u8 *) state->field_0)[0x74] & 0xF) != 0xF)) {
         state->field_C += state->field_8 * D_800BE9A4;
         if (state->field_C > 1.0f) {
-            owner = state->field_0;
-            angle = (*(u16 *) (owner + 0x76) >> 8) - 0x40;
+            angle = (*(u16 *) (((u8 *) state->field_0) + 0x76) >> 8) - 0x40;
             func_15143134(&state->field_14, &position.x,
-                         (s32) *(u8 **) (owner + 0x1D4) +
+                         (s32) *(u8 **) (((u8 *) state->field_0) + 0x1D4) +
                          (state->field_10 << 6));
-            packet.countRange = 0;
             packet.count = (s32) state->field_C;
+            packet.countRange = 0;
             state->field_C -= (f32) packet.count;
             packet.callback = 0x28;
             packet.field06 = 0xC01;
@@ -666,6 +657,7 @@ void func_151A4A38(u8 *object) {
             packet.field30 = 300.0f;
             packet.field34 = 400.0f;
             packet.position = position;
+            packet.field2C = 1.0f;
             packet.field26 = 1;
             packet.field28 = 0;
             packet.field2A = 1;
@@ -680,7 +672,6 @@ void func_151A4A38(u8 *object) {
             packet.field54 = -0.5f;
             packet.field58 = -0.5f;
             packet.field4C = 0.0f;
-            packet.field2C = 1.0f;
             packet.field50 = 15.0f;
             if (func_150ADA20() & 1) {
                 packet.flags5C |= 0x40;
@@ -697,8 +688,6 @@ void func_151A4A38(u8 *object) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A4A38 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4A38.s")
 void func_151A4CE0(void *arg0, void *arg1, u8 arg2) {
     void *temp_v0;
     s32 value;

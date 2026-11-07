@@ -9,7 +9,6 @@
  * - func_1514A6A0
  * - func_1514B034
  * - func_1514B364
- * - func_1514B8E4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -388,8 +387,6 @@ s32 func_1514B8B0(void *arg0) {
 void *func_10022EC0(void *, const void *, u32);
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 extern u8 D_800A4AA0[];
-extern f32 D_800A5860, D_800A5864, D_800A5868, D_800A586C;
-extern f32 D_800A5870, D_800A5874, D_800A5878, D_800A587C, D_800A5880, D_800A5884;
 
 typedef struct {
     s8 kind, mode;
@@ -413,7 +410,6 @@ typedef struct {
     Vec3f velocity;
 } Game177B50Motion;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514B8E4 CURRENT (460) */
 void *func_1514B8E4(Vec3f *arg0, f32 *arg1, s16 arg2, u8 arg3,
                      Vec3f *arg4, f32 arg5, f32 arg6, f32 arg7,
                      u8 arg8, u8 arg9, u8 arg10, s32 arg11, u8 arg12,
@@ -437,24 +433,24 @@ void *func_1514B8E4(Vec3f *arg0, f32 *arg1, s16 arg2, u8 arg3,
     motion.values[8] = 0.0f;
     motion.values[12] = 0.0f;
     particle.fieldC = 0x3E3F;
-    motion.values[13] = D_800A5860;
-    motion.values[11] = D_800A5860;
-    motion.values[9] = D_800A5864;
+    motion.values[13] = 15935.0f;
+    motion.values[11] = 15935.0f;
     motion.velocity.y = arg6;
     motion.velocity.z = arg7;
-    motion.values[10] = D_800A5868;
-    motion.values[0] = arg1[0] * D_800A586C;
-    motion.values[2] = arg1[0] * D_800A5870;
-    motion.values[4] = arg1[0] * D_800A5874;
+    motion.values[9] = 6733.0f;
+    motion.values[10] = 18404.0f;
+    motion.values[0] = arg1[0] * 15.045272f;
+    motion.values[2] = arg1[0] * 5.8676558f;
+    motion.values[4] = arg1[0] * 12.111444f;
     particle.field14 = 0.0f;
-    motion.values[1] = arg1[1] * D_800A5878;
-    motion.values[3] = arg1[1] * D_800A587C;
-    motion.values[6] = arg1[1] * D_800A5880;
-    motion.values[5] = arg1[1] * D_800A5884;
+    motion.values[1] = arg1[1] * 0.396174f;
+    motion.values[3] = arg1[1] * 0.1042563f;
+    motion.values[6] = arg1[1] * 0.5197371f;
+    motion.values[5] = arg1[1] * 0.34404588f;
     particle.field18 = 0.0f;
     particle.mode = 0;
-    particle.texture = 0x2203;
     particle.kind = arg11;
+    particle.texture = 0x2203;
     if (arg2 == -1) particle.lifetime = 300;
     else particle.lifetime = arg2;
     particle.field8 = 0;
@@ -473,11 +469,11 @@ void *func_1514B8E4(Vec3f *arg0, f32 *arg1, s16 arg2, u8 arg3,
     timed = (arg2 == -1) ? 0 : 1;
     flag2 = (arg12 & 2) ? 0x2000000 : 0;
     particle.flags = flag2 | timed | 0x40000 | 0x80000 | 0x200000 | 0x400000 | flag1 | 0x40000000;
+    particle.field44 = arg3;
     particle.field45 = 255;
     particle.field46 = 0;
     particle.field47 = 7;
     particle.field48 = 0;
-    particle.field44 = arg3;
     particle.field54 = arg13;
     particle.field56 = arg14;
     if (func_150ADA20() & 1) flag2 = 1;
@@ -489,8 +485,6 @@ void *func_1514B8E4(Vec3f *arg0, f32 *arg1, s16 arg2, u8 arg3,
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514B8E4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514B8E4.s")
 extern f32 D_800A5888;
 extern f32 D_800A588C;
 extern f32 D_800A5890;

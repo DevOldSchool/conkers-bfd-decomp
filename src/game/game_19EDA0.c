@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151718F0
- * - func_15171BF4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -67,18 +66,13 @@ void func_151718F0(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151718F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19EDA0/func_151718F0.s")
-extern void func_150AEEB0(u8 *arg0, s32 arg1);
+extern void func_150AEEB0(u8 *arg0, u8 arg1);
 extern void func_10010154(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4);
-extern void func_150BD740(u8 *arg0, s32 arg1, s32 arg2);
-extern void func_150CDBB0(u8 *arg0, s32 arg1, s32 arg2);
+extern void func_150BD740(u8 *arg0, u8 arg1, s32 arg2);
+extern void func_150CDBB0(u8 *arg0, u8 arg1, s32 arg2);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15171BF4 CURRENT (495) */
-void func_15171BF4(u8 *arg0, s32 arg1) {
-    u8 type;
-
-    arg1 &= 0xFF;
-    type = arg0[4];
-    switch (type) {
+void func_15171BF4(u8 *arg0, u8 arg1) {
+    switch (arg0[4]) {
     case 0x13:
     case 0x23:
         func_150AEEB0(arg0, arg1);
@@ -92,5 +86,3 @@ void func_15171BF4(u8 *arg0, s32 arg1) {
         break;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15171BF4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_19EDA0/func_15171BF4.s")

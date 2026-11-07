@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151B65D4
  * - func_151B6928
- * - func_151B7144
  * - func_151B7328
  * - func_151B7998
  * - func_151B7C38
@@ -315,16 +314,15 @@ typedef struct Game1E37D0ParticleSpawn {
     s8 negative1;
     s8 negative2;
     s8 zero65;
+    u8 pad66[0xA];
 } Game1E37D0ParticleSpawn;
 
 f32 func_150ADA68(void);
 extern f32 D_800AA47C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B7144 CURRENT (493) */
-void func_151B7144(u8 *arg0, s32 arg1, s32 arg2) {
-    f32 size;
-    s32 secondFlag;
+void func_151B7144(u8 *arg0, u8 arg1, s32 arg2) {
     Game1E37D0ParticleSpawn spawn;
+    s32 secondFlag;
     s32 firstFlag;
 
     spawn.kind = 0x29;
@@ -345,7 +343,7 @@ void func_151B7144(u8 *arg0, s32 arg1, s32 arg2) {
     } else {
         secondFlag = 0;
     }
-    spawn.flags = secondFlag | 1 | firstFlag | 0xCE00 | 0x10000;
+    spawn.flags = secondFlag | 1 | firstFlag | 0x8000 | 0x4000 | 0x800 | 0x400 | 0x200 | 0x10000;
     spawn.mode0 = 3;
     spawn.mode1 = 3;
     spawn.negative0 = -1;
@@ -371,17 +369,12 @@ void func_151B7144(u8 *arg0, s32 arg1, s32 arg2) {
     spawn.velocity[2] = 0.0f;
     spawn.colors[7] = (func_150ADA20() % 56U) + 0xC8;
     spawn.lifetime = (func_150ADA20() % 10U) + 0x1E;
-    size = func_150ADA68();
-    size = (size * 50.0f) + 89.0f;
+    spawn.sizeX = spawn.sizeY = (func_150ADA68() * 50.0f) + 89.0f;
     spawn.acceleration[0] = 0.0f;
     spawn.acceleration[1] = 0.0f;
-    spawn.sizeX = size;
-    spawn.sizeY = size;
     spawn.acceleration[2] = 0.0f;
-    func_15130280(&spawn, 1, 0, 0, (u8)arg1, arg2);
+    func_15130280(&spawn, 1, 0, 0, arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B7144 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B7144.s")
 
 typedef struct Game1E37D0RingEntry {
     Vec3f position;
@@ -438,7 +431,6 @@ Game1E37D0RingObject *func_151B7328(void *arg0, s32 arg1, u32 arg2, s32 arg3, s3
     Game1E37D0RingState *state;
     struct {
         Game1E37D0ParticleSpawn fields;
-        u8 tail68[8];
     } packet;
     Game1E37D0FourChoices choices;
     Game1E37D0RingObject *result;

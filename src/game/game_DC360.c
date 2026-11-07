@@ -32,8 +32,8 @@ typedef struct GameDC360Options {
     u8 field1C, field1D;
 } GameDC360Options;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AEEB0 CURRENT (3206) */
-void func_150AEEB0(void *arg0, s32 arg1) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AEEB0 CURRENT (2367) */
+void func_150AEEB0(void *arg0, u8 arg1) {
     f32 horizontal;
     GameDC360Spawn spawn;
     GameDC360Motion motion;

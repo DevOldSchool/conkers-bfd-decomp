@@ -14,7 +14,6 @@
  * - func_15030AF4
  * - func_15031070
  * - func_150311C4
- * - func_1503195C
  * - func_15031E7C
  * - func_15031FC8
  * - func_150331B8
@@ -585,31 +584,30 @@ void func_1503192C(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 extern void * D_800C3EE0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503195C CURRENT (495) */
 void *func_1503195C(void *arg0, s32 arg1, s32 arg2) {
-    u8 temp_v0;
+    s32 key;
     void *var_v1;
+    void *next;
 
-    temp_v0 = *(u8 *)((u8 *)arg0 + 0x3B);
-    if (temp_v0 == 0) {
+    key = *(u8 *)((u8 *)arg0 + 0x3B);
+    if (key == 0) {
         return 0;
     }
     var_v1 = D_800C3EE0;
     while (var_v1 != 0) {
-        arg0 = *(void **)((u8 *)var_v1 + 0x54);
-        if ((temp_v0 == *(u8 *)var_v1) && (arg1 == *(u8 *)((u8 *)var_v1 + 6))) {
-            if (arg2--) {
-                var_v1 = arg0;
+        next = *(void **)((u8 *)var_v1 + 0x54);
+        if ((key == *(u8 *)var_v1) && (arg1 == *(u8 *)((u8 *)var_v1 + 6))) {
+            if (arg2 != 0) {
+                arg2--;
+                var_v1 = next;
                 continue;
             }
             return var_v1;
         }
-        var_v1 = arg0;
+        var_v1 = next;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503195C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_1503195C.s")
 void *func_150319CC(s32 arg0, void *arg1) {
     u8 key;
     void *next;
