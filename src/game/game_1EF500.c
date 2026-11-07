@@ -522,7 +522,7 @@ s32 func_151C2E94(void *arg0, void *arg1) {
     return 1;
 }
 void func_151D4DAC(s32, s32, s32, s32, s32, s32, void *, s32, s32);
-void func_15081690(f32, s32, s32, s32, f32, f32, f32, void *, f32,
+void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32,
                    s32, s32, s32, s32, s32, s32);
 
 void func_151C2EF0(s32 arg0, s32 arg1, void *arg2, s32 arg3, s32 arg4, s32 arg5) {
@@ -966,7 +966,7 @@ void func_151C436C(s32 arg0, void *arg1, s32 arg2) {
         *(f32 *)((u8 *)arg1 + 0x18) += (*(f32 *)((u8 *)arg1 + 0x24) - *(f32 *)((u8 *)arg1 + 0x18)) * 0.228659f;
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C43E0 CURRENT (1633) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C43E0 CURRENT (1331) */
 u8 func_151C43E0(void *arg0, u8 *arg1, f32 arg2) {
     u8 spDF;
     s32 spD8;
@@ -988,10 +988,10 @@ u8 func_151C43E0(void *arg0, u8 *arg1, f32 arg2) {
         }
         if (var_fv0 != 0.0f) {
             spDF = 1;
-            func_15081690(*(f32 *)&spD8,
-                          *(s32 *)((u8 *)arg0 + 0x34),
-                          *(s32 *)((u8 *)arg0 + 0x38),
-                          *(s32 *)((u8 *)arg0 + 0x3C),
+            func_15081690((void *)spD8,
+                          *(f32 *)((u8 *)arg0 + 0x34),
+                          *(f32 *)((u8 *)arg0 + 0x38),
+                          *(f32 *)((u8 *)arg0 + 0x3C),
                           *(f32 *)(arg1 + 0x60),
                           *(f32 *)(arg1 + 0x64),
                           *(f32 *)(arg1 + 0x68), sp64, var_fv0, 1, 0,

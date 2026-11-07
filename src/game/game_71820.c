@@ -369,7 +369,7 @@ s32 func_15044D40(void *arg0) {
                   0xFF, 0, 0, sp1C);
     return 0;
 }
-extern void func_1505D024(void *arg0, s32 arg1, s32 arg2, s32 arg3);
+extern s32 func_1505D024(void *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern u8 D_800CC2D0[];
 
 void func_15044DA0(void) {

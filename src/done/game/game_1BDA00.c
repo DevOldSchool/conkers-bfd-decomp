@@ -26,7 +26,7 @@ void func_15190550(Game1BDA00CallbackState *arg0, void *arg1, u8 arg2) {
         callback(arg0, arg1, arg2);
     }
 }
-void func_1505D024(void *, s32, s32, s32);
+s32 func_1505D024(void *, s32, s32, s32);
 extern s32 D_800BE9E4;
 extern s32 D_800CC2D0;
 

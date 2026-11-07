@@ -13,7 +13,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_1505D024(s32, s32, s32, s32);
+s32 func_1505D024(void *, s32, s32, s32);
 typedef struct GameCollisionHeightActor {
     u8 pad00[0x18];
     f32 y;
@@ -34,13 +34,13 @@ void func_150AF200(s32 arg0, s32 arg1) {
         delta = (s32)((u32)func_151149AC((u8)arg0) - (u32)D_800DBEF4);
         delta /= 160;
         if (*(s32 *)((u32)D_800DBF94 + (u32)delta * 4U) & 1) {
-            func_1505D024((s32)&D_800CC2D0, 0x3F, 0x6E00, -1);
+            func_1505D024(&D_800CC2D0, 0x3F, 0x6E00, -1);
             return;
         }
         delta = (s32)((u32)func_151149AC((u8)arg1) - (u32)D_800DBEF4);
         delta /= 160;
         if (*(s32 *)((u32)D_800DBF94 + (u32)delta * 4U) & 1) {
-            func_1505D024((s32)&D_800CC2D0, 0x3F, 0xEE00, -1);
+            func_1505D024(&D_800CC2D0, 0x3F, 0xEE00, -1);
         }
     }
 }

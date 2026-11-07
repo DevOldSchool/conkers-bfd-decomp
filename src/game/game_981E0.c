@@ -213,7 +213,15 @@ void func_1506B268(void) {
     func_1505E650(D_800D154C, 0xF, 1.0f, 6.0f, 0.0f, 0.0f, 0);
 }
 typedef struct Game981E0ActorRecord {
-    u8 pad0[0x218];
+    u8 pad0[0x65];
+    u8 field_65;
+    u8 pad66[0x10];
+    s16 field_76;
+    u8 pad78[0xAD];
+    u8 field_125;
+    u8 pad126[0xA6];
+    f32 field_1CC;
+    u8 pad1D0[0x48];
     s32 field_218;
     u8 pad21C[0x16];
     u8 field_232;
@@ -3728,17 +3736,17 @@ void func_15073A50(void) {
 
     parent = D_800D154C;
     index = parent[0x124];
-    if (((u8 (*)[0x32C])&D_800CC2D0)[index][0x65] != 0) {
+    if (((Game981E0ActorRecord *)&D_800CC2D0 + index)->field_65 != 0) {
         flags = D_800D1580;
         parent[0x13C] = 0;
-        ((u8 (*)[0x32C])&D_800CC2D0)[index][0x125] = 0;
-        func_1505D024(((u8 (*)[0x32C])&D_800CC2D0)[index], D_800D1580 & 0xFF00FF, 0, D_800C3E78);
-        *(f32 *)(((u8 (*)[0x32C])&D_800CC2D0)[index] + 0x1CC) = D_8009A0D8;
+        ((Game981E0ActorRecord *)&D_800CC2D0 + index)->field_125 = 0;
+        func_1505D024((Game981E0ActorRecord *)&D_800CC2D0 + index, D_800D1580 & 0xFF00FF, 0, D_800C3E78);
+        ((Game981E0ActorRecord *)&D_800CC2D0 + index)->field_1CC = D_8009A0D8;
         if (flags & 0x40000000) {
-            *(f32 *)(((u8 (*)[0x32C])&D_800CC2D0)[index] + 0x1CC) = *(f32 *)(D_800D154C + 0x18);
+            ((Game981E0ActorRecord *)&D_800CC2D0 + index)->field_1CC = *(f32 *)(D_800D154C + 0x18);
         }
-        ((u8 (*)[0x32C])&D_800CC2D0)[index][0x125] = 0x14;
-        *(s16 *)(((u8 (*)[0x32C])&D_800CC2D0)[index] + 0x76) = *(u16 *)(D_800D154C + 0x7A) + flags;
+        ((Game981E0ActorRecord *)&D_800CC2D0 + index)->field_125 = 0x14;
+        ((Game981E0ActorRecord *)&D_800CC2D0 + index)->field_76 = *(u16 *)(D_800D154C + 0x7A) + flags;
     }
 }
 void func_15073B38(void) {

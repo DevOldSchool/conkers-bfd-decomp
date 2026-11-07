@@ -630,10 +630,10 @@ void func_1515F270(void *arg0, void *arg1) {
         }
     }
 }
-void func_1505D024(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+s32 func_1505D024(void *arg0, s32 arg1, s32 arg2, s32 arg3);
 
 void func_1515F2B8(void *arg0, s32 arg1) {
-    func_1505D024((s32)arg0, 0x6001D, *(u16 *)((u8 *)arg0 + 0x7A), -1);
+    func_1505D024(arg0, 0x6001D, *(u16 *)((u8 *)arg0 + 0x7A), -1);
 }
 typedef struct {
     u8 pad_0[0x3B];
@@ -757,7 +757,7 @@ void func_1515FB70(void *arg0, void *arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515FB70 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515FB70.s")
 void func_1515FB94(void *arg0, s32 arg1) {
-    func_1505D024((s32)arg0, 0x6002D, *(u16 *)((u8 *)arg0 + 0x7A), -1);
+    func_1505D024(arg0, 0x6002D, *(u16 *)((u8 *)arg0 + 0x7A), -1);
 }
 typedef struct Game18A8F0Actor {
     u8 pad0[0x7A];
@@ -787,12 +787,12 @@ void func_1515FBC4(Game18A8F0Actor *arg0, s32 arg1) {
     } else {
         actor_index = -1;
     }
-    func_1505D024((s32)arg0, 0x6002E, arg0->field_7A, actor_index);
+    func_1505D024(arg0, 0x6002E, arg0->field_7A, actor_index);
 }
-void func_1505D024(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+s32 func_1505D024(void *arg0, s32 arg1, s32 arg2, s32 arg3);
 
 void func_1515FC34(s32 arg0, s32 arg1) {
-    func_1505D024(arg0, 0x33, 0xC000, -1);
+    func_1505D024((void *)arg0, 0x33, 0xC000, -1);
 }
 struct Blood36C3CActor;
 void func_15136C3C(struct Blood36C3CActor *, u8, u8, u8, u8, u8, u8, s32);
@@ -817,7 +817,7 @@ void func_1515FC60(u8 *arg0, u8 *arg1) {
                 return;
             }
         }
-        func_1505D024((s32)arg0, 0x2F, 0, -1);
+        func_1505D024(arg0, 0x2F, 0, -1);
         func_15136C3C((struct Blood36C3CActor *)arg0, 1, 1, 1, 1, 0, 0xFF, 1);
         func_15145A50(arg0);
         func_1507CD64(arg0, 6);

@@ -92226,7 +92226,7 @@
           "vram": "0x1512D390"
         }
       },
-      "source": "src/game/game_15A840.c",
+      "source": "src/done/game/game_15A840.c",
       "symbol": "func_1512D390"
     },
     {
@@ -92281,7 +92281,7 @@
           "vram": "0x150163D0"
         }
       },
-      "source": "src/game/game_43880.c",
+      "source": "src/done/game/game_43880.c",
       "symbol": "func_150163D0"
     },
     {
@@ -92389,7 +92389,7 @@
           "vram": "0x15015E80"
         }
       },
-      "source": "src/game/game_43330.c",
+      "source": "src/done/game/game_43330.c",
       "symbol": "func_15015E80"
     },
     {

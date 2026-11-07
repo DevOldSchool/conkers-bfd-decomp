@@ -19,7 +19,7 @@ typedef struct Game1D3FC0Node {
     Game1D3FC0Actor *field_38;
 } Game1D3FC0Node;
 
-void func_1505D024(s32, s32, s32, s32);
+s32 func_1505D024(void *, s32, s32, s32);
 Game1D3FC0Node *func_151A6BD8(s32);
 extern Game1D3FC0Actor D_800CC2D0[];
 
@@ -45,7 +45,7 @@ void func_151A6B68(Game1D3FC0Actor *arg0, s32 arg1) {
     } else {
         actor_index = -1;
     }
-    func_1505D024((s32)arg0, 0x60034, arg0->field_7A, actor_index);
+    func_1505D024(arg0, 0x60034, arg0->field_7A, actor_index);
 }
 extern s32 D_800A5770[];
 extern u8 D_800DCE50[];

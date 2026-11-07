@@ -279,7 +279,7 @@ typedef struct GameF5D80Wave {
 } GameF5D80Wave;
 extern u8 D_800CC2D0[];
 extern u8 D_800D121C[];
-void func_1505D024(void *, s32, s32, s32);
+s32 func_1505D024(void *, s32, s32, s32);
 f32 sqrtf(f32);
 __pragma(1, sqrtf);
 

@@ -471,7 +471,7 @@ extern f32 D_8009FF70[12];
 extern f32 D_8009FFA0[12];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150BD740 CURRENT (2337) */
-void func_150BD740(u8 *arg0, s32 arg1, s32 arg2) {
+void func_150BD740(u8 *arg0, u8 arg1, s32 arg2) {
     f32 pointsA[12];
     f32 pointsB[12];
     f32 pointsC[12];
