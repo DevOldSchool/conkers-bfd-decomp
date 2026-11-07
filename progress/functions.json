@@ -16869,17 +16869,16 @@
       "symbol": "func_15015300"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 354,
-        "reason": "CURRENT (354) retained; no new edit. Besides scratch layout, existing three-argument func_1510FD20 declaration supplies an ignored a2 where raw does not define it. Shared contract audit/change is outside this source-only task; no padding or ABI change attempted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 752,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15015354",
           "vram": "0x15015354"
         }
@@ -31349,17 +31348,16 @@
       "symbol": "func_1509B8FC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 355,
-        "reason": "Manual word cumulative offset, observed volatile intermediate SH, byte alignment adjustment improve910 to355. Byte adjustment retains raw subtraction but adds ANDI; signed and unsigned word adjustments reassociate and score505. GPR and final addition order remain. Best355 after3 revisions.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 180,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509B950",
           "vram": "0x1509B950"
         }
@@ -39625,17 +39623,16 @@
       "symbol": "func_1501FC8C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 351,
-        "reason": "Best valid CURRENT351: wrapping flag/time/table/key-index word addresses repair invalid signed products/left shift. Natural24B output-only structure neutral; prior whole packed-local probe failed. Full instruction/control count aligned; frame90 versus88, index74/raw60, positions78/raw6C, scratch44/raw30 and9FPR rows remain. Two fresh revisions exhausted; simpler valid array retained; no shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 384,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501FE68",
           "vram": "0x1501FE68"
         }
@@ -77550,17 +77547,16 @@
       "symbol": "func_151BA084"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 350,
-        "reason": "Manual u8 selector, corrected pointer words at event+4, and advanced interior base improve1697 to350. Missing raw v1-to-a3 copy plus address operand order drive remaining GPR cascade. Word/pointer view copy neutral350; best simpler350 preserved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 176,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151BA468",
           "vram": "0x151BA468"
         }
