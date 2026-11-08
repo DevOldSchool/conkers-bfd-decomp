@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150F03F8
  * - func_150F0BEC
- * - func_150F0E48
  * - func_150F16DC
  * - func_150F1A00
  * - func_150F1B48
@@ -426,32 +425,27 @@ extern f32 D_800A1870;
 extern f32 D_800A1874;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F0E48 CURRENT (533) */
 s32 func_150F0E48(u8 *arg0, s32 arg1) {
-    u8 *temp_s0;
-    u8 *temp_v0;
+    Game11D830SpawnTail *tail = (Game11D830SpawnTail *)(arg0 + 0xA8);
+    u8 *actor = tail->actor;
 
-    temp_v0 = (void *)(*(void **)((u8 *)arg0 + 0xA8));
-    if (*(u8 *)((u8 *)arg0 + 0xAC) != *(u8 *)((u8 *)temp_v0 + 0x3B)) {
+    if (tail->mode != actor[0x3B]) {
         return 0;
     }
-    *(f32 *)((u8 *)arg0 + 0x40) = (f32) *(f32 *)((u8 *)temp_v0 + 0x14);
-    temp_s0 = (void *)(arg0 + 0xA8);
-    *(f32 *)((u8 *)arg0 + 0x44) = (f32) *(f32 *)((u8 *)temp_v0 + 0x18);
-    *(f32 *)((u8 *)arg0 + 0x48) = (f32) *(f32 *)((u8 *)temp_v0 + 0x1C);
-    *(f32 *)((u8 *)temp_s0 + 8) = (f32) (*(f32 *)((u8 *)temp_s0 + 8) + (D_800A1870 * D_800BE9A4));
-    *(f32 *)((u8 *)temp_s0 + 0xC) = (f32) (*(f32 *)((u8 *)temp_s0 + 0xC) + (D_800A1874 * D_800BE9A4));
-    *(f32 *)((u8 *)temp_s0 + 0x10) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x10) + (0.25f * D_800BE9A4));
-    *(f32 *)((u8 *)temp_s0 + 8) = func_15144B68(*(f32 *)((u8 *)temp_s0 + 8));
-    *(f32 *)((u8 *)temp_s0 + 0xC) = func_15144B68(*(f32 *)((u8 *)temp_s0 + 0xC));
-    *(f32 *)((u8 *)temp_s0 + 0x10) = func_15144B68(*(f32 *)((u8 *)temp_s0 + 0x10));
-    *(f32 *)((u8 *)arg0 + 0x38) = (f32) ((func_15047D60(*(f32 *)((u8 *)temp_s0 + 8)) * 243.0f) + 780.0f);
-    *(f32 *)((u8 *)arg0 + 0x3C) = (f32) ((func_15047D60(*(f32 *)((u8 *)temp_s0 + 0xC)) * 243.0f) + 780.0f);
-    *(s8 *)((u8 *)arg0 + 0x2B) = (s8) (u32) ((func_15047D60(*(f32 *)((u8 *)temp_s0 + 0x10)) * 50.0f) + 200.0f);
+    *(f32 *)(arg0 + 0x40) = *(f32 *)(actor + 0x14);
+    *(f32 *)(arg0 + 0x44) = *(f32 *)(actor + 0x18);
+    *(f32 *)(arg0 + 0x48) = *(f32 *)(actor + 0x1C);
+    tail->x += D_800A1870 * D_800BE9A4;
+    tail->y += D_800A1874 * D_800BE9A4;
+    tail->z += 0.25f * D_800BE9A4;
+    tail->x = func_15144B68(tail->x);
+    tail->y = func_15144B68(tail->y);
+    tail->z = func_15144B68(tail->z);
+    *(f32 *)(arg0 + 0x38) = func_15047D60(tail->x) * 243.0f + 780.0f;
+    *(f32 *)(arg0 + 0x3C) = func_15047D60(tail->y) * 243.0f + 780.0f;
+    *(u8 *)(arg0 + 0x2B) = func_15047D60(tail->z) * 50.0f + 200.0f;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F0E48 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F0E48.s")
 
 void func_150F1020(void *arg0, void *arg1, u8 arg2) {
     s32 temp_t6;

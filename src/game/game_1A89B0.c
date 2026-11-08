@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_sorted_record_object_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1517B500
  * - func_1517BBAC
  * - func_1517D074
  * - func_1517D7B0
@@ -53,39 +52,34 @@ s32 func_151EF610();
 s32 func_1517D074(s32, s16, s16, s16, f32, s32, s32, s32, s32, s32);
 void func_1517D578(s16, s16, s16, f32, s32, s32, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517B500 CURRENT (595) */
 s32 func_1517B500(Game1A89B0Position *arg0, Game1A89B0Position *arg1, s32 *arg2, s16 arg3) {
-    s32 temp_v1;
-    s32 temp_t1;
-    s32 sp24;
-    s32 temp_t8;
+    s32 diff;
+    s32 limit;
+    s32 rand1;
 
-    temp_t8 = (*arg2 * 3) / 2;
-    *arg2 = temp_t8;
-    temp_t1 = D_80095CE1[arg0->unk8 * 10] << 8;
-    if (temp_t8 >= temp_t1) {
-        *arg2 = temp_t8 - temp_t1;
+    *arg2 = (*arg2 * 3) / 2;
+    limit = D_80095CE1[arg0->unk8 * 10] << 8;
+    if (*arg2 >= limit) {
+        *arg2 -= limit;
     }
     arg1->unk0 = arg0->unk0;
     arg1->unk2 = arg0->unk2;
     arg1->unk4 = arg0->unk4;
-    temp_v1 = 0x29 - arg0->unkD;
-    if (temp_v1 == 0) {
+    diff = 0x29 - arg0->unkD;
+    if (diff == 0) {
         arg0->unkD = (arg0->unkD - (func_151EF610() % 8)) + 4;
-    } else if (temp_v1 < 0) {
-        sp24 = func_151EF610();
-        arg0->unkD = ((arg0->unkD - ((func_151EF610() % -temp_v1) >> 1)) - (sp24 % 8)) + 4;
+    } else if (diff < 0) {
+        rand1 = func_151EF610();
+        arg0->unkD = ((arg0->unkD - ((func_151EF610() % -diff) >> 1)) - (rand1 % 8)) + 4;
     } else {
-        sp24 = func_151EF610();
-        arg0->unkD = (arg0->unkD + ((func_151EF610() % temp_v1) >> 1) + (sp24 % 8)) - 4;
+        rand1 = func_151EF610();
+        arg0->unkD += ((func_151EF610() % diff) >> 1) + (rand1 % 8) - 4;
     }
     arg1->unk0 = arg0->unk0;
     arg1->unk2 = arg0->unk2;
     arg1->unk4 = arg0->unk4;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517B500 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A89B0/func_1517B500.s")
 s32 func_1517B6E8(void *arg0, void *arg1, s32 *arg2, u8 *arg3) {
     s32 temp_t1;
 

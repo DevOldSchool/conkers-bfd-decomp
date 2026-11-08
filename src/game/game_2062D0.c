@@ -15,7 +15,6 @@
  * - func_151DA6F8
  * - func_151DA938
  * - func_151DB5D0
- * - func_151DB97C
  * - func_151DBAA8
  * - func_151DBCBC
  * - func_151DC034
@@ -1301,32 +1300,45 @@ void *func_151DB5D0(s32 arg0, f32 *arg1, f32 *arg2, f32 arg3, f32 arg4,
 /* Call context: func_151423D8: unique active project prototype */
 void func_15131918(void *, f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DB97C CURRENT (680) */
-s32 func_151DB97C(u8 *arg0, s32 arg1) {
+typedef struct {
+    u8 flags;
+    u8 pad1[3];
+    f32 unk4;
+    u8 angle[3];
+    u8 speed[3];
+    u8 padE[2];
+    f32 scale[3];
+} Game2062D0Motion;
+
+typedef struct {
+    u8 pad0[0x4C];
+    f32 out[3];
+    u8 unk58[0x50];
+    Game2062D0Motion motion;
+} Game2062D0Owner;
+
+s32 func_151DB97C(Game2062D0Owner *arg0, s32 arg1) {
+    Game2062D0Motion *m = &arg0->motion;
     f32 temp_fv0;
-    u8 *temp_s0;
     f32 sp24;
     f32 sp20;
 
-    if (*(u8 *)((u8 *)arg0 + 0xA8) & 2) {
-        func_15131918(arg0 + 0x58, *(f32 *)((u8 *)arg0 + 0xAC));
+    if (m->flags & 2) {
+        func_15131918(arg0->unk58, m->unk4);
     }
-    temp_s0 = (void *)(arg0 + 0xA8);
-    if (*(volatile u8 *)temp_s0 & 1) {
-        temp_s0[8] += temp_s0[0xB] * D_800BE9E4;
-        temp_s0[9] += temp_s0[0xC] * D_800BE9E4;
-        temp_s0[0xA] += temp_s0[0xD] * D_800BE9E4;
-        sp20 = func_151423D8((*(u8 *)((u8 *)temp_s0 + 8) - 0x40));
-        sp24 = func_151423D8((*(u8 *)((u8 *)temp_s0 + 9) - 0x40));
-        temp_fv0 = func_151423D8((*(u8 *)((u8 *)temp_s0 + 0xA) - 0x40));
-        *(f32 *)((u8 *)arg0 + 0x4C) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x10) * sp20);
-        *(f32 *)((u8 *)arg0 + 0x50) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x14) * sp24);
-        *(f32 *)((u8 *)arg0 + 0x54) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x18) * temp_fv0);
+    if (m->flags & 1) {
+        m->angle[0] += m->speed[0] * D_800BE9E4;
+        m->angle[1] += m->speed[1] * D_800BE9E4;
+        m->angle[2] += m->speed[2] * D_800BE9E4;
+        sp20 = func_151423D8(m->angle[0] - 0x40);
+        sp24 = func_151423D8(m->angle[1] - 0x40);
+        temp_fv0 = func_151423D8(m->angle[2] - 0x40);
+        arg0->out[0] = m->scale[0] * sp20;
+        arg0->out[1] = m->scale[1] * sp24;
+        arg0->out[2] = m->scale[2] * temp_fv0;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DB97C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DB97C.s")
 
 typedef struct {
     s16 field24;

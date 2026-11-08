@@ -13,7 +13,6 @@
  * - func_1516F548
  * - func_1516FE1C
  * - func_151700D8
- * - func_15170500
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -888,17 +887,16 @@ void func_15170034(s32 arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_151700D8.s")
 extern u16 D_800CC34A;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15170500 CURRENT (600) */
 void func_15170500(s16 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, u8 arg5, s32 arg6) {
     f32 x;
     f32 y;
     f32 z;
     u8 angle;
     f32 factor;
+    f32 cosine;
     s32 vx;
+    s32 vy;
     s32 vz;
-    union { s32 bits; f32 value; } zero;
-    s32 unused;
     s32 random;
 
     if (arg4 == 0) {
@@ -907,26 +905,27 @@ void func_15170500(s16 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, u8 arg5, s3
     random = func_151EF610() % 50;
     angle = arg3;
     x = func_150489B0(angle);
-    z = -func_15048A40(angle);
-    zero.bits = 0;
+    cosine = func_15048A40(angle);
+    z = -cosine;
+    y = 0.0f;
     factor = func_150489B0((u8)random);
     x *= factor;
     z *= factor;
-    y = zero.value + zero.value;
+    y += y;
     x += x;
     z += z;
     if (arg4 != 0) {
         vx = (s32) (x * 256.0f);
         vz = (s32) (z * 256.0f);
-        func_1516D4E8((s32) arg0, (s32) arg1, (s32) arg2, 0x2A, 0, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0, 6, vx >> 8, vx & 0xFF, vz >> 8, vz & 0xFF, 0, 0, 0, 0, 0, 1, 0x200, 0x166, 0xFF, (s32) (y * 256.0f) - 0x32, 0, 0, (u8) (s32) arg5, arg6);
+        vy = (s32) (y * 256.0f);
+        func_1516D4E8((s32) arg0, (s32) arg1, (s32) arg2, 0x2A, 0, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0, 6, vx >> 8, vx & 0xFF, vz >> 8, vz & 0xFF, 0, 0, 0, 0, 0, 1, 0x200, 0x166, 0xFF, vy - 0x32, 0, 0, (u8) (s32) arg5, arg6);
         return;
     }
     vx = (s32) (x * 256.0f);
     vz = (s32) (z * 256.0f);
-    func_1516D99C((s32) arg0, (s32) arg1, (s32) arg2, 0x2A, 0, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0, 6, vx >> 8, vx & 0xFF, vz >> 8, vz & 0xFF, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x200, 0x166, 0, 0, 0x14, 0, 0, 0xFF, 0xFF, (s32) (y * 256.0f) - 0x32, 0xC8, 9, 1, 0, 1, 0x32, 0x14, 0, 0, 0, (u8) (s32) arg5, arg6);
+    vy = (s32) (y * 256.0f);
+    func_1516D99C((s32) arg0, (s32) arg1, (s32) arg2, 0x2A, 0, 0xFF, 0xFF, 0xFF, 0, 0, 0, 0, 6, vx >> 8, vx & 0xFF, vz >> 8, vz & 0xFF, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x200, 0x166, 0, 0, 0x14, 0, 0, 0xFF, 0xFF, vy - 0x32, 0xC8, 9, 1, 0, 1, 0x32, 0x14, 0, 0, 0, (u8) (s32) arg5, arg6);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15170500 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_15170500.s")
 
 
 s32 func_151707E0(Game19A8B0Motion *arg0) {

@@ -16,12 +16,10 @@
  * - func_1501D2C4
  * - func_1501D348
  * - func_1501DAAC
- * - func_1501E2F8
  * - func_1501E73C
  * - func_1501E81C
  * - func_1501EA18
  * - func_1501EC38
- * - func_1501FC8C
  * - func_15020388
  * - func_15020878
  * - func_15020EC4
@@ -724,34 +722,23 @@ void func_1501E1B4(s32 arg0) {
 void func_1501E400(s32);
 extern u8 D_800C3C8C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501E2F8 CURRENT (576) */
 void func_1501E2F8(s32 arg0) {
-    s32 var_s1;
-    u8 *temp_s0;
-
-    var_s1 = arg0;
-loop_1:
-    temp_s0 = &D_800C35EA[var_s1];
-    if ((*temp_s0 == 1) &&
-        (D_800C35B0[var_s1] >= D_800C3640[var_s1])) {
+    if ((D_800C35EA[arg0] == 1) && (D_800C35B0[arg0] >= D_800C3640[arg0])) {
         if (D_800C3C8C == 0) {
-            func_1501E81C(0, var_s1);
-            if (*temp_s0 == 1) {
+            func_1501E81C(0, arg0);
+            if (D_800C35EA[arg0] == 1) {
                 func_1501E400(0);
-                var_s1 = 0;
                 func_150242F8(1, 0);
                 func_1501EC38(0);
                 func_150242F8(0, 0);
                 func_15020EC4(0);
-                goto loop_1;
+                func_1501E2F8(0);
             }
         } else {
             D_800C3C8C = 2;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501E2F8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501E2F8.s")
 void func_15080228(void);
 void func_1501E1B4(s32);
 s32 func_151F2CDC(void);
@@ -1120,7 +1107,6 @@ extern u8 D_800C3868[];
 extern void *D_800C3A50[];
 extern f32 D_800969D4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501FC8C CURRENT (567) */
 void func_1501FC8C(s32 arg0, f32 arg1, f32 *arg2, f32 *arg3, f32 *arg4, s32 arg5) {
     f32 time;
     s32 key_index;
@@ -1143,14 +1129,14 @@ void func_1501FC8C(s32 arg0, f32 arg1, f32 *arg2, f32 *arg3, f32 *arg4, s32 arg5
             times = *(f32 **)((u8 *)D_800C3A50[arg5] + ((u32)arg0 << 6) + 0x38) + sample_index;
             arg1 = times[1] - times[0];
             numerator = time - times[0];
-            if (arg1 != 0.0f) {
+            if (arg1 != 0) {
                 ratio = numerator / arg1;
             } else {
                 ratio = 0.0f;
             }
-            *arg2 = (positions[3] - positions[0]) * ratio + positions[0];
-            *arg3 = (positions[4] - positions[1]) * ratio + positions[1];
-            *arg4 = (positions[5] - positions[2]) * ratio + positions[2];
+            *arg2 = positions[0] + (positions[3] - positions[0]) * ratio;
+            *arg3 = positions[1] + (positions[4] - positions[1]) * ratio;
+            *arg4 = positions[2] + (positions[5] - positions[2]) * ratio;
             return;
         }
         *arg2 = positions[0];
@@ -1158,8 +1144,6 @@ void func_1501FC8C(s32 arg0, f32 arg1, f32 *arg2, f32 *arg3, f32 *arg4, s32 arg5
         *arg4 = positions[2];
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501FC8C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501FC8C.s")
 f32 func_150484A0(f32, f32);
 s32 func_1501F72C(s32, f32, f32 *, s32, s32 *);
 void func_1501FFE8(void *, void *, s32, s32);

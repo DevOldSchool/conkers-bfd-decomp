@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1502FE10
  * - func_1502FFD8
- * - func_15030158
  * - func_15030310
  * - func_15030468
  * - func_15030AF4
@@ -147,25 +146,13 @@ void func_100043B4(s32, s32);
 void func_1518CA04(s32);
 extern void *D_800C3EE0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15030158 CURRENT (775) */
-void func_15030158(u8 *arg0, s32 volatile arg1) {
-    s32 temp_a0_2;
-    s32 temp_a0_3;
-    s32 temp_a0_4;
-    s32 temp_v0;
-    s32 first_mode;
-    s32 has_alloc;
-    void *temp_v0_2;
-    void *temp_v0_3;
-
+void func_15030158(u8 *arg0, s32 arg1) {
     if (arg1 == 0) {
         func_15031C14(arg0);
     }
     if (arg0[9] != 0) {
-        has_alloc = arg0[8];
-        first_mode = arg1;
-        if (has_alloc != 0) {
-            if (first_mode != 0) {
+        if (arg0[8] != 0) {
+            if (arg1 != 0) {
                 func_10004074(*(s32 *)(arg0 + 0x28));
                 func_10004074(*(s32 *)(arg0 + 0x2C));
             } else {
@@ -173,55 +160,46 @@ void func_15030158(u8 *arg0, s32 volatile arg1) {
                 func_100043B4(*(s32 *)(arg0 + 0x2C), 4);
             }
         }
-        temp_a0 = *(void **)(arg0 + 0x48);
-        if (temp_a0 != 0) {
-            func_1503F7B8(temp_a0);
+        if (*(void **)(arg0 + 0x48) != NULL) {
+            func_1503F7B8(*(void **)(arg0 + 0x48));
         }
         func_1518CA04(arg0[1]);
     }
-    temp_a0_2 = *(s32 *)(arg0 + 0x34);
-    if (temp_a0_2 != 0) {
+    if (*(s32 *)(arg0 + 0x34) != 0) {
         if (arg1 != 0) {
-            func_10004074(temp_a0_2);
+            func_10004074(*(s32 *)(arg0 + 0x34));
         } else {
-            func_100043B4(temp_a0_2, 4);
+            func_100043B4(*(s32 *)(arg0 + 0x34), 4);
         }
     }
-    temp_v0 = *(s32 *)(arg0 + 0x44);
-    if (temp_v0 != 0) {
-        func_10004074(temp_v0);
+    if (*(void **)(arg0 + 0x44) != NULL) {
+        func_10004074((s32)*(void **)(arg0 + 0x44));
     }
-    temp_a0_3 = *(s32 *)(arg0 + 0x4C);
-    if (temp_a0_3 != 0) {
+    if (*(s32 *)(arg0 + 0x4C) != 0) {
         if (arg1 != 0) {
-            func_10004074(temp_a0_3);
+            func_10004074(*(s32 *)(arg0 + 0x4C));
         } else {
-            func_100043B4(temp_a0_3, 4);
+            func_100043B4(*(s32 *)(arg0 + 0x4C), 4);
         }
     }
-    temp_a0_4 = *(s32 *)(arg0 + 0x50);
-    if (temp_a0_4 != 0) {
+    if (*(s32 *)(arg0 + 0x50) != 0) {
         if (arg1 != 0) {
-            func_10004074(temp_a0_4);
+            func_10004074(*(s32 *)(arg0 + 0x50));
         } else {
-            func_100043B4(temp_a0_4, 4);
+            func_100043B4(*(s32 *)(arg0 + 0x50), 4);
         }
     }
     if (arg0 == D_800C3EE0) {
         D_800C3EE0 = *(void **)(arg0 + 0x54);
     }
-    temp_v0_2 = *(void **)(arg0 + 0x58);
-    if (temp_v0_2 != 0) {
-        *(void **)((u8 *)temp_v0_2 + 0x54) = *(void **)(arg0 + 0x54);
+    if (*(void **)(arg0 + 0x58) != NULL) {
+        *(void **)(*(u8 **)(arg0 + 0x58) + 0x54) = *(void **)(arg0 + 0x54);
     }
-    temp_v0_3 = *(void **)(arg0 + 0x54);
-    if (temp_v0_3 != 0) {
-        *(void **)((u8 *)temp_v0_3 + 0x58) = *(void **)(arg0 + 0x58);
+    if (*(void **)(arg0 + 0x54) != NULL) {
+        *(void **)(*(u8 **)(arg0 + 0x54) + 0x58) = *(void **)(arg0 + 0x58);
     }
     func_10004074((s32)arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15030158 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030158.s")
 s32 func_15030310(void *arg0, s32 arg1, s32 arg2);
 
 void func_150302F0(void *arg0, s32 arg1) {

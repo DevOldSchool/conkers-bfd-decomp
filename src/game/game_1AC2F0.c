@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1517F488
  * - func_1517F564
- * - func_1517F75C
  * - func_1517FB9C
  * - func_15180580
  * - func_151814FC
@@ -240,32 +239,17 @@ extern s32 D_80082FA0;
 extern s32 D_800BE9E4;
 extern u16 D_800DDE10;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517F75C CURRENT (775) */
 void func_1517F75C(void) {
-    u16 *var_a0;
-    u16 *end;
-    u16 temp_v1;
-    s32 max_index;
-    s32 decrement;
+    s32 i;
 
-    var_a0 = &D_800DDE10;
-    max_index = D_80082FA0;
-    if (max_index >= 0) {
-        end = &D_800DDE10 + max_index;
-        decrement = D_800BE9E4;
-        do {
-            temp_v1 = *var_a0;
-            if (decrement < (s32) temp_v1) {
-                *var_a0 = temp_v1 - decrement;
-            } else {
-                *var_a0 = 0;
-            }
-            var_a0++;
-        } while ((u32) end >= (u32) var_a0);
+    for (i = 0; i <= D_80082FA0; i++) {
+        if (D_800BE9E4 < (&D_800DDE10)[i]) {
+            (&D_800DDE10)[i] -= D_800BE9E4;
+        } else {
+            (&D_800DDE10)[i] = 0;
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517F75C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F75C.s")
 void func_1517F7B4(void) {
     u32 remaining;
     s32 elapsed;

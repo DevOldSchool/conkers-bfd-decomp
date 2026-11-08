@@ -9,7 +9,6 @@
  * - func_15040350
  * - func_150403C8
  * - func_15040754
- * - func_1504082C
  * - func_15040A78
  * - func_15040CC8
  *
@@ -95,18 +94,16 @@ void func_15040814(s32 arg0) {
 }
 void func_15040820(s32 arg0) {
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504082C CURRENT (650) */
 s32 func_1504082C(u32 *arg0) {
-    u32 temp_v1;
+    u32 hi = (*arg0 >> 16) & 0xFF;
+    u32 mid = (*arg0 >> 8) & 0xFF;
+    u32 lo = *arg0 & 0xFF;
 
-    temp_v1 = *arg0;
-    if (((temp_v1 >> 0x10) & 1) || ((temp_v1 >> 8) & 0xFF & 1) || (temp_v1 & 0xFF & 1)) {
+    if ((hi & 1) || (mid & 1) || (lo & 1)) {
         return 1;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1504082C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_1504082C.s")
 void func_1504086C(s32 arg0) {
 }
 void func_15040878(s32 arg0) {

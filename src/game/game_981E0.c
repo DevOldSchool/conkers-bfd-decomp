@@ -2555,7 +2555,7 @@ void func_15071230(s32 arg0) {
 void func_15071254(s32 arg0) {
     func_15070F60(1);
 }
-void func_150FC438(u8 *arg0, s32 arg1, s32 arg2, u8 arg3);
+void func_150FC438(u8 *arg0, s32 arg1, u8 arg2, u8 arg3);
 
 void func_15071278(s32 arg0) {
     func_150FC438(D_800D154C, 0, 1, D_800D154C[0x85]);

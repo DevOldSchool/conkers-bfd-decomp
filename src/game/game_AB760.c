@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1507E2B0
- * - func_1507E3C0
  * - func_1507E7E4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -67,41 +66,33 @@ void func_1507E2B0(struct GameAB760State *arg0) {
  * Evidence: docs/evidence/assets/naming/lady_cog_eye_part_semantics.md.
  * Naming only: the excluded candidate remains unmatched.
  */
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E3C0 CURRENT (757) */
 void func_1507E3C0(void *actor) {
+    s32 i;
     s32 eyePartStates[2];
-    s32 *eyePartStateCursor;
-    s32 partHideMask;
     u8 modelIndex;
-    u8 *eyeCodeCursor;
     u8 *actorBytes;
 
     actorBytes = actor;
     modelIndex = actorBytes[4];
-    eyePartStateCursor = eyePartStates;
-    eyeCodeCursor = actorBytes;
     if ((modelIndex == 0xF) || (modelIndex == 0x46) || (modelIndex == 0x4C)) {
-        do {
-            *eyePartStateCursor = eyeCodeCursor[0x6C];
-            if (*eyePartStateCursor >= 0xA) {
-                *eyePartStateCursor -= 0xA;
-                if (*eyePartStateCursor == 5) {
-                    *eyePartStateCursor = 0;
-                } else if (*eyePartStateCursor == 1) {
-                    *eyePartStateCursor = 1;
+        for (i = 0; i < 2; i++) {
+            eyePartStates[i] = actorBytes[0x6C + i];
+            if (eyePartStates[i] >= 0xA) {
+                eyePartStates[i] -= 0xA;
+                if (eyePartStates[i] == 5) {
+                    eyePartStates[i] = 0;
+                } else if (eyePartStates[i] == 1) {
+                    eyePartStates[i] = 1;
                 } else {
-                    *eyePartStateCursor = 2;
+                    eyePartStates[i] = 2;
                 }
-            } else if (*eyePartStateCursor < 2) {
-                *eyePartStateCursor += 1;
+            } else if (eyePartStates[i] < 2) {
+                eyePartStates[i] += 1;
             }
-            eyePartStateCursor++;
-            eyeCodeCursor++;
-        } while (eyePartStateCursor != &eyePartStates[2]);
-        partHideMask = *(s32 *)(actorBytes + 0x94) | 0x7E;
-        *(s32 *)(actorBytes + 0x94) = partHideMask;
+        }
+        *(s32 *)(actorBytes + 0x94) |= 0x7E;
         if (eyePartStates[0] == 0) {
-            *(s32 *)(actorBytes + 0x94) = partHideMask & ~8;
+            *(s32 *)(actorBytes + 0x94) &= ~8;
         } else if (eyePartStates[0] == 1) {
             *(s32 *)(actorBytes + 0x94) &= ~0x10;
         } else {
@@ -116,8 +107,6 @@ void func_1507E3C0(void *actor) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507E3C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E3C0.s")
 void func_150302F0(void *, s32);
 void func_1507E5C8(u8 *, s32);
 u8 *func_1507E908(void *, s32);

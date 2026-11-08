@@ -13,7 +13,6 @@
  * - func_1505693C
  * - func_15056A00
  * - func_15056B08
- * - func_150585F0
  * - func_15058898
  * - func_15058F24
  * - func_15059444
@@ -23,7 +22,6 @@
  * - func_1505A250
  * - func_1505A3A8
  * - func_1505A9AC
- * - func_1505B5F8
  * - func_1505B9C4
  * - func_1505C1E4
  * - func_1505C7D8
@@ -36,7 +34,6 @@
  * - func_1505DDA8
  * - func_1505E650
  * - func_1505E874
- * - func_1505ED34
  * - func_1505F298
  * - func_15060778
  * - func_15060D54
@@ -350,11 +347,9 @@ extern f32 D_80099478, D_8009947C, D_80099480, D_80099484;
 extern u8 D_800BE616, D_800C3E78;
 extern s16 D_800CC264;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150585F0 CURRENT (595) */
-void func_150585F0(u8 *arg0, register f32 arg1) {
+void func_150585F0(u8 *arg0, f32 arg1) {
     Game83300State585F0 *actor;
     Game83300Child585F0 *child;
-    f32 strength;
     f32 value;
     s32 mode;
     s32 count;
@@ -364,8 +359,8 @@ void func_150585F0(u8 *arg0, register f32 arg1) {
     s32 owner;
 
     actor = (void *)arg0;
-    strength = (f32)(u32)actor->strength109;
-    func_1505A3A8(0.0f, actor, 1.0f, strength * D_80099478, 0);
+    arg1 = (f32)(u32)actor->strength109 * D_80099478;
+    func_1505A3A8(0.0f, actor, 1.0f, arg1, 0);
     if (actor->height1CC < D_8009947C) {
         actor->height1CC = actor->height18;
     }
@@ -392,9 +387,8 @@ void func_150585F0(u8 *arg0, register f32 arg1) {
         if (count != 254 && (actor->field1CA != 0 || actor->kind != 1)) {
             actor->count104 = count - 1;
         }
-        value = actor->field28;
         actor->timer10C -= D_800CC264;
-        if (value < D_80099484 && (actor->flagsF4 & 0x100)) {
+        if (actor->field28 < D_80099484 && (actor->flagsF4 & 0x100)) {
             actor->timer10C = 0;
         }
         if (actor->timer10C <= 0) {
@@ -417,8 +411,8 @@ void func_150585F0(u8 *arg0, register f32 arg1) {
                     func_1506B078();
                 }
             } else if (actor->kind == 1) {
-                actor->flagsF8 &= 0xFFFF7FFF;
                 actor->field24 = 4.0f;
+                actor->flagsF8 &= 0xFFFF7FFF;
             }
             owner = actor->owner238;
             if (owner != 0) {
@@ -429,7 +423,7 @@ void func_150585F0(u8 *arg0, register f32 arg1) {
             if (!(flags & 2)) {
                 angle = actor->angle76;
                 if (flags & 4) {
-                    angle = (angle ^ 0x8000) & 0xFFFF;
+                    angle ^= 0x8000;
                 }
                 actor->field80 = 10;
                 func_150599C8(arg0, 12, angle);
@@ -437,8 +431,6 @@ void func_150585F0(u8 *arg0, register f32 arg1) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150585F0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150585F0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15058898.s")
 void func_15058EA4(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
@@ -1162,11 +1154,11 @@ extern f32 D_80099514;
 extern void *D_800B0DF0;
 extern s32 D_800D1580;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505B5F8 CURRENT (619) */
 void func_1505B5F8(u8 *arg0, f32 arg1) {
     f32 previousSpeed;
     f32 height;
-    f32 vertical;
+    f32 factor;
+    f32 speed;
     s32 count;
     s32 remaining;
     s32 step;
@@ -1175,9 +1167,9 @@ void func_1505B5F8(u8 *arg0, f32 arg1) {
 
     previousSpeed = *(f32 *)(arg0 + 0x28);
     if (!(*(s32 *)(arg0 + 0xF8) & 0x8000)) {
-        count = arg0[0x252];
-        if (count != 0 && (f32)(arg0[0x253] * 8) < *(f32 *)(arg0 + 0x1CC) - *(f32 *)(arg0 + 0x18) &&
+        if (arg0[0x252] != 0 && (f32)(arg0[0x253] * 8) < *(f32 *)(arg0 + 0x1CC) - *(f32 *)(arg0 + 0x18) &&
             arg0[0x104] == 0) {
+            count = arg0[0x252];
             arg0[0x104] = 0xFE;
             arg0[0x105] = 0;
             arg0[0x106] = func_1505E7CC(count, arg0);
@@ -1211,11 +1203,12 @@ void func_1505B5F8(u8 *arg0, f32 arg1) {
                         }
                     }
                     *(f32 *)(arg0 + 0x1CC) = arg1;
-                    if (arg0[0x104] == 0 && *(f32 *)(arg0 + 0x24) > 0.5f) {
+                    if (arg0[0x104] == 0 && (speed = *(f32 *)(arg0 + 0x24)) > 0.5f) {
                         if ((*(s32 *)(arg0 + 0xF8) & 0x800) && previousSpeed != 0.0f &&
-                            (vertical = *(f32 *)(arg0 + 0x20)) < -4.0f * *(f32 *)(arg0 + 0x24) * D_800D1550) {
+                            *(f32 *)(arg0 + 0x20) < -4.0f * speed * D_800D1550) {
                             sound = *(s32 *)(arg0 + 0x2CC);
-                            *(f32 *)(arg0 + 0x20) = (0.0f - vertical) * ((f32)(s8)arg0[0x2CB] * D_8009950C);
+                            factor = (f32)(s8)arg0[0x2CB] * D_8009950C;
+                            *(f32 *)(arg0 + 0x20) = (0.0f - *(f32 *)(arg0 + 0x20)) * factor;
                             if (sound != 0 && *(f32 *)(arg0 + 0x20) > 5.0f) {
                                 D_800D1580 = sound;
                                 func_1506E5FC();
@@ -1230,8 +1223,8 @@ void func_1505B5F8(u8 *arg0, f32 arg1) {
                                    -1.5f * *(f32 *)(arg0 + 0x24) * D_800D1550 < *(f32 *)(arg0 + 0x20)) {
                             *(f32 *)(arg0 + 0x20) = 0.0f;
                         } else {
-                            *(f32 *)(arg0 + 0x20) =
-                                (0.0f - *(f32 *)(arg0 + 0x20)) * ((f32)(s8)arg0[0x2CB] * D_80099510);
+                            factor = (f32)(s8)arg0[0x2CB] * D_80099510;
+                            *(f32 *)(arg0 + 0x20) = (0.0f - *(f32 *)(arg0 + 0x20)) * factor;
                         }
                         *(f32 *)(arg0 + 0x3C) *= D_80099514;
                     }
@@ -1240,8 +1233,6 @@ void func_1505B5F8(u8 *arg0, f32 arg1) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505B5F8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505B5F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505B9C4.s")
 typedef struct {
     u8 pad_0[0x14];
@@ -2108,62 +2099,38 @@ u32 func_1505E7CC(s32 arg0, void *arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505E874.s")
 void func_15060F28(u8 *, s32);
 extern u8 D_800CC2D0[];
-extern s32 D_800CC4A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505ED34 CURRENT (715) */
 u8 *func_1505ED34(void) {
-    s32 var_v0;
-    u8 *var_a0;
+    s32 i;
+    struct127 *tmp;
 
-    var_v0 = 0;
-    var_a0 = (u8 *)&D_800CC2D0;
-    if (*(volatile s32 *)&D_800CC2D0 != 0) {
-loop_1:
-        var_v0 += 1;
-        var_a0 = (u8 *)((u32)var_a0 + 0x32CU);
-        if (var_v0 < 0x19 && *(s32 *)var_a0 != 0) {
-            goto loop_1;
+    for (i = 0, tmp = (struct127 *)&D_800CC2D0; i < 25 && tmp->interaction_state != 0; i++) {
+        tmp++;
+    }
+    if (i == 25) {
+        tmp = (struct127 *)&D_800CC2D0;
+        for (i = 0; i < 25 && (tmp->interaction_state != 0x27 || tmp->unk1D4 != NULL); i++) {
+            tmp++;
+        }
+        if (i != 25 && tmp->interaction_state != 0) {
+            func_15060F28((u8 *)tmp, 0);
         }
     }
-    if (var_v0 == 0x19) {
-        var_a0 = (u8 *)&D_800CC2D0;
-        var_v0 = 0;
-        if (*(volatile s32 *)&D_800CC2D0 != 0x27 || D_800CC4A4 != 0) {
-loop_6:
-            var_v0 += 1;
-            var_a0 = (u8 *)((u32)var_a0 + 0x32CU);
-            if (var_v0 < 0x19 &&
-                (*(s32 *)var_a0 != 0x27 || *(s32 *)((u32)var_a0 + 0x1D4U) != 0)) {
-                goto loop_6;
-            }
+    if (i == 25) {
+        tmp = (struct127 *)&D_800CC2D0;
+        for (i = 0; i < 25 && tmp->interaction_state != 0x27; i++) {
+            tmp++;
         }
-        if (var_v0 != 0x19 && *(s32 *)var_a0 != 0) {
-            func_15060F28(var_a0, 0);
+        if (i != 25 && tmp->interaction_state != 0) {
+            func_15060F28((u8 *)tmp, 0);
         }
     }
-    if (var_v0 == 0x19) {
-        var_a0 = (u8 *)&D_800CC2D0;
-        var_v0 = 0;
-        if (*(volatile s32 *)&D_800CC2D0 != 0x27) {
-loop_14:
-            var_v0 += 1;
-            var_a0 = (u8 *)((u32)var_a0 + 0x32CU);
-            if (var_v0 < 0x19 && *(s32 *)var_a0 != 0x27) {
-                goto loop_14;
-            }
-        }
-        if (var_v0 != 0x19 && *(s32 *)var_a0 != 0) {
-            func_15060F28(var_a0, 0);
-        }
+    if (i == 25 && tmp->interaction_state != 0) {
+        func_15060F28((u8 *)tmp, 0);
     }
-    if (var_v0 == 0x19 && *(s32 *)var_a0 != 0) {
-        func_15060F28(var_a0, 0);
-    }
-    func_1505F188((u32)var_a0);
-    return var_a0;
+    func_1505F188((u32)tmp);
+    return (u8 *)tmp;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505ED34 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505ED34.s")
 extern u8 D_800CC2D0[];
 
 struct127 *func_1505EEB0(s32 arg0, s32 *arg1) {

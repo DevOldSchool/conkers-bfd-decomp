@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_beta_camera_rope_bee.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150BDF0C
  * - func_150BE494
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -54,18 +53,15 @@ f32 func_150ADA68(void);
 extern f32 D_800A0000, D_800A0004;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BDF0C CURRENT (630) */
 void func_150BDF0C(u8 *arg0) {
-    f32 product;
+    BeeCavernEffectPacket *state = (BeeCavernEffectPacket *)(arg0 + 0x28);
     BeeCavernSpawn spawn;
     u8 *effect;
     BeeCavernPayload payload;
-    BeeCavernEffectPacket *state;
 
     *(s16 *)(arg0 + 0x2C) -= D_800BE9E4;
     if (*(s16 *)(arg0 + 0x2C) < 0) {
-        product = func_150ADA68() * 270.0f;
-        spawn.field0 = product + -135.0f;
+        spawn.field0 = func_150ADA68() * 270.0f + -135.0f;
         spawn.field4 = -120.0f;
         spawn.field8 = func_150ADA68() * 10.0f + 3.0f;
         spawn.fieldC = func_150ADA68() * 17.0f + 9.0f;
@@ -93,7 +89,6 @@ void func_150BDF0C(u8 *arg0) {
         spawn.field3C = 0x20;
         spawn.field40 = 0;
         spawn.field41 = 7;
-        state = (BeeCavernEffectPacket *)((s32)arg0 + 0x28);
         spawn.field44 = ((u8 *)state->value)[0x23D];
         spawn.field48 = 1.0f;
         spawn.field4C = 1.0f;
@@ -110,8 +105,6 @@ void func_150BDF0C(u8 *arg0) {
         state->field4 = (u32)func_150ADA20() % 151U + 25;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150BDF0C */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sfx_w1_bee_cavern/func_150BDF0C.s")
 
 typedef struct BeeCavernActor {
     u8 pad0[0x318];

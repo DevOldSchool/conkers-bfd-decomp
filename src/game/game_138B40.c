@@ -7,7 +7,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_call_connected_segments_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1510B690
  * - func_1510B9D0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -28,30 +27,17 @@ extern u8 D_800D9C10[];
 extern u8 D_800D9D10[];
 extern u8 *D_800DC2A0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B690 CURRENT (535) */
 void func_1510B690(void) {
+    s16 i;
     Game138B40Work sp4C;
-    s32 var_s0;
-    u32 temp_s1;
-    void *temp_s2;
 
-    var_s0 = 0;
-    if (D_80082FA0 >= 0) {
-        do {
-            func_151EFEB8(&sp4C,
-                          (s32)&D_800BE628[var_s0].matrices[D_800BE9C0]);
-            temp_s1 = (u32)var_s0 << 6;
-            temp_s2 = (void *)((u32)D_800D9C10 + (u32)temp_s1);
-            func_151EFEB8(temp_s2,
-                          (s32)((u32)D_800DC2A0[D_800BE9C0] + ((u32)var_s0 << 6)));
-            func_150A7A48(temp_s2, &sp4C, (void *)((u32)D_800D9D10 + (u32)temp_s1));
-            func_1501B22C(var_s0);
-            var_s0 = (s16)(var_s0 + 1);
-        } while (D_80082FA0 >= var_s0);
+    for (i = 0; i <= D_80082FA0; i++) {
+        func_151EFEB8(&sp4C, (s32)&D_800BE628[i].matrices[D_800BE9C0]);
+        func_151EFEB8(D_800D9C10 + (i << 6), (s32)(D_800DC2A0[D_800BE9C0] + i * 64));
+        func_150A7A48(D_800D9C10 + (i << 6), &sp4C, D_800D9D10 + (i << 6));
+        func_1501B22C(i);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510B690 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_138B40/func_1510B690.s")
 extern u8 D_80089470[];
 
 typedef struct Game138B40Command {

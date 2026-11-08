@@ -11,7 +11,6 @@
  * - func_1502B110
  * - func_1502B350
  * - func_1502B4A8
- * - func_1502B5C8
  * - func_1502B7F0
  * - func_1502B9B4
  *
@@ -334,49 +333,41 @@ s32 func_1502B4A8(Game57FA0Reloc *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1502B4A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502B4A8.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B5C8 CURRENT (696) */
-s32 func_1502B5C8(s32 *arg0, volatile s32 arg1, s32 arg2, s32 arg3) {
-    volatile struct {
-        s32 component_state;
-        u8 pad04[4];
-        s32 state;
-        u8 pad0C[8];
-    } locals;
-    u8 *var_s1;
-    volatile s32 *var_s2;
-    s32 temp_t3;
-    s32 var_v1;
-    u8 *var_s0;
+s32 func_1502B350(u8 *, s32, s32 *);
 
-    var_s2 = &locals.state;
+s32 func_1502B5C8(s32 *arg0, s32 arg1, ...) {
+    u8 *output;
+    va_list cursor;
+    s32 *state;
+    s32 status;
+    s32 argument;
+    s32 component;
+    s32 result;
+
+    state = &status;
     if (arg0 != 0) {
-        var_s2 = arg0;
+        state = arg0;
     }
-    *var_s2 = 1;
-    var_s0 = D_AB1950;
-    var_s1 = (u8 *)&arg2;
+    *state = 1;
+    output = D_AB1950;
+    va_start(cursor, arg1);
     if (arg1 != 0) {
         do {
-            var_s1 = (u8 *)(((s32)(var_s1 + 3) & ~3) + 4);
-            if (*var_s2 != 0) {
-                var_s0 += func_1502AC88(var_s0, *(s32 *)(var_s1 - 4),
-                                        (s32 *)&locals.component_state);
+            argument = va_arg(cursor, s32);
+            if (*state != 0) {
+                output += func_1502AC88(output, argument, &component);
             }
-            *var_s2 = locals.component_state & 0x0FFFFFFF;
-            temp_t3 = arg1 - 1;
-            arg1 = temp_t3;
-        } while (temp_t3 != 0);
+            *state = component & 0x0FFFFFFF;
+        } while (--arg1 != 0);
     }
-    if (*var_s2 != 0) {
-        var_v1 = func_1502B350(var_s0, locals.component_state, (s32 *)var_s2);
+    va_end(cursor);
+    if (*state != 0) {
+        result = func_1502B350(output, component, state);
     } else {
-        var_v1 = 0;
+        result = 0;
     }
-    return var_v1;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502B5C8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502B5C8.s")
-s32 func_1502B350(u8 *, s32, s32 *);
 s32 func_1502B4A8(Game57FA0Reloc *, s32);
 
 s32 func_1502B6BC(s32 *arg0, s32 arg1, s32 *arg2, s32 arg3, ...) {

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15159230
  * - func_151592B8
  * - func_151596BC
  * - func_15159C08
@@ -53,23 +52,20 @@ s32 func_15159184(void *arg0, u8 arg1) {
     }
     return var_v1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15159230 CURRENT (680) */
 s32 func_15159230(void *arg0, void *arg1, u8 arg2) {
     s32 var_v1;
 
-    if ((*(f32 *)((u8 *)arg1 + 0) == *(f32 *)((u8 *)arg0 + 0x14)) &&
-        (*(f32 *)((u8 *)arg1 + 4) == *(f32 *)((u8 *)arg0 + 0x18)) &&
-        (*(f32 *)((u8 *)arg1 + 8) == *(f32 *)((u8 *)arg0 + 0x1C))) {
-        var_v1 = 0;
-    } else if ((arg2 == 1) || (arg2 == 2)) {
-        var_v1 = 2;
+    if ((*(f32 *)((u8 *)arg1 + 0) != *(f32 *)((u8 *)arg0 + 0x14)) || (*(f32 *)((u8 *)arg1 + 4) != *(f32 *)((u8 *)arg0 + 0x18)) || (*(f32 *)((u8 *)arg1 + 8) != *(f32 *)((u8 *)arg0 + 0x1C))) {
+        if ((arg2 == 1) || (arg2 == 2)) {
+            var_v1 = 2;
+        } else {
+            var_v1 = 1;
+        }
     } else {
-        var_v1 = 1;
+        var_v1 = 0;
     }
     return var_v1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15159230 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_15159230.s")
 extern u16 D_8008B040;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151592B8 CURRENT (1490) */

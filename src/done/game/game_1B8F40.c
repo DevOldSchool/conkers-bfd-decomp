@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1B8F40.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_isolated_selectors_and_calls.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1518BBF4
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game1B8F40Node {
@@ -110,15 +105,12 @@ Game1B8F40Effect *func_1518BA90(void *arg0, u8 arg1, s32 arg2) {
     return func_1518BCD0(&spawn, arg1, arg2);
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518BBF4 CURRENT (580) */
 void func_1518BBF4(void *arg0) {
     u8 *block;
     u8 *end;
 
     if (arg0 != 0) {
-        block = D_800DCE50;
-        end = (u8 *)&D_800DD190;
-        do {
+        for (block = D_800DCE50, end = D_800DCE50 + 0x340; block != end; block += 0x1A0) {
             Game1B8F40Node *node;
 
             node = *(Game1B8F40Node **)(block + 0x7C);
@@ -130,21 +122,17 @@ void func_1518BBF4(void *arg0) {
                 do {
                     *link = node->next;
                     node->owner = arg0;
-                    if ((arg0 != 0) ||
-                        (*(u8 *)((u8 *)arg0 + 0x3B) == node->type)) {
+                    if ((arg0 != 0) || (((u8 *)arg0)[0x3B] == ((u8 *)node)[0x28])) {
                         func_1516972C((u8 *)node);
                     }
                     link = &D_800DD198[D_800DD190];
                     node = *link;
                 } while (node != 0);
             }
-            block += 0x1A0;
             D_800DD190 -= 1;
-        } while (block != end);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518BBF4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B8F40/func_1518BBF4.s")
 void *func_10022EC0(void *, const void *, u32);
 
 Game1B8F40Effect *func_1518BCD0(void *arg0, u8 arg1, s32 arg2) {

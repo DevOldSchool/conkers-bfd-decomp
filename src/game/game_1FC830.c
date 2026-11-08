@@ -11,7 +11,6 @@
  * - func_151D014C
  * - func_151D09A8
  * - func_151D10E4
- * - func_151D1448
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -340,8 +339,8 @@ void func_151D13E0(Game1FC830ActorContext *arg0) {
 extern s32 D_80082FA0;
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D1448 CURRENT (581) */
 void func_151D1448(u8 *arg0) {
+    u8 *link;
     struct {
         Vec3i position;
         s16 type;
@@ -360,9 +359,7 @@ void func_151D1448(u8 *arg0) {
         f32 height;
         f32 extent;
         f32 source_value;
-        s32 trailing_pad;
     } packet;
-    u8 *link;
     u8 *state;
     u8 *result;
 
@@ -387,8 +384,8 @@ void func_151D1448(u8 *arg0) {
         packet.extent = 180.0f;
     }
     packet.source_value = *(f32 *)(*(u8 **)link + 0x14C);
-    packet.position = *(Vec3i *)(link + 0x18);
     packet.value = 0x19;
+    packet.position = *(Vec3i *)(link + 0x18);
     packet.type = 0x12C;
     packet.subtype = 0x36;
     packet.mode = 0x13;
@@ -400,5 +397,3 @@ void func_151D1448(u8 *arg0) {
         *(u8 **)(link + 8) = result;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D1448 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D1448.s")

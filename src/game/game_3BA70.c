@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1500E5C0
  * - func_1500E8C0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -20,13 +19,8 @@ extern u8 D_800E0950[];
 extern u8 D_800E0964[];
 extern u8 D_800D9921;
 extern u8 D_800D9920;
-extern u8 D_800D9928;
-extern u8 D_800D9938;
-extern u8 D_800D9929;
-extern u8 D_800D9939;
-extern u8 D_800D992A[];
-extern u8 D_800D993A[];
-extern u8 D_800D9946[];
+extern u8 D_800D9928[];
+extern u8 D_800D9938[];
 extern u8 D_800D9890;
 extern void *D_800D9894;
 extern s32 D_800D98D0[];
@@ -38,62 +32,35 @@ extern s32 D_800D9AA0[];
 extern s32 D_800BE4F0;
 extern u8 D_80088B40;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500E5C0 CURRENT (535) */
 void func_1500E5C0(void) {
-    u8 *first;
-    u8 *second;
-    u8 *third;
-    u32 first_end;
-    u32 second_end;
+    s32 i;
+    s32 j;
 
     func_15012470();
     func_15008A10();
     func_15012770();
-    first = D_800E0950;
-    first_end = (u32)D_800E0964;
-clear_first:
-    first += 4;
-    first[-3] = 0;
-    first[-2] = 0;
-    first[-1] = 0;
-    first[-4] = 0;
-    if ((u32)first != first_end) {
-        goto clear_first;
+    for (i = 0; i < 20; i++) {
+        D_800E0950[i] = 0;
     }
     D_800D9921 = 0;
     D_800D9920 = 0;
-    D_800D9928 = 0;
-    D_800D9938 = 0;
-    D_800D9929 = 0;
-    second = D_800D993A;
-    third = D_800D992A;
-    second_end = (u32)D_800D9946;
-    D_800D9939 = 0;
-clear_pair:
-    second += 4;
-    third[1] = 0;
-    second[-3] = 0;
-    third[2] = 0;
-    second[-2] = 0;
-    third[3] = 0;
-    second[-1] = 0;
-    third += 4;
-    third[-4] = 0;
-    second[-4] = 0;
-    if ((u32)second != second_end) {
-        goto clear_pair;
+    for (j = 0; j < 14; j++) {
+        D_800D9928[j] = 0;
+        D_800D9938[j] = 0;
     }
-    D_800D9890 = 0;
-    D_800D9894 = 0;
-    D_800D98D0[0] = 0;
-    D_800D98D0[1] = 0;
-    D_800D98D0[2] = 0;
-    D_800D98D0[3] = 0;
+    {
+        s32 *p = D_800D98D0;
+
+        D_800D9890 = 0;
+        D_800D9894 = 0;
+        p[0] = 0;
+        p[1] = 0;
+        p[2] = 0;
+        p[3] = 0;
+    }
     D_80088870 = 0;
     func_100226F0(D_800BE500, 5);
-    D_800D9950[2] = 0;
-    D_800D9950[1] = 0;
-    D_800D9950[0] = 0;
+    D_800D9950[0] = D_800D9950[1] = D_800D9950[2] = 0;
     D_80088980 = 0;
     D_800D9AA0[0] = 0;
     D_800D9AA0[1] = 0;
@@ -101,8 +68,6 @@ clear_pair:
     D_800BE4F0 = 0;
     D_80088B40 = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1500E5C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_3BA70/func_1500E5C0.s")
 void func_1500E70C(s32 arg0) {
     if (arg0 == 0x2B) {
         func_15011C70();

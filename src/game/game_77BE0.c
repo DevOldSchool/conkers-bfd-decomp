@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1504A730
  * - func_1504ADD0
- * - func_1504AF10
  * - func_1504B0FC
  * - func_1504BA38
  * - func_1504BE2C
@@ -87,24 +86,19 @@ typedef struct Game77BE0Attachment {
 
 extern s32 D_800DBEF4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504AF10 CURRENT (680) */
 void func_1504AF10(Game77BE0AttachmentActor *arg0, s32 arg1, s32 arg2) {
     s32 selected;
     s32 index;
     s32 type;
-    s32 attachment;
     Game77BE0Attachment *entry;
 
-    attachment = arg0->attachment;
-    if ((attachment != 0) && ((arg1 != 0) || ((attachment >> 15) == 0))) {
-        type = attachment >> 12;
-        type &= 7;
-        selected = attachment & 0x7FFF;
+    if (arg0->attachment && ((arg1 != 0) || ((arg0->attachment >> 15) == 0))) {
+        selected = arg0->attachment & 0x7FFF;
+        type = (arg0->attachment >> 12) & 7;
         if (type == 0) {
-            selected = func_1504AEF4(selected, (s32)&index);
-            type = selected;
-            if (selected != 0) {
-                arg0->attachment = (selected << 12) | index;
+            type = func_1504AEF4(selected, (s32)&index);
+            if (type != 0) {
+                arg0->attachment = (type << 12) | index;
             }
         }
         index = arg0->attachment & 0xFFF;
@@ -130,8 +124,6 @@ void func_1504AF10(Game77BE0AttachmentActor *arg0, s32 arg1, s32 arg2) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1504AF10 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504AF10.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504B0FC.s")
 extern s8 D_80099140[];
 extern f32 D_800991D4;

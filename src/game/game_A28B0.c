@@ -11,9 +11,7 @@
  * - func_150768DC
  * - func_15076B94
  * - func_15077508
- * - func_15078544
  * - func_15078A60
- * - func_1507911C
  * - func_15079B30
  * - func_1507A4D4
  * - func_1507AA48
@@ -1255,7 +1253,6 @@ f32 func_15047D60(f32);
 f32 func_150484A0(f32, f32);
 f32 func_15047C00(f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15078544 CURRENT (555) */
 void func_15078544(void) {
     f32 x;
     f32 y;
@@ -1266,21 +1263,19 @@ void func_15078544(void) {
     f32 sine;
     f32 radians;
     u8 angle;
-    GameA28B0State *other;
     s32 mode;
     s32 command;
 
     command = D_800D1890;
     mode = command >> 6;
     D_800D1890 = command & 0x3F;
-    other = (GameA28B0State *)((u8 *)&D_800CC2D0 + D_800D154C->field_222 * 0x32C);
-    x = other->position_x;
-    y = other->position_y;
-    z = other->position_z;
+    y = ((GameA28B0State *)((u8 *)&D_800CC2D0 + D_800D154C->field_222 * 0x32C))->position_y;
+    x = ((GameA28B0State *)((u8 *)&D_800CC2D0 + D_800D154C->field_222 * 0x32C))->position_x;
+    z = ((GameA28B0State *)((u8 *)&D_800CC2D0 + D_800D154C->field_222 * 0x32C))->position_z;
     offset_x = (((s8)D_800D1891 * 16) | (D_800D1893 >> 4)) * 8;
     offset_z = (((s8)D_800D1892 * 16) | (D_800D1893 & 15)) * 8;
     if (mode == 0) {
-        angle = (other->field_7A >> 8) - 0x40;
+        angle = (u8)(((GameA28B0State *)((u8 *)&D_800CC2D0 + D_800D154C->field_222 * 0x32C))->field_7A >> 8) - 0x40;
         cosine = func_15048A40(angle);
         sine = func_150489B0(angle);
     } else if (mode == 1) {
@@ -1297,8 +1292,6 @@ void func_15078544(void) {
     *(s16 *)((u8 *)D_800D2104[D_800D154C->pad10F[0x30]] + D_800D1890 * 8 + 10) = (s32)y;
     *(s16 *)((u8 *)D_800D2104[D_800D154C->pad10F[0x30]] + D_800D1890 * 8 + 12) = (s32)z;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15078544 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15078544.s")
 extern u8 D_800CC5A0[];
 
 void func_1507879C(void) {
@@ -1481,30 +1474,24 @@ void func_150790C4(void) {
         *(s32 *)((u8 *)D_800D154C + 0x218) -= 5;
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507911C CURRENT (740) */
 void func_1507911C(void) {
     s16 threshold;
     s16 coordinate;
-    s32 index;
-    GameA28B0State *state;
+    u8 index;
 
     threshold = (D_800D1891 << 8) | D_800D1892;
-    index = D_800D1893;
-    index &= 1;
-    if (index != 0) {
+    index = D_800D1893 & 1;
+    if (index) {
         index = D_800C3E78;
     }
-    state = (GameA28B0State *)((u8 *)&D_800CC2D0 + index * 0x32C);
-    coordinate = (s32)state->position_y;
+    coordinate = (s32)((GameA28B0State *)((u8 *)&D_800CC2D0 + index * 0x32C))->position_y;
     if (D_800D1893 & 2) {
-        coordinate = (s32)state->position_x;
+        coordinate = (s32)((GameA28B0State *)((u8 *)&D_800CC2D0 + index * 0x32C))->position_x;
     }
     if (coordinate < threshold) {
         func_15075400(D_800D1890);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507911C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_1507911C.s")
 /* Semantic role: actor_script_set_representation_override.
  * Script operand D_800D1890 is stored at actor +1C9, or 0xFF if it exceeds
  * total count +2C9. Zero is stored unchanged; this handler does not apply it.

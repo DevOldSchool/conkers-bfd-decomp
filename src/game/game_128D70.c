@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150FB8C0
- * - func_150FC438
  * - func_150FC818
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -79,15 +78,13 @@ extern f32 D_800A1EB0, D_800A1EB4, D_800A1EB8;
 extern f32 D_800A1EBC, D_800A1EC0, D_800A1EC4;
 extern f32 D_800A1EC8, D_800A1ECC, D_800A1ED0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FC438 CURRENT (629) */
-void func_150FC438(Game128D70Actor *arg0, Game128D70Actor *arg1, s32 arg2, u8 arg3) {
+void func_150FC438(Game128D70Actor *arg0, Game128D70Actor *arg1, u8 arg2, u8 arg3) {
     Game128D70Owner owner;
     u8 *object;
     Game128D70Player *player;
     Game128D70Effect effect;
     Game128D70Owner *result;
 
-    arg2 &= 0xFF;
     owner.owner = arg0;
     owner.type = arg0->type;
     owner.value = 0.0f;
@@ -133,8 +130,6 @@ void func_150FC438(Game128D70Actor *arg0, Game128D70Actor *arg1, s32 arg2, u8 ar
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FC438 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_128D70/func_150FC438.s")
 f32 func_150ADA68(void);
 void func_150FB8C0(void *, s32, f32, s32, s32, s32);
 void *func_151D8868(s8 *, s32, s32, s32);

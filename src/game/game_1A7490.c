@@ -9,7 +9,6 @@
  * - func_15179FE0
  * - func_1517A1EC
  * - func_1517A3A0
- * - func_1517A644
  * - func_1517AA20
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -210,12 +209,10 @@ void func_1510E82C(s32, s32, s32, s32, s32, s32,
 extern f32 D_800A7224;
 extern f32 D_800A7228;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517A644 CURRENT (560) */
-void func_1517A644(f32 arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4) {
+void func_1517A644(f32 arg0, u8 arg1, s16 arg2, s16 arg3, s16 arg4) {
     s32 divisor;
     Game1A7490Motion *effect;
     f32 height;
-    s32 newHeight;
     s32 random;
     s32 half;
 
@@ -224,12 +221,10 @@ void func_1517A644(f32 arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4) {
         effect = func_15167A68(9, 0, 0xB8, 1, 0xFF, 1);
         if (effect != 0) {
             func_1510E82C(0, 0, (s32)&height, 0, 0, 0,
-                          (f32)arg2, (f32)arg3, (f32)(s16)arg4, (f32)arg3, 0, 0);
-            newHeight = (s32)(height + 3.0f);
-            effect->posB0 = newHeight;
-            effect->pos92 = newHeight;
+                          (f32)arg2, (f32)arg3, (f32)arg4, (f32)arg3, 0, 0);
+            effect->pos92 = effect->posB0 = (s32)(height + 3.0f);
             effect->pos90 = arg2;
-            effect->pos94 = (s16)arg4;
+            effect->pos94 = arg4;
             effect->pos96 = 0x5A;
             effect->pos98 = func_150ADA20() % 360U;
             effect->pos9A = 0;
@@ -249,8 +244,6 @@ void func_1517A644(f32 arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517A644 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_1517A644.s")
 extern s32 D_800BE9E4;
 
 void func_1517A84C(u8 *arg0) {
@@ -330,7 +323,7 @@ s32 func_1517A9A8(s32 arg0, s32 arg1) {
     }
     return arg0;
 }
-void func_1517A644(f32, s32, s16, s16, s32);
+void func_1517A644(f32, u8, s16, s16, s16);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1517AA20 CURRENT (2053) */
 void func_1517AA20(f32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
