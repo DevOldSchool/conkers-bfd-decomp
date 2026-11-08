@@ -2555,10 +2555,11 @@ void func_15071230(s32 arg0) {
 void func_15071254(s32 arg0) {
     func_15070F60(1);
 }
-void func_150FC438(u8 *arg0, s32 arg1, u8 arg2, u8 arg3);
+struct Game128D70Actor;
+void func_150FC438(struct Game128D70Actor *arg0, struct Game128D70Actor *arg1, u8 arg2, u8 arg3);
 
 void func_15071278(s32 arg0) {
-    func_150FC438(D_800D154C, 0, 1, D_800D154C[0x85]);
+    func_150FC438((struct Game128D70Actor *)D_800D154C, 0, 1, D_800D154C[0x85]);
 }
 void func_150FE860(u8 *, s32, s32);
 void func_151D8868(s8 *, s32, s32, s32);

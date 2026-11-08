@@ -4163,7 +4163,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "reason": "linked game mismatch: 0.1f/0.05f literals need an unmapped per-function rodata pool at 0x800A8AFC",
+        "current_score": 749,
+        "reason": "nov08: probe zero failed the integrated link (0.1f/0.05f need an unmapped per-function rodata pool at 0x800A8AFC); prior candidate kept. Earlier: Improved2652 to749 with ROM-backed0.1f/0.05f reused locals; exact148 frame/preset28 and FP promotion. Remaining byte053/half0BA integer store ordering and GPR rotations. Three renewed probe batches/two finishes; adjacent float-store reordering unchanged. Literal mapping required when matched; no ABI/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -10823,7 +10824,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "reason": "review: frame-padding local / prototype disagreement / overlapping struct; keep as candidate",
+        "current_score": 695,
+        "reason": "nov08 review: probe zero relied on typedefs duplicating struct127; prior candidate kept. Earlier: CURRENT (695) improved from 1139 (deferred-game-oct16d): natural 25-actor for loop reproduces the dead counter init and in-loop signed div. Remaining: raw materializes &D_800CC2D0 twice (s0 cursor, s3 subtraction base) while IDO CSEs one address; pointer/int/row-view/u32 variants neutral or worse.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -11042,7 +11044,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "reason": "review: frame-padding local / prototype disagreement / overlapping struct; keep as candidate",
+        "current_score": 723,
+        "reason": "nov08 review: probe zero relied on typedefs duplicating struct127; prior candidate kept. Earlier: CURRENT (723), improved from1620: explicit raw snapshot stores/reloads and s32 angle home. Simplified locals2137 and volatile store probes723/813 exhausted. Remaining stack homes/frame, savedpointer allocation and late float store/load schedule. Preserve best; no padding.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -34156,7 +34159,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "reason": "review: frame-padding local / prototype disagreement / overlapping struct; keep as candidate",
+        "current_score": 630,
+        "reason": "nov08 review: probe zero needed a caller-only u8 prototype for func_15153F18 that contradicts its s32 definition; prior candidate kept. Earlier: Initializer order improves1072 to630. Register hint neutral; explicit s32 narrowing790 and written u8 formal1465 exhausted. Best630 retains exact frame/local order; entry byte normalization/register lifetime remains.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -58277,7 +58281,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "reason": "review: frame-padding local / prototype disagreement / overlapping struct; keep as candidate",
+        "current_score": 740,
+        "reason": "nov08 review: probe zero relied on a frame-padding local; prior candidate kept. Earlier: CURRENT740 after3 finishes/2 bounded probes, down from772. Full48-byte frame and all stack offsets now agree. 54 register-only rows and four scheduling rows remain; no missing/extra instructions. Preserve captured resource byte count and descriptor/call order. Manual budget exhausted; no permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -58671,7 +58676,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "reason": "review: frame-padding local / prototype disagreement / overlapping struct; keep as candidate",
+        "current_score": 640,
+        "reason": "nov08 review: probe zero relied on an unprototyped extern hiding a 3-argument call to a 2-argument function; prior candidate kept. Earlier: Two bounded source attempts remain non-exact at CURRENT (640); the unused third-parameter spill and saved-register allocation require deeper ABI recovery, so preserve and defer.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -65109,7 +65115,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "reason": "review: frame-padding local / prototype disagreement / overlapping struct; keep as candidate",
+        "current_score": 648,
+        "reason": "nov08 review: probe zero relied on a frame-padding array; prior candidate and CA630 rodata pool kept. Earlier: Manual budget exhausted; best CURRENT648. Frame40/GPR/FP ownership exact, request bases+4 and range/default branch joins remain.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -69821,7 +69828,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "reason": "review: frame-padding local / prototype disagreement / overlapping struct; keep as candidate",
+        "current_score": 626,
+        "reason": "nov08 review: probe zero relied on a frame-padding local; prior candidate kept. Earlier: Removed an unused volatile spacer that had no source-state evidence. Valid candidate CURRENT 626 retains the actual value/clamp lifecycle; prior 610 relied on artificial local storage and is not retained as a valid best.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -88382,7 +88390,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "reason": "review: frame-padding local / prototype disagreement / overlapping struct; keep as candidate",
+        "current_score": 528,
+        "reason": "nov08 review: probe zero relied on padding temps and out-of-bounds struct indexing; prior candidate kept. Earlier: Rescored after func_1516D4E8 prototype narrowing (s16/u8 parameters, PR 231): CURRENT 2784 -> 528. Remaining: argument scheduling/narrowing at the constructor call and frame 0x138 layout.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
