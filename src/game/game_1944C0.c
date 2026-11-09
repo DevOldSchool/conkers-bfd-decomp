@@ -12,7 +12,6 @@
  * - func_15168118
  * - func_15168F08
  * - func_15169070
- * - func_15169260
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1185,57 +1184,36 @@ void func_15169070(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
 void func_1516968C(void *, u8 *, u8);
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15169260 CURRENT (781) */
 void func_15169260(s32 *arg0, s32 arg1, u8 *arg2, u8 arg3) {
-    s32 count;
-    Game1944C0Node *(*row)[104];
-    Game1944C0Node **slot;
+    s32 row;
+    s32 i;
     Game1944C0Node *node;
-    s32 *ids;
 
-    count = 0;
-    ids = arg0;
-    if (arg1 > 0) {
-        do {
-            row = D_800DCE50;
-            do {
-                if (((Game1944C0TraversalEntry *)&D_8008B4A8)[*ids].callback != 0) {
-                    node = (*row)[*ids];
-                    D_800DD190++;
-                    if (node != 0) {
-                        slot = &D_800DD198[D_800DD190];
-                        do {
-                            *slot = node->field_8;
-                            func_1516968C(node, arg2, arg3);
-                            ((Game1944C0TraversalEntry *)&D_8008B4A8)[*ids].callback(node, (s8 *)arg2, arg3);
-                            slot = &D_800DD198[D_800DD190];
-                            node = *slot;
-                        } while (node != 0);
-                    }
-                    D_800DD190--;
-                } else {
-                    node = (*row)[*ids];
-                    D_800DD190++;
-                    if (node != 0) {
-                        slot = &D_800DD198[D_800DD190];
-                        do {
-                            *slot = node->field_8;
-                            func_1516968C(node, arg2, arg3);
-                            slot = &D_800DD198[D_800DD190];
-                            node = *slot;
-                        } while (node != 0);
-                    }
-                    D_800DD190--;
+    for (i = 0; i < arg1; i++) {
+        for (row = 0; row < 2; row++) {
+            if (((Game1944C0TraversalEntry *)&D_8008B4A8)[arg0[i]].callback != 0) {
+                node = D_800DCE50[row][arg0[i]];
+                D_800DD190++;
+                while (node != 0) {
+                    D_800DD198[D_800DD190] = ((Game1944C0ProcessNode *)node)->next;
+                    func_1516968C(node, arg2, arg3);
+                    ((Game1944C0TraversalEntry *)&D_8008B4A8)[arg0[i]].callback(node, (s8 *)arg2, arg3);
+                    node = D_800DD198[D_800DD190];
                 }
-                row++;
-            } while (row != (Game1944C0Node *(*)[104])&D_800DD190);
-            ids++;
-            count++;
-        } while (count != arg1);
+                D_800DD190--;
+            } else {
+                node = D_800DCE50[row][arg0[i]];
+                D_800DD190++;
+                while (node != 0) {
+                    D_800DD198[D_800DD190] = ((Game1944C0ProcessNode *)node)->next;
+                    func_1516968C(node, arg2, arg3);
+                    node = D_800DD198[D_800DD190];
+                }
+                D_800DD190--;
+            }
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15169260 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15169260.s")
 
 void func_1516944C(s32 arg0, s8 *arg1, u8 arg2) {
     Game1944C0Node *node;

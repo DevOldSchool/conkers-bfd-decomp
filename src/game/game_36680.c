@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150091D0
  * - func_15009334
  * - func_1500AC14
  * - func_1500AF08
@@ -26,18 +25,7 @@ void func_1515D4D4(s32, s32, s32, s32);
 
 extern u8 D_800DCD24[3];
 extern u8 D_800DCD28[3];
-extern u8 D_800DCD30;
-extern u8 D_800DCD31;
-extern u8 D_800DCD32;
-extern u8 D_800DCD33;
-extern u8 D_800DCD34;
-extern u8 D_800DCD35;
-extern u8 D_800DCD36;
-extern u8 D_800DCD37;
-extern u8 D_800DCD38;
-extern u8 D_800DCD39;
-extern u8 D_800DCD3A;
-extern u8 D_800DCD3B;
+extern u8 D_800DCD30[4][3];
 extern u8 D_800DCD3C;
 extern u8 D_800DCD3D;
 extern u8 D_800DCD40[0x38];
@@ -46,37 +34,28 @@ extern s32 D_800DCD7C;
 extern s32 D_800DCD80;
 extern s32 D_800DCD84;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150091D0 CURRENT (900) */
 void func_150091D0(void) {
+    s32 i;
     D_800DCD78 = 0;
     D_800DCD7C = 1;
     D_800DCD80 = 0;
     D_800DCD84 = 0;
-    func_1515D4D4(0xFF, 0xFFU, 0xFFU, 0);
+    func_1515D4D4(0xFF, 0xFF, 0xFF, 0);
     D_800DCD24[0] = 0;
     D_800DCD24[1] = 0;
     D_800DCD24[2] = 0;
     D_800DCD28[0] = 0xFF;
     D_800DCD28[1] = 0xFF;
     D_800DCD28[2] = 0xFF;
-    D_800DCD30 = 0x7F;
-    D_800DCD31 = 0;
-    D_800DCD32 = 0;
-    D_800DCD33 = 0x7F;
-    D_800DCD34 = 0;
-    D_800DCD35 = 0;
-    D_800DCD36 = 0x7F;
-    D_800DCD37 = 0;
-    D_800DCD38 = 0;
-    D_800DCD39 = 0x7F;
-    D_800DCD3A = 0;
-    D_800DCD3B = 0;
+    for (i = 0; i < 4; i++) {
+        D_800DCD30[i][0] = 0x7F;
+        D_800DCD30[i][1] = 0;
+        D_800DCD30[i][2] = 0;
+    }
     D_800DCD3C = 0;
     D_800DCD3D = 0;
     func_100226F0(D_800DCD40, sizeof(D_800DCD40));
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150091D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_150091D0.s")
 void func_15009334(u32);
 extern u32 D_800D3094;
 

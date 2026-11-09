@@ -11,7 +11,6 @@
  * - func_1509BBA0
  * - func_1509BE40
  * - func_1509BFB0
- * - func_1509C120
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -460,48 +459,30 @@ typedef struct {
     void *entries[4];
 } GameC8950SwapLocals;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509C120 CURRENT (1144) */
 void func_1509C120(void) {
-    GameC8950SwapLocals locals;
-    s32 temp_s1;
-    s32 temp_s2;
-    void **var_s0_2;
-    s32 temp_s3;
-    s32 var_s0;
+    s32 n;
+    s32 i;
+    void *entries[4];
+    void *old;
 
-    temp_s3 = func_150ADA20() & 3;
-    locals.old = D_800D2E4C;
-    if ((D_800D2E4C == 0) || (func_150ADA20() & 4)) {
-        var_s0 = 0;
-        if (temp_s3 >= 0) {
-            var_s0_2 = &locals.entries[0];
-            temp_s1 = (s32)&var_s0_2[temp_s3 + 1];
-            do {
-                *var_s0_2 = func_10003C40(0x1B, 0xFF, 2, 0);
-                var_s0_2++;
-            } while (temp_s1 != (s32)var_s0_2);
-            var_s0 = 0;
+    n = func_150ADA20() & 3;
+    old = D_800D2E4C;
+    if (old == NULL || (func_150ADA20() & 4)) {
+        for (i = 0; i <= n; i++) {
+            entries[i] = func_10003C40(0x1B, 0xFF, 2, 0);
         }
-        if (temp_s3 >= 0) {
-            temp_s1 = temp_s3 + 1;
-            temp_s2 = (s32)&locals.entries[0];
-            do {
-                if (var_s0 != temp_s3) {
-                    func_10004074(*(s32 *)(temp_s2 + (var_s0 * 4)));
-                }
-                var_s0++;
-            } while (temp_s1 != var_s0);
+        for (i = 0; i <= n; i++) {
+            if (i != n) {
+                func_10004074((s32)entries[i]);
+            }
         }
-        temp_s2 = (s32)&locals.entries[0];
-        D_800D2E4C = *(void **)(temp_s2 + (temp_s3 * 4));
-        if (locals.old != 0) {
-            func_10023A10(locals.old, D_800D2E4C, 0x1B);
-            func_10004074((s32)locals.old);
+        D_800D2E4C = entries[n];
+        if (old != NULL) {
+            func_10023A10(old, D_800D2E4C, 0x1B);
+            func_10004074((s32)old);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509C120 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509C120.s")
 typedef struct {
     u8 pad0[0xF];
     u8 flags_F;

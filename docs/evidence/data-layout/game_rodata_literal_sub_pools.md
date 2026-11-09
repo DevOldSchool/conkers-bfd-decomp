@@ -76,6 +76,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_209B50 | 0x18 | 0xC | 0x800AB538 | pool (func_151DC97C) | `43C98000 3E439582 3E1A9FBF` (403.0, 0.19100001, 0.15100001) |
 | game_177B50 | 0x0 | 0x1C | 0x800A57B0 | pool (func_1514AB5C) | `3D3851EC 3F333333 41B4CCCD 415C9375 4267E042 422ADB23 42ED86A8` |
 | game_177B50 | 0x1C | 0x28 | 0x800A5860 | pool (func_1514B8E4) | `4678FC00 45D26800 468FC800 4170B96F 40BBC3D6 4141C87A 3ECAD752 3DD58454 3F050D7E 3EB026C8` |
+| game_58F80 | 0x0 | 0x100 | 0x80096DF8 | table, sites 0x2068 / 0x2070 | unchanged (func_1502DB20) |
+| game_58F80 | 0x100 | 0x18 | 0x80096F04 | table, sites 0x3040 / 0x3048 | `1502EB24 1502EB24 1502EB8C 1502EB5C 1502EBB0 1502EBFC` (func_1502EAFC) |
 
 The blood table hashes are SHA-256
 `d321edfcf0ef657c343364be6b03428e24a84df3a377f3acee9bfa8fee19b509` and
@@ -235,6 +237,15 @@ This lets `finish` prove terminal padding in split units. `func_15195738` is
 the last member of `game_1C1150`. Its 120-byte span ends in 8 zero alignment
 bytes that only the complete object contains, so it reached `CURRENT (0)` once
 the unit could be linked.
+
+- **game_58F80:** `func_1502EAFC` matched as a six-case `switch`, so the
+  object now emits its jump table after the reviewed `func_1502DB20` table.
+  The raw dispatch (`sltiu at,t7,6`, then `lui`/`lw` of `jtbl_80096F04_game` at
+  text offsets 0x3040/0x3048) addresses `0x80096F04`, whose six ROM words are the
+  case targets listed above. The 12 bytes between the tables
+  (`0x80096EF8`..`0x80096F03`: 0.1, 0.1, 20000.0) are `func_1502DF38` literals
+  still read through externs, so the unit is split at 0x100. The object
+  `.rodata` is 0x120 bytes: 0x118 of payload and 8 zero alignment bytes.
 
 ## Validation
 

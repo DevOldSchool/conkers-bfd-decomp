@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_type4b_framebuffer_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1510D970
  * - func_1510DA84
  * - func_1510E120
  * - func_1510E388
@@ -14,63 +13,43 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510D970 CURRENT (890) */
 void *func_1510D970(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    s32 size;
-    s32 enabled;
-    s32 i;
-    s32 j;
     u8 *result;
-    u8 *entry;
+    s32 size;
+    s32 i;
 
     size = 0x128;
-    enabled = arg3 & 1;
-    if (enabled != 0) {
+    if (arg3 & 1) {
         size = 0x13A;
     }
     result = func_15167A68(0x4B, 0, size, 1, 0xFF, 1);
     if (result != 0) {
-        i = 0;
-        entry = result;
-        do {
-            i++;
-            entry += 0x40;
-            *(s16 *)(entry + 0x56) = 0;
-            *(s16 *)(entry + 0x58) = 0x800;
-            *(s16 *)(entry + 0x5A) = 0;
-            *(s16 *)(entry + 0x66) = 0;
-            *(s16 *)(entry + 0x68) = 0;
-            *(s16 *)(entry + 0x6A) = 0;
-            *(s16 *)(entry + 0x76) = 0;
-            *(s16 *)(entry + 0x78) = 0;
-            *(s16 *)(entry + 0x7A) = 0x800;
-            *(s16 *)(entry + 0x86) = 0;
-            *(s16 *)(entry + 0x88) = 0x800;
-            *(s16 *)(entry + 0x8A) = 0x800;
-        } while (i < 2);
-
+        for (i = 0; i < 2; i++) {
+            *(s16 *)(result + i * 0x40 + 0x96) = 0;
+            *(s16 *)(result + i * 0x40 + 0x98) = 0x800;
+            *(s16 *)(result + i * 0x40 + 0x9A) = 0;
+            *(s16 *)(result + i * 0x40 + 0xA6) = 0;
+            *(s16 *)(result + i * 0x40 + 0xA8) = 0;
+            *(s16 *)(result + i * 0x40 + 0xAA) = 0;
+            *(s16 *)(result + i * 0x40 + 0xB6) = 0;
+            *(s16 *)(result + i * 0x40 + 0xB8) = 0;
+            *(s16 *)(result + i * 0x40 + 0xBA) = 0x800;
+            *(s16 *)(result + i * 0x40 + 0xC6) = 0;
+            *(s16 *)(result + i * 0x40 + 0xC8) = 0x800;
+            *(s16 *)(result + i * 0x40 + 0xCA) = 0x800;
+        }
         result[0x120] = arg0;
         *(s32 *)(result + 0x110) = arg1;
         result[0x121] = arg2;
         result[0x124] = arg4;
-        if (enabled != 0) {
-            *(s16 *)(result + 0x128) = 0x7FFF;
-            j = 1;
-            entry = result + 2;
-            do {
-                j += 4;
-                *(s16 *)(entry + 0x12A) = 0x7FFF;
-                *(s16 *)(entry + 0x12C) = 0x7FFF;
-                *(s16 *)(entry + 0x12E) = 0x7FFF;
-                entry += 8;
-                *(s16 *)(entry + 0x120) = 0x7FFF;
-            } while (j != 9);
+        if (arg3 & 1) {
+            for (i = 0; i < 9; i++) {
+                ((s16 *)(result + 0x128))[i] = 0x7FFF;
+            }
         }
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510D970 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13AE20/func_1510D970.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13AE20/func_1510DA84.s")
 typedef struct { u32 first, second; } Game13AE20Command;
 typedef struct {

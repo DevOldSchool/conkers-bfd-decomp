@@ -8,12 +8,10 @@
  * TODO: Implement these source-unit functions:
  * - func_1502FE10
  * - func_1502FFD8
- * - func_15030310
  * - func_15030468
  * - func_15030AF4
  * - func_15031070
  * - func_150311C4
- * - func_15031E7C
  * - func_15031FC8
  * - func_150331B8
  *
@@ -209,45 +207,34 @@ void func_150302F0(void *arg0, s32 arg1) {
 void func_15030158(u8 *, s32);
 extern void * D_800C3EE0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15030310 CURRENT (814) */
 s32 func_15030310(void *arg0, s32 arg1, s32 arg2) {
-    void *temp_s1;
-    void *var_a0;
-    s32 var_s5;
+    u8 *ptr;
+    u8 *next;
+    s32 found;
 
-    if (*(u8 *)((u8 *)arg0 + 0x3B) == 0) {
+    if (((u8 *)arg0)[0x3B] == 0) {
         return 0;
     }
-    var_a0 = D_800C3EE0;
-    var_s5 = 0;
-    if (var_a0 != 0) {
-loop:
-        temp_s1 = *(void **)((u8 *)var_a0 + 0x54);
-        if ((*(u8 *)((u8 *)arg0 + 0x3B) == *(u8 *)var_a0) &&
-            (arg1 == *(u8 *)((u8 *)var_a0 + 6))) {
-            if ((arg2 != 0xFF) && (arg2 != 0)) {
-                arg2 -= 1;
-                var_a0 = temp_s1;
-                goto advance;
+    ptr = D_800C3EE0;
+    found = 0;
+    while (ptr != NULL) {
+        next = *(u8 **)(ptr + 0x54);
+        if (((u8 *)arg0)[0x3B] == ptr[0] && arg1 == ptr[6]) {
+            if (arg2 != 0xFF && arg2 != 0) {
+                arg2--;
+                ptr = next;
+                continue;
             }
-            var_s5 = 1;
-            func_15030158(var_a0, 0);
-            if (arg2 != 0) {
-                goto next;
-            }
-        } else {
-next:
-            var_a0 = temp_s1;
-advance:
-            if (var_a0 != 0) {
-                goto loop;
+            found = 1;
+            func_15030158(ptr, 0);
+            if (arg2 == 0) {
+                break;
             }
         }
+        ptr = next;
     }
-    return var_s5;
+    return found;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15030310 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030310.s")
 extern void *D_800C3EE0;
 void func_15030158(u8 *, s32);
 
@@ -781,30 +768,30 @@ s32 func_15031E2C(Game5D2C0State *arg0, s32 arg1) {
 }
 extern f32 D_800970DC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15031E7C CURRENT (1205) */
+typedef struct Game5D2C0Command {
+    u32 w0;
+    u32 w1;
+} Game5D2C0Command;
+
 s32 func_15031E7C(u8 *arg0, u8 *arg1) {
     u8 *object;
-    u32 commands;
+    Game5D2C0Command *commands;
     f32 factor;
     f32 progress;
     u32 index;
     s32 count;
-    s32 marker;
-    u16 kind;
 
     object = *(u8 **)(arg1 + 0x2D0);
     if (object == 0) {
         return 0;
     }
-    commands = **(u32 **)(arg0 + 0x24);
+    commands = **(Game5D2C0Command ***)(arg0 + 0x24);
     if (commands == 0) {
         return 0;
     }
-    kind = *(u16 *)(arg1 + 0x84);
-    marker = -14;
-    if (kind == 0x55) {
+    if (*(u16 *)(arg1 + 0x84) == 0x55) {
         factor = 1.0f;
-    } else if (kind == 0x56) {
+    } else if (*(u16 *)(arg1 + 0x84) == 0x56) {
         factor = 0.0f;
     } else {
         progress = *(f32 *)(object + 8);
@@ -819,20 +806,16 @@ s32 func_15031E7C(u8 *arg0, u8 *arg1) {
     count = 4;
     do {
         count--;
-        if (*(s8 *)(commands + (index << 3)) != marker) {
-            do {
-                index++;
-            } while (*(s8 *)(commands + (index << 3)) != marker);
+        while (*(s8 *)&commands[index].w0 != -14) {
+            index++;
         }
         if (count != 0) {
             index++;
         }
     } while (count != 0);
-    *(s32 *)(commands + (index << 3)) = (((s32)(25.0f * factor + 2.0f)) & 0xFFF) | 0xF2002000;
+    commands[index].w0 = (((s32)(25.0f * factor + 2.0f)) & 0xFFF) | 0xF2002000;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15031E7C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15031E7C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15031FC8.s")
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150331B8 CURRENT (2021) */

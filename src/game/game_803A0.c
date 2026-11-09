@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15052F9C
- * - func_1505327C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -124,40 +123,36 @@ void func_15052F9C(u8 *arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4,
 #endif /* CONKER_DEFERRED_CANDIDATE func_15052F9C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_803A0/func_15052F9C.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505327C CURRENT (1140) */
 void func_1505327C(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, s32 arg4) {
+    u8 *source;
     u8 *actor;
+    Vec3f position;
     u8 *object;
-    struct {
-        u8 pad[8];
-        f32 position[3];
-    } local;
 
-    actor = (arg0[0x124] * 0x32C) + D_800CC2D0;
+    actor = &D_800CC2D0[arg0[0x124] * 0x32C];
     if (actor[0x89] != 0 || actor[0x104] != 0) {
         return;
     }
     object = *(u8 **)(actor + 0x31C);
-    if (object == 0 || object[0x6B] == 0) {
-    actor[0x125] = 0xFF;
-    *(f32 *)(actor + 0x20) = arg1;
-    *(f32 *)(actor + 0x24) = arg2;
-    actor[0x83] = 0xFF;
-    actor[0x89] = 0xFF;
-    *(u16 *)(actor + 0x76) = *(u16 *)(arg0 + 0x7A);
-    *(s32 *)(arg0 + 0x218) = 0;
-    arg0[0x232] = arg3;
-    func_1505E650(actor, 0x32, 0x3FA66666, 0x40800000, 0.0f, 0.0f, 0);
-    (*(u8 **)(D_800CC2D0 + (arg0[0x124] * 0x32C) + 0x31C))[0x30] = 0x46;
-    *(f32 *)(*(u8 **)(D_800CC2D0 + (arg0[0x124] * 0x32C) + 0x31C) + 0x28) = *(f32 *)(arg0 + 0x14);
-    *(f32 *)(*(u8 **)(D_800CC2D0 + (arg0[0x124] * 0x32C) + 0x31C) + 0x2C) = *(f32 *)(arg0 + 0x1C);
-    if (*(s32 *)(arg0 + 0x1D4) != 0 && arg4 != -1) {
-        func_15043FF0(local.position, *(u8 **)(arg0 + 0x1D4) + (arg4 << 6));
-        *(f32 *)(*(u8 **)(D_800CC2D0 + (arg0[0x124] * 0x32C) + 0x31C) + 0x28) = local.position[0];
-        *(f32 *)(*(u8 **)(D_800CC2D0 + (arg0[0x124] * 0x32C) + 0x31C) + 0x2C) = local.position[2];
-    }
-    (*(u8 **)(D_800CC2D0 + (arg0[0x124] * 0x32C) + 0x31C))[0x27] = 1;
+    if (object == NULL || object[0x6B] == 0) {
+        actor[0x125] = 0xFF;
+        *(f32 *)(actor + 0x20) = arg1;
+        *(f32 *)(actor + 0x24) = arg2;
+        actor[0x83] = 0xFF;
+        actor[0x89] = 0xFF;
+        *(u16 *)(actor + 0x76) = *(u16 *)(arg0 + 0x7A);
+        arg0[0x232] = arg3;
+        *(s32 *)(arg0 + 0x218) = 0;
+        func_1505E650(actor, 0x32, 1.3f, 4.0f, 0.0f, 0.0f, 0);
+        (*(u8 **)&D_800CC2D0[arg0[0x124] * 0x32C + 0x31C])[0x30] = 0x46;
+        *(f32 *)(*(u8 **)&D_800CC2D0[arg0[0x124] * 0x32C + 0x31C] + 0x28) = *(f32 *)(arg0 + 0x14);
+        *(f32 *)(*(u8 **)&D_800CC2D0[arg0[0x124] * 0x32C + 0x31C] + 0x2C) = *(f32 *)(arg0 + 0x1C);
+        if (*(u8 **)(arg0 + 0x1D4) != NULL && arg4 != -1) {
+            source = *(u8 **)(arg0 + 0x1D4) + (arg4 << 6);
+            func_15043FF0(&position, (struct Game71240TransformSource *)source);
+            *(f32 *)(*(u8 **)&D_800CC2D0[arg0[0x124] * 0x32C + 0x31C] + 0x28) = position.x;
+            *(f32 *)(*(u8 **)&D_800CC2D0[arg0[0x124] * 0x32C + 0x31C] + 0x2C) = position.z;
+        }
+        (*(u8 **)&D_800CC2D0[arg0[0x124] * 0x32C + 0x31C])[0x27] = 1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505327C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_803A0/func_1505327C.s")

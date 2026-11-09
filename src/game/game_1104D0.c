@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_slot_motion_attachment_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150E3020
  * - func_150E35DC
  * - func_150E3738
  *
@@ -44,18 +43,16 @@ extern Game1104D0Slot *D_800D99D0[8];
 
 extern f32 D_800A1030;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E3020 CURRENT (1090) */
 void *func_150E3020(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
                    s32 arg4, s32 arg5, s32 arg6, f32 arg7, s32 arg8,
-                   f32 arg9, f32 arg10, f32 arg11, s32 arg12, s32 arg13) {
-    Game1104D0Slot **slot;
+                   f32 arg9, f32 arg10, f32 arg11, s32 arg12, s16 arg13) {
     Game1104D0Slot *object;
     f32 y;
-    s8 index;
+    s32 i;
 
     object = func_15167A68(0x27, 0, 0x80, 1, 0xFF, 1);
-    if (object == 0) {
-        return 0;
+    if (object == NULL) {
+        return NULL;
     }
     object->motion[0] = 0.0f;
     object->motion[1] = 0.0f;
@@ -64,58 +61,36 @@ void *func_150E3020(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
     object->zero70 = 0;
     object->zero71 = 0;
     object->zero74 = 0;
-    slot = D_800D99D0;
-    index = 0;
     object->kind = arg13;
     object->reference = arg12;
-    object->x = (f32)arg0;
-    y = (f32)arg1;
-    object->y = y;
-    object->z = (f32)arg2;
-    object->target[0] = (f32)arg3;
-    object->target[1] = (f32)arg4;
-    object->target[2] = (f32)arg5;
+    object->x = arg0;
+    object->y = y = arg1;
+    object->z = arg2;
+    object->target[0] = arg3;
+    object->target[1] = arg4;
+    object->target[2] = arg5;
     object->direction[0] = arg9;
     object->direction[1] = arg10;
     object->direction[2] = arg11;
-    object->initialY = y;
     object->speed = arg7;
+    object->initialY = y;
     object->flags = arg8;
+    object->owner = arg6;
     object->zero44 = 0;
     object->sound = 0;
-    object->owner = arg6;
-    do {
-        if (slot[0] == 0) {
-            slot[0] = object;
-            object->index = index;
+    for (i = 0; i < 8; i++) {
+        if (D_800D99D0[i] == NULL) {
+            D_800D99D0[i] = object;
+            object->index = i;
             return object;
         }
-        if (slot[1] == 0) {
-            slot[1] = object;
-            object->index = index + 1;
-            return object;
-        }
-        if (slot[2] == 0) {
-            slot[2] = object;
-            object->index = index + 2;
-            return object;
-        }
-        if (slot[3] == 0) {
-            slot[3] = object;
-            object->index = index + 3;
-            return object;
-        }
-        index += 4;
-        slot += 4;
-    } while (index != 8);
+    }
     object->index = 0;
     return object;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E3020 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1104D0/func_150E3020.s")
 /* Call context: func_150AD9A0: unique active project prototype */
 s32 func_150AD9A0(s32, s32, s32);
-void *func_150E3020(s32, s32, s32, s32, s32, s32, s32, f32, s32, f32, f32, f32, s32, s32); /* extern */
+void *func_150E3020(s32, s32, s32, s32, s32, s32, s32, f32, s32, f32, f32, f32, s32, s16); /* extern */
 
 s32 func_150E3208(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7) {
     void *temp_v0;
@@ -127,7 +102,7 @@ s32 func_150E3208(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s3
     return 0;
 }
 /* Call context: func_150E3020: unique active project prototype */
-void * func_150E3020(s32, s32, s32, s32, s32, s32, s32, f32, s32, f32, f32, f32, s32, s32);
+void * func_150E3020(s32, s32, s32, s32, s32, s32, s32, f32, s32, f32, f32, f32, s32, s16);
 
 s32 func_150E32D0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, f32 arg5) {
     void *temp_v0;

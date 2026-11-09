@@ -10,7 +10,6 @@
  * - func_150C88D0
  * - func_150C8A68
  * - func_150C8DB8
- * - func_150C9BDC
  * - func_150C9DC4
  * - func_150CA150
  *
@@ -283,33 +282,29 @@ s32 func_1505D024(void *, s32, s32, s32);
 f32 sqrtf(f32);
 __pragma(1, sqrtf);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C9BDC CURRENT (1177) */
 void func_150C9BDC(GameF5D80Wave *arg0, s32 arg1) {
     GameF5D80Actor *actor;
-    f32 dx, dz, adjusted, distance, delta;
-    s32 active;
-    s32 kind;
+    f32 dx, dz, distance, delta;
+    s32 i;
 
-    actor = (GameF5D80Actor *)D_800CC2D0;
-    do {
-        active = actor->active;
-        if ((active != 0) && (actor->radius < 20.0f) &&
+    for (i = 0; i < 25; i++) {
+        actor = (GameF5D80Actor *)D_800CC2D0 + i;
+        if ((actor->active != 0) && (actor->radius < 20.0f) &&
             (actor->disabled == 0) &&
-            (((kind = actor->kind) == 0x53) || (active == 1))) {
+            ((actor->kind == 0x53) || (actor->active == 1))) {
             dx = actor->x - arg0->x;
             dz = actor->z - arg0->z;
             distance = sqrtf(dx * dx + dz * dz) - 100.0f;
-            adjusted = distance;
-            if ((kind == 0x53) && (actor->mode13C == 0)) {
-                adjusted = distance - 150.0f;
+            if ((actor->kind == 0x53) && (actor->mode13C == 0)) {
+                distance -= 150.0f;
             }
-            delta = arg0->radius - adjusted;
+            delta = arg0->radius - distance;
             if ((delta >= 0.0f) && (delta < 250.0f)) {
-                if (kind == 0x53) {
+                if (actor->kind == 0x53) {
                     actor->state89 = 0xA;
                     actor->counter218 = 0;
                     actor->state232 = 0x13;
-                    if (D_800CC2D0[actor->owner * 0x32C + 0x65] != 0) {
+                    if (((GameF5D80Actor *)D_800CC2D0)[actor->owner].enabled65 != 0) {
                         actor->state232 = 0x14;
                     }
                 } else {
@@ -317,11 +312,8 @@ void func_150C9BDC(GameF5D80Wave *arg0, s32 arg1) {
                 }
             }
         }
-        actor++;
-    } while (actor != (GameF5D80Actor *)D_800D121C);
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C9BDC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150C9BDC.s")
 typedef struct GameF5D80Burst {
     f32 field0;
     f32 field4;

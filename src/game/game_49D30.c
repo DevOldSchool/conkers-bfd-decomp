@@ -10,7 +10,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1501CC3C
- * - func_1501CDC0
  * - func_1501CE54
  * - func_1501D258
  * - func_1501D2C4
@@ -202,38 +201,18 @@ void func_1501CC3C(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1501CC3C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501CC3C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501CDC0 CURRENT (1220) */
 void func_1501CDC0(s32 arg0) {
-    s32 *var_a1;
-    s32 var_a0;
-    s32 var_v0;
-    u8 *temp_v1;
+    s32 i;
+    s32 j;
+    u8 **rows;
 
-    temp_v1 = &D_800C363A[arg0];
-    var_v0 = 0;
-    if ((s32)*temp_v1 > 0) {
-        var_a1 = (s32 *)((u8 *)D_800C3960 + (arg0 * 0x78));
-        var_a0 = 0;
-outer_loop:
-        loop_3:
-            *(u8 *)((u8 *)*var_a1 + var_a0) = 0xFF;
-            *(u8 *)((u8 *)*var_a1 + var_a0 + 1) = 0xFF;
-            *(u8 *)((u8 *)*var_a1 + var_a0 + 2) = 0xFF;
-            *(u8 *)((u8 *)*var_a1 + var_a0 + 3) = 0xFF;
-            var_a0 += 4;
-            if (var_a0 != 0x10) {
-                goto loop_3;
-            }
-            var_v0 += 1;
-            var_a1 += 4;
-            if (var_v0 < (s32)*temp_v1) {
-                var_a0 = 0;
-                goto outer_loop;
-            }
+    rows = (u8 **)((u8 *)D_800C3960 + arg0 * 0x78);
+    for (i = 0; i < D_800C363A[arg0]; i++) {
+        for (j = 0; j < 16; j++) {
+            rows[i][j] = 0xFF;
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501CDC0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501CDC0.s")
 extern u16 *D_800C35D8[];
 extern void *D_800C35C8[];
 extern s32 D_800C35D0;
@@ -437,15 +416,10 @@ u64 func_100268A4(s32, s32, s32, s32);
 extern u8 D_800C3670;
 extern u64 D_800C3A60[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501D258 CURRENT (950) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501D258 CURRENT (5) */
 void func_1501D258(s32 arg0, s32 arg1) {
-    u64 temp_ret;
-    u64 *temp_a0;
-
     if (D_800C3670 == 0) {
-        temp_ret = func_100268A4(0, 1, arg1 >> 31, arg1);
-        temp_a0 = &D_800C3A60[arg0];
-        *temp_a0 |= temp_ret;
+        D_800C3A60[arg0] |= 1LL << arg1;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1501D258 */

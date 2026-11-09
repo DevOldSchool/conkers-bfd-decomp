@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_FE340.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150D1204
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_15136C3C();
@@ -126,18 +121,16 @@ extern f32 D_800A089C;
 extern f32 D_800A08A0;
 extern f32 D_800A08A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D1204 CURRENT (891) */
+typedef struct { u8 unk0; u8 unk1; u8 pad2[0xA]; u8 unkC; u8 padD[0x67]; f32 unk74; } Fx150D1204;
+
 void func_150D1204(Vec3f *arg0, Vec3f *arg1,
                     Vec3f *arg2, Vec3f *arg3,
-                    f32 arg4, u8 *arg5) {
+                    f32 arg4, Fx150D1204 *arg5) {
     Vec3f start;
-    f32 delta[3];
     f32 endX;
     f32 endY;
     f32 endZ;
-    f32 random0;
-    f32 random1;
-    u32 random2;
+    f32 delta[3];
 
     start.x = arg0->x + arg2->x * arg4;
     start.y = arg0->y + arg2->y * arg4;
@@ -145,17 +138,12 @@ void func_150D1204(Vec3f *arg0, Vec3f *arg1,
     endX = arg1->x + arg3->x * arg4;
     endY = arg1->y + arg3->y * arg4;
     endZ = arg1->z + arg3->z * arg4;
-    delta[0] = (endX - start.x) * *(f32 *)(arg5 + 0x74);
-    delta[1] = (endY - start.y) * *(f32 *)(arg5 + 0x74);
-    delta[2] = (endZ - start.z) * *(f32 *)(arg5 + 0x74);
-    random0 = func_150ADA68();
-    random1 = func_150ADA68();
-    random2 = func_150ADA20();
+    delta[0] = (endX - start.x) * arg5->unk74;
+    delta[1] = (endY - start.y) * arg5->unk74;
+    delta[2] = (endZ - start.z) * arg5->unk74;
     func_151DB5D0(0, &start, delta,
-                  random0 * 61.0f + 60.0f, D_800A0898, D_800A089C,
-                  random1 * D_800A08A0 + D_800A08A4,
-                  (random2 & 0xF) + 0x23, (func_150ADA20() % 156U) + 0x64,
-                  0x1E, 8, 0, arg5[0xC], arg5[1]);
+                  func_150ADA68() * 61.0f + 60.0f, D_800A0898, D_800A089C,
+                  func_150ADA68() * D_800A08A0 + D_800A08A4,
+                  (func_150ADA20() & 0xF) + 0x23, (func_150ADA20() % 156U) + 0x64,
+                  0x1E, 8, 0, arg5->unkC, arg5->unk1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D1204 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FE340/func_150D1204.s")

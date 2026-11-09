@@ -2369,15 +2369,15 @@
       "functions": [
         "func_15010110"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x10240",
           "start": "0x10110",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_3D5C0.c"
+      "source": "src/done/game/game_3D5C0.c"
     },
     {
       "boundary_evidence": {
@@ -2516,15 +2516,15 @@
       "functions": [
         "func_15049440"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x495B0",
           "start": "0x49440",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_768F0.c"
+      "source": "src/done/game/game_768F0.c"
     },
     {
       "boundary_evidence": {
@@ -5005,15 +5005,15 @@
         "func_1509DDFC",
         "func_1509DEC4"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x9DF20",
           "start": "0x9DD10",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_CB1C0.c"
+      "source": "src/done/game/game_CB1C0.c"
     },
     {
       "boundary_evidence": {
@@ -11887,15 +11887,15 @@
         "func_150F2518",
         "func_150F25A0"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xF26A0",
           "start": "0xF23E0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_11F890.c"
+      "source": "src/done/game/game_11F890.c"
     },
     {
       "boundary_evidence": {
@@ -13061,15 +13061,15 @@
       "functions": [
         "func_150C8730"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xC88D0",
           "start": "0xC8730",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_F5BE0.c"
+      "source": "src/done/game/game_F5BE0.c"
     },
     {
       "boundary_evidence": {
@@ -13103,15 +13103,15 @@
       "functions": [
         "func_150D2450"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xD26F0",
           "start": "0xD2450",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_FF900.c"
+      "source": "src/done/game/game_FF900.c"
     },
     {
       "boundary_evidence": {
@@ -14478,15 +14478,15 @@
         "func_150DE458",
         "func_150DE6D8"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xDE7C0",
           "start": "0xDE320",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_10B7D0.c"
+      "source": "src/done/game/game_10B7D0.c"
     },
     {
       "boundary_evidence": {
@@ -14746,15 +14746,15 @@
         "func_151A8F6C",
         "func_151A9024"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x1A9060",
           "start": "0x1A8B20",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1D5FD0.c"
+      "source": "src/done/game/game_1D5FD0.c"
     },
     {
       "boundary_evidence": {
@@ -15135,15 +15135,15 @@
         "func_150D11B4",
         "func_150D1204"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xD13A0",
           "start": "0xD0E90",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_FE340.c"
+      "source": "src/done/game/game_FE340.c"
     },
     {
       "boundary_evidence": {

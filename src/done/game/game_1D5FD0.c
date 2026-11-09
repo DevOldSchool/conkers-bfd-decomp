@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1D5FD0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_extended_code_selected_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151A8CEC
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void *func_10022EC0(void *, const void *, u32);
@@ -99,49 +94,47 @@ extern s32 (*D_8008F980[])(Game1D5FD0State *);
 extern void (*D_8008F970[])(Game1D5FD0State *, f32 *, f32, u8);
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A8CEC CURRENT (1025) */
 void func_151A8CEC(Game1D5FD0State *arg0) {
-    register Game1D5FD0Payload *payload;
+    Game1D5FD0Payload *payload = (Game1D5FD0Payload *)((u8 *)arg0 + 0x28);
     void (*generate)(Game1D5FD0State *, f32 *, f32 *, f32 *);
     f32 position[3];
     f32 lower;
     f32 upper;
     u8 unavailable;
 
-    if (*(volatile s8 *)((u8 *)arg0 + 0x4D) != -1 &&
-        D_8008F980[*(s8 *)((u8 *)arg0 + 0x4D)](arg0) == 0) {
+    if (payload->testCallback != -1 && D_8008F980[payload->testCallback](arg0) == 0) {
         *(s16 *)((u8 *)arg0 + 0xE) = -1;
         return;
     }
-    payload = (Game1D5FD0Payload *)((s32)arg0 + 0x28);
-    if ((!(payload->flags & 4) || payload->node == 0 ||
-         func_151464B8(payload->node) == 0) && (payload->flags & 1)) {
-        payload->time += (payload->rate + func_150ADA68() * payload->randomRate) *
-                         D_800BE9A4 * payload->squaredRadius;
-        if (payload->time > 1.0f) {
-            generate = ((payload->flags & 2) && payload->owner != 0) ?
-                       func_151A8F1C : func_151A8F6C;
-            do {
-                generate(arg0, position, &upper, &lower);
-                if (payload->flags & 8) {
-                    unavailable = 1;
-                    position[1] = lower;
-                } else if (func_15046C80(position, 0, lower, &payload->limit) != 0) {
-                    position[1] = payload->limit;
-                } else {
-                    position[1] = lower;
-                    unavailable = 1;
-                }
-                if (payload->emitCallback != -1) {
-                    D_8008F970[payload->emitCallback](arg0, position, upper, unavailable);
-                }
-                payload->time -= 1.0f;
-            } while (payload->time > 1.0f);
-        }
+    if ((payload->flags & 4) && payload->node != 0 && func_151464B8(payload->node) != 0) {
+        return;
+    }
+    if (!(payload->flags & 1)) {
+        return;
+    }
+    payload->time += (payload->rate + func_150ADA68() * payload->randomRate) *
+                     D_800BE9A4 * payload->squaredRadius;
+    if (payload->time > 1.0f) {
+        generate = ((payload->flags & 2) && payload->owner != 0) ?
+                   func_151A8F1C : func_151A8F6C;
+        do {
+            generate(arg0, position, &upper, &lower);
+            if (payload->flags & 8) {
+                unavailable = 1;
+                position[1] = lower;
+            } else if (func_15046C80(position, 0, lower, &payload->limit) != 0) {
+                position[1] = payload->limit;
+            } else {
+                position[1] = lower;
+                unavailable = 1;
+            }
+            if (payload->emitCallback != -1) {
+                D_8008F970[payload->emitCallback](arg0, position, upper, unavailable);
+            }
+            payload->time -= 1.0f;
+        } while (payload->time > 1.0f);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A8CEC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D5FD0/func_151A8CEC.s")
 void func_151432BC(s32, f32 *, f32 *, f32 *, f32 *);
 
 void func_151A8F1C(Game1D5FD0State *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {

@@ -9,11 +9,9 @@
  * - func_15075650
  * - func_15075938
  * - func_150768DC
- * - func_15076B94
  * - func_15077508
  * - func_15078A60
  * - func_15079B30
- * - func_1507A4D4
  * - func_1507AA48
  * - func_1507BB28
  *
@@ -665,32 +663,23 @@ void func_15076B78(void) {
     D_800D154C->field_5 = D_800D1890;
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15076B94 CURRENT (1080) */
 void func_15076B94(void) {
-    s32 index;
-    GameA28B0ObjectSlot *entry;
+    s32 i;
 
-    index = (GameA28B0ObjectSlot *)D_800D154C - (GameA28B0ObjectSlot *)&D_800CC2D0;
+    i = (GameA28B0ObjectSlot *)D_800D154C - ((GameA28B0ObjectSlot *)&D_800CC2D0);
     if (D_800D1891 != 0) {
-        index = 25;
+        i = 25;
     }
-    if (index != 0) {
-        entry = (GameA28B0ObjectSlot *)&D_800CC2D0 + index;
-        do {
-            if ((D_800D1890 == entry[-1].bytes[4]) && (entry[-1].bytes[0x1CA] != 0)) {
+    for (; i != 0; i--) {
+        if ((D_800D1890 == ((GameA28B0ObjectSlot *)&D_800CC2D0)[i - 1].bytes[4]) && (((GameA28B0ObjectSlot *)&D_800CC2D0)[i - 1].bytes[0x1CA] != 0)) {
                 func_15075548();
                 D_800D154C->pad223[0] = 9;
-                D_800D154C->field_222 = index - 1;
+                D_800D154C->field_222 = i - 1;
                 *(s16 *)((u8 *)D_800D154C + 0x21C) = 1000;
                 return;
-            }
-            index--;
-            entry--;
-        } while (index != 0);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15076B94 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15076B94.s")
 void func_1506160C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4);
 
 void func_15076C7C(void) {
@@ -1946,14 +1935,10 @@ void func_1507A47C(void)
   new_var = (0, (struct127 *)D_800D154C);
   new_var->unk94 &= ~tmp;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507A4D4 CURRENT (910) */
 void func_1507A4D4(void) {
-    s32 mask = (D_800D1890 << 24) | (D_800D1891 << 16) | (D_800D1892 << 8) | D_800D1893;
-
-    *(s32 *)((u8 *)D_800D154C + 0x94) |= mask;
+    s32 tmp = ((((D_800D1890 << 12) << 12) | ((D_800D1891 << 8) << 8)) | ((D_800D1892 << 4) << 4)) | (D_800D1893 & 0xFF);
+    ((struct127 *)D_800D154C)->unk94 |= tmp;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507A4D4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_1507A4D4.s")
 void func_1507A528(void) {
     s32 var_a1;
     s8 temp_v1;

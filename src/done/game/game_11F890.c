@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_11F890.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_table_selected_collections.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150F23E0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 /* Call context: func_15047D60: unique active project prototype */
@@ -15,19 +10,22 @@ f32 func_15047D60(f32);
 f32 func_15144B68(f32);
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F23E0 CURRENT (1029) */
+typedef struct Game11F890Wave {
+    f32 phase_x;
+    f32 phase_z;
+    f32 rate_x;
+    f32 rate_z;
+    f32 amplitude_x;
+    f32 amplitude_z;
+} Game11F890Wave;
 s32 func_150F23E0(u8 *arg0) {
-    u8 *temp_s0;
-
-    temp_s0 = (void *)(arg0 + 0x170);
-    *(f32 *)((u8 *)arg0 + 0x20) = (f32) (func_15047D60(*(f32 *)((u8 *)arg0 + 0x170)) * *(f32 *)((u8 *)temp_s0 + 0x10));
-    *(f32 *)((u8 *)arg0 + 0x28) = (f32) (func_15047D60(*(f32 *)((u8 *)temp_s0 + 4)) * *(f32 *)((u8 *)temp_s0 + 0x14));
-    *(f32 *)((u8 *)arg0 + 0x170) = func_15144B68(*(f32 *)((u8 *)arg0 + 0x170) + (*(f32 *)((u8 *)temp_s0 + 8) * D_800BE9A4));
-    *(f32 *)((u8 *)temp_s0 + 4) = func_15144B68(*(f32 *)((u8 *)temp_s0 + 4) + (*(f32 *)((u8 *)temp_s0 + 0xC) * D_800BE9A4));
+    Game11F890Wave *wave = (Game11F890Wave *)(arg0 + 0x170);
+    *(f32 *)(arg0 + 0x20) = wave->amplitude_x * func_15047D60(wave->phase_x);
+    *(f32 *)(arg0 + 0x28) = wave->amplitude_z * func_15047D60(wave->phase_z);
+    wave->phase_x = func_15144B68(wave->phase_x + wave->rate_x * D_800BE9A4);
+    wave->phase_z = func_15144B68(wave->phase_z + wave->rate_z * D_800BE9A4);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F23E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11F890/func_150F23E0.s")
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */

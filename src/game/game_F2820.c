@@ -1,12 +1,12 @@
 #include "types.h"
 #include "game_functions.h"
+#include "game_vec.h"
 
 /*
  * Reviewed source unit: src/game/game_F2820.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_path_owner_lifecycles.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150C5568
  * - func_150C56A4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -98,41 +98,40 @@ void func_150C553C(void *arg0) {
 }
 extern s32 (*D_80088760[])(u8 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C5568 CURRENT (1186) */
 void func_150C5568(u8 *arg0) {
-    u8 var_v1;
-    f32 temp_fa0;
-    f32 temp_fv1;
-    f32 temp_fv0;
-    f32 delta[3];
-    s8 temp_v0;
+    s32 result;
+    u8 removed;
+    f32 prevZ;
+    f32 prevY;
+    f32 prevX;
+    Vec3f delta;
+    s8 handler;
 
-    var_v1 = 0;
     if (*(s32 *)(arg0 + 0x10) & 1) {
-        temp_v0 = *(s8 *)(arg0 + 0x30);
-        temp_fv0 = *(f32 *)(arg0 + 0x18) - *(f32 *)(arg0 + 0x24);
-        temp_fv1 = *(f32 *)(arg0 + 0x1C) - *(f32 *)(arg0 + 0x28);
-        temp_fa0 = *(f32 *)(arg0 + 0x20) - *(f32 *)(arg0 + 0x2C);
-        if (temp_v0 != -1) {
-            if (D_80088760[temp_v0](arg0) == 0) {
-                var_v1 = 1;
+        removed = 0;
+        handler = *(s8 *)(arg0 + 0x30);
+        prevX = *(f32 *)(arg0 + 0x18) - *(f32 *)(arg0 + 0x24);
+        prevY = *(f32 *)(arg0 + 0x1C) - *(f32 *)(arg0 + 0x28);
+        prevZ = *(f32 *)(arg0 + 0x20) - *(f32 *)(arg0 + 0x2C);
+        if (handler != -1) {
+            result = D_80088760[handler](arg0);
+            if (result == 0) {
+                removed = 1;
             }
         }
-        if ((var_v1 == 0) &&
-            ((delta[0] = *(f32 *)(arg0 + 0x18) - *(f32 *)(arg0 + 0x24),
-              delta[1] = *(f32 *)(arg0 + 0x1C) - *(f32 *)(arg0 + 0x28),
-              delta[2] = *(f32 *)(arg0 + 0x20) - *(f32 *)(arg0 + 0x2C),
-              delta[0] != temp_fv0) || (delta[1] != temp_fv1) ||
-             (delta[2] != temp_fa0))) {
-            *(f32 *)(arg0 + 0xC0) = func_15143E64(delta);
+        if (removed == 0) {
+            delta.x = *(f32 *)(arg0 + 0x18) - *(f32 *)(arg0 + 0x24);
+            delta.y = *(f32 *)(arg0 + 0x1C) - *(f32 *)(arg0 + 0x28);
+            delta.z = *(f32 *)(arg0 + 0x20) - *(f32 *)(arg0 + 0x2C);
+            if (delta.x != prevX || delta.y != prevY || delta.z != prevZ) {
+                *(f32 *)(arg0 + 0xC0) = func_15143E64(&delta);
+            }
         }
-        if (var_v1 != 0) {
+        if (removed) {
             func_1516972C(arg0);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C5568 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F2820/func_150C5568.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F2820/func_150C56A4.s")
 s32 func_150C5B88(void *arg0) {
     void **temp_v1;

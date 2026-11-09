@@ -439,7 +439,17 @@
       },
       {
         "address": "0x80096DF8",
-        "section": ".rodata",
+        "section": ".rodata.58f80_0",
+        "owner": {
+          "sources": [
+            "src/game/game_58F80.c",
+            "src/done/game/game_58F80.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80096F04",
+        "section": ".rodata.58f80_100",
         "owner": {
           "sources": [
             "src/game/game_58F80.c",

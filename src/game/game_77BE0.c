@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1504A730
- * - func_1504ADD0
  * - func_1504B0FC
  * - func_1504BA38
  * - func_1504BE2C
@@ -27,40 +26,36 @@ extern u8 D_800CC2D0[];
 extern void *D_800CC284;
 extern void *D_800D154C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504ADD0 CURRENT (900) */
 void func_1504ADD0(void) {
+    s32 i;
+    u8 *p;
     u8 sp48[6];
-    s32 var_s0;
-    u8 *var_s1;
-    u8 temp_v0;
 
-    var_s0 = 0;
     if (D_800C35EA != 1) {
-        var_s1 = D_800CC2D0;
-        do {
-            if (*(s32 *)var_s1 != 0) {
-                D_800C3E78 = var_s0;
-                D_800D154C = var_s1;
-                if (var_s0 < D_8008FD8C) {
-                    if (var_s0 < 4) {
-                        D_800CC284 = D_800BE728[var_s0];
-                    } else {
-                        func_100226F0(&sp48, 6);
-                        D_800CC284 = &sp48;
-                    }
-                }
-                temp_v0 = var_s1[4];
-                if ((temp_v0 == 0x28) || (temp_v0 == 0x77)) {
-                    func_150ED578(var_s1);
+        for (i = 0; i < 25; i++) {
+            p = &D_800CC2D0[i * 0x32C];
+            if (*(s32 *)p == 0) {
+                continue;
+            }
+            D_800C3E78 = i;
+            D_800D154C = p;
+            if (i < D_8008FD8C) {
+                if (i < 4) {
+                    D_800CC284 = D_800BE728[i];
+                } else {
+                    func_100226F0(sp48, 6);
+                    D_800CC284 = sp48;
                 }
             }
-            var_s0++;
-            var_s1 += 0x32C;
-        } while (var_s0 != 0x19);
+            switch (p[4]) {
+            case 0x28:
+            case 0x77:
+                func_150ED578(p);
+                break;
+            }
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1504ADD0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504ADD0.s")
 s32 func_1504AEF4(s32 arg0, s32 arg1) {
     if (arg0 == 0) {
         return 0;

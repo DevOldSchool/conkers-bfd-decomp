@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15178EFC
  * - func_15179008
- * - func_151797B0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -165,95 +164,81 @@ f32 sqrtf(f32);
 extern f32 D_800A7204;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151797B0 CURRENT (1054) */
 void func_151797B0(u8 *arg0) {
-    f32 step;
-    f32 trig;
-    f32 dz;
-    f32 dx;
     s32 value;
-    s32 wrapped;
     s32 centerX;
     s32 centerY;
     s32 centerZ;
-    s32 position;
-    s32 flags;
-    s32 angle;
-    s32 random;
+    f32 step;
+    s32 wrapped;
+    s32 temp;
+    f32 trig;
 
-    dz = (f32)*(s16 *)(arg0 + 0xA0) - *(f32 *)((u8 *)D_800DBFF0 + 0x300);
-    dx = (f32)*(s16 *)(arg0 + 0x9C) - *(f32 *)((u8 *)D_800DBFF0 + 0x2F8);
-    trig = 80.0f;
-    trig *= sqrtf(dz * dz + dx * dx);
-    value = (s32)(80.0f - trig / 1000.0f);
+    trig = sqrtf(((f32)*(s16 *)(arg0 + 0x9C) - *(f32 *)((u8 *)D_800DBFF0 + 0x2F8)) *
+                     ((f32)*(s16 *)(arg0 + 0x9C) - *(f32 *)((u8 *)D_800DBFF0 + 0x2F8)) +
+                 ((f32)*(s16 *)(arg0 + 0xA0) - *(f32 *)((u8 *)D_800DBFF0 + 0x300)) *
+                     ((f32)*(s16 *)(arg0 + 0xA0) - *(f32 *)((u8 *)D_800DBFF0 + 0x300)));
+    value = 80.0f - (80.0f * trig) / 1000.0f;
     if (value < 0) {
         value = 0;
     }
-    angle = *(u16 *)(arg0 + 0xAE);
+    temp = *(u16 *)(arg0 + 0xAE);
     arg0[0xB4] = value;
-    random = func_150ADA20();
-    angle += ((u32)((u8)D_800DD433 * 0x10 * ((random & 0xFF) + 0x80))) >> 9;
-    angle = (s32)((f32)angle * D_800A7204);
-    if (angle >= 0x3201) {
-        angle = 0x3200;
+    temp += ((u32)((u8)D_800DD433 * 0x10 * ((func_150ADA20() & 0xFF) + 0x80))) >> 9;
+    temp = (f32)temp * D_800A7204;
+    if (temp > 0x3200) {
+        temp = 0x3200;
     }
-    *(u16 *)(arg0 + 0xAE) = angle;
-    step = (f32)(s32)((u32)arg0[0xB1] * (u32)D_800BE9E4);
-    trig = func_15048A40((*(u16 *)(arg0 + 0xAE) >> 8) & 0xFF);
-    *(s16 *)(arg0 + 0x9C) = (s32)((f32)*(s16 *)(arg0 + 0x9C) + step * trig);
-    trig = func_150489B0((*(u16 *)(arg0 + 0xAE) >> 8) & 0xFF);
-    position = *(s16 *)(arg0 + 0x9C);
-    *(s16 *)(arg0 + 0x9E) = (s32)((f32)*(s16 *)(arg0 + 0x9E) - step * trig);
+    *(u16 *)(arg0 + 0xAE) = temp;
+    step = (s32)(arg0[0xB1] * D_800BE9E4);
+    trig = func_15048A40(*(u16 *)(arg0 + 0xAE) >> 8);
+    *(s16 *)(arg0 + 0x9C) = *(s16 *)(arg0 + 0x9C) + step * trig;
+    trig = func_150489B0(*(u16 *)(arg0 + 0xAE) >> 8);
+    temp = *(s16 *)(arg0 + 0x9C);
+    *(s16 *)(arg0 + 0x9E) = *(s16 *)(arg0 + 0x9E) - step * trig;
     centerX = D_800DD438[0];
     centerY = D_800DD438[1];
     centerZ = D_800DD438[2];
     wrapped = 0;
-    if (position < centerX - 500) {
-        *(s16 *)(arg0 + 0x9C) = (centerX - 500) - ((centerX - 500) - position) + 1000;
-        goto wrappedX;
-    }
-    if (centerX + 500 < position) {
-        *(s16 *)(arg0 + 0x9C) = (centerX + 500) + (position - (centerX + 500) - 1000);
-wrappedX:
+    if (temp < centerX - 500) {
+        *(s16 *)(arg0 + 0x9C) = (centerX - 500) - ((centerX - 500) - temp) + 1000;
+        wrapped = 1;
+    } else if (centerX + 500 < temp) {
+        *(s16 *)(arg0 + 0x9C) = (centerX + 500) + (temp - (centerX + 500) - 1000);
         wrapped = 1;
     }
-    position = *(s16 *)(arg0 + 0x9E);
-    if (position < centerY - 500) {
-        *(s16 *)(arg0 + 0x9E) = (centerY - 500) - ((centerY - 500) - position) + 1000;
-        goto wrappedY;
+    {
+        s32 pos;
+
+        pos = *(s16 *)(arg0 + 0x9E);
+        if (pos < centerY - 500) {
+            *(s16 *)(arg0 + 0x9E) = (centerY - 500) - ((centerY - 500) - pos) + 1000;
+            wrapped = 1;
+        } else if (centerY + 500 < pos) {
+            *(s16 *)(arg0 + 0x9E) = (centerY + 500) + (pos - (centerY + 500) - 1000);
+            wrapped = 1;
+        }
+        pos = *(s16 *)(arg0 + 0xA0);
+        if (pos < centerZ - 500) {
+            *(s16 *)(arg0 + 0xA0) = (centerZ - 500) - ((centerZ - 500) - pos) + 1000;
+            wrapped = 1;
+        } else if (centerZ + 500 < pos) {
+            *(s16 *)(arg0 + 0xA0) = (centerZ + 500) + (pos - (centerZ + 500) - 1000);
+            wrapped = 1;
+        }
     }
-    if (centerY + 500 < position) {
-        *(s16 *)(arg0 + 0x9E) = (centerY + 500) + (position - (centerY + 500) - 1000);
-wrappedY:
-        wrapped = 1;
-    }
-    position = *(s16 *)(arg0 + 0xA0);
-    if (position < centerZ - 500) {
-        *(s16 *)(arg0 + 0xA0) = (centerZ - 500) - ((centerZ - 500) - position) + 1000;
-        goto wrappedZ;
-    }
-    if (centerZ + 500 < position) {
-        *(s16 *)(arg0 + 0xA0) = (centerZ + 500) + (position - (centerZ + 500) - 1000);
-wrappedZ:
-        wrapped = 1;
-    }
-    flags = *(s32 *)(arg0 + 0x90);
-    if ((flags & 2) && wrapped) {
+    if ((*(s32 *)(arg0 + 0x90) & 2) && wrapped) {
         D_800DD436 -= 1;
         *(s32 *)((u8 *)D_800DD440 + *(s16 *)(arg0 + 0x94) * 4) = 0;
         func_1516972C(arg0);
-        return;
-    }
-    if (flags & 1) {
+    } else if (*(s32 *)(arg0 + 0x90) & 1) {
         if (wrapped) {
-            *(s32 *)(arg0 + 0x90) = flags ^ 1;
-            return;
+            *(s32 *)(arg0 + 0x90) ^= 1;
+        } else {
+            arg0[0xB4] = 0;
         }
-        arg0[0xB4] = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151797B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A6360/func_151797B0.s")
 void func_15179AB8(void) {
     void **ptr;
     void *temp_v0_2;

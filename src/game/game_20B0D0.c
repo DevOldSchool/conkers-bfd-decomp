@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151DDC20
- * - func_151DE6D4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -24,9 +23,8 @@ extern s16 D_800E0B9A;
 extern s8 D_8008FE28;
 extern s8 D_800E0B94;
 extern s8 D_800D2E40;
-extern s8 D_800E0B96;
+extern u8 D_800E0B96;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DE6D4 CURRENT (815) */
 void func_151DE6D4(void) {
     s32 var_v0;
 
@@ -39,10 +37,12 @@ void func_151DE6D4(void) {
     var_v0 = D_800E0A90;
     if ((var_v0 >= 0x14B) && (D_800E0B9A & 0x8000)) {
         if (var_v0 < 0x1E0) {
-            D_800E0A90 = var_v0 = 0x1E0;
+            D_800E0A90 = 0x1E0;
+            var_v0 = D_800E0A90;
         }
         if ((var_v0 >= 0x259) && (var_v0 < 0x2D0)) {
-            D_800E0A90 = var_v0 = 0x2D0;
+            D_800E0A90 = 0x2D0;
+            var_v0 = D_800E0A90;
         }
     }
     if (var_v0 >= 0x349) {
@@ -53,8 +53,6 @@ void func_151DE6D4(void) {
         D_800E0B96 = 0xFF;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DE6D4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20B0D0/func_151DE6D4.s")
 extern s32 D_800E0A90;
 extern s8 D_800E0B97;
 extern s8 D_800E0B98;
@@ -73,7 +71,7 @@ void func_151DE7D4(void) {
 void func_1500764C(void);
 extern s8 D_8008FD74;
 extern s8 D_8008FE30;
-extern s8 D_800E0B96;
+extern u8 D_800E0B96;
 
 void func_151DE81C(void) {
     D_8008FD74 = 4;
