@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_complete_code_selected_segments.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150EB484
  * - func_150EB8C4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -29,42 +28,28 @@ s32 func_150A34B0();
 void func_150EBC80(void *, u8, s32);
 extern s32 D_80088AA0[];
 extern s32 D_80088AB0[];
-extern s32 D_80088AD0;
 extern u8 *D_800D3098;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EB484 CURRENT (550) */
 s32 func_150EB484(Vec3f *arg0, f32 *arg1, void *arg2) {
-    u8 *spawned;
-    s32 *index_ptr;
-    s32 *alternate_ptr;
-    s32 index;
+    s32 i;
     s32 id;
-    s32 offset;
+    u8 *spawned = func_15083E90(9);
 
-    spawned = func_15083E90(9);
     if (spawned != 0) {
-        index_ptr = D_80088AA0;
-        index = 0;
-        do {
-            id = *index_ptr;
-            offset = id * 0x34;
-            if (func_150A34B0(D_800D3098 + offset, arg0, arg1, arg2) != 0) {
+        for (i = 0; i < 4; i++) {
+            id = D_80088AA0[i];
+            if (func_150A34B0(id * 0x34 + D_800D3098, arg0, arg1, arg2) != 0) {
                 func_150A2864(id, 1);
-                *(s32 *)(spawned + 0x2E8) = index + 1;
-                func_150EBC80(D_800D3098 + offset, 0xFF, 1);
+                *(s32 *)(spawned + 0x2E8) = i + 1;
+                func_150EBC80(id * 0x34 + D_800D3098, 0xFF, 1);
                 return 1;
             }
-            index++;
-            index_ptr++;
-        } while (index < 4);
-        alternate_ptr = D_80088AB0;
-        do {
-            if (func_150A34B0(D_800D3098 + (*alternate_ptr * 0x34),
-                               arg0, arg1, arg2) != 0) {
+        }
+        for (i = 0; i < 8; i++) {
+            if (func_150A34B0(D_800D3098 + D_80088AB0[i] * 0x34, arg0, arg1, arg2) != 0) {
                 return 1;
             }
-            alternate_ptr++;
-        } while (alternate_ptr != &D_80088AD0);
+        }
         return 0;
     }
     if (func_150A34B0(D_800D3098 + 0xF70, arg0, arg1, arg2) != 0) {
@@ -72,8 +57,6 @@ s32 func_150EB484(Vec3f *arg0, f32 *arg1, void *arg2) {
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150EB484 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1188E0/func_150EB484.s")
 typedef struct Game1188E0ChildB614 {
     u8 pad0[0x57];
     u8 enabled;

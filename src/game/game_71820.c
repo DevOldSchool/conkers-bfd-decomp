@@ -11,7 +11,6 @@
  * - func_15045880
  * - func_15045AE4
  * - func_1504715C
- * - func_150472C0
  * - func_15047390
  * - func_15047700
  *
@@ -1388,45 +1387,15 @@ void func_1504715C(Game71820Hit *arg0, Game71820CollisionState *arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1504715C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_1504715C.s")
-typedef struct Game71820PackedBlock {
-    u8 bytes[16];
-} Game71820PackedBlock;
-
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150472C0 CURRENT (665) */
+typedef struct Game71820HalfBlock18 { u16 h[9]; } Game71820HalfBlock18;
 void func_150472C0(void *arg0, void *arg1) {
-    s32 one;
-    u8 active;
-    s32 var_a2;
-    s32 var_v0;
-    s32 var_v1;
-    s32 temp_v0;
-
-    one = 1;
     *(f32 *)arg0 = *(f32 *)((u8 *)arg1 + 0xC);
-    *(Game71820PackedBlock *)((u8 *)arg0 + 4) = *(Game71820PackedBlock *)((u8 *)arg1 + 0x44);
-    *(u16 *)((u8 *)arg0 + 0x14) = *(u16 *)((u8 *)arg1 + 0x54);
+    *(Game71820HalfBlock18 *)((u8 *)arg0 + 4) = *(Game71820HalfBlock18 *)((u8 *)arg1 + 0x44);
     *(s32 *)((u8 *)arg0 + 0x18) = *(s32 *)((u8 *)arg1 + 0x60);
-    temp_v0 = *(u8 *)((u8 *)arg1 + 0x59);
-    var_v1 = 0;
-    var_a2 = 0;
-    var_v1 = (one == temp_v0) ? 2 : var_v1;
-    active = 1;
-    var_a2 = (one == temp_v0) ? one : var_a2;
-    if (one == temp_v0) {
-        var_v0 = 4;
-    } else {
-        var_v0 = 0;
-    }
-    *(s8 *)((u8 *)arg0 + 0x1C) = var_v0 | var_a2 | var_v1;
-    if (*(u8 *)((u8 *)arg1 + 0x59) == one) {
-        *(s8 *)((u8 *)arg0 + 0x1D) = active;
-    } else {
-        *(s8 *)((u8 *)arg0 + 0x1D) = 0;
-    }
+    *(u8 *)((u8 *)arg0 + 0x1C) = ((*(u8 *)((u8 *)arg1 + 0x59) == 1) ? 1 : 0) | ((*(u8 *)((u8 *)arg1 + 0x59) == 1) ? 2 : 0) | ((*(u8 *)((u8 *)arg1 + 0x59) == 1) ? 4 : 0);
+    *(u8 *)((u8 *)arg0 + 0x1D) = (*(u8 *)((u8 *)arg1 + 0x59) == 1) ? 1 : 0;
     *(s32 *)((u8 *)arg0 + 0x20) = *(s32 *)((u8 *)arg1 + 0x5C);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150472C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_150472C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15047390.s")
 typedef struct {
     f32 elements[16];

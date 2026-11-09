@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_10D080.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150DFBD0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 s32 func_150DF8C0(s32);
@@ -15,37 +10,26 @@ s32 func_1510D0EC(s32, s32 *, s32, s32);
 extern u8 D_80090324;
 extern u8 D_800DD405;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DFBD0 CURRENT (540) */
-void *func_150DFBD0(void *arg0) {
-    struct Command { s32 word0; s32 word1; };
-    struct Command *command;
-    s32 result;
+typedef struct { u32 w0; u32 w1; } Game10D080Command;
+void *func_150DFBD0(Game10D080Command *arg0) {
+    s32 i;
+    s32 segment;
     s32 workspace[2];
     s32 source;
-    s32 index;
-    s32 command_offset;
+    s32 result;
 
-    index = 0;
-    command_offset = 8;
-    do {
-        if (func_150DF8C0(index) != 0) {
+    for (i = 0, segment = 2; i != 3; i++, segment++) {
+        if (func_150DF8C0(i) != 0) {
             result = D_800DD405;
             source = *(s32 *)((u8 *)&D_80090324 + (result * 4) + 0x24);
         } else {
             source = *(s32 *)((u8 *)&D_80090324 + 0x20);
         }
         result = func_1510D0EC(source, workspace, 3, 0);
-        command = arg0;
-        command->word0 = (command_offset & 0xFFFF) | 0xDB060000;
-        command->word1 = result;
-        arg0 = command + 1;
-        index++;
-        command_offset += 4;
-    } while (index != 3);
+        { Game10D080Command *command = arg0++; command->w0 = ((segment * 4) & 0xFFFF) | 0xDB060000; command->w1 = result; }
+    }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150DFBD0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10D080/func_150DFBD0.s")
 extern f32 D_800A0FA0;
 extern f32 D_800A0FA4;
 extern f32 D_800A0FA8;

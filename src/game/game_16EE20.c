@@ -14,7 +14,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15141A7C
  * - func_15141E38
- * - func_15141F78
  * - func_15142600
  * - func_1514306C
  * - func_15143134
@@ -28,7 +27,6 @@
  * - func_1514563C
  * - func_15145740
  * - func_15145AD8
- * - func_15145CD0
  * - func_15145DB4
  * - func_15145EA4
  * - func_15146078
@@ -327,7 +325,6 @@ void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32, f32,
                      u8, u8, s32, s32, s32, u8, s32);
 f32 func_150ADA68();
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15141F78 CURRENT (745) */
 void func_15141F78(u8 arg0, void *arg1, f32 arg2, u8 arg3,
                    void *arg4, u8 arg5) {
     Game141F78Packet packet;
@@ -340,7 +337,6 @@ void func_15141F78(u8 arg0, void *arg1, f32 arg2, u8 arg3,
     packet.zero8 = 0;
     packet.zeroC = 0;
     packet.color[0] = (func_150ADA20() & 0x7F) + 0x80;
-    packet.owner = *(s32 *)((u8 *)arg1 + 0x18);
     packet.color[1] = 0xFF;
     packet.color[2] = 0xFF;
     packet.color[3] = 0xFF;
@@ -350,6 +346,7 @@ void func_15141F78(u8 arg0, void *arg1, f32 arg2, u8 arg3,
     packet.zero16 = 0;
     packet.seven = 7;
     packet.ff = 0xFF;
+    packet.owner = *(s32 *)((u8 *)arg1 + 0x18);
     packet.size = 0x28;
     packet.count = 6;
     scale = ((func_150ADA68() * 5.0f) + 10.0f) * arg2;
@@ -357,8 +354,6 @@ void func_15141F78(u8 arg0, void *arg1, f32 arg2, u8 arg3,
                    *(f32 *)arg4, *(f32 *)arg1, *(f32 *)((u8 *)arg4 + 8),
                    scale, scale, arg3, arg5 == 2 ? 1 : 0, 3, 1, 0, 0xFF, 1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15141F78 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15141F78.s")
 extern s32 D_800A5200[];
 extern u8 D_800CC2D0[];
 s32 func_150A2AEC(s32, s32, s32 *, s32);
@@ -2290,27 +2285,31 @@ typedef struct Game16EE20Transform {
     f32 values[12];
 } Game16EE20Transform;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15145CD0 CURRENT (693) */
 void func_15145CD0(u8 *arg0, f32 **arg1, f32 **arg2, s32 arg3) {
     f32 matrix[4][4];
-    f32 **dst;
     f32 **src;
+    f32 **dst;
+    f32 *in;
+    f32 *out;
 
     func_150A8050(matrix, *(f32 *)(arg0 + 0), *(f32 *)(arg0 + 4), *(f32 *)(arg0 + 8));
-    dst = arg2;
     matrix[3][0] = *(s16 *)(arg0 + 0x10);
     matrix[3][1] = *(s16 *)(arg0 + 0x12);
     matrix[3][2] = *(s16 *)(arg0 + 0x14);
+    if (arg3 <= 0) {
+        return;
+    }
     src = arg1;
-    while (arg3 > 0) {
-        func_150A7960(matrix, (*src)[0], (*src)[1], (*src)[2], *dst, *dst + 1, *dst + 2);
+    dst = arg2;
+    do {
+        in = *src;
+        out = *dst;
+        func_150A7960(matrix, in[0], in[1], in[2], out, out + 1, out + 2);
         arg3--;
         src++;
         dst++;
-    }
+    } while (arg3 > 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15145CD0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15145CD0.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15145DB4 CURRENT (156) */
 void func_15145DB4(u8 *arg0, f32 *arg1, f32 *arg2, s32 arg3) {
     f32 matrix[4][4];

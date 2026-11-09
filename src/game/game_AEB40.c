@@ -10,9 +10,7 @@
  * - func_15081E78
  * - func_150825C0
  * - func_15082A44
- * - func_150832AC
  * - func_15083384
- * - func_150837D4
  * - func_15083AC8
  * - func_15083E90
  * - func_15084044
@@ -454,42 +452,29 @@ void func_150829D8(GameAEB40State *arg0) {
 void *func_1515D480(s32);                              /* extern */
 extern s32 D_80082FA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150832AC CURRENT (735) */
 void func_150832AC(u8 *arg0) {
-    void *temp_v1;
-    u8 *var_s0;
-    s32 var_s1;
-    s32 temp_a0;
-    s32 var_s3;
+    void *obj;
+    s32 i;
+    u8 temp;
+    s32 mode;
 
-    temp_v1 = (void *)(*(void **)((u8 *)arg0 + 0x144));
-    if (temp_v1 != 0) {
-        temp_a0 = *(u8 *)((u8 *)temp_v1 + 0x2F);
-        var_s0 = arg0;
-        var_s3 = temp_a0;
-        if (temp_a0 == 0) {
-            if (*(u8 *)((u8 *)arg0 + 0x127) == 0) {
-                var_s3 = 5;
-            } else {
-                var_s3 = 3;
-            }
+    obj = *(void **)(arg0 + 0x144);
+    if (obj != NULL) {
+        temp = *(u8 *)((u8 *)obj + 0x2F);
+        if (temp == 0) {
+            mode = (*(u8 *)(arg0 + 0x127) == 0) ? 5 : 3;
+        } else {
+            mode = temp;
         }
-        var_s1 = 0;
-        if (D_80082FA0 >= 0) {
-            do {
-                *(u32 *)((u8 *)var_s0 + 0x304) = (u32)func_1515D480(var_s3);
-                var_s1 += 1;
-                var_s0 += 4;
-            } while (D_80082FA0 >= var_s1);
+        for (i = 0; i <= D_80082FA0; i++) {
+            ((void **)(arg0 + 0x304))[i] = func_1515D480(mode);
         }
-        if (*(s32 *)((u8 *)(arg0 + (var_s1 * 4)) + 0x300) != 0) {
-            *(u8 *)((u8 *)arg0 + 0x301) = var_s3;
+        if (((s32 *)(arg0 + 0x300))[i] != 0) {
+            *(u8 *)(arg0 + 0x301) = mode;
         }
-        *(s32 *)((u8 *)arg0 + 0x314) = func_1515D440();
+        *(void **)(arg0 + 0x314) = func_1515D440();
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150832AC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_150832AC.s")
 typedef struct GameAEB40CommandState {
     u8 pad00[0x94];
     u32 flags;
@@ -655,11 +640,7 @@ s8 func_15084D00(void *);
  * that cache unchanged.
  * See docs/evidence/assets/naming/actor_representation_selection_semantics.md.
  */
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150837D4 CURRENT (568) */
 void func_150837D4(s32 arg0, s32 arg1, s32 arg2) {
-    u8 **sp20;
-    s32 index;
-    s8 result;
     u8 *state;
 
     state = (u8 *)&D_800CC2D0 + (arg0 * 0x32C);
@@ -674,21 +655,18 @@ void func_150837D4(s32 arg0, s32 arg1, s32 arg2) {
         *(s16 *)(state + 0x160) = 0;
         *(f32 *)(state + 0xC8) = 0.0f;
     } else {
-        sp20 = &D_800D1C90[arg1];
-        *(f32 *)(state + 0xC8) = (f32)*(s16 *)(*sp20 + 6);
-        func_15062BDC(state, *(s32 *)(state + 0x14C),
-                      *(s32 *)(state + 0x150), arg1);
-        state[5] = (*sp20)[0x12];
+        u8 *p;
+
+        *(f32 *)(state + 0xC8) = (f32)*(s16 *)(D_800D1C90[arg1] + 6);
+        func_15062BDC(state, *(f32 *)(state + 0x14C), *(f32 *)(state + 0x150));
+        p = D_800D1C90[arg1];
+        state[5] = p[0x12];
     }
-    result = func_15084D00(state);
-    index = result & 0xFF;
-    state[6] = result;
-    if (D_800C5A90[index] != 0) {
-        *(s32 *)(state + 0x58) = func_1502B020(0, 2, 2, index);
+    state[6] = func_15084D00(state);
+    if (D_800C5A90[state[6]] != 0) {
+        *(s32 *)(state + 0x58) = func_1502B020(0, 2, 2, state[6]);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150837D4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_150837D4.s")
 void *func_10003C40(s32, s32, s32, s32);
 void func_100226F0(void *, s32);
 void func_1505E650(u8 *, s32, s32, f32, f32, f32, s32);

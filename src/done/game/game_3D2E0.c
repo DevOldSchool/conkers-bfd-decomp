@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_3D2E0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_scene_setup_emission_controller.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1500FFCC
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void *func_10003C40(s32, s32, s32, s32);
@@ -54,12 +49,9 @@ extern s32 D_800902DC;
 extern s32 D_800B0E00;
 extern s32 D_800B0E04;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500FFCC CURRENT (565) */
 void func_1500FFCC(void) {
     f32 first;
     u8 *object;
-    f32 second[2];
-    s32 *global_object;
 
     func_15195AA8(D_800B0E00, D_800902DC, 1, -1, 0, 0, 0, -4);
     func_15195AA8(D_800B0E04, D_800902DC, 1, -1, 0, 1, 0, -4);
@@ -70,14 +62,14 @@ void func_1500FFCC(void) {
     if (object != 0) {
         func_10022EC0(object + 0x28, &first, 4);
     }
-    second[0] = 0.0f;
-    second[1] = 0.0f;
-    object = func_15149130(0x12C, -1, 0x17, -1, 0, 0x14, 8, 0xFF, 1);
-    global_object = &D_80088870;
-    *global_object = (s32)object;
-    if (object != 0) {
-        func_10022EC0(object + 0x28, second, 8);
+    {
+        f32 second[2];
+
+        second[0] = 0.0f;
+        second[1] = 0.0f;
+        D_80088870 = (s32)func_15149130(0x12C, -1, 0x17, -1, 0, 0x14, 8, 0xFF, 1);
+        if (D_80088870 != 0) {
+            func_10022EC0((u8 *)D_80088870 + 0x28, second, 8);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1500FFCC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_3D2E0/func_1500FFCC.s")

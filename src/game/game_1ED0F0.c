@@ -10,7 +10,6 @@
  * - func_151BFE84
  * - func_151C0698
  * - func_151C1180
- * - func_151C1570
  * - func_151C1D5C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -491,39 +490,27 @@ s32 func_151C1180(Game1ED0F0UpdateActor *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C1180.s")
 void func_1000FD38(s32 (*)(void *, s32, s32 *, s32, s32, s32, s16 *), s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C1570 CURRENT (720) */
-void func_151C1570(volatile s32 arg0) {
-    void *sp1C;
-    s32 temp_a0;
-    s32 temp_a0_2;
-    s32 temp_t7;
-    void *temp_a1;
-    void *temp_v1;
+typedef struct { u8 pad0[0x110]; s32 unk110; } Game1ED0F0Obj88;
+typedef struct { u8 pad0[0x80]; void *unk80; void *unk84; Game1ED0F0Obj88 *unk88; void *unk8C; } Game1ED0F0Sub170;
+void func_151C1570(void *arg0) {
+    Game1ED0F0Sub170 *sub = (Game1ED0F0Sub170 *)((u8 *)arg0 + 0x170);
 
-    temp_t7 = *(s32 *)((u8 *)arg0 + 0x1F0);
-    if (temp_t7 != 0) {
-        func_1516972C(temp_t7);
+    if (sub->unk80 != NULL) {
+        func_1516972C(sub->unk80);
     }
-    temp_a1 = (void *)arg0;
-    temp_a0 = *(s32 *)((u8 *)temp_a1 + 0x1F4);
-    temp_a1 = (u8 *)temp_a1 + 0x170;
-    if (temp_a0 != 0) {
-        sp1C = temp_a1;
-        func_1516972C(temp_a0);
-        temp_a1 = sp1C;
+    if (sub->unk84 != NULL) {
+        func_1516972C(sub->unk84);
     }
-    temp_v1 = *(void **)((u8 *)temp_a1 + 0x88);
-    if (temp_v1 != 0) {
-        *(s32 *)((u8 *)temp_v1 + 0x110) = 0;
+    if (sub->unk88 != NULL) {
+        s32 *p = &sub->unk88->unk110;
+
+        *p = 0;
     }
-    temp_a0_2 = *(s32 *)((u8 *)temp_a1 + 0x8C);
-    if (temp_a0_2 != 0) {
-        func_1516972C(temp_a0_2);
+    if (sub->unk8C != NULL) {
+        func_1516972C(sub->unk8C);
     }
-    func_1000FD38(func_151C110C, arg0, 0);
+    func_1000FD38(func_151C110C, (s32)arg0, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C1570 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C1570.s")
 void func_151C1570(void *arg0);
 
 void func_151C15FC(void *arg0) {

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150F9720
  * - func_150F97EC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -24,22 +23,15 @@ typedef struct Game126BD0Message {
 
 extern Game126BD0LookupRecord D_800A1C40[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F9720 CURRENT (651) */
 void func_150F9720(u8 arg0) {
     Game126BD0Message message;
-    Game126BD0Message *message_ptr;
-    Game126BD0LookupRecord *record;
 
-    record = &D_800A1C40[arg0];
     message.value = 0;
-    message_ptr = &message;
-    message.selector = record->first;
-    func_151494E0(message_ptr, 0x42);
-    message.selector = record->second;
-    func_151494E0(message_ptr, 0x42);
+    message.selector = D_800A1C40[arg0].first;
+    func_151494E0((void *)(s32)&message, 0x42);
+    message.selector = D_800A1C40[arg0].second;
+    func_151494E0((void *)(s32)&message, 0x42);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F9720 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_126BD0/func_150F9720.s")
 void func_150F9788(u8 *arg0) {
 
 }

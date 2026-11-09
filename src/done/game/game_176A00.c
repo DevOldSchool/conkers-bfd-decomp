@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_176A00.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_extended.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15149838
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game176A00Emitter {
@@ -172,15 +167,15 @@ void *func_15149550(Game176A00Emitter *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4,
 }
 typedef struct Game176A00Motion {
     f32 maxA, minA, targetA;
-    volatile s16 timerA;
+    s16 timerA;
     s16 rangeA;
     f32 factorA;
     f32 maxB, minB, alternateB, targetB;
-    volatile s16 timerB;
+    s16 timerB;
     s16 rangeB;
     f32 factorB;
     s32 maxC, minC, targetC;
-    volatile s16 timerC;
+    s16 timerC;
     s16 rangeC;
     f32 factorC;
     u8 pad40[4];
@@ -191,43 +186,28 @@ typedef struct Game176A00Motion {
 f32 func_150ADA68(void);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15149838 CURRENT (660) */
 s32 func_15149838(u8 *arg0) {
     Game176A00Motion *motion;
     u32 random;
-    f32 fraction;
-    f32 minimum;
-    f32 current;
     s32 minimumC;
-    s32 currentC;
 
-    *(volatile s16 *)(arg0 + 0x11C) -= D_800BE9E4;
-    if (*(volatile s16 *)(arg0 + 0x11C) < 0) {
-        random = func_150ADA20();
-        motion = (Game176A00Motion *)(arg0 + 0x110);
-        motion->timerA = random % (u32)motion->rangeA;
-        fraction = func_150ADA68();
-        minimum = motion->minA;
-        motion->targetA = fraction * (motion->maxA - minimum) + minimum;
-    }
     motion = (Game176A00Motion *)(arg0 + 0x110);
-    current = *(f32 *)(arg0 + 0x2C);
-    *(f32 *)(arg0 + 0x2C) = current + (motion->targetA - current) * motion->factorA;
+    motion->timerA -= D_800BE9E4;
+    if (motion->timerA < 0) {
+        motion->timerA = func_150ADA20() % (u32)motion->rangeA;
+        motion->targetA = func_150ADA68() * (motion->maxA - motion->minA) + motion->minA;
+    }
+    *(f32 *)(arg0 + 0x2C) += (motion->targetA - *(f32 *)(arg0 + 0x2C)) * motion->factorA;
     motion->timerB -= D_800BE9E4;
     if (motion->timerB < 0) {
         motion->timerB = func_150ADA20() % (u32)motion->rangeB;
         if (func_150ADA20() & 3) {
-            fraction = func_150ADA68();
-            minimum = motion->minB;
-            motion->targetB = fraction * (motion->maxB - minimum) + minimum;
+            motion->targetB = func_150ADA68() * (motion->maxB - motion->minB) + motion->minB;
         } else {
-            fraction = func_150ADA68();
-            minimum = motion->maxB;
-            motion->targetB = fraction * (motion->alternateB - minimum) + minimum;
+            motion->targetB = func_150ADA68() * (motion->alternateB - motion->maxB) + motion->maxB;
         }
     }
-    current = *(f32 *)(arg0 + 0x30);
-    *(f32 *)(arg0 + 0x30) = current + (motion->targetB - current) * motion->factorB;
+    *(f32 *)(arg0 + 0x30) += (motion->targetB - *(f32 *)(arg0 + 0x30)) * motion->factorB;
     motion->timerC -= D_800BE9E4;
     if (motion->timerC < 0) {
         motion->timerC = func_150ADA20() % (u32)motion->rangeC;
@@ -235,8 +215,7 @@ s32 func_15149838(u8 *arg0) {
         minimumC = motion->minC;
         motion->targetC = random % (u32)(motion->maxC - minimumC + 1) + minimumC;
     }
-    currentC = *(s32 *)(arg0 + 0x24);
-    *(s32 *)(arg0 + 0x24) = currentC + (s32)(((f32)motion->targetC - (f32)currentC) * motion->factorC);
+    *(s32 *)(arg0 + 0x24) += (s32)(((f32)motion->targetC - (f32)*(s32 *)(arg0 + 0x24)) * motion->factorC);
     if (*(s16 *)(arg0 + 0x1C) < 5) {
         func_1513F680(arg0, arg0[0x70], motion->effect, arg0[0x72], arg0[0x73]);
         *(s16 *)(arg0 + 0x1C) = 0x12C;
@@ -244,8 +223,6 @@ s32 func_15149838(u8 *arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15149838 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_176A00/func_15149838.s")
 extern f32 D_800A578C;
 extern f32 D_800A5790;
 

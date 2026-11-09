@@ -20,12 +20,10 @@
  * - func_151C9ED4
  * - func_151C9F38
  * - func_151CA6A0
- * - func_151CAB78
  * - func_151CAD28
  * - func_151CB110
  * - func_151CB5FC
  * - func_151CBC60
- * - func_151CC1D4
  * - func_151CC524
  * - func_151CC840
  * - func_151CCF08
@@ -879,7 +877,6 @@ void func_151CAACC(void *arg0, void **arg1, volatile u8 arg2) {
 extern s32 D_80082FA0;
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CAB78 CURRENT (547) */
 void func_151CAB78(u8 *arg0, u8 arg1) {
     struct {
         f32 x;
@@ -941,9 +938,9 @@ void func_151CAB78(u8 *arg0, u8 arg1) {
     spawn.height = multiplier * 12.0f;
     spawn.width = spawn.height;
     spawn.flags = (1 << (arg0[0x23D] + 11)) | 0x50;
+    spawn.count = 1;
     spawn.color = 255;
     spawn.mode = 7;
-    spawn.count = 1;
     spawn.arg1 = 255;
     spawn.arg2 = 200;
     spawn.time = 130;
@@ -971,8 +968,6 @@ void func_151CAB78(u8 *arg0, u8 arg1) {
         func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CAB78 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAB78.s")
 void *func_1515FF74(void *, s32, u8, s32);
 extern s32 D_800BE620;
 extern u8 D_800BE616;
@@ -1556,33 +1551,30 @@ s32 func_151CBC60(u8 *arg0) {
 extern f32 D_800AAEC0;
 extern s32 D_800C3958;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CC1D4 CURRENT (715) */
-f32 func_151CC1D4(void *arg0) {
-    struct State {
-        void *object;
-        u8 pad4[0x14];
-        f32 lower;
-        f32 upper;
-        u8 pad20[0x34];
-        s8 index;
-    };
-    struct State *state;
+typedef struct {
+    u8 *object;
+    u8 pad4[8];
+    u8 flags;
+    u8 padD[0xB];
+    f32 lower;
     f32 upper;
+    u8 pad20[0x34];
+    s8 index;
+} EffectsSightState1D4;
+
+f32 func_151CC1D4(void *arg0) {
+    EffectsSightState1D4 *state = (EffectsSightState1D4 *)((u8 *)arg0 + 0x70);
     f32 value;
     f32 lower;
-    void *object;
+    f32 upper;
 
-    state = (struct State *)((u8 *)arg0 + 0x70);
-    if (*(u8 *)((u8 *)arg0 + 0x7C) & 4) {
-        state = (struct State *)((u8 *)arg0 + 0x70);
-        upper = *(f32 *)((u8 *)D_800C3958 +
-                          (state->index * 0x44) + 0x28) * D_800AAEC0;
+    if (state->flags & 4) {
+        f32 scale = *(f32 *)((u8 *)D_800C3958 + state->index * 0x44 + 0x28) * D_800AAEC0;
+
+        value = state->lower + (state->upper - state->lower) * scale;
         lower = state->lower;
-        value = lower + ((state->upper - lower) * upper);
     } else {
-        object = state->object;
-        value = (*(f32 *)((u8 *)object + 0x1A0) +
-                 *(f32 *)((u8 *)object + 0x19C)) * 0.5f;
+        value = (*(f32 *)(state->object + 0x1A0) + *(f32 *)(state->object + 0x19C)) * 0.5f;
         lower = state->lower;
     }
     if (value < lower) {
@@ -1595,8 +1587,6 @@ f32 func_151CC1D4(void *arg0) {
     }
     return value;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CC1D4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC1D4.s")
 void func_151CC290(s32 arg0) {
     s32 sp1C;
 

@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151094FC
- * - func_15109848
  * - func_15109C20
  * - func_15109FB8
  * - func_1510A40C
@@ -218,7 +217,6 @@ extern f32 D_800A2644;
 extern f32 D_800A2648;
 extern f32 D_800A264C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15109848 CURRENT (550) */
 void func_15109848(Game1368C0EmitterOwner *arg0, Vec3f *arg1,
                    s32 arg2, s32 arg3, s32 arg4, Vec3f *arg5) {
     Game1368C0EmitterSpawn spawn;
@@ -267,7 +265,7 @@ void func_15109848(Game1368C0EmitterOwner *arg0, Vec3f *arg1,
     } else {
         flag80 = 0;
     }
-    spawn.field58 = flag80 | 5 | flag40 | 0xC200;
+    spawn.field58 = flag80 | 5 | flag40 | 0x8000 | 0x4000 | 0x200;
     spawn.fields60[0] = 6;
     spawn.fields60[1] = 6;
     spawn.fields60[2] = -1;
@@ -329,8 +327,6 @@ void func_15109848(Game1368C0EmitterOwner *arg0, Vec3f *arg1,
     descriptor.fields70[3] = -1;
     func_15152B38(&descriptor, arg0->fieldC, arg0->field1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15109848 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1368C0/func_15109848.s")
 typedef struct { u8 pad0[0x3B]; u8 kind; } Game1368C0BurstParent;
 typedef struct {
     u8 pad0, color, pad2[0xA], flags, padD[6], kind;

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150B9560
  * - func_150B963C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -17,25 +16,23 @@ extern f32 D_8009FDD8;
 extern f32 D_8009FDDC;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B9560 CURRENT (725) */
 s32 func_150B9560(void *arg0) {
+    f32 *p = (f32 *)((u8 *)arg0 + 0x110);
     f32 scale;
 
     if (*(s16 *)((u8 *)arg0 + 0x1C) < 0x50) {
-        *(f32 *)((u8 *)arg0 + 0x110) = (f32) (*(f32 *)((u8 *)arg0 + 0x110) + (D_8009FDD4 * D_800BE9A4));
-        *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(f32 *)((u8 *)arg0 + 0x38) - *(f32 *)((u8 *)arg0 + 0x110));
+        *p += D_8009FDD4 * D_800BE9A4;
+        *(f32 *)((u8 *)arg0 + 0x38) -= *p;
     }
     if (*(s16 *)((u8 *)arg0 + 0x1C) >= 0x73) {
         scale = D_8009FDD8;
-        *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (*(f32 *)((u8 *)arg0 + 0x2C) * scale);
-        *(f32 *)((u8 *)arg0 + 0x30) = (f32) (*(f32 *)((u8 *)arg0 + 0x30) * scale);
+        *(f32 *)((u8 *)arg0 + 0x2C) *= scale;
+        *(f32 *)((u8 *)arg0 + 0x30) *= scale;
     } else if (*(s16 *)((u8 *)arg0 + 0x1C) < 0x41) {
-        *(f32 *)((u8 *)arg0 + 0x30) = (f32) (*(f32 *)((u8 *)arg0 + 0x30) + D_8009FDDC);
+        *(f32 *)((u8 *)arg0 + 0x30) += D_8009FDDC;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B9560 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E6A10/func_150B9560.s")
 typedef struct GameE6A10Object {
     u8 pad0[0x1C];
     s16 field_1C;

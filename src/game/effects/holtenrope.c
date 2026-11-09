@@ -11,7 +11,6 @@
  * - func_151B3CF0
  * - func_151B3FDC
  * - func_151B42A4
- * - func_151B47D8
  * - func_151B48DC
  * - func_151B4A14
  * - func_151B4B78
@@ -446,50 +445,32 @@ typedef struct {
 
 void func_15143134(f32 *, f32 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B47D8 CURRENT (645) */
-s32 func_151B47D8(HoltenRopeEffect *arg0, HoltenRopePair *arg1,
-                   f32 *arg2, u8 arg3) {
-    s32 mask;
+s32 func_151B47D8(HoltenRopeEffect *arg0, HoltenRopePair *arg1, f32 *arg2, u8 arg3) {
     f32 *input;
-    s32 transform;
-    void *primary;
-    void *secondary;
+    HoltenRopeResource *primary;
+    HoltenRopeResource *secondary;
 
     primary = arg1->primary;
     secondary = arg1->secondary;
-    if ((*(s32 *)((u8 *) primary + 0x1D4) == 0) ||
-        (*(s32 *)((u8 *) secondary + 0x1D4) == 0)) {
+    if (primary->transform == 0 || secondary->transform == 0) {
         arg0->flags |= 0xC;
         return 1;
     }
-    if ((*(s32 *) primary == 0) ||
-        (arg1->primaryIndex != *(u8 *)((u8 *) primary + 0x3B)) ||
-        (*(s32 *) secondary == 0) ||
-        (arg1->secondaryIndex != *(u8 *)((u8 *) secondary + 0x3B))) {
+    if (primary->active == 0 || primary->index != arg1->primaryIndex ||
+        secondary->active == 0 || secondary->index != arg1->secondaryIndex) {
         return 0;
     }
-    mask = 8;
-    if (arg3 != 0) {
-        mask = 4;
-    }
-    arg0->flags &= ~mask;
+    arg0->flags &= ~(arg3 ? 4 : 8);
     if (arg3 != 0) {
         input = arg1->primaryVector;
     } else {
         input = arg1->secondaryVector;
     }
-    if (arg3 != 0) {
-        transform = *(s32 *)((u8 *) primary + 0x1D4) +
-                    (arg1->primaryOffset << 6);
-    } else {
-        transform = *(s32 *)((u8 *) secondary + 0x1D4) +
-                    (arg1->secondaryOffset << 6);
-    }
-    func_15143134(input, arg2, transform);
+    func_15143134(input, arg2,
+                  arg3 ? primary->transform + (arg1->primaryOffset << 6)
+                       : secondary->transform + (arg1->secondaryOffset << 6));
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B47D8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B47D8.s")
 extern f32 D_800AA3C4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B48DC CURRENT (1405) */

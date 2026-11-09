@@ -10,7 +10,6 @@
  * - func_151A11E4
  * - func_151A175C
  * - func_151A1998
- * - func_151A1E34
  * - func_151A1FB4
  * - func_151A26EC
  * - func_151A2960
@@ -155,35 +154,29 @@ void func_151A18DC(void *arg0) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CE2F0/func_151A1998.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A1E34 CURRENT (735) */
+typedef struct { s16 mul; s16 base; s16 lim; } Game1CE2F0Ramp3;
+typedef struct { s16 lim; s16 mul; } Game1CE2F0Ramp2;
+typedef struct { Game1CE2F0Ramp3 a; Game1CE2F0Ramp3 b; Game1CE2F0Ramp2 c; Game1CE2F0Ramp2 d; } Game1CE2F0RampSet;
 void func_151A1E34(u8 *arg0) {
-    s16 *temp_v0;
-    s16 temp_lo;
-    s16 temp_lo_2;
-    s16 temp_v1;
+    s16 t;
+    Game1CE2F0RampSet *p;
 
-    temp_v1 = *(s16 *)((u8 *)arg0 + 0x38);
-    if (*(s16 *)((u8 *)arg0 + 0x54) < temp_v1) {
-        temp_v0 = (s16 *)(arg0 + 0x50);
-        *(s8 *)((u8 *)arg0 + 0x3F) = temp_v0[0] * (temp_v0[1] - temp_v1);
+    p = (Game1CE2F0RampSet *)(arg0 + 0x50);
+    t = *(s16 *)(arg0 + 0x38);
+
+    if (p->a.lim < t) {
+        *(s8 *)(arg0 + 0x3F) = (p->a.base - t) * p->a.mul;
     }
-    temp_v0 = (s16 *)(arg0 + 0x50);
-    if (temp_v0[5] < temp_v1) {
-        temp_lo = temp_v0[3] * (temp_v0[4] - temp_v1);
-        *(s16 *)((u8 *)arg0 + 0x36) = temp_lo;
-        *(s16 *)((u8 *)arg0 + 0x34) = temp_lo;
+    if (p->b.lim < t) {
+        *(s16 *)(arg0 + 0x34) = *(s16 *)(arg0 + 0x36) = (p->b.base - t) * p->b.mul;
     }
-    if (temp_v1 < temp_v0[6]) {
-        *(s8 *)((u8 *)arg0 + 0x3F) = (s8) (temp_v0[7] * temp_v1);
+    if (t < p->c.lim) {
+        *(s8 *)(arg0 + 0x3F) = t * p->c.mul;
     }
-    if (temp_v1 < temp_v0[8]) {
-        temp_lo_2 = temp_v0[9] * temp_v1;
-        *(s16 *)((u8 *)arg0 + 0x36) = temp_lo_2;
-        *(s16 *)((u8 *)arg0 + 0x34) = temp_lo_2;
+    if (t < p->d.lim) {
+        *(s16 *)(arg0 + 0x34) = *(s16 *)(arg0 + 0x36) = t * p->d.mul;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A1E34 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CE2F0/func_151A1E34.s")
 typedef struct Game1CE2F0CopyHeader {
     s32 words[3];
 } Game1CE2F0CopyHeader;

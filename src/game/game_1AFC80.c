@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_scene_setup_emission_controller.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151827D0
  * - func_15182C5C
  * - func_15182FDC
  *
@@ -51,9 +50,7 @@ s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151827D0 CURRENT (560) */
 void func_151827D0(void) {
-    s32 contributions[38];
     s32 bank;
     s32 sample;
     s32 actorIndex;
@@ -63,13 +60,9 @@ void func_151827D0(void) {
     s32 pass;
     s32 left;
     s32 right;
-    s32 sound;
-    f32 x;
-    f32 y;
-    f32 z;
+    s32 contributions[39];
     f32 force;
     f32 damping;
-    Game1AFC80Actor *actor;
 
     for (bank = 0; bank < (u8)D_800DDE50; bank++) {
         lastActor = 0;
@@ -77,15 +70,14 @@ void func_151827D0(void) {
         force = D_8008D050[D_800DDE54[bank]].force00;
         damping = D_8008D050[D_800DDE54[bank]].damping04;
         for (sample = 1; sample < 39; sample++) {
-            contributions[sample - 1] = 0;
+            contributions[sample] = 0;
             for (actorIndex = 0; actorIndex < 4; actorIndex++) {
-                actor = &D_800CC2D0[actorIndex];
-                if (actor->active00 != 0) {
-                    contribution = func_15182FDC(actor, sample, bank);
-                    if (actor->kind84 == 75) {
+                if (D_800CC2D0[actorIndex].active00 != 0) {
+                    contribution = func_15182FDC(&D_800CC2D0[actorIndex], sample, bank);
+                    if (D_800CC2D0[actorIndex].kind84 == 75) {
                         contribution *= 2;
                     }
-                    contributions[sample - 1] += contribution;
+                    contributions[sample] += contribution;
                     if (contribution != 0) {
                         lastActor = actorIndex + 1;
                     }
@@ -99,7 +91,7 @@ void func_151827D0(void) {
                 right = (s32)(D_800DDE60[bank][sample + 1].component2 -
                               D_800DDE60[bank][sample].component2);
                 D_800DDE60[bank][sample].component0 = (f32)(left + right) + force;
-                D_800DDE60[bank][sample].component0 += (f32)contributions[sample - 1];
+                D_800DDE60[bank][sample].component0 += (f32)contributions[sample];
                 D_800DDE60[bank][sample].component1 += D_800DDE60[bank][sample].component0;
                 D_800DDE60[bank][sample].component1 *= damping;
                 if (fabsf(D_800DDE60[bank][sample].component1) < 1.0f) {
@@ -116,21 +108,13 @@ void func_151827D0(void) {
                 D_8008D050[D_800DDE54[bank]].state17 = 0;
             }
             if (moving != 0 && D_8008D050[D_800DDE54[bank]].state17 == 0) {
-                actor = &D_800CC2D0[lastActor];
                 D_8008D050[D_800DDE54[bank]].state17 = (func_150ADA20() & 0x3F) + 180;
                 if (D_800DDE54[bank] == 2 || D_800DDE54[bank] == 3) {
-                    sound = (func_150ADA20() & 8) + 0x507;
-                    x = actor[-1].x14;
-                    y = actor[-1].y18;
-                    z = actor[-1].z1C;
-                    func_10010F88(sound, 0x5DC0U, 0, 0, 0,
-                                  (s32)x, (s32)y, (s32)z, 300, 800);
+                    func_10010F88((func_150ADA20() & 8) + 0x507, 0x5DC0U, 0, 0, 0,
+                                  D_800CC2D0[lastActor - 1].x14, D_800CC2D0[lastActor - 1].y18, D_800CC2D0[lastActor - 1].z1C, 300, 800);
                 } else {
-                    x = actor[-1].x14;
-                    y = actor[-1].y18;
-                    z = actor[-1].z1C;
                     func_10010F88(15, 0x5DC0U, 0, 0, 0,
-                                  (s32)x, (s32)y, (s32)z, 300, 800);
+                                  D_800CC2D0[lastActor - 1].x14, D_800CC2D0[lastActor - 1].y18, D_800CC2D0[lastActor - 1].z1C, 300, 800);
                 }
             } else if (moving == 0) {
                 if (D_8008D050[D_800DDE54[bank]].state17 != 0) {
@@ -142,8 +126,6 @@ void func_151827D0(void) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151827D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AFC80/func_151827D0.s")
 void func_150A8050(void *, f32, f32, f32);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 f32 func_15182F58(s32, s32);

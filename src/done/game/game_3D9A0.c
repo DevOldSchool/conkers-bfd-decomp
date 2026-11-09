@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_3D9A0.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_compact_multi_function_units.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15010600
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 extern u8 D_800D9950[];
@@ -54,52 +49,18 @@ void func_15010538(void *arg0) {
     }
 }
 
-typedef struct Game3D9A0Bytes4 {
-    s8 byte0;
-    s8 byte1;
-    s8 byte2;
-    s8 byte3;
-} Game3D9A0Bytes4;
-
 extern s8 D_800D9920;
 extern s8 D_800D9921;
-extern s8 D_800D9928;
-extern s8 D_800D9929;
-extern Game3D9A0Bytes4 D_800D992A;
-extern s8 D_800D9938;
-extern s8 D_800D9939;
-extern Game3D9A0Bytes4 D_800D993A;
-extern s8 D_800D9946;
+extern u8 D_800D9928[];
+extern u8 D_800D9938[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15010600 CURRENT (330) */
 void func_15010600(void) {
-    Game3D9A0Bytes4 *var_a0;
-    Game3D9A0Bytes4 *var_v1;
-    u32 end;
+    s32 i;
 
     D_800D9921 = 0;
     D_800D9920 = 0;
-    D_800D9928 = 0;
-    D_800D9938 = 0;
-    D_800D9929 = 0;
-    end = (u32)&D_800D9946;
-    var_a0 = &D_800D993A;
-    var_v1 = &D_800D992A;
-    D_800D9939 = 0;
-clear_record:
-    var_a0++;
-    var_v1->byte1 = 0;
-    var_a0[-1].byte1 = 0;
-    var_v1->byte2 = 0;
-    var_a0[-1].byte2 = 0;
-    var_v1->byte3 = 0;
-    var_a0[-1].byte3 = 0;
-    var_v1++;
-    var_v1[-1].byte0 = 0;
-    var_a0[-1].byte0 = 0;
-    if ((u32)var_a0 != end) {
-        goto clear_record;
+    for (i = 0; i < 14; i++) {
+        D_800D9928[i] = 0;
+        D_800D9938[i] = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15010600 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_3D9A0/func_15010600.s")

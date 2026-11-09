@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15036570
- * - func_150368C4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -100,21 +99,19 @@ typedef struct Game63A20Command {
     u32 w1;
 } Game63A20Command;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150368C4 CURRENT (686) */
+#define GAME63A20_STATE(index) ((Game368C4State *)(D_800CC2D0 + (index) * 0x32C))
+
 Game63A20Command *func_150368C4(Game63A20Command *arg0, s32 arg1, s32 arg2) {
+    u8 *transform;
     u8 *effect;
-    Game368C4State *state;
     u8 *colors;
     s32 index;
-    s32 mode;
-    u8 **vertices;
-    u8 *transform;
 
-    state = (Game368C4State *)(D_800CC2D0 + arg1 * 0x32C);
-    if (state->model[0x75] != 2 && state->model[0x75] != 0x13) {
+    if (GAME63A20_STATE(arg1)->model[0x75] != 2 &&
+        GAME63A20_STATE(arg1)->model[0x75] != 0x13) {
         return arg0;
     }
-    effect = func_1503195C(state, 8, 0);
+    effect = func_1503195C(GAME63A20_STATE(arg1), 8, 0);
     if (effect == NULL) {
         return arg0;
     }
@@ -122,24 +119,23 @@ Game63A20Command *func_150368C4(Game63A20Command *arg0, s32 arg1, s32 arg2) {
         return arg0;
     }
     colors = *(u8 **)(effect + 0x28 + D_800BE9C0 * 4) + 0x300;
-    vertices = (u8 **)(D_800C3FC0 + arg1 * 4);
     for (index = 0; index < 5; index++) {
-        (*vertices)[index * 0x10 + 0xC] = colors[0xC];
-        (*vertices)[index * 0x10 + 0xD] = colors[0xD];
-        (*vertices)[index * 0x10 + 0xE] = colors[0xE];
+        (*(u8 **)(D_800C3FC0 + arg1 * 4))[index * 0x10 + 0xC] = colors[0xC];
+        (*(u8 **)(D_800C3FC0 + arg1 * 4))[index * 0x10 + 0xD] = colors[0xD];
+        (*(u8 **)(D_800C3FC0 + arg1 * 4))[index * 0x10 + 0xE] = colors[0xE];
     }
-    if (state->transforms == NULL) {
+    transform = GAME63A20_STATE(arg1)->transforms;
+    if (transform == NULL) {
         return arg0;
     }
-    transform = state->transforms + 0x100;
-    func_15036570(arg1, state->transforms + 0x240, transform);
+    func_15036570(arg1, transform + 0x240, transform + 0x100);
     { Game63A20Command *command = arg0++; command->w0 = 0xDE000000; command->w1 = (u32)D_80084350; }
-    arg0 = (Game63A20Command *)func_1515E544((s32)arg0, state->lights[arg2], state->lighting0,
-                              state->lighting1, state->lightData + D_800BE9C0 * 8);
-    mode = state->mode & 0xC;
-    if (mode == 0xC) {
+    arg0 = (Game63A20Command *)func_1515E544((s32)arg0, GAME63A20_STATE(arg1)->lights[arg2],
+                                                    GAME63A20_STATE(arg1)->lighting0, GAME63A20_STATE(arg1)->lighting1,
+                                                    GAME63A20_STATE(arg1)->lightData + D_800BE9C0 * 8);
+    if ((GAME63A20_STATE(arg1)->mode & 0xC) == 0xC) {
         { Game63A20Command *command = arg0++; command->w0 = 0xD9FDFFFF; command->w1 = 0; }
-    } else if (mode != 8 && !(effect[4] & 1)) {
+    } else if ((GAME63A20_STATE(arg1)->mode & 0xC) != 8 && !(effect[4] & 1)) {
         { Game63A20Command *command = arg0++; command->w0 = 0xD9FDFFFF; command->w1 = 0; }
     } else if (D_800DCD7C != 0) {
         { Game63A20Command *command = arg0++; command->w0 = 0xD9FFFFFF; command->w1 = 0x20000; }
@@ -148,12 +144,10 @@ Game63A20Command *func_150368C4(Game63A20Command *arg0, s32 arg1, s32 arg2) {
     }
     arg0 = (Game63A20Command *)func_15094F70((s32)arg0, (struct GameC2350Input *)D_800903BC, 0, NULL, 0, 0, 0, 2, 3);
     { Game63A20Command *command = arg0++; command->w0 = 0xDA380003; command->w1 = (u32)D_80089470; }
-    { Game63A20Command *command = arg0++; command->w0 = 0x01001002; command->w1 = (u32)*vertices; }
-    { Game63A20Command *command = arg0++; command->w0 = 0xDA380003; command->w1 = (u32)transform; }
-    { Game63A20Command *command = arg0++; command->w0 = 0x0100400A; command->w1 = (u32)(*vertices + 0x10); }
+    { Game63A20Command *command = arg0++; command->w0 = 0x01001002; command->w1 = (u32)*(u8 **)(D_800C3FC0 + arg1 * 4); }
+    { Game63A20Command *command = arg0++; command->w0 = 0xDA380003; command->w1 = (u32)(transform + 0x100); }
+    { Game63A20Command *command = arg0++; command->w0 = 0x0100400A; command->w1 = (u32)(*(u8 **)(D_800C3FC0 + arg1 * 4) + 0x10); }
     { Game63A20Command *command = arg0++; command->w0 = 0x05000204; command->w1 = 0; }
     { Game63A20Command *command = arg0++; command->w0 = 0x05000608; command->w1 = 0; }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150368C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_63A20/func_150368C4.s")
