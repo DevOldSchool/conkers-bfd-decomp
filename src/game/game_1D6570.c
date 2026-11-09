@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151A9390
- * - func_151A9834
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -329,49 +328,40 @@ extern Game1D6570ParticleCallback D_8008FA60[];
 extern f32 D_800A8F68;
 extern f32 D_800A8F6C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A9834 CURRENT (881) */
 void func_151A9834(f32 *arg0, f32 arg1, f32 arg2, f32 *arg3,
                     s32 arg4, u8 arg5, s32 arg6, u8 arg7, s32 arg8) {
-    struct {
-        f32 callbackPosition[3];
-        f32 position[3];
-        u8 fallback[0x24];
-    } locals;
-    f32 *state;
-    s32 count;
+    struct { f32 f0; u8 pad4[0x14]; s32 f18; u8 f1C; u8 f1D; u8 pad1E[2]; s32 f20; } fallback;
+    f32 position[3];
+    f32 callbackPosition[3];
     f32 random;
     f32 angleScale;
 
-    state = arg3;
-    if (state == 0) {
-        state = (f32 *)locals.fallback;
-        *(s32 *)(locals.fallback + 0x18) = 0;
-        locals.fallback[0x1C] = 7;
-        locals.fallback[0x1D] = 0;
-        *(s32 *)(locals.fallback + 0x20) = 0;
-        state[0] = D_800A8F68;
+    if (arg3 == 0) {
+        arg3 = &fallback.f0;
+        arg3[0] = D_800A8F68;
+        fallback.f18 = 0;
+        fallback.f1C = 7;
+        fallback.f1D = 0;
+        fallback.f20 = 0;
     }
-    count = arg4;
-    locals.position[1] = arg0[1];
-    if (count > 0) {
+    position[1] = arg0[1];
+    if (arg4 > 0) {
         angleScale = D_800A8F6C;
         do {
             random = func_150ADA68();
             func_1514373C((random + random) * angleScale,
                            func_150ADA68() * arg2,
-                           &locals.position[0], &locals.position[2]);
-            locals.position[0] += arg0[0];
-            locals.position[2] += arg0[2];
-            if (func_15046C80(locals.position, 0, arg1, state) != 0) {
-                locals.callbackPosition[0] = locals.position[0];
-                locals.callbackPosition[1] = state[0];
-                locals.callbackPosition[2] = locals.position[2];
-                D_8008FA60[(u8)arg5](locals.callbackPosition, state,
+                           &position[0], &position[2]);
+            position[0] += arg0[0];
+            position[2] += arg0[2];
+            if (func_15046C80(position, 0, arg1, arg3) != 0) {
+                callbackPosition[0] = position[0];
+                callbackPosition[1] = arg3[0];
+                callbackPosition[2] = position[2];
+                D_8008FA60[(u8)arg5](callbackPosition, arg3,
                                        arg6, (u8)arg7, arg8);
             }
-            count--;
-        } while (count > 0);
+            arg4--;
+        } while (arg4 > 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A9834 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A9834.s")

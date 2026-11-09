@@ -7,8 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15130A9C
- * - func_15131828
- * - func_15131EE4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -406,15 +404,12 @@ s32 func_15131814(s32 arg0, s32 arg1) {
 /* Call context: func_151423D8: unique active project prototype */
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15131828 CURRENT (950) */
 void func_15131828(void *arg0, void *arg1, void *arg2, void *arg3) {
-    *(f32 *)((u8 *)arg0 + 0x4C) = (f32) (*(f32 *)((u8 *)arg1 + 0) * func_151423D8((*(u8 *)((u8 *)arg2 + 0) - 0x40) & 0xFF));
-    *(f32 *)((u8 *)arg0 + 0x54) = (f32) (*(f32 *)((u8 *)arg1 + 4) * func_151423D8((*(u8 *)((u8 *)arg2 + 1) - 0x40) & 0xFF));
-    *(u8 *)((u8 *)arg2 + 0) = (u8) (*(u8 *)((u8 *)arg2 + 0) + (*(u8 *)((u8 *)arg3 + 0) * D_800BE9E4));
-    *(u8 *)((u8 *)arg2 + 1) = (u8) (*(u8 *)((u8 *)arg2 + 1) + (*(u8 *)((u8 *)arg3 + 1) * D_800BE9E4));
+    *(f32 *)((u8 *)arg0 + 0x4C) = *(f32 *)((u8 *)arg1 + 0) * func_151423D8(*(u8 *)((u8 *)arg2 + 0) - 0x40);
+    *(f32 *)((u8 *)arg0 + 0x54) = *(f32 *)((u8 *)arg1 + 4) * func_151423D8(*(u8 *)((u8 *)arg2 + 1) - 0x40);
+    *(u8 *)((u8 *)arg2 + 0) += *(u8 *)((u8 *)arg3 + 0) * D_800BE9E4;
+    *(u8 *)((u8 *)arg2 + 1) += *(u8 *)((u8 *)arg3 + 1) * D_800BE9E4;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15131828 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15131828.s")
 extern s32 D_800BE9E4;
 
 void func_151318E8(void *arg0, f32 arg1) {
@@ -651,13 +646,12 @@ f32 func_150ADA68(void);
 extern f32 D_800A3850;
 extern Game15D730Args D_800A5480;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15131EE4 CURRENT (842) */
-void *func_15131EE4(void *arg0, f32 arg1, s32 arg2, s32 arg3) {
+void *func_15131EE4(void *arg0, f32 arg1, u8 arg2, s32 arg3) {
     Game131EE4Spawn spawn;
     Game131EE4Fade fade;
     void *result;
-    register s32 firstFlag;
     s32 secondFlag;
+    s32 firstFlag;
 
     fade.elapsed = 0.0f;
     fade.scale = D_800A3850 * arg1;
@@ -666,9 +660,9 @@ void *func_15131EE4(void *arg0, f32 arg1, s32 arg2, s32 arg3) {
     fade.decay = fade.brightness / (fade.duration * fade.duration);
     spawn.secondaryA = (u8)(u32)fade.brightness;
     spawn.effect = 0x69;
-    spawn.resource = 1;
     spawn.renderFlags = 0x4417;
     spawn.flags = 0x200004;
+    spawn.resource = 1;
     spawn.frame = 0;
     spawn.frameStep = 0;
     spawn.secondaryR = 0xFF;
@@ -705,11 +699,9 @@ void *func_15131EE4(void *arg0, f32 arg1, s32 arg2, s32 arg3) {
     spawn.width = 0.0f;
     spawn.height = 0.0f;
     spawn.acceleration = 0.0f;
-    result = func_15130280(&spawn, 1, 0, sizeof(fade), (u8)arg2, arg3);
+    result = func_15130280(&spawn, 1, 0, sizeof(fade), arg2, arg3);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0xA8, &fade, sizeof(fade));
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15131EE4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15131EE4.s")

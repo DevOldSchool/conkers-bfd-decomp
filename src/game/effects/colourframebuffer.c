@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1515FDA0
- * - func_151600D8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -147,35 +146,24 @@ extern f32 D_800A6678;
 extern f32 D_800A667C;
 extern f32 D_800A6680;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151600D8 CURRENT (1135) */
 s32 func_151600D8(u8 *arg0) {
     f32 *values;
     s32 index;
     s32 selector;
 
-    selector = 2;
-    values = (f32 *)(arg0 + 0x18);
-    index = func_151422DC(0, &D_800A6540, -0x7D0, 0x7D0,
-                          0, &D_800A6548, 0x1C4);
+    selector = 0;
+    values = (f32 *)((u8 *)arg0 + 0x18);
+    index = func_151422DC(selector++, &D_800A6540, -0x7D0, 0x7D0, 0, &D_800A6548, 0x1C4);
     values[0] = (f32)index * D_800A6674;
-    index = func_151422DC(1, &D_800A657C, -0x7D0, 0x7D0,
-                          0, &D_800A6584, 0x1C9);
+    index = func_151422DC(selector++, &D_800A657C, -0x7D0, 0x7D0, 0, &D_800A6584, 0x1C9);
     values[1] = (f32)index * D_800A6678;
-    index = func_151422DC(selector, &D_800A65B8, 0, 0x7D0,
-                          0x1F4, &D_800A65C0, 0x1CE);
+    index = func_151422DC(selector++, &D_800A65B8, 0, 0x7D0, 0x1F4, &D_800A65C0, 0x1CE);
     values[2] = (f32)index * D_800A667C;
-    selector++;
-    index = func_151422DC(selector, &D_800A65F4, 0, 0x7D0,
-                          0x1F4, &D_800A65FC, 0x1D3);
+    index = func_151422DC(selector++, &D_800A65F4, 0, 0x7D0, 0x1F4, &D_800A65FC, 0x1D3);
     values[3] = (f32)index * D_800A6680;
-    selector++;
-    *(s32 *)(values + 4) = func_151422DC(selector, &D_800A6630,
-                                          0, 0x10000, 0x10000,
-                                          &D_800A663C, 0x1D9);
+    *(s32 *)(values + 4) = func_151422DC(selector, &D_800A6630, 0, 0x10000, 0x10000, &D_800A663C, 0x1D9);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151600D8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/colourframebuffer/func_151600D8.s")
 typedef struct {
     s32 field_0;
 } ColourFramebufferArgs;

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_text_view_descriptor_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150CFF10
  * - func_150D01A0
  * - func_150D032C
  * - func_150D0534
@@ -128,49 +127,38 @@ typedef struct {
     u8 pad_26[2];
 } GameFD1D0Packet;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CFF10 CURRENT (1032) */
 struct GameFD1D0Object *func_150CFF10(u8 arg0, u8 *arg1, s16 arg2, s32 arg3,
                                       s8 arg4, u8 arg5, u8 arg6, s32 arg7) {
     GameFD1D0Packet packet;
-    GameFD1D0State *temp_v0_2;
-    GameFD1D0TextCursor *temp_a3;
-    s32 temp_v0;
-    s32 temp_v0_3;
-    s8 *temp_v1;
-    void *temp_a1;
+    GameFD1D0State *obj;
+    s32 len1;
+    GameFD1D0TextCursor *text;
 
+    packet.field_25 = arg5;
+    packet.field_24 = arg4;
     packet.field_15 = 0;
     packet.field_8 = 1;
     packet.field_4 = arg1;
     packet.field_C = arg1;
-    packet.field_25 = arg5;
-    packet.field_24 = arg4;
     packet.field_0 = arg0;
     packet.field_14 = func_150CFD84((s32)arg1, &packet.field_10);
     packet.field_18 = 0;
     packet.field_1C = 0;
     packet.field_20 = 0;
-    temp_v0 = func_150CFDB8(arg1);
-    temp_v0_3 = temp_v0 + 1;
-    temp_v0_2 = func_15149130(arg2, -1, -1, 5, 3, 0x47,
-                              arg3 + (temp_v0 * 2) + 0x2A,
-                              (s32)arg6, arg7);
-    if (temp_v0_2 != 0) {
-        temp_a3 = &temp_v0_2->text;
-        func_10022EC0(temp_a3, &packet, 0x28);
-        temp_a1 = (u8 *)temp_a3 + 0x28;
-        *(void **)((u8 *)temp_a3 + 0x20) = temp_a1;
-        temp_v1 = (s8 *)temp_a1 + arg3;
-        *(s8 **)((u8 *)temp_a3 + 0x18) = temp_v1;
-        *(s8 **)((u8 *)temp_a3 + 0x1C) = temp_v1 + temp_v0_3;
-        *temp_v1 = 0;
-        **(s8 **)((u8 *)temp_a3 + 0x1C) = 0;
-        func_150CFE3C(temp_v0_2);
+    len1 = func_150CFDB8(arg1) + 1;
+    obj = func_15149130(arg2, -1, -1, 5, 3, 0x47, arg3 + 0x28 + len1 * 2, arg6, arg7);
+    if (obj != NULL) {
+        text = &obj->text;
+        func_10022EC0(text, &packet, 0x28);
+        *(u8 **)(((u8 *)text) + 0x20) = ((u8 *)text) + 0x28;
+        *(u8 **)(((u8 *)text) + 0x18) = *(u8 **)(((u8 *)text) + 0x20) + arg3;
+        *(u8 **)(((u8 *)text) + 0x1C) = *(u8 **)(((u8 *)text) + 0x18) + len1;
+        **(u8 **)(((u8 *)text) + 0x18) = 0;
+        **(u8 **)(((u8 *)text) + 0x1C) = 0;
+        func_150CFE3C(obj);
     }
-    return (struct GameFD1D0Object *)temp_v0_2;
+    return (struct GameFD1D0Object *)obj;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150CFF10 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFF10.s")
 typedef s32 (*GameFD1D0EntryCallback)(GameFD1D0State *);
 
 extern GameFD1D0EntryCallback D_800888A0[];

@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1502AC88
- * - func_1502AF04
  * - func_1502B110
  * - func_1502B350
  * - func_1502B4A8
@@ -104,30 +103,23 @@ s32 func_1502AC88(u8 *arg0, s32 arg1, s32 *arg2) {
 
 void func_10004514(s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502AF04 CURRENT (1121) */
 s32 func_1502AF04(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     typedef struct { u32 address; u32 flags; } Relocation;
     u32 i;
-    register u8 *temp_s2;
-    u8 *temp_t0;
+    s32 source;
+    s32 aligned;
     Relocation *entries;
 
-    temp_t0 = (u8 *)((u32)arg0 + ((u32)arg2 << 3));
-    temp_s2 = (u8 *)(((u32)arg1 + 8U) & ~0xFU);
-    func_10004514((s32)temp_t0 & ~0xF, (s32)temp_s2,
-                  (((u32)temp_t0 & 0xEU) + ((u32)arg3 << 3) + 0xFU) & ~0xFU, 1);
-    entries = (Relocation *)((u32)temp_s2 + ((u32)temp_t0 & 0xFU));
-    i = 0;
-    if (arg3 != 0) {
-        do {
-            entries[i].address += (u32)arg0;
-            i++;
-        } while (i != (u32)arg3);
+    arg2 <<= 3;
+    source = (s32)arg0 + arg2;
+    aligned = (arg1 + 8) & ~0xF;
+    func_10004514(source & ~0xF, aligned, ((source & 0xE) + (arg3 << 3) + 0xF) & ~0xF, 1);
+    entries = (Relocation *)(aligned + (source & 0xFU));
+    for (i = 0; i < (u32)arg3; i++) {
+        entries[i].address += (u32)arg0;
     }
-    return (s32)((u32)temp_s2 + ((u32)temp_t0 & 0xFU));
+    return aligned + (source & 0xFU);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502AF04 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502AF04.s")
 s32 func_1502AC88(u8 *, s32, s32 *);
 extern u8 D_AB1950[];
 

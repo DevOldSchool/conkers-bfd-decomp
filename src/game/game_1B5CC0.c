@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_child_chain_render_lists.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15188E48
  * - func_15188F84
  * - func_15189118
  * - func_151895F4
@@ -267,61 +266,41 @@ Game1B5CC0Command *func_15188D00(Game1B5CC0Command *arg0, s32 arg1, s16 arg2) {
     }
     return arg0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15188E48 CURRENT (1200) */
-void func_15188E48(void *arg0) {
-    s32 temp_lo;
-    s32 temp_s0;
-    s32 temp_s4;
-    s32 temp_s5;
-    s32 temp_v0;
-    s32 var_a2;
-    s32 var_a3;
-    s32 var_s1;
-    s32 var_v1;
-    s32 temp_s3;
-    u8 temp_v0_2;
-    void *temp_a1;
-    void *var_a0;
-    u8 *base;
+void func_15188E48(u8 *arg0) {
+    s32 n;
+    s32 cur;
+    s32 other;
+    s32 i;
+    s32 j;
+    s32 count;
+    s32 size;
+    u8 *src;
+    u8 *dst;
 
-    base = arg0;
-    temp_s3 = base[1];
-    temp_v0 = func_1502DB20((s32)(*(u8 **)(base + 0x10))[4]);
-    temp_lo = temp_v0 * temp_s3;
-    temp_s0 = temp_v0;
-    var_a3 = 0;
-    var_s1 = 1;
-    temp_s4 = D_800BE9C0 * temp_lo;
-    temp_s5 = (D_800BE9C0 ^ 1) * temp_lo;
-    if ((s32)temp_s3 > 0) {
-        do {
-        if (temp_s3 == var_s1) {
-            temp_a1 = *(void **)(*(u8 **)(base + 0x10) + 0x1D4);
-            if (temp_a1 == 0) {
-                base[2] = 0;
+    count = arg0[1];
+    n = func_1502DB20((*(u8 **)(arg0 + 0x10))[4]);
+    cur = D_800BE9C0 * (n * count);
+    other = (D_800BE9C0 ^ 1) * (n * count);
+    for (i = 0; i < count; i++) {
+        size = n << 6;
+        j = i + 1;
+        if (count == j) {
+            src = *(u8 **)(*(u8 **)(arg0 + 0x10) + 0x1D4);
+            if (src == NULL) {
+                arg0[2] = 0;
                 return;
             }
-            var_a0 = temp_a1;
-            var_a2 = temp_s0 << 6;
-            var_v1 = (var_a3 * temp_s0) + temp_s4;
-            func_10023A10(var_a0, (u8 *)*(void **)(base + 8) + (var_v1 << 6), var_a2);
+            dst = src;
         } else {
-        var_a2 = temp_s0 << 6;
-        var_a0 = (u8 *)*(void **)(base + 8) + (((var_s1 * temp_s0) + temp_s5) << 6);
-        var_v1 = (var_a3 * temp_s0) + temp_s4;
-        func_10023A10(var_a0, (u8 *)*(void **)(base + 8) + (var_v1 << 6), var_a2);
+            dst = *(u8 **)(arg0 + 8) + ((j * n + other) << 6);
         }
-        var_a3 = var_s1;
-        var_s1++;
-        } while (var_a3 != temp_s3);
+        src = *(u8 **)(arg0 + 8) + ((i * n + cur) << 6);
+        func_10023A10(dst, src, size);
     }
-    temp_v0_2 = base[2];
-    if (base[1] != temp_v0_2) {
-        base[2] = temp_v0_2 + 1;
+    if (arg0[1] != arg0[2]) {
+        arg0[2]++;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15188E48 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B5CC0/func_15188E48.s")
 extern u8 **D_80089240;
 extern u8 **D_80089250[];
 extern u16 D_800DBEE8[];

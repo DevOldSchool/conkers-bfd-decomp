@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_10B7D0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_code_selected_callback_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150DE32C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_150DE320(s32 arg0) {
@@ -24,35 +19,25 @@ extern Game10B7D0Lookup8 D_80088950;
 extern Game10B7D0Lookup8 D_80088958;
 extern s32 D_800D3098;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DE32C CURRENT (1175) */
 void func_150DE32C(s32 arg0, s32 arg1, s32 arg2) {
-    u8 *id;
     void *object;
+    s32 i;
     Game10B7D0Lookup8 ids;
     Game10B7D0Lookup8 actions;
-    s32 i;
-    u8 action;
 
     ids = D_80088950;
     actions = D_80088958;
-    i = 0;
-    id = ids.bytes;
-    do {
-        if (func_150A32B4((*id * 0x34) + D_800D3098, arg0, arg1, arg2) != 0) {
-            action = actions.bytes[i];
-            if (action != 0) {
-                object = func_151149AC(action, 1);
+    for (i = 0; i < 8; i++) {
+        if (func_150A32B4((ids.bytes[i] * 0x34) + D_800D3098, arg0, arg1, arg2) != 0) {
+            if (actions.bytes[i] != 0) {
+                object = func_151149AC(actions.bytes[i]);
                 *((u8 *) object + 0x73) = (*((u8 *) object + 0x73) & ~3) | 3;
             } else {
-                func_150A2864(*id, 1);
+                func_150A2864(ids.bytes[i], 1);
             }
         }
-        i++;
-        id++;
-    } while (i != 8);
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150DE32C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10B7D0/func_150DE32C.s")
 typedef struct GameDE458State {
     f32 rotation[3];
     u8 pad0C[4];

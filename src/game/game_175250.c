@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15147EB8
  * - func_1514803C
- * - func_15148DE0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -296,50 +295,38 @@ s32 func_15148BA4(Game175250Trail *arg0) {
     return 1;
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15148DE0 CURRENT (1050) */
-s32 func_15148DE0(void *arg0) {
-    s32 var_v0;
-    s32 temp_t9;
-    s8 temp_v0;
-    s32 var_a2;
-    u8 *temp_a1;
-    u8 *temp_v1;
+s32 func_15148DE0(Game175250Trail *arg0) {
+    Game175250Motion *motion;
+    Game175250Point *points;
+    u16 step;
+    u16 value;
+    s32 i;
 
-    temp_v0 = *(s8 *)((u8 *)arg0 + 0x2C);
-    if (temp_v0 >= 3) {
-        *(s8 *)((u8 *)arg0 + 0x2C) = temp_v0 - 1;
-        temp_a1 = *(u8 **)((u8 *)arg0 + 0x98);
-        temp_v1 = *(u8 **)((u8 *)arg0 + 0x94);
-        temp_t9 = (0x1000 / *(s8 *)((u8 *)arg0 + 0x2C)) & 0xFFFF;
-        var_a2 = *(s8 *)((u8 *)arg0 + 0x2D);
-        var_v0 = 0;
-        if (temp_a1[0x18] & 0x20) {
-            var_v0 = 0x1000;
+    if (arg0->count >= 3) {
+        arg0->count--;
+        points = arg0->points;
+        motion = arg0->motion;
+        i = arg0->start;
+        step = 0x1000 / arg0->count;
+        value = (motion->flags & 0x20) ? 0x1000 : 0;
+        if (--arg0->end < 0) {
+            arg0->end = arg0->capacity - 1;
         }
-        *(s8 *)((u8 *)arg0 + 0x2E) = *(s8 *)((u8 *)arg0 + 0x2E) - 1;
-        if (*(s8 *)((u8 *)arg0 + 0x2E) < 0) {
-            *(s8 *)((u8 *)arg0 + 0x2E) = *(u8 *)((u8 *)arg0 + 0x25) - 1;
-        }
-        if (var_a2 != *(s8 *)((u8 *)arg0 + 0x2E)) {
-            do {
-                *(s16 *)(temp_v1 + (var_a2 * 0x14) + 0x10) = var_v0;
-                if (temp_a1[0x18] & 0x20) {
-                    var_v0 = (var_v0 - temp_t9) & 0xFFFF;
-                } else {
-                    var_v0 = (var_v0 + temp_t9) & 0xFFFF;
-                }
-                var_a2 += 1;
-                if (var_a2 == *(u8 *)((u8 *)arg0 + 0x25)) {
-                    var_a2 = 0;
-                }
-            } while (var_a2 != *(s8 *)((u8 *)arg0 + 0x2E));
+        while (i != arg0->end) {
+            points[i].phase = value;
+            if (motion->flags & 0x20) {
+                value -= step;
+            } else {
+                value += step;
+            }
+            if (++i == arg0->capacity) {
+                i = 0;
+            }
         }
         return 1;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15148DE0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_175250/func_15148DE0.s")
 s32 func_15148EF8(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     void *temp_v1;
 

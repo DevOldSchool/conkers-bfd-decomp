@@ -1536,68 +1536,51 @@ extern Game169510Node *D_800DCE50[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151406AC CURRENT (1037) */
 s32 func_151406AC(s32 arg0, s32 arg1, s32 arg2, s16 arg3) {
-    Game169510Node sp28;
-    Game169510Node **temp_v1;
-    Game169510Node *temp_a2;
-    Game169510Node *temp_t0;
-    Game169510Node *temp_t0_2;
-    Game169510Node *temp_t7;
-    Game169510Node *temp_v0;
-    Game169510Node *var_a1;
-    register s32 temp_t1;
-    register s32 temp_t2;
+    Game169510Node head;
+    Game169510Node **slot;
+    Game169510Node *it;
+    Game169510Node *node;
+    Game169510Node *next;
+    Game169510Node *prev;
+    s32 key;
+    s32 other;
 
     if (arg3 != 0) {
         return arg0;
     }
-    temp_v1 = (Game169510Node **)((u32)D_800DCE50 +
-        ((((((u32)arg2 << 2) - (u32)arg2) << 2) + (u32)arg2) << 5) + ((u32)arg1 << 2));
-    temp_v0 = *temp_v1;
-    sp28.field18 = 0;
-    sp28.field20 = 0;
-    sp28.next = temp_v0;
-    temp_v0->prev = &sp28;
-    if (temp_v0 != 0) {
-        var_a1 = temp_v0->next;
-        if (var_a1 != 0) {
-            do {
-                temp_t1 = (var_a1->field18 << 8) +
-                          (var_a1->field20 >> 16);
-                temp_a2 = var_a1->prev;
-                temp_t0 = var_a1->next;
-                temp_v0 = temp_a2;
-                if (temp_a2 != 0) {
-loop_5:
-                    temp_t2 = (temp_v0->field18 << 8) +
-                              (temp_v0->field20 >> 16);
-                    if (temp_t1 >= temp_t2) {
-                        if (temp_v0 != temp_a2) {
-                            temp_a2->next = temp_t0;
-                            temp_t0_2 = var_a1->next;
-                            if (temp_t0_2 != 0) {
-                                temp_t0_2->prev = var_a1->prev;
-                            }
-                            temp_t7 = temp_v0->next;
-                            var_a1->next = temp_t7;
-                            if (temp_t7 != 0) {
-                                temp_t7->prev = var_a1;
-                            }
-                            var_a1->prev = temp_v0;
-                            temp_v0->next = var_a1;
+    slot = (Game169510Node **)((u8 *)D_800DCE50 + arg2 * 0x1A0 + arg1 * 4);
+    it = *slot;
+    head.field18 = 0;
+    head.field20 = 0;
+    head.next = it;
+    it->prev = &head;
+    if (it != NULL) {
+        for (node = it->next; node != NULL; node = next) {
+            prev = node->prev;
+            next = node->next;
+            key = (node->field18 << 8) + (node->field20 >> 16);
+            for (it = prev; it != NULL; it = it->prev) {
+                other = (it->field18 << 8) + (it->field20 >> 16);
+                if (key >= other) {
+                    if (it != prev) {
+                        prev->next = node->next;
+                        if (node->next != NULL) {
+                            node->next->prev = node->prev;
                         }
-                    } else {
-                        temp_v0 = temp_v0->prev;
-                        if (temp_v0 != 0) {
-                            goto loop_5;
+                        node->next = it->next;
+                        if (node->next != NULL) {
+                            node->next->prev = node;
                         }
+                        node->prev = it;
+                        it->next = node;
                     }
+                    break;
                 }
-                var_a1 = temp_t0;
-            } while (temp_t0 != 0);
+            }
         }
     }
-    *temp_v1 = sp28.next;
-    sp28.next->prev = 0;
+    *slot = head.next;
+    head.next->prev = NULL;
     return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151406AC */

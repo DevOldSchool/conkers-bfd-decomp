@@ -6,9 +6,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15053750
  * - func_150538CC
- * - func_150548E4
  * - func_15054F74
  * - func_1505528C
  *
@@ -36,51 +34,29 @@ void func_1505371C(void *arg0) {
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15053750 CURRENT (1010) */
 void func_15053750(u8 *arg0) {
-    f32 current;
-    f32 previous;
     f32 delta;
     f32 limit;
-    s32 direction;
 
-    current = *(f32 *)(arg0 + 0x154);
-    previous = *(f32 *)(arg0 + 0x14C);
-    delta = current - previous;
+    delta = *(f32 *)(arg0 + 0x154) - *(f32 *)(arg0 + 0x14C);
     if (delta != 0.0f) {
         limit = *(f32 *)(arg0 + 0x15C);
         if (fabsf(delta) < limit) {
-            func_15062BDC(arg0, current, *(f32 *)(arg0 + 0x150));
+            func_15062BDC(arg0, *(f32 *)(arg0 + 0x154), *(f32 *)(arg0 + 0x150));
         } else {
-            if (delta < 0.0f) {
-                direction = -1;
-            } else {
-                direction = 1;
-            }
-            func_15062BDC(arg0, (f32)direction * limit + previous,
-                           *(f32 *)(arg0 + 0x150));
+            func_15062BDC(arg0, *(f32 *)(arg0 + 0x14C) + ((delta < 0.0f) ? -1 : 1) * limit, *(f32 *)(arg0 + 0x150));
         }
     }
-    current = *(f32 *)(arg0 + 0x158);
-    previous = *(f32 *)(arg0 + 0x150);
-    delta = current - previous;
+    delta = *(f32 *)(arg0 + 0x158) - *(f32 *)(arg0 + 0x150);
     if (delta != 0.0f) {
         limit = *(f32 *)(arg0 + 0x15C);
         if (fabsf(delta) < limit) {
-            func_15062BDC(arg0, *(f32 *)(arg0 + 0x14C), current);
-            return;
-        }
-        if (delta < 0.0f) {
-            direction = -1;
+            func_15062BDC(arg0, *(f32 *)(arg0 + 0x14C), *(f32 *)(arg0 + 0x158));
         } else {
-            direction = 1;
+            func_15062BDC(arg0, *(f32 *)(arg0 + 0x14C), *(f32 *)(arg0 + 0x150) + ((delta < 0.0f) ? -1 : 1) * limit);
         }
-        func_15062BDC(arg0, *(f32 *)(arg0 + 0x14C),
-                       (f32)direction * limit + previous);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15053750 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_80B80/func_15053750.s")
 /* Call context: func_15060F28: unique active project prototype */
 void func_15060F28(u8 *, s32);
 
@@ -93,41 +69,30 @@ void func_15053894(u8 *arg0) {
 void func_150548D8(s32 arg0) {
 
 }
-void func_10010344(s32, void *, s32, s32, s32);
+s32 func_10010344(s32, void *, u32, s16, s32);
 extern s8 D_8008FD8C;
 extern u8 D_800CC2D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150548E4 CURRENT (910) */
 void func_150548E4(u8 *arg0) {
-    s32 var_s1;
-    s32 var_v0;
-    u8 *var_s2;
-    u8 *temp_s0;
+    u8 *other;
+    s32 i;
+    s32 sfx;
 
-    temp_s0 = (u8 *)((u32)arg0[0x65] * 0x32CU - 0x32CU + (u32)&D_800CC2D0);
-    var_s1 = 0;
-    if (D_8008FD8C > 0) {
-        var_s2 = &D_800CC2D0;
-        do {
-            if ((((s32)((u32)arg0 - (u32)&D_800CC2D0) / 812) + 1 == var_s2[0x274]) &&
-                (temp_s0[0x232] == 1)) {
-                *(s32 *)(temp_s0 + 0x218) = 0;
-                if (func_150ADA20() & 1) {
-                    temp_s0[0x232] = 2;
-                    var_v0 = 0x1DB;
-                } else {
-                    temp_s0[0x232] = 3;
-                    var_v0 = 0x1DC;
-                }
-                func_10010344(var_v0 & 0xFFFF, temp_s0, 0x7D00, 0x1F4, 0x9C4);
+    other = &D_800CC2D0 + (arg0[0x65] - 1) * 0x32C;
+    for (i = 0; i < D_8008FD8C; i++) {
+        if (((arg0 - &D_800CC2D0) / 0x32C + 1 == (&D_800CC2D0)[i * 0x32C + 0x274]) && (other[0x232] == 1)) {
+            *(s32 *)(other + 0x218) = 0;
+            if (func_150ADA20() & 1) {
+                other[0x232] = 2;
+                sfx = 0x1DB;
+            } else {
+                other[0x232] = 3;
+                sfx = 0x1DC;
             }
-            var_s1++;
-            var_s2 = (u8 *)((u32)var_s2 + 0x32CU);
-        } while (var_s1 < D_8008FD8C);
+            func_10010344(sfx & 0xFFFF, other, 0x7D00, 0x1F4, 0x9C4);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150548E4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_80B80/func_150548E4.s")
 void func_15054A0C(u8 *arg0) {
     void *temp_v0;
 

@@ -353,7 +353,7 @@ void func_15194AB4(void *arg0) {
         func_15083568(arg0, var_a1, 0x3F800000, 0);
     }
 }
-void func_15138120(void *, s32, s32);
+void func_15138120(void *, s32, u8);
 void func_15136C3C();
 
 /*

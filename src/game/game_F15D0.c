@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_owner_chain_resource_emitters.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150C4120
  * - func_150C44A4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -57,7 +56,6 @@ typedef struct {
     f32 size, field08, field0C;
 } GameF15D0Extra;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C4120 CURRENT (816) */
 void func_150C4120(u8 *arg0, s16 arg1, u8 arg2, s32 arg3) {
     GameF15D0State state;
     u8 *result;
@@ -84,8 +82,8 @@ void func_150C4120(u8 *arg0, s16 arg1, u8 arg2, s32 arg3) {
         parentData = (GameF15D0State *)(result + 0x28);
         func_10022EC0(parentData, &state, 0x1C);
         choices = D_800A0340;
-        extra.phaseX = func_150ADA20();
-        extra.phaseY = func_150ADA20();
+        extra.phaseX = func_150ADA20() & 0xFF;
+        extra.phaseY = func_150ADA20() & 0xFF;
         packet.height = 700.0f;
         packet.width = 700.0f;
         extra.size = 700.0f;
@@ -115,7 +113,7 @@ void func_150C4120(u8 *arg0, s16 arg1, u8 arg2, s32 arg3) {
         packet.field54 = 0.0f;
         packet.size = 1.0f;
         packet.flags58 = ((func_150ADA20() & 1) ? 0x40 : 0) |
-            ((func_150ADA20() & 1) ? 0x80 : 0) | 0xC000;
+            ((func_150ADA20() & 1) ? 0x80 : 0) | 0x4000 | 0x8000;
         packet.life = 0x12C;
         packet.field1E = 1;
         packet.field20 = 0xFF;
@@ -129,15 +127,12 @@ void func_150C4120(u8 *arg0, s16 arg1, u8 arg2, s32 arg3) {
         packet.mode66 = 0xFF;
         packet.field68 = 0;
         packet.field6C = D_800A03B4;
-        result = func_15130280(&packet, 1U, NULL, 0x10, (u8) (s32) arg2, arg3);
-        parentData->child = result;
-        if (result != NULL) {
-            func_10022EC0((u8 *) result + 0xA8, &extra, 0x10U);
+        parentData->child = func_15130280(&packet, 1U, NULL, 0x10, arg2, arg3);
+        if (parentData->child != NULL) {
+            func_10022EC0((u8 *)parentData->child + 0xA8, &extra, 0x10U);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C4120 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F15D0/func_150C4120.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F15D0/func_150C44A4.s")
 void func_150C4AD8(void *arg0) {
     void **field_34 = (void **)((u8 *)arg0 + 0x34);

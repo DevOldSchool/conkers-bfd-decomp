@@ -16,7 +16,6 @@
  * - func_15124C38
  * - func_15125DB4
  * - func_15126378
- * - func_15127520
  * - func_151277B0
  * - func_151279A0
  * - func_15128030
@@ -2124,63 +2123,54 @@ void func_151CC290(s32);
 extern u16 D_800894E0[][3];
 extern f32 D_800A3580;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15127520 CURRENT (859) */
 s32 func_15127520(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, u16 *arg6) {
-    u32 packed;
-    u32 index;
     u32 previous;
     u8 *state;
-    u16 *sounds;
-    s32 changed;
+    u32 index;
     s32 flags;
-    u16 sound;
+    s32 changed;
     f32 amount;
 
-    packed = *(u32 *)(arg0 + 0x1C);
     state = *(u8 **)(arg0 + 0x18);
-    index = packed >> 31;
-    previous = packed & 0xFFFFFF;
-    sounds = D_800894E0[index];
+    index = *(u32 *)(arg0 + 0x1C) >> 31;
+    previous = *(u32 *)(arg0 + 0x1C) & 0xFFFFFF;
     amount = *(f32 *)(state + 0x1A4) * D_800A3580;
     changed = 0;
-    if (*arg6 == sounds[2]) {
+    if (*arg6 == D_800894E0[index][2]) {
         *arg6 = 0;
     }
     *(s16 *)(arg0 + 2) = (s32)*(f32 *)(*(u8 **)(state + 0x3D0) + 0x14);
     *(s16 *)(arg0 + 4) = (s32)*(f32 *)(*(u8 **)(state + 0x3D0) + 0x18);
     *(s16 *)(arg0 + 6) = (s32)*(f32 *)(*(u8 **)(state + 0x3D0) + 0x1C);
     if ((*(u8 **)(state + 0x3D4))[0x197] == 2) {
-        packed = (u32)amount;
-        if (previous != packed) {
+        if (previous != (u32)amount) {
             changed = 1;
-            *(u32 *)(arg0 + 0x1C) = (index << 31) | packed;
+            *(u32 *)(arg0 + 0x1C) = (index << 31) | (u32)amount;
         }
         if (changed != 0) {
-            if (*arg6 != sounds[0]) {
-                sound = *(u16 *)(arg0 + 0x24);
-                if (sound != 0) {
-                    func_100111C8(sound);
+            if (*arg6 != D_800894E0[index][0]) {
+                if (*(u16 *)(arg0 + 0x24) != 0) {
+                    func_100111C8(*(u16 *)(arg0 + 0x24));
                 }
                 *(u16 *)(arg0 + 0x24) = 0;
                 *(s32 *)(arg0 + 0x10) &= ~0x80;
-                *arg6 = sounds[0];
+                *arg6 = D_800894E0[index][0];
             }
             flags = *(s32 *)(arg0 + 0x10);
-        } else if (*arg6 == sounds[0]) {
-            sound = *(u16 *)(arg0 + 0x24);
-            if (sound != 0) {
-                func_100111C8(sound);
+        } else if (*arg6 == D_800894E0[index][0]) {
+            if (*(u16 *)(arg0 + 0x24) != 0) {
+                func_100111C8(*(u16 *)(arg0 + 0x24));
             }
             *(u16 *)(arg0 + 0x24) = 0;
-            *arg6 = sounds[1];
-            func_10010F30(sounds[1], 0x4E20, 0x40, 0, 0);
-            flags = *(s32 *)(arg0 + 0x10) & ~0x80;
-            *(u32 *)(arg0 + 0x10) = flags;
+            *arg6 = D_800894E0[index][1];
+            func_10010F30(D_800894E0[index][1], 0x4E20, 0x40, 0, 0);
+            *(s32 *)(arg0 + 0x10) &= ~0x80;
+            flags = *(s32 *)(arg0 + 0x10);
         } else {
             flags = *(s32 *)(arg0 + 0x10);
             if (flags & 0x80) {
                 func_151CC290((s32)state);
-                func_10010F30(sounds[2], 0x4E20, 0x40, 0, 0);
+                func_10010F30(D_800894E0[index][2], 0x4E20, 0x40, 0, 0);
                 flags = *(s32 *)(arg0 + 0x10);
             }
         }
@@ -2190,8 +2180,6 @@ s32 func_15127520(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, u1
     *(s32 *)(arg0 + 0x10) = flags & ~0x80;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15127520 */
-#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15127520.s")
 void func_100111C8(u16);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151277B0 CURRENT (1522) */

@@ -16,7 +16,6 @@
  * - func_15136404
  * - func_15136F50
  * - func_15137610
- * - func_15138120
  * - func_151382E0
  * - func_15138424
  * - func_151389A8
@@ -1416,8 +1415,7 @@ extern u8 D_800A4068;
 extern u8 D_1000EBC4;
 void *func_15134DAC(void *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15138120 CURRENT (969) */
-void func_15138120(Blood1380B4State *arg0, s32 arg1, s32 arg2) {
+void func_15138120(Blood1380B4State *arg0, s32 arg1, u8 arg2) {
     struct {
         u8 color;
         u8 pad01[3];
@@ -1439,17 +1437,13 @@ void func_15138120(Blood1380B4State *arg0, s32 arg1, s32 arg2) {
         s8 byte38;
         s8 byte39;
     } packet;
-    Blood1380B4Vector *vector;
-    u8 kind;
 
-    vector = &D_800A3FD8[arg1];
-    kind = ((u8 *)vector)[0xE];
-    if (kind == 2) {
+    if (((u8 *)&D_800A3FD8[arg1])[0xE] == 2) {
         return;
     }
-    packet.owner = arg0;
     packet.color = arg0->pad_0[0x3B];
-    if (arg2 & 0xFF) {
+    packet.owner = arg0;
+    if (arg2) {
         packet.type = 0xC;
     } else {
         packet.type = 1;
@@ -1463,17 +1457,13 @@ void func_15138120(Blood1380B4State *arg0, s32 arg1, s32 arg2) {
     packet.values[3] = 0.0f;
     packet.values[5] = 0.0f;
     packet.values[4] = 20.0f;
-    if ((u8 *)vector == &D_800A4058 || (u8 *)vector == &D_800A4068) {
-        if (*(s32 *)((u8 *)arg0 + 0x94) & 0xE) {
-            packet.alpha = 0x78;
-        } else {
-            packet.alpha = 0xF0;
-        }
+    if (&D_800A4058 == (u8 *)&D_800A3FD8[arg1] || &D_800A4068 == (u8 *)&D_800A3FD8[arg1]) {
+        packet.alpha = (*(s32 *)((u8 *)arg0 + 0x94) & 0xE) ? 0x78 : 0xF0;
     } else {
         packet.alpha = 0x258;
     }
     packet.count = 5;
-    if (kind == 0) {
+    if (((u8 *)&D_800A3FD8[arg1])[0xE] == 0) {
         packet.amount = 5;
     } else {
         packet.amount = 6;
@@ -1489,8 +1479,6 @@ void func_15138120(Blood1380B4State *arg0, s32 arg1, s32 arg2) {
         0x5DC0, 0x258, 0x12C, &D_1000EBC4, 0x78, 0, 0, 0);
     func_15134DAC(&packet.color, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15138120 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15138120.s")
 
 typedef struct Blood382E0Packet {
     s16 field_00;
@@ -1649,7 +1637,7 @@ s32 func_151389A8(Blood39578Particle *arg0, s32 arg1, s32 arg2,
 #endif /* CONKER_DEFERRED_CANDIDATE func_151389A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151389A8.s")
 s32 func_15134070(void *);
-void func_15138120(Blood1380B4State *, s32, s32);
+void func_15138120(Blood1380B4State *, s32, u8);
 void func_151382E0(f32 *, s32, void *, u8, s32);
 void func_15138424(Blood1380B4State *, f32 *, s32, void *, s32, s32);
 

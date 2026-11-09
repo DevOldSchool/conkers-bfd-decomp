@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_render_effect_lifecycles.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1509563C
  * - func_15095B08
  * - func_15095D34
  * - func_1509629C
@@ -189,10 +188,11 @@ void func_150A7A00(void *, f32, f32, f32, f32 *, f32 *, f32 *, f32 *);
 extern s32 D_80082FA4;
 extern f32 D_800D9B20;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509563C CURRENT (800) */
 s32 func_1509563C(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4,
                   f32 *arg5, f32 *arg6, f32 arg7) {
     u8 *temp_v1;
+    f32 x;
+    f32 y;
 
     func_150A7A00((void *)((u32)D_800D2CA8 + ((u32)D_80082FA4 << 6)), arg0, arg1, arg2,
                   arg3, arg4, arg5, arg6);
@@ -201,17 +201,17 @@ s32 func_1509563C(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4,
         return 0;
     }
     arg0 = 1.0f / arg1;
+    x = *arg3;
+    y = *arg4;
     temp_v1 = (u8 *)((u32)D_800BE628 + (u32)D_80082FA4 * 0x180U);
-    arg2 = ((*(f32 *)(temp_v1 + 0xC) + 5.0f) * *arg3 * arg0) +
-            *(f32 *)(temp_v1 + 0x34);
-    arg1 = *(f32 *)(temp_v1 + 0x38) -
-            ((*(f32 *)(temp_v1 + 0x10) + 5.0f) * *arg4 * arg0);
-    *arg3 = arg2;
-    *arg4 = arg1;
+    x = (*(f32 *)(temp_v1 + 0xC) + 5.0f) * x * arg0;
+    y = (*(f32 *)(temp_v1 + 0x10) + 5.0f) * y * arg0;
+    x += *(f32 *)(temp_v1 + 0x34);
+    y = *(f32 *)(temp_v1 + 0x38) - y;
+    *arg3 = x;
+    *arg4 = y;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509563C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_1509563C.s")
 s32 func_1509563C(f32, f32, f32, f32 *, f32 *, f32 *, f32 *, f32);
 s32 func_15095A90(s32, void *, f32, f32, f32, s32, s32, s32, s32);
 

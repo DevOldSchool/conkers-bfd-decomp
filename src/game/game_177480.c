@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_table_runs.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1514A380
  * - func_1514A594
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -120,54 +119,33 @@ extern f32 D_800A57A4;
 extern f32 D_800A57A8;
 extern f32 D_800A57AC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514A380 CURRENT (805) */
 s32 func_1514A380(void *arg0) {
-    f32 temp_fv0;
-    f32 temp_fv0_2;
-    s32 var_v1;
-    u8 temp_t8;
-    u8 var_v0;
-    void *temp_v0;
-    void *temp_v0_2;
+    u8 *ext;
+    s32 ok;
 
-    var_v0 = *(u8 *)((u8 *)arg0 + 0x74);
-    var_v1 = 1;
-    if (!(var_v0 & 2)) {
-        temp_v0 = (u8 *)arg0 + 0x110;
-        temp_fv0 = *(f32 *)((u8 *)arg0 + 0x2C);
-        *(f32 *)((u8 *)arg0 + 0x2C) =
-            temp_fv0 + ((*(f32 *)((u8 *)temp_v0 + 8) - temp_fv0) * D_800A57A0);
-        if ((*(f32 *)((u8 *)temp_v0 + 8) * D_800A57A4) <
-            *(f32 *)((u8 *)arg0 + 0x2C)) {
-            temp_t8 = *(u8 *)((u8 *)arg0 + 0x74) | 2;
-            *(u8 *)((u8 *)arg0 + 0x74) = temp_t8;
-            var_v0 = temp_t8;
+    ok = 1;
+    ext = (u8 *)arg0 + 0x110;
+    if (!(*(u8 *)((u8 *)arg0 + 0x74) & 2)) {
+        *(f32 *)((u8 *)arg0 + 0x2C) += (*(f32 *)(ext + 8) - *(f32 *)((u8 *)arg0 + 0x2C)) * D_800A57A0;
+        if ((*(f32 *)(ext + 8) * D_800A57A4) < *(f32 *)((u8 *)arg0 + 0x2C)) {
+            *(u8 *)((u8 *)arg0 + 0x74) |= 2;
         } else {
-            var_v1 = 0;
-            var_v0 = *(u8 *)((u8 *)arg0 + 0x74);
+            ok = 0;
         }
     }
-    temp_v0_2 = (u8 *)arg0 + 0x110;
-    if (!(var_v0 & 8)) {
-        temp_fv0_2 = *(f32 *)((u8 *)arg0 + 0x30);
-        *(f32 *)((u8 *)arg0 + 0x30) =
-            temp_fv0_2 + ((*(f32 *)((u8 *)temp_v0_2 + 0x18) - temp_fv0_2) * D_800A57A8);
-        if ((*(f32 *)((u8 *)temp_v0_2 + 0x18) * D_800A57AC) <
-            *(f32 *)((u8 *)arg0 + 0x30)) {
+    if (!(*(u8 *)((u8 *)arg0 + 0x74) & 8)) {
+        *(f32 *)((u8 *)arg0 + 0x30) += (*(f32 *)(ext + 0x18) - *(f32 *)((u8 *)arg0 + 0x30)) * D_800A57A8;
+        if ((*(f32 *)(ext + 0x18) * D_800A57AC) < *(f32 *)((u8 *)arg0 + 0x30)) {
             *(u8 *)((u8 *)arg0 + 0x74) |= 8;
         } else {
-            var_v1 = 0;
+            ok = 0;
         }
     }
-    if (var_v1 != 0) {
-        func_1513F680(arg0, *(u8 *)((u8 *)arg0 + 0x70), 4,
-                       *(u8 *)((u8 *)arg0 + 0x72),
-                       *(u8 *)((u8 *)arg0 + 0x73));
+    if (ok) {
+        func_1513F680(arg0, *(u8 *)((u8 *)arg0 + 0x70), 4, *(u8 *)((u8 *)arg0 + 0x72), *(u8 *)((u8 *)arg0 + 0x73));
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514A380 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_177480/func_1514A380.s")
 s32 func_1514A498(void *arg0) {
     f32 temp_fa0;
     f32 temp_fv0;

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151BFDA0
  * - func_151BFE84
  * - func_151C0698
  * - func_151C1180
@@ -56,8 +55,7 @@ void func_151BFC40(void *, f32 *);
 void func_151C0418(void *, u8, s32);
 void func_1514FB98(void *, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BFDA0 CURRENT (848) */
-void func_151BFDA0(void *arg0, f32 *arg1, s32 arg2, s32 arg3, s32 arg4) {
+void func_151BFDA0(void *arg0, f32 *arg1, s32 arg2, u8 arg3, s32 arg4) {
     typedef struct { f32 x, y, z; } Vec3;
     typedef struct {
         s32 field00, field04;
@@ -74,22 +72,19 @@ void func_151BFDA0(void *arg0, f32 *arg1, s32 arg2, s32 arg3, s32 arg4) {
         Config config;
     } effect;
 
-    arg3 &= 0xFF;
-    func_151C0418(arg0, (u8)arg3, arg4);
-    func_151C04F8((s32)arg0, (u8)arg3, arg4);
-    func_151C05A4((s32)arg0, (u8)arg3, arg4);
-    func_151C05F0((s32)arg0, (u8)arg3, arg4);
+    func_151C0418(arg0, arg3, arg4);
+    func_151C04F8((s32)arg0, arg3, arg4);
+    func_151C05A4((s32)arg0, arg3, arg4);
+    func_151C05F0((s32)arg0, arg3, arg4);
     if ((u8)arg2 != 0) {
         effect.velocity.x = -arg1[0];
         effect.velocity.y = -arg1[1];
         effect.velocity.z = -arg1[2];
         func_151BFC40(&effect.config, &effect.scale);
         effect.config.position = *(Vec3 *)arg0;
-        func_1514FB98(&effect, (u8)arg3, arg4);
+        func_1514FB98(&effect, arg3, arg4);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151BFDA0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151BFDA0.s")
 s32 func_15144E80(void *, void *, void *, void *);
 void func_151C0644(s32, u8, s32);
 void func_151C0360(s32, s32, u8, s32);
@@ -396,7 +391,7 @@ typedef struct {
 void func_15055A2C(s32, f32, f32, f32, s32);
 void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);
 void func_151C1654(void *, s32, s32, u8, s32);
-void func_151BFDA0(void *, f32 *, s32, s32, s32);
+void func_151BFDA0(void *, f32 *, s32, u8, s32);
 void func_151BFE84(void *, void *, void *, s32, s32, s32);
 void func_151ABE40(void *, void *, s32, u8, s32);
 extern f32 D_800BE9A4;

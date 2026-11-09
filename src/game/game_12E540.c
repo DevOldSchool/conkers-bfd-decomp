@@ -6,8 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_table_runs.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15101090
- * - func_15101148
  * - func_15101378
  * - func_151019C4
  *
@@ -16,63 +14,52 @@
 
 void func_100111C8(u16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15101090 CURRENT (2446) */
 void func_15101090(void *arg0) {
-    void *object;
+    u8 *p;
 
-    if (*(u16 *)((u8 *)arg0 + 0x1A0) != 0) {
-        func_100111C8(*(u16 *)((u8 *)arg0 + 0x1A0));
+    p = (u8 *)arg0 + 0x110;
+    if (*(u16 *)(p + 0x90) != 0) {
+        func_100111C8(*(u16 *)(p + 0x90));
     }
-    object = *(void **)((u8 *)arg0 + 0x138);
-    if (object != 0) {
-        func_1516972C(object);
+    if (*(void **)(p + 0x28) != NULL) {
+        func_1516972C(*(void **)(p + 0x28));
     }
-    object = *(void **)((u8 *)arg0 + 0x13C);
-    if (object != 0) {
-        func_1516972C(object);
+    if (*(void **)(p + 0x2C) != NULL) {
+        func_1516972C(*(void **)(p + 0x2C));
     }
-    object = *(void **)((u8 *)arg0 + 0x134);
-    if (object != 0) {
-        func_1516972C(object);
+    if (*(void **)(p + 0x24) != NULL) {
+        func_1516972C(*(void **)(p + 0x24));
     }
-    object = *(void **)((u8 *)arg0 + 0x140);
-    if (object != 0) {
-        func_1516972C(object);
+    if (*(void **)(p + 0x30) != NULL) {
+        func_1516972C(*(void **)(p + 0x30));
     }
-    object = *(void **)((u8 *)arg0 + 0x144);
-    if (object != 0) {
-        func_1516972C(object);
+    if (*(void **)(p + 0x34) != NULL) {
+        func_1516972C(*(void **)(p + 0x34));
     }
-    func_1513CA6C((s32)arg0);
+    func_1513CA6C(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15101090 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12E540/func_15101090.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15101148 CURRENT (1223) */
 void func_15101148(void *arg0) {
-    void *var_v0;
+    u8 *p;
 
-    var_v0 = arg0;
-    if (*(u8 **)((u8 *)var_v0 + 0x138) != 0) {
-        func_1516979C(*(u8 **)((u8 *)var_v0 + 0x138));
+    p = (u8 *)arg0 + 0x110;
+    if (*(void **)(p + 0x28) != NULL) {
+        func_1516979C(*(void **)(p + 0x28));
     }
-    var_v0 = (u8 *)arg0 + 0x110;
-    if (*(u8 **)((u8 *)var_v0 + 0x2C) != 0) {
-        func_1516979C(*(u8 **)((u8 *)var_v0 + 0x2C));
+    if (*(void **)(p + 0x2C) != NULL) {
+        func_1516979C(*(void **)(p + 0x2C));
     }
-    if (*(u8 **)((u8 *)var_v0 + 0x24) != 0) {
-        func_1516979C(*(u8 **)((u8 *)var_v0 + 0x24));
+    if (*(void **)(p + 0x24) != NULL) {
+        func_1516979C(*(void **)(p + 0x24));
     }
-    if (*(u8 **)((u8 *)var_v0 + 0x30) != 0) {
-        func_1516979C(*(u8 **)((u8 *)var_v0 + 0x30));
+    if (*(void **)(p + 0x30) != NULL) {
+        func_1516979C(*(void **)(p + 0x30));
     }
-    if (*(u8 **)((u8 *)var_v0 + 0x34) != 0) {
-        func_1516979C(*(u8 **)((u8 *)var_v0 + 0x34));
+    if (*(void **)(p + 0x34) != NULL) {
+        func_1516979C(*(void **)(p + 0x34));
     }
-    func_1513CAA0((s32)arg0);
+    func_1513CAA0(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15101148 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12E540/func_15101148.s")
 
 void func_151011E8(u8 *arg0) {
     u8 *temp_v0;

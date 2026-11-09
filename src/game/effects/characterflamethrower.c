@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/effects/effects_characterflamethrower.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1519582C
  * - func_15195868
  * - func_15195AA8
  * - func_15195DD4
@@ -19,7 +18,6 @@
  * - func_15198570
  * - func_151987CC
  * - func_1519897C
- * - func_15198D88
  * - func_151990AC
  * - func_151994B8
  * - func_15199C34
@@ -177,16 +175,11 @@ CharacterFlamethrowerListNode *func_151957B0(
 void func_15195824(void) {
 }
 CharacterFlamethrowerListNode *func_151957B0(s32, CharacterFlamethrowerListNode **, CharacterFlamethrowerListNode **);
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519582C CURRENT (450) */
 void func_1519582C(void) {
-    D_800E08E4 = 0;
-    D_800E08E0 = 0;
-    D_800E08EC = 0;
-    D_800E08E8 = 0;
+    D_800E08E0 = D_800E08E4 = 0;
+    D_800E08E8 = D_800E08EC = 0;
     D_800E08F0 = -2;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519582C */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519582C.s")
 extern u32 D_800B0E58[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15195868 CURRENT (5715) */
@@ -1540,7 +1533,6 @@ typedef struct {
 extern CharacterFlamethrowerBurstPreset D_800A8728[];
 f32 func_150ADA68(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15198D88 CURRENT (1065) */
 void func_15198D88(CharacterFlamethrowerActor *arg0, Vec3f *arg1) {
     CharacterFlamethrowerBurstFlags flags;
     f32 speed;
@@ -1550,11 +1542,12 @@ void func_15198D88(CharacterFlamethrowerActor *arg0, Vec3f *arg1) {
     f32 sine1;
     f32 cosine2;
     f32 z;
-    f32 scale;
+    f32 sine2;
     f32 x;
     f32 y;
-    s32 angle1;
-    s32 angle2;
+    u8 angle1;
+    u8 angle2;
+    u32 rnd;
     CharacterFlamethrowerBurstPreset *preset;
     CharacterFlamethrowerJet *state;
 
@@ -1577,18 +1570,17 @@ void func_15198D88(CharacterFlamethrowerActor *arg0, Vec3f *arg1) {
     flags.endCallback = 9;
     do {
         speed = func_150ADA68() * preset->speedRange + preset->speed;
-        angle1 = func_150ADA20();
-        angle1 &= 255;
-        angle2 = func_150ADA20();
-        angle2 &= 255;
+        rnd = func_150ADA20();
+        angle1 = rnd & 255;
+        rnd = func_150ADA20();
+        angle2 = rnd & 255;
         cosine1 = func_151423D8(angle1 - 64);
         sine1 = func_151423D8(angle1);
         cosine2 = func_151423D8(angle2 - 64);
-        scale = func_151423D8(angle2);
-        scale = preset->radius * scale;
-        x = arg1->x + scale * cosine1;
+        sine2 = func_151423D8(angle2);
+        x = arg1->x + preset->radius * sine2 * cosine1;
         y = arg1->y - preset->radius * cosine2;
-        z = arg1->z + scale * sine1;
+        z = arg1->z + preset->radius * sine2 * sine1;
         spawn.unk15 = func_150ADA20() % (u32)(preset->fadeRange + 1) + preset->fade;
         spawn.unkC = func_150ADA20() % (u32)(preset->lifeRange + 1) + preset->life;
         motion.size = func_150ADA68() * preset->sizeRange + preset->size;
@@ -1601,8 +1593,6 @@ void func_15198D88(CharacterFlamethrowerActor *arg0, Vec3f *arg1) {
         state->unk7C -= 1.0f;
     } while (state->unk7C > 1.0f);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15198D88 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15198D88.s")
 typedef struct CharacterFlamethrowerEmissionPreset {
     f32 radius;
     f32 speed;

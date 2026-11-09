@@ -14,7 +14,6 @@
  * - func_15083AC8
  * - func_15083E90
  * - func_15084044
- * - func_150843AC
  * - func_15084558
  * - func_15084A18
  *
@@ -1077,39 +1076,28 @@ void func_100043B4(s32, s32);
 extern void *D_800D19A0[];
 extern u8 D_800D1F80[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150843AC CURRENT (840) */
 void func_150843AC(GameAEB40State *arg0, s32 arg1) {
+    s32 i;
     s32 resource;
-    s32 offset;
-    u8 *count;
     u8 resource_index;
-    u8 *entry;
-    u8 *current;
 
-    entry = (u8 *)arg0 + arg1 * 8;
-    current = (u8 *)arg0 + arg1 * 8;
-    offset = 0;
-    if ((*(s32 *)(entry + 0x28C) != 0) ||
-        (*(s32 *)(entry + 0x290) != 0)) {
+    if ((((s32 (*)[2])((u8 *)arg0 + 0x28C))[arg1][0] != 0) ||
+        (((s32 (*)[2])((u8 *)arg0 + 0x28C))[arg1][1] != 0)) {
         resource_index = arg0->field_2C4[arg1];
-        do {
-            resource = *(s32 *)(current + 0x28C);
-            if (resource != 0) {
-                count = &D_800D1F80[resource_index];
-                if (resource != (s32)D_800D19A0[resource_index]) {
-                    func_100043B4(resource, 3);
-                } else {
-                    *count -= 1;
-                }
-                *(s32 *)(current + 0x28C) = 0;
+        for (i = 0; i < 2; i++) {
+            resource = ((s32 (*)[2])((u8 *)arg0 + 0x28C))[arg1][i];
+            if (resource == 0) {
+                continue;
             }
-            offset += 4;
-            current += 4;
-        } while (offset != 8);
+            if (resource != (s32)D_800D19A0[resource_index]) {
+                func_100043B4(resource, 3);
+            } else {
+                D_800D1F80[resource_index] -= 1;
+            }
+            ((s32 (*)[2])((u8 *)arg0 + 0x28C))[arg1][i] = 0;
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150843AC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_150843AC.s")
 void func_1503D660(s32, s32);
 void func_1503D774(s32, s32);
 extern u8 *D_80086CAC[];

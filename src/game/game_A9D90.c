@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1507CD64
- * - func_1507D4F8
  * - func_1507DB6C
  * - func_1507E1D0
  *
@@ -517,14 +516,13 @@ extern s8 D_800BE3DF;
 extern u8 D_800BE3E0;
 extern u8 D_800D18A8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507D4F8 CURRENT (879) */
 void func_1507D4F8(s32 arg0) {
+    GameA9D90Object *actor;
+    GameA9D90Object *actor2;
     union {
         s32 word;
         s16 halves[2];
     } index;
-    GameA9D90Object *actor;
-    u8 *actor2;
 
     if (!(D_8008FDBC & 1)) {
         func_15085710((s16)arg0, 4, 1);
@@ -532,7 +530,7 @@ void func_1507D4F8(s32 arg0) {
     index.word = (s16)arg0;
     if (func_150859AC(index.word, 3) != 0) {
         func_15085710(index.halves[1], 5, D_8008726C);
-        actor = (GameA9D90Object *)(&D_800CC2D0 + arg0 * 0x32C);
+        actor = (GameA9D90Object *)((s32)&D_800CC2D0 + arg0 * 0x32C);
         *(s16 *)((u8 *)actor + 0xB2) = 0;
         if (D_800BE616 != 0) {
             if (D_800E0C20 == 0) {
@@ -560,15 +558,13 @@ void func_1507D4F8(s32 arg0) {
     } else {
         D_800D18A0 |= 1U << arg0;
     }
-    actor2 = &D_800CC2D0 + arg0 * 0x32C;
-    if ((*(u8 **)(actor2 + 0x31C))[0x84] == 0) {
+    actor2 = (GameA9D90Object *)((s32)&D_800CC2D0 + arg0 * 0x32C);
+    if (actor2->field_31C->pad0[0x84] == 0) {
         D_8008FD94 -= 1;
     }
-    (*(u8 **)(actor2 + 0x31C))[0x120] = 0xA;
+    actor2->field_31C->field_120 = 0xA;
     D_800BE618 -= 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507D4F8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D4F8.s")
 
 typedef struct GameA9D90Spawn {
     f32 field_0;

@@ -14,7 +14,6 @@
  * - func_15114188
  * - func_15114A1C
  * - func_15114D24
- * - func_15114F44
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -969,42 +968,38 @@ void func_15114F04(s32 arg0, s32 arg1, s32 arg2) {
 void func_150AD770(void);
 extern s32 D_8003C8E0;
 extern s32 D_800BE9F0;
-extern void *D_800DBDD8;
-extern s32 D_800DBE18;
-extern s32 D_800DBE20;
+typedef struct {
+    s32 a;
+    s32 b;
+    s32 c;
+} Game13F9D0PtrTriple;
+
+extern Game13F9D0PtrTriple *D_800DBDD8[];
+extern s32 D_800DBE18[];
 extern s32 D_800DBF9C;
 extern s32 D_800DBFA0;
 extern s32 D_800DBFA4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15114F44 CURRENT (880) */
 void func_15114F44(s32 arg0, s32 arg1, s32 arg2) {
-    s32 *var_s4;
-    s32 temp_a0;
-    s32 temp_v0;
-    s32 temp_v1;
-    s32 var_s1;
-    void **var_s7;
-    u8 *var_s0;
+    s32 i;
+    s32 j;
+    Game13F9D0PtrTriple *entries;
 
-    var_s7 = &D_800DBDD8;
     if ((D_800BE9F0 == 0x12) || (D_800BE9F0 == 0x36) || (D_800BE9F0 == 0x13)) {
-        var_s4 = &D_800DBE18;
-        do {
-            var_s0 = *var_s7;
-            for (var_s1 = 0; var_s1 < *var_s4; var_s1++, var_s0 += 0xC) {
-                    temp_v0 = *(s32 *)((u8 *)var_s0 + 0);
-                    if (((temp_v0 & 0xF0000000) != 0x80000000) || (temp_v1 = *(s32 *)((u8 *)var_s0 + 4), ((temp_v1 & 0xF0000000) != 0x80000000)) || (temp_a0 = *(s32 *)((u8 *)var_s0 + 8), ((temp_a0 & 0xF0000000) != 0x80000000)) || (temp_v0 & 3) || (temp_v1 & 3) || (temp_a0 & 3)) {
-                        D_8003C8E0 = 0x0C00005A;
-                        func_150AD770();
-                    }
+        for (i = 0; i < 2; i++) {
+            entries = D_800DBDD8[i];
+            for (j = 0; j < D_800DBE18[i]; j++) {
+                if (((entries[j].a & 0xF0000000) != 0x80000000) ||
+                    ((entries[j].b & 0xF0000000) != 0x80000000) ||
+                    ((entries[j].c & 0xF0000000) != 0x80000000) ||
+                    (entries[j].a & 3) || (entries[j].b & 3) || (entries[j].c & 3)) {
+                    D_8003C8E0 = 0x0C00005A;
+                    func_150AD770();
+                }
             }
-            var_s4++;
-            var_s7++;
-        } while (var_s4 != &D_800DBE20);
+        }
         D_800DBF9C = arg0;
         D_800DBFA0 = arg1;
         D_800DBFA4 = arg2;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15114F44 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114F44.s")

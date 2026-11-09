@@ -7,8 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1513B5E0
- * - func_1513B83C
- * - func_1513BAE8
  * - func_1513BBFC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -127,7 +125,7 @@ typedef struct {
     s32 displayList;
 } Game168A90RenderState;
 
-typedef s32 (*Game168A90RenderCallback)(void *, s16, s32, void *);
+typedef s32 (*Game168A90RenderCallback)(void *, s16);
 
 typedef struct {
     u32 word0;
@@ -137,13 +135,11 @@ typedef struct {
 extern Game168A90RenderCallback D_80089C28[];
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513B83C CURRENT (1025) */
-Game168A90Command *func_1513B83C(Game168A90Command *arg0, Game168A90RenderState *arg1, s32 arg2) {
-    arg2 = (s16)arg2;
+Game168A90Command *func_1513B83C(Game168A90Command *arg0, Game168A90RenderState *arg1, s16 arg2) {
     if ((arg1->flags & 2) && !(*((u8 *)arg1 + 0x49) & (1 << arg2))) {
         return arg0;
     }
-    if (arg1->callback != -1 && D_80089C28[arg1->callback](arg1, arg2, arg2, arg0) == 0) {
+    if (arg1->callback != -1 && D_80089C28[arg1->callback](arg1, arg2) == 0) {
         return arg0;
     }
     { Game168A90Command *command = arg0++; command->word0 = 0xDA380003; command->word1 = (u32)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x78); }
@@ -151,8 +147,6 @@ Game168A90Command *func_1513B83C(Game168A90Command *arg0, Game168A90RenderState 
     { Game168A90Command *command = arg0++; command->word0 = 0xDE000000; command->word1 = arg1->displayList; }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513B83C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_168A90/func_1513B83C.s")
 void func_150A7B80(void *);
 extern u8 D_800BE9C0;
 
@@ -231,13 +225,10 @@ typedef struct Game168A90Vector5 {
     f32 field_10;
 } Game168A90Vector5;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513BAE8 CURRENT (1102) */
 void *func_1513BAE8(void) {
-    void *sp74;
+    Game168A90Allocated *ret;
     Game168A90SpawnParams sp38;
     Game168A90Vector5 sp24;
-    register void *temp_v0;
-    register void *var_a3;
 
     sp38.field_01 = 2;
     sp38.field_02 = 5;
@@ -260,23 +251,16 @@ void *func_1513BAE8(void) {
     sp38.field_1C = 0x80;
     sp38.field_20 = 0x20;
     sp38.field_38 = 3;
-    temp_v0 = func_1513B5E0((s8 *)&sp38, 1, 0x14, 0xFF, 1);
-    var_a3 = temp_v0;
-    if (temp_v0 != 0) {
-        if (*(s32 *)((u8 *)temp_v0 + 0x50) != 0x1180) {
-            sp74 = temp_v0;
-            func_1516972C(temp_v0);
+    ret = func_1513B5E0((s8 *)&sp38, 1, 0x14, 0xFF, 1);
+    if (ret != NULL) {
+        if (ret->size != 0x1180) {
+            func_1516972C(ret);
         } else {
-            sp74 = var_a3;
-            func_10022EC0((u8 *)var_a3 + *(s32 *)((u8 *)var_a3 + 0x50) + 0xF8,
-                          &sp24, 0x14U);
+            func_10022EC0((u8 *)ret + ret->size + 0xF8, &sp24, 0x14);
         }
-        var_a3 = sp74;
     }
-    return var_a3;
+    return ret;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513BAE8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_168A90/func_1513BAE8.s")
 typedef struct { s32 first, count; } Game168A90Range;
 typedef struct { s16 x, y, z, flag, u, v; u8 color[4]; } Game168A90Vertex;
 extern Vec3f D_800A49C0[9];

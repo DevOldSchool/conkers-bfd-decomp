@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151AA30C
  * - func_151AA48C
- * - func_151AAABC
  * - func_151AABC4
  * - func_151AADF8
  * - func_151AB2C4
@@ -561,32 +560,34 @@ f32 func_151AAA4C(u8 *arg0) {
 void *func_151AA48C(u8 *, void *);
 s32 func_151AB2C4(s32, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AAABC CURRENT (945) */
-void func_151AAABC(void *arg0) {
-    s32 temp_a2;
-    s32 temp_a0;
-    void *var_v1;
-    Game1D6E80SpawnLocals *effect;
+typedef struct Game1D6E80Slot {
+    u8 pad00[0x14];
+    u8 *effectA;
+    u8 pad18[4];
+    u8 *effectB;
+} Game1D6E80Slot;
 
-    temp_a2 = *(s32 *)((u8 *)arg0 + 0x18);
-    var_v1 = (u8 *)arg0 + 0x58;
-    if (*(s32 *)((u8 *)arg0 + 0x6C) != 0) {
-        effect = (Game1D6E80SpawnLocals *)((u8 *)*(s32 **)((u8 *)var_v1 + 0x14) + 0x80);
+void func_151AAABC(void *arg0) {
+    s32 id;
+    Game1D6E80Slot *slot;
+
+    id = *(s32 *)((u8 *)arg0 + 0x18);
+    slot = (Game1D6E80Slot *)((u8 *)arg0 + 0x58);
+    if (slot->effectA != NULL) {
+        Game1D6E80SpawnLocals *spawn = (Game1D6E80SpawnLocals *)(slot->effectA + 0x80);
+
+        spawn->active = 1;
+    } else {
+        slot->effectA = func_151AA48C((u8 *)id, arg0);
+    }
+    if (slot->effectB != NULL) {
+        Game1D6E80SpawnLocals *effect = (Game1D6E80SpawnLocals *)(slot->effectB + 0x58);
+
         effect->active = 1;
     } else {
-        var_v1 = (u8 *)arg0 + 0x58;
-        *(s32 *)((u8 *)var_v1 + 0x14) = (s32)func_151AA48C((u8 *)temp_a2, arg0);
+        slot->effectB = (u8 *)func_151AB2C4(id, arg0);
     }
-    temp_a0 = *(s32 *)((u8 *)var_v1 + 0x1C);
-    if (temp_a0 != 0) {
-        effect = (Game1D6E80SpawnLocals *)((u8 *)temp_a0 + 0x58);
-        effect->active = 1;
-        return;
-    }
-    *(s32 *)((u8 *)var_v1 + 0x1C) = func_151AB2C4(temp_a2, arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AAABC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AAABC.s")
 
 void func_151AAB50(u8 *arg0) {
     u8 *temp_v0;

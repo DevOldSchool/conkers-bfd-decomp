@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15105CE0
- * - func_15106214
  * - func_15106610
  * - func_151067B8
  * - func_151070F8
@@ -251,71 +250,60 @@ f32 func_151065BC(f32);
 f32 func_151065EC(f32);
 s32 func_15146078(void *, void *, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15106214 CURRENT (940) */
-void func_15106214(s32 arg0) {
-    f32 sp78;
-    f32 sp64;
-    f32 sp60;
-    f32 temp_fs1;
-    f32 temp_fs2;
-    f32 temp_fs3;
-    f32 temp_fs4;
-    f32 temp_fs5;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    f32 var_fs0;
-    s32 temp_v0;
-    s32 var_s1;
-    s32 var_s2;
-    s32 var_s3;
-    s32 var_s4;
-    s32 var_s5;
+typedef struct Game133190CurvePoint {
+    f32 t;
+    f32 pos[3];
+    f32 v10[3];
+    f32 v1C[3];
+    f32 v28[3];
+} Game133190CurvePoint;
 
-    temp_v0 = func_151061E0(arg0);
-    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x64);
-    var_s2 = 0;
-    var_fs0 = temp_fv1;
-    if (*(s32 *)((u8 *)arg0 + 0x48) > 0) {
-        var_s1 = temp_v0;
-        var_s3 = temp_v0 + 0x10;
-        var_s4 = temp_v0 + 0x1C;
-        var_s5 = temp_v0 + 0x28;
-        sp78 = temp_fv1;
-        do {
-            *(f32 *)((u8 *)var_s1 + 0) = var_fs0;
-            temp_fs5 = func_151064B4(var_fs0);
-            sp64 = func_151064DC(var_fs0);
-            sp60 = func_15106510(var_fs0);
-            temp_fs1 = func_15106540(var_fs0);
-            temp_fs2 = func_15106558(var_fs0);
-            temp_fs3 = func_15106584(var_fs0);
-            temp_fs4 = func_151065BC(var_fs0);
-            temp_fv0 = func_151065EC(var_fs0);
-            *(f32 *)((u8 *)var_s1 + 4) = (f32) ((*(f32 *)((u8 *)arg0 + 0x38) * temp_fs1) + ((*(f32 *)((u8 *)arg0 + 0x14) * temp_fs5) + (*(f32 *)((u8 *)arg0 + 0x20) * sp64) + (*(f32 *)((u8 *)arg0 + 0x2C) * sp60)));
-            *(f32 *)((u8 *)var_s1 + 8) = (f32) ((*(f32 *)((u8 *)arg0 + 0x3C) * temp_fs1) + ((*(f32 *)((u8 *)arg0 + 0x18) * temp_fs5) + (*(f32 *)((u8 *)arg0 + 0x24) * sp64) + (*(f32 *)((u8 *)arg0 + 0x30) * sp60)));
-            *(f32 *)((u8 *)var_s1 + 0xC) = (f32) ((*(f32 *)((u8 *)arg0 + 0x40) * temp_fs1) + ((*(f32 *)((u8 *)arg0 + 0x1C) * temp_fs5) + (*(f32 *)((u8 *)arg0 + 0x28) * sp64) + (*(f32 *)((u8 *)arg0 + 0x34) * sp60)));
-            *(f32 *)((u8 *)var_s1 + 0x10) = (f32) ((*(f32 *)((u8 *)arg0 + 0x38) * temp_fv0) + ((*(f32 *)((u8 *)arg0 + 0x14) * temp_fs2) + (*(f32 *)((u8 *)arg0 + 0x20) * temp_fs3) + (*(f32 *)((u8 *)arg0 + 0x2C) * temp_fs4)));
-            *(f32 *)((u8 *)var_s1 + 0x14) = (f32) ((*(f32 *)((u8 *)arg0 + 0x3C) * temp_fv0) + ((*(f32 *)((u8 *)arg0 + 0x18) * temp_fs2) + (*(f32 *)((u8 *)arg0 + 0x24) * temp_fs3) + (*(f32 *)((u8 *)arg0 + 0x30) * temp_fs4)));
-            *(f32 *)((u8 *)var_s1 + 0x18) = (f32) ((*(f32 *)((u8 *)arg0 + 0x40) * temp_fv0) + ((*(f32 *)((u8 *)arg0 + 0x1C) * temp_fs2) + (*(f32 *)((u8 *)arg0 + 0x28) * temp_fs3) + (*(f32 *)((u8 *)arg0 + 0x34) * temp_fs4)));
-            var_s2 += 1;
-            if (func_15146078((void *)var_s3, (void *)var_s4, (void *)var_s5) == 0) {
-                *(f32 *)((u8 *)var_s1 + 0x1C) = 0.0f;
-                *(f32 *)((u8 *)var_s1 + 0x20) = 0.0f;
-                *(f32 *)((u8 *)var_s1 + 0x24) = 0.0f;
-                *(f32 *)((u8 *)var_s1 + 0x28) = 0.0f;
-                *(f32 *)((u8 *)var_s1 + 0x2C) = 0.0f;
-                *(f32 *)((u8 *)var_s1 + 0x30) = 0.0f;
-            }
-            var_s1 += 0x34;
-            var_s3 += 0x34;
-            var_s4 += 0x34;
-            var_s5 += 0x34;
-            var_fs0 += sp78;
-        } while (var_s2 < *(s32 *)((u8 *)arg0 + 0x48));
+void func_15106214(s32 arg0) {
+    Game133190CurvePoint *base;
+    f32 step;
+    Game133190CurvePoint *pt;
+    s32 i;
+    f32 t;
+    f32 b0;
+    f32 b1;
+    f32 b2;
+    f32 b3;
+    f32 d0;
+    f32 d1;
+    f32 d2;
+    f32 d3;
+
+    base = (Game133190CurvePoint *)func_151061E0(arg0);
+    step = *(f32 *)((u8 *)arg0 + 0x64);
+    t = step;
+    for (i = 0; i < *(s32 *)((u8 *)arg0 + 0x48); i++) {
+        pt = &base[i];
+        pt->t = t;
+        b0 = func_151064B4(t);
+        b1 = func_151064DC(t);
+        b2 = func_15106510(t);
+        b3 = func_15106540(t);
+        d0 = func_15106558(t);
+        d1 = func_15106584(t);
+        d2 = func_151065BC(t);
+        d3 = func_151065EC(t);
+        pt->pos[0] = *(f32 *)((u8 *)arg0 + 0x14) * b0 + *(f32 *)((u8 *)arg0 + 0x20) * b1 + *(f32 *)((u8 *)arg0 + 0x2C) * b2 + *(f32 *)((u8 *)arg0 + 0x38) * b3;
+        pt->pos[1] = *(f32 *)((u8 *)arg0 + 0x18) * b0 + *(f32 *)((u8 *)arg0 + 0x24) * b1 + *(f32 *)((u8 *)arg0 + 0x30) * b2 + *(f32 *)((u8 *)arg0 + 0x3C) * b3;
+        pt->pos[2] = *(f32 *)((u8 *)arg0 + 0x1C) * b0 + *(f32 *)((u8 *)arg0 + 0x28) * b1 + *(f32 *)((u8 *)arg0 + 0x34) * b2 + *(f32 *)((u8 *)arg0 + 0x40) * b3;
+        pt->v10[0] = *(f32 *)((u8 *)arg0 + 0x14) * d0 + *(f32 *)((u8 *)arg0 + 0x20) * d1 + *(f32 *)((u8 *)arg0 + 0x2C) * d2 + *(f32 *)((u8 *)arg0 + 0x38) * d3;
+        pt->v10[1] = *(f32 *)((u8 *)arg0 + 0x18) * d0 + *(f32 *)((u8 *)arg0 + 0x24) * d1 + *(f32 *)((u8 *)arg0 + 0x30) * d2 + *(f32 *)((u8 *)arg0 + 0x3C) * d3;
+        pt->v10[2] = *(f32 *)((u8 *)arg0 + 0x1C) * d0 + *(f32 *)((u8 *)arg0 + 0x28) * d1 + *(f32 *)((u8 *)arg0 + 0x34) * d2 + *(f32 *)((u8 *)arg0 + 0x40) * d3;
+        if (func_15146078(pt->v10, pt->v1C, pt->v28) == 0) {
+            pt->v1C[0] = 0.0f;
+            pt->v1C[1] = 0.0f;
+            pt->v1C[2] = 0.0f;
+            pt->v28[0] = 0.0f;
+            pt->v28[1] = 0.0f;
+            pt->v28[2] = 0.0f;
+        }
+        t += step;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15106214 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15106214.s")
 f32 func_151064B4(f32 arg0) {
     f32 temp_fv1;
 
