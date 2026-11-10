@@ -9,7 +9,6 @@
  * - func_150B6C90
  * - func_150B6E3C
  * - func_150B7220
- * - func_150B76BC
  * - func_150B77A8
  * - func_150B791C
  *
@@ -468,22 +467,18 @@ void func_150B768C(void) {
 }
 extern u8 D_800918E8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B76BC CURRENT (1315) */
 void func_150B76BC(s32 arg0, s32 arg1) {
     GameE4070Descriptor descriptor;
-    s32 *entry;
-    s32 resource;
 
-    descriptor.field30 = 6;
-    descriptor.field2E = 0x40;
-    entry = &(&D_800D9898)[arg1];
-    resource = *entry;
+    descriptor.scale_x = arg0;
+    descriptor.scale_y = 170.0f;
     descriptor.field31 = 1;
     descriptor.field2C = 0x58;
-    descriptor.scale_x = (f32)arg0;
     descriptor.position[0] = 0;
     descriptor.position[1] = 0;
     descriptor.position[2] = 0;
+    descriptor.field2E = 0x40;
+    descriptor.field30 = 6;
     descriptor.resource = &D_800918E8;
     descriptor.field32 = 0xFF;
     descriptor.field33 = 0;
@@ -497,14 +492,11 @@ void func_150B76BC(s32 arg0, s32 arg1) {
     descriptor.field38 = 1;
     descriptor.field28 = 0x51;
     descriptor.field2A = 0x51;
-    descriptor.scale_y = 170.0f;
-    if (resource != 0) {
-        func_1516972C(resource);
+    if ((&D_800D9898)[arg1] != 0) {
+        func_1516972C((&D_800D9898)[arg1]);
     }
-    *entry = func_15169968(&descriptor);
+    (&D_800D9898)[arg1] = func_15169968(&descriptor);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B76BC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B76BC.s")
 extern u8 D_800918F4;
 extern u8 D_80091900;
 

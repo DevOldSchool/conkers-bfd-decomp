@@ -190,7 +190,7 @@ typedef struct {
     u8 unused_64[0xC];
 } Game183640SpriteDescriptor;
 
-void func_151539B4(void *, s32);
+void func_151539B4(void *, u8);
 void *func_15130374(s32, u8, s32, u8, s32);
 
 void func_151568F8(Game183640CombinedRecord *arg0, u8 arg1) {

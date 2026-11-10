@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151094FC
- * - func_15109C20
  * - func_15109FB8
  * - func_1510A40C
  *
@@ -351,9 +350,9 @@ void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 extern f32 D_800A2650, D_800A2654, D_800A2658, D_800A265C, D_800A2660, D_800A2664;
 extern f32 D_800A2668, D_800A266C, D_800A2670, D_800A2674, D_800A2678, D_800A267C, D_800A2680;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15109C20 CURRENT (1265) */
 void func_15109C20(Game1368C0BurstOwner *arg0, Vec3f *arg1,
                    s32 arg2, s32 arg3, s32 arg4, Vec3f *arg5) {
+    f32 size;
     Game1368C0BurstParent *parent;
     f32 speed;
     Game1368C0Burst burst;
@@ -362,7 +361,9 @@ void func_15109C20(Game1368C0BurstOwner *arg0, Vec3f *arg1,
     speed = (func_150ADA68() * D_800A2650 + D_800A2654) * D_800A2658;
     burst.first = 1.0f;
     burst.second = 1.0f;
-    burst.width = burst.height = (func_150ADA68() * D_800A265C + D_800A2660) * D_800A2664;
+    size = (func_150ADA68() * D_800A265C + D_800A2660) * D_800A2664;
+    burst.width = size;
+    burst.height = size;
     burst.angles.x = func_150ADA68() * 360.0f;
     burst.angles.y = func_150ADA68() * 360.0f;
     burst.angles.z = func_150ADA68() * 360.0f;
@@ -395,13 +396,11 @@ void func_15109C20(Game1368C0BurstOwner *arg0, Vec3f *arg1,
     if (arg0->kind == 0x1A) burst.variant = 1;
     else burst.variant = 2;
     burst.parent = parent;
+    burst.parentKind = parent->kind;
     burst.value72 = 10;
     burst.value74 = 25;
-    burst.parentKind = parent->kind;
     func_15132A4C(&burst, 3, 0xFF, 0, arg0->flags, arg0->color);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15109C20 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1368C0/func_15109C20.s")
 void *func_10022EC0(void *, const void *, u32);
 
 typedef struct Game1368C0Spawn {

@@ -23,7 +23,6 @@
  * - func_151CAD28
  * - func_151CB110
  * - func_151CB5FC
- * - func_151CBC60
  * - func_151CC524
  * - func_151CC840
  * - func_151CCF08
@@ -1501,52 +1500,36 @@ s32 func_151CBBE0(u8 *arg0) {
     }
     return 1;
 }
-extern f32 D_800AAEBC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CBC60 CURRENT (1330) */
 s32 func_151CBC60(u8 *arg0) {
-    f32 scale;
-    f32 temp_fa0;
-    f32 temp_fa1;
-    f32 temp_ft5;
-    f32 temp_fv0;
-    f32 temp_fv0_2;
-    f32 temp_fv1;
-    f32 temp_fv1_2;
-    u8 *temp_v0;
+    u8 *state = arg0 + 0x70;
+    f32 value;
+    f32 base;
 
-    temp_fv0 = func_151CC1D4(arg0);
-    temp_v0 = ((u8 (*)[0x70])arg0)[1];
-    if (temp_fv0 != *(f32 *)((u8 *)temp_v0 + 0x28)) {
-        temp_fv1 = *(f32 *)((u8 *)temp_v0 + 0x4C);
-        *(f32 *)((u8 *)temp_v0 + 0x28) = temp_fv0;
-        *(f32 *)((u8 *)arg0 + 0x1C) = (f32) ((temp_fv1 - ((temp_fv0 - *(f32 *)((u8 *)temp_v0 + 0x18)) * *(f32 *)((u8 *)temp_v0 + 0x20) * temp_fv1)) + 1.0f);
+    value = func_151CC1D4(arg0);
+    if (value != *(f32 *)(state + 0x28)) {
+        base = *(f32 *)(state + 0x4C);
+        *(f32 *)(state + 0x28) = value;
+        *(f32 *)(arg0 + 0x1C) = base - *(f32 *)(state + 0x20) * (value - *(f32 *)(state + 0x18)) * base + 1.0f;
     }
-    if (*(u8 *)((u8 *)temp_v0 + 0xC) & 2) {
-        *(f32 *)((u8 *)temp_v0 + 0x50) = (f32) (*(f32 *)((u8 *)temp_v0 + 0x50) - D_800BE9A4);
-        temp_ft5 = *(f32 *)((u8 *)temp_v0 + 0x50);
-        if (temp_ft5 <= 0.0f) {
-            *(s8 *)((u8 *)arg0 + 0x2B) = (s8) (u32) *(f32 *)((u8 *)temp_v0 + 0x3C);
-            *(s8 *)((u8 *)arg0 + 0x2C) = (s8) (u32) *(f32 *)((u8 *)temp_v0 + 0x40);
-            *(s8 *)((u8 *)arg0 + 0x2D) = (s8) (u32) *(f32 *)((u8 *)temp_v0 + 0x44);
-            *(s8 *)((u8 *)arg0 + 0x2E) = (s8) (u32) *(f32 *)((u8 *)temp_v0 + 0x48);
-            *(u8 *)((u8 *)temp_v0 + 0xC) = (u8) (*(u8 *)((u8 *)temp_v0 + 0xC) & 0xFFFD);
+    if (*(state + 0xC) & 2) {
+        *(f32 *)(state + 0x50) -= D_800BE9A4;
+        value = *(f32 *)(state + 0x50);
+        if (value <= 0.0f) {
+            arg0[0x2B] = *(f32 *)(state + 0x3C);
+            arg0[0x2C] = *(f32 *)(state + 0x40);
+            arg0[0x2D] = *(f32 *)(state + 0x44);
+            arg0[0x2E] = *(f32 *)(state + 0x48);
+            *(state + 0xC) &= ~2;
         } else {
-            scale = D_800AAEBC;
-            temp_fv0_2 = *(f32 *)((u8 *)temp_v0 + 0x3C);
-            *(s8 *)((u8 *)arg0 + 0x2B) = (s8) (u32) (temp_fv0_2 + ((*(f32 *)((u8 *)temp_v0 + 0x2C) - temp_fv0_2) * (temp_ft5 * scale)));
-            temp_fv1_2 = *(f32 *)((u8 *)temp_v0 + 0x40);
-            *(s8 *)((u8 *)arg0 + 0x2C) = (s8) (u32) (temp_fv1_2 + ((*(f32 *)((u8 *)temp_v0 + 0x30) - temp_fv1_2) * (*(f32 *)((u8 *)temp_v0 + 0x50) * scale)));
-            temp_fa0 = *(f32 *)((u8 *)temp_v0 + 0x44);
-            *(s8 *)((u8 *)arg0 + 0x2D) = (s8) (u32) (temp_fa0 + ((*(f32 *)((u8 *)temp_v0 + 0x34) - temp_fa0) * (*(f32 *)((u8 *)temp_v0 + 0x50) * scale)));
-            temp_fa1 = *(f32 *)((u8 *)temp_v0 + 0x48);
-            *(s8 *)((u8 *)arg0 + 0x2E) = (s8) (u32) (temp_fa1 + ((*(f32 *)((u8 *)temp_v0 + 0x38) - temp_fa1) * (*(f32 *)((u8 *)temp_v0 + 0x50) * scale)));
+            arg0[0x2B] = (*(f32 *)(state + 0x2C) - *(f32 *)(state + 0x3C)) * (value * 0.028571429f) + *(f32 *)(state + 0x3C);
+            arg0[0x2C] = (*(f32 *)(state + 0x30) - *(f32 *)(state + 0x40)) * (*(f32 *)(state + 0x50) * 0.028571429f) + *(f32 *)(state + 0x40);
+            arg0[0x2D] = (*(f32 *)(state + 0x34) - *(f32 *)(state + 0x44)) * (*(f32 *)(state + 0x50) * 0.028571429f) + *(f32 *)(state + 0x44);
+            arg0[0x2E] = (*(f32 *)(state + 0x38) - *(f32 *)(state + 0x48)) * (*(f32 *)(state + 0x50) * 0.028571429f) + *(f32 *)(state + 0x48);
         }
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CBC60 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CBC60.s")
 
 extern f32 D_800AAEC0;
 extern s32 D_800C3958;

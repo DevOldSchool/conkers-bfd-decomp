@@ -10,7 +10,6 @@
  * - func_151ACBD4
  * - func_151AD174
  * - func_151AD92C
- * - func_151AE0E4
  * - func_151AE2BC
  * - func_151AE3A8
  *
@@ -301,14 +300,13 @@ void *func_151AE590(u8);
 void func_151AE2BC(void *, void *, f32, f32, f32);
 extern f32 D_800A9290;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AE0E4 CURRENT (1249) */
 void func_151AE0E4(void *arg0, u8 arg1) {
     u8 *record;
-    u32 point_index;
     f32 point[3];
-    f32 dx;
-    f32 dy;
-    f32 dz;
+    u32 point_index;
+    f32 dist;
+    s32 count;
+    s32 index;
 
     record = func_151AE590(arg1);
     if (record == 0) {
@@ -324,16 +322,17 @@ void func_151AE0E4(void *arg0, u8 arg1) {
                    *(f32 *)((u8 *)arg0 + 0x14),
                    *(f32 *)((u8 *)arg0 + 0x18),
                    *(f32 *)((u8 *)arg0 + 0x1C));
-    point_index = (u32)(s32)((f32)(s32)((u32)record[0x42] - (u32)(s32)(140.0f / *(f32 *)(record + 0x3C)) - 1U) *
-                        *(f32 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0xA0));
-    point_index *= 0x18U;
+    count = 140.0f / *(f32 *)(record + 0x3C);
+    index = *(f32 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0xA0) *
+            (f32)(record[0x42] - count - 1);
+    point_index = index * 0x18;
     point[0] = *(f32 *)((u32)*(u8 **)(record + 0x38) + point_index);
     point[1] = *(f32 *)((u32)*(u8 **)(record + 0x38) + point_index + 4U);
     point[2] = *(f32 *)((u32)*(u8 **)(record + 0x38) + point_index + 8U);
-    dx = point[0] - *(f32 *)((u8 *)arg0 + 0x14);
-    dy = point[1] - *(f32 *)((u8 *)arg0 + 0x18);
-    dz = point[2] - *(f32 *)((u8 *)arg0 + 0x1C);
-    if (D_800A9290 < ((dz * dz) + ((dx * dx) + (dy * dy)))) {
+    dist = (point[0] - *(f32 *)((u8 *)arg0 + 0x14)) * (point[0] - *(f32 *)((u8 *)arg0 + 0x14)) +
+           (point[1] - *(f32 *)((u8 *)arg0 + 0x18)) * (point[1] - *(f32 *)((u8 *)arg0 + 0x18)) +
+           (point[2] - *(f32 *)((u8 *)arg0 + 0x1C)) * (point[2] - *(f32 *)((u8 *)arg0 + 0x1C));
+    if (D_800A9290 < dist) {
         return;
     }
     (*(u8 **)((u8 *)arg0 + 0x31C))[0x98] = arg1;
@@ -341,8 +340,6 @@ void func_151AE0E4(void *arg0, u8 arg1) {
     *(u8 **)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x9C) = record;
     *(void **)(record + 0x44) = arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AE0E4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151AE0E4.s")
 extern f32 D_800A9294;
 
 void func_151AE264(void *arg0) {

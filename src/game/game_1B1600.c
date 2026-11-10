@@ -12,7 +12,6 @@
  * - func_15185F24
  * - func_1518652C
  * - func_15186794
- * - func_151872B0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -409,7 +408,7 @@ s32 func_1510F720(s32, s32, s32, void **);
 s32 func_150A5B90(u32 *, s32, s32, s32);
 extern u8 *D_800D3668;
 extern u32 *D_800D3694;
-extern s8 D_800DE041;
+extern u8 D_800DE041;
 extern s32 D_800D3690, D_800DBE3C;
 extern s32 D_800DF0E8, D_800DF0EC, D_800DF0F0, D_800DF0F4;
 
@@ -514,10 +513,8 @@ extern s32 D_800DE030;
 extern s32 D_800DE034;
 extern s32 D_800DE038;
 extern f32 D_800DE03C;
-extern s8 D_800DE040;
-extern s8 D_800DE041;
+extern u8 D_800DE040;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151872B0 CURRENT (1250) */
 void func_151872B0(s32 arg0) {
     D_800DE01C = 0x258;
     D_800DE020 = 0xB4;
@@ -528,11 +525,11 @@ void func_151872B0(s32 arg0) {
     D_800DE03C = 1.0f;
     D_800DE040 = 1;
     D_800DE041 = 1;
-    switch (arg0) {                                 /* irregular */
+    switch (arg0) {
     case 33:
         D_800DE01C = 0x12C0;
-        D_800DE020 = 0x12BF;
-        D_800DE024 = 0x12BE;
+        D_800DE020 = D_800DE01C - 1;
+        D_800DE024 = D_800DE01C - 2;
         D_800DE030 = 0x3F2;
         D_800DE034 = 1;
         D_800DE038 = 4;
@@ -540,8 +537,8 @@ void func_151872B0(s32 arg0) {
         return;
     case 34:
         D_800DE01C = 0x960;
-        D_800DE020 = 0x95F;
-        D_800DE024 = 0x95E;
+        D_800DE020 = D_800DE01C - 1;
+        D_800DE024 = D_800DE01C - 2;
         D_800DE038 = 4;
         D_800DE040 = 0;
         return;
@@ -555,8 +552,6 @@ void func_151872B0(s32 arg0) {
         return;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151872B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_151872B0.s")
 /* Call context: func_150A44F0: unique active project prototype */
 void func_150A44F0(s32, void *, s32);
 

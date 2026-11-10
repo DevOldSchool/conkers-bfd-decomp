@@ -15,7 +15,6 @@
  * - func_1500B8F4
  * - func_1500BAB8
  * - func_1500BC7C
- * - func_1500BEC0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1181,14 +1180,12 @@ extern u32 *D_800DBE5C;
 extern u8 D_800DDC10[];
 extern s16 D_800DDC90[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500BEC0 CURRENT (1285) */
 void func_1500BEC0(void) {
     s32 i;
     s32 resource;
     s32 variant;
     u32 packed;
     Game36680ResourceChoice *choice;
-    Game36680CreationChoice *creation;
     s16 *phase;
     u8 *frames;
 
@@ -1208,10 +1205,9 @@ void func_1500BEC0(void) {
                 if (packed & 0xF0000) {
                     resource = ((packed >> 16) & 15) - 1;
                     variant = (packed >> 20) & 7;
-                    creation = &D_8008CF00[D_800DDC80[resource]][variant];
-                    D_800DDD20 = D_8008CEB8[creation->creator].create(
-                        creation->count, (u8)variant, resource, ((packed >> 5) & 3) ^ 3,
-                        D_800DDD20, (s16 **)((u8 *)D_800DBE3C + i * 12));
+                    D_800DDD20 = D_8008CEB8[D_8008CF00[D_800DDC80[resource]][variant].creator].create(
+                        D_8008CF00[D_800DDC80[resource]][variant].count, (u8)variant, resource, ((packed >> 5) & 3) ^ 3,
+                        D_800DDD20, (s16 **)(i * 12 + (u8 *)D_800DBE3C));
                     D_800BE478[resource]++;
                 }
             }
@@ -1221,8 +1217,7 @@ void func_1500BEC0(void) {
         }
         D_8008CEB4 = 0;
         func_1517B89C(0, D_800DDD20 - 1);
-        phase = D_800DDC90;
-        for (i = 0; i != 60; i++) {
+        for (i = 0, phase = D_800DDC90; i != 60; i++, phase++) {
             resource = i >> 2;
             frames = &D_800DDBD0[resource];
             if (*frames != 0) {
@@ -1231,9 +1226,6 @@ void func_1500BEC0(void) {
                 *phase = 0;
             }
             D_800DDC10[resource] = func_151EF610();
-            phase++;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1500BEC0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500BEC0.s")

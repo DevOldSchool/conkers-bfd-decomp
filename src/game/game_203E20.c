@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151D69B4
  * - func_151D6BFC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -86,11 +85,9 @@ extern f32 D_800AB26C;
 extern f32 D_800AB270;
 extern f32 D_800AB274;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D69B4 CURRENT (1345) */
 void func_151D69B4(void *arg0, void *arg1) {
     struct { u32 words[9]; } hit;
     Game203E20Primary primary;
-    Game203E20Secondary secondary;
 
     func_1504715C(&hit, arg1);
     primary.position[0] = (f32) *(s16 *)((u8 *)arg0 + 0x10);
@@ -120,34 +117,36 @@ void func_151D69B4(void *arg0, void *arg1) {
     primary.field28 = 3.5f;
     primary.field40 = D_800AB26C;
     func_15153F18(&primary.field00, &primary.position[0], &hit, 0xFF, 1);
-    secondary.position[0] = (f32) *(s16 *)((u8 *)arg0 + 0x10);
-    secondary.position[1] = (f32) *(s16 *)((u8 *)arg0 + 0x12);
-    secondary.position[2] = (f32) *(s16 *)((u8 *)arg0 + 0x14);
-    secondary.field14 = 0xF;
-    secondary.field16 = 6;
-    secondary.field00 = 0;
-    secondary.field02 = 0xFF;
-    secondary.field04 = -0x40;
-    secondary.field06 = 0xC;
-    secondary.field20 = 0x3C;
-    secondary.field22 = 0x2D;
-    secondary.field2C = 0xC8;
-    secondary.field2D = 0x37;
-    secondary.field38 = 1;
-    secondary.field39 = 9;
-    secondary.field3C = 1.0f;
-    secondary.field40 = 0;
-    secondary.field44 = secondary.field3C;
-    secondary.field18 = 10.0f;
-    secondary.field1C = 6.0f;
-    secondary.field24 = D_800AB270;
-    secondary.field28 = D_800AB274;
-    secondary.field30 = 44.0f;
-    secondary.field34 = 88.0f;
-    func_15150178(&secondary.field00, &secondary.position[0], &hit, 0xFFU, 1);
+    {
+        Game203E20Secondary secondary;
+
+        secondary.position[0] = (f32) *(s16 *)((u8 *)arg0 + 0x10);
+        secondary.position[1] = (f32) *(s16 *)((u8 *)arg0 + 0x12);
+        secondary.position[2] = (f32) *(s16 *)((u8 *)arg0 + 0x14);
+        secondary.field14 = 0xF;
+        secondary.field16 = 6;
+        secondary.field00 = 0;
+        secondary.field02 = 0xFF;
+        secondary.field04 = -0x40;
+        secondary.field06 = 0xC;
+        secondary.field20 = 0x3C;
+        secondary.field22 = 0x2D;
+        secondary.field2C = 0xC8;
+        secondary.field2D = 0x37;
+        secondary.field38 = 1;
+        secondary.field39 = 9;
+        secondary.field3C = 1.0f;
+        secondary.field40 = 0;
+        secondary.field44 = secondary.field3C;
+        secondary.field18 = 10.0f;
+        secondary.field1C = 6.0f;
+        secondary.field24 = D_800AB270;
+        secondary.field28 = D_800AB274;
+        secondary.field30 = 44.0f;
+        secondary.field34 = 88.0f;
+        func_15150178(&secondary.field00, &secondary.position[0], &hit, 0xFFU, 1);
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D69B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_203E20/func_151D69B4.s")
 typedef struct { s32 words[3]; } Game203E20Copy3;
 typedef struct {
     s8 type, field1, field2, field3, field4, pad5;

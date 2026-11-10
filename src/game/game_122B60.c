@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150F56B0
  * - func_150F5A54
- * - func_150F6178
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -336,21 +335,18 @@ typedef struct Game122B60Vec3Bits {
     u32 words[3];
 } Game122B60Vec3Bits;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F6178 CURRENT (1318) */
 void func_150F6178(u8 *arg0) {
-    struct {
-        u8 pad0[8];
-        f32 *target[2];
-        u8 *source[2];
-        f32 vector1[3];
-        f32 vector0[3];
-        u8 padEnd[8];
-    } local;
     u8 *actor;
     u8 *entry;
-    u8 *child;
-    u8 *other;
-    u8 *object;
+    f32 vector0[3];
+    f32 vector1[3];
+    u8 *source[2];
+    f32 *target[2];
+    u8 *link;
+    u8 *sub;
+    u8 *link2;
+    u8 *object2;
+    u8 *sub2;
 
     entry = arg0 + 0x28;
     actor = *(u8 **)entry;
@@ -359,49 +355,42 @@ void func_150F6178(u8 *arg0) {
         return;
     }
     if (*(s32 *)(actor + 0x1D4) != 0 && !(*(s32 *)(actor + 0x94) & 2)) {
-        local.source[0] = D_800A1B18;
-        local.source[1] = D_800A1B24;
-        local.target[0] = local.vector0;
-        local.target[1] = local.vector1;
-        func_15145EA4((s32 *)local.source, (s32 *)local.target,
-                       *(s32 *)(actor + 0x1D4), 2);
-        child = *(u8 **)(entry + 8);
-        if (child != 0) {
-            child[0x168] |= 1;
-            *(Game122B60Vec3Bits *)(child + 0x34) =
-                *(Game122B60Vec3Bits *)local.vector0;
-            *(Game122B60Vec3Bits *)(child + 0x40) =
-                *(Game122B60Vec3Bits *)local.vector1;
+        source[0] = D_800A1B18;
+        source[1] = D_800A1B24;
+        target[0] = vector0;
+        target[1] = vector1;
+        func_15145EA4((s32 *)source, (s32 *)target, *(s32 *)(actor + 0x1D4), 2);
+        link = *(u8 **)(entry + 8);
+        if (link != 0) {
+            link[0x168] |= 1;
+            *(Game122B60Vec3Bits *)(link + 0x34) = *(Game122B60Vec3Bits *)vector0;
+            *(Game122B60Vec3Bits *)(link + 0x40) = *(Game122B60Vec3Bits *)vector1;
         }
-        other = *(u8 **)(entry + 0xC);
-        if (other != 0) {
-            object = *(u8 **)(other + 0x14);
+        link = *(u8 **)(entry + 0xC);
+        if (link != 0) {
+            u8 *object = *(u8 **)(link + 0x14);
             object[9] = 0;
-            *(s16 *)(object + 0xE) = (s32)local.vector0[0];
-            *(s16 *)(object + 0x10) = (s32)local.vector0[1];
-            *(s16 *)(object + 0x12) = (s32)local.vector0[2];
+            *(s16 *)(object + 0xE) = (s32)vector0[0];
+            *(s16 *)(object + 0x10) = (s32)vector0[1];
+            *(s16 *)(object + 0x12) = (s32)vector0[2];
         }
     } else {
-        child = *(u8 **)(entry + 8);
-        if (child != 0) {
-            object = child + 0x110;
-            object[0x58] &= ~1;
+        if (*(u8 **)(entry + 8) != 0) {
+            sub = *(u8 **)(entry + 8) + 0x110;
+            sub[0x58] &= ~1;
         }
-        other = *(u8 **)(entry + 0xC);
-        if (other != 0) {
-            object = *(u8 **)(other + 0x14);
-            object[9] = 1;
+        link2 = *(u8 **)(entry + 0xC);
+        if (link2 != 0) {
+            object2 = *(u8 **)(link2 + 0x14);
+            object2[9] = 1;
         }
     }
-    child = *(u8 **)(entry + 8);
-    if (child != 0) {
-        object = child + 0x110;
-        *(f32 *)(object + 0x48) = 4.0f;
-        *(f32 *)(object + 0x4C) = 8.0f;
+    if (*(u8 **)(entry + 8) != 0) {
+        sub2 = *(u8 **)(entry + 8) + 0x110;
+        *(f32 *)(sub2 + 0x48) = 4.0f;
+        *(f32 *)(sub2 + 0x4C) = 8.0f;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F6178 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_122B60/func_150F6178.s")
 void func_150F631C(u8 *arg0) {
     if (*(s32 *)(arg0 + 0x30) != 0) {
         func_1516972C(*(void **)(arg0 + 0x30));

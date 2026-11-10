@@ -53,6 +53,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_1C1150 | 0x28 | 0x14 | 0x800A8280 | table, sites 0x78C / 0x794 | `15194440` ×5 |
 | game_1C1150 | 0x3C | 0xC | 0x800A8294 | pool (func_15194408) | `3E570A3D 3ECFDF3B 3E99999A` (0.21, 0.406, 0.3) |
 | game_1C1150 | 0x48 | 0x14 | 0x800A82BC | table, sites 0xB40 / 0xB48 | `151947F4` ×5 |
+| game_1C1150 | 0x5C | 0x1E8 | 0x800A84C0 | table, sites 0x139C / 0x13A4 | 0x7A targets ([func_15194FF4](game_1c1150_jump_tables.md)) |
+| game_1C1150 | 0x244 | 0x5C | 0x800A86A8 | table, sites 0x13BC / 0x13C4 | 0x17 targets |
 | game_64120 | 0x0 | 0x4 | 0x80098648 | pool (func_15038468) | `42652EE0` (57.295776) |
 | game_64120 | 0x4 | 0x4 | 0x800986EC | pool (func_1503B708) | `C7C34F80` (-99999.0) |
 | game_49D30 | 0x0 | 0x4 | 0x800969C0 | pool (func_1501D044) | `4479C000` (999.0) |
@@ -64,6 +66,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_173D40 | 0x0 | 0x18 | 0x800A5708 | pool (func_15146A98) | `3CCCCCCC 3CA30553 40FF3B65 BECE5605 3E916873 3F741BDA` |
 | game_173D40 | 0x18 | 0x8 | 0x800A5728 | pool (func_15146D60) | `3C40C0C1 3F360B61` (0.011764706, 0.7111111) |
 | game_173D40 | 0x20 | 0x18 | 0x800A573C | pool (func_15147318, func_15147478, func_151475D8) | `3BFC0FC1 3F360B61` ×3 |
+| game_131F30 | 0x0 | 0xC | 0x800A23B4 | pool (func_151050B0) | `3D23D70B 3D8F5C29 3EA66667` (0.040000003, 0.07, 0.32500002) |
+| game_131F30 | 0xC | 0x18 | 0x800A23EC | pool (func_151058B4) | `3AAA64C3 3AF9096B 40ECCCCC 4122147B 3FBE3540 C043126F` |
 | game_B4080 | 0x0 | 0x8 | 0x8009DA18 | pool (func_150896EC) | `3F91DE69 AD42C3CA` (f64 0.01745) |
 | game_B4080 | 0x8 | 0x20 | 0x8009DA24 | table, sites 0x3028 / 0x3030 | unchanged |
 | game_B4080 | 0x28 | 0xFC | 0x8009DA94 | table, sites 0x7B10 / 0x7B18 | unchanged |
@@ -145,6 +149,14 @@ keep their runtime addresses.
   0; its HI16/LO16 sites are text offsets 0x450/0x458 in `func_150636F0`.
   The words 0x80099790..0x800997E7 belong to unmatched functions. The object
   `.rodata` is exactly 0x150 bytes.
+
+- **game_131F30:** `func_151058B4` loads 0.0013, 0.0018999999, 7.3999996,
+  10.13, 1.4860001 and -3.048 (written `+ -3.048f`) from 0x800A23EC..0x800A2403
+  in first-use order; the checksum-validated ROM holds exactly those words and
+  no other reference function reads them. The words 0x800A23C0..0x800A23EB stay
+  extern symbols of the matched `func_1510558C`, so the unit's earlier
+  `func_151050B0` pool at 0x800A23B4 and the new pool are two ranges. The
+  object `.rodata` is 0x30 bytes: 0x24 of payload and 0xC zero alignment bytes.
 
 - **game_173D40:** Six effect emitters matched once their `void *volatile`
   parameter hack became an early `return` on `arg0->0x1D4 == 0` (the raw

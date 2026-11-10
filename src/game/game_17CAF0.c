@@ -16,7 +16,6 @@
  * - func_15151D6C
  * - func_15152190
  * - func_15152520
- * - func_151539B4
  * - func_151541B8
  * - func_15154684
  * - func_15154A88
@@ -1509,52 +1508,49 @@ typedef struct {
 
 void *func_15156190(s32, u8, s32, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151539B4 CURRENT (1353) */
-void func_151539B4(void *arg0, s32 arg1) {
+void func_151539B4(Game1539B4Config *arg0, u8 arg1) {
     Game1539B4Packet packet;
+    Game1539B4Packet *p = &packet;
+    s32 count;
     s16 yaw, pitch;
     f32 pitchSin, pitchCos, yawSin;
     f32 radius;
-    s32 priority;
 
-    priority = arg1 & 0xFF;
-    arg1 = func_150ADA20() % (u32)(((Game1539B4Config *)arg0)->countRange + 1) + ((Game1539B4Config *)arg0)->countBase;
-    packet.position = ((Game1539B4Config *)arg0)->position;
-    packet.firstColor.red = ((Game1539B4Config *)arg0)->firstColor.red;
-    packet.firstColor.green = ((Game1539B4Config *)arg0)->firstColor.green;
-    packet.firstColor.blue = ((Game1539B4Config *)arg0)->firstColor.blue;
-    packet.firstColor.alpha = ((Game1539B4Config *)arg0)->firstColor.alpha;
-    packet.secondColor.red = ((Game1539B4Config *)arg0)->secondColor.red;
-    packet.secondColor.green = ((Game1539B4Config *)arg0)->secondColor.green;
-    packet.secondColor.blue = ((Game1539B4Config *)arg0)->secondColor.blue;
-    packet.secondColor.alpha = ((Game1539B4Config *)arg0)->secondColor.alpha;
-    packet.flags = ((Game1539B4Config *)arg0)->flags;
-    packet.variant = ((Game1539B4Config *)arg0)->variant;
-    packet.fadeStart = ((Game1539B4Config *)arg0)->fadeStart;
-    packet.fadeRate = ((Game1539B4Config *)arg0)->fadeRate;
-    if (arg1 != 0) {
+    count = func_150ADA20() % (u32)(arg0->countRange + 1) + arg0->countBase;
+    p->position = arg0->position;
+    p->firstColor.red = arg0->firstColor.red;
+    p->firstColor.green = arg0->firstColor.green;
+    p->firstColor.blue = arg0->firstColor.blue;
+    p->firstColor.alpha = arg0->firstColor.alpha;
+    p->secondColor.red = arg0->secondColor.red;
+    p->secondColor.green = arg0->secondColor.green;
+    p->secondColor.blue = arg0->secondColor.blue;
+    p->secondColor.alpha = arg0->secondColor.alpha;
+    p->flags = arg0->flags;
+    p->variant = arg0->variant;
+    p->fadeStart = arg0->fadeStart;
+    p->fadeRate = arg0->fadeRate;
+    if (count != 0) {
         do {
-            yaw = func_150ADA20() % (u32)(((Game1539B4Config *)arg0)->yawRange + 1) + ((Game1539B4Config *)arg0)->yawBase;
-            pitch = func_150ADA20() % (u32)(((Game1539B4Config *)arg0)->pitchRange + 1) + ((Game1539B4Config *)arg0)->pitchBase;
+            yaw = func_150ADA20() % (u32)(arg0->yawRange + 1) + arg0->yawBase;
+            pitch = func_150ADA20() % (u32)(arg0->pitchRange + 1) + arg0->pitchBase;
             pitchSin = func_151423D8(pitch);
             pitchCos = func_151423D8(pitch - 0x40);
             yawSin = func_151423D8(yaw);
             radius = func_151423D8(yaw - 0x40);
-            packet.direction.x = (10.0f * pitchSin) * radius;
-            packet.direction.y = -10.0f * pitchCos;
-            packet.direction.z = (10.0f * pitchSin) * yawSin;
-            packet.speed = func_150ADA68() * ((Game1539B4Config *)arg0)->speedRange + ((Game1539B4Config *)arg0)->speedBase;
-            packet.size = func_150ADA68() * ((Game1539B4Config *)arg0)->sizeRange + ((Game1539B4Config *)arg0)->sizeBase;
-            packet.lifetime = func_150ADA20() % (u32)(((Game1539B4Config *)arg0)->lifeRange + 1) + ((Game1539B4Config *)arg0)->lifeBase;
-            packet.scale = func_150ADA68() * ((Game1539B4Config *)arg0)->scaleRange + ((Game1539B4Config *)arg0)->scaleBase;
-            packet.mode = func_150ADA20() % (u32)(((Game1539B4Config *)arg0)->modeRange + 1) + ((Game1539B4Config *)arg0)->modeBase;
-            func_15156190((s32)&packet, ((Game1539B4Config *)arg0)->kind, 0, priority, 0);
-            arg1--;
-        } while (arg1 != 0);
+            p->direction.x = (10.0f * pitchSin) * radius;
+            p->direction.y = -10.0f * pitchCos;
+            p->direction.z = (10.0f * pitchSin) * yawSin;
+            p->speed = func_150ADA68() * arg0->speedRange + arg0->speedBase;
+            p->size = func_150ADA68() * arg0->sizeRange + arg0->sizeBase;
+            p->lifetime = func_150ADA20() % (u32)(arg0->lifeRange + 1) + arg0->lifeBase;
+            p->scale = func_150ADA68() * arg0->scaleRange + arg0->scaleBase;
+            p->mode = func_150ADA20() % (u32)(arg0->modeRange + 1) + arg0->modeBase;
+            func_15156190((s32)p, arg0->kind, 0, arg1, 0);
+            count--;
+        } while (count != 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151539B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_151539B4.s")
 void func_1514F640(s32, u8 *);
 typedef struct {
     Vec3f position;

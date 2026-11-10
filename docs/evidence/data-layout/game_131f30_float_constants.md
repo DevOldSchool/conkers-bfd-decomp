@@ -7,3 +7,8 @@ The raw function loads each constant with `lui`/`lwc1` from consecutive words, t
 The generated `build/us/src/game/game_131F30.o` has rodata `3d23d70b3d8f5c293ea6666700000000`: the three constants in load order followed by 4 zero alignment bytes, with no data relocations. The preceding words `D_800A23AC` and `D_800A23B0` are loaded by the unmatched `func_15104C44` through extern references; they lie outside this mapping's owned payload. The object's 4 alignment bytes fall at 0x800A23C0, the first word of `D_800A23C0` used by `func_1510558C` in this unit through an extern reference, and do not describe ROM contents; only the 0xC payload is compared. Converting `D_800A23AC`/`D_800A23B0` to literals would grow this object's rodata, trip the size assertion and need the mapping to move to 0x800A23AC, as described in [game rodata literal sub-pools](game_rodata_literal_sub_pools.md).
 
 The INFO mapping retains linked bytes for verification without appending to the code-only payload. A size assertion detects unexpected constant-pool growth. The function reached full registered CURRENT (0) with focused layout, progress and whitespace checks passed; the clean linked verify-batch result is recorded in the commit that adds this mapping. No reference assembly, compiler flag or verifier changes are involved.
+
+`func_151058B4` later added a second pool at 0x800A23EC (six literals). The
+object is now split into two literal ranges by `scripts/split_game_rodata.py`;
+see [game rodata literal sub-pools](game_rodata_literal_sub_pools.md). The
+first range keeps the 0x800A23B4 mapping and its 0xC payload.
