@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dispatch_position_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1510E670
  * - func_1510E950
  * - func_1510F8D8
  *
@@ -16,45 +15,38 @@
 void func_150AD8B0(f32 *, f32 *, f32 *);
 extern s32 D_800D3300;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510E670 CURRENT (1246) */
 s32 func_1510E670(s32 arg0) {
-    struct {
-        f32 sp20[3];
-        f32 sp2C[3];
-        f32 sp38[3];
-    } locals;
-    u8 *entry;
-    u8 **temp_t0;
-    s32 temp_t1;
-    s16 *temp_v0;
-    s16 *temp_v1;
-    s16 *temp_a3;
-    s32 var_v0;
+    u8 **verts;
+    s32 offset;
+    s16 *v0;
+    s16 *v1;
+    s16 *v2;
+    f32 edge1[3];
+    f32 edge2[3];
+    f32 normal[3];
+    f32 normal_y;
 
-    entry = (u8 *)&D_800D3300 + (arg0 * 0x10);
-    temp_t0 = *(u8 ***)(entry + 4);
-    temp_t1 = *(s32 *)(entry + 8);
-    var_v0 = 0;
-    if (temp_t0 != 0) {
-        temp_v0 = (s16 *)(temp_t0[0] + temp_t1);
-        temp_v1 = (s16 *)(temp_t0[1] + temp_t1);
-        temp_a3 = (s16 *)(temp_t0[2] + temp_t1);
-        locals.sp38[0] = temp_v1[0] - temp_v0[0];
-        locals.sp38[1] = temp_v1[1] - temp_v0[1];
-        locals.sp38[2] = temp_v1[2] - temp_v0[2];
-        locals.sp2C[0] = temp_a3[0] - temp_v0[0];
-        locals.sp2C[1] = temp_a3[1] - temp_v0[1];
-        locals.sp2C[2] = temp_a3[2] - temp_v0[2];
-        func_150AD8B0(locals.sp38, locals.sp2C, locals.sp20);
-        if (locals.sp20[1] < 0.0f) {
+    verts = *(u8 ***)((u8 *)&D_800D3300 + (arg0 * 0x10) + 4);
+    offset = *(s32 *)((u8 *)&D_800D3300 + (arg0 * 0x10) + 8);
+    if (verts != 0) {
+        v0 = (s16 *)(verts[0] + offset);
+        v1 = (s16 *)(verts[1] + offset);
+        v2 = (s16 *)(verts[2] + offset);
+        edge1[0] = v1[0] - v0[0];
+        edge1[1] = v1[1] - v0[1];
+        edge1[2] = v1[2] - v0[2];
+        edge2[0] = v2[0] - v0[0];
+        edge2[1] = v2[1] - v0[1];
+        edge2[2] = v2[2] - v0[2];
+        func_150AD8B0(edge1, edge2, normal);
+        normal_y = normal[1];
+        if (normal_y < 0.0f) {
             return 0;
         }
-        var_v0 = 1;
+        return 1;
     }
-    return var_v0;
+    return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510E670 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510E670.s")
 void func_1510E950(s32, s32, s32, s32, s32, s32, s32, f32, f32, f32, f32, s32, s32, f32, f32, s32);
 extern f32 D_800A2D50;
 extern f32 D_800A2D54;

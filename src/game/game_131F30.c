@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15104A80
  * - func_15104C44
- * - func_151058B4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -429,22 +428,19 @@ typedef struct Game131F30Motion {
 void func_151432BC(void *, f32 *, f32 *, f32 *, f32 *);
 void func_15143794(s16, s16, f32, void *);
 void *func_1515C2F0(void *, void *, s32, s32, u8, s32);
-extern f32 D_800A23EC, D_800A23F0, D_800A23F4, D_800A23F8;
-extern f32 D_800A23FC, D_800A2400;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151058B4 CURRENT (1288) */
 void func_151058B4(void *arg0) {
     f32 count;
-    f32 base;
-    f32 range;
+    Game131F30Handle *handle;
+    Game131F30Motion *m;
     Game131F30Spawn spawn;
     Game131F30Motion motion;
     f32 upper;
     f32 lower;
-    u32 random0, random1;
 
     if (func_151464B8(*(s16 **)((u8 *)arg0 + 0x30)) == 0) {
-        count = (func_150ADA68() * D_800A23EC + D_800A23F0) * ((Game131F30Handle *)((u8 *)arg0 + 0x28))->scale;
+        handle = (Game131F30Handle *)((u8 *)arg0 + 0x28);
+        count = (func_150ADA68() * 0.0013f + 0.0018999999f) * handle->scale;
         if (count > 1.0f) {
             spawn.kind = 0x15;
             spawn.flags = 0xA;
@@ -471,29 +467,24 @@ void func_151058B4(void *arg0) {
             motion.scale = 1.0f;
             motion.field38 = -1;
             motion.field39 = 0;
-            base = D_800A23F4;
-            range = D_800A23F8;
-            spawn.position.y = (f32)((Game131F30Handle *)((u8 *)arg0 + 0x28))->shape[1];
+            spawn.position.y = handle->shape[1];
+            m = &motion;
             do {
                 motion.field1A = func_150ADA20() % 101U + 0x9B;
                 spawn.count = (func_150ADA20() & 3) + 3;
-                func_151432BC(((Game131F30Handle *)((u8 *)arg0 + 0x28))->shape, &spawn.position.x, &spawn.position.z, &upper, &lower);
+                func_151432BC(handle->shape, &spawn.position.x, &spawn.position.z, &upper, &lower);
                 spawn.lifetime = func_150ADA20() % 31U + 0x1E;
-                motion.size = func_150ADA68() * range + base;
-                random0 = func_150ADA20();
-                random1 = func_150ADA20();
-                func_15143794((s16)(random0 & 0xFF), (s16)(random1 % 22U - 0x36),
+                motion.size = func_150ADA68() * 10.13f + 7.3999996f;
+                func_15143794(func_150ADA20() & 0xFF, func_150ADA20() % 22U - 0x36,
                               func_150ADA68() * 20.0f + 30.0f, &motion.velocity);
-                motion.spread = func_150ADA68() * D_800A23FC + D_800A2400;
-                func_1515C2F0(&spawn, NULL, (s32)&motion, 0,
+                motion.spread = func_150ADA68() * 1.4860001f + -3.048f;
+                func_1515C2F0(&spawn, NULL, (s32)m, 0,
                               *(u8 *)((u8 *)arg0 + 0xC), *(u8 *)((u8 *)arg0 + 1));
                 count -= 1.0f;
             } while (count > 1.0f);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151058B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_131F30/func_151058B4.s")
 void func_1508B20C(f32, f32, f32, s32);
 
 void func_15105BC8(void *arg0) {

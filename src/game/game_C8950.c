@@ -8,7 +8,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1509B5AC
- * - func_1509BBA0
  * - func_1509BE40
  * - func_1509BFB0
  *
@@ -308,14 +307,12 @@ extern s32 D_800D2E48;
 extern s32 D_800D2F58;
 extern s32 D_800D3858;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509BBA0 CURRENT (1290) */
 void func_1509BBA0(s32 mode) {
-    register GameC8950Node *node;
-    s32 key;
+    GameC8950Node *node;
+    u16 key;
     s32 marked;
     s32 index;
-    u16 flags;
-    s32 cleared;
+    s32 flags;
 
     node = D_800D2F48.head;
     func_15096D08();
@@ -336,7 +333,7 @@ void func_1509BBA0(s32 mode) {
                 goto loop_tail;
             }
             if (mode == 4) {
-                if (((u8 *)D_800D2E4C)[key >> 3] & (1 << (key & 7))) {
+                if (*(u8 *)((key >> 3) + (u32)D_800D2E4C) & (1 << (key & 7))) {
                     D_8003C8E0 = 0x06000002;
                     func_150ADAF0(&node->key, 4);
                     D_8003C8E0 = 0;
@@ -345,15 +342,12 @@ void func_1509BBA0(s32 mode) {
                     node = node->next;
                     goto loop_tail;
                 }
-            } else if (!(((u8 *)D_800D2E4C)[key >> 3] & (1 << (key & 7)))) {
+            } else if (!(*(u8 *)((key >> 3) + (u32)D_800D2E4C) & (1 << (key & 7)))) {
                 if (flags & 0x4000) {
                     D_8003C8E0 = 0x06000003;
                     func_150ADAF0(&node->key, 1);
                     D_8003C8E0 = 0;
-                    cleared = node->key & 0xBFFF;
-                    flags = (u16)cleared;
-                    marked = flags & 0x8000;
-                    node->key = cleared;
+                    marked = (flags = node->key &= 0xBFFF) & 0x8000;
                 }
                 if (marked != 0) {
                     node = node->next;
@@ -374,7 +368,6 @@ void func_1509BBA0(s32 mode) {
             } else {
                 D_800D2E70[key] = 3;
             }
-next_node:
             node = node->next;
 loop_tail:
             index++;
@@ -386,8 +379,6 @@ loop_tail:
     }
     D_800D3858 = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509BBA0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509BBA0.s")
 extern s32 D_800D2F60[];
 extern s32 D_800D3840;
 extern s32 (*D_80088498[])(s32, s32, s32 *);

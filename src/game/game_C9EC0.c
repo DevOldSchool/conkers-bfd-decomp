@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_resource_dependency_core.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1509CDDC
  * - func_1509CE64
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -104,7 +103,7 @@ void func_1509CCB4(s32 arg0) {
     func_1509CE64(((ResourceDescriptorIdField *)D_8008743C)[arg0].packed_id, func_1509CCB4, arg0);
 }
 extern s32 D_80087440;
-extern u8 D_800D2E70;
+extern u8 D_800D2E70[];
 
 s32 func_1509CCF4(s32 arg0) {
     s32 var_s1;
@@ -117,7 +116,7 @@ s32 func_1509CCF4(s32 arg0) {
     var_s0 = *(u16 **)((u32)&D_80087440 + ((u32)arg0 * 0x14U));
     var_s1 = 0;
     var_v1 = *var_s0;
-    var_s4 = &D_800D2E70;
+    var_s4 = D_800D2E70;
     var_s3 = 3;
     if (var_v1 != 0xFFFF) {
         do {
@@ -134,34 +133,21 @@ s32 func_1509CCF4(s32 arg0) {
     }
     return var_s1;
 }
-s32 func_1509CCF4();
-extern u8 D_800D2E70;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509CDDC CURRENT (1255) */
-void func_1509CDDC(void) {
-    s32 var_s0;
-    s32 var_s2;
+void func_1509CDDC(s32 arg0) {
+    s32 i;
+    s32 count;
 
-    func_1509CCF4();
+    func_1509CCF4(arg0);
     do {
-        u8 *var_s1;
-
-        var_s2 = 0;
-        var_s1 = &D_800D2E70;
-        var_s0 = 0;
-loop_2:
-        if (*var_s1 == 3) {
-            var_s2 += func_1509CCF4(var_s0);
+        count = 0;
+        for (i = 0; i < 0xCC; i++) {
+            if (D_800D2E70[i] == 3) {
+                count += func_1509CCF4(i);
+            }
         }
-        var_s0 += 1;
-        var_s1 += 1;
-        if (var_s0 != 0xCC) {
-            goto loop_2;
-        }
-    } while (var_s2 != 0);
+    } while (count != 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509CDDC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CDDC.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509CE64 CURRENT (640) */
 void func_1509CE64(s32 arg0, void (*arg1)(s32), s32 arg2) {
     s32 var_s0;

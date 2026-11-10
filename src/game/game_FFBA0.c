@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_child_chain_render_lists.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150D278C
  * - func_150D2924
  * - func_150D2D6C
  *
@@ -37,48 +36,36 @@ void func_150D26F0(u8 *arg0) {
 }
 void *func_10022EC0(void *, const void *, u32);
 f32 func_150ADA68(void);
-extern u8 D_800A0990[];
-extern f32 D_800A099C;
-extern f32 D_800A09A0;
-extern f32 D_800A09A4;
-extern f32 D_800A09A8;
-extern f32 D_800A09AC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D278C CURRENT (941) */
 void func_150D278C(s32 arg0, void *arg1, u8 arg2, s32 arg3) {
     u8 packet[0x60];
-    u8 choices[9];
-    u8 *color;
     u8 *object;
-    f32 temp;
 
     *(s32 *)(packet + 0) = arg0;
-    *(f32 *)(packet + 4) = (2.0f * func_150ADA68()) * D_800A099C;
-    temp = (func_150ADA68() * D_800A09A0) + D_800A09A4;
-    *(f32 *)(packet + 8) = temp;
-    *(f32 *)(packet + 0xC) = 1.0f / temp;
-    *(f32 *)(packet + 0x10) = (func_150ADA68() * D_800A09A8) + D_800A09AC;
+    *(f32 *)(packet + 4) = (2.0f * func_150ADA68()) * 3.1415927f;
+    *(f32 *)(packet + 8) = (func_150ADA68() * 0.4f) + 0.3f;
+    *(f32 *)(packet + 0xC) = 1.0f / *(f32 *)(packet + 8);
+    *(f32 *)(packet + 0x10) = (func_150ADA68() * 0.13000001f) + 0.3f;
     if (func_150ADA20() & 1) {
         *(f32 *)(packet + 0x10) = -*(f32 *)(packet + 0x10);
     }
     *(f32 *)(packet + 0x14) = 0.0f;
     *(f32 *)(packet + 0x18) = 0.0f;
     func_10022EC0(packet + 0x1C, arg1, 0x40);
-    *(u32 *)choices = *(u32 *)D_800A0990;
-    *(u32 *)(choices + 4) = *(u32 *)(D_800A0990 + 4);
-    choices[8] = D_800A0990[8];
-    color = choices + (((func_150ADA20() % 3U) & 0xFF) * 3);
-    packet[0x5C] = color[0];
-    packet[0x5D] = color[1];
-    packet[0x5E] = color[2];
+    {
+        const u8 choices[9] = { 0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0xFF, 0x00 };
+
+        object = (u8 *)choices + (((func_150ADA20() % 3U) & 0xFF) * 3);
+        packet[0x5C] = object[0];
+        packet[0x5D] = object[1];
+        packet[0x5E] = object[2];
+    }
     object = func_15149130((s16)((func_150ADA20() % 101U) + 0x64), -1,
                            0x32, -1, 1, 0, 0x60, arg2, arg3);
     if (object != 0) {
         func_10022EC0(object + 0x28, packet, 0x60);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D278C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FFBA0/func_150D278C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FFBA0/func_150D2924.s")
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)

@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15055E50
  * - func_15056150
- * - func_15056258
  * - func_150562FC
  * - func_1505693C
  * - func_15056A00
@@ -102,33 +101,27 @@ extern f32 D_80099444;
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15056258 CURRENT (1290) */
-void func_15056258(void *arg0) {
-    f32 temp_fa1;
-    f32 temp_ft0;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    f32 var_fa0;
+void func_15056258(void *arg) {
+    f32 *arg0 = arg;
+    f32 cur;
+    f32 delta;
+    f32 scale;
 
-    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x118);
-    temp_fa1 = *(f32 *)((u8 *)arg0 + 0x18);
-    temp_ft0 = *(f32 *)((u8 *)arg0 + 0x11C);
-    *(f32 *)((u8 *)arg0 + 0x11C) = temp_fv0;
-    temp_fv1 = temp_fv0 - temp_ft0;
-    var_fa0 = 2.0f * (temp_fa1 - ((temp_fv0 - 60.0f) - 170.0f));
-    if (var_fa0 < 0.0f) {
+    cur = arg0[0x118 / 4];
+    delta = cur - arg0[0x11C / 4];
+    arg0[0x11C / 4] = cur;
+    scale = 2.0f * (arg0[0x18 / 4] - ((cur - 60.0f) - 170.0f));
+    if (scale < 0.0f) {
         return;
     }
-    if (fabsf(temp_fv1) > 30.0f) {
+    if (fabsf(delta) > 30.0f) {
         return;
     }
-    if (var_fa0 > 300.0f) {
-        var_fa0 = 300.0f;
+    if (scale > 300.0f) {
+        scale = 300.0f;
     }
-    *(f32 *)((u8 *)arg0 + 0x18) = (f32) (temp_fa1 + (var_fa0 * temp_fv1 * D_80099444));
+    arg0[0x18 / 4] += scale * delta * D_80099444;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15056258 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15056258.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150562FC.s")
 extern s32 D_800D2104;
 extern u8 D_800CC2D0[];
@@ -3479,7 +3472,7 @@ typedef struct Game83300Actor63168 {
     u8 pad320[0xC];
 } Game83300Actor63168;
 
-void func_15194FF4(Game83300Actor63168 *, Game83300Actor63168 *, s32);
+void func_15194FF4(Game83300Actor63168 *, Game83300Actor63168 *, u8);
 extern s8 D_8008FD8C;
 
 void func_15063168(Game83300Actor63168 *arg0) {

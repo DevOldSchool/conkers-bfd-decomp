@@ -129,7 +129,7 @@ s32 func_151E24F0(s32 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E2834.s")
 void func_15017790(void);
 void func_1509CC94();
-void func_1509CDDC();
+void func_1509CDDC(s32);
 s32 func_1509CF28(s8, s32 *);
 void func_1509D054(void);
 u16 func_1509CA30(s32);

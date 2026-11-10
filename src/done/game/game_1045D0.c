@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1045D0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150D728C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game1045D0Position {
@@ -78,9 +73,8 @@ void func_151BFC40(void *, f32 *);
 void func_1514FBFC(void *, u8, s32);
 void func_1514FB98(void *, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D728C CURRENT (1322) */
 void func_150D728C(GameD728CPayload *arg0, Game1045D0Position *arg1,
-                   f32 *arg2, s32 arg3, s32 arg4) {
+                   f32 *arg2, u8 arg3, s32 arg4) {
     typedef struct { f32 x, y, z; } Vec3;
     typedef struct {
         s32 field00, field04;
@@ -103,10 +97,9 @@ void func_150D728C(GameD728CPayload *arg0, Game1045D0Position *arg1,
         Config config;
     } lower;
 
-    arg3 &= 0xFF;
-    func_151C04F8((s32)arg1, (u8)arg3, arg4);
-    func_151C05A4((s32)arg1, (u8)arg3, arg4);
-    func_151C05F0((s32)arg1, (u8)arg3, arg4);
+    func_151C04F8((f32 *)arg1, arg3, arg4);
+    func_151C05A4((f32 *)arg1, arg3, arg4);
+    func_151C05F0((f32 *)arg1, arg3, arg4);
     if (arg0 != 0) {
         upper.velocity.x = -arg2[0];
         upper.velocity.y = -arg2[1];
@@ -114,7 +107,7 @@ void func_150D728C(GameD728CPayload *arg0, Game1045D0Position *arg1,
         upper.triangle = *arg0;
         upper.config.position = *arg1;
         func_151BFC40(&upper.config, &upper.scale);
-        func_1514FBFC(&upper, (u8)arg3, arg4);
+        func_1514FBFC(&upper, arg3, arg4);
         return;
     }
     lower.velocity.x = -arg2[0];
@@ -122,7 +115,5 @@ void func_150D728C(GameD728CPayload *arg0, Game1045D0Position *arg1,
     lower.velocity.z = -arg2[2];
     func_151BFC40(&lower.config, &lower.scale);
     lower.config.position = *arg1;
-    func_1514FB98(&lower, (u8)arg3, arg4);
+    func_1514FB98(&lower, arg3, arg4);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D728C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1045D0/func_150D728C.s")

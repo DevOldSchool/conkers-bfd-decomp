@@ -10,7 +10,6 @@
  * - func_15195AA8
  * - func_15195DD4
  * - func_15195FF0
- * - func_15196438
  * - func_15196748
  * - func_15196B4C
  * - func_15197148
@@ -25,7 +24,6 @@
  * - func_1519B4B8
  * - func_1519C26C
  * - func_1519C56C
- * - func_1519C9C4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -748,7 +746,6 @@ void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32,
                     s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15196438 CURRENT (1324) */
 void *func_15196438(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
     s8 kind;
     CharacterFlamethrowerJetSpawn spawn;
@@ -784,8 +781,6 @@ void *func_15196438(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
     local.unk5 = entry->unk14;
     local.unk8 = entry->unk18;
     local.unk14 = entry->unk24;
-    local.unk80 = entry->unk54;
-    local.unk63 = entry->unk3F;
     local.unk7 = entry->unk30;
     local.unk52 = entry->unk31;
     local.unk53 = entry->unk32;
@@ -793,6 +788,8 @@ void *func_15196438(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
     spawn.unkE = entry->unk44;
     local.unk6A = entry->unk47;
     local.unk74 = entry->unk4C;
+    local.unk80 = entry->unk54;
+    local.unk63 = entry->unk3F;
     local.unk58 = entry->unk34;
     local.unk5C = entry->unk38;
     local.unk6C = entry->unk48;
@@ -823,7 +820,8 @@ void *func_15196438(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
                            arg2, arg3);
     if (result != NULL) {
         jet = *(CharacterFlamethrowerJet **)((u8 *)result + 0x98);
-        func_10022EC0(jet, &local, 0x90);
+        func_10022EC0(*(CharacterFlamethrowerJet **)((u8 *)result + 0x98),
+                      &local, 0x90);
         kind = jet->unk7;
         if (kind != -1) {
             jet->unk38 = D_8008F870[kind](result, kind);
@@ -836,8 +834,6 @@ void *func_15196438(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15196438 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196438.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196748.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196B4C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15197148.s")
@@ -2486,8 +2482,6 @@ typedef union {
 } CharacterFlamethrowerPreset;
 
 void *func_151994B8(s32, CharacterFlamethrowerSetup *, u8, s32);
-extern f32 D_800A8AFC;
-extern f32 D_800A8B00;
 extern f32 D_800A8B04;
 extern f32 D_800A8B08;
 extern f32 D_800A8B0C;
@@ -2517,7 +2511,6 @@ extern f32 D_800A8B68;
 extern f32 D_800A8B6C;
 extern f32 D_800A8B70;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519C9C4 CURRENT (749) */
 void func_1519C9C4(void *arg0) {
     void *result;
     CharacterFlamethrowerPreset preset;
@@ -2566,7 +2559,6 @@ void func_1519C9C4(void *arg0) {
     preset.values.field0D4 = D_800A8B64;
     preset.values.field009 = 9;
     preset.values.field0F0 = D_800A8B68;
-    preset.values.field060 = 0x14;
     preset.values.field03E = 0xC8;
     preset.values.field038 = -1;
     preset.values.field03A = -1;
@@ -2576,8 +2568,8 @@ void func_1519C9C4(void *arg0) {
     preset.values.field051 = 0xFF;
     preset.values.field052 = 0xEB;
     preset.values.field053 = 0x52;
+    preset.values.field060 = 0x14;
     preset.values.field0FC = 134.0f;
-    preset.values.field0D8 = 0x50;
     preset.values.field062 = 0xD;
     preset.values.field08C = 0xC;
     preset.values.field08E = 0x15;
@@ -2587,6 +2579,7 @@ void func_1519C9C4(void *arg0) {
     preset.values.field0B4 = 3;
     preset.values.field0B8 = 0x32;
     preset.values.field0BA = 0x15;
+    preset.values.field0D8 = 0x50;
     preset.values.field00C = 7.0f;
     preset.values.field018 = 7.0f;
     preset.values.field039 = 0;
@@ -2624,8 +2617,6 @@ void func_1519C9C4(void *arg0) {
         func_10022EC0((u8 *)state + 0x158, (u8 *) arg0 + 0x30, 8U);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519C9C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C9C4.s")
 void func_1519CD64(void *arg0) {
     void *temp_v0;
 

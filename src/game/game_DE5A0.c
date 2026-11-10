@@ -9,7 +9,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150B12FC
  * - func_150B1484
- * - func_150B19E0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -257,7 +256,6 @@ typedef struct {
     u8 unknown36[2];
 } GameDE5A0Particle;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B19E0 CURRENT (1365) */
 void func_150B19E0(u8 *arg0) {
     f32 target;
     f32 radius;
@@ -268,12 +266,11 @@ void func_150B19E0(u8 *arg0) {
     s32 random;
     u8 angle;
 
-    random = *(s32 *)(arg0 + 0xF8) & ~4;
     target = 0.0f;
-    *(s32 *)(arg0 + 0xF8) = random;
     arg0[0xB0] = 0x19;
+    *(s32 *)(arg0 + 0xF8) &= ~4;
     arg0[0x13C] = 0;
-    *(s32 *)(arg0 + 0xF8) = random | 0x80;
+    *(s32 *)(arg0 + 0xF8) |= 0x80;
     if (*(f32 *)(arg0 + 0x3C) > 1.0f) {
         *(s32 *)(arg0 + 0xF8) |= 4;
     }
@@ -293,8 +290,7 @@ void func_150B19E0(u8 *arg0) {
             target = -20.0f;
         }
     }
-    cosine = *(f32 *)(arg0 + 0xB8);
-    *(f32 *)(arg0 + 0xB8) = cosine + (target - cosine) * D_8009F8CC;
+    *(f32 *)(arg0 + 0xB8) += (target - *(f32 *)(arg0 + 0xB8)) * D_8009F8CC;
     *(f32 *)(arg0 + 0x40) = (f32)(s16)(*(u16 *)(arg0 + 0x7A) + 0x4000) * 0.005493164f;
     func_15059140(arg0);
     func_150597FC(arg0);
@@ -318,12 +314,11 @@ void func_150B19E0(u8 *arg0) {
         angle = *(u16 *)((u8 *)&D_800CC2D0 + 0x76) >> 8;
         speed = *(f32 *)((u8 *)&D_800CC2D0 + 0x3C) * 64.0f;
         particle.velocityX = func_150489B0(angle) * speed;
-        cosine = func_15048A40(angle) * -speed;
+        particle.velocityZ = func_15048A40(angle) * -speed;
         particle.velocityY = -30;
         particle.mode = 7;
         particle.field20 = 0;
         particle.field22 = -80;
-        particle.velocityZ = cosine;
         random = func_150ADA20() & 0xFF;
         particle.alpha = random;
         particle.size = (random << 12) / 5100 + 0xCC;
@@ -338,5 +333,3 @@ void func_150B19E0(u8 *arg0) {
         func_15167D84(&particle, 0, 0, -1, 0xFF, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B19E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DE5A0/func_150B19E0.s")

@@ -15,7 +15,6 @@
  * - func_1506D584
  * - func_1506DE84
  * - func_1506E0EC
- * - func_1506E2CC
  * - func_1506E46C
  * - func_15070300
  * - func_15070898
@@ -1187,56 +1186,46 @@ void func_1506E0EC(void) {
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_151700D8(f32 *, f32, f32, s32, f32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506E2CC CURRENT (1259) */
 void func_1506E2CC(void) {
-    struct {
-        f32 vertices[4][3];
-        u8 pad[0x10];
-        f32 z;
-        f32 y;
-        f32 x;
-    } locals;
+    f32 x;
+    f32 y;
+    f32 z;
     f32 height;
-    f32 boundary;
-    u8 *actor;
+    f32 width;
+    f32 depth;
     s32 i;
+    f32 vertices[4][3];
+    f32 pos_x;
+    f32 pos_z;
 
-    actor = D_800D154C;
-    if (*(s32 *)(actor + 0x1D4) != 0) {
-        height = *(f32 *)(actor + 0x180);
-        boundary = 100.0f;
-        locals.x = boundary;
-        locals.z = boundary;
-        i = 0;
-        do {
-            locals.y = 0.0f;
-            actor = D_800D154C;
-            func_150A7960(*(void **)(actor + 0x1D4), locals.x,
-                            locals.y, locals.z,
-                            &locals.x, &locals.y, &locals.z);
-            locals.vertices[i][0] = locals.x;
-            locals.vertices[i][1] = height;
-            locals.vertices[i][2] = locals.z;
+    if (*(void **)(D_800D154C + 0x1D4) != 0) {
+        width = 100.0f;
+        depth = width;
+        height = *(f32 *)(D_800D154C + 0x180);
+        x = width;
+        z = depth;
+        for (i = 0; i < 4; i++) {
+            y = 0.0f;
+            func_150A7960(*(void **)(D_800D154C + 0x1D4), x, 0.0f, z, &x, &y, &z);
+            vertices[i][0] = x;
+            vertices[i][1] = height;
+            vertices[i][2] = z;
             if (i == 0) {
-                locals.x = -boundary;
-                locals.z = boundary;
+                z = depth;
+                x = -width;
             } else if (i == 1) {
-                locals.x = -boundary;
-                locals.z = -boundary;
+                x = -width;
+                z = -depth;
             } else if (i == 2) {
-                locals.x = boundary;
-                locals.z = -boundary;
+                x = width;
+                z = -depth;
             }
-            i++;
-        } while (i != 4);
-        actor = D_800D154C;
-        func_151700D8(&locals.vertices[0][0], *(f32 *)(actor + 0x14),
-                       *(f32 *)(actor + 0x1C), 5,
-                       *(f32 *)(actor + 0x14C) * 0.5f, 0, 4, 4, 0xFF, 0);
+        }
+        pos_x = *(f32 *)(D_800D154C + 0x14);
+        pos_z = *(f32 *)(D_800D154C + 0x1C);
+        func_151700D8(vertices[0], pos_x, pos_z, 5, *(f32 *)(D_800D154C + 0x14C) * 0.5f, 0, 4, 4, 0xFF, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1506E2CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506E2CC.s")
 s32 func_10010894(s32);
 s32 func_100107F8(u8 *, s32 *);
 s32 func_151F2CDC(u8 *, s32 *);
