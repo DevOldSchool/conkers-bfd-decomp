@@ -9,7 +9,6 @@
  * - func_1507EFD0
  * - func_1507F640
  * - func_1507FC2C
- * - func_1507FEA0
  * - func_1507FFD8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -282,9 +281,15 @@ void func_1507EFD0(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507EFD0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EFD0.s")
 typedef struct GameAC030AnimationState {
-    u8 pad0[4];
+    u8 mode;
+    u8 pad1;
+    u16 timer;
     u8 sequence;
     u8 frame;
+    u8 pad6[6];
+    u8 field_C;
+    u8 field_D;
+    s16 delay;
 } GameAC030AnimationState;
 
 typedef struct GameAC030NestedState {
@@ -293,7 +298,11 @@ typedef struct GameAC030NestedState {
 } GameAC030NestedState;
 
 typedef struct GameAC030RootState {
-    u8 pad0[0x31C];
+    u8 pad0[0x127];
+    u8 field_127;
+    u8 pad128[0x12];
+    u8 cooldown;
+    u8 pad13B[0x1E1];
     GameAC030NestedState *nested;
 } GameAC030RootState;
 
@@ -445,49 +454,45 @@ void func_1507FF94(void *);
 extern s32 D_800BE9E4;
 extern u8 D_800C35EA;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507FEA0 CURRENT (1655) */
-void func_1507FEA0(void *arg0) {
-    s16 temp_v0_2;
-    u16 temp_a1_2;
-    u8 temp_v1;
-    void *temp_a1;
-    void *temp_a1_3;
-    void *temp_v0;
+void func_1507FEA0(GameAC030RootState *arg0) {
+    GameAC030AnimationState *anim;
+    u8 cooldown;
+    u16 timer;
+    s16 delay;
+    s32 limit;
 
-    temp_a1 = *(void **)((u8 *)arg0 + 0x31C);
-    if ((temp_a1 != 0) && (*(u8 *)((u8 *)arg0 + 0x127) != 0xFF)) {
-        temp_v1 = *(u8 *)((u8 *)arg0 + 0x13A);
-        temp_v0 = (u8 *)temp_a1 + 0x58;
-        if (temp_v1 != 0) {
-            *(u8 *)((u8 *)arg0 + 0x13A) = temp_v1 - 1;
-        }
-        if ((*(u8 *)((u8 *)temp_a1 + 0x58) == 1) && (D_800C35EA != 1)) {
-            temp_a1_2 = *(u16 *)((u8 *)temp_v0 + 2);
-            if ((s32)temp_a1_2 < (0xFFFF - D_800BE9E4)) {
-                *(u16 *)((u8 *)temp_v0 + 2) = temp_a1_2 + D_800BE9E4;
-            }
-        } else {
-            *(u16 *)((u8 *)temp_v0 + 2) = 0;
-            *(u8 *)((u8 *)temp_v0 + 4) = 0;
-            *(u8 *)((u8 *)temp_v0 + 5) = 0;
-            *(u8 *)((u8 *)temp_v0 + 0xC) = 0;
-            *(u8 *)((u8 *)temp_v0 + 0xD) = 0;
-        }
-        temp_a1_3 = *(void **)((u8 *)arg0 + 0x31C);
-        temp_v0_2 = *(s16 *)((u8 *)temp_a1_3 + 0x66);
-        if (temp_v0_2 != 0) {
-            if (D_800BE9E4 < temp_v0_2) {
-                *(s16 *)((u8 *)temp_a1_3 + 0x66) = temp_v0_2 - D_800BE9E4;
-            } else {
-                func_1507FF94(arg0);
-                *(s16 *)((u8 *)*(void **)((u8 *)arg0 + 0x31C) + 0x66) = 0;
-            }
-        }
-        func_1507FC2C(arg0);
+    if ((arg0->nested == NULL) || (arg0->field_127 == 0xFF)) {
+        return;
     }
+    cooldown = arg0->cooldown;
+    anim = &arg0->nested->animation;
+    if (cooldown != 0) {
+        arg0->cooldown = cooldown - 1;
+    }
+    if ((anim->mode == 1) && (D_800C35EA != 1)) {
+        limit = 0xFFFF - D_800BE9E4;
+        timer = anim->timer;
+        if (timer < limit) {
+            anim->timer = timer + D_800BE9E4;
+        }
+    } else {
+        anim->timer = 0;
+        anim->sequence = 0;
+        anim->frame = 0;
+        anim->field_C = 0;
+        anim->field_D = 0;
+    }
+    delay = arg0->nested->animation.delay;
+    if (delay != 0) {
+        if (D_800BE9E4 < delay) {
+            arg0->nested->animation.delay = delay - D_800BE9E4;
+        } else {
+            func_1507FF94(arg0);
+            arg0->nested->animation.delay = 0;
+        }
+    }
+    func_1507FC2C(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507FEA0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507FEA0.s")
 void func_15191B8C();
 
 void func_1507FF94(void *arg0) {

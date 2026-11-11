@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150FF084
- * - func_150FF2D4
  * - func_150FF474
  * - func_150FF6E0
  *
@@ -200,28 +199,23 @@ f32 fabsf(f32);
 f32 sqrtf(f32);
 #pragma intrinsic(fabsf)
 #pragma intrinsic(sqrtf)
-extern f32 D_800A2120;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FF2D4 CURRENT (1702) */
 void func_150FF2D4(u8 *arg0, void *arg1, f32 *arg2, void *arg3,
                     void *arg4, f32 *arg5, s32 arg6, s32 arg7, s32 arg8,
                     s32 arg9, s32 arg10, s32 arg11, f32 *arg12,
                     f32 *arg13, s32 arg14) {
     f32 directionX;
     f32 directionZ;
-    f32 x;
-    f32 z;
-    f32 length;
-    u8 result;
 
-    result = *arg0;
-    if (result != 0) {
-        result = func_150FF6E0(arg1, arg2, arg3, arg4, arg12, arg13, arg14);
-        *arg0 = result;
+    if (*arg0 != 0) {
+        *arg0 = func_150FF6E0(arg1, arg2, arg3, arg4, arg12, arg13, arg14);
     }
-    if (result == 0) {
+    if (*arg0 == 0) {
+        f32 x;
         x = arg5[0];
-        if (D_800A2120 < fabsf(x) || D_800A2120 < fabsf(arg5[2])) {
+        if (0.0001f < fabsf(x) || 0.0001f < fabsf(arg5[2])) {
+            f32 z;
+            f32 length;
             z = arg5[2];
             length = 1.0f / sqrtf((x * x) + (z * z));
             directionX = z * length;
@@ -233,15 +227,11 @@ void func_150FF2D4(u8 *arg0, void *arg1, f32 *arg2, void *arg3,
         arg2[0] = arg13[5] + (34.0f * directionZ);
         arg2[1] = arg13[6] + 49.0f;
         arg2[2] = arg13[7] + (34.0f * directionX);
-        ((u32 *)arg12)[0] = ((u32 *)arg2)[0];
-        ((u32 *)arg12)[1] = ((u32 *)arg2)[1];
-        ((u32 *)arg12)[2] = ((u32 *)arg2)[2];
+        *(Vec3f *)arg12 = *(Vec3f *)arg2;
     }
     func_151D5174(arg13, arg2, arg5, arg6, arg7, arg8, arg9,
                    arg10, arg11, arg12);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FF2D4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12C1E0/func_150FF2D4.s")
 
 typedef struct Game12C1E0Particle {
     u8 kind, mode;

@@ -109,7 +109,7 @@ typedef struct Game173D40Effect {
     s16 field40;
 } Game173D40Effect;
 
-void func_15150F90(Game173D40Effect *, s32, s32, s32);
+void func_15150F90(Game173D40Effect *, u8, u8, s32);
 
 void func_15146A98(void *arg0, s32 arg1, s32 arg2) {
     Game173D40RawVec3 position;

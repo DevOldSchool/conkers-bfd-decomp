@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151D2F90
  * - func_151D3130
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -196,12 +195,11 @@ extern void (*D_8008FC54[])(void *);
 extern void (*D_8008FC58[])(void *);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D2F90 CURRENT (1670) */
 void func_151D2F90(u8 *arg0) {
     u8 *actor;
-    u8 flags;
-    s32 previousMode;
-    s32 currentMode;
+    s32 flags;
+    u8 previousMode;
+    u8 currentMode;
     s8 callback;
 
     actor = *(u8 **)(arg0 + 0x10);
@@ -212,9 +210,11 @@ void func_151D2F90(u8 *arg0) {
         return;
     }
     if (*(s32 *)(actor + 0x1D4) != 0 && (actor[0x74] & 0xF) != 0xF) {
-        arg0[0x18] = flags | 2;
+        flags |= 2;
+        arg0[0x18] = flags;
     } else {
-        arg0[0x18] = flags & ~2;
+        flags &= ~2;
+        arg0[0x18] = flags;
     }
     if (arg0[0x18] & 1) {
         *(s16 *)(arg0 + 0x16) -= D_800BE9E4;
@@ -228,7 +228,7 @@ void func_151D2F90(u8 *arg0) {
         }
     }
     currentMode = arg0[0x18] & 2;
-    if (currentMode != previousMode) {
+    if (previousMode != currentMode) {
         if (currentMode != 0) {
             D_8008FC50[*(s8 *)(arg0 + 0x1A)](arg0);
         } else {
@@ -240,8 +240,6 @@ void func_151D2F90(u8 *arg0) {
         func_1516972C(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D2F90 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2F90.s")
 extern void (*D_8008FC48[])(void *, void *);
 extern void (*D_8008FC5C[])(s32);
 

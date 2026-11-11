@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_parser_actor_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15015920
  * - func_15015A38
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -24,34 +23,22 @@ void func_10004514(s32, s32, s32, s32);
 void func_10004074(s32);
 void func_15015A38(void *, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15015920 CURRENT (1714) */
 void func_15015920(s16 arg0) {
     u8 *buffer;
     u8 *cursor;
     s32 index;
-    register u8 *range;
 
     buffer = func_10003C6C(0x2800, 1, 2, 1, 0);
-    range = (u8 *)&D_80082F80[arg0];
-    func_10004514(*(s32 *)range, (s32)buffer,
-                  (s32)(*(u32 *)(range + 4) - *(u32 *)range), 1);
+    func_10004514((s32)D_80082F80[arg0].start, (s32)buffer, (s32)D_80082F80[arg0].end - (s32)D_80082F80[arg0].start, 1);
     cursor = buffer;
     index = 0;
-    if (((u32)buffer + 0xF) <
-        ((u32)buffer + *(u32 *)(range + 4) - *(u32 *)range)) {
-        do {
-            func_15015A38(cursor, index, arg0);
-            cursor = (u8 *)((u32)cursor + ((u32)cursor[4] << 24) +
-                            ((u32)cursor[5] << 16) +
-                            ((u32)cursor[6] << 8) + cursor[7]);
-            index++;
-        } while (((u32)cursor + 0xF) <
-                 ((u32)buffer + *(u32 *)(range + 4) - *(u32 *)range));
+    while ((u32)(cursor + 0xF) < (u32)buffer + (u32)D_80082F80[arg0].end - (u32)D_80082F80[arg0].start) {
+        func_15015A38(cursor, index, arg0);
+        cursor += (cursor[4] << 24) + (cursor[5] << 16) + (cursor[6] << 8) + cursor[7];
+        index++;
     }
     func_10004074((s32)buffer);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15015920 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_42DD0/func_15015920.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15015A38 CURRENT (8173) */
 void func_15015A38(void *arg0, s32 glyph, s32 bank) {
     u8 *source = arg0;

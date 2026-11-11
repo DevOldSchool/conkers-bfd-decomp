@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_174BF0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_effect_dispatch_engine.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15147C4C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 extern s32 D_800BE9E4;
@@ -210,28 +205,20 @@ void *func_15147A80(u8 *arg0, s32 arg1, s32 arg2, s32 arg3,
 extern s32 func_151462C8(s32, void *, s32, s32, s32, s32, void *, s32, s32);
 extern s32 (*D_8008A2A4[])(u8 *, s32, s16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15147C4C CURRENT (1679) */
 s32 func_15147C4C(s32 arg0, u8 *arg1, s16 arg2) {
-    s32 arg8;
     u8 index;
 
-    if (*(u16 *)(arg1 + 0x1E) & 0x20) {
-        arg8 = *(s32 *)(arg1 + 0x28);
-    } else {
-        arg8 = 0;
-    }
-
-    arg0 = func_151462C8(arg0, arg1 + 0x34, 0, 0, 0, arg2, arg1 + 0x54, 2, arg8);
+    arg0 = func_151462C8(arg0, arg1 + 0x34, 0, 0, 0, arg2, arg1 + 0x54, 2, (*(u16 *)(arg1 + 0x1E) & 0x20) ? *(s32 *)(arg1 + 0x28) : 0);
     index = arg1[0x31];
     if (index >= 0x13) {
         func_1516972C(arg1);
-    } else if (index != 0) {
+        return arg0;
+    }
+    if (index != 0) {
         return D_8008A2A4[index](arg1, arg0, arg2);
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15147C4C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_174BF0/func_15147C4C.s")
 extern void (*D_8008A390[])(void *, s32, u8);
 
 void func_15147D1C(void *arg0, s32 arg1, u8 arg2) {

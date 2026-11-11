@@ -14,7 +14,6 @@
  * - func_1502DF38
  * - func_1502E4C4
  * - func_1502EC34
- * - func_1502EEF4
  * - func_1502F01C
  * - func_1502F264
  * - func_1502F3C8
@@ -174,7 +173,9 @@ typedef struct Game58F80Actor {
     u8 pad20[0x45];
     u8 owner65;
     u8 flags66;
-    u8 pad67[0x21];
+    u8 pad67[0x5];
+    u8 field6C[2];
+    u8 pad6E[0x1A];
     u8 field88;
     u8 pad89[0x43];
     s16 fieldCC;
@@ -1199,40 +1200,29 @@ s32 func_1502EE8C(s32 arg0, s32 arg1) {
 }
 s32 func_1507E3C0(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502EEF4 CURRENT (1750) */
 void func_1502EEF4(s32 arg0) {
-    s32 temp_v1;
-    s32 var_s1;
-    u8 temp_v0;
-    u8 temp_v0_2;
-    void *var_s0;
+    u8 state;
+    s32 i;
 
-    var_s0 = (arg0 * 0x32C) + &D_800CC2D0;
-    var_s1 = 0;
-    do {
-        if (*(u8 *)((u8 *)var_s0 + 0x6C) < 0xA) {
-            temp_v1 = func_1502EE8C(arg0, var_s1) & 0xFF;
-            if (temp_v1 == 0) {
-                temp_v0 = *(u8 *)((u8 *)var_s0 + 0x6C);
-                if (temp_v0 > 0) {
-                    *(u8 *)((u8 *)var_s0 + 0x6C) = temp_v0 - 1;
-                }
-            } else if (1 == temp_v1) {
-                temp_v0_2 = *(u8 *)((u8 *)var_s0 + 0x6C);
-                if (temp_v0_2 < 2) {
-                    *(u8 *)((u8 *)var_s0 + 0x6C) = temp_v0_2 + 1;
-                }
-            } else {
-                *(u8 *)((u8 *)var_s0 + 0x6C) = 1;
-            }
+    for (i = 0; i != 2; i++) {
+        if (((Game58F80Actor *)&D_800CC2D0)[arg0].field6C[i] >= 10) {
+            continue;
         }
-        var_s1 += 1;
-        var_s0 = (u8 *)var_s0 + 1;
-    } while (var_s1 != 2);
-    func_1507E3C0((arg0 * 0x32C) + &D_800CC2D0);
+        state = func_1502EE8C(arg0, i);
+        if (state == 0) {
+            if (((Game58F80Actor *)&D_800CC2D0)[arg0].field6C[i] > 0) {
+                ((Game58F80Actor *)&D_800CC2D0)[arg0].field6C[i]--;
+            }
+        } else if (state == 1) {
+            if (((Game58F80Actor *)&D_800CC2D0)[arg0].field6C[i] < 2) {
+                ((Game58F80Actor *)&D_800CC2D0)[arg0].field6C[i]++;
+            }
+        } else {
+            ((Game58F80Actor *)&D_800CC2D0)[arg0].field6C[i] = 1;
+        }
+    }
+    func_1507E3C0(&((Game58F80Actor *)&D_800CC2D0)[arg0]);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502EEF4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502EEF4.s")
 typedef struct Game58F80TileExtent {
     u32 words[2];
     u16 width;

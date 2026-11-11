@@ -9,16 +9,13 @@
  * - func_151D9014
  * - func_151D9534
  * - func_151D9B8C
- * - func_151D9FC0
  * - func_151DA08C
  * - func_151DA368
  * - func_151DA6F8
- * - func_151DA938
  * - func_151DB5D0
  * - func_151DBAA8
  * - func_151DBCBC
  * - func_151DC034
- * - func_151DC260
  * - func_151DC484
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -630,26 +627,18 @@ void func_151D9EB0(u8 *arg0) {
             (s16)((func_150ADA20() % 111U) + 0x1E);
     }
 }
-void func_151DBCBC(s32, f32, s32, s32, f32 *, s32, s32);
+void func_151DBCBC(u8, f32, s16, s32, f32 *, u8, s32);
 void func_151DA08C(u8, f32, s32, u8, s32, s32, f32 *, s32, s32);
 extern f32 D_800AB46C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D9FC0 CURRENT (1544) */
 void func_151D9FC0(u8 arg0, f32 arg1, u8 arg2, s32 arg3, f32 *arg4,
                    u8 arg5, s32 arg6) {
-    register u8 kind;
-
-    kind = arg0 & 0xFF;
-    arg0 = kind;
-    func_151DBCBC(kind, arg1 * 0.5f, arg2, arg3, arg4, (s32)arg5,
-                  arg6);
+    func_151DBCBC(arg0, arg1 * 0.5f, arg2, arg3, arg4, arg5, arg6);
     if ((arg0 != 5) && (arg0 != 2)) {
         func_151DA08C(arg0, arg1 * D_800AB46C, 0x3F8147AE, arg2, 0x64,
-                      arg3, arg4, (s32)arg5, arg6);
+                      arg3, arg4, arg5, arg6);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D9FC0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9FC0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DA08C.s")
 void *func_151DB5D0(s32, f32 *, f32 *, f32, f32, f32, f32,
                     s32, s32, s32, s32, s32, s32, s32);
@@ -855,7 +844,6 @@ void *func_151DA6F8(Game2062D0Vector3 *arg0, Game2062D0Vector3 *arg1,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DA6F8.s")
 
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
-extern f32 D_800AB49C;
 typedef struct {
     f32 x;
     u8 pad4[4];
@@ -863,31 +851,41 @@ typedef struct {
     u8 padC[8];
 } Game2062D0Position;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DA938 CURRENT (1578) */
+typedef struct {
+    f32 magnitude;
+    u8 pad4[0x17];
+    u8 field1B;
+    u8 pad1C[4];
+    s8 field20;
+    u8 pad21[0x27];
+    Game1DA6F8Extension extension;
+} Game1DA938Effect;
 s32 func_151DA938(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
                    s32 arg5) {
+    Game1DA6F8Extension *extension;
+    s32 random;
     f32 position[3];
     Game2062D0Position *base;
-    u8 *effect;
+    Game1DA938Effect *effect;
 
     base = *(Game2062D0Position **)(arg0 + 0x94);
-    effect = *(u8 **)(arg0 + 0x98);
+    effect = *(Game1DA938Effect **)(arg0 + 0x98);
     position[0] = base[*(s8 *)(arg0 + 0x2D)].x;
     position[1] = arg4 + 2.0f;
     position[2] = base[*(s8 *)(arg0 + 0x2D)].z;
-    if (func_150ADA20() & 1) {
-        func_151D9B8C(effect[0x50], *(f32 *)(effect + 0x48) * (*(f32 *)effect * 3.0f),
-                       effect[0x1B], arg5, position, 0x64, 0, 1, 0,
+    extension = &effect->extension;
+    random = func_150ADA20();
+    if (random & 1) {
+        func_151D9B8C(extension->kind, effect->magnitude * 3.0f * extension->scaleX,
+                       effect->field1B, arg5, position, 0x64, 0, 1, 0,
                        arg0[0xC], arg0[1]);
     } else {
-        func_151DAB58(effect[0x50], *(f32 *)(effect + 0x48) * (*(f32 *)effect * D_800AB49C),
-                       effect[0x1B], position, 1, arg0[0xC], arg0[1]);
+        func_151DAB58(extension->kind, effect->magnitude * 1.1f * extension->scaleX,
+                       effect->field1B, position, 1, arg0[0xC], arg0[1]);
     }
-    *(s8 *)(effect + 0x20) = 4;
+    effect->field20 = 4;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DA938 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DA938.s")
 void func_151D9FC0(u8, f32, u8, s32, f32 *, u8, s32);
 
 s32 func_151DAA88(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
@@ -1460,7 +1458,7 @@ typedef struct Game1DBCBCPacket {
 void *func_1513C5B0(s32, s32, u8, u8, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151DBCBC CURRENT (3624) */
-void func_151DBCBC(s32 arg0, f32 arg1, s32 arg2, s32 arg3, f32 *arg4, s32 arg5, s32 arg6) {
+void func_151DBCBC(u8 arg0, f32 arg1, s16 arg2, s32 arg3, f32 *arg4, u8 arg5, s32 arg6) {
     Game1DBCBCPacket packet;
     s32 random1;
     s32 random2;
@@ -1684,10 +1682,8 @@ extern f32 D_800AB4D8;
 extern f32 D_800AB4DC;
 extern f32 D_800AB4E0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DC260 CURRENT (1543) */
-void func_151DC260(Game2062D0Vector3 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+void func_151DC260(Game2062D0Vector3 *arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4) {
     Game2062D0Params params;
-    Game2062D0SecondaryParams secondary;
 
     params.vector = *arg0;
     params.field50 = 0xA;
@@ -1712,34 +1708,36 @@ void func_151DC260(Game2062D0Vector3 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 ar
     params.field48 = 12.0f;
     params.field4C = 11.0f;
     params.field64 = 1.0f;
-    params.field60 = (u8)arg2;
-    func_15153F18(&params.field24, &params.vector, arg1, (u8)arg3, arg4);
-    secondary.vector = *arg0;
-    secondary.field14 = 0xC;
-    secondary.field16 = 6;
-    secondary.field02 = 0xFF;
-    secondary.field18 = 6.0f;
-    secondary.field1C = 8.0f;
-    secondary.field00 = 0;
-    secondary.field04 = -0x40;
-    secondary.field06 = 0x24;
-    secondary.field20 = 0x23;
-    secondary.field22 = 0xF;
-    secondary.field2C = 0x9B;
-    secondary.field2D = 0x64;
-    secondary.field38 = 1;
-    secondary.field40 = 1;
-    secondary.field24 = D_800AB4D8;
-    secondary.field28 = D_800AB4DC;
-    secondary.field30 = 123.0f;
-    secondary.field34 = 134.0f;
-    secondary.field39 = (u8)arg2;
-    secondary.field3C = D_800AB4E0;
-    secondary.field44 = 0.0f;
-    func_15150178(&secondary.field00, (f32 *)&secondary.vector, arg1, arg3, arg4);
+    params.field60 = arg2;
+    func_15153F18(&params.field24, &params.vector, arg1, arg3, arg4);
+    {
+        Game2062D0SecondaryParams secondary;
+
+        secondary.vector = *arg0;
+        secondary.field14 = 0xC;
+        secondary.field16 = 6;
+        secondary.field02 = 0xFF;
+        secondary.field18 = 6.0f;
+        secondary.field1C = 8.0f;
+        secondary.field00 = 0;
+        secondary.field04 = -0x40;
+        secondary.field06 = 0x24;
+        secondary.field20 = 0x23;
+        secondary.field22 = 0xF;
+        secondary.field2C = 0x9B;
+        secondary.field2D = 0x64;
+        secondary.field38 = 1;
+        secondary.field39 = arg2;
+        secondary.field40 = 1;
+        secondary.field24 = D_800AB4D8;
+        secondary.field28 = D_800AB4DC;
+        secondary.field30 = 123.0f;
+        secondary.field34 = 134.0f;
+        secondary.field3C = D_800AB4E0;
+        secondary.field44 = 0.0f;
+        func_15150178(&secondary.field00, (f32 *)&secondary.vector, arg1, arg3, arg4);
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DC260 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DC260.s")
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151DC484 CURRENT (2910) */
 void func_151DC484(Game2062D0Vector3 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {

@@ -151,47 +151,36 @@ typedef struct GameF4D20Object7C90 {
     s16 angle;
 } GameF4D20Object7C90;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7C90 CURRENT (1603) */
-void func_150C7C90(void *arg0) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7C90 CURRENT (10) */
+void func_150C7C90(GameF4D20State7C90 *arg0) {
+    s32 angle;
     s32 *entry;
-    s8 *entries;
     s32 index;
     s32 current;
-    s32 angle;
-    s32 value;
-    void *object;
 
-    current = *(s32 *)((u8 *)arg0 + 0x7C);
+    current = arg0->index;
     if (current == 0) {
-        entries = *(s8 **)((u8 *)arg0 + 0x1C);
+        entry = (s32 *)arg0->entries;
         index = 0;
-        if (*entries != -0xE) {
-            do {
-                index++;
-            } while (*(s8 *)(entries + (index * 8)) != -0xE);
+        while (*((s8 *)entry + (index << 3)) != -14) {
+            index++;
         }
-        *(s32 *)((u8 *)arg0 + 0x7C) = index;
+        arg0->index = index;
         current = index;
     }
-    entry = (s32 *)(*(s8 **)((u8 *)arg0 + 0x1C) + (current * 8));
-    object = func_151149AC(*(s32 *)((u8 *)arg0 + 0x3C) & 0xFF, entry, arg0);
-    angle = -0x29D - *(s16 *)((u8 *)object + 0x12);
-    if (*(s32 *)((u8 *)arg0 + 0x3C) & 0x8000) {
+    entry = (s32 *)&arg0->entries[current];
+    angle = -0x29D - ((GameF4D20Object7C90 *)func_151149AC(arg0->flags & 0xFF))->angle;
+    if (arg0->flags & 0x8000) {
         angle = 0x344 - angle;
     }
-    if (angle < 0) {
-        do {
-            angle += 0x400;
-        } while (angle < 0);
+    while (angle < 0) {
+        angle += 0x400;
     }
-    if (angle >= 0x400) {
-        do {
-            angle -= 0x400;
-        } while (angle >= 0x400);
+    while (angle >= 0x400) {
+        angle -= 0x400;
     }
-    value = *entry & ~0xFFF;
-    *entry = value;
-    *entry = value | angle;
+    *entry &= ~0xFFF;
+    *entry |= angle;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C7C90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F4D20/func_150C7C90.s")

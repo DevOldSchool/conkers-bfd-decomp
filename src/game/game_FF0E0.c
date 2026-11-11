@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_child_chain_render_lists.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150D1C30
  * - func_150D1F6C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -39,15 +38,10 @@ s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *, f32 *, f32 *, f32
 extern f32 D_800A08F0[][3];
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D1C30 CURRENT (1598) */
 void func_150D1C30(u8 *arg0) {
     GameFF0E0Motion *state;
-    u8 *disabledChild;
-    f32 matrix[4][4];
     u8 *child;
-    f32 targetZ, targetY, targetX;
-    f32 pointZ, pointY, pointX;
-    f32 fraction;
+    f32 matrix[4][4];
     s32 index;
 
     state = (GameFF0E0Motion *)(arg0 + 0x28);
@@ -56,10 +50,13 @@ void func_150D1C30(u8 *arg0) {
         state->rotation[1] += state->velocity[1] * D_800BE9A4;
         state->rotation[2] += state->velocity[2] * D_800BE9A4;
         func_150A8050(matrix, state->rotation[0], state->rotation[1], state->rotation[2]);
-        index = 0;
-        do {
+        for (index = 0; index != 6; index++) {
             child = state->children[index];
             if (child != NULL) {
+                f32 targetZ, targetY, targetX;
+                f32 pointZ, pointY, pointX;
+                f32 fraction;
+
                 func_150A7960(matrix, D_800A08F0[index][0], D_800A08F0[index][1],
                               D_800A08F0[index][2], &targetX, &targetY, &targetZ);
                 if (func_150AC9C0(state->position[0], state->position[1], state->position[2],
@@ -74,17 +71,16 @@ void func_150D1C30(u8 *arg0) {
                     (*(u8 **)(child + 0x14))[9] = 1;
                 }
             }
-            index++;
-        } while (index != 6);
+        }
     } else {
         for (index = 0; index < 6; index++) {
-            disabledChild = state->children[index];
-            if (disabledChild != NULL) (*(u8 **)(disabledChild + 0x14))[9] = 1;
+            u8 *disabledChild = state->children[index];
+            if (disabledChild != NULL) {
+                (*(u8 **)(disabledChild + 0x14))[9] = 1;
+            }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D1C30 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FF0E0/func_150D1C30.s")
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150D1F6C CURRENT (1915) */
 void func_150D1F6C(u8 *arg0, u8 *arg1, u8 arg2) {

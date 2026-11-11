@@ -20,7 +20,6 @@
  * - func_15143E94
  * - func_1514401C
  * - func_15144CEC
- * - func_15144E80
  * - func_151452C4
  * - func_1514563C
  * - func_15145740
@@ -29,7 +28,6 @@
  * - func_15145EA4
  * - func_15146078
  * - func_151462C8
- * - func_1514654C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1835,9 +1833,7 @@ s32 func_15144CEC(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15144CEC.s")
 
 void func_151450B4(void *, void *, void *);
-void *memcpy(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15144E80 CURRENT (1615) */
 s32 func_15144E80(void *arg0, void *arg1, void *arg2, void *arg3) {
     typedef struct {
         f32 x;
@@ -1884,11 +1880,9 @@ s32 func_15144E80(void *arg0, void *arg1, void *arg2, void *arg3) {
     second_edge.z = vertices[2].z - vertices[1].z;
     func_151450B4(&first_edge, &second_edge, arg3);
     func_151450B4(&first_edge, arg3, arg1);
-    memcpy(arg2, &first_edge, sizeof(first_edge));
+    *(TriangleVector *)arg2 = first_edge;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15144E80 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15144E80.s")
 void func_151450B4(void *arg0, void *arg1, void *arg2) {
     *(f32 *)((u8 *)arg2 + 0) = (f32) ((*(f32 *)((u8 *)arg0 + 4) * *(f32 *)((u8 *)arg1 + 8)) - (*(f32 *)((u8 *)arg1 + 4) * *(f32 *)((u8 *)arg0 + 8)));
     *(f32 *)((u8 *)arg2 + 4) = (f32) ((*(f32 *)((u8 *)arg0 + 8) * *(f32 *)((u8 *)arg1 + 0)) - (*(f32 *)((u8 *)arg1 + 8) * *(f32 *)((u8 *)arg0 + 0)));
@@ -2031,37 +2025,26 @@ void func_15145548(void *arg0, void *arg1, void *arg2, void *arg3, f32 *arg4) {
         *(Copy3 *)arg3 = *(Copy3 *)arg0;
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514563C CURRENT (1600) */
-s32 func_1514563C(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3,
-                  f32 *arg4) {
-    f32 sp10;
-    f32 sp0;
-    f32 temp_fa0;
-    f32 temp_fa1;
-    f32 temp_ft1;
-    f32 temp_fv0;
-    f32 temp_fv1;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514563C CURRENT (20) */
+s32 func_1514563C(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4) {
+    f32 len;
+    f32 d0;
+    f32 d2;
+    f32 dflt;
 
     if (arg4 == 0) {
-        arg4 = &sp10;
+        arg4 = &dflt;
     }
-    temp_fv1 = arg1[0];
-    temp_fa0 = arg1[1];
-    temp_fa1 = arg1[2];
-    temp_fv0 = (temp_fv1 * temp_fv1) + (temp_fa0 * temp_fa0) +
-               (temp_fa1 * temp_fa1);
-    if (temp_fv0 == 0.0f) {
+    len = (arg1[2] * arg1[2]) + ((arg1[1] * arg1[1]) + (arg1[0] * arg1[0]));
+    if (len == 0.0f) {
         return 0;
     }
-    temp_ft1 = (((temp_fv1 * arg2[0]) + (temp_fa0 * arg2[1]) +
-                 (temp_fa1 * arg2[2])) -
-                ((temp_fv1 * arg0[0]) + (temp_fa0 * arg0[1]) +
-                 (temp_fa1 * arg0[2]))) / temp_fv0;
-    sp0 = temp_ft1;
-    *arg4 = temp_ft1;
-    arg3[0] = (temp_ft1 * arg1[0]) + arg0[0];
-    arg3[1] = (*arg4 * arg1[1]) + arg0[1];
-    arg3[2] = (*arg4 * arg1[2]) + arg0[2];
+    d0 = (arg1[2] * arg0[2]) + ((arg1[1] * arg0[1]) + (arg1[0] * arg0[0]));
+    d2 = (arg1[2] * arg2[2]) + ((arg1[1] * arg2[1]) + (arg1[0] * arg2[0]));
+    *arg4 = (d2 - d0) / len;
+    arg3[0] = arg0[0] + (arg1[0] * *arg4);
+    arg3[1] = arg0[1] + (arg1[1] * *arg4);
+    arg3[2] = arg0[2] + (arg1[2] * *arg4);
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514563C */
@@ -2574,79 +2557,56 @@ void *func_1503195C(void *, s32, s32);
 void func_15145EA4(f32 **, f32 **, s32, s32);
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514654C CURRENT (1533) */
 s32 func_1514654C(u8 *arg0, Game16EE20TransformNode *arg1, s32 arg2,
                    f32 **arg3, f32 **arg4, s32 arg5) {
+    f32 (*base)[4][4];
+    s32 matrix;
+    s32 i;
     s32 selected;
     s32 auxiliary;
     f32 transform[4][4];
-    f32 **inputs;
-    f32 **outputs;
-    s32 base;
-    s32 matrix;
-    s32 index;
-    u16 childId;
-    u8 *model;
-    f32 *input;
-    f32 *output;
 
     if ((arg0 == 0) || (arg1 == 0) ||
-        ((base = *(s32 *)(arg0 + 0x1D4)) == 0)) {
+        ((base = *(f32 (**)[4][4])(arg0 + 0x1D4)) == 0)) {
         return 0;
     }
-    model = arg1->model;
-    if (model != 0) {
-        if (model[0x3F6] == 0) {
+    if (arg1->model != 0) {
+        if (arg1->model[0x3F6] == 0) {
             return 0;
         }
-        matrix = ((s32 *)(model + 0x3E8))[D_800BE9C0] + (arg2 << 6);
-    } else {
-        childId = arg1->child;
-        if (childId != 0) {
-            model = func_1503195C(arg0, childId, 0);
-            if (model == 0) {
-                return 0;
-            }
-            if (func_15031070(model, arg0, &selected, &auxiliary) == 0) {
-                return 0;
-            }
-            matrix = selected;
-            if (*(s32 *)(model + 0x48) != 0) {
-                matrix = (arg1->childTransform << 6) + selected;
-            }
-        } else {
-            matrix = arg1->transforms;
-            if (matrix != 0) {
-                matrix += D_800BE9C0 << 6;
-            } else {
-                func_15145EA4(arg3, arg4,
-                              base + (arg1->transformIndex << 6), arg5);
-                return 1;
-            }
+        matrix = ((s32 *)(arg1->model + 0x3E8))[D_800BE9C0] + (arg2 << 6);
+    } else if (arg1->child) {
+        u8 *model;
+
+        model = func_1503195C(arg0, arg1->child, 0);
+        if (model == 0) {
+            return 0;
         }
-    }
-    if (matrix != 0) {
-            func_151EFEB8(transform, matrix);
-            index = 0;
-            inputs = arg3;
-            outputs = arg4;
-            if (arg5 > 0) {
-                do {
-                    input = *inputs;
-                    output = *outputs;
-                    func_150A7960(transform, input[0], input[1], input[2],
-                                  output, output + 1, output + 2);
-                    index++;
-                    inputs++;
-                    outputs++;
-                } while (index != arg5);
-            }
+        if (func_15031070(model, arg0, &selected, &auxiliary) == 0) {
+            return 0;
+        }
+        if (*(s32 *)(model + 0x48) != 0) {
+            matrix = (arg1->childTransform << 6) + selected;
+        } else {
+            matrix = selected;
+        }
+    } else if (arg1->transforms != 0) {
+        matrix = arg1->transforms + (D_800BE9C0 << 6);
+    } else {
+        func_15145EA4(arg3, arg4, (s32)base[arg1->transformIndex], arg5);
         return 1;
     }
-    return 0;
+    if (matrix != 0) {
+        func_151EFEB8(transform, matrix);
+        for (i = 0; i < arg5; i++) {
+            func_150A7960(transform, arg3[i][0], arg3[i][1], arg3[i][2],
+                          arg4[i], arg4[i] + 1, arg4[i] + 2);
+        }
+    } else {
+        return 0;
+    }
+    return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514654C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_1514654C.s")
 
 
 

@@ -9,7 +9,6 @@
  * - func_150E76D0
  * - func_150E7C9C
  * - func_150E7FEC
- * - func_150E81A8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -324,18 +323,15 @@ void *func_151D8868(s8 *, s32, s32, s32);
 extern Vec3f D_800A1290[];
 extern f32 D_800A1354, D_800A1358, D_800A135C, D_800A1360, D_800A1364;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E81A8 CURRENT (1696) */
-void func_150E81A8(s32 arg0, s32 arg1, s32 arg2) {
+void func_150E81A8(u8 arg0, u8 arg1, s32 arg2) {
     Vec3f position;
     GameE81A8Effect effect;
     GameE81A8Event event;
-    s32 selector;
 
-    selector = arg0 & 0xFF;
-    if (selector == 4 || selector == 5 || selector == 6 || selector == 7) {
-        position = D_800A1290[selector];
+    if (arg0 == 4 || arg0 == 5 || arg0 == 6 || arg0 == 7) {
+        position = D_800A1290[arg0];
         position.y += 200.0f;
-        func_151D3FF4((s32)&position, (u8)arg1, arg2);
+        func_151D3FF4(&position.x, arg1, arg2);
         effect.field00 = 0;
         effect.field02 = 0xFF;
         effect.field04 = -0x40;
@@ -362,7 +358,7 @@ void func_150E81A8(s32 arg0, s32 arg1, s32 arg2) {
         effect.field40 = D_800A135C;
         effect.field44 = D_800A1360;
         effect.field48 = D_800A1364;
-        func_1514FCE8(&effect.field00, (u8)arg1, arg2);
+        func_1514FCE8(&effect.field00, arg1, arg2);
         event.field0 = 1;
         event.field2 = ((u32)func_150ADA20() % 11U) + 0x1E;
         event.field4 = 8;
@@ -371,8 +367,6 @@ void func_150E81A8(s32 arg0, s32 arg1, s32 arg2) {
         func_151D8868(&event.field0, 0, 0xFF, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E81A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E81A8.s")
 void *func_10022EC0(void *, const void *, u32);
 
 void func_150E83AC(void *arg0, s16 arg1, u8 arg2, s32 arg3) {
