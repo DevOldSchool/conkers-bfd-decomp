@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1509EFF0
  * - func_1509F284
- * - func_1509F354
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -50,40 +49,32 @@ s32 func_10010344(s32, s32, u32, s16, s32);         /* extern */
 s32 func_10010894(s32);                             /* extern */
 s32 func_1505EEF4(s32);                             /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509F354 CURRENT (1747) */
 u32 func_1509F354(s32 arg0, s32 arg1, u32 arg2, u32 arg3, s32 arg4, s16 arg5, s32 arg6) {
-    s32 sp2C;
-    s32 temp_t0;
-    s32 temp_a0;
-    s32 temp_v0;
-    u32 temp_hi;
+    s32 result;
+    u8 count;
+    u8 pick;
 
-    temp_v0 = func_1505EEF4(arg4);
-    temp_a0 = temp_v0;
-    if (arg3 >= 0x8000U) {
-        arg3 = 0x7FFFU;
+    result = func_1505EEF4(arg4);
+    if (arg3 >= 0x8000) {
+        arg3 = 0x7FFF;
     }
-    if (temp_v0 == 0) {
+    if (result == 0) {
         return arg2;
-    } else {
-        sp2C = temp_a0;
-        if (func_10010894(temp_a0) == 0) {
-            if (arg2 == 0) {
-                arg2 = -1U >> ((0U - (((arg1 - arg0) + 1) & 0xFF)) & 31);
-            }
-            do {
-                temp_hi = func_150ADA20() % (u32) (((arg1 - arg0) + 1) & 0xFF);
-                temp_t0 = temp_hi & 0xFF;
-            } while (!((1U << (temp_hi & 31)) & arg2));
-            if (func_10010344((temp_t0 + arg0) & 0xFFFF, sp2C, arg3, arg5, arg6) != 0) {
-                arg2 ^= 1U << (temp_t0 & 31);
-            }
+    }
+    if (func_10010894(result) == 0) {
+        if (arg2 == 0) {
+            arg2 = -1U >> (32 - (u8)(arg1 - arg0 + 1));
+        }
+        count = arg1 - arg0 + 1;
+        do {
+            pick = func_150ADA20() % count;
+        } while (!((1 << pick) & arg2));
+        if (func_10010344((u16)(pick + arg0), result, arg3, arg5, arg6) != 0) {
+            arg2 ^= 1 << pick;
         }
     }
     return arg2;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509F354 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CC4A0/func_1509F354.s")
 s32 func_1000F568(s32, s32);
 void func_15114D24(void *, s32, s32, s16, s32, s32);
 

@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_call_connected_segments_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15084D00
  * - func_15084D70
  * - func_15085430
  * - func_15085710
@@ -25,8 +24,8 @@ typedef struct GameB21B0Object {
     GameB21B0Inner *inner;
 } GameB21B0Object;
 
-extern s32 D_80087240;
-extern u8 D_8009D954;
+extern u8 *D_80087240[];
+extern u8 D_8009D954[];
 
 /* Semantic role: actor_get_animation_model_representative.
  * Scans seven model-sharing groups, returning the first member of the first
@@ -34,46 +33,21 @@ extern u8 D_8009D954;
  * this bank-02 animation-resource model index separately at actor +6.
  * See docs/evidence/assets/naming/actor_animation_model_group_semantics.md.
  */
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15084D00 CURRENT (1665) */
 s32 func_15084D00(GameB21B0Object *arg0) {
-    s32 entry_index;
-    s32 group_index;
-    u8 *count;
-    u8 *entry;
-    u8 *group;
-    s32 group_size;
+    s32 i;
+    s32 j;
     s32 value;
 
     value = arg0->modelIndex;
-    count = &D_8009D954;
-    group_index = 0;
-loop_groups:
-    group_size = *count;
-    entry_index = 0;
-    if (group_size > 0) {
-        group = *(u8 **)((u8 *)&D_80087240 + (group_index * 4));
-        entry = group;
-loop_entries:
-        entry_index++;
-        if (value == *entry) {
-            return *group;
+    for (i = 0; i < 7; i++) {
+        for (j = 0; j < D_8009D954[i]; j++) {
+            if (value == D_80087240[i][j]) {
+                return D_80087240[i][0];
+            }
         }
-        entry++;
-        if (entry_index >= group_size) {
-            goto next_group;
-        }
-        goto loop_entries;
     }
-next_group:
-    group_index++;
-    count++;
-    if (group_index == 7) {
-        return value;
-    }
-    goto loop_groups;
+    return value;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15084D00 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_15084D00.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_15084D70.s")
 void func_15085410(GameB21B0Object *arg0, s32 arg1) {
     arg0->inner->field_11B = arg1;

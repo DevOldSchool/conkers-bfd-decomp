@@ -10,7 +10,6 @@
  * - func_15006BEC
  * - func_1500707C
  * - func_15007168
- * - func_1500727C
  * - func_15007360
  * - func_15007440
  * - func_15007558
@@ -95,75 +94,44 @@ void func_15007168(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_33990/func_15007168.s")
 void func_15007168(void);
 void func_151DD3A0(u8 *, s32, s16 *, s32);
-extern s16 D_800BE2F0;
-extern u8 D_800BE2F2;
-extern u8 D_800BE2F3;
-extern u8 D_800BE2F4;
+extern u8 D_800BE2F0[];
 extern u8 D_800BE900[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500727C CURRENT (1685) */
 void func_1500727C(void) {
-    s32 temp_t9;
-    s32 var_v0;
-    s32 var_v1;
-    void *var_a0;
+    s32 i;
+    u16 sum;
 
-    func_151DD3A0(D_800BE900, 0x44, &D_800BE2F0, 0x70);
-    var_a0 = &D_800BE2F4;
-    var_v0 = ((D_800BE2F2 * 4) + 0xCC + (D_800BE2F3 * 8)) & 0xFFFF;
-    var_v1 = 4;
-loop:
-        temp_t9 = (var_v0 +
-                   (*(u8 *)((u8 *)var_a0 + 0) << (var_v1 & 3)) +
-                   (*(u8 *)((u8 *)var_a0 + 1) << ((var_v1 + 1) & 3)) +
-                   (*(u8 *)((u8 *)var_a0 + 2) << ((var_v1 + 2) & 3)) +
-                   (*(u8 *)((u8 *)var_a0 + 3) << ((var_v1 + 3) & 3))) & 0xFFFF;
-        var_v1 += 4;
-        var_v0 = temp_t9;
-        var_a0 = (u8 *)var_a0 + 4;
-    if (var_v1 != 0x68) {
-        goto loop;
-    }
-    if (temp_t9 != (u16)D_800BE2F0) {
+    func_151DD3A0(D_800BE900, 0x44, (s16 *)D_800BE2F0, 0x70);
+    sum = 0xCC;
+    i = 2;
+    do {
+        sum += D_800BE2F0[i] << (i & 3);
+        i++;
+    } while (i < 0x68);
+    if (*(u16 *)D_800BE2F0 != sum) {
         func_15007168();
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1500727C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_33990/func_1500727C.s")
 s32 func_151DCEF0();
 extern u8 D_8002AC5C;
-extern s16 D_800BE2F0;
-extern u8 D_800BE2F2;
-extern u8 D_800BE2F3;
-extern u8 D_800BE2F4;
+extern u8 D_800BE2F0[];
 extern u8 D_800BE900[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15007360 CURRENT (1689) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15007360 CURRENT (140) */
 void func_15007360(void) {
-    volatile s32 result;
-    void *current;
-    s32 value;
-    s32 next;
-    s32 shift;
+    s32 i;
+    u16 sum;
+    s32 result;
 
-    current = &D_800BE2F4;
-    value = ((D_800BE2F2 * 4) + 0xCC + (D_800BE2F3 * 8)) & 0xFFFF;
-    shift = 4;
-loop:
-        next = (value +
-                (*(u8 *)((u8 *)current + 0) << (shift & 3)) +
-                (*(u8 *)((u8 *)current + 1) << ((shift + 1) & 3)) +
-                (*(u8 *)((u8 *)current + 2) << ((shift + 2) & 3)) +
-                (*(u8 *)((u8 *)current + 3) << ((shift + 3) & 3))) & 0xFFFF;
-        shift += 4;
-        value = next;
-        current = (u8 *)current + 4;
-    if (shift != 0x68) {
-        goto loop;
-    }
-    D_800BE2F0 = next;
+    sum = 0xCC;
+    i = 2;
+    do {
+        sum += D_800BE2F0[i] << (i & 3);
+        i++;
+    } while (i < 0x68);
+    *(u16 *)D_800BE2F0 = sum;
     if (D_8002AC5C == 0) {
-        result = func_151DCEF0(D_800BE900, 0x44, &D_800BE2F0, 0x70);
+        result = func_151DCEF0(D_800BE900, 0x44, D_800BE2F0, 0x70);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15007360 */

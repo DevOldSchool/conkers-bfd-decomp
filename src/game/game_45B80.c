@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1501878C
- * - func_15018F80
  * - func_150195A0
  * - func_150198FC
  * - func_15019F20
@@ -112,32 +111,25 @@ s32 func_15018F08(s32 arg0, s16 arg1) {
 }
 s32 func_1517F40C(s32);
 void func_1517F448(s32);
-void func_1501B640(void);
+/* Both callers load a0 before the jal (func_15018F80: or a0,s0,zero; func_15007B3C:
+ * or a0,zero,zero) although the definition in game_487D0.c ignores it. */
+void func_1501B640(s32);
 extern s32 D_8003C8E0;
 extern s16 D_800D3674;
 extern u8 *D_800DBFF0;
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15018F80 CURRENT (1634) */
-void func_15018F80(s32 arg0) {
-    void *sp24;
-    s32 var_s0;
+void func_15018F80(s16 arg0) {
+    u8 *sp24;
 
-    var_s0 = (s16)arg0;
-    sp24 = D_800DBFF0 + (var_s0 * 0x9A0);
+    sp24 = D_800DBFF0 + (arg0 * 0x9A0);
     D_8003C8E0 = 0x0A000000;
-    if ((func_1517F40C(var_s0) == 0) && (D_800BEAC0 == 0)) {
-        func_1517F448(var_s0);
+    if ((func_1517F40C(arg0) == 0) && (D_800BEAC0 == 0)) {
+        func_1517F448(arg0);
     }
-    func_1501B640();
-    if (*(f32 *)((u8 *)sp24 + 0x388) < 0.0f) {
-        D_800D3674 = -0x3E8;
-    } else {
-        D_800D3674 = 0x1388;
-    }
-    func_15172D80((s16)var_s0);
+    func_1501B640(arg0);
+    D_800D3674 = (*(f32 *)(sp24 + 0x388) < 0.0f) ? -0x3E8 : 0x1388;
+    func_15172D80(arg0);
     D_8003C8E0 = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15018F80 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_45B80/func_15018F80.s")
 void func_15019F20(void);
 void func_1501C1B0(void);
 void func_1501BB20(void);

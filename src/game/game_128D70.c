@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150FB8C0
- * - func_150FC818
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -185,31 +184,30 @@ void func_150FC614(u8 *arg0) {
     }
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FC818 CURRENT (1585) */
 void func_150FC818(u8 *arg0, u8 *arg1, u8 arg2) {
-    s32 first;
-    s32 second;
+    u8 *state = arg0 + 0x28;
     s32 current;
-    s32 alternate;
-    u8 subtype;
-    u8 *state;
 
     if (arg2 == 0) {
-        state = arg0 + 0x28;
+        s32 first;
+        s32 subtype;
+
         first = *(s32 *)arg1;
         current = *(s32 *)state;
         if ((current == first) ||
-            (subtype = arg1[4], subtype == state[4])) {
+            ((subtype = arg1[4]) == state[4])) {
             func_1516972C(arg0);
             return;
         }
-        alternate = *(s32 *)(state + 0x18);
-        if ((alternate != 0) &&
-            ((first == alternate) || (subtype == state[0x1C]))) {
+        current = *(s32 *)(state + 0x18);
+        if ((current != 0) &&
+            ((first == current) || (subtype == state[0x1C]))) {
             func_1516972C(arg0);
         }
     } else if (arg2 == 0x2D) {
-        state = arg0 + 0x28;
+        s32 first;
+        s32 second;
+
         first = *(s32 *)arg1;
         current = *(s32 *)state;
         if (first == current) {
@@ -223,19 +221,17 @@ void func_150FC818(u8 *arg0, u8 *arg1, u8 arg2) {
             state[4] = arg1[8];
             return;
         }
-        alternate = *(s32 *)(state + 0x18);
-        if (alternate != 0) {
-            if (first == alternate) {
+        current = *(s32 *)(state + 0x18);
+        if (current != 0) {
+            if (first == current) {
                 *(s32 *)(state + 0x18) = second;
                 state[0x1C] = arg1[9];
                 return;
             }
-            if (second == alternate) {
+            if (second == current) {
                 *(s32 *)(state + 0x18) = first;
                 state[0x1C] = arg1[8];
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FC818 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_128D70/func_150FC818.s")

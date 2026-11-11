@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151BFE84
  * - func_151C0698
- * - func_151C1180
  * - func_151C1D5C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -397,20 +396,13 @@ void func_151ABE40(void *, void *, s32, u8, s32);
 extern f32 D_800BE9A4;
 extern s32 (*D_800E0930)(void *, f32 *, f32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C1180 CURRENT (1627) */
 s32 func_151C1180(Game1ED0F0UpdateActor *arg0) {
-    s32 flags;
+    Game1ED0F0UpdateState *state;
     f32 scale;
     Vec3f delta;
-    Vec3f callbackHit;
-    Game1ED0F0Collision hit;
-    void *savedVector;
-    Game1ED0F0UpdateState *state;
-
 
     state = &arg0->state;
-    if (*(volatile f32 *)&arg0->state.lifetime < D_800BE9A4) {
-        state = &arg0->state;
+    if (state->lifetime < D_800BE9A4) {
         scale = state->speed * state->lifetime;
     } else {
         scale = state->speed * D_800BE9A4;
@@ -419,27 +411,26 @@ s32 func_151C1180(Game1ED0F0UpdateActor *arg0) {
     delta.y = state->velocity.y * scale;
     delta.z = state->velocity.z * scale;
     if (D_800E0930 != NULL) {
+        Vec3f callbackHit;
+
         if (D_800E0930(&arg0->position, &delta.x, &callbackHit.x) != 0) {
             func_15055A2C(0, callbackHit.x, callbackHit.y, callbackHit.z, 0);
-            savedVector = &state->velocity;
-            func_151C1654(&callbackHit, (s32)savedVector, (s32)state->object, state->kind, 0);
-            flags = state->flags;
-            flags = (flags & 1) == 0;
-            func_151BFDA0(&callbackHit, (f32 *)savedVector, flags & 0xFF,
+            func_151C1654(&callbackHit, (s32)&state->velocity, (s32)state->object, state->kind, 0);
+            func_151BFDA0(&callbackHit, &state->velocity.x, (u8)!(state->flags & 1),
                           arg0->screen, arg0->layer);
             return 0;
         }
     }
     if (scale != 0) {
+        Game1ED0F0Collision hit;
+
         func_15081690(state->object, arg0->position.x, arg0->position.y, arg0->position.z,
                       delta.x, delta.y, delta.z, &hit, scale, 1, 0, 1, 3,
                       (s32)state->query, state->filter);
         if (hit.status >= 2) {
             func_15055A2C(1, hit.position.x, hit.position.y, hit.position.z, 0);
             func_151C1654(&hit.position, (s32)&state->velocity, (s32)state->object, state->kind, 0);
-            flags = state->flags;
-            flags = (flags & 1) == 0;
-            func_151C0098(&hit.position, hit.surface, flags & 0xFF,
+            func_151C0098(&hit.position, hit.surface, (u8)!(state->flags & 1),
                           arg0->screen, arg0->layer);
             return 0;
         }
@@ -460,29 +451,25 @@ s32 func_151C1180(Game1ED0F0UpdateActor *arg0) {
     if (state->lifetime <= 0.0f) {
         if (state->endKind == 1) {
             func_15055A2C(0, state->origin.x, state->origin.y, state->origin.z, 0);
-            savedVector = (Vec3f *)state->triangle;
             func_151C1654(&state->origin, (s32)&state->velocity, (s32)state->object, state->kind,
-                          (s32)savedVector);
-            flags = state->flags;
-            flags = (flags & 1) == 0;
-            func_151BFE84(savedVector, &state->origin, &arg0->velocity,
-                          flags & 0xFF, arg0->screen, arg0->layer);
+                          (s32)state->triangle);
+            func_151BFE84(state->triangle, &state->origin, &arg0->velocity,
+                          (u8)!(state->flags & 1), arg0->screen, arg0->layer);
         }
         return 0;
     }
-    savedVector = state->positionNode;
-    if (savedVector != NULL) {
-        ((Game1ED0F0PositionNode *)savedVector)->position->x = (s32)arg0->position.x;
-        ((Game1ED0F0PositionNode *)savedVector)->position->y = (s32)arg0->position.y;
-        ((Game1ED0F0PositionNode *)savedVector)->position->z = (s32)arg0->position.z;
+    if (state->positionNode != NULL) {
+        Game1ED0F0PositionNode *node = state->positionNode;
+
+        node->position->x = arg0->position.x;
+        node->position->y = arg0->position.y;
+        node->position->z = arg0->position.z;
     }
     if (state->positionTarget != NULL) {
         state->positionTarget->position = arg0->position;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C1180 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C1180.s")
 void func_1000FD38(s32 (*)(void *, s32, s32 *, s32, s32, s32, s16 *), s32, s32);
 
 typedef struct { u8 pad0[0x110]; s32 unk110; } Game1ED0F0Obj88;

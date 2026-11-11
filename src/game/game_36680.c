@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15009334
- * - func_1500AC14
  * - func_1500AF08
  * - func_1500B1F4
  * - func_1500B3B0
@@ -675,53 +674,31 @@ extern Game36680ResourceInfo D_80095CE0[];
 extern u16 D_800BE478[];
 extern s16 D_800DDB80[][2];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500AC14 CURRENT (1688) */
 void func_1500AC14(void) {
-    s32 index;
-    s32 offset;
+    s32 i;
     u32 id;
-    u32 length;
     s32 size;
-    Game36680ResourceState *state;
-    Game36680ResourceChoice *choice;
-    u32 width;
-    Game36680ResourceInfo *info;
-    s16 *dimensions;
-    s32 actual_size;
+    u32 length;
 
-    choice = (Game36680ResourceChoice *)D_800BE4A0;
-    state = (Game36680ResourceState *)D_800DDA90;
-    index = 0;
-    offset = 0;
-    do {
-        id = choice->id;
-        state->data = 0;
-        state->cursor = 0;
-        state->size = 0;
-        state->active = 0;
-        if ((id != 255) && ((D_800BE478[index] != 0) || (id == 0x3B))) {
-            dimensions = (s16 *)((u32)D_800DDB80 + (u32)offset);
-            info = &D_80095CE0[id];
-            state->data = func_1502B020(&size, 2, 0, id);
-            actual_size = size;
-            state->size = (s32)(((u32)actual_size + 15U) & ~15U);
-            length = info->length;
-            if ((actual_size == 0) || (length == 0)) {
+    for (i = 0; i < 15; i++) {
+        ((Game36680ResourceState *)D_800DDA90)[i].data = NULL;
+        ((Game36680ResourceState *)D_800DDA90)[i].cursor = 0;
+        ((Game36680ResourceState *)D_800DDA90)[i].size = 0;
+        ((Game36680ResourceState *)D_800DDA90)[i].active = 0;
+        id = ((Game36680ResourceChoice *)D_800BE4A0)[i].id;
+        if (id != 0xFF && (D_800BE478[i] != 0 || ((Game36680ResourceChoice *)D_800BE4A0)[i].id == 0x3B)) {
+            ((Game36680ResourceState *)D_800DDA90)[i].data = func_1502B020(&size, 2, 0, id);
+            ((Game36680ResourceState *)D_800DDA90)[i].size = (size + 15) & ~15;
+            length = D_80095CE0[id].length;
+            if (size == 0 || length == 0) {
                 length = 0;
-                state->data = 0;
+                ((Game36680ResourceState *)D_800DDA90)[i].data = NULL;
             }
-            width = info->width;
-            dimensions[0] = (width << 5) - 1;
-            dimensions[1] = ((u32)((length / width) << 6) / 5U) - 1;
+            D_800DDB80[i][0] = (D_80095CE0[id].width << 5) - 1;
+            D_800DDB80[i][1] = ((length / D_80095CE0[id].width) << 6) / 5 - 1;
         }
-        index++;
-        state++;
-        offset += 4;
-        choice++;
-    } while (index != 15);
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1500AC14 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500AC14.s")
 extern u8 D_80095CC4[];
 extern s16 D_800BE438[][2];
 extern u8 D_800DDBC0[];

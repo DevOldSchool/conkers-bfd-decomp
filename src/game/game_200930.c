@@ -11,7 +11,6 @@
  * - func_151D40D4
  * - func_151D4408
  * - func_151D4794
- * - func_151D5174
  * - func_151D5334
  * - func_151D5714
  * - func_151D5A18
@@ -948,7 +947,6 @@ void func_151D5148(void *arg0) {
 }
 void func_151450B4(void *, void *, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5174 CURRENT (1549) */
 void func_151D5174(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4,
                    void *arg5, void *arg6, void **arg7, void **arg8, void *arg9) {
     typedef struct {
@@ -971,52 +969,43 @@ void func_151D5174(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4,
         u8 pad1D8[0x144];
         Node *node;
     } Actor;
-    Vec3 *base;
-    Vec3 first;
-    Vec3 second;
-    Node *node;
-    f32 dx;
-    f32 dy;
-    f32 dz;
-    f32 scale;
-    f32 baseX;
+    if (((Actor *)arg0)->active != 0 && ((Actor *)arg0)->node != 0 &&
+        (((Actor *)arg0)->node->mode == 2 || ((Actor *)arg0)->node->flag != 0)) {
+        Vec3 *base;
+        Vec3 first;
+        Vec3 second;
+        f32 dx;
+        f32 dy;
+        f32 dz;
+        f32 scale;
 
-    if (((Actor *)arg0)->active != 0) {
-        node = ((Actor *)arg0)->node;
-        if (node != 0 && (node->mode == 2 || node->flag != 0)) {
-            base = &node->position;
-            func_151450B4(arg2, arg3, &first);
-            func_151450B4(&first, arg4, &second);
-            if (arg9 != 0) {
-                baseX = base->x;
-                dx = ((Vec3 *)arg9)->x - baseX;
-                dy = ((Vec3 *)arg9)->y - base->y;
-                dz = ((Vec3 *)arg9)->z - base->z;
-            } else {
-                baseX = base->x;
-                dx = ((Vec3 *)arg1)->x - baseX;
-                dy = ((Vec3 *)arg1)->y - base->y;
-                dz = ((Vec3 *)arg1)->z - base->z;
-            }
-            node = ((Actor *)arg0)->node;
-            scale = (second.x * dx + second.y * dy + second.z * dz) /
-                    (second.x * node->direction.x + second.y * node->direction.y + second.z * node->direction.z);
-            ((Vec3 *)arg5)->x = baseX + scale * node->direction.x;
-            ((Vec3 *)arg5)->y = base->y + scale * ((Actor *)arg0)->node->direction.y;
-            ((Vec3 *)arg5)->z = base->z + scale * ((Actor *)arg0)->node->direction.z;
-            ((Vec3 *)arg6)->x = ((Actor *)arg0)->node->direction.x;
-            ((Vec3 *)arg6)->y = ((Actor *)arg0)->node->direction.y;
-            ((Vec3 *)arg6)->z = ((Actor *)arg0)->node->direction.z;
-            *arg7 = arg5;
-            *arg8 = arg6;
-            return;
+        base = &((Actor *)arg0)->node->position;
+        func_151450B4(arg2, arg3, &first);
+        func_151450B4(&first, arg4, &second);
+        if (arg9 != 0) {
+            dx = ((Vec3 *)arg9)->x - base->x;
+            dy = ((Vec3 *)arg9)->y - base->y;
+            dz = ((Vec3 *)arg9)->z - base->z;
+        } else {
+            dx = ((Vec3 *)arg1)->x - base->x;
+            dy = ((Vec3 *)arg1)->y - base->y;
+            dz = ((Vec3 *)arg1)->z - base->z;
         }
+        scale = (second.x * dx + second.y * dy + second.z * dz) /
+                (second.x * ((Actor *)arg0)->node->direction.x + second.y * ((Actor *)arg0)->node->direction.y + second.z * ((Actor *)arg0)->node->direction.z);
+        ((Vec3 *)arg5)->x = base->x + scale * ((Actor *)arg0)->node->direction.x;
+        ((Vec3 *)arg5)->y = base->y + scale * ((Actor *)arg0)->node->direction.y;
+        ((Vec3 *)arg5)->z = base->z + scale * ((Actor *)arg0)->node->direction.z;
+        ((Vec3 *)arg6)->x = ((Actor *)arg0)->node->direction.x;
+        ((Vec3 *)arg6)->y = ((Actor *)arg0)->node->direction.y;
+        ((Vec3 *)arg6)->z = ((Actor *)arg0)->node->direction.z;
+        *arg7 = arg5;
+        *arg8 = arg6;
+    } else {
+        *arg7 = 0;
+        *arg8 = 0;
     }
-    *arg7 = 0;
-    *arg8 = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D5174 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5174.s")
 void func_15164F0C(u8, u8, void *, u8, s32);
 extern s32 D_80082FA0;
 

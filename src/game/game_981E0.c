@@ -2727,7 +2727,7 @@ typedef struct Game981E0SmokeConfig {
     f32 value2;
 } Game981E0SmokeConfig;
 
-void func_151DC260(f32 *, void *, s32, s32, s32);
+void func_151DC260(f32 *, void *, u8, u8, s32);
 void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
 extern f32 D_80099BC8[3][3];
 extern u8 D_80099BEC[];

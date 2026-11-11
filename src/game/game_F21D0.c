@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150C4D20
  * - func_150C4E9C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -27,40 +26,35 @@ typedef struct GameF21D0Mover {
 } GameF21D0Mover;
 
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-extern f32 D_800A03F0;
-extern f32 D_800A03F4;
-extern f32 D_800A03F8;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C4D20 CURRENT (1731) */
 void func_150C4D20(GameF21D0Mover *arg0) {
-    struct {
-        s32 timer;
-        f32 velocity;
-    } state;
+    f32 velocity;
     f32 angle;
-    f32 elapsed;
+    f32 wave;
+    s32 timer;
 
     angle = arg0->angle;
-    state.velocity = arg0->velocity;
+    velocity = arg0->velocity;
     if (angle > 180.0f) {
         angle -= 360.0f;
     }
-    state.timer = (s32)((u32)arg0->timer + (u32)D_800BE9E4);
-    elapsed = (f32)state.timer;
-    state.velocity -= angle * D_800A03F0;
-    if (elapsed >= 256.0f) {
-        state.timer = (s32)(elapsed - 256.0f);
+    timer = arg0->timer;
+    timer += D_800BE9E4;
+    velocity -= angle * 0.009f;
+    if (timer >= 256.0f) {
+        timer -= 256.0f;
         func_10010F88(0xF, 0x55F0U, 0, 0, 0, arg0->field10, arg0->field12, arg0->field14, 0x1F4, 0x3E8);
     }
-    arg0->timer = state.timer;
-    state.velocity += func_15048A40(state.timer & 0xFF) * D_800A03F4;
+    arg0->timer = timer;
+    wave = func_15048A40(timer);
+    velocity += wave * 0.1f;
     if ((arg0->flags & 4) == 4) {
-        state.velocity += D_800A03F4;
+        velocity += 0.1f;
     }
-    state.velocity *= D_800A03F8;
-    arg0->velocity = state.velocity;
-    arg0->angle = arg0->angle + state.velocity;
+    velocity *= 0.8f;
+    arg0->velocity = velocity;
+    arg0->angle = arg0->angle + velocity;
     angle = arg0->angle;
     if (angle < 0.0f) {
         arg0->angle = angle + 360.0f;
@@ -70,8 +64,6 @@ void func_150C4D20(GameF21D0Mover *arg0) {
         arg0->angle = angle - 360.0f;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C4D20 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F21D0/func_150C4D20.s")
 typedef struct GameF21D0ScrollState {
     s32 enabled;
     s16 initialPhase;

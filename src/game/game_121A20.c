@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150F4570
  * - func_150F48D0
- * - func_150F4A38
  * - func_150F4DEC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -188,28 +187,22 @@ void func_1000F9D4(s32, s32, s32, s32);
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 extern f64 D_800A1A88, D_800A1A90;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F4A38 CURRENT (1667) */
 s32 func_150F4A38(GameF4A38Actor *arg0) {
+    Game121A20NestedState *nested = &arg0->nested;
     f32 distance;
-    Vec3f delta;
-    u8 *saved;
-    u8 *nested;
-    Vec3f *camera;
     u32 handle;
-    s32 flags;
 
-    nested = (u8 *) &arg0->nested;
-    if ((arg0->nested.flags & 1) || ((flags = nested[0x24]) & 2)) {
-        saved = (u8 *) &arg0->nested;
+    if ((nested->flags & 1) || (nested->flags & 2)) {
+        Vec3f delta;
+        Vec3f *camera;
+
         camera = (Vec3f *) func_15144B34(0);
         delta.x = arg0->position.x - camera->x;
         delta.y = arg0->position.y - camera->y;
         delta.z = arg0->position.z - camera->z;
         distance = func_15143E64(&delta);
-        nested = saved;
-        flags = nested[0x24];
     }
-    if (flags & 1) {
+    if (nested->flags & 1) {
         if (distance < 500.0f) {
             arg0->opacity = 0;
         } else if (distance < 1200.0f) {
@@ -217,9 +210,8 @@ s32 func_150F4A38(GameF4A38Actor *arg0) {
         } else {
             arg0->opacity = 255;
         }
-        flags = nested[0x24];
     }
-    if ((flags & 2) && !(flags & 4)) {
+    if ((nested->flags & 2) && !(nested->flags & 4)) {
         handle = arg0->sound >> 16;
         if (handle != 0) {
             func_1000F9D4(handle & 0xFFFF, (s16) (s32) arg0->position.x,
@@ -234,8 +226,6 @@ s32 func_150F4A38(GameF4A38Actor *arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F4A38 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_121A20/func_150F4A38.s")
 
 
 void func_150F4CFC(Game121A20State *arg0, u8 arg1, u8 arg2) {

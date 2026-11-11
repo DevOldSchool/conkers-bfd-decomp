@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_slot_motion_attachment_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150E35DC
  * - func_150E3738
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -181,38 +180,25 @@ extern u8 D_800DCE50[];
 extern s8 D_800DD190;
 extern s32 D_800DD198;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E35DC CURRENT (1635) */
 void func_150E35DC(s32 arg0) {
-    s32 temp_s0;
     u8 *block;
     u8 *end;
 
-    temp_s0 = arg0 - 1;
-    block = D_800DCE50;
-    end = (u8 *)&D_800DD190;
-    do {
-        u8 *node;
-        u8 *volatile *link;
+    arg0 -= 1;
+    for (block = D_800DCE50, end = D_800DCE50 + 0x340; block != end; block += 0x1A0) {
+        u8 *node = *(u8 **)(block + 0x9C);
 
-        node = *(u8 **)(block + 0x9C);
         D_800DD190 += 1;
-        if (node != 0) {
-            link = (u8 *volatile *)((u8 *)&D_800DD198 + (D_800DD190 * 4));
-            do {
-                *link = *(u8 **)(node + 8);
-                if ((temp_s0 == -1) || (temp_s0 == node[0x48])) {
-                    func_150E3514(node);
-                    link = (u8 *volatile *)((u8 *)&D_800DD198 + (D_800DD190 * 4));
-                }
-                node = *link;
-            } while (node != 0);
+        while (node != 0) {
+            ((u8 **)&D_800DD198)[D_800DD190] = *(u8 **)(node + 8);
+            if ((arg0 == -1) || (arg0 == node[0x48])) {
+                func_150E3514(node);
+            }
+            node = ((u8 **)&D_800DD198)[D_800DD190];
         }
-        block += 0x1A0;
         D_800DD190 -= 1;
-    } while (block != end);
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E35DC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1104D0/func_150E35DC.s")
 
 void func_150E36BC(s32 arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
     Game1104D0Slot *slot;

@@ -223,29 +223,25 @@ s32 func_1502B224(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     return size;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B350 CURRENT (1571) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B350 CURRENT (330) */
 s32 func_1502B350(u8 *arg0, s32 arg1, s32 *arg2) {
-    s32 size;
-    s32 transfer_size;
+    u32 size;
     s32 input;
-    s32 expanded;
     s32 result;
 
     size = ((arg1 & 0x0FFFFFFF) + 1) & ~1;
-    transfer_size = size;
-    input = func_10003C40(transfer_size, 1, 2, 2);
+    input = func_10003C40(size, 1, 2, 2);
     result = input;
     if (input == 0) {
         return 0;
     }
-    func_10004514((s32)arg0, input, (transfer_size + 0xF) & ~0xF, 1);
+    func_10004514((s32)arg0, input, (size + 0xF) & ~0xF, 1);
     if ((arg1 & 0x70000000) == 0x10000000) {
-        expanded = *(s32 *)input & 0x7FFFFFFF;
-        *arg2 = expanded;
-        if (expanded != 0) {
+        *arg2 = *(s32 *)input & 0x7FFFFFFF;
+        if (*arg2 != 0) {
             result = 0;
-            if ((u32)expanded < 0xF4240U) {
-                result = func_10003C40(expanded, 1, 2, 2);
+            if ((u32)*arg2 < 0xF4240U) {
+                result = func_10003C40(*arg2, 1, 2, 2);
                 if (result != 0) {
                     size = func_10006240(input, result, D_8003809C);
                 } else {

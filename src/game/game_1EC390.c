@@ -171,7 +171,7 @@ typedef struct {
     u8 pad65[3];
     f32 field68;
 } GameBF0C8Burst;
-void func_15150F90(Game150F90Config *, s32, s32, s32);
+void func_15150F90(Game150F90Config *, u8, u8, s32);
 void func_15153634(GameBF0C8Burst *, s32, s32, s32);
 extern f32 D_800AA8E8, D_800AA8EC, D_800AA8F0, D_800AA8F4;
 extern f32 D_800AA8F8, D_800AA8FC, D_800AA900;
